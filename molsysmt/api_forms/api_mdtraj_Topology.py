@@ -91,9 +91,8 @@ def to_mdtraj_Trajectory(item, molecular_system, atom_indices='all', structure_i
 
     from molsysmt.basic import get
 
-    coordinates = get(molecular_system, element='atom', selection=atom_indices,
-                      structure_indices=structure_indices, coordinates=True, check=False)
-    box = get(molecular_system, element='system', structure_indices=structure_indices, box=True,
-              check=False)
+    coordinates = get(molecular_system, element='atom', selection=atom_indices, structure_indices=structure_indices,
+                      coordinates=True)
+    box = get(molecular_system, element='system', structure_indices=structure_indices, box=True)
     return mdtraj_Topology_to_mdtraj_Trajectory(item, atom_indices=atom_indices,
                                                 coordinates=coordinates, box=box, check=False)

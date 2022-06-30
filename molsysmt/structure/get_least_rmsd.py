@@ -28,7 +28,7 @@ def get_least_rmsd (molecular_system=None, selection='backbone', structure_indic
 
     if engine=='MolSysMT':
 
-        n_atoms, n_structures = get(molecular_system, n_atoms=True, n_structures=True, check=False)
+        n_atoms, n_structures = get(molecular_system, n_atoms=True, n_structures=True)
         atom_indices = select(molecular_system, selection=selection, syntaxis=syntaxis, check=False)
         n_atom_indices = atom_indices.shape[0]
         structure_indices = digest_structure_indices(structure_indices)
@@ -47,11 +47,10 @@ def get_least_rmsd (molecular_system=None, selection='backbone', structure_indic
             reference_atom_indices = select(reference_molecular_system,
                     selection=reference_selection, syntaxis=syntaxis, check=False)
 
-            reference_coordinates = get(reference_molecular_system, element='atom',
-                    indices=reference_atom_indices, structure_indices=reference_structure_index,
-                    coordinates=True, check=False)
+            reference_coordinates = get(reference_molecular_system, element='atom', indices=reference_atom_indices,
+                                        structure_indices=reference_structure_index, coordinates=True)
 
-        coordinates = get(molecular_system, coordinates=True, structure_indices='all', check=False)
+        coordinates = get(molecular_system, structure_indices='all', coordinates=True)
         units = puw.get_unit(coordinates)
         coordinates = np.asfortranarray(puw.get_value(coordinates), dtype='float64')
         reference_coordinates = np.asfortranarray(puw.get_value(reference_coordinates, to_unit=units), dtype='float64')

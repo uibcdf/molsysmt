@@ -1,13 +1,16 @@
-from molsysmt._private.exceptions import MolecularSystemNeededError
-from molsysmt._private.digestion import (digest_element, digest_indices, digest_selection,
-                                         digest_syntaxis, digest_structure_indices,
-                                         digest_output, digest_argument)
+from molsysmt._private.digestion import digest, digest_output
 from molsysmt._private.lists_and_tuples import is_list_or_tuple
 from molsysmt.attribute.attributes import _required_indices
 
 
-def get(molecular_system, element='system', indices=None, selection='all', structure_indices='all',
-        syntaxis='MolSysMT', check=True, **kwargs):
+@digest
+def get(molecular_system,
+        element='system',
+        indices=None,
+        selection='all',
+        structure_indices='all',
+        syntaxis='MolSysMT',
+        **kwargs):
     """get(item, element='system', indices=None, selection='all', structure_indices='all', syntaxis='MolSysMT')
 
     Get specific attributes and observables.
@@ -34,6 +37,8 @@ def get(molecular_system, element='system', indices=None, selection='all', struc
        list, tuple or numpy array of integers (0-based), or by means of a string following any of
        the selection syntaxis parsable by MolSysMT.
 
+    structure_indices : nt, list, tuple or np.ndarray, default=None
+
     syntaxis: str, default='MolSysMT'
        Selection syntaxis used in the argument `selection` (in case `selection` is a string). Find
        current options supported by MolSysMt in section 'Selection'.
@@ -57,31 +62,13 @@ def get(molecular_system, element='system', indices=None, selection='all', struc
 
     """
 
-    from .. import get_form, select, is_molecular_system, where_is_attribute
+    from .. import select, where_is_attribute
     from molsysmt.api_forms import dict_get
 
-    if check:
-
-        if not is_molecular_system(molecular_system):
-            raise MolecularSystemNeededError()
-
-        element = digest_element(element)
-        syntaxis = digest_syntaxis(syntaxis)
-        selection = digest_selection(selection)
-        indices = digest_indices(indices)
-        structure_indices = digest_structure_indices(structure_indices)
-
-        arguments = []
-        for key in kwargs.keys():
-            if kwargs[key]:
-                    arguments.append(digest_argument(key, element))
-
-    else:
-
-        arguments = []
-        for key in kwargs.keys():
-            if kwargs[key]:
-                arguments.append(key)
+    arguments = []
+    for key in kwargs.keys():
+        if kwargs[key]:
+            arguments.append(key)
 
     if not is_list_or_tuple(molecular_system):
         molecular_system = [molecular_system]

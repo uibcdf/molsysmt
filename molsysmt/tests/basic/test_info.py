@@ -8,7 +8,7 @@ from pandas import DataFrame
 
 def test_info_1():
     molsys = msm.convert(msm.demo['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
-    df = msm.info(molsys, element='atom', indices=[9,10,11,12], output='dataframe')
+    df = msm.info(molsys, element='atom', indices=[9, 10, 11, 12], output='dataframe')
     true_dict = {'index': {0: 9, 1: 10, 2: 11, 3: 12},
                  'id': {0: 10, 1: 11, 2: 12, 3: 13},
                  'name': {0: 'N', 1: 'CA', 2: 'C', 3: 'O'},
@@ -66,7 +66,7 @@ def test_info_2():
 
 def test_info_3():
     molsys = msm.convert(msm.demo['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
-    df = msm.info(molsys, element='group', indices=[20,21,22,23])
+    df = msm.info(molsys, element='group', indices=[20, 21, 22, 23])
     true_dict ={'index': {0: 20, 1: 21, 2: 22, 3: 23},
                 'id': {0: 24, 1: 25, 2: 26, 3: 27},
                 'name': {0: 'PRO', 1: 'LEU', 2: 'ILE', 3: 'GLU'},
@@ -225,7 +225,7 @@ def test_info_12():
 
 def test_info_13():
     molsys = msm.convert(msm.demo['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
-    output = msm.info(molsys, element='atom', indices=[10,11,12,13], output='short_string')
+    output = msm.info(molsys, element='atom', indices=[10, 11, 12, 13], output='short_string')
     true_output = ['CA-11@10', 'C-12@11', 'O-13@12', 'CB-14@13']
     assert np.all(output == true_output)
 
@@ -312,10 +312,8 @@ def test_info_24():
 
 def test_info_25():
     molsys = msm.convert(msm.demo['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
-    group_index_in_component_0 = msm.get(molsys, element='group',
-                                     selection='component_index==0', index=True)[69]
-    group_index_in_component_1 = msm.get(molsys, element='group',
-                                     selection='component_index==1', index=True)[12]
+    group_index_in_component_0 = msm.get(molsys, element='group', selection='component_index==0', index=True)[69]
+    group_index_in_component_1 = msm.get(molsys, element='group', selection='component_index==1', index=True)[12]
     df = msm.info(molsys, element='group', indices=[group_index_in_component_0,
                                                     group_index_in_component_1])
     true_dict = {'index': {0: 69, 1: 260},

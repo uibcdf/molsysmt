@@ -30,14 +30,14 @@ def get_rmsd(molecular_system, selection='backbone', structure_indices='all',
 
         from molsysmt.basic import select, get
 
-        n_atoms, n_structures = get(molecular_system, n_atoms=True, n_structures=True, check=False)
+        n_atoms, n_structures = get(molecular_system, n_atoms=True, n_structures=True)
         atom_indices = select(molecular_system, selection=selection, syntaxis=syntaxis, check=False)
         n_atom_indices = atom_indices.shape[0]
         if structure_indices is 'all':
             structure_indices = np.arange(n_structures)
         n_structure_indices = structure_indices.shape[0]
 
-        coordinates = get(molecular_system, coordinates=True, structure_indices='all', check=False)
+        coordinates = get(molecular_system, structure_indices='all', coordinates=True)
         units = puw.get_unit(coordinates)
         coordinates = np.asfortranarray(puw.get_value(coordinates), dtype='float64')
 
@@ -52,9 +52,8 @@ def get_rmsd(molecular_system, selection='backbone', structure_indices='all',
             reference_atom_indices = select(reference_molecular_system,
                     selection=reference_selection, syntaxis=syntaxis, check=False)
 
-            reference_coordinates = get(reference_molecular_system, element='atom',
-                    indices=reference_atom_indices, structure_indices=reference_structure_index,
-                    coordinates=True, check=False)
+            reference_coordinates = get(reference_molecular_system, element='atom', indices=reference_atom_indices,
+                                        structure_indices=reference_structure_index, coordinates=True)
 
         reference_coordinates = np.asfortranarray(puw.get_value(reference_coordinates, to_unit=units), dtype='float64')
 

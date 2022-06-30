@@ -18,7 +18,7 @@ def add_missing_heavy_atoms(molecular_system, selection='all', syntaxis='MolSysM
 
     if engine=="PDBFixer":
 
-        temp_molecular_system = convert(molecular_system, to_form="pdbfixer.PDBFixer", check=False)
+        temp_molecular_system = convert(molecular_system, to_form="pdbfixer.PDBFixer")
 
         temp_molecular_system.findMissingResidues()
         temp_molecular_system.findMissingAtoms()
@@ -42,7 +42,7 @@ def add_missing_heavy_atoms(molecular_system, selection='all', syntaxis='MolSysM
 
         raise NotImplementedError
 
-    output_molecular_system = convert(temp_molecular_system, to_form=form_out, check=False)
+    output_molecular_system = convert(temp_molecular_system, to_form=form_out)
 
     return output_molecular_system
 

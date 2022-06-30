@@ -16,10 +16,9 @@ def get_sequence_alignment(molecular_system, selection='all', reference_molecula
 
         from Bio import Align
 
-        tmp_ref_seq=convert(reference_molecular_system, selection=reference_selection,
-                syntaxis=syntaxis, to_form='biopython.Seq', check=False)
-        tmp_seq=convert(molecular_system, selection=selection, syntaxis=syntaxis,
-                to_form='biopython.Seq', check=False)
+        tmp_ref_seq= convert(reference_molecular_system, to_form='biopython.Seq', selection=reference_selection,
+                             syntaxis=syntaxis)
+        tmp_seq= convert(molecular_system, to_form='biopython.Seq', selection=selection, syntaxis=syntaxis)
 
         aligner = Align.PairwiseAligner()
         aligner.mode = 'global'

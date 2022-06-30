@@ -18,7 +18,8 @@ def get_missing_heavy_atoms(molecular_system, selection='all', syntaxis='MolSysM
 
         group_indices_in_selection = select(molecular_system, element='group', selection=selection, check=False)
 
-        temp_molecular_system = convert(molecular_system, selection=selection, to_form="pdbfixer.PDBFixer", syntaxis=syntaxis, check=False)
+        temp_molecular_system = convert(molecular_system, to_form="pdbfixer.PDBFixer", selection=selection,
+                                        syntaxis=syntaxis)
 
         temp_molecular_system.findMissingResidues()
         temp_molecular_system.findMissingAtoms()

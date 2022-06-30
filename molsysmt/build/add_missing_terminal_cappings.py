@@ -21,15 +21,17 @@ def add_missing_terminal_cappings(molecular_system, N_terminal=None, C_terminal=
 
         from pdbfixer.pdbfixer import Sequence
 
-        temp_molecular_system = convert(molecular_system, to_form='pdbfixer.PDBFixer', check=False)
+        temp_molecular_system = convert(molecular_system, to_form='pdbfixer.PDBFixer')
         atom_indices_in_selection = select(temp_molecular_system, selection=selection, syntaxis=syntaxis, check=False)
         atom_indices_in_components = get(temp_molecular_system, element='component', selection='component_type in ["peptide", "protein"] \
-                                         and atom_index in @atom_indices_in_selection', atom_index=True, check=False)
+                                         and atom_index in @atom_indices_in_selection', atom_index=True)
 
         for atom_indices_in_component in atom_indices_in_components:
 
-            chain_id = get(temp_molecular_system, element='chain', selection='atom_index in @atom_indices_in_component', chain_id=True, check=False)
-            groups_sequence = get(temp_molecular_system, element='group', selection='atom_index in @atom_indices_in_component', group_name=True, check=False)
+            chain_id = get(temp_molecular_system, element='chain', selection='atom_index in @atom_indices_in_component',
+                           chain_id=True)
+            groups_sequence = get(temp_molecular_system, element='group',
+                                  selection='atom_index in @atom_indices_in_component', group_name=True)
 
             groups_sequence = list(groups_sequence)
 
@@ -47,7 +49,7 @@ def add_missing_terminal_cappings(molecular_system, N_terminal=None, C_terminal=
         temp_molecular_system.findMissingAtoms()
         temp_molecular_system.addMissingAtoms()
 
-        n_hs = get(temp_molecular_system, element='atom', selection='atom_type=="H"', n_atoms=True, check=False)
+        n_hs = get(temp_molecular_system, element='atom', selection='atom_type=="H"', n_atoms=True)
 
         if n_hs > 0:
 
@@ -59,7 +61,7 @@ def add_missing_terminal_cappings(molecular_system, N_terminal=None, C_terminal=
 
         raise NotImplementedError
 
-    output_molecular_system = convert(output_molecular_system, to_form=form_out, check=False)
+    output_molecular_system = convert(output_molecular_system, to_form=form_out)
 
     return output_molecular_system
 

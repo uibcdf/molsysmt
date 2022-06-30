@@ -29,9 +29,8 @@ def get_bondgraph(molecular_system, nodes_name='atom_index', selection='all', sy
 
         if nodes_name is 'atom_index':
 
-            atom_indices, bonded_atoms = get(molecular_system, element='atom', selection=selection,
-                                             syntaxis=syntaxis, atom_index=True,
-                                             inner_bonded_atoms=True, check=False)
+            atom_indices, bonded_atoms = get(molecular_system, element='atom', selection=selection, syntaxis=syntaxis,
+                                             atom_index=True, inner_bonded_atoms=True)
 
             G.add_nodes_from(atom_indices)
             G.add_edges_from(bonded_atoms)

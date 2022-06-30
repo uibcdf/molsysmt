@@ -12,10 +12,10 @@ import os
 def test_add_missing_terminal_cappings_molsysmt_MolSys_1():
     seq = 'AlaValPro'
     molsys = msm.build.build_peptide(seq)
-    n_atoms_before =  msm.get(molsys, element='system', n_atoms=True)
+    n_atoms_before = msm.get(molsys, element='system', n_atoms=True)
     groups_before = msm.get(molsys, element='group', name=True)
     molsys = msm.build.add_missing_terminal_cappings(molsys, N_terminal=None, C_terminal=None)
-    n_atoms_after =  msm.get(molsys, element='system', n_atoms=True)
+    n_atoms_after = msm.get(molsys, element='system', n_atoms=True)
     groups_after = msm.get(molsys, element='group', name=True)
     #charge_groups = msm.physchem.charge([molsys, {'forcefield':'AMBER14'}], element='group')
     check_before = (n_atoms_before==40 and np.all(np.array(['ALA', 'VAL', 'PRO'], dtype=object)==groups_before))
@@ -26,10 +26,10 @@ def test_add_missing_terminal_cappings_molsysmt_MolSys_1():
 def test_add_missing_terminal_cappings_molsysmt_MolSys_2():
     seq = 'AlaValPro'
     molsys = msm.build.build_peptide(seq)
-    n_atoms_before =  msm.get(molsys, element='system', n_atoms=True)
+    n_atoms_before = msm.get(molsys, element='system', n_atoms=True)
     groups_before = msm.get(molsys, element='group', name=True)
     molsys = msm.build.add_missing_terminal_cappings(molsys, N_terminal='ACE', C_terminal='NME')
-    n_atoms_after =  msm.get(molsys, element='system', n_atoms=True)
+    n_atoms_after = msm.get(molsys, element='system', n_atoms=True)
     groups_after = msm.get(molsys, element='group', name=True)
     #charge_groups = msm.physchem.charge([molsys, {'forcefield':'AMBER14'}], element='group')
     check_before = (n_atoms_before==40 and np.all(np.array(['ALA', 'VAL', 'PRO'], dtype=object)==groups_before))

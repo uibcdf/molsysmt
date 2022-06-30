@@ -6,7 +6,8 @@ def to_molsysmt_Structures(item, selection='all', structure_indices='all', synta
     if not is_file_mmtf(item):
         raise ValueError
 
-    tmp_item = convert(item, 'molsysmt.Trajectory', selection=selection, structure_indices=structure_indices, syntaxis=syntaxis)
+    tmp_item = convert(item, 'molsysmt.Trajectory', selection=selection, structure_indices=structure_indices,
+                       syntaxis=syntaxis)
 
     return tmp_item
 

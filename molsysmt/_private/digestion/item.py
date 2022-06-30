@@ -2,7 +2,7 @@ from ..exceptions import WrongFormError
 
 
 def digest_item(item, form):
-    """ Check if an item hsa the expected form.
+    """ Check if an item has the expected form.
 
         Examples
         --------

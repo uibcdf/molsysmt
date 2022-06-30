@@ -29,9 +29,11 @@ def concatenate_structures(molecular_systems, selections='all', structure_indice
         raise ValueError("The length of the lists items and structure_indices need to be equal.")
 
     if to_form is None:
-        to_molecular_system = extract(molecular_systems[0], selection=selections[0], structure_indices=structure_indices[0])
+        to_molecular_system = extract(molecular_systems[0], selection=selections[0],
+                                      structure_indices=structure_indices[0])
     else:
-        to_molecular_system = convert(molecular_systems[0], selection=selections[0], structure_indices=structure_indices[0], to_form=to_form)
+        to_molecular_system = convert(molecular_systems[0], to_form=to_form, selection=selections[0],
+                                      structure_indices=structure_indices[0])
 
     to_molecular_system = digest_molecular_system(to_molecular_system)
 
@@ -41,7 +43,8 @@ def concatenate_structures(molecular_systems, selections='all', structure_indice
 
     for aux_molecular_system, aux_selection, aux_structure_indices in zip(molecular_systems[1:], selections[1:], structure_indices[1:]):
 
-        step, time, coordinates, box = get(aux_molecular_system, element='atom', selection=aux_selection, structure_indices=aux_structure_indices, frame=True)
+        step, time, coordinates, box = get(aux_molecular_system, element='atom', selection=aux_selection,
+                                           structure_indices=aux_structure_indices, frame=True)
 
         if box_in_diff_item:
             dict_append_structures[to_molecular_system.coordinates_form](to_molecular_system.coordinates_item, step=step, time=time, coordinates=coordinates, box=None)

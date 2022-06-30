@@ -82,8 +82,8 @@ def add(to_molecular_system, from_molecular_systems, selections='all', structure
     for aux_molecular_system, aux_selection, aux_structure_indices in zip(from_molecular_systems, selections, structure_indices):
         for aux_to_item, aux_to_form in zip(to_molecular_system, to_forms):
 
-            aux_item = convert(aux_molecular_system, selection=aux_selection, structure_indices=aux_structure_indices, syntaxis=syntaxis,
-                               to_form=aux_to_form, check=False)
+            aux_item = convert(aux_molecular_system, to_form=aux_to_form, selection=aux_selection,
+                               structure_indices=aux_structure_indices, syntaxis=syntaxis)
 
             dict_add[aux_to_form](aux_to_item, aux_item)
 

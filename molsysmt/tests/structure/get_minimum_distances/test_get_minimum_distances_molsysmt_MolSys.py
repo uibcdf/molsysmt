@@ -12,10 +12,8 @@ import numpy as np
 
 def test_get_minimum_distances_from_molsysmt_MolSys_1():
     molsys = msm.convert(msm.demo['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
-    atoms_groups_component_0 = msm.get(molsys, element='group',
-                                   selection='component_index==0', atom_index=True)
-    atoms_groups_component_1 = msm.get(molsys, element='group',
-                                   selection='component_index==1', atom_index=True)
+    atoms_groups_component_0 = msm.get(molsys, element='group', selection='component_index==0', atom_index=True)
+    atoms_groups_component_1 = msm.get(molsys, element='group', selection='component_index==1', atom_index=True)
     min_pairs, min_distances = msm.structure.get_minimum_distances(molsys,
                                                 groups_of_atoms=atoms_groups_component_0,
                                                 group_behavior='geometric_center',

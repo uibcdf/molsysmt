@@ -17,3 +17,5 @@ from .element import digest_element
 from .time import digest_time
 from .viewers import digest_viewer
 
+# Digest should be the last because it needs to import all digestion functions above
+from .digest import digest

@@ -45,7 +45,7 @@ def to_file_pdb(item, molecular_system, atom_indices='all', structure_indices='a
     from molsysmt.basic import get
 
     coordinates = get(molecular_system, element='atom', indices=atom_indices, structure_indices=structure_indices,
-                      coordinates=True, check=False)
+                      coordinates=True)
     return file_prmtop_to_file_pdb(item, atom_indices=atom_indices, coordinates=coordinates,
                                    output_filename=output_filename, check=False)
 
@@ -63,7 +63,7 @@ def to_molsysmt_MolSys(item, molecular_system, atom_indices='all', structure_ind
     from molsysmt.basic import get
 
     coordinates = get(molecular_system, element='atom', indices=atom_indices, structure_indices=structure_indices,
-                      coordinates=True, check=False)
+                      coordinates=True)
     return file_prmtop_to_molsysmt_MolSys(item, atom_indices=atom_indices, coordinates=coordinates, check=False)
 
 
@@ -78,8 +78,8 @@ def to_nglview_NGLWidget(item, molecular_system, atom_indices='all', structure_i
 
     from molsysmt.basic import get
 
-    coordinates = get(molecular_system, atom_indices=atom_indices, structure_indices=structure_indices,
-                      coordinates=True, check=False)
+    coordinates = get(molecular_system, structure_indices=structure_indices, atom_indices=atom_indices,
+                      coordinates=True)
     return file_prmtop_to_nglview_NGLWidget(item, atom_indices=atom_indices, coordinates=coordinates, check=False)
 
 
@@ -100,6 +100,6 @@ def to_openmm_Modeller(item, molecular_system, atom_indices='all', structure_ind
 
     from molsysmt.basic import get
 
-    coordinates = get(molecular_system, atom_indices=atom_indices, structure_indices=structure_indices,
-                      coordinates=True, check=False)
+    coordinates = get(molecular_system, structure_indices=structure_indices, atom_indices=atom_indices,
+                      coordinates=True)
     return file_prmtop_to_openmm_Modeller(item, atom_indices=atom_indices, coordinates=coordinates, check=False)

@@ -1,16 +1,25 @@
 from ..exceptions import *
 
+
 def digest_step(step):
+    """ Checks if step is an integer or null.
 
-    output = None
+        Parameters
+        ---------
+        step: Any
+            The step
 
-    if (step is None) or (type(step)==int):
+        Returns
+        -------
+        int or None
+            The step
 
-        output = step
+        Raises
+        -------
+        WrongStepError
+            If step is not null or not an integer.
 
-    else:
-
-        raise WrongStepError()
-
-    return output
-
+    """
+    if step is None or isinstance(step, int):
+        return step
+    raise WrongStepError()

@@ -18,7 +18,8 @@ def get_non_standard_residues(molecular_system, selection='all', syntaxis='MolSy
 
         group_indices_in_selection = select(molecular_system, element='group', selection=selection, check=False)
 
-        temp_molecular_system = convert(molecular_system, selection=selection, to_form="pdbfixer.PDBFixer", syntaxis=syntaxis)
+        temp_molecular_system = convert(molecular_system, to_form="pdbfixer.PDBFixer", selection=selection,
+                                        syntaxis=syntaxis)
 
         temp_molecular_system.findNonstandardResidues()
 

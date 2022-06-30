@@ -1,9 +1,14 @@
 from molsysmt._private.exceptions import *
-from molsysmt._private.digestion import *
+from molsysmt._private.digestion import digest, digest_structure_indices
 from molsysmt._private.lists_and_tuples import is_list_or_tuple
 
-def merge(molecular_systems, selections='all', structure_indices='all', syntaxis='MolSysMT',
-        to_form=None, check=True):
+
+@digest
+def merge(molecular_systems,
+          selections='all',
+          structure_indices='all',
+          syntaxis='MolSysMT',
+          to_form=None):
 
     """merge(items=None, selection='all', structure_indices='all', syntaxis='MolSysMT' to_form=None)
 
@@ -49,13 +54,13 @@ def merge(molecular_systems, selections='all', structure_indices='all', syntaxis
 
     from . import convert, extract, add
 
-    if check:
-
-        digest_single_molecular_system(molecular_system)
-        structure_indices = digest_multiple_structure_indices(structure_indices)
-        syntaxis = digest_syntaxis(syntaxis)
-        selections = digest_multiple_selections(selections, syntaxis)
-        to_form = digest_to_form(to_form)
+    # if check:
+    #
+    #     digest_single_molecular_system(molecular_system)
+    #     structure_indices = digest_multiple_structure_indices(structure_indices)
+    #     syntaxis = digest_syntaxis(syntaxis)
+    #     selections = digest_multiple_selections(selections, syntaxis)
+    #     to_form = digest_to_form(to_form)
 
     n_molecular_systems = len(molecular_systems)
 
@@ -71,10 +76,10 @@ def merge(molecular_systems, selections='all', structure_indices='all', syntaxis
 
     if to_form is None:
         to_molecular_system = extract(molecular_systems[0], selection=selections[0],
-                structure_indices=structure_indices[0], check=False)
+                                      structure_indices=structure_indices[0])
     else:
-        to_molecular_system = convert(molecular_systems[0], selection=selections[0],
-                structure_indices=structure_indices[0], to_form=to_form, check=False)
+        to_molecular_system = convert(molecular_systems[0], to_form=to_form, selection=selections[0],
+                                      structure_indices=structure_indices[0])
 
     add(to_molecular_system, molecular_systems[1:], selections=selections[1:], structure_indices=structure_indices[1:], check=False)
 

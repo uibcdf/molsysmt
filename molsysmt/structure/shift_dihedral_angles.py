@@ -39,8 +39,7 @@ def shift_dihedral_angles(molecular_system, quartets=None, angles_shifts=None, b
         raise ValueError
 
     n_quartets = quartets.shape[0]
-    n_structures = get(molecular_system, element='system', structure_indices=structure_indices,
-            n_structures=True, check=False)
+    n_structures = get(molecular_system, element='system', structure_indices=structure_indices, n_structures=True)
 
     angles_shifts_units = puw.get_unit(angles_shifts)
     angles_shifts_value = puw.get_value(angles_shifts)

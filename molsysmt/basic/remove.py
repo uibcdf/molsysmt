@@ -1,10 +1,10 @@
-from molsysmt._private.exceptions import *
-from molsysmt._private.digestion import *
+from molsysmt._private.digestion import digest, digest_output
 from molsysmt._private.structure_indices import complementary_structure_indices
 from molsysmt._private.atom_indices import complementary_atom_indices
 
-def remove(molecular_system, selection=None, structure_indices=None, to_form=None,
-        syntaxis='MolSysMT', check=True):
+
+@digest
+def remove(molecular_system, selection=None, structure_indices=None, to_form=None, syntaxis='MolSysMT'):
 
     """remove(item, selection=None, structure_indices=None, syntaxis='MolSysMT')
 
@@ -41,12 +41,12 @@ def remove(molecular_system, selection=None, structure_indices=None, to_form=Non
     >>> import molsysmt as m3t
     >>> system = m3t.load('pdb:1B3T')
     Check the number of chains
-    >>> m3t.get(system, n_chains=True)
+    >>> m3t.get(system,n_chains=True)
     8
     Remove chains 0 and 1
-    >>> new_system = m3t.remove(system, 'chainid 0 1')
+    >>> new_system = m3t.remove(system,'chainid 0 1')
     Check the number of chains of the new molecular model
-    >>> m3t.get(new_system, n_chains=True)
+    >>> m3t.get(new_system,n_chains=True)
     6
 
     See Also
@@ -61,33 +61,7 @@ def remove(molecular_system, selection=None, structure_indices=None, to_form=Non
 
     """
 
-    from . import select, extract, is_molecular_system
-
-    if check:
-
-        if not is_molecular_system(molecular_system):
-            raise SingleMolecularSystemNeededError()
-
-        try:
-            syntaxis = digest_syntaxis(syntaxis)
-        except:
-            raise WrongSyntaxisError(syntaxis)
-
-        try:
-            selection = digest_selection(selection, syntaxis)
-        except:
-            raise WrongSelectionError()
-
-        if structure_indices is not None:
-            try:
-                structure_indices = digest_structure_indices(structure_indices)
-            except:
-                raise WrongStructureIndicesError()
-
-        try:
-            to_form = digest_to_form(to_form)
-        except:
-            raise WrongToFormErro(to_form)
+    from . import select, extract
 
     atom_indices_to_be_kept = 'all'
     structure_indices_to_be_kept = 'all'
@@ -100,7 +74,7 @@ def remove(molecular_system, selection=None, structure_indices=None, to_form=Non
         structure_indices_to_be_kept = complementary_structure_indices(molecular_system, structure_indices)
 
     tmp_item = extract(molecular_system, selection=atom_indices_to_be_kept,
-            structure_indices=structure_indices_to_be_kept, to_form=to_form, copy_if_all=False, check=False)
+                       structure_indices=structure_indices_to_be_kept, to_form=to_form, copy_if_all=False)
     tmp_item = digest_output(tmp_item)
 
     return tmp_item

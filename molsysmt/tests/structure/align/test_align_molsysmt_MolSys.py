@@ -11,7 +11,8 @@ import numpy as np
 
 def test_get_structure_alignment_molsysmt_MolSys_1():
 
-    molsys_1 = msm.convert(msm.demo['T4 lysozyme L99A']['181l.msmpk'], selection='molecule_type=="protein"', to_form='molsysmt.MolSys')
+    molsys_1 = msm.convert(msm.demo['T4 lysozyme L99A']['181l.msmpk'], to_form='molsysmt.MolSys',
+                           selection='molecule_type=="protein"')
     molsys_2 = msm.structure.translate(molsys_1, translation="[2.0, 0.0, 0.0] nm")
     rmsd = msm.structure.get_rmsd(molsys_2, selection='backbone', reference_molecular_system=molsys_1, reference_selection='backbone')
     check = np.isclose(2.0, msm.puw.get_value(rmsd, to_unit='nm')[0])

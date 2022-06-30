@@ -8,7 +8,7 @@ def one_system(molecular_system=None, selection=None, structure_indices=None, fo
     atom_indices=None
 
     if form is not None:
-        tmp_molecular_system=convert(molecular_system, form)
+        tmp_molecular_system= convert(molecular_system, form)
     else:
         tmp_molecular_system=item
 
@@ -93,8 +93,8 @@ def comparison_two_systems(molecular_system_1=None, selection_1=None, structure_
             molecular_system_2 = molecular_system_1
 
     if form is not None:
-        tmp_molecular_system_1=convert(molecular_system_1, form)
-        tmp_molecular_system_2=convert(molecular_system_2, form)
+        tmp_molecular_system_1= convert(molecular_system_1, form)
+        tmp_molecular_system_2= convert(molecular_system_2, form)
     else:
         tmp_molecular_system_1=molecular_system_1
         tmp_molecular_system_2=molecular_system_2
