@@ -1,3 +1,5 @@
+from molsysmt._private.exceptions import *
+from molsysmt._private.digestion import *
 import numpy as np
 
 def get_entity_all_from_atom(molecular_system, check=True):
@@ -5,8 +7,6 @@ def get_entity_all_from_atom(molecular_system, check=True):
     if check:
 
         digest_single_molecular_system(molecular_system)
-        indices = digest_indices(indices)
-
 
     from molsysmt import get
     from numpy import empty, full

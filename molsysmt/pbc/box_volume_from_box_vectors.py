@@ -5,6 +5,10 @@ import numpy as np
 
 def box_volume_from_box_vectors(box, check=True):
 
+    if check:
+
+        box = digest_box(box)
+
     if box is not None:
         units = puw.get_unit(box)
         value = puw.get_value(box)

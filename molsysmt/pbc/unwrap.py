@@ -5,10 +5,15 @@ from molsysmt.lib import box as libbox
 import numpy as np
 
 def unwrap(molecular_system, selection='all', structure_indices='all',
-        syntaxis='MolSysMT', engine='MolSysMT', in_place=False):
+        syntaxis='MolSysMT', engine='MolSysMT', in_place=False, check=True):
 
-    engine = digest_engine(engine)
-    structure_indices = digest_structure_indices(structure_indices)
+    if check:
+
+        digest_single_molecular_system(molecular_system)
+        engine = digest_engine(engine)
+        syntaxis = digest_syntaxis(syntaxis)
+        selection = digest_selection(selection, syntaxis)
+        structure_indices = digest_structure_indices(structure_indices)
 
     if engine=='MolSysMT':
 
