@@ -25,7 +25,7 @@ digestion_functions = {
     "step": digest_step,
     "time": digest_time,
     "structure_indices": digest_structure_indices,
-    "to_form": digest_form,
+    "to_form": digest_to_form,
 }
 
 

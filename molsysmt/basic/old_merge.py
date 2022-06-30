@@ -71,7 +71,8 @@ def merge(molecular_systems=None, selections='all', structure_indices='all', syn
         raise ValueError("The length of the lists items and structure_indices need to be equal.")
 
     if to_form is None:
-        to_molecular_system = extract(molecular_systems[0], selection=selections[0], structure_indices=structure_indices[0])
+        to_molecular_system = extract(molecular_systems[0], selection=selections[0],
+                                      structure_indices=structure_indices[0])
     else:
         to_molecular_system = convert(molecular_systems[0], selection=selections[0], structure_indices=structure_indices[0], to_form=to_form)
 

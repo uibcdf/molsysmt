@@ -49,7 +49,8 @@ def unwrap(molecular_system, selection='all', structure_indices='all',
 
     else:
 
-        tmp_molecular_system = extract(molecular_system, selection=selection, structure_indices=structure_indices, syntaxis=syntaxis)
+        tmp_molecular_system = extract(molecular_system, selection=selection, structure_indices=structure_indices,
+                                       syntaxis=syntaxis)
         set(tmp_molecular_system, element='atom', selection='all', structure_indices='all', syntaxis='MolSysMT',
             coordinates=coordinates)
 

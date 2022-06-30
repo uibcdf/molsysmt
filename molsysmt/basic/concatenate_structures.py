@@ -23,7 +23,7 @@ def concatenate_structures(molecular_systems, selections='all', structure_indice
 
     if to_form is None:
         to_molecular_system = extract(molecular_systems[0], selection=selections[0],
-                structure_indices=structure_indices[0], check=False)
+                                      structure_indices=structure_indices[0])
         to_form = get_form(to_molecular_system)
     else:
         to_molecular_system = convert(molecular_systems[0], selection=selections[0],

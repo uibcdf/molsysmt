@@ -28,8 +28,8 @@ def test_get_rmsd_molsysmt_MolSys_2():
 
 def test_get_rmsd_molsysmt_MolSys_3():
     molsys = msm.convert(msm.demo['pentalanine']['traj.h5'], to_form='molsysmt.MolSys')
-    molsys_1 = msm.extract(molsys, structure_indices=range(0,100))
-    molsys_2 = msm.extract(molsys, structure_indices=range(200,300))
+    molsys_1 = msm.extract(molsys, structure_indices=range(0, 100))
+    molsys_2 = msm.extract(molsys, structure_indices=range(200, 300))
     rmsd = msm.structure.get_rmsd(molsys_1, selection='backbone', structure_indices=80,
                 reference_molecular_system=molsys_2, reference_selection='backbone',
                 reference_structure_index=20)

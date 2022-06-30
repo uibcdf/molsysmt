@@ -100,7 +100,7 @@ def remove(molecular_system, selection=None, structure_indices=None, to_form=Non
         structure_indices_to_be_kept = complementary_structure_indices(molecular_system, structure_indices)
 
     tmp_item = extract(molecular_system, selection=atom_indices_to_be_kept,
-            structure_indices=structure_indices_to_be_kept, to_form=to_form, copy_if_all=False, check=False)
+                       structure_indices=structure_indices_to_be_kept, to_form=to_form, copy_if_all=False)
     tmp_item = digest_output(tmp_item)
 
     return tmp_item
