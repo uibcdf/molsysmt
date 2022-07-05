@@ -3,7 +3,7 @@ from molsysmt import puw
 from ..exceptions import IncorrectShapeError
 
 
-def digest_box(box):
+def digest_box(box, caller=""):
     # TODO: Function doesn't do anything.
     return box
 

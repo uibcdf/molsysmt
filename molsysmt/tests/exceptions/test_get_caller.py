@@ -109,13 +109,13 @@ def decorated_fn(element):
     pass
 
 
-# def test_function_with_decorator():
-#
-#     with pytest.raises(WrongElementError) as exc_info:
-#         decorated_fn(element="cow")
-#     assert "Error in decorated_fn" in str(exc_info)
-#
-#     with pytest.raises(WrongElementError) as exc_info:
-#         get("molecular system", element="cow")
-#
-#     assert "Error in get" in str(exc_info)
+def test_function_with_decorator():
+
+    with pytest.raises(WrongElementError) as exc_info:
+        decorated_fn(element="cow")
+    assert "Error in decorated_fn" in str(exc_info)
+
+    with pytest.raises(WrongElementError) as exc_info:
+        get("molecular system", element="cow")
+
+    assert "Error in get" in str(exc_info)

@@ -72,7 +72,8 @@ def digest(func):
             if ii >= len(args):
                 break
             try:
-                digested_value = digestion_functions[argument_name](args[ii])
+                digested_value = digestion_functions[argument_name](args[ii],
+                                                                    caller=func.__name__)
             except KeyError:
                 digested_value = args[ii]
             all_args[argument_name] = digested_value
@@ -87,13 +88,16 @@ def digest(func):
         # it will appear in kwargs even if is not
         for argument_name, value in kwargs.items():
             try:
-                digested_value = digestion_functions[argument_name](value)
+                digested_value = digestion_functions[argument_name](value,
+                                                                    caller=func.__name__)
                 all_args[argument_name] = digested_value
             except KeyError:
                 if argument_name in args_names:
                     all_args[argument_name] = value
                 else:
-                    digested_argument_name = digest_argument(argument_name, element_name)
+                    digested_argument_name = digest_argument(argument_name,
+                                                             element_name,
+                                                             caller=func.__name__)
                     all_args[digested_argument_name] = value
 
         return func(**all_args)

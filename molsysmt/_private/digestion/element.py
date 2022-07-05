@@ -25,7 +25,7 @@ elements_from_plural = {
 }
 
 
-def digest_element(element):
+def digest_element(element, caller=""):
     """ Helper function to check an element type. Raises a BadCallError
         if the element type is not supported by MolSysMT.
 
@@ -33,6 +33,10 @@ def digest_element(element):
         ----------
         element : str
             The name of the element.
+
+        caller: str, optional
+            Name of the function or method that is being digested.
+            For debugging purposes.
 
         Raises
         ------
@@ -44,7 +48,7 @@ def digest_element(element):
         if element_name_lower in elements_from_plural:
             return elements_from_plural[element_name_lower]
         if element_name_lower not in elements:
-            raise WrongElementError(f"Wrong element name: {element}. ")
+            raise WrongElementError(element, caller)
         return element_name_lower
 
-    raise WrongElementError("Element is not a string. ")
+    raise WrongElementError(element, caller)

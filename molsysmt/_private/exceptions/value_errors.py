@@ -162,11 +162,17 @@ class WrongToFormError(MolSysValueError):
 
 
 class WrongElementError(MolSysValueError):
-    pass
+    """ Exception raised when an element is not supported by MolSysMT. """
+    def __init__(self, element, caller=""):
+        if isinstance(element, str):
+            message = f"Wrong element name: {element}. "
+        else:
+            message = ""
+        super().__init__(message, caller)
 
 
 class WrongEngineError(MolSysValueError):
-    """ Exception raised when an engine is not supported by MolSysMT"""
+    """ Exception raised when an engine is not supported by MolSysMT. """
     def __init__(self, engine, caller=""):
         if isinstance(engine, str):
             message = f"Unsupported engine {engine}. "
