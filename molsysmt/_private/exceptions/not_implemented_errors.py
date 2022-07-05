@@ -39,7 +39,9 @@ class NotImplementedConversionError(MolSysNotImplementedError):
     """ Exception raised when the conversion between two forms has not been
         implemented yet.
     """
-    pass
+    def __init__(self, from_form, to_form):
+        message = f"Error in conversion from {from_form} to {to_form}"
+        super().__init__(message)
 
 
 class LibraryNotFoundError(MolSysNotImplementedError):
