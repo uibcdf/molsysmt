@@ -6,15 +6,29 @@ api_doc = ''
 
 
 class MolSysValueError(ValueError):
-    """ Base class for value errors. """
+    """ Base class for value errors. Ir prints a message
+        containing info such as the function that raised
+        the error, and a link to GitHub repository.
 
-    def __init__(self, message=None):
+        Parameters
+        ----------
+        message : str, optional
+            An informative message of the exception.
 
-        call_name = caller_name(skip=3)
-        if message is None:
-            full_message = f"Error in {call_name}. "
+        caller : str, optional
+            Name of the function or method that raised the error.
+
+    """
+
+    def __init__(self, message="", caller=""):
+
+        if not caller:
+            caller = caller_name(skip=3)
+
+        if not message:
+            full_message = f"Error in {caller}. "
         else:
-            full_message = f"Error in {call_name}. " + message
+            full_message = f"Error in {caller}. " + message
 
         full_message += (
             f"Check {api_doc} for more information. "
@@ -28,26 +42,26 @@ class NotWithThisMolecularSystemError(MolSysValueError):
         the given type of molecular system.
     """
 
-    def __init__(self, message=None):
-        if message is None:
+    def __init__(self, message="", caller=""):
+        if not message:
             message = 'This method can not be applied over this molecular system. '
-        super().__init__(message)
+        super().__init__(message, caller)
 
 
 class MolecularSystemNeededError(MolSysValueError):
-    def __init__(self, message=None):
-        if message is None:
+    def __init__(self, message="", caller=""):
+        if not message:
             message = (f"The method works over a molecular system. "
                        f"Either no molecular system or multiple systems were provided.")
-        super().__init__(message)
+        super().__init__(message, caller)
 
 
 class MultipleMolecularSystemsNeededError(MolSysValueError):
-    def __init__(self, message=None):
-        if message is None:
+    def __init__(self, message="", caller=""):
+        if not message:
             message = ('This method works only over a single molecular system. '
                        'But multiple molecular systems are provided. ')
-        super().__init__(message)
+        super().__init__(message, caller)
 
 
 class NotSupportedFormError(MolSysValueError):
@@ -56,9 +70,9 @@ class NotSupportedFormError(MolSysValueError):
         This exception is raised when Sabueso does not recognize the item as a supported form.
     """
 
-    def __init__(self, form_type):
+    def __init__(self, form_type, caller=""):
         message = f"The input molecular system or item has a not supported form: {form_type} "
-        super().__init__(message)
+        super().__init__(message, caller)
 
 
 class NotWithThisFormError(MolSysValueError):
@@ -70,18 +84,18 @@ class NotWithThisFormError(MolSysValueError):
         case the method will raise a 'NotWithTisFormError' exception.
     """
 
-    def __init__(self, form):
+    def __init__(self, form, caller=""):
         message = f"Invalid form: {form} "
-        super().__init__(message)
+        super().__init__(message, caller)
 
 
 class WrongGetArgumentError(MolSysValueError):
     """ Exception raised when the get method is called with a not valid input argument.
     """
 
-    def __init__(self, argument=None):
+    def __init__(self, argument=None, caller=""):
         message = f"The get method was invoked with not valid input argument: \"{argument}\""
-        super().__init__(message)
+        super().__init__(message, caller)
 
 
 # TODO: WrongFormError and NotWithThisFormError are redundant.
@@ -91,9 +105,9 @@ class WrongFormError(MolSysValueError):
     """Exception raised when the item has not the correct form expected by a method or a class.
     """
 
-    def __init__(self, form):
+    def __init__(self, form, caller=""):
         message = f"The input item's should be {form} and is not. "
-        super().__init__(message)
+        super().__init__(message, caller)
 
 
 class WrongAtomIndicesError(MolSysValueError):
@@ -105,7 +119,12 @@ class WrongSelectionError(MolSysValueError):
 
 
 class WrongIndicesError(MolSysValueError):
-    pass
+    """ Exception raised when atom, group, or structure indices are not of the
+        expected type.
+    """
+    def __init__(self, indices_type, caller=""):
+        message = f"Wrong indices type: {indices_type}"
+        super().__init__(message, caller)
 
 
 class WrongOutputFilenameError(MolSysValueError):
@@ -117,7 +136,10 @@ class WrongComparisonError(MolSysValueError):
 
 
 class WrongStepError(MolSysValueError):
-    pass
+    """ Exception raised when a step is of an incorrect type."""
+    def __init__(self, step_type, caller=""):
+        message = f"Wrong step type: {step_type}"
+        super().__init__(message, caller)
 
 
 class WrongStructureIndicesError(MolSysValueError):
@@ -129,7 +151,10 @@ class WrongSyntaxisError(MolSysValueError):
 
 
 class WrongTimeError(MolSysValueError):
-    pass
+    """ Exception raised when time is of an incorrect type."""
+    def __init__(self, step_type, caller=""):
+        message = f"Wrong time type: {step_type}"
+        super().__init__(message, caller)
 
 
 class WrongToFormError(MolSysValueError):
@@ -141,17 +166,23 @@ class WrongElementError(MolSysValueError):
 
 
 class WrongEngineError(MolSysValueError):
-    pass
+    """ Exception raised when an engine is not supported by MolSysMT"""
+    def __init__(self, engine, caller=""):
+        if isinstance(engine, str):
+            message = f"Unsupported engine {engine}. "
+        else:
+            message = ""
+        super().__init__(message, caller)
 
 
 class IncorrectShapeError(MolSysValueError):
     """Exception raised when a quantity or array doesn't have the correct shape.
     """
 
-    def __init__(self, expected_shape=None, actual_shape=None):
+    def __init__(self, expected_shape=None, actual_shape=None, caller=""):
         message = ""
         if expected_shape:
             message = f"Expected shape {expected_shape}. "
         if actual_shape:
             message += f"Actual shape {actual_shape}. "
-        super().__init__(message)
+        super().__init__(message, caller)

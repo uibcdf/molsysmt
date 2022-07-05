@@ -44,7 +44,7 @@ def digest_element(element):
         if element_name_lower in elements_from_plural:
             return elements_from_plural[element_name_lower]
         if element_name_lower not in elements:
-            raise WrongElementError("wrong element name")
+            raise WrongElementError(f"Wrong element name: {element}. ")
         return element_name_lower
 
-    raise WrongElementError("element is not a string")
+    raise WrongElementError("Element is not a string. ")

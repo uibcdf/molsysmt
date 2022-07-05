@@ -1,5 +1,5 @@
 
-def digest_single_molecular_system(molecular_system):
+def digest_single_molecular_system(molecular_system, caller=""):
     """ Check if an object is a molecular system.
 
         Parameters
@@ -7,9 +7,14 @@ def digest_single_molecular_system(molecular_system):
         molecular_system : Any
             The molecular system.
 
+        caller: str, optional
+            Name of the function or method that is being digested.
+            For debugging purposes.
+
         Returns
         -------
-        None
+        molecular_system : Any
+            The molecular system.
 
         Raises
         ------
@@ -20,11 +25,11 @@ def digest_single_molecular_system(molecular_system):
     from molsysmt.basic import is_molecular_system
 
     if not is_molecular_system(molecular_system):
-        raise MolecularSystemNeededError()
+        raise MolecularSystemNeededError(caller=caller)
     return molecular_system
 
 
-def digest_multiple_molecular_systems(molecular_systems):
+def digest_multiple_molecular_systems(molecular_systems, caller=""):
     """ Check if an object is a molecular system.
 
         Parameters
@@ -32,9 +37,14 @@ def digest_multiple_molecular_systems(molecular_systems):
         molecular_systems : Any
             The molecular systems.
 
+        caller: str, optional
+            Name of the function or method that is being digested.
+            For debugging purposes.
+
         Returns
         -------
-        None
+        molecular_system : Any
+            The molecular system.
 
         Raises
         ------
@@ -46,5 +56,5 @@ def digest_multiple_molecular_systems(molecular_systems):
     from molsysmt.basic import are_multiple_molecular_systems
 
     if not are_multiple_molecular_systems(molecular_systems):
-        raise MultipleMolecularSystemsNeededError()
+        raise MultipleMolecularSystemsNeededError(caller=caller)
     return molecular_systems

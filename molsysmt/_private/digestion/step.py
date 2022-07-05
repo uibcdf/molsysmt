@@ -1,13 +1,17 @@
 from ..exceptions import *
 
 
-def digest_step(step):
+def digest_step(step, caller=""):
     """ Checks if step is an integer or null.
 
         Parameters
         ---------
         step: Any
             The step
+
+        caller: str, optional
+            Name of the function or method that is being digested.
+            For debugging purposes.
 
         Returns
         -------
@@ -22,4 +26,4 @@ def digest_step(step):
     """
     if step is None or isinstance(step, int):
         return step
-    raise WrongStepError()
+    raise WrongStepError(type(step), caller)

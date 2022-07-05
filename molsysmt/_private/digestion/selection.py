@@ -2,7 +2,7 @@ from ..exceptions import WrongSelectionError
 from ..lists_and_tuples import is_list_or_tuple
 
 
-def digest_selection(selection, syntaxis="MolSysMT"):
+def digest_selection(selection, syntaxis="MolSysMT", caller=""):
     """ Checks if a given selection is of the expected type.
     """
     # TODO: this function may not check for all selection types.
@@ -14,7 +14,7 @@ def digest_selection(selection, syntaxis="MolSysMT"):
     return selection
 
 
-def digest_multiple_selections(selections, syntaxis="MolSysMT"):
+def digest_multiple_selections(selections, syntaxis="MolSysMT", caller=""):
     if is_list_or_tuple(selections):
         return [digest_selection(ii, syntaxis) for ii in selections]
     else:

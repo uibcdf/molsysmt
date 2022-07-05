@@ -1,4 +1,7 @@
 from molsysmt._private.exceptions import caller_name as cn
+from molsysmt._private.exceptions import WrongElementError
+from molsysmt._private.digestion import digest
+from molsysmt import get
 import pytest
 
 
@@ -99,3 +102,20 @@ def test_get_caller_name_from_function_raising_error():
 
     assert "raise_error_function" in str(exc_info)
     assert "Wrong argument num" in str(exc_info)
+
+
+@digest
+def decorated_fn(element):
+    pass
+
+
+# def test_function_with_decorator():
+#
+#     with pytest.raises(WrongElementError) as exc_info:
+#         decorated_fn(element="cow")
+#     assert "Error in decorated_fn" in str(exc_info)
+#
+#     with pytest.raises(WrongElementError) as exc_info:
+#         get("molecular system", element="cow")
+#
+#     assert "Error in get" in str(exc_info)

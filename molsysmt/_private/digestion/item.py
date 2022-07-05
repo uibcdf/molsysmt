@@ -1,7 +1,7 @@
 from ..exceptions import WrongFormError
 
 
-def digest_item(item, form):
+def digest_item(item, form, caller=""):
     """ Check if an item has the expected form.
 
         Examples
@@ -18,6 +18,10 @@ def digest_item(item, form):
         form : str
             Name of the form
 
+        caller: str, optional
+            Name of the function or method that is being digested.
+            For debugging purposes.
+
         Raises
         ------
         WrongFormError
@@ -29,4 +33,4 @@ def digest_item(item, form):
     try:
         dict_is_form[form](item)
     except KeyError:
-        raise WrongFormError(form)
+        raise WrongFormError(form, caller)
