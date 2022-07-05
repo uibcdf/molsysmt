@@ -1,3 +1,4 @@
+from molsysmt._private.exceptions.caller_name import caller_name
 
 __github_web__ = 'https://github.com/uibcdf/MolSysMT'
 __github_issues_web__ = __github_web__ + '/issues'
@@ -8,14 +9,18 @@ class MolSysValueError(ValueError):
     """ Base class for value errors. """
 
     def __init__(self, message=None):
-        if message is None:
-            message = ""
 
-        message += (
-            f" Check {api_doc} for more information. "
+        call_name = caller_name(skip=3)
+        if message is None:
+            full_message = f"Error in {call_name}. "
+        else:
+            full_message = f"Error in {call_name}. " + message
+
+        full_message += (
+            f"Check {api_doc} for more information. "
             f"If you still need help, open a new issue in {__github_issues_web__}."
         )
-        super().__init__(message)
+        super().__init__(full_message)
 
 
 class NotWithThisMolecularSystemError(MolSysValueError):
@@ -32,8 +37,8 @@ class NotWithThisMolecularSystemError(MolSysValueError):
 class MolecularSystemNeededError(MolSysValueError):
     def __init__(self, message=None):
         if message is None:
-            message = ( f"The method works over a molecular system. "
-                        f"Either no molecular system or multiple systems were provided.")
+            message = (f"The method works over a molecular system. "
+                       f"Either no molecular system or multiple systems were provided.")
         super().__init__(message)
 
 
@@ -50,6 +55,7 @@ class NotSupportedFormError(MolSysValueError):
 
         This exception is raised when Sabueso does not recognize the item as a supported form.
     """
+
     def __init__(self, form_type):
         message = f"The input molecular system or item has a not supported form: {form_type} "
         super().__init__(message)
@@ -63,6 +69,7 @@ class NotWithThisFormError(MolSysValueError):
         dihedral angle defined by four atoms can not work over a GROMACS topology file (.top). In this
         case the method will raise a 'NotWithTisFormError' exception.
     """
+
     def __init__(self, form):
         message = f"Invalid form: {form} "
         super().__init__(message)
@@ -71,9 +78,11 @@ class NotWithThisFormError(MolSysValueError):
 class WrongGetArgumentError(MolSysValueError):
     """ Exception raised when the get method is called with a not valid input argument.
     """
+
     def __init__(self, argument=None):
         message = f"The get method was invoked with not valid input argument: \"{argument}\""
         super().__init__(message)
+
 
 # TODO: WrongFormError and NotWithThisFormError are redundant.
 
@@ -81,6 +90,7 @@ class WrongGetArgumentError(MolSysValueError):
 class WrongFormError(MolSysValueError):
     """Exception raised when the item has not the correct form expected by a method or a class.
     """
+
     def __init__(self, form):
         message = f"The input item's should be {form} and is not. "
         super().__init__(message)

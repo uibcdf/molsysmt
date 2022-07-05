@@ -1,6 +1,7 @@
 from molsysmt._private.exceptions.not_implemented_errors import MolSysNotImplementedError
 import pytest
 
+
 def raise_error(error):
     raise error
 
@@ -15,3 +16,7 @@ def test_not_implemented_error():
         f"Write a new issue in https://github.com/uibcdf/MolSysMT/issues asking for its implementation."
     )
     assert message == str(exc_info.value)
+
+
+def test_not_implemented_conversion_error():
+    pass

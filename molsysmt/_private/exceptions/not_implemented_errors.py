@@ -1,3 +1,4 @@
+from molsysmt._private.exceptions.caller_name import caller_name
 
 __github_web__ = 'https://github.com/uibcdf/MolSysMT'
 __github_issues_web__ = __github_web__ + '/issues'
@@ -11,16 +12,19 @@ class MolSysNotImplementedError(ValueError):
         if message is None:
             message = ""
 
-        message += (
+        call_name = caller_name(skip=3)
+
+        if message is None:
+            full_message = f"Error in {call_name}. "
+        else:
+            full_message = f"Error in {call_name}. " + message
+
+        full_message += (
             "The method has not been implemented yet. "
             f" Check {api_doc} for more information. "
             f"Write a new issue in {__github_issues_web__} asking for its implementation."
         )
-        super().__init__(message)
-
-
-class NotImplementedConversionError(MolSysNotImplementedError):
-    pass
+        super().__init__(full_message)
 
 
 class NotImplementedMethodError(MolSysNotImplementedError):
@@ -32,6 +36,9 @@ class NotImplementedSyntaxisError(MolSysNotImplementedError):
 
 
 class NotImplementedConversionError(MolSysNotImplementedError):
+    """ Exception raised when the conversion between two forms has not been
+        implemented yet.
+    """
     pass
 
 

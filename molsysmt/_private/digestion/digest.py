@@ -47,8 +47,6 @@ def digest(func):
     @functools.wraps(func)
     def wrapper(*args, **kwargs):
 
-        # if not check_args:
-        #     return func(*args, **kwargs)
         if not config.argument_checking:
             return func(*args, **kwargs)
 
