@@ -38,6 +38,7 @@ Exceptionally few home-made subroutines will be included here to fill specific g
 
    contents/user/intro/index.rst
    contents/user/tools/index.rst
+   contents/user/native_forms/index.rst
 
 .. toctree::
    :name: developer_guide
@@ -54,5 +55,7 @@ Exceptionally few home-made subroutines will be included here to fill specific g
    :maxdepth: 1
    :hidden:
 
-   api.rst
+   api_tools.rst
+   api_items.rst
+   api_thirds.rst
 
