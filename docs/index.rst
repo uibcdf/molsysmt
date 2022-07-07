@@ -56,6 +56,6 @@ Exceptionally few home-made subroutines will be included here to fill specific g
    :hidden:
 
    api_tools.rst
-   api_items.rst
+   api_forms.rst
    api_thirds.rst
 
