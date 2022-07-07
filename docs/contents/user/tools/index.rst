@@ -12,4 +12,5 @@ Tools
    topology/index.rst
    structure/index.rst
    pbc/index.rst
+   element/index.rst
 
