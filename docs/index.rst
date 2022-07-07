@@ -47,6 +47,7 @@ Exceptionally few home-made subroutines will be included here to fill specific g
    :hidden:
 
    contents/developer/intro/index.rst
+   contents/developer/new_form.ipynb
    contents/developer/documentation/index.rst
 
 .. toctree::
