@@ -12,4 +12,6 @@ Introduction
    Elements.md
    Attributes.ipynb
    Items_and_forms.ipynb
+   native_forms/index.rst
+   Selection_syntaxis.ipynb
    Units.md
