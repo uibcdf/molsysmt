@@ -138,7 +138,7 @@ def get_entity_index_from_atom(item, indices='all', check=True):
         _digest_item(item, _form)
         indices = _digest_indices(indices)
 
-    from molsysmt.element.entity import entity_index_from_atom as _get
+    from molsysmt.element.entity import get_entity_index_from_atom as _get
     return _get(item, indices=indices)
 
 def get_inner_bonded_atoms_from_atom(item, indices='all', check=True):
@@ -396,7 +396,7 @@ def get_entity_id_from_entity(item, indices='all', check=True):
         _digest_item(item, _form)
         indices = _digest_indices(indices)
 
-    from molsysmt.element.entity import entity_id_from_entity as _get
+    from molsysmt.element.entity import get_entity_id_from_entity as _get
     return _get(item, indices, check=False)
 
 def get_entity_name_from_entity(item, indices='all', check=True):
@@ -406,7 +406,7 @@ def get_entity_name_from_entity(item, indices='all', check=True):
         _digest_item(item, _form)
         indices = _digest_indices(indices)
 
-    from molsysmt.element.entity import entity_name_from_entity as _get
+    from molsysmt.element.entity import get_entity_name_from_entity as _get
     return _get(item, indices)
 
 def get_entity_type_from_entity(item, indices='all', check=True):
@@ -416,7 +416,7 @@ def get_entity_type_from_entity(item, indices='all', check=True):
         _digest_item(item, _form)
         indices = _digest_indices(indices)
 
-    from molsysmt.element.entity import entity_type_from_entity as _get
+    from molsysmt.element.entity import get_entity_type_from_entity as _get
     return _get(item, indices)
 
 ## From system

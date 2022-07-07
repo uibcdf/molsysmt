@@ -125,6 +125,20 @@ def get_box_angles_from_system(item, structure_indices='all', check=True):
         output = tmp_box_angles[structure_indices,:]
     return output
 
+def get_box_volume_from_system(item, structure_indices='all', check=True):
+
+    if check:
+
+        _digest_item(item, _form)
+        structure_indices = _digest_structure_indices(structure_indices)
+
+    from molsysmt.pbc import box_volume_from_box_vectors
+    output = None
+    box = get_box_from_system(item, structure_indices=structure_indices, check=False)
+    if box is not None:
+        output = box_volume_from_box_vectors(box)
+    return output
+
 def get_time_from_system(item, structure_indices='all', check=True):
 
     if check:

@@ -4,11 +4,3 @@ trajectory_parameters = {
 }
 
 
-def is_trajectory_dict(dictionary):
-
-    keys=set(dictionary.keys())
-    output = (keys <= trajectory_parameters)
-
-    return output
-
-
