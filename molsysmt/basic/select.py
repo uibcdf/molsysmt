@@ -121,7 +121,7 @@ def select(molecular_system, selection='all', structure_index=0, element='atom',
     item: molecular model
         Molecular model in any supported form (see: :doc:`/Forms`). The object being acted on by the method.
 
-    selection: str, default='all'
+    selection: str, list, tuple, np.ndarray, default='all'
        Selection criterion given by means of a string following any of the selection syntaxis parsable by MolSysMT.
 
     mask: list, tuple, numpy array or None. default=None
