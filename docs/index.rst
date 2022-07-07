@@ -11,14 +11,59 @@ MolSysMT
 .. image:: https://anaconda.org/uibcdf/molsysmt/badges/license.svg
    :target: https://github.com/uibcdf/MolSysMT/blob/master/License
 
-MolSysMT, Molecular System Multi-Tool, is a swiss army knife to make the researchers life easier and the learning barrier of new lab student lower. This is done by simplifying the sintaxis of your script and reducing the amount of commands you have to remind to have some simple stuff done. Just that. In this sense MolSysMT is probably better defined as a 'front-end', a 'wrapper' o meta-library. Thereby all credit should be given to the fellows who developed and push those tools in the core of MolSysMT as openmm, mdtraj, yank, mdanalysis, parmed, nglview, and many others gratefully listed in the main README.md file of the source repository.
+MolSysMT makes the work with molecular models and simulations easy.
 
-Exceptionally few home-made subroutines will be included here to fill specific gaps in our needs. But this should not be, in principle, the main purpose of MolSysMT.
+Install it.
 
-.. warning:: |IntroWarningText|
+```bash
+conda install -c uibcdf molsysmt
+```
 
-.. |IntroWarningText| replace::
-        At this moment MolSysMT is a work in progress project maintened by the UIBCDF Lab. It was concieved as a central repository for those shortcuts and common routines in the daily workflow of our lab. If you think this library is useful to you, use it with caution. Any feedback is welcome.
+Import it.
+
+```python
+import molsysmt as msm
+```
+
+Make use of the native objects, methods, and syntaxis, to ensemble your daily workflows.
+
+```python
+molsys = msm.convert('1BRS', selection='molecule_type=="protein"')
+
+msm.info(molsys, element='chain')
+
+barnase = msm.extract(molsys, selection="chain_name=='B'")
+barstar_E = msm.extract(molsys, selection="chain_name=='E")
+barstar_F = msm.extract(molsys, selection="chain_name=='F'")
+
+msm.get_minimum_distance(barnase, barstar_E)
+
+msm.get_minimum_distance(barnase, barstar_F)
+```
+
+
+Integrate your favorite third libraries.
+
+```python
+id, bla, bla = msm.structure
+barstar = msm.structure.align(barstar_F, selection='atom_name=="CA"',
+                              reference_molecular_system=barstar_E, reference_selection='atom_name=="CA"',
+                              engine_1='MolSysMT', engine_2='biopython')
+
+molsys = msm.merge([barnase, barstar])
+
+msm.build.get_missing_heavy_atoms(molsys, engine=)
+
+msm.info(molsys, element='entity')
+
+```
+
+Report your results citing the used tools.
+
+```python
+msm.cite()
+
+```
 
 .. toctree::
    :name: about

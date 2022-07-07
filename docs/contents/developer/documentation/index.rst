@@ -1,11 +1,11 @@
 
-.. _Documentation:
+.. _How to document:
 
-Documentation
-============
+Writing documentation
+=====================
 
 .. toctree::
    :maxdepth: 2
 
-   api/index.rst
    web/index.rst
+   api/index.rst
