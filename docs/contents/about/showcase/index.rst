@@ -8,4 +8,6 @@ Showcase
    :maxdepth: 1
 
    Quickstart.ipynb
+   OpenMM.ipynb
+   NGLView.ipynb
 

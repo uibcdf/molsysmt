@@ -38,7 +38,6 @@ Exceptionally few home-made subroutines will be included here to fill specific g
 
    contents/user/intro/index.rst
    contents/user/tools/index.rst
-   contents/user/working_with/index.rst
 
 .. toctree::
    :name: developer_guide
