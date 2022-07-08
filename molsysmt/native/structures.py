@@ -1,6 +1,7 @@
 import numpy as np
 from molsysmt import puw
 from molsysmt._private.exceptions import *
+from molsysmt._private.arguments import is_all
 
 # Tiene que haber una manera automatica con f2py dar siempre de salida Ccontiguous_np.arrays
 
@@ -119,7 +120,7 @@ class Structures():
 
     def extract (self, atom_indices='all', structure_indices='all'):
 
-        if atom_indices is 'all' and structure_indices is 'all':
+        if is_all(atom_indices) and is_all(structure_indices):
 
             tmp_item = self.copy()
 
@@ -130,29 +131,29 @@ class Structures():
             tmp_item = Structures()
 
             if self.step is not None:
-                if structure_indices is not 'all':
+                if not is_all(structure_indices):
                     tmp_item.step = self.step[structure_indices]
                 else:
                     tmp_item.step = deepcopy(self.step)
 
             if self.time is not None:
-                if structure_indices is not 'all':
+                if not is_all(structure_indices):
                     tmp_item.time = self.time[structure_indices]
                 else:
                     tmp_item.time = deepcopy(self.time)
 
             if self.box is not None:
-                if structure_indices is not 'all':
+                if not is_all(structure_indices):
                     tmp_item.box = self.box[structure_indices]
                 else:
                     tmp_item.box = deepcopy(self.box)
 
-            if atom_indices is not 'all':
+            if is_all(atom_indices):
                 tmp_item.coordinates = self.coordinates[:,atom_indices,:]
             else:
                 tmp_item.coordinates = deepcopy(self.coordinates)
 
-            if structure_indices is not 'all':
+            if is_all(structure_indices):
                 tmp_item.coordinates = tmp_item.coordinates[structure_indices,:,:]
 
             tmp_item.n_structures = tmp_item.coordinates.shape[0]

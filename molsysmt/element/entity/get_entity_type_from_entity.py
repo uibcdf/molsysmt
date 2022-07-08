@@ -1,5 +1,6 @@
 from molsysmt._private.exceptions import *
 from molsysmt._private.digestion import *
+from molsysmt._private.arguments import is_all
 import numpy as np
 
 def get_entity_type_from_entity(molecular_system, indices='all', check=True):
@@ -14,7 +15,7 @@ def get_entity_type_from_entity(molecular_system, indices='all', check=True):
     entity_index_from_atom, _, entity_type_from_atom = get_entity_all_from_atom(molecular_system,
             check=False)
 
-    if indices is 'all':
+    if is_all(indices):
         indices = np.unique(entity_index_from_atom)
 
     output=[]

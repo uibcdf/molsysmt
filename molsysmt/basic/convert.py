@@ -1,7 +1,7 @@
 from molsysmt._private.exceptions import NotImplementedConversionError
 from molsysmt._private.digestion import digest, digest_output
 from molsysmt._private.lists_and_tuples import is_list_or_tuple
-from molsysmt._private.selection import selection_is_all
+from molsysmt._private.arguments import is_all
 
 
 @digest
@@ -73,7 +73,7 @@ def convert(molecular_system,
                         syntaxis=syntaxis))
         return tmp_item
 
-    if not selection_is_all(selection):
+    if not is_all(selection):
         atom_indices = select(molecular_system, selection=selection, syntaxis=syntaxis, check=False)
     else:
         atom_indices = 'all'

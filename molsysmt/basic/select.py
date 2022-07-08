@@ -1,7 +1,7 @@
 from molsysmt._private.exceptions import *
 from molsysmt._private.digestion import *
 import numpy as np
-from molsysmt._private.selection import selection_is_all
+from molsysmt._private.arguments import is_all
 from molsysmt._private.strings import get_parenthesis
 from re import findall
 from inspect import stack, getargvalues
@@ -14,7 +14,7 @@ def select_standard(molecular_system, selection='all', syntaxis='MolSysMT'):
     from molsysmt.api_forms import dict_get
 
     if type(selection)==str:
-        if selection_is_all(selection):
+        if is_all(selection):
             aux_item, aux_form = where_is_attribute(molecular_system, 'n_atoms')
             n_atoms = dict_get[aux_form]['system']['n_atoms'](aux_item)
             atom_indices = np.arange(n_atoms, dtype='int64')
@@ -183,7 +183,7 @@ def select(molecular_system, selection='all', structure_index=0, element='atom',
         except:
             raise WrongSelectionError(selection)
 
-    if mask is 'all':
+    if is_all(mask):
         mask=None
 
     if type(selection)==str:

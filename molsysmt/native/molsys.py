@@ -10,7 +10,7 @@ class MolSys:
 
     def extract(self, atom_indices='all', structure_indices='all'):
 
-        if (atom_indices is 'all') and (structure_indices is 'all'):
+        if is_all(atom_indices) and is_all(structure_indices):
 
             return self.copy()
 

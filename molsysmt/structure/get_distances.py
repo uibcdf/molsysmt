@@ -1,5 +1,6 @@
 from molsysmt._private.exceptions import *
 from molsysmt._private.digestion import *
+from molsysmt._private.arguments import is_all
 from molsysmt.lib import geometry as libgeometry
 from molsysmt import puw
 import numpy as np
@@ -221,9 +222,9 @@ def get_distances(molecular_system, selection="all", groups_of_atoms=None, group
         if output_form=='tensor':
             if output_structure_indices:
 
-                if structure_indices is 'all':
+                if is_all(structure_indices):
                     structure_indices = np.arange(nstructures_1)
-                if structure_indices_2 is 'all':
+                if is_all(structure_indices_2):
                     structure_indices_2 = np.arange(nstructures_2)
 
                 if output_atom_indices:
@@ -237,9 +238,9 @@ def get_distances(molecular_system, selection="all", groups_of_atoms=None, group
                 return dists
 
         elif output_form=='dict':
-            if structure_indices is 'all':
+            if is_all(structure_indices):
                 structure_indices = np.arange(nstructures_1)
-            if structure_indices_2 is 'all':
+            if is_all(structure_indices_2):
                 structure_indices_2 = np.arange(nstructures_2)
             if pairs is False:
                 if crossed_structures is False:

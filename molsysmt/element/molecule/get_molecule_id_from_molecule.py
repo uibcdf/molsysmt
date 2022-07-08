@@ -1,5 +1,6 @@
 from molsysmt._private.exceptions import *
 from molsysmt._private.digestion import *
+from molsysmt._private.arguments import is_all
 import numpy as np
 
 def get_molecule_id_from_molecule(molecular_system, indices='all', check=True):
@@ -11,7 +12,7 @@ def get_molecule_id_from_molecule(molecular_system, indices='all', check=True):
 
     from . import get_n_molecules_from_system
 
-    if indices is 'all':
+    if is_all(indices):
         n_molecules = n_molecules_from_system(molecular_system, check=False)
         output = np.full(n_molecules, None, dtype=object)
     else:

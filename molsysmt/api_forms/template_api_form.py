@@ -1,4 +1,5 @@
 from molsysmt._private.exceptions import *
+from molsysmt._private.arguments import is_all
 from molsysmt.api_forms.common_gets import *
 import numpy as np
 from molsysmt import MolSys as _molsysmt_MolSys
@@ -38,7 +39,7 @@ def to_template_form(item, molecular_system=None, atom_indices='all', structure_
 
     tmp_molecular_system = None
 
-    if (atom_indices is 'all') and (structure_indices is 'all'):
+    if is_all(atom_indices) and is_all(structure_indices):
         if copy_if_all:
             tmp_item = extract(item)
             if molecular_system is not None:
@@ -56,7 +57,7 @@ def to_template_form(item, molecular_system=None, atom_indices='all', structure_
 
 def extract(item, atom_indices='all', structure_indices='all'):
 
-    if (atom_indices is 'all') and (structure_indices is 'all'):
+    if is_all(atom_indices) and is_all(structure_indices):
         tmp_item = item.copy()
     else:
         raise NotImplementedError()
@@ -124,7 +125,7 @@ def get_inner_bonded_atoms_from_atom (item, indices='all', structure_indices='al
 
 def get_n_inner_bonds_from_atom (item, indices='all', structure_indices='all'):
 
-    if indices is 'all':
+    if is_all(indices):
         return get_n_bonds_from_system (item)
     else:
         raise NotImplementedError()

@@ -62,6 +62,7 @@ def set(molecular_system,
     """
 
     from . import select, where_is_attribute
+    from molsysmt._private.arguments import is_all
     from molsysmt.api_forms import dict_set
 
     value_of_attribute = {}
@@ -75,7 +76,7 @@ def set(molecular_system,
     # doing the work here
 
     if indices is None:
-        if isinstance(selection, np.ndarray) or selection != 'all':
+        if is_all(selection):
             indices = select(molecular_system,
                              element=element,
                              selection=selection,
