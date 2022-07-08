@@ -16,13 +16,17 @@ engines = [
 engines_from_lowercase = {ii.lower(): ii for ii in engines}
 
 
-def digest_engine(engine):
+def digest_engine(engine, caller=""):
     """ Check the name of the engine.
 
         Parameters
         ---------
         engine : str
             The name of the engine
+
+        caller: str, optional
+            Name of the function or method that is being digested.
+            For debugging purposes.
 
         Raises
         ------
@@ -33,6 +37,5 @@ def digest_engine(engine):
         try:
             return engines_from_lowercase[engine.lower()]
         except KeyError:
-            # TODO: create a wrong engine error
-            raise WrongEngineError
-    raise WrongEngineError
+            raise WrongEngineError(engine, caller)
+    raise WrongEngineError(engine, caller)

@@ -2,7 +2,7 @@ from molsysmt.attribute.attributes import attribute_synonyms, attributes
 from ..exceptions import WrongGetArgumentError
 
 
-def digest_argument(argument, element):
+def digest_argument(argument, element, caller=""):
     """ Helper function to check the names of keyword
         arguments passed to get function.
 
@@ -13,6 +13,10 @@ def digest_argument(argument, element):
 
         element: str
             The name of an element.
+
+        caller: str, optional
+            Name of the function or method that is being digested.
+            For debugging purposes.
 
         Returns
         -------
@@ -27,4 +31,4 @@ def digest_argument(argument, element):
     if output_argument in attributes:
         return output_argument
     else:
-        raise WrongGetArgumentError(argument)
+        raise WrongGetArgumentError(argument, caller)
