@@ -1,3 +1,3 @@
-# What's MolSysMT?
+# Citation
 
 To be written soon.
