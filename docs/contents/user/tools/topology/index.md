@@ -1,9 +1,6 @@
+# Topology
 
-.. _Topology:
-
-Topology
-========
-
+```{eval-rst}
 .. toctree::
    :maxdepth: 2
 
@@ -13,4 +10,4 @@ Topology
    get_dihedral_quartets.ipynb
    get_sequence_alignment.ipynb
    get_sequence_identity.ipynb
-
+```

@@ -1,9 +1,6 @@
+# Structure
 
-.. _Structure:
-
-Structure
-=========
-
+```{eval-rst}
 .. toctree::
    :maxdepth: 2
 
@@ -24,4 +21,4 @@ Structure
    shift_dihedral_angles.ipynb
    align.ipynb
    fit.ipynb
-
+```

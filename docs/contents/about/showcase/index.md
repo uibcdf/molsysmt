@@ -1,9 +1,6 @@
+# Showcase
 
-.. _showcase:
-
-Showcase
-========
-
+```{eval-rst}
 .. toctree::
    :maxdepth: 1
 
@@ -11,4 +8,4 @@ Showcase
    Barnase_Barstar.ipynb
    Polyglot_selection.ipynb
    working_with/index.rst
-
+```

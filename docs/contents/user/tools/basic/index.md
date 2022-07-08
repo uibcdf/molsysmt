@@ -1,9 +1,6 @@
+# Basic
 
-.. _Basic:
-
-Basic
-=====
-
+```{eval-rst}
 .. toctree::
    :maxdepth: 2
 
@@ -27,4 +24,4 @@ Basic
    append_frames.ipynb
    concatenate_frames.ipynb
    view.ipynb
-
+```

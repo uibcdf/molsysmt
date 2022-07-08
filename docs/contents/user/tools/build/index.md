@@ -1,9 +1,6 @@
+# Building
 
-.. _Building:
-
-Building
-========
-
+```{eval-rst}
 .. toctree::
    :maxdepth: 2
 
@@ -26,4 +23,5 @@ Building
    build_peptide.ipynb
    model_loop.ipynb
    mutate.ipynb
+```
 

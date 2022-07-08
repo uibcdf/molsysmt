@@ -1,9 +1,6 @@
+# Periodic boundary conditions
 
-.. _Periodic boundary conditions:
-
-Periodic boundary conditions
-============================
-
+```{eval-rst}
 .. toctree::
    :maxdepth: 2
 
@@ -16,4 +13,4 @@ Periodic boundary conditions
    wrap_to_pbc.ipynb
    wrap_to_mic.ipynb
    unwrap.ipynb
-
+```

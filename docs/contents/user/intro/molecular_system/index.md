@@ -1,8 +1,6 @@
-.. _Introduction user:
+# Molecular System
 
-Molecular System
-================
-
+```{eval-rst}
 .. toctree::
    :maxdepth: 1
 
@@ -10,4 +8,4 @@ Molecular System
    Items_and_forms.ipynb
    Elements.ipynb
    Attributes.ipynb
-
+```
