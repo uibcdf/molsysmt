@@ -1,4 +1,4 @@
-# from molsysmt._private.digestion import *
+import numpy as np
 from molsysmt._private.digestion import digest
 
 
@@ -10,7 +10,6 @@ def set(molecular_system,
         structure_indices='all',
         syntaxis='MolSysMT',
         **kwargs):
-
     """into(item, element='system', indices=None, selection='all', structure_indices='all', syntaxis='MolSysMT')
 
     Set a new value to an attribute.
@@ -47,9 +46,7 @@ def set(molecular_system,
 
     Returns
     -------
-
     None
-        XXX.
 
     Examples
     --------
@@ -78,14 +75,16 @@ def set(molecular_system,
     # doing the work here
 
     if indices is None:
-        if selection != 'all':
-            indices = select(molecular_system, element=element, selection=selection,
-                    syntaxis=syntaxis, check=False)
+        if isinstance(selection, np.ndarray) or selection != 'all':
+            indices = select(molecular_system,
+                             element=element,
+                             selection=selection,
+                             syntaxis=syntaxis,
+                             check=False)
         else:
             indices = 'all'
 
     for attribute in attributes:
-
         item, form = where_is_attribute(molecular_system, attribute, check=False)
 
         value = value_of_attribute[attribute]
