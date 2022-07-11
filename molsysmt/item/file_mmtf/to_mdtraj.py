@@ -54,6 +54,7 @@ import xml.etree.ElementTree as ETree
 import mdtraj as mdt
 import mdtraj.core.element as mdt_element
 from mdtraj.formats.registry import FormatRegistry
+from mdtraj.utils import in_units_of
 from mmtf import parse
 import numpy as np
 
@@ -85,11 +86,25 @@ def load_mmtf(filename, stride=None, atom_indices=None, frame=None):
     """
     with MMTFTrajectoryFile(filename, 'r') as fh:
         # time = np.arange(len(fh.positions))
+
+        coords = fh.positions
+        unit_cell_lengths = fh.unit_cell_lengths
+
+        # Convert from angstroms to nanometers
+        in_units_of(coords,
+                    fh.distance_unit,
+                    mdt.Trajectory._distance_unit,
+                    inplace=True)
+        in_units_of(unit_cell_lengths,
+                    fh.distance_unit,
+                    mdt.Trajectory._distance_unit,
+                    inplace=True)
+
         return mdt.Trajectory(
-            xyz=fh.positions,
+            xyz=coords,
             topology=fh.topology,
             # time=time,
-            unitcell_lengths=fh.unit_cell_lengths,
+            unitcell_lengths=unit_cell_lengths,
             unitcell_angles=fh.unit_cell_angles,
         )
 
@@ -111,7 +126,7 @@ class MMTFTrajectoryFile(object):
         exists on disk, should we overwrite it?
 
     """
-    distance_unit = 'nanometers'
+    distance_unit = 'angstroms'
     _residue_name_replacements = {}
     _atom_name_replacements = {}
     _chain_names = [chr(ord('A') + i) for i in range(26)]
@@ -120,7 +135,7 @@ class MMTFTrajectoryFile(object):
         self._open = False
         self._filepath = None
         self._mode = mode
-        self._standard_names = True
+        self._standard_names = standard_names
         self._positions = None
         self._topology = None
         self._unit_cell_lengths = None
@@ -130,8 +145,8 @@ class MMTFTrajectoryFile(object):
             _residue_name_replacements, _atom_name_replacements = self._load_name_replacement_tables()
             self._frame_index = 0
             self._filepath = filename
-            self.n_atoms, self._topology = self._read_topology(self._filepath)
-            self._positions = np.zeros((1, self.n_atoms, 3))
+            self._positions, self._topology, self._unit_cell_lengths, self._unit_cell_angles =  \
+                self._read(self._filepath, self._standard_names)
 
         elif mode == 'w':
             self._open = True
@@ -175,8 +190,23 @@ class MMTFTrajectoryFile(object):
         """ Whether the file is closed. """
         return not self._open
 
-    def write(self):
+    def write(self, positions, topology, unit_cell_lengths=None,
+              unit_cell_angles=None):
         """ Write a mmtf file to disk
+
+            Parameters
+            ----------
+            positions : array_like
+                The list of atomic positions to write.
+
+            topology : mdtraj.Topology
+                The Topology defining the model to write.
+
+            unit_cell_lengths : {tuple, None}
+                Lengths of the three unit cell vectors, or None for a non-periodic system
+
+            unit_cell_angles : {tuple, None}
+                Angles between the three unit cell vectors, or None for a non-periodic system
         """
         if not self._open:
             raise ValueError('I/O operation on closed file')
@@ -243,7 +273,7 @@ class MMTFTrajectoryFile(object):
                 dictionary[atom.attrib[id_]] = name
 
     @staticmethod
-    def _read_topology(file_path):
+    def _read(file_path, standard_names):
         """ Reads the topology of the mmtf file. It returns
             a 2-tuple where the first element is the number of atoms
             and the second is the topology.
@@ -253,13 +283,23 @@ class MMTFTrajectoryFile(object):
             file_path : str
                 Path to the mmft file.
 
+            standard_names : bool
+                If True, non-standard atom names and residue names are standardized to conform
+                with the current PDB format version. If set to false, this step is skipped.
+
             Returns
             -------
-            n_atoms : int
+            positions : np.ndarray of shape(n_frames, n_atoms, 3)
                 Number of atoms in the system.
 
             topology : mdtraj.Topology
                 The topology of the system.
+
+            unit_cell_lengths : np.ndarray of shape (3,)
+                Lengths of the three unit cell vectors, or None for a non-periodic system
+
+            unit_cell_angles : np.ndarray of shape (3,)
+                Angles between the three unit cell vectors, or None for a non-periodic system
 
         """
         if not len(MMTFTrajectoryFile._residue_name_replacements):
@@ -267,15 +307,29 @@ class MMTFTrajectoryFile(object):
                 MMTFTrajectoryFile._load_name_replacement_tables()
 
         decoder = parse(file_path)
+        # Get the positions first
+        positions = np.zeros((1, decoder.num_atoms, 3))
+        positions[0, :, 0] = decoder.x_coord_list
+        positions[0, :, 1] = decoder.y_coord_list
+        positions[0, :, 2] = decoder.z_coord_list
 
-        n_atoms = decoder.num_atoms
-        topology = mdt.Topology()
+        # Retrieve unit cells and unit cell angles
+        if any(decoder.unit_cell[:3]):
+            unit_cell_lengths = np.array([decoder.unit_cell[:3]])
+        else:
+            unit_cell_lengths = None
+
+        if any(decoder.unit_cell[3:]):
+            unit_cell_angles = np.array([decoder.unit_cell[3:]])
+        else:
+            unit_cell_angles = None
 
         # mmtf follows the following structure hierarchy:
         # Models -> Chains -> Groups -> Atoms
         # mdtraj has the following hierarchy:
         # Chains -> Residues -> Atoms
         # Residues are equivalent to Groups.
+        topology = mdt.Topology()
         model_index = 0
         atom_index = 0
         chain_index = 0
@@ -290,24 +344,30 @@ class MMTFTrajectoryFile(object):
                     group = decoder.group_list[decoder.group_type_list[group_index]]
                     group_name = group["groupName"]
                     # Get the residue name for mdtraj
-                    try:
-                        residue_name = MMTFTrajectoryFile._residue_name_replacements[group_name]
-                    except KeyError:
+                    if standard_names:
+                        try:
+                            residue_name = MMTFTrajectoryFile._residue_name_replacements[group_name]
+                        except KeyError:
+                            residue_name = group_name
+                    else:
                         residue_name = group_name
                     residue = topology.add_residue(name=residue_name,
                                                    chain=chain,
                                                    resSeq=decoder.sequence_index_list[group_index])
 
                     atom_offset = atom_index  # To retrieve bonds later
+
                     group_atom_count = len(group["atomNameList"])
                     for jj in range(group_atom_count):
                         atom_name = group["atomNameList"][jj]
                         element_symbol = group["elementList"][jj]
                         element = mdt_element.get_by_symbol(element_symbol)
-                        try:
-                            atom_name = MMTFTrajectoryFile._atom_name_replacements[residue_name][atom_name]
-                        except KeyError:
-                            pass
+
+                        if standard_names:
+                            try:
+                                atom_name = MMTFTrajectoryFile._atom_name_replacements[residue_name][atom_name]
+                            except KeyError:
+                                pass
 
                         topology.add_atom(name=atom_name,
                                           element=element,
@@ -331,12 +391,12 @@ class MMTFTrajectoryFile(object):
         # Add inter bond groups
         for ii in range(int(len(decoder.bond_atom_list) / 2)):
             topology.add_bond(
-                topology.atom(ii * 2),
-                topology.atom(ii * 2 + 1),
+                topology.atom(decoder.bond_atom_list[ii * 2]),
+                topology.atom(decoder.bond_atom_list[ii * 2 + 1]),
                 order=decoder.bond_order_list[ii]
             )
 
-        return n_atoms, topology
+        return positions, topology, unit_cell_lengths, unit_cell_angles
 
     def close(self):
         """Close the file"""
