@@ -50,17 +50,12 @@
 
 import copy
 import os
-import itertools
-from re import sub, match, findall
-
+import xml.etree.ElementTree as ETree
 import mdtraj as mdt
 import mdtraj.core.element as mdt_element
-from mdtraj.utils import in_units_of, cast_indices, ensure_type
-import xml.etree.ElementTree as ETree
 from mdtraj.formats.registry import FormatRegistry
 from mmtf import parse
 import numpy as np
-
 
 ##############################################################################
 # Code
@@ -75,27 +70,28 @@ def load_mmtf(filename, stride=None, atom_indices=None, frame=None):
     ----------
     filename : str
         Path to the MMTF file on disk.
+
     stride : int, default=None
         Only read every stride-th model from the file
+
     atom_indices : array_like, optional
         If not none, then read only a subset of the atoms coordinates from the
         file. These indices are zero-based.
+
     frame : int, optional
         Use this option to load only a single model from a MMTF file on disk.
         If frame is None, the default, all models in file will be loaded.
         If supplied, ``stride`` will be ignored.
     """
-    from mdtraj.core.trajectory import _parse_topology, Trajectory
-
-    with MMTFTrajectoryFile(filename, 'r') as f:
-        topology = f.topology
-        # if frame is not None:
-        #    f.seek(frame)
-        #    n_structures = 1
-        # else:
-        #    n_structures = None
-        return f.read_as_traj(n_structures=n_structures, stride=stride,
-                              atom_indices=atom_indices)
+    with MMTFTrajectoryFile(filename, 'r') as fh:
+        # time = np.arange(len(fh.positions))
+        return mdt.Trajectory(
+            xyz=fh.positions,
+            topology=fh.topology,
+            # time=time,
+            unitcell_lengths=fh.unit_cell_lengths,
+            unitcell_angles=fh.unit_cell_angles,
+        )
 
 
 @FormatRegistry.register_fileobject('.gro')
@@ -106,182 +102,86 @@ class MMTFTrajectoryFile(object):
     ----------
     filename : str
         The filename to open. A path to a file on disk.
+
     mode : {'r', 'w'}
         The mode in which to open the file, either 'r' for read or 'w' for write.
+
     force_overwrite : bool
         If opened in write mode, and a file by the name of `filename` already
         exists on disk, should we overwrite it?
 
-    Attributes
-    ----------
-    n_atoms : int
-        The number of atoms in the file
-    topology : mdtraj.Topology
-        The topology. TODO(rmcgibbo) note about chain
-
-    See Also
-    --------
     """
     distance_unit = 'nanometers'
     _residue_name_replacements = {}
     _atom_name_replacements = {}
     _chain_names = [chr(ord('A') + i) for i in range(26)]
 
-    def __init__(self, filename, mode='r', force_overwrite=True):
+    def __init__(self, filename, mode='r', force_overwrite=True, standard_names=True):
         self._open = False
         self._filepath = None
         self._mode = mode
+        self._standard_names = True
+        self._positions = None
+        self._topology = None
+        self._unit_cell_lengths = None
+        self._unit_cell_angles = None
 
         if mode == 'r':
-            self._open = False
+            _residue_name_replacements, _atom_name_replacements = self._load_name_replacement_tables()
             self._frame_index = 0
             self._filepath = filename
-            self.n_atoms, self.topology = self._read_topology(self._filepath)
-            _residue_name_replacements, _atom_name_replacements = self._load_name_replacement_tables()
+            self.n_atoms, self._topology = self._read_topology(self._filepath)
+            self._positions = np.zeros((1, self.n_atoms, 3))
+
         elif mode == 'w':
-            # self._open = True
-            # if os.path.exists(filename) and not force_overwrite:
-            #    raise IOError('"%s" already exists' % filename)
-            # self._frame_index = 0
-            # self._file = open(filename, 'w')
-            raise NotImplementedError("Not implemented yet")
+            self._open = True
+            if os.path.exists(filename) and not force_overwrite:
+                raise IOError('"%s" already exists' % filename)
         else:
             raise ValueError("invalid mode: %s" % mode)
 
-    # def write(self, coordinates, topology, time=None, unitcell_vectors=None,
-    #          precision=3):
-    #    """Write one or more frames of a molecular dynamics trajectory to disk
-    #    in the GROMACS GRO format.
+        self._open = True
 
-    #    Parameters
-    #    ----------
-    #    coordinates : np.ndarray, dtype=np.float32, shape=(n_structures, n_atoms, 3)
-    #        The cartesian coordinates of each atom, in units of nanometers.
-    #    topology : mdtraj.Topology
-    #        The Topology defining the model to write.
-    #    time : np.ndarray, dtype=float32, shape=(n_structures), optional
-    #        The simulation time corresponding to each frame, in picoseconds.
-    #        If not supplied, the numbers 0..n_structures will be written.
-    #    unitcell_vectors : np.ndarray, dtype=float32, shape=(n_structures, 3, 3), optional
-    #        The periodic box vectors of the simulation in each frame, in nanometers.
-    #    precision : int, optional
-    #        The number of decimal places to print for coordinates. Default is 3
-    #    """
-    #    if not self._open:
-    #        raise ValueError('I/O operation on closed file')
-    #    if not self._mode == 'w':
-    #        raise ValueError('file not opened for writing')
-
-    #    coordinates = ensure_type(coordinates, dtype=np.float32, ndim=3, name='coordinates', can_be_none=False, warn_on_cast=False)
-    #    time = ensure_type(time, dtype=float, ndim=1, name='time', can_be_none=True, shape=(len(coordinates),), warn_on_cast=False)
-    #    unitcell_vectors = ensure_type(unitcell_vectors, dtype=float, ndim=3, name='unitcell_vectors',
-    #        can_be_none=True, shape=(len(coordinates), 3, 3), warn_on_cast=False)
-
-    #    for i in range(coordinates.shape[0]):
-    #        frame_time = None if time is None else time[i]
-    #        frame_box = None if unitcell_vectors is None else unitcell_vectors[i]
-    #        self._write_frame(coordinates[i], topology, frame_time, frame_box, precision)
-
-    def read_as_traj(self, n_structures=None, stride=None, atom_indices=None):
-        """Read a trajectory from a gro file
-
-        Parameters
-        ----------
-        n_structures : int, optional
-            If positive, then read only the next `n_structures` frames. Otherwise read all
-            of the frames in the file.
-        stride : np.ndarray, optional
-            Read only every stride-th frame.
-        atom_indices : array_like, optional
-            If not none, then read only a subset of the atoms coordinates from the
-            file. This may be slightly slower than the standard read because it required
-            an extra copy, but will save memory.
-
-        Returns
-        -------
-        trajectory : Trajectory
-            A trajectory object containing the loaded portion of the file.
+    @property
+    def positions(self):
+        """ Returns the cartesian coordinates of the atoms if mode='r'. If mode='w' returns
+            none.
         """
-        from mdtraj.core.trajectory import Trajectory
-        topology = self.topology
-        if atom_indices is not None:
-            topology = topology.subset(atom_indices)
+        return self._positions
 
-        coordinates, time, unitcell_vectors = self.read(stride=stride, atom_indices=atom_indices)
-        if len(coordinates) == 0:
-            return Trajectory(xyz=np.zeros((0, topology.n_atoms, 3)), topology=topology)
+    @property
+    def topology(self):
+        """ Returns the topology of the mmtf file if mode='r'. If mode='w' returns
+            none.
+        """
+        return self._topology
 
-        coordinates = in_units_of(coordinates, self.distance_unit, Trajectory._distance_unit, inplace=True)
-        unitcell_vectors = in_units_of(unitcell_vectors, self.distance_unit, Trajectory._distance_unit, inplace=True)
+    @property
+    def unit_cell_lengths(self):
+        """ Returns the unit cell lengths of the mmtf file if mode='r'. If mode='w' returns
+            none.
+        """
+        return self._unit_cell_lengths
 
-        traj = Trajectory(xyz=coordinates, topology=topology, time=time)
-        traj.unitcell_vectors = unitcell_vectors
-        return traj
+    @property
+    def unit_cell_angles(self):
+        """ Returns the unit cell angles of the mmtf file if mode='r'. If mode='w' returns
+            none.
+        """
+        return self._unit_cell_angles
 
-    def read(self, n_structures=None, stride=None, atom_indices=None):
-        """Read data from a molecular dynamics trajectory in the GROMACS GRO
-        format.
+    @property
+    def closed(self):
+        """ Whether the file is closed. """
+        return not self._open
 
-        Parameters
-        ----------
-        n_structures : int, optional
-            If n_structures is not None, the next n_structures of data from the file
-            will be read. Otherwise, all of the frames in the file will be read.
-        stride : int, optional
-            If stride is not None, read only every stride-th frame from disk.
-        atom_indices : np.ndarray, dtype=int, optional
-            The specific indices of the atoms you'd like to retrieve. If not
-            supplied, all of the atoms will be retrieved.
-
-        Returns
-        -------
-        coordinates : np.ndarray, shape=(n_structures, n_atoms, 3)
-            The cartesian coordinates of the atoms, in units of nanometers.
-        time : np.ndarray, None
-            The time corresponding to each frame, in units of picoseconds, or
-            None if no time information is present in the trajectory.
-        unit_cell_vectors : np.ndarray, shape=(n_structures, 3, 3)
-            The box vectors in each frame, in units of nanometers
+    def write(self):
+        """ Write a mmtf file to disk
         """
         if not self._open:
             raise ValueError('I/O operation on closed file')
-        if not self._mode == 'r':
-            raise ValueError('file not opened for reading')
-
-        coordinates = []
-        unit_cell_vectors = []
-        time = []
-        contains_time = True
-
-        atom_indices = cast_indices(atom_indices)
-        atom_slice = slice(None) if atom_indices is None else atom_indices
-
-        if n_structures is None:
-            frameiter = itertools.count()
-        else:
-            frameiter = range(n_structures)
-
-        for i in frameiter:
-            try:
-                frame_xyz, frame_box, frame_time = self._read_frame()
-                contains_time = contains_time and (frame_time is not None)
-                coordinates.append(frame_xyz[atom_slice])
-                unit_cell_vectors.append(frame_box)
-                time.append(frame_time)
-            except StopIteration:
-                break
-
-        coordinates, unit_cell_vectors, time = map(np.array,
-                                                   (coordinates,
-                                                    unit_cell_vectors,
-                                                    time))
-
-        if not contains_time:
-            time = None
-        else:
-            time = time[::stride]
-
-        return coordinates[::stride], time, unit_cell_vectors[::stride]
+        if not self._mode == 'w':
+            raise ValueError('file not opened for writing')
 
     @staticmethod
     def _load_name_replacement_tables():
@@ -438,143 +338,9 @@ class MMTFTrajectoryFile(object):
 
         return n_atoms, topology
 
-    def _read_frame(self):
-        """ Reads a gro file and returns the atoms coordinates,
-            the unit cell vectors and time.
-
-            Returns
-            -------
-            xyz: np.ndarray of shape(n_atoms, 3)
-                The coordinates of the atoms.
-
-            unit_cell_vectors: np.ndarray of shape(3, 3)
-                THe unit cell vectors.
-
-            time: float or None
-                The time specified in the file. Null if there isn't a time
-                in the file.
-        """
-        if not self._open:
-            raise ValueError('I/O operation on closed file')
-        if not self._mode == 'r':
-            raise ValueError('file not opened for reading')
-
-        atom_counter = itertools.count()
-        comment = None
-        box_vectors = None
-        xyz = np.zeros((self.n_atoms, 3), dtype=np.float32)
-
-        got_line = False
-        first_decimal_pos = None
-        atom_index = -1
-        for ln, line in enumerate(self._file):
-            got_line = True
-            if ln == 0:
-                comment = line.strip()
-                continue
-            elif ln == 1:
-                assert self.n_atoms == int(line.strip())
-                continue
-            if first_decimal_pos is None:
-                try:
-                    first_decimal_pos = line.index('.', 20)
-                    second_decimal_pos = line.index('.', first_decimal_pos + 1)
-                except ValueError:
-                    first_decimal_pos = None
-                    second_decimal_pos = None
-            crd = _parse_gro_coord(line, first_decimal_pos, second_decimal_pos)
-            if crd is not None and atom_index < self.n_atoms - 1:
-                atom_index = next(atom_counter)
-                xyz[atom_index, :] = (crd[0], crd[1], crd[2])
-            elif _is_gro_box(line) and ln == self.n_atoms + 2:
-                split_line = line.split()
-                box_vectors = tuple([float(i) for i in split_line])
-                # the gro_box line comes at the end of the record
-                break
-            else:
-                raise Exception("Unexpected line in .gro file: " + line)
-
-        if not got_line:
-            raise StopIteration()
-
-        time = None
-        if 't=' in comment:
-            # title string (free format string, optional time in ps after 't=')
-            time = float(findall(r't= *(\d+\.\d+)', comment)[-1])
-
-        # box vectors (free format, space separated reals), values: v1(x) v2(y)
-        # v3(z) v1(y) v1(z) v2(x) v2(z) v3(x) v3(y), the last 6 values may be
-        # omitted (they will be set to zero).
-        box = [box_vectors[i] if i < len(box_vectors) else 0 for i in range(9)]
-        unit_cell_vectors = np.array([
-            [box[0], box[3], box[4]],
-            [box[5], box[1], box[6]],
-            [box[7], box[8], box[2]]])
-
-        return xyz, unit_cell_vectors, time
-
-    def _write_frame(self, coordinates, topology, time, box, precision):
-        comment = 'Generated with MDTraj'
-        if time is not None:
-            comment += ', t= %s' % time
-
-        var_width = precision + 5
-        fmt = '%%5d%%-5s%%5s%%5d%%%d.%df%%%d.%df%%%d.%df' % (
-            var_width, precision, var_width, precision, var_width, precision)
-        assert topology.n_atoms == coordinates.shape[0]
-        lines = [comment, ' %d' % topology.n_atoms]
-        if box is None:
-            box = np.zeros((3, 3))
-
-        for i in range(topology.n_atoms):
-            atom = topology.atom(i)
-            residue = atom.residue
-            serial = atom.serial
-            if serial is None:
-                serial = atom.index
-            if serial >= 100000:
-                serial -= 100000
-            lines.append(fmt % (residue.resSeq, residue.name, atom.name, serial,
-                                coordinates[i, 0], coordinates[i, 1], coordinates[i, 2]))
-
-        lines.append('%10.5f%10.5f%10.5f%10.5f%10.5f%10.5f%10.5f%10.5f%10.5f' % (
-            box[0, 0], box[1, 1], box[2, 2],
-            box[0, 1], box[0, 2], box[1, 0],
-            box[1, 2], box[2, 0], box[2, 1]))
-
-        self._file.write('\n'.join(lines))
-        self._file.write('\n')
-
-    def seek(self, offset, whence=0):
-        """Move to a new file position
-
-        Parameters
-        ----------
-        offset : int
-            A number of frames.
-        whence : {0, 1, 2}
-            0: offset from start of file, offset should be >=0.
-            1: move relative to the current position, positive or negative
-            2: move relative to the end of file, offset should be <= 0.
-            Seeking beyond the end of a file is not supported
-        """
-        raise NotImplementedError()
-
-    def tell(self):
-        """Current file position
-
-        Returns
-        -------
-        offset : int
-            The current frame in the file.
-        """
-        return self._frame_index
-
     def close(self):
         """Close the file"""
-        if self._open:
-            self._file.close()
-            self._open = False
+        self._open = not self._open
 
     def __enter__(self):
         """Support the context manager protocol"""
@@ -583,59 +349,3 @@ class MMTFTrajectoryFile(object):
     def __exit__(self, *exc_info):
         """Support the context manager protocol"""
         self.close()
-
-
-##############################################################################
-# Utilities
-##############################################################################
-
-
-def _isint(word):
-    """ONLY matches integers! If you have a decimal point? None shall pass!
-
-    @param[in] word String (for instance, '123', '153.0', '2.', '-354')
-    @return answer Boolean which specifies whether the string is an integer (only +/- sign followed by digits)
-
-    """
-    return match(r'^[-+]?\d+$', word)
-
-
-def _isfloat(word):
-    """Matches ANY number; it can be a decimal, scientific notation, what have you
-    CAUTION - this will also match an integer.
-
-    @param[in] word String (for instance, '123', '153.0', '2.', '-354')
-    @return answer Boolean which specifies whether the string is any number
-
-    """
-    return match(r'^[-+]?\d*\.?\d*([eEdD][-+]?\d+)?$', word)
-
-
-def _parse_gro_coord(line, first_decimal, second_decimal):
-    """ Determines whether a line contains GROMACS data or not
-
-    @param[in] line The line to be tested
-
-    """
-    if first_decimal is None or second_decimal is None:
-        return None
-    digits = second_decimal - first_decimal
-    try:
-        return tuple(float(line[20 + i * digits:20 + (i + 1) * digits]) for i in range(3))
-    except ValueError:
-        return None
-
-
-def _is_gro_box(line):
-    """ Determines whether a line contains a GROMACS box vector or not
-
-    @param[in] line The line to be tested
-
-    """
-    split_line = line.split()
-    if len(split_line) == 9 and all([_isfloat(i) for i in split_line]):
-        return True
-    elif len(split_line) == 3 and all([_isfloat(i) for i in split_line]):
-        return True
-    else:
-        return False
