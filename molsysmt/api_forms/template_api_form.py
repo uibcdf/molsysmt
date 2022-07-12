@@ -1,5 +1,5 @@
 from molsysmt._private.exceptions import *
-from molsysmt._private.arguments import is_all
+from molsysmt._private.variables import is_all
 from molsysmt.api_forms.common_gets import *
 import numpy as np
 from molsysmt import MolSys as _molsysmt_MolSys

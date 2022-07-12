@@ -1,5 +1,6 @@
 from molsysmt._private.exceptions import *
 from molsysmt._private.digestion import *
+from molsysmt._private.variables import is_all
 
 def to_molsysmt_Topology(item, atom_indices='all', structure_indices='all', bioassembly_index=0,
                          bioassembly_name=None, check=True):
@@ -309,7 +310,7 @@ def to_molsysmt_Topology(item, atom_indices='all', structure_indices='all', bioa
     tmp_item._nan_to_None()
 
     ##
-    if atom_indices is not 'all':
+    if not is_all(atom_indices):
         tmp_item = tmp_item.extract(atom_indices)
 
     return tmp_item

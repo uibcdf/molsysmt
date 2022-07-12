@@ -2,6 +2,7 @@ import openmm.unit as unit
 from molsysmt.native.molsys import MolSys
 from molsysmt.native.trajectory import Trajectory
 import molsysmt as msm
+from molsysmt._private.variables import is_all as _is_all
 import time
 
 class MolSysMTReporter():
@@ -11,7 +12,7 @@ class MolSysMTReporter():
                  potentialEnergy=False, kineticEnergy=False, temperature=False,
                  runningTime=False):
 
-        if selection is not 'all':
+        if not is_all(selection):
             self._atom_indices = msm.selection(topology, selection=selection, syntaxis=syntaxis)
             self.topology = msm.convert(topology, to_form='molsysmt.Topology', selection=self._atom_indices)
         else:

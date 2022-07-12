@@ -1,4 +1,5 @@
 from molsysmt._private.digestion import digest_item, digest_atom_indices, digest_structure_indices
+from molsysmt._private.variables import is_all
 
 def extract(item, atom_indices='all', copy_if_all=True, check=True):
 
@@ -7,7 +8,7 @@ def extract(item, atom_indices='all', copy_if_all=True, check=True):
         digest_item(item, 'mdtraj.Topology')
         atom_indices = digest_atom_indices(atom_indices)
 
-    if atom_indices is 'all':
+    if is_all(atom_indices):
 
         if copy_if_all:
             from copy import deepcopy

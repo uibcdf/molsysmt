@@ -8,6 +8,7 @@ from molsysmt._private.exceptions import NotImplementedMethodError as _NotImplem
 from molsysmt._private.digestion import digest_item as _digest_item
 from molsysmt._private.digestion import digest_indices as _digest_indices
 from molsysmt._private.digestion import digest_structure_indices as _digest_structure_indices
+from molsysmt._private.variables import is_all as _is_all
 from molsysmt import puw as _puw
 import numpy as _np
 from networkx import Graph as _Graph
@@ -176,9 +177,9 @@ def get_coordinates_from_atom(item, indices='all', structure_indices='all', chec
 
     coordinates= _puw.quantity(item.xyz * 0.1, unit='nm')
 
-    if indices is not 'all':
+    if not _is_all(indices):
         coordinates = coordinates[:, atom_indices, :]
-    if structure_indices is not 'all':
+    if not _is_all(structure_indices):
         coordinates = coordinates[structure_indices,:,:]
 
     return coordinates
@@ -531,7 +532,7 @@ def get_box_from_system(item, structure_indices='all', check=True):
     lengths = _puw.quantity(item.unitcells[:,0:3]*0.1, unit='nm')
     angles = _puw.quantity(item.unitcells[:,3:6], unit='degrees')
 
-    if structure_indices is not 'all':
+    if not _is_all(structure_indices):
         lengths = lengths[structure_indices,:]
         angles = angles[structure_indices,:]
 
@@ -548,7 +549,7 @@ def get_time_from_system(item, structure_indices='all', check=True):
 
     output = _puw.quantity(item.time, unit='ps')
 
-    if structure_indices is not 'all':
+    if not _is_all(structure_indices):
         output = output[structure_indices]
 
     return output

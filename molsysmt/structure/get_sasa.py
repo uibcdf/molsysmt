@@ -1,5 +1,6 @@
 from molsysmt._private.exceptions import *
 from molsysmt._private.digestion import *
+from molsysmt._private.variables import is_all
 from molsysmt import puw
 import numpy as np
 
@@ -26,7 +27,7 @@ def get_sasa (molecular_system, element='atom', selection='all', structure_indic
 
         if element=='atom':
 
-            if selection is not 'all':
+            if not is_all(selection):
 
                 atom_indices = select(molecular_system, selection=selection, syntaxis=syntaxis)
                 sasa_array = sasa_array[:,atom_indices]

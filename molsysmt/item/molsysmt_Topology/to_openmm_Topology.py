@@ -1,5 +1,6 @@
 from molsysmt._private.exceptions import *
 from molsysmt._private.digestion import *
+from molsysmt._private.variables import is_all
 
 def to_openmm_Topology(item, box=None, atom_indices='all', check=True):
 
@@ -17,7 +18,7 @@ def to_openmm_Topology(item, box=None, atom_indices='all', check=True):
         raise LibraryNotFound('openmm')
 
 
-    if atom_indices is not 'all':
+    if not is_all(atom_indices):
         from . import extract
         item = extract(item, atom_indices=atom_indices)
 

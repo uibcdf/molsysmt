@@ -1,4 +1,5 @@
 from molsysmt._private.digestion import digest_item, digest_group_indices
+from molsysmt._private.variables import is_all
 
 def to_string_aminoacids3(item, group_indices='all', check=True):
 
@@ -7,7 +8,7 @@ def to_string_aminoacids3(item, group_indices='all', check=True):
         digest_item(item, 'mdtraj.Topology')
         group_indices = digest_group_indices(group_indices)
 
-    if group_indices is 'all':
+    if is_all(group_indices):
 
         tmp_item = ''.join([ r.name.title() for r in item.residues ])
 

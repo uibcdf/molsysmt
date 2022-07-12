@@ -1,7 +1,7 @@
 from molsysmt._private.exceptions import *
 from molsysmt._private.digestion import *
 import numpy as np
-from molsysmt._private.arguments import is_all
+from molsysmt._private.variables import is_all
 from molsysmt._private.strings import get_parenthesis
 from re import findall
 from inspect import stack, getargvalues

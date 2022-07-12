@@ -1,5 +1,6 @@
 from molsysmt._private.exceptions import *
 from molsysmt._private.digestion import *
+from molsysmt._private.variables import is_all
 
 def extract(item, atom_indices='all', structure_indices='all', copy_if_all=True, check=True):
 
@@ -9,9 +10,9 @@ def extract(item, atom_indices='all', structure_indices='all', copy_if_all=True,
         atom_indices = digest_atom_indices(atom_indices)
         structure_indices = digest_structure_indices(structure_indices)
 
-    if (atom_indices is 'all'):
+    if is_all(atom_indices):
         tmp_item = item.copy()
-    elif atom_indices is not 'all':
+    else:
         tmp_item = item.extract()
 
     return tmp_item

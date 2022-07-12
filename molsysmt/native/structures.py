@@ -1,7 +1,7 @@
 import numpy as np
 from molsysmt import puw
 from molsysmt._private.exceptions import *
-from molsysmt._private.arguments import is_all
+from molsysmt._private.variables import is_all
 
 # Tiene que haber una manera automatica con f2py dar siempre de salida Ccontiguous_np.arrays
 
@@ -148,12 +148,12 @@ class Structures():
                 else:
                     tmp_item.box = deepcopy(self.box)
 
-            if is_all(atom_indices):
+            if not is_all(atom_indices):
                 tmp_item.coordinates = self.coordinates[:,atom_indices,:]
             else:
                 tmp_item.coordinates = deepcopy(self.coordinates)
 
-            if is_all(structure_indices):
+            if not is_all(structure_indices):
                 tmp_item.coordinates = tmp_item.coordinates[structure_indices,:,:]
 
             tmp_item.n_structures = tmp_item.coordinates.shape[0]

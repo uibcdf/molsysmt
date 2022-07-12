@@ -8,6 +8,7 @@ from molsysmt._private.exceptions import NotImplementedMethodError as _NotImplem
 from molsysmt._private.digestion import digest_item as _digest_item
 from molsysmt._private.digestion import digest_indices as _digest_indices
 from molsysmt._private.digestion import digest_structure_indices as _digest_structure_indices
+from molsysmt._private.variables import is_all as _is_all
 from molsysmt import puw as _puw
 import numpy as _np
 from networkx import Graph as _Graph
@@ -23,7 +24,7 @@ def get_atom_id_from_atom(item, indices='all', check=True):
         _digest_item(item, _form)
         indices = _digest_indices(indices)
 
-    if indices is 'all':
+    if _is_all(indices):
         output = [None for atom in item.atoms]
     else:
         output = [None for ii in indices]
@@ -38,7 +39,7 @@ def get_atom_name_from_atom(item, indices='all', check=True):
         _digest_item(item, _form)
         indices = _digest_indices(indices)
 
-    if indices is 'all':
+    if _is_all(indices):
         output = [atom.name for atom in item.atoms]
     else:
         output = [item.atom(ii).name for ii in indices]
@@ -53,7 +54,7 @@ def get_atom_type_from_atom(item, indices='all', check=True):
         _digest_item(item, _form)
         indices = _digest_indices(indices)
 
-    if indices is 'all':
+    if _is_all(indices):
         output = [atom.type for atom in item.atoms]
     else:
         output = [item.atom(ii).type for ii in indices]
@@ -68,7 +69,7 @@ def get_group_index_from_atom(item, indices='all', check=True):
         _digest_item(item, _form)
         indices = _digest_indices(indices)
 
-    if indices is 'all':
+    if _is_all(indices):
         output = [atom.resid for atom in item.atoms]
     else:
         output = [item.atom(ii).resid for ii in indices]
@@ -93,7 +94,7 @@ def get_chain_index_from_atom(item, indices='all', check=True):
         _digest_item(item, _form)
         indices = _digest_indices(indices)
 
-    if indices is 'all':
+    if _is_all(indices):
         output = [atom.chain for atom in item.atoms]
     else:
         output = [item.atom(ii).chain for ii in indices]
@@ -108,7 +109,7 @@ def get_molecule_index_from_atom(item, indices='all', check=True):
         _digest_item(item, _form)
         indices = _digest_indices(indices)
 
-    if indices is 'all':
+    if _is_all(indices):
         output = [atom.molnum for atom in item.atoms]
     else:
         output = [item.atom(ii).molnum for ii in indices]

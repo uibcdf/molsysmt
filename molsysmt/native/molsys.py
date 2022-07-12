@@ -1,3 +1,5 @@
+from molsysmt._private.variables import is_all
+
 class MolSys:
 
     def __init__(self):

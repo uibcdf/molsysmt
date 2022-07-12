@@ -1,5 +1,6 @@
 from molsysmt._private.exceptions import *
 from molsysmt._private.digestion import *
+from molsysmt._private.variables import is_all
 import numpy as np
 
 def get_entity_index_from_atom(molecular_system, indices='all', check=True):
@@ -13,7 +14,7 @@ def get_entity_index_from_atom(molecular_system, indices='all', check=True):
 
     output, _,  _ = get_entity_all_from_atom(molecular_system)
 
-    if indices is not 'all':
+    if not is_all(indices):
         output = output[indices]
 
     return output

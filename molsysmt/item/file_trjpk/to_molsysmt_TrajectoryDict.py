@@ -1,4 +1,5 @@
 from molsysmt._private.digestion import digest_item, digest_atom_indices, digest_structure_indices
+from molsysmt._private.variables import is_all
 from molsysmt import puw
 
 def to_molsysmt_TrajectoryDict(item, atom_indices='all', structure_indices='all', check=True):
@@ -23,24 +24,24 @@ def to_molsysmt_TrajectoryDict(item, atom_indices='all', structure_indices='all'
     fff.close()
 
     if coordinates is not None:
-        if structure_indices is not 'all':
+        if not is_all(structure_indices):
             coordinates = coordinates[structure_indices, :, :]
-        if atom_indices is not 'all':
+        if not is_all(atom_indices):
             coordinates = coordinates[:, atom_indices, :]
         coordinates = puw.quantity(coordinates, unit='nm')
 
     if box is not None:
-        if structure_indices is not 'all':
+        if not is_all(structure_indices):
             box = box[structure_indices, :, :]
         box = puw.quantity(box, unit='nm')
 
     if time is not None:
-        if structure_indices is not 'all':
+        if not is_all(structure_indices):
             time = time[structure_indices]
         time = puw.quantity(time, unit='ps')
 
     if step is not None:
-        if structure_indices is not 'all':
+        if not is_all(structure_indices):
             step = step[structure_indices, :, :]
 
     tmp_item['coordinates'] = coordinates

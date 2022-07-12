@@ -1,4 +1,5 @@
 import numpy as np
+from ._private.variables import is_all
 
 _plural = {
     'atom':'atoms',
@@ -63,7 +64,7 @@ def _aux_getter_index(item, from_target, indices):
 
     from molsysmt.basic import get
 
-    if indices is 'all':
+    if is_all(indices):
         dict_n_targets = {'n_'+_plural[from_target]:True}
         n_aux = get(item, target='system', **dict_n_targets)
         return np.arange(n_aux, dtype=int)
@@ -133,7 +134,7 @@ def _aux_n(item, from_target, indices):
     targets = _plural[from_target]
     dict_n_targets = {'n_'+targets:True}
 
-    if indices is 'all':
+    if is_all(indices):
         return get(item, target='system', **dict_n_targets)
     else:
         return indices.shape[0]
@@ -146,7 +147,7 @@ def _aux_n_big_from_small(item, attribute, from_target, indices):
     dict_attribute = {attribute:True}
     dict_index_auxtarget = {_singular[auxtargets]+'_index':True}
 
-    if indices is 'all':
+    if is_all(indices):
         return get(item, target='system', **dict_attribute)
     else:
         output = get(item, indices=indices, target=from_target, **dict_index_auxtarget)
@@ -293,7 +294,7 @@ def get_bonded_atoms_from_atom (item, indices='all', structure_indices='all', ch
     edges = get(item, target='bond', atom_index=True)
     G.add_edges_from(edges)
 
-    if indices is 'all':
+    if is_all(indices):
 
         indices = get(item, target='atom', atom_index=True)
 
@@ -324,7 +325,7 @@ def get_bond_index_from_atom (item, indices='all', structure_indices='all', chec
     edge_indices = np.array([{'index':ii} for ii in range(n_bonds)]).reshape([n_bonds,1])
     G.add_edges_from(np.hstack([edges, edge_indices]))
 
-    if indices is 'all':
+    if is_all(indices):
 
         indices = get_atom_index_from_atom(item)
 
@@ -353,7 +354,7 @@ def get_n_bonds_from_atom (item, indices='all', structure_indices='all', check=T
     edges = get(item, target='bond', atom_index=True)
     G.add_edges_from(edges)
 
-    if indices is 'all':
+    if is_all(indices):
 
         indices = get_atom_index_from_atom(item)
 
@@ -378,7 +379,7 @@ def get_inner_bond_index_from_atom (item, indices='all', structure_indices='all'
 
     output = None
 
-    if indices is 'all':
+    if is_all(indices):
         output = get(item, target='bond', index=True)
     else:
         edges = get(item, target='bond', atom_index=True)
@@ -393,7 +394,7 @@ def get_inner_bond_index_from_atom (item, indices='all', structure_indices='all'
 
 #def get_n_inner_bonds_from_atom (item, indices='all', structure_indices='all', check=True):
 #
-#    if indices is 'all':
+#    if is_all(indices):
 #        return get_n_inner_bonds_from_system (item)
 #    else:
 #        raise NotImplementedError

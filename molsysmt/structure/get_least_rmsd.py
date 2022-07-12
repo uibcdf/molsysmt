@@ -1,6 +1,6 @@
 from molsysmt._private.exceptions import *
 from molsysmt._private.digestion import *
-from molsysmt._private.arguments import is_all
+from molsysmt._private.variables import is_all
 from molsysmt.basic import select, get
 import numpy as np
 from molsysmt.lib import rmsd as librmsd

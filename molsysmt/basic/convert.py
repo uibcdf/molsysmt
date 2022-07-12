@@ -1,7 +1,7 @@
 from molsysmt._private.exceptions import NotImplementedConversionError
 from molsysmt._private.digestion import digest, digest_output
 from molsysmt._private.lists_and_tuples import is_list_or_tuple
-from molsysmt._private.arguments import is_all
+from molsysmt._private.variables import is_all
 
 
 @digest

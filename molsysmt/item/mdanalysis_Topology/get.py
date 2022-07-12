@@ -8,6 +8,7 @@ from molsysmt._private.exceptions import NotImplementedMethodError as _NotImplem
 from molsysmt._private.digestion import digest_item as _digest_item
 from molsysmt._private.digestion import digest_indices as _digest_indices
 from molsysmt._private.digestion import digest_structure_indices as _digest_structure_indices
+from molsysmt._private.variables import is_all as _is_all
 from molsysmt import puw as _puw
 import numpy as _np
 from networkx import Graph as _Graph
@@ -24,7 +25,7 @@ def get_atom_id_from_atom(item, indices='all', check=True):
         indices = _digest_indices(indices)
 
     output = item.ids.values
-    if indices is not 'all':
+    if not _is_all(indices):
         output = output[indices]
     return output
 
@@ -36,7 +37,7 @@ def get_atom_name_from_atom(item, indices='all', check=True):
         indices = _digest_indices(indices)
 
     output = item.names.values
-    if indices is not 'all':
+    if not _is_all(indices):
         output = output[indices]
     return output
 
@@ -48,7 +49,7 @@ def get_atom_type_from_atom(item, indices='all', check=True):
         indices = _digest_indices(indices)
 
     output = item.types.values
-    if indices is not 'all':
+    if not _is_all(indices):
         output = output[indices]
     return output
 
@@ -59,7 +60,7 @@ def get_group_index_from_atom(item, indices='all', check=True):
         _digest_item(item, _form)
         indices = _digest_indices(indices)
 
-    if indices is 'all':
+    if _is_all(indices):
         n_atoms = get_n_atoms_from_system(item)
         indices = np.arange(n_atoms)
 
@@ -74,7 +75,7 @@ def get_component_index_from_atom(item, indices='all', check=True):
         _digest_item(item, _form)
         indices = _digest_indices(indices)
 
-    if indices is 'all':
+    if _is_all(indices):
         n_atoms = get_n_atoms_from_system(item)
         indices = np.arange(n_atoms)
 
@@ -89,7 +90,7 @@ def get_chain_index_from_atom(item, indices='all', check=True):
         _digest_item(item, _form)
         indices = _digest_indices(indices)
 
-    if indices is 'all':
+    if _is_all(indices):
         n_atoms = get_n_atoms_from_system(item)
         indices = np.arange(n_atoms)
 

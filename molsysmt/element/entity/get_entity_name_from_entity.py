@@ -1,6 +1,6 @@
 from molsysmt._private.exceptions import *
 from molsysmt._private.digestion import *
-from molsysmt._private.arguments import is_all
+from molsysmt._private.variables import is_all
 import numpy as np
 
 def get_entity_name_from_entity(molecular_system, indices='all', check=True):

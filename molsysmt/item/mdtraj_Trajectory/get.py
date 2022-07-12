@@ -8,6 +8,7 @@ from molsysmt._private.exceptions import NotImplementedMethodError as _NotImplem
 from molsysmt._private.digestion import digest_item as _digest_item
 from molsysmt._private.digestion import digest_indices as _digest_indices
 from molsysmt._private.digestion import digest_structure_indices as _digest_structure_indices
+from molsysmt._private.variables import is_all as _is_all
 from molsysmt import puw as _puw
 import numpy as _np
 from networkx import Graph as _Graph
@@ -176,9 +177,9 @@ def get_coordinates_from_atom(item, indices='all', structure_indices='all', chec
 
     coordinates=item.xyz
 
-    if structure_indices is not 'all':
+    if not _is_all(structure_indices):
         coordinates=coordinates[structure_indices,:,:]
-    if indices is not 'all':
+    if not _is_all(indices):
         coordinates=coordinates[:,indices,:]
 
     coordinates = coordinates*_puw.unit('nanometer')

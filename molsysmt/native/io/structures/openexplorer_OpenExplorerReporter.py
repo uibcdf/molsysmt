@@ -1,3 +1,4 @@
+from molsysmt._private.variables import is_all
 
 def from_openexplorer_OpenExplorerReporter(item, molecular_system=None, atom_indices='all', structure_indices='all'):
 
@@ -12,15 +13,15 @@ def from_openexplorer_OpenExplorerReporter(item, molecular_system=None, atom_ind
 
     units = item.coordinates.unit
     tmp_item.coordinates = array(item.coordinates._value, dtype=float)
-    if atom_indices is not 'all':
+    if not is_all(atom_indices):
         tmp_item.coordinates = tmp_item.coordinates[:,atom_indices,:]
-    if structure_indices is not 'all':
+    if not is_all(structure_indices):
         tmp_item.coordinates = tmp_item.coordinates[structure_indices,:,:]
     tmp_item.coordinates = tmp_item.coordinates*units
 
     if item.box is not None:
         tmp_item.box = array(item.box._value, dtype=float)
-        if structure_indices is not 'all':
+        if not is_all(structure_indices):
             tmp_item.box = tmp_item.box[structure_indices,:,:]
         tmp_item.box = tmp_item.box*units
         tmp_item.box_shape = box_shape_from_box_vectors(tmp_item.box)
