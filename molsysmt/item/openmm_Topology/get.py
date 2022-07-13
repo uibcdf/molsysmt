@@ -8,6 +8,7 @@ from molsysmt._private.exceptions import NotImplementedMethodError as _NotImplem
 from molsysmt._private.digestion import digest_item as _digest_item
 from molsysmt._private.digestion import digest_indices as _digest_indices
 from molsysmt._private.digestion import digest_structure_indices as _digest_structure_indices
+from molsysmt._private.variables import is_all as _is_all
 from molsysmt import puw as _puw
 import numpy as _np
 from networkx import Graph as _Graph
@@ -99,7 +100,7 @@ def get_component_index_from_atom(item, indices='all', check=True):
         output = _libbonds.component_indices(atom_indices, n_atoms, n_bonds)
         output = _np.ascontiguousarray(output, dtype=int)
 
-    if indices is not 'all':
+    if not _is_all(indices):
         output = output[indices]
 
     return output
@@ -150,7 +151,7 @@ def get_inner_bonded_atoms_from_atom(item, indices='all', check=True):
 
     output=[]
 
-    if indices is 'all':
+    if is_all(indices):
 
         for bond in item.bonds():
             output.append([bond.atom1.index, bond.atom2.index])
@@ -175,7 +176,7 @@ def get_n_inner_bonds_from_atom(item, indices='all', check=True):
         _digest_item(item, _form)
         indices = _digest_indices(indices)
 
-    if indices is 'all':
+    if is_all(indices):
         return get_n_bonds_from_system (item)
     else:
         inner_bonded_atoms = get_inner_bonded_atoms_from_atom(item, indices=indices)
@@ -195,7 +196,7 @@ def get_group_id_from_group(item, indices='all', check=True):
         _digest_item(item, _form)
         indices = _digest_indices(indices)
 
-    if indices is 'all':
+    if is_all(indices):
         n_indices = get_n_groups_from_system(item, check=False)
         indices = range(n_indices)
 
@@ -213,7 +214,7 @@ def get_group_name_from_group(item, indices='all', check=True):
         _digest_item(item, _form)
         indices = _digest_indices(indices)
 
-    if indices is 'all':
+    if is_all(indices):
         n_indices = get_n_groups_from_system(item, check=False)
         indices = range(n_indices)
 
@@ -233,7 +234,7 @@ def get_group_type_from_group(item, indices='all', check=True):
 
     from molsysmt.element.group import get_group_type_from_group_name
 
-    if indices is 'all':
+    if is_all(indices):
         n_indices = get_n_groups_from_system(item, check=False)
         indices = range(n_indices)
 
@@ -293,7 +294,7 @@ def get_molecule_id_from_molecule(item, indices='all', check=True):
         _digest_item(item, _form)
         indices = _digest_indices(indices)
 
-    if indices is 'all':
+    if is_all(indices):
         n_molecules = get_n_molecules_from_system(item)
         output = _np.full(n_molecules, None, dtype=object)
     else:
@@ -308,7 +309,7 @@ def get_molecule_name_from_molecule(item, indices='all', check=True):
         _digest_item(item, _form)
         indices = _digest_indices(indices)
 
-    if indices is 'all':
+    if is_all(indices):
         n_molecules = get_n_molecules_from_system(item)
         output = _np.full(n_molecules, None, dtype=object)
     else:
@@ -346,7 +347,7 @@ def get_chain_id_from_chain(item, indices='all', check=True):
         _digest_item(item, _form)
         indices = _digest_indices(indices)
 
-    if indices is 'all':
+    if is_all(indices):
         n_indices = get_n_chains_from_system(item, check=False)
         indices = range(n_indices)
 
@@ -364,7 +365,7 @@ def get_chain_name_from_chain(item, indices='all', check=True):
         _digest_item(item, _form)
         indices = _digest_indices(indices)
 
-    if indices is 'all':
+    if is_all(indices):
         n_indices = get_n_chains_from_system(item, check=False)
         indices = range(n_indices)
 
@@ -379,7 +380,7 @@ def get_chain_type_from_chain(item, indices='all', check=True):
         _digest_item(item, _form)
         indices = _digest_indices(indices)
 
-    if indices is 'all':
+    if is_all(indices):
         n_indices = get_n_chains_from_system(item, check=False)
         indices = range(n_indices)
 
@@ -591,7 +592,7 @@ def get_atom_index_from_bond(item, indices='all', check=True):
         _digest_item(item, _form)
         indices = _digest_indices(indices)
 
-    if indices is 'all':
+    if is_all(indices):
         n_bonds = get_n_bonds_from_system(item, check=False)
         indices = _np.arange(n_bonds)
 

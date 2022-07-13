@@ -3,6 +3,7 @@ from molsysmt._private.exceptions import NotImplementedMethodError as _NotImplem
 from molsysmt._private.digestion import digest_item as _digest_item
 from molsysmt._private.digestion import digest_indices as _digest_indices
 from molsysmt._private.digestion import digest_structure_indices as _digest_structure_indices
+from molsysmt._private.variables import is_all as _is_all
 from molsysmt import puw as _puw
 import numpy as _np
 from networkx import Graph as _Graph
@@ -18,7 +19,7 @@ def get_atom_index_from_atom (item, indices='all', check=True):
         _digest_item(item, _form)
         indices = _digest_indices(indices)
 
-    if indices is 'all':
+    if _is_all(indices):
         output = item.atoms_dataframe['atom_index'].to_numpy()
     else:
         output = indices
@@ -284,7 +285,7 @@ def get_n_atoms_from_atom (item, indices='all', check=True):
         _digest_item(item, _form)
         indices = _digest_indices(indices)
 
-    if indices == 'all':
+    if _is_all(indices):
         return get_n_atoms_from_system(item, check=False)
     else:
         return indices.shape[0]
@@ -296,7 +297,7 @@ def get_n_groups_from_atom (item, indices='all', check=True):
         _digest_item(item, _form)
         indices = _digest_indices(indices)
 
-    if indices == 'all':
+    if _is_all(indices):
         return get_n_groups_from_system (item, check=False)
     else:
         output = get_group_index_from_atom (item, indices=indices, check=False)
@@ -310,7 +311,7 @@ def get_n_components_from_atom (item, indices='all', check=True):
         _digest_item(item, _form)
         indices = _digest_indices(indices)
 
-    if indices == 'all':
+    if _is_all(indices):
         return get_n_components_from_system (item, check=False)
     else:
         output = get_component_index_from_atom (item, indices=indices, check=False)
@@ -324,7 +325,7 @@ def get_n_molecules_from_atom (item, indices='all', check=True):
         _digest_item(item, _form)
         indices = _digest_indices(indices)
 
-    if indices == 'all':
+    if _is_all(indices):
         return get_n_molecules_from_system (item, check=False)
     else:
         output = get_molecule_index_from_atom (item, indices=indices, check=False)
@@ -338,7 +339,7 @@ def get_n_chains_from_atom (item, indices='all', check=True):
         _digest_item(item, _form)
         indices = _digest_indices(indices)
 
-    if indices == 'all':
+    if _is_all(indices):
         return get_n_chains_from_system (item, check=False)
     else:
         output = get_chain_index_from_atom (item, indices=indices, check=False)
@@ -352,7 +353,7 @@ def get_n_entities_from_atom (item, indices='all', check=True):
         _digest_item(item, _form)
         indices = _digest_indices(indices)
 
-    if indices == 'all':
+    if _is_all(indices):
         return get_n_entities_from_system (item, check=False)
     else:
         output = get_entity_index_from_atom (item, indices=indices, check=False)
@@ -372,7 +373,7 @@ def get_bonded_atoms_from_atom (item, indices='all', check=True):
     edges = get_atom_index_from_bond(item, check=False)
     G.add_edges_from(edges)
 
-    if indices is 'all':
+    if _is_all(indices):
 
         indices = get_atom_index_from_atom(item, check=False)
 
@@ -405,7 +406,7 @@ def get_bond_index_from_atom (item, indices='all', check=True):
     edge_indices = _np.array([{'index':ii} for ii in range(n_bonds)]).reshape([n_bonds,1])
     G.add_edges_from(_np.hstack([edges, edge_indices]))
 
-    if indices is 'all':
+    if _is_all(indices):
 
         indices = get_atom_index_from_atom(item, check=False)
 
@@ -436,7 +437,7 @@ def get_n_bonds_from_atom (item, indices='all', check=True):
     edges = get_atom_index_from_bond(item, check=False)
     G.add_edges_from(edges)
 
-    if indices is 'all':
+    if _is_all(indices):
 
         indices = get_atom_index_from_atom(item, check=False)
 
@@ -463,7 +464,7 @@ def get_inner_bond_index_from_atom (item, indices='all', check=True):
 
     output = None
 
-    if indices is 'all':
+    if _is_all(indices):
         output = get_bond_index_from_bond(item, check=False)
     else:
         aux_list = list(indices)
@@ -478,7 +479,7 @@ def get_inner_bonded_atoms_from_atom (item, indices='all', check=True):
         _digest_item(item, _form)
         indices = _digest_indices(indices)
 
-    if indices is 'all':
+    if _is_all(indices):
 
         output = get_atom_index_from_bond(item, indices='all', check=False)
 
@@ -512,7 +513,7 @@ def get_atom_index_from_group (item, indices='all', check=True):
         indices = _digest_indices(indices)
 
     output = []
-    if indices is 'all':
+    if _is_all(indices):
         n_indices = get_n_groups_from_system(item, check=False)
         indices = range(n_indices)
     for ii in indices:
@@ -570,7 +571,7 @@ def get_group_index_from_group (item, indices='all', check=True):
         _digest_item(item, _form)
         indices = _digest_indices(indices)
 
-    if indices is 'all':
+    if _is_all(indices):
         output = item.atoms_dataframe['group_index'].unique()
     else:
         output = indices
@@ -841,7 +842,7 @@ def get_n_groups_from_group (item, indices='all', check=True):
         _digest_item(item, _form)
         indices = _digest_indices(indices)
 
-    if indices is 'all':
+    if _is_all(indices):
         return get_n_groups_from_system (item, check=False)
     else:
         output = get_group_index_from_group (item, indices=indices, check=False)
@@ -854,7 +855,7 @@ def get_n_components_from_group (item, indices='all', check=True):
         _digest_item(item, _form)
         indices = _digest_indices(indices)
 
-    if indices is 'all':
+    if _is_all(indices):
         return get_n_components_from_system (item, check=False)
     else:
         output = get_component_index_from_group (item, indices=indices, check=False)
@@ -868,7 +869,7 @@ def get_n_molecules_from_group (item, indices='all', check=True):
         _digest_item(item, _form)
         indices = _digest_indices(indices)
 
-    if indices is 'all':
+    if _is_all(indices):
         return get_n_molecules_from_system (item, check=False)
     else:
         output = get_molecule_index_from_group (item, indices=indices, check=False)
@@ -882,7 +883,7 @@ def get_n_chains_from_group (item, indices='all', check=True):
         _digest_item(item, _form)
         indices = _digest_indices(indices)
 
-    if indices is 'all':
+    if _is_all(indices):
         return get_n_chains_from_system (item, check=False)
     else:
         output = get_chain_index_from_group (item, indices=indices, check=False)
@@ -896,7 +897,7 @@ def get_n_entities_from_group (item, indices='all', check=True):
         _digest_item(item, _form)
         indices = _digest_indices(indices)
 
-    if indices is 'all':
+    if _is_all(indices):
         return get_n_chains_from_system (item, check=False)
     else:
         output = get_entity_index_from_group (item, indices=indices, check=False)
@@ -914,7 +915,7 @@ def get_atom_index_from_component (item, indices='all', check=True):
         indices = _digest_indices(indices)
 
     output = []
-    if indices is 'all':
+    if _is_all(indices):
         n_indices = get_n_components_from_system(item, check=False)
         indices = range(n_indices)
     for ii in indices:
@@ -973,7 +974,7 @@ def get_group_index_from_component (item, indices='all', check=True):
         indices = _digest_indices(indices)
 
     output = []
-    if indices is 'all':
+    if _is_all(indices):
         n_indices = get_n_components_from_system(item, check=False)
         indices = range(n_indices)
     for ii in indices:
@@ -1031,7 +1032,7 @@ def get_component_index_from_component (item, indices='all', check=True):
         _digest_item(item, _form)
         indices = _digest_indices(indices)
 
-    if indices is 'all':
+    if _is_all(indices):
         output = item.atoms_dataframe['component_index'].unique()
     else:
         output = indices
@@ -1261,7 +1262,7 @@ def get_n_components_from_component (item, indices='all', check=True):
         _digest_item(item, _form)
         indices = _digest_indices(indices)
 
-    if indices is 'all':
+    if _is_all(indices):
         return get_n_components_from_system (item, check=False)
     else:
         output = get_component_index_from_component (item, indices=indices, check=False)
@@ -1274,7 +1275,7 @@ def get_n_molecules_from_component (item, indices='all', check=True):
         _digest_item(item, _form)
         indices = _digest_indices(indices)
 
-    if indices is 'all':
+    if _is_all(indices):
         return get_n_molecules_from_system (item, check=False)
     else:
         output = get_molecule_index_from_component (item, indices=indices, check=False)
@@ -1288,7 +1289,7 @@ def get_n_chains_from_component (item, indices='all', check=True):
         _digest_item(item, _form)
         indices = _digest_indices(indices)
 
-    if indices is 'all':
+    if _is_all(indices):
         return get_n_chains_from_system (item, check=False)
     else:
         output = get_chain_index_from_component (item, indices=indices, check=False)
@@ -1302,7 +1303,7 @@ def get_n_entities_from_component (item, indices='all', check=True):
         _digest_item(item, _form)
         indices = _digest_indices(indices)
 
-    if indices is 'all':
+    if _is_all(indices):
         return get_n_entities_from_system (item, check=False)
     else:
         output = get_entity_index_from_component (item, indices=indices, check=False)
@@ -1319,7 +1320,7 @@ def get_atom_index_from_molecule (item, indices='all', check=True):
         indices = _digest_indices(indices)
 
     output = []
-    if indices is 'all':
+    if _is_all(indices):
         n_indices = get_n_molecules_from_system(item, check=False)
         indices = range(n_indices)
     for ii in indices:
@@ -1378,7 +1379,7 @@ def get_group_index_from_molecule (item, indices='all', check=True):
         indices = _digest_indices(indices)
 
     output = []
-    if indices is 'all':
+    if _is_all(indices):
         n_indices = get_n_molecules_from_system(item, check=False)
         indices = range(n_indices)
     for ii in indices:
@@ -1437,7 +1438,7 @@ def get_component_index_from_molecule (item, indices='all', check=True):
         indices = _digest_indices(indices)
 
     output = []
-    if indices is 'all':
+    if _is_all(indices):
         n_indices = get_n_molecules_from_system(item, check=False)
         indices = range(n_indices)
     for ii in indices:
@@ -1496,7 +1497,7 @@ def get_chain_index_from_molecule (item, indices='all', check=True):
         indices = _digest_indices(indices)
 
     output = []
-    if indices is 'all':
+    if _is_all(indices):
         n_indices = get_n_molecules_from_system(item, check=False)
         indices = range(n_indices)
     for ii in indices:
@@ -1554,7 +1555,7 @@ def get_molecule_index_from_molecule (item, indices='all', check=True):
         _digest_item(item, _form)
         indices = _digest_indices(indices)
 
-    if indices is 'all':
+    if _is_all(indices):
         output = item.atoms_dataframe['molecule_index'].unique()
     else:
         output = indices
@@ -1691,7 +1692,7 @@ def get_n_molecules_from_molecule (item, indices='all', check=True):
         _digest_item(item, _form)
         indices = _digest_indices(indices)
 
-    if indices is 'all':
+    if _is_all(indices):
         return get_n_molecules_from_system (item, check=False)
     else:
         output = get_molecule_index_from_molecule (item, indices=indices, check=False)
@@ -1715,7 +1716,7 @@ def get_n_entities_from_molecule (item, indices='all', check=True):
         _digest_item(item, _form)
         indices = _digest_indices(indices)
 
-    if indices is 'all':
+    if _is_all(indices):
         return get_n_entities_from_system (item, check=False)
     else:
         output = get_entity_index_from_molecule (item, indices=indices, check=False)
@@ -1732,7 +1733,7 @@ def get_atom_index_from_chain (item, indices='all', check=True):
         indices = _digest_indices(indices)
 
     output = []
-    if indices is 'all':
+    if _is_all(indices):
         n_indices = get_n_chains_from_system(item, check=False)
         indices = range(n_indices)
     for ii in indices:
@@ -1791,7 +1792,7 @@ def get_group_index_from_chain (item, indices='all', check=True):
         indices = _digest_indices(indices)
 
     output = []
-    if indices is 'all':
+    if _is_all(indices):
         n_indices = get_n_chains_from_system(item, check=False)
         indices = range(n_indices)
     for ii in indices:
@@ -1850,7 +1851,7 @@ def get_component_index_from_chain (item, indices='all', check=True):
         indices = _digest_indices(indices)
 
     output = []
-    if indices is 'all':
+    if _is_all(indices):
         n_indices = get_n_chains_from_system(item, check=False)
         indices = range(n_indices)
     for ii in indices:
@@ -1908,7 +1909,7 @@ def get_chain_index_from_chain (item, indices='all', check=True):
         _digest_item(item, _form)
         indices = _digest_indices(indices)
 
-    if indices is 'all':
+    if _is_all(indices):
         output = item.atoms_dataframe['chain_index'].unique()
     else:
         output = indices
@@ -1961,7 +1962,7 @@ def get_molecule_index_from_chain (item, indices='all', check=True):
         indices = _digest_indices(indices)
 
     output = []
-    if indices is 'all':
+    if _is_all(indices):
         n_indices = get_n_chains_from_system(item, check=False)
         indices = range(n_indices)
     for ii in indices:
@@ -2020,7 +2021,7 @@ def get_entity_index_from_chain (item, indices='all', check=True):
         indices = _digest_indices(indices)
 
     output = []
-    if indices is 'all':
+    if _is_all(indices):
         n_indices = get_n_chains_from_system(item, check=False)
         indices = range(n_indices)
     for ii in indices:
@@ -2122,7 +2123,7 @@ def get_n_chains_from_chain (item, indices='all', check=True):
         _digest_item(item, _form)
         indices = _digest_indices(indices)
 
-    if indices is 'all':
+    if _is_all(indices):
         return get_n_chains_from_system (item)
     else:
         output = get_chain_index_from_chain (item, indices=indices, check=False)
@@ -2136,7 +2137,7 @@ def get_n_entities_from_chain (item, indices='all', check=True):
         _digest_item(item, _form)
         indices = _digest_indices(indices)
 
-    if indices is 'all':
+    if _is_all(indices):
         return get_n_entities_from_system (item, check=False)
     else:
         output = get_entity_index_from_chain (item, indices=indices, check=False)
@@ -2153,7 +2154,7 @@ def get_atom_index_from_entity (item, indices='all', check=True):
         indices = _digest_indices(indices)
 
     output = []
-    if indices is 'all':
+    if _is_all(indices):
         n_indices = get_n_entities_from_system(item, check=False)
         indices = range(n_indices)
     for ii in indices:
@@ -2212,7 +2213,7 @@ def get_group_index_from_entity (item, indices='all', check=True):
         indices = _digest_indices(indices)
 
     output = []
-    if indices is 'all':
+    if _is_all(indices):
         n_indices = get_n_entities_from_system(item, check=False)
         indices = range(n_indices)
     for ii in indices:
@@ -2271,7 +2272,7 @@ def get_component_index_from_entity (item, indices='all', check=True):
         indices = _digest_indices(indices)
 
     output = []
-    if indices is 'all':
+    if _is_all(indices):
         n_indices = get_n_entities_from_system(item, check=False)
         indices = range(n_indices)
     for ii in indices:
@@ -2330,7 +2331,7 @@ def get_chain_index_from_entity (item, indices='all', check=True):
         indices = _digest_indices(indices)
 
     output = []
-    if indices is 'all':
+    if _is_all(indices):
         n_indices = get_n_entities_from_system(item, check=False)
         indices = range(n_indices)
     for ii in indices:
@@ -2389,7 +2390,7 @@ def get_molecule_index_from_entity (item, indices='all', check=True):
         indices = _digest_indices(indices)
 
     output = []
-    if indices is 'all':
+    if _is_all(indices):
         n_indices = get_n_entities_from_system(item, check=False)
         indices = range(n_indices)
     for ii in indices:
@@ -2447,7 +2448,7 @@ def get_entity_index_from_entity (item, indices='all', check=True):
         _digest_item(item, _form)
         indices = _digest_indices(indices)
 
-    if indices is 'all':
+    if _is_all(indices):
         output = item.atoms_dataframe['entity_index'].unique()
     else:
         output = indices
@@ -2554,7 +2555,7 @@ def get_n_entities_from_entity (item, indices='all', check=True):
         _digest_item(item, _form)
         indices = _digest_indices(indices)
 
-    if indices is 'all':
+    if _is_all(indices):
         return get_n_entities_from_system (item)
     else:
         output = get_entity_index_from_entity (item, indices=indices, check=False)
@@ -2761,7 +2762,7 @@ def get_bond_index_from_bond(item, indices='all', check=True):
 
     tmp_out = None
 
-    if indices is 'all':
+    if _is_all(indices):
         n_bonds = get_n_bonds_from_system(item, check=False)
         tmp_out = _np.arange(n_bonds, dtype=int)
 
@@ -2779,7 +2780,7 @@ def get_bond_order_from_bond(item, indices='all', check=True):
 
     tmp_out = None
 
-    if indices is 'all':
+    if _is_all(indices):
         tmp_out = item.bonds_dataframe['order'].to_numpy(copy=True)
     else:
         tmp_out = item.bonds_dataframe.iloc[indices]['order'].to_numpy(copy=True)
@@ -2795,7 +2796,7 @@ def get_bond_type_from_bond(item, indices='all', check=True):
 
     tmp_out = None
 
-    if indices is 'all':
+    if _is_all(indices):
         tmp_out = item.bonds_dataframe['type'].to_numpy(copy=True)
     else:
         tmp_out = item.bonds_dataframe.iloc[indices]['type'].to_numpy(copy=True)
@@ -2811,7 +2812,7 @@ def get_atom_index_from_bond(item, indices='all', check=True):
 
     tmp_out = None
 
-    if indices is 'all':
+    if _is_all(indices):
         tmp_out = item.bonds_dataframe[['atom1_index','atom2_index']].to_numpy(dtype=int, copy=True)
     else:
         tmp_out = item.bonds_dataframe.iloc[indices][['atom1_index','atom2_index']].to_numpy(dtype=int, copy=True)
@@ -2825,7 +2826,7 @@ def get_n_bonds_from_bond(item, indices='all', check=True):
         _digest_item(item, _form)
         indices = _digest_indices(indices)
 
-    if indices is 'all':
+    if _is_all(indices):
         return get_n_bonds_from_system(item, check=False)
     else:
         return len(indices)

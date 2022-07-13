@@ -1,5 +1,6 @@
 from molsysmt._private.exceptions import *
 from molsysmt._private.digestion import *
+from molsysmt._private.variables import is_all
 import numpy as np
 
 def get_component_name_from_component(molecular_system, indices='all'):
@@ -9,7 +10,7 @@ def get_component_name_from_component(molecular_system, indices='all'):
         digest_single_molecular_system(molecular_system)
         indices = digest_indices(indices)
 
-    if indices is 'all':
+    if is_all(indices):
 
         from . import get_n_components_from_system
         n_components = get_n_components_from_system(molecular_system, check=False)

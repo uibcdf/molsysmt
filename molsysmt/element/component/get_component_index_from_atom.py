@@ -1,5 +1,6 @@
 from molsysmt._private.exceptions import *
 from molsysmt._private.digestion import *
+from molsysmt._private.variables import is_all
 import numpy as np
 
 def get_component_index_from_atom(molecular_system, indices='all', check=True):
@@ -25,7 +26,7 @@ def get_component_index_from_atom(molecular_system, indices='all', check=True):
         output = _libbonds.component_indices(atoms_indices, n_atoms, n_bonds)
         output = np.ascontiguousarray(output, dtype=int)
 
-    if indices is not 'all':
+    if not is_all(indices):
 
         output = output[indices]
 

@@ -1,3 +1,4 @@
+from molsysmt._private.variables import is_all
 
 # https://github.com/arose/ngl/blob/master/doc/usage/selection-language.md
 
@@ -7,7 +8,7 @@ def standardize_view (view, atom_indices='all', structure_indices='all'):
     from molsysmt.build import is_solvated
 
 
-    if atom_indices is not 'all':
+    if not is_all(atom_indices):
         string_atom_indices = '@'+','.join(map(str, atom_indices))
     else:
         string_atom_indices = 'all'
@@ -51,7 +52,7 @@ def standardize_view (view, atom_indices='all', structure_indices='all'):
 
 def show_water_as_transparent_surface(view, atom_indices='all', structure_indices='all'):
 
-    if atom_indices is not 'all':
+    if not is_all(atom_indices):
         string_atom_indices = '@'+','.join(map(str, atom_indices))
     else:
         string_atom_indices = 'all'
@@ -69,7 +70,7 @@ def show_system_as_transparent_surface(view, atom_indices='all', structure_indic
 
 def show_water_as_licorice(view, atom_indices='all', structure_indices='all'):
 
-    if atom_indices is not 'all':
+    if not is_all(atom_indices):
         string_atom_indices = '@'+','.join(map(str, atom_indices))
     else:
         string_atom_indices = 'all'

@@ -8,6 +8,7 @@ from molsysmt._private.exceptions import NotImplementedMethodError as _NotImplem
 from molsysmt._private.digestion import digest_item as _digest_item
 from molsysmt._private.digestion import digest_indices as _digest_indices
 from molsysmt._private.digestion import digest_structure_indices as _digest_structure_indices
+from molsysmt._private.variables import is_all as _is_all
 from molsysmt import puw as _puw
 import numpy as _np
 from networkx import Graph as _Graph
@@ -26,7 +27,7 @@ def get_coordinates_from_atom(item, indices='all', structure_indices='all', chec
 
     from molsysmt._private.math import serie_to_chunks
 
-    if structure_indices is 'all':
+    if is_all(structure_indices):
 
         n_structures= get_n_structures_from_system(item)
         structure_indices = _np.arange(n_structures)
@@ -37,7 +38,7 @@ def get_coordinates_from_atom(item, indices='all', structure_indices='all', chec
 
     for start, size in zip(starts_serie_frames, size_serie_frames):
         item.seek(start)
-        if indices is 'all':
+        if is_all(indices):
             xyz, _, _, _ = item.read(n_structures=size)
         else:
             xyz, _, _, _ = item.read(n_structures=size, atom_indices=indices)
@@ -78,7 +79,7 @@ def get_box_from_system(item, structure_indices='all', check=True):
 
     from molsysmt._private.math import serie_to_chunks
 
-    if structure_indices is 'all':
+    if is_all(structure_indices):
 
         n_structures= get_n_structures_from_system(item)
         structure_indices = np.arange(n_structures)
@@ -111,7 +112,7 @@ def get_time_from_system(item, structure_indices='all', check=True):
 
     from molsysmt._private.math import serie_to_chunks
 
-    if structure_indices is 'all':
+    if is_all(structure_indices):
 
         n_structures= get_n_structures_from_system(item)
         structure_indices = np.arange(n_structures)
@@ -144,7 +145,7 @@ def get_step_from_system(item, structure_indices='all', check=True):
 
     from molsysmt._private.math import serie_to_chunks
 
-    if structure_indices is 'all':
+    if is_all(structure_indices):
 
         n_structures= get_n_structures_from_system(item)
         structure_indices = _np.arange(n_structures)

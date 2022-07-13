@@ -7,6 +7,7 @@ from molsysmt._private.exceptions import NotImplementedMethodError as _NotImplem
 from molsysmt._private.digestion import digest_item as _digest_item
 from molsysmt._private.digestion import digest_indices as _digest_indices
 from molsysmt._private.digestion import digest_structure_indices as _digest_structure_indices
+from molsysmt._private.variables import is_all as _is_all
 from molsysmt import puw as _puw
 import numpy as _np
 from networkx import Graph as _Graph
@@ -27,10 +28,10 @@ def get_coordinates_from_atom(item, indices='all', structure_indices='all', chec
         shape = np.load(fff, allow_pickle=True)
         coordinates = np.load(fff, allow_pickle=True)
 
-    if indices is not 'all':
+    if not _is_all(indices):
         coordinates = coordinates[:, indices, :]
 
-    if structure_indices is not 'all':
+    if not _is_all(structure_indices):
         coordinates = coordinates[structure_indices, :, :]
 
     coordinates = coordinates * _puw.unit('nm')
@@ -57,7 +58,7 @@ def get_n_structures_from_system(item, check=True):
 
         _digest_item(item, _form)
 
-    if structure_indices is 'all':
+    if _is_all(structure_indices):
         with open(item, 'rb') as fff:
             shape = np.load(fff)
         return shape[0]

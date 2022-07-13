@@ -1,4 +1,5 @@
 from molsysmt._private.digestion import digest_item, digest_atom_indices, digest_coordinates, digest_box
+from molsysmt._private.variables import is_all
 
 def to_string_pdb_text(item, atom_indices='all', coordinates=None, box=None, check=True):
 
@@ -15,7 +16,7 @@ def to_string_pdb_text(item, atom_indices='all', coordinates=None, box=None, che
     from openmm import Platform # the openmm version is taken from this module (see: openmm/app/pdbfile.py)
     from molsysmt import puw
 
-    if atom_indices is not 'all':
+    if not is_all(atom_indices):
         from . import extract
         item = extract(item, atom_indices=atom_indices, check=False)
 

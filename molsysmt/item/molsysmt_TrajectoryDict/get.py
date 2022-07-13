@@ -7,6 +7,7 @@ from molsysmt._private.exceptions import NotImplementedMethodError as _NotImplem
 from molsysmt._private.digestion import digest_item as _digest_item
 from molsysmt._private.digestion import digest_indices as _digest_indices
 from molsysmt._private.digestion import digest_structure_indices as _digest_structure_indices
+from molsysmt._private.variables import is_all as _is_all
 from molsysmt import puw as _puw
 import numpy as _np
 from networkx import Graph as _Graph
@@ -25,10 +26,10 @@ def get_coordinates_from_atom(item, indices='all', structure_indices='all', chec
 
     tmp_coordinates = item['coordinates']
 
-    if structure_indices is not 'all':
+    if not _is_all(structure_indices):
         tmp_coordinates = tmp_coordinates[structure_indices,:,:]
 
-    if indices is not 'all':
+    if not _is_all(indices):
         tmp_coordinates = tmp_coordinates[:,indices,:]
 
     return tmp_coordinates
@@ -56,7 +57,7 @@ def get_n_structures_from_system(item, check=True):
 
     output = None
 
-    if structure_indices is 'all':
+    if _is_all(structure_indices):
         if 'coordinates' in item:
             output=item['coordinates'].shape[0]
         elif 'box' in item:
@@ -84,12 +85,12 @@ def get_box_from_system(item, structure_indices='all', check=True):
         len_shape = len(item['box'].shape)
 
         if len_shape==3:
-            if structure_indices is 'all':
+            if _is_all(structure_indices):
                 output=item['box']
             else:
                 output=item['box'][structure_indices,:,:]
         elif len_shape==2:
-            if structure_indices is 'all':
+            if _is_all(structure_indices):
                 n_structures=get_n_structures_from_system(item)
             else:
                 n_structures=len(structure_indices)
@@ -105,7 +106,7 @@ def get_step_from_system(item, structure_indices='all', check=True):
         structure_indices = _digest_structure_indices(structure_indices)
 
     output = None
-    if structure_indices is 'all':
+    if _is_all(structure_indices):
         output = item['step']
     else:
         output = item['step'][structure_indices]
@@ -119,7 +120,7 @@ def get_time_from_system(item, structure_indices='all', check=True):
         structure_indices = _digest_structure_indices(structure_indices)
 
     output = None
-    if structure_indices is 'all':
+    if _is_all(structure_indices):
         output = item['time']
     else:
         output = item['time'][structure_indices]

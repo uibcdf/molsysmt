@@ -8,6 +8,7 @@ from molsysmt._private.exceptions import NotImplementedMethodError as _NotImplem
 from molsysmt._private.digestion import digest_item as _digest_item
 from molsysmt._private.digestion import digest_indices as _digest_indices
 from molsysmt._private.digestion import digest_structure_indices as _digest_structure_indices
+from molsysmt._private.variables import is_all as _is_all
 from molsysmt import puw as _puw
 import numpy as _np
 from networkx import Graph as _Graph
@@ -142,7 +143,7 @@ def get_group_id_from_group(item, indices='all', check=True):
         _digest_item(item, _form)
         indices = _digest_indices(indices)
 
-    if indices is 'all':
+    if _is_all(indices):
         n_indices = get_n_groups_from_system(item)
         indices = _np.arange(n_indices)
 
@@ -157,7 +158,7 @@ def get_group_name_from_group(item, indices='all', check=True):
         _digest_item(item, _form)
         indices = _digest_indices(indices)
 
-    if indices is 'all':
+    if _is_all(indices):
         n_indices = get_n_groups_from_system(item)
         indices = _np.arange(n_indices)
 

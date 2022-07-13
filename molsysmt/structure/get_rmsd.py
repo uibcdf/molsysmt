@@ -1,5 +1,6 @@
 from molsysmt._private.exceptions import *
 from molsysmt._private.digestion import *
+from molsysmt._private.variables import is_all
 import numpy as np
 from molsysmt.lib import rmsd as librmsd
 from molsysmt import puw
@@ -33,7 +34,7 @@ def get_rmsd(molecular_system, selection='backbone', structure_indices='all',
         n_atoms, n_structures = get(molecular_system, n_atoms=True, n_structures=True)
         atom_indices = select(molecular_system, selection=selection, syntaxis=syntaxis, check=False)
         n_atom_indices = atom_indices.shape[0]
-        if structure_indices is 'all':
+        if is_all(structure_indices):
             structure_indices = np.arange(n_structures)
         n_structure_indices = structure_indices.shape[0]
 

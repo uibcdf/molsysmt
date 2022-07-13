@@ -1,5 +1,6 @@
 from molsysmt._private.exceptions import *
 from molsysmt._private.digestion import *
+from molsysmt._private.variables import is_all
 import numpy as np
 from molsysmt.basic import select
 
@@ -14,7 +15,7 @@ def get_covalent_chains(molecular_system, chain=None, selection='all', syntaxis=
 
     from . import get_bondgraph
 
-    if selection is 'all':
+    if is_all(selection):
         mask = None
     else:
         mask = select(molecular_system, selection=selection, syntaxis=syntaxis, check=False)

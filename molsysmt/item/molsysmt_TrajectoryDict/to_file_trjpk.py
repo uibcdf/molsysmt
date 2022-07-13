@@ -1,4 +1,5 @@
 from molsysmt._private.digestion import digest_item, digest_atom_indices, digest_structure_indices
+from molsysmt._private.variables import is_all
 import numpy as np
 from molsysmt import puw
 
@@ -14,7 +15,7 @@ def to_file_trjpk(item, atom_indices='all', structure_indices='all', output_file
 
     # lengths with nm values and times in ps
 
-    if atom_indices is 'all':
+    if is_all(atom_indices):
         if item['coordinates'] is not None:
             n_atoms = item['coordinates'].shape[1]
         else:
@@ -22,7 +23,7 @@ def to_file_trjpk(item, atom_indices='all', structure_indices='all', output_file
     else:
         n_atoms = atom_indices.shape[0]
 
-    if structure_indices is 'all':
+    if is_all(structure_indices):
         if item['coordinates'] is not None:
             n_structures = item['coordinates'].shape[0]
         elif tmp_item['box'] is not None:
@@ -42,9 +43,9 @@ def to_file_trjpk(item, atom_indices='all', structure_indices='all', output_file
     if 'coordinates' in item:
         if item['coordinates'] is not None:
             coordinates = item['coordinates']
-            if structure_indices is not 'all':
+            if not is_all(structure_indices):
                 coordinates = coordinates[structure_indices,:,:]
-            elif atom_indices is not 'all':
+            elif not is_all(atom_indices):
                 coordinates = coordinates[:,atom_indices,:]
             coordinates = puw.get_value(coordinates, to_unit='nm')
         else:
@@ -58,7 +59,7 @@ def to_file_trjpk(item, atom_indices='all', structure_indices='all', output_file
     if 'box' in item:
         if item['box'] is not None:
             box = item['box']
-            if structure_indices is not 'all':
+            if not is_all(structure_indices):
                 box = box[structure_indices,:,:]
             box = puw.get_value(box, to_unit='nm')
         else:
@@ -72,7 +73,7 @@ def to_file_trjpk(item, atom_indices='all', structure_indices='all', output_file
     if 'time' in item:
         if item['time'] is not None:
             time = item['time']
-            if structure_indices is not 'all':
+            if not is_all(structure_indices):
                 time = time[structure_indices]
             time = puw.get_value(time, to_unit='ps')
         else:
@@ -86,7 +87,7 @@ def to_file_trjpk(item, atom_indices='all', structure_indices='all', output_file
     if 'step' in item:
         if item['step'] is not None:
             step = item['step']
-            if structure_indices is not 'all':
+            if not is_all(structure_indices):
                 step = step[structure_indices]
         else:
             step = None

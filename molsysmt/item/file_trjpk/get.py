@@ -7,6 +7,7 @@ from molsysmt._private.exceptions import NotImplementedMethodError as _NotImplem
 from molsysmt._private.digestion import digest_item as _digest_item
 from molsysmt._private.digestion import digest_indices as _digest_indices
 from molsysmt._private.digestion import digest_structure_indices as _digest_structure_indices
+from molsysmt._private.variables import is_all as _is_all
 from molsysmt import puw as _puw
 import numpy as _np
 from networkx import Graph as _Graph
@@ -30,9 +31,9 @@ def get_coordinates_from_atom(item, indices='all', structure_indices='all', chec
     fff.close()
 
     if coordinates is not None:
-        if structure_indices is not 'all':
+        if not _is_all(structure_indices):
             coordinates = coordinates[structure_indices, :, :]
-        if indices is not 'all':
+        if not _is_all(indices):
             coordinates = coordinates[:, indices, :]
         coordinates = puw.quantity(coordinates, to_unit='nm')
 
@@ -80,7 +81,7 @@ def get_box_from_system(item, structure_indices='all', check=True):
     fff.close()
 
     if box is not None:
-        if structure_indices is not 'all':
+        if not _is_all(structure_indices):
             box = box[structure_indices, :, :]
 
         box = puw.quantity(box, to_unit='nm')
@@ -103,7 +104,7 @@ def get_time_from_system(item, structure_indices='all', check=True):
     fff.close()
 
     if time is not None:
-        if structure_indices is not 'all':
+        if not _is_all(structure_indices):
             time = time[structure_indices]
 
         time = puw.quantity(time, to_unit='nm')
@@ -127,7 +128,7 @@ def get_step_from_system(item, structure_indices='all', check=True):
     fff.close()
 
     if step is not None:
-        if structure_indices is not 'all':
+        if not _is_all(structure_indices):
             step = step[structure_indices]
 
     return step
