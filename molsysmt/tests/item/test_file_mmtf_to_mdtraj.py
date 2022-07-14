@@ -15,7 +15,6 @@ def mmtf_file_paths():
 
 @pytest.fixture()
 def positions_5zmz_in_nanometers():
-
     x_expected = np.array([1.0752, 0.9668, 0.8392, 0.8347, 1.003,
                            1.1347, 0.8941, 1.188, 0.7375, 0.6058,
                            0.5037, 0.4997, 0.5765, 0.6582, 0.6574,
@@ -61,6 +60,7 @@ def test_load_mmtf(mmtf_file_paths, positions_5zmz_in_nanometers):
     assert np.allclose(y_actual, y_expected)
     assert np.allclose(z_actual, z_expected)
 
+
 # Tests for MMTFTrajectoryFile class
 
 
@@ -100,7 +100,7 @@ def test_mmtf_trajectory_file_read(mmtf_file_paths, positions_5zmz_in_nanometers
     assert np.allclose(z_actual, z_expected * 10)
 
     unit_lengths_expected = np.array([[2.944, 0.48, 1.894]])
-    unit_angles_expected = np.array([[90., 107.97,  90.]])
+    unit_angles_expected = np.array([[90., 107.97, 90.]])
 
     assert unit_lengths.shape == (1, 3)
     assert unit_angles.shape == (1, 3)
@@ -138,8 +138,86 @@ def test_mmtf_trajectory_file_read(mmtf_file_paths, positions_5zmz_in_nanometers
     assert bonds_actual == bonds_expected
 
 
-def test_mmtf_trajectory_file_encode_data_for_writing():
+def test_is_residue_unique():
+    topology = mdt.Topology()
+    chain = topology.add_chain()
 
+    alanine_1 = topology.add_residue(name="ALA", chain=chain)
+    topology.add_atom(name="CA",
+                      element=mdt.element.get_by_symbol("C"),
+                      residue=alanine_1)
+    topology.add_atom(name="N",
+                      element=mdt.element.get_by_symbol("N"),
+                      residue=alanine_1)
+
+    alanine_2 = topology.add_residue(name="ALA", chain=chain)
+    topology.add_atom(name="CA",
+                      element=mdt.element.get_by_symbol("C"),
+                      residue=alanine_2)
+    topology.add_atom(name="N",
+                      element=mdt.element.get_by_symbol("N"),
+                      residue=alanine_2)
+    topology.add_atom(name="O",
+                      element=mdt.element.get_by_symbol("O"),
+                      residue=alanine_2)
+
+    alanine_3 = topology.add_residue(name="ALA", chain=chain)
+    topology.add_atom(name="CA",
+                      element=mdt.element.get_by_symbol("C"),
+                      residue=alanine_3)
+    topology.add_atom(name="N",
+                      element=mdt.element.get_by_symbol("N"),
+                      residue=alanine_3)
+
+    glycine = topology.add_residue(name="GLY", chain=chain)
+    topology.add_atom(name="CA",
+                      element=mdt.element.get_by_symbol("C"),
+                      residue=glycine)
+    topology.add_atom(name="N",
+                      element=mdt.element.get_by_symbol("N"),
+                      residue=glycine)
+
+    glycine_2 = topology.add_residue(name="GLY", chain=chain)
+    topology.add_atom(name="CA",
+                      element=mdt.element.get_by_symbol("C"),
+                      residue=glycine_2)
+    topology.add_atom(name="N",
+                      element=mdt.element.get_by_symbol("N"),
+                      residue=glycine_2)
+
+    unique_residues = {}
+    is_unique = file_mmtf.MMTFTrajectoryFile.is_residue_unique(unique_residues,
+                                                               alanine_1,
+                                                               0)
+    assert unique_residues == {"ALA": ([2], [0])}
+    assert is_unique
+
+    is_unique = file_mmtf.MMTFTrajectoryFile.is_residue_unique(unique_residues,
+                                                               alanine_2,
+                                                               1)
+    assert unique_residues == {"ALA": ([2, 3], [0, 1])}
+    assert is_unique
+
+    is_unique = file_mmtf.MMTFTrajectoryFile.is_residue_unique(unique_residues,
+                                                               alanine_3,
+                                                               1)
+    assert unique_residues == {"ALA": ([2, 3], [0, 1])}
+    assert not is_unique
+
+    is_unique = file_mmtf.MMTFTrajectoryFile.is_residue_unique(unique_residues,
+                                                               glycine,
+                                                               2)
+    assert unique_residues == {"ALA": ([2, 3], [0, 1]), "GLY": ([2], [2])}
+    assert is_unique
+
+    is_unique = file_mmtf.MMTFTrajectoryFile.is_residue_unique(unique_residues,
+                                                               glycine_2,
+                                                               2)
+    assert unique_residues == {"ALA": ([2, 3], [0, 1]), "GLY": ([2], [2])}
+    assert not is_unique
+
+
+def test_mmtf_trajectory_file_encode_data_for_writing():
     traj = mdt.load("../../../data/pdb/5zmz.pdb")
     encoder = file_mmtf.MMTFTrajectoryFile._encode_data_for_writing(
         traj.xyz,
@@ -153,6 +231,84 @@ def test_mmtf_trajectory_file_encode_data_for_writing():
     assert encoder.num_bonds == 29
     assert encoder.num_groups == 5
 
+    assert np.allclose(encoder.unit_cell,
+                       [2.944, 0.48, 1.894, 90.0, 107.97, 90.0])
+
+    x_coords = traj.xyz[0, :, 0]
+    y_coords = traj.xyz[0, :, 1]
+    z_coords = traj.xyz[0, :, 2]
+
+    assert np.allclose(encoder.x_coord_list, x_coords)
+    assert np.allclose(encoder.y_coord_list, y_coords)
+    assert np.allclose(encoder.z_coord_list, z_coords)
+
+    assert encoder.chain_id_list == ["A", "B"]
+    assert encoder.groups_per_chain == [4, 1]
+    assert encoder.atom_id_list == list(range(1, 31)) + [32]
+
+    assert len(encoder.group_list) == 4
+
+    assert encoder.group_list[0] == {
+        'groupName': 'ILE',
+        'atomNameList': ['N', 'CA', 'C', 'O', 'CB', 'CG1', 'CG2', 'CD1'],
+        'elementList': ['N', 'C', 'C', 'O', 'C', 'C', 'C', 'C'],
+        'bondOrderList': [1, 1, 2, 1, 1, 1, 1],
+        'bondAtomList': [1, 0, 2, 1, 3, 2, 4, 1, 5, 4, 6, 4, 7, 5],
+        'formalChargeList': [0, 0, 0, 0, 0, 0, 0, 0],
+        'singleLetterCode': 'I',
+        'chemCompType': 'L-PEPTIDE LINKING'
+    }
+
+    assert encoder.group_list[1] == {
+        'groupName': 'GLN',
+        'atomNameList': ['N', 'CA', 'C', 'O', 'CB', 'CG', 'CD', 'OE1', 'NE2'],
+        'elementList': ['N', 'C', 'C', 'O', 'C', 'C', 'C', 'O', 'N'],
+        'bondOrderList': [1, 1, 2, 1, 1, 1, 2, 1],
+        'bondAtomList': [1, 0, 2, 1, 3, 2, 4, 1, 5, 4, 6, 5, 7, 6, 8, 6],
+        'formalChargeList': [0, 0, 0, 0, 0, 0, 0, 0, 0],
+        'singleLetterCode': 'Q',
+        'chemCompType': 'L-PEPTIDE LINKING'
+    }
+
+    assert encoder.group_list[2] == {
+        'groupName': 'GLY',
+        'atomNameList': ['N', 'CA', 'C', 'O', 'OXT'],
+        'elementList': ['N', 'C', 'C', 'O', 'O'],
+        'bondOrderList': [1, 1, 2, 1],
+        'bondAtomList': [1, 0, 2, 1, 3, 2, 4, 2],
+        'formalChargeList': [0, 0, 0, 0, 0],
+        'singleLetterCode': 'G',
+        'chemCompType': 'PEPTIDE LINKING'
+    }
+
+    assert encoder.group_list[3] == {
+        'groupName': 'HOH',
+        'atomNameList': ['O'],
+        'elementList': ['O'],
+        'bondOrderList': [],
+        'bondAtomList': [],
+        'formalChargeList': [0],
+        'singleLetterCode': '?',
+        'chemCompType': 'NON-POLYMER'
+    }
+
+    assert len(encoder.group_id_list) == encoder.num_groups
+    assert encoder.group_list == [0, 1, 0, 2, 3]
+
+    assert len(encoder.entity_list) == 2
+    assert encoder.entity_list[0] == {
+        'description': '',
+        'type': 'polymer',
+        'chainIndexList': [0],
+        'sequence': 'IQIG'
+    }
+    assert encoder.entity_list[1] == {
+        'description': 'water',
+        'type': 'water',
+        'chainIndexList': [1],
+        'sequence': ''
+    }
+
 
 class TempFileEncoder(mmtf.MMTFEncoder):
 
@@ -165,7 +321,6 @@ class TempFileEncoder(mmtf.MMTFEncoder):
 
 
 def test_write_mmtf_file_and_load_it():
-
     traj = mdt.load("../../../data/pdb/5zmz.pdb")
     encoder = TempFileEncoder()
     encoder = file_mmtf.MMTFTrajectoryFile._encode_data_for_writing(
