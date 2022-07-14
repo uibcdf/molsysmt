@@ -55,8 +55,9 @@ import mdtraj as mdt
 import mdtraj.core.element as mdt_element
 from mdtraj.formats.registry import FormatRegistry
 from mdtraj.utils import in_units_of
-from mmtf import parse
+import mmtf
 import numpy as np
+
 
 ##############################################################################
 # Code
@@ -109,7 +110,7 @@ def load_mmtf(filename, stride=None, atom_indices=None, frame=None):
         )
 
 
-@FormatRegistry.register_fileobject('.gro')
+@FormatRegistry.register_fileobject('.mmtf')
 class MMTFTrajectoryFile(object):
     """Interface for reading and writing to MMTF files.
 
@@ -145,7 +146,7 @@ class MMTFTrajectoryFile(object):
             _residue_name_replacements, _atom_name_replacements = self._load_name_replacement_tables()
             self._frame_index = 0
             self._filepath = filename
-            self._positions, self._topology, self._unit_cell_lengths, self._unit_cell_angles =  \
+            self._positions, self._topology, self._unit_cell_lengths, self._unit_cell_angles = \
                 self._read(self._filepath, self._standard_names)
 
         elif mode == 'w':
@@ -191,7 +192,7 @@ class MMTFTrajectoryFile(object):
         return not self._open
 
     def write(self, positions, topology, unit_cell_lengths=None,
-              unit_cell_angles=None):
+              unit_cell_angles=None, b_factors=None):
         """ Write a mmtf file to disk
 
             Parameters
@@ -207,11 +208,176 @@ class MMTFTrajectoryFile(object):
 
             unit_cell_angles : {tuple, None}
                 Angles between the three unit cell vectors, or None for a non-periodic system
+
+            b_factors : array_like, default=None, shape=(n_atoms,)
+                Save bfactors. Should contain a single number for
+                each atom in the topology
         """
         if not self._open:
             raise ValueError('I/O operation on closed file')
         if not self._mode == 'w':
             raise ValueError('file not opened for writing')
+
+        if b_factors is not None and b_factors.shape[0] < positions.shape[1]:
+            raise ValueError("b_factors must be of shape (n_atoms,")
+
+        encoder = self._encode_data_for_writing(positions=positions,
+                                                topology=topology,
+                                                unit_cell_lengths=unit_cell_lengths,
+                                                unit_cell_angles=unit_cell_angles,
+                                                b_factors=b_factors)
+
+        encoder.write_file(self._filepath)
+
+    @staticmethod
+    def _encode_data_for_writing(positions, topology, unit_cell_lengths=None,
+                                 unit_cell_angles=None, b_factors=None, encoder=None):
+        """ Encodes the data so it can be written to a mmtf file.
+
+            Parameters
+            ----------
+            positions : array_like
+                The list of atomic positions to write.
+
+            topology : mdtraj.Topology
+                The Topology defining the model to write.
+
+            unit_cell_lengths : {tuple, None}
+                Lengths of the three unit cell vectors, or None for a non-periodic system
+
+            unit_cell_angles : {tuple, None}
+                Angles between the three unit cell vectors, or None for a non-periodic system
+
+            b_factors : array_like, default=None, shape=(n_atoms,)
+                Save bfactors. Should contain a single number for
+                each atom in the topology
+
+            encoder: mmtf.MMTFEncoder, optional (default=None)
+                An encoder to pass data to.
+
+            Returns
+            -------
+            encoder: mmtf.MMTFEncoder, optional (default=None)
+                An encoder with all the necessary data to write the mmtf file.
+
+        """
+
+        if encoder is None:
+            encoder = mmtf.MMTFEncoder()
+
+        encoder.init_structure(
+            total_num_bonds=topology.n_bonds,
+            total_num_atoms=topology.n_atoms,
+            total_num_chains=topology.n_chains,
+            total_num_groups=topology.n_residues,
+            total_num_models=1,
+            structure_id="TEMP"
+        )
+
+        # TODO: can we get metadata from an mdtraj trajectory?
+        encoder.set_header_info(
+            r_free=None,
+            r_work=None,
+            resolution=None,
+            title=None,
+            deposition_date=None,
+            release_date=None,
+            experimental_methods=None,
+        )
+
+        # We convert the following arrays from numpy.float32
+        # to float because the encoder can't handle the former
+        unit_cell = [float(x) for x in unit_cell_lengths[0]]
+        unit_cell += [float(x) for x in unit_cell_angles[0]]
+        assert len(unit_cell) == 6
+
+        encoder.set_xtal_info(space_group="", unit_cell=unit_cell)
+
+        # This sets the number of chains for a given model. Here we assume we have only
+        # one model so, we only add one chain count
+        encoder.set_model_info(model_id=None, chain_count=topology.n_chains)
+        # TODO: Obtain the aminoacid sequence and the entity info
+        sequence = ""
+        for chain in topology.chains:
+
+            # encoder.set_entity_info(
+            #     chain_indices=None,
+            #     sequence=None,
+            #     description=None,
+            #     entity_type=None
+            # )
+
+            chain_name = chr(ord('A') + chain.index % 26)
+            encoder.set_chain_info(
+                chain_id=chain_name,
+                chain_name="\x00",
+                num_groups=chain.n_residues
+            )
+
+            for residue in chain.residues:
+
+                encoder.set_group_info(
+                    group_name=residue.name,
+                    group_number=residue.index,
+                    insertion_code="\x00",
+                    group_type="",
+                    atom_count=residue.n_atoms,
+                    bond_count=0,  # This parameter is not used in mmtf-python
+                    single_letter_code=residue.code,
+                    sequence_index=-1,
+                    secondary_structure_type=-1,
+                )
+
+                for atom in residue.atoms:
+
+                    if b_factors is not None:
+                        temp_factor = b_factors[atom.index]
+                    else:
+                        temp_factor = 0
+
+                    encoder.set_atom_info(
+                        atom_name=atom.name,
+                        serial_number=atom.serial,
+                        alternative_location_id="\x00",
+                        x=float(positions[0, atom.index, 0]),
+                        y=float(positions[0, atom.index, 1]),
+                        z=float(positions[0, atom.index, 2]),
+                        occupancy=1.0,
+                        temperature_factor=temp_factor,
+                        element=atom.element.symbol,
+                        charge=0,
+                    )
+
+        for bond in topology.bonds:
+
+            bond_order = bond.order
+            if bond_order is None:
+                bond_order = 1
+            # Check if it's an intra-residue bond
+            if bond.atom1.residue.index == bond.atom2.residue.index:
+
+                encoder.current_group = encoder.group_list[bond.atom1.residue.index]
+
+                residue_n_atoms = bond.atom1.residue.n_atoms
+                atom_1_index = bond.atom1.index % residue_n_atoms
+                atom_2_index = bond.atom2.index % residue_n_atoms
+                # This method expects the atom index inside the residue or group
+                encoder.set_group_bond(
+                    atom_index_one=atom_1_index,
+                    atom_index_two=atom_2_index,
+                    bond_order=bond_order
+                )
+            # If not it is an inter-residue bond
+            else:
+                # This method expects the atom index of the whole structure
+                encoder.set_inter_group_bond(
+                    atom_index_one=bond.atom1.index,
+                    atom_index_two=bond.atom2.index,
+                    bond_order=bond_order
+                )
+
+        encoder.finalize_structure()
+        return encoder
 
     @staticmethod
     def _load_name_replacement_tables():
@@ -306,7 +472,7 @@ class MMTFTrajectoryFile(object):
             MMTFTrajectoryFile._residue_name_replacements, MMTFTrajectoryFile._atom_name_replacements = \
                 MMTFTrajectoryFile._load_name_replacement_tables()
 
-        decoder = parse(file_path)
+        decoder = mmtf.parse(file_path)
         # Get the positions first
         positions = np.zeros((1, decoder.num_atoms, 3))
         positions[0, :, 0] = decoder.x_coord_list

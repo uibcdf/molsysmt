@@ -1,4 +1,6 @@
 from molsysmt.item import file_mmtf
+import mmtf
+import tempfile
 import mdtraj as mdt
 import numpy as np
 import pytest
@@ -136,5 +138,49 @@ def test_mmtf_trajectory_file_read(mmtf_file_paths, positions_5zmz_in_nanometers
     assert bonds_actual == bonds_expected
 
 
-def test_mmtf_trajectory_file_write():
-    pass
+def test_mmtf_trajectory_file_encode_data_for_writing():
+
+    traj = mdt.load("../../../data/pdb/5zmz.pdb")
+    encoder = file_mmtf.MMTFTrajectoryFile._encode_data_for_writing(
+        traj.xyz,
+        traj.topology,
+        traj.unitcell_lengths,
+        traj.unitcell_angles,
+    )
+
+    assert encoder.num_atoms == 31
+    assert encoder.num_chains == 2
+    assert encoder.num_bonds == 29
+    assert encoder.num_groups == 5
+
+
+class TempFileEncoder(mmtf.MMTFEncoder):
+
+    def write_file(self, file_path):
+        """ Writes a temporary file. """
+        temp_fp = tempfile.NamedTemporaryFile()
+        temp_fp.write(self.get_msgpack())
+        temp_fp.seek(0)
+        return temp_fp
+
+
+def test_write_mmtf_file_and_load_it():
+
+    traj = mdt.load("../../../data/pdb/5zmz.pdb")
+    encoder = TempFileEncoder()
+    encoder = file_mmtf.MMTFTrajectoryFile._encode_data_for_writing(
+        traj.xyz,
+        traj.topology,
+        traj.unitcell_lengths,
+        traj.unitcell_angles,
+        encoder=encoder
+    )
+
+    temp_file_ptr = encoder.write_file("temp")
+    traj_from_temp_file = file_mmtf.load_mmtf(temp_file_ptr.name)
+    temp_file_ptr.close()
+
+    assert traj_from_temp_file.n_atoms == 31
+    assert traj_from_temp_file.n_chains == 2
+    assert traj_from_temp_file.n_bonds == 29
+    assert traj_from_temp_file.n_groups == 5
