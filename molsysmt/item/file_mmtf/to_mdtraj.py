@@ -50,12 +50,14 @@
 
 import copy
 import os
+import tempfile
 import xml.etree.ElementTree as ETree
 import mdtraj as mdt
 import mdtraj.core.element as mdt_element
 from mdtraj.formats.registry import FormatRegistry
 from mdtraj.utils import in_units_of
 import mmtf
+from mmtf.api.mmtf_writer import get_unique_groups
 import numpy as np
 
 
@@ -108,6 +110,25 @@ def load_mmtf(filename, stride=None, atom_indices=None, frame=None):
             unitcell_lengths=unit_cell_lengths,
             unitcell_angles=fh.unit_cell_angles,
         )
+
+
+class TrajMMTFEncoder(mmtf.MMTFEncoder):
+    """ An MMTF encoder with a custom finalize structure method, and
+        a method to read temporary files.
+    """
+    def finalize_structure(self):
+        """ Cleanup the structure"""
+        group_set = get_unique_groups(self.group_list)
+        for item in self.group_list:
+            self.group_type_list.append(group_set.index(item))
+        self.group_list = [x.convert_to_dict() for x in group_set]
+
+    def write_temp_file(self):
+        """ Writes a temporary file. """
+        temp_fp = tempfile.NamedTemporaryFile()
+        temp_fp.write(self.get_msgpack())
+        temp_fp.seek(0)
+        return temp_fp
 
 
 @FormatRegistry.register_fileobject('.mmtf')
@@ -230,45 +251,35 @@ class MMTFTrajectoryFile(object):
         encoder.write_file(self._filepath)
 
     @staticmethod
-    def get_group_index(unique_residues, residue):
-
-        residue_info = unique_residues[residue.name]
-        ii = 0
-        for n_atoms in residue_info[0]:
-            if residue.n_atoms == n_atoms:
-                break
-            ii += 1
-        return residue_info[1][ii]
-
-    @staticmethod
-    def is_residue_unique(unique_residues, residue, group_index):
-        """ Check if the given residue is unique in this protein, and if
-            it's not add it to the unique_residues dictionary.
+    def _add_intra_group_bonds(encoder, residue_bond_list, bond_order_list):
+        """ Helper method to add intra-residue bonds to an encoder.
 
             Parameters
             ----------
-            unique_residues : Dict[str, Tuple[list, list]
-                A dictionary that maps the residue names to a list of
-                the number of atoms that residue can have and a list of
-                the index in the encoder group list
+            encoder : TrajMMTFEncoder
+                An MMTF encoder
 
-            residue : mdtraj.Residue
-                The residue
+            residue_bond_list: list[int]
+                A list with the index of the bonded atoms
 
-            group_index: int
-                The index in the encoder group list of the residue.
+            bond_order_list: list[int]
+                A list with the orders of the bonds
         """
-        try:
-            num_atoms = unique_residues[residue.name][0]
-            if residue.n_atoms in num_atoms:
-                return False
+        min_index = min(residue_bond_list)
+        for ii in range(0, len(residue_bond_list), 2):
+            # This method expects the atom index inside the residue or group
+            if min_index != 0:
+                encoder.set_group_bond(
+                    atom_index_one=residue_bond_list[ii] % min_index,
+                    atom_index_two=residue_bond_list[ii + 1] % min_index,
+                    bond_order=bond_order_list[int(ii / 2)]
+                )
             else:
-                unique_residues[residue.name][0].append(residue.n_atoms)
-                unique_residues[residue.name][1].append(group_index)
-                return True
-        except KeyError:
-            unique_residues[residue.name] = ([residue.n_atoms], [group_index])
-            return True
+                encoder.set_group_bond(
+                    atom_index_one=residue_bond_list[ii],
+                    atom_index_two=residue_bond_list[ii + 1],
+                    bond_order=bond_order_list[int(ii / 2)]
+                )
 
     @staticmethod
     def _encode_data_for_writing(positions, topology, unit_cell_lengths=None,
@@ -298,13 +309,13 @@ class MMTFTrajectoryFile(object):
 
             Returns
             -------
-            encoder: mmtf.MMTFEncoder, optional (default=None)
+            encoder: TrajMMTFEncoder
                 An encoder with all the necessary data to write the mmtf file.
 
         """
 
         if encoder is None:
-            encoder = mmtf.MMTFEncoder()
+            encoder = TrajMMTFEncoder()
 
         encoder.init_structure(
             total_num_bonds=topology.n_bonds,
@@ -338,9 +349,6 @@ class MMTFTrajectoryFile(object):
         # one model so, we only add one chain count
         encoder.set_model_info(model_id=None, chain_count=topology.n_chains)
 
-        unique_residues = {}
-        num_groups = 0
-
         # TODO: Obtain the aminoacid sequence and the entity info
         sequence = ""
         for chain in topology.chains:
@@ -361,27 +369,26 @@ class MMTFTrajectoryFile(object):
 
             for residue in chain.residues:
 
-                # TODO: get unique residues.
-                #  mmtf files just store the information of different residues and not an entry for each
-                #  residue in the protein. We will consider two residues equal if they have the same name
-                #  and the same number of atoms.
-
-                if MMTFTrajectoryFile.is_residue_unique(unique_residues, residue, num_groups):
-                    encoder.set_group_info(
-                        group_name=residue.name,
-                        group_number=residue.index,
-                        insertion_code="\x00",
-                        group_type="",
-                        atom_count=residue.n_atoms,
-                        bond_count=0,  # This parameter is not used in mmtf-python
-                        single_letter_code=residue.code,
-                        sequence_index=-1,
-                        secondary_structure_type=-1,
-                    )
-                    num_groups += 1
+                if residue.is_protein:
+                    residue_type = "PEPTIDE LINKING"
                 else:
-                    group_index = MMTFTrajectoryFile.get_group_index(unique_residues, residue)
-                    encoder.current_group = encoder.group_list[group_index]
+                    residue_type = "NON-POLYMER"
+
+                single_letter_code = residue.code
+                if single_letter_code is None:
+                    single_letter_code = "?"
+
+                encoder.set_group_info(
+                    group_name=residue.name,
+                    group_number=residue.index,
+                    insertion_code="\x00",
+                    group_type=residue_type,
+                    atom_count=residue.n_atoms,
+                    bond_count=0,  # This parameter is not used in mmtf-python
+                    single_letter_code=single_letter_code,
+                    sequence_index=-1,
+                    secondary_structure_type=-1,
+                )
 
                 for atom in residue.atoms:
 
@@ -403,29 +410,29 @@ class MMTFTrajectoryFile(object):
                         charge=0,
                     )
 
+        # Adds the last residue
+        encoder.group_list.append(encoder.current_group)
+
+        residue_bond_list = []
+        bond_order_list = []
+
         for bond in topology.bonds:
 
             bond_order = bond.order
             if bond_order is None:
                 bond_order = 1
+
             # Check if it's an intra-residue bond
             if bond.atom1.residue.index == bond.atom2.residue.index:
 
                 # We need to find the index of this residue in the group list
                 residue = bond.atom1.residue
-                residue_n_atoms = residue.n_atoms
-                group_index = MMTFTrajectoryFile.get_group_index(unique_residues, residue)
+                encoder.current_group = encoder.group_list[residue.index]
 
-                encoder.current_group = encoder.group_list[group_index]
+                residue_bond_list.append(bond.atom1.index)
+                residue_bond_list.append(bond.atom2.index)
+                bond_order_list.append(bond_order)
 
-                atom_1_index = bond.atom1.index % residue_n_atoms
-                atom_2_index = bond.atom2.index % residue_n_atoms
-                # This method expects the atom index inside the residue or group
-                encoder.set_group_bond(
-                    atom_index_one=atom_1_index,
-                    atom_index_two=atom_2_index,
-                    bond_order=bond_order
-                )
             # If not it is an inter-residue bond
             else:
                 # This method expects the atom index of the whole structure
@@ -434,6 +441,14 @@ class MMTFTrajectoryFile(object):
                     atom_index_two=bond.atom2.index,
                     bond_order=bond_order
                 )
+                # Bonds are ordered by residue so each time we get an iter-residue bond
+                # it means that a new residue comes after.
+                MMTFTrajectoryFile._add_intra_group_bonds(encoder, residue_bond_list, bond_order_list)
+                residue_bond_list.clear()
+                bond_order_list.clear()
+
+        # Add the bonds of the last residue
+        MMTFTrajectoryFile._add_intra_group_bonds(encoder, residue_bond_list, bond_order_list)
 
         encoder.finalize_structure()
         return encoder
