@@ -114,8 +114,9 @@ def load_mmtf(filename, stride=None, atom_indices=None, frame=None):
 
 class TrajMMTFEncoder(mmtf.MMTFEncoder):
     """ An MMTF encoder with a custom finalize structure method, and
-        a method to read temporary files.
+        a method to write temporary files.
     """
+
     def finalize_structure(self):
         """ Cleanup the structure"""
         group_set = get_unique_groups(self.group_list)
@@ -349,16 +350,25 @@ class MMTFTrajectoryFile(object):
         # one model so, we only add one chain count
         encoder.set_model_info(model_id=None, chain_count=topology.n_chains)
 
-        # TODO: Obtain the aminoacid sequence and the entity info
-        sequence = ""
+        protein_entity = {
+            'description': '',
+            'type': 'polymer',
+            'chainIndexList': set(),
+            'sequence': ''
+        }
+        water_entity = {
+            'description': 'water',
+            'type': 'water',
+            'chainIndexList': set(),
+            'sequence': ''
+        }
+        other_entity = {
+            'description': '',
+            'type': 'non-polymer',
+            'chainIndexList': set(),
+            'sequence': ''
+        }
         for chain in topology.chains:
-
-            # encoder.set_entity_info(
-            #     chain_indices=None,
-            #     sequence=None,
-            #     description=None,
-            #     entity_type=None
-            # )
 
             chain_name = chr(ord('A') + chain.index % 26)
             encoder.set_chain_info(
@@ -371,8 +381,14 @@ class MMTFTrajectoryFile(object):
 
                 if residue.is_protein:
                     residue_type = "PEPTIDE LINKING"
+                    protein_entity["sequence"] += residue.code
+                    protein_entity["chainIndexList"].add(chain.index)
+                elif residue.is_water:
+                    residue_type = "NON-POLYMER"
+                    water_entity["chainIndexList"].add(chain.index)
                 else:
                     residue_type = "NON-POLYMER"
+                    other_entity["chainIndexList"].add(chain.index)
 
                 single_letter_code = residue.code
                 if single_letter_code is None:
@@ -380,7 +396,7 @@ class MMTFTrajectoryFile(object):
 
                 encoder.set_group_info(
                     group_name=residue.name,
-                    group_number=residue.index,
+                    group_number=residue.resSeq,
                     insertion_code="\x00",
                     group_type=residue_type,
                     atom_count=residue.n_atoms,
@@ -412,6 +428,19 @@ class MMTFTrajectoryFile(object):
 
         # Adds the last residue
         encoder.group_list.append(encoder.current_group)
+
+        # Add entity info
+        # TODO: adding entity info does not consider cases when there are multiple proteins,
+        #   ligands or different ions. Also, how can we get the name of the ions or protein chain?
+        if len(protein_entity["sequence"]) > 0:
+            protein_entity["chainIndexList"] = list(protein_entity["chainIndexList"])
+            encoder.entity_list.append(protein_entity)
+        if len(water_entity["chainIndexList"]) > 0:
+            water_entity["chainIndexList"] = list(water_entity["chainIndexList"])
+            encoder.entity_list.append(water_entity)
+        if len(other_entity["chainIndexList"]) > 0:
+            other_entity["chainIndexList"] = list(other_entity["chainIndexList"])
+            encoder.entity_list.append(other_entity)
 
         residue_bond_list = []
         bond_order_list = []

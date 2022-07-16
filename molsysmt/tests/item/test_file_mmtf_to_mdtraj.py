@@ -211,8 +211,8 @@ def test_mmtf_trajectory_file_encode_data_for_writing():
         'chemCompType': 'NON-POLYMER'
     }
 
-    assert len(encoder.group_id_list) == encoder.num_groups
-    assert encoder.group_id_list == [0, 1, 0, 2, 3]
+    assert encoder.group_type_list == [0, 1, 0, 2, 3]
+    assert encoder.group_id_list == [1, 2, 3, 4, 101]
 
     assert len(encoder.entity_list) == 2
     assert encoder.entity_list[0] == {
@@ -244,5 +244,5 @@ def test_write_mmtf_file_and_load_it():
 
     assert traj_from_temp_file.n_atoms == 31
     assert traj_from_temp_file.n_chains == 2
-    assert traj_from_temp_file.n_bonds == 29
-    assert traj_from_temp_file.n_groups == 5
+    assert traj_from_temp_file.topology.n_bonds == 29
+    assert traj_from_temp_file.n_residues == 5
