@@ -1,3 +1,4 @@
+import molsysmt as msm
 from molsysmt.item import file_mmtf
 import mdtraj as mdt
 import numpy as np
@@ -6,8 +7,18 @@ import pytest
 
 @pytest.fixture()
 def mmtf_file_paths():
-    return ["../../../data/mmtf/1sux.mmtf",
-            "../../../data/mmtf/5zmz.mmtf",
+    # return ["../../../data/mmtf/1sux.mmtf",
+    #         "../../../data/mmtf/5zmz.mmtf",
+    #         ]
+    return [msm.demo["1SUX"]["1sux.mmtf"],
+            msm.demo["5ZMZ"]["5zmz.mmtf"],
+            ]
+
+
+@pytest.fixture()
+def pdb_file_paths():
+    return [msm.demo["1SUX"]["1sux.pdb"],
+            msm.demo["5ZMZ"]["5zmz.pdb"],
             ]
 
 
@@ -136,8 +147,8 @@ def test_mmtf_trajectory_file_read(mmtf_file_paths, positions_5zmz_in_nanometers
     assert bonds_actual == bonds_expected
 
 
-def test_mmtf_trajectory_file_encode_data_for_writing():
-    traj = mdt.load("../../../data/pdb/5zmz.pdb")
+def test_mmtf_trajectory_file_encode_data_for_writing(pdb_file_paths):
+    traj = mdt.load(pdb_file_paths[1])
     encoder = file_mmtf.MMTFTrajectoryFile._encode_data_for_writing(
         traj.xyz,
         traj.topology,
@@ -229,9 +240,9 @@ def test_mmtf_trajectory_file_encode_data_for_writing():
     }
 
 
-def test_write_1sux_mmtf_file():
+def test_write_1sux_mmtf_file(pdb_file_paths):
 
-    traj = mdt.load("../../../data/pdb/1sux.pdb")
+    traj = mdt.load(pdb_file_paths[0])
     encoder = file_mmtf.MMTFTrajectoryFile._encode_data_for_writing(
         traj.xyz,
         traj.topology,
@@ -250,8 +261,9 @@ def test_write_1sux_mmtf_file():
     assert len(encoder.group_list) == 28
 
 
-def test_write_mmtf_file_and_load_it():
-    traj = mdt.load("../../../data/pdb/5zmz.pdb")
+def test_write_mmtf_file_and_load_it(pdb_file_paths):
+
+    traj = mdt.load(pdb_file_paths[1])
     encoder = file_mmtf.MMTFTrajectoryFile._encode_data_for_writing(
         traj.xyz,
         traj.topology,
