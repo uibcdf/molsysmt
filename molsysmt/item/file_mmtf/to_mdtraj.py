@@ -50,6 +50,7 @@
 
 import copy
 import os
+import re
 import tempfile
 import xml.etree.ElementTree as ETree
 import mdtraj as mdt
@@ -155,8 +156,8 @@ class MMTFTrajectoryFile(object):
     _chain_names = [chr(ord('A') + i) for i in range(26)]
 
     def __init__(self, filename, mode='r', force_overwrite=True, standard_names=True):
-        self._open = False
-        self._filepath = None
+        self._open = True
+        self._filepath = filename
         self._mode = mode
         self._standard_names = standard_names
         self._positions = None
@@ -165,9 +166,8 @@ class MMTFTrajectoryFile(object):
         self._unit_cell_angles = None
 
         if mode == 'r':
+
             _residue_name_replacements, _atom_name_replacements = self._load_name_replacement_tables()
-            self._frame_index = 0
-            self._filepath = filename
             self._positions, self._topology, self._unit_cell_lengths, self._unit_cell_angles = \
                 self._read(self._filepath, self._standard_names)
 
@@ -177,8 +177,6 @@ class MMTFTrajectoryFile(object):
                 raise IOError('"%s" already exists' % filename)
         else:
             raise ValueError("invalid mode: %s" % mode)
-
-        self._open = True
 
     @property
     def positions(self):
@@ -542,7 +540,7 @@ class MMTFTrajectoryFile(object):
                 dictionary[atom.attrib[id_]] = name
 
     @staticmethod
-    def _read(file_path, standard_names):
+    def _read(file_path, standard_names, decoder=None):
         """ Reads the topology of the mmtf file. It returns
             a 2-tuple where the first element is the number of atoms
             and the second is the topology.
@@ -575,7 +573,12 @@ class MMTFTrajectoryFile(object):
             MMTFTrajectoryFile._residue_name_replacements, MMTFTrajectoryFile._atom_name_replacements = \
                 MMTFTrajectoryFile._load_name_replacement_tables()
 
-        decoder = mmtf.parse(file_path)
+        # Check it is a PDB id
+        if re.match(r"\d\w{3}", file_path):
+            decoder = mmtf.fetch(file_path)
+        else:
+            decoder = mmtf.parse(file_path)
+
         # Get the positions first
         positions = np.zeros((1, decoder.num_atoms, 3))
         positions[0, :, 0] = decoder.x_coord_list

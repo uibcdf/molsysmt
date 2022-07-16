@@ -229,6 +229,27 @@ def test_mmtf_trajectory_file_encode_data_for_writing():
     }
 
 
+def test_write_1sux_mmtf_file():
+
+    traj = mdt.load("../../../data/pdb/1sux.pdb")
+    encoder = file_mmtf.MMTFTrajectoryFile._encode_data_for_writing(
+        traj.xyz,
+        traj.topology,
+        traj.unitcell_lengths,
+        traj.unitcell_angles,
+    )
+
+    assert encoder.num_atoms == 4244
+    assert encoder.num_groups == 882
+    assert encoder.num_bonds == 3936
+    assert encoder.num_chains == 6
+
+    assert len(encoder.x_coord_list) == 4244
+    assert len(encoder.y_coord_list) == 4244
+    assert len(encoder.z_coord_list) == 4244
+    assert len(encoder.group_list) == 28
+
+
 def test_write_mmtf_file_and_load_it():
     traj = mdt.load("../../../data/pdb/5zmz.pdb")
     encoder = file_mmtf.MMTFTrajectoryFile._encode_data_for_writing(
