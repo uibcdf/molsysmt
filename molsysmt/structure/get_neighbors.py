@@ -6,7 +6,7 @@ import numpy as np
 def get_neighbors(molecular_system, selection="all", groups_of_atoms=None, group_behavior=None, structure_indices="all",
                   molecular_system_2=None, selection_2=None, groups_of_atoms_2=None, group_behavior_2=None, structure_indices_2=None,
                   threshold=None, num_neighbors=None, atom_indices=False, pbc=False, parallel=False,
-                  engine='MolSysMT', syntaxis='MolSysMT', check=True):
+                  engine='MolSysMT', syntax='MolSysMT', check=True):
 
     if check:
 
@@ -14,9 +14,9 @@ def get_neighbors(molecular_system, selection="all", groups_of_atoms=None, group
         if molecular_system_2 is not None:
             digest_single_molecular_system(molecular_system_2)
 
-        syntaxis = digest_syntaxis(syntaxis)
-        selection = digest_selection(selection, syntaxis)
-        selection_2 = digest_selection(selection_2, syntaxis)
+        syntax = digest_syntax(syntax)
+        selection = digest_selection(selection, syntax)
+        selection_2 = digest_selection(selection_2, syntax)
 
         structure_indices = digest_structure_indices(structure_indices)
         if structure_indices_2 is not None:
@@ -54,7 +54,7 @@ def get_neighbors(molecular_system, selection="all", groups_of_atoms=None, group
                                                     group_behavior=group_behavior, structure_indices=structure_indices,
                                                     molecular_system_2=molecular_system_2, selection_2=selection_2, groups_of_atoms_2=groups_of_atoms_2,
                                                     group_behavior_2=group_behavior_2, structure_indices_2=structure_indices_2,
-                                                    pbc=pbc, parallel=parallel, output_form='tensor', engine=engine, syntaxis=syntaxis, check=False)
+                                                    pbc=pbc, parallel=parallel, output_form='tensor', engine=engine, syntax=syntax, check=False)
 
     else:
 
@@ -62,7 +62,7 @@ def get_neighbors(molecular_system, selection="all", groups_of_atoms=None, group
                             group_behavior=group_behavior, structure_indices=structure_indices,
                             selection_2=selection_2, groups_of_atoms_2=groups_of_atoms_2,
                             group_behavior_2=group_behavior_2, structure_indices_2=structure_indices_2,
-                            pbc=pbc, parallel=parallel, output_form='tensor', engine=engine, syntaxis=syntaxis, check=False)
+                            pbc=pbc, parallel=parallel, output_form='tensor', engine=engine, syntax=syntax, check=False)
 
     nstructures, nelements_1, nelements_2 = all_dists.shape
     length_units = puw.get_unit(all_dists)

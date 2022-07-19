@@ -7,20 +7,20 @@ import numpy as np
 def wrap_to_pbc(molecular_system, selection='all', structure_indices='all',
                 center='[0,0,0] nanometers', center_of_selection=None, weights_for_center=None,
                 recenter=True, keep_covalent_bonds=False,
-                syntaxis='MolSysMT', engine='MolSysMT', in_place=False, check=True):
+                syntax='MolSysMT', engine='MolSysMT', in_place=False, check=True):
     if check:
 
         digest_single_molecular_system(molecular_system)
         engine = digest_engine(engine)
-        syntaxis = digest_syntaxis(syntaxis)
-        selection = digest_selection(selection, syntaxis)
+        syntax = digest_syntax(syntax)
+        selection = digest_selection(selection, syntax)
         structure_indices = digest_structure_indices(structure_indices)
 
     if engine=='MolSysMT':
 
         from molsysmt.basic import select, get, set, extract, copy
 
-        atom_indices = select(molecular_system, selection=selection, syntaxis=syntaxis)
+        atom_indices = select(molecular_system, selection=selection, syntax=syntax)
 
         coordinates= get(molecular_system, element='atom', indices=atom_indices, coordinates=True)
         length_units = puw.get_unit(coordinates)
@@ -41,7 +41,7 @@ def wrap_to_pbc(molecular_system, selection='all', structure_indices='all',
             from molsysmt.structure import get_center
             center = get_center(molecular_system, selection=center_of_selection,
                                 weights=weights_for_center, structure_indices=structure_indices,
-                                syntaxis=syntaxis, engine='MolSysMT')
+                                syntax=syntax, engine='MolSysMT')
 
             center = puw.convert(center, to_unit=length_units)
             center = puw.get_value(center)
@@ -83,7 +83,7 @@ def wrap_to_pbc(molecular_system, selection='all', structure_indices='all',
     if in_place:
 
         set(molecular_system, element='atom', indices=atom_indices, structure_indices=structure_indices,
-            syntaxis=syntaxis, coordinates=coordinates)
+            syntax=syntax, coordinates=coordinates)
 
         pass
 
@@ -91,7 +91,7 @@ def wrap_to_pbc(molecular_system, selection='all', structure_indices='all',
 
         tmp_molecular_system = copy(molecular_system)
         set(tmp_molecular_system, element='atom', indices=atom_indices, structure_indices=structure_indices,
-            syntaxis=syntaxis, coordinates=coordinates)
+            syntax=syntax, coordinates=coordinates)
 
         return tmp_molecular_system
 

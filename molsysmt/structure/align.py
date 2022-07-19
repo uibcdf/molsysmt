@@ -4,15 +4,15 @@ import numpy as np
 
 def align(molecular_system, selection='backbone', structure_indices='all',
           reference_molecular_system=None, reference_selection='backbone', reference_structure_index=0,
-          syntaxis='MolSysMT', parallel=True, method='sequence alignment and least rmsd fit',
+          syntax='MolSysMT', parallel=True, method='sequence alignment and least rmsd fit',
           engine_sequence_alignment = 'Biopython', engine_least_rmsd_fit = 'MolSysMT', check=True):
 
     if check:
 
         digest_single_molecular_system(molecular_system)
-        syntaxis = digest_syntaxis(syntaxis)
-        selection = digest_selection(selection, syntaxis)
-        reference_selection = digest_selection(reference_selection, syntaxis)
+        syntax = digest_syntax(syntax)
+        selection = digest_selection(selection, syntax)
+        reference_selection = digest_selection(reference_selection, syntax)
         structure_indices = digest_structure_indices(structure_indices)
         reference_structure_index = digest_structure_indices(reference_structure_index)
         engine_sequence_alignment = digest_engine(engine_sequence_alignment)
@@ -54,7 +54,7 @@ def align(molecular_system, selection='backbone', structure_indices='all',
                          reference_molecular_system=reference_molecular_system,
                          reference_selection=reference_selection_to_be_fitted,
                          reference_structure_index=reference_structure_index,
-                         engine='MolSysMT', parallel=parallel, syntaxis=syntaxis, check=False)
+                         engine='MolSysMT', parallel=parallel, syntax=syntax, check=False)
 
     else:
 

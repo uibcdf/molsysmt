@@ -4,13 +4,13 @@ from molsysmt._private.exceptions import *
 from molsysmt._private.digestion import *
 
 def charge(molecular_system, element='group', selection='all', definition=None, engine='OpenMM',
-        syntaxis='MolSysMT', check=True):
+        syntax='MolSysMT', check=True):
 
     if check:
 
         digest_single_molecular_system(molecular_system)
-        syntaxis = digest_syntaxis(syntaxis)
-        selection = digest_selection(selection, syntaxis)
+        syntax = digest_syntax(syntax)
+        selection = digest_selection(selection, syntax)
         engine = digest_engine(engine)
         element = digest_element(element)
 

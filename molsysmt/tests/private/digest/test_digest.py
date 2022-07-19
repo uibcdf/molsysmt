@@ -3,7 +3,7 @@
 from molsysmt._private.exceptions import IncorrectShapeError, WrongEngineError, WrongElementError
 from molsysmt._private.exceptions import WrongFormError, WrongIndicesError, WrongStepError, BadCallError
 from molsysmt._private.digestion.box import digest_box_lengths_or_angles, digest_box_values
-from molsysmt._private.digestion import digest_element, digest_engine, digest_form, digest_syntaxis
+from molsysmt._private.digestion import digest_element, digest_engine, digest_form, digest_syntax
 from molsysmt._private.digestion import digest_indices, digest_item, digest_step, digest_argument, digest_viewer
 
 from molsysmt import puw
@@ -195,12 +195,12 @@ def test_digest_step_raise_error():
         digest_step("10")
 
 
-# Tests for digest syntaxis
+# Tests for digest syntax
 
-def test_digest_syntaxis():
+def test_digest_syntax():
 
     syntax = "molsysmt"
-    assert digest_syntaxis(syntax) == "MolSysMT"
+    assert digest_syntax(syntax) == "MolSysMT"
 
 
 # Tests for digest_viewer

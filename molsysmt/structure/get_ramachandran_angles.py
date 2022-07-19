@@ -4,21 +4,21 @@ import numpy as np
 from molsysmt import puw
 
 def get_ramachandran_angles(molecular_system, selection='all', structure_indices='all',
-        syntaxis='MolSysMT', pbc=False, check=False):
+        syntax='MolSysMT', pbc=False, check=False):
 
     if check:
 
         digest_single_molecular_system(molecular_system)
-        syntaxis = digest_syntaxis(syntaxis)
-        selection = digest_selection(selection, syntaxis)
-        center_of_selection = digest_selection(center_of_selection, syntaxis)
+        syntax = digest_syntax(syntax)
+        selection = digest_selection(selection, syntax)
+        center_of_selection = digest_selection(center_of_selection, syntax)
         structure_indices = digest_structure_indices(structure_indices)
 
     from . import get_dihedral_angles
     from molsysmt.topology import get_covalent_dihedral_quartets
 
-    phi_covalent_chain = get_covalent_dihedral_quartets(molecular_system, dihedral_angle='phi', selection=selection, syntaxis=syntaxis, check=False)
-    psi_covalent_chain = get_covalent_dihedral_quartets(molecular_system, dihedral_angle='psi', selection=selection, syntaxis=syntaxis, check=False)
+    phi_covalent_chain = get_covalent_dihedral_quartets(molecular_system, dihedral_angle='phi', selection=selection, syntax=syntax, check=False)
+    psi_covalent_chain = get_covalent_dihedral_quartets(molecular_system, dihedral_angle='psi', selection=selection, syntax=syntax, check=False)
 
     n_chains = phi_covalent_chain.shape[0]
 

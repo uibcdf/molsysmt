@@ -7,7 +7,7 @@ from re import findall
 from inspect import stack, getargvalues
 
 
-def select_standard(molecular_system, selection='all', syntaxis='MolSysMT'):
+def select_standard(molecular_system, selection='all', syntax='MolSysMT'):
 
     #from .is_molecular_system import is_molecular_system
     from . import where_is_attribute
@@ -19,17 +19,17 @@ def select_standard(molecular_system, selection='all', syntaxis='MolSysMT'):
             n_atoms = dict_get[aux_form]['system']['n_atoms'](aux_item)
             atom_indices = np.arange(n_atoms, dtype='int64')
         else:
-            selection = digest_selection(selection, syntaxis)
+            selection = digest_selection(selection, syntax)
             aux_item, aux_form = where_is_attribute(molecular_system, 'atom_index')
-            if syntaxis=='MolSysMT':
+            if syntax=='MolSysMT':
                 atom_indices = select_with_MolSysMT(aux_item, selection)
-            elif syntaxis=='MDTraj':
+            elif syntax=='MDTraj':
                 atom_indices = select_with_MDTraj(aux_item, selection)
-            elif syntaxis=='Amber':
+            elif syntax=='Amber':
                 atom_indices = select_with_Amber(aux_item, selection)
-            elif syntaxis=='ParmEd':
+            elif syntax=='ParmEd':
                 atom_indices = select_with_ParmEd(aux_item, selection)
-            elif syntaxis=='MDAnalysis':
+            elif syntax=='MDAnalysis':
                 atom_indices = select_with_MDAnalysis(aux_item, selection)
             else:
                 raise NotImplementedSyntaxisError()
@@ -46,7 +46,7 @@ def select_standard(molecular_system, selection='all', syntaxis='MolSysMT'):
     return atom_indices
 
 
-def select_within(molecular_system, selection, structure_index, syntaxis):
+def select_within(molecular_system, selection, structure_index, syntax):
 
     from molsysmt.structure.get_contacts import get_contacts
 
@@ -70,7 +70,7 @@ def select_within(molecular_system, selection, structure_index, syntaxis):
 
     atom_indices_1, atom_indices_2, cmap = get_contacts(molecular_system, selection=selection_1, selection_2=selection_2,
                                            structure_indices=structure_index, threshold=threshold, pbc=pbc, engine='MolSysMT',
-                                           syntaxis=syntaxis, output_atom_indices=True)
+                                           syntax=syntax, output_atom_indices=True)
 
     if not_within:
         output = atom_indices_1[np.where(cmap.all(axis=2)[0]==False)[0]]
@@ -80,7 +80,7 @@ def select_within(molecular_system, selection, structure_index, syntaxis):
     return output
 
 
-def select_bonded_to(molecular_system, selection, syntaxis):
+def select_bonded_to(molecular_system, selection, syntax):
 
     from molsysmt.basic import get
 
@@ -92,8 +92,8 @@ def select_bonded_to(molecular_system, selection, syntaxis):
     else:
         selection_1, selection_2 = selection.split(" bonded to")
 
-    atom_indices_1 = select(molecular_system, selection=selection_1, syntaxis=syntaxis)
-    atom_indices_2 = get(molecular_system, 'atom', selection=selection_2, syntaxis=syntaxis, bonded_atoms=True)
+    atom_indices_1 = select(molecular_system, selection=selection_1, syntax=syntax)
+    atom_indices_2 = get(molecular_system, 'atom', selection=selection_2, syntax=syntax, bonded_atoms=True)
     atom_indices_2 = np.unique(np.concatenate(atom_indices_2).ravel())
 
     if not_bonded:
@@ -105,11 +105,11 @@ def select_bonded_to(molecular_system, selection, syntaxis):
 
 
 def select(molecular_system, selection='all', structure_index=0, element='atom', mask=None,
-        syntaxis='MolSysMT', to_syntaxis=None, check=True):
+        syntax='MolSysMT', to_syntax=None, check=True):
 
-    # to_syntaxis: 'NGLView', 'MDTraj', ...
+    # to_syntax: 'NGLView', 'MDTraj', ...
 
-    """select(item, selection='all', element='atom', syntaxis='MolSysMT')
+    """select(item, selection='all', element='atom', syntax='MolSysMT')
 
     Get the atom indices corresponding to a selection criterion.
 
@@ -122,7 +122,7 @@ def select(molecular_system, selection='all', structure_index=0, element='atom',
         Molecular model in any supported form (see: :doc:`/Forms`). The object being acted on by the method.
 
     selection: str, list, tuple, np.ndarray, default='all'
-       Selection criterion given by means of a string following any of the selection syntaxis parsable by MolSysMT.
+       Selection criterion given by means of a string following any of the selection syntax parsable by MolSysMT.
 
     mask: list, tuple, numpy array or None. default=None
        XXX
@@ -131,7 +131,7 @@ def select(molecular_system, selection='all', structure_index=0, element='atom',
        The output indices list can correspond to 'atom', 'group', 'component', 'molecule', 'chain',
        'entity' or 'bond' indices.
 
-    syntaxis: str, default='MolSysMT'
+    syntax: str, default='MolSysMT'
        Syntaxis used to write the argument `selection`. The current options supported by MolSysMt
        can be found in :doc:`/Atoms_Selection`.
 
@@ -170,16 +170,16 @@ def select(molecular_system, selection='all', structure_index=0, element='atom',
             raise WrongTargetError(element)
 
         try:
-            syntaxis=digest_syntaxis(syntaxis)
+            syntax=digest_syntax(syntax)
         except:
-            raise WrongSyntaxisError(syntaxis)
+            raise WrongSyntaxisError(syntax)
         try:
-            to_syntaxis=digest_to_syntaxis(to_syntaxis)
+            to_syntax=digest_to_syntax(to_syntax)
         except:
-            raise WrongSyntaxisError(to_syntaxis)
+            raise WrongSyntaxisError(to_syntax)
 
         try:
-            selection=digest_selection(selection, syntaxis)
+            selection=digest_selection(selection, syntax)
         except:
             raise WrongSelectionError(selection)
 
@@ -191,19 +191,19 @@ def select(molecular_system, selection='all', structure_index=0, element='atom',
         while selection_with_special_subsentences(selection):
 
             sub_selection = selection_with_special_subsentences(selection)
-            sub_atom_indices = select(molecular_system, sub_selection, syntaxis=syntaxis, check=False)
+            sub_atom_indices = select(molecular_system, sub_selection, syntax=syntax, check=False)
             selection = selection.replace(sub_selection, 'atom_index==@sub_atom_indices')
 
         if 'within' in selection:
-            atom_indices = select_within(molecular_system, selection, structure_index, syntaxis)
+            atom_indices = select_within(molecular_system, selection, structure_index, syntax)
         elif 'bonded to' in selection:
-            atom_indices = select_bonded_to(molecular_system, selection, syntaxis)
+            atom_indices = select_bonded_to(molecular_system, selection, syntax)
         else:
-            atom_indices = select_standard(molecular_system, selection=selection, syntaxis=syntaxis)
+            atom_indices = select_standard(molecular_system, selection=selection, syntax=syntax)
 
     else:
 
-        atom_indices = select_standard(molecular_system, selection, syntaxis)
+        atom_indices = select_standard(molecular_system, selection, syntax)
 
     if element=='atom':
         output_indices = atom_indices
@@ -220,10 +220,10 @@ def select(molecular_system, selection='all', structure_index=0, element='atom',
     if mask is not None:
         output_indices = np.intersect1d(output_indices, mask, assume_unique=True)
 
-    if to_syntaxis is None:
+    if to_syntax is None:
         return output_indices
     else:
-        return indices_to_selection(molecular_system, output_indices, element=element, syntaxis=to_syntaxis)
+        return indices_to_selection(molecular_system, output_indices, element=element, syntax=to_syntax)
 
 def selection_with_special_subsentences(selection):
 
@@ -348,14 +348,14 @@ def select_with_Amber(item, selection):
 
     raise NotImplementedError()
 
-def indices_to_selection(molecular_system, indices, element='atom', syntaxis=None):
+def indices_to_selection(molecular_system, indices, element='atom', syntax=None):
 
-    syntaxis = digest_syntaxis(syntaxis)
+    syntax = digest_syntax(syntax)
     element = digest_element(element)
 
     output_string = ''
 
-    if syntaxis=='NGLView':
+    if syntax=='NGLView':
 
         if element=='atom':
             output_string = '@'+','.join([str(ii) for ii in indices])
@@ -370,7 +370,7 @@ def indices_to_selection(molecular_system, indices, element='atom', syntaxis=Non
         else:
             raise NotImplementedError
 
-    elif syntaxis=='MDTraj':
+    elif syntax=='MDTraj':
 
         if element=='atom':
             output_string = 'index '+' '.join([str(ii) for ii in indices])

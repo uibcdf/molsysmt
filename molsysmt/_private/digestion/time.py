@@ -1,27 +1,36 @@
-from ..exceptions import *
+from ..exceptions import WrongTimeError
+import numpy as np
 
-
-def digest_time(time, caller=""):
-    """ Check if time is null or a float.
+def digest_time(time, caller=None):
+    """ Checks if time arguments has the correct type.
 
         Parameters
-        ----------
-        time : None or float
-            The time.
+        ---------
+        time: None, integer, list, tuple or ndarray
+            The time argument.
 
         caller: str, optional
             Name of the function or method that is being digested.
-            For debugging purposes.
 
         Returns
         -------
-        None or float
+        ndarray
+            The time with correct type
 
         Raises
-        ------
-        WrongTimeError
-            If time is not a float ot is not null.
+        -------
+        WrongStepError
+            If time is not a valid argument.
+
     """
-    if time is None or isinstance(time, (float, bool)):
+    if time is None:
         return time
-    raise WrongTimeError(type(time), caller)
+    elif isinstance(time, float):
+        return np.array([time])
+    elif isinstance(time, (list, tuple)):
+        return np.array(time)
+    elif isinstance(time, np.ndarray):
+        return time
+
+    raise WrongStepError(time, caller=caller)
+

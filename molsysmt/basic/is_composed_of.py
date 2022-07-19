@@ -2,12 +2,12 @@ from molsysmt._private.digestion import digest
 
 
 @digest
-def is_composed_of(molecular_system, selection='all', syntaxis='MolSysMT', ions=False, waters=False, cosolutes=False,
+def is_composed_of(molecular_system, selection='all', syntax='MolSysMT', ions=False, waters=False, cosolutes=False,
                    small_molecules=False, peptides=False, proteins=False, dnas=False, rnas=False, lipids=False):
     from . import get
 
     n_ions_in, n_waters_in, n_cosolutes_in, n_small_molecules_in, n_peptides_in, n_proteins_in, \
-    n_dnas_in, n_rnas_in, n_lipids_in = get(molecular_system, element="system", selection=selection, syntaxis=syntaxis,
+    n_dnas_in, n_rnas_in, n_lipids_in = get(molecular_system, element="system", selection=selection, syntax=syntax,
                                             n_ions=True, n_waters=True, n_cosolutes=True, n_small_molecules=True,
                                             n_peptides=True, n_proteins=True, n_dnas=True, n_rnas=True, n_lipids=True)
 

@@ -1,28 +1,27 @@
-from ..exceptions import *
+from ..exceptions import WrongViewerError
+from molsysmt.engine.engines import viewers
 
-viewers_forms = {
-    'NGLView': 'nglview.NGLWidget',
-}
-
-viewer_from_lowercase = {ii.lower(): ii for ii in viewers_forms}
+viewer_from_lowercase = {ii.lower(): ii for ii in viewers}
 
 
 def digest_viewer(viewer):
     """ Check if the given viewer is supported by MolSysMT.
 
-        Parameters
-        ----------
-        viewer : str
-            The name of the viewer in lowercase.
+    Parameters
+    ----------
+    viewer : str
+        The name of the viewer in lowercase.
 
-        Returns
-        -------
-        tuple[str, str]
-            A tuple with the viewer name and the viewer form.
+    Returns
+    -------
+
+    Raises
+    -------
+
     """
     try:
         tmp_viewer = viewer_from_lowercase[viewer.lower()]
-        tmp_viewer_form = viewers_forms[tmp_viewer]
-        return tmp_viewer, tmp_viewer_form
+        return tmp_viewer
     except KeyError:
-        raise BadCallError()
+        raise WrongViewerError()
+

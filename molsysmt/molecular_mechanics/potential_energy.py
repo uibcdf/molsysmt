@@ -12,7 +12,7 @@ From energy minimization to potential energy contribution of specific set of ato
 
 from molsysmt import puw
 
-def potential_energy (molecular_system, selection='all', syntaxis='MolSysMT', engine='OpenMM'):
+def potential_energy (molecular_system, selection='all', syntax='MolSysMT', engine='OpenMM'):
 
     from molsysmt._private.engines import digest_engine
     from molsysmt._private._digestion import digest_molecular_system
@@ -26,7 +26,7 @@ def potential_energy (molecular_system, selection='all', syntaxis='MolSysMT', en
         if molecular_system.simulation_item is None:
             from molsysmt.native.simulation import simulation_to_potential_energy_minimization
             molecular_system = molecular_system.combine_with_items(simulation_to_potential_energy_minimization)
-        context = convert(molecular_system, to_form='openmm.Context', selection=selection, syntaxis=syntaxis)
+        context = convert(molecular_system, to_form='openmm.Context', selection=selection, syntax=syntax)
         state = context.getState(getEnergy=True)
         output = state.getPotentialEnergy()
 
@@ -39,9 +39,9 @@ def potential_energy (molecular_system, selection='all', syntaxis='MolSysMT', en
     return output
 
 
-def energy_minimization (molecular_system, method='L-BFGS', selection='all', syntaxis='MolSysMT', engine='OpenMM', to_form=None, verbose=True):
+def energy_minimization (molecular_system, method='L-BFGS', selection='all', syntax='MolSysMT', engine='OpenMM', to_form=None, verbose=True):
 
-    """remove(item, selection=None, syntaxis='mdtraj')
+    """remove(item, selection=None, syntax='mdtraj')
 
     A new structure is returned with the molecular model relaxed to the nearest potential energy local
     minimum.
@@ -57,8 +57,8 @@ def energy_minimization (molecular_system, method='L-BFGS', selection='all', syn
     selection : str, int, list, tuple or numpy array (default None)
         Region to be minimized defined as a selection sentence or atoms indices list. By default
         None means all atoms and there by the whole molecular model is minized.
-    syntaxis : str (default "mdtraj")
-        Name of the selection syntaxis used: "mdtraj" or "amber".
+    syntax : str (default "mdtraj")
+        Name of the selection syntax used: "mdtraj" or "amber".
     engine : str (default "openmm")
 
     Returns
@@ -93,7 +93,7 @@ def energy_minimization (molecular_system, method='L-BFGS', selection='all', syn
             from molsysmt.native.simulation import simulation_to_potential_energy_minimization
             molecular_system = molecular_system.combine_with_items(simulation_to_potential_energy_minimization)
 
-        simulation = convert(molecular_system, to_form='openmm.Simulation', selection=selection, syntaxis=syntaxis)
+        simulation = convert(molecular_system, to_form='openmm.Simulation', selection=selection, syntax=syntax)
 
         if verbose:
             state_pre_min = simulation.context.getState(getEnergy=True)

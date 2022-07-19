@@ -4,21 +4,21 @@ from molsysmt._private.variables import is_all
 import numpy as np
 from molsysmt.basic import select
 
-def get_covalent_chains(molecular_system, chain=None, selection='all', syntaxis='MolSysMT',
+def get_covalent_chains(molecular_system, chain=None, selection='all', syntax='MolSysMT',
         check=True):
 
     if check:
 
         digest_single_molecular_system(molecular_system)
-        syntaxis = digest_syntaxis(syntaxis)
-        selection = digest_selection(selection, syntaxis)
+        syntax = digest_syntax(syntax)
+        selection = digest_selection(selection, syntax)
 
     from . import get_bondgraph
 
     if is_all(selection):
         mask = None
     else:
-        mask = select(molecular_system, selection=selection, syntaxis=syntaxis, check=False)
+        mask = select(molecular_system, selection=selection, syntax=syntax, check=False)
 
     chain_atom_indices = []
 

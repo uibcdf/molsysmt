@@ -7,7 +7,7 @@ from molsysmt import puw
 import numpy as np
 
 def buch(molecular_system, selection='all', selection_2=None, structure_indices='all', threshold='2.3 angstroms',
-        acceptors=None, donors=None, pbc=False, optimize=False, output_form='dict', engine='MolSysMT', syntaxis='MolSysMT'):
+        acceptors=None, donors=None, pbc=False, optimize=False, output_form='dict', engine='MolSysMT', syntax='MolSysMT'):
 
 
     from molsysmt.hbonds.donors_and_acceptors import get_acceptor_atoms, get_donor_atoms
@@ -22,17 +22,17 @@ def buch(molecular_system, selection='all', selection_2=None, structure_indices=
     if selection_2 is None:
 
         if acceptors is None:
-            acceptors_1 = get_acceptor_atoms(molecular_system, selection=selection, engine=engine, syntaxis=syntaxis)
+            acceptors_1 = get_acceptor_atoms(molecular_system, selection=selection, engine=engine, syntax=syntax)
         else:
-            acceptors_1 = select(molecular_system, selection=selection, mask=acceptors, syntaxis=syntaxis)
+            acceptors_1 = select(molecular_system, selection=selection, mask=acceptors, syntax=syntax)
 
         if donors is None:
-            donors_1 = get_donor_atoms(molecular_system, selection=selection, engine=engine, syntaxis=syntaxis)
+            donors_1 = get_donor_atoms(molecular_system, selection=selection, engine=engine, syntax=syntax)
         else:
-            donors_1 = select(molecular_system, selection=selection, mask=donors, syntaxis=syntaxis)
+            donors_1 = select(molecular_system, selection=selection, mask=donors, syntax=syntax)
 
         neighs, _ = get_neighbors(molecular_system, selection=acceptors_1, selection_2=donors_1[0],
-                structure_indices=structure_indices, threshold=threshold, pbc=pbc, engine=engine, syntaxis=syntaxis)
+                structure_indices=structure_indices, threshold=threshold, pbc=pbc, engine=engine, syntax=syntax)
 
         if output_form == 'dict':
 
@@ -55,24 +55,24 @@ def buch(molecular_system, selection='all', selection_2=None, structure_indices=
     else:
 
         if acceptors is None:
-            acceptors_1 = get_acceptor_atoms(molecular_system, selection=selection, engine=engine, syntaxis=syntaxis)
-            acceptors_2 = get_acceptor_atoms(molecular_system, selection=selection_2, engine=engine, syntaxis=syntaxis)
+            acceptors_1 = get_acceptor_atoms(molecular_system, selection=selection, engine=engine, syntax=syntax)
+            acceptors_2 = get_acceptor_atoms(molecular_system, selection=selection_2, engine=engine, syntax=syntax)
         else:
-            acceptors_1 = select(molecular_system, selection=selection, mask=acceptors, syntaxis=syntaxis)
-            acceptors_2 = select(molecular_system, selection=selection_2, mask=acceptors, syntaxis=syntaxis)
+            acceptors_1 = select(molecular_system, selection=selection, mask=acceptors, syntax=syntax)
+            acceptors_2 = select(molecular_system, selection=selection_2, mask=acceptors, syntax=syntax)
 
         if donors is None:
-            donors_1 = get_donor_atoms(molecular_system, selection=selection, engine=engine, syntaxis=syntaxis)
-            donors_2 = get_donor_atoms(molecular_system, selection=selection_2, engine=engine, syntaxis=syntaxis)
+            donors_1 = get_donor_atoms(molecular_system, selection=selection, engine=engine, syntax=syntax)
+            donors_2 = get_donor_atoms(molecular_system, selection=selection_2, engine=engine, syntax=syntax)
         else:
-            donors_1 = select(molecular_system, selection=selection, mask=donors, syntaxis=syntaxis)
-            donors_2 = select(molecular_system, selection=selection_2, mask=donors, syntaxis=syntaxis)
+            donors_1 = select(molecular_system, selection=selection, mask=donors, syntax=syntax)
+            donors_2 = select(molecular_system, selection=selection_2, mask=donors, syntax=syntax)
 
         neighs, _ = get_neighbors(molecular_system, selection=acceptors_1, selection_2=donors_2[0],
-                structure_indices=structure_indices, threshold=threshold, pbc=pbc, engine=engine, syntaxis=syntaxis)
+                structure_indices=structure_indices, threshold=threshold, pbc=pbc, engine=engine, syntax=syntax)
 
         neighs_2, _ = get_neighbors(molecular_system, selection=acceptors_2, selection_2=donors_1[0],
-                structure_indices=structure_indices, threshold=threshold, pbc=pbc, engine=engine, syntaxis=syntaxis)
+                structure_indices=structure_indices, threshold=threshold, pbc=pbc, engine=engine, syntax=syntax)
 
         if output_form == 'dict':
 

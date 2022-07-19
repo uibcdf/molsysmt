@@ -1,4 +1,4 @@
-    """method_name(item, target='system', indices=None, selection='all', structure_indices='all', syntaxis='MDTraj')
+    """method_name(item, target='system', indices=None, selection='all', structure_indices='all', syntax='MDTraj')
 
     Print out general information of a molecular model.
 
@@ -12,7 +12,7 @@
 
     selection: str, list, tuple or np.ndarray, defaul='all'
        Atoms selection on which the action is applied. The selection can be given by means of a string following any of
-       the selection syntaxis parsable by MolSysMT (see: :func:`molsysmt.select`); or addressing
+       the selection syntax parsable by MolSysMT (see: :func:`molsysmt.select`); or addressing
        the selected atom index or indices (0-based) by means of an integer, or a list, a tuple, or
        numpy array of integers.
 
@@ -32,7 +32,7 @@
         method is going to work with. This entity index or indices (0-based) can be given by
         an integer or a list, tuple or numpy array of integers.
 
-    syntaxis: str, default='MDTraj'
+    syntax: str, default='MDTraj'
        Syntaxis used to write argument `selection` (in case it is a string). The
        current options supported by MolSysMt can be found in section XXX (see: :func:`molsysmt.select`).
 

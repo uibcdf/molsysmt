@@ -1,4 +1,4 @@
-def to_mdtraj_Trajectory(item, selection='all', structure_indices='all', syntaxis='MolSysMT'):
+def to_mdtraj_Trajectory(item, selection='all', structure_indices='all', syntax='MolSysMT'):
 
     if check:
         from molsysmt.tools.mmtf_MMTFDecoder.is_mmtf_MMTFDecoder import _checking_form

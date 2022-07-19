@@ -242,7 +242,7 @@ class Structures():
     #            atom_indices = self._atom_indices_mdtraj
     #    else:
     #        from molsysmt.basic import select as _select
-    #        atom_indices = _select(self.topology_mdtraj,selection,syntaxis)
+    #        atom_indices = _select(self.topology_mdtraj,selection,syntax)
 
     #    from mdtraj import iterload as _mdtraj_iterload
     #    tmp_top = self.topology_mdtraj

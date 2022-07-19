@@ -8,9 +8,9 @@ def info(molecular_system,
          element='system',
          indices=None,
          selection='all',
-         syntaxis='MolSysMT',
+         syntax='MolSysMT',
          output='dataframe'):
-    """info(item, element='system', indices=None, selection='all', syntaxis='MolSysMT')
+    """info(item, element='system', indices=None, selection='all', syntax='MolSysMT')
 
     Print out general information of a molecular model.
 
@@ -35,10 +35,10 @@ def info(molecular_system,
     selection: str, list, tuple or np.ndarray, default='all'
        Atoms selection over which this method applies. The selection can be given by a
        list, tuple or numpy array of integers (0-based), or by means of a string following any of
-       the selection syntaxis parsable by MolSysMT.
+       the selection syntax parsable by MolSysMT.
 
-    syntaxis: str, default='MolSysMT'
-       Selection syntaxis used in the argument `selection` (in case `selection` is a string). Find
+    syntax: str, default='MolSysMT'
+       Selection syntax used in the argument `selection` (in case `selection` is a string). Find
        current options supported by MolSysMt in section 'Selection'.
 
     Returns
@@ -73,7 +73,7 @@ def info(molecular_system,
             chain_index, \
             molecule_index, molecule_type, \
             entity_index, entity_name = get(molecular_system, element=element, indices=indices, selection=selection,
-                                            syntaxis=syntaxis, atom_index=True, atom_id=True, atom_name=True,
+                                            syntax=syntax, atom_index=True, atom_id=True, atom_name=True,
                                             atom_type=True, group_index=True, group_id=True, group_name=True,
                                             group_type=True, component_index=True, chain_index=True,
                                             molecule_index=True,
@@ -94,7 +94,7 @@ def info(molecular_system,
             chain_index, \
             molecule_index, molecule_type, \
             entity_index, entity_name = get(molecular_system, element=element, indices=indices, selection=selection,
-                                            syntaxis=syntaxis, group_index=True, group_id=True, group_name=True,
+                                            syntax=syntax, group_index=True, group_id=True, group_name=True,
                                             group_type=True, n_atoms=True, component_index=True, chain_index=True,
                                             molecule_index=True, molecule_type=True, entity_index=True,
                                             entity_name=True)
@@ -112,7 +112,7 @@ def info(molecular_system,
             chain_index, \
             molecule_index, molecule_type, \
             entity_index, entity_name = get(molecular_system, element=element, indices=indices, selection=selection,
-                                            syntaxis=syntaxis, component_index=True, n_atoms=True, n_groups=True,
+                                            syntax=syntax, component_index=True, n_atoms=True, n_groups=True,
                                             chain_index=True, molecule_index=True, molecule_type=True,
                                             entity_index=True, entity_name=True)
 
@@ -128,7 +128,7 @@ def info(molecular_system,
             n_atoms, n_groups, n_components, \
             molecule_index, molecule_type, \
             entity_index, entity_name = get(molecular_system, element=element, indices=indices, selection=selection,
-                                            syntaxis=syntaxis, chain_index=True, chain_id=True, chain_name=True,
+                                            syntax=syntax, chain_index=True, chain_id=True, chain_name=True,
                                             n_atoms=True, n_groups=True, n_components=True, molecule_index=True,
                                             molecule_type=True, entity_index=True, entity_name=True)
 
@@ -172,7 +172,7 @@ def info(molecular_system,
             molecule_index, molecule_name, molecule_type, \
             n_atoms, n_groups, n_components, chain_index, \
             entity_index, entity_name = get(molecular_system, element=element, indices=indices, selection=selection,
-                                            syntaxis=syntaxis, molecule_index=True, molecule_name=True,
+                                            syntax=syntax, molecule_index=True, molecule_name=True,
                                             molecule_type=True, n_atoms=True, n_groups=True, n_components=True,
                                             chain_index=True, entity_index=True, entity_name=True)
 
@@ -197,7 +197,7 @@ def info(molecular_system,
             entity_index, entity_name, entity_type, \
             n_atoms, n_groups, n_components, n_chains, \
             n_molecules = get(molecular_system, element=element, indices=indices, selection=selection,
-                              syntaxis=syntaxis, entity_index=True, entity_name=True, entity_type=True, n_atoms=True,
+                              syntax=syntax, entity_index=True, entity_name=True, entity_type=True, n_atoms=True,
                               n_groups=True, n_components=True, n_chains=True, n_molecules=True)
 
             return df({'index': entity_index, 'name': entity_name, 'type': entity_type,

@@ -6,13 +6,13 @@ from molsysmt import puw
 import numpy as np
 
 def get_center(molecular_system, selection='all', groups_of_atoms=None, weights=None,
-        structure_indices='all', syntaxis='MolSysMT', engine='MolSysMT', parallel=False, check=True):
+        structure_indices='all', syntax='MolSysMT', engine='MolSysMT', parallel=False, check=True):
 
     if check:
 
         digest_single_molecular_system(molecular_system)
-        syntaxis = digest_syntaxis(syntaxis)
-        selection = digest_selection(selection, syntaxis)
+        syntax = digest_syntax(syntax)
+        selection = digest_selection(selection, syntax)
         structure_indices = digest_structure_indices(structure_indices)
         engine = digest_engine(engine)
 
@@ -21,7 +21,7 @@ def get_center(molecular_system, selection='all', groups_of_atoms=None, weights=
     if engine=='MolSysMT':
 
         if groups_of_atoms is None:
-            atom_indices = select(molecular_system, selection=selection, syntaxis=syntaxis,
+            atom_indices = select(molecular_system, selection=selection, syntax=syntax,
                                   check=False)
             groups_of_atoms = [atom_indices]
 

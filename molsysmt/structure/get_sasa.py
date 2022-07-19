@@ -4,15 +4,15 @@ from molsysmt._private.variables import is_all
 from molsysmt import puw
 import numpy as np
 
-def get_sasa (molecular_system, element='atom', selection='all', structure_indices='all', syntaxis='MolSysMT',
+def get_sasa (molecular_system, element='atom', selection='all', structure_indices='all', syntax='MolSysMT',
           engine='MDTraj', check=True):
 
     if check:
 
         digest_single_molecular_system(molecular_system)
         element = digest_element(element)
-        syntaxis = digest_syntaxis(syntaxis)
-        selection = digest_selection(selection, syntaxis)
+        syntax = digest_syntax(syntax)
+        selection = digest_selection(selection, syntax)
         structure_indices = digest_structure_indices(structure_indices)
         engine = digest_engine(engine)
 
@@ -29,12 +29,12 @@ def get_sasa (molecular_system, element='atom', selection='all', structure_indic
 
             if not is_all(selection):
 
-                atom_indices = select(molecular_system, selection=selection, syntaxis=syntaxis)
+                atom_indices = select(molecular_system, selection=selection, syntax=syntax)
                 sasa_array = sasa_array[:,atom_indices]
 
         else:
 
-            sets_atoms = get(molecular_system, element=element, selection=selection, syntaxis=syntaxis, atom_index=True)
+            sets_atoms = get(molecular_system, element=element, selection=selection, syntax=syntax, atom_index=True)
 
             n_sets = len(sets_atoms)
             n_structures = sasa_array.shape[0]

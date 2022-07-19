@@ -11,12 +11,12 @@ Methods to remove atoms from a molecular model.
 from molsysmt._private.exceptions import *
 from molsysmt._private.digestion import *
 
-def remove_solvent(molecular_system, water=True, ions=True, cosolutes=True, include_selection=None, exclude_selection=None, syntaxis='MolSysMT'):
+def remove_solvent(molecular_system, water=True, ions=True, cosolutes=True, include_selection=None, exclude_selection=None, syntax='MolSysMT'):
 
     from molsysmt.basic import select, remove
 
     molecular_system = digest_molecular_system(molecular_system)
-    syntaxis = digest_syntaxis(syntaxis)
+    syntax = digest_syntax(syntax)
 
     atom_indices_to_be_removed = []
     atom_indices_water = []
@@ -37,11 +37,11 @@ def remove_solvent(molecular_system, water=True, ions=True, cosolutes=True, incl
     atom_indices_to_be_removed = list((set(atom_indices_water) | set(atom_indices_ions) | set(atom_indices_cosolutes)))
 
     if include_selection is not None:
-        atom_indices_included = select(molecular_system, selection=include_selection, syntaxis=syntaxis)
+        atom_indices_included = select(molecular_system, selection=include_selection, syntax=syntax)
         atom_indices_to_be_removed = list((set(atom_indices_to_be_removed) | set(atom_indices_included)))
 
     if exclude_selection is not None:
-        atom_indices_excluded = select(molecular_system, selection=exclude_selection, syntaxis=syntaxis)
+        atom_indices_excluded = select(molecular_system, selection=exclude_selection, syntax=syntax)
         atom_indices_to_be_removed = list((set(atom_indices_to_be_removed) - set(atom_indices_excluded)))
 
     return remove(molecular_system, atom_indices_to_be_removed)

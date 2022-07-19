@@ -47,11 +47,11 @@ msgid "Selection sentence or atoms indices list."
 msgstr ""
 
 #: molsysmt.remove:14 of
-msgid "**syntaxis**"
+msgid "**syntax**"
 msgstr ""
 
 #: molsysmt.remove:14 of
-msgid "Name of the selection syntaxis used: \"mdtraj\" or \"amber\"."
+msgid "Name of the selection syntax used: \"mdtraj\" or \"amber\"."
 msgstr ""
 
 #: molsysmt.remove of

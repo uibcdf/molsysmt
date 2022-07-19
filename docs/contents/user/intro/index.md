@@ -8,6 +8,6 @@
    molecular_system/index.md
    native_forms/index.md
    Tools.ipynb
-   Selection_syntaxis.ipynb
+   Selection_syntax.ipynb
    Units.md
 ```

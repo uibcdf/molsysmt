@@ -8,9 +8,9 @@ def set(molecular_system,
         indices=None,
         selection='all',
         structure_indices='all',
-        syntaxis='MolSysMT',
+        syntax='MolSysMT',
         **kwargs):
-    """into(item, element='system', indices=None, selection='all', structure_indices='all', syntaxis='MolSysMT')
+    """into(item, element='system', indices=None, selection='all', structure_indices='all', syntax='MolSysMT')
 
     Set a new value to an attribute.
 
@@ -34,13 +34,13 @@ def set(molecular_system,
     selection: str, list, tuple or np.ndarray, default='all'
        Atoms selection over which this method applies. The selection can be given by a
        list, tuple or numpy array of integers (0-based), or by means of a string following any of
-       the selection syntaxis parsable by MolSysMT (see: :func:`molsysmt.select`).
+       the selection syntax parsable by MolSysMT (see: :func:`molsysmt.select`).
 
     structure_indices: int, list, tuple, np.ndarray or 'all', default='all'
         List of indices referring the set of frames this method is going to work with. This set of indices can be given by a list, tuple or numpy
         array of integers (0-based).
 
-    syntaxis: str, default='MolSysMT'
+    syntax: str, default='MolSysMT'
        Syntaxis used in the argument `selection` (in case it is a string). The
        current options supported by MolSysMt can be found in section XXX (see: :func:`molsysmt.select`).
 
@@ -80,7 +80,7 @@ def set(molecular_system,
             indices = select(molecular_system,
                              element=element,
                              selection=selection,
-                             syntaxis=syntaxis,
+                             syntax=syntax,
                              check=False)
         else:
             indices = 'all'

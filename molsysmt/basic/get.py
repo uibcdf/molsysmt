@@ -10,9 +10,9 @@ def get(molecular_system,
         indices=None,
         selection='all',
         structure_indices='all',
-        syntaxis='MolSysMT',
+        syntax='MolSysMT',
         **kwargs):
-    """get(item, element='system', indices=None, selection='all', structure_indices='all', syntaxis='MolSysMT')
+    """get(item, element='system', indices=None, selection='all', structure_indices='all', syntax='MolSysMT')
 
     Get specific attributes and observables.
 
@@ -36,12 +36,12 @@ def get(molecular_system,
     selection: str, list, tuple or np.ndarray, default='all'
        Atoms selection over which this method applies. The selection can be given by a
        list, tuple or numpy array of integers (0-based), or by means of a string following any of
-       the selection syntaxis parsable by MolSysMT.
+       the selection syntax parsable by MolSysMT.
 
     structure_indices : nt, list, tuple or np.ndarray, default=None
 
-    syntaxis: str, default='MolSysMT'
-       Selection syntaxis used in the argument `selection` (in case `selection` is a string). Find
+    syntax: str, default='MolSysMT'
+       Selection syntax used in the argument `selection` (in case `selection` is a string). Find
        current options supported by MolSysMt in section 'Selection'.
 
     Returns
@@ -76,7 +76,7 @@ def get(molecular_system,
 
     if indices is None:
         if not is_all(selection):
-            indices = select(molecular_system, element=element, selection=selection, syntaxis=syntaxis, check=False)
+            indices = select(molecular_system, element=element, selection=selection, syntax=syntax, check=False)
         else:
             indices = 'all'
 

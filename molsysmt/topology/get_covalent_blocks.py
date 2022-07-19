@@ -4,18 +4,18 @@ import numpy as np
 from networkx import connected_components
 
 def get_covalent_blocks(molecular_system, selection='all', remove_bonds=None, output_form='sets',
-        syntaxis='MolSysMT', check=True):
+        syntax='MolSysMT', check=True):
 
     if check:
 
         digest_single_molecular_system(molecular_system)
-        syntaxis = digest_syntaxis(syntaxis)
-        selection = digest_selection(selection, syntaxis)
+        syntax = digest_syntax(syntax)
+        selection = digest_selection(selection, syntax)
 
     from molsysmt.basic import get
     from . import get_bondgraph
 
-    G = get_bondgraph(molecular_system, nodes_name='atom_index', selection=selection, syntaxis=syntaxis)
+    G = get_bondgraph(molecular_system, nodes_name='atom_index', selection=selection, syntax=syntax)
 
     if remove_bonds is not None:
 

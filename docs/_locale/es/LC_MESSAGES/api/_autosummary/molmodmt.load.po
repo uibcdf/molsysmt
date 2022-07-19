@@ -62,17 +62,17 @@ msgstr ""
 msgid ""
 "Atoms selection over which this method applies. The selection can be "
 "given specified by a list, tuple or numpy array of integers (0-based), or"
-" by means of a string following any of the selection syntaxis parsable by"
+" by means of a string following any of the selection syntax parsable by"
 " MolSysMT."
 msgstr ""
 
 #: molsysmt.load:24 of
-msgid "**syntaxis: str, default='mdtraj'**"
+msgid "**syntax: str, default='mdtraj'**"
 msgstr ""
 
 #: molsysmt.load:22 of
 msgid ""
-"Selection syntaxis used in the argument `selection` (in case `selection` "
+"Selection syntax used in the argument `selection` (in case `selection` "
 "is a string). The current options supported by MolSysMt are 'mdtraj' or "
 "'amber'. More information about this topic can be found in the section "
 "'Selection'."

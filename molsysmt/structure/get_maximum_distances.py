@@ -5,7 +5,7 @@ import numpy as np
 
 def get_maximum_distances(molecular_system, selection="all", groups_of_atoms=None, group_behavior=None, as_entity=True, structure_indices="all",
                      molecular_system_2=None, selection_2=None, groups_of_atoms_2=None, group_behavior_2=None, as_entity_2=True, structure_indices_2=None,
-                     atom_indices=False, pairs=False, pbc=False, parallel=False, engine='MolSysMT', syntaxis='MolSysMT', check=True):
+                     atom_indices=False, pairs=False, pbc=False, parallel=False, engine='MolSysMT', syntax='MolSysMT', check=True):
 
     if check:
 
@@ -13,9 +13,9 @@ def get_maximum_distances(molecular_system, selection="all", groups_of_atoms=Non
         if molecular_system_2 is not None:
             digest_single_molecular_system(molecular_system_2)
 
-        syntaxis = digest_syntaxis(syntaxis)
-        selection = digest_selection(selection, syntaxis)
-        selection_2 = digest_selection(selection_2, syntaxis)
+        syntax = digest_syntax(syntax)
+        selection = digest_selection(selection, syntax)
+        selection_2 = digest_selection(selection_2, syntax)
 
         structure_indices = digest_structure_indices(structure_indices)
         if structure_indices_2 is not None:
@@ -32,14 +32,14 @@ def get_maximum_distances(molecular_system, selection="all", groups_of_atoms=Non
                 molecular_system_2=molecular_system_2, selection_2=selection_2, groups_of_atoms_2=groups_of_atoms_2,
                 group_behavior_2=group_behavior_2, structure_indices_2=structure_indices_2,
                 pairs=pairs, pbc=pbc, parallel=parallel, output_form='tensor', output_atom_indices=True,
-                engine=engine, syntaxis=syntaxis, check=False)
+                engine=engine, syntax=syntax, check=False)
 
     else:
 
         all_dists = get_distances(molecular_system=molecular_system, selection=selection, groups_of_atoms=groups_of_atoms, group_behavior=group_behavior,
                 structure_indices=structure_indices, molecular_system_2=molecular_system_2, selection_2=selection_2, groups_of_atoms_2=groups_of_atoms_2,
                 group_behavior_2=group_behavior_2, structure_indices_2=structure_indices_2, pairs=pairs, pbc=pbc, parallel=parallel, output_form='tensor',
-                engine=engine, syntaxis=syntaxis, check=False)
+                engine=engine, syntax=syntax, check=False)
 
     if pairs is False:
 

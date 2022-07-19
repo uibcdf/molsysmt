@@ -3,13 +3,13 @@ import molsysmt.config as config
 
 
 @digest
-def example_function(element, indices, syntaxis):
-    return element, indices, syntaxis
+def example_function(element, indices, syntax):
+    return element, indices, syntax
 
 
 @digest
-def example_function_no_args_checking(element, indices, syntaxis):
-    return element, indices, syntaxis
+def example_function_no_args_checking(element, indices, syntax):
+    return element, indices, syntax
 
 
 def test_digest_decorator_with_checking_disabled():
@@ -50,7 +50,7 @@ def test_digest_decorator_with_named_arguments():
     element_digested, indices_digested, syntax_digested = \
         example_function(element=element,
                          indices=indices,
-                         syntaxis=syntax)
+                         syntax=syntax)
 
     assert element_digested == "atom"
     assert indices_digested == "all"
@@ -59,7 +59,7 @@ def test_digest_decorator_with_named_arguments():
     element_digested, indices_digested, syntax_digested = \
         example_function(element,
                          indices=indices,
-                         syntaxis=syntax)
+                         syntax=syntax)
 
     assert element_digested == "atom"
     assert indices_digested == "all"
@@ -87,9 +87,9 @@ def test_function_whose_parameters_dont_have_digest_function():
 @digest
 def function_with_optional_arguments(indices,
                                      element="system",
-                                     syntaxis="molsysmt"):
+                                     syntax="molsysmt"):
     config.argument_checking = True
-    return indices, element, syntaxis
+    return indices, element, syntax
 
 
 def test_function_with_optional_arguments():

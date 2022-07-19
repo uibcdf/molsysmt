@@ -7,14 +7,14 @@ from molsysmt import puw
 
 def get_rmsd(molecular_system, selection='backbone', structure_indices='all',
           reference_molecular_system=None, reference_selection=None, reference_structure_index=0,
-          reference_coordinates=None, parallel=True, syntaxis='MolSysMT', engine='MolSysMT',
+          reference_coordinates=None, parallel=True, syntax='MolSysMT', engine='MolSysMT',
           check=True):
 
     if check:
 
         digest_single_molecular_system(molecular_system)
-        syntaxis = digest_syntaxis(syntaxis)
-        selection = digest_selection(selection, syntaxis)
+        syntax = digest_syntax(syntax)
+        selection = digest_selection(selection, syntax)
         structure_indices = digest_structure_indices(structure_indices)
         engine = digest_engine(engine)
 
@@ -22,7 +22,7 @@ def get_rmsd(molecular_system, selection='backbone', structure_indices='all',
             digest_single_molecular_system(reference_molecular_system)
 
         if reference_selection is not None:
-            reference_selection = digest_selection(reference_selection, syntaxis)
+            reference_selection = digest_selection(reference_selection, syntax)
 
         if reference_structure_index is not None:
             reference_structure_index = digest_structure_indices(reference_structure_index)
@@ -32,7 +32,7 @@ def get_rmsd(molecular_system, selection='backbone', structure_indices='all',
         from molsysmt.basic import select, get
 
         n_atoms, n_structures = get(molecular_system, n_atoms=True, n_structures=True)
-        atom_indices = select(molecular_system, selection=selection, syntaxis=syntaxis, check=False)
+        atom_indices = select(molecular_system, selection=selection, syntax=syntax, check=False)
         n_atom_indices = atom_indices.shape[0]
         if is_all(structure_indices):
             structure_indices = np.arange(n_structures)
@@ -51,7 +51,7 @@ def get_rmsd(molecular_system, selection='backbone', structure_indices='all',
                 reference_selection = selection
 
             reference_atom_indices = select(reference_molecular_system,
-                    selection=reference_selection, syntaxis=syntaxis, check=False)
+                    selection=reference_selection, syntax=syntax, check=False)
 
             reference_coordinates = get(reference_molecular_system, element='atom', indices=reference_atom_indices,
                                         structure_indices=reference_structure_index, coordinates=True)

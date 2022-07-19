@@ -4,18 +4,18 @@ import numpy as np
 from molsysmt import puw
 
 def translate(molecular_system, translation=None, selection='all', structure_indices='all',
-        syntaxis='MolSysMT', in_place=False, check=True):
+        syntax='MolSysMT', in_place=False, check=True):
 
     if check:
 
         digest_single_molecular_system(molecular_system)
-        syntaxis = digest_syntaxis(syntaxis)
-        selection = digest_selection(selection, syntaxis)
+        syntax = digest_syntax(syntax)
+        selection = digest_selection(selection, syntax)
         structure_indices = digest_structure_indices(structure_indices)
 
     from molsysmt.basic import get, set, select, copy
 
-    atom_indices = select(molecular_system, selection=selection, syntaxis=syntaxis, check=False)
+    atom_indices = select(molecular_system, selection=selection, syntax=syntax, check=False)
     coordinates = get(molecular_system, element='atom', indices=atom_indices, structure_indices=structure_indices,
                       coordinates=True)
 

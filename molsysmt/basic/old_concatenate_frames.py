@@ -4,7 +4,7 @@ from molsysmt._private.exceptions import *
 from molsysmt.tools.molecular_systems import is_a_single_molecular_system
 from molsysmt.api_forms import dict_append_structures
 
-def concatenate_structures(molecular_systems, selections='all', structure_indices='all', syntaxis='MolSysMT', to_form=None):
+def concatenate_structures(molecular_systems, selections='all', structure_indices='all', syntax='MolSysMT', to_form=None):
 
     from molsysmt.basic import convert, extract, get
 

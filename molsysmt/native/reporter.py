@@ -7,13 +7,13 @@ import time
 
 class MolSysMTReporter():
 
-    def __init__(self, reportInterval, topology, selection='all', syntaxis='MolSysMT',
+    def __init__(self, reportInterval, topology, selection='all', syntax='MolSysMT',
                  step=True, time=True, coordinates=True, boxVectors=True,
                  potentialEnergy=False, kineticEnergy=False, temperature=False,
                  runningTime=False):
 
         if not is_all(selection):
-            self._atom_indices = msm.selection(topology, selection=selection, syntaxis=syntaxis)
+            self._atom_indices = msm.selection(topology, selection=selection, syntax=syntax)
             self.topology = msm.convert(topology, to_form='molsysmt.Topology', selection=self._atom_indices)
         else:
             self._atom_indices = 'all'

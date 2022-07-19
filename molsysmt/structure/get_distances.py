@@ -9,7 +9,7 @@ def get_distances(molecular_system, selection="all", groups_of_atoms=None, group
              molecular_system_2=None, selection_2=None, groups_of_atoms_2=None, group_behavior_2=None, structure_indices_2=None,
              pairs=False, crossed_structures=False, pbc=False, parallel=False, output_form='tensor',
              output_atom_indices=False, output_structure_indices=False, engine='MolSysMT',
-             syntaxis='MolSysMT', check=True):
+             syntax='MolSysMT', check=True):
 
     # group_behavior in
     # ['center_of_mass','geometric_center','minimum_distance','maximum_distance']
@@ -28,9 +28,9 @@ def get_distances(molecular_system, selection="all", groups_of_atoms=None, group
         if molecular_system_2 is not None:
             digest_single_molecular_system(molecular_system_2)
 
-        syntaxis = digest_syntaxis(syntaxis)
-        selection = digest_selection(selection, syntaxis)
-        selection_2 = digest_selection(selection_2, syntaxis)
+        syntax = digest_syntax(syntax)
+        selection = digest_selection(selection, syntax)
+        selection_2 = digest_selection(selection_2, syntax)
 
         structure_indices = digest_structure_indices(structure_indices)
         if structure_indices_2 is not None:
@@ -105,7 +105,7 @@ def get_distances(molecular_system, selection="all", groups_of_atoms=None, group
                                                      check=False)
                 atom_indices_1 = [0]
             else:
-                atom_indices_1 = select(molecular_system, selection=selection, syntaxis=syntaxis,
+                atom_indices_1 = select(molecular_system, selection=selection, syntax=syntax,
                                         check=False)
                 coordinates_1 = get(molecular_system, element='atom', indices=atom_indices_1,
                                     structure_indices=structure_indices, coordinates=True)
@@ -146,7 +146,7 @@ def get_distances(molecular_system, selection="all", groups_of_atoms=None, group
                                                          check=False)
                     atom_indices_2 = [0]
                 else:
-                    atom_indices_2 = select(molecular_system_2, selection=selection_2, syntaxis=syntaxis)
+                    atom_indices_2 = select(molecular_system_2, selection=selection_2, syntax=syntax)
                     coordinates_2 = get(molecular_system_2, element='atom', indices=atom_indices_2,
                                         structure_indices=structure_indices_2, coordinates=True)
 

@@ -1,36 +1,12 @@
-from molsysmt._private.exceptions import *
-from molsysmt._private.digestion import *
+from molsysmt._private.digestion import digest
 from molsysmt._private.lists_and_tuples import is_list_or_tuple
 
+@digest
 def append_structures(to_molecular_system, from_molecular_systems, selections='all',
-        structure_indices='all', syntaxis='MolSysMT', check=True):
+        structure_indices='all', syntax='MolSysMT'):
 
     from . import get_form, convert, extract, get, are_multiple_molecular_systems, is_molecular_system
     from molsysmt.api_forms import dict_append_structures
-
-    if check:
-
-        if not is_molecular_system(to_molecular_system):
-            raise MolecularSystemNeededError()
-
-        if not is_molecular_system(from_molecular_systems):
-            if not are_multiple_molecular_systems(from_molecular_systems):
-                raise MolecularSystemNeededError()
-
-        try:
-            syntaxis = digest_syntaxis(syntaxis)
-        except:
-            raise WrongSyntaxisError(syntaxis)
-
-        try:
-            selection = digest_selection(selections, syntaxis)
-        except:
-            raise WrongSelectionError()
-
-        try:
-            structure_indices = digest_structure_indices(structure_indices)
-        except:
-            raise WrongStructureIndicesError()
 
     if not is_list_or_tuple(to_molecular_system):
         to_molecular_system = [to_molecular_system]

@@ -1,29 +1,36 @@
-from ..exceptions import *
+from ..exceptions import WrongStepError
+import numpy as np
 
-
-def digest_step(step, caller=""):
-    """ Checks if step is an integer or null.
+def digest_step(step, caller=None):
+    """ Checks if step arguments has the correct type.
 
         Parameters
         ---------
-        step: Any
-            The step
+        step: None, integer, list, tuple or ndarray
+            The step argument.
 
         caller: str, optional
             Name of the function or method that is being digested.
-            For debugging purposes.
 
         Returns
         -------
-        int or None
-            The step
+        ndarray
+            The step with correct type
 
         Raises
         -------
         WrongStepError
-            If step is not null or not an integer.
+            If step is not a valid argument.
 
     """
-    if step is None or isinstance(step, int):
+    if step is None:
         return step
-    raise WrongStepError(type(step), caller)
+    elif isinstance(step, int):
+        return np.array([step])
+    elif isinstance(step, (list, tuple)):
+        return np.array(step)
+    elif isinstance(step, np.ndarray):
+        return step
+
+    raise WrongStepError(step, caller=caller)
+

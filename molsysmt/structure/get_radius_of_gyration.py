@@ -5,14 +5,14 @@ from molsysmt import puw
 import numpy as np
 
 def get_radius_of_gyration(molecular_system, selection='all', structure_indices='all',
-                           weights=None, pbc=False, engine='MolSysMT', syntaxis='MolSysMT',
+                           weights=None, pbc=False, engine='MolSysMT', syntax='MolSysMT',
                            check=True):
 
     if check:
 
         digest_single_molecular_system(molecular_system)
-        syntaxis = digest_syntaxis(syntaxis)
-        selection = digest_selection(selection, syntaxis)
+        syntax = digest_syntax(syntax)
+        selection = digest_selection(selection, syntax)
         structure_indices = digest_structure_indices(structure_indices)
         engine = digest_engine(engine)
 
@@ -21,7 +21,7 @@ def get_radius_of_gyration(molecular_system, selection='all', structure_indices=
         from molsysmt.basic import select, get
 
         coordinates == msm.get(molecular_system, element='atom', selection=selection,
-                               structure_indices=structure_indices, syntaxis=syntaxis, coordinates=True)
+                               structure_indices=structure_indices, syntax=syntax, coordinates=True)
 
         length_units = puw.get_unit(coordinates_1)
         coordinates = np.asfortranarray(puw.get_value(coordinates), dtype='float64')
@@ -52,7 +52,7 @@ def get_radius_of_gyration(molecular_system, selection='all', structure_indices=
             weights_units = 1
         elif weights is 'masses':
             from molsysmt.chemphys import get_masses
-            masses = get_masses(molecular_systems, selection=selection, syntaxis=syntaxis, check=False)
+            masses = get_masses(molecular_systems, selection=selection, syntax=syntax, check=False)
             weights_units = puw.get_unit(masses)
             weights = puw.get_value(masses)
 

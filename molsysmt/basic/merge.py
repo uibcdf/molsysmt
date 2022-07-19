@@ -7,10 +7,10 @@ from molsysmt._private.lists_and_tuples import is_list_or_tuple
 def merge(molecular_systems,
           selections='all',
           structure_indices='all',
-          syntaxis='MolSysMT',
+          syntax='MolSysMT',
           to_form=None):
 
-    """merge(items=None, selection='all', structure_indices='all', syntaxis='MolSysMT' to_form=None)
+    """merge(items=None, selection='all', structure_indices='all', syntax='MolSysMT' to_form=None)
 
     XXX
 
@@ -28,9 +28,9 @@ def merge(molecular_systems,
     selection: str, list, tuple or np.ndarray, defaul='all'
        Atoms selection over which this method applies. The selection can be given by a
        list, tuple or numpy array of integers (0-based), or by means of a string following any of
-       the selection syntaxis parsable by MolSysMT (see: :func:`molsysmt.select`).
+       the selection syntax parsable by MolSysMT (see: :func:`molsysmt.select`).
 
-    syntaxis: str, default='MolSysMT'
+    syntax: str, default='MolSysMT'
        Syntaxis used in the argument `selection` (in case it is a string). The
        current options supported by MolSysMt can be found in section XXX (see: :func:`molsysmt.select`).
 
@@ -58,8 +58,8 @@ def merge(molecular_systems,
     #
     #     digest_single_molecular_system(molecular_system)
     #     structure_indices = digest_multiple_structure_indices(structure_indices)
-    #     syntaxis = digest_syntaxis(syntaxis)
-    #     selections = digest_multiple_selections(selections, syntaxis)
+    #     syntax = digest_syntax(syntax)
+    #     selections = digest_multiple_selections(selections, syntax)
     #     to_form = digest_to_form(to_form)
 
     n_molecular_systems = len(molecular_systems)

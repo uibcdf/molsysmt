@@ -45,6 +45,6 @@ msgid "**selection:**"
 msgstr ""
 
 #: ../../molsysmt/multitool.py:docstring of molsysmt.select:30
-msgid "**syntaxis:**"
+msgid "**syntax:**"
 msgstr ""
 

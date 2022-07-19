@@ -18,15 +18,15 @@ def _evaluation(condition, n_in_system):
 
     return output
 
-def contains(molecular_system, selection='all', syntaxis='MolSysMT',
+def contains(molecular_system, selection='all', syntax='MolSysMT',
         ions=None, waters=None, cosolutes=None, small_molecules=None, peptides=None, proteins=None,
         dnas=None, rnas=None, lipids=None, hydrogens=None, check=True):
 
     if check:
 
         digest_single_molecular_system(molecular_system)
-        syntaxis = digest_syntaxis(syntaxis)
-        selection = digest_selection(selection, syntaxis)
+        syntax = digest_syntax(syntax)
+        selection = digest_selection(selection, syntax)
 
     from . import get, select
 

@@ -4,9 +4,9 @@ from molsysmt._private.exceptions import *
 from molsysmt.tools.molecular_systems import is_a_single_molecular_system
 from molsysmt.api_forms import dict_add
 
-def merge(molecular_systems=None, selections='all', structure_indices='all', syntaxis='MolSysMT', to_form=None):
+def merge(molecular_systems=None, selections='all', structure_indices='all', syntax='MolSysMT', to_form=None):
 
-    """merge(items=None, selection='all', structure_indices='all', syntaxis='MolSysMT' to_form=None)
+    """merge(items=None, selection='all', structure_indices='all', syntax='MolSysMT' to_form=None)
 
     XXX
 
@@ -24,9 +24,9 @@ def merge(molecular_systems=None, selections='all', structure_indices='all', syn
     selection: str, list, tuple or np.ndarray, defaul='all'
        Atoms selection over which this method applies. The selection can be given by a
        list, tuple or numpy array of integers (0-based), or by means of a string following any of
-       the selection syntaxis parsable by MolSysMT (see: :func:`molsysmt.select`).
+       the selection syntax parsable by MolSysMT (see: :func:`molsysmt.select`).
 
-    syntaxis: str, default='MolSysMT'
+    syntax: str, default='MolSysMT'
        Syntaxis used in the argument `selection` (in case it is a string). The
        current options supported by MolSysMt can be found in section XXX (see: :func:`molsysmt.select`).
 
@@ -83,7 +83,7 @@ def merge(molecular_systems=None, selections='all', structure_indices='all', syn
 
     for aux_molecular_system, aux_selection, aux_structure_indices in zip(molecular_systems[1:], selections[1:], structure_indices[1:]):
 
-        atom_indices = select(aux_molecular_system, selection=aux_selection, syntaxis=syntaxis)
+        atom_indices = select(aux_molecular_system, selection=aux_selection, syntax=syntax)
 
         # topology
 
@@ -92,7 +92,7 @@ def merge(molecular_systems=None, selections='all', structure_indices='all', syn
 
         if to_form is not None:
             from_item = convert(aux_molecular_system, to_form=to_form, selection=atom_indices,
-                                structure_indices=aux_structure_indices, syntaxis=syntaxis)
+                                structure_indices=aux_structure_indices, syntax=syntax)
             dict_add[to_form](to_item, from_item)
             to_already_added.append(to_item)
 
@@ -104,7 +104,7 @@ def merge(molecular_systems=None, selections='all', structure_indices='all', syn
         if to_form is not None:
             if to_item not in to_already_added:
                 from_item = convert(aux_molecular_system, to_form=to_form, selection=atom_indices,
-                                    structure_indices=aux_structure_indices, syntaxis=syntaxis)
+                                    structure_indices=aux_structure_indices, syntax=syntax)
                 dict_add[to_form](to_item, from_item)
                 to_already_added.append(to_item)
 
@@ -116,7 +116,7 @@ def merge(molecular_systems=None, selections='all', structure_indices='all', syn
         if to_form is not None:
             if to_item not in to_already_added:
                 from_item = convert(aux_molecular_system, to_form=to_form, selection=atom_indices,
-                                    structure_indices=aux_structure_indices, syntaxis=syntaxis)
+                                    structure_indices=aux_structure_indices, syntax=syntax)
                 dict_add[to_form](to_item, from_item)
                 to_already_added.append(to_item)
 
@@ -128,7 +128,7 @@ def merge(molecular_systems=None, selections='all', structure_indices='all', syn
         if to_form is not None:
             if to_item not in to_already_added:
                 from_item = convert(aux_molecular_system, to_form=to_form, selection=atom_indices,
-                                    structure_indices=aux_structure_indices, syntaxis=syntaxis)
+                                    structure_indices=aux_structure_indices, syntax=syntax)
                 dict_add[to_form](to_item, from_item)
                 to_already_added.append(to_item)
 

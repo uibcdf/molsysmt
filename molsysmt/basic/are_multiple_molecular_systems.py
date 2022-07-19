@@ -1,4 +1,3 @@
-from molsysmt._private.exceptions import *
 from molsysmt._private.lists_and_tuples import is_list_or_tuple
 import numpy as np
 

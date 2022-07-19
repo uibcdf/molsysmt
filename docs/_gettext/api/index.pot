@@ -55,7 +55,7 @@ msgid ":obj:`info <molsysmt.info>`\\ \\(\\[item\\, target\\, indices\\, selectio
 msgstr ""
 
 #: ../api/index.rst:27:<autosummary>:1
-msgid ":obj:`select <molsysmt.select>`\\ \\(item\\[\\, selection\\, syntaxis\\]\\)"
+msgid ":obj:`select <molsysmt.select>`\\ \\(item\\[\\, selection\\, syntax\\]\\)"
 msgstr ""
 
 #: ../api/index.rst:27:<autosummary>:1
@@ -95,7 +95,7 @@ msgid "Methods to change any property of a molecular model, structural or topolo
 msgstr ""
 
 #: ../api/index.rst:45:<autosummary>:1
-msgid ":obj:`remove <molsysmt.remove>`\\ \\(item\\[\\, selection\\, syntaxis\\]\\)"
+msgid ":obj:`remove <molsysmt.remove>`\\ \\(item\\[\\, selection\\, syntax\\]\\)"
 msgstr ""
 
 #: ../api/index.rst:45:<autosummary>:1

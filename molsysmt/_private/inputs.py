@@ -1,7 +1,7 @@
 import numpy as np
 from .exceptions import *
 
-def one_system(molecular_system=None, selection=None, structure_indices=None, form=None, syntaxis='MolSysMT'):
+def one_system(molecular_system=None, selection=None, structure_indices=None, form=None, syntax='MolSysMT'):
 
     from molsysmt.basic import convert, select
 
@@ -13,7 +13,7 @@ def one_system(molecular_system=None, selection=None, structure_indices=None, fo
         tmp_molecular_system=item
 
     if selection is not None:
-        atom_indices=select(molecular_system, selection, syntaxis=syntaxis)
+        atom_indices=select(molecular_system, selection, syntax=syntax)
 
     structure_indices=frameslist(tmp_molecular_system, structure_indices)
 
@@ -73,7 +73,7 @@ def coordinates(molecular_system=None, atom_indices=None, structure_indices=None
 
 def comparison_two_systems(molecular_system_1=None, selection_1=None, structure_indices_1=None,
                            molecular_system_2=None, selection_2=None, structure_indices_2=None,
-                           form=None, syntaxis='MolSysMT'):
+                           form=None, syntax='MolSysMT'):
 
     from molsysmt.basic import convert, select
 
@@ -100,10 +100,10 @@ def comparison_two_systems(molecular_system_1=None, selection_1=None, structure_
         tmp_molecular_system_2=molecular_system_2
 
     if selection_1 is not None:
-        atom_indices_1 = select(tmp_molecular_system_1, selection_1, syntaxis=syntaxis)
+        atom_indices_1 = select(tmp_molecular_system_1, selection_1, syntax=syntax)
 
     if selection_2 is not None:
-        atom_indices_2 = select(tmp_molecular_system_2, selection_2, syntaxis=syntaxis)
+        atom_indices_2 = select(tmp_molecular_system_2, selection_2, syntax=syntax)
 
     if selection_1 is None and selection_2 is None:
 
@@ -119,9 +119,9 @@ def comparison_two_systems(molecular_system_1=None, selection_1=None, structure_
                 atom_indices_2 = atom_indices_1
         else:
             if selection_1 is None:
-                atom_indices_1 = select(tmp_molecular_system_1, selection_2, syntaxis=syntaxis)
+                atom_indices_1 = select(tmp_molecular_system_1, selection_2, syntax=syntax)
             else:
-                atom_indices_2 = select(tmp_molecular_system_2, selection_1, syntaxis=syntaxis)
+                atom_indices_2 = select(tmp_molecular_system_2, selection_1, syntax=syntax)
 
     structure_indices_1 = frameslist(tmp_molecular_system_1, structure_indices_1)
     structure_indices_2 = frameslist(tmp_molecular_system_2, structure_indices_2)

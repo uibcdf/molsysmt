@@ -4,7 +4,7 @@ from molsysmt.basic import convert
 import numpy as np
 
 def get_sequence_alignment(molecular_system, selection='all', reference_molecular_system=None, reference_selection=None,
-                       engine='Biopython', syntaxis='MolSysMT', prettyprint=False,
+                       engine='Biopython', syntax='MolSysMT', prettyprint=False,
                        alignment_index=0, check=True):
 
     if engine=='Biopython':
@@ -17,8 +17,8 @@ def get_sequence_alignment(molecular_system, selection='all', reference_molecula
         from Bio import Align
 
         tmp_ref_seq= convert(reference_molecular_system, to_form='biopython.Seq', selection=reference_selection,
-                             syntaxis=syntaxis)
-        tmp_seq= convert(molecular_system, to_form='biopython.Seq', selection=selection, syntaxis=syntaxis)
+                             syntax=syntax)
+        tmp_seq= convert(molecular_system, to_form='biopython.Seq', selection=selection, syntax=syntax)
 
         aligner = Align.PairwiseAligner()
         aligner.mode = 'global'

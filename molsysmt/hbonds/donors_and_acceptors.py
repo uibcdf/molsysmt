@@ -28,7 +28,7 @@ donor_exclusion_rules = [
 
 
 def get_acceptor_atoms(molecular_system, selection='all',  inclusion_rules=[], exclusion_rules=[],
-                       default_inclusion_rules=True, default_exclusion_rules=True, syntaxis='MolSysMT', engine='MolSysMT'):
+                       default_inclusion_rules=True, default_exclusion_rules=True, syntax='MolSysMT', engine='MolSysMT'):
 
     engine = digest_engine(engine)
 
@@ -36,7 +36,7 @@ def get_acceptor_atoms(molecular_system, selection='all',  inclusion_rules=[], e
 
         output = set()
 
-        mask = select(molecular_system, selection=selection, syntaxis=syntaxis)
+        mask = select(molecular_system, selection=selection, syntax=syntax)
 
         if default_inclusion_rules:
             inclusion_rules += acceptor_inclusion_rules
@@ -45,11 +45,11 @@ def get_acceptor_atoms(molecular_system, selection='all',  inclusion_rules=[], e
             exclusion_rules += acceptor_exclusion_rules
 
         for rule in inclusion_rules:
-            tmp_acceptors = select(molecular_system, selection=rule, mask=mask, syntaxis=syntaxis)
+            tmp_acceptors = select(molecular_system, selection=rule, mask=mask, syntax=syntax)
             output.update(tmp_acceptors)
 
         for rule in exclusion_rules:
-            tmp_not_acceptors = select(molecular_system, selection=rule, mask=mask, syntaxis=syntaxis)
+            tmp_not_acceptors = select(molecular_system, selection=rule, mask=mask, syntax=syntax)
             output.difference_update(tmp_not_acceptors)
 
         output = np.sort(list(output))
@@ -62,7 +62,7 @@ def get_acceptor_atoms(molecular_system, selection='all',  inclusion_rules=[], e
 
 def get_donor_atoms(molecular_system, selection='all',  inclusion_rules=[], exclusion_rules=[],
                     default_inclusion_rules=True, default_exclusion_rules=True,
-                    syntaxis='MolSysMT', engine='MolSysMT', with_Hs=False):
+                    syntax='MolSysMT', engine='MolSysMT', with_Hs=False):
 
     from molsysmt.topology import get_covalent_chains
 
@@ -72,7 +72,7 @@ def get_donor_atoms(molecular_system, selection='all',  inclusion_rules=[], excl
 
         output = set()
 
-        mask = select(molecular_system, selection=selection, syntaxis=syntaxis)
+        mask = select(molecular_system, selection=selection, syntax=syntax)
 
         if default_inclusion_rules:
             inclusion_rules += donor_inclusion_rules
@@ -81,11 +81,11 @@ def get_donor_atoms(molecular_system, selection='all',  inclusion_rules=[], excl
             exclusion_rules += donor_exclusion_rules
 
         for rule in inclusion_rules:
-            tmp_donors = select(molecular_system, selection=rule, mask=mask, syntaxis=syntaxis)
+            tmp_donors = select(molecular_system, selection=rule, mask=mask, syntax=syntax)
             output.update(tmp_donors)
 
         for rule in exclusion_rules:
-            tmp_not_donors = select(molecular_system, selection=rule, mask=mask, syntaxis=syntaxis)
+            tmp_not_donors = select(molecular_system, selection=rule, mask=mask, syntax=syntax)
             output.difference_update(tmp_not_donors)
 
         output = get_covalent_chains(molecular_system, [output, 'atom_type=="H"'])

@@ -3,7 +3,7 @@ from molsysmt._private.digestion import *
 import numpy as np
 
 def get_sequence_identity(molecular_system, selection='all', reference_molecular_system=None,
-                          reference_selection='all', syntaxis='MolSysMT', engine='Biopython',
+                          reference_selection='all', syntax='MolSysMT', engine='Biopython',
                           check=True):
 
     from molsysmt.topology.get_sequence_alignment import get_sequence_alignment
@@ -21,7 +21,7 @@ def get_sequence_identity(molecular_system, selection='all', reference_molecular
 
         seq, seq_ref = get_sequence_alignment(molecular_system, selection=selection,
                 reference_molecular_system=reference_molecular_system,
-                reference_selection=reference_selection, syntaxis=syntaxis, engine=engine,
+                reference_selection=reference_selection, syntax=syntax, engine=engine,
                 check=False)
 
         intersect=[]

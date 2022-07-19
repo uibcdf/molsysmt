@@ -1,7 +1,7 @@
 from molsysmt._private.exceptions import *
 from molsysmt._private.digestion import *
 
-def to_nglview_NGLWidget(item, atom_indices='all', structure_indices='all', syntaxis='MolSysMT'):
+def to_nglview_NGLWidget(item, atom_indices='all', structure_indices='all', syntax='MolSysMT'):
 
     if check:
 
