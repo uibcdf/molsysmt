@@ -1,6 +1,6 @@
-from ..exceptions import WrongAtomIndexError, WrongAtomIdError
-from ..exceptions import WrongAtomNameError, WrongAtomTypeError
-from ..exceptions import WrongAtomIndicesError
+from ..exceptions.atom import WrongAtomIndexError, WrongAtomIdError
+from ..exceptions.atom import WrongAtomNameError, WrongAtomTypeError
+from ..exceptions.atom import WrongAtomIndicesError
 from ..variables import is_all
 
 def digest_atom_index(atom_index, caller=None):

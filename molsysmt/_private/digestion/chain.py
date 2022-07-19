@@ -1,6 +1,6 @@
-from ..exceptions import WrongChainIndexError, WrongChainIdError
-from ..exceptions import WrongChainNameError, WrongChainTypeError
-from ..exceptions import WrongChainIndicesError
+from ..exceptions.chain import WrongChainIndexError, WrongChainIdError
+from ..exceptions.chain import WrongChainNameError, WrongChainTypeError
+from ..exceptions.chain import WrongChainIndicesError
 from ..variables import is_all
 
 def digest_chain_index(chain_index, caller=None):

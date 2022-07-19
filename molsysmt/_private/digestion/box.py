@@ -1,6 +1,6 @@
 import numpy as np
 from molsysmt import puw
-from ..exceptions import WrongBoxError
+from ..exceptions.box import WrongBoxError, WrongBoxLengthsError, WrongBoxAnglesError
 
 
 def digest_box(box, caller=None):

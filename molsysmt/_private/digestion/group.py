@@ -1,6 +1,6 @@
-from ..exceptions import WrongGroupIndexError, WrongGroupIdError
-from ..exceptions import WrongGroupNameError, WrongGroupTypeError
-from ..exceptions import WrongGroupIndicesError
+from ..exceptions.group import WrongGroupIndexError, WrongGroupIdError
+from ..exceptions.group import WrongGroupNameError, WrongGroupTypeError
+from ..exceptions.group import WrongGroupIndicesError
 from ..variables import is_all
 
 def digest_group_index(group_index, caller=None):

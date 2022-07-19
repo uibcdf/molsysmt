@@ -1,6 +1,6 @@
-from ..exceptions import WrongEntityIndexError, WrongEntityIdError
-from ..exceptions import WrongEntityNameError, WrongEntityTypeError
-from ..exceptions import WrongEntityIndicesError
+from ..exceptions.entity import WrongEntityIndexError, WrongEntityIdError
+from ..exceptions.entity import WrongEntityNameError, WrongEntityTypeError
+from ..exceptions.entity import WrongEntityIndicesError
 from ..variables import is_all
 
 def digest_entity_index(entity_index, caller=None):

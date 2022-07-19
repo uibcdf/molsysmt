@@ -1,6 +1,6 @@
-from ..exceptions import WrongMoleculeIndexError, WrongMoleculeIdError
-from ..exceptions import WrongMoleculeNameError, WrongMoleculeTypeError
-from ..exceptions import WrongMoleculeIndicesError
+from ..exceptions.molecule import WrongMoleculeIndexError, WrongMoleculeIdError
+from ..exceptions.molecule import WrongMoleculeNameError, WrongMoleculeTypeError
+from ..exceptions.molecule import WrongMoleculeIndicesError
 from ..variables import is_all
 
 def digest_molecule_index(molecule_index, caller=None):

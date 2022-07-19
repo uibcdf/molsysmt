@@ -1,6 +1,6 @@
-from ..exceptions import WrongComponentIndexError, WrongComponentIdError
-from ..exceptions import WrongComponentNameError, WrongComponentTypeError
-from ..exceptions import WrongComponentIndicesError
+from ..exceptions.component import WrongComponentIndexError, WrongComponentIdError
+from ..exceptions.component import WrongComponentNameError, WrongComponentTypeError
+from ..exceptions.component import WrongComponentIndicesError
 from ..variables import is_all
 
 def digest_component_index(component_index, caller=None):
