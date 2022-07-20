@@ -1,4 +1,4 @@
-from ..exceptions import WrongViewerError
+from ..exceptions.viewer import WrongViewerError
 from molsysmt.engine.engines import viewers
 
 viewer_from_lowercase = {ii.lower(): ii for ii in viewers}

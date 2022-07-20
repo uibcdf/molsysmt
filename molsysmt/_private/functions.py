@@ -17,3 +17,7 @@ def caller_name(skip=3):
             Name of the caller function.
     """
     return inspect.stack()[skip].function
+
+def invoked_by_user():
+
+    return True

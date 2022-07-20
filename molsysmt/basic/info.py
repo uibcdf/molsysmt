@@ -245,9 +245,9 @@ def info(molecular_system,
     elif output == 'short_string':
 
         if indices is None and selection is not None:
-            indices = select(molecular_system, selection=selection, element=element, check=False)
+            indices = select(molecular_system, selection=selection, element=element)
 
-        string = elements_to_string(molecular_system, indices=indices, element=element, check=False)
+        string = elements_to_string(molecular_system, indices=indices, element=element)
 
         if len(string) == 1:
             return string[0]
@@ -262,11 +262,10 @@ def info(molecular_system,
                                                                  group_index=True, chain_index=True,
                                                                  molecule_index=True)
 
-            atom_string = elements_to_string(molecular_system, indices=indices, element=element, check=False)
-            group_string = elements_to_string(molecular_system, indices=group_indices, element='group', check=False)
-            chain_string = elements_to_string(molecular_system, indices=chain_indices, element='chain', check=False)
-            molecule_string = elements_to_string(molecular_system, indices=molecule_indices, element='molecule',
-                                                 check=False)
+            atom_string = elements_to_string(molecular_system, indices=indices, element=element)
+            group_string = elements_to_string(molecular_system, indices=group_indices, element='group')
+            chain_string = elements_to_string(molecular_system, indices=chain_indices, element='chain')
+            molecule_string = elements_to_string(molecular_system, indices=molecule_indices, element='molecule')
 
             string = []
 
@@ -282,10 +281,9 @@ def info(molecular_system,
             chain_indices, molecule_indices = get(molecular_system, element=element, indices=indices, chain_index=True,
                                                   molecule_index=True)
 
-            group_string = elements_to_string(molecular_system, indices=indices, element=element, check=False)
-            chain_string = elements_to_string(molecular_system, indices=chain_indices, element='chain', check=False)
-            molecule_string = elements_to_string(molecular_system, indices=molecule_indices, element='molecule',
-                                                 check=False)
+            group_string = elements_to_string(molecular_system, indices=indices, element=element)
+            chain_string = elements_to_string(molecular_system, indices=chain_indices, element='chain')
+            molecule_string = elements_to_string(molecular_system, indices=molecule_indices, element='molecule')
 
             string = []
 
@@ -301,10 +299,9 @@ def info(molecular_system,
             chain_indices, molecule_indices = get(molecular_system, element=element, indices=indices, chain_index=True,
                                                   molecule_index=True)
 
-            component_string = elements_to_string(molecular_system, indices=indices, element=element, check=False)
-            chain_string = elements_to_string(molecular_system, indices=chain_indices, element='chain', check=False)
-            molecule_string = elements_to_string(molecular_system, indices=molecule_indices, element='molecule',
-                                                 check=False)
+            component_string = elements_to_string(molecular_system, indices=indices, element=element)
+            chain_string = elements_to_string(molecular_system, indices=chain_indices, element='chain')
+            molecule_string = elements_to_string(molecular_system, indices=molecule_indices, element='molecule')
 
             string = []
 
@@ -316,7 +313,7 @@ def info(molecular_system,
 
         elif element == 'chain':
 
-            chain_string = elements_to_string(molecular_system, indices=indices, element=element, check=False)
+            chain_string = elements_to_string(molecular_system, indices=indices, element=element)
             string = chain_string
 
             if len(string) == 1:
@@ -324,7 +321,7 @@ def info(molecular_system,
 
         elif element == 'molecule':
 
-            molecule_string = elements_to_string(molecular_system, indices=indices, element=element, check=False)
+            molecule_string = elements_to_string(molecular_system, indices=indices, element=element)
             string = molecule_string
 
             if len(string) == 1:
@@ -332,7 +329,7 @@ def info(molecular_system,
 
         elif element == 'entity':
 
-            entity_string = elements_to_string(molecular_system, indices=indices, element=element, check=False)
+            entity_string = elements_to_string(molecular_system, indices=indices, element=element)
             string = entity_string
 
             if len(string) == 1:

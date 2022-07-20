@@ -1,4 +1,4 @@
-from molsysmt._private.digestion import digest, digest_output
+from molsysmt._private.digestion import digest
 from molsysmt._private.lists_and_tuples import is_list_or_tuple
 from molsysmt._private.variables import is_all
 from molsysmt.attribute.attributes import _required_indices
@@ -76,7 +76,7 @@ def get(molecular_system,
 
     if indices is None:
         if not is_all(selection):
-            indices = select(molecular_system, element=element, selection=selection, syntax=syntax, check=False)
+            indices = select(molecular_system, element=element, selection=selection, syntax=syntax)
         else:
             indices = 'all'
 
@@ -91,7 +91,7 @@ def get(molecular_system,
         if 'structure_indices' in _required_indices[argument]:
             dict_indices['structure_indices'] = structure_indices
 
-        aux_item, aux_form = where_is_attribute(molecular_system, argument, check=False)
+        aux_item, aux_form = where_is_attribute(molecular_system, argument)
 
         if aux_item is None:
             result = None

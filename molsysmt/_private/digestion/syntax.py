@@ -1,7 +1,8 @@
-from ..exceptions import WrongSyntaxError
+from ..exceptions.syntax import WrongSyntaxError, WrongToSyntaxError
 from molsysmt.syntax.syntaxes import syntaxes
 
 syntax_from_lower = {ii.lower(): ii for ii in syntaxes}
+
 
 def digest_syntax(syntax, caller=None):
     """ Checks if a syntax has the correct type and value
@@ -46,7 +47,12 @@ def digest_to_syntax(to_syntax, caller=None):
 
     """
 
-    if to_syntax is None:
-        return None
-    else:
-        return digest_syntax(to_syntax, caller)
+    if isinstance(to_syntax, str):
+        try:
+            return syntax_from_lower[to_syntax.lower()]
+        except:
+            pass
+
+    raise WrongToSyntaxError(to_syntax, caller=caller)
+
+

@@ -1,4 +1,4 @@
-from ..exceptions import WrongElementError
+from ..exceptions.element import WrongElementError
 from molsysmt.element.elements import elements, elements_from_plural
 
 def digest_element(element, caller=None):

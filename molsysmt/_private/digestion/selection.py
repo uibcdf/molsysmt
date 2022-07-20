@@ -1,5 +1,5 @@
-from ..exceptions import WrongSelectionError, WrongSelectionSyntaxError
-from ..exceptions import WrongMultipleSelectionsError
+from ..exceptions.selection import WrongSelectionError
+from ..exceptions.selection import WrongSelectionsError
 from ..lists_and_tuples import is_list_or_tuple
 
 def digest_selection(selection, syntax="MolSysMT", caller=None):
@@ -38,9 +38,9 @@ def digest_selection(selection, syntax="MolSysMT", caller=None):
     except:
         pass
 
-    raise WrongSelectionError(selection, syntax, caller=caller)
+    raise WrongSelectionError(selection, syntax=syntax, caller=caller)
 
-def digest_multiple_selections(selections, syntax="MolSysMT", caller=None):
+def digest_selections(selections, syntax="MolSysMT", caller=None):
     """ Checks if a list of selections have the correct types and syntax
 
        Parameters
@@ -65,5 +65,5 @@ def digest_multiple_selections(selections, syntax="MolSysMT", caller=None):
     if is_list_or_tuple(selections):
         return [digest_selection(ii, syntax) for ii in selections]
 
-    raise WrongMultipleSelectionsError(selections, caller=caller)
+    raise WrongSelectionsError(selections, syntax=syntax, caller=caller)
 

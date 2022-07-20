@@ -1,21 +1,13 @@
-from molsysmt._private.exceptions import *
-from molsysmt._private.digestion import *
+from molsysmt._private.digestion import digest
 from molsysmt._private.lists_and_tuples import is_list_or_tuple
 
-def where_is_attribute(molecular_system, attribute, check=True):
+@digest
+def where_is_attribute(molecular_system, attribute):
 
     from . import get_form, is_molecular_system
     from molsysmt.attribute.attributes import _reverse_search_in_molecular_system, _required_attributes
     from molsysmt.api_forms import dict_attributes
     from molsysmt.attribute import is_attribute
-
-    if check:
-
-        if not is_attribute(attribute):
-            raise WrongAttributeError('attribute')
-
-        if not is_molecular_system(molecular_system):
-            raise SingleMolecularSystemNeededError()
 
     if not is_list_or_tuple(molecular_system):
         molecular_system = [molecular_system]

@@ -1,4 +1,4 @@
-from ..exceptions import WrongStepError
+from ..exceptions.step import WrongStepError
 import numpy as np
 
 def digest_step(step, caller=None):

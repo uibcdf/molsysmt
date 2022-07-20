@@ -1,4 +1,4 @@
-from ..exceptions import WrongComparisonError
+from ..exceptions.comparison import WrongComparisonError
 
 def digest_comparison(comparison, caller=None):
     """ Checks if step arguments has the correct type.

@@ -1,4 +1,4 @@
-from .caller_name import caller_name
+from ..functions import caller_name
 from ..webs import github_issues, api_doc
 
 class WrongComponentIndexError(ValueError):

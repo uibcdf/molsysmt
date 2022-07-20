@@ -1,5 +1,4 @@
-from molsysmt._private.exceptions import *
-from molsysmt._private.digestion import digest, digest_structure_indices
+from molsysmt._private.digestion import digest
 from molsysmt._private.lists_and_tuples import is_list_or_tuple
 
 
@@ -54,14 +53,6 @@ def merge(molecular_systems,
 
     from . import convert, extract, add
 
-    # if check:
-    #
-    #     digest_single_molecular_system(molecular_system)
-    #     structure_indices = digest_multiple_structure_indices(structure_indices)
-    #     syntax = digest_syntax(syntax)
-    #     selections = digest_multiple_selections(selections, syntax)
-    #     to_form = digest_to_form(to_form)
-
     n_molecular_systems = len(molecular_systems)
 
     if not is_list_or_tuple(selections):
@@ -70,7 +61,7 @@ def merge(molecular_systems,
         raise ValueError("The length of the lists items and selections need to be equal.")
 
     if not is_list_or_tuple(structure_indices):
-        structure_indices = [digest_structure_indices(structure_indices) for ii in range(n_molecular_systems)]
+        structure_indices = [structure_indices for ii in range(n_molecular_systems)]
     elif len(structure_indices)!=n_molecular_systems:
         raise ValueError("The length of the lists items and structure_indices need to be equal.")
 
@@ -81,7 +72,7 @@ def merge(molecular_systems,
         to_molecular_system = convert(molecular_systems[0], to_form=to_form, selection=selections[0],
                                       structure_indices=structure_indices[0])
 
-    add(to_molecular_system, molecular_systems[1:], selections=selections[1:], structure_indices=structure_indices[1:], check=False)
+    add(to_molecular_system, molecular_systems[1:], selections=selections[1:], structure_indices=structure_indices[1:])
 
     return to_molecular_system
 

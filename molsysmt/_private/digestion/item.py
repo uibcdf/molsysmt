@@ -1,5 +1,4 @@
-from ..exceptions import WrongItemError, WrongItemFormError
-
+from ..exceptions.item import WrongItemError, WrongItemFormError
 
 def digest_item(item, form=None, caller=None):
     """ Checks if an object is an item. Optionally checks if the item has the expected form.
@@ -37,7 +36,7 @@ def digest_item(item, form=None, caller=None):
     if output:
         if form is not None:
             if in_form!=form:
-                raise WrongItemFormError(item, form, caller)
+                raise WrongItemFormError(item, form=form, caller=caller)
         return item
 
-    raise WrongItemError(item, caller)
+    raise WrongItemError(item, caller=caller)

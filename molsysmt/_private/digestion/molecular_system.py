@@ -1,7 +1,7 @@
-from ..exceptions import WrongMolecularSystemError
-from ..exceptions import WrongMultipleMolecularSystemsError
+from ..exceptions.molecular_system import WrongMolecularSystemError
+from ..exceptions.molecular_system import WrongMolecularSystemsError
 
-def digest_single_molecular_system(molecular_system, caller=None):
+def digest_molecular_system(molecular_system, caller=None):
     """ Check if an object is a molecular system.
 
         Parameters
@@ -24,11 +24,11 @@ def digest_single_molecular_system(molecular_system, caller=None):
     from molsysmt.basic import is_molecular_system
 
     if not is_molecular_system(molecular_system):
-        raise WrongMolecularSystemError(caller=caller)
+        raise WrongMolecularSystemError(molecular_system, caller=caller)
     return molecular_system
 
 
-def digest_multiple_molecular_systems(molecular_systems, caller=None):
+def digest_molecular_systems(molecular_systems, caller=None):
     """ Check if an object is a list or tuple of molecular systems.
 
         Parameters
@@ -52,5 +52,5 @@ def digest_multiple_molecular_systems(molecular_systems, caller=None):
     from molsysmt.basic import are_multiple_molecular_systems
 
     if not are_multiple_molecular_systems(molecular_systems):
-        raise WrongMultipleMolecularSystemsNeededError(caller=caller)
+        raise WrongMultipleMolecularSystemsNeededError(molecular_systems, caller=caller)
     return molecular_systems

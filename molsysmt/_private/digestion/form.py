@@ -1,6 +1,6 @@
 from ..lists_and_tuples import is_list_or_tuple
 from molsysmt.api_forms import _dict_forms_lowercase
-from ..exceptions import WrongFormError, WrongToFormError
+from ..exceptions.form import WrongFormError, WrongToFormError
 
 def digest_form(form, caller=None):
     """ Checks if the name of the form is supported.
@@ -39,7 +39,7 @@ def digest_form(form, caller=None):
             except:
                 pass
 
-    raise WrongFormError(form, caller)
+    raise WrongFormError(form, caller=caller)
 
 def digest_to_form(to_form, caller=None):
     """ Checks if the to_form value is supported.
@@ -68,4 +68,19 @@ def digest_to_form(to_form, caller=None):
     if to_form is None:
         return None
 
-    return digest_form(to_form, caller)
+    from molsysmt.item import is_file
+
+    if is_list_or_tuple(to_form):
+        return [digest_to_form(ii, caller=caller) for ii in to_form]
+    else:
+        if is_file(to_form):
+            return to_form
+        else:
+            try:
+                return _dict_forms_lowercase[to_form.lower()]
+            except:
+                pass
+
+    raise WrongFormError(to_form, caller=caller)
+
+

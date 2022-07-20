@@ -1,4 +1,4 @@
-from ..exceptions import WrongCoordinatesError
+from ..exceptions.coordinates import WrongCoordinatesError
 
 def digest_coordinates(coordinates, caller=None):
     """Checks if `coordinates` has the expected type and value.

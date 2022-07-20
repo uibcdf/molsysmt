@@ -1,10 +1,10 @@
-from molsysmt._private.exceptions import NotImplementedConversionError
-from molsysmt._private.digestion import digest, digest_output
+from molsysmt._private.exceptions.not_implemented import NotImplementedConversionError
+from molsysmt._private.digestion import digest
 from molsysmt._private.lists_and_tuples import is_list_or_tuple
 from molsysmt._private.variables import is_all
 
 
-@digest
+@digest(output=True)
 def convert(molecular_system,
             to_form='molsysmt.MolSys',
             selection='all',
@@ -74,14 +74,14 @@ def convert(molecular_system,
         return tmp_item
 
     if not is_all(selection):
-        atom_indices = select(molecular_system, selection=selection, syntax=syntax, check=False)
+        atom_indices = select(molecular_system, selection=selection, syntax=syntax)
     else:
         atom_indices = 'all'
 
     conversion_arguments={}
 
     if is_item(to_form):
-        if is_file(to_form, check=False):
+        if is_file(to_form):
             conversion_arguments['output_filename'] = to_form
             to_form = get_form(to_form)
 
@@ -98,8 +98,7 @@ def convert(molecular_system,
             tmp_item = dict_extract[from_form](item,
                                                atom_indices=atom_indices,
                                                structure_indices=structure_indices,
-                                               copy_if_all=False,
-                                               check=False)
+                                               copy_if_all=False)
         else:
             if from_form in dict_convert:
                 if to_form in dict_convert[from_form]:
@@ -116,7 +115,5 @@ def convert(molecular_system,
         from_form = get_form(molecular_system)
         from_form = digest_output(from_form)
         raise NotImplementedConversionError(from_form, to_form)
-
-    tmp_item = digest_output(tmp_item)
 
     return tmp_item

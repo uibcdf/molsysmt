@@ -32,5 +32,5 @@ def digest_time(time, caller=None):
     elif isinstance(time, np.ndarray):
         return time
 
-    raise WrongStepError(time, caller=caller)
+    raise WrongTimeError(time, caller=caller)
 

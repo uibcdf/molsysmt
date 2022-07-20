@@ -1,5 +1,5 @@
 from molsysmt.engine.engines import engines
-from ..exceptions import WrongEngineError
+from ..exceptions.engine import WrongEngineError
 
 engines_from_lowercase = {ii.lower(): ii for ii in engines}
 
