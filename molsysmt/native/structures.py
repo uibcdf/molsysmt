@@ -1,44 +1,60 @@
 import numpy as np
 from molsysmt import puw
-from molsysmt._private.exceptions import *
 from molsysmt._private.variables import is_all
 
-# Tiene que haber una manera automatica con f2py dar siempre de salida Ccontiguous_np.arrays
 
-# Un frame tiene: step, time, coordinates, cell
+class Structures:
+    """ Class to store the trajectory info of a molecular system
 
-class Structures():
+        Parameters
+        ----------
+        filepath : str
+
+        atom_indices : Any
+
+        structure_indices: Any
+
+        Attributes
+        ----------
+        box :
+
+        coordinates : pint.Quantity of shape (n_structures, n_atoms, 3)
+            The coordinates of the trajectory for each frame of it.
+
+
+    """
 
     def __init__(self, filepath=None, atom_indices='all', structure_indices='all'):
 
-        self.step  = None
-        self.time  = None
-        self.coordinates = None # ndarray with shape=(n_structures, n_atoms, 3) and dtype=float
-                                # and order=F, with units nanometers
-        self.box  = None # ndarray with shape=(n_structures,3,3), dtype=float and order='F'
-                          # cell is the matrix with the vectors
+        self.step = None
+        self.time = None
+        self.coordinates = None  # ndarray with shape=(n_structures, n_atoms, 3) and dtype=float
+        # and order=F, with units nanometers
+        self.box = None  # ndarray with shape=(n_structures,3,3), dtype=float and order='F'
+        # cell is the matrix with the vectors
         self.n_structures = 0
         self.n_atoms = 0
 
         self.file = None
 
         if filepath is not None:
-            self.load_frames_from_file(filepath=filepath, atom_indices=atom_indices, structure_indices=structure_indices)
+            self.load_frames_from_file(filepath=filepath, atom_indices=atom_indices,
+                                       structure_indices=structure_indices)
 
     def append_structures(self, step=None, time=None, coordinates=None, box=None, check=True):
 
         if step is not None:
             if type(step) not in [list, np.ndarray]:
-                step  = np.array([step])
+                step = np.array([step])
             else:
                 step = step
 
         if time is not None:
-            time=puw.standardize(time)
+            time = puw.standardize(time)
         if coordinates is not None:
-            coordinates=puw.standardize(coordinates)
+            coordinates = puw.standardize(coordinates)
         if box is not None:
-            box=puw.standardize(box)
+            box = puw.standardize(box)
 
         n_structures = coordinates.shape[0]
         n_atoms = coordinates.shape[1]
@@ -54,7 +70,7 @@ class Structures():
 
         else:
 
-            if n_atoms!=self.n_atoms:
+            if n_atoms != self.n_atoms:
                 raise ValueError("The coordinates to be appended in the system needs to have the same number of atoms.")
 
             if step is not None:
@@ -103,22 +119,22 @@ class Structures():
 
         return angles
 
-    def load_structures_from_file (self, filepath=None, atom_indices='all', structure_indices='all'):
+    def load_structures_from_file(self, filepath=None, atom_indices='all', structure_indices='all'):
 
         if filepath is not None:
-
             from .trajectory_file import TrajectoryFile
             self.file = TrajectoryFile(filepath=filepath)
 
-        step, time, coordinates, box = self.file.read_frames(atom_indices=atom_indices, structure_indices=structure_indices)
+        step, time, coordinates, box = self.file.read_frames(atom_indices=atom_indices,
+                                                             structure_indices=structure_indices)
 
         self.append_structures(step, time, coordinates, box)
 
-        del(coordinates, time, step, box)
+        del (coordinates, time, step, box)
 
         pass
 
-    def extract (self, atom_indices='all', structure_indices='all'):
+    def extract(self, atom_indices='all', structure_indices='all'):
 
         if is_all(atom_indices) and is_all(structure_indices):
 
@@ -149,12 +165,12 @@ class Structures():
                     tmp_item.box = deepcopy(self.box)
 
             if not is_all(atom_indices):
-                tmp_item.coordinates = self.coordinates[:,atom_indices,:]
+                tmp_item.coordinates = self.coordinates[:, atom_indices, :]
             else:
                 tmp_item.coordinates = deepcopy(self.coordinates)
 
             if not is_all(structure_indices):
-                tmp_item.coordinates = tmp_item.coordinates[structure_indices,:,:]
+                tmp_item.coordinates = tmp_item.coordinates[structure_indices, :, :]
 
             tmp_item.n_structures = tmp_item.coordinates.shape[0]
             tmp_item.n_atoms = tmp_item.coordinates.shape[1]
@@ -173,7 +189,7 @@ class Structures():
         coordinates = get(item, element="atom", selection=selection, structure_indices=structure_indices,
                           coordinates=True)
 
-        if self.n_structures==0:
+        if self.n_structures == 0:
             self.append_structures(step, time, coordinates, box)
         else:
             if self.n_structures != coordinates.shape[0]:
@@ -182,8 +198,8 @@ class Structures():
                 unit = puw.get_unit(self.coordinates)
                 value_coordinates = puw.get_value(coordinates, to_unit=unit)
                 value_self_coordinates = puw.get_value(self.coordinates)
-                self.coordinates = np.hstack([value_self_coordinates, value_coordinates])*unit
-                del(value_coordinates, value_self_coordinates)
+                self.coordinates = np.hstack([value_self_coordinates, value_coordinates]) * unit
+                del (value_coordinates, value_self_coordinates)
 
         self.n_atoms = self.coordinates.shape[1]
 
@@ -199,7 +215,7 @@ class Structures():
 
         pass
 
-    def copy (self):
+    def copy(self):
 
         from copy import deepcopy
 
@@ -220,20 +236,19 @@ class Structures():
 
         return tmp_item
 
-
-    #def cell2box(self):
+    # def cell2box(self):
     #    self.box,self.volume,self.orthogonal=_libbox.cell2box(self.cell, self.n_structures)
     #    pass
 
-    #def box2cell(self):
+    # def box2cell(self):
     #    self.cell,self.volume,self.orthogonal=_libbox.box2cell(self.box, self.n_structures)
     #    pass
 
-    #def box2invbox(self):
+    # def box2invbox(self):
     #    self.invbox=_libbox.box2invbox(self.box, self.n_structures)
     #    pass
 
-    #def iterload(self, chunk=100, stride=1, skip=0, atom_indices=None):
+    # def iterload(self, chunk=100, stride=1, skip=0, atom_indices=None):
 
     #    atom_indices = None
 
@@ -260,4 +275,3 @@ class Structures():
     #            self._import_mdtraj_topology(tmp_mdtraj)
     #        del(tmp_mdtraj)
     #        yield
-

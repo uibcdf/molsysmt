@@ -1,5 +1,4 @@
 import numpy as np
-
 import molsysmt as msm
 
 
@@ -75,7 +74,7 @@ def test_iterator_with_h5_file():
 
 def test_iterator_with_gromacs_file():
     traj_file = msm.demo['nglview']['md_1u19.gro']
-    topology_file = msm.demo['nglview']['md_1u19.gro']
+    topology_file = msm.demo['nglview']['md_1u19.pdb']
 
     iterator = msm.structure.Iterator([traj_file, topology_file])
     assert iterator.n_atoms == 5547
@@ -98,3 +97,23 @@ def test_iterator_with_gromacs_file():
                           [0., 7.988997, 0.],
                           [0., 0., 9.910033]])
     assert np.allclose(box, final_box)
+
+
+def test_iterator_with_custom_start():
+    pass
+
+
+def test_iterator_with_custom_interval():
+    pass
+
+
+def test_iterator_with_custom_chunk_size():
+    pass
+
+
+def test_iterator_with_custom_selection():
+    pass
+
+
+def test_iterator_with_custom_syntaxis():
+    pass
