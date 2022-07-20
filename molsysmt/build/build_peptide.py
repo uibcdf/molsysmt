@@ -1,13 +1,7 @@
-from molsysmt._private.exceptions import *
-from molsysmt._private.digestion import *
+from molsysmt._private.digestion import digest
 
-def build_peptide (molecular_system, to_form='molsysmt.MolSys', engine='LEaP', check=True):
-
-    if check:
-
-        digest_single_molecular_system(molecular_system)
-        engine = digest_engine(engine)
-        to_form = digest_to_form(to_form)
+@digest
+def build_peptide (molecular_system, to_form='molsysmt.MolSys', engine='LEaP'):
 
     if engine=="LEaP":
 

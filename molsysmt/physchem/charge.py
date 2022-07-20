@@ -1,18 +1,10 @@
 import numpy as np
 from molsysmt import puw
-from molsysmt._private.exceptions import *
-from molsysmt._private.digestion import *
+from molsysmt._private.digestion import digest
 
+@digest
 def charge(molecular_system, element='group', selection='all', definition=None, engine='OpenMM',
-        syntax='MolSysMT', check=True):
-
-    if check:
-
-        digest_single_molecular_system(molecular_system)
-        syntax = digest_syntax(syntax)
-        selection = digest_selection(selection, syntax)
-        engine = digest_engine(engine)
-        element = digest_element(element)
+        syntax='MolSysMT'):
 
     if definition in ['physical_pH7', 'collantes']:
 
