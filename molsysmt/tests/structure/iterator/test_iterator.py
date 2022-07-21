@@ -1,7 +1,9 @@
 import numpy as np
 import molsysmt as msm
+import pytest
 
 
+@pytest.mark.skip
 def test_iterator_with_h5_file():
     pentalanine_file = msm.demo["pentalanine"]["traj.h5"]
 
@@ -72,6 +74,7 @@ def test_iterator_with_h5_file():
     assert current_time == 50000.0
 
 
+@pytest.mark.skip
 def test_iterator_with_gromacs_file():
     traj_file = msm.demo['nglview']['md_1u19.gro']
     topology_file = msm.demo['nglview']['md_1u19.pdb']

@@ -1,53 +1,77 @@
+from copy import deepcopy
 import numpy as np
 from molsysmt import puw
 from molsysmt._private.variables import is_all
+from molsysmt.pbc import box_lengths_from_box_vectors, box_angles_from_box_vectors
 
 
 class Structures:
-    """ Class to store the trajectory info of a molecular system
+    """ Class to store the trajectory data of a molecular system
 
-        Parameters
-        ----------
-        filepath : str
-
-        atom_indices : Any
-
-        structure_indices: Any
 
         Attributes
         ----------
-        box :
+        box : pint.Quantity of shape (n_structures, 3, 3)
+            The box of the molecular system in nanometers.
 
         coordinates : pint.Quantity of shape (n_structures, n_atoms, 3)
-            The coordinates of the trajectory for each frame of it.
+            The coordinates of the trajectory for each frame of it in nanometers.
+
+        n_atoms : int
+            Number of atoms in the trajectory.
+
+        n_structures : int
+            Number of structures or frames in the trajectory.
+
+        time :  pint.Quantity of shape (n_structures, )
+            The times of the trajectory in picoseconds.
+
+        step :
 
 
     """
 
-    def __init__(self, filepath=None, atom_indices='all', structure_indices='all'):
+    def __init__(self, step=None, time=None, coordinates=None, box=None):
 
-        self.step = None
-        self.time = None
-        self.coordinates = None  # ndarray with shape=(n_structures, n_atoms, 3) and dtype=float
-        # and order=F, with units nanometers
-        self.box = None  # ndarray with shape=(n_structures,3,3), dtype=float and order='F'
-        # cell is the matrix with the vectors
-        self.n_structures = 0
-        self.n_atoms = 0
+        self.step = step
+        self.time = time
+        self.coordinates = coordinates
+        self.box = box
+
+        if coordinates is not None:
+            self.n_structures = coordinates.shape[0]
+            self.n_atoms = coordinates.shape[1]
+        else:
+            self.n_structures = 0
+            self.n_atoms = 0
 
         self.file = None
 
-        if filepath is not None:
-            self.load_frames_from_file(filepath=filepath, atom_indices=atom_indices,
-                                       structure_indices=structure_indices)
-
-    def append_structures(self, step=None, time=None, coordinates=None, box=None, check=True):
-
-        if step is not None:
-            if type(step) not in [list, np.ndarray]:
-                step = np.array([step])
+    @staticmethod
+    def _concatenate_arrays(array_1, array_2, name):
+        """ Concatenates two arrays provided that they are not null."""
+        if array_2 is not None:
+            if array_1 is None:
+                raise ValueError(f"The trajectory has no {name} array to append the new frame.")
             else:
-                step = step
+                return np.concatenate([array_1, array_2])
+
+    def append_structures(self, step=None, time=None, coordinates=None, box=None, check=False):
+        """ Append structures or frames to this object.
+
+             box : pint.Quantity of shape (n_structures, 3, 3)
+                The box of the structures
+
+             coordinates : pint.Quantity of shape (n_structures, n_atoms, 3)
+                The coordinates of the trajectory for each frame of it in nanometers.
+
+             time :  pint.Quantity of shape (n_structures, )
+                The times of the trajectory in picoseconds
+
+        """
+        # TODO: check argument is not used
+        if step is not None and not isinstance(step, (list, np.ndarray)):
+            step = np.array([step])
 
         if time is not None:
             time = puw.standardize(time)
@@ -73,76 +97,33 @@ class Structures:
             if n_atoms != self.n_atoms:
                 raise ValueError("The coordinates to be appended in the system needs to have the same number of atoms.")
 
-            if step is not None:
-                if self.step is None:
-                    raise ValueError("The trajectory has no steps to append the new frame.")
-                else:
-                    self.step = np.concatenate([self.step, step])
-
-            if time is not None:
-                if self.time is None:
-                    raise ValueError("The trajectory has no time array to append the new frame.")
-                else:
-                    self.time = np.concatenate([self.time, time])
-
-            if box is not None:
-                if self.box is None:
-                    raise ValueError("The trajectory has no box array to append the new frame.")
-                else:
-                    self.box = np.concatenate([self.box, box])
+            self.step = self._concatenate_arrays(self.step, step, "steps")
+            self.time = self._concatenate_arrays(self.time, time, "time")
+            self.box = self._concatenate_arrays(self.box, box, "steps")
 
             self.coordinates = np.concatenate([self.coordinates, coordinates])
-
             self.n_structures += n_structures
 
-        pass
-
     def get_box_lengths(self):
-
-        from molsysmt.pbc import box_lengths_from_box_vectors
-
+        """ Returns the lengths of the box."""
         if self.box is not None:
-            lengths = box_lengths_from_box_vectors(self.box)
-        else:
-            lengths = None
-
-        return lengths
+            return box_lengths_from_box_vectors(self.box)
+        return
 
     def get_box_angles(self):
-
-        from molsysmt.pbc import box_angles_from_box_vectors
-
+        """ Returns the angles of the box."""
         if self.box is not None:
-            angles = box_angles_from_box_vectors(self.box)
-        else:
-            angles = None
-
-        return angles
-
-    def load_structures_from_file(self, filepath=None, atom_indices='all', structure_indices='all'):
-
-        if filepath is not None:
-            from .trajectory_file import TrajectoryFile
-            self.file = TrajectoryFile(filepath=filepath)
-
-        step, time, coordinates, box = self.file.read_frames(atom_indices=atom_indices,
-                                                             structure_indices=structure_indices)
-
-        self.append_structures(step, time, coordinates, box)
-
-        del (coordinates, time, step, box)
-
-        pass
+            return box_angles_from_box_vectors(self.box)
+        return
 
     def extract(self, atom_indices='all', structure_indices='all'):
-
+        """ Returns a new Structures object with the specified atoms and/or
+            structures.
+        """
         if is_all(atom_indices) and is_all(structure_indices):
-
-            tmp_item = self.copy()
+            return self.copy()
 
         else:
-
-            from copy import deepcopy
 
             tmp_item = Structures()
 
@@ -203,8 +184,6 @@ class Structures:
 
         self.n_atoms = self.coordinates.shape[1]
 
-        pass
-
     def append(self, item, selection='all', structure_indices='all'):
 
         from molsysmt.basic import get
@@ -213,65 +192,6 @@ class Structures:
                                           structure_indices=structure_indices, frame=True)
         self.append_structures(step, time, coordinate, box)
 
-        pass
-
     def copy(self):
-
-        from copy import deepcopy
-
-        tmp_item = Structures()
-
-        tmp_item.step = deepcopy(self.step)
-        tmp_item.time = deepcopy(self.time)
-        tmp_item.coordinates = deepcopy(self.coordinates)
-        tmp_item.box = deepcopy(self.box)
-
-        tmp_item.n_structures = deepcopy(self.n_structures)
-        tmp_item.n_atoms = deepcopy(self.n_atoms)
-
-        if self.file is not None:
-            tmp_item.file = self.file.copy()
-        else:
-            tmp_item.file = None
-
-        return tmp_item
-
-    # def cell2box(self):
-    #    self.box,self.volume,self.orthogonal=_libbox.cell2box(self.cell, self.n_structures)
-    #    pass
-
-    # def box2cell(self):
-    #    self.cell,self.volume,self.orthogonal=_libbox.box2cell(self.box, self.n_structures)
-    #    pass
-
-    # def box2invbox(self):
-    #    self.invbox=_libbox.box2invbox(self.box, self.n_structures)
-    #    pass
-
-    # def iterload(self, chunk=100, stride=1, skip=0, atom_indices=None):
-
-    #    atom_indices = None
-
-    #    if selection is None:
-    #        if self.selection_mdtraj is not None:
-    #            atom_indices = self._atom_indices_mdtraj
-    #    else:
-    #        from molsysmt.basic import select as _select
-    #        atom_indices = _select(self.topology_mdtraj,selection,syntaxis)
-
-    #    from mdtraj import iterload as _mdtraj_iterload
-    #    tmp_top = self.topology_mdtraj
-
-    #    iterator = _mdtraj_iterload(self.filename, top=tmp_top, chunk=chunk,
-    #                                            stride=stride, atom_indices=atom_indices)
-
-    #    while True:
-    #        try:
-    #            tmp_mdtraj = next(iterator)
-    #        except StopIteration:
-    #            return
-    #        self._import_mdtraj_data(tmp_mdtraj)
-    #        if atom_indices is not None:
-    #            self._import_mdtraj_topology(tmp_mdtraj)
-    #        del(tmp_mdtraj)
-    #        yield
+        """ Returns a copy of the structures."""
+        return deepcopy(self)
