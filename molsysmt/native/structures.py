@@ -1,6 +1,7 @@
 from copy import deepcopy
 import numpy as np
 from molsysmt import puw
+from molsysmt.basic import get
 from molsysmt._private.variables import is_all
 from molsysmt.pbc import box_lengths_from_box_vectors, box_angles_from_box_vectors
 
@@ -31,7 +32,7 @@ class Structures:
 
     """
 
-    def __init__(self, step=None, time=None, coordinates=None, box=None):
+    def __init__(self, step=None, time=None, coordinates=None, box=None, file=None):
 
         self.step = step
         self.time = time
@@ -45,7 +46,7 @@ class Structures:
             self.n_structures = 0
             self.n_atoms = 0
 
-        self.file = None
+        self.file = file
 
     @staticmethod
     def _concatenate_arrays(array_1, array_2, name):
@@ -119,55 +120,89 @@ class Structures:
     def extract(self, atom_indices='all', structure_indices='all'):
         """ Returns a new Structures object with the specified atoms and/or
             structures.
+
+            Parameters
+            ----------
+            atom_indices : str or arraylike of int, default='all'
+                The indices of the extracted atoms.
+
+            structure_indices : str or arraylike of int, default='all'
+                The indices of the extracted structures or frames.
+
+            Returns
+            -------
+            Structures
+                The new structures object with the extracted atoms and frames.
         """
         if is_all(atom_indices) and is_all(structure_indices):
             return self.copy()
 
         else:
 
-            tmp_item = Structures()
+            extract_structures = not is_all(structure_indices)
 
-            if self.step is not None:
-                if not is_all(structure_indices):
-                    tmp_item.step = self.step[structure_indices]
-                else:
-                    tmp_item.step = deepcopy(self.step)
+            if self.step is not None and extract_structures:
+                step = self.step[structure_indices]
+            else:
+                step = deepcopy(self.step)
 
-            if self.time is not None:
-                if not is_all(structure_indices):
-                    tmp_item.time = self.time[structure_indices]
-                else:
-                    tmp_item.time = deepcopy(self.time)
+            if self.time is not None and extract_structures:
+                time = self.time[structure_indices]
+            else:
+                time = deepcopy(self.time)
 
-            if self.box is not None:
-                if not is_all(structure_indices):
-                    tmp_item.box = self.box[structure_indices]
-                else:
-                    tmp_item.box = deepcopy(self.box)
+            if self.box is not None and extract_structures:
+                box = self.box[structure_indices]
+            else:
+                box = deepcopy(self.box)
 
             if not is_all(atom_indices):
-                tmp_item.coordinates = self.coordinates[:, atom_indices, :]
+                coordinates = self.coordinates[:, atom_indices, :]
             else:
-                tmp_item.coordinates = deepcopy(self.coordinates)
+                coordinates = deepcopy(self.coordinates)
 
             if not is_all(structure_indices):
-                tmp_item.coordinates = tmp_item.coordinates[structure_indices, :, :]
-
-            tmp_item.n_structures = tmp_item.coordinates.shape[0]
-            tmp_item.n_atoms = tmp_item.coordinates.shape[1]
+                coordinates = coordinates[structure_indices, :, :]
 
             if self.file is not None:
-                tmp_item.file = self.file.copy()
+                file = self.file.copy()
+            else:
+                file = None
 
-        return tmp_item
+        return Structures(step=step,
+                          time=time,
+                          coordinates=coordinates,
+                          box=box,
+                          file=file
+                          )
 
     def add(self, item, selection='all', structure_indices='all'):
+        """ Adds the coordinates of another item to this.
 
-        from molsysmt.basic import get
+            Parameters
+            ----------
 
-        step, time, box = get(item, element="system", structure_indices=structure_indices, step=True, time=True,
+            item : MolecularSystem
+                The molecular system whose coordinates will be added.
+
+            selection : str or arraylike of int, default='all'
+                Selects only these atoms from the given item.
+
+            structure_indices : str or arraylike of int, default='all'
+                Select only these structures from the given item
+
+        """
+
+        step, time, box = get(item,
+                              element="system",
+                              structure_indices=structure_indices,
+                              step=True,
+                              time=True,
                               box=True)
-        coordinates = get(item, element="atom", selection=selection, structure_indices=structure_indices,
+        coordinates = get(item,
+                          element="atom",
+                          selection=selection,
+                          structure_indices=structure_indices,
                           coordinates=True)
 
         if self.n_structures == 0:
@@ -175,18 +210,27 @@ class Structures:
         else:
             if self.n_structures != coordinates.shape[0]:
                 raise ValueError('Both items need to have the same n_structures')
-            else:
-                unit = puw.get_unit(self.coordinates)
-                value_coordinates = puw.get_value(coordinates, to_unit=unit)
-                value_self_coordinates = puw.get_value(self.coordinates)
-                self.coordinates = np.hstack([value_self_coordinates, value_coordinates]) * unit
-                del (value_coordinates, value_self_coordinates)
+            unit = puw.get_unit(self.coordinates)
+            value_coordinates = puw.get_value(coordinates, to_unit=unit)
+            value_self_coordinates = puw.get_value(self.coordinates)
+            self.coordinates = np.hstack([value_self_coordinates, value_coordinates]) * unit
 
         self.n_atoms = self.coordinates.shape[1]
 
     def append(self, item, selection='all', structure_indices='all'):
+        """ Appends the step, time coordinates and box of the given item to this.
 
-        from molsysmt.basic import get
+            Parameters
+            ----------
+            item : MolecularSystem
+                The molecular system that will be appended.
+
+            selection : str or arraylike of int, default='all'
+                Selects only these atoms from the given item.
+
+            structure_indices : str or arraylike of int, default='all'
+                Select only these structures from the given item
+        """
 
         step, time, coordinate, box = get(item, element="atom", selection=selection,
                                           structure_indices=structure_indices, frame=True)
