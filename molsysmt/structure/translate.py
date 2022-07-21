@@ -8,7 +8,7 @@ def translate(molecular_system, translation=None, selection='all', structure_ind
 
     from molsysmt.basic import get, set, select, copy
 
-    atom_indices = select(molecular_system, selection=selection, syntax=syntax, check=False)
+    atom_indices = select(molecular_system, selection=selection, syntax=syntax)
     coordinates = get(molecular_system, element='atom', indices=atom_indices, structure_indices=structure_indices,
                       coordinates=True)
 

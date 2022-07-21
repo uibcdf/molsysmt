@@ -1,12 +1,8 @@
-from molsysmt._private.exceptions import *
-from molsysmt._private.digestion import *
+from molsysm._private.exception import NotImplementedMethodError
+from molsysmt._private.digestion import digest
 
-def add(to_item, item, check=True):
-
-    if check:
-
-        digest_item(item, 'molsysmt.MolSys')
-        digest_item(to_item, 'molsysmt.MolSys')
+@digest(form='molsysmt.MolSys', to_form='molsysmt.MolSys')
+def add(to_item, item):
 
     to_item.add(item)
 

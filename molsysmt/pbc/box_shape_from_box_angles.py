@@ -1,9 +1,9 @@
-from molsysmt._private.exceptions import *
-from molsysmt._private.digestion import *
+from molsysmt._private.digestion import digest
 import numpy as np
 from molsysmt import puw
 
-def box_shape_from_box_angles(angles, check=True):
+@digest
+def box_shape_from_box_angles(angles):
 
     shape = None
 

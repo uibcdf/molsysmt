@@ -1,3 +1,6 @@
+from molsysmt._private.digestion import digest
+
+@digest
 def get_component_type_from_group_names(group_names):
 
     from ..group import get_group_type_from_group_name

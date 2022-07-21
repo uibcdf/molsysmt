@@ -1,14 +1,10 @@
-from molsysmt._private.exceptions import *
-from molsysmt._private.digestion import *
+from molsysmt._private.digestion import digest
 from molsysmt import puw
 from molsysmt.lib import box as libbox
 import numpy as np
 
-def box_angles_from_box_vectors(box, check=True):
-
-    if check:
-
-        box = digest_box(box)
+@digest
+def box_angles_from_box_vectors(box):
 
     n_structures = box.shape[0]
     tmp_box =  np.asfortranarray(puw.get_value(box), dtype='float64')

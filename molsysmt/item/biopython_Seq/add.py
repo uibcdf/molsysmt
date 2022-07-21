@@ -1,12 +1,8 @@
-from molsysmt._private.exceptions import *
-from molsysmt._private.digestion import *
+from molsysm._private.exception import NotImplementedMethodError
+from molsysmt._private.digestion import digest
 
-def add(to_item, item, check=True):
-
-    if check:
-
-        digest_item(item, 'biopython.Seq')
-        digest_item(to_item, 'biopython.Seq')
+@digest(form='biopython.Seq', to_form='biopython.Seq')
+def add(to_item, item):
 
     raise NotImplementedMethodError()
 

@@ -1,18 +1,13 @@
-from molsysmt._private.exceptions import *
-from molsysmt._private.digestion import *
+from molsysmt._private.digestion import digest
 import numpy as np
 
-def get_entity_id_from_entity(molecular_system, indices='all', check=True):
-
-    if check:
-
-        digest_single_molecular_system(molecular_system)
-        indices = digest_indices(indices)
+@digest
+def get_entity_id_from_entity(molecular_system, indices='all'):
 
     from . import get_n_entities_from_system
 
     if is_all(indices):
-        n_entities = get_n_entities_from_system(molecular_system, check=False)
+        n_entities = get_n_entities_from_system(molecular_system)
         output = np.full(n_entities, None, dtype=object)
     else:
         output = np.full(indices.shape[0], None, dtype=object)

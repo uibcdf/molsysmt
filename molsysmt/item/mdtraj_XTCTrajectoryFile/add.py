@@ -1,12 +1,8 @@
-from molsysmt._private.exceptions import NotImplementedMethodError
-from molsysmt._private.digestion import digest_item
+from molsysm._private.exception import NotImplementedMethodError
+from molsysmt._private.digestion import digest
 
-def add(to_item, item, check=True):
-
-    if check:
-
-        digest_item(item, 'mdtraj.XTCTrajectoryFile')
-        digest_item(to_item, 'mdtraj.XTCTrajectoryFile')
+@digest(form='mdtraj.XTCTrajectoryFile', to_form='mdtraj.XTCTrajectoryFile')
+def add(to_item, item):
 
     raise NotImplementedMethodError()
 

@@ -1,14 +1,9 @@
-from molsysmt._private.exceptions import *
-from molsysmt._private.digestion import *
+from molsysmt._private.digestion import digest
 from molsysmt.lib import box as libbox
 from molsysmt import puw
 import numpy as np
 
-def box_shape_from_box_vectors(box, check=True):
-
-    if check:
-
-        box = digest_box(box)
+def box_shape_from_box_vectors(box):
 
     from molsysmt.pbc.box_shape_from_box_angles import box_shape_from_box_angles
 

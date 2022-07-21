@@ -56,10 +56,10 @@ def shift_dihedral_angles(molecular_system, quartets=None, angles_shifts=None, b
     angles_shifts=angles_shifts_value*angles_shifts_units
 
     angles = get_dihedral_angles(molecular_system, quartets=quartets,
-            structure_indices=structure_indices, pbc=pbc, check=False)
+            structure_indices=structure_indices, pbc=pbc)
     angles = angles + angles_shifts
 
     return set_dihedral_angles(molecular_system, quartets=quartets, angles=angles, blocks=None,
                                structure_indices=structure_indices, pbc=pbc, in_place=in_place,
-                               engine=engine, check=False)
+                               engine=engine)
 

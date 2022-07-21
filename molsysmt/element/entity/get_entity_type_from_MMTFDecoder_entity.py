@@ -1,5 +1,4 @@
-from molsysmt._private.exceptions import *
-from molsysmt._private.digestion import *
+from molsysmt._private.digestion import digest
 import numpy as np
 
 from .cosolute.get_name_from_mmtf_name import mmtf_translator as mmtf_translator_cosolute
@@ -24,7 +23,7 @@ mmtf_translator.update(mmtf_translator_dna)
 mmtf_translator.update(mmtf_translator_small_molecule)
 mmtf_translator.update(mmtf_translator_water)
 
-
+@digest
 def get_entity_type_from_MMTFDecoder_entity(mmtf_entity):
 
     from . import get_entity_type_from_entity_name

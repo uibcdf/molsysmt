@@ -1,16 +1,10 @@
-from molsysmt._private.exceptions import *
-from molsysmt._private.digestion import *
+from molsysmt._private.digestion import digest
 import numpy as np
 from networkx import connected_components
 
+@digest
 def get_covalent_blocks(molecular_system, selection='all', remove_bonds=None, output_form='sets',
-        syntax='MolSysMT', check=True):
-
-    if check:
-
-        digest_single_molecular_system(molecular_system)
-        syntax = digest_syntax(syntax)
-        selection = digest_selection(selection, syntax)
+        syntax='MolSysMT'):
 
     from molsysmt.basic import get
     from . import get_bondgraph

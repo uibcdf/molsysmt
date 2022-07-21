@@ -1,10 +1,10 @@
-from molsysmt._private.exceptions import *
-from molsysmt._private.digestion import *
+from molsysmt._private.digestion import digest
 from molsysmt.lib import box as libbox
 import numpy as np
 from molsysmt import puw
 
-def box_vectors_from_box_lengths_and_angles(lengths, angles, check=True):
+@digest
+def box_vectors_from_box_lengths_and_angles(lengths, angles):
 
     lengths=digest_box_lengths(lengths)
     angles=digest_box_angles(angles)

@@ -14,7 +14,7 @@ def get_least_rmsd (molecular_system=None, selection='backbone', structure_indic
     if engine=='MolSysMT':
 
         n_atoms, n_structures = get(molecular_system, n_atoms=True, n_structures=True)
-        atom_indices = select(molecular_system, selection=selection, syntax=syntax, check=False)
+        atom_indices = select(molecular_system, selection=selection, syntax=syntax)
         n_atom_indices = atom_indices.shape[0]
         structure_indices = digest_structure_indices(structure_indices)
         if is_all(structure_indices):
@@ -30,7 +30,7 @@ def get_least_rmsd (molecular_system=None, selection='backbone', structure_indic
                 reference_selection = selection
 
             reference_atom_indices = select(reference_molecular_system,
-                    selection=reference_selection, syntax=syntax, check=False)
+                    selection=reference_selection, syntax=syntax)
 
             reference_coordinates = get(reference_molecular_system, element='atom', indices=reference_atom_indices,
                                         structure_indices=reference_structure_index, coordinates=True)

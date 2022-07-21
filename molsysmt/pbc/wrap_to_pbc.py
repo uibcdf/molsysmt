@@ -1,20 +1,14 @@
-from molsysmt._private.exceptions import *
-from molsysmt._private.digestion import *
+from molsysmt._private.exception.not_implemented import NotImplementedEngineError
+from molsysmt._private.digestion import digest
 from molsysmt import puw
 from molsysmt.lib import box as libbox
 import numpy as np
 
+@digest
 def wrap_to_pbc(molecular_system, selection='all', structure_indices='all',
                 center='[0,0,0] nanometers', center_of_selection=None, weights_for_center=None,
                 recenter=True, keep_covalent_bonds=False,
-                syntax='MolSysMT', engine='MolSysMT', in_place=False, check=True):
-    if check:
-
-        digest_single_molecular_system(molecular_system)
-        engine = digest_engine(engine)
-        syntax = digest_syntax(syntax)
-        selection = digest_selection(selection, syntax)
-        structure_indices = digest_structure_indices(structure_indices)
+                syntax='MolSysMT', engine='MolSysMT', in_place=False):
 
     if engine=='MolSysMT':
 
@@ -78,7 +72,7 @@ def wrap_to_pbc(molecular_system, selection='all', structure_indices='all',
 
     else:
 
-        raise NotImpementedEngineError()
+        raise NotImplementedEngineError()
 
     if in_place:
 

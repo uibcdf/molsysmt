@@ -1,16 +1,12 @@
-from molsysmt._private.exceptions import *
-from molsysmt._private.digestion import *
+from molsysmt._private.digestion import digest
 import numpy as np
 
-def get_n_molecules_from_system(molecular_system, check=True):
-
-    if check:
-
-        digest_single_molecular_system(molecular_system)
+@digest
+def get_n_molecules_from_system(molecular_system):
 
     from . import get_molecule_index_from_atom
 
-    molecule_index_from_atom = get_molecule_index_from_atom(molecular_system, check=True)
+    molecule_index_from_atom = get_molecule_index_from_atom(molecular_system)
 
     if molecule_index_from_atom[0] is None:
         n_molecules = 0

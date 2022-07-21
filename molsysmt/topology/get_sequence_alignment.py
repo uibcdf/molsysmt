@@ -1,11 +1,11 @@
-from molsysmt._private.exceptions import *
-from molsysmt._private.digestion import *
+from molsysmt._private.digestion import digest
 from molsysmt.basic import convert
 import numpy as np
 
+@digest
 def get_sequence_alignment(molecular_system, selection='all', reference_molecular_system=None, reference_selection=None,
                        engine='Biopython', syntax='MolSysMT', prettyprint=False,
-                       alignment_index=0, check=True):
+                       alignment_index=0):
 
     if engine=='Biopython':
 
@@ -34,10 +34,6 @@ def get_sequence_alignment(molecular_system, selection='all', reference_molecula
         txt_aln = alignment[alignment_index].format().split('\n')
         seq_ref = txt_aln[0]
         seq = txt_aln[2]
-
-    elif engine=='Modeller':
-
-        raise NotImplementedError
 
     else:
 
