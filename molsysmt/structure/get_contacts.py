@@ -1,12 +1,12 @@
-from molsysmt._private.exceptions import *
-from molsysmt._private.digestion import *
+from molsysmt._private.digestion import digest
 from molsysmt import puw
 import numpy as np
 
+@digest
 def get_contacts(molecular_system, selection=None, groups_of_atoms=None, group_behavior=None, structure_indices="all",
                 selection_2=None, groups_of_atoms_2=None, group_behavior_2=None, structure_indices_2=None,
                 output_atom_indices=False, threshold='12 angstroms', pbc=False, parallel=False,
-                 engine='MolSysMT', syntax='MolSysMT', check=True):
+                engine='MolSysMT', syntax='MolSysMT'):
 
     from molsysmt.structure.get_distances import get_distances
 
@@ -16,10 +16,7 @@ def get_contacts(molecular_system, selection=None, groups_of_atoms=None, group_b
                                                 group_behavior_2=group_behavior_2, structure_indices_2=structure_indices_2,
                                                 output_atom_indices=True,
                                                 pbc=pbc, parallel=parallel, output_form='tensor',
-                                                engine=engine, syntax=syntax, check=check)
-
-    if threshold is None:
-        raise BadCallError(BadCallMessage)
+                                                engine=engine, syntax=syntax)
 
     length_units = puw.get_unit(all_dists)
     threshold = puw.get_value(threshold, to_unit=length_units)

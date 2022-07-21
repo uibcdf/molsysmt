@@ -64,17 +64,6 @@ class MultipleMolecularSystemsNeededError(MolSysValueError):
         super().__init__(message, caller)
 
 
-class NotSupportedFormError(MolSysValueError):
-    """ Exception raised when the item's form is unknown and thereby not supported.
-
-        This exception is raised when Sabueso does not recognize the item as a supported form.
-    """
-
-    def __init__(self, form_type, caller=""):
-        message = f"The input molecular system or item has a not supported form: {form_type} "
-        super().__init__(message, caller)
-
-
 class NotWithThisFormError(MolSysValueError):
     """ Exception raised when a method or a class can not accept a specific item's form -by no means-.
 

@@ -1,5 +1,4 @@
-from molsysmt._private.exceptions import *
-from molsysmt._private.digestion import *
+from molsysmt._private.exceptions.form import NotSupportedFormError
 from molsysmt._private.lists_and_tuples import is_list_or_tuple
 
 def get_form(molecular_system):

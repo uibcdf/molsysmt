@@ -1,28 +1,20 @@
-from molsysmt._private.exceptions import *
-from molsysmt._private.digestion import *
+from molsysmt._private.exceptions.not_implemented import NotImplementedError
+from molsysmt._private.digestion import digest
 from molsysmt._private.math import serialized_lists
 from molsysmt.lib import com as libcom
 from molsysmt import puw
 import numpy as np
 
+@digest
 def get_center(molecular_system, selection='all', groups_of_atoms=None, weights=None,
-        structure_indices='all', syntax='MolSysMT', engine='MolSysMT', parallel=False, check=True):
-
-    if check:
-
-        digest_single_molecular_system(molecular_system)
-        syntax = digest_syntax(syntax)
-        selection = digest_selection(selection, syntax)
-        structure_indices = digest_structure_indices(structure_indices)
-        engine = digest_engine(engine)
+        structure_indices='all', syntax='MolSysMT', engine='MolSysMT', parallel=False):
 
     from molsysmt.basic import select, get
 
     if engine=='MolSysMT':
 
         if groups_of_atoms is None:
-            atom_indices = select(molecular_system, selection=selection, syntax=syntax,
-                                  check=False)
+            atom_indices = select(molecular_system, selection=selection, syntax=syntax)
             groups_of_atoms = [atom_indices]
 
         groups_serialized = serialized_lists(groups_of_atoms, dtype='int64')

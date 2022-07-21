@@ -1,5 +1,4 @@
-from molsysmt._private.exceptions import *
-from molsysmt._private.digestion import *
+from molsysmt._private.digestion import digest
 import numpy as np
 
 def _evaluation(condition, n_in_system):
@@ -18,15 +17,10 @@ def _evaluation(condition, n_in_system):
 
     return output
 
+@digest
 def contains(molecular_system, selection='all', syntax='MolSysMT',
         ions=None, waters=None, cosolutes=None, small_molecules=None, peptides=None, proteins=None,
-        dnas=None, rnas=None, lipids=None, hydrogens=None, check=True):
-
-    if check:
-
-        digest_single_molecular_system(molecular_system)
-        syntax = digest_syntax(syntax)
-        selection = digest_selection(selection, syntax)
+        dnas=None, rnas=None, lipids=None, hydrogens=None):
 
     from . import get, select
 
@@ -95,8 +89,8 @@ def contains(molecular_system, selection='all', syntax='MolSysMT',
 
     if hydrogens is not None:
 
-        hydrogen_indices = select(molecular_system, selection='atom_type=="H"', check=False)
-        selection_indices = select(molecular_system, selection=selection, check=False)
+        hydrogen_indices = select(molecular_system, selection='atom_type=="H"')
+        selection_indices = select(molecular_system, selection=selection)
 
         intersection = np.intersect1d(hydrogen_indices, selection_indices)
         n_in_system = intersection.shape[0]

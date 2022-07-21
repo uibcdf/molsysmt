@@ -80,13 +80,12 @@ def set(molecular_system,
             indices = select(molecular_system,
                              element=element,
                              selection=selection,
-                             syntax=syntax,
-                             check=False)
+                             syntax=syntax)
         else:
             indices = 'all'
 
     for attribute in attributes:
-        item, form = where_is_attribute(molecular_system, attribute, check=False)
+        item, form = where_is_attribute(molecular_system, attribute)
 
         value = value_of_attribute[attribute]
         dict_set[form][element][attribute](item, indices=indices, structure_indices=structure_indices, value=value)

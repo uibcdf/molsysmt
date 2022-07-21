@@ -1,14 +1,8 @@
-from molsysmt._private.exceptions import *
+from molsysmt._private.exceptions.not_implemented import NotImplementedError
 from molsysmt._private.digestion import *
 
+@digest
 def get_non_standard_residues(molecular_system, selection='all', syntax='MolSysMT', engine='PDBFixer'):
-
-    if check:
-
-        digest_single_molecular_system(molecular_system)
-        syntax = digest_syntax(syntax)
-        selection = digest_selection(selection, syntax)
-        engine = digest_engine(engine)
 
     output = {}
 
@@ -16,7 +10,7 @@ def get_non_standard_residues(molecular_system, selection='all', syntax='MolSysM
 
         from molsysmt.basic import convert, get_form, select
 
-        group_indices_in_selection = select(molecular_system, element='group', selection=selection, check=False)
+        group_indices_in_selection = select(molecular_system, element='group', selection=selection)
 
         temp_molecular_system = convert(molecular_system, to_form="pdbfixer.PDBFixer", selection=selection,
                                         syntax=syntax)

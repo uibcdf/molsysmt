@@ -1,4 +1,3 @@
-from molsysmt._private.exceptions import *
 from molsysmt.item.molsysmt_Topology.is_molsysmt_Topology import is_molsysmt_Topology as is_form
 from molsysmt.item.molsysmt_Topology.extract import extract
 from molsysmt.item.molsysmt_Topology.add import add
@@ -49,9 +48,9 @@ def to_string_aminoacids3(item, molecular_system, atom_indices='all', structure_
 
     from molsysmt.item.molsysmt_Topology import get_group_index_from_atom as get_group_index_from_atom_molsysmt_Topology
 
-    group_indices = get_group_index_from_atom_molsysmt_Topology(item, indices=atom_indices, check=False)
+    group_indices = get_group_index_from_atom_molsysmt_Topology(item, indices=atom_indices)
     group_indices = np.unique(group_indices)
-    return molsysmt_Topology_to_string_aminoacids3(item, group_indices=group_indices, check=False)
+    return molsysmt_Topology_to_string_aminoacids3(item, group_indices=group_indices)
 
 
 def to_string_aminoacids1(item, molecular_system, atom_indices='all', structure_indices='all'):
@@ -59,9 +58,9 @@ def to_string_aminoacids1(item, molecular_system, atom_indices='all', structure_
 
     from molsysmt.item.molsysmt_Topology import get_group_index_from_atom as get_group_index_from_atom_molsysmt_Topology
 
-    group_indices = get_group_index_from_atom_molsysmt_Topology(item, indices=atom_indices, check=False)
+    group_indices = get_group_index_from_atom_molsysmt_Topology(item, indices=atom_indices)
     group_indices = np.unique(group_indices)
-    return molsysmt_Topology_to_string_aminoacids1(item, group_indices=group_indices, check=False)
+    return molsysmt_Topology_to_string_aminoacids1(item, group_indices=group_indices)
 
 
 def to_openmm_Topology(item, molecular_system, atom_indices='all', structure_indices='all'):
@@ -70,19 +69,19 @@ def to_openmm_Topology(item, molecular_system, atom_indices='all', structure_ind
     from molsysmt.basic import get
 
     box = get(molecular_system, element='system', structure_indices=structure_indices, box=True)
-    return molsysmt_Topology_to_openmm_Topology(item, box, atom_indices=atom_indices, check=False)
+    return molsysmt_Topology_to_openmm_Topology(item, box, atom_indices=atom_indices)
 
 
 def to_mdtraj_Topology(item, molecular_system, atom_indices='all', structure_indices='all'):
     from molsysmt.item.molsysmt_Topology import to_mdtraj_Topology as molsysmt_Topology_to_mdtraj_Topology
 
-    return molsysmt_Topology_to_mdtraj_Topology(item, atom_indices=atom_indices, check=False)
+    return molsysmt_Topology_to_mdtraj_Topology(item, atom_indices=atom_indices)
 
 
 def to_pytraj_Topology(item, molecular_system, atom_indices='all', structure_indices='all'):
     from molsysmt.item.molsysmt_Topology import to_pytraj_Topology as molsysmt_Topology_to_pytraj_Topology
 
-    return molsysmt_Topology_to_pytraj_Topology(item, atom_indices=atom_indices, check=False)
+    return molsysmt_Topology_to_pytraj_Topology(item, atom_indices=atom_indices)
 
 
 def to_file_pdb(item, molecular_system, atom_indices='all', structure_indices='all', output_filename=None):
@@ -94,7 +93,7 @@ def to_file_pdb(item, molecular_system, atom_indices='all', structure_indices='a
                       coordinates=True)
     box = get(molecular_system, element='system', structure_indices=structure_indices, box=True)
     return molsysmt_Topology_to_file_pdb(item, coordinates, box, atom_indices=atom_indices,
-                                         output_filename=output_filename, check=False)
+                                         output_filename=output_filename)
 
 
 def to_string_pdb_text(item, molecular_system, atom_indices='all', structure_indices='all'):
@@ -105,5 +104,4 @@ def to_string_pdb_text(item, molecular_system, atom_indices='all', structure_ind
     coordinates = get(molecular_system, element='atom', selection=atom_indices, structure_indices=structure_indices,
                       coordinates=True)
     box = get(molecular_system, element='system', structure_indices=structure_indices, box=True)
-    return molsysmt_Topology_to_string_pdb_text(item, coordinates=coordinates, box=box, atom_indices=atom_indices,
-                                                check=False)
+    return molsysmt_Topology_to_string_pdb_text(item, coordinates=coordinates, box=box, atom_indices=atom_indices)

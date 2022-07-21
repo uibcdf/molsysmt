@@ -1,5 +1,5 @@
-from molsysmt._private.exceptions import *
-from molsysmt._private.digestion import *
+from molsysmt._private.exceptions.not_implemented import NotImplementedError, NotImplementedSyntaxisError
+from molsysmt._private.digestion import digest
 import numpy as np
 from molsysmt._private.variables import is_all
 from molsysmt._private.strings import get_parenthesis
@@ -9,7 +9,6 @@ from inspect import stack, getargvalues
 
 def select_standard(molecular_system, selection='all', syntax='MolSysMT'):
 
-    #from .is_molecular_system import is_molecular_system
     from . import where_is_attribute
     from molsysmt.api_forms import dict_get
 
@@ -103,9 +102,9 @@ def select_bonded_to(molecular_system, selection, syntax):
 
     return output
 
-
+@digest
 def select(molecular_system, selection='all', structure_index=0, element='atom', mask=None,
-        syntax='MolSysMT', to_syntax=None, check=True):
+        syntax='MolSysMT', to_syntax=None):
 
     # to_syntax: 'NGLView', 'MDTraj', ...
 
@@ -159,30 +158,6 @@ def select(molecular_system, selection='all', structure_index=0, element='atom',
     from . import get_form, where_is_attribute, is_molecular_system
     from molsysmt.api_forms import dict_get
 
-    if check:
-
-        if not is_molecular_system(molecular_system):
-            raise MolecularSystemNeededError()
-
-        try:
-            element=digest_element(element)
-        except:
-            raise WrongTargetError(element)
-
-        try:
-            syntax=digest_syntax(syntax)
-        except:
-            raise WrongSyntaxisError(syntax)
-        try:
-            to_syntax=digest_to_syntax(to_syntax)
-        except:
-            raise WrongSyntaxisError(to_syntax)
-
-        try:
-            selection=digest_selection(selection, syntax)
-        except:
-            raise WrongSelectionError(selection)
-
     if is_all(mask):
         mask=None
 
@@ -191,7 +166,7 @@ def select(molecular_system, selection='all', structure_index=0, element='atom',
         while selection_with_special_subsentences(selection):
 
             sub_selection = selection_with_special_subsentences(selection)
-            sub_atom_indices = select(molecular_system, sub_selection, syntax=syntax, check=False)
+            sub_atom_indices = select(molecular_system, sub_selection, syntax=syntax)
             selection = selection.replace(sub_selection, 'atom_index==@sub_atom_indices')
 
         if 'within' in selection:
@@ -208,11 +183,11 @@ def select(molecular_system, selection='all', structure_index=0, element='atom',
     if element=='atom':
         output_indices = atom_indices
     elif element in ['group', 'component', 'chain', 'molecule', 'entity']:
-        aux_item, aux_form = where_is_attribute(molecular_system, element+'_index', check=False)
+        aux_item, aux_form = where_is_attribute(molecular_system, element+'_index')
         output_indices = dict_get[aux_form]['atom'][element+'_index'](aux_item, indices=atom_indices)
         output_indices = np.unique(output_indices)
     elif element=='bond':
-        aux_item, aux_form = where_is_attribute(molecular_system, 'inner_bond_index', check=False)
+        aux_item, aux_form = where_is_attribute(molecular_system, 'inner_bond_index')
         output_indices = dict_get[aux_form]['atom']['inner_bond_index'](aux_item, indices=atom_indices)
     else:
         raise NotImplementedError()

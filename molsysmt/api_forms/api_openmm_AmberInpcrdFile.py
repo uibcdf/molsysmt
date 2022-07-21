@@ -1,4 +1,3 @@
-from molsysmt._private.exceptions import *
 from molsysmt.item.openmm_AmberInpcrdFile.is_openmm_AmberInpcrdFile import is_openmm_AmberInpcrdFile as is_form
 from molsysmt.item.openmm_AmberInpcrdFile.extract import extract
 from molsysmt.item.openmm_AmberInpcrdFile.add import add

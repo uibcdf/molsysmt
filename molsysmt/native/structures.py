@@ -1,6 +1,5 @@
 import numpy as np
 from molsysmt import puw
-from molsysmt._private.exceptions import *
 from molsysmt._private.variables import is_all
 
 # Tiene que haber una manera automatica con f2py dar siempre de salida Ccontiguous_np.arrays
@@ -25,7 +24,7 @@ class Structures():
         if filepath is not None:
             self.load_frames_from_file(filepath=filepath, atom_indices=atom_indices, structure_indices=structure_indices)
 
-    def append_structures(self, step=None, time=None, coordinates=None, box=None, check=True):
+    def append_structures(self, step=None, time=None, coordinates=None, box=None):
 
         if step is not None:
             if type(step) not in [list, np.ndarray]:

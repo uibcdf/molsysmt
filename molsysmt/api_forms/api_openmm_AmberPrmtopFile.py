@@ -1,4 +1,3 @@
-from molsysmt._private.exceptions import *
 from molsysmt.item.openmm_AmberPrmtopFile.is_openmm_AmberPrmtopFile import is_openmm_AmberPrmtopFile as is_form
 from molsysmt.item.openmm_AmberPrmtopFile.extract import extract
 from molsysmt.item.openmm_AmberPrmtopFile.add import add

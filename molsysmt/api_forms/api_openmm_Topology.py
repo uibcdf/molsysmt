@@ -1,4 +1,3 @@
-from molsysmt._private.exceptions import *
 from molsysmt.item.openmm_Topology.is_openmm_Topology import is_openmm_Topology as is_form
 from molsysmt.item.openmm_Topology.extract import extract
 from molsysmt.item.openmm_Topology.add import add
@@ -44,7 +43,7 @@ form_attributes['box'] = True
 def to_molsysmt_Topology(item, molecular_system, atom_indices='all', structure_indices='all'):
     from molsysmt.item.openmm_Topology import to_molsysmt_Topology as openmm_Topology_to_molsysmt_Topology
 
-    return openmm_Topology_to_molsysmt_Topology(item, atom_indices=atom_indices, check=False)
+    return openmm_Topology_to_molsysmt_Topology(item, atom_indices=atom_indices)
 
 
 def to_molsysmt_MolSys(item, molecular_system, atom_indices='all', structure_indices='all'):
@@ -55,19 +54,19 @@ def to_molsysmt_MolSys(item, molecular_system, atom_indices='all', structure_ind
     coordinates, box = get(molecular_system, structure_indices=structure_indices, atom_indices=atom_indices,
                            coordinates=True, box=True)
     return openmm_Topology_to_molsysmt_MolSys(item, atom_indices=atom_indices,
-                                              coordinates=coordinates, box=box, check=False)
+                                              coordinates=coordinates, box=box)
 
 
 def to_mdtraj_Topology(item, molecular_system, atom_indices='all', structure_indices='all'):
     from molsysmt.item.openmm_Topology import to_mdtraj_Topology as openmm_Topology_to_mdtraj_Topology
 
-    return openmm_Topology_to_mdtraj_Topology(item, atom_indices=atom_indices, check=False)
+    return openmm_Topology_to_mdtraj_Topology(item, atom_indices=atom_indices)
 
 
 def to_parmed_Structure(item, molecular_system, atom_indices='all', structure_indices='all'):
     from molsysmt.item.openmm_Topology import to_parmed_Structure as openmm_Topology_to_parmed_Structure
 
-    return openmm_Topology_to_parmed_Structure(item, atom_indices=atom_indices, check=False)
+    return openmm_Topology_to_parmed_Structure(item, atom_indices=atom_indices)
 
 
 def to_openmm_Modeller(item, molecular_system, atom_indices='all', structure_indices='all'):
@@ -77,7 +76,7 @@ def to_openmm_Modeller(item, molecular_system, atom_indices='all', structure_ind
 
     coordinates = get(molecular_system, structure_indices=structure_indices, atom_indices=atom_indices,
                       coordinates=True)
-    return openmm_Topology_to_openmm_Modeller(item, atom_indices=atom_indices, coordinates=coordinates, check=False)
+    return openmm_Topology_to_openmm_Modeller(item, atom_indices=atom_indices, coordinates=coordinates)
 
 
 def to_openmm_System(item, molecular_system, atom_indices='all', structure_indices='all'):
@@ -89,8 +88,7 @@ def to_openmm_System(item, molecular_system, atom_indices='all', structure_indic
     forcefield = molecular_mechanics.to_openmm_ForceField()
     system_parameters = molecular_mechanics.get_openmm_System_parameters()
     return openmm_Topology_to_openmm_System(item, atom_indices=atom_indices,
-                                            forcefield=forcefield, parameters=parameters,
-                                            check=False)
+                                            forcefield=forcefield, parameters=parameters)
 
 
 def to_openmm_Context(item, molecular_system, atom_indices='all', structure_indices='all'):
@@ -102,8 +100,7 @@ def to_openmm_Context(item, molecular_system, atom_indices='all', structure_indi
     forcefield = molecular_mechanics.to_openmm_ForceField()
     system_parameters = molecular_mechanics.get_openmm_System_parameters()
     return openmm_Topology_to_openmm_Context(item, atom_indices=atom_indices,
-                                             forcefield=forcefield, parameters=parameters,
-                                             check=False)
+                                             forcefield=forcefield, parameters=parameters)
 
 
 def to_openmm_Simulation(item, molecular_system, atom_indices='all', structure_indices='all'):
@@ -115,8 +112,7 @@ def to_openmm_Simulation(item, molecular_system, atom_indices='all', structure_i
     forcefield = molecular_mechanics.to_openmm_ForceField()
     system_parameters = molecular_mechanics.get_openmm_System_parameters()
     return openmm_Topology_to_openmm_Context(item, atom_indices=atom_indices,
-                                             forcefield=forcefield, parameters=parameters,
-                                             check=False)
+                                             forcefield=forcefield, parameters=parameters)
 
 
 def to_file_pdb(item, molecular_system, atom_indices='all', structure_indices='all', output_filename=None):
@@ -126,7 +122,7 @@ def to_file_pdb(item, molecular_system, atom_indices='all', structure_indices='a
 
     coordinates = get(molecular_system, structure_indices=structure_indices, atom_indices=atom_indices,
                       coordinates=True)
-    return openmm_Topology_to_file_pdb(item, atom_indices=atom_indices, coordinates=coordinates, check=False)
+    return openmm_Topology_to_file_pdb(item, atom_indices=atom_indices, coordinates=coordinates)
 
 
 def to_string_pdb_text(item, molecular_system, atom_indices='all', structure_indices='all'):
@@ -136,7 +132,7 @@ def to_string_pdb_text(item, molecular_system, atom_indices='all', structure_ind
 
     coordinates = get(molecular_system, structure_indices=structure_indices, atom_indices=atom_indices,
                       coordinates=True)
-    return openmm_Topology_to_file_pdb(item, atom_indices=atom_indices, coordinates=coordinates, check=False)
+    return openmm_Topology_to_file_pdb(item, atom_indices=atom_indices, coordinates=coordinates)
 
 
 def to_openmm_PDBFile(item, molecular_system, atom_indices='all', structure_indices='all'):
@@ -146,7 +142,7 @@ def to_openmm_PDBFile(item, molecular_system, atom_indices='all', structure_indi
 
     coordinates = get(molecular_system, structure_indices=structure_indices, atom_indices=atom_indices,
                       coordinates=True)
-    return openmm_Topology_to_openmm_PDBFile(item, atom_indices=atom_indices, coordinates=coordinates, check=False)
+    return openmm_Topology_to_openmm_PDBFile(item, atom_indices=atom_indices, coordinates=coordinates)
 
 
 def to_nglview_NGLWidget(item, molecular_system=None, atom_indices='all', structure_indices='all'):
@@ -156,4 +152,4 @@ def to_nglview_NGLWidget(item, molecular_system=None, atom_indices='all', struct
 
     coordinates = get(molecular_system, structure_indices=structure_indices, atom_indices=atom_indices,
                       coordinates=True)
-    return openmm_Topology_to_nglview_NGLWidget(item, atom_indices=atom_indices, coordinates=coordinates, check=False)
+    return openmm_Topology_to_nglview_NGLWidget(item, atom_indices=atom_indices, coordinates=coordinates)

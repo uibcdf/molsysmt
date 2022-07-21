@@ -1,14 +1,8 @@
-from molsysmt._private.exceptions import *
-from molsysmt._private.digestion import *
+from molsysmt._private.exceptions.not_implemented import NotImplementedError
+from molsysmt._private.digestion import digest
 
-def add_missing_heavy_atoms(molecular_system, selection='all', syntax='MolSysMT', engine='PDBFixer', check=True):
-
-    if check:
-
-        digest_single_molecular_system(molecular_system)
-        syntax = digest_syntax(syntax)
-        selection = digest_selection(selection, syntax)
-        engine = digest_engine(engine)
+@digest
+def add_missing_heavy_atoms(molecular_system, selection='all', syntax='MolSysMT', engine='PDBFixer'):
 
     from molsysmt.basic import get_form, convert, select
 
@@ -24,7 +18,7 @@ def add_missing_heavy_atoms(molecular_system, selection='all', syntax='MolSysMT'
         temp_molecular_system.findMissingAtoms()
         temp_molecular_system.missingTerminals = {}
 
-        group_indices_in_selection = select(molecular_system, element='group', selection=selection, syntax=syntax, check=False)
+        group_indices_in_selection = select(molecular_system, element='group', selection=selection, syntax=syntax)
 
         aux_dict = {}
 

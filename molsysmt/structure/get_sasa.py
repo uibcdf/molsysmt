@@ -1,20 +1,12 @@
-from molsysmt._private.exceptions import *
-from molsysmt._private.digestion import *
+from molsysmt._private.exceptions.not_implemented import NotImplementedError
+from molsysmt._private.digestion import digest
 from molsysmt._private.variables import is_all
 from molsysmt import puw
 import numpy as np
 
+@digest
 def get_sasa (molecular_system, element='atom', selection='all', structure_indices='all', syntax='MolSysMT',
-          engine='MDTraj', check=True):
-
-    if check:
-
-        digest_single_molecular_system(molecular_system)
-        element = digest_element(element)
-        syntax = digest_syntax(syntax)
-        selection = digest_selection(selection, syntax)
-        structure_indices = digest_structure_indices(structure_indices)
-        engine = digest_engine(engine)
+          engine='MDTraj'):
 
     if engine == 'MDTraj':
 

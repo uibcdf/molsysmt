@@ -1,20 +1,12 @@
-from molsysmt._private._digestion import *
-from molsysmt._private.exceptions import *
+from molsysmt._private._digestion import digest
+from molsysmt._private.exceptions.not_implemented import NotImplementedError
 from molsysmt.lib import geometry as libgeometry
 from molsysmt import puw
 import numpy as np
 
+@digest
 def get_radius_of_gyration(molecular_system, selection='all', structure_indices='all',
-                           weights=None, pbc=False, engine='MolSysMT', syntax='MolSysMT',
-                           check=True):
-
-    if check:
-
-        digest_single_molecular_system(molecular_system)
-        syntax = digest_syntax(syntax)
-        selection = digest_selection(selection, syntax)
-        structure_indices = digest_structure_indices(structure_indices)
-        engine = digest_engine(engine)
+                           weights=None, pbc=False, engine='MolSysMT', syntax='MolSysMT'):
 
     if engine=='MolSysMT':
 
@@ -52,7 +44,7 @@ def get_radius_of_gyration(molecular_system, selection='all', structure_indices=
             weights_units = 1
         elif weights is 'masses':
             from molsysmt.chemphys import get_masses
-            masses = get_masses(molecular_systems, selection=selection, syntax=syntax, check=False)
+            masses = get_masses(molecular_systems, selection=selection, syntax=syntax)
             weights_units = puw.get_unit(masses)
             weights = puw.get_value(masses)
 

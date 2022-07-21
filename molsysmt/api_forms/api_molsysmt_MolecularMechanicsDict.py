@@ -1,4 +1,3 @@
-from molsysmt._private.exceptions import *
 from molsysmt.item.molsysmt_MolecularMechanicsDict.is_molsysmt_MolecularMechanicsDict import \
     is_molsysmt_MolecularMechanicsDict as is_form
 from molsysmt.item.molsysmt_MolecularMechanicsDict.extract import extract
@@ -38,4 +37,4 @@ def to_molsysmt_MolecularMechanics(item, molecular_system, atom_indices='all', s
     from molsysmt.item.molsysmt_MolecularMechanicsDict import \
         to_molsysmt_MolecularMechanics as molsysmt_MolecularMechanicsDict_to_molsysmt_MolecularMechanics
 
-    return molsysmt_MolecularMechanicsDict_to_molsysmt_MolecularMechanics(item, check=False)
+    return molsysmt_MolecularMechanicsDict_to_molsysmt_MolecularMechanics(item)

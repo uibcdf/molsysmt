@@ -1,4 +1,3 @@
-from molsysmt._private.exceptions import *
 import numpy as np
 from molsysmt.item.mdanalysis_Topology.is_mdanalysis_Topology import is_mdanalysis_Topology as is_form
 from molsysmt.item.mdanalysis_Topology.extract import extract

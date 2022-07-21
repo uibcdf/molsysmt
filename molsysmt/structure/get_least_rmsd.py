@@ -1,31 +1,15 @@
-from molsysmt._private.exceptions import *
-from molsysmt._private.digestion import *
+from molsysmt._private.exceptions.not_implemented import NotImplementedError
+from molsysmt._private.digestion import digest
 from molsysmt._private.variables import is_all
 from molsysmt.basic import select, get
 import numpy as np
 from molsysmt.lib import rmsd as librmsd
 from molsysmt import puw
 
+@digest
 def get_least_rmsd (molecular_system=None, selection='backbone', structure_indices='all',
           reference_molecular_system=None, reference_selection=None, reference_structure_index=0,
-          reference_coordinates=None, parallel=True, syntax='MolSysMT', engine='MolSysMT',
-          check=True):
-
-    if check:
-
-        digest_single_molecular_system(molecular_system)
-        syntax = digest_syntax(syntax)
-        selection = digest_selection(selection, syntax)
-        structure_indices = digest_structure_indices(structure_indices)
-        engine = digest_engine(engine)
-
-        if reference_molecular_system is not None:
-            digest_single_molecular_system(reference_molecular_system)
-
-        if reference_selection is not None:
-            reference_selection = digest_selection(reference_selection, syntax)
-
-        reference_structure_index = digest_structure_indices(reference_structure_index)
+          reference_coordinates=None, parallel=True, syntax='MolSysMT', engine='MolSysMT'):
 
     if engine=='MolSysMT':
 

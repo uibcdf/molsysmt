@@ -1,17 +1,10 @@
-from molsysmt._private.exceptions import *
-from molsysmt._private.digestion import *
+from molsysmt._private.digestion import digest
 import numpy as np
 from molsysmt import puw
 
+@digest
 def translate(molecular_system, translation=None, selection='all', structure_indices='all',
-        syntax='MolSysMT', in_place=False, check=True):
-
-    if check:
-
-        digest_single_molecular_system(molecular_system)
-        syntax = digest_syntax(syntax)
-        selection = digest_selection(selection, syntax)
-        structure_indices = digest_structure_indices(structure_indices)
+        syntax='MolSysMT', in_place=False):
 
     from molsysmt.basic import get, set, select, copy
 

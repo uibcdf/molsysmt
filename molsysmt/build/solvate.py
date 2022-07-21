@@ -2,8 +2,8 @@
 # Creando cajas solvatadas
 # =======================
 
-from molsysmt._private.exceptions import *
-from molsysmt._private.digestion import *
+from molsysmt._private.exceptions.not_implemented import NotImplementedError
+from molsysmt._private.digestion import digest
 import numpy as np
 from molsysmt import puw
 
@@ -13,10 +13,11 @@ Solvate Box
 Methods and wrappers to create and solvate boxes
 """
 
+@digest
 def solvate (molecular_system, box_geometry="truncated octahedral", clearance='14.0 angstroms',
              anion='Cl-', num_anions="neutralize", cation='Na+', num_cations="neutralize",
              ionic_strength='0.0 molar', engine="LEaP",
-             to_form= None, logfile=False, check=True):
+             to_form= None, logfile=False):
 
     """solvate(item, geometry=None, water=None, engine=None)
     Methods and wrappers to create and solvate boxes
@@ -38,12 +39,6 @@ def solvate (molecular_system, box_geometry="truncated octahedral", clearance='1
     Notes
     -----
     """
-
-    if check:
-
-        digest_single_molecular_system(molecular_system)
-        engine = digest_engine(engine)
-        to_form = digest_to_form(to_form)
 
     from molsysmt.basic import get_form, convert
 
@@ -154,11 +149,11 @@ def solvate (molecular_system, box_geometry="truncated octahedral", clearance='1
             #if verbose:
             #    print("All Hydrogen atoms were removed to be added by LEaP\n\n")
 
-        indices_NME_C = select(molecular_system, element='atom', selection='group_name=="NME" and atom_name=="C"', check=False)
+        indices_NME_C = select(molecular_system, element='atom', selection='group_name=="NME" and atom_name=="C"')
         with_NME_C = (len(indices_NME_C)>0)
 
         if with_NME_C:
-            _set(molecular_system, element='atom', selection='group_name=="NME" and atom_name=="C"', atom_name='CH3', check=False)
+            _set(molecular_system, element='atom', selection='group_name=="NME" and atom_name=="C"', atom_name='CH3')
 
         current_directory = getcwd()
         working_directory = temp_directory()

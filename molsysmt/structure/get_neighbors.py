@@ -1,33 +1,17 @@
-from molsysmt._private.exceptions import *
-from molsysmt._private.digestion import *
+from molsysmt._private.digestion import digest
 from molsysmt import puw
 import numpy as np
 
+@digest
 def get_neighbors(molecular_system, selection="all", groups_of_atoms=None, group_behavior=None, structure_indices="all",
                   molecular_system_2=None, selection_2=None, groups_of_atoms_2=None, group_behavior_2=None, structure_indices_2=None,
                   threshold=None, num_neighbors=None, atom_indices=False, pbc=False, parallel=False,
-                  engine='MolSysMT', syntax='MolSysMT', check=True):
-
-    if check:
-
-        digest_single_molecular_system(molecular_system)
-        if molecular_system_2 is not None:
-            digest_single_molecular_system(molecular_system_2)
-
-        syntax = digest_syntax(syntax)
-        selection = digest_selection(selection, syntax)
-        selection_2 = digest_selection(selection_2, syntax)
-
-        structure_indices = digest_structure_indices(structure_indices)
-        if structure_indices_2 is not None:
-            structure_indices_2 = digest_structure_indices(structure_indices_2)
-
-        engine = digest_engine(engine)
+                  engine='MolSysMT', syntax='MolSysMT'):
 
     from . import get_distances
 
-    if (threshold is None) and (num_neighbors is None):
-        raise BadCallError(BadCallMessage)
+    #if (threshold is None) and (num_neighbors is None):
+    #    raise BadCallError(BadCallMessage)
 
     same_set = False
 
@@ -54,7 +38,7 @@ def get_neighbors(molecular_system, selection="all", groups_of_atoms=None, group
                                                     group_behavior=group_behavior, structure_indices=structure_indices,
                                                     molecular_system_2=molecular_system_2, selection_2=selection_2, groups_of_atoms_2=groups_of_atoms_2,
                                                     group_behavior_2=group_behavior_2, structure_indices_2=structure_indices_2,
-                                                    pbc=pbc, parallel=parallel, output_form='tensor', engine=engine, syntax=syntax, check=False)
+                                                    pbc=pbc, parallel=parallel, output_form='tensor', engine=engine, syntax=syntax)
 
     else:
 
@@ -62,7 +46,7 @@ def get_neighbors(molecular_system, selection="all", groups_of_atoms=None, group
                             group_behavior=group_behavior, structure_indices=structure_indices,
                             selection_2=selection_2, groups_of_atoms_2=groups_of_atoms_2,
                             group_behavior_2=group_behavior_2, structure_indices_2=structure_indices_2,
-                            pbc=pbc, parallel=parallel, output_form='tensor', engine=engine, syntax=syntax, check=False)
+                            pbc=pbc, parallel=parallel, output_form='tensor', engine=engine, syntax=syntax)
 
     nstructures, nelements_1, nelements_2 = all_dists.shape
     length_units = puw.get_unit(all_dists)

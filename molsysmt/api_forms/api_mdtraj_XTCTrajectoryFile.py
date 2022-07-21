@@ -1,4 +1,3 @@
-from molsysmt._private.exceptions import *
 from molsysmt.item.mdtraj_XTCTrajectoryFile.is_mdtraj_XTCTrajectoryFile import is_mdtraj_XTCTrajectoryFile as is_form
 from molsysmt.item.mdtraj_XTCTrajectoryFile.extract import extract
 from molsysmt.item.mdtraj_XTCTrajectoryFile.add import add
@@ -23,4 +22,4 @@ def to_molsysmt_Structures(item, molecular_system, atom_indices='all', structure
         to_molsysmt_Structures as mdtraj_XTCTrajectoryFile_to_molsysmt_Structures
 
     return mdtraj_XTCTrajectoryFile_to_molsysmt_Structures(item, atom_indices=atom_indices,
-                                                           structure_indices=structure_indices, check=False)
+                                                           structure_indices=structure_indices)

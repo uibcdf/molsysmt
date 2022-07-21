@@ -1,19 +1,11 @@
-from molsysmt._private.exceptions import *
-from molsysmt._private.digestion import *
+from molsysmt._private.digestion import digest
 import numpy as np
 from molsysmt import puw
 from molsysmt.lib import geometry as libgeometry
 
-
+@digest
 def shift_dihedral_angles(molecular_system, quartets=None, angles_shifts=None, blocks=None,
-                          structure_indices='all', pbc=True, in_place=False, engine='MolSysMT',
-                          check=False):
-
-    if check:
-
-        digest_single_molecular_system(molecular_system)
-        structure_indices = digest_structure_indices(structure_indices)
-        engine = digest_engine(engine)
+                          structure_indices='all', pbc=True, in_place=False, engine='MolSysMT'):
 
     from . import get_dihedral_angles, set_dihedral_angles
     from molsysmt.basic import get

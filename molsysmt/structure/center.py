@@ -1,20 +1,11 @@
-from molsysmt._private.exceptions import *
-from molsysmt._private.digestion import *
+from molsysmt._private.exceptions.not_implemented import NotImplementedError
+from molsysmt._private.digestion import digest
 from molsysmt import puw
 import numpy as np
 
-
+@digest
 def center(molecular_system, selection='all', center_of_selection='all', weights=None, new_coordinates_center=None, structure_indices='all',
-           syntax='MolSysMT', engine='MolSysMT', in_place=False, check=True):
-
-    if check:
-
-        digest_single_molecular_system(molecular_system)
-        syntax = digest_syntax(syntax)
-        selection = digest_selection(selection, syntax)
-        center_of_selection = digest_selection(center_of_selection, syntax)
-        structure_indices = digest_structure_indices(structure_indices)
-        engine = digest_engine(engine)
+           syntax='MolSysMT', engine='MolSysMT', in_place=False):
 
     from . import get_center
     from . import translate
@@ -23,7 +14,7 @@ def center(molecular_system, selection='all', center_of_selection='all', weights
 
         coordinates_selection_center = get_center(molecular_system, selection=center_of_selection, groups_of_atoms=None, weights=weights,
                                                   structure_indices=structure_indices,
-                                                  syntax=syntax, engine=engine, check=False)
+                                                  syntax=syntax, engine=engine)
 
         if new_coordinates_center is None:
             translation = -coordinates_selection_center
@@ -34,7 +25,7 @@ def center(molecular_system, selection='all', center_of_selection='all', weights
 
         return translate(molecular_system, translation=translation, selection=selection,
                          structure_indices=structure_indices, syntax='MolSysMT',
-                         in_place=in_place, check=False)
+                         in_place=in_place)
 
     else:
 
