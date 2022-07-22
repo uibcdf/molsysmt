@@ -154,9 +154,12 @@ def test_extract_structures(structure_with_five_frames):
 
 def test_add():
 
-    proline = msm.convert(msm.demo['proline dipeptide']['vacuum.msmpk'], to_form='molsysmt.MolSys')
-    valine = msm.convert(msm.demo['valine dipeptide']['vacuum.msmpk'], to_form='molsysmt.MolSys')
-    lysine = msm.convert(msm.demo['lysine dipeptide']['vacuum.msmpk'], to_form='molsysmt.MolSys')
+    proline = msm.convert(msm.demo['proline dipeptide']['vacuum.msmpk'],
+                          to_form='molsysmt.MolSys')
+    valine = msm.convert(msm.demo['valine dipeptide']['vacuum.msmpk'],
+                         to_form='molsysmt.MolSys')
+    lysine = msm.convert(msm.demo['lysine dipeptide']['vacuum.msmpk'],
+                         to_form='molsysmt.MolSys')
 
     structures = Structures()
     structures.add(proline)
@@ -165,9 +168,31 @@ def test_add():
     assert structures.coordinates.shape == (1, 26, 3)
 
     structures.add(valine)
+    assert structures.n_structures == 1
+    assert structures.n_atoms == 54
+    assert structures.coordinates.shape == (1, 54, 3)
 
     structures.add(lysine)
+    assert structures.n_structures == 1
+    assert structures.n_atoms == 88
+    assert structures.coordinates.shape == (1, 88, 3)
 
 
 def test_append():
-    pass
+
+    proline = msm.convert(msm.demo['proline dipeptide']['vacuum.msmpk'],
+                          to_form='molsysmt.MolSys')
+
+    proline_translated_1 = msm.structure.translate(proline,
+                                                   translation='[0.1, 0.1, 0.1] nanometers')
+    proline_translated_2 = msm.structure.translate(proline,
+                                                   translation='[0.2, 0.2, 0.2] nanometers')
+    structures = Structures()
+    structures.add(proline)
+    structures.append(proline_translated_1)
+    assert structures.n_atoms == 26
+    assert structures.coordinates.shape == (2, 26, 3)
+
+    structures.append(proline_translated_2)
+    assert structures.n_atoms == 26
+    assert structures.coordinates.shape == (3, 26, 3)

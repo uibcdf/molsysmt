@@ -232,9 +232,15 @@ class Structures:
                 Select only these structures from the given item
         """
 
-        step, time, coordinate, box = get(item, element="atom", selection=selection,
-                                          structure_indices=structure_indices, frame=True)
-        self.append_structures(step, time, coordinate, box)
+        step, time, coordinates, box = get(item,
+                                           selection=selection,
+                                           structure_indices=structure_indices,
+                                           step=True,
+                                           time=True,
+                                           coordinates=True,
+                                           box=True
+                                           )
+        self.append_structures(step, time, coordinates, box)
 
     def copy(self):
         """ Returns a copy of the structures."""
