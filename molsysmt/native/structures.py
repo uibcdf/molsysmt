@@ -47,6 +47,7 @@ class Structures:
             self.n_atoms = 0
 
         self.file = file
+        self._current_structure = 0
 
     @staticmethod
     def _concatenate_arrays(array_1, array_2, name):
@@ -242,6 +243,101 @@ class Structures:
                                            )
         self.append_structures(step, time, coordinates, box)
 
+    def get_structure_data(self, structure):
+        """ Returns the steps, time, coordinates and box of the
+            given structure
+
+            Parameters
+            ----------
+            structure : int
+                The index of the structure
+
+            Returns
+            -------
+            box : pint.Quantity of shape (3, 3)
+                The box of the structure
+
+            coordinates : pint.Quantity of shape (n_atoms, 3)
+                The coordinates of the structure.
+
+            time :  pint.Quantity
+                The times of the structure
+        """
+        if self.step is not None:
+            step = self.step[structure]
+        else:
+            step = None
+
+        if self.time is not None:
+            time = self.time[structure]
+        else:
+            time = None
+
+        if self.coordinates is not None:
+            coordinates = self.coordinates[structure]
+        else:
+            coordinates = None
+
+        if self.box is not None:
+            box = self.box[structure]
+        else:
+            box = None
+
+        return step, time, coordinates, box
+
+    def iterate(self, start=0, stop=None):
+        """ Generator to iterate over the steps, time, coordinates and box
+            of each structure (frame).
+
+            Parameters
+            ----------
+            start: int
+                First structure index of the trajectory to start with.
+
+            stop: int, default=None
+                The iteration finishes if the current structure index
+                is larger than or equal to this integer.
+
+            Yields
+            ------
+            box : pint.Quantity of shape (3, 3)
+                The box of the structure
+
+            coordinates : pint.Quantity of shape (n_atoms, 3)
+                The coordinates of the structure.
+
+            time :  pint.Quantity
+                The times of the structure
+
+        """
+        if start < 0 or start >= self.n_structures:
+            raise ValueError
+
+        if stop is None:
+            stop = self.n_structures
+
+        self._current_structure = start
+        while self._current_structure < self.n_structures:
+            if self._current_structure >= stop:
+                break
+
+            yield self.get_structure_data(self._current_structure)
+            self._current_structure += 1
+
     def copy(self):
         """ Returns a copy of the structures."""
         return deepcopy(self)
+
+    def __iter__(self):
+        self._current_structure = -1
+        return self
+
+    def __next__(self):
+        """ Iterate through the steps, time, coordinates and box
+            of each structure (frame).
+        """
+        self._current_structure += 1
+        if self._current_structure >= self.n_structures:
+            raise StopIteration
+
+        return self.get_structure_data(self._current_structure)

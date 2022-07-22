@@ -30,6 +30,7 @@ def structure_with_five_frames():
             box[ii, jj, jj] = ii * 1.
     box = puw.quantity(box, "nanometers")
     time = np.array(range(0, 5)) * 10.0
+    time = puw.quantity(time, "picoseconds")
     assert time.shape == (5,)
 
     return Structures(coordinates=coords,
@@ -92,7 +93,6 @@ def test_append_structures(structures_with_one_frame):
 
 
 def test_copy(structures_with_one_frame):
-
     structures_copy = structures_with_one_frame.copy()
     assert structures_copy.n_structures == 1
     assert structures_copy.n_atoms == 2
@@ -101,7 +101,6 @@ def test_copy(structures_with_one_frame):
 
 
 def test_extract_atoms(structure_with_five_frames):
-
     structures = structure_with_five_frames.copy()
     structures_extracted_atoms = structures.extract(atom_indices=[0, 1])
 
@@ -114,13 +113,12 @@ def test_extract_atoms(structure_with_five_frames):
     coordinates_expected = coordinates_expected[:, 0:2, :] * 0.1
     assert np.allclose(puw.get_value(structures_extracted_atoms.coordinates),
                        coordinates_expected)
-    assert np.allclose(structures_extracted_atoms.time,
+    assert np.allclose(puw.get_value(structures_extracted_atoms.time),
                        np.array(range(0, 5)) * 10.
                        )
 
 
 def test_extract_structures(structure_with_five_frames):
-
     structure_extracted = structure_with_five_frames.copy().extract(
         structure_indices=[0, 2, 4]
     )
@@ -130,7 +128,7 @@ def test_extract_structures(structure_with_five_frames):
     assert structure_extracted.coordinates.shape == (3, 3, 3)
     assert structure_extracted.box.shape == (3, 3, 3)
 
-    assert np.allclose(structure_extracted.time,
+    assert np.allclose(puw.get_value(structure_extracted.time),
                        np.array([0., 20., 40.])
                        )
     coordinates_expected = np.array(range(45)).reshape((5, 3, 3))
@@ -153,7 +151,6 @@ def test_extract_structures(structure_with_five_frames):
 
 
 def test_add():
-
     proline = msm.convert(msm.demo['proline dipeptide']['vacuum.msmpk'],
                           to_form='molsysmt.MolSys')
     valine = msm.convert(msm.demo['valine dipeptide']['vacuum.msmpk'],
@@ -179,7 +176,6 @@ def test_add():
 
 
 def test_append():
-
     proline = msm.convert(msm.demo['proline dipeptide']['vacuum.msmpk'],
                           to_form='molsysmt.MolSys')
 
@@ -196,3 +192,98 @@ def test_append():
     structures.append(proline_translated_2)
     assert structures.n_atoms == 26
     assert structures.coordinates.shape == (3, 26, 3)
+
+
+def iterate_structure(iterator,
+                      expected_iterations,
+                      start=0):
+    n_iterations = 0
+    end = start * 9
+    ii = start
+    for step, time, coordinates, box in iterator:
+        start = end
+        end = start + 9
+        expected_coordinates = np.array(range(start, end)).reshape(3, 3) * 0.1
+
+        assert step is None
+        assert puw.get_value(time) == ii * 10.
+        assert np.allclose(puw.get_value(coordinates),
+                           expected_coordinates)
+        assert np.allclose(puw.get_value(box),
+                           np.identity(3) * (ii * 1.))
+        ii += 1
+        n_iterations += 1
+
+    assert n_iterations == expected_iterations
+
+
+def test_iter_structures(structure_with_five_frames):
+    iterate_structure(structure_with_five_frames,
+                      expected_iterations=5)
+    iterate_structure(structure_with_five_frames.iterate(),
+                      expected_iterations=5)
+
+
+def test_iterate_structure_with_custom_start(structure_with_five_frames):
+    iterator = structure_with_five_frames.iterate(start=2)
+    iterate_structure(iterator, expected_iterations=3, start=2)
+
+
+def test_iterate_structure_with_custom_end(structure_with_five_frames):
+    iterator = structure_with_five_frames.iterate(start=0,
+                                                  stop=3)
+    iterate_structure(iterator,
+                      expected_iterations=3,
+                      start=0)
+
+    iterator = structure_with_five_frames.iterate(start=2,
+                                                  stop=4)
+    iterate_structure(iterator,
+                      expected_iterations=2,
+                      start=2)
+
+
+def iterate_structure_custom_interval(iterator, start, expected_iterations):
+
+    n_iterations = 0
+    ii = start
+    for step, time, coordinates, box in iterator:
+        expected_coordinates = np.array(range(ii * 9,
+                                              (ii * 9) + 9)).reshape(3, 3)
+        expected_coordinates *= 0.1
+
+        assert time == ii * 10.
+        assert np.allclose(puw.get_value(box),
+                           np.identity(3) * ii * 2.)
+        assert np.allclose(puw.get_value(coordinates),
+                           expected_coordinates
+                           )
+        ii += 2
+
+    assert n_iterations == expected_iterations
+
+
+def test_iterator_with_custom_interval(structure_with_five_frames):
+
+    structures = structure_with_five_frames.copy()
+
+    # We add an extra frame to the structures
+    coords = np.array(range(45, 54)).reshape((1, 3, 3)) * 0.1
+    coords = puw.quantity(coords, "nanometers")
+
+    box = np.identity(3) * 5.
+    box = box.reshape((1, 3, 3))
+    box = puw.quantity(box, "nanometers")
+    
+    time = puw.quantity(np.array([50.]), "picoseconds")
+    structures.append_structures(step=None,
+                                 time=time,
+                                 box=box,
+                                 coordinates=coords)
+
+    iterate_structure_custom_interval(structures.iterate(interval=2),
+                                      start=0,
+                                      expected_iterations=3)
+    iterate_structure_custom_interval(structures.iterate(start=1, inteval=2),
+                                      start=1,
+                                      expected_iterations=3)
