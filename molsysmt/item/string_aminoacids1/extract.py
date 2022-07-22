@@ -1,15 +1,11 @@
-from molsysmt._private.exceptions import *
-from molsysmt._private.digestion import *
+from molsysmt._private.exceptions.not_implemented import NotImplementedMethodError
+from molsysmt._private.digestion import digest
 from molsysmt._private.variables import is_all
+
+@digest(form='string:aminoacids1')
 from copy import copy
 
-def extract(item, atom_indices='all', structure_indices='all', copy_if_all=True, check=True):
-
-    if check:
-
-        digest_item(item, 'string:aminoacids1')
-        atom_indices = digest_atom_indices(atom_indices)
-        structure_indices = digest_structure_indices(structure_indices)
+def extract(item, atom_indices='all', structure_indices='all', copy_if_all=True):
 
     if is_all(atom_indices) and is_all(structure_indices):
 
@@ -19,7 +15,7 @@ def extract(item, atom_indices='all', structure_indices='all', copy_if_all=True,
             tmp_item = item
     else:
 
-        raise NotImplementedError
+        raise NotImplementedMethodError
 
     return tmp_item
 
