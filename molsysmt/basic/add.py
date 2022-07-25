@@ -1,6 +1,4 @@
 from molsysmt._private.digestion import digest
-from molsysmt._private.lists_and_tuples import is_list_or_tuple
-
 
 @digest
 def add(to_molecular_system, from_molecular_systems, selections='all', structure_indices='all',
@@ -51,7 +49,7 @@ def add(to_molecular_system, from_molecular_systems, selections='all', structure
     from . import get_form, convert, extract, select, is_molecular_system, are_multiple_molecular_systems
     from molsysmt.api_forms import dict_add
 
-    if not is_list_or_tuple(to_molecular_system):
+    if not isinstance(to_molecular_system, (list, tuple)):
         to_molecular_system = [to_molecular_system]
 
     to_forms = get_form(to_molecular_system)
@@ -61,12 +59,12 @@ def add(to_molecular_system, from_molecular_systems, selections='all', structure
 
     n_from_molecular_systems = len(from_molecular_systems)
 
-    if not is_list_or_tuple(selections):
+    if not isinstance(selections, (list, tuple)):
         selections = [selections for ii in range(n_from_molecular_systems)]
     elif len(selections)!=n_from_molecular_systems:
         raise ValueError("The length of the lists items and selections need to be equal.")
 
-    if not is_list_or_tuple(structure_indices):
+    if not isinstance(structure_indices, (list, tuple)):
         structure_indices = [digest_structure_indices(structure_indices) for ii in range(n_from_molecular_systems)]
     elif len(structure_indices)!=n_from_molecular_systems:
         raise ValueError("The length of the lists items and structure_indices need to be equal.")

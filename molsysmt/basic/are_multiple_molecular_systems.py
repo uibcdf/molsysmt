@@ -1,4 +1,3 @@
-from molsysmt._private.lists_and_tuples import is_list_or_tuple
 import numpy as np
 
 def are_multiple_molecular_systems(items):
@@ -8,7 +7,7 @@ def are_multiple_molecular_systems(items):
     output = False
 
     aux_list = []
-    if is_list_or_tuple(items):
+    if isinstance(items, (list, tuple)):
 
         for item in items:
             aux_list.append(is_molecular_system(item))

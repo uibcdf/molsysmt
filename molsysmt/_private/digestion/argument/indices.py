@@ -1,6 +1,5 @@
 import numpy as np
-from ..exceptions.indices import WrongIndicesError
-from ..lists_and_tuples import is_list_or_tuple
+from molsysmt._private.exceptions import ArgumentError
 from ..variables import is_all
 
 def digest_indices(indices, caller=None):
@@ -33,7 +32,7 @@ def digest_indices(indices, caller=None):
     elif isinstance(indices, (np.ndarray, list, tuple, range)):
         indices = np.array(indices, dtype='int64')
     else:
-        raise WrongIndicesError(indices, caller=caller)
+        raise ArgumentError(indices, caller=caller, message=None)
 
     return indices
 

@@ -1,7 +1,5 @@
 from molsysmt._private.digestion import digest
-from molsysmt._private.lists_and_tuples import is_list_or_tuple
 from molsysmt._private.variables import is_all
-
 
 @digest
 def extract(molecular_system, selection='all', structure_indices='all', to_form=None,
@@ -62,7 +60,7 @@ def extract(molecular_system, selection='all', structure_indices='all', to_form=
     else:
         atom_indices = 'all'
 
-    if not is_list_or_tuple(get_form):
+    if not isinstance(get_form, (list, tuple)):
         forms_in = [forms_in]
         molecular_system = [molecular_system]
 

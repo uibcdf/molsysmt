@@ -1,5 +1,4 @@
 from molsysmt._private.digestion import digest
-from molsysmt._private.lists_and_tuples import is_list_or_tuple
 
 @digest
 def has_attribute(molecular_system, attribute):

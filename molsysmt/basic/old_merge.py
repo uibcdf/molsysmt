@@ -1,4 +1,3 @@
-from molsysmt._private.lists_and_tuples import is_list_or_tuple
 from molsysmt._private._digestion import *
 from molsysmt._private.exceptions import *
 from molsysmt.tools.molecular_systems import is_a_single_molecular_system
@@ -60,12 +59,12 @@ def merge(molecular_systems=None, selections='all', structure_indices='all', syn
 
     n_molecular_systems = len(molecular_systems)
 
-    if not is_list_or_tuple(selections):
+    if not isinstance(selections, (list, tuple)):
         selections = [selections for ii in range(n_molecular_systems)]
     elif len(selections)!=n_molecular_systems:
         raise ValueError("The length of the lists items and selections need to be equal.")
 
-    if not is_list_or_tuple(structure_indices):
+    if not isinstance(structure_indices, (list, tuple)):
         structure_indices = [digest_structure_indices(structure_indices) for ii in range(n_molecular_systems)]
     elif len(structure_indices)!=n_molecular_systems:
         raise ValueError("The length of the lists items and structure_indices need to be equal.")

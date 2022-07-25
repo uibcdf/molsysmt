@@ -1,5 +1,4 @@
 from molsysmt._private.digestion import digest
-from molsysmt._private.lists_and_tuples import is_list_or_tuple
 from molsysmt._private.variables import is_all
 from molsysmt.attribute.attributes import _required_indices
 
@@ -71,7 +70,7 @@ def get(molecular_system,
         if kwargs[key]:
             arguments.append(key)
 
-    if not is_list_or_tuple(molecular_system):
+    if not isinstance(molecular_system, (list, tuple)):
         molecular_system = [molecular_system]
 
     if indices is None:

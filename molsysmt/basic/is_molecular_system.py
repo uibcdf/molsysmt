@@ -1,19 +1,18 @@
 from molsysmt._private.exceptions import *
-from molsysmt._private.lists_and_tuples import is_list_or_tuple
 
 def is_molecular_system(items):
 
     from . import get_form, get
     from molsysmt.api_forms import dict_attributes
 
-    if is_list_or_tuple(items):
+    if isinstance(items, (list, tuple)):
         for item in items:
-            if is_list_or_tuple(item):
+            if isinstance(item, (list, tuple)):
                 return False
 
     output = True
 
-    if not is_list_or_tuple(items):
+    if not isinstance(items, (list, tuple)):
         items=[items]
 
     if len(items)>1:
@@ -43,7 +42,7 @@ def is_molecular_system(items):
 
     if output:
 
-        if is_list_or_tuple(items):
+        if isinstance(items, (list, tuple)):
 
             if len(items)>1:
 

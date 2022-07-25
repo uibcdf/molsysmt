@@ -3,6 +3,7 @@ import molsysmt.config as config
 import functools
 import inspect
 from importlib import import_module
+import os
 
 from ..functions import invoked_by_user
 
@@ -11,102 +12,19 @@ from ..functions import invoked_by_user
 digestion_parameters= {}
 digestion_functions = {}
 
-def _import_digestion(argument, module, parameters=[]):
-    function='digest_'+argument
-    digestion_functions[argument]=getattr(import_module('.'+module, 'molsysmt._private.digestion'),function)
-    digestion_parameters[argument]=parameters
-    pass
-
-## molecular_system
-_import_digestion('molecular_system', 'molecular_system')
-_import_digestion('molecular_systems', 'molecular_system')
-
-## item
-_import_digestion('item', 'item')
-
-### syntax
-_import_digestion('syntax', 'syntax', parameters=['form'])
-
-## selection
-_import_digestion('selection', 'selection', parameters=['syntax'])
-
-## element
-_import_digestion('element', 'element')
-
-## engine
-_import_digestion('engine', 'engine')
-
-## form
-_import_digestion('form', 'form')
-_import_digestion('to_form', 'form')
-
-## atom
-_import_digestion('atom_index', 'atom')
-_import_digestion('atom_id', 'atom')
-_import_digestion('atom_name', 'atom')
-_import_digestion('atom_type', '.atom')
-_import_digestion('atom_indices', 'atom')
-
-## group
-_import_digestion('group_index', 'group')
-_import_digestion('group_id', 'group')
-_import_digestion('group_name', 'group')
-_import_digestion('group_type', 'group')
-_import_digestion('group_indices', 'group')
-
-## component
-_import_digestion('component_index', 'component')
-_import_digestion('component_id', 'component')
-_import_digestion('component_name', 'component')
-_import_digestion('component_type', 'component')
-_import_digestion('component_indices', 'component')
-
-## molecule
-_import_digestion('molecule_index', 'molecule')
-_import_digestion('molecule_id', 'molecule')
-_import_digestion('molecule_name', 'molecule')
-_import_digestion('molecule_type', 'molecule')
-_import_digestion('molecule_indices', 'molecule')
-
-## chain
-_import_digestion('chain_index', 'chain')
-_import_digestion('chain_id', 'chain')
-_import_digestion('chain_name', 'chain')
-_import_digestion('chain_type', 'chain')
-_import_digestion('chain_indices', 'chain')
-
-## entity
-_import_digestion('entity_index', 'entity')
-_import_digestion('entity_id', 'entity')
-_import_digestion('entity_name', 'entity')
-_import_digestion('entity_type', 'entity')
-_import_digestion('entity_indices', 'entity')
-
-## structure
-_import_digestion('structure_indices', 'structure')
-
-## coordinates
-_import_digestion('coordinates', 'coordinates')
-
-## box
-_import_digestion('box', 'box')
-_import_digestion('box_lengths', 'box')
-_import_digestion('box_angles', 'box')
-
-## step
-_import_digestion('step', 'step')
-
-## time
-_import_digestion('time', 'time')
-
-## comparison
-_import_digestion('comparison', 'comparison')
-
-## viewers
-_import_digestion('viewer', 'viewer')
-
-## output
-_import_digestion('output', 'output')
+current_dir = os.path.dirname(os.path.abspath(__file__))
+for filename in os.listdir(current_dir+'/argument'):
+    if filename.endswith('.py') and filename!="__init__.py":
+        argument = filename[:-3]
+        module = import_module('molsysmt._private.digestion.argument.' + argument)
+        function = getattr(module, 'digest_'+argument)
+        parameters = inspect.getargspec(function)
+        digestion_functions[argument]=function
+        digestion_parameters[argument]=[]
+        for parameter in parameters[0]:
+            if parameter not in [argument, 'caller']:
+                digestion_parameters[argument].append(parameter)
+        del(argument, module, function, parameters)
 
 
 def digest(output=False, **kwargs):
@@ -197,7 +115,11 @@ def digest(output=False, **kwargs):
                 print(f'Problem with arg_name {arg_name}')
 
             if output:
-                return digest_output(func(**digested_args))
+                auxilary_output = func(**digested_args)
+                if isinstance(output, (list, tuple)):
+                    if len(auxiliary_output) == 1:
+                        auxiliary_output = auxiliary_output[0]
+                return auxiliary_output
             else:
                 return func(**digested_args)
 

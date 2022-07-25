@@ -1,5 +1,4 @@
 from molsysmt._private.digestion import digest
-from molsysmt._private.lists_and_tuples import is_list_or_tuple
 
 @digest
 def where_is_attribute(molecular_system, attribute):
@@ -9,7 +8,7 @@ def where_is_attribute(molecular_system, attribute):
     from molsysmt.api_forms import dict_attributes
     from molsysmt.attribute import is_attribute
 
-    if not is_list_or_tuple(molecular_system):
+    if not isinstance(molecular_system, (list, tuple)):
         molecular_system = [molecular_system]
 
     forms_in = get_form(molecular_system)

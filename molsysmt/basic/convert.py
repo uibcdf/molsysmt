@@ -1,6 +1,5 @@
 from molsysmt._private.exceptions.not_implemented import NotImplementedConversionError
 from molsysmt._private.digestion import digest
-from molsysmt._private.lists_and_tuples import is_list_or_tuple
 from molsysmt._private.variables import is_all
 
 
@@ -65,7 +64,7 @@ def convert(molecular_system,
     if to_form is None:
         to_form = get_form(molecular_system)
 
-    if is_list_or_tuple(to_form):
+    if isinstance(to_form, (list, tuple)):
         tmp_item=[]
         for item_out in to_form:
             tmp_item.append(
@@ -87,7 +86,7 @@ def convert(molecular_system,
 
     tmp_item = None
 
-    if not is_list_or_tuple(molecular_system):
+    if not isinstance(molecular_system, (list, tuple)):
         molecular_system = [molecular_system]
 
     for item in molecular_system:

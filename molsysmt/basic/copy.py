@@ -1,5 +1,4 @@
 from molsysmt._private.digestion import digest
-from molsysmt._private.lists_and_tuples import is_list_or_tuple
 
 @digest
 def copy(molecular_system, output_filename=None):
@@ -12,7 +11,7 @@ def copy(molecular_system, output_filename=None):
 
     if output_filename is None:
 
-        if not is_list_or_tuple(form_in):
+        if not isinstance(form_in, (list, tuple)):
             form_in = [form_in]
             molecular_system = [molecular_system]
 

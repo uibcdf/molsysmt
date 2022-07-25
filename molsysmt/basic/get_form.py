@@ -1,5 +1,4 @@
 from molsysmt._private.exceptions.form import NotSupportedFormError
-from molsysmt._private.lists_and_tuples import is_list_or_tuple
 
 def get_form(molecular_system):
 
@@ -8,7 +7,7 @@ def get_form(molecular_system):
 
     from molsysmt.api_forms import dict_is_form
 
-    if is_list_or_tuple(molecular_system):
+    if isinstance(molecular_system, (list, tuple)):
         output = [get_form(ii) for ii in molecular_system]
         return output
 

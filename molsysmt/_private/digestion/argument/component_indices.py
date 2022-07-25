@@ -1,5 +1,5 @@
-from ...exceptions import ArgumentError
-from ...variables import is_all
+from molsysmt._private.exceptions import ArgumentError
+from molsysmt._private.variables import is_all
 
 def digest_component_indices(component_indices, caller):
     """ Checks if component_indices has the expected type and value.
