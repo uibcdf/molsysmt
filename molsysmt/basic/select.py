@@ -1,4 +1,4 @@
-from molsysmt._private.exceptions.not_implemented import NotImplementedError, NotImplementedSyntaxisError
+from molsysmt._private.exceptions import NotImplementedMethodError, NotSupportedSyntaxError
 from molsysmt._private.digestion import digest
 import numpy as np
 from molsysmt._private.variables import is_all
@@ -31,7 +31,7 @@ def select_standard(molecular_system, selection='all', syntax='MolSysMT'):
             elif syntax=='MDAnalysis':
                 atom_indices = select_with_MDAnalysis(aux_item, selection)
             else:
-                raise NotImplementedSyntaxisError()
+                raise NotSupportedSyntaxError()
 
     elif type(selection) in [int, np.int64, np.int32]:
         atom_indices = np.array([selection], dtype='int64')
@@ -190,7 +190,7 @@ def select(molecular_system, selection='all', structure_index=0, element='atom',
         aux_item, aux_form = where_is_attribute(molecular_system, 'inner_bond_index')
         output_indices = dict_get[aux_form]['atom']['inner_bond_index'](aux_item, indices=atom_indices)
     else:
-        raise NotImplementedError()
+        raise NotImplementedMethodError()
 
     if mask is not None:
         output_indices = np.intersect1d(output_indices, mask, assume_unique=True)
@@ -321,7 +321,7 @@ def select_with_Amber(item, selection):
     else:
         tmp_item = convert(item, to_form='pytraj.Topology')
 
-    raise NotImplementedError()
+    raise NotImplementedMethodError()
 
 def indices_to_selection(molecular_system, indices, element='atom', syntax=None):
 
@@ -343,7 +343,7 @@ def indices_to_selection(molecular_system, indices, element='atom', syntax=None)
             chain_ids = get(molecular_system, element='chain', indices=indices, chain_id=True)
             output_string = ' '.join([':'+ii for ii in chain_ids])
         else:
-            raise NotImplementedError
+            raise NotImplementedMethodError
 
     elif syntax=='MDTraj':
 
@@ -354,11 +354,11 @@ def indices_to_selection(molecular_system, indices, element='atom', syntax=None)
         elif element=='chain':
             output_string = 'chainid '+' '.join([str(ii) for ii in indices])
         else:
-            raise NotImplementedError
+            raise NotImplementedMethodError
 
     else:
 
-        raise NotImplementedError
+        raise NotImplementedMethodError
 
     return output_string
 

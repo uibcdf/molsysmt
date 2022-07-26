@@ -1,4 +1,3 @@
-from molsysmt.api_forms import _dict_forms_lowercase
 from molsysmt._private.exceptions import ArgumentError
 
 def digest_form(form, caller=None):
@@ -26,6 +25,7 @@ def digest_form(form, caller=None):
 
     """
     from molsysmt.item import is_file
+    from molsysmt.api_forms import _dict_forms_lowercase
 
     if isinstance(form, (form, tuple)):
         return [digest_form(ii, caller=caller) for ii in form]

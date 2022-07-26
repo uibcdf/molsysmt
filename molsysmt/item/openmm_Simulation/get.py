@@ -328,6 +328,14 @@ def get_n_bonds_from_system(item, check=True):
 
     raise NotWithThisFormError()
 
+def get_n_structures_from_system(item, check=True):
+
+    if check:
+
+        _digest_item(item, _form)
+
+    return 1
+
 def get_box_from_system(item, structure_indices='all', check=True):
 
     if check:
@@ -377,21 +385,6 @@ def get_step_from_system(item, structure_indices='all', check=True):
 
     return None
 
-def get_n_structures_from_system(item, check=True):
-
-    if check:
-
-        _digest_item(item, _form)
-
-    return 1
-
-def get_bonded_atoms_from_system(item, check=True):
-
-    if check:
-
-        _digest_item(item, _form)
-
-    raise NotWithThisFormError()
 
 ## From bond
 

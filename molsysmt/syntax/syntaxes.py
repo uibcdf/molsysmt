@@ -7,3 +7,4 @@ syntaxes = [
     'NGLView',
 ]
 
+lowercase_syntaxes = {ii.lower(): ii for ii in syntaxes}

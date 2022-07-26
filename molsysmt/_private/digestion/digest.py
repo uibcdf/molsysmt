@@ -26,7 +26,6 @@ for filename in os.listdir(current_dir+'/argument'):
                 digestion_parameters[argument].append(parameter)
         del(argument, module, function, parameters)
 
-
 def digest(output=False, **kwargs):
 
     digest_parameters = kwargs
@@ -125,3 +124,4 @@ def digest(output=False, **kwargs):
 
         return wrapper
     return digestor
+

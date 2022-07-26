@@ -1,5 +1,4 @@
-from molysmt._private.exceptions import ArgumentError
-from molsysmt.element.elements import elements, elements_from_plural
+from molsysmt._private.exceptions import ArgumentError
 
 def digest_element(element, caller=None):
     """ Checks if a syntax has the correct type and value
@@ -17,6 +16,8 @@ def digest_element(element, caller=None):
             A ArgumentError is raised if the element is not a string or its name is not valid.
 
     """
+
+    from molsysmt.element.elements import elements, elements_from_plural
 
     if isinstance(element, str):
         element_name_lower = element.lower()

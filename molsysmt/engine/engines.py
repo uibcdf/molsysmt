@@ -15,3 +15,6 @@ viewers = [
     'NGLView'
 ]
 
+lowercase_engines = {ii.lower(): ii for ii in engines}
+lowercase_viewers = {ii.lower(): ii for ii in viewers}
+

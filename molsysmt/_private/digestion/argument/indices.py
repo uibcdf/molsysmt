@@ -1,6 +1,6 @@
 import numpy as np
 from molsysmt._private.exceptions import ArgumentError
-from ..variables import is_all
+from molsysmt._private.variables import is_all
 
 def digest_indices(indices, caller=None):
     """ Checks if indices has the expected type and value.

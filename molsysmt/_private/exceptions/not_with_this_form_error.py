@@ -10,7 +10,7 @@ class NotWithThisFormError(Exception):
         case the method will raise a 'NotWithTisFormError' exception.
     """
 
-    def __init__(self, argument, caller=None, message=None):
+    def __init__(self, caller=None, message=None):
 
         if not caller:
             caller = caller_name()

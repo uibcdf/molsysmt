@@ -1,4 +1,4 @@
-from molsysmt._private.exceptions.form import NotSupportedFormError
+from molsysmt._private.exceptions import NotSupportedFormError
 
 def get_form(molecular_system):
 

@@ -1,7 +1,4 @@
-from molsysmt.engine.engines import engines
 from molsysmt._private.exceptions import ArgumentError
-
-engines_from_lowercase = {ii.lower(): ii for ii in engines}
 
 def digest_engine(engine, caller=None):
     """ Check the name of the engine.
@@ -36,9 +33,11 @@ def digest_engine(engine, caller=None):
 
     """
 
+    from molsysmt.engine.engines import lowercase_engines
+
     if isinstance(engine, str):
         try:
-            return engines_from_lowercase[engine.lower()]
+            return lowercase_engines[engine.lower()]
         except:
             pass
 

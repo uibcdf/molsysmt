@@ -1,5 +1,5 @@
 from molsysmt._private.exceptions import *
-from molsysmt._private.digestion import digest, digest_structure_indices
+from molsysmt._private.digestion import digest
 
 @digest
 def concatenate_structures(molecular_systems, selections='all', structure_indices='all', to_form=None):

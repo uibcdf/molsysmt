@@ -1,7 +1,4 @@
 from molsysmt._private.exceptions import ArgumentError
-from molsysmt.engine.engines import viewers
-
-viewer_from_lowercase = {ii.lower(): ii for ii in viewers}
 
 def digest_viewer(viewer, caller=None):
     """ Check if the given viewer is supported by MolSysMT.
@@ -18,6 +15,9 @@ def digest_viewer(viewer, caller=None):
     -------
 
     """
+
+    from molsysmt.engine.engines import lowercase_viewers
+
     try:
         tmp_viewer = viewer_from_lowercase[viewer.lower()]
         return tmp_viewer

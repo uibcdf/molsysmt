@@ -3,26 +3,69 @@
 #######################################################################################
 
 from molsysmt._private.execfile import execfile
-from molsysmt._private.exceptions import NotImplementedMethodError as _NotImplementedMethodError
-from molsysmt._private.digestion import digest_item as _digest_item
-from molsysmt._private.digestion import digest_indices as _digest_indices
-from molsysmt._private.digestion import digest_structure_indices as _digest_structure_indices
-from molsysmt._private.variables import is_all as _is_all
-from molsysmt import puw as _puw
-import numpy as _np
-from networkx import Graph as _Graph
+from molsysmt._private.exceptions import NotImplementedMethodError, NotWithThisFormError
+from molsysmt._private.digestion import digest
+from molsysmt._private.variables import is_all
+from molsysmt import puw
+from pickle
 
-_form='file:trjpk'
+form='file:trjpk'
+
 
 ## From atom
 
-def get_coordinates_from_atom(item, indices='all', structure_indices='all', check=True):
+@digest(form=form)
+def get_atom_id_from_atom(item, indices='all'):
 
-    if check:
+    raise NotWithThisFormError()
 
-        _digest_item(item, _form)
-        indices = _digest_indices(indices)
-        structure_indices = _digest_structure_indices(structure_indices)
+@digest(form=form)
+def get_atom_name_from_atom(item, indices='all'):
+
+    raise NotWithThisFormError()
+
+@digest(form=form)
+def get_atom_type_from_atom(item, indices='all'):
+
+    raise NotWithThisFormError()
+
+@digest(form=form)
+def get_group_index_from_atom(item, indices='all'):
+
+    raise NotWithThisFormError()
+
+@digest(form=form)
+def get_component_index_from_atom(item, indices='all'):
+
+    raise NotWithThisFormError()
+
+@digest(form=form)
+def get_chain_index_from_atom(item, indices='all'):
+
+    raise NotWithThisFormError()
+
+@digest(form=form)
+def get_molecule_index_from_atom(item, indices='all'):
+
+    raise NotWithThisFormError()
+
+@digest(form=form)
+def get_entity_index_from_atom(item, indices='all'):
+
+    raise NotWithThisFormError()
+
+@digest(form=form)
+def get_inner_bonded_atoms_from_atom(item, indices='all'):
+
+    raise NotWithThisFormError()
+
+@digest(form=form)
+def get_n_inner_bonds_from_atom(item, indices='all'):
+
+    raise NotWithThisFormError()
+
+@digest(form=form)
+def get_coordinates_from_atom(item, indices='all', structure_indices='all'):
 
     fff = open(item, 'rb')
     _ = pickle.load(fff)
@@ -31,7 +74,7 @@ def get_coordinates_from_atom(item, indices='all', structure_indices='all', chec
     fff.close()
 
     if coordinates is not None:
-        if not _is_all(structure_indices):
+        if not is_all(structure_indices):
             coordinates = coordinates[structure_indices, :, :]
         if not _is_all(indices):
             coordinates = coordinates[:, indices, :]
@@ -39,13 +82,101 @@ def get_coordinates_from_atom(item, indices='all', structure_indices='all', chec
 
     return coordinates
 
+
+## From group
+
+@digest(form=form)
+def get_group_id_from_group(item, indices='all'):
+
+    raise NotImplementedMethodError()
+
+@digest(form=form)
+def get_group_name_from_group(item, indices='all'):
+
+    raise NotImplementedMethodError()
+
+@digest(form=form)
+def get_group_type_from_group(item, indices='all'):
+
+    raise NotImplementedMethodError()
+
+
+## From component
+
+@digest(form=form)
+def get_component_id_from_group(item, indices='all'):
+
+    raise NotWithThisFormError()
+
+@digest(form=form)
+def get_component_name_from_group(item, indices='all'):
+
+    raise NotWithThisFormError()
+
+@digest(form=form)
+def get_component_type_from_group(item, indices='all'):
+
+    raise NotWithThisFormError()
+
+
+## From molecule
+
+@digest(form=form)
+def get_molecule_id_from_group(item, indices='all'):
+
+    raise NotWithThisFormError()
+
+@digest(form=form)
+def get_molecule_name_from_group(item, indices='all'):
+
+    raise NotWithThisFormError()
+
+@digest(form=form)
+def get_molecule_type_from_group(item, indices='all'):
+
+    raise NotWithThisFormError()
+
+
+## From chain
+
+@digest(form=form)
+def get_chain_id_from_group(item, indices='all'):
+
+    raise NotWithThisFormError()
+
+@digest(form=form)
+def get_chain_name_from_group(item, indices='all'):
+
+    raise NotWithThisFormError()
+
+@digest(form=form)
+def get_chain_type_from_group(item, indices='all'):
+
+    raise NotWithThisFormError()
+
+
+## From entity
+
+@digest(form=form)
+def get_entity_id_from_group(item, indices='all'):
+
+    raise NotWithThisFormError()
+
+@digest(form=form)
+def get_entity_name_from_group(item, indices='all'):
+
+    raise NotWithThisFormError()
+
+@digest(form=form)
+def get_entity_type_from_group(item, indices='all'):
+
+    raise NotWithThisFormError()
+
+
 ## From system
 
-def get_n_atoms_from_system(item, check=True):
-
-    if check:
-
-        _digest_item(item, _form)
+@digest(form=form)
+def get_n_atoms_from_system(item):
 
     fff = open(item, 'rb')
     n_atoms = pickle.load(fff)
@@ -53,11 +184,38 @@ def get_n_atoms_from_system(item, check=True):
 
     return n_atoms
 
-def get_n_structures_from_system(item, check=True):
+@digest(form=form)
+def get_n_groups_from_system(item):
 
-    if check:
+    raise NotWithThisFormError()
 
-        _digest_item(item, _form)
+@digest(form=form)
+def get_n_components_from_system(item):
+
+    raise NotWithThisFormError()
+
+@digest(form=form)
+def get_n_chains_from_system(item):
+
+    raise NotWithThisFormError()
+
+@digest(form=form)
+def get_n_molecules_from_system(item):
+
+    raise NotWithThisFormError()
+
+@digest(form=form)
+def get_n_entities_from_system(item):
+
+    raise NotWithThisFormError()
+
+@digest(form=form)
+def get_n_bonds_from_system(item):
+
+    raise NotWithThisFormError()
+
+@digest(form=form)
+def get_n_structures_from_system(item):
 
     fff = open(item, 'rb')
     _ = pickle.load(fff)
@@ -66,12 +224,8 @@ def get_n_structures_from_system(item, check=True):
 
     return n_structures
 
-def get_box_from_system(item, structure_indices='all', check=True):
-
-    if check:
-
-        _digest_item(item, _form)
-        structure_indices = _digest_structure_indices(structure_indices)
+@digest(form=form)
+def get_box_from_system(item, structure_indices='all'):
 
     fff = open(item, 'rb')
     _ = pickle.load(fff)
@@ -81,19 +235,15 @@ def get_box_from_system(item, structure_indices='all', check=True):
     fff.close()
 
     if box is not None:
-        if not _is_all(structure_indices):
+        if not is_all(structure_indices):
             box = box[structure_indices, :, :]
 
         box = puw.quantity(box, to_unit='nm')
 
     return box
 
-def get_time_from_system(item, structure_indices='all', check=True):
-
-    if check:
-
-        _digest_item(item, _form)
-        structure_indices = _digest_structure_indices(structure_indices)
+@digest(form=form)
+def get_time_from_system(item, structure_indices='all'):
 
     fff = open(item, 'rb')
     _ = pickle.load(fff)
@@ -104,19 +254,15 @@ def get_time_from_system(item, structure_indices='all', check=True):
     fff.close()
 
     if time is not None:
-        if not _is_all(structure_indices):
+        if not is_all(structure_indices):
             time = time[structure_indices]
 
         time = puw.quantity(time, to_unit='nm')
 
     return time
 
-def get_step_from_system(item, structure_indices='all', check=True):
-
-    if check:
-
-        _digest_item(item, _form)
-        structure_indices = _digest_structure_indices(structure_indices)
+@digest(form=form)
+def get_step_from_system(item, structure_indices='all'):
 
     fff = open(item, 'rb')
     _ = pickle.load(fff)
@@ -128,10 +274,11 @@ def get_step_from_system(item, structure_indices='all', check=True):
     fff.close()
 
     if step is not None:
-        if not _is_all(structure_indices):
+        if not is_all(structure_indices):
             step = step[structure_indices]
 
     return step
+
 
 #######################################################################################
 ######### DO NOT TOUCH THE FOLLOWING LINES, JUST INCLUDE THEM AS THEY ARE #############
@@ -142,211 +289,4 @@ this_folder = path.dirname(path.abspath(__file__))
 common_get = path.join(this_folder, '../../_private/common_get.py')
 execfile(common_get, globals(), locals())
 del(path, this_folder, common_get)
-
-#######################################################################################
-########### REMOVE COMMON GET METHODS NOT DEFINED FOR THIS CURRENT FORM ###############
-#######################################################################################
-
-del(
-
-    # From atom
-    get_atom_index_from_atom,
-    get_group_id_from_atom,
-    get_group_name_from_atom,
-    get_group_type_from_atom,
-    get_component_id_from_atom,
-    get_component_name_from_atom,
-    get_component_type_from_atom,
-    get_chain_id_from_atom,
-    get_chain_name_from_atom,
-    get_chain_type_from_atom,
-    get_molecule_id_from_atom,
-    get_molecule_name_from_atom,
-    get_molecule_type_from_atom,
-    get_entity_id_from_atom,
-    get_entity_name_from_atom,
-    get_entity_type_from_atom,
-    #get_n_atoms_from_atom,
-    get_n_groups_from_atom,
-    get_n_components_from_atom,
-    get_n_molecules_from_atom,
-    get_n_chains_from_atom,
-    get_n_entities_from_atom,
-    get_bonded_atoms_from_atom,
-    get_bond_index_from_atom,
-    get_n_bonds_from_atom,
-    get_inner_bond_index_from_atom,
-
-    # From group
-    get_atom_index_from_group,
-    get_atom_id_from_group,
-    get_atom_name_from_group,
-    get_atom_type_from_group,
-    get_group_index_from_group,
-    get_component_index_from_group,
-    get_component_id_from_group,
-    get_component_name_from_group,
-    get_component_type_from_group,
-    get_chain_index_from_group,
-    get_chain_id_from_group,
-    get_chain_name_from_group,
-    get_chain_type_from_group,
-    get_molecule_index_from_group,
-    get_molecule_id_from_group,
-    get_molecule_name_from_group,
-    get_molecule_type_from_group,
-    get_entity_index_from_group,
-    get_entity_id_from_group,
-    get_entity_name_from_group,
-    get_entity_type_from_group,
-    get_n_atoms_from_group,
-    get_n_groups_from_group,
-    get_n_components_from_group,
-    get_n_molecules_from_group,
-    get_n_chains_from_group,
-    get_n_entities_from_group,
-
-    # From component
-    get_atom_index_from_component,
-    get_atom_id_from_component,
-    get_atom_name_from_component,
-    get_atom_type_from_component,
-    get_group_index_from_component,
-    get_group_id_from_component,
-    get_group_name_from_component,
-    get_group_type_from_component,
-    get_component_index_from_component,
-    get_chain_index_from_component,
-    get_chain_id_from_component,
-    get_chain_name_from_component,
-    get_chain_type_from_component,
-    get_molecule_index_from_component,
-    get_molecule_id_from_component,
-    get_molecule_name_from_component,
-    get_molecule_type_from_component,
-    get_entity_index_from_component,
-    get_entity_id_from_component,
-    get_entity_name_from_component,
-    get_entity_type_from_component,
-    get_n_atoms_from_component,
-    get_n_groups_from_component,
-    get_n_components_from_component,
-    get_n_molecules_from_component,
-    get_n_chains_from_component,
-    get_n_entities_from_component,
-
-    # From molecule
-    get_atom_index_from_molecule,
-    get_atom_id_from_molecule,
-    get_atom_name_from_molecule,
-    get_atom_type_from_molecule,
-    get_group_index_from_molecule,
-    get_group_id_from_molecule,
-    get_group_name_from_molecule,
-    get_group_type_from_molecule,
-    get_component_index_from_molecule,
-    get_component_id_from_molecule,
-    get_component_name_from_molecule,
-    get_component_type_from_molecule,
-    get_chain_index_from_molecule,
-    get_chain_id_from_molecule,
-    get_chain_name_from_molecule,
-    get_chain_type_from_molecule,
-    get_molecule_index_from_molecule,
-    get_entity_index_from_molecule,
-    get_entity_id_from_molecule,
-    get_entity_name_from_molecule,
-    get_entity_type_from_molecule,
-    get_n_atoms_from_molecule,
-    get_n_groups_from_molecule,
-    get_n_components_from_molecule,
-    get_n_molecules_from_molecule,
-    get_n_chains_from_molecule,
-    get_n_entities_from_molecule,
-
-    # From chain
-    get_atom_index_from_chain,
-    get_atom_id_from_chain,
-    get_atom_name_from_chain,
-    get_atom_type_from_chain,
-    get_group_index_from_chain,
-    get_group_id_from_chain,
-    get_group_name_from_chain,
-    get_group_type_from_chain,
-    get_component_index_from_chain,
-    get_component_id_from_chain,
-    get_component_name_from_chain,
-    get_component_type_from_chain,
-    get_chain_index_from_chain,
-    get_molecule_index_from_chain,
-    get_molecule_id_from_chain,
-    get_molecule_name_from_chain,
-    get_molecule_type_from_chain,
-    get_entity_index_from_chain,
-    get_entity_id_from_chain,
-    get_entity_name_from_chain,
-    get_entity_type_from_chain,
-    get_n_atoms_from_chain,
-    get_n_groups_from_chain,
-    get_n_components_from_chain,
-    get_n_molecules_from_chain,
-    get_n_chains_from_chain,
-    get_n_entities_from_chain,
-
-    # From entity
-    get_atom_index_from_entity,
-    get_atom_id_from_entity,
-    get_atom_name_from_entity,
-    get_atom_type_from_entity,
-    get_group_index_from_entity,
-    get_group_id_from_entity,
-    get_group_name_from_entity,
-    get_group_type_from_entity,
-    get_component_index_from_entity,
-    get_component_id_from_entity,
-    get_component_name_from_entity,
-    get_component_type_from_entity,
-    get_chain_index_from_entity,
-    get_chain_id_from_entity,
-    get_chain_name_from_entity,
-    get_chain_type_from_entity,
-    get_molecule_index_from_entity,
-    get_molecule_id_from_entity,
-    get_molecule_name_from_entity,
-    get_molecule_type_from_entity,
-    get_entity_index_from_entity,
-    get_n_atoms_from_entity,
-    get_n_groups_from_entity,
-    get_n_components_from_entity,
-    get_n_molecules_from_entity,
-    get_n_chains_from_entity,
-    get_n_entities_from_entity,
-
-    # From system
-    get_n_aminoacids_from_system,
-    get_n_nucleotides_from_system,
-    get_n_ions_from_system,
-    get_n_waters_from_system,
-    get_n_cosolutes_from_system,
-    get_n_small_molecules_from_system,
-    get_n_peptides_from_system,
-    get_n_proteins_from_system,
-    get_n_dnas_from_system,
-    get_n_rnas_from_system,
-    get_n_lipids_from_system,
-    #get_coordinates_from_system,
-    #get_box_shape_from_system,
-    #get_box_lengths_from_system,
-    #get_box_angles_from_system,
-    #get_box_volume_from_system,
-    get_bonded_atoms_from_system,
-    get_bond_index_from_system,
-    get_inner_bonded_atoms_from_system,
-    get_inner_bond_index_from_system,
-
-    # From bond
-    get_bond_index_from_bond,
-    get_n_bonds_from_bond
-
-    )
 

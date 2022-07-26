@@ -1,7 +1,4 @@
 from molsysmt._private.exceptions import ArgumentError
-from molsysmt.syntax.syntaxes import syntaxes
-
-syntax_from_lower = {ii.lower(): ii for ii in syntaxes}
 
 def digest_syntax(syntax, caller=None):
     """ Checks if a syntax has the correct type and value
@@ -20,9 +17,11 @@ def digest_syntax(syntax, caller=None):
 
     """
 
+    from molsysmt.syntax.syntaxes import lowercase_syntaxes
+
     if isinstance(syntax, str):
         try:
-            return syntax_from_lower[syntax.lower()]
+            return lowercase_syntaxes[syntax.lower()]
         except:
             pass
 

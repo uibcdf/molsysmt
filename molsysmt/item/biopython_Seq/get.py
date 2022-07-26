@@ -3,18 +3,69 @@
 #######################################################################################
 
 from molsysmt._private.execfile import execfile
-from molsysmt._private.exceptions.not_implemented import NotImplementedMethodError
+from molsysmt._private.exceptions import NotImplementedMethodError, NotWithThisFormError
 from molsysmt._private.digestion import digest
-from molsysmt import puw
-import numpy as np
-from networkx import Graph
+
+form = 'biopython.Seq'
+
 
 ## From atom
 
 @digest(form=form)
-def get_group_id_from_group(item, indices='all'):
+def get_atom_id_from_atom(item, indices='all'):
 
-    raise NotImplementedMethodError()
+    raise NotWithThisFormError()
+
+@digest(form=form)
+def get_atom_name_from_atom(item, indices='all'):
+
+    raise NotWithThisFormError()
+
+@digest(form=form)
+def get_atom_type_from_atom(item, indices='all'):
+
+    raise NotWithThisFormError()
+
+@digest(form=form)
+def get_group_index_from_atom(item, indices='all'):
+
+    raise NotWithThisFormError()
+
+@digest(form=form)
+def get_component_index_from_atom(item, indices='all'):
+
+    raise NotWithThisFormError()
+
+@digest(form=form)
+def get_chain_index_from_atom(item, indices='all'):
+
+    raise NotWithThisFormError()
+
+@digest(form=form)
+def get_molecule_index_from_atom(item, indices='all'):
+
+    raise NotWithThisFormError()
+
+@digest(form=form)
+def get_entity_index_from_atom(item, indices='all'):
+
+    raise NotWithThisFormError()
+
+@digest(form=form)
+def get_inner_bonded_atoms_from_atom(item, indices='all'):
+
+    raise NotWithThisFormError()
+
+@digest(form=form)
+def get_n_inner_bonds_from_atom(item, indices='all'):
+
+    raise NotWithThisFormError()
+
+@digest(form=form)
+def get_coordinates_from_atom(item, indices='all'):
+
+    raise NotWithThisFormError()
+
 
 ## From group
 
@@ -33,22 +84,154 @@ def get_group_type_from_group(item, indices='all'):
 
     raise NotImplementedMethodError()
 
+
 ## From component
+
+@digest(form=form)
+def get_component_id_from_group(item, indices='all'):
+
+    raise NotWithThisFormError()
+
+@digest(form=form)
+def get_component_name_from_group(item, indices='all'):
+
+    raise NotWithThisFormError()
+
+@digest(form=form)
+def get_component_type_from_group(item, indices='all'):
+
+    raise NotWithThisFormError()
+
 
 ## From molecule
 
+@digest(form=form)
+def get_molecule_id_from_group(item, indices='all'):
+
+    raise NotWithThisFormError()
+
+@digest(form=form)
+def get_molecule_name_from_group(item, indices='all'):
+
+    raise NotWithThisFormError()
+
+@digest(form=form)
+def get_molecule_type_from_group(item, indices='all'):
+
+    raise NotWithThisFormError()
+
+
 ## From chain
+
+@digest(form=form)
+def get_chain_id_from_group(item, indices='all'):
+
+    raise NotWithThisFormError()
+
+@digest(form=form)
+def get_chain_name_from_group(item, indices='all'):
+
+    raise NotWithThisFormError()
+
+@digest(form=form)
+def get_chain_type_from_group(item, indices='all'):
+
+    raise NotWithThisFormError()
+
 
 ## From entity
 
+@digest(form=form)
+def get_entity_id_from_group(item, indices='all'):
+
+    raise NotWithThisFormError()
+
+@digest(form=form)
+def get_entity_name_from_group(item, indices='all'):
+
+    raise NotWithThisFormError()
+
+@digest(form=form)
+def get_entity_type_from_group(item, indices='all'):
+
+    raise NotWithThisFormError()
+
+
 ## From system
+
+@digest(form=form)
+def get_n_atoms_from_system(item, check=True):
+
+    raise NotWithThisFormError()
 
 @digest(form=form)
 def get_n_groups_from_system(item):
 
     return len(item)
 
+@digest(form=form)
+def get_n_components_from_system(item):
+
+    raise NotWithThisFormError()
+
+@digest(form=form)
+def get_n_chains_from_system(item):
+
+    raise NotWithThisFormError()
+
+@digest(form=form)
+def get_n_molecules_from_system(item):
+
+    raise NotWithThisFormError()
+
+@digest(form=form)
+def get_n_entities_from_system(item):
+
+    raise NotWithThisFormError()
+
+@digest(form=form)
+def get_n_bonds_from_system(item):
+
+    raise NotWithThisFormError()
+
+@digest(form=form)
+def get_n_structures_from_system(item):
+
+    raise NotWithThisFormError()
+
+@digest(form=form)
+def get_box_from_system(item, structure_indices='all'):
+
+    raise NotWithThisFormError()
+
+@digest(form=form)
+def get_time_from_system(item, structure_indices='all'):
+
+    raise NotWithThisFormError()
+
+@digest(form=form)
+def get_step_from_system(item, structure_indices='all'):
+
+    raise NotWithThisFormError()
+
+
 ## From bond
+
+@digest(form=form)
+def get_bond_order_from_bond(item, indices='all'):
+
+    raise NotWithThisFormError()
+
+@digest(form=form)
+def get_bond_type_from_bond(item, indices='all'):
+
+    raise NotWithThisFormError()
+
+@digest(form=form)
+def get_atom_index_from_bond(item, indices='all'):
+
+    raise NotWithThisFormError()
+
 
 #######################################################################################
 ######### DO NOT TOUCH THE FOLLOWING LINES, JUST INCLUDE THEM AS THEY ARE #############
