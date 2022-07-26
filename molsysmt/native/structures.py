@@ -243,7 +243,7 @@ class Structures:
                                            )
         self.append_structures(step, time, coordinates, box)
 
-    def get_structure_data(self, structure):
+    def get_structure_data(self, structure, selection="all", chunk_size=1):
         """ Returns the steps, time, coordinates and box of the
             given structure
 
@@ -252,17 +252,30 @@ class Structures:
             structure : int
                 The index of the structure
 
+            selection : arraylike of int, default="all"
+                The indices of the selected atoms.
+
+            chunk_size : int, default=1
+                Amount of structures to return in each of the arrays.
+
             Returns
             -------
             box : pint.Quantity of shape (3, 3)
-                The box of the structure
+                The box of the structure. If chunk_size is greater than one
+                the shape will be (chunk_size, 3, 3)
 
             coordinates : pint.Quantity of shape (n_atoms, 3)
-                The coordinates of the structure.
+                The coordinates of the structure. If chunk_size is greater than one
+                the shape will be (chunk_size, n_atoms, 3)
 
             time :  pint.Quantity
-                The times of the structure
+                The times of the structure. If chunk_size is greater than one
+                the shape will be (chunk_size,)
         """
+        structure_end = structure + chunk_size
+        if structure_end >= self.n_structures:
+            structure_end = self.n_structures - 1
+
         if self.step is not None:
             step = self.step[structure]
         else:
@@ -274,7 +287,10 @@ class Structures:
             time = None
 
         if self.coordinates is not None:
-            coordinates = self.coordinates[structure]
+            if is_all(selection):
+                coordinates = self.coordinates[structure]
+            else:
+                coordinates = self.coordinates[structure, selection, :]
         else:
             coordinates = None
 
@@ -285,7 +301,8 @@ class Structures:
 
         return step, time, coordinates, box
 
-    def iterate(self, start=0, stop=None):
+    def iterate(self, start=0, stop=None,
+                interval=1, selection="all", chunk_size=1):
         """ Generator to iterate over the steps, time, coordinates and box
             of each structure (frame).
 
@@ -298,8 +315,19 @@ class Structures:
                 The iteration finishes if the current structure index
                 is larger than or equal to this integer.
 
+            interval : int, default=1
+                Number of structure indices to skip in each iteration
+
+            selection : arraylike of int or 'all', default='all'
+                The indices of the selected atoms.
+
+            chunk_size : int, default=1
+                Amount of structures in the output of each iteration.
+
             Yields
             ------
+            step :
+
             box : pint.Quantity of shape (3, 3)
                 The box of the structure
 
@@ -310,7 +338,18 @@ class Structures:
                 The times of the structure
 
         """
+        # TODO: create custom errors for this methods
         if start < 0 or start >= self.n_structures:
+            raise ValueError
+
+        if interval < 1 or interval > self.n_structures:
+            raise ValueError
+
+        if chunk_size < 1 or chunk_size > self.n_structures:
+            raise ValueError
+
+        if interval != 1 and chunk_size != 1:
+            # We cannot have an interval and a chunk size greater than 1 simultaneously
             raise ValueError
 
         if stop is None:
@@ -321,8 +360,14 @@ class Structures:
             if self._current_structure >= stop:
                 break
 
-            yield self.get_structure_data(self._current_structure)
-            self._current_structure += 1
+            yield self.get_structure_data(self._current_structure,
+                                          selection,
+                                          chunk_size)
+
+            if chunk_size > 1:
+                self._current_structure += chunk_size
+            else:
+                self._current_structure += interval
 
     def copy(self):
         """ Returns a copy of the structures."""

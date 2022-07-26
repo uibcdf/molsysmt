@@ -21,6 +21,7 @@ def structures_with_one_frame():
 
 @pytest.fixture()
 def structure_with_five_frames():
+    """ Returns a Structures object with five frames and three atoms"""
     coords = np.array(range(45))
     coords = coords.reshape((5, 3, 3)) * 0.1
     coords = puw.quantity(coords, "nanometers")
@@ -196,7 +197,8 @@ def test_append():
 
 def iterate_structure(iterator,
                       expected_iterations,
-                      start=0):
+                      start=0,
+                      selection=None):
     n_iterations = 0
     end = start * 9
     ii = start
@@ -204,6 +206,9 @@ def iterate_structure(iterator,
         start = end
         end = start + 9
         expected_coordinates = np.array(range(start, end)).reshape(3, 3) * 0.1
+
+        if selection is not None:
+            expected_coordinates = expected_coordinates[selection, :]
 
         assert step is None
         assert puw.get_value(time) == ii * 10.
@@ -249,16 +254,16 @@ def iterate_structure_custom_interval(iterator, start, expected_iterations):
     ii = start
     for step, time, coordinates, box in iterator:
         expected_coordinates = np.array(range(ii * 9,
-                                              (ii * 9) + 9)).reshape(3, 3)
-        expected_coordinates *= 0.1
+                                              (ii * 9) + 9)).reshape(3, 3) * 0.1
 
-        assert time == ii * 10.
+        assert puw.get_value(time) == ii * 10.
         assert np.allclose(puw.get_value(box),
-                           np.identity(3) * ii * 2.)
+                           np.identity(3) * ii * 1.)
         assert np.allclose(puw.get_value(coordinates),
                            expected_coordinates
                            )
         ii += 2
+        n_iterations += 1
 
     assert n_iterations == expected_iterations
 
@@ -274,7 +279,7 @@ def test_iterator_with_custom_interval(structure_with_five_frames):
     box = np.identity(3) * 5.
     box = box.reshape((1, 3, 3))
     box = puw.quantity(box, "nanometers")
-    
+
     time = puw.quantity(np.array([50.]), "picoseconds")
     structures.append_structures(step=None,
                                  time=time,
@@ -284,6 +289,66 @@ def test_iterator_with_custom_interval(structure_with_five_frames):
     iterate_structure_custom_interval(structures.iterate(interval=2),
                                       start=0,
                                       expected_iterations=3)
-    iterate_structure_custom_interval(structures.iterate(start=1, inteval=2),
+    iterate_structure_custom_interval(structures.iterate(start=1, interval=2),
                                       start=1,
                                       expected_iterations=3)
+
+
+def test_iterate_with_custom_selection(structure_with_five_frames):
+
+    structures = structure_with_five_frames.copy()
+    selection = [0, 2]
+    iterator_1 = structures.iterate(selection=selection)
+    iterate_structure(iterator_1, selection=selection, expected_iterations=5)
+
+    selection = [0]
+    iterator_2 = structures.iterate(selection=selection)
+    iterate_structure(iterator_2, selection=selection, expected_iterations=5)
+
+
+def test_iterate_with_custom_chunk_size(structure_with_five_frames):
+
+    structures = structure_with_five_frames.copy()
+
+    iterator_1 = structure_with_five_frames.iterate(chunk_size=3)
+
+    n_iters = 0
+    for step, times, coordinates, box in iterator_1:
+
+        if n_iters == 0:
+            assert times.shape == (3,)
+            assert coordinates.shape == (3, 3, 3)
+            assert box.shape == (3, 3, 3)
+        else:
+            assert times.shape == (2,)
+            assert coordinates.shape == (2, 3, 3)
+            assert box.shape == (2, 3, 3)
+
+        n_iters += 1
+    assert n_iters == 2
+
+    iterator_2 = structure_with_five_frames.iterate(chunk_size=2)
+    n_iters = 0
+    for step, times, coordinates, box in iterator_2:
+
+        if n_iters == 2:
+            assert times.shape == (1,)
+            assert coordinates.shape == (1, 3, 3)
+            assert box.shape == (1, 3, 3)
+        else:
+            assert times.shape == (2,)
+            assert coordinates.shape == (2, 3, 3)
+            assert box.shape == (2, 3, 3)
+
+        n_iters += 1
+    assert n_iters == 3
+
+    iterator_3 = structure_with_five_frames.iterate(chunk_size=5)
+    n_iters = 0
+    for step, times, coordinates, box in iterator_3:
+        assert times == structures.time
+        assert coordinates == structures.time
+        assert box == structures.box
+        n_iters += 1
+
+    assert n_iters == 1
