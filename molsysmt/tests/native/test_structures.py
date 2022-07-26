@@ -346,9 +346,9 @@ def test_iterate_with_custom_chunk_size(structure_with_five_frames):
     iterator_3 = structure_with_five_frames.iterate(chunk_size=5)
     n_iters = 0
     for step, times, coordinates, box in iterator_3:
-        assert times == structures.time
-        assert coordinates == structures.time
-        assert box == structures.box
+        assert np.all(times == structures.time)
+        assert np.all(coordinates == structures.coordinates)
+        assert np.all(box == structures.box)
         n_iters += 1
 
     assert n_iters == 1

@@ -1,8 +1,9 @@
 from copy import deepcopy
 import numpy as np
 from molsysmt import puw
-from molsysmt.basic import get
 from molsysmt._private.variables import is_all
+import molsysmt._private.exceptions.value_errors as exc
+from molsysmt.basic import get
 from molsysmt.pbc import box_lengths_from_box_vectors, box_angles_from_box_vectors
 
 
@@ -54,7 +55,8 @@ class Structures:
         """ Concatenates two arrays provided that they are not null."""
         if array_2 is not None:
             if array_1 is None:
-                raise ValueError(f"The trajectory has no {name} array to append the new frame.")
+                raise exc.ConcatenationError(
+                    f"The trajectory has no {name} array to append the new frame.")
             else:
                 return np.concatenate([array_1, array_2])
 
@@ -97,7 +99,9 @@ class Structures:
         else:
 
             if n_atoms != self.n_atoms:
-                raise ValueError("The coordinates to be appended in the system needs to have the same number of atoms.")
+                raise exc.IncorrectShapeError(
+                    "The coordinates to be appended in the system "
+                    "need to have the same number of atoms.")
 
             self.step = self._concatenate_arrays(self.step, step, "steps")
             self.time = self._concatenate_arrays(self.time, time, "time")
@@ -273,29 +277,27 @@ class Structures:
                 the shape will be (chunk_size,)
         """
         structure_end = structure + chunk_size
-        if structure_end >= self.n_structures:
-            structure_end = self.n_structures - 1
 
         if self.step is not None:
-            step = self.step[structure]
+            step = self.step[structure: structure_end]
         else:
             step = None
 
         if self.time is not None:
-            time = self.time[structure]
+            time = self.time[structure: structure_end]
         else:
             time = None
 
         if self.coordinates is not None:
             if is_all(selection):
-                coordinates = self.coordinates[structure]
+                coordinates = self.coordinates[structure: structure_end]
             else:
-                coordinates = self.coordinates[structure, selection, :]
+                coordinates = self.coordinates[structure: structure_end, selection, :]
         else:
             coordinates = None
 
         if self.box is not None:
-            box = self.box[structure]
+            box = self.box[structure: structure_end]
         else:
             box = None
 
@@ -338,19 +340,24 @@ class Structures:
                 The times of the structure
 
         """
-        # TODO: create custom errors for this methods
         if start < 0 or start >= self.n_structures:
-            raise ValueError
+            raise exc.IteratorStartError(
+                f"Start should be > 0 and < {self.n_structures}"
+            )
 
         if interval < 1 or interval > self.n_structures:
-            raise ValueError
+            raise exc.IteratorIntervalError(
+                f"Interval should be > 0 and < {self.n_structures}"
+            )
 
         if chunk_size < 1 or chunk_size > self.n_structures:
-            raise ValueError
+            raise exc.IteratorChunkSizeError(
+                f"Chunk size should be > 0 and < {self.n_structures}")
 
         if interval != 1 and chunk_size != 1:
             # We cannot have an interval and a chunk size greater than 1 simultaneously
-            raise ValueError
+            raise exc.IteratorChunkSizeError(
+                "Chunk size and interval cannot be greater than one simultaneously.")
 
         if stop is None:
             stop = self.n_structures
