@@ -10,6 +10,7 @@ import numpy as np
 
 form='mmtf.MMTFDecoder'
 
+
 ## From atom
 
 @digest(form=form)
@@ -138,6 +139,7 @@ def get_coordinates_from_atom(item, indices='all', structure_indices='all'):
 
     return xyz
 
+
 ## From group
 
 @digest(form=form)
@@ -172,6 +174,7 @@ def get_group_type_from_group(item, indices='all'):
     output = aux_get(tmp_item, indices=indices)
 
     return output
+
 
 ## From component
 
@@ -208,6 +211,7 @@ def get_component_type_from_component(item, indices='all'):
 
     return output
 
+
 ## From molecule
 
 @digest(form=form)
@@ -243,6 +247,7 @@ def get_molecule_type_from_molecule(item, indices='all'):
 
     return output
 
+
 ## From chain
 
 @digest(form=form)
@@ -277,6 +282,7 @@ def get_chain_type_from_chain(item, indices='all'):
     output = aux_get(tmp_item, indices=indices)
 
     return output
+
 
 ## From entity
 
@@ -394,6 +400,11 @@ def get_n_bonds_from_system(item):
     return output
 
 @digest(form=form)
+def get_n_structures_from_system(item):
+
+    return item.num_models
+
+@digest(form=form)
 def get_box_from_system(item, structure_indices='all'):
 
     from molsysmt.pbc import box_vectors_from_box_lengths_and_angles
@@ -434,21 +445,6 @@ def get_step_from_system(item, structure_indices='all'):
 
     return None
 
-@digest(form=form)
-def get_n_structures_from_system(item):
-
-    return item.num_models
-
-@digest(form=form)
-def get_bonded_atoms_from_system(item):
-
-    from .to_molsysmt_Topology import to_molsysmt_Topology
-    from ..molsysmt_Topology import get_bonded_atoms_from_system as aux_get
-
-    tmp_item = to_molsysmt_Topology(item)
-    output = aux_get(tmp_item)
-
-    return output
 
 ## From bond
 
