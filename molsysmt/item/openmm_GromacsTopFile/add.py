@@ -1,7 +1,7 @@
 from molsysmt._private.exceptions import *
 from molsysmt._private.digestion import *
 
-def add(to_item, item, check=True):
+def add(to_item, item):
 
     if check:
 

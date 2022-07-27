@@ -1,7 +1,7 @@
 from molsysmt._private.digestion import digest_item as _digest_item
 from molsysmt._private.digestion import digest_indices as _digest_indices
 
-def set_group_name_to_group(item, indices='all', value=None, check=True):
+def set_group_name_to_group(item, indices='all', value=None):
 
     if check:
 

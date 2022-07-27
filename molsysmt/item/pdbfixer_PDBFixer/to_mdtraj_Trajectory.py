@@ -2,7 +2,7 @@ from .is_pdbfixer_PDBFixer import is_pdbfixer_PDBFixer
 from molsysmt._private.exceptions import *
 from molsysmt._private.digestion import *
 
-def to_mdtraj_Trajectory(item, atom_indices='all', check=True):
+def to_mdtraj_Trajectory(item, atom_indices='all'):
 
     if check:
 
@@ -25,8 +25,8 @@ def to_mdtraj_Trajectory(item, atom_indices='all', check=True):
     from . import to_mdtraj_Topology
     from . import get_coordinates_from_atom
 
-    tmp_item = to_mdtraj_Topology(item, atom_indices=atom_indices, check=False)
-    coordinates = get_coordinates_from_atom(tmp_item, indices=atom_indices, check=False)
+    tmp_item = to_mdtraj_Topology(item, atom_indices=atom_indices)
+    coordinates = get_coordinates_from_atom(tmp_item, indices=atom_indices)
     coordinates = puw.convert(coordinates, to_units='nanometer', to_form='openmm.unit')
     tmp_item = mdtraj_Trajectory(coordinates, tmp_item)
 

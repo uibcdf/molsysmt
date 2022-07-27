@@ -1,14 +1,9 @@
-from molsysmt._private.digestion import digest_item, digest_atom_indices, digest_structure_indices
+from molsysmt._private.digestion import digest
 from molsysmt._private.variables import is_all
 from molsysmt import puw
 
-def to_molsysmt_TrajectoryDict(item, atom_indices='all', structure_indices='all', check=True):
-
-    if check:
-
-        digest_item(item, 'file:trjpk')
-        atom_indices = digest_atom_indices(atom_indices)
-        structure_indices = digest_structure_indices(structure_indices)
+@digest(form='file:trjpk')
+def to_molsysmt_TrajectoryDict(item, atom_indices='all', structure_indices='all'):
 
     import pickle
 

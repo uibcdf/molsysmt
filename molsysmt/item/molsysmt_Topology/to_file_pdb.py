@@ -1,7 +1,7 @@
 from molsysmt._private.exceptions import *
 from molsysmt._private.digestion import *
 
-def to_file_pdb(item, coordinates, box, atom_indices='all', output_filename=None, check=True):
+def to_file_pdb(item, coordinates, box, atom_indices='all', output_filename=None):
 
     if check:
 

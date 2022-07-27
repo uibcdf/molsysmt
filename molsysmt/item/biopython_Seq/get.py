@@ -160,7 +160,7 @@ def get_entity_type_from_group(item, indices='all'):
 ## From system
 
 @digest(form=form)
-def get_n_atoms_from_system(item, check=True):
+def get_n_atoms_from_system(item):
 
     raise NotWithThisFormError()
 

@@ -1,7 +1,7 @@
 from molsysmt._private.exceptions import *
 from molsysmt._private.digestion import *
 
-def to_molsysmt_MolecularMechanics(item, check=True):
+def to_molsysmt_MolecularMechanics(item):
 
     if check:
 

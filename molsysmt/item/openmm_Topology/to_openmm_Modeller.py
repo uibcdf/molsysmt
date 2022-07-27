@@ -1,7 +1,7 @@
 from molsysmt._private.digestion import digest_item, digest_atom_indices
 from molsysmt._private.digestion import digest_coordinates, digest_box
 
-def to_openmm_Modeller(item, atom_indices='all', coordinates=None, box=None, check=True):
+def to_openmm_Modeller(item, atom_indices='all', coordinates=None, box=None):
 
     if check:
 
@@ -14,7 +14,7 @@ def to_openmm_Modeller(item, atom_indices='all', coordinates=None, box=None, che
     from molsysmt import puw
     from openmm.app import Modeller
 
-    tmp_item = extract(item, atom_indices=atom_indices, copy_if_all=False, check=False)
+    tmp_item = extract(item, atom_indices=atom_indices, copy_if_all=False)
     positions = puw.convert(coordinates[0], 'nm', to_form='openmm.unit')
     tmp_item = Modeller(tmp_item, positions)
 

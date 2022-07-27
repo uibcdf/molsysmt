@@ -1,7 +1,7 @@
 from molsysmt._private.exceptions import *
 from molsysmt._private.digestion import *
 
-def to_openmm_System(item, atom_indices='all', check=True):
+def to_openmm_System(item, atom_indices='all'):
 
     if check:
 

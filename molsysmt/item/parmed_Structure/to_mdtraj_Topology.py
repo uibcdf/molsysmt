@@ -1,6 +1,6 @@
 from molsysmt._private.digestion import digest_item, digest_atom_indices
 
-def to_mdtraj_Topology(item, atom_indices='all', check=True):
+def to_mdtraj_Topology(item, atom_indices='all'):
 
     if check:
 
@@ -10,8 +10,8 @@ def to_mdtraj_Topology(item, atom_indices='all', check=True):
     from . import to_openmm_Topology
     from ..openmm_Topology import openmm_Topology_to_mdtraj_Topology
 
-    tmp_item = to_openmm_Topology(item, check=False)
-    tmp_item = openmm_Topology_to_mdtraj_Topology(item, atom_indices=atom_indices, check=False)
+    tmp_item = to_openmm_Topology(item)
+    tmp_item = openmm_Topology_to_mdtraj_Topology(item, atom_indices=atom_indices)
 
     return tmp_item
 

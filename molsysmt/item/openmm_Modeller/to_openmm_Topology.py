@@ -2,7 +2,7 @@ from .is_openmm_Modeller import is_openmm_Modeller
 from molsysmt._private.exceptions import *
 from molsysmt._private.digestion import *
 
-def to_openmm_Topology(item, atom_indices='all', structure_indices='all', check=True):
+def to_openmm_Topology(item, atom_indices='all', structure_indices='all'):
 
     if check:
 

@@ -1,6 +1,6 @@
 from molsysmt._private.digestion import digest_item, digest_atom_indices, digest_structure_indices
 
-def to_molsysmt_Structures(item, atom_indices='all', structure_indices='all', check=True):
+def to_molsysmt_Structures(item, atom_indices='all', structure_indices='all'):
 
     if check:
 

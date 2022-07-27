@@ -6,7 +6,7 @@ from molsysmt._private.digestion import digest_structure_indices as _digest_stru
 
 ## System
 
-def set_box_to_system(item, indices='all', structure_indices='all', value=None, check=True):
+def set_box_to_system(item, indices='all', structure_indices='all', value=None):
 
     if check:
 

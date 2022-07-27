@@ -1,7 +1,7 @@
 from molsysmt._private.exceptions import *
 from molsysmt._private.digestion import *
 
-def to_file_pdb(item, atom_indices='all', structure_indices='all', output_filename=None, check=True):
+def to_file_pdb(item, atom_indices='all', structure_indices='all', output_filename=None):
 
     if check:
 
@@ -14,7 +14,7 @@ def to_file_pdb(item, atom_indices='all', structure_indices='all', output_filena
     from . import get_coordinates_from_atom
     from . import get_box_from_system
 
-    topology = openmm_Simulation_to_openmm_Topology(item, atom_indices=atom_indices, structure_indices=structure_indices, check=False)
+    topology = openmm_Simulation_to_openmm_Topology(item, atom_indices=atom_indices, structure_indices=structure_indices)
     coordinates = get_coordinates_from_atom(item, indices=atom_indices, structure_indices=structure_indices)
     box = get_box_from_system(item, structure_indices=structure_indices)
     topology.setPeriodicBoxVectors(box)

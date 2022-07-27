@@ -1,7 +1,7 @@
 from molsysmt._private.exceptions import *
 from molsysmt._private.digestion import *
 
-def to_openmm_Simulation(item, atom_indices='all', structure_indices='all', check=True):
+def to_openmm_Simulation(item, atom_indices='all', structure_indices='all'):
 
     if check:
 
@@ -12,8 +12,8 @@ def to_openmm_Simulation(item, atom_indices='all', structure_indices='all', chec
     from . import to_openmm_Topology
     from ..openmm_Topology import to_openmm_Simulation as openmm_Topology_to_openmm_Simulation
 
-    tmp_item = to_openmm_Topology(item, atom_indices=atom_indices, structure_indices=structure_indices, check=False)
-    tmp_item = openmm_Topology_to_openmm_Simulation(tmp_item, check=False)
+    tmp_item = to_openmm_Topology(item, atom_indices=atom_indices, structure_indices=structure_indices)
+    tmp_item = openmm_Topology_to_openmm_Simulation(tmp_item)
 
     return tmp_item
 

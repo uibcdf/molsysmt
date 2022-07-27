@@ -1,7 +1,7 @@
 from molsysmt._private.exceptions import *
 from molsysmt._private.digestion import *
 
-def to_mdtraj_Trajectory(item, atom_indices='all', structure_indices='all', check=True):
+def to_mdtraj_Trajectory(item, atom_indices='all', structure_indices='all'):
 
     if check:
 
@@ -17,7 +17,7 @@ def to_mdtraj_Trajectory(item, atom_indices='all', structure_indices='all', chec
     from io import StringIO
     from . import extract
 
-    tmp_item = extract(item, atom_indices=atom_indices, structure_indices=structure_indices, check=False)
+    tmp_item = extract(item, atom_indices=atom_indices, structure_indices=structure_indices)
 
     tmp_io = StringIO()
     tmp_io.write(tmp_item)

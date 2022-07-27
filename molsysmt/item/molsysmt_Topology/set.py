@@ -7,7 +7,7 @@ from molsysmt import puw as _puw
 
 ## Atom
 
-def set_atom_name_to_atom(item, indices='all', structure_indices='all', value=None, check=True):
+def set_atom_name_to_atom(item, indices='all', structure_indices='all', value=None):
 
     if check:
 
@@ -21,7 +21,7 @@ def set_atom_name_to_atom(item, indices='all', structure_indices='all', value=No
 
 ##### System
 #
-#def set_box_to_system(item, structure_indices='all', value=None, check=True):
+#def set_box_to_system(item, structure_indices='all', value=None):
 #
 #    if check:
 #

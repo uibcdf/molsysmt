@@ -1,7 +1,7 @@
 from molsysmt._private.exceptions import *
 from molsysmt._private.digestion import *
 
-def to_openmm_PDBFile(item, atom_indices='all', structure_indices='all', check=True):
+def to_openmm_PDBFile(item, atom_indices='all', structure_indices='all'):
 
     if check:
 
@@ -13,7 +13,7 @@ def to_openmm_PDBFile(item, atom_indices='all', structure_indices='all', check=T
     from openmm.app.pdbfile import PDBFile
     from . import extract
 
-    tmp_item = extract(item, atom_indices=atom_indices, structure_indices=structure_indices, check=False)
+    tmp_item = extract(item, atom_indices=atom_indices, structure_indices=structure_indices)
 
     tmp_item = StringIO(tmp_item)
     tmp_item = PDBFile(tmp_item)

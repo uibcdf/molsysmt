@@ -1,7 +1,7 @@
 from molsysmt._private.exceptions import *
 from molsysmt._private.digestion import *
 
-def to_mdtraj_Trajectory(item, atom_indices='all', structure_indices='all', check=True):
+def to_mdtraj_Trajectory(item, atom_indices='all', structure_indices='all'):
 
     if check:
 
@@ -18,7 +18,7 @@ def to_mdtraj_Trajectory(item, atom_indices='all', structure_indices='all', chec
     from ..mdtraj_Trajectory import extract as extract_mdtraj_Trajectory
     from molsysmt import puw
 
-    tmp_topology  = to_mdtraj_Topology(item, check=False)
+    tmp_topology  = to_mdtraj_Topology(item)
     positions = puw.get_value(item.positions, to_unit='nanometers')
     tmp_item = mdtraj_Trajectory(positions, tmp_topology)
     tmp_item = extract_mdtraj_Trajectory(tmp_item, atom_indices=atom_indices,

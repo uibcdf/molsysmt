@@ -2,7 +2,7 @@ from molsysmt._private.exceptions import *
 from molsysmt._private.digestion import *
 from molsysmt._private.variables import is_all
 
-def to_openmm_Topology(item, box=None, atom_indices='all', check=True):
+def to_openmm_Topology(item, box=None, atom_indices='all'):
 
     if check:
 
@@ -86,7 +86,7 @@ def to_openmm_Topology(item, box=None, atom_indices='all', check=True):
 
         from ..openmm_Topology import set_box_to_system
 
-        set_box_to_system(tmp_item, value=box, check=False)
+        set_box_to_system(tmp_item, value=box)
 
     return tmp_item
 

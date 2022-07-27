@@ -2,7 +2,7 @@ from molsysmt._private.exceptions import *
 from molsysmt._private.digestion import *
 from molsysmt._private.variables import is_all
 
-def to_molsysmt_Topology(item, atom_indices='all', structure_indices='all', check=True):
+def to_molsysmt_Topology(item, atom_indices='all', structure_indices='all'):
 
     if check:
 
@@ -17,6 +17,6 @@ def to_molsysmt_Topology(item, atom_indices='all', structure_indices='all', chec
     else:
 
         from molsysmt.item.molsysmt_Topology import extract
-        tmp_item = extract(item.topology, atom_indices=atom_indices, check=False)
+        tmp_item = extract(item.topology, atom_indices=atom_indices)
 
     return tmp_item

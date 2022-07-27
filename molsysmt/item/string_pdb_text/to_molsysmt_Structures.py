@@ -1,7 +1,7 @@
 from molsysmt._private.exceptions import *
 from molsysmt._private.digestion import *
 
-def to_molsysmt_Structures(item, atom_indices='all', structure_indices='all', check=True):
+def to_molsysmt_Structures(item, atom_indices='all', structure_indices='all'):
 
     if check:
 

@@ -1,7 +1,7 @@
 from molsysmt._private.exceptions import *
 from molsysmt._private.digestion import *
 
-def to_string_pdb_text(item, atom_indices='all', structure_indices='all', check=True):
+def to_string_pdb_text(item, atom_indices='all', structure_indices='all'):
 
     if check:
 
@@ -17,7 +17,7 @@ def to_string_pdb_text(item, atom_indices='all', structure_indices='all', check=
         tmp_item = item.get_state()['_ngl_msg_archive'][0]['args'][0]['data']
 
     tmp_item = extract(tmp_item, atom_indices=atom_indices, structure_indices=structure_indices,
-                       copy_if_all=False, check=False)
+                       copy_if_all=False)
 
     return tmp_item
 

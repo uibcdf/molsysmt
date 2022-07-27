@@ -5,7 +5,7 @@ from molsysmt import puw as _puw
 
 ## System
 
-def set_box_to_system(item, structure_indices='all', value=None, check=True):
+def set_box_to_system(item, structure_indices='all', value=None):
 
     if check:
 

@@ -1,17 +1,13 @@
-from molsysmt._private.digestion import digest_item, digest_atom_indices, digest_structure_indices
+from molsysmt._private.digestion import digest
+from molsysmt._private.exceptions import LibraryNotFoundError
 
-def to_parmed_Structure(item, atom_indices='all', structure_indices='all', check=True):
-
-    if check:
-
-        digest_item(item, 'file:mol2')
-        atom_indices = digest_atom_indices(atom_indices)
-        structure_indices = digest_structure_indices(structure_indices)
+@digest(form='file:mol2')
+def to_parmed_Structure(item, atom_indices='all', structure_indices='all'):
 
     try:
         from parmed import load_file
     except:
-        raise LibraryNotFound('parmed')
+        raise LibraryNotFoundError('parmed')
 
     from molsysmt.item.parmed_Structure import extract
 

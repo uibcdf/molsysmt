@@ -2,7 +2,7 @@ from molsysmt._private.digestion import digest_item, digest_atom_indices, digest
 import numpy as np
 from molsysmt import puw
 
-def to_file_xyznpy(item, atom_indices='all', structure_indices='all', output_filename=None, check=True):
+def to_file_xyznpy(item, atom_indices='all', structure_indices='all', output_filename=None):
 
     if check:
 

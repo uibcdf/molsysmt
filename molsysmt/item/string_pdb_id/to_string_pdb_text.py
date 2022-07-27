@@ -1,6 +1,6 @@
 from molsysmt._private.digestion import digest_item, digest_atom_indices, digest_structure_indices
 
-def to_string_pdb_text(item, atom_indices='all', structure_indices='all', check=True):
+def to_string_pdb_text(item, atom_indices='all', structure_indices='all'):
 
     if check:
 
@@ -21,7 +21,7 @@ def to_string_pdb_text(item, atom_indices='all', structure_indices='all', check=
     remove(tmp_file)
 
     tmp_item = extract_string_pdb_text(tmp_item, atom_indices=atom_indices, structure_indices=structure_indices,
-            copy_if_all=False, check=False)
+            copy_if_all=False)
 
     return tmp_item
 

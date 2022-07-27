@@ -1,7 +1,7 @@
 from molsysmt._private.exceptions import *
 from molsysmt._private.digestion import *
 
-def to_string_aminoacids3(item, group_indices='all', check=True):
+def to_string_aminoacids3(item, group_indices='all'):
 
     if check:
 

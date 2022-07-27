@@ -3,7 +3,7 @@ from molsysmt._private.variables import is_all
 import numpy as np
 from molsysmt import puw
 
-def to_file_trjpk(item, atom_indices='all', structure_indices='all', output_filename=None, check=True):
+def to_file_trjpk(item, atom_indices='all', structure_indices='all', output_filename=None):
 
     if check:
 

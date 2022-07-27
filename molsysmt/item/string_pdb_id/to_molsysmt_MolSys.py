@@ -2,7 +2,7 @@ from .is_string_pdb_id import is_string_pdb_id
 from molsysmt._private.exceptions import *
 from molsysmt._private.digestion import *
 
-def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', check=True):
+def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all'):
 
     if check:
 
@@ -24,7 +24,7 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', check=
     from . import to_mmtf_MMTFDecoder
     from ..mmtf_MMTFDecoder import to_molsysmt_MolSys as mmtf_MMTFDecoder_to_molsysmt_MolSys
 
-    tmp_item = to_mmtf_MMTFDecoder(item, check=False)
-    tmp_item = mmtf_MMTFDecoder_to_molsysmt_MolSys(tmp_item, atom_indices=atom_indices, structure_indices=structure_indices, check=False)
+    tmp_item = to_mmtf_MMTFDecoder(item)
+    tmp_item = mmtf_MMTFDecoder_to_molsysmt_MolSys(tmp_item, atom_indices=atom_indices, structure_indices=structure_indices)
     return tmp_item
 

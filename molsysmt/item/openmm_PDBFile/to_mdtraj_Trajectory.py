@@ -1,7 +1,7 @@
 from molsysmt._private.exceptions import *
 from molsysmt._private.digestion import *
 
-def to_mdtraj_Trajectory(item, atom_indices='all', check=True):
+def to_mdtraj_Trajectory(item, atom_indices='all'):
 
     if check:
 
@@ -18,7 +18,7 @@ def to_mdtraj_Trajectory(item, atom_indices='all', check=True):
         raise LibraryNotFoundError()
 
     topology = to_mdtraj_Topology(item, atom_indices=atom_indices)
-    coordinates = get_coordinates_from_atom(item, indices=atom_indices, structure_indices=structure_indices, check=False)
+    coordinates = get_coordinates_from_atom(item, indices=atom_indices, structure_indices=structure_indices)
     tmp_item = mdtraj_Trajectory(positions, topology)
 
     return tmp_item

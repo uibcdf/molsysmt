@@ -1,11 +1,7 @@
-from molsysmt._private.digestion import digest_item, digest_atom_indices, digest_structure_indices
+from molsysmt._private.digestion import digest
 
-def to_openmm_Topology(item, atom_indices='all', check=True):
-
-    if check:
-
-        digest_item(item, 'mdtraj.Topology')
-        atom_indices = digest_atom_indices(atom_indices)
+@digest(form='mdtraj.Topology')
+def to_openmm_Topology(item, atom_indices='all'):
 
     from ..openmm_Topology import extract as extract_openmm_Topology
 

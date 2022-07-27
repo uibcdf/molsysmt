@@ -1,13 +1,8 @@
-from molsysmt._private.exceptions import *
-from molsysmt._private.digestion import *
+from molsysmt._private.exceptions import LibraryNotFoundError
+from molsysmt._private.digestion import digest
 
-def to_mdtraj_AmberRestartFile(item, atom_indices='all', structure_indices='all', check=True):
-
-    if check:
-
-        digest_item(item, 'file:inpcrd')
-        atom_indices = digest_atom_indices(atom_indices)
-        structure_indices = digest_structure_indices(structure_indices)
+@digest(form='file:inpcrd')
+def to_mdtraj_AmberRestartFile(item, atom_indices='all', structure_indices='all'):
 
     try:
         from mdtraj.formats import AmberRestartFile

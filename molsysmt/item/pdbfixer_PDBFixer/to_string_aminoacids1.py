@@ -2,7 +2,7 @@ from .is_pdbfixer_PDBFixer import is_pdbfixer_PDBFixer
 from molsysmt._private.exceptions import *
 from molsysmt._private.digestion import *
 
-def to_string_aminoacids1(item, atom_indices='all', check=True):
+def to_string_aminoacids1(item, atom_indices='all'):
 
     if check:
 
@@ -19,8 +19,8 @@ def to_string_aminoacids1(item, atom_indices='all', check=True):
     from . import to_string_aminoacids3
     from ..string_aminoacids3 import to_string_aminoacids1 as string_aminoacids3_to_string_aminoacids1
 
-    tmp_item = to_string_aminoacids3(item, atom_indices=atom_indices, check=False)
-    tmp_item = string_aminoacids3_to_string_aminoacids1(tmp_item, check=False)
+    tmp_item = to_string_aminoacids3(item, atom_indices=atom_indices)
+    tmp_item = string_aminoacids3_to_string_aminoacids1(tmp_item)
 
     return tmp_item
 

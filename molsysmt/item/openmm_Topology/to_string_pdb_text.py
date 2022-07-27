@@ -1,7 +1,7 @@
 from molsysmt._private.digestion import digest_item, digest_atom_indices, digest_coordinates, digest_box
 from molsysmt._private.variables import is_all
 
-def to_string_pdb_text(item, atom_indices='all', coordinates=None, box=None, check=True):
+def to_string_pdb_text(item, atom_indices='all', coordinates=None, box=None):
 
     if check:
 
@@ -18,7 +18,7 @@ def to_string_pdb_text(item, atom_indices='all', coordinates=None, box=None, che
 
     if not is_all(atom_indices):
         from . import extract
-        item = extract(item, atom_indices=atom_indices, check=False)
+        item = extract(item, atom_indices=atom_indices)
 
     n_structures = coordinates.shape[0]
     if n_structures>1:

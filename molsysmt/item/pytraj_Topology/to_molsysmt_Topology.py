@@ -1,6 +1,6 @@
 from molsysmt._private.digestion import digest_item, digest_atom_indices
 
-def to_molsysmt_Topology(item, atom_indices='all', check=True):
+def to_molsysmt_Topology(item, atom_indices='all'):
 
     if check:
 

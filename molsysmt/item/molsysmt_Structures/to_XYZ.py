@@ -1,7 +1,7 @@
 from molsysmt._private.exceptions import *
 from molsysmt._private.digestion import *
 
-def to_XYZ(item, atom_indices='all', structure_indices='all', check=True):
+def to_XYZ(item, atom_indices='all', structure_indices='all'):
 
     if check:
 
@@ -10,7 +10,7 @@ def to_XYZ(item, atom_indices='all', structure_indices='all', check=True):
         structure_indices = digest_structure_indices(structure_indices)
 
     from . import get_coordinates_from_atom
-    tmp_item = get_coordinates_from_atom(item, indices=atom_indices, structure_indices=structure_indices, check=False)
+    tmp_item = get_coordinates_from_atom(item, indices=atom_indices, structure_indices=structure_indices)
 
     return tmp_item
 

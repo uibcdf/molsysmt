@@ -1,6 +1,6 @@
 from molsysmt._private.digestion import digest_item, digest_atom_indices, digest_structure_indices
 
-def to_mdtraj_Trajectory(item, atom_indices='all', structure_indices='all', output_filename=None, check=True):
+def to_mdtraj_Trajectory(item, atom_indices='all', structure_indices='all', output_filename=None):
 
     if check:
 

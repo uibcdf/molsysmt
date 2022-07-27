@@ -1,7 +1,7 @@
 from molsysmt._private.exceptions import *
 from molsysmt._private.digestion import *
 
-def to_mdtraj_Topology(item, atom_indices='all', check=True):
+def to_mdtraj_Topology(item, atom_indices='all'):
 
     if check:
 
@@ -11,8 +11,8 @@ def to_mdtraj_Topology(item, atom_indices='all', check=True):
     from . import to_molsysmt_Topology
     from ..molsysmt_Topology import to_mdtraj_Topology as molsysmt_Topology_to_mdtraj_Topology
 
-    tmp_item = to_molsysmt_Topology(item, check=False)
-    tmp_item = molsysmt_Topology_to_mdtraj_Topology(tmp_item, atom_indices=atom_indices, check=False)
+    tmp_item = to_molsysmt_Topology(item)
+    tmp_item = molsysmt_Topology_to_mdtraj_Topology(tmp_item, atom_indices=atom_indices)
 
     return tmp_item
 

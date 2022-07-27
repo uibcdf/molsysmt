@@ -2,7 +2,7 @@ from molsysmt._private.exceptions import *
 from molsysmt._private.digestion import *
 from .is_molsysmt_Topology import is_molsysmt_Topology
 
-def to_string_pdb_text(item, atom_indices='all', coordinates=None, box=None, check=True):
+def to_string_pdb_text(item, atom_indices='all', coordinates=None, box=None):
 
     if check:
 
@@ -13,8 +13,8 @@ def to_string_pdb_text(item, atom_indices='all', coordinates=None, box=None, che
     from . import to_openmm_Topology
     from ..openmm_Topology import to_string_pdb_text as openmm_Topology_to_string_pdb_text
 
-    tmp_item =  to_openmm_Topology(item, box, atom_indices=atom_indices, check=False)
-    tmp_item =  openmm_Topology_to_string_pdb_text(tmp_item, coordinates=coordinates, check=False)
+    tmp_item =  to_openmm_Topology(item, box, atom_indices=atom_indices)
+    tmp_item =  openmm_Topology_to_string_pdb_text(tmp_item, coordinates=coordinates)
 
     return tmp_item
 

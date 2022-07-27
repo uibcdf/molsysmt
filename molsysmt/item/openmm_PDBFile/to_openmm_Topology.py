@@ -1,7 +1,7 @@
 from molsysmt._private.exceptions import *
 from molsysmt._private.digestion import *
 
-def to_openmm_Topology(item, atom_indices='all', structure_indices='all', check=True):
+def to_openmm_Topology(item, atom_indices='all', structure_indices='all'):
 
     if check:
 
@@ -13,7 +13,7 @@ def to_openmm_Topology(item, atom_indices='all', structure_indices='all', check=
 
     tmp_item = item.getTopology()
     tmp_item = extract_openmm_Topology(tmp_item, atom_indices=atom_indices,
-            structure_indices=structure_indices, check=False, copy_if_all=False)
+            structure_indices=structure_indices, copy_if_all=False)
 
     return tmp_item
 

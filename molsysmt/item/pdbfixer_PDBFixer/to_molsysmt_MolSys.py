@@ -1,6 +1,6 @@
 from molsysmt._private.digestion import digest_item, digest_atom_indices, digest_structure_indices
 
-def to_molsysmt_MolSys(item, atom_indices='all', check=True):
+def to_molsysmt_MolSys(item, atom_indices='all'):
 
     if check:
 
@@ -14,8 +14,8 @@ def to_molsysmt_MolSys(item, atom_indices='all', check=True):
 
     tmp_item = MolSys()
 
-    tmp_item.topology = to_molsysmt_Topology(item, atom_indices=atom_indices, check=False)
-    tmp_item.structures = pdbfixer_PDBFixer_to_molsysmt_Structures(item, atom_indices=atom_indices, check=False)
+    tmp_item.topology = to_molsysmt_Topology(item, atom_indices=atom_indices)
+    tmp_item.structures = pdbfixer_PDBFixer_to_molsysmt_Structures(item, atom_indices=atom_indices)
 
     return tmp_item
 

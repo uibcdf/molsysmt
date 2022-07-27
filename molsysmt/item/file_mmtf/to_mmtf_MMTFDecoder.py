@@ -1,12 +1,7 @@
-from molsysmt._private.digestion import digest_item, digest_atom_indices, digest_structure_indices
+from molsysmt._private.digestion import digest
 
-def to_mmtf_MMTFDecoder(item, atom_indices='all', structure_indices='all', check=True):
-
-    if check:
-
-        digest_item(item, 'file:mmtf')
-        atom_indices = digest_atom_indices(atom_indices)
-        structure_indices = digest_structure_indices(structure_indices)
+@digest(form='file:mmtf')
+def to_mmtf_MMTFDecoder(item, atom_indices='all', structure_indices='all'):
 
     from mmtf import parse
     from ..mmtf_MMTFDecoder import extract as extract_mmtf_MMTFDecoder

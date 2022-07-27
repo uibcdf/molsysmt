@@ -1,7 +1,7 @@
 from molsysmt._private.exceptions import *
 from molsysmt._private.digestion import *
 
-def to_file_pdb(item, atom_indices='all', structure_indices='all', output_filename=None, check=True):
+def to_file_pdb(item, atom_indices='all', structure_indices='all', output_filename=None):
 
     if check:
 
@@ -15,7 +15,7 @@ def to_file_pdb(item, atom_indices='all', structure_indices='all', output_filena
     if output_filename is None:
         output_filename = temp_filename(extension='pdb')
 
-    tmp_item = extract(item, atom_indices=atom_indices, structure_indices=structure_indices, copy_if_all=False, check=False)
+    tmp_item = extract(item, atom_indices=atom_indices, structure_indices=structure_indices, copy_if_all=False)
 
     with open(output_filename, 'w') as fff:
         fff.write(tmp_item)

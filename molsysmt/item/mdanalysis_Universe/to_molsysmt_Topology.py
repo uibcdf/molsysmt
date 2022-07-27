@@ -1,11 +1,7 @@
-from molsysmt._private.digestion import digest_item, digest_atom_indices
+from molsysmt._private.digestion import digest
 
-def to_molsysmt_Topology(item, atom_indices='all', check=True):
-
-    if check:
-
-        digest_item(item, 'mdanalysis.Universe')
-        atom_indices = digest_atom_indices(atom_indices)
+@digest('mdanalysis.Universe')
+def to_molsysmt_Topology(item, atom_indices='all'):
 
     from molsysmt.native import Topology
     from numpy import empty, array, arange, reshape, where, unique, nan, sort, zeros

@@ -1,7 +1,7 @@
 from molsysmt._private.exceptions import *
 from molsysmt._private.digestion import *
 
-def to_molsysmt_Topology(item, atom_indices='all', check=True):
+def to_molsysmt_Topology(item, atom_indices='all'):
 
     if check:
 
@@ -12,8 +12,8 @@ def to_molsysmt_Topology(item, atom_indices='all', check=True):
     from . import to_openmm_Topology as openmm_Simulation_to_openmm_Topology
     from molsysmt.item.openmm_Topology import to_molsysmt_Topology as openmm_Topology_to_molsysmt_Topology
 
-    tmp_item = openmm_Simulation_to_openmm_Topology(item, check=False)
-    tmp_item = openmm_Topology_to_molsysmt_Topology(tmp_item, atom_indices=atom_indices, check=False)
+    tmp_item = openmm_Simulation_to_openmm_Topology(item)
+    tmp_item = openmm_Topology_to_molsysmt_Topology(tmp_item, atom_indices=atom_indices)
 
     return tmp_item
 

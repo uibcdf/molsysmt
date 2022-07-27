@@ -9,7 +9,7 @@ import numpy as _np
 
 ## Atom
 
-def set_atom_name_to_atom(item, indices='all', structure_indices='all', value=None, check=True):
+def set_atom_name_to_atom(item, indices='all', structure_indices='all', value=None):
 
     if check:
 
@@ -19,9 +19,9 @@ def set_atom_name_to_atom(item, indices='all', structure_indices='all', value=No
 
     from ..molsysmt_Topology import set_atom_name_to_atom as aux_set
 
-    return aux_set(item.topology, indices=indices, structure_indices=structure_indices, value=value, check=True)
+    return aux_set(item.topology, indices=indices, structure_indices=structure_indices, value=value)
 
-def set_coordinates_to_atom(item, indices='all', structure_indices='all', value=None, check=True):
+def set_coordinates_to_atom(item, indices='all', structure_indices='all', value=None):
 
     if check:
 
@@ -52,7 +52,7 @@ def set_coordinates_to_atom(item, indices='all', structure_indices='all', value=
 
 ## System
 
-def set_box_to_system(item, indices='all', structure_indices='all', value=None, check=True):
+def set_box_to_system(item, indices='all', structure_indices='all', value=None):
 
     if check:
 
@@ -64,7 +64,7 @@ def set_box_to_system(item, indices='all', structure_indices='all', value=None, 
 
     pass
 
-def set_coordinates_to_system(item, indices='all', structure_indices='all', value=None, check=True):
+def set_coordinates_to_system(item, indices='all', structure_indices='all', value=None):
 
     if check:
 
@@ -73,5 +73,5 @@ def set_coordinates_to_system(item, indices='all', structure_indices='all', valu
         structure_indices = _digest_structure_indices(structure_indices)
 
     return set_coordinates_to_atom(item, indices='all', structure_indices=structure_indices,
-            value=value, check=False)
+            value=value)
 

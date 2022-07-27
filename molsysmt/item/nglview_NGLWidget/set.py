@@ -1,7 +1,7 @@
 from molsysmt._private.exceptions import *
 from molsysmt._private.digestion import *
 
-def set_box_to_system(item, structure_indices='all', value=None, check=True):
+def set_box_to_system(item, structure_indices='all', value=None):
 
     if check:
 
@@ -11,7 +11,7 @@ def set_box_to_system(item, structure_indices='all', value=None, check=True):
 
     raise NotImplementedMethodError()
 
-def set_coordinates_to_system(item, indices='all', structure_indices='all', value=None, check=True):
+def set_coordinates_to_system(item, indices='all', structure_indices='all', value=None):
 
     if check:
 

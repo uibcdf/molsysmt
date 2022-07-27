@@ -3,7 +3,7 @@ from molsysmt._private.digestion import *
 from molsysmt._private.variables import is_all
 
 def to_molsysmt_Topology(item, atom_indices='all', structure_indices='all', bioassembly_index=0,
-                         bioassembly_name=None, check=True):
+                         bioassembly_name=None):
     if check:
 
         digest_item(item, 'file:mmtf.MMTFDecoder')
