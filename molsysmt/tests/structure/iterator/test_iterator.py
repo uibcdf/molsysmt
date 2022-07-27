@@ -1,19 +1,90 @@
 import numpy as np
 import molsysmt as msm
+from molsysmt import puw
+import molsysmt._private.exceptions.value_errors as exc
 import pytest
 
 
-@pytest.mark.skip
+@pytest.fixture()
+def pentalanine_iterator():
+
+    pentalanine_file = msm.demo["pentalanine"]["traj.h5"]
+    return msm.structure.Iterator(pentalanine_file)
+
+
+@pytest.fixture()
+def pentalanine_structures():
+    pentalanine = msm.convert(msm.demo["pentalanine"]["traj.h5"])
+    return pentalanine.structures.copy()
+
+
+def test_iterator_constructor(pentalanine_iterator, pentalanine_structures):
+
+    assert pentalanine_iterator.molecular_system.structures.n_atoms == 62
+    assert pentalanine_iterator.molecular_system.structures.n_structures == 5000
+    assert pentalanine_iterator._form == "molsysmt.MolSys"
+
+    pentalanine_file = msm.demo["pentalanine"]["traj.h5"]
+    pentalanine = msm.convert(pentalanine_file)
+    iterator = msm.structure.Iterator(pentalanine)
+    assert iterator.molecular_system.structures.n_atoms == 62
+    assert iterator.molecular_system.structures.n_structures == 5000
+    assert iterator._form == "molsysmt.MolSys"
+
+    iterator = msm.structure.Iterator(pentalanine_structures)
+    assert iterator.molecular_system.n_atoms == 62
+    assert iterator.molecular_system.n_structures == 5000
+    assert iterator._form == "molsysmt.Structures"
+
+
+def test_setting_iterator_properties(pentalanine_iterator):
+
+    iterator = pentalanine_iterator
+    iterator.start = 4
+    iterator.interval = 2
+    iterator.stop = 50
+    iterator.selection = list(range(31))
+
+
+def test_setting_invalid_properties_raises_error(pentalanine_iterator):
+
+    with pytest.raises(exc.IteratorStartError):
+        pentalanine_iterator.start = 5100
+
+    with pytest.raises(exc.IteratorIntervalError):
+        pentalanine_iterator.interval = -2
+
+    with pytest.raises(exc.IteratorChunkSizeError):
+        pentalanine_iterator.chunk_size = 200000
+
+    with pytest.raises(exc.IteratorStopError):
+        pentalanine_iterator.stop = 5100
+
+
+def test_iterator_number_of_atoms(pentalanine_iterator,
+                                  pentalanine_structures):
+
+    assert pentalanine_iterator._get_num_atoms() == 62
+
+    iterator = msm.structure.Iterator(pentalanine_structures)
+    assert iterator._get_num_atoms() == 62
+
+
+def test_iterator_number_of_structures(pentalanine_iterator,
+                                  pentalanine_structures):
+
+    assert pentalanine_iterator._get_num_structures() == 5000
+
+    iterator = msm.structure.Iterator(pentalanine_structures)
+    assert iterator._get_num_structures() == 5000
+
+
 def test_iterator_with_h5_file():
     pentalanine_file = msm.demo["pentalanine"]["traj.h5"]
 
     iterator = msm.structure.Iterator(pentalanine_file)
-    assert iterator.n_atoms == 62
-    assert iterator.n_frames == 5000
-
-    frame, time, coordinates, box = next(iterator)
-    assert frame == 0
-    assert time == 10.
+    _, time, coordinates, box = next(iterator)
+    assert puw.get_value(time) == 10.
     assert coordinates.shape == (62, 3)
     # We only test coordinates of first five atoms for simplicity
     timestep_coords = np.array([[0.7249491, 0.28118464, -0.06514733],
@@ -29,9 +100,8 @@ def test_iterator_with_h5_file():
                              [0., 0., 2.]])
     assert np.allclose(box, timestep_box)
 
-    frame, time, coordinates, box = next(iterator)
-    assert frame == 1
-    assert time == 20.
+    _, time, coordinates, box = next(iterator)
+    assert puw.get_value(time) == 20.
     assert coordinates.shape == (62, 3)
     # We only test coordinates of first five atoms for simplicity
     timestep_coords = np.array([[0.49193183, 0.3567681, 0.28309438],
@@ -47,9 +117,8 @@ def test_iterator_with_h5_file():
                              [0., 0., 2.]])
     assert np.allclose(box, timestep_box)
 
-    frame, time, coordinates, box = next(iterator)
-    assert frame == 2
-    assert time == 30.
+    _, time, coordinates, box = next(iterator)
+    assert puw.get_value(time) == 30.
     assert coordinates.shape == (62, 3)
     # We only test coordinates of first five atoms for simplicity
     timestep_coords = np.array([[1.6990486, 1.0393645, 0.43421224, ],
@@ -62,11 +131,10 @@ def test_iterator_with_h5_file():
     # Check that the iterator finishes after the 4998 iterations
     current_frame = 2
     current_time = 30.
-    for frame, time, coordinates, box in iterator:
+    for _, time, coordinates, box in iterator:
         current_frame += 1
         current_time += 10
-        assert frame == current_frame
-        assert time == current_time
+        assert puw.get_value(time) == current_time
         assert coordinates.shape == (62, 3)
         assert box.shape(3, 3)
 
@@ -80,15 +148,15 @@ def test_iterator_with_gromacs_file():
     topology_file = msm.demo['nglview']['md_1u19.pdb']
 
     iterator = msm.structure.Iterator([traj_file, topology_file])
-    assert iterator.n_atoms == 5547
-    assert iterator.n_frames == 51
+    assert iterator.molecular_system.n_atoms == 5547
+    assert iterator.molecular_system.n_structures == 51
 
     current_frame = 0
     current_time = 0
 
-    for frame, time, coordinates, box in iterator:
-        assert frame == current_frame
-        assert time == current_time
+    for _, time, coordinates, box in iterator:
+
+        assert puw.get_value(time) == current_time
         assert coordinates.shape == (5547, 3)
         assert box.shape(3, 3)
         current_frame += 1
@@ -100,23 +168,3 @@ def test_iterator_with_gromacs_file():
                           [0., 7.988997, 0.],
                           [0., 0., 9.910033]])
     assert np.allclose(box, final_box)
-
-
-def test_iterator_with_custom_start():
-    pass
-
-
-def test_iterator_with_custom_interval():
-    pass
-
-
-def test_iterator_with_custom_chunk_size():
-    pass
-
-
-def test_iterator_with_custom_selection():
-    pass
-
-
-def test_iterator_with_custom_syntaxis():
-    pass

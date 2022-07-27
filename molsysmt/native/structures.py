@@ -362,6 +362,11 @@ class Structures:
         if stop is None:
             stop = self.n_structures
 
+        if stop < 1 or stop > self.n_structures:
+            raise exc.IteratorStopError(
+                f"Stop should be > 0 and < {self.n_structures}"
+            )
+
         self._current_structure = start
         while self._current_structure < self.n_structures:
             if self._current_structure >= stop:

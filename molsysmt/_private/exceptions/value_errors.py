@@ -212,6 +212,12 @@ class IteratorChunkSizeError(MolSysValueError):
     pass
 
 
+class IteratorStopError(MolSysValueError):
+    """ Exception raised when an incorrect stop value is passed to an iterator.
+    """
+    pass
+
+
 class ConcatenationError(MolSysValueError):
     """ Exception raised when two arrays cannot be concatenated because one if them is null.
     """
