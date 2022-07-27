@@ -209,6 +209,8 @@ def iterate_structure(iterator,
 
         if selection is not None:
             expected_coordinates = expected_coordinates[selection, :]
+        else:
+            assert coordinates.shape == (3, 3)
 
         assert step is None
         assert puw.get_value(time) == ii * 10.

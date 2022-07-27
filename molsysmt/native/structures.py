@@ -290,14 +290,25 @@ class Structures:
 
         if self.coordinates is not None:
             if is_all(selection):
-                coordinates = self.coordinates[structure: structure_end]
+                # If chunk size is 1 we return a 2D array. If not coordinates will
+                # be a 3D array
+                if chunk_size == 1:
+                    coordinates = self.coordinates[structure]
+                else:
+                    coordinates = self.coordinates[structure: structure_end]
             else:
-                coordinates = self.coordinates[structure: structure_end, selection, :]
+                if chunk_size == 1:
+                    coordinates = self.coordinates[structure, selection, :]
+                else:
+                    coordinates = self.coordinates[structure: structure_end, selection, :]
         else:
             coordinates = None
 
         if self.box is not None:
-            box = self.box[structure: structure_end]
+            if chunk_size == 1:
+                box = self.box[structure]
+            else:
+                box = self.box[structure: structure_end]
         else:
             box = None
 
@@ -340,6 +351,8 @@ class Structures:
                 The times of the structure
 
         """
+        # TODO: argument checking is done in every iteration. It should be moved
+        #  to a different method.
         if start < 0 or start >= self.n_structures:
             raise exc.IteratorStartError(
                 f"Start should be > 0 and < {self.n_structures}"
