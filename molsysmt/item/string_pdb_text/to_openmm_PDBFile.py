@@ -1,13 +1,7 @@
-from molsysmt._private.exceptions import *
-from molsysmt._private.digestion import *
+from molsysmt._private.digestion import digest
 
+@digest(form='string:pdb_text')
 def to_openmm_PDBFile(item, atom_indices='all', structure_indices='all'):
-
-    if check:
-
-        digest_item(item, 'string:pdb_text')
-        atom_indices = digest_atom_indices(atom_indices)
-        structure_indices = digest_structure_indices(structure_indices)
 
     from io import StringIO
     from openmm.app.pdbfile import PDBFile

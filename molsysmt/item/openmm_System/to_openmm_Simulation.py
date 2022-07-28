@@ -1,13 +1,7 @@
-from molsysmt._private.exceptions import *
-from molsysmt._private.digestion import *
+from molsysmt._private.digestion import digest
 
+@digest(form='openmm.System')
 def to_openmm_Simulation(item, atom_indices='all', structure_indices='all'):
-
-    if check:
-
-        digest_item(item, 'openmm.System')
-        atom_indices = digest_atom_indices(atom_indices)
-        structure_indices = digest_structure_indices(structure_indices)
 
     from molsysmt.basic import convert, get
     from openmm.app import Simulation

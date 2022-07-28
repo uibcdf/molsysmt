@@ -1,4 +1,4 @@
-from molsysmt._private.exceptions.not_implemented import NotImplementedError
+from molsysmt._private.exceptions import NotImplementedMethodError
 from molsysmt._private.digestion import digest
 from molsysmt._private.variables import is_all
 import numpy as np
@@ -68,9 +68,9 @@ def get_rmsd(molecular_system, selection='backbone', structure_indices='all',
 
         #return rmsd_val
 
-        raise NotImplementedError
+        raise NotImplementedMethodError()
 
     else:
 
-        raise NotImplementedError
+        raise NotImplementedMethodError()
 

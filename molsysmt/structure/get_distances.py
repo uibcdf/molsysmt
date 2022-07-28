@@ -1,4 +1,4 @@
-from molsysmt._private.exceptions.not_implemented import NotImplementedError
+from molsysmt._private.exceptions import NotImplementedMethodError
 from molsysmt._private.digestion import digest
 from molsysmt._private.variables import is_all
 from molsysmt.lib import geometry as libgeometry
@@ -35,7 +35,7 @@ def get_distances(molecular_system, selection="all", groups_of_atoms=None, group
 
     if group_behavior=='minimum_distance' or group_behavior_2=='minimum_distance':
         if group_behavior=='minimum_distance' and group_behavior_2=='minimum_distance':
-            raise NotImplementedError(NotImplementedMessage)
+            raise NotImplementedMethodError()
             #num_groups_1=len(groups_of_atoms)
             #num_groups_2=len(groups_of_atoms_2)
             #structure_indices = _digest_structure_indices(item, structure_indices)
@@ -53,7 +53,7 @@ def get_distances(molecular_system, selection="all", groups_of_atoms=None, group
             #del(num_groups1,num_groups2,structure_indices,num_structures,group1,group2)
             #return dists
         else:
-            raise NotImplementedError(NotImplementedMessage)
+            raise NotImplementedMethodError()
 
     if engine=='MolSysMT':
 
@@ -191,7 +191,7 @@ def get_distances(molecular_system, selection="all", groups_of_atoms=None, group
                         dists = libgeometry.distance_pairs(coordinates_1, coordinates_2, box, orthogonal, int(pbc),
                                                            nelements1, nelements2, nstructures_1)
         else:
-            raise NotImplementedError(NotImplementedMessage)
+            raise NotImplementedMethodError()
 
         del(coordinates_1, coordinates_2, box)
 
@@ -234,7 +234,7 @@ def get_distances(molecular_system, selection="all", groups_of_atoms=None, group
                                 tmp_dict[atom1][atom2][structure_index_1]=dists[kk,ii,jj]
                     return tmp_dict
                 else:
-                    raise NotImplementedError(NotImplementedMessage)
+                    raise NotImplementedMethodError()
             else:
                 if crossed_structures is False:
                     tmp_dict={}
@@ -250,10 +250,10 @@ def get_distances(molecular_system, selection="all", groups_of_atoms=None, group
                             tmp_dict[atom1][atom2][structure_index_1]=dists[kk,ii]
                     return tmp_dict
                 else:
-                    raise NotImplementedError(NotImplementedMessage)
+                    raise NotImplementedMethodError()
 
         else:
-            raise NotImplementedError(NotImplementedMessage)
+            raise NotImplementedMethodError()
 
     elif engine=='MDTraj':
 
@@ -291,7 +291,7 @@ def get_distances(molecular_system, selection="all", groups_of_atoms=None, group
         #else:
         #    raise NotImplementedError(NotImplementedMessage)
 
-        raise NotImplementedError(NotImplementedMessage)
+        raise NotImplementedMethodError()
     else:
-        raise NotImplementedError(NotImplementedMessage)
+        raise NotImplementedMethodError()
 

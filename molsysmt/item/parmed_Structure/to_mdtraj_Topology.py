@@ -1,11 +1,7 @@
-from molsysmt._private.digestion import digest_item, digest_atom_indices
+from molsysmt._private.digestion import digest
 
+@digest(form='parmed.Structure')
 def to_mdtraj_Topology(item, atom_indices='all'):
-
-    if check:
-
-        digest_item(item, 'parmed.Structure')
-        atom_indices = digest_atom_indices(atom_indices)
 
     from . import to_openmm_Topology
     from ..openmm_Topology import openmm_Topology_to_mdtraj_Topology

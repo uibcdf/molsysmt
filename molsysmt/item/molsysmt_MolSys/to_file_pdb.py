@@ -1,16 +1,7 @@
-from molsysmt._private.exceptions import *
 from molsysmt._private.digestion import *
 
+@digest(form='molsysmt.MolSys')
 def to_file_pdb(item, atom_indices='all', structure_indices='all', output_filename=None):
-
-    if check:
-
-        digest_item(item, 'molsysmt.MolSys')
-        atom_indices = digest_atom_indices(atom_indices)
-        structure_indices = digest_structure_indices(structure_indices)
-
-    if output_filename is None:
-        raise ValueError('The value different from None is required for the argument "output_filename"')
 
     from . import to_openmm_Topology
     from . import get_coordinates_from_atom

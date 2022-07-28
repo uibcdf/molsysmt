@@ -1,13 +1,8 @@
-from molsysmt._private.exceptions import *
-from molsysmt._private.digestion import *
+from molsysmt._private.exceptions import LibraryNotFoundError
+from molsysmt._private.digestion import digest
 
+@digest(form='openmm.PDBFile')
 def to_mdtraj_Trajectory(item, atom_indices='all'):
-
-    if check:
-
-        digest_item(item, 'openmm.PDBFile')
-        atom_indices = digest_atom_indices(atom_indices)
-        structure_indices = digest_structure_indices(structure_indices)
 
     from .to_mdtraj_Topology import to_mdtraj_Topology
     from .get import get_coordinates_from_atom

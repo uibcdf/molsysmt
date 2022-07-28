@@ -1,4 +1,4 @@
-from molsysmt._private.exceptions.not_implemented import NotImplementedError
+from molsysmt._private.exceptions import NotImplementedMethodError
 from molsysmt._private.digestion import *
 
 @digest
@@ -23,7 +23,7 @@ def get_non_standard_residues(molecular_system, selection='all', syntax='MolSysM
 
     else:
 
-        raise NotImplementedError
+        raise NotImplementedMethodError
 
     return output
 

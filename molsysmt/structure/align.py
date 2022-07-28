@@ -1,4 +1,4 @@
-from molsysmt._private.exceptions.not_implemented import NotImplementedError
+from molsysmt._private.exceptions import NotImplementedMethodError
 from molsysmt._private.digestion import digest
 import numpy as np
 
@@ -24,7 +24,7 @@ def align(molecular_system, selection='backbone', structure_indices='all',
 
         else:
 
-            raise NotImplementedError
+            raise NotImplementedMethodError
 
         aux_atoms_list = select(molecular_system, element='atom',
                 selection='group_index==@identical_groups')
@@ -48,7 +48,7 @@ def align(molecular_system, selection='backbone', structure_indices='all',
 
     else:
 
-        raise NotImplementedError
+        raise NotImplementedMethodError
 
     return output
 

@@ -1,14 +1,10 @@
-from molsysmt._private.exceptions import *
-from molsysmt._private.digestion import *
+from molsysmt._private.exceptions import NotImplementedMethodError
+from molsysmt._private.digestion import digest
 from molsysmt._private.variables import is_all
 
+@digest(form='mmtf.MMTFDecoder')
 def to_molsysmt_Topology(item, atom_indices='all', structure_indices='all', bioassembly_index=0,
                          bioassembly_name=None):
-    if check:
-
-        digest_item(item, 'file:mmtf.MMTFDecoder')
-        atom_indices = digest_atom_indices(atom_indices)
-        structure_indices = digest_structure_indices(structure_indices)
 
     import warnings
     from molsysmt.native import Topology
@@ -21,10 +17,10 @@ def to_molsysmt_Topology(item, atom_indices='all', structure_indices='all', bioa
     # sanity checks
     for n_chain_per_model in item.chains_per_model:
         if n_chain_per_model != item.num_chains:
-            raise NotImplementedError("The bioassembly has models with different number of chains")
+            raise NotImplementedMethodError("The bioassembly has models with different number of chains")
 
     if len(item.group_type_list)!=item.num_groups:
-        raise NotImplementedError("The mmtf file has a group_type_list with different number of groups than the num_groups")
+        raise NotImplementedMethodError("The mmtf file has a group_type_list with different number of groups than the num_groups")
 
     if len(item.bio_assembly)>0:
 

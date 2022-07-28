@@ -10,5 +10,5 @@ def extract(item, atom_indices='all', structure_indices='all', copy_if_all=True)
     else:
         raise NotImplementedMethodError()
 
-    return pass
+    pass
 

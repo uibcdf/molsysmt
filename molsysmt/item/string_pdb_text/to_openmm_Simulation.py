@@ -1,6 +1,6 @@
-from molsysmt._private.exceptions import *
-from molsysmt._private.atom_indices import *
+from molsysmt._private.digestion import digest
 
+@digest(form='string:pdb_text')
 def to_openmm_Simulation(item, atom_indices='all', structure_indices='all'):
 
     if check:

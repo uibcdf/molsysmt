@@ -1,4 +1,4 @@
-from molsysmt._private.exceptions.not_implemented import NotImplementedError
+from molsysmt._private.exceptions import NotImplementedMethodError
 from molsysmt._private.digestion import digest
 from molsysmt._private.math import serialized_lists
 from molsysmt.lib import com as libcom
@@ -22,7 +22,7 @@ def get_center(molecular_system, selection='all', groups_of_atoms=None, weights=
         if weights is None:
             weights = np.ones((groups_serialized.n_values))
         elif weights is 'masses':
-            raise NotImplementedError
+            raise NotImplementedMethodError()
 
         coordinates = get(molecular_system, element='system', structure_indices=structure_indices, coordinates=True)
 
@@ -42,6 +42,6 @@ def get_center(molecular_system, selection='all', groups_of_atoms=None, weights=
 
     else:
 
-        raise NotImplementedError(NotImplementedMessage)
+        raise NotImplementedMethodError()
 
 

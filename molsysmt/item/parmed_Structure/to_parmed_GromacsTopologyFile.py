@@ -1,11 +1,7 @@
-from molsysmt._private.digestion import digest_item, digest_atom_indices
+from molsysmt._private.digestion import digest
 
+@digest(form='parmed.Structure')
 def to_parmed_GromacsTopologyFile(item, atom_indices='all'):
-
-    if check:
-
-        digest_item(item, 'parmed.Structure')
-        atom_indices = digest_atom_indices(atom_indices)
 
     from . import extract
     from parmed.gromacs import GromacsTopologyFile as GromacsTopologyFile

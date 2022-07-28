@@ -1,13 +1,7 @@
-from molsysmt._private.exceptions import *
-from molsysmt._private.digestion import *
+from molsysmt._private.digestion import digest
 
+@digest(form='openmm.Simulation')
 def to_pdbfixer_PDBFixer(item, atom_indices='all', structure_indices='all'):
-
-    if check:
-
-        digest_item(item, 'openmm.Simulation')
-        atom_indices = digest_atom_indices(atom_indices)
-        structure_indices = digest_structure_indices(structure_indices)
 
     from . import to_file_pdb as openmm_Simulation_to_file_pdb
     from molsysmt._private.files_and_directories import temp_filename

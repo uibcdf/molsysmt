@@ -1,11 +1,7 @@
-from molsysmt._private.digestion import digest_item, digest_atom_indices
+from molsysmt._private.digestion import digest
 
+@digest(form='pytraj.Trajectory')
 def to_molsysmt_Topology(item, atom_indices='all'):
-
-    if check:
-
-        digest_item(item, 'pytraj.Trajectory')
-        atom_indices = digest_atom_indices(atom_indices)
 
     from . import to_pytraj_Topology
     from ..pytraj_Topology import to_molsysmt_Topology

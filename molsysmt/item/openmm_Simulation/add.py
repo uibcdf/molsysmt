@@ -1,4 +1,4 @@
-from molsysm._private.exception import NotImplementedMethodError
+from molsysmt._private.exceptions import NotImplementedMethodError
 from molsysmt._private.digestion import digest
 
 @digest(form='openmm.Simulation', to_form='openmm.Simulation')

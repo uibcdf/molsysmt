@@ -1,4 +1,4 @@
-from molsysmt._private.digestion import digest_item
+from molsysmt._private.digestion import digest
 
 @digest(form='file:mmtf')
 def to_molsysmt_Structures(item, atom_indices='all', structure_indices='all'):

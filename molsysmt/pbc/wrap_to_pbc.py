@@ -1,4 +1,4 @@
-from molsysmt._private.exception.not_implemented import NotImplementedEngineError
+from molsysmt._private.exceptions import NotImplementedMethodError
 from molsysmt._private.digestion import digest
 from molsysmt import puw
 from molsysmt.lib import box as libbox
@@ -72,7 +72,7 @@ def wrap_to_pbc(molecular_system, selection='all', structure_indices='all',
 
     else:
 
-        raise NotImplementedEngineError()
+        raise NotImplementedMethodError()
 
     if in_place:
 

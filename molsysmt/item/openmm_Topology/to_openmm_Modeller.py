@@ -1,14 +1,7 @@
-from molsysmt._private.digestion import digest_item, digest_atom_indices
-from molsysmt._private.digestion import digest_coordinates, digest_box
+from molsysmt._private.digestion import digest
 
+@digest(form='openmm.Topology')
 def to_openmm_Modeller(item, atom_indices='all', coordinates=None, box=None):
-
-    if check:
-
-        digest_item(item, 'openmm.Topology')
-        atom_indices = digest_atom_indices(atom_indices)
-        coordinates = digest_coordinates(coordinates)
-        box = digest_box(box)
 
     from . import extract
     from molsysmt import puw

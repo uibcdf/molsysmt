@@ -1,4 +1,4 @@
-from molsysmt._private.exceptions.not_implemented import NotImplementedError
+from molsysmt._private.exceptions import NotImplementedMethodError
 from molsysmt._private.digestion import digest
 from molsysmt._private.variables import is_all
 from molsysmt.basic import select, get
@@ -53,8 +53,8 @@ def get_least_rmsd (molecular_system=None, selection='backbone', structure_indic
 
     elif engine=='MDTraj':
 
-        raise NotImplementedError
+        raise NotImplementedMethodError()
 
     else:
-        raise NotImplementedError
+        raise NotImplementedMethodError()
 

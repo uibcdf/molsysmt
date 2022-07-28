@@ -1,14 +1,8 @@
-from molsysmt._private.digestion import digest_item, digest_atom_indices, digest_coordinates, digest_box
+from molsysmt._private.digestion import digest
 from molsysmt._private.variables import is_all
 
+@digest(form='openmm.Topology')
 def to_string_pdb_text(item, atom_indices='all', coordinates=None, box=None):
-
-    if check:
-
-        digest_item(item, 'openmm.Topology')
-        atom_indices = digest_atom_indices(atom_indices)
-        coordinates = digest_coordinates(coordinates)
-        box = digest_box(box)
 
     from io import StringIO
     from openmm.app import PDBFile

@@ -1,14 +1,7 @@
-from molsysmt._private.exceptions import *
-from molsysmt._private.digestion import *
+from molsysmt._private.digestion import digest
 
+@digest(form='openmm.Topology')
 def to_molsysmt_MolSys(item, atom_indices='all', coordinates=None, box=None):
-
-    if check:
-
-        digest_item(item, 'openmm.Topology')
-        atom_indices = digest_atom_indices(atom_indices)
-        coordinates = digest_coordinates(coordinates)
-        box = digest_box(box)
 
     from molsysmt.native.molsys import MolSys
     from molsysmt.native.structures import Structures

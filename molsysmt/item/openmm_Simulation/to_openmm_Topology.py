@@ -1,13 +1,7 @@
-from molsysmt._private.exceptions import *
-from molsysmt._private.digestion import *
+from molsysmt._private.digestion import digest
 
+@digest(form='openmm.Simulation')
 def to_openmm_Topology(item, atom_indices='all'):
-
-    if check:
-
-        digest_item(item, 'openmm.Simulation')
-        atom_indices = digest_atom_indices(atom_indices)
-        structure_indices = digest_structure_indices(structure_indices)
 
     from molsysmt.item.openmm_Topology import extract_openmm_Topology
 

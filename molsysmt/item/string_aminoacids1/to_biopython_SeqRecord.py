@@ -1,12 +1,7 @@
-from molsysmt._private.exceptions import *
-from molsysmt._private.digestion import *
+from molsysmt._private.digestion import digest
 
+@digest(form='string:aminoacids1')
 def to_biopython_SeqRecord(item, group_indices='all'):
-
-    if check:
-
-        digest_item(item, 'string:aminoacids1')
-        group_indices = digest_group_indices(group_indices)
 
     from . import to_biopython_Seq
     from ..biopython_Seq import to_biopython_SeqRecord as biopython_Seq_to_biopython_SeqRecord

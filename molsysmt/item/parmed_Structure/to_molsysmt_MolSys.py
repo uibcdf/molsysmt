@@ -1,12 +1,7 @@
-from molsysmt._private.digestion import digest_item, digest_atom_indices, digest_structure_indices
+from molsysmt._private.digestion import digest
 
+@digest(form='parmed.Structure')
 def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all'):
-
-    if check:
-
-        digest_item(item, 'parmed.Structure')
-        atom_indices = digest_atom_indices(atom_indices)
-        structure_indices = digest_structure_indices(structure_indices)
 
     from molsysmt.native.molsys import MolSys
     from . import to_molsysmt_Topology

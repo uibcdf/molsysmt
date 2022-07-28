@@ -1,20 +1,7 @@
-from .is_pdbfixer_PDBFixer import is_pdbfixer_PDBFixer
-from molsysmt._private.exceptions import *
-from molsysmt._private.digestion import *
+from molsysmt._private.digestion import digest
 
+@digest(form='pdbfixer.PDBFixer')
 def to_file_pdb(item, atom_indices='all', output_filename=None):
-
-    if check:
-
-        try:
-            is_pdbfixer_PDBFixer(item)
-        except:
-            raise WrongFormError('pdbfixer.PDBFixer')
-
-        try:
-            atom_indices = digest_atom_indices(atom_indices)
-        except:
-            raise WrongAtomIndicesError()
 
     from . import to_openmm_Topology
     from . import get_coordinates_from_atom, get_box_from_atom

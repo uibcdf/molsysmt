@@ -1,12 +1,7 @@
-from molsysmt._private.exceptions import *
-from molsysmt._private.digestion import *
+from molsysmt._private.digestion import digest
 
+@digest(form='molsysmt.MolSys')
 def to_string_aminoacids1(item, group_indices='all'):
-
-    if check:
-
-        digest_item(item, 'molsysmt.MolSys')
-        group_indices = digest_group_indices(group_indices)
 
     from . import to_molsysmt_Topology
     from ..molsysmt_Topology import to_string_aminoacids1 as molsysmt_Topology_to_string_aminoacids1

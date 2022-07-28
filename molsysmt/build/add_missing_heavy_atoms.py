@@ -1,4 +1,4 @@
-from molsysmt._private.exceptions.not_implemented import NotImplementedError
+from molsysmt._private.exceptions import NotImplementedMethodError
 from molsysmt._private.digestion import digest
 
 @digest
@@ -34,7 +34,7 @@ def add_missing_heavy_atoms(molecular_system, selection='all', syntax='MolSysMT'
 
     else:
 
-        raise NotImplementedError
+        raise NotImplementedMethodError
 
     output_molecular_system = convert(temp_molecular_system, to_form=form_out)
 

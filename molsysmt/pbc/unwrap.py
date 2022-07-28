@@ -1,4 +1,4 @@
-from molsysmt._private.exceptions.not_implemented import NotImplementedEngineError
+from molsysmt._private.exceptions import NotImplementedMethodError
 from molsysmt._private.digestion import *
 from molsysmt import puw
 from molsysmt.lib import box as libbox
@@ -36,7 +36,7 @@ def unwrap(molecular_system, selection='all', structure_indices='all',
 
     else:
 
-        raise NotImplementedEngineError()
+        raise NotImplementedMethodError()
 
     if in_place:
 

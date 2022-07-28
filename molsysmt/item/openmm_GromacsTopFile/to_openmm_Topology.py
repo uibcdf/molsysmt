@@ -1,11 +1,7 @@
-from molsysmt._private.digestion import digest_item, digest_atom_indices
+from molsysmt._private.digestion import digest
 
+@digest(form='openmm.GromacsTopFile')
 def to_openmm_Topology(item, atom_indices='all'):
-
-    if check:
-
-        digest_item(item, 'openmm.GromacsTopFile')
-        atom_indices = digest_atom_indices(atom_indices)
 
     tmp_item = item.topology
 

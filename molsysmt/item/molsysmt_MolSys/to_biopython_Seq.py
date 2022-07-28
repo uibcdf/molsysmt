@@ -1,12 +1,7 @@
-from molsysmt._private.exceptions import *
-from molsysmt._private.digestion import *
+from molsysmt._private.digestion import digest
 
+@digest(form='molsysmt.MolSys')
 def to_biopython_Seq(item, group_indices='all'):
-
-    if check:
-
-        digest_item(item, 'file:inpcrd')
-        group_indices = digest_group_indices(group_indices)
 
     from . import to_string_aminoacids1
     from ..string_aminoacids1 import to_biopython_Seq as string_aminoacids1_to_biopython_Seq

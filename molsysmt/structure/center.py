@@ -1,4 +1,4 @@
-from molsysmt._private.exceptions.not_implemented import NotImplementedError
+from molsysmt._private.exceptions import NotImplementedMethodError
 from molsysmt._private.digestion import digest
 from molsysmt import puw
 import numpy as np
@@ -29,5 +29,5 @@ def center(molecular_system, selection='all', center_of_selection='all', weights
 
     else:
 
-        raise NotImplementedError()
+        raise NotImplementedMethodError()
 

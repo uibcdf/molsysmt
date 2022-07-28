@@ -1,12 +1,8 @@
-from molsysmt._private.exceptions import *
-from molsysmt._private.digestion import *
+from molsysmt._private.exceptions import LibraryNotFoundError
+from molsysmt._private.digestion import digest
 
+@digest(form='openmm.Topology')
 def to_mdtraj_Topology(item, atom_indices='all'):
-
-    if check:
-
-        digest_item(item, 'openmm.Topology')
-        atom_indices = digest_atom_indices(atom_indices)
 
     try:
         from mdtraj.core.topology import Topology as mdtraj_Topology

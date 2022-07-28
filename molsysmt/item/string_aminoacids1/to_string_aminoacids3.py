@@ -1,12 +1,8 @@
-from molsysmt._private.exceptions import *
-from molsysmt._private.digestion import *
+from molsysmt._private.exceptions import LibraryNotFoundError
+from molsysmt._private.digestion import digest
 
+@digest(form='string:aminoacids1')
 def to_string_aminoacids3(item, group_indices='all'):
-
-    if check:
-
-        digest_item(item, 'string:aminoacids1')
-        group_indices = digest_group_indices(group_indices)
 
     try:
         from Bio.SeqUtils import seq3

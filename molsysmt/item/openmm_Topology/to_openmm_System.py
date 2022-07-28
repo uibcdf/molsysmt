@@ -1,15 +1,8 @@
-from molsysmt._private.exceptions import *
-from molsysmt._private.digestion import *
+from molsysmt._private.digestion import digest
 
+@digest(form='openmm.Topology')
 def to_openmm_System(item, atom_indices='all', forcefield=None, water_model=None, implicit_solvent=None,
         non_bonded_method='no cutoff', switch_distance=None):
-
-    if check:
-
-        digest_item(item, 'openmm.Topology')
-        atom_indices = digest_atom_indices(atom_indices)
-        forcefield = digest_forcefield(forcefield)
-
 
     #forcefield = molecular_mechanics.to_openmm_ForceField()
     #system_parameters = molecular_mechanics.get_openmm_System_parameters()

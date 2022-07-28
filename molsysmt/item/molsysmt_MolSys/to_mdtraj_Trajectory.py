@@ -1,13 +1,7 @@
-from molsysmt._private.exceptions import *
-from molsysmt._private.digestion import *
+from molsysmt._private.digestion import digest
 
+@digest(form='molsysmt.MolSys')
 def to_mdtraj_Trajectory(item, atom_indices='all', structure_indices='all'):
-
-    if check:
-
-        digest_item(item, 'molsysmt.MolSys')
-        atom_indices = digest_atom_indices(atom_indices)
-        structure_indices = digest_structure_indices(structure_indices)
 
     from molsysmt import puw
     from . import to_mdtraj_Topology

@@ -1,25 +1,7 @@
-from .is_pdbfixer_PDBFixer import is_pdbfixer_PDBFixer
-from molsysmt._private.exceptions import *
-from molsysmt._private.digestion import *
+from molsysmt._private.digestion import digest
 
+@digest(form='pdbfixer.PDBFixer')
 def to_openmm_Modeller(item, atom_indices='all'):
-
-    if check:
-
-        try:
-            is_pdbfixer_PDBFixer(item)
-        except:
-            raise WrongFormError('pdbfixer.PDBFixer')
-
-        try:
-            atom_indices = digest_atom_indices(atom_indices)
-        except:
-            raise WrongAtomIndicesError()
-
-        try:
-            structure_indices = digest_structure_indices(structure_indices)
-        except:
-            raise WrongStructureIndicesError()
 
     from molsysmt import puw
     from . import to_openmm_Topology

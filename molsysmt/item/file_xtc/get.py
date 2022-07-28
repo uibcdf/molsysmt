@@ -4,7 +4,7 @@
 
 from molsysmt._private.execfile import execfile
 from molsysmt._private.exceptions import NotImplementedMethodError, NotWithThisFormError
-from molsysmt._private.digestion import digest_item
+from molsysmt._private.digestion import digest
 
 form='file:xtc'
 

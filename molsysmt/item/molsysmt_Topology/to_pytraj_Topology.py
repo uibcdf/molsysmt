@@ -1,12 +1,8 @@
-from molsysmt._private.exceptions import *
-from molsysmt._private.digestion import *
+from molsysmt._private.exceptions import LibraryNotFoundError
+from molsysmt._private.digestion import digest
 
+@digest(form='molsysmt.Topology')
 def to_pytraj_Topology(item, atom_indices='all'):
-
-    if check:
-
-        digest_item(item, 'molsysmt.Topology')
-        atom_indices = digest_atom_indices(atom_indices)
 
     try:
         from pytraj import Topology

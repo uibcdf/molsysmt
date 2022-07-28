@@ -3,7 +3,7 @@
 #######################################################################################
 
 from molsysmt._private.execfile import execfile
-from molsysmt._private.exceptions import NotImplementedMet, NotWithThisFormError
+from molsysmt._private.exceptions import NotImplementedMethodError, NotWithThisFormError
 from molsysmt._private.digestion import digest
 
 form='biopython.SeqRecord'

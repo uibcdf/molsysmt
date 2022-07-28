@@ -1,4 +1,4 @@
-from molsysmt._private.exceptions.not_implemented import NotImplementedError
+from molsysmt._private.exceptions import NotImplementedMethodError
 from molsysmt._private.digestion import digest
 from molsysmt._private.variables import is_all
 from molsysmt import puw
@@ -41,7 +41,7 @@ def get_sasa (molecular_system, element='atom', selection='all', structure_indic
 
     else:
 
-        raise NotImplementedError("Engine not implemented yet")
+        raise NotImplementedMethodError()
 
     return sasa_array
 

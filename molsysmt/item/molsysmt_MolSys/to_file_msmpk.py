@@ -1,16 +1,7 @@
-from molsysmt._private.exceptions import *
-from molsysmt._private.digestion import *
+from molsysmt._private.digestion import digest
 
+@digest(form='molsysmt.MolSys')
 def to_file_msmpk(item, atom_indices='all', structure_indices='all', output_filename=None):
-
-    if check:
-
-        digest_item(item, 'file:inpcrd')
-        atom_indices = digest_atom_indices(atom_indices)
-        structure_indices = digest_structure_indices(structure_indices)
-
-    if output_filename is None:
-        raise ValueError('A value different from None is required for the argument "output_filename"')
 
     from . import extract
     from molsysmt import puw

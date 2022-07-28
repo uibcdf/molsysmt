@@ -1,7 +1,6 @@
-from .is_string_pdb_id import is_string_pdb_id
-from molsysmt._private.exceptions import *
-from molsysmt._private.digestion import *
+from molsysmt._private.digestion import digest
 
+@digest(form='string:pdb_id')
 def to_molsysmt_Structures(item, atom_indices='all', structure_indices='all'):
 
     if check:

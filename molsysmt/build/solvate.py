@@ -2,7 +2,7 @@
 # Creando cajas solvatadas
 # =======================
 
-from molsysmt._private.exceptions.not_implemented import NotImplementedError
+from molsysmt._private.exceptions import NotImplementedMethodError
 from molsysmt._private.digestion import digest
 import numpy as np
 from molsysmt import puw

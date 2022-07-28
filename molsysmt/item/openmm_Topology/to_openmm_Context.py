@@ -1,13 +1,7 @@
-from molsysmt._private.exceptions import *
-from molsysmt._private.digestion import *
+from molsysmt._private.digestion import digest
 
+@digest(form='openmm.Topology')
 def to_openmm_Context(item, atom_indices='all', coordinates=None):
-
-    if check:
-
-        digest_item(item, 'openmm.Topology')
-        atom_indices = digest_atom_indices(atom_indices)
-        coordinates = digest_coordinates(coordinates)
 
     from . import to_openmm_System
     from ..openmm_System import to_openmm_Context as openmm_System_to_openmm_Context

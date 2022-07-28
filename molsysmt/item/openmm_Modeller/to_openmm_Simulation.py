@@ -1,18 +1,12 @@
-from molsysmt._private.exceptions import *
-from molsysmt._private.digestion import *
+from molsysmt._private.digestion import digest
 
+@digest(form='openmm.Modeller')
 def to_openmm_Simulation(item, atom_indices='all', structure_indices='all',
                          forcefield=None, non_bonded_method='no_cutoff', non_bonded_cutoff='1.0 nm', constraints=None,
                          rigid_water=True, remove_cm_motion=True, hydrogen_mass=None, switch_distance=None,
                          flexible_constraints=False, integrator='Langevin', temperature='300.0 K',
                          collisions_rate='1.0 1/ps', integration_timestep='2.0 fs',
                          platform='CUDA'):
-
-    if check:
-
-        digest_item(item, 'openmm.Modeller')
-        atom_indices = digest_atom_indices(atom_indices)
-        structure_indices = digest_structure_indices(structure_indices)
 
     from . import to_openmm_Topology
     from . import get_coordinates_from_atom

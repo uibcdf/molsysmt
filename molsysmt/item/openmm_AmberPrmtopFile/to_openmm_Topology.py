@@ -1,12 +1,7 @@
-from molsysmt._private.exceptions import *
-from molsysmt._private.digestion import *
+from molsysmt._private.digestion import digest
 
+@digest(form='openmm.AmberPrmtopFile')
 def to_openmm_Topology(item, atom_indices='all'):
-
-    if check:
-
-        digest_item(item, 'openmm.AmberPrmtopFile')
-        atom_indices = digest_atom_indices(atom_indices)
 
     tmp_item = item.topology
 

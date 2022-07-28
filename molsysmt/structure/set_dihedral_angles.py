@@ -1,4 +1,4 @@
-from molsysmt._private.exceptions.not_implemented import NotImplementedError
+from molsysmt._private.exceptions import NotImplementedMethodError
 from molsysmt._private.digestion import digest
 import numpy as np
 from molsysmt import puw
@@ -121,5 +121,5 @@ def set_dihedral_angles(molecular_system, quartets=None, angles=None, blocks=Non
 
     else:
 
-        raise NotImplementedError
+        raise NotImplementedMethodError()
 

@@ -1,6 +1,6 @@
-from molsysmt._private.exceptions import *
-from molsysmt._private.digestion import *
+from molsysmt._private.digestion import digest
 
+@digest(form='openmm.Simulation')
 def to_file_pdb(item, atom_indices='all', structure_indices='all', output_filename=None):
 
     if check:

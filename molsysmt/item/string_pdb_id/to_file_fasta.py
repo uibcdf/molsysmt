@@ -1,12 +1,7 @@
-from molsysmt._private.exceptions import *
-from molsysmt._private.digestion import *
+from molsysmt._private.digestion import digest
 
+@digest(form='string:pdb_id')
 def to_file_fasta(item, atom_indices='all', output_filename=None):
-
-    if check:
-
-        digest_item(item, 'string:pdb_id')
-        atom_indices = digest_atom_indices(atom_indices)
 
     from ..file_fasta import extract as extract_file_fasta
 
