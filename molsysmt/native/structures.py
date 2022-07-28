@@ -314,6 +314,23 @@ class Structures:
 
         return step, time, coordinates, box
 
+    def _iterate_structures(self, start=0, stop=None,
+                            interval=1, selection="all", chunk_size=1):
+        """ Helper function for the iterate method."""
+        self._current_structure = start
+        while self._current_structure < self.n_structures:
+            if self._current_structure >= stop:
+                break
+
+            yield self.get_structure_data(self._current_structure,
+                                          selection,
+                                          chunk_size)
+
+            if chunk_size > 1:
+                self._current_structure += chunk_size
+            else:
+                self._current_structure += interval
+
     def iterate(self, start=0, stop=None,
                 interval=1, selection="all", chunk_size=1):
         """ Generator to iterate over the steps, time, coordinates and box
@@ -351,8 +368,6 @@ class Structures:
                 The times of the structure
 
         """
-        # TODO: argument checking is done in every iteration. It should be moved
-        #  to a different method.
         if start < 0 or start >= self.n_structures:
             raise exc.IteratorStartError(
                 f"Start should be > 0 and < {self.n_structures}"
@@ -380,19 +395,7 @@ class Structures:
                 f"Stop should be > 0 and < {self.n_structures}"
             )
 
-        self._current_structure = start
-        while self._current_structure < self.n_structures:
-            if self._current_structure >= stop:
-                break
-
-            yield self.get_structure_data(self._current_structure,
-                                          selection,
-                                          chunk_size)
-
-            if chunk_size > 1:
-                self._current_structure += chunk_size
-            else:
-                self._current_structure += interval
+        return self._iterate_structures(start, stop, interval, selection, chunk_size)
 
     def copy(self):
         """ Returns a copy of the structures."""

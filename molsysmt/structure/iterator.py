@@ -86,8 +86,9 @@ class Iterator:
         form = get_form(item)
         if form == "molsysmt.MolSys" or form == "molsysmt.Structures":
             return item, form
-        elif form.startswith("file"):
+        elif isinstance(form, list) or form.startswith("file"):
             return convert(item, to_form="molsysmt.MolSys"), "molsysmt.MolSys"
+
         else:
             raise MolSysNotImplementedError(
                 f"Iterator has not been implemented for form {form}")

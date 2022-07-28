@@ -1,7 +1,8 @@
-import numpy as np
 import molsysmt as msm
 from molsysmt import puw
 import molsysmt._private.exceptions.value_errors as exc
+import mdtraj as mdt
+import numpy as np
 import pytest
 
 
@@ -157,14 +158,16 @@ def test_iterator_with_h5_file():
     assert current_time == 50000.0
 
 
-@pytest.mark.skip
-def test_iterator_with_gromacs_file():
-    traj_file = msm.demo['nglview']['md_1u19.gro']
-    topology_file = msm.demo['nglview']['md_1u19.pdb']
+@pytest.mark.skip(reason="Still not implemented")
+def test_iterator_with_mdtraj():
+    topology_file = msm.demo['nglview']['md_1u19.gro']
+    traj_file = msm.demo['nglview']['md_1u19.xtc']
 
-    iterator = msm.structure.Iterator([traj_file, topology_file])
-    assert iterator.molecular_system.n_atoms == 5547
-    assert iterator.molecular_system.n_structures == 51
+    traj = mdt.load(traj_file, top=topology_file)
+
+    iterator = msm.structure.Iterator(traj)
+    assert iterator._n_atoms == 5547
+    assert iterator._n_structures == 51
 
     current_frame = 0
     current_time = 0
