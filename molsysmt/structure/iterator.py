@@ -1,4 +1,5 @@
 from molsysmt import get_form, convert
+from molsysmt.item.mdtraj_Trajectory.iterate import iterate_mdtraj_trajectory
 from molsysmt._private.exceptions.not_implemented_errors import MolSysNotImplementedError
 import molsysmt._private.exceptions.value_errors as exc
 
@@ -84,7 +85,8 @@ class Iterator:
     def _get_molecular_system_and_form(item):
         """ Returns a molecular system. """
         form = get_form(item)
-        if form == "molsysmt.MolSys" or form == "molsysmt.Structures":
+        if form == "molsysmt.MolSys" or form == "molsysmt.Structures"\
+                or form == "mdtraj.Trajectory":
             return item, form
         elif isinstance(form, list) or form.startswith("file"):
             return convert(item, to_form="molsysmt.MolSys"), "molsysmt.MolSys"
@@ -113,6 +115,15 @@ class Iterator:
                 selection=self._selection,
                 chunk_size=self._chunk_size
             )
+        elif self._form == "mdtraj.Trajectory":
+            return iterate_mdtraj_trajectory(
+                self.molecular_system,
+                start=self._start,
+                stop=self._stop,
+                interval=self._interval,
+                selection=self._selection,
+                chunk_size=self._chunk_size
+            )
         else:
             raise MolSysNotImplementedError(
                 f"Iterator has not been implemented for form {self._form}")
@@ -121,7 +132,7 @@ class Iterator:
         """ Returns the number of atoms in the molecular system."""
         if self._form == "molsysmt.MolSys":
             return self.molecular_system.structures.n_atoms
-        elif self._form == "molsysmt.Structures":
+        elif self._form == "molsysmt.Structures" or self._form == "mdtraj.Trajectory":
             return self.molecular_system.n_atoms
         else:
             raise MolSysNotImplementedError(
@@ -133,6 +144,8 @@ class Iterator:
             return self.molecular_system.structures.n_structures
         elif self._form == "molsysmt.Structures":
             return self.molecular_system.n_structures
+        elif self._form == "mdtraj.Trajectory":
+            return self.molecular_system.n_frames
         else:
             raise MolSysNotImplementedError(
                 f"Iterator has not been implemented for form {self._form}")

@@ -8,7 +8,6 @@ import pytest
 
 @pytest.fixture()
 def pentalanine_iterator():
-
     pentalanine_file = msm.demo["pentalanine"]["traj.h5"]
     return msm.structure.Iterator(pentalanine_file)
 
@@ -19,8 +18,15 @@ def pentalanine_structures():
     return pentalanine.structures.copy()
 
 
-def test_iterator_constructor(pentalanine_iterator, pentalanine_structures):
+@pytest.fixture()
+def mdtraj_trajectory():
+    topology_file = msm.demo['nglview']['md_1u19.gro']
+    traj_file = msm.demo['nglview']['md_1u19.xtc']
 
+    return mdt.load(traj_file, top=topology_file)
+
+
+def test_iterator_constructor(pentalanine_iterator, pentalanine_structures):
     assert pentalanine_iterator.molecular_system.structures.n_atoms == 62
     assert pentalanine_iterator.molecular_system.structures.n_structures == 5000
     assert pentalanine_iterator._form == "molsysmt.MolSys"
@@ -39,7 +45,6 @@ def test_iterator_constructor(pentalanine_iterator, pentalanine_structures):
 
 
 def test_setting_iterator_properties(pentalanine_iterator):
-
     iterator = pentalanine_iterator
     iterator.start = 4
     iterator.interval = 2
@@ -48,7 +53,6 @@ def test_setting_iterator_properties(pentalanine_iterator):
 
 
 def test_setting_invalid_properties_raises_error(pentalanine_iterator):
-
     with pytest.raises(exc.IteratorStartError):
         pentalanine_iterator.start = 5100
 
@@ -63,21 +67,27 @@ def test_setting_invalid_properties_raises_error(pentalanine_iterator):
 
 
 def test_iterator_number_of_atoms(pentalanine_iterator,
-                                  pentalanine_structures):
-
+                                  pentalanine_structures,
+                                  mdtraj_trajectory):
     assert pentalanine_iterator._get_num_atoms() == 62
 
     iterator = msm.structure.Iterator(pentalanine_structures)
     assert iterator._get_num_atoms() == 62
 
+    iterator = msm.structure.Iterator(mdtraj_trajectory)
+    assert iterator._get_num_atoms() == 5547
+
 
 def test_iterator_number_of_structures(pentalanine_iterator,
-                                  pentalanine_structures):
-
+                                       pentalanine_structures,
+                                       mdtraj_trajectory):
     assert pentalanine_iterator._get_num_structures() == 5000
 
     iterator = msm.structure.Iterator(pentalanine_structures)
     assert iterator._get_num_structures() == 5000
+
+    iterator = msm.structure.Iterator(mdtraj_trajectory)
+    assert iterator._get_num_structures() == 51
 
 
 def check_iterator_coordinates_time_and_box(iterator,
@@ -85,7 +95,6 @@ def check_iterator_coordinates_time_and_box(iterator,
                                             expected_coords,
                                             expected_coords_shape,
                                             expected_box):
-
     _, time, coordinates, box = next(iterator)
     assert puw.get_value(time) == expected_time
     assert coordinates.shape == expected_coords_shape
@@ -158,30 +167,18 @@ def test_iterator_with_h5_file():
     assert current_time == 50000.0
 
 
-def test_iterator_with_mdtraj():
-    topology_file = msm.demo['nglview']['md_1u19.gro']
-    traj_file = msm.demo['nglview']['md_1u19.xtc']
-
-    traj = mdt.load(traj_file, top=topology_file)
-
-    iterator = msm.structure.Iterator(traj)
-    assert iterator._n_atoms == 5547
-    assert iterator._n_structures == 51
+def test_iterator_with_mdtraj(mdtraj_trajectory):
+    iterator = msm.structure.Iterator(mdtraj_trajectory)
 
     current_frame = 0
     current_time = 0
 
-    for _, time, coordinates, box in iterator:
-
+    for time, coordinates, box in iterator:
         assert puw.get_value(time) == current_time
         assert coordinates.shape == (5547, 3)
-        assert box.shape(3, 3)
+        assert box.shape == (3, 3)
         current_frame += 1
         current_time += 20
 
-    assert current_frame == 50
-    assert current_time == 1000.0
-    final_box = np.array([[7.988997, 0., 0.],
-                          [0., 7.988997, 0.],
-                          [0., 0., 9.910033]])
-    assert np.allclose(box, final_box)
+    assert current_frame == 51
+    
