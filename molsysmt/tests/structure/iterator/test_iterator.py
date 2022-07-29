@@ -158,7 +158,6 @@ def test_iterator_with_h5_file():
     assert current_time == 50000.0
 
 
-@pytest.mark.skip(reason="Still not implemented")
 def test_iterator_with_mdtraj():
     topology_file = msm.demo['nglview']['md_1u19.gro']
     traj_file = msm.demo['nglview']['md_1u19.xtc']
