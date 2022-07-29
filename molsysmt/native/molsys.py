@@ -1,5 +1,6 @@
 from molsysmt._private.variables import is_all
 
+
 class MolSys:
 
     def __init__(self):
@@ -28,11 +29,11 @@ class MolSys:
 
         from molsysmt import convert, get_form, select
 
-        if get_form(item)!='molsysmt.MolSys':
+        if get_form(item) != 'molsysmt.MolSys':
             tmp_item = convert(item, to_form='molsysmt.MolSys', selection=selection,
                                structure_indices=structure_indices, syntaxis=syntaxis)
             self.topology.add(tmp_item.topology)
-            self.structures.add(tmp_item.trajectory)
+            self.structures.add(tmp_item.structures)
         else:
             atom_indices=select(item, selection=selection, syntaxis=syntaxis)
             self.topology.add(item.topology, selection=atom_indices)

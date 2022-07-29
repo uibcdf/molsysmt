@@ -6,7 +6,7 @@ api_doc = ''
 
 
 class MolSysValueError(ValueError):
-    """ Base class for value errors. Ir prints a message
+    """ Base class for value errors. It prints a message
         containing info such as the function that raised
         the error, and a link to GitHub repository.
 
@@ -192,3 +192,33 @@ class IncorrectShapeError(MolSysValueError):
         if actual_shape:
             message += f"Actual shape {actual_shape}. "
         super().__init__(message, caller)
+
+
+class IteratorStartError(MolSysValueError):
+    """ Exception raised when an incorrect start value is passed to an iterator.
+    """
+    pass
+
+
+class IteratorIntervalError(MolSysValueError):
+    """ Exception raised when an incorrect interval value is passed to an iterator.
+    """
+    pass
+
+
+class IteratorChunkSizeError(MolSysValueError):
+    """ Exception raised when an incorrect chunk size value is passed to an iterator.
+    """
+    pass
+
+
+class IteratorStopError(MolSysValueError):
+    """ Exception raised when an incorrect stop value is passed to an iterator.
+    """
+    pass
+
+
+class ConcatenationError(MolSysValueError):
+    """ Exception raised when two arrays cannot be concatenated because one if them is null.
+    """
+    pass
