@@ -1,7 +1,8 @@
 from ...exceptions import ArgumentError
 from ...variables import is_all
+import numpy as np
 
-def digest_atom_indices(atom_indices, caller):
+def digest_atom_indices(atom_indices, caller=None):
     """ Checks if atom_indices has the expected type and value.
 
     Parameters

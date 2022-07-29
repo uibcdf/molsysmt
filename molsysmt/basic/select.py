@@ -44,7 +44,7 @@ def select_standard(molecular_system, selection='all', syntax='MolSysMT'):
     return atom_indices
 
 
-def select_within(molecular_system, selection, structure_index, syntax):
+def select_within(molecular_system, selection, structure_indices, syntax):
 
     from molsysmt.structure.get_contacts import get_contacts
 
@@ -67,7 +67,7 @@ def select_within(molecular_system, selection, structure_index, syntax):
     threshold, selection_2 = tmp_selection.split(" of ")
 
     atom_indices_1, atom_indices_2, cmap = get_contacts(molecular_system, selection=selection_1, selection_2=selection_2,
-                                           structure_indices=structure_index, threshold=threshold, pbc=pbc, engine='MolSysMT',
+                                           structure_indices=structure_indices, threshold=threshold, pbc=pbc, engine='MolSysMT',
                                            syntax=syntax, output_atom_indices=True)
 
     if not_within:
@@ -102,7 +102,7 @@ def select_bonded_to(molecular_system, selection, syntax):
     return output
 
 @digest()
-def select(molecular_system, selection='all', structure_index=0, element='atom', mask=None,
+def select(molecular_system, selection='all', structure_indices='all', element='atom', mask=None,
         syntax='MolSysMT', to_syntax=None):
 
     # to_syntax: 'NGLView', 'MDTraj', ...
@@ -169,7 +169,7 @@ def select(molecular_system, selection='all', structure_index=0, element='atom',
             selection = selection.replace(sub_selection, 'atom_index==@sub_atom_indices')
 
         if 'within' in selection:
-            atom_indices = select_within(molecular_system, selection, structure_index, syntax)
+            atom_indices = select_within(molecular_system, selection, structure_indices, syntax)
         elif 'bonded to' in selection:
             atom_indices = select_bonded_to(molecular_system, selection, syntax)
         else:

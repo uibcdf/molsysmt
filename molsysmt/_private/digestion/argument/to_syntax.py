@@ -19,12 +19,21 @@ def digest_to_syntax(to_syntax, caller=None):
 
     from molsysmt.syntax.syntaxes import lowercase_syntaxes
 
-    if isinstance(to_syntax, str):
+    if caller=='select':
+
+        if to_syntax is None:
+            return to_syntax
+        elif isinstance(to_syntax, str):
+            try:
+                return lowercase_syntaxes[to_syntax.lower()]
+            except:
+                raise ArgumentError('to_syntax', caller=caller, message=None)
+
+    else:
+
         try:
             return lowercase_syntaxes[to_syntax.lower()]
         except:
-            pass
-
-    raise ArgumentError('to_syntax', caller=caller, message=None)
+            raise ArgumentError('to_syntax', caller=caller, message=None)
 
 

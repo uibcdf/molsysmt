@@ -23,14 +23,21 @@ def digest_time(time, caller=None):
             If time is not a valid argument.
 
     """
-    if time is None:
-        return time
-    elif isinstance(time, float):
-        return np.array([time])
-    elif isinstance(time, (list, tuple)):
-        return np.array(time)
-    elif isinstance(time, np.ndarray):
-        return time
 
-    raise ArgumentError('time', caller=caller, message=None)
+    if caller=='get':
+        if isinstance(time, bool):
+            return time
+        else:
+            raise ArgumentError('time', caller=caller, message=None)
+    else:
+        if time is None:
+            return time
+        elif isinstance(time, float):
+            return np.array([time])
+        elif isinstance(time, (list, tuple)):
+            return np.array(time)
+        elif isinstance(time, np.ndarray):
+            return time
+        else:
+            raise ArgumentError('time', caller=caller, message=None)
 

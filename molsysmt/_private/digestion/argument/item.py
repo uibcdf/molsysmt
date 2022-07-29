@@ -39,4 +39,4 @@ def digest_item(item, form=None, caller=None):
                 raise ArgumentError('item', caller=caller, message=None)
         return item
 
-    raise ArgumentError('item', caller=caller, message=None)
+    raise ArgumentError('item', value=item, caller=caller, message=None)

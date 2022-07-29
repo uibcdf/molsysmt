@@ -1,4 +1,5 @@
 from molsysmt._private.exceptions import ArgumentError
+import numpy as np
 
 def digest_selection(selection, syntax="MolSysMT", caller=None):
     """ Checks if a given selection has the correct type and syntax
@@ -22,14 +23,22 @@ def digest_selection(selection, syntax="MolSysMT", caller=None):
 
     """
 
-    if isinstance(selection, str):
-        return selection
-
-    try:
-        selection = digest_atom_indices(selection)
-        return selection
-    except:
-        pass
-
-    raise ArgumentError('selection', caller=caller, message=None)
+    if syntax=='MolSysMT':
+        if isinstance(selection, str):
+            return selection
+        elif isinstance(selection, (int, np.int64, np.int32)):
+            return np.array([selection], dtype='int64')
+        elif isinstance(selection, (np.ndarray, list, tuple, range)):
+            return np.array(selection, dtype='int64')
+        else:
+            raise ArgumentError('selection', caller=caller, message=None)
+    else:
+        if isinstance(selection, str):
+            return selection
+        elif isinstance(selection, (int, np.int64, np.int32)):
+            return np.array([selection], dtype='int64')
+        elif isinstance(selection, (np.ndarray, list, tuple, range)):
+            return np.array(selection, dtype='int64')
+        else:
+            raise ArgumentError('selection', caller=caller, message=None)
 

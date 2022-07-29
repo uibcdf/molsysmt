@@ -25,20 +25,30 @@ def digest_box(box, caller=None):
     WrongBoxError
         If box doesn't have the correct shape.
     """
-    if not(isinstance(box, np.ndarray)):
-        box = np.array(box)
 
-    shape = box.shape
+    if caller=='get':
 
-    if len(shape) == 2:
-        if shape[0] != 3 or shape[1] != 3:
+        if isinstance(box, bool):
+            return box
+        else:
             raise ArgumentError('box', caller=caller, message=None)
-        box = np.expand_dims(box, axis=0)
-    elif len(shape) == 3:
-        if shape[1] != 3 or shape[2] != 3:
-            raise ArgumentError('box', caller=caller, message=None)
+
     else:
-        raise ArgumentError('box', caller=caller, message=none)
 
-    return box
+        if not isinstance(box, np.ndarray):
+            box = np.array(box)
+
+        shape = box.shape
+
+        if len(shape) == 2:
+            if shape[0] != 3 or shape[1] != 3:
+                raise ArgumentError('box', caller=caller, message=None)
+            box = np.expand_dims(box, axis=0)
+        elif len(shape) == 3:
+            if shape[1] != 3 or shape[2] != 3:
+                raise ArgumentError('box', caller=caller, message=None)
+        else:
+            raise ArgumentError('box', caller=caller, message=None)
+
+        return box
 
