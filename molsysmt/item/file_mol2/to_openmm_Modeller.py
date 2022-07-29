@@ -11,8 +11,7 @@ def to_openmm_Modeller(item, atom_indices='all', structure_indices='all'):
     coordinates = get_coordinates_from_atom(item, indices=atom_indices,
             structure_indices=structure_indices)
     box = get_box_from_system(item, structure_indices=structure_indices)
-    tmp_item = openmm_Topology_to_openmm_Modeller(tmp_item, coordinates=coordinates, box=box,
-            check=False)
+    tmp_item = openmm_Topology_to_openmm_Modeller(tmp_item, coordinates=coordinates, box=box)
 
     return tmp_item
 

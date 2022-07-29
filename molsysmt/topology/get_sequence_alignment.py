@@ -2,7 +2,7 @@ from molsysmt._private.digestion import digest
 from molsysmt.basic import convert
 import numpy as np
 
-@digest
+@digest()
 def get_sequence_alignment(molecular_system, selection='all', reference_molecular_system=None, reference_selection=None,
                        engine='Biopython', syntax='MolSysMT', prettyprint=False,
                        alignment_index=0):

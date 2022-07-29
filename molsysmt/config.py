@@ -9,9 +9,6 @@ puw.configure.set_standard_units(['nm', 'ps', 'K', 'mole', 'amu', 'e',
                                  'kJ/mol', 'kJ/(mol*nm**2)', 'N', 'degrees'])
 
 
-# Set this variable false to disable argument checking
-argument_checking = True
-
 # Set this variable true while testing
 testing = False
 

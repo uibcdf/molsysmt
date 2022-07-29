@@ -4,7 +4,7 @@ from molsysmt._private.variables import is_all
 from molsysmt import puw
 import numpy as np
 
-@digest
+@digest()
 def get_sasa (molecular_system, element='atom', selection='all', structure_indices='all', syntax='MolSysMT',
           engine='MDTraj'):
 

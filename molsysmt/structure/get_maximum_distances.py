@@ -2,7 +2,7 @@ from molsysmt._private.digestion import digest
 from molsysmt import puw
 import numpy as np
 
-@digest
+@digest()
 def get_maximum_distances(molecular_system, selection="all", groups_of_atoms=None, group_behavior=None, as_entity=True, structure_indices="all",
                      molecular_system_2=None, selection_2=None, groups_of_atoms_2=None, group_behavior_2=None, as_entity_2=True, structure_indices_2=None,
                      atom_indices=False, pairs=False, pbc=False, parallel=False, engine='MolSysMT', syntax='MolSysMT'):

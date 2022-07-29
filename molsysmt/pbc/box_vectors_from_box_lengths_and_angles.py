@@ -3,11 +3,8 @@ from molsysmt.lib import box as libbox
 import numpy as np
 from molsysmt import puw
 
-@digest
+@digest()
 def box_vectors_from_box_lengths_and_angles(lengths, angles):
-
-    lengths=digest_box_lengths(lengths)
-    angles=digest_box_angles(angles)
 
     units = puw.get_unit(lengths)
     lengths_value = puw.get_value(lengths)

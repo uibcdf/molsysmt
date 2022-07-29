@@ -3,7 +3,7 @@ from molsysmt import puw
 from molsysmt.lib import box as libbox
 import numpy as np
 
-@digest
+@digest()
 def box_lengths_from_box_vectors(box):
 
     unit = puw.get_unit(box)

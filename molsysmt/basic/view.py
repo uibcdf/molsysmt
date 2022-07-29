@@ -1,6 +1,6 @@
-from molsysmt._private.exceptions import *
-from molsysmt._private.digestion import *
+from molsysmt._private.digestion import digest
 
+@digest()
 def view(molecular_system=None, viewer='NGLView', selection='all', structure_indices='all',
          concatenate_structures=False, standardize=False, water_as_surface=False, syntax='MolSysMT'):
 
@@ -9,10 +9,9 @@ def view(molecular_system=None, viewer='NGLView', selection='all', structure_ind
         concatenate=True
 
     from . import convert, merge, concatenate_structures, is_molecular_system, are_multiple_molecular_systems
-    from molsysmt.thirds.nglview import standardize_view
-    from molsysmt.thirds.nglview import show_system_as_transparent_surface
+    from molsysmt.viewer.viewers import viewers_forms
 
-    viewer, form_viewer = digest_viewer(viewer)
+    form_viewer = viewers_forms[viewer]
 
     if is_molecular_system(molecular_system):
         tmp_item = convert(molecular_system, to_form=form_viewer, selection=selection,
@@ -28,10 +27,12 @@ def view(molecular_system=None, viewer='NGLView', selection='all', structure_ind
 
     if standardize:
         if viewer=='NGLView':
+            from molsysmt.thirds.nglview import standardize_view
             standardize_view(tmp_item)
 
     if water_as_surface:
         if viewer=='NGLView':
+            from molsysmt.thirds.nglview import show_system_as_transparent_surface
             show_system_as_transparent_surface(tmp_item)
 
     return tmp_item

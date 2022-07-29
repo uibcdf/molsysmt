@@ -3,12 +3,6 @@ from molsysmt._private.digestion import digest
 @digest(form='openmm.Simulation')
 def to_file_pdb(item, atom_indices='all', structure_indices='all', output_filename=None):
 
-    if check:
-
-        digest_item(item, 'openmm.Simulation')
-        atom_indices = digest_atom_indices(atom_indices)
-        structure_indices = digest_structure_indices(structure_indices)
-
     from . import to_openmm_Topology as openmm_Simulation_to_openmm_Topology
     from molsysmt.item.openmm_Topology import to_file_pdb as openmm_Topology_to_file_pdb
     from . import get_coordinates_from_atom

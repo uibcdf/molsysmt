@@ -3,7 +3,7 @@ from molsysmt._private.digestion import digest
 from molsysmt import puw
 import numpy as np
 
-@digest
+@digest()
 def center(molecular_system, selection='all', center_of_selection='all', weights=None, new_coordinates_center=None, structure_indices='all',
            syntax='MolSysMT', engine='MolSysMT', in_place=False):
 

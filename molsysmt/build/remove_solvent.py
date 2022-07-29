@@ -8,15 +8,12 @@ Remove Atoms
 Methods to remove atoms from a molecular model.
 """
 
-from molsysmt._private.exceptions import *
-from molsysmt._private.digestion import *
+from molsysmt._private.digestion import digest
 
+@digest()
 def remove_solvent(molecular_system, water=True, ions=True, cosolutes=True, include_selection=None, exclude_selection=None, syntax='MolSysMT'):
 
     from molsysmt.basic import select, remove
-
-    molecular_system = digest_molecular_system(molecular_system)
-    syntax = digest_syntax(syntax)
 
     atom_indices_to_be_removed = []
     atom_indices_water = []

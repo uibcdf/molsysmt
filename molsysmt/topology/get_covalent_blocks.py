@@ -2,7 +2,7 @@ from molsysmt._private.digestion import digest
 import numpy as np
 from networkx import connected_components
 
-@digest
+@digest()
 def get_covalent_blocks(molecular_system, selection='all', remove_bonds=None, output_form='sets',
         syntax='MolSysMT'):
 

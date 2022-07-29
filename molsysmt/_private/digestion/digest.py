@@ -1,11 +1,12 @@
 import molsysmt.config as config
+from .argument_names_sanitizer import argument_names_sanitizer
+from molsysmt._private.exceptions import NotDigestedArgumentWarning
 
 import functools
 import inspect
 from importlib import import_module
 import os
-
-from ..functions import invoked_by_user
+import warnings
 
 ###
 
@@ -18,7 +19,7 @@ for filename in os.listdir(current_dir+'/argument'):
         argument = filename[:-3]
         module = import_module('molsysmt._private.digestion.argument.' + argument)
         function = getattr(module, 'digest_'+argument)
-        parameters = inspect.getargspec(function)
+        parameters = inspect.getfullargspec(function)
         digestion_functions[argument]=function
         digestion_parameters[argument]=[]
         for parameter in parameters[0]:
@@ -47,21 +48,6 @@ def digest(output=False, **kwargs):
         @functools.wraps(func)
         def wrapper(*args, **kwargs):
 
-            skip_digestion = True
-
-            if config.argument_checking:
-                if invoked_by_user():
-                    skip_digestion = False
-
-            if config.testing:
-                skip_digestion = False
-
-            if skip_digestion:
-                if output:
-                    return digest_output(func(*args, **kwargs))
-                else:
-                    return func(*args, **kwargs)
-
             # Get default arguments
 
             signature = inspect.signature(func)
@@ -82,6 +68,9 @@ def digest(output=False, **kwargs):
             for argument_value, argument_name in zip(args, args_names):
                 all_args[argument_name] = argument_value
 
+            # Argument names sanitizer
+
+                all_args = argument_names_sanitizer(func.__name__, all_args)
 
             # Digestions:
 
@@ -99,8 +88,8 @@ def digest(output=False, **kwargs):
                             elif parameter in digest_parameters:
                                 parameters_dict[parameter] = digest_parameters[parameter]
                             else:
-                                raise ValueError()
-                        digested_args[arg_name] = digestion_functions(all_args[arg_name],
+                                parameters_dict[parameter] = None
+                        digested_args[arg_name] = digestion_functions[arg_name](all_args[arg_name],
                                                                       caller=func.__name__,
                                                                       **parameters_dict)
                     else:
@@ -111,11 +100,11 @@ def digest(output=False, **kwargs):
                 gut(arg_name)
 
             for arg_name in not_digested_args:
-                print(f'Problem with arg_name {arg_name}')
+                warnings.warn(arg_name, NotDigestedArgumentWarning, stacklevel=2)
 
             if output:
-                auxilary_output = func(**digested_args)
-                if isinstance(output, (list, tuple)):
+                auxiliary_output = func(**digested_args)
+                if isinstance(auxiliary_output, (list, tuple)):
                     if len(auxiliary_output) == 1:
                         auxiliary_output = auxiliary_output[0]
                 return auxiliary_output

@@ -2,7 +2,7 @@ from molsysmt._private.digestion import digest
 import numpy as np
 from molsysmt import puw
 
-@digest
+@digest()
 def get_ramachandran_angles(molecular_system, selection='all', structure_indices='all',
         syntax='MolSysMT', pbc=False):
 

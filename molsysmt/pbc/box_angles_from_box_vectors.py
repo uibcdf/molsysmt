@@ -3,7 +3,7 @@ from molsysmt import puw
 from molsysmt.lib import box as libbox
 import numpy as np
 
-@digest
+@digest()
 def box_angles_from_box_vectors(box):
 
     n_structures = box.shape[0]

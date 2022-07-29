@@ -1,6 +1,6 @@
 from molsysmt._private.digestion import digest
 
-@digest
+@digest()
 def get_missing_heavy_atoms(molecular_system, selection='all', syntax='MolSysMT', engine='PDBFixer'):
 
     output = {}

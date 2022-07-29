@@ -18,7 +18,6 @@ def select_standard(molecular_system, selection='all', syntax='MolSysMT'):
             n_atoms = dict_get[aux_form]['system']['n_atoms'](aux_item)
             atom_indices = np.arange(n_atoms, dtype='int64')
         else:
-            selection = digest_selection(selection, syntax)
             aux_item, aux_form = where_is_attribute(molecular_system, 'atom_index')
             if syntax=='MolSysMT':
                 atom_indices = select_with_MolSysMT(aux_item, selection)
@@ -102,7 +101,7 @@ def select_bonded_to(molecular_system, selection, syntax):
 
     return output
 
-@digest
+@digest()
 def select(molecular_system, selection='all', structure_index=0, element='atom', mask=None,
         syntax='MolSysMT', to_syntax=None):
 

@@ -1,6 +1,6 @@
 from molsysmt._private.digestion import digest
 
-@digest
+@digest()
 def add_missing_hydrogens(molecular_system, pH=7.4, forcefield='AMBER99SB-ILDN', engine='OpenMM'):
 
     """add_missing_hydrogens(item, pH=7.4, forcefield='AMBER99SB-ILDN', engine='OpenMM')

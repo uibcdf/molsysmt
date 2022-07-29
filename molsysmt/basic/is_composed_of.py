@@ -1,7 +1,7 @@
 from molsysmt._private.digestion import digest
 
 
-@digest
+@digest()
 def is_composed_of(molecular_system, selection='all', syntax='MolSysMT', ions=False, waters=False, cosolutes=False,
                    small_molecules=False, peptides=False, proteins=False, dnas=False, rnas=False, lipids=False):
     from . import get

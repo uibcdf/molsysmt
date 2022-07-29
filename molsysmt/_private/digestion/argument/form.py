@@ -27,7 +27,7 @@ def digest_form(form, caller=None):
     from molsysmt.item import is_file
     from molsysmt.api_forms import _dict_forms_lowercase
 
-    if isinstance(form, (form, tuple)):
+    if isinstance(form, (list, tuple)):
         return [digest_form(ii, caller=caller) for ii in form]
     else:
         if is_file(form):

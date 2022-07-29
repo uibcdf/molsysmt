@@ -3,7 +3,7 @@ import numpy as np
 from pandas import DataFrame as df
 
 
-@digest
+@digest()
 def info(molecular_system,
          element='system',
          indices=None,

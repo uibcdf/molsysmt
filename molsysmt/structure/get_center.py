@@ -5,7 +5,7 @@ from molsysmt.lib import com as libcom
 from molsysmt import puw
 import numpy as np
 
-@digest
+@digest()
 def get_center(molecular_system, selection='all', groups_of_atoms=None, weights=None,
         structure_indices='all', syntax='MolSysMT', engine='MolSysMT', parallel=False):
 

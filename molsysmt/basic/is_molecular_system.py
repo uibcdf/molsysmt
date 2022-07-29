@@ -1,5 +1,6 @@
-from molsysmt._private.exceptions import *
+from molsysmt._private.digestion import digest
 
+@digest()
 def is_molecular_system(items):
 
     from . import get_form, get

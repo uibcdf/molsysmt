@@ -27,7 +27,7 @@ dict_compare_in={
         'form' : compare_form_in,
         }
 
-@digest
+@digest()
 def compare(molecular_system_A, molecular_system_B, selection_A='all', structure_indices_A='all',
         selection_B='all', structure_indices_B='all', comparison='all', rule='A_eq_B',
         syntax='MolSysMT', report=False):

@@ -1,6 +1,7 @@
-from molsysmt._private.exceptions import *
-from molsysmt._private.digestion import *
+from molsysmt._private.exceptions import NotImplementedMethodError
+from molsysmt._private.digestion import digest
 
+@digest()
 def mutate (molecular_system, residue_indices=None, to_residue_names=None, engine='PDBFixer', verbose=False):
 
 
@@ -32,5 +33,5 @@ def mutate (molecular_system, residue_indices=None, to_residue_names=None, engin
         return tmp_molecular_system
 
     else:
-        raise NotImplementedError
+        raise NotImplementedMethodError
 

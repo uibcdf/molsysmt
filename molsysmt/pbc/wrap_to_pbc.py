@@ -4,7 +4,7 @@ from molsysmt import puw
 from molsysmt.lib import box as libbox
 import numpy as np
 
-@digest
+@digest()
 def wrap_to_pbc(molecular_system, selection='all', structure_indices='all',
                 center='[0,0,0] nanometers', center_of_selection=None, weights_for_center=None,
                 recenter=True, keep_covalent_bonds=False,

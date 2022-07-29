@@ -1,7 +1,7 @@
 from molsysmt._private.digestion import digest
 from molsysmt import puw
 
-@digest
+@digest()
 def is_solvated(molecular_system):
 
     from molsysmt.basic import get

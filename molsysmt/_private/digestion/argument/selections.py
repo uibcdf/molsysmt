@@ -1,4 +1,5 @@
 from molsysmt._private.exceptions import ArgumentError
+from molsysmt._private.variables import is_all
 
 def digest_selections(selections, syntax="MolSysMT", caller=None):
     """ Checks if a list of selections have the correct types and syntax
@@ -24,6 +25,8 @@ def digest_selections(selections, syntax="MolSysMT", caller=None):
     """
     if isinstance(selections, (list, tuple)):
         return [digest_selection(ii, syntax) for ii in selections]
+    elif is_all(selections):
+        return selections
 
     raise ArgumentError('selections', caller=caller, message=None)
 

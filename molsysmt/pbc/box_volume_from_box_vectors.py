@@ -2,7 +2,7 @@ from molsysmt._private.digestion import digest
 from molsysmt import puw
 import numpy as np
 
-@digest
+@digest()
 def box_volume_from_box_vectors(box):
 
     if box is not None:

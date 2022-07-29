@@ -1,5 +1,6 @@
 from molsysmt._private.exceptions import NotSupportedFormError
 
+# This method must not be digested
 def get_form(molecular_system):
 
     # This method can check if molecular system is indeed a molecular system

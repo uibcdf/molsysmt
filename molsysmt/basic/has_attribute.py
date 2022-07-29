@@ -1,6 +1,6 @@
 from molsysmt._private.digestion import digest
 
-@digest
+@digest()
 def has_attribute(molecular_system, attribute):
 
     from . import where_is_attribute

@@ -17,8 +17,7 @@ def to_openmm_System(item, atom_indices='all', structure_indices='all',
                                                 remove_cm_motion=remove_cm_motion,
                                                 hydrogen_mass=hydrogen_mass,
                                                 switch_distance=switch_distance,
-                                                flexible_constraints=flexible_constraints,
-                                                check=False)
+                                                flexible_constraints=flexible_constraints)
 
     return tmp_item
 

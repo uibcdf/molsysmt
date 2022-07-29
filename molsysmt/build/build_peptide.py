@@ -1,6 +1,6 @@
 from molsysmt._private.digestion import digest
 
-@digest
+@digest()
 def build_peptide (molecular_system, to_form='molsysmt.MolSys', engine='LEaP'):
 
     if engine=="LEaP":

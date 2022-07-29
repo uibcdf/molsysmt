@@ -3,7 +3,7 @@ import numpy as np
 from molsysmt import puw
 from molsysmt.lib import geometry as libgeometry
 
-@digest
+@digest()
 def shift_dihedral_angles(molecular_system, quartets=None, angles_shifts=None, blocks=None,
                           structure_indices='all', pbc=True, in_place=False, engine='MolSysMT'):
 

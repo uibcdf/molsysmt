@@ -1,6 +1,6 @@
 from molsysmt._private.digestion import digest
 
-@digest
+@digest()
 def get_missing_terminal_cappings(molecular_system, selection='all', syntax='MolSysMT', engine='PDBFixer'):
 
     output = {}

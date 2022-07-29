@@ -2,7 +2,7 @@ import numpy as np
 from molsysmt._private.digestion import digest
 
 
-@digest
+@digest()
 def set(molecular_system,
         element='system',
         indices=None,

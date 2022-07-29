@@ -4,7 +4,7 @@ from molsysmt._private.digestion import digest
 from molsysmt.basic import get
 from molsysmt.lib import geometry as libgeometry
 
-@digest
+@digest()
 def get_dihedral_angles(molecular_system, dihedral_angle=None, selection='all', quartets=None,
                         structure_indices='all', syntax='MolSysMT', pbc=False):
 

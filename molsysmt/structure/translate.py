@@ -2,7 +2,7 @@ from molsysmt._private.digestion import digest
 import numpy as np
 from molsysmt import puw
 
-@digest
+@digest()
 def translate(molecular_system, translation=None, selection='all', structure_indices='all',
         syntax='MolSysMT', in_place=False):
 

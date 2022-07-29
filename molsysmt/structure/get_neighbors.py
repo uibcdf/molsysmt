@@ -2,7 +2,7 @@ from molsysmt._private.digestion import digest
 from molsysmt import puw
 import numpy as np
 
-@digest
+@digest()
 def get_neighbors(molecular_system, selection="all", groups_of_atoms=None, group_behavior=None, structure_indices="all",
                   molecular_system_2=None, selection_2=None, groups_of_atoms_2=None, group_behavior_2=None, structure_indices_2=None,
                   threshold=None, num_neighbors=None, atom_indices=False, pbc=False, parallel=False,

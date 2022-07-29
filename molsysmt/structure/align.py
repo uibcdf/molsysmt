@@ -2,7 +2,7 @@ from molsysmt._private.exceptions import NotImplementedMethodError
 from molsysmt._private.digestion import digest
 import numpy as np
 
-@digest
+@digest()
 def align(molecular_system, selection='backbone', structure_indices='all',
           reference_molecular_system=None, reference_selection='backbone', reference_structure_index=0,
           syntax='MolSysMT', parallel=True, method='sequence alignment and least rmsd fit',

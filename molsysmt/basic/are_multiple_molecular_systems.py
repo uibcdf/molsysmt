@@ -1,5 +1,7 @@
+from molsysmt._private.digestion import digest
 import numpy as np
 
+@digest()
 def are_multiple_molecular_systems(items):
 
     from . import is_molecular_system

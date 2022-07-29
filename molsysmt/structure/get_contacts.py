@@ -2,7 +2,7 @@ from molsysmt._private.digestion import digest
 from molsysmt import puw
 import numpy as np
 
-@digest
+@digest()
 def get_contacts(molecular_system, selection=None, groups_of_atoms=None, group_behavior=None, structure_indices="all",
                 selection_2=None, groups_of_atoms_2=None, group_behavior_2=None, structure_indices_2=None,
                 output_atom_indices=False, threshold='12 angstroms', pbc=False, parallel=False,

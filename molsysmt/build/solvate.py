@@ -13,7 +13,7 @@ Solvate Box
 Methods and wrappers to create and solvate boxes
 """
 
-@digest
+@digest()
 def solvate (molecular_system, box_geometry="truncated octahedral", clearance='14.0 angstroms',
              anion='Cl-', num_anions="neutralize", cation='Na+', num_cations="neutralize",
              ionic_strength='0.0 molar', engine="LEaP",

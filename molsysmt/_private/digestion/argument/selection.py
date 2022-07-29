@@ -22,11 +22,6 @@ def digest_selection(selection, syntax="MolSysMT", caller=None):
 
     """
 
-    from .syntax import digest_syntax
-    from .atom import digest_atom_indices
-
-    syntax = digest_syntax(syntax)
-
     if isinstance(selection, str):
         return selection
 

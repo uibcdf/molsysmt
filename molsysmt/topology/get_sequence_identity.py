@@ -1,7 +1,7 @@
 from molsysmt._private.digestion import digest
 import numpy as np
 
-@digest
+@digest()
 def get_sequence_identity(molecular_system, selection='all', reference_molecular_system=None,
                           reference_selection='all', syntax='MolSysMT', engine='Biopython'):
 

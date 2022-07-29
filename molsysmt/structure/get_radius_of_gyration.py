@@ -1,10 +1,10 @@
 from molsysmt._private._digestion import digest
-from molsysmt._private.exceptions.not_implemented import NotImplementedError
+from molsysmt._private.exceptions import NotImplementedMethodError
 from molsysmt.lib import geometry as libgeometry
 from molsysmt import puw
 import numpy as np
 
-@digest
+@digest()
 def get_radius_of_gyration(molecular_system, selection='all', structure_indices='all',
                            weights=None, pbc=False, engine='MolSysMT', syntax='MolSysMT'):
 
@@ -55,11 +55,11 @@ def get_radius_of_gyration(molecular_system, selection='all', structure_indices=
 
     elif engine=='mdtraj':
 
-        raise NotImplementedError()
+        raise NotImplementedMethodError()
 
     else:
 
-        raise NotImplementedError()
+        raise NotImplementedMethodError()
 
     return output
 

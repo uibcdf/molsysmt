@@ -170,8 +170,8 @@ def get_n_atoms_from_system(item):
     from . import to_openmm_AmberInpcrdFile
     from ..openmm_AmberInpcrdFile import get_n_atoms_from_system as aux_get
 
-    tmp_item = to_openmm_AmberInpcrdFile(iteme)
-    output = aux_get(tmp_iteme)
+    tmp_item = to_openmm_AmberInpcrdFile(item)
+    output = aux_get(tmp_item)
 
     return output
 
@@ -211,8 +211,8 @@ def get_n_structures_from_system(item):
     from . import to_openmm_AmberInpcrdFile
     from ..openmm_AmberInpcrdFile import get_n_structures_from_system as aux_get
 
-    tmp_item = to_openmm_AmberInpcrdFile(iteme)
-    output = aux_get(tmp_iteme)
+    tmp_item = to_openmm_AmberInpcrdFile(item)
+    output = aux_get(tmp_item)
 
     return output
 
@@ -222,8 +222,8 @@ def get_box_from_system(item, structure_indices='all'):
     from . import to_openmm_AmberInpcrdFile
     from ..openmm_AmberInpcrdFile import get_box_from_system as aux_get
 
-    tmp_item = to_openmm_AmberInpcrdFile(iteme)
-    output = aux_get(tmp_iteme)
+    tmp_item = to_openmm_AmberInpcrdFile(item)
+    output = aux_get(tmp_item)
 
     return output
 
@@ -233,8 +233,8 @@ def get_time_from_system(item, structure_indices='all'):
     from . import to_openmm_AmberInpcrdFile
     from ..openmm_AmberInpcrdFile import get_time_from_system as aux_get
 
-    tmp_item = to_openmm_AmberInpcrdFile(iteme)
-    output = aux_get(tmp_iteme)
+    tmp_item = to_openmm_AmberInpcrdFile(item)
+    output = aux_get(tmp_item)
 
     return output
 
@@ -244,8 +244,8 @@ def get_step_from_system(item, structure_indices='all'):
     from . import to_openmm_AmberInpcrdFile
     from ..openmm_AmberInpcrdFile import get_step_from_system as aux_get
 
-    tmp_item = to_openmm_AmberInpcrdFile(iteme)
-    output = aux_get(tmp_iteme)
+    tmp_item = to_openmm_AmberInpcrdFile(item)
+    output = aux_get(tmp_item)
 
     return output
 

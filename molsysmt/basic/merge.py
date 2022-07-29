@@ -1,6 +1,6 @@
 from molsysmt._private.digestion import digest
 
-@digest
+@digest()
 def merge(molecular_systems,
           selections='all',
           structure_indices='all',

@@ -17,7 +17,7 @@ def _evaluation(condition, n_in_system):
 
     return output
 
-@digest
+@digest()
 def contains(molecular_system, selection='all', syntax='MolSysMT',
         ions=None, waters=None, cosolutes=None, small_molecules=None, peptides=None, proteins=None,
         dnas=None, rnas=None, lipids=None, hydrogens=None):

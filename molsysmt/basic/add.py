@@ -1,6 +1,6 @@
 from molsysmt._private.digestion import digest
 
-@digest
+@digest()
 def add(to_molecular_system, from_molecular_systems, selections='all', structure_indices='all',
         syntax='MolSysMT'):
 
@@ -65,7 +65,7 @@ def add(to_molecular_system, from_molecular_systems, selections='all', structure
         raise ValueError("The length of the lists items and selections need to be equal.")
 
     if not isinstance(structure_indices, (list, tuple)):
-        structure_indices = [digest_structure_indices(structure_indices) for ii in range(n_from_molecular_systems)]
+        structure_indices = [structure_indices for ii in range(n_from_molecular_systems)]
     elif len(structure_indices)!=n_from_molecular_systems:
         raise ValueError("The length of the lists items and structure_indices need to be equal.")
 

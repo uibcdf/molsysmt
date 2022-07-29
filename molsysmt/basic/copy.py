@@ -1,6 +1,6 @@
 from molsysmt._private.digestion import digest
 
-@digest
+@digest()
 def copy(molecular_system, output_filename=None):
 
     from . import get_form, is_molecular_system
