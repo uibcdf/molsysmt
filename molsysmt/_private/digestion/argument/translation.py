@@ -24,6 +24,8 @@ def digest_translation(translation, caller=None):
     else:
         raise ArgumentError('translation', caller=caller, message=None)
 
+    
+
     if caller=='translate':
 
         if isinstance(box, bool):
