@@ -10,7 +10,7 @@ def add_missing_terminal_cappings(molecular_system, N_terminal=None, C_terminal=
     form_in = get_form(molecular_system)
     form_out = form_in
 
-    if engine is 'PDBFixer':
+    if engine == 'PDBFixer':
 
         from pdbfixer.pdbfixer import Sequence
 

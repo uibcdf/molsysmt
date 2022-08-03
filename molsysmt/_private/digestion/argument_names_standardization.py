@@ -1,5 +1,5 @@
 
-def argument_names_sanitizer(caller, kwargs):
+def argument_names_standardization(caller, kwargs):
 
     if caller=='molsysmt.basic.get':
 

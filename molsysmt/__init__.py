@@ -14,8 +14,7 @@ __documentation_web__ = 'https://www.uibcdf.org/MolSysMT'
 __github_web__ = 'https://github.com/uibcdf/MolSysMT'
 __github_issues_web__ = __github_web__ + '/issues'
 
-# from ._pyunitwizard import puw
-from .config import puw
+from ._pyunitwizard import puw
 
 from .basic import *
 

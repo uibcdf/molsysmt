@@ -1,7 +1,7 @@
-from pandas import DataFrame as Pandas_DataFrame
+import pandas as pd
 import numpy as np
 
-class Atoms_DataFrame(Pandas_DataFrame):
+class Atoms_DataFrame(pd.DataFrame):
 
     def __init__(self):
 
@@ -25,7 +25,7 @@ class Atoms_DataFrame(Pandas_DataFrame):
             self[column].where(self[column].notnull(), None, inplace=True)
 
 
-class Bonds_DataFrame(Pandas_DataFrame):
+class Bonds_DataFrame(pd.DataFrame):
 
     def __init__(self):
 
@@ -116,8 +116,8 @@ class Topology():
         tmp_item.bonds_dataframe['atom1_index'] += n_atoms
         tmp_item.bonds_dataframe['atom2_index'] += n_atoms
 
-        self.atoms_dataframe = self.atoms_dataframe.append(tmp_item.atoms_dataframe, ignore_index=True)
-        self.bonds_dataframe = self.bonds_dataframe.append(tmp_item.bonds_dataframe, ignore_index=True)
+        self.atoms_dataframe = pd.concat([self.atoms_dataframe, tmp_item.atoms_dataframe], ignore_index=True)
+        self.bonds_dataframe = pd.concat([self.bonds_dataframe, tmp_item.bonds_dataframe], ignore_index=True)
 
         self._build_entities()
 

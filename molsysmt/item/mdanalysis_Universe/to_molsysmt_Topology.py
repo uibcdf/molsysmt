@@ -83,7 +83,7 @@ def to_molsysmt_Topology(item, atom_indices='all'):
 
         for bond in item.bonds:
 
-            if bond.btype is 'bond':
+            if bond.btype == 'bond':
 
                 bond_atom1_array[bond_index] = bond.atoms[0].index
                 bond_atom2_array[bond_index] = bond.atoms[1].index

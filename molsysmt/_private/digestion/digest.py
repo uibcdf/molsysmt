@@ -1,5 +1,5 @@
 import molsysmt.config as config
-from .argument_names_sanitizer import argument_names_sanitizer
+from .argument_names_standardization import argument_names_standardization
 from molsysmt._private.exceptions import NotDigestedArgumentWarning
 
 import functools
@@ -70,7 +70,7 @@ def digest(output=False, **kwargs):
 
             # Argument names sanitizer
 
-                all_args = argument_names_sanitizer(func.__name__, all_args)
+            all_args = argument_names_standardization(func.__name__, all_args)
 
             # Digestions:
 

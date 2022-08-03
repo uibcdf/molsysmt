@@ -20,7 +20,7 @@ def get_bondgraph(molecular_system, nodes_name='atom_index', selection='all', sy
 
         G = Graph()
 
-        if nodes_name is 'atom_index':
+        if nodes_name == 'atom_index':
 
             atom_indices, bonded_atoms = get(molecular_system, element='atom', selection=selection, syntax=syntax,
                                              atom_index=True, inner_bonded_atoms=True)
