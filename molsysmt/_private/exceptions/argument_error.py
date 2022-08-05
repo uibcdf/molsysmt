@@ -43,10 +43,10 @@ class ArgumentError(Exception):
         if message:
             full_message += message
 
-        super().__init__(full_message)
 
         full_message += (
             f"Check {api_doc} for more information. "
             f"If you still need help, open a new issue in {github_issues}."
         )
 
+        super().__init__(full_message)
