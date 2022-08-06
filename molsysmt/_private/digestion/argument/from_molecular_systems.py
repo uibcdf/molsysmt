@@ -14,8 +14,8 @@ def digest_from_molecular_systems(from_molecular_systems, caller=None):
             raise ArgumentError(from_molecular_systems, caller=caller, message=None)
     else:
 
-        if not are_multiple_molecular_systems(molecular_systems):
-            raise ArgumentError(molecular_systems, caller=caller, message=None)
+        if not are_multiple_molecular_systems(from_molecular_systems):
+            raise ArgumentError(from_molecular_systems, caller=caller, message=None)
 
-        return molecular_systems
+        return from_molecular_systems
 

@@ -17,8 +17,6 @@ def set_atom_name_to_atom(item, indices='all', structure_indices='all', value=No
 @digest(form='molsysmt.MolSys')
 def set_coordinates_to_atom(item, indices='all', structure_indices='all', value=None):
 
-    value = puw.standardize(value)
-
     if is_all(indices):
         if item.structures.coordinates.shape[1]!=value.shape[1]:
             raise ValueError('New coordinates array has different number of atoms')
