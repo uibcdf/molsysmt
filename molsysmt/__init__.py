@@ -55,8 +55,8 @@ __all__ = []
 #    'remove_solvent', 'remove_hydrogens',
 #    'build_peptide',
 #    'wrap_molecules_to_pbc_cell', 'unwrap_molecules_from_pbc_cell',
-#    'minimum_image_convention', 'box_shape_from_box_angles', 'box_shape_from_box_vectors',
-#    'box_lengths_from_box_vectors', 'box_angles_from_box_vectors', 'box_vectors_from_box_lengths_and_angles'
+#    'minimum_image_convention', 'box_shape_from_box_angles', 'box_shape_from_box',
+#    'box_lengths_from_box', 'box_angles_from_box', 'box_from_box_lengths_and_angles'
 #          ]
 
 

@@ -26,15 +26,13 @@ def digest_atom_indices(atom_indices, caller=None):
     """
 
     if atom_indices is None:
-        pass
+        return None
     elif is_all(atom_indices):
-        atom_indices = 'all'
+        return 'all'
     elif isinstance(atom_indices, (int, np.int64, np.int32)):
-        atom_indices = np.array([atom_indices], dtype='int64')
+        return np.array([atom_indices], dtype='int64')
     elif isinstance(atom_indices, (np.ndarray, list, tuple, range)):
-        atom_indices = np.array(atom_indices, dtype='int64')
-    else:
-        raise ArgumentError('atom_indices', caller=caller, message=None)
+        return np.array(atom_indices, dtype='int64')
 
-    return atom_indices
+    raise ArgumentError('atom_indices', caller=caller, message=None)
 

@@ -24,11 +24,9 @@ def digest_time(time, caller=None):
 
     """
 
-    if caller=='get':
+    if caller=='molsysmt.basic.get.get':
         if isinstance(time, bool):
             return time
-        else:
-            raise ArgumentError('time', caller=caller, message=None)
     else:
         if time is None:
             return time
@@ -38,6 +36,6 @@ def digest_time(time, caller=None):
             return np.array(time)
         elif isinstance(time, np.ndarray):
             return time
-        else:
-            raise ArgumentError('time', caller=caller, message=None)
+
+    raise ArgumentError('time', value=time, caller=caller, message=None)
 

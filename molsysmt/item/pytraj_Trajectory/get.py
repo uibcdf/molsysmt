@@ -403,7 +403,7 @@ def get_n_structures_from_system(item):
 @digest(form=form)
 def get_box_from_system(item, structure_indices='all'):
 
-    from molsysmt.pbc import box_vectors_from_box_lengths_and_angles
+    from molsysmt.pbc import box_from_box_lengths_and_angles
 
     lengths = puw.quantity(item.unitcells[:,0:3]*0.1, unit='nm')
     angles = puw.quantity(item.unitcells[:,3:6], unit='degrees')
@@ -412,7 +412,7 @@ def get_box_from_system(item, structure_indices='all'):
         lengths = lengths[structure_indices,:]
         angles = angles[structure_indices,:]
 
-    output = box_vectors_from_box_lengths_and_angles(lengths, angles)
+    output = box_from_box_lengths_and_angles(lengths, angles)
 
     return output
 

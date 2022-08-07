@@ -17,7 +17,7 @@ def digest_atom_type(atom_type, caller=None):
     Returns
     -------
     bool
-        Either True or False when caller is `molsysmt.basic.get`.
+        Either True or False when caller is `get`.
 
     Raises
     -------
@@ -25,9 +25,9 @@ def digest_atom_type(atom_type, caller=None):
         If the given `atom_type` has not of the correct type or value.
     """
 
-    if caller=='molsysmt.basic.get':
-        if is_instance(atom_type, bool):
+    if caller=='molsysmt.basic.get.get':
+        if isinstance(atom_type, bool):
             return atom_type
 
-    raise ArgumentError('atom_type', caller=caller, message=None)
+    raise ArgumentError('atom_type', value=atom_type, caller=caller, message=None)
 

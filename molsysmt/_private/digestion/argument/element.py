@@ -26,5 +26,5 @@ def digest_element(element, caller=None):
         if element_name_lower in elements:
             return element_name_lower
 
-    raise ArgumentError('element', caller=caller, message=None)
+    raise ArgumentError('element', value=element, caller=caller, message=None)
 

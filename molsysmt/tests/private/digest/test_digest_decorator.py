@@ -139,7 +139,6 @@ def test_digest_decorator_with_kwargs():
     config.argument_checking = True
     values = example_function_with_kwargs_2("atom",
                                             n_waters=True,
-                                            check=False,
                                             )
 
     assert len(values) == 3

@@ -38,5 +38,5 @@ def digest_form(form, caller=None):
             except:
                 pass
 
-    raise ArgumentError('form', caller=caller, message=None)
+    raise ArgumentError('form', value=form, caller=caller, message=None)
 

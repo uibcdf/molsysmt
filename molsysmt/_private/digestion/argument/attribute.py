@@ -6,6 +6,6 @@ def digest_attribute(attribute, caller=None):
 
     if is_attribute(attribute):
         return attribute
-    else:
-        raise ArgumentError('attribute', value=attribute, caller=caller, message=None)
+
+    raise ArgumentError('attribute', value=attribute, caller=caller, message=None)
 

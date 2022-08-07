@@ -1,6 +1,7 @@
 from molsysmt._private.digestion import digest
 import numpy as np
 
+@digest()
 def get_n_entities_from_system(molecular_system):
 
     from . import get_entity_index_from_atom

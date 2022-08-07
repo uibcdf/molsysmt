@@ -17,7 +17,7 @@ def digest_entity_index(entity_index, caller=None):
     Returns
     -------
     bool
-        Either True or False when caller is `molsysmt.basic.get`.
+        Either True or False when caller is `get`.
 
     Raises
     -------
@@ -25,9 +25,9 @@ def digest_entity_index(entity_index, caller=None):
         If the given `entity_index` has not of the correct type or value.
     """
 
-    if caller=='molsysmt.basic.get':
-        if is_instance(entity_index, bool):
+    if caller=='molsysmt.basic.get.get':
+        if isinstance(entity_index, bool):
             return entity_index
 
-    raise ArgumentError('entity_index', caller=caller, message=None)
+    raise ArgumentError('entity_index', value=entity_index, caller=caller, message=None)
 

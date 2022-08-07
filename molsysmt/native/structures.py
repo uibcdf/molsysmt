@@ -82,10 +82,10 @@ class Structures():
 
     def get_box_lengths(self):
 
-        from molsysmt.pbc import box_lengths_from_box_vectors
+        from molsysmt.pbc import box_lengths_from_box
 
         if self.box is not None:
-            lengths = box_lengths_from_box_vectors(self.box)
+            lengths = box_lengths_from_box(self.box)
         else:
             lengths = None
 
@@ -93,10 +93,10 @@ class Structures():
 
     def get_box_angles(self):
 
-        from molsysmt.pbc import box_angles_from_box_vectors
+        from molsysmt.pbc import box_angles_from_box
 
         if self.box is not None:
-            angles = box_angles_from_box_vectors(self.box)
+            angles = box_angles_from_box(self.box)
         else:
             angles = None
 

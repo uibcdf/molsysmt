@@ -25,15 +25,13 @@ def digest_chain_indices(chain_indices, caller):
     """
 
     if chain_indices is None:
-        pass
+        return None
     elif is_all(chain_indices):
-        chain_indices = 'all'
+        return 'all'
     elif isinstance(chain_indices, (int, np.int64, np.int32)):
-        chain_indices = np.array([chain_indices], dtype='int64')
+        return np.array([chain_indices], dtype='int64')
     elif isinstance(chain_indices, (np.ndarray, list, tuple, range)):
-        chain_indices = np.array(chain_indices, dtype='int64')
-    else:
-        raise ArgumentError('chain_indices', caller=caller, message=None)
+        return np.array(chain_indices, dtype='int64')
 
-    return chain_indices
+    raise ArgumentError('chain_indices', caller=caller, message=None)
 

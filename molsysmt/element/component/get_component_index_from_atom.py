@@ -2,7 +2,7 @@ from molsysmt._private.digestion import digest
 from molsysmt._private.variables import is_all
 import numpy as np
 
-@digest
+@digest()
 def get_component_index_from_atom(molecular_system, indices='all'):
 
     from molsysmt.basic import get

@@ -3,7 +3,7 @@ from molsysmt import puw
 import numpy as np
 
 @digest()
-def box_volume_from_box_vectors(box):
+def box_volume_from_box(box):
 
     if box is not None:
         units = puw.get_unit(box)

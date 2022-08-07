@@ -2485,43 +2485,43 @@ def get_coordinates_from_system(item, structure_indices='all'):
 @digest(form=form)
 def get_box_shape_from_system(item, structure_indices='all'):
 
-    from molsysmt.pbc import box_shape_from_box_vectors
+    from molsysmt.pbc import box_shape_from_box
 
     tmp_box = get_box_from_system(item, structure_indices=structure_indices)
-    output = box_shape_from_box_vectors(tmp_box)
+    output = box_shape_from_box(tmp_box)
 
     return output
 
 @digest(form=form)
 def get_box_lengths_from_system(item, structure_indices='all'):
 
-    from molsysmt.pbc import box_lengths_from_box_vectors
+    from molsysmt.pbc import box_lengths_from_box
 
     tmp_box = get_box_from_system(item, structure_indices=structure_indices)
-    output = box_lengths_from_box_vectors(tmp_box)
+    output = box_lengths_from_box(tmp_box)
 
     return output
 
 @digest(form=form)
 def get_box_angles_from_system(item, structure_indices='all'):
 
-    from molsysmt.pbc import box_angles_from_box_vectors
+    from molsysmt.pbc import box_angles_from_box
 
     tmp_box = get_box_from_system(item, structure_indices=structure_indices)
-    output = box_angles_from_box_vectors(tmp_box)
+    output = box_angles_from_box(tmp_box)
 
     return output
 
 @digest(form=form)
 def get_box_volume_from_system(item, structure_indices='all'):
 
-    from molsysmt.pbc import box_volume_from_box_vectors
+    from molsysmt.pbc import box_volume_from_box
 
     tmp_box = get_box_from_system(item, structure_indices=structure_indices)
     if tmp_box is None:
         output=None
     else:
-        output = box_volume_from_box_vectors(tmp_box)
+        output = box_volume_from_box(tmp_box)
 
     return output
 

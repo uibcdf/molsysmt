@@ -20,10 +20,8 @@ def digest_syntax(syntax, caller=None):
     from molsysmt.syntax.syntaxes import lowercase_syntaxes
 
     if isinstance(syntax, str):
-        try:
+        if syntax.lower() in lowercase_syntaxes:
             return lowercase_syntaxes[syntax.lower()]
-        except:
-            pass
 
-    raise ArgumentError('syntax', caller=caller, message=None)
+    raise ArgumentError('syntax', value=syntax, caller=caller, message=None)
 

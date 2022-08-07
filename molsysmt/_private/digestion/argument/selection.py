@@ -30,8 +30,6 @@ def digest_selection(selection, syntax="MolSysMT", caller=None):
             return np.array([selection], dtype='int64')
         elif isinstance(selection, (np.ndarray, list, tuple, range)):
             return np.array(selection, dtype='int64')
-        else:
-            raise ArgumentError('selection', caller=caller, message=None)
     else:
         if isinstance(selection, str):
             return selection
@@ -39,6 +37,6 @@ def digest_selection(selection, syntax="MolSysMT", caller=None):
             return np.array([selection], dtype='int64')
         elif isinstance(selection, (np.ndarray, list, tuple, range)):
             return np.array(selection, dtype='int64')
-        else:
-            raise ArgumentError('selection', caller=caller, message=None)
+
+    raise ArgumentError('selection', value=selection, caller=caller, message=None)
 

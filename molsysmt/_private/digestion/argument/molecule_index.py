@@ -17,7 +17,7 @@ def digest_molecule_index(molecule_index, caller=None):
     Returns
     -------
     bool
-        Either True or False when caller is `molsysmt.basic.get`.
+        Either True or False when caller is `get`.
 
     Raises
     -------
@@ -25,9 +25,9 @@ def digest_molecule_index(molecule_index, caller=None):
         If the given `molecule_index` has not of the correct type or value.
     """
 
-    if caller=='molsysmt.basic.get':
-        if is_instance(molecule_index, bool):
+    if caller=='molsysmt.basic.get.get':
+        if isinstance(molecule_index, bool):
             return molecule_index
 
-    raise ArgumentError('molecule_index', caller=caller, message=None)
+    raise ArgumentError('molecule_index', value=molecule_index, caller=caller, message=None)
 

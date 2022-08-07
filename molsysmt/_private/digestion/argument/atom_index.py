@@ -17,7 +17,7 @@ def digest_atom_index(atom_index, caller=None):
     Returns
     -------
     bool
-        Either True or False when caller is `molsysmt.basic.get`.
+        Either True or False when caller is `get`.
 
     Raises
     -------
@@ -25,9 +25,9 @@ def digest_atom_index(atom_index, caller=None):
         If the given `atom_index` has not of the correct type or value.
     """
 
-    if caller=='molsysmt.basic.get':
-        if is_instance(atom_index, bool):
+    if caller=='molsysmt.basic.get.get':
+        if isinstance(atom_index, bool):
             return atom_index
 
-    raise ArgumentError('atom_index', caller=caller, message=None)
+    raise ArgumentError('atom_index', value=atom_index, caller=caller, message=None)
 

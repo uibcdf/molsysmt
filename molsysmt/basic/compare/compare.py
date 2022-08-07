@@ -45,14 +45,14 @@ def compare(molecular_system_A, molecular_system_B, selection_A='all', structure
 
         if rule == 'A_in_B':
 
-            result, dict_report = dict_compare_in[argument](molecular_system_A, molecular_system_B,
+            result, dict_report = dict_compare_in[comparison](molecular_system_A, molecular_system_B,
                     selection_A=selection_A, structure_indices_A=structure_indices_A,
                     selection_B=selection_B, structure_indices_B=structure_indices_B,
                     syntax=syntax)
 
         else:
 
-            result, dict_report = dict_compare_in[argument](molecular_system_B, molecular_system_A,
+            result, dict_report = dict_compare_in[comparison](molecular_system_B, molecular_system_A,
                     selection_A=selection_B, structure_indices_A=structure_indices_B,
                     selection_B=selection_A, structure_indices_B=structure_indices_A,
                     syntax=syntax)

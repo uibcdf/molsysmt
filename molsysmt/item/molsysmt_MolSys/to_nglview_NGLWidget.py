@@ -1,6 +1,6 @@
 from molsysmt._private.digestion import digest
 
-@digest(form='molsysmt,MolSys')
+@digest(form='molsysmt.MolSys')
 def to_nglview_NGLWidget(item, atom_indices='all', structure_indices='all'):
 
     from nglview import show_molsysmt

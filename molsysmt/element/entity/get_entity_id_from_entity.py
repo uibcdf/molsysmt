@@ -1,7 +1,7 @@
 from molsysmt._private.digestion import digest
 import numpy as np
 
-@digest
+@digest()
 def get_entity_id_from_entity(molecular_system, indices='all'):
 
     from . import get_n_entities_from_system

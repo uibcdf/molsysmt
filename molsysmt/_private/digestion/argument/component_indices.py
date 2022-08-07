@@ -25,15 +25,13 @@ def digest_component_indices(component_indices, caller):
     """
 
     if component_indices is None:
-        pass
+        return None
     elif is_all(component_indices):
-        component_indices = 'all'
+        return 'all'
     elif isinstance(component_indices, (int, np.int64, np.int32)):
-        component_indices = np.array([component_indices], dtype='int64')
+        return np.array([component_indices], dtype='int64')
     elif isinstance(component_indices, (np.ndarray, list, tuple, range)):
-        component_indices = np.array(component_indices, dtype='int64')
-    else:
-        raise ArgumentError('component_indices', caller=caller, message=None)
+        return np.array(component_indices, dtype='int64')
 
-    return component_indices
+    raise ArgumentError('component_indices', value=component_indices, caller=caller, message=None)
 

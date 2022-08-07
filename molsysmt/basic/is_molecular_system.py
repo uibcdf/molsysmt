@@ -29,15 +29,13 @@ def is_molecular_system(items):
             list_n_atoms.append(tmp_n_atoms)
             list_n_groups.append(tmp_n_groups)
 
-        not_none_values = filter(None.__ne__, list_n_atoms)
-        set_n_atoms = set(not_none_values)
+        set_n_atoms = set([ii for ii in list_n_atoms if ii is not None])
         if len(set_n_atoms)>1:
             output = False
 
         if output:
 
-            Not_none_values = filter(None.__ne__, list_n_groups)
-            set_n_groups = set(Not_none_values)
+            set_n_groups = set([ii for ii in list_n_groups if ii is not None])
             if len(set_n_groups)>1:
                 output = False
 

@@ -33,20 +33,24 @@ def digest(output=False, **kwargs):
 
     def digestor(func):
         """ Decorator to digest the input arguments of a function, with
-               the option to disable argument checking.
+            the option to disable argument checking.
 
-               When a function decorated with this decorator is called, its
-               arguments will be checked and modified if necessary. If one
-               of the arguments doesn't fill the requirements a corresponding
-               error will be raised.
+            When a function decorated with this decorator is called, its
+            arguments will be checked and modified if necessary. If one
+            of the arguments doesn't fill the requirements a corresponding
+            error will be raised.
 
-               The decorator uses the dictionary defined above which maps the
-               name of an argument to a digestion function.
+            The decorator uses the dictionary defined above which maps the
+            name of an argument to a digestion function.
 
         """
         # Use functools to preserve the metadata of the decorated function.
         @functools.wraps(func)
         def wrapper(*args, **kwargs):
+
+            # Define caller
+
+            caller = func.__module__+'.'+func.__name__
 
             # Get default arguments
 
@@ -70,7 +74,7 @@ def digest(output=False, **kwargs):
 
             # Argument names sanitizer
 
-            all_args = argument_names_standardization(func.__name__, all_args)
+            all_args = argument_names_standardization(caller, all_args)
 
             # Digestions:
 
@@ -90,7 +94,7 @@ def digest(output=False, **kwargs):
                             else:
                                 parameters_dict[parameter] = None
                         digested_args[arg_name] = digestion_functions[arg_name](all_args[arg_name],
-                                                                      caller=func.__name__,
+                                                                      caller=caller,
                                                                       **parameters_dict)
                     else:
                         not_digested_args[arg_name] = all_args[arg_name]

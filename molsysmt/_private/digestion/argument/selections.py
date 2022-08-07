@@ -23,10 +23,11 @@ def digest_selections(selections, syntax="MolSysMT", caller=None):
            A WrongSyntaxisError is raised if the syntax given is not in deed a syntax.
 
     """
+    from .selection import digest_selection
     if isinstance(selections, (list, tuple)):
         return [digest_selection(ii, syntax) for ii in selections]
     elif is_all(selections):
         return selections
 
-    raise ArgumentError('selections', caller=caller, message=None)
+    raise ArgumentError('selections', value=selections, caller=caller, message=None)
 

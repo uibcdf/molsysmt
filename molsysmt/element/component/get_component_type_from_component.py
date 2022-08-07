@@ -1,7 +1,7 @@
 from molsysmt._private.digestion import digest
 import numpy as np
 
-@digest
+@digest()
 def get_component_type_from_component(molecular_system, indices='all'):
 
     from molsysmt.basic import get

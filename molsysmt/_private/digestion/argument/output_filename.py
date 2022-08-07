@@ -17,7 +17,7 @@ def digest_output_filename(output_filename, caller=None):
     Returns
     -------
     bool
-        Either True or False when caller is `molsysmt.basic.get`.
+        Either True or False when caller is `get`.
 
     Raises
     -------
@@ -27,7 +27,7 @@ def digest_output_filename(output_filename, caller=None):
 
     if output_filename is None:
         return output_filename
-    elif is_instance(output_filename, str):
+    elif isinstance(output_filename, str):
         return output_filename
 
     raise ArgumentError('output_filename', value=output_filename, caller=caller, message=None)

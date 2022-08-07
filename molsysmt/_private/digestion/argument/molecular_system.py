@@ -23,6 +23,7 @@ def digest_molecular_system(molecular_system, caller=None):
     from molsysmt.basic import is_molecular_system
 
     if not is_molecular_system(molecular_system):
-        raise ArgumentError(molecular_system, caller=caller, message=None)
+        raise ArgumentError(molecular_system, value=molecular_system, caller=caller, message=None)
+
     return molecular_system
 

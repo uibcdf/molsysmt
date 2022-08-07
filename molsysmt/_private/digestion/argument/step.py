@@ -32,5 +32,5 @@ def digest_step(step, caller=None):
     elif isinstance(step, np.ndarray):
         return step
 
-    raise ArgumentError('step', caller=caller, message=None)
+    raise ArgumentError('step', value=step, caller=caller, message=None)
 

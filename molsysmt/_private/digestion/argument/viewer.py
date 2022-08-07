@@ -22,5 +22,5 @@ def digest_viewer(viewer, caller=None):
         tmp_viewer = viewer_from_lowercase[viewer.lower()]
         return tmp_viewer
     except KeyError:
-        raise ArgumentError('viewer', caller=caller, message=None)
+        raise ArgumentError('viewer', value=viewer, caller=caller, message=None)
 

@@ -2,6 +2,7 @@ from molsysmt._private.digestion import digest
 from molsysmt._private.variables import is_all
 import numpy as np
 
+@digest()
 def get_component_name_from_component(molecular_system, indices='all'):
 
     if is_all(indices):

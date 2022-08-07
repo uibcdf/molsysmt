@@ -26,29 +26,41 @@ def digest_box(box, caller=None):
         If box doesn't have the correct shape.
     """
 
-    if caller=='get':
+    if caller=='molsysmt.basic.get.get':
 
         if isinstance(box, bool):
             return box
         else:
-            raise ArgumentError('box', caller=caller, message=None)
+            raise ArgumentError('box', value=box, caller=caller, message=None)
 
     else:
 
-        if not isinstance(box, np.ndarray):
-            box = np.array(box)
+        if box is None:
+            return box
 
-        shape = box.shape
+        if not puw.check(box, dimensionality={'[L]':1}):
+            raise ArgumentError('box', caller=caller, message=None)
+
+        box_value = puw.get_value(box)
+        box_unit = puw.get_unit(box)
+
+        if not isinstance(box_value, np.ndarray):
+            box_value = np.array(box_value)
+
+        shape = box_value.shape
 
         if len(shape) == 2:
             if shape[0] != 3 or shape[1] != 3:
                 raise ArgumentError('box', caller=caller, message=None)
-            box = np.expand_dims(box, axis=0)
+            box_value = np.expand_dims(box_value, axis=0)
         elif len(shape) == 3:
             if shape[1] != 3 or shape[2] != 3:
-                raise ArgumentError('box', caller=caller, message=None)
+                raise ArgumentError('box', value=box, caller=caller, message=None)
         else:
-            raise ArgumentError('box', caller=caller, message=None)
+            raise ArgumentError('box', value=box, caller=caller, message=None)
+
+        box = puw.quantity(box_value, box_unit)
+        box = puw.standardize(box)
 
         return box
 

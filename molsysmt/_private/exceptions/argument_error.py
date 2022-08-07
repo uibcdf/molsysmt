@@ -38,7 +38,7 @@ class ArgumentError(Exception):
         if not caller:
             caller = caller_name()
 
-        full_message = f"Error in {caller} due to the {argument} argument."
+        full_message = f"Error in {caller} due to the {argument} argument with value {value}."
 
         if message:
             full_message += message
@@ -50,3 +50,4 @@ class ArgumentError(Exception):
         )
 
         super().__init__(full_message)
+

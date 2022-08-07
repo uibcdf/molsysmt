@@ -26,7 +26,6 @@ def digest_item(item, form=None, caller=None):
 
     """
     from molsysmt.basic import get_form
-
     try:
         in_form = get_form(item)
         output = True
@@ -36,7 +35,8 @@ def digest_item(item, form=None, caller=None):
     if output:
         if form is not None:
             if in_form!=form:
-                raise ArgumentError('item', caller=caller, message=None)
+                raise ArgumentError('item', value=item, caller=caller, message=None)
         return item
 
     raise ArgumentError('item', value=item, caller=caller, message=None)
+

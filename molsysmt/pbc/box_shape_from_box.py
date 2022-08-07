@@ -4,7 +4,7 @@ from molsysmt import puw
 import numpy as np
 
 @digest()
-def box_shape_from_box_vectors(box):
+def box_shape_from_box(box):
 
     from molsysmt.pbc.box_shape_from_box_angles import box_shape_from_box_angles
 

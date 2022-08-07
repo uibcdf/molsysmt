@@ -41,5 +41,5 @@ def digest_engine(engine, caller=None):
         except:
             pass
 
-    raise ArgumentError('engine', caller=caller, message=None)
+    raise ArgumentError('engine', value=engine, caller=caller, message=None)
 

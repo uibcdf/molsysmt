@@ -17,7 +17,7 @@ def digest_component_type(component_type, caller=None):
     Returns
     -------
     bool
-        Either True or False when caller is `molsysmt.basic.get`.
+        Either True or False when caller is `get`.
 
     Raises
     -------
@@ -25,9 +25,9 @@ def digest_component_type(component_type, caller=None):
         If the given `component_type` has not of the correct type or value.
     """
 
-    if caller=='molsysmt.basic.get':
-        if is_instance(component_type, bool):
+    if caller=='molsysmt.basic.get.get':
+        if isinstance(component_type, bool):
             return component_type
 
-    raise ArgumentError('component_type', caller=caller, message=None)
+    raise ArgumentError('component_type', value=component_type, caller=caller, message=None)
 

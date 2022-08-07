@@ -17,7 +17,7 @@ def digest_chain_type(chain_type, caller=None):
     Returns
     -------
     bool
-        Either True or False when caller is `molsysmt.basic.get`.
+        Either True or False when caller is `get`.
 
     Raises
     -------
@@ -25,9 +25,9 @@ def digest_chain_type(chain_type, caller=None):
         If the given `chain_type` has not of the correct type or value.
     """
 
-    if caller=='molsysmt.basic.get':
-        if is_instance(chain_type, bool):
+    if caller=='molsysmt.basic.get.get':
+        if isinstance(chain_type, bool):
             return chain_type
 
-    raise ArgumentError('chain_type', caller=caller, message=None)
+    raise ArgumentError('chain_type', value=chain_type, caller=caller, message=None)
 

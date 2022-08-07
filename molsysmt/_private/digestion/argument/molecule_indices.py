@@ -25,15 +25,13 @@ def digest_molecule_indices(molecule_indices, caller):
     """
 
     if molecule_indices is None:
-        pass
+        return None
     elif is_all(molecule_indices):
-        molecule_indices = 'all'
+        return 'all'
     elif isinstance(molecule_indices, (int, np.int64, np.int32)):
-        molecule_indices = np.array([molecule_indices], dtype='int64')
+        return np.array([molecule_indices], dtype='int64')
     elif isinstance(molecule_indices, (np.ndarray, list, tuple, range)):
-        molecule_indices = np.array(molecule_indices, dtype='int64')
-    else:
-        raise ArgumentError('molecule_indices', caller=caller, message=None)
+        return np.array(molecule_indices, dtype='int64')
 
-    return molecule_indices
+    raise ArgumentError('molecule_indices', value=molecule_indices, caller=caller, message=None)
 

@@ -23,9 +23,18 @@ def digest_box_lengths(box_lengths, caller=None):
     IncorrectShapeError
         If box_vectors doesn't have the correct shape.
     """
-    unit = puw.get_unit(box_lengths)
-    box_lengths = puw.get_value(box_lengths)
-    box_lengths = digest_box_values(box_lengths, caller)
 
-    return box_lengths * unit
+    if caller=='molsysmt.basic.get.get':
+
+        if isinstance(box_lengths, bool):
+            return box_lengths
+        else:
+            raise ArgumentError('box_lengths', value=box_lengths, caller=caller, message=None)
+
+    else:
+
+        if not puw.check(box_lengths, dimensionality={'[L]':1}):
+            raise ArgumentError('box_lengths', value=box_lengths, caller=caller, message=None)
+
+        return puw.standardize(box_lengths)
 

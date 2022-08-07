@@ -17,7 +17,7 @@ def digest_entity_id(entity_id, caller=None):
     Returns
     -------
     bool
-        Either True or False when caller is `molsysmt.basic.get`.
+        Either True or False when caller is `get`.
 
     Raises
     -------
@@ -25,9 +25,9 @@ def digest_entity_id(entity_id, caller=None):
         If the given `entity_id` has not of the correct type or value.
     """
 
-    if caller=='molsysmt.basic.get':
-        if is_instance(entity_id, bool):
+    if caller=='molsysmt.basic.get.get':
+        if isinstance(entity_id, bool):
             return entity_id
 
-    raise ArgumentError('entity_id', caller=caller, message=None)
+    raise ArgumentError('entity_id', value=entity_id, caller=caller, message=None)
 

@@ -1,7 +1,7 @@
 from molsysmt._private.digestion import digest
 import numpy as np
 
-@digest
+@digest()
 def get_molecule_index_from_atom(molecular_system, indices='all'):
 
     from molsysmt.basic import get

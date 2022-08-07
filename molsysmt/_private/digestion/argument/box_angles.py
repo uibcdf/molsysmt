@@ -23,9 +23,18 @@ def digest_box_angles(box_angles, caller=None):
     IncorrectShapeError
         If box_vectors doesn't have the correct shape.
     """
-    unit = puw.get_unit(box_angles)
-    box_angles = puw.get_value(box_angles)
-    box_angles = digest_box_values(box_angles, caller)
 
-    return box_angles * unit
+    if caller=='molsysmt.basic.get.get':
+
+        if isinstance(box_angles, bool):
+            return box_angles
+        else:
+            raise ArgumentError('box_angles', value=box_angles, caller=caller, message=None)
+
+    else:
+
+        if not puw.check(box_angles, dimensionality={}):
+            raise ArgumentError('box_angles', value=box_angles, caller=caller, message=None)
+
+        return puw.standardize(box_angles)
 

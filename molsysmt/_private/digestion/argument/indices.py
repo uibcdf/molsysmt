@@ -24,15 +24,13 @@ def digest_indices(indices, caller=None):
             If the given indices are not of the correct type.
     """
     if indices is None:
-        pass
+        return None
     elif is_all(indices):
-        indices = 'all'
+        return 'all'
     elif isinstance(indices, (int, np.int64, np.int32)):
-        indices = np.array([indices], dtype='int64')
+        return np.array([indices], dtype='int64')
     elif isinstance(indices, (np.ndarray, list, tuple, range)):
-        indices = np.array(indices, dtype='int64')
-    else:
-        raise ArgumentError(indices, caller=caller, message=None)
+        return np.array(indices, dtype='int64')
 
-    return indices
+    raise ArgumentError('indices', value=indices, caller=caller, message=None)
 

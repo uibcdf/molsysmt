@@ -4,13 +4,14 @@ from molsysmt.lib import box as libbox
 import numpy as np
 
 @digest()
-def box_angles_from_box_vectors(box):
+def box_lengths_from_box(box):
 
+    unit = puw.get_unit(box)
     n_structures = box.shape[0]
     tmp_box =  np.asfortranarray(puw.get_value(box), dtype='float64')
-    angles = libbox.angles_box(tmp_box, n_structures)
-    angles = np.ascontiguousarray(angles, dtype='float64')
+    lengths = libbox.length_edges_box(tmp_box, n_structures)
+    lengths = np.ascontiguousarray(lengths, dtype='float64')
     del(tmp_box)
 
-    return puw.quantity(angles.round(6), 'degrees')
+    return lengths.round(6)*unit
 

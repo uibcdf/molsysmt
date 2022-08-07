@@ -25,15 +25,13 @@ def digest_entity_indices(entity_indices, caller):
     """
 
     if entity_indices is None:
-        pass
+        return None
     elif is_all(entity_indices):
-        entity_indices = 'all'
+        return 'all'
     elif isinstance(entity_indices, (int, np.int64, np.int32)):
-        entity_indices = np.array([entity_indices], dtype='int64')
+        return np.array([entity_indices], dtype='int64')
     elif isinstance(entity_indices, (np.ndarray, list, tuple, range)):
-        entity_indices = np.array(entity_indices, dtype='int64')
-    else:
-        raise ArgumentError('entity_indices', caller=caller, message=None)
+        return np.array(entity_indices, dtype='int64')
 
-    return entity_indices
+    raise ArgumentError('entity_indices', value=entity_indices, caller=caller, message=None)
 

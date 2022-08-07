@@ -1,7 +1,7 @@
 from molsysmt._private.digestion import digest
 import numpy as np
 
-@digest
+@digest()
 def get_n_molecules_from_system(molecular_system):
 
     from . import get_molecule_index_from_atom

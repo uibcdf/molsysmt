@@ -17,7 +17,7 @@ def digest_component_index(component_index, caller=None):
     Returns
     -------
     bool
-        Either True or False when caller is `molsysmt.basic.get`.
+        Either True or False when caller is `get`.
 
     Raises
     -------
@@ -25,9 +25,9 @@ def digest_component_index(component_index, caller=None):
         If the given `component_index` has not of the correct type or value.
     """
 
-    if caller=='molsysmt.basic.get':
-        if is_instance(component_index, bool):
+    if caller=='molsysmt.basic.get.get':
+        if isinstance(component_index, bool):
             return component_index
 
-    raise ArgumentError('component_index', caller=caller, message=None)
+    raise ArgumentError('component_index', value=component_index, caller=caller, message=None)
 

@@ -17,7 +17,7 @@ def digest_group_type(group_type, caller=None):
     Returns
     -------
     bool
-        Either True or False when caller is `molsysmt.basic.get`.
+        Either True or False when caller is `get`.
 
     Raises
     -------
@@ -25,9 +25,9 @@ def digest_group_type(group_type, caller=None):
         If the given `group_type` has not of the correct type or value.
     """
 
-    if caller=='molsysmt.basic.get':
-        if is_instance(group_type, bool):
+    if caller=='molsysmt.basic.get.get':
+        if isinstance(group_type, bool):
             return group_type
 
-    raise ArgumentError('group_type', caller=caller, message=None)
+    raise ArgumentError('group_type', value=group_type, caller=caller, message=None)
 
