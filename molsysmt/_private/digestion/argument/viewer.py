@@ -16,10 +16,10 @@ def digest_viewer(viewer, caller=None):
 
     """
 
-    from molsysmt.engine.engines import lowercase_viewers
+    from molsysmt.viewer.viewers import lowercase_viewers
 
     try:
-        tmp_viewer = viewer_from_lowercase[viewer.lower()]
+        tmp_viewer = lowercase_viewers[viewer.lower()]
         return tmp_viewer
     except KeyError:
         raise ArgumentError('viewer', value=viewer, caller=caller, message=None)

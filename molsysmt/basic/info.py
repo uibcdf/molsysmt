@@ -85,7 +85,7 @@ def info(molecular_system,
                        'component index': component_index,
                        'chain index': chain_index,
                        'molecule index': molecule_index, 'molecule type': molecule_type,
-                       'entity index': entity_index, 'entity name': entity_name}).style.hide_index()
+                       'entity index': entity_index, 'entity name': entity_name}).style.hide(axis='index')
 
         elif element == 'group':
 
@@ -104,7 +104,7 @@ def info(molecular_system,
                        'component index': component_index,
                        'chain index': chain_index,
                        'molecule index': molecule_index, 'molecule type': molecule_type,
-                       'entity index': entity_index, 'entity name': entity_name}).style.hide_index()
+                       'entity index': entity_index, 'entity name': entity_name}).style.hide(axis='index')
 
         elif element == 'component':
 
@@ -120,7 +120,7 @@ def info(molecular_system,
                        'n atoms': n_atoms, 'n groups': n_groups,
                        'chain index': chain_index,
                        'molecule index': molecule_index, 'molecule type': molecule_type,
-                       'entity index': entity_index, 'entity name': entity_name}).style.hide_index()
+                       'entity index': entity_index, 'entity name': entity_name}).style.hide(axis='index')
 
         elif element == 'chain':
 
@@ -165,7 +165,7 @@ def info(molecular_system,
             return df({'index': chain_index, 'id': chain_id, 'name': chain_name,
                        'n atoms': n_atoms, 'n groups': n_groups, 'n components': n_components,
                        'molecule index': molecule_index, 'molecule type': molecule_type,
-                       'entity index': entity_index, 'entity name': entity_name}).style.hide_index()
+                       'entity index': entity_index, 'entity name': entity_name}).style.hide(axis='index')
 
         elif element == 'molecule':
 
@@ -190,7 +190,7 @@ def info(molecular_system,
             return df({'index': molecule_index, 'name': molecule_name, 'type': molecule_type,
                        'n atoms': n_atoms, 'n groups': n_groups, 'n components': n_components,
                        'chain index': chain_index,
-                       'entity index': entity_index, 'entity name': entity_name}).style.hide_index()
+                       'entity index': entity_index, 'entity name': entity_name}).style.hide(axis='index')
 
         elif element == 'entity':
 
@@ -203,7 +203,7 @@ def info(molecular_system,
             return df({'index': entity_index, 'name': entity_name, 'type': entity_type,
                        'n atoms': n_atoms, 'n groups': n_groups, 'n components': n_components,
                        'n chains': n_chains, 'n molecules': n_molecules
-                       }).style.hide_index()
+                       }).style.hide(axis='index')
 
         elif element == 'system':
 
@@ -235,7 +235,7 @@ def info(molecular_system,
             if n_rnas == 0 or n_rnas is None: tmp_df.drop(columns=['n_rnas'], inplace=True)
             if n_lipids == 0 or n_lipids is None: tmp_df.drop(columns=['n_lipids'], inplace=True)
 
-            return tmp_df.style.hide_index()
+            return tmp_df.style.hide(axis='index')
 
         else:
 
