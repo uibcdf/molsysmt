@@ -17,7 +17,6 @@ def fit (molecular_system=None, selection='backbone', structure_indices='all',
         n_atoms, n_structures = get(molecular_system, n_atoms=True, n_structures=True)
         atom_indices = select(molecular_system, selection=selection, syntax=syntax)
         n_atom_indices = atom_indices.shape[0]
-        structure_indices = digest_structure_indices(structure_indices)
         if is_all(structure_indices):
             structure_indices = np.arange(n_structures)
         n_structure_indices = structure_indices.shape[0]

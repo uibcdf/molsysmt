@@ -246,6 +246,7 @@ def select_with_MDAnalysis(item, selection):
 def select_with_MolSysMT(item, selection):
 
     from . import convert, get_form
+    from molsysmt.config import selection_shortcuts
 
     form_in = get_form(item)
 
@@ -292,11 +293,10 @@ def select_with_MolSysMT(item, selection):
                 var_value = list(var_value)
             locals()['auxiliar_variable_'+var_name]=var_value
 
-    from molsysmt.config import selection_shortcuts
 
     for key in selection_shortcuts:
         if key in selection:
-            tmp_selection.replace(key, selection_shortcuts[key])
+            tmp_selection = tmp_selection.replace(key, selection_shortcuts[key])
 
     indices = tmp_item.atoms_dataframe.query(tmp_selection).index.to_numpy()
 
