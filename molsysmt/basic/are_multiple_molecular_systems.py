@@ -4,7 +4,7 @@ import numpy as np
 @digest()
 def are_multiple_molecular_systems(items):
 
-    from . import is_molecular_system
+    from . import is_a_molecular_system
 
     output = False
 
@@ -12,7 +12,7 @@ def are_multiple_molecular_systems(items):
     if isinstance(items, (list, tuple)):
 
         for item in items:
-            aux_list.append(is_molecular_system(item))
+            aux_list.append(is_a_molecular_system(item))
 
         output = np.all(aux_list)
 

@@ -8,12 +8,12 @@ def view(molecular_system=None, viewer='NGLView', selection='all', structure_ind
     if concatenate_structures:
         concatenate=True
 
-    from . import convert, merge, concatenate_structures, is_molecular_system, are_multiple_molecular_systems
+    from . import convert, merge, concatenate_structures, is_a_molecular_system, are_multiple_molecular_systems
     from molsysmt.viewer.viewers import viewers_forms
 
     form_viewer = viewers_forms[viewer]
 
-    if is_molecular_system(molecular_system):
+    if is_a_molecular_system(molecular_system):
         tmp_item = convert(molecular_system, to_form=form_viewer, selection=selection,
                            structure_indices=structure_indices, syntax=syntax)
     elif are_multiple_molecular_systems(molecular_system):

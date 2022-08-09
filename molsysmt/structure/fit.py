@@ -8,9 +8,9 @@ from molsysmt import puw
 @digest()
 def fit (molecular_system=None, selection='backbone', structure_indices='all',
          reference_molecular_system=None, reference_selection=None, reference_structure_index=0,
-         to_form=None, parallel=True, syntax='MolSysMT', method='least rmsd', engine='MolSysMT'):
+         to_form=None, syntax='MolSysMT', method='least rmsd', engine='MolSysMT'):
 
-    from molsysmt.basic import select, get, set, convert, copy, is_molecular_system
+    from molsysmt.basic import select, get, set, convert, copy, is_a_molecular_system
 
     if engine=='MolSysMT':
 
@@ -56,21 +56,6 @@ def fit (molecular_system=None, selection='backbone', structure_indices='all',
         set(tmp_molecular_system, element='system', coordinates=coordinates)
         del(coordinates, units)
         return tmp_molecular_system
-
-    elif engine=='MDTraj':
-
-        #tmp_item.superpose(tmp_ref_item,frame=ref_structure_indices,atom_indices=atom_indices,ref_atom_indices=ref_atom_indices,parallel=parallel)
-
-        #if in_form==x_form:
-        #    item=tmp_item
-        #elif in_form=='molsysmt.Trajectory':
-        #    item._import_mdtraj_data(tmp_item)
-        #elif in_form=='molsysmt.MolSys':
-        #    item.trajectory._import_mdtraj_data(tmp_item)
-        #else:
-        #    item=_convert(tmp_item, to_form=in_form)
-
-        raise NotImplementedMethodError()
 
     else:
 

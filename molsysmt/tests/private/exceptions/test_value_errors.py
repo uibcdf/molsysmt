@@ -26,7 +26,7 @@ def test_molsys_value_error(base_error_msg):
     assert msg == str(exc_info.value)
 
 
-def test_raise_not_with_this_molecular_system(base_error_msg):
+def test_raise_not_with_this_a_molecular_system(base_error_msg):
     with pytest.raises(NotWithThisMolecularSystemError) as exc_info:
         raise_error(NotWithThisMolecularSystemError)
 

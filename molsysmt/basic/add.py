@@ -46,7 +46,7 @@ def add(to_molecular_system, from_molecular_systems, selections='all', structure
 
     """
 
-    from . import get_form, convert, extract, select, is_molecular_system, are_multiple_molecular_systems
+    from . import get_form, convert, extract, select, is_a_molecular_system, are_multiple_molecular_systems
     from molsysmt.api_forms import dict_add
 
     if not isinstance(to_molecular_system, (list, tuple)):
@@ -54,7 +54,7 @@ def add(to_molecular_system, from_molecular_systems, selections='all', structure
 
     to_forms = get_form(to_molecular_system)
 
-    if is_molecular_system(from_molecular_systems):
+    if is_a_molecular_system(from_molecular_systems):
         from_molecular_systems = [from_molecular_systems]
 
     n_from_molecular_systems = len(from_molecular_systems)

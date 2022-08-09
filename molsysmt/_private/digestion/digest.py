@@ -109,7 +109,7 @@ def digest(output=False, **kwargs):
                 gut(arg_name)
 
             for arg_name in not_digested_args:
-                warnings.warn(arg_name, NotDigestedArgumentWarning, stacklevel=2)
+                warnings.warn(arg_name+' from '+caller, NotDigestedArgumentWarning, stacklevel=2)
 
 
             # Initial order of arguments and kwargs

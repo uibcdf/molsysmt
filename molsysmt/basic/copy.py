@@ -3,7 +3,7 @@ from molsysmt._private.digestion import digest
 @digest()
 def copy(molecular_system, output_filename=None):
 
-    from . import get_form, is_molecular_system
+    from . import get_form, is_a_molecular_system
     from molsysmt.item import is_file
     from molsysmt.api_forms import dict_extract
 

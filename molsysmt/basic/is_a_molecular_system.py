@@ -1,7 +1,7 @@
 from molsysmt._private.digestion import digest
 
 @digest()
-def is_molecular_system(items):
+def is_a_molecular_system(items):
 
     from . import get_form, get
     from molsysmt.api_forms import dict_attributes

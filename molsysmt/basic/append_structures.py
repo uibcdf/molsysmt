@@ -4,7 +4,7 @@ from molsysmt._private.digestion import digest
 def append_structures(to_molecular_system, from_molecular_systems, selections='all',
         structure_indices='all', syntax='MolSysMT'):
 
-    from . import get_form, convert, extract, get, are_multiple_molecular_systems, is_molecular_system
+    from . import get_form, convert, extract, get, are_multiple_molecular_systems, is_a_molecular_system
     from molsysmt.api_forms import dict_append_structures
 
     if not isinstance(to_molecular_system, (list, tuple)):
@@ -12,7 +12,7 @@ def append_structures(to_molecular_system, from_molecular_systems, selections='a
 
     to_forms = get_form(to_molecular_system)
 
-    if is_molecular_system(from_molecular_systems):
+    if is_a_molecular_system(from_molecular_systems):
         from_molecular_systems = [from_molecular_systems]
 
     n_from_molecular_systems = len(from_molecular_systems)

@@ -1,4 +1,5 @@
 from molsysmt._private.exceptions import ArgumentError
+from molsysmt._private.variables import is_all
 import numpy as np
 
 def digest_mask(mask, caller=None):
@@ -9,20 +10,18 @@ def digest_mask(mask, caller=None):
 
         if mask is None:
             return mask
-        elif isinstance(to_syntax, (list, tuple, np.ndarray)):
+        elif isinstance(mask, (list, tuple, np.ndarray)):
             return mask
-        else:
-            raise ArgumentError('mask', value=mask, caller=caller, message=None)
+        elif is_all(mask):
+            return 'all'
 
     else:
 
         if mask is None:
             return mask
-        elif isinstance(to_syntax, (list, tuple, np.ndarray)):
+        elif isinstance(mask, (list, tuple, np.ndarray)):
             return mask
-        else:
-            raise ArgumentError('mask', value=mask, caller=caller, message=None)
+        elif is_all(mask):
+            return 'all'
 
-
-
-
+    raise ArgumentError('mask', value=mask, caller=caller, message=None)

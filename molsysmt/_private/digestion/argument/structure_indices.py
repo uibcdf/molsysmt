@@ -26,20 +26,19 @@ def digest_structure_indices(structure_indices, caller=None):
         If the given structure_indices has not of the correct type.
     """
 
-    # Depending on the method this could digest multiple structure_indices
-
     if structure_indices is None:
-        pass
+        return None
     elif is_all(structure_indices):
-        structure_indices = 'all'
+        return 'all'
     elif isinstance(structure_indices, (int, np.int64, np.int32)):
-        structure_indices = np.array([structure_indices], dtype='int64')
+        return np.array([structure_indices], dtype='int64')
     elif isinstance(structure_indices, (np.ndarray, list, tuple, range)):
-        structure_indices = np.array(structure_indices, dtype='int64')
-    else:
-        raise ArgumentError('structure_indices', caller=caller, message=None)
+        if all(isinstance(ii, (int, np.int64, np.int32)) for ii in structure_indices):
+            return np.array(structure_indices, dtype='int64')
+        else:
+            return [digest_structure_indices(ii) for ii in structure_indices]
 
-    return structure_indices
+    return ArgumentError('structure_indices', caller=caller, message=None)
 
 #
 #def digest_multiple_structure_indices(structure_indices, caller=None):

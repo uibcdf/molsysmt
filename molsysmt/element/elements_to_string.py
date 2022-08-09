@@ -5,8 +5,6 @@ def elements_to_string(molecular_system, indices=None, element='atom'):
 
     from molsysmt.basic import get
 
-    element = digest_element(element)
-
     string=[]
 
     if element=='atom':

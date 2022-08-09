@@ -32,7 +32,10 @@ def digest_atom_indices(atom_indices, caller=None):
     elif isinstance(atom_indices, (int, np.int64, np.int32)):
         return np.array([atom_indices], dtype='int64')
     elif isinstance(atom_indices, (np.ndarray, list, tuple, range)):
-        return np.array(atom_indices, dtype='int64')
+        if all(isinstance(ii, (int, np.int64, np.int32)) for ii in atom_indices):
+            return np.array(atom_indices, dtype='int64')
+        else:
+            return [digest_atom_indices(ii) for ii in atom_indices]
 
     raise ArgumentError('atom_indices', caller=caller, message=None)
 

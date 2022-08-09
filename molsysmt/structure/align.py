@@ -5,7 +5,7 @@ import numpy as np
 @digest()
 def align(molecular_system, selection='backbone', structure_indices='all',
           reference_molecular_system=None, reference_selection='backbone', reference_structure_index=0,
-          syntax='MolSysMT', parallel=True, method='sequence alignment and least rmsd fit',
+          syntax='MolSysMT', method='sequence alignment and least rmsd fit',
           engine_sequence_alignment = 'Biopython', engine_least_rmsd_fit = 'MolSysMT'):
 
     output = None
@@ -44,7 +44,7 @@ def align(molecular_system, selection='backbone', structure_indices='all',
                          reference_molecular_system=reference_molecular_system,
                          reference_selection=reference_selection_to_be_fitted,
                          reference_structure_index=reference_structure_index,
-                         engine='MolSysMT', parallel=parallel, syntax=syntax)
+                         engine='MolSysMT', syntax=syntax)
 
     else:
 

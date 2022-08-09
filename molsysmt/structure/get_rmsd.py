@@ -8,7 +8,7 @@ from molsysmt import puw
 @digest()
 def get_rmsd(molecular_system, selection='backbone', structure_indices='all',
           reference_molecular_system=None, reference_selection=None, reference_structure_index=0,
-          reference_coordinates=None, parallel=True, syntax='MolSysMT', engine='MolSysMT'):
+          syntax='MolSysMT', engine='MolSysMT'):
 
     if engine=='MolSysMT':
 
@@ -25,19 +25,17 @@ def get_rmsd(molecular_system, selection='backbone', structure_indices='all',
         units = puw.get_unit(coordinates)
         coordinates = np.asfortranarray(puw.get_value(coordinates), dtype='float64')
 
-        if reference_coordinates is None:
+        if reference_molecular_system is None:
+            reference_molecular_system = molecular_system
 
-            if reference_molecular_system is None:
-                reference_molecular_system = molecular_system
+        if reference_selection is None:
+            reference_selection = selection
 
-            if reference_selection is None:
-                reference_selection = selection
+        reference_atom_indices = select(reference_molecular_system,
+                selection=reference_selection, syntax=syntax)
 
-            reference_atom_indices = select(reference_molecular_system,
-                    selection=reference_selection, syntax=syntax)
-
-            reference_coordinates = get(reference_molecular_system, element='atom', indices=reference_atom_indices,
-                                        structure_indices=reference_structure_index, coordinates=True)
+        reference_coordinates = get(reference_molecular_system, element='atom', indices=reference_atom_indices,
+                                    structure_indices=reference_structure_index, coordinates=True)
 
         reference_coordinates = np.asfortranarray(puw.get_value(reference_coordinates, to_unit=units), dtype='float64')
 
@@ -52,23 +50,6 @@ def get_rmsd(molecular_system, selection='backbone', structure_indices='all',
         del(coordinates, units)
 
         return rmsd_val
-
-    elif engine=='MDTraj':
-
-        #from mdtraj import rmsd as mdtraj_rmsd
-        #from molsysmt.basic import convert
-
-        #tmp_molecular_system = convert(molecular_system, to_form='mdtraj.Trajectory')
-
-        #rmsd_val = mdtraj_rmsd(tmp_molecular_system, ref_item, structure=ref_structure_indices,
-        #                        ref_atom_indices=ref_atom_indices, atom_indices=atom_indices,
-        #                        parallel=parallel, precentered=precentered)
-
-        #rmsd_val = puw.standardize(rmsd_val)
-
-        #return rmsd_val
-
-        raise NotImplementedMethodError()
 
     else:
 

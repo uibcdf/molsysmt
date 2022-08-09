@@ -154,7 +154,7 @@ def select(molecular_system, selection='all', structure_indices='all', element='
 
     """
 
-    from . import get_form, where_is_attribute, is_molecular_system
+    from . import get_form, where_is_attribute, is_a_molecular_system
     from molsysmt.api_forms import dict_get
 
     if is_all(mask):
@@ -273,6 +273,8 @@ def select_with_MolSysMT(item, selection):
             else:
                 break
 
+        counter+=1 # because of the 'select' wrapper
+
         for var_name in var_names:
 
             if var_name in all_stack_frames[counter][0].f_locals:
@@ -289,6 +291,12 @@ def select_with_MolSysMT(item, selection):
             if type(var_value) in [np.ndarray]:
                 var_value = list(var_value)
             locals()['auxiliar_variable_'+var_name]=var_value
+
+    from molsysmt.config import selection_shortcuts
+
+    for key in selection_shortcuts:
+        if key in selection:
+            tmp_selection.replace(key, selection_shortcuts[key])
 
     indices = tmp_item.atoms_dataframe.query(tmp_selection).index.to_numpy()
 
@@ -323,9 +331,6 @@ def select_with_Amber(item, selection):
     raise NotImplementedMethodError()
 
 def indices_to_selection(molecular_system, indices, element='atom', syntax=None):
-
-    syntax = digest_syntax(syntax)
-    element = digest_element(element)
 
     output_string = ''
 

@@ -20,9 +20,9 @@ def digest_molecular_system_A(molecular_system_A, caller=None):
         MolecularSystemNeededError
             If the given object is not a molecular system.
     """
-    from molsysmt.basic import is_molecular_system
+    from molsysmt.basic import is_a_molecular_system
 
-    if not is_molecular_system(molecular_system_A):
+    if not is_a_molecular_system(molecular_system_A):
         raise ArgumentError(molecular_system_A, value=molecular_system_A, caller=caller, message=None)
 
     return molecular_system_A
