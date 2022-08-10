@@ -38,34 +38,5 @@ def digest_structure_indices(structure_indices, caller=None):
         else:
             return [digest_structure_indices(ii) for ii in structure_indices]
 
-    return ArgumentError('structure_indices', caller=caller, message=None)
+    raise ArgumentError('structure_indices', caller=caller, message=None)
 
-#
-#def digest_multiple_structure_indices(structure_indices, caller=None):
-#    """ Checks if multiple_structure_indices has the expected type and value.
-#
-#    Parameters
-#    ----------
-#    multiple_structure_indices : list or tuple of str, or list or tuple of int, or list or tuple of
-#    lists, or list or tuple of tuples, or list or tuple of ranges).
-#        The list or tuple of structure indices
-#
-#    caller: str, optional
-#        Name of the function or method that is being digested.
-#        For debugging purposes.
-#
-#    Returns
-#    -------
-#    list of str or list of ndarrays or None
-#        Either None, or a list of 'all' strings and numpy arrays of integers.
-#
-#    Raises
-#    -------
-#    WrongStructureIndicesError
-#        If the given indices are not of the correct type.
-#    """
-#
-#    if is_list_or_tuple(structure_indices):
-#        return [digest_structure_indices(ii, caller=caller) for ii in structure_indices]
-#    else:
-#        return digest_structure_indices(structure_indices, caller=caller)

@@ -8,13 +8,12 @@ import numpy as np
 @digest()
 def get_distances(molecular_system, selection="all", groups_of_atoms=None, group_behavior=None, structure_indices="all",
              molecular_system_2=None, selection_2=None, groups_of_atoms_2=None, group_behavior_2=None, structure_indices_2=None,
-             pairs=False, crossed_structures=False, pbc=False, parallel=False, output_form='tensor',
-             output_atom_indices=False, output_structure_indices=False, engine='MolSysMT',
-             syntax='MolSysMT'):
+             pairs=False, crossed_structures=False, pbc=False, output='numpy.ndarray',
+             engine='MolSysMT', syntax='MolSysMT'):
 
     # group_behavior in
     # ['center_of_mass','geometric_center','minimum_distance','maximum_distance']
-    # output_form in ['tensor','dict']
+    # output in ['tensor','dict']
 
     # crossed_structures es para cuando queremos calcular lista de structures1 contra lista de structures 2
     # (todos con todos), si crossed_structures=False entonces es sólo el primer structure de lista 1 contra
@@ -197,25 +196,10 @@ def get_distances(molecular_system, selection="all", groups_of_atoms=None, group
 
         dists = dists*length_units
 
-        if output_form=='tensor':
-            if output_structure_indices:
+        if output=='numpy.ndarray':
+            return dists
 
-                if is_all(structure_indices):
-                    structure_indices = np.arange(nstructures_1)
-                if is_all(structure_indices_2):
-                    structure_indices_2 = np.arange(nstructures_2)
-
-                if output_atom_indices:
-                    return atom_indices_1, structure_indices, atom_indices_2, structure_indices_2, dists
-                else:
-                    return structure_indices, structure_indices_2, dists
-
-            elif output_atom_indices:
-                return atom_indices_1, atom_indices_2, dists
-            else:
-                return dists
-
-        elif output_form=='dict':
+        elif output=='dict':
             if is_all(structure_indices):
                 structure_indices = np.arange(nstructures_1)
             if is_all(structure_indices_2):
@@ -268,11 +252,11 @@ def get_distances(molecular_system, selection="all", groups_of_atoms=None, group
         #        tensor1_to_grid, tensor2_to_grid = np.meshgrid(atom_indices1,atom_indices2)
         #        pairs_list =np.vstack([tensor1_to_grid.ravel(), tensor2_to_grid.ravel()]).T
         #        dists = _mdtraj_compute_distances(tmp_item1,pairs_list,pbc)
-        #        if output_form=='matrix':
+        #        if output=='matrix':
         #            nstructures=dists.shape[0]
         #            del(_mdtraj_compute_distances,pairs_list)
         #            return dists.reshape(len(atom_indices2),len(atom_indices1),nstructures).T
-        #        elif output_form=='dict':
+        #        elif output=='dict':
         #            tmp_dict={}
         #            for kk in range(dists.shape[1]):
         #                ii=pairs_list[kk,0]

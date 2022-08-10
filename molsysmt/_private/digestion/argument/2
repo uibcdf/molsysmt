@@ -1,0 +1,13 @@
+from ...exceptions import ArgumentError
+
+def digest_nodes_name(nodes_name, caller=None):
+
+    if caller=='molsysmt.structure.get_bond_graph.get_bond_graph':
+        if weights is None:
+            return weights
+        if isinstance(weights, str):
+            if weights in ['masses']:
+                return weights
+
+    raise ArgumentError('nodes_name', value=nodes_name, caller=caller, message=None)
+

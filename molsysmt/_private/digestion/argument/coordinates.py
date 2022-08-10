@@ -1,33 +1,33 @@
 from ...exceptions import ArgumentError
+import numpy as np
 from molsysmt import puw
 
 def digest_coordinates(coordinates, caller=None):
-    """Checks if `coordinates` has the expected type and value.
-
-    Parameters
-    ----------
-    coordinates : Any
-        The coordinates for digestion.
-    caller: str, optional
-        Name of the function or method that is being digested.
-
-    Returns
-    -------
-    Quantity (value : ndarray)
-        The coordinates with proper type and value.
-
-    Raises
-    -------
-    WrongCoordinatesError
-        If the given coordinates argument has not of the correct type or value.
-    """
 
     if caller == 'molsysmt.basic.get.get':
         if isinstance(coordinates, bool):
             return coordinates
 
-    if not puw.check(coordinates, dimensionality={'[L]':1}):
+    value = puw.get_value(coordinates)
+    unit = puw.get_unit(coordinates)
+
+    if not puw.check(unit, dimensionality={'[L]':1}):
         raise ArgumentError('coordinates', value=coordinates, caller=caller, message=None)
 
-    return puw.standardize(coordinates)
+    if not isinstance(value, np.ndarray):
+        value = np.array(value)
+
+    shape = value.shape
+
+    if len(shape) == 1:
+        if shape[0] == 3:
+            return puw.quantity(value[np.newaxis, np.newaxis, :], unit, standardized=True)
+    elif len(shape) == 2:
+        if shape[1] == 3:
+            return puw.quantity(value[np.newaxis, :, :], unit, standardized=True)
+    elif len(shape) == 3:
+        if shape[2] == 3:
+            return puw.quantity(value, unit, standardized=True)
+
+    raise ArgumentError('coordinates', value=coordinates, caller=caller, message=None)
 

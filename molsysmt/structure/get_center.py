@@ -21,7 +21,7 @@ def get_center(molecular_system, selection='all', groups_of_atoms=None, weights=
 
         if weights is None:
             weights = np.ones((groups_serialized.n_values))
-        elif weights == 'masses':
+        elif isinstance(weights, str):
             raise NotImplementedMethodError()
 
         coordinates = get(molecular_system, element='system', structure_indices=structure_indices, coordinates=True)

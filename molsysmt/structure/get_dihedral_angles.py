@@ -15,26 +15,6 @@ def get_dihedral_angles(molecular_system, dihedral_angle=None, selection='all', 
         quartets = get_covalent_dihedral_quartets(molecular_system, dihedral_angle=dihedral_angle,
                                                   selection=selection, syntax=syntax)
 
-    elif type(quartets) in [list,tuple]:
-        quartets = np.array(quartets, dtype=int)
-    elif type(quartets) is np.ndarray:
-        pass
-    else:
-        raise ValueError
-
-    shape = quartets.shape
-
-    if len(shape)==1:
-        if shape[0]==4:
-            quartets=quartets.reshape([1,4])
-        else:
-            raise ValueError
-    elif len(shape)==2:
-        if shape[1]!=4:
-            raise ValueError
-    else:
-        raise ValueError
-
     coordinates = get(molecular_system, element='system', structure_indices=structure_indices, coordinates=True)
 
     n_angles = quartets.shape[0]

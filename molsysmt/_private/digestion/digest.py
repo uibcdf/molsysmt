@@ -48,8 +48,6 @@ def digest(output=False, **kwargs):
         @functools.wraps(func)
         def wrapper(*args, **kwargs):
 
-            #kwargs_order = [name for name in kwargs]
-
             # Define caller
 
             caller = func.__module__+'.'+func.__name__
@@ -57,8 +55,6 @@ def digest(output=False, **kwargs):
             # Get default arguments
 
             signature = inspect.signature(func)
-
-            #default_order = [name for name in signature.parameters if name != 'kwargs']
 
             all_args = {
                 name: value.default
@@ -111,28 +107,7 @@ def digest(output=False, **kwargs):
             for arg_name in not_digested_args:
                 warnings.warn(arg_name+' from '+caller, NotDigestedArgumentWarning, stacklevel=2)
 
-
-            # Initial order of arguments and kwargs
-
-            #print('@@@')
-            #print(digested_args)
-            #print(default_order)
-            #print(kwargs_order)
-            #final_args = {}
-            #for name in default_order:
-            #    final_args[name]=digested_args.pop(name)
-            #for name in kwargs_order:
-            #    if name in digested_args:
-            #        final_args[name]=digested_args.pop(name)
-
-            #print('###')
-            #print(digested_args)
-            #print('@@@')
-
             final_args = digested_args
-
-            #if (len(digested_args)):
-            #    raise ValueError('error 01 in digestion')
 
             if output:
                 auxiliary_output = func(**final_args)

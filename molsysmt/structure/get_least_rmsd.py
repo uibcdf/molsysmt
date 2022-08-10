@@ -9,14 +9,13 @@ from molsysmt import puw
 @digest()
 def get_least_rmsd (molecular_system=None, selection='backbone', structure_indices='all',
           reference_molecular_system=None, reference_selection=None, reference_structure_index=0,
-          reference_coordinates=None, parallel=True, syntax='MolSysMT', engine='MolSysMT'):
+          reference_coordinates=None, syntax='MolSysMT', engine='MolSysMT'):
 
     if engine=='MolSysMT':
 
         n_atoms, n_structures = get(molecular_system, n_atoms=True, n_structures=True)
         atom_indices = select(molecular_system, selection=selection, syntax=syntax)
         n_atom_indices = atom_indices.shape[0]
-        structure_indices = digest_structure_indices(structure_indices)
         if is_all(structure_indices):
             structure_indices = np.arange(n_structures)
         n_structure_indices = structure_indices.shape[0]
@@ -46,14 +45,11 @@ def get_least_rmsd (molecular_system=None, selection='backbone', structure_indic
         rmsd_val = librmsd.least_rmsd(coordinates, atom_indices, reference_coordinates, structure_indices,
                                  n_atoms, n_structures, n_atom_indices, n_structure_indices)
 
-        rmsd_val = rmsd_val * units
-        rmsd_val = puw.standardize(rmsd_val)
+        rmsd_val = puw.quantity(rmsd_val, units, standardized=True)
+
         del(coordinates, units)
+
         return rmsd_val
-
-    elif engine=='MDTraj':
-
-        raise NotImplementedMethodError()
 
     else:
         raise NotImplementedMethodError()

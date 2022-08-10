@@ -1,7 +1,7 @@
 from molsysmt._private.digestion import digest
 import numpy as np
 
-@digest
+@digest()
 def get_covalent_dihedral_quartets(molecular_system, dihedral_angle=None, with_blocks=False, selection='all',
                                syntax='MolSysMT'):
 

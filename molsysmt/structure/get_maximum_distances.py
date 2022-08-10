@@ -5,25 +5,15 @@ import numpy as np
 @digest()
 def get_maximum_distances(molecular_system, selection="all", groups_of_atoms=None, group_behavior=None, as_entity=True, structure_indices="all",
                      molecular_system_2=None, selection_2=None, groups_of_atoms_2=None, group_behavior_2=None, as_entity_2=True, structure_indices_2=None,
-                     atom_indices=False, pairs=False, pbc=False, parallel=False, engine='MolSysMT', syntax='MolSysMT'):
+                     pairs=False, pbc=False, engine='MolSysMT', syntax='MolSysMT'):
 
     from . import get_distances
 
-    if atom_indices:
-
-        atom_indices_1, atom_indices_2, all_dists = get_distances(molecular_system=molecular_system, selection=selection,
-                groups_of_atoms=groups_of_atoms, group_behavior=group_behavior, structure_indices=structure_indices,
-                molecular_system_2=molecular_system_2, selection_2=selection_2, groups_of_atoms_2=groups_of_atoms_2,
-                group_behavior_2=group_behavior_2, structure_indices_2=structure_indices_2,
-                pairs=pairs, pbc=pbc, parallel=parallel, output_form='tensor', output_atom_indices=True,
-                engine=engine, syntax=syntax)
-
-    else:
-
-        all_dists = get_distances(molecular_system=molecular_system, selection=selection, groups_of_atoms=groups_of_atoms, group_behavior=group_behavior,
-                structure_indices=structure_indices, molecular_system_2=molecular_system_2, selection_2=selection_2, groups_of_atoms_2=groups_of_atoms_2,
-                group_behavior_2=group_behavior_2, structure_indices_2=structure_indices_2, pairs=pairs, pbc=pbc, parallel=parallel, output_form='tensor',
-                engine=engine, syntax=syntax)
+    all_dists = get_distances(molecular_system=molecular_system, selection=selection, groups_of_atoms=groups_of_atoms, group_behavior=group_behavior,
+            structure_indices=structure_indices, molecular_system_2=molecular_system_2, selection_2=selection_2, groups_of_atoms_2=groups_of_atoms_2,
+            group_behavior_2=group_behavior_2, structure_indices_2=structure_indices_2,
+            pairs=pairs, pbc=pbc, output='numpy.ndarray',
+            engine=engine, syntax=syntax)
 
     if pairs is False:
 
