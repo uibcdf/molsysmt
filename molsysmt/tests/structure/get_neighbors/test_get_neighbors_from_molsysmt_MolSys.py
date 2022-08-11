@@ -13,7 +13,7 @@ import numpy as np
 def test_get_neighbors_from_molsysmt_MolSys_1():
     molsys = msm.convert(msm.demo['pentalanine']['traj.h5'], to_form='molsysmt.MolSys')
     CA_atoms_list = msm.select(molsys, selection='atom_name=="CA"')
-    neighbors, distances = msm.structure.get_neighbors(molsys, selection=CA_atoms_list, num_neighbors=3)
+    neighbors, distances = msm.structure.get_neighbors(molsys, selection=CA_atoms_list, n_neighbors=3)
     check_shape_1 = ((5000, 5, 3)==neighbors.shape)
     check_shape_2 = ((5000, 5, 3)==distances.shape)
     check_distance = np.isclose(puw.get_value(distances[2000,0,0], to_unit='nm'), 0.38743175)
@@ -22,7 +22,7 @@ def test_get_neighbors_from_molsysmt_MolSys_1():
 def test_get_neighbors_from_molsysmt_MolSys_2():
     molsys = msm.convert(msm.demo['pentalanine']['traj.h5'], to_form='molsysmt.MolSys')
     CA_atoms_list = msm.select(molsys, selection='atom_name=="CA"')
-    neighbors, distances = msm.structure.get_neighbors(molsys, selection=CA_atoms_list, selection_2='all', num_neighbors=4)
+    neighbors, distances = msm.structure.get_neighbors(molsys, selection=CA_atoms_list, selection_2='all', n_neighbors=4)
     check_neighbors = (10==neighbors[2000,0,3])
     check_distance = np.isclose(puw.get_value(distances[2000,0,3], to_unit='nm'), 0.1532800)
     assert check_neighbors and check_distance
@@ -34,7 +34,7 @@ def test_get_neighbors_from_molsysmt_MolSys_3():
     atoms_in_residues_chain_1 = msm.get(molsys, element='group',
                                         selection="molecule_type=='protein' and chain_index==1", atom_index=True)
     neighbors, distances = msm.structure.get_neighbors(molsys, groups_of_atoms=atoms_in_residues_chain_0,
-                                     group_behavior= 'geometric_center', num_neighbors=8)
+                                     group_behavior= 'geometric_center', n_neighbors=8)
     check_shape_1 = ((1, 248, 8)==neighbors.shape)
     check_neighbors = (2==neighbors[0,0,7])
     check_distance = np.isclose(puw.get_value(distances[0,0,7], to_unit='nm'), 0.86807833)
@@ -51,7 +51,7 @@ def test_get_neighbors_from_molsysmt_MolSys_4():
                                      group_behavior= 'geometric_center',
                                      groups_of_atoms_2=atoms_in_residues_chain_1,
                                      group_behavior_2= 'geometric_center',
-                                     num_neighbors=8)
+                                     n_neighbors=8)
     check_neighbors = (69==neighbors[0,0,7])
     check_distance = np.isclose(puw.get_value(distances[0,0,7], to_unit='nm'), 3.5652103)
     assert check_neighbors and check_distance
@@ -63,7 +63,7 @@ def test_get_neighbors_from_molsysmt_MolSys_5():
     neighbors, distances = msm.structure.get_neighbors(molsys, selection=100,
                                      groups_of_atoms_2=atoms_in_residues_chain_1,
                                      group_behavior_2= 'geometric_center',
-                                     num_neighbors=4)
+                                     n_neighbors=4)
     check_neighbors = (77==neighbors[0,0,3])
     check_distance = np.isclose(puw.get_value(distances[0,0,3], to_unit='nm'), 0.8498448)
     assert check_neighbors and check_distance

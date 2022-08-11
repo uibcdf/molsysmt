@@ -5,12 +5,12 @@ import numpy as np
 @digest()
 def get_neighbors(molecular_system, selection="all", groups_of_atoms=None, group_behavior=None, structure_indices="all",
                   molecular_system_2=None, selection_2=None, groups_of_atoms_2=None, group_behavior_2=None, structure_indices_2=None,
-                  threshold=None, num_neighbors=None, atom_indices=False, pbc=False, parallel=False,
+                  threshold=None, n_neighbors=None, atom_indices=False, pbc=False,
                   engine='MolSysMT', syntax='MolSysMT'):
 
     from . import get_distances
 
-    #if (threshold is None) and (num_neighbors is None):
+    #if (threshold is None) and (n_neighbors is None):
     #    raise BadCallError(BadCallMessage)
 
     same_set = False
@@ -38,7 +38,7 @@ def get_neighbors(molecular_system, selection="all", groups_of_atoms=None, group
                                                     group_behavior=group_behavior, structure_indices=structure_indices,
                                                     molecular_system_2=molecular_system_2, selection_2=selection_2, groups_of_atoms_2=groups_of_atoms_2,
                                                     group_behavior_2=group_behavior_2, structure_indices_2=structure_indices_2,
-                                                    pbc=pbc, parallel=parallel, output_form='tensor', engine=engine, syntax=syntax)
+                                                    pbc=pbc, output='numpy.ndarray', engine=engine, syntax=syntax)
 
     else:
 
@@ -46,16 +46,16 @@ def get_neighbors(molecular_system, selection="all", groups_of_atoms=None, group
                             group_behavior=group_behavior, structure_indices=structure_indices,
                             selection_2=selection_2, groups_of_atoms_2=groups_of_atoms_2,
                             group_behavior_2=group_behavior_2, structure_indices_2=structure_indices_2,
-                            pbc=pbc, parallel=parallel, output_form='tensor', engine=engine, syntax=syntax)
+                            pbc=pbc, output='numpy.ndarray', engine=engine, syntax=syntax)
 
     nstructures, nelements_1, nelements_2 = all_dists.shape
     length_units = puw.get_unit(all_dists)
     all_dists = puw.get_value(all_dists)
 
-    if num_neighbors is not None and threshold is None:
+    if n_neighbors is not None and threshold is None:
 
-        neighs=np.empty((nstructures, nelements_1, num_neighbors), dtype=int)
-        dists=np.empty((nstructures, nelements_1, num_neighbors), dtype=float)
+        neighs=np.empty((nstructures, nelements_1, n_neighbors), dtype=int)
+        dists=np.empty((nstructures, nelements_1, n_neighbors), dtype=float)
 
         offset = 0
         if same_set:
@@ -63,7 +63,7 @@ def get_neighbors(molecular_system, selection="all", groups_of_atoms=None, group
 
         for indice_structure in range(nstructures):
             for ii in range(nelements_1):
-                neighs_aux = np.argpartition(all_dists[indice_structure,ii,:], num_neighbors-1+offset)[:num_neighbors+offset]
+                neighs_aux = np.argpartition(all_dists[indice_structure,ii,:], n_neighbors-1+offset)[:n_neighbors+offset]
                 dists_aux = all_dists[indice_structure,ii,neighs_aux]
                 good_order = np.argsort(dists_aux)
                 neighs_aux = neighs_aux[good_order]
@@ -83,7 +83,7 @@ def get_neighbors(molecular_system, selection="all", groups_of_atoms=None, group
 
         return neighs, dists
 
-    elif threshold is not None and num_neighbors is None:
+    elif threshold is not None and n_neighbors is None:
 
         threshold = puw.get_value(threshold, to_unit=length_units)
 
@@ -118,5 +118,5 @@ def get_neighbors(molecular_system, selection="all", groups_of_atoms=None, group
 
     else:
 
-        raise ValueError("Use either threshold or num_neighbors, but not both at the same time")
+        raise ValueError("Use either threshold or n_neighbors, but not both at the same time")
 
