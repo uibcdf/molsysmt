@@ -20,5 +20,12 @@ def digest_output(output, caller=None):
             if output.lower() in ['numpy.ndarray', 'dict']:
                 return output.lower()
 
+    elif caller=='molsysmt.topology.get_covalent_blocks.get_covalent_blocks':
+
+        if isinstance(output, str):
+            if output.lower() in ['numpy.ndarray', 'sets']:
+                return output.lower()
+
+
     raise ArgumentError('output', value=output, caller=caller, message=None)
 

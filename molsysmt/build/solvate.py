@@ -14,20 +14,20 @@ Methods and wrappers to create and solvate boxes
 """
 
 @digest()
-def solvate (molecular_system, box_geometry="truncated octahedral", clearance='14.0 angstroms',
-             anion='Cl-', num_anions="neutralize", cation='Na+', num_cations="neutralize",
+def solvate (molecular_system, box_shape="truncated octahedral", clearance='14.0 angstroms',
+             anion='Cl-', n_anions="neutralize", cation='Na+', n_cations="neutralize",
              ionic_strength='0.0 molar', engine="LEaP",
-             to_form= None, logfile=False):
+             to_form= None):
 
     """solvate(item, geometry=None, water=None, engine=None)
     Methods and wrappers to create and solvate boxes
     Parameters
     ----------
     anion: 'Cl-', 'Br-', 'F-', and 'I-'
-    num_anions: number of cations to add. integer or "neutralize"
+    n_anions: number of cations to add. integer or "neutralize"
     cation: "NA"  'Cs+', 'K+', 'Li+', 'Na+', and 'Rb+'
-    num_cations: number of cations to add. integer or "neutralize"
-    box_geometry: "cubic", "truncated_octahedral" or "rhombic_dodecahedron" (Default: "truncated_octahedral")
+    n_cations: number of cations to add. integer or "neutralize"
+    box_shape: "cubic", "truncated_octahedral" or "rhombic_dodecahedron" (Default: "truncated_octahedral")
     Returns
     -------
     item : bla bla
@@ -39,6 +39,8 @@ def solvate (molecular_system, box_geometry="truncated octahedral", clearance='1
     Notes
     -----
     """
+
+    logfile=False
 
     from molsysmt.basic import get_form, convert
 
@@ -65,7 +67,7 @@ def solvate (molecular_system, box_geometry="truncated octahedral", clearance='1
         else:
             raise NotImplementedError()
 
-        if box_geometry=="truncated octahedral":
+        if box_shape=="truncated octahedral":
 
             max_size = max(max((pos[i] for pos in modeller.positions))-min((pos[i] for pos in modeller.positions)) for i in range(3))
             vectors = Vec3(1.0, 0, 0), Vec3(1.0/3.0, 2.0*np.sqrt(2.0)/3.0,0.0), Vec3(-1.0/3.0, np.sqrt(2.0)/3.0, np.sqrt(6.0)/3.0)
@@ -74,7 +76,7 @@ def solvate (molecular_system, box_geometry="truncated octahedral", clearance='1
             modeller.addSolvent(forcefield, model=solvent_model, boxVectors = box_vectors, ionicStrength=ionic_strength,
                                 positiveIon=cation, negativeIon=anion)
 
-        elif box_geometry=="rhombic dodecahedral":
+        elif box_shape=="rhombic dodecahedral":
 
             max_size = max(max((pos[i] for pos in modeller.positions))-min((pos[i] for pos in modeller.positions)) for i in range(3))
             vectors = Vec3(1.0, 0.0, 0.0), Vec3(0.0, 1.0, 0.0), Vec3(0.5, 0.5, np.sqrt(2)/2)
@@ -108,16 +110,16 @@ def solvate (molecular_system, box_geometry="truncated octahedral", clearance='1
         box_size = None
         box_vectors = None
 
-        if box_geometry=="truncated octahedral":
+        if box_shape=="truncated octahedral":
 
             vectors = Vec3(1.0, 0, 0), Vec3(1.0/3.0, 2.0*np.sqrt(2.0)/3.0,0.0), Vec3(-1.0/3.0,
                     np.sqrt(2.0)/3.0, np.sqrt(6.0)/3.0)
 
-        elif box_geometry=="rhombic dodecahedral":
+        elif box_shape=="rhombic dodecahedral":
 
             vectors = Vec3(1.0, 0.0, 0.0), Vec3(0.0, 1.0, 0.0), Vec3(0.5, 0.5, np.sqrt(2)/2)
 
-        elif box_geometry=="cubic":
+        elif box_shape=="cubic":
 
             vectors = Vec3(1.0, 0.0, 0.0), Vec3(0.0, 1.0, 0.0), Vec3(0.0, 0.0, 1.0)
 
@@ -186,17 +188,17 @@ def solvate (molecular_system, box_geometry="truncated octahedral", clearance='1
         tleap.load_unit('MolecularSystem', pdbfile_in)
         tleap.check_unit('MolecularSystem')
         tleap.get_total_charge('MolecularSystem')
-        tleap.solvate('MolecularSystem', solvent_model, clearance, box_geometry=box_geometry)
+        tleap.solvate('MolecularSystem', solvent_model, clearance, box_geometry=box_shape)
 
-        if num_anions != 0:
-            if num_anions=='neutralize':
-                num_anions=0
-            tleap.add_ions('MolecularSystem', anion, num_ions=num_anions, replace_solvent=True)
+        if n_anions != 0:
+            if n_anions=='neutralize':
+                n_anions=0
+            tleap.add_ions('MolecularSystem', anion, n_ions=n_anions, replace_solvent=True)
 
-        if num_cations != 0:
-            if num_cations=='neutralize':
-                num_cations=0
-            tleap.add_ions('MolecularSystem', cation, num_ions=num_cations, replace_solvent=True)
+        if n_cations != 0:
+            if n_cations=='neutralize':
+                n_cations=0
+            tleap.add_ions('MolecularSystem', cation, n_ions=n_cations, replace_solvent=True)
 
         tleap.save_unit('MolecularSystem', tmp_prmtop)
         errors=tleap.run(working_directory=working_directory, verbose=False)

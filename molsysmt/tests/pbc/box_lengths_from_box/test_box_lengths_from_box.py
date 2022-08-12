@@ -11,7 +11,7 @@ import numpy as np
 
 def test_box_lengths_from_box_cubic_geometry():
     molsys = msm.convert(msm.demo['Met-enkephalin']['vacuum.msmpk'], to_form='molsysmt.MolSys')
-    molsys = msm.build.solvate(molsys, box_geometry='cubic', clearance='14.0 angstroms', engine='PDBFixer')
+    molsys = msm.build.solvate(molsys, box_shape='cubic', clearance='14.0 angstroms', engine='PDBFixer')
     box = msm.get(molsys, element='system', box=True)
     lengths = msm.pbc.box_lengths_from_box(box)
     check = np.allclose(msm.puw.get_value(lengths, to_unit='nm'), [[3.1236, 3.1236, 3.1236]])
@@ -20,7 +20,7 @@ def test_box_lengths_from_box_cubic_geometry():
 
 def test_box_lengths_from_box_octahedral_geometry():
     molsys = msm.convert(msm.demo['Met-enkephalin']['vacuum.msmpk'], to_form='molsysmt.MolSys')
-    molsys = msm.build.solvate(molsys, box_geometry='truncated octahedral', clearance='14.0 angstroms', engine='PDBFixer')
+    molsys = msm.build.solvate(molsys, box_shape='truncated octahedral', clearance='14.0 angstroms', engine='PDBFixer')
     box = msm.get(molsys, element='system', box=True)
     lengths = msm.pbc.box_lengths_from_box(box)
     check = np.allclose(msm.puw.get_value(lengths, to_unit='nm'), [[3.1236, 3.1236, 3.1236]])
@@ -29,7 +29,7 @@ def test_box_lengths_from_box_octahedral_geometry():
 
 def test_box_lengths_from_box_dodecahedral_geometry():
     molsys = msm.convert(msm.demo['Met-enkephalin']['vacuum.msmpk'], to_form='molsysmt.MolSys')
-    molsys = msm.build.solvate(molsys, box_geometry='rhombic dodecahedral', clearance='14.0 angstroms', engine='PDBFixer')
+    molsys = msm.build.solvate(molsys, box_shape='rhombic dodecahedral', clearance='14.0 angstroms', engine='PDBFixer')
     box = msm.get(molsys, element='system', box=True)
     lengths = msm.pbc.box_lengths_from_box(box)
     check = np.allclose(msm.puw.get_value(lengths, to_unit='nm'), [[3.1236, 3.1236, 3.1236]])

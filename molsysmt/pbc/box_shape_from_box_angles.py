@@ -7,7 +7,7 @@ def box_shape_from_box_angles(box_angles):
 
     shape = None
 
-    if angles is not None:
+    if box_angles is not None:
 
         alpha = box_angles[:,0].mean()
         beta = box_angles[:,1].mean()

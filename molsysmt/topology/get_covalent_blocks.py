@@ -1,9 +1,10 @@
 from molsysmt._private.digestion import digest
+from molsysmt._private.exceptions import NotImplementedMethodError
 import numpy as np
 from networkx import connected_components
 
 @digest()
-def get_covalent_blocks(molecular_system, selection='all', remove_bonds=None, output_form='sets',
+def get_covalent_blocks(molecular_system, selection='all', remove_bonds=None, output='sets',
         syntax='MolSysMT'):
 
     from molsysmt.basic import get
@@ -34,11 +35,11 @@ def get_covalent_blocks(molecular_system, selection='all', remove_bonds=None, ou
 
     del(G)
 
-    if output_form=='sets':
+    if output=='sets':
 
         blocks = list(components)
 
-    elif output_form=='array':
+    elif output=='numpy.ndarray':
 
         n_atoms = get(molecular_system, element='system', n_atoms=True)
         blocks = -np.ones([n_atoms], dtype=int)
@@ -49,7 +50,7 @@ def get_covalent_blocks(molecular_system, selection='all', remove_bonds=None, ou
 
     else:
 
-        raise ValueError('Input argument "output" must be "sets" or "array"')
+        raise NotImplementedMethodError
 
     return np.array(blocks)
 

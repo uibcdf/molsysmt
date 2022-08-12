@@ -4,7 +4,7 @@ from molsysmt import puw
 import numpy as np
 
 @digest()
-def center(molecular_system, selection='all', center_of_selection='all', weights=None, new_coordinates_center=None, structure_indices='all',
+def center(molecular_system, selection='all', center_of_selection='all', weights=None, center_coordinates=None, structure_indices='all',
            syntax='MolSysMT', engine='MolSysMT', in_place=False):
 
     from . import get_center
@@ -16,10 +16,10 @@ def center(molecular_system, selection='all', center_of_selection='all', weights
                                                   structure_indices=structure_indices,
                                                   syntax=syntax, engine=engine)
 
-        if new_coordinates_center is None:
+        if center_coordinates is None:
             translation = -coordinates_selection_center
         else:
-            translation = new_coordinates_center-coordinates_selection_center
+            translation = center_coordinates-coordinates_selection_center
 
         del(coordinates_selection_center)
 
