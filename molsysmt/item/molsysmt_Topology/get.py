@@ -255,7 +255,7 @@ def get_bonded_atoms_from_atom (item, indices='all'):
         if ii in G:
             output.append(np.array([n for n in G[ii]]))
         else:
-            output.append(np.array([]))
+            output.append(np.array([], dtype=int))
 
     output = np.array(output, dtype=object)
 
@@ -284,7 +284,7 @@ def get_bond_index_from_atom (item, indices='all'):
         if ii in G:
             output.append(np.array([n['index'] for n in G[ii].values()]))
         else:
-            output.append(np.array([]))
+            output.append(np.array([], dtype=int))
 
     output = np.array(output, dtype=object)
 

@@ -68,7 +68,7 @@ def select_within(molecular_system, selection, structure_indices, syntax):
 
     atom_indices_1, atom_indices_2, cmap = get_contacts(molecular_system, selection=selection_1, selection_2=selection_2,
                                            structure_indices=structure_indices, threshold=threshold, pbc=pbc, engine='MolSysMT',
-                                           syntax=syntax, output_atom_indices=True)
+                                           syntax=syntax, output_with_atom_indices=True, output='numpy.ndarray')
 
     if not_within:
         output = atom_indices_1[np.where(cmap.all(axis=2)[0]==False)[0]]
@@ -91,7 +91,7 @@ def select_bonded_to(molecular_system, selection, syntax):
         selection_1, selection_2 = selection.split(" bonded to")
 
     atom_indices_1 = select(molecular_system, selection=selection_1, syntax=syntax)
-    atom_indices_2 = get(molecular_system, 'atom', selection=selection_2, syntax=syntax, bonded_atoms=True)
+    atom_indices_2 = get(molecular_system, element='atom', selection=selection_2, syntax=syntax, bonded_atoms=True)
     atom_indices_2 = np.unique(np.concatenate(atom_indices_2).ravel())
 
     if not_bonded:
@@ -163,18 +163,17 @@ def select(molecular_system, selection='all', structure_indices='all', element='
     if type(selection)==str:
 
         while selection_with_special_subsentences(selection):
-
             sub_selection = selection_with_special_subsentences(selection)
             sub_atom_indices = select(molecular_system, sub_selection, syntax=syntax)
             selection = selection.replace(sub_selection, 'atom_index==@sub_atom_indices')
 
         if 'within' in selection:
-            atom_indices = select_within(molecular_system, selection, structure_indices, syntax)
+            atom_indices = select_within(molecular_system, selection=selection,
+                                         structure_indices=structure_indices, syntax=syntax)
         elif 'bonded to' in selection:
-            atom_indices = select_bonded_to(molecular_system, selection, syntax)
+            atom_indices = select_bonded_to(molecular_system, selection=selection, syntax=syntax)
         else:
             atom_indices = select_standard(molecular_system, selection=selection, syntax=syntax)
-
     else:
 
         atom_indices = select_standard(molecular_system, selection, syntax)
@@ -264,28 +263,36 @@ def select_with_MolSysMT(item, selection):
 
         all_stack_frames = stack()
 
-        counter = 0
+        counter = -1
         n_frames = len(all_stack_frames)
 
-        for aux_stack in all_stack_frames:
+        no_wrapper_stack_frames = [ii for ii in all_stack_frames if ii[3]!='wrapper']
+
+        for aux_stack in no_wrapper_stack_frames:
             args, args_paramname, kwargs_paramname, values = getargvalues(aux_stack.frame)
             if 'selection' in args:
                 counter+=1
             else:
                 break
 
-        counter+=1 # because of the 'select' wrapper
+        #print(counter)
+        #for ii in range(len(no_wrapper_stack_frames)):
+        #    aaa = no_wrapper_stack_frames[ii]
+        #    print(ii, aaa[3])
+        #    if 'selection' in getargvalues(aaa.frame)[3]:
+        #        print('#####', getargvalues(aaa.frame)[3]['selection'])
+        #    print('>>>', var_names[0] in aaa[0].f_locals)
+        #    print('>>>', var_names[0] in aaa[0].f_globals)
 
         for var_name in var_names:
-
-            if var_name in all_stack_frames[counter][0].f_locals:
-                var_value = all_stack_frames[counter][0].f_locals[var_name]
-            elif var_name in all_stack_frames[counter][0].f_globals:
-                var_value = all_stack_frames[counter][0].f_globals[var_name]
-            elif var_name in all_stack_frames[counter-1][0].f_locals:
-                var_value = all_stack_frames[counter-1][0].f_locals[var_name]
-            elif var_name in all_stack_frames[counter-1][0].f_globals:
-                var_value = all_stack_frames[counter-1][0].f_globals[var_name]
+            if var_name in no_wrapper_stack_frames[counter][0].f_locals:
+                var_value = no_wrapper_stack_frames[counter][0].f_locals[var_name]
+            elif var_name in no_wrapper_stack_frames[counter][0].f_globals:
+                var_value = no_wrapper_stack_frames[counter][0].f_globals[var_name]
+            elif var_name in no_wrapper_stack_frames[counter+1][0].f_locals:
+                var_value = no_wrapper_stack_frames[counter+1][0].f_locals[var_name]
+            elif var_name in no_wrapper_stack_frames[counter+1][0].f_globals:
+                var_value = no_wrapper_stack_frames[counter+1][0].f_globals[var_name]
             else:
                 raise ValueError("The variable", var_name, "was not found by the selection tool.")
             tmp_selection = tmp_selection.replace('@'+var_name, '@auxiliar_variable_'+var_name)

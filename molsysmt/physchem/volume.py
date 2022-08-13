@@ -1,16 +1,18 @@
+from molsysmt._private.digestion import digest
+from molsysmt._private.exceptions import NotImplementedMethodError
 import numpy as np
-from molsysmt._private.exceptions import *
 
-def volume(molecular_system, selection='all', type='grantham'):
+@digest()
+def volume(molecular_system, selection='all', syntax='MolSysMT', definition='grantham'):
 
     from molsysmt.basic import get
 
-    if type == 'grantham':
+    if definition == 'grantham':
         from .groups.volume import grantham as values
     else:
-        raise NotImplementedError()
+        raise NotImplementedMethodError()
 
-    group_types = get(molecular_system, element='group', selection=selection, name=True)
+    group_types = get(molecular_system, element='group', selection=selection, syntax='MolSysMT', name=True)
 
     output = []
 

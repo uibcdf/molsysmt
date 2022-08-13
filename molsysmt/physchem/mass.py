@@ -1,7 +1,9 @@
-import numpy as np
+from molsysmt._private.digestion import digest
 from molsysmt import puw
+import numpy as np
 
-def mass(molecular_system, element ='atom', selection = 'all'):
+@digest()
+def mass(molecular_system, element ='atom', selection = 'all', syntax = 'MolSysMT'):
 
     from molsysmt.basic import get
     from molsysmt.physico_chemical_properties.atoms.mass import physical, units
@@ -13,15 +15,17 @@ def mass(molecular_system, element ='atom', selection = 'all'):
 
     output = []
     if element == 'atom':
-        atom_types = get(molecular_system, element=element, selection=selection, atom_type=True)
+        atom_types = get(molecular_system, element=element, selection=selection, syntax=syntax, atom_type=True)
         for ii in atom_types:
             output.append(values[ii.capitalize()])
     elif element in ['group', 'component', 'molecule', 'chain', 'entity']:
-        atom_types_in_element = get(molecular_system, element=element, selection=selection, atom_type=True)
+        atom_types_in_element = get(molecular_system, element=element, selection=selection,
+                                    syntax=syntaxi, atom_type=True)
         for aux in atom_types_in_element:
             output.append(np.sum([values[ii.capitalize()] for ii in aux]))
     elif element == 'system':
-        atom_types_in_element = get(molecular_system, element='atom', selection='all', atom_type=True)
+        atom_types_in_element = get(molecular_system, element='atom', selection='all',
+                                    syntax=syntax, atom_type=True)
         output.append(np.sum([values[ii.capitalize()] for ii in atom_types_in_element]))
 
     if element =='system':
