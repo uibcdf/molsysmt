@@ -3,6 +3,7 @@ from .add_missing_heavy_atoms import add_missing_heavy_atoms
 from .add_missing_terminal_cappings import add_missing_terminal_cappings
 from .get_missing_heavy_atoms import get_missing_heavy_atoms
 from .get_missing_terminal_cappings import get_missing_terminal_cappings
+from .get_missing_residues import get_missing_residues
 from .get_non_standard_residues import get_non_standard_residues
 from .build_peptide import build_peptide
 from .is_solvated import is_solvated

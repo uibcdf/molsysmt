@@ -4,7 +4,7 @@ from molsysmt import puw
 from molsysmt.lib import geometry as libgeometry
 
 @digest()
-def shift_dihedral_angles(molecular_system, quartets=None, shifts=None, blocks=None,
+def shift_dihedral_angles(molecular_system, quartets=None, angles_shifts=None, blocks=None,
                           structure_indices='all', pbc=True, in_place=False, engine='MolSysMT'):
 
     from . import get_dihedral_angles, set_dihedral_angles
@@ -33,31 +33,31 @@ def shift_dihedral_angles(molecular_system, quartets=None, shifts=None, blocks=N
     n_quartets = quartets.shape[0]
     n_structures = get(molecular_system, element='system', structure_indices=structure_indices, n_structures=True)
 
-    shifts_units = puw.get_unit(shifts)
-    shifts_value = puw.get_value(shifts)
+    angles_shifts_units = puw.get_unit(angles_shifts)
+    angles_shifts_value = puw.get_value(angles_shifts)
 
-    if type(shifts_value) in [float]:
+    if type(angles_shifts_value) in [float]:
         if (n_quartets==1 and n_structures==1):
-            shifts_value = np.array([[shifts_value]], dtype=float)
+            angles_shifts_value = np.array([[angles_shifts_value]], dtype=float)
         else:
-            raise ValueError("shifts do not match the number of frames and quartets")
-    elif type(shifts_value) in [list,tuple]:
-        shifts_value = np.array(shifts_value, dtype=float)
-    elif type(shifts_value) is np.ndarray:
+            raise ValueError("angles_shifts do not match the number of frames and quartets")
+    elif type(angles_shifts_value) in [list,tuple]:
+        angles_shifts_value = np.array(angles_shifts_value, dtype=float)
+    elif type(angles_shifts_value) is np.ndarray:
         pass
     else:
         raise ValueError
 
-    shape = shifts_value.shape
+    shape = angles_shifts_value.shape
 
     if len(shape)==1:
-        shifts_value = shifts_value.reshape([n_structures, n_quartets])
+        angles_shifts_value = angles_shifts_value.reshape([n_structures, n_quartets])
 
-    shifts=shifts_value*shifts_units
+    angles_shifts=angles_shifts_value*angles_shifts_units
 
     angles = get_dihedral_angles(molecular_system, quartets=quartets,
             structure_indices=structure_indices, pbc=pbc)
-    angles = angles + shifts
+    angles = angles + angles_shifts
 
     return set_dihedral_angles(molecular_system, quartets=quartets, angles=angles, blocks=None,
                                structure_indices=structure_indices, pbc=pbc, in_place=in_place,

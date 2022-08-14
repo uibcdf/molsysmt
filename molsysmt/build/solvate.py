@@ -17,7 +17,7 @@ Methods and wrappers to create and solvate boxes
 def solvate (molecular_system, box_shape="truncated octahedral", clearance='14.0 angstroms',
              anion='Cl-', n_anions="neutralize", cation='Na+', n_cations="neutralize",
              ionic_strength='0.0 molar', engine="LEaP",
-             to_form= None):
+             to_form= None, verbose=False):
 
     """solvate(item, geometry=None, water=None, engine=None)
     Methods and wrappers to create and solvate boxes
@@ -139,13 +139,12 @@ def solvate (molecular_system, box_shape="truncated octahedral", clearance='14.0
 
         from molsysmt.thirds.tleap import TLeap
         from molsysmt._private.files_and_directories import temp_directory, temp_filename
-        from molsysmt.tools.file_pdb import replace_HETATM_by_ATOM_in_terminal_cappings
+        from molsysmt.item.file_pdb import replace_HETATM_by_ATOM_in_terminal_cappings
         from shutil import rmtree, copyfile
         from os import getcwd, chdir
-        from molsysmt.basic import set as _set, select
-        from molsysmt.build import has_hydrogens, remove_hydrogens
+        from molsysmt.basic import set as _set, select, remove, contains
 
-        if has_hydrogens(molecular_system):
+        if contains(molecular_system, hydrogens=True):
             raise ValueError("A molecular system without hydrogen atoms is needed.")
             #molecular_system = remove_hydrogens(molecular_system)
             #if verbose:
@@ -193,12 +192,12 @@ def solvate (molecular_system, box_shape="truncated octahedral", clearance='14.0
         if n_anions != 0:
             if n_anions=='neutralize':
                 n_anions=0
-            tleap.add_ions('MolecularSystem', anion, n_ions=n_anions, replace_solvent=True)
+            tleap.add_ions('MolecularSystem', anion, num_ions=n_anions, replace_solvent=True)
 
         if n_cations != 0:
             if n_cations=='neutralize':
                 n_cations=0
-            tleap.add_ions('MolecularSystem', cation, n_ions=n_cations, replace_solvent=True)
+            tleap.add_ions('MolecularSystem', cation, num_ions=n_cations, replace_solvent=True)
 
         tleap.save_unit('MolecularSystem', tmp_prmtop)
         errors=tleap.run(working_directory=working_directory, verbose=False)
