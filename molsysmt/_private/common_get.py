@@ -2478,6 +2478,12 @@ def get_n_lipids_from_system(item):
     return (molecule_types=='lipid').sum()
 
 @digest(form=form)
+def get_n_oligosaccharides_from_system(item):
+
+    molecule_types = get_molecule_type_from_molecule(item)
+    return (molecule_types=='oligosaccharide').sum()
+
+@digest(form=form)
 def get_coordinates_from_system(item, structure_indices='all'):
 
     return get_coordinates_from_atom(item, structure_indices=structure_indices)

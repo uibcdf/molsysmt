@@ -6,5 +6,6 @@ from . import aminoacid
 from . import terminal_capping
 from . import nucleotide
 from . import lipid
+from . import saccharide
 
 from .get_group_type_from_group_name import get_group_type_from_group_name

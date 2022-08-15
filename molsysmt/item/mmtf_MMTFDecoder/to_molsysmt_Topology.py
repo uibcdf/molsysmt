@@ -219,6 +219,8 @@ def to_molsysmt_Topology(item, atom_indices='all', structure_indices='all', bioa
 
         elif entity_type == "ion":
 
+            entity_name = entity_name.capitalize()
+
             molecule_type = "ion"
             molecule_name = entity_name
 
@@ -236,6 +238,8 @@ def to_molsysmt_Topology(item, atom_indices='all', structure_indices='all', bioa
                     molecule_index += 1
 
         elif entity_type == "cosolute":
+
+            entity_name = entity_name.capitalize()
 
             molecule_type = "cosolute"
             molecule_name = entity_name
@@ -255,6 +259,8 @@ def to_molsysmt_Topology(item, atom_indices='all', structure_indices='all', bioa
 
         elif entity_type == "small molecule":
 
+            entity_name = entity_name.capitalize()
+
             molecule_type = "small molecule"
             molecule_name = entity_name
 
@@ -270,6 +276,27 @@ def to_molsysmt_Topology(item, atom_indices='all', structure_indices='all', bioa
                         molecule_id_array[atom_index] = molecule_index
 
                     molecule_index += 1
+
+        elif entity_type == "oligosaccharide":
+
+            entity_name = entity_name.capitalize()
+
+            molecule_type = "oligosaccharide"
+            molecule_name = entity_name
+
+            for chain_index in mmtf_entity['chainIndexList']:
+                atom_indices_in_chain = np.where(chain_index_array==chain_index)[0]
+                component_indices_in_chain = np.unique(component_index_array[atom_indices_in_chain])
+                for component_index in component_indices_in_chain:
+                    for atom_index in np.where(component_index_array==component_index)[0]:
+
+                        molecule_index_array[atom_index] = molecule_index
+                        molecule_name_array[atom_index] = molecule_name
+                        molecule_type_array[atom_index] = molecule_type
+                        molecule_id_array[atom_index] = molecule_index
+
+                    molecule_index += 1
+
         else:
             print(entity_name, entity_type, mmtf_entity)
             raise ValueError("Entity type not recognized")

@@ -464,6 +464,24 @@ _required_attributes['n_lipids'] = ['group_type']
 _required_indices['n_lipids'] = ['indices']
 _reverse_search_in_molecular_system['n_lipids'] = False
 
+# n_oligosaccharides
+
+attributes.append('n_oligosaccharides')
+attribute_synonyms['n_oligosaccharides'] = 'n_oligosaccharides'
+
+_required_attributes['n_oligosaccharides'] = ['molecule_type']
+_required_indices['n_oligosaccharides'] = ['indices']
+_reverse_search_in_molecular_system['n_oligosaccharides'] = False
+
+# n_oligosaccharides
+
+attributes.append('n_saccharides')
+attribute_synonyms['n_saccharides'] = 'n_saccharides'
+
+_required_attributes['n_saccharides'] = ['group_type']
+_required_indices['n_saccharides'] = ['indices']
+_reverse_search_in_molecular_system['n_saccharides'] = False
+
 # step
 
 attributes.append('step')

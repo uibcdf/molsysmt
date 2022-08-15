@@ -45,6 +45,8 @@ def get_entity_type_from_MMTFDecoder_entity(mmtf_entity):
             else:
                 return 'small molecule'
                 #raise NotImplementedError("The mmtf entity type {} is not implemented.".format(mmtf_entity))
+    elif mmtf_entity['type']=='branched':
+        return 'oligosaccharide'
 
     return output
 

@@ -7,6 +7,7 @@ from . import protein
 from . import dna
 from . import rna
 from . import lipid
+from . import oligosaccharide
 
 from .get_molecule_index_from_atom import get_molecule_index_from_atom
 from .get_molecule_id_from_molecule import get_molecule_id_from_molecule

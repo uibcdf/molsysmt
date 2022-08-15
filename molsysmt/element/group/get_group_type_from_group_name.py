@@ -7,6 +7,7 @@ from .aminoacid import is_aminoacid
 from .terminal_capping import is_terminal_capping
 from .nucleotide import is_nucleotide
 from .lipid import is_lipid
+from .saccharide import is_saccharide
 
 @digest()
 def get_group_type_from_group_name(group_name):
@@ -29,6 +30,8 @@ def get_group_type_from_group_name(group_name):
         output = 'nucleotide'
     elif is_lipid(group_name):
         output = 'lipid'
+    elif is_saccharide(group_name):
+        output = 'saccharide'
 
     return output
 

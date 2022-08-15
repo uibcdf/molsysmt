@@ -1250,6 +1250,12 @@ def get_n_lipids_from_system (item):
     return aux_get(item.topology)
 
 @digest(form=form)
+def get_n_oligosaccharides_from_system (item):
+
+    from ..molsysmt_Topology import get_n_oligosaccharides_from_system as aux_get
+    return aux_get(item.topology)
+
+@digest(form=form)
 def get_coordinates_from_system(item, structure_indices='all'):
 
     from ..molsysmt_Structures import get_coordinates_from_system as aux_get
