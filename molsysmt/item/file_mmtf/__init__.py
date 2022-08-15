@@ -14,4 +14,4 @@ from .to_string_aminoacids3 import to_string_aminoacids3
 from .to_file_pdb import to_file_pdb
 from .to_molsysmt_MolSys import to_molsysmt_MolSys
 from .to_molsysmt_Structures import to_molsysmt_Structures
-
+from .to_mdtraj import load_mmtf, MMTFTrajectoryFile

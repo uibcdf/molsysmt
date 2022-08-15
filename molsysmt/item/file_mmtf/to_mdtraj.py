@@ -48,24 +48,24 @@
 # Imports
 ##############################################################################
 
-
+import copy
 import os
-import sys
-import itertools
-from re import sub, match, findall
-# import element as elem
-import numpy as np
-
-import mdtraj as md
-from mdtraj.utils import in_units_of, cast_indices, ensure_type
-from mdtraj.formats import pdb
-from mdtraj.core import element as elem
+import re
+import tempfile
+import xml.etree.ElementTree as ETree
+import mdtraj as mdt
+import mdtraj.core.element as mdt_element
 from mdtraj.formats.registry import FormatRegistry
+from mdtraj.utils import in_units_of
+import mmtf
+from mmtf.api.mmtf_writer import get_unique_groups
+import numpy as np
 
 
 ##############################################################################
 # Code
 ##############################################################################
+
 
 @FormatRegistry.register_loader('.mmtf')
 def load_mmtf(filename, stride=None, atom_indices=None, frame=None):
@@ -75,29 +75,65 @@ def load_mmtf(filename, stride=None, atom_indices=None, frame=None):
     ----------
     filename : str
         Path to the MMTF file on disk.
+
     stride : int, default=None
         Only read every stride-th model from the file
+
     atom_indices : array_like, optional
         If not none, then read only a subset of the atoms coordinates from the
         file. These indices are zero-based.
+
     frame : int, optional
         Use this option to load only a single model from a MMTF file on disk.
         If frame is None, the default, all models in file will be loaded.
         If supplied, ``stride`` will be ignored.
     """
-    from mdtraj.core.trajectory import _parse_topology, Trajectory
+    with MMTFTrajectoryFile(filename, 'r') as fh:
+        # time = np.arange(len(fh.positions))
 
-    with MMTFTrajectoryFile(filename, 'r') as f:
-        topology = f.topology
-        #if frame is not None:
-        #    f.seek(frame)
-        #    n_structures = 1
-        #else:
-        #    n_structures = None
-        return f.read_as_traj(n_structures=n_structures, stride=stride,
-                              atom_indices=atom_indices)
+        coords = fh.positions
+        unit_cell_lengths = fh.unit_cell_lengths
 
-@FormatRegistry.register_fileobject('.gro')
+        # Convert from angstroms to nanometers
+        in_units_of(coords,
+                    fh.distance_unit,
+                    mdt.Trajectory._distance_unit,
+                    inplace=True)
+        in_units_of(unit_cell_lengths,
+                    fh.distance_unit,
+                    mdt.Trajectory._distance_unit,
+                    inplace=True)
+
+        return mdt.Trajectory(
+            xyz=coords,
+            topology=fh.topology,
+            # time=time,
+            unitcell_lengths=unit_cell_lengths,
+            unitcell_angles=fh.unit_cell_angles,
+        )
+
+
+class TrajMMTFEncoder(mmtf.MMTFEncoder):
+    """ An MMTF encoder with a custom finalize structure method, and
+        a method to write temporary files.
+    """
+
+    def finalize_structure(self):
+        """ Cleanup the structure"""
+        group_set = get_unique_groups(self.group_list)
+        for item in self.group_list:
+            self.group_type_list.append(group_set.index(item))
+        self.group_list = [x.convert_to_dict() for x in group_set]
+
+    def write_temp_file(self):
+        """ Writes a temporary file. """
+        temp_fp = tempfile.NamedTemporaryFile()
+        temp_fp.write(self.get_msgpack())
+        temp_fp.seek(0)
+        return temp_fp
+
+
+@FormatRegistry.register_fileobject('.mmtf')
 class MMTFTrajectoryFile(object):
     """Interface for reading and writing to MMTF files.
 
@@ -105,422 +141,543 @@ class MMTFTrajectoryFile(object):
     ----------
     filename : str
         The filename to open. A path to a file on disk.
+
     mode : {'r', 'w'}
         The mode in which to open the file, either 'r' for read or 'w' for write.
+
     force_overwrite : bool
         If opened in write mode, and a file by the name of `filename` already
         exists on disk, should we overwrite it?
 
-    Attributes
-    ----------
-    n_atoms : int
-        The number of atoms in the file
-    topology : md.Topology
-        The topology. TODO(rmcgibbo) note about chain
-
-    See Also
-    --------
     """
-    distance_unit = 'nanometers'
+    distance_unit = 'angstroms'
+    _residue_name_replacements = {}
+    _atom_name_replacements = {}
+    _chain_names = [chr(ord('A') + i) for i in range(26)]
 
-    def __init__(self, filename, mode='r', force_overwrite=True):
-        self._open = False
-        self._filepath = None
+    def __init__(self, filename, mode='r', force_overwrite=True, standard_names=True):
+        self._open = True
+        self._filepath = filename
         self._mode = mode
+        self._standard_names = standard_names
+        self._positions = None
+        self._topology = None
+        self._unit_cell_lengths = None
+        self._unit_cell_angles = None
 
         if mode == 'r':
-            self._open = False
-            self._frame_index = 0
-            self._filepath = filename
-            self.n_atoms, self.topology = self._read_topology()
+
+            _residue_name_replacements, _atom_name_replacements = self._load_name_replacement_tables()
+            self._positions, self._topology, self._unit_cell_lengths, self._unit_cell_angles = \
+                self._read(self._filepath, self._standard_names)
+
         elif mode == 'w':
-            #self._open = True
-            #if os.path.exists(filename) and not force_overwrite:
-            #    raise IOError('"%s" already exists' % filename)
-            #self._frame_index = 0
-            #self._file = open(filename, 'w')
-            raise NotImplementedError("Not implemented yet")
+            self._open = True
+            if os.path.exists(filename) and not force_overwrite:
+                raise IOError('"%s" already exists' % filename)
         else:
             raise ValueError("invalid mode: %s" % mode)
 
-
-    #def write(self, coordinates, topology, time=None, unitcell_vectors=None,
-    #          precision=3):
-    #    """Write one or more frames of a molecular dynamics trajectory to disk
-    #    in the GROMACS GRO format.
-
-    #    Parameters
-    #    ----------
-    #    coordinates : np.ndarray, dtype=np.float32, shape=(n_structures, n_atoms, 3)
-    #        The cartesian coordinates of each atom, in units of nanometers.
-    #    topology : mdtraj.Topology
-    #        The Topology defining the model to write.
-    #    time : np.ndarray, dtype=float32, shape=(n_structures), optional
-    #        The simulation time corresponding to each frame, in picoseconds.
-    #        If not supplied, the numbers 0..n_structures will be written.
-    #    unitcell_vectors : np.ndarray, dtype=float32, shape=(n_structures, 3, 3), optional
-    #        The periodic box vectors of the simulation in each frame, in nanometers.
-    #    precision : int, optional
-    #        The number of decimal places to print for coordinates. Default is 3
-    #    """
-    #    if not self._open:
-    #        raise ValueError('I/O operation on closed file')
-    #    if not self._mode == 'w':
-    #        raise ValueError('file not opened for writing')
-
-    #    coordinates = ensure_type(coordinates, dtype=np.float32, ndim=3, name='coordinates', can_be_none=False, warn_on_cast=False)
-    #    time = ensure_type(time, dtype=float, ndim=1, name='time', can_be_none=True, shape=(len(coordinates),), warn_on_cast=False)
-    #    unitcell_vectors = ensure_type(unitcell_vectors, dtype=float, ndim=3, name='unitcell_vectors',
-    #        can_be_none=True, shape=(len(coordinates), 3, 3), warn_on_cast=False)
-
-    #    for i in range(coordinates.shape[0]):
-    #        frame_time = None if time is None else time[i]
-    #        frame_box = None if unitcell_vectors is None else unitcell_vectors[i]
-    #        self._write_frame(coordinates[i], topology, frame_time, frame_box, precision)
-
-    def read_as_traj(self, n_structures=None, stride=None, atom_indices=None):
-        """Read a trajectory from a gro file
-
-        Parameters
-        ----------
-        n_structures : int, optional
-            If positive, then read only the next `n_structures` frames. Otherwise read all
-            of the frames in the file.
-        stride : np.ndarray, optional
-            Read only every stride-th frame.
-        atom_indices : array_like, optional
-            If not none, then read only a subset of the atoms coordinates from the
-            file. This may be slightly slower than the standard read because it required
-            an extra copy, but will save memory.
-
-        Returns
-        -------
-        trajectory : Trajectory
-            A trajectory object containing the loaded portion of the file.
+    @property
+    def positions(self):
+        """ Returns the cartesian coordinates of the atoms if mode='r'. If mode='w' returns
+            none.
         """
-        from mdtraj.core.trajectory import Trajectory
-        topology = self.topology
-        if atom_indices is not None:
-            topology = topology.subset(atom_indices)
+        return self._positions
 
-        coordinates, time, unitcell_vectors = self.read(stride=stride, atom_indices=atom_indices)
-        if len(coordinates) == 0:
-            return Trajectory(xyz=np.zeros((0, topology.n_atoms, 3)), topology=topology)
+    @property
+    def topology(self):
+        """ Returns the topology of the mmtf file if mode='r'. If mode='w' returns
+            none.
+        """
+        return self._topology
 
-        coordinates = in_units_of(coordinates, self.distance_unit, Trajectory._distance_unit, inplace=True)
-        unitcell_vectors = in_units_of(unitcell_vectors, self.distance_unit, Trajectory._distance_unit, inplace=True)
+    @property
+    def unit_cell_lengths(self):
+        """ Returns the unit cell lengths of the mmtf file if mode='r'. If mode='w' returns
+            none.
+        """
+        return self._unit_cell_lengths
 
-        traj = Trajectory(xyz=coordinates, topology=topology, time=time)
-        traj.unitcell_vectors = unitcell_vectors
-        return traj
+    @property
+    def unit_cell_angles(self):
+        """ Returns the unit cell angles of the mmtf file if mode='r'. If mode='w' returns
+            none.
+        """
+        return self._unit_cell_angles
 
+    @property
+    def closed(self):
+        """ Whether the file is closed. """
+        return not self._open
 
-    def read(self, n_structures=None, stride=None, atom_indices=None):
-        """Read data from a molecular dynamics trajectory in the GROMACS GRO
-        format.
+    def write(self, positions, topology, unit_cell_lengths=None,
+              unit_cell_angles=None, b_factors=None):
+        """ Write a mmtf file to disk
 
-        Parameters
-        ----------
-        n_structures : int, optional
-            If n_structures is not None, the next n_structures of data from the file
-            will be read. Otherwise, all of the frames in the file will be read.
-        stride : int, optional
-            If stride is not None, read only every stride-th frame from disk.
-        atom_indices : np.ndarray, dtype=int, optional
-            The specific indices of the atoms you'd like to retrieve. If not
-            supplied, all of the atoms will be retrieved.
+            Parameters
+            ----------
+            positions : array_like
+                The list of atomic positions to write.
 
-        Returns
-        -------
-        coordinates : np.ndarray, shape=(n_structures, n_atoms, 3)
-            The cartesian coordinates of the atoms, in units of nanometers.
-        time : np.ndarray, None
-            The time corresponding to each frame, in units of picoseconds, or
-            None if no time information is present in the trajectory.
-        unitcell_vectors : np.ndarray, shape=(n_structures, 3, 3)
-            The box vectors in each frame, in units of nanometers
+            topology : mdtraj.Topology
+                The Topology defining the model to write.
+
+            unit_cell_lengths : {tuple, None}
+                Lengths of the three unit cell vectors, or None for a non-periodic system
+
+            unit_cell_angles : {tuple, None}
+                Angles between the three unit cell vectors, or None for a non-periodic system
+
+            b_factors : array_like, default=None, shape=(n_atoms,)
+                Save bfactors. Should contain a single number for
+                each atom in the topology
         """
         if not self._open:
             raise ValueError('I/O operation on closed file')
-        if not self._mode == 'r':
-            raise ValueError('file not opened for reading')
+        if not self._mode == 'w':
+            raise ValueError('file not opened for writing')
 
-        coordinates = []
-        unitcell_vectors = []
-        time = []
-        contains_time = True
+        if b_factors is not None and b_factors.shape[0] < positions.shape[1]:
+            raise ValueError("b_factors must be of shape (n_atoms,")
 
-        atom_indices = cast_indices(atom_indices)
-        atom_slice = slice(None) if atom_indices is None else atom_indices
+        encoder = self._encode_data_for_writing(positions=positions,
+                                                topology=topology,
+                                                unit_cell_lengths=unit_cell_lengths,
+                                                unit_cell_angles=unit_cell_angles,
+                                                b_factors=b_factors)
 
-        if n_structures is None:
-            frameiter = itertools.count()
-        else:
-            frameiter = range(n_structures)
+        encoder.write_file(self._filepath)
 
-        for i in frameiter:
-            try:
-                frame_xyz, frame_box, frame_time = self._read_frame()
-                contains_time = contains_time and (frame_time is not None)
-                coordinates.append(frame_xyz[atom_slice])
-                unitcell_vectors.append(frame_box)
-                time.append(frame_time)
-            except StopIteration:
-                break
+    @staticmethod
+    def _add_intra_group_bonds(encoder, residue_bond_list, bond_order_list):
+        """ Helper method to add intra-residue bonds to an encoder.
 
-        coordinates, unitcell_vectors, time = map(np.array, (coordinates, unitcell_vectors, time))
+            Parameters
+            ----------
+            encoder : TrajMMTFEncoder
+                An MMTF encoder
 
-        if not contains_time:
-            time = None
-        else:
-            time = time[::stride]
+            residue_bond_list: list[int]
+                A list with the index of the bonded atoms
 
-        return coordinates[::stride], time, unitcell_vectors[::stride]
-
-    def _read_topology(self):
-
-        if not self._mode == 'r':
-            raise ValueError('file not opened for reading')
-
-        from mmtf import parse
-
-        mmtf_decoder = parse(self._filepath)
-
-        n_atoms = mmtf_decoder.num_atoms
-        topology = md.Topology()
-
-        if len(mmtf_decoder.bio_assembly)>1:
-            raise NotImplementedError('System with more than a bio_assembly. _read_topology in mmtf.py is not ready yet to handle this situation.')
-
-        if len(mmtf_decoder.bio_assembly[0]['transformList'])>1:
-            raise NotImplementedError('System with more than a transformList of a bio_assembly. _read_topology in mmtf.py is not ready yet to handle this situation.')
-
-        for bio_assembly in mmtf_decoder_bio_assembly:
-            
-            
-
-            for chain_index in transform_list['chainIndexList']:
-
-                chain = topology.add_chain()
-                residue = None
-                atomReplacements = {}
-
-        for atom_index in range(n_atoms):
-            thisatomnum = mmtf_decoder.atom_id_list[atom_index]
-            # thisatomname =
-            # thisresnum=
-            # thisresname=
-
-        for ln, line in enumerate(self._file):
-            if ln == 1:
-                n_atoms = int(line.strip())
-            elif ln > 1 and ln < n_atoms + 2:
-                (thisresnum, thisresname, thisatomname, thisatomnum) = \
-                    [line[i*5:i*5+5].strip() for i in range(4)]
-                thisresnum, thisatomnum = map(int, (thisresnum, thisatomnum))
-                if residue is None or residue.resSeq != thisresnum:
-                    if thisresname in pdb.PDBTrajectoryFile._residueNameReplacements:
-                        thisresname = pdb.PDBTrajectoryFile._residueNameReplacements[thisresname]
-                    residue = topology.add_residue(thisresname, chain, resSeq=thisresnum)
-                    if thisresname in pdb.PDBTrajectoryFile._atomNameReplacements:
-                        atomReplacements = pdb.PDBTrajectoryFile._atomNameReplacements[thisresname]
-                    else:
-                        atomReplacements = {}
-
-                thiselem = thisatomname
-                if len(thiselem) > 1:
-                    thiselem = thiselem[0] + sub('[A-Z0-9]','',thiselem[1:])
-                try:
-                    element = elem.get_by_symbol(thiselem)
-                except KeyError:
-                    element = elem.virtual
-                if thisatomname in atomReplacements:
-                    thisatomname = atomReplacements[thisatomname]
-
-                topology.add_atom(thisatomname, element=element, residue=residue,
-                                  serial=thisatomnum)
-
-        return n_atoms, topology
-
-    def _read_frame(self):
-        if not self._open:
-            raise ValueError('I/O operation on closed file')
-        if not self._mode == 'r':
-            raise ValueError('file not opened for reading')
-
-        atomcounter = itertools.count()
-        comment = None
-        boxvectors = None
-        topology = None
-        xyz = np.zeros((self.n_atoms, 3), dtype=np.float32)
-
-        got_line = False
-        firstDecimalPos = None
-        atomindex = -1
-        for ln, line in enumerate(self._file):
-            got_line = True
-            if ln == 0:
-                comment = line.strip()
-                continue
-            elif ln == 1:
-                assert self.n_atoms == int(line.strip())
-                continue
-            if firstDecimalPos is None:
-                try:
-                    firstDecimalPos = line.index('.', 20)
-                    secondDecimalPos = line.index('.', firstDecimalPos+1)
-                except ValueError:
-                    firstDecimalPos = secondDecimalPos = None
-            crd = _parse_gro_coord(line, firstDecimalPos, secondDecimalPos)
-            if crd is not None and atomindex < self.n_atoms - 1:
-                atomindex = next(atomcounter)
-                xyz[atomindex, :] = (crd[0], crd[1], crd[2])
-            elif _is_gro_box(line) and ln == self.n_atoms + 2:
-                sline = line.split()
-                boxvectors = tuple([float(i) for i in sline])
-                # the gro_box line comes at the end of the record
-                break
+            bond_order_list: list[int]
+                A list with the orders of the bonds
+        """
+        min_index = min(residue_bond_list)
+        for ii in range(0, len(residue_bond_list), 2):
+            # This method expects the atom index inside the residue or group
+            if min_index != 0:
+                encoder.set_group_bond(
+                    atom_index_one=residue_bond_list[ii] % min_index,
+                    atom_index_two=residue_bond_list[ii + 1] % min_index,
+                    bond_order=bond_order_list[int(ii / 2)]
+                )
             else:
-                raise Exception("Unexpected line in .gro file: "+line)
+                encoder.set_group_bond(
+                    atom_index_one=residue_bond_list[ii],
+                    atom_index_two=residue_bond_list[ii + 1],
+                    bond_order=bond_order_list[int(ii / 2)]
+                )
 
-        if not got_line:
-            raise StopIteration()
+    @staticmethod
+    def _encode_data_for_writing(positions, topology, unit_cell_lengths=None,
+                                 unit_cell_angles=None, b_factors=None, encoder=None):
+        """ Encodes the data so it can be written to a mmtf file.
 
-        time = None
-        if 't=' in comment:
-            # title string (free format string, optional time in ps after 't=')
-            time = float(findall('t= *(\d+\.\d+)',comment)[-1])
+            Parameters
+            ----------
+            positions : array_like
+                The list of atomic positions to write.
 
-        # box vectors (free format, space separated reals), values: v1(x) v2(y)
-        # v3(z) v1(y) v1(z) v2(x) v2(z) v3(x) v3(y), the last 6 values may be
-        # omitted (they will be set to zero).
-        box = [boxvectors[i] if i < len(boxvectors) else 0 for i in range(9)]
-        unitcell_vectors = np.array([
-            [box[0], box[3], box[4]],
-            [box[5], box[1], box[6]],
-            [box[7], box[8], box[2]]])
+            topology : mdtraj.Topology
+                The Topology defining the model to write.
 
-        return xyz, unitcell_vectors, time
+            unit_cell_lengths : {tuple, None}
+                Lengths of the three unit cell vectors, or None for a non-periodic system
 
-    def _write_frame(self, coordinates, topology, time, box, precision):
-        comment = 'Generated with MDTraj'
-        if time is not None:
-            comment += ', t= %s' % time
+            unit_cell_angles : {tuple, None}
+                Angles between the three unit cell vectors, or None for a non-periodic system
 
-        varwidth = precision + 5
-        fmt = '%%5d%%-5s%%5s%%5d%%%d.%df%%%d.%df%%%d.%df' % (
-                varwidth, precision, varwidth, precision, varwidth, precision)
-        assert topology.n_atoms == coordinates.shape[0]
-        lines = [comment, ' %d' % topology.n_atoms]
-        if box is None:
-            box = np.zeros((3,3))
+            b_factors : array_like, default=None, shape=(n_atoms,)
+                Save bfactors. Should contain a single number for
+                each atom in the topology
 
-        for i in range(topology.n_atoms):
-            atom = topology.atom(i)
-            residue = atom.residue
-            serial = atom.serial
-            if serial is None:
-                serial = atom.index
-            if serial >= 100000:
-                serial -= 100000
-            lines.append(fmt % (residue.resSeq, residue.name, atom.name, serial,
-                                coordinates[i, 0], coordinates[i, 1], coordinates[i, 2]))
+            encoder: mmtf.MMTFEncoder, optional (default=None)
+                An encoder to pass data to.
 
-        lines.append('%10.5f%10.5f%10.5f%10.5f%10.5f%10.5f%10.5f%10.5f%10.5f' % (
-            box[0,0], box[1,1], box[2,2],
-            box[0,1], box[0,2], box[1,0],
-            box[1,2], box[2,0], box[2,1]))
+            Returns
+            -------
+            encoder: TrajMMTFEncoder
+                An encoder with all the necessary data to write the mmtf file.
 
-        self._file.write('\n'.join(lines))
-        self._file.write('\n')
-
-    def seek(self, offset, whence=0):
-        """Move to a new file position
-
-        Parameters
-        ----------
-        offset : int
-            A number of frames.
-        whence : {0, 1, 2}
-            0: offset from start of file, offset should be >=0.
-            1: move relative to the current position, positive or negative
-            2: move relative to the end of file, offset should be <= 0.
-            Seeking beyond the end of a file is not supported
         """
-        raise NotImplementedError()
 
-    def tell(self):
-        """Current file position
+        if encoder is None:
+            encoder = TrajMMTFEncoder()
 
-        Returns
-        -------
-        offset : int
-            The current frame in the file.
+        encoder.init_structure(
+            total_num_bonds=topology.n_bonds,
+            total_num_atoms=topology.n_atoms,
+            total_num_chains=topology.n_chains,
+            total_num_groups=topology.n_residues,
+            total_num_models=1,
+            structure_id="TEMP"
+        )
+
+        # TODO: can we get metadata from an mdtraj trajectory?
+        encoder.set_header_info(
+            r_free=None,
+            r_work=None,
+            resolution=None,
+            title=None,
+            deposition_date=None,
+            release_date=None,
+            experimental_methods=None,
+        )
+
+        # We convert the following arrays from numpy.float32
+        # to float because the encoder can't handle the former
+        unit_cell = [float(x) for x in unit_cell_lengths[0]]
+        unit_cell += [float(x) for x in unit_cell_angles[0]]
+        assert len(unit_cell) == 6
+
+        encoder.set_xtal_info(space_group="", unit_cell=unit_cell)
+
+        # This sets the number of chains for a given model. Here we assume we have only
+        # one model so, we only add one chain count
+        encoder.set_model_info(model_id=None, chain_count=topology.n_chains)
+
+        protein_entity = {
+            'description': '',
+            'type': 'polymer',
+            'chainIndexList': set(),
+            'sequence': ''
+        }
+        water_entity = {
+            'description': 'water',
+            'type': 'water',
+            'chainIndexList': set(),
+            'sequence': ''
+        }
+        other_entity = {
+            'description': '',
+            'type': 'non-polymer',
+            'chainIndexList': set(),
+            'sequence': ''
+        }
+        for chain in topology.chains:
+
+            chain_name = chr(ord('A') + chain.index % 26)
+            encoder.set_chain_info(
+                chain_id=chain_name,
+                chain_name="\x00",
+                num_groups=chain.n_residues
+            )
+
+            for residue in chain.residues:
+
+                if residue.is_protein:
+                    residue_type = "PEPTIDE LINKING"
+                    protein_entity["sequence"] += residue.code
+                    protein_entity["chainIndexList"].add(chain.index)
+                elif residue.is_water:
+                    residue_type = "NON-POLYMER"
+                    water_entity["chainIndexList"].add(chain.index)
+                else:
+                    residue_type = "NON-POLYMER"
+                    other_entity["chainIndexList"].add(chain.index)
+
+                single_letter_code = residue.code
+                if single_letter_code is None:
+                    single_letter_code = "?"
+
+                encoder.set_group_info(
+                    group_name=residue.name,
+                    group_number=residue.resSeq,
+                    insertion_code="\x00",
+                    group_type=residue_type,
+                    atom_count=residue.n_atoms,
+                    bond_count=0,  # This parameter is not used in mmtf-python
+                    single_letter_code=single_letter_code,
+                    sequence_index=-1,
+                    secondary_structure_type=-1,
+                )
+
+                for atom in residue.atoms:
+
+                    if b_factors is not None:
+                        temp_factor = b_factors[atom.index]
+                    else:
+                        temp_factor = 0
+
+                    encoder.set_atom_info(
+                        atom_name=atom.name,
+                        serial_number=atom.serial,
+                        alternative_location_id="\x00",
+                        x=float(positions[0, atom.index, 0]),
+                        y=float(positions[0, atom.index, 1]),
+                        z=float(positions[0, atom.index, 2]),
+                        occupancy=1.0,
+                        temperature_factor=temp_factor,
+                        element=atom.element.symbol,
+                        charge=0,
+                    )
+
+        # Adds the last residue
+        encoder.group_list.append(encoder.current_group)
+
+        # Add entity info
+        # TODO: adding entity info does not consider cases when there are multiple proteins,
+        #   ligands or different ions. Also, how can we get the name of the ions or protein chain?
+        if len(protein_entity["sequence"]) > 0:
+            protein_entity["chainIndexList"] = list(protein_entity["chainIndexList"])
+            encoder.entity_list.append(protein_entity)
+        if len(water_entity["chainIndexList"]) > 0:
+            water_entity["chainIndexList"] = list(water_entity["chainIndexList"])
+            encoder.entity_list.append(water_entity)
+        if len(other_entity["chainIndexList"]) > 0:
+            other_entity["chainIndexList"] = list(other_entity["chainIndexList"])
+            encoder.entity_list.append(other_entity)
+
+        residue_bond_list = []
+        bond_order_list = []
+
+        for bond in topology.bonds:
+
+            bond_order = bond.order
+            if bond_order is None:
+                bond_order = 1
+
+            # Check if it's an intra-residue bond
+            if bond.atom1.residue.index == bond.atom2.residue.index:
+
+                # We need to find the index of this residue in the group list
+                residue = bond.atom1.residue
+                encoder.current_group = encoder.group_list[residue.index]
+
+                residue_bond_list.append(bond.atom1.index)
+                residue_bond_list.append(bond.atom2.index)
+                bond_order_list.append(bond_order)
+
+            # If not it is an inter-residue bond
+            else:
+                # This method expects the atom index of the whole structure
+                encoder.set_inter_group_bond(
+                    atom_index_one=bond.atom1.index,
+                    atom_index_two=bond.atom2.index,
+                    bond_order=bond_order
+                )
+                # Bonds are ordered by residue so each time we get an iter-residue bond
+                # it means that a new residue comes after.
+                MMTFTrajectoryFile._add_intra_group_bonds(encoder, residue_bond_list, bond_order_list)
+                residue_bond_list.clear()
+                bond_order_list.clear()
+
+        # Add the bonds of the last residue
+        MMTFTrajectoryFile._add_intra_group_bonds(encoder, residue_bond_list, bond_order_list)
+
+        encoder.finalize_structure()
+        return encoder
+
+    @staticmethod
+    def _load_name_replacement_tables():
+        """ Load the list of atom and residue name replacements.
+
+            Returns
+            -------
+
+            atom_name_replacements : Dict[str, Dict[str, str]]
+                This is a map from residue names to a dictionary that maps
+                pdb atom names to mdtraj atom names.
+
+            residue_name_replacements : Dict[str, str]
+                This is a dictionary that maps pdb residue names to mdtraj
+                residue names.
         """
-        return self._frame_index
+        residue_name_replacements = {}
+        atom_name_replacements = {}
+
+        tree = ETree.parse(os.path.join(os.path.dirname(__file__), 'data', 'pdbNames.xml'))
+        all_residues = {}
+        protein_residues = {}
+        nucleic_acid_residues = {}
+        for residue in tree.getroot().findall('Residue'):
+            name = residue.attrib['name']
+            if name == 'All':
+                MMTFTrajectoryFile.parse_residue_atoms(residue, all_residues)
+            elif name == 'Protein':
+                MMTFTrajectoryFile.parse_residue_atoms(residue, protein_residues)
+            elif name == 'Nucleic':
+                MMTFTrajectoryFile.parse_residue_atoms(residue, nucleic_acid_residues)
+        for atom in all_residues:
+            protein_residues[atom] = all_residues[atom]
+            nucleic_acid_residues[atom] = all_residues[atom]
+        for residue in tree.getroot().findall('Residue'):
+            name = residue.attrib['name']
+            for id_ in residue.attrib:
+                if id_ == 'name' or id_.startswith('alt'):
+                    residue_name_replacements[residue.attrib[id_]] = name
+            if 'type' not in residue.attrib:
+                atoms = copy.copy(all_residues)
+            elif residue.attrib['type'] == 'Protein':
+                atoms = copy.copy(protein_residues)
+            elif residue.attrib['type'] == 'Nucleic':
+                atoms = copy.copy(nucleic_acid_residues)
+            else:
+                atoms = copy.copy(all_residues)
+
+            MMTFTrajectoryFile.parse_residue_atoms(residue, atoms)
+            atom_name_replacements[name] = atoms
+
+        return residue_name_replacements, atom_name_replacements
+
+    @staticmethod
+    def parse_residue_atoms(residue, dictionary):
+        for atom in residue.findall('Atom'):
+            name = atom.attrib['name']
+            for id_ in atom.attrib:
+                dictionary[atom.attrib[id_]] = name
+
+    @staticmethod
+    def _read(file_path, standard_names, decoder=None):
+        """ Reads the topology of the mmtf file. It returns
+            a 2-tuple where the first element is the number of atoms
+            and the second is the topology.
+
+            Parameters
+            ----------
+            file_path : str
+                Path to the mmft file.
+
+            standard_names : bool
+                If True, non-standard atom names and residue names are standardized to conform
+                with the current PDB format version. If set to false, this step is skipped.
+
+            Returns
+            -------
+            positions : np.ndarray of shape(n_frames, n_atoms, 3)
+                Number of atoms in the system.
+
+            topology : mdtraj.Topology
+                The topology of the system.
+
+            unit_cell_lengths : np.ndarray of shape (3,)
+                Lengths of the three unit cell vectors, or None for a non-periodic system
+
+            unit_cell_angles : np.ndarray of shape (3,)
+                Angles between the three unit cell vectors, or None for a non-periodic system
+
+        """
+        if not len(MMTFTrajectoryFile._residue_name_replacements):
+            MMTFTrajectoryFile._residue_name_replacements, MMTFTrajectoryFile._atom_name_replacements = \
+                MMTFTrajectoryFile._load_name_replacement_tables()
+
+        # Check it is a PDB id
+        if re.match(r"\d\w{3}", file_path):
+            decoder = mmtf.fetch(file_path)
+        else:
+            decoder = mmtf.parse(file_path)
+
+        # Get the positions first
+        positions = np.zeros((1, decoder.num_atoms, 3))
+        positions[0, :, 0] = decoder.x_coord_list
+        positions[0, :, 1] = decoder.y_coord_list
+        positions[0, :, 2] = decoder.z_coord_list
+
+        # Retrieve unit cells and unit cell angles
+        if any(decoder.unit_cell[:3]):
+            unit_cell_lengths = np.array([decoder.unit_cell[:3]])
+        else:
+            unit_cell_lengths = None
+
+        if any(decoder.unit_cell[3:]):
+            unit_cell_angles = np.array([decoder.unit_cell[3:]])
+        else:
+            unit_cell_angles = None
+
+        # mmtf follows the following structure hierarchy:
+        # Models -> Chains -> Groups -> Atoms
+        # mdtraj has the following hierarchy:
+        # Chains -> Residues -> Atoms
+        # Residues are equivalent to Groups.
+        topology = mdt.Topology()
+        model_index = 0
+        atom_index = 0
+        chain_index = 0
+        group_index = 0
+
+        for model_chain_count in decoder.chains_per_model:
+            for chain in range(model_chain_count):
+                # Number of groups per chain
+                chain_group_count = decoder.groups_per_chain[chain_index]
+                chain = topology.add_chain()
+                for ii in range(chain_group_count):
+                    group = decoder.group_list[decoder.group_type_list[group_index]]
+                    group_name = group["groupName"]
+                    # Get the residue name for mdtraj
+                    if standard_names:
+                        try:
+                            residue_name = MMTFTrajectoryFile._residue_name_replacements[group_name]
+                        except KeyError:
+                            residue_name = group_name
+                    else:
+                        residue_name = group_name
+                    residue = topology.add_residue(name=residue_name,
+                                                   chain=chain,
+                                                   resSeq=decoder.sequence_index_list[group_index])
+
+                    atom_offset = atom_index  # To retrieve bonds later
+
+                    group_atom_count = len(group["atomNameList"])
+                    for jj in range(group_atom_count):
+                        atom_name = group["atomNameList"][jj]
+                        element_symbol = group["elementList"][jj]
+                        element = mdt_element.get_by_symbol(element_symbol)
+
+                        if standard_names:
+                            try:
+                                atom_name = MMTFTrajectoryFile._atom_name_replacements[residue_name][atom_name]
+                            except KeyError:
+                                pass
+
+                        topology.add_atom(name=atom_name,
+                                          element=element,
+                                          residue=residue)
+                        atom_index += 1
+
+                    group_bond_count = int(len(group["bondAtomList"]) / 2)
+                    # Traverse bonds between atoms inside groups
+                    for kk in range(group_bond_count):
+                        atom_1_index = atom_offset + group["bondAtomList"][kk * 2]
+                        atom_2_index = atom_offset + group["bondAtomList"][kk * 2 + 1]
+                        topology.add_bond(topology.atom(atom_1_index),
+                                          topology.atom(atom_2_index),
+                                          order=group["bondOrderList"][kk]
+                                          )
+
+                    group_index += 1
+                chain_index += 1
+            model_index += 1
+
+        # Add inter bond groups
+        for ii in range(int(len(decoder.bond_atom_list) / 2)):
+            topology.add_bond(
+                topology.atom(decoder.bond_atom_list[ii * 2]),
+                topology.atom(decoder.bond_atom_list[ii * 2 + 1]),
+                order=decoder.bond_order_list[ii]
+            )
+
+        return positions, topology, unit_cell_lengths, unit_cell_angles
 
     def close(self):
-        "Close the file"
-        if self._open:
-            self._file.close()
-            self._open = False
+        """Close the file"""
+        self._open = not self._open
 
     def __enter__(self):
-        "Support the context manager protocol"
+        """Support the context manager protocol"""
         return self
 
     def __exit__(self, *exc_info):
-        "Support the context manager protocol"
+        """Support the context manager protocol"""
         self.close()
-
-##############################################################################
-# Utilities
-##############################################################################
-
-
-def _isint(word):
-    """ONLY matches integers! If you have a decimal point? None shall pass!
-
-    @param[in] word String (for instance, '123', '153.0', '2.', '-354')
-    @return answer Boolean which specifies whether the string is an integer (only +/- sign followed by digits)
-
-    """
-    return match('^[-+]?[0-9]+$',word)
-
-def _isfloat(word):
-    """Matches ANY number; it can be a decimal, scientific notation, what have you
-    CAUTION - this will also match an integer.
-
-    @param[in] word String (for instance, '123', '153.0', '2.', '-354')
-    @return answer Boolean which specifies whether the string is any number
-
-    """
-    return match('^[-+]?[0-9]*\.?[0-9]*([eEdD][-+]?[0-9]+)?$',word)
-
-def _parse_gro_coord(line, firstDecimal, secondDecimal):
-    """ Determines whether a line contains GROMACS data or not
-
-    @param[in] line The line to be tested
-
-    """
-    if firstDecimal is None or secondDecimal is None:
-        return None
-    digits = secondDecimal - firstDecimal
-    try:
-        return tuple(float(line[20+i*digits:20+(i+1)*digits]) for i in range(3))
-    except ValueError:
-        return None
-
-def _is_gro_box(line):
-    """ Determines whether a line contains a GROMACS box vector or not
-
-    @param[in] line The line to be tested
-
-    """
-    sline = line.split()
-    if len(sline) == 9 and all([_isfloat(i) for i in sline]):
-        return 1
-    elif len(sline) == 3 and all([_isfloat(i) for i in sline]):
-        return 1
-    else:
-        return 0

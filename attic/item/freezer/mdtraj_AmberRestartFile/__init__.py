@@ -1,0 +1,2 @@
+from .is_mdtraj_AmberRestartFile import is_mdtraj_AmberRestartFile
+
