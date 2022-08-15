@@ -40,7 +40,11 @@ def get_entity_type_from_MMTFDecoder_entity(mmtf_entity):
             entity_name = mmtf_translator[mmtf_entity['description']]
             output = get_entity_type_from_entity_name(entity_name)
         except:
-            raise NotImplementedError("The mmtf entity type {} is not implemented.".format(mmtf_entity))
+            if 'ION' in mmtf_entity['description']:
+                return 'ion'
+            else:
+                return 'small molecule'
+                #raise NotImplementedError("The mmtf entity type {} is not implemented.".format(mmtf_entity))
 
     return output
 

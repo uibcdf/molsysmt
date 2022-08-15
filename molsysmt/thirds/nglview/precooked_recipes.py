@@ -1,7 +1,9 @@
+from molsysmt._private.digestion import digest
 from molsysmt._private.variables import is_all
 
 # https://github.com/arose/ngl/blob/master/doc/usage/selection-language.md
 
+@digest(form='nglview.NGLWidget')
 def standardize_view (view, atom_indices='all', structure_indices='all'):
 
     from molsysmt.basic import select, get, convert

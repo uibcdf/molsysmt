@@ -385,7 +385,7 @@ def get_n_entities_from_system(item):
     from ..openmm_Topology import get_n_entities_from_system as aux_get
 
     tmp_item = to_openmm_Topology(item)
-    output = aux_get(tmp_item, indices=indices)
+    output = aux_get(tmp_item)
 
     return output
 
