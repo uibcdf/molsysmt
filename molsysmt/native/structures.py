@@ -2,10 +2,9 @@ from copy import deepcopy
 import numpy as np
 from molsysmt import puw
 from molsysmt._private.variables import is_all
-import molsysmt._private.exceptions.value_errors as exc
 from molsysmt.basic import get
-from molsysmt.pbc import box_lengths_from_box_vectors, box_angles_from_box_vectors
-
+from molsysmt.pbc import box_lengths_from_box, box_angles_from_box
+from molsysmt._private.exceptions import IteratorError
 
 class Structures:
     """ Class to store the trajectory data of a molecular system
@@ -33,7 +32,7 @@ class Structures:
 
     """
 
-    def __init__(self, step=None, time=None, coordinates=None, box=None, file=None):
+    def __init__(self, step=None, time=None, coordinates=None, box=None):
 
         self.step = step
         self.time = time
@@ -47,7 +46,6 @@ class Structures:
             self.n_structures = 0
             self.n_atoms = 0
 
-        self.file = file
         self._current_structure = 0
 
     @staticmethod
@@ -55,12 +53,12 @@ class Structures:
         """ Concatenates two arrays provided that they are not null."""
         if array_2 is not None:
             if array_1 is None:
-                raise exc.ConcatenationError(
+                raise ValueError(
                     f"The trajectory has no {name} array to append the new frame.")
             else:
                 return np.concatenate([array_1, array_2])
 
-    def append_structures(self, step=None, time=None, coordinates=None, box=None, check=False):
+    def append_structures(self, step=None, time=None, coordinates=None, box=None):
         """ Append structures or frames to this object.
 
              box : pint.Quantity of shape (n_structures, 3, 3)
@@ -73,7 +71,6 @@ class Structures:
                 The times of the trajectory in picoseconds
 
         """
-        # TODO: check argument is not used
         if step is not None and not isinstance(step, (list, np.ndarray)):
             step = np.array([step])
 
@@ -99,7 +96,7 @@ class Structures:
         else:
 
             if n_atoms != self.n_atoms:
-                raise exc.IncorrectShapeError(
+                raise ValueError(
                     "The coordinates to be appended in the system "
                     "need to have the same number of atoms.")
 
@@ -111,16 +108,26 @@ class Structures:
             self.n_structures += n_structures
 
     def get_box_lengths(self):
-        """ Returns the lengths of the box."""
+
+        from molsysmt.pbc import box_lengths_from_box
+
         if self.box is not None:
-            return box_lengths_from_box_vectors(self.box)
-        return
+            lengths = box_lengths_from_box(self.box)
+        else:
+            lengths = None
+
+        return lengths
 
     def get_box_angles(self):
-        """ Returns the angles of the box."""
+
+        from molsysmt.pbc import box_angles_from_box
+
         if self.box is not None:
-            return box_angles_from_box_vectors(self.box)
-        return
+            angles = box_angles_from_box(self.box)
+        else:
+            angles = None
+
+        return angles
 
     def extract(self, atom_indices='all', structure_indices='all'):
         """ Returns a new Structures object with the specified atoms and/or
@@ -169,16 +176,10 @@ class Structures:
             if not is_all(structure_indices):
                 coordinates = coordinates[structure_indices, :, :]
 
-            if self.file is not None:
-                file = self.file.copy()
-            else:
-                file = None
-
         return Structures(step=step,
                           time=time,
                           coordinates=coordinates,
                           box=box,
-                          file=file
                           )
 
     def add(self, item, selection='all', structure_indices='all'):
@@ -369,29 +370,29 @@ class Structures:
 
         """
         if start < 0 or start >= self.n_structures:
-            raise exc.IteratorStartError(
+            raise IteratorError(
                 f"Start should be > 0 and < {self.n_structures}"
             )
 
         if interval < 1 or interval > self.n_structures:
-            raise exc.IteratorIntervalError(
+            raise IteratorError(
                 f"Interval should be > 0 and < {self.n_structures}"
             )
 
         if chunk_size < 1 or chunk_size > self.n_structures:
-            raise exc.IteratorChunkSizeError(
+            raise IteratorError(
                 f"Chunk size should be > 0 and < {self.n_structures}")
 
         if interval != 1 and chunk_size != 1:
             # We cannot have an interval and a chunk size greater than 1 simultaneously
-            raise exc.IteratorChunkSizeError(
+            raise IteratorError(
                 "Chunk size and interval cannot be greater than one simultaneously.")
 
         if stop is None:
             stop = self.n_structures
 
         if stop < 1 or stop > self.n_structures:
-            raise exc.IteratorStopError(
+            raise IteratorError(
                 f"Stop should be > 0 and < {self.n_structures}"
             )
 

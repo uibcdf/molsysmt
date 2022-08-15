@@ -1,4 +1,3 @@
-from molsysmt._private.exceptions import *
 from molsysmt.item.openmm_Context.is_openmm_Context import is_openmm_Context as is_form
 from molsysmt.item.openmm_Context.extract import extract
 from molsysmt.item.openmm_Context.add import add
@@ -25,4 +24,4 @@ form_attributes['temperature'] = True
 def to_openmm_System(item, molecular_system, atom_indices='all', structure_indices='all'):
     from molsysmt.item.openmm_Context import to_openmm_System as openmm_Context_to_openmm_System
 
-    return openmm_Context_to_openmm_System(item, atom_indices=atom_indices, check=False)
+    return openmm_Context_to_openmm_System(item, atom_indices=atom_indices)

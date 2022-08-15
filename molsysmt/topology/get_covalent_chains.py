@@ -1,34 +1,27 @@
-from molsysmt._private.exceptions import *
-from molsysmt._private.digestion import *
+from molsysmt._private.digestion import digest
 from molsysmt._private.variables import is_all
 import numpy as np
 from molsysmt.basic import select
 
-def get_covalent_chains(molecular_system, chain=None, selection='all', syntaxis='MolSysMT',
-        check=True):
-
-    if check:
-
-        digest_single_molecular_system(molecular_system)
-        syntaxis = digest_syntaxis(syntaxis)
-        selection = digest_selection(selection, syntaxis)
+@digest()
+def get_covalent_chains(molecular_system, chain=None, selection='all', syntax='MolSysMT'):
 
     from . import get_bondgraph
 
     if is_all(selection):
         mask = None
     else:
-        mask = select(molecular_system, selection=selection, syntaxis=syntaxis, check=False)
+        mask = select(molecular_system, selection=selection, syntax=syntax)
 
     chain_atom_indices = []
 
     for sel_in_chain in chain:
-        atom_indices = select(molecular_system, selection=sel_in_chain, mask=mask, check=False)
+        atom_indices = select(molecular_system, selection=sel_in_chain, mask=mask)
         chain_atom_indices.append(atom_indices)
 
     atom_indices = np.sort(np.unique(np.concatenate(chain_atom_indices)))
 
-    graph = get_bondgraph(molecular_system, selection=atom_indices, nodes_name='atom_index', check=False)
+    graph = get_bondgraph(molecular_system, selection=atom_indices, nodes_name='atom_index')
 
     n_slaves = len(chain_atom_indices)
 

@@ -42,7 +42,7 @@ msgstr ""
 
 #: ../Quickstart.ipynb:53
 msgid ""
-"The class, or in MolSysMT syntaxis, the form of each object can be "
+"The class, or in MolSysMT syntax, the form of each object can be "
 "checked as:"
 msgstr ""
 

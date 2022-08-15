@@ -1,22 +1,13 @@
-from molsysmt._private.exceptions import *
-from molsysmt._private.digestion import *
+from molsysmt._private.digestion import digest
 
-def to_file_msmpk(item, atom_indices='all', structure_indices='all', output_filename=None, check=True):
-
-    if check:
-
-        digest_item(item, 'file:inpcrd')
-        atom_indices = digest_atom_indices(atom_indices)
-        structure_indices = digest_structure_indices(structure_indices)
-
-    if output_filename is None:
-        raise ValueError('A value different from None is required for the argument "output_filename"')
+@digest(form='molsysmt.MolSys')
+def to_file_msmpk(item, atom_indices='all', structure_indices='all', output_filename=None):
 
     from . import extract
     from molsysmt import puw
     import pickle
 
-    tmp_item = extract(item, atom_indices=atom_indices, structure_indices=structure_indices, copy_if_all=True, check=False)
+    tmp_item = extract(item, atom_indices=atom_indices, structure_indices=structure_indices, copy_if_all=True)
 
     # lengths with nm values and times in ps
 

@@ -1,18 +1,9 @@
-from molsysmt._private.exceptions import *
-from molsysmt._private.lists_and_tuples import is_list_or_tuple
+from molsysmt._private.digestion import digest
 
-def copy(molecular_system, output_filename=None, check=False):
+@digest()
+def copy(molecular_system, output_filename=None):
 
-    if check:
-
-        if not is_molecular_system(molecular_system):
-            raise MolecularSystemNeededError()
-
-        if output_filename is not None:
-            if not is_file(output_filename):
-                raise WrongOutputFilenameError(output_filename)
-
-    from . import get_form, is_molecular_system
+    from . import get_form, is_a_molecular_system
     from molsysmt.item import is_file
     from molsysmt.api_forms import dict_extract
 
@@ -20,14 +11,14 @@ def copy(molecular_system, output_filename=None, check=False):
 
     if output_filename is None:
 
-        if not is_list_or_tuple(form_in):
+        if not isinstance(form_in, (list, tuple)):
             form_in = [form_in]
             molecular_system = [molecular_system]
 
         output = []
 
         for item_form, item in zip(form_in, molecular_system):
-            output_item = dict_extract[item_form](item, copy_if_all=True, check=False)
+            output_item = dict_extract[item_form](item, copy_if_all=True)
             output.append(output_item)
 
         if len(output)==1:
@@ -35,7 +26,7 @@ def copy(molecular_system, output_filename=None, check=False):
 
     else:
 
-        output = dict_extract[form_in](molecular_system, copy_if_all=True, output_filename=output_filename, check=False)
+        output = dict_extract[form_in](molecular_system, copy_if_all=True, output_filename=output_filename)
 
     return output
 

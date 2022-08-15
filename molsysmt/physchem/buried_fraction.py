@@ -1,14 +1,15 @@
+from molsysmt._private.exceptions import NotImplementedMethodError
+from molsysmt._private.digestion import digest
 import numpy as np
-from molsysmt._private.exceptions import *
 
-def buried_fraction(molecular_system, selection='all', type='janin'):
+def buried_fraction(molecular_system, selection='all', definition='janin'):
 
     from molsysmt.basic import get
 
-    if type == 'janin':
+    if definition == 'janin':
         from .groups.buried_fraction import janin as values
     else:
-        raise NotImplementedError()
+        raise NotImplementedMethodError()
 
     group_types = get(molecular_system, element='group', selection=selection, name=True)
 

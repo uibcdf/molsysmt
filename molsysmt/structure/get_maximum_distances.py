@@ -1,45 +1,30 @@
-from molsysmt._private.exceptions import *
-from molsysmt._private.digestion import *
+from molsysmt._private.digestion import digest
 from molsysmt import puw
 import numpy as np
 
+@digest()
 def get_maximum_distances(molecular_system, selection="all", groups_of_atoms=None, group_behavior=None, as_entity=True, structure_indices="all",
                      molecular_system_2=None, selection_2=None, groups_of_atoms_2=None, group_behavior_2=None, as_entity_2=True, structure_indices_2=None,
-                     atom_indices=False, pairs=False, pbc=False, parallel=False, engine='MolSysMT', syntaxis='MolSysMT', check=True):
+                     output_with_atom_indices=False, pairs=False, pbc=False, engine='MolSysMT', syntax='MolSysMT'):
 
-    if check:
+    from .get_distances import get_distances
 
-        digest_single_molecular_system(molecular_system)
-        if molecular_system_2 is not None:
-            digest_single_molecular_system(molecular_system_2)
-
-        syntaxis = digest_syntaxis(syntaxis)
-        selection = digest_selection(selection, syntaxis)
-        selection_2 = digest_selection(selection_2, syntaxis)
-
-        structure_indices = digest_structure_indices(structure_indices)
-        if structure_indices_2 is not None:
-            structure_indices_2 = digest_structure_indices(structure_indices_2)
-
-        engine = digest_engine(engine)
-
-    from . import get_distances
-
-    if atom_indices:
+    if output_with_atom_indices:
 
         atom_indices_1, atom_indices_2, all_dists = get_distances(molecular_system=molecular_system, selection=selection,
                 groups_of_atoms=groups_of_atoms, group_behavior=group_behavior, structure_indices=structure_indices,
                 molecular_system_2=molecular_system_2, selection_2=selection_2, groups_of_atoms_2=groups_of_atoms_2,
                 group_behavior_2=group_behavior_2, structure_indices_2=structure_indices_2,
-                pairs=pairs, pbc=pbc, parallel=parallel, output_form='tensor', output_atom_indices=True,
-                engine=engine, syntaxis=syntaxis, check=False)
+                pairs=pairs, pbc=pbc, output='numpy.ndarray', output_with_atom_indices=True,
+                engine=engine, syntax=syntax)
 
     else:
 
         all_dists = get_distances(molecular_system=molecular_system, selection=selection, groups_of_atoms=groups_of_atoms, group_behavior=group_behavior,
                 structure_indices=structure_indices, molecular_system_2=molecular_system_2, selection_2=selection_2, groups_of_atoms_2=groups_of_atoms_2,
-                group_behavior_2=group_behavior_2, structure_indices_2=structure_indices_2, pairs=pairs, pbc=pbc, parallel=parallel, output_form='tensor',
-                engine=engine, syntaxis=syntaxis, check=False)
+                group_behavior_2=group_behavior_2, structure_indices_2=structure_indices_2,
+                pairs=pairs, pbc=pbc, output='numpy.ndarray',
+                engine=engine, syntax=syntax)
 
     if pairs is False:
 
@@ -53,7 +38,7 @@ def get_maximum_distances(molecular_system, selection="all", groups_of_atoms=Non
             dists=np.empty((nstructures),dtype=float)
             for indice_structure in range(nstructures):
                 ii,jj = np.unravel_index(all_dists[indice_structure,:,:].argmax(), all_dists[indice_structure,:,:].shape)
-                if atom_indices:
+                if output_with_atom_indices:
                     pairs[indice_structure,0] = atom_indices_1[ii]
                     pairs[indice_structure,1] = atom_indices_2[jj]
                 else:
@@ -74,7 +59,7 @@ def get_maximum_distances(molecular_system, selection="all", groups_of_atoms=Non
             for indice_structure in range(nstructures):
                 for ii in range(nelements_1):
                     jj = all_dists[indice_structure,ii,:].argmax()
-                    if atom_indices:
+                    if output_with_atom_indices:
                         pairs[indice_structure,ii]=atom_indices_2[jj]
                     else:
                         pairs[indice_structure,ii]=jj
@@ -93,7 +78,7 @@ def get_maximum_distances(molecular_system, selection="all", groups_of_atoms=Non
             for indice_structure in range(nstructures):
                 for ii in range(nelements_2):
                     jj = all_dists[indice_structure,:,ii].argmax()
-                    if atom_indices:
+                    if output_with_atom_indices:
                         pairs[indice_structure,ii]=atom_indices_1[jj]
                     else:
                         pairs[indice_structure,ii]=jj

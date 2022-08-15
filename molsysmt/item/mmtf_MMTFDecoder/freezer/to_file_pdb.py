@@ -12,8 +12,8 @@ def to_file_pdb(item, atom_indices='all', structure_indices='all', output_filena
     from molsysmt.tools.mmtf_MMTFDecoder import to_molsysmt_MolSys as mmtf_MMTFDecoder_to_molsysmt_MolSys
     from molsysmt.tools.molsysmt_MolSys import to_file_pdb as molsysmt_MolSys_to_file_pdb
 
-    tmp_item = mmtf_MMTFDecoder_to_molsysmt_MolSys(item, atom_indices=atom_indices, structure_indices=structure_indices, check=False)
-    tmp_item = molsysmt_MolSys_to_file_pdb(tmp_item, output_filename=output_filename, check=False)
+    tmp_item = mmtf_MMTFDecoder_to_molsysmt_MolSys(item, atom_indices=atom_indices, structure_indices=structure_indices)
+    tmp_item = molsysmt_MolSys_to_file_pdb(tmp_item, output_filename=output_filename)
 
     return tmp_item
 

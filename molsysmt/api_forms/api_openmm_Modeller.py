@@ -1,4 +1,3 @@
-from molsysmt._private.exceptions import *
 from molsysmt.item.openmm_Modeller.is_openmm_Modeller import is_openmm_Modeller as is_form
 from molsysmt.item.openmm_Modeller.extract import extract
 from molsysmt.item.openmm_Modeller.add import add
@@ -47,15 +46,13 @@ form_attributes['box'] = True
 def to_mdtraj_Trajectory(item, molecular_system, atom_indices='all', structure_indices='all'):
     from molsysmt.item.openmm_Modeller import to_mdtraj_Trajectory as openmm_Modeller_to_mdtraj_Trajectory
 
-    return openmm_Modeller_to_mdtraj_Trajectory(item, atom_indices=atom_indices, structure_indices=structure_indices,
-                                                check=False)
+    return openmm_Modeller_to_mdtraj_Trajectory(item, atom_indices=atom_indices, structure_indices=structure_indices)
 
 
 def to_mdtraj_Topology(item, molecular_system, atom_indices='all', structure_indices='all'):
     from molsysmt.item.openmm_Modeller import to_mdtraj_Topology as openmm_Modeller_to_mdtraj_Topology
 
-    return openmm_Modeller_to_mdtraj_Topology(item, atom_indices=atom_indices, structure_indices=structure_indices,
-                                              check=False)
+    return openmm_Modeller_to_mdtraj_Topology(item, atom_indices=atom_indices, structure_indices=structure_indices)
 
 
 def to_openmm_System(item, molecular_system, atom_indices='all', structure_indices='all',
@@ -69,7 +66,7 @@ def to_openmm_System(item, molecular_system, atom_indices='all', structure_indic
                                             constraints=None,
                                             rigid_water=True, remove_cm_motion=True, hydrogen_mass=None,
                                             switch_distance=None,
-                                            flexible_constraints=False, check=False)
+                                            flexible_constraints=False)
 
 
 def to_openmm_Simulation(item, molecular_system, atom_indices='all', structure_indices='all',
@@ -87,40 +84,35 @@ def to_openmm_Simulation(item, molecular_system, atom_indices='all', structure_i
                                                 flexible_constraints=False, integrator='Langevin',
                                                 temperature='300.0 K',
                                                 collisions_rate='1.0 1/ps', integration_timestep='2.0 fs',
-                                                platform='CUDA',
-                                                check=False)
+                                                platform='CUDA')
 
 
 def to_openmm_Topology(item, molecular_system, atom_indices='all', structure_indices='all'):
     from molsysmt.item.openmm_Modeller import to_openmm_Topology as openmm_Modeller_to_openmm_Topology
 
-    return openmm_Modeller_to_openmm_Topology(item, atom_indices=atom_indices, structure_indices=structure_indices,
-                                              check=False)
+    return openmm_Modeller_to_openmm_Topology(item, atom_indices=atom_indices, structure_indices=structure_indices)
 
 
 def to_pdbfixer_PDBFixer(item, molecular_system, atom_indices='all', structure_indices='all'):
     from molsysmt.item.openmm_Modeller import to_pdbfixer_PDBFixer as openmm_Modeller_to_pdbfixer_PDBFixer
 
-    return openmm_Modeller_to_pdbfixer_PDBFixer(item, atom_indices=atom_indices, structure_indices=structure_indices,
-                                                check=False)
+    return openmm_Modeller_to_pdbfixer_PDBFixer(item, atom_indices=atom_indices, structure_indices=structure_indices)
 
 
 def to_molsysmt_MolSys(item, molecular_system, atom_indices='all', structure_indices='all'):
     from molsysmt.item.openmm_Modeller import to_molsysmt_MolSys as openmm_Modeller_to_molsysmt_MolSys
 
-    return openmm_Modeller_to_molsysmt_MolSys(item, atom_indices=atom_indices, structure_indices=structure_indices,
-                                              check=False)
+    return openmm_Modeller_to_molsysmt_MolSys(item, atom_indices=atom_indices, structure_indices=structure_indices)
 
 
 def to_file_pdb(item, molecular_system, atom_indices='all', structure_indices='all', output_filename=None):
     from molsysmt.item.openmm_Modeller import to_file_pdb as openmm_Modeller_to_file_pdb
 
     return openmm_Modeller_to_file_pdb(item, atom_indices=atom_indices, structure_indices=structure_indices,
-                                       output_filename=output_filename, check=False)
+                                       output_filename=output_filename)
 
 
 def to_nglview_NGLWidget(item, molecular_system, atom_indices='all', structure_indices='all'):
     from molsysmt.item.openmm_Modeller import to_nglview_NGLWidget as openmm_Modeller_to_nglview_NGLWidget
 
-    return openmm_Modeller_to_molsysmt_MolSys(item, atom_indices=atom_indices, structure_indices=structure_indices,
-                                              check=False)
+    return openmm_Modeller_to_molsysmt_MolSys(item, atom_indices=atom_indices, structure_indices=structure_indices)

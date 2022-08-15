@@ -7,7 +7,7 @@ from molsysmt import puw
 #def minimum_image_convention(item, selection='all', reference_selection=None,
 #                             reference_coordinates=None, center_of_selection='geometrical_center',
 #                             center_of_reference_selection='geometrical_center', structure_indices='all',
-#                             syntaxis='MDTraj', engine='MolSysMT'):
+#                             syntax='MDTraj', engine='MolSysMT'):
 #
 #    from molsysmt import convert, select, get, duplicate
 #    from molsysmt import set as _set
@@ -15,7 +15,7 @@ from molsysmt import puw
 #    from molsysmt.centers import geometrical_center
 #
 #    n_atoms, n_structures = get(item, n_atoms=True, n_structures=True)
-#    atom_indices = select(item, selection=selection, syntaxis=syntaxis)
+#    atom_indices = select(item, selection=selection, syntax=syntax)
 #    n_atom_indices = len(atom_indices)
 #    structure_indices = _digest_structure_indices(item, structure_indices)
 #    n_structure_indices = len(structure_indices)
@@ -29,7 +29,7 @@ from molsysmt import puw
 #        if reference_coordinates is None:
 #            if center_of_reference_selection == 'geometrical_center':
 #                reference_coordinates = geometrical_center(tmp_item, selection=reference_selection,
-#                                                        structure_indices=structure_indices, syntaxis=syntaxis, engine=engine)
+#                                                        structure_indices=structure_indices, syntax=syntax, engine=engine)
 #
 #        molecules = get(tmp_item, molecules=True)
 #
@@ -44,7 +44,7 @@ from molsysmt import puw
 #
 #        if center_of_selection == 'geometrical_center':
 #            centers_molecules = geometrical_center(tmp_item, selection_groups=molecules,
-#                    structure_indices=structure_indices, syntaxis=syntaxis, engine=engine)
+#                    structure_indices=structure_indices, syntax=syntax, engine=engine)
 #
 #        coordinates, box, box_shape = get(tmp_item, coordinates=True, box=True, box_shape=True, structure_indices='all')
 #
@@ -74,14 +74,14 @@ from molsysmt import puw
 #
 #        raise NotImplementedError
 
-#def keep_compact_molecules_in_pbc(item, selection='all', structure_indices='all', syntaxis='MDTraj', engine='MolSysMT'):
+#def keep_compact_molecules_in_pbc(item, selection='all', structure_indices='all', syntax='MDTraj', engine='MolSysMT'):
 #
 #    from molsysmt import convert, select, get, duplicate
 #    from molsysmt import set as _set
 #    from molsysmt.tools.math import serialized_lists
 #
 #    n_atoms, n_structures = get(item, n_atoms=True, n_structures=True)
-#    atom_indices = select(item, selection=selection, syntaxis=syntaxis)
+#    atom_indices = select(item, selection=selection, syntax=syntax)
 #    n_atom_indices = len(atom_indices)
 #    structure_indices = _digest_structure_indices(item, structure_indices)
 #    n_structure_indices = len(structure_indices)

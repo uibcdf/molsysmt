@@ -1,13 +1,11 @@
 from molsysmt._private.digestion import digest
-from molsysmt._private.lists_and_tuples import is_list_or_tuple
 from molsysmt._private.variables import is_all
 
-
-@digest
+@digest()
 def extract(molecular_system, selection='all', structure_indices='all', to_form=None,
-        syntaxis='MolSysMT', copy_if_all=True, check=True):
+        syntax='MolSysMT', copy_if_all=True):
 
-    """extract(item, selection='all', structure_indices='all', syntaxis='MolSysMT')
+    """extract(item, selection='all', structure_indices='all', syntax='MolSysMT')
 
     Extract a subset of a molecular model.
 
@@ -22,9 +20,9 @@ def extract(molecular_system, selection='all', structure_indices='all', to_form=
     selection: str, list, tuple or np.ndarray, defaul='all'
        Atoms selection over which this method applies. The selection can be given by a
        list, tuple or numpy array of integers (0-based), or by means of a string following any of
-       the selection syntaxis parsable by MolSysMT (see: :func:`molsysmt.select`).
+       the selection syntax parsable by MolSysMT (see: :func:`molsysmt.select`).
 
-    syntaxis: str, default='MolSysMT'
+    syntax: str, default='MolSysMT'
        Syntaxis used in the argument `selection` (in case it is a string). The
        current options supported by MolSysMt can be found in section XXX (see: :func:`molsysmt.select`).
 
@@ -53,23 +51,23 @@ def extract(molecular_system, selection='all', structure_indices='all', to_form=
     if to_form is not None:
 
         return convert(molecular_system, to_form=to_form, selection=selection, structure_indices=structure_indices,
-                       syntaxis=syntaxis)
+                       syntax=syntax)
 
     forms_in = get_form(molecular_system)
 
     if not is_all(selection):
-        atom_indices = select(molecular_system, selection=selection, syntaxis=syntaxis, check=False)
+        atom_indices = select(molecular_system, selection=selection, syntax=syntax)
     else:
         atom_indices = 'all'
 
-    if not is_list_or_tuple(get_form):
+    if not isinstance(get_form, (list, tuple)):
         forms_in = [forms_in]
         molecular_system = [molecular_system]
 
     output = []
 
     for form_in, item in zip(forms_in, molecular_system):
-        output_item = dict_extract[form_in](item, atom_indices=atom_indices, structure_indices=structure_indices, copy_if_all=copy_if_all, check=False)
+        output_item = dict_extract[form_in](item, atom_indices=atom_indices, structure_indices=structure_indices, copy_if_all=copy_if_all)
         output.append(output_item)
 
     if len(output)==1:

@@ -1,12 +1,7 @@
-from molsysmt._private.digestion import digest_item as _digest_item
-from molsysmt._private.digestion import digest_indices as _digest_indices
+from molsysmt._private.digestion import digest
 
-def set_group_name_to_group(item, indices='all', value=None, check=True):
-
-    if check:
-
-        _digest_item(item, 'pdbfixer.PDBFixer')
-        indices = _digest_indices(indices)
+@digest(form='pdbfixer.PDBFixer')
+def set_group_name_to_group(item, indices='all', value=None):
 
     for group in tmp_item.topology.groups():
         if group.index in indices:

@@ -1,17 +1,13 @@
-from molsysmt._private.digestion import digest_item, digest_atom_indices
+from molsysmt._private.digestion import digest
 
-def to_mdtraj_Topology(item, atom_indices='all', check=True):
-
-    if check:
-
-        digest_item(item, 'file:h5')
-        atom_indices = digest_atom_indices(atom_indices)
+@digest(form='file:h5')
+def to_mdtraj_Topology(item, atom_indices='all'):
 
     from . import to_mdtraj_HDF5TrajectoryFile
     from .mdtraj_HDF5TrajectoryFile import to_mdtraj_Topology as mdtraj_HDF5TrajectoryFile_to_mdtraj_Topology
 
-    tmp_item = to_mdtraj_HDF5TrajectoryFile(item, check=False)
-    tmp_item = mdtraj_HDF5TrajectoryFile_to_mdtraj_Topology(tmp_item, atom_indices=atom_indices, check=False)
+    tmp_item = to_mdtraj_HDF5TrajectoryFile(item)
+    tmp_item = mdtraj_HDF5TrajectoryFile_to_mdtraj_Topology(tmp_item, atom_indices=atom_indices)
 
     return tmp_item
 

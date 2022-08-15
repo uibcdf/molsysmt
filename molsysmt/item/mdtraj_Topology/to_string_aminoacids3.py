@@ -1,12 +1,8 @@
-from molsysmt._private.digestion import digest_item, digest_group_indices
+from molsysmt._private.digestion import digest
 from molsysmt._private.variables import is_all
 
-def to_string_aminoacids3(item, group_indices='all', check=True):
-
-    if check:
-
-        digest_item(item, 'mdtraj.Topology')
-        group_indices = digest_group_indices(group_indices)
+@digest(form='mdtraj.Topology')
+def to_string_aminoacids3(item, group_indices='all'):
 
     if is_all(group_indices):
 

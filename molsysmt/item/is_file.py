@@ -10,7 +10,8 @@ for dirname in os.listdir(current_dir):
         mod = import_module('molsysmt.item.'+dirname)
         list_is_file_form.append(getattr(mod, 'is_'+form_name))
 
-def is_file(form, check=True):
+# This method must not be digested
+def is_file(form):
 
     output = False
 

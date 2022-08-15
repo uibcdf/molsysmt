@@ -46,11 +46,11 @@ msgid "Selection sentence or atoms indices list."
 msgstr ""
 
 #: ../../molsysmt/remove_atoms.py:docstring of molsysmt.remove:14
-msgid "**syntaxis**"
+msgid "**syntax**"
 msgstr ""
 
 #: ../../molsysmt/remove_atoms.py:docstring of molsysmt.remove:14
-msgid "Name of the selection syntaxis used: \"mdtraj\" or \"amber\"."
+msgid "Name of the selection syntax used: \"mdtraj\" or \"amber\"."
 msgstr ""
 
 #: ../../molsysmt/remove_atoms.py:docstring of molsysmt.remove:0

@@ -1,12 +1,8 @@
-from molsysmt._private.exceptions import *
-from molsysmt._private.digestion import *
+from molsysmt._private.digestion import digest
 from molsysmt import puw
 
-def is_solvated(molecular_system, check=True):
-
-    if check:
-
-        digest_single_molecular_system(molecular_system)
+@digest()
+def is_solvated(molecular_system):
 
     from molsysmt.basic import get
 

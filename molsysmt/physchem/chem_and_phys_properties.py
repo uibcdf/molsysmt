@@ -1,8 +1,10 @@
-from ._private.exceptions import *
+from molsysmt._private.exceptions import NotImplementedMethodError
+from molsysmt._private.digestion import digest
 from ._private.forcefields import digest_forcefields
 from ._private.engines import digest_engine
 from openmm import unit as _unit
 
+@digest()
 def get_mass(item, atom_indices, forcefield=['AMBER99SB-ILDN','TIP3P']):
 
     from molsysmt import get_form
@@ -29,7 +31,7 @@ def get_mass(item, atom_indices, forcefield=['AMBER99SB-ILDN','TIP3P']):
     else:
         raise NotImplementedError
 
-
+@digest()
 def get_net_mass(item, atom_indices, forcefield=['AMBER99SB-ILDN','TIP3P']):
 
     from molsysmt import get_form
@@ -56,6 +58,7 @@ def get_net_mass(item, atom_indices, forcefield=['AMBER99SB-ILDN','TIP3P']):
     else:
         raise NotImplementedError
 
+@digest()
 def get_degrees_of_freedom(item, forcefield=['AMBER99SB-ILDN','TIP3P']):
 
     from molsysmt import get_form

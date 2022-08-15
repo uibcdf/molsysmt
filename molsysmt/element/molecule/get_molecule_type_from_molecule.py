@@ -1,13 +1,8 @@
-from molsysmt._private.exceptions import *
-from molsysmt._private.digestion import *
+from molsysmt._private.digestion import digest
 import numpy as np
 
-def get_molecule_type_from_molecule(molecular_system, indices='all', check=True):
-
-    if check:
-
-        digest_single_molecular_system(molecular_system)
-        indices = digest_indices(indices)
+@digest()
+def get_molecule_type_from_molecule(molecular_system, indices='all'):
 
     from molsysmt.basic import get
     from . import get_molecule_type_from_group_names

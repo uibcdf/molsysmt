@@ -1,36 +1,28 @@
-from molsysmt._private.exceptions import *
-from molsysmt._private.digestion import *
+from molsysmt._private.exceptions import NotImplementedMethodError
+from molsysmt._private.digestion import digest
 from molsysmt._private.math import serialized_lists
 from molsysmt.lib import com as libcom
 from molsysmt import puw
 import numpy as np
 
+@digest()
 def get_center(molecular_system, selection='all', groups_of_atoms=None, weights=None,
-        structure_indices='all', syntaxis='MolSysMT', engine='MolSysMT', parallel=False, check=True):
-
-    if check:
-
-        digest_single_molecular_system(molecular_system)
-        syntaxis = digest_syntaxis(syntaxis)
-        selection = digest_selection(selection, syntaxis)
-        structure_indices = digest_structure_indices(structure_indices)
-        engine = digest_engine(engine)
+        structure_indices='all', syntax='MolSysMT', engine='MolSysMT'):
 
     from molsysmt.basic import select, get
 
     if engine=='MolSysMT':
 
         if groups_of_atoms is None:
-            atom_indices = select(molecular_system, selection=selection, syntaxis=syntaxis,
-                                  check=False)
+            atom_indices = select(molecular_system, selection=selection, syntax=syntax)
             groups_of_atoms = [atom_indices]
 
         groups_serialized = serialized_lists(groups_of_atoms, dtype='int64')
 
         if weights is None:
             weights = np.ones((groups_serialized.n_values))
-        elif weights is 'masses':
-            raise NotImplementedError
+        elif isinstance(weights, str):
+            raise NotImplementedMethodError()
 
         coordinates = get(molecular_system, element='system', structure_indices=structure_indices, coordinates=True)
 
@@ -50,6 +42,6 @@ def get_center(molecular_system, selection='all', groups_of_atoms=None, weights=
 
     else:
 
-        raise NotImplementedError(NotImplementedMessage)
+        raise NotImplementedMethodError()
 
 

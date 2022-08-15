@@ -3,7 +3,7 @@ from molsysmt._private.digestion import *
 import numpy as np
 
 def compare_form_eq(molecular_system_A, molecular_system_B, selection_A='all',
-        structure_indices_A='all', selection_B='all', structure_indices_B='all', syntaxis='MolSysMT'):
+        structure_indices_A='all', selection_B='all', structure_indices_B='all', syntax='MolSysMT'):
 
     report = {}
 
@@ -22,7 +22,7 @@ def compare_form_eq(molecular_system_A, molecular_system_B, selection_A='all',
     return result, report
 
 def compare_form_in(molecular_system_A, molecular_system_B, selection_A='all',
-        structure_indices_A='all', selection_B='all', structure_indices_B='all', syntaxis='MolSysMT'):
+        structure_indices_A='all', selection_B='all', structure_indices_B='all', syntax='MolSysMT'):
 
     raise NotImplementedError()
 

@@ -1,12 +1,8 @@
-from molsysmt._private.exceptions import *
-from molsysmt._private.digestion import *
+from molsysmt._private.exceptions import NotImplementedMethodError
+from molsysmt._private.digestion import digest
 
-def add(to_item, item, check=True):
-
-    if check:
-
-        digest_item(item, 'openmm.AmberInpcrdFile')
-        digest_item(to_item, 'openmm.AmberInpcrdFile')
+@digest(form='openmm.AmberInpcrdFile', to_form='openmm.AmberInpcrdFile')
+def add(to_item, item):
 
     raise NotImplementedMethodError()
 

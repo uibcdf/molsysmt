@@ -1,12 +1,9 @@
-from molsysmt._private.digestion import digest_item, digest_atom_indices, digest_structure_indices
+from molsysmt._private.exceptions import NotImplementedMethodError
+from molsysmt._private.digestion import digest
 from molsysmt._private.variables import is_all
 
-def extract(item, atom_indices='all', copy_if_all=True, check=True):
-
-    if check:
-
-        digest_item(item, 'mdtraj.Topology')
-        atom_indices = digest_atom_indices(atom_indices)
+@digest(form='mdtraj.Topology')
+def extract(item, atom_indices='all', copy_if_all=True):
 
     if is_all(atom_indices):
 

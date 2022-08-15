@@ -1,4 +1,3 @@
-from molsysmt._private.exceptions import *
 from molsysmt.item.file_msmpk.is_file_msmpk import is_file_msmpk as is_form
 from molsysmt.item.file_msmpk.extract import extract
 from molsysmt.item.file_msmpk.add import add
@@ -51,24 +50,23 @@ form_attributes['step'] = True
 def to_molsysmt_MolSys(item, molecular_system, atom_indices='all', structure_indices='all'):
     from molsysmt.item.file_msmpk import to_molsysmt_MolSys as file_msmpk_to_molsysmt_MolSys
 
-    return file_msmpk_to_molsysmt_MolSys(item, atom_indices=atom_indices, structure_indices=structure_indices,
-                                         check=False)
+    return file_msmpk_to_molsysmt_MolSys(item, atom_indices=atom_indices, structure_indices=structure_indices)
 
 
 def to_molsysmt_Topology(item, molecular_system, atom_indices='all', structure_indices='all'):
     from molsysmt.item.file_msmpk import to_molsysmt_Topology as file_msmpk_to_molsysmt_Topology
 
-    return file_msmpk_to_molsysmt_Topology(item, atom_indices=atom_indices, check=False)
+    return file_msmpk_to_molsysmt_Topology(item, atom_indices=atom_indices)
 
 
 def to_molsysmt_Structures(item, molecular_system, atom_indices='all', structure_indices='all'):
     from molsysmt.item.file_msmpk import to_molsysmt_Structures as file_msmpk_to_molsysmt_Structures
 
-    return file_msmpk_to_molsysmt_Structures(item, atom_indices=atom_indices, check=False)
+    return file_msmpk_to_molsysmt_Structures(item, atom_indices=atom_indices)
 
 
 def to_nglview_NGLWidget(item, molecular_system, atom_indices='all', structure_indices='all'):
     from molsysmt.item.file_msmpk import to_nglview_NGLWidget as file_msmpk_to_nglview_NGLWidget
 
     return file_msmpk_to_nglview_NGLWidget(item, atom_indices=atom_indices,
-                                           structure_indices=structure_indices, check=False)
+                                           structure_indices=structure_indices)

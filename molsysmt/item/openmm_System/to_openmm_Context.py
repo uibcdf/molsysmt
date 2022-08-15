@@ -1,13 +1,7 @@
-from molsysmt._private.exceptions import *
-from molsysmt._private.digestion import *
+from molsysmt._private.digestion import digest
 
-def to_openmm_Context(item, atom_indices='all', structure_indices='all', check=True):
-
-    if check:
-
-        digest_item(item, 'openmm.System')
-        atom_indices = digest_atom_indices(atom_indices)
-        structure_indices = digest_structure_indices(structure_indices)
+@digest(form='openmm.System')
+def to_openmm_Context(item, atom_indices='all', structure_indices='all'):
 
     from molsysmt.basic import convert, get
     from openmm import Context

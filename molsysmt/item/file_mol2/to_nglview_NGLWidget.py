@@ -1,12 +1,7 @@
-from molsysmt._private.digestion import digest_item, digest_atom_indices, digest_structure_indices
+from molsysmt._private.digestion import digest
 
-def to_nglview_NGLWidget(item, atom_indices='all', structure_indices='all', output_filename=None, check=True):
-
-    if check:
-
-        digest_item(item, 'file:mol2')
-        atom_indices = digest_atom_indices(atom_indices)
-        structure_indices = digest_structure_indices(structure_indices)
+@digest(form='file:mol2')
+def to_nglview_NGLWidget(item, atom_indices='all', structure_indices='all', output_filename=None):
 
     from nglview import show_file as nglview_show_file
 

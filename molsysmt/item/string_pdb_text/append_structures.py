@@ -1,15 +1,9 @@
-from molsysmt._private.exceptions import *
-from molsysmt._private.digestion import *
+from molsysmt._private.exceptions import NotImplementedMethodError
+from molsysmt._private.digestion import digest
 
-def append_structures(item, step=None, time=None, coordinates=None, box=None, check=True):
+@digest(form='string:pdb_text')
+def append_structures(item, step=None, time=None, coordinates=None, box=None):
 
-    if check:
-
-        digest_item(item, 'string:pdb_text')
-        step = digest_step(step)
-        time = digest_time(time)
-        coordinates = digest_coordinates(coordinates)
-        box = digest_box(box)
 
     raise NotImplementedMethodError()
 

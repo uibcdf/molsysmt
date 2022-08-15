@@ -47,6 +47,6 @@ msgid "**selection:**"
 msgstr ""
 
 #: molsysmt.select:30 of
-msgid "**syntaxis:**"
+msgid "**syntax:**"
 msgstr ""
 

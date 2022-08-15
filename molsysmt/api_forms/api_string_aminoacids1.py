@@ -1,4 +1,3 @@
-from molsysmt._private.exceptions import *
 from molsysmt.item.string_aminoacids1.is_string_aminoacids1 import is_string_aminoacids1 as is_form
 from molsysmt.item.string_aminoacids1.extract import extract
 from molsysmt.item.string_aminoacids1.add import add
@@ -20,20 +19,17 @@ form_attributes['group_name'] = True
 def to_string_aminoacids3(item, molecular_system=None, atom_indices='all', structure_indices='all'):
     from molsysmt.item.string_aminoacids1 import to_string_aminoacids3 as string_aminoacids1_to_string_aminoacids3
 
-    return string_aminoacids1_to_string_aminoacids3(item, atom_indices=atom_indices,
-                                                    structure_indices=structure_indices, check=False)
+    return string_aminoacids1_to_string_aminoacids3(item)
 
 
 def to_biopython_Seq(item, molecular_system=None, atom_indices='all', structure_indices='all'):
     from molsysmt.item.string_aminoacids1 import to_biopython_Seq as string_aminoacids1_to_biopython_Seq
 
-    return string_aminoacids1_to_biopython_Seq(item, atom_indices=atom_indices, structure_indices=structure_indices,
-                                               check=False)
+    return string_aminoacids1_to_biopython_Seq(item)
 
 
 def to_biopython_SeqRecord(item, molecular_system=None, atom_indices='all', structure_indices='all', id=None, name=None,
                            description=None):
     from molsysmt.item.string_aminoacids1 import to_biopython_SeqRecord as string_aminoacids1_to_biopython_SeqRecord
 
-    return string_aminoacids1_to_biopython_SeqRecord(item, atom_indices=atom_indices,
-                                                     structure_indices=structure_indices, check=False)
+    return string_aminoacids1_to_biopython_SeqRecord(item)

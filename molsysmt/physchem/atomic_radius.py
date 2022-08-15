@@ -1,13 +1,16 @@
-import numpy as np
+from molsysmt._private.exceptions import NotImplementedMethodError
+from molsysmt._private.digestion import digest
 from molsysmt import puw
+import numpy as np
 
-def atomic_radius(molecular_system, selection='all', type='vdw'):
+@digest()
+def atomic_radius(molecular_system, selection='all', definition='vdw'):
 
     from molsysmt.basic import get
     from molsysmt.physico_chemical_properties.atoms.radius import units
     from molsysmt._private._digestion import digest_element
 
-    if type=='vdw':
+    if definition=='vdw':
         from molsysmt.physico_chemical_properties.atoms.radius import vdw as values
     else:
         raise NotImplementedError()

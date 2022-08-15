@@ -1,11 +1,7 @@
-from molsysmt._private.digestion import digest_item, digest_atom_indices
+from molsysmt._private.digestion import digest
 
-def to_molsysmt_Topology(item, atom_indices='all', check=True):
-
-    if check:
-
-        digest_item(item, 'pytraj.Topology')
-        atom_indices = digest_atom_indices(atom_indices)
+@digest(form='pytraj.Topology')
+def to_molsysmt_Topology(item, atom_indices='all'):
 
     from molsysmt.native import Topology
     import numpy as np

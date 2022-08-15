@@ -1,20 +1,8 @@
-from .is_pdbfixer_PDBFixer import is_pdbfixer_PDBFixer
-from molsysmt._private.exceptions import *
-from molsysmt._private.digestion import *
+from molsysmt._private.exceptions import LibraryNotFoundError
+from molsysmt._private.digestion import digest
 
-def to_mdtraj_Trajectory(item, atom_indices='all', check=True):
-
-    if check:
-
-        try:
-            is_pdbfixer_PDBFixer(item)
-        except:
-            raise WrongFormError('pdbfixer.PDBFixer')
-
-        try:
-            atom_indices = digest_atom_indices(atom_indices)
-        except:
-            raise WrongAtomIndicesError()
+@digest(form='pdbfixer.PDBFixer')
+def to_mdtraj_Trajectory(item, atom_indices='all'):
 
     try:
         from mdtraj.core.trajectory import Trajectory as mdtraj_Trajectory
@@ -25,8 +13,8 @@ def to_mdtraj_Trajectory(item, atom_indices='all', check=True):
     from . import to_mdtraj_Topology
     from . import get_coordinates_from_atom
 
-    tmp_item = to_mdtraj_Topology(item, atom_indices=atom_indices, check=False)
-    coordinates = get_coordinates_from_atom(tmp_item, indices=atom_indices, check=False)
+    tmp_item = to_mdtraj_Topology(item, atom_indices=atom_indices)
+    coordinates = get_coordinates_from_atom(tmp_item, indices=atom_indices)
     coordinates = puw.convert(coordinates, to_units='nanometer', to_form='openmm.unit')
     tmp_item = mdtraj_Trajectory(coordinates, tmp_item)
 

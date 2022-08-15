@@ -1,15 +1,10 @@
-from molsysmt._private.digestion import digest_item, digest_atom_indices, digest_structure_indices
+from molsysmt._private.digestion import digest
 from molsysmt._private.variables import is_all
 import numpy as np
 from molsysmt import puw
 
-def to_file_trjpk(item, atom_indices='all', structure_indices='all', output_filename=None, check=True):
-
-    if check:
-
-        digest_item(item, 'XYZ')
-        atom_indices = digest_atom_indices(atom_indices)
-        structure_indices = digest_structure_indices(structure_indices)
+@digest(form='XYZ')
+def to_file_trjpk(item, atom_indices='all', structure_indices='all', output_filename=None):
 
     import pickle as pickle
 

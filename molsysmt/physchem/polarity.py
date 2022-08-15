@@ -1,18 +1,21 @@
+from molsysmt._private.digestion import digest
+from molsysmt._private.exceptions import NotImplementedMethodError
+from molsysmt import puw
 import numpy as np
-from molsysmt._private.exceptions import *
 
-def polarity(molecular_system, selection = 'all', type='grantham'):
+@digest()
+def polarity(molecular_system, selection = 'all', syntax='MolSysMT', definition='grantham'):
 
     from molsysmt.basic import get
 
-    if type == 'grantham':
+    if definition == 'grantham':
         from molsysmt.physico_chemical_properties.groups.polarity import grantham as values
-    elif type == 'zimmerman':
+    elif definition == 'zimmerman':
         from molsysmt.physico_chemical_properties.groups.polarity import zimmerman as values
     else:
-        raise NotImplementedError()
+        raise NotImplementedMethodError()
 
-    group_names = get(molecular_system, element='group', selection=selection, group_name=True)
+    group_names = get(molecular_system, element='group', selection=selection, syntax=syntax, group_name=True)
 
     output = []
 

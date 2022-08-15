@@ -1,22 +1,12 @@
-from molsysmt._private.exceptions import *
-from molsysmt._private.digestion import *
+from molsysmt._private.exceptions import NotImplementedMethodError
+from molsysmt._private.digestion import digest
 import numpy as np
 
+@digest()
 def align(molecular_system, selection='backbone', structure_indices='all',
           reference_molecular_system=None, reference_selection='backbone', reference_structure_index=0,
-          syntaxis='MolSysMT', parallel=True, method='sequence alignment and least rmsd fit',
-          engine_sequence_alignment = 'Biopython', engine_least_rmsd_fit = 'MolSysMT', check=True):
-
-    if check:
-
-        digest_single_molecular_system(molecular_system)
-        syntaxis = digest_syntaxis(syntaxis)
-        selection = digest_selection(selection, syntaxis)
-        reference_selection = digest_selection(reference_selection, syntaxis)
-        structure_indices = digest_structure_indices(structure_indices)
-        reference_structure_index = digest_structure_indices(reference_structure_index)
-        engine_sequence_alignment = digest_engine(engine_sequence_alignment)
-        engine_least_rmsd_fit = digest_engine(engine_least_rmsd_fit)
+          syntax='MolSysMT', method='sequence alignment and least rmsd fit',
+          engine_sequence_alignment = 'Biopython', engine_least_rmsd_fit = 'MolSysMT'):
 
     output = None
 
@@ -30,20 +20,20 @@ def align(molecular_system, selection='backbone', structure_indices='all',
 
             identity, identical_groups, reference_identical_groups = get_sequence_identity(molecular_system,
                     selection=selection, reference_molecular_system=reference_molecular_system, reference_selection=reference_selection,
-                    engine='Biopython', check=False)
+                    engine='Biopython')
 
         else:
 
-            raise NotImplementedError
+            raise NotImplementedMethodError
 
         aux_atoms_list = select(molecular_system, element='atom',
-                selection='group_index==@identical_groups', check=False)
+                selection='group_index==@identical_groups')
         selection_to_be_fitted = select(molecular_system, element='atom', selection=selection,
-                mask=aux_atoms_list, check=False)
+                mask=aux_atoms_list)
 
         aux_atoms_list = select(reference_molecular_system, element='atom', selection='group_index==@reference_identical_groups')
         reference_selection_to_be_fitted = select(reference_molecular_system, element='atom',
-                selection=reference_selection, mask=aux_atoms_list, check=False)
+                selection=reference_selection, mask=aux_atoms_list)
 
         if engine_least_rmsd_fit == 'MolSysMT':
 
@@ -54,11 +44,11 @@ def align(molecular_system, selection='backbone', structure_indices='all',
                          reference_molecular_system=reference_molecular_system,
                          reference_selection=reference_selection_to_be_fitted,
                          reference_structure_index=reference_structure_index,
-                         engine='MolSysMT', parallel=parallel, syntaxis=syntaxis, check=False)
+                         engine='MolSysMT', syntax=syntax)
 
     else:
 
-        raise NotImplementedError
+        raise NotImplementedMethodError
 
     return output
 

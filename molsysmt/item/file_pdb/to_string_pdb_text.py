@@ -1,12 +1,7 @@
-from molsysmt._private.digestion import digest_item, digest_atom_indices, digest_structure_indices
+from molsysmt._private.digestion import digest
 
-def to_string_pdb_text(item, atom_indices='all', structure_indices='all', check=True):
-
-    if check:
-
-        digest_item(item, 'file:pdb')
-        atom_indices = digest_atom_indices(atom_indices)
-        structure_indices = digest_structure_indices(structure_indices)
+@digest(form='file:pdb')
+def to_string_pdb_text(item, atom_indices='all', structure_indices='all'):
 
     from ..string_pdb_text import extract as extract_string_pdb_text
 
@@ -15,7 +10,7 @@ def to_string_pdb_text(item, atom_indices='all', structure_indices='all', check=
     fff.close()
 
     tmp_item = extract_string_pdb_text(tmp_item, atom_indices=atom_indices,
-            structure_indices=structure_indices, copy_if_all=False, check=False)
+            structure_indices=structure_indices, copy_if_all=False)
 
     return tmp_item
 

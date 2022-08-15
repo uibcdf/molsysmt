@@ -1,18 +1,18 @@
-from molsysmt._private.exceptions import *
-from molsysmt._private.lists_and_tuples import is_list_or_tuple
+from molsysmt._private.digestion import digest
 import numpy as np
 
+@digest()
 def are_multiple_molecular_systems(items):
 
-    from . import is_molecular_system
+    from . import is_a_molecular_system
 
     output = False
 
     aux_list = []
-    if is_list_or_tuple(items):
+    if isinstance(items, (list, tuple)):
 
         for item in items:
-            aux_list.append(is_molecular_system(item))
+            aux_list.append(is_a_molecular_system(item))
 
         output = np.all(aux_list)
 

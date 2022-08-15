@@ -1,26 +1,20 @@
-from molsysmt._private.exceptions import *
 from molsysmt._private.digestion import *
-from .is_molsysmt_MolSys import is_molsysmt_MolSys
+from molsysmt._private.exceptions import LibraryNotFoundError
 
-def to_openmm_Modeller(item, atom_indices='all', structure_indices='all', check=True):
-
-    if check:
-
-        digest_item(item, 'molsysmt.MolSys')
-        atom_indices = digest_atom_indices(atom_indices)
-        structure_indices = digest_structure_indices(structure_indices)
+@digest(form='molsysmt.MolSys')
+def to_openmm_Modeller(item, atom_indices='all', structure_indices='all'):
 
     try:
         from openmm.app import Modeller
     except:
-        raise LibraryNotFound(openmm)
+        raise LibraryNotFoundError(openmm)
 
     from . import to_openmm_Topology
     from . import get_coordinates_from_atom
     from molsysmt import puw
 
-    tmp_topology = to_openmm_Topology(item, atom_indices=atom_indices, structure_indices=structure_indices, check=False)
-    tmp_positions = get_coordinates_from_atom(item, indices=atom_indices, structure_indices=structure_indices, check=False)
+    tmp_topology = to_openmm_Topology(item, atom_indices=atom_indices, structure_indices=structure_indices)
+    tmp_positions = get_coordinates_from_atom(item, indices=atom_indices, structure_indices=structure_indices)
     tmp_positions = puw.convert(tmp_positions, to_form='openmm.unit')
 
     tmp_item = Modeller(tmp_topology, tmp_positions[0])

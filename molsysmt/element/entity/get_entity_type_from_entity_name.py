@@ -1,3 +1,4 @@
+from molsysmt._private.digestion import digest
 from .cosolute.names import names as cosolute_names
 from .ion.names import names as ion_names
 from .lipid.names import names as lipid_names
@@ -8,39 +9,40 @@ from .dna.names import names as dna_names
 from .small_molecule.names import names as small_molecule_names
 from .water.names import names as water_names
 
-def get_entity_type_from_entity_name(name):
+@digest()
+def get_entity_type_from_entity_name(entity_name):
 
     output = None
 
-    if name in water_names:
+    if entity_name in water_names:
 
         output = 'water'
 
-    elif name in ion_names:
+    elif entity_name in ion_names:
 
         output = 'ion'
 
-    elif name in lipid_names:
+    elif entity_name in lipid_names:
 
         output = 'lipid'
 
-    elif name in peptide_names:
+    elif entity_name in peptide_names:
 
         output = 'peptide'
 
-    elif name in protein_names:
+    elif entity_name in protein_names:
 
         output = 'protein'
 
-    elif name in rna_names:
+    elif entity_name in rna_names:
 
         output = 'rna'
 
-    elif name in dna_names:
+    elif entity_name in dna_names:
 
         output = 'dna'
 
-    elif name in small_molecule_names:
+    elif entity_name in small_molecule_names:
 
         output = 'small molecule'
 

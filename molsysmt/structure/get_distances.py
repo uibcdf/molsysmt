@@ -1,19 +1,20 @@
-from molsysmt._private.exceptions import *
-from molsysmt._private.digestion import *
+from molsysmt._private.exceptions import NotImplementedMethodError
+from molsysmt._private.digestion import digest
 from molsysmt._private.variables import is_all
 from molsysmt.lib import geometry as libgeometry
 from molsysmt import puw
 import numpy as np
 
+@digest()
 def get_distances(molecular_system, selection="all", groups_of_atoms=None, group_behavior=None, structure_indices="all",
              molecular_system_2=None, selection_2=None, groups_of_atoms_2=None, group_behavior_2=None, structure_indices_2=None,
-             pairs=False, crossed_structures=False, pbc=False, parallel=False, output_form='tensor',
-             output_atom_indices=False, output_structure_indices=False, engine='MolSysMT',
-             syntaxis='MolSysMT', check=True):
+             pairs=False, crossed_structures=False, pbc=False, output='numpy.ndarray',
+             output_with_atom_indices=False, output_with_structure_indices=False, engine='MolSysMT',
+             syntax='MolSysMT'):
 
     # group_behavior in
     # ['center_of_mass','geometric_center','minimum_distance','maximum_distance']
-    # output_form in ['tensor','dict']
+    # output in ['numpy.ndarray','dict']
 
     # crossed_structures es para cuando queremos calcular lista de structures1 contra lista de structures 2
     # (todos con todos), si crossed_structures=False entonces es sólo el primer structure de lista 1 contra
@@ -21,22 +22,6 @@ def get_distances(molecular_system, selection="all", groups_of_atoms=None, group
 
     # selection groups está por si quiero distancias entre centros de masas, necesita
     # hacer un lista de listas frente a otra lista de listas.
-
-    if check:
-
-        digest_single_molecular_system(molecular_system)
-        if molecular_system_2 is not None:
-            digest_single_molecular_system(molecular_system_2)
-
-        syntaxis = digest_syntaxis(syntaxis)
-        selection = digest_selection(selection, syntaxis)
-        selection_2 = digest_selection(selection_2, syntaxis)
-
-        structure_indices = digest_structure_indices(structure_indices)
-        if structure_indices_2 is not None:
-            structure_indices_2 = digest_structure_indices(structure_indices_2)
-
-        engine = digest_engine(engine)
 
     from molsysmt.basic import select, get
     from . import get_center_of_mass
@@ -50,7 +35,7 @@ def get_distances(molecular_system, selection="all", groups_of_atoms=None, group
 
     if group_behavior=='minimum_distance' or group_behavior_2=='minimum_distance':
         if group_behavior=='minimum_distance' and group_behavior_2=='minimum_distance':
-            raise NotImplementedError(NotImplementedMessage)
+            raise NotImplementedMethodError
             #num_groups_1=len(groups_of_atoms)
             #num_groups_2=len(groups_of_atoms_2)
             #structure_indices = _digest_structure_indices(item, structure_indices)
@@ -68,7 +53,7 @@ def get_distances(molecular_system, selection="all", groups_of_atoms=None, group
             #del(num_groups1,num_groups2,structure_indices,num_structures,group1,group2)
             #return dists
         else:
-            raise NotImplementedError(NotImplementedMessage)
+            raise NotImplementedMethodError
 
     if engine=='MolSysMT':
 
@@ -97,16 +82,14 @@ def get_distances(molecular_system, selection="all", groups_of_atoms=None, group
 
             if group_behavior == 'center_of_mass':
                 coordinates_1 = get_center_of_mass(molecular_system, selection=selection,
-                                                   structure_indices=structure_indices, check=False)
+                                                   structure_indices=structure_indices)
                 atom_indices_1 = [0]
             elif group_behavior == 'geometric_center':
                 coordinates_1 = get_geometric_center(molecular_system, selection=selection,
-                                                     structure_indices=structure_indices,
-                                                     check=False)
+                                                     structure_indices=structure_indices)
                 atom_indices_1 = [0]
             else:
-                atom_indices_1 = select(molecular_system, selection=selection, syntaxis=syntaxis,
-                                        check=False)
+                atom_indices_1 = select(molecular_system, selection=selection, syntax=syntax)
                 coordinates_1 = get(molecular_system, element='atom', indices=atom_indices_1,
                                     structure_indices=structure_indices, coordinates=True)
         else:
@@ -114,13 +97,12 @@ def get_distances(molecular_system, selection="all", groups_of_atoms=None, group
             if group_behavior == 'center_of_mass':
                 coordinates_1 = get_center_of_mass(molecular_system,
                                                    groups_of_atoms=groups_of_atoms,
-                                                   structure_indices=structure_indices, check=False)
+                                                   structure_indices=structure_indices)
                 atom_indices_1 = np.range(coordinates_1.shape[1])
             elif group_behavior == 'geometric_center':
                 coordinates_1 = get_geometric_center(molecular_system,
                                                      groups_of_atoms=groups_of_atoms,
-                                                     structure_indices=structure_indices,
-                                                     check=False)
+                                                     structure_indices=structure_indices)
                 atom_indices_1 = np.arange(coordinates_1.shape[1])
             else:
                 raise ValueError("Value of argument group_behavior not recognized.")
@@ -137,16 +119,14 @@ def get_distances(molecular_system, selection="all", groups_of_atoms=None, group
 
                 if group_behavior_2 == 'center_of_mass':
                     coordinates_2 = get_center_of_mass(molecular_system_2, selection=selection_2,
-                                                       structure_indices=structure_indices_2,
-                                                       check=False)
+                                                       structure_indices=structure_indices_2)
                     atom_indices_2 = [0]
                 elif group_behavior_2 == 'geometric_center':
                     coordinates_2 = get_geometric_center(molecular_system_2, selection=selection_2,
-                                                         structure_indices=structure_indices_2,
-                                                         check=False)
+                                                         structure_indices=structure_indices_2)
                     atom_indices_2 = [0]
                 else:
-                    atom_indices_2 = select(molecular_system_2, selection=selection_2, syntaxis=syntaxis)
+                    atom_indices_2 = select(molecular_system_2, selection=selection_2, syntax=syntax)
                     coordinates_2 = get(molecular_system_2, element='atom', indices=atom_indices_2,
                                         structure_indices=structure_indices_2, coordinates=True)
 
@@ -159,14 +139,12 @@ def get_distances(molecular_system, selection="all", groups_of_atoms=None, group
                 if group_behavior_2 == 'center_of_mass':
                     coordinates_2 = get_center_of_mass(molecular_system_2,
                                                        groups_of_atoms=groups_of_atoms_2,
-                                                       structure_indices=structure_indices_2,
-                                                       check=False)
+                                                       structure_indices=structure_indices_2)
                     atom_indices_2 = np.arange(coordinates_2.shape[1])
                 elif group_behavior_2 == 'geometric_center':
                     coordinates_2 = get_geometric_center(molecular_system_2,
                                                          groups_of_atoms=groups_of_atoms_2,
-                                                         structure_indices=structure_indices_2,
-                                                         check=False)
+                                                         structure_indices=structure_indices_2)
                     atom_indices_2 = np.arange(coordinates_2.shape[1])
                 else:
                     raise ValueError("Value of argument group_behavior_2 not recognized.")
@@ -213,31 +191,31 @@ def get_distances(molecular_system, selection="all", groups_of_atoms=None, group
                         dists = libgeometry.distance_pairs(coordinates_1, coordinates_2, box, orthogonal, int(pbc),
                                                            nelements1, nelements2, nstructures_1)
         else:
-            raise NotImplementedError(NotImplementedMessage)
+            raise NotImplementedMethodError
 
         del(coordinates_1, coordinates_2, box)
 
         dists = dists*length_units
 
-        if output_form=='tensor':
-            if output_structure_indices:
+        if output=='numpy.ndarray':
+            if output_with_structure_indices:
 
                 if is_all(structure_indices):
                     structure_indices = np.arange(nstructures_1)
                 if is_all(structure_indices_2):
                     structure_indices_2 = np.arange(nstructures_2)
 
-                if output_atom_indices:
+                if output_with_atom_indices:
                     return atom_indices_1, structure_indices, atom_indices_2, structure_indices_2, dists
                 else:
                     return structure_indices, structure_indices_2, dists
 
-            elif output_atom_indices:
+            elif output_with_atom_indices:
                 return atom_indices_1, atom_indices_2, dists
             else:
                 return dists
 
-        elif output_form=='dict':
+        elif output=='dict':
             if is_all(structure_indices):
                 structure_indices = np.arange(nstructures_1)
             if is_all(structure_indices_2):
@@ -256,7 +234,7 @@ def get_distances(molecular_system, selection="all", groups_of_atoms=None, group
                                 tmp_dict[atom1][atom2][structure_index_1]=dists[kk,ii,jj]
                     return tmp_dict
                 else:
-                    raise NotImplementedError(NotImplementedMessage)
+                    raise NotImplementedMethodError
             else:
                 if crossed_structures is False:
                     tmp_dict={}
@@ -272,48 +250,12 @@ def get_distances(molecular_system, selection="all", groups_of_atoms=None, group
                             tmp_dict[atom1][atom2][structure_index_1]=dists[kk,ii]
                     return tmp_dict
                 else:
-                    raise NotImplementedError(NotImplementedMessage)
+                    raise NotImplementedMethodError
 
         else:
-            raise NotImplementedError(NotImplementedMessage)
+            raise NotImplementedMethodError
 
-    elif engine=='MDTraj':
-
-        #tmp_item1, atom_indices1, structure_indices1, tmp_item2, atom_indices2, structure_indices2,\
-        #single_item, single_selection = _digest_comparison_two_systems(item, selection, structure,\
-        #                                                               item2, selection2, structure2,\
-        #                                                               form='mdtraj.Trajectory')
-
-        #if (group_behavior is None) and (group_behavior2 is None):
-        #    if item2 is None:
-        #        from mdtraj import compute_distances as _mdtraj_compute_distances
-        #        tensor1_to_grid, tensor2_to_grid = np.meshgrid(atom_indices1,atom_indices2)
-        #        pairs_list =np.vstack([tensor1_to_grid.ravel(), tensor2_to_grid.ravel()]).T
-        #        dists = _mdtraj_compute_distances(tmp_item1,pairs_list,pbc)
-        #        if output_form=='matrix':
-        #            nstructures=dists.shape[0]
-        #            del(_mdtraj_compute_distances,pairs_list)
-        #            return dists.reshape(len(atom_indices2),len(atom_indices1),nstructures).T
-        #        elif output_form=='dict':
-        #            tmp_dict={}
-        #            for kk in range(dists.shape[1]):
-        #                ii=pairs_list[kk,0]
-        #                jj=pairs_list[kk,1]
-        #                try:
-        #                    tmp_dict[ii][jj]=dists[:,kk]
-        #                except:
-        #                    tmp_dict[ii]={}
-        #                    tmp_dict[ii][jj]=dists[:,kk]
-        #            del(_mdtraj_compute_distances,pairs_list)
-        #            return tmp_dict
-        #        else:
-        #            raise NotImplementedError(NotImplementedMessage)
-        #    else:
-        #        raise NotImplementedError(NotImplementedMessage)
-        #else:
-        #    raise NotImplementedError(NotImplementedMessage)
-
-        raise NotImplementedError(NotImplementedMessage)
     else:
-        raise NotImplementedError(NotImplementedMessage)
+
+        raise NotImplementedMethodError
 

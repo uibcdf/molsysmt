@@ -1,12 +1,8 @@
-from molsysmt._private.exceptions import *
-from molsysmt._private.digestion import *
+from molsysmt._private.exceptions import NotImplementedMethodError
+from molsysmt._private.digestion import digest
 
-def add(to_item, item, check=True):
-
-    if check:
-
-        digest_item(item, 'string:aminoacids1')
-        digest_item(to_item, 'string:aminoacids1')
+@digest(form='string:aminoacids1', to_form='string:aminoacids1')
+def add(to_item, item):
 
     raise NotImplementedMethodError()
 

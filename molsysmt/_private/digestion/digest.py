@@ -1,104 +1,123 @@
+import molsysmt.config as config
+from .argument_names_standardization import argument_names_standardization
+from molsysmt._private.exceptions import NotDigestedArgumentWarning
+
 import functools
 import inspect
-from molsysmt._private.digestion import *
-import molsysmt.config as config
+from importlib import import_module
+import os
+import warnings
 
-# The following dictionary maps the name of an argument
-# to a digestion function. To add a new argument, create a digestion
-# function and then put it in this dictionary.
+###
 
-digestion_functions = {
-    "box": digest_box,
-    "comparison": digest_comparison,
-    "coordinates": digest_coordinates,
-    "element": digest_element,
-    "engine": digest_engine,
-    "form": digest_form,
-    "indices": digest_indices,
-    "item": digest_item,
-    "molecular_system": digest_single_molecular_system,
-    "molecular_systems": digest_multiple_molecular_systems,
-    "output": digest_output,
-    "syntaxis": digest_syntaxis,
-    "selection": digest_selection,
-    "selections": digest_multiple_selections,
-    "step": digest_step,
-    "time": digest_time,
-    "structure_indices": digest_structure_indices,
-    "to_form": digest_to_form,
-    "to_syntaxis": digest_to_syntaxis,
-}
+digestion_parameters= {}
+digestion_functions = {}
 
+current_dir = os.path.dirname(os.path.abspath(__file__))
+for filename in os.listdir(current_dir+'/argument'):
+    if filename.endswith('.py') and filename!="__init__.py":
+        argument = filename[:-3]
+        module = import_module('molsysmt._private.digestion.argument.' + argument)
+        function = getattr(module, 'digest_'+argument)
+        parameters = inspect.getfullargspec(function)
+        digestion_functions[argument]=function
+        digestion_parameters[argument]=[]
+        for parameter in parameters[0]:
+            if parameter not in [argument, 'caller']:
+                digestion_parameters[argument].append(parameter)
+        del(argument, module, function, parameters)
 
-def digest(func):
-    """ Decorator to digest the input arguments of a function, with
-           the option to disable argument checking.
+def digest(output=False, **kwargs):
 
-           When a function decorated with this decorator is called, its
-           arguments will be checked and modified if necessary. If one
-           of the arguments doesn't fill the requirements a corresponding
-           error will be raised.
+    digest_parameters = kwargs
 
-           The decorator uses the dictionary defined above which maps the
-           name of an argument to a digestion function.
+    def digestor(func):
+        """ Decorator to digest the input arguments of a function, with
+            the option to disable argument checking.
 
-       """
-    # Use functools to preserve the metadata of the decorated function.
-    @functools.wraps(func)
-    def wrapper(*args, **kwargs):
+            When a function decorated with this decorator is called, its
+            arguments will be checked and modified if necessary. If one
+            of the arguments doesn't fill the requirements a corresponding
+            error will be raised.
 
-        if not config.argument_checking:
-            return func(*args, **kwargs)
+            The decorator uses the dictionary defined above which maps the
+            name of an argument to a digestion function.
 
-        # We need element name if the function has kwargs that will be digested
-        # by the digest_argument function.
-        try:
-            element_name = kwargs["element"]
-        except KeyError:
-            element_name = ""
-        # Get default arguments
-        signature = inspect.signature(func)
-        all_args = {
-            name: value.default
-            for name, value in signature.parameters.items()
-            if value.default is not inspect.Parameter.empty
-        }
+        """
+        # Use functools to preserve the metadata of the decorated function.
+        @functools.wraps(func)
+        def wrapper(*args, **kwargs):
 
-        # Get args, updating if any default arguments were passed by the caller.
-        # We also digest those arguments which have a digestion function. If they don't
-        # have one, we don't modify them.
-        args_names = inspect.getfullargspec(func)[0]
-        for ii, argument_name in enumerate(args_names):
-            if ii >= len(args):
-                break
-            try:
-                digested_value = digestion_functions[argument_name](args[ii],
-                                                                    caller=func.__name__)
-            except KeyError:
-                digested_value = args[ii]
-            all_args[argument_name] = digested_value
+            # Define caller
 
-        if not element_name:
-            try:
-                element_name = all_args["element"]
-            except KeyError:
-                element_name = ""
-        # Get kwargs, updating if any default arguments were passed by the caller.
-        # Keep in mind that when a function is called specifying the parameter name
-        # it will appear in kwargs even if is not
-        for argument_name, value in kwargs.items():
-            try:
-                digested_value = digestion_functions[argument_name](value,
-                                                                    caller=func.__name__)
-                all_args[argument_name] = digested_value
-            except KeyError:
-                if argument_name in args_names:
-                    all_args[argument_name] = value
-                else:
-                    digested_argument_name = digest_argument(argument_name,
-                                                             element_name,
-                                                             caller=func.__name__)
-                    all_args[digested_argument_name] = value
+            caller = func.__module__+'.'+func.__name__
 
-        return func(**all_args)
-    return wrapper
+            # Get default arguments
+
+            signature = inspect.signature(func)
+
+            all_args = {
+                name: value.default
+                for name, value in signature.parameters.items()
+                if value.default is not inspect.Parameter.empty
+            }
+
+            # Updating if any default arguments were passed by the caller.
+
+            all_args.update(kwargs)
+
+            # Get args, updating if any default arguments were passed by the caller.
+            # We also digest those arguments which have a digestion function. If they don't
+            # have one, we don't modify them.
+            args_names = inspect.getfullargspec(func)[0]
+            for argument_value, argument_name in zip(args, args_names):
+                all_args[argument_name] = argument_value
+
+            # Argument names sanitizer
+
+            all_args = argument_names_standardization(caller, all_args)
+
+            # Digestions:
+
+            digested_args = {}
+            not_digested_args = {}
+
+            def gut(arg_name):
+                if arg_name not in digested_args:
+                    if arg_name in digestion_functions:
+                        parameters_dict = {}
+                        for parameter in digestion_parameters[arg_name]:
+                            if parameter in all_args:
+                                gut(parameter)
+                                parameters_dict[parameter] = digested_args[parameter]
+                            elif parameter in digest_parameters:
+                                parameters_dict[parameter] = digest_parameters[parameter]
+                            else:
+                                parameters_dict[parameter] = None
+                        digested_args[arg_name] = digestion_functions[arg_name](all_args[arg_name],
+                                                                      caller=caller,
+                                                                      **parameters_dict)
+                    else:
+                        not_digested_args[arg_name] = all_args[arg_name]
+                pass
+
+            for arg_name in all_args:
+                gut(arg_name)
+
+            for arg_name in not_digested_args:
+                warnings.warn(arg_name+' from '+caller, NotDigestedArgumentWarning, stacklevel=2)
+
+            final_args = digested_args
+
+            if output:
+                auxiliary_output = func(**final_args)
+                if isinstance(auxiliary_output, (list, tuple)):
+                    if len(auxiliary_output) == 1:
+                        auxiliary_output = auxiliary_output[0]
+                return auxiliary_output
+            else:
+                return func(**final_args)
+
+        return wrapper
+    return digestor
+

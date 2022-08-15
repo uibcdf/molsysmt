@@ -1,17 +1,12 @@
-from molsysmt._private.digestion import digest_item, digest_atom_indices, digest_structure_indices
+from molsysmt._private.digestion import digest
 
-def to_mdtraj_Topology(item, atom_indices='all', check=True):
-
-    if check:
-
-        digest_item(item, 'mdtraj.Trajectory')
-        atom_indices = digest_atom_indices(atom_indices)
-        structure_indices = digest_structure_indices(structure_indices)
+@digest(form='mdtraj.Trajectory')
+def to_mdtraj_Topology(item, atom_indices='all'):
 
     from ..mdtraj_Topology import extract as extract_mdtraj_Topology
 
     tmp_item = item.topology
-    tmp_item = extract_mdtraj_Topology(tmp_item, atom_indices=atom_indices, check=False)
+    tmp_item = extract_mdtraj_Topology(tmp_item, atom_indices=atom_indices)
 
     return tmp_item
 

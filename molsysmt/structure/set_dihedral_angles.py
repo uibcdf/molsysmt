@@ -1,17 +1,12 @@
-from molsysmt._private.exceptions import *
-from molsysmt._private.digestion import *
+from molsysmt._private.exceptions import NotImplementedMethodError
+from molsysmt._private.digestion import digest
 import numpy as np
 from molsysmt import puw
 from molsysmt.lib import geometry as libgeometry
 
+@digest()
 def set_dihedral_angles(molecular_system, quartets=None, angles=None, blocks=None,
-        structure_indices='all', pbc=True, in_place=False, engine='MolSysMT', check=True):
-
-    if check:
-
-        digest_single_molecular_system(molecular_system)
-        structure_indices = digest_structure_indices(structure_indices)
-        engine = digest_engine(engine)
+        structure_indices='all', pbc=True, in_place=False, engine='MolSysMT'):
 
     from molsysmt.basic import get, convert, set, copy
     from molsysmt.topology.get_covalent_blocks import get_covalent_blocks
@@ -72,7 +67,7 @@ def set_dihedral_angles(molecular_system, quartets=None, angles=None, blocks=Non
             for quartet in quartets:
 
                 tmp_blocks = get_covalent_blocks(molecular_system, remove_bonds=[quartet[1],
-                    quartet[2]], check=False)
+                    quartet[2]])
                 blocks.append(tmp_blocks)
 
 
@@ -120,11 +115,11 @@ def set_dihedral_angles(molecular_system, quartets=None, angles=None, blocks=Non
         if in_place:
             return set(molecular_system, element='system', structure_indices=structure_indices, coordinates=coordinates)
         else:
-            tmp_molecular_system = copy(molecular_system, check=False)
+            tmp_molecular_system = copy(molecular_system)
             set(tmp_molecular_system, element='system', structure_indices=structure_indices, coordinates=coordinates)
             return tmp_molecular_system
 
     else:
 
-        raise NotImplementedError
+        raise NotImplementedMethodError()
 

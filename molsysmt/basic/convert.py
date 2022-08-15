@@ -1,18 +1,17 @@
 from molsysmt._private.exceptions import NotImplementedConversionError
-from molsysmt._private.digestion import digest, digest_output
-from molsysmt._private.lists_and_tuples import is_list_or_tuple
+from molsysmt._private.digestion import digest
 from molsysmt._private.variables import is_all
 
 
-@digest
+@digest(output=True)
 def convert(molecular_system,
             to_form='molsysmt.MolSys',
             selection='all',
             structure_indices='all',
-            syntaxis='MolSysMT',
+            syntax='MolSysMT',
             **kwargs):
 
-    """convert(item, to_form='molsysmt.MolSys', selection='all', structure_indices='all', syntaxis='MolSysMT', **kwargs)
+    """convert(item, to_form='molsysmt.MolSys', selection='all', structure_indices='all', syntax='MolSysMT', **kwargs)
 
     Convert a molecular model into other form.
 
@@ -28,13 +27,13 @@ def convert(molecular_system,
     selection: str, list, tuple or np.ndarray, defaul='all'
        Atoms selection over which this method applies. The selection can be given by a
        list, tuple or numpy array of integers (0-based), or by means of a string following any of
-       the selection syntaxis parsable by MolSysMT (see: :func:`molsysmt.select`).
+       the selection syntax parsable by MolSysMT (see: :func:`molsysmt.select`).
 
     to_form: str, default='molsysmt.MolSys'
         The output object will take the form specified here. This form supported form by MolSysMt
         for the output object.
 
-    syntaxis: str, default='MolSysMT'
+    syntax: str, default='MolSysMT'
        Syntaxis used in the argument `selection` (in case it is a string). The
        current options supported by MolSysMt can be found in section XXX (see: :func:`molsysmt.select`).
 
@@ -65,29 +64,29 @@ def convert(molecular_system,
     if to_form is None:
         to_form = get_form(molecular_system)
 
-    if is_list_or_tuple(to_form):
+    if isinstance(to_form, (list, tuple)):
         tmp_item=[]
         for item_out in to_form:
             tmp_item.append(
                 convert(molecular_system, to_form=item_out, selection=selection, structure_indices=structure_indices,
-                        syntaxis=syntaxis))
+                        syntax=syntax))
         return tmp_item
 
     if not is_all(selection):
-        atom_indices = select(molecular_system, selection=selection, syntaxis=syntaxis, check=False)
+        atom_indices = select(molecular_system, selection=selection, syntax=syntax)
     else:
         atom_indices = 'all'
 
     conversion_arguments={}
 
     if is_item(to_form):
-        if is_file(to_form, check=False):
+        if is_file(to_form):
             conversion_arguments['output_filename'] = to_form
             to_form = get_form(to_form)
 
     tmp_item = None
 
-    if not is_list_or_tuple(molecular_system):
+    if not isinstance(molecular_system, (list, tuple)):
         molecular_system = [molecular_system]
 
     for item in molecular_system:
@@ -98,8 +97,7 @@ def convert(molecular_system,
             tmp_item = dict_extract[from_form](item,
                                                atom_indices=atom_indices,
                                                structure_indices=structure_indices,
-                                               copy_if_all=False,
-                                               check=False)
+                                               copy_if_all=False)
         else:
             if from_form in dict_convert:
                 if to_form in dict_convert[from_form]:
@@ -116,7 +114,5 @@ def convert(molecular_system,
         from_form = get_form(molecular_system)
         from_form = digest_output(from_form)
         raise NotImplementedConversionError(from_form, to_form)
-
-    tmp_item = digest_output(tmp_item)
 
     return tmp_item

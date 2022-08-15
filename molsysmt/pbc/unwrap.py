@@ -1,19 +1,12 @@
-from molsysmt._private.exceptions import *
-from molsysmt._private.digestion import *
+from molsysmt._private.exceptions import NotImplementedMethodError
+from molsysmt._private.digestion import digest
 from molsysmt import puw
 from molsysmt.lib import box as libbox
 import numpy as np
 
+@digest()
 def unwrap(molecular_system, selection='all', structure_indices='all',
-        syntaxis='MolSysMT', engine='MolSysMT', in_place=False, check=True):
-
-    if check:
-
-        digest_single_molecular_system(molecular_system)
-        engine = digest_engine(engine)
-        syntaxis = digest_syntaxis(syntaxis)
-        selection = digest_selection(selection, syntaxis)
-        structure_indices = digest_structure_indices(structure_indices)
+        syntax='MolSysMT', engine='MolSysMT', in_place=False):
 
     if engine=='MolSysMT':
 
@@ -43,20 +36,20 @@ def unwrap(molecular_system, selection='all', structure_indices='all',
 
     else:
 
-        raise NotImpementedEngineError()
+        raise NotImplementedMethodError()
 
     if in_place:
 
         set(molecular_system, element='atom', selection=selection, structure_indices=structure_indices,
-            syntaxis=syntaxis, coordinates=coordinates)
+            syntax=syntax, coordinates=coordinates)
 
         pass
 
     else:
 
         tmp_molecular_system = extract(molecular_system, selection=selection, structure_indices=structure_indices,
-                                       syntaxis=syntaxis)
-        set(tmp_molecular_system, element='atom', selection='all', structure_indices='all', syntaxis='MolSysMT',
+                                       syntax=syntax)
+        set(tmp_molecular_system, element='atom', selection='all', structure_indices='all', syntax='MolSysMT',
             coordinates=coordinates)
 
         return tmp_molecular_system

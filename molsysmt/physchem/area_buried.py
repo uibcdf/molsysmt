@@ -1,6 +1,8 @@
+from molsysmt._private.exceptions import NotImplementedMethodError
+from molsysmt._private.digestion import digest
 import numpy as np
-from molsysmt._private.exceptions import *
 
+@digest()
 def area_buried(molecular_system, selection='all', type='rose'):
 
     from molsysmt.basic import get
@@ -8,7 +10,7 @@ def area_buried(molecular_system, selection='all', type='rose'):
     if type == 'rose':
         from .groups.area_buried import rose as values
     else:
-        raise NotImplementedError()
+        raise NotImplementedMethodError()
 
     group_types = get(molecular_system, element='group', selection=selection, name=True)
 

@@ -1,19 +1,13 @@
-from molsysmt._private.exceptions import *
-from molsysmt._private.digestion import *
+from molsysmt._private.digestion import digest
 
-def to_openmm_PDBFile(item, atom_indices='all', coordinates=None, check=True):
-
-    if check:
-
-        digest_item(item, 'molsysmt.MolSys')
-        atom_indices = digest_atom_indices(atom_indices)
-        coordinates = digest_coordinates(coordinates)
+@digest(form='openmm.Topology')
+def to_openmm_PDBFile(item, atom_indices='all', coordinates=None):
 
     from . import to_string_pdb_text
     from io import StringIO
     from openmm.app import PDBFile
 
-    string_pdb_text = to_string_pdb_text(item, atom_indices=atom_indices, coordinates=coordinates, check=False)
+    string_pdb_text = to_string_pdb_text(item, atom_indices=atom_indices, coordinates=coordinates)
 
     tmp_io = StringIO()
     tmp_io.read(string_pdb_text)

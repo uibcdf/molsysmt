@@ -1,18 +1,11 @@
+from molsysmt._private.exceptions import NotImplementedMethodError
+from molsysmt._private.digestion import digest
 import numpy as np
 from molsysmt import puw
-from molsysmt._private.exceptions import *
-from molsysmt._private.digestion import *
 
+@digest()
 def charge(molecular_system, element='group', selection='all', definition=None, engine='OpenMM',
-        syntaxis='MolSysMT', check=True):
-
-    if check:
-
-        digest_single_molecular_system(molecular_system)
-        syntaxis = digest_syntaxis(syntaxis)
-        selection = digest_selection(selection, syntaxis)
-        engine = digest_engine(engine)
-        element = digest_element(element)
+        syntax='MolSysMT'):
 
     if definition in ['physical_pH7', 'collantes']:
 
@@ -24,7 +17,7 @@ def charge(molecular_system, element='group', selection='all', definition=None, 
         elif definition=='collantes':
             from molsysmt.physico_chemical_properties.groups.charge import collantes as values, units
         else:
-            raise NotImplementedError()
+            raise NotImplementedMethodError()
 
         output = []
 
@@ -107,7 +100,7 @@ def charge(molecular_system, element='group', selection='all', definition=None, 
 
         else:
 
-            raise NotImplementedError
+            raise NotImplementedMethodError
 
     return output
 

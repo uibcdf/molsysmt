@@ -1,18 +1,11 @@
-from molsysmt._private.digestion import digest_item as _digest_item
-from molsysmt._private.digestion import digest_indices as _digest_indices
-from molsysmt._private.digestion import digest_structure_indices as _digest_structure_indices
+from molsysmt._private.digestion import digest
 
 ###### Set
 
 ## System
 
-def set_box_to_system(item, indices='all', structure_indices='all', value=None, check=True):
-
-    if check:
-
-        _digest_item(item, 'molsysmt.Structures')
-        indices = _digest_indices(indices)
-        structure_indices = _digest_structure_indices(structure_indices)
+@digest(form='molsysmt.Structures')
+def set_box_to_system(item, indices='all', structure_indices='all', value=None):
 
     n_structures_trajectory = item.coordinates.shape[0]
     n_structures_box = value.shape[0]

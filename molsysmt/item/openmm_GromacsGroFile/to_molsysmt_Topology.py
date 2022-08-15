@@ -1,18 +1,13 @@
-from molsysmt._private.exceptions import *
-from molsysmt._private.digestion import *
+from molsysmt._private.digestion import digest
 
-def to_molsysmt_Topology(item, atom_indices='all', check=True):
-
-    if check:
-
-        digest_item(item, 'openmm.GromacsGroFile')
-        atom_indices = digest_atom_indices(atom_indices)
+@digest(form='openmm.GromacsGroFile')
+def to_molsysmt_Topology(item, atom_indices='all'):
 
     from . import to_openmm_Topology
     from ..openmm_Topology import to_molsysmt_Topology as openmm_Topology_to_molsysmt_Topology
 
-    tmp_item = to_openmm_Topology(item, check=check)
-    tmp_item = openmm_Topology_to_molsysmt_Topology(item, atom_indices=atom_indices, check=check)
+    tmp_item = to_openmm_Topology(item)
+    tmp_item = openmm_Topology_to_molsysmt_Topology(item, atom_indices=atom_indices)
 
     return tmp_item
 

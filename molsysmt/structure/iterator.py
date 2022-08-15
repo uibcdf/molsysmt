@@ -1,10 +1,9 @@
 from molsysmt import get_form, convert
 from molsysmt.item.mdtraj_Trajectory.iterate import iterate_mdtraj_trajectory
-from molsysmt._private.exceptions.not_implemented_errors import MolSysNotImplementedError
-import molsysmt._private.exceptions.value_errors as exc
+from molsysmt._private.exceptions import NotImplementedIteratorError
+from molsysmt._private.exceptions import IteratorError
 
-
-class Iterator:
+class Iterator():
     """ A class that allows to iterate trough trajectories of any type.
     """
     def __init__(self,
@@ -16,6 +15,7 @@ class Iterator:
                  selection="all",
                  syntaxis="MolSysMT"
                  ):
+
         self._molecular_system, self._form = self._get_molecular_system_and_form(molecular_system)
         self._start = start
         self._interval = interval
@@ -41,8 +41,8 @@ class Iterator:
     @start.setter
     def start(self, start):
         if start < 0 or start >= self._n_structures:
-            raise exc.IteratorStartError(
-                f"Start should be > 0 and < {self._n_structures}"
+            raise IteratorError(
+                message=f"Start should be > 0 and < {self._n_structures}"
             )
         self._start = start
 
@@ -53,8 +53,8 @@ class Iterator:
     @interval.setter
     def interval(self, interval):
         if interval < 1 or interval > self._n_structures:
-            raise exc.IteratorIntervalError(
-                f"Interval should be > 0 and < {self._n_structures}"
+            raise IteratorError(
+                message=f"Interval should be > 0 and < {self._n_structures}"
             )
         self._interval = interval
 
@@ -65,8 +65,8 @@ class Iterator:
     @stop.setter
     def stop(self, stop):
         if stop < 1 or stop > self._n_structures:
-            raise exc.IteratorStopError(
-                f"Stop should be > 0 and < {self._n_structures}"
+            raise IteratorError(
+                message=f"Stop should be > 0 and < {self._n_structures}"
             )
         self._stop = stop
 
@@ -77,8 +77,9 @@ class Iterator:
     @chunk_size.setter
     def chunk_size(self, chunk_size):
         if chunk_size < 1 or chunk_size > self._n_structures:
-            raise exc.IteratorChunkSizeError(
-                f"Chunk size should be > 0 and < {self._n_structures}")
+            raise IteratorError(
+                message=f"Chunk size should be > 0 and < {self._n_structures}"
+            )
         self._chunk_size = chunk_size
 
     @staticmethod
@@ -92,8 +93,7 @@ class Iterator:
             return convert(item, to_form="molsysmt.MolSys"), "molsysmt.MolSys"
 
         else:
-            raise MolSysNotImplementedError(
-                f"Iterator has not been implemented for form {form}")
+            raise NotImplementedIteratorError(form)
 
     def _get_iterator(self):
         """ Returns a generator function corresponding to the
@@ -125,8 +125,7 @@ class Iterator:
                 chunk_size=self._chunk_size
             )
         else:
-            raise MolSysNotImplementedError(
-                f"Iterator has not been implemented for form {self._form}")
+            raise NotImplementedIteratorError(self._form)
 
     def _get_num_atoms(self):
         """ Returns the number of atoms in the molecular system."""
@@ -135,8 +134,7 @@ class Iterator:
         elif self._form == "molsysmt.Structures" or self._form == "mdtraj.Trajectory":
             return self.molecular_system.n_atoms
         else:
-            raise MolSysNotImplementedError(
-                f"Iterator has not been implemented for form {self._form}")
+            raise NotImplementedIteratorError(self._form)
 
     def _get_num_structures(self):
         """ Returns the number of atoms in the molecular system."""
@@ -147,8 +145,7 @@ class Iterator:
         elif self._form == "mdtraj.Trajectory":
             return self.molecular_system.n_frames
         else:
-            raise MolSysNotImplementedError(
-                f"Iterator has not been implemented for form {self._form}")
+            raise MolSysNotImplementedError(self._form)
 
     def __iter__(self):
         return self._iterator

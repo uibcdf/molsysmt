@@ -1,12 +1,7 @@
-from molsysmt._private.exceptions import *
-from molsysmt._private.digestion import *
+from molsysmt._private.digestion import digest
 
-def to_openmm_AmberPrmtopFile(item, atom_indices='all', check=True):
-
-    if check:
-
-        digest_item(item, 'file:prmtop')
-        atom_indices = digest_atom_indices(atom_indices)
+@digest(form='file:prmtop')
+def to_openmm_AmberPrmtopFile(item, atom_indices='all'):
 
     from openmm.app import AmberPrmtopFile
 

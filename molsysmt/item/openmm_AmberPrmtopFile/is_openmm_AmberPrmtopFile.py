@@ -1,8 +1,7 @@
-_item_fullname_='openmm.AmberPrmtopFile'
 
 def is_openmm_AmberPrmtopFile(item):
 
     item_fullname = item.__class__.__module__+'.'+item.__class__.__name__
 
-    return _item_fullname_==item_fullname
+    return item_fullname=='openmm.app.amberprmtopfile.AmberPrmtopFile'
 

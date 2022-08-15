@@ -1,27 +1,20 @@
-from molsysmt._private.exceptions import *
-from molsysmt._private.digestion import *
+from molsysmt._private.exceptions import NotImplementedMethodError
+from molsysmt._private.digestion import digest
 from molsysmt import puw
 from molsysmt.lib import box as libbox
 import numpy as np
 
+@digest()
 def wrap_to_mic(molecular_system, selection='all', structure_indices='all',
-                center='[0,0,0] nanometers', center_of_selection=None, weights_for_center=None,
+                center_coordinates='[0,0,0] nanometers', center_of_selection=None, weights=None,
                 recenter=True, keep_covalent_bonds=False,
-                syntaxis='MolSysMT', engine='MolSysMT', in_place=False, check=True):
-
-    if check:
-
-        digest_single_molecular_system(molecular_system)
-        engine = digest_engine(engine)
-        syntaxis = digest_syntaxis(syntaxis)
-        selection = digest_selection(selection, syntaxis)
-        structure_indices = digest_structure_indices(structure_indices)
+                syntax='MolSysMT', engine='MolSysMT', in_place=False):
 
     if engine=='MolSysMT':
 
         from molsysmt.basic import select, get, set, extract, copy
 
-        atom_indices = select(molecular_system, selection=selection, syntaxis=syntaxis)
+        atom_indices = select(molecular_system, selection=selection, syntax=syntax)
 
         coordinates= get(molecular_system, element='atom', indices=atom_indices, coordinates=True)
         length_units = puw.get_unit(coordinates)
@@ -29,7 +22,6 @@ def wrap_to_mic(molecular_system, selection='all', structure_indices='all',
         n_atoms = coordinates.shape[1]
         box, box_shape = get(molecular_system, element='system', structure_indices=structure_indices, box=True,
                              box_shape=True)
-        box = puw.convert(box, to_unit=length_units)
 
         orthogonal = 0
         if box_shape is None:
@@ -40,51 +32,43 @@ def wrap_to_mic(molecular_system, selection='all', structure_indices='all',
         if center_of_selection is not None:
 
             from molsysmt.structure import get_center
-            center = get_center(molecular_system, selection=center_of_selection,
-                                weights=weights_for_center, structure_indices=structure_indices,
-                                syntaxis=syntaxis, engine='MolSysMT')
-
-            center = puw.convert(center, to_unit=length_units)
-            center = puw.get_value(center)
+            center_coordinates = get_center(molecular_system, selection=center_of_selection,
+                                weights=weights, structure_indices=structure_indices,
+                                syntax=syntax, engine='MolSysMT')
 
         else:
 
-            center = puw.quantity(center)
-            center = puw.convert(center, to_unit=length_units)
-            center = puw.get_value(center)
+            center_shape = np.shape(center_coordinates)
+            if center_shape==(1,1,3):
+                value = puw.get_value(center_coordinates)
+                unit = puw.get_unit(center_coordinates)
+                value = np.tile(value,[n_structures,1,1])
+                center_coordinates = puw.quantity(value, unit)
+            elif center_shape[0]!=n_structures:
+                raise ValueError('center_coordinates needs the right shape')
 
-            center_shape = np.shape(center)
-            if len(center_shape)==1 and center_shape[-1]==3:
-                center = np.tile(center,[n_structures,1,1])
-            elif len(center_shape)==2 and center_shape[-1]==3 and center_shape[0]==n_structures:
-                center = np.expand_dims(center, axis=1)
-            elif len(center_shape)==2 and center_shape[-1]==3 and center_shape[0]==1:
-                center = np.tile(center[0],[n_structures,1,1])
-            elif len(center_shape)==3 and center_shape[-1]==3 and center_shape[0]==n_structures and center_shape[1]==1:
-                center = np.array(center)
-            else:
-                raise ValueError('center needs the right shape')
+        length_units = puw.get_unit(coordinates)
 
         box = np.asfortranarray(puw.get_value(box), dtype='float64')
         coordinates = np.asfortranarray(puw.get_value(coordinates), dtype='float64')
-        center = np.asfortranarray(center, dtype='float64')
+        center_coordinates = np.asfortranarray(puw.get_value(center_coordinates), dtype='float64')
 
-        libbox.wrap_mic(coordinates, center, box, orthogonal, n_atoms, n_structures)
+        libbox.wrap_mic(coordinates, center_coordinates, box, orthogonal, n_atoms, n_structures)
 
         if recenter:
-            translation = np.tile(-center,(n_atoms,1))
+            translation = np.tile(-center_coordinates,(n_atoms,1))
             coordinates+=translation
 
-        coordinates=np.ascontiguousarray(coordinates)*length_units
+        coordinates=puw.quantity(np.ascontiguousarray(coordinates), length_units)
 
     else:
 
-        raise NotImpementedEngineError()
+        raise NotImplementedMethodError()
 
     if in_place:
 
         set(molecular_system, element='atom', indices=atom_indices, structure_indices=structure_indices,
-            syntaxis=syntaxis, coordinates=coordinates)
+            syntax=syntax, coordinates=coordinates)
 
         pass
 
@@ -92,7 +76,7 @@ def wrap_to_mic(molecular_system, selection='all', structure_indices='all',
 
         tmp_molecular_system = copy(molecular_system)
         set(tmp_molecular_system, element='atom', indices=atom_indices, structure_indices=structure_indices,
-            syntaxis=syntaxis, coordinates=coordinates)
+            syntax=syntax, coordinates=coordinates)
 
         return tmp_molecular_system
 

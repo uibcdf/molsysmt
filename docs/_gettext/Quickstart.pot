@@ -33,7 +33,7 @@ msgid "You probably don’t remember how to fetch a pdb from the protein data ba
 msgstr ""
 
 #: ../Quickstart.ipynb:53
-msgid "The class, or in MolSysMT syntaxis, the form of each object can be checked as:"
+msgid "The class, or in MolSysMT syntax, the form of each object can be checked as:"
 msgstr ""
 
 #: ../Quickstart.ipynb:114

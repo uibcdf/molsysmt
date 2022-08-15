@@ -1,15 +1,8 @@
-from molsysmt._private.exceptions import *
-from molsysmt._private.digestion import *
+from molsysmt._private.digestion import digest
 
+@digest()
 def add_missing_terminal_cappings(molecular_system, N_terminal=None, C_terminal=None, pH=7.4, selection='all',
-                         syntaxis='MolSysMT', engine='PDBFixer', check=True):
-
-    if check:
-
-        digest_single_molecular_system(molecular_system)
-        syntaxis = digest_syntaxis(syntaxis)
-        selection = digest_selection(selection, syntaxis)
-        engine = digest_engine(engine)
+                         syntax='MolSysMT', engine='PDBFixer'):
 
     from molsysmt.basic import get_form, convert, get, select
 
@@ -17,12 +10,12 @@ def add_missing_terminal_cappings(molecular_system, N_terminal=None, C_terminal=
     form_in = get_form(molecular_system)
     form_out = form_in
 
-    if engine is 'PDBFixer':
+    if engine == 'PDBFixer':
 
         from pdbfixer.pdbfixer import Sequence
 
         temp_molecular_system = convert(molecular_system, to_form='pdbfixer.PDBFixer')
-        atom_indices_in_selection = select(temp_molecular_system, selection=selection, syntaxis=syntaxis, check=False)
+        atom_indices_in_selection = select(temp_molecular_system, selection=selection, syntax=syntax)
         atom_indices_in_components = get(temp_molecular_system, element='component', selection='component_type in ["peptide", "protein"] \
                                          and atom_index in @atom_indices_in_selection', atom_index=True)
 

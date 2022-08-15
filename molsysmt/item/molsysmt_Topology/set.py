@@ -1,19 +1,12 @@
-from molsysmt._private.digestion import digest_item as _digest_item
-from molsysmt._private.digestion import digest_indices as _digest_indices
-from molsysmt._private.digestion import digest_structure_indices as _digest_structure_indices
-from molsysmt import puw as _puw
+from molsysmt._private.digestion import digest
+from molsysmt import puw
 
 ###### Set
 
 ## Atom
 
-def set_atom_name_to_atom(item, indices='all', structure_indices='all', value=None, check=True):
-
-    if check:
-
-        _digest_item(item, 'molsysmt.Topology')
-        indices = _digest_indices(indices)
-        structure_indices = _digest_structure_indices(structure_indices)
+@digest(form='molsysmt.Topology')
+def set_atom_name_to_atom(item, indices='all', structure_indices='all', value=None):
 
     item.atoms_dataframe.loc[indices, 'atom_name']=value
 
@@ -21,7 +14,7 @@ def set_atom_name_to_atom(item, indices='all', structure_indices='all', value=No
 
 ##### System
 #
-#def set_box_to_system(item, structure_indices='all', value=None, check=True):
+#def set_box_to_system(item, structure_indices='all', value=None):
 #
 #    if check:
 #

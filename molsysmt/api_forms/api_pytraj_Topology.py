@@ -1,4 +1,3 @@
-from molsysmt._private.exceptions import *
 import numpy as np
 from molsysmt.item.pytraj_Topology.is_pytraj_Topology import is_pytraj_Topology as is_form
 from molsysmt.item.pytraj_Topology.extract import extract
@@ -40,4 +39,4 @@ form_attributes['chain_type'] = True
 def to_molsysmt_Topology(item, molecular_system, atom_indices='all', structure_indices='all'):
     from molsysmt.item.pytraj_Topology import to_molsysmt_Topology as pytraj_Topology_to_molsysmt_Topology
 
-    return pytraj_Topology_to_molsysmt_Topology(item, atom_indices=atom_indices, check=False)
+    return pytraj_Topology_to_molsysmt_Topology(item, atom_indices=atom_indices)

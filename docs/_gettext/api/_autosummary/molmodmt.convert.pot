@@ -53,15 +53,15 @@ msgid "**selection: str, list, tuple or np.ndarray, defaul='all'**"
 msgstr ""
 
 #: ../../molsysmt/multitool.py:docstring of molsysmt.convert:17
-msgid "Atoms selection over which this method applies. The selection can be given specified by a list, tuple or numpy array of integers (0-based), or by means of a string following any of the selection syntaxis parsable by MolSysMT."
+msgid "Atoms selection over which this method applies. The selection can be given specified by a list, tuple or numpy array of integers (0-based), or by means of a string following any of the selection syntax parsable by MolSysMT."
 msgstr ""
 
 #: ../../molsysmt/multitool.py:docstring of molsysmt.convert:24
-msgid "**syntaxis: str, default='mdtraj'**"
+msgid "**syntax: str, default='mdtraj'**"
 msgstr ""
 
 #: ../../molsysmt/multitool.py:docstring of molsysmt.convert:22
-msgid "Selection syntaxis used in the argument `selection` (in case `selection` is a string). The current options supported by MolSysMt are 'mdtraj' or 'amber'. More information about this topic can be found in the section 'Selection'."
+msgid "Selection syntax used in the argument `selection` (in case `selection` is a string). The current options supported by MolSysMt are 'mdtraj' or 'amber'. More information about this topic can be found in the section 'Selection'."
 msgstr ""
 
 #: ../../molsysmt/multitool.py:docstring of molsysmt.convert:0

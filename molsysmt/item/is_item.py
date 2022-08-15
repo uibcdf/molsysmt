@@ -1,4 +1,4 @@
-def is_item(item, check=True):
+def is_item(item):
 
     from molsysmt.basic import get_form
 

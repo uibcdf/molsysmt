@@ -1,17 +1,17 @@
-from molsysmt._private.exceptions import *
-from molsysmt._private.digestion import *
+from molsysmt._private.digestion import digest
 import numpy as np
 from molsysmt import puw
 
-def box_shape_from_box_angles(angles, check=True):
+@digest()
+def box_shape_from_box_angles(box_angles):
 
     shape = None
 
-    if angles is not None:
+    if box_angles is not None:
 
-        alpha = angles[:,0].mean()
-        beta = angles[:,1].mean()
-        gamma = angles[:,2].mean()
+        alpha = box_angles[:,0].mean()
+        beta = box_angles[:,1].mean()
+        gamma = box_angles[:,2].mean()
 
         alpha = puw.get_value(alpha, to_unit='degrees')
         beta = puw.get_value(beta, to_unit='degrees')

@@ -1,12 +1,8 @@
 from molsysmt._private.exceptions import NotImplementedMethodError
-from molsysmt._private.digestion import digest_item
+from molsysmt._private.digestion import digest
 
-def add(to_item, item, check=True):
-
-    if check:
-
-        digest_item(item, 'networkx.Graph')
-        digest_item(to_item, 'networkx.Graph')
+@digest(form='networkx.Graph', to_form='networkx.Graph')
+def add(to_item, item):
 
     raise NotImplementedMethodError()
 

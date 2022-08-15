@@ -1,11 +1,7 @@
-from molsysmt._private.exceptions import *
-from molsysmt._private.digestion import *
+from molsysmt._private.digestion import digest
 
-def to_molsysmt_MolecularMechanics(item, check=True):
-
-    if check:
-
-        digest_item('molsysmt.MolecularMechanicsDict')
+@digest(form='molsysmt.MolecularMechanicsDict')
+def to_molsysmt_MolecularMechanics(item):
 
     from molsysmt.native.molecular_mechanics import MolecularMechanics as molsysmt_MolecularMechanics
 

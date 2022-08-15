@@ -15,9 +15,9 @@ def standardize_view (view, atom_indices='all', structure_indices='all'):
 
     tmp_topology = convert(view, to_form='molsysmt.Topology')
 
-    sel_cartoon = select(tmp_topology, selection='molecule_type in ["protein", "dna", "rna"]', mask=atom_indices, to_syntaxis='NGLview')
-    sel_balls = select(tmp_topology, selection='molecule_type in ["ion"]', mask=atom_indices, to_syntaxis='NGLview')
-    sel_licorice = select(tmp_topology, selection='molecule_type in ["lipid", "small molecule"]', mask=atom_indices, to_syntaxis='NGLview')
+    sel_cartoon = select(tmp_topology, selection='molecule_type in ["protein", "dna", "rna"]', mask=atom_indices, to_syntax='NGLview')
+    sel_balls = select(tmp_topology, selection='molecule_type in ["ion"]', mask=atom_indices, to_syntax='NGLview')
+    sel_licorice = select(tmp_topology, selection='molecule_type in ["lipid", "small molecule"]', mask=atom_indices, to_syntax='NGLview')
 
     peptide_indices = select(tmp_topology, selection='molecule_type=="peptide"', element='molecule')
     peptides_to_cartoon = []
@@ -28,8 +28,8 @@ def standardize_view (view, atom_indices='all', structure_indices='all'):
             peptides_to_cartoon.append(peptide_index)
         else:
             peptides_to_licorice.append(peptide_index)
-    sel_peptides_cartoon = select(tmp_topology, selection='molecule_index in @peptides_to_cartoon', mask=atom_indices, to_syntaxis='NGLview')
-    sel_peptides_licorice = select(tmp_topology, selection='molecule_index in @peptides_to_licorice', mask=atom_indices, to_syntaxis='NGLview')
+    sel_peptides_cartoon = select(tmp_topology, selection='molecule_index in @peptides_to_cartoon', mask=atom_indices, to_syntax='NGLview')
+    sel_peptides_licorice = select(tmp_topology, selection='molecule_index in @peptides_to_licorice', mask=atom_indices, to_syntax='NGLview')
 
     view.clear()
     view.add_cartoon(selection=sel_cartoon)
@@ -43,7 +43,7 @@ def standardize_view (view, atom_indices='all', structure_indices='all'):
     solvated = is_solvated(view)
 
     if (not solvated) or (n_selected_waters<n_waters):
-        sel_water = select(tmp_topology, selection='molecule_type in ["water"]', mask=atom_indices, to_syntaxis='NGLview')
+        sel_water = select(tmp_topology, selection='molecule_type in ["water"]', mask=atom_indices, to_syntax='NGLview')
         view.add_licorice(selection=sel_water)
 
     view.center(selection=string_atom_indices)
@@ -86,7 +86,7 @@ def show_colored_surface_by_scalar_residue_values(view, values, selection='all',
     from molsysmt.basic import select
     from matplotlib.colors import Normalize, to_hex
 
-    groups_selection = select(view, element='group', selection=selection, to_syntaxis='NGLview')
+    groups_selection = select(view, element='group', selection=selection, to_syntax='NGLview')
 
     if vmin is None:
         vmin = min(values)
@@ -104,7 +104,7 @@ def show_colored_cartoon_by_scalar_residue_values(view, values, selection='all',
     from nglview.color import _ColorScheme
     from molsysmt.basic import select
 
-    groups_selection = select(view, element='group', selection=selection, to_syntaxis='NGLview')
+    groups_selection = select(view, element='group', selection=selection, to_syntax='NGLview')
 
     if vmin is None:
         vmin = min(values)

@@ -242,25 +242,25 @@ def test_select_38():
 
 def test_select_39():
     molsys = msm.convert(msm.demo['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
-    output = msm.select(molsys, selection='group_index==[3,4,5]', to_syntaxis='NGLView')
+    output = msm.select(molsys, selection='group_index==[3,4,5]', to_syntax='NGLView')
     true_output = '@25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44'
     assert np.all(output==true_output)
 
 def test_select_40():
     molsys = msm.convert(msm.demo['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
-    output = msm.select(molsys, selection='group_index==[3,4,5]', to_syntaxis='MDTraj')
+    output = msm.select(molsys, selection='group_index==[3,4,5]', to_syntax='MDTraj')
     true_output = 'index 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44'
     assert np.all(output==true_output)
 
 def test_select_41():
     molsys = msm.convert(msm.demo['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
-    output = msm.select(molsys, element='group', selection='group_index==[3,4,5]', to_syntaxis='NGLView')
+    output = msm.select(molsys, element='group', selection='group_index==[3,4,5]', to_syntax='NGLView')
     true_output = '7:A 8:A 9:A'
     assert np.all(output==true_output)
 
 def test_select_42():
     molsys = msm.convert(msm.demo['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
-    output = msm.select(molsys, element='group', selection='group_index==[3,4,5]', to_syntaxis='MDTraj')
+    output = msm.select(molsys, element='group', selection='group_index==[3,4,5]', to_syntax='MDTraj')
     true_output = 'resid 3 4 5'
     assert np.all(output==true_output)
 

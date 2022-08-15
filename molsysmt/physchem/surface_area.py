@@ -1,16 +1,18 @@
+from molsysmt._private.digestion import digest
+from molsysmt._private.exceptions import NotImplementedMethodError
 import numpy as np
-from molsysmt._private.exceptions import *
 
-def surface_area(molecular_system, selection='all', type='collantes'):
+@digest()
+def surface_area(molecular_system, selection='all', syntax='MolSysMT', definition='collantes'):
 
     from molsysmt.basic import get
 
-    if type == 'collantes':
+    if definition == 'collantes':
         from .groups.surface_area import collantes as values
     else:
-        raise NotImplementedError()
+        raise NotImplementedMethodError
 
-    group_types = get(molecular_system, element='group', selection=selection, name=True)
+    group_types = get(molecular_system, element='group', selection=selection, syntax=syntax, name=True)
 
     output = []
 

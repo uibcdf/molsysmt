@@ -1,12 +1,7 @@
-from molsysmt._private.digestion import digest_item, digest_atom_indices, digest_structure_indices
+from molsysmt._private.digestion import digest
 
-def to_mdtraj_XTCTrajectoryFile(item, atom_indices='all', structure_indices='all', check=True):
-
-    if check:
-
-        digest_item(item, 'file:xtc')
-        atom_indices = digest_atom_indices(atom_indices)
-        structure_indices = digest_structure_indices(structure_indices)
+@digest(form='file:xtc')
+def to_mdtraj_XTCTrajectoryFile(item, atom_indices='all', structure_indices='all'):
 
     from mdtraj.formats import XTCTrajectoryFile
     from ..mdtraj_XTCTrajectoryFile import extract as extract_mdtraj_XTCTrajectoryFile
@@ -14,7 +9,7 @@ def to_mdtraj_XTCTrajectoryFile(item, atom_indices='all', structure_indices='all
     tmp_item = XTCTrajectoryFile(item)
     tmp_item = extract_mdtraj_XTCTrajectoryFile(tmp_item, atom_indices=atom_indices,
                                                 structure_indices=structure_indices,
-                                                copy_if_all=False, check=False)
+                                                copy_if_all=False)
 
     return tmp_item
 

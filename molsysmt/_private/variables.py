@@ -1,8 +1,6 @@
 def is_all(variable):
 
-    """is_all(variable)
-
-    Check if the value of a variable is equal to 'all', 'All', or 'ALL'.
+    """Checks if the value of a variable is equal to 'all', 'All', or 'ALL'.
 
     The method returns True if the value of a variable is equal to 'all', 'All', or 'ALL'.
 

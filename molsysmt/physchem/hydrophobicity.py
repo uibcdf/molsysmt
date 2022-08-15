@@ -1,42 +1,43 @@
+from molsysmt._private.exceptions import NotImplementedMethodError
+from molsysmt._private.digestion import digest
 import numpy as np
-from molsysmt._private.exceptions import *
 
-def hydrophobicity(molecular_system, selection='all', type='eisenberg'):
+def hydrophobicity(molecular_system, selection='all', definition='eisenberg'):
 
     from molsysmt.basic import get
 
-    if type == 'eisenberg':
+    if definition == 'eisenberg':
         from .groups.hydrophobicity import eisenberg as values
-    elif type == 'argos':
+    elif definition == 'argos':
         from .groups.hydrophobicity import argos as values
-    elif type == 'sweet':
+    elif definition == 'sweet':
         from .groups.hydrophobicity import sweet as values
-    elif type == 'kyte':
+    elif definition == 'kyte':
         from .groups.hydrophobicity import kyte as values
-    elif type == 'abraham':
+    elif definition == 'abraham':
         from .groups.hydrophobicity import abraham as values
-    elif type == 'bull':
+    elif definition == 'bull':
         from .groups.hydrophobicity import bull as values
-    elif type == 'guy':
+    elif definition == 'guy':
         from .groups.hydrophobicity import guy as values
-    elif type == 'miyazawa':
+    elif definition == 'miyazawa':
         from .groups.hydrophobicity import miyazawa as values
-    elif type == 'roseman':
+    elif definition == 'roseman':
         from .groups.hydrophobicity import roseman as values
-    elif type == 'wolfenden':
+    elif definition == 'wolfenden':
         from .groups.hydrophobicity import wolfenden as values
-    elif type == 'chothia':
+    elif definition == 'chothia':
         from .groups.hydrophobicity import chothia as values
-    elif type == 'hopp':
+    elif definition == 'hopp':
         from .groups.hydrophobicity import hopp as values
-    elif type == 'manavalan':
+    elif definition == 'manavalan':
         from .groups.hydrophobicity import manavalan as values
-    elif type == 'black':
+    elif definition == 'black':
         from .groups.hydrophobicity import black as values
-    elif type == 'fauchere':
+    elif definition == 'fauchere':
         from .groups.hydrophobicity import fauchere as values
     else:
-        raise NotImplementedError()
+        raise NotImplementedMethodError()
 
     group_types = get(molecular_system, element='group', selection=selection, name=True)
 

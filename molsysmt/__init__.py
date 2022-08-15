@@ -14,8 +14,7 @@ __documentation_web__ = 'https://www.uibcdf.org/MolSysMT'
 __github_web__ = 'https://github.com/uibcdf/MolSysMT'
 __github_issues_web__ = __github_web__ + '/issues'
 
-# from ._pyunitwizard import puw
-from .config import puw
+from ._pyunitwizard import puw
 
 from .basic import *
 
@@ -56,8 +55,8 @@ __all__ = []
 #    'remove_solvent', 'remove_hydrogens',
 #    'build_peptide',
 #    'wrap_molecules_to_pbc_cell', 'unwrap_molecules_from_pbc_cell',
-#    'minimum_image_convention', 'box_shape_from_box_angles', 'box_shape_from_box_vectors',
-#    'box_lengths_from_box_vectors', 'box_angles_from_box_vectors', 'box_vectors_from_box_lengths_and_angles'
+#    'minimum_image_convention', 'box_shape_from_box_angles', 'box_shape_from_box',
+#    'box_lengths_from_box', 'box_angles_from_box', 'box_from_box_lengths_and_angles'
 #          ]
 
 

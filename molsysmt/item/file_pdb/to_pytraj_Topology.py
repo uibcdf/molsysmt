@@ -1,12 +1,8 @@
 from molsysmt._private.exceptions import LibraryNotFoundError
-from molsysmt._private.digestion import digest_item, digest_atom_indices
+from molsysmt._private.digestion import digest
 
-def to_pytraj_Topology(item, atom_indices='all', check=True):
-
-    if check:
-
-        digest_item(item, 'file:pdb')
-        atom_indices = digest_atom_indices(atom_indices)
+@digest(form='file:pdb')
+def to_pytraj_Topology(item, atom_indices='all'):
 
     try:
         from pytraj import load_topology
@@ -17,7 +13,7 @@ def to_pytraj_Topology(item, atom_indices='all', check=True):
 
     tmp_item = load_topology(item)
     tmp_item = extract_pytraj_Topology(tmp_item, atom_indices=atom_indices,
-            structure_indices=structure_indices, copy_if_all=False, check=False)
+            structure_indices=structure_indices, copy_if_all=False)
 
     return tmp_item
 

@@ -1,12 +1,8 @@
-from molsysmt._private.exceptions import *
-from molsysmt._private.digestion import *
+from molsysmt._private.exceptions import NotImplementedMethodError
+from molsysmt._private.digestion import digest
 
-def add(to_item, item, check=True):
-
-    if check:
-
-        digest_item(item, 'file:prmtop')
-        digest_item(to_item, 'file:prmtop')
+@digest(form='file:prmtop', to_form='file:prmtop')
+def add(to_item, item):
 
     raise NotImplementedMethodError()
 

@@ -1,12 +1,8 @@
-from molsysmt._private.exceptions import *
-from molsysmt._private.digestion import *
+from molsysmt._private.exceptions import NotImplementedMethodError
+from molsysmt._private.digestion import digest
 
-def add(to_item, item, check=True):
-
-    if check:
-
-        digest_item(item, 'parmed.Structure')
-        digest_item(to_item, 'parmed.Structure')
+@digest(form='parmed.Structure', to_form='parmed.Structure')
+def add(to_item, item):
 
     raise NotImplementedMethodError()
 

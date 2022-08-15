@@ -1,5 +1,3 @@
-from molsysmt._private.exceptions import *
-
 from molsysmt.item.molsysmt_TrajectoryDict.is_molsysmt_TrajectoryDict import is_molsysmt_TrajectoryDict as is_form
 from molsysmt.item.molsysmt_TrajectoryDict.extract import extract
 from molsysmt.item.molsysmt_TrajectoryDict.add import add
@@ -67,7 +65,7 @@ def to_molsysmt_Structures(item, molecular_system, atom_indices='all', structure
 
     from molsysmt.item.molsysmt_TrajectoryDict import to_molsysmt_Structures as TrajectoryDict_to_molsysmt_Structures
 
-    tmp_item = TrajectoryDict_to_molsysmt_Structures(item, atom_indices=atom_indices, structure_indices=structure_indices, check=False)
+    tmp_item = TrajectoryDict_to_molsysmt_Structures(item, atom_indices=atom_indices, structure_indices=structure_indices)
 
     return tmp_item
 
@@ -76,7 +74,7 @@ def to_file_trjpk(item, molecular_system, atom_indices='all', structure_indices=
     from molsysmt.item.molsysmt_TrajectoryDict import to_file_trjpk as TrajectoryDict_to_file_trjpk
 
     tmp_item = TrajectoryDict_to_file_trjpk(item, atom_indices=atom_indices,
-            structure_indices=structure_indices, output_filename=output_filename, check=False)
+            structure_indices=structure_indices, output_filename=output_filename)
 
     return tmp_item
 

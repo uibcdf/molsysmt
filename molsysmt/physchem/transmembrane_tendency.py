@@ -1,18 +1,20 @@
+from molsysmt._private.digestion import digest
+from molsysmt._private.exceptions import NotImplementedMethodError
 import numpy as np
-from molsysmt._private.exceptions import *
 
-def transmembrane_tendency(molecular_system, selection='all', type='zhao'):
+@digest()
+def transmembrane_tendency(molecular_system, selection='all', syntax='MolSysMT', definition='zhao'):
 
     from molsysmt.basic import get
 
-    if type == 'zhao':
+    if definition == 'zhao':
         from .groups.transmembrane_tendency import zhao as values
-    elif type == 'senes':
+    elif definition == 'senes':
         from .groups.transmembrane_tendency import senes as values
     else:
-        raise NotImplementedError()
+        raise NotImplementedMethodError()
 
-    group_types = get(molecular_system, element='group', selection=selection, name=True)
+    group_types = get(molecular_system, element='group', selection=selection, syntax=syntax, name=True)
 
     output = []
 

@@ -1,11 +1,8 @@
-from molsysmt._private.digestion import digest_item
+from molsysmt._private.exceptions import NotImplementedMethodError
+from molsysmt._private.digestion import digest
 
-def add(to_item, item, check=True):
-
-    if check:
-
-        digest_item(item, 'pytraj.Trajectory')
-        digest_item(to_item, 'pytraj.Trajectory')
+@digest(form='pytraj.Trajectory', to_form='pytraj.Trajectory')
+def add(to_item, item):
 
     raise NotImplementedMethodError()
 

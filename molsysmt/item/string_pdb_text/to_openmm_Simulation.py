@@ -1,19 +1,13 @@
-from molsysmt._private.exceptions import *
-from molsysmt._private.atom_indices import *
+from molsysmt._private.digestion import digest
 
-def to_openmm_Simulation(item, atom_indices='all', structure_indices='all', check=True):
-
-    if check:
-
-        digest_item(item, 'string:pdb_text')
-        atom_indices = digest_atom_indices(atom_indices)
-        structure_indices = digest_structure_indices(structure_indices)
+@digest(form='string:pdb_text')
+def to_openmm_Simulation(item, atom_indices='all', structure_indices='all'):
 
     from . import to_openmm_Modeller
     from ..openmm_Modeller import to_openmm_Simulation as openmm_Modeller_to_openmm_Simulation
 
-    tmp_item = to_openmm_Modeller(item, atom_indices=atom_indices, structure_indices=structure_indices, check=False)
-    tmp_item = openmm_Modeller_to_openmm_Simulation(tmp_item, check=False)
+    tmp_item = to_openmm_Modeller(item, atom_indices=atom_indices, structure_indices=structure_indices)
+    tmp_item = openmm_Modeller_to_openmm_Simulation(tmp_item)
 
     return tmp_item
 

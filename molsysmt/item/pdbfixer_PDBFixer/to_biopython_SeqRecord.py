@@ -1,26 +1,13 @@
-from .is_pdbfixer_PDBFixer import is_pdbfixer_PDBFixer
-from molsysmt._private.exceptions import *
-from molsysmt._private.digestion import *
+from molsysmt._private.digestion import digest
 
-def to_biopython_SeqRecord(item, atom_indices='all', check=True):
-
-    if check:
-
-        try:
-            is_pdbfixer_PDBFixer(item)
-        except:
-            raise WrongFormError('pdbfixer.PDBFixer')
-
-        try:
-            atom_indices = digest_atom_indices(atom_indices)
-        except:
-            raise WrongAtomIndicesError()
+@digest(form='pdbfixer.PDBFixer')
+def to_biopython_SeqRecord(item, atom_indices='all'):
 
     from . import to_string_aminoacids1
     from ..string_aminoacids1 import to_biopython_SeqRecord as string_aminoacids1_to_biopython_SeqRecord
 
-    tmp_item = pdbfixer_PDBFixer_to_string_aminoacids1(item, atom_indices=atom_indices, check=False)
-    tmp_item = string_aminoacids1_to_biopython_SeqRecord(tmp_item, check=False)
+    tmp_item = pdbfixer_PDBFixer_to_string_aminoacids1(item, atom_indices=atom_indices)
+    tmp_item = string_aminoacids1_to_biopython_SeqRecord(tmp_item)
 
     return tmp_item
 

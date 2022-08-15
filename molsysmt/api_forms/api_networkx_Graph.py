@@ -1,4 +1,3 @@
-from molsysmt._private.exceptions import *
 from molsysmt.item.networkx_Graph.is_networkx_Graph import is_networkx_Graph as is_form
 from molsysmt.item.networkx_Graph.extract import extract
 from molsysmt.item.networkx_Graph.add import add

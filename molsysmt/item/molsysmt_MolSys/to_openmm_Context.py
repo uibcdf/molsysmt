@@ -1,19 +1,13 @@
-from molsysmt._private.exceptions import *
-from molsysmt._private.digestion import *
+from molsysmt._private.digestion import digest
 
-def to_openmm_Context(item, atom_indices='all', structure_indices='all', check=True):
-
-    if check:
-
-        digest_item(item, 'molsysmt.MolSys')
-        atom_indices = digest_atom_indices(atom_indices)
-        structure_indices = digest_structure_indices(structure_indices)
+@digest(form='molsysmt.MolSys')
+def to_openmm_Context(item, atom_indices='all', structure_indices='all'):
 
     from . import to_openmm_Topology
     from ..openmm_Topology import to_openmm_Context as openmm_Topology_to_openmm_Context
 
-    tmp_item = to_openmm_Topology(item, atom_indices=atom_indices, structure_indices=structure_indices, check=False)
-    tmp_item = openmm_Topology_to_openmm_Context(tmp_item, check=False)
+    tmp_item = to_openmm_Topology(item, atom_indices=atom_indices, structure_indices=structure_indices)
+    tmp_item = openmm_Topology_to_openmm_Context(tmp_item)
 
     return tmp_item
 

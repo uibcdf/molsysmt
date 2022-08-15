@@ -1,21 +1,16 @@
-from molsysmt._private.exceptions import *
-from molsysmt._private.digestion import *
+from molsysmt._private.digestion import digest
+from molsysmt._private.exceptions import NotImplementedMethodError
 import numpy as np
 from networkx import connected_components
 
-def get_covalent_blocks(molecular_system, selection='all', remove_bonds=None, output_form='sets',
-        syntaxis='MolSysMT', check=True):
-
-    if check:
-
-        digest_single_molecular_system(molecular_system)
-        syntaxis = digest_syntaxis(syntaxis)
-        selection = digest_selection(selection, syntaxis)
+@digest()
+def get_covalent_blocks(molecular_system, selection='all', remove_bonds=None, output='sets',
+        syntax='MolSysMT'):
 
     from molsysmt.basic import get
     from . import get_bondgraph
 
-    G = get_bondgraph(molecular_system, nodes_name='atom_index', selection=selection, syntaxis=syntaxis)
+    G = get_bondgraph(molecular_system, nodes_name='atom_index', selection=selection, syntax=syntax)
 
     if remove_bonds is not None:
 
@@ -40,11 +35,11 @@ def get_covalent_blocks(molecular_system, selection='all', remove_bonds=None, ou
 
     del(G)
 
-    if output_form=='sets':
+    if output=='sets':
 
         blocks = list(components)
 
-    elif output_form=='array':
+    elif output=='numpy.ndarray':
 
         n_atoms = get(molecular_system, element='system', n_atoms=True)
         blocks = -np.ones([n_atoms], dtype=int)
@@ -55,7 +50,7 @@ def get_covalent_blocks(molecular_system, selection='all', remove_bonds=None, ou
 
     else:
 
-        raise ValueError('Input argument "output" must be "sets" or "array"')
+        raise NotImplementedMethodError
 
     return np.array(blocks)
 

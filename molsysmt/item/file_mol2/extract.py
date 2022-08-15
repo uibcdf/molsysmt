@@ -1,14 +1,9 @@
-from molsysmt._private.exceptions import *
-from molsysmt._private.digestion import *
+from molsysmt._private.exceptions import NotImplementedMethodError
+from molsysmt._private.digestion import digest
 from molsysmt._private.variables import is_all
 
-def extract(item, atom_indices='all', structure_indices='all', output_filename=None, copy_if_all=True, check=True):
-
-    if check:
-
-        digest_item(item, 'file:mol2')
-        atom_indices = digest_atom_indices(atom_indices)
-        structure_indices = digest_structure_indices(structure_indices)
+@digest(form='file:mol2')
+def extract(item, atom_indices='all', structure_indices='all', output_filename=None, copy_if_all=True):
 
     if output_filename is None:
         output_filename = item
@@ -17,15 +12,15 @@ def extract(item, atom_indices='all', structure_indices='all', output_filename=N
 
         if copy_if_all or (output_filename!=item):
 
-            raise NotImplementedError()
+            raise NotImplementedMethodError()
 
         else:
 
-            raise NotImplementedError()
+            raise NotImplementedMethodError()
 
     else:
 
-        raise NotImplementedError()
+        raise NotImplementedMethodError()
 
     return tmp_item
 

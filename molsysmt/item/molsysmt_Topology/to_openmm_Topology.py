@@ -1,14 +1,9 @@
-from molsysmt._private.exceptions import *
-from molsysmt._private.digestion import *
+from molsysmt._private.exceptions import LibraryNotFoundError
+from molsysmt._private.digestion import digest
 from molsysmt._private.variables import is_all
 
-def to_openmm_Topology(item, box=None, atom_indices='all', check=True):
-
-    if check:
-
-        digest_item(item, 'molsysmt.Topology')
-        atom_indices = digest_atom_indices(atom_indices)
-        box = digest_box(box)
+@digest(form='molsysmt.Topology')
+def to_openmm_Topology(item, box=None, atom_indices='all'):
 
     try:
         import openmm as mm
@@ -86,7 +81,7 @@ def to_openmm_Topology(item, box=None, atom_indices='all', check=True):
 
         from ..openmm_Topology import set_box_to_system
 
-        set_box_to_system(tmp_item, value=box, check=False)
+        set_box_to_system(tmp_item, value=box)
 
     return tmp_item
 

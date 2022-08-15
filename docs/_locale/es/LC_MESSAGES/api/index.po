@@ -67,7 +67,7 @@ msgstr ""
 #: ../api/index.rst:27:<autosummary>:1
 msgid ""
 ":obj:`select <molsysmt.select>`\\ \\(item\\[\\, selection\\, "
-"syntaxis\\]\\)"
+"syntax\\]\\)"
 msgstr ""
 
 #: ../api/index.rst:27:<autosummary>:1
@@ -121,7 +121,7 @@ msgstr ""
 #: ../api/index.rst:45:<autosummary>:1
 msgid ""
 ":obj:`remove <molsysmt.remove>`\\ \\(item\\[\\, selection\\, "
-"syntaxis\\]\\)"
+"syntax\\]\\)"
 msgstr ""
 
 #: ../api/index.rst:45:<autosummary>:1

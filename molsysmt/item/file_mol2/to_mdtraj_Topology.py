@@ -1,12 +1,7 @@
-from molsysmt._private.digestion import digest_item, digest_atom_indices
+from molsysmt._private.digestion import digest
 
-def to_mdtraj_Topology(item, atom_indices='all', check=True):
-
-    if check:
-
-        digest_item(item, 'file:mol2')
-        atom_indices = digest_atom_indices(atom_indices)
-
+@digest(form='file:mol2')
+def to_mdtraj_Topology(item, atom_indices='all'):
 
     from mdtraj import load_mol2
     from ..mdtraj_Topology import extract as extract_mdtraj_Topology

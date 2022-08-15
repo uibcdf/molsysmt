@@ -1,3 +1,6 @@
+from molsysmt._private.digestion import digest
+
+@digest()
 def get_molecule_type_from_sequence(sequence):
 
     tmp_type='unknown'
