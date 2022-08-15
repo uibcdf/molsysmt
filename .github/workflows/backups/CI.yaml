@@ -19,26 +19,13 @@ on:
 
 jobs:
   test:
-    name: Test on ${{ matrix.cfg.os }}, Python ${{ matrix.cfg.python-version }}
-    runs-on: ${{ matrix.cfg.os }}
+    name: Test on ${{ matrix.os }}, Python ${{ matrix.python-version }}
+    runs-on: ${{ matrix.os }}
     strategy:
-      fail-fast: false  # do not cancel all in-progress jobs if any job variation fails
       matrix:
-        #os: [macOS-latest, ubuntu-latest] # [macOS-latest, ubuntu-latest, windows-latest]
-        #python-version: [3.7] # [3.7, 3.8, 3.9]
-        cfg:
-          - { os: ubuntu-latest, python-version: "3.7"}
-          - { os: ubuntu-latest, python-version: "3.8"}
-          - { os: ubuntu-latest, python-version: "3.9"}
-          - { os: ubuntu-latest, python-version: "3.10"}
-          - { os: macos-latest,  python-version: "3.7"}
-          - { os: macos-latest,  python-version: "3.8"}
-          - { os: macos-latest,  python-version: "3.9"}
-          - { os: macos-latest,  python-version: "3.10"}
-          - { os: windows-latest,  python-version: "3.7"}
-          - { os: windows-latest,  python-version: "3.8"}
-          - { os: windows-latest,  python-version: "3.9"}
-          - { os: windows-latest,  python-version: "3.10"}
+        os: [macOS-latest, ubuntu-latest] # [macOS-latest, ubuntu-latest, windows-latest]
+        python-version: [3.7] # [3.7, 3.8, 3.9]
+
 
     steps:
     - uses: actions/checkout@v2
@@ -67,9 +54,8 @@ jobs:
       with:
         python-version: ${{ matrix.python-version }}
         environment-file: devtools/conda-envs/test_env.yaml
-        mamba-version: "*"
-        use-mamba: true
-        channels: conda-forge,defaults
+
+        #channels: conda-forge,defaults
 
         activate-environment: test
         auto-update-conda: false
@@ -101,4 +87,4 @@ jobs:
       with:
         file: ./coverage.xml
         flags: unittests
-        name: codecov-${{ matrix.cfg.os }}-py${{ matrix.cfg.python-version }}
+        name: codecov-${{ matrix.os }}-py${{ matrix.python-version }}

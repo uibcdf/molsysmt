@@ -24,10 +24,8 @@ jobs:
       - name: Make conda environment
         uses: conda-incubator/setup-miniconda@v2    # https://github.com/conda-incubator/setup-miniconda
         with:
-          python-version: 3.9
+          python-version: 3.7
           environment-file: devtools/conda-envs/docs_env.yaml
-          mamba-version: "*"
-          use-mamba: true
           auto-update-conda: false
           auto-activate-base: false
           show-channel-urls: true
@@ -50,5 +48,5 @@ jobs:
            echo 'import molsysmt; print(molsysmt.__version__)' | python
 
       - name: Running the Sphinx to gh-pages Action
-        uses: uibcdf/action-sphinx-docs-to-gh-pages@v1.1.0-beta
+        uses: uibcdf/action-sphinx-docs-to-gh-pages@v1.0.0
 
