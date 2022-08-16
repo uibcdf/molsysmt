@@ -1,6 +1,5 @@
 from . import water
 from . import ion
-from . import cosolute
 from . import small_molecule
 from . import peptide
 from . import protein

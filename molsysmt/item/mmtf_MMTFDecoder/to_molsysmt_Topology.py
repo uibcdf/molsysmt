@@ -181,7 +181,7 @@ def to_molsysmt_Topology(item, atom_indices='all', structure_indices='all', bioa
 
         entity_type = get_entity_type_from_MMTFDecoder_entity(mmtf_entity)
         entity_name = mmtf_entity['description']
-
+        print(entity_type, entity_name)
         if entity_type == "protein":
 
             entity_name = entity_name.capitalize()
@@ -225,37 +225,14 @@ def to_molsysmt_Topology(item, atom_indices='all', structure_indices='all', bioa
             molecule_name = entity_name
 
             for chain_index in mmtf_entity['chainIndexList']:
-                atom_indices_in_chain = np.where(chain_index_array==chain_index)[0]
-                component_indices_in_chain = np.unique(component_index_array[atom_indices_in_chain])
-                for component_index in component_indices_in_chain:
-                    for atom_index in np.where(component_index_array==component_index)[0]:
+                for atom_index in np.where(chain_index_array==chain_index)[0]:
 
-                        molecule_index_array[atom_index] = molecule_index
-                        molecule_name_array[atom_index] = molecule_name
-                        molecule_type_array[atom_index] = molecule_type
-                        molecule_id_array[atom_index] = molecule_index
+                    molecule_index_array[atom_index] = molecule_index
+                    molecule_name_array[atom_index] = molecule_name
+                    molecule_type_array[atom_index] = molecule_type
+                    molecule_id_array[atom_index] = molecule_index
 
-                    molecule_index += 1
-
-        elif entity_type == "cosolute":
-
-            entity_name = entity_name.capitalize()
-
-            molecule_type = "cosolute"
-            molecule_name = entity_name
-
-            for chain_index in mmtf_entity['chainIndexList']:
-                atom_indices_in_chain = np.where(chain_index_array==chain_index)[0]
-                component_indices_in_chain = np.unique(component_index_array[atom_indices_in_chain])
-                for component_index in component_indices_in_chain:
-                    for atom_index in np.where(component_index_array==component_index)[0]:
-
-                        molecule_index_array[atom_index] = molecule_index
-                        molecule_name_array[atom_index] = molecule_name
-                        molecule_type_array[atom_index] = molecule_type
-                        molecule_id_array[atom_index] = molecule_index
-
-                    molecule_index += 1
+                molecule_index += 1
 
         elif entity_type == "small molecule":
 
@@ -265,17 +242,14 @@ def to_molsysmt_Topology(item, atom_indices='all', structure_indices='all', bioa
             molecule_name = entity_name
 
             for chain_index in mmtf_entity['chainIndexList']:
-                atom_indices_in_chain = np.where(chain_index_array==chain_index)[0]
-                component_indices_in_chain = np.unique(component_index_array[atom_indices_in_chain])
-                for component_index in component_indices_in_chain:
-                    for atom_index in np.where(component_index_array==component_index)[0]:
+                for atom_index in np.where(chain_index_array==chain_index)[0]:
 
-                        molecule_index_array[atom_index] = molecule_index
-                        molecule_name_array[atom_index] = molecule_name
-                        molecule_type_array[atom_index] = molecule_type
-                        molecule_id_array[atom_index] = molecule_index
+                    molecule_index_array[atom_index] = molecule_index
+                    molecule_name_array[atom_index] = molecule_name
+                    molecule_type_array[atom_index] = molecule_type
+                    molecule_id_array[atom_index] = molecule_index
 
-                    molecule_index += 1
+                molecule_index += 1
 
         elif entity_type == "oligosaccharide":
 
@@ -285,17 +259,14 @@ def to_molsysmt_Topology(item, atom_indices='all', structure_indices='all', bioa
             molecule_name = entity_name
 
             for chain_index in mmtf_entity['chainIndexList']:
-                atom_indices_in_chain = np.where(chain_index_array==chain_index)[0]
-                component_indices_in_chain = np.unique(component_index_array[atom_indices_in_chain])
-                for component_index in component_indices_in_chain:
-                    for atom_index in np.where(component_index_array==component_index)[0]:
+                for atom_index in np.where(chain_index_array==chain_index)[0]:
 
-                        molecule_index_array[atom_index] = molecule_index
-                        molecule_name_array[atom_index] = molecule_name
-                        molecule_type_array[atom_index] = molecule_type
-                        molecule_id_array[atom_index] = molecule_index
+                    molecule_index_array[atom_index] = molecule_index
+                    molecule_name_array[atom_index] = molecule_name
+                    molecule_type_array[atom_index] = molecule_type
+                    molecule_id_array[atom_index] = molecule_index
 
-                    molecule_index += 1
+                molecule_index += 1
 
         else:
             print(entity_name, entity_type, mmtf_entity)

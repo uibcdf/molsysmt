@@ -1,5 +1,4 @@
 from molsysmt._private.digestion import digest
-from .cosolute.names import names as cosolute_names
 from .ion.names import names as ion_names
 from .lipid.names import names as lipid_names
 from .peptide.names import names as peptide_names

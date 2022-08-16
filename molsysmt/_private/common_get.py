@@ -2436,12 +2436,6 @@ def get_n_waters_from_system(item):
     return (molecule_types=='water').sum()
 
 @digest(form=form)
-def get_n_cosolutes_from_system(item):
-
-    molecule_types = get_group_type_from_group(item)
-    return (molecule_types=='cosolute').sum()
-
-@digest(form=form)
 def get_n_small_molecules_from_system(item):
 
     molecule_types = get_group_type_from_group(item)

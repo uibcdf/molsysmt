@@ -1893,13 +1893,6 @@ def get_n_waters_from_system (item):
     return serie_indices.unique().shape[0]
 
 @digest(form=form)
-def get_n_cosolutes_from_system (item):
-
-    mask=(item.atoms_dataframe['molecule_type']=='cosolute').to_numpy()
-    serie_indices=item.atoms_dataframe['molecule_index'][mask]
-    return serie_indices.unique().shape[0]
-
-@digest(form=form)
 def get_n_small_molecules_from_system (item):
 
     mask=(item.atoms_dataframe['molecule_type']=='small molecule').to_numpy()

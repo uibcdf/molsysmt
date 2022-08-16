@@ -1208,12 +1208,6 @@ def get_n_waters_from_system (item):
     return aux_get(item.topology)
 
 @digest(form=form)
-def get_n_cosolutes_from_system (item):
-
-    from ..molsysmt_Topology import get_n_cosolutes_from_system as aux_get
-    return aux_get(item.topology)
-
-@digest(form=form)
 def get_n_small_molecules_from_system (item):
 
     from ..molsysmt_Topology import get_n_small_molecules_from_system as aux_get

@@ -401,15 +401,6 @@ _required_attributes['n_waters'] = ['group_type']
 _required_indices['n_waters'] = ['indices']
 _reverse_search_in_molecular_system['n_waters'] = False
 
-# n_cosolutes
-
-attributes.append('n_cosolutes')
-attribute_synonyms['n_cosolute'] = 'n_cosolutes'
-
-_required_attributes['n_cosolutes'] = ['group_type']
-_required_indices['n_cosolutes'] = ['indices']
-_reverse_search_in_molecular_system['n_cosolutes'] = False
-
 # n_small_molecules
 
 attributes.append('n_small_molecules')

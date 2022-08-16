@@ -12,7 +12,7 @@ def get_component_type_from_group_names(group_names):
     last_name = group_names[-1]
     last_type = get_group_type_from_group_name(last_name)
 
-    if first_type in ['water', 'ion', 'cosolute', 'small molecule', 'lipid']:
+    if first_type in ['water', 'ion', 'small molecule', 'lipid']:
         tmp_type=first_type
     elif (first_type == 'aminoacid') or (first_type == 'terminal capping'):
         if first_type == 'terminal capping': n_groups -=1

@@ -1,7 +1,6 @@
 from molsysmt._private.digestion import digest
 import numpy as np
 
-from .cosolute.get_name_from_mmtf_name import mmtf_translator as mmtf_translator_cosolute
 from .ion.get_name_from_mmtf_name import mmtf_translator as mmtf_translator_ion
 from .lipid.get_name_from_mmtf_name import mmtf_translator as mmtf_translator_lipid
 from .peptide.get_name_from_mmtf_name import mmtf_translator as mmtf_translator_peptide
@@ -13,7 +12,6 @@ from .water.get_name_from_mmtf_name import mmtf_translator as mmtf_translator_wa
 
 mmtf_translator={}
 
-mmtf_translator.update(mmtf_translator_cosolute)
 mmtf_translator.update(mmtf_translator_ion)
 mmtf_translator.update(mmtf_translator_lipid)
 mmtf_translator.update(mmtf_translator_peptide)
@@ -29,8 +27,6 @@ def get_entity_type_from_MMTFDecoder_entity(mmtf_entity):
     from . import get_entity_type_from_entity_name
     from . import get_entity_type_from_sequence
 
-    output = None
-
     if mmtf_entity['type']=='water':
         return 'water'
     elif mmtf_entity['type']=='polymer':
@@ -38,9 +34,9 @@ def get_entity_type_from_MMTFDecoder_entity(mmtf_entity):
     elif mmtf_entity['type']=='non-polymer':
         try:
             entity_name = mmtf_translator[mmtf_entity['description']]
-            output = get_entity_type_from_entity_name(entity_name)
+            return get_entity_type_from_entity_name(entity_name)
         except:
-            if 'ION' in mmtf_entity['description']:
+            if 'ION' in mmtf_entity['description'].split(' '):
                 return 'ion'
             else:
                 return 'small molecule'
@@ -48,5 +44,5 @@ def get_entity_type_from_MMTFDecoder_entity(mmtf_entity):
     elif mmtf_entity['type']=='branched':
         return 'oligosaccharide'
 
-    return output
+    raise NotImplementedError("The mmtf entity type {} is not implemented.".format(mmtf_entity))
 
