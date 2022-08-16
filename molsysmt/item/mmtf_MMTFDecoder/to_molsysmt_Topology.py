@@ -181,7 +181,7 @@ def to_molsysmt_Topology(item, atom_indices='all', structure_indices='all', bioa
 
         entity_type = get_entity_type_from_MMTFDecoder_entity(mmtf_entity)
         entity_name = mmtf_entity['description']
-        print(entity_type, entity_name)
+
         if entity_type == "protein":
 
             entity_name = entity_name.capitalize()
@@ -269,7 +269,7 @@ def to_molsysmt_Topology(item, atom_indices='all', structure_indices='all', bioa
                 molecule_index += 1
 
         else:
-            print(entity_name, entity_type, mmtf_entity)
+
             raise ValueError("Entity type not recognized")
 
         for chain_index in mmtf_entity['chainIndexList']:
