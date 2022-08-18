@@ -1,7 +1,7 @@
 from molsysmt._private.digestion import digest
 from molsysmt.lib import box as libbox
 import numpy as np
-from molsysmt import puw
+from molsysmt import pyunitwizard as puw
 
 @digest()
 def box_from_box_lengths_and_angles(box_lengths, box_angles):

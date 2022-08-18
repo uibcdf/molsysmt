@@ -4,7 +4,7 @@ from molsysmt._private.variables import is_all
 from molsysmt.basic import select, get
 import numpy as np
 from molsysmt.lib import rmsd as librmsd
-from molsysmt import puw
+from molsysmt import pyunitwizard as puw
 
 @digest()
 def get_least_rmsd (molecular_system=None, selection='backbone', structure_indices='all',

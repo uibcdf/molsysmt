@@ -2,7 +2,7 @@ from molsysmt._private.exceptions import NotImplementedMethodError
 from molsysmt._private.digestion import digest
 from molsysmt._private.math import serialized_lists
 from molsysmt.lib import com as libcom
-from molsysmt import puw
+from molsysmt import pyunitwizard as puw
 import numpy as np
 
 @digest()

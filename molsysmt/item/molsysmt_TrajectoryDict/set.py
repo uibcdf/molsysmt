@@ -1,4 +1,4 @@
-from molsysmt import puw as _puw
+from molsysmt import pyunitwizard as _puw
 from molsysmt._private.variables import is_all as _is_all
 
 def set_coordinates_to_atom(item, indices='all', structure_indices='all', value=None):

@@ -3,7 +3,7 @@ from molsysmt._private.digestion import digest
 @digest(form='pdbfixer.PDBFixer')
 def to_openmm_Modeller(item, atom_indices='all'):
 
-    from molsysmt import puw
+    from molsysmt import pyunitwizard as puw
     from . import to_openmm_Topology
 
     tmp_item = to_openmm_Topology(item, atom_indices=atom_indices)

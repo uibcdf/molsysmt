@@ -3,7 +3,7 @@ from molsysmt._private.digestion import digest
 from molsysmt._private.variables import is_all
 import numpy as np
 from molsysmt.lib import rmsd as librmsd
-from molsysmt import puw
+from molsysmt import pyunitwizard as puw
 
 @digest()
 def get_rmsd(molecular_system, selection='backbone', structure_indices='all',

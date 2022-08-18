@@ -1,6 +1,6 @@
 from copy import deepcopy
 import numpy as np
-from molsysmt import puw
+from molsysmt import pyunitwizard as puw
 from molsysmt._private.variables import is_all
 from molsysmt.basic import get
 from molsysmt.pbc import box_lengths_from_box, box_angles_from_box

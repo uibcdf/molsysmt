@@ -3,7 +3,7 @@ from molsysmt._private.variables import is_all
 from molsysmt.api_forms.common_gets import *
 import numpy as np
 from molsysmt import MolSys as _molsysmt_MolSys
-from molsysmt import puw
+from molsysmt import pyunitwizard as puw
 from molsysmt.molecular_system import molecular_system_components
 
 form_name='molsysmt.MolSys'

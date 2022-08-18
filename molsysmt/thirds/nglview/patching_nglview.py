@@ -55,7 +55,7 @@ class MolSysMTTrajectory(Trajectory, Structure):\n\
 \n\
         try:\n\
             import molsysmt as msm\n\
-            from molsysmt import puw\n\
+            from molsysmt import pyunitwizard as puw\n\
         except ImportError:\n\
             raise ImportError(\n\
                 \"'MolSysMTTrajectory' requires the molsysmt package\")\n\

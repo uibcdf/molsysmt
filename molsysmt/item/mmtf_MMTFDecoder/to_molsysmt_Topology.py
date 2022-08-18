@@ -1,6 +1,7 @@
 from molsysmt._private.exceptions import NotImplementedMethodError
 from molsysmt._private.digestion import digest
 from molsysmt._private.variables import is_all
+from molsysmt import pyunitwizard as puw
 
 @digest(form='mmtf.MMTFDecoder')
 def to_molsysmt_Topology(item, atom_indices='all', structure_indices='all', bioassembly_index=0,
@@ -55,7 +56,7 @@ def to_molsysmt_Topology(item, atom_indices='all', structure_indices='all', bioa
     atom_id_array = np.empty(n_atoms, dtype=int)
     atom_type_array = np.empty(n_atoms, dtype=object)
     atom_bonded_atom_indices_array = np.empty(n_atoms, dtype=object)
-    atom_formal_charge_array = np.empty(n_atoms, dtype=float)
+    formal_charge_array = np.empty(n_atoms, dtype=float)
 
     group_index_array = np.empty(n_atoms, dtype=int)
     group_name_array = np.empty(n_atoms, dtype=object)
@@ -90,7 +91,7 @@ def to_molsysmt_Topology(item, atom_indices='all', structure_indices='all', bioa
             atom_name_array[atom_index] = atom_name
             atom_id_array[atom_index] = item.atom_id_list[atom_index]
             atom_type_array[atom_index] = atom_type
-            atom_formal_charge_array[atom_index] = atom_formal_charge
+            formal_charge_array[atom_index] = atom_formal_charge
 
             group_index_array[atom_index] = group_index
             group_name_array[atom_index] = group_name
@@ -102,8 +103,10 @@ def to_molsysmt_Topology(item, atom_indices='all', structure_indices='all', bioa
     tmp_item.atoms_dataframe["atom_name"] = atom_name_array
     tmp_item.atoms_dataframe["atom_id"] = atom_id_array
     tmp_item.atoms_dataframe["atom_type"] = atom_type_array
-    #tmp_item.atoms_dataframe["atom_formal_charge"] = atom_formal_charge_array
-    del(atom_name_array, atom_id_array, atom_type_array, atom_formal_charge_array)
+    tmp_item.atoms_dataframe["formal_charge"] = list(puw.quantity(formal_charge_array, unit='e', standardized=True))
+    tmp_item.atoms_dataframe["b_factor"] = list(puw.quantity(item.b_factor_list, unit='angstroms**2', standardized=True))
+    tmp_item.atoms_dataframe["occupancy"] = item.occupancy_list
+    del(atom_name_array, atom_id_array, atom_type_array, formal_charge_array)
 
     tmp_item.atoms_dataframe["group_index"] = group_index_array
     tmp_item.atoms_dataframe["group_name"] = group_name_array

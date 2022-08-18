@@ -10,7 +10,7 @@ Methods related with the potential energy of the system.
 From energy minimization to potential energy contribution of specific set of atoms or interactions.
 """
 
-from molsysmt import puw
+from molsysmt import pyunitwizard as puw
 
 def potential_energy (molecular_system, selection='all', syntax='MolSysMT', engine='OpenMM'):
 

@@ -1,5 +1,5 @@
 import numpy as np
-from molsysmt import puw
+from molsysmt import pyunitwizard as puw
 from ...exceptions import ArgumentError
 
 def digest_ionic_strength(ionic_strength, caller=None):

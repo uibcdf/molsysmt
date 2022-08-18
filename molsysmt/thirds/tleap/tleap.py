@@ -15,7 +15,7 @@ import tempfile
 import shutil
 import subprocess
 import re
-from molsysmt import puw
+from molsysmt import pyunitwizard as puw
 
 def _sanitize_tleap_unit_name(func):
     """Decorator version of TLeap._sanitize_unit_name.

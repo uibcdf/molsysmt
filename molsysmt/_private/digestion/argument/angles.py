@@ -1,5 +1,5 @@
 import numpy as np
-from molsysmt import puw
+from molsysmt import pyunitwizard as puw
 from ...exceptions import ArgumentError
 
 def digest_angles(angles, caller=None):

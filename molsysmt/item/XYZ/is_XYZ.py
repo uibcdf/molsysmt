@@ -1,4 +1,4 @@
-from molsysmt import puw
+from molsysmt import pyunitwizard as puw
 import numpy as np
 
 def is_XYZ(item):

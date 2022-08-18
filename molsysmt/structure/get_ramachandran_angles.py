@@ -1,6 +1,6 @@
 from molsysmt._private.digestion import digest
 import numpy as np
-from molsysmt import puw
+from molsysmt import pyunitwizard as puw
 
 @digest()
 def get_ramachandran_angles(molecular_system, selection='all', structure_indices='all',

@@ -1,6 +1,6 @@
 from molsysmt._private.exceptions import ArgumentError
 import numpy as np
-from molsysmt import puw
+from molsysmt import pyunitwizard as puw
 
 def digest_values(values, caller=None):
 

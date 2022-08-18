@@ -3,7 +3,7 @@ from molsysmt._private.digestion import digest
 @digest(form='molsysmt.MolSys')
 def to_mdtraj_Trajectory(item, atom_indices='all', structure_indices='all'):
 
-    from molsysmt import puw
+    from molsysmt import pyunitwizard as puw
     from . import to_mdtraj_Topology
     from . import get_box_lengths_from_system, get_box_angles_from_system, get_coordinates_from_atom, get_time_from_system
 

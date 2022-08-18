@@ -1,6 +1,6 @@
 from molsysmt._private.digestion import digest
 from molsysmt._private.exceptions import NotImplementedMethodError
-from molsysmt import puw
+from molsysmt import pyunitwizard as puw
 import numpy as np
 
 @digest()

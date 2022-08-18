@@ -3,7 +3,7 @@ from molsysmt._private.digestion import digest
 from molsysmt._private.variables import is_all
 import numpy as np
 from molsysmt.lib import rmsd as librmsd
-from molsysmt import puw
+from molsysmt import pyunitwizard as puw
 
 @digest()
 def fit (molecular_system=None, selection='backbone', structure_indices='all',
