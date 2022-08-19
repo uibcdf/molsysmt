@@ -2,6 +2,7 @@ from molsysmt._private.exceptions import NotImplementedMethodError
 from molsysmt._private.digestion import digest
 from molsysmt._private.variables import is_all
 from molsysmt import pyunitwizard as puw
+from pint_pandas import PintArray
 
 @digest(form='mmtf.MMTFDecoder')
 def to_molsysmt_Topology(item, atom_indices='all', structure_indices='all', bioassembly_index=0,
@@ -103,16 +104,20 @@ def to_molsysmt_Topology(item, atom_indices='all', structure_indices='all', bioa
     tmp_item.atoms_dataframe["atom_name"] = atom_name_array
     tmp_item.atoms_dataframe["atom_id"] = atom_id_array
     tmp_item.atoms_dataframe["atom_type"] = atom_type_array
-    tmp_item.atoms_dataframe["formal_charge"] = list(puw.quantity(formal_charge_array, unit='e', standardized=True))
-    tmp_item.atoms_dataframe["b_factor"] = list(puw.quantity(item.b_factor_list, unit='angstroms**2', standardized=True))
     tmp_item.atoms_dataframe["occupancy"] = item.occupancy_list
-    del(atom_name_array, atom_id_array, atom_type_array, formal_charge_array)
+    del(atom_name_array, atom_id_array, atom_type_array)
 
     tmp_item.atoms_dataframe["group_index"] = group_index_array
     tmp_item.atoms_dataframe["group_name"] = group_name_array
     tmp_item.atoms_dataframe["group_id"] = group_id_array
     tmp_item.atoms_dataframe["group_type"] = group_type_array
     del(group_name_array, group_id_array, group_type_array)
+
+    pint_str_units = puw.get_standard_units(dimensionality={'[L]': 2}, form='string', parser='pint')
+    tmp_item.atoms_dataframe["b_factor"] = PintArray(item.b_factor_list, dtype=pint_str_units)
+    pint_str_units = puw.get_standard_units(dimensionality={'[T]': 1, '[A]':1}, form='string', parser='pint')
+    tmp_item.atoms_dataframe["formal_charge"] = PintArray(formal_charge_array, dtype=pint_str_units)
+    del(formal_charge_array)
 
     # bonds inter-groups in graph
 

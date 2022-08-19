@@ -41,6 +41,8 @@ form_attributes['entity_index'] = True
 form_attributes['entity_id'] = True
 form_attributes['entity_name'] = True
 form_attributes['entity_type'] = True
+form_attributes['occupancy'] = True
+form_attributes['b_factor'] = True
 
 
 def to_string_aminoacids3(item, molecular_system, atom_indices='all', structure_indices='all'):

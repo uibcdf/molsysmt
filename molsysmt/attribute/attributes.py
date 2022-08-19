@@ -556,4 +556,22 @@ _required_attributes['n_structures'] = ['coordinates', 'box']
 _required_indices['n_structures'] = []
 _reverse_search_in_molecular_system['n_structures'] = True
 
+# occupancy
+
+attributes.append('occupancy')
+attribute_synonyms['occupancies'] = 'occupancy'
+
+_required_attributes['occupancy'] = ['occupancy']
+_required_indices['occupancy'] = ['indices']
+_reverse_search_in_molecular_system['occupancy'] = False
+
+# b_factor
+
+attributes.append('b_factor')
+attribute_synonyms['b_factors'] = 'b_factor'
+
+_required_attributes['b_factor'] = ['b_factor']
+_required_indices['b_factor'] = ['indices']
+_reverse_search_in_molecular_system['b_factor'] = False
+
 

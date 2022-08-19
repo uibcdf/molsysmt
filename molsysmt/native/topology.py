@@ -13,6 +13,11 @@ class Atoms_DataFrame(pd.DataFrame):
                    'entity_index', 'entity_name', 'entity_id', 'entity_type',
                    'occupancy', 'b_factor', 'formal_charge', 'partial_charge']
 
+        # columns with dimensionality:
+        #
+        # 'b_factor' = {'[L]': 2}
+        # 'formal_charge' = {'[T]': 1, '[A]:1'}
+        # 'partial_charge' = {'[T]': 1, '[A]:1'}
 
         super().__init__(columns=columns)
 
