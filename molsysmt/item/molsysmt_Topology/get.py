@@ -1,6 +1,7 @@
 from molsysmt._private.exceptions import NotImplementedMethodError, NotWithThisFormError
 from molsysmt._private.digestion import digest
 from molsysmt._private.variables import is_all
+from molsysmt import pyunitwizard as puw
 import numpy as np
 from networkx import Graph
 
@@ -354,6 +355,20 @@ def get_n_inner_bonds_from_atom (item, indices='all'):
     output = bond_indices.shape[0]
     del(bond_indices)
     return(output)
+
+@digest(form=form)
+def get_occupancy_from_atom (item, indices='all'):
+
+    tmp_indices = get_atom_index_from_atom(item, indices=indices)
+    output = item.atoms_dataframe['occupancy'][tmp_indices].to_numpy()
+    return output
+
+@digest(form=form)
+def get_b_factor_from_atom (item, indices='all'):
+
+    tmp_indices = get_atom_index_from_atom(item, indices=indices)
+    output = item.atoms_dataframe['b_factor'][tmp_indices].to_numpy()
+    return output
 
 ## group
 
