@@ -11,7 +11,7 @@ class Atoms_DataFrame(pd.DataFrame):
                    'chain_index', 'chain_name', 'chain_id', 'chain_type',
                    'molecule_index', 'molecule_name', 'molecule_id', 'molecule_type',
                    'entity_index', 'entity_name', 'entity_id', 'entity_type',
-                   'occupancy', 'b_factor', 'formal_charge', 'partial_charge']
+                   'occupancy', 'alternate_location', 'b_factor', 'formal_charge', 'partial_charge']
 
         # columns with dimensionality:
         #

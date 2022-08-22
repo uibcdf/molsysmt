@@ -13,7 +13,10 @@ def form_attributes():
         'atom_type': False,
 
         'occupancy': False,
+        'alternate_location': False,
         'b_factor': False,
+        'formal_charge': False,
+        'partial_charge': False,
 
         'bond_index': False,
         'bond_id': False,

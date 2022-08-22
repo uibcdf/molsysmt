@@ -47,7 +47,10 @@ form_attributes['box'] = True
 form_attributes['time'] = True
 form_attributes['step'] = True
 form_attributes['occupancy'] = True
+form_attributes['alternate_location'] = True
 form_attributes['b_factor'] = True
+form_attributes['formal_charge'] = True
+form_attributes['partial_charge'] = True
 
 
 def to_molsysmt_Topology(item, molecular_system, atom_indices='all', structure_indices='all'):

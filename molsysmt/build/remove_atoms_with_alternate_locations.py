@@ -2,7 +2,21 @@ from molsysmt._private.digestion import digest
 import numpy as np
 
 @digest()
-def get_atoms_with_alternate_locations(molecular_system):
+def remove_atoms_with_alternate_locations(molecular_system, mode='highest_occupancy'):
+
+    from molsysmt.basic import get_atoms_with_alternate_locations, get
+
+    atoms_with_alt_loc = get_atoms_with_alternate_locations(molecular_system)
+
+
+    if mode=='highest_occupancy':
+
+        for atoms_list in atoms_with_alt_loc:
+
+            alt_loc, occup = get(molecular_system, element='atom', selection=atoms_list,
+                    alternate_location=True, occupancy=True)
+
+
 
     from molsysmt.basic import get, select
 

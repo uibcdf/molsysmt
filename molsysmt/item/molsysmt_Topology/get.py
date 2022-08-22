@@ -364,12 +364,36 @@ def get_occupancy_from_atom (item, indices='all'):
     return output
 
 @digest(form=form)
+def get_alternate_location_from_atom (item, indices='all'):
+
+    tmp_indices = get_atom_index_from_atom(item, indices=indices)
+    output = item.atoms_dataframe['alternate_location'][tmp_indices].to_numpy()
+    return output
+
+@digest(form=form)
 def get_b_factor_from_atom (item, indices='all'):
 
     tmp_indices = get_atom_index_from_atom(item, indices=indices)
     output = item.atoms_dataframe['b_factor'][tmp_indices].values.quantity
     output = puw.standardize(output)
     return output
+
+@digest(form=form)
+def get_formal_charge_from_atom (item, indices='all'):
+
+    tmp_indices = get_atom_index_from_atom(item, indices=indices)
+    output = item.atoms_dataframe['formal_charge'][tmp_indices].values.quantity
+    output = puw.standardize(output)
+    return output
+
+@digest(form=form)
+def get_partial_charge_from_atom (item, indices='all'):
+
+    tmp_indices = get_atom_index_from_atom(item, indices=indices)
+    output = item.atoms_dataframe['partial_charge'][tmp_indices].values.quantity
+    output = puw.standardize(output)
+    return output
+
 
 ## group
 

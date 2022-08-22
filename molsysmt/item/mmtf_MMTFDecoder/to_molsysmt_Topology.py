@@ -3,6 +3,7 @@ from molsysmt._private.digestion import digest
 from molsysmt._private.variables import is_all
 from molsysmt import pyunitwizard as puw
 from pint_pandas import PintArray
+import numpy as np
 
 @digest(form='mmtf.MMTFDecoder')
 def to_molsysmt_Topology(item, atom_indices='all', structure_indices='all', bioassembly_index=0,
@@ -10,7 +11,6 @@ def to_molsysmt_Topology(item, atom_indices='all', structure_indices='all', bioa
 
     import warnings
     from molsysmt.native import Topology
-    import numpy as np
     from molsysmt.element.group import get_group_type_from_group_name
     from molsysmt.element.entity import get_entity_type_from_MMTFDecoder_entity
 
@@ -105,6 +105,10 @@ def to_molsysmt_Topology(item, atom_indices='all', structure_indices='all', bioa
     tmp_item.atoms_dataframe["atom_id"] = atom_id_array
     tmp_item.atoms_dataframe["atom_type"] = atom_type_array
     tmp_item.atoms_dataframe["occupancy"] = item.occupancy_list
+
+    tmp_item.atoms_dataframe["alternate_location"] = np.array(item.alt_loc_list)
+    tmp_item.atoms_dataframe["alternate_location"].replace({'':None}, inplace=True)
+
     del(atom_name_array, atom_id_array, atom_type_array)
 
     tmp_item.atoms_dataframe["group_index"] = group_index_array

@@ -42,7 +42,10 @@ form_attributes['entity_id'] = True
 form_attributes['entity_name'] = True
 form_attributes['entity_type'] = True
 form_attributes['occupancy'] = True
+form_attributes['alternate_location'] = True
 form_attributes['b_factor'] = True
+form_attributes['formal_charge'] = True
+form_attributes['partial_charge'] = True
 
 
 def to_string_aminoacids3(item, molecular_system, atom_indices='all', structure_indices='all'):

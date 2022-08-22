@@ -565,6 +565,16 @@ _required_attributes['occupancy'] = ['occupancy']
 _required_indices['occupancy'] = ['indices']
 _reverse_search_in_molecular_system['occupancy'] = False
 
+# alternate_location
+
+attributes.append('alternate_location')
+attribute_synonyms['alternate_locations'] = 'alternate_location'
+
+_required_attributes['alternate_location'] = ['alternate_location']
+_required_indices['alternate_location'] = ['indices']
+_reverse_search_in_molecular_system['alternate_location'] = False
+
+
 # b_factor
 
 attributes.append('b_factor')
@@ -573,5 +583,25 @@ attribute_synonyms['b_factors'] = 'b_factor'
 _required_attributes['b_factor'] = ['b_factor']
 _required_indices['b_factor'] = ['indices']
 _reverse_search_in_molecular_system['b_factor'] = False
+
+
+# formal_charge
+
+attributes.append('formal_charge')
+attribute_synonyms['formal_charges'] = 'formal_charge'
+
+_required_attributes['formal_charge'] = ['formal_charge']
+_required_indices['formal_charge'] = ['indices']
+_reverse_search_in_molecular_system['formal_charge'] = False
+
+
+# partial_charge
+
+attributes.append('partial_charge')
+attribute_synonyms['partial_charges'] = 'partial_charge'
+
+_required_attributes['partial_charge'] = ['partial_charge']
+_required_indices['partial_charge'] = ['indices']
+_reverse_search_in_molecular_system['partial_charge'] = False
 
 
