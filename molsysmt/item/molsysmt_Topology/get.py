@@ -374,24 +374,27 @@ def get_alternate_location_from_atom (item, indices='all'):
 def get_b_factor_from_atom (item, indices='all'):
 
     tmp_indices = get_atom_index_from_atom(item, indices=indices)
-    output = item.atoms_dataframe['b_factor'][tmp_indices].values.quantity
-    output = puw.standardize(output)
+    output = item.atoms_dataframe['b_factor'][tmp_indices].to_numpy()
+    unit = puw.get_standard_units(dimensionality={'[L]':2})
+    output = puw.quantity(output, unit, standardized=True)
     return output
 
 @digest(form=form)
 def get_formal_charge_from_atom (item, indices='all'):
 
     tmp_indices = get_atom_index_from_atom(item, indices=indices)
-    output = item.atoms_dataframe['formal_charge'][tmp_indices].values.quantity
-    output = puw.standardize(output)
+    output = item.atoms_dataframe['formal_charge'][tmp_indices].to_numpy()
+    unit = puw.get_standard_units(dimensionality={'[T]':1, '[A]':1})
+    output = puw.quantity(output, unit, standardized=True)
     return output
 
 @digest(form=form)
 def get_partial_charge_from_atom (item, indices='all'):
 
     tmp_indices = get_atom_index_from_atom(item, indices=indices)
-    output = item.atoms_dataframe['partial_charge'][tmp_indices].values.quantity
-    output = puw.standardize(output)
+    output = item.atoms_dataframe['partial_charge'][tmp_indices].to_numpy()
+    unit = puw.get_standard_units(dimensionality={'[T]':1, '[A]':1})
+    output = puw.quantity(output, unit, standardized=True)
     return output
 
 
