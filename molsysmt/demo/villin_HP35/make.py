@@ -23,7 +23,7 @@ msm.convert('pdb_id:1vii', to_form='1vii.mmtf')
 # vacuum
 print('Vacuum system in msmpk file...')
 molsys = msm.convert('pdb_id:1vii', to_form='molsysmt.MolSys')
-molsys = msm.basic.remove(molsys, selection='group_type==["water", "ion", "cosolute"]')
+molsys = msm.basic.remove(molsys, selection='group_type==["water", "ion"]')
 molsys = msm.basic.remove(molsys, selection='atom_type=="H"')
 molsys = msm.build.add_missing_terminal_cappings(molsys, N_terminal='ACE', C_terminal='NME')
 molsys = msm.build.add_missing_hydrogens(molsys, pH=7.4)

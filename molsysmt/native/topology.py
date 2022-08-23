@@ -5,23 +5,25 @@ class Atoms_DataFrame(pd.DataFrame):
 
     def __init__(self):
 
-        topology_columns = ['atom_index', 'atom_name', 'atom_id', 'atom_type',
-                            'group_index', 'group_name', 'group_id', 'group_type',
-                            'component_index', 'component_name', 'component_id', 'component_type',
-                            'chain_index', 'chain_name', 'chain_id', 'chain_type',
-                            'molecule_index', 'molecule_name', 'molecule_id', 'molecule_type',
-                            'entity_index', 'entity_name', 'entity_id', 'entity_type']
+        columns = ['atom_index', 'atom_name', 'atom_id', 'atom_type',
+                   'group_index', 'group_name', 'group_id', 'group_type',
+                   'component_index', 'component_name', 'component_id', 'component_type',
+                   'chain_index', 'chain_name', 'chain_id', 'chain_type',
+                   'molecule_index', 'molecule_name', 'molecule_id', 'molecule_type',
+                   'entity_index', 'entity_name', 'entity_id', 'entity_type',
+                   'occupancy', 'alternate_location', 'b_factor', 'formal_charge', 'partial_charge']
 
+        # columns with dimensionality:
+        #
+        # 'b_factor' = {'[L]': 2}
+        # 'formal_charge' = {'[T]': 1, '[A]:1'}
+        # 'partial_charge' = {'[T]': 1, '[A]:1'}
 
-        super().__init__(columns=topology_columns)
+        super().__init__(columns=columns)
 
     def _nan_to_None(self):
 
-        list_columns_where_nan = ['group_type', 'component_name', 'component_type',
-                                 'chain_name', 'chain_type', 'molecule_name', 'molecule_type',
-                                 'entity_name', 'entity_type']
-
-        for column in list_columns_where_nan:
+        for column in self:
             self[column].where(self[column].notnull(), None, inplace=True)
 
 
@@ -29,16 +31,16 @@ class Bonds_DataFrame(pd.DataFrame):
 
     def __init__(self):
 
-        topology_columns = ['atom1_index', 'atom2_index', 'order', 'type']
+        columns = ['atom1_index', 'atom2_index', 'order', 'type']
 
 
-        super().__init__(columns=topology_columns)
+        super().__init__(columns=columns)
 
     def _nan_to_None(self):
 
         list_columns_where_nan = ['order','type']
 
-        for column in list_columns_where_nan:
+        for column in self:
             self[column].where(self[column].notnull(), None, inplace=True)
 
 class Topology():

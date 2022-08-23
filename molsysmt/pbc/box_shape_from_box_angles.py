@@ -1,6 +1,6 @@
 from molsysmt._private.digestion import digest
 import numpy as np
-from molsysmt import puw
+from molsysmt import pyunitwizard as puw
 
 @digest()
 def box_shape_from_box_angles(box_angles):

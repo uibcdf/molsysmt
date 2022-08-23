@@ -19,8 +19,8 @@ def _evaluation(condition, n_in_system):
 
 @digest()
 def contains(molecular_system, selection='all', syntax='MolSysMT',
-        ions=None, waters=None, cosolutes=None, small_molecules=None, peptides=None, proteins=None,
-        dnas=None, rnas=None, lipids=None, hydrogens=None):
+        ions=None, waters=None, small_molecules=None, peptides=None, proteins=None,
+        dnas=None, rnas=None, lipids=None, oligosaccharides=None, hydrogens=None):
 
     from . import get, select
 
@@ -36,13 +36,6 @@ def contains(molecular_system, selection='all', syntax='MolSysMT',
         n_in_system = get(molecular_system, n_waters=True)
 
         if not _evaluation(waters, n_in_system):
-            return False
-
-    if cosolutes is not None:
-
-        n_in_system = get(molecular_system, n_cosolutes=True)
-
-        if not _evaluation(cosolutes, n_in_system):
             return False
 
     if small_molecules is not None:
@@ -85,6 +78,13 @@ def contains(molecular_system, selection='all', syntax='MolSysMT',
         n_in_system = get(molecular_system, n_lipids=True)
 
         if not _evaluation(lipids, n_in_system):
+            return False
+
+    if oligosaccharides is not None:
+
+        n_in_system = get(molecular_system, n_oligosaccharides=True)
+
+        if not _evaluation(oligosaccharides, n_in_system):
             return False
 
     if hydrogens is not None:

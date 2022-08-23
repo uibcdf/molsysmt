@@ -1,7 +1,7 @@
 from molsysmt._private.exceptions import NotImplementedMethodError
 from molsysmt._private.digestion import digest
 import numpy as np
-from molsysmt import puw
+from molsysmt import pyunitwizard as puw
 from molsysmt.lib import geometry as libgeometry
 
 @digest()

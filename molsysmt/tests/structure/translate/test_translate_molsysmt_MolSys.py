@@ -13,7 +13,7 @@ def test_translate_molsysmt_MolSys_1():
     molsys = msm.convert(msm.demo['Met-enkephalin']['vacuum.msmpk'], to_form='molsysmt.MolSys')
     coordinates_0 = msm.get(molsys, coordinates=True)
     n_atoms = msm.get(molsys, n_atoms=True)
-    shifts = np.ones([n_atoms,3], dtype=float)*msm.puw.unit('nm')
+    shifts = np.ones([n_atoms,3], dtype=float)*msm.pyunitwizard.unit('nm')
     molsys = msm.structure.translate(molsys, translation=shifts)
     coordinates = msm.get(molsys, coordinates=True)
     check_value = np.allclose(coordinates_0+shifts, coordinates)
@@ -22,7 +22,7 @@ def test_translate_molsysmt_MolSys_1():
 def test_translate_molsysmt_MolSys_2():
     molsys = msm.convert(msm.demo['Met-enkephalin']['vacuum.msmpk'], to_form='molsysmt.MolSys')
     coordinates_0 = msm.get(molsys, coordinates=True)
-    shifts = np.array([1.0, 1.0, 1.0], dtype=float)*msm.puw.unit('nm')
+    shifts = np.array([1.0, 1.0, 1.0], dtype=float)*msm.pyunitwizard.unit('nm')
     molsys = msm.structure.translate(molsys, translation=shifts, selection=[0,1,2], in_place=False)
     coordinates = msm.get(molsys, coordinates=True)
     coordinates_0[0,0,:]=coordinates_0[0,0,:]+shifts

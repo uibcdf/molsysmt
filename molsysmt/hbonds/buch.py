@@ -3,7 +3,7 @@
 from molsysmt._private.exceptions import *
 from molsysmt._private.digestion import *
 from molsysmt.basic import select
-from molsysmt import puw
+from molsysmt import pyunitwizard as puw
 import numpy as np
 
 def buch(molecular_system, selection='all', selection_2=None, structure_indices='all', threshold='2.3 angstroms',

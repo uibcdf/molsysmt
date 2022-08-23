@@ -12,7 +12,7 @@ def to_pytraj_Topology(item, atom_indices='all'):
 
     from molsysmt.physico_chemical_properties import mass as get_mass
     from molsysmt.physico_chemical_properties import charge as get_charge
-    from molsysmt import puw
+    from molsysmt import pyunitwizard as puw
 
     n_atoms = item.atoms_dataframe.shape[0]
 

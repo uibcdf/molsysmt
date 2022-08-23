@@ -15,7 +15,7 @@ def test_get_structure_alignment_molsysmt_MolSys_1():
                            selection='molecule_type=="protein"')
     molsys_2 = msm.structure.translate(molsys_1, translation="[2.0, 0.0, 0.0] nm")
     rmsd = msm.structure.get_rmsd(molsys_2, selection='backbone', reference_molecular_system=molsys_1, reference_selection='backbone')
-    check = np.isclose(2.0, msm.puw.get_value(rmsd, to_unit='nm')[0])
+    check = np.isclose(2.0, msm.pyunitwizard.get_value(rmsd, to_unit='nm')[0])
     assert check
 
 def test_get_structure_alignment_molsysmt_MolSys_2():
@@ -33,8 +33,8 @@ def test_get_structure_alignment_molsysmt_MolSys_2():
     aux2 = msm.select(molsys_2, selection='group_index==@int2')
     sel2 = msm.select(molsys_2, selection='backbone', mask=aux2)
     rmsd = msm.structure.get_rmsd(molsys_2on1, selection=sel2, reference_molecular_system=molsys_1, reference_selection=sel1)
-    check = np.isclose(0.021332505947, msm.puw.get_value(rmsd, to_unit='nm')[0])
-    print(msm.puw.get_value(rmsd, to_unit='nm')[0])
+    check = np.isclose(0.021332505947, msm.pyunitwizard.get_value(rmsd, to_unit='nm')[0])
+    print(msm.pyunitwizard.get_value(rmsd, to_unit='nm')[0])
 
     assert check
 

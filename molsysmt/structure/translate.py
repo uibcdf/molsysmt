@@ -1,6 +1,6 @@
 from molsysmt._private.digestion import digest
 import numpy as np
-from molsysmt import puw
+from molsysmt import pyunitwizard as puw
 
 @digest()
 def translate(molecular_system, translation=None, selection='all', structure_indices='all',

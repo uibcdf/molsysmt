@@ -6,7 +6,7 @@ from molsysmt._private.execfile import execfile
 from molsysmt._private.exceptions import NotImplementedMethodError, NotWithThisFormError
 from molsysmt._private.digestion import digest
 from molsysmt._private.variables import is_all
-from molsysmt import puw
+from molsysmt import pyunitwizard as puw
 
 form='openmm.PDBFile'
 
@@ -385,7 +385,7 @@ def get_n_entities_from_system(item):
     from ..openmm_Topology import get_n_entities_from_system as aux_get
 
     tmp_item = to_openmm_Topology(item)
-    output = aux_get(tmp_item, indices=indices)
+    output = aux_get(tmp_item)
 
     return output
 

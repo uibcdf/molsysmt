@@ -227,6 +227,37 @@ def get_coordinates_from_atom(item, indices='all', structure_indices='all'):
     from ..molsysmt_Structures import get_coordinates_from_atom as aux_get
     return aux_get(item.structures, indices=indices, structure_indices=structure_indices)
 
+@digest(form=form)
+def get_occupancy_from_atom (item, indices='all'):
+
+    from ..molsysmt_Topology import get_occupancy_from_atom as aux_get
+    return aux_get(item.topology, indices=indices)
+
+@digest(form=form)
+def get_alternate_location_from_atom (item, indices='all'):
+
+    from ..molsysmt_Topology import get_alternate_location_from_atom as aux_get
+    return aux_get(item.topology, indices=indices)
+
+@digest(form=form)
+def get_b_factor_from_atom (item, indices='all'):
+
+    from ..molsysmt_Topology import get_b_factor_from_atom as aux_get
+    return aux_get(item.topology, indices=indices)
+
+@digest(form=form)
+def get_formal_charge_from_atom (item, indices='all'):
+
+    from ..molsysmt_Topology import get_formal_charge_from_atom as aux_get
+    return aux_get(item.topology, indices=indices)
+
+@digest(form=form)
+def get_partial_charge_from_atom (item, indices='all'):
+
+    from ..molsysmt_Topology import get_partial_charge_from_atom as aux_get
+    return aux_get(item.topology, indices=indices)
+
+
 ## group
 
 @digest(form=form)
@@ -1208,12 +1239,6 @@ def get_n_waters_from_system (item):
     return aux_get(item.topology)
 
 @digest(form=form)
-def get_n_cosolutes_from_system (item):
-
-    from ..molsysmt_Topology import get_n_cosolutes_from_system as aux_get
-    return aux_get(item.topology)
-
-@digest(form=form)
 def get_n_small_molecules_from_system (item):
 
     from ..molsysmt_Topology import get_n_small_molecules_from_system as aux_get
@@ -1247,6 +1272,12 @@ def get_n_rnas_from_system (item):
 def get_n_lipids_from_system (item):
 
     from ..molsysmt_Topology import get_n_lipids_from_system as aux_get
+    return aux_get(item.topology)
+
+@digest(form=form)
+def get_n_oligosaccharides_from_system (item):
+
+    from ..molsysmt_Topology import get_n_oligosaccharides_from_system as aux_get
     return aux_get(item.topology)
 
 @digest(form=form)

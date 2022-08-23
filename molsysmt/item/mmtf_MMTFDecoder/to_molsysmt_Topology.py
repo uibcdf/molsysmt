@@ -1,6 +1,8 @@
 from molsysmt._private.exceptions import NotImplementedMethodError
 from molsysmt._private.digestion import digest
 from molsysmt._private.variables import is_all
+from molsysmt import pyunitwizard as puw
+import numpy as np
 
 @digest(form='mmtf.MMTFDecoder')
 def to_molsysmt_Topology(item, atom_indices='all', structure_indices='all', bioassembly_index=0,
@@ -8,7 +10,6 @@ def to_molsysmt_Topology(item, atom_indices='all', structure_indices='all', bioa
 
     import warnings
     from molsysmt.native import Topology
-    import numpy as np
     from molsysmt.element.group import get_group_type_from_group_name
     from molsysmt.element.entity import get_entity_type_from_MMTFDecoder_entity
 
@@ -55,7 +56,7 @@ def to_molsysmt_Topology(item, atom_indices='all', structure_indices='all', bioa
     atom_id_array = np.empty(n_atoms, dtype=int)
     atom_type_array = np.empty(n_atoms, dtype=object)
     atom_bonded_atom_indices_array = np.empty(n_atoms, dtype=object)
-    atom_formal_charge_array = np.empty(n_atoms, dtype=float)
+    formal_charge_array = np.empty(n_atoms, dtype=float)
 
     group_index_array = np.empty(n_atoms, dtype=int)
     group_name_array = np.empty(n_atoms, dtype=object)
@@ -90,7 +91,7 @@ def to_molsysmt_Topology(item, atom_indices='all', structure_indices='all', bioa
             atom_name_array[atom_index] = atom_name
             atom_id_array[atom_index] = item.atom_id_list[atom_index]
             atom_type_array[atom_index] = atom_type
-            atom_formal_charge_array[atom_index] = atom_formal_charge
+            formal_charge_array[atom_index] = atom_formal_charge
 
             group_index_array[atom_index] = group_index
             group_name_array[atom_index] = group_name
@@ -102,14 +103,25 @@ def to_molsysmt_Topology(item, atom_indices='all', structure_indices='all', bioa
     tmp_item.atoms_dataframe["atom_name"] = atom_name_array
     tmp_item.atoms_dataframe["atom_id"] = atom_id_array
     tmp_item.atoms_dataframe["atom_type"] = atom_type_array
-    #tmp_item.atoms_dataframe["atom_formal_charge"] = atom_formal_charge_array
-    del(atom_name_array, atom_id_array, atom_type_array, atom_formal_charge_array)
+    tmp_item.atoms_dataframe["occupancy"] = item.occupancy_list
+
+    tmp_item.atoms_dataframe["alternate_location"] = np.array(item.alt_loc_list)
+    tmp_item.atoms_dataframe["alternate_location"].replace({'':None}, inplace=True)
+
+    del(atom_name_array, atom_id_array, atom_type_array)
 
     tmp_item.atoms_dataframe["group_index"] = group_index_array
     tmp_item.atoms_dataframe["group_name"] = group_name_array
     tmp_item.atoms_dataframe["group_id"] = group_id_array
     tmp_item.atoms_dataframe["group_type"] = group_type_array
     del(group_name_array, group_id_array, group_type_array)
+
+    b_factor_array = puw.quantity(np.array(item.b_factor_list), unit='angstroms**2', standardized=True)
+    tmp_item.atoms_dataframe["b_factor"] = puw.get_value(b_factor_array)
+
+    formal_charge_array = puw.quantity(formal_charge_array, unit='e', standardized=True)
+    tmp_item.atoms_dataframe["formal_charge"] = puw.get_value(formal_charge_array)
+    del(formal_charge_array, b_factor_array)
 
     # bonds inter-groups in graph
 
@@ -219,59 +231,57 @@ def to_molsysmt_Topology(item, atom_indices='all', structure_indices='all', bioa
 
         elif entity_type == "ion":
 
+            entity_name = entity_name.capitalize()
+
             molecule_type = "ion"
             molecule_name = entity_name
 
             for chain_index in mmtf_entity['chainIndexList']:
-                atom_indices_in_chain = np.where(chain_index_array==chain_index)[0]
-                component_indices_in_chain = np.unique(component_index_array[atom_indices_in_chain])
-                for component_index in component_indices_in_chain:
-                    for atom_index in np.where(component_index_array==component_index)[0]:
+                for atom_index in np.where(chain_index_array==chain_index)[0]:
 
-                        molecule_index_array[atom_index] = molecule_index
-                        molecule_name_array[atom_index] = molecule_name
-                        molecule_type_array[atom_index] = molecule_type
-                        molecule_id_array[atom_index] = molecule_index
+                    molecule_index_array[atom_index] = molecule_index
+                    molecule_name_array[atom_index] = molecule_name
+                    molecule_type_array[atom_index] = molecule_type
+                    molecule_id_array[atom_index] = molecule_index
 
-                    molecule_index += 1
-
-        elif entity_type == "cosolute":
-
-            molecule_type = "cosolute"
-            molecule_name = entity_name
-
-            for chain_index in mmtf_entity['chainIndexList']:
-                atom_indices_in_chain = np.where(chain_index_array==chain_index)[0]
-                component_indices_in_chain = np.unique(component_index_array[atom_indices_in_chain])
-                for component_index in component_indices_in_chain:
-                    for atom_index in np.where(component_index_array==component_index)[0]:
-
-                        molecule_index_array[atom_index] = molecule_index
-                        molecule_name_array[atom_index] = molecule_name
-                        molecule_type_array[atom_index] = molecule_type
-                        molecule_id_array[atom_index] = molecule_index
-
-                    molecule_index += 1
+                molecule_index += 1
 
         elif entity_type == "small molecule":
+
+            entity_name = entity_name.capitalize()
 
             molecule_type = "small molecule"
             molecule_name = entity_name
 
             for chain_index in mmtf_entity['chainIndexList']:
-                atom_indices_in_chain = np.where(chain_index_array==chain_index)[0]
-                component_indices_in_chain = np.unique(component_index_array[atom_indices_in_chain])
-                for component_index in component_indices_in_chain:
-                    for atom_index in np.where(component_index_array==component_index)[0]:
+                for atom_index in np.where(chain_index_array==chain_index)[0]:
 
-                        molecule_index_array[atom_index] = molecule_index
-                        molecule_name_array[atom_index] = molecule_name
-                        molecule_type_array[atom_index] = molecule_type
-                        molecule_id_array[atom_index] = molecule_index
+                    molecule_index_array[atom_index] = molecule_index
+                    molecule_name_array[atom_index] = molecule_name
+                    molecule_type_array[atom_index] = molecule_type
+                    molecule_id_array[atom_index] = molecule_index
 
-                    molecule_index += 1
+                molecule_index += 1
+
+        elif entity_type == "oligosaccharide":
+
+            entity_name = entity_name.capitalize()
+
+            molecule_type = "oligosaccharide"
+            molecule_name = entity_name
+
+            for chain_index in mmtf_entity['chainIndexList']:
+                for atom_index in np.where(chain_index_array==chain_index)[0]:
+
+                    molecule_index_array[atom_index] = molecule_index
+                    molecule_name_array[atom_index] = molecule_name
+                    molecule_type_array[atom_index] = molecule_type
+                    molecule_id_array[atom_index] = molecule_index
+
+                molecule_index += 1
+
         else:
-            print(entity_name, entity_type, mmtf_entity)
+
             raise ValueError("Entity type not recognized")
 
         for chain_index in mmtf_entity['chainIndexList']:

@@ -13,10 +13,10 @@ def test_center_molsysmt_MolSys_1():
 
     molsys = msm.convert(msm.demo['pentalanine']['traj.h5'], to_form='molsysmt.MolSys')
     n_structures = msm.get(molsys, n_structures=True)
-    origin = np.zeros([n_structures, 1, 3])*msm.puw.unit('nanometers')
+    origin = np.zeros([n_structures, 1, 3])*msm.pyunitwizard.unit('nanometers')
     molsys = msm.structure.center(molsys)
     distance = msm.structure.get_distances(molsys, group_behavior='geometric_center', molecular_system_2=origin)
-    true_distance = np.zeros([n_structures, 1, 1])*msm.puw.unit('nanometers')
+    true_distance = np.zeros([n_structures, 1, 1])*msm.pyunitwizard.unit('nanometers')
     check = np.allclose(distance, true_distance)
     assert check
 

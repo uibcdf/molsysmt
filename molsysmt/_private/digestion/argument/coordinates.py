@@ -1,6 +1,6 @@
 from ...exceptions import ArgumentError
 import numpy as np
-from molsysmt import puw
+from molsysmt import pyunitwizard as puw
 
 def digest_coordinates(coordinates, caller=None):
 

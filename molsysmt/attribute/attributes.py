@@ -401,15 +401,6 @@ _required_attributes['n_waters'] = ['group_type']
 _required_indices['n_waters'] = ['indices']
 _reverse_search_in_molecular_system['n_waters'] = False
 
-# n_cosolutes
-
-attributes.append('n_cosolutes')
-attribute_synonyms['n_cosolute'] = 'n_cosolutes'
-
-_required_attributes['n_cosolutes'] = ['group_type']
-_required_indices['n_cosolutes'] = ['indices']
-_reverse_search_in_molecular_system['n_cosolutes'] = False
-
 # n_small_molecules
 
 attributes.append('n_small_molecules')
@@ -463,6 +454,24 @@ attribute_synonyms['n_lipid'] = 'n_lipids'
 _required_attributes['n_lipids'] = ['group_type']
 _required_indices['n_lipids'] = ['indices']
 _reverse_search_in_molecular_system['n_lipids'] = False
+
+# n_oligosaccharides
+
+attributes.append('n_oligosaccharides')
+attribute_synonyms['n_oligosaccharides'] = 'n_oligosaccharides'
+
+_required_attributes['n_oligosaccharides'] = ['molecule_type']
+_required_indices['n_oligosaccharides'] = ['indices']
+_reverse_search_in_molecular_system['n_oligosaccharides'] = False
+
+# n_oligosaccharides
+
+attributes.append('n_saccharides')
+attribute_synonyms['n_saccharides'] = 'n_saccharides'
+
+_required_attributes['n_saccharides'] = ['group_type']
+_required_indices['n_saccharides'] = ['indices']
+_reverse_search_in_molecular_system['n_saccharides'] = False
 
 # step
 
@@ -546,5 +555,53 @@ attribute_synonyms['n_structure'] = 'n_structures'
 _required_attributes['n_structures'] = ['coordinates', 'box']
 _required_indices['n_structures'] = []
 _reverse_search_in_molecular_system['n_structures'] = True
+
+# occupancy
+
+attributes.append('occupancy')
+attribute_synonyms['occupancies'] = 'occupancy'
+
+_required_attributes['occupancy'] = ['occupancy']
+_required_indices['occupancy'] = ['indices']
+_reverse_search_in_molecular_system['occupancy'] = False
+
+# alternate_location
+
+attributes.append('alternate_location')
+attribute_synonyms['alternate_locations'] = 'alternate_location'
+
+_required_attributes['alternate_location'] = ['alternate_location']
+_required_indices['alternate_location'] = ['indices']
+_reverse_search_in_molecular_system['alternate_location'] = False
+
+
+# b_factor
+
+attributes.append('b_factor')
+attribute_synonyms['b_factors'] = 'b_factor'
+
+_required_attributes['b_factor'] = ['b_factor']
+_required_indices['b_factor'] = ['indices']
+_reverse_search_in_molecular_system['b_factor'] = False
+
+
+# formal_charge
+
+attributes.append('formal_charge')
+attribute_synonyms['formal_charges'] = 'formal_charge'
+
+_required_attributes['formal_charge'] = ['formal_charge']
+_required_indices['formal_charge'] = ['indices']
+_reverse_search_in_molecular_system['formal_charge'] = False
+
+
+# partial_charge
+
+attributes.append('partial_charge')
+attribute_synonyms['partial_charges'] = 'partial_charge'
+
+_required_attributes['partial_charge'] = ['partial_charge']
+_required_indices['partial_charge'] = ['indices']
+_reverse_search_in_molecular_system['partial_charge'] = False
 
 

@@ -16,6 +16,6 @@ def test_shift_dihedral_angles_from_molsysmt_MolSys_1():
                                                            angles_shifts='45.0 degrees', pbc=False)
     dihedral_angles = msm.structure.get_dihedral_angles(molecular_system, quartets=phi_chains[2])
     true_value = np.array([[-135.00]])
-    check = np.allclose(true_value,msm.puw.get_value(dihedral_angles, to_unit='degrees'))
+    check = np.allclose(true_value,msm.pyunitwizard.get_value(dihedral_angles, to_unit='degrees'))
     assert check
 

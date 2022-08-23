@@ -5,7 +5,7 @@
 from molsysmt._private.exceptions import NotImplementedMethodError
 from molsysmt._private.digestion import digest
 import numpy as np
-from molsysmt import puw
+from molsysmt import pyunitwizard as puw
 
 """
 Solvate Box

@@ -9,7 +9,7 @@ def to_mdtraj_Trajectory(item, atom_indices='all'):
     except:
         raise LibraryNotFoundError('MDTraj')
 
-    from molsysmt import puw
+    from molsysmt import pyunitwizard as puw
     from . import to_mdtraj_Topology
     from . import get_coordinates_from_atom
 

@@ -11,7 +11,7 @@ def to_openmm_Modeller(item, atom_indices='all', structure_indices='all'):
 
     from . import to_openmm_Topology
     from . import get_coordinates_from_atom
-    from molsysmt import puw
+    from molsysmt import pyunitwizard as puw
 
     tmp_topology = to_openmm_Topology(item, atom_indices=atom_indices, structure_indices=structure_indices)
     tmp_positions = get_coordinates_from_atom(item, indices=atom_indices, structure_indices=structure_indices)

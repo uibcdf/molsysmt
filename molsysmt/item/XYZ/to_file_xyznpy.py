@@ -1,6 +1,6 @@
 from molsysmt._private.digestion import digest
 import numpy as np
-from molsysmt import puw
+from molsysmt import pyunitwizard as puw
 
 @digest(form='XYZ')
 def to_file_xyznpy(item, atom_indices='all', structure_indices='all', output_filename=None):

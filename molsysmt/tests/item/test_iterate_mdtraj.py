@@ -1,6 +1,6 @@
 from molsysmt.item.mdtraj_Trajectory.iterate import iterate_mdtraj_trajectory
 import molsysmt as msm
-from molsysmt import puw
+from molsysmt import pyunitwizard as puw
 import numpy as np
 import mdtraj as mdt
 import mdtraj.core.element as mdt_element

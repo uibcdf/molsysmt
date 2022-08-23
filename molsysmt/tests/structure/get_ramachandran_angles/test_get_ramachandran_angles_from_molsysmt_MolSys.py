@@ -16,8 +16,8 @@ def test_get_ramachandran_angles_from_molsysmt_MolSys_1():
     true_value_2 = np.array([149.55691211, 137.51702185, 133.44230978, 127.61043836, 163.17747611])
     check_shape_1 = np.all((5,4)==phi_chains.shape)
     check_shape_2 = np.all((5000,5)==phi_angles.shape)
-    check_value_1 = np.allclose(true_value_1, msm.puw.get_value(phi_angles[1000], to_unit='degrees'))
-    check_value_2 = np.allclose(true_value_2, msm.puw.get_value(psi_angles[1000], to_unit='degrees'))
+    check_value_1 = np.allclose(true_value_1, msm.pyunitwizard.get_value(phi_angles[1000], to_unit='degrees'))
+    check_value_2 = np.allclose(true_value_2, msm.pyunitwizard.get_value(psi_angles[1000], to_unit='degrees'))
     assert check_shape_1 and check_shape_2 and  check_value_1 and check_value_2
 
 def test_get_ramachandran_angles_from_molsysmt_MolSys_2():
@@ -35,7 +35,7 @@ def test_get_ramachandran_angles_from_molsysmt_MolSys_2():
        [138.19847597]])
     check_shape_1 = np.all((1,4)==phi_chains.shape)
     check_shape_2 = np.all((5000,1)==phi_angles.shape)
-    check_value_1 = np.allclose(true_value_1, msm.puw.get_value(phi_angles[1000:1005], to_unit='degrees'))
-    check_value_2 = np.allclose(true_value_2, msm.puw.get_value(psi_angles[1000:1005], to_unit='degrees'))
+    check_value_1 = np.allclose(true_value_1, msm.pyunitwizard.get_value(phi_angles[1000:1005], to_unit='degrees'))
+    check_value_2 = np.allclose(true_value_2, msm.pyunitwizard.get_value(psi_angles[1000:1005], to_unit='degrees'))
     assert check_shape_1 and check_shape_2 and  check_value_1 and check_value_2
 

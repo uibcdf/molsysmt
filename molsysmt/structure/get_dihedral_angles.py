@@ -1,5 +1,5 @@
 import numpy as np
-from molsysmt import puw
+from molsysmt import pyunitwizard as puw
 from molsysmt._private.digestion import digest
 from molsysmt.basic import get
 from molsysmt.lib import geometry as libgeometry

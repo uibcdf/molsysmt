@@ -4,7 +4,7 @@ from molsysmt._private.digestion import digest
 def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all'):
 
     from ..molsysmt_MolSys import extract as extract_molsysmt_MolSys
-    from molsysmt import puw
+    from molsysmt import pyunitwizard as puw
     import pickle
 
     fff = open(item,'rb')

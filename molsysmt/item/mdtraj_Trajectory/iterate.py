@@ -1,4 +1,4 @@
-from molsysmt import puw
+from molsysmt import pyunitwizard as puw
 from molsysmt._private.variables import is_all
 
 

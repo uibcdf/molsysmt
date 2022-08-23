@@ -1,7 +1,9 @@
+from molsysmt._private.digestion import digest
 from molsysmt._private.variables import is_all
 
 # https://github.com/arose/ngl/blob/master/doc/usage/selection-language.md
 
+@digest()
 def standardize_view (view, atom_indices='all', structure_indices='all'):
 
     from molsysmt.basic import select, get, convert
@@ -50,6 +52,7 @@ def standardize_view (view, atom_indices='all', structure_indices='all'):
 
     pass
 
+@digest()
 def show_water_as_transparent_surface(view, atom_indices='all', structure_indices='all'):
 
     if not is_all(atom_indices):
@@ -62,12 +65,14 @@ def show_water_as_transparent_surface(view, atom_indices='all', structure_indice
 
     pass
 
+@digest()
 def show_system_as_transparent_surface(view, atom_indices='all', structure_indices='all'):
 
     view.add_surface(selection='all', opacity=0.3, color='lightblue')
 
     pass
 
+@digest()
 def show_water_as_licorice(view, atom_indices='all', structure_indices='all'):
 
     if not is_all(atom_indices):
@@ -80,7 +85,9 @@ def show_water_as_licorice(view, atom_indices='all', structure_indices='all'):
 
     pass
 
-def show_colored_surface_by_scalar_residue_values(view, values, selection='all', cmap=None, vmin=None, vmax=None):
+@digest()
+def show_colored_surface_by_scalar_residue_values(view, values, selection='all', cmap=None,
+        min_value=None, max_value=None):
 
     from nglview.color import _ColorScheme
     from molsysmt.basic import select
@@ -88,30 +95,32 @@ def show_colored_surface_by_scalar_residue_values(view, values, selection='all',
 
     groups_selection = select(view, element='group', selection=selection, to_syntax='NGLview')
 
-    if vmin is None:
-        vmin = min(values)
-    if vmax is None:
-        vmax = max(values)
+    if min_value is None:
+        min_value = min(values)
+    if max_value is None:
+        max_value = max(values)
 
-    norm = Normalize(vmin=vmin,vmax=vmax)
+    norm = Normalize(vmin=min_value,vmax=max_value)
     scheme = _ColorScheme([[to_hex(cmap(norm(ii))), jj] for ii,jj in zip(values, groups_selection.split(' '))], label='user')
     view.add_surface(selection='protein', color=scheme)
 
     pass
 
-def show_colored_cartoon_by_scalar_residue_values(view, values, selection='all', cmap=None, vmin=None, vmax=None):
+@digest()
+def show_colored_cartoon_by_scalar_residue_values(view, values, selection='all', cmap=None,
+        min_value=None, max_value=None):
 
     from nglview.color import _ColorScheme
     from molsysmt.basic import select
 
     groups_selection = select(view, element='group', selection=selection, to_syntax='NGLview')
 
-    if vmin is None:
-        vmin = min(values)
-    if vmax is None:
-        vmax = max(values)
+    if min_value is None:
+        min_value = min(values)
+    if max_value is None:
+        max_value = max(values)
 
-    norm = Normalize(vmin=vmin,vmax=vmax)
+    norm = Normalize(vmin=min_value, vmax=max_value)
     scheme = _ColorScheme([[to_hex(cmap(norm(ii))), jj] for ii,jj in zip(values, groups_selection.split(' '))], label='user')
     view.add_cartoon(selection='protein', color=scheme)
 
@@ -121,6 +130,7 @@ def show_colored_cartoon_by_scalar_residue_values(view, values, selection='all',
 
     pass
 
+@digest()
 def add_gui(view):
 
     view.gui_style = 'ngl'

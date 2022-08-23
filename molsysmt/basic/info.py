@@ -210,30 +210,46 @@ def info(molecular_system,
             form = get_form(molecular_system)
 
             n_atoms, n_groups, n_components, n_chains, n_molecules, n_entities, n_structures, \
-            n_ions, n_waters, n_cosolutes, n_small_molecules, n_peptides, n_proteins, n_dnas, \
-            n_rnas, n_lipids = get(molecular_system, element=element, n_atoms=True, n_groups=True, n_components=True,
-                                   n_chains=True, n_molecules=True, n_entities=True, n_structures=True, n_ions=True,
-                                   n_waters=True, n_cosolutes=True, n_small_molecules=True, n_peptides=True,
-                                   n_proteins=True, n_dnas=True, n_rnas=True, n_lipids=True)
+            n_ions, n_waters, n_small_molecules, n_peptides, n_proteins, n_dnas, \
+            n_rnas, n_lipids, n_oligosaccharides = get(molecular_system, element=element, n_atoms=True, n_groups=True,
+                    n_components=True, n_chains=True, n_molecules=True, n_entities=True, n_structures=True, n_ions=True,
+                    n_waters=True, n_small_molecules=True, n_peptides=True, n_proteins=True, n_dnas=True,
+                    n_rnas=True, n_lipids=True, n_oligosaccharides=True)
 
             tmp_df = df([{'form': form, 'n_atoms': n_atoms, 'n_groups': n_groups, 'n_components': n_components,
                           'n_chains': n_chains, 'n_molecules': n_molecules, 'n_entities': n_entities,
-                          'n_waters': n_waters, 'n_ions': n_ions, 'n_cosolutes': n_cosolutes,
+                          'n_waters': n_waters, 'n_ions': n_ions,
                           'n_small_molecules': n_small_molecules,
                           'n_peptides': n_peptides, 'n_proteins': n_proteins, 'n_dnas': n_dnas, 'n_rnas': n_rnas,
-                          'n_lipids': n_lipids,
+                          'n_lipids': n_lipids, 'n_oligosaccharides': n_oligosaccharides,
                           'n_structures': n_structures}], index=[0])
 
-            if n_ions == 0 or n_ions is None: tmp_df.drop(columns=['n_ions'], inplace=True)
-            if n_waters == 0 or n_waters is None: tmp_df.drop(columns=['n_waters'], inplace=True)
-            if n_cosolutes == 0 or n_cosolutes is None: tmp_df.drop(columns=['n_cosolutes'], inplace=True)
-            if n_small_molecules == 0 or n_small_molecules is None: tmp_df.drop(columns=['n_small_molecules'],
-                                                                                inplace=True)
-            if n_peptides == 0 or n_peptides is None: tmp_df.drop(columns=['n_peptides'], inplace=True)
-            if n_proteins == 0 or n_proteins is None: tmp_df.drop(columns=['n_proteins'], inplace=True)
-            if n_dnas == 0 or n_dnas is None: tmp_df.drop(columns=['n_dnas'], inplace=True)
-            if n_rnas == 0 or n_rnas is None: tmp_df.drop(columns=['n_rnas'], inplace=True)
-            if n_lipids == 0 or n_lipids is None: tmp_df.drop(columns=['n_lipids'], inplace=True)
+            if n_ions == 0 or n_ions is None:
+                tmp_df.drop(columns=['n_ions'], inplace=True)
+
+            if n_waters == 0 or n_waters is None:
+                tmp_df.drop(columns=['n_waters'], inplace=True)
+
+            if n_small_molecules == 0 or n_small_molecules is None:
+                tmp_df.drop(columns=['n_small_molecules'], inplace=True)
+
+            if n_peptides == 0 or n_peptides is None:
+                tmp_df.drop(columns=['n_peptides'], inplace=True)
+
+            if n_proteins == 0 or n_proteins is None:
+                tmp_df.drop(columns=['n_proteins'], inplace=True)
+
+            if n_dnas == 0 or n_dnas is None:
+                tmp_df.drop(columns=['n_dnas'], inplace=True)
+
+            if n_rnas == 0 or n_rnas is None:
+                tmp_df.drop(columns=['n_rnas'], inplace=True)
+
+            if n_lipids == 0 or n_lipids is None:
+                tmp_df.drop(columns=['n_lipids'], inplace=True)
+
+            if n_oligosaccharides == 0 or n_oligosaccharides is None:
+                tmp_df.drop(columns=['n_oligosaccharides'], inplace=True)
 
             return tmp_df.style.hide(axis='index')
 

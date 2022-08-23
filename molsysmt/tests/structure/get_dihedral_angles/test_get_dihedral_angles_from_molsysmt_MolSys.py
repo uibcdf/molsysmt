@@ -15,7 +15,7 @@ def test_get_dihedral_angles_from_molsysmt_MolSys_1():
                                                                'atom_name=="CA"', 'atom_name=="C"'])
     dihedral_angles = msm.structure.get_dihedral_angles(molsys, quartets=covalent_chains[2])
     true_value = np.array([[-179.99999499]])
-    check = np.allclose(true_value,msm.puw.get_value(dihedral_angles, to_unit='degrees'))
+    check = np.allclose(true_value,msm.pyunitwizard.get_value(dihedral_angles, to_unit='degrees'))
     assert check
 
 def test_get_dihedral_angles_from_molsysmt_MolSys_2():
@@ -23,7 +23,7 @@ def test_get_dihedral_angles_from_molsysmt_MolSys_2():
     covalent_chains = msm.topology.get_covalent_dihedral_quartets(molsys, dihedral_angle='phi')
     dihedral_angles = msm.structure.get_dihedral_angles(molsys, quartets=covalent_chains)
     true_value = np.array([[-179.99999, -179.99999, -179.99999, -179.99999]])
-    check = np.allclose(true_value,msm.puw.get_value(dihedral_angles, to_unit='degrees'))
+    check = np.allclose(true_value,msm.pyunitwizard.get_value(dihedral_angles, to_unit='degrees'))
     assert check
 
 def test_get_dihedral_angles_from_molsysmt_MolSys_3():
@@ -48,9 +48,9 @@ def test_get_dihedral_angles_from_molsysmt_MolSys_3():
        [ -93.01243813,  -43.00716069],
        [-112.66513177,  -28.18984838]])
     check_shape = np.all(true_shape==dihedral_angles.shape)
-    check_value_1 = np.allclose(true_values_1,msm.puw.get_value(dihedral_angles[0:5], to_unit='degrees'))
-    check_value_2 = np.allclose(true_values_2,msm.puw.get_value(dihedral_angles[1000:1005], to_unit='degrees'))
-    check_value_3 = np.allclose(true_values_3,msm.puw.get_value(dihedral_angles[2000:2005], to_unit='degrees'))
+    check_value_1 = np.allclose(true_values_1,msm.pyunitwizard.get_value(dihedral_angles[0:5], to_unit='degrees'))
+    check_value_2 = np.allclose(true_values_2,msm.pyunitwizard.get_value(dihedral_angles[1000:1005], to_unit='degrees'))
+    check_value_3 = np.allclose(true_values_3,msm.pyunitwizard.get_value(dihedral_angles[2000:2005], to_unit='degrees'))
     assert check_shape and check_value_1 and check_value_2 and check_value_3
 
 def test_get_dihedral_angles_from_molsysmt_MolSys_4():

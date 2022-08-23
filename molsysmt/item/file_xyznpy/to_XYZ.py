@@ -1,7 +1,7 @@
 from molsysmt._private.digestion import digest
 from molsysmt._private.variables import is_all
 import numpy as np
-from molsysmt import puw
+from molsysmt import pyunitwizard as puw
 
 @digest(form='file:xyznpy')
 def to_XYZ(item, atom_indices='all', structure_indices='all'):

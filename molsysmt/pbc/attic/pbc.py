@@ -2,7 +2,7 @@ from molsysmt._private.exceptions import *
 from molsysmt._private.digestion import *
 from molsysmt.lib import box as libbox
 import numpy as np
-from molsysmt import puw
+from molsysmt import pyunitwizard as puw
 
 #def minimum_image_convention(item, selection='all', reference_selection=None,
 #                             reference_coordinates=None, center_of_selection='geometrical_center',

@@ -1,6 +1,6 @@
 from molsysmt._private.digestion import digest
 from molsysmt.lib import box as libbox
-from molsysmt import puw
+from molsysmt import pyunitwizard as puw
 import numpy as np
 
 @digest()

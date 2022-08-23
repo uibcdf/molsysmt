@@ -20,6 +20,6 @@ def test_get_center_molsysmt_MolSys_1():
     true_values = np.array([[[ 0.79670861,  1.07878454, -0.02861541]],
        [[ 0.83204994,  1.10665931, -0.06361365]],
        [[ 0.77414551,  0.99350907,  0.01043041]]])
-    check_values = np.allclose(true_values, msm.puw.get_value(center[1007:1010], to_unit='nm'))
+    check_values = np.allclose(true_values, msm.pyunitwizard.get_value(center[1007:1010], to_unit='nm'))
     assert check_shape and check_values
 

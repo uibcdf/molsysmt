@@ -1,5 +1,5 @@
 from molsysmt._private.exceptions import *
-from molsysmt import puw
+from molsysmt import pyunitwizard as puw
 
 class MolecularMechanics():
 

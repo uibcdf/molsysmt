@@ -8,7 +8,7 @@ def to_string_pdb_text(item, atom_indices='all', coordinates=None, box=None):
     from openmm.app import PDBFile
     from molsysmt import __version__ as msm_version
     from openmm import Platform # the openmm version is taken from this module (see: openmm/app/pdbfile.py)
-    from molsysmt import puw
+    from molsysmt import pyunitwizard as puw
 
     if not is_all(atom_indices):
         from . import extract
