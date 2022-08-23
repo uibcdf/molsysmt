@@ -2,7 +2,6 @@ from molsysmt._private.exceptions import NotImplementedMethodError
 from molsysmt._private.digestion import digest
 from molsysmt._private.variables import is_all
 from molsysmt import pyunitwizard as puw
-from pint_pandas import PintArray
 import numpy as np
 
 @digest(form='mmtf.MMTFDecoder')
@@ -117,11 +116,12 @@ def to_molsysmt_Topology(item, atom_indices='all', structure_indices='all', bioa
     tmp_item.atoms_dataframe["group_type"] = group_type_array
     del(group_name_array, group_id_array, group_type_array)
 
-    pint_str_units = puw.get_standard_units(dimensionality={'[L]': 2}, form='string', parser='pint')
-    tmp_item.atoms_dataframe["b_factor"] = PintArray(item.b_factor_list, dtype=pint_str_units)
-    pint_str_units = puw.get_standard_units(dimensionality={'[T]': 1, '[A]':1}, form='string', parser='pint')
-    tmp_item.atoms_dataframe["formal_charge"] = PintArray(formal_charge_array, dtype=pint_str_units)
-    del(formal_charge_array)
+    b_factor_array = puw.quantity(np.array(item.b_factor_list), unit='angstroms**2', standardized=True)
+    tmp_item.atoms_dataframe["b_factor"] = puw.get_value(b_factor_array)
+
+    formal_charge_array = puw.quantity(formal_charge_array, unit='e', standardized=True)
+    tmp_item.atoms_dataframe["formal_charge"] = puw.get_value(formal_charge_array)
+    del(formal_charge_array, b_factor_array)
 
     # bonds inter-groups in graph
 

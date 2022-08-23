@@ -89,7 +89,7 @@ def test_string_pdb_automatic_detection():
 ## Classes
 
 def test_class_XYZ():
-    molsys = np.zeros(shape=[10,4,3])*msm.puw.unit('nanometers')
+    molsys = np.zeros(shape=[10,4,3])*msm.pyunitwizard.unit('nanometers')
     output = msm.get_form(molsys)
     assert output == 'XYZ'
 

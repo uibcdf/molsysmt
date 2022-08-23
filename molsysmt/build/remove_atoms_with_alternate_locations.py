@@ -2,36 +2,26 @@ from molsysmt._private.digestion import digest
 import numpy as np
 
 @digest()
-def remove_atoms_with_alternate_locations(molecular_system, mode='highest_occupancy'):
+def remove_atoms_with_alternate_locations(molecular_system, mode='A'):
 
-    from molsysmt.basic import get_atoms_with_alternate_locations, get
+    from molsysmt.basic import get, remove
+    from molsysmt.build import get_atoms_with_alternate_locations
 
-    atoms_with_alt_loc = get_atoms_with_alternate_locations(molecular_system)
+    atoms_to_be_removed = []
 
+    if mode=='A':
 
-    if mode=='highest_occupancy':
+        alt_loc = get(molecular_system, element='atom', alternate_location=True)
 
-        for atoms_list in atoms_with_alt_loc:
+        if 'A' in alt_loc:
 
-            alt_loc, occup = get(molecular_system, element='atom', selection=atoms_list,
-                    alternate_location=True, occupancy=True)
+            mask_not_None = (alt_loc!=None)
+            mask_not_A  = (alt_loc!='A')
+            mask = mask_not_None*mask_not_A
+            atoms_to_be_removed = np.argwhere(mask)[:,0]
 
-
-
-    from molsysmt.basic import get, select
-
-    output_atoms = []
-
-    alternate_location = get(molecular_system, element='atom', alternate_location=True)
-
-    for A_index in np.where(alternate_location=='A')[0]:
-
-        atom_name, group_id, chain_id = get(molecular_system, element='atom',
-                selection=A_index, atom_name=True, group_id=True, chain_id=True)
-
-        equal_atoms = select(molecular_system, element='atom', selection='atom_name==@atom_name and group_id==@group_id and chain_id==@chain_id')
-
-        output_atoms.append(equal_atoms)
-
-    return output_atoms
+    if len(atoms_to_be_removed)>1:
+        return remove(molecular_system, selection=atoms_to_be_removed)
+    else:
+        return molecular_system
 

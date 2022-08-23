@@ -14,7 +14,7 @@ def test_box_lengths_from_box_cubic_geometry():
     molsys = msm.build.solvate(molsys, box_shape='cubic', clearance='14.0 angstroms', engine='PDBFixer')
     box = msm.get(molsys, element='system', box=True)
     lengths = msm.pbc.box_lengths_from_box(box)
-    check = np.allclose(msm.puw.get_value(lengths, to_unit='nm'), [[3.1236, 3.1236, 3.1236]])
+    check = np.allclose(msm.pyunitwizard.get_value(lengths, to_unit='nm'), [[3.1236, 3.1236, 3.1236]])
     assert check
 
 
@@ -23,7 +23,7 @@ def test_box_lengths_from_box_octahedral_geometry():
     molsys = msm.build.solvate(molsys, box_shape='truncated octahedral', clearance='14.0 angstroms', engine='PDBFixer')
     box = msm.get(molsys, element='system', box=True)
     lengths = msm.pbc.box_lengths_from_box(box)
-    check = np.allclose(msm.puw.get_value(lengths, to_unit='nm'), [[3.1236, 3.1236, 3.1236]])
+    check = np.allclose(msm.pyunitwizard.get_value(lengths, to_unit='nm'), [[3.1236, 3.1236, 3.1236]])
     assert check
 
 
@@ -32,6 +32,6 @@ def test_box_lengths_from_box_dodecahedral_geometry():
     molsys = msm.build.solvate(molsys, box_shape='rhombic dodecahedral', clearance='14.0 angstroms', engine='PDBFixer')
     box = msm.get(molsys, element='system', box=True)
     lengths = msm.pbc.box_lengths_from_box(box)
-    check = np.allclose(msm.puw.get_value(lengths, to_unit='nm'), [[3.1236, 3.1236, 3.1236]])
+    check = np.allclose(msm.pyunitwizard.get_value(lengths, to_unit='nm'), [[3.1236, 3.1236, 3.1236]])
     assert check
 

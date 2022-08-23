@@ -14,7 +14,7 @@ def test_box_volume_from_box_cubic_geometry():
     molsys = msm.build.solvate(molsys, box_shape='cubic', clearance='14.0 angstroms', engine='PDBFixer')
     box = msm.get(molsys, element='system', box=True)
     volume = msm.pbc.box_volume_from_box(box)
-    check = np.allclose(msm.puw.get_value(volume, to_unit='nm**3'), [30.4765808])
+    check = np.allclose(msm.pyunitwizard.get_value(volume, to_unit='nm**3'), [30.4765808])
     assert check
 
 
@@ -23,7 +23,7 @@ def test_box_volume_from_box_octahedral_geometry():
     molsys = msm.build.solvate(molsys, box_shape='truncated octahedral', clearance='14.0 angstroms', engine='PDBFixer')
     box = msm.get(molsys, element='system', box=True)
     volume = msm.pbc.box_volume_from_box(box)
-    check = np.allclose(msm.puw.get_value(volume, to_unit='nm**3'), [23.4608828])
+    check = np.allclose(msm.pyunitwizard.get_value(volume, to_unit='nm**3'), [23.4608828])
     assert check
 
 
@@ -32,5 +32,5 @@ def test_box_volume_from_box_dodecahedral_geometry():
     molsys = msm.build.solvate(molsys, box_shape='rhombic dodecahedral', clearance='14.0 angstroms', engine='PDBFixer')
     box = msm.get(molsys, element='system', box=True)
     volume = msm.pbc.box_volume_from_box(box)
-    check = np.allclose(msm.puw.get_value(volume, to_unit='nm**3'), [21.5501970])
+    check = np.allclose(msm.pyunitwizard.get_value(volume, to_unit='nm**3'), [21.5501970])
     assert check

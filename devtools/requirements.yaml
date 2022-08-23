@@ -18,7 +18,6 @@ production:
     - sabueso
     - mmtf-python
     - pandas
-    - pint-pandas
     - openmm
     - pdbfixer
     - nglview
