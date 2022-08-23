@@ -11,10 +11,9 @@ jobs:
     name: Conda deployment of package to platform ${{ matrix.os }} with Python ${{ matrix.python-version }}
     runs-on: ${{ matrix.os }}
     strategy:
-      fail-fast: false  # do not cancel all in-progress jobs if any job variation fails
       matrix:
         os: [ubuntu-latest, macOS-latest] #[macOS-latest, ubuntu-latest]
-        python-version: ["3.7", "3.8", "3.9", "3.10"] # 3.10 with errors
+        python-version: [3.7]
 
     steps:
 
@@ -43,18 +42,15 @@ jobs:
       with:
         python-version: ${{ matrix.python-version }}
         environment-file: devtools/conda-envs/build_env.yaml    # Path to the build conda environment
-        mamba-version: "*"
-        use-mamba: true
         auto-update-conda: false
         auto-activate-base: false
         show-channel-urls: true
 
     - name: Build and upload the conda packages
-      uses: uibcdf/action-build-and-upload-conda-packages@v1.2.0
+      uses: uibcdf/action-build-and-upload-conda-packages@v1.1.0
       with:
         meta_yaml_dir: devtools/conda-build
         python-version: ${{ matrix.python-version }} # Values previously defined in `matrix`
-        mambabuild: false
         user: uibcdf
         label: auto
         token: ${{ secrets.ANACONDA_UIBCDF_TOKEN }} # Replace with the right name of your secret
