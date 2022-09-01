@@ -446,6 +446,32 @@ def get_step_from_system(item, structure_indices='all'):
     return None
 
 
+@digest(form=form)
+def get_bioassemblies_from_system(item):
+
+    output = {}
+
+    for bio_assembly in item.bio_assembly:
+
+        aux = {'chains': [], 'rotations': [], 'translations': []}
+
+        for transformation in bio_assembly['transformList']:
+
+            matrix_transformation = np.array(transformation['matrix']).reshape(-1,4)
+
+            aux['chains'].append(transformation['chainIndexList'])
+            aux['rotations'].append(matrix_transformation[:3,:3])
+            aux['translations'].append(puw.quantity(matrix_transformation[:3,3], unit='angstroms', standardized=True))
+
+        output[bio_assembly['name']] = aux
+
+    return output
+
+@digest(form=form)
+def get_n_bioassemblies_from_system(item):
+
+    return len(item.bio_assembly)
+
 ## From bond
 
 @digest(form=form)

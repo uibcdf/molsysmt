@@ -2,14 +2,14 @@ from molsysmt._private.digestion import digest
 import numpy as np
 
 @digest()
-def remove_atoms_with_alternate_locations(molecular_system, mode='A'):
+def remove_atoms_with_alternate_locations(molecular_system, keep='A'):
 
     from molsysmt.basic import get, remove
     from molsysmt.build import get_atoms_with_alternate_locations
 
     atoms_to_be_removed = []
 
-    if mode=='A':
+    if keep=='A':
 
         alt_loc = get(molecular_system, element='atom', alternate_location=True)
 
