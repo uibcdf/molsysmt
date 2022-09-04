@@ -33,7 +33,7 @@ form_attributes['entity_name'] = True
 form_attributes['entity_type'] = True
 form_attributes['coordinates'] = True
 form_attributes['box'] = True
-
+form_attributes['bioassemblies'] = True
 
 def to_file_pdb(item, molecular_system, atom_indices='all', structure_indices='all', output_filename=None):
     from molsysmt.item.string_pdb_id import to_file_pdb as string_pdb_id_to_file_pdb
@@ -77,10 +77,12 @@ def to_mmtf_MMTFDecoder(item, molecular_system, atom_indices='all', structure_in
     return string_pdb_id_to_mmtf_MMTFDecoder(item, atom_indices=atom_indices, structure_indices=structure_indices)
 
 
-def to_molsysmt_MolSys(item, molecular_system, atom_indices='all', structure_indices='all'):
+def to_molsysmt_MolSys(item, molecular_system, atom_indices='all', structure_indices='all',
+        bioassembly_name=None):
     from molsysmt.item.string_pdb_id import to_molsysmt_MolSys as string_pdb_id_to_molsysmt_MolSys
 
-    return string_pdb_id_to_molsysmt_MolSys(item, atom_indices=atom_indices, structure_indices=structure_indices)
+    return string_pdb_id_to_molsysmt_MolSys(item, atom_indices=atom_indices,
+            structure_indices=structure_indices, bioassembly_name=bioassembly_name)
 
 
 def to_molsysmt_Topology(item, molecular_system, atom_indices='all', structure_indices='all'):

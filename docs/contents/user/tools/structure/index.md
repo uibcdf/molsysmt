@@ -16,6 +16,7 @@
    get_rmsd.ipynb
    get_sasa.ipynb
    translate.ipynb
+   rotate.ipynb
    center.ipynb
    set_dihedral_angles.ipynb
    shift_dihedral_angles.ipynb

@@ -556,6 +556,28 @@ _required_attributes['n_structures'] = ['coordinates', 'box']
 _required_indices['n_structures'] = []
 _reverse_search_in_molecular_system['n_structures'] = True
 
+# bioassemblies
+
+attributes.append('bioassemblies')
+attribute_synonyms['biological_assembly'] = 'bioassemblies'
+attribute_synonyms['biological_assemblies'] = 'bioassemblies'
+attribute_synonyms['bioassembly'] = 'bioassemblies'
+
+_required_attributes['bioassemblies'] = ['bioassemblies']
+_required_indices['bioassemblies'] = []
+_reverse_search_in_molecular_system['bioassemblies'] = False
+
+# n_bioassemblies
+
+attributes.append('n_bioassemblies')
+attribute_synonyms['n_bioassembly'] = 'n_bioassemblies'
+attribute_synonyms['n_biological_assemblies'] = 'n_bioassemblies'
+attribute_synonyms['n_biological_assembly'] = 'n_bioassemblies'
+
+_required_attributes['n_bioassemblies'] = ['bioassemblies']
+_required_indices['n_bioassemblies'] = []
+_reverse_search_in_molecular_system['n_bioassemblies'] = False
+
 # occupancy
 
 attributes.append('occupancy')
