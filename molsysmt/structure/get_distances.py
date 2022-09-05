@@ -11,6 +11,28 @@ def get_distances(molecular_system, selection="all", groups_of_atoms=None, group
              pairs=False, crossed_structures=False, pbc=False, output='numpy.ndarray',
              output_with_atom_indices=False, output_with_structure_indices=False, engine='MolSysMT',
              syntax='MolSysMT'):
+    """get_distances(item, to_form='molsysmt.MolSys', selection='all', structure_indices='all', syntax='MolSysMT', **kwargs)
+
+    This is a sentence
+
+    This is a paragraph
+
+    Parameters
+    ----------
+
+    Returns
+    -------
+
+    Examples
+    --------
+
+    See Also
+    --------
+
+    Notes
+    -----
+
+    """
 
     # group_behavior in
     # ['center_of_mass','geometric_center','minimum_distance','maximum_distance']

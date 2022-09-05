@@ -19,5 +19,11 @@ def digest_threshold(threshold, caller=None):
             if puw.check(threshold, dimensionality={'[L]':1}):
                 return puw.standardize(threshold)
 
+    if caller in 'molsysmt.build.get_missing_bonds.get_missing_bonds':
+
+        if puw.is_quantity(threshold):
+            if puw.check(threshold, dimensionality={'[L]':1}):
+                return puw.standardize(threshold)
+
     raise ArgumentError('threshold', value=threshold, caller=caller, message=None)
 

@@ -1,10 +1,12 @@
 from molsysmt._private.digestion import digest
+from molsysmt._private.exceptions import NotImplementedMethodError
+from molsysmt._private.variables import is_all
 import numpy as np
 import warnings
 
 @digest()
-def get_missing_bonds(molecular_system, max_bond_length='2 angstroms', selection='all',
-                      structure_indices='all', syntaxis='MolSysMT', engine='MolSysMT', check=True):
+def get_missing_bonds(molecular_system, threshold='2 angstroms', selection='all',
+                      structure_indices='all', syntax='MolSysMT', engine='MolSysMT'):
 
     output = []
 
@@ -13,42 +15,34 @@ def get_missing_bonds(molecular_system, max_bond_length='2 angstroms', selection
         from molsysmt.basic import get, select
         from molsysmt.structure import get_neighbors
 
-        atom_indices = select(molecular_system, selection=selection, syntaxis=syntaxis)
+        atom_indices = select(molecular_system, selection=selection, syntax=syntax)
 
-        if structure_indices is 'all':
-            n_atoms = get(molecular_system, element='system', n_structures=True, check=False)
+        if is_all(structure_indices):
+            n_atoms = get(molecular_system, element='system', n_structures=True)
             structure_indices = np.arange(n_atoms)
 
-        old_bonds = get(molecular_system, element='atom', selection=atom_indices, inner_bonded_atoms=True, check=False)
+        old_bonds = get(molecular_system, element='atom', selection=atom_indices, inner_bonded_atoms=True)
 
-        for ii in range(old_bonds):
+        for ii in range(len(old_bonds)):
             if old_bonds[ii][0]>old_bonds[ii][1]:
                 old_bonds[ii][0], old_bonds[ii][1] = old_bonds[ii][1], old_bonds[ii][0]
 
         neighbors, distance = get_neighbors(molecular_system, selection=atom_indices,
-                                            selection_2=atom_indices, threshold=max_bond_length,
-                                            output_forms='dicts')
+                                            selection_2=atom_indices, threshold=threshold, output='dict')
 
         for atom_i, atom_j in old_bonds:
-            for neighbors_frame in neighbors:
+            for kk, neighbors_frame in enumerate(neighbors):
                 if atom_j not in neighbors_frame[atom_i]:
-                    warnings.warn(f"The bond between atoms {atom_i} and {atom_j} was observed with a length larger than the max_bond_length threshold.")
+                    warnings.warn(f"The bond between atoms {atom_i} and {atom_j} was observed with a length larger than the threshold: distance[kk][atom_i]")
 
-        for atom_i in neighbors[0]:
-            for atom_j in neighbors[0][atom_i]:
-                if atom_i < atom_j:
-                    always=True
-                    for neighbors_frame in neighbors:
-                        if atom_j not in neighbors_frame[atom_i]:
-                            always=False
-                            break
-                    if always:
+        for ii, atom_index in enumerate(atom_indices):
+            atom_i = atom_index
+            for neighbors_frame in neighbors:
+                for atom_j in neighbors_frame[ii]:
+                    if atom_i < atom_j:
                         if [atom_i, atom_j] not in old_bonds:
-                            output.append[atom_i, atom_j]
-
-    elif engine=="ParmEd":
-
-        raise NotImplementedError
+                            if [atom_i, atom_j] not in output:
+                                output.append([atom_i, atom_j])
 
     elif engine=="pytraj":
 
@@ -56,7 +50,7 @@ def get_missing_bonds(molecular_system, max_bond_length='2 angstroms', selection
         from os import remove
         from molsysmt._private.files_and_directories import temp_filename
 
-        old_bonds = get(molecular_system, element='atom', selection=atom_indices, inner_bonded_atoms=True, check=False)
+        old_bonds = get(molecular_system, element='atom', selection=atom_indices, inner_bonded_atoms=True)
 
         for ii in range(old_bonds):
             if old_bonds[ii][0]>old_bonds[ii][1]:
@@ -64,10 +58,10 @@ def get_missing_bonds(molecular_system, max_bond_length='2 angstroms', selection
 
 
         temp_pdb_file = temp_filename(extension='pdb')
-        temp_molecular_system = convert(molecular_system, to_form=temp_pdb_file, check=False)
-        temp_molecular_system = convert(temp_molecular_system, to_form="pytraj.Topology", max_bond_length=max_bond_length, check=False)
+        temp_molecular_system = convert(molecular_system, to_form=temp_pdb_file)
+        temp_molecular_system = convert(temp_molecular_system, to_form="pytraj.Topology", threshold=threshold)
 
-        new_bonds = get(molecular_system, element='atom', selection=atom_indices, inner_bonded_atoms=True, check=False)
+        new_bonds = get(molecular_system, element='atom', selection=atom_indices, inner_bonded_atoms=True)
 
         for ii in range(old_bonds):
             if old_bonds[ii][0]>old_bonds[ii][1]:
@@ -79,7 +73,7 @@ def get_missing_bonds(molecular_system, max_bond_length='2 angstroms', selection
 
     else:
 
-        raise NotImplementedError
+        raise NotImplementedMethodError
 
     output = np.array(output)
 

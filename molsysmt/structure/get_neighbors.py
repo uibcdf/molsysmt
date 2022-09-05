@@ -5,7 +5,7 @@ import numpy as np
 @digest()
 def get_neighbors(molecular_system, selection="all", groups_of_atoms=None, group_behavior=None, structure_indices="all",
                   molecular_system_2=None, selection_2=None, groups_of_atoms_2=None, group_behavior_2=None, structure_indices_2=None,
-                  threshold=None, n_neighbors=None, atom_indices=False, pbc=False,
+                  threshold=None, n_neighbors=None, atom_indices=False, pbc=False, output='numpy.ndarray',
                   engine='MolSysMT', syntax='MolSysMT'):
 
     from . import get_distances
@@ -81,8 +81,6 @@ def get_neighbors(molecular_system, selection="all", groups_of_atoms=None, group
 
         dists=dists*length_units
 
-        return neighs, dists
-
     elif threshold is not None and n_neighbors is None:
 
         threshold = puw.get_value(threshold, to_unit=length_units)
@@ -114,9 +112,30 @@ def get_neighbors(molecular_system, selection="all", groups_of_atoms=None, group
 
         dists=dists*length_units
 
-        return neighs, dists
-
     else:
 
         raise ValueError("Use either threshold or n_neighbors, but not both at the same time")
+
+    if output == 'numpy.ndarray':
+
+        return neighs, dists
+
+    elif output == 'dict':
+
+        aux_neighs = []
+        aux_dists = []
+
+        for kk in range(len(neighbs)):
+
+            dict_neighs = {}
+            dict_dists = {}
+
+            for ii, jj in enumerate(neighs[kk]):
+                dict_neighs[atom_indices_1[ii]]=jj
+                dict_dists[atom_indices_1[ii]]=dists[kk][ii]
+
+            aux_neighs.append(dict_neighs)
+            aux_dists.append(dict_dists)
+
+
 

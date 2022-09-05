@@ -2,7 +2,8 @@ from molsysmt._private.digestion import digest
 
 @digest()
 def view(molecular_system=None, viewer='NGLView', selection='all', structure_indices='all',
-         concatenate_structures=False, standardize=False, water_as_surface=False, syntax='MolSysMT'):
+         concatenate_structures=False, standardize=False, water_as_surface=False, syntax='MolSysMT',
+         to_html=False):
 
     concatenate=False
     if concatenate_structures:
@@ -35,5 +36,9 @@ def view(molecular_system=None, viewer='NGLView', selection='all', structure_ind
             from molsysmt.thirds.nglview import show_system_as_transparent_surface
             show_system_as_transparent_surface(tmp_item)
 
-    return tmp_item
+    if to_html:
+        tmp_item.render_image()
+        return tmp_item._display_image()
+    else:
+        return tmp_item
 
