@@ -38,12 +38,16 @@ def view(molecular_system=None, viewer='NGLView', selection='all', structure_ind
 
     if __sphinxworking__:
 
-        from molsysmt._documentation import html_figures
+        import inspect
+        print(inspect.stack())
+
+        from molsysmt._documentation import next_htmlfile
         from molsysmt.thirds.nglview import load_html_in_jupyter_notebook
 
-        htmlfile = html_figures['cell3@index.ipynb']
+        #notebook_path = str(ipynbname.path()).split('/docs/')[-1]
+        #htmlfile = next_htmlfile(notebook_path)
 
-        return load_html_in_jupyter_notebook(htmlfile)
+        #return load_html_in_jupyter_notebook(htmlfile)
     
     return tmp_item
 
