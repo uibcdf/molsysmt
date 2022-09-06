@@ -5,3 +5,4 @@ from .precooked_recipes import show_water_as_transparent_surface
 from .precooked_recipes import show_system_as_transparent_surface
 from .precooked_recipes import show_water_as_licorice
 from .patching_nglview import adding_molsysmt
+from .load_html_in_jupyter_notebook import load_html_in_jupyter_notebook

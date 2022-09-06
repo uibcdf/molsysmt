@@ -1,4 +1,5 @@
 from molsysmt._private.digestion import digest
+from molsysmt import __sphinxworking__
 
 @digest()
 def view(molecular_system=None, viewer='NGLView', selection='all', structure_indices='all',
@@ -35,17 +36,14 @@ def view(molecular_system=None, viewer='NGLView', selection='all', structure_ind
             from molsysmt.thirds.nglview import show_system_as_transparent_surface
             show_system_as_transparent_surface(tmp_item)
 
-    # if __sphinxworking__:
-    #
-    #from molsysmt import __sphinxworking__
-    #from molsysmt._private.files_and_directories import temp_filename
-    #import nglview as nv
-    #from IPython.display import IFrame, display
-    #
-    #     htmlfile = temp_filename(dir='.', extension='html')
-    #     tmp_item.display()
-    #     nv.write_html(htmlfile, tmp_item)
-    #     return IFrame(src=htmlfile, width=700, height=700)
-        
+    if __sphinxworking__:
+
+        from molsysmt._documentation import html_figures
+        from molsysmt.thirds.nglview import load_html_in_jupyter_notebook
+
+        htmlfile = html_figures['cell3@index.ipynb']
+
+        return load_html_in_jupyter_notebook(htmlfile)
+    
     return tmp_item
 
