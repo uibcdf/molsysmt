@@ -2,8 +2,7 @@ from molsysmt._private.digestion import digest
 
 @digest()
 def view(molecular_system=None, viewer='NGLView', selection='all', structure_indices='all',
-         concatenate_structures=False, standardize=False, water_as_surface=False, syntax='MolSysMT',
-         to_html=False):
+         concatenate_structures=False, standardize=False, water_as_surface=False, syntax='MolSysMT'):
 
     concatenate=False
     if concatenate_structures:
@@ -36,9 +35,17 @@ def view(molecular_system=None, viewer='NGLView', selection='all', structure_ind
             from molsysmt.thirds.nglview import show_system_as_transparent_surface
             show_system_as_transparent_surface(tmp_item)
 
-    if to_html:
-        tmp_item.render_image()
-        return tmp_item._display_image()
-    else:
-        return tmp_item
+    # if __sphinxworking__:
+    #
+    #from molsysmt import __sphinxworking__
+    #from molsysmt._private.files_and_directories import temp_filename
+    #import nglview as nv
+    #from IPython.display import IFrame, display
+    #
+    #     htmlfile = temp_filename(dir='.', extension='html')
+    #     tmp_item.display()
+    #     nv.write_html(htmlfile, tmp_item)
+    #     return IFrame(src=htmlfile, width=700, height=700)
+        
+    return tmp_item
 

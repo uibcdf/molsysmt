@@ -2,6 +2,11 @@
 MolSysMT
 This must be a short description of the project
 """
+# Is sphinx working?
+
+from os import environ
+__sphinxworking__=('SPHINXWORKING' in environ)
+del(environ)
 
 # Handle versioneer
 from ._version import get_versions
@@ -33,8 +38,6 @@ from . import molecular_dynamics
 from . import hbonds
 from . import thirds
 from .demo import demo
-
-
 
 
 # Adding molsysmt to nglview
