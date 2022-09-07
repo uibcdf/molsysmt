@@ -1,5 +1,7 @@
 from molsysmt._private.digestion import digest
 from molsysmt import __sphinxworking__
+from molsysmt.thirds.nglview import load_html_in_jupyter_notebook
+from inspect import stack
 
 @digest()
 def view(molecular_system=None, viewer='NGLView', selection='all', structure_indices='all',
@@ -38,16 +40,10 @@ def view(molecular_system=None, viewer='NGLView', selection='all', structure_ind
 
     if __sphinxworking__:
 
-        import inspect
-        print(inspect.stack())
+        htmlfile = stack()[2][0].f_locals['nglview_htmlfiles'].pop(0)
 
-        from molsysmt._documentation import next_htmlfile
-        from molsysmt.thirds.nglview import load_html_in_jupyter_notebook
-
-        #notebook_path = str(ipynbname.path()).split('/docs/')[-1]
-        #htmlfile = next_htmlfile(notebook_path)
-
-        #return load_html_in_jupyter_notebook(htmlfile)
+        return load_html_in_jupyter_notebook('_static/nglview/'+htmlfile)
     
     return tmp_item
+
 
