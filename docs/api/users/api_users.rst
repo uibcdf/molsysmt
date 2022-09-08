@@ -6,7 +6,7 @@ Users
    :caption: Users
    :maxdepth: 2
 
-   users/api_tools.rst
-   users/api_items.rst
-   users/api_thirds.rst
+   tools/api_tools.rst
+   items/api_items.rst
+   thirds/api_thirds.rst
 

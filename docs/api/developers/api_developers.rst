@@ -6,5 +6,5 @@ Developers
    :caption: Developers
    :maxdepth: 2
 
-   developers/api_private.rst
+   exceptions/api_exceptions.rst
 
