@@ -111,7 +111,8 @@ def convert(molecular_system,
     if tmp_item is None:
 
         from_form = get_form(molecular_system)
-        from_form = digest_output(from_form)
+        if len(from_form)==1:
+            from_form=from_form[0]
         raise NotImplementedConversionError(from_form, to_form)
 
     return tmp_item

@@ -80,6 +80,12 @@ def to_mdtraj_Trajectory(item, molecular_system, atom_indices='all', structure_i
     return mmtf_MMTFDecoder_to_molsysmt_Structures(item, atom_indices=atom_indices, structure_indices=structure_indices)
 
 
+def to_openmm_Topology(item, molecular_system, atom_indices='all', structure_indices='all'):
+    from molsysmt.item.mmtf_MMTFDecoder import to_openmm_Topology as mmtf_MMTFDecoder_to_openmm_Topology
+
+    return mmtf_MMTFDecoder_to_openmm_Topology(item, atom_indices=atom_indices, structure_indices=structure_indices)
+
+
 def to_string_aminoacids1(item, molecular_system, atom_indices='all', structure_indices='all'):
     from molsysmt.item.mmtf_MMTFDecoder import to_string_aminoacids1 as mmtf_MMTFDecoder_to_string_aminoacids1
 
