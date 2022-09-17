@@ -16,7 +16,7 @@ Methods and wrappers to create and solvate boxes
 @digest()
 def solvate (molecular_system, box_shape="truncated octahedral", clearance='14.0 angstroms',
              anion='Cl-', n_anions="neutralize", cation='Na+', n_cations="neutralize",
-             ionic_strength='0.0 molar', engine="LEaP",
+             ionic_strength='0.0 molar', engine="PDBFixer",
              to_form= None, verbose=False):
 
     """solvate(item, geometry=None, water=None, engine=None)

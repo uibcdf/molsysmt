@@ -3,7 +3,7 @@ from molsysmt._private.variables import is_all
 import numpy as np
 
 _methods_1 = [
-        'molsysmt.topology.get_covalent_dihedral_quartets.get_covalent_dihedral_quartets',
+        'molsysmt.topology.get_dihedral_quartets.get_dihedral_quartets',
         'molsysmt.structure.get_dihedral_angles.get_dihedral_angles',
         ]
 _dihedral_angles_1 = ['phi', 'psi', 'omega', 'chi1', 'chi2', 'chi3', 'chi4', 'chi5',

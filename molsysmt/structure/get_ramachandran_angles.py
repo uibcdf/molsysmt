@@ -7,10 +7,10 @@ def get_ramachandran_angles(molecular_system, selection='all', structure_indices
         syntax='MolSysMT', pbc=False):
 
     from . import get_dihedral_angles
-    from molsysmt.topology import get_covalent_dihedral_quartets
+    from molsysmt.topology import get_dihedral_quartets
 
-    phi_covalent_chain = get_covalent_dihedral_quartets(molecular_system, dihedral_angle='phi', selection=selection, syntax=syntax)
-    psi_covalent_chain = get_covalent_dihedral_quartets(molecular_system, dihedral_angle='psi', selection=selection, syntax=syntax)
+    phi_covalent_chain = get_dihedral_quartets(molecular_system, dihedral_angle='phi', selection=selection, syntax=syntax)
+    psi_covalent_chain = get_dihedral_quartets(molecular_system, dihedral_angle='psi', selection=selection, syntax=syntax)
 
     n_chains = phi_covalent_chain.shape[0]
 

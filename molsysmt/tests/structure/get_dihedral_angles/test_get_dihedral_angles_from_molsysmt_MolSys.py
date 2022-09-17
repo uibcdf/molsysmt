@@ -20,7 +20,7 @@ def test_get_dihedral_angles_from_molsysmt_MolSys_1():
 
 def test_get_dihedral_angles_from_molsysmt_MolSys_2():
     molsys = msm.convert(msm.demo['Met-enkephalin']['vacuum.msmpk'], to_form='molsysmt.MolSys')
-    covalent_chains = msm.topology.get_covalent_dihedral_quartets(molsys, dihedral_angle='phi')
+    covalent_chains = msm.topology.get_dihedral_quartets(molsys, dihedral_angle='phi')
     dihedral_angles = msm.structure.get_dihedral_angles(molsys, quartets=covalent_chains)
     true_value = np.array([[-179.99999, -179.99999, -179.99999, -179.99999]])
     check = np.allclose(true_value,msm.pyunitwizard.get_value(dihedral_angles, to_unit='degrees'))
@@ -28,7 +28,7 @@ def test_get_dihedral_angles_from_molsysmt_MolSys_2():
 
 def test_get_dihedral_angles_from_molsysmt_MolSys_3():
     molsys = msm.convert(msm.demo['pentalanine']['traj.h5'], to_form='molsysmt.MolSys')
-    covalent_chains = msm.topology.get_covalent_dihedral_quartets(molsys, dihedral_angle="phi-psi",
+    covalent_chains = msm.topology.get_dihedral_quartets(molsys, dihedral_angle="phi-psi",
                                                  selection='group_index==[3,4]')
     dihedral_angles = msm.structure.get_dihedral_angles(molsys, quartets=covalent_chains)
     true_shape = (5000, 2)

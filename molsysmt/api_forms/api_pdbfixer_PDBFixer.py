@@ -111,6 +111,6 @@ def to_file_pdb(item, molecular_system=None, atom_indices='all', structure_indic
 
 
 def to_nglview_NGLWidget(item, molecular_system=None, atom_indices='all', structure_indices='all'):
-    from molsysmt.item.pdbfixer_PDBFixer import to_nglview_NLGWidget as pdbfixer_PDBFixer_to_nglview_NGLWidget
+    from molsysmt.item.pdbfixer_PDBFixer import to_nglview_NGLWidget as pdbfixer_PDBFixer_to_nglview_NGLWidget
 
     return pdbfixer_PDBFixer_to_nglview_NGLWidget(item, atom_indices=atom_indices)

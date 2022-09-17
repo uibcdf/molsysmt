@@ -16,5 +16,6 @@ from .to_openmm_Simulation import to_openmm_Simulation
 from .to_openmm_Context import to_openmm_Context
 from .to_openmm_PDBFile import to_openmm_PDBFile
 from .to_openmm_System import to_openmm_System
+from .to_pdbfixer_PDBFixer import to_pdbfixer_PDBFixer
 from .to_nglview_NGLWidget import to_nglview_NGLWidget
 

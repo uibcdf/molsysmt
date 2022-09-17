@@ -22,6 +22,7 @@ __github_issues_web__ = __github_web__ + '/issues'
 from ._pyunitwizard import puw as pyunitwizard
 
 from .basic import *
+from . import basic
 
 from . import item
 from . import element

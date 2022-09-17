@@ -2,7 +2,7 @@ from molsysmt._private.digestion import digest
 import numpy as np
 
 @digest()
-def get_covalent_dihedral_quartets(molecular_system, dihedral_angle=None, with_blocks=False, selection='all',
+def get_dihedral_quartets(molecular_system, dihedral_angle=None, with_blocks=False, selection='all',
                                syntax='MolSysMT'):
 
     from molsysmt.basic import get
@@ -26,9 +26,9 @@ def get_covalent_dihedral_quartets(molecular_system, dihedral_angle=None, with_b
         elif dihedral_angle=='chi5':
             chain=['atom_name=="CD"', 'atom_name=="NE"', 'atom_name=="CZ"', 'atom_name=="NH1"']
         elif dihedral_angle=='phi-psi':
-            tmp_phi = get_covalent_dihedral_quartets(molecular_system, dihedral_angle='phi',
+            tmp_phi = get_dihedral_quartets(molecular_system, dihedral_angle='phi',
                     with_blocks=with_blocks, selection=selection, syntax=syntax)
-            tmp_psi = get_covalent_dihedral_quartets(molecular_system, dihedral_angle='psi',
+            tmp_psi = get_dihedral_quartets(molecular_system, dihedral_angle='psi',
                     with_blocks=with_blocks, selection=selection, syntax=syntax)
             if not with_blocks:
                 tmp_angs = [ii for ii in [tmp_phi, tmp_psi] if ii.shape[0]>0]
@@ -41,11 +41,11 @@ def get_covalent_dihedral_quartets(molecular_system, dihedral_angle=None, with_b
                 tmp_blocks = np.vstack(tmp_blocks)
                 return tmp_angs, tmp_blocks
         elif dihedral_angle=='phi-psi-omega':
-            tmp_phi = get_covalent_dihedral_quartets(molecular_system, dihedral_angle='phi',
+            tmp_phi = get_dihedral_quartets(molecular_system, dihedral_angle='phi',
                     with_blocks=with_blocks, selection=selection, syntax=syntax)
-            tmp_psi = get_covalent_dihedral_quartets(molecular_system, dihedral_angle='psi',
+            tmp_psi = get_dihedral_quartets(molecular_system, dihedral_angle='psi',
                     with_blocks=with_blocks, selection=selection, syntax=syntax)
-            tmp_omega = get_covalent_dihedral_quartets(molecular_system, dihedral_angle='omega',
+            tmp_omega = get_dihedral_quartets(molecular_system, dihedral_angle='omega',
                     with_blocks=with_blocks, selection=selection, syntax=syntax)
             if not with_blocks:
                 tmp_angs = [ii for ii in [tmp_phi, tmp_psi, tmp_omega] if ii.shape[0]>0]
@@ -58,21 +58,21 @@ def get_covalent_dihedral_quartets(molecular_system, dihedral_angle=None, with_b
                 tmp_blocks = np.vstack(tmp_blocks)
                 return tmp_angs, tmp_blocks
         elif dihedral_angle=='all':
-            tmp_phi = get_covalent_dihedral_quartets(molecular_system, dihedral_angle='phi',
+            tmp_phi = get_dihedral_quartets(molecular_system, dihedral_angle='phi',
                     with_blocks=with_blocks, selection=selection, syntax=syntax)
-            tmp_psi = get_covalent_dihedral_quartets(molecular_system, dihedral_angle='psi',
+            tmp_psi = get_dihedral_quartets(molecular_system, dihedral_angle='psi',
                     with_blocks=with_blocks, selection=selection, syntax=syntax)
-            tmp_omega = get_covalent_dihedral_quartets(molecular_system, dihedral_angle='omega',
+            tmp_omega = get_dihedral_quartets(molecular_system, dihedral_angle='omega',
                     with_blocks=with_blocks, selection=selection, syntax=syntax)
-            tmp_chi1 = get_covalent_dihedral_quartets(molecular_system, dihedral_angle='chi1',
+            tmp_chi1 = get_dihedral_quartets(molecular_system, dihedral_angle='chi1',
                     with_blocks=with_blocks, selection=selection, syntax=syntax)
-            tmp_chi2 = get_covalent_dihedral_quartets(molecular_system, dihedral_angle='chi2',
+            tmp_chi2 = get_dihedral_quartets(molecular_system, dihedral_angle='chi2',
                     with_blocks=with_blocks, selection=selection, syntax=syntax)
-            tmp_chi3 = get_covalent_dihedral_quartets(molecular_system, dihedral_angle='chi3',
+            tmp_chi3 = get_dihedral_quartets(molecular_system, dihedral_angle='chi3',
                     with_blocks=with_blocks, selection=selection, syntax=syntax)
-            tmp_chi4 = get_covalent_dihedral_quartets(molecular_system, dihedral_angle='chi4',
+            tmp_chi4 = get_dihedral_quartets(molecular_system, dihedral_angle='chi4',
                     with_blocks=with_blocks, selection=selection, syntax=syntax)
-            tmp_chi5 = get_covalent_dihedral_quartets(molecular_system, dihedral_angle='chi5',
+            tmp_chi5 = get_dihedral_quartets(molecular_system, dihedral_angle='chi5',
                     with_blocks=with_blocks, selection=selection, syntax=syntax)
             if not with_blocks:
                 tmp_angs = [ii for ii in [tmp_phi, tmp_psi, tmp_omega, tmp_chi1, tmp_chi2, tmp_chi3, tmp_chi4, tmp_chi5] if ii.shape[0]>0]

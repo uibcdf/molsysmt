@@ -25,8 +25,8 @@ def standardize_view (view, atom_indices='all', structure_indices='all'):
     peptides_to_cartoon = []
     peptides_to_licorice = []
     for peptide_index in peptide_indices:
-        n_aminoacids = get(tmp_topology, element='molecule', indices=peptide_index, n_groups=True)[0]
-        if n_aminoacids > 4:
+        n_groups = get(tmp_topology, element='molecule', indices=peptide_index, n_groups=True)[0]
+        if n_groups > 5:
             peptides_to_cartoon.append(peptide_index)
         else:
             peptides_to_licorice.append(peptide_index)

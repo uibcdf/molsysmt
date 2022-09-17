@@ -8,11 +8,11 @@ from molsysmt.lib import geometry as libgeometry
 def get_dihedral_angles(molecular_system, dihedral_angle=None, selection='all', quartets=None,
                         structure_indices='all', syntax='MolSysMT', pbc=False):
 
-    from molsysmt.topology import get_covalent_dihedral_quartets
+    from molsysmt.topology import get_dihedral_quartets
 
     if quartets is None:
 
-        quartets = get_covalent_dihedral_quartets(molecular_system, dihedral_angle=dihedral_angle,
+        quartets = get_dihedral_quartets(molecular_system, dihedral_angle=dihedral_angle,
                                                   selection=selection, syntax=syntax)
 
     coordinates = get(molecular_system, element='system', structure_indices=structure_indices, coordinates=True)
