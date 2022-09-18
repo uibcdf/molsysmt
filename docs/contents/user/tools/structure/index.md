@@ -12,7 +12,6 @@
    get_min_max_distances.ipynb
    get_neighbors.ipynb
    get_radius_of_gyration.ipynb
-   get_ramachandran_angles.ipynb
    get_rmsd.ipynb
    get_sasa.ipynb
    translate.ipynb

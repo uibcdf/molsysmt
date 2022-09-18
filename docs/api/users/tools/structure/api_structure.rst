@@ -19,8 +19,6 @@ Structure
    get_maximum_distances
    get_minimum_distances
    get_neighbors
-   get_radius_of_gyration
-   get_ramachandran_angles
    get_rmsd
    get_sasa
    iterator

@@ -42,7 +42,7 @@ def view(molecular_system=None, viewer='NGLView', selection='all', structure_ind
 
         htmlfile = stack()[2][0].f_locals['nglview_htmlfiles'].pop(0)
 
-        return load_html_in_jupyter_notebook('_static/nglview/'+htmlfile)
+        return load_html_in_jupyter_notebook(htmlfile)
     
     return tmp_item
 

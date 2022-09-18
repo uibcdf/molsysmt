@@ -12,7 +12,6 @@ from .rotate import rotate
 from .get_dihedral_angles import get_dihedral_angles
 from .set_dihedral_angles import set_dihedral_angles
 from .shift_dihedral_angles import shift_dihedral_angles
-from .get_ramachandran_angles import get_ramachandran_angles
 #from .get_radius_of_gyration import get_radius_of_gyration
 from .get_rmsd import get_rmsd
 from .get_least_rmsd import get_least_rmsd

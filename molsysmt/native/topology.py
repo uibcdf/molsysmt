@@ -68,6 +68,7 @@ class Topology():
             mask_atom2 = np.in1d(bond_atom2, atom_indices)
             mask = mask_atom1*mask_atom2
             tmp_item.bonds_dataframe = self.bonds_dataframe[mask].copy()
+            tmp_item.bonds_dataframe.reset_index(drop=True, inplace=True)
             del(bond_atom1, bond_atom2, mask_atom1, mask_atom2)
 
             n_atoms=tmp_item.atoms_dataframe.shape[0]

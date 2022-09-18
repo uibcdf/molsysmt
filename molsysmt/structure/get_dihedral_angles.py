@@ -5,19 +5,19 @@ from molsysmt.basic import get
 from molsysmt.lib import geometry as libgeometry
 
 @digest()
-def get_dihedral_angles(molecular_system, dihedral_angle=None, selection='all', quartets=None,
-                        structure_indices='all', syntax='MolSysMT', pbc=False):
+def get_dihedral_angles(molecular_system, selection='all', quartets=None,
+                        structure_indices='all', syntax='MolSysMT', pbc=False, **kwargs):
+
+    # phi, psi, omega, chi1, chi2, chi3, chi4, chi5
+
+    dihedral_angles = []
+    for key in kwargs.keys():
+        if kwargs[key]:
+            dihedral_angles.append(key)
 
     from molsysmt.topology import get_dihedral_quartets
 
-    if quartets is None:
-
-        quartets = get_dihedral_quartets(molecular_system, dihedral_angle=dihedral_angle,
-                                                  selection=selection, syntax=syntax)
-
     coordinates = get(molecular_system, element='system', structure_indices=structure_indices, coordinates=True)
-
-    n_angles = quartets.shape[0]
     n_structures = coordinates.shape[0]
     n_atoms = coordinates.shape[1]
 
@@ -42,7 +42,33 @@ def get_dihedral_angles(molecular_system, dihedral_angle=None, selection='all', 
     box = np.asfortranarray(puw.get_value(box, to_unit='nm'), dtype='float64')
     coordinates = np.asfortranarray(puw.get_value(coordinates, to_unit='nm'), dtype='float64')
 
-    angles = libgeometry.dihedral_angles(coordinates, box, orthogonal, int(pbc), quartets, n_angles, n_atoms, n_structures)
-    angles = np.ascontiguousarray(angles)*puw.unit('degrees')
+    if quartets is not None:
 
-    return angles
+        n_angles = quartets.shape[0]
+
+        angles = libgeometry.dihedral_angles(coordinates, box, orthogonal, int(pbc), quartets, n_angles, n_atoms, n_structures)
+        angles = np.ascontiguousarray(angles)*puw.unit('degrees')
+
+        return angles
+
+    else:
+
+        all_angles = []
+
+        for dihedral_angle in dihedral_angles:
+
+            quartets = get_dihedral_quartets(molecular_system, selection=selection, syntax=syntax, **{dihedral_angle:True})
+
+            n_angles = quartets.shape[0]
+
+            angles = libgeometry.dihedral_angles(coordinates, box, orthogonal, int(pbc), quartets, n_angles, n_atoms, n_structures)
+            angles = np.ascontiguousarray(angles)*puw.unit('degrees')
+
+            all_angles.append(angles)
+
+        if len(dihedral_angles)==0:
+            all_angles = None
+        elif len(dihedral_angles)==1:
+            all_angles = all_angles[0]
+
+        return all_angles

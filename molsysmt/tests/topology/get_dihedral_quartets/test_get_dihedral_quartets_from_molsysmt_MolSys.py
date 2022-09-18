@@ -11,7 +11,7 @@ import numpy as np
 
 def test_get_dihedral_quartets_from_molsysmt_MolSys_1():
     molsys = msm.convert(msm.demo['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
-    chains = msm.topology.get_dihedral_quartets(molsys, dihedral_angle='phi')
+    chains = msm.topology.get_dihedral_quartets(molsys, phi=True)
     true_value_1 = np.array([[ 2,  9, 10, 11],
        [11, 16, 17, 18],
        [18, 25, 26, 27],
@@ -35,7 +35,7 @@ def test_get_dihedral_quartets_from_molsysmt_MolSys_1():
 
 def test_get_dihedral_quartets_from_molsysmt_MolSys_2():
     molsys = msm.convert(msm.demo['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
-    chains = msm.topology.get_dihedral_quartets(molsys, dihedral_angle='psi', selection='10<=group_index<=15')
+    chains = msm.topology.get_dihedral_quartets(molsys, selection='10<=group_index<=15', psi=True)
     true_value_1 = np.array([[ 77,  78,  79,  86],
        [ 86,  87,  88,  92],
        [ 92,  93,  94, 100],
@@ -46,7 +46,7 @@ def test_get_dihedral_quartets_from_molsysmt_MolSys_2():
 
 def test_get_dihedral_quartets_from_molsysmt_MolSys_3():
     molsys = msm.convert(msm.demo['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
-    chains = msm.topology.get_dihedral_quartets(molsys, dihedral_angle='chi5')
+    chains = msm.topology.get_dihedral_quartets(molsys, chi5=True)
     true_value_1 = np.array([[1572, 1573, 1574, 1575],
        [1666, 1667, 1668, 1669],
        [1721, 1722, 1723, 1724],
@@ -59,7 +59,8 @@ def test_get_dihedral_quartets_from_molsysmt_MolSys_3():
 
 def test_get_dihedral_quartets_from_molsysmt_MolSys_4():
     molsys = msm.convert(msm.demo['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
-    chains = msm.topology.get_dihedral_quartets(molsys, dihedral_angle='phi-psi')
+    chains = msm.topology.get_dihedral_quartets(molsys, phi=True, psi=True)
+    chains = np.vstack(chains)
     true_value_1 = np.array([[ 2,  9, 10, 11],
        [11, 16, 17, 18],
        [18, 25, 26, 27],
@@ -81,33 +82,9 @@ def test_get_dihedral_quartets_from_molsysmt_MolSys_4():
     check_value_3 = np.all(true_value_3==chains[800:805,:])
     assert check_shape_1 and check_value_1 and check_value_2 and check_value_3
 
-def test_get_dihedral_quartets_from_molsysmt_MolSys_5():
-    molsys = msm.convert(msm.demo['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
-    chains = msm.topology.get_dihedral_quartets(molsys, dihedral_angle='all')
-    true_value_1 = np.array([[ 2,  9, 10, 11],
-       [11, 16, 17, 18],
-       [18, 25, 26, 27],
-       [27, 32, 33, 34],
-       [34, 40, 41, 42]])
-    true_value_2 = np.array([[ 78,  79,  86,  87],
-       [ 87,  88,  92,  93],
-       [ 93,  94, 100, 101],
-       [101, 102, 104, 105],
-       [105, 106, 110, 111]])
-    true_value_3 = np.array([[1594, 1597, 1598, 1599],
-       [1639, 1642, 1643, 1644],
-       [1648, 1651, 1652, 1653],
-       [1661, 1664, 1665, 1666],
-       [1679, 1682, 1683, 1684]])
-    check_shape_1 = np.all((2362, 4)==chains.shape)
-    check_value_1 = np.all(true_value_1==chains[:5,:])
-    check_value_2 = np.all(true_value_2==chains[1000:1005,:])
-    check_value_3 = np.all(true_value_3==chains[2000:2005,:])
-    assert check_shape_1 and check_value_1 and check_value_2 and check_value_3
-
 def test_get_dihedral_quartets_from_molsysmt_MolSys_6():
     molsys = msm.convert(msm.demo['Met-enkephalin']['vacuum.msmpk'], to_form='molsysmt.MolSys')
-    phi_chains, phi_blocks = msm.topology.get_dihedral_quartets(molsys, dihedral_angle='phi', with_blocks=True)
+    phi_chains, phi_blocks = msm.topology.get_dihedral_quartets(molsys, with_blocks=True, phi=True)
     true_value_1 = np.array([33, 35, 37, 53])
     true_value_2 = np.array([{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36},
        {37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71}], dtype=object)

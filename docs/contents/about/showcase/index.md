@@ -4,8 +4,9 @@
 .. toctree::
    :maxdepth: 1
 
-   Quick_guide.ipynb
+   Quickstart_guide.ipynb
    Barnase_Barstar.ipynb
    Polyglot_selection.ipynb
-   working_with/index.rst
+   OpenMM.ipynb
+   NGLView.ipynb
 ```
