@@ -62,6 +62,17 @@ extensions = [
     'myst_nb'
 ]
 
+# Myst extensions and options
+
+myst_enable_extensions = [
+    'dollarmath',
+    'amsmath'
+]
+
+myst_heading_anchors = 3
+
+# Autosummary options
+
 autosummary_generate = True
 napoleon_google_docstring = False
 napoleon_use_param = False

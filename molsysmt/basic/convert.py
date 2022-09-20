@@ -49,7 +49,7 @@ def convert(molecular_system,
     See Also
     --------
 
-    :func:`molsysmt.load`, :func:`molsysmt.select`
+    :func:`molsysmt.basic.select`
 
     Notes
     -----
