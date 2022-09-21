@@ -21,4 +21,7 @@ dependencies:
 - sphinx
 - sphinx_rtd_theme
 - sphinxcontrib-bibtex
+- sphinx-remove-toctrees
+- sphinx-copybutton
 - myst-nb
+- seaborn
