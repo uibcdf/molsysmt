@@ -18,3 +18,4 @@ dependencies:
 - networkx
 - mdtraj
 - biopython
+- ipywidgets <8

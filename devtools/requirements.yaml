@@ -25,6 +25,7 @@ production:
     - networkx
     - mdtraj
     - biopython
+    - ipywidgets <8
 
 test:
   channels: &test_channels

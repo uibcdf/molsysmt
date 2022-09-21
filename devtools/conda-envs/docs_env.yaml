@@ -18,6 +18,7 @@ dependencies:
 - networkx
 - mdtraj
 - biopython
+- ipywidgets <8
 - sphinx
 - sphinx_rtd_theme
 - sphinxcontrib-bibtex
