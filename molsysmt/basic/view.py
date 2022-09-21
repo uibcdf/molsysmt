@@ -1,4 +1,7 @@
 from molsysmt._private.digestion import digest
+from molsysmt import __sphinxworking__
+from molsysmt.thirds.nglview import load_html_in_jupyter_notebook
+from inspect import stack
 
 @digest()
 def view(molecular_system=None, viewer='NGLView', selection='all', structure_indices='all',
@@ -35,5 +38,12 @@ def view(molecular_system=None, viewer='NGLView', selection='all', structure_ind
             from molsysmt.thirds.nglview import show_system_as_transparent_surface
             show_system_as_transparent_surface(tmp_item)
 
+    if __sphinxworking__:
+
+        htmlfile = stack()[2][0].f_locals['nglview_htmlfiles'].pop(0)
+
+        return load_html_in_jupyter_notebook(htmlfile)
+    
     return tmp_item
+
 

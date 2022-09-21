@@ -10,10 +10,9 @@ def convert(molecular_system,
             structure_indices='all',
             syntax='MolSysMT',
             **kwargs):
-
     """convert(item, to_form='molsysmt.MolSys', selection='all', structure_indices='all', syntax='MolSysMT', **kwargs)
 
-    Convert a molecular model into other form.
+    Convert an input form of a molecular system into other form.
 
     A molecular model in a given accepted form can be converted into any other supported form
     by MolSysMt. The list of supported forms can be found in the section 'XXX'.
@@ -50,7 +49,7 @@ def convert(molecular_system,
     See Also
     --------
 
-    :func:`molsysmt.load`, :func:`molsysmt.select`
+    :func:`molsysmt.basic.select`
 
     Notes
     -----
@@ -112,7 +111,8 @@ def convert(molecular_system,
     if tmp_item is None:
 
         from_form = get_form(molecular_system)
-        from_form = digest_output(from_form)
+        if len(from_form)==1:
+            from_form=from_form[0]
         raise NotImplementedConversionError(from_form, to_form)
 
     return tmp_item

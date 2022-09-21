@@ -7,13 +7,15 @@ def to_pdbfixer_PDBFixer(item, atom_indices='all', structure_indices='all'):
     from pdbfixer.pdbfixer import PDBFixer
     from . import extract
 
-    tmp_item = extract(item, atom_indices=atom_indices, structure_indices=structure_indices)
+    tmp_item = extract(item, atom_indices=atom_indices, structure_indices=structure_indices,
+            copy_if_all=False)
 
     tmp_io = StringIO()
     tmp_io.write(tmp_item)
-    tmp_io.close()
+    tmp_io.seek(0)
+    #tmp_io.close()
 
-    tmp_item = PDBFixer(pdbfile=tmp_item)
+    tmp_item = PDBFixer(pdbfile=tmp_io)
 
     return tmp_item
 

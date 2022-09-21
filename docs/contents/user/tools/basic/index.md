@@ -4,24 +4,24 @@
 .. toctree::
    :maxdepth: 2
 
-   is_a_molecular_system.ipynb
-   has_attribute.ipynb
-   where_is_attribute.ipynb
-   get_form.ipynb
-   info.ipynb
-   selection.ipynb
-   get.ipynb
-   set.ipynb
-   contains.ipynb
-   is_composed_of.ipynb
-   compare.ipynb
-   convert.ipynb
-   extract.ipynb
-   copy.ipynb
-   merge.ipynb
-   remove.ipynb
    add.ipynb
    append_frames.ipynb
+   compare.ipynb
    concatenate_frames.ipynb
+   contains.ipynb
+   convert.ipynb
+   copy.ipynb
+   extract.ipynb
+   get.ipynb
+   get_form.ipynb
+   has_attribute.ipynb
+   info.ipynb
+   is_a_molecular_system.ipynb
+   is_composed_of.ipynb
+   merge.ipynb
+   remove.ipynb
+   selection.ipynb
+   set.ipynb
    view.ipynb
+   where_is_attribute.ipynb
 ```

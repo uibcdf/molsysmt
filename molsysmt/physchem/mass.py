@@ -6,10 +6,7 @@ import numpy as np
 def mass(molecular_system, element ='atom', selection = 'all', syntax = 'MolSysMT'):
 
     from molsysmt.basic import get
-    from molsysmt.physico_chemical_properties.atoms.mass import physical, units
-    from molsysmt._private._digestion import digest_element
-
-    element = digest_element(element)
+    from molsysmt.physchem.atoms.mass import physical, units
 
     values=physical
 

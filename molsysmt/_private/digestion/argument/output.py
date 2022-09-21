@@ -14,6 +14,12 @@ def digest_output(output, caller=None):
             if output.lower() in ['numpy.ndarray', 'dict']:
                 return output.lower()
 
+    elif caller=='molsysmt.structure.get_neighbors.get_neighbors':
+
+        if isinstance(output, str):
+            if output.lower() in ['numpy.ndarray', 'dict']:
+                return output.lower()
+
     elif caller=='molsysmt.structure.get_contacts.get_contacts':
 
         if isinstance(output, str):

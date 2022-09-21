@@ -1,6 +1,8 @@
 # Minimal makefile for Sphinx documentation
 #
 
+export SPHINXWORKING=True
+
 # You can set these variables from the command line.
 SPHINXOPTS    = -j auto
 SPHINXBUILD   = sphinx-build

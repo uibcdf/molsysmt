@@ -110,6 +110,13 @@ def to_openmm_Modeller(item, molecular_system, atom_indices='all', structure_ind
                                                 structure_indices=structure_indices)
 
 
+def to_pytraj_Trajectory(item, molecular_system, atom_indices='all', structure_indices='all'):
+    from molsysmt.item.mdtraj_Trajectory import to_pytraj_Trajectory as mdtraj_Trajectory_to_pytraj_Trajectory
+
+    return mdtraj_Trajectory_to_pytraj_Trajectory(item, atom_indices=atom_indices,
+                                                  structure_indices=structure_indices)
+
+
 def to_parmed_Structure(item, molecular_system, atom_indices='all', structure_indices='all'):
     from molsysmt.item.mdtraj_Trajectory import to_parmed_Structures as mdtraj_Trajectory_to_parmed_Structures
 

@@ -59,9 +59,16 @@ def info(molecular_system,
     -----
 
     """
-    # TODO: this function contains a lot of duplicate code
-    from . import get_form, get
+
+    from . import get_form, get, convert
     from molsysmt.element import elements_to_string
+
+    # Some forms should be converted to make this function faster
+
+    form = get_form(molecular_system)
+
+    if form in ['string:pdb_id', 'file:pdb']:
+        molecular_system = convert(molecular_system)
 
     if output == 'dataframe':
 
@@ -206,8 +213,6 @@ def info(molecular_system,
                        }).style.hide(axis='index')
 
         elif element == 'system':
-
-            form = get_form(molecular_system)
 
             n_atoms, n_groups, n_components, n_chains, n_molecules, n_entities, n_structures, \
             n_ions, n_waters, n_small_molecules, n_peptides, n_proteins, n_dnas, \
@@ -360,3 +365,4 @@ def info(molecular_system,
     else:
 
         raise ValueError()
+

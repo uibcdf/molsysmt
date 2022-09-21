@@ -3,8 +3,8 @@ from molsysmt._private.digestion import digest
 import numpy as np
 
 @digest()
-def align(molecular_system, selection='backbone', structure_indices='all',
-          reference_molecular_system=None, reference_selection='backbone', reference_structure_index=0,
+def align(molecular_system, selection='atom_name=="CA"', structure_indices='all',
+          reference_molecular_system=None, reference_selection='atom_name=="CA"', reference_structure_index=0,
           syntax='MolSysMT', method='sequence alignment and least rmsd fit',
           engine_sequence_alignment = 'Biopython', engine_least_rmsd_fit = 'MolSysMT'):
 
