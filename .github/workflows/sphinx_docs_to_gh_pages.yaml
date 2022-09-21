@@ -6,6 +6,9 @@ on:
 
   workflow_dispatch:
 
+env:
+  SPHINXWORKING: True
+
 jobs:
   sphinx_docs_to_gh-pages:
     runs-on: ubuntu-latest
