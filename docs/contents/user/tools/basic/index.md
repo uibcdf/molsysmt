@@ -5,9 +5,9 @@
    :maxdepth: 2
 
    add.ipynb
-   append_frames.ipynb
+   append_structures.ipynb
    compare.ipynb
-   concatenate_frames.ipynb
+   concatenate_structures.ipynb
    contains.ipynb
    convert.ipynb
    copy.ipynb
