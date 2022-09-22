@@ -15,6 +15,8 @@ from .to_openmm_Topology import to_openmm_Topology
 from .to_openmm_Modeller import to_openmm_Modeller
 from .to_openmm_Simulation import to_openmm_Simulation
 from .to_openmm_System import to_openmm_System
+from .to_pytraj_Topology import to_pytraj_Topology
+from .to_pytraj_Trajectory import to_pytraj_Trajectory
 from .to_biopython_Seq import to_biopython_Seq
 from .to_biopython_SeqRecord import to_biopython_SeqRecord
 from .to_pdbfixer_PDBFixer import to_pdbfixer_PDBFixer

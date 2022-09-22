@@ -7,4 +7,5 @@ from .get import *
 from .set import *
 
 from .to_molsysmt_Topology import to_molsysmt_Topology
+from .to_pytraj_Trajectory import to_pytraj_Trajectory
 

@@ -1,5 +1,6 @@
 from molsysmt._private.exceptions import LibraryNotFoundError
 from molsysmt._private.digestion import digest
+import numpy as np
 
 @digest(form='molsysmt.Topology')
 def to_pytraj_Topology(item, atom_indices='all'):
@@ -52,8 +53,8 @@ def to_pytraj_Topology(item, atom_indices='all'):
         atom_name = atom_name_array[ii]
         atom_id = atom_id_array[ii]
         atom_type = atom_type_array[ii]
-        atom_charge = atom_charge_array[ii]
-        atom_mass = atom_mass_array[ii]
+        atom_charge = charge_atom_array[ii]
+        atom_mass = mass_atom_array[ii]
 
         group_index = group_index_array[ii]
         chain_index = chain_index_array[ii]
@@ -72,7 +73,7 @@ def to_pytraj_Topology(item, atom_indices='all'):
 
         tmp_item.add_atom(atom, residue)
 
-    bonds = np.column_stack(bonds_atom1, bonds_atom2)
+    bonds = np.column_stack([bonds_atom1, bonds_atom2])
     tmp_item.add_bonds(bonds)
 
     return tmp_item

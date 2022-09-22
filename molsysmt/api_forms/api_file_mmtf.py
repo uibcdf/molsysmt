@@ -111,3 +111,10 @@ def to_file_pdb(item, molecular_system=None, atom_indices='all', structure_indic
                                      structure_indices=structure_indices,
                                      output_filename=output_filename)
 
+def to_string_pdb_text(item, molecular_system=None, atom_indices='all', structure_indices='all'):
+
+    from molsysmt.item.file_mmtf import to_string_pdb_text as file_mmtf_to_string_pdb_text
+
+    return file_mmtf_to_string_pdb_text(item, atom_indices=atom_indices,
+                                        structure_indices=structure_indices)
+

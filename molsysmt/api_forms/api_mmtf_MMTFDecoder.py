@@ -55,6 +55,11 @@ def to_file_pdb(item, molecular_system, atom_indices='all', structure_indices='a
     return mmtf_MMTFDecoder_to_file_pdb(item, atom_indices=atom_indices, structure_indices=structure_indices,
                                         output_filename=output_filename)
 
+def to_string_pdb_text(item, molecular_system, atom_indices='all', structure_indices='all'):
+    from molsysmt.item.mmtf_MMTFDecoder import to_string_pdb_text as mmtf_MMTFDecoder_to_string_pdb_text
+
+    return mmtf_MMTFDecoder_to_string_pdb_text(item, atom_indices=atom_indices, structure_indices=structure_indices)
+
 
 def to_molsysmt_MolSys(item, molecular_system, atom_indices='all', structure_indices='all', bioassembly_name=None):
     from molsysmt.item.mmtf_MMTFDecoder import to_molsysmt_MolSys as mmtf_MMTFDecoder_to_molsysmt_MolSys

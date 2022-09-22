@@ -185,6 +185,12 @@ def to_pytraj_Topology(item, molecular_system, atom_indices='all', structure_ind
     return molsysmt_MolSys_to_pytraj_Topology(item, atom_indices=atom_indices)
 
 
+def to_pytraj_Trajectory(item, molecular_system, atom_indices='all', structure_indices='all'):
+    from molsysmt.item.molsysmt_MolSys import to_pytraj_Trajectory as molsysmt_MolSys_to_pytraj_Trajectory
+
+    return molsysmt_MolSys_to_pytraj_Trajectory(item, atom_indices=atom_indices, structure_indices=structure_indices)
+
+
 def to_nglview_NGLWidget(item, molecular_system, atom_indices='all', structure_indices='all'):
     from molsysmt.item.molsysmt_MolSys import to_nglview_NGLWidget as molsysmt_MolSys_to_nglview_NGLWidget
 
