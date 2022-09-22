@@ -2,9 +2,14 @@ from ...exceptions import ArgumentError
 import numpy as np
 from molsysmt import pyunitwizard as puw
 
+methods_where_bool = [
+    'molsysmt.basic.get.get',
+    'molsysmt.basic.compare.compare'
+]
+
 def digest_coordinates(coordinates, caller=None):
 
-    if caller == 'molsysmt.basic.get.get':
+    if caller in methods_where_bool:
         if isinstance(coordinates, bool):
             return coordinates
 
