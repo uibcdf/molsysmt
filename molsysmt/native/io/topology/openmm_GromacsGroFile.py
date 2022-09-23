@@ -1,6 +1,6 @@
 def from_openmm_GromacsGroFile(item, molecular_system=None, atom_indices='all', structure_indices='all'):
 
-    from molsysmt.api_forms.api_openmm_GromacsGroFile import to_openmm_Topology as openmm_GromacsGroFile_to_openmm_Topology
+    from molsysmt.api_items.api_openmm_GromacsGroFile import to_openmm_Topology as openmm_GromacsGroFile_to_openmm_Topology
     from .openmm_Topology import from_openmm_Topology as openmm_Topology_to_molsysmt_Topology
 
     tmp_item, tmp_molecular_system = openmm_GromacsGroFile_to_openmm_Topology(item,

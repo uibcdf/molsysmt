@@ -55,7 +55,7 @@ def to_molsysmt_Structures(item, molecular_system, atom_indices='all', structure
 
 
 def to_molsysmt_MolSys(item, molecular_system, atom_indices='all', structure_indices='all'):
-    from molsysmt.item.nglview_NGLWidget import to_molsysmt_Structures as nglview_NGLWidget_to_molsysmt_Structures
+    from molsysmt.item.nglview_NGLWidget import to_molsysmt_MolSys as nglview_NGLWidget_to_molsysmt_MolSys
 
     return nglview_NGLWidget_to_molsysmt_MolSys(item, atom_indices=atom_indices, structure_indices=structure_indices)
 

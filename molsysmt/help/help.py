@@ -1,6 +1,6 @@
 from molsysmt._private.exceptions import *
-from molsysmt.api_forms import dict_type, dict_convert, dict_info
-from molsysmt.api_forms import forms as _forms
+from molsysmt.api_items import dict_type, dict_convert, dict_info
+from molsysmt.api_items import forms as _forms
 
 dict_forms_of_type = { ii:[] for ii in ['class', 'string', 'file']}
 

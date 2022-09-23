@@ -1,7 +1,7 @@
 def from_XYZ(item, molecular_system=None, atom_indices='all', structure_indices='all'):
 
     from molsysmt.native.trajectory import Trajectory
-    from molsysmt.api_forms.api_XYZ import get_coordinates_from_atom
+    from molsysmt.api_items.api_XYZ import get_coordinates_from_atom
     tmp_item = Trajectory()
     coordinates = get_coordinates_from_atom(item, indices=atom_indices, structure_indices=structure_indices)
     tmp_item.append_structures(coordinates=coordinates)

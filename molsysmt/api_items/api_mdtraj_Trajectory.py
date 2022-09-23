@@ -117,6 +117,12 @@ def to_pytraj_Trajectory(item, molecular_system, atom_indices='all', structure_i
                                                   structure_indices=structure_indices)
 
 
+def to_pytraj_Topology(item, molecular_system, atom_indices='all', structure_indices='all'):
+    from molsysmt.item.mdtraj_Trajectory import to_pytraj_Topology as mdtraj_Trajectory_to_pytraj_Topology
+
+    return mdtraj_Trajectory_to_pytraj_Topology(item, atom_indices=atom_indices)
+
+
 def to_parmed_Structure(item, molecular_system, atom_indices='all', structure_indices='all'):
     from molsysmt.item.mdtraj_Trajectory import to_parmed_Structures as mdtraj_Trajectory_to_parmed_Structures
 

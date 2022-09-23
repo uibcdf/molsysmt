@@ -63,7 +63,7 @@ def set(molecular_system,
 
     from . import select, where_is_attribute
     from molsysmt._private.variables import is_all
-    from molsysmt.api_forms import dict_set
+    from molsysmt.api_items import dict_set
 
     value_of_attribute = {}
     for key in kwargs.keys():

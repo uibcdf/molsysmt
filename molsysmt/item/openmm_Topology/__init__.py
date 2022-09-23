@@ -18,4 +18,5 @@ from .to_openmm_PDBFile import to_openmm_PDBFile
 from .to_openmm_System import to_openmm_System
 from .to_pdbfixer_PDBFixer import to_pdbfixer_PDBFixer
 from .to_nglview_NGLWidget import to_nglview_NGLWidget
-
+from .to_string_aminoacids1 import to_string_aminoacids1
+from .to_string_aminoacids3 import to_string_aminoacids3

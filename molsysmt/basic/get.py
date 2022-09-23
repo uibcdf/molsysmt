@@ -63,7 +63,7 @@ def get(molecular_system,
     """
 
     from .. import select, where_is_attribute
-    from molsysmt.api_forms import dict_get
+    from molsysmt.api_items import dict_get
 
     arguments = []
     for key in kwargs.keys():

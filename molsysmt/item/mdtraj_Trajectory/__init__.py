@@ -20,6 +20,7 @@ from .to_molsysmt_Topology import to_molsysmt_Topology
 from .to_nglview_NGLWidget import to_nglview_NGLWidget
 from .to_parmed_Structure import to_parmed_Structure
 from .to_pytraj_Trajectory import to_pytraj_Trajectory
+from .to_pytraj_Topology import to_pytraj_Topology
 from .to_string_aminoacids1 import to_string_aminoacids1
 from .to_string_aminoacids3 import to_string_aminoacids3
 

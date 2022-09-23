@@ -67,7 +67,7 @@ def info(molecular_system,
 
     form = get_form(molecular_system)
 
-    if form in ['string:pdb_id', 'file:pdb']:
+    if form in ['string:pdb_id', 'file:pdb', 'nglview.NGLWidget']:
         molecular_system = convert(molecular_system)
 
     if output == 'dataframe':

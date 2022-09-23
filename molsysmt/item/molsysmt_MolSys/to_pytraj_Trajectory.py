@@ -11,7 +11,7 @@ def to_pytraj_Trajectory(item, atom_indices='all', structure_indices='all'):
     box = get_box_from_system(item, structure_indices=structure_indices)
 
     tmp_item = to_pytraj_Topology(item, atom_indices=atom_indices)
-    tmp_item = pytraj_Topology_to_pytraj_Trajectory(tmp_item, atom_indices=atom_indices, coordinates=coordinates, box=box)
+    tmp_item = pytraj_Topology_to_pytraj_Trajectory(tmp_item, coordinates=coordinates, box=box)
 
     return tmp_item
 

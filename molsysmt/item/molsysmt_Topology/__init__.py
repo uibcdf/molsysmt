@@ -13,4 +13,6 @@ from .to_file_pdb import to_file_pdb
 from .to_openmm_Topology import to_openmm_Topology
 from .to_pytraj_Topology import to_pytraj_Topology
 from .to_mdtraj_Topology import to_mdtraj_Topology
+from .to_nglview_NGLWidget import to_nglview_NGLWidget
+from .to_molsysmt_MolSys import to_molsysmt_MolSys
 

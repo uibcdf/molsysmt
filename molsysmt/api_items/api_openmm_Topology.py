@@ -163,3 +163,23 @@ def to_nglview_NGLWidget(item, molecular_system=None, atom_indices='all', struct
     coordinates = get(molecular_system, structure_indices=structure_indices, atom_indices=atom_indices,
                       coordinates=True)
     return openmm_Topology_to_nglview_NGLWidget(item, atom_indices=atom_indices, coordinates=coordinates)
+
+
+def to_string_aminoacids3(item, molecular_system, atom_indices='all', structure_indices='all'):
+    from molsysmt.item.openmm_Topology import to_string_aminoacids3 as openmm_Topology_to_string_aminoacids3
+    from molsysmt.item.openmm_Topology import get_group_index_from_atom
+
+    group_indices = get_group_index_from_atom(item, indices=atom_indices)
+    group_indices = np.unique(group_indices)
+    return openmm_Topology_to_string_aminoacids3(item, group_indices=group_indices)
+
+
+def to_string_aminoacids1(item, molecular_system, atom_indices='all', structure_indices='all'):
+    from molsysmt.item.openmm_Topology import to_string_aminoacids1 as openmm_Topology_to_string_aminoacids1
+    from molsysmt.item.openmm_Topology import get_group_index_from_atom
+
+    group_indices = get_group_index_from_atom(item, indices=atom_indices)
+    group_indices = np.unique(group_indices)
+    return openmm_Topology_to_string_aminoacids1(item, group_indices=group_indices)
+
+

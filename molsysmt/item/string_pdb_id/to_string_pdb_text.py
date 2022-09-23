@@ -3,11 +3,11 @@ from molsysmt._private.digestion import digest
 @digest(form='string:pdb_id')
 def to_string_pdb_text(item, atom_indices='all', structure_indices='all'):
 
-    from ..file_pdb import download as download_file_pdb
+    from . import to_file_pdb
     from ..string_pdb_text import extract as extract_string_pdb_text
     from os import remove
 
-    tmp_item = download_file_pdb(item.replace('pdb_id:', ''), output_filename)
+    tmp_item = to_file_pdb(item)
 
     tmp_file = tmp_item
     fff = open(tmp_item, 'r')

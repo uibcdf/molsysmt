@@ -6,6 +6,7 @@ def to_molsysmt_Topology(item, atom_indices='all'):
     from molsysmt.native import Topology
     from numpy import empty, array, arange, reshape, where, unique, nan, sort, zeros
     from molsysmt.element.group import get_group_type_from_group_name
+    from ..molsysmt_Topology import extract
 
     tmp_item = Topology()
 
@@ -104,6 +105,10 @@ def to_molsysmt_Topology(item, atom_indices='all'):
     ## nan to None
 
     tmp_item._nan_to_None()
+
+    ## extract if atom_indices is not 'all'
+    
+    tmp_item = extract(tmp_item, atom_indices=atom_indices, copy_if_all=False)
 
     return tmp_item
 

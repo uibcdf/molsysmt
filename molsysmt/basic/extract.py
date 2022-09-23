@@ -46,7 +46,7 @@ def extract(molecular_system, selection='all', structure_indices='all', to_form=
     """
 
     from . import get_form, select, convert
-    from molsysmt.api_forms import dict_extract
+    from molsysmt.api_items import dict_extract
 
     if to_form is not None:
 

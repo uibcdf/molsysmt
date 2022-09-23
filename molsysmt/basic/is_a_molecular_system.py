@@ -4,7 +4,7 @@ from molsysmt._private.digestion import digest
 def is_a_molecular_system(items):
 
     from . import get_form, get
-    from molsysmt.api_forms import dict_attributes
+    from molsysmt.api_items import dict_attributes
 
     if isinstance(items, (list, tuple)):
         for item in items:

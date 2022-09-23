@@ -368,7 +368,7 @@ def get_n_entities_from_system(item):
 @digest(form=form)
 def get_n_structures_from_system(item):
 
-    raise NotWithThisFormError()
+    return None
 
 @digest(form=form)
 def get_n_bonds_from_system(item):

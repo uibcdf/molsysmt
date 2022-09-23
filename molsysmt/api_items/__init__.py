@@ -25,7 +25,7 @@ string_apis = [filename.split('.')[0] for filename in os.listdir(current_dir) if
 
 for api_name in apis:
 
-    mod = import_module('molsysmt.api_forms.' + api_name)
+    mod = import_module('molsysmt.api_items.' + api_name)
 
     forms.append(mod.form_name)
 
