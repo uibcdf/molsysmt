@@ -10,7 +10,7 @@ from inspect import stack, getargvalues
 def select_standard(molecular_system, selection='all', syntax='MolSysMT'):
 
     from . import where_is_attribute
-    from molsysmt.api_items import dict_get
+    from molsysmt.api_forms import dict_get
 
     if type(selection)==str:
         if is_all(selection):
@@ -155,7 +155,7 @@ def select(molecular_system, selection='all', structure_indices='all', element='
     """
 
     from . import get_form, where_is_attribute, is_a_molecular_system
-    from molsysmt.api_items import dict_get
+    from molsysmt.api_forms import dict_get
 
     if is_all(mask):
         mask=None

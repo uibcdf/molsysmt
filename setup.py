@@ -76,14 +76,6 @@ ext_bonds = Extension(
     sources = ['molsysmt/lib/libbonds.f90'],
 )
 
-# ext_io_dcd = Extension(
-#     name = 'molsysmt.moldyn.Readers.MyIOformats.libdcdfile',
-#     extra_compile_args = [],
-#     libraries = [],
-#     language = 'f90',
-#     sources = ['molsysmt/moldyn/Readers/MyIOformats/libdcdfile.f90'],
-# )
-
 extensions_list=[]
 extensions_lib=[ext_com, ext_pbc, ext_box, ext_math, ext_geometry, ext_rmsd, ext_bonds]
 extensions_list.extend(extensions_lib)

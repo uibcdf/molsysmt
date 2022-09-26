@@ -5,7 +5,7 @@ def append_structures(to_molecular_system, from_molecular_systems, selections='a
         structure_indices='all', syntax='MolSysMT'):
 
     from . import get_form, convert, extract, get, are_multiple_molecular_systems, is_a_molecular_system
-    from molsysmt.api_items import dict_append_structures
+    from molsysmt.api_forms import dict_append_structures
 
     if not isinstance(to_molecular_system, (list, tuple)):
         to_molecular_system = [to_molecular_system]

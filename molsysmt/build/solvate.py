@@ -139,7 +139,7 @@ def solvate (molecular_system, box_shape="truncated octahedral", clearance='14.0
 
         from molsysmt.thirds.tleap import TLeap
         from molsysmt._private.files_and_directories import temp_directory, temp_filename
-        from molsysmt.item.file_pdb import replace_HETATM_by_ATOM_in_terminal_cappings
+        from molsysmt.form.file_pdb import replace_HETATM_by_ATOM_in_terminal_cappings
         from shutil import rmtree, copyfile
         from os import getcwd, chdir
         from molsysmt.basic import set as _set, select, remove, contains

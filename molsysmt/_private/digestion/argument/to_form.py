@@ -27,8 +27,8 @@ def digest_to_form(to_form, caller=None):
     if to_form is None:
         return None
 
-    from molsysmt.item import is_file
-    from molsysmt.api_items import _dict_forms_lowercase
+    from molsysmt.form import is_file
+    from molsysmt.api_forms import _dict_forms_lowercase
 
     if isinstance(to_form, (list, tuple)):
         return [digest_to_form(ii, caller=caller) for ii in to_form]

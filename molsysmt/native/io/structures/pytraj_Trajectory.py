@@ -2,7 +2,7 @@
 def from_pytraj_Trajectory(item, molecular_system=None, atom_indices='all', structure_indices='all'):
 
     from molsysmt.native.trajectory import Trajectory
-    from molsysmt.api_items.api_pytraj_Trajectory import get_frame_from_atom
+    from molsysmt.api_forms.api_pytraj_Trajectory import get_frame_from_atom
 
     tmp_item = Trajectory()
     step, time, coordinates, box = get_frame_from_atom(item, indices=atom_indices, structure_indices=structure_indices)

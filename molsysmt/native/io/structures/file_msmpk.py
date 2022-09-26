@@ -1,7 +1,7 @@
 def from_file_msmpk(item, molecular_system=None, atom_indices='all', structure_indices='all'):
 
-    from molsysmt.api_items.api_file_msmpk import to_molsysmt_MolSys as file_msmpk_to_molsysmt_MolSys
-    from molsysmt.api_items.api_molsysmt_MolSys import to_molsysmt_Structures as molsysmt_MolSys_to_molsysmt_Structures
+    from molsysmt.api_forms.api_file_msmpk import to_molsysmt_MolSys as file_msmpk_to_molsysmt_MolSys
+    from molsysmt.api_forms.api_molsysmt_MolSys import to_molsysmt_Structures as molsysmt_MolSys_to_molsysmt_Structures
 
     tmp_item, tmp_molecular_system = file_msmpk_to_molsysmt_MolSys(item,
             molecular_system=molecular_system, atom_indices=atom_indices,
