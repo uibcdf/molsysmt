@@ -34,3 +34,11 @@ def is_all(variable):
 
     return False
 
+
+def is_next(variable):
+
+    if isinstance(variable, str):
+        return variable in ['next', 'Next', 'NEXT']
+
+    return False
+

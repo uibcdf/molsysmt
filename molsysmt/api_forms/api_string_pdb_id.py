@@ -1,9 +1,9 @@
-from molsysmt.item.string_pdb_id.is_string_pdb_id import is_string_pdb_id as is_form
-from molsysmt.item.string_pdb_id.extract import extract
-from molsysmt.item.string_pdb_id.add import add
-from molsysmt.item.string_pdb_id.append_structures import append_structures
-from molsysmt.item.string_pdb_id.get import *
-from molsysmt.item.string_pdb_id.set import *
+from molsysmt.form.string_pdb_id.is_string_pdb_id import is_string_pdb_id as is_form
+from molsysmt.form.string_pdb_id.extract import extract
+from molsysmt.form.string_pdb_id.add import add
+from molsysmt.form.string_pdb_id.append_structures import append_structures
+from molsysmt.form.string_pdb_id.get import *
+from molsysmt.form.string_pdb_id.set import *
 from .form_attributes import form_attributes
 
 form_name = 'string:pdb_id'
@@ -36,7 +36,7 @@ form_attributes['box'] = True
 form_attributes['bioassemblies'] = True
 
 def to_file_pdb(item, molecular_system, atom_indices='all', structure_indices='all', output_filename=None):
-    from molsysmt.item.string_pdb_id import to_file_pdb as string_pdb_id_to_file_pdb
+    from molsysmt.form.string_pdb_id import to_file_pdb as string_pdb_id_to_file_pdb
 
     return string_pdb_id_to_file_pdb(item, atom_indices=atom_indices,
                                      structure_indices=structure_indices,
@@ -44,7 +44,7 @@ def to_file_pdb(item, molecular_system, atom_indices='all', structure_indices='a
 
 
 def to_file_mmtf(item, molecular_system, atom_indices='all', structure_indices='all', output_filename=None):
-    from molsysmt.item.string_pdb_id import to_file_mmtf as string_pdb_id_to_file_mmtf
+    from molsysmt.form.string_pdb_id import to_file_mmtf as string_pdb_id_to_file_mmtf
 
     return string_pdb_id_to_file_mmtf(item, atom_indices=atom_indices,
                                       structure_indices=structure_indices,
@@ -52,7 +52,7 @@ def to_file_mmtf(item, molecular_system, atom_indices='all', structure_indices='
 
 
 def to_file_msmpk(item, molecular_system, atom_indices='all', structure_indices='all', output_filename=None):
-    from molsysmt.item.string_pdb_id import to_file_msmpk as string_pdb_id_to_file_msmpk
+    from molsysmt.form.string_pdb_id import to_file_msmpk as string_pdb_id_to_file_msmpk
 
     return string_pdb_id_to_file_msmpk(item, atom_indices=atom_indices,
                                        structure_indices=structure_indices,
@@ -72,92 +72,92 @@ def to_file_fasta(item, molecular_system, atom_indices='all', structure_indices=
 
 
 def to_mmtf_MMTFDecoder(item, molecular_system, atom_indices='all', structure_indices='all'):
-    from molsysmt.item.string_pdb_id import to_mmtf_MMTFDecoder as string_pdb_id_to_mmtf_MMTFDecoder
+    from molsysmt.form.string_pdb_id import to_mmtf_MMTFDecoder as string_pdb_id_to_mmtf_MMTFDecoder
 
     return string_pdb_id_to_mmtf_MMTFDecoder(item, atom_indices=atom_indices, structure_indices=structure_indices)
 
 
 def to_molsysmt_MolSys(item, molecular_system, atom_indices='all', structure_indices='all',
         bioassembly_name=None):
-    from molsysmt.item.string_pdb_id import to_molsysmt_MolSys as string_pdb_id_to_molsysmt_MolSys
+    from molsysmt.form.string_pdb_id import to_molsysmt_MolSys as string_pdb_id_to_molsysmt_MolSys
 
     return string_pdb_id_to_molsysmt_MolSys(item, atom_indices=atom_indices,
             structure_indices=structure_indices, bioassembly_name=bioassembly_name)
 
 
 def to_molsysmt_Topology(item, molecular_system, atom_indices='all', structure_indices='all'):
-    from molsysmt.item.string_pdb_id import to_molsysmt_Topology as string_pdb_id_to_molsysmt_Topology
+    from molsysmt.form.string_pdb_id import to_molsysmt_Topology as string_pdb_id_to_molsysmt_Topology
 
     return string_pdb_id_to_molsysmt_Topology(item, atom_indices=atom_indices, structure_indices=structure_indices)
 
 
 def to_molsysmt_Structures(item, molecular_system, atom_indices='all', structure_indices='all'):
-    from molsysmt.item.string_pdb_id import to_molsysmt_Structures as string_pdb_id_to_molsysmt_Structures
+    from molsysmt.form.string_pdb_id import to_molsysmt_Structures as string_pdb_id_to_molsysmt_Structures
 
     return string_pdb_id_to_molsysmt_Structures(item, atom_indices=atom_indices, structure_indices=structure_indices)
 
 
 def to_mdtraj_Trajectory(item, molecular_system, atom_indices='all', structure_indices='all'):
-    from molsysmt.item.string_pdb_id import to_mdtraj_Trajectory as string_pdb_id_to_mdtraj_Trajectory
+    from molsysmt.form.string_pdb_id import to_mdtraj_Trajectory as string_pdb_id_to_mdtraj_Trajectory
 
     return string_pdb_id_to_mdtraj_Trajectory(item, atom_indices=atom_indices, structure_indices=structure_indices)
 
 
 def to_mdtraj_Topology(item, molecular_system, atom_indices='all', structure_indices='all'):
-    from molsysmt.item.string_pdb_id import to_mdtraj_Topology as string_pdb_id_to_mdtraj_Topology
+    from molsysmt.form.string_pdb_id import to_mdtraj_Topology as string_pdb_id_to_mdtraj_Topology
 
     return string_pdb_id_to_mdtraj_Topology(item, atom_indices=atom_indices, structure_indices=structure_indices)
 
 
 def to_parmed_Structure(item, molecular_system, atom_indices='all', structure_indices='all'):
-    from molsysmt.item.string_pdb_id import to_parmed_Structure as string_pdb_id_to_parmed_Structure
+    from molsysmt.form.string_pdb_id import to_parmed_Structure as string_pdb_id_to_parmed_Structure
 
     return string_pdb_id_to_parmed_Structure(item, atom_indices=atom_indices, structure_indices=structure_indices)
 
 
 def to_pdbfixer_PDBFixer(item, molecular_system, atom_indices='all', structure_indices='all'):
-    from molsysmt.item.string_pdb_id import to_pdbfixer_PDBFixer as string_pdb_id_to_pdbfixer_PDBFixer
+    from molsysmt.form.string_pdb_id import to_pdbfixer_PDBFixer as string_pdb_id_to_pdbfixer_PDBFixer
 
     return string_pdb_id_to_pdbfixer_PDBFixer(item, atom_indices=atom_indices, structure_indices=structure_indices)
 
 
 def to_openmm_Modeller(item, molecular_system, atom_indices='all', structure_indices='all'):
-    from molsysmt.item.string_pdb_id import to_openmm_Modeller as string_pdb_id_to_openmm_Modeller
+    from molsysmt.form.string_pdb_id import to_openmm_Modeller as string_pdb_id_to_openmm_Modeller
 
     return string_pdb_id_to_openmm_Modeller(item, atom_indices=atom_indices, structure_indices=structure_indices)
 
 
 def to_openmm_Topology(item, molecular_system, atom_indices='all', structure_indices='all'):
-    from molsysmt.item.string_pdb_id import to_openmm_Topology as string_pdb_id_to_openmm_Topology
+    from molsysmt.form.string_pdb_id import to_openmm_Topology as string_pdb_id_to_openmm_Topology
 
     return string_pdb_id_to_openmm_Topology(item, atom_indices=atom_indices, structure_indices=structure_indices)
 
 
 def to_openmm_PDBFile(item, molecular_system, atom_indices='all', structure_indices='all'):
-    from molsysmt.item.string_pdb_id import to_openmm_PDBFile as string_pdb_id_to_openmm_PDBFile
+    from molsysmt.form.string_pdb_id import to_openmm_PDBFile as string_pdb_id_to_openmm_PDBFile
 
     return string_pdb_id_to_openmm_PDBFile(item, atom_indices=atom_indices, structure_indices=structure_indices)
 
 
 def to_mdanalysis_Universe(item, molecular_system, atom_indices='all', structure_indices='all'):
-    from molsysmt.item.string_pdb_id import to_mdanalysis_Universe as string_pdb_id_to_mdanalysis_Universe
+    from molsysmt.form.string_pdb_id import to_mdanalysis_Universe as string_pdb_id_to_mdanalysis_Universe
 
     return string_pdb_id_to_mdanalysis_Universe(item, atom_indices=atom_indices, structure_indices=structure_indices)
 
 
 def to_pytraj_Trajectory(item, molecular_system, atom_indices='all', structure_indices='all'):
-    from molsysmt.item.string_pdb_id import to_pytraj_Trajectory as string_pdb_id_to_pytraj_Trajectory
+    from molsysmt.form.string_pdb_id import to_pytraj_Trajectory as string_pdb_id_to_pytraj_Trajectory
 
     return string_pdb_id_to_pytraj_Trajectory(item, atom_indices=atom_indices, structure_indices=structure_indices)
 
 
 def to_string_pdb_text(item, molecular_system, atom_indices='all', structure_indices='all'):
-    from molsysmt.item.string_pdb_id import to_string_pdb_text as string_pdb_id_to_string_pdb_text
+    from molsysmt.form.string_pdb_id import to_string_pdb_text as string_pdb_id_to_string_pdb_text
 
     return string_pdb_id_to_string_pdb_text(item, atom_indices=atom_indices, structure_indices=structure_indices)
 
 
 def to_nglview_NGLWidget(item, molecular_system, atom_indices='all', structure_indices='all'):
-    from molsysmt.item.string_pdb_id import to_nglview_NGLWidget as string_pdb_id_to_nglview_NGLWidget
+    from molsysmt.form.string_pdb_id import to_nglview_NGLWidget as string_pdb_id_to_nglview_NGLWidget
 
     return string_pdb_id_to_nglview_NGLWidget(item, atom_indices=atom_indices, structure_indices=structure_indices)

@@ -1,9 +1,9 @@
-from molsysmt.item.openmm_Context.is_openmm_Context import is_openmm_Context as is_form
-from molsysmt.item.openmm_Context.extract import extract
-from molsysmt.item.openmm_Context.add import add
-from molsysmt.item.openmm_Context.append_structures import append_structures
-from molsysmt.item.openmm_Context.get import *
-from molsysmt.item.openmm_Context.set import *
+from molsysmt.form.openmm_Context.is_openmm_Context import is_openmm_Context as is_form
+from molsysmt.form.openmm_Context.extract import extract
+from molsysmt.form.openmm_Context.add import add
+from molsysmt.form.openmm_Context.append_structures import append_structures
+from molsysmt.form.openmm_Context.get import *
+from molsysmt.form.openmm_Context.set import *
 from .form_attributes import form_attributes
 
 form_name = 'openmm.Context'
@@ -22,6 +22,6 @@ form_attributes['temperature'] = True
 
 
 def to_openmm_System(item, molecular_system, atom_indices='all', structure_indices='all'):
-    from molsysmt.item.openmm_Context import to_openmm_System as openmm_Context_to_openmm_System
+    from molsysmt.form.openmm_Context import to_openmm_System as openmm_Context_to_openmm_System
 
     return openmm_Context_to_openmm_System(item, atom_indices=atom_indices)

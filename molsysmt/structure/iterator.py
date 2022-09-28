@@ -1,5 +1,5 @@
 from molsysmt import get_form, convert
-from molsysmt.item.mdtraj_Trajectory.iterate import iterate_mdtraj_trajectory
+from molsysmt.form.mdtraj_Trajectory.iterate import iterate_mdtraj_trajectory
 from molsysmt._private.exceptions import NotImplementedIteratorError
 from molsysmt._private.exceptions import IteratorError
 

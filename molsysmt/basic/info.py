@@ -60,14 +60,14 @@ def info(molecular_system,
 
     """
 
-    from . import get_form, get, convert
+    from . import get_form, get, convert, select
     from molsysmt.element import elements_to_string
 
     # Some forms should be converted to make this function faster
 
     form = get_form(molecular_system)
 
-    if form in ['string:pdb_id', 'file:pdb']:
+    if form in ['string:pdb_id', 'file:pdb', 'nglview.NGLWidget']:
         molecular_system = convert(molecular_system)
 
     if output == 'dataframe':

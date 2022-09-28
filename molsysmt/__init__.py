@@ -2,11 +2,6 @@
 MolSysMT
 This must be a short description of the project
 """
-# Is sphinx working?
-
-from os import environ
-__sphinxworking__=('SPHINXWORKING' in environ)
-del(environ)
 
 # Handle versioneer
 from ._version import get_versions
@@ -19,12 +14,14 @@ __documentation_web__ = 'https://www.uibcdf.org/MolSysMT'
 __github_web__ = 'https://github.com/uibcdf/MolSysMT'
 __github_issues_web__ = __github_web__ + '/issues'
 
+from . import config
+
 from ._pyunitwizard import puw as pyunitwizard
 
 from .basic import *
 from . import basic
 
-from . import item
+from . import form
 from . import element
 
 from . import topology

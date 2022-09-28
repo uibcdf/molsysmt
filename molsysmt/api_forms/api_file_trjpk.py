@@ -1,9 +1,9 @@
-from molsysmt.item.file_trjpk.is_file_trjpk import is_file_trjpk as is_form
-from molsysmt.item.file_trjpk.extract import extract
-from molsysmt.item.file_trjpk.add import add
-from molsysmt.item.file_trjpk.append_structures import append_structures
-from molsysmt.item.file_trjpk.get import *
-from molsysmt.item.file_trjpk.set import *
+from molsysmt.form.file_trjpk.is_file_trjpk import is_file_trjpk as is_form
+from molsysmt.form.file_trjpk.extract import extract
+from molsysmt.form.file_trjpk.add import add
+from molsysmt.form.file_trjpk.append_structures import append_structures
+from molsysmt.form.file_trjpk.get import *
+from molsysmt.form.file_trjpk.set import *
 
 form_name='file:trjpk'
 form_type='file'
@@ -63,7 +63,7 @@ form_attributes = {
 
 def to_molsysmt_TrajectoryDict(item, molecular_system=None, atom_indices='all', structure_indices='all'):
 
-    from molsysmt.item.file_trjpk import to_molsysmt_TrajectoryDict as file_trjpk_to_molsysmt_TrajectoryDict
+    from molsysmt.form.file_trjpk import to_molsysmt_TrajectoryDict as file_trjpk_to_molsysmt_TrajectoryDict
 
     tmp_item = file_trjpk_to_molsysmt_TrajectoryDict(item, atom_indices=atom_indices, structure_indices=structure_indices)
 

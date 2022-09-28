@@ -1,5 +1,9 @@
 from molsysmt._private.exceptions import ArgumentError
 
+methods_where_bool = [
+    'molsysmt.basic.compare.compare'
+]
+
 def digest_form(form, caller=None):
     """ Checks if the name of the form is supported.
 
@@ -24,8 +28,13 @@ def digest_form(form, caller=None):
         A WrongFormError is raised if the form name is not supported.
 
     """
-    from molsysmt.item import is_file
+    from molsysmt.form import is_file
     from molsysmt.api_forms import _dict_forms_lowercase
+
+    if caller in methods_where_bool:
+
+        if isinstance(form, bool):
+            return form
 
     if isinstance(form, (list, tuple)):
         return [digest_form(ii, caller=caller) for ii in form]
