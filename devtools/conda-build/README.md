@@ -11,7 +11,7 @@ conda install anaconda-client conda-build
 ## Building and pushing to https://anaconda.org/uibcdf
 
 ```bash
-conda build . --no-anaconda-upload --python 3.7
+conda build . --no-anaconda-upload --python 3.9
 PACKAGE_OUTPUT=`conda build . --output`
 anaconda login
 anaconda upload --user uibcdf $PACKAGE_OUTPUT
