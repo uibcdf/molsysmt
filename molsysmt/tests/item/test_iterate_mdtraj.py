@@ -1,4 +1,4 @@
-from molsysmt.item.mdtraj_Trajectory.iterate import iterate_mdtraj_trajectory
+from molsysmt.form.mdtraj_Trajectory.iterate import iterate_mdtraj_trajectory
 import molsysmt as msm
 from molsysmt import pyunitwizard as puw
 import numpy as np

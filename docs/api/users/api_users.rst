@@ -7,6 +7,6 @@ Users
    :maxdepth: 2
 
    tools/api_tools.rst
-   items/api_items.rst
+   items/api_forms.rst
    thirds/api_thirds.rst
 

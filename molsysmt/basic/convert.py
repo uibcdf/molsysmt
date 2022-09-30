@@ -57,7 +57,7 @@ def convert(molecular_system,
     """
 
     from . import select, get_form
-    from molsysmt.item import is_item, is_file
+    from molsysmt.form import is_item, is_file
     from molsysmt.api_forms import dict_convert, dict_extract
 
     if to_form is None:

@@ -1,5 +1,5 @@
 import molsysmt as msm
-from molsysmt.item import file_mmtf
+from molsysmt.form import file_mmtf
 import mdtraj as mdt
 import numpy as np
 import pytest

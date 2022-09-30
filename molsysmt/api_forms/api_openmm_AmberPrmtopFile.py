@@ -1,9 +1,9 @@
-from molsysmt.item.openmm_AmberPrmtopFile.is_openmm_AmberPrmtopFile import is_openmm_AmberPrmtopFile as is_form
-from molsysmt.item.openmm_AmberPrmtopFile.extract import extract
-from molsysmt.item.openmm_AmberPrmtopFile.add import add
-from molsysmt.item.openmm_AmberPrmtopFile.append_structures import append_structures
-from molsysmt.item.openmm_AmberPrmtopFile.get import *
-from molsysmt.item.openmm_AmberPrmtopFile.set import *
+from molsysmt.form.openmm_AmberPrmtopFile.is_openmm_AmberPrmtopFile import is_openmm_AmberPrmtopFile as is_form
+from molsysmt.form.openmm_AmberPrmtopFile.extract import extract
+from molsysmt.form.openmm_AmberPrmtopFile.add import add
+from molsysmt.form.openmm_AmberPrmtopFile.append_structures import append_structures
+from molsysmt.form.openmm_AmberPrmtopFile.get import *
+from molsysmt.form.openmm_AmberPrmtopFile.set import *
 from .form_attributes import form_attributes
 
 form_name = 'openmm.AmberPrmtopFile'
