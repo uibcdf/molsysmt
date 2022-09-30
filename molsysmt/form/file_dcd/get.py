@@ -64,10 +64,10 @@ def get_n_inner_bonds_from_atom(item, indices='all'):
 @digest(form=form)
 def get_coordinates_from_atom(item, indices='all', structure_indices='all'):
 
-    from . import to_openmm_AmberInpcrdFile
-    from ..openmm_AmberInpcrdFile import get_coordinates_from_atom as aux_get
+    from . import to_mdtraj_DCDTrajectoryFile
+    from ..mdtraj_DCDTrajectoryFile import get_coordinates_from_atom as aux_get
 
-    tmp_item = to_openmm_AmberInpcrdFile(item)
+    tmp_item = to_mdtraj_DCDTrajectoryFile(item)
     output = aux_get(tmp_item, indices=indices, structure_indices=structure_indices)
 
     return output
@@ -167,10 +167,10 @@ def get_entity_type_from_group(item, indices='all'):
 @digest(form=form)
 def get_n_atoms_from_system(item):
 
-    from . import to_openmm_AmberInpcrdFile
-    from ..openmm_AmberInpcrdFile import get_n_atoms_from_system as aux_get
+    from . import to_mdtraj_DCDTrajectoryFile
+    from ..mdtraj_DCDTrajectoryFile import get_n_atoms_from_system as aux_get
 
-    tmp_item = to_openmm_AmberInpcrdFile(item)
+    tmp_item = to_mdtraj_DCDTrajectoryFile(item)
     output = aux_get(tmp_item)
 
     return output
@@ -208,10 +208,10 @@ def get_n_bonds_from_system(item):
 @digest(form=form)
 def get_n_structures_from_system(item):
 
-    from . import to_openmm_AmberInpcrdFile
-    from ..openmm_AmberInpcrdFile import get_n_structures_from_system as aux_get
+    from . import to_mdtraj_DCDTrajectoryFile
+    from ..mdtraj_DCDTrajectoryFile import get_n_structures_from_system as aux_get
 
-    tmp_item = to_openmm_AmberInpcrdFile(item)
+    tmp_item = to_mdtraj_DCDTrajectoryFile(item)
     output = aux_get(tmp_item)
 
     return output
@@ -219,33 +219,33 @@ def get_n_structures_from_system(item):
 @digest(form=form)
 def get_box_from_system(item, structure_indices='all'):
 
-    from . import to_openmm_AmberInpcrdFile
-    from ..openmm_AmberInpcrdFile import get_box_from_system as aux_get
+    from . import to_mdtraj_DCDTrajectoryFile
+    from ..mdtraj_DCDTrajectoryFile import get_box_from_system as aux_get
 
-    tmp_item = to_openmm_AmberInpcrdFile(item)
-    output = aux_get(tmp_item)
+    tmp_item = to_mdtraj_DCDTrajectoryFile(item)
+    output = aux_get(tmp_item, structure_indices=structure_indices)
 
     return output
 
 @digest(form=form)
 def get_time_from_system(item, structure_indices='all'):
 
-    from . import to_openmm_AmberInpcrdFile
-    from ..openmm_AmberInpcrdFile import get_time_from_system as aux_get
+    from . import to_mdtraj_DCDTrajectoryFile
+    from ..mdtraj_DCDTrajectoryFile import get_time_from_system as aux_get
 
-    tmp_item = to_openmm_AmberInpcrdFile(item)
-    output = aux_get(tmp_item)
+    tmp_item = to_mdtraj_DCDTrajectoryFile(item)
+    output = aux_get(tmp_item, structure_indices=structure_indices)
 
     return output
 
 @digest(form=form)
 def get_step_from_system(item, structure_indices='all'):
 
-    from . import to_openmm_AmberInpcrdFile
-    from ..openmm_AmberInpcrdFile import get_step_from_system as aux_get
+    from . import to_mdtraj_DCDTrajectoryFile
+    from ..mdtraj_DCDTrajectoryFile import get_step_from_system as aux_get
 
-    tmp_item = to_openmm_AmberInpcrdFile(item)
-    output = aux_get(tmp_item)
+    tmp_item = to_mdtraj_DCDTrajectoryFile(item)
+    output = aux_get(tmp_item, structure_indices=structure_indices)
 
     return output
 

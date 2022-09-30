@@ -6,3 +6,5 @@ from .append_structures import append_structures
 from .get import *
 from .set import *
 
+from .to_mdtraj_DCDTrajectoryFile import to_mdtraj_DCDTrajectoryFile
+
