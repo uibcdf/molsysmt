@@ -125,7 +125,7 @@ def get_neighbors(molecular_system, selection="all", groups_of_atoms=None, group
         aux_neighs = []
         aux_dists = []
 
-        for kk in range(len(neighbs)):
+        for kk in range(len(neighs)):
 
             dict_neighs = {}
             dict_dists = {}
