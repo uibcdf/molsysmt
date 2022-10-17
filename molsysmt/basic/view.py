@@ -8,6 +8,12 @@ from molsysmt.config import view_from_htmlfiles
 def view(molecular_system=None, viewer='NGLView', selection='all', structure_indices='all',
          concatenate_structures=False, standardize=False, water_as_surface=False, syntax='MolSysMT'):
 
+    if view_from_htmlfiles:
+        if 'nglview_htmlfile' in stack()[2][0].f_locals:
+            htmlfile = stack()[2][0].f_locals['nglview_htmlfile']
+            if Path(htmlfile).is_file():
+                return load_html_in_jupyter_notebook(htmlfile)
+
     concatenate=False
     if concatenate_structures:
         concatenate=True
@@ -38,25 +44,6 @@ def view(molecular_system=None, viewer='NGLView', selection='all', structure_ind
         if viewer=='NGLView':
             from molsysmt.thirds.nglview import show_system_as_transparent_surface
             show_system_as_transparent_surface(tmp_item)
-
-
-    if view_from_htmlfiles:
-
-        try:
-
-            htmlfile = stack()[2][0].f_locals['nglview_htmlfile']
-
-            if Path(htmlfile).is_file():
-
-                return load_html_in_jupyter_notebook(htmlfile)
-
-            else:
-
-                return tmp_item
-   
-        except:
-
-            return tmp_item
 
     return tmp_item
 

@@ -40,6 +40,11 @@ form_attributes['entity_type'] = True
 form_attributes['coordinates'] = True
 form_attributes['box'] = True
 form_attributes['bioassemblies'] = True
+form_attributes['occupancy'] = True
+form_attributes['alternate_location'] = True
+form_attributes['b_factor'] = True
+form_attributes['formal_charge'] = True
+form_attributes['partial_charge'] = True
 
 
 def to_file_mmtf(item, molecular_system, atom_indices='all', structure_indices='all', output_filename=None):
