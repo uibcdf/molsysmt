@@ -100,6 +100,10 @@ def show_colored_surface_by_scalar_residue_values(view, values, selection='all',
     if max_value is None:
         max_value = max(values)
 
+    if isinstance(cmap, str):
+        from matplotlib import colormaps
+        cmap = colormaps[cmap]
+
     norm = Normalize(vmin=min_value,vmax=max_value)
     scheme = _ColorScheme([[to_hex(cmap(norm(ii))), jj] for ii,jj in zip(values, groups_selection.split(' '))], label='user')
     view.add_surface(selection='protein', color=scheme)
@@ -112,6 +116,7 @@ def show_colored_cartoon_by_scalar_residue_values(view, values, selection='all',
 
     from nglview.color import _ColorScheme
     from molsysmt.basic import select
+    from matplotlib.colors import Normalize, to_hex
 
     groups_selection = select(view, element='group', selection=selection, to_syntax='NGLview')
 
@@ -119,6 +124,10 @@ def show_colored_cartoon_by_scalar_residue_values(view, values, selection='all',
         min_value = min(values)
     if max_value is None:
         max_value = max(values)
+
+    if isinstance(cmap, str):
+        from matplotlib import colormaps
+        cmap = colormaps[cmap]
 
     norm = Normalize(vmin=min_value, vmax=max_value)
     scheme = _ColorScheme([[to_hex(cmap(norm(ii))), jj] for ii,jj in zip(values, groups_selection.split(' '))], label='user')
