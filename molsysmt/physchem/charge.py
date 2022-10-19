@@ -11,11 +11,10 @@ def charge(molecular_system, element='group', selection='all', definition=None, 
 
         from molsysmt.basic import get
 
-        from molsysmt.physico_chemical_properties.groups.charge import units
         if definition=='physical_pH7':
-            from molsysmt.physico_chemical_properties.groups.charge import physical_pH7 as values, units
+            from molsysmt.physchem.groups.charge import physical_pH7 as values, units
         elif definition=='collantes':
-            from molsysmt.physico_chemical_properties.groups.charge import collantes as values, units
+            from molsysmt.physchem.groups.charge import collantes as values, units
         else:
             raise NotImplementedMethodError()
 

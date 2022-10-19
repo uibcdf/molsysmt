@@ -11,7 +11,7 @@ def digest_values(values, caller=None):
         return values
 
     if puw.is_quantity(values):
-            values
+        return puw.get_value(values)
 
     raise ArgumentError('values', value=values, caller=caller, message=None)
 
