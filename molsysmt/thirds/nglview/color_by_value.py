@@ -3,11 +3,63 @@ from molsysmt._private.variables import is_all
 
 # https://github.com/arose/ngl/blob/master/doc/usage/selection-language.md
 
-
-
 @digest()
-def color_by_value(view, values, element='group', selection='all', cmap=None,
+def color_by_value(view, values, element='group', selection='all', cmap='rwb',
         min_value=None, max_value=None, representation='cartoon', syntax='MolSysMT'):
+    """Adding a representation colored by a color scale.
+
+    A new representation can be added to an NGL view (NGLWidget) with elements colored by a list of values and a color map.
+
+    Parameters
+    ----------
+
+    view: nglview.NGLWidget
+       A view of the molecular system as an nglview.NGLWidget native object.
+
+    values: list, tuple or numpy.ndarray
+       List of values or magnitudes corresponding to each element to be encoded as a color.
+
+    element: str, default='group'
+       Element to be colored according to its value in the input argument `values`.
+
+    selection: str, list, tuple or numpy.ndarray, default='all'
+       Selection over which this method applies. The selection can be given by a
+       list, tuple or numpy array of integers (0-based), or by means of a string following any of
+       the selection syntax parsable by MolSysMT (see: :func:`molsysmt.select`).
+
+    cmap: str, matplotlib.colors.LinearSegmentedColormap, default:'rwb'
+       The name of the matplotlib colormap or a LineraSegemendedColormap native Python object of the MatPlotLib library.
+
+    min_value: float, Quantity, default='None'
+       Minimum value of the color scale. By default ('None'), the minimum of the input argument `values` is taken.
+
+    max_value: float, Quantity, default='None'
+       Maximum value of the color scale. By default ('None'), the maximum of the input argument `values` is taken.
+
+    representation: str, default='cartoon'
+       Representation type supported by NGLView: 'cartoon', 'licorice', 'surface', 'ball_and_stick'...
+
+    syntax: str, default='MolSysMT'
+       Syntaxis used in the argument `selection` (in case it is a string). The
+       current options supported by MolSysMt can be found in section XXX (see: :func:`molsysmt.select`).
+
+    Returns
+    -------
+    None
+        The method prints out a pandas dataframe with relevant information depending on the element
+        and the form of the item.
+
+    Examples
+    --------
+
+    See Also
+    --------
+
+    :func:`molsysmt.get`, :func:`molsysmt.select`
+    Notes
+    -----
+
+    """
 
     from nglview.color import _ColorScheme
     from molsysmt.basic import select

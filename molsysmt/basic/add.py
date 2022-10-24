@@ -4,9 +4,7 @@ from molsysmt._private.digestion import digest
 def add(to_molecular_system, from_molecular_systems, selections='all', structure_indices='all',
         syntax='MolSysMT'):
 
-    """add(items=None, selection='all', structure_indices='all', syntax='MolSysMT' to_form=None)
-
-    XXX
+    """XXX
 
     Paragraph with detailed explanation.
 
