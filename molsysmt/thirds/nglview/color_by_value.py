@@ -6,7 +6,7 @@ from molsysmt._private.variables import is_all
 @digest()
 def color_by_value(view, values, element='group', selection='all', cmap='rwb',
         min_value=None, max_value=None, representation='cartoon', syntax='MolSysMT'):
-    """Adding a representation colored by a color scale.
+    """Adding a new representation colored by a color scale.
 
     A new representation can be added to an NGL view (NGLWidget) with elements colored by a list of values and a color map.
 
