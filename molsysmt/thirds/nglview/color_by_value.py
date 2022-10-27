@@ -41,23 +41,36 @@ def color_by_value(view, values, element='group', selection='all', cmap='rwb',
 
     syntax: str, default='MolSysMT'
        Syntaxis used in the argument `selection` (in case it is a string). The
-       current options supported by MolSysMt can be found in section XXX (see: :func:`molsysmt.select`).
+       current options supported by MolSysMt can be found in section XXX (see: :func:`molsysmt.basic.select`).
 
     Returns
     -------
     None
-        The method prints out a pandas dataframe with relevant information depending on the element
-        and the form of the item.
+        The method modifies an nglview.NGLWidget object including the new representation.
 
     Examples
     --------
+    >>> import molsysmt as msm
+    >>> from matplotlib.pyplot import colormaps
+    >>> molecular_system = msm.convert('181L', selection='molecule_type=="protein"')
+    >>> charge_residues = msm.physchem.charge(molecular_system, element='group', definition='physical_pH7') ￼
+    >>> view = msm.view(molecular_system)
+    >>> view.clear()
+    >>> msm.thirds.nglview.color_by_value(view, charge_residues)
+    >>> view
 
     See Also
     --------
+    :func:`molsysmt.basic.view`, :func:`molsysmt.basic.select`
 
-    :func:`molsysmt.get`, :func:`molsysmt.select`
     Notes
     -----
+
+    Have a look to the `YYY`_.
+
+    .. YYY:
+       https://uibcdf.org/molsysmt
+
 
     """
 
