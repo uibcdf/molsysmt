@@ -11,8 +11,9 @@ def view(molecular_system=None, viewer='NGLView', selection='all', structure_ind
     if view_from_htmlfiles:
         if 'nglview_htmlfile' in stack()[2][0].f_locals:
             htmlfile = stack()[2][0].f_locals['nglview_htmlfile']
-            if Path(htmlfile).is_file():
-                return load_html_in_jupyter_notebook(htmlfile)
+            if htmlfile is not None:
+                if Path(htmlfile).is_file():
+                    return load_html_in_jupyter_notebook(htmlfile)
 
     concatenate=False
     if concatenate_structures:
