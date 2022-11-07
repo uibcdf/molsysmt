@@ -1,4 +1,5 @@
 from .color_by_value import color_by_value
+from .add_arrows import add_arrows
 from .water_as_surface import water_as_surface
 from .show_gui import show_gui
 from .load_html_in_jupyter_notebook import load_html_in_jupyter_notebook
