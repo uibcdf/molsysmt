@@ -139,6 +139,61 @@ def get_coordinates_from_atom(item, indices='all', structure_indices='all'):
 
     return xyz
 
+@digest(form=form)
+def get_occupancy_from_atom (item, indices='all'):
+
+    from .to_molsysmt_Topology import to_molsysmt_Topology
+    from ..molsysmt_Topology import get_occupancy_from_atom as aux_get
+ 
+    tmp_item = to_molsysmt_Topology(item)
+    output = aux_get(tmp_item, indices=indices)
+
+    return output
+
+@digest(form=form)
+def get_alternate_location_from_atom (item, indices='all'):
+
+    from .to_molsysmt_Topology import to_molsysmt_Topology
+    from ..molsysmt_Topology import get_alternate_location_from_atom as aux_get
+ 
+    tmp_item = to_molsysmt_Topology(item)
+    output = aux_get(tmp_item, indices=indices)
+
+    return output
+
+@digest(form=form)
+def get_b_factor_from_atom (item, indices='all'):
+
+    from .to_molsysmt_Topology import to_molsysmt_Topology
+    from ..molsysmt_Topology import get_b_factor_from_atom as aux_get
+ 
+    tmp_item = to_molsysmt_Topology(item)
+    output = aux_get(tmp_item, indices=indices)
+
+    return output
+
+@digest(form=form)
+def get_formal_charge_from_atom (item, indices='all'):
+
+    from .to_molsysmt_Topology import to_molsysmt_Topology
+    from ..molsysmt_Topology import get_formal_charge_from_atom as aux_get
+ 
+    tmp_item = to_molsysmt_Topology(item)
+    output = aux_get(tmp_item, indices=indices)
+
+    return output
+
+@digest(form=form)
+def get_partial_charge_from_atom (item, indices='all'):
+
+    from .to_molsysmt_Topology import to_molsysmt_Topology
+    from ..molsysmt_Topology import get_partial_charge_from_atom as aux_get
+ 
+    tmp_item = to_molsysmt_Topology(item)
+    output = aux_get(tmp_item, indices=indices)
+
+    return output
+
 
 ## From group
 

@@ -34,6 +34,12 @@ form_attributes['entity_type'] = True
 form_attributes['coordinates'] = True
 form_attributes['box'] = True
 form_attributes['bioassemblies'] = True
+form_attributes['occupancy'] = True
+form_attributes['alternate_location'] = True
+form_attributes['b_factor'] = True
+form_attributes['formal_charge'] = True
+form_attributes['partial_charge'] = True
+
 
 def to_file_pdb(item, molecular_system, atom_indices='all', structure_indices='all', output_filename=None):
     from molsysmt.form.string_pdb_id import to_file_pdb as string_pdb_id_to_file_pdb

@@ -164,6 +164,14 @@ html_static_path = ['_static']
 #### https://github.com/lotharschulz/sphinx-pages/blob/master/conf.py for more
 #### options
 
+# Disable showing Sphinx footer message:
+# "Built with Sphinx using a theme provided by Read the Docs. "
+html_show_sphinx = False
+
+# Disable the Copyright footer for Read the docs at the bottom of the page
+# by setting property html_show_copyright = False
+html_show_copyright = True
+
 # Custom css
 
 html_css_files = [

@@ -86,51 +86,6 @@ def show_water_as_licorice(view, atom_indices='all', structure_indices='all'):
     pass
 
 @digest()
-def show_colored_surface_by_scalar_residue_values(view, values, selection='all', cmap=None,
-        min_value=None, max_value=None):
-
-    from nglview.color import _ColorScheme
-    from molsysmt.basic import select
-    from matplotlib.colors import Normalize, to_hex
-
-    groups_selection = select(view, element='group', selection=selection, to_syntax='NGLview')
-
-    if min_value is None:
-        min_value = min(values)
-    if max_value is None:
-        max_value = max(values)
-
-    norm = Normalize(vmin=min_value,vmax=max_value)
-    scheme = _ColorScheme([[to_hex(cmap(norm(ii))), jj] for ii,jj in zip(values, groups_selection.split(' '))], label='user')
-    view.add_surface(selection='protein', color=scheme)
-
-    pass
-
-@digest()
-def show_colored_cartoon_by_scalar_residue_values(view, values, selection='all', cmap=None,
-        min_value=None, max_value=None):
-
-    from nglview.color import _ColorScheme
-    from molsysmt.basic import select
-
-    groups_selection = select(view, element='group', selection=selection, to_syntax='NGLview')
-
-    if min_value is None:
-        min_value = min(values)
-    if max_value is None:
-        max_value = max(values)
-
-    norm = Normalize(vmin=min_value, vmax=max_value)
-    scheme = _ColorScheme([[to_hex(cmap(norm(ii))), jj] for ii,jj in zip(values, groups_selection.split(' '))], label='user')
-    view.add_cartoon(selection='protein', color=scheme)
-
-    # It can also be done as:
-    # nv.color.ColormakerRegistry.add_scheme('buried_factors',[['#'+ii[2:],str(jj)] for ii,jj in zip(colors, range(706))])
-    # view.add_cartoon(selection='protein', color='buried_factors')
-
-    pass
-
-@digest()
 def add_gui(view):
 
     view.gui_style = 'ngl'
