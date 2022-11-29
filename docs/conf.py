@@ -74,6 +74,9 @@ myst_heading_anchors = 3
 # Autosummary options
 
 autosummary_generate = True
+
+# Napoleon settings
+napoleon_numpy_docstring = True
 napoleon_google_docstring = False
 napoleon_use_param = False
 napoleon_use_ivar = True
