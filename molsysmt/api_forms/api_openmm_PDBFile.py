@@ -78,6 +78,6 @@ def to_openmm_Topology(item, molecular_system, atom_indices='all', structure_ind
 
 
 def to_nglview_NGLWidget(item, molecular_system, atom_indices='all', structure_indices='all'):
-    from molsysmt.form.openmm_Topology import to_nglview_NGLWidget as openmm_Topology_to_nglview_NGLWidget
+    from molsysmt.form.openmm_PDBFile import to_nglview_NGLWidget as openmm_PDBFile_to_nglview_NGLWidget
 
-    return openmm_Topology_to_nglview_NGLWidget(item, atom_indices=atom_indices, structure_indices=structure_indices)
+    return openmm_PDBFile_to_nglview_NGLWidget(item, atom_indices=atom_indices, structure_indices=structure_indices)
