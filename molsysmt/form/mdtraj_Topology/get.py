@@ -118,8 +118,13 @@ def get_group_name_from_group(item, indices='all'):
 @digest(form=form)
 def get_group_type_from_group(item, indices='all'):
 
-    from molsysmt.element.group import group_type_from_group
-    return group_type_from_group(item, indices=indices)
+    from molsysmt.element.group import get_group_type_from_group_name as aux_get
+
+    output = get_group_name_from_group(item, indices=indices)
+    output = [aux_get(ii) for ii in output]
+    output = np.array(output, dtype=object)
+
+    return output
 
 
 ## From component
