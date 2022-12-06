@@ -7,5 +7,5 @@ from .get import *
 from .set import *
 
 from .to_openmm_System import to_openmm_System
-from .to_molsysmt_MolSys import to_molsysmt_MolSys
+from .to_molsysmt_Structures import to_molsysmt_Structures
 
