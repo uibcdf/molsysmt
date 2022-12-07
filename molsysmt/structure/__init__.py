@@ -18,4 +18,3 @@ from .get_least_rmsd import get_least_rmsd
 from .fit import fit
 from .align import align
 from .get_sasa import get_sasa
-from .iterator import Iterator

@@ -8,10 +8,11 @@ dict_is_form = {}
 dict_extract = {}
 dict_add = {}
 dict_append_structures = {}
+dict_structures_iterator = {}
+dict_topology_iterator = {}
 dict_get = {}
 dict_set = {}
 dict_convert = {}
-
 
 forms = []
 file_forms = []
@@ -41,9 +42,12 @@ for api_name in apis:
     dict_is_form[mod.form_name] = mod.is_form
     dict_add[mod.form_name] = mod.add
     dict_append_structures[mod.form_name] = mod.append_structures
+    dict_structures_iterator[mod.form_name] = mod.StructuresIterator
+    dict_topology_iterator[mod.form_name] = mod.TopologyIterator
     dict_extract[mod.form_name] = mod.extract
 
     dict_convert[mod.form_name] = {}
+
     dict_get[mod.form_name] = {
         'atom': {},
         'group': {},

@@ -20,3 +20,4 @@ from .is_composed_of import is_composed_of
 from .contains import contains
 from .compare import compare
 from .view import view
+from .iterate import Iterator

@@ -397,7 +397,6 @@ def get_n_entities_from_system(item):
 
     from . import to_mdtraj_Topology
     from ..mdtraj_Topology import get_n_entities_from_system as aux_get
-
     tmp_item = to_mdtraj_Topology(item)
     output = aux_get(tmp_item)
 

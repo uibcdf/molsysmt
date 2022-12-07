@@ -5,6 +5,7 @@ from .add import add
 from .append_structures import append_structures
 from .get import *
 from .set import *
+from .iterators import StructuresIterator, TopologyIterator
 
 from .to_string_pdb_text import to_string_pdb_text
 from .to_file_pdb import to_file_pdb

@@ -6,6 +6,7 @@ from .add import add
 from .append_structures import append_structures
 from .get import *
 from .set import *
+from .
 
 from .to_file_xyznpy import to_file_xyznpy
 from .to_molsysmt_Structures import to_molsysmt_Structures
