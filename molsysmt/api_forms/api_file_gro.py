@@ -4,6 +4,7 @@ from molsysmt.form.file_gro.add import add
 from molsysmt.form.file_gro.append_structures import append_structures
 from molsysmt.form.file_gro.get import *
 from molsysmt.form.file_gro.set import *
+from molsysmt.form.file_gro.iterators import StructuresIterator, TopologyIterator
 from .form_attributes import form_attributes
 
 form_name = 'file:gro'

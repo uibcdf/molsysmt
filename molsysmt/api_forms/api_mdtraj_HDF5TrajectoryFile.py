@@ -4,6 +4,7 @@ from molsysmt.form.mdtraj_HDF5TrajectoryFile.add import add
 from molsysmt.form.mdtraj_HDF5TrajectoryFile.append_structures import append_structures
 from molsysmt.form.mdtraj_HDF5TrajectoryFile.get import *
 from molsysmt.form.mdtraj_HDF5TrajectoryFile.set import *
+from molsysmt.form.mdtraj_HDF5TrajectoryFile.iterators import StructuresIterator, TopologyIterator
 from .form_attributes import form_attributes
 
 form_name = 'mdtraj.HDF5TrajectoryFile'

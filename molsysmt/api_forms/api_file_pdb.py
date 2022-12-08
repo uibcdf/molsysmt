@@ -4,6 +4,7 @@ from molsysmt.form.file_pdb.add import add
 from molsysmt.form.file_pdb.append_structures import append_structures
 from molsysmt.form.file_pdb.get import *
 from molsysmt.form.file_pdb.set import *
+from molsysmt.form.file_pdb.iterators import StructuresIterator, TopologyIterator
 from .form_attributes import form_attributes
 
 form_name = 'file:pdb'

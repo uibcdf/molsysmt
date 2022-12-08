@@ -5,6 +5,7 @@ from molsysmt.form.molsysmt_MolecularMechanics.add import add
 from molsysmt.form.molsysmt_MolecularMechanics.append_structures import append_structures
 from molsysmt.form.molsysmt_MolecularMechanics.get import *
 from molsysmt.form.molsysmt_MolecularMechanics.set import *
+from molsysmt.form.molsysmt_MolecularMechanics.iterators import StructuresIterator, TopologyIterator
 from .form_attributes import form_attributes
 
 form_name = 'molsysmt.MolecularMechanics'

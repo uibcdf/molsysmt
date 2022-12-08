@@ -4,6 +4,7 @@ from molsysmt.form.string_aminoacids1.add import add
 from molsysmt.form.string_aminoacids1.append_structures import append_structures
 from molsysmt.form.string_aminoacids1.get import *
 from molsysmt.form.string_aminoacids1.set import *
+from molsysmt.form.string_aminoacids1.iterators import StructuresIterator, TopologyIterator
 from .form_attributes import form_attributes
 
 form_name = 'string:aminoacids1'

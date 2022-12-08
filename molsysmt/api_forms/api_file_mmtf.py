@@ -4,6 +4,7 @@ from molsysmt.form.file_mmtf.add import add
 from molsysmt.form.file_mmtf.append_structures import append_structures
 from molsysmt.form.file_mmtf.get import *
 from molsysmt.form.file_mmtf.set import *
+from molsysmt.form.file_mmtf.iterators import StructuresIterator, TopologyIterator
 from .form_attributes import form_attributes
 
 import numpy as np

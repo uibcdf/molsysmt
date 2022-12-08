@@ -4,6 +4,7 @@ from molsysmt.form.file_h5.add import add
 from molsysmt.form.file_h5.append_structures import append_structures
 from molsysmt.form.file_h5.get import *
 from molsysmt.form.file_h5.set import *
+from molsysmt.form.file_h5.iterators import StructuresIterator, TopologyIterator
 from .form_attributes import form_attributes
 
 form_name = 'file:h5'

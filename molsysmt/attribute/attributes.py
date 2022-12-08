@@ -473,14 +473,20 @@ _required_attributes['n_saccharides'] = ['group_type']
 _required_indices['n_saccharides'] = ['indices']
 _reverse_search_in_molecular_system['n_saccharides'] = False
 
-# step
+# structure_id
 
-attributes.append('step')
-attribute_synonyms['steps'] = 'step'
+attributes.append('structure_id')
+attribute_synonyms['structure_ids'] = 'structure_id'
+attribute_synonyms['structures_ids'] = 'structure_id'
+attribute_synonyms['structures_id'] = 'structure_id'
+attribute_synonyms['md_step'] = 'structure_id'
+attribute_synonyms['md_steps'] = 'structure_id'
+attribute_synonyms['mdstep'] = 'structure_id'
+attribute_synonyms['mdsteps'] = 'structure_id'
 
-_required_attributes['step'] = ['step']
-_required_indices['step'] = ['structure_indices']
-_reverse_search_in_molecular_system['step'] = True
+_required_attributes['structure_id'] = ['structure_id']
+_required_indices['structure_id'] = ['structure_indices']
+_reverse_search_in_molecular_system['structure_id'] = True
 
 # time
 

@@ -4,6 +4,7 @@ from molsysmt.form.file_msmpk.add import add
 from molsysmt.form.file_msmpk.append_structures import append_structures
 from molsysmt.form.file_msmpk.get import *
 from molsysmt.form.file_msmpk.set import *
+from molsysmt.form.file_msmpk.iterators import StructuresIterator, TopologyIterator
 from .form_attributes import form_attributes
 
 form_name = 'file:msmpk'

@@ -4,6 +4,7 @@ from molsysmt.form.file_prmtop.add import add
 from molsysmt.form.file_prmtop.append_structures import append_structures
 from molsysmt.form.file_prmtop.get import *
 from molsysmt.form.file_prmtop.set import *
+from molsysmt.form.file_prmtop.iterators import StructuresIterator, TopologyIterator
 from .form_attributes import form_attributes
 
 form_name = 'file:prmtop'

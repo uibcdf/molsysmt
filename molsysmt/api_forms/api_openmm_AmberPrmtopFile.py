@@ -4,6 +4,7 @@ from molsysmt.form.openmm_AmberPrmtopFile.add import add
 from molsysmt.form.openmm_AmberPrmtopFile.append_structures import append_structures
 from molsysmt.form.openmm_AmberPrmtopFile.get import *
 from molsysmt.form.openmm_AmberPrmtopFile.set import *
+from molsysmt.form.openmm_AmberPrmtopFile.iterators import StructuresIterator, TopologyIterator
 from .form_attributes import form_attributes
 
 form_name = 'openmm.AmberPrmtopFile'

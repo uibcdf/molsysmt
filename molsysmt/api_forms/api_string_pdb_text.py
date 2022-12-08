@@ -4,6 +4,7 @@ from molsysmt.form.string_pdb_text.add import add
 from molsysmt.form.string_pdb_text.append_structures import append_structures
 from molsysmt.form.string_pdb_text.get import *
 from molsysmt.form.string_pdb_text.set import *
+from molsysmt.form.string_pdb_text.iterators import StructuresIterator, TopologyIterator
 from .form_attributes import form_attributes
 
 form_name = 'string:pdb_text'

@@ -5,7 +5,7 @@ from .add import add
 from .append_structures import append_structures
 from .get import *
 from .set import *
-from .iterators import StructureIterator, TopologyIterator
+from .iterators import StructuresIterator, TopologyIterator
 
 from .to_file_pdb import to_file_pdb
 from .to_file_mmtf import to_file_mmtf

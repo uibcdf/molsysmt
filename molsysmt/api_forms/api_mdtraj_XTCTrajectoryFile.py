@@ -4,6 +4,7 @@ from molsysmt.form.mdtraj_XTCTrajectoryFile.add import add
 from molsysmt.form.mdtraj_XTCTrajectoryFile.append_structures import append_structures
 from molsysmt.form.mdtraj_XTCTrajectoryFile.get import *
 from molsysmt.form.mdtraj_XTCTrajectoryFile.set import *
+from molsysmt.form.mdtraj_XTCTrajectoryFile.iterators import StructuresIterator, TopologyIterator
 from .form_attributes import form_attributes
 
 form_name = 'mdtraj.XTCTrajectoryFile'

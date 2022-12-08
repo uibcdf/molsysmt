@@ -5,6 +5,7 @@ from molsysmt.form.mdanalysis_Universe.add import add
 from molsysmt.form.mdanalysis_Universe.append_structures import append_structures
 from molsysmt.form.mdanalysis_Universe.get import *
 from molsysmt.form.mdanalysis_Universe.set import *
+from molsysmt.form.mdanalysis_Universe.iterators import StructuresIterator, TopologyIterator
 from .form_attributes import form_attributes
 
 form_name = 'mdanalysis.Universe'

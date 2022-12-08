@@ -4,6 +4,7 @@ from molsysmt.form.nglview_NGLWidget.add import add
 from molsysmt.form.nglview_NGLWidget.append_structures import append_structures
 from molsysmt.form.nglview_NGLWidget.get import *
 from molsysmt.form.nglview_NGLWidget.set import *
+from molsysmt.form.nglview_NGLWidget.iterators import StructuresIterator, TopologyIterator
 from .form_attributes import form_attributes
 
 form_name = 'nglview.NGLWidget'

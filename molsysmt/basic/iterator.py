@@ -1,24 +1,23 @@
-from molsysmt import select, get_form
-
-#from molsysmt import get_form, convert
-#from molsysmt.form.mdtraj_Trajectory.iterate import iterate_mdtraj_trajectory
-#from molsysmt._private.exceptions import NotImplementedIteratorError
+from molsysmt._private.exceptions import NotImplementedIteratorError
 #from molsysmt._private.exceptions import IteratorError
 
 class Iterator():
-    """ A class that allows to iterate trough trajectories of any type.
-    """
+
     def __init__(self,
                  molecular_system,
-                 element = 'structure',
+                 element = 'system',
                  selection = 'all',
                  start = 0,
                  stop = None,
                  step = 1,
                  chunk = 1,
                  structure_indices = None,
-                 syntaxis = "MolSysMT"
+                 syntax = "MolSysMT",
+                 **kwargs
                  ):
+
+        from . import select, get_form, where_is_attribute
+        from molsysmt.api_forms import dict_structures_iterator, dict_topology_iterator
 
         self.molecular_system = molecular_system
         self.element = element
@@ -29,17 +28,39 @@ class Iterator():
         self.chunk = chunk
         self.structure_indices = structure_indices
 
+        self.arguments = []
+        for ii, key in enumerate(kwargs.keys()):
+            if kwargs[key]:
+                self.arguments.append(key)
+
+        if len(self.arguments)==0:
+            self.arguments = ['structure_id', 'time', 'coordinates', 'box']
+
         self.position = 0
 
         self._iterators = []
+        self._output = {ii:None for ii in self.arguments}
 
-        form_in = get_form(molecular_system)
+        aux_items_forms = {}
+        aux_items_arguments = {}
 
-        if not isinstance(form_in, [list, tuple]):
-            self._iterators += dict_iterator[form_in]
-        else:
-            for aux_form in form_in:
-                self._iterators += dict_iterator[aux_form]
+        for argument in self.arguments:
+            item, form = where_is_attribute(self.molecular_system, argument)
+            if item in aux_items_forms:
+                aux_items_arguments[item].append(argument)
+            else:
+                aux_items_forms[item]=form
+                aux_items_arguments[item]=[argument]
+
+        for item in aux_items_forms:
+
+           tmp_arguments = {ii:True for ii in aux_items_arguments[item]}
+           tmp_iterator = dict_structures_iterator[aux_items_forms[item]](item, atom_indices=self.atom_indices, start=self.start,
+                   stop=self.stop, step=self.step, chunk=self.chunk, structure_indices=structure_indices, **tmp_arguments)
+
+           self._iterators.append(tmp_iterator)
+
+        del(aux_items_forms, aux_items_arguments)
 
     def __iter__(self):
         

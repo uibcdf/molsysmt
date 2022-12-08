@@ -4,6 +4,7 @@ from molsysmt.form.mdtraj_DCDTrajectoryFile.add import add
 from molsysmt.form.mdtraj_DCDTrajectoryFile.append_structures import append_structures
 from molsysmt.form.mdtraj_DCDTrajectoryFile.get import *
 from molsysmt.form.mdtraj_DCDTrajectoryFile.set import *
+from molsysmt.form.mdtraj_DCDTrajectoryFile.iterators import StructuresIterator, TopologyIterator
 from .form_attributes import form_attributes
 
 form_name = 'mdtraj.DCDTrajectoryFile'

@@ -4,6 +4,7 @@ from molsysmt.form.openmm_PDBFile.add import add
 from molsysmt.form.openmm_PDBFile.append_structures import append_structures
 from molsysmt.form.openmm_PDBFile.get import *
 from molsysmt.form.openmm_PDBFile.set import *
+from molsysmt.form.openmm_PDBFile.iterators import StructuresIterator, TopologyIterator
 from .form_attributes import form_attributes
 
 form_name = 'openmm.PDBFile'

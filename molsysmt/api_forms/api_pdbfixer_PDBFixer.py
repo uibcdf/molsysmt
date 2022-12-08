@@ -4,6 +4,7 @@ from molsysmt.form.pdbfixer_PDBFixer.add import add
 from molsysmt.form.pdbfixer_PDBFixer.append_structures import append_structures
 from molsysmt.form.pdbfixer_PDBFixer.get import *
 from molsysmt.form.pdbfixer_PDBFixer.set import *
+from molsysmt.form.pdbfixer_PDBFixer.iterators import StructuresIterator, TopologyIterator
 from .form_attributes import form_attributes
 
 form_name = 'pdbfixer.PDBFixer'

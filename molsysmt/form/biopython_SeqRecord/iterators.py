@@ -11,9 +11,9 @@ class StructuresIterator():
     def __next__(self):
         raise NotImplementedIteratorError
 
-class TopologyIterator(self, molecular_system):
+class TopologyIterator():
 
-    def __init__(self):
+    def __init__(self, molecular_system):
         pass
 
     def __iter__(self):

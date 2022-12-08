@@ -4,6 +4,7 @@ from molsysmt.form.file_xtc.add import add
 from molsysmt.form.file_xtc.append_structures import append_structures
 from molsysmt.form.file_xtc.get import *
 from molsysmt.form.file_xtc.set import *
+from molsysmt.form.file_xtc.iterators import StructuresIterator, TopologyIterator
 from .form_attributes import form_attributes
 
 form_name = 'file:xtc'

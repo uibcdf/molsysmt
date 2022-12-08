@@ -30,10 +30,10 @@ def concatenate_structures(molecular_systems, selections='all', structure_indice
 
         coordinates = get(aux_molecular_system, element='atom', selection=aux_selection,
                           structure_indices=aux_structure_indices, coordinates=True)
-        step, time, box = get(aux_molecular_system, structure_indices=aux_structure_indices, step=True, time=True,
+        structure_id, time, box = get(aux_molecular_system, structure_indices=aux_structure_indices, structure_id=True, time=True,
                               box=True)
 
-        dict_append_structures[to_form](to_molecular_system, step=step, time=time, coordinates=coordinates, box=box)
+        dict_append_structures[to_form](to_molecular_system, structure_id=structure_id, time=time, coordinates=coordinates, box=box)
 
     output = to_molecular_system
 

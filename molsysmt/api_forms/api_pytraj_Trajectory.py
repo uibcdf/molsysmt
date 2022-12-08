@@ -5,6 +5,7 @@ from molsysmt.form.pytraj_Trajectory.add import add
 from molsysmt.form.pytraj_Trajectory.append_structures import append_structures
 from molsysmt.form.pytraj_Trajectory.get import *
 from molsysmt.form.pytraj_Trajectory.set import *
+from molsysmt.form.pytraj_Trajectory.iterators import StructuresIterator, TopologyIterator
 from .form_attributes import form_attributes
 
 form_name = 'pytraj.Trajectory'

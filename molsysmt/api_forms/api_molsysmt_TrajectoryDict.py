@@ -3,6 +3,7 @@ from molsysmt.form.molsysmt_TrajectoryDict.extract import extract
 from molsysmt.form.molsysmt_TrajectoryDict.add import add
 from molsysmt.form.molsysmt_TrajectoryDict.append_structures import append_structures
 from molsysmt.form.molsysmt_TrajectoryDict.get import *
+from molsysmt.form.molsysmt_TrajectoryDict.iterators import StructuresIterator, TopologyIterator
 from molsysmt.form.molsysmt_TrajectoryDict.set import *
 
 form_name='molsysmt.TrajectoryDict'

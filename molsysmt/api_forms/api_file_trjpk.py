@@ -4,6 +4,7 @@ from molsysmt.form.file_trjpk.add import add
 from molsysmt.form.file_trjpk.append_structures import append_structures
 from molsysmt.form.file_trjpk.get import *
 from molsysmt.form.file_trjpk.set import *
+from molsysmt.form.file_trjpk.iterators import StructuresIterator, TopologyIterator
 
 form_name='file:trjpk'
 form_type='file'

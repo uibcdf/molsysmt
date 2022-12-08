@@ -4,6 +4,7 @@ from molsysmt.form.molsysmt_Topology.add import add
 from molsysmt.form.molsysmt_Topology.append_structures import append_structures
 from molsysmt.form.molsysmt_Topology.get import *
 from molsysmt.form.molsysmt_Topology.set import *
+from molsysmt.form.molsysmt_Topology.iterators import StructuresIterator, TopologyIterator
 from .form_attributes import form_attributes
 
 form_name = 'molsysmt.Topology'

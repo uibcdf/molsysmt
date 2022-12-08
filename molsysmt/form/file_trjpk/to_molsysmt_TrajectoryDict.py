@@ -15,7 +15,7 @@ def to_molsysmt_TrajectoryDict(item, atom_indices='all', structure_indices='all'
     coordinates = pickle.load(fff)
     box = pickle.load(fff)
     time = pickle.load(fff)
-    step = pickle.load(fff)
+    mdstep = pickle.load(fff)
     fff.close()
 
     if coordinates is not None:
@@ -35,14 +35,14 @@ def to_molsysmt_TrajectoryDict(item, atom_indices='all', structure_indices='all'
             time = time[structure_indices]
         time = puw.quantity(time, unit='ps')
 
-    if step is not None:
+    if mdstep is not None:
         if not is_all(structure_indices):
-            step = step[structure_indices, :, :]
+            mdstep = mdstep[structure_indices, :, :]
 
     tmp_item['coordinates'] = coordinates
     tmp_item['box'] = box
     tmp_item['time'] = time
-    tmp_item['step'] = step
+    tmp_item['mdstep'] = mdstep
 
     return tmp_item
 
