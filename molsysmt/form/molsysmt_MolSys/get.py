@@ -1323,9 +1323,9 @@ def get_time_from_system(item, structure_indices='all'):
     return aux_get(item.structures, structure_indices=structure_indices)
 
 @digest(form=form)
-def get_step_from_system(item, structure_indices='all'):
+def get_structure_id_from_system(item, structure_indices='all'):
 
-    from ..molsysmt_Structures import get_step_from_system as aux_get
+    from ..molsysmt_Structures import get_structure_id_from_system as aux_get
     return aux_get(item.structures, structure_indices=structure_indices)
 
 @digest(form=form)

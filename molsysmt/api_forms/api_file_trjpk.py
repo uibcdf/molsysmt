@@ -52,7 +52,7 @@ form_attributes = {
     'velocities' : False,
     'box' : True,
     'time' : True,
-    'step' : True,
+    'structure_id' : True,
 
     'forcefield' : False,
     'temperature' : False,

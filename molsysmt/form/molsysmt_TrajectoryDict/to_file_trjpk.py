@@ -79,18 +79,18 @@ def to_file_trjpk(item, atom_indices='all', structure_indices='all', output_file
     pickle.dump(time, fff)
     del(time)
 
-    if 'step' in item:
-        if item['step'] is not None:
-            step = item['step']
+    if 'structure_id' in item:
+        if item['structure_id'] is not None:
+            structure_id = item['structure_id']
             if not is_all(structure_indices):
-                step = step[structure_indices]
+                structure_id = structure_id[structure_indices]
         else:
-            step = None
+            structure_id = None
     else:
-        step = None
+        structure_id = None
 
-    pickle.dump(step, fff)
-    del(step)
+    pickle.dump(structure_id, fff)
+    del(structure_id)
 
     fff.close()
 

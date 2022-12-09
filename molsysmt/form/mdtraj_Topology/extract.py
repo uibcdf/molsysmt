@@ -23,11 +23,11 @@ def extract(item, atom_indices='all', copy_if_all=True):
 
         for chain in item._chains:
             newChain = newTopology.add_chain()
-            for group in chain._groups:
-                resSeq = getattr(group, 'resSeq', None) or group.index
-                newResidue = newTopology.add_group(group.name, newChain,
-                                                     resSeq, group.segment_id)
-                for atom in group._atoms:
+            for residue in chain._residues:
+                resSeq = getattr(residue, 'resSeq', None) or residue.index
+                newResidue = newTopology.add_residue(residue.name, newChain,
+                                                     resSeq, residue.segment_id)
+                for atom in residue._atoms:
                     if atom.index in atom_indices_to_be_kept:
                         try:  # OpenMM Topology objects don't have serial attributes, so we have to check first.
                             serial = atom.serial
@@ -53,17 +53,17 @@ def extract(item, atom_indices='all', copy_if_all=True):
                 # we only put bonds into the new topology if both of their partners
                 # were indexed and thus HAVE a new atom
 
-        # Delete empty groups
-        newTopology._groups = [r for r in newTopology._groups if len(r._atoms) > 0]
+        # Delete empty residues
+        newTopology._residues = [r for r in newTopology._residues if len(r._atoms) > 0]
         for chain in newTopology._chains:
-            chain._groups = [r for r in chain._groups if len(r._atoms) > 0]
+            chain._residues = [r for r in chain._residues if len(r._atoms) > 0]
 
         # Delete empty chains
         newTopology._chains = [c for c in newTopology._chains
-                               if len(c._groups) > 0]
+                               if len(c._residues) > 0]
         # Re-set the numAtoms and numResidues
         newTopology._numAtoms = ilen(newTopology.atoms)
-        newTopology._numResidues = ilen(newTopology.groups)
+        newTopology._numResidues = ilen(newTopology.residues)
 
         tmp_item = newTopology
 

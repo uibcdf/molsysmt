@@ -4,12 +4,13 @@ from copy import copy
 
 class StructuresIterator():
 
-    def __init__(self, molecular_system, atom_indices='all', start=0, interval=1, stop=None, chunk=1):
+    def __init__(self, molecular_system, atom_indices='all', start=0, step=1, stop=None, chunk=1,
+            structure_indices=None, **kwargs):
 
         self.molecular_system = molecular_system
         self.atom_indices = atom_indices
         self.start = start
-        self.interval = interval
+        self.step = step
         self.stop = stop
         self.chunk = chunk
 
@@ -22,9 +23,11 @@ class StructuresIterator():
         self.step=0
 
     def __iter__(self):
+        print('entra iter')
         return self
 
     def __next__(self):
+        print('entra next')
         if self.position <= self.stop:
             output = copy(self.step)
             self.position += 1

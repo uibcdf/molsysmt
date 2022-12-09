@@ -278,11 +278,11 @@ def get_time_from_system(item, structure_indices='all'):
     return output
 
 @digest(form=form)
-def get_step_from_system(item, structure_indices='all'):
+def get_structure_id_from_system(item, structure_indices='all'):
 
     if is_all(structure_indices):
-        output = item.step
+        output = item.structure_id
     else:
-        output = item.step[structure_indices]
+        output = item.structure_id[structure_indices]
     return output
 
