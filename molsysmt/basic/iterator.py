@@ -15,7 +15,7 @@ class Iterator():
                  chunk = 1,
                  structure_indices = None,
                  syntax = 'MolSysMT',
-                 output_form = None,
+                 output = 'values',
                  **kwargs
                  ):
 
@@ -32,8 +32,8 @@ class Iterator():
         self.structure_indices = structure_indices
 
         self.arguments = []
-        self._output = {}
-        self._output_form = output_form
+        self._output_dictionary = {}
+        self._output_form = output
 
         for ii, key in enumerate(kwargs.keys()):
             if kwargs[key]:
@@ -45,7 +45,7 @@ class Iterator():
         self.structure_index = 0
 
         self._iterators = []
-        self._output = {ii:None for ii in self.arguments}
+        self._output_dictionary = {ii:None for ii in self.arguments}
 
         aux_items_forms = {}
         aux_items_arguments = {}
@@ -63,7 +63,7 @@ class Iterator():
 
             tmp_arguments = {ii:True for ii in aux_items_arguments[item]}
             tmp_iterator = dict_structures_iterator[aux_items_forms[item]](item, atom_indices=self.atom_indices, start=self.start,
-                   stop=self.stop, step=self.step, chunk=self.chunk, structure_indices=structure_indices, output_form='dictionary',
+                   stop=self.stop, step=self.step, chunk=self.chunk, structure_indices=structure_indices, output='dictionary',
                    **tmp_arguments)
 
 
@@ -81,18 +81,18 @@ class Iterator():
 
             for iterator in self._iterators:
 
-                self._output.update(iterator.__next__())
+                self._output_dictionary.update(iterator.__next__())
 
         except:
 
             raise StopIteration
 
-        if self._output_form is None:
-            output = list(self._output.values())
+        if self._output_form=='values':
+            output = list(self._output_dictionary.values())
             if len(output) == 1:
                 output = output[0]
         elif self._output_form=='dictionary':
-            output = self._output
+            output = self._output_dictionary
 
         return  output
 

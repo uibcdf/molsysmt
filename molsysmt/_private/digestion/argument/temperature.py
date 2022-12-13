@@ -1,10 +1,11 @@
 from molsysmt._private.exceptions import ArgumentError
 import numpy as np
 
-functions_with_boolean = [
+functions_with_boolean = (
         'molsysmt.basic.get.get',
         'molsysmt.basic.iterator.__init__',
-        ]
+        'iterators.__init__',
+        )
 
 def digest_temperature(temperature, caller=None):
     """ Checks if temperature arguments has the correct type.
@@ -29,11 +30,7 @@ def digest_temperature(temperature, caller=None):
 
     """
 
-    if caller in functions_with_boolean:
-        if isinstance(temperature, bool):
-            return temperature
-
-    if caller.endswith('iterators.__init__'):
+    if caller.endswith(functions_with_boolean):
         if isinstance(temperature, bool):
             return temperature
 
