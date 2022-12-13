@@ -1,8 +1,10 @@
+from molsysmt._private.digestion import digest
 from molsysmt._private.exceptions import NotImplementedIteratorError
 #from molsysmt._private.exceptions import IteratorError
 
 class Iterator():
 
+    @digest()
     def __init__(self,
                  molecular_system,
                  element = 'system',
@@ -12,7 +14,8 @@ class Iterator():
                  step = 1,
                  chunk = 1,
                  structure_indices = None,
-                 syntax = "MolSysMT",
+                 syntax = 'MolSysMT',
+                 output_form = None,
                  **kwargs
                  ):
 
@@ -29,6 +32,9 @@ class Iterator():
         self.structure_indices = structure_indices
 
         self.arguments = []
+        self._output = {}
+        self._output_form = output_form
+
         for ii, key in enumerate(kwargs.keys()):
             if kwargs[key]:
                 self.arguments.append(key)
@@ -36,7 +42,7 @@ class Iterator():
         if len(self.arguments)==0:
             self.arguments = ['structure_id', 'time', 'coordinates', 'box']
 
-        self.position = 0
+        self.structure_index = 0
 
         self._iterators = []
         self._output = {ii:None for ii in self.arguments}
@@ -54,11 +60,14 @@ class Iterator():
 
         for item in aux_items_forms:
 
-           tmp_arguments = {ii:True for ii in aux_items_arguments[item]}
-           tmp_iterator = dict_structures_iterator[aux_items_forms[item]](item, atom_indices=self.atom_indices, start=self.start,
-                   stop=self.stop, step=self.step, chunk=self.chunk, structure_indices=structure_indices, **tmp_arguments)
 
-           self._iterators.append(tmp_iterator)
+            tmp_arguments = {ii:True for ii in aux_items_arguments[item]}
+            tmp_iterator = dict_structures_iterator[aux_items_forms[item]](item, atom_indices=self.atom_indices, start=self.start,
+                   stop=self.stop, step=self.step, chunk=self.chunk, structure_indices=structure_indices, output_form='dictionary',
+                   **tmp_arguments)
+
+
+            self._iterators.append(tmp_iterator)
 
         del(aux_items_forms, aux_items_arguments)
 
@@ -68,17 +77,22 @@ class Iterator():
 
     def __next__(self):
 
-        if self.position <= self.stop:
+        try:
 
-            output = []
+            for iterator in self._iterators:
 
-            for iterator in iterators:
+                self._output.update(iterator.__next__())
 
-                output += iterator.__next__()
-
-            return output
-
-        else:
+        except:
 
             raise StopIteration
+
+        if self._output_form is None:
+            output = list(self._output.values())
+            if len(output) == 1:
+                output = output[0]
+        elif self._output_form=='dictionary':
+            output = self._output
+
+        return  output
 

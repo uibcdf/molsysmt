@@ -40,6 +40,7 @@ form_attributes['box'] = True
 form_attributes['time'] = True
 form_attributes['structure_id'] = True
 form_attributes['forcefield_parameters'] = True
+form_attributes['temperature'] = True
 
 
 def to_mdtraj_Trajectory(item, molecular_system, atom_indices='all', structure_indices='all'):

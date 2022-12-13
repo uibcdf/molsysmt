@@ -116,7 +116,10 @@ def digest(output=False, **kwargs):
                         auxiliary_output = auxiliary_output[0]
                 return auxiliary_output
             else:
-                return func(**final_args)
+                if 'self' in all_args:
+                    return func(all_args['self'], **final_args)
+                else:
+                    return func(**final_args)
 
         return wrapper
     return digestor

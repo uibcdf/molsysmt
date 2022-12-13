@@ -633,3 +633,12 @@ _required_indices['partial_charge'] = ['indices']
 _reverse_search_in_molecular_system['partial_charge'] = False
 
 
+# temperature
+
+attributes.append('temperature')
+attribute_synonyms['temperatures'] = 'temperature'
+
+_required_attributes['temperature'] = ['temperature']
+_required_indices['temperature'] = []
+_reverse_search_in_molecular_system['temperature'] = False
+

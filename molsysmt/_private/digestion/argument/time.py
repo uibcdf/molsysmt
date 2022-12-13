@@ -1,6 +1,11 @@
 from molsysmt._private.exceptions import ArgumentError
 import numpy as np
 
+functions_with_boolean = [
+        'molsysmt.basic.get.get',
+        'molsysmt.basic.iterator.__init__',
+        ]
+
 def digest_time(time, caller=None):
     """ Checks if time arguments has the correct type.
 
@@ -24,18 +29,22 @@ def digest_time(time, caller=None):
 
     """
 
-    if caller=='molsysmt.basic.get.get':
+    if caller in functions_with_boolean:
         if isinstance(time, bool):
             return time
-    else:
-        if time is None:
+
+    if caller.endswith('iterators.__init__'):
+        if isinstance(time, bool):
             return time
-        elif isinstance(time, float):
-            return np.array([time])
-        elif isinstance(time, (list, tuple)):
-            return np.array(time)
-        elif isinstance(time, np.ndarray):
-            return time
+
+    if time is None:
+        return time
+    elif isinstance(time, float):
+        return np.array([time])
+    elif isinstance(time, (list, tuple)):
+        return np.array(time)
+    elif isinstance(time, np.ndarray):
+        return time
 
     raise ArgumentError('time', value=time, caller=caller, message=None)
 
