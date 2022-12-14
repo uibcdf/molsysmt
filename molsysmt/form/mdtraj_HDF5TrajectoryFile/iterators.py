@@ -41,7 +41,7 @@ class StructuresIterator():
 
         if self.structure_index <= self.stop:
 
-            mdtraj_output = self.molecular_system.read(n_frames=self.chunk)
+            mdtraj_output = self.molecular_system.read(n_frames=self.chunk, stride=self.step, atom_indices=self.atom_indices)
 
             for argument in self.arguments:
 
