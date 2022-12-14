@@ -105,7 +105,8 @@ def digest(output=False, **kwargs):
                 gut(arg_name)
 
             for arg_name in not_digested_args:
-                warnings.warn(arg_name+' from '+caller, NotDigestedArgumentWarning, stacklevel=2)
+                if arg_name not in ['self']:
+                    warnings.warn(arg_name+' from '+caller, NotDigestedArgumentWarning, stacklevel=2)
 
             final_args = digested_args
 
