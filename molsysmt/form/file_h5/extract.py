@@ -21,7 +21,15 @@ def extract(item, atom_indices='all', structure_indices='all', output_filename=N
             tmp_item = item
     else:
 
-        raise NotImplementedMethodError()
+        from . import to_mdtraj_HDF5TrajectoryFile
+        from ..mdtraj_HDF5TrajectoryFile import extract as extract_mdtraj_HDF5TrajectoryFile
+
+        tmp_item = to_mdtraj_HDF5TrajectoryFile(item)
+        tmp_item = extract_mdtraj_HDF5TrajectoryFile(tmp_item, atom_indices=atom_indices, structure_indices=structure_indices,
+                output_filename=output_filename, copy_if_all=copy_if_all)
+        tmp_item.close()
+
+        tmp_item = output_filename
 
     return tmp_item
 

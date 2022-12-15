@@ -96,7 +96,8 @@ def convert(molecular_system,
             tmp_item = dict_extract[from_form](item,
                                                atom_indices=atom_indices,
                                                structure_indices=structure_indices,
-                                               copy_if_all=False)
+                                               copy_if_all=False,
+                                               **conversion_arguments, **kwargs)
         else:
             if from_form in dict_convert:
                 if to_form in dict_convert[from_form]:
