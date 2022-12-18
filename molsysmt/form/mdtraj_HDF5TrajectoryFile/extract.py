@@ -3,11 +3,17 @@ from molsysmt._private.digestion import digest
 from molsysmt._private.variables import is_all
 
 @digest(form='mdtraj.HDF5TrajectoryFile')
-def extract(item, atom_indices='all', structure_indices='all', output_filename=None, copy_if_all=True):
+def extract(item, atom_indices='all', structure_indices='all', output_filename=None, copy_if_all=True,
+        progress_bar=False):
 
     from .get import get_n_structures_from_system
     from ..mdtraj_Topology import extract as extract_mdtraj_Topology
     from mdtraj.formats import HDF5TrajectoryFile
+    from tqdm import tqdm
+
+    mdtraj_atom_indices = atom_indices
+    if is_all(atom_indices):
+        mdtraj_atom_indices = None
 
     if is_all(atom_indices) and is_all(structure_indices):
 
@@ -19,8 +25,13 @@ def extract(item, atom_indices='all', structure_indices='all', output_filename=N
 
             tmp_item = HDF5TrajectoryFile(output_filename, 'w', force_overwrite=False, compression='zlib')
 
-            for ii in range(n_structures):
-                output = item.read(1, atom_indices=atom_indices)
+            if progress_bar:
+                iterator = tqdm(range(n_structures))
+            else:
+                iterator = range(n_structures)
+
+            for ii in iterator:
+                output = item.read(1, atom_indices=mdtraj_atom_indices)
                 tmp_item.write(coordinates=output.coordinates, time=output.time,
                     cell_lengths=output.cell_lengths, cell_angles=output.cell_angles,
                     velocities=output.velocities, kineticEnergy=output.kineticEnergy, potentialEnergy=output.potentialEnergy,
@@ -47,8 +58,14 @@ def extract(item, atom_indices='all', structure_indices='all', output_filename=N
 
         tmp_item = HDF5TrajectoryFile(output_filename, 'w', force_overwrite=False, compression='zlib')
 
-        for ii in structure_indices:
-            output = item.read(1, atom_indices=atom_indices)
+        if progress_bar:
+            iterator = tqdm(structure_indices)
+        else:
+            iterator = structure_indices
+
+        for ii in iterator:
+            item.seek(ii)
+            output = item.read(1, atom_indices=mdtraj_atom_indices)
             tmp_item.write(coordinates=output.coordinates, time=output.time,
                     cell_lengths=output.cell_lengths, cell_angles=output.cell_angles,
                     velocities=output.velocities, kineticEnergy=output.kineticEnergy, potentialEnergy=output.potentialEnergy,

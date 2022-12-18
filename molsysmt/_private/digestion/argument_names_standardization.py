@@ -17,6 +17,9 @@ def argument_names_standardization(caller, kwargs):
         if 'order' in kwargs:
             kwargs = _replace_key_in_dict(kwargs, 'order', element+'_order')
 
+    if 'structure_index' in kwargs:
+            kwargs = _replace_key_in_dict(kwargs, 'structure_index', 'structure_indices')
+
     return kwargs
 
 def _replace_key_in_dict(dictionary, old_key, new_key):

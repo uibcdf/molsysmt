@@ -6,7 +6,7 @@ from molsysmt.lib import rmsd as librmsd
 from molsysmt import pyunitwizard as puw
 
 @digest()
-def fit (molecular_system=None, selection='backbone', structure_indices='all',
+def fit (molecular_system=None, selection=None, structure_indices='all',
          reference_molecular_system=None, reference_selection=None, reference_structure_index=0,
          to_form=None, syntax='MolSysMT', method='least rmsd', engine='MolSysMT'):
 

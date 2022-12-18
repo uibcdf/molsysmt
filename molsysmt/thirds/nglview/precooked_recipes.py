@@ -6,9 +6,10 @@ from molsysmt._private.variables import is_all
 @digest()
 def standardize_view (view, atom_indices='all', structure_indices='all'):
 
+    view.clear()
+
     from molsysmt.basic import select, get, convert
     from molsysmt.build import is_solvated
-
 
     if not is_all(atom_indices):
         string_atom_indices = '@'+','.join(map(str, atom_indices))
@@ -33,20 +34,11 @@ def standardize_view (view, atom_indices='all', structure_indices='all'):
     sel_peptides_cartoon = select(tmp_topology, selection='molecule_index in @peptides_to_cartoon', mask=atom_indices, to_syntax='NGLview')
     sel_peptides_licorice = select(tmp_topology, selection='molecule_index in @peptides_to_licorice', mask=atom_indices, to_syntax='NGLview')
 
-    view.clear()
     view.add_cartoon(selection=sel_cartoon)
     view.add_cartoon(selection=sel_peptides_cartoon)
     view.add_licorice(selection=sel_licorice, radius=0.4)
     view.add_licorice(selection=sel_peptides_licorice, radius=0.4)
     view.add_ball_and_stick(selection=sel_balls)
-
-    n_waters = get(view, element="system", n_waters=True)
-    n_selected_waters = get(view, element="system", n_waters=True)
-    solvated = is_solvated(view)
-
-    if (not solvated) or (n_selected_waters<n_waters):
-        sel_water = select(tmp_topology, selection='molecule_type in ["water"]', mask=atom_indices, to_syntax='NGLview')
-        view.add_licorice(selection=sel_water)
 
     view.center(selection=string_atom_indices)
 
@@ -66,13 +58,6 @@ def show_water_as_transparent_surface(view, atom_indices='all', structure_indice
     pass
 
 @digest()
-def show_system_as_transparent_surface(view, atom_indices='all', structure_indices='all'):
-
-    view.add_surface(selection='all', opacity=0.3, color='lightblue')
-
-    pass
-
-@digest()
 def show_water_as_licorice(view, atom_indices='all', structure_indices='all'):
 
     if not is_all(atom_indices):
@@ -84,6 +69,15 @@ def show_water_as_licorice(view, atom_indices='all', structure_indices='all'):
     view.add_licorice(selection=string_atom_indices)
 
     pass
+
+
+@digest()
+def show_system_as_transparent_surface(view, atom_indices='all', structure_indices='all'):
+
+    view.add_surface(selection='all', opacity=0.3, color='lightblue')
+
+    pass
+
 
 @digest()
 def add_gui(view):
