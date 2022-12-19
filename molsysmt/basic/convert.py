@@ -77,9 +77,11 @@ def convert(molecular_system,
         atom_indices = 'all'
 
     conversion_arguments={}
+    output_is_file=False
 
     if is_item(to_form):
         if is_file(to_form):
+            output_is_file=True
             conversion_arguments['output_filename'] = to_form
             to_form = get_form(to_form)
 
