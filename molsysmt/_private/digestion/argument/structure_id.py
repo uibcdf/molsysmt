@@ -25,12 +25,14 @@ def digest_structure_id(structure_id, caller=None):
     """
     if structure_id is None:
         return structure_id
-    elif isinstance(structure_id, int):
+    elif isinstance(structure_id, (int, np.int64)):
         return np.array([structure_id])
     elif isinstance(structure_id, (list, tuple)):
         return np.array(structure_id)
     elif isinstance(structure_id, np.ndarray):
         return structure_id
+
+    type(structure_id)
 
     raise ArgumentError('structure_id', value=structure_id, caller=caller, message=None)
 

@@ -18,16 +18,11 @@ def set_atom_name_to_atom(item, indices='all', structure_indices='all', value=No
 def set_coordinates_to_atom(item, indices='all', structure_indices='all', value=None):
 
     if is_all(indices):
-        if item.structures.coordinates.shape[1]!=value.shape[1]:
-            raise ValueError('New coordinates array has different number of atoms')
-
-    if is_all(structure_indices):
-        if item.structures.coordinates.shape[0]!=value.shape[0]:
-            raise ValueError('New coordinates array has different number of frames')
-
-    if is_all(indices):
         if is_all(structure_indices):
-            item.structures.coordinates[:,:,:] = value[:,:,:]
+            item.structures.coordinates = value
+            item.structures.n_structures = value.shape[0]
+            if item.n_atoms != 0:
+                item.n_
         else:
             item.structures.coordinates[structure_indices,:,:] = value[:,:,:]
     else:

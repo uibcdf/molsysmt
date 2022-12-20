@@ -7,7 +7,6 @@ class Iterator():
     @digest()
     def __init__(self,
                  molecular_system,
-                 element = 'system',
                  selection = 'all',
                  start = 0,
                  stop = None,
@@ -20,11 +19,10 @@ class Iterator():
                  **kwargs
                  ):
 
-        from . import select, get_form, where_is_attribute, convert
+        from . import select, get_form, where_is_attribute, convert, set
         from molsysmt.api_forms import dict_structures_iterator, dict_topology_iterator
 
         self.molecular_system = molecular_system
-        self.element = element
         self.atom_indices = select(molecular_system, selection=selection, syntax=syntax)
         self.start = start
         self.stop = stop
@@ -67,7 +65,8 @@ class Iterator():
 
             tmp_arguments = {ii:True for ii in aux_items_arguments[item]}
             tmp_iterator = dict_structures_iterator[aux_items_forms[item]](item, atom_indices=self.atom_indices, start=self.start,
-                   stop=self.stop, step=self.step, chunk=self.chunk, structure_indices=structure_indices, output='dictionary',
+                   stop=self.stop, step=self.step, chunk=self.chunk,
+                   structure_indices=structure_indices, output_type='dictionary',
                    **tmp_arguments)
 
 
@@ -100,7 +99,8 @@ class Iterator():
                 output = self._output_dictionary
             return  output
         else:
-            set(self._output_molecular_system, coordinates=output['coordinates'], box=output['box'], structure_id=output['structure_id'],
-                time=output['time'])
+            set(self._output_molecular_system, coordinates=self._output_dictionary['coordinates'],
+                    box=self._output_dictionary['box'], structure_id=self._output_dictionary['structure_id'],
+                    time=self._output_dictionary['time'])
             return self._output_molecular_system
 

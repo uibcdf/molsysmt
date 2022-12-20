@@ -2,7 +2,26 @@ from molsysmt._private.digestion import digest
 
 ###### Set
 
+@digest(form='molsysmt.Structures')
+def set_coordinates_to_system(item, indices='all', structure_indices='all', value=None):
+
+    if is_all(indices):
+        if is_all(structure_indices):
+            item.structures.coordinates = value              
+            item.structures.n_structures = value.shape[0]
+            item.structures.n_atoms = value.shape[1]
+        else:
+            item.structures.coordinates[structure_indices,:,:] = value[:,:,:]
+    else:
+        if is_all(structure_indices):
+            item.structures.coordinates[:,indices,:] = value[:,:,:]
+        else:
+            item.structures.coordinates[np.ix_(structure_indices, indices)]=value[:,:,:]
+
+    pass
+
 ## System
+
 
 @digest(form='molsysmt.Structures')
 def set_box_to_system(item, indices='all', structure_indices='all', value=None):

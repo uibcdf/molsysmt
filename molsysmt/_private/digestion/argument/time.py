@@ -1,4 +1,5 @@
 from molsysmt._private.exceptions import ArgumentError
+from molsysmt import pyunitwizard as puw
 import numpy as np
 
 functions_with_boolean = (
@@ -36,12 +37,15 @@ def digest_time(time, caller=None):
 
     if time is None:
         return time
-    elif isinstance(time, float):
-        return np.array([time])
-    elif isinstance(time, (list, tuple)):
-        return np.array(time)
-    elif isinstance(time, np.ndarray):
-        return time
+
+    if puw.is_quantity(time):
+        if puw.check(time, dimensionality={'[T]':1}):
+            return puw.standardize(time)
+    elif type(time, (list, tuple, np.ndarray)):
+        if puw.is_quantity(time[0]):
+            time = puw.concatenate(time, to_value_type='numpy.ndarray')
+            if puw.check(time, dimensionality={'[T]':1}):
+                return puw.standardize(time)
 
     raise ArgumentError('time', value=time, caller=caller, message=None)
 
