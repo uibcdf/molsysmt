@@ -9,7 +9,7 @@ def info(molecular_system,
          indices=None,
          selection='all',
          syntax='MolSysMT',
-         output='dataframe'):
+         output_type='dataframe'):
     """info(item, element='system', indices=None, selection='all', syntax='MolSysMT')
 
     Print out general information of a molecular model.
@@ -70,7 +70,7 @@ def info(molecular_system,
     if form in ['string:pdb_id', 'file:pdb', 'nglview.NGLWidget']:
         molecular_system = convert(molecular_system)
 
-    if output == 'dataframe':
+    if output_type == 'dataframe':
 
         if element == 'atom':
 
@@ -263,7 +263,7 @@ def info(molecular_system,
             raise ValueError('"element" needs one of the following strings: "atom", "group",\
                              "component", "chain", "molecule", "entity" or "system"')
 
-    elif output == 'short_string':
+    elif output_type == 'short_string':
 
         if indices is None and selection is not None:
             indices = select(molecular_system, selection=selection, element=element)
@@ -275,7 +275,7 @@ def info(molecular_system,
         else:
             return string
 
-    elif output == 'long_string':
+    elif output_type == 'long_string':
 
         if element == 'atom':
 

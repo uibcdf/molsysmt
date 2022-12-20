@@ -15,11 +15,12 @@ class Iterator():
                  chunk = 1,
                  structure_indices = None,
                  syntax = 'MolSysMT',
-                 output = 'values',
+                 output_type = 'values',
+                 output_form = 'molsysmt.MolSys',
                  **kwargs
                  ):
 
-        from . import select, get_form, where_is_attribute
+        from . import select, get_form, where_is_attribute, convert
         from molsysmt.api_forms import dict_structures_iterator, dict_topology_iterator
 
         self.molecular_system = molecular_system
@@ -33,7 +34,9 @@ class Iterator():
 
         self.arguments = []
         self._output_dictionary = {}
-        self._output_form = output
+        self._output_type = output_type
+        self._output_form= output_form
+        self._output_molecular_system = None
 
         for ii, key in enumerate(kwargs.keys()):
             if kwargs[key]:
@@ -41,7 +44,9 @@ class Iterator():
 
         if len(self.arguments)==0:
             self.arguments = ['structure_id', 'time', 'coordinates', 'box']
-
+            self._output_molecular_system = convert(self.molecular_system, selection=self.atom_indices,
+                    structure_indices=None, to_form=self._output_form)
+            
         self.structure_index = 0
 
         self._iterators = []
@@ -59,7 +64,6 @@ class Iterator():
                 aux_items_arguments[item]=[argument]
 
         for item in aux_items_forms:
-
 
             tmp_arguments = {ii:True for ii in aux_items_arguments[item]}
             tmp_iterator = dict_structures_iterator[aux_items_forms[item]](item, atom_indices=self.atom_indices, start=self.start,
@@ -87,12 +91,16 @@ class Iterator():
 
             raise StopIteration
 
-        if self._output_form=='values':
-            output = list(self._output_dictionary.values())
-            if len(output) == 1:
-                output = output[0]
-        elif self._output_form=='dictionary':
-            output = self._output_dictionary
-
-        return  output
+        if self._output_molecular_system is None:
+            if self._output_type=='values':
+                output = list(self._output_dictionary.values())
+                if len(output) == 1:
+                    output = output[0]
+            elif self._output_type=='dictionary':
+                output = self._output_dictionary
+            return  output
+        else:
+            set(self._output_molecular_system, coordinates=output['coordinates'], box=output['box'], structure_id=output['structure_id'],
+                time=output['time'])
+            return self._output_molecular_system
 

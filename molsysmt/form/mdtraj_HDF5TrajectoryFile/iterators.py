@@ -9,7 +9,7 @@ class StructuresIterator():
 
     @digest(form='mdtraj.HDF5TrajectoryFile')
     def __init__(self, molecular_system, atom_indices='all', start=0, step=1, stop=None, chunk=1,
-            structure_indices=None, output = 'values', **kwargs):
+            structure_indices=None, output_type = 'values', **kwargs):
 
         self.molecular_system = molecular_system
         self.atom_indices = atom_indices
@@ -22,7 +22,7 @@ class StructuresIterator():
 
         self.arguments = []
         self._output_dictionary = {}
-        self._output_form = output
+        self._output_type = output_type
 
         for ii, key in enumerate(kwargs.keys()):
             if kwargs[key]:
@@ -85,11 +85,11 @@ class StructuresIterator():
                 for key, value in self._output_dictionary.items():
                     self._output_dictionary[key] = value[0]
 
-            if self._output_form is None:
+            if self._output_type is None:
                 output = list(self._output_dictionary.values())
                 if len(output) == 1:
                     output = output[0]
-            elif self._output_form=='dictionary':
+            elif self._output_type=='dictionary':
                 output = self._output_dictionary
 
             return  output

@@ -71,6 +71,10 @@ class Structures:
                 The times of the trajectory in picoseconds
 
         """
+
+        n_structures = 0
+        n_atoms = 0
+    
         if structure_id is not None and not isinstance(structure_id, (list, np.ndarray)):
             structure_id = np.array([structure_id])
 
@@ -78,11 +82,10 @@ class Structures:
             time = puw.standardize(time)
         if coordinates is not None:
             coordinates = puw.standardize(coordinates)
+            n_structures = coordinates.shape[0]
+            n_atoms = coordinates.shape[1]
         if box is not None:
             box = puw.standardize(box)
-
-        n_structures = coordinates.shape[0]
-        n_atoms = coordinates.shape[1]
 
         if self.n_structures == 0:
 
