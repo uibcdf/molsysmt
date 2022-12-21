@@ -1,41 +1,66 @@
 from molsysmt._private.digestion import digest
+from molsysmt._private.variables import is_all
+import numpy as np
 
 ###### Set
+
+## Atom
+
+@digest(form='molsysmt.Structures')
+def set_coordinates_to_atom(item, indices='all', structure_indices='all', value=None):
+
+    if is_all(indices):
+        if is_all(structure_indices):
+            item.coordinates = value              
+            item.n_structures = value.shape[0]
+            item.n_atoms = value.shape[1]
+        else:
+            item.coordinates[structure_indices,:,:] = value[:,:,:]
+    else:
+        if is_all(structure_indices):
+            item.coordinates[:,indices,:] = value[:,:,:]
+        else:
+            item.coordinates[np.ix_(structure_indices, indices)]=value[:,:,:]
+
+    pass
+
+
+## System
+
+@digest(form='molsysmt.Structures')
+def set_structure_id_to_system(item, structure_indices='all', value=None):
+
+    if is_all(structure_indices):
+        item.structure_id = value
+    else:
+        item.structure_id[structure_indices,:,:] = value[:,:,:]
+
+    pass
+
+@digest(form='molsysmt.Structures')
+def set_time_to_system(item, structure_indices='all', value=None):
+
+    if is_all(structure_indices):
+        item.time = value
+    else:
+        item.time[structure_indices,:,:] = value[:,:,:]
+
+    pass
+
+@digest(form='molsysmt.Structures')
+def set_box_to_system(item, structure_indices='all', value=None):
+
+    if is_all(structure_indices):
+        item.box = value
+    else:
+        item.box[structure_indices,:,:] = value[:,:,:]
+
+    pass
 
 @digest(form='molsysmt.Structures')
 def set_coordinates_to_system(item, indices='all', structure_indices='all', value=None):
 
-    if is_all(indices):
-        if is_all(structure_indices):
-            item.structures.coordinates = value              
-            item.structures.n_structures = value.shape[0]
-            item.structures.n_atoms = value.shape[1]
-        else:
-            item.structures.coordinates[structure_indices,:,:] = value[:,:,:]
-    else:
-        if is_all(structure_indices):
-            item.structures.coordinates[:,indices,:] = value[:,:,:]
-        else:
-            item.structures.coordinates[np.ix_(structure_indices, indices)]=value[:,:,:]
+    return set_coordinates_to_atom(item, indices='all', structure_indices=structure_indices,
+            value=value)
 
-    pass
-
-## System
-
-
-@digest(form='molsysmt.Structures')
-def set_box_to_system(item, indices='all', structure_indices='all', value=None):
-
-    n_structures_trajectory = item.coordinates.shape[0]
-    n_structures_box = value.shape[0]
-
-    if n_structures_trajectory == n_structures_box:
-        item.box = value
-    else:
-        if n_structures_box == 1:
-            item.box = np.broadcast_to(value[0]._value, (n_structures_trajectory,3,3)) * value.unit
-        else:
-            raise ValueError("box and coordinates have different shape")
-
-    pass
 

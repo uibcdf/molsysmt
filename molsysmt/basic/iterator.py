@@ -19,7 +19,7 @@ class Iterator():
                  **kwargs
                  ):
 
-        from . import select, get_form, where_is_attribute, convert, set
+        from . import select, get_form, where_is_attribute, convert
         from molsysmt.api_forms import dict_structures_iterator, dict_topology_iterator
 
         self.molecular_system = molecular_system
@@ -99,8 +99,9 @@ class Iterator():
                 output = self._output_dictionary
             return  output
         else:
-            set(self._output_molecular_system, coordinates=self._output_dictionary['coordinates'],
-                    box=self._output_dictionary['box'], structure_id=self._output_dictionary['structure_id'],
-                    time=self._output_dictionary['time'])
+            from . import set
+            set(self._output_molecular_system, element='atom', coordinates=self._output_dictionary['coordinates'])
+            set(self._output_molecular_system, element='system', box=self._output_dictionary['box'],
+                    structure_id=self._output_dictionary['structure_id'], time=self._output_dictionary['time'])
             return self._output_molecular_system
 
