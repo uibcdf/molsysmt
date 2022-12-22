@@ -1,7 +1,7 @@
 from molsysmt._private.digestion import digest
 
 @digest(form='molsysmt.MolecularMechanicsDict')
-def to_molsysmt_MolecularMechanics(item):
+def to_molsysmt_MolecularMechanics(item, digest=True):
 
     from molsysmt.native.molecular_mechanics import MolecularMechanics as molsysmt_MolecularMechanics
 

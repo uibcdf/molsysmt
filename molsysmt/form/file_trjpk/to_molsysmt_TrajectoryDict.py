@@ -3,7 +3,7 @@ from molsysmt._private.variables import is_all
 from molsysmt import pyunitwizard as puw
 
 @digest(form='file:trjpk')
-def to_molsysmt_TrajectoryDict(item, atom_indices='all', structure_indices='all'):
+def to_molsysmt_TrajectoryDict(item, atom_indices='all', structure_indices='all', digest=True):
 
     import pickle
 

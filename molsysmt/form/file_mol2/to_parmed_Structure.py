@@ -2,7 +2,7 @@ from molsysmt._private.digestion import digest
 from molsysmt._private.exceptions import LibraryNotFoundError
 
 @digest(form='file:mol2')
-def to_parmed_Structure(item, atom_indices='all', structure_indices='all'):
+def to_parmed_Structure(item, atom_indices='all', structure_indices='all', digest=True):
 
     try:
         from parmed import load_file
@@ -13,7 +13,7 @@ def to_parmed_Structure(item, atom_indices='all', structure_indices='all'):
 
     tmp_item = load_file(item)
     tmp_item = tmp_item.to_structure()
-    tmp_item = extract(tmp_item, atom_indices=atom_indices, structure_indices=structure_indices, copy_if_all=False)
+    tmp_item = extract(tmp_item, atom_indices=atom_indices, structure_indices=structure_indices, copy_if_all=False, digest=False)
 
     return tmp_item
 

@@ -15,7 +15,7 @@ form='mdtraj.HDF5TrajectoryFile'
 ## From atom
 
 @digest(form=form)
-def get_atom_id_from_atom(item, indices='all'):
+def get_atom_id_from_atom(item, indices='all', digest=True):
 
     if indices is None:
         return None
@@ -23,13 +23,13 @@ def get_atom_id_from_atom(item, indices='all'):
     from . import to_mdtraj_Topology
     from ..mdtraj_Topology import get_atom_id_from_atom as aux_get
 
-    tmp_item = to_mdtraj_Topology(item)
-    output = aux_get(tmp_item, indices=indices)
+    tmp_item = to_mdtraj_Topology(item, digest=False)
+    output = aux_get(tmp_item, indices=indices, digest=False)
 
     return output
 
 @digest(form=form)
-def get_atom_name_from_atom(item, indices='all'):
+def get_atom_name_from_atom(item, indices='all', digest=True):
 
     if indices is None:
         return None
@@ -37,13 +37,13 @@ def get_atom_name_from_atom(item, indices='all'):
     from . import to_mdtraj_Topology
     from ..mdtraj_Topology import get_atom_name_from_atom as aux_get
 
-    tmp_item = to_mdtraj_Topology(item)
-    output = aux_get(tmp_item, indices=indices)
+    tmp_item = to_mdtraj_Topology(item, digest=False)
+    output = aux_get(tmp_item, indices=indices, digest=False)
 
     return output
 
 @digest(form=form)
-def get_atom_type_from_atom(item, indices='all'):
+def get_atom_type_from_atom(item, indices='all', digest=True):
 
     if indices is None:
         return None
@@ -51,13 +51,13 @@ def get_atom_type_from_atom(item, indices='all'):
     from . import to_mdtraj_Topology
     from ..mdtraj_Topology import get_atom_type_from_atom as aux_get
 
-    tmp_item = to_mdtraj_Topology(item)
-    output = aux_get(tmp_item, indices=indices)
+    tmp_item = to_mdtraj_Topology(item, digest=False)
+    output = aux_get(tmp_item, indices=indices, digest=False)
 
     return output
 
 @digest(form=form)
-def get_group_index_from_atom (item, indices='all'):
+def get_group_index_from_atom (item, indices='all', digest=True):
 
     if indices is None:
         return None
@@ -65,13 +65,13 @@ def get_group_index_from_atom (item, indices='all'):
     from . import to_mdtraj_Topology
     from ..mdtraj_Topology import get_group_index_from_atom as aux_get
 
-    tmp_item = to_mdtraj_Topology(item)
-    output = aux_get(tmp_item, indices=indices)
+    tmp_item = to_mdtraj_Topology(item, digest=False)
+    output = aux_get(tmp_item, indices=indices, digest=False)
 
     return output
 
 @digest(form=form)
-def get_component_index_from_atom (item, indices='all'):
+def get_component_index_from_atom (item, indices='all', digest=True):
 
     if indices is None:
         return None
@@ -79,13 +79,13 @@ def get_component_index_from_atom (item, indices='all'):
     from . import to_mdtraj_Topology
     from ..mdtraj_Topology import get_component_index_from_atom as aux_get
 
-    tmp_item = to_mdtraj_Topology(item)
-    output = aux_get(tmp_item, indices=indices)
+    tmp_item = to_mdtraj_Topology(item, digest=False)
+    output = aux_get(tmp_item, indices=indices, digest=False)
 
     return output
 
 @digest(form=form)
-def get_chain_index_from_atom (item, indices='all'):
+def get_chain_index_from_atom (item, indices='all', digest=True):
 
     if indices is None:
         return None
@@ -93,13 +93,13 @@ def get_chain_index_from_atom (item, indices='all'):
     from . import to_mdtraj_Topology
     from ..mdtraj_Topology import get_chain_index_from_atom as aux_get
 
-    tmp_item = to_mdtraj_Topology(item)
-    output = aux_get(tmp_item, indices=indices)
+    tmp_item = to_mdtraj_Topology(item, digest=False)
+    output = aux_get(tmp_item, indices=indices, digest=False)
 
     return output
 
 @digest(form=form)
-def get_molecule_index_from_atom (item, indices='all'):
+def get_molecule_index_from_atom (item, indices='all', digest=True):
 
     if indices is None:
         return None
@@ -107,13 +107,13 @@ def get_molecule_index_from_atom (item, indices='all'):
     from . import to_mdtraj_Topology
     from ..mdtraj_Topology import get_molecule_index_from_atom as aux_get
 
-    tmp_item = to_mdtraj_Topology(item)
-    output = aux_get(tmp_item, indices=indices)
+    tmp_item = to_mdtraj_Topology(item, digest=False)
+    output = aux_get(tmp_item, indices=indices, digest=False)
 
     return output
 
 @digest(form=form)
-def get_entity_index_from_atom (item, indices='all'):
+def get_entity_index_from_atom (item, indices='all', digest=True):
 
     if indices is None:
         return None
@@ -121,13 +121,13 @@ def get_entity_index_from_atom (item, indices='all'):
     from . import to_mdtraj_Topology
     from ..mdtraj_Topology import get_entity_index_from_atom as aux_get
 
-    tmp_item = to_mdtraj_Topology(item)
-    output = aux_get(tmp_item, indices=indices)
+    tmp_item = to_mdtraj_Topology(item, digest=False)
+    output = aux_get(tmp_item, indices=indices, digest=False)
 
     return output
 
 @digest(form=form)
-def get_inner_bonded_atoms_from_atom (item, indices='all'):
+def get_inner_bonded_atoms_from_atom (item, indices='all', digest=True):
 
     if indices is None:
         return None
@@ -135,13 +135,13 @@ def get_inner_bonded_atoms_from_atom (item, indices='all'):
     from . import to_mdtraj_Topology
     from ..mdtraj_Topology import get_inner_bonded_atoms_from_atom as aux_get
 
-    tmp_item = to_mdtraj_Topology(item)
-    output = aux_get(tmp_item, indices=indices)
+    tmp_item = to_mdtraj_Topology(item, digest=False)
+    output = aux_get(tmp_item, indices=indices, digest=False)
 
     return output
 
 @digest(form=form)
-def get_n_inner_bonds_from_atom (item, indices='all'):
+def get_n_inner_bonds_from_atom (item, indices='all', digest=True):
 
     if indices is None:
         return None
@@ -149,13 +149,13 @@ def get_n_inner_bonds_from_atom (item, indices='all'):
     from . import to_mdtraj_Topology
     from ..mdtraj_Topology import get_n_inner_bonds_from_atom as aux_get
 
-    tmp_item = to_mdtraj_Topology(item)
-    output = aux_get(tmp_item, indices=indices, structure_indices=structure_indices)
+    tmp_item = to_mdtraj_Topology(item, digest=False)
+    output = aux_get(tmp_item, indices=indices, structure_indices=structure_indices, digest=False)
 
     return output
 
 @digest(form=form)
-def get_coordinates_from_atom(item, indices='all', structure_indices='all'):
+def get_coordinates_from_atom(item, indices='all', structure_indices='all', digest=True):
 
     if (indices is None) or (structure_indices is None):
         return None
@@ -163,9 +163,9 @@ def get_coordinates_from_atom(item, indices='all', structure_indices='all'):
     from molsysmt._private.math import serie_to_chunks
 
     if is_all(structure_indices):
-        structure_indices = np.arange(get_n_structures_from_system(item))
+        structure_indices = np.arange(get_n_structures_from_system(item, digest=False))
     if is_all(indices):
-        indices = np.arange(get_n_atoms_from_system(item))
+        indices = np.arange(get_n_atoms_from_system(item, digest=False))
 
     starts_serie_frames, size_serie_frames = serie_to_chunks(structure_indices)
 
@@ -191,7 +191,7 @@ def get_coordinates_from_atom(item, indices='all', structure_indices='all'):
 ## group
 
 @digest(form=form)
-def get_group_id_from_group(item, indices='all'):
+def get_group_id_from_group(item, indices='all', digest=True):
 
     if indices is None:
         return None
@@ -199,13 +199,13 @@ def get_group_id_from_group(item, indices='all'):
     from . import to_mdtraj_Topology
     from ..mdtraj_Topology import get_group_id_from_group as aux_get
 
-    tmp_item = to_mdtraj_Topology(item)
-    output = aux_get(tmp_item, indices=indices)
+    tmp_item = to_mdtraj_Topology(item, digest=False)
+    output = aux_get(tmp_item, indices=indices, digest=False)
 
     return output
 
 @digest(form=form)
-def get_group_name_from_group(item, indices='all'):
+def get_group_name_from_group(item, indices='all', digest=True):
 
     if indices is None:
         return None
@@ -213,13 +213,13 @@ def get_group_name_from_group(item, indices='all'):
     from . import to_mdtraj_Topology
     from ..mdtraj_Topology import get_group_name_from_group as aux_get
 
-    tmp_item = to_mdtraj_Topology(item)
-    output = aux_get(tmp_item, indices=indices)
+    tmp_item = to_mdtraj_Topology(item, digest=False)
+    output = aux_get(tmp_item, indices=indices, digest=False)
 
     return output
 
 @digest(form=form)
-def get_group_type_from_group(item, indices='all'):
+def get_group_type_from_group(item, indices='all', digest=True):
 
     if indices is None:
         return None
@@ -227,8 +227,8 @@ def get_group_type_from_group(item, indices='all'):
     from . import to_mdtraj_Topology
     from ..mdtraj_Topology import get_group_type_from_group as aux_get
 
-    tmp_item = to_mdtraj_Topology(item)
-    output = aux_get(tmp_item, indices=indices)
+    tmp_item = to_mdtraj_Topology(item, digest=False)
+    output = aux_get(tmp_item, indices=indices, digest=False)
 
     return output
 
@@ -236,7 +236,7 @@ def get_group_type_from_group(item, indices='all'):
 ## component
 
 @digest(form=form)
-def get_component_id_from_component (item, indices='all'):
+def get_component_id_from_component (item, indices='all', digest=True):
 
     if indices is None:
         return None
@@ -244,13 +244,13 @@ def get_component_id_from_component (item, indices='all'):
     from . import to_mdtraj_Topology
     from ..mdtraj_Topology import get_component_id_from_component as aux_get
 
-    tmp_item = to_mdtraj_Topology(item)
-    output = aux_get(tmp_item, indices=indices)
+    tmp_item = to_mdtraj_Topology(item, digest=False)
+    output = aux_get(tmp_item, indices=indices, digest=False)
 
     return output
 
 @digest(form=form)
-def get_component_name_from_component (item, indices='all'):
+def get_component_name_from_component (item, indices='all', digest=True):
 
     if indices is None:
         return None
@@ -258,13 +258,13 @@ def get_component_name_from_component (item, indices='all'):
     from . import to_mdtraj_Topology
     from ..mdtraj_Topology import get_component_name_from_component as aux_get
 
-    tmp_item = to_mdtraj_Topology(item)
-    output = aux_get(tmp_item, indices=indices)
+    tmp_item = to_mdtraj_Topology(item, digest=False)
+    output = aux_get(tmp_item, indices=indices, digest=False)
 
     return output
 
 @digest(form=form)
-def get_component_type_from_component (item, indices='all'):
+def get_component_type_from_component (item, indices='all', digest=True):
 
     if indices is None:
         return None
@@ -272,8 +272,8 @@ def get_component_type_from_component (item, indices='all'):
     from . import to_mdtraj_Topology
     from ..mdtraj_Topology import get_component_type_from_component as aux_get
 
-    tmp_item = to_mdtraj_Topology(item)
-    output = aux_get(tmp_item, indices=indices)
+    tmp_item = to_mdtraj_Topology(item, digest=False)
+    output = aux_get(tmp_item, indices=indices, digest=False)
 
     return output
 
@@ -281,7 +281,7 @@ def get_component_type_from_component (item, indices='all'):
 ## molecule
 
 @digest(form=form)
-def get_molecule_id_from_molecule (item, indices='all'):
+def get_molecule_id_from_molecule (item, indices='all', digest=True):
 
     if indices is None:
         return None
@@ -289,13 +289,13 @@ def get_molecule_id_from_molecule (item, indices='all'):
     from . import to_mdtraj_Topology
     from ..mdtraj_Topology import get_molecule_id_from_molecule as aux_get
 
-    tmp_item = to_mdtraj_Topology(item)
-    output = aux_get(tmp_item, indices=indices)
+    tmp_item = to_mdtraj_Topology(item, digest=False)
+    output = aux_get(tmp_item, indices=indices, digest=False)
 
     return output
 
 @digest(form=form)
-def get_molecule_name_from_molecule (item, indices='all'):
+def get_molecule_name_from_molecule (item, indices='all', digest=True):
 
     if indices is None:
         return None
@@ -303,13 +303,13 @@ def get_molecule_name_from_molecule (item, indices='all'):
     from . import to_mdtraj_Topology
     from ..mdtraj_Topology import get_molecule_name_from_molecule as aux_get
 
-    tmp_item = to_mdtraj_Topology(item)
-    output = aux_get(tmp_item, indices=indices)
+    tmp_item = to_mdtraj_Topology(item, digest=False)
+    output = aux_get(tmp_item, indices=indices, digest=False)
 
     return output
 
 @digest(form=form)
-def get_molecule_type_from_molecule (item, indices='all'):
+def get_molecule_type_from_molecule (item, indices='all', digest=True):
 
     if indices is None:
         return None
@@ -317,8 +317,8 @@ def get_molecule_type_from_molecule (item, indices='all'):
     from . import to_mdtraj_Topology
     from ..mdtraj_Topology import get_molecule_type_from_molecule as aux_get
 
-    tmp_item = to_mdtraj_Topology(item)
-    output = aux_get(tmp_item, indices=indices)
+    tmp_item = to_mdtraj_Topology(item, digest=False)
+    output = aux_get(tmp_item, indices=indices, digest=False)
 
     return output
 
@@ -326,7 +326,7 @@ def get_molecule_type_from_molecule (item, indices='all'):
 ## chain
 
 @digest(form=form)
-def get_chain_id_from_chain (item, indices='all'):
+def get_chain_id_from_chain (item, indices='all', digest=True):
 
     if indices is None:
         return None
@@ -334,13 +334,13 @@ def get_chain_id_from_chain (item, indices='all'):
     from . import to_mdtraj_Topology
     from ..mdtraj_Topology import get_chain_id_from_chain as aux_get
 
-    tmp_item = to_mdtraj_Topology(item)
-    output = aux_get(tmp_item, indices=indices)
+    tmp_item = to_mdtraj_Topology(item, digest=False)
+    output = aux_get(tmp_item, indices=indices, digest=False)
 
     return output
 
 @digest(form=form)
-def get_chain_name_from_chain (item, indices='all'):
+def get_chain_name_from_chain (item, indices='all', digest=True):
 
     if indices is None:
         return None
@@ -348,13 +348,13 @@ def get_chain_name_from_chain (item, indices='all'):
     from . import to_mdtraj_Topology
     from ..mdtraj_Topology import get_chain_name_from_chain as aux_get
 
-    tmp_item = to_mdtraj_Topology(item)
-    output = aux_get(tmp_item, indices=indices)
+    tmp_item = to_mdtraj_Topology(item, digest=False)
+    output = aux_get(tmp_item, indices=indices, digest=False)
 
     return output
 
 @digest(form=form)
-def get_chain_type_from_chain (item, indices='all'):
+def get_chain_type_from_chain (item, indices='all', digest=True):
 
     if indices is None:
         return None
@@ -362,8 +362,8 @@ def get_chain_type_from_chain (item, indices='all'):
     from . import to_mdtraj_Topology
     from ..mdtraj_Topology import get_chain_type_from_chain as aux_get
 
-    tmp_item = to_mdtraj_Topology(item)
-    output = aux_get(tmp_item, indices=indices)
+    tmp_item = to_mdtraj_Topology(item, digest=False)
+    output = aux_get(tmp_item, indices=indices, digest=False)
 
     return output
 
@@ -371,7 +371,7 @@ def get_chain_type_from_chain (item, indices='all'):
 ## entity
 
 @digest(form=form)
-def get_entity_id_from_entity (item, indices='all'):
+def get_entity_id_from_entity (item, indices='all', digest=True):
 
     if indices is None:
         return None
@@ -379,13 +379,13 @@ def get_entity_id_from_entity (item, indices='all'):
     from . import to_mdtraj_Topology
     from ..mdtraj_Topology import get_entity_id_from_entity as aux_get
 
-    tmp_item = to_mdtraj_Topology(item)
-    output = aux_get(tmp_item, indices=indices)
+    tmp_item = to_mdtraj_Topology(item, digest=False)
+    output = aux_get(tmp_item, indices=indices, digest=False)
 
     return output
 
 @digest(form=form)
-def get_entity_name_from_entity (item, indices='all'):
+def get_entity_name_from_entity (item, indices='all', digest=True):
 
     if indices is None:
         return None
@@ -393,13 +393,13 @@ def get_entity_name_from_entity (item, indices='all'):
     from . import to_mdtraj_Topology
     from ..mdtraj_Topology import get_entity_name_from_entity as aux_get
 
-    tmp_item = to_mdtraj_Topology(item)
-    output = aux_get(tmp_item, indices=indices)
+    tmp_item = to_mdtraj_Topology(item, digest=False)
+    output = aux_get(tmp_item, indices=indices, digest=False)
 
     return output
 
 @digest(form=form)
-def get_entity_type_from_entity (item, indices='all'):
+def get_entity_type_from_entity (item, indices='all', digest=True):
 
     if indices is None:
         return None
@@ -407,8 +407,8 @@ def get_entity_type_from_entity (item, indices='all'):
     from . import to_mdtraj_Topology
     from ..mdtraj_Topology import get_entity_type_from_entity as aux_get
 
-    tmp_item = to_mdtraj_Topology(item)
-    output = aux_get(tmp_item, indices=indices)
+    tmp_item = to_mdtraj_Topology(item, digest=False)
+    output = aux_get(tmp_item, indices=indices, digest=False)
 
     return output
 
@@ -416,88 +416,88 @@ def get_entity_type_from_entity (item, indices='all'):
 ## system
 
 @digest(form=form)
-def get_n_atoms_from_system(item):
+def get_n_atoms_from_system(item, digest=True):
 
     from . import to_mdtraj_Topology
     from ..mdtraj_Topology import get_n_atoms_from_system as aux_get
 
-    tmp_item = to_mdtraj_Topology(item)
-    output = aux_get(tmp_item)
+    tmp_item = to_mdtraj_Topology(item, digest=False)
+    output = aux_get(tmp_item, digest=False)
 
     return output
 
 @digest(form=form)
-def get_n_groups_from_system(item):
+def get_n_groups_from_system(item, digest=True):
 
     from . import to_mdtraj_Topology
     from ..mdtraj_Topology import get_n_groups_from_system as aux_get
 
-    tmp_item = to_mdtraj_Topology(item)
-    output = aux_get(tmp_item)
+    tmp_item = to_mdtraj_Topology(item, digest=False)
+    output = aux_get(tmp_item, digest=False)
 
     return output
 
 @digest(form=form)
-def get_n_components_from_system(item):
+def get_n_components_from_system(item, digest=True):
 
     from . import to_mdtraj_Topology
     from ..mdtraj_Topology import get_n_components_from_system as aux_get
 
-    tmp_item = to_mdtraj_Topology(item)
-    output = aux_get(tmp_item)
+    tmp_item = to_mdtraj_Topology(item, digest=False)
+    output = aux_get(tmp_item, digest=False)
 
     return output
 
 @digest(form=form)
-def get_n_chains_from_system(item):
+def get_n_chains_from_system(item, digest=True):
 
     from . import to_mdtraj_Topology
     from ..mdtraj_Topology import get_n_chains_from_system as aux_get
 
-    tmp_item = to_mdtraj_Topology(item)
-    output = aux_get(tmp_item)
+    tmp_item = to_mdtraj_Topology(item, digest=False)
+    output = aux_get(tmp_item, digest=False)
 
     return output
 
 @digest(form=form)
-def get_n_molecules_from_system(item):
+def get_n_molecules_from_system(item, digest=True):
 
     from . import to_mdtraj_Topology
     from ..mdtraj_Topology import get_n_molecules_from_system as aux_get
 
-    tmp_item = to_mdtraj_Topology(item)
-    output = aux_get(tmp_item)
+    tmp_item = to_mdtraj_Topology(item, digest=False)
+    output = aux_get(tmp_item, digest=False)
 
     return output
 
 @digest(form=form)
-def get_n_entities_from_system(item):
+def get_n_entities_from_system(item, digest=True):
 
     from . import to_mdtraj_Topology
     from ..mdtraj_Topology import get_n_entities_from_system as aux_get
-    tmp_item = to_mdtraj_Topology(item)
-    output = aux_get(tmp_item)
+    tmp_item = to_mdtraj_Topology(item, digest=False)
+    output = aux_get(tmp_item, digest=False)
 
     return output
 
 @digest(form=form)
-def get_n_structures_from_system(item):
+def get_n_structures_from_system(item, digest=True):
 
     return item._handle.root.coordinates.shape[0]
 
 @digest(form=form)
-def get_n_bonds_from_system(item):
+def get_n_bonds_from_system(item, digest=True):
 
     from . import to_mdtraj_Topology
     from ..mdtraj_Topology import get_n_bonds_from_system as aux_get
 
-    tmp_item = to_mdtraj_Topology(item)
-    output = aux_get(tmp_item)
+    tmp_item = to_mdtraj_Topology(item, digest=True, digest=False)
+    output = aux_get(tmp_item, digest=False)
 
     return output
 
 @digest(form=form)
-def get_box_from_system(item, structure_indices='all'):
+def get_box_from_system(item, structure_indices='all', digest=True):
 
     if structure_indices is None:
         return None
@@ -517,7 +517,7 @@ def get_box_from_system(item, structure_indices='all'):
         frame_hdf5 = item.read(n_frames=size)
         cell_lengths = frame_hdf5.cell_lengths
         cell_angles = frame_hdf5.cell_angles
-        box = box_from_box_lengths_and_angles(cell_lengths*puw.unit('nm'), cell_angles*puw.unit('degrees'))
+        box = box_from_box_lengths_and_angles(cell_lengths*puw.unit('nm'), cell_angles*puw.unit('degrees'), digest=False)
         box_list.append(puw.get_value(box))
 
     box = np.concatenate(box_list)
@@ -531,7 +531,7 @@ def get_box_from_system(item, structure_indices='all'):
     return box
 
 @digest(form=form)
-def get_time_from_system(item, structure_indices='all'):
+def get_time_from_system(item, structure_indices='all', digest=True):
 
     if structure_indices is None:
         return None
@@ -562,7 +562,7 @@ def get_time_from_system(item, structure_indices='all'):
     return time
 
 @digest(form=form)
-def get_structure_id_from_system(item, structure_indices='all'):
+def get_structure_id_from_system(item, structure_indices='all', digest=True):
 
     if structure_indices is None:
         return None
@@ -573,7 +573,7 @@ def get_structure_id_from_system(item, structure_indices='all'):
 ## bond
 
 @digest(form=form)
-def get_bond_order_from_bond(item, indices='all'):
+def get_bond_order_from_bond(item, indices='all', digest=True):
 
     if indices is None:
         return None
@@ -581,7 +581,7 @@ def get_bond_order_from_bond(item, indices='all'):
     raise NotImplementedMethodError()
 
 @digest(form=form)
-def get_bond_type_from_bond(item, indices='all'):
+def get_bond_type_from_bond(item, indices='all', digest=True):
 
     if indices is None:
         return None
@@ -589,7 +589,7 @@ def get_bond_type_from_bond(item, indices='all'):
     raise NotImplementedMethodError()
 
 @digest(form=form)
-def get_atom_index_from_bond(item, indices='all'):
+def get_atom_index_from_bond(item, indices='all', digest=True):
 
     if indices is None:
         return None

@@ -1,13 +1,13 @@
 from molsysmt._private.digestion import digest
 
 @digest(form='molsysmt.MolSys')
-def to_file_msmpk(item, atom_indices='all', structure_indices='all', output_filename=None):
+def to_file_msmpk(item, atom_indices='all', structure_indices='all', output_filename=None, digest=True):
 
     from . import extract
     from molsysmt import pyunitwizard as puw
     import pickle
 
-    tmp_item = extract(item, atom_indices=atom_indices, structure_indices=structure_indices, copy_if_all=True)
+    tmp_item = extract(item, atom_indices=atom_indices, structure_indices=structure_indices, copy_if_all=True, digest=False)
 
     # lengths with nm values and times in ps
 

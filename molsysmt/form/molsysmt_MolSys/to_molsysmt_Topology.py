@@ -2,7 +2,7 @@ from molsysmt._private.digestion import digest
 from molsysmt._private.variables import is_all
 
 @digest(form='molsysmt.MolSys')
-def to_molsysmt_Topology(item, atom_indices='all', structure_indices='all'):
+def to_molsysmt_Topology(item, atom_indices='all', structure_indices='all', digest=True):
 
     if is_all(atom_indices):
 
@@ -11,6 +11,6 @@ def to_molsysmt_Topology(item, atom_indices='all', structure_indices='all'):
     else:
 
         from molsysmt.form.molsysmt_Topology import extract
-        tmp_item = extract(item.topology, atom_indices=atom_indices)
+        tmp_item = extract(item.topology, atom_indices=atom_indices, digest=False)
 
     return tmp_item

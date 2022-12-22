@@ -4,7 +4,7 @@ from molsysmt._private.variables import is_all
 
 @digest(form='mmtf.MMTFDecoder')
 def to_molsysmt_Elements(item, atom_indices='all', structure_indices='all', bioassembly_index=0,
-                         bioassembly_name=None):
+                         bioassembly_name=None, digest=True):
 
     import warnings
     from molsysmt.native import Elements
@@ -74,7 +74,7 @@ def to_molsysmt_Elements(item, atom_indices='all', structure_indices='all', bioa
 
         mmtf_group = item.group_list[mmtf_group_type]
         group_name = mmtf_group['groupName']
-        group_type = get_group_type_from_group_name(group_name)
+        group_type = get_group_type_from_group_name(group_name, digest=False)
 
         # bonds intra-groups
 
@@ -177,7 +177,7 @@ def to_molsysmt_Elements(item, atom_indices='all', structure_indices='all', bioa
 
     for mmtf_entity in item.entity_list:
 
-        entity_type = get_entity_type_from_MMTFDecoder_entity(mmtf_entity)
+        entity_type = get_entity_type_from_MMTFDecoder_entity(mmtf_entity, digest=False)
         entity_name = mmtf_entity['description']
 
         if entity_type == "protein":

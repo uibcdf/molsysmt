@@ -2,7 +2,7 @@ from molsysmt._private.digestion import digest
 from molsysmt._private.variables import is_all
 
 @digest(form='mdtraj.Topology')
-def to_string_aminoacids3(item, group_indices='all'):
+def to_string_aminoacids3(item, group_indices='all', digest=True):
 
     if is_all(group_indices):
 

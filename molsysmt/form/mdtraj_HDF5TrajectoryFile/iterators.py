@@ -9,7 +9,7 @@ class StructuresIterator():
 
     @digest(form='mdtraj.HDF5TrajectoryFile')
     def __init__(self, molecular_system, atom_indices='all', start=0, step=1, stop=None, chunk=1,
-            structure_indices=None, output_type = 'values', **kwargs):
+            structure_indices=None, output_type = 'values', digest=True, **kwargs):
 
         self.molecular_system = molecular_system
         self.atom_indices = atom_indices
@@ -31,7 +31,7 @@ class StructuresIterator():
 
         if self.stop is None:
             from .get import get_n_structures_from_system
-            self.stop = get_n_structures_from_system(molecular_system)
+            self.stop = get_n_structures_from_system(molecular_system, digest=False)
 
     def __iter__(self):
 
@@ -65,7 +65,7 @@ class StructuresIterator():
 
                     box_lengths = puw.quantity(mdtraj_output.cell_lengths, 'nm', standardized=True)
                     box_angles = puw.quantity(mdtraj_output.cell_angles, 'degrees', standardized=True)
-                    self._output_dictionary['box'] = box_from_box_lengths_and_angles(box_lengths, box_angles)
+                    self._output_dictionary['box'] = box_from_box_lengths_and_angles(box_lengths, box_angles, digest=False)
 
                 elif argument == 'temperature':
 

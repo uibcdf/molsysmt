@@ -1,7 +1,7 @@
 from molsysmt._private.digestion import digest
 
 @digest(form='mdtraj.Topology')
-def to_molsysmt_Topology(item, atom_indices='all'):
+def to_molsysmt_Topology(item, atom_indices='all', digest=True):
 
     from molsysmt.native import Topology
     import numpy as np
@@ -31,7 +31,7 @@ def to_molsysmt_Topology(item, atom_indices='all'):
 
     group_type_array = np.empty(n_atoms, dtype=object)
 
-    tmp_item.atoms_dataframe["group_type"] = list(map(get_group_type_from_group_name, tmp_item.atoms_dataframe["group_name"]))
+    tmp_item.atoms_dataframe["group_type"] = list(map(get_group_type_from_group_name, tmp_item.atoms_dataframe["group_name"], digest=False))
 
 
     group_index_array = np.empty(n_atoms, dtype=int)

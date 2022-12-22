@@ -7,7 +7,7 @@ import numpy as np
 ## Atom
 
 @digest(form='molsysmt.Structures')
-def set_coordinates_to_atom(item, indices='all', structure_indices='all', value=None):
+def set_coordinates_to_atom(item, indices='all', structure_indices='all', value=None, digest=True):
 
     if is_all(indices):
         if is_all(structure_indices):
@@ -28,7 +28,7 @@ def set_coordinates_to_atom(item, indices='all', structure_indices='all', value=
 ## System
 
 @digest(form='molsysmt.Structures')
-def set_structure_id_to_system(item, structure_indices='all', value=None):
+def set_structure_id_to_system(item, structure_indices='all', value=None, digest=True):
 
     if is_all(structure_indices):
         item.structure_id = value
@@ -38,7 +38,7 @@ def set_structure_id_to_system(item, structure_indices='all', value=None):
     pass
 
 @digest(form='molsysmt.Structures')
-def set_time_to_system(item, structure_indices='all', value=None):
+def set_time_to_system(item, structure_indices='all', value=None, digest=True):
 
     if is_all(structure_indices):
         item.time = value
@@ -48,7 +48,7 @@ def set_time_to_system(item, structure_indices='all', value=None):
     pass
 
 @digest(form='molsysmt.Structures')
-def set_box_to_system(item, structure_indices='all', value=None):
+def set_box_to_system(item, structure_indices='all', value=None, digest=True):
 
     if is_all(structure_indices):
         item.box = value
@@ -58,9 +58,9 @@ def set_box_to_system(item, structure_indices='all', value=None):
     pass
 
 @digest(form='molsysmt.Structures')
-def set_coordinates_to_system(item, indices='all', structure_indices='all', value=None):
+def set_coordinates_to_system(item, indices='all', structure_indices='all', value=None, digest=True):
 
     return set_coordinates_to_atom(item, indices='all', structure_indices=structure_indices,
-            value=value)
+            value=value, digest=False)
 
 

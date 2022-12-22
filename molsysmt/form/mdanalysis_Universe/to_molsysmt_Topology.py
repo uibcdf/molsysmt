@@ -1,7 +1,7 @@
 from molsysmt._private.digestion import digest
 
 @digest('mdanalysis.Universe')
-def to_molsysmt_Topology(item, atom_indices='all'):
+def to_molsysmt_Topology(item, atom_indices='all', digest=True):
 
     from molsysmt.native import Topology
     from numpy import empty, array, arange, reshape, where, unique, nan, sort, zeros
@@ -42,7 +42,7 @@ def to_molsysmt_Topology(item, atom_indices='all'):
         group_index_array[atom_index] = atom.resindex
         group_name_array[atom_index] = atom.resname
         group_id_array[atom_index] = atom.resid
-        group_type_array[atom_index] = group_name_to_group_type(atom.resname)
+        group_type_array[atom_index] = group_name_to_group_type(atom.resname, digest=False)
 
         chain_index_array[atom_index] = atom.segindex
         chain_id_array[atom_index] = atom.segid
