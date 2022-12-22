@@ -3,7 +3,7 @@ from molsysmt._private.variables import is_all
 
 @digest()
 def extract(molecular_system, selection='all', structure_indices='all', to_form=None,
-        syntax='MolSysMT', copy_if_all=True):
+        syntax='MolSysMT', copy_if_all=True, digest=True):
 
     """extract(item, selection='all', structure_indices='all', syntax='MolSysMT')
 
@@ -51,12 +51,12 @@ def extract(molecular_system, selection='all', structure_indices='all', to_form=
     if to_form is not None:
 
         return convert(molecular_system, to_form=to_form, selection=selection, structure_indices=structure_indices,
-                       syntax=syntax)
+                       syntax=syntax, digest=False)
 
     forms_in = get_form(molecular_system)
 
     if not is_all(selection):
-        atom_indices = select(molecular_system, selection=selection, syntax=syntax)
+        atom_indices = select(molecular_system, selection=selection, syntax=syntax, digest=False)
     else:
         atom_indices = 'all'
 
@@ -67,7 +67,7 @@ def extract(molecular_system, selection='all', structure_indices='all', to_form=
     output = []
 
     for form_in, item in zip(forms_in, molecular_system):
-        output_item = dict_extract[form_in](item, atom_indices=atom_indices, structure_indices=structure_indices, copy_if_all=copy_if_all)
+        output_item = dict_extract[form_in](item, atom_indices=atom_indices, structure_indices=structure_indices, copy_if_all=copy_if_all, digest=False)
         output.append(output_item)
 
     if len(output)==1:

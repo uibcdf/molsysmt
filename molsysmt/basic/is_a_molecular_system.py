@@ -24,7 +24,7 @@ def is_a_molecular_system(items):
 
         for item in items:
             tmp_form = get_form(item)
-            tmp_n_atoms, tmp_n_groups = get(item, element='system', n_atoms=True, n_groups=True)
+            tmp_n_atoms, tmp_n_groups = get(item, element='system', n_atoms=True, n_groups=True, digest=False)
             list_forms.append(tmp_form)
             list_n_atoms.append(tmp_n_atoms)
             list_n_groups.append(tmp_n_groups)

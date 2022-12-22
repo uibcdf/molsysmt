@@ -103,7 +103,7 @@ def select_bonded_to(molecular_system, selection, syntax):
 
 @digest()
 def select(molecular_system, selection='all', structure_indices='all', element='atom', mask=None,
-        syntax='MolSysMT', to_syntax=None):
+        syntax='MolSysMT', to_syntax=None, digest=True):
 
     # to_syntax: 'NGLView', 'MDTraj', ...
 
@@ -164,7 +164,7 @@ def select(molecular_system, selection='all', structure_indices='all', element='
 
         while selection_with_special_subsentences(selection):
             sub_selection = selection_with_special_subsentences(selection)
-            sub_atom_indices = select(molecular_system, sub_selection, syntax=syntax)
+            sub_atom_indices = select(molecular_system, sub_selection, syntax=syntax, digest=False)
             selection = selection.replace(sub_selection, 'atom_index==@sub_atom_indices')
 
         if 'within' in selection:
@@ -181,12 +181,12 @@ def select(molecular_system, selection='all', structure_indices='all', element='
     if element=='atom':
         output_indices = atom_indices
     elif element in ['group', 'component', 'chain', 'molecule', 'entity']:
-        aux_item, aux_form = where_is_attribute(molecular_system, element+'_index')
-        output_indices = dict_get[aux_form]['atom'][element+'_index'](aux_item, indices=atom_indices)
+        aux_item, aux_form = where_is_attribute(molecular_system, element+'_index', digest=False)
+        output_indices = dict_get[aux_form]['atom'][element+'_index'](aux_item, indices=atom_indices, digest=False)
         output_indices = np.unique(output_indices)
     elif element=='bond':
-        aux_item, aux_form = where_is_attribute(molecular_system, 'inner_bond_index')
-        output_indices = dict_get[aux_form]['atom']['inner_bond_index'](aux_item, indices=atom_indices)
+        aux_item, aux_form = where_is_attribute(molecular_system, 'inner_bond_index', digest=False)
+        output_indices = dict_get[aux_form]['atom']['inner_bond_index'](aux_item, indices=atom_indices, digest=False)
     else:
         raise NotImplementedMethodError()
 

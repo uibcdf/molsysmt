@@ -11,6 +11,7 @@ def set(molecular_system,
         selection='all',
         structure_indices='all',
         syntax='MolSysMT',
+        digest=True,
         **kwargs):
     """into(item, element='system', indices=None, selection='all', structure_indices='all', syntax='MolSysMT')
 
@@ -81,7 +82,7 @@ def set(molecular_system,
             indices = select(molecular_system,
                              element=element,
                              selection=selection,
-                             syntax=syntax)
+                             syntax=syntax, digest=False)
         else:
             indices = 'all'
 
@@ -94,10 +95,10 @@ def set(molecular_system,
         if 'structure_indices' in _required_indices[attribute]:
             dict_indices['structure_indices'] = structure_indices
 
-        item, form = where_is_attribute(molecular_system, attribute)
+        item, form = where_is_attribute(molecular_system, attribute, digest=False)
 
         value = value_of_attribute[attribute]
-        dict_set[form][element][attribute](item, **dict_indices, value=value)
+        dict_set[form][element][attribute](item, **dict_indices, value=value, digest=False)
 
     pass
 

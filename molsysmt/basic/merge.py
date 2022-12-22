@@ -5,7 +5,8 @@ def merge(molecular_systems,
           selections='all',
           structure_indices='all',
           syntax='MolSysMT',
-          to_form=None):
+          to_form=None,
+          digest=True):
 
     """merge(items=None, selection='all', structure_indices='all', syntax='MolSysMT' to_form=None)
 
@@ -65,12 +66,12 @@ def merge(molecular_systems,
 
     if to_form is None:
         to_molecular_system = extract(molecular_systems[0], selection=selections[0],
-                                      structure_indices=structure_indices[0])
+                                      structure_indices=structure_indices[0], digest=False)
     else:
         to_molecular_system = convert(molecular_systems[0], to_form=to_form, selection=selections[0],
-                                      structure_indices=structure_indices[0])
+                                      structure_indices=structure_indices[0], digest=False)
 
-    add(to_molecular_system, molecular_systems[1:], selections=selections[1:], structure_indices=structure_indices[1:])
+    add(to_molecular_system, molecular_systems[1:], selections=selections[1:], structure_indices=structure_indices[1:], digest=False)
 
     return to_molecular_system
 

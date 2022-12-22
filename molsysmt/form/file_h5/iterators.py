@@ -8,12 +8,12 @@ class StructuresIterator(StructuresIterator_HDF5TrajectoryFile):
 
     @digest(form='file:h5')
     def __init__(self, molecular_system, atom_indices='all', start=0, step=1, stop=None, chunk=1, structure_indices=None,
-            output_type=None, **kwargs):
+            output_type=None, digest=True, **kwargs):
 
-        molecular_system = to_mdtraj_HDF5TrajectoryFile(molecular_system)
+        molecular_system = to_mdtraj_HDF5TrajectoryFile(molecular_system, digest=False)
 
         super().__init__(molecular_system, atom_indices=atom_indices, start=start, step=step, stop=stop,
-                chunk=chunk, structure_indices=structure_indices, output_type=output_type, **kwargs)
+                chunk=chunk, structure_indices=structure_indices, output_type=output_type, digest=False, **kwargs)
 
 class TopologyIterator(TopologyIterator_HDF5TrajectoryFile):
 
@@ -25,5 +25,4 @@ class TopologyIterator(TopologyIterator_HDF5TrajectoryFile):
 
     def __next__(self):
         raise NotImplementedIteratorError
-
 

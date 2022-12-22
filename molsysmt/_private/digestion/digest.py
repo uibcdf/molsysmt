@@ -48,10 +48,14 @@ def digest(output=False, **kwargs):
         @functools.wraps(func)
         def wrapper(*args, **kwargs):
 
+            if 'digest' in kwargs:
+                if kwargs['digest']==False:
+                    return func(*args, **kwargs)
+
             # Define caller
 
             caller = func.__module__+'.'+func.__name__
-
+            print(caller)
             # Get default arguments
 
             signature = inspect.signature(func)

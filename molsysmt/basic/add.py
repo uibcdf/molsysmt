@@ -2,7 +2,7 @@ from molsysmt._private.digestion import digest
 
 @digest()
 def add(to_molecular_system, from_molecular_systems, selections='all', structure_indices='all',
-        syntax='MolSysMT'):
+        syntax='MolSysMT', digest=True):
 
     """XXX
 
@@ -72,9 +72,9 @@ def add(to_molecular_system, from_molecular_systems, selections='all', structure
         for aux_to_item, aux_to_form in zip(to_molecular_system, to_forms):
 
             aux_item = convert(aux_molecular_system, to_form=aux_to_form, selection=aux_selection,
-                               structure_indices=aux_structure_indices, syntax=syntax)
+                               structure_indices=aux_structure_indices, syntax=syntax, digest=False)
 
-            dict_add[aux_to_form](aux_to_item, aux_item)
+            dict_add[aux_to_form](aux_to_item, aux_item, digest=False)
 
     pass
 

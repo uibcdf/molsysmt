@@ -16,7 +16,8 @@ class Iterator():
                  syntax = 'MolSysMT',
                  output_type = 'values',
                  output_form = 'molsysmt.MolSys',
-                 **kwargs
+                 digest = True,
+                 **kwargs,
                  ):
 
         from . import select, get_form, where_is_attribute, convert
@@ -43,7 +44,7 @@ class Iterator():
         if len(self.arguments)==0:
             self.arguments = ['structure_id', 'time', 'coordinates', 'box']
             self._output_molecular_system = convert(self.molecular_system, selection=self.atom_indices,
-                    structure_indices=None, to_form=self._output_form)
+                    structure_indices=None, to_form=self._output_form, digest=False)
             
         self.structure_index = 0
 
@@ -54,7 +55,7 @@ class Iterator():
         aux_items_arguments = {}
 
         for argument in self.arguments:
-            item, form = where_is_attribute(self.molecular_system, argument)
+            item, form = where_is_attribute(self.molecular_system, argument, digest=False)
             if item in aux_items_forms:
                 aux_items_arguments[item].append(argument)
             else:
@@ -66,7 +67,7 @@ class Iterator():
             tmp_arguments = {ii:True for ii in aux_items_arguments[item]}
             tmp_iterator = dict_structures_iterator[aux_items_forms[item]](item, atom_indices=self.atom_indices, start=self.start,
                    stop=self.stop, step=self.step, chunk=self.chunk,
-                   structure_indices=structure_indices, output_type='dictionary',
+                   structure_indices=structure_indices, output_type='dictionary', digest=False,
                    **tmp_arguments)
 
 
@@ -100,8 +101,8 @@ class Iterator():
             return  output
         else:
             from . import set
-            set(self._output_molecular_system, element='atom', coordinates=self._output_dictionary['coordinates'])
+            set(self._output_molecular_system, element='atom', coordinates=self._output_dictionary['coordinates'], digest=False)
             set(self._output_molecular_system, element='system', box=self._output_dictionary['box'],
-                    structure_id=self._output_dictionary['structure_id'], time=self._output_dictionary['time'])
+                    structure_id=self._output_dictionary['structure_id'], time=self._output_dictionary['time'], digest=False)
             return self._output_molecular_system
 

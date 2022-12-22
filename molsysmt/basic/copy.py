@@ -1,7 +1,7 @@
 from molsysmt._private.digestion import digest
 
 @digest()
-def copy(molecular_system, output_filename=None):
+def copy(molecular_system, output_filename=None, digest=True):
 
     from . import get_form, is_a_molecular_system
     from molsysmt.form import is_file
@@ -18,7 +18,7 @@ def copy(molecular_system, output_filename=None):
         output = []
 
         for item_form, item in zip(form_in, molecular_system):
-            output_item = dict_extract[item_form](item, copy_if_all=True)
+            output_item = dict_extract[item_form](item, copy_if_all=True, digest=False)
             output.append(output_item)
 
         if len(output)==1:
@@ -26,7 +26,7 @@ def copy(molecular_system, output_filename=None):
 
     else:
 
-        output = dict_extract[form_in](molecular_system, copy_if_all=True, output_filename=output_filename)
+        output = dict_extract[form_in](molecular_system, copy_if_all=True, output_filename=output_filename, digest=False)
 
     return output
 
