@@ -1,7 +1,7 @@
 from molsysmt._private.digestion import digest
 
 @digest(form='string:aminoacids3')
-def to_string_aminoacids1(item, group_indices='all'):
+def to_string_aminoacids1(item, group_indices='all', digest=True):
 
     if item.startswith('aminoacids3:'):
         item = item[12:]

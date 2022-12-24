@@ -14,9 +14,9 @@ form='openmm.Topology'
 ## From atom
 
 @digest(form=form)
-def get_atom_id_from_atom(item, indices='all'):
+def get_atom_id_from_atom(item, indices='all', digest=True):
 
-    tmp_indices = get_atom_index_from_atom(item, indices=indices)
+    tmp_indices = get_atom_index_from_atom(item, indices=indices, digest=False)
     atom=list(item.atoms())
     output=[atom[ii].id for ii in tmp_indices]
     output=np.array(output, dtype=int)
@@ -25,9 +25,9 @@ def get_atom_id_from_atom(item, indices='all'):
     return output
 
 @digest(form=form)
-def get_atom_name_from_atom(item, indices='all'):
+def get_atom_name_from_atom(item, indices='all', digest=True):
 
-    tmp_indices = get_atom_index_from_atom(item, indices=indices)
+    tmp_indices = get_atom_index_from_atom(item, indices=indices, digest=False)
     atom=list(item.atoms())
     output=[atom[ii].name for ii in tmp_indices]
     output=np.array(output)
@@ -36,9 +36,9 @@ def get_atom_name_from_atom(item, indices='all'):
     return output
 
 @digest(form=form)
-def get_atom_type_from_atom(item, indices='all'):
+def get_atom_type_from_atom(item, indices='all', digest=True):
 
-    tmp_indices = get_atom_index_from_atom(item, indices=indices)
+    tmp_indices = get_atom_index_from_atom(item, indices=indices, digest=False)
     atom=list(item.atoms())
     output=[atom[ii].element.symbol for ii in tmp_indices]
     output=np.array(output)
@@ -47,9 +47,9 @@ def get_atom_type_from_atom(item, indices='all'):
     return output
 
 @digest(form=form)
-def get_group_index_from_atom(item, indices='all'):
+def get_group_index_from_atom(item, indices='all', digest=True):
 
-    tmp_indices = get_atom_index_from_atom(item, indices=indices)
+    tmp_indices = get_atom_index_from_atom(item, indices=indices, digest=False)
     atom=list(item.atoms())
     output = [atom[ii].residue.index for ii in tmp_indices]
     output=np.array(output)
@@ -58,7 +58,7 @@ def get_group_index_from_atom(item, indices='all'):
     return output
 
 @digest(form=form)
-def get_component_index_from_atom(item, indices='all'):
+def get_component_index_from_atom(item, indices='all', digest=True):
 
     from molsysmt.lib import bonds as _libbonds
 
@@ -82,9 +82,9 @@ def get_component_index_from_atom(item, indices='all'):
     return output
 
 @digest(form=form)
-def get_chain_index_from_atom(item, indices='all'):
+def get_chain_index_from_atom(item, indices='all', digest=True):
 
-    tmp_indices = get_atom_index_from_atom(item, indices=indices)
+    tmp_indices = get_atom_index_from_atom(item, indices=indices, digest=False)
     atom=list(item.atoms())
     output = [atom[ii].residue.chain.index for ii in tmp_indices]
     del(atom)
@@ -93,21 +93,21 @@ def get_chain_index_from_atom(item, indices='all'):
     return output
 
 @digest(form=form)
-def get_molecule_index_from_atom(item, indices='all'):
+def get_molecule_index_from_atom(item, indices='all', digest=True):
 
-    output = get_component_index_from_atom(item, indices=indices)
+    output = get_component_index_from_atom(item, indices=indices, digest=False)
 
     return output
 
 
 @digest(form=form)
-def get_entity_index_from_atom(item, indices='all'):
+def get_entity_index_from_atom(item, indices='all', digest=True):
 
     from molsysmt.element.entity import get_entity_index_from_atom as _get
-    return _get(item, indices=indices)
+    return _get(item, indices=indices, digest=False)
 
 @digest(form=form)
-def get_inner_bonded_atoms_from_atom(item, indices='all'):
+def get_inner_bonded_atoms_from_atom(item, indices='all', digest=True):
 
     output=[]
 
@@ -130,27 +130,27 @@ def get_inner_bonded_atoms_from_atom(item, indices='all'):
     return(output)
 
 @digest(form=form)
-def get_n_inner_bonds_from_atom(item, indices='all'):
+def get_n_inner_bonds_from_atom(item, indices='all', digest=True):
 
     if is_all(indices):
-        return get_n_bonds_from_system (item)
+        return get_n_bonds_from_system(item, digest=False)
     else:
-        inner_bonded_atoms = get_inner_bonded_atoms_from_atom(item, indices=indices)
+        inner_bonded_atoms = get_inner_bonded_atoms_from_atom(item, indices=indices, digest=False)
         return inner_bonded_atoms.shape[0]
 
 
 @digest(form=form)
-def get_coordinates_from_atom(item, indices='all', structure_indices='all'):
+def get_coordinates_from_atom(item, indices='all', structure_indices='all', digest=True):
 
     raise _NotWithThisFormError()
 
 ## From group
 
 @digest(form=form)
-def get_group_id_from_group(item, indices='all'):
+def get_group_id_from_group(item, indices='all', digest=True):
 
     if is_all(indices):
-        n_indices = get_n_groups_from_system(item)
+        n_indices = get_n_groups_from_system(item, digest=False)
         indices = range(n_indices)
 
     group=list(item.residues())
@@ -161,10 +161,10 @@ def get_group_id_from_group(item, indices='all'):
     return output
 
 @digest(form=form)
-def get_group_name_from_group(item, indices='all'):
+def get_group_name_from_group(item, indices='all', digest=True):
 
     if is_all(indices):
-        n_indices = get_n_groups_from_system(item)
+        n_indices = get_n_groups_from_system(item, digest=False)
         indices = range(n_indices)
 
     group=list(item.residues())
@@ -175,16 +175,16 @@ def get_group_name_from_group(item, indices='all'):
     return output
 
 @digest(form=form)
-def get_group_type_from_group(item, indices='all'):
+def get_group_type_from_group(item, indices='all', digest=True):
 
     from molsysmt.element.group import get_group_type_from_group_name
 
     if is_all(indices):
-        n_indices = get_n_groups_from_system(item)
+        n_indices = get_n_groups_from_system(item, digest=False)
         indices = range(n_indices)
 
     group=list(item.residues())
-    output = [get_group_type_from_group_name(group[ii].name) for ii in indices]
+    output = [get_group_type_from_group_name(group[ii].name, digest=False) for ii in indices]
     del(group)
     output = np.array(output, dtype=object)
 
@@ -193,38 +193,38 @@ def get_group_type_from_group(item, indices='all'):
 ## From component
 
 @digest(form=form)
-def get_component_id_from_component(item, indices='all'):
+def get_component_id_from_component(item, indices='all', digest=True):
 
-    output = get_component_index_from_component(item, indices=indices)
-
-    return output
-
-@digest(form=form)
-def get_component_name_from_component(item, indices='all'):
-
-    output = get_component_index_from_component(item, indices=indices)
+    output = get_component_index_from_component(item, indices=indices, digest=False)
 
     return output
 
 @digest(form=form)
-def get_component_type_from_component(item, indices='all'):
+def get_component_name_from_component(item, indices='all', digest=True):
+
+    output = get_component_index_from_component(item, indices=indices, digest=False)
+
+    return output
+
+@digest(form=form)
+def get_component_type_from_component(item, indices='all', digest=True):
 
     from molsysmt.element.component import get_component_type_from_group_names
 
     output = []
-    group_names_from_component = get_group_name_from_component(item, indices=indices)
+    group_names_from_component = get_group_name_from_component(item, indices=indices, digest=False)
     for group_name in group_names_from_component:
-        output.append(get_component_type_from_group_names(aux))
+        output.append(get_component_type_from_group_names(aux, digest=False))
     output = np.array(output, dtype=object)
     return output
 
 ## From molecule
 
 @digest(form=form)
-def get_molecule_id_from_molecule(item, indices='all'):
+def get_molecule_id_from_molecule(item, indices='all', digest=True):
 
     if is_all(indices):
-        n_molecules = get_n_molecules_from_system(item)
+        n_molecules = get_n_molecules_from_system(item, digest=False)
         output = np.full(n_molecules, None, dtype=object)
     else:
         output = np.full(indices.shape[0], None, dtype=object)
@@ -232,10 +232,10 @@ def get_molecule_id_from_molecule(item, indices='all'):
     return output
 
 @digest(form=form)
-def get_molecule_name_from_molecule(item, indices='all'):
+def get_molecule_name_from_molecule(item, indices='all', digest=True):
 
     if is_all(indices):
-        n_molecules = get_n_molecules_from_system(item)
+        n_molecules = get_n_molecules_from_system(item, digest=False)
         output = np.full(n_molecules, None, dtype=object)
     else:
         output = np.full(indices.shape[0], None, dtype=object)
@@ -243,16 +243,16 @@ def get_molecule_name_from_molecule(item, indices='all'):
     return output
 
 @digest(form=form)
-def get_molecule_type_from_molecule(item, indices='all'):
+def get_molecule_type_from_molecule(item, indices='all', digest=True):
 
     from molsysmt.element.molecule import get_molecule_type_from_group_names
 
-    group_names_from_molecule = get_group_name_from_molecule(item, indices=indices)
+    group_names_from_molecule = get_group_name_from_molecule(item, indices=indices, digest=False)
 
     output = []
 
     for group_names in group_names_from_molecule:
-        molecule_type = get_molecule_type_from_group_names(group_names)
+        molecule_type = get_molecule_type_from_group_names(group_names, digest=False)
         output.append(molecule_type)
 
     output = np.array(output, dtype=object)
@@ -262,10 +262,10 @@ def get_molecule_type_from_molecule(item, indices='all'):
 ## From chain
 
 @digest(form=form)
-def get_chain_id_from_chain(item, indices='all'):
+def get_chain_id_from_chain(item, indices='all', digest=True):
 
     if is_all(indices):
-        n_indices = get_n_chains_from_system(item)
+        n_indices = get_n_chains_from_system(item, digest=False)
         indices = range(n_indices)
 
     chain=list(item.chains())
@@ -276,10 +276,10 @@ def get_chain_id_from_chain(item, indices='all'):
     return output
 
 @digest(form=form)
-def get_chain_name_from_chain(item, indices='all'):
+def get_chain_name_from_chain(item, indices='all', digest=True):
 
     if is_all(indices):
-        n_indices = get_n_chains_from_system(item)
+        n_indices = get_n_chains_from_system(item, digest=False)
         indices = range(n_indices)
 
     output = [None for ii in indices]
@@ -287,10 +287,10 @@ def get_chain_name_from_chain(item, indices='all'):
     return output
 
 @digest(form=form)
-def get_chain_type_from_chain(item, indices='all'):
+def get_chain_type_from_chain(item, indices='all', digest=True):
 
     if is_all(indices):
-        n_indices = get_n_chains_from_system(item)
+        n_indices = get_n_chains_from_system(item, digest=False)
         indices = range(n_indices)
 
     output = [None for ii in indices]
@@ -300,39 +300,39 @@ def get_chain_type_from_chain(item, indices='all'):
 ## From entity
 
 @digest(form=form)
-def get_entity_id_from_entity(item, indices='all'):
+def get_entity_id_from_entity(item, indices='all', digest=True):
 
     from molsysmt.element.entity import get_entity_id_from_entity as _get
-    return _get(item, indices)
+    return _get(item, indices, digest=False)
 
 @digest(form=form)
-def get_entity_name_from_entity(item, indices='all'):
+def get_entity_name_from_entity(item, indices='all', digest=True):
 
     from molsysmt.element.entity import get_entity_name_from_entity as _get
-    return _get(item, indices)
+    return _get(item, indices, digest=False)
 
 @digest(form=form)
-def get_entity_type_from_entity(item, indices='all'):
+def get_entity_type_from_entity(item, indices='all', digest=True):
 
     from molsysmt.element.entity import get_entity_type_from_entity as _get
-    return _get(item, indices)
+    return _get(item, indices, digest=False)
 
 ## From system
 
 @digest(form=form)
-def get_n_atoms_from_system(item):
+def get_n_atoms_from_system(item, digest=True):
 
     return item.getNumAtoms()
 
 @digest(form=form)
-def get_n_groups_from_system(item):
+def get_n_groups_from_system(item, digest=True):
 
     return item.getNumResidues()
 
 @digest(form=form)
-def get_n_components_from_system(item):
+def get_n_components_from_system(item, digest=True):
 
-    component_index_from_atom = get_component_index_from_atom(item, indices='all')
+    component_index_from_atom = get_component_index_from_atom(item, indices='all', digest=False)
 
     if component_index_from_atom[0] is None:
         n_components = 0
@@ -343,14 +343,14 @@ def get_n_components_from_system(item):
     return n_components
 
 @digest(form=form)
-def get_n_chains_from_system(item):
+def get_n_chains_from_system(item, digest=True):
 
     return item.getNumChains()
 
 @digest(form=form)
-def get_n_molecules_from_system(item):
+def get_n_molecules_from_system(item, digest=True):
 
-    molecule_index_from_atom = get_molecule_index_from_atom(item)
+    molecule_index_from_atom = get_molecule_index_from_atom(item, digest=False)
     if molecule_index_from_atom[0] is None:
         n_molecules = 0
     else:
@@ -359,9 +359,9 @@ def get_n_molecules_from_system(item):
     return n_molecules
 
 @digest(form=form)
-def get_n_entities_from_system(item):
+def get_n_entities_from_system(item, digest=True):
 
-    entity_index_from_atom = get_entity_index_from_atom(item)
+    entity_index_from_atom = get_entity_index_from_atom(item, digest=False)
     if entity_index_from_atom[0] is None:
         n_entities = 0
     else:
@@ -370,17 +370,17 @@ def get_n_entities_from_system(item):
     return n_entities
 
 @digest(form=form)
-def get_n_bonds_from_system(item):
+def get_n_bonds_from_system(item, digest=True):
 
     return item.getNumBonds()
 
 @digest(form=form)
-def get_n_structures_from_system(item):
+def get_n_structures_from_system(item, digest=True):
 
     return 0
 
 @digest(form=form)
-def get_box_from_system(item, structure_indices='all'):
+def get_box_from_system(item, structure_indices='all', digest=True):
 
     box = item.getPeriodicBoxVectors()
 
@@ -396,12 +396,12 @@ def get_box_from_system(item, structure_indices='all'):
     return output
 
 @digest(form=form)
-def get_time_from_system(item, structure_indices='all'):
+def get_time_from_system(item, structure_indices='all', digest=True):
 
     return None
 
 @digest(form=form)
-def get_structure_id_from_system(item, structure_indices='all'):
+def get_structure_id_from_system(item, structure_indices='all', digest=True):
 
     return None
 
@@ -409,9 +409,9 @@ def get_structure_id_from_system(item, structure_indices='all'):
 ## From bond
 
 @digest(form=form)
-def get_bond_order_from_bond(item, indices='all'):
+def get_bond_order_from_bond(item, indices='all', digest=True):
 
-    tmp_indices = get_bond_index_from_bond(item, indices=indices)
+    tmp_indices = get_bond_index_from_bond(item, indices=indices, digest=False)
     bond = list(item.bonds())
     output=[bond[ii].order for ii in tmp_indices]
     output=np.array(output)
@@ -420,9 +420,9 @@ def get_bond_order_from_bond(item, indices='all'):
     return output
 
 @digest(form=form)
-def get_bond_type_from_bond(item, indices='all'):
+def get_bond_type_from_bond(item, indices='all', digest=True):
 
-    tmp_indices = get_bond_index_from_bond(item, indices=indices)
+    tmp_indices = get_bond_index_from_bond(item, indices=indices, digest=False)
     bond = list(item.bonds())
     output=[bond[ii].type for ii in tmp_indices]
     output=np.array(output)
@@ -431,10 +431,10 @@ def get_bond_type_from_bond(item, indices='all'):
     return output
 
 @digest(form=form)
-def get_atom_index_from_bond(item, indices='all'):
+def get_atom_index_from_bond(item, indices='all', digest=True):
 
     if is_all(indices):
-        n_bonds = get_n_bonds_from_system(item)
+        n_bonds = get_n_bonds_from_system(item, digest=False)
         indices = np.arange(n_bonds)
 
     bond = list(item.bonds())

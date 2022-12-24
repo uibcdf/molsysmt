@@ -6,7 +6,7 @@ from molsysmt import pyunitwizard as puw
 ## Atom
 
 @digest(form='molsysmt.Topology')
-def set_atom_name_to_atom(item, indices='all', structure_indices='all', value=None):
+def set_atom_name_to_atom(item, indices='all', structure_indices='all', value=None, digest=True):
 
     item.atoms_dataframe.loc[indices, 'atom_name']=value
 

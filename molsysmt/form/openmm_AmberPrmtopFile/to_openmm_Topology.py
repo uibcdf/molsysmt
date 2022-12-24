@@ -1,7 +1,7 @@
 from molsysmt._private.digestion import digest
 
 @digest(form='openmm.AmberPrmtopFile')
-def to_openmm_Topology(item, atom_indices='all'):
+def to_openmm_Topology(item, atom_indices='all', digest=True):
 
     tmp_item = item.topology
 

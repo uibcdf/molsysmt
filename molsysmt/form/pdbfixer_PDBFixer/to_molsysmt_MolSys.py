@@ -1,7 +1,7 @@
 from molsysmt._private.digestion import digest
 
 @digest(form='pdbfixer.PDBFixer')
-def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all'):
+def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', digest=True):
 
     from molsysmt.native.molsys import MolSys
     from . import to_molsysmt_Topology
@@ -9,8 +9,8 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all'):
 
     tmp_item = MolSys()
 
-    tmp_item.topology = to_molsysmt_Topology(item, atom_indices=atom_indices)
-    tmp_item.structures = pdbfixer_PDBFixer_to_molsysmt_Structures(item, atom_indices=atom_indices)
+    tmp_item.topology = to_molsysmt_Topology(item, atom_indices=atom_indices, digest=False)
+    tmp_item.structures = pdbfixer_PDBFixer_to_molsysmt_Structures(item, atom_indices=atom_indices, digest=False)
 
     return tmp_item
 

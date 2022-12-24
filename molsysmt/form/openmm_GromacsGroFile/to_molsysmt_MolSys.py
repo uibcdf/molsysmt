@@ -1,7 +1,7 @@
 from molsysmt._private.digestion import digest
 
 @digest(form='openmm.GromacsGroFile')
-def to_molsysmt_MolSys(item, selection='all', structure_indices='all', syntax='MolSysMT'):
+def to_molsysmt_MolSys(item, selection='all', structure_indices='all', syntax='MolSysMT', digest=True):
 
     from molsysmt.native.molsys import MolSys
     from .to_molsysmt_Topology import to_molsysmt_Topology
@@ -9,9 +9,9 @@ def to_molsysmt_MolSys(item, selection='all', structure_indices='all', syntax='M
 
     tmp_item = MolSys()
     tmp_item.topology = to_molsysmt_Topology(item, atom_indices=atom_indices,
-            structure_indices=structure_indices)
+            structure_indices=structure_indices, digest=False)
     tmp_item.structures = to_molsysmt_Structures(item, atom_indices=atom_indices,
-            structure_indices=structure_indices)
+            structure_indices=structure_indices, digest=False)
 
     return tmp_item
 

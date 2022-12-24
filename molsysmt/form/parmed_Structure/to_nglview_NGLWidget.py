@@ -1,13 +1,13 @@
 from molsysmt._private.digestion import digest
 
 @digest(form='parmed.Structure')
-def to_nglview_NGLWidget(item, atom_indices='all', structure_indices='all'):
+def to_nglview_NGLWidget(item, atom_indices='all', structure_indices='all', digest=True):
 
     from nglview import show_parmed
     from . import extract
 
     tmp_item = extract(item, atom_indices=atom_indices, structure_indices=structure_indices,
-            copy_if_all=False)
+            copy_if_all=False, digest=False)
     tmp_item = show_parmed(tmp_item)
 
     return tmp_item

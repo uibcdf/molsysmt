@@ -1,16 +1,16 @@
 from molsysmt._private.digestion import digest
 
 @digest(form='openmm.System')
-def to_openmm_Simulation(item, atom_indices='all', structure_indices='all'):
+def to_openmm_Simulation(item, atom_indices='all', structure_indices='all', digest=True):
 
     from molsysmt.basic import convert, get
     from openmm.app import Simulation
 
-    topology = convert(molecular_system, to_form='openmm.Topology', selection=atom_indices)
+    topology = convert(molecular_system, to_form='openmm.Topology', selection=atom_indices, digest=False)
     positions = get(molecular_system, element='atom', selection=atom_indices, structure_indices=structure_indices,
-                    coordinates=True)
+                    coordinates=True, digest=False)
     positions = puw.convert(positions[0], to_form='openmm.unit', to_unit='nm')
-    simulation = convert(molecular_system, to_form='molsysmt.Simulation')
+    simulation = convert(molecular_system, to_form='molsysmt.Simulation', digest=False)
 
     integrator = simulation.to_openmm_Integrator()
     platform = simulation.to_openmm_Platform()

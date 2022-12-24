@@ -2,7 +2,7 @@ from molsysmt._private.exceptions import LibraryNotFoundError
 from molsysmt._private.digestion import digest
 
 @digest(form='molsysmt.Topology')
-def to_mdtraj_Topology(item, atom_indices='all'):
+def to_mdtraj_Topology(item, atom_indices='all', digest=True):
 
     try:
         from mdtraj import Topology

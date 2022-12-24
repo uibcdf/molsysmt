@@ -2,7 +2,7 @@ from molsysmt._private.exceptions import LibraryNotFoundError
 from molsysmt._private.digestion import digest
 
 @digest(form='string:aminoacids1')
-def to_string_aminoacids3(item, group_indices='all'):
+def to_string_aminoacids3(item, group_indices='all', digest=True):
 
     try:
         from Bio.SeqUtils import seq3

@@ -3,7 +3,7 @@ from molsysmt._private.digestion import digest
 from molsysmt._private.variables import is_all
 
 @digest(form='molsysmt.Topology')
-def to_openmm_Topology(item, box=None, atom_indices='all'):
+def to_openmm_Topology(item, box=None, atom_indices='all', digest=True):
 
     try:
         import openmm as mm
@@ -15,7 +15,7 @@ def to_openmm_Topology(item, box=None, atom_indices='all'):
 
     if not is_all(atom_indices):
         from . import extract
-        item = extract(item, atom_indices=atom_indices)
+        item = extract(item, atom_indices=atom_indices, digest=False)
 
     n_atoms = item.atoms_dataframe.shape[0]
 
@@ -81,7 +81,7 @@ def to_openmm_Topology(item, box=None, atom_indices='all'):
 
         from ..openmm_Topology import set_box_to_system
 
-        set_box_to_system(tmp_item, value=box)
+        set_box_to_system(tmp_item, value=box, digest=False)
 
     return tmp_item
 

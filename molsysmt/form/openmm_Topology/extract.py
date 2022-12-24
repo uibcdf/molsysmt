@@ -2,7 +2,7 @@ from molsysmt._private.digestion import digest
 from molsysmt._private.variables import is_all
 
 @digest(form='openmm.Topology')
-def extract(item, atom_indices='all', structure_indices='all', copy_if_all=True):
+def extract(item, atom_indices='all', structure_indices='all', copy_if_all=True, digest=True):
 
     from openmm.app import Topology
 
