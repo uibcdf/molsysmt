@@ -24,7 +24,7 @@ class Iterator():
         from molsysmt.api_forms import dict_structures_iterator, dict_topology_iterator
 
         self.molecular_system = molecular_system
-        self.atom_indices = select(molecular_system, selection=selection, syntax=syntax)
+        self.atom_indices = select(molecular_system, selection=selection, syntax=syntax, digest=False)
         self.start = start
         self.stop = stop
         self.step = step

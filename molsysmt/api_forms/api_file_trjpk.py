@@ -66,7 +66,7 @@ def to_molsysmt_TrajectoryDict(item, molecular_system=None, atom_indices='all', 
 
     from molsysmt.form.file_trjpk import to_molsysmt_TrajectoryDict as file_trjpk_to_molsysmt_TrajectoryDict
 
-    tmp_item = file_trjpk_to_molsysmt_TrajectoryDict(item, atom_indices=atom_indices, structure_indices=structure_indices)
+    tmp_item = file_trjpk_to_molsysmt_TrajectoryDict(item, atom_indices=atom_indices, structure_indices=structure_indices, digest=False)
 
     return tmp_item
 

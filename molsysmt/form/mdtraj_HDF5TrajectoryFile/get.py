@@ -491,7 +491,7 @@ def get_n_bonds_from_system(item, digest=True):
     from . import to_mdtraj_Topology
     from ..mdtraj_Topology import get_n_bonds_from_system as aux_get
 
-    tmp_item = to_mdtraj_Topology(item, digest=True, digest=False)
+    tmp_item = to_mdtraj_Topology(item, digest=False)
     output = aux_get(tmp_item, digest=False)
 
     return output

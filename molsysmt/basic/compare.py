@@ -5,7 +5,7 @@ import numpy as np
 @digest()
 def compare(molecular_system_A, molecular_system_B, selection_A='all', structure_indices_A='all',
         selection_B='all', structure_indices_B='all', rule='equal', elements=True, coordinates=False,
-        box=False, form=False, syntax='MolSysMT', report=False, digest=False):
+        box=False, form=False, syntax='MolSysMT', report=False, digest=True):
 
     from molsysmt.basic import select, get, get_form
 

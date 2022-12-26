@@ -1,7 +1,7 @@
 from molsysmt._private.digestion import digest
 
 @digest()
-def where_is_attribute(molecular_system, attribute, digest=False):
+def where_is_attribute(molecular_system, attribute, digest=True):
 
     from . import get_form, is_a_molecular_system
     from molsysmt.attribute.attributes import _reverse_search_in_molecular_system, _required_attributes
