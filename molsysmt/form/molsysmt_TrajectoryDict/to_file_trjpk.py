@@ -4,7 +4,7 @@ import numpy as np
 from molsysmt import pyunitwizard as puw
 
 @digest(form='XYZ')
-def to_file_trjpk(item, atom_indices='all', structure_indices='all', output_filename=None, digest=True):
+def to_file_trjpk(item, atom_indices='all', structure_indices='all', output_filename=None):
 
     import pickle as pickle
 

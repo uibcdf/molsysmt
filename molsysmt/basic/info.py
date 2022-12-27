@@ -10,7 +10,7 @@ def info(molecular_system,
          selection='all',
          syntax='MolSysMT',
          output_type='dataframe',
-         digest=True):
+         ):
     """info(item, element='system', indices=None, selection='all', syntax='MolSysMT')
 
     Print out general information of a molecular model.
@@ -69,7 +69,7 @@ def info(molecular_system,
     form = get_form(molecular_system)
 
     if form in ['string:pdb_id', 'file:pdb', 'nglview.NGLWidget']:
-        molecular_system = convert(molecular_system, digest=False)
+        molecular_system = convert(molecular_system)
 
     if output_type == 'dataframe':
 
@@ -86,7 +86,7 @@ def info(molecular_system,
                                             group_type=True, component_index=True, chain_index=True,
                                             molecule_index=True,
                                             molecule_type=True, entity_index=True, entity_name=True,
-                                            digest=False)
+                                            )
 
             return df({'index': atom_index, 'id': atom_id, 'name': atom_name, 'type': atom_type,
                        'group index': group_index, 'group id': group_id, 'group name': group_name,
@@ -106,7 +106,7 @@ def info(molecular_system,
                                             syntax=syntax, group_index=True, group_id=True, group_name=True,
                                             group_type=True, n_atoms=True, component_index=True, chain_index=True,
                                             molecule_index=True, molecule_type=True, entity_index=True,
-                                            entity_name=True, digest=False)
+                                            entity_name=True)
 
             return df({'index': group_index, 'id': group_id, 'name': group_name, 'type': group_type,
                        'n atoms': n_atoms,
@@ -123,7 +123,7 @@ def info(molecular_system,
             entity_index, entity_name = get(molecular_system, element=element, indices=indices, selection=selection,
                                             syntax=syntax, component_index=True, n_atoms=True, n_groups=True,
                                             chain_index=True, molecule_index=True, molecule_type=True,
-                                            entity_index=True, entity_name=True, digest=False)
+                                            entity_index=True, entity_name=True)
 
             return df({'index': component_index,
                        'n atoms': n_atoms, 'n groups': n_groups,
@@ -139,7 +139,7 @@ def info(molecular_system,
             entity_index, entity_name = get(molecular_system, element=element, indices=indices, selection=selection,
                                             syntax=syntax, chain_index=True, chain_id=True, chain_name=True,
                                             n_atoms=True, n_groups=True, n_components=True, molecule_index=True,
-                                            molecule_type=True, entity_index=True, entity_name=True, digest=False)
+                                            molecule_type=True, entity_index=True, entity_name=True)
 
             if len(molecule_index.shape) > 1:
                 n_objects = molecule_index.shape[0]
@@ -183,7 +183,7 @@ def info(molecular_system,
             entity_index, entity_name = get(molecular_system, element=element, indices=indices, selection=selection,
                                             syntax=syntax, molecule_index=True, molecule_name=True,
                                             molecule_type=True, n_atoms=True, n_groups=True, n_components=True,
-                                            chain_index=True, entity_index=True, entity_name=True, digest=False)
+                                            chain_index=True, entity_index=True, entity_name=True)
 
             if len(chain_index.shape) > 1:
                 n_objects = chain_index.shape[0]
@@ -207,7 +207,7 @@ def info(molecular_system,
             n_atoms, n_groups, n_components, n_chains, \
             n_molecules = get(molecular_system, element=element, indices=indices, selection=selection,
                               syntax=syntax, entity_index=True, entity_name=True, entity_type=True, n_atoms=True,
-                              n_groups=True, n_components=True, n_chains=True, n_molecules=True, digest=False)
+                              n_groups=True, n_components=True, n_chains=True, n_molecules=True)
 
             return df({'index': entity_index, 'name': entity_name, 'type': entity_type,
                        'n atoms': n_atoms, 'n groups': n_groups, 'n components': n_components,
@@ -221,7 +221,7 @@ def info(molecular_system,
             n_rnas, n_lipids, n_oligosaccharides = get(molecular_system, element=element, n_atoms=True, n_groups=True,
                     n_components=True, n_chains=True, n_molecules=True, n_entities=True, n_structures=True, n_ions=True,
                     n_waters=True, n_small_molecules=True, n_peptides=True, n_proteins=True, n_dnas=True,
-                    n_rnas=True, n_lipids=True, n_oligosaccharides=True, digest=False)
+                    n_rnas=True, n_lipids=True, n_oligosaccharides=True)
 
             tmp_df = df([{'form': form, 'n_atoms': n_atoms, 'n_groups': n_groups, 'n_components': n_components,
                           'n_chains': n_chains, 'n_molecules': n_molecules, 'n_entities': n_entities,
@@ -268,9 +268,9 @@ def info(molecular_system,
     elif output_type == 'short_string':
 
         if indices is None and selection is not None:
-            indices = select(molecular_system, selection=selection, element=element, digest=False)
+            indices = select(molecular_system, selection=selection, element=element)
 
-        string = elements_to_string(molecular_system, indices=indices, element=element, digest=False)
+        string = elements_to_string(molecular_system, indices=indices, element=element)
 
         if len(string) == 1:
             return string[0]
@@ -283,12 +283,12 @@ def info(molecular_system,
 
             group_indices, chain_indices, molecule_indices = get(molecular_system, element=element, indices=indices,
                                                                  group_index=True, chain_index=True,
-                                                                 molecule_index=True, digest=False)
+                                                                 molecule_index=True)
 
-            atom_string = elements_to_string(molecular_system, indices=indices, element=element, digest=False)
-            group_string = elements_to_string(molecular_system, indices=group_indices, element='group', digest=False)
-            chain_string = elements_to_string(molecular_system, indices=chain_indices, element='chain', digest=False)
-            molecule_string = elements_to_string(molecular_system, indices=molecule_indices, element='molecule', digest=False)
+            atom_string = elements_to_string(molecular_system, indices=indices, element=element)
+            group_string = elements_to_string(molecular_system, indices=group_indices, element='group')
+            chain_string = elements_to_string(molecular_system, indices=chain_indices, element='chain')
+            molecule_string = elements_to_string(molecular_system, indices=molecule_indices, element='molecule')
 
             string = []
 
@@ -302,11 +302,11 @@ def info(molecular_system,
         elif element == 'group':
 
             chain_indices, molecule_indices = get(molecular_system, element=element, indices=indices, chain_index=True,
-                                                  molecule_index=True, digest=False)
+                                                  molecule_index=True)
 
-            group_string = elements_to_string(molecular_system, indices=indices, element=element, digest=False)
-            chain_string = elements_to_string(molecular_system, indices=chain_indices, element='chain', digest=False)
-            molecule_string = elements_to_string(molecular_system, indices=molecule_indices, element='molecule', digest=False)
+            group_string = elements_to_string(molecular_system, indices=indices, element=element)
+            chain_string = elements_to_string(molecular_system, indices=chain_indices, element='chain')
+            molecule_string = elements_to_string(molecular_system, indices=molecule_indices, element='molecule')
 
             string = []
 
@@ -320,11 +320,11 @@ def info(molecular_system,
         elif element == 'component':
 
             chain_indices, molecule_indices = get(molecular_system, element=element, indices=indices, chain_index=True,
-                                                  molecule_index=True, digest=False)
+                                                  molecule_index=True)
 
-            component_string = elements_to_string(molecular_system, indices=indices, element=element, digest=False)
-            chain_string = elements_to_string(molecular_system, indices=chain_indices, element='chain', digest=False)
-            molecule_string = elements_to_string(molecular_system, indices=molecule_indices, element='molecule', digest=False)
+            component_string = elements_to_string(molecular_system, indices=indices, element=element)
+            chain_string = elements_to_string(molecular_system, indices=chain_indices, element='chain')
+            molecule_string = elements_to_string(molecular_system, indices=molecule_indices, element='molecule')
 
             string = []
 
@@ -336,7 +336,7 @@ def info(molecular_system,
 
         elif element == 'chain':
 
-            chain_string = elements_to_string(molecular_system, indices=indices, element=element, digest=False)
+            chain_string = elements_to_string(molecular_system, indices=indices, element=element)
             string = chain_string
 
             if len(string) == 1:
@@ -344,7 +344,7 @@ def info(molecular_system,
 
         elif element == 'molecule':
 
-            molecule_string = elements_to_string(molecular_system, indices=indices, element=element, digest=False)
+            molecule_string = elements_to_string(molecular_system, indices=indices, element=element)
             string = molecule_string
 
             if len(string) == 1:
@@ -352,7 +352,7 @@ def info(molecular_system,
 
         elif element == 'entity':
 
-            entity_string = elements_to_string(molecular_system, indices=indices, element=element, digest=False)
+            entity_string = elements_to_string(molecular_system, indices=indices, element=element)
             string = entity_string
 
             if len(string) == 1:

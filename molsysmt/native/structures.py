@@ -34,7 +34,7 @@ class Structures:
     """
 
     @digest()
-    def __init__(self, structure_id=None, time=None, coordinates=None, box=None, digest=True):
+    def __init__(self, structure_id=None, time=None, coordinates=None, box=None):
 
         self.structure_id = structure_id
         self.time = time
@@ -61,7 +61,7 @@ class Structures:
                 return np.concatenate([array_1, array_2])
 
     @digest()
-    def append_structures(self, structure_id=None, time=None, coordinates=None, box=None, digest=True):
+    def append_structures(self, structure_id=None, time=None, coordinates=None, box=None):
         """ Append structures or frames to this object.
 
              box : pint.Quantity of shape (n_structures, 3, 3)
@@ -136,7 +136,7 @@ class Structures:
         return angles
 
     @digest()
-    def extract(self, atom_indices='all', structure_indices='all', digest=True):
+    def extract(self, atom_indices='all', structure_indices='all'):
         """ Returns a new Structures object with the specified atoms and/or
             structures.
 
@@ -190,7 +190,7 @@ class Structures:
                           )
 
     @digest()
-    def add(self, item, selection='all', structure_indices='all', digest=True):
+    def add(self, item, selection='all', structure_indices='all'):
         """ Adds the coordinates of another item to this.
 
             Parameters
@@ -213,16 +213,16 @@ class Structures:
                               structure_id=True,
                               time=True,
                               box=True,
-                              digest=False)
+                              )
         coordinates = get(item,
                           element="atom",
                           selection=selection,
                           structure_indices=structure_indices,
                           coordinates=True,
-                          digest=False)
+                          )
 
         if self.n_structures == 0:
-            self.append_structures(structure_id, time, coordinates, box, digest=False)
+            self.append_structures(structure_id, time, coordinates, box)
         else:
             if self.n_structures != coordinates.shape[0]:
                 raise ValueError('Both items need to have the same n_structures')
@@ -234,7 +234,7 @@ class Structures:
         self.n_atoms = self.coordinates.shape[1]
 
     @digest()
-    def append(self, item, selection='all', structure_indices='all', digest=True):
+    def append(self, item, selection='all', structure_indices='all'):
         """ Appends the structure_id, time coordinates and box of the given item to this.
 
             Parameters
@@ -256,9 +256,9 @@ class Structures:
                                            time=True,
                                            coordinates=True,
                                            box=True,
-                                           digest=False
+                                           
                                            )
-        self.append_structures(structure_id, time, coordinates, box, digest=False)
+        self.append_structures(structure_id, time, coordinates, box)
 
     def get_structure_data(self, structure, selection="all", chunk_size=1):
         """ Returns the structure_ids, time, coordinates and box of the

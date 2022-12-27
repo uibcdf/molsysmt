@@ -14,7 +14,7 @@ form='pytraj.Topology'
 ## From atom
 
 @digest(form=form)
-def get_atom_id_from_atom(item, indices='all', digest=True):
+def get_atom_id_from_atom(item, indices='all'):
 
     if is_all(indices):
         output = [None for atom in item.atoms]
@@ -25,7 +25,7 @@ def get_atom_id_from_atom(item, indices='all', digest=True):
     return output
 
 @digest(form=form)
-def get_atom_name_from_atom(item, indices='all', digest=True):
+def get_atom_name_from_atom(item, indices='all'):
 
     if is_all(indices):
         output = [atom.name for atom in item.atoms]
@@ -36,7 +36,7 @@ def get_atom_name_from_atom(item, indices='all', digest=True):
     return output
 
 @digest(form=form)
-def get_atom_type_from_atom(item, indices='all', digest=True):
+def get_atom_type_from_atom(item, indices='all'):
 
     if is_all(indices):
         output = [atom.type for atom in item.atoms]
@@ -47,7 +47,7 @@ def get_atom_type_from_atom(item, indices='all', digest=True):
     return output
 
 @digest(form=form)
-def get_group_index_from_atom(item, indices='all', digest=True):
+def get_group_index_from_atom(item, indices='all'):
 
     if is_all(indices):
         output = [atom.resid for atom in item.atoms]
@@ -58,13 +58,13 @@ def get_group_index_from_atom(item, indices='all', digest=True):
     return output
 
 @digest(form=form)
-def get_component_index_from_atom(item, indices='all', digest=True):
+def get_component_index_from_atom(item, indices='all'):
 
     from molsysmt.elements.component import get_component_index_from_atom as _get
-    return _get(item, indices=indices, digest=False)
+    return _get(item, indices=indices)
 
 @digest(form=form)
-def get_chain_index_from_atom(item, indices='all', digest=True):
+def get_chain_index_from_atom(item, indices='all'):
 
     if is_all(indices):
         output = [atom.chain for atom in item.atoms]
@@ -75,7 +75,7 @@ def get_chain_index_from_atom(item, indices='all', digest=True):
     return output
 
 @digest(form=form)
-def get_molecule_index_from_atom(item, indices='all', digest=True):
+def get_molecule_index_from_atom(item, indices='all'):
 
     if is_all(indices):
         output = [atom.molnum for atom in item.atoms]
@@ -86,17 +86,17 @@ def get_molecule_index_from_atom(item, indices='all', digest=True):
     return output
 
 @digest(form=form)
-def get_entity_index_from_atom(item, indices='all', digest=True):
+def get_entity_index_from_atom(item, indices='all'):
 
     return output
 
 @digest(form=form)
-def get_inner_bonded_atoms_from_atom(item, indices='all', digest=True):
+def get_inner_bonded_atoms_from_atom(item, indices='all'):
 
     return output
 
 @digest(form=form)
-def get_n_inner_bonds_from_atom(item, indices='all', digest=True):
+def get_n_inner_bonds_from_atom(item, indices='all'):
 
     raise NotImplementedMethodError()
 
@@ -104,17 +104,17 @@ def get_n_inner_bonds_from_atom(item, indices='all', digest=True):
 ## From group
 
 @digest(form=form)
-def get_group_id_from_group(item, indices='all', digest=True):
+def get_group_id_from_group(item, indices='all'):
 
     raise NotImplementedMethodError()
 
 @digest(form=form)
-def get_group_name_from_group(item, indices='all', digest=True):
+def get_group_name_from_group(item, indices='all'):
 
     raise NotImplementedMethodError()
 
 @digest(form=form)
-def get_group_type_from_group(item, indices='all', digest=True):
+def get_group_type_from_group(item, indices='all'):
 
     raise NotImplementedMethodError()
 
@@ -122,38 +122,38 @@ def get_group_type_from_group(item, indices='all', digest=True):
 ## From component
 
 @digest(form=form)
-def get_component_id_from_component(item, indices='all', digest=True):
+def get_component_id_from_component(item, indices='all'):
 
     from molsysmt.elements.component import get_component_id_from_component as get
-    return get(item, indices, digest=False)
+    return get(item, indices)
 
 @digest(form=form)
-def get_component_name_from_component(item, indices='all', digest=True):
+def get_component_name_from_component(item, indices='all'):
 
     from molsysmt.elements.component import get_component_name_from_component as get
-    return get(item, indices, digest=False)
+    return get(item, indices)
 
 @digest(form=form)
-def get_component_type_from_component(item, indices='all', digest=True):
+def get_component_type_from_component(item, indices='all'):
 
     from molsysmt.elements.component import get_component_type_from_component as get
-    return get(item, indices, digest=False)
+    return get(item, indices)
 
 
 ## From molecule
 
 @digest(form=form)
-def get_molecule_id_from_molecule(item, indices='all', digest=True):
+def get_molecule_id_from_molecule(item, indices='all'):
 
     raise NotImplementedMethodError()
 
 @digest(form=form)
-def get_molecule_name_from_molecule(item, indices='all', digest=True):
+def get_molecule_name_from_molecule(item, indices='all'):
 
     raise NotImplementedMethodError()
 
 @digest(form=form)
-def get_molecule_type_from_molecule(item, indices='all', digest=True):
+def get_molecule_type_from_molecule(item, indices='all'):
 
     raise NotImplementedMethodError()
 
@@ -161,17 +161,17 @@ def get_molecule_type_from_molecule(item, indices='all', digest=True):
 ## From chain
 
 @digest(form=form)
-def get_chain_id_from_chain(item, indices='all', digest=True):
+def get_chain_id_from_chain(item, indices='all'):
 
     raise NotImplementedMethodError()
 
 @digest(form=form)
-def get_chain_name_from_chain(item, indices='all', digest=True):
+def get_chain_name_from_chain(item, indices='all'):
 
     raise NotImplementedMethodError()
 
 @digest(form=form)
-def get_chain_type_from_chain(item, indices='all', digest=True):
+def get_chain_type_from_chain(item, indices='all'):
 
     raise NotImplementedMethodError()
 
@@ -179,17 +179,17 @@ def get_chain_type_from_chain(item, indices='all', digest=True):
 ## From entity
 
 @digest(form=form)
-def get_entity_id_from_entity(item, indices='all', digest=True):
+def get_entity_id_from_entity(item, indices='all'):
 
     raise NotImplementedMethodError()
 
 @digest(form=form)
-def get_entity_name_from_entity(item, indices='all', digest=True):
+def get_entity_name_from_entity(item, indices='all'):
 
     raise NotImplementedMethodError()
 
 @digest(form=form)
-def get_entity_type_from_entity(item, indices='all', digest=True):
+def get_entity_type_from_entity(item, indices='all'):
 
     raise NotImplementedMethodError()
 
@@ -197,39 +197,39 @@ def get_entity_type_from_entity(item, indices='all', digest=True):
 ## From system
 
 @digest(form=form)
-def get_n_atoms_from_system(item, digest=True):
+def get_n_atoms_from_system(item):
 
     return item.n_atoms
 
 @digest(form=form)
-def get_n_groups_from_system(item, digest=True):
+def get_n_groups_from_system(item):
 
     return item.n_residues
 
 @digest(form=form)
-def get_n_components_from_system(item, digest=True):
+def get_n_components_from_system(item):
 
-    output = get_component_index_from_atom(item, indices='all', digest=False)
+    output = get_component_index_from_atom(item, indices='all')
     output = np.unique(output)
     return output.shape[0]
 
 @digest(form=form)
-def get_n_chains_from_system(item, digest=True):
+def get_n_chains_from_system(item):
 
     raise NotImplementedMethodError()
 
 @digest(form=form)
-def get_n_molecules_from_system(item, digest=True):
+def get_n_molecules_from_system(item):
 
     raise NotImplementedMethodError()
 
 @digest(form=form)
-def get_n_entities_from_system(item, digest=True):
+def get_n_entities_from_system(item):
 
     raise NotImplementedMethodError()
 
 @digest(form=form)
-def get_n_bonds_from_system(item, digest=True):
+def get_n_bonds_from_system(item):
 
     try:
         n_bonds = item.bond_indices.shape[0]
@@ -239,7 +239,7 @@ def get_n_bonds_from_system(item, digest=True):
     return n_bonds
 
 @digest(form=form)
-def get_bonded_atoms_from_system(item, digest=True):
+def get_bonded_atoms_from_system(item):
 
     raise NotImplementedMethodError()
 
@@ -247,17 +247,17 @@ def get_bonded_atoms_from_system(item, digest=True):
 ## From bond
 
 @digest(form=form)
-def get_bond_order_from_bond(item, indices='all', digest=True):
+def get_bond_order_from_bond(item, indices='all'):
 
     raise NotImplementedMethodError()
 
 @digest(form=form)
-def get_bond_type_from_bond(item, indices='all', digest=True):
+def get_bond_type_from_bond(item, indices='all'):
 
     raise NotImplementedMethodError()
 
 @digest(form=form)
-def get_atom_index_from_bond(item, indices='all', digest=True):
+def get_atom_index_from_bond(item, indices='all'):
 
     raise NotImplementedMethodError()
 

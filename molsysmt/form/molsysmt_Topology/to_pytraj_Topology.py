@@ -3,7 +3,7 @@ from molsysmt._private.digestion import digest
 import numpy as np
 
 @digest(form='molsysmt.Topology')
-def to_pytraj_Topology(item, atom_indices='all', digest=True):
+def to_pytraj_Topology(item, atom_indices='all'):
 
     try:
         from pytraj import Topology
@@ -35,9 +35,9 @@ def to_pytraj_Topology(item, atom_indices='all', digest=True):
     bonds_atom1 = item.bonds_dataframe["atom1_index"].to_numpy()
     bonds_atom2 = item.bonds_dataframe["atom2_index"].to_numpy()
 
-    mass_atom_array = puw.get_value(get_mass(item, digest=False))
+    mass_atom_array = puw.get_value(get_mass(item))
     try:
-        charge_atom_array = get_charge(molecular_system, digest=False)
+        charge_atom_array = get_charge(molecular_system)
     except:
         charge_atom_array = np.zeros(shape=[n_atoms])
 

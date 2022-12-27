@@ -24,4 +24,4 @@ def to_molsysmt_Structures(item, molecular_system, atom_indices='all', structure
 
     return mdtraj_XTCTrajectoryFile_to_molsysmt_Structures(item, atom_indices=atom_indices,
                                                            structure_indices=structure_indices,
-                                                           digest=False)
+                                                           )

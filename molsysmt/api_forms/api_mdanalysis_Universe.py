@@ -43,14 +43,14 @@ def to_nglview_NGLWidget(item, molecular_system, atom_indices='all', structure_i
     from molsysmt.form.mdanalysis_Universe import to_nglview_NGLWidget as mdanalysis_Universe_to_nglview_NGLWidget
 
     return mdanalysis_Universe_to_nglview_NGLWidget(item, atom_indices=atom_indices,
-                                                    structure_indices=structure_indices, digest=False)
+                                                    structure_indices=structure_indices)
 
 
 def to_file_pdb(item, molecular_system, atom_indices='all', structure_indices='all', output_filename=None):
     from molsysmt.form.mdanalysis_Universe import to_file_pdb as mdanalysis_Universe_to_file_pdb
 
     return mdanalysis_Universe_to_file_pdb(item, atom_indices=atom_indices,
-                                           structure_indices=structure_indices, output_filename=output_filename, digest=False)
+                                           structure_indices=structure_indices, output_filename=output_filename)
 
 
 def to_mdtraj_Trajectory(item, molecular_system, atom_indices='all', structure_indices='all'):

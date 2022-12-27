@@ -14,117 +14,117 @@ form='mmtf.MMTFDecoder'
 ## From atom
 
 @digest(form=form)
-def get_atom_id_from_atom(item, indices='all', digest=True):
+def get_atom_id_from_atom(item, indices='all'):
 
     from .to_molsysmt_Topology import to_molsysmt_Topology
     from ..molsysmt_Topology import get_atom_id_from_atom as aux_get
 
-    tmp_item = to_molsysmt_Topology(item, digest=False)
-    output = aux_get(tmp_item, indices=indices, digest=False)
+    tmp_item = to_molsysmt_Topology(item)
+    output = aux_get(tmp_item, indices=indices)
 
     return output
 
 @digest(form=form)
-def get_atom_name_from_atom(item, indices='all', digest=True):
+def get_atom_name_from_atom(item, indices='all'):
 
     from .to_molsysmt_Topology import to_molsysmt_Topology
     from ..molsysmt_Topology import get_atom_name_from_atom as aux_get
 
-    tmp_item = to_molsysmt_Topology(item, digest=False)
-    output = aux_get(tmp_item, indices=indices, digest=False)
+    tmp_item = to_molsysmt_Topology(item)
+    output = aux_get(tmp_item, indices=indices)
 
     return output
 
 @digest(form=form)
-def get_atom_type_from_atom(item, indices='all', digest=True):
+def get_atom_type_from_atom(item, indices='all'):
 
     from .to_molsysmt_Topology import to_molsysmt_Topology
     from ..molsysmt_Topology import get_atom_type_from_atom as aux_get
 
-    tmp_item = to_molsysmt_Topology(item, digest=False)
-    output = aux_get(tmp_item, indices=indices, digest=False)
+    tmp_item = to_molsysmt_Topology(item)
+    output = aux_get(tmp_item, indices=indices)
 
     return output
 
 @digest(form=form)
-def get_group_index_from_atom(item, indices='all', digest=True):
+def get_group_index_from_atom(item, indices='all'):
 
     from .to_molsysmt_Topology import to_molsysmt_Topology
     from ..molsysmt_Topology import get_group_index_from_atom as aux_get
 
-    tmp_item = to_molsysmt_Topology(item, digest=False)
-    output = aux_get(tmp_item, indices=indices, digest=False)
+    tmp_item = to_molsysmt_Topology(item)
+    output = aux_get(tmp_item, indices=indices)
 
     return output
 
 @digest(form=form)
-def get_component_index_from_atom(item, indices='all', digest=True):
+def get_component_index_from_atom(item, indices='all'):
 
     from .to_molsysmt_Topology import to_molsysmt_Topology
     from ..molsysmt_Topology import get_component_index_from_atom as aux_get
 
-    tmp_item = to_molsysmt_Topology(item, digest=False)
-    output = aux_get(tmp_item, indices=indices, digest=False)
+    tmp_item = to_molsysmt_Topology(item)
+    output = aux_get(tmp_item, indices=indices)
 
     return output
 
 @digest(form=form)
-def get_chain_index_from_atom(item, indices='all', digest=True):
+def get_chain_index_from_atom(item, indices='all'):
 
     from .to_molsysmt_Topology import to_molsysmt_Topology
     from ..molsysmt_Topology import get_chain_index_from_atom as aux_get
 
-    tmp_item = to_molsysmt_Topology(item, digest=False)
-    output = aux_get(tmp_item, indices=indices, digest=False)
+    tmp_item = to_molsysmt_Topology(item)
+    output = aux_get(tmp_item, indices=indices)
 
     return output
 
 @digest(form=form)
-def get_molecule_index_from_atom(item, indices='all', digest=True):
+def get_molecule_index_from_atom(item, indices='all'):
 
     from .to_molsysmt_Topology import to_molsysmt_Topology
     from ..molsysmt_Topology import get_molecule_index_from_atom as aux_get
 
-    tmp_item = to_molsysmt_Topology(item, digest=False)
-    output = aux_get(tmp_item, indices=indices, digest=False)
+    tmp_item = to_molsysmt_Topology(item)
+    output = aux_get(tmp_item, indices=indices)
 
     return output
 
 @digest(form=form)
-def get_entity_index_from_atom(item, indices='all', digest=True):
+def get_entity_index_from_atom(item, indices='all'):
 
     from .to_molsysmt_Topology import to_molsysmt_Topology
     from ..molsysmt_Topology import get_entity_index_from_atom as aux_get
 
-    tmp_item = to_molsysmt_Topology(item, digest=False)
-    output = aux_get(tmp_item, indices=indices, digest=False)
+    tmp_item = to_molsysmt_Topology(item)
+    output = aux_get(tmp_item, indices=indices)
 
     return output
 
 @digest(form=form)
-def get_inner_bonded_atoms_from_atom(item, indices='all', digest=True):
+def get_inner_bonded_atoms_from_atom(item, indices='all'):
 
     from .to_molsysmt_Topology import to_molsysmt_Topology
     from ..molsysmt_Topology import get_inner_bonded_atoms_from_atom as aux_get
 
-    tmp_item = to_molsysmt_Topology(item, digest=False)
-    output = aux_get(tmp_item, indices=indices, digest=False)
+    tmp_item = to_molsysmt_Topology(item)
+    output = aux_get(tmp_item, indices=indices)
 
     return output
 
 @digest(form=form)
-def get_n_inner_bonds_from_atom(item, indices='all', digest=True):
+def get_n_inner_bonds_from_atom(item, indices='all'):
 
     from .to_molsysmt_Topology import to_molsysmt_Topology
     from ..molsysmt_Topology import get_n_inner_bonds_from_atom as aux_get
 
-    tmp_item = to_molsysmt_Topology(item, digest=False)
-    output = aux_get(tmp_item, indices=indices, digest=False)
+    tmp_item = to_molsysmt_Topology(item)
+    output = aux_get(tmp_item, indices=indices)
 
     return output
 
 @digest(form=form)
-def get_coordinates_from_atom(item, indices='all', structure_indices='all', digest=True):
+def get_coordinates_from_atom(item, indices='all', structure_indices='all'):
 
     xyz = np.column_stack([item.x_coord_list, item.y_coord_list, item.z_coord_list])
     xyz = xyz.reshape([-1, item.num_atoms, 3])
@@ -140,57 +140,57 @@ def get_coordinates_from_atom(item, indices='all', structure_indices='all', dige
     return xyz
 
 @digest(form=form)
-def get_occupancy_from_atom (item, indices='all', digest=True):
+def get_occupancy_from_atom (item, indices='all'):
 
     from .to_molsysmt_Topology import to_molsysmt_Topology
     from ..molsysmt_Topology import get_occupancy_from_atom as aux_get
  
-    tmp_item = to_molsysmt_Topology(item, digest=False)
-    output = aux_get(tmp_item, indices=indices, digest=False)
+    tmp_item = to_molsysmt_Topology(item)
+    output = aux_get(tmp_item, indices=indices)
 
     return output
 
 @digest(form=form)
-def get_alternate_location_from_atom (item, indices='all', digest=True):
+def get_alternate_location_from_atom (item, indices='all'):
 
     from .to_molsysmt_Topology import to_molsysmt_Topology
     from ..molsysmt_Topology import get_alternate_location_from_atom as aux_get
  
-    tmp_item = to_molsysmt_Topology(item, digest=False)
-    output = aux_get(tmp_item, indices=indices, digest=False)
+    tmp_item = to_molsysmt_Topology(item)
+    output = aux_get(tmp_item, indices=indices)
 
     return output
 
 @digest(form=form)
-def get_b_factor_from_atom (item, indices='all', digest=True):
+def get_b_factor_from_atom (item, indices='all'):
 
     from .to_molsysmt_Topology import to_molsysmt_Topology
     from ..molsysmt_Topology import get_b_factor_from_atom as aux_get
  
-    tmp_item = to_molsysmt_Topology(item, digest=False)
-    output = aux_get(tmp_item, indices=indices, digest=False)
+    tmp_item = to_molsysmt_Topology(item)
+    output = aux_get(tmp_item, indices=indices)
 
     return output
 
 @digest(form=form)
-def get_formal_charge_from_atom (item, indices='all', digest=True):
+def get_formal_charge_from_atom (item, indices='all'):
 
     from .to_molsysmt_Topology import to_molsysmt_Topology
     from ..molsysmt_Topology import get_formal_charge_from_atom as aux_get
  
-    tmp_item = to_molsysmt_Topology(item, digest=False)
-    output = aux_get(tmp_item, indices=indices, digest=False)
+    tmp_item = to_molsysmt_Topology(item)
+    output = aux_get(tmp_item, indices=indices)
 
     return output
 
 @digest(form=form)
-def get_partial_charge_from_atom (item, indices='all', digest=True):
+def get_partial_charge_from_atom (item, indices='all'):
 
     from .to_molsysmt_Topology import to_molsysmt_Topology
     from ..molsysmt_Topology import get_partial_charge_from_atom as aux_get
  
-    tmp_item = to_molsysmt_Topology(item, digest=False)
-    output = aux_get(tmp_item, indices=indices, digest=False)
+    tmp_item = to_molsysmt_Topology(item)
+    output = aux_get(tmp_item, indices=indices)
 
     return output
 
@@ -198,35 +198,35 @@ def get_partial_charge_from_atom (item, indices='all', digest=True):
 ## From group
 
 @digest(form=form)
-def get_group_id_from_group(item, indices='all', digest=True):
+def get_group_id_from_group(item, indices='all'):
 
     from .to_molsysmt_Topology import to_molsysmt_Topology
     from ..molsysmt_Topology import get_group_id_from_group as aux_get
 
-    tmp_item = to_molsysmt_Topology(item, digest=False)
-    output = aux_get(tmp_item, indices=indices, digest=False)
+    tmp_item = to_molsysmt_Topology(item)
+    output = aux_get(tmp_item, indices=indices)
 
     return output
 
 @digest(form=form)
-def get_group_name_from_group(item, indices='all', digest=True):
+def get_group_name_from_group(item, indices='all'):
 
     from .to_molsysmt_Topology import to_molsysmt_Topology
     from ..molsysmt_Topology import get_group_name_from_group as aux_get
 
-    tmp_item = to_molsysmt_Topology(item, digest=False)
-    output = aux_get(tmp_item, indices=indices, digest=False)
+    tmp_item = to_molsysmt_Topology(item)
+    output = aux_get(tmp_item, indices=indices)
 
     return output
 
 @digest(form=form)
-def get_group_type_from_group(item, indices='all', digest=True):
+def get_group_type_from_group(item, indices='all'):
 
     from .to_molsysmt_Topology import to_molsysmt_Topology
     from ..molsysmt_Topology import get_group_type_from_group as aux_get
 
-    tmp_item = to_molsysmt_Topology(item, digest=False)
-    output = aux_get(tmp_item, indices=indices, digest=False)
+    tmp_item = to_molsysmt_Topology(item)
+    output = aux_get(tmp_item, indices=indices)
 
     return output
 
@@ -234,35 +234,35 @@ def get_group_type_from_group(item, indices='all', digest=True):
 ## From component
 
 @digest(form=form)
-def get_component_id_from_component(item, indices='all', digest=True):
+def get_component_id_from_component(item, indices='all'):
 
     from .to_molsysmt_Topology import to_molsysmt_Topology
     from ..molsysmt_Topology import get_component_id_from_component as aux_get
 
-    tmp_item = to_molsysmt_Topology(item, digest=False)
-    output = aux_get(tmp_item, indices=indices, digest=False)
+    tmp_item = to_molsysmt_Topology(item)
+    output = aux_get(tmp_item, indices=indices)
 
     return output
 
 @digest(form=form)
-def get_component_name_from_component(item, indices='all', digest=True):
+def get_component_name_from_component(item, indices='all'):
 
     from .to_molsysmt_Topology import to_molsysmt_Topology
     from ..molsysmt_Topology import get_component_name_from_component as aux_get
 
-    tmp_item = to_molsysmt_Topology(item, digest=False)
-    output = aux_get(tmp_item, indices=indices, digest=False)
+    tmp_item = to_molsysmt_Topology(item)
+    output = aux_get(tmp_item, indices=indices)
 
     return output
 
 @digest(form=form)
-def get_component_type_from_component(item, indices='all', digest=True):
+def get_component_type_from_component(item, indices='all'):
 
     from .to_molsysmt_Topology import to_molsysmt_Topology
     from ..molsysmt_Topology import get_component_type_from_component as aux_get
 
-    tmp_item = to_molsysmt_Topology(item, digest=False)
-    output = aux_get(tmp_item, indices=indices, digest=False)
+    tmp_item = to_molsysmt_Topology(item)
+    output = aux_get(tmp_item, indices=indices)
 
     return output
 
@@ -270,35 +270,35 @@ def get_component_type_from_component(item, indices='all', digest=True):
 ## From molecule
 
 @digest(form=form)
-def get_molecule_id_from_molecule(item, indices='all', digest=True):
+def get_molecule_id_from_molecule(item, indices='all'):
 
     from .to_molsysmt_Topology import to_molsysmt_Topology
     from ..molsysmt_Topology import get_molecule_id_from_molecule as aux_get
 
-    tmp_item = to_molsysmt_Topology(item, digest=False)
-    output = aux_get(tmp_item, indices=indices, digest=False)
+    tmp_item = to_molsysmt_Topology(item)
+    output = aux_get(tmp_item, indices=indices)
 
     return output
 
 @digest(form=form)
-def get_molecule_name_from_molecule(item, indices='all', digest=True):
+def get_molecule_name_from_molecule(item, indices='all'):
 
     from .to_molsysmt_Topology import to_molsysmt_Topology
     from ..molsysmt_Topology import get_molecule_name_from_molecule as aux_get
 
-    tmp_item = to_molsysmt_Topology(item, digest=False)
-    output = aux_get(tmp_item, indices=indices, digest=False)
+    tmp_item = to_molsysmt_Topology(item)
+    output = aux_get(tmp_item, indices=indices)
 
     return output
 
 @digest(form=form)
-def get_molecule_type_from_molecule(item, indices='all', digest=True):
+def get_molecule_type_from_molecule(item, indices='all'):
 
     from .to_molsysmt_Topology import to_molsysmt_Topology
     from ..molsysmt_Topology import get_molecule_type_from_molecule as aux_get
 
-    tmp_item = to_molsysmt_Topology(item, digest=False)
-    output = aux_get(tmp_item, indices=indices, digest=False)
+    tmp_item = to_molsysmt_Topology(item)
+    output = aux_get(tmp_item, indices=indices)
 
     return output
 
@@ -306,35 +306,35 @@ def get_molecule_type_from_molecule(item, indices='all', digest=True):
 ## From chain
 
 @digest(form=form)
-def get_chain_id_from_chain(item, indices='all', digest=True):
+def get_chain_id_from_chain(item, indices='all'):
 
     from .to_molsysmt_Topology import to_molsysmt_Topology
     from ..molsysmt_Topology import get_chain_id_from_chain as aux_get
 
-    tmp_item = to_molsysmt_Topology(item, digest=False)
-    output = aux_get(tmp_item, indices=indices, digest=False)
+    tmp_item = to_molsysmt_Topology(item)
+    output = aux_get(tmp_item, indices=indices)
 
     return output
 
 @digest(form=form)
-def get_chain_name_from_chain(item, indices='all', digest=True):
+def get_chain_name_from_chain(item, indices='all'):
 
     from .to_molsysmt_Topology import to_molsysmt_Topology
     from ..molsysmt_Topology import get_chain_name_from_chain as aux_get
 
-    tmp_item = to_molsysmt_Topology(item, digest=False)
-    output = aux_get(tmp_item, indices=indices, digest=False)
+    tmp_item = to_molsysmt_Topology(item)
+    output = aux_get(tmp_item, indices=indices)
 
     return output
 
 @digest(form=form)
-def get_chain_type_from_chain(item, indices='all', digest=True):
+def get_chain_type_from_chain(item, indices='all'):
 
     from .to_molsysmt_Topology import to_molsysmt_Topology
     from ..molsysmt_Topology import get_chain_type_from_chain as aux_get
 
-    tmp_item = to_molsysmt_Topology(item, digest=False)
-    output = aux_get(tmp_item, indices=indices, digest=False)
+    tmp_item = to_molsysmt_Topology(item)
+    output = aux_get(tmp_item, indices=indices)
 
     return output
 
@@ -342,35 +342,35 @@ def get_chain_type_from_chain(item, indices='all', digest=True):
 ## From entity
 
 @digest(form=form)
-def get_entity_id_from_entity(item, indices='all', digest=True):
+def get_entity_id_from_entity(item, indices='all'):
 
     from .to_molsysmt_Topology import to_molsysmt_Topology
     from ..molsysmt_Topology import get_entity_id_from_entity as aux_get
 
-    tmp_item = to_molsysmt_Topology(item, digest=False)
-    output = aux_get(tmp_item, indices=indices, digest=False)
+    tmp_item = to_molsysmt_Topology(item)
+    output = aux_get(tmp_item, indices=indices)
 
     return output
 
 @digest(form=form)
-def get_entity_name_from_entity(item, indices='all', digest=True):
+def get_entity_name_from_entity(item, indices='all'):
 
     from .to_molsysmt_Topology import to_molsysmt_Topology
     from ..molsysmt_Topology import get_entity_name_from_entity as aux_get
 
-    tmp_item = to_molsysmt_Topology(item, digest=False)
-    output = aux_get(tmp_item, indices=indices, digest=False)
+    tmp_item = to_molsysmt_Topology(item)
+    output = aux_get(tmp_item, indices=indices)
 
     return output
 
 @digest(form=form)
-def get_entity_type_from_entity(item, indices='all', digest=True):
+def get_entity_type_from_entity(item, indices='all'):
 
     from .to_molsysmt_Topology import to_molsysmt_Topology
     from ..molsysmt_Topology import get_entity_type_from_entity as aux_get
 
-    tmp_item = to_molsysmt_Topology(item, digest=False)
-    output = aux_get(tmp_item, indices=indices, digest=False)
+    tmp_item = to_molsysmt_Topology(item)
+    output = aux_get(tmp_item, indices=indices)
 
     return output
 
@@ -378,93 +378,93 @@ def get_entity_type_from_entity(item, indices='all', digest=True):
 ## From system
 
 @digest(form=form)
-def get_n_atoms_from_system(item, digest=True):
+def get_n_atoms_from_system(item):
 
     from .to_molsysmt_Topology import to_molsysmt_Topology
     from ..molsysmt_Topology import get_n_atoms_from_system as aux_get
 
-    tmp_item = to_molsysmt_Topology(item, digest=False)
-    output = aux_get(tmp_item, digest=False)
+    tmp_item = to_molsysmt_Topology(item)
+    output = aux_get(tmp_item)
 
     return output
 
 @digest(form=form)
-def get_n_groups_from_system(item, digest=True):
+def get_n_groups_from_system(item):
 
     from .to_molsysmt_Topology import to_molsysmt_Topology
     from ..molsysmt_Topology import get_n_groups_from_system as aux_get
 
-    tmp_item = to_molsysmt_Topology(item, digest=False)
-    output = aux_get(tmp_item, digest=False)
+    tmp_item = to_molsysmt_Topology(item)
+    output = aux_get(tmp_item)
 
     return output
 
 @digest(form=form)
-def get_n_components_from_system(item, digest=True):
+def get_n_components_from_system(item):
 
     from .to_molsysmt_Topology import to_molsysmt_Topology
     from ..molsysmt_Topology import get_n_components_from_system as aux_get
 
-    tmp_item = to_molsysmt_Topology(item, digest=False)
-    output = aux_get(tmp_item, digest=False)
+    tmp_item = to_molsysmt_Topology(item)
+    output = aux_get(tmp_item)
 
     return output
 
 @digest(form=form)
-def get_n_chains_from_system(item, digest=True):
+def get_n_chains_from_system(item):
 
     from .to_molsysmt_Topology import to_molsysmt_Topology
     from ..molsysmt_Topology import get_n_chains_from_system as aux_get
 
-    tmp_item = to_molsysmt_Topology(item, digest=False)
-    output = aux_get(tmp_item, digest=False)
+    tmp_item = to_molsysmt_Topology(item)
+    output = aux_get(tmp_item)
 
     return output
 
 @digest(form=form)
-def get_n_molecules_from_system(item, digest=True):
+def get_n_molecules_from_system(item):
 
     from .to_molsysmt_Topology import to_molsysmt_Topology
     from ..molsysmt_Topology import get_n_molecules_from_system as aux_get
 
-    tmp_item = to_molsysmt_Topology(item, digest=False)
-    output = aux_get(tmp_item, digest=False)
+    tmp_item = to_molsysmt_Topology(item)
+    output = aux_get(tmp_item)
 
     return output
 
 @digest(form=form)
-def get_n_entities_from_system(item, digest=True):
+def get_n_entities_from_system(item):
 
     from .to_molsysmt_Topology import to_molsysmt_Topology
     from ..molsysmt_Topology import get_n_entities_from_system as aux_get
 
-    tmp_item = to_molsysmt_Topology(item, digest=False)
-    output = aux_get(tmp_item, digest=False)
+    tmp_item = to_molsysmt_Topology(item)
+    output = aux_get(tmp_item)
 
     return output
 
 @digest(form=form)
-def get_n_bonds_from_system(item, digest=True):
+def get_n_bonds_from_system(item):
 
     from .to_molsysmt_Topology import to_molsysmt_Topology
     from ..molsysmt_Topology import get_n_bonds_from_system as aux_get
 
-    tmp_item = to_molsysmt_Topology(item, digest=False)
-    output = aux_get(tmp_item, digest=False)
+    tmp_item = to_molsysmt_Topology(item)
+    output = aux_get(tmp_item)
 
     return output
 
 @digest(form=form)
-def get_n_structures_from_system(item, digest=True):
+def get_n_structures_from_system(item):
 
     return item.num_models
 
 @digest(form=form)
-def get_box_from_system(item, structure_indices='all', digest=True):
+def get_box_from_system(item, structure_indices='all'):
 
     from molsysmt.pbc import box_from_box_lengths_and_angles
 
-    n_structures = get_n_structures_from_system(item, digest=False)
+    n_structures = get_n_structures_from_system(item)
 
     if item.unit_cell is not None:
 
@@ -477,7 +477,7 @@ def get_box_from_system(item, structure_indices='all', digest=True):
         cell_lengths = puw.quantity(cell_lengths, 'angstroms')
         cell_angles = puw.quantity(cell_angles, 'degrees')
 
-        box = box_from_box_lengths_and_angles(cell_lengths, cell_angles, digest=False)
+        box = box_from_box_lengths_and_angles(cell_lengths, cell_angles)
         box = puw.standardize(box)
 
     else:
@@ -491,18 +491,18 @@ def get_box_from_system(item, structure_indices='all', digest=True):
     return box
 
 @digest(form=form)
-def get_time_from_system(item, structure_indices='all', digest=True):
+def get_time_from_system(item, structure_indices='all'):
 
     return None
 
 @digest(form=form)
-def get_structure_id_from_system(item, structure_indices='all', digest=True):
+def get_structure_id_from_system(item, structure_indices='all'):
 
     return None
 
 
 @digest(form=form)
-def get_bioassemblies_from_system(item, digest=True):
+def get_bioassemblies_from_system(item):
 
     output = {}
 
@@ -523,42 +523,42 @@ def get_bioassemblies_from_system(item, digest=True):
     return output
 
 @digest(form=form)
-def get_n_bioassemblies_from_system(item, digest=True):
+def get_n_bioassemblies_from_system(item):
 
     return len(item.bio_assembly)
 
 ## From bond
 
 @digest(form=form)
-def get_bond_order_from_bond(item, indices='all', digest=True):
+def get_bond_order_from_bond(item, indices='all'):
 
     from .to_molsysmt_Topology import to_molsysmt_Topology
     from ..molsysmt_Topology import get_bond_order_from_bond as aux_get
 
-    tmp_item = to_molsysmt_Topology(item, digest=False)
-    output = aux_get(tmp_item, indices=indices, digest=False)
+    tmp_item = to_molsysmt_Topology(item)
+    output = aux_get(tmp_item, indices=indices)
 
     return output
 
 @digest(form=form)
-def get_bond_type_from_bond(item, indices='all', digest=True):
+def get_bond_type_from_bond(item, indices='all'):
 
     from .to_molsysmt_Topology import to_molsysmt_Topology
     from ..molsysmt_Topology import get_bond_type_from_bond as aux_get
 
-    tmp_item = to_molsysmt_Topology(item, digest=False)
-    output = aux_get(tmp_item, indices=indices, digest=False)
+    tmp_item = to_molsysmt_Topology(item)
+    output = aux_get(tmp_item, indices=indices)
 
     return output
 
 @digest(form=form)
-def get_atom_index_from_bond(item, indices='all', digest=True):
+def get_atom_index_from_bond(item, indices='all'):
 
     from .to_molsysmt_Topology import to_molsysmt_Topology
     from ..molsysmt_Topology import get_atom_index_from_bond as aux_get
 
-    tmp_item = to_molsysmt_Topology(item, digest=False)
-    output = aux_get(tmp_item, indices=indices, digest=False)
+    tmp_item = to_molsysmt_Topology(item)
+    output = aux_get(tmp_item, indices=indices)
 
     return output
 

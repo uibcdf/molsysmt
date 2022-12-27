@@ -6,7 +6,7 @@ from molsysmt.config import view_from_htmlfiles
 
 @digest()
 def view(molecular_system=None, viewer='NGLView', selection='all', structure_indices='all',
-         concatenate_structures=False, standard=False, with_water_as=None, syntax='MolSysMT', digest=True):
+         concatenate_structures=False, standard=False, with_water_as=None, syntax='MolSysMT'):
 
     if view_from_htmlfiles:
         if 'nglview_htmlfile' in stack()[2][0].f_locals:
@@ -26,31 +26,31 @@ def view(molecular_system=None, viewer='NGLView', selection='all', structure_ind
 
     if is_a_molecular_system(molecular_system):
         tmp_item = convert(molecular_system, to_form=form_viewer, selection=selection,
-                           structure_indices=structure_indices, syntax=syntax, digest=False)
+                           structure_indices=structure_indices, syntax=syntax)
     elif are_multiple_molecular_systems(molecular_system):
         if concatenate:
             molecular_system = concatenate_structures(molecular_system, selections=selection,
-                                                      structure_indices=structure_indices, digest=False)
+                                                      structure_indices=structure_indices)
         else:
             molecular_system = merge(molecular_system, selections=selection, structure_indices=structure_indices,
-                                     syntax=syntax, digest=False)
-        tmp_item = convert(molecular_system, to_form=form_viewer, digest=False)
+                                     syntax=syntax)
+        tmp_item = convert(molecular_system, to_form=form_viewer)
 
     if standard:
         if viewer=='NGLView':
             from molsysmt.thirds.nglview import standardize_view
-            standardize_view(tmp_item, digest=False)
+            standardize_view(tmp_item)
 
     if with_water_as is not None:
 
         if with_water_as == 'surface':
             if viewer=='NGLView':
                 from molsysmt.thirds.nglview import show_system_as_transparent_surface
-                show_system_as_transparent_surface(tmp_item, digest=False)
+                show_system_as_transparent_surface(tmp_item)
         elif with_water_as == 'licorice':
             if viewer=='NGLView':
                 from molsysmt.thirds.nglview import show_water_as_licorice
-                show_water_as_licorice(tmp_item, digest=False)
+                show_water_as_licorice(tmp_item)
 
 
     return tmp_item

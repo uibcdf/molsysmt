@@ -9,7 +9,6 @@ def convert(molecular_system,
             selection='all',
             structure_indices='all',
             syntax='MolSysMT',
-            digest=True,
             **kwargs):
     """convert(item, to_form='molsysmt.MolSys', selection='all', structure_indices='all', syntax='MolSysMT', **kwargs)
 
@@ -69,11 +68,11 @@ def convert(molecular_system,
         for item_out in to_form:
             tmp_item.append(
                 convert(molecular_system, to_form=item_out, selection=selection, structure_indices=structure_indices,
-                        syntax=syntax, digest=True))
+                        syntax=syntax))
         return tmp_item
 
     if not is_all(selection):
-        atom_indices = select(molecular_system, selection=selection, syntax=syntax, digest=False)
+        atom_indices = select(molecular_system, selection=selection, syntax=syntax)
     else:
         atom_indices = 'all'
 
@@ -100,7 +99,6 @@ def convert(molecular_system,
                                                atom_indices=atom_indices,
                                                structure_indices=structure_indices,
                                                copy_if_all=False,
-                                               digest=False,
                                                **conversion_arguments, **kwargs)
         else:
             if from_form in dict_convert:

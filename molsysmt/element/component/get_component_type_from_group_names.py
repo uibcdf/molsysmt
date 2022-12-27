@@ -1,16 +1,16 @@
 from molsysmt._private.digestion import digest
 
 @digest()
-def get_component_type_from_group_names(group_names, digest=True):
+def get_component_type_from_group_names(group_names):
 
     from ..group import get_group_type_from_group_name
     from ..group.nucleotide import rna_names, dna_names
 
     n_groups = len(group_names)
     first_name = group_names[0]
-    first_type = get_group_type_from_group_name(first_name, digest=False)
+    first_type = get_group_type_from_group_name(first_name)
     last_name = group_names[-1]
-    last_type = get_group_type_from_group_name(last_name, digest=False)
+    last_type = get_group_type_from_group_name(last_name)
 
     if first_type in ['water', 'ion', 'small molecule', 'lipid']:
         tmp_type=first_type

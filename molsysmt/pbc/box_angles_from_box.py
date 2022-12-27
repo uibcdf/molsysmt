@@ -4,7 +4,7 @@ from molsysmt.lib import box as libbox
 import numpy as np
 
 @digest()
-def box_angles_from_box(box, digest=True):
+def box_angles_from_box(box):
 
     n_structures = box.shape[0]
     tmp_box =  np.asfortranarray(puw.get_value(box), dtype='float64')

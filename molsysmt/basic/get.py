@@ -10,7 +10,6 @@ def get(molecular_system,
         selection='all',
         structure_indices='all',
         syntax='MolSysMT',
-        digest=True,
         **kwargs):
     """get(item, element='system', indices=None, selection='all', structure_indices='all', syntax='MolSysMT')
 
@@ -76,7 +75,7 @@ def get(molecular_system,
 
     if indices is None:
         if not is_all(selection):
-            indices = select(molecular_system, element=element, selection=selection, syntax=syntax, digest=False)
+            indices = select(molecular_system, element=element, selection=selection, syntax=syntax)
         else:
             indices = 'all'
 
@@ -91,12 +90,12 @@ def get(molecular_system,
         if 'structure_indices' in _required_indices[argument]:
             dict_indices['structure_indices'] = structure_indices
 
-        aux_item, aux_form = where_is_attribute(molecular_system, argument, digest=False)
+        aux_item, aux_form = where_is_attribute(molecular_system, argument)
 
         if aux_item is None:
             result = None
         else:
-            result = dict_get[aux_form][element][argument](aux_item, **dict_indices, digest=False)
+            result = dict_get[aux_form][element][argument](aux_item, **dict_indices)
 
         attributes.append(result)
 

@@ -4,7 +4,7 @@ from molsysmt._private.atom_indices import complementary_atom_indices
 
 
 @digest()
-def remove(molecular_system, selection=None, structure_indices=None, to_form=None, syntax='MolSysMT', digest=True):
+def remove(molecular_system, selection=None, structure_indices=None, to_form=None, syntax='MolSysMT'):
 
     """remove(item, selection=None, structure_indices=None, syntax='MolSysMT')
 
@@ -67,14 +67,14 @@ def remove(molecular_system, selection=None, structure_indices=None, to_form=Non
     structure_indices_to_be_kept = 'all'
 
     if selection is not None:
-        atom_indices_to_be_removed = select(molecular_system, selection=selection, syntax=syntax, digest=False)
+        atom_indices_to_be_removed = select(molecular_system, selection=selection, syntax=syntax)
         atom_indices_to_be_kept = complementary_atom_indices(molecular_system, atom_indices_to_be_removed)
 
     if structure_indices is not None:
         structure_indices_to_be_kept = complementary_structure_indices(molecular_system, structure_indices)
 
     tmp_item = extract(molecular_system, selection=atom_indices_to_be_kept,
-                       structure_indices=structure_indices_to_be_kept, to_form=to_form, copy_if_all=False, digest=False)
+                       structure_indices=structure_indices_to_be_kept, to_form=to_form, copy_if_all=False)
 
     if isinstance(tmp_item, (list, tuple)):
         if len(tmp_item) == 1:

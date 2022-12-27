@@ -77,16 +77,6 @@ def digest(**kwargs):
 
             all_args = argument_names_standardization(caller, all_args)
 
-            if 'digest' in all_args:
-                if all_args['digest']==False:
-                    return func(**all_args)
-                    #if 'self' in all_args:
-                    #    return func(all_args['self'], **final_args)
-                    #else:
-                    #    return func(**final_args)
-
-            print(caller, all_args)
-
             # Digestions:
 
             digested_args = {}

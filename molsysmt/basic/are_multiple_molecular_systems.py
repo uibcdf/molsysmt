@@ -2,7 +2,7 @@ from molsysmt._private.digestion import digest
 import numpy as np
 
 @digest()
-def are_multiple_molecular_systems(items, digest=True):
+def are_multiple_molecular_systems(items):
 
     from . import is_a_molecular_system
 

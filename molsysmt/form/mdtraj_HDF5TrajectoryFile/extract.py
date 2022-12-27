@@ -4,7 +4,7 @@ from molsysmt._private.variables import is_all
 
 @digest(form='mdtraj.HDF5TrajectoryFile')
 def extract(item, atom_indices='all', structure_indices='all', output_filename=None, copy_if_all=True,
-        progress_bar=False, digest=True):
+        progress_bar=False):
 
     from .get import get_n_structures_from_system
     from ..mdtraj_Topology import extract as extract_mdtraj_Topology
@@ -19,7 +19,7 @@ def extract(item, atom_indices='all', structure_indices='all', output_filename=N
 
         if copy_if_all or (output_filename!=None):
 
-            n_structures = get_n_structures_from_system(item, digest=False)
+            n_structures = get_n_structures_from_system(item)
 
             item.seek(0)
 
@@ -47,11 +47,11 @@ def extract(item, atom_indices='all', structure_indices='all', output_filename=N
         topology = item.topology
 
         if not is_all(atom_indices):
-            topology = extract_mdtraj_Topology(topology, atom_indices=atom_indices, digest=False)
+            topology = extract_mdtraj_Topology(topology, atom_indices=atom_indices)
 
         if is_all(structure_indices):
 
-            n_structures = get_n_structures_from_system(item, digest=False)
+            n_structures = get_n_structures_from_system(item)
             structure_indices = range(n_structures)
 
         item.seek(0)

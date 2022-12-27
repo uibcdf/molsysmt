@@ -105,11 +105,11 @@ class Topology():
 
         from molsysmt import convert, get
 
-        tmp_item = convert(item, to_form='molsysmt.Topology', selection=selection, structure_indices=structure_indices, digest=False)
+        tmp_item = convert(item, to_form='molsysmt.Topology', selection=selection, structure_indices=structure_indices)
 
         n_atoms, n_groups, n_components, n_chains, n_molecules = get(self, element='system', n_atoms=True,
                                                                      n_groups=True, n_components=True, n_chains=True,
-                                                                     n_molecules=True, digest=False)
+                                                                     n_molecules=True)
 
         tmp_item.atoms_dataframe['atom_index'] += n_atoms
         tmp_item.atoms_dataframe['group_index'] += n_groups
@@ -145,7 +145,7 @@ class Topology():
     #    from molsysmt.native.io.topology import to_pdb as molsysmt_Topology_to_pdb
 
     #    return molsysmt_Topology_to_pdb(self, trajectory_item=trajectory_item, output_filepath='.pdb',
-    #                                     atom_indices='all', structure_indices=structure_indices, digest=False)
+    #                                     atom_indices='all', structure_indices=structure_indices)
 
     def _build_components(self):
 
@@ -185,7 +185,7 @@ class Topology():
                     first_occurrence = np.where(group_index_from_atom==group_index)[0][0]
                     group_names.append(group_name_from_atom[first_occurrence])
 
-                type_array[mask]=get_component_type_from_group_names(group_names, digest=False)
+                type_array[mask]=get_component_type_from_group_names(group_names)
 
         self.atoms_dataframe["component_index"] = index_array
         self.atoms_dataframe["component_id"] = index_array

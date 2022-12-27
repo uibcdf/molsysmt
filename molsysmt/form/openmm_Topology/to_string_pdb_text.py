@@ -2,7 +2,7 @@ from molsysmt._private.digestion import digest
 from molsysmt._private.variables import is_all
 
 @digest(form='openmm.Topology')
-def to_string_pdb_text(item, atom_indices='all', coordinates=None, box=None, digest=True):
+def to_string_pdb_text(item, atom_indices='all', coordinates=None, box=None):
 
     from io import StringIO
     from openmm.app import PDBFile

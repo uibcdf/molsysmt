@@ -4,7 +4,7 @@ import numpy as np
 from molsysmt import pyunitwizard as puw
 
 @digest()
-def box_from_box_lengths_and_angles(box_lengths, box_angles, digest=True):
+def box_from_box_lengths_and_angles(box_lengths, box_angles):
 
     units = puw.get_unit(box_lengths)
     lengths_value = puw.get_value(box_lengths)

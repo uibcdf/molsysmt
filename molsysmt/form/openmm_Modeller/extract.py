@@ -2,7 +2,7 @@ from molsysmt._private.digestion import digest
 from molsysmt._private.variables import is_all
 
 @digest(form='openmm.Modeller')
-def extract(item, atom_indices='all', structure_indices='all', copy_if_all=True, digest=True):
+def extract(item, atom_indices='all', structure_indices='all', copy_if_all=True):
 
     from openmm.app import Modeller
 
@@ -15,8 +15,8 @@ def extract(item, atom_indices='all', structure_indices='all', copy_if_all=True,
         from . import get_coordinates_from_atom
         from ..openmm_Topology import extract as extract_openmm_Topology
 
-        tmp_topology = extract_openmm_Topology(item.topology, atom_indices=atom_indices, digest=False)
-        tmp_positions = get_coordinates_from_atom(item, indices=atom_indices, digest=False)
+        tmp_topology = extract_openmm_Topology(item.topology, atom_indices=atom_indices)
+        tmp_positions = get_coordinates_from_atom(item, indices=atom_indices)
         tmp_item = Modeller(tmp_topology, tmp_positions)
 
     return tmp_item

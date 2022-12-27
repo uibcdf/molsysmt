@@ -15,57 +15,57 @@ form='mdtraj.DCDTrajectoryFile'
 ## From atom
 
 @digest(form=form)
-def get_atom_id_from_atom(item, indices='all', digest=True):
+def get_atom_id_from_atom(item, indices='all'):
 
     raise NotWithThisFormError()
 
 @digest(form=form)
-def get_atom_name_from_atom(item, indices='all', digest=True):
+def get_atom_name_from_atom(item, indices='all'):
 
     raise NotWithThisFormError()
 
 @digest(form=form)
-def get_atom_type_from_atom(item, indices='all', digest=True):
+def get_atom_type_from_atom(item, indices='all'):
 
     raise NotWithThisFormError()
 
 @digest(form=form)
-def get_group_index_from_atom(item, indices='all', digest=True):
+def get_group_index_from_atom(item, indices='all'):
 
     raise NotWithThisFormError()
 
 @digest(form=form)
-def get_component_index_from_atom(item, indices='all', digest=True):
+def get_component_index_from_atom(item, indices='all'):
 
     raise NotWithThisFormError()
 
 @digest(form=form)
-def get_chain_index_from_atom(item, indices='all', digest=True):
+def get_chain_index_from_atom(item, indices='all'):
 
     raise NotWithThisFormError()
 
 @digest(form=form)
-def get_molecule_index_from_atom(item, indices='all', digest=True):
+def get_molecule_index_from_atom(item, indices='all'):
 
     raise NotWithThisFormError()
 
 @digest(form=form)
-def get_entity_index_from_atom(item, indices='all', digest=True):
+def get_entity_index_from_atom(item, indices='all'):
 
     raise NotWithThisFormError()
 
 @digest(form=form)
-def get_inner_bonded_atoms_from_atom(item, indices='all', digest=True):
+def get_inner_bonded_atoms_from_atom(item, indices='all'):
 
     raise NotWithThisFormError()
 
 @digest(form=form)
-def get_n_inner_bonds_from_atom(item, indices='all', digest=True):
+def get_n_inner_bonds_from_atom(item, indices='all'):
 
     raise NotWithThisFormError()
 
 @digest(form=form)
-def get_coordinates_from_atom(item, indices='all', structure_indices='all', digest=True):
+def get_coordinates_from_atom(item, indices='all', structure_indices='all'):
 
     from molsysmt._private.math import serie_to_chunks
 
@@ -100,17 +100,17 @@ def get_coordinates_from_atom(item, indices='all', structure_indices='all', dige
 ## From group
 
 @digest(form=form)
-def get_group_id_from_group(item, indices='all', digest=True):
+def get_group_id_from_group(item, indices='all'):
 
     raise NotImplementedMethodError()
 
 @digest(form=form)
-def get_group_name_from_group(item, indices='all', digest=True):
+def get_group_name_from_group(item, indices='all'):
 
     raise NotImplementedMethodError()
 
 @digest(form=form)
-def get_group_type_from_group(item, indices='all', digest=True):
+def get_group_type_from_group(item, indices='all'):
 
     raise NotImplementedMethodError()
 
@@ -118,17 +118,17 @@ def get_group_type_from_group(item, indices='all', digest=True):
 ## From component
 
 @digest(form=form)
-def get_component_id_from_group(item, indices='all', digest=True):
+def get_component_id_from_group(item, indices='all'):
 
     raise NotWithThisFormError()
 
 @digest(form=form)
-def get_component_name_from_group(item, indices='all', digest=True):
+def get_component_name_from_group(item, indices='all'):
 
     raise NotWithThisFormError()
 
 @digest(form=form)
-def get_component_type_from_group(item, indices='all', digest=True):
+def get_component_type_from_group(item, indices='all'):
 
     raise NotWithThisFormError()
 
@@ -136,17 +136,17 @@ def get_component_type_from_group(item, indices='all', digest=True):
 ## From molecule
 
 @digest(form=form)
-def get_molecule_id_from_group(item, indices='all', digest=True):
+def get_molecule_id_from_group(item, indices='all'):
 
     raise NotWithThisFormError()
 
 @digest(form=form)
-def get_molecule_name_from_group(item, indices='all', digest=True):
+def get_molecule_name_from_group(item, indices='all'):
 
     raise NotWithThisFormError()
 
 @digest(form=form)
-def get_molecule_type_from_group(item, indices='all', digest=True):
+def get_molecule_type_from_group(item, indices='all'):
 
     raise NotWithThisFormError()
 
@@ -154,17 +154,17 @@ def get_molecule_type_from_group(item, indices='all', digest=True):
 ## From chain
 
 @digest(form=form)
-def get_chain_id_from_group(item, indices='all', digest=True):
+def get_chain_id_from_group(item, indices='all'):
 
     raise NotWithThisFormError()
 
 @digest(form=form)
-def get_chain_name_from_group(item, indices='all', digest=True):
+def get_chain_name_from_group(item, indices='all'):
 
     raise NotWithThisFormError()
 
 @digest(form=form)
-def get_chain_type_from_group(item, indices='all', digest=True):
+def get_chain_type_from_group(item, indices='all'):
 
     raise NotWithThisFormError()
 
@@ -172,17 +172,17 @@ def get_chain_type_from_group(item, indices='all', digest=True):
 ## From entity
 
 @digest(form=form)
-def get_entity_id_from_group(item, indices='all', digest=True):
+def get_entity_id_from_group(item, indices='all'):
 
     raise NotWithThisFormError()
 
 @digest(form=form)
-def get_entity_name_from_group(item, indices='all', digest=True):
+def get_entity_name_from_group(item, indices='all'):
 
     raise NotWithThisFormError()
 
 @digest(form=form)
-def get_entity_type_from_group(item, indices='all', digest=True):
+def get_entity_type_from_group(item, indices='all'):
 
     raise NotWithThisFormError()
 
@@ -191,7 +191,7 @@ def get_entity_type_from_group(item, indices='all', digest=True):
 ## system
 
 @digest(form=form)
-def get_n_atoms_from_system(item, digest=True):
+def get_n_atoms_from_system(item):
 
     position = item.tell()
     xyz, _, _ = item.read(n_frames=1)
@@ -201,36 +201,36 @@ def get_n_atoms_from_system(item, digest=True):
     return n_atoms
 
 @digest(form=form)
-def get_n_groups_from_system(item, digest=True):
+def get_n_groups_from_system(item):
 
     return len(item)
 
 @digest(form=form)
-def get_n_components_from_system(item, digest=True):
+def get_n_components_from_system(item):
 
     raise NotWithThisFormError()
 
 @digest(form=form)
-def get_n_chains_from_system(item, digest=True):
+def get_n_chains_from_system(item):
 
     raise NotWithThisFormError()
 
 @digest(form=form)
-def get_n_molecules_from_system(item, digest=True):
+def get_n_molecules_from_system(item):
 
     raise NotWithThisFormError()
 
 @digest(form=form)
-def get_n_entities_from_system(item, digest=True):
+def get_n_entities_from_system(item):
 
     raise NotWithThisFormError()
 @digest(form=form)
-def get_n_bonds_from_system(item, digest=True):
+def get_n_bonds_from_system(item):
 
     raise NotWithThisFormError()
 
 @digest(form=form)
-def get_n_structures_from_system(item, digest=True):
+def get_n_structures_from_system(item):
 
     lim = 1000
     aux_val = 1000
@@ -243,7 +243,7 @@ def get_n_structures_from_system(item, digest=True):
     return aux_val
 
 @digest(form=form)
-def get_box_from_system(item, structure_indices='all', digest=True):
+def get_box_from_system(item, structure_indices='all'):
 
     from molsysmt._private.math import serie_to_chunks
 
@@ -280,12 +280,12 @@ def get_box_from_system(item, structure_indices='all', digest=True):
     return box
 
 @digest(form=form)
-def get_time_from_system(item, structure_indices='all', digest=True):
+def get_time_from_system(item, structure_indices='all'):
 
     return None
 
 @digest(form=form)
-def get_structure_id_from_system(item, structure_indices='all', digest=True):
+def get_structure_id_from_system(item, structure_indices='all'):
 
     return None
 

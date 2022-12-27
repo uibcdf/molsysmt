@@ -1,15 +1,15 @@
 from molsysmt._private.digestion import digest
 
 @digest(form='openmm.System')
-def to_openmm_Context(item, atom_indices='all', structure_indices='all', digest=True):
+def to_openmm_Context(item, atom_indices='all', structure_indices='all'):
 
     from molsysmt.basic import convert, get
     from openmm import Context
 
     positions = get(molecular_system, element='atom', selection=atom_indices, structure_indices=structure_indices,
-                    coordinates=True, digest=False)
+                    coordinates=True)
     positions = puw.convert(positions[0], to_form='openmm.unit', to_unit='nm')
-    simulation = convert(molecular_system, to_form='molsysmt.Simulation', digest=False)
+    simulation = convert(molecular_system, to_form='molsysmt.Simulation')
 
     integrator = simulation.to_openmm_Integrator()
     platform = simulation.to_openmm_Platform()

@@ -4,7 +4,7 @@ from molsysmt._private.digestion import digest
 @digest()
 def is_composed_of(molecular_system, selection='all', syntax='MolSysMT', ions=False, waters=False,
                    small_molecules=False, peptides=False, proteins=False, dnas=False, rnas=False,
-                   lipids=False, oligosaccharides=False, digest=True):
+                   lipids=False, oligosaccharides=False):
 
     from . import get
 
@@ -13,7 +13,7 @@ def is_composed_of(molecular_system, selection='all', syntax='MolSysMT', ions=Fa
                                             selection=selection, syntax=syntax,
                                             n_ions=True, n_waters=True, n_small_molecules=True,
                                             n_peptides=True, n_proteins=True, n_dnas=True, n_rnas=True,
-                                            n_lipids=True, n_oligosaccharides=True, digest=False)
+                                            n_lipids=True, n_oligosaccharides=True)
 
     aux_list = [[ions, n_ions_in], [waters, n_waters_in],
                 [small_molecules, n_small_molecules_in], [peptides, n_peptides_in], [proteins,

@@ -3,7 +3,7 @@ from molsysmt._private.exceptions import NotImplementedIteratorError
 class StructuresIterator():
 
     def __init__(self, molecular_system, atom_indices='all', start=0, interval=1, stop=None, chunk=1, structure_indices=None,
-            digest=True):
+            ):
         pass
 
     def __iter__(self):
@@ -14,7 +14,7 @@ class StructuresIterator():
 
 class TopologyIterator():
 
-    def __init__(self, molecular_system, digest=True):
+    def __init__(self, molecular_system):
         pass
 
     def __iter__(self):

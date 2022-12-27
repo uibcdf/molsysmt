@@ -2,11 +2,11 @@ from molsysmt._private.digestion import digest
 import numpy as np
 
 @digest()
-def get_n_entities_from_system(molecular_system, digest=True):
+def get_n_entities_from_system(molecular_system):
 
     from . import get_entity_index_from_atom
 
-    entity_index_from_atom = get_entity_index_from_atom(molecular_system, digest=False)
+    entity_index_from_atom = get_entity_index_from_atom(molecular_system)
 
     if entity_index_from_atom[0] is None:
         n_entities = 0

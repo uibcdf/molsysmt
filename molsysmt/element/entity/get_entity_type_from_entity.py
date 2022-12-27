@@ -3,11 +3,11 @@ from molsysmt._private.variables import is_all
 import numpy as np
 
 @digest()
-def get_entity_type_from_entity(molecular_system, indices='all', digest=True):
+def get_entity_type_from_entity(molecular_system, indices='all'):
 
     from .get_entity_all_from_atom import get_entity_all_from_atom
 
-    entity_index_from_atom, _, entity_type_from_atom = get_entity_all_from_atom(molecular_system, digest=False)
+    entity_index_from_atom, _, entity_type_from_atom = get_entity_all_from_atom(molecular_system)
 
     if is_all(indices):
         indices = np.unique(entity_index_from_atom)

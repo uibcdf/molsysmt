@@ -4,7 +4,7 @@ import numpy as np
 from molsysmt import pyunitwizard as puw
 
 @digest(form='file:xyznpy')
-def to_XYZ(item, atom_indices='all', structure_indices='all', digest=True):
+def to_XYZ(item, atom_indices='all', structure_indices='all'):
 
     with open(item, 'rb') as fff:
         shape = np.load(fff)

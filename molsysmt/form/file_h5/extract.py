@@ -4,7 +4,7 @@ from molsysmt._private.variables import is_all
 
 @digest(form='file:h5')
 def extract(item, atom_indices='all', structure_indices='all', output_filename=None, copy_if_all=True,
-        progress_bar=False, digest=True):
+        progress_bar=False):
 
     if output_filename is None:
         output_filename = item
@@ -25,9 +25,9 @@ def extract(item, atom_indices='all', structure_indices='all', output_filename=N
         from . import to_mdtraj_HDF5TrajectoryFile
         from ..mdtraj_HDF5TrajectoryFile import extract as extract_mdtraj_HDF5TrajectoryFile
 
-        tmp_item = to_mdtraj_HDF5TrajectoryFile(item, digest=False)
+        tmp_item = to_mdtraj_HDF5TrajectoryFile(item)
         tmp_item = extract_mdtraj_HDF5TrajectoryFile(tmp_item, atom_indices=atom_indices, structure_indices=structure_indices,
-                output_filename=output_filename, copy_if_all=copy_if_all, progress_bar=progress_bar, digest=False)
+                output_filename=output_filename, copy_if_all=copy_if_all, progress_bar=progress_bar)
         tmp_item.close()
 
         tmp_item = output_filename

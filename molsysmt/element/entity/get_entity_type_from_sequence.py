@@ -1,11 +1,11 @@
 from molsysmt._private.digestion import digest
 
 @digest()
-def get_entity_type_from_sequence(sequence, digest=True):
+def get_entity_type_from_sequence(sequence):
 
     from molsysmt.element.molecule import get_molecule_type_from_sequence
 
-    molecule_type = get_molecule_type_from_sequence(sequence, digest=False)
+    molecule_type = get_molecule_type_from_sequence(sequence)
 
     if molecule_type == 'protein':
         return 'protein'

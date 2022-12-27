@@ -1,7 +1,7 @@
 from molsysmt._private.digestion import digest
 
 @digest(form='openmm.Topology')
-def to_molsysmt_Topology(item, atom_indices='all', digest=True):
+def to_molsysmt_Topology(item, atom_indices='all'):
 
     from molsysmt.native import Topology
     from numpy import empty, array, arange, reshape, where, unique, nan, sort, zeros
@@ -42,7 +42,7 @@ def to_molsysmt_Topology(item, atom_indices='all', digest=True):
         group_index_array[atom_index] = atom.residue.index
         group_name_array[atom_index] = atom.residue.name
         group_id_array[atom_index] = atom.residue.id
-        group_type_array[atom_index] = get_group_type_from_group_name(atom.residue.name, digest=False)
+        group_type_array[atom_index] = get_group_type_from_group_name(atom.residue.name)
 
         chain_index_array[atom_index] = atom.residue.chain.index
         chain_id_array[atom_index] = atom.residue.chain.id
@@ -108,7 +108,7 @@ def to_molsysmt_Topology(item, atom_indices='all', digest=True):
 
     ## extract if atom_indices is not 'all'
     
-    tmp_item = extract(tmp_item, atom_indices=atom_indices, copy_if_all=False, digest=False)
+    tmp_item = extract(tmp_item, atom_indices=atom_indices, copy_if_all=False)
 
     return tmp_item
 

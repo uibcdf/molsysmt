@@ -1,7 +1,7 @@
 from molsysmt._private.digestion import digest
 
 @digest(form='nglview.NGLWidget')
-def to_string_pdb_text(item, atom_indices='all', structure_indices='all', digest=True):
+def to_string_pdb_text(item, atom_indices='all', structure_indices='all'):
 
     from ..string_pdb_text import extract
 
@@ -11,7 +11,7 @@ def to_string_pdb_text(item, atom_indices='all', structure_indices='all', digest
         tmp_item = item.get_state()['_ngl_msg_archive'][0]['args'][0]['data']
 
     tmp_item = extract(tmp_item, atom_indices=atom_indices, structure_indices=structure_indices,
-                       copy_if_all=False, digest=False)
+                       copy_if_all=False)
 
     return tmp_item
 
