@@ -506,7 +506,7 @@ def get_box_from_system(item, structure_indices='all', digest=True):
     from molsysmt.pbc import box_from_box_lengths_and_angles
 
     if is_all(structure_indices):
-        structure_indices = np.arange(get_n_structures_from_system(item))
+        structure_indices = np.arange(get_n_structures_from_system(item, digest=False))
 
     starts_serie_frames, size_serie_frames = serie_to_chunks(structure_indices)
 
@@ -539,7 +539,7 @@ def get_time_from_system(item, structure_indices='all', digest=True):
     from molsysmt._private.math import serie_to_chunks
 
     if is_all(structure_indices):
-        structure_indices = np.arange(get_n_structures_from_system(item))
+        structure_indices = np.arange(get_n_structures_from_system(item, digest=False))
 
     starts_serie_frames, size_serie_frames = serie_to_chunks(structure_indices)
 

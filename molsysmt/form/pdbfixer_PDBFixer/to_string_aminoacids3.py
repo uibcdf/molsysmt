@@ -1,6 +1,6 @@
 from molsysmt._private.digestion import digest
 
-@digest
+@digest(form='pdbfixer.PDBFixer')
 def to_string_aminoacids3(item, atom_indices='all', digest=True):
 
     from . import to_openmm_Topology

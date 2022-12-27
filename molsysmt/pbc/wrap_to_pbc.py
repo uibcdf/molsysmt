@@ -8,19 +8,19 @@ import numpy as np
 def wrap_to_pbc(molecular_system, selection='all', structure_indices='all',
                 center_coordinates='[0,0,0] nanometers', center_of_selection=None, weights=None,
                 recenter=True, keep_covalent_bonds=False,
-                syntax='MolSysMT', engine='MolSysMT', in_place=False):
+                syntax='MolSysMT', engine='MolSysMT', in_place=False, digest=True):
 
     if engine=='MolSysMT':
 
         from molsysmt.basic import select, get, set, extract, copy
 
-        atom_indices = select(molecular_system, selection=selection, syntax=syntax)
+        atom_indices = select(molecular_system, selection=selection, syntax=syntax, digest=False)
 
-        coordinates= get(molecular_system, element='atom', indices=atom_indices, coordinates=True)
+        coordinates= get(molecular_system, element='atom', indices=atom_indices, coordinates=True, digest=False)
         n_structures = coordinates.shape[0]
         n_atoms = coordinates.shape[1]
         box, box_shape = get(molecular_system, element='system', structure_indices=structure_indices, box=True,
-                             box_shape=True)
+                             box_shape=True, digest=False)
 
         orthogonal = 0
         if box_shape is None:
@@ -33,7 +33,7 @@ def wrap_to_pbc(molecular_system, selection='all', structure_indices='all',
             from molsysmt.structure import get_center
             center_coordinates = get_center(molecular_system, selection=center_of_selection,
                                 weights=weights, structure_indices=structure_indices,
-                                syntax=syntax, engine='MolSysMT')
+                                syntax=syntax, engine='MolSysMT', digest=False)
 
         else:
 
@@ -67,15 +67,15 @@ def wrap_to_pbc(molecular_system, selection='all', structure_indices='all',
     if in_place:
 
         set(molecular_system, element='atom', indices=atom_indices, structure_indices=structure_indices,
-            syntax=syntax, coordinates=coordinates)
+            syntax=syntax, coordinates=coordinates, digest=False)
 
         pass
 
     else:
 
-        tmp_molecular_system = copy(molecular_system)
+        tmp_molecular_system = copy(molecular_system, digest=False)
         set(tmp_molecular_system, element='atom', indices=atom_indices, structure_indices=structure_indices,
-            syntax=syntax, coordinates=coordinates)
+            syntax=syntax, coordinates=coordinates, digest=False)
 
         return tmp_molecular_system
 

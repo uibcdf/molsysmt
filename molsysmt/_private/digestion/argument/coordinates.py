@@ -15,6 +15,9 @@ def digest_coordinates(coordinates, caller=None):
         if isinstance(coordinates, bool):
             return coordinates
 
+    if coordinates is None:
+        return None
+
     value = puw.get_value(coordinates)
     unit = puw.get_unit(coordinates)
 

@@ -27,7 +27,7 @@ for filename in os.listdir(current_dir+'/argument'):
                 digestion_parameters[argument].append(parameter)
         del(argument, module, function, parameters)
 
-def digest(output=False, **kwargs):
+def digest(**kwargs):
 
     digest_parameters = kwargs
 
@@ -120,17 +120,10 @@ def digest(output=False, **kwargs):
 
             final_args = digested_args
 
-            if output:
-                auxiliary_output = func(**final_args)
-                if isinstance(auxiliary_output, (list, tuple)):
-                    if len(auxiliary_output) == 1:
-                        auxiliary_output = auxiliary_output[0]
-                return auxiliary_output
+            if 'self' in all_args:
+                return func(all_args['self'], **final_args)
             else:
-                if 'self' in all_args:
-                    return func(all_args['self'], **final_args)
-                else:
-                    return func(**final_args)
+                return func(**final_args)
 
         return wrapper
     return digestor

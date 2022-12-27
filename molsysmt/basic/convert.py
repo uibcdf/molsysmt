@@ -3,7 +3,7 @@ from molsysmt._private.digestion import digest
 from molsysmt._private.variables import is_all
 
 
-@digest(output=True)
+@digest()
 def convert(molecular_system,
             to_form='molsysmt.MolSys',
             selection='all',
@@ -109,7 +109,6 @@ def convert(molecular_system,
                                                                 molecular_system=molecular_system,
                                                                 atom_indices=atom_indices,
                                                                 structure_indices=structure_indices,
-                                                                digest=False,
                                                                 **conversion_arguments, **kwargs)
         if tmp_item is not None:
             break
@@ -120,5 +119,9 @@ def convert(molecular_system,
         if len(from_form)==1:
             from_form=from_form[0]
         raise NotImplementedConversionError(from_form, to_form)
+
+    if isinstance(tmp_item, (list, tuple)):
+        if len(tmp_item) == 1:
+            tmp_item = tmp_item[0]
 
     return tmp_item

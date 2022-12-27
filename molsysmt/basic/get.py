@@ -3,7 +3,7 @@ from molsysmt._private.variables import is_all
 from molsysmt.attribute.attributes import _required_indices
 
 
-@digest(output=True)
+@digest()
 def get(molecular_system,
         element='system',
         indices=None,
@@ -100,4 +100,8 @@ def get(molecular_system,
 
         attributes.append(result)
 
-    return attributes
+
+    if len(attributes) == 1:
+        return attributes[0]
+    else:
+        return attributes

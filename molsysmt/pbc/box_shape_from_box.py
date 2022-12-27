@@ -4,7 +4,7 @@ from molsysmt import pyunitwizard as puw
 import numpy as np
 
 @digest()
-def box_shape_from_box(box):
+def box_shape_from_box(box, digest=True):
 
     from molsysmt.pbc.box_shape_from_box_angles import box_shape_from_box_angles
 
@@ -14,5 +14,5 @@ def box_shape_from_box(box):
         tmp_box = np.asfortranarray(puw.get_value(box), dtype='float64')
         n_structures = tmp_box.shape[0]
         angles = libbox.angles_box(tmp_box, n_structures) * puw.unit('degrees')
-        return box_shape_from_box_angles(angles)
+        return box_shape_from_box_angles(angles, digest=False)
 

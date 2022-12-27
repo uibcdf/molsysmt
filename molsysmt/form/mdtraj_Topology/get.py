@@ -97,7 +97,7 @@ def get_n_inner_bonds_from_atom(item, indices='all', digest=True):
 def get_group_id_from_group(item, indices='all', digest=True):
 
     if is_all(indices):
-        n_indices = get_n_groups_from_system(item)
+        n_indices = get_n_groups_from_system(item, digest=False)
         indices = np.arange(n_indices)
 
     output = [item.residue(ii).resSeq for ii in indices]
@@ -108,7 +108,7 @@ def get_group_id_from_group(item, indices='all', digest=True):
 def get_group_name_from_group(item, indices='all', digest=True):
 
     if is_all(indices):
-        n_indices = get_n_groups_from_system(item)
+        n_indices = get_n_groups_from_system(item, digest=False)
         indices = np.arange(n_indices)
 
     output = [item.residue(ii).name for ii in indices]
@@ -121,7 +121,7 @@ def get_group_type_from_group(item, indices='all', digest=True):
     from molsysmt.element.group import get_group_type_from_group_name as aux_get
 
     output = get_group_name_from_group(item, indices=indices, digest=False)
-    output = [aux_get(ii) for ii in output]
+    output = [aux_get(ii, digest=False) for ii in output]
     output = np.array(output, dtype=object)
 
     return output

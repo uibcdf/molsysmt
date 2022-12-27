@@ -9,7 +9,7 @@ from .small_molecule.names import names as small_molecule_names
 from .water.names import names as water_names
 
 @digest()
-def get_entity_type_from_entity_name(entity_name):
+def get_entity_type_from_entity_name(entity_name, digest=True):
 
     output = None
 

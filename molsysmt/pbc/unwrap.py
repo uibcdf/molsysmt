@@ -6,17 +6,17 @@ import numpy as np
 
 @digest()
 def unwrap(molecular_system, selection='all', structure_indices='all',
-        syntax='MolSysMT', engine='MolSysMT', in_place=False):
+        syntax='MolSysMT', engine='MolSysMT', in_place=False, digest=True):
 
     if engine=='MolSysMT':
 
         from molsysmt.basic import select, get, set, extract
 
-        coordinates= get(molecular_system, element='atom', selection=selection, coordinates=True)
+        coordinates= get(molecular_system, element='atom', selection=selection, coordinates=True, digest=False)
         n_structures = coordinates.shape[0]
         n_atoms = coordinates.shape[1]
         box, box_shape = get(molecular_system, element='system', structure_indices=structure_indices, box=True,
-                             box_shape=True)
+                             box_shape=True, digest=False)
 
         orthogonal = 0
         if box_shape is None:
@@ -41,16 +41,16 @@ def unwrap(molecular_system, selection='all', structure_indices='all',
     if in_place:
 
         set(molecular_system, element='atom', selection=selection, structure_indices=structure_indices,
-            syntax=syntax, coordinates=coordinates)
+            syntax=syntax, coordinates=coordinates, digest=False)
 
         pass
 
     else:
 
         tmp_molecular_system = extract(molecular_system, selection=selection, structure_indices=structure_indices,
-                                       syntax=syntax)
+                                       syntax=syntax, digest=False)
         set(tmp_molecular_system, element='atom', selection='all', structure_indices='all', syntax='MolSysMT',
-            coordinates=coordinates)
+            coordinates=coordinates, digest=False)
 
         return tmp_molecular_system
 

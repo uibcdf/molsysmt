@@ -4,7 +4,7 @@ from molsysmt.lib import box as libbox
 import numpy as np
 
 @digest()
-def box_lengths_from_box(box):
+def box_lengths_from_box(box, digest=True):
 
     unit = puw.get_unit(box)
     n_structures = box.shape[0]

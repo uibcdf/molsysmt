@@ -5,13 +5,13 @@ from networkx import Graph
 ## From atom
 
 @digest(form=form)
-def get_atom_index_from_atom(item, indices='all'):
+def get_atom_index_from_atom(item, indices='all', digest=True):
 
     if indices is None:
         return None
 
     if is_all(indices):
-        n_aux = get_n_atoms_from_system(item)
+        n_aux = get_n_atoms_from_system(item, digest=False)
         output = np.arange(n_aux, dtype=int)
     else:
         output = np.array(indices, dtype=int)
@@ -19,14 +19,14 @@ def get_atom_index_from_atom(item, indices='all'):
     return output
 
 @digest(form=form)
-def get_group_id_from_atom(item, indices='all'):
+def get_group_id_from_atom(item, indices='all', digest=True):
 
     if indices is None:
         return None
 
-    aux_indices = get_group_index_from_atom(item, indices=indices)
+    aux_indices = get_group_index_from_atom(item, indices=indices, digest=False)
     aux_unique_indices = np.unique(aux_indices)
-    aux_vals = get_group_id_from_group(item, indices=aux_unique_indices)
+    aux_vals = get_group_id_from_group(item, indices=aux_unique_indices, digest=False)
     aux_dict = dict(zip(aux_unique_indices, aux_vals))
     output = np.vectorize(aux_dict.__getitem__)(aux_indices)
     del(aux_indices, aux_unique_indices, aux_vals, aux_dict)
@@ -34,30 +34,14 @@ def get_group_id_from_atom(item, indices='all'):
     return output
 
 @digest(form=form)
-def get_group_name_from_atom(item, indices='all'):
+def get_group_name_from_atom(item, indices='all', digest=True):
 
     if indices is None:
         return None
 
-    aux_indices = get_group_index_from_atom(item, indices=indices)
+    aux_indices = get_group_index_from_atom(item, indices=indices, digest=False)
     aux_unique_indices = np.unique(aux_indices)
-    aux_vals = get_group_name_from_group(item, indices=aux_unique_indices)
-    aux_dict = dict(zip(aux_unique_indices, aux_vals))
-    output = np.vectorize(aux_dict.__getitem__)(aux_indices)
-    output = output.astype(object)
-    del(aux_indices, aux_unique_indices, aux_vals, aux_dict)
-
-    return output
-
-@digest(form=form)
-def get_group_type_from_atom(item, indices='all'):
-
-    if indices is None:
-        return None
-
-    aux_indices = get_group_index_from_atom(item, indices=indices)
-    aux_unique_indices = np.unique(aux_indices)
-    aux_vals = get_group_type_from_group(item, indices=aux_unique_indices)
+    aux_vals = get_group_name_from_group(item, indices=aux_unique_indices, digest=False)
     aux_dict = dict(zip(aux_unique_indices, aux_vals))
     output = np.vectorize(aux_dict.__getitem__)(aux_indices)
     output = output.astype(object)
@@ -66,29 +50,14 @@ def get_group_type_from_atom(item, indices='all'):
     return output
 
 @digest(form=form)
-def get_component_id_from_atom(item, indices='all'):
+def get_group_type_from_atom(item, indices='all', digest=True):
 
     if indices is None:
         return None
 
-    aux_indices = get_component_index_from_atom(item, indices=indices)
+    aux_indices = get_group_index_from_atom(item, indices=indices, digest=False)
     aux_unique_indices = np.unique(aux_indices)
-    aux_vals = get_component_id_from_component(item, indices=aux_unique_indices)
-    aux_dict = dict(zip(aux_unique_indices, aux_vals))
-    output = np.vectorize(aux_dict.__getitem__)(aux_indices)
-    del(aux_indices, aux_unique_indices, aux_vals, aux_dict)
-
-    return output
-
-@digest(form=form)
-def get_component_name_from_atom(item, indices='all'):
-
-    if indices is None:
-        return None
-
-    aux_indices = get_component_index_from_atom(item, indices=indices)
-    aux_unique_indices = np.unique(aux_indices)
-    aux_vals = get_component_name_from_component(item, indices=aux_unique_indices)
+    aux_vals = get_group_type_from_group(item, indices=aux_unique_indices, digest=False)
     aux_dict = dict(zip(aux_unique_indices, aux_vals))
     output = np.vectorize(aux_dict.__getitem__)(aux_indices)
     output = output.astype(object)
@@ -97,14 +66,29 @@ def get_component_name_from_atom(item, indices='all'):
     return output
 
 @digest(form=form)
-def get_component_type_from_atom(item, indices='all'):
+def get_component_id_from_atom(item, indices='all', digest=True):
 
     if indices is None:
         return None
 
-    aux_indices = get_component_index_from_atom(item, indices=indices)
+    aux_indices = get_component_index_from_atom(item, indices=indices, digest=False)
     aux_unique_indices = np.unique(aux_indices)
-    aux_vals = get_component_type_from_component(item, indices=aux_unique_indices)
+    aux_vals = get_component_id_from_component(item, indices=aux_unique_indices, digest=False)
+    aux_dict = dict(zip(aux_unique_indices, aux_vals))
+    output = np.vectorize(aux_dict.__getitem__)(aux_indices)
+    del(aux_indices, aux_unique_indices, aux_vals, aux_dict)
+
+    return output
+
+@digest(form=form)
+def get_component_name_from_atom(item, indices='all', digest=True):
+
+    if indices is None:
+        return None
+
+    aux_indices = get_component_index_from_atom(item, indices=indices, digest=False)
+    aux_unique_indices = np.unique(aux_indices)
+    aux_vals = get_component_name_from_component(item, indices=aux_unique_indices, digest=False)
     aux_dict = dict(zip(aux_unique_indices, aux_vals))
     output = np.vectorize(aux_dict.__getitem__)(aux_indices)
     output = output.astype(object)
@@ -113,29 +97,14 @@ def get_component_type_from_atom(item, indices='all'):
     return output
 
 @digest(form=form)
-def get_chain_id_from_atom(item, indices='all'):
+def get_component_type_from_atom(item, indices='all', digest=True):
 
     if indices is None:
         return None
 
-    aux_indices = get_chain_index_from_atom(item, indices=indices)
+    aux_indices = get_component_index_from_atom(item, indices=indice, digest=Falses)
     aux_unique_indices = np.unique(aux_indices)
-    aux_vals = get_chain_id_from_chain(item, indices=aux_unique_indices)
-    aux_dict = dict(zip(aux_unique_indices, aux_vals))
-    output = np.vectorize(aux_dict.__getitem__)(aux_indices)
-    del(aux_indices, aux_unique_indices, aux_vals, aux_dict)
-
-    return output
-
-@digest(form=form)
-def get_chain_name_from_atom(item, indices='all'):
-
-    if indices is None:
-        return None
-
-    aux_indices = get_chain_index_from_atom(item, indices=indices)
-    aux_unique_indices = np.unique(aux_indices)
-    aux_vals = get_chain_name_from_chain(item, indices=aux_unique_indices)
+    aux_vals = get_component_type_from_component(item, indices=aux_unique_indices, digest=False)
     aux_dict = dict(zip(aux_unique_indices, aux_vals))
     output = np.vectorize(aux_dict.__getitem__)(aux_indices)
     output = output.astype(object)
@@ -144,14 +113,29 @@ def get_chain_name_from_atom(item, indices='all'):
     return output
 
 @digest(form=form)
-def get_chain_type_from_atom(item, indices='all'):
+def get_chain_id_from_atom(item, indices='all', digest=True):
 
     if indices is None:
         return None
 
-    aux_indices = get_chain_index_from_atom(item, indices=indices)
+    aux_indices = get_chain_index_from_atom(item, indices=indices, digest=False)
     aux_unique_indices = np.unique(aux_indices)
-    aux_vals = get_chain_type_from_chain(item, indices=aux_unique_indices)
+    aux_vals = get_chain_id_from_chain(item, indices=aux_unique_indices, digest=False)
+    aux_dict = dict(zip(aux_unique_indices, aux_vals))
+    output = np.vectorize(aux_dict.__getitem__)(aux_indices)
+    del(aux_indices, aux_unique_indices, aux_vals, aux_dict)
+
+    return output
+
+@digest(form=form)
+def get_chain_name_from_atom(item, indices='all', digest=True):
+
+    if indices is None:
+        return None
+
+    aux_indices = get_chain_index_from_atom(item, indices=indices, digest=False)
+    aux_unique_indices = np.unique(aux_indices)
+    aux_vals = get_chain_name_from_chain(item, indices=aux_unique_indices, digest=False)
     aux_dict = dict(zip(aux_unique_indices, aux_vals))
     output = np.vectorize(aux_dict.__getitem__)(aux_indices)
     output = output.astype(object)
@@ -160,29 +144,14 @@ def get_chain_type_from_atom(item, indices='all'):
     return output
 
 @digest(form=form)
-def get_molecule_id_from_atom(item, indices='all'):
+def get_chain_type_from_atom(item, indices='all', digest=True):
 
     if indices is None:
         return None
 
-    aux_indices = get_molecule_index_from_atom(item, indices=indices)
+    aux_indices = get_chain_index_from_atom(item, indices=indices, digest=False)
     aux_unique_indices = np.unique(aux_indices)
-    aux_vals = get_molecule_id_from_molecule(item, indices=aux_unique_indices)
-    aux_dict = dict(zip(aux_unique_indices, aux_vals))
-    output = np.vectorize(aux_dict.__getitem__)(aux_indices)
-    del(aux_indices, aux_unique_indices, aux_vals, aux_dict)
-
-    return output
-
-@digest(form=form)
-def get_molecule_name_from_atom(item, indices='all'):
-
-    if indices is None:
-        return None
-
-    aux_indices = get_molecule_index_from_atom(item, indices=indices)
-    aux_unique_indices = np.unique(aux_indices)
-    aux_vals = get_molecule_name_from_molecule(item, indices=aux_unique_indices)
+    aux_vals = get_chain_type_from_chain(item, indices=aux_unique_indices, digest=False)
     aux_dict = dict(zip(aux_unique_indices, aux_vals))
     output = np.vectorize(aux_dict.__getitem__)(aux_indices)
     output = output.astype(object)
@@ -191,14 +160,29 @@ def get_molecule_name_from_atom(item, indices='all'):
     return output
 
 @digest(form=form)
-def get_molecule_type_from_atom(item, indices='all'):
+def get_molecule_id_from_atom(item, indices='all', digest=True):
 
     if indices is None:
         return None
 
-    aux_indices = get_molecule_index_from_atom(item, indices=indices)
+    aux_indices = get_molecule_index_from_atom(item, indices=indices, digest=False)
     aux_unique_indices = np.unique(aux_indices)
-    aux_vals = get_molecule_type_from_molecule(item, indices=aux_unique_indices)
+    aux_vals = get_molecule_id_from_molecule(item, indices=aux_unique_indices, digest=False)
+    aux_dict = dict(zip(aux_unique_indices, aux_vals))
+    output = np.vectorize(aux_dict.__getitem__)(aux_indices)
+    del(aux_indices, aux_unique_indices, aux_vals, aux_dict)
+
+    return output
+
+@digest(form=form)
+def get_molecule_name_from_atom(item, indices='all', digest=True):
+
+    if indices is None:
+        return None
+
+    aux_indices = get_molecule_index_from_atom(item, indices=indices, digest=False)
+    aux_unique_indices = np.unique(aux_indices)
+    aux_vals = get_molecule_name_from_molecule(item, indices=aux_unique_indices, digest=False)
     aux_dict = dict(zip(aux_unique_indices, aux_vals))
     output = np.vectorize(aux_dict.__getitem__)(aux_indices)
     output = output.astype(object)
@@ -207,29 +191,14 @@ def get_molecule_type_from_atom(item, indices='all'):
     return output
 
 @digest(form=form)
-def get_entity_id_from_atom(item, indices='all'):
+def get_molecule_type_from_atom(item, indices='all', digest=True):
 
     if indices is None:
         return None
 
-    aux_indices = get_entity_index_from_atom(item, indices=indices)
+    aux_indices = get_molecule_index_from_atom(item, indices=indices, digest=False)
     aux_unique_indices = np.unique(aux_indices)
-    aux_vals = get_entity_id_from_entity(item, indices=aux_unique_indices)
-    aux_dict = dict(zip(aux_unique_indices, aux_vals))
-    output = np.vectorize(aux_dict.__getitem__)(aux_indices)
-    del(aux_indices, aux_unique_indices, aux_vals, aux_dict)
-
-    return output
-
-@digest(form=form)
-def get_entity_name_from_atom(item, indices='all'):
-
-    if indices is None:
-        return None
-
-    aux_indices = get_entity_index_from_atom(item, indices=indices)
-    aux_unique_indices = np.unique(aux_indices)
-    aux_vals = get_entity_name_from_entity(item, indices=aux_unique_indices)
+    aux_vals = get_molecule_type_from_molecule(item, indices=aux_unique_indices, digest=False)
     aux_dict = dict(zip(aux_unique_indices, aux_vals))
     output = np.vectorize(aux_dict.__getitem__)(aux_indices)
     output = output.astype(object)
@@ -238,14 +207,29 @@ def get_entity_name_from_atom(item, indices='all'):
     return output
 
 @digest(form=form)
-def get_entity_type_from_atom(item, indices='all'):
+def get_entity_id_from_atom(item, indices='all', digest=True):
 
     if indices is None:
         return None
 
-    aux_indices = get_entity_index_from_atom(item, indices=indices)
+    aux_indices = get_entity_index_from_atom(item, indices=indices, digest=False)
     aux_unique_indices = np.unique(aux_indices)
-    aux_vals = get_entity_type_from_entity(item, indices=aux_unique_indices)
+    aux_vals = get_entity_id_from_entity(item, indices=aux_unique_indices, digest=False)
+    aux_dict = dict(zip(aux_unique_indices, aux_vals))
+    output = np.vectorize(aux_dict.__getitem__)(aux_indices)
+    del(aux_indices, aux_unique_indices, aux_vals, aux_dict)
+
+    return output
+
+@digest(form=form)
+def get_entity_name_from_atom(item, indices='all', digest=True):
+
+    if indices is None:
+        return None
+
+    aux_indices = get_entity_index_from_atom(item, indices=indices, digest=False)
+    aux_unique_indices = np.unique(aux_indices)
+    aux_vals = get_entity_name_from_entity(item, indices=aux_unique_indices, digest=False)
     aux_dict = dict(zip(aux_unique_indices, aux_vals))
     output = np.vectorize(aux_dict.__getitem__)(aux_indices)
     output = output.astype(object)
@@ -254,90 +238,106 @@ def get_entity_type_from_atom(item, indices='all'):
     return output
 
 @digest(form=form)
-def get_n_atoms_from_atom(item, indices='all'):
+def get_entity_type_from_atom(item, indices='all', digest=True):
+
+    if indices is None:
+        return None
+
+    aux_indices = get_entity_index_from_atom(item, indices=indices, digest=False)
+    aux_unique_indices = np.unique(aux_indices)
+    aux_vals = get_entity_type_from_entity(item, indices=aux_unique_indices, digest=False)
+    aux_dict = dict(zip(aux_unique_indices, aux_vals))
+    output = np.vectorize(aux_dict.__getitem__)(aux_indices)
+    output = output.astype(object)
+    del(aux_indices, aux_unique_indices, aux_vals, aux_dict)
+
+    return output
+
+@digest(form=form)
+def get_n_atoms_from_atom(item, indices='all', digest=True):
 
     if indices is None:
         return 0
 
     if is_all(indices):
-        output = get_n_atoms_from_system(item)
+        output = get_n_atoms_from_system(item, digest=False)
     else:
         output = indices.shape[0]
 
     return output
 
 @digest(form=form)
-def get_n_groups_from_atom(item, indices='all'):
+def get_n_groups_from_atom(item, indices='all', digest=True):
 
     if indices is None:
         return 0
 
     if is_all(indices):
-        output = get_n_groups_from_system(item)
+        output = get_n_groups_from_system(item, digest=False)
     else:
-        output = get_group_index_from_atom(item, indices=indices)
+        output = get_group_index_from_atom(item, indices=indices, digest=False)
         output = np.unique(output).shape[0]
 
     return output
 
 @digest(form=form)
-def get_n_components_from_atom(item, indices='all'):
+def get_n_components_from_atom(item, indices='all', digest=True):
 
     if indices is None:
         return 0
 
     if is_all(indices):
-        output = get_n_components_from_system(item)
+        output = get_n_components_from_system(item, digest=False)
     else:
-        output = get_component_index_from_atom(item, indices=indices)
+        output = get_component_index_from_atom(item, indices=indices, digest=False)
         output = np.unique(output).shape[0]
 
     return output
 
 @digest(form=form)
-def get_n_molecules_from_atom(item, indices='all'):
+def get_n_molecules_from_atom(item, indices='all', digest=True):
 
     if indices is None:
         return 0
 
     if is_all(indices):
-        output = get_n_molecules_from_system(item)
+        output = get_n_molecules_from_system(item, digest=False)
     else:
-        output = get_molecule_index_from_atom(item, indices=indices)
+        output = get_molecule_index_from_atom(item, indices=indices, digest=False)
         output = np.unique(output).shape[0]
 
     return output
 
 @digest(form=form)
-def get_n_chains_from_atom(item, indices='all'):
+def get_n_chains_from_atom(item, indices='all', digest=True):
 
     if indices is None:
         return 0
 
     if is_all(indices):
-        output = get_n_chains_from_system(item)
+        output = get_n_chains_from_system(item, digest=False)
     else:
-        output = get_chain_index_from_atom(item, indices=indices)
+        output = get_chain_index_from_atom(item, indices=indices, digest=False)
         output = np.unique(output).shape[0]
 
     return output
 
 @digest(form=form)
-def get_n_entities_from_atom(item, indices='all'):
+def get_n_entities_from_atom(item, indices='all', digest=True):
 
     if indices is None:
         return 0
 
     if is_all(indices):
-        output = get_n_entities_from_system(item)
+        output = get_n_entities_from_system(item, digest=False)
     else:
-        output = get_entity_index_from_atom(item, indices=indices)
+        output = get_entity_index_from_atom(item, indices=indices, digest=False)
         output = np.unique(output).shape[0]
 
     return output
 
 @digest(form=form)
-def get_bonded_atoms_from_atom(item, indices='all'):
+def get_bonded_atoms_from_atom(item, indices='all', digest=True):
 
     if indices is None:
         return None
@@ -345,12 +345,12 @@ def get_bonded_atoms_from_atom(item, indices='all'):
     output = None
 
     G = Graph()
-    edges = get_atom_index_from_bond(item)
+    edges = get_atom_index_from_bond(item, digest=False)
     G.add_edges_from(edges)
 
     if is_all(indices):
 
-        indices = get_atom_index_from_atom(item)
+        indices = get_atom_index_from_atom(item, digest=False)
 
     output = []
 
@@ -367,7 +367,7 @@ def get_bonded_atoms_from_atom(item, indices='all'):
     return output
 
 @digest(form=form)
-def get_bond_index_from_atom(item, indices='all'):
+def get_bond_index_from_atom(item, indices='all', digest=True):
 
     if indices is None:
         return None
@@ -375,14 +375,14 @@ def get_bond_index_from_atom(item, indices='all'):
     output = None
 
     G = Graph()
-    edges = get_atom_index_from_bond(item)
+    edges = get_atom_index_from_bond(item, digest=False)
     n_bonds = edges.shape[0]
     edge_indices = np.array([{'index':ii} for ii in range(n_bonds)]).reshape([n_bonds,1])
     G.add_edges_from(np.hstack([edges, edge_indices]))
 
     if is_all(indices):
 
-        indices = get_atom_index_from_atom(item)
+        indices = get_atom_index_from_atom(item, digest=False)
 
     output = []
 
@@ -399,7 +399,7 @@ def get_bond_index_from_atom(item, indices='all'):
     return output
 
 @digest(form=form)
-def get_n_bonds_from_atom(item, indices='all'):
+def get_n_bonds_from_atom(item, indices='all', digest=True):
 
     if indices is None:
         return 0
@@ -407,12 +407,12 @@ def get_n_bonds_from_atom(item, indices='all'):
     output = None
 
     G = Graph()
-    edges = get_atom_index_from_bond(item)
+    edges = get_atom_index_from_bond(item, digest=False)
     G.add_edges_from(edges)
 
     if is_all(indices):
 
-        indices = get_atom_index_from_atom(item)
+        indices = get_atom_index_from_atom(item, digest=False)
 
     output = []
 
@@ -429,7 +429,7 @@ def get_n_bonds_from_atom(item, indices='all'):
     return output
 
 @digest(form=form)
-def get_inner_bond_index_from_atom(item, indices='all'):
+def get_inner_bond_index_from_atom(item, indices='all', digest=True):
 
     if indices is None:
         return None
@@ -440,14 +440,14 @@ def get_inner_bond_index_from_atom(item, indices='all'):
 ## From group
 
 @digest(form=form)
-def get_atom_index_from_group(item, indices='all'):
+def get_atom_index_from_group(item, indices='all', digest=True):
 
     if indices is None:
         return None
 
-    indices_aux = get_group_index_from_group(item, indices=indices)
-    attribute_from_atom = get_atom_index_from_atom(item)
-    target_index_from_atom = get_group_index_from_atom(item)
+    indices_aux = get_group_index_from_group(item, indices=indices, digest=False)
+    attribute_from_atom = get_atom_index_from_atom(item, digest=False)
+    target_index_from_atom = get_group_index_from_atom(item, digest=False)
 
     output=[]
 
@@ -465,16 +465,16 @@ def get_atom_index_from_group(item, indices='all'):
     return output
 
 @digest(form=form)
-def get_atom_id_from_group(item, indices='all'):
+def get_atom_id_from_group(item, indices='all', digest=True):
 
     if indices is None:
         return None
 
-    aux_indices = get_atom_index_from_group(item, indices=indices)
+    aux_indices = get_atom_index_from_group(item, indices=indices, digest=False)
 
     if len(aux_indices)>0:
         aux_unique_indices = np.unique(np.concatenate(aux_indices))
-        aux_vals = get_atom_id_from_atom(item, indices=aux_unique_indices)
+        aux_vals = get_atom_id_from_atom(item, indices=aux_unique_indices, digest=False)
         aux_dict = dict(zip(aux_unique_indices, aux_vals))
         vv = np.vectorize(aux_dict.__getitem__)
         output = np.array([vv(ii) for ii in aux_indices], dtype=object)
@@ -487,16 +487,16 @@ def get_atom_id_from_group(item, indices='all'):
     return output
 
 @digest(form=form)
-def get_atom_name_from_group(item, indices='all'):
+def get_atom_name_from_group(item, indices='all', digest=True):
 
     if indices is None:
         return None
 
-    aux_indices = get_atom_index_from_group(item, indices=indices)
+    aux_indices = get_atom_index_from_group(item, indices=indices, digest=False)
 
     if len(aux_indices)>0:
         aux_unique_indices = np.unique(np.concatenate(aux_indices))
-        aux_vals = get_atom_name_from_atom(item, indices=aux_unique_indices)
+        aux_vals = get_atom_name_from_atom(item, indices=aux_unique_indices, digest=False)
         aux_dict = dict(zip(aux_unique_indices, aux_vals))
         vv = np.vectorize(aux_dict.__getitem__)
         output = np.array([vv(ii) for ii in aux_indices], dtype=object)
@@ -509,16 +509,16 @@ def get_atom_name_from_group(item, indices='all'):
     return output
 
 @digest(form=form)
-def get_atom_type_from_group(item, indices='all'):
+def get_atom_type_from_group(item, indices='all', digest=True):
 
     if indices is None:
         return None
 
-    aux_indices = get_atom_index_from_group(item, indices=indices)
+    aux_indices = get_atom_index_from_group(item, indices=indices, digest=False)
 
     if len(aux_indices)>0:
         aux_unique_indices = np.unique(np.concatenate(aux_indices))
-        aux_vals = get_atom_type_from_atom(item, indices=aux_unique_indices)
+        aux_vals = get_atom_type_from_atom(item, indices=aux_unique_indices, digest=False)
         aux_dict = dict(zip(aux_unique_indices, aux_vals))
         vv = np.vectorize(aux_dict.__getitem__)
         output = np.array([vv(ii) for ii in aux_indices], dtype=object)
@@ -531,13 +531,13 @@ def get_atom_type_from_group(item, indices='all'):
     return output
 
 @digest(form=form)
-def get_group_index_from_group(item, indices='all'):
+def get_group_index_from_group(item, indices='all', digest=True):
 
     if indices is None:
         return None
 
     if is_all(indices):
-        n_aux = get_n_groups_from_system(item)
+        n_aux = get_n_groups_from_system(item, digest=False)
         output = np.arange(n_aux, dtype=int)
     else:
         output = np.array(indices, dtype=int)
@@ -545,12 +545,12 @@ def get_group_index_from_group(item, indices='all'):
     return output
 
 @digest(form=form)
-def get_component_index_from_group(item, indices='all'):
+def get_component_index_from_group(item, indices='all', digest=True):
 
     if indices is None:
         return None
 
-    atom_index_from_target = get_atom_index_from_group(item, indices=indices)
+    atom_index_from_target = get_atom_index_from_group(item, indices=indices, digest=False)
     first_atom_index_from_target = np.array([ii[0] for ii in atom_index_from_target])
     output = get_component_index_from_atom(item, indices=first_atom_index_from_target)
 
@@ -559,291 +559,291 @@ def get_component_index_from_group(item, indices='all'):
     return output
 
 @digest(form=form)
-def get_component_id_from_group(item, indices='all'):
+def get_component_id_from_group(item, indices='all', digest=True):
 
     if indices is None:
         return None
 
-    aux_indices = get_component_index_from_group(item, indices=indices)
+    aux_indices = get_component_index_from_group(item, indices=indices, digest=False)
     aux_unique_indices = np.unique(aux_indices)
-    aux_vals = get_component_id_from_component(item, indices=aux_unique_indices)
+    aux_vals = get_component_id_from_component(item, indices=aux_unique_indices, digest=False)
     aux_dict = dict(zip(aux_unique_indices, aux_vals))
     output = np.vectorize(aux_dict.__getitem__)(aux_indices)
     del(aux_indices, aux_unique_indices, aux_vals, aux_dict)
     return output
 
 @digest(form=form)
-def get_component_name_from_group(item, indices='all'):
+def get_component_name_from_group(item, indices='all', digest=True):
 
     if indices is None:
         return None
 
-    aux_indices = get_component_index_from_group(item, indices=indices)
+    aux_indices = get_component_index_from_group(item, indices=indices, digest=False)
     aux_unique_indices = np.unique(aux_indices)
-    aux_vals = get_component_name_from_component(item, indices=aux_unique_indices)
+    aux_vals = get_component_name_from_component(item, indices=aux_unique_indices, digest=False)
     aux_dict = dict(zip(aux_unique_indices, aux_vals))
     output = np.vectorize(aux_dict.__getitem__)(aux_indices)
     del(aux_indices, aux_unique_indices, aux_vals, aux_dict)
     return output
 
 @digest(form=form)
-def get_component_type_from_group(item, indices='all'):
+def get_component_type_from_group(item, indices='all', digest=True):
 
     if indices is None:
         return None
 
-    aux_indices = get_component_index_from_group(item, indices=indices)
+    aux_indices = get_component_index_from_group(item, indices=indices, digest=False)
     aux_unique_indices = np.unique(aux_indices)
-    aux_vals = get_component_type_from_component(item, indices=aux_unique_indices)
+    aux_vals = get_component_type_from_component(item, indices=aux_unique_indices, digest=False)
     aux_dict = dict(zip(aux_unique_indices, aux_vals))
     output = np.vectorize(aux_dict.__getitem__)(aux_indices)
     del(aux_indices, aux_unique_indices, aux_vals, aux_dict)
     return output
 
 @digest(form=form)
-def get_chain_index_from_group(item, indices='all'):
+def get_chain_index_from_group(item, indices='all', digest=True):
 
     if indices is None:
         return None
 
-    atom_index_from_target = get_atom_index_from_group(item, indices=indices)
+    atom_index_from_target = get_atom_index_from_group(item, indices=indices, digest=False)
     first_atom_index_from_target = np.array([ii[0] for ii in atom_index_from_target])
-    output = get_chain_index_from_atom(item, indices=first_atom_index_from_target)
+    output = get_chain_index_from_atom(item, indices=first_atom_index_from_target, digest=False)
 
     del(atom_index_from_target, first_atom_index_from_target)
 
     return output
 
 @digest(form=form)
-def get_chain_id_from_group(item, indices='all'):
+def get_chain_id_from_group(item, indices='all', digest=True):
 
     if indices is None:
         return None
 
-    aux_indices = get_chain_index_from_group(item, indices=indices)
+    aux_indices = get_chain_index_from_group(item, indices=indices, digest=False)
     aux_unique_indices = np.unique(aux_indices)
-    aux_vals = get_chain_id_from_chain(item, indices=aux_unique_indices)
+    aux_vals = get_chain_id_from_chain(item, indices=aux_unique_indices, digest=False)
     aux_dict = dict(zip(aux_unique_indices, aux_vals))
     output = np.vectorize(aux_dict.__getitem__)(aux_indices)
     del(aux_indices, aux_unique_indices, aux_vals, aux_dict)
     return output
 
 @digest(form=form)
-def get_chain_name_from_group(item, indices='all'):
+def get_chain_name_from_group(item, indices='all', digest=True):
 
     if indices is None:
         return None
 
-    aux_indices = get_chain_index_from_group(item, indices=indices)
+    aux_indices = get_chain_index_from_group(item, indices=indices, digest=False)
     aux_unique_indices = np.unique(aux_indices)
-    aux_vals = get_chain_name_from_chain(item, indices=aux_unique_indices)
+    aux_vals = get_chain_name_from_chain(item, indices=aux_unique_indices, digest=False)
     aux_dict = dict(zip(aux_unique_indices, aux_vals))
     output = np.vectorize(aux_dict.__getitem__)(aux_indices)
     del(aux_indices, aux_unique_indices, aux_vals, aux_dict)
     return output
 
 @digest(form=form)
-def get_chain_type_from_group(item, indices='all'):
+def get_chain_type_from_group(item, indices='all', digest=True):
 
     if indices is None:
         return None
 
-    aux_indices = get_chain_index_from_group(item, indices=indices)
+    aux_indices = get_chain_index_from_group(item, indices=indices, digest=False)
     aux_unique_indices = np.unique(aux_indices)
-    aux_vals = get_chain_type_from_chain(item, indices=aux_unique_indices)
+    aux_vals = get_chain_type_from_chain(item, indices=aux_unique_indices, digest=False)
     aux_dict = dict(zip(aux_unique_indices, aux_vals))
     output = np.vectorize(aux_dict.__getitem__)(aux_indices)
     del(aux_indices, aux_unique_indices, aux_vals, aux_dict)
     return output
 
 @digest(form=form)
-def get_molecule_index_from_group(item, indices='all'):
+def get_molecule_index_from_group(item, indices='all', digest=True):
 
     if indices is None:
         return None
 
-    atom_index_from_target = get_atom_index_from_group(item, indices=indices)
+    atom_index_from_target = get_atom_index_from_group(item, indices=indices, digest=False)
     first_atom_index_from_target = np.array([ii[0] for ii in atom_index_from_target])
-    output = get_molecule_index_from_atom(item, indices=first_atom_index_from_target)
+    output = get_molecule_index_from_atom(item, indices=first_atom_index_from_target, digest=False)
 
     del(atom_index_from_target, first_atom_index_from_target)
 
     return output
 
 @digest(form=form)
-def get_molecule_id_from_group(item, indices='all'):
+def get_molecule_id_from_group(item, indices='all', digest=True):
 
     if indices is None:
         return None
 
-    aux_indices = get_molecule_index_from_group(item, indices=indices)
+    aux_indices = get_molecule_index_from_group(item, indices=indices, digest=False)
     aux_unique_indices = np.unique(aux_indices)
-    aux_vals = get_molecule_id_from_molecule(item, indices=aux_unique_indices)
+    aux_vals = get_molecule_id_from_molecule(item, indices=aux_unique_indices, digest=False)
     aux_dict = dict(zip(aux_unique_indices, aux_vals))
     output = np.vectorize(aux_dict.__getitem__)(aux_indices)
     del(aux_indices, aux_unique_indices, aux_vals, aux_dict)
     return output
 
 @digest(form=form)
-def get_molecule_name_from_group(item, indices='all'):
+def get_molecule_name_from_group(item, indices='all', digest=True):
 
     if indices is None:
         return None
 
-    aux_indices = get_molecule_index_from_group(item, indices=indices)
+    aux_indices = get_molecule_index_from_group(item, indices=indices, digest=False)
     aux_unique_indices = np.unique(aux_indices)
-    aux_vals = get_molecule_name_from_molecule(item, indices=aux_unique_indices)
+    aux_vals = get_molecule_name_from_molecule(item, indices=aux_unique_indices, digest=False)
     aux_dict = dict(zip(aux_unique_indices, aux_vals))
     output = np.vectorize(aux_dict.__getitem__)(aux_indices)
     del(aux_indices, aux_unique_indices, aux_vals, aux_dict)
     return output
 
 @digest(form=form)
-def get_molecule_type_from_group(item, indices='all'):
+def get_molecule_type_from_group(item, indices='all', digest=True):
 
     if indices is None:
         return None
 
-    aux_indices = get_molecule_index_from_group(item, indices=indices)
+    aux_indices = get_molecule_index_from_group(item, indices=indices, digest=False)
     aux_unique_indices = np.unique(aux_indices)
-    aux_vals = get_molecule_type_from_molecule(item, indices=aux_unique_indices)
+    aux_vals = get_molecule_type_from_molecule(item, indices=aux_unique_indices, digest=False)
     aux_dict = dict(zip(aux_unique_indices, aux_vals))
     output = np.vectorize(aux_dict.__getitem__)(aux_indices)
     del(aux_indices, aux_unique_indices, aux_vals, aux_dict)
     return output
 
 @digest(form=form)
-def get_entity_index_from_group(item, indices='all'):
+def get_entity_index_from_group(item, indices='all', digest=True):
 
     if indices is None:
         return None
 
-    atom_index_from_target = get_atom_index_from_group(item, indices=indices)
+    atom_index_from_target = get_atom_index_from_group(item, indices=indices, digest=False)
     first_atom_index_from_target = np.array([ii[0] for ii in atom_index_from_target])
-    output = get_entity_index_from_atom(item, indices=first_atom_index_from_target)
+    output = get_entity_index_from_atom(item, indices=first_atom_index_from_target, digest=False)
 
     del(atom_index_from_target, first_atom_index_from_target)
 
     return output
 
 @digest(form=form)
-def get_entity_id_from_group(item, indices='all'):
+def get_entity_id_from_group(item, indices='all', digest=True):
 
     if indices is None:
         return None
 
-    aux_indices = get_entity_index_from_group(item, indices=indices)
+    aux_indices = get_entity_index_from_group(item, indices=indices, digest=False)
     aux_unique_indices = np.unique(aux_indices)
-    aux_vals = get_entity_id_from_entity(item, indices=aux_unique_indices)
+    aux_vals = get_entity_id_from_entity(item, indices=aux_unique_indices, digest=False)
     aux_dict = dict(zip(aux_unique_indices, aux_vals))
     output = np.vectorize(aux_dict.__getitem__)(aux_indices)
     del(aux_indices, aux_unique_indices, aux_vals, aux_dict)
     return output
 
 @digest(form=form)
-def get_entity_name_from_group(item, indices='all'):
+def get_entity_name_from_group(item, indices='all', digest=True):
 
     if indices is None:
         return None
 
-    aux_indices = get_entity_index_from_group(item, indices=indices)
+    aux_indices = get_entity_index_from_group(item, indices=indices, digest=False)
     aux_unique_indices = np.unique(aux_indices)
-    aux_vals = get_entity_name_from_entity(item, indices=aux_unique_indices)
+    aux_vals = get_entity_name_from_entity(item, indices=aux_unique_indices, digest=False)
     aux_dict = dict(zip(aux_unique_indices, aux_vals))
     output = np.vectorize(aux_dict.__getitem__)(aux_indices)
     del(aux_indices, aux_unique_indices, aux_vals, aux_dict)
     return output
 
 @digest(form=form)
-def get_entity_type_from_group(item, indices='all'):
+def get_entity_type_from_group(item, indices='all', digest=True):
 
     if indices is None:
         return None
 
-    aux_indices = get_entity_index_from_group(item, indices=indices)
+    aux_indices = get_entity_index_from_group(item, indices=indices, digest=False)
     aux_unique_indices = np.unique(aux_indices)
-    aux_vals = get_entity_type_from_entity(item, indices=aux_unique_indices)
+    aux_vals = get_entity_type_from_entity(item, indices=aux_unique_indices, digest=False)
     aux_dict = dict(zip(aux_unique_indices, aux_vals))
     output = np.vectorize(aux_dict.__getitem__)(aux_indices)
     del(aux_indices, aux_unique_indices, aux_vals, aux_dict)
     return output
 
 @digest(form=form)
-def get_n_atoms_from_group(item, indices='all'):
+def get_n_atoms_from_group(item, indices='all', digest=True):
 
     if indices is None:
         return 0
 
-    output = get_atom_index_from_group(item, indices=indices)
+    output = get_atom_index_from_group(item, indices=indices, digest=False)
     output = [ii.shape[0] for ii in output]
     output = np.array(output)
     return output
 
 @digest(form=form)
-def get_n_groups_from_group(item, indices='all'):
+def get_n_groups_from_group(item, indices='all', digest=True):
 
     if indices is None:
         return 0
 
     if is_all(indices):
-        output = get_n_groups_from_system(item)
+        output = get_n_groups_from_system(item, digest=False)
     else:
         output = indices.shape[0]
 
     return output
 
 @digest(form=form)
-def get_n_components_from_group(item, indices='all'):
+def get_n_components_from_group(item, indices='all', digest=True):
 
     if indices is None:
         return 0
 
     if is_all(indices):
-        return get_n_components_from_system(item)
+        return get_n_components_from_system(item, digest=False)
     else:
-        output = get_component_index_from_group(item, indices=indices)
+        output = get_component_index_from_group(item, indices=indices, digest=False)
         output = np.unique(output).shape[0]
 
     return output
 
 @digest(form=form)
-def get_n_molecules_from_group(item, indices='all'):
+def get_n_molecules_from_group(item, indices='all', digest=True):
 
     if indices is None:
         return 0
 
     if is_all(indices):
-        return get_n_molecules_from_system(item)
+        return get_n_molecules_from_system(item, digest=False)
     else:
-        output = get_molecule_index_from_group(item, indices=indices)
+        output = get_molecule_index_from_group(item, indices=indices, digest=False)
         output = np.unique(output).shape[0]
 
     return output
 
 @digest(form=form)
-def get_n_chains_from_group(item, indices='all'):
+def get_n_chains_from_group(item, indices='all', digest=True):
 
     if indices is None:
         return 0
 
     if is_all(indices):
-        return get_n_chains_from_system(item)
+        return get_n_chains_from_system(item, digest=False)
     else:
-        output = get_chain_index_from_group(item, indices=indices)
+        output = get_chain_index_from_group(item, indices=indices, digest=False)
         output = np.unique(output).shape[0]
 
     return output
 
 @digest(form=form)
-def get_n_entities_from_group(item, indices='all'):
+def get_n_entities_from_group(item, indices='all', digest=True):
 
     if indices is None:
         return 0
 
     if is_all(indices):
-        return get_n_entities_from_system(item)
+        return get_n_entities_from_system(item, digest=False)
     else:
-        output = get_entity_index_from_group(item, indices=indices)
+        output = get_entity_index_from_group(item, indices=indices, digest=False)
         output = np.unique(output).shape[0]
 
     return output
@@ -852,14 +852,14 @@ def get_n_entities_from_group(item, indices='all'):
 ## From component
 
 @digest(form=form)
-def get_atom_index_from_component(item, indices='all'):
+def get_atom_index_from_component(item, indices='all', digest=True):
 
     if indices is None:
         return None
 
-    indices_aux = get_component_index_from_component(item, indices=indices)
-    attribute_from_atom = get_atom_index_from_atom(item)
-    target_index_from_atom = get_component_index_from_atom(item)
+    indices_aux = get_component_index_from_component(item, indices=indices, digest=False)
+    attribute_from_atom = get_atom_index_from_atom(item, digest=False)
+    target_index_from_atom = get_component_index_from_atom(item, digest=False)
 
     output=[]
 
@@ -877,16 +877,16 @@ def get_atom_index_from_component(item, indices='all'):
     return output
 
 @digest(form=form)
-def get_atom_id_from_component(item, indices='all'):
+def get_atom_id_from_component(item, indices='all', digest=True):
 
     if indices is None:
         return None
 
-    aux_indices = get_atom_index_from_component(item, indices=indices)
+    aux_indices = get_atom_index_from_component(item, indices=indices, digest=False)
 
     if len(aux_indices)>0:
         aux_unique_indices = np.unique(np.concatenate(aux_indices))
-        aux_vals = get_atom_id_from_atom(item, indices=aux_unique_indices)
+        aux_vals = get_atom_id_from_atom(item, indices=aux_unique_indices, digest=False)
         aux_dict = dict(zip(aux_unique_indices, aux_vals))
         vv = np.vectorize(aux_dict.__getitem__)
         output = np.array([vv(ii) for ii in aux_indices], dtype=object)
@@ -899,16 +899,16 @@ def get_atom_id_from_component(item, indices='all'):
     return output
 
 @digest(form=form)
-def get_atom_name_from_component(item, indices='all'):
+def get_atom_name_from_component(item, indices='all', digest=True):
 
     if indices is None:
         return None
 
-    aux_indices = get_atom_index_from_component(item, indices=indices)
+    aux_indices = get_atom_index_from_component(item, indices=indices, digest=False)
 
     if len(aux_indices)>0:
         aux_unique_indices = np.unique(np.concatenate(aux_indices))
-        aux_vals = get_atom_name_from_atom(item, indices=aux_unique_indices)
+        aux_vals = get_atom_name_from_atom(item, indices=aux_unique_indices, digest=False)
         aux_dict = dict(zip(aux_unique_indices, aux_vals))
         vv = np.vectorize(aux_dict.__getitem__)
         output = np.array([vv(ii) for ii in aux_indices], dtype=object)
@@ -921,16 +921,16 @@ def get_atom_name_from_component(item, indices='all'):
     return output
 
 @digest(form=form)
-def get_atom_type_from_component(item, indices='all'):
+def get_atom_type_from_component(item, indices='all', digest=True):
 
     if indices is None:
         return None
 
-    aux_indices = get_atom_index_from_component(item, indices=indices)
+    aux_indices = get_atom_index_from_component(item, indices=indices, digest=False)
 
     if len(aux_indices)>0:
         aux_unique_indices = np.unique(np.concatenate(aux_indices))
-        aux_vals = get_atom_type_from_atom(item, indices=aux_unique_indices)
+        aux_vals = get_atom_type_from_atom(item, indices=aux_unique_indices, digest=False)
         aux_dict = dict(zip(aux_unique_indices, aux_vals))
         vv = np.vectorize(aux_dict.__getitem__)
         output = np.array([vv(ii) for ii in aux_indices], dtype=object)
@@ -943,14 +943,14 @@ def get_atom_type_from_component(item, indices='all'):
     return output
 
 @digest(form=form)
-def get_group_index_from_component(item, indices='all'):
+def get_group_index_from_component(item, indices='all', digest=True):
 
     if indices is None:
         return None
 
-    indices_aux = get_component_index_from_component(item, indices=indices)
-    attribute_from_atom = get_group_index_from_atom(item)
-    target_index_from_atom = get_component_index_from_atom(item)
+    indices_aux = get_component_index_from_component(item, indices=indices, digest=False)
+    attribute_from_atom = get_group_index_from_atom(item, digest=False)
+    target_index_from_atom = get_component_index_from_atom(item, digest=False)
 
     output=[]
 
@@ -968,16 +968,16 @@ def get_group_index_from_component(item, indices='all'):
     return output
 
 @digest(form=form)
-def get_group_id_from_component(item, indices='all'):
+def get_group_id_from_component(item, indices='all', digest=True):
 
     if indices is None:
         return None
 
-    aux_indices = get_group_index_from_component(item, indices=indices)
+    aux_indices = get_group_index_from_component(item, indices=indices, digest=False)
 
     if len(aux_indices)>0:
         aux_unique_indices = np.unique(np.concatenate(aux_indices))
-        aux_vals = get_group_id_from_group(item, indices=aux_unique_indices)
+        aux_vals = get_group_id_from_group(item, indices=aux_unique_indices, digest=False)
         aux_dict = dict(zip(aux_unique_indices, aux_vals))
         vv = np.vectorize(aux_dict.__getitem__)
         output = np.array([vv(ii) for ii in aux_indices], dtype=object)
@@ -990,16 +990,16 @@ def get_group_id_from_component(item, indices='all'):
     return output
 
 @digest(form=form)
-def get_group_name_from_component(item, indices='all'):
+def get_group_name_from_component(item, indices='all', digest=True):
 
     if indices is None:
         return None
 
-    aux_indices = get_group_index_from_component(item, indices=indices)
+    aux_indices = get_group_index_from_component(item, indices=indices, digest=False)
 
     if len(aux_indices)>0:
         aux_unique_indices = np.unique(np.concatenate(aux_indices))
-        aux_vals = get_group_name_from_group(item, indices=aux_unique_indices)
+        aux_vals = get_group_name_from_group(item, indices=aux_unique_indices, digest=False)
         aux_dict = dict(zip(aux_unique_indices, aux_vals))
         vv = np.vectorize(aux_dict.__getitem__)
         output = np.array([vv(ii) for ii in aux_indices], dtype=object)
@@ -1012,16 +1012,16 @@ def get_group_name_from_component(item, indices='all'):
     return output
 
 @digest(form=form)
-def get_group_type_from_component(item, indices='all'):
+def get_group_type_from_component(item, indices='all', digest=True):
 
     if indices is None:
         return None
 
-    aux_indices = get_group_index_from_component(item, indices=indices)
+    aux_indices = get_group_index_from_component(item, indices=indices, digest=False)
 
     if len(aux_indices)>0:
         aux_unique_indices = np.unique(np.concatenate(aux_indices))
-        aux_vals = get_group_type_from_group(item, indices=aux_unique_indices)
+        aux_vals = get_group_type_from_group(item, indices=aux_unique_indices, digest=False)
         aux_dict = dict(zip(aux_unique_indices, aux_vals))
         vv = np.vectorize(aux_dict.__getitem__)
         output = np.array([vv(ii) for ii in aux_indices], dtype=object)
@@ -1034,13 +1034,13 @@ def get_group_type_from_component(item, indices='all'):
     return output
 
 @digest(form=form)
-def get_component_index_from_component(item, indices='all'):
+def get_component_index_from_component(item, indices='all', digest=True):
 
     if indices is None:
         return None
 
     if is_all(indices):
-        n_aux = get_n_components_from_system(item)
+        n_aux = get_n_components_from_system(item, digest=False)
         output = np.arange(n_aux, dtype=int)
     else:
         output = np.array(indices, dtype=int)
@@ -1048,28 +1048,28 @@ def get_component_index_from_component(item, indices='all'):
     return output
 
 @digest(form=form)
-def get_chain_index_from_component(item, indices='all'):
+def get_chain_index_from_component(item, indices='all', digest=True):
 
     if indices is None:
         return None
 
-    atom_index_from_target = get_atom_index_from_component(item, indices=indices)
+    atom_index_from_target = get_atom_index_from_component(item, indices=indices, digest=False)
     first_atom_index_from_target = np.array([ii[0] for ii in atom_index_from_target])
-    output = get_chain_index_from_atom(item, indices=first_atom_index_from_target)
+    output = get_chain_index_from_atom(item, indices=first_atom_index_from_target, digest=False)
 
     del(atom_index_from_target, first_atom_index_from_target)
 
     return output
 
 @digest(form=form)
-def get_chain_id_from_component(item, indices='all'):
+def get_chain_id_from_component(item, indices='all', digest=True):
 
     if indices is None:
         return None
 
-    aux_indices = get_chain_index_from_component(item, indices=indices)
+    aux_indices = get_chain_index_from_component(item, indices=indices, digest=False)
     aux_unique_indices = np.unique(aux_indices)
-    aux_vals = get_chain_id_from_chain(item, indices=aux_unique_indices)
+    aux_vals = get_chain_id_from_chain(item, indices=aux_unique_indices, digest=False)
     aux_dict = dict(zip(aux_unique_indices, aux_vals))
     output = np.vectorize(aux_dict.__getitem__)(aux_indices)
     del(aux_indices, aux_unique_indices, aux_vals, aux_dict)
@@ -1077,14 +1077,14 @@ def get_chain_id_from_component(item, indices='all'):
     return output
 
 @digest(form=form)
-def get_chain_name_from_component(item, indices='all'):
+def get_chain_name_from_component(item, indices='all', digest=True):
 
     if indices is None:
         return None
 
-    aux_indices = get_chain_index_from_component(item, indices=indices)
+    aux_indices = get_chain_index_from_component(item, indices=indices, digest=False)
     aux_unique_indices = np.unique(aux_indices)
-    aux_vals = get_chain_name_from_chain(item, indices=aux_unique_indices)
+    aux_vals = get_chain_name_from_chain(item, indices=aux_unique_indices, digest=False)
     aux_dict = dict(zip(aux_unique_indices, aux_vals))
     output = np.vectorize(aux_dict.__getitem__)(aux_indices)
     del(aux_indices, aux_unique_indices, aux_vals, aux_dict)
@@ -1092,14 +1092,14 @@ def get_chain_name_from_component(item, indices='all'):
     return output
 
 @digest(form=form)
-def get_chain_type_from_component(item, indices='all'):
+def get_chain_type_from_component(item, indices='all', digest=True):
 
     if indices is None:
         return None
 
-    aux_indices = get_chain_index_from_component(item, indices=indices)
+    aux_indices = get_chain_index_from_component(item, indices=indices, digest=False)
     aux_unique_indices = np.unique(aux_indices)
-    aux_vals = get_chain_type_from_chain(item, indices=aux_unique_indices)
+    aux_vals = get_chain_type_from_chain(item, indices=aux_unique_indices, digest=False)
     aux_dict = dict(zip(aux_unique_indices, aux_vals))
     output = np.vectorize(aux_dict.__getitem__)(aux_indices)
     del(aux_indices, aux_unique_indices, aux_vals, aux_dict)
@@ -1107,28 +1107,28 @@ def get_chain_type_from_component(item, indices='all'):
     return output
 
 @digest(form=form)
-def get_molecule_index_from_component(item, indices='all'):
+def get_molecule_index_from_component(item, indices='all', digest=True):
 
     if indices is None:
         return None
 
-    atom_index_from_target = get_atom_index_from_component(item, indices=indices)
+    atom_index_from_target = get_atom_index_from_component(item, indices=indices, digest=False)
     first_atom_index_from_target = np.array([ii[0] for ii in atom_index_from_target])
-    output = get_molecule_index_from_atom(item, indices=first_atom_index_from_target)
+    output = get_molecule_index_from_atom(item, indices=first_atom_index_from_target, digest=False)
 
     del(atom_index_from_target, first_atom_index_from_target)
 
     return output
 
 @digest(form=form)
-def get_molecule_id_from_component(item, indices='all'):
+def get_molecule_id_from_component(item, indices='all', digest=True):
 
     if indices is None:
         return None
 
-    aux_indices = get_molecule_index_from_component(item, indices=indices)
+    aux_indices = get_molecule_index_from_component(item, indices=indices, digest=False)
     aux_unique_indices = np.unique(aux_indices)
-    aux_vals = get_molecule_id_from_molecule(item, indices=aux_unique_indices)
+    aux_vals = get_molecule_id_from_molecule(item, indices=aux_unique_indices, digest=False)
     aux_dict = dict(zip(aux_unique_indices, aux_vals))
     output = np.vectorize(aux_dict.__getitem__)(aux_indices)
     del(aux_indices, aux_unique_indices, aux_vals, aux_dict)
@@ -1136,14 +1136,14 @@ def get_molecule_id_from_component(item, indices='all'):
     return output
 
 @digest(form=form)
-def get_molecule_name_from_component(item, indices='all'):
+def get_molecule_name_from_component(item, indices='all', digest=True):
 
     if indices is None:
         return None
 
-    aux_indices = get_molecule_index_from_component(item, indices=indices)
+    aux_indices = get_molecule_index_from_component(item, indices=indices, digest=False)
     aux_unique_indices = np.unique(aux_indices)
-    aux_vals = get_molecule_name_from_molecule(item, indices=aux_unique_indices)
+    aux_vals = get_molecule_name_from_molecule(item, indices=aux_unique_indices, digest=False)
     aux_dict = dict(zip(aux_unique_indices, aux_vals))
     output = np.vectorize(aux_dict.__getitem__)(aux_indices)
     del(aux_indices, aux_unique_indices, aux_vals, aux_dict)
@@ -1151,14 +1151,14 @@ def get_molecule_name_from_component(item, indices='all'):
     return output
 
 @digest(form=form)
-def get_molecule_type_from_component(item, indices='all'):
+def get_molecule_type_from_component(item, indices='all', digest=True):
 
     if indices is None:
         return None
 
-    aux_indices = get_molecule_index_from_component(item, indices=indices)
+    aux_indices = get_molecule_index_from_component(item, indices=indices, digest=False)
     aux_unique_indices = np.unique(aux_indices)
-    aux_vals = get_molecule_type_from_molecule(item, indices=aux_unique_indices)
+    aux_vals = get_molecule_type_from_molecule(item, indices=aux_unique_indices, digest=False)
     aux_dict = dict(zip(aux_unique_indices, aux_vals))
     output = np.vectorize(aux_dict.__getitem__)(aux_indices)
     del(aux_indices, aux_unique_indices, aux_vals, aux_dict)
@@ -1166,28 +1166,28 @@ def get_molecule_type_from_component(item, indices='all'):
     return output
 
 @digest(form=form)
-def get_entity_index_from_component(item, indices='all'):
+def get_entity_index_from_component(item, indices='all', digest=True):
 
     if indices is None:
         return None
 
-    atom_index_from_target = get_atom_index_from_component(item, indices=indices)
+    atom_index_from_target = get_atom_index_from_component(item, indices=indices, digest=False)
     first_atom_index_from_target = np.array([ii[0] for ii in atom_index_from_target])
-    output = get_entity_index_from_atom(item, indices=first_atom_index_from_target)
+    output = get_entity_index_from_atom(item, indices=first_atom_index_from_target, digest=False)
 
     del(atom_index_from_target, first_atom_index_from_target)
 
     return output
 
 @digest(form=form)
-def get_entity_id_from_component(item, indices='all'):
+def get_entity_id_from_component(item, indices='all', digest=True):
 
     if indices is None:
         return None
 
-    aux_indices = get_entity_index_from_component(item, indices=indices)
+    aux_indices = get_entity_index_from_component(item, indices=indices, digest=False)
     aux_unique_indices = np.unique(aux_indices)
-    aux_vals = get_entity_id_from_entity(item, indices=aux_unique_indices)
+    aux_vals = get_entity_id_from_entity(item, indices=aux_unique_indices, digest=False)
     aux_dict = dict(zip(aux_unique_indices, aux_vals))
     output = np.vectorize(aux_dict.__getitem__)(aux_indices)
     del(aux_indices, aux_unique_indices, aux_vals, aux_dict)
@@ -1195,14 +1195,14 @@ def get_entity_id_from_component(item, indices='all'):
     return output
 
 @digest(form=form)
-def get_entity_name_from_component(item, indices='all'):
+def get_entity_name_from_component(item, indices='all', digest=True):
 
     if indices is None:
         return None
 
-    aux_indices = get_entity_index_from_component(item, indices=indices)
+    aux_indices = get_entity_index_from_component(item, indices=indices, digest=False)
     aux_unique_indices = np.unique(aux_indices)
-    aux_vals = get_entity_name_from_entity(item, indices=aux_unique_indices)
+    aux_vals = get_entity_name_from_entity(item, indices=aux_unique_indices, digest=False)
     aux_dict = dict(zip(aux_unique_indices, aux_vals))
     output = np.vectorize(aux_dict.__getitem__)(aux_indices)
     del(aux_indices, aux_unique_indices, aux_vals, aux_dict)
@@ -1210,14 +1210,14 @@ def get_entity_name_from_component(item, indices='all'):
     return output
 
 @digest(form=form)
-def get_entity_type_from_component(item, indices='all'):
+def get_entity_type_from_component(item, indices='all', digest=True):
 
     if indices is None:
         return None
 
-    aux_indices = get_entity_index_from_component(item, indices=indices)
+    aux_indices = get_entity_index_from_component(item, indices=indices, digest=False)
     aux_unique_indices = np.unique(aux_indices)
-    aux_vals = get_entity_type_from_entity(item, indices=aux_unique_indices)
+    aux_vals = get_entity_type_from_entity(item, indices=aux_unique_indices, digest=False)
     aux_dict = dict(zip(aux_unique_indices, aux_vals))
     output = np.vectorize(aux_dict.__getitem__)(aux_indices)
     del(aux_indices, aux_unique_indices, aux_vals, aux_dict)
@@ -1225,78 +1225,78 @@ def get_entity_type_from_component(item, indices='all'):
     return output
 
 @digest(form=form)
-def get_n_atoms_from_component(item, indices='all'):
+def get_n_atoms_from_component(item, indices='all', digest=True):
 
     if indices is None:
         return 0
 
-    output = get_atom_index_from_component(item, indices=indices)
+    output = get_atom_index_from_component(item, indices=indices, digest=False)
     output = [ii.shape[0] for ii in output]
     output = np.array(output)
     return output
 
 @digest(form=form)
-def get_n_groups_from_component(item, indices='all'):
+def get_n_groups_from_component(item, indices='all', digest=True):
 
     if indices is None:
         return 0
 
-    output = get_group_index_from_component(item, indices=indices)
+    output = get_group_index_from_component(item, indices=indices, digest=False)
     output = [ii.shape[0] for ii in output]
     output = np.array(output)
     return output
 
 @digest(form=form)
-def get_n_components_from_component(item, indices='all'):
+def get_n_components_from_component(item, indices='all', digest=True):
 
     if indices is None:
         return 0
 
     if is_all(indices):
-        output = get_n_components_from_system(item)
+        output = get_n_components_from_system(item, digest=False)
     else:
         output = indices.shape[0]
 
     return output
 
 @digest(form=form)
-def get_n_molecules_from_component(item, indices='all'):
+def get_n_molecules_from_component(item, indices='all', digest=True):
 
     if indices is None:
         return 0
 
     if is_all(indices):
-        output = get_n_molecules_from_system(item)
+        output = get_n_molecules_from_system(item, digest=False)
     else:
-        output = get_molecule_index_from_component(item, indices=indices)
+        output = get_molecule_index_from_component(item, indices=indices, digest=False)
         output = np.unique(output).shape[0]
 
     return output
 
 @digest(form=form)
-def get_n_chains_from_component(item, indices='all'):
+def get_n_chains_from_component(item, indices='all', digest=True):
 
     if indices is None:
         return 0
 
     if is_all(indices):
-        output = get_n_chains_from_system(item)
+        output = get_n_chains_from_system(item, digest=False)
     else:
-        output = get_chain_index_from_component(item, indices=indices)
+        output = get_chain_index_from_component(item, indices=indices, digest=False)
         output = np.unique(output).shape[0]
 
     return output
 
 @digest(form=form)
-def get_n_entities_from_component(item, indices='all'):
+def get_n_entities_from_component(item, indices='all', digest=True):
 
     if indices is None:
         return 0
 
     if is_all(indices):
-        output = get_n_entities_from_system(item)
+        output = get_n_entities_from_system(item, digest=False)
     else:
-        output = get_entity_index_from_component(item, indices=indices)
+        output = get_entity_index_from_component(item, indices=indices, digest=False)
         output = np.unique(output).shape[0]
 
     return output
@@ -1304,14 +1304,14 @@ def get_n_entities_from_component(item, indices='all'):
 ## molecule
 
 @digest(form=form)
-def get_atom_index_from_molecule(item, indices='all'):
+def get_atom_index_from_molecule(item, indices='all', digest=True):
 
     if indices is None:
         return None
 
-    indices_aux = get_molecule_index_from_molecule(item, indices=indices)
-    attribute_from_atom = get_atom_index_from_atom(item)
-    target_index_from_atom = get_molecule_index_from_atom(item)
+    indices_aux = get_molecule_index_from_molecule(item, indices=indices, digest=False)
+    attribute_from_atom = get_atom_index_from_atom(item, digest=False)
+    target_index_from_atom = get_molecule_index_from_atom(item, digest=False)
 
     output=[]
 
@@ -1329,16 +1329,16 @@ def get_atom_index_from_molecule(item, indices='all'):
     return output
 
 @digest(form=form)
-def get_atom_id_from_molecule(item, indices='all'):
+def get_atom_id_from_molecule(item, indices='all', digest=True):
 
     if indices is None:
         return None
 
-    aux_indices = get_atom_index_from_molecule(item, indices=indices)
+    aux_indices = get_atom_index_from_molecule(item, indices=indices, digest=False)
 
     if len(aux_indices)>0:
         aux_unique_indices = np.unique(np.concatenate(aux_indices))
-        aux_vals = get_atom_id_from_atom(item, indices=aux_unique_indices)
+        aux_vals = get_atom_id_from_atom(item, indices=aux_unique_indices, digest=False)
         aux_dict = dict(zip(aux_unique_indices, aux_vals))
         vv = np.vectorize(aux_dict.__getitem__)
         output = np.array([vv(ii) for ii in aux_indices], dtype=object)
@@ -1351,16 +1351,16 @@ def get_atom_id_from_molecule(item, indices='all'):
     return output
 
 @digest(form=form)
-def get_atom_name_from_molecule(item, indices='all'):
+def get_atom_name_from_molecule(item, indices='all', digest=True):
 
     if indices is None:
         return None
 
-    aux_indices = get_atom_index_from_molecule(item, indices=indices)
+    aux_indices = get_atom_index_from_molecule(item, indices=indices, digest=False)
 
     if len(aux_indices)>0:
         aux_unique_indices = np.unique(np.concatenate(aux_indices))
-        aux_vals = get_atom_name_from_atom(item, indices=aux_unique_indices)
+        aux_vals = get_atom_name_from_atom(item, indices=aux_unique_indices, digest=False)
         aux_dict = dict(zip(aux_unique_indices, aux_vals))
         vv = np.vectorize(aux_dict.__getitem__)
         output = np.array([vv(ii) for ii in aux_indices], dtype=object)
@@ -1373,16 +1373,16 @@ def get_atom_name_from_molecule(item, indices='all'):
     return output
 
 @digest(form=form)
-def get_atom_type_from_molecule(item, indices='all'):
+def get_atom_type_from_molecule(item, indices='all', digest=True):
 
     if indices is None:
         return None
 
-    aux_indices = get_atom_index_from_molecule(item, indices=indices)
+    aux_indices = get_atom_index_from_molecule(item, indices=indices, digest=False)
 
     if len(aux_indices)>0:
         aux_unique_indices = np.unique(np.concatenate(aux_indices))
-        aux_vals = get_atom_type_from_atom(item, indices=aux_unique_indices)
+        aux_vals = get_atom_type_from_atom(item, indices=aux_unique_indices, digest=False)
         aux_dict = dict(zip(aux_unique_indices, aux_vals))
         vv = np.vectorize(aux_dict.__getitem__)
         output = np.array([vv(ii) for ii in aux_indices], dtype=object)
@@ -1395,14 +1395,14 @@ def get_atom_type_from_molecule(item, indices='all'):
     return output
 
 @digest(form=form)
-def get_group_index_from_molecule(item, indices='all'):
+def get_group_index_from_molecule(item, indices='all', digest=True):
 
     if indices is None:
         return None
 
-    indices_aux = get_molecule_index_from_molecule(item, indices=indices)
-    attribute_from_atom = get_group_index_from_atom(item)
-    target_index_from_atom = get_molecule_index_from_atom(item)
+    indices_aux = get_molecule_index_from_molecule(item, indices=indices, digest=False)
+    attribute_from_atom = get_group_index_from_atom(item, digest=False)
+    target_index_from_atom = get_molecule_index_from_atom(item, digest=False)
 
     output=[]
 
@@ -1420,16 +1420,16 @@ def get_group_index_from_molecule(item, indices='all'):
     return output
 
 @digest(form=form)
-def get_group_id_from_molecule(item, indices='all'):
+def get_group_id_from_molecule(item, indices='all', digest=True):
 
     if indices is None:
         return None
 
-    aux_indices = get_group_index_from_molecule(item, indices=indices)
+    aux_indices = get_group_index_from_molecule(item, indices=indices, digest=False)
 
     if len(aux_indices)>0:
         aux_unique_indices = np.unique(np.concatenate(aux_indices))
-        aux_vals = get_group_id_from_group(item, indices=aux_unique_indices)
+        aux_vals = get_group_id_from_group(item, indices=aux_unique_indices, digest=False)
         aux_dict = dict(zip(aux_unique_indices, aux_vals))
         vv = np.vectorize(aux_dict.__getitem__)
         output = np.array([vv(ii) for ii in aux_indices], dtype=object)
@@ -1442,16 +1442,16 @@ def get_group_id_from_molecule(item, indices='all'):
     return output
 
 @digest(form=form)
-def get_group_name_from_molecule(item, indices='all'):
+def get_group_name_from_molecule(item, indices='all', digest=True):
 
     if indices is None:
         return None
 
-    aux_indices = get_group_index_from_molecule(item, indices=indices)
+    aux_indices = get_group_index_from_molecule(item, indices=indices, digest=False)
 
     if len(aux_indices)>0:
         aux_unique_indices = np.unique(np.concatenate(aux_indices))
-        aux_vals = get_group_name_from_group(item, indices=aux_unique_indices)
+        aux_vals = get_group_name_from_group(item, indices=aux_unique_indices, digest=False)
         aux_dict = dict(zip(aux_unique_indices, aux_vals))
         vv = np.vectorize(aux_dict.__getitem__)
         output = np.array([vv(ii) for ii in aux_indices], dtype=object)
@@ -1464,16 +1464,16 @@ def get_group_name_from_molecule(item, indices='all'):
     return output
 
 @digest(form=form)
-def get_group_type_from_molecule(item, indices='all'):
+def get_group_type_from_molecule(item, indices='all', digest=True):
 
     if indices is None:
         return None
 
-    aux_indices = get_group_index_from_molecule(item, indices=indices)
+    aux_indices = get_group_index_from_molecule(item, indices=indices, digest=False)
 
     if len(aux_indices)>0:
         aux_unique_indices = np.unique(np.concatenate(aux_indices))
-        aux_vals = get_group_type_from_group(item, indices=aux_unique_indices)
+        aux_vals = get_group_type_from_group(item, indices=aux_unique_indices, digest=False)
         aux_dict = dict(zip(aux_unique_indices, aux_vals))
         vv = np.vectorize(aux_dict.__getitem__)
         output = np.array([vv(ii) for ii in aux_indices], dtype=object)
@@ -1486,14 +1486,14 @@ def get_group_type_from_molecule(item, indices='all'):
     return output
 
 @digest(form=form)
-def get_component_index_from_molecule(item, indices='all'):
+def get_component_index_from_molecule(item, indices='all', digest=True):
 
     if indices is None:
         return None
 
-    indices_aux = get_molecule_index_from_molecule(item, indices=indices)
-    attribute_from_atom = get_component_index_from_atom(item)
-    target_index_from_atom = get_molecule_index_from_atom(item)
+    indices_aux = get_molecule_index_from_molecule(item, indices=indices, digest=False)
+    attribute_from_atom = get_component_index_from_atom(item, digest=False)
+    target_index_from_atom = get_molecule_index_from_atom(item, digest=False)
 
     output=[]
 
@@ -1511,16 +1511,16 @@ def get_component_index_from_molecule(item, indices='all'):
     return output
 
 @digest(form=form)
-def get_component_id_from_molecule(item, indices='all'):
+def get_component_id_from_molecule(item, indices='all', digest=True):
 
     if indices is None:
         return None
 
-    aux_indices = get_component_index_from_molecule(item, indices=indices)
+    aux_indices = get_component_index_from_molecule(item, indices=indices, digest=False)
 
     if len(aux_indices)>0:
         aux_unique_indices = np.unique(np.concatenate(aux_indices))
-        aux_vals = get_component_id_from_component(item, indices=aux_unique_indices)
+        aux_vals = get_component_id_from_component(item, indices=aux_unique_indices, digest=False)
         aux_dict = dict(zip(aux_unique_indices, aux_vals))
         vv = np.vectorize(aux_dict.__getitem__)
         output = np.array([vv(ii) for ii in aux_indices], dtype=object)
@@ -1533,16 +1533,16 @@ def get_component_id_from_molecule(item, indices='all'):
     return output
 
 @digest(form=form)
-def get_component_name_from_molecule(item, indices='all'):
+def get_component_name_from_molecule(item, indices='all', digest=True):
 
     if indices is None:
         return None
 
-    aux_indices = get_component_index_from_molecule(item, indices=indices)
+    aux_indices = get_component_index_from_molecule(item, indices=indices, digest=False)
 
     if len(aux_indices)>0:
         aux_unique_indices = np.unique(np.concatenate(aux_indices))
-        aux_vals = get_component_name_from_component(item, indices=aux_unique_indices)
+        aux_vals = get_component_name_from_component(item, indices=aux_unique_indices, digest=False)
         aux_dict = dict(zip(aux_unique_indices, aux_vals))
         vv = np.vectorize(aux_dict.__getitem__)
         output = np.array([vv(ii) for ii in aux_indices], dtype=object)
@@ -1555,16 +1555,16 @@ def get_component_name_from_molecule(item, indices='all'):
     return output
 
 @digest(form=form)
-def get_component_type_from_molecule(item, indices='all'):
+def get_component_type_from_molecule(item, indices='all', digest=True):
 
     if indices is None:
         return None
 
-    aux_indices = get_component_index_from_molecule(item, indices=indices)
+    aux_indices = get_component_index_from_molecule(item, indices=indices, digest=False)
 
     if len(aux_indices)>0:
         aux_unique_indices = np.unique(np.concatenate(aux_indices))
-        aux_vals = get_component_type_from_component(item, indices=aux_unique_indices)
+        aux_vals = get_component_type_from_component(item, indices=aux_unique_indices, digest=False)
         aux_dict = dict(zip(aux_unique_indices, aux_vals))
         vv = np.vectorize(aux_dict.__getitem__)
         output = np.array([vv(ii) for ii in aux_indices], dtype=object)
@@ -1577,14 +1577,14 @@ def get_component_type_from_molecule(item, indices='all'):
     return output
 
 @digest(form=form)
-def get_chain_index_from_molecule(item, indices='all'):
+def get_chain_index_from_molecule(item, indices='all', digest=True):
 
     if indices is None:
         return None
 
-    aux_atom_indices = get_atom_index_from_molecule(item, indices=indices)
-    aux_indices = get_molecule_index_from_atom(item)
-    aux_vals = get_chain_index_from_atom(item)
+    aux_atom_indices = get_atom_index_from_molecule(item, indices=indices, digest=False)
+    aux_indices = get_molecule_index_from_atom(item, digest=False)
+    aux_vals = get_chain_index_from_atom(item, digest=False)
 
     output=[]
 
@@ -1602,16 +1602,16 @@ def get_chain_index_from_molecule(item, indices='all'):
     return output
 
 @digest(form=form)
-def get_chain_id_from_molecule(item, indices='all'):
+def get_chain_id_from_molecule(item, indices='all', digest=True):
 
     if indices is None:
         return None
 
-    aux_indices = get_chain_index_from_molecule(item, indices=indices)
+    aux_indices = get_chain_index_from_molecule(item, indices=indices, digest=False)
 
     if len(aux_indices)>0:
         aux_unique_indices = np.unique(np.concatenate(aux_indices))
-        aux_vals = get_chain_id_from_chain(item, indices=aux_unique_indices)
+        aux_vals = get_chain_id_from_chain(item, indices=aux_unique_indices, digest=False)
         aux_dict = dict(zip(aux_unique_indices, aux_vals))
         vv = np.vectorize(aux_dict.__getitem__)
         output = np.array([vv(ii) for ii in aux_indices], dtype=object)
@@ -1624,16 +1624,16 @@ def get_chain_id_from_molecule(item, indices='all'):
     return output
 
 @digest(form=form)
-def get_chain_name_from_molecule(item, indices='all'):
+def get_chain_name_from_molecule(item, indices='all', digest=True):
 
     if indices is None:
         return None
 
-    aux_indices = get_chain_index_from_molecule(item, indices=indices)
+    aux_indices = get_chain_index_from_molecule(item, indices=indices, digest=False)
 
     if len(aux_indices)>0:
         aux_unique_indices = np.unique(np.concatenate(aux_indices))
-        aux_vals = get_chain_name_from_chain(item, indices=aux_unique_indices)
+        aux_vals = get_chain_name_from_chain(item, indices=aux_unique_indices, digest=False)
         aux_dict = dict(zip(aux_unique_indices, aux_vals))
         vv = np.vectorize(aux_dict.__getitem__)
         output = np.array([vv(ii) for ii in aux_indices], dtype=object)
@@ -1646,16 +1646,16 @@ def get_chain_name_from_molecule(item, indices='all'):
     return output
 
 @digest(form=form)
-def get_chain_type_from_molecule(item, indices='all'):
+def get_chain_type_from_molecule(item, indices='all', digest=True):
 
     if indices is None:
         return None
 
-    aux_indices = get_chain_index_from_molecule(item, indices=indices)
+    aux_indices = get_chain_index_from_molecule(item, indices=indices, digest=False)
 
     if len(aux_indices)>0:
         aux_unique_indices = np.unique(np.concatenate(aux_indices))
-        aux_vals = get_chain_type_from_chain(item, indices=aux_unique_indices)
+        aux_vals = get_chain_type_from_chain(item, indices=aux_unique_indices, digest=False)
         aux_dict = dict(zip(aux_unique_indices, aux_vals))
         vv = np.vectorize(aux_dict.__getitem__)
         output = np.array([vv(ii) for ii in aux_indices], dtype=object)
@@ -1668,13 +1668,13 @@ def get_chain_type_from_molecule(item, indices='all'):
     return output
 
 @digest(form=form)
-def get_molecule_index_from_molecule(item, indices='all'):
+def get_molecule_index_from_molecule(item, indices='all', digest=True):
 
     if indices is None:
         return None
 
     if is_all(indices):
-        n_aux = get_n_molecules_from_system(item)
+        n_aux = get_n_molecules_from_system(item, digest=False)
         output = np.arange(n_aux, dtype=int)
     else:
         output = np.array(indices, dtype=int)
@@ -1682,28 +1682,28 @@ def get_molecule_index_from_molecule(item, indices='all'):
     return output
 
 @digest(form=form)
-def get_entity_index_from_molecule(item, indices='all'):
+def get_entity_index_from_molecule(item, indices='all', digest=True):
 
     if indices is None:
         return None
 
-    atom_index_from_target = get_atom_index_from_molecule(item, indices=indices)
+    atom_index_from_target = get_atom_index_from_molecule(item, indices=indices, digest=False)
     first_atom_index_from_target = np.array([ii[0] for ii in atom_index_from_target])
-    output = get_entity_index_from_atom(item, indices=first_atom_index_from_target)
+    output = get_entity_index_from_atom(item, indices=first_atom_index_from_target, digest=False)
 
     del(atom_index_from_target, first_atom_index_from_target)
 
     return output
 
 @digest(form=form)
-def get_entity_id_from_molecule(item, indices='all'):
+def get_entity_id_from_molecule(item, indices='all', digest=True):
 
     if indices is None:
         return None
 
-    aux_indices = get_entity_index_from_molecule(item, indices=indices)
+    aux_indices = get_entity_index_from_molecule(item, indices=indices, digest=False)
     aux_unique_indices = np.unique(aux_indices)
-    aux_vals = get_entity_id_from_entity(item, indices=aux_unique_indices)
+    aux_vals = get_entity_id_from_entity(item, indices=aux_unique_indices, digest=False)
     aux_dict = dict(zip(aux_unique_indices, aux_vals))
     output = np.vectorize(aux_dict.__getitem__)(aux_indices)
     del(aux_indices, aux_unique_indices, aux_vals, aux_dict)
@@ -1711,14 +1711,14 @@ def get_entity_id_from_molecule(item, indices='all'):
     return output
 
 @digest(form=form)
-def get_entity_name_from_molecule(item, indices='all'):
+def get_entity_name_from_molecule(item, indices='all', digest=True):
 
     if indices is None:
         return None
 
-    aux_indices = get_entity_index_from_molecule(item, indices=indices)
+    aux_indices = get_entity_index_from_molecule(item, indices=indices, digest=False)
     aux_unique_indices = np.unique(aux_indices)
-    aux_vals = get_entity_name_from_entity(item, indices=aux_unique_indices)
+    aux_vals = get_entity_name_from_entity(item, indices=aux_unique_indices, digest=False)
     aux_dict = dict(zip(aux_unique_indices, aux_vals))
     output = np.vectorize(aux_dict.__getitem__)(aux_indices)
     del(aux_indices, aux_unique_indices, aux_vals, aux_dict)
@@ -1726,14 +1726,14 @@ def get_entity_name_from_molecule(item, indices='all'):
     return output
 
 @digest(form=form)
-def get_entity_type_from_molecule(item, indices='all'):
+def get_entity_type_from_molecule(item, indices='all', digest=True):
 
     if indices is None:
         return None
 
-    aux_indices = get_entity_index_from_molecule(item, indices=indices)
+    aux_indices = get_entity_index_from_molecule(item, indices=indices, digest=False)
     aux_unique_indices = np.unique(aux_indices)
-    aux_vals = get_entity_type_from_entity(item, indices=aux_unique_indices)
+    aux_vals = get_entity_type_from_entity(item, indices=aux_unique_indices, digest=False)
     aux_dict = dict(zip(aux_unique_indices, aux_vals))
     output = np.vectorize(aux_dict.__getitem__)(aux_indices)
     del(aux_indices, aux_unique_indices, aux_vals, aux_dict)
@@ -1741,72 +1741,72 @@ def get_entity_type_from_molecule(item, indices='all'):
     return output
 
 @digest(form=form)
-def get_n_atoms_from_molecule(item, indices='all'):
+def get_n_atoms_from_molecule(item, indices='all', digest=True):
 
     if indices is None:
         return 0
 
-    output = get_atom_index_from_molecule(item, indices=indices)
+    output = get_atom_index_from_molecule(item, indices=indices, digest=False)
     output = [ii.shape[0] for ii in output]
     output = np.array(output)
     return output
 
 @digest(form=form)
-def get_n_groups_from_molecule(item, indices='all'):
+def get_n_groups_from_molecule(item, indices='all', digest=True):
 
     if indices is None:
         return 0
 
-    output = get_group_index_from_molecule(item, indices=indices)
+    output = get_group_index_from_molecule(item, indices=indices, digest=False)
     output = [ii.shape[0] for ii in output]
     output = np.array(output)
     return output
 
 @digest(form=form)
-def get_n_components_from_molecule(item, indices='all'):
+def get_n_components_from_molecule(item, indices='all', digest=True):
 
     if indices is None:
         return 0
 
-    output = get_component_index_from_molecule(item, indices=indices)
+    output = get_component_index_from_molecule(item, indices=indices, digest=False)
     output = [ii.shape[0] for ii in output]
     output = np.array(output)
     return output
 
 @digest(form=form)
-def get_n_molecules_from_molecule(item, indices='all'):
+def get_n_molecules_from_molecule(item, indices='all', digest=True):
 
     if indices is None:
         return 0
 
     if is_all(indices):
-        output = get_n_molecules_from_system(item)
+        output = get_n_molecules_from_system(item, digest=False)
     else:
         output = indices.shape[0]
 
     return output
 
 @digest(form=form)
-def get_n_chains_from_molecule(item, indices='all'):
+def get_n_chains_from_molecule(item, indices='all', digest=True):
 
     if indices is None:
         return 0
 
-    output = get_chain_index_from_molecule(item, indices=indices)
+    output = get_chain_index_from_molecule(item, indices=indices, digest=False)
     output = [ii.shape[0] for ii in output]
     output = np.array(output)
     return output
 
 @digest(form=form)
-def get_n_entities_from_molecule(item, indices='all'):
+def get_n_entities_from_molecule(item, indices='all', digest=True):
 
     if indices is None:
         return 0
 
     if is_all(indices):
-        output = get_n_entities_from_system(item)
+        output = get_n_entities_from_system(item, digest=False)
     else:
-        output = get_entity_index_from_molecule(item, indices=indices)
+        output = get_entity_index_from_molecule(item, indices=indices, digest=False)
         output = np.unique(output).shape[0]
 
     return output
@@ -1814,14 +1814,14 @@ def get_n_entities_from_molecule(item, indices='all'):
 ## chain
 
 @digest(form=form)
-def get_atom_index_from_chain(item, indices='all'):
+def get_atom_index_from_chain(item, indices='all', digest=True):
 
     if indices is None:
         return None
 
-    indices_aux = get_chain_index_from_chain(item, indices=indices)
-    attribute_from_atom = get_atom_index_from_atom(item)
-    target_index_from_atom = get_chain_index_from_atom(item)
+    indices_aux = get_chain_index_from_chain(item, indices=indices, digest=False)
+    attribute_from_atom = get_atom_index_from_atom(item, digest=False)
+    target_index_from_atom = get_chain_index_from_atom(item, digest=False)
 
     output=[]
 
@@ -1839,16 +1839,16 @@ def get_atom_index_from_chain(item, indices='all'):
     return output
 
 @digest(form=form)
-def get_atom_id_from_chain(item, indices='all'):
+def get_atom_id_from_chain(item, indices='all', digest=True):
 
     if indices is None:
         return None
 
-    aux_indices = get_atom_index_from_chain(item, indices=indices)
+    aux_indices = get_atom_index_from_chain(item, indices=indices, digest=False)
 
     if len(aux_indices)>0:
         aux_unique_indices = np.unique(np.concatenate(aux_indices))
-        aux_vals = get_atom_id_from_atom(item, indices=aux_unique_indices)
+        aux_vals = get_atom_id_from_atom(item, indices=aux_unique_indices, digest=False)
         aux_dict = dict(zip(aux_unique_indices, aux_vals))
         vv = np.vectorize(aux_dict.__getitem__)
         output = np.array([vv(ii) for ii in aux_indices], dtype=object)
@@ -1861,16 +1861,16 @@ def get_atom_id_from_chain(item, indices='all'):
     return output
 
 @digest(form=form)
-def get_atom_name_from_chain(item, indices='all'):
+def get_atom_name_from_chain(item, indices='all', digest=True):
 
     if indices is None:
         return None
 
-    aux_indices = get_atom_index_from_chain(item, indices=indices)
+    aux_indices = get_atom_index_from_chain(item, indices=indices, digest=False)
 
     if len(aux_indices)>0:
         aux_unique_indices = np.unique(np.concatenate(aux_indices))
-        aux_vals = get_atom_name_from_atom(item, indices=aux_unique_indices)
+        aux_vals = get_atom_name_from_atom(item, indices=aux_unique_indices, digest=False)
         aux_dict = dict(zip(aux_unique_indices, aux_vals))
         vv = np.vectorize(aux_dict.__getitem__)
         output = np.array([vv(ii) for ii in aux_indices], dtype=object)
@@ -1883,16 +1883,16 @@ def get_atom_name_from_chain(item, indices='all'):
     return output
 
 @digest(form=form)
-def get_atom_type_from_chain(item, indices='all'):
+def get_atom_type_from_chain(item, indices='all', digest=True):
 
     if indices is None:
         return None
 
-    aux_indices = get_atom_index_from_chain(item, indices=indices)
+    aux_indices = get_atom_index_from_chain(item, indices=indices, digest=False)
 
     if len(aux_indices)>0:
         aux_unique_indices = np.unique(np.concatenate(aux_indices))
-        aux_vals = get_atom_type_from_atom(item, indices=aux_unique_indices)
+        aux_vals = get_atom_type_from_atom(item, indices=aux_unique_indices, digest=False)
         aux_dict = dict(zip(aux_unique_indices, aux_vals))
         vv = np.vectorize(aux_dict.__getitem__)
         output = np.array([vv(ii) for ii in aux_indices], dtype=object)
@@ -1905,14 +1905,14 @@ def get_atom_type_from_chain(item, indices='all'):
     return output
 
 @digest(form=form)
-def get_group_index_from_chain(item, indices='all'):
+def get_group_index_from_chain(item, indices='all', digest=True):
 
     if indices is None:
         return None
 
-    indices_aux = get_chain_index_from_chain(item, indices=indices)
-    attribute_from_atom = get_group_index_from_atom(item)
-    target_index_from_atom = get_chain_index_from_atom(item)
+    indices_aux = get_chain_index_from_chain(item, indices=indices, digest=False)
+    attribute_from_atom = get_group_index_from_atom(item, digest=False)
+    target_index_from_atom = get_chain_index_from_atom(item, digest=False)
 
     output=[]
 
@@ -1930,16 +1930,16 @@ def get_group_index_from_chain(item, indices='all'):
     return output
 
 @digest(form=form)
-def get_group_id_from_chain(item, indices='all'):
+def get_group_id_from_chain(item, indices='all', digest=True):
 
     if indices is None:
         return None
 
-    aux_indices = get_group_index_from_chain(item, indices=indices)
+    aux_indices = get_group_index_from_chain(item, indices=indices, digest=False)
 
     if len(aux_indices)>0:
         aux_unique_indices = np.unique(np.concatenate(aux_indices))
-        aux_vals = get_group_id_from_group(item, indices=aux_unique_indices)
+        aux_vals = get_group_id_from_group(item, indices=aux_unique_indices, digest=False)
         aux_dict = dict(zip(aux_unique_indices, aux_vals))
         vv = np.vectorize(aux_dict.__getitem__)
         output = np.array([vv(ii) for ii in aux_indices], dtype=object)
@@ -1952,16 +1952,16 @@ def get_group_id_from_chain(item, indices='all'):
     return output
 
 @digest(form=form)
-def get_group_name_from_chain(item, indices='all'):
+def get_group_name_from_chain(item, indices='all', digest=True):
 
     if indices is None:
         return None
 
-    aux_indices = get_group_index_from_chain(item, indices=indices)
+    aux_indices = get_group_index_from_chain(item, indices=indices, digest=False)
 
     if len(aux_indices)>0:
         aux_unique_indices = np.unique(np.concatenate(aux_indices))
-        aux_vals = get_group_name_from_group(item, indices=aux_unique_indices)
+        aux_vals = get_group_name_from_group(item, indices=aux_unique_indices, digest=False)
         aux_dict = dict(zip(aux_unique_indices, aux_vals))
         vv = np.vectorize(aux_dict.__getitem__)
         output = np.array([vv(ii) for ii in aux_indices], dtype=object)
@@ -1974,16 +1974,16 @@ def get_group_name_from_chain(item, indices='all'):
     return output
 
 @digest(form=form)
-def get_group_type_from_chain(item, indices='all'):
+def get_group_type_from_chain(item, indices='all', digest=True):
 
     if indices is None:
         return None
 
-    aux_indices = get_group_index_from_chain(item, indices=indices)
+    aux_indices = get_group_index_from_chain(item, indices=indices, digest=False)
 
     if len(aux_indices)>0:
         aux_unique_indices = np.unique(np.concatenate(aux_indices))
-        aux_vals = get_group_type_from_group(item, indices=aux_unique_indices)
+        aux_vals = get_group_type_from_group(item, indices=aux_unique_indices, digest=False)
         aux_dict = dict(zip(aux_unique_indices, aux_vals))
         vv = np.vectorize(aux_dict.__getitem__)
         output = np.array([vv(ii) for ii in aux_indices], dtype=object)
@@ -1996,14 +1996,14 @@ def get_group_type_from_chain(item, indices='all'):
     return output
 
 @digest(form=form)
-def get_component_index_from_chain(item, indices='all'):
+def get_component_index_from_chain(item, indices='all', digest=True):
 
     if indices is None:
         return None
 
-    indices_aux = get_chain_index_from_chain(item, indices=indices)
-    attribute_from_atom = get_component_index_from_atom(item)
-    target_index_from_atom = get_chain_index_from_atom(item)
+    indices_aux = get_chain_index_from_chain(item, indices=indices, digest=False)
+    attribute_from_atom = get_component_index_from_atom(item, digest=False)
+    target_index_from_atom = get_chain_index_from_atom(item, digest=False)
 
     output=[]
 
@@ -2021,16 +2021,16 @@ def get_component_index_from_chain(item, indices='all'):
     return output
 
 @digest(form=form)
-def get_component_id_from_chain(item, indices='all'):
+def get_component_id_from_chain(item, indices='all', digest=True):
 
     if indices is None:
         return None
 
-    aux_indices = get_component_index_from_chain(item, indices=indices)
+    aux_indices = get_component_index_from_chain(item, indices=indices, digest=False)
 
     if len(aux_indices)>0:
         aux_unique_indices = np.unique(np.concatenate(aux_indices))
-        aux_vals = get_component_id_from_component(item, indices=aux_unique_indices)
+        aux_vals = get_component_id_from_component(item, indices=aux_unique_indices, digest=False)
         aux_dict = dict(zip(aux_unique_indices, aux_vals))
         vv = np.vectorize(aux_dict.__getitem__)
         output = np.array([vv(ii) for ii in aux_indices], dtype=object)
@@ -2043,16 +2043,16 @@ def get_component_id_from_chain(item, indices='all'):
     return output
 
 @digest(form=form)
-def get_component_name_from_chain(item, indices='all'):
+def get_component_name_from_chain(item, indices='all', digest=True):
 
     if indices is None:
         return None
 
-    aux_indices = get_component_index_from_chain(item, indices=indices)
+    aux_indices = get_component_index_from_chain(item, indices=indices, digest=False)
 
     if len(aux_indices)>0:
         aux_unique_indices = np.unique(np.concatenate(aux_indices))
-        aux_vals = get_component_name_from_component(item, indices=aux_unique_indices)
+        aux_vals = get_component_name_from_component(item, indices=aux_unique_indices, digest=False)
         aux_dict = dict(zip(aux_unique_indices, aux_vals))
         vv = np.vectorize(aux_dict.__getitem__)
         output = np.array([vv(ii) for ii in aux_indices], dtype=object)
@@ -2065,16 +2065,16 @@ def get_component_name_from_chain(item, indices='all'):
     return output
 
 @digest(form=form)
-def get_component_type_from_chain(item, indices='all'):
+def get_component_type_from_chain(item, indices='all', digest=True):
 
     if indices is None:
         return None
 
-    aux_indices = get_component_index_from_chain(item, indices=indices)
+    aux_indices = get_component_index_from_chain(item, indices=indices, digest=False)
 
     if len(aux_indices)>0:
         aux_unique_indices = np.unique(np.concatenate(aux_indices))
-        aux_vals = get_component_type_from_component(item, indices=aux_unique_indices)
+        aux_vals = get_component_type_from_component(item, indices=aux_unique_indices, digest=False)
         aux_dict = dict(zip(aux_unique_indices, aux_vals))
         vv = np.vectorize(aux_dict.__getitem__)
         output = np.array([vv(ii) for ii in aux_indices], dtype=object)
@@ -2087,13 +2087,13 @@ def get_component_type_from_chain(item, indices='all'):
     return output
 
 @digest(form=form)
-def get_chain_index_from_chain(item, indices='all'):
+def get_chain_index_from_chain(item, indices='all', digest=True):
 
     if indices is None:
         return None
 
     if is_all(indices):
-        n_aux = get_n_chains_from_system(item)
+        n_aux = get_n_chains_from_system(item, digest=False)
         output = np.arange(n_aux, dtype=int)
     else:
         output = np.array(indices, dtype=int)
@@ -2101,14 +2101,14 @@ def get_chain_index_from_chain(item, indices='all'):
     return output
 
 @digest(form=form)
-def get_molecule_index_from_chain(item, indices='all'):
+def get_molecule_index_from_chain(item, indices='all', digest=True):
 
     if indices is None:
         return None
 
-    aux_atom_indices = get_atom_index_from_chain(item, indices=indices)
-    aux_indices = get_chain_index_from_atom(item)
-    aux_vals = get_molecule_index_from_atom(item)
+    aux_atom_indices = get_atom_index_from_chain(item, indices=indices, digest=False)
+    aux_indices = get_chain_index_from_atom(item, digest=False)
+    aux_vals = get_molecule_index_from_atom(item, digest=False)
 
     output=[]
 
@@ -2126,16 +2126,16 @@ def get_molecule_index_from_chain(item, indices='all'):
     return output
 
 @digest(form=form)
-def get_molecule_id_from_chain(item, indices='all'):
+def get_molecule_id_from_chain(item, indices='all', digest=True):
 
     if indices is None:
         return None
 
-    aux_indices = get_molecule_index_from_chain(item, indices=indices)
+    aux_indices = get_molecule_index_from_chain(item, indices=indices, digest=False)
 
     if len(aux_indices)>0:
         aux_unique_indices = np.unique(np.concatenate(aux_indices))
-        aux_vals = get_molecule_id_from_molecule(item, indices=aux_unique_indices)
+        aux_vals = get_molecule_id_from_molecule(item, indices=aux_unique_indices, digest=False)
         aux_dict = dict(zip(aux_unique_indices, aux_vals))
         vv = np.vectorize(aux_dict.__getitem__)
         output = np.array([vv(ii) for ii in aux_indices], dtype=object)
@@ -2148,16 +2148,16 @@ def get_molecule_id_from_chain(item, indices='all'):
     return output
 
 @digest(form=form)
-def get_molecule_name_from_chain(item, indices='all'):
+def get_molecule_name_from_chain(item, indices='all', digest=True):
 
     if indices is None:
         return None
 
-    aux_indices = get_molecule_index_from_chain(item, indices=indices)
+    aux_indices = get_molecule_index_from_chain(item, indices=indices, digest=False)
 
     if len(aux_indices)>0:
         aux_unique_indices = np.unique(np.concatenate(aux_indices))
-        aux_vals = get_molecule_name_from_molecule(item, indices=aux_unique_indices)
+        aux_vals = get_molecule_name_from_molecule(item, indices=aux_unique_indices, digest=False)
         aux_dict = dict(zip(aux_unique_indices, aux_vals))
         vv = np.vectorize(aux_dict.__getitem__)
         output = np.array([vv(ii) for ii in aux_indices], dtype=object)
@@ -2170,16 +2170,16 @@ def get_molecule_name_from_chain(item, indices='all'):
     return output
 
 @digest(form=form)
-def get_molecule_type_from_chain(item, indices='all'):
+def get_molecule_type_from_chain(item, indices='all', digest=True):
 
     if indices is None:
         return None
 
-    aux_indices = get_molecule_index_from_chain(item, indices=indices)
+    aux_indices = get_molecule_index_from_chain(item, indices=indices, digest=False)
 
     if len(aux_indices)>0:
         aux_unique_indices = np.unique(np.concatenate(aux_indices))
-        aux_vals = get_molecule_type_from_molecule(item, indices=aux_unique_indices)
+        aux_vals = get_molecule_type_from_molecule(item, indices=aux_unique_indices, digest=False)
         aux_dict = dict(zip(aux_unique_indices, aux_vals))
         vv = np.vectorize(aux_dict.__getitem__)
         output = np.array([vv(ii) for ii in aux_indices], dtype=object)
@@ -2192,14 +2192,14 @@ def get_molecule_type_from_chain(item, indices='all'):
     return output
 
 @digest(form=form)
-def get_entity_index_from_chain(item, indices='all'):
+def get_entity_index_from_chain(item, indices='all', digest=True):
 
     if indices is None:
         return None
 
-    aux_atom_indices = get_atom_index_from_chain(item, indices=indices)
-    aux_indices = get_chain_index_from_atom(item)
-    aux_vals = get_entity_index_from_atom(item)
+    aux_atom_indices = get_atom_index_from_chain(item, indices=indices, digest=False)
+    aux_indices = get_chain_index_from_atom(item, digest=False)
+    aux_vals = get_entity_index_from_atom(item, digest=False)
 
     output=[]
 
@@ -2217,16 +2217,16 @@ def get_entity_index_from_chain(item, indices='all'):
     return output
 
 @digest(form=form)
-def get_entity_id_from_chain(item, indices='all'):
+def get_entity_id_from_chain(item, indices='all', digest=True):
 
     if indices is None:
         return None
 
-    aux_indices = get_entity_index_from_chain(item, indices=indices)
+    aux_indices = get_entity_index_from_chain(item, indices=indices, digest=False)
 
     if len(aux_indices)>0:
         aux_unique_indices = np.unique(np.concatenate(aux_indices))
-        aux_vals = get_entity_id_from_entity(item, indices=aux_unique_indices)
+        aux_vals = get_entity_id_from_entity(item, indices=aux_unique_indices, digest=False)
         aux_dict = dict(zip(aux_unique_indices, aux_vals))
         vv = np.vectorize(aux_dict.__getitem__)
         output = np.array([vv(ii) for ii in aux_indices], dtype=object)
@@ -2239,16 +2239,16 @@ def get_entity_id_from_chain(item, indices='all'):
     return output
 
 @digest(form=form)
-def get_entity_name_from_chain(item, indices='all'):
+def get_entity_name_from_chain(item, indices='all', digest=True):
 
     if indices is None:
         return None
 
-    aux_indices = get_entity_index_from_chain(item, indices=indices)
+    aux_indices = get_entity_index_from_chain(item, indices=indices, digest=False)
 
     if len(aux_indices)>0:
         aux_unique_indices = np.unique(np.concatenate(aux_indices))
-        aux_vals = get_entity_name_from_entity(item, indices=aux_unique_indices)
+        aux_vals = get_entity_name_from_entity(item, indices=aux_unique_indices, digest=False)
         aux_dict = dict(zip(aux_unique_indices, aux_vals))
         vv = np.vectorize(aux_dict.__getitem__)
         output = np.array([vv(ii) for ii in aux_indices], dtype=object)
@@ -2261,16 +2261,16 @@ def get_entity_name_from_chain(item, indices='all'):
     return output
 
 @digest(form=form)
-def get_entity_type_from_chain(item, indices='all'):
+def get_entity_type_from_chain(item, indices='all', digest=True):
 
     if indices is None:
         return None
 
-    aux_indices = get_entity_index_from_chain(item, indices=indices)
+    aux_indices = get_entity_index_from_chain(item, indices=indices, digest=False)
 
     if len(aux_indices)>0:
         aux_unique_indices = np.unique(np.concatenate(aux_indices))
-        aux_vals = get_entity_type_from_entity(item, indices=aux_unique_indices)
+        aux_vals = get_entity_type_from_entity(item, indices=aux_unique_indices, digest=False)
         aux_dict = dict(zip(aux_unique_indices, aux_vals))
         vv = np.vectorize(aux_dict.__getitem__)
         output = np.array([vv(ii) for ii in aux_indices], dtype=object)
@@ -2283,72 +2283,72 @@ def get_entity_type_from_chain(item, indices='all'):
     return output
 
 @digest(form=form)
-def get_n_atoms_from_chain(item, indices='all'):
+def get_n_atoms_from_chain(item, indices='all', digest=True):
 
     if indices is None:
         return 0
 
-    output = get_atom_index_from_chain(item, indices=indices)
+    output = get_atom_index_from_chain(item, indices=indices, digest=False)
     output = [ii.shape[0] for ii in output]
     output = np.array(output)
     return output
 
 @digest(form=form)
-def get_n_groups_from_chain(item, indices='all'):
+def get_n_groups_from_chain(item, indices='all', digest=True):
 
     if indices is None:
         return 0
 
-    output = get_group_index_from_chain(item, indices=indices)
+    output = get_group_index_from_chain(item, indices=indices, digest=False)
     output = [ii.shape[0] for ii in output]
     output = np.array(output)
     return output
 
 @digest(form=form)
-def get_n_components_from_chain(item, indices='all'):
+def get_n_components_from_chain(item, indices='all', digest=True):
 
     if indices is None:
         return 0
 
-    output = get_component_index_from_chain(item, indices=indices)
+    output = get_component_index_from_chain(item, indices=indices, digest=False)
     output = [ii.shape[0] for ii in output]
     output = np.array(output)
     return output
 
 @digest(form=form)
-def get_n_molecules_from_chain(item, indices='all'):
+def get_n_molecules_from_chain(item, indices='all', digest=True):
 
     if indices is None:
         return 0
 
-    output = get_molecule_index_from_chain(item, indices=indices)
+    output = get_molecule_index_from_chain(item, indices=indices, digest=False)
     output = [ii.shape[0] for ii in output]
     output = np.array(output)
     return output
 
 @digest(form=form)
-def get_n_chains_from_chain(item, indices='all'):
+def get_n_chains_from_chain(item, indices='all', digest=True):
 
     if indices is None:
         return 0
 
     if is_all(indices):
-        output = get_n_chains_from_system(item)
+        output = get_n_chains_from_system(item, digest=False)
     else:
         output = indices.shape[0]
 
     return output
 
 @digest(form=form)
-def get_n_entities_from_chain(item, indices='all'):
+def get_n_entities_from_chain(item, indices='all', digest=True):
 
     if indices is None:
         return 0
 
     if is_all(indices):
-        output = get_n_entities_from_system(item)
+        output = get_n_entities_from_system(item, digest=False)
     else:
-        output = get_entity_index_from_chain(item, indices=indices)
+        output = get_entity_index_from_chain(item, indices=indices, digest=False)
         output = np.unique(output).shape[0]
 
     return output
@@ -2356,14 +2356,14 @@ def get_n_entities_from_chain(item, indices='all'):
 ## From entity
 
 @digest(form=form)
-def get_atom_index_from_entity(item, indices='all'):
+def get_atom_index_from_entity(item, indices='all', digest=True):
 
     if indices is None:
         return None
 
-    indices_aux = get_entity_index_from_entity(item, indices=indices)
-    attribute_from_atom = get_atom_index_from_atom(item)
-    target_index_from_atom = get_entity_index_from_atom(item)
+    indices_aux = get_entity_index_from_entity(item, indices=indices, digest=False)
+    attribute_from_atom = get_atom_index_from_atom(item, digest=False)
+    target_index_from_atom = get_entity_index_from_atom(item, digest=False)
 
     output=[]
 
@@ -2381,16 +2381,16 @@ def get_atom_index_from_entity(item, indices='all'):
     return output
 
 @digest(form=form)
-def get_atom_id_from_entity(item, indices='all'):
+def get_atom_id_from_entity(item, indices='all', digest=True):
 
     if indices is None:
         return None
 
-    aux_indices = get_atom_index_from_entity(item, indices=indices)
+    aux_indices = get_atom_index_from_entity(item, indices=indices, digest=False)
 
     if len(aux_indices)>0:
         aux_unique_indices = np.unique(np.concatenate(aux_indices))
-        aux_vals = get_atom_id_from_atom(item, indices=aux_unique_indices)
+        aux_vals = get_atom_id_from_atom(item, indices=aux_unique_indices, digest=False)
         aux_dict = dict(zip(aux_unique_indices, aux_vals))
         vv = np.vectorize(aux_dict.__getitem__)
         output = np.array([vv(ii) for ii in aux_indices], dtype=object)
@@ -2403,16 +2403,16 @@ def get_atom_id_from_entity(item, indices='all'):
     return output
 
 @digest(form=form)
-def get_atom_name_from_entity(item, indices='all'):
+def get_atom_name_from_entity(item, indices='all', digest=True):
 
     if indices is None:
         return None
 
-    aux_indices = get_atom_index_from_entity(item, indices=indices)
+    aux_indices = get_atom_index_from_entity(item, indices=indices, digest=False)
 
     if len(aux_indices)>0:
         aux_unique_indices = np.unique(np.concatenate(aux_indices))
-        aux_vals = get_atom_name_from_atom(item, indices=aux_unique_indices)
+        aux_vals = get_atom_name_from_atom(item, indices=aux_unique_indices, digest=False)
         aux_dict = dict(zip(aux_unique_indices, aux_vals))
         vv = np.vectorize(aux_dict.__getitem__)
         output = np.array([vv(ii) for ii in aux_indices], dtype=object)
@@ -2425,16 +2425,16 @@ def get_atom_name_from_entity(item, indices='all'):
     return output
 
 @digest(form=form)
-def get_atom_type_from_entity(item, indices='all'):
+def get_atom_type_from_entity(item, indices='all', digest=True):
 
     if indices is None:
         return None
 
-    aux_indices = get_atom_index_from_entity(item, indices=indices)
+    aux_indices = get_atom_index_from_entity(item, indices=indices, digest=False)
 
     if len(aux_indices)>0:
         aux_unique_indices = np.unique(np.concatenate(aux_indices))
-        aux_vals = get_atom_type_from_atom(item, indices=aux_unique_indices)
+        aux_vals = get_atom_type_from_atom(item, indices=aux_unique_indices, digest=False)
         aux_dict = dict(zip(aux_unique_indices, aux_vals))
         vv = np.vectorize(aux_dict.__getitem__)
         output = np.array([vv(ii) for ii in aux_indices], dtype=object)
@@ -2447,14 +2447,14 @@ def get_atom_type_from_entity(item, indices='all'):
     return output
 
 @digest(form=form)
-def get_group_index_from_entity(item, indices='all'):
+def get_group_index_from_entity(item, indices='all', digest=True):
 
     if indices is None:
         return None
 
-    indices_aux = get_entity_index_from_entity(item, indices=indices)
-    attribute_from_atom = get_group_index_from_atom(item)
-    target_index_from_atom = get_entity_index_from_atom(item)
+    indices_aux = get_entity_index_from_entity(item, indices=indices, digest=False)
+    attribute_from_atom = get_group_index_from_atom(item, digest=False)
+    target_index_from_atom = get_entity_index_from_atom(item, digest=False)
 
     output=[]
 
@@ -2472,16 +2472,16 @@ def get_group_index_from_entity(item, indices='all'):
     return output
 
 @digest(form=form)
-def get_group_id_from_entity(item, indices='all'):
+def get_group_id_from_entity(item, indices='all', digest=True):
 
     if indices is None:
         return None
 
-    aux_indices = get_group_index_from_entity(item, indices=indices)
+    aux_indices = get_group_index_from_entity(item, indices=indices, digest=False)
 
     if len(aux_indices)>0:
         aux_unique_indices = np.unique(np.concatenate(aux_indices))
-        aux_vals = get_group_id_from_group(item, indices=aux_unique_indices)
+        aux_vals = get_group_id_from_group(item, indices=aux_unique_indices, digest=False)
         aux_dict = dict(zip(aux_unique_indices, aux_vals))
         vv = np.vectorize(aux_dict.__getitem__)
         output = np.array([vv(ii) for ii in aux_indices], dtype=object)
@@ -2494,16 +2494,16 @@ def get_group_id_from_entity(item, indices='all'):
     return output
 
 @digest(form=form)
-def get_group_name_from_entity(item, indices='all'):
+def get_group_name_from_entity(item, indices='all', digest=True):
 
     if indices is None:
         return None
 
-    aux_indices = get_group_index_from_entity(item, indices=indices)
+    aux_indices = get_group_index_from_entity(item, indices=indices, digest=False)
 
     if len(aux_indices)>0:
         aux_unique_indices = np.unique(np.concatenate(aux_indices))
-        aux_vals = get_group_name_from_group(item, indices=aux_unique_indices)
+        aux_vals = get_group_name_from_group(item, indices=aux_unique_indices, digest=False)
         aux_dict = dict(zip(aux_unique_indices, aux_vals))
         vv = np.vectorize(aux_dict.__getitem__)
         output = np.array([vv(ii) for ii in aux_indices], dtype=object)
@@ -2516,16 +2516,16 @@ def get_group_name_from_entity(item, indices='all'):
     return output
 
 @digest(form=form)
-def get_group_type_from_entity(item, indices='all'):
+def get_group_type_from_entity(item, indices='all', digest=True):
 
     if indices is None:
         return None
 
-    aux_indices = get_group_index_from_entity(item, indices=indices)
+    aux_indices = get_group_index_from_entity(item, indices=indices, digest=False)
 
     if len(aux_indices)>0:
         aux_unique_indices = np.unique(np.concatenate(aux_indices))
-        aux_vals = get_group_type_from_group(item, indices=aux_unique_indices)
+        aux_vals = get_group_type_from_group(item, indices=aux_unique_indices, digest=False)
         aux_dict = dict(zip(aux_unique_indices, aux_vals))
         vv = np.vectorize(aux_dict.__getitem__)
         output = np.array([vv(ii) for ii in aux_indices], dtype=object)
@@ -2538,14 +2538,14 @@ def get_group_type_from_entity(item, indices='all'):
     return output
 
 @digest(form=form)
-def get_component_index_from_entity(item, indices='all'):
+def get_component_index_from_entity(item, indices='all', digest=True):
 
     if indices is None:
         return None
 
-    indices_aux = get_entity_index_from_entity(item, indices=indices)
-    attribute_from_atom = get_component_index_from_atom(item)
-    target_index_from_atom = get_entity_index_from_atom(item)
+    indices_aux = get_entity_index_from_entity(item, indices=indices, digest=False)
+    attribute_from_atom = get_component_index_from_atom(item, digest=False)
+    target_index_from_atom = get_entity_index_from_atom(item, digest=False)
 
     output=[]
 
@@ -2563,16 +2563,16 @@ def get_component_index_from_entity(item, indices='all'):
     return output
 
 @digest(form=form)
-def get_component_id_from_entity(item, indices='all'):
+def get_component_id_from_entity(item, indices='all', digest=True):
 
     if indices is None:
         return None
 
-    aux_indices = get_component_index_from_entity(item, indices=indices)
+    aux_indices = get_component_index_from_entity(item, indices=indices, digest=False)
 
     if len(aux_indices)>0:
         aux_unique_indices = np.unique(np.concatenate(aux_indices))
-        aux_vals = get_component_id_from_component(item, indices=aux_unique_indices)
+        aux_vals = get_component_id_from_component(item, indices=aux_unique_indices, digest=False)
         aux_dict = dict(zip(aux_unique_indices, aux_vals))
         vv = np.vectorize(aux_dict.__getitem__)
         output = np.array([vv(ii) for ii in aux_indices], dtype=object)
@@ -2585,16 +2585,16 @@ def get_component_id_from_entity(item, indices='all'):
     return output
 
 @digest(form=form)
-def get_component_name_from_entity(item, indices='all'):
+def get_component_name_from_entity(item, indices='all', digest=True):
 
     if indices is None:
         return None
 
-    aux_indices = get_component_index_from_entity(item, indices=indices)
+    aux_indices = get_component_index_from_entity(item, indices=indices, digest=False)
 
     if len(aux_indices)>0:
         aux_unique_indices = np.unique(np.concatenate(aux_indices))
-        aux_vals = get_component_name_from_component(item, indices=aux_unique_indices)
+        aux_vals = get_component_name_from_component(item, indices=aux_unique_indices, digest=False)
         aux_dict = dict(zip(aux_unique_indices, aux_vals))
         vv = np.vectorize(aux_dict.__getitem__)
         output = np.array([vv(ii) for ii in aux_indices], dtype=object)
@@ -2607,16 +2607,16 @@ def get_component_name_from_entity(item, indices='all'):
     return output
 
 @digest(form=form)
-def get_component_type_from_entity(item, indices='all'):
+def get_component_type_from_entity(item, indices='all', digest=True):
 
     if indices is None:
         return None
 
-    aux_indices = get_component_index_from_entity(item, indices=indices)
+    aux_indices = get_component_index_from_entity(item, indices=indices, digest=False)
 
     if len(aux_indices)>0:
         aux_unique_indices = np.unique(np.concatenate(aux_indices))
-        aux_vals = get_component_type_from_component(item, indices=aux_unique_indices)
+        aux_vals = get_component_type_from_component(item, indices=aux_unique_indices, digest=False)
         aux_dict = dict(zip(aux_unique_indices, aux_vals))
         vv = np.vectorize(aux_dict.__getitem__)
         output = np.array([vv(ii) for ii in aux_indices], dtype=object)
@@ -2629,14 +2629,14 @@ def get_component_type_from_entity(item, indices='all'):
     return output
 
 @digest(form=form)
-def get_chain_index_from_entity(item, indices='all'):
+def get_chain_index_from_entity(item, indices='all', digest=True):
 
     if indices is None:
         return None
 
-    aux_atom_indices = get_atom_index_from_entity(item, indices=indices)
-    aux_indices = get_entity_index_from_atom(item)
-    aux_vals = get_chain_index_from_atom(item)
+    aux_atom_indices = get_atom_index_from_entity(item, indices=indices, digest=False)
+    aux_indices = get_entity_index_from_atom(item, digest=False)
+    aux_vals = get_chain_index_from_atom(item, digest=False)
 
     output=[]
 
@@ -2654,16 +2654,16 @@ def get_chain_index_from_entity(item, indices='all'):
     return output
 
 @digest(form=form)
-def get_chain_id_from_entity(item, indices='all'):
+def get_chain_id_from_entity(item, indices='all', digest=True):
 
     if indices is None:
         return None
 
-    aux_indices = get_chain_index_from_entity(item, indices=indices)
+    aux_indices = get_chain_index_from_entity(item, indices=indices, digest=False)
 
     if len(aux_indices)>0:
         aux_unique_indices = np.unique(np.concatenate(aux_indices))
-        aux_vals = get_chain_id_from_chain(item, indices=aux_unique_indices)
+        aux_vals = get_chain_id_from_chain(item, indices=aux_unique_indices, digest=False)
         aux_dict = dict(zip(aux_unique_indices, aux_vals))
         vv = np.vectorize(aux_dict.__getitem__)
         output = np.array([vv(ii) for ii in aux_indices], dtype=object)
@@ -2676,16 +2676,16 @@ def get_chain_id_from_entity(item, indices='all'):
     return output
 
 @digest(form=form)
-def get_chain_name_from_entity(item, indices='all'):
+def get_chain_name_from_entity(item, indices='all', digest=True):
 
     if indices is None:
         return None
 
-    aux_indices = get_chain_index_from_entity(item, indices=indices)
+    aux_indices = get_chain_index_from_entity(item, indices=indices, digest=False)
 
     if len(aux_indices)>0:
         aux_unique_indices = np.unique(np.concatenate(aux_indices))
-        aux_vals = get_chain_name_from_chain(item, indices=aux_unique_indices)
+        aux_vals = get_chain_name_from_chain(item, indices=aux_unique_indices, digest=False)
         aux_dict = dict(zip(aux_unique_indices, aux_vals))
         vv = np.vectorize(aux_dict.__getitem__)
         output = np.array([vv(ii) for ii in aux_indices], dtype=object)
@@ -2698,16 +2698,16 @@ def get_chain_name_from_entity(item, indices='all'):
     return output
 
 @digest(form=form)
-def get_chain_type_from_entity(item, indices='all'):
+def get_chain_type_from_entity(item, indices='all', digest=True):
 
     if indices is None:
         return None
 
-    aux_indices = get_chain_index_from_entity(item, indices=indices)
+    aux_indices = get_chain_index_from_entity(item, indices=indices, digest=False)
 
     if len(aux_indices)>0:
         aux_unique_indices = np.unique(np.concatenate(aux_indices))
-        aux_vals = get_chain_type_from_chain(item, indices=aux_unique_indices)
+        aux_vals = get_chain_type_from_chain(item, indices=aux_unique_indices, digest=False)
         aux_dict = dict(zip(aux_unique_indices, aux_vals))
         vv = np.vectorize(aux_dict.__getitem__)
         output = np.array([vv(ii) for ii in aux_indices], dtype=object)
@@ -2720,14 +2720,14 @@ def get_chain_type_from_entity(item, indices='all'):
     return output
 
 @digest(form=form)
-def get_molecule_index_from_entity(item, indices='all'):
+def get_molecule_index_from_entity(item, indices='all', digest=True):
 
     if indices is None:
         return None
 
-    indices_aux = get_entity_index_from_entity(item, indices=indices)
-    attribute_from_atom = get_molecule_index_from_atom(item)
-    target_index_from_atom = get_entity_index_from_atom(item)
+    indices_aux = get_entity_index_from_entity(item, indices=indices, digest=False)
+    attribute_from_atom = get_molecule_index_from_atom(item, digest=False)
+    target_index_from_atom = get_entity_index_from_atom(item, digest=False)
 
     output=[]
 
@@ -2745,16 +2745,16 @@ def get_molecule_index_from_entity(item, indices='all'):
     return output
 
 @digest(form=form)
-def get_molecule_id_from_entity(item, indices='all'):
+def get_molecule_id_from_entity(item, indices='all', digest=True):
 
     if indices is None:
         return None
 
-    aux_indices = get_molecule_index_from_entity(item, indices=indices)
+    aux_indices = get_molecule_index_from_entity(item, indices=indices, digest=False)
 
     if len(aux_indices)>0:
         aux_unique_indices = np.unique(np.concatenate(aux_indices))
-        aux_vals = get_molecule_id_from_molecule(item, indices=aux_unique_indices)
+        aux_vals = get_molecule_id_from_molecule(item, indices=aux_unique_indices, digest=False)
         aux_dict = dict(zip(aux_unique_indices, aux_vals))
         vv = np.vectorize(aux_dict.__getitem__)
         output = np.array([vv(ii) for ii in aux_indices], dtype=object)
@@ -2767,16 +2767,16 @@ def get_molecule_id_from_entity(item, indices='all'):
     return output
 
 @digest(form=form)
-def get_molecule_name_from_entity(item, indices='all'):
+def get_molecule_name_from_entity(item, indices='all', digest=True):
 
     if indices is None:
         return None
 
-    aux_indices = get_molecule_index_from_entity(item, indices=indices)
+    aux_indices = get_molecule_index_from_entity(item, indices=indices, digest=False)
 
     if len(aux_indices)>0:
         aux_unique_indices = np.unique(np.concatenate(aux_indices))
-        aux_vals = get_molecule_name_from_molecule(item, indices=aux_unique_indices)
+        aux_vals = get_molecule_name_from_molecule(item, indices=aux_unique_indices, digest=False)
         aux_dict = dict(zip(aux_unique_indices, aux_vals))
         vv = np.vectorize(aux_dict.__getitem__)
         output = np.array([vv(ii) for ii in aux_indices], dtype=object)
@@ -2789,16 +2789,16 @@ def get_molecule_name_from_entity(item, indices='all'):
     return output
 
 @digest(form=form)
-def get_molecule_type_from_entity(item, indices='all'):
+def get_molecule_type_from_entity(item, indices='all', digest=True):
 
     if indices is None:
         return None
 
-    aux_indices = get_molecule_index_from_entity(item, indices=indices)
+    aux_indices = get_molecule_index_from_entity(item, indices=indices, digest=False)
 
     if len(aux_indices)>0:
         aux_unique_indices = np.unique(np.concatenate(aux_indices))
-        aux_vals = get_molecule_type_from_molecule(item, indices=aux_unique_indices)
+        aux_vals = get_molecule_type_from_molecule(item, indices=aux_unique_indices, digest=False)
         aux_dict = dict(zip(aux_unique_indices, aux_vals))
         vv = np.vectorize(aux_dict.__getitem__)
         output = np.array([vv(ii) for ii in aux_indices], dtype=object)
@@ -2811,13 +2811,13 @@ def get_molecule_type_from_entity(item, indices='all'):
     return output
 
 @digest(form=form)
-def get_entity_index_from_entity(item, indices='all'):
+def get_entity_index_from_entity(item, indices='all', digest=True):
 
     if indices is None:
         return None
 
     if is_all(indices):
-        n_aux = get_n_entities_from_system(item)
+        n_aux = get_n_entities_from_system(item, digest=False)
         output = np.arange(n_aux, dtype=int)
     else:
         output = np.array(indices, dtype=int)
@@ -2825,68 +2825,68 @@ def get_entity_index_from_entity(item, indices='all'):
     return output
 
 @digest(form=form)
-def get_n_atoms_from_entity(item, indices='all'):
+def get_n_atoms_from_entity(item, indices='all', digest=True):
 
     if indices is None:
         return 0
 
-    output = get_atom_index_from_entity(item, indices=indices)
+    output = get_atom_index_from_entity(item, indices=indices, digest=False)
     output = [ii.shape[0] for ii in output]
     output = np.array(output)
     return output
 
 @digest(form=form)
-def get_n_groups_from_entity(item, indices='all'):
+def get_n_groups_from_entity(item, indices='all', digest=True):
 
     if indices is None:
         return 0
 
-    output = get_group_index_from_entity(item, indices=indices)
+    output = get_group_index_from_entity(item, indices=indices, digest=False)
     output = [ii.shape[0] for ii in output]
     output = np.array(output)
     return output
 
 @digest(form=form)
-def get_n_components_from_entity(item, indices='all'):
+def get_n_components_from_entity(item, indices='all', digest=True):
 
     if indices is None:
         return 0
 
-    output = get_component_index_from_entity(item, indices=indices)
+    output = get_component_index_from_entity(item, indices=indices, digest=False)
     output = [ii.shape[0] for ii in output]
     output = np.array(output)
     return output
 
 @digest(form=form)
-def get_n_molecules_from_entity(item, indices='all'):
+def get_n_molecules_from_entity(item, indices='all', digest=True):
 
     if indices is None:
         return 0
 
-    output = get_molecule_index_from_entity(item, indices=indices)
+    output = get_molecule_index_from_entity(item, indices=indices, digest=False)
     output = [ii.shape[0] for ii in output]
     output = np.array(output)
     return output
 
 @digest(form=form)
-def get_n_chains_from_entity(item, indices='all'):
+def get_n_chains_from_entity(item, indices='all', digest=True):
 
     if indices is None:
         return 0
 
-    output = get_chain_index_from_entity(item, indices=indices)
+    output = get_chain_index_from_entity(item, indices=indices, digest=False)
     output = [ii.shape[0] for ii in output]
     output = np.array(output)
     return output
 
 @digest(form=form)
-def get_n_entities_from_entity(item, indices='all'):
+def get_n_entities_from_entity(item, indices='all', digest=True):
 
     if indices is None:
         return 0
 
     if is_all(indices):
-        output = get_n_entities_from_system(item)
+        output = get_n_entities_from_system(item, digest=False)
     else:
         output = indices.shape[0]
 
@@ -2895,164 +2895,164 @@ def get_n_entities_from_entity(item, indices='all'):
 ## system
 
 @digest(form=form)
-def get_n_aminoacids_from_system(item):
+def get_n_aminoacids_from_system(item, digest=True):
 
-    group_types = get_group_type_from_group(item)
+    group_types = get_group_type_from_group(item, digest=False)
     return (group_types=='aminoacid').sum()
 
 @digest(form=form)
-def get_n_nucleotides_from_system(item):
+def get_n_nucleotides_from_system(item, digest=True):
 
-    group_types = get_group_type_from_group(item)
+    group_types = get_group_type_from_group(item, digest=False)
     return (group_types=='nucleotide').sum()
 
 @digest(form=form)
-def get_n_ions_from_system(item):
+def get_n_ions_from_system(item, digest=True):
 
-    molecule_types = get_group_type_from_group(item)
+    molecule_types = get_group_type_from_group(item, digest=False)
     return (molecule_types=='ion').sum()
 
 @digest(form=form)
-def get_n_waters_from_system(item):
+def get_n_waters_from_system(item, digest=True):
 
-    molecule_types = get_group_type_from_group(item)
+    molecule_types = get_group_type_from_group(item, digest=False)
     return (molecule_types=='water').sum()
 
 @digest(form=form)
-def get_n_small_molecules_from_system(item):
+def get_n_small_molecules_from_system(item, digest=True):
 
-    molecule_types = get_group_type_from_group(item)
+    molecule_types = get_group_type_from_group(item, digest=False)
     return (molecule_types=='small molecule').sum()
 
 @digest(form=form)
-def get_n_peptides_from_system(item):
+def get_n_peptides_from_system(item, digest=True):
 
-    molecule_types = get_molecule_type_from_molecule(item)
+    molecule_types = get_molecule_type_from_molecule(item, digest=False)
     return (molecule_types=='peptide').sum()
 
 @digest(form=form)
-def get_n_proteins_from_system(item):
+def get_n_proteins_from_system(item, digest=True):
 
-    molecule_types = get_molecule_type_from_molecule(item)
+    molecule_types = get_molecule_type_from_molecule(item, digest=False)
     return (molecule_types=='protein').sum()
 
 @digest(form=form)
-def get_n_dnas_from_system(item):
+def get_n_dnas_from_system(item, digest=True):
 
-    molecule_types = get_molecule_type_from_molecule(item)
+    molecule_types = get_molecule_type_from_molecule(item, digest=False)
     return (molecule_types=='dna').sum()
 
 @digest(form=form)
-def get_n_rnas_from_system(item):
+def get_n_rnas_from_system(item, digest=True):
 
-    molecule_types = get_molecule_type_from_molecule(item)
+    molecule_types = get_molecule_type_from_molecule(item, digest=False)
     return (molecule_types=='rna').sum()
 
 @digest(form=form)
-def get_n_lipids_from_system(item):
+def get_n_lipids_from_system(item, digest=True):
 
-    molecule_types = get_molecule_type_from_molecule(item)
+    molecule_types = get_molecule_type_from_molecule(item, digest=False)
     return (molecule_types=='lipid').sum()
 
 @digest(form=form)
-def get_n_oligosaccharides_from_system(item):
+def get_n_oligosaccharides_from_system(item, digest=True):
 
-    molecule_types = get_molecule_type_from_molecule(item)
+    molecule_types = get_molecule_type_from_molecule(item, digest=False)
     return (molecule_types=='oligosaccharide').sum()
 
 @digest(form=form)
-def get_coordinates_from_system(item, structure_indices='all'):
+def get_coordinates_from_system(item, structure_indices='all', digest=True):
 
     if strucure_indices is None:
         return None
 
-    return get_coordinates_from_atom(item, structure_indices=structure_indices)
+    return get_coordinates_from_atom(item, structure_indices=structure_indices, digest=False)
 
 @digest(form=form)
-def get_box_shape_from_system(item, structure_indices='all'):
+def get_box_shape_from_system(item, structure_indices='all', digest=True):
 
     if strucure_indices is None:
         return None
 
     from molsysmt.pbc import box_shape_from_box
 
-    tmp_box = get_box_from_system(item, structure_indices=structure_indices)
-    output = box_shape_from_box(tmp_box)
+    tmp_box = get_box_from_system(item, structure_indices=structure_indices, digest=False)
+    output = box_shape_from_box(tmp_box, digest=False)
 
     return output
 
 @digest(form=form)
-def get_box_lengths_from_system(item, structure_indices='all'):
+def get_box_lengths_from_system(item, structure_indices='all', digest=True):
 
     if strucure_indices is None:
         return None
 
     from molsysmt.pbc import box_lengths_from_box
 
-    tmp_box = get_box_from_system(item, structure_indices=structure_indices)
-    output = box_lengths_from_box(tmp_box)
+    tmp_box = get_box_from_system(item, structure_indices=structure_indices, digest=False)
+    output = box_lengths_from_box(tmp_box, digest=False)
 
     return output
 
 @digest(form=form)
-def get_box_angles_from_system(item, structure_indices='all'):
+def get_box_angles_from_system(item, structure_indices='all', digest=True):
 
     if strucure_indices is None:
         return None
 
     from molsysmt.pbc import box_angles_from_box
 
-    tmp_box = get_box_from_system(item, structure_indices=structure_indices)
-    output = box_angles_from_box(tmp_box)
+    tmp_box = get_box_from_system(item, structure_indices=structure_indices, digest=False)
+    output = box_angles_from_box(tmp_box, digest=False)
 
     return output
 
 @digest(form=form)
-def get_box_volume_from_system(item, structure_indices='all'):
+def get_box_volume_from_system(item, structure_indices='all', digest=True):
 
     if strucure_indices is None:
         return None
 
     from molsysmt.pbc import box_volume_from_box
 
-    tmp_box = get_box_from_system(item, structure_indices=structure_indices)
+    tmp_box = get_box_from_system(item, structure_indices=structure_indices, digest=False)
     if tmp_box is None:
         output=None
     else:
-        output = box_volume_from_box(tmp_box)
+        output = box_volume_from_box(tmp_box, digest=False)
 
     return output
 
 @digest(form=form)
-def get_bonded_atoms_from_system(item):
+def get_bonded_atoms_from_system(item, digest=True):
 
-    return get_bonded_atoms_from_atom(item)
-
-@digest(form=form)
-def get_bond_index_from_system(item):
-
-    return get_bond_index_from_atom(item)
+    return get_bonded_atoms_from_atom(item, digest=False)
 
 @digest(form=form)
-def get_inner_bonded_atoms_from_system(item):
+def get_bond_index_from_system(item, digest=True):
 
-    return get_inner_bonded_atoms_from_atom(item)
+    return get_bond_index_from_atom(item, digest=False)
 
 @digest(form=form)
-def get_inner_bond_index_from_system(item):
+def get_inner_bonded_atoms_from_system(item, digest=True):
 
-    return get_inner_bond_index_from_atom(item)
+    return get_inner_bonded_atoms_from_atom(item, digest=False)
+
+@digest(form=form)
+def get_inner_bond_index_from_system(item, digest=True):
+
+    return get_inner_bond_index_from_atom(item, digest=False)
 
 ## bond
 
 @digest(form=form)
-def get_bond_index_from_bond(item, indices='all'):
+def get_bond_index_from_bond(item, indices='all', digest=True):
 
     if indices is None:
         return None
 
     if is_all(indices):
-        n_aux = get_n_bonds_from_system(item)
+        n_aux = get_n_bonds_from_system(item, digest=False)
         output = np.arange(n_aux, dtype=int)
     else:
         output = np.array(indices, dtype=int)
@@ -3060,13 +3060,13 @@ def get_bond_index_from_bond(item, indices='all'):
     return output
 
 @digest(form=form)
-def get_n_bonds_from_bond(item, indices='all'):
+def get_n_bonds_from_bond(item, indices='all', digest=True):
 
     if indices is None:
         return 0
 
     if is_all(indices):
-        output = get_n_bonds_from_system(item)
+        output = get_n_bonds_from_system(item, digest=False)
     else:
         output = indices.shape[0]
 

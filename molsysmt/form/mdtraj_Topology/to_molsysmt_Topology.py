@@ -31,7 +31,7 @@ def to_molsysmt_Topology(item, atom_indices='all', digest=True):
 
     group_type_array = np.empty(n_atoms, dtype=object)
 
-    tmp_item.atoms_dataframe["group_type"] = list(map(get_group_type_from_group_name, tmp_item.atoms_dataframe["group_name"], digest=False))
+    tmp_item.atoms_dataframe["group_type"] = [get_group_type_from_group_name(ii, digest=False) for ii in tmp_item.atoms_dataframe["group_name"]]
 
 
     group_index_array = np.empty(n_atoms, dtype=int)

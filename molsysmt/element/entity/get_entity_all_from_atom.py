@@ -2,14 +2,14 @@ from molsysmt._private.digestion import digest
 import numpy as np
 
 @digest()
-def get_entity_all_from_atom(molecular_system):
+def get_entity_all_from_atom(molecular_system, digest=True):
 
     from molsysmt import get
     from numpy import empty, full
 
     entities = {}
     n_entities = 0
-    n_atoms = get(molecular_system, element='system', n_atoms=True)
+    n_atoms = get(molecular_system, element='system', n_atoms=True, digest=False)
 
     n_peptides = 0
     n_proteins = 0
@@ -18,8 +18,8 @@ def get_entity_all_from_atom(molecular_system):
     name_array = np.full(n_atoms, None, dtype=object)
     type_array = np.full(n_atoms, None, dtype=object)
 
-    molecule_index, molecule_type = get(molecular_system, element='molecule', molecule_index=True, molecule_type=True)
-    atom_indices_in_molecule = get(molecular_system, element='molecule', atom_index=True)
+    molecule_index, molecule_type = get(molecular_system, element='molecule', molecule_index=True, molecule_type=True, digest=False)
+    atom_indices_in_molecule = get(molecular_system, element='molecule', atom_index=True, digest=False)
 
 
     for m_index, m_type, m_atoms in zip(molecule_index, molecule_type, atom_indices_in_molecule):
@@ -38,7 +38,7 @@ def get_entity_all_from_atom(molecular_system):
                     index=n_entities
                     n_entities+=1
             elif m_type == 'ion':
-                group_name = get(molecular_system, element='atom', indices=m_atoms, group_name=True)[0]
+                group_name = get(molecular_system, element='atom', indices=m_atoms, group_name=True, digest=False)[0]
                 name = group_name
                 type = 'ion'
                 try:
@@ -68,7 +68,7 @@ def get_entity_all_from_atom(molecular_system):
                     index=n_entities
                     n_entities+=1
             elif m_type == 'lipid':
-                group_name = get(molecular_system, element='atom', indices=m_atoms[0], group_name=True)[0]
+                group_name = get(molecular_system, element='atom', indices=m_atoms[0], group_name=True, digest=False)[0]
                 name = group_name
                 type = 'lipid'
                 try:
@@ -78,7 +78,7 @@ def get_entity_all_from_atom(molecular_system):
                     index=n_entities
                     n_entities+=1
             elif m_type == 'small molecule':
-                group_name = get(molecular_system, element='atom', indices=m_atoms[0], group_name=True)[0]
+                group_name = get(molecular_system, element='atom', indices=m_atoms[0], group_name=True, digest=False)[0]
                 name = group_name
                 type = 'small molecule'
                 try:

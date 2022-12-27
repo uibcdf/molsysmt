@@ -9,7 +9,7 @@ from .lipid import is_lipid
 from .saccharide import is_saccharide
 
 @digest()
-def get_group_type_from_group_name(group_name):
+def get_group_type_from_group_name(group_name, digest=True):
 
     output = None
 

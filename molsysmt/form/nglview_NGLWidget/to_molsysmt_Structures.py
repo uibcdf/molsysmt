@@ -1,6 +1,6 @@
 from molsysmt._private.digestion import digest
 
-@digest('nglview.NGLWidget')
+@digest(form='nglview.NGLWidget')
 def to_molsysmt_Structures(item, atom_indices='all', structure_indices='all', digest=True):
 
     from molsysmt.native.structures import Structures
