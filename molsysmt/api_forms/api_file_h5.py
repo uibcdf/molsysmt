@@ -59,13 +59,12 @@ def to_mdtraj_Topology(item, molecular_system, atom_indices='all', structure_ind
 
     return tmp_item
 
-def to_mdtraj_HDF5TrajectoryFile(item, molecular_system, atom_indices='all', structure_indices='all', mode='auto'):
+def to_mdtraj_HDF5TrajectoryFile(item, molecular_system, atom_indices='all', structure_indices='all'):
 
     from molsysmt.form.file_h5 import to_mdtraj_HDF5TrajectoryFile as file_h5_to_mdtraj_HDF5TrajectoryFile
 
     tmp_item = file_h5_to_mdtraj_HDF5TrajectoryFile(item, atom_indices=atom_indices,
-                                                    structure_indices=structure_indices,
-                                                    mode=mode)
+                                                    structure_indices=structure_indices)
 
     return tmp_item
 

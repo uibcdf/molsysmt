@@ -1,22 +1,15 @@
 import os
+from molsysmt._private.digestion import digest
 
-def _close_mdtraj_HDF5TrajectoryFile(item):
-    item.close()
-    pass
-
-
-_close={}
-_close['mdtraj.HDF5TrajectoryFile']=_close_mdtraj_HDF5TrajectoryFile
-
+@digest()
 def close(filename):
 
     absolute_path = os.path.abspath(filename)
 
-    from molsysmt.file import handler
+    from molsysmt.file import files_handled
 
-    file_handler = handler.pop(absolute_path)
-
-    _close[file_handler.handler_form](file_handler.handler)
+    file_handler = files_handled.pop(absolute_path)
+    file_handler.close()
 
     del file_handler
 
