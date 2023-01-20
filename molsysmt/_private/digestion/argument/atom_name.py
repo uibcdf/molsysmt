@@ -1,6 +1,12 @@
 from ...exceptions import ArgumentError
 from ...variables import is_all
 
+functions_with_boolean = (
+        'molsysmt.basic.get.get',
+        'molsysmt.basic.iterator.__init__',
+        'iterators.__init__',
+        )
+
 def digest_atom_name(atom_name, caller=None):
     """Checks if `atom_name` has the expected type and value.
 
@@ -25,7 +31,7 @@ def digest_atom_name(atom_name, caller=None):
         If the given `atom_name` has not of the correct type or value.
     """
 
-    if caller=='molsysmt.basic.get.get':
+    if caller.endswith(functions_with_boolean):
         if isinstance(atom_name, bool):
             return atom_name
     elif isinstance(atom_name, str):
