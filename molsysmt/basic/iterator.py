@@ -7,6 +7,7 @@ class Iterator():
     @digest()
     def __init__(self,
                  molecular_system,
+                 element = 'atom',
                  selection = 'all',
                  start = 0,
                  stop = None,
@@ -20,17 +21,22 @@ class Iterator():
                  ):
 
         from . import select, get_form, where_is_attribute, convert
+        from molsysmt.attribute import is_structural_attribute
         from molsysmt.api_forms import dict_structures_iterator, dict_topology_iterator
 
         self.molecular_system = molecular_system
-        self.atom_indices = select(molecular_system, selection=selection, syntax=syntax)
+        self.element = element
+        self.indices = select(molecular_system, element=element, selection=selection, syntax=syntax)
+        self.structure_indices = structure_indices
         self.start = start
         self.stop = stop
         self.step = step
         self.chunk = chunk
-        self.structure_indices = structure_indices
+        self.iterator_index = 0
 
         self.arguments = []
+
+        self._iterators = []
         self._output_dictionary = {}
         self._output_type = output_type
         self._output_form= output_form
@@ -44,10 +50,6 @@ class Iterator():
             self.arguments = ['structure_id', 'time', 'coordinates', 'box']
             self._output_molecular_system = convert(self.molecular_system, selection=self.atom_indices,
                     structure_indices=None, to_form=self._output_form)
-            
-        self.structure_index = 0
-
-        self._iterators = []
         self._output_dictionary = {ii:None for ii in self.arguments}
 
         aux_items_forms = {}
@@ -61,14 +63,22 @@ class Iterator():
                 aux_items_forms[item]=form
                 aux_items_arguments[item]=[argument]
 
+        runs_in_structures = False
+        if all([is_structural_attribute(ii) for ii in self.arguments]):
+            runs_in_structures = False
+
         for item in aux_items_forms:
 
             tmp_arguments = {ii:True for ii in aux_items_arguments[item]}
-            tmp_iterator = dict_structures_iterator[aux_items_forms[item]](item, atom_indices=self.atom_indices, start=self.start,
-                   stop=self.stop, step=self.step, chunk=self.chunk,
-                   structure_indices=structure_indices, output_type='dictionary',
-                   **tmp_arguments)
 
+            if runs_in_structures:
+                tmp_iterator = dict_structures_iterator[aux_items_forms[item]](item, atom_indices=self.atom_indices, start=self.start,
+                       stop=self.stop, step=self.step, chunk=self.chunk, structure_indices=structure_indices, output_type='dictionary',
+                       **tmp_arguments)
+            else:
+                tmp_iterator = dict_topology_iterator[aux_items_forms[item]](item, element=self.element, indices=self.indices, start=self.start,
+                       stop=self.stop, step=self.step, chunk=self.chunk, output_type='dictionary',
+                       **tmp_arguments)
 
             self._iterators.append(tmp_iterator)
 

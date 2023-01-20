@@ -10,6 +10,7 @@ def get(molecular_system,
         selection='all',
         structure_indices='all',
         syntax='MolSysMT',
+        output_type='values',
         **kwargs):
     """get(item, element='system', indices=None, selection='all', structure_indices='all', syntax='MolSysMT')
 
@@ -99,8 +100,11 @@ def get(molecular_system,
 
         attributes.append(result)
 
+    if output_type=='values':
+        if len(attributes) == 1:
+            return attributes[0]
+        else:
+            return attributes
+    elif output_type=='dictionary':
+        return dict(zip(arguments, attributes))
 
-    if len(attributes) == 1:
-        return attributes[0]
-    else:
-        return attributes

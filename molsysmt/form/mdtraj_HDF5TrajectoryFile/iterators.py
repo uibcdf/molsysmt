@@ -8,7 +8,7 @@ from molsysmt._private.digestion import digest
 class StructuresIterator():
 
     @digest(form='mdtraj.HDF5TrajectoryFile')
-    def __init__(self, molecular_system, atom_indices='all', start=0, step=1, stop=None, chunk=1,
+    def __init__(self, molecular_system, atom_indices='all', start=0, stop=None, step=1, chunk=1,
             structure_indices=None, output_type = 'values', **kwargs):
 
         self.molecular_system = molecular_system
@@ -85,7 +85,7 @@ class StructuresIterator():
                 for key, value in self._output_dictionary.items():
                     self._output_dictionary[key] = value[0]
 
-            if self._output_type is None:
+            if self._output_type=='values':
                 output = list(self._output_dictionary.values())
                 if len(output) == 1:
                     output = output[0]
