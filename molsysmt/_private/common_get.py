@@ -1,4 +1,5 @@
 from molsysmt._private.variables import is_all
+from molsysmt import pyunitwizard as puw
 import numpy as np
 from networkx import Graph
 
@@ -848,6 +849,41 @@ def get_n_entities_from_group(item, indices='all'):
 
     return output
 
+@digest(form=form)
+def get_formal_charge_from_group(item, indices='all'):
+
+    if indices is None:
+        return None
+
+    atom_indices_per_element = get_atom_index_from_group(item, indices)
+    output = []
+    for atom_indices in atom_indices_per_element:
+        charges = get_formal_charge_from_atom(item, atom_indices)
+        output.append(np.sum(charges))
+
+    output = puw.concatenate(output, to_value_type='numpy.ndarray', standardized=True)
+
+    return output
+
+@digest(form=form)
+def get_partial_charge_from_group(item, indices='all'):
+
+    if indices is None:
+        return None
+
+    if indices is None:
+        return None
+
+    atom_indices_per_element = get_atom_index_from_group(item, indices)
+    output = []
+    for atom_indices in atom_indices_per_element:
+        charges = get_partial_charge_from_atom(item, atom_indices)
+        output.append(np.sum(charges))
+
+    output = np.array(output)
+
+    return output
+
 
 ## From component
 
@@ -1300,6 +1336,39 @@ def get_n_entities_from_component(item, indices='all'):
         output = np.unique(output).shape[0]
 
     return output
+
+@digest(form=form)
+def get_formal_charge_from_component(item, indices='all'):
+
+    if indices is None:
+        return None
+
+    atom_indices_per_element = get_atom_index_from_component(item, indices)
+    output = []
+    for atom_indices in atom_indices_per_element:
+        charges = get_formal_charge_from_atom(item, atom_indices)
+        output.append(np.sum(charges))
+
+    output = np.array(output)
+
+    return output
+
+@digest(form=form)
+def get_partial_charge_from_group(item, indices='all'):
+
+    if indices is None:
+        return None
+
+    atom_indices_per_element = get_atom_index_from_component(item, indices)
+    output = []
+    for atom_indices in atom_indices_per_element:
+        charges = get_partial_charge_from_atom(item, atom_indices)
+        output.append(np.sum(charges))
+
+    output = np.array(output)
+
+    return output
+
 
 ## molecule
 
@@ -1810,6 +1879,39 @@ def get_n_entities_from_molecule(item, indices='all'):
         output = np.unique(output).shape[0]
 
     return output
+
+@digest(form=form)
+def get_formal_charge_from_molecule(item, indices='all'):
+
+    if indices is None:
+        return None
+
+    atom_indices_per_element = get_atom_index_from_molecule(item, indices)
+    output = []
+    for atom_indices in atom_indices_per_element:
+        charges = get_formal_charge_from_atom(item, atom_indices)
+        output.append(np.sum(charges))
+
+    output = np.array(output)
+
+    return output
+
+@digest(form=form)
+def get_partial_charge_from_molecule(item, indices='all'):
+
+    if indices is None:
+        return None
+
+    atom_indices_per_element = get_atom_index_from_molecule(item, indices)
+    output = []
+    for atom_indices in atom_indices_per_element:
+        charges = get_partial_charge_from_atom(item, atom_indices)
+        output.append(np.sum(charges))
+
+    output = np.array(output)
+
+    return output
+
 
 ## chain
 
@@ -2353,6 +2455,39 @@ def get_n_entities_from_chain(item, indices='all'):
 
     return output
 
+@digest(form=form)
+def get_formal_charge_from_chain(item, indices='all'):
+
+    if indices is None:
+        return None
+
+    atom_indices_per_element = get_atom_index_from_chain(item, indices)
+    output = []
+    for atom_indices in atom_indices_per_element:
+        charges = get_formal_charge_from_atom(item, atom_indices)
+        output.append(np.sum(charges))
+
+    output = np.array(output)
+
+    return output
+
+@digest(form=form)
+def get_partial_charge_from_chain(item, indices='all'):
+
+    if indices is None:
+        return None
+
+    atom_indices_per_element = get_atom_index_from_chain(item, indices)
+    output = []
+    for atom_indices in atom_indices_per_element:
+        charges = get_partial_charge_from_atom(item, atom_indices)
+        output.append(np.sum(charges))
+
+    output = np.array(output)
+
+    return output
+
+
 ## From entity
 
 @digest(form=form)
@@ -2892,6 +3027,39 @@ def get_n_entities_from_entity(item, indices='all'):
 
     return output
 
+@digest(form=form)
+def get_formal_charge_from_entity(item, indices='all'):
+
+    if indices is None:
+        return None
+
+    atom_indices_per_element = get_atom_index_from_entity(item, indices)
+    output = []
+    for atom_indices in atom_indices_per_element:
+        charges = get_formal_charge_from_atom(item, atom_indices)
+        output.append(np.sum(charges))
+
+    output = np.array(output)
+
+    return output
+
+@digest(form=form)
+def get_partial_charge_from_entity(item, indices='all'):
+
+    if indices is None:
+        return None
+
+    atom_indices_per_element = get_atom_index_from_entity(item, indices)
+    output = []
+    for atom_indices in atom_indices_per_element:
+        charges = get_partial_charge_from_atom(item, atom_indices)
+        output.append(np.sum(charges))
+
+    output = np.array(output)
+
+    return output
+
+
 ## system
 
 @digest(form=form)
@@ -3020,6 +3188,30 @@ def get_box_volume_from_system(item, structure_indices='all'):
         output=None
     else:
         output = box_volume_from_box(tmp_box)
+
+    return output
+
+@digest(form=form)
+def get_formal_charge_from_system(item, indices='all'):
+
+    if indices is None:
+        return None
+
+    atom_indices_per_element = get_atom_index_from_system(item, indices)
+    charges = get_formal_charge_from_atom(item, atom_indices)
+    output = np.sum(charges)
+
+    return output
+
+@digest(form=form)
+def get_partial_charge_from_system(item, indices='all'):
+
+    if indices is None:
+        return None
+
+    atom_indices_per_element = get_atom_index_from_system(item, indices)
+    charges = get_partial_charge_from_atom(item, atom_indices)
+    output = np.sum(charges)
 
     return output
 
