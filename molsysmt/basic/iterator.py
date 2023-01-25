@@ -65,14 +65,14 @@ class Iterator():
 
         runs_in_structures = False
         if all([is_structural_attribute(ii) for ii in self.arguments]):
-            runs_in_structures = False
+            runs_in_structures = True
 
         for item in aux_items_forms:
 
             tmp_arguments = {ii:True for ii in aux_items_arguments[item]}
 
             if runs_in_structures:
-                tmp_iterator = dict_structures_iterator[aux_items_forms[item]](item, atom_indices=self.atom_indices, start=self.start,
+                tmp_iterator = dict_structures_iterator[aux_items_forms[item]](item, atom_indices=self.indices, start=self.start,
                        stop=self.stop, step=self.step, chunk=self.chunk, structure_indices=structure_indices, output_type='dictionary',
                        **tmp_arguments)
             else:

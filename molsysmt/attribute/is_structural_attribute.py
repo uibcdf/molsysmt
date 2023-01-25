@@ -8,6 +8,7 @@ def is_structural_attribute(attribute):
             'coordinates',
             'box',
             'time',
+            'temperature',
             ]
 
     return attribute in structural_attributes
