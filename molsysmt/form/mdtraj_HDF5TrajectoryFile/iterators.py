@@ -13,6 +13,7 @@ class StructuresIterator():
 
         self.molecular_system = molecular_system
         self.atom_indices = atom_indices
+        self.structure_indices = structure_indices
         self.start = start
         self.step = step
         self.stop = stop

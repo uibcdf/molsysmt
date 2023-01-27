@@ -73,7 +73,7 @@ class Iterator():
 
             if runs_in_structures:
                 tmp_iterator = dict_structures_iterator[aux_items_forms[item]](item, atom_indices=self.indices, start=self.start,
-                       stop=self.stop, step=self.step, chunk=self.chunk, structure_indices=structure_indices, output_type='dictionary',
+                       stop=self.stop, step=self.step, chunk=self.chunk, structure_indices=self.structure_indices, output_type='dictionary',
                        **tmp_arguments)
             else:
                 tmp_iterator = dict_topology_iterator[aux_items_forms[item]](item, element=self.element, indices=self.indices, start=self.start,
