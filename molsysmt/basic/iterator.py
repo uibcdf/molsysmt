@@ -48,7 +48,7 @@ class Iterator():
 
         if len(self.arguments)==0:
             self.arguments = ['structure_id', 'time', 'coordinates', 'box']
-            self._output_molecular_system = convert(self.molecular_system, selection=self.atom_indices,
+            self._output_molecular_system = convert(self.molecular_system, selection=self.indices,
                     structure_indices=None, to_form=self._output_form)
         self._output_dictionary = {ii:None for ii in self.arguments}
 

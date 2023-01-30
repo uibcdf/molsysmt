@@ -65,9 +65,13 @@ class StructuresIterator():
             for argument in self.arguments:
 
                 if argument == 'coordinates':
-                    coordinate = self._node['coordinates'][indices,:,:]
-                    self._output_dictionary['coordinates'] = puw.quantity([:,self.atom_indices,:],
-                            'nm', standardized=True)
+                    coordinates = self._node['coordinates'][indices,:,:]
+                    if isinstance(indices, (int, np.int64)):
+                        coordinates = np.expand_dims(coordinates, axis=0)
+                    if not is_all(self.atom_indices):
+                        coordinates = coordinates[:, self.atom_indices, :]
+                    self._output_dictionary['coordinates'] = puw.quantity(coordinates,'nm', standardized=True)
+                    del(coordinates)
                 elif argument == 'time':
                     self._output_dictionary['time'] = puw.quantity(self._node['time'][indices], 'ps', standardized=True)
                 elif argument == 'structure_id':
@@ -75,7 +79,11 @@ class StructuresIterator():
                 elif argument == 'box':
                     box_lengths = puw.quantity(self._node['cell_lengths'][indices,:], 'nm', standardized=True)
                     box_angles = puw.quantity(self._node['cell_angles'][indices,:], 'degrees', standardized=True)
+                    if isinstance(indices, int):
+                        box_lengths = np.expand_dims(box_lengths, axis=0)
+                        box_angles = np.expand_dims(box_angles, axis=0)
                     self._output_dictionary['box'] = box_from_box_lengths_and_angles(box_lengths, box_angles)
+                    del(box_lengths, box_angles)
                 elif argument == 'temperature':
                     self._output_dictionary['temperature'] = puw.quantity(self._node['temperature'][indices], 'K', standardized=True)
                 elif argument == 'potential_energy':

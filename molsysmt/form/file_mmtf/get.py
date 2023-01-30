@@ -132,6 +132,61 @@ def get_coordinates_from_atom(item, indices='all', structure_indices='all'):
 
     return output
 
+@digest(form=form)
+def get_occupancy_from_atom(item, indices='all'):
+
+    from . import to_mmtf_MMTFDecoder
+    from ..mmtf_MMTFDecoder import get_occupancy_from_atom as aux_get
+
+    tmp_item = to_mmtf_MMTFDecoder(item)
+    output = aux_get(tmp_item, indices=indices)
+
+    return output
+
+@digest(form=form)
+def get_alternate_location_from_atom(item, indices='all'):
+
+    from . import to_mmtf_MMTFDecoder
+    from ..mmtf_MMTFDecoder import get_alternate_location_from_atom as aux_get
+
+    tmp_item = to_mmtf_MMTFDecoder(item)
+    output = aux_get(tmp_item, indices=indices)
+
+    return output
+
+@digest(form=form)
+def get_b_factor_from_atom(item, indices='all'):
+
+    from . import to_mmtf_MMTFDecoder
+    from ..mmtf_MMTFDecoder import get_b_factor_from_atom as aux_get
+
+    tmp_item = to_mmtf_MMTFDecoder(item)
+    output = aux_get(tmp_item, indices=indices)
+
+    return output
+
+@digest(form=form)
+def get_formal_charge_from_atom(item, indices='all'):
+
+    from . import to_mmtf_MMTFDecoder
+    from ..mmtf_MMTFDecoder import get_formal_charge_from_atom as aux_get
+
+    tmp_item = to_mmtf_MMTFDecoder(item)
+    output = aux_get(tmp_item, indices=indices)
+
+    return output
+
+@digest(form=form)
+def get_partial_charge_from_atom(item, indices='all'):
+
+    from . import to_mmtf_MMTFDecoder
+    from ..mmtf_MMTFDecoder import get_partial_charge_from_atom as aux_get
+
+    tmp_item = to_mmtf_MMTFDecoder(item)
+    output = aux_get(tmp_item, indices=indices)
+
+    return output
+
 
 ## group
 

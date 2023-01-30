@@ -1,5 +1,7 @@
 from molsysmt._private.exceptions import NotImplementedIteratorError
 from molsysmt._private.digestion import digest
+from molsysmt._private.indices import indices_iterator
+from molsysmt._private.variables import is_all
 
 class StructuresIterator():
 
@@ -60,11 +62,18 @@ class TopologyIterator():
                 self._output_dictionary[key] = None
 
         if self.stop is None:
-            self.stop = len(indices)
+            if is_all(indices):
+                from .get import get_n_atoms_from_system
+                self.stop = get_n_atoms_from_system(molecular_system)
+            else:
+                self.stop = len(indices)
 
         from molsysmt import get
 
         self._get_result = get(self.molecular_system, element=self.element, indices=self.indices, output_type='dictionary', **kwargs)
+
+        self._indices_iterator = indices_iterator(start=self.start, stop=self.stop, step=self.step, chunk=self.chunk)
+
 
     def __iter__(self):
 
@@ -72,13 +81,12 @@ class TopologyIterator():
 
     def __next__(self):
 
-        if self.index <= self.stop:
+        indices = self._indices_iterator.__next__()
+
+        if indices is not None:
 
             for key in self.arguments:
-                self._output_dictionary[key]=self._get_result[key][self.index]
-
-
-            self.index += self.chunk
+                self._output_dictionary[key]=self._get_result[key][indices]
 
             if self._output_type=='values':
                 output = list(self._output_dictionary.values())
@@ -88,4 +96,8 @@ class TopologyIterator():
                 output = self._output_dictionary
 
             return  output
+
+        else:
+
+            raise StopIteration
 

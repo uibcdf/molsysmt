@@ -36,8 +36,18 @@ form_attributes['chain_index'] = True
 form_attributes['chain_id'] = True
 form_attributes['chain_name'] = True
 form_attributes['chain_type'] = True
+form_attributes['entity_index'] = True
+form_attributes['entity_id'] = True
+form_attributes['entity_name'] = True
+form_attributes['entity_type'] = True
+form_attributes['coordinates'] = True
 form_attributes['box'] = True
-form_attributes['forcefield_parameters'] = True
+form_attributes['bioassemblies'] = True
+form_attributes['occupancy'] = True
+form_attributes['alternate_location'] = True
+form_attributes['b_factor'] = True
+form_attributes['formal_charge'] = True
+form_attributes['partial_charge'] = True
 
 
 def to_mmtf_MMTFDecoder(item, molecular_system, atom_indices='all', structure_indices='all'):
