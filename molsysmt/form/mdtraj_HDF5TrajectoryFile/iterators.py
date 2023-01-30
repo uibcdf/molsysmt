@@ -4,6 +4,7 @@ from molsysmt.pbc import box_from_box_lengths_and_angles
 from copy import copy
 import numpy as np
 from molsysmt._private.digestion import digest
+from molsysmt._private.indices import indices_iterator
 
 class StructuresIterator():
 
@@ -19,7 +20,7 @@ class StructuresIterator():
         self.stop = stop
         self.chunk = chunk
 
-        self.structure_index = 0
+        self.structure_index = None
 
         self.arguments = []
         self._output_dictionary = {}
@@ -30,9 +31,26 @@ class StructuresIterator():
                 self.arguments.append(key)
                 self._output_dictionary[key] = None
 
+
         if self.stop is None:
-            from .get import get_n_structures_from_system
-            self.stop = get_n_structures_from_system(molecular_system)
+            if structure_indices is None:
+                from .get import get_n_structures_from_system
+                self.stop = get_n_structures_from_system(molecular_system)
+            else:
+                self.stop = len(structure_indices)
+
+        self._indices_iterator = indices_iterator(indices=structure_indices, start=self.start,
+                stop=self.stop, step=self.step, chunk=self.chunk)
+
+        self._node = {}
+        self._node['cell_angles'] = self.molecular_system._get_node(where='/', name='cell_angles')
+        self._node['cell_lengths'] = self.molecular_system._get_node(where='/', name='cell_lengths')
+        self._node['time'] = self.molecular_system._get_node(where='/', name='time')
+        self._node['coordinates'] = self.molecular_system._get_node(where='/', name='coordinates')
+        self._node['temperature'] = self.molecular_system._get_node(where='/', name='temperature')
+        self._node['kinetic_energy'] = self.molecular_system._get_node(where='/', name='kineticEnergy')
+        self._node['potential_energy'] = self.molecular_system._get_node(where='/', name='potentialEnergy')
+
 
     def __iter__(self):
 
@@ -40,51 +58,34 @@ class StructuresIterator():
 
     def __next__(self):
 
-        if self.structure_index <= self.stop:
+        indices = self._indices_iterator.__next__()
 
-            mdtraj_output = self.molecular_system.read(n_frames=self.chunk, stride=self.step, atom_indices=self.atom_indices)
+        if indices is not None:
 
             for argument in self.arguments:
 
                 if argument == 'coordinates':
-
-                    self._output_dictionary['coordinates'] = puw.quantity(mdtraj_output.coordinates, 'nm', standardized=True)
-
-                elif argument == 'velocities':
-
-                    self._output_dictionary['velocities'] = puw.quantity(mdtraj_output.coordinates, 'nm/ps', standardized=True)
-
+                    coordinate = self._node['coordinates'][indices,:,:]
+                    self._output_dictionary['coordinates'] = puw.quantity([:,self.atom_indices,:],
+                            'nm', standardized=True)
                 elif argument == 'time':
-
-                    self._output_dictionary['time'] = puw.quantity(mdtraj_output.time, 'ps', standardized=True)
-
+                    self._output_dictionary['time'] = puw.quantity(self._node['time'][indices], 'ps', standardized=True)
                 elif argument == 'structure_id':
-
-                    self._output_dictionary['structure_id'] = np.arange(self.structure_index, self.structure_index+self.chunk)
-
+                    self._output_dictionary['structure_id'] = indices
                 elif argument == 'box':
-
-                    box_lengths = puw.quantity(mdtraj_output.cell_lengths, 'nm', standardized=True)
-                    box_angles = puw.quantity(mdtraj_output.cell_angles, 'degrees', standardized=True)
+                    box_lengths = puw.quantity(self._node['cell_lengths'][indices,:], 'nm', standardized=True)
+                    box_angles = puw.quantity(self._node['cell_angles'][indices,:], 'degrees', standardized=True)
                     self._output_dictionary['box'] = box_from_box_lengths_and_angles(box_lengths, box_angles)
-
                 elif argument == 'temperature':
-
-                    self._output_dictionary['temperature'] = puw.quantity(mdtraj_output.temperature, 'K', standardized=True)
-
+                    self._output_dictionary['temperature'] = puw.quantity(self._node['temperature'][indices], 'K', standardized=True)
                 elif argument == 'potential_energy':
-
-                    self._output_dictionary['potentialEnergy'] = puw.quantity(mdtraj_output.time, 'kJ/mol', standardized=True)
-
+                    self._output_dictionary['potential_energy'] = puw.quantity(self._node['potential_energy'][indices], 'kJ/mol', standardized=True)
                 elif argument == 'kinetic_energy':
+                    self._output_dictionary['kinetic_energy'] = puw.quantity(self._node['kinetic_energy'][indices], 'kJ/mol', standardized=True)
 
-                    self._output_dictionary['kineticEnergy'] = puw.quantity(mdtraj_output.time, 'kJ/mol', standardized=True)
-
-            self.structure_index += self.chunk
-
-            if self.chunk == 1:
-                for key, value in self._output_dictionary.items():
-                    self._output_dictionary[key] = value[0]
+            #if self.chunk == 1:
+            #    for key, value in self._output_dictionary.items():
+            #        self._output_dictionary[key] = value[0]
 
             if self._output_type=='values':
                 output = list(self._output_dictionary.values())
