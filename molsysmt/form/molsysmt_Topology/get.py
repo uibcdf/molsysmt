@@ -260,6 +260,9 @@ def get_bonded_atoms_from_atom(item, indices='all'):
 
     output = np.array(output, dtype=object)
 
+    for ii in range(output.shape[0]):
+        output[ii] = np.sort(output[ii])
+
     del(G, edges)
 
     return output
@@ -2038,6 +2041,8 @@ def get_atom_index_from_bond(item, indices='all'):
         tmp_out = item.bonds_dataframe[['atom1_index','atom2_index']].to_numpy(dtype=int, copy=True)
     else:
         tmp_out = item.bonds_dataframe.iloc[indices][['atom1_index','atom2_index']].to_numpy(dtype=int, copy=True)
+
+    tmp_out = np.sort(tmp_out, axis=-1)
 
     return tmp_out
 

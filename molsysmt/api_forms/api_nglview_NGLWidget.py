@@ -21,6 +21,7 @@ form_attributes['bond_id'] = True
 form_attributes['bond_name'] = True
 form_attributes['bond_type'] = True
 form_attributes['bond_order'] = True
+form_attributes['bonded_atoms'] = True
 form_attributes['group_index'] = True
 form_attributes['group_id'] = True
 form_attributes['group_name'] = True

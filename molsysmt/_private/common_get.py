@@ -363,6 +363,9 @@ def get_bonded_atoms_from_atom(item, indices='all'):
 
     output = np.array(output, dtype=object)
 
+    for ii in range(output.shape[0]):
+        output[ii] = np.sort(output[ii])
+
     del(G, edges)
 
     return output

@@ -159,17 +159,43 @@ def compare(molecular_system_A, molecular_system_B, selection_A='all', structure
 
             if report_dict['n_bonds']:
 
-                bonded_atoms_A, bond_order_A, bond_type_A = get(molecular_system_A, element='bond', selection=selection_A,
-                                                                atom_index=True, bond_order=True,
-                                                                bond_type=True)
+                bonded_atoms_A = get(molecular_system_A, element='atom', selection=selection_A, bonded_atoms=True)
+                bonded_atoms_B = get(molecular_system_B, element='atom', selection=selection_B, bonded_atoms=True)
 
-                bonded_atoms_B, bond_order_B, bond_type_B = get(molecular_system_B, element='bond', selection=selection_A,
-                                                                atom_index=True, bond_order=True,
-                                                                bond_type=True)
+                report_dict['bonded_atoms'] = True
+                for ii,jj in zip(bonded_atoms_A, bonded_atoms_B):
+                    if not np.all(ii==jj):
+                        print(ii,jj)
+                        report_dict['bonded_atoms'] = False
+                        break
 
-                report_dict['bonded_atoms'] = np.all(bonded_atoms_A == bonded_atoms_B)
-                report_dict['bond_order'] = np.all(bond_order_A == bond_order_B)
-                report_dict['bond_type'] = np.all(bond_type_A == bond_type_B)
+                if report_dict['bonded_atoms']:
+
+                    atoms_pairs_A, bond_order_A, bond_type_A = get(molecular_system_A, element='bond', selection=selection_A,
+                                                               atom_index=True, bond_order=True, bond_type=True)
+
+                    atoms_pairs_B, bond_order_B, bond_type_B = get(molecular_system_B, element='bond', selection=selection_A,
+                                                               atom_index=True, bond_order=True, bond_type=True)
+
+                    check_bond_order = True 
+                    check_bond_type = True 
+
+                    for where_in_A in range(atoms_pairs_A.shape[0]):
+                        where_in_B = np.where((atoms_pairs_A[where_in_A][0]==atoms_pairs_B[:,0])&(atoms_pairs_A[where_in_A][1]==atoms_pairs_B[:,1]))[0][0]
+                        if check_bond_order:
+                            check_bond_order = (bond_order_A[where_in_A]==bond_order_B[where_in_B])
+                        if check_bond_type:
+                            check_bond_type = (bond_type_A[where_in_A]==bond_type_B[where_in_B])
+                        if check_bond_order == False and check_bond_type == False:
+                            break
+
+                    report_dict['bond_order'] = check_bond_order
+                    report_dict['bond_type'] = check_bond_type
+
+                else:
+
+                    report_dict['bond_order'] = False
+                    report_dict['bond_type'] = False
 
             else:
 

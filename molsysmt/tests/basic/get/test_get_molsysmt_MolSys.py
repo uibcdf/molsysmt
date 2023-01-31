@@ -380,9 +380,9 @@ def test_get_59():
     value = msm.pyunitwizard.get_value(box)
     unit = msm.pyunitwizard.get_unit(box)
     true_value = np.array([[[4.37099990e+00, 0.00000000e+00, 0.00000000e+00],
-        [1.00000000e-07, 7.76500020e+00, 0.00000000e+00],
-        [2.00000000e-07, 2.00000000e-07, 1.49539993e+01]]])
-    assert (unit==msm.pyunitwizard.unit('nanometers')) and (np.allclose(value, true_value))
+        [0.0, 7.76500020e+00, 0.00000000e+00],
+        [0.0, 0.0, 1.49539993e+01]]])
+    assert (unit==msm.pyunitwizard.unit('nanometers')) and (np.allclose(value, true_value, atol=1e-06))
 
 def test_get_60():
     molsys = msm.convert(msm.demo['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')

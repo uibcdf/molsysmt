@@ -7,11 +7,11 @@ def digest_comparison(comparison, rule, caller=None):
 
         from molsysmt.basic.compare.compare import dict_compare_eq, dict_compare_in
 
-        if rule == 'A_eq_B':
+        if rule == 'equal':
             if comparison.lower() in dict_compare_eq:
                 return comparison.lower()
 
-        elif rule in ['A_in_B', 'B_in_A']:
+        elif rule == 'in':
             if comparison.lower() in dict_compare_in:
                 return comparison.lower()
 
