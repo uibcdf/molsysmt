@@ -177,15 +177,17 @@ def compare(molecular_system_A, molecular_system_B, selection_A='all', structure
                     atoms_pairs_B, bond_order_B, bond_type_B = get(molecular_system_B, element='bond', selection=selection_A,
                                                                atom_index=True, bond_order=True, bond_type=True)
 
+                    order_in_A = np.lexsort((atoms_pairs_A[:, 1], atoms_pairs_A[:, 0]))
+                    order_in_B = np.lexsort((atoms_pairs_B[:, 1], atoms_pairs_B[:, 0]))
+
                     check_bond_order = True 
                     check_bond_type = True 
 
-                    for where_in_A in range(atoms_pairs_A.shape[0]):
-                        where_in_B = np.where((atoms_pairs_A[where_in_A][0]==atoms_pairs_B[:,0])&(atoms_pairs_A[where_in_A][1]==atoms_pairs_B[:,1]))[0][0]
+                    for in_A, in_B in zip(order_in_A, order_in_B):
                         if check_bond_order:
-                            check_bond_order = (bond_order_A[where_in_A]==bond_order_B[where_in_B])
+                            check_bond_order = (bond_order_A[in_A]==bond_order_B[in_B])
                         if check_bond_type:
-                            check_bond_type = (bond_type_A[where_in_A]==bond_type_B[where_in_B])
+                            check_bond_type = (bond_type_A[in_A]==bond_type_B[in_B])
                         if check_bond_order == False and check_bond_type == False:
                             break
 

@@ -314,7 +314,7 @@ def test_get_47():
 def test_get_48():
     molsys = msm.convert(msm.demo['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
     inner_bonded_atoms = msm.get(molsys, element='atom', indices=[0, 1, 2, 3, 4, 5], inner_bonded_atoms=True)
-    true_inner_bonded_atoms = np.array([[1, 0], [2, 1], [3, 2], [4, 1], [5, 4]])
+    true_inner_bonded_atoms = np.array([[0, 1], [1, 2], [1, 4], [2, 3], [4, 5]])
     check_bonded_index = np.all([np.all(ii==jj) for ii,jj in zip(inner_bonded_atoms, true_inner_bonded_atoms)])
     assert check_bonded_index
 
@@ -338,7 +338,8 @@ def test_get_51():
 def test_get_52():
     molsys = msm.convert(msm.demo['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
     atom_indices = msm.get(molsys, element='bond', indices=[0, 1, 2, 3, 4], atom_index=True)
-    true_atom_indices = np.array([[1, 0], [2, 1], [3, 2], [4, 1], [5, 4]])
+    atom_indices = atom_indices[np.lexsort((atom_indices[:, 1], atom_indices[:, 0]))]
+    true_atom_indices = np.array([[0, 1], [1, 2], [1, 4], [2, 3], [4, 5]])
     assert np.all(atom_indices==true_atom_indices)
 
 def test_get_53():

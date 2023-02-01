@@ -349,6 +349,8 @@ def get_inner_bonded_atoms_from_atom(item, indices='all'):
         output = get_atom_index_from_bond(item, indices=bond_indices)
         del(bond_indices)
 
+    output = output[np.lexsort((output[:, 1], output[:, 0]))]
+
     return(output)
 
 @digest(form=form)
