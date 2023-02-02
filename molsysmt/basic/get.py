@@ -9,6 +9,7 @@ def get(molecular_system,
         indices=None,
         selection='all',
         structure_indices='all',
+        mask=None,
         syntax='MolSysMT',
         output_type='values',
         **kwargs):
@@ -76,7 +77,7 @@ def get(molecular_system,
 
     if indices is None:
         if not is_all(selection):
-            indices = select(molecular_system, element=element, selection=selection, syntax=syntax)
+            indices = select(molecular_system, element=element, selection=selection, mask=mask, syntax=syntax)
         else:
             indices = 'all'
 

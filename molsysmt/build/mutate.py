@@ -11,8 +11,18 @@ def mutate(molecular_system, mutations=None, keys='group_index', selection="all"
 
         if isinstance(mutations, (tuple, list)):
 
+            group_indices = []
+            group_names = []
+
             for mutation_string in mutations:
-                old_group_name, group_id, new_group_name = nutation_string.split('-')
+                old_group_name, group_id, new_group_name = mutation_string.split('-')
+                aux_index, group_name = get(molecular_system, element='group', selection='group_id==@group_id',
+                        mask=selection, group_index=True, group_name=True)
+                if group_name.lower()!=old_group_name.lower():
+                    raise ValueError(f'The group with id {group_id} is {group_name} and not {old_group_name}')
+                group_indices.append(aux_index)
+                group_names.append(new_group_name)
+
 
         elif isinstance(mutations, dict):
             if keys=='group_index':
@@ -23,7 +33,7 @@ def mutate(molecular_system, mutations=None, keys='group_index', selection="all"
                 to_group_names = list(mutations.values())
                 group_indices = []
                 for ii in group_ids:
-                    aux_indices = get(molecular_system, element='group', selection='group_id==@ii', mask='', group_index=True)
+                    aux_indices = get(molecular_system, element='group', selection='group_id==@ii', mask=selection, group_index=True)
                     if aux_indices.shape[0]>1:
                         raise ValueError(f'There are multiple groups with the group_id: {ii}')
                     else:
@@ -32,7 +42,7 @@ def mutate(molecular_system, mutations=None, keys='group_index', selection="all"
                 group_indices = []
                 to_group_names = []
                 for from_name, to_name in mutations.items():
-                    aux_indices = get(molecular_system, element='group', selection='group_name==@from_name', group_index=True)
+                    aux_indices = get(molecular_system, element='group', selection='group_name==@from_name', mask=selection, group_index=True)
                     for aux_index in aux_indices:
                         group_indices.append(aux_index)
                         to_group_names.append(to_name)
@@ -64,5 +74,4 @@ def mutate(molecular_system, mutations=None, keys='group_index', selection="all"
 
     else:
         raise NotImplementedMethodError
-
 
