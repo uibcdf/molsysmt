@@ -30,3 +30,14 @@ def test_mutate_molsysmt_MolSys_3():
     check = (seq == 'TyrAlaAlaPheMet')
     assert check
 
+# From https://github.com/openmm/pdbfixer/blob/master/pdbfixer/tests/test_mutate.py
+def test_mutate_molsysmt_MolSys_4():
+    molsys = msm.convert(msm.demo['chicken villin HP35']['1vii.mmtf'], to_form='molsysmt.MolSys')
+    molsys = msm.build.mutate(molsys, mutations="ALA-57-GLY")
+    group_name, group_id = msm.get(molsys, element='group', selection="group_index==16", group_name=True, group_id=True)
+    atoms = msm.get(molsys, element='atom', selection="group_index==16", atom_name=True)
+    assert group_name[0]=='GLY'
+    assert group_id[0]==57
+    assert set(['N', 'H', 'CA', 'HA2', 'HA3', 'C', 'O'])==set(atoms)
+
+

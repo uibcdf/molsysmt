@@ -12,16 +12,16 @@ def mutate(molecular_system, mutations=None, keys='group_index', selection="all"
         if isinstance(mutations, (tuple, list)):
 
             group_indices = []
-            group_names = []
+            to_group_names = []
 
             for mutation_string in mutations:
                 old_group_name, group_id, new_group_name = mutation_string.split('-')
-                aux_index, group_name = get(molecular_system, element='group', selection='group_id==@group_id',
+                aux_index, group_name = get(molecular_system, element='group', selection='group_id=='+group_id,
                         mask=selection, group_index=True, group_name=True)
-                if group_name.lower()!=old_group_name.lower():
+                if group_name[0].lower()!=old_group_name.lower():
                     raise ValueError(f'The group with id {group_id} is {group_name} and not {old_group_name}')
-                group_indices.append(aux_index)
-                group_names.append(new_group_name)
+                group_indices.append(aux_index[0])
+                to_group_names.append(new_group_name)
 
 
         elif isinstance(mutations, dict):
@@ -58,7 +58,6 @@ def mutate(molecular_system, mutations=None, keys='group_index', selection="all"
 
         for group_id, from_group_name, to_group_name, in_chain_id in zip(group_ids, from_group_names, to_group_names, in_chain_ids):
             mutation_string = "-".join([from_group_name,str(group_id),to_group_name])
-            if verbose: print(mutation_string)
             tmp_molecular_system.applyMutations([mutation_string], in_chain_id)
 
         tmp_molecular_system.findMissingResidues()

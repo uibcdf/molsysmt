@@ -17,8 +17,14 @@ def argument_names_standardization(caller, kwargs):
         if 'order' in kwargs:
             kwargs = _replace_key_in_dict(kwargs, 'order', element+'_order')
 
+    elif caller=='molsysmt.build.mutate.mutate':
+
+        if 'mutation' in kwargs:
+            kwargs = _replace_key_in_dict(kwargs, 'mutation', 'mutations')
+
     if 'structure_index' in kwargs:
             kwargs = _replace_key_in_dict(kwargs, 'structure_index', 'structure_indices')
+
 
     return kwargs
 

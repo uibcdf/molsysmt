@@ -79,8 +79,11 @@ def get(molecular_system,
         if not is_all(selection):
             indices = select(molecular_system, element=element, selection=selection, mask=mask, syntax=syntax)
         else:
-            indices = 'all'
-
+            if (mask is None) or (is_all(mask)):
+                indices = 'all'
+            else:
+                indices = select(molecular_system, element=element, selection=mask, syntax=syntax)
+                
     attributes = []
 
     for argument in arguments:
