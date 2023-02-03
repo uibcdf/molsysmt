@@ -3134,7 +3134,7 @@ def get_n_oligosaccharides_from_system(item):
 @digest(form=form)
 def get_coordinates_from_system(item, structure_indices='all'):
 
-    if strucure_indices is None:
+    if structure_indices is None:
         return None
 
     return get_coordinates_from_atom(item, structure_indices=structure_indices)
@@ -3142,7 +3142,7 @@ def get_coordinates_from_system(item, structure_indices='all'):
 @digest(form=form)
 def get_box_shape_from_system(item, structure_indices='all'):
 
-    if strucure_indices is None:
+    if structure_indices is None:
         return None
 
     from molsysmt.pbc import box_shape_from_box
@@ -3155,7 +3155,7 @@ def get_box_shape_from_system(item, structure_indices='all'):
 @digest(form=form)
 def get_box_lengths_from_system(item, structure_indices='all'):
 
-    if strucure_indices is None:
+    if structure_indices is None:
         return None
 
     from molsysmt.pbc import box_lengths_from_box
@@ -3168,7 +3168,7 @@ def get_box_lengths_from_system(item, structure_indices='all'):
 @digest(form=form)
 def get_box_angles_from_system(item, structure_indices='all'):
 
-    if strucure_indices is None:
+    if structure_indices is None:
         return None
 
     from molsysmt.pbc import box_angles_from_box
@@ -3181,7 +3181,7 @@ def get_box_angles_from_system(item, structure_indices='all'):
 @digest(form=form)
 def get_box_volume_from_system(item, structure_indices='all'):
 
-    if strucure_indices is None:
+    if structure_indices is None:
         return None
 
     from molsysmt.pbc import box_volume_from_box

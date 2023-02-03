@@ -1,6 +1,12 @@
 from ...exceptions import ArgumentError
 from ...variables import is_all
 
+functions_with_boolean = (
+        'molsysmt.basic.get.get',
+        'molsysmt.basic.iterator.__init__',
+        'iterators.__init__',
+        )
+
 def digest_group_id(group_id, caller=None):
     """Checks if `group_id` has the expected type and value.
 
@@ -25,9 +31,10 @@ def digest_group_id(group_id, caller=None):
         If the given `group_id` has not of the correct type or value.
     """
 
-    if caller=='molsysmt.basic.get.get':
+    if caller.endswith(functions_with_boolean):
         if isinstance(group_id, bool):
             return group_id
 
     raise ArgumentError('group_id', value=group_id, caller=caller, message=None)
+
 
