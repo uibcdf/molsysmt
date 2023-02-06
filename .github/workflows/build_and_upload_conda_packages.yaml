@@ -27,12 +27,15 @@ jobs:
       run: |
         uname -a
 
-    - name: Symlink gfortran (macOS)
-      if: runner.os == 'macOS'
-      run: |
-        sudo ln -s /usr/local/bin/gfortran-10 /usr/local/bin/gfortran
-        sudo mkdir /usr/local/gfortran
-        sudo ln -s /usr/local/Cellar/gcc@10/*/lib/gcc/10 /usr/local/gfortran/lib
+    - name: Setup GNU Fortran
+      uses: modflowpy/install-gfortran-action@v1 # https://github.com/modflowpy/install-gfortran-action
+
+   #- name: Symlink gfortran (macOS)
+   #  if: runner.os == 'macOS'
+   #  run: |
+   #    sudo ln -s /usr/local/bin/gfortran-10 /usr/local/bin/gfortran
+   #    sudo mkdir /usr/local/gfortran
+   #    sudo ln -s /usr/local/Cellar/gcc@10/*/lib/gcc/10 /usr/local/gfortran/lib
 
     - name: Checking gfortran version
       run: |
@@ -44,7 +47,7 @@ jobs:
         python-version: ${{ matrix.python-version }}
         environment-file: devtools/conda-envs/build_env.yaml    # Path to the build conda environment
         mamba-version: "*"
-        use-mamba: true
+        use-mamba: false
         auto-update-conda: false
         auto-activate-base: false
         show-channel-urls: true
