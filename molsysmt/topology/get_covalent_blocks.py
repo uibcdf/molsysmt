@@ -4,7 +4,7 @@ import numpy as np
 from networkx import connected_components
 
 @digest()
-def get_covalent_blocks(molecular_system, selection='all', remove_bonds=None, output='sets',
+def get_covalent_blocks(molecular_system, selection='all', remove_bonds=None, output_type='sets',
         syntax='MolSysMT'):
 
     from molsysmt.basic import get
@@ -35,11 +35,11 @@ def get_covalent_blocks(molecular_system, selection='all', remove_bonds=None, ou
 
     del(G)
 
-    if output=='sets':
+    if output_type=='sets':
 
         blocks = list(components)
 
-    elif output=='numpy.ndarray':
+    elif output_type=='numpy.ndarray':
 
         n_atoms = get(molecular_system, element='system', n_atoms=True)
         blocks = -np.ones([n_atoms], dtype=int)

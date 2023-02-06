@@ -31,9 +31,8 @@ def get_sequence_alignment(molecular_system, selection='all', reference_molecula
         alignment = aligner.align(tmp_ref_seq, tmp_seq)
         del(aligner, Align, tmp_ref_seq,tmp_seq)
 
-        txt_aln = alignment[alignment_index].format().split('\n')
-        seq_ref = txt_aln[0]
-        seq = txt_aln[2]
+        seq_ref = alignment[alignment_index]._get_row(0)
+        seq = alignment[alignment_index]._get_row(1)
 
     else:
 
