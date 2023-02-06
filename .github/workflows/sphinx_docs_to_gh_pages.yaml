@@ -24,21 +24,24 @@ jobs:
         run: |
           uname -a
 
+      - name: Setup GNU Fortran
+        uses: modflowpy/install-gfortran-action@v1 # https://github.com/modflowpy/install-gfortran-action
+
       - name: Make conda environment
         uses: conda-incubator/setup-miniconda@v2    # https://github.com/conda-incubator/setup-miniconda
         with:
           python-version: 3.9
           environment-file: devtools/conda-envs/docs_env.yaml
-          mamba-version: "*"
-          use-mamba: true
+          #mamba-version: "*"
+          #use-mamba: true
           auto-update-conda: false
           auto-activate-base: false
           show-channel-urls: true
           activate-environment: test
 
-      - name: Checking gfortran version
-        run: |
-          gfortran --version
+      #- name: Checking gfortran version
+      #  run: |
+      #    gfortran --version
 
       - name: Install package
         # conda setup requires this special shell

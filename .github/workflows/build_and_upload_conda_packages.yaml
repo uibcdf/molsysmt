@@ -46,8 +46,8 @@ jobs:
       with:
         python-version: ${{ matrix.python-version }}
         environment-file: devtools/conda-envs/build_env.yaml    # Path to the build conda environment
-        mamba-version: "*"
-        use-mamba: false
+        #mamba-version: "*"
+        #use-mamba: false
         auto-update-conda: false
         auto-activate-base: false
         show-channel-urls: true
