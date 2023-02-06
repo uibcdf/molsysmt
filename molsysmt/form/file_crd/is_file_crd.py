@@ -3,7 +3,8 @@ def is_file_crd(item):
     output = False
 
     if type(item)==str:
-        output = item.endswith('.crd')
+        if item.endswith('.crd'):
+            output = True
 
     return output
 
