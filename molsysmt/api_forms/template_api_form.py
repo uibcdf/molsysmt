@@ -72,11 +72,11 @@ def add(to_item, item):
 
     raise NotImplementedError()
 
-def append_structures(item, step=None, time=None, coordinates=None, box=None):
+def append_structures(item, structure_id=None, time=None, coordinates=None, box=None):
 
     raise NotImplementedError()
 
-def concatenate_structures(item, step=None, time=None, coordinates=None, box=None):
+def concatenate_structures(item, structure_id=None, time=None, coordinates=None, box=None):
 
     raise NotImplementedError
 
@@ -136,12 +136,12 @@ def get_coordinates_from_atom(item, indices='all', structure_indices='all'):
 
 def get_frames_from_atom(item, indices='all', structure_indices='all'):
 
-    tmp_step = get_step_from_system(item, structure_indices=structure_indices)
+    tmp_structure_id = get_structure_id_from_system(item, structure_indices=structure_indices)
     tmp_time = get_time_from_system(item, structure_indices=structure_indices)
     tmp_box = get_box_from_system(item, structure_indices=structure_indices)
     tmp_coordinates = get_coordinates_from_atom(item, indices=indices, structure_indices=structure_indices)
 
-    return tmp_step, tmp_time, tmp_coordinates, tmp_box
+    return tmp_structure_id, tmp_time, tmp_coordinates, tmp_box
 
 ## group
 
@@ -279,7 +279,7 @@ def get_time_from_system(item, indices='all', structure_indices='all'):
 
     raise NotImplementedError()
 
-def get_step_from_system(item, indices='all', structure_indices='all'):
+def get_structure_id_from_system(item, indices='all', structure_indices='all'):
 
     raise NotImplementedError()
 

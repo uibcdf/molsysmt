@@ -4,6 +4,7 @@ from molsysmt.form.networkx_Graph.add import add
 from molsysmt.form.networkx_Graph.append_structures import append_structures
 from molsysmt.form.networkx_Graph.get import *
 from molsysmt.form.networkx_Graph.set import *
+from molsysmt.form.networkx_Graph.iterators import StructuresIterator, TopologyIterator
 import numpy as np
 from .form_attributes import form_attributes
 

@@ -34,12 +34,13 @@ def append_structures(to_molecular_system, from_molecular_systems, selections='a
         coordinates = get(aux_molecular_system, element='atom', selection=aux_selection,
                           structure_indices=aux_structure_indices, coordinates=True)
 
-        step, time, box = get(aux_molecular_system, element='system', structure_indices=aux_structure_indices,
-                              step=True, time=True, box=True)
+        structure_id, time, box = get(aux_molecular_system, element='system', structure_indices=aux_structure_indices,
+                              structure_id=True, time=True, box=True)
 
         for aux_to_item, aux_to_form in zip(to_molecular_system, to_forms):
 
-            dict_append_structures[aux_to_form](aux_to_item, step=step, time=time, coordinates=coordinates, box=box)
+            dict_append_structures[aux_to_form](aux_to_item, structure_id=structure_id, time=time, coordinates=coordinates, box=box,
+                    )
 
     pass
 

@@ -293,7 +293,7 @@ def get_time_from_system(item, structure_indices='all'):
     return time
 
 @digest(form=form)
-def get_step_from_system(item, structure_indices='all'):
+def get_structure_id_from_system(item, structure_indices='all'):
 
     from molsysmt._private.math import serie_to_chunks
 
@@ -304,19 +304,19 @@ def get_step_from_system(item, structure_indices='all'):
 
     starts_serie_frames, size_serie_frames = serie_to_chunks(structure_indices)
 
-    step_list = []
+    structure_id_list = []
 
     for start, size in zip(starts_serie_frames, size_serie_frames):
         item.seek(start)
-        _, _, step, _ = item.read(n_frames=size)
-        step_list.append(step)
+        _, _, structure_id, _ = item.read(n_frames=size)
+        structure_id_list.append(structure_id)
 
-    step = np.concatenate(step_list)
-    del(step_list)
+    structure_id = np.concatenate(structure_id_list)
+    del(structure_id_list)
 
-    step = step.astype('int64')
+    structure_id = structure_id.astype('int64')
 
-    return step
+    return structure_id
 
 
 #######################################################################################

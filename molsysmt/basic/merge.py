@@ -5,7 +5,8 @@ def merge(molecular_systems,
           selections='all',
           structure_indices='all',
           syntax='MolSysMT',
-          to_form=None):
+          to_form=None,
+          ):
 
     """merge(items=None, selection='all', structure_indices='all', syntax='MolSysMT' to_form=None)
 

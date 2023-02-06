@@ -133,7 +133,7 @@ def get_inner_bonded_atoms_from_atom(item, indices='all'):
 def get_n_inner_bonds_from_atom(item, indices='all'):
 
     if is_all(indices):
-        return get_n_bonds_from_system (item)
+        return get_n_bonds_from_system(item)
     else:
         inner_bonded_atoms = get_inner_bonded_atoms_from_atom(item, indices=indices)
         return inner_bonded_atoms.shape[0]
@@ -401,7 +401,7 @@ def get_time_from_system(item, structure_indices='all'):
     return None
 
 @digest(form=form)
-def get_step_from_system(item, structure_indices='all'):
+def get_structure_id_from_system(item, structure_indices='all'):
 
     return None
 

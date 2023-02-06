@@ -2,10 +2,12 @@ import numpy as np
 from molsysmt import pyunitwizard as puw
 from ...exceptions import ArgumentError
 
-methods_where_bool = [
+functions_where_boolean = (
     'molsysmt.basic.get.get',
-    'molsysmt.basic.compare.compare'
-]
+    'molsysmt.basic.compare.compare',
+    'molsysmt.basic.iterator.__init__',
+    '.iterators.__init__'
+)
 
 def digest_box(box, caller=None):
     """ Checks if box has the correct shape.
@@ -31,7 +33,7 @@ def digest_box(box, caller=None):
         If box doesn't have the correct shape.
     """
 
-    if caller in methods_where_bool:
+    if caller.endswith(functions_where_boolean):
 
         if isinstance(box, bool):
             return box

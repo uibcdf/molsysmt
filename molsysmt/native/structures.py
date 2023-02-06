@@ -5,6 +5,7 @@ from molsysmt._private.variables import is_all
 from molsysmt.basic import get
 from molsysmt.pbc import box_lengths_from_box, box_angles_from_box
 from molsysmt._private.exceptions import IteratorError
+from molsysmt._private.digestion import digest
 
 class Structures:
     """ Class to store the trajectory data of a molecular system
@@ -27,14 +28,15 @@ class Structures:
         time :  pint.Quantity of shape (n_structures, )
             The times of the trajectory in picoseconds.
 
-        step :
+        structure_id :
 
 
     """
 
-    def __init__(self, step=None, time=None, coordinates=None, box=None):
+    @digest()
+    def __init__(self, structure_id=None, time=None, coordinates=None, box=None):
 
-        self.step = step
+        self.structure_id = structure_id
         self.time = time
         self.coordinates = coordinates
         self.box = box
@@ -58,7 +60,8 @@ class Structures:
             else:
                 return np.concatenate([array_1, array_2])
 
-    def append_structures(self, step=None, time=None, coordinates=None, box=None):
+    @digest()
+    def append_structures(self, structure_id=None, time=None, coordinates=None, box=None):
         """ Append structures or frames to this object.
 
              box : pint.Quantity of shape (n_structures, 3, 3)
@@ -71,23 +74,26 @@ class Structures:
                 The times of the trajectory in picoseconds
 
         """
-        if step is not None and not isinstance(step, (list, np.ndarray)):
-            step = np.array([step])
+
+        n_structures = 0
+        n_atoms = 0
+    
+        if structure_id is not None and not isinstance(structure_id, (list, np.ndarray)):
+            structure_id = np.array([structure_id])
 
         if time is not None:
             time = puw.standardize(time)
         if coordinates is not None:
             coordinates = puw.standardize(coordinates)
+            n_structures = coordinates.shape[0]
+            n_atoms = coordinates.shape[1]
         if box is not None:
             box = puw.standardize(box)
-
-        n_structures = coordinates.shape[0]
-        n_atoms = coordinates.shape[1]
 
         if self.n_structures == 0:
 
             self.coordinates = coordinates
-            self.step = step
+            self.structure_id = structure_id
             self.time = time
             self.box = box
             self.n_structures = n_structures
@@ -100,9 +106,9 @@ class Structures:
                     "The coordinates to be appended in the system "
                     "need to have the same number of atoms.")
 
-            self.step = self._concatenate_arrays(self.step, step, "steps")
+            self.structure_id = self._concatenate_arrays(self.structure_id, structure_id, "structure_ids")
             self.time = self._concatenate_arrays(self.time, time, "time")
-            self.box = self._concatenate_arrays(self.box, box, "steps")
+            self.box = self._concatenate_arrays(self.box, box, "structure_ids")
 
             self.coordinates = np.concatenate([self.coordinates, coordinates])
             self.n_structures += n_structures
@@ -129,6 +135,7 @@ class Structures:
 
         return angles
 
+    @digest()
     def extract(self, atom_indices='all', structure_indices='all'):
         """ Returns a new Structures object with the specified atoms and/or
             structures.
@@ -153,10 +160,10 @@ class Structures:
 
             extract_structures = not is_all(structure_indices)
 
-            if self.step is not None and extract_structures:
-                step = self.step[structure_indices]
+            if self.structure_id is not None and extract_structures:
+                structure_id = self.structure_id[structure_indices]
             else:
-                step = deepcopy(self.step)
+                structure_id = deepcopy(self.structure_id)
 
             if self.time is not None and extract_structures:
                 time = self.time[structure_indices]
@@ -176,12 +183,13 @@ class Structures:
             if not is_all(structure_indices):
                 coordinates = coordinates[structure_indices, :, :]
 
-        return Structures(step=step,
+        return Structures(structure_id=structure_id,
                           time=time,
                           coordinates=coordinates,
                           box=box,
                           )
 
+    @digest()
     def add(self, item, selection='all', structure_indices='all'):
         """ Adds the coordinates of another item to this.
 
@@ -199,20 +207,22 @@ class Structures:
 
         """
 
-        step, time, box = get(item,
+        structure_id, time, box = get(item,
                               element="system",
                               structure_indices=structure_indices,
-                              step=True,
+                              structure_id=True,
                               time=True,
-                              box=True)
+                              box=True,
+                              )
         coordinates = get(item,
                           element="atom",
                           selection=selection,
                           structure_indices=structure_indices,
-                          coordinates=True)
+                          coordinates=True,
+                          )
 
         if self.n_structures == 0:
-            self.append_structures(step, time, coordinates, box)
+            self.append_structures(structure_id, time, coordinates, box)
         else:
             if self.n_structures != coordinates.shape[0]:
                 raise ValueError('Both items need to have the same n_structures')
@@ -223,8 +233,9 @@ class Structures:
 
         self.n_atoms = self.coordinates.shape[1]
 
+    @digest()
     def append(self, item, selection='all', structure_indices='all'):
-        """ Appends the step, time coordinates and box of the given item to this.
+        """ Appends the structure_id, time coordinates and box of the given item to this.
 
             Parameters
             ----------
@@ -238,18 +249,19 @@ class Structures:
                 Select only these structures from the given item
         """
 
-        step, time, coordinates, box = get(item,
+        structure_id, time, coordinates, box = get(item,
                                            selection=selection,
                                            structure_indices=structure_indices,
-                                           step=True,
+                                           structure_id=True,
                                            time=True,
                                            coordinates=True,
-                                           box=True
+                                           box=True,
+                                           
                                            )
-        self.append_structures(step, time, coordinates, box)
+        self.append_structures(structure_id, time, coordinates, box)
 
     def get_structure_data(self, structure, selection="all", chunk_size=1):
-        """ Returns the steps, time, coordinates and box of the
+        """ Returns the structure_ids, time, coordinates and box of the
             given structure
 
             Parameters
@@ -279,10 +291,10 @@ class Structures:
         """
         structure_end = structure + chunk_size
 
-        if self.step is not None:
-            step = self.step[structure: structure_end]
+        if self.structure_id is not None:
+            structure_id = self.structure_id[structure: structure_end]
         else:
-            step = None
+            structure_id = None
 
         if self.time is not None:
             time = self.time[structure: structure_end]
@@ -313,7 +325,7 @@ class Structures:
         else:
             box = None
 
-        return step, time, coordinates, box
+        return structure_id, time, coordinates, box
 
     def _iterate_structures(self, start=0, stop=None,
                             interval=1, selection="all", chunk_size=1):
@@ -334,7 +346,7 @@ class Structures:
 
     def iterate(self, start=0, stop=None,
                 interval=1, selection="all", chunk_size=1):
-        """ Generator to iterate over the steps, time, coordinates and box
+        """ Generator to iterate over the structure_ids, time, coordinates and box
             of each structure (frame).
 
             Parameters
@@ -357,7 +369,7 @@ class Structures:
 
             Yields
             ------
-            step :
+            structure_id :
 
             box : pint.Quantity of shape (3, 3)
                 The box of the structure
@@ -407,7 +419,7 @@ class Structures:
         return self
 
     def __next__(self):
-        """ Iterate through the steps, time, coordinates and box
+        """ Iterate through the structure_ids, time, coordinates and box
             of each structure (frame).
         """
         self._current_structure += 1

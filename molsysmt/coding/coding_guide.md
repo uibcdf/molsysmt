@@ -24,7 +24,7 @@ name variable: 'structure_indices'
 Default: None
 'all': all atoms
 
-frame is: step, time, coordinates and box.
+frame is: structure_id, time, coordinates and box.
 
 # Documenting Methods
 

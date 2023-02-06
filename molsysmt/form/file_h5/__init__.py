@@ -5,6 +5,7 @@ from .add import add
 from .append_structures import append_structures
 from .get import *
 from .set import *
+from .iterators import StructuresIterator, TopologyIterator
 
 from .to_mdtraj_HDF5TrajectoryFile import to_mdtraj_HDF5TrajectoryFile
 from .to_molsysmt_MolSys import to_molsysmt_MolSys

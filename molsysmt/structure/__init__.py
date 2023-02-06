@@ -8,6 +8,7 @@ from .get_geometric_center import get_geometric_center
 from .get_center_of_mass import get_center_of_mass
 from .center import center
 from .translate import translate
+#from .move_away import move_away
 from .rotate import rotate
 from .get_dihedral_angles import get_dihedral_angles
 from .set_dihedral_angles import set_dihedral_angles
@@ -18,4 +19,3 @@ from .get_least_rmsd import get_least_rmsd
 from .fit import fit
 from .align import align
 from .get_sasa import get_sasa
-from .iterator import Iterator

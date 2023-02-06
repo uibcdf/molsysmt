@@ -8,7 +8,7 @@ import numpy as np
 @digest()
 def get_distances(molecular_system, selection="all", groups_of_atoms=None, group_behavior=None, structure_indices="all",
              molecular_system_2=None, selection_2=None, groups_of_atoms_2=None, group_behavior_2=None, structure_indices_2=None,
-             pairs=False, crossed_structures=False, pbc=False, output='numpy.ndarray',
+             pairs=False, crossed_structures=False, pbc=False, output_type='numpy.ndarray',
              output_with_atom_indices=False, output_with_structure_indices=False, engine='MolSysMT',
              syntax='MolSysMT'):
     """get_distances(item, to_form='molsysmt.MolSys', selection='all', structure_indices='all', syntax='MolSysMT', **kwargs)
@@ -36,7 +36,7 @@ def get_distances(molecular_system, selection="all", groups_of_atoms=None, group
 
     # group_behavior in
     # ['center_of_mass','geometric_center','minimum_distance','maximum_distance']
-    # output in ['numpy.ndarray','dict']
+    # output in ['numpy.ndarray','dictionary']
 
     # crossed_structures es para cuando queremos calcular lista de structures1 contra lista de structures 2
     # (todos con todos), si crossed_structures=False entonces es sólo el primer structure de lista 1 contra
@@ -219,7 +219,7 @@ def get_distances(molecular_system, selection="all", groups_of_atoms=None, group
 
         dists = dists*length_units
 
-        if output=='numpy.ndarray':
+        if output_type=='numpy.ndarray':
             if output_with_structure_indices:
 
                 if is_all(structure_indices):
@@ -237,7 +237,7 @@ def get_distances(molecular_system, selection="all", groups_of_atoms=None, group
             else:
                 return dists
 
-        elif output=='dict':
+        elif output_type=='dictionary':
             if is_all(structure_indices):
                 structure_indices = np.arange(nstructures_1)
             if is_all(structure_indices_2):

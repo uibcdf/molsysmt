@@ -53,7 +53,7 @@ def form_attributes():
         'velocities': False,
         'box': False,
         'time': False,
-        'step': False,
+        'structure_id': False,
 
         'forcefield': False,
         'temperature': False,

@@ -5,6 +5,7 @@ from .add import add
 from .append_structures import append_structures
 from .get import *
 from .set import *
+from .iterators import StructuresIterator, TopologyIterator
 
 from .download import download
 from .replace_HETATM_by_ATOM_in_terminal_cappings import replace_HETATM_by_ATOM_in_terminal_cappings

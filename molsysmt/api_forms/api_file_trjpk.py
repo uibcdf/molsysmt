@@ -4,6 +4,7 @@ from molsysmt.form.file_trjpk.add import add
 from molsysmt.form.file_trjpk.append_structures import append_structures
 from molsysmt.form.file_trjpk.get import *
 from molsysmt.form.file_trjpk.set import *
+from molsysmt.form.file_trjpk.iterators import StructuresIterator, TopologyIterator
 
 form_name='file:trjpk'
 form_type='file'
@@ -51,7 +52,7 @@ form_attributes = {
     'velocities' : False,
     'box' : True,
     'time' : True,
-    'step' : True,
+    'structure_id' : True,
 
     'forcefield' : False,
     'temperature' : False,
@@ -61,11 +62,11 @@ form_attributes = {
 }
 
 
-def to_molsysmt_TrajectoryDict(item, molecular_system=None, atom_indices='all', structure_indices='all'):
+def to_molsysmt_StructuresDict(item, molecular_system=None, atom_indices='all', structure_indices='all'):
 
-    from molsysmt.form.file_trjpk import to_molsysmt_TrajectoryDict as file_trjpk_to_molsysmt_TrajectoryDict
+    from molsysmt.form.file_trjpk import to_molsysmt_StructuresDict as file_trjpk_to_molsysmt_StructuresDict
 
-    tmp_item = file_trjpk_to_molsysmt_TrajectoryDict(item, atom_indices=atom_indices, structure_indices=structure_indices)
+    tmp_item = file_trjpk_to_molsysmt_StructuresDict(item, atom_indices=atom_indices, structure_indices=structure_indices)
 
     return tmp_item
 

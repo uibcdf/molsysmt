@@ -5,6 +5,7 @@ from .add import add
 from .append_structures import append_structures
 from .get import *
 from .set import *
+from .iterators import StructuresIterator, TopologyIterator
 
 from .to_string_aminoacids3 import to_string_aminoacids3
 from .to_biopython_SeqRecord import to_biopython_SeqRecord

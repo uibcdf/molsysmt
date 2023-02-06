@@ -2,16 +2,21 @@ from ...exceptions import ArgumentError
 import numpy as np
 from molsysmt import pyunitwizard as puw
 
-methods_where_bool = [
+functions_where_boolean = (
     'molsysmt.basic.get.get',
-    'molsysmt.basic.compare.compare'
-]
+    'molsysmt.basic.compare.compare',
+    'molsysmt.basic.iterator.__init__',
+    '.iterators.__init__'
+    )
 
 def digest_coordinates(coordinates, caller=None):
 
-    if caller in methods_where_bool:
+    if caller.endswith(functions_where_boolean):
         if isinstance(coordinates, bool):
             return coordinates
+
+    if coordinates is None:
+        return None
 
     value = puw.get_value(coordinates)
     unit = puw.get_unit(coordinates)

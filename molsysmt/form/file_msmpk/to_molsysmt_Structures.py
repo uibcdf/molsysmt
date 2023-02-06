@@ -7,7 +7,6 @@ def to_molsysmt_Structures(item, atom_indices='all', structure_indices='all'):
     from ..molsysmt_MolSys import to_molsysmt_Structures as molsysmt_MolSys_to_molsysmt_Structures
 
     tmp_item = to_molsysmt_MolSys(item, atom_indices=atom_indices, structure_indices=structure_indices)
-
     tmp_item = molsysmt_MolSys_to_molsysmt_Structures(tmp_item)
 
     return tmp_item

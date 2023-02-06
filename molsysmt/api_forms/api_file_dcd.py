@@ -4,6 +4,7 @@ from molsysmt.form.file_dcd.add import add
 from molsysmt.form.file_dcd.append_structures import append_structures
 from molsysmt.form.file_dcd.get import *
 from molsysmt.form.file_dcd.set import *
+from molsysmt.form.file_dcd.iterators import StructuresIterator, TopologyIterator
 from .form_attributes import form_attributes
 
 form_name = 'file:dcd'

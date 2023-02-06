@@ -4,6 +4,7 @@ from molsysmt.form.molsysmt_MolSys.add import add
 from molsysmt.form.molsysmt_MolSys.append_structures import append_structures
 from molsysmt.form.molsysmt_MolSys.get import *
 from molsysmt.form.molsysmt_MolSys.set import *
+from molsysmt.form.molsysmt_MolSys.iterators import StructuresIterator, TopologyIterator
 import numpy as np
 from .form_attributes import form_attributes
 
@@ -45,7 +46,7 @@ form_attributes['entity_type'] = True
 form_attributes['coordinates'] = True
 form_attributes['box'] = True
 form_attributes['time'] = True
-form_attributes['step'] = True
+form_attributes['structure_id'] = True
 form_attributes['occupancy'] = True
 form_attributes['alternate_location'] = True
 form_attributes['b_factor'] = True

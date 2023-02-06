@@ -1,6 +1,6 @@
 from molsysmt._private.digestion import digest
 
-@digest('mdtraj.Topology')
+@digest(form='mdtraj.Topology')
 def to_parmed_Structure(item, atom_indices='all'):
 
     from . import to_openmm_Topology

@@ -118,8 +118,13 @@ def get_group_name_from_group(item, indices='all'):
 @digest(form=form)
 def get_group_type_from_group(item, indices='all'):
 
-    from molsysmt.element.group import group_type_from_group
-    return group_type_from_group(item, indices=indices)
+    from molsysmt.element.group import get_group_type_from_group_name as aux_get
+
+    output = get_group_name_from_group(item, indices=indices)
+    output = [aux_get(ii) for ii in output]
+    output = np.array(output, dtype=object)
+
+    return output
 
 
 ## From component
@@ -296,7 +301,7 @@ def get_time_from_system(item, structure_indices='all'):
     raise NotWithThisFormError()
 
 @digest(form=form)
-def get_step_from_system(item, structure_indices='all'):
+def get_structure_id_from_system(item, structure_indices='all'):
 
     raise NotWithThisFormError()
 

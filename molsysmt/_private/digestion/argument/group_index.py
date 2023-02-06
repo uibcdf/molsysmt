@@ -1,6 +1,12 @@
 from ...exceptions import ArgumentError
 from ...variables import is_all
 
+functions_with_boolean = (
+        'molsysmt.basic.get.get',
+        'molsysmt.basic.iterator.__init__',
+        'iterators.__init__',
+        )
+
 def digest_group_index(group_index, caller=None):
     """Checks if `group_index` has the expected type and value.
 
@@ -25,7 +31,7 @@ def digest_group_index(group_index, caller=None):
         If the given `group_index` has not of the correct type or value.
     """
 
-    if caller=='molsysmt.basic.get.get':
+    if caller.endswith(functions_with_boolean):
         if isinstance(group_index, bool):
             return group_index
 

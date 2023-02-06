@@ -6,11 +6,11 @@ def digest_mask(mask, caller=None):
 
     from molsysmt.syntax.syntaxes import lowercase_syntaxes
 
-    if caller=='molsysmt.basic.select.select':
+    if caller in ['molsysmt.basic.select.select', 'molsysmt.basic.get.get']:
 
         if mask is None:
             return mask
-        elif isinstance(mask, (list, tuple, np.ndarray)):
+        elif isinstance(mask, (str, list, tuple, np.ndarray)):
             return mask
         elif is_all(mask):
             return 'all'

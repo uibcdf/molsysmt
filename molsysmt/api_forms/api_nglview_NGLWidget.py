@@ -4,6 +4,7 @@ from molsysmt.form.nglview_NGLWidget.add import add
 from molsysmt.form.nglview_NGLWidget.append_structures import append_structures
 from molsysmt.form.nglview_NGLWidget.get import *
 from molsysmt.form.nglview_NGLWidget.set import *
+from molsysmt.form.nglview_NGLWidget.iterators import StructuresIterator, TopologyIterator
 from .form_attributes import form_attributes
 
 form_name = 'nglview.NGLWidget'
@@ -20,6 +21,7 @@ form_attributes['bond_id'] = True
 form_attributes['bond_name'] = True
 form_attributes['bond_type'] = True
 form_attributes['bond_order'] = True
+form_attributes['bonded_atoms'] = True
 form_attributes['group_index'] = True
 form_attributes['group_id'] = True
 form_attributes['group_name'] = True

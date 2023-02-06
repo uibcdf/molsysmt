@@ -68,7 +68,7 @@ def select_within(molecular_system, selection, structure_indices, syntax):
 
     atom_indices_1, atom_indices_2, cmap = get_contacts(molecular_system, selection=selection_1, selection_2=selection_2,
                                            structure_indices=structure_indices, threshold=threshold, pbc=pbc, engine='MolSysMT',
-                                           syntax=syntax, output_with_atom_indices=True, output='numpy.ndarray')
+                                           syntax=syntax, output_with_atom_indices=True, output_type='numpy.ndarray')
 
     if not_within:
         output = atom_indices_1[np.where(cmap.all(axis=2)[0]==False)[0]]
@@ -122,8 +122,8 @@ def select(molecular_system, selection='all', structure_indices='all', element='
     selection: str, list, tuple, np.ndarray, default='all'
        Selection criterion given by means of a string following any of the selection syntax parsable by MolSysMT.
 
-    mask: list, tuple, numpy array or None. default=None
-       XXX
+    mask: str, list, tuple, numpy array or None. default=None
+       mask can also be a string (selection criterion)
 
     element: str, default='atom'
        The output indices list can correspond to 'atom', 'group', 'component', 'molecule', 'chain',
@@ -174,23 +174,27 @@ def select(molecular_system, selection='all', structure_indices='all', element='
             atom_indices = select_bonded_to(molecular_system, selection=selection, syntax=syntax)
         else:
             atom_indices = select_standard(molecular_system, selection=selection, syntax=syntax)
+
+        if element=='atom':
+            output_indices = atom_indices
+        elif element in ['group', 'component', 'chain', 'molecule', 'entity']:
+            aux_item, aux_form = where_is_attribute(molecular_system, element+'_index')
+            output_indices = dict_get[aux_form]['atom'][element+'_index'](aux_item, indices=atom_indices)
+            output_indices = np.unique(output_indices)
+        elif element=='bond':
+            aux_item, aux_form = where_is_attribute(molecular_system, 'inner_bond_index')
+            output_indices = dict_get[aux_form]['atom']['inner_bond_index'](aux_item, indices=atom_indices)
+        else:
+            raise NotImplementedMethodError()
+
     else:
 
-        atom_indices = select_standard(molecular_system, selection, syntax)
-
-    if element=='atom':
-        output_indices = atom_indices
-    elif element in ['group', 'component', 'chain', 'molecule', 'entity']:
-        aux_item, aux_form = where_is_attribute(molecular_system, element+'_index')
-        output_indices = dict_get[aux_form]['atom'][element+'_index'](aux_item, indices=atom_indices)
-        output_indices = np.unique(output_indices)
-    elif element=='bond':
-        aux_item, aux_form = where_is_attribute(molecular_system, 'inner_bond_index')
-        output_indices = dict_get[aux_form]['atom']['inner_bond_index'](aux_item, indices=atom_indices)
-    else:
-        raise NotImplementedMethodError()
+        output_indices = selection
+        #atom_indices = select_standard(molecular_system, selection, syntax)
 
     if mask is not None:
+        if isinstance(mask, str):
+            mask = select(molecular_system, selection=mask, element=element, syntax=syntax)
         output_indices = np.intersect1d(output_indices, mask, assume_unique=True)
 
     if to_syntax is None:

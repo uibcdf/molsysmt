@@ -8,8 +8,8 @@ def from_openexplorer_OpenExplorerReporter(item, molecular_system=None, atom_ind
 
     tmp_item = Trajectory()
 
-    if item.step is not None:
-        tmp_item.step = array(item.step, dtype=int)
+    if item.structure_id is not None:
+        tmp_item.structure_id = array(item.structure_id, dtype=int)
 
     units = item.coordinates.unit
     tmp_item.coordinates = array(item.coordinates._value, dtype=float)

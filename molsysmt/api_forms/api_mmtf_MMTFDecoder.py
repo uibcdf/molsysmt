@@ -4,6 +4,7 @@ from molsysmt.form.mmtf_MMTFDecoder.add import add
 from molsysmt.form.mmtf_MMTFDecoder.append_structures import append_structures
 from molsysmt.form.mmtf_MMTFDecoder.get import *
 from molsysmt.form.mmtf_MMTFDecoder.set import *
+from molsysmt.form.mmtf_MMTFDecoder.iterators import StructuresIterator, TopologyIterator
 from .form_attributes import form_attributes
 
 form_name = 'mmtf.MMTFDecoder'

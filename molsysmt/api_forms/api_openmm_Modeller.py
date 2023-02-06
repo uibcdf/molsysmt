@@ -4,6 +4,7 @@ from molsysmt.form.openmm_Modeller.add import add
 from molsysmt.form.openmm_Modeller.append_structures import append_structures
 from molsysmt.form.openmm_Modeller.get import *
 from molsysmt.form.openmm_Modeller.set import *
+from molsysmt.form.openmm_Modeller.iterators import StructuresIterator, TopologyIterator
 from .form_attributes import form_attributes
 
 form_name = 'openmm.Modeller'

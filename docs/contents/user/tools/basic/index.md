@@ -18,6 +18,7 @@
    info.ipynb
    is_a_molecular_system.ipynb
    is_composed_of.ipynb
+   iterator.ipynb
    merge.ipynb
    remove.ipynb
    selection.ipynb

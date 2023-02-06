@@ -1,6 +1,6 @@
 from molsysmt._private.digestion import digest
 
-@digest('mdanalysis.Universe')
+@digest(form='mdanalysis.Universe')
 def to_molsysmt_Topology(item, atom_indices='all'):
 
     from molsysmt.native import Topology

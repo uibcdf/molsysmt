@@ -1,6 +1,6 @@
 from molsysmt._private.digestion import digest
 
-@digest('mdanalysis.Universe')
+@digest(form='mdanalysis.Universe')
 def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all'):
 
     from molsysmt.native.molsys import MolSys

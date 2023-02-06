@@ -5,6 +5,7 @@ from .add import add
 from .append_structures import append_structures
 from .get import *
 from .set import *
+from .iterators import StructuresIterator, TopologyIterator
 
 from .to_openmm_AmberInpcrdFile import to_openmm_AmberInpcrdFile
 from .to_mdtraj_AmberRestartFile import to_mdtraj_AmberRestartFile

@@ -239,10 +239,10 @@ def get_time_from_system(item, structure_indices='all'):
     return output
 
 @digest(form=form)
-def get_step_from_system(item, structure_indices='all'):
+def get_structure_id_from_system(item, structure_indices='all'):
 
     from . import to_mdtraj_DCDTrajectoryFile
-    from ..mdtraj_DCDTrajectoryFile import get_step_from_system as aux_get
+    from ..mdtraj_DCDTrajectoryFile import get_structure_id_from_system as aux_get
 
     tmp_item = to_mdtraj_DCDTrajectoryFile(item)
     output = aux_get(tmp_item, structure_indices=structure_indices)

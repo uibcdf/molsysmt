@@ -4,6 +4,7 @@ from molsysmt.form.openmm_Simulation.add import add
 from molsysmt.form.openmm_Simulation.append_structures import append_structures
 from molsysmt.form.openmm_Simulation.get import *
 from molsysmt.form.openmm_Simulation.set import *
+from molsysmt.form.openmm_Simulation.iterators import StructuresIterator, TopologyIterator
 from .form_attributes import form_attributes
 
 form_name = 'openmm.Simulation'
@@ -44,7 +45,7 @@ form_attributes['coordinates'] = True
 form_attributes['velocities'] = True
 form_attributes['box'] = True
 form_attributes['time'] = True
-form_attributes['step'] = True
+form_attributes['structure_id'] = True
 form_attributes['forcefield'] = True
 form_attributes['temperature'] = True
 form_attributes['pressure'] = True

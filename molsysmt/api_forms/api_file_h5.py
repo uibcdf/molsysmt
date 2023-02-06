@@ -4,6 +4,7 @@ from molsysmt.form.file_h5.add import add
 from molsysmt.form.file_h5.append_structures import append_structures
 from molsysmt.form.file_h5.get import *
 from molsysmt.form.file_h5.set import *
+from molsysmt.form.file_h5.iterators import StructuresIterator, TopologyIterator
 from .form_attributes import form_attributes
 
 form_name = 'file:h5'
@@ -37,8 +38,9 @@ form_attributes['coordinates'] = True
 form_attributes['velocities'] = True
 form_attributes['box'] = True
 form_attributes['time'] = True
-form_attributes['step'] = True
+form_attributes['structure_id'] = True
 form_attributes['forcefield_parameters'] = True
+form_attributes['temperature'] = True
 
 
 def to_mdtraj_Trajectory(item, molecular_system, atom_indices='all', structure_indices='all'):

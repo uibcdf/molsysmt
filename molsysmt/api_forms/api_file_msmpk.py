@@ -4,6 +4,7 @@ from molsysmt.form.file_msmpk.add import add
 from molsysmt.form.file_msmpk.append_structures import append_structures
 from molsysmt.form.file_msmpk.get import *
 from molsysmt.form.file_msmpk.set import *
+from molsysmt.form.file_msmpk.iterators import StructuresIterator, TopologyIterator
 from .form_attributes import form_attributes
 
 form_name = 'file:msmpk'
@@ -44,7 +45,7 @@ form_attributes['coordinates'] = True
 form_attributes['velocities'] = True
 form_attributes['box'] = True
 form_attributes['time'] = True
-form_attributes['step'] = True
+form_attributes['structure_id'] = True
 
 
 def to_molsysmt_MolSys(item, molecular_system, atom_indices='all', structure_indices='all'):

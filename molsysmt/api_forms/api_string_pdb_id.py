@@ -4,6 +4,7 @@ from molsysmt.form.string_pdb_id.add import add
 from molsysmt.form.string_pdb_id.append_structures import append_structures
 from molsysmt.form.string_pdb_id.get import *
 from molsysmt.form.string_pdb_id.set import *
+from molsysmt.form.string_pdb_id.iterators import StructuresIterator, TopologyIterator
 from .form_attributes import form_attributes
 
 form_name = 'string:pdb_id'

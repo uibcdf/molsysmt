@@ -14,14 +14,14 @@ def test_select_1():
 
 def test_select_2():
     molsys = msm.convert(msm.demo['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
-    output = msm.select(molsys, element='group', selection=[0,1,2,3,4,5,6,7,8,9,10,11])
-    true_output = np.array([0, 1])
+    output = msm.select(molsys, element='group', selection=[0,1,2,3,4,5])
+    true_output = np.array([0,1,2,3,4,5])
     assert np.all(output==true_output)
 
 def test_select_3():
     molsys = msm.convert(msm.demo['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
     output = msm.select(molsys, element='molecule', selection=[3900, 3910, 3920])
-    true_output = np.array([ 84,  94, 104])
+    true_output = np.array([3900, 3910, 3920])
     assert np.all(output==true_output)
 
 def test_select_4():

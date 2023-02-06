@@ -5,6 +5,7 @@ from .add import add
 from .append_structures import append_structures
 from .get import *
 from .set import *
+from .iterators import StructuresIterator, TopologyIterator
 
 from .to_mdtraj_Trajectory import to_mdtraj_Trajectory
 from .to_mdtraj_XTCTrajectoryFile import to_mdtraj_XTCTrajectoryFile

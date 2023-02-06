@@ -54,6 +54,11 @@ demo['pentalanine']['pentalanine.inpcrd'] = parent.joinpath('pentalanine/pentala
 demo['pentalanine']['pentalanine.prmtop'] = parent.joinpath('pentalanine/pentalanine.prmtop').__str__()
 demo['pentalanine']['traj.h5'] = parent.joinpath('pentalanine/traj.h5').__str__()
 
+# Pentarginine
+
+demo['pentarginine'] = {}
+demo['pentarginine']['traj.h5'] = parent.joinpath('pentarginine/traj.h5').__str__()
+
 # Particles_4
 
 demo['4 particles'] = {}

@@ -3,13 +3,15 @@ from molsysmt._private.variables import is_all
 from molsysmt.attribute.attributes import _required_indices
 
 
-@digest(output=True)
+@digest()
 def get(molecular_system,
         element='system',
         indices=None,
         selection='all',
         structure_indices='all',
+        mask=None,
         syntax='MolSysMT',
+        output_type='values',
         **kwargs):
     """get(item, element='system', indices=None, selection='all', structure_indices='all', syntax='MolSysMT')
 
@@ -75,10 +77,13 @@ def get(molecular_system,
 
     if indices is None:
         if not is_all(selection):
-            indices = select(molecular_system, element=element, selection=selection, syntax=syntax)
+            indices = select(molecular_system, element=element, selection=selection, mask=mask, syntax=syntax)
         else:
-            indices = 'all'
-
+            if (mask is None) or (is_all(mask)):
+                indices = 'all'
+            else:
+                indices = select(molecular_system, element=element, selection=mask, syntax=syntax)
+                
     attributes = []
 
     for argument in arguments:
@@ -99,4 +104,11 @@ def get(molecular_system,
 
         attributes.append(result)
 
-    return attributes
+    if output_type=='values':
+        if len(attributes) == 1:
+            return attributes[0]
+        else:
+            return attributes
+    elif output_type=='dictionary':
+        return dict(zip(arguments, attributes))
+

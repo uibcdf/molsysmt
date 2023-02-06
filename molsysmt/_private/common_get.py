@@ -1,4 +1,5 @@
 from molsysmt._private.variables import is_all
+from molsysmt import pyunitwizard as puw
 import numpy as np
 from networkx import Graph
 
@@ -6,6 +7,9 @@ from networkx import Graph
 
 @digest(form=form)
 def get_atom_index_from_atom(item, indices='all'):
+
+    if indices is None:
+        return None
 
     if is_all(indices):
         n_aux = get_n_atoms_from_system(item)
@@ -18,6 +22,9 @@ def get_atom_index_from_atom(item, indices='all'):
 @digest(form=form)
 def get_group_id_from_atom(item, indices='all'):
 
+    if indices is None:
+        return None
+
     aux_indices = get_group_index_from_atom(item, indices=indices)
     aux_unique_indices = np.unique(aux_indices)
     aux_vals = get_group_id_from_group(item, indices=aux_unique_indices)
@@ -29,6 +36,9 @@ def get_group_id_from_atom(item, indices='all'):
 
 @digest(form=form)
 def get_group_name_from_atom(item, indices='all'):
+
+    if indices is None:
+        return None
 
     aux_indices = get_group_index_from_atom(item, indices=indices)
     aux_unique_indices = np.unique(aux_indices)
@@ -43,6 +53,9 @@ def get_group_name_from_atom(item, indices='all'):
 @digest(form=form)
 def get_group_type_from_atom(item, indices='all'):
 
+    if indices is None:
+        return None
+
     aux_indices = get_group_index_from_atom(item, indices=indices)
     aux_unique_indices = np.unique(aux_indices)
     aux_vals = get_group_type_from_group(item, indices=aux_unique_indices)
@@ -56,6 +69,9 @@ def get_group_type_from_atom(item, indices='all'):
 @digest(form=form)
 def get_component_id_from_atom(item, indices='all'):
 
+    if indices is None:
+        return None
+
     aux_indices = get_component_index_from_atom(item, indices=indices)
     aux_unique_indices = np.unique(aux_indices)
     aux_vals = get_component_id_from_component(item, indices=aux_unique_indices)
@@ -67,6 +83,9 @@ def get_component_id_from_atom(item, indices='all'):
 
 @digest(form=form)
 def get_component_name_from_atom(item, indices='all'):
+
+    if indices is None:
+        return None
 
     aux_indices = get_component_index_from_atom(item, indices=indices)
     aux_unique_indices = np.unique(aux_indices)
@@ -81,6 +100,9 @@ def get_component_name_from_atom(item, indices='all'):
 @digest(form=form)
 def get_component_type_from_atom(item, indices='all'):
 
+    if indices is None:
+        return None
+
     aux_indices = get_component_index_from_atom(item, indices=indices)
     aux_unique_indices = np.unique(aux_indices)
     aux_vals = get_component_type_from_component(item, indices=aux_unique_indices)
@@ -94,6 +116,9 @@ def get_component_type_from_atom(item, indices='all'):
 @digest(form=form)
 def get_chain_id_from_atom(item, indices='all'):
 
+    if indices is None:
+        return None
+
     aux_indices = get_chain_index_from_atom(item, indices=indices)
     aux_unique_indices = np.unique(aux_indices)
     aux_vals = get_chain_id_from_chain(item, indices=aux_unique_indices)
@@ -105,6 +130,9 @@ def get_chain_id_from_atom(item, indices='all'):
 
 @digest(form=form)
 def get_chain_name_from_atom(item, indices='all'):
+
+    if indices is None:
+        return None
 
     aux_indices = get_chain_index_from_atom(item, indices=indices)
     aux_unique_indices = np.unique(aux_indices)
@@ -119,6 +147,9 @@ def get_chain_name_from_atom(item, indices='all'):
 @digest(form=form)
 def get_chain_type_from_atom(item, indices='all'):
 
+    if indices is None:
+        return None
+
     aux_indices = get_chain_index_from_atom(item, indices=indices)
     aux_unique_indices = np.unique(aux_indices)
     aux_vals = get_chain_type_from_chain(item, indices=aux_unique_indices)
@@ -132,6 +163,9 @@ def get_chain_type_from_atom(item, indices='all'):
 @digest(form=form)
 def get_molecule_id_from_atom(item, indices='all'):
 
+    if indices is None:
+        return None
+
     aux_indices = get_molecule_index_from_atom(item, indices=indices)
     aux_unique_indices = np.unique(aux_indices)
     aux_vals = get_molecule_id_from_molecule(item, indices=aux_unique_indices)
@@ -143,6 +177,9 @@ def get_molecule_id_from_atom(item, indices='all'):
 
 @digest(form=form)
 def get_molecule_name_from_atom(item, indices='all'):
+
+    if indices is None:
+        return None
 
     aux_indices = get_molecule_index_from_atom(item, indices=indices)
     aux_unique_indices = np.unique(aux_indices)
@@ -157,6 +194,9 @@ def get_molecule_name_from_atom(item, indices='all'):
 @digest(form=form)
 def get_molecule_type_from_atom(item, indices='all'):
 
+    if indices is None:
+        return None
+
     aux_indices = get_molecule_index_from_atom(item, indices=indices)
     aux_unique_indices = np.unique(aux_indices)
     aux_vals = get_molecule_type_from_molecule(item, indices=aux_unique_indices)
@@ -170,6 +210,9 @@ def get_molecule_type_from_atom(item, indices='all'):
 @digest(form=form)
 def get_entity_id_from_atom(item, indices='all'):
 
+    if indices is None:
+        return None
+
     aux_indices = get_entity_index_from_atom(item, indices=indices)
     aux_unique_indices = np.unique(aux_indices)
     aux_vals = get_entity_id_from_entity(item, indices=aux_unique_indices)
@@ -181,6 +224,9 @@ def get_entity_id_from_atom(item, indices='all'):
 
 @digest(form=form)
 def get_entity_name_from_atom(item, indices='all'):
+
+    if indices is None:
+        return None
 
     aux_indices = get_entity_index_from_atom(item, indices=indices)
     aux_unique_indices = np.unique(aux_indices)
@@ -195,6 +241,9 @@ def get_entity_name_from_atom(item, indices='all'):
 @digest(form=form)
 def get_entity_type_from_atom(item, indices='all'):
 
+    if indices is None:
+        return None
+
     aux_indices = get_entity_index_from_atom(item, indices=indices)
     aux_unique_indices = np.unique(aux_indices)
     aux_vals = get_entity_type_from_entity(item, indices=aux_unique_indices)
@@ -208,6 +257,9 @@ def get_entity_type_from_atom(item, indices='all'):
 @digest(form=form)
 def get_n_atoms_from_atom(item, indices='all'):
 
+    if indices is None:
+        return 0
+
     if is_all(indices):
         output = get_n_atoms_from_system(item)
     else:
@@ -217,6 +269,9 @@ def get_n_atoms_from_atom(item, indices='all'):
 
 @digest(form=form)
 def get_n_groups_from_atom(item, indices='all'):
+
+    if indices is None:
+        return 0
 
     if is_all(indices):
         output = get_n_groups_from_system(item)
@@ -229,6 +284,9 @@ def get_n_groups_from_atom(item, indices='all'):
 @digest(form=form)
 def get_n_components_from_atom(item, indices='all'):
 
+    if indices is None:
+        return 0
+
     if is_all(indices):
         output = get_n_components_from_system(item)
     else:
@@ -239,6 +297,9 @@ def get_n_components_from_atom(item, indices='all'):
 
 @digest(form=form)
 def get_n_molecules_from_atom(item, indices='all'):
+
+    if indices is None:
+        return 0
 
     if is_all(indices):
         output = get_n_molecules_from_system(item)
@@ -251,6 +312,9 @@ def get_n_molecules_from_atom(item, indices='all'):
 @digest(form=form)
 def get_n_chains_from_atom(item, indices='all'):
 
+    if indices is None:
+        return 0
+
     if is_all(indices):
         output = get_n_chains_from_system(item)
     else:
@@ -262,6 +326,9 @@ def get_n_chains_from_atom(item, indices='all'):
 @digest(form=form)
 def get_n_entities_from_atom(item, indices='all'):
 
+    if indices is None:
+        return 0
+
     if is_all(indices):
         output = get_n_entities_from_system(item)
     else:
@@ -272,6 +339,9 @@ def get_n_entities_from_atom(item, indices='all'):
 
 @digest(form=form)
 def get_bonded_atoms_from_atom(item, indices='all'):
+
+    if indices is None:
+        return None
 
     output = None
 
@@ -293,12 +363,18 @@ def get_bonded_atoms_from_atom(item, indices='all'):
 
     output = np.array(output, dtype=object)
 
+    for ii in range(output.shape[0]):
+        output[ii] = np.sort(output[ii])
+
     del(G, edges)
 
     return output
 
 @digest(form=form)
 def get_bond_index_from_atom(item, indices='all'):
+
+    if indices is None:
+        return None
 
     output = None
 
@@ -329,6 +405,9 @@ def get_bond_index_from_atom(item, indices='all'):
 @digest(form=form)
 def get_n_bonds_from_atom(item, indices='all'):
 
+    if indices is None:
+        return 0
+
     output = None
 
     G = Graph()
@@ -356,6 +435,9 @@ def get_n_bonds_from_atom(item, indices='all'):
 @digest(form=form)
 def get_inner_bond_index_from_atom(item, indices='all'):
 
+    if indices is None:
+        return None
+
     raise _NotImplementedMethodError
 
 
@@ -363,6 +445,9 @@ def get_inner_bond_index_from_atom(item, indices='all'):
 
 @digest(form=form)
 def get_atom_index_from_group(item, indices='all'):
+
+    if indices is None:
+        return None
 
     indices_aux = get_group_index_from_group(item, indices=indices)
     attribute_from_atom = get_atom_index_from_atom(item)
@@ -386,6 +471,9 @@ def get_atom_index_from_group(item, indices='all'):
 @digest(form=form)
 def get_atom_id_from_group(item, indices='all'):
 
+    if indices is None:
+        return None
+
     aux_indices = get_atom_index_from_group(item, indices=indices)
 
     if len(aux_indices)>0:
@@ -404,6 +492,9 @@ def get_atom_id_from_group(item, indices='all'):
 
 @digest(form=form)
 def get_atom_name_from_group(item, indices='all'):
+
+    if indices is None:
+        return None
 
     aux_indices = get_atom_index_from_group(item, indices=indices)
 
@@ -424,6 +515,9 @@ def get_atom_name_from_group(item, indices='all'):
 @digest(form=form)
 def get_atom_type_from_group(item, indices='all'):
 
+    if indices is None:
+        return None
+
     aux_indices = get_atom_index_from_group(item, indices=indices)
 
     if len(aux_indices)>0:
@@ -443,6 +537,9 @@ def get_atom_type_from_group(item, indices='all'):
 @digest(form=form)
 def get_group_index_from_group(item, indices='all'):
 
+    if indices is None:
+        return None
+
     if is_all(indices):
         n_aux = get_n_groups_from_system(item)
         output = np.arange(n_aux, dtype=int)
@@ -453,6 +550,9 @@ def get_group_index_from_group(item, indices='all'):
 
 @digest(form=form)
 def get_component_index_from_group(item, indices='all'):
+
+    if indices is None:
+        return None
 
     atom_index_from_target = get_atom_index_from_group(item, indices=indices)
     first_atom_index_from_target = np.array([ii[0] for ii in atom_index_from_target])
@@ -465,6 +565,9 @@ def get_component_index_from_group(item, indices='all'):
 @digest(form=form)
 def get_component_id_from_group(item, indices='all'):
 
+    if indices is None:
+        return None
+
     aux_indices = get_component_index_from_group(item, indices=indices)
     aux_unique_indices = np.unique(aux_indices)
     aux_vals = get_component_id_from_component(item, indices=aux_unique_indices)
@@ -475,6 +578,9 @@ def get_component_id_from_group(item, indices='all'):
 
 @digest(form=form)
 def get_component_name_from_group(item, indices='all'):
+
+    if indices is None:
+        return None
 
     aux_indices = get_component_index_from_group(item, indices=indices)
     aux_unique_indices = np.unique(aux_indices)
@@ -487,6 +593,9 @@ def get_component_name_from_group(item, indices='all'):
 @digest(form=form)
 def get_component_type_from_group(item, indices='all'):
 
+    if indices is None:
+        return None
+
     aux_indices = get_component_index_from_group(item, indices=indices)
     aux_unique_indices = np.unique(aux_indices)
     aux_vals = get_component_type_from_component(item, indices=aux_unique_indices)
@@ -497,6 +606,9 @@ def get_component_type_from_group(item, indices='all'):
 
 @digest(form=form)
 def get_chain_index_from_group(item, indices='all'):
+
+    if indices is None:
+        return None
 
     atom_index_from_target = get_atom_index_from_group(item, indices=indices)
     first_atom_index_from_target = np.array([ii[0] for ii in atom_index_from_target])
@@ -509,6 +621,9 @@ def get_chain_index_from_group(item, indices='all'):
 @digest(form=form)
 def get_chain_id_from_group(item, indices='all'):
 
+    if indices is None:
+        return None
+
     aux_indices = get_chain_index_from_group(item, indices=indices)
     aux_unique_indices = np.unique(aux_indices)
     aux_vals = get_chain_id_from_chain(item, indices=aux_unique_indices)
@@ -519,6 +634,9 @@ def get_chain_id_from_group(item, indices='all'):
 
 @digest(form=form)
 def get_chain_name_from_group(item, indices='all'):
+
+    if indices is None:
+        return None
 
     aux_indices = get_chain_index_from_group(item, indices=indices)
     aux_unique_indices = np.unique(aux_indices)
@@ -531,6 +649,9 @@ def get_chain_name_from_group(item, indices='all'):
 @digest(form=form)
 def get_chain_type_from_group(item, indices='all'):
 
+    if indices is None:
+        return None
+
     aux_indices = get_chain_index_from_group(item, indices=indices)
     aux_unique_indices = np.unique(aux_indices)
     aux_vals = get_chain_type_from_chain(item, indices=aux_unique_indices)
@@ -541,6 +662,9 @@ def get_chain_type_from_group(item, indices='all'):
 
 @digest(form=form)
 def get_molecule_index_from_group(item, indices='all'):
+
+    if indices is None:
+        return None
 
     atom_index_from_target = get_atom_index_from_group(item, indices=indices)
     first_atom_index_from_target = np.array([ii[0] for ii in atom_index_from_target])
@@ -553,6 +677,9 @@ def get_molecule_index_from_group(item, indices='all'):
 @digest(form=form)
 def get_molecule_id_from_group(item, indices='all'):
 
+    if indices is None:
+        return None
+
     aux_indices = get_molecule_index_from_group(item, indices=indices)
     aux_unique_indices = np.unique(aux_indices)
     aux_vals = get_molecule_id_from_molecule(item, indices=aux_unique_indices)
@@ -563,6 +690,9 @@ def get_molecule_id_from_group(item, indices='all'):
 
 @digest(form=form)
 def get_molecule_name_from_group(item, indices='all'):
+
+    if indices is None:
+        return None
 
     aux_indices = get_molecule_index_from_group(item, indices=indices)
     aux_unique_indices = np.unique(aux_indices)
@@ -575,6 +705,9 @@ def get_molecule_name_from_group(item, indices='all'):
 @digest(form=form)
 def get_molecule_type_from_group(item, indices='all'):
 
+    if indices is None:
+        return None
+
     aux_indices = get_molecule_index_from_group(item, indices=indices)
     aux_unique_indices = np.unique(aux_indices)
     aux_vals = get_molecule_type_from_molecule(item, indices=aux_unique_indices)
@@ -585,6 +718,9 @@ def get_molecule_type_from_group(item, indices='all'):
 
 @digest(form=form)
 def get_entity_index_from_group(item, indices='all'):
+
+    if indices is None:
+        return None
 
     atom_index_from_target = get_atom_index_from_group(item, indices=indices)
     first_atom_index_from_target = np.array([ii[0] for ii in atom_index_from_target])
@@ -597,6 +733,9 @@ def get_entity_index_from_group(item, indices='all'):
 @digest(form=form)
 def get_entity_id_from_group(item, indices='all'):
 
+    if indices is None:
+        return None
+
     aux_indices = get_entity_index_from_group(item, indices=indices)
     aux_unique_indices = np.unique(aux_indices)
     aux_vals = get_entity_id_from_entity(item, indices=aux_unique_indices)
@@ -607,6 +746,9 @@ def get_entity_id_from_group(item, indices='all'):
 
 @digest(form=form)
 def get_entity_name_from_group(item, indices='all'):
+
+    if indices is None:
+        return None
 
     aux_indices = get_entity_index_from_group(item, indices=indices)
     aux_unique_indices = np.unique(aux_indices)
@@ -619,6 +761,9 @@ def get_entity_name_from_group(item, indices='all'):
 @digest(form=form)
 def get_entity_type_from_group(item, indices='all'):
 
+    if indices is None:
+        return None
+
     aux_indices = get_entity_index_from_group(item, indices=indices)
     aux_unique_indices = np.unique(aux_indices)
     aux_vals = get_entity_type_from_entity(item, indices=aux_unique_indices)
@@ -630,6 +775,9 @@ def get_entity_type_from_group(item, indices='all'):
 @digest(form=form)
 def get_n_atoms_from_group(item, indices='all'):
 
+    if indices is None:
+        return 0
+
     output = get_atom_index_from_group(item, indices=indices)
     output = [ii.shape[0] for ii in output]
     output = np.array(output)
@@ -637,6 +785,9 @@ def get_n_atoms_from_group(item, indices='all'):
 
 @digest(form=form)
 def get_n_groups_from_group(item, indices='all'):
+
+    if indices is None:
+        return 0
 
     if is_all(indices):
         output = get_n_groups_from_system(item)
@@ -647,6 +798,9 @@ def get_n_groups_from_group(item, indices='all'):
 
 @digest(form=form)
 def get_n_components_from_group(item, indices='all'):
+
+    if indices is None:
+        return 0
 
     if is_all(indices):
         return get_n_components_from_system(item)
@@ -659,6 +813,9 @@ def get_n_components_from_group(item, indices='all'):
 @digest(form=form)
 def get_n_molecules_from_group(item, indices='all'):
 
+    if indices is None:
+        return 0
+
     if is_all(indices):
         return get_n_molecules_from_system(item)
     else:
@@ -669,6 +826,9 @@ def get_n_molecules_from_group(item, indices='all'):
 
 @digest(form=form)
 def get_n_chains_from_group(item, indices='all'):
+
+    if indices is None:
+        return 0
 
     if is_all(indices):
         return get_n_chains_from_system(item)
@@ -681,6 +841,9 @@ def get_n_chains_from_group(item, indices='all'):
 @digest(form=form)
 def get_n_entities_from_group(item, indices='all'):
 
+    if indices is None:
+        return 0
+
     if is_all(indices):
         return get_n_entities_from_system(item)
     else:
@@ -689,11 +852,49 @@ def get_n_entities_from_group(item, indices='all'):
 
     return output
 
+@digest(form=form)
+def get_formal_charge_from_group(item, indices='all'):
+
+    if indices is None:
+        return None
+
+    atom_indices_per_element = get_atom_index_from_group(item, indices)
+    output = []
+    for atom_indices in atom_indices_per_element:
+        charges = get_formal_charge_from_atom(item, atom_indices)
+        output.append(np.sum(charges))
+
+    output = puw.concatenate(output, to_value_type='numpy.ndarray', standardized=True)
+
+    return output
+
+@digest(form=form)
+def get_partial_charge_from_group(item, indices='all'):
+
+    if indices is None:
+        return None
+
+    if indices is None:
+        return None
+
+    atom_indices_per_element = get_atom_index_from_group(item, indices)
+    output = []
+    for atom_indices in atom_indices_per_element:
+        charges = get_partial_charge_from_atom(item, atom_indices)
+        output.append(np.sum(charges))
+
+    output = np.array(output)
+
+    return output
+
 
 ## From component
 
 @digest(form=form)
 def get_atom_index_from_component(item, indices='all'):
+
+    if indices is None:
+        return None
 
     indices_aux = get_component_index_from_component(item, indices=indices)
     attribute_from_atom = get_atom_index_from_atom(item)
@@ -717,6 +918,9 @@ def get_atom_index_from_component(item, indices='all'):
 @digest(form=form)
 def get_atom_id_from_component(item, indices='all'):
 
+    if indices is None:
+        return None
+
     aux_indices = get_atom_index_from_component(item, indices=indices)
 
     if len(aux_indices)>0:
@@ -735,6 +939,9 @@ def get_atom_id_from_component(item, indices='all'):
 
 @digest(form=form)
 def get_atom_name_from_component(item, indices='all'):
+
+    if indices is None:
+        return None
 
     aux_indices = get_atom_index_from_component(item, indices=indices)
 
@@ -755,6 +962,9 @@ def get_atom_name_from_component(item, indices='all'):
 @digest(form=form)
 def get_atom_type_from_component(item, indices='all'):
 
+    if indices is None:
+        return None
+
     aux_indices = get_atom_index_from_component(item, indices=indices)
 
     if len(aux_indices)>0:
@@ -773,6 +983,9 @@ def get_atom_type_from_component(item, indices='all'):
 
 @digest(form=form)
 def get_group_index_from_component(item, indices='all'):
+
+    if indices is None:
+        return None
 
     indices_aux = get_component_index_from_component(item, indices=indices)
     attribute_from_atom = get_group_index_from_atom(item)
@@ -796,6 +1009,9 @@ def get_group_index_from_component(item, indices='all'):
 @digest(form=form)
 def get_group_id_from_component(item, indices='all'):
 
+    if indices is None:
+        return None
+
     aux_indices = get_group_index_from_component(item, indices=indices)
 
     if len(aux_indices)>0:
@@ -814,6 +1030,9 @@ def get_group_id_from_component(item, indices='all'):
 
 @digest(form=form)
 def get_group_name_from_component(item, indices='all'):
+
+    if indices is None:
+        return None
 
     aux_indices = get_group_index_from_component(item, indices=indices)
 
@@ -834,6 +1053,9 @@ def get_group_name_from_component(item, indices='all'):
 @digest(form=form)
 def get_group_type_from_component(item, indices='all'):
 
+    if indices is None:
+        return None
+
     aux_indices = get_group_index_from_component(item, indices=indices)
 
     if len(aux_indices)>0:
@@ -853,6 +1075,9 @@ def get_group_type_from_component(item, indices='all'):
 @digest(form=form)
 def get_component_index_from_component(item, indices='all'):
 
+    if indices is None:
+        return None
+
     if is_all(indices):
         n_aux = get_n_components_from_system(item)
         output = np.arange(n_aux, dtype=int)
@@ -864,6 +1089,9 @@ def get_component_index_from_component(item, indices='all'):
 @digest(form=form)
 def get_chain_index_from_component(item, indices='all'):
 
+    if indices is None:
+        return None
+
     atom_index_from_target = get_atom_index_from_component(item, indices=indices)
     first_atom_index_from_target = np.array([ii[0] for ii in atom_index_from_target])
     output = get_chain_index_from_atom(item, indices=first_atom_index_from_target)
@@ -874,6 +1102,9 @@ def get_chain_index_from_component(item, indices='all'):
 
 @digest(form=form)
 def get_chain_id_from_component(item, indices='all'):
+
+    if indices is None:
+        return None
 
     aux_indices = get_chain_index_from_component(item, indices=indices)
     aux_unique_indices = np.unique(aux_indices)
@@ -887,6 +1118,9 @@ def get_chain_id_from_component(item, indices='all'):
 @digest(form=form)
 def get_chain_name_from_component(item, indices='all'):
 
+    if indices is None:
+        return None
+
     aux_indices = get_chain_index_from_component(item, indices=indices)
     aux_unique_indices = np.unique(aux_indices)
     aux_vals = get_chain_name_from_chain(item, indices=aux_unique_indices)
@@ -898,6 +1132,9 @@ def get_chain_name_from_component(item, indices='all'):
 
 @digest(form=form)
 def get_chain_type_from_component(item, indices='all'):
+
+    if indices is None:
+        return None
 
     aux_indices = get_chain_index_from_component(item, indices=indices)
     aux_unique_indices = np.unique(aux_indices)
@@ -911,6 +1148,9 @@ def get_chain_type_from_component(item, indices='all'):
 @digest(form=form)
 def get_molecule_index_from_component(item, indices='all'):
 
+    if indices is None:
+        return None
+
     atom_index_from_target = get_atom_index_from_component(item, indices=indices)
     first_atom_index_from_target = np.array([ii[0] for ii in atom_index_from_target])
     output = get_molecule_index_from_atom(item, indices=first_atom_index_from_target)
@@ -921,6 +1161,9 @@ def get_molecule_index_from_component(item, indices='all'):
 
 @digest(form=form)
 def get_molecule_id_from_component(item, indices='all'):
+
+    if indices is None:
+        return None
 
     aux_indices = get_molecule_index_from_component(item, indices=indices)
     aux_unique_indices = np.unique(aux_indices)
@@ -934,6 +1177,9 @@ def get_molecule_id_from_component(item, indices='all'):
 @digest(form=form)
 def get_molecule_name_from_component(item, indices='all'):
 
+    if indices is None:
+        return None
+
     aux_indices = get_molecule_index_from_component(item, indices=indices)
     aux_unique_indices = np.unique(aux_indices)
     aux_vals = get_molecule_name_from_molecule(item, indices=aux_unique_indices)
@@ -945,6 +1191,9 @@ def get_molecule_name_from_component(item, indices='all'):
 
 @digest(form=form)
 def get_molecule_type_from_component(item, indices='all'):
+
+    if indices is None:
+        return None
 
     aux_indices = get_molecule_index_from_component(item, indices=indices)
     aux_unique_indices = np.unique(aux_indices)
@@ -958,6 +1207,9 @@ def get_molecule_type_from_component(item, indices='all'):
 @digest(form=form)
 def get_entity_index_from_component(item, indices='all'):
 
+    if indices is None:
+        return None
+
     atom_index_from_target = get_atom_index_from_component(item, indices=indices)
     first_atom_index_from_target = np.array([ii[0] for ii in atom_index_from_target])
     output = get_entity_index_from_atom(item, indices=first_atom_index_from_target)
@@ -968,6 +1220,9 @@ def get_entity_index_from_component(item, indices='all'):
 
 @digest(form=form)
 def get_entity_id_from_component(item, indices='all'):
+
+    if indices is None:
+        return None
 
     aux_indices = get_entity_index_from_component(item, indices=indices)
     aux_unique_indices = np.unique(aux_indices)
@@ -981,6 +1236,9 @@ def get_entity_id_from_component(item, indices='all'):
 @digest(form=form)
 def get_entity_name_from_component(item, indices='all'):
 
+    if indices is None:
+        return None
+
     aux_indices = get_entity_index_from_component(item, indices=indices)
     aux_unique_indices = np.unique(aux_indices)
     aux_vals = get_entity_name_from_entity(item, indices=aux_unique_indices)
@@ -992,6 +1250,9 @@ def get_entity_name_from_component(item, indices='all'):
 
 @digest(form=form)
 def get_entity_type_from_component(item, indices='all'):
+
+    if indices is None:
+        return None
 
     aux_indices = get_entity_index_from_component(item, indices=indices)
     aux_unique_indices = np.unique(aux_indices)
@@ -1005,6 +1266,9 @@ def get_entity_type_from_component(item, indices='all'):
 @digest(form=form)
 def get_n_atoms_from_component(item, indices='all'):
 
+    if indices is None:
+        return 0
+
     output = get_atom_index_from_component(item, indices=indices)
     output = [ii.shape[0] for ii in output]
     output = np.array(output)
@@ -1013,6 +1277,9 @@ def get_n_atoms_from_component(item, indices='all'):
 @digest(form=form)
 def get_n_groups_from_component(item, indices='all'):
 
+    if indices is None:
+        return 0
+
     output = get_group_index_from_component(item, indices=indices)
     output = [ii.shape[0] for ii in output]
     output = np.array(output)
@@ -1020,6 +1287,9 @@ def get_n_groups_from_component(item, indices='all'):
 
 @digest(form=form)
 def get_n_components_from_component(item, indices='all'):
+
+    if indices is None:
+        return 0
 
     if is_all(indices):
         output = get_n_components_from_system(item)
@@ -1030,6 +1300,9 @@ def get_n_components_from_component(item, indices='all'):
 
 @digest(form=form)
 def get_n_molecules_from_component(item, indices='all'):
+
+    if indices is None:
+        return 0
 
     if is_all(indices):
         output = get_n_molecules_from_system(item)
@@ -1042,6 +1315,9 @@ def get_n_molecules_from_component(item, indices='all'):
 @digest(form=form)
 def get_n_chains_from_component(item, indices='all'):
 
+    if indices is None:
+        return 0
+
     if is_all(indices):
         output = get_n_chains_from_system(item)
     else:
@@ -1053,6 +1329,9 @@ def get_n_chains_from_component(item, indices='all'):
 @digest(form=form)
 def get_n_entities_from_component(item, indices='all'):
 
+    if indices is None:
+        return 0
+
     if is_all(indices):
         output = get_n_entities_from_system(item)
     else:
@@ -1061,10 +1340,46 @@ def get_n_entities_from_component(item, indices='all'):
 
     return output
 
+@digest(form=form)
+def get_formal_charge_from_component(item, indices='all'):
+
+    if indices is None:
+        return None
+
+    atom_indices_per_element = get_atom_index_from_component(item, indices)
+    output = []
+    for atom_indices in atom_indices_per_element:
+        charges = get_formal_charge_from_atom(item, atom_indices)
+        output.append(np.sum(charges))
+
+    output = np.array(output)
+
+    return output
+
+@digest(form=form)
+def get_partial_charge_from_group(item, indices='all'):
+
+    if indices is None:
+        return None
+
+    atom_indices_per_element = get_atom_index_from_component(item, indices)
+    output = []
+    for atom_indices in atom_indices_per_element:
+        charges = get_partial_charge_from_atom(item, atom_indices)
+        output.append(np.sum(charges))
+
+    output = np.array(output)
+
+    return output
+
+
 ## molecule
 
 @digest(form=form)
 def get_atom_index_from_molecule(item, indices='all'):
+
+    if indices is None:
+        return None
 
     indices_aux = get_molecule_index_from_molecule(item, indices=indices)
     attribute_from_atom = get_atom_index_from_atom(item)
@@ -1088,6 +1403,9 @@ def get_atom_index_from_molecule(item, indices='all'):
 @digest(form=form)
 def get_atom_id_from_molecule(item, indices='all'):
 
+    if indices is None:
+        return None
+
     aux_indices = get_atom_index_from_molecule(item, indices=indices)
 
     if len(aux_indices)>0:
@@ -1106,6 +1424,9 @@ def get_atom_id_from_molecule(item, indices='all'):
 
 @digest(form=form)
 def get_atom_name_from_molecule(item, indices='all'):
+
+    if indices is None:
+        return None
 
     aux_indices = get_atom_index_from_molecule(item, indices=indices)
 
@@ -1126,6 +1447,9 @@ def get_atom_name_from_molecule(item, indices='all'):
 @digest(form=form)
 def get_atom_type_from_molecule(item, indices='all'):
 
+    if indices is None:
+        return None
+
     aux_indices = get_atom_index_from_molecule(item, indices=indices)
 
     if len(aux_indices)>0:
@@ -1144,6 +1468,9 @@ def get_atom_type_from_molecule(item, indices='all'):
 
 @digest(form=form)
 def get_group_index_from_molecule(item, indices='all'):
+
+    if indices is None:
+        return None
 
     indices_aux = get_molecule_index_from_molecule(item, indices=indices)
     attribute_from_atom = get_group_index_from_atom(item)
@@ -1167,6 +1494,9 @@ def get_group_index_from_molecule(item, indices='all'):
 @digest(form=form)
 def get_group_id_from_molecule(item, indices='all'):
 
+    if indices is None:
+        return None
+
     aux_indices = get_group_index_from_molecule(item, indices=indices)
 
     if len(aux_indices)>0:
@@ -1185,6 +1515,9 @@ def get_group_id_from_molecule(item, indices='all'):
 
 @digest(form=form)
 def get_group_name_from_molecule(item, indices='all'):
+
+    if indices is None:
+        return None
 
     aux_indices = get_group_index_from_molecule(item, indices=indices)
 
@@ -1205,6 +1538,9 @@ def get_group_name_from_molecule(item, indices='all'):
 @digest(form=form)
 def get_group_type_from_molecule(item, indices='all'):
 
+    if indices is None:
+        return None
+
     aux_indices = get_group_index_from_molecule(item, indices=indices)
 
     if len(aux_indices)>0:
@@ -1223,6 +1559,9 @@ def get_group_type_from_molecule(item, indices='all'):
 
 @digest(form=form)
 def get_component_index_from_molecule(item, indices='all'):
+
+    if indices is None:
+        return None
 
     indices_aux = get_molecule_index_from_molecule(item, indices=indices)
     attribute_from_atom = get_component_index_from_atom(item)
@@ -1246,6 +1585,9 @@ def get_component_index_from_molecule(item, indices='all'):
 @digest(form=form)
 def get_component_id_from_molecule(item, indices='all'):
 
+    if indices is None:
+        return None
+
     aux_indices = get_component_index_from_molecule(item, indices=indices)
 
     if len(aux_indices)>0:
@@ -1264,6 +1606,9 @@ def get_component_id_from_molecule(item, indices='all'):
 
 @digest(form=form)
 def get_component_name_from_molecule(item, indices='all'):
+
+    if indices is None:
+        return None
 
     aux_indices = get_component_index_from_molecule(item, indices=indices)
 
@@ -1284,6 +1629,9 @@ def get_component_name_from_molecule(item, indices='all'):
 @digest(form=form)
 def get_component_type_from_molecule(item, indices='all'):
 
+    if indices is None:
+        return None
+
     aux_indices = get_component_index_from_molecule(item, indices=indices)
 
     if len(aux_indices)>0:
@@ -1302,6 +1650,9 @@ def get_component_type_from_molecule(item, indices='all'):
 
 @digest(form=form)
 def get_chain_index_from_molecule(item, indices='all'):
+
+    if indices is None:
+        return None
 
     aux_atom_indices = get_atom_index_from_molecule(item, indices=indices)
     aux_indices = get_molecule_index_from_atom(item)
@@ -1325,6 +1676,9 @@ def get_chain_index_from_molecule(item, indices='all'):
 @digest(form=form)
 def get_chain_id_from_molecule(item, indices='all'):
 
+    if indices is None:
+        return None
+
     aux_indices = get_chain_index_from_molecule(item, indices=indices)
 
     if len(aux_indices)>0:
@@ -1343,6 +1697,9 @@ def get_chain_id_from_molecule(item, indices='all'):
 
 @digest(form=form)
 def get_chain_name_from_molecule(item, indices='all'):
+
+    if indices is None:
+        return None
 
     aux_indices = get_chain_index_from_molecule(item, indices=indices)
 
@@ -1363,6 +1720,9 @@ def get_chain_name_from_molecule(item, indices='all'):
 @digest(form=form)
 def get_chain_type_from_molecule(item, indices='all'):
 
+    if indices is None:
+        return None
+
     aux_indices = get_chain_index_from_molecule(item, indices=indices)
 
     if len(aux_indices)>0:
@@ -1382,6 +1742,9 @@ def get_chain_type_from_molecule(item, indices='all'):
 @digest(form=form)
 def get_molecule_index_from_molecule(item, indices='all'):
 
+    if indices is None:
+        return None
+
     if is_all(indices):
         n_aux = get_n_molecules_from_system(item)
         output = np.arange(n_aux, dtype=int)
@@ -1393,6 +1756,9 @@ def get_molecule_index_from_molecule(item, indices='all'):
 @digest(form=form)
 def get_entity_index_from_molecule(item, indices='all'):
 
+    if indices is None:
+        return None
+
     atom_index_from_target = get_atom_index_from_molecule(item, indices=indices)
     first_atom_index_from_target = np.array([ii[0] for ii in atom_index_from_target])
     output = get_entity_index_from_atom(item, indices=first_atom_index_from_target)
@@ -1403,6 +1769,9 @@ def get_entity_index_from_molecule(item, indices='all'):
 
 @digest(form=form)
 def get_entity_id_from_molecule(item, indices='all'):
+
+    if indices is None:
+        return None
 
     aux_indices = get_entity_index_from_molecule(item, indices=indices)
     aux_unique_indices = np.unique(aux_indices)
@@ -1416,6 +1785,9 @@ def get_entity_id_from_molecule(item, indices='all'):
 @digest(form=form)
 def get_entity_name_from_molecule(item, indices='all'):
 
+    if indices is None:
+        return None
+
     aux_indices = get_entity_index_from_molecule(item, indices=indices)
     aux_unique_indices = np.unique(aux_indices)
     aux_vals = get_entity_name_from_entity(item, indices=aux_unique_indices)
@@ -1427,6 +1799,9 @@ def get_entity_name_from_molecule(item, indices='all'):
 
 @digest(form=form)
 def get_entity_type_from_molecule(item, indices='all'):
+
+    if indices is None:
+        return None
 
     aux_indices = get_entity_index_from_molecule(item, indices=indices)
     aux_unique_indices = np.unique(aux_indices)
@@ -1440,6 +1815,9 @@ def get_entity_type_from_molecule(item, indices='all'):
 @digest(form=form)
 def get_n_atoms_from_molecule(item, indices='all'):
 
+    if indices is None:
+        return 0
+
     output = get_atom_index_from_molecule(item, indices=indices)
     output = [ii.shape[0] for ii in output]
     output = np.array(output)
@@ -1447,6 +1825,9 @@ def get_n_atoms_from_molecule(item, indices='all'):
 
 @digest(form=form)
 def get_n_groups_from_molecule(item, indices='all'):
+
+    if indices is None:
+        return 0
 
     output = get_group_index_from_molecule(item, indices=indices)
     output = [ii.shape[0] for ii in output]
@@ -1456,6 +1837,9 @@ def get_n_groups_from_molecule(item, indices='all'):
 @digest(form=form)
 def get_n_components_from_molecule(item, indices='all'):
 
+    if indices is None:
+        return 0
+
     output = get_component_index_from_molecule(item, indices=indices)
     output = [ii.shape[0] for ii in output]
     output = np.array(output)
@@ -1463,6 +1847,9 @@ def get_n_components_from_molecule(item, indices='all'):
 
 @digest(form=form)
 def get_n_molecules_from_molecule(item, indices='all'):
+
+    if indices is None:
+        return 0
 
     if is_all(indices):
         output = get_n_molecules_from_system(item)
@@ -1474,6 +1861,9 @@ def get_n_molecules_from_molecule(item, indices='all'):
 @digest(form=form)
 def get_n_chains_from_molecule(item, indices='all'):
 
+    if indices is None:
+        return 0
+
     output = get_chain_index_from_molecule(item, indices=indices)
     output = [ii.shape[0] for ii in output]
     output = np.array(output)
@@ -1481,6 +1871,9 @@ def get_n_chains_from_molecule(item, indices='all'):
 
 @digest(form=form)
 def get_n_entities_from_molecule(item, indices='all'):
+
+    if indices is None:
+        return 0
 
     if is_all(indices):
         output = get_n_entities_from_system(item)
@@ -1490,10 +1883,46 @@ def get_n_entities_from_molecule(item, indices='all'):
 
     return output
 
+@digest(form=form)
+def get_formal_charge_from_molecule(item, indices='all'):
+
+    if indices is None:
+        return None
+
+    atom_indices_per_element = get_atom_index_from_molecule(item, indices)
+    output = []
+    for atom_indices in atom_indices_per_element:
+        charges = get_formal_charge_from_atom(item, atom_indices)
+        output.append(np.sum(charges))
+
+    output = np.array(output)
+
+    return output
+
+@digest(form=form)
+def get_partial_charge_from_molecule(item, indices='all'):
+
+    if indices is None:
+        return None
+
+    atom_indices_per_element = get_atom_index_from_molecule(item, indices)
+    output = []
+    for atom_indices in atom_indices_per_element:
+        charges = get_partial_charge_from_atom(item, atom_indices)
+        output.append(np.sum(charges))
+
+    output = np.array(output)
+
+    return output
+
+
 ## chain
 
 @digest(form=form)
 def get_atom_index_from_chain(item, indices='all'):
+
+    if indices is None:
+        return None
 
     indices_aux = get_chain_index_from_chain(item, indices=indices)
     attribute_from_atom = get_atom_index_from_atom(item)
@@ -1517,6 +1946,9 @@ def get_atom_index_from_chain(item, indices='all'):
 @digest(form=form)
 def get_atom_id_from_chain(item, indices='all'):
 
+    if indices is None:
+        return None
+
     aux_indices = get_atom_index_from_chain(item, indices=indices)
 
     if len(aux_indices)>0:
@@ -1535,6 +1967,9 @@ def get_atom_id_from_chain(item, indices='all'):
 
 @digest(form=form)
 def get_atom_name_from_chain(item, indices='all'):
+
+    if indices is None:
+        return None
 
     aux_indices = get_atom_index_from_chain(item, indices=indices)
 
@@ -1555,6 +1990,9 @@ def get_atom_name_from_chain(item, indices='all'):
 @digest(form=form)
 def get_atom_type_from_chain(item, indices='all'):
 
+    if indices is None:
+        return None
+
     aux_indices = get_atom_index_from_chain(item, indices=indices)
 
     if len(aux_indices)>0:
@@ -1573,6 +2011,9 @@ def get_atom_type_from_chain(item, indices='all'):
 
 @digest(form=form)
 def get_group_index_from_chain(item, indices='all'):
+
+    if indices is None:
+        return None
 
     indices_aux = get_chain_index_from_chain(item, indices=indices)
     attribute_from_atom = get_group_index_from_atom(item)
@@ -1596,6 +2037,9 @@ def get_group_index_from_chain(item, indices='all'):
 @digest(form=form)
 def get_group_id_from_chain(item, indices='all'):
 
+    if indices is None:
+        return None
+
     aux_indices = get_group_index_from_chain(item, indices=indices)
 
     if len(aux_indices)>0:
@@ -1614,6 +2058,9 @@ def get_group_id_from_chain(item, indices='all'):
 
 @digest(form=form)
 def get_group_name_from_chain(item, indices='all'):
+
+    if indices is None:
+        return None
 
     aux_indices = get_group_index_from_chain(item, indices=indices)
 
@@ -1634,6 +2081,9 @@ def get_group_name_from_chain(item, indices='all'):
 @digest(form=form)
 def get_group_type_from_chain(item, indices='all'):
 
+    if indices is None:
+        return None
+
     aux_indices = get_group_index_from_chain(item, indices=indices)
 
     if len(aux_indices)>0:
@@ -1652,6 +2102,9 @@ def get_group_type_from_chain(item, indices='all'):
 
 @digest(form=form)
 def get_component_index_from_chain(item, indices='all'):
+
+    if indices is None:
+        return None
 
     indices_aux = get_chain_index_from_chain(item, indices=indices)
     attribute_from_atom = get_component_index_from_atom(item)
@@ -1675,6 +2128,9 @@ def get_component_index_from_chain(item, indices='all'):
 @digest(form=form)
 def get_component_id_from_chain(item, indices='all'):
 
+    if indices is None:
+        return None
+
     aux_indices = get_component_index_from_chain(item, indices=indices)
 
     if len(aux_indices)>0:
@@ -1693,6 +2149,9 @@ def get_component_id_from_chain(item, indices='all'):
 
 @digest(form=form)
 def get_component_name_from_chain(item, indices='all'):
+
+    if indices is None:
+        return None
 
     aux_indices = get_component_index_from_chain(item, indices=indices)
 
@@ -1713,6 +2172,9 @@ def get_component_name_from_chain(item, indices='all'):
 @digest(form=form)
 def get_component_type_from_chain(item, indices='all'):
 
+    if indices is None:
+        return None
+
     aux_indices = get_component_index_from_chain(item, indices=indices)
 
     if len(aux_indices)>0:
@@ -1732,6 +2194,9 @@ def get_component_type_from_chain(item, indices='all'):
 @digest(form=form)
 def get_chain_index_from_chain(item, indices='all'):
 
+    if indices is None:
+        return None
+
     if is_all(indices):
         n_aux = get_n_chains_from_system(item)
         output = np.arange(n_aux, dtype=int)
@@ -1742,6 +2207,9 @@ def get_chain_index_from_chain(item, indices='all'):
 
 @digest(form=form)
 def get_molecule_index_from_chain(item, indices='all'):
+
+    if indices is None:
+        return None
 
     aux_atom_indices = get_atom_index_from_chain(item, indices=indices)
     aux_indices = get_chain_index_from_atom(item)
@@ -1765,6 +2233,9 @@ def get_molecule_index_from_chain(item, indices='all'):
 @digest(form=form)
 def get_molecule_id_from_chain(item, indices='all'):
 
+    if indices is None:
+        return None
+
     aux_indices = get_molecule_index_from_chain(item, indices=indices)
 
     if len(aux_indices)>0:
@@ -1783,6 +2254,9 @@ def get_molecule_id_from_chain(item, indices='all'):
 
 @digest(form=form)
 def get_molecule_name_from_chain(item, indices='all'):
+
+    if indices is None:
+        return None
 
     aux_indices = get_molecule_index_from_chain(item, indices=indices)
 
@@ -1803,6 +2277,9 @@ def get_molecule_name_from_chain(item, indices='all'):
 @digest(form=form)
 def get_molecule_type_from_chain(item, indices='all'):
 
+    if indices is None:
+        return None
+
     aux_indices = get_molecule_index_from_chain(item, indices=indices)
 
     if len(aux_indices)>0:
@@ -1821,6 +2298,9 @@ def get_molecule_type_from_chain(item, indices='all'):
 
 @digest(form=form)
 def get_entity_index_from_chain(item, indices='all'):
+
+    if indices is None:
+        return None
 
     aux_atom_indices = get_atom_index_from_chain(item, indices=indices)
     aux_indices = get_chain_index_from_atom(item)
@@ -1844,6 +2324,9 @@ def get_entity_index_from_chain(item, indices='all'):
 @digest(form=form)
 def get_entity_id_from_chain(item, indices='all'):
 
+    if indices is None:
+        return None
+
     aux_indices = get_entity_index_from_chain(item, indices=indices)
 
     if len(aux_indices)>0:
@@ -1862,6 +2345,9 @@ def get_entity_id_from_chain(item, indices='all'):
 
 @digest(form=form)
 def get_entity_name_from_chain(item, indices='all'):
+
+    if indices is None:
+        return None
 
     aux_indices = get_entity_index_from_chain(item, indices=indices)
 
@@ -1882,6 +2368,9 @@ def get_entity_name_from_chain(item, indices='all'):
 @digest(form=form)
 def get_entity_type_from_chain(item, indices='all'):
 
+    if indices is None:
+        return None
+
     aux_indices = get_entity_index_from_chain(item, indices=indices)
 
     if len(aux_indices)>0:
@@ -1901,6 +2390,9 @@ def get_entity_type_from_chain(item, indices='all'):
 @digest(form=form)
 def get_n_atoms_from_chain(item, indices='all'):
 
+    if indices is None:
+        return 0
+
     output = get_atom_index_from_chain(item, indices=indices)
     output = [ii.shape[0] for ii in output]
     output = np.array(output)
@@ -1908,6 +2400,9 @@ def get_n_atoms_from_chain(item, indices='all'):
 
 @digest(form=form)
 def get_n_groups_from_chain(item, indices='all'):
+
+    if indices is None:
+        return 0
 
     output = get_group_index_from_chain(item, indices=indices)
     output = [ii.shape[0] for ii in output]
@@ -1917,6 +2412,9 @@ def get_n_groups_from_chain(item, indices='all'):
 @digest(form=form)
 def get_n_components_from_chain(item, indices='all'):
 
+    if indices is None:
+        return 0
+
     output = get_component_index_from_chain(item, indices=indices)
     output = [ii.shape[0] for ii in output]
     output = np.array(output)
@@ -1925,6 +2423,9 @@ def get_n_components_from_chain(item, indices='all'):
 @digest(form=form)
 def get_n_molecules_from_chain(item, indices='all'):
 
+    if indices is None:
+        return 0
+
     output = get_molecule_index_from_chain(item, indices=indices)
     output = [ii.shape[0] for ii in output]
     output = np.array(output)
@@ -1932,6 +2433,9 @@ def get_n_molecules_from_chain(item, indices='all'):
 
 @digest(form=form)
 def get_n_chains_from_chain(item, indices='all'):
+
+    if indices is None:
+        return 0
 
     if is_all(indices):
         output = get_n_chains_from_system(item)
@@ -1943,6 +2447,9 @@ def get_n_chains_from_chain(item, indices='all'):
 @digest(form=form)
 def get_n_entities_from_chain(item, indices='all'):
 
+    if indices is None:
+        return 0
+
     if is_all(indices):
         output = get_n_entities_from_system(item)
     else:
@@ -1951,10 +2458,46 @@ def get_n_entities_from_chain(item, indices='all'):
 
     return output
 
+@digest(form=form)
+def get_formal_charge_from_chain(item, indices='all'):
+
+    if indices is None:
+        return None
+
+    atom_indices_per_element = get_atom_index_from_chain(item, indices)
+    output = []
+    for atom_indices in atom_indices_per_element:
+        charges = get_formal_charge_from_atom(item, atom_indices)
+        output.append(np.sum(charges))
+
+    output = np.array(output)
+
+    return output
+
+@digest(form=form)
+def get_partial_charge_from_chain(item, indices='all'):
+
+    if indices is None:
+        return None
+
+    atom_indices_per_element = get_atom_index_from_chain(item, indices)
+    output = []
+    for atom_indices in atom_indices_per_element:
+        charges = get_partial_charge_from_atom(item, atom_indices)
+        output.append(np.sum(charges))
+
+    output = np.array(output)
+
+    return output
+
+
 ## From entity
 
 @digest(form=form)
 def get_atom_index_from_entity(item, indices='all'):
+
+    if indices is None:
+        return None
 
     indices_aux = get_entity_index_from_entity(item, indices=indices)
     attribute_from_atom = get_atom_index_from_atom(item)
@@ -1978,6 +2521,9 @@ def get_atom_index_from_entity(item, indices='all'):
 @digest(form=form)
 def get_atom_id_from_entity(item, indices='all'):
 
+    if indices is None:
+        return None
+
     aux_indices = get_atom_index_from_entity(item, indices=indices)
 
     if len(aux_indices)>0:
@@ -1996,6 +2542,9 @@ def get_atom_id_from_entity(item, indices='all'):
 
 @digest(form=form)
 def get_atom_name_from_entity(item, indices='all'):
+
+    if indices is None:
+        return None
 
     aux_indices = get_atom_index_from_entity(item, indices=indices)
 
@@ -2016,6 +2565,9 @@ def get_atom_name_from_entity(item, indices='all'):
 @digest(form=form)
 def get_atom_type_from_entity(item, indices='all'):
 
+    if indices is None:
+        return None
+
     aux_indices = get_atom_index_from_entity(item, indices=indices)
 
     if len(aux_indices)>0:
@@ -2034,6 +2586,9 @@ def get_atom_type_from_entity(item, indices='all'):
 
 @digest(form=form)
 def get_group_index_from_entity(item, indices='all'):
+
+    if indices is None:
+        return None
 
     indices_aux = get_entity_index_from_entity(item, indices=indices)
     attribute_from_atom = get_group_index_from_atom(item)
@@ -2057,6 +2612,9 @@ def get_group_index_from_entity(item, indices='all'):
 @digest(form=form)
 def get_group_id_from_entity(item, indices='all'):
 
+    if indices is None:
+        return None
+
     aux_indices = get_group_index_from_entity(item, indices=indices)
 
     if len(aux_indices)>0:
@@ -2075,6 +2633,9 @@ def get_group_id_from_entity(item, indices='all'):
 
 @digest(form=form)
 def get_group_name_from_entity(item, indices='all'):
+
+    if indices is None:
+        return None
 
     aux_indices = get_group_index_from_entity(item, indices=indices)
 
@@ -2095,6 +2656,9 @@ def get_group_name_from_entity(item, indices='all'):
 @digest(form=form)
 def get_group_type_from_entity(item, indices='all'):
 
+    if indices is None:
+        return None
+
     aux_indices = get_group_index_from_entity(item, indices=indices)
 
     if len(aux_indices)>0:
@@ -2113,6 +2677,9 @@ def get_group_type_from_entity(item, indices='all'):
 
 @digest(form=form)
 def get_component_index_from_entity(item, indices='all'):
+
+    if indices is None:
+        return None
 
     indices_aux = get_entity_index_from_entity(item, indices=indices)
     attribute_from_atom = get_component_index_from_atom(item)
@@ -2136,6 +2703,9 @@ def get_component_index_from_entity(item, indices='all'):
 @digest(form=form)
 def get_component_id_from_entity(item, indices='all'):
 
+    if indices is None:
+        return None
+
     aux_indices = get_component_index_from_entity(item, indices=indices)
 
     if len(aux_indices)>0:
@@ -2154,6 +2724,9 @@ def get_component_id_from_entity(item, indices='all'):
 
 @digest(form=form)
 def get_component_name_from_entity(item, indices='all'):
+
+    if indices is None:
+        return None
 
     aux_indices = get_component_index_from_entity(item, indices=indices)
 
@@ -2174,6 +2747,9 @@ def get_component_name_from_entity(item, indices='all'):
 @digest(form=form)
 def get_component_type_from_entity(item, indices='all'):
 
+    if indices is None:
+        return None
+
     aux_indices = get_component_index_from_entity(item, indices=indices)
 
     if len(aux_indices)>0:
@@ -2192,6 +2768,9 @@ def get_component_type_from_entity(item, indices='all'):
 
 @digest(form=form)
 def get_chain_index_from_entity(item, indices='all'):
+
+    if indices is None:
+        return None
 
     aux_atom_indices = get_atom_index_from_entity(item, indices=indices)
     aux_indices = get_entity_index_from_atom(item)
@@ -2215,6 +2794,9 @@ def get_chain_index_from_entity(item, indices='all'):
 @digest(form=form)
 def get_chain_id_from_entity(item, indices='all'):
 
+    if indices is None:
+        return None
+
     aux_indices = get_chain_index_from_entity(item, indices=indices)
 
     if len(aux_indices)>0:
@@ -2233,6 +2815,9 @@ def get_chain_id_from_entity(item, indices='all'):
 
 @digest(form=form)
 def get_chain_name_from_entity(item, indices='all'):
+
+    if indices is None:
+        return None
 
     aux_indices = get_chain_index_from_entity(item, indices=indices)
 
@@ -2253,6 +2838,9 @@ def get_chain_name_from_entity(item, indices='all'):
 @digest(form=form)
 def get_chain_type_from_entity(item, indices='all'):
 
+    if indices is None:
+        return None
+
     aux_indices = get_chain_index_from_entity(item, indices=indices)
 
     if len(aux_indices)>0:
@@ -2271,6 +2859,9 @@ def get_chain_type_from_entity(item, indices='all'):
 
 @digest(form=form)
 def get_molecule_index_from_entity(item, indices='all'):
+
+    if indices is None:
+        return None
 
     indices_aux = get_entity_index_from_entity(item, indices=indices)
     attribute_from_atom = get_molecule_index_from_atom(item)
@@ -2294,6 +2885,9 @@ def get_molecule_index_from_entity(item, indices='all'):
 @digest(form=form)
 def get_molecule_id_from_entity(item, indices='all'):
 
+    if indices is None:
+        return None
+
     aux_indices = get_molecule_index_from_entity(item, indices=indices)
 
     if len(aux_indices)>0:
@@ -2312,6 +2906,9 @@ def get_molecule_id_from_entity(item, indices='all'):
 
 @digest(form=form)
 def get_molecule_name_from_entity(item, indices='all'):
+
+    if indices is None:
+        return None
 
     aux_indices = get_molecule_index_from_entity(item, indices=indices)
 
@@ -2332,6 +2929,9 @@ def get_molecule_name_from_entity(item, indices='all'):
 @digest(form=form)
 def get_molecule_type_from_entity(item, indices='all'):
 
+    if indices is None:
+        return None
+
     aux_indices = get_molecule_index_from_entity(item, indices=indices)
 
     if len(aux_indices)>0:
@@ -2351,6 +2951,9 @@ def get_molecule_type_from_entity(item, indices='all'):
 @digest(form=form)
 def get_entity_index_from_entity(item, indices='all'):
 
+    if indices is None:
+        return None
+
     if is_all(indices):
         n_aux = get_n_entities_from_system(item)
         output = np.arange(n_aux, dtype=int)
@@ -2362,6 +2965,9 @@ def get_entity_index_from_entity(item, indices='all'):
 @digest(form=form)
 def get_n_atoms_from_entity(item, indices='all'):
 
+    if indices is None:
+        return 0
+
     output = get_atom_index_from_entity(item, indices=indices)
     output = [ii.shape[0] for ii in output]
     output = np.array(output)
@@ -2369,6 +2975,9 @@ def get_n_atoms_from_entity(item, indices='all'):
 
 @digest(form=form)
 def get_n_groups_from_entity(item, indices='all'):
+
+    if indices is None:
+        return 0
 
     output = get_group_index_from_entity(item, indices=indices)
     output = [ii.shape[0] for ii in output]
@@ -2378,6 +2987,9 @@ def get_n_groups_from_entity(item, indices='all'):
 @digest(form=form)
 def get_n_components_from_entity(item, indices='all'):
 
+    if indices is None:
+        return 0
+
     output = get_component_index_from_entity(item, indices=indices)
     output = [ii.shape[0] for ii in output]
     output = np.array(output)
@@ -2385,6 +2997,9 @@ def get_n_components_from_entity(item, indices='all'):
 
 @digest(form=form)
 def get_n_molecules_from_entity(item, indices='all'):
+
+    if indices is None:
+        return 0
 
     output = get_molecule_index_from_entity(item, indices=indices)
     output = [ii.shape[0] for ii in output]
@@ -2394,6 +3009,9 @@ def get_n_molecules_from_entity(item, indices='all'):
 @digest(form=form)
 def get_n_chains_from_entity(item, indices='all'):
 
+    if indices is None:
+        return 0
+
     output = get_chain_index_from_entity(item, indices=indices)
     output = [ii.shape[0] for ii in output]
     output = np.array(output)
@@ -2402,12 +3020,48 @@ def get_n_chains_from_entity(item, indices='all'):
 @digest(form=form)
 def get_n_entities_from_entity(item, indices='all'):
 
+    if indices is None:
+        return 0
+
     if is_all(indices):
         output = get_n_entities_from_system(item)
     else:
         output = indices.shape[0]
 
     return output
+
+@digest(form=form)
+def get_formal_charge_from_entity(item, indices='all'):
+
+    if indices is None:
+        return None
+
+    atom_indices_per_element = get_atom_index_from_entity(item, indices)
+    output = []
+    for atom_indices in atom_indices_per_element:
+        charges = get_formal_charge_from_atom(item, atom_indices)
+        output.append(np.sum(charges))
+
+    output = np.array(output)
+
+    return output
+
+@digest(form=form)
+def get_partial_charge_from_entity(item, indices='all'):
+
+    if indices is None:
+        return None
+
+    atom_indices_per_element = get_atom_index_from_entity(item, indices)
+    output = []
+    for atom_indices in atom_indices_per_element:
+        charges = get_partial_charge_from_atom(item, atom_indices)
+        output.append(np.sum(charges))
+
+    output = np.array(output)
+
+    return output
+
 
 ## system
 
@@ -2480,10 +3134,16 @@ def get_n_oligosaccharides_from_system(item):
 @digest(form=form)
 def get_coordinates_from_system(item, structure_indices='all'):
 
+    if structure_indices is None:
+        return None
+
     return get_coordinates_from_atom(item, structure_indices=structure_indices)
 
 @digest(form=form)
 def get_box_shape_from_system(item, structure_indices='all'):
+
+    if structure_indices is None:
+        return None
 
     from molsysmt.pbc import box_shape_from_box
 
@@ -2495,6 +3155,9 @@ def get_box_shape_from_system(item, structure_indices='all'):
 @digest(form=form)
 def get_box_lengths_from_system(item, structure_indices='all'):
 
+    if structure_indices is None:
+        return None
+
     from molsysmt.pbc import box_lengths_from_box
 
     tmp_box = get_box_from_system(item, structure_indices=structure_indices)
@@ -2504,6 +3167,9 @@ def get_box_lengths_from_system(item, structure_indices='all'):
 
 @digest(form=form)
 def get_box_angles_from_system(item, structure_indices='all'):
+
+    if structure_indices is None:
+        return None
 
     from molsysmt.pbc import box_angles_from_box
 
@@ -2515,6 +3181,9 @@ def get_box_angles_from_system(item, structure_indices='all'):
 @digest(form=form)
 def get_box_volume_from_system(item, structure_indices='all'):
 
+    if structure_indices is None:
+        return None
+
     from molsysmt.pbc import box_volume_from_box
 
     tmp_box = get_box_from_system(item, structure_indices=structure_indices)
@@ -2522,6 +3191,30 @@ def get_box_volume_from_system(item, structure_indices='all'):
         output=None
     else:
         output = box_volume_from_box(tmp_box)
+
+    return output
+
+@digest(form=form)
+def get_formal_charge_from_system(item, indices='all'):
+
+    if indices is None:
+        return None
+
+    atom_indices_per_element = get_atom_index_from_system(item, indices)
+    charges = get_formal_charge_from_atom(item, atom_indices)
+    output = np.sum(charges)
+
+    return output
+
+@digest(form=form)
+def get_partial_charge_from_system(item, indices='all'):
+
+    if indices is None:
+        return None
+
+    atom_indices_per_element = get_atom_index_from_system(item, indices)
+    charges = get_partial_charge_from_atom(item, atom_indices)
+    output = np.sum(charges)
 
     return output
 
@@ -2550,6 +3243,9 @@ def get_inner_bond_index_from_system(item):
 @digest(form=form)
 def get_bond_index_from_bond(item, indices='all'):
 
+    if indices is None:
+        return None
+
     if is_all(indices):
         n_aux = get_n_bonds_from_system(item)
         output = np.arange(n_aux, dtype=int)
@@ -2560,6 +3256,9 @@ def get_bond_index_from_bond(item, indices='all'):
 
 @digest(form=form)
 def get_n_bonds_from_bond(item, indices='all'):
+
+    if indices is None:
+        return 0
 
     if is_all(indices):
         output = get_n_bonds_from_system(item)

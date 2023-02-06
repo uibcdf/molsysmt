@@ -262,7 +262,7 @@ def get_time_from_system(item, structure_indices='all'):
     return time
 
 @digest(form=form)
-def get_step_from_system(item, structure_indices='all'):
+def get_structure_id_from_system(item, structure_indices='all'):
 
     fff = open(item, 'rb')
     _ = pickle.load(fff)
@@ -270,14 +270,14 @@ def get_step_from_system(item, structure_indices='all'):
     _ = pickle.load(fff)
     _ = pickle.load(fff)
     _ = pickle.load(fff)
-    step = pickle.load(fff)
+    structure_id = pickle.load(fff)
     fff.close()
 
-    if step is not None:
+    if structure_id is not None:
         if not is_all(structure_indices):
-            step = step[structure_indices]
+            structure_id = structure_id[structure_indices]
 
-    return step
+    return structure_id
 
 
 #######################################################################################

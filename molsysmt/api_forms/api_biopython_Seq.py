@@ -4,6 +4,7 @@ from molsysmt.form.biopython_Seq.add import add
 from molsysmt.form.biopython_Seq.append_structures import append_structures
 from molsysmt.form.biopython_Seq.get import *
 from molsysmt.form.biopython_Seq.set import *
+from molsysmt.form.biopython_Seq.iterators import StructuresIterator, TopologyIterator
 from .form_attributes import form_attributes
 
 form_name = 'biopython.Seq'

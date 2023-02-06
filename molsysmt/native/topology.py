@@ -43,6 +43,14 @@ class Bonds_DataFrame(pd.DataFrame):
         for column in self:
             self[column].where(self[column].notnull(), None, inplace=True)
 
+    def _sort_bonds(self):
+
+        self_mask = self['atom1_index'] > self['atom2_index']
+        self.update(self.loc[self_mask].rename({'atom1_index': 'atom2_index',
+                                      'atom2_index': 'atom1_index'}, axis=1))
+        self.sort_values(by=['atom1_index', 'atom2_index'], inplace=True)
+        self.reset_index(drop=True, inplace=True)
+
 class Topology():
 
     def __init__(self):
@@ -140,12 +148,12 @@ class Topology():
 
         return tmp_item
 
-    def _to_pdb_string(self, trajectory_item, structure_indices='all'):
+    #def _to_pdb_string(self, trajectory_item, structure_indices='all'):
 
-        from molsysmt.native.io.topology import to_pdb as molsysmt_Topology_to_pdb
+    #    from molsysmt.native.io.topology import to_pdb as molsysmt_Topology_to_pdb
 
-        return molsysmt_Topology_to_pdb(self, trajectory_item=trajectory_item, output_filepath='.pdb',
-                                         atom_indices='all', structure_indices=structure_indices)
+    #    return molsysmt_Topology_to_pdb(self, trajectory_item=trajectory_item, output_filepath='.pdb',
+    #                                     atom_indices='all', structure_indices=structure_indices)
 
     def _build_components(self):
 

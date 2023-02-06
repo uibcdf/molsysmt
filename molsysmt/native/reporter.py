@@ -8,7 +8,7 @@ import time
 class MolSysMTReporter():
 
     def __init__(self, reportInterval, topology, selection='all', syntax='MolSysMT',
-                 step=True, time=True, coordinates=True, boxVectors=True,
+                 id=True, time=True, coordinates=True, boxVectors=True,
                  potentialEnergy=False, kineticEnergy=False, temperature=False,
                  runningTime=False):
 
@@ -20,7 +20,7 @@ class MolSysMTReporter():
             self.topology = msm.convert(topology, to_form='molsysmt.Topology')
 
         self._reportInterval = reportInterval
-        self._step = step
+        self._id = id
         self._time = time
         self._coordinates = coordinates
         self._boxVectors = boxVectors
@@ -29,7 +29,7 @@ class MolSysMTReporter():
         self._temperature = temperature
         self._runningTime = runningTime
 
-        self.step = []
+        self.id = []
         self.time = []
         self.coordinates = []
         self.box = []
@@ -69,9 +69,9 @@ class MolSysMTReporter():
 
     def report(self, simulation, state):
 
-        if self._step:
+        if self._id:
             value = simulation.currentStep
-            self.step.append(value)
+            self.id.append(value)
 
         if self._time:
             value = state.getTime().value_in_unit(unit.picosecond)

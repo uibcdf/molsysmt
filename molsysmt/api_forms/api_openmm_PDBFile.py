@@ -4,6 +4,7 @@ from molsysmt.form.openmm_PDBFile.add import add
 from molsysmt.form.openmm_PDBFile.append_structures import append_structures
 from molsysmt.form.openmm_PDBFile.get import *
 from molsysmt.form.openmm_PDBFile.set import *
+from molsysmt.form.openmm_PDBFile.iterators import StructuresIterator, TopologyIterator
 from .form_attributes import form_attributes
 
 form_name = 'openmm.PDBFile'
@@ -38,7 +39,7 @@ form_attributes['entity_type'] = True
 form_attributes['coordinates'] = True
 form_attributes['box'] = True
 form_attributes['time'] = True
-form_attributes['step'] = True
+form_attributes['structure_id'] = True
 
 
 def to_molsysmt_Topology(item, molecular_system, atom_indices='all', structure_indices='all'):
@@ -78,6 +79,6 @@ def to_openmm_Topology(item, molecular_system, atom_indices='all', structure_ind
 
 
 def to_nglview_NGLWidget(item, molecular_system, atom_indices='all', structure_indices='all'):
-    from molsysmt.form.openmm_Topology import to_nglview_NGLWidget as openmm_Topology_to_nglview_NGLWidget
+    from molsysmt.form.openmm_PDBFile import to_nglview_NGLWidget as openmm_PDBFile_to_nglview_NGLWidget
 
-    return openmm_Topology_to_nglview_NGLWidget(item, atom_indices=atom_indices, structure_indices=structure_indices)
+    return openmm_PDBFile_to_nglview_NGLWidget(item, atom_indices=atom_indices, structure_indices=structure_indices)

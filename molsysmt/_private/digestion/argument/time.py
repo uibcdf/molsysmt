@@ -1,5 +1,12 @@
 from molsysmt._private.exceptions import ArgumentError
+from molsysmt import pyunitwizard as puw
 import numpy as np
+
+functions_with_boolean = (
+        'molsysmt.basic.get.get',
+        'molsysmt.basic.iterator.__init__',
+        'iterators.__init__'
+        )
 
 def digest_time(time, caller=None):
     """ Checks if time arguments has the correct type.
@@ -24,18 +31,21 @@ def digest_time(time, caller=None):
 
     """
 
-    if caller=='molsysmt.basic.get.get':
+    if caller.endswith(functions_with_boolean):
         if isinstance(time, bool):
             return time
-    else:
-        if time is None:
-            return time
-        elif isinstance(time, float):
-            return np.array([time])
-        elif isinstance(time, (list, tuple)):
-            return np.array(time)
-        elif isinstance(time, np.ndarray):
-            return time
+
+    if time is None:
+        return time
+
+    if puw.is_quantity(time):
+        if puw.check(time, dimensionality={'[T]':1}):
+            return puw.standardize(time)
+    elif type(time, (list, tuple, np.ndarray)):
+        if puw.is_quantity(time[0]):
+            time = puw.concatenate(time, to_value_type='numpy.ndarray')
+            if puw.check(time, dimensionality={'[T]':1}):
+                return puw.standardize(time)
 
     raise ArgumentError('time', value=time, caller=caller, message=None)
 

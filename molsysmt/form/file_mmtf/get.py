@@ -132,6 +132,61 @@ def get_coordinates_from_atom(item, indices='all', structure_indices='all'):
 
     return output
 
+@digest(form=form)
+def get_occupancy_from_atom(item, indices='all'):
+
+    from . import to_mmtf_MMTFDecoder
+    from ..mmtf_MMTFDecoder import get_occupancy_from_atom as aux_get
+
+    tmp_item = to_mmtf_MMTFDecoder(item)
+    output = aux_get(tmp_item, indices=indices)
+
+    return output
+
+@digest(form=form)
+def get_alternate_location_from_atom(item, indices='all'):
+
+    from . import to_mmtf_MMTFDecoder
+    from ..mmtf_MMTFDecoder import get_alternate_location_from_atom as aux_get
+
+    tmp_item = to_mmtf_MMTFDecoder(item)
+    output = aux_get(tmp_item, indices=indices)
+
+    return output
+
+@digest(form=form)
+def get_b_factor_from_atom(item, indices='all'):
+
+    from . import to_mmtf_MMTFDecoder
+    from ..mmtf_MMTFDecoder import get_b_factor_from_atom as aux_get
+
+    tmp_item = to_mmtf_MMTFDecoder(item)
+    output = aux_get(tmp_item, indices=indices)
+
+    return output
+
+@digest(form=form)
+def get_formal_charge_from_atom(item, indices='all'):
+
+    from . import to_mmtf_MMTFDecoder
+    from ..mmtf_MMTFDecoder import get_formal_charge_from_atom as aux_get
+
+    tmp_item = to_mmtf_MMTFDecoder(item)
+    output = aux_get(tmp_item, indices=indices)
+
+    return output
+
+@digest(form=form)
+def get_partial_charge_from_atom(item, indices='all'):
+
+    from . import to_mmtf_MMTFDecoder
+    from ..mmtf_MMTFDecoder import get_partial_charge_from_atom as aux_get
+
+    tmp_item = to_mmtf_MMTFDecoder(item)
+    output = aux_get(tmp_item, indices=indices)
+
+    return output
+
 
 ## group
 
@@ -426,10 +481,10 @@ def get_time_from_system(item, structure_indices='all'):
     return output
 
 @digest(form=form)
-def get_step_from_system(item, structure_indices='all'):
+def get_structure_id_from_system(item, structure_indices='all'):
 
     from . import to_mmtf_MMTFDecoder
-    from ..mmtf_MMTFDecoder import get_step_from_system as aux_get
+    from ..mmtf_MMTFDecoder import get_structure_id_from_system as aux_get
 
     tmp_item = to_mmtf_MMTFDecoder(item)
     output = aux_get(tmp_item, structure_indices=structure_indices)

@@ -224,7 +224,7 @@ def get_time_from_system(item, structure_indices='all'):
     raise NotWithThisFormError()
 
 @digest(form=form)
-def get_step_from_system(item, structure_indices='all'):
+def get_structure_id_from_system(item, structure_indices='all'):
 
     raise NotWithThisFormError()
 

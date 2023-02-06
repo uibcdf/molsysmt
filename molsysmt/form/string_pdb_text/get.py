@@ -425,10 +425,10 @@ def get_time_from_system(item, structure_indices='all'):
     return output
 
 @digest(form=form)
-def get_step_from_system(item, structure_indices='all'):
+def get_structure_id_from_system(item, structure_indices='all'):
 
     from . import to_openmm_PDBFile
-    from ..openmm_PDBFile import get_step_from_system as aux_get
+    from ..openmm_PDBFile import get_structure_id_from_system as aux_get
 
     tmp_item = to_openmm_PDBFile(item)
     output = aux_get(tmp_item, structure_indices=structure_indices)
