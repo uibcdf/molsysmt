@@ -54,7 +54,7 @@ def get_dihedral_quartets(molecular_system, with_blocks=False, selection='all',
                 component_atom_indices = get(molecular_system, element='component', indices=component_index,
                                              atom_index=True)[0]
                 tmp_blocks = get_covalent_blocks(molecular_system, remove_bonds=[quartet[1],
-                    quartet[2]], output='sets')
+                    quartet[2]], output_type='sets')
                 blocks_in_component = []
                 for block in tmp_blocks:
                     if block.issubset(component_atom_indices):

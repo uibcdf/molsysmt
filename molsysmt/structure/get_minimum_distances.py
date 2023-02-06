@@ -15,7 +15,7 @@ def get_minimum_distances(molecular_system, selection="all", groups_of_atoms=Non
                 groups_of_atoms=groups_of_atoms, group_behavior=group_behavior, structure_indices=structure_indices,
                 molecular_system_2=molecular_system_2, selection_2=selection_2, groups_of_atoms_2=groups_of_atoms_2, group_behavior_2=group_behavior_2,
                 structure_indices_2=structure_indices_2, pairs=pairs, pbc=pbc,
-                output='numpy.ndarray', output_with_atom_indices=True, engine=engine,
+                output_type='numpy.ndarray', output_with_atom_indices=True, engine=engine,
                 syntax=syntax)
 
     else:
@@ -23,7 +23,7 @@ def get_minimum_distances(molecular_system, selection="all", groups_of_atoms=Non
         all_dists = get_distances(molecular_system=molecular_system, selection=selection, groups_of_atoms=groups_of_atoms, group_behavior=group_behavior,
                 structure_indices=structure_indices, molecular_system_2=molecular_system_2, selection_2=selection_2, groups_of_atoms_2=groups_of_atoms_2,
                 group_behavior_2=group_behavior_2, structure_indices_2=structure_indices_2,
-                pairs=pairs, pbc=pbc, output='numpy.ndarray',
+                pairs=pairs, pbc=pbc, output_type='numpy.ndarray',
                 engine=engine, syntax=syntax)
 
     if pairs is False:

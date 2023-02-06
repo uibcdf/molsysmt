@@ -5,7 +5,7 @@ import numpy as np
 @digest()
 def get_neighbors(molecular_system, selection="all", groups_of_atoms=None, group_behavior=None, structure_indices="all",
                   molecular_system_2=None, selection_2=None, groups_of_atoms_2=None, group_behavior_2=None, structure_indices_2=None,
-                  threshold=None, n_neighbors=None, atom_indices=False, pbc=False, output='numpy.ndarray',
+                  threshold=None, n_neighbors=None, atom_indices=False, pbc=False, output_type='numpy.ndarray',
                   engine='MolSysMT', syntax='MolSysMT'):
 
     from . import get_distances
@@ -38,7 +38,7 @@ def get_neighbors(molecular_system, selection="all", groups_of_atoms=None, group
                                                     group_behavior=group_behavior, structure_indices=structure_indices,
                                                     molecular_system_2=molecular_system_2, selection_2=selection_2, groups_of_atoms_2=groups_of_atoms_2,
                                                     group_behavior_2=group_behavior_2, structure_indices_2=structure_indices_2,
-                                                    pbc=pbc, output='numpy.ndarray', engine=engine, syntax=syntax)
+                                                    pbc=pbc, output_type='numpy.ndarray', engine=engine, syntax=syntax)
 
     else:
 
@@ -46,7 +46,7 @@ def get_neighbors(molecular_system, selection="all", groups_of_atoms=None, group
                             group_behavior=group_behavior, structure_indices=structure_indices,
                             selection_2=selection_2, groups_of_atoms_2=groups_of_atoms_2,
                             group_behavior_2=group_behavior_2, structure_indices_2=structure_indices_2,
-                            pbc=pbc, output='numpy.ndarray', engine=engine, syntax=syntax)
+                            pbc=pbc, output_type='numpy.ndarray', engine=engine, syntax=syntax)
 
     nstructures, nelements_1, nelements_2 = all_dists.shape
     length_units = puw.get_unit(all_dists)
@@ -116,11 +116,11 @@ def get_neighbors(molecular_system, selection="all", groups_of_atoms=None, group
 
         raise ValueError("Use either threshold or n_neighbors, but not both at the same time")
 
-    if output == 'numpy.ndarray':
+    if output_type == 'numpy.ndarray':
 
         return neighs, dists
 
-    elif output == 'dict':
+    elif output_type == 'dictionary':
 
         aux_neighs = []
         aux_dists = []

@@ -68,7 +68,7 @@ def select_within(molecular_system, selection, structure_indices, syntax):
 
     atom_indices_1, atom_indices_2, cmap = get_contacts(molecular_system, selection=selection_1, selection_2=selection_2,
                                            structure_indices=structure_indices, threshold=threshold, pbc=pbc, engine='MolSysMT',
-                                           syntax=syntax, output_with_atom_indices=True, output='numpy.ndarray')
+                                           syntax=syntax, output_with_atom_indices=True, output_type='numpy.ndarray')
 
     if not_within:
         output = atom_indices_1[np.where(cmap.all(axis=2)[0]==False)[0]]

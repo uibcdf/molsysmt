@@ -19,11 +19,11 @@ form_attributes['structure_id'] = True
 
 
 # Methods
-def to_molsysmt_TrajectoryDict(item, molecular_system, atom_indices='all', structure_indices='all'):
+def to_molsysmt_StructuresDict(item, molecular_system, atom_indices='all', structure_indices='all'):
     from molsysmt.form.molsysmt_Structures import \
-        to_molsysmt_TrajectoryDict as molsysmt_Structures_to_molsysmt_TrajectoryDict
+        to_molsysmt_StructuresDict as molsysmt_Structures_to_molsysmt_StructuresDict
 
-    return molsysmt_Structures_to_molsysmt_TrajectoryDict(item, atom_indices=atom_indices,
+    return molsysmt_Structures_to_molsysmt_StructuresDict(item, atom_indices=atom_indices,
                                                           structure_indices=structure_indices)
 
 
