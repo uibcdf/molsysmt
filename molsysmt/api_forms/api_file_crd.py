@@ -1,10 +1,10 @@
-from molsysmt.form.file_h5.is_file_h5 import is_file_h5 as is_form
-from molsysmt.form.file_h5.extract import extract
-from molsysmt.form.file_h5.add import add
-from molsysmt.form.file_h5.append_structures import append_structures
-from molsysmt.form.file_h5.get import *
-from molsysmt.form.file_h5.set import *
-from molsysmt.form.file_h5.iterators import StructuresIterator, TopologyIterator
+from molsysmt.form.file_crd.is_file_crd import is_file_crd as is_form
+from molsysmt.form.file_crd.extract import extract
+from molsysmt.form.file_crd.add import add
+from molsysmt.form.file_crd.append_structures import append_structures
+from molsysmt.form.file_crd.get import *
+from molsysmt.form.file_crd.set import *
+from molsysmt.form.file_crd.iterators import StructuresIterator, TopologyIterator
 from .form_attributes import form_attributes
 
 form_name='file:crd'
@@ -106,21 +106,13 @@ def to_mdanalysis_coordinates_CRDReader(item, molecular_system, atom_indices='al
 
     return tmp_item
 
-def to_mdtraj_AmberRestartFile(item, molecular_system, atom_indices='all', structure_indices='all'):
+def to_openmm_CharmmCrdFile(item, molecular_system, atom_indices='all', structure_indices='all'):
 
-    from molsysmt.form.file_crd import to_mdtraj_AmberRestartFile as file_crd_to_mdtraj_AmberRestartFile
+    from molsysmt.form.file_crd import to_openmm_CharmmCrdFile as file_crd_to_openmm_CharmmCrdFile
 
-    tmp_item = file_crd_to_mdtraj_AmberRestartFile(item, atom_indices=atom_indices,
+    tmp_item = file_crd_to_openmm_CharmmCrdFile(item, atom_indices=atom_indices,
                                           structure_indices=structure_indices)
 
     return tmp_item
 
-def to_openmm_AmberInpcrdFile(item, molecular_system, atom_indices='all', structure_indices='all'):
-
-    from molsysmt.form.file_crd import to_mdtraj_AmberInpcrdFile as file_crd_to_mdtraj_AmberInpcrdFile
-
-    tmp_item = file_crd_to_mdtraj_AmberInpcrdFile(item, atom_indices=atom_indices,
-                                          structure_indices=structure_indices)
-
-    return tmp_item
 
