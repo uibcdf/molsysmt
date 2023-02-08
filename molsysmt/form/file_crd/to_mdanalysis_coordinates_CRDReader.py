@@ -1,12 +1,14 @@
-def to_mdanalysis_coordinates_CRDReader(item, molecular_system=None, atom_indices='all', structure_indices='all'):
+from molsysmt._private.digestion import digest
+
+@digest(form='file:crd')
+def to_mdanalysis_coordinates_CRDReader(item, atom_indices='all', structure_indices='all'):
 
     from MDAnalysis.coordinates.CRD import CRDReader
+    from ..mdanalysis_coordinates_CRDReader import extract as extract_mdanalysis_coordinates_CRDReader
 
     tmp_item = CRDReader(item)
-    if molecular_system is not None:
-        tmp_molecular_system = molecular_system.combine_with_items(tmp_item)
-    else:
-        tmp_molecular_system = None
+    tmp_item = extract_mdanalysis_coordinates_CRDReader(tmp_item, atom_indices=atom_indices,
+            structure_indices=structure_indices, copy_if_all=False)
 
-    return tmp_item, tmp_molecular_system
+    return tmp_item
 
