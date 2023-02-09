@@ -76,7 +76,7 @@ for api_name in apis:
             elif method.startswith('to_file_'):
                 out_form_name=method.replace('to_file_','file:')
             else:
-                out_form_name=method.replace('to_','').replace('_','.',1)
+                out_form_name=method.replace('to_','').replace('_','.')
             dict_convert[mod.form_name][out_form_name]= getattr(mod, method)
         if method.startswith('get_'):
             option, element = method[4:].split('_from_')

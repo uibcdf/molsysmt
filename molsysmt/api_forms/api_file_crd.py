@@ -9,7 +9,7 @@ from .form_attributes import form_attributes
 
 form_name='file:crd'
 form_type = 'file'
-info = ["CHARMM card (CRD) file format with coordinates.","https://www.charmmtutorial.org/index.php/CHARMM:The_Basics#CHARMM_data_structures"]
+form_info = ["CHARMM card (CRD) file format with coordinates.","https://www.charmmtutorial.org/index.php/CHARMM:The_Basics#CHARMM_data_structures"]
 
 form_attributes = form_attributes()
 form_attributes['atom_index'] = True
@@ -54,7 +54,7 @@ def to_molsysmt_MolSys(item, molecular_system, atom_indices='all', structure_ind
 
 def to_molsysmt_Topology(item, molecular_system, atom_indices='all', structure_indices='all'):
 
-    from molsysmt.form.file_crd import to_molsysmt_MolSys as file_crd_to_molsysmt_Topology
+    from molsysmt.form.file_crd import to_molsysmt_Topology as file_crd_to_molsysmt_Topology
 
     tmp_item = file_crd_to_molsysmt_Topology(item, atom_indices=atom_indices,
                                           structure_indices=structure_indices)
@@ -70,38 +70,38 @@ def to_molsysmt_Structures(item, molecular_system, atom_indices='all', structure
 
     return tmp_item
 
-def to_mdanalysis_Universe(item, molecular_system, atom_indices='all', structure_indices='all'):
+def to_MDAnalysis_Universe(item, molecular_system, atom_indices='all', structure_indices='all'):
 
-    from molsysmt.form.file_crd import to_mdanalysis_Universe as file_crd_to_mdanalysis_Universe
+    from molsysmt.form.file_crd import to_MDAnalysis_Universe as file_crd_to_MDAnalysis_Universe
 
-    tmp_item = file_crd_to_mdanalysis_Universe(item, atom_indices=atom_indices,
+    tmp_item = file_crd_to_MDAnalysis_Universe(item, atom_indices=atom_indices,
                                           structure_indices=structure_indices)
 
     return tmp_item
 
-def to_mdanalysis_Topology(item, molecular_system, atom_indices='all', structure_indices='all'):
+def to_MDAnalysis_Topology(item, molecular_system, atom_indices='all', structure_indices='all'):
 
-    from molsysmt.form.file_crd import to_mdanalysis_Topology as file_crd_to_mdanalysis_Topology
+    from molsysmt.form.file_crd import to_MDAnalysis_Topology as file_crd_to_MDAnalysis_Topology
 
-    tmp_item = file_crd_to_mdanalysis_Universe(item, atom_indices=atom_indices,
+    tmp_item = file_crd_to_MDAnalysis_Universe(item, atom_indices=atom_indices,
                                           structure_indices=structure_indices)
 
     return tmp_item
 
-def to_mdanalysis_topology_CRDParser(item, molecular_system, atom_indices='all', structure_indices='all'):
+def to_MDAnalysis_topology_CRDParser(item, molecular_system, atom_indices='all', structure_indices='all'):
 
-    from molsysmt.form.file_crd import to_mdanalysis_topology_CRDParser as file_crd_to_mdanalysis_topology_CRDParser
+    from molsysmt.form.file_crd import to_MDAnalysis_topology_CRDParser as file_crd_to_MDAnalysis_topology_CRDParser
 
-    tmp_item = file_crd_to_mdanalysis_topology_CRDParser(item, atom_indices=atom_indices,
+    tmp_item = file_crd_to_MDAnalysis_topology_CRDParser(item, atom_indices=atom_indices,
                                           structure_indices=structure_indices)
 
     return tmp_item
 
-def to_mdanalysis_coordinates_CRDReader(item, molecular_system, atom_indices='all', structure_indices='all'):
+def to_MDAnalysis_coordinates_CRDReader(item, molecular_system, atom_indices='all', structure_indices='all'):
 
-    from molsysmt.form.file_crd import to_mdanalysis_coordinates_CRDParser as file_crd_to_mdanalysis_coordinates_CRDParser
+    from molsysmt.form.file_crd import to_MDAnalysis_coordinates_CRDReader as file_crd_to_MDAnalysis_coordinates_CRDReader
 
-    tmp_item = file_crd_to_mdanalysis_coordinates_CRDParser(item, atom_indices=atom_indices,
+    tmp_item = file_crd_to_MDAnalysis_coordinates_CRDReader(item, atom_indices=atom_indices,
                                           structure_indices=structure_indices)
 
     return tmp_item

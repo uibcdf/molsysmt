@@ -1,9 +1,13 @@
 from molsysmt._private.exceptions import NotImplementedIteratorError
+from molsysmt._private.digestion import digest
 
 class StructuresIterator():
 
-    def __init__(self, molecular_system, atom_indices='all', start=0, interval=1, stop=None, chunk=1, structure_indices=None):
-        pass
+    @digest(form='openmm.CharmmCrdFile')
+    def __init__(self, molecular_system, atom_indices='all', start=0, step=1, stop=None, chunk=1, structure_indices=None,
+            output_type='values', **kwargs):
+
+        raise NotImplementedIteratorError
 
     def __iter__(self):
         return self
@@ -11,10 +15,14 @@ class StructuresIterator():
     def __next__(self):
         raise NotImplementedIteratorError
 
+
 class TopologyIterator():
 
-    def __init__(self, molecular_system):
-        pass
+    @digest(form='openmm.CharmmCrdFile')
+    def __init__(self, molecular_system, element='atom', indices='all', start=0, step=1, stop=None, chunk=1,
+            output_type='values', **kwargs):
+
+        raise NotImplementedIteratorError
 
     def __iter__(self):
         return self

@@ -24,8 +24,10 @@ requirements:
   - ambertools
   - networkx
   - mdtraj
+  - mdanalysis
   - biopython
   - ipywidgets <8
+  - tqdm
 about:
   home: https://uibcdf.org
   license: MIT License

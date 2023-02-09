@@ -107,11 +107,11 @@ def to_string_aminoacids3(item, molecular_system, atom_indices='all', structure_
     return file_mmtf_to_string_aminoacids3(item, group_indices=group_indices)
 
 
-def to_mdanalysis_Universe(item, molecular_system, atom_indices='all', structure_indices='all'):
+def to_MDAnalysis_Universe(item, molecular_system, atom_indices='all', structure_indices='all'):
 
-    from molsysmt.form.file_mmtf import to_mdanalysis_Universe as file_mmtf_to_mdanalysis_Universe
+    from molsysmt.form.file_mmtf import to_MDAnalysis_Universe as file_mmtf_to_MDAnalysis_Universe
 
-    return file_mmtf_to_mdanalysis_Universe(item, atom_indices=atom_indices, structure_indices=structure_indices)
+    return file_mmtf_to_MDAnalysis_Universe(item, atom_indices=atom_indices, structure_indices=structure_indices)
 
 
 def to_file_pdb(item, molecular_system=None, atom_indices='all', structure_indices='all', output_filename=None):

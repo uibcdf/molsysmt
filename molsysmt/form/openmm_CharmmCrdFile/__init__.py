@@ -1,4 +1,4 @@
-from .is_openmm_AmberInpcrdFile import is_openmm_AmberInpcrdFile
+from .is_openmm_CharmmCrdFile import is_openmm_CharmmCrdFile
 
 from .extract import extract
 from .add import add

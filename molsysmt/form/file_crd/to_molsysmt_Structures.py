@@ -1,12 +1,12 @@
-def to_molsysmt_Structures(item, molecular_system=None, atom_indices='all', structure_indices='all'):
+from molsysmt._private.digestion import digest
 
-    from molsysmt.api_forms.api_file_crd import to_mdanalysis_Universe as file_crd_to_mdanalysis_Universe
-    from molsysmt.api_forms.api_mdanalysis_Universe import to_molsysmt_Structures as mdanalysis_Universe_to_molsysmt_Structures
+@digest(form='file:crd')
+def to_molsysmt_Structures(item, atom_indices='all', structure_indices='all'):
 
-    tmp_item, tmp_molecular_system = file_crd_to_mdanalysis_Universe(item, molecular_system=molecular_system)
-    tmp_item, tmp_molecular_system = mdanalysis_Universe_to_molsysmt_Structures(tmp_item,
-            molecular_system=tmp_molecular_system, atom_indices=atom_indices, structure_indices=structure_indices)
+    from . import to_MDAnalysis_Universe as file_crd_to_MDAnalysis_Universe
+    from ..MDAnalysis_Universe import to_molsysmt_Structures as MDAnalysis_Universe_to_molsysmt_Structures
 
-    return tmp_item, tmp_molecular_system
+    tmp_item = file_crd_to_MDAnalysis_Universe(item, atom_indices=atom_indices, structure_indices=structure_indices)
+    tmp_item = MDAnalysis_Universe_to_molsysmt_Structures(tmp_item)
 
-
+    return tmp_item

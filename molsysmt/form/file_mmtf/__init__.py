@@ -8,7 +8,7 @@ from .set import *
 from .iterators import StructuresIterator, TopologyIterator
 
 from .to_file_pdb import to_file_pdb
-from .to_mdanalysis_Universe import to_mdanalysis_Universe
+from .to_MDAnalysis_Universe import to_MDAnalysis_Universe
 from .to_mdtraj import load_mmtf, MMTFTrajectoryFile
 from .to_mmtf_MMTFDecoder import to_mmtf_MMTFDecoder
 from .to_molsysmt_MolSys import to_molsysmt_MolSys

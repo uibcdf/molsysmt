@@ -12,9 +12,9 @@ from .replace_HETATM_by_ATOM_in_terminal_cappings import replace_HETATM_by_ATOM_
 from .has_atoms_with_alternate_locations import has_atoms_with_alternate_locations
 from .to_string_pdb_text import to_string_pdb_text
 from .to_file_mol2 import to_file_mol2
-from .to_mdanalysis_topology_PDBParser import to_mdanalysis_topology_PDBParser
-from .to_mdanalysis_Topology import to_mdanalysis_Topology
-from .to_mdanalysis_Universe import to_mdanalysis_Universe
+from .to_MDAnalysis_topology_PDBParser import to_MDAnalysis_topology_PDBParser
+from .to_MDAnalysis_Topology import to_MDAnalysis_Topology
+from .to_MDAnalysis_Universe import to_MDAnalysis_Universe
 from .to_mdtraj_PDBTrajectoryFile import to_mdtraj_PDBTrajectoryFile
 from .to_mdtraj_Topology import to_mdtraj_Topology
 from .to_mdtraj_Trajectory import to_mdtraj_Trajectory

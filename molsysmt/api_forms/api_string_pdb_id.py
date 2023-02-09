@@ -146,10 +146,10 @@ def to_openmm_PDBFile(item, molecular_system, atom_indices='all', structure_indi
     return string_pdb_id_to_openmm_PDBFile(item, atom_indices=atom_indices, structure_indices=structure_indices)
 
 
-def to_mdanalysis_Universe(item, molecular_system, atom_indices='all', structure_indices='all'):
-    from molsysmt.form.string_pdb_id import to_mdanalysis_Universe as string_pdb_id_to_mdanalysis_Universe
+def to_MDAnalysis_Universe(item, molecular_system, atom_indices='all', structure_indices='all'):
+    from molsysmt.form.string_pdb_id import to_MDAnalysis_Universe as string_pdb_id_to_MDAnalysis_Universe
 
-    return string_pdb_id_to_mdanalysis_Universe(item, atom_indices=atom_indices, structure_indices=structure_indices)
+    return string_pdb_id_to_MDAnalysis_Universe(item, atom_indices=atom_indices, structure_indices=structure_indices)
 
 
 def to_pytraj_Trajectory(item, molecular_system, atom_indices='all', structure_indices='all'):
