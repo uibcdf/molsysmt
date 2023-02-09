@@ -1,4 +1,8 @@
 from molsysmt._private.digestion import digest
+from molsysmt import pyunitwizard as puw
+from molsysmt.element.atom import get_atom_type_from_atom_name
+from molsysmt.element.group import get_group_type_from_group_name
+import numpy as np
 
 @digest(form='file:crd')
 def to_molsysmt_Topology(item, atom_indices='all', structure_indices='all'):
@@ -16,10 +20,15 @@ def to_molsysmt_Topology(item, atom_indices='all', structure_indices='all'):
 
     tmp_item = Topology()
 
+    atom_index = []
     atom_id = []
     atom_name = []
+    atom_type = []
+    group_index = []
     group_id = []
     group_name = []
+    group_type = []
+    chain_index = []
     chain_id = []
     bfactor = []
 
@@ -30,9 +39,9 @@ def to_molsysmt_Topology(item, atom_indices='all', structure_indices='all'):
             if line.strip().startswith('*') or line.strip() == "":
                 continue
             field = line.split()
-            if len(fields)=1:
+            if len(field)==1:
                 n_atoms = int(field[0])
-            elif len(fields)==1:
+            elif len(field)==2:
                 n_atoms = int(field[0])
                 extended = True
             else:
@@ -41,19 +50,40 @@ def to_molsysmt_Topology(item, atom_indices='all', structure_indices='all'):
                 group_name.append(field[2])
                 atom_name.append(field[3])
                 chain_id.append(field[7])
-                bfactor.append(field[9])
+                bfactor.append(float(field[9]))
 
     if len(atom_id)!=n_atoms:
         raise ValueError
 
+    for ii in atom_name:
+        atom_type.append(get_atom_type_from_atom_name(ii))
+
+    for ii in group_name:
+        group_type.append(get_group_type_from_group_name(ii))
+
     atom_id = np.array(atom_id, dtype=int)
     atom_name = np.array(atom_name, dtype=object)
+    atom_type = np.array(atom_name, dtype=object)
     group_id = np.array(group_id, dtype=int)
     group_name = np.array(group_name, dtype=object)
+    group_type = np.array(group_name, dtype=object)
     chain_id = np.array(chain_id, dtype=object)
-    bfactor = np.array(bfactor, dtype=float)
+    bfactor = puw.quantity(np.array(bfactor), unit='angstroms**2', standardized=True)
 
-    b_factor_array = puw.quantity(np.array(item.b_factor_list), unit='angstroms**2', standardized=True)
-    
+    tmp_item.atoms_dataframe["atom_name"] = atom_name
+    tmp_item.atoms_dataframe["atom_id"] = atom_id
+    tmp_item.atoms_dataframe["atom_type"] = atom_type
+    tmp_item.atoms_dataframe["b_factor"] = puw.get_value(bfactor)
+    tmp_item.atoms_dataframe["group_name"] = group_name
+    tmp_item.atoms_dataframe["group_id"] = group_id
+    tmp_item.atoms_dataframe["group_type"] = group_type
+    tmp_item.atoms_dataframe["chain_id"] = chain_id
+
+    ## nan to None
+
+    tmp_item._nan_to_None()
+
+    del(atom_id, atom_name, atom_type, group_id, group_name, group_type, chain_id, bfactor)
 
     return tmp_item
+
