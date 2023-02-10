@@ -246,6 +246,7 @@ def get_n_structures_from_system(item):
 def get_box_from_system(item, structure_indices='all'):
 
     from molsysmt._private.math import serie_to_chunks
+    from molsysmt.pbc import get_box_from_lengths_and_angles
 
     if is_all(structure_indices):
 
@@ -263,8 +264,8 @@ def get_box_from_system(item, structure_indices='all'):
         cell_lengths.append(aux_cell_lengths)
         cell_angles.append(aux_cell_angles)
 
-    cell_lengths = np.concatente(cell_lengths)
-    cell_angles = np.concatente(cell_angles)
+    cell_lengths = np.concatenate(cell_lengths)
+    cell_angles = np.concatenate(cell_angles)
 
     cell_lengths = cell_lengths.astype('float64')
     cell_angles = cell_angles.astype('float64')
@@ -272,7 +273,7 @@ def get_box_from_system(item, structure_indices='all'):
     cell_lengths = puw.quantity(cell_lengths, item.distance_unit)
     cell_angles = puw.quantity(cell_angles, 'degrees')
 
-    box = box_from_box_lengths_and_angles(cell_lengths, cell_angles)
+    box = get_box_from_lengths_and_angles(cell_lengths, cell_angles)
     box = puw.standardize(box)
 
     del(cell_lengths, cell_angles)

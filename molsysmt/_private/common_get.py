@@ -3145,10 +3145,10 @@ def get_box_shape_from_system(item, structure_indices='all'):
     if structure_indices is None:
         return None
 
-    from molsysmt.pbc import box_shape_from_box
+    from molsysmt.pbc import get_shape_from_box
 
     tmp_box = get_box_from_system(item, structure_indices=structure_indices)
-    output = box_shape_from_box(tmp_box)
+    output = get_shape_from_box(tmp_box)
 
     return output
 
@@ -3158,10 +3158,10 @@ def get_box_lengths_from_system(item, structure_indices='all'):
     if structure_indices is None:
         return None
 
-    from molsysmt.pbc import box_lengths_from_box
+    from molsysmt.pbc import get_lengths_and_angles_from_box
 
     tmp_box = get_box_from_system(item, structure_indices=structure_indices)
-    output = box_lengths_from_box(tmp_box)
+    output, _ = get_lengths_and_angles_from_box(tmp_box)
 
     return output
 
@@ -3171,10 +3171,10 @@ def get_box_angles_from_system(item, structure_indices='all'):
     if structure_indices is None:
         return None
 
-    from molsysmt.pbc import box_angles_from_box
+    from molsysmt.pbc import get_lengths_and_angles_from_box
 
     tmp_box = get_box_from_system(item, structure_indices=structure_indices)
-    output = box_angles_from_box(tmp_box)
+    _, output = get_lengths_and_angles_from_box(tmp_box)
 
     return output
 
@@ -3184,13 +3184,13 @@ def get_box_volume_from_system(item, structure_indices='all'):
     if structure_indices is None:
         return None
 
-    from molsysmt.pbc import box_volume_from_box
+    from molsysmt.pbc import get_box_volume_from_box
 
     tmp_box = get_box_from_system(item, structure_indices=structure_indices)
     if tmp_box is None:
         output=None
     else:
-        output = box_volume_from_box(tmp_box)
+        output = get_box_volume_from_box(tmp_box)
 
     return output
 

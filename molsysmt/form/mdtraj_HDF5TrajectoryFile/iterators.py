@@ -1,6 +1,6 @@
 from molsysmt import pyunitwizard as puw
 from molsysmt._private.variables import is_all
-from molsysmt.pbc import box_from_box_lengths_and_angles
+from molsysmt.pbc import get_box_from_lengths_and_angles
 from copy import copy
 import numpy as np
 from molsysmt._private.digestion import digest
@@ -82,7 +82,7 @@ class StructuresIterator():
                     if isinstance(indices, int):
                         box_lengths = np.expand_dims(box_lengths, axis=0)
                         box_angles = np.expand_dims(box_angles, axis=0)
-                    self._output_dictionary['box'] = box_from_box_lengths_and_angles(box_lengths, box_angles)
+                    self._output_dictionary['box'] = get_box_from_lengths_and_angles(box_lengths, box_angles)
                     del(box_lengths, box_angles)
                 elif argument == 'temperature':
                     self._output_dictionary['temperature'] = puw.quantity(self._node['temperature'][indices], 'K', standardized=True)

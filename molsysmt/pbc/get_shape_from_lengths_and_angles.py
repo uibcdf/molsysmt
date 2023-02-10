@@ -3,7 +3,7 @@ import numpy as np
 from molsysmt import pyunitwizard as puw
 
 @digest()
-def box_shape_from_box_angles(box_angles):
+def get_shape_from_lengths_and_angles(box_lengths, box_angles):
 
     shape = None
 

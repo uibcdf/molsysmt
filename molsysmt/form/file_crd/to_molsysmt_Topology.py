@@ -58,32 +58,56 @@ def to_molsysmt_Topology(item, atom_indices='all', structure_indices='all'):
     for ii in atom_name:
         atom_type.append(get_atom_type_from_atom_name(ii))
 
+    counter = 0
+    prev = group_id[0]
+    for ii in group_id:
+        if ii != prev:
+            prev = ii
+            counter += 1
+        group_index.append(counter)
+
     for ii in group_name:
         group_type.append(get_group_type_from_group_name(ii))
 
+    counter = 0
+    prev = chain_id[0]
+    for ii in chain_id:
+        if ii != prev:
+            prev = ii
+            counter += 1
+        chain_index.append(counter)
+
+    atom_index = np.arange(0, n_atoms, dtype=int)
     atom_id = np.array(atom_id, dtype=int)
     atom_name = np.array(atom_name, dtype=object)
-    atom_type = np.array(atom_name, dtype=object)
+    atom_type = np.array(atom_type, dtype=object)
+    group_index = np.array(group_index, dtype=int)
     group_id = np.array(group_id, dtype=int)
     group_name = np.array(group_name, dtype=object)
-    group_type = np.array(group_name, dtype=object)
+    group_type = np.array(group_type, dtype=object)
+    chain_index = np.array(chain_index, dtype=int)
     chain_id = np.array(chain_id, dtype=object)
     bfactor = puw.quantity(np.array(bfactor), unit='angstroms**2', standardized=True)
 
+    tmp_item.atoms_dataframe["atom_index"] = atom_index
     tmp_item.atoms_dataframe["atom_name"] = atom_name
     tmp_item.atoms_dataframe["atom_id"] = atom_id
     tmp_item.atoms_dataframe["atom_type"] = atom_type
     tmp_item.atoms_dataframe["b_factor"] = puw.get_value(bfactor)
+    tmp_item.atoms_dataframe["group_index"] = group_index
     tmp_item.atoms_dataframe["group_name"] = group_name
     tmp_item.atoms_dataframe["group_id"] = group_id
     tmp_item.atoms_dataframe["group_type"] = group_type
+    tmp_item.atoms_dataframe["chain_index"] = chain_index
     tmp_item.atoms_dataframe["chain_id"] = chain_id
 
     ## nan to None
 
     tmp_item._nan_to_None()
 
-    del(atom_id, atom_name, atom_type, group_id, group_name, group_type, chain_id, bfactor)
+    del(atom_index, atom_id, atom_name, atom_type,
+        group_index, group_id, group_name, group_type,
+        chain_index, chain_id, bfactor)
 
     return tmp_item
 

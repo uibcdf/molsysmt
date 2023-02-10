@@ -3,7 +3,7 @@ from molsysmt import pyunitwizard as puw
 import numpy as np
 
 @digest()
-def box_volume_from_box(box):
+def get_volume_from_box(box):
 
     if box is not None:
         units = puw.get_unit(box)
