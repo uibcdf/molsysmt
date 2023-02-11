@@ -294,7 +294,7 @@ class Topology():
                 try:
                     entity_index = entities[entity_name]
                 except:
-                    entity_entities[entity_name]=n_entities
+                    entities[entity_name]=n_entities
                     entity_index=n_entities
                     n_entities+=1
 

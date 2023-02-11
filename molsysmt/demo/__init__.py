@@ -125,7 +125,7 @@ demo['5ZMZ']['5zmz.mmtf'] = parent.joinpath('5zmz/5zmz.mmtf').__str__()
 
 # POPC membrane
 demo['membrane'] = {}
-demo['membrane']['membrane.psf'] = parent.joinpath('membrane/membrame.psf').__str__()
+demo['membrane']['membrane.psf'] = parent.joinpath('membrane/membrane.psf').__str__()
 demo['membrane']['membrane.dcd'] = parent.joinpath('membrane/membrane.dcd').__str__()
 
 

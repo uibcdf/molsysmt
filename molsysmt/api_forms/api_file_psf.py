@@ -42,6 +42,20 @@ form_attributes['structure_id'] = False
 form_attributes['forcefield_parameters'] = False
 form_attributes['temperature'] = False
 
+def to_molsysmt_MolSys(item, molecular_system, atom_indices='all', structure_indices='all'):
+
+    from molsysmt import get
+    from molsysmt.form.file_psf import to_molsysmt_MolSys as file_psf_to_molsysmt_MolSys
+
+    coordinates = get(molecular_system, element='atom', indices=atom_indices, structure_indices=structure_indices,
+            coordinates=True)
+    box, time, structure_id = get(molecular_system, structure_indices=structure_indices, box=True,
+            time=True, structure_id=True)
+
+    tmp_item = file_psf_to_molsysmt_MolSys(item, atom_indices=atom_indices)
+
+    return tmp_item
+
 def to_molsysmt_Topology(item, molecular_system, atom_indices='all', structure_indices='all'):
 
     from molsysmt.form.file_psf import to_molsysmt_Topology as file_psf_to_molsysmt_Topology
@@ -52,9 +66,17 @@ def to_molsysmt_Topology(item, molecular_system, atom_indices='all', structure_i
 
 def to_openmm_CharmmPsfFile(item, molecular_system, atom_indices='all', structure_indices='all'):
 
-    from molsysmt.form.file_psf import to_openmm_CharmmPsfFile as file_psf_to_openmm_CharmmCrdFile
+    from molsysmt.form.file_psf import to_openmm_CharmmPsfFile as file_psf_to_openmm_CharmmPsfFile
 
     tmp_item = file_psf_to_openmm_CharmmPsfFile(item, atom_indices=atom_indices)
+
+    return tmp_item
+
+def to_openmm_Topology(item, molecular_system, atom_indices='all', structure_indices='all'):
+
+    from molsysmt.form.file_psf import to_openmm_Topology as file_psf_to_openmm_Topology
+
+    tmp_item = file_psf_to_openmm_Topology(item, atom_indices=atom_indices)
 
     return tmp_item
 
