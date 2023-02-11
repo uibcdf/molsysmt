@@ -864,7 +864,7 @@ def get_formal_charge_from_group(item, indices='all'):
         charges = get_formal_charge_from_atom(item, atom_indices)
         output.append(np.sum(charges))
 
-    output = puw.concatenate(output, to_value_type='numpy.ndarray', standardized=True)
+    output = puw.concatenate(output, type_value='numpy.ndarray', standardized=True)
 
     return output
 

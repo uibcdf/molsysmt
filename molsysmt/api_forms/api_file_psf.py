@@ -44,15 +44,18 @@ form_attributes['temperature'] = False
 
 def to_molsysmt_MolSys(item, molecular_system, atom_indices='all', structure_indices='all'):
 
-    from molsysmt import get
     from molsysmt.form.file_psf import to_molsysmt_MolSys as file_psf_to_molsysmt_MolSys
+    from molsysmt import convert
 
-    coordinates = get(molecular_system, element='atom', indices=atom_indices, structure_indices=structure_indices,
-            coordinates=True)
-    box, time, structure_id = get(molecular_system, structure_indices=structure_indices, box=True,
-            time=True, structure_id=True)
+    molsysmt_structures = convert(molecular_system, selection=atom_indices, structure_indices=structure_indices,
+            to_form='molsysmt.Structures')
 
-    tmp_item = file_psf_to_molsysmt_MolSys(item, atom_indices=atom_indices)
+    coordinates = molsysmt_structures.coordinates
+    time = molsysmt_structures.time
+    box = molsysmt_structures.box
+    structure_id = molsysmt_structures.structure_id
+    tmp_item = file_psf_to_molsysmt_MolSys(item, atom_indices=atom_indices, coordinates=coordinates,
+            time=time, box=box, structure_id=structure_id)
 
     return tmp_item
 

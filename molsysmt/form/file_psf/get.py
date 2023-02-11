@@ -318,13 +318,15 @@ def get_entity_type_from_entity (item, indices='all'):
 @digest(form=form)
 def get_n_atoms_from_system(item):
 
-    from . import to_openmm_CharmmPsfFile
-    from ..openmm_CharmmPsfFile import get_n_atoms_from_system as aux_get
+    with open(item) as fff:
+        for line in fff:
+            fields = line.split()
+            if len(fields)>1:
+                if fields[1]=="!NATOM":
+                    n_atoms = int(fields[0])
+                    break
 
-    tmp_item = to_openmm_CharmmPsfFile(item)
-    output = aux_get(tmp_item)
-
-    return output
+    return n_atoms
 
 @digest(form=form)
 def get_n_groups_from_system(item):

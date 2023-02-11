@@ -165,7 +165,6 @@ def compare(molecular_system_A, molecular_system_B, selection_A='all', structure
                 report_dict['bonded_atoms'] = True
                 for ii,jj in zip(bonded_atoms_A, bonded_atoms_B):
                     if not np.all(ii==jj):
-                        print(ii,jj)
                         report_dict['bonded_atoms'] = False
                         break
 

@@ -32,6 +32,9 @@ class StructuresIterator():
                 self._output_dictionary[key] = None
 
 
+        if is_all(structure_indices):
+            structure_indices=None
+
         if self.stop is None:
             if structure_indices is None:
                 from .get import get_n_structures_from_system
@@ -41,6 +44,10 @@ class StructuresIterator():
 
         self._indices_iterator = indices_iterator(indices=structure_indices, start=self.start,
                 stop=self.stop, step=self.step, chunk=self.chunk)
+
+        self._mdtraj_atom_indices = self.atom_indices
+        if is_all(self.atom_indices):
+            self._mdtraj_atom_indices = None
 
     def __iter__(self):
 
@@ -59,17 +66,17 @@ class StructuresIterator():
 
                 for ii in indices:
                     self.molecular_system.seek(indices)
-                    coordinates_aux, box_lengths_aux, box_angles_aux = self.molecular_system.read(1, 0, self.atom_indices)
+                    coordinates_aux, box_lengths_aux, box_angles_aux = self.molecular_system.read(1, 0, self._mdtraj_atom_indices)
                     coordinates.append(coordinates_aux)
                     box_lengths.append(box_lengths_aux)
                     box_angles.append(box_angles_aux)
                     del(coordinates_aux, box_lengths_aux, box_angles_aux)
             else:
                 self.molecular_system.seek(indices)
-                coordinates_aux, box_lengths_aux, box_angles_aux = self.molecular_system.read(1, 0, self.atom_indices)
-                coordinates.append(coordinates_aux)
-                box_lengths.append(box_lengths_aux)
-                box_angles.append(box_angles_aux)
+                coordinates_aux, box_lengths_aux, box_angles_aux = self.molecular_system.read(1, 0, self._mdtraj_atom_indices)
+                coordinates=coordinates_aux
+                box_lengths=box_lengths_aux
+                box_angles=box_angles_aux
                 del(coordinates_aux, box_lengths_aux, box_angles_aux)
 
             for argument in self.arguments:

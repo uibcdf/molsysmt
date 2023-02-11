@@ -21,6 +21,37 @@ def test_convert_molsysmt_Topology_and_molsysmt_Structures_to_string_pdb_text():
     form = msm.get_form(molsys)
     assert 'string:pdb_text'==form
 
+def test_convert_file_psf_and_file_dcd_to_molsysmt_MolSys():
+    psf_file = msm.demo['membrane']['membrane.psf']
+    dcd_file = msm.demo['membrane']['membrane.dcd']
+    molsys = msm.convert([psf_file, dcd_file], to_form='molsysmt.MolSys')
+    form = msm.get_form(molsys)
+    n_atoms, n_structures = msm.get(molsys, n_atoms=True, n_structures=True)
+    assert 'molsysmt.MolSys'==form
+    assert n_atoms==78974
+    assert n_structures==50
+
+def test_convert_file_psf_and_file_dcd_to_molsysmt_Topology():
+    psf_file = msm.demo['membrane']['membrane.psf']
+    dcd_file = msm.demo['membrane']['membrane.dcd']
+    molsys = msm.convert([psf_file, dcd_file], to_form='molsysmt.Topology')
+    form = msm.get_form(molsys)
+    n_atoms, n_structures = msm.get(molsys, n_atoms=True, n_structures=True)
+    assert 'molsysmt.Topology'==form
+    assert n_atoms==78974
+    assert n_structures==None
+
+def test_convert_file_psf_and_file_dcd_to_molsysmt_Structures():
+    psf_file = msm.demo['membrane']['membrane.psf']
+    dcd_file = msm.demo['membrane']['membrane.dcd']
+    molsys = msm.convert([psf_file, dcd_file], to_form='molsysmt.Structures')
+    form = msm.get_form(molsys)
+    n_atoms, n_structures = msm.get(molsys, n_atoms=True, n_structures=True)
+    assert 'molsysmt.Structures'==form
+    assert n_atoms==78974
+    assert n_structures==50
+
+
 #def test_convert_file_gro_and_file_xtc_to_molsysmt_MolSys():
 #    import warnings
 #    warnings.filterwarnings('ignore')

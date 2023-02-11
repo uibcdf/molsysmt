@@ -13,6 +13,7 @@ def get_box_from_lengths_and_angles(box_lengths, box_angles):
     angles_value =  np.asfortranarray(angles_value, dtype='float64')
     n_structures = box_lengths.shape[0]
 
+    
     box = libbox.lengths_and_angles_to_box(lengths_value, angles_value, n_structures)
     box = np.ascontiguousarray(box, dtype='float64').round(6)*units
 

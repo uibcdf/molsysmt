@@ -1,7 +1,12 @@
+from .variables import is_all
+
 def indices_iterator(indices=None, start=0, stop=None, step=1, chunk=1):
     
     output = None
-    
+
+    if is_all(indices):
+        indices=None
+
     if indices is None:
         if stop is None:
             raise ValueError('stop needs to be different from None')

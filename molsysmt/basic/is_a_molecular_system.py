@@ -18,26 +18,24 @@ def is_a_molecular_system(items):
 
     if len(items)>1:
 
+        # same n_atoms
+
+        same_n_atoms = True
+
         list_n_atoms = []
-        list_n_groups = []
-        list_forms = []
 
         for item in items:
-            tmp_form = get_form(item)
-            tmp_n_atoms, tmp_n_groups = get(item, element='system', n_atoms=True, n_groups=True)
-            list_forms.append(tmp_form)
+            tmp_n_atoms = get(item, element='system', n_atoms=True)
             list_n_atoms.append(tmp_n_atoms)
-            list_n_groups.append(tmp_n_groups)
 
         set_n_atoms = set([ii for ii in list_n_atoms if ii is not None])
         if len(set_n_atoms)>1:
-            output = False
+            same_n_atoms = False
 
-        if output:
+        # if same_n_atoms and group_indices is an attribute of more than a single item
+        # same_n_groups should be computed
 
-            set_n_groups = set([ii for ii in list_n_groups if ii is not None])
-            if len(set_n_groups)>1:
-                output = False
+        output=same_n_atoms
 
     if output:
 
