@@ -69,7 +69,9 @@ def info(molecular_system,
     form = get_form(molecular_system)
 
     if form in ['string:pdb_id', 'file:pdb', 'nglview.NGLWidget']:
-        molecular_system = convert(molecular_system)
+        molecular_system = convert(molecular_system, to_form='molsysmt.MolSys')
+    elif form in ['file:psf', 'openmm.Topology', 'openmm.CharmmPsfFile']:
+        molecular_system = convert(molecular_system, to_form='molsysmt.Topology')
 
     if output_type == 'dataframe':
 

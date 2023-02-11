@@ -1,8 +1,8 @@
 
-def from_mdanalysis_Universe(item, molecular_system=None, atom_indices='all', structure_indices='all'):
+def from_MDAnalysis_Universe(item, molecular_system=None, atom_indices='all', structure_indices='all'):
 
     from molsysmt.native.trajectory import Trajectory
-    from molsysmt.api_forms.api_mdanalysis_Universe import get_frame_from_atom
+    from molsysmt.api_forms.api_MDAnalysis_Universe import get_frame_from_atom
 
     tmp_item = Trajectory()
     structure_id, time, coordinates, box = get_frame_from_atom(item, indices=atom_indices, structure_indices=structure_indices)

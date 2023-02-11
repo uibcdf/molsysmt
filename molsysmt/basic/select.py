@@ -234,10 +234,10 @@ def select_with_MDAnalysis(item, selection):
 
     form_in = get_form(item)
 
-    if form_in == 'mdanalysis.Topology':
+    if form_in == 'MDAnalysis.Topology':
         tmp_item = item
     else:
-        tmp_item = convert(item, to_form='mdanalysis.Topology')
+        tmp_item = convert(item, to_form='MDAnalysis.Topology')
 
     tmp_atomgroup = tmp_item.select_atoms(selection)
     atom_indices = tmp_atomgroup.atoms.ids

@@ -67,34 +67,28 @@ def get_n_inner_bonds_from_atom(item, indices='all'):
 @digest(form=form)
 def get_coordinates_from_atom(item, indices='all', structure_indices='all'):
 
-    from molsysmt._private.math import serie_to_chunks
-
     if is_all(structure_indices):
 
-        n_structures= get_n_structures_from_system(item)
-        structure_indices = np.arange(n_structures)
-
-    starts_serie_frames, size_serie_frames = serie_to_chunks(structure_indices)
-
-    xyz_list = []
-
-    for start, size in zip(starts_serie_frames, size_serie_frames):
-        item.seek(start)
         if is_all(indices):
-            xyz, _, _ = item.read(n_frames=size)
-        else:
-            xyz, _, _ = item.read(n_frames=size, atom_indices=indices)
-        xyz_list.append(xyz)
+            indices = None
+        coordinates, _, _ = item.read(atom_indices=indices)
+        coordinates = puw.quantity(coordinates, 'angstroms', standardized=True)
 
-    xyz = np.concatenate(xyz_list)
-    del(xyz_list)
+    else:
 
-    xyz = xyz.astype('float64')
+        from .iterators import StructuresIterator
 
-    xyz = xyz*puw.unit(item.distance_unit)
-    xyz = puw.standardize(xyz)
+        coordinates = []
 
-    return xyz
+        iterator = StructuresIterator(item, atom_indices=indices, structure_indices=structure_indices,
+                coordinates=True)
+
+        for aux_coordinates in iterator:
+            coordinates.append(aux_coordinates)
+
+        coordinates = puw.concatenate(coordinates, output_value='numpy.ndarray')
+
+    return coordinates
 
 
 ## From group
@@ -246,6 +240,7 @@ def get_n_structures_from_system(item):
 def get_box_from_system(item, structure_indices='all'):
 
     from molsysmt._private.math import serie_to_chunks
+    from molsysmt.pbc import get_box_from_lengths_and_angles
 
     if is_all(structure_indices):
 
@@ -263,8 +258,8 @@ def get_box_from_system(item, structure_indices='all'):
         cell_lengths.append(aux_cell_lengths)
         cell_angles.append(aux_cell_angles)
 
-    cell_lengths = np.concatente(cell_lengths)
-    cell_angles = np.concatente(cell_angles)
+    cell_lengths = np.concatenate(cell_lengths)
+    cell_angles = np.concatenate(cell_angles)
 
     cell_lengths = cell_lengths.astype('float64')
     cell_angles = cell_angles.astype('float64')
@@ -272,7 +267,7 @@ def get_box_from_system(item, structure_indices='all'):
     cell_lengths = puw.quantity(cell_lengths, item.distance_unit)
     cell_angles = puw.quantity(cell_angles, 'degrees')
 
-    box = box_from_box_lengths_and_angles(cell_lengths, cell_angles)
+    box = get_box_from_lengths_and_angles(cell_lengths, cell_angles)
     box = puw.standardize(box)
 
     del(cell_lengths, cell_angles)

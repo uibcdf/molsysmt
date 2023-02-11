@@ -8,4 +8,5 @@ from .set import *
 from .iterators import StructuresIterator, TopologyIterator
 
 from .to_mdtraj_DCDTrajectoryFile import to_mdtraj_DCDTrajectoryFile
+from .to_molsysmt_Structures import to_molsysmt_Structures
 

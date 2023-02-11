@@ -62,22 +62,22 @@ def to_parmed_Structure(item, molecular_system, atom_indices='all', structure_in
     return file_pdb_to_parmed_Structure(item, atom_indices=atom_indices, structure_indices=structure_indices)
 
 
-def to_mdanalysis_Universe(item, molecular_system, atom_indices='all', structure_indices='all'):
-    from molsysmt.form.file_pdb import to_mdanalysis_Universe as file_pdb_to_mdanalysis_Universe
+def to_MDAnalysis_Universe(item, molecular_system, atom_indices='all', structure_indices='all'):
+    from molsysmt.form.file_pdb import to_MDAnalysis_Universe as file_pdb_to_MDAnalysis_Universe
 
-    return file_pdb_to_mdanalysis_Universe(item, atom_indices=atom_indices, structure_indices=structure_indices)
-
-
-def to_mdanalysis_Topology(item, molecular_system, atom_indices='all', structure_indices='all'):
-    from molsysmt.form.file_pdb import to_mdanalysis_Topology as file_pdb_to_mdanalysis_Topology
-
-    return file_pdb_to_mdanalysis_Topology(item, atom_indices=atom_indices, structure_indices=structure_indices)
+    return file_pdb_to_MDAnalysis_Universe(item, atom_indices=atom_indices, structure_indices=structure_indices)
 
 
-def to_mdanalysis_topology_PDBParser(item, molecular_system, atom_indices='all', structure_indices='all'):
-    from molsysmt.form.file_pdb import to_mdanalysis_topology_PDBParser as file_pdb_to_mdanalysis_topology_PDBParser
+def to_MDAnalysis_Topology(item, molecular_system, atom_indices='all', structure_indices='all'):
+    from molsysmt.form.file_pdb import to_MDAnalysis_Topology as file_pdb_to_MDAnalysis_Topology
 
-    return file_pdb_to_mdanalysis_topology_PDBParser(item, atom_indices=atom_indices)
+    return file_pdb_to_MDAnalysis_Topology(item, atom_indices=atom_indices, structure_indices=structure_indices)
+
+
+def to_MDAnalysis_topology_PDBParser(item, molecular_system, atom_indices='all', structure_indices='all'):
+    from molsysmt.form.file_pdb import to_MDAnalysis_topology_PDBParser as file_pdb_to_MDAnalysis_topology_PDBParser
+
+    return file_pdb_to_MDAnalysis_topology_PDBParser(item, atom_indices=atom_indices)
 
 
 def to_mdtraj_Topology(item, molecular_system, atom_indices='all', structure_indices='all'):

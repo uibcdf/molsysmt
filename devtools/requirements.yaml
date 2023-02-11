@@ -24,8 +24,10 @@ production:
     - ambertools
     - networkx
     - mdtraj
+    - mdanalysis
     - biopython
     - ipywidgets <8
+    - tqdm
 
 test:
   channels: &test_channels

@@ -19,3 +19,4 @@ dependencies:
 - mdtraj
 - biopython
 - ipywidgets <8
+- tqdm

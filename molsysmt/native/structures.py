@@ -3,7 +3,7 @@ import numpy as np
 from molsysmt import pyunitwizard as puw
 from molsysmt._private.variables import is_all
 from molsysmt.basic import get
-from molsysmt.pbc import box_lengths_from_box, box_angles_from_box
+from molsysmt.pbc import get_lengths_and_angles_from_box
 from molsysmt._private.exceptions import IteratorError
 from molsysmt._private.digestion import digest
 
@@ -115,10 +115,9 @@ class Structures:
 
     def get_box_lengths(self):
 
-        from molsysmt.pbc import box_lengths_from_box
 
         if self.box is not None:
-            lengths = box_lengths_from_box(self.box)
+            lengths, _ = get_lengths_and_angles_from_box(self.box)
         else:
             lengths = None
 
@@ -126,12 +125,10 @@ class Structures:
 
     def get_box_angles(self):
 
-        from molsysmt.pbc import box_angles_from_box
-
         if self.box is not None:
-            angles = box_angles_from_box(self.box)
+            _, angles = get_lengths_and_angles_from_box(self.box)
         else:
-            angles = None
+            _, angles = None
 
         return angles
 

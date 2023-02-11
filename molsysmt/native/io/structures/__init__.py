@@ -4,7 +4,7 @@ from .openmm_Simulation import from_openmm_Simulation
 from .pdbfixer_PDBFixer import from_pdbfixer_PDBFixer
 from .openexplorer_Explorer import from_openexplorer_Explorer
 from .openexplorer_OpenExplorerReporter import from_openexplorer_OpenExplorerReporter
-from .mdanalysis_Universe import from_mdanalysis_Universe
+from .MDAnalysis_Universe import from_MDAnalysis_Universe
 from .pytraj_Trajectory import from_pytraj_Trajectory
 from .XYZ import from_XYZ, to_XYZ
 from .file_h5 import from_file_h5
