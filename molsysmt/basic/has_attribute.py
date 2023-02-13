@@ -16,27 +16,33 @@ def has_attribute(molecular_system, attribute):
 
     if attribute == 'structural': 
 
-        for ii in structural_attributes:
-            for form_in in forms_in:
-
+        for form_in in forms_in:
+            for structural_attribute in structural_attributes:
+                if structural_attribute in dict_attributes[form_in]:
+                    if dict_attributes[form_in][structural_attribute]:
+                        output = True
+                        break
+            if output:
+                break
 
 
     elif attribute == 'topological':
 
-
+        for form_in in forms_in:
+            for topological_attribute in topological_attributes:
+                if topological_attribute in dict_attributes[form_in]:
+                    if dict_attributes[form_in][topological_attribute]:
+                        output = True
+                        break
+            if output:
+                break
 
     else:
 
         for form_in in forms_in:
-            if attribute in dict_attributes[]
+            if dict_attributes[form_in][attribute]:
+                output=True
+                break
     
-        from . import where_is_attribute
-
-        output_item, output_form = where_is_attribute(molecular_system, attribute)
-
-        output = False
-        if output_item is not None:
-            output = True
-
     return output
 

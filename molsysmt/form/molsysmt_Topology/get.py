@@ -1873,7 +1873,10 @@ def get_n_atoms_from_system(item):
 def get_n_groups_from_system(item):
 
     output = item.atoms_dataframe['group_index'].unique()
-    return output.shape[0]
+    if output.shape[0] and output[0] is None:
+        return 0
+    else:
+        return output.shape[0]
 
 @digest(form=form)
 def get_n_components_from_system(item):

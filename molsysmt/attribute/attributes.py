@@ -15,9 +15,6 @@ _required_attributes['atom_index'] = ['atom_index']
 _required_indices['atom_index'] = ['indices']
 _reverse_search_in_molecular_system['atom_index'] = False
 
-topological_attributes.append('atom_index')
-structural_attributes.append('atom_index')
-
 # atom_name
 
 attributes.append('atom_name')
@@ -364,9 +361,6 @@ attribute_synonyms['n_atom'] = 'n_atoms'
 _required_attributes['n_atoms'] = ['atom_index', 'coordinates']
 _required_indices['n_atoms'] = ['indices']
 _reverse_search_in_molecular_system['n_atoms'] = False
-
-topological_attributes.append('n_atoms')
-structural_attributes.append('n_atoms')
 
 # n_groups
 

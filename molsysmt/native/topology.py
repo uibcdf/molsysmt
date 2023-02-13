@@ -3,7 +3,7 @@ import numpy as np
 
 class Atoms_DataFrame(pd.DataFrame):
 
-    def __init__(self):
+    def __init__(self, n_atoms=0):
 
         columns = ['atom_index', 'atom_name', 'atom_id', 'atom_type',
                    'group_index', 'group_name', 'group_id', 'group_type',
@@ -20,6 +20,10 @@ class Atoms_DataFrame(pd.DataFrame):
         # 'partial_charge' = {'[T]': 1, '[A]:1'}
 
         super().__init__(columns=columns)
+
+        if n_atoms:
+            self["atom_index"] = np.arange(0, n_atoms, dtype=int)
+            self._nan_to_None()
 
     def _nan_to_None(self):
 
@@ -53,9 +57,9 @@ class Bonds_DataFrame(pd.DataFrame):
 
 class Topology():
 
-    def __init__(self):
+    def __init__(self, n_atoms=0):
 
-        self.atoms_dataframe=Atoms_DataFrame()
+        self.atoms_dataframe=Atoms_DataFrame(n_atoms=n_atoms)
         self.bonds_dataframe=Bonds_DataFrame()
 
     def extract(self, atom_indices='all', structure_indices='all'):

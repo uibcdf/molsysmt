@@ -5,7 +5,7 @@
 ## Get
 
 - n_atoms is always an integer even when there is no topological info.
-- n_structures is None when the form has no structural info. If the form can store structures n_structures is always an integer.
+- n_structures is None when the form has no structural info. If the form can store structures n_structures is always an integer (0, if there are no structures in the form).
 - if time, box, etc... (structural attributes) are not present in an object... the output is a list with as many Nones as structure_indices.
 
 ## Iterator
