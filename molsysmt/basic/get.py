@@ -64,7 +64,13 @@ def get(molecular_system,
 
     """
 
-    from .. import select, where_is_attribute
+    replace_molecular_systems = {
+            'file:psf':'molsysmt.Topology',
+            'file:dcd':'mdtraj.DCDTrajectoryFile',
+            }
+
+
+    from .. import select, where_is_attribute, get_form, convert
     from molsysmt.api_forms import dict_get
 
     arguments = []
@@ -74,6 +80,16 @@ def get(molecular_system,
 
     if not isinstance(molecular_system, (list, tuple)):
         molecular_system = [molecular_system]
+
+    aux_molecular_system = []
+    for ii in molecular_system:
+        form_in = get_form(ii)
+        if form_in in replace_molecular_systems:
+            jj = convert(ii, to_form=replace_molecular_systems[form_in])
+            aux_molecular_system.append(jj)
+        else:
+            aux_molecular_system.append(ii)
+    molecular_system = aux_molecular_system
 
     if indices is None:
         if not is_all(selection):

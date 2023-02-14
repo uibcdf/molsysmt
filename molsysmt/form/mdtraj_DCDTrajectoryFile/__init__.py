@@ -7,4 +7,5 @@ from .get import *
 from .set import *
 from .iterators import StructuresIterator, TopologyIterator
 
+from .to_molsysmt_MolSys import to_molsysmt_MolSys
 from .to_molsysmt_Structures import to_molsysmt_Structures

@@ -9,4 +9,5 @@ from .iterators import StructuresIterator, TopologyIterator
 
 from .to_mdtraj_DCDTrajectoryFile import to_mdtraj_DCDTrajectoryFile
 from .to_molsysmt_Structures import to_molsysmt_Structures
+from .to_molsysmt_MolSys import to_molsysmt_MolSys
 
