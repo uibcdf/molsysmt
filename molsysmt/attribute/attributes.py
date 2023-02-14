@@ -667,7 +667,7 @@ _required_attributes['coordinates'] = ['coordinates']
 _required_indices['coordinates'] = ['indices', 'structure_indices']
 _reverse_search_in_molecular_system['coordinates'] = True
 
-structural_attributes.append('box_volume')
+structural_attributes.append('coordinates')
 
 # n_structures
 
