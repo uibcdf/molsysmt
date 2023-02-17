@@ -41,7 +41,7 @@ def potential_energy_minimization(molecular_system, molecular_mechanics={'forcef
 
     """
 
-    from molsysmt import convert, get_form, has_attribute, set
+    from molsysmt import convert, get_form, has_attribute, set, copy
 
     in_form = get_form(molecular_system)
     if to_form is vNone:
@@ -57,7 +57,7 @@ def potential_energy_minimization(molecular_system, molecular_mechanics={'forcef
             if inplace:
                 output = molecular_system
             else:
-                output = msm.copy(molecular_system)
+                output = copy(molecular_system)
 
             from openmm import LocalEnergyMinimizer
             state_pre_min = output.getState(getEnergy=True)
@@ -69,7 +69,7 @@ def potential_energy_minimization(molecular_system, molecular_mechanics={'forcef
             if inplace:
                 output = molecular_system
             else:
-                output = msm.copy(molecular_system)
+                output = copy(molecular_system)
 
             state_pre_min = output.context.getState(getEnergy=True)
             output.minimizeEnergy()
@@ -78,9 +78,9 @@ def potential_energy_minimization(molecular_system, molecular_mechanics={'forcef
         else:
 
             if has_attribute(molecular_system, 'mechanical'):
-                output = msm.convert(molecular_system, to_form='openmm.Simulation')
+                output = convert(molecular_system, to_form='openmm.Simulation')
             else:
-                output = msm.convert([molecular_system, molecular_mechanics], to_form='openmm.Simulation')
+                output = convert([molecular_system, molecular_mechanics], to_form='openmm.Simulation')
 
             state_pre_min = output.context.getState(getEnergy=True)
             simulation.minimizeEnergy()

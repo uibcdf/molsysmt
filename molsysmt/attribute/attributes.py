@@ -6,6 +6,7 @@ _reverse_search_in_molecular_system = {}
 topological_attributes = []
 structural_attributes = []
 mechanical_attributes = []
+dynamical_attributes = []
 
 ###
 ### TOPOLOGICAL ATTRIBUTES
