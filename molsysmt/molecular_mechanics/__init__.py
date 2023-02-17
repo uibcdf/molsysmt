@@ -1,2 +1,3 @@
-from .potential_energy import energy_minimization, potential_energy
+from .potential_energy_minimization import potential_energy_minimization
+from .get_potential_energy import get_potential_energy
 

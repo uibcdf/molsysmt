@@ -29,3 +29,13 @@ def test_iterator_2():
     coordinates = puw.concatenate(coordinates, type_value='numpy.ndarray')
     assert coordinates.shape == (50, 294, 3)
 
+def test_iterator_3():
+    msmpk = msm.demo['membrane']['membrane.msmpk']
+    molsys = msm.convert(msmpk)
+    iterator = msm.Iterator(molsys, selection='atom_name == "P"', coordinates=True)
+    coordinates = []
+    for aux_coordinates in iterator:
+        coordinates.append(aux_coordinates[0])
+    coordinates = puw.concatenate(coordinates, type_value='numpy.ndarray')
+    assert coordinates.shape == (50, 294, 3)
+

@@ -5,6 +5,11 @@ _required_indices = {}
 _reverse_search_in_molecular_system = {}
 topological_attributes = []
 structural_attributes = []
+mechanical_attributes = []
+
+###
+### TOPOLOGICAL ATTRIBUTES
+###
 
 # atom_index
 
@@ -573,6 +578,33 @@ _reverse_search_in_molecular_system['n_saccharides'] = False
 
 topological_attributes.append('n_saccharides')
 
+# formal_charge
+
+attributes.append('formal_charge')
+attribute_synonyms['formal_charges'] = 'formal_charge'
+
+_required_attributes['formal_charge'] = ['formal_charge']
+_required_indices['formal_charge'] = ['indices']
+_reverse_search_in_molecular_system['formal_charge'] = False
+
+topological_attributes.append('formal_charge')
+
+# partial_charge
+
+attributes.append('partial_charge')
+attribute_synonyms['partial_charges'] = 'partial_charge'
+
+_required_attributes['partial_charge'] = ['partial_charge']
+_required_indices['partial_charge'] = ['indices']
+_reverse_search_in_molecular_system['partial_charge'] = False
+
+topological_attributes.append('partial_charge')
+
+
+###
+### STRUCTURAL ATTRIBUTES
+###
+
 # structure_id
 
 attributes.append('structure_id')
@@ -732,29 +764,6 @@ _required_attributes['b_factor'] = ['b_factor']
 _required_indices['b_factor'] = ['indices']
 _reverse_search_in_molecular_system['b_factor'] = False
 
-
-# formal_charge
-
-attributes.append('formal_charge')
-attribute_synonyms['formal_charges'] = 'formal_charge'
-
-_required_attributes['formal_charge'] = ['formal_charge']
-_required_indices['formal_charge'] = ['indices']
-_reverse_search_in_molecular_system['formal_charge'] = False
-
-topological_attributes.append('formal_charge')
-
-# partial_charge
-
-attributes.append('partial_charge')
-attribute_synonyms['partial_charges'] = 'partial_charge'
-
-_required_attributes['partial_charge'] = ['partial_charge']
-_required_indices['partial_charge'] = ['indices']
-_reverse_search_in_molecular_system['partial_charge'] = False
-
-topological_attributes.append('partial_charge')
-
 # temperature
 
 attributes.append('temperature')
@@ -765,5 +774,220 @@ _required_indices['temperature'] = []
 _reverse_search_in_molecular_system['temperature'] = False
 
 structural_attributes.append('temperature')
+
+###
+### MECHANICAL ATTRIBUTES
+###
+
+#  forcefield
+
+attributes.append('forcefield')
+attribute_synonyms['force field'] = 'forcefield'
+attribute_synonyms['force_field'] = 'forcefield'
+attribute_synonyms['forcefields'] = 'forcefield'
+attribute_synonyms['force fields'] = 'forcefield'
+attribute_synonyms['force_fields'] = 'forcefield'
+
+_required_attributes['forcefield'] = ['forcefield']
+_required_indices['forcefield'] = []
+_reverse_search_in_molecular_system['forcefield'] = False
+
+mechanical_attributes.append('forcefield')
+
+# non_bonded_method
+
+attributes.append('non_bonded_method')
+attribute_synonyms['non bonded method'] = 'non_bonded_method'
+
+_required_attributes['non_bonded_method'] = ['non_bonded_method']
+_required_indices['non_bonded_method'] = []
+_reverse_search_in_molecular_system['non_bonded_method'] = False
+
+mechanical_attributes.append('non_bonded_method')
+
+# non_bonded_method
+
+attributes.append('non_bonded_method')
+attribute_synonyms['non bonded method'] = 'non_bonded_method'
+
+_required_attributes['non_bonded_method'] = ['non_bonded_method']
+_required_indices['non_bonded_method'] = []
+_reverse_search_in_molecular_system['non_bonded_method'] = False
+
+mechanical_attributes.append('non_bonded_method')
+
+# cutoff_distance
+
+attributes.append('cutoff_distance')
+attribute_synonyms['cutoff distance'] = 'cutoff_distance'
+
+_required_attributes['cutoff_distance'] = ['cutoff_distance']
+_required_indices['cutoff_distance'] = []
+_reverse_search_in_molecular_system['cutoff_distance'] = False
+
+mechanical_attributes.append('cutoff_distance')
+
+# switch_distance
+
+attributes.append('switch_distance')
+attribute_synonyms['switch distance'] = 'switch_distance'
+
+_required_attributes['switch_distance'] = ['switch_distance']
+_required_indices['switch_distance'] = []
+_reverse_search_in_molecular_system['switch_distance'] = False
+
+mechanical_attributes.append('switch_distance')
+
+# dispersion_correction
+
+attributes.append('dispersion_correction')
+attribute_synonyms['dispersion correction'] = 'dispersion_correction'
+attribute_synonyms['use_dispersion_correction'] = 'dispersion_correction'
+
+_required_attributes['dispersion_correction'] = ['dispersion_correction']
+_required_indices['dispersion_correction'] = []
+_reverse_search_in_molecular_system['dispersion_correction'] = False
+
+mechanical_attributes.append('dispersion_correction')
+
+# ewald_error_tolerance
+
+attributes.append('ewald_error_tolerance')
+attribute_synonyms['ewald error tolerance'] = 'ewald_error_tolerance'
+
+_required_attributes['ewald_error_tolerance'] = ['ewald_error_tolerance']
+_required_indices['ewald_error_tolerance'] = []
+_reverse_search_in_molecular_system['ewald_error_tolerance'] = False
+
+mechanical_attributes.append('ewald_error_tolerance')
+
+# hydrogen_mass
+
+attributes.append('hydrogen_mass')
+attribute_synonyms['hydrogen mass'] = 'hydrogen_mass'
+
+_required_attributes['hydrogen_mass'] = ['hydrogen_mass']
+_required_indices['hydrogen_mass'] = []
+_reverse_search_in_molecular_system['hydrogen_mass'] = False
+
+mechanical_attributes.append('hydrogen_mass')
+
+# constraints
+
+attributes.append('constraints')
+attribute_synonyms['constraint'] = 'constraints'
+
+_required_attributes['constraints'] = ['constraints']
+_required_indices['constraints'] = []
+_reverse_search_in_molecular_system['constraints'] = False
+
+mechanical_attributes.append('constraints')
+
+# flexible_constraints
+
+attributes.append('flexible_constraints')
+attribute_synonyms['flexible constraint'] = 'flexible_constraints'
+
+_required_attributes['flexible_constraints'] = ['flexible_constraints']
+_required_indices['flexible_constraints'] = []
+_reverse_search_in_molecular_system['flexible_constraints'] = False
+
+mechanical_attributes.append('flexible_constraints')
+
+# water_model
+
+attributes.append('water_model')
+attribute_synonyms['water model'] = 'water_model'
+
+_required_attributes['water_model'] = ['water_model']
+_required_indices['water_model'] = []
+_reverse_search_in_molecular_system['water_model'] = False
+
+mechanical_attributes.append('water_model')
+
+# rigid_water
+
+attributes.append('rigid_water')
+attribute_synonyms['rigid water'] = 'rigid_water'
+
+_required_attributes['rigid_water'] = ['rigid_water']
+_required_indices['rigid_water'] = []
+_reverse_search_in_molecular_system['rigid_water'] = False
+
+mechanical_attributes.append('rigid_water')
+
+# implicit_solvent
+
+attributes.append('implicit_solvent')
+attribute_synonyms['implicit solvent'] = 'implicit_solvent'
+
+_required_attributes['implicit_solvent'] = ['implicit_solvent']
+_required_indices['implicit_solvent'] = []
+_reverse_search_in_molecular_system['implicit_solvent'] = False
+
+mechanical_attributes.append('implicit_solvent')
+
+# solute_dielectric
+
+attributes.append('solute_dielectric')
+attribute_synonyms['solute dielectric'] = 'solute_dielectric'
+
+_required_attributes['solute_dielectric'] = ['solute_dielectric']
+_required_indices['solute_dielectric'] = []
+_reverse_search_in_molecular_system['solute_dielectric'] = False
+
+mechanical_attributes.append('solute_dielectric')
+
+# solvent_dielectric
+
+attributes.append('solvent_dielectric')
+attribute_synonyms['solvent dielectric'] = 'solvent_dielectric'
+
+_required_attributes['solvent_dielectric'] = ['solvent_dielectric']
+_required_indices['solvent_dielectric'] = []
+_reverse_search_in_molecular_system['solvent_dielectric'] = False
+
+mechanical_attributes.append('solvent_dielectric')
+
+# salt_concentration
+
+attributes.append('salt_concentration')
+attribute_synonyms['salt concentration'] = 'salt_concentration'
+
+_required_attributes['salt_concentration'] = ['salt_concentration']
+_required_indices['salt_concentration'] = []
+_reverse_search_in_molecular_system['salt_concentration'] = False
+
+mechanical_attributes.append('salt_concentration')
+
+# kappa
+
+attributes.append('kappa')
+attribute_synonyms['debye_length'] = 'kappa'
+
+_required_attributes['kappa'] = ['kappa']
+_required_indices['kappa'] = []
+_reverse_search_in_molecular_system['kappa'] = False
+
+mechanical_attributes.append('kappa')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 

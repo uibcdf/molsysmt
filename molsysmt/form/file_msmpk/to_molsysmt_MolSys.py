@@ -6,8 +6,9 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all'):
     from ..molsysmt_MolSys import extract as extract_molsysmt_MolSys
     from molsysmt import pyunitwizard as puw
     import pickle
+    import bz2
 
-    fff = open(item,'rb')
+    fff = bz2.BZ2File(item,'rb')
     tmp_item = pickle.load(fff)
     fff.close()
 
