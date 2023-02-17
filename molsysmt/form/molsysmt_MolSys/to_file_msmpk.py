@@ -6,6 +6,7 @@ def to_file_msmpk(item, atom_indices='all', structure_indices='all', output_file
     from . import extract
     from molsysmt import pyunitwizard as puw
     import pickle
+    import bz2
 
     tmp_item = extract(item, atom_indices=atom_indices, structure_indices=structure_indices, copy_if_all=True)
 
@@ -23,7 +24,7 @@ def to_file_msmpk(item, atom_indices='all', structure_indices='all', output_file
         value = puw.get_value(tmp_item.structures.time, to_unit='ps')
         tmp_item.structures.time = value
 
-    fff = open(output_filename,'wb')
+    fff = bz2.BZ2File(output_filename, 'wb')
     pickle.dump(tmp_item, fff)
     fff.close()
 
