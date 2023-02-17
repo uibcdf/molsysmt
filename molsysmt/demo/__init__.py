@@ -112,6 +112,8 @@ demo['two LJ particles']['traj.trjpk'] = parent.joinpath('two_LJ_particles/traj.
 
 demo['Barnase-Barstar'] = {}
 demo['Barnase-Barstar']['barnase_barstar.pdb'] = parent.joinpath('barnase_barstar/barnase_barstar.pdb').__str__()
+demo['Barnase-Barstar']['barnase_barstar.msmpk'] = parent.joinpath('barnase_barstar/barnase_barstar.msmpk').__str__()
+demo['Barnase-Barstar']['1brs.mmtf'] = parent.joinpath('barnase_barstar/1brs.mmtf').__str__()
 
 # 1SUX
 demo['1SUX'] = {}
@@ -127,6 +129,7 @@ demo['5ZMZ']['5zmz.mmtf'] = parent.joinpath('5zmz/5zmz.mmtf').__str__()
 demo['membrane'] = {}
 demo['membrane']['membrane.psf'] = parent.joinpath('membrane/membrane.psf').__str__()
 demo['membrane']['membrane.dcd'] = parent.joinpath('membrane/membrane.dcd').__str__()
+demo['membrane']['membrane.msmpk'] = parent.joinpath('membrane/membrane.msmpk').__str__()
 
 
 del (PurePath, parent)

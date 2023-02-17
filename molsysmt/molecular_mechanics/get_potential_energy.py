@@ -20,11 +20,9 @@ def get_potential_energy(molecular_system, molecular_mechanics={'forcefield':'AM
 
     """
 
-    from molsysmt import convert, get_form, has_attribute, set
+    from molsysmt import convert, get_form, has_attribute
 
     in_form = get_form(molecular_system)
-    if to_form is None:
-        to_form = in_form
 
     if engine=='OpenMM':
 

@@ -2,7 +2,7 @@ from molsysmt._private.exceptions import NotImplementedIteratorError
 from molsysmt._private.variables import is_all
 from molsysmt._private.digestion import digest
 from molsysmt._private.indices import indices_iterator
-
+import numpy as np
 
 class TopologyIterator():
 
@@ -67,7 +67,9 @@ class StructuresIterator():
             for argument in self.arguments:
 
                 if argument == 'coordinates':
-                    coordinates = self.coordinates[indices,:,:]
+                    coordinates = self.molecular_system.coordinates[indices,:,:]
+                    if isinstance(indices, int):
+                        coordinates = coordinates[np.newaxis,:,:]
                     if not is_all(self.atom_indices):
                         coordinates = coordinates[:, self.atom_indices, :]
                     self._output_dictionary['coordinates'] = coordinates
