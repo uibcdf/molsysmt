@@ -95,7 +95,12 @@ def convert(molecular_system,
         from_form = get_form(item)
 
         if from_form == to_form:
-            tmp_item = dict_extract[from_form](item,
+            if from_form in ['molsysmt.MolecularMechanicsDict', 'molsysmt.MolecularMechanics']:
+                tmp_item = dict_extract[from_form](item,
+                                               copy_if_all=False,
+                                               **conversion_arguments, **kwargs)
+            else:
+                tmp_item = dict_extract[from_form](item,
                                                atom_indices=atom_indices,
                                                structure_indices=structure_indices,
                                                copy_if_all=False,
