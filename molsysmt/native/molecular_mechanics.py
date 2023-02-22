@@ -3,16 +3,25 @@ from molsysmt import pyunitwizard as puw
 
 class MolecularMechanics():
 
-    def __init__(self, molecular_system=None, forcefield=None, water_model=None, implicit_solvent=None,
-                 non_bonded_method='no_cutoff', non_bonded_cutoff=None, switch_distance=None,
-                 use_dispersion_correction=False, ewald_error_tolerance=0.0001,
-                 constraints=None, flexible_constraints=False,
-                 rigid_water=True, hydrogen_mass=None,
-                 residue_templates={}, ignore_external_bonds=False,
-                 implicit_solvent_salt_conc='0.0 mol/L', implicit_solvent_kappa='0.0 1/nm',
-                 solute_dielectric=1.0, solvent_dielectric=78.5):
+    def __init__(self, forcefield=None, water_model=None, implicit_solvent=None,
+                 non_bonded_method=None, non_bonded_cutoff=None, switch_distance=None,
+                 use_dispersion_correction=None, ewald_error_tolerance=None,
+                 constraints=None, flexible_constraints=None,
+                 rigid_water=None, hydrogen_mass=None,
+                 implicit_solvent_salt_conc=None, implicit_solvent_kappa=None,
+                 solute_dielectric=None, solvent_dielectric=None):
 
-        self._molecular_system = molecular_system
+        # default values:
+        # non_bonded_method='no_cutoff'
+        # use_dispersion_correction=False
+        # ewald_error_tolerance=0.0001
+        # flexible_constraints=False
+        # rigid_water=True
+        # ignore_external_bonds=False
+        # implicit_solvent_salt_conc=0.0 mol/L
+        # implicit_solvent_kappa=0.0 1/nm
+        # solute_dielectric=1.0
+        # solvent_dielectric=78.5
 
         self.forcefield = forcefield
 
@@ -29,8 +38,8 @@ class MolecularMechanics():
 
         self.water_model = water_model
         self.rigid_water = rigid_water
-        self.residue_templates = residue_templates
-        self.ignore_external_bonds = ignore_external_bonds
+        #self.residue_templates = residue_templates
+        #self.ignore_external_bonds = ignore_external_bonds
 
         self.implicit_solvent = implicit_solvent
         self.solute_dielectric = solute_dielectric
@@ -65,8 +74,6 @@ class MolecularMechanics():
 
         tmp_molecular_mechanics = MolecularMechanics()
 
-        tmp_molecular_mechanics._molecular_system = self._molecular_system
-
         tmp_molecular_mechanics.forcefield = self.forcefield
 
         tmp_molecular_mechanics.non_bonded_method = self.non_bonded_method
@@ -82,8 +89,8 @@ class MolecularMechanics():
 
         tmp_molecular_mechanics.water_model = self.water_model
         tmp_molecular_mechanics.rigid_water = self.rigid_water
-        tmp_molecular_mechanics.residue_templates = self.residue_templates
-        tmp_molecular_mechanics.ignore_external_bonds = self.ignore_external_bonds
+        #tmp_molecular_mechanics.residue_templates = self.residue_templates
+        #tmp_molecular_mechanics.ignore_external_bonds = self.ignore_external_bonds
 
         tmp_molecular_mechanics.implicit_solvent = self.implicit_solvent
         tmp_molecular_mechanics.solute_dielectric = self.solute_dielectric
@@ -209,20 +216,4 @@ class MolecularMechanics():
         #parameters['ewaldErrorTolerance']=self.ewald_error_tolerance
 
         return parameters
-
-    def to_openmm_System(self, molecular_system=None, selection='all', structure_indices='all'):
-
-        from molsysmt.basic import convert
-
-        if molecular_system is None:
-            molecular_system = self._molecular_system
-        else:
-            molecular_system = digest_molecular_system(molecular_system)
-
-        if molecular_system is None:
-            raise NoMolecularSystemError()
-
-        system = convert([molecular_system, self], to_form='openmm.System', selection=selection)
-
-        return system
 
