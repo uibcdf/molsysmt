@@ -1372,3 +1372,11 @@ def get_n_bonds_from_bond(item, indices='all'):
     from ..molsysmt_Topology import get_n_bonds_from_bond as aux_get
     return aux_get(item.topology, indices=indices)
 
+## molecular mechanics
+
+@digest(form=form)
+def get_forcefield_from_system(item):
+
+    from ..molsysmt_MolecularMechanics import get_forcefield_from_system as aux_get
+    return aux_get(item.molecular_mechanics)
+

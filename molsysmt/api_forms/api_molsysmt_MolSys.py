@@ -43,16 +43,19 @@ form_attributes['entity_index'] = True
 form_attributes['entity_id'] = True
 form_attributes['entity_name'] = True
 form_attributes['entity_type'] = True
-form_attributes['coordinates'] = True
-form_attributes['box'] = True
-form_attributes['time'] = True
-form_attributes['structure_id'] = True
+
 form_attributes['occupancy'] = True
 form_attributes['alternate_location'] = True
 form_attributes['b_factor'] = True
 form_attributes['formal_charge'] = True
 form_attributes['partial_charge'] = True
 
+form_attributes['coordinates'] = True
+form_attributes['box'] = True
+form_attributes['time'] = True
+form_attributes['structure_id'] = True
+
+form_attributes['forcefield'] = True
 
 def to_molsysmt_Topology(item, molecular_system, atom_indices='all', structure_indices='all'):
     from molsysmt.form.molsysmt_MolSys import to_molsysmt_Topology as molsysmt_MolSys_to_molsysmt_Topology
@@ -64,6 +67,12 @@ def to_molsysmt_Structures(item, molecular_system, atom_indices='all', structure
     from molsysmt.form.molsysmt_MolSys import to_molsysmt_Structures as molsysmt_MolSys_to_molsysmt_Structures
 
     return molsysmt_MolSys_to_molsysmt_Structures(item, atom_indices=atom_indices, structure_indices=structure_indices)
+
+
+def to_molsysmt_MolecularMechanics(item, molecular_system, atom_indices='all', structure_indices='all'):
+    from molsysmt.form.molsysmt_MolSys import to_molsysmt_MolecularMechanics as molsysmt_MolSys_to_molsysmt_MolecularMechanics
+
+    return molsysmt_MolSys_to_molsysmt_MolecularMechanics(item, atom_indices=atom_indices, structure_indices=structure_indices)
 
 
 def to_XYZ(item, molecular_system, atom_indices='all', structure_indices='all'):

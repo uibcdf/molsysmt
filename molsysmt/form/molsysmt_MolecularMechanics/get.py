@@ -7,4 +7,10 @@ from molsysmt._private.digestion import digest
 
 form='molsysmt.MolecularMechanics'
 
+## molecular mechanics
+
+@digest(form=form)
+def get_forcefield_from_system(item):          
+
+    return item.forcefield
 
