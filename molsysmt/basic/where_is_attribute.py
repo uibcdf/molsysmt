@@ -4,7 +4,6 @@ from molsysmt._private.digestion import digest
 def where_is_attribute(molecular_system, attribute):
 
     from . import get_form
-    from molsysmt.attribute.attributes import _required_attributes
     from molsysmt.api_forms import dict_attributes
     from molsysmt.attribute import is_topological_attribute
 

@@ -1,5 +1,7 @@
 from .is_MDAnalysis_Topology import is_MDAnalysis_Topology
 
+from .attributes import attributes
+
 from .extract import extract
 from .add import add
 from .append_structures import append_structures

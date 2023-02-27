@@ -1,6 +1,6 @@
 from molsysmt._private.digestion import digest
 from molsysmt._private.variables import is_all
-from molsysmt.attribute.attributes import _required_indices
+from molsysmt.attribute.attributes import required_indices
 import numpy as np
 
 
@@ -89,9 +89,9 @@ def set(molecular_system,
 
         dict_indices = {}
         if element != 'system':
-            if 'indices' in _required_indices[attribute]:
+            if 'element_indices' in required_indices[attribute]:
                 dict_indices['indices'] = indices
-        if 'structure_indices' in _required_indices[attribute]:
+        if 'structure_indices' in required_indices[attribute]:
             dict_indices['structure_indices'] = structure_indices
 
         item, form = where_is_attribute(molecular_system, attribute)

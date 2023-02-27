@@ -1,5 +1,7 @@
 from .is_biopython_Seq import is_biopython_Seq
 
+from .attributes import attributes
+
 from .extract import extract
 from .add import add
 from .append_structures import append_structures

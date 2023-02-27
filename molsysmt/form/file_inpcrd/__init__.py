@@ -1,5 +1,7 @@
 from .is_file_inpcrd import is_file_inpcrd
 
+from .attributes import attributes
+
 from .extract import extract
 from .add import add
 from .append_structures import append_structures

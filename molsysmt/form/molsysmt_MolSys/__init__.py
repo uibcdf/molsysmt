@@ -1,5 +1,7 @@
 from .is_molsysmt_MolSys import is_molsysmt_MolSys
 
+from .attributes import attributes
+
 from .extract import extract
 from .add import add
 from .append_structures import append_structures
