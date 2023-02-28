@@ -1,3 +1,7 @@
+form_name = 'parmed.Structure'
+form_type = 'class'
+form_info = ["", ""]
+
 from .is_parmed_Structure import is_parmed_Structure
 
 from .attributes import attributes

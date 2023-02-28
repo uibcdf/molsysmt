@@ -1,3 +1,7 @@
+form_name = 'pytraj.Trajectory'
+form_type = 'class'
+form_info = ["", ""]
+
 from .is_pytraj_Trajectory import is_pytraj_Trajectory
 
 from .attributes import attributes

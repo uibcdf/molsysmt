@@ -1,3 +1,7 @@
+form_name = 'openmm.CharmmCrdFile'
+form_type = 'class'
+form_info = ["", ""]
+
 from .is_openmm_CharmmCrdFile import is_openmm_CharmmCrdFile
 
 from .attributes import attributes

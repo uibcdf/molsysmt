@@ -1,3 +1,7 @@
+form_name = 'string:pdb_id'
+form_type = 'string'
+form_info = ["", ""]
+
 from .is_string_pdb_id import is_string_pdb_id
 
 from .attributes import attributes

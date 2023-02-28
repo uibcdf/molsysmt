@@ -1,3 +1,7 @@
+form_name = 'openmm.Simulation'
+form_type = 'class'
+form_info = ["", ""]
+
 from .is_openmm_Simulation import is_openmm_Simulation
 
 from .attributes import attributes

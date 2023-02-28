@@ -1,3 +1,7 @@
+form_name = 'openmm.System'
+form_type = 'class'
+form_info = ["", ""]
+
 from .is_openmm_System import is_openmm_System
 
 from .attributes import attributes

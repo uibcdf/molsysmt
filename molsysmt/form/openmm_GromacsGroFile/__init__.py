@@ -1,3 +1,7 @@
+form_name = 'openmm.GromacsGroFile'
+form_type = 'class'
+form_info = ["", ""]
+
 from .is_openmm_GromacsGroFile import is_openmm_GromacsGroFile
 
 from .attributes import attributes

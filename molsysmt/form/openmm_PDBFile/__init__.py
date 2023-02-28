@@ -1,3 +1,7 @@
+form_name = 'openmm.PDBFile'
+form_type = 'class'
+form_info = ["", ""]
+
 from .is_openmm_PDBFile import is_openmm_PDBFile
 
 from .attributes import attributes

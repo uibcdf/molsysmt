@@ -1,20 +1,3 @@
-from molsysmt.form.XYZ.is_XYZ import is_XYZ as is_form
-from molsysmt.form.XYZ.extract import extract
-from molsysmt.form.XYZ.add import add
-from molsysmt.form.XYZ.append_structures import append_structures
-from molsysmt.form.XYZ.get import *
-from molsysmt.form.XYZ.set import *
-from molsysmt.form.XYZ.iterators import StructuresIterator, TopologyIterator
-from .form_attributes import form_attributes
-
-form_name = 'XYZ'
-form_type = 'class'
-form_info = ["", ""]
-
-form_attributes = form_attributes()
-form_attributes['coordinates'] = True
-
-
 def to_molsysmt_Structures(item, molecular_system=None, atom_indices='all', structure_indices='all'):
     from molsysmt.form.XYZ import to_molsysmt_Structures as XYZ_to_molsysmt_Structures
 

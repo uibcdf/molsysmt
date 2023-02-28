@@ -1,3 +1,7 @@
+form_name = 'XYZ'
+form_type = 'class'
+form_info = ["", ""]
+
 from .is_XYZ import is_XYZ
 from .get_rank_3_XYZ import get_rank_3_XYZ
 

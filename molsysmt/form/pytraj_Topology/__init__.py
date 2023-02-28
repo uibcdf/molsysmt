@@ -1,3 +1,7 @@
+form_name = 'pytraj.Topology'
+form_type = 'class'
+form_info = ["", ""]
+
 from .is_pytraj_Topology import is_pytraj_Topology
 
 from .attributes import attributes

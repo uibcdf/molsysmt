@@ -32,7 +32,7 @@ _ = msm.convert(molsys, to_form='vacuum.msmpk')
 # solvated
 print('Solvated system in msmpk file...')
 molsys = msm.build.solvate([molsys, {'forcefield':'AMBER14', 'water_model':'TIP3P'}],
-                   box_geometry='truncated octahedral', clearance='14.0 angstroms',
+                   box_shape='truncated octahedral', clearance='14.0 angstroms',
                    to_form='molsysmt.MolSys', engine="OpenMM")
 _ = msm.convert(molsys, to_form='solvated.msmpk')
 
