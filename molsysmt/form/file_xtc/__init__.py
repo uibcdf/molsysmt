@@ -1,3 +1,7 @@
+form_name = 'file:xtc'
+form_type = 'file'
+form_info = ["", ""]
+
 from .is_file_xtc import is_file_xtc
 
 from .attributes import attributes

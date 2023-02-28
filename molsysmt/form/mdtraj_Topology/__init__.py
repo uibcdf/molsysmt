@@ -1,4 +1,10 @@
+form_name = 'mdtraj.Topology'
+form_type = 'class'
+form_info = ["", ""]
+
 from .is_mdtraj_Topology import is_mdtraj_Topology
+
+from .attributes import attributes
 
 from .extract import extract
 from .add import add

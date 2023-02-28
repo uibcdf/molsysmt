@@ -1,3 +1,7 @@
+form_name = 'file:h5'
+form_type = 'file'
+form_info = ["", ""]
+
 from .is_file_h5 import is_file_h5
 
 from .attributes import attributes

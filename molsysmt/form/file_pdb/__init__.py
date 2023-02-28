@@ -1,5 +1,9 @@
 from .is_file_pdb import is_file_pdb
 
+form_name = 'file:pdb'
+form_type = 'file'
+form_info = ["Protein Data Bank file format", "https://www.rcsb.org/pdb/static.do?p=file_formats/pdb/index.html"]
+
 from .attributes import attributes
 
 from .extract import extract

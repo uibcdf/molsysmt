@@ -1,4 +1,10 @@
+form_name = 'MDAnalysis.Universe'
+form_type = 'class'
+form_info = ["", ""]
+
 from .is_MDAnalysis_Universe import is_MDAnalysis_Universe
+
+from .attributes import attributes
 
 from .extract import extract
 from .add import add

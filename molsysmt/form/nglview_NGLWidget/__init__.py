@@ -1,4 +1,10 @@
+form_name = 'nglview.NGLWidget'
+form_type = 'class'
+form_info = ["NGLView visualization native object", "http://nglviewer.org/nglview/latest/_modules/nglview/widget.html"]
+
 from .is_nglview_NGLWidget import is_nglview_NGLWidget
+
+from .attributes import attributes
 
 from .extract import extract
 from .add import add

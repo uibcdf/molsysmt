@@ -1,3 +1,7 @@
+form_name = 'biopython.SeqRecord'
+form_type = 'class'
+form_info = ["", ""]
+
 from .is_biopython_SeqRecord import is_biopython_SeqRecord
 
 from .attributes import attributes

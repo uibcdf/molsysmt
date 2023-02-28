@@ -1,4 +1,10 @@
+form_name = 'molsysmt.Topology'
+form_type = 'class'
+form_info = ["", ""]
+
 from .is_molsysmt_Topology import is_molsysmt_Topology
+
+from .attributes import attributes
 
 from .extract import extract
 from .add import add

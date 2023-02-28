@@ -1,4 +1,10 @@
+form_name = 'mmtf.MMTFDecoder'
+form_type = 'class'
+form_info = ["", ""]
+
 from .is_mmtf_MMTFDecoder import is_mmtf_MMTFDecoder
+
+from .attributes import attributes
 
 from .extract import extract
 from .add import add

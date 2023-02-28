@@ -1,3 +1,7 @@
+form_name='file:trjpk'
+form_type='file'
+form_info = ["",""]
+
 from .is_file_trjpk import is_file_trjpk
 
 from .attributes import attributes

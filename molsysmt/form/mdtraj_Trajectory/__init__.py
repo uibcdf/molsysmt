@@ -1,4 +1,10 @@
+form_name = 'mdtraj.Trajectory'
+form_type = 'class'
+form_info = ["", ""]
+
 from .is_mdtraj_Trajectory import is_mdtraj_Trajectory
+
+from .attributes import attributes
 
 from .extract import extract
 from .add import add

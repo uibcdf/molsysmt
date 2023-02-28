@@ -1,4 +1,10 @@
+form_name='molsysmt.StructuresDict'
+form_type='class'
+form_info = ["",""]
+
 from .is_molsysmt_StructuresDict import is_molsysmt_StructuresDict
+
+from .attributes import attributes
 
 from .extract import extract
 from .add import add

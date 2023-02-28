@@ -1,5 +1,7 @@
 from .is_parmed_Structure import is_parmed_Structure
 
+from .attributes import attributes
+
 from .extract import extract
 from .add import add
 from .append_structures import append_structures

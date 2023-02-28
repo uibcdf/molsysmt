@@ -1,5 +1,7 @@
 from .is_openmm_PDBFile import is_openmm_PDBFile
 
+from .attributes import attributes
+
 from .extract import extract
 from .add import add
 from .append_structures import append_structures

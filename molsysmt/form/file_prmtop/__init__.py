@@ -1,3 +1,8 @@
+form_name = 'file:prmtop'
+form_type = 'file'
+form_info = ["AMBER parameter/topology file format",
+             "https://ambermd.org/FileFormats.php#topology"]
+
 from .is_file_prmtop import is_file_prmtop
 
 from .attributes import attributes

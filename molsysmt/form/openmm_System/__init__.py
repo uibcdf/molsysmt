@@ -1,5 +1,7 @@
 from .is_openmm_System import is_openmm_System
 
+from .attributes import attributes
+
 from .extract import extract
 from .add import add
 from .append_structures import append_structures

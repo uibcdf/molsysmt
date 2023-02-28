@@ -1,3 +1,8 @@
+form_name = 'file:gro'
+form_type = 'file'
+form_info = ["Gromacs gro file format",
+             "http://manual.gromacs.org/documentation/2018/user-guide/file-formats.html#gro"]
+
 from .is_file_gro import is_file_gro
 
 from .attributes import attributes

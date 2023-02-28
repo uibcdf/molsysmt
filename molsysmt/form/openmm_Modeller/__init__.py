@@ -1,5 +1,7 @@
 from .is_openmm_Modeller import is_openmm_Modeller
 
+from .attributes import attributes
+
 from .extract import extract
 from .add import add
 from .append_structures import append_structures

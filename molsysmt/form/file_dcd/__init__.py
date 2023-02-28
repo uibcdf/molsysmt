@@ -1,3 +1,7 @@
+form_name = 'file:dcd'
+form_type = 'file'
+form_info = ["", ""]
+
 from .is_file_dcd import is_file_dcd
 
 from .attributes import attributes

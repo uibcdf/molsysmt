@@ -1,4 +1,10 @@
+form_name = 'mdtraj.HDF5TrajectoryFile'
+form_type = 'class'
+form_info = ["", ""]
+
 from .is_mdtraj_HDF5TrajectoryFile import is_mdtraj_HDF5TrajectoryFile
+
+from .attributes import attributes
 
 from .extract import extract
 from .add import add

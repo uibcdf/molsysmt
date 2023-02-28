@@ -1,5 +1,7 @@
 from .is_pdbfixer_PDBFixer import is_pdbfixer_PDBFixer
 
+from .attributes import attributes
+
 from .extract import extract
 from .add import add
 from .append_structures import append_structures

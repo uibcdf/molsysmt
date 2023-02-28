@@ -1,5 +1,7 @@
 from .is_string_pdb_text import is_string_pdb_text
 
+from .attributes import attributes
+
 from .extract import extract
 from .add import add
 from .append_structures import append_structures

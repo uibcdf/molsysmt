@@ -1,3 +1,7 @@
+form_name='file:psf'
+form_type = 'file'
+form_info = ["CHARMM Protein Structure File (PSF).","https://www.ks.uiuc.edu/Training/Tutorials/namd/namd-tutorial-unix-html/node23.html"]
+
 from .is_file_psf import is_file_psf
 
 from .attributes import attributes

@@ -1,5 +1,7 @@
 from .is_string_pdb_id import is_string_pdb_id
 
+from .attributes import attributes
+
 from .extract import extract
 from .add import add
 from .append_structures import append_structures

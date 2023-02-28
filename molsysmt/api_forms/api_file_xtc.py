@@ -1,23 +1,3 @@
-from molsysmt.form.file_xtc.is_file_xtc import is_file_xtc as is_form
-from molsysmt.form.file_xtc.extract import extract
-from molsysmt.form.file_xtc.add import add
-from molsysmt.form.file_xtc.append_structures import append_structures
-from molsysmt.form.file_xtc.get import *
-from molsysmt.form.file_xtc.set import *
-from molsysmt.form.file_xtc.iterators import StructuresIterator, TopologyIterator
-from .form_attributes import form_attributes
-
-form_name = 'file:xtc'
-form_type = 'file'
-form_info = ["", ""]
-
-form_attributes = form_attributes()
-form_attributes['coordinates'] = True
-form_attributes['box'] = True
-form_attributes['time'] = True
-form_attributes['structure_id'] = True
-
-
 def to_molsysmt_Structures(item, molecular_system, atom_indices='all', structure_indices='all'):
     from molsysmt.form.file_xtc import to_molsysmt_Structures as file_xtc_to_molsysmt_Structures
 

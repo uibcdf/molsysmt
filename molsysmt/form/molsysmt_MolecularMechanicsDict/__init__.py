@@ -1,4 +1,10 @@
+form_name = 'molsysmt.MolecularMechanicsDict'
+form_type = 'class'
+form_info = ["", ""]
+
 from .is_molsysmt_MolecularMechanicsDict import is_molsysmt_MolecularMechanicsDict
+
+from .attributes import attributes
 
 from .extract import extract
 from .add import add
