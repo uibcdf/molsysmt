@@ -5,6 +5,7 @@ form_info = ["", ""]
 from .is_molsysmt_MolecularMechanics import is_molsysmt_MolecularMechanics
 
 from .attributes import attributes
+from .has_attribute import has_attribute
 
 from .extract import extract
 from .add import add

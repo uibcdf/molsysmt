@@ -11,3 +11,7 @@ def to_openmm_Topology(item, atom_indices='all'):
 
     return tmp_item
 
+def to_openmm_Topology(item, molecular_system, atom_indices='all', structure_indices='all'):
+
+    return to_openmm_Topology(item, atom_indices=atom_indices)
+

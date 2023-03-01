@@ -14,7 +14,7 @@ from .get import *
 from .set import *
 from .iterators import StructuresIterator, TopologyIterator
 
-from .to_openmm_AmberInpcrdFile import to_openmm_AmberInpcrdFile
-from .to_mdtraj_AmberRestartFile import to_mdtraj_AmberRestartFile
-from .to_molsysmt_Structures import to_molsysmt_Structures
+from .to_openmm_AmberInpcrdFile import to_openmm_AmberInpcrdFile, _to_openmm_AmberInpcrdFile
+from .to_mdtraj_AmberRestartFile import to_mdtraj_AmberRestartFile, _to_mdtraj_AmberRestartFile
+from .to_molsysmt_Structures import to_molsysmt_Structures, _to_molsysmt_Structures
 

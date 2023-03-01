@@ -5,10 +5,14 @@ from .is_string import is_string
 import os
 from importlib import import_module
 
-current_dir = os.path.dirname(os.path.abspath(__file__))
-for dirname in os.listdir(current_dir):
-    if os.path.isdir(dirname) and dirname!='__pycache__':
+_dict={}
 
-        import_module('molsysmt.form.'+dirname)
-        
-del(os, import_module, current_dir, dirname)
+current_dir = os.path.dirname(os.path.abspath(__file__))
+for f in os.scandir(current_dir):
+    if f.is_dir() and f.name not in ['__pycache__']:
+        mod = import_module('molsysmt.form.'+f.name)
+        _dict[mod.form_name] = mod
+
+del(current_dir, os, mod, f)
+
+

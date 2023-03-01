@@ -17,3 +17,25 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all',
 
     return tmp_item
 
+def _to_molsysmt_MolSys(item, molecular_system, atom_indices='all', structure_indices='all'):
+
+    from molsysmt import convert, has_attribute
+
+    if has_attribute(molecular_system, 'structural'):
+
+        molsysmt_structures = convert(molecular_system, selection=atom_indices, structure_indices=structure_indices,
+            to_form='molsysmt.Structures')
+
+        coordinates = molsysmt_structures.coordinates
+        time = molsysmt_structures.time
+        box = molsysmt_structures.box
+        structure_id = molsysmt_structures.structure_id
+
+        tmp_item = to_molsysmt_MolSys(item, atom_indices=atom_indices, coordinates=coordinates,
+            time=time, box=box, structure_id=structure_id)
+    else:
+
+        tmp_item = to_molsysmt_MolSys(item, atom_indices=atom_indices)
+
+    return tmp_item
+

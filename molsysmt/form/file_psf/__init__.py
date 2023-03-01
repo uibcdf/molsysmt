@@ -13,8 +13,8 @@ from .get import *
 from .set import *
 from .iterators import StructuresIterator, TopologyIterator
 
-from .to_molsysmt_MolSys import to_molsysmt_MolSys
-from .to_molsysmt_Topology import to_molsysmt_Topology
-from .to_openmm_CharmmPsfFile import to_openmm_CharmmPsfFile
-from .to_openmm_Topology import to_openmm_Topology
+from .to_molsysmt_MolSys import to_molsysmt_MolSys, _to_molsysmt_MolSys
+from .to_molsysmt_Topology import to_molsysmt_Topology, _to_molsysmt_Topology
+from .to_openmm_CharmmPsfFile import to_openmm_CharmmPsfFile, _to_openmm_CharmmPsfFile
+from .to_openmm_Topology import to_openmm_Topology, _to_openmm_Topology
 

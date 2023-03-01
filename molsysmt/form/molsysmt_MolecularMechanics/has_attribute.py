@@ -1,6 +1,6 @@
 from molsysmt._private.digestion import digest
 
-@digest(form='molsysmt.MolSys')
+@digest(form='molsysmt.MolecularMechanics')
 def has_attribute(molecular_system, **kwargs):
 
     arguments = []
@@ -15,57 +15,10 @@ def has_attribute(molecular_system, **kwargs):
         output = False
 
         ###
-        ### TOPOLOGICAL
-        ###
-
-        if argument in ['atom_index', 'atom_id', 'atom_name', 'atom_type',
-                'group_index', 'group_id', 'group_name', 'group_type',
-                'component_index', 'component_id', 'component_name', 'component_type',
-                'molecule_index', 'molecule_id', 'molecule_name', 'molecule_type',
-                'chain_index', 'chain_id', 'chain_name', 'chain_type',
-                'entity_index', 'entity_id', 'entity_name', 'entity_type']:
-            if molecular_system.topology.atoms_data_frame.shape[0]:
-                output = True 
-
-        elif argument in ['bond_index', 'bond_id', 'bond_name', 'bond_type',
-                'bond_order', 'bond_atoms']:
-            if molecular_system.topology.bonds_data_frame.shape[0]:
-                output = True 
-
-        ###
-        ### STRUCTURAL ATTRIBUTES
-        ###
-
-        elif argument in ['structure_index', 'structure_id', 'coordinates']:
-            if molecular_system.structures.n_structures :
-                output = True
-
-        elif argument=='time':
-            if molecular_system.structures.time is not None:
-                output = True
-
-        elif argument=='box':
-            if molecular_system.structures.box is not None:
-                output = True
-
-        elif argument=='occupancy':
-            if molecular_system.structures.occupancy is not None:
-                output = True
-
-        elif argument=='alternate_location':
-            if molecular_system.structures.alternate_location is not None:
-                output = True
-
-        elif argument=='b_factor':
-            if molecular_system.structures.b_factor is not None:
-                output = True
-
-
-        ###
         ### MECHANICAL ATTRIBUTES
         ###
 
-        elif argument=='formal_charge':
+        if argument=='formal_charge':
             if molecular_system.molecular_mechanics.formal_charge is not None:
                 output = True
 
