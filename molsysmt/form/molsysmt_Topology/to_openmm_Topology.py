@@ -85,3 +85,11 @@ def to_openmm_Topology(item, box=None, atom_indices='all'):
 
     return tmp_item
 
+def _to_openmm_Topology(item, molecular_system, atom_indices='all', structure_indices='all'):
+
+    from molsysmt.basic import get
+
+    box = get(molecular_system, element='system', structure_indices=structure_indices, box=True)
+
+    return to_openmm_Topology(item, box, atom_indices=atom_indices)
+

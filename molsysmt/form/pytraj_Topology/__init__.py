@@ -13,6 +13,6 @@ from .get import *
 from .set import *
 from .iterators import StructuresIterator, TopologyIterator
 
-from .to_molsysmt_Topology import to_molsysmt_Topology
-from .to_pytraj_Trajectory import to_pytraj_Trajectory
+from .to_molsysmt_Topology import to_molsysmt_Topology, _to_molsysmt_Topology
+from .to_pytraj_Trajectory import to_pytraj_Trajectory, _to_pytraj_Trajectory
 

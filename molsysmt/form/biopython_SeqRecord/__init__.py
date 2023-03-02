@@ -13,3 +13,4 @@ from .get import *
 from .set import *
 from .iterators import StructuresIterator, TopologyIterator
 
+_dict_convert={}

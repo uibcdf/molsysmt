@@ -13,3 +13,7 @@ def to_file_xyznpy(item, atom_indices='all', structure_indices='all', output_fil
 
     return tmp_item
 
+def _to_file_xyznpy(item, molecular_system=None, atom_indices='all', structure_indices='all', output_filename=None):
+
+    return to_file_xyznpy(item, atom_indices=atom_indices, structure_indices=structure_indices)
+

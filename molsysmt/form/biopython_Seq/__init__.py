@@ -13,5 +13,8 @@ from .get import *
 from .set import *
 from .iterators import StructuresIterator, TopologyIterator
 
-from .to_biopython_SeqRecord import to_biopython_SeqRecord, _to_biopython_SeqRecord
+from .to_biopython_SeqRecord import to_biopython_SeqRecord
 
+_dict_convert={
+        'biopython.SeqRecord': to_biopython_SeqRecord,
+        }

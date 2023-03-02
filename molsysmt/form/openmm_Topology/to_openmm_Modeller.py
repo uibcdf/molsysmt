@@ -13,3 +13,12 @@ def to_openmm_Modeller(item, atom_indices='all', coordinates=None, box=None):
 
     return tmp_item
 
+def _to_openmm_Modeller(item, molecular_system, atom_indices='all', structure_indices='all'):
+
+    from molsysmt.basic import get
+
+    coordinates = get(molecular_system, element='atom', indices=atom_indices, structure_indices=structure_indices,
+                      coordinates=True)
+
+    return to_openmm_Modeller(item, atom_indices=atom_indices, coordinates=coordinates)
+

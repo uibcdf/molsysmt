@@ -20,4 +20,11 @@ def to_openmm_Simulation(item, atom_indices='all', structure_indices='all'):
 #                                                    platform=platform, **kwargs)
 #
 
+def _to_openmm_Simulation(item, molecular_system, atom_indices='all', structure_indices='all',
+                         forcefield=None, non_bonded_method='no_cutoff', non_bonded_cutoff=None, constraints=None,
+                         rigid_water=True, remove_cm_motion=True, hydrogen_mass=None, switch_distance=None,
+                         flexible_constraints=False, integrator='Langevin', temperature='300.0 K',
+                         collisions_rate='1.0 1/ps', integration_timestep='2.0 fs', platform='CUDA'):
+
+    return to_openmm_Simulation(item, atom_indices=atom_indices, structure_indices=structure_indices)
 

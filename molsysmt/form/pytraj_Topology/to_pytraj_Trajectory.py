@@ -29,3 +29,7 @@ def to_pytraj_Trajectory(item, atom_indices='all', coordinates=None, box=None):
 
     return tmp_item
 
+def _to_pytraj_Trajectory(item, molecular_system, atom_indices='all', structure_indices='all'):
+
+    return to_pytraj_Trajectory(item, atom_indices=atom_indices)
+

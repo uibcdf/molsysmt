@@ -11,3 +11,7 @@ def to_string_aminoacids1(item, atom_indices='all'):
 
     return tmp_item
 
+def _to_string_aminoacids1(item, molecular_system, atom_indices='all', structure_indices='all'):
+
+    return to_string_aminoacids1(item, atom_indices=atom_indices)
+

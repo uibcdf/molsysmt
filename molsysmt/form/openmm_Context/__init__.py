@@ -13,6 +13,6 @@ from .get import *
 from .set import *
 from .iterators import StructuresIterator, TopologyIterator
 
-from .to_openmm_System import to_openmm_System
-from .to_molsysmt_Structures import to_molsysmt_Structures
+from .to_openmm_System import to_openmm_System, _to_openmm_System
+from .to_molsysmt_Structures import to_molsysmt_Structures, _to_molsysmt_Structures
 

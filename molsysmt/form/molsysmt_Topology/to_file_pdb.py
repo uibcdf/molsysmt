@@ -11,3 +11,13 @@ def to_file_pdb(item, coordinates, box, atom_indices='all', output_filename=None
 
     return tmp_item
 
+def _to_file_pdb(item, molecular_system, atom_indices='all', structure_indices='all', output_filename=None):
+
+    from molsysmt.basic import get
+
+    coordinates = get(molecular_system, element='atom', selection=atom_indices, structure_indices=structure_indices,
+                      coordinates=True)
+    box = get(molecular_system, element='system', structure_indices=structure_indices, box=True)
+
+    return to_file_pdb(item, coordinates, box, atom_indices=atom_indices, output_filename=output_filename)
+

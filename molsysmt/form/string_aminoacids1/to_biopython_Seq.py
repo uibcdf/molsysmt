@@ -15,3 +15,7 @@ def to_biopython_Seq(item, group_indices='all'):
 
     return tmp_item
 
+def _to_biopython_Seq(item, molecular_system=None, atom_indices='all', structure_indices='all'):
+
+    return to_biopython_Seq(item)
+
