@@ -14,6 +14,6 @@ from .get import *
 from .set import *
 from .iterators import StructuresIterator, TopologyIterator
 
-from .to_molsysmt_Structures import to_molsysmt_Structures
-from .to_file_trjpk import to_file_trjpk
+from .to_molsysmt_Structures import to_molsysmt_Structures, _to_molsysmt_Structures
+from .to_file_trjpk import to_file_trjpk, _to_file_trjpk
 

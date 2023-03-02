@@ -13,7 +13,7 @@ from .get import *
 from .set import *
 from .iterators import StructuresIterator, TopologyIterator
 
-from .to_mdtraj_Trajectory import to_mdtraj_Trajectory
-from .to_mdtraj_XTCTrajectoryFile import to_mdtraj_XTCTrajectoryFile
-from .to_molsysmt_Structures import to_molsysmt_Structures
+from .to_mdtraj_Trajectory import to_mdtraj_Trajectory, _to_mdtraj_Trajectory
+from .to_mdtraj_XTCTrajectoryFile import to_mdtraj_XTCTrajectoryFile, _to_mdtraj_XTCTrajectoryFile
+from .to_molsysmt_Structures import to_molsysmt_Structures, _to_molsysmt_Structures
 

@@ -14,5 +14,5 @@ from .get import *
 from .set import *
 from .iterators import StructuresIterator, TopologyIterator
 
-from .to_molsysmt_MolecularMechanics import to_molsysmt_MolecularMechanics
+from .to_molsysmt_MolecularMechanics import to_molsysmt_MolecularMechanics, _to_molsysmt_MolecularMechanics
 

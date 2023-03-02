@@ -13,4 +13,4 @@ from .get import *
 from .set import *
 from .iterators import StructuresIterator, TopologyIterator
 
-from .to_XYZ import to_XYZ
+from .to_XYZ import to_XYZ, _to_XYZ

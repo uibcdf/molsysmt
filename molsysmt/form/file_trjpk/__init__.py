@@ -13,5 +13,6 @@ from .get import *
 from .set import *
 from .iterators import StructuresIterator, TopologyIterator
 
-from .to_molsysmt_StructuresDict import to_molsysmt_StructuresDict
+from .to_molsysmt_StructuresDict import to_molsysmt_StructuresDict, _to_molsysmt_StructuresDict
+
 

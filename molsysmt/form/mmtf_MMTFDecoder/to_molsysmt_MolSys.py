@@ -20,3 +20,9 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', bioass
         tmp_item = make_bioassembly(tmp_item, bioassembly=bioassemblies[bioassembly_name])
 
     return tmp_item
+
+
+def _to_molsysmt_MolSys(item, molecular_system, atom_indices='all', structure_indices='all', bioassembly_name=None):
+
+    return to_molsysmt_MolSys(item, atom_indices=atom_indices, structure_indices=structure_indices, bioassembly_name=None)
+
