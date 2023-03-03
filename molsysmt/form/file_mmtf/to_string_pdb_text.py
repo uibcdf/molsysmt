@@ -12,7 +12,3 @@ def to_string_pdb_text(item, atom_indices='all', structure_indices='all'):
 
     return tmp_item
 
-def _to_string_pdb_text(item, molecular_system=None, atom_indices='all', structure_indices='all'):
-
-    return to_string_pdb_text(item, atom_indices=atom_indices, structure_indices=structure_indices)
-

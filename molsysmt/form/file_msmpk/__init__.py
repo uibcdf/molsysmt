@@ -13,8 +13,15 @@ from .get import *
 from .set import *
 from .iterators import StructuresIterator, TopologyIterator
 
-from .to_molsysmt_MolSys import to_molsysmt_MolSys, _to_molsysmt_MolSys
-from .to_molsysmt_Topology import to_molsysmt_Topology, _to_molsysmt_Topology
-from .to_molsysmt_Structures import to_molsysmt_Structures, _to_molsysmt_Structures
-from .to_nglview_NGLWidget import to_nglview_NGLWidget, _to_nglview_NGLWidget
+from .to_molsysmt_MolSys import to_molsysmt_MolSys 
+from .to_molsysmt_Topology import to_molsysmt_Topology
+from .to_molsysmt_Structures import to_molsysmt_Structures 
+from .to_nglview_NGLWidget import to_nglview_NGLWidget 
+
+_dict_convert={
+        'molsysmt.MolSys': to_molsysmt_MolSys,
+        'molsysmt.Topology': to_molsysmt_Topology,
+        'molsysmt.Structures': to_molsysmt_Structures,
+        'nglview.NGLWidget': to_nglview_NGLWidget,
+        }
 
