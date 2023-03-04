@@ -13,13 +13,13 @@ from .get import *
 from .set import *
 from .iterators import StructuresIterator, TopologyIterator
 
-from .to_mdtraj_DCDTrajectoryFile import to_mdtraj_DCDTrajectoryFile
-from .to_molsysmt_Structures import to_molsysmt_Structures
-from .to_molsysmt_MolSys import to_molsysmt_MolSys
+from .to_mdtraj_DCDTrajectoryFile import to_mdtraj_DCDTrajectoryFile, _to_mdtraj_DCDTrajectoryFile
+from .to_molsysmt_Structures import to_molsysmt_Structures, _to_molsysmt_Structures
+from .to_molsysmt_MolSys import to_molsysmt_MolSys, _to_molsysmt_MolSys
 
 _dict_convert={
-        'mdtraj.DCDTrajectoryFile': to_mdtraj_DCDTrajectoryFile,
-        'molsysmt.Structures': to_molsysmt_Structures,
-        'molsysmt.MolSys': to_molsysmt_MolSys
+        'mdtraj.DCDTrajectoryFile': _to_mdtraj_DCDTrajectoryFile,
+        'molsysmt.Structures': _to_molsysmt_Structures,
+        'molsysmt.MolSys': _to_molsysmt_MolSys
         }
 

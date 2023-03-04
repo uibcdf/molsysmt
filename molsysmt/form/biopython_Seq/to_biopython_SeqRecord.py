@@ -19,3 +19,7 @@ def to_biopython_SeqRecord(item, atom_indices='all',
 
     return tmp_item
 
+def _to_biopython_SeqRecord(item, atom_indices='all', structure_indices='all',
+                           id=None, name=None, description=None):
+
+    return to_biopython_SeqRecord(item, atom_indices=atom_indices, structure_indices=structure_indices)
