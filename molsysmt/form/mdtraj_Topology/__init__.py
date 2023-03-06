@@ -22,3 +22,13 @@ from .to_parmed_GromacsTopologyFile import to_parmed_GromacsTopologyFile, _to_pa
 from .to_molsysmt_Topology import to_molsysmt_Topology, _to_molsysmt_Topology
 from .to_openmm_Topology import to_openmm_Topology, _to_openmm_Topology
 
+_dict_convert={
+        'file:top': _to_file_top,
+        'string:aminoacids1': _to_string_aminoacids1,
+        'string:aminoacids3': _to_string_aminoacids1,
+        'mdtraj_Trajectory': _to_mdtraj_Trajectory,
+        'parmed_Structure': _to_parmed_Structure,
+        'parmed_GromacsTopologyFile': _to_parmed_GromacsTopologyFile,
+        'molsysmt_Topology': _to_molsysmt_Topology,
+        'openmm_Topology': _to_openmm_Topology,
+        }

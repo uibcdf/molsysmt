@@ -19,3 +19,10 @@ from .to_molsysmt_Topology import to_molsysmt_Topology, _to_molsysmt_Topology
 from .to_molsysmt_Structures import to_molsysmt_Structures, _to_molsysmt_Structures
 from .to_molsysmt_MolSys import to_molsysmt_MolSys, _to_molsysmt_MolSys
 
+_dict_convert={
+        'openmm.Topology': _to_openmm_Topology,
+        'openmm.Modeller': _to_openmm_Modeller,
+        'molsysmt.Topology': _to_molsysmt_Topology,
+        'molsysmt.Structures': _to_molsysmt_Structures,
+        'molsysmt.MolSys': _to_molsysmt_MolSys
+        }

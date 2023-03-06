@@ -16,3 +16,7 @@ from .iterators import StructuresIterator, TopologyIterator
 from .to_openmm_Topology import to_openmm_Topology, _to_openmm_Topology
 from .to_molsysmt_Topology import to_molsysmt_Topology, _to_molsysmt_Topology
 
+_dict_convert={
+        'openmm.Topology': _to_openmm_Topology,
+        'molsysmt.Topology': _to_molsysmt_Topology,
+        }

@@ -31,3 +31,22 @@ from .to_pytraj_Topology import to_pytraj_Topology, _to_pytraj_Topology
 from .to_string_aminoacids1 import to_string_aminoacids1, _to_string_aminoacids1
 from .to_string_aminoacids3 import to_string_aminoacids3, _to_string_aminoacids3
 
+_dict_convert={
+        'file:pdb': _to_file_pdb,
+        'file:xtc': _to_file_xtc,
+        'biopython.Seq': _to_biopython_Seq,
+        'biopython.SeqRecord': _to_biopython_SeqRecord,
+        'mdtraj.Topology': _to_mdtraj_Topology,
+        'openmm.Topology': _to_openmm_Topology,
+        'openmm.Modeller': _to_openmm_Modeller,
+        'pdbfixer.PDBFixer': _to_pdbfixer_PDBFixer,
+        'molsysmt.MolSys': _to_molsysmt_MolSys,
+        'molsysmt.Structures': _to_molsysmt_Structures,
+        'molsysmt.Topology': _to_molsysmt_Topology,
+        'nglview.NGLWidget': _to_nglview_NGLWidget,
+        'parmed.Structure': _to_parmed_Structure,
+        'pytraj.Trajectory': _to_pytraj_Trajectory,
+        'pytraj.Topology': _to_pytraj_Topology,
+        'string:aminoacids1': _to_string_aminoacids1,
+        'string:aminoacids3': _to_string_aminoacids3,
+        }

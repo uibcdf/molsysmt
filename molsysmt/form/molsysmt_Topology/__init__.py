@@ -24,3 +24,14 @@ from .to_mdtraj_Topology import to_mdtraj_Topology, _to_mdtraj_Topology
 from .to_nglview_NGLWidget import to_nglview_NGLWidget, _to_nglview_NGLWidget
 from .to_molsysmt_MolSys import to_molsysmt_MolSys, _to_molsysmt_MolSys
 
+_dict_convert={
+        'string:aminoacids1': _to_string_aminoacids1,
+        'string:aminoacids3': _to_string_aminoacids3,
+        'string:pdb_text': _to_string_pdb_text,
+        'file:pdb': _to_file_pdb,
+        'openmm.Topology': _to_openmm_Topology,
+        'pytraj.Topology': _to_pytraj_Topology,
+        'mdtraj.Topology': _to_mdtraj_Topology,
+        'nglview.NGLWidget': _to_nglview_NGLWidget,
+        'molsysmt.MolSys': _to_molsysmt_MolSys,
+        }

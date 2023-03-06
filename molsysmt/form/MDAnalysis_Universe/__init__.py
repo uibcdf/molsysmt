@@ -20,3 +20,11 @@ from .to_molsysmt_MolSys import to_molsysmt_MolSys, _to_molsysmt_MolSys
 from .to_molsysmt_Topology import to_molsysmt_Topology, _to_molsysmt_Topology
 from .to_molsysmt_Structures import to_molsysmt_Structures, _to_molsysmt_Structures
 
+_dict_convert={
+        'mdtraj.Trajectory': _to_mdtraj_Trajectory,
+        'nglview.NGLWidget': _to_nglview_NGLWidget,
+        'file:pdb': _to_file_pdb,
+        'molsysmt.MolSys': _to_molsysmt_MolSys,
+        'molsysmt.Topology': _to_molsysmt_Topology,
+        'molsysmt.Structures': _to_molsysmt_Structures,
+        }

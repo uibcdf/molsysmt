@@ -7,7 +7,7 @@ def to_molsysmt_MolecularMechanicsDict(item):
 
     return tmp_item
 
-def _to_MolecularMechanicsDict(item, molecular_system, atom_indices='all', structure_indices='all'):
+def _to_MolecularMechanicsDict(item, atom_indices='all', structure_indices='all'):
 
     return to_molsysmt_MolecularMechanicsDict(item)
 

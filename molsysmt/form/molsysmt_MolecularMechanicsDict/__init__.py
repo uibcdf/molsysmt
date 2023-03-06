@@ -16,3 +16,6 @@ from .iterators import StructuresIterator, TopologyIterator
 
 from .to_molsysmt_MolecularMechanics import to_molsysmt_MolecularMechanics, _to_molsysmt_MolecularMechanics
 
+_dict_convert={
+        'molsysmt.MolecularMechanics': _to_molsysmt_MolecularMechanics,
+        }

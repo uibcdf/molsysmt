@@ -78,7 +78,7 @@ def to_pytraj_Topology(item, atom_indices='all'):
 
     return tmp_item
 
-def to_pytraj_Topology(item, molecular_system, atom_indices='all', structure_indices='all'):
+def to_pytraj_Topology(item, atom_indices='all', structure_indices='all'):
 
     return to_pytraj_Topology(item, atom_indices=atom_indices)
 

@@ -18,3 +18,9 @@ from .to_molsysmt_Topology import to_molsysmt_Topology, _to_molsysmt_Topology
 from .to_openmm_CharmmPsfFile import to_openmm_CharmmPsfFile, _to_openmm_CharmmPsfFile
 from .to_openmm_Topology import to_openmm_Topology, _to_openmm_Topology
 
+_dict_convert={
+        'molsysmt.MolSys': _to_molsysmt_MolSys,
+        'molsysmt.Topology': _to_molsysmt_Topology,
+        'openmm.CharmPsfFile': _to_openmm_CharmmPsfFile,
+        'openmm.Topology': _to_openmm_Topology,
+        }

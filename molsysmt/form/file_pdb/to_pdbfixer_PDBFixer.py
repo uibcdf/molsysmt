@@ -12,7 +12,7 @@ def to_pdbfixer_PDBFixer(item, atom_indices='all', structure_indices='all'):
 
     return tmp_item
 
-def _to_pdbfixer_PDBFixer(item, molecular_system, atom_indices='all', structure_indices='all'):
+def _to_pdbfixer_PDBFixer(item, atom_indices='all', structure_indices='all'):
 
     return to_pdbfixer_PDBFixer(item, atom_indices=atom_indices, structure_indices=structure_indices)
 

@@ -26,3 +26,17 @@ from .is_openmm_Modeller import is_openmm_Modeller, _is_openmm_Modeller
 from .to_pdbfixer_PDBFixer import to_pdbfixer_PDBFixer, _to_pdbfixer_PDBFixer
 from .to_nglview_NGLWidget import to_nglview_NGLWidget, _to_nglview_NGLWidget
 
+_dict_convert={
+        'file:pdb': _to_file_pdb,
+        'molsysmt.MolSys': _to_molsysmt_MolSys,
+        'molsysmt.Topology': _to_molsysmt_Topology,
+        'molsysmt.Structures': _to_molsysmt_Structures,
+        'mdtraj.Topology': _to_mdtraj_Topology,
+        'mdtraj.Trajectory': _to_mdtraj_Trajectory,
+        'openmm.System': _to_openmm_System,
+        'openmm.Simulation': _to_openmm_Simulation,
+        'openmm.Topology': _to_openmm_Topology,
+        'openmm.Modeller': _to_openmm_Modeller,
+        'pdbfixer.PDBFixer': _to_pdbfixer_PDBFixer,
+        'nglview.NGLWidget': _to_nglview_NGLWidget,
+        }

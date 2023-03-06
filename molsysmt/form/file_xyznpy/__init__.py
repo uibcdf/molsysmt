@@ -14,3 +14,7 @@ from .set import *
 from .iterators import StructuresIterator, TopologyIterator
 
 from .to_XYZ import to_XYZ, _to_XYZ
+
+_dict_convert={
+        'XYZ': _to_XYZ,
+        }

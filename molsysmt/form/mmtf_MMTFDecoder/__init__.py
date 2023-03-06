@@ -24,3 +24,15 @@ from .to_string_aminoacids1 import to_string_aminoacids1, _to_string_aminoacids1
 from .to_string_aminoacids3 import to_string_aminoacids3, _to_string_aminoacids3
 from .to_string_pdb_text import to_string_pdb_text, _to_string_pdb_text
 
+_dict_convert={
+        'file:mmtf': _to_file_mmtf,
+        'file:pdb': _to_file_pdb,
+        'molsysmt.MolSys': _to_molsysmt_MolSys,
+        'molsysmt.Topology': _to_molsysmt_Topology,
+        'molsysmt.Structures': _to_molsysmt_Structures,
+        'mdtraj.Trajectory': _to_mdtraj_Trajectory,
+        'openmm.Topology': _to_openmm_Topology,
+        'string:aminoacids1': _to_string_aminoacids1,
+        'string:aminoacids3': _to_string_aminoacids3,
+        'string:pdb_text': _to_string_pdb_text,
+        }

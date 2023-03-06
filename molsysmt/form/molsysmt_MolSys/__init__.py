@@ -37,3 +37,26 @@ from .to_string_pdb_text import to_string_pdb_text, _to_string_pdb_text
 from .to_file_msmpk import to_file_msmpk, _to_file_msmpk
 from .to_file_pdb import to_file_pdb, _to_file_pdb
 
+_dict_convert={
+        'molsysmt.Topology': _to_molsysmt_Topology,
+        'molsysmt.Structures': _to_molsysmt_Structures,
+        'molsysmt.MolecularMechanics': _to_molsysmt_MolecularMechanics,
+        'mdtraj.Topology': _to_mdtraj_Topology,
+        'mdtraj.Trajectory': _to_mdtraj_Trajectory,
+        'openmm.Context': _to_openmm_Context,
+        'openmm.Topology': _to_openmm_Topology,
+        'openmm.Modeller': _to_openmm_Modeller,
+        'openmm.System': _to_openmm_System,
+        'pytraj.Topology': _to_pytraj_Topology,
+        'pytraj.Trajectory': _to_pytraj_Trajectory,
+        'biopython.Seq': _to_biopython_Seq,
+        'biopython.SeqRecord': _to_biopython_SeqRecord,
+        'pdbfixer.PDBFixer': _to_pdbfixer_PDBFixer,
+        'nglview.NGLWidget': _to_nglview_NGLWidget,
+        'XYZ': _to_XYZ,
+        'string:aminoacids1': _to_string_aminoacids1,
+        'string:aminoacids3': _to_string_aminoacids3,
+        'string:pdb_text': _to_string_pdb_text,
+        'file:msmpk': _to_file_msmpk,
+        'file:pdb': _to_file_pdb,
+        }
