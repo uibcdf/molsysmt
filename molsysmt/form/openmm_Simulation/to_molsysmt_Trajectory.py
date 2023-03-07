@@ -10,3 +10,6 @@ def to_molsysmt_Structures(item, selection='all', structure_indices='all', synta
 
     return tmp_item
 
+def _to_molsysmt_Structures(item, atom_indices='all', structure_indices='all'):
+
+    return to_molsysmt_Structures(item, structure_indices='all')

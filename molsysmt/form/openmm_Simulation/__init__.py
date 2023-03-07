@@ -22,3 +22,13 @@ from .to_molsysmt_Structures import to_molsysmt_Structures, _to_molsysmt_Structu
 from .to_openmm_Modeller import to_openmm_Modeller, _to_openmm_Modeller
 from .to_pdbfixer_PDBFixer import to_pdbfixer_PDBFixer, _to_pdbfixer_PDBFixer
 
+_convert_to={
+        'file:pdb': _to_file_pdb,
+        'molsysmt.Topology': _to_molsysmt_Topology,
+        'openmm.Context': _to_openmm_Context,
+        'openmm.Topology': _to_openmm_Topology,
+        'molsysmt.MolSys': _to_molsysmt_MolSys,
+        'molsysmt.Structures': _to_molsysmt_Structures,
+        'openmm.Modeller': _to_openmm_Modeller,
+        'pdbfixer.PDBFixer': _to_pdbfixer_PDBFixer,
+        }

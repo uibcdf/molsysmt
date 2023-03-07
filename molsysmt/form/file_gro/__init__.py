@@ -3,7 +3,7 @@ form_type = 'file'
 form_info = ["Gromacs gro file format",
              "http://manual.gromacs.org/documentation/2018/user-guide/file-formats.html#gro"]
 
-from .is_file_gro import is_file_gro
+from .is_form import is_form
 
 from .attributes import attributes
 
@@ -25,7 +25,7 @@ from .to_openmm_Modeller import to_openmm_Modeller, _to_openmm_Modeller
 from .to_openmm_GromacsGroFile import to_openmm_GromacsGroFile, _to_openmm_GromacsGroFile
 from .to_nglview_NGLWidget import to_nglview_NGLWidget, _to_nglview_NGLWidget
 
-_dict_convert={
+_convert_to={
         'mdtraj.Trajectory': _to_mdtraj_Trajectory,
         'mdtraj.Topology': _to_mdtraj_Topology,
         'mdtraj.GroTrajectoryFile': _to_mdtraj_GroTrajectoryFile,

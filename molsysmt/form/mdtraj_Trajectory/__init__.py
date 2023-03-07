@@ -31,7 +31,7 @@ from .to_pytraj_Topology import to_pytraj_Topology, _to_pytraj_Topology
 from .to_string_aminoacids1 import to_string_aminoacids1, _to_string_aminoacids1
 from .to_string_aminoacids3 import to_string_aminoacids3, _to_string_aminoacids3
 
-_dict_convert={
+_convert_to={
         'file:pdb': _to_file_pdb,
         'file:xtc': _to_file_xtc,
         'biopython.Seq': _to_biopython_Seq,

@@ -13,4 +13,4 @@ def to_molsysmt_Topology(item, atom_indices='all', structure_indices='all'):
 
 def _to_molsysmt_Topology(item, atom_indices='all', structure_indices='all'):
 
-    import to_molsysmt_Topology(item, atom_indices=atom_indices, structure_indices=structure_indices)
+    return to_molsysmt_Topology(item, atom_indices=atom_indices, structure_indices=structure_indices)

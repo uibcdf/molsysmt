@@ -37,7 +37,7 @@ from .to_string_pdb_text import to_string_pdb_text, _to_string_pdb_text
 from .to_file_msmpk import to_file_msmpk, _to_file_msmpk
 from .to_file_pdb import to_file_pdb, _to_file_pdb
 
-_dict_convert={
+_convert_to={
         'molsysmt.Topology': _to_molsysmt_Topology,
         'molsysmt.Structures': _to_molsysmt_Structures,
         'molsysmt.MolecularMechanics': _to_molsysmt_MolecularMechanics,

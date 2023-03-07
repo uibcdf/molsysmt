@@ -17,7 +17,7 @@ from .to_molsysmt_Topology import to_molsysmt_Topology, _to_molsysmt_Topology
 from .to_openmm_System import to_openmm_System, _to_openmm_System
 from .to_openmm_Topology import to_openmm_Topology, _to_openmm_Topology
 
-_dict_convert={
+_convert_to={
         'molsysmt.Topology': _to_molsysmt_Topology,
         'openmm.System': _to_openmm_System,
         'openmm.Topology': _to_openmm_Topology,

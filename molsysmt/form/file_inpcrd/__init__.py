@@ -18,9 +18,9 @@ from .to_openmm_AmberInpcrdFile import to_openmm_AmberInpcrdFile, _to_openmm_Amb
 from .to_mdtraj_AmberRestartFile import to_mdtraj_AmberRestartFile, _to_mdtraj_AmberRestartFile
 from .to_molsysmt_Structures import to_molsysmt_Structures, _to_molsysmt_Structures
 
-_dict_convert={
+_convert_to={
         'openmm.AmberInpcrdFile': _to_openmm_AmberInpcrdFile,
-        'openmm.AmberRestartFile': _to_openmm_AmberRestartFile,
+        'mdtraj.AmberRestartFile': _to_mdtraj_AmberRestartFile,
         'molsysmt.Structures': _to_molsysmt_Structures,
         }
 

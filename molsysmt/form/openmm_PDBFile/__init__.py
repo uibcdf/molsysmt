@@ -21,7 +21,7 @@ from .to_mdtraj_Trajectory import to_mdtraj_Trajectory, _to_mdtraj_Trajectory
 from .to_molsysmt_Topology import to_molsysmt_Topology, _to_molsysmt_Topology
 from .to_nglview_NGLWidget import to_nglview_NGLWidget, _to_nglview_NGLWidget
 
-_dict_convert={
+_convert_to={
         'mdtraj.Topology': _to_mdtraj_Topology,
         'molsysmt.MolSys': _to_molsysmt_MolSys,
         'molsysmt.Structures': _to_molsysmt_Structures,

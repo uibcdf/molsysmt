@@ -17,14 +17,7 @@ def to_molsysmt_MolSys(item, atom_indices='all', coordinates=None, box=None):
 
     return tmp_item
 
-def _to_molsysmt_MolSys(item, molecular_system, atom_indices='all', structure_indices='all'):
+def _to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all'):
 
-    from molsysmt.basic import get
-
-    coordinates = get(molecular_system, element='atom', indices=atom_indices, structure_indices=structure_indices,
-                      coordinates=True)
-
-    box = get(molecular_system, structure_indices=structure_indices, box=True)
-
-    return to_molsysmt_MolSys(item, atom_indices=atom_indices, coordinates=coordinates, box=box)
+    return to_molsysmt_MolSys(item, atom_indices=atom_indices)
 

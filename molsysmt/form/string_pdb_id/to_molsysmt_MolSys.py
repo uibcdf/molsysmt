@@ -11,7 +11,7 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', bioass
             bioassembly_name=bioassembly_name)
     return tmp_item
 
-def _to_molsysmt_MolSys(item, molecular_system, atom_indices='all', structure_indices='all',
+def _to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all',
         bioassembly_name=None):
 
     return to_molsysmt_MolSys(item, atom_indices=atom_indices,

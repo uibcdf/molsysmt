@@ -11,12 +11,7 @@ def to_nglview_NGLWidget(item, atom_indices='all', coordinates=None):
 
     return tmp_item
 
-def _to_nglview_NGLWidget(item, molecular_system, atom_indices='all', structure_indices='all'):
-
-    from molsysmt.basic import get
-
-    coordinates = get(molecular_system, structure_indices=structure_indices, atom_indices=atom_indices,
-                      coordinates=True)
+def _to_nglview_NGLWidget(item, atom_indices='all', structure_indices='all'):
 
     return to_nglview_NGLWidget(item, atom_indices=atom_indices, coordinates=coordinates)
 

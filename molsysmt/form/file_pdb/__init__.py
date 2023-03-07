@@ -38,7 +38,7 @@ from .to_pdbfixer_PDBFixer import to_pdbfixer_PDBFixer, _to_pdbfixer_PDBFixer
 from .to_pytraj_Topology import to_pytraj_Topology, _to_pytraj_Topology
 from .to_pytraj_Trajectory import to_pytraj_Trajectory, _to_pytraj_Trajectory
 
-_dict_convert={
+_convert_to={
         'string:pdb_text': _to_string_pdb_text,
         'file:mol2': _to_file_mol2,
         'MDAnalysis.Topology': _to_MDAnalysis_Topology,

@@ -23,7 +23,7 @@ from .to_mdtraj_Topology import to_mdtraj_Topology, _to_mdtraj_Topology
 from .to_mdtraj_Trajectory import to_mdtraj_Trajectory, _to_mdtraj_Trajectory
 from .to_file_pdb import to_file_pdb, _to_file_pdb
 
-_dict_convert={
+_convert_to={
         'mdtraj.HDF5TrajectoryFile': _to_mdtraj_HDF5TrajectoryFile,
         'molsysmt.MolSys': _to_molsysmt_MolSys,
         'molsysmt.Topology': _to_molsysmt_Topology,

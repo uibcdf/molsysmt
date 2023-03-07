@@ -1,4 +1,4 @@
-def is_file_crd(item):
+def is_form(item):
 
     output = False
 

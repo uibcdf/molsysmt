@@ -30,7 +30,7 @@ from . import topology
 from . import structure
 from . import build
 
-from . import help
+#from . import help
 from . import pbc
 from . import physchem
 from . import molecular_mechanics

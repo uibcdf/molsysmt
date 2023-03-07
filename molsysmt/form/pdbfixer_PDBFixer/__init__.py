@@ -27,3 +27,18 @@ from .to_biopython_Seq import to_biopython_Seq, _to_biopython_Seq
 from .to_biopython_SeqRecord import to_biopython_SeqRecord, _to_biopython_SeqRecord
 from .to_nglview_NGLWidget import to_nglview_NGLWidget, _to_nglview_NGLWidget
 
+_convert_to={
+        'file:pdb': _to_file_pdb,
+        'string:aminoacids1': _to_string_aminoacids1,
+        'string:aminoacids3': _to_string_aminoacids3,
+        'molsysmt.MolSys': _to_molsysmt_MolSys,
+        'molsysmt.Topology': _to_molsysmt_Topology,
+        'molsysmt.Structures': _to_molsysmt_Structures,
+        'mdtraj.Trajectory': _to_mdtraj_Trajectory,
+        'mdtraj.Topology': _to_mdtraj_Topology,
+        'openmm.Topology': _to_openmm_Topology,
+        'openmm.Modeller': _to_openmm_Modeller,
+        'biopython.Seq': _to_biopython_Seq,
+        'biopython.SeqRecord': _to_biopython_SeqRecord,
+        'nglview.NGLWidget': _to_nglview_NGLWidget,
+        }

@@ -24,7 +24,7 @@ def to_openmm_Context(item, atom_indices='all', structure_indices='all'):
 
     return tmp_item
 
-def _to_openmm_Context(item, molecular_system=None, atom_indices='all', structure_indices='all'):
+def _to_openmm_Context(item,  atom_indices='all', structure_indices='all'):
 
     return to_openmm_Context(item, atom_indices=atom_indices, structure_indices=structure_indices)
 

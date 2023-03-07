@@ -2,7 +2,7 @@ form_name = 'file:dcd'
 form_type = 'file'
 form_info = ["", ""]
 
-from .is_file_dcd import is_file_dcd
+from .is_form import is_form
 
 from .attributes import attributes
 
@@ -17,7 +17,7 @@ from .to_mdtraj_DCDTrajectoryFile import to_mdtraj_DCDTrajectoryFile, _to_mdtraj
 from .to_molsysmt_Structures import to_molsysmt_Structures, _to_molsysmt_Structures
 from .to_molsysmt_MolSys import to_molsysmt_MolSys, _to_molsysmt_MolSys
 
-_dict_convert={
+_convert_to={
         'mdtraj.DCDTrajectoryFile': _to_mdtraj_DCDTrajectoryFile,
         'molsysmt.Structures': _to_molsysmt_Structures,
         'molsysmt.MolSys': _to_molsysmt_MolSys

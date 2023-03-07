@@ -24,7 +24,7 @@ from .to_openmm_Modeller import to_openmm_Modeller, _to_openmm_Modeller
 from .to_parmed_Structure import to_parmed_Structure, _to_parmed_Structure
 from .to_nglview_NGLWidget import to_nglview_NGLWidget, _to_nglview_NGLWidget
 
-_dict_convert={
+_convert_to={
         'file:pdb': _to_file_pdb,
         'mdtraj.Trajectory': _to_mdtraj_Trajectory,
         'mdtraj.Topology': _to_mdtraj_Topology,

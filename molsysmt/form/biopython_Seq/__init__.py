@@ -2,7 +2,7 @@ form_name = 'biopython.Seq'
 form_type = 'class'
 form_info = ["", ""]
 
-from .is_biopython_Seq import is_biopython_Seq
+from .is_form import is_form
 
 from .attributes import attributes
 
@@ -15,6 +15,6 @@ from .iterators import StructuresIterator, TopologyIterator
 
 from .to_biopython_SeqRecord import to_biopython_SeqRecord, _to_biopython_SeqRecord
 
-_dict_convert={
+_convert_to={
         'biopython.SeqRecord': _to_biopython_SeqRecord,
         }

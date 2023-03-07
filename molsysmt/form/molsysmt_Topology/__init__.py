@@ -24,7 +24,7 @@ from .to_mdtraj_Topology import to_mdtraj_Topology, _to_mdtraj_Topology
 from .to_nglview_NGLWidget import to_nglview_NGLWidget, _to_nglview_NGLWidget
 from .to_molsysmt_MolSys import to_molsysmt_MolSys, _to_molsysmt_MolSys
 
-_dict_convert={
+_convert_to={
         'string:aminoacids1': _to_string_aminoacids1,
         'string:aminoacids3': _to_string_aminoacids3,
         'string:pdb_text': _to_string_pdb_text,

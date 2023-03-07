@@ -23,7 +23,7 @@ from .to_openmm_AmberPrmtopFile import to_openmm_AmberPrmtopFile, _to_openmm_Amb
 from .to_openmm_Modeller import to_openmm_Modeller, _to_openmm_Modeller
 from .to_openmm_Topology import to_openmm_Topology, _to_openmm_Topology
 
-_dict_convert={
+_convert_to={
         'file:pdb': _to_file_pdb,
         'mdtraj.Topology': _to_mdtraj_Topology,
         'molsysmt.MolSys': _to_molsysmt_MolSys,

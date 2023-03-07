@@ -15,6 +15,6 @@ from .iterators import StructuresIterator, TopologyIterator
 
 from .to_XYZ import to_XYZ, _to_XYZ
 
-_dict_convert={
+_convert_to={
         'XYZ': _to_XYZ,
         }

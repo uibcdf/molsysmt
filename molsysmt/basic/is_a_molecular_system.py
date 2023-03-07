@@ -1,58 +1,35 @@
 from molsysmt._private.digestion import digest
 
-@digest()
-def is_a_molecular_system(items):
+def is_a_molecular_system(molecular_system):
 
-    from . import get_form, get
-    from molsysmt.api_forms import dict_attributes
+    from . import get_form
+    from ..form import _dict_modules
 
-    if isinstance(items, (list, tuple)):
-        for item in items:
-            if isinstance(item, (list, tuple)):
-                return False
+    if not isinstance(molecular_system, (list, tuple)):
 
-    output = True
+        try:
+            _ = get_form(molecular_system)
+            return True
+        except:
+            return False
 
-    if not isinstance(items, (list, tuple)):
-        items=[items]
+    else:
 
-    if len(items)>1:
-
-        # same n_atoms
-
-        same_n_atoms = True
+        output = True
 
         list_n_atoms = []
 
-        for item in items:
-            tmp_n_atoms = get(item, element='system', n_atoms=True)
-            list_n_atoms.append(tmp_n_atoms)
+        for item in molecular_system:
+
+            form_in = get_form(item)
+
+            list_n_atoms.append(_dict_modules[form_in].get_n_atoms_from_system(item))
 
         set_n_atoms = set([ii for ii in list_n_atoms if ii is not None])
+
         if len(set_n_atoms)>1:
-            same_n_atoms = False
+            output = False
 
-        # if same_n_atoms and group_indices is an attribute of more than a single item
-        # same_n_groups should be computed
 
-        output=same_n_atoms
-
-    if output:
-
-        if isinstance(items, (list, tuple)):
-
-            if len(items)>1:
-
-                with_atoms_and_coordinates=0
-                for item in items:
-                    form_in = get_form(item)
-                    has_atoms = dict_attributes[form_in]["atom_index"]
-                    has_coordinates = dict_attributes[form_in]["coordinates"]
-                    if has_atoms and has_coordinates:
-                        with_atoms_and_coordinates+=1
-
-                if with_atoms_and_coordinates>1:
-                    output = False
-
-    return output
+        return output
 

@@ -30,3 +30,21 @@ from .to_openmm_PDBFile import to_openmm_PDBFile, _to_openmm_PDBFile
 from .to_string_pdb_text import to_string_pdb_text, _to_string_pdb_text
 from .to_nglview_NGLWidget import to_nglview_NGLWidget, _to_nglview_NGLWidget
 
+_convert_to={
+        'file:pdb': _to_file_pdb,
+        'file:mmtf': _to_file_mmtf,
+        'file:msmpk': _to_file_msmpk,
+        'file:fasta': _to_file_fasta,
+        'mmtf.MMTFDecoder': _to_mmtf_MMTFDecoder,
+        'molsysmt.MolSys': _to_molsysmt_MolSys,
+        'molsysmt.Topology': _to_molsysmt_Topology,
+        'molsysmt.Structures': _to_molsysmt_Structures,
+        'mdtraj.Trajectory': _to_mdtraj_Trajectory,
+        'mdtraj.Topology': _to_mdtraj_Topology,
+        'pdbfixer.PDBFixer': _to_pdbfixer_PDBFixer,
+        'openmm.Modeller': _to_openmm_Modeller,
+        'openmm.Topology': _to_openmm_Topology,
+        'openmm.PDBFile': _to_openmm_PDBFile,
+        'string:pdb_text': _to_string_pdb_text,
+        'nglview.NGLWidget': _to_nglview_NGLWidget,
+        }

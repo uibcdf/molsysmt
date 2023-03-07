@@ -58,7 +58,7 @@ def convert(molecular_system,
 
     from . import select, get_form
     from molsysmt.form import is_item, is_file
-    from molsysmt.api_forms import dict_convert, dict_extract
+    from molsysmt.forms import _dict_modules
 
     if to_form is None:
         to_form = get_form(molecular_system)
@@ -87,34 +87,27 @@ def convert(molecular_system,
 
     tmp_item = None
 
+    from_form = get_form(item)
+
+    # one to one
+
     if not isinstance(molecular_system, (list, tuple)):
-        molecular_system = [molecular_system]
 
-    for item in molecular_system:
+        if from_form in _dict_modules:
+            if to_form in _dict_modules[from_form]._convert_to:
+                tmp_item = _dict_modules[from_form]._convert_to[to_form](item,
+                        atom_indices=atom_indices, structure_indices=structure_indices,
+                        **conversion_arguments, **kwargs)
+            elif ('molsysmt.MolSys' in _dict_modules[from_form]._convert_to) and (to_form in _dict_modules['molsysmt.MolSys']._convert_to):
+                tmp_item = _dict_modules[from_form]._convert_to['molsysmt.MolSys'](item,
+                        atom_indices=atom_indices, structure_indices=structure_indices,
+                        **conversion_arguments, **kwargs)
+                tmp_item = _dict_modules['molsysmt.MolSys']._convert_to[to_form](tmp_item,
+                        **conversion_arguments, **kwargs)
+        
+    else:
 
-        from_form = get_form(item)
-
-        if from_form == to_form:
-            if from_form in ['molsysmt.MolecularMechanicsDict', 'molsysmt.MolecularMechanics']:
-                tmp_item = dict_extract[from_form](item,
-                                               copy_if_all=False,
-                                               **conversion_arguments, **kwargs)
-            else:
-                tmp_item = dict_extract[from_form](item,
-                                               atom_indices=atom_indices,
-                                               structure_indices=structure_indices,
-                                               copy_if_all=False,
-                                               **conversion_arguments, **kwargs)
-        else:
-            if from_form in dict_convert:
-                if to_form in dict_convert[from_form]:
-                    tmp_item = dict_convert[from_form][to_form](item,
-                                                                molecular_system=molecular_system,
-                                                                atom_indices=atom_indices,
-                                                                structure_indices=structure_indices,
-                                                                **conversion_arguments, **kwargs)
-        if tmp_item is not None:
-            break
+        print('Not implemented yet')
 
     if tmp_item is None:
 
@@ -128,3 +121,36 @@ def convert(molecular_system,
             tmp_item = tmp_item[0]
 
     return tmp_item
+
+    #######
+
+    #if not isinstance(molecular_system, (list, tuple)):
+    #    molecular_system = [molecular_system]
+
+    #for item in molecular_system:
+
+    #    from_form = get_form(item)
+
+    #    if from_form == to_form:
+    #        if from_form in ['molsysmt.MolecularMechanicsDict', 'molsysmt.MolecularMechanics']:
+    #            tmp_item = dict_extract[from_form](item,
+    #                                           copy_if_all=False,
+    #                                           **conversion_arguments, **kwargs)
+    #        else:
+    #            tmp_item = dict_extract[from_form](item,
+    #                                           atom_indices=atom_indices,
+    #                                           structure_indices=structure_indices,
+    #                                           copy_if_all=False,
+    #                                           **conversion_arguments, **kwargs)
+    #    else:
+    #        if from_form in dict_convert:
+    #            if to_form in dict_convert[from_form]:
+    #                tmp_item = dict_convert[from_form][to_form](item,
+    #                                                            molecular_system=molecular_system,
+    #                                                            atom_indices=atom_indices,
+    #                                                            structure_indices=structure_indices,
+    #                                                            **conversion_arguments, **kwargs)
+    #    if tmp_item is not None:
+    #        break
+
+

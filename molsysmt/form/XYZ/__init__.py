@@ -17,3 +17,7 @@ from .iterators import StructuresIterator, TopologyIterator
 from .to_file_xyznpy import to_file_xyznpy, _to_file_xyznpy
 from .to_molsysmt_Structures import to_molsysmt_Structures, _to_molsysmt_Structures
 
+_convert_to={
+        'file:xyznpy': _to_file_xyznpy,
+        'molsysmt.Structures': _to_molsysmt_Structures,
+        }

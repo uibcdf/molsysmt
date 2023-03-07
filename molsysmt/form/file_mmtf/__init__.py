@@ -26,7 +26,7 @@ from .to_string_aminoacids1 import to_string_aminoacids1, _to_string_aminoacids1
 from .to_string_aminoacids3 import to_string_aminoacids3, _to_string_aminoacids3 
 from .to_string_pdb_text import to_string_pdb_text, _to_string_pdb_text 
 
-_dict_convert={
+_convert_to={
         'file:pdb': _to_file_pdb,
         'mmtf.MMTFDecoder': _to_mmtf_MMTFDecoder,
         'molsysmt.MolSys': _to_molsysmt_MolSys,

@@ -15,6 +15,6 @@ from .iterators import StructuresIterator, TopologyIterator
 
 from .to_molsysmt_StructuresDict import to_molsysmt_StructuresDict, _to_molsysmt_StructuresDict
 
-_dict_convert={
+_convert_to={
         'molsysmt.StructuresDict': _to_molsysmt_StructuresDict,
         }

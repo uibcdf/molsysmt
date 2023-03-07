@@ -19,3 +19,10 @@ from .to_molsysmt_Structures import to_molsysmt_Structures, _to_molsysmt_Structu
 from .to_pytraj_Topology import to_pytraj_Topology, _to_pytraj_Topology
 from .to_nglview_NGLWidget import to_nglview_NGLWidget, _to_nglview_NGLWidget
 
+_convert_to={
+        'molsysmt.MolSys': _to_molsysmt_MolSys,
+        'molsysmt.Topology': _to_molsysmt_Topology,
+        'molsysmt.Structures': _to_molsysmt_Structures,
+        'pytraj.Topology': _to_pytraj_Topology,
+        'nglview.NGLWidget': _to_nglview_NGLWidget,
+        }
