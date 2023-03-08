@@ -2,7 +2,7 @@ form_name = 'file:mol2'
 form_type = 'file'
 form_info = ["", ""]
 
-from .is_file_mol2 import is_file_mol2
+from .is_form import is_form
 
 from .attributes import attributes
 

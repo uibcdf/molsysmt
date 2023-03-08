@@ -2,7 +2,7 @@ form_name = 'openmm.Topology'
 form_type = 'class'
 form_info = ["", ""]
 
-from .is_openmm_Topology import is_openmm_Topology
+from .is_form import is_form
 
 from .attributes import attributes
 

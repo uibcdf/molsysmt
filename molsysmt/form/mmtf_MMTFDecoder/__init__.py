@@ -2,7 +2,7 @@ form_name = 'mmtf.MMTFDecoder'
 form_type = 'class'
 form_info = ["", ""]
 
-from .is_mmtf_MMTFDecoder import is_mmtf_MMTFDecoder
+from .is_form import is_form
 
 from .attributes import attributes
 

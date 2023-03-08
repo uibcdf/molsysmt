@@ -1,9 +1,8 @@
-from molsysmt._private.digestion import digest
-
-@digest()
+# This method must not be digested
 def is_string(form):
 
-    from molsysmt.api_forms import string_forms
+    from molsysmt.form import _dict_modules
 
-    return (form in string_forms)
+    return _dict_modules[form].form_type == 'string'
+
 

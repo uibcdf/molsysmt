@@ -2,7 +2,7 @@ form_name = 'mdtraj.Topology'
 form_type = 'class'
 form_info = ["", ""]
 
-from .is_mdtraj_Topology import is_mdtraj_Topology
+from .is_form import is_form
 
 from .attributes import attributes
 

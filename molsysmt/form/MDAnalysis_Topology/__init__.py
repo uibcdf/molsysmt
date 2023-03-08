@@ -2,7 +2,7 @@ form_name = 'MDAnalysis.Topology'
 form_type = 'class'
 form_info = ["", ""]
 
-from .is_MDAnalysis_Topology import is_MDAnalysis_Topology
+from .is_form import is_form
 
 from .attributes import attributes
 

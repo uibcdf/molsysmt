@@ -2,7 +2,7 @@ form_name = 'openmm.GromacsGroFile'
 form_type = 'class'
 form_info = ["", ""]
 
-from .is_openmm_GromacsGroFile import is_openmm_GromacsGroFile
+from .is_form import is_form
 
 from .attributes import attributes
 

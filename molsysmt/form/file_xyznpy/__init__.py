@@ -2,7 +2,7 @@ form_name = 'file:xyznpy'
 form_type = 'file'
 form_info = ["XYZ file format like saved with Numpy", ""]
 
-from .is_file_xyznpy import is_file_xyznpy
+from .is_form import is_form
 
 from .attributes import attributes
 

@@ -2,7 +2,7 @@ form_name = 'mdtraj.Trajectory'
 form_type = 'class'
 form_info = ["", ""]
 
-from .is_mdtraj_Trajectory import is_mdtraj_Trajectory
+from .is_form import is_form
 
 from .attributes import attributes
 

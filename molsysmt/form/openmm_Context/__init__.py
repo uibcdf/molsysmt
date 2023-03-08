@@ -2,7 +2,7 @@ form_name = 'openmm.Context'
 form_type = 'class'
 form_info = ["", ""]
 
-from .is_openmm_Context import is_openmm_Context
+from .is_form import is_form
 
 from .attributes import attributes
 

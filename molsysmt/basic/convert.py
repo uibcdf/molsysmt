@@ -57,11 +57,12 @@ def convert(molecular_system,
     """
 
     from . import select, get_form
-    from molsysmt.form import is_item, is_file
-    from molsysmt.forms import _dict_modules
+    from molsysmt.form import is_item, is_file, _dict_modules
+
+    from_form = get_form(molecular_system)
 
     if to_form is None:
-        to_form = get_form(molecular_system)
+        to_form = from_form
 
     if isinstance(to_form, (list, tuple)):
         tmp_item=[]
@@ -87,19 +88,16 @@ def convert(molecular_system,
 
     tmp_item = None
 
-    from_form = get_form(item)
 
-    # one to one
-
-    if not isinstance(molecular_system, (list, tuple)):
+    if not isinstance(from_form, (list, tuple)):
 
         if from_form in _dict_modules:
             if to_form in _dict_modules[from_form]._convert_to:
-                tmp_item = _dict_modules[from_form]._convert_to[to_form](item,
+                tmp_item = _dict_modules[from_form]._convert_to[to_form](molecular_system,
                         atom_indices=atom_indices, structure_indices=structure_indices,
                         **conversion_arguments, **kwargs)
             elif ('molsysmt.MolSys' in _dict_modules[from_form]._convert_to) and (to_form in _dict_modules['molsysmt.MolSys']._convert_to):
-                tmp_item = _dict_modules[from_form]._convert_to['molsysmt.MolSys'](item,
+                tmp_item = _dict_modules[from_form]._convert_to['molsysmt.MolSys'](molecular_system,
                         atom_indices=atom_indices, structure_indices=structure_indices,
                         **conversion_arguments, **kwargs)
                 tmp_item = _dict_modules['molsysmt.MolSys']._convert_to[to_form](tmp_item,

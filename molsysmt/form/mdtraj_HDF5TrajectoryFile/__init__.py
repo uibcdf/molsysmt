@@ -2,7 +2,7 @@ form_name = 'mdtraj.HDF5TrajectoryFile'
 form_type = 'class'
 form_info = ["", ""]
 
-from .is_mdtraj_HDF5TrajectoryFile import is_mdtraj_HDF5TrajectoryFile
+from .is_form import is_form
 
 from .attributes import attributes
 

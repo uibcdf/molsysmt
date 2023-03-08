@@ -2,7 +2,7 @@ form_name = 'file:mmtf'
 form_type = 'file'
 form_info = ["", ""]
 
-from .is_file_mmtf import is_file_mmtf
+from .is_form import is_form
 
 from .attributes import attributes
 

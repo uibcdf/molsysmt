@@ -3,7 +3,7 @@ form_type = 'file'
 form_info = ["AMBER ASCII restart/inpcrd file format",
              "https://ambermd.org/FileFormats.php#trajectory"]
 
-from .is_file_inpcrd import is_file_inpcrd
+from .is_form import is_form
 
 from .attributes import attributes
 

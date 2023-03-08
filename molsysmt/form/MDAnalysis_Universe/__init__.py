@@ -2,7 +2,7 @@ form_name = 'MDAnalysis.Universe'
 form_type = 'class'
 form_info = ["", ""]
 
-from .is_MDAnalysis_Universe import is_MDAnalysis_Universe
+from .is_form import is_form
 
 from .attributes import attributes
 

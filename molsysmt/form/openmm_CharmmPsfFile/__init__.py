@@ -2,7 +2,7 @@ form_name = 'openmm.CharmmPsfFile'
 form_type = 'class'
 form_info = ["", ""]
 
-from .is_openmm_CharmmPsfFile import is_openmm_CharmmPsfFile
+from .is_form import is_form
 
 from .attributes import attributes
 

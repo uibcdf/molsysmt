@@ -3,7 +3,7 @@ form_type = 'string'
 form_info = ["Protein Data Bank file format",
              "https://www.rcsb.org/pdb/static.do?p=file_formats/pdb/index.html"]
 
-from .is_string_pdb_text import is_string_pdb_text
+from .is_form import is_form
 
 from .attributes import attributes
 

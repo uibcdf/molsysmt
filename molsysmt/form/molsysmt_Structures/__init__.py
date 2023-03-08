@@ -2,7 +2,7 @@ form_name = 'molsysmt.Structures'
 form_type = 'class'
 form_info = ["", ""]
 
-from .is_molsysmt_Structures import is_molsysmt_Structures
+from .is_form import is_form
 
 from .attributes import attributes
 from .has_attribute import has_attribute

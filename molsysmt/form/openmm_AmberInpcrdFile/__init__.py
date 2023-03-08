@@ -2,7 +2,7 @@ form_name = 'openmm.AmberInpcrdFile'
 form_type = 'class'
 form_info = ["", ""]
 
-from .is_openmm_AmberInpcrdFile import is_openmm_AmberInpcrdFile
+from .is_form import is_form
 
 from .attributes import attributes
 

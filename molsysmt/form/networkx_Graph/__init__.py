@@ -2,7 +2,7 @@ form_name = 'networkx.Graph'
 form_type = 'class'
 form_info = ["", ""]
 
-from .is_networkx_Graph import is_networkx_Graph
+from .is_form import is_form
 
 from .attributes import attributes
 

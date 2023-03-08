@@ -2,7 +2,7 @@ form_name = 'string:aminoacids1'
 form_type = 'string'
 form_info = ["", ""]
 
-from .is_string_aminoacids1 import is_string_aminoacids1
+from .is_form import is_form
 
 from .attributes import attributes
 

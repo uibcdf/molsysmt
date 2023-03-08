@@ -2,7 +2,7 @@ form_name = 'mdtraj.XTCTrajectoryFile'
 form_type = 'class'
 form_info = ["", ""]
 
-from .is_mdtraj_XTCTrajectoryFile import is_mdtraj_XTCTrajectoryFile
+from .is_form import is_form
 
 from .attributes import attributes
 

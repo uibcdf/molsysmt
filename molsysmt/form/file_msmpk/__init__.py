@@ -2,7 +2,7 @@ form_name = 'file:msmpk'
 form_type = 'file'
 form_info = ["", ""]
 
-from .is_file_msmpk import is_file_msmpk
+from .is_form import is_form
 
 from .attributes import attributes
 

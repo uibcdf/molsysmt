@@ -2,7 +2,7 @@ form_name = 'pdbfixer.PDBFixer'
 form_type = 'class'
 form_info = ["", ""]
 
-from .is_pdbfixer_PDBFixer import is_pdbfixer_PDBFixer
+from .is_form import is_form
 
 from .attributes import attributes
 
