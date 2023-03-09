@@ -3,9 +3,8 @@ from molsysmt._private.digestion import digest
 @digest()
 def copy(molecular_system, output_filename=None):
 
-    from . import get_form, is_a_molecular_system
-    from molsysmt.form import is_file
-    from molsysmt.api_forms import dict_extract
+    from . import get_form
+    from molsysmt.form import is_file, _dict_modules
 
     form_in = get_form(molecular_system)
 
@@ -18,7 +17,7 @@ def copy(molecular_system, output_filename=None):
         output = []
 
         for item_form, item in zip(form_in, molecular_system):
-            output_item = dict_extract[item_form](item, copy_if_all=True)
+            output_item = _dict_modules[item_form].copy(item)
             output.append(output_item)
 
         if len(output)==1:
@@ -26,7 +25,7 @@ def copy(molecular_system, output_filename=None):
 
     else:
 
-        output = dict_extract[form_in](molecular_system, copy_if_all=True, output_filename=output_filename)
+        output = _dict_modules[form_in].copy(molecular_system, output_filename=output_filename)
 
     return output
 

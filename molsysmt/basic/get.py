@@ -71,7 +71,7 @@ def get(molecular_system,
 
 
     from .. import select, where_is_attribute, get_form, convert
-    from molsysmt.api_forms import dict_get
+    from molsysmt.form import _dict_modules
 
     arguments = []
     for key in kwargs.keys():
@@ -116,7 +116,8 @@ def get(molecular_system,
         if aux_item is None:
             result = None
         else:
-            result = dict_get[aux_form][element][argument](aux_item, **dict_indices)
+            aux_get = getattr(_dict_modules[aux_form], f'get_{argument}_from_{element}')
+            result = aux_get(aux_item, **dict_indices)
 
         attributes.append(result)
 

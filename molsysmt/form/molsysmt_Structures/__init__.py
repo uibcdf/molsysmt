@@ -8,6 +8,7 @@ from .attributes import attributes
 from .has_attribute import has_attribute
 
 from .extract import extract
+from .copy import copy
 from .add import add
 from .append_structures import append_structures
 from .get import *

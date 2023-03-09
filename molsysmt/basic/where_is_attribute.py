@@ -1,32 +1,31 @@
-from molsysmt._private.digestion import digest
+# If digest is used in this method, other methods become slower
 
-@digest()
 def where_is_attribute(molecular_system, attribute):
 
     from . import get_form
-    from molsysmt.api_forms import dict_attributes
-    from molsysmt.attribute import is_topological_attribute
+    from molsysmt.form import _dict_modules
 
     if not isinstance(molecular_system, (list, tuple)):
         molecular_system = [molecular_system]
 
     forms_in = get_form(molecular_system)
 
-    if not is_topological_attribute(attribute):
-        aux_zip = zip(reversed(molecular_system), reversed(forms_in))
+    where_form=[]
+    where_item=[]
+
+    for form_in, item in zip(forms_in, molecular_system):
+        if _dict_modules[form_in].has_attribute(item, attribute):
+            where_form.append(form_in)
+            where_item.append(item)
+
+    if len(where_form)==1:
+        output_item = where_item[0]
+        output_form = where_form[0]
+    elif len(where_form)==0:
+        output_item = None
+        output_form = None
     else:
-        aux_zip = zip(molecular_system, forms_in)
-
-    output_item = None
-    output_form = None
-
-    for item, form_in in aux_zip:
-        if dict_attributes[form_in][attribute]:
-            output_item = item
-            output_form = form_in
-            break
-        if output_form is not None:
-            break
+        print('This to correct in where_is_attribute')
 
     return output_item, output_form
 

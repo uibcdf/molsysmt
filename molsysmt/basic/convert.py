@@ -91,7 +91,13 @@ def convert(molecular_system,
 
     if not isinstance(from_form, (list, tuple)):
 
-        if from_form in _dict_modules:
+        # One to one
+
+        if from_form == to_form:
+
+           tmp_item = _dict_modules[from_form].extract(molecular_system, atom_indices='all', structure_indices='all', copy_if_all=True) 
+
+        elif from_form in _dict_modules:
             if to_form in _dict_modules[from_form]._convert_to:
                 tmp_item = _dict_modules[from_form]._convert_to[to_form](molecular_system,
                         atom_indices=atom_indices, structure_indices=structure_indices,

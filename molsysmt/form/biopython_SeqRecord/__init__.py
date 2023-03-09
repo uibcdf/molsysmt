@@ -1,6 +1,7 @@
 form_name = 'biopython.SeqRecord'
 form_type = 'class'
 form_info = ["", ""]
+basic_element = 'group'
 
 from .is_form import is_form
 
@@ -11,6 +12,6 @@ from .add import add
 from .append_structures import append_structures
 from .get import *
 from .set import *
-from .iterators import StructuresIterator, TopologyIterator
+from .iterators import TopologyIterator
 
 _convert_to={}

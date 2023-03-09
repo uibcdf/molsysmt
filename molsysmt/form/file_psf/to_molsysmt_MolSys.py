@@ -21,5 +21,4 @@ def _to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all'):
 
     from molsysmt import convert, has_attribute
 
-    tmp_item = to_molsysmt_MolSys(item, atom_indices=atom_indices)
-
+    return to_molsysmt_MolSys(item, atom_indices=atom_indices)
