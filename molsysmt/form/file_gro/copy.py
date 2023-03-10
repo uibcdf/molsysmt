@@ -3,7 +3,7 @@ from molsysmt._private.digestion import digest
 from molsysmt._private.variables import is_all
 
 @digest(form='file:gro')
-def copoy(item, output_filename=None):
+def copy(item, output_filename=None):
 
     if output_filename is None:
         output_filename = item

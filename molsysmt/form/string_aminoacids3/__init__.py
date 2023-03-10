@@ -12,7 +12,7 @@ from .add import add
 from .append_structures import append_structures
 from .get import *
 from .set import *
-from .iterators import StructuresIterator, TopologyIterator
+from .iterators import TopologyIterator
 
 from .to_string_aminoacids1 import to_string_aminoacids1
 from .to_biopython_SeqRecord import to_biopython_SeqRecord
