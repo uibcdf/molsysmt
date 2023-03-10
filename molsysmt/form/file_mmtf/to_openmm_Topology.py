@@ -10,7 +10,3 @@ def to_openmm_Topology(item, atom_indices='all', structure_indices='all'):
     tmp_item = mmtf_MMTFDecoder_to_openmm_Topology(tmp_item, atom_indices=atom_indices, structure_indices=structure_indices)
 
     return tmp_item
-
-def _to_openmm_Topology(item, atom_indices='all', structure_indices='all'):
-
-    return to_openmm_Topology(item, atom_indices=atom_indices, structure_indices=structure_indices)

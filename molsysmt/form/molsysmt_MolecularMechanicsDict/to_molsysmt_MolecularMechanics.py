@@ -8,7 +8,3 @@ def to_molsysmt_MolecularMechanics(item):
     tmp_item = molsysmt_MolecularMechanics(**item)
 
     return tmp_item
-
-def _to_molsysmt_MolecularMechanics(item, molecular_system, atom_indices='all', structure_indices='all'):
-
-    return to_molsysmt_MolecularMechanics(item)

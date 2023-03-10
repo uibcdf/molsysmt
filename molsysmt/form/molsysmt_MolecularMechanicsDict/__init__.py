@@ -8,14 +8,15 @@ from .attributes import attributes
 from .has_attribute import has_attribute
 
 from .extract import extract
+from .copy import copy
 from .add import add
 from .append_structures import append_structures
 from .get import *
 from .set import *
-from .iterators import StructuresIterator, TopologyIterator
+#from .iterators import
 
-from .to_molsysmt_MolecularMechanics import to_molsysmt_MolecularMechanics, _to_molsysmt_MolecularMechanics
+from .to_molsysmt_MolecularMechanics import to_molsysmt_MolecularMechanics
 
 _convert_to={
-        'molsysmt.MolecularMechanics': _to_molsysmt_MolecularMechanics,
+        'molsysmt.MolecularMechanics': to_molsysmt_MolecularMechanics,
         }

@@ -14,7 +14,3 @@ def to_molsysmt_MolSys(item, coordinates=None, box=None, atom_indices='all'):
 
     return tmp_item
 
-def _to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all'):
-
-    return to_molsysmt_MolSys(item, coordinates=coordinates, box=box, atom_indices=atom_indices)
-

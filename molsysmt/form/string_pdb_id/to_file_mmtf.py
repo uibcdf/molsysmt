@@ -11,9 +11,3 @@ def to_file_mmtf(item, atom_indices='all', structure_indices='all', output_filen
 
     return tmp_item
 
-def _to_file_mmtf(item, atom_indices='all', structure_indices='all', output_filename=None):
-
-    return to_file_mmtf(item, atom_indices=atom_indices,
-                                      structure_indices=structure_indices,
-                                      output_filename=output_filename)
-

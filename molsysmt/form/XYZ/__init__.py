@@ -8,16 +8,17 @@ from .get_rank_3_XYZ import get_rank_3_XYZ
 from .attributes import attributes
 
 from .extract import extract
+from .copy import copy
 from .add import add
 from .append_structures import append_structures
 from .get import *
 from .set import *
 from .iterators import StructuresIterator, TopologyIterator
 
-from .to_file_xyznpy import to_file_xyznpy, _to_file_xyznpy
-from .to_molsysmt_Structures import to_molsysmt_Structures, _to_molsysmt_Structures
+from .to_file_xyznpy import to_file_xyznpy
+from .to_molsysmt_Structures import to_molsysmt_Structures
 
 _convert_to={
-        'file:xyznpy': _to_file_xyznpy,
-        'molsysmt.Structures': _to_molsysmt_Structures,
+        'file:xyznpy': to_file_xyznpy,
+        'molsysmt.Structures': to_molsysmt_Structures,
         }

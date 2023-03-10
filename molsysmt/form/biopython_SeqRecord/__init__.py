@@ -1,7 +1,6 @@
 form_name = 'biopython.SeqRecord'
 form_type = 'class'
 form_info = ["", ""]
-basic_element = 'group'
 
 from .is_form import is_form
 

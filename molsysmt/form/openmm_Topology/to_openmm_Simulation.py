@@ -10,7 +10,3 @@ def to_openmm_Simulation(item, atom_indices='all', coordinates=None):
     tmp_item = openmm_System_to_openmm_Simulation(tmp_item)
 
     return tmp_item
-
-def _to_openmm_Simulation(item, atom_indices='all', structure_indices='all'):
-
-    return to_openmm_Simulation(item, atom_indices=atom_indices)

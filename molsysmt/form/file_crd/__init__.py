@@ -1,7 +1,6 @@
 form_name='file:crd'
 form_type = 'file'
 form_info = ["CHARMM card (CRD) file format with coordinates.","https://www.charmmtutorial.org/index.php/CHARMM:The_Basics#CHARMM_data_structures"]
-basic_element = 'atom'
 
 from .is_form import is_form
 

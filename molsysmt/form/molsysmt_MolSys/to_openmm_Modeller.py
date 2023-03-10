@@ -21,7 +21,3 @@ def to_openmm_Modeller(item, atom_indices='all', structure_indices='all'):
 
     return tmp_item
 
-def _to_openmm_Modeller(item, atom_indices='all', structure_indices='all'):
-
-    return to_openmm_Modeller(item, atom_indices=atom_indices, structure_indices=structure_indices)
-

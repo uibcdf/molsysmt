@@ -8,16 +8,17 @@ from .attributes import attributes
 from .has_attribute import has_attribute
 
 from .extract import extract
+from .copy import copy
 from .add import add
 from .append_structures import append_structures
 from .get import *
 from .set import *
-from .iterators import StructuresIterator, TopologyIterator
+from .iterators import StructuresIterator
 
-from .to_molsysmt_Structures import to_molsysmt_Structures, _to_molsysmt_Structures
-from .to_file_trjpk import to_file_trjpk, _to_file_trjpk
+from .to_molsysmt_Structures import to_molsysmt_Structures
+from .to_file_trjpk import to_file_trjpk
 
 _convert_to={
-        'molsysmt.Structures': _to_molsysmt_Structures,
-        'file:trjpk': _to_file_trjpk,
+        'molsysmt.Structures': to_molsysmt_Structures,
+        'file:trjpk': to_file_trjpk,
         }

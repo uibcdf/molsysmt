@@ -13,7 +13,3 @@ def to_file_pdb(item, atom_indices='all', coordinates=None, output_filename=None
 
     return tmp_item
 
-def _to_file_pdb(item, atom_indices='all', structure_indices='all', output_filename=None):
-
-    return to_file_pdb(item, atom_indices=atom_indices)
-

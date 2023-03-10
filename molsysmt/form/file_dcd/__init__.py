@@ -1,7 +1,6 @@
 form_name = 'file:dcd'
 form_type = 'file'
 form_info = ["", ""]
-basic_element = 'atom'
 
 from .is_form import is_form
 
@@ -13,7 +12,7 @@ from .add import add
 from .append_structures import append_structures
 from .get import *
 from .set import *
-from .iterators import StructuresIterator, TopologyIterator
+from .iterators import StructuresIterator
 
 from .to_mdtraj_DCDTrajectoryFile import to_mdtraj_DCDTrajectoryFile
 from .to_molsysmt_Structures import to_molsysmt_Structures

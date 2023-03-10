@@ -11,8 +11,3 @@ def to_mdtraj_Trajectory(item, atom_indices='all', structure_indices='all', outp
 
     return tmp_item
 
-def _to_mdtraj_Trajectory(item, atom_indices='all', structure_indices='all'):
-
-    return to_mdtraj_Trajectory(item, atom_indices=atom_indices, structure_indices=structure_indices)
-
-

@@ -32,7 +32,3 @@ def to_string_pdb_text(item, atom_indices='all', coordinates=None, box=None):
 
     return tmp_item
 
-def _to_string_pdb_text(item, atom_indices='all', structure_indices='all'):
-
-    return to_string_pdb_text(item, atom_indices=atom_indices)
-

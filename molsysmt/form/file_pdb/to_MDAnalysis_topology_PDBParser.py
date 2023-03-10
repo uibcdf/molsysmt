@@ -13,7 +13,3 @@ def to_MDAnalysis_topology_PDBParser(item, atom_indices='all'):
 
     return tmp_item
 
-def _to_MDAnalysis_topology_PDBParser(item, atom_indices='all', structure_indices='all'):
-
-    return to_MDAnalysis_topology_PDBParser(item, atom_indices=atom_indices)
-
