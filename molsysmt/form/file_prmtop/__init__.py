@@ -6,6 +6,7 @@ form_info = ["AMBER parameter/topology file format",
 from .is_form import is_form
 
 from .attributes import attributes
+from .has_attribute import has_attribute
 
 from .extract import extract
 from .copy import copy

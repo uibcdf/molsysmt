@@ -1,60 +1,53 @@
 from molsysmt._private.digestion import digest
 
 @digest(form='molsysmt.StructuresDict')
-def has_attribute(molecular_system, **kwargs):
+def has_attribute(molecular_system, attribute):
 
-    arguments = []
-    for key in kwargs.keys():
-        if kwargs[key]:
-            arguments.append(key)
+    output = False
 
-    outputs = []
+    # Check attributes list first
 
-    for argument in arguments:
+    from . import attributes
 
-        output = False
-
-        ###
-        ### STRUCTURAL ATTRIBUTES
-        ###
-
-        if argument=='structure_index':
-            if argument in molecular_system:
-                output = True
-
-        elif argument=='structure_id':
-            if argument in molecular_system:
-                output = True
-
-        elif argument=='coordinates':
-            if argument in molecular_system:
-                output = True
-
-        elif argument=='time':
-            if argument in molecular_system:
-                output = True
-
-        elif argument=='box':
-            if argument in molecular_system:
-                output = True
-
-        elif argument=='occupancy':
-            if argument in molecular_system:
-                output = True
-
-        elif argument=='alternate_location':
-            if argument in molecular_system:
-                output = True
-
-        elif argument=='b_factor':
-            if argument in molecular_system:
-                output = True
+    if not attributes[attribute]:
+        return output
 
 
-        outputs.append(output)
+    ###
+    ### STRUCTURAL ATTRIBUTES
+    ###
 
-    if len(outputs)==1:
-        return outputs[0]
-    else:
-        return outputs
+    if argument=='structure_index':
+        if argument in molecular_system:
+            output = True
 
+    elif argument=='structure_id':
+        if argument in molecular_system:
+            output = True
+
+    elif argument=='coordinates':
+        if argument in molecular_system:
+            output = True
+
+    elif argument=='time':
+        if argument in molecular_system:
+            output = True
+
+    elif argument=='box':
+        if argument in molecular_system:
+            output = True
+
+    elif argument=='occupancy':
+        if argument in molecular_system:
+            output = True
+
+    elif argument=='alternate_location':
+        if argument in molecular_system:
+            output = True
+
+    elif argument=='b_factor':
+        if argument in molecular_system:
+            output = True
+
+
+    return output

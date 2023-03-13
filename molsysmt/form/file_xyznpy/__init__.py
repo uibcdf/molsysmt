@@ -5,6 +5,7 @@ form_info = ["XYZ file format like saved with Numpy", ""]
 from .is_form import is_form
 
 from .attributes import attributes
+from .has_attribute import has_attribute
 
 from .extract import extract
 from .copy import copy

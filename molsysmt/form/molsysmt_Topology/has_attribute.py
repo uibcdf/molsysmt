@@ -5,6 +5,13 @@ def has_attribute(molecular_system, attribute):
 
     output = False
 
+    # Check attributes list first
+
+    from . import attributes
+
+    if not attributes[attribute]:
+        return output
+
     ###
     ### TOPOLOGICAL
     ###
@@ -18,7 +25,7 @@ def has_attribute(molecular_system, attribute):
         if molecular_system.topology.atoms_data_frame.shape[0]:
             output = True 
 
-    elif attribute in ['n_atoms', 'n_groups', 'n_components', 'n_molecules', 'n_entities',
+    elif attribute in ['n_atoms', 'n_groups', 'n_components', 'n_molecules', 'n_chains', 'n_entities',
         'n_ions', 'n_waters', 'n_small_molecules', 'n_peptides', 'n_proteins', 'n_dnas',
         'n_rnas', 'n_lipids', 'n_oligosaccharides']:
         output = True

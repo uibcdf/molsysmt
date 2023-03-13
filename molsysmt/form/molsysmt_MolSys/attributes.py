@@ -34,6 +34,7 @@ attributes['n_atoms'] = True
 attributes['n_groups'] = True
 attributes['n_components'] = True
 attributes['n_molecules'] = True
+attributes['n_chains'] = True
 attributes['n_entities'] = True
 attributes['n_ions'] = True
 attributes['n_waters'] = True

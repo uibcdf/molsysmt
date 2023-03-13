@@ -2,7 +2,6 @@ from molsysmt._private.exceptions import NotImplementedConversionError
 from molsysmt._private.digestion import digest
 from molsysmt._private.variables import is_all
 
-
 @digest()
 def convert(molecular_system,
             to_form='molsysmt.MolSys',
@@ -58,11 +57,14 @@ def convert(molecular_system,
 
     from . import select, get_form
     from molsysmt.form import is_item, is_file, _dict_modules
+    from molsysmt.element import _element_indices, _element_index
 
     from_form = get_form(molecular_system)
 
     if to_form is None:
         to_form = from_form
+
+    # If to_form is a list, covert is invoked iteratively
 
     if isinstance(to_form, (list, tuple)):
         tmp_item=[]
@@ -72,12 +74,12 @@ def convert(molecular_system,
                         syntax=syntax))
         return tmp_item
 
-    if not is_all(selection):
-        atom_indices = select(molecular_system, selection=selection, syntax=syntax)
-    else:
-        atom_indices = 'all'
+    # Conversion arguments
 
     conversion_arguments={}
+
+    # If to_form is a file
+
     output_is_file=False
 
     if is_item(to_form):
@@ -86,32 +88,39 @@ def convert(molecular_system,
             conversion_arguments['output_filename'] = to_form
             to_form = get_form(to_form)
 
-    tmp_item = None
 
+    # If one to one
 
     if not isinstance(from_form, (list, tuple)):
 
-        # One to one
+        if _dict_modules[from_form].attributes['structure_index']:
+            conversion_arguments['structure_indices']=structure_indices
 
-        if from_form == to_form:
+        for element, element_index in _element_index.items():
+            if _dict_modules[from_form].attributes[element_index]:
+                if not is_all(selection):
+                    conversion_arguments[_element_indices[element]] = select(molecular_system, element=element, selection=selection, syntax=syntax)
+                else:
+                    conversion_arguments[_element_indices[element]] = 'all'
+                break
 
-           tmp_item = _dict_modules[from_form].extract(molecular_system, atom_indices='all', structure_indices='all', copy_if_all=True) 
+        if from_form == to_form: 
+            conversion_arguments['copy_if_all'] =  True
+            tmp_item = _dict_modules[from_form].extract(molecular_system, **conversion_arguments, **kwargs) 
 
         elif from_form in _dict_modules:
-            if to_form in _dict_modules[from_form]._convert_to:
-                tmp_item = _dict_modules[from_form]._convert_to[to_form](molecular_system,
-                        atom_indices=atom_indices, structure_indices=structure_indices,
-                        **conversion_arguments, **kwargs)
-            elif ('molsysmt.MolSys' in _dict_modules[from_form]._convert_to) and (to_form in _dict_modules['molsysmt.MolSys']._convert_to):
-                tmp_item = _dict_modules[from_form]._convert_to['molsysmt.MolSys'](molecular_system,
-                        atom_indices=atom_indices, structure_indices=structure_indices,
-                        **conversion_arguments, **kwargs)
-                tmp_item = _dict_modules['molsysmt.MolSys']._convert_to[to_form](tmp_item,
-                        **conversion_arguments, **kwargs)
-        
-    else:
 
-        print('Not implemented yet')
+            if to_form in _dict_modules[from_form]._convert_to:
+                tmp_item = _dict_modules[from_form]._convert_to[to_form](molecular_system, **conversion_arguments, **kwargs)
+
+            elif ('molsysmt.MolSys' in _dict_modules[from_form]._convert_to) and (to_form in _dict_modules['molsysmt.MolSys']._convert_to):
+                tmp_item = _dict_modules[from_form]._convert_to['molsysmt.MolSys'](molecular_system, **conversion_arguments, **kwargs)
+                tmp_item = _dict_modules['molsysmt.MolSys']._convert_to[to_form](tmp_item)
+        
+    # If multiple to one
+
+
+    # Returning the output
 
     if tmp_item is None:
 
