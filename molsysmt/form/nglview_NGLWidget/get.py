@@ -400,9 +400,12 @@ def get_n_bonds_from_system(item):
     return output
 
 @digest(form=form)
-def get_n_structures_from_system(item):
+def get_n_structures_from_system(item, structure_indices='all'):
 
-    n_structures = item.component_0.n_frames
+    if is_all(structure_indices):
+        n_structures = item.component_0.n_frames
+    else:
+        n_structures = len(structure_indices)
 
     return n_structures
 

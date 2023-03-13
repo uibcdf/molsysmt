@@ -93,27 +93,52 @@ def convert(molecular_system,
 
     if not isinstance(from_form, (list, tuple)):
 
-        if _dict_modules[from_form].attributes['structure_index']:
-            conversion_arguments['structure_indices']=structure_indices
+        if from_form == to_form:
 
-        for element, element_index in _element_index.items():
-            if _dict_modules[from_form].attributes[element_index]:
-                if not is_all(selection):
-                    conversion_arguments[_element_indices[element]] = select(molecular_system, element=element, selection=selection, syntax=syntax)
-                else:
-                    conversion_arguments[_element_indices[element]] = 'all'
-                break
+            if _dict_modules[from_form].attributes['structure_index']:
+                conversion_arguments['structure_indices']=structure_indices
 
-        if from_form == to_form: 
+            for element, element_index in _element_index.items():
+                if _dict_modules[from_form].attributes[element_index]:
+                    if not is_all(selection):
+                        conversion_arguments[_element_indices[element]] = select(molecular_system, element=element, selection=selection, syntax=syntax)
+                    else:
+                        conversion_arguments[_element_indices[element]] = 'all'
+                    break
+
             conversion_arguments['copy_if_all'] =  True
             tmp_item = _dict_modules[from_form].extract(molecular_system, **conversion_arguments, **kwargs) 
 
         elif from_form in _dict_modules:
 
             if to_form in _dict_modules[from_form]._convert_to:
+
+                if _dict_modules[from_form].attributes['structure_index'] and _dict_modules[to_form].attributes['structure_index']:
+                    conversion_arguments['structure_indices']=structure_indices
+
+                for element, element_index in _element_index.items():
+                    if _dict_modules[from_form].attributes[element_index]:
+                        if not is_all(selection):
+                            conversion_arguments[_element_indices[element]] = select(molecular_system, element=element, selection=selection, syntax=syntax)
+                        else:
+                            conversion_arguments[_element_indices[element]] = 'all'
+                        break
+
                 tmp_item = _dict_modules[from_form]._convert_to[to_form](molecular_system, **conversion_arguments, **kwargs)
 
             elif ('molsysmt.MolSys' in _dict_modules[from_form]._convert_to) and (to_form in _dict_modules['molsysmt.MolSys']._convert_to):
+
+                if _dict_modules[from_form].attributes['structure_index']:
+                    conversion_arguments['structure_indices']=structure_indices
+
+                for element, element_index in _element_index.items():
+                    if _dict_modules[from_form].attributes[element_index]:
+                        if not is_all(selection):
+                            conversion_arguments[_element_indices[element]] = select(molecular_system, element=element, selection=selection, syntax=syntax)
+                        else:
+                            conversion_arguments[_element_indices[element]] = 'all'
+                        break
+
                 tmp_item = _dict_modules[from_form]._convert_to['molsysmt.MolSys'](molecular_system, **conversion_arguments, **kwargs)
                 tmp_item = _dict_modules['molsysmt.MolSys']._convert_to[to_form](tmp_item)
         
