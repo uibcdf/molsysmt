@@ -3132,6 +3132,12 @@ def get_n_oligosaccharides_from_system(item):
     return (molecule_types=='oligosaccharide').sum()
 
 @digest(form=form)
+def get_n_saccharides_from_system(item):
+
+    molecule_types = get_molecule_type_from_molecule(item)
+    return (molecule_types=='saccharide').sum()
+
+@digest(form=form)
 def get_coordinates_from_system(item, structure_indices='all'):
 
     if structure_indices is None:

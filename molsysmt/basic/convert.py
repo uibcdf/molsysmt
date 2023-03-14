@@ -58,6 +58,7 @@ def convert(molecular_system,
     from . import select, get_form
     from molsysmt.form import is_item, is_file, _dict_modules
     from molsysmt.element import _element_indices, _element_index
+    from molsysmt._private import _multiple_conversion_shortcuts
 
     from_form = get_form(molecular_system)
 
@@ -143,6 +144,48 @@ def convert(molecular_system,
                 tmp_item = _dict_modules['molsysmt.MolSys']._convert_to[to_form](tmp_item)
         
     # If multiple to one
+
+    else:
+
+        from_forms = from_form
+
+        # arguments
+
+        if _dict_modules[to_form].attributes['structure_index']:
+            for from_form in from_forms:
+                if _dict_modules[from_form].attributes['structure_index']:
+                    conversion_arguments['structure_indices']=structure_indices
+                    break
+
+        done=False
+        for element, element_index in _element_index.items():
+            for from_form in from_forms:
+                if _dict_modules[from_form].attributes[element_index]:
+                    if not is_all(selection):
+                        conversion_arguments[_element_indices[element]] = select(molecular_system, element=element, selection=selection, syntax=syntax)
+                    else:
+                        conversion_arguments[_element_indices[element]] = 'all'
+                    done=True
+                    break
+            if done:
+                break
+
+        # conversions in private shortcuts
+        sorted_forms = tuple(sorted(from_forms))
+
+        if sorted_forms in _multiple_conversion_shortcuts:
+
+            if to_form in _multiple_conversion_shortcuts[sorted_forms]:
+
+                tmp_item = _multiple_conversion_shortcuts[sorted_forms][to_form](molecular_system, **conversion_arguments, **kwargs)
+
+            elif ('molsysmt.MolSys' in _multiple_conversion_shortcuts[sorted_forms]) and (to_form in _dict_modules['molsysmt.MolSys']._convert_to):
+
+                tmp_item = _multiple_conversion_shortcuts[sorted_forms]['molsysmt.MolSys'](molecular_system, **conversion_arguments, **kwargs)
+                tmp_item = _dict_modules['molsysmt.MolSys']._convert_to[to_form](tmp_item)
+        else:
+
+            pass
 
 
     # Returning the output
