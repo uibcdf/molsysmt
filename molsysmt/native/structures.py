@@ -17,7 +17,10 @@ class Structures:
             The box of the molecular system in nanometers.
 
         coordinates : pint.Quantity of shape (n_structures, n_atoms, 3)
-            The coordinates of the trajectory for each frame of it in nanometers.
+            The coordinates of the trajectory for each frame.
+
+        velocities : pint.Quantity of shape (n_structures, n_atoms, 3)
+            The velocities of the trajectory for each frame.
 
         n_atoms : int
             Number of atoms in the trajectory.
@@ -34,11 +37,12 @@ class Structures:
     """
 
     @digest()
-    def __init__(self, structure_id=None, time=None, coordinates=None, box=None):
+    def __init__(self, structure_id=None, time=None, coordinates=None, velocities=None, box=None):
 
         self.structure_id = structure_id
         self.time = time
         self.coordinates = coordinates
+        self.velocities = velocities
         self.box = box
 
         if coordinates is not None:
@@ -61,7 +65,7 @@ class Structures:
                 return np.concatenate([array_1, array_2])
 
     @digest()
-    def append_structures(self, structure_id=None, time=None, coordinates=None, box=None):
+    def append_structures(self, structure_id=None, time=None, coordinates=None, velocities=None, box=None):
         """ Append structures or frames to this object.
 
              box : pint.Quantity of shape (n_structures, 3, 3)
@@ -87,12 +91,15 @@ class Structures:
             coordinates = puw.standardize(coordinates)
             n_structures = coordinates.shape[0]
             n_atoms = coordinates.shape[1]
+        if velocities is not None:
+            velocities = puw.standardize(velocities)
         if box is not None:
             box = puw.standardize(box)
 
         if self.n_structures == 0:
 
             self.coordinates = coordinates
+            self.velocities = velocities
             self.structure_id = structure_id
             self.time = time
             self.box = box
@@ -111,6 +118,7 @@ class Structures:
             self.box = self._concatenate_arrays(self.box, box, "structure_ids")
 
             self.coordinates = np.concatenate([self.coordinates, coordinates])
+            self.velocities = np.concatenate([self.velocities, velocities])
             self.n_structures += n_structures
 
     def get_box_lengths(self):
@@ -177,12 +185,18 @@ class Structures:
             else:
                 coordinates = deepcopy(self.coordinates)
 
+            if not is_all(atom_indices):
+                velocities = self.velocities[:, atom_indices, :]
+            else:
+                velocities = deepcopy(self.velocities)
+
             if not is_all(structure_indices):
                 coordinates = coordinates[structure_indices, :, :]
 
         return Structures(structure_id=structure_id,
                           time=time,
                           coordinates=coordinates,
+                          velocities=velocities,
                           box=box,
                           )
 
@@ -218,6 +232,13 @@ class Structures:
                           coordinates=True,
                           )
 
+        coordinates = get(item,
+                          element="atom",
+                          selection=selection,
+                          structure_indices=structure_indices,
+                          velocities=True,
+                          )
+
         if self.n_structures == 0:
             self.append_structures(structure_id, time, coordinates, box)
         else:
@@ -227,6 +248,11 @@ class Structures:
             value_coordinates = puw.get_value(coordinates, to_unit=unit)
             value_self_coordinates = puw.get_value(self.coordinates)
             self.coordinates = np.hstack([value_self_coordinates, value_coordinates]) * unit
+            unit = puw.get_unit(self.velocities)
+            value_velocities = puw.get_value(velocities, to_unit=unit)
+            value_self_velocities = puw.get_value(self.velocities)
+            self.velocities = np.hstack([value_self_velocities, value_velocities]) * unit
+
 
         self.n_atoms = self.coordinates.shape[1]
 
@@ -246,16 +272,17 @@ class Structures:
                 Select only these structures from the given item
         """
 
-        structure_id, time, coordinates, box = get(item,
+        structure_id, time, coordinates, velocities, box = get(item,
                                            selection=selection,
                                            structure_indices=structure_indices,
                                            structure_id=True,
                                            time=True,
                                            coordinates=True,
+                                           velocities=True,
                                            box=True,
-                                           
                                            )
-        self.append_structures(structure_id, time, coordinates, box)
+
+        self.append_structures(structure_id, time, coordinates, velocities, box)
 
     def get_structure_data(self, structure, selection="all", chunk_size=1):
         """ Returns the structure_ids, time, coordinates and box of the
@@ -314,6 +341,20 @@ class Structures:
         else:
             coordinates = None
 
+        if self.velocities is not None:
+            if is_all(selection):
+                if chunk_size == 1:
+                    velocities = self.velocities[structure]
+                else:
+                    velocities = self.velocities[structure: structure_end]
+            else:
+                if chunk_size == 1:
+                    velocities = self.velocities[structure, selection, :]
+                else:
+                    velocities = self.velocities[structure: structure_end, selection, :]
+        else:
+            velocities = None
+
         if self.box is not None:
             if chunk_size == 1:
                 box = self.box[structure]
@@ -322,7 +363,7 @@ class Structures:
         else:
             box = None
 
-        return structure_id, time, coordinates, box
+        return structure_id, time, coordinates, velocities, box
 
     def _iterate_structures(self, start=0, stop=None,
                             interval=1, selection="all", chunk_size=1):

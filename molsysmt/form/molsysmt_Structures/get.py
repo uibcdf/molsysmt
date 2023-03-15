@@ -104,6 +104,22 @@ def get_coordinates_from_atom(item, indices='all', structure_indices='all'):
 
     return tmp_coordinates
 
+@digest(form=form)
+def get_velocities_from_atom(item, indices='all', structure_indices='all'):
+
+    if (indices is None) or (structure_indices is None):
+        return None
+
+    tmp_velocities = item.velocities
+
+    if not is_all(structure_indices):
+        tmp_velocities = tmp_velocities[structure_indices,:,:]
+
+    if not is_all(indices):
+        tmp_velocities = tmp_velocities[:,indices,:]
+
+    return tmp_velocities
+
 
 ## From group
 
@@ -297,6 +313,18 @@ def get_coordinates_from_system(item, structure_indices='all'):
         output=item.coordinates
     else:
         output=item.coordinates[structure_indices,:,:]
+    return output
+
+@digest(form=form)
+def get_velocities_from_system(item, structure_indices='all'):
+
+    if structure_indices is None:
+        return None
+
+    if is_all(structure_indices):
+        output=item.velocities
+    else:
+        output=item.velocities[structure_indices,:,:]
     return output
 
 @digest(form=form)

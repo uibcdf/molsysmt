@@ -15,4 +15,9 @@ from .get import *
 from .set import *
 from .iterators import StructuresIterator
 
-_convert_to={}
+from .to_molsysmt_Structures import to_molsysmt_Structures
+
+_convert_to={
+        'molsysmt.Structures': to_molsysmt_Structures,
+        }
+

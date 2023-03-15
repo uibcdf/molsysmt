@@ -1,7 +1,5 @@
 def file_prmtop_and_file_inpcrd_to_molsysmt_MolSys(molecular_system, atom_indices='all', structure_indices='all'):
 
-    print('ENTRA')
-
     from molsysmt.basic import get_form
     from molsysmt.form.file_prmtop import to_molsysmt_Topology as file_prmtop_to_molsysmt_Topology
     from molsysmt.form.file_inpcrd import to_molsysmt_Structures as file_inpcrd_to_molsysmt_Structures

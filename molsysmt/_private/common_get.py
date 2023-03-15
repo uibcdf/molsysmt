@@ -3146,6 +3146,14 @@ def get_coordinates_from_system(item, structure_indices='all'):
     return get_coordinates_from_atom(item, structure_indices=structure_indices)
 
 @digest(form=form)
+def get_velocities_from_system(item, structure_indices='all'):
+
+    if structure_indices is None:
+        return None
+
+    return get_velocities_from_atom(item, structure_indices=structure_indices)
+
+@digest(form=form)
 def get_box_shape_from_system(item, structure_indices='all'):
 
     if structure_indices is None:

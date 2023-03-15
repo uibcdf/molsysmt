@@ -43,6 +43,10 @@ def has_attribute(molecular_system, attribute):
         if molecular_system.structures.n_structures :
             output = True
 
+    elif attribute=='velocities':
+        if molecular_system.structures.velocities is not None:
+            output = True
+
     elif attribute=='time':
         if molecular_system.structures.time is not None:
             output = True

@@ -23,6 +23,10 @@ def has_attribute(molecular_system, attribute):
         if argument in molecular_system:
             output = True
 
+    elif argument=='velocities':
+        if argument in molecular_system:
+            output = True
+
     elif argument=='time':
         if argument in molecular_system:
             output = True

@@ -1,6 +1,7 @@
 from molsysmt._private.exceptions import NotImplementedConversionError
 from molsysmt._private.digestion import digest
 from molsysmt._private.variables import is_all
+import inspect
 
 @digest()
 def convert(molecular_system,
@@ -59,6 +60,9 @@ def convert(molecular_system,
     from molsysmt.form import is_item, is_file, _dict_modules
     from molsysmt.element import _element_indices, _element_index
     from molsysmt._private import _multiple_conversion_shortcuts
+    from molsysmt.basic import has_attribute
+
+    tmp_item = None
 
     from_form = get_form(molecular_system)
 
@@ -96,11 +100,15 @@ def convert(molecular_system,
 
         if from_form == to_form:
 
-            if _dict_modules[from_form].attributes['structure_index']:
+            function = _dict_modules[from_form].extract
+
+            input_arguments = set(inspect.signature(function).parameters)
+
+            if structure_indices in input_arguments:
                 conversion_arguments['structure_indices']=structure_indices
 
             for element, element_index in _element_index.items():
-                if _dict_modules[from_form].attributes[element_index]:
+                if _element_indices[element] in input_arguments:
                     if not is_all(selection):
                         conversion_arguments[_element_indices[element]] = select(molecular_system, element=element, selection=selection, syntax=syntax)
                     else:
@@ -108,39 +116,48 @@ def convert(molecular_system,
                     break
 
             conversion_arguments['copy_if_all'] =  True
-            tmp_item = _dict_modules[from_form].extract(molecular_system, **conversion_arguments, **kwargs) 
+
+            tmp_item = function(molecular_system, **conversion_arguments, **kwargs) 
 
         elif from_form in _dict_modules:
 
             if to_form in _dict_modules[from_form]._convert_to:
 
-                if _dict_modules[from_form].attributes['structure_index'] and _dict_modules[to_form].attributes['structure_index']:
+                function = _dict_modules[from_form]._convert_to[to_form]
+
+                input_arguments = set(inspect.signature(function).parameters)
+
+                if structure_indices in input_arguments:
                     conversion_arguments['structure_indices']=structure_indices
 
                 for element, element_index in _element_index.items():
-                    if _dict_modules[from_form].attributes[element_index]:
+                    if _element_indices[element] in input_arguments:
                         if not is_all(selection):
                             conversion_arguments[_element_indices[element]] = select(molecular_system, element=element, selection=selection, syntax=syntax)
                         else:
                             conversion_arguments[_element_indices[element]] = 'all'
                         break
 
-                tmp_item = _dict_modules[from_form]._convert_to[to_form](molecular_system, **conversion_arguments, **kwargs)
+                tmp_item = function(molecular_system, **conversion_arguments, **kwargs)
 
             elif ('molsysmt.MolSys' in _dict_modules[from_form]._convert_to) and (to_form in _dict_modules['molsysmt.MolSys']._convert_to):
 
-                if _dict_modules[from_form].attributes['structure_index']:
+                function = _dict_modules[from_form]._convert_to['molsysmt.MolSys']
+
+                input_arguments = set(inspect.signature(function).parameters)
+
+                if structure_indices in input_arguments:
                     conversion_arguments['structure_indices']=structure_indices
 
                 for element, element_index in _element_index.items():
-                    if _dict_modules[from_form].attributes[element_index]:
+                    if _element_indices[element] in input_arguments:
                         if not is_all(selection):
                             conversion_arguments[_element_indices[element]] = select(molecular_system, element=element, selection=selection, syntax=syntax)
                         else:
                             conversion_arguments[_element_indices[element]] = 'all'
                         break
 
-                tmp_item = _dict_modules[from_form]._convert_to['molsysmt.MolSys'](molecular_system, **conversion_arguments, **kwargs)
+                tmp_item = function(molecular_system, **conversion_arguments, **kwargs)
                 tmp_item = _dict_modules['molsysmt.MolSys']._convert_to[to_form](tmp_item)
         
     # If multiple to one
@@ -148,27 +165,7 @@ def convert(molecular_system,
     else:
 
         from_forms = from_form
-
-        # arguments
-
-        if _dict_modules[to_form].attributes['structure_index']:
-            for from_form in from_forms:
-                if _dict_modules[from_form].attributes['structure_index']:
-                    conversion_arguments['structure_indices']=structure_indices
-                    break
-
-        done=False
-        for element, element_index in _element_index.items():
-            for from_form in from_forms:
-                if _dict_modules[from_form].attributes[element_index]:
-                    if not is_all(selection):
-                        conversion_arguments[_element_indices[element]] = select(molecular_system, element=element, selection=selection, syntax=syntax)
-                    else:
-                        conversion_arguments[_element_indices[element]] = 'all'
-                    done=True
-                    break
-            if done:
-                break
+        n_items = len(from_forms)
 
         # conversions in private shortcuts
         sorted_forms = tuple(sorted(from_forms))
@@ -177,13 +174,125 @@ def convert(molecular_system,
 
             if to_form in _multiple_conversion_shortcuts[sorted_forms]:
 
-                tmp_item = _multiple_conversion_shortcuts[sorted_forms][to_form](molecular_system, **conversion_arguments, **kwargs)
+                function = _multiple_conversion_shortcuts[sorted_forms][to_form]
+
+                input_arguments = set(inspect.signature(function).parameters)
+
+                if structure_indices in input_arguments:
+                    conversion_arguments['structure_indices']=structure_indices
+
+                for element, element_index in _element_index.items():
+                    if _element_indices[element] in input_arguments:
+                        if not is_all(selection):
+                            conversion_arguments[_element_indices[element]] = select(molecular_system, element=element, selection=selection, syntax=syntax)
+                        else:
+                            conversion_arguments[_element_indices[element]] = 'all'
+                        break
+
+                tmp_item = function(molecular_system, **conversion_arguments, **kwargs)
 
             elif ('molsysmt.MolSys' in _multiple_conversion_shortcuts[sorted_forms]) and (to_form in _dict_modules['molsysmt.MolSys']._convert_to):
 
                 tmp_item = _multiple_conversion_shortcuts[sorted_forms]['molsysmt.MolSys'](molecular_system, **conversion_arguments, **kwargs)
                 tmp_item = _dict_modules['molsysmt.MolSys']._convert_to[to_form](tmp_item)
-        else:
+
+        #### Checking attributes sets for straight and indirect conversion
+
+        if tmp_item is None:
+
+            to_attributes = set([ii for ii,jj in _dict_modules[to_form].attributes.items() if jj])
+            from_attributes = []
+            for from_form in from_forms:
+                from_attributes.append(set([ii for ii,jj in _dict_modules[from_form].attributes.items() if jj]))
+
+            attributes_to_be_discarded = []
+            for attribute in to_attributes:
+                if attribute.startswith('n_'):
+                    attributes_to_be_discarded.append(attribute)
+            for attributes in from_attributes:
+                for attribute in attributes:
+                    if attribute.startswith('n_'):
+                        attributes_to_be_discarded.append(attribute)
+
+            attributes_to_be_discarded += ['box_volume', 'box_shape', 'box_angles', 'box_lengths']
+            attributes_to_be_discarded += ['atom_index', 'structure_index']
+
+            for attribute in attributes_to_be_discarded:
+                to_attributes.discard(attribute)
+                for ii in from_attributes:
+                    ii.discard(attribute)
+
+            all_from_attributes = set()
+            all_from_attributes = all_from_attributes.union(*from_attributes)
+
+        #### straight conversion
+
+        if tmp_item is None:
+
+            ## checking if there is useful straight conversions
+
+            straight_conversions = {}
+
+            for item_index in range(n_items):
+                from_form = from_forms[item_index]
+                aux_set = from_attributes[item_index]
+                if from_form in _dict_modules:
+                    if to_form in _dict_modules[from_form]._convert_to:
+
+                        input_arguments = set(inspect.signature(_dict_modules[from_form]._convert_to[to_form]).parameters)
+                        for ii in ['atom_indices', 'group_indices', 'component_indices', 'chain_indices',
+                                'molecule_indices', 'entity_indices', 'structure_indices', 'molecular_system']:
+                            input_arguments.discard(ii)
+
+                        attributes_in_other_forms = {}
+                        for aux_attribute in (all_from_attributes - aux_set) & to_attributes:
+                            for ii in range(n_items-1,0,-1):
+                                if has_attribute(molecular_system[ii], aux_attribute):
+                                    attributes_in_other_forms[aux_attribute]=molecular_system[ii]
+                                    break
+
+                        repeated_attributes = {}
+                        for aux_attribute in aux_set:
+                            for ii in range(n_items-1, item_index, -1):
+                                if aux_attribute in from_attributes[ii]:
+                                    if has_attribute(molecular_system[ii], aux_attribute):
+                                        repeated_attributes[aux_attribute]=molecular_system[ii]
+                                        break
+
+                        status_input_attributes = True
+                        status_set_attributes = True
+
+                        for aux_attribute in attributes_in_other_forms:
+                            if not aux_attribute in input_arguments:
+                                status_input_attributes = False
+                                break
+
+                        for aux_attribute in repeated_attributes:
+
+                            if not (hasattr(_dict_modules[to_form], 'set_{aux_attribute}_to_system') or hasattr(_dict_modules[to_form], 'set_{aux_attribute}_to_atom')):
+                                status_set_attributes = False
+                                break
+
+                        straight_conversions[from_form] = {
+                                'input_arguments' : input_arguments,
+                                'attributes_in_form' : aux_set,
+                                'attributes_in_other_forms': attributes_in_other_forms,
+                                'repeated_attributes': repeated_attributes,
+                                'status_input_attributes': status_input_attributes,
+                                'status_set_attributes': status_set_attributes,
+                                }
+
+            for straight_conversion in 
+
+            print(straight_conversions)            
+            
+
+            #### through MolSys
+
+            # with set
+
+            #print(to_attributes)
+            #print(from_attributes)
 
             pass
 

@@ -17,12 +17,10 @@ from .set import *
 from .iterators import StructuresIterator
 
 from .to_openmm_AmberInpcrdFile import to_openmm_AmberInpcrdFile
-from .to_mdtraj_AmberRestartFile import to_mdtraj_AmberRestartFile
 from .to_molsysmt_Structures import to_molsysmt_Structures
 
 _convert_to={
         'openmm.AmberInpcrdFile': to_openmm_AmberInpcrdFile,
-        'mdtraj.AmberRestartFile': to_mdtraj_AmberRestartFile,
         'molsysmt.Structures': to_molsysmt_Structures,
         }
 

@@ -68,20 +68,48 @@ def get_coordinates_from_atom(item, indices='all', structure_indices='all'):
 
     xyz = item.getPositions(asNumpy=True)
 
-    unit = puw.get_unit(xyz)
+    if xyz is not None:
 
-    xyz = np.expand_dims(xyz, axis=0)
+        unit = puw.get_unit(xyz)
 
-    if not is_all(structure_indices):
-        xyz = xyz[structure_indices, :, :]
-    if not is_all(indices):
-        xyz = xyz[:, indices, :]
+        xyz = np.expand_dims(xyz, axis=0)
+
+        if not is_all(structure_indices):
+            xyz = xyz[structure_indices, :, :]
+        if not is_all(indices):
+            xyz = xyz[:, indices, :]
 
 
-    xyz = puw.standardize(xyz*unit)
+        xyz = puw.standardize(xyz*unit)
 
     return xyz
 
+@digest(form=form)
+def get_velocities_from_atom(item, indices='all', structure_indices='all'):
+
+    try:
+
+        xyz = item.getVelocities(asNumpy=True)
+
+    except:
+
+        xyz = None
+
+    if xyz is not None:
+
+        unit = puw.get_unit(xyz)
+
+        xyz = np.expand_dims(xyz, axis=0)
+
+        if not is_all(structure_indices):
+            xyz = xyz[structure_indices, :, :]
+        if not is_all(indices):
+            xyz = xyz[:, indices, :]
+
+
+        xyz = puw.standardize(xyz*unit)
+
+    return xyz
 
 ## From group
 
@@ -221,8 +249,8 @@ def get_n_structures_from_system(item):
 @digest(form=form)
 def get_box_from_system(item, structure_indices='all'):
 
-    box = getBoxVectors(asNumpy=True)
-    unit = puw.get_unit(box)
+    box = item.getBoxVectors(asNumpy=True)
+    unit = puw.get_unit(box[0])
     box = np.expand_dims(box, axis=0)
     box = puw.standardize(box*unit)
 
