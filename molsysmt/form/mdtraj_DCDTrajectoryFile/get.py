@@ -224,15 +224,21 @@ def get_n_bonds_from_system(item):
     raise NotWithThisFormError()
 
 @digest(form=form)
-def get_n_structures_from_system(item):
+def get_n_structures_from_system(item, structure_indices='all'):
 
-    lim = 1000
-    aux_val = 1000
+    if is_all(structure_indices):
 
-    while aux_val==lim:
-        lim=lim*10
-        item.seek(lim)
-        aux_val = item.tell()
+        lim = 1000
+        aux_val = 1000
+
+        while aux_val==lim:
+            lim=lim*10
+            item.seek(lim)
+            aux_val = item.tell()
+
+    else:
+
+        aux_val = len(structure_indices)
 
     return aux_val
 

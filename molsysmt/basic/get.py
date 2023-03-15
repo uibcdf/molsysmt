@@ -1,6 +1,5 @@
 from molsysmt._private.digestion import digest
 from molsysmt._private.variables import is_all
-from molsysmt.attribute.attributes import required_indices
 
 
 @digest()
@@ -64,32 +63,38 @@ def get(molecular_system,
 
     """
 
-    replace_molecular_systems = {
-            'file:psf':'molsysmt.Topology',
-            'file:dcd':'mdtraj.DCDTrajectoryFile',
-            }
-
-
     from .. import select, where_is_attribute, get_form, convert
-    from molsysmt.form import _dict_modules
+    from molsysmt.form import _dict_modules, _piped_forms
+    from molsysmt.attribute import attributes
 
-    arguments = []
+    form = get_form(molecular_system)
+
+    if isinstance(form, (list, tuple)):
+        attributes_filter = _dict_modules[form[0]].attributes.copy()
+        for aux_form in form[1:]:
+            for aux_attribute, aux_bool in _dict_modules[aux_form].attributes.items():
+                if aux_bool:
+                    attributes_filter[aux_attribute]=True
+    else:
+        attributes_filter = _dict_modules[form].attributes
+
+    in_attributes = []
     for key in kwargs.keys():
         if kwargs[key]:
-            arguments.append(key)
+            in_attributes.append(key)
 
     if not isinstance(molecular_system, (list, tuple)):
         molecular_system = [molecular_system]
 
-    aux_molecular_system = []
-    for ii in molecular_system:
-        form_in = get_form(ii)
-        if form_in in replace_molecular_systems:
-            jj = convert(ii, to_form=replace_molecular_systems[form_in])
-            aux_molecular_system.append(jj)
-        else:
-            aux_molecular_system.append(ii)
-    molecular_system = aux_molecular_system
+    #aux_molecular_system = []
+    #for ii in molecular_system:
+    #    form_in = get_form(ii)
+    #    if form_in in _piped_forms:
+    #        jj = convert(ii, to_form='molsysmt.MolSys')
+    #        aux_molecular_system.append(jj)
+    #    else:
+    #        aux_molecular_system.append(ii)
+    #molecular_system = aux_molecular_system
 
     if indices is None:
         if not is_all(selection):
@@ -100,32 +105,38 @@ def get(molecular_system,
             else:
                 indices = select(molecular_system, element=element, selection=mask, syntax=syntax)
                 
-    attributes = []
+    output = []
 
-    for argument in arguments:
+    for in_attribute in in_attributes:
 
-        dict_indices = {}
-        if element != 'system':
-            if 'element_indices' in required_indices[argument]:
-                dict_indices['indices'] = indices
-        if 'structure_indices' in required_indices[argument]:
-            dict_indices['structure_indices'] = structure_indices
+        if attributes_filter[in_attribute]:
 
-        aux_item, aux_form = where_is_attribute(molecular_system, argument)
+            dict_indices = {}
+            if element != 'system':
+                if attributes[in_attribute]['runs_on_elements']:
+                    dict_indices['indices'] = indices
+            if attributes[in_attribute]['runs_on_structures']:
+                dict_indices['structure_indices'] = structure_indices
 
-        if aux_item is None:
-            result = None
+            aux_item, aux_form = where_is_attribute(molecular_system, in_attribute)
+
+            if aux_item is None:
+                result = None
+            else:
+                aux_get = getattr(_dict_modules[aux_form], f'get_{in_attribute}_from_{element}')
+                result = aux_get(aux_item, **dict_indices)
+
         else:
-            aux_get = getattr(_dict_modules[aux_form], f'get_{argument}_from_{element}')
-            result = aux_get(aux_item, **dict_indices)
 
-        attributes.append(result)
+            result = None
+
+        output.append(result)
 
     if output_type=='values':
-        if len(attributes) == 1:
-            return attributes[0]
+        if len(output) == 1:
+            return output[0]
         else:
-            return attributes
+            return output
     elif output_type=='dictionary':
-        return dict(zip(arguments, attributes))
+        return dict(zip(in_attributes, output))
 

@@ -381,7 +381,7 @@ def get_n_bonds_from_system(item):
     return output
 
 @digest(form=form)
-def get_n_structures_from_system(item):
+def get_n_structures_from_system(item, structure_indices='all'):
 
     raise NotImplementedMethodError()
 

@@ -481,9 +481,15 @@ def get_n_entities_from_system(item):
     return output
 
 @digest(form=form)
-def get_n_structures_from_system(item):
+def get_n_structures_from_system(item, structure_indices='all'):
 
-    return item._handle.root.coordinates.shape[0]
+    if is_all(structure_indices):
+
+        return item._handle.root.coordinates.shape[0]
+
+    else:
+
+        return len(structure_indices)
 
 @digest(form=form)
 def get_n_bonds_from_system(item):

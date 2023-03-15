@@ -17,3 +17,15 @@ _dict_forms_lowercase = {ii.lower(): ii for ii in _dict_modules.keys()}
 
 del(current_dir, os, mod, f)
 
+_piped_forms=[
+        #'file:dcd',
+        #'file:h5',
+        'file:inpcrd',
+        'file:mmtf',
+        'file:msmpk',
+        'file:pdb',
+        'file:prmtop',
+        'file:psf',
+        #'file:xtc',
+        'string:pdb_id',
+        ]

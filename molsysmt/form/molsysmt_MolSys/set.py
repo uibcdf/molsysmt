@@ -52,7 +52,7 @@ def set_box_to_system(item, structure_indices='all', value=None):
     return molsysmt_Structures_set_box_to_system(item.structures, structure_indices=structure_indices, value=value)
 
 @digest(form='molsysmt.MolSys')
-def set_coordinates_to_system(item, indices='all', structure_indices='all', value=None):
+def set_coordinates_to_system(item, structure_indices='all', value=None):
 
     return set_coordinates_to_atom(item, indices='all', structure_indices=structure_indices,
             value=value)

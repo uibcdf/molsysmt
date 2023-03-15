@@ -61,6 +61,7 @@ def convert(molecular_system,
     from molsysmt.element import _element_indices, _element_index
     from molsysmt._private import _multiple_conversion_shortcuts
     from molsysmt.basic import has_attribute
+    from molsysmt.attribute import attributes as _attributes
 
     tmp_item = None
 
@@ -93,8 +94,9 @@ def convert(molecular_system,
             conversion_arguments['output_filename'] = to_form
             to_form = get_form(to_form)
 
-
+    ################
     # If one to one
+    ################
 
     if not isinstance(from_form, (list, tuple)):
 
@@ -160,7 +162,9 @@ def convert(molecular_system,
                 tmp_item = function(molecular_system, **conversion_arguments, **kwargs)
                 tmp_item = _dict_modules['molsysmt.MolSys']._convert_to[to_form](tmp_item)
         
+    #####################
     # If multiple to one
+    #####################
 
     else:
 
@@ -269,7 +273,9 @@ def convert(molecular_system,
 
                         for aux_attribute in repeated_attributes:
 
-                            if not (hasattr(_dict_modules[to_form], 'set_{aux_attribute}_to_system') or hasattr(_dict_modules[to_form], 'set_{aux_attribute}_to_atom')):
+                            set_to = _attributes[aux_attribute]['set_to'][0]
+
+                            if not hasattr(_dict_modules[to_form], f'set_{aux_attribute}_to_{set_to}'):
                                 status_set_attributes = False
                                 break
 
@@ -281,8 +287,6 @@ def convert(molecular_system,
                                 'status_input_attributes': status_input_attributes,
                                 'status_set_attributes': status_set_attributes,
                                 }
-
-            for straight_conversion in 
 
             print(straight_conversions)            
             

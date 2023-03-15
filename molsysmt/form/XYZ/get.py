@@ -207,13 +207,19 @@ def get_n_bonds_from_system(item):
 
     raise NotWithThisFormError()
 
-def get_n_structures_from_system(item):
+def get_n_structures_from_system(item, structure_indices='all'):
 
-    from . import get_rank_3_XYZ
+    if is_all(structure_indices):
 
-    tmp_coordinates = get_rank_3_XYZ(item)
+        from . import get_rank_3_XYZ
 
-    return tmp_coordinates.shape[0]
+        tmp_coordinates = get_rank_3_XYZ(item)
+
+        return tmp_coordinates.shape[0]
+
+    else:
+        
+        return len(structure_indices)
 
 @digest(form=form)
 def get_box_from_system(item, structure_indices='all'):

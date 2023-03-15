@@ -393,13 +393,13 @@ def get_n_bonds_from_system(item):
     return output
 
 @digest(form=form)
-def get_n_structures_from_system(item):
+def get_n_structures_from_system(item, structure_indices='all'):
 
     from . import to_mdtraj_HDF5TrajectoryFile
     from ..mdtraj_HDF5TrajectoryFile import get_n_structures_from_system as aux_get
 
     tmp_item = to_mdtraj_HDF5TrajectoryFile(item)
-    output = aux_get(tmp_item)
+    output = aux_get(tmp_item, structure_indices=structure_indices)
 
     return output
 

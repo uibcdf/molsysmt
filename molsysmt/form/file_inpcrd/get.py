@@ -216,13 +216,13 @@ def get_n_bonds_from_system(item):
     raise NotWithThisFormError()
 
 @digest(form=form)
-def get_n_structures_from_system(item):
+def get_n_structures_from_system(item, structure_indices='all'):
 
     from . import to_openmm_AmberInpcrdFile
     from ..openmm_AmberInpcrdFile import get_n_structures_from_system as aux_get
 
     tmp_item = to_openmm_AmberInpcrdFile(item)
-    output = aux_get(tmp_item)
+    output = aux_get(tmp_item, structure_indices=structure_indices)
 
     return output
 

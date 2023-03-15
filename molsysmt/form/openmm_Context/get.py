@@ -249,9 +249,12 @@ def get_structure_id_from_system(item, structure_indices='all'):
     return None
 
 @digest(form=form)
-def get_n_structures_from_system(item):
+def get_n_structures_from_system(item, structure_indices='all'):
 
-    return 1
+    if is_all(structure_indices):
+        return 1
+    else:
+        len(structure_indices)
 
 @digest(form=form)
 def get_bonded_atoms_from_system(item):

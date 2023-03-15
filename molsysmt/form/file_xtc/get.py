@@ -207,13 +207,19 @@ def get_n_bonds_from_system(item):
     raise NotWithThisFormError()
 
 @digest(form=form)
-def get_n_structures_from_system(item):
+def get_n_structures_from_system(item, structure_indices='all'):
 
-    from . import to_mdtraj_XTCTrajectoryFile
-    from ..mdtraj_XTCTrajectoryFile import get_n_structures_from_system as aux_get
+    if is_all(structure_indices):
 
-    tmp_item = to_mdtraj_XTCTrajectoryFile(item)
-    output = aux_get(tmp_item)
+        from . import to_mdtraj_XTCTrajectoryFile
+        from ..mdtraj_XTCTrajectoryFile import get_n_structures_from_system as aux_get
+
+        tmp_item = to_mdtraj_XTCTrajectoryFile(item)
+        output = aux_get(tmp_item)
+
+    else:
+
+        output = len(structure_indices)
 
     return output
 
