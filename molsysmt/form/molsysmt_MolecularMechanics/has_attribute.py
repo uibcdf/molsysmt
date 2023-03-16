@@ -11,76 +11,77 @@ def has_attribute(molecular_system, attribute):
     ### MECHANICAL ATTRIBUTES
     ###
 
-    if argument=='formal_charge':
-        if molecular_system.molecular_mechanics.formal_charge is not None:
-            output = True
+    if attribute=='formal_charge':
+        if molecular_system.formal_charge is None:
+            output = False
 
-    elif argument=='partial_charge':
-        if molecular_system.molecular_mechanics.partial_charge is not None:
-            output = True
+    elif attribute=='partial_charge':
+        if molecular_system.partial_charge is None:
+            output = False
 
-    elif argument=='forcefield':
-        if molecular_system.molecular_mechanics.forcefield is not None:
-            output = True
+    elif attribute=='forcefield':
+        if molecular_system.forcefield is None:
+            output = False
 
-    elif argument=='non_bonded_method':
-        if molecular_system.molecular_mechanics.non_bonded_method is not None:
-            output = True
+    elif attribute=='non_bonded_method':
+        if molecular_system.non_bonded_method is None:
+            output = False
 
-    elif argument=='cutoff_distance':
-        if molecular_system.molecular_mechanics.cutoff_distance is not None:
-            output = True
+    elif attribute=='cutoff_distance':
+        if molecular_system.cutoff_distance is None:
+            output = False
 
-    elif argument=='switch_distance':
-        if molecular_system.molecular_mechanics.switch_distance is not None:
-            output = True
+    elif attribute=='switch_distance':
+        if molecular_system.switch_distance is None:
+            output = False
 
-    elif argument=='dispersion_correction':
-        if molecular_system.molecular_mechanics.dispersion_correction is not None:
-            output = True
+    elif attribute=='dispersion_correction':
+        if molecular_system.dispersion_correction is None:
+            output = False
 
-    elif argument=='ewald_error_tolerance':
-        if molecular_system.molecular_mechanics.ewald_error_tolerance is not None:
-            output = True
+    elif attribute=='ewald_error_tolerance':
+        if molecular_system.ewald_error_tolerance is None:
+            output = False
 
-    elif argument=='hydrogen_mass':
-        if molecular_system.molecular_mechanics.hydrogen_mass is not None:
-            output = True
+    elif attribute=='hydrogen_mass':
+        if molecular_system.hydrogen_mass is None:
+            output = False
 
-    elif argument=='constraints':
-        if molecular_system.molecular_mechanics.constraints is not None:
-            output = True
+    elif attribute=='constraints':
+        if molecular_system.constraints is None:
+            output = False
 
-    elif argument=='flexible_constraints':
-        if molecular_system.molecular_mechanics.flexible_constraints is not None:
-            output = True
+    elif attribute=='flexible_constraints':
+        if molecular_system.flexible_constraints is None:
+            output = False
 
-    elif argument=='water_model':
-        if molecular_system.molecular_mechanics.water_model is not None:
-            output = True
+    elif attribute=='water_model':
+        if molecular_system.water_model is None:
+            output = False
 
-    elif argument=='rigid_water':
-        if molecular_system.molecular_mechanics.rigid_water is not None:
-            output = True
+    elif attribute=='rigid_water':
+        if molecular_system.rigid_water is None:
+            output = False
 
-    elif argument=='implicit_solvent':
-        if molecular_system.molecular_mechanics.implicit_solvent is not None:
-            output = True
+    elif attribute=='implicit_solvent':
+        if molecular_system.implicit_solvent is None:
+            output = False
 
-    elif argument=='solute_dielectric':
-        if molecular_system.molecular_mechanics.solute_dielectric is not None:
-            output = True
+    elif attribute=='solute_dielectric':
+        if molecular_system.solute_dielectric is None:
+            output = False
 
-    elif argument=='solvent_dielectric':
-        if molecular_system.molecular_mechanics.solvent_dielectric is not None:
-            output = True
+    elif attribute=='solvent_dielectric':
+        if molecular_system.solvent_dielectric is None:
+            output = False
 
-    elif argument=='salt_concentration':
-        if molecular_system.molecular_mechanics.salt_concentration is not None:
-            output = True
+    elif attribute=='salt_concentration':
+        if molecular_system.salt_concentration is None:
+            output = False
 
-    elif argument=='kappa':
-        if molecular_system.molecular_mechanics.kappa is not None:
-            output = True
+    elif attribute=='kappa':
+        if molecular_system.kappa is None:
+            output = False
 
     return output
+

@@ -44,6 +44,9 @@ class Structures:
         self.coordinates = coordinates
         self.velocities = velocities
         self.box = box
+        self.occupancy = None
+        self.alternate_location = None
+        self.b_factor = None
 
         if coordinates is not None:
             self.n_structures = coordinates.shape[0]

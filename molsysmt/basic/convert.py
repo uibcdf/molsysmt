@@ -205,9 +205,15 @@ def convert(molecular_system,
         if tmp_item is None:
 
             to_attributes = set([ii for ii,jj in _dict_modules[to_form].attributes.items() if jj])
+
             from_attributes = []
-            for from_form in from_forms:
-                from_attributes.append(set([ii for ii,jj in _dict_modules[from_form].attributes.items() if jj]))
+            for from_form, from_item in zip(from_forms, molecular_system):
+                aux_set = set()
+                for ii,jj in _dict_modules[from_form].attributes.items():
+                    if jj:
+                        if _dict_modules[from_form].has_attribute(from_item, ii):
+                            aux_set.add(ii)
+                from_attributes.append(aux_set)
 
             attributes_to_be_discarded = []
             for attribute in to_attributes:
@@ -249,9 +255,10 @@ def convert(molecular_system,
                             input_arguments.discard(ii)
 
                         attributes_in_other_forms = {}
+
                         for aux_attribute in (all_from_attributes - aux_set) & to_attributes:
-                            for ii in range(n_items-1,0,-1):
-                                if has_attribute(molecular_system[ii], aux_attribute):
+                            for ii in range(n_items-1,-1,-1):
+                                if aux_attribute in from_attributes[ii]:
                                     attributes_in_other_forms[aux_attribute]=[molecular_system[ii], from_forms[ii]]
                                     break
 
@@ -288,6 +295,11 @@ def convert(molecular_system,
                                 'status_input_attributes': status_input_attributes,
                                 'status_set_attributes': status_set_attributes,
                                 }
+
+            for ii in straight_conversions:
+                print(ii, straight_conversions[ii])
+                print('----')
+            print('@@@@')
 
             for basic_form, aux_dict in straight_conversions.items():
                 if aux_dict['status_input_attributes'] and aux_dict['status_set_attributes']:

@@ -18,6 +18,7 @@ from .iterators import StructuresIterator, TopologyIterator
 from .to_molsysmt_Topology import to_molsysmt_Topology
 from .to_molsysmt_Structures import to_molsysmt_Structures
 from .to_molsysmt_MolecularMechanics import to_molsysmt_MolecularMechanics
+from .to_molsysmt_MolecularMechanicsDict import to_molsysmt_MolecularMechanicsDict
 from .to_mdtraj_Topology import to_mdtraj_Topology
 from .to_mdtraj_Trajectory import to_mdtraj_Trajectory
 from .to_openmm_Context import to_openmm_Context
@@ -42,6 +43,7 @@ _convert_to={
         'molsysmt.Topology': to_molsysmt_Topology,
         'molsysmt.Structures': to_molsysmt_Structures,
         'molsysmt.MolecularMechanics': to_molsysmt_MolecularMechanics,
+        'molsysmt.MolecularMechanicsDict': to_molsysmt_MolecularMechanicsDict,
         'mdtraj.Topology': to_mdtraj_Topology,
         'mdtraj.Trajectory': to_mdtraj_Trajectory,
         'openmm.Context': to_openmm_Context,
@@ -61,3 +63,4 @@ _convert_to={
         'file:msmpk': to_file_msmpk,
         'file:pdb': to_file_pdb,
         }
+
