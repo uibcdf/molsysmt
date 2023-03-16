@@ -28,6 +28,8 @@ def digest_molecule_id(molecule_id, caller=None):
     if caller=='molsysmt.basic.get.get':
         if isinstance(molecule_id, bool):
             return molecule_id
+    elif caller.startswith('molsysmt.form.') and caller.count('.to_')==2:
+        return molecule_id
 
     raise ArgumentError('molecule_id', value=molecule_id, caller=caller, message=None)
 

@@ -28,6 +28,9 @@ def digest_atom_id(atom_id, caller=None):
     if caller=='molsysmt.basic.get.get':
         if isinstance(atom_id, bool):
             return atom_id
+    elif caller.startswith('molsysmt.form.') and caller.count('.to_')==2:
+        return atom_id
+
 
     raise ArgumentError('atom_id', value=atom_id, caller=caller, message=None)
 

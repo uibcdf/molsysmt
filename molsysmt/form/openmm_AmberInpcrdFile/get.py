@@ -262,12 +262,12 @@ def get_box_from_system(item, structure_indices='all'):
 @digest(form=form)
 def get_time_from_system(item, structure_indices='all'):
 
-    raise NotWithThisFormError()
+    raise None
 
 @digest(form=form)
 def get_structure_id_from_system(item, structure_indices='all'):
 
-    raise NotWithThisFormError()
+    return None
 
 
 #######################################################################################

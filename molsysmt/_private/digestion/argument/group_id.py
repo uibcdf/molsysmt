@@ -34,6 +34,8 @@ def digest_group_id(group_id, caller=None):
     if caller.endswith(functions_with_boolean):
         if isinstance(group_id, bool):
             return group_id
+    elif caller.startswith('molsysmt.form.') and caller.count('.to_')==2:
+        return group_id
 
     raise ArgumentError('group_id', value=group_id, caller=caller, message=None)
 

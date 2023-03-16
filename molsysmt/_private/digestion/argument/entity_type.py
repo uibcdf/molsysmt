@@ -28,6 +28,8 @@ def digest_entity_type(entity_type, caller=None):
     if caller=='molsysmt.basic.get.get':
         if isinstance(entity_type, bool):
             return entity_type
+    elif caller.startswith('molsysmt.form.') and caller.count('.to_')==2:
+        return entity_type
 
     raise ArgumentError('entity_type', value=entity_type, caller=caller, message=None)
 

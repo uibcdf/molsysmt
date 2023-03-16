@@ -1993,6 +1993,13 @@ def get_n_oligosaccharides_from_system(item):
     return serie_indices.unique().shape[0]
 
 @digest(form=form)
+def get_n_saccharides_from_system(item):
+
+    mask=(item.atoms_dataframe['molecule_type']=='saccharide').to_numpy()
+    serie_indices=item.atoms_dataframe['molecule_index'][mask]
+    return serie_indices.unique().shape[0]
+
+@digest(form=form)
 def get_n_structures_from_system(item, structure_indices='all'):
 
     return None

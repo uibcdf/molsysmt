@@ -34,6 +34,8 @@ def digest_atom_name(atom_name, caller=None):
     if caller.endswith(functions_with_boolean):
         if isinstance(atom_name, bool):
             return atom_name
+    elif caller.startswith('molsysmt.form.') and caller.count('.to_')==2:
+        return atom_name
     elif isinstance(atom_name, str):
         return atom_name
 

@@ -28,6 +28,8 @@ def digest_component_name(component_name, caller=None):
     if caller=='molsysmt.basic.get.get':
         if isinstance(component_name, bool):
             return component_name
+    elif caller.startswith('molsysmt.form.') and caller.count('.to_')==2:
+        return component_name
     elif isinstance(component_name, str):
         return component_name
 
