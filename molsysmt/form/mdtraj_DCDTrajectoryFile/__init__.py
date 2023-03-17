@@ -19,6 +19,7 @@ from .to_molsysmt_MolSys import to_molsysmt_MolSys
 from .to_molsysmt_Structures import to_molsysmt_Structures
 
 _convert_to={
+        'mdtraj.DCDTrajectoryFile': extract,
         'molsysmt.MolSys': to_molsysmt_MolSys,
         'molsysmt.Structures': to_molsysmt_Structures,
         }

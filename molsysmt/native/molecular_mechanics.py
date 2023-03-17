@@ -67,8 +67,6 @@ class MolecularMechanics():
                 'flexible_constraints' : self.flexible_constraints,
                 'water_model' : self.water_model,
                 'rigid_water' : self.rigid_water,
-                'residue_templates' : self.residue_templates,
-                'ignore_external_bonds' : self.ignore_external_bonds,
                 'implicit_solvent' : self.implicit_solvent,
                 'solute_dielectric' : self.solute_dielectric,
                 'solvent_dielectric' : self.solvent_dielectric,
@@ -98,14 +96,12 @@ class MolecularMechanics():
 
         tmp_molecular_mechanics.water_model = self.water_model
         tmp_molecular_mechanics.rigid_water = self.rigid_water
-        #tmp_molecular_mechanics.residue_templates = self.residue_templates
-        #tmp_molecular_mechanics.ignore_external_bonds = self.ignore_external_bonds
 
         tmp_molecular_mechanics.implicit_solvent = self.implicit_solvent
         tmp_molecular_mechanics.solute_dielectric = self.solute_dielectric
         tmp_molecular_mechanics.solvent_dielectric = self.solvent_dielectric
         tmp_molecular_mechanics.salt_concentration = self.salt_concentration
-        tmp_molecular_mechanics.implicit_solvent_kappa = self.implicit_solvent_kappa
+        tmp_molecular_mechanics.kappa = self.kappa
 
         return tmp_molecular_mechanics
 
@@ -220,9 +216,6 @@ class MolecularMechanics():
 
         else:
             parameters['implicitSolvent']=None
-
-        #parameters['useDispersionCorrection']=self.dispersion_correction
-        #parameters['ewaldErrorTolerance']=self.ewald_error_tolerance
 
         return parameters
 

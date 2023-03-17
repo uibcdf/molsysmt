@@ -41,6 +41,7 @@ from .to_pytraj_Topology import to_pytraj_Topology
 from .to_pytraj_Trajectory import to_pytraj_Trajectory
 
 _convert_to={
+        'file:pdb': extract,
         'string:pdb_text': to_string_pdb_text,
         'file:mol2': to_file_mol2,
         'MDAnalysis.Topology': to_MDAnalysis_Topology,

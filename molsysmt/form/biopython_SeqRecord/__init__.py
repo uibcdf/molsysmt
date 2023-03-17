@@ -13,4 +13,6 @@ from .get import *
 from .set import *
 from .iterators import TopologyIterator
 
-_convert_to={}
+_convert_to={
+        'biopython.SeqRecord': extract,
+        }

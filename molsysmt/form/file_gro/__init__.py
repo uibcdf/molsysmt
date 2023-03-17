@@ -28,6 +28,7 @@ from .to_openmm_GromacsGroFile import to_openmm_GromacsGroFile
 from .to_nglview_NGLWidget import to_nglview_NGLWidget
 
 _convert_to={
+        'file:gro': extract,
         'mdtraj.Trajectory': to_mdtraj_Trajectory,
         'mdtraj.Topology': to_mdtraj_Topology,
         'mdtraj.GroTrajectoryFile': to_mdtraj_GroTrajectoryFile,

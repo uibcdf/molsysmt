@@ -234,34 +234,34 @@ def get_velocities_from_atom(item, indices='all', structure_indices='all'):
     return aux_get(item.structures, indices=indices, structure_indices=structure_indices)
 
 @digest(form=form)
-def get_occupancy_from_atom (item, indices='all'):
+def get_occupancy_from_atom (item, indices='all', structure_indices='all'):
 
-    from ..molsysmt_Topology import get_occupancy_from_atom as aux_get
-    return aux_get(item.topology, indices=indices)
-
-@digest(form=form)
-def get_alternate_location_from_atom (item, indices='all'):
-
-    from ..molsysmt_Topology import get_alternate_location_from_atom as aux_get
-    return aux_get(item.topology, indices=indices)
+    from ..molsysmt_Structures import get_occupancy_from_atom as aux_get
+    return aux_get(item.structures, indices=indices, structure_indices=structure_indices)
 
 @digest(form=form)
-def get_b_factor_from_atom (item, indices='all'):
+def get_alternate_location_from_atom (item, indices='all', structure_indices='all'):
 
-    from ..molsysmt_Topology import get_b_factor_from_atom as aux_get
-    return aux_get(item.topology, indices=indices)
+    from ..molsysmt_Structures import get_alternate_location_from_atom as aux_get
+    return aux_get(item.structures, indices=indices, structure_indices=structure_indices)
+
+@digest(form=form)
+def get_b_factor_from_atom (item, indices='all', structure_indices='all'):
+
+    from ..molsysmt_Structures import get_b_factor_from_atom as aux_get
+    return aux_get(item.structures, indices=indices, structure_indices=structure_indices)
 
 @digest(form=form)
 def get_formal_charge_from_atom (item, indices='all'):
 
-    from ..molsysmt_Topology import get_formal_charge_from_atom as aux_get
-    return aux_get(item.topology, indices=indices)
+    from ..molsysmt_MolecularMechanics import get_formal_charge_from_atom as aux_get
+    return aux_get(item.molecular_mechanics, indices=indices)
 
 @digest(form=form)
 def get_partial_charge_from_atom (item, indices='all'):
 
-    from ..molsysmt_Topology import get_partial_charge_from_atom as aux_get
-    return aux_get(item.topology, indices=indices)
+    from ..molsysmt_MolecularMechanics import get_partial_charge_from_atom as aux_get
+    return aux_get(item.molecular_mechanics, indices=indices)
 
 
 ## group
@@ -1396,5 +1396,95 @@ def get_n_bonds_from_bond(item, indices='all'):
 def get_forcefield_from_system(item):
 
     from ..molsysmt_MolecularMechanics import get_forcefield_from_system as aux_get
+    return aux_get(item.molecular_mechanics)
+
+@digest(form=form)
+def get_non_bonded_method_from_system(item):
+
+    from ..molsysmt_MolecularMechanics import get_non_bonded_method_from_system as aux_get
+    return aux_get(item.molecular_mechanics)
+
+@digest(form=form)
+def get_cutoff_distance_from_system(item):
+
+    from ..molsysmt_MolecularMechanics import get_cutoff_distance_from_system as aux_get
+    return aux_get(item.molecular_mechanics)
+
+@digest(form=form)
+def get_switch_distance_from_system(item):
+
+    from ..molsysmt_MolecularMechanics import get_switch_distance_from_system as aux_get
+    return aux_get(item.molecular_mechanics)
+
+@digest(form=form)
+def get_dispersion_correction_from_system(item):
+
+    from ..molsysmt_MolecularMechanics import get_dispersion_correction_from_system as aux_get
+    return aux_get(item.molecular_mechanics)
+
+@digest(form=form)
+def get_ewald_error_tolerance_from_system(item):
+
+    from ..molsysmt_MolecularMechanics import get_ewald_error_tolerance_from_system as aux_get
+    return aux_get(item.molecular_mechanics)
+
+@digest(form=form)
+def get_hydrogen_mass_from_system(item):
+
+    from ..molsysmt_MolecularMechanics import get_hydrogen_mass_from_system as aux_get
+    return aux_get(item.molecular_mechanics)
+
+@digest(form=form)
+def get_constraints_from_system(item):
+
+    from ..molsysmt_MolecularMechanics import get_constraints_from_system as aux_get
+    return aux_get(item.molecular_mechanics)
+
+@digest(form=form)
+def get_flexible_constraints_from_system(item):
+
+    from ..molsysmt_MolecularMechanics import get_flexible_constraints_from_system as aux_get
+    return aux_get(item.molecular_mechanics)
+
+@digest(form=form)
+def get_water_model_from_system(item):
+
+    from ..molsysmt_MolecularMechanics import get_water_model_from_system as aux_get
+    return aux_get(item.molecular_mechanics)
+
+@digest(form=form)
+def get_rigid_water_from_system(item):
+
+    from ..molsysmt_MolecularMechanics import get_rigid_water_from_system as aux_get
+    return aux_get(item.molecular_mechanics)
+
+@digest(form=form)
+def get_implicit_solvent_from_system(item):
+
+    from ..molsysmt_MolecularMechanics import get_implicit_solvent_from_system as aux_get
+    return aux_get(item.molecular_mechanics)
+
+@digest(form=form)
+def get_solute_dielectric_from_system(item):
+
+    from ..molsysmt_MolecularMechanics import get_solute_dielectric_from_system as aux_get
+    return aux_get(item.molecular_mechanics)
+
+@digest(form=form)
+def get_solvent_dielectric_from_system(item):
+
+    from ..molsysmt_MolecularMechanics import get_solvent_dielectric_from_system as aux_get
+    return aux_get(item.molecular_mechanics)
+
+@digest(form=form)
+def get_salt_concentration_from_system(item):
+
+    from ..molsysmt_MolecularMechanics import get_salt_concentration_from_system as aux_get
+    return aux_get(item.molecular_mechanics)
+
+@digest(form=form)
+def get_kappa_from_system(item):
+
+    from ..molsysmt_MolecularMechanics import get_kappa_from_system as aux_get
     return aux_get(item.molecular_mechanics)
 

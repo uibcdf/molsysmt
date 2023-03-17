@@ -20,6 +20,7 @@ from .to_openmm_System import to_openmm_System
 from .to_openmm_Topology import to_openmm_Topology
 
 _convert_to={
+        'openmm.AmberPrmtopFile': extract,
         'molsysmt.Topology': to_molsysmt_Topology,
         'openmm.System': to_openmm_System,
         'openmm.Topology': to_openmm_Topology,

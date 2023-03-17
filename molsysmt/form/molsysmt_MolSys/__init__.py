@@ -40,6 +40,7 @@ from .to_file_msmpk import to_file_msmpk
 from .to_file_pdb import to_file_pdb
 
 _convert_to={
+        'molsysmt.MolSys': extract,
         'molsysmt.Topology': to_molsysmt_Topology,
         'molsysmt.Structures': to_molsysmt_Structures,
         'molsysmt.MolecularMechanics': to_molsysmt_MolecularMechanics,

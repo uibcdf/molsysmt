@@ -22,6 +22,7 @@ from .to_molsysmt_Structures import to_molsysmt_Structures
 from .to_molsysmt_MolSys import to_molsysmt_MolSys
 
 _convert_to={
+        'mdtraj.HDF5TrajectoryFile': extract,
         'mdtraj.Topology': to_mdtraj_Topology,
         'openmm.Topology': to_openmm_Topology,
         'molsysmt.Topology': to_molsysmt_Topology,

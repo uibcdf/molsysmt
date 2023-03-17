@@ -26,6 +26,7 @@ from .to_openmm_Modeller import to_openmm_Modeller
 from .to_openmm_Topology import to_openmm_Topology
 
 _convert_to={
+        'file:prmtop': extract,
         'file:pdb': to_file_pdb,
         'mdtraj.Topology': to_mdtraj_Topology,
         'molsysmt.MolSys': to_molsysmt_MolSys,

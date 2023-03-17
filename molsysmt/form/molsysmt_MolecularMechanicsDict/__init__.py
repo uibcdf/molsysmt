@@ -18,5 +18,6 @@ from .set import *
 from .to_molsysmt_MolecularMechanics import to_molsysmt_MolecularMechanics
 
 _convert_to={
+        'molsysmt.MolecularMechanicsDict': extract,
         'molsysmt.MolecularMechanics': to_molsysmt_MolecularMechanics,
         }

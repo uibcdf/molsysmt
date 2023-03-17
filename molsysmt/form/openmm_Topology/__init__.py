@@ -31,6 +31,7 @@ from .to_string_aminoacids1 import to_string_aminoacids1
 from .to_string_aminoacids3 import to_string_aminoacids3
 
 _convert_to={
+        'openmm.Topology': extract,
         'string:pdb_text': to_string_pdb_text,
         'file:pdb': to_file_pdb,
         'molsysmt.MolSys': to_molsysmt_MolSys,

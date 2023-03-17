@@ -26,6 +26,7 @@ from .to_mdtraj_Trajectory import to_mdtraj_Trajectory
 from .to_file_pdb import to_file_pdb
 
 _convert_to={
+        'file:h5': extract,
         'mdtraj.HDF5TrajectoryFile': to_mdtraj_HDF5TrajectoryFile,
         'molsysmt.MolSys': to_molsysmt_MolSys,
         'molsysmt.Topology': to_molsysmt_Topology,

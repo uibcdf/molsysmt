@@ -24,6 +24,7 @@ from .to_molsysmt_Topology import to_molsysmt_Topology
 from .to_nglview_NGLWidget import to_nglview_NGLWidget
 
 _convert_to={
+        'openmm.PDBFile': extract,
         'mdtraj.Topology': to_mdtraj_Topology,
         'molsysmt.MolSys': to_molsysmt_MolSys,
         'molsysmt.Structures': to_molsysmt_Structures,

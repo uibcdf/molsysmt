@@ -19,6 +19,7 @@ from .to_openmm_System import to_openmm_System
 from .to_molsysmt_Structures import to_molsysmt_Structures
 
 _convert_to={
+        'openmm.Context': extract,
         'openmm.System': to_openmm_System,
         'molsysmt.Structures': to_molsysmt_Structures,
         }

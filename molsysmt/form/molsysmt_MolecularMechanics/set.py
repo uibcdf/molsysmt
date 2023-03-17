@@ -11,6 +11,30 @@ import numpy as np
 
 # Mechanical
 
+@digest(form='molsysmt.MolecularMechanics')
+def set_formal_charge_to_atom(item, atom_indices='all', value=None):
+
+    if is_all(atom_indices):
+
+        item.formal_charge = value
+
+    else:
+        item.formal_charge[atom_indices] = value
+
+    pass
+
+@digest(form='molsysmt.MolecularMechanics')
+def set_partial_charge_to_atom(item, atom_indices='all', value=None):
+
+    if is_all(atom_indices):
+
+        item.partial_charge = value
+
+    else:
+        item.partial_charge[atom_indices] = value
+
+    pass
+
 ###
 ### System
 ###
@@ -55,79 +79,80 @@ def set_dispersion_correction_to_system(item, value=None):
 @digest(form='molsysmt.MolecularMechanics')
 def set_ewald_error_tolerance_to_system(item, value=None):
 
-    from ..molsysmt_MolecularMechanics import set_ewald_error_tolerance_to_system as molsysmt_MolecularMechanics_set_ewald_error_tolerance_to_system
+    item.ewald_error_tolerance = value
 
-    return molsysmt_MolecularMechanics_set_ewald_error_tolerance_to_system(item.molecular_mechanics, value=value)
+    pass
 
 @digest(form='molsysmt.MolecularMechanics')
 def set_hydrogen_mass_to_system(item, value=None):
 
-    from ..molsysmt_MolecularMechanics import set_hydrogen_mass_to_system as molsysmt_MolecularMechanics_set_hydrogen_mass_to_system
+    item.hydrogen_mass = value
 
-    return molsysmt_MolecularMechanics_set_hydrogen_mass_to_system(item.molecular_mechanics, value=value)
+    pass
+
 
 @digest(form='molsysmt.MolecularMechanics')
 def set_constraints_to_system(item, value=None):
 
-    from ..molsysmt_MolecularMechanics import set_constraints_to_system as molsysmt_MolecularMechanics_set_constraints_to_system
+    item.constraints = value
 
-    return molsysmt_MolecularMechanics_set_constraints_to_system(item.molecular_mechanics, value=value)
+    pass
 
 @digest(form='molsysmt.MolecularMechanics')
 def set_flexible_constraints_to_system(item, value=None):
 
-    from ..molsysmt_MolecularMechanics import set_flexible_constraints_to_system as molsysmt_MolecularMechanics_set_flexible_constraints_to_system
+    item.flexible_constraints = value
 
-    return molsysmt_MolecularMechanics_set_flexible_constraints_to_system(item.molecular_mechanics, value=value)
+    pass
 
 @digest(form='molsysmt.MolecularMechanics')
 def set_water_model_to_system(item, value=None):
 
-    from ..molsysmt_MolecularMechanics import set_water_model_to_system as molsysmt_MolecularMechanics_set_water_model_to_system
+    item.water_model = value
 
-    return molsysmt_MolecularMechanics_set_water_model_to_system(item.molecular_mechanics, value=value)
+    pass
 
 @digest(form='molsysmt.MolecularMechanics')
 def set_rigid_water_to_system(item, value=None):
 
-    from ..molsysmt_MolecularMechanics import set_rigid_water_to_system as molsysmt_MolecularMechanics_set_rigid_water_to_system
+    item.rigid_water = value
 
-    return molsysmt_MolecularMechanics_set_rigid_water_to_system(item.molecular_mechanics, value=value)
+    pass
 
 @digest(form='molsysmt.MolecularMechanics')
 def set_implicit_solvent_to_system(item, value=None):
 
-    from ..molsysmt_MolecularMechanics import set_implicit_solvent_to_system as molsysmt_MolecularMechanics_set_implicit_solvent_to_system
+    item.implicit_solvent = value
 
-    return molsysmt_MolecularMechanics_set_implicit_solvent_to_system(item.molecular_mechanics, value=value)
+    pass
 
 @digest(form='molsysmt.MolecularMechanics')
 def set_solute_dielectric_to_system(item, value=None):
 
-    from ..molsysmt_MolecularMechanics import set_solute_dielectric_to_system as molsysmt_MolecularMechanics_set_solute_dielectric_to_system
+    item.solute_dielectric = value
 
-    return molsysmt_MolecularMechanics_set_solute_dielectric_to_system(item.molecular_mechanics, value=value)
+    pass
 
 @digest(form='molsysmt.MolecularMechanics')
 def set_solvent_dielectric_to_system(item, value=None):
 
-    from ..molsysmt_MolecularMechanics import set_solvent_dielectric_to_system as molsysmt_MolecularMechanics_set_solvent_dielectric_to_system
+    item.solvent_dielectric = value
 
-    return molsysmt_MolecularMechanics_set_solvent_dielectric_to_system(item.molecular_mechanics, value=value)
+    pass
 
 @digest(form='molsysmt.MolecularMechanics')
 def set_salt_concentration_to_system(item, value=None):
 
-    from ..molsysmt_MolecularMechanics import set_salt_concentration_to_system as molsysmt_MolecularMechanics_set_salt_concentration_to_system
+    item.salt_concentration = value
 
-    return molsysmt_MolecularMechanics_set_salt_concentration_to_system(item.molecular_mechanics, value=value)
+    pass
 
 @digest(form='molsysmt.MolecularMechanics')
 def set_kappa_to_system(item, value=None):
 
-    from ..molsysmt_MolecularMechanics import set_kappa_to_system as molsysmt_MolecularMechanics_set_kappa_to_system
+    item.kappa = value
 
-    return molsysmt_MolecularMechanics_set_kappa_to_system(item.molecular_mechanics, value=value)
+    pass
 
 
 

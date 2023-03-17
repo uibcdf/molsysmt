@@ -183,18 +183,25 @@ class Structures:
             else:
                 box = deepcopy(self.box)
 
-            if not is_all(atom_indices):
-                coordinates = self.coordinates[:, atom_indices, :]
+            if self.coordinates is not None:
+                if not is_all(atom_indices):
+                    coordinates = self.coordinates[:, atom_indices, :]
+                else:
+                    coordinates = deepcopy(self.coordinates)
+                if not is_all(structure_indices):
+                    coordinates = coordinates[structure_indices, :, :]
             else:
-                coordinates = deepcopy(self.coordinates)
+                coordinates = None
 
-            if not is_all(atom_indices):
-                velocities = self.velocities[:, atom_indices, :]
+            if self.velocities is not None:
+                if not is_all(atom_indices):
+                    velocities = self.velocities[:, atom_indices, :]
+                else:
+                    velocities = deepcopy(self.velocities)
+                if not is_all(structure_indices):
+                    velocities = velocities[structure_indices, :, :]
             else:
-                velocities = deepcopy(self.velocities)
-
-            if not is_all(structure_indices):
-                coordinates = coordinates[structure_indices, :, :]
+                velocities = None
 
         return Structures(structure_id=structure_id,
                           time=time,

@@ -18,5 +18,6 @@ from .iterators import StructuresIterator
 from .to_molsysmt_StructuresDict import to_molsysmt_StructuresDict
 
 _convert_to={
+        'file:trjpk': extract,
         'molsysmt.StructuresDict': to_molsysmt_StructuresDict,
         }

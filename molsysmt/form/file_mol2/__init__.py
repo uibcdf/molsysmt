@@ -27,6 +27,7 @@ from .to_parmed_Structure import to_parmed_Structure
 from .to_nglview_NGLWidget import to_nglview_NGLWidget
 
 _convert_to={
+        'file:mol2': extract,
         'file:pdb': to_file_pdb,
         'mdtraj.Trajectory': to_mdtraj_Trajectory,
         'mdtraj.Topology': to_mdtraj_Topology,

@@ -21,6 +21,7 @@ from .to_molsysmt_Structures import to_molsysmt_Structures
 from .to_openmm_CharmmCrdFile import to_openmm_CharmmCrdFile
 
 _convert_to={
+        'file:crd': extract,
         'molsysmt.MolSys': to_molsysmt_MolSys,
         'molsysmt.Topology': to_molsysmt_Topology,
         'molsysmt.Structures': to_molsysmt_Structures,

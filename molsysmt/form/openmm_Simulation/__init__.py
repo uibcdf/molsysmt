@@ -25,6 +25,7 @@ from .to_openmm_Modeller import to_openmm_Modeller
 from .to_pdbfixer_PDBFixer import to_pdbfixer_PDBFixer
 
 _convert_to={
+        'openmm.Simulation': extract,
         'file:pdb': to_file_pdb,
         'molsysmt.Topology': to_molsysmt_Topology,
         'openmm.Context': to_openmm_Context,

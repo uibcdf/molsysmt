@@ -22,6 +22,7 @@ from .to_molsysmt_Structures import to_molsysmt_Structures
 from .to_molsysmt_MolSys import to_molsysmt_MolSys
 
 _convert_to={
+        'openmm.GromacsGroFile': extract,
         'openmm.Topology': to_openmm_Topology,
         'openmm.Modeller': to_openmm_Modeller,
         'molsysmt.Topology': to_molsysmt_Topology,

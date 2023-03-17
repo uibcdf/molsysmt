@@ -22,6 +22,7 @@ from .to_pytraj_Topology import to_pytraj_Topology
 from .to_nglview_NGLWidget import to_nglview_NGLWidget
 
 _convert_to={
+        'pytraj.Trajectory': extract,
         'molsysmt.MolSys': to_molsysmt_MolSys,
         'molsysmt.Topology': to_molsysmt_Topology,
         'molsysmt.Structures': to_molsysmt_Structures,

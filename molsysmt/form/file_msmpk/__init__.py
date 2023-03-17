@@ -21,6 +21,7 @@ from .to_molsysmt_Structures import to_molsysmt_Structures
 from .to_nglview_NGLWidget import to_nglview_NGLWidget
 
 _convert_to={
+        'file:msmpk': extract,
         'molsysmt.MolSys': to_molsysmt_MolSys,
         'molsysmt.Topology': to_molsysmt_Topology,
         'molsysmt.Structures': to_molsysmt_Structures,

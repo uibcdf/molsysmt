@@ -29,6 +29,7 @@ from .to_string_aminoacids3 import to_string_aminoacids3
 from .to_string_pdb_text import to_string_pdb_text
 
 _convert_to={
+        'file:mmtf': extract,
         'file:pdb': to_file_pdb,
         'mmtf.MMTFDecoder': to_mmtf_MMTFDecoder,
         'molsysmt.MolSys': to_molsysmt_MolSys,

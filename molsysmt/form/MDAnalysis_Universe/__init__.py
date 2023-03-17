@@ -23,6 +23,7 @@ from .to_molsysmt_Topology import to_molsysmt_Topology
 from .to_molsysmt_Structures import to_molsysmt_Structures
 
 _convert_to={
+        'MDAnalysis.Universe': extract,
         'mdtraj.Trajectory': to_mdtraj_Trajectory,
         'nglview.NGLWidget': to_nglview_NGLWidget,
         'file:pdb': to_file_pdb,

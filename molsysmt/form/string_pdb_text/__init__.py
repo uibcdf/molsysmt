@@ -31,6 +31,7 @@ from .to_pdbfixer_PDBFixer import to_pdbfixer_PDBFixer
 from .to_nglview_NGLWidget import to_nglview_NGLWidget
 
 _convert_to={
+        'string:pdb_text': extract,
         'file:pdb': to_file_pdb,
         'molsysmt.MolSys': to_molsysmt_MolSys,
         'molsysmt.Topology': to_molsysmt_Topology,

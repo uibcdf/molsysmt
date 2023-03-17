@@ -20,6 +20,7 @@ from .to_mdtraj_XTCTrajectoryFile import to_mdtraj_XTCTrajectoryFile
 from .to_molsysmt_Structures import to_molsysmt_Structures
 
 _convert_to={
+        'file:xtc': extract,
         'mdtraj.Trajectory': to_mdtraj_Trajectory,
         'mdtraj.XTCTrajectoryFile': to_mdtraj_XTCTrajectoryFile,
         'molsysmt.Structures': to_molsysmt_Structures,

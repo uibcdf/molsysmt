@@ -34,6 +34,7 @@ from .to_string_aminoacids1 import to_string_aminoacids1
 from .to_string_aminoacids3 import to_string_aminoacids3
 
 _convert_to={
+        'mdtraj.Trajectory': extract,
         'file:pdb': to_file_pdb,
         'file:xtc': to_file_xtc,
         'biopython.Seq': to_biopython_Seq,

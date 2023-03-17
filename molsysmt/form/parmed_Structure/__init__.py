@@ -27,6 +27,7 @@ from .to_molsysmt_Topology import to_molsysmt_Topology
 from .to_molsysmt_Structures import to_molsysmt_Structures
 
 _convert_to={
+        'parmed.Structure': extract,
         'file:mol2': to_file_mol2,
         'file:pdb': to_file_pdb,
         'mdtraj.Topology': to_mdtraj_Topology,

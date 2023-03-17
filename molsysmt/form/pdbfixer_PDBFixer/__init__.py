@@ -30,6 +30,7 @@ from .to_biopython_SeqRecord import to_biopython_SeqRecord
 from .to_nglview_NGLWidget import to_nglview_NGLWidget
 
 _convert_to={
+        'pdbfixer.PDBFixer': extract,
         'file:pdb': to_file_pdb,
         'string:aminoacids1': to_string_aminoacids1,
         'string:aminoacids3': to_string_aminoacids3,

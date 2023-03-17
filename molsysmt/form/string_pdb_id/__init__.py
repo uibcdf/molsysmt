@@ -33,6 +33,7 @@ from .to_string_pdb_text import to_string_pdb_text
 from .to_nglview_NGLWidget import to_nglview_NGLWidget
 
 _convert_to={
+        'string:pdb_id': extract,
         'file:pdb': to_file_pdb,
         'file:mmtf': to_file_mmtf,
         'file:msmpk': to_file_msmpk,

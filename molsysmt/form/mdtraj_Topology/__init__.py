@@ -25,6 +25,7 @@ from .to_molsysmt_Topology import to_molsysmt_Topology
 from .to_openmm_Topology import to_openmm_Topology
 
 _convert_to={
+        'mdtraj.Topology': extract,
         'file:top': to_file_top,
         'string:aminoacids1': to_string_aminoacids1,
         'string:aminoacids3': to_string_aminoacids1,

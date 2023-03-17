@@ -26,6 +26,7 @@ from .to_nglview_NGLWidget import to_nglview_NGLWidget
 from .to_molsysmt_MolSys import to_molsysmt_MolSys
 
 _convert_to={
+        'molsysmt.Topology': extract,
         'string:aminoacids1': to_string_aminoacids1,
         'string:aminoacids3': to_string_aminoacids3,
         'string:pdb_text': to_string_pdb_text,

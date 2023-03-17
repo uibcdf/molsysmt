@@ -20,6 +20,7 @@ from .to_biopython_SeqRecord import to_biopython_SeqRecord
 from .to_biopython_Seq import to_biopython_Seq
 
 _convert_to={
+        'string:aminoacids3': extract,
         'string:aminoacids1': to_string_aminoacids1,
         'biopython.SeqRecord': to_biopython_SeqRecord,
         'biopython.Seq': to_biopython_Seq,

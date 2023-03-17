@@ -19,6 +19,7 @@ from .to_molsysmt_Structures import to_molsysmt_Structures
 from .to_file_trjpk import to_file_trjpk
 
 _convert_to={
+        'molsysmt.StructuresDict': extract,
         'molsysmt.Structures': to_molsysmt_Structures,
         'file:trjpk': to_file_trjpk,
         }

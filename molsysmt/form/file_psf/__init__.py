@@ -21,6 +21,7 @@ from .to_openmm_CharmmPsfFile import to_openmm_CharmmPsfFile
 from .to_openmm_Topology import to_openmm_Topology
 
 _convert_to={
+        'file:psf': extract,
         'molsysmt.MolSys': to_molsysmt_MolSys,
         'molsysmt.Topology': to_molsysmt_Topology,
         'openmm.CharmPsfFile': to_openmm_CharmmPsfFile,

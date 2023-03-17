@@ -15,4 +15,6 @@ from .get import *
 from .set import *
 from .iterators import StructuresIterator, TopologyIterator
 
-_convert_to={}
+_convert_to={
+        'openmm.CharmmCrdFile': extract,
+        }

@@ -18,5 +18,6 @@ from .iterators import StructuresIterator
 from .to_XYZ import to_XYZ 
 
 _convert_to={
+        'file:xyznpy': extract,
         'XYZ': to_XYZ,
         }

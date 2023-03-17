@@ -20,6 +20,7 @@ from .to_file_xyznpy import to_file_xyznpy
 from .to_molsysmt_Structures import to_molsysmt_Structures
 
 _convert_to={
+        'XYZ': extract,
         'file:xyznpy': to_file_xyznpy,
         'molsysmt.Structures': to_molsysmt_Structures,
         }

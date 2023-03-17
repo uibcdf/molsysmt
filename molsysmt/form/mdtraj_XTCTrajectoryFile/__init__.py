@@ -18,5 +18,6 @@ from .iterators import StructuresIterator
 from .to_molsysmt_Structures import to_molsysmt_Structures
 
 _convert_to={
+        'mdtraj.XTCTrajectoryFile': extract,
         'molsysmt.Structures': to_molsysmt_Structures,
         }
