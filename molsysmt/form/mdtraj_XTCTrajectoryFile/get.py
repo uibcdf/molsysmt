@@ -81,9 +81,9 @@ def get_coordinates_from_atom(item, indices='all', structure_indices='all'):
     for start, size in zip(starts_serie_frames, size_serie_frames):
         item.seek(start)
         if is_all(indices):
-            xyz, _, _, _ = item.read(n_structures=size)
+            xyz, _, _, _ = item.read(n_frames=size)
         else:
-            xyz, _, _, _ = item.read(n_structures=size, atom_indices=indices)
+            xyz, _, _, _ = item.read(n_frames=size, atom_indices=indices)
         xyz_list.append(xyz)
 
     xyz = np.concatenate(xyz_list)

@@ -9,6 +9,7 @@ def _convert_one_to_one(molecular_system,
             selection='all',
             structure_indices='all',
             syntax='MolSysMT',
+            verbose=False,
             **kwargs):
 
     from . import select, get_form
@@ -43,7 +44,7 @@ def _convert_one_to_one(molecular_system,
 
         input_arguments = set(inspect.signature(function).parameters)
 
-        if structure_indices in input_arguments:
+        if 'structure_indices' in input_arguments:
             conversion_arguments['structure_indices']=structure_indices
 
         for element, element_index in _element_index.items():
@@ -70,6 +71,7 @@ def _convert_multiple_to_one_with_shortcuts(molecular_system,
             selection='all',
             structure_indices='all',
             syntax='MolSysMT',
+            verbose=False,
             **kwargs):
 
     from . import select, get_form
@@ -107,7 +109,7 @@ def _convert_multiple_to_one_with_shortcuts(molecular_system,
 
         input_arguments = set(inspect.signature(function).parameters)
 
-        if structure_indices in input_arguments:
+        if 'structure_indices' in input_arguments:
             conversion_arguments['structure_indices']=structure_indices
 
         for element, element_index in _element_index.items():
@@ -133,6 +135,7 @@ def _convert_multiple_to_one(molecular_system,
             selection='all',
             structure_indices='all',
             syntax='MolSysMT',
+            verbose=False,
             **kwargs):
 
     from . import select, get_form
@@ -234,18 +237,16 @@ def _convert_multiple_to_one(molecular_system,
                     if _dict_modules[from_form].attributes[aux_attribute]:
                         set_attributes[aux_attribute]=aux_value
                     else:
-                        input_attributes[aux_attribute]=aux_value
+                        if aux_attribute in input_arguments:
+                            input_attributes[aux_attribute]=aux_value
+                        else:
+                            set_attributes[aux_attribute]=aux_value
 
                 for aux_attribute, aux_value in repeated_attributes.items():
                     set_attributes[aux_attribute]=aux_value
 
                 status_input_attributes = True
                 status_set_attributes = True
-
-                for aux_attribute in input_attributes:
-                    if not aux_attribute in input_arguments:
-                        status_input_attributes = False
-                        break
 
                 for aux_attribute in set_attributes:
                     set_to = _attributes[aux_attribute]['set_to']
@@ -263,20 +264,20 @@ def _convert_multiple_to_one(molecular_system,
                         'repeated_attributes': repeated_attributes,
                         'input_attributes': input_attributes,
                         'set_attributes': set_attributes,
-                        'status_input_attributes': status_input_attributes,
                         'status_set_attributes': status_set_attributes,
                         }
 
-    #for ii in straight_conversions:
-    #    print(ii, straight_conversions[ii])
-    #    print('----')
-    #print('@@@@')
+    if verbose:
+        for ii in straight_conversions:
+            print(ii, straight_conversions[ii])
+            print('----')
+        print('@@@@')
 
     basic_index = None
     n_set_attributes = np.inf
     
     for aux_index, aux_dict in straight_conversions.items():
-        if aux_dict['status_input_attributes'] and aux_dict['status_set_attributes']:
+        if aux_dict['status_set_attributes']:
             if n_set_attributes > len(aux_dict['set_attributes']):
                 basic_index = aux_index
                 n_set_attributes = len(aux_dict['set_attributes'])
@@ -292,7 +293,7 @@ def _convert_multiple_to_one(molecular_system,
             get_function = getattr(_dict_modules[aux_form], f'get_{aux_attribute}_from_{get_from}')
             get_arguments = {}
             input_arguments = set(inspect.signature(get_function).parameters)
-            if structure_indices in input_arguments:
+            if 'structure_indices' in input_arguments:
                 get_arguments['structure_indices']=structure_indices
             if 'indices' in input_arguments:
                 if not is_all(selection):
@@ -302,7 +303,7 @@ def _convert_multiple_to_one(molecular_system,
             conversion_arguments[aux_attribute] = get_function(aux_item, **get_arguments)
         conversion_function = _dict_modules[aux_dict['form']]._convert_to[to_form]
         input_arguments = set(inspect.signature(conversion_function).parameters)
-        if structure_indices in input_arguments:
+        if 'structure_indices' in input_arguments:
             conversion_arguments['structure_indices']=structure_indices
         for element, element_index in _element_index.items():
             if _element_indices[element] in input_arguments:
@@ -320,7 +321,7 @@ def _convert_multiple_to_one(molecular_system,
             get_function = getattr(_dict_modules[aux_form], f'get_{aux_attribute}_from_{get_from}')
             get_arguments = {}
             input_arguments = set(inspect.signature(get_function).parameters)
-            if structure_indices in input_arguments:
+            if 'structure_indices' in input_arguments:
                 get_arguments['structure_indices']=structure_indices
             if 'indices' in input_arguments:
                 if not is_all(selection):
@@ -347,6 +348,7 @@ def convert(molecular_system,
             selection='all',
             structure_indices='all',
             syntax='MolSysMT',
+            verbose=False,
             **kwargs):
     """convert(item, to_form='molsysmt.MolSys', selection='all', structure_indices='all', syntax='MolSysMT', **kwargs)
 
@@ -408,7 +410,7 @@ def convert(molecular_system,
         for item_out in to_form:
             output.append(
                 convert(molecular_system, to_form=item_out, selection=selection, structure_indices=structure_indices,
-                        syntax=syntax))
+                        syntax=syntax, verbose=verbose))
         return output
 
     # If one to one
@@ -416,7 +418,7 @@ def convert(molecular_system,
     if not isinstance(from_form, (list, tuple)):
 
         output = _convert_one_to_one(molecular_system, to_form=to_form, selection=selection, structure_indices=structure_indices,
-                syntax=syntax, **kwargs)
+                syntax=syntax, verbose=verbose, **kwargs)
 
 
     # If multiple to one
@@ -426,12 +428,12 @@ def convert(molecular_system,
         # conversions in private shortcuts
         if tuple(sorted(from_form)) in _multiple_conversion_shortcuts:
             output = _convert_multiple_to_one(molecular_system, to_form=to_form, selection=selection, structure_indices=structure_indices,
-                syntax=syntax, **kwargs)
+                syntax=syntax, verbose=verbose, **kwargs)
 
         # general conversion
         if output is None:
             output = _convert_multiple_to_one(molecular_system, to_form=to_form, selection=selection, structure_indices=structure_indices,
-                syntax=syntax, **kwargs)
+                syntax=syntax, verbose=verbose, **kwargs)
 
     # Returning the output
 

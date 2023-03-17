@@ -387,8 +387,8 @@ def get_box_from_system(item, structure_indices='all'):
     from . import to_openmm_AmberPrmtopFile
     from ..openmm_AmberPrmtopFile import get_box_from_system as aux_get
 
-    tmp_item = to_openmm_AmberPrmtopFile(item, structure_indices=structure_indices)
-    output = aux_get(tmp_item)
+    tmp_item = to_openmm_AmberPrmtopFile(item)
+    output = aux_get(tmp_item, structure_indices=structure_indices)
 
     return output
 

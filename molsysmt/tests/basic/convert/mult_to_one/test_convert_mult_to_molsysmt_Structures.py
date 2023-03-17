@@ -1,0 +1,19 @@
+"""
+Unit and regression test for the convert module of the molsysmt package.
+"""
+
+# Import package, test suite, and other packages as needed
+import molsysmt as msm
+import numpy as np
+import os
+
+def test_convert_file_psf_and_file_dcd_to_molsysmt_Structures():
+    psf_file = msm.demo['membrane']['membrane.psf']
+    dcd_file = msm.demo['membrane']['membrane.dcd']
+    molsys = msm.convert([psf_file, dcd_file], to_form='molsysmt.Structures')
+    form = msm.get_form(molsys)
+    n_atoms, n_structures = msm.get(molsys, n_atoms=True, n_structures=True)
+    assert 'molsysmt.Structures'==form
+    assert n_atoms==78974
+    assert n_structures==50
+

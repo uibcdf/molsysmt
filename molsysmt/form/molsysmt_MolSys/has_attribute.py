@@ -20,7 +20,7 @@ def has_attribute(molecular_system, attribute):
         if molecular_system.topology.atoms_dataframe.shape[0]:
             output = True 
 
-    elif attribute in ['bond_index', 'bond_id', 'bond_name', 'bond_type',
+    elif attribute in ['bond_index', 'bond_id', 'bond_type',
             'bond_order', 'bond_atoms']:
         if molecular_system.topology.bonds_dataframe.shape[0]:
             output = True 

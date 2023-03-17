@@ -18,7 +18,7 @@ def where_is_attribute(molecular_system, attribute):
             where_form.append(form_in)
             where_item.append(item)
 
-    if len(where_form)==1:
+    if len(where_form)>=1:
         output_item = where_item[0]
         output_form = where_form[0]
     elif len(where_form)==0:

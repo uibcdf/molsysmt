@@ -44,7 +44,6 @@ attributes['n_saccharides'] = True
 
 attributes['bond_index'] = True
 attributes['bond_id'] = True
-attributes['bond_name'] = True
 attributes['bond_type'] = True
 attributes['bond_order'] = True
 attributes['bonded_atoms'] = True
@@ -61,6 +60,6 @@ attributes['box'] = True
 attributes['box_shape'] = True
 attributes['box_angles'] = True
 attributes['box_lengths'] = True
-attributes['box_volumes'] = True
+attributes['box_volume'] = True
 
 del(_all_attributes)

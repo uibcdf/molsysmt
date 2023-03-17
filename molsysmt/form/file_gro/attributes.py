@@ -8,7 +8,6 @@ attributes['atom_name'] = True
 attributes['atom_type'] = True
 attributes['bond_index'] = True
 attributes['bond_id'] = True
-attributes['bond_name'] = True
 attributes['bond_type'] = True
 attributes['bond_order'] = True
 attributes['group_index'] = True
@@ -19,6 +18,7 @@ attributes['chain_index'] = True
 attributes['chain_id'] = True
 attributes['chain_name'] = True
 attributes['chain_type'] = True
+
 attributes['coordinates'] = True
 attributes['velocities'] = True
 attributes['box'] = True

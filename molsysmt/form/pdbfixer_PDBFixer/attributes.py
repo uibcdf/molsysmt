@@ -46,7 +46,6 @@ attributes['n_saccharides'] = True
 
 attributes['bond_index'] = True
 attributes['bond_id'] = True
-attributes['bond_name'] = True
 attributes['bond_type'] = True
 attributes['bond_order'] = True
 attributes['bonded_atoms'] = True
