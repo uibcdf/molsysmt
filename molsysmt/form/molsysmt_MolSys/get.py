@@ -1379,9 +1379,9 @@ def get_bond_type_from_bond(item, indices='all'):
     return aux_get(item.topology, indices=indices)
 
 @digest(form=form)
-def get_atom_index_from_bond(item, indices='all'):
+def get_bonded_atoms_from_bond(item, indices='all'):
 
-    from ..molsysmt_Topology import get_atom_index_from_bond as aux_get
+    from ..molsysmt_Topology import get_bonded_atoms_from_bond as aux_get
     return aux_get(item.topology, indices=indices)
 
 @digest(form=form)

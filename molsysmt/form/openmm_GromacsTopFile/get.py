@@ -426,10 +426,10 @@ def get_bond_type_from_bond(item, indices='all'):
     return output
 
 @digest(form=form)
-def get_atom_index_from_bond(item, indices='all'):
+def get_bonded_atoms_from_bond(item, indices='all'):
 
     from . import to_openmm_Topology
-    from ..openmm_Topology import get_atom_index_from_bond as aux_get
+    from ..openmm_Topology import get_bonded_atoms_from_bond as aux_get
 
     tmp_item = to_openmm_Topology(item)
     output = aux_get(tmp_item, indices=indices)

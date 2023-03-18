@@ -171,10 +171,10 @@ def compare(molecular_system_A, molecular_system_B, selection_A='all', structure
                 if report_dict['bonded_atoms']:
 
                     atoms_pairs_A, bond_order_A, bond_type_A = get(molecular_system_A, element='bond', selection=selection_A,
-                                                               atom_index=True, bond_order=True, bond_type=True)
+                                                               bonded_atoms=True, bond_order=True, bond_type=True)
 
                     atoms_pairs_B, bond_order_B, bond_type_B = get(molecular_system_B, element='bond', selection=selection_A,
-                                                               atom_index=True, bond_order=True, bond_type=True)
+                                                               bonded_atoms=True, bond_order=True, bond_type=True)
 
                     order_in_A = np.lexsort((atoms_pairs_A[:, 1], atoms_pairs_A[:, 0]))
                     order_in_B = np.lexsort((atoms_pairs_B[:, 1], atoms_pairs_B[:, 0]))

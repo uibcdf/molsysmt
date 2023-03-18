@@ -10,7 +10,7 @@ for filename in files_to_be_purged:
     if os.path.isfile(filename):
         os.remove(filename)
 
-molsys = msm.build.build_peptide(['AceValNme',{'forcefield':'AMBER14', 'implicit_solvent':'OBC1'}])
+molsys = msm.build.build_peptide('AceValNme')
 molsys = msm.convert(molsys, to_form='vacuum.msmpk')
 del(molsys)
 

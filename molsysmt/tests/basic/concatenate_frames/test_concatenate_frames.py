@@ -16,8 +16,7 @@ def test_append_structures_molsysmt_MolSys():
     n_structures_3 = msm.get(molsys_3, element='system', n_structures=True)
     molsys = msm.concatenate_structures([molsys_1, molsys_2, molsys_3])
     n_atoms, n_structures = msm.get(molsys, element='system', n_atoms=True, n_structures=True)
-    check = ('molsysmt.MolSys'==msm.get_form(molsys))
-    check_n_atoms = (n_atoms == n_atoms_1)
-    check_n_structures = (n_structures == n_structures_1 + n_structures_2 + n_structures_3)
-    assert check and check_n_atoms and check_n_structures
+    assert 'molsysmt.MolSys'==msm.get_form(molsys)
+    assert n_atoms == n_atoms_1
+    assert n_structures == n_structures_1 + n_structures_2 + n_structures_3
 

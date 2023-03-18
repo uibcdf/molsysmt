@@ -63,8 +63,8 @@ def set(molecular_system,
     """
 
     from . import select, where_is_attribute
-    from molsysmt.api_forms import dict_set
     from molsysmt.attribute import attributes
+    from molsysmt.form import _dict_modules
 
     value_of_in_attribute = {}
     for key in kwargs.keys():
@@ -97,7 +97,8 @@ def set(molecular_system,
         item, form = where_is_attribute(molecular_system, in_attribute)
 
         in_value = value_of_in_attribute[in_attribute]
-        dict_set[form][element][in_attribute](item, **dict_indices, value=in_value)
+        set_function = getattr(_dict_modules[form], f'set_{in_attribute}_to_{element}')
+        set_function(item, **dict_indices, value=in_value)
 
     pass
 

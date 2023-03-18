@@ -50,7 +50,8 @@ def merge(molecular_systems,
 
     """
 
-    from . import convert, extract, add
+    from . import convert, extract, get_form
+    from molsysmt.form import _dict_modules
 
     n_molecular_systems = len(molecular_systems)
 
@@ -71,8 +72,26 @@ def merge(molecular_systems,
         to_molecular_system = convert(molecular_systems[0], to_form=to_form, selection=selections[0],
                                       structure_indices=structure_indices[0])
 
-    add(to_molecular_system, molecular_systems[1:], selections=selections[1:], structure_indices=structure_indices[1:])
+    to_form = get_form(to_molecular_system)
+    if not isinstance(to_form, (list, tuple)):
+        to_molecular_systems = [to_molecular_system]
+        to_forms = [to_form]
+    else:
+        to_molecular_systems = to_molecular_system
+        to_forms = to_form
 
-    return to_molecular_system
+    for aux_to_item, aux_to_form in zip(to_molecular_systems, to_forms):
 
+        for aux_molecular_system, aux_selection, aux_structure_indices in zip(molecular_systems[1:],
+            selections[1:], structure_indices[1:]):
+
+            aux_item = convert(aux_molecular_system, to_form=aux_to_form, selection=aux_selection,
+                           structure_indices=aux_structure_indices, syntax=syntax)
+
+            _dict_modules[aux_to_form].add(aux_to_item, aux_item)
+        
+    if len(to_forms)==1:
+        return to_molecular_systems[0]
+    else:
+        return to_molecular_systems
 

@@ -462,10 +462,10 @@ def get_bond_type_from_bond(item, indices='all'):
     return output
 
 @digest(form=form)
-def get_atom_index_from_bond(item, indices='all'):
+def get_bonded_atoms_from_bond(item, indices='all'):
 
     from . import to_mdtraj_AmberRestartFile
-    from ..mdtraj_AmberRestartFile import get_atom_index_from_bond as aux_get
+    from ..mdtraj_AmberRestartFile import get_bonded_atoms_from_bond as aux_get
 
     tmp_item = to_mdtraj_AmberRestartFile(item)
     output = aux_get(tmp_item, indices=indices)

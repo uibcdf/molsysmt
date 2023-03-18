@@ -252,10 +252,13 @@ def get_n_structures_from_system(item, structure_indices='all'):
 @digest(form=form)
 def get_box_from_system(item, structure_indices='all'):
 
-    box = item.getBoxVectors(asNumpy=True)
-    unit = puw.get_unit(box[0])
-    box = np.expand_dims(box, axis=0)
-    box = puw.standardize(box*unit)
+    try:
+        box = item.getBoxVectors(asNumpy=True)
+        unit = puw.get_unit(box[0])
+        box = np.expand_dims(box, axis=0)
+        box = puw.standardize(box*unit)
+    except:
+        box = None
 
     return box
 

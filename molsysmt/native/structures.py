@@ -120,8 +120,8 @@ class Structures:
             self.time = self._concatenate_arrays(self.time, time, "time")
             self.box = self._concatenate_arrays(self.box, box, "structure_ids")
 
-            self.coordinates = np.concatenate([self.coordinates, coordinates])
-            self.velocities = np.concatenate([self.velocities, velocities])
+            self.coordinates = self._concatenate_arrays(self.coordinates, coordinates, "coordinates")
+            self.velocities = self._concatenate_arrays(self.velocities, velocities, "velocities")
             self.n_structures += n_structures
 
     def get_box_lengths(self):
@@ -228,13 +228,14 @@ class Structures:
 
         """
 
-        structure_id, time, box = get(item,
-                              element="system",
-                              structure_indices=structure_indices,
-                              structure_id=True,
-                              time=True,
-                              box=True,
-                              )
+
+
+        n_structures = get(item,
+                           element="system",
+                           structure_indices=structure_indices,
+                           n_structures=True,
+                           )
+
         coordinates = get(item,
                           element="atom",
                           selection=selection,
@@ -242,27 +243,31 @@ class Structures:
                           coordinates=True,
                           )
 
-        coordinates = get(item,
+        velocities = get(item,
                           element="atom",
                           selection=selection,
                           structure_indices=structure_indices,
                           velocities=True,
                           )
 
-        if self.n_structures == 0:
-            self.append_structures(structure_id, time, coordinates, box)
+        if self.n_structures != n_structures:
+            raise ValueError('Both items need to have the same n_structures')
+
+        if (self.coordinates is None) or (coordinates is None):
+            self.coordinates = None
         else:
-            if self.n_structures != coordinates.shape[0]:
-                raise ValueError('Both items need to have the same n_structures')
             unit = puw.get_unit(self.coordinates)
             value_coordinates = puw.get_value(coordinates, to_unit=unit)
             value_self_coordinates = puw.get_value(self.coordinates)
             self.coordinates = np.hstack([value_self_coordinates, value_coordinates]) * unit
+
+        if (self.velocities is None) or (velocities is None):
+            self.velocities = None
+        else:
             unit = puw.get_unit(self.velocities)
             value_velocities = puw.get_value(velocities, to_unit=unit)
             value_self_velocities = puw.get_value(self.velocities)
             self.velocities = np.hstack([value_self_velocities, value_velocities]) * unit
-
 
         self.n_atoms = self.coordinates.shape[1]
 

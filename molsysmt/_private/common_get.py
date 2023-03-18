@@ -346,7 +346,7 @@ def get_bonded_atoms_from_atom(item, indices='all'):
     output = None
 
     G = Graph()
-    edges = get_atom_index_from_bond(item)
+    edges = get_bonded_atoms_from_bond(item)
     G.add_edges_from(edges)
 
     if is_all(indices):
@@ -379,7 +379,7 @@ def get_bond_index_from_atom(item, indices='all'):
     output = None
 
     G = Graph()
-    edges = get_atom_index_from_bond(item)
+    edges = get_bonded_atoms_from_bond(item)
     n_bonds = edges.shape[0]
     edge_indices = np.array([{'index':ii} for ii in range(n_bonds)]).reshape([n_bonds,1])
     G.add_edges_from(np.hstack([edges, edge_indices]))
@@ -411,7 +411,7 @@ def get_n_bonds_from_atom(item, indices='all'):
     output = None
 
     G = Graph()
-    edges = get_atom_index_from_bond(item)
+    edges = get_bonded_atoms_from_bond(item)
     G.add_edges_from(edges)
 
     if is_all(indices):

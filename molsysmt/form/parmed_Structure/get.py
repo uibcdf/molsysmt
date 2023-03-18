@@ -221,7 +221,7 @@ def get_bond_type_from_bond(item, indices='all'):
     raise NotImplementedMethodError()
 
 @digest(form=form)
-def get_atom_index_from_bond(item, indices='all'):
+def get_bonded_atoms_from_bond(item, indices='all'):
 
     tmp_bonds = []
     for bond in item.bonds:
