@@ -3198,13 +3198,13 @@ def get_box_volume_from_system(item, structure_indices='all'):
     if structure_indices is None:
         return None
 
-    from molsysmt.pbc import get_box_volume_from_box
+    from molsysmt.pbc import get_volume_from_box
 
     tmp_box = get_box_from_system(item, structure_indices=structure_indices)
     if tmp_box is None:
         output=None
     else:
-        output = get_box_volume_from_box(tmp_box)
+        output = get_volume_from_box(tmp_box)
 
     return output
 

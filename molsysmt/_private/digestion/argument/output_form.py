@@ -28,7 +28,7 @@ def digest_output_form(output_form, caller=None):
         return None
 
     from molsysmt.form import is_file
-    from molsysmt.api_forms import _dict_forms_lowercase
+    from molsysmt.form import _dict_forms_lowercase
 
     if isinstance(output_form, (list, tuple)):
         return [digest_output_form(ii, caller=caller) for ii in output_form]

@@ -38,8 +38,8 @@ def test_view_molsyst_MolSys_with_NGLView_4():
 
     molsys_1 = msm.convert(msm.demo['alanine dipeptide']['vacuum.msmpk'], to_form='molsysmt.MolSys')
     molsys_2 = msm.structure.translate(molsys_1, translation='[0.5, 0.0, 0.0] nm')
-    view = msm.view([molsys_1, molsys_2], viewer='NGLView')
     molsys_merged = msm.merge([molsys_1, molsys_2])
+    view = msm.view(molsys_merged, viewer='NGLView')
     _, comparison = msm.compare(view, molsys_merged, rule='equal', elements=True, coordinates=True, box=True, report=True)
     _ = comparison.pop('atom_ids')
     check_comparison = np.all(list(comparison.values()))
@@ -49,8 +49,8 @@ def test_view_molsyst_MolSys_with_NGLView_5():
 
     molsys_1 = msm.convert(msm.demo['alanine dipeptide']['vacuum.msmpk'], to_form='molsysmt.MolSys')
     molsys_2 = msm.structure.translate(molsys_1, translation='[0.5, 0.0, 0.0] nm')
-    view = msm.view([molsys_1, molsys_2], concatenate_structures=True, viewer='NGLView')
     molsys_concatenated = msm.concatenate_structures([molsys_1, molsys_2])
+    view = msm.view(molsys_concatenated, viewer='NGLView')
     _, comparison = msm.compare(view, molsys_concatenated, rule='equal', elements=True, coordinates=True, box=True, report=True)
     _ = comparison.pop('atom_ids')
     check_comparison = np.all(list(comparison.values()))

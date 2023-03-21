@@ -32,6 +32,8 @@ attributes['n_components'] = True
 attributes['n_molecules'] = True
 attributes['n_chains'] = True
 attributes['n_entities'] = True
+attributes['n_aminoacids'] = True
+attributes['n_nucleotides'] = True
 attributes['n_ions'] = True
 attributes['n_waters'] = True
 attributes['n_small_molecules'] = True
@@ -49,6 +51,9 @@ attributes['bond_id'] = True
 attributes['bond_type'] = True
 attributes['bond_order'] = True
 attributes['bonded_atoms'] = True
+attributes['inner_bond_index'] = True
+attributes['inner_bonded_atoms'] = True
 attributes['n_bonds'] = True
+attributes['n_inner_bonds'] = True
 
 del(_all_attributes)

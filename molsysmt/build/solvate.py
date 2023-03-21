@@ -16,7 +16,7 @@ Methods and wrappers to create and solvate boxes
 @digest()
 def solvate (molecular_system, box_shape="truncated octahedral", clearance='14.0 angstroms',
              anion='Cl-', n_anions="neutralize", cation='Na+', n_cations="neutralize",
-             ionic_strength='0.0 molar', engine="PDBFixer",
+             ionic_strength='0.0 molar', engine="OpenMM",
              to_form= None, verbose=False):
 
     """solvate(item, geometry=None, water=None, engine=None)
@@ -50,22 +50,34 @@ def solvate (molecular_system, box_shape="truncated octahedral", clearance='14.0
     if engine=="OpenMM":
 
         from openmm import Vec3
+        from molsysmt.basic import get
+        from molsysmt.molecular_mechanics import get_forcefield
+        from openmm.app import ForceField
 
         clearance = puw.convert(clearance, to_form='openmm.unit')
         ionic_strength = puw.convert(ionic_strength, to_form='openmm.unit')
 
         modeller = convert(molecular_system, to_form='openmm.Modeller')
-        molecular_mechanics = convert(molecular_system, to_form='molsysmt.MolecularMechanics')
-        parameters = molecular_mechanics.get_openmm_System_parameters()
-        forcefield = molecular_mechanics.to_openmm_ForceField()
+
+
+        water_model = get(molecular_system, water_model=True)
+        forcefield = get_forcefield(molecular_system, engine='OpenMM')
+
+        if water_model is None:
+            water_model = 'TIP3P'
+
+        if forcefield is None:
+            forcefield = get_forcefield({'forcefield':'AMBER14', 'water_model':water_model}, engine='OpenMM')
 
         solvent_model=None
-        if molecular_mechanics.water_model=='SPC':
+        if water_model=='SPC':
             solvent_model='tip3p'
-        elif molecular_mechanics.water_model in ['TIP3P','TIP3PFB','SPCE', 'TIP4PEW','TIP4PFB','TIP5P']:
-            solvent_model=molecular_mechanics.water_model.lower()
+        elif water_model in ['TIP3P','TIP3PFB','SPCE','TIP4PEW','TIP4PFB','TIP5P']:
+            solvent_model=water_model.lower()
         else:
             raise NotImplementedError()
+
+        openmm_forcefield = ForceField(*forcefield)
 
         if box_shape=="truncated octahedral":
 
@@ -73,7 +85,7 @@ def solvate (molecular_system, box_shape="truncated octahedral", clearance='14.0
             vectors = Vec3(1.0, 0, 0), Vec3(1.0/3.0, 2.0*np.sqrt(2.0)/3.0,0.0), Vec3(-1.0/3.0, np.sqrt(2.0)/3.0, np.sqrt(6.0)/3.0)
             box_vectors = [(max_size+clearance)*v for v in vectors]
 
-            modeller.addSolvent(forcefield, model=solvent_model, boxVectors = box_vectors, ionicStrength=ionic_strength,
+            modeller.addSolvent(openmm_forcefield, model=solvent_model, boxVectors = box_vectors, ionicStrength=ionic_strength,
                                 positiveIon=cation, negativeIon=anion)
 
         elif box_shape=="rhombic dodecahedral":
@@ -82,12 +94,12 @@ def solvate (molecular_system, box_shape="truncated octahedral", clearance='14.0
             vectors = Vec3(1.0, 0.0, 0.0), Vec3(0.0, 1.0, 0.0), Vec3(0.5, 0.5, np.sqrt(2)/2)
             box_vectors = [(max_size+clearance)*v for v in vectors]
 
-            modeller.addSolvent(forcefield, model=solvent_model, boxVectors = box_vectors, ionicStrength=ionic_strength,
+            modeller.addSolvent(openmm_forcefield, model=solvent_model, boxVectors = box_vectors, ionicStrength=ionic_strength,
                                 positiveIon=cation, negativeIon=anion)
 
         else:
 
-           modeller.addSolvent(forcefield, model=solvent_model, padding=clearance,
+           modeller.addSolvent(openmm_forcefield, model=solvent_model, padding=clearance,
                                ionicStrength=ionic_strength, positiveIon=cation,
                                negativeIon=anion)
 

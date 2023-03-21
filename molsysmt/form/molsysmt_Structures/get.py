@@ -386,11 +386,11 @@ def get_box_volume_from_system(item, structure_indices='all'):
     if structure_indices is None:
         return None
 
-    from molsysmt.pbc import get_box_volume_from_box
+    from molsysmt.pbc import get_volume_from_box
     output = None
     box = get_box_from_system(item, structure_indices=structure_indices)
     if box is not None:
-        output = get_box_volume_from_box(box)
+        output = get_volume_from_box(box)
     return output
 
 @digest(form=form)

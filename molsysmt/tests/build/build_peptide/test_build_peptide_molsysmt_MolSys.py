@@ -13,8 +13,7 @@ def test_build_peptide_molsysmt_MolSys_1():
     seq = 'TyrGlyGlyPheMet'
     molsys = msm.build.build_peptide(seq, to_form='molsysmt.MolSys')
     seq_2 = msm.convert(molsys, to_form='string:aminoacids3')
-    check = (seq.lower()==seq_2.lower())
-    assert check
+    assert seq.lower()==seq_2.lower()
 
 #def test_build_peptide_molsysmt_MolSys_2():
 #    seq = 'TyrGlyGlyPheMet'
