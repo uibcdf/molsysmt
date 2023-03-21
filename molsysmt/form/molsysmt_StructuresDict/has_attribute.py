@@ -11,41 +11,41 @@ def has_attribute(molecular_system, attribute):
     ### STRUCTURAL ATTRIBUTES
     ###
 
-    if argument=='structure_index':
-        if argument in molecular_system:
-            output = True
+    if attribute=='n_atoms':
+        if ('coordinates' not in molecular_system) and ('velocities' not in molecular_system):
+            output = False
 
-    elif argument=='structure_id':
-        if argument in molecular_system:
-            output = True
+    if attribute=='structure_id':
+        if attribute not in molecular_system:
+            output = False
 
-    elif argument=='coordinates':
-        if argument in molecular_system:
-            output = True
+    elif attribute=='coordinates':
+        if attribute not in molecular_system:
+            output = False
 
-    elif argument=='velocities':
-        if argument in molecular_system:
-            output = True
+    elif attribute=='velocities':
+        if attribute not in molecular_system:
+            output = False
 
-    elif argument=='time':
-        if argument in molecular_system:
-            output = True
+    elif attribute=='time':
+        if attribute not in molecular_system:
+            output = False
 
-    elif argument=='box':
-        if argument in molecular_system:
-            output = True
+    elif attribute in ['box', 'box_shape', 'box_angles', 'box_lengths', 'box_volume']:
+        if 'box' not in molecular_system:
+            output = False
 
-    elif argument=='occupancy':
-        if argument in molecular_system:
-            output = True
+    elif attribute=='occupancy':
+        if attribute not in molecular_system:
+            output = False
 
-    elif argument=='alternate_location':
-        if argument in molecular_system:
-            output = True
+    elif attribute=='alternate_location':
+        if attribute not in molecular_system:
+            output = False
 
-    elif argument=='b_factor':
-        if argument in molecular_system:
-            output = True
+    elif attribute=='b_factor':
+        if attribute not in molecular_system:
+            output = False
 
 
     return output

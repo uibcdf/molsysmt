@@ -1,6 +1,6 @@
 # If digest is used in this method, other methods become slower
 
-def where_is_attribute(molecular_system, attribute):
+def where_is_attribute(molecular_system, attribute, check_if_None=True):
 
     from . import get_form
     from molsysmt.form import _dict_modules
@@ -13,14 +13,20 @@ def where_is_attribute(molecular_system, attribute):
     where_form=[]
     where_item=[]
 
-    for form_in, item in zip(forms_in, molecular_system):
-        if _dict_modules[form_in].has_attribute(item, attribute):
-            where_form.append(form_in)
-            where_item.append(item)
+    if check_if_None:
+        for form_in, item in zip(forms_in, molecular_system):
+            if _dict_modules[form_in].has_attribute(item, attribute):
+                where_form.append(form_in)
+                where_item.append(item)
+    else:
+        for form_in, item in zip(forms_in, molecular_system):
+            if _dict_modules[form_in].attributes[attribute]:
+                where_form.append(form_in)
+                where_item.append(item)
 
     if len(where_form)>=1:
-        output_item = where_item[0]
-        output_form = where_form[0]
+        output_item = where_item[-1]
+        output_form = where_form[-1]
     elif len(where_form)==0:
         output_item = None
         output_form = None

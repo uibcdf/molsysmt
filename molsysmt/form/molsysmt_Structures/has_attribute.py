@@ -11,7 +11,11 @@ def has_attribute(molecular_system, attribute):
     ### STRUCTURAL ATTRIBUTES
     ###
 
-    if attribute=='structure_id':
+    if attribute=='n_atoms':
+        if molecular_system.coordinates is None and molecular_system.velocities is None:
+            output = False
+
+    elif attribute=='structure_id':
         if molecular_system.structure_id is None:
             output = False
 

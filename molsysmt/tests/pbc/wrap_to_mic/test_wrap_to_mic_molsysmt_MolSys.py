@@ -17,5 +17,4 @@ def test_wrap_to_pbc_molsysmt_MolSys_1():
     distances = msm.structure.get_distances(molsys, molecular_system_2=[[0.0, 0.0, 0.0]]*msm.pyunitwizard.unit('nm'), pbc=False)
     max_dist_cube = np.sqrt(3.0*(lengths[0,0]/2.0)**2)
     max_dist = np.max(distances)
-    check = (max_dist < max_dist_cube)
-    assert check
+    assert max_dist < max_dist_cube

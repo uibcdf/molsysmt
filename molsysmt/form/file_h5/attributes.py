@@ -63,6 +63,7 @@ attributes['n_bonds'] = True
 attributes['structure_index'] = True
 attributes['structure_id'] = True
 attributes['time'] = True
+attributes['temperature'] = True
 attributes['box'] = True
 attributes['box_shape'] = True
 attributes['box_angles'] = True
