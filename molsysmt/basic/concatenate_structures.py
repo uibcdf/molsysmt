@@ -4,7 +4,7 @@ from molsysmt._private.digestion import digest
 def concatenate_structures(molecular_systems, selections='all', structure_indices='all', to_form=None):
 
     from . import convert, extract, get, get_form
-    from molsysmt.api_forms import dict_append_structures
+    from molsysmt.form import _dict_modules
 
     n_molecular_systems = len(molecular_systems)
 
@@ -28,12 +28,13 @@ def concatenate_structures(molecular_systems, selections='all', structure_indice
 
     for aux_molecular_system, aux_selection, aux_structure_indices in zip(molecular_systems[1:], selections[1:], structure_indices[1:]):
 
-        coordinates = get(aux_molecular_system, element='atom', selection=aux_selection,
-                          structure_indices=aux_structure_indices, coordinates=True)
+        coordinates, velocities = get(aux_molecular_system, element='atom', selection=aux_selection,
+                          structure_indices=aux_structure_indices, coordinates=True, velocities=True)
         structure_id, time, box = get(aux_molecular_system, structure_indices=aux_structure_indices, structure_id=True, time=True,
                               box=True)
 
-        dict_append_structures[to_form](to_molecular_system, structure_id=structure_id, time=time, coordinates=coordinates, box=box)
+        _dict_modules[to_form].append_structures(to_molecular_system, structure_id=structure_id, time=time, coordinates=coordinates,
+                velocities=velocities, box=box)
 
     output = to_molecular_system
 

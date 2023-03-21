@@ -16,7 +16,7 @@ def get_component_index_from_atom(molecular_system, indices='all'):
 
     else:
 
-        atoms_indices = get(molecular_system, element='bond', indices='all', atom_index=True)
+        atoms_indices = get(molecular_system, element='bond', indices='all', bonded_atoms=True)
 
         output = _libbonds.component_indices(atoms_indices, n_atoms, n_bonds)
         output = np.ascontiguousarray(output, dtype=int)

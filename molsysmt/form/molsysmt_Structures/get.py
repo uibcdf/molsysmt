@@ -104,6 +104,22 @@ def get_coordinates_from_atom(item, indices='all', structure_indices='all'):
 
     return tmp_coordinates
 
+@digest(form=form)
+def get_velocities_from_atom(item, indices='all', structure_indices='all'):
+
+    if (indices is None) or (structure_indices is None):
+        return None
+
+    tmp_velocities = item.velocities
+
+    if not is_all(structure_indices):
+        tmp_velocities = tmp_velocities[structure_indices,:,:]
+
+    if not is_all(indices):
+        tmp_velocities = tmp_velocities[:,indices,:]
+
+    return tmp_velocities
+
 
 ## From group
 
@@ -280,9 +296,12 @@ def get_n_bonds_from_system(item):
     raise NotWithThisFormError()
 
 @digest(form=form)
-def get_n_structures_from_system(item):
+def get_n_structures_from_system(item, structure_indices='all'):
 
-    return item.n_structures
+    if is_all(structure_indices):
+        return item.n_structures
+    else:
+        return len(structure_indices)
 
 @digest(form=form)
 def get_coordinates_from_system(item, structure_indices='all'):
@@ -294,6 +313,18 @@ def get_coordinates_from_system(item, structure_indices='all'):
         output=item.coordinates
     else:
         output=item.coordinates[structure_indices,:,:]
+    return output
+
+@digest(form=form)
+def get_velocities_from_system(item, structure_indices='all'):
+
+    if structure_indices is None:
+        return None
+
+    if is_all(structure_indices):
+        output=item.velocities
+    else:
+        output=item.velocities[structure_indices,:,:]
     return output
 
 @digest(form=form)
@@ -355,11 +386,11 @@ def get_box_volume_from_system(item, structure_indices='all'):
     if structure_indices is None:
         return None
 
-    from molsysmt.pbc import get_box_volume_from_box
+    from molsysmt.pbc import get_volume_from_box
     output = None
     box = get_box_from_system(item, structure_indices=structure_indices)
     if box is not None:
-        output = get_box_volume_from_box(box)
+        output = get_volume_from_box(box)
     return output
 
 @digest(form=form)

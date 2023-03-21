@@ -9,4 +9,3 @@ def to_molsysmt_Structures(item, selection='all', structure_indices='all', synta
                        syntax=syntax)
 
     return tmp_item
-

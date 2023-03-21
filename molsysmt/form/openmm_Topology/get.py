@@ -71,7 +71,7 @@ def get_component_index_from_atom(item, indices='all'):
 
     else:
 
-        atom_indices = get_atom_index_from_bond(item)
+        atom_indices = get_bonded_atoms_from_bond(item)
 
         output = _libbonds.component_indices(atom_indices, n_atoms, n_bonds)
         output = np.ascontiguousarray(output, dtype=int)
@@ -375,7 +375,7 @@ def get_n_bonds_from_system(item):
     return item.getNumBonds()
 
 @digest(form=form)
-def get_n_structures_from_system(item):
+def get_n_structures_from_system(item, structure_indices='all'):
 
     return 0
 
@@ -431,7 +431,7 @@ def get_bond_type_from_bond(item, indices='all'):
     return output
 
 @digest(form=form)
-def get_atom_index_from_bond(item, indices='all'):
+def get_bonded_atoms_from_bond(item, indices='all'):
 
     if is_all(indices):
         n_bonds = get_n_bonds_from_system(item)

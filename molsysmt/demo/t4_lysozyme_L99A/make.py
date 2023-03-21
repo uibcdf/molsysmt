@@ -20,7 +20,6 @@ msm.convert('pdb_id:181l', to_form='181l.mmtf')
 msm.convert('pdb_id:181l', to_form='181l.msmpk')
 
 # 1l17 pdb, mmtf, msmpk files
-print('Protein Data Bank files...')
 msm.convert('pdb_id:1l17', to_form='1l17.pdb')
 msm.convert('pdb_id:1l17', to_form='1l17.mmtf')
 msm.convert('pdb_id:1l17', to_form='1l17.msmpk')

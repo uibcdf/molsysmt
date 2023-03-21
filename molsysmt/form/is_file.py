@@ -1,24 +1,24 @@
-from importlib import import_module
-import os
-
-list_is_file_form = []
-current_dir = os.path.dirname(os.path.abspath(__file__))
-
-for dirname in os.listdir(current_dir):
-    if dirname.startswith('file_'):
-        form_name = dirname
-        mod = import_module('molsysmt.form.'+dirname)
-        list_is_file_form.append(getattr(mod, 'is_'+form_name))
-
 # This method must not be digested
 def is_file(form):
 
+    from molsysmt.form import _dict_modules, _dict_forms_lowercase
+    from molsysmt.basic import get_form
+
     output = False
 
-    for is_file_form in list_is_file_form:
-        if is_file_form(form):
-            output = True
-            break
+    if isinstance(form, str):
+
+        if form.lower() in _dict_forms_lowercase:
+
+            form = _dict_forms_lowercase[form.lower()]
+            output = (_dict_modules[form].form_type == 'file')
+
+        else:
+
+            form = get_form(form)
+            output = (_dict_modules[form].form_type == 'file')
+
 
     return output
+
 

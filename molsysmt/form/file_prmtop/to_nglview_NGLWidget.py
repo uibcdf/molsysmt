@@ -11,4 +11,3 @@ def to_nglview_NGLWidget(item, atom_indices='all', coordinates=None):
 
     return tmp_item
 
-

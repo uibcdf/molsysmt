@@ -5,9 +5,27 @@ from .is_string import is_string
 import os
 from importlib import import_module
 
-current_dir = os.path.dirname(os.path.abspath(__file__))
-for dirname in os.listdir(current_dir):
-    if os.path.isdir(dirname) and dirname!='__pycache__':
-        import_module('molsysmt.form.'+dirname)
+_dict_modules={}
 
-del(os, import_module, current_dir, dirname)
+current_dir = os.path.dirname(os.path.abspath(__file__))
+for f in os.scandir(current_dir):
+    if f.is_dir() and f.name not in ['__pycache__']:
+        mod = import_module('molsysmt.form.'+f.name)
+        _dict_modules[mod.form_name] = mod
+
+_dict_forms_lowercase = {ii.lower(): ii for ii in _dict_modules.keys()}
+
+del(current_dir, os, mod, f)
+
+_piped_forms=[
+        #'file:dcd',
+        #'file:h5',
+        'file:inpcrd',
+        'file:mmtf',
+        'file:msmpk',
+        'file:pdb',
+        'file:prmtop',
+        'file:psf',
+        #'file:xtc',
+        'string:pdb_id',
+        ]

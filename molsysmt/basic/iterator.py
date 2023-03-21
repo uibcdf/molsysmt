@@ -23,7 +23,7 @@ class Iterator():
 
         from . import select, get_form, where_is_attribute, convert
         from molsysmt.attribute import is_structural_attribute
-        from molsysmt.api_forms import dict_structures_iterator, dict_topology_iterator
+        from molsysmt.form import _dict_modules
 
         self.molecular_system = molecular_system
         self.element = element
@@ -77,11 +77,11 @@ class Iterator():
 
             if runs_in_structures:
                 if item is not None:
-                    tmp_iterator = dict_structures_iterator[aux_items_forms[item]](item, atom_indices=self.indices, start=self.start,
+                    tmp_iterator = _dict_modules[aux_items_forms[item]].StructuresIterator(item, atom_indices=self.indices, start=self.start,
                        stop=self.stop, step=self.step, chunk=self.chunk, structure_indices=self.structure_indices, output_type='dictionary',
                        **tmp_arguments)
             else:
-                tmp_iterator = dict_topology_iterator[aux_items_forms[item]](item, element=self.element, indices=self.indices, start=self.start,
+                tmp_iterator = _dict_modules[aux_items_forms[item]].TopologyIterator(item, element=self.element, indices=self.indices, start=self.start,
                        stop=self.stop, step=self.step, chunk=self.chunk, output_type='dictionary',
                        **tmp_arguments)
 

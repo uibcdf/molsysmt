@@ -28,6 +28,8 @@ def digest_molecule_name(molecule_name, caller=None):
     if caller=='molsysmt.basic.get.get':
         if isinstance(molecule_name, bool):
             return molecule_name
+    elif caller.startswith('molsysmt.form.') and caller.count('.to_')==2:
+        return molecule_name
     elif isinstance(molecule_name, str):
         return molecule_name
 

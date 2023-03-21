@@ -243,7 +243,7 @@ def get_bonded_atoms_from_atom(item, indices='all'):
     output = None
 
     G = Graph()
-    edges = get_atom_index_from_bond(item)
+    edges = get_bonded_atoms_from_bond(item)
     G.add_edges_from(edges)
 
     if is_all(indices):
@@ -273,7 +273,7 @@ def get_bond_index_from_atom(item, indices='all'):
     output = None
 
     G = Graph()
-    edges = get_atom_index_from_bond(item)
+    edges = get_bonded_atoms_from_bond(item)
     n_bonds = edges.shape[0]
     edge_indices = np.array([{'index':ii} for ii in range(n_bonds)]).reshape([n_bonds,1])
     G.add_edges_from(np.hstack([edges, edge_indices]))
@@ -302,7 +302,7 @@ def get_n_bonds_from_atom(item, indices='all'):
     output = None
 
     G = Graph()
-    edges = get_atom_index_from_bond(item)
+    edges = get_bonded_atoms_from_bond(item)
     G.add_edges_from(edges)
 
     if is_all(indices):
@@ -341,12 +341,12 @@ def get_inner_bonded_atoms_from_atom(item, indices='all'):
 
     if is_all(indices):
 
-        output = get_atom_index_from_bond(item, indices='all')
+        output = get_bonded_atoms_from_bond(item, indices='all')
 
     else:
 
         bond_indices = get_inner_bond_index_from_atom (item, indices=indices)
-        output = get_atom_index_from_bond(item, indices=bond_indices)
+        output = get_bonded_atoms_from_bond(item, indices=bond_indices)
         del(bond_indices)
 
     output = output[np.lexsort((output[:, 1], output[:, 0]))]
@@ -1993,9 +1993,16 @@ def get_n_oligosaccharides_from_system(item):
     return serie_indices.unique().shape[0]
 
 @digest(form=form)
-def get_n_structures_from_system(item):
+def get_n_saccharides_from_system(item):
 
-    return 0
+    mask=(item.atoms_dataframe['molecule_type']=='saccharide').to_numpy()
+    serie_indices=item.atoms_dataframe['molecule_index'][mask]
+    return serie_indices.unique().shape[0]
+
+@digest(form=form)
+def get_n_structures_from_system(item, structure_indices='all'):
+
+    return None
 
 ## bond
 
@@ -2038,7 +2045,7 @@ def get_bond_type_from_bond(item, indices='all'):
     return tmp_out
 
 @digest(form=form)
-def get_atom_index_from_bond(item, indices='all'):
+def get_bonded_atoms_from_bond(item, indices='all'):
 
     tmp_out = None
 

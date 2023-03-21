@@ -11,4 +11,3 @@ def to_molsysmt_Structures(item, atom_indices='all', structure_indices='all'):
             structure_indices=structure_indices)
 
     return tmp_item
-

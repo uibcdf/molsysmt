@@ -13,4 +13,3 @@ def to_molsysmt_Structures(item, atom_indices='all', structure_indices='all'):
     tmp_item.append_structures(coordinates=coordinates, box=box)
 
     return tmp_item
-

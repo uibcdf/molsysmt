@@ -1,6 +1,14 @@
-from .is_file_pdb import is_file_pdb
+form_name = 'file:pdb'
+form_type = 'file'
+form_info = ["Protein Data Bank file format", "https://www.rcsb.org/pdb/static.do?p=file_formats/pdb/index.html"]
+
+from .is_form import is_form
+
+from .attributes import attributes
+from .has_attribute import has_attribute
 
 from .extract import extract
+from .copy import copy
 from .add import add
 from .append_structures import append_structures
 from .get import *
@@ -10,9 +18,9 @@ from .iterators import StructuresIterator, TopologyIterator
 from .download import download
 from .replace_HETATM_by_ATOM_in_terminal_cappings import replace_HETATM_by_ATOM_in_terminal_cappings
 from .has_atoms_with_alternate_locations import has_atoms_with_alternate_locations
+
 from .to_string_pdb_text import to_string_pdb_text
 from .to_file_mol2 import to_file_mol2
-from .to_MDAnalysis_topology_PDBParser import to_MDAnalysis_topology_PDBParser
 from .to_MDAnalysis_Topology import to_MDAnalysis_Topology
 from .to_MDAnalysis_Universe import to_MDAnalysis_Universe
 from .to_mdtraj_PDBTrajectoryFile import to_mdtraj_PDBTrajectoryFile
@@ -31,3 +39,28 @@ from .to_parmed_Structure import to_parmed_Structure
 from .to_pdbfixer_PDBFixer import to_pdbfixer_PDBFixer
 from .to_pytraj_Topology import to_pytraj_Topology
 from .to_pytraj_Trajectory import to_pytraj_Trajectory
+
+_convert_to={
+        'file:pdb': extract,
+        'string:pdb_text': to_string_pdb_text,
+        'file:mol2': to_file_mol2,
+        'MDAnalysis.Topology': to_MDAnalysis_Topology,
+        'MDAnalysis.Universe': to_MDAnalysis_Universe,
+        'mdtraj.PDBTrajectoryFile': to_mdtraj_PDBTrajectoryFile,
+        'mdtraj.Topology': to_mdtraj_Topology,
+        'mdtraj.Trajectory': to_mdtraj_Trajectory,
+        'molsysmt.MolSys': to_molsysmt_MolSys,
+        'molsysmt.Topology': to_molsysmt_Topology,
+        'molsysmt.Structures': to_molsysmt_Structures,
+        'nglview.NGLWidget': to_nglview_NGLWidget,
+        'openmm.Modeller': to_openmm_Modeller,
+        'openmm.PDBFile': to_openmm_PDBFile,
+        'openmm.Simulation': to_openmm_Simulation,
+        'openmm.System': to_openmm_System,
+        'openmm.Topology': to_openmm_Topology,
+        'parmed.Structure': to_parmed_Structure,
+        'pdbfixer.PDBFixer': to_pdbfixer_PDBFixer,
+        'pytraj.Topology': to_pytraj_Topology,
+        'pytraj.Trajectory': to_pytraj_Trajectory,
+        }
+

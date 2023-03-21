@@ -29,7 +29,7 @@ def digest_form(form, caller=None):
 
     """
     from molsysmt.form import is_file
-    from molsysmt.api_forms import _dict_forms_lowercase
+    from molsysmt.form import _dict_forms_lowercase
 
     if caller in methods_where_bool:
 

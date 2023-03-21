@@ -15,4 +15,3 @@ def to_file_pdb(item, atom_indices='all', output_filename=None):
 
     return tmp_item
 
-

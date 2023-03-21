@@ -215,12 +215,18 @@ def get_n_bonds_from_system(item):
     raise NotWithThisFormError()
 
 @digest(form=form)
-def get_n_structures_from_system(item):
+def get_n_structures_from_system(item, structure_indices='all'):
 
-    fff = open(item, 'rb')
-    _ = pickle.load(fff)
-    n_structures = pickle.load(fff)
-    fff.close()
+    if is_all(structure_indices):
+
+        fff = open(item, 'rb')
+        _ = pickle.load(fff)
+        n_structures = pickle.load(fff)
+        fff.close()
+
+    else:
+
+        n_structures = len(structure_indices)
 
     return n_structures
 

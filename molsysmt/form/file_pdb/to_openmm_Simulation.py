@@ -21,4 +21,3 @@ def to_openmm_Simulation(item, atom_indices='all', structure_indices='all',
                          integration_timestep=integration_timestep, platform=platform)
 
     return tmp_item
-

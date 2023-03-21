@@ -337,7 +337,7 @@ def test_get_51():
 
 def test_get_52():
     molsys = msm.convert(msm.demo['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
-    atom_indices = msm.get(molsys, element='bond', indices=[0, 1, 2, 3, 4], atom_index=True)
+    atom_indices = msm.get(molsys, element='bond', indices=[0, 1, 2, 3, 4], bonded_atoms=True)
     atom_indices = atom_indices[np.lexsort((atom_indices[:, 1], atom_indices[:, 0]))]
     true_atom_indices = np.array([[0, 1], [1, 2], [1, 4], [2, 3], [4, 5]])
     assert np.all(atom_indices==true_atom_indices)

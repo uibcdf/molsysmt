@@ -1,11 +1,12 @@
 from molsysmt._private.exceptions import *
-from molsysmt.api_forms import dict_type, dict_convert, dict_info
-from molsysmt.api_forms import forms as _forms
+from molsysmt.form import _dict_modules
 
 dict_forms_of_type = { ii:[] for ii in ['class', 'string', 'file']}
 
-for ii, jj in dict_type.items():
-    dict_forms_of_type[jj].append(ii)
+
+
+for ii, jj in _dict_modules.items():
+    dict_forms_of_type[jj.form_type].append(ii)
 
 for ii,jj in dict_forms_of_type.items():
     dict_forms_of_type[ii]=sorted(jj)
@@ -13,8 +14,10 @@ for ii,jj in dict_forms_of_type.items():
 convert_from = {}
 convert_to = {}
 
-for in_form in dict_convert.keys():
-    convert_from[in_form]=dict_convert[in_form].keys()
+for in_form in _dict_modules.keys():
+    aux_list = list(_dict_modules[in_form]._convert_to.keys())
+    aux_list.remove(in_form)
+    convert_from[in_form] = aux_list
 
 for in_form, out_forms in convert_from.items():
     for out_form in out_forms:
@@ -37,7 +40,7 @@ def forms(form_type=None):
     tmp_output = []
 
     if form_type in [None,'all']:
-        tmp_output=_forms
+        tmp_output=list(_dict_modules.keys())
     elif form_type in dict_forms_of_type:
         tmp_output=dict_forms_of_type[form_type]
     else:
@@ -46,7 +49,7 @@ def forms(form_type=None):
 
     from pandas import DataFrame
 
-    df=DataFrame([[form, dict_type[form], dict_info[form]] for form in tmp_output], columns=['Form', 'Type', 'Info'])
+    df=DataFrame([[form, _dict_modules[form].form_type, _dict_modules[form].form_info] for form in tmp_output], columns=['Form', 'Type', 'Info'])
     def make_clickable(val):
         return '<a target="_blank" href="{}">{}</a>'.format(val[1], val[0])
     return df.style.hide_index().format({'Info':make_clickable}).set_properties(**{'text-align':'left','colheader_justify':'left'}).\
@@ -74,10 +77,10 @@ def convert(from_form=None, to_form=None, from_form_type=None, to_form_type=None
         to_form = [to_form]
 
     if from_form is None:
-        from_form = _forms
+        from_form = list(_dict_modules.keys())
 
     if to_form is None:
-        to_form = _forms
+        to_form = list(_dict_modules.keys())
 
 
     from pandas import DataFrame

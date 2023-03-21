@@ -1,34 +1,37 @@
-from molsysmt._private.digestion import digest
+# If digest is used in this method, other methods become slower
 
-@digest()
-def where_is_attribute(molecular_system, attribute):
+def where_is_attribute(molecular_system, attribute, check_if_None=True):
 
-    from . import get_form, is_a_molecular_system
-    from molsysmt.attribute.attributes import _reverse_search_in_molecular_system, _required_attributes
-    from molsysmt.api_forms import dict_attributes
-    from molsysmt.attribute import is_attribute
+    from . import get_form
+    from molsysmt.form import _dict_modules
 
     if not isinstance(molecular_system, (list, tuple)):
         molecular_system = [molecular_system]
 
     forms_in = get_form(molecular_system)
 
-    if _reverse_search_in_molecular_system[attribute]:
-        aux_zip = zip(reversed(molecular_system), reversed(forms_in))
+    where_form=[]
+    where_item=[]
+
+    if check_if_None:
+        for form_in, item in zip(forms_in, molecular_system):
+            if _dict_modules[form_in].has_attribute(item, attribute):
+                where_form.append(form_in)
+                where_item.append(item)
     else:
-        aux_zip = zip(molecular_system, forms_in)
+        for form_in, item in zip(forms_in, molecular_system):
+            if _dict_modules[form_in].attributes[attribute]:
+                where_form.append(form_in)
+                where_item.append(item)
 
-    output_item = None
-    output_form = None
-
-    for item, form_in in aux_zip:
-        for required_attribute in _required_attributes[attribute]:
-            if dict_attributes[form_in][required_attribute]:
-                output_item = item
-                output_form = form_in
-                break
-        if output_form is not None:
-            break
+    if len(where_form)>=1:
+        output_item = where_item[-1]
+        output_form = where_form[-1]
+    elif len(where_form)==0:
+        output_item = None
+        output_form = None
+    else:
+        print('This to correct in where_is_attribute')
 
     return output_item, output_form
 

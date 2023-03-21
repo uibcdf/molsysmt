@@ -155,7 +155,19 @@ switcher['LEaP'] = {
 
 }
 
-def get_forcefield_names(forcefield, engine, implicit_solvent=None, water_model=None):
+def get_forcefield(molecular_system, engine=None):
+
+    from molsysmt.basic import get
+
+    forcefield, implicit_solvent, water_model = get(molecular_system, forcefield=True, implicit_solvent=True, water_model=True)
+    if engine is None:
+        return forcefield
+    elif forcefield is None:
+        return None
+    else:
+        return _translate_native_forcefield_to_engine(forcefield, engine, implicit_solvent=implicit_solvent, water_model=water_model)
+
+def _translate_native_forcefield_to_engine(forcefield, engine, implicit_solvent=None, water_model=None):
 
     forcefields_out=[]
 

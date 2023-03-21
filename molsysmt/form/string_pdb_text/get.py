@@ -392,13 +392,19 @@ def get_n_bonds_from_system(item):
     return output
 
 @digest(form=form)
-def get_n_structures_from_system(item):
+def get_n_structures_from_system(item, structure_indices='all'):
 
-    from . import to_openmm_PDBFile
-    from ..openmm_PDBFile import get_n_structures_from_system as aux_get
+    if is_all(structure_indices):
 
-    tmp_item = to_openmm_PDBFile(item)
-    output = aux_get(tmp_item)
+        from . import to_openmm_PDBFile
+        from ..openmm_PDBFile import get_n_structures_from_system as aux_get
+
+        tmp_item = to_openmm_PDBFile(item)
+        output = aux_get(tmp_item)
+
+    else:
+
+        len(structure_indices)
 
     return output
 
@@ -461,10 +467,10 @@ def get_bond_type_from_bond(item, indices='all'):
     return output
 
 @digest(form=form)
-def get_atom_index_from_bond(item, indices='all'):
+def get_bonded_atoms_from_bond(item, indices='all'):
 
     from . import to_openmm_PDBFile
-    from ..openmm_PDBFile import get_atom_index_from_bond as aux_get
+    from ..openmm_PDBFile import get_bonded_atoms_from_bond as aux_get
 
     tmp_item = to_openmm_PDBFile(item)
     output = aux_get(tmp_item, indices=indices)

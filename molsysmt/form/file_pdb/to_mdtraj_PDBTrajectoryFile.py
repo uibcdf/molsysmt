@@ -1,7 +1,7 @@
 from molsysmt._private.digestion import digest
 
 @digest(form='file:pdb')
-def to_mdtraj_PDBTrajectoryFile(item, selection='all', structure_indices='all', syntax='MolSysMT'):
+def to_mdtraj_PDBTrajectoryFile(item, atom_indices='all', structure_indices='all'):
 
     from mdtraj.formats.pdb import PDBTrajectoryFile
     from ..mdtraj_PDBTrajectoryFile import extract as extract_mdtraj_PDBTrajectoryFile

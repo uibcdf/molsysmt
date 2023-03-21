@@ -14,4 +14,3 @@ def to_openmm_Modeller(item, atom_indices='all', structure_indices='all'):
     tmp_item = openmm_Topology_to_openmm_Modeller(tmp_item, coordinates=coordinates, box=box)
 
     return tmp_item
-

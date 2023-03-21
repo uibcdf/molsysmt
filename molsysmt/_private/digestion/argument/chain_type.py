@@ -28,6 +28,8 @@ def digest_chain_type(chain_type, caller=None):
     if caller=='molsysmt.basic.get.get':
         if isinstance(chain_type, bool):
             return chain_type
+    elif caller.startswith('molsysmt.form.') and caller.count('.to_')==2:
+        return chain_type
 
     raise ArgumentError('chain_type', value=chain_type, caller=caller, message=None)
 

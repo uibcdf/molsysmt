@@ -10,3 +10,4 @@ def to_mdtraj_Trajectory(item, atom_indices='all', coordinates=None, box=None):
     tmp_item = Trajectory(coordinates, item)
 
     return tmp_item
+

@@ -14,4 +14,3 @@ def to_mdtraj_HDF5TrajectoryFile(item, atom_indices='all', structure_indices='al
                                                  copy_if_all=False)
 
     return tmp_item
-

@@ -37,32 +37,16 @@ def get_potential_energy(molecular_system, molecular_mechanics={'forcefield':'AM
         else:
 
             if has_attribute(molecular_system, 'mechanical'):
-                simulation = msm.convert(molecular_system, to_form='openmm.Simulation')
+                context = convert(molecular_system, to_form='openmm.Context')
             else:
-                simulation = msm.convert([molecular_system, molecular_mechanics], to_form='openmm.Simulation')
+                context = convert([molecular_system, molecular_mechanics], to_form='openmm.Context')
 
-            state_pre_min = output.context.getState(getEnergy=True)
-            simulation.minimizeEnergy()
-            state_post_min = output.context.getState(getEnergy=True)
+            state = output.context.getState(getEnergy=True)
 
-            if inplace:
-                from molsysmt.form.openmm_Simulation import get_coordinates_from_system
-                coordinates = get_coordinates_from_system(output)
-                set(molecular_system, coordinates=coordinates)
+        energy = state.getPotentialEnergy()
+        energy = puw.standardize(energy)
 
-        if verbose:
-            energy_pre_min = state_pre_min.getPotentialEnergy()
-            energy_pre_min = puw.standardize(energy_pre_min)
-            print("Potential Energy before minimization: {}".format(energy_pre_min))
-            energy_post_min = state_post_min.getPotentialEnergy()
-            energy_post_min = puw.standardize(energy_post_min)
-            print("Potential Energy after minimization: {}".format(energy_post_min))
-
-        if inplace:
-            pass
-        else:
-            output = convert(output, to_form=to_form)
-            return output
+        return energy
 
     else:
 

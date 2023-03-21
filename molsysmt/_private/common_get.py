@@ -346,7 +346,7 @@ def get_bonded_atoms_from_atom(item, indices='all'):
     output = None
 
     G = Graph()
-    edges = get_atom_index_from_bond(item)
+    edges = get_bonded_atoms_from_bond(item)
     G.add_edges_from(edges)
 
     if is_all(indices):
@@ -379,7 +379,7 @@ def get_bond_index_from_atom(item, indices='all'):
     output = None
 
     G = Graph()
-    edges = get_atom_index_from_bond(item)
+    edges = get_bonded_atoms_from_bond(item)
     n_bonds = edges.shape[0]
     edge_indices = np.array([{'index':ii} for ii in range(n_bonds)]).reshape([n_bonds,1])
     G.add_edges_from(np.hstack([edges, edge_indices]))
@@ -411,7 +411,7 @@ def get_n_bonds_from_atom(item, indices='all'):
     output = None
 
     G = Graph()
-    edges = get_atom_index_from_bond(item)
+    edges = get_bonded_atoms_from_bond(item)
     G.add_edges_from(edges)
 
     if is_all(indices):
@@ -3132,12 +3132,26 @@ def get_n_oligosaccharides_from_system(item):
     return (molecule_types=='oligosaccharide').sum()
 
 @digest(form=form)
+def get_n_saccharides_from_system(item):
+
+    molecule_types = get_molecule_type_from_molecule(item)
+    return (molecule_types=='saccharide').sum()
+
+@digest(form=form)
 def get_coordinates_from_system(item, structure_indices='all'):
 
     if structure_indices is None:
         return None
 
     return get_coordinates_from_atom(item, structure_indices=structure_indices)
+
+@digest(form=form)
+def get_velocities_from_system(item, structure_indices='all'):
+
+    if structure_indices is None:
+        return None
+
+    return get_velocities_from_atom(item, structure_indices=structure_indices)
 
 @digest(form=form)
 def get_box_shape_from_system(item, structure_indices='all'):
@@ -3184,13 +3198,13 @@ def get_box_volume_from_system(item, structure_indices='all'):
     if structure_indices is None:
         return None
 
-    from molsysmt.pbc import get_box_volume_from_box
+    from molsysmt.pbc import get_volume_from_box
 
     tmp_box = get_box_from_system(item, structure_indices=structure_indices)
     if tmp_box is None:
         output=None
     else:
-        output = get_box_volume_from_box(tmp_box)
+        output = get_volume_from_box(tmp_box)
 
     return output
 

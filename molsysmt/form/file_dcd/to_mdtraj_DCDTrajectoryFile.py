@@ -12,4 +12,3 @@ def to_mdtraj_DCDTrajectoryFile(item, atom_indices='all', structure_indices='all
                                                 copy_if_all=False)
 
     return tmp_item
-

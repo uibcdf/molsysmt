@@ -13,10 +13,10 @@ def test_add_with_molsysmt_MolSys():
     n_atoms_1 = msm.get(molsys_1, element='system', n_atoms=True)
     n_atoms_2 = msm.get(molsys_2, element='system', n_atoms=True)
     n_atoms_3 = msm.get(molsys_3, element='system', n_atoms=True)
-    msm.add(molsys_1, [molsys_2, molsys_3])
+    msm.add(molsys_1, molsys_2)
+    msm.add(molsys_1, molsys_3)
     n_atoms, n_structures = msm.get(molsys_1, element='system', n_atoms=True, n_structures=True)
-    check = ('molsysmt.MolSys'==msm.get_form(molsys_1))
-    check_n_atoms = (n_atoms == n_atoms_1+n_atoms_2+n_atoms_3)
-    check_n_structures = (n_structures == 1)
-    assert check and check_n_atoms and check_n_structures
+    assert 'molsysmt.MolSys'==msm.get_form(molsys_1)
+    assert n_atoms == n_atoms_1+n_atoms_2+n_atoms_3
+    assert n_structures == 1
 

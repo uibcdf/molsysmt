@@ -1,6 +1,5 @@
 from molsysmt._private.digestion import digest
 from molsysmt._private.variables import is_all
-from molsysmt.attribute.attributes import _required_indices
 import numpy as np
 
 
@@ -64,15 +63,16 @@ def set(molecular_system,
     """
 
     from . import select, where_is_attribute
-    from molsysmt.api_forms import dict_set
+    from molsysmt.attribute import attributes
+    from molsysmt.form import _dict_modules
 
-    value_of_attribute = {}
+    value_of_in_attribute = {}
     for key in kwargs.keys():
-        value_of_attribute[key] = kwargs[key]
+        value_of_in_attribute[key] = kwargs[key]
 
     # selection works as a mask if indices or ids are used
 
-    attributes = value_of_attribute.keys()
+    in_attributes = value_of_in_attribute.keys()
 
     # doing the work here
 
@@ -85,19 +85,19 @@ def set(molecular_system,
         else:
             indices = 'all'
 
-    for attribute in attributes:
+    for in_attribute in in_attributes:
 
         dict_indices = {}
         if element != 'system':
-            if 'indices' in _required_indices[attribute]:
+            if attributes[in_attribute]['runs_on_elements']:
                 dict_indices['indices'] = indices
-        if 'structure_indices' in _required_indices[attribute]:
+        if attributes[in_attribute]['runs_on_structures']:
             dict_indices['structure_indices'] = structure_indices
 
-        item, form = where_is_attribute(molecular_system, attribute)
-
-        value = value_of_attribute[attribute]
-        dict_set[form][element][attribute](item, **dict_indices, value=value)
+        item, form = where_is_attribute(molecular_system, in_attribute, check_if_None=False)
+        in_value = value_of_in_attribute[in_attribute]
+        set_function = getattr(_dict_modules[form], f'set_{in_attribute}_to_{element}')
+        set_function(item, **dict_indices, value=in_value)
 
     pass
 

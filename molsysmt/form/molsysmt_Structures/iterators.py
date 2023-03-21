@@ -4,20 +4,6 @@ from molsysmt._private.digestion import digest
 from molsysmt._private.indices import indices_iterator
 import numpy as np
 
-class TopologyIterator():
-
-    @digest(form='molsysmt.Structures')
-    def __init__(self, molecular_system, element='atom', indices='all', start=0, stop=None, step=1, chunk=1,
-            output_type='values', **kwargs):
-        raise NotImplementedIteratorError
-
-    def __iter__(self):
-        return self
-
-    def __next__(self):
-        raise NotImplementedIteratorError
-
-
 class StructuresIterator():
 
     @digest(form='molsysmt.Structures')

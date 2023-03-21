@@ -3,23 +3,36 @@ from molsysmt import pyunitwizard as puw
 
 class MolecularMechanics():
 
-    def __init__(self, molecular_system=None, forcefield=None, water_model=None, implicit_solvent=None,
-                 non_bonded_method='no_cutoff', non_bonded_cutoff=None, switch_distance=None,
-                 use_dispersion_correction=False, ewald_error_tolerance=0.0001,
-                 constraints=None, flexible_constraints=False,
-                 rigid_water=True, hydrogen_mass=None,
-                 residue_templates={}, ignore_external_bonds=False,
-                 implicit_solvent_salt_conc='0.0 mol/L', implicit_solvent_kappa='0.0 1/nm',
-                 solute_dielectric=1.0, solvent_dielectric=78.5):
+    def __init__(self, forcefield=None, water_model=None, implicit_solvent=None,
+                 non_bonded_method=None, cutoff_distance=None, switch_distance=None,
+                 dispersion_correction=None, ewald_error_tolerance=None,
+                 constraints=None, flexible_constraints=None,
+                 rigid_water=None, hydrogen_mass=None,
+                 salt_concentration=None, kappa=None,
+                 solute_dielectric=None, solvent_dielectric=None,
+                 formal_charge=None, partial_charge=None):
 
-        self._molecular_system = molecular_system
+        # default values:
+        # non_bonded_method='no_cutoff'
+        # use_dispersion_correction=False
+        # ewald_error_tolerance=0.0001
+        # flexible_constraints=False
+        # rigid_water=True
+        # ignore_external_bonds=False
+        # implicit_solvent_salt_conc=0.0 mol/L
+        # implicit_solvent_kappa=0.0 1/nm
+        # solute_dielectric=1.0
+        # solvent_dielectric=78.5
+
+        self.formal_charge = formal_charge
+        self.partial_charge = partial_charge
 
         self.forcefield = forcefield
 
         self.non_bonded_method = non_bonded_method
-        self.non_bonded_cutoff = non_bonded_cutoff
+        self.cutoff_distance = cutoff_distance
         self.switch_distance = switch_distance
-        self.use_dispersion_correction = use_dispersion_correction
+        self.dispersion_correction = dispersion_correction
         self.ewald_error_tolerance = ewald_error_tolerance
 
         self.hydrogen_mass = hydrogen_mass
@@ -29,50 +42,51 @@ class MolecularMechanics():
 
         self.water_model = water_model
         self.rigid_water = rigid_water
-        self.residue_templates = residue_templates
-        self.ignore_external_bonds = ignore_external_bonds
+        #self.residue_templates = residue_templates
+        #self.ignore_external_bonds = ignore_external_bonds
 
         self.implicit_solvent = implicit_solvent
         self.solute_dielectric = solute_dielectric
         self.solvent_dielectric = solvent_dielectric
-        self.implicit_solvent_salt_conc = implicit_solvent_salt_conc
-        self.implicit_solvent_kappa = implicit_solvent_kappa
+        self.salt_concentration = salt_concentration
+        self.kappa = kappa
 
     def to_dict(self):
 
         tmp_dict = {
-            'forcefield' : self.forcefield,
-            'non_bonded_method' : self.non_bonded_method,
-            'non_bonded_cutoff' : self.non_bonded_cutoff,
-            'switch_distance' : self.switch_distance,
-            'use_dispersion_correction' : self.use_dispersion_correction,
-            'ewald_error_tolerance' : self.ewald_error_tolerance,
-            'hydrogen_mass' : self.hydrogen_mass,
-            'constraints' : self.constraints,
-            'flexible_constraints' : self.flexible_constraints,
-            'water_model' : self.water_model,
-            'rigid_water' : self.rigid_water,
-            'residue_templates' : self.residue_templates,
-            'ignore_external_bonds' : self.ignore_external_bonds,
-            'implicit_solvent' : self.implicit_solvent,
-            'solute_dielectric' : self.solute_dielectric,
-            'solvent_dielectric' : self.solvent_dielectric,
-            'implicit_solvent_salt_conc' : self.implicit_solvent_salt_conc,
-            'implicit_solvent_kappa' : self.implicit_solvent_kappa,
+                'formal_charge': self.formal_charge,
+                'partial_charge': self.partial_charge,
+                'forcefield' : self.forcefield,
+                'non_bonded_method' : self.non_bonded_method,
+                'cutoff_distance' : self.cutoff_distance,
+                'switch_distance' : self.switch_distance,
+                'dispersion_correction' : self.dispersion_correction,
+                'ewald_error_tolerance' : self.ewald_error_tolerance,
+                'hydrogen_mass' : self.hydrogen_mass,
+                'constraints' : self.constraints,
+                'flexible_constraints' : self.flexible_constraints,
+                'water_model' : self.water_model,
+                'rigid_water' : self.rigid_water,
+                'implicit_solvent' : self.implicit_solvent,
+                'solute_dielectric' : self.solute_dielectric,
+                'solvent_dielectric' : self.solvent_dielectric,
+                'salt_concentration' : self.salt_concentration,
+                'kappa' : self.kappa,
        }
 
     def copy(self):
 
         tmp_molecular_mechanics = MolecularMechanics()
 
-        tmp_molecular_mechanics._molecular_system = self._molecular_system
+        tmp_molecular_mechanics.formal_charge = self.formal_charge
+        tmp_molecular_mechanics.partial_charge = self.partial_charge
 
         tmp_molecular_mechanics.forcefield = self.forcefield
 
         tmp_molecular_mechanics.non_bonded_method = self.non_bonded_method
-        tmp_molecular_mechanics.non_bonded_cutoff = self.non_bonded_cutoff
+        tmp_molecular_mechanics.cutoff_distance = self.cutoff_distance
         tmp_molecular_mechanics.switch_distance = self.switch_distance
-        tmp_molecular_mechanics.use_dispersion_correction = self.use_dispersion_correction
+        tmp_molecular_mechanics.dispersion_correction = self.dispersion_correction
         tmp_molecular_mechanics.ewald_error_tolerance = self.ewald_error_tolerance
 
         tmp_molecular_mechanics.hydrogen_mass = self.hydrogen_mass
@@ -82,14 +96,12 @@ class MolecularMechanics():
 
         tmp_molecular_mechanics.water_model = self.water_model
         tmp_molecular_mechanics.rigid_water = self.rigid_water
-        tmp_molecular_mechanics.residue_templates = self.residue_templates
-        tmp_molecular_mechanics.ignore_external_bonds = self.ignore_external_bonds
 
         tmp_molecular_mechanics.implicit_solvent = self.implicit_solvent
         tmp_molecular_mechanics.solute_dielectric = self.solute_dielectric
         tmp_molecular_mechanics.solvent_dielectric = self.solvent_dielectric
-        tmp_molecular_mechanics.implicit_solvent_salt_conc = self.implicit_solvent_salt_conc
-        tmp_molecular_mechanics.implicit_solvent_kappa = self.implicit_solvent_kappa
+        tmp_molecular_mechanics.salt_concentration = self.salt_concentration
+        tmp_molecular_mechanics.kappa = self.kappa
 
         return tmp_molecular_mechanics
 
@@ -154,7 +166,7 @@ class MolecularMechanics():
             raise NotImplementedError()
 
         if self.non_bonded_cutoff is not None:
-            parameters['nonbondedCutoff']=puw.convert(self.non_bonded_cutoff, to_form='openmm.unit',
+            parameters['nonbondedCutoff']=puw.convert(self.cutoff_distance, to_form='openmm.unit',
                                                       to_unit='nm')
 
         if self.switch_distance is not None:
@@ -195,9 +207,9 @@ class MolecularMechanics():
             else:
                 raise NotImplementedError
 
-            parameters['implicitSolventSaltConc']=puw.convert(self.implicit_solvent_salt_cont,
+            parameters['implicitSolventSaltConc']=puw.convert(self.salt_concentration,
                                                               to_unit='mole/liter', to_form='openmm.unit')
-            parameters['implicitSolventKappa']=puw.convert(self.implicit_solvent_salt_kappa,
+            parameters['implicitSolventKappa']=puw.convert(self.kappa,
                                                            to_unit='1/nm', to_form='openmm.unit')
             parameters['soluteDielectric']=self.solute_dielectric
             parameters['solventDielectric']=self.solvent_dielectric
@@ -205,24 +217,5 @@ class MolecularMechanics():
         else:
             parameters['implicitSolvent']=None
 
-        #parameters['useDispersionCorrection']=self.use_dispersion_correction
-        #parameters['ewaldErrorTolerance']=self.ewald_error_tolerance
-
         return parameters
-
-    def to_openmm_System(self, molecular_system=None, selection='all', structure_indices='all'):
-
-        from molsysmt.basic import convert
-
-        if molecular_system is None:
-            molecular_system = self._molecular_system
-        else:
-            molecular_system = digest_molecular_system(molecular_system)
-
-        if molecular_system is None:
-            raise NoMolecularSystemError()
-
-        system = convert([molecular_system, self], to_form='openmm.System', selection=selection)
-
-        return system
 

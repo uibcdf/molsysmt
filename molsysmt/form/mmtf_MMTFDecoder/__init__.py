@@ -1,6 +1,14 @@
-from .is_mmtf_MMTFDecoder import is_mmtf_MMTFDecoder
+form_name = 'mmtf.MMTFDecoder'
+form_type = 'class'
+form_info = ["", ""]
+
+from .is_form import is_form
+
+from .attributes import attributes
+from .has_attribute import has_attribute
 
 from .extract import extract
+from .copy import copy
 from .add import add
 from .append_structures import append_structures
 from .get import *
@@ -18,3 +26,16 @@ from .to_string_aminoacids1 import to_string_aminoacids1
 from .to_string_aminoacids3 import to_string_aminoacids3
 from .to_string_pdb_text import to_string_pdb_text
 
+_convert_to={
+        'mmtf.MMTFDecoder': extract,
+        'file:mmtf': to_file_mmtf,
+        'file:pdb': to_file_pdb,
+        'molsysmt.MolSys': to_molsysmt_MolSys,
+        'molsysmt.Topology': to_molsysmt_Topology,
+        'molsysmt.Structures': to_molsysmt_Structures,
+        'mdtraj.Trajectory': to_mdtraj_Trajectory,
+        'openmm.Topology': to_openmm_Topology,
+        'string:aminoacids1': to_string_aminoacids1,
+        'string:aminoacids3': to_string_aminoacids3,
+        'string:pdb_text': to_string_pdb_text,
+        }

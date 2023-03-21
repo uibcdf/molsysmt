@@ -16,4 +16,3 @@ def to_string_pdb_text(item, atom_indices='all', structure_indices='all'):
     return tmp_item
 
 
-

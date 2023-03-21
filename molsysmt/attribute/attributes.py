@@ -1,993 +1,378 @@
-attributes = []
+attributes = {}
 attribute_synonyms = {}
-_required_attributes = {}
-_required_indices = {}
-_reverse_search_in_molecular_system = {}
-topological_attributes = []
-structural_attributes = []
-mechanical_attributes = []
+independent_attributes = []
+
+def add_attribute(name, synonyms=[], depends_on=[], dependants=[], runs_on_elements=False, runs_on_structures=False,
+        topological=False, structural=False, mechanical=False, get_from=[], set_to=None):
+
+    attributes[name] = {
+            'synonyms' : synonyms,
+            'runs_on_elements' :  runs_on_elements,
+            'runs_on_structures' :  runs_on_structures,
+            'topological' :  topological,
+            'structural' :  structural,
+            'mechanical' :  mechanical,
+            'get_from' : get_from,
+            'set_to' : set_to
+            }
+
+    for alternative_name in synonyms:
+        attribute_synonyms[alternative_name]=name
+
+    if len(depends_on)==0:
+        independent_attributes.append(name)
 
 ###
 ### TOPOLOGICAL ATTRIBUTES
 ###
 
-# atom_index
-
-attributes.append('atom_index')
-attribute_synonyms['atom_indices'] = 'atom_index'
-
-_required_attributes['atom_index'] = ['atom_index']
-_required_indices['atom_index'] = ['indices']
-_reverse_search_in_molecular_system['atom_index'] = False
-
-# atom_name
-
-attributes.append('atom_name')
-attribute_synonyms['atom_names'] = 'atom_name'
-
-_required_attributes['atom_name'] = ['atom_name']
-_required_indices['atom_name'] = ['indices']
-_reverse_search_in_molecular_system['atom_name'] = False
-
-topological_attributes.append('atom_name')
-
-# atom_id
-
-attributes.append('atom_id')
-attribute_synonyms['atom_ids'] = 'atom_id'
-
-_required_attributes['atom_id'] = ['atom_id']
-_required_indices['atom_id'] = ['indices']
-_reverse_search_in_molecular_system['atom_id'] = False
-
-topological_attributes.append('atom_id')
-
-# atom_type
-
-attributes.append('atom_type')
-attribute_synonyms['atom_types'] = 'atom_type'
-
-_required_attributes['atom_type'] = ['atom_type']
-_required_indices['atom_type'] = ['indices']
-_reverse_search_in_molecular_system['atom_type'] = False
-
-topological_attributes.append('atom_type')
-
-# group_index
-
-attributes.append('group_index')
-attribute_synonyms['group_indices'] = 'group_index'
-attribute_synonyms['residue_indices'] = 'group_index'
-attribute_synonyms['residue_index'] = 'group_index'
-
-_required_attributes['group_index'] = ['group_index']
-_required_indices['group_index'] = ['indices']
-_reverse_search_in_molecular_system['group_index'] = False
-
-topological_attributes.append('group_index')
-
-# group_name
-
-attributes.append('group_name')
-attribute_synonyms['group_names'] = 'group_name'
-attribute_synonyms['residue_names'] = 'group_name'
-attribute_synonyms['residue_name'] = 'group_name'
-
-_required_attributes['group_name'] = ['group_name']
-_required_indices['group_name'] = ['indices']
-_reverse_search_in_molecular_system['group_name'] = False
-
-topological_attributes.append('group_name')
-
-# group_id
-
-attributes.append('group_id')
-attribute_synonyms['group_ids'] = 'group_id'
-attribute_synonyms['residue_ids'] = 'group_id'
-attribute_synonyms['residue_id'] = 'group_id'
-
-_required_attributes['group_id'] = ['group_id']
-_required_indices['group_id'] = ['indices']
-_reverse_search_in_molecular_system['group_id'] = False
-
-topological_attributes.append('group_id')
-
-# group_type
-
-attributes.append('group_type')
-attribute_synonyms['group_types'] = 'group_type'
-attribute_synonyms['residue_types'] = 'group_type'
-attribute_synonyms['residue_type'] = 'group_type'
-
-_required_attributes['group_type'] = ['group_type']
-_required_indices['group_type'] = ['indices']
-_reverse_search_in_molecular_system['group_type'] = False
-
-topological_attributes.append('group_type')
-
-# component_index
-
-attributes.append('component_index')
-attribute_synonyms['component_indices'] = 'component_index'
-
-_required_attributes['component_index'] = ['component_index']
-_required_indices['component_index'] = ['indices']
-_reverse_search_in_molecular_system['component_index'] = False
-
-topological_attributes.append('component_index')
-
-# component_name
-
-attributes.append('component_name')
-attribute_synonyms['component_names'] = 'component_name'
-
-_required_attributes['component_name'] = ['component_name']
-_required_indices['component_name'] = ['indices']
-_reverse_search_in_molecular_system['component_name'] = False
-
-topological_attributes.append('component_name')
-
-# component_id
-
-attributes.append('component_id')
-attribute_synonyms['component_ids'] = 'component_id'
-
-_required_attributes['component_id'] = ['component_id']
-_required_indices['component_id'] = ['indices']
-_reverse_search_in_molecular_system['component_id'] = False
-
-topological_attributes.append('component_id')
-
-# component_type
-
-attributes.append('component_type')
-attribute_synonyms['component_types'] = 'component_type'
-
-_required_attributes['component_type'] = ['component_type']
-_required_indices['component_type'] = ['indices']
-_reverse_search_in_molecular_system['component_type'] = False
-
-topological_attributes.append('component_type')
-
-# chain_index
-
-attributes.append('chain_index')
-attribute_synonyms['chain_indices'] = 'chain_index'
-
-_required_attributes['chain_index'] = ['chain_index']
-_required_indices['chain_index'] = ['indices']
-_reverse_search_in_molecular_system['chain_index'] = False
-
-topological_attributes.append('chain_index')
-
-# chain_name
-
-attributes.append('chain_name')
-attribute_synonyms['chain_names'] = 'chain_name'
-
-_required_attributes['chain_name'] = ['chain_name']
-_required_indices['chain_name'] = ['indices']
-_reverse_search_in_molecular_system['chain_name'] = False
-
-topological_attributes.append('chain_name')
-
-# chain_id
-
-attributes.append('chain_id')
-attribute_synonyms['chain_ids'] = 'chain_id'
-
-_required_attributes['chain_id'] = ['chain_id']
-_required_indices['chain_id'] = ['indices']
-_reverse_search_in_molecular_system['chain_id'] = False
-
-topological_attributes.append('chain_id')
-
-# chain_type
-
-attributes.append('chain_type')
-attribute_synonyms['chain_types'] = 'chain_type'
-
-_required_attributes['chain_type'] = ['chain_type']
-_required_indices['chain_type'] = ['indices']
-_reverse_search_in_molecular_system['chain_type'] = False
-
-topological_attributes.append('chain_type')
-
-# molecule_index
-
-attributes.append('molecule_index')
-attribute_synonyms['molecule_indices'] = 'molecule_index'
-
-_required_attributes['molecule_index'] = ['molecule_index']
-_required_indices['molecule_index'] = ['indices']
-_reverse_search_in_molecular_system['molecule_index'] = False
-
-topological_attributes.append('molecule_index')
-
-# molecule_name
-
-attributes.append('molecule_name')
-attribute_synonyms['molecule_names'] = 'molecule_name'
-
-_required_attributes['molecule_name'] = ['molecule_name']
-_required_indices['molecule_name'] = ['indices']
-_reverse_search_in_molecular_system['molecule_name'] = False
-
-topological_attributes.append('molecule_name')
-
-# molecule_id
-
-attributes.append('molecule_id')
-attribute_synonyms['molecule_ids'] = 'molecule_id'
-
-_required_attributes['molecule_id'] = ['molecule_id']
-_required_indices['molecule_id'] = ['indices']
-_reverse_search_in_molecular_system['molecule_id'] = False
-
-topological_attributes.append('molecule_id')
-
-# molecule_type
-
-attributes.append('molecule_type')
-attribute_synonyms['molecule_types'] = 'molecule_type'
-
-_required_attributes['molecule_type'] = ['molecule_type']
-_required_indices['molecule_type'] = ['indices']
-_reverse_search_in_molecular_system['molecule_type'] = False
-
-topological_attributes.append('molecule_type')
-
-# entity_index
-
-attributes.append('entity_index')
-attribute_synonyms['entity_indices'] = 'entity_index'
-
-_required_attributes['entity_index'] = ['entity_index']
-_required_indices['entity_index'] = ['indices']
-_reverse_search_in_molecular_system['entity_index'] = False
-
-topological_attributes.append('entity_index')
-
-# entity_name
-
-attributes.append('entity_name')
-attribute_synonyms['entity_names'] = 'entity_name'
-
-_required_attributes['entity_name'] = ['entity_name']
-_required_indices['entity_name'] = ['indices']
-_reverse_search_in_molecular_system['entity_name'] = False
-
-topological_attributes.append('entity_name')
-
-# entity_id
-
-attributes.append('entity_id')
-attribute_synonyms['entity_ids'] = 'entity_id'
-
-_required_attributes['entity_id'] = ['entity_id']
-_required_indices['entity_id'] = ['indices']
-_reverse_search_in_molecular_system['entity_id'] = False
-
-topological_attributes.append('entity_id')
-
-# entity_type
-
-attributes.append('entity_type')
-attribute_synonyms['entity_types'] = 'entity_type'
-
-_required_attributes['entity_type'] = ['entity_type']
-_required_indices['entity_type'] = ['indices']
-_reverse_search_in_molecular_system['entity_type'] = False
-
-topological_attributes.append('entity_type')
-
-# bond_index
-
-attributes.append('bond_index')
-attribute_synonyms['bond_indices'] = 'bond_index'
-
-_required_attributes['bond_index'] = ['bond_index']
-_required_indices['bond_index'] = ['indices']
-_reverse_search_in_molecular_system['bond_index'] = False
-
-topological_attributes.append('bond_index')
-
-# bond_id
-
-attributes.append('bond_id')
-attribute_synonyms['bond_ids'] = 'bond_id'
-
-_required_attributes['bond_id'] = ['bond_id']
-_required_indices['bond_id'] = ['indices']
-_reverse_search_in_molecular_system['bond_id'] = False
-
-topological_attributes.append('bond_id')
-
-# bond_type
-
-attributes.append('bond_type')
-attribute_synonyms['bond_types'] = 'bond_type'
-
-_required_attributes['bond_type'] = ['bond_type']
-_required_indices['bond_type'] = ['indices']
-_reverse_search_in_molecular_system['bond_type'] = False
-
-topological_attributes.append('bond_type')
-
-# bond_order
-
-attributes.append('bond_order')
-attribute_synonyms['bonds_order'] = 'bond_order'
-
-_required_attributes['bond_order'] = ['bond_order']
-_required_indices['bond_order'] = ['indices']
-_reverse_search_in_molecular_system['bond_order'] = False
-
-topological_attributes.append('bond_order')
-
-# bonded_atoms
-
-attributes.append('bonded_atoms')
-attribute_synonyms['bonded_atom'] = 'bonded_atoms'
-
-_required_attributes['bonded_atoms'] = ['bonded_atoms']
-_required_indices['bonded_atoms'] = ['indices']
-_reverse_search_in_molecular_system['bonded_atoms'] = False
-
-topological_attributes.append('bonded_atoms')
-
-# inner_bonded_atoms
-
-attributes.append('inner_bonded_atoms')
-attribute_synonyms['inner_bonded_atom'] = 'inner_bonded_atoms'
-
-_required_attributes['inner_bonded_atoms'] = ['bonded_atoms']
-_required_indices['inner_bonded_atoms'] = ['indices']
-_reverse_search_in_molecular_system['inner_bonded_atoms'] = False
-
-topological_attributes.append('inner_bonded_atoms')
-
-# inner_bond_index
-
-attributes.append('inner_bond_index')
-attribute_synonyms['inner_bond_indices'] = 'inner_bond_index'
-
-_required_attributes['inner_bond_index'] = ['bond_index']
-_required_indices['inner_bond_index'] = ['indices']
-_reverse_search_in_molecular_system['inner_bond_index'] = False
-
-topological_attributes.append('inner_bond_index')
-
-# n_atoms
-
-attributes.append('n_atoms')
-attribute_synonyms['n_atom'] = 'n_atoms'
-
-_required_attributes['n_atoms'] = ['atom_index', 'coordinates']
-_required_indices['n_atoms'] = ['indices']
-_reverse_search_in_molecular_system['n_atoms'] = False
-
-# n_groups
-
-attributes.append('n_groups')
-attribute_synonyms['n_group'] = 'n_groups'
-attribute_synonyms['n_residues'] = 'n_groups'
-attribute_synonyms['n_residue'] = 'n_groups'
-
-_required_attributes['n_groups'] = ['group_index']
-_required_indices['n_groups'] = ['indices']
-_reverse_search_in_molecular_system['n_groups'] = False
-
-topological_attributes.append('n_groups')
-
-# n_components
-
-attributes.append('n_components')
-attribute_synonyms['n_component'] = 'n_components'
-
-_required_attributes['n_components'] = ['component_index']
-_required_indices['n_components'] = ['indices']
-_reverse_search_in_molecular_system['n_components'] = False
-
-topological_attributes.append('n_components')
-
-# n_chains
-
-attributes.append('n_chains')
-attribute_synonyms['n_chain'] = 'n_chains'
-
-_required_attributes['n_chains'] = ['chain_index']
-_required_indices['n_chains'] = ['indices']
-_reverse_search_in_molecular_system['n_chains'] = False
-
-topological_attributes.append('n_chains')
-
-# n_molecules
-
-attributes.append('n_molecules')
-attribute_synonyms['n_molecule'] = 'n_molecules'
-
-_required_attributes['n_molecules'] = ['molecule_index']
-_required_indices['n_molecules'] = ['indices']
-_reverse_search_in_molecular_system['n_molecules'] = False
-
-topological_attributes.append('n_molecules')
-
-# n_entities
-
-attributes.append('n_entities')
-attribute_synonyms['n_entity'] = 'n_entities'
-
-_required_attributes['n_entities'] = ['entity_index']
-_required_indices['n_entities'] = ['indices']
-_reverse_search_in_molecular_system['n_entities'] = False
-
-topological_attributes.append('n_entities')
-
-# n_bonds
-
-attributes.append('n_bonds')
-attribute_synonyms['n_bond'] = 'n_bonds'
-
-_required_attributes['n_bonds'] = ['bond_index']
-_required_indices['n_bonds'] = ['indices']
-_reverse_search_in_molecular_system['n_bonds'] = False
-
-topological_attributes.append('n_bonds')
-
-# n_inner_bonds
-
-attributes.append('n_inner_bonds')
-attribute_synonyms['n_inner_bond'] = 'n_inner_bonds'
-
-_required_attributes['n_inner_bonds'] = ['bond_index']
-_required_indices['n_inner_bonds'] = ['indices']
-_reverse_search_in_molecular_system['n_inner_bonds'] = False
-
-topological_attributes.append('n_inner_bonds')
-
-# n_aminoacids
-
-attributes.append('n_aminoacids')
-attribute_synonyms['n_aminoacid'] = 'n_aminoacids'
-
-_required_attributes['n_aminoacids'] = ['group_type']
-_required_indices['n_aminoacids'] = ['indices']
-_reverse_search_in_molecular_system['n_aminoacids'] = False
-
-topological_attributes.append('n_aminoacids')
-
-# n_nucleotides
-
-attributes.append('n_nucleotides')
-attribute_synonyms['n_nucleotide'] = 'n_nucleotides'
-
-_required_attributes['n_nucleotides'] = ['group_type']
-_required_indices['n_nucleotides'] = ['indices']
-_reverse_search_in_molecular_system['n_nucleotides'] = False
-
-topological_attributes.append('n_nucleotides')
-
-# n_ions
-
-attributes.append('n_ions')
-attribute_synonyms['n_ion'] = 'n_ions'
-
-_required_attributes['n_ions'] = ['group_type']
-_required_indices['n_ions'] = ['indices']
-_reverse_search_in_molecular_system['n_ions'] = False
-
-topological_attributes.append('n_ions')
-
-# n_waters
-
-attributes.append('n_waters')
-attribute_synonyms['n_water'] = 'n_waters'
-
-_required_attributes['n_waters'] = ['group_type']
-_required_indices['n_waters'] = ['indices']
-_reverse_search_in_molecular_system['n_waters'] = False
-
-topological_attributes.append('n_waters')
-
-# n_small_molecules
-
-attributes.append('n_small_molecules')
-attribute_synonyms['n_small_molecule'] = 'n_small_molecules'
-
-_required_attributes['n_small_molecules'] = ['group_type']
-_required_indices['n_small_molecules'] = ['indices']
-_reverse_search_in_molecular_system['n_small_molecules'] = False
-
-topological_attributes.append('n_small_molecules')
-
-# n_peptides
-
-attributes.append('n_peptides')
-attribute_synonyms['n_peptide'] = 'n_peptides'
-
-_required_attributes['n_peptides'] = ['molecule_type']
-_required_indices['n_peptides'] = ['indices']
-_reverse_search_in_molecular_system['n_peptides'] = False
-
-topological_attributes.append('n_peptides')
-
-# n_proteins
-
-attributes.append('n_proteins')
-attribute_synonyms['n_protein'] = 'n_proteins'
-
-_required_attributes['n_proteins'] = ['molecule_type']
-_required_indices['n_proteins'] = ['indices']
-_reverse_search_in_molecular_system['n_proteins'] = False
-
-topological_attributes.append('n_proteins')
-
-# n_dnas
-
-attributes.append('n_dnas')
-attribute_synonyms['n_dna'] = 'n_dnas'
-
-_required_attributes['n_dnas'] = ['molecule_type']
-_required_indices['n_dnas'] = ['indices']
-_reverse_search_in_molecular_system['n_dnas'] = False
-
-topological_attributes.append('n_dnas')
-
-# n_rnas
-
-attributes.append('n_rnas')
-attribute_synonyms['n_rna'] = 'n_rnas'
-
-_required_attributes['n_rnas'] = ['molecule_type']
-_required_indices['n_rnas'] = ['indices']
-_reverse_search_in_molecular_system['n_rnas'] = False
-
-topological_attributes.append('n_rnas')
-
-# n_lipids
-
-attributes.append('n_lipids')
-attribute_synonyms['n_lipid'] = 'n_lipids'
-
-_required_attributes['n_lipids'] = ['group_type']
-_required_indices['n_lipids'] = ['indices']
-_reverse_search_in_molecular_system['n_lipids'] = False
-
-topological_attributes.append('n_lipids')
-
-# n_oligosaccharides
-
-attributes.append('n_oligosaccharides')
-attribute_synonyms['n_oligosaccharides'] = 'n_oligosaccharides'
-
-_required_attributes['n_oligosaccharides'] = ['molecule_type']
-_required_indices['n_oligosaccharides'] = ['indices']
-_reverse_search_in_molecular_system['n_oligosaccharides'] = False
-
-topological_attributes.append('n_oligosaccharides')
-
-# n_saccharides
-
-attributes.append('n_saccharides')
-attribute_synonyms['n_saccharides'] = 'n_saccharides'
-
-_required_attributes['n_saccharides'] = ['group_type']
-_required_indices['n_saccharides'] = ['indices']
-_reverse_search_in_molecular_system['n_saccharides'] = False
-
-topological_attributes.append('n_saccharides')
-
-# formal_charge
-
-attributes.append('formal_charge')
-attribute_synonyms['formal_charges'] = 'formal_charge'
-
-_required_attributes['formal_charge'] = ['formal_charge']
-_required_indices['formal_charge'] = ['indices']
-_reverse_search_in_molecular_system['formal_charge'] = False
-
-topological_attributes.append('formal_charge')
-
-# partial_charge
-
-attributes.append('partial_charge')
-attribute_synonyms['partial_charges'] = 'partial_charge'
-
-_required_attributes['partial_charge'] = ['partial_charge']
-_required_indices['partial_charge'] = ['indices']
-_reverse_search_in_molecular_system['partial_charge'] = False
-
-topological_attributes.append('partial_charge')
+### atom_index
+add_attribute('atom_index', synonyms=['atom_indices'], dependants=['n_atoms'], runs_on_elements=True, topological=True,
+        get_from=['atom','group','component','molecule','chain','entity'])
+
+### atom_name
+add_attribute('atom_name', synonyms=['atom_names'], runs_on_elements=True, topological=True,
+        get_from=['atom','group','component','molecule','chain','entity'], set_to='atom')
+
+## atom_id
+add_attribute('atom_id', synonyms=['atom_ids'], runs_on_elements=True, topological=True,
+        get_from=['atom','group','component','molecule','chain','entity'], set_to='atom')
+
+## atom_type
+add_attribute('atom_type', synonyms=['atom_types'], runs_on_elements=True, topological=True,
+        get_from=['atom','group','component','molecule','chain','entity'], set_to='atom')
+
+## group_index
+add_attribute('group_index', synonyms=['group_indices', 'residue_indices', 'residue_index'], dependants=['n_groups'], runs_on_elements=True, topological=True,
+        get_from=['atom','group','component','molecule','chain','entity'])
+
+## group_name
+add_attribute('group_name', synonyms=['group_names', 'residue_names', 'residue_name'], runs_on_elements=True, topological=True,
+        get_from=['atom','group','component','molecule','chain','entity'], set_to='group')
+
+## group_id
+add_attribute('group_id', synonyms=['group_ids', 'residue_ids', 'residue_id'], runs_on_elements=True, topological=True,
+        get_from=['atom','group','component','molecule','chain','entity'], set_to='group')
+
+## group_type
+add_attribute('group_type', synonyms=['group_types', 'residue_types', 'residue_type'], runs_on_elements=True, topological=True,
+        get_from=['atom','group','component','molecule','chain','entity'], set_to='group')
+
+## component_index
+add_attribute('component_index', synonyms=['component_indices'], dependants=['n_components'], runs_on_elements=True, topological=True,
+        get_from=['atom','group','component','molecule','chain','entity'])
+
+## component_name
+add_attribute('component_name', synonyms=['component_names'], runs_on_elements=True, topological=True,
+        get_from=['atom','group','component','molecule','chain','entity'], set_to='component')
+
+## component_id
+add_attribute('component_id', synonyms=['component_ids'], runs_on_elements=True, topological=True,
+        get_from=['atom','group','component','molecule','chain','entity'], set_to='component')
+
+## component_type
+add_attribute('component_type', synonyms=['component_types'], runs_on_elements=True, topological=True,
+        get_from=['atom','group','component','molecule','chain','entity'], set_to='component')
+
+## chain_index
+add_attribute('chain_index', synonyms=['chain_indices'], dependants=['n_chains'], runs_on_elements=True, topological=True,
+        get_from=['atom','group','component','molecule','chain','entity'])
+
+## chain_name
+add_attribute('chain_name', synonyms=['chain_names'], runs_on_elements=True, topological=True,
+        get_from=['atom','group','component','molecule','chain','entity'], set_to='chain')
+
+## chain_id
+add_attribute('chain_id', synonyms=['chain_ids'], runs_on_elements=True, topological=True,
+        get_from=['atom','group','component','molecule','chain','entity'], set_to='chain')
+
+## chain_type
+add_attribute('chain_type', synonyms=['chain_types'], runs_on_elements=True, topological=True,
+        get_from=['atom','group','component','molecule','chain','entity'], set_to='chain')
+
+## molecule_index
+add_attribute('molecule_index', synonyms=['molecule_indices'], dependants=['n_molecules'], runs_on_elements=True, topological=True,
+        get_from=['atom','group','component','molecule','chain','entity'])
+
+## molecule_name
+add_attribute('molecule_name', synonyms=['molecule_names'], runs_on_elements=True, topological=True,
+        get_from=['atom','group','component','molecule','chain','entity'], set_to='molecule')
+
+## molecule_id
+add_attribute('molecule_id', synonyms=['molecule_ids'], runs_on_elements=True, topological=True,
+        get_from=['atom','group','component','molecule','chain','entity'], set_to='molecule')
+
+## molecule_type
+add_attribute('molecule_type', synonyms=['molecule_types'],
+        dependants=['n_ions', 'n_waters', 'n_small_molecules', 'n_lipids', 'n_peptides',
+            'n_proteins', 'n_dnas', 'n_rnas', 'n_oligosaccharides', 'n_saccharides'],
+        runs_on_elements=True, topological=True,
+        get_from=['atom','group','component','molecule','chain','entity'], set_to='molecule')
+
+## entity_index
+add_attribute('entity_index', synonyms=['entity_indices'], dependants=['n_entities'], runs_on_elements=True, topological=True,
+        get_from=['atom','group','component','molecule','chain','entity'])
+
+## entity_name
+add_attribute('entity_name', synonyms=['entity_names'], runs_on_elements=True, topological=True,
+        get_from=['atom','group','component','molecule','chain','entity'], set_to='entity')
+
+## entity_id
+add_attribute('entity_id', synonyms=['entity_ids'], runs_on_elements=True, topological=True,
+        get_from=['atom','group','component','molecule','chain','entity'], set_to='entity')
+
+## entity_type
+add_attribute('entity_type', synonyms=['entity_types'], runs_on_elements=True, topological=True,
+        get_from=['atom','group','component','molecule','chain','entity'], set_to='entity')
+
+## bond_index
+add_attribute('bond_index', synonyms=['bond_indices'], dependants=['n_bonds'], runs_on_elements=True, topological=True,
+        get_from=['atom','bond'])
+
+## bond_id
+add_attribute('bond_id', synonyms=['bond_ids'], runs_on_elements=True, topological=True,
+        get_from=['bond'], set_to='bond')
+
+## bond_type
+add_attribute('bond_type', synonyms=['bond_types'], runs_on_elements=True, topological=True,
+        get_from=['bond'], set_to='bond')
+
+## bond_order
+add_attribute('bond_order', synonyms=['bonds_order'], runs_on_elements=True, topological=True,
+        get_from=['bond'], set_to='bond')
+
+## bonded_atoms
+add_attribute('bonded_atoms', synonyms=['bonded_atom'], dependants=['inner_bonded_atoms'], runs_on_elements=True, topological=True,
+        get_from=['atom','bond'], set_to='bond')
+
+## inner_bonded_atoms
+add_attribute('inner_bonded_atoms', synonyms=['inner_bonded_atom'], depends_on=['bonded_atoms'], runs_on_elements=True, topological=True,
+        get_from=['atom'])
+
+## inner_bond_index
+add_attribute('inner_bond_index', synonyms=['inner_bond_indices'], depends_on=['bonded_atoms'], runs_on_elements=True, topological=True,
+        get_from=['atom'])
+
+## n_atoms
+add_attribute('n_atoms', synonyms=['n_atom'], depends_on=['atom_index'], runs_on_elements=True, topological=True,
+        get_from=['atom', 'group', 'component', 'molecule', 'chain', 'entity', 'system'])
+
+## n_groups
+add_attribute('n_groups', synonyms=['n_group'], depends_on=['group_index'], runs_on_elements=True, topological=True,
+        get_from=['atom', 'group', 'component', 'molecule', 'chain', 'entity', 'system'])
+
+## n_components
+add_attribute('n_components', synonyms=['n_component'], depends_on=['component_index'], runs_on_elements=True, topological=True,
+        get_from=['atom', 'group', 'component', 'molecule', 'chain', 'entity', 'system'])
+
+## n_chains
+add_attribute('n_chains', synonyms=['n_chain'], depends_on=['chain_index'], runs_on_elements=True, topological=True,
+        get_from=['atom', 'group', 'component', 'molecule', 'chain', 'entity', 'system'])
+
+## n_molecules
+add_attribute('n_molecules', synonyms=['n_molecule'], depends_on=['molecule_index'], runs_on_elements=True, topological=True,
+        get_from=['atom', 'group', 'component', 'molecule', 'chain', 'entity', 'system'])
+
+## n_entities
+add_attribute('n_entities', synonyms=['n_entity'], depends_on=['entity_index'], runs_on_elements=True, topological=True,
+        get_from=['atom', 'group', 'component', 'molecule', 'chain', 'entity', 'system'])
+
+## n_bonds
+add_attribute('n_bonds', synonyms=['n_bond'], depends_on=['bond_index'], runs_on_elements=True, topological=True,
+        get_from=['system'])
+
+## n_inner_bonds
+add_attribute('n_inner_bonds', synonyms=['n_inner_bond'], depends_on=['bonded_atoms'], runs_on_elements=True, topological=True,
+        get_from=['atom'])
+
+## n_aminoacids
+add_attribute('n_aminoacids', synonyms=['n_aminoacid'], depends_on=['group_type'], runs_on_elements=True, topological=True,
+        get_from=['system'])
+
+## n_nucleotides
+add_attribute('n_nucleotides', synonyms=['n_nucleotide'], depends_on=['group_type'], runs_on_elements=True, topological=True,
+        get_from=['system'])
+
+## n_ions
+add_attribute('n_ions', synonyms=['n_ion'], depends_on=['molecule_type'], runs_on_elements=True, topological=True,
+        get_from=['system'])
+
+## n_waters
+add_attribute('n_waters', synonyms=['n_water'], depends_on=['molecule_type'], runs_on_elements=True, topological=True,
+        get_from=['system'])
+
+## n_small_molecules
+add_attribute('n_small_molecules', synonyms=['n_small_molecule'], depends_on=['molecule_type'], runs_on_elements=True, topological=True,
+        get_from=['system'])
+
+## n_peptides
+add_attribute('n_peptides', synonyms=['n_peptide'], depends_on=['molecule_type'], runs_on_elements=True, topological=True,
+        get_from=['system'])
+
+## n_proteins
+add_attribute('n_proteins', synonyms=['n_protein'], depends_on=['molecule_type'], runs_on_elements=True, topological=True,
+        get_from=['system'])
+
+## n_dnas
+add_attribute('n_dnas', synonyms=['n_dna'], depends_on=['molecule_type'], runs_on_elements=True, topological=True,
+        get_from=['system'])
+
+## n_rnas
+add_attribute('n_rnas', synonyms=['n_rna'], depends_on=['molecule_type'], runs_on_elements=True, topological=True,
+        get_from=['system'])
+
+## n_lipids
+add_attribute('n_lipids', synonyms=['n_lipid'], depends_on=['molecule_type'], runs_on_elements=True, topological=True,
+        get_from=['system'])
+
+## n_oligosaccharides
+add_attribute('n_oligosaccharides', synonyms=['n_oligosaccharide'], depends_on=['molecule_type'], runs_on_elements=True, topological=True,
+        get_from=['system'])
+
+## n_saccharides
+add_attribute('n_saccharides', synonyms=['n_saccharide'], depends_on=['molecule_type'], runs_on_elements=True, topological=True,
+        get_from=['system'])
 
 
 ###
 ### STRUCTURAL ATTRIBUTES
 ###
 
-# structure_id
+## structure_index
+add_attribute('structure_index', synonyms=['runs_on_structures'], dependants='n_structures', runs_on_structures=True, structural=True)
 
-attributes.append('structure_id')
-attribute_synonyms['structure_ids'] = 'structure_id'
-attribute_synonyms['structures_ids'] = 'structure_id'
-attribute_synonyms['structures_id'] = 'structure_id'
-attribute_synonyms['md_step'] = 'structure_id'
-attribute_synonyms['md_steps'] = 'structure_id'
-attribute_synonyms['mdstep'] = 'structure_id'
-attribute_synonyms['mdsteps'] = 'structure_id'
+## structure_id
+add_attribute('structure_id', synonyms=['structure_ids', 'structures_id', 'structures_ids', 'md_step', 'md_steps', 'mdstep', 'mdsteps'], runs_on_structures=True, structural=True,
+        get_from=['system'], set_to='system')
 
-_required_attributes['structure_id'] = ['structure_id']
-_required_indices['structure_id'] = ['structure_indices']
-_reverse_search_in_molecular_system['structure_id'] = True
+## time
+add_attribute('time', synonyms=['times'], runs_on_structures=True, structural=True,
+        get_from=['system'], set_to='system')
 
-structural_attributes.append('structure_id')
+## box
+add_attribute('box', synonyms=['boxes'],
+        dependants=['box_shape', 'box_angles', 'box_lengths', 'box_volume'],
+        runs_on_structures=True, structural=True,
+        get_from=['system'], set_to='system')
 
-# time
+## box_shape
+add_attribute('box_shape', synonyms=['box_shapes'], depends_on=['box'], runs_on_structures=True, structural=True,
+        get_from=['system'])
 
-attributes.append('time')
-attribute_synonyms['times'] = 'time'
+## box_angles
+add_attribute('box_angles', synonyms=['box_angle'], depends_on=['box'], runs_on_structures=True, structural=True,
+        get_from=['system'])
 
-_required_attributes['time'] = ['time']
-_required_indices['time'] = ['structure_indices']
-_reverse_search_in_molecular_system['time'] = True
+## box_lengths
+add_attribute('box_lengths', synonyms=['box_length'], depends_on=['box'], runs_on_structures=True, structural=True,
+        get_from=['system'])
 
-structural_attributes.append('time')
+## box_volume
+add_attribute('box_volume', synonyms=['box_volumes'], depends_on=['box'], runs_on_structures=True, structural=True,
+        get_from=['system'])
 
-# box
+## coordinates
+add_attribute('coordinates', synonyms=['coordinate', 'positions', 'position'], runs_on_elements=True, runs_on_structures=True, structural=True,
+        get_from=['atom', 'system'], set_to='atom')
 
-attributes.append('box')
-attribute_synonyms['boxes'] = 'box'
+## velocities
+add_attribute('velocities', synonyms=['velocity'], runs_on_elements=True, runs_on_structures=True, structural=True,
+        get_from=['atom', 'system'], set_to='atom')
 
-_required_attributes['box'] = ['box']
-_required_indices['box'] = ['structure_indices']
-_reverse_search_in_molecular_system['box'] = True
+## n_structures
+add_attribute('n_structures', synonyms=['n_structure'], depends_on=['structure_index'], runs_on_elements=True, runs_on_structures=True, structural=True,
+        get_from=['system'])
 
-structural_attributes.append('box')
+## occupancy
+add_attribute('occupancy', synonyms=['occupancies'], runs_on_elements=True, runs_on_structures=True, structural=True,
+        get_from=['atom','system'], set_to='atom')
 
-# box_shape
+## alternate_location
+add_attribute('alternate_location', synonyms=['alternate_locations'], runs_on_elements=True, runs_on_structures=True, structural=True,
+        get_from=['atom','system'], set_to='atom')
 
-attributes.append('box_shape')
-attribute_synonyms['box_shapes'] = 'box_shape'
+## b_factor
+add_attribute('b_factor', synonyms=['b_factors'], runs_on_elements=True, runs_on_structures=True, structural=True,
+        get_from=['atom','system'], set_to='atom')
 
-_required_attributes['box_shape'] = ['box']
-_required_indices['box_shape'] = ['structure_indices']
-_reverse_search_in_molecular_system['box_shape'] = True
+## temperature
+add_attribute('temperature', synonyms=['temperatures'], runs_on_structures=True, structural=True,
+        get_from=['system'], set_to='system')
 
-structural_attributes.append('box_shape')
-
-# box_angles
-
-attributes.append('box_angles')
-attribute_synonyms['box_angle'] = 'box_angles'
-
-_required_attributes['box_angles'] = ['box']
-_required_indices['box_angles'] = ['structure_indices']
-_reverse_search_in_molecular_system['box_angles'] = True
-
-structural_attributes.append('box_angles')
-
-# box_lengths
-
-attributes.append('box_lengths')
-attribute_synonyms['box_length'] = 'box_length'
-
-_required_attributes['box_lengths'] = ['box']
-_required_indices['box_lengths'] = ['structure_indices']
-_reverse_search_in_molecular_system['box_lengths'] = True
-
-structural_attributes.append('box_lengths')
-
-# box_volume
-
-attributes.append('box_volume')
-attribute_synonyms['box_volumes'] = 'box_volume'
-
-_required_attributes['box_volume'] = ['box']
-_required_indices['box_volume'] = ['structure_indices']
-_reverse_search_in_molecular_system['box_volume'] = True
-
-structural_attributes.append('box_volume')
-
-# coordinates
-
-attributes.append('coordinates')
-attribute_synonyms['coordinate'] = 'coordinates'
-attribute_synonyms['positions'] = 'coordinates'
-attribute_synonyms['position'] = 'coordinates'
-
-_required_attributes['coordinates'] = ['coordinates']
-_required_indices['coordinates'] = ['indices', 'structure_indices']
-_reverse_search_in_molecular_system['coordinates'] = True
-
-structural_attributes.append('coordinates')
-
-# n_structures
-
-attributes.append('n_structures')
-attribute_synonyms['n_structure'] = 'n_structures'
-
-_required_attributes['n_structures'] = ['coordinates', 'box']
-_required_indices['n_structures'] = []
-_reverse_search_in_molecular_system['n_structures'] = True
-
-structural_attributes.append('box_volume')
-
-# bioassemblies
-# This is not an attribute. It has to be removed in the future.
-
-attributes.append('bioassemblies')
-attribute_synonyms['biological_assembly'] = 'bioassemblies'
-attribute_synonyms['biological_assemblies'] = 'bioassemblies'
-attribute_synonyms['bioassembly'] = 'bioassemblies'
-
-_required_attributes['bioassemblies'] = ['bioassemblies']
-_required_indices['bioassemblies'] = []
-_reverse_search_in_molecular_system['bioassemblies'] = False
-
-# n_bioassemblies
-# This is not an attribute. It has to be removed in the future.
-
-attributes.append('n_bioassemblies')
-attribute_synonyms['n_bioassembly'] = 'n_bioassemblies'
-attribute_synonyms['n_biological_assemblies'] = 'n_bioassemblies'
-attribute_synonyms['n_biological_assembly'] = 'n_bioassemblies'
-
-_required_attributes['n_bioassemblies'] = ['bioassemblies']
-_required_indices['n_bioassemblies'] = []
-_reverse_search_in_molecular_system['n_bioassemblies'] = False
-
-# occupancy
-
-attributes.append('occupancy')
-attribute_synonyms['occupancies'] = 'occupancy'
-
-_required_attributes['occupancy'] = ['occupancy']
-_required_indices['occupancy'] = ['indices']
-_reverse_search_in_molecular_system['occupancy'] = False
-
-# alternate_location
-
-attributes.append('alternate_location')
-attribute_synonyms['alternate_locations'] = 'alternate_location'
-
-_required_attributes['alternate_location'] = ['alternate_location']
-_required_indices['alternate_location'] = ['indices']
-_reverse_search_in_molecular_system['alternate_location'] = False
-
-
-# b_factor
-
-attributes.append('b_factor')
-attribute_synonyms['b_factors'] = 'b_factor'
-
-_required_attributes['b_factor'] = ['b_factor']
-_required_indices['b_factor'] = ['indices']
-_reverse_search_in_molecular_system['b_factor'] = False
-
-# temperature
-
-attributes.append('temperature')
-attribute_synonyms['temperatures'] = 'temperature'
-
-_required_attributes['temperature'] = ['temperature']
-_required_indices['temperature'] = []
-_reverse_search_in_molecular_system['temperature'] = False
-
-structural_attributes.append('temperature')
 
 ###
 ### MECHANICAL ATTRIBUTES
 ###
 
-#  forcefield
-
-attributes.append('forcefield')
-attribute_synonyms['force field'] = 'forcefield'
-attribute_synonyms['force_field'] = 'forcefield'
-attribute_synonyms['forcefields'] = 'forcefield'
-attribute_synonyms['force fields'] = 'forcefield'
-attribute_synonyms['force_fields'] = 'forcefield'
-
-_required_attributes['forcefield'] = ['forcefield']
-_required_indices['forcefield'] = []
-_reverse_search_in_molecular_system['forcefield'] = False
-
-mechanical_attributes.append('forcefield')
-
-# non_bonded_method
-
-attributes.append('non_bonded_method')
-attribute_synonyms['non bonded method'] = 'non_bonded_method'
-
-_required_attributes['non_bonded_method'] = ['non_bonded_method']
-_required_indices['non_bonded_method'] = []
-_reverse_search_in_molecular_system['non_bonded_method'] = False
-
-mechanical_attributes.append('non_bonded_method')
-
-# non_bonded_method
-
-attributes.append('non_bonded_method')
-attribute_synonyms['non bonded method'] = 'non_bonded_method'
-
-_required_attributes['non_bonded_method'] = ['non_bonded_method']
-_required_indices['non_bonded_method'] = []
-_reverse_search_in_molecular_system['non_bonded_method'] = False
-
-mechanical_attributes.append('non_bonded_method')
-
-# cutoff_distance
-
-attributes.append('cutoff_distance')
-attribute_synonyms['cutoff distance'] = 'cutoff_distance'
-
-_required_attributes['cutoff_distance'] = ['cutoff_distance']
-_required_indices['cutoff_distance'] = []
-_reverse_search_in_molecular_system['cutoff_distance'] = False
-
-mechanical_attributes.append('cutoff_distance')
-
-# switch_distance
-
-attributes.append('switch_distance')
-attribute_synonyms['switch distance'] = 'switch_distance'
-
-_required_attributes['switch_distance'] = ['switch_distance']
-_required_indices['switch_distance'] = []
-_reverse_search_in_molecular_system['switch_distance'] = False
-
-mechanical_attributes.append('switch_distance')
-
-# dispersion_correction
-
-attributes.append('dispersion_correction')
-attribute_synonyms['dispersion correction'] = 'dispersion_correction'
-attribute_synonyms['use_dispersion_correction'] = 'dispersion_correction'
-
-_required_attributes['dispersion_correction'] = ['dispersion_correction']
-_required_indices['dispersion_correction'] = []
-_reverse_search_in_molecular_system['dispersion_correction'] = False
-
-mechanical_attributes.append('dispersion_correction')
-
-# ewald_error_tolerance
-
-attributes.append('ewald_error_tolerance')
-attribute_synonyms['ewald error tolerance'] = 'ewald_error_tolerance'
-
-_required_attributes['ewald_error_tolerance'] = ['ewald_error_tolerance']
-_required_indices['ewald_error_tolerance'] = []
-_reverse_search_in_molecular_system['ewald_error_tolerance'] = False
-
-mechanical_attributes.append('ewald_error_tolerance')
-
-# hydrogen_mass
-
-attributes.append('hydrogen_mass')
-attribute_synonyms['hydrogen mass'] = 'hydrogen_mass'
-
-_required_attributes['hydrogen_mass'] = ['hydrogen_mass']
-_required_indices['hydrogen_mass'] = []
-_reverse_search_in_molecular_system['hydrogen_mass'] = False
-
-mechanical_attributes.append('hydrogen_mass')
-
-# constraints
-
-attributes.append('constraints')
-attribute_synonyms['constraint'] = 'constraints'
-
-_required_attributes['constraints'] = ['constraints']
-_required_indices['constraints'] = []
-_reverse_search_in_molecular_system['constraints'] = False
-
-mechanical_attributes.append('constraints')
-
-# flexible_constraints
-
-attributes.append('flexible_constraints')
-attribute_synonyms['flexible constraint'] = 'flexible_constraints'
-
-_required_attributes['flexible_constraints'] = ['flexible_constraints']
-_required_indices['flexible_constraints'] = []
-_reverse_search_in_molecular_system['flexible_constraints'] = False
-
-mechanical_attributes.append('flexible_constraints')
-
-# water_model
-
-attributes.append('water_model')
-attribute_synonyms['water model'] = 'water_model'
-
-_required_attributes['water_model'] = ['water_model']
-_required_indices['water_model'] = []
-_reverse_search_in_molecular_system['water_model'] = False
-
-mechanical_attributes.append('water_model')
-
-# rigid_water
-
-attributes.append('rigid_water')
-attribute_synonyms['rigid water'] = 'rigid_water'
-
-_required_attributes['rigid_water'] = ['rigid_water']
-_required_indices['rigid_water'] = []
-_reverse_search_in_molecular_system['rigid_water'] = False
-
-mechanical_attributes.append('rigid_water')
-
-# implicit_solvent
-
-attributes.append('implicit_solvent')
-attribute_synonyms['implicit solvent'] = 'implicit_solvent'
-
-_required_attributes['implicit_solvent'] = ['implicit_solvent']
-_required_indices['implicit_solvent'] = []
-_reverse_search_in_molecular_system['implicit_solvent'] = False
-
-mechanical_attributes.append('implicit_solvent')
-
-# solute_dielectric
-
-attributes.append('solute_dielectric')
-attribute_synonyms['solute dielectric'] = 'solute_dielectric'
-
-_required_attributes['solute_dielectric'] = ['solute_dielectric']
-_required_indices['solute_dielectric'] = []
-_reverse_search_in_molecular_system['solute_dielectric'] = False
-
-mechanical_attributes.append('solute_dielectric')
-
-# solvent_dielectric
-
-attributes.append('solvent_dielectric')
-attribute_synonyms['solvent dielectric'] = 'solvent_dielectric'
-
-_required_attributes['solvent_dielectric'] = ['solvent_dielectric']
-_required_indices['solvent_dielectric'] = []
-_reverse_search_in_molecular_system['solvent_dielectric'] = False
-
-mechanical_attributes.append('solvent_dielectric')
-
-# salt_concentration
-
-attributes.append('salt_concentration')
-attribute_synonyms['salt concentration'] = 'salt_concentration'
-
-_required_attributes['salt_concentration'] = ['salt_concentration']
-_required_indices['salt_concentration'] = []
-_reverse_search_in_molecular_system['salt_concentration'] = False
-
-mechanical_attributes.append('salt_concentration')
-
-# kappa
-
-attributes.append('kappa')
-attribute_synonyms['debye_length'] = 'kappa'
-
-_required_attributes['kappa'] = ['kappa']
-_required_indices['kappa'] = []
-_reverse_search_in_molecular_system['kappa'] = False
-
-mechanical_attributes.append('kappa')
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+## formal_charge
+add_attribute('formal_charge', synonyms=['formal_charges'], runs_on_elements=True, mechanical=True,
+        get_from=['atom','system'], set_to='atom')
+
+## partial_charge
+add_attribute('partial_charge', synonyms=['partial_charges'], runs_on_elements=True, mechanical=True,
+        get_from=['atom','system'], set_to='atom')
+
+## forcefield
+add_attribute('forcefield', synonyms=['force field', 'forcefields', 'force_field', 'force_fields'], mechanical=True,
+        get_from=['system'], set_to='system')
+
+## non_bonded_method
+add_attribute('non_bonded_method', synonyms=['non bonded method'], mechanical=True,
+        get_from=['system'], set_to='system')
+
+## cutoff_distance
+add_attribute('cutoff_distance', synonyms=['cutoff distance'], mechanical=True,
+        get_from=['system'], set_to='system')
+
+## switch_distance
+add_attribute('switch_distance', synonyms=['switch distance'], mechanical=True,
+        get_from=['system'], set_to='system')
+
+## dispersion_correction
+add_attribute('dispersion_correction', synonyms=['dispersion correction', 'use_dispersion_correction'], mechanical=True,
+        get_from=['system'], set_to='system')
+
+## ewald_error_tolerance
+add_attribute('ewald_error_tolerance', synonyms=['ewald error tolerance'], mechanical=True,
+        get_from=['system'], set_to='system')
+
+## hydrogen_mass
+add_attribute('hydrogen_mass', synonyms=['hydrogen mass'], mechanical=True,
+        get_from=['system'], set_to='system')
+
+## constraints
+add_attribute('constraints', synonyms=['constraints'], mechanical=True,
+        get_from=['system'], set_to='system')
+
+## flexible_constraints
+add_attribute('flexible_constraints', synonyms=['flexible constraints', 'flexible constraint', 'flexible_constraint'], mechanical=True,
+        get_from=['system'], set_to='system')
+
+## water_model
+add_attribute('water_model', synonyms=['water model'], mechanical=True,
+        get_from=['system'], set_to='system')
+
+## rigid_water
+add_attribute('rigid_water', synonyms=['rigid water'], mechanical=True,
+        get_from=['system'], set_to='system')
+
+## implicit_solvent
+add_attribute('implicit_solvent', synonyms=['implicit solvent'], mechanical=True,
+        get_from=['system'], set_to='system')
+
+## solute_dielectric
+add_attribute('solute_dielectric', synonyms=['solute dielectric'], mechanical=True,
+        get_from=['system'], set_to='system')
+
+## solvent_dielectric
+add_attribute('solvent_dielectric', synonyms=['solvent dielectric'], mechanical=True,
+        get_from=['system'], set_to='system')
+
+## salt_concentration
+add_attribute('salt_concentration', synonyms=['salt concentration'], mechanical=True,
+        get_from=['system'], set_to='system')
+
+## kappa
+add_attribute('kappa', synonyms=['debye_length', 'debye length'], mechanical=True,
+        get_from=['system'], set_to='system')
 

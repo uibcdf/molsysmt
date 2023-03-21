@@ -81,9 +81,9 @@ def get_coordinates_from_atom(item, indices='all', structure_indices='all'):
     for start, size in zip(starts_serie_frames, size_serie_frames):
         item.seek(start)
         if is_all(indices):
-            xyz, _, _, _ = item.read(n_structures=size)
+            xyz, _, _, _ = item.read(n_frames=size)
         else:
-            xyz, _, _, _ = item.read(n_structures=size, atom_indices=indices)
+            xyz, _, _, _ = item.read(n_frames=size, atom_indices=indices)
         xyz_list.append(xyz)
 
     xyz = np.concatenate(xyz_list)
@@ -230,9 +230,12 @@ def get_n_bonds_from_system(item):
     raise NotWithThisFormError()
 
 @digest(form=form)
-def get_n_structures_from_system(item):
+def get_n_structures_from_system(item, structure_indices='all'):
 
-    return len(item.offsets)
+    if is_all(structure_indices):
+        return len(item.offsets)
+    else:
+        return len(structure_indices)
 
 @digest(form=form)
 def get_box_from_system(item, structure_indices='all'):

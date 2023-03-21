@@ -1,4 +1,5 @@
 from molsysmt._private.digestion import digest
+import numpy as np
 
 @digest(form='mdtraj.Trajectory')
 def to_biopython_Seq(item, atom_indices='all', structure_indices='all'):

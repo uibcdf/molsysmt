@@ -1,7 +1,7 @@
 from molsysmt._private.digestion import digest
 
 @digest(form='mdtraj.Trajectory')
-def to_file_xtc(item, atom_indices='all', structure_indices='all'):
+def to_file_xtc(item, atom_indices='all', structure_indices='all', output_filename=None):
 
     from . import extract
 

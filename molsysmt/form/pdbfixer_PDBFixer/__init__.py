@@ -1,6 +1,14 @@
-from .is_pdbfixer_PDBFixer import is_pdbfixer_PDBFixer
+form_name = 'pdbfixer.PDBFixer'
+form_type = 'class'
+form_info = ["", ""]
+
+from .is_form import is_form
+
+from .attributes import attributes
+from .has_attribute import has_attribute
 
 from .extract import extract
+from .copy import copy
 from .add import add
 from .append_structures import append_structures
 from .get import *
@@ -21,3 +29,19 @@ from .to_biopython_Seq import to_biopython_Seq
 from .to_biopython_SeqRecord import to_biopython_SeqRecord
 from .to_nglview_NGLWidget import to_nglview_NGLWidget
 
+_convert_to={
+        'pdbfixer.PDBFixer': extract,
+        'file:pdb': to_file_pdb,
+        'string:aminoacids1': to_string_aminoacids1,
+        'string:aminoacids3': to_string_aminoacids3,
+        'molsysmt.MolSys': to_molsysmt_MolSys,
+        'molsysmt.Topology': to_molsysmt_Topology,
+        'molsysmt.Structures': to_molsysmt_Structures,
+        'mdtraj.Trajectory': to_mdtraj_Trajectory,
+        'mdtraj.Topology': to_mdtraj_Topology,
+        'openmm.Topology': to_openmm_Topology,
+        'openmm.Modeller': to_openmm_Modeller,
+        'biopython.Seq': to_biopython_Seq,
+        'biopython.SeqRecord': to_biopython_SeqRecord,
+        'nglview.NGLWidget': to_nglview_NGLWidget,
+        }

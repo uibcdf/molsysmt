@@ -11,4 +11,3 @@ def to_openmm_Modeller(item, atom_indices='all', coordinates=None):
 
     return tmp_item
 
-

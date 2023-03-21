@@ -382,7 +382,7 @@ def get_n_entities_from_system(item):
     from ..mdtraj_Topology import get_n_entities_from_system as aux_get
 
     tmp_item = to_mdtraj_Topology(item)
-    output = aux_get(tmp_item, indices=indices)
+    output = aux_get(tmp_item)
 
     return output
 
@@ -398,9 +398,12 @@ def get_n_bonds_from_system(item):
     return output
 
 @digest(form=form)
-def get_n_structures_from_system(item):
+def get_n_structures_from_system(item, structure_indices='all'):
 
-    return structure_indices.shape[0]
+    if is_all(structure_indices):
+        return item.n_frames
+    else:
+        return len(structure_indices)
 
 @digest(form=form)
 def get_box_from_system(item, structure_indices='all'):
@@ -450,10 +453,10 @@ def get_bond_type_from_bond(item, indices='all'):
     return output
 
 @digest(form=form)
-def get_atom_index_from_bond(item, indices='all'):
+def get_bonded_atoms_from_bond(item, indices='all'):
 
     from . import to_mdtraj_Topology
-    from ..mdtraj_Topology import get_atom_index_from_bond as aux_get
+    from ..mdtraj_Topology import get_bonded_atoms_from_bond as aux_get
 
     tmp_item = to_mdtraj_Topology(item)
     output = aux_get(tmp_item, indices=indices)

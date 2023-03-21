@@ -10,4 +10,3 @@ def to_openmm_Topology(item, atom_indices='all'):
     tmp_item = mdtraj_Topology_to_openmm_Topology(tmp_item)
 
     return tmp_item
-

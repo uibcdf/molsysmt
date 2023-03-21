@@ -98,4 +98,3 @@ def to_file_trjpk(item, atom_indices='all', structure_indices='all', output_file
 
     return tmp_item
 
-

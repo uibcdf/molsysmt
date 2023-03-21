@@ -10,25 +10,25 @@ from inspect import stack, getargvalues
 def select_standard(molecular_system, selection='all', syntax='MolSysMT'):
 
     from . import where_is_attribute
-    from molsysmt.api_forms import dict_get
+    from molsysmt.form import _dict_modules
 
     if type(selection)==str:
         if is_all(selection):
             aux_item, aux_form = where_is_attribute(molecular_system, 'n_atoms')
-            n_atoms = dict_get[aux_form]['system']['n_atoms'](aux_item)
+            n_atoms = _dict_modules[aux_form].get_n_atoms_from_system(aux_item)
             atom_indices = np.arange(n_atoms, dtype='int64')
         else:
-            aux_item, aux_form = where_is_attribute(molecular_system, 'atom_index')
+            #aux_item, aux_form = where_is_attribute(molecular_system, 'atom_index')
             if syntax=='MolSysMT':
-                atom_indices = select_with_MolSysMT(aux_item, selection)
+                atom_indices = select_with_MolSysMT(molecular_system, selection)
             elif syntax=='MDTraj':
-                atom_indices = select_with_MDTraj(aux_item, selection)
+                atom_indices = select_with_MDTraj(molecular_system, selection)
             elif syntax=='Amber':
-                atom_indices = select_with_Amber(aux_item, selection)
+                atom_indices = select_with_Amber(molecular_system, selection)
             elif syntax=='ParmEd':
-                atom_indices = select_with_ParmEd(aux_item, selection)
+                atom_indices = select_with_ParmEd(molecular_system, selection)
             elif syntax=='MDAnalysis':
-                atom_indices = select_with_MDAnalysis(aux_item, selection)
+                atom_indices = select_with_MDAnalysis(molecular_system, selection)
             else:
                 raise NotSupportedSyntaxError()
 
@@ -155,7 +155,7 @@ def select(molecular_system, selection='all', structure_indices='all', element='
     """
 
     from . import get_form, where_is_attribute, is_a_molecular_system
-    from molsysmt.api_forms import dict_get
+    from molsysmt.form import _dict_modules
 
     if is_all(mask):
         mask=None
@@ -179,11 +179,11 @@ def select(molecular_system, selection='all', structure_indices='all', element='
             output_indices = atom_indices
         elif element in ['group', 'component', 'chain', 'molecule', 'entity']:
             aux_item, aux_form = where_is_attribute(molecular_system, element+'_index')
-            output_indices = dict_get[aux_form]['atom'][element+'_index'](aux_item, indices=atom_indices)
+            output_indices = getattr(_dict_modules[aux_form], f'get_{element}_index_from_atom')(aux_item, indices=atom_indices)
             output_indices = np.unique(output_indices)
         elif element=='bond':
             aux_item, aux_form = where_is_attribute(molecular_system, 'inner_bond_index')
-            output_indices = dict_get[aux_form]['atom']['inner_bond_index'](aux_item, indices=atom_indices)
+            output_indices = _dict_modules[aux_form].get_inner_bond_index_from_atom(aux_item, indices=atom_indices)
         else:
             raise NotImplementedMethodError()
 

@@ -7,9 +7,11 @@ class MolSys:
 
         from .topology import Topology
         from .structures import Structures
+        from .molecular_mechanics import MolecularMechanics
 
         self.topology = Topology()
         self.structures = Structures()
+        self.molecular_mechanics = MolecularMechanics()
 
     def extract(self, atom_indices='all', structure_indices='all'):
 
@@ -22,6 +24,7 @@ class MolSys:
             tmp_item = MolSys()
             tmp_item.topology = self.topology.extract(atom_indices=atom_indices, structure_indices=structure_indices)
             tmp_item.structures = self.structures.extract(atom_indices=atom_indices, structure_indices=structure_indices)
+            tmp_item.molecular_mechanics = self.molecular_mechanics.copy()
 
             return tmp_item
 
@@ -49,5 +52,6 @@ class MolSys:
         tmp_item = MolSys()
         tmp_item.topology = self.topology.copy()
         tmp_item.structures = self.structures.copy()
+        tmp_item.molecular_mechanics = self.molecular_mechanics.copy()
         return tmp_item
 

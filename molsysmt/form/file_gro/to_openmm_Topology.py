@@ -10,4 +10,3 @@ def to_openmm_Topology(item, atom_indices='all'):
     tmp_item = openmm_GromacsGroFile_to_openmm_Topology(tmp_item, atom_indices=atom_indices)
 
     return tmp_item
-
