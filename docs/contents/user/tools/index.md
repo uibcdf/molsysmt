@@ -10,4 +10,5 @@
    structure/index.md
    pbc/index.md
    element/index.md
+   thirds/index.md
 ```
