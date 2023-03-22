@@ -58,9 +58,9 @@ jobs:
         sudo ln -s /usr/local/Cellar/gcc@10/*/lib/gcc/10 /usr/local/gfortran/lib
         gfortran --version
 
-    - name: Checking gfortran version
-      run: |
-        gfortran --version
+    #- name: Checking gfortran version
+    #  run: |
+    #    gfortran --version
 
     # More info on options: https://github.com/conda-incubator/setup-miniconda
     - uses: conda-incubator/setup-miniconda@v2
@@ -84,11 +84,11 @@ jobs:
         python setup.py develop
         conda list
 
-    - name: Checking version
+    #- name: Checking version
 
-      shell: bash -l {0}
-      run: |
-        echo 'import molsysmt ; print(molsysmt.__version__)' | python
+    #  shell: bash -l {0}
+    #  run: |
+    #    echo 'import molsysmt ; print(molsysmt.__version__)' | python
 
     - name: Run tests
 
