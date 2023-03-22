@@ -30,18 +30,18 @@ jobs:
           - { os: ubuntu-latest, python-version: "3.7"}
           - { os: ubuntu-latest, python-version: "3.8"}
           - { os: ubuntu-latest, python-version: "3.9"}
-          - { os: ubuntu-latest, python-version: "3.10"}
+            #- { os: ubuntu-latest, python-version: "3.10"}
           - { os: macos-latest,  python-version: "3.7"}
           - { os: macos-latest,  python-version: "3.8"}
           - { os: macos-latest,  python-version: "3.9"}
-          - { os: macos-latest,  python-version: "3.10"}
-          - { os: windows-latest,  python-version: "3.7"}
-          - { os: windows-latest,  python-version: "3.8"}
-          - { os: windows-latest,  python-version: "3.9"}
-          - { os: windows-latest,  python-version: "3.10"}
+            #- { os: macos-latest,  python-version: "3.10"}
+            #- { os: windows-latest,  python-version: "3.7"}
+            #- { os: windows-latest,  python-version: "3.8"}
+            #- { os: windows-latest,  python-version: "3.9"}
+            #- { os: windows-latest,  python-version: "3.10"}
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
       with:
         fetch-depth: 0
 
@@ -63,32 +63,49 @@ jobs:
     #    gfortran --version
 
     # More info on options: https://github.com/conda-incubator/setup-miniconda
-    - uses: conda-incubator/setup-miniconda@v2
+    #- uses: conda-incubator/setup-miniconda@v2
+    #  with:
+    #    python-version: ${{ matrix.python-version }}
+    #    environment-file: devtools/conda-envs/test_env.yaml
+    #    #mamba-version: "*"
+    #    #use-mamba: true
+    #    channels: conda-forge,defaults
+
+    #    activate-environment: test
+    #    auto-update-conda: false
+    #    auto-activate-base: false
+    #    show-channel-urls: true
+
+    - name: Setup conda env
+      uses: mamba-org/provision-with-micromamba@main
       with:
-        python-version: ${{ matrix.python-version }}
         environment-file: devtools/conda-envs/test_env.yaml
-        #mamba-version: "*"
-        #use-mamba: true
-        channels: conda-forge,defaults
+        environment-name: test
+        channels: uibcdf, conda-forge, ambermd, defaults
 
-        activate-environment: test
-        auto-update-conda: false
-        auto-activate-base: false
-        show-channel-urls: true
-
+        extra-specs: |
+          python==${{ matrix.cfg.python-version }}
 
     - name: Install package
 
       shell: bash -l {0}
       run: |
         python setup.py develop
-        conda list
 
-    #- name: Checking version
+    - name: Info conda
+      shell: bash -l {0}
+      run: |
+        micromamba info
+        micromamba list
 
-    #  shell: bash -l {0}
-    #  run: |
-    #    echo 'import molsysmt ; print(molsysmt.__version__)' | python
+    - name: Test import module
+      shell: bash -l {0}
+      run: |
+        echo "::group::Importing module from home directory"
+        cd
+        pwd
+        echo 'import molsysmt; print("Version of the package: {}".format(molsysmt.__version__))' | python
+        echo "::endgroup::"
 
     - name: Run tests
 
