@@ -14,11 +14,11 @@ jobs:
       fail-fast: false  # do not cancel all in-progress jobs if any job variation fails
       matrix:
         os: [ubuntu-latest, macOS-latest] #[macOS-latest, ubuntu-latest]
-        python-version: ["3.7", "3.8", "3.9", "3.10"] # 3.10 with errors
+        python-version: ["3.8", "3.9"] # 3.10 with errors
 
     steps:
 
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
       with:
         fetch-depth: 0
 
@@ -30,27 +30,37 @@ jobs:
     - name: Setup GNU Fortran
       uses: modflowpy/install-gfortran-action@v1 # https://github.com/modflowpy/install-gfortran-action
 
-   #- name: Symlink gfortran (macOS)
-   #  if: runner.os == 'macOS'
-   #  run: |
-   #    sudo ln -s /usr/local/bin/gfortran-10 /usr/local/bin/gfortran
-   #    sudo mkdir /usr/local/gfortran
-   #    sudo ln -s /usr/local/Cellar/gcc@10/*/lib/gcc/10 /usr/local/gfortran/lib
-
     - name: Checking gfortran version
       run: |
         gfortran --version
 
-    - name: Conda environment creation and activation
-      uses: conda-incubator/setup-miniconda@v2
+        #- name: Conda environment creation and activation
+        #  uses: conda-incubator/setup-miniconda@v2
+        #  with:
+        #    python-version: ${{ matrix.python-version }}
+        #    environment-file: devtools/conda-envs/build_env.yaml    # Path to the build conda environment
+        #    #mamba-version: "*"
+        #    #use-mamba: false
+        #    auto-update-conda: false
+        #    auto-activate-base: false
+        #    show-channel-urls: true
+
+    - name: Setup conda env
+      uses: mamba-org/provision-with-micromamba@main
       with:
-        python-version: ${{ matrix.python-version }}
-        environment-file: devtools/conda-envs/build_env.yaml    # Path to the build conda environment
-        #mamba-version: "*"
-        #use-mamba: false
-        auto-update-conda: false
-        auto-activate-base: false
-        show-channel-urls: true
+        environment-file: devtools/conda-envs/build_env.yaml
+        environment-name: build
+        channels: uibcdf, conda-forge, ambermd, defaults
+
+        extra-specs: |
+          python==${{ matrix.python-version }}
+
+    - name: Info conda
+      shell: bash -l {0}
+      run: |
+        micromamba info
+        micromamba list
+
 
     - name: Build and upload the conda packages
       uses: uibcdf/action-build-and-upload-conda-packages@v1.2.0
