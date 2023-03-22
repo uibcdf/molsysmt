@@ -50,10 +50,10 @@ jobs:
            python setup.py develop
            conda list
 
-      - name: Checking version
-        shell: bash -l {0}
-        run: |
-           echo 'import molsysmt; print(molsysmt.__version__)' | python
+      #- name: Checking version
+      #  shell: bash -l {0}
+      #  run: |
+      #     echo 'import molsysmt; print(molsysmt.__version__)' | python
 
       - name: Running the Sphinx to gh-pages Action
         uses: uibcdf/action-sphinx-docs-to-gh-pages@v1.1.0-beta
