@@ -1,0 +1,88 @@
+name: Test import
+
+on:
+  # GitHub has started calling new repo's first branch "main" https://github.com/github/renaming
+  # Existing codes likely still have "master" as the primary branch
+  # Both are tracked here to keep legacy and new codes working
+  push:
+    branches:
+      - "main"
+  pull_request:
+    branches:
+      - "main"
+  schedule:
+    # Nightly tests run on master by default:
+    #   Scheduled workflows run on the latest commit on the default or base branch.
+    #   (from https://help.github.com/en/actions/reference/events-that-trigger-workflows#scheduled-events-schedule)
+    - cron: "0 9 * * MON"
+  workflow_dispatch:
+
+jobs:
+  test:
+    name: Test on ${{ matrix.cfg.os }}, Python ${{ matrix.cfg.python-version }}
+    runs-on: ${{ matrix.cfg.os }}
+    strategy:
+      fail-fast: false  # do not cancel all in-progress jobs if any job variation fails
+      matrix:
+        #os: [macOS-latest, ubuntu-latest] # [macOS-latest, ubuntu-latest, windows-latest]
+        #python-version: [3.7] # [3.7, 3.8, 3.9]
+        cfg:
+          - { os: ubuntu-latest, python-version: "3.9"}
+
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+
+    - name: Additional info about the build
+      shell: bash
+      run: |
+        uname -a
+
+    # More info on options: https://github.com/conda-incubator/setup-miniconda
+    #- uses: conda-incubator/setup-miniconda@v2
+    #  with:
+    #    python-version: ${{ matrix.python-version }}
+    #    environment-file: devtools/conda-envs/test_env.yaml
+    #    #mamba-version: "*"
+    #    #use-mamba: true
+    #    channels: conda-forge,defaults
+
+    #    activate-environment: test
+    #    auto-update-conda: false
+    #    auto-activate-base: false
+    #    show-channel-urls: true
+
+    # Trying setting up a micromamba env
+
+    - name: Setup conda env
+      uses: mamba-org/provision-with-micromamba@main
+      with:
+        environment-file: devtools/conda-envs/test_env.yaml
+        environment-name: test
+        channels: uibcdf, conda-forge, ambermd, defaults
+
+        extra-specs: |
+          python==${{ matrix.cfg.python-version }}
+
+    - name: Install package
+
+      shell: bash -l {0}
+      run: |
+        python setup.py develop
+
+    - name: Info conda
+      shell: bash -l {0}
+      run: |
+        micromamba info
+        micromamba list
+
+    - name: Import module
+      shell: bash -l {0}
+      run: |
+        echo "::group::Importing module from home directory"
+        cd
+        pwd
+        echo 'import molsysmt; print("Version of the package: {}".format(molsysmt.__version__))' | python
+        echo "::endgroup::"
+
