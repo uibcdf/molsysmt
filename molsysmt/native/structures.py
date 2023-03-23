@@ -47,9 +47,6 @@ class Structures:
         self.occupancy = None
         self.b_factor = None
         self.alternate_location = None
-        self.alternate_atom_id = None
-        self.alternate_occupancy = None
-        self.alternate_b_factor = None
 
         if coordinates is not None:
             self.n_structures = coordinates.shape[0]

@@ -63,7 +63,7 @@ def info(molecular_system,
 
     from . import get_form, get, convert, select
     from molsysmt.element import elements_to_string
-    from molsysmt.form import _piped_forms, _dict_modules
+    from molsysmt.form import _piped_forms_in_info, _dict_modules
 
     form = get_form(molecular_system)
 
@@ -77,15 +77,15 @@ def info(molecular_system,
         attributes_filter = _dict_modules[form].attributes
 
 
-    #aux_molecular_system = []
-    #for ii in molecular_system:
-    #    form_in = get_form(ii)
-    #    if form_in in _piped_forms:
-    #        jj = convert(ii, to_form='molsysmt.MolSys')
-    #        aux_molecular_system.append(jj)
-    #    else:
-    #        aux_molecular_system.append(ii)
-    #molecular_system = aux_molecular_system
+    aux_molecular_system = []
+    for ii in molecular_system:
+        form_in = get_form(ii)
+        if form_in in _piped_forms_in_info:
+            jj = convert(ii, to_form='molsysmt.MolSys')
+            aux_molecular_system.append(jj)
+        else:
+            aux_molecular_system.append(ii)
+    molecular_system = aux_molecular_system
 
     if output_type == 'dataframe':
 

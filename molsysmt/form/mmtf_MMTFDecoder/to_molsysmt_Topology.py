@@ -287,9 +287,47 @@ def to_molsysmt_Topology(item, atom_indices='all', structure_indices='all'):
 
     tmp_item._nan_to_None()
 
-    ##
-    if not is_all(atom_indices):
-        tmp_item = tmp_item.extract(atom_indices)
+    ## If atoms with alternate location the highest occupancy or A is taken
+    ## other pseudo-atoms are removed
 
+    if not np.all(tmp_item.atoms_dataframe["alternate_location"]==None):
+        alt_loc = tmp_item.atoms_dataframe["alternate_location"].to_numpy()
+        alt_atom_indices = np.where(alt_loc!=None)[0]
+        alt_atom_names = tmp_item.atoms_dataframe["atom_name"][alt_atom_indices].to_numpy()
+        alt_group_ids = tmp_item.atoms_dataframe["group_id"][alt_atom_indices].to_numpy()
+        alt_chain_ids = tmp_item.atoms_dataframe["chain_id"][alt_atom_indices].to_numpy()
+        aux_dict = {}
+        for aux_atom_index, aux_atom_name, aux_group_id, aux_chain_id in zip(alt_atom_indices, alt_atom_names, alt_group_ids, alt_chain_ids):
+            aux_key = tuple([aux_atom_name, aux_group_id, aux_chain_id])
+            if aux_key in aux_dict:
+                aux_dict[aux_key].append(aux_atom_index)
+            else:
+                aux_dict[aux_key]=[aux_atom_index]
+
+    atoms_to_be_removed_with_alt_loc=[]
+    for same_atoms in aux_dict.values():
+        alt_occupancy = tmp_item.atoms_dataframe["occupancy"][same_atoms].to_numpy()
+        alt_loc = tmp_item.atoms_dataframe["alternate_location"][same_atoms].to_numpy()
+        if np.allclose(alt_occupancy, alt_occupancy[0]):
+            chosen = np.where(alt_loc=='A')[0][0]
+        else:
+            chosen = np.argmax(alt_occupancy)
+        chosen = same_atoms.pop(chosen)
+        atoms_to_be_removed_with_alt_loc += same_atoms
+
+    tmp_item.atoms_dataframe.__delitem__('alternate_location')
+    tmp_item.atoms_dataframe.__delitem__('occupancy')
+    tmp_item.atoms_dataframe.__delitem__('b_factor')
+    tmp_item.atoms_dataframe.__delitem__('formal_charge')
+    tmp_item.atoms_dataframe.__delitem__('partial_charge')
+  
+    if not is_all(atom_indices):
+        atom_indices = list(set(atom_indices)-set(atoms_to_be_removed_with_alt_loc))
+        tmp_item = tmp_item.extract(atom_indices)
+    else:
+        if len(atoms_to_be_removed_with_alt_loc):
+            atom_indices = list(set(np.arange(n_atoms))-set(atoms_to_be_removed_with_alt_loc))
+            tmp_item = tmp_item.extract(atom_indices)
+            
     return tmp_item
 
