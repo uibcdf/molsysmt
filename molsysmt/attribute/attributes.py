@@ -287,12 +287,20 @@ add_attribute('n_structures', synonyms=['n_structure'], depends_on=['structure_i
 add_attribute('occupancy', synonyms=['occupancies'], runs_on_elements=True, runs_on_structures=True, structural=True,
         get_from=['atom','system'], set_to='atom')
 
+## b_factor
+add_attribute('b_factor', synonyms=['b_factors'], runs_on_elements=True, runs_on_structures=True, structural=True,
+        get_from=['atom','system'], set_to='atom')
+
 ## alternate_location
 add_attribute('alternate_location', synonyms=['alternate_locations'], runs_on_elements=True, runs_on_structures=True, structural=True,
         get_from=['atom','system'], set_to='atom')
 
-## b_factor
-add_attribute('b_factor', synonyms=['b_factors'], runs_on_elements=True, runs_on_structures=True, structural=True,
+## alternate_occupancy
+add_attribute('alternate_occupancy', synonyms=['alternate_occupancies'], runs_on_elements=True, runs_on_structures=True, structural=True,
+        get_from=['atom','system'], set_to='atom')
+
+## alternate_b_factor
+add_attribute('alternate_b_factor', synonyms=['alternate_b_factors'], runs_on_elements=True, runs_on_structures=True, structural=True,
         get_from=['atom','system'], set_to='atom')
 
 ## temperature

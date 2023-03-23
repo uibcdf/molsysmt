@@ -45,8 +45,11 @@ class Structures:
         self.velocities = velocities
         self.box = box
         self.occupancy = None
-        self.alternate_location = None
         self.b_factor = None
+        self.alternate_location = None
+        self.alternate_atom_id = None
+        self.alternate_occupancy = None
+        self.alternate_b_factor = None
 
         if coordinates is not None:
             self.n_structures = coordinates.shape[0]
@@ -299,184 +302,185 @@ class Structures:
 
         self.append_structures(structure_id, time, coordinates, velocities, box)
 
-    def get_structure_data(self, structure, selection="all", chunk_size=1):
-        """ Returns the structure_ids, time, coordinates and box of the
-            given structure
 
-            Parameters
-            ----------
-            structure : int
-                The index of the structure
-
-            selection : arraylike of int, default="all"
-                The indices of the selected atoms.
-
-            chunk_size : int, default=1
-                Amount of structures to return in each of the arrays.
-
-            Returns
-            -------
-            box : pint.Quantity of shape (3, 3)
-                The box of the structure. If chunk_size is greater than one
-                the shape will be (chunk_size, 3, 3)
-
-            coordinates : pint.Quantity of shape (n_atoms, 3)
-                The coordinates of the structure. If chunk_size is greater than one
-                the shape will be (chunk_size, n_atoms, 3)
-
-            time :  pint.Quantity
-                The times of the structure. If chunk_size is greater than one
-                the shape will be (chunk_size,)
-        """
-        structure_end = structure + chunk_size
-
-        if self.structure_id is not None:
-            structure_id = self.structure_id[structure: structure_end]
-        else:
-            structure_id = None
-
-        if self.time is not None:
-            time = self.time[structure: structure_end]
-        else:
-            time = None
-
-        if self.coordinates is not None:
-            if is_all(selection):
-                # If chunk size is 1 we return a 2D array. If not coordinates will
-                # be a 3D array
-                if chunk_size == 1:
-                    coordinates = self.coordinates[structure]
-                else:
-                    coordinates = self.coordinates[structure: structure_end]
-            else:
-                if chunk_size == 1:
-                    coordinates = self.coordinates[structure, selection, :]
-                else:
-                    coordinates = self.coordinates[structure: structure_end, selection, :]
-        else:
-            coordinates = None
-
-        if self.velocities is not None:
-            if is_all(selection):
-                if chunk_size == 1:
-                    velocities = self.velocities[structure]
-                else:
-                    velocities = self.velocities[structure: structure_end]
-            else:
-                if chunk_size == 1:
-                    velocities = self.velocities[structure, selection, :]
-                else:
-                    velocities = self.velocities[structure: structure_end, selection, :]
-        else:
-            velocities = None
-
-        if self.box is not None:
-            if chunk_size == 1:
-                box = self.box[structure]
-            else:
-                box = self.box[structure: structure_end]
-        else:
-            box = None
-
-        return structure_id, time, coordinates, velocities, box
-
-    def _iterate_structures(self, start=0, stop=None,
-                            interval=1, selection="all", chunk_size=1):
-        """ Helper function for the iterate method."""
-        self._current_structure = start
-        while self._current_structure < self.n_structures:
-            if self._current_structure >= stop:
-                break
-
-            yield self.get_structure_data(self._current_structure,
-                                          selection,
-                                          chunk_size)
-
-            if chunk_size > 1:
-                self._current_structure += chunk_size
-            else:
-                self._current_structure += interval
-
-    def iterate(self, start=0, stop=None,
-                interval=1, selection="all", chunk_size=1):
-        """ Generator to iterate over the structure_ids, time, coordinates and box
-            of each structure (frame).
-
-            Parameters
-            ----------
-            start: int
-                First structure index of the trajectory to start with.
-
-            stop: int, default=None
-                The iteration finishes if the current structure index
-                is larger than or equal to this integer.
-
-            interval : int, default=1
-                Number of structure indices to skip in each iteration
-
-            selection : arraylike of int or 'all', default='all'
-                The indices of the selected atoms.
-
-            chunk_size : int, default=1
-                Amount of structures in the output of each iteration.
-
-            Yields
-            ------
-            structure_id :
-
-            box : pint.Quantity of shape (3, 3)
-                The box of the structure
-
-            coordinates : pint.Quantity of shape (n_atoms, 3)
-                The coordinates of the structure.
-
-            time :  pint.Quantity
-                The times of the structure
-
-        """
-        if start < 0 or start >= self.n_structures:
-            raise IteratorError(
-                f"Start should be > 0 and < {self.n_structures}"
-            )
-
-        if interval < 1 or interval > self.n_structures:
-            raise IteratorError(
-                f"Interval should be > 0 and < {self.n_structures}"
-            )
-
-        if chunk_size < 1 or chunk_size > self.n_structures:
-            raise IteratorError(
-                f"Chunk size should be > 0 and < {self.n_structures}")
-
-        if interval != 1 and chunk_size != 1:
-            # We cannot have an interval and a chunk size greater than 1 simultaneously
-            raise IteratorError(
-                "Chunk size and interval cannot be greater than one simultaneously.")
-
-        if stop is None:
-            stop = self.n_structures
-
-        if stop < 1 or stop > self.n_structures:
-            raise IteratorError(
-                f"Stop should be > 0 and < {self.n_structures}"
-            )
-
-        return self._iterate_structures(start, stop, interval, selection, chunk_size)
-
-    def copy(self):
-        """ Returns a copy of the structures."""
-        return deepcopy(self)
-
-    def __iter__(self):
-        self._current_structure = -1
-        return self
-
-    def __next__(self):
-        """ Iterate through the structure_ids, time, coordinates and box
-            of each structure (frame).
-        """
-        self._current_structure += 1
-        if self._current_structure >= self.n_structures:
-            raise StopIteration
-
-        return self.get_structure_data(self._current_structure)
+###    def get_structure_data(self, structure, selection="all", chunk_size=1):
+###        """ Returns the structure_ids, time, coordinates and box of the
+###            given structure
+###
+###            Parameters
+###            ----------
+###            structure : int
+###                The index of the structure
+###
+###            selection : arraylike of int, default="all"
+###                The indices of the selected atoms.
+###
+###            chunk_size : int, default=1
+###                Amount of structures to return in each of the arrays.
+###
+###            Returns
+###            -------
+###            box : pint.Quantity of shape (3, 3)
+###                The box of the structure. If chunk_size is greater than one
+###                the shape will be (chunk_size, 3, 3)
+###
+###            coordinates : pint.Quantity of shape (n_atoms, 3)
+###                The coordinates of the structure. If chunk_size is greater than one
+###                the shape will be (chunk_size, n_atoms, 3)
+###
+###            time :  pint.Quantity
+###                The times of the structure. If chunk_size is greater than one
+###                the shape will be (chunk_size,)
+###        """
+###        structure_end = structure + chunk_size
+###
+###        if self.structure_id is not None:
+###            structure_id = self.structure_id[structure: structure_end]
+###        else:
+###            structure_id = None
+###
+###        if self.time is not None:
+###            time = self.time[structure: structure_end]
+###        else:
+###            time = None
+###
+###        if self.coordinates is not None:
+###            if is_all(selection):
+###                # If chunk size is 1 we return a 2D array. If not coordinates will
+###                # be a 3D array
+###                if chunk_size == 1:
+###                    coordinates = self.coordinates[structure]
+###                else:
+###                    coordinates = self.coordinates[structure: structure_end]
+###            else:
+###                if chunk_size == 1:
+###                    coordinates = self.coordinates[structure, selection, :]
+###                else:
+###                    coordinates = self.coordinates[structure: structure_end, selection, :]
+###        else:
+###            coordinates = None
+###
+###        if self.velocities is not None:
+###            if is_all(selection):
+###                if chunk_size == 1:
+###                    velocities = self.velocities[structure]
+###                else:
+###                    velocities = self.velocities[structure: structure_end]
+###            else:
+###                if chunk_size == 1:
+###                    velocities = self.velocities[structure, selection, :]
+###                else:
+###                    velocities = self.velocities[structure: structure_end, selection, :]
+###        else:
+###            velocities = None
+###
+###        if self.box is not None:
+###            if chunk_size == 1:
+###                box = self.box[structure]
+###            else:
+###                box = self.box[structure: structure_end]
+###        else:
+###            box = None
+###
+###        return structure_id, time, coordinates, velocities, box
+###
+###    def _iterate_structures(self, start=0, stop=None,
+###                            interval=1, selection="all", chunk_size=1):
+###        """ Helper function for the iterate method."""
+###        self._current_structure = start
+###        while self._current_structure < self.n_structures:
+###            if self._current_structure >= stop:
+###                break
+###
+###            yield self.get_structure_data(self._current_structure,
+###                                          selection,
+###                                          chunk_size)
+###
+###            if chunk_size > 1:
+###                self._current_structure += chunk_size
+###            else:
+###                self._current_structure += interval
+###
+###    def iterate(self, start=0, stop=None,
+###                interval=1, selection="all", chunk_size=1):
+###        """ Generator to iterate over the structure_ids, time, coordinates and box
+###            of each structure (frame).
+###
+###            Parameters
+###            ----------
+###            start: int
+###                First structure index of the trajectory to start with.
+###
+###            stop: int, default=None
+###                The iteration finishes if the current structure index
+###                is larger than or equal to this integer.
+###
+###            interval : int, default=1
+###                Number of structure indices to skip in each iteration
+###
+###            selection : arraylike of int or 'all', default='all'
+###                The indices of the selected atoms.
+###
+###            chunk_size : int, default=1
+###                Amount of structures in the output of each iteration.
+###
+###            Yields
+###            ------
+###            structure_id :
+###
+###            box : pint.Quantity of shape (3, 3)
+###                The box of the structure
+###
+###            coordinates : pint.Quantity of shape (n_atoms, 3)
+###                The coordinates of the structure.
+###
+###            time :  pint.Quantity
+###                The times of the structure
+###
+###        """
+###        if start < 0 or start >= self.n_structures:
+###            raise IteratorError(
+###                f"Start should be > 0 and < {self.n_structures}"
+###            )
+###
+###        if interval < 1 or interval > self.n_structures:
+###            raise IteratorError(
+###                f"Interval should be > 0 and < {self.n_structures}"
+###            )
+###
+###        if chunk_size < 1 or chunk_size > self.n_structures:
+###            raise IteratorError(
+###                f"Chunk size should be > 0 and < {self.n_structures}")
+###
+###        if interval != 1 and chunk_size != 1:
+###            # We cannot have an interval and a chunk size greater than 1 simultaneously
+###            raise IteratorError(
+###                "Chunk size and interval cannot be greater than one simultaneously.")
+###
+###        if stop is None:
+###            stop = self.n_structures
+###
+###        if stop < 1 or stop > self.n_structures:
+###            raise IteratorError(
+###                f"Stop should be > 0 and < {self.n_structures}"
+###            )
+###
+###        return self._iterate_structures(start, stop, interval, selection, chunk_size)
+###
+###    def copy(self):
+###        """ Returns a copy of the structures."""
+###        return deepcopy(self)
+###
+###    def __iter__(self):
+###        self._current_structure = -1
+###        return self
+###
+###    def __next__(self):
+###        """ Iterate through the structure_ids, time, coordinates and box
+###            of each structure (frame).
+###        """
+###        self._current_structure += 1
+###        if self._current_structure >= self.n_structures:
+###            raise StopIteration
+###
+###        return self.get_structure_data(self._current_structure)
