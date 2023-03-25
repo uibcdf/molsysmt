@@ -45,14 +45,19 @@ class Structures:
         self.coordinates = coordinates
         self.velocities = velocities
         self.box = box
-        self.occupancy = None
-        self.b_factor = None
-        self.alternate_location = None
-        self.bioassembly = None
+        self.occupancy = occupancy
+        self.b_factor = b_factor
+        self.alternate_location = alternate_location
+        self.bioassembly = bioassembly
 
         if coordinates is not None:
             self.n_structures = coordinates.shape[0]
             self.n_atoms = coordinates.shape[1]
+        elif velocities is not None:
+            self.n_structures = velocities.shape[0]
+            self.n_atoms = velocities.shape[1]
+        elif box is not None:
+            self.n_structures = box.shape[0]
         else:
             self.n_structures = 0
             self.n_atoms = 0

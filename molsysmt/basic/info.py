@@ -76,6 +76,8 @@ def info(molecular_system,
     else:
         attributes_filter = _dict_modules[form].attributes
 
+    if not isinstance(molecular_system, (list, tuple)):
+        molecular_system = [molecular_system]
 
     aux_molecular_system = []
     for ii in molecular_system:

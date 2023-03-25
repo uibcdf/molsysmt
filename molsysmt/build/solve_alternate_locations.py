@@ -2,7 +2,7 @@ from molsysmt._private.digestion import digest
 import numpy as np
 
 @digest()
-def remove_atoms_with_alternate_locations(molecular_system, keep='A'):
+def solve_alternate_locations(molecular_system, keep='A'):
 
     from molsysmt.basic import get, remove
     from molsysmt.build import get_atoms_with_alternate_locations
