@@ -8,7 +8,7 @@ from .get_missing_residues import get_missing_residues
 from .get_missing_bonds import get_missing_bonds
 from .get_non_standard_residues import get_non_standard_residues
 from .make_bioassembly import make_bioassembly
-from .remove_atoms_with_alternate_locations import solve_alternate_locations
+from .solve_atoms_with_alternate_location import solve_atoms_with_alternate_location
 from .build_peptide import build_peptide
 from .is_solvated import is_solvated
 from .solvate import solvate
