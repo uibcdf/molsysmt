@@ -11,9 +11,11 @@ functions_where_boolean = (
 
 def digest_coordinates(coordinates, caller=None):
 
-    if caller.endswith(functions_where_boolean):
-        if isinstance(coordinates, bool):
-            return coordinates
+    if caller is not None:
+
+        if caller.endswith(functions_where_boolean):
+            if isinstance(coordinates, bool):
+                return coordinates
 
     if coordinates is None:
         return None

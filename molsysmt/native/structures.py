@@ -37,7 +37,8 @@ class Structures:
     """
 
     @digest()
-    def __init__(self, structure_id=None, time=None, coordinates=None, velocities=None, box=None):
+    def __init__(self, structure_id=None, time=None, coordinates=None, velocities=None, box=None,
+            occupancy=None, b_factor=None, alternate_location=None, bioassembly=None):
 
         self.structure_id = structure_id
         self.time = time
@@ -47,6 +48,7 @@ class Structures:
         self.occupancy = None
         self.b_factor = None
         self.alternate_location = None
+        self.bioassembly = None
 
         if coordinates is not None:
             self.n_structures = coordinates.shape[0]
@@ -54,8 +56,6 @@ class Structures:
         else:
             self.n_structures = 0
             self.n_atoms = 0
-
-        self._current_structure = 0
 
     @staticmethod
     def _concatenate_arrays(array_1, array_2, name):

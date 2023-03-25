@@ -1,5 +1,6 @@
 from ...exceptions import ArgumentError
 from ...variables import is_all
+import numpy as np
 
 functions_with_boolean = (
         'molsysmt.basic.get.get',
@@ -31,9 +32,21 @@ def digest_atom_index(atom_index, caller=None):
         If the given `atom_index` has not of the correct type or value.
     """
 
-    if caller.endswith(functions_with_boolean):
-        if isinstance(atom_index, bool):
-            return atom_index
+    if caller is not None:
+        if caller.endswith(functions_with_boolean):
+            if isinstance(atom_index, bool):
+                return atom_index
+            else:
+                raise ArgumentError('atom_index', value=atom_index, caller=caller, message=None)
+
+    if isinstance(atom_index, (int, np.int64)):
+        atom_index=np.ndarray([atom_index])
+
+    if isinstance(atom_index, (tuple, list)):
+        atom_index=np.ndarray(atom_index)
+
+    if isinstance(atom_index, np.ndarray):
+        return atom_index
 
     raise ArgumentError('atom_index', value=atom_index, caller=caller, message=None)
 

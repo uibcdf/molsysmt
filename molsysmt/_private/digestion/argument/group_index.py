@@ -1,5 +1,6 @@
 from ...exceptions import ArgumentError
 from ...variables import is_all
+import numpy as np
 
 functions_with_boolean = (
         'molsysmt.basic.get.get',
@@ -31,9 +32,21 @@ def digest_group_index(group_index, caller=None):
         If the given `group_index` has not of the correct type or value.
     """
 
-    if caller.endswith(functions_with_boolean):
-        if isinstance(group_index, bool):
-            return group_index
+    if caller is not None:
+        if caller.endswith(functions_with_boolean):
+            if isinstance(group_index, bool):
+                return group_index
+            else:
+                raise ArgumentError('group_index', value=group_index, caller=caller, message=None)
+
+    if isinstance(group_index, (int, np.int64)):
+        group_index=np.ndarray([group_index])
+
+    if isinstance(group_index, (tuple, list)):
+        group_index=np.ndarray(group_index)
+
+    if isinstance(group_index, np.ndarray):
+        return group_index
 
     raise ArgumentError('group_index', value=group_index, caller=caller, message=None)
 

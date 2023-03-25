@@ -74,6 +74,11 @@ attributes['box_volume'] = True
 attributes['coordinates'] = True
 attributes['velocities'] = True
 attributes['n_structures'] = True
+attributes['occupancy'] = True
+attributes['b_factor'] = True
+attributes['alternate_location'] = True
+attributes['bioassembly'] = True
+attributes['n_bioassemblies'] = True
 
 ###
 ### MECHANICAL ATTRIBUTES

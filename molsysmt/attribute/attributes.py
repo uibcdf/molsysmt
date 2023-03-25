@@ -293,18 +293,18 @@ add_attribute('b_factor', synonyms=['b_factors'], runs_on_elements=True, runs_on
 
 ## alternate_location
 add_attribute('alternate_location', synonyms=['alternate_locations'], runs_on_elements=True, runs_on_structures=True, structural=True,
-        get_from=['atom','system'], set_to='atom')
-
-## alternate_occupancy
-add_attribute('alternate_occupancy', synonyms=['alternate_occupancies'], runs_on_elements=True, runs_on_structures=True, structural=True,
-        get_from=['atom','system'], set_to='atom')
-
-## alternate_b_factor
-add_attribute('alternate_b_factor', synonyms=['alternate_b_factors'], runs_on_elements=True, runs_on_structures=True, structural=True,
-        get_from=['atom','system'], set_to='atom')
+        get_from=['atom','system'], set_to='system')
 
 ## temperature
 add_attribute('temperature', synonyms=['temperatures'], runs_on_structures=True, structural=True,
+        get_from=['system'], set_to='system')
+
+## bioassembly
+add_attribute('bioassembly', synonyms=['bioassemblies'], structural=True,
+        get_from=['system'], set_to='system')
+
+## n_bioassemblies
+add_attribute('n_bioassemblies', synonyms=['n_bioassembly'], structural=True,
         get_from=['system'], set_to='system')
 
 

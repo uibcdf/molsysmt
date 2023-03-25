@@ -1,4 +1,5 @@
 from molsysmt._private.digestion import digest
+from molsysmt._private.variables import is_all
 import numpy as np
 from molsysmt import pyunitwizard as puw
 
@@ -6,70 +7,67 @@ from molsysmt import pyunitwizard as puw
 def to_molsysmt_Structures(item, atom_indices='all', structure_indices='all'):
 
     from molsysmt.native.structures import Structures
+    from molsysmt.pbc import get_box_from_lengths_and_angles
 
     n_atoms = item.num_atoms
     n_structures = item.num_models
 
     if item.num_models>1:
         print('molsys.form.mmtf_MMTFDecoder.to_molsysmt_Structures needs to be fixed')
+        print('to include more than a single structure')
 
     coordinates = np.column_stack([item.x_coord_list, item.y_coord_list, item.z_coord_list])
-    coordinates = xyz.reshape([-1, item.num_atoms, 3])
-    coordinates = puw.quantity(xyz, 'angstroms')
-    coordinates = puw.standardize(xyz)
+    coordinates = coordinates.reshape([-1, item.num_atoms, 3])
+    coordinates = puw.quantity(coordinates, 'angstroms')
+    coordinates = puw.standardize(coordinates)
 
-    atom_index_array = np.arange(n_atoms, dtype=int)
-    atom_name_array = np.empty(n_atoms, dtype=object)
-    atom_id_array = np.empty(n_atoms, dtype=int)
-    group_index_array = np.arange(n_atoms, dtype=int)
-    group_id_array = np.empty(n_atoms, dtype=int)
-    chain_id_array = np.empty(n_atoms, dtype=object)
+    atom_index = np.arange(n_atoms, dtype=int)
+    atom_name = np.empty(n_atoms, dtype=object)
+    atom_id = np.empty(n_atoms, dtype=int)
+    group_index = np.arange(n_atoms, dtype=int)
+    group_id = np.empty(n_atoms, dtype=int)
+    chain_id = np.empty(n_atoms, dtype=object)
 
-    #formal_charge_array = np.empty(n_atoms, dtype=float)
+    aux_atom_index = 0
 
-    atom_index = 0
-
-    for mmtf_group_type, group_index, group_id in zip(item.group_type_list, range(item.num_groups), item.group_id_list):
+    for mmtf_group_type, aux_group_index, aux_group_id in zip(item.group_type_list, range(item.num_groups), item.group_id_list):
 
         mmtf_group = item.group_list[mmtf_group_type]
 
-        for atom_name, atom_formal_charge in zip(mmtf_group['atomNameList'], mmtf_group['formalChargeList']):
+        for aux_atom_name in zip(mmtf_group['atomNameList']):
 
-            atom_name_array[atom_index] = atom_name
-            atom_id_array[atom_index] = item.atom_id_list[atom_index]
-            #formal_charge_array[atom_index] = atom_formal_charge
-            group_index_array[atom_index] = group_index
-            group_id_array[atom_index] = group_id
+            atom_name[aux_atom_index] = aux_atom_name
+            atom_id[aux_atom_index] = item.atom_id_list[aux_atom_index]
+            group_index[aux_atom_index] = aux_group_index
+            group_id[aux_atom_index] = aux_group_id
 
-            atom_index+=1
+            aux_atom_index+=1
 
     count_groups = 0
 
-    for chain_index, chain_id in zip(range(item.num_chains), item.chain_id_list):
+    for aux_chain_index, aux_chain_id in zip(range(item.num_chains), item.chain_id_list):
 
-        n_groups_chain = item.groups_per_chain[chain_index]
+        n_groups_chain = item.groups_per_chain[aux_chain_index]
 
-        for group_index in range(count_groups, count_groups+n_groups_chain):
-            for atom_index in np.where(group_index_array==group_index)[0]:
+        for aux_group_index in range(count_groups, count_groups+n_groups_chain):
+            for aux_atom_index in np.where(group_index==aux_group_index)[0]:
 
-                chain_id_array[atom_index] = chain_id
+                chain_id[aux_atom_index] = aux_chain_id
 
         count_groups+=n_groups_chain
 
-    occupancy_array = np.array(item.occupancy_list)
-    alternate_location_array = np.array(item.alt_loc_list)
-    b_factor_array = puw.quantity(np.array(item.b_factor_list), unit='angstroms**2', standardized=True)
-    #formal_charge_array = puw.quantity(formal_charge_array, unit='e', standardized=True)
-
+    occupancy = np.array(item.occupancy_list)
+    alternate_location = np.array(item.alt_loc_list)
+    b_factor = puw.quantity(np.array(item.b_factor_list), unit='angstroms**2', standardized=True)
     ## If atoms with alternate location the highest occupancy or A is taken
     ## other pseudo-atoms are removed
 
-    alt_atom_indices = np.where(alternate_location_array!='')[0]
+    alt_atom_indices = np.where(alternate_location!='')[0]
 
     if len(alt_atom_indices):
-        alt_atom_names = atom_name_array[alt_atom_indices]
-        alt_group_ids = group_id_array[alt_atom_indices]
-        alt_chain_ids = chain_id_array[alt_atom_indices]
+        alt_atom_names = atom_name[alt_atom_indices]
+        alt_group_ids = group_id[alt_atom_indices]
+        alt_chain_ids = chain_id[alt_atom_indices]
         aux_dict = {}
         for aux_atom_index, aux_atom_name, aux_group_id, aux_chain_id in zip(alt_atom_indices, alt_atom_names, alt_group_ids, alt_chain_ids):
             aux_key = tuple([aux_atom_name, aux_group_id, aux_chain_id])
@@ -81,8 +79,8 @@ def to_molsysmt_Structures(item, atom_indices='all', structure_indices='all'):
     atoms_to_be_removed_with_alt_loc=[]
     chosen_with_alt_loc = []
     for same_atoms in aux_dict.values():
-        alt_occupancy = occupancy_array[same_atoms]
-        alt_loc = alternate_location_array[same_atoms]
+        alt_occupancy = occupancy[same_atoms]
+        alt_loc = alternate_location[same_atoms]
         if np.allclose(alt_occupancy, alt_occupancy[0]):
             chosen = same_atoms[np.where(alt_loc=='A')[0][0]]
         else:
@@ -92,16 +90,17 @@ def to_molsysmt_Structures(item, atom_indices='all', structure_indices='all'):
 
     atom_indices_to_be_kept = list(set(np.arange(n_atoms))-set(atoms_to_be_removed_with_alt_loc))
 
-    alternate_location = [{}]
+    aux_alternate_location = [{}]
     for chosen, same_atoms in zip(chosen_with_alt_loc, aux_dict.values()):
         atom_index = np.where(atom_indices_to_be_kept==chosen)[0][0]
         aux_dict={
-                'alternate_location':alternate_location_array[same_atoms],
-                'occupancy':occupancy_array[same_atoms],
-                'b_factor':b_factor_array[same_atoms],
-                'atom_id':atom_id_array[same_atoms],
+                'id':alternate_location[same_atoms],
+                'occupancy':occupancy[same_atoms],
+                'b_factor':b_factor[same_atoms],
+                'atom_id':atom_id[same_atoms],
+                'coordinates':coordinates[0,same_atoms,:]
                 }
-        alternate_location[0][atom_index]=aux_dict
+        aux_alternate_location[0][atom_index]=aux_dict
 
     structure_id = None
     time = None
@@ -109,6 +108,7 @@ def to_molsysmt_Structures(item, atom_indices='all', structure_indices='all'):
     coordinates = coordinates[:,atom_indices_to_be_kept,:]
     occupancy = occupancy[atom_indices_to_be_kept]
     b_factor = b_factor[atom_indices_to_be_kept]
+    alternate_location = aux_alternate_location
 
     if item.unit_cell is not None:
 
@@ -132,15 +132,25 @@ def to_molsysmt_Structures(item, atom_indices='all', structure_indices='all'):
         if box is not None:
             box = box[structure_indices,:,:]
 
-    #coordinates = get_coordinates_from_atom(item, indices=atom_indices, structure_indices=structure_indices)
-    #box = get_box_from_system(item, structure_indices=structure_indices)
-    #occupancy = get_occupancy_from_atom(item, atom_indices=atom_indices, structure_indices=structure_indices)
-    #b_factor = get_b_factor_from_atom(item, atom_indices=atom_indices, structure_indices=structure_indices)
-    #alternate_location = get_alternate_location_from_atom(item, structure_indices=structure_indices)
 
-    tmp_item = Structures()
-    tmp_item.append_structures(structure_id=structure_id, time=time, coordinates=coordinates, box=box,
-            occupancy=occupancy, b_factor=b_factor, alternate_location=alternate_location)
+    bioassembly = {}
+
+    for aux_bioassembly in item.bio_assembly:
+
+        aux = {'chain_indices': [], 'rotations': [], 'translations': []}
+
+        for transformation in aux_bioassembly['transformList']:
+
+            matrix_transformation = np.array(transformation['matrix']).reshape(-1,4)
+
+            aux['chain_indices'].append(transformation['chainIndexList'])
+            aux['rotations'].append(matrix_transformation[:3,:3])
+            aux['translations'].append(puw.quantity(matrix_transformation[:3,3], unit='angstroms', standardized=True))
+
+        bioassembly[aux_bioassembly['name']] = aux
+
+    tmp_item = Structures(structure_id=structure_id, time=time, coordinates=coordinates, box=box,
+            occupancy=occupancy, b_factor=b_factor, alternate_location=alternate_location, bioassembly=bioassembly)
 
     return tmp_item
 

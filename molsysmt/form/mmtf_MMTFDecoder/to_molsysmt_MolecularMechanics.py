@@ -3,20 +3,13 @@ import numpy as np
 from molsysmt import pyunitwizard as puw
 
 @digest(form='mmtf.MMTFDecoder')
-def to_molsysmt_Structures(item, atom_indices='all', structure_indices='all'):
+def to_molsysmt_MolecularMechanics(item, atom_indices='all'):
 
-    from molsysmt.native.structures import Structures
+    from molsysmt.native.molecular_mechanics import MolecularMechanics
+
+    tmp_item = MolecularMechanics()
 
     n_atoms = item.num_atoms
-    n_structures = item.num_models
-
-    if item.num_models>1:
-        print('molsys.form.mmtf_MMTFDecoder.to_molsysmt_Structures needs to be fixed')
-
-    coordinates = np.column_stack([item.x_coord_list, item.y_coord_list, item.z_coord_list])
-    coordinates = xyz.reshape([-1, item.num_atoms, 3])
-    coordinates = puw.quantity(xyz, 'angstroms')
-    coordinates = puw.standardize(xyz)
 
     atom_index_array = np.arange(n_atoms, dtype=int)
     atom_name_array = np.empty(n_atoms, dtype=object)
@@ -25,7 +18,7 @@ def to_molsysmt_Structures(item, atom_indices='all', structure_indices='all'):
     group_id_array = np.empty(n_atoms, dtype=int)
     chain_id_array = np.empty(n_atoms, dtype=object)
 
-    #formal_charge_array = np.empty(n_atoms, dtype=float)
+    formal_charge_array = np.empty(n_atoms, dtype=float)
 
     atom_index = 0
 
@@ -37,9 +30,9 @@ def to_molsysmt_Structures(item, atom_indices='all', structure_indices='all'):
 
             atom_name_array[atom_index] = atom_name
             atom_id_array[atom_index] = item.atom_id_list[atom_index]
-            #formal_charge_array[atom_index] = atom_formal_charge
             group_index_array[atom_index] = group_index
             group_id_array[atom_index] = group_id
+            formal_charge_array[atom_index] = atom_formal_charge
 
             atom_index+=1
 
@@ -58,8 +51,7 @@ def to_molsysmt_Structures(item, atom_indices='all', structure_indices='all'):
 
     occupancy_array = np.array(item.occupancy_list)
     alternate_location_array = np.array(item.alt_loc_list)
-    b_factor_array = puw.quantity(np.array(item.b_factor_list), unit='angstroms**2', standardized=True)
-    #formal_charge_array = puw.quantity(formal_charge_array, unit='e', standardized=True)
+    formal_charge_array = puw.quantity(formal_charge_array, unit='e', standardized=True)
 
     ## If atoms with alternate location the highest occupancy or A is taken
     ## other pseudo-atoms are removed
@@ -92,55 +84,10 @@ def to_molsysmt_Structures(item, atom_indices='all', structure_indices='all'):
 
     atom_indices_to_be_kept = list(set(np.arange(n_atoms))-set(atoms_to_be_removed_with_alt_loc))
 
-    alternate_location = [{}]
-    for chosen, same_atoms in zip(chosen_with_alt_loc, aux_dict.values()):
-        atom_index = np.where(atom_indices_to_be_kept==chosen)[0][0]
-        aux_dict={
-                'alternate_location':alternate_location_array[same_atoms],
-                'occupancy':occupancy_array[same_atoms],
-                'b_factor':b_factor_array[same_atoms],
-                'atom_id':atom_id_array[same_atoms],
-                }
-        alternate_location[0][atom_index]=aux_dict
+    tmp_item.formal_charge = formal_charge_array[atom_indices_to_be_kept]
 
-    structure_id = None
-    time = None
-
-    coordinates = coordinates[:,atom_indices_to_be_kept,:]
-    occupancy = occupancy[atom_indices_to_be_kept]
-    b_factor = b_factor[atom_indices_to_be_kept]
-
-    if item.unit_cell is not None:
-
-        cell_lengths = np.empty([n_structures,3], dtype='float64')
-        cell_angles = np.empty([n_structures,3], dtype='float64')
-        for ii in range(3):
-            cell_lengths[:,ii] = item.unit_cell[ii]
-            cell_angles[:,ii] = item.unit_cell[ii+3]
-
-        cell_lengths = puw.quantity(cell_lengths, 'angstroms')
-        cell_angles = puw.quantity(cell_angles, 'degrees')
-
-        box = get_box_from_lengths_and_angles(cell_lengths, cell_angles)
-        box = puw.standardize(box)
-
-    else:
-
-        box = None
-
-    if not is_all(structure_indices):
-        if box is not None:
-            box = box[structure_indices,:,:]
-
-    #coordinates = get_coordinates_from_atom(item, indices=atom_indices, structure_indices=structure_indices)
-    #box = get_box_from_system(item, structure_indices=structure_indices)
-    #occupancy = get_occupancy_from_atom(item, atom_indices=atom_indices, structure_indices=structure_indices)
-    #b_factor = get_b_factor_from_atom(item, atom_indices=atom_indices, structure_indices=structure_indices)
-    #alternate_location = get_alternate_location_from_atom(item, structure_indices=structure_indices)
-
-    tmp_item = Structures()
-    tmp_item.append_structures(structure_id=structure_id, time=time, coordinates=coordinates, box=box,
-            occupancy=occupancy, b_factor=b_factor, alternate_location=alternate_location)
+    del(atom_index_array, atom_name_array, atom_id_array,
+            group_index_array, group_id_array, chain_id_array,
+            formal_charge_array)
 
     return tmp_item
-
