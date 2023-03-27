@@ -132,10 +132,10 @@ def get_occupancy_from_atom(item, indices='all', structure_indices='all'):
     if tmp_occupancy is not None:
 
         if not is_all(structure_indices):
-            tmp_occupancy = tmp_occupancy[structure_indices,:,:]
+            tmp_occupancy = tmp_occupancy[structure_indices,:]
 
         if not is_all(indices):
-            tmp_occupancy = tmp_occupancy[:,indices,:]
+            tmp_occupancy = tmp_occupancy[:,indices]
 
     return tmp_occupancy
 
@@ -151,10 +151,10 @@ def get_b_factor_from_atom(item, indices='all', structure_indices='all'):
     if tmp_b_factor is not None:
 
         if not is_all(structure_indices):
-            tmp_b_factor = tmp_b_factor[structure_indices,:,:]
+            tmp_b_factor = tmp_b_factor[structure_indices,:]
 
         if not is_all(indices):
-            tmp_b_factor = tmp_b_factor[:,indices,:]
+            tmp_b_factor = tmp_b_factor[:,indices]
 
     return tmp_b_factor
 

@@ -3209,6 +3209,30 @@ def get_box_volume_from_system(item, structure_indices='all'):
     return output
 
 @digest(form=form)
+def get_occupancy_from_system(item, structure_indices='all'):
+
+    if structure_indices is None:
+        return None
+
+    return get_occupancy_from_atom(item, indices='all', structure_indices=structure_indices)
+
+@digest(form=form)
+def get_b_factor_from_system(item, structure_indices='all'):
+
+    if structure_indices is None:
+        return None
+
+    return get_b_factor_from_atom(item, indices='all', structure_indices=structure_indices)
+
+@digest(form=form)
+def get_alternate_location_from_system(item, structure_indices='all'):
+
+    if structure_indices is None:
+        return None
+
+    return get_alternate_location_from_atom(item, indices='all', structure_indices=structure_indices)
+
+@digest(form=form)
 def get_formal_charge_from_system(item, indices='all'):
 
     if indices is None:
