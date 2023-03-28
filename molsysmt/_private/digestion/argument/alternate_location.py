@@ -10,7 +10,7 @@ functions_where_boolean = (
 
 def digest_alternate_location(alternate_location, caller=None):
 
-    from .id import digest_id
+    from .location_id import digest_location_id
     from .occupancy import digest_occupancy
     from .b_factor import digest_b_factor
     from .atom_id import digest_atom_id
@@ -39,8 +39,8 @@ def digest_alternate_location(alternate_location, caller=None):
                     right_format=False
                     break
                 try:
-                    aux_dict['id']=digest_id(aux_dict['id'])
-                    n_atoms = aux_dict['id'].shape[0]
+                    aux_dict['location_id']=digest_location_id(aux_dict['location_id'])
+                    n_atoms = aux_dict['location_id'].shape[0]
                     aux_dict['occupancy']=digest_occupancy(aux_dict['occupancy'])[0]
                     aux_dict['b_factor']=digest_b_factor(aux_dict['b_factor'])[0]
                     aux_dict['atom_id']=digest_atom_id(aux_dict['atom_id'])
