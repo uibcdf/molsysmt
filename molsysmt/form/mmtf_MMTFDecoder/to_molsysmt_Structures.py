@@ -94,7 +94,7 @@ def to_molsysmt_Structures(item, atom_indices='all', structure_indices='all'):
     for chosen, same_atoms in zip(chosen_with_alt_loc, aux_dict.values()):
         atom_index = np.where(atom_indices_to_be_kept==chosen)[0][0]
         aux_dict={
-                'id':alternate_location[same_atoms],
+                'location_id':alternate_location[same_atoms],
                 'occupancy':occupancy[same_atoms],
                 'b_factor':b_factor[same_atoms],
                 'atom_id':atom_id[same_atoms],
