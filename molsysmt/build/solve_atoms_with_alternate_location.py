@@ -49,13 +49,12 @@ def solve_atoms_with_alternate_location(molecular_system, selection='all',
                     aux2_coordinates.append(tmp_alt_loc_value['coordinates'][arg])
             aux_atom_indices.append(aux2_atom_indices)
             aux_occupancy.append(aux2_occupancy)
-            aux_b_factor.append(aux2_b_factor)
+            aux_b_factor.append(puw.concatenate(aux2_b_factor))
             aux_atom_id.append(aux2_atom_id)
-            aux_coordinates.append(aux2_coordinates)
+            aux_coordinates.append(puw.concatenate(aux2_coordinates))
 
-        for ii in range(len(aux_coordinates)):
-            aux_coordinates[ii] = puw.concatenate(aux_coordinates[ii])
         aux_coordinates = puw.concatenate(aux_coordinates)
+        aux_b_factor = puw.concatenate(aux_b_factor)
 
         equal_atom_indices_all_structures=False
 
