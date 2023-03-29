@@ -9,7 +9,7 @@ def digest_location_id(location_id, caller=None):
             return location_id
 
     if isinstance(location_id, (tuple, list)):
-        location_id=np.ndarray(location_id)
+        location_id=np.array(location_id)
 
     if isinstance(location_id, np.ndarray):
         for ii in location_id:

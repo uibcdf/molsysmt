@@ -6,9 +6,23 @@ from molsysmt import pyunitwizard as puw
 
 def digest_value(value, caller=None):
 
+    if caller.endswith('set_atom_id_to_atom'):
+        from .atom_id import digest_atom_id
+        return digest_atom_id(value, caller=caller)
+
     if caller.endswith('set_coordinates_to_atom'):
         from .coordinates import digest_coordinates
         return digest_coordinates(value, caller=caller)
+
+    if caller.endswith('set_occupancy_to_atom'):
+        from .occupancy import digest_occupancy
+        return digest_occupancy(value, caller=caller)
+
+    if caller.endswith('set_b_factor_to_atom'):
+        from .b_factor import digest_b_factor
+        return digest_b_factor(value, caller=caller)
+
+    # System
 
     if caller.endswith('set_structure_id_to_system'):
         from .structure_id import digest_structure_id
@@ -25,7 +39,6 @@ def digest_value(value, caller=None):
     if caller.endswith('set_coordinates_to_system'):
         from .coordinates import digest_coordinates
         return digest_coordinates(value, caller=caller)
-
 
     if caller.endswith('set_forcefield_to_system'):
         from .forcefield import digest_forcefield

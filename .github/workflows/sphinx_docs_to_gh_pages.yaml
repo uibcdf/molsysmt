@@ -27,18 +27,6 @@ jobs:
       - name: Setup GNU Fortran
         uses: modflowpy/install-gfortran-action@v1 # https://github.com/modflowpy/install-gfortran-action
 
-          #- name: Make conda environment
-          #  uses: conda-incubator/setup-miniconda@v2    # https://github.com/conda-incubator/setup-miniconda
-          #  with:
-          #    python-version: 3.9
-          #    environment-file: devtools/conda-envs/docs_env.yaml
-          #    #mamba-version: "*"
-          #    #use-mamba: true
-          #    auto-update-conda: false
-          #    auto-activate-base: false
-          #    show-channel-urls: true
-          #    activate-environment: test
-
       - name: Setup conda env
         uses: mamba-org/provision-with-micromamba@main
         with:
@@ -55,17 +43,11 @@ jobs:
         run: |
           python setup.py develop
 
-          #- name: Info conda
-          #  shell: bash -l {0}
-          #  run: |
-          #    micromamba info
-          #    micromamba list
-
-      - name: Info conda
-        shell: bash -l {0}
-        run: |
-          conda info
-          conda list
+        - name: Info conda
+          shell: bash -l {0}
+          run: |
+            micromamba info
+            micromamba list
 
       - name: Test import module
         shell: bash -l {0}

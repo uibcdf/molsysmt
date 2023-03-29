@@ -65,7 +65,7 @@ def solve_atoms_with_alternate_location(molecular_system, selection='all',
 
         if equal_atom_indices_all_structures:
             set(molecular_system, element='atom', indices=aux_atom_indices[0], structure_indices=structure_indices,
-                    atom_id=aux_atom_id, occupancy=aux_occupancy, b_factor=aux_b_factor, coordinates=aux_coordinates) 
+                    atom_id=aux_atom_id[0], occupancy=aux_occupancy, b_factor=aux_b_factor, coordinates=aux_coordinates) 
         else:
             for ii in structure_indices:
                 set(molecular_system, element='atom', indices=aux_atom_indices[ii], structure_indices=structure_indices[ii],
@@ -111,7 +111,7 @@ def solve_atoms_with_alternate_location(molecular_system, selection='all',
 
         if equal_atom_indices_all_structures:
             set(molecular_system, element='atom', indices=aux_atom_indices[0], structure_indices=structure_indices,
-                    atom_id=aux_atom_id, occupancy=aux_occupancy, b_factor=aux_b_factor, coordinates=aux_coordinates)
+                    atom_id=aux_atom_id[0], occupancy=aux_occupancy, b_factor=aux_b_factor, coordinates=aux_coordinates)
         else:
             for ii in structure_indices:
                 set(molecular_system, element='atom', indices=aux_atom_indices[ii], structure_indices=structure_indices[ii],

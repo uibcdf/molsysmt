@@ -40,14 +40,14 @@ def set_b_factor_to_atom(item, indices='all', structure_indices='all', value=Non
 
     from ..molsysmt_Structures import set_b_factor_to_atom as aux_set
 
-    return aux_set(item.topology, indices=indices, structure_indices=structure_indices, value=value)
+    return aux_set(item.structures, indices=indices, structure_indices=structure_indices, value=value)
 
 @digest(form='molsysmt.MolSys')
 def set_occupancy_to_atom(item, indices='all', structure_indices='all', value=None):
 
     from ..molsysmt_Structures import set_occupancy_to_atom as aux_set
 
-    return aux_set(item.topology, indices=indices, structure_indices=structure_indices, value=value)
+    return aux_set(item.structures, indices=indices, structure_indices=structure_indices, value=value)
 
 ###
 ### System
