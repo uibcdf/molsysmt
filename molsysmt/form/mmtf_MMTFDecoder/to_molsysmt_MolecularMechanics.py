@@ -70,21 +70,25 @@ def to_molsysmt_MolecularMechanics(item, atom_indices='all'):
             else:
                 aux_dict[aux_key]=[aux_atom_index]
 
-    atoms_to_be_removed_with_alt_loc=[]
-    chosen_with_alt_loc = []
-    for same_atoms in aux_dict.values():
-        alt_occupancy = occupancy_array[same_atoms]
-        alt_loc = alternate_location_array[same_atoms]
-        if np.allclose(alt_occupancy, alt_occupancy[0]):
-            chosen = same_atoms[np.where(alt_loc=='A')[0][0]]
-        else:
-            chosen = same_atoms[np.argmax(alt_occupancy)]
-        chosen_with_alt_loc.append(chosen)
-        atoms_to_be_removed_with_alt_loc += [ii for ii in same_atoms if ii !=chosen]
+        atoms_to_be_removed_with_alt_loc=[]
+        chosen_with_alt_loc = []
+        for same_atoms in aux_dict.values():
+            alt_occupancy = occupancy_array[same_atoms]
+            alt_loc = alternate_location_array[same_atoms]
+            if np.allclose(alt_occupancy, alt_occupancy[0]):
+                chosen = same_atoms[np.where(alt_loc=='A')[0][0]]
+            else:
+                chosen = same_atoms[np.argmax(alt_occupancy)]
+            chosen_with_alt_loc.append(chosen)
+            atoms_to_be_removed_with_alt_loc += [ii for ii in same_atoms if ii !=chosen]
 
-    atom_indices_to_be_kept = list(set(np.arange(n_atoms))-set(atoms_to_be_removed_with_alt_loc))
+        atom_indices_to_be_kept = list(set(np.arange(n_atoms))-set(atoms_to_be_removed_with_alt_loc))
 
-    tmp_item.formal_charge = formal_charge_array[atom_indices_to_be_kept]
+        tmp_item.formal_charge = formal_charge_array[atom_indices_to_be_kept]
+
+    else:
+
+        tmp_item.formal_charge = formal_charge_array
 
     del(atom_index_array, atom_name_array, atom_id_array,
             group_index_array, group_id_array, chain_id_array,

@@ -6,7 +6,7 @@ def is_form(item):
     output = False
 
     if puw.is_quantity(item):
-        if  puw.compatibility(item, puw.unit('nm')):
+        if  puw.are_compatible(item, puw.unit('nm')):
 
             shape = np.shape(item)
 

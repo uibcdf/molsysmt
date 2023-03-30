@@ -15,9 +15,26 @@ def digest_bioassembly(bioassembly, caller=None):
     from .translations import digest_translations
 
     if caller is not None:
+
         if caller.endswith(functions_where_boolean):
             if isinstance(bioassembly, bool):
                 return bioassembly
+            else:
+                raise ArgumentError('bioassembly', value=bioassembly, caller=caller, message=None)
+
+        if caller=='molsysmt.build.make_bioassembly.make_bioassembly':
+            if isinstance(bioassembly, str):
+                return bioassembly
+            elif isinstance(bioassembly, dict):
+                right_format=True
+                try:
+                    bioassembly['chain_indices']=digest_chain_indices(bioassembly['chain_indices'], caller='digest_bioassembly')
+                    bioassembly['rotations']=digest_rotations(bioassembly['rotations'], caller='digest_bioassembly')
+                    bioassembly['translations']=digest_translations(bioassembly['translations'], caller='digest_bioassembly')
+                except:
+                    right_format=False
+                if right_format:
+                    return bioassembly
             else:
                 raise ArgumentError('bioassembly', value=bioassembly, caller=caller, message=None)
 
@@ -38,4 +55,3 @@ def digest_bioassembly(bioassembly, caller=None):
             return bioassembly
 
     raise ArgumentError('bioassembly', value=bioassembly, caller=caller, message=None)
-

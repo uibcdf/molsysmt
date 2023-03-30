@@ -509,10 +509,10 @@ def get_structure_id_from_system(item, structure_indices='all'):
     return output
 
 @digest(form=form)
-def get_bioassemblies_from_system(item):
+def get_bioassembly_from_system(item):
 
     from . import to_mmtf_MMTFDecoder
-    from ..mmtf_MMTFDecoder import get_bioassemblies_from_system as aux_get
+    from ..mmtf_MMTFDecoder import get_bioassembly_from_system as aux_get
 
     tmp_item = to_mmtf_MMTFDecoder(item)
     output = aux_get(tmp_item)

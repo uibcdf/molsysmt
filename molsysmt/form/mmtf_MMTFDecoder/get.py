@@ -503,21 +503,20 @@ def get_structure_id_from_system(item, structure_indices='all'):
 
     return None
 
-
 @digest(form=form)
-def get_bioassemblies_from_system(item):
+def get_bioassembly_from_system(item):
 
     output = {}
 
     for bio_assembly in item.bio_assembly:
 
-        aux = {'chains': [], 'rotations': [], 'translations': []}
+        aux = {'chain_indices': [], 'rotations': [], 'translations': []}
 
         for transformation in bio_assembly['transformList']:
 
             matrix_transformation = np.array(transformation['matrix']).reshape(-1,4)
 
-            aux['chains'].append(transformation['chainIndexList'])
+            aux['chain_indices'].append(transformation['chainIndexList'])
             aux['rotations'].append(matrix_transformation[:3,:3])
             aux['translations'].append(puw.quantity(matrix_transformation[:3,3], unit='angstroms', standardized=True))
 

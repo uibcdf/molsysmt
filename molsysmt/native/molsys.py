@@ -1,6 +1,5 @@
 from molsysmt._private.variables import is_all
 
-
 class MolSys:
 
     def __init__(self):
@@ -31,16 +30,9 @@ class MolSys:
     def add(self, item, selection='all', structure_indices='all', syntax='MolSysMT'):
 
         from molsysmt import convert, get_form, select
-
-        if get_form(item) != 'molsysmt.MolSys':
-            tmp_item = convert(item, to_form='molsysmt.MolSys', selection=selection,
-                               structure_indices=structure_indices, syntax=syntax)
-            self.topology.add(tmp_item.topology)
-            self.structures.add(tmp_item.structures)
-        else:
-            atom_indices=select(item, selection=selection, syntax=syntax)
-            self.topology.add(item.topology, selection=atom_indices)
-            self.structures.add(item.structures, selection=atom_indices, structure_indices=structure_indices)
+        atom_indices=select(item, selection=selection, syntax=syntax)
+        self.topology.add(item.topology, selection=atom_indices)
+        self.structures.add(item.structures, selection=atom_indices, structure_indices=structure_indices)
 
     def load_frames(self, selection='all', structure_indices='all', syntax='MolSysMT'):
 

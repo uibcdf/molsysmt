@@ -131,11 +131,12 @@ class Topology():
         tmp_item.bonds_dataframe['atom1_index'] += n_atoms
         tmp_item.bonds_dataframe['atom2_index'] += n_atoms
 
-        self.atoms_dataframe = pd.concat([self.atoms_dataframe, tmp_item.atoms_dataframe], ignore_index=True)
-        self.bonds_dataframe = pd.concat([self.bonds_dataframe, tmp_item.bonds_dataframe], ignore_index=True)
 
+        self.atoms_dataframe = pd.concat([self.atoms_dataframe, tmp_item.atoms_dataframe],
+                ignore_index=True, copy=False)
+        self.bonds_dataframe = pd.concat([self.bonds_dataframe, tmp_item.bonds_dataframe],
+                ignore_index=True, copy=False)
         self._build_entities()
-
 
     def copy(self):
 

@@ -89,7 +89,7 @@ def merge(molecular_systems,
                            structure_indices=aux_structure_indices, syntax=syntax)
 
             _dict_modules[aux_to_form].add(aux_to_item, aux_item)
-        
+
     if len(to_forms)==1:
         return to_molecular_systems[0]
     else:

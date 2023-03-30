@@ -65,6 +65,7 @@ def to_molsysmt_Structures(item, atom_indices='all', structure_indices='all'):
     alt_atom_indices = np.where(alternate_location!='')[0]
 
     if len(alt_atom_indices):
+
         alt_atom_names = atom_name[alt_atom_indices]
         alt_group_ids = group_id[alt_atom_indices]
         alt_chain_ids = chain_id[alt_atom_indices]
@@ -76,39 +77,43 @@ def to_molsysmt_Structures(item, atom_indices='all', structure_indices='all'):
             else:
                 aux_dict[aux_key]=[aux_atom_index]
 
-    atoms_to_be_removed_with_alt_loc=[]
-    chosen_with_alt_loc = []
-    for same_atoms in aux_dict.values():
-        alt_occupancy = occupancy[same_atoms]
-        alt_loc = alternate_location[same_atoms]
-        if np.allclose(alt_occupancy, alt_occupancy[0]):
-            chosen = same_atoms[np.where(alt_loc=='A')[0][0]]
-        else:
-            chosen = same_atoms[np.argmax(alt_occupancy)]
-        chosen_with_alt_loc.append(chosen)
-        atoms_to_be_removed_with_alt_loc += [ii for ii in same_atoms if ii !=chosen]
+        atoms_to_be_removed_with_alt_loc=[]
+        chosen_with_alt_loc = []
+        for same_atoms in aux_dict.values():
+            alt_occupancy = occupancy[same_atoms]
+            alt_loc = alternate_location[same_atoms]
+            if np.allclose(alt_occupancy, alt_occupancy[0]):
+                chosen = same_atoms[np.where(alt_loc=='A')[0][0]]
+            else:
+                chosen = same_atoms[np.argmax(alt_occupancy)]
+            chosen_with_alt_loc.append(chosen)
+            atoms_to_be_removed_with_alt_loc += [ii for ii in same_atoms if ii !=chosen]
 
-    atom_indices_to_be_kept = list(set(np.arange(n_atoms))-set(atoms_to_be_removed_with_alt_loc))
+        atom_indices_to_be_kept = list(set(np.arange(n_atoms))-set(atoms_to_be_removed_with_alt_loc))
 
-    aux_alternate_location = [{}]
-    for chosen, same_atoms in zip(chosen_with_alt_loc, aux_dict.values()):
-        atom_index = np.where(atom_indices_to_be_kept==chosen)[0][0]
-        aux_dict={
-                'location_id':alternate_location[same_atoms],
-                'occupancy':occupancy[same_atoms],
-                'b_factor':b_factor[same_atoms],
-                'atom_id':atom_id[same_atoms],
-                'coordinates':coordinates[0,same_atoms,:]
-                }
-        aux_alternate_location[0][atom_index]=aux_dict
+        aux_alternate_location = [{}]
+        for chosen, same_atoms in zip(chosen_with_alt_loc, aux_dict.values()):
+            atom_index = np.where(atom_indices_to_be_kept==chosen)[0][0]
+            aux_dict={
+                    'location_id':alternate_location[same_atoms],
+                    'occupancy':occupancy[same_atoms],
+                    'b_factor':b_factor[same_atoms],
+                    'atom_id':atom_id[same_atoms],
+                    'coordinates':coordinates[0,same_atoms,:]
+                    }
+            aux_alternate_location[0][atom_index]=aux_dict
+
+        coordinates = coordinates[:,atom_indices_to_be_kept,:]
+        occupancy = occupancy[atom_indices_to_be_kept]
+        b_factor = b_factor[atom_indices_to_be_kept]
+        alternate_location = aux_alternate_location
+
+    else:
+
+        alternate_location = None
 
     structure_id = None
     time = None
-
-    coordinates = coordinates[:,atom_indices_to_be_kept,:]
-    occupancy = occupancy[atom_indices_to_be_kept]
-    b_factor = b_factor[atom_indices_to_be_kept]
-    alternate_location = aux_alternate_location
 
     if item.unit_cell is not None:
 

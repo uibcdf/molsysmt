@@ -304,6 +304,9 @@ class Structures:
 
         self.append_structures(structure_id, time, coordinates, velocities, box)
 
+    def copy(self):
+        """ Returns a copy of the structures."""
+        return deepcopy(self)
 
 ###    def get_structure_data(self, structure, selection="all", chunk_size=1):
 ###        """ Returns the structure_ids, time, coordinates and box of the
@@ -468,10 +471,6 @@ class Structures:
 ###            )
 ###
 ###        return self._iterate_structures(start, stop, interval, selection, chunk_size)
-###
-###    def copy(self):
-###        """ Returns a copy of the structures."""
-###        return deepcopy(self)
 ###
 ###    def __iter__(self):
 ###        self._current_structure = -1
