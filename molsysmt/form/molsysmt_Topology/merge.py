@@ -1,6 +1,5 @@
 from molsysmt._private.exceptions import NotImplementedMethodError
 from molsysmt._private.digestion import digest
-from molsysmt._private.variables import is_all
 import pandas as pd
 
 @digest(form='molsysmt.Topology')
@@ -14,13 +13,14 @@ def merge(items, atom_indices='all'):
 
     n_items = len(items)
 
+    output = Topology()
+
+
     if is_all(atom_indices):
         atom_indices = ['all' for ii in range(n_items)]
 
     if len(atom_indices)!=n_items:
         raise ValueError(atom_indices)
-
-    output = Topology()
 
     n_atoms = []
     n_groups = []
@@ -83,65 +83,7 @@ def merge(items, atom_indices='all'):
         count_n_molecules = next_count_n_molecules
         count_n_entities = next_count_n_entities
 
-    #rebuild molecules and entities
-
-    group_name = merged.atoms_dataframe['group_name'].to_numpy()
-    component_type = merged.atoms_dataframe['component_type'].to_numpy()
-
-    molecule_index = merged.atoms_dataframe['molecule_index'].to_numpy()
-    molecule_name = merged.atoms_dataframe['molecule_name'].to_numpy()
-    molecule_type = merged.atoms_dataframe['molecule_type'].to_numpy()
-    entity_index = merged.atoms_dataframe['entity_index'].to_numpy()
-    entity_type = merged.atoms_dataframe['entity_type'].to_numpy()
-    entity_name = merged.atoms_dataframe['entity_name'].to_numpy()
-    entity_id = merged.atoms_dataframe['entity_id'].to_numpy()
-
-    entities= {}
-    n_entities = 0
-    n_peptides = 0
-    n_proteins = 0
-
-    current_molecule_index = -1
-    atom_indices_in_molecule = []
-    group_names_in_molecule = []
-
-
-    for ii in range(count_n_atoms):
-
-        if current_molecule_index!=molecule_index[ii]:
-
-            current_molecule_index=molecule_index[ii]
-            current_molecule_name=molecule_name[ii]
-            current_molecule_type=molecule_type[ii]
-
-            if current_molecule_type=='water':
-
-                try:
-
-                    current_entity_index = entities[current_molecule_name]['entity_index']
-                    current_entity_id = entities[current_molecule_name]['entity_id']
-                    current_entity_name = entities[current_molecule_name]['entity_name']
-                    current_entity_type = entities[current_molecule_name]['entity_type']
-
-                except:
-
-                    current_entity_index = n_entities
-                    current_entity_id = n_entities
-                    current_entity_name = current_molecule_name
-                    current_entity_type = current_molecule_type
-
-                    entities[current_entity_name]={}
-                    entities[current_entity_name]['entity_index'] = current_entity_index
-                    entities[current_entity_name]['entity_id'] = current_entity_id
-                    entities[current_entity_name]['entity_name'] = current_entity_name
-                    entities[current_entity_name]['entity_type'] = current_entity_type
-
-                    n_entities +=1
-
-    else:
-
-
-
+    output._build_entities()
 
     return output
 

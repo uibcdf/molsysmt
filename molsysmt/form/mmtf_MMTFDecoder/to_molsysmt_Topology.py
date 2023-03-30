@@ -143,12 +143,7 @@ def to_molsysmt_Topology(item, atom_indices='all'):
 
     del(chain_name_array, chain_id_array)
 
-    # entities and molecules
-
-    entity_index_array = np.empty(n_atoms, dtype=int)
-    entity_name_array = np.empty(n_atoms, dtype=object)
-    entity_id_array = np.empty(n_atoms, dtype=object)
-    entity_type_array = np.empty(n_atoms, dtype=object)
+    # molecules
 
     molecule_index_array = np.empty(n_atoms, dtype=int)
     molecule_name_array = np.empty(n_atoms, dtype=object)
@@ -158,7 +153,6 @@ def to_molsysmt_Topology(item, atom_indices='all'):
     molecule_name_array.fill(np.nan)
     molecule_type_array.fill(np.nan)
 
-    entity_index = 0
     molecule_index = 0
 
     for mmtf_entity in item.entity_list:
@@ -256,24 +250,6 @@ def to_molsysmt_Topology(item, atom_indices='all'):
 
             raise ValueError("Entity type not recognized")
 
-        for chain_index in mmtf_entity['chainIndexList']:
-
-            for atom_index in np.where(chain_index_array==chain_index)[0]:
-
-                entity_index_array[atom_index] = entity_index
-                entity_name_array[atom_index] = entity_name
-                entity_type_array[atom_index] = entity_type
-                entity_id_array[atom_index] = entity_index
-
-        entity_index += 1
-
-    tmp_item.atoms_dataframe["entity_index"] = entity_index_array
-    tmp_item.atoms_dataframe["entity_name"] = entity_name_array
-    tmp_item.atoms_dataframe["entity_type"] = entity_type_array
-    tmp_item.atoms_dataframe["entity_id"] = entity_id_array
-
-    del(entity_index_array, entity_name_array, entity_type_array, entity_id_array)
-
     tmp_item.atoms_dataframe["molecule_index"] = molecule_index_array
     tmp_item.atoms_dataframe["molecule_name"] = molecule_name_array
     tmp_item.atoms_dataframe["molecule_type"] = molecule_type_array
@@ -282,6 +258,10 @@ def to_molsysmt_Topology(item, atom_indices='all'):
     del(molecule_index_array, molecule_name_array, molecule_type_array, molecule_id_array)
 
     del(group_index_array, chain_index_array, component_index_array)
+
+    # molecules
+
+    tmp_item._build_entities()
 
     ## nan to None
 

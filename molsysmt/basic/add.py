@@ -1,4 +1,5 @@
 from molsysmt._private.digestion import digest
+import inspect
 
 @digest()
 def add(to_molecular_system, from_molecular_system, selection='all', structure_indices='all',
@@ -44,7 +45,7 @@ def add(to_molecular_system, from_molecular_system, selection='all', structure_i
 
     """
 
-    from . import get_form, convert, extract, select
+    from . import get_form, convert, select
     from molsysmt.form import _dict_modules
 
     if not isinstance(to_molecular_system, (list, tuple)):
@@ -54,10 +55,32 @@ def add(to_molecular_system, from_molecular_system, selection='all', structure_i
 
     for aux_to_item, aux_to_form in zip(to_molecular_system, to_forms):
 
-        aux_item = convert(from_molecular_system, to_form=aux_to_form, selection=selection,
-                           structure_indices=structure_indices, syntax=syntax)
+        from_form = get_form(from_molecular_system)
 
-        _dict_modules[aux_to_form].add(aux_to_item, aux_item)
+        if aux_to_form==from_form:
+            aux_item=from_molecular_system
+            if is_all(selection):
+                aux_atom_indices=selection
+            else:
+                aux_atom_indices=selection(from_molecular_system, selection=selection, syntax=syntax)
+            aux_structure_indices=structure_indices
+        else:
+            aux_item = convert(from_molecular_system, to_form=aux_to_form, selection=selection,
+                           structure_indices=structure_indices, syntax=syntax)
+            aux_atom_indices = 'all'
+            aux_structure_indices = 'all'
+
+        add_arguments = {}
+        add_function = _dict_modules[aux_to_form].add
+        input_arguments = set(inspect.signature(function).parameters)
+
+        if 'atom_indices' in input_arguments:
+            add_arguments['atom_indices']=atom_indices
+
+        if 'structure_indices' in input_arguments:
+            add_arguments['structure_indices']=structure_indices
+
+        add_function(aux_item, **add_arguments)
 
     pass
 
