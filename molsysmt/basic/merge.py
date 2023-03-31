@@ -1,4 +1,5 @@
 from molsysmt._private.digestion import digest
+from molsysmt._private.variables import is_all
 import inspect
 
 @digest()
@@ -70,7 +71,7 @@ def merge(molecular_systems,
     aux_atom_indices = []
     aux_structure_indices = []
     to_form = get_form(molecular_systems[0])
-    if tmp_molecular_system, tmp_selection, tmp_structure_indices in zip(molecular_systems,
+    for tmp_molecular_system, tmp_selection, tmp_structure_indices in zip(molecular_systems,
             selections, structure_indices):
         tmp_form = get_form(tmp_molecular_system)
         if tmp_form == to_form:
@@ -89,13 +90,13 @@ def merge(molecular_systems,
 
     merge_arguments = {}
     merge_function = _dict_modules[to_form].merge
-    input_arguments = set(inspect.signature(function).parameters)
+    input_arguments = set(inspect.signature(merge_function).parameters)
 
     if 'atom_indices' in input_arguments:
-        merge_arguments['atom_indices']=atom_indices
+        merge_arguments['atom_indices']=aux_atom_indices
 
     if 'structure_indices' in input_arguments:
-        merge_arguments['structure_indices']=structure_indices
+        merge_arguments['structure_indices']=aux_structure_indices
 
     output = merge_function(aux_molecular_systems, **merge_arguments)
 

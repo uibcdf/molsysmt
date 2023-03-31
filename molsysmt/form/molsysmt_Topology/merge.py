@@ -1,5 +1,6 @@
 from molsysmt._private.exceptions import NotImplementedMethodError
 from molsysmt._private.digestion import digest
+from molsysmt._private.variables import is_all
 import pandas as pd
 
 @digest(form='molsysmt.Topology')
