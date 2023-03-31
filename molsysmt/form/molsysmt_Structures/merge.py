@@ -1,9 +1,11 @@
 from molsysmt._private.exceptions import NotImplementedMethodError
 from molsysmt._private.digestion import digest
 from molsysmt._private.variables import is_all
+from molsysmt import pyunitwizard as puw
+from copy import deepcopy
 
 @digest(form='molsysmt.Structures')
-def merge(items, atom_indices='all', atom_indices='all', structure_indices='all'):
+def merge(items, atom_indices='all', structure_indices='all'):
 
     from molsysmt.native import Structures
 
@@ -24,46 +26,194 @@ def merge(items, atom_indices='all', atom_indices='all', structure_indices='all'
     if len(structure_indices)!=n_items:
         raise ValueError(structure_indices)
 
+    if is_all(structure_indices[0]):
+        output.n_structures = items[0].n_structures
+        output.box = deepcopy(items[0].box)
+        output.structure_id = deepcopy(items[0].structure_id)
+        output.time = deepcopy(items[0].time)
+    else:
+        output.n_structures = len(structure_indices)
+        output.box = items[0].box[structure_indices,:,:]
+        output.structure_id = items[0].structure_id[structure_indices]
+        output.time = items[0].time[structure_indices]
+
+
+    output.alternate_location = [{} for ii in range(output.n_structures)]
+
+    with_alternate_location = False
+
     list_n_atoms = []
-    list_n_structures = []
-    list_structure_id = []
-    list_time = []
     list_coordinates = []
     list_velocities = []
-    list_box = []
     list_b_factor = []
-    list_alternate_location = []
-    list_bioassembly = []
-
-    n_structures_0 = items[0].n_structures
+    list_occupancy = []
 
     count_n_atoms=0
 
     for aux_item, aux_atom_indices, aux_structure_indices in zip(items, atom_indices, structure_indices):
 
+
         if is_all(aux_structure_indices):
             if is_all(aux_atom_indices):
 
-                if n_structures_0!=aux_item.n_structures:
-                    raise ValueError()
+                aux_n_atoms = aux_item.n_atoms
 
-                list_n_atoms.append(aux_item.n_atoms)
-                list_coordinates.append(aux_item.coordinates)
-                list_velocities.append(aux_item.velocities)
-                list_b_factor.append(aux_item.b_factor)
-                list_occupancy.append(aux_item.occupancy)
+                if aux_n_atoms > 0:
 
-                if aux_item.alternate_location is not None:
-                    tmp_alternate_location = []
-                    for alt_loc_dict in aux_item.alternate_location:
-                        for key, value in alt_loc_dict.items():
-                            tmp_alt_loc_dict = {}
-                            tmp_alt_loc_dict[key+count_n_atoms]=value
-                        tmp_alternate_location.append(tmp_alt_loc_dict)
-                else:
-                    tmp_alternate_location = None
-                list_alternate_location.append(tmp_alternate_location)
+                    if output.n_structures!=aux_item.n_structures:
+                        raise ValueError()
+
+                    list_coordinates.append(aux_item.coordinates)
+                    list_velocities.append(aux_item.velocities)
+                    list_b_factor.append(aux_item.b_factor)
+                    list_occupancy.append(aux_item.occupancy)
+
+                    if aux_item.alternate_location is not None:
+                        for ii, alt_loc_dict in enumerate(aux_item.alternate_location):
+                            if alt_loc_dict is not None:
+                                for key, value in alt_loc_dict.items():
+                                    output.alternate_location[ii][key+count_n_atoms]=value
+            else:
+
+                aux_n_atoms = len(aux_atom_indices)
+
+                if aux_n_atoms > 0:
+
+                    if output.n_structures!=aux_item.n_structures:
+                        raise ValueError()
+
+                    if aux_item.coordinates is not None:
+                        list_coordinates.append(aux_item.coordinates[:,aux_atom_indices,:])
+                    else:
+                        list_coordinates.append(None)
+
+                    if aux_item.velocities is not None:
+                        list_velocities.append(aux_item.velocities[:,aux_atom_indices,:])
+                    else:
+                        list_velocities.append(None)
+
+                    if aux_item.b_factor is not None:
+                        list_b_factor.append(aux_item.b_factor[:,aux_atom_indices])
+                    else:
+                        list_b_factor.append(None)
+
+                    if aux_item.occupancy is not None:
+                        list_occupancy.append(aux_item.occupancy[:,aux_atom_indices])
+                    else:
+                        list_occupancy.append(None)
+
+                    if aux_item.alternate_location is not None:
+                        for ii, alt_loc_dict in enumerate(aux_item.alternate_location):
+                            if alt_loc_dict is not None:
+                                for key, value in alt_loc_dict.items():
+                                    output.alternate_location[ii][key+count_n_atoms]=value
+
+        else:
+
+            aux_n_structure_indices = len(aux_structure_indices)
+
+            if aux_n_structure_indices > 0:
+
+                if is_all(aux_atom_indices):
+
+                    aux_n_atoms = aux_item.n_atoms
+
+                    if aux_n_atoms > 0:
+
+                        if output.n_structures!=aux_item.n_structures:
+                            raise ValueError()
+
+                        if aux_item.coordinates is not None:
+                            list_coordinates.append(aux_item.coordinates[aux_structure_indices,:,:])
+                        else:
+                            list_coordinates.append(None)
+
+                        if aux_item.velocities is not None:
+                            list_velocities.append(aux_item.velocities[aux_structure_indices,:,:])
+                        else:
+                            list_velocities.append(None)
+
+                        if aux_item.b_factor is not None:
+                            list_b_factor.append(aux_item.b_factor[aux_structure_indices,:])
+                        else:
+                            list_b_factor.append(None)
+
+                        if aux_item.occupancy is not None:
+                            list_occupancy.append(aux_item.occupancy[aux_structure_indices,:])
+                        else:
+                            list_occupancy.append(None)
+
+                        if aux_item.alternate_location is not None:
+                            for ii, alt_loc_dict in enumerate(aux_item.alternate_location):
+                                if ii in aux_structure_indices:
+                                    if alt_loc_dict is not None:
+                                        for key, value in alt_loc_dict.items():
+                                            output.alternate_location[ii][key+count_n_atoms]=value
+
+                if else:
+
+                    aux_n_atoms = len(aux_atom_indices)
+
+                    if aux_n_atoms > 0:
+
+                        if output.n_structures!=aux_item.n_structures:
+                            raise ValueError()
+
+                        if aux_item.coordinates is not None:
+                            tmp = aux_item.coordinates[aux_structure_indices,:,:]
+                            list_coordinates.append(tmp[:,aux_atom_indices,:])
+                            del(tmp)
+                        else:
+                            list_coordinates.append(None)
+
+                        if aux_item.velocities is not None:
+                            tmp = aux_item.velocities[aux_structure_indices,:,:])
+                            list_velocities.append(aux_item.velocities[aux_structure_indices,:,:])
+                        else:
+                            list_velocities.append(None)
+
+                        if aux_item.b_factor is not None:
+                            list_b_factor.append(aux_item.b_factor[aux_structure_indices,:])
+                        else:
+                            list_b_factor.append(None)
+
+                        if aux_item.occupancy is not None:
+                            list_occupancy.append(aux_item.occupancy[aux_structure_indices,:])
+                        else:
+                            list_occupancy.append(None)
+
+                        if aux_item.alternate_location is not None:
+                            for ii, alt_loc_dict in enumerate(aux_item.alternate_location):
+                                if ii in aux_structure_indices:
+                                    if alt_loc_dict is not None:
+                                        for key, value in alt_loc_dict.items():
+                                            output.alternate_location[ii][key+count_n_atoms]=value
 
 
-    pass
+
+        count_n_atoms += aux_n_atoms
+
+    if None in list_coordinates:
+        output.coordinates = None
+    else:
+        output.coordinates = puw.hstack(list_coordinates)
+
+    if None in list_velocities:
+        output.velocities = None
+    else:
+        output.velocities = puw.hstack(list_velocities)
+
+    if None in list_bfactor:
+        output.b_factor = None
+    else:
+        output.b_factor = puw.hstack(list_b_factor)
+
+    if None in list_occupancy:
+        output.occupancy = np.hstack(occupancy)
+    else:
+        output.occupancy = puw.hstack(list_occupancy)
+
+    del(list_coordinates, list_velocities, list_b_factor, list_occupancy)
+
+    return output
 
