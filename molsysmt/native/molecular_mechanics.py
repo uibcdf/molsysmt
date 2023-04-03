@@ -1,5 +1,6 @@
 from molsysmt._private.exceptions import *
 from molsysmt import pyunitwizard as puw
+from copy import deepcopy
 
 class MolecularMechanics():
 
@@ -78,30 +79,30 @@ class MolecularMechanics():
 
         tmp_molecular_mechanics = MolecularMechanics()
 
-        tmp_molecular_mechanics.formal_charge = self.formal_charge
-        tmp_molecular_mechanics.partial_charge = self.partial_charge
+        tmp_molecular_mechanics.formal_charge = deepcopy(self.formal_charge)
+        tmp_molecular_mechanics.partial_charge = deepcopy(self.partial_charge)
 
-        tmp_molecular_mechanics.forcefield = self.forcefield
+        tmp_molecular_mechanics.forcefield = deepcopy(self.forcefield)
 
-        tmp_molecular_mechanics.non_bonded_method = self.non_bonded_method
-        tmp_molecular_mechanics.cutoff_distance = self.cutoff_distance
-        tmp_molecular_mechanics.switch_distance = self.switch_distance
-        tmp_molecular_mechanics.dispersion_correction = self.dispersion_correction
-        tmp_molecular_mechanics.ewald_error_tolerance = self.ewald_error_tolerance
+        tmp_molecular_mechanics.non_bonded_method = deepcopy(self.non_bonded_method)
+        tmp_molecular_mechanics.cutoff_distance = deepcopy(self.cutoff_distance)
+        tmp_molecular_mechanics.switch_distance = deepcopy(self.switch_distance)
+        tmp_molecular_mechanics.dispersion_correction = deepcopy(self.dispersion_correction)
+        tmp_molecular_mechanics.ewald_error_tolerance = deepcopy(self.ewald_error_tolerance)
 
-        tmp_molecular_mechanics.hydrogen_mass = self.hydrogen_mass
+        tmp_molecular_mechanics.hydrogen_mass = deepcopy(self.hydrogen_mass)
 
-        tmp_molecular_mechanics.constraints = self.constraints
-        tmp_molecular_mechanics.flexible_constraints = self.flexible_constraints
+        tmp_molecular_mechanics.constraints = deepcopy(self.constraints)
+        tmp_molecular_mechanics.flexible_constraints = deepcopy(self.flexible_constraints)
 
-        tmp_molecular_mechanics.water_model = self.water_model
-        tmp_molecular_mechanics.rigid_water = self.rigid_water
+        tmp_molecular_mechanics.water_model = deepcopy(self.water_model)
+        tmp_molecular_mechanics.rigid_water = deepcopy(self.rigid_water)
 
-        tmp_molecular_mechanics.implicit_solvent = self.implicit_solvent
-        tmp_molecular_mechanics.solute_dielectric = self.solute_dielectric
-        tmp_molecular_mechanics.solvent_dielectric = self.solvent_dielectric
-        tmp_molecular_mechanics.salt_concentration = self.salt_concentration
-        tmp_molecular_mechanics.kappa = self.kappa
+        tmp_molecular_mechanics.implicit_solvent = deepcopy(self.implicit_solvent)
+        tmp_molecular_mechanics.solute_dielectric = deepcopy(self.solute_dielectric)
+        tmp_molecular_mechanics.solvent_dielectric = deepcopy(self.solvent_dielectric)
+        tmp_molecular_mechanics.salt_concentration = deepcopy(self.salt_concentration)
+        tmp_molecular_mechanics.kappa = deepcopy(self.kappa)
 
         return tmp_molecular_mechanics
 

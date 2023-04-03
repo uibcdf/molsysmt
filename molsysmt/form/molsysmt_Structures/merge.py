@@ -2,6 +2,7 @@ from molsysmt._private.exceptions import NotImplementedMethodError
 from molsysmt._private.digestion import digest
 from molsysmt._private.variables import is_all
 from molsysmt import pyunitwizard as puw
+import numpy as np
 from copy import deepcopy
 
 @digest(form='molsysmt.Structures')
@@ -145,12 +146,11 @@ def merge(items, atom_indices='all', structure_indices='all'):
 
                         if aux_item.alternate_location is not None:
                             for ii, alt_loc_dict in enumerate(aux_item.alternate_location):
-                                if ii in aux_structure_indices:
-                                    if alt_loc_dict is not None:
-                                        for key, value in alt_loc_dict.items():
-                                            output.alternate_location[ii][key+count_n_atoms]=value
+                                if alt_loc_dict is not None:
+                                    for key, value in alt_loc_dict.items():
+                                        output.alternate_location[ii][key+count_n_atoms]=value
 
-                if else:
+                else:
 
                     aux_n_atoms = len(aux_atom_indices)
 
@@ -167,18 +167,20 @@ def merge(items, atom_indices='all', structure_indices='all'):
                             list_coordinates.append(None)
 
                         if aux_item.velocities is not None:
-                            tmp = aux_item.velocities[aux_structure_indices,:,:])
-                            list_velocities.append(aux_item.velocities[aux_structure_indices,:,:])
+                            tmp = aux_item.velocities[aux_structure_indices,:,:]
+                            list_velocities.append(tmp[:,aux_atom_indices,:])
                         else:
                             list_velocities.append(None)
 
                         if aux_item.b_factor is not None:
-                            list_b_factor.append(aux_item.b_factor[aux_structure_indices,:])
+                            tmp = aux_item.b_factor[aux_structure_indices,:]
+                            list_b_factor.append(tmp[:,aux_atom_indices])
                         else:
                             list_b_factor.append(None)
 
                         if aux_item.occupancy is not None:
-                            list_occupancy.append(aux_item.occupancy[aux_structure_indices,:])
+                            tmp = aux_item.occupancy[aux_structure_indices,:]
+                            list_occupancy.append(tmp[:,aux_atom_indices])
                         else:
                             list_occupancy.append(None)
 
@@ -193,27 +195,27 @@ def merge(items, atom_indices='all', structure_indices='all'):
 
         count_n_atoms += aux_n_atoms
 
-    if None in list_coordinates:
+
+    if any([ii is None for ii in list_coordinates]):
         output.coordinates = None
     else:
         output.coordinates = puw.hstack(list_coordinates)
 
-    if None in list_velocities:
+    if any([ii is None for ii in list_velocities]):
         output.velocities = None
     else:
         output.velocities = puw.hstack(list_velocities)
 
-    if None in list_bfactor:
+    if any([ii is None for ii in list_b_factor]):
         output.b_factor = None
     else:
         output.b_factor = puw.hstack(list_b_factor)
 
-    if None in list_occupancy:
-        output.occupancy = np.hstack(occupancy)
+    if any([ii is None for ii in list_occupancy]):
+        output.occupancy = None
     else:
-        output.occupancy = puw.hstack(list_occupancy)
+        output.occupancy = np.hstack(list_occupancy)
 
     del(list_coordinates, list_velocities, list_b_factor, list_occupancy)
 
     return output
-
