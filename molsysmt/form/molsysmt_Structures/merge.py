@@ -219,3 +219,4 @@ def merge(items, atom_indices='all', structure_indices='all'):
     del(list_coordinates, list_velocities, list_b_factor, list_occupancy)
 
     return output
+

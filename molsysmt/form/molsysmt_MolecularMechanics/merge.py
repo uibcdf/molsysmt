@@ -1,6 +1,7 @@
 from molsysmt._private.exceptions import NotImplementedMethodError
 from molsysmt._private.digestion import digest
 from molsysmt._private.variables import is_all
+from molsysmt import pyunitwizard as puw
 from copy import deepcopy
 
 @digest(form='molsysmt.MolecularMechanics')
@@ -23,32 +24,32 @@ def merge(items, atom_indices='all'):
 
         if is_all(aux_atom_indices):
 
-            list_formal_charge.append(aux_atom_indices.formal_charge)
-            list_partial_charge.append(aux_atom_indices.partial_charge)
+            list_formal_charge.append(aux_item.formal_charge)
+            list_partial_charge.append(aux_item.partial_charge)
 
         else:
 
             if len(aux_atom_indices)>0:
 
                 if aux_atom_indices.formal_charge is not None:
-                    list_formal_charge.append(aux_atom_indices.formal_charge[aux_atom_indices])
+                    list_formal_charge.append(aux_item.formal_charge[aux_atom_indices])
                 else:
                     list_form_charge.append(None)
 
                 if aux_atom_indices.partial_charge is not None:
-                    list_partial_charge.append(aux_atom_indices.partial_charge[aux_atom_indices])
+                    list_partial_charge.append(aux_item.partial_charge[aux_atom_indices])
                 else:
                     list_partial_charge.append(None)
 
     if any([ii is None for ii in list_formal_charge]):
-        output.formal_charge = puw.concatenate(list_formal_charge)
-    else:
         output.formal_charge = None
+    else:
+        output.formal_charge = puw.concatenate(list_formal_charge)
 
     if any([ii is None for ii in list_partial_charge]):
-        output.partial_charge = puw.concatenate(list_partial_charge)
-    else:
         output.partial_charge = None
+    else:
+        output.partial_charge = puw.concatenate(list_partial_charge)
 
-    pass
+    return output
 

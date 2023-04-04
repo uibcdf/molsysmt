@@ -1,4 +1,5 @@
 from molsysmt._private.digestion import digest
+from molsysmt._private.variables import is_all
 import inspect
 
 @digest()
@@ -53,34 +54,40 @@ def add(to_molecular_system, from_molecular_system, selection='all', structure_i
 
     to_forms = get_form(to_molecular_system)
 
-    for aux_to_item, aux_to_form in zip(to_molecular_system, to_forms):
+    if not isinstance(from_molecular_system, (list, tuple)):
+        from_molecular_system = [from_molecular_system]
 
-        from_form = get_form(from_molecular_system)
+    from_forms = get_form(from_molecular_system)
 
-        if aux_to_form==from_form:
-            aux_item=from_molecular_system
-            if is_all(selection):
-                aux_atom_indices=selection
+    if is_all(selection):
+        atom_indices=selection
+    else:
+        atom_indices=selection(from_molecular_system, selection=selection, syntax=syntax)
+
+
+    for to_item, to_form in zip(to_molecular_system, to_forms):
+        for from_item, from_form in zip(from_molecular_system, from_forms):
+
+            if to_form!=from_form:
+                aux_from_item = convert(aux_from_item, to_form=aux_to_form, selection=atom_indices, structure_indices=structure_indices)
+                aux_atom_indices = 'all'
+                aux_structure_indices = 'all'
             else:
-                aux_atom_indices=selection(from_molecular_system, selection=selection, syntax=syntax)
-            aux_structure_indices=structure_indices
-        else:
-            aux_item = convert(from_molecular_system, to_form=aux_to_form, selection=selection,
-                           structure_indices=structure_indices, syntax=syntax)
-            aux_atom_indices = 'all'
-            aux_structure_indices = 'all'
+                aux_from_item = from_item
+                aux_atom_indices = atom_indices
+                aux_structure_indices = structure_indices
 
         add_arguments = {}
-        add_function = _dict_modules[aux_to_form].add
-        input_arguments = set(inspect.signature(function).parameters)
+        add_function = _dict_modules[to_form].add
+        input_arguments = set(inspect.signature(add_function).parameters)
 
         if 'atom_indices' in input_arguments:
-            add_arguments['atom_indices']=atom_indices
+            add_arguments['atom_indices']=aux_atom_indices
 
         if 'structure_indices' in input_arguments:
-            add_arguments['structure_indices']=structure_indices
+            add_arguments['structure_indices']=aux_structure_indices
 
-        add_function(aux_item, **add_arguments)
+        add_function(to_item, aux_from_item, **add_arguments)
 
     pass
 

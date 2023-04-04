@@ -4,274 +4,269 @@ import numpy as np
 
 @digest()
 def compare(molecular_system_A, molecular_system_B, selection_A='all', structure_indices_A='all',
-        selection_B='all', structure_indices_B='all', rule='equal', elements=True, coordinates=False,
-        box=False, form=False, syntax='MolSysMT', report=False):
+        selection_B='all', structure_indices_B='all', rule='equal', attributes_type=None,
+        syntax='MolSysMT', output_type='boolean', minor_elements_included=True, **kwargs):
 
-    from molsysmt.basic import select, get, get_form
+    # attributes: 'all', 'topological', 'structural', 'mechanical' 
+    # output_type: 'boolean', 'dictionary'
 
-    report_dict = {}
+    from molsysmt.basic import select, get, get_form, get_attributes
+    from molsysmt.form import _dict_modules
+    from molsysmt.attribute import attributes, topological_attributes, structural_attributes, mechanical_attributes
+
+    output_dict = {}
+
+    atts_to_be_compared = []
+
+    if isinstance(attributes_type):
+        if attributes_type == 'topological':
+            atts_to_be_compared += topological_attributes
+        elif attributes_type == 'structural':
+            atts_to_be_compared += structural_attributes
+        elif attributes_type == 'mechanical':
+            atts_to_be_compared += mechanical_attributes
+
+    for key in kwargs.keys():
+        if kwargs[key]:
+            if key not in atts_to_be_compared:
+                atts_to_be_compared.append(key)
+        if not kwargs[key]:
+            if key in atts_to_be_compared:
+                atts_to_be_compared.remove(key)
+
+    if len(atts_to_be_compared)==0:
+        atts_to_be_compared = list(attributes.keys())
+        for key in kwargs.keys():
+            if not kwargs[key]:
+                if key in atts_to_be_compared:
+                    atts_to_be_compared.remove(key)
+
+
+    atts_of_A = get_attributes(molecular_system_A)
+    atts_of_B = get_attributes(molecular_system_B)
+
+    atts_required = set(atts_to_be_compared) & set(atts_of_A) & set(atts_of_B)
+
+    ######   EQUAL   #####
 
     if rule == 'equal':
 
-        if elements:
+        ## n_atoms, atom_index, atom_name, atom_id, atom_type
 
-            # Number of atoms, groups, molecules, chains, entities
+        atts = atts_required & set(['n_atoms', 'atom_index', 'atom_id', 'atom_type'])
 
-            n_atoms_A, n_groups_A, n_molecules_A, n_chains_A, n_entities_A, n_bonds_A = get(molecular_system_A, element='atom',
-                                                                                            selection=selection_A, n_atoms=True,
-                                                                                            n_groups=True, n_molecules=True,
-                                                                                            n_chains=True, n_entities=True,
-                                                                                            n_inner_bonds=True,
-                                                                                            )
+        if len(atts)>0:
 
-            n_atoms_B, n_groups_B, n_molecules_B, n_chains_B, n_entities_B, n_bonds_B = get(molecular_system_B, element='atom',
-                                                                                            selection=selection_B, n_atoms=True,
-                                                                                            n_groups=True, n_molecules=True,
-                                                                                            n_chains=True, n_entities=True,
-                                                                                            n_inner_bonds=True,
-                                                                                            )
+            n_atoms_A = get(molecular_system_A, element='atom', selection=selection_A,
+                    syntax=syntax, n_atoms=True)
+            n_atoms_B = get(molecular_system_A, element='atom', selection=selection_B,
+                    syntax=syntax, n_atoms=True)
 
+            if n_atoms_A!=n_atoms_B:
 
-            report_dict['n_atoms'] = (n_atoms_A == n_atoms_B)
-            report_dict['n_groups'] = (n_groups_A == n_groups_B)
-            report_dict['n_molecules'] = (n_molecules_A == n_molecules_B)
-            report_dict['n_chains'] = (n_chains_A == n_chains_B)
-            report_dict['n_entities'] = (n_entities_A == n_entities_B)
-            report_dict['n_bonds'] = (n_bonds_A == n_bonds_B)
-
-            # atoms
-
-            if report_dict['n_atoms']:
-
-                atom_names_A, atom_types_A, atom_ids_A = get(molecular_system_A, element='atom', selection=selection_A,
-                                                             atom_name=True, atom_type=True,
-                                                             atom_id=True)
-
-                atom_names_B, atom_types_B, atom_ids_B = get(molecular_system_B, element='atom', selection=selection_B,
-                                                             atom_name=True, atom_type=True,
-                                                             atom_id=True)
-
-                report_dict['atom_names'] = np.all(atom_names_A == atom_names_B)
-                report_dict['atom_types'] = np.all(atom_types_A == atom_types_B)
-                report_dict['atom_ids'] = np.all(atom_ids_A == atom_ids_B)
+                for att in atts:
+                    output_dict[att]=False
 
             else:
 
-                report_dict['atom_names'] = False
-                report_dict['atom_types'] = False
-                report_dict['atom_ids'] = False
+                args = {ii:True for ii in atts if ii not in ['n_atoms', 'atom_index']}
 
-            # groups
+                dict_A = get(molecular_system_A, element='atom', selection=selection_A,
+                        syntax=syntax, output_type='dictionary', **args)
+                dict_B = get(molecular_system_B, element='atom', selection=selection_B,
+                        syntax=syntax, output_type='dictionary', **args)
 
-            if report_dict['n_groups']:
+                if 'n_atoms' in atts:
+                    output_dict['n_atoms']= True
 
-                group_names_A, group_types_A, group_ids_A = get(molecular_system_A, element='group', selection=selection_A,
-                                                                group_name=True, group_type=True,
-                                                                group_id=True)
+                if 'atom_index' in atts:
+                    output_dict['atom_index']= True
 
-                group_names_B, group_types_B, group_ids_B = get(molecular_system_B, element='group', selection=selection_B,
-                                                                group_name=True, group_type=True,
-                                                                group_id=True)
+                if 'atom_id' in atts:
+                    output_dict['atom_id']= np.all(dict_A['atom_id'] == dict_B['atom_id'])
 
-                report_dict['group_names'] = np.all(group_names_A == group_names_B)
-                report_dict['group_types'] = np.all(group_types_A == group_types_B)
-                report_dict['group_ids'] = np.all(group_ids_A == group_ids_B)
+                if 'atom_name' in atts:
+                    output_dict['atom_name']= np.all(dict_A['atom_name'] == dict_B['atom_name'])
 
-            else:
+                if 'atom_type' in atts:
+                    output_dict['atom_type']= np.all(dict_A['atom_type'] == dict_B['atom_type'])
 
-                report_dict['group_names'] = False
-                report_dict['group_types'] = False
-                report_dict['group_ids'] = False
+                del(dict_A, dict_B)
 
-            # molecules
+        ## n_groups, group_index, group_name, group_id, group_type
 
-            if report_dict['n_molecules']:
+        atts = atts_required & set(['n_groups', 'group_index', 'group_id', 'group_type'])
 
-                molecule_names_A, molecule_types_A, molecule_ids_A = get(molecular_system_A, element='molecule',
-                                                                         selection=selection_A, molecule_name=True,
-                                                                         molecule_type=True,
-                                                                         molecule_id=True,
-                                                                         )
+        if len(atts)>0:
 
-                molecule_names_B, molecule_types_B, molecule_ids_B = get(molecular_system_B, element='molecule',
-                                                                         selection=selection_B, molecule_name=True,
-                                                                         molecule_type=True,
-                                                                         molecule_id=True,
-                                                                         )
+            n_groups_A = get(molecular_system_A, element='group', selection=selection_A,
+                    syntax=syntax, n_groups=True)
+            n_groups_B = get(molecular_system_A, element='group', selection=selection_B,
+                    syntax=syntax, n_groups=True)
 
-                report_dict['molecule_names'] = np.all(molecule_names_A == molecule_names_B)
-                report_dict['molecule_types'] = np.all(molecule_types_A == molecule_types_B)
-                report_dict['molecule_ids'] = np.all(molecule_ids_A == molecule_ids_B)
+            if n_groups_A!=n_groups_B:
+
+                for att in atts:
+                    output_dict[att]=False
 
             else:
 
-                report_dict['molecule_names'] = False
-                report_dict['molecule_types'] = False
-                report_dict['molecule_ids'] = False
+                args = {ii:True for ii in atts if ii not in ['n_groups', 'group_index']}
 
-            # chains
+                dict_A = get(molecular_system_A, element='group', selection=selection_A,
+                        syntax=syntax, output_type='dictionary', **args)
+                dict_B = get(molecular_system_B, element='group', selection=selection_B,
+                        syntax=syntax, output_type='dictionary', **args)
 
-            if report_dict['n_chains']:
+                if 'n_groups' in atts:
+                    output_dict['n_group']= True
 
-                chain_names_A, chain_types_A, chain_ids_A = get(molecular_system_A, element='chain', selection=selection_A,
-                                                                chain_name=True, chain_type=True,
-                                                                chain_id=True)
+                if 'group_index' in atts:
+                    output_dict['group_index']= True
 
-                chain_names_B, chain_types_B, chain_ids_B = get(molecular_system_B, element='chain', selection=selection_B,
-                                                                chain_name=True, chain_type=True,
-                                                                chain_id=True)
+                if 'group_id' in atts:
+                    output_dict['group_id']= np.all(dict_A['group_id'] == dict_B['group_id'])
 
-                report_dict['chain_names'] = np.all(chain_names_A == chain_names_B)
-                report_dict['chain_types'] = np.all(chain_types_A == chain_types_B)
-                report_dict['chain_ids'] = np.all(chain_ids_A == chain_ids_B)
+                if 'group_name' in atts:
+                    output_dict['group_name']= np.all(dict_A['group_name'] == dict_B['group_name'])
 
-            else:
+                if 'group_type' in atts:
+                    output_dict['group_type']= np.all(dict_A['group_type'] == dict_B['group_type'])
 
-                report_dict['chain_names'] = False
-                report_dict['chain_types'] = False
-                report_dict['chain_ids'] = False
+                del(dict_A, dict_B)
 
-            # entities
+                if minor_elements_included:
 
-            if report_dict['n_entities']:
+                    # equal atoms in groups
 
-                entity_names_A, entity_types_A, entity_ids_A = get(molecular_system_A, element='entity', selection=selection_A,
-                                                                   entity_name=True,
-                                                                   entity_type=True,
-                                                                   entity_id=True)
+                    atts_in_minor = [ii for ii in atts if output_dict[ii]]
 
-                entity_names_B, entity_types_B, entity_ids_B = get(molecular_system_B, element='entity', selection=selection_B,
-                                                                   entity_name=True,
-                                                                   entity_type=True,
-                                                                   entity_id=True)
+                    args = {ii:True for ii in atts_in_minor if ii not in ['n_groups']}
 
-                report_dict['entity_names'] = np.all(entity_names_A == entity_names_B)
-                report_dict['entity_types'] = np.all(entity_types_A == entity_types_B)
-                report_dict['entity_ids'] = np.all(entity_ids_A == entity_ids_B)
+                    dict_A = get(molecular_system_A, element='group', selection=selection_A,
+                            syntax=syntax, output_type='dictionary', **args)
+                    dict_B = get(molecular_system_B, element='group', selection=selection_B,
+                            syntax=syntax, output_type='dictionary', **args)
 
-            else:
+                    if group_index in atts_in_minor:
+                        output_dict['group_index']= np.all(dict_A['group_index'] == dict_B['group_index'])
 
-                report_dict['entity_names'] = False
-                report_dict['entity_types'] = False
-                report_dict['entity_ids'] = False
+                    if group_id in atts_in_minor:
+                        output_dict['group_id']= np.all(dict_A['group_id'] == dict_B['group_id'])
 
-            # bonds
+                    if group_name in atts_in_minor:
+                        output_dict['group_name']= np.all(dict_A['group_name'] == dict_B['group_name'])
 
-            if report_dict['n_bonds']:
+                    if group_type in atts_in_minor:
+                        output_dict['group_type']= np.all(dict_A['group_type'] == dict_B['group_type'])
 
-                bonded_atoms_A = get(molecular_system_A, element='atom', selection=selection_A, bonded_atoms=True)
-                bonded_atoms_B = get(molecular_system_B, element='atom', selection=selection_B, bonded_atoms=True)
+                    del(dict_A, dict_B)
 
-                report_dict['bonded_atoms'] = True
-                for ii,jj in zip(bonded_atoms_A, bonded_atoms_B):
-                    if not np.all(ii==jj):
-                        report_dict['bonded_atoms'] = False
-                        break
 
-                if report_dict['bonded_atoms']:
+            #### bonds
 
-                    atoms_pairs_A, bond_order_A, bond_type_A = get(molecular_system_A, element='bond', selection=selection_A,
-                                                               bonded_atoms=True, bond_order=True, bond_type=True)
+            ###if report_dict['n_bonds']:
 
-                    atoms_pairs_B, bond_order_B, bond_type_B = get(molecular_system_B, element='bond', selection=selection_A,
-                                                               bonded_atoms=True, bond_order=True, bond_type=True)
+            ###    bonded_atoms_A = get(molecular_system_A, element='atom', selection=selection_A, bonded_atoms=True)
+            ###    bonded_atoms_B = get(molecular_system_B, element='atom', selection=selection_B, bonded_atoms=True)
 
-                    order_in_A = np.lexsort((atoms_pairs_A[:, 1], atoms_pairs_A[:, 0]))
-                    order_in_B = np.lexsort((atoms_pairs_B[:, 1], atoms_pairs_B[:, 0]))
+            ###    report_dict['bonded_atoms'] = True
+            ###    for ii,jj in zip(bonded_atoms_A, bonded_atoms_B):
+            ###        if not np.all(ii==jj):
+            ###            report_dict['bonded_atoms'] = False
+            ###            break
 
-                    check_bond_order = True 
-                    check_bond_type = True 
+            ###    if report_dict['bonded_atoms']:
 
-                    for in_A, in_B in zip(order_in_A, order_in_B):
-                        if check_bond_order:
-                            check_bond_order = (bond_order_A[in_A]==bond_order_B[in_B])
-                        if check_bond_type:
-                            check_bond_type = (bond_type_A[in_A]==bond_type_B[in_B])
-                        if check_bond_order == False and check_bond_type == False:
-                            break
+            ###        atoms_pairs_A, bond_order_A, bond_type_A = get(molecular_system_A, element='bond', selection=selection_A,
+            ###                                                   bonded_atoms=True, bond_order=True, bond_type=True)
 
-                    report_dict['bond_order'] = check_bond_order
-                    report_dict['bond_type'] = check_bond_type
+            ###        atoms_pairs_B, bond_order_B, bond_type_B = get(molecular_system_B, element='bond', selection=selection_A,
+            ###                                                   bonded_atoms=True, bond_order=True, bond_type=True)
 
-                else:
+            ###        order_in_A = np.lexsort((atoms_pairs_A[:, 1], atoms_pairs_A[:, 0]))
+            ###        order_in_B = np.lexsort((atoms_pairs_B[:, 1], atoms_pairs_B[:, 0]))
 
-                    report_dict['bond_order'] = False
-                    report_dict['bond_type'] = False
+            ###        check_bond_order = True 
+            ###        check_bond_type = True 
 
-            else:
+            ###        for in_A, in_B in zip(order_in_A, order_in_B):
+            ###            if check_bond_order:
+            ###                check_bond_order = (bond_order_A[in_A]==bond_order_B[in_B])
+            ###            if check_bond_type:
+            ###                check_bond_type = (bond_type_A[in_A]==bond_type_B[in_B])
+            ###            if check_bond_order == False and check_bond_type == False:
+            ###                break
 
-                report_dict['bonded_atoms'] = False
-                report_dict['bond_order'] = False
-                report_dict['bond_type'] = False
+            ###        report_dict['bond_order'] = check_bond_order
+            ###        report_dict['bond_type'] = check_bond_type
 
-        if coordinates:
+            ###    else:
 
-            if report_dict['n_atoms']:
+            ###        report_dict['bond_order'] = False
+            ###        report_dict['bond_type'] = False
 
-                coordinates_A = get(molecular_system_A, element='atom', selection=selection_A,
-                                    structure_indices=structure_indices_A, coordinates=True,
-                                    )
+            ###else:
 
-                coordinates_B = get(molecular_system_B, element='atom', selection=selection_B,
-                                    structure_indices=structure_indices_B, coordinates=True,
-                                    )
+            ###    report_dict['bonded_atoms'] = False
+            ###    report_dict['bond_order'] = False
+            ###    report_dict['bond_type'] = False
 
-                if coordinates_A is None:
-                    if coordinates_B is None:
-                        report_dict['coordinates'] = True
-                    else:
-                        report_dict['coordinates'] = False
-                else:
-                    if coordinates_B is None:
-                        report_dict['coordinates'] = False
-                    else:
-                        report_dict['coordinates'] = np.allclose(coordinates_A, coordinates_B)
+        ###if coordinates:
 
-            else:
+        ###    if report_dict['n_atoms']:
 
-                report_dict['coordinates'] = False
+        ###        coordinates_A = get(molecular_system_A, element='atom', selection=selection_A,
+        ###                            structure_indices=structure_indices_A, coordinates=True,
+        ###                            )
 
-        if box:
+        ###        coordinates_B = get(molecular_system_B, element='atom', selection=selection_B,
+        ###                            structure_indices=structure_indices_B, coordinates=True,
+        ###                            )
 
-            box_A = get(molecular_system_A, element='system', selection=selection_A, structure_indices=structure_indices_A,
-                        box=True)
+        ###        if coordinates_A is None:
+        ###            if coordinates_B is None:
+        ###                report_dict['coordinates'] = True
+        ###            else:
+        ###                report_dict['coordinates'] = False
+        ###        else:
+        ###            if coordinates_B is None:
+        ###                report_dict['coordinates'] = False
+        ###            else:
+        ###                report_dict['coordinates'] = np.allclose(coordinates_A, coordinates_B)
 
-            box_B = get(molecular_system_B, element='system', selection=selection_B, structure_indices=structure_indices_B,
-                        box=True)
+        ###    else:
 
-            if box_A is None:
-                if box_B is None:
-                    report_dict['box'] = True
-                else:
-                    report_dict['box'] = False
-            else:
-                if box_B is None:
-                    report_dict['box'] = False
-                else:
-                    report_dict['box'] = np.allclose(box_A, box_B)
+        ###        report_dict['coordinates'] = False
 
-        if form:
+        ###if box:
 
-            form_A = get_form(molecular_system_A)
+        ###    box_A = get(molecular_system_A, element='system', selection=selection_A, structure_indices=structure_indices_A,
+        ###                box=True)
 
-            form_B = get_form(molecular_system_B)
+        ###    box_B = get(molecular_system_B, element='system', selection=selection_B, structure_indices=structure_indices_B,
+        ###                box=True)
 
-            report_dict['form'] = (form_A == form_B)
-
-        # Result
-
-        result = np.all(list(report_dict.values()))
+        ###    if box_A is None:
+        ###        if box_B is None:
+        ###            report_dict['box'] = True
+        ###        else:
+        ###            report_dict['box'] = False
+        ###    else:
+        ###        if box_B is None:
+        ###            report_dict['box'] = False
+        ###        else:
+        ###            report_dict['box'] = np.allclose(box_A, box_B)
 
     elif rule == 'in':
 
         raise NotImplementedMethodError()
 
-    if report:
+    if output_type=='boolean':
 
         return result, report_dict
 
-    else:
+    elif output_type=='dictionary':
 
-        return result
-
+        return {ii:output[ii] for ii in attributes if ii in output}
 

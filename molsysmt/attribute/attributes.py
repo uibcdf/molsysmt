@@ -1,6 +1,9 @@
 attributes = {}
 attribute_synonyms = {}
 independent_attributes = []
+topological_attributes = []
+structural_attributes = []
+mechanical_attributes = []
 
 def add_attribute(name, synonyms=[], depends_on=[], dependants=[], runs_on_elements=False, runs_on_structures=False,
         topological=False, structural=False, mechanical=False, get_from=[], set_to=None):
@@ -21,6 +24,15 @@ def add_attribute(name, synonyms=[], depends_on=[], dependants=[], runs_on_eleme
 
     if len(depends_on)==0:
         independent_attributes.append(name)
+
+    if topological:
+        topological_attributes.append(name)
+
+    if structural:
+        structural_attributes.append(name)
+
+    if mechanical:
+        mechanical_attributes.append(name)
 
 ###
 ### TOPOLOGICAL ATTRIBUTES

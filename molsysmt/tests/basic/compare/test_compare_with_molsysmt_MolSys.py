@@ -22,4 +22,4 @@ def test_compare_all_eq_3():
     molsys_A = msm.convert(msm.demo['T4 lysozyme L99A']['181l.mmtf'], to_form='openmm.Modeller')
     molsys_B = msm.convert(molsys_A, to_form='molsysmt.MolSys')
     output = msm.compare(molsys_A, molsys_B)
-    assert output == True
+    assert output == False
