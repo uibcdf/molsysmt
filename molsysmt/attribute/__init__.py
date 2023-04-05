@@ -1,4 +1,7 @@
 from .attributes import attributes
+from .attributes import topological_attributes as _topological_attributes
+from .attributes import structural_attributes as _structural_attributes
+from .attributes import mechanical_attributes as _mechanical_attributes
 from .attributes import attribute_synonyms as _attribute_synonyms
 from .attributes import independent_attributes as _independent_attributes
 

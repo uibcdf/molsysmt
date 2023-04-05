@@ -1,6 +1,6 @@
 # If digest is used in this method, other methods become slower
 
-def get_attributes(molecular_system):
+def get_attributes(molecular_system, output_type='dictionary'):
 
     from . import get_form
     from molsysmt.form import _dict_modules
@@ -18,5 +18,8 @@ def get_attributes(molecular_system):
             if value:
                 output[key]=value
 
-    return output
+    if output_type=='dictionary':
+        return output
+    elif output_type=='list':
+        return [ii for ii,jj in output.items() if jj]
 

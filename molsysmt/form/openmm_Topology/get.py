@@ -212,9 +212,9 @@ def get_component_type_from_component(item, indices='all'):
     from molsysmt.element.component import get_component_type_from_group_names
 
     output = []
-    group_names_from_component = get_group_name_from_component(item, indices=indices)
-    for group_name in group_names_from_component:
-        output.append(get_component_type_from_group_names(aux))
+    group_names_from_components = get_group_name_from_component(item, indices=indices)
+    for group_names in group_names_from_components:
+        output.append(get_component_type_from_group_names(group_names))
     output = np.array(output, dtype=object)
     return output
 
@@ -439,7 +439,7 @@ def get_bonded_atoms_from_bond(item, indices='all'):
 
     bond = list(item.bonds())
     output=[[bond[ii].atom1.index, bond[ii].atom2.index] for ii in indices]
-    output=np.array(output)
+    output=np.sort(np.array(output))
     del(bond)
 
     return output

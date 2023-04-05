@@ -1,4 +1,5 @@
 from ...exceptions import ArgumentError
+from ...variables import is_all
 
 def digest_output_type(output_type, caller=None):
 
@@ -12,6 +13,12 @@ def digest_output_type(output_type, caller=None):
 
         if isinstance(output_type, str):
             if output_type.lower() in ['values', 'dictionary']:
+                return output_type.lower()
+
+    elif caller=='molsysmt.basic.compare.compare':
+
+        if isinstance(output_type, str):
+            if output_type.lower() in ['boolean', 'dictionary']:
                 return output_type.lower()
 
     elif caller=='molsysmt.structure.get_distances.get_distances':
@@ -43,7 +50,6 @@ def digest_output_type(output_type, caller=None):
         if isinstance(output_type, str):
             if output_type.lower() in ['values', 'dictionary']:
                 return output_type.lower()
-
 
     raise ArgumentError('output_type', value=output_type, caller=caller, message=None)
 

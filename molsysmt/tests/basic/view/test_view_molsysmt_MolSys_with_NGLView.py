@@ -24,15 +24,19 @@ def test_view_molsyst_MolSys_with_NGLView_2():
 
     molsys = msm.convert(msm.demo['alanine dipeptide']['vacuum.msmpk'], to_form='molsysmt.MolSys')
     view = msm.view(molsys, viewer='NGLView')
-    check_comparison = msm.compare(view, molsys, rule='equal', elements=True, coordinates=True, box=True)
-    assert check_comparison
+    check_comparison_1 = msm.compare(view, molsys, rule='equal')
+    check_comparison_2 = msm.compare(view, molsys, rule='equal', coordinates=True, box=True)
+    assert check_comparison_1
+    assert check_comparison_2
 
-def test_view_molsyst_MolSys_with_NGLView_3():
-
-    molsys = msm.convert(msm.demo['alanine dipeptide']['vacuum.msmpk'], to_form='molsysmt.MolSys')
-    view = msm.view(molsys, viewer='NGLView')
-    check_comparison = msm.compare(view, molsys, rule='equal', elements=True, coordinates=True, box=True)
-    assert check_comparison
+#def test_view_molsyst_MolSys_with_NGLView_3():
+#
+#    molsys = msm.convert(msm.demo['alanine dipeptide']['vacuum.msmpk'], to_form='molsysmt.MolSys')
+#    view = msm.view(molsys, viewer='NGLView')
+#    check_comparison_1 = msm.compare(view, molsys, rule='equal')
+#    check_comparison_2 = msm.compare(view, molsys, rule='equal', coordinates=True, box=True)
+#    assert check_comparison_1
+#    assert check_comparison_2
 
 def test_view_molsyst_MolSys_with_NGLView_4():
 
@@ -40,8 +44,9 @@ def test_view_molsyst_MolSys_with_NGLView_4():
     molsys_2 = msm.structure.translate(molsys_1, translation='[0.5, 0.0, 0.0] nm')
     molsys_merged = msm.merge([molsys_1, molsys_2])
     view = msm.view(molsys_merged, viewer='NGLView')
-    _, comparison = msm.compare(view, molsys_merged, rule='equal', elements=True, coordinates=True, box=True, report=True)
-    _ = comparison.pop('atom_ids')
+    comparison = msm.compare(view, molsys_merged, rule='equal', attributes_type='topological',
+            coordinates=True, box=True, output_type='dictionary')
+    _ = comparison.pop('atom_id')
     check_comparison = np.all(list(comparison.values()))
     assert check_comparison
 
@@ -51,8 +56,9 @@ def test_view_molsyst_MolSys_with_NGLView_5():
     molsys_2 = msm.structure.translate(molsys_1, translation='[0.5, 0.0, 0.0] nm')
     molsys_concatenated = msm.concatenate_structures([molsys_1, molsys_2])
     view = msm.view(molsys_concatenated, viewer='NGLView')
-    _, comparison = msm.compare(view, molsys_concatenated, rule='equal', elements=True, coordinates=True, box=True, report=True)
-    _ = comparison.pop('atom_ids')
+    comparison = msm.compare(view, molsys_concatenated, rule='equal', attributes_type='topological',
+            coordinates=True, box=True, output_type='dictionary')
+    _ = comparison.pop('atom_id')
     check_comparison = np.all(list(comparison.values()))
     assert check_comparison
 
