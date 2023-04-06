@@ -1,5 +1,13 @@
 from ...exceptions import ArgumentError
 from ...variables import is_all
+import numpy as np
+
+functions_with_boolean = (
+        'molsysmt.basic.get.get',
+        'molsysmt.basic.compare.compare',
+        'molsysmt.basic.iterator.__init__',
+        'iterators.__init__',
+        )
 
 def digest_chain_index(chain_index, caller=None):
     """Checks if `chain_index` has the expected type and value.
@@ -25,9 +33,21 @@ def digest_chain_index(chain_index, caller=None):
         If the given `chain_index` has not of the correct type or value.
     """
 
-    if caller=='molsysmt.basic.get.get':
-        if isinstance(chain_index, bool):
-            return chain_index
+    if caller is not None:
+        if caller.endswith(functions_with_boolean):
+            if isinstance(chain_index, bool):
+                return chain_index
+            else:
+                raise ArgumentError('chain_index', value=chain_index, caller=caller, message=None)
+
+    if isinstance(chain_index, (int, np.int64)):
+        chain_index=np.ndarray([chain_index])
+
+    if isinstance(chain_index, (tuple, list)):
+        chain_index=np.ndarray(chain_index)
+
+    if isinstance(chain_index, np.ndarray):
+        return chain_index
 
     raise ArgumentError('chain_index', value=chain_index, caller=caller, message=None)
 

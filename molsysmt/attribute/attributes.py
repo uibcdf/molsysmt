@@ -1,6 +1,9 @@
 attributes = {}
 attribute_synonyms = {}
 independent_attributes = []
+topological_attributes = []
+structural_attributes = []
+mechanical_attributes = []
 
 def add_attribute(name, synonyms=[], depends_on=[], dependants=[], runs_on_elements=False, runs_on_structures=False,
         topological=False, structural=False, mechanical=False, get_from=[], set_to=None):
@@ -21,6 +24,15 @@ def add_attribute(name, synonyms=[], depends_on=[], dependants=[], runs_on_eleme
 
     if len(depends_on)==0:
         independent_attributes.append(name)
+
+    if topological:
+        topological_attributes.append(name)
+
+    if structural:
+        structural_attributes.append(name)
+
+    if mechanical:
+        mechanical_attributes.append(name)
 
 ###
 ### TOPOLOGICAL ATTRIBUTES
@@ -287,16 +299,24 @@ add_attribute('n_structures', synonyms=['n_structure'], depends_on=['structure_i
 add_attribute('occupancy', synonyms=['occupancies'], runs_on_elements=True, runs_on_structures=True, structural=True,
         get_from=['atom','system'], set_to='atom')
 
-## alternate_location
-add_attribute('alternate_location', synonyms=['alternate_locations'], runs_on_elements=True, runs_on_structures=True, structural=True,
-        get_from=['atom','system'], set_to='atom')
-
 ## b_factor
 add_attribute('b_factor', synonyms=['b_factors'], runs_on_elements=True, runs_on_structures=True, structural=True,
         get_from=['atom','system'], set_to='atom')
 
+## alternate_location
+add_attribute('alternate_location', synonyms=['alternate_locations'], runs_on_elements=True, runs_on_structures=True, structural=True,
+        get_from=['atom','system'], set_to='system')
+
 ## temperature
 add_attribute('temperature', synonyms=['temperatures'], runs_on_structures=True, structural=True,
+        get_from=['system'], set_to='system')
+
+## bioassembly
+add_attribute('bioassembly', synonyms=['bioassemblies'], structural=True,
+        get_from=['system'], set_to='system')
+
+## n_bioassemblies
+add_attribute('n_bioassemblies', synonyms=['n_bioassembly'], structural=True,
         get_from=['system'], set_to='system')
 
 

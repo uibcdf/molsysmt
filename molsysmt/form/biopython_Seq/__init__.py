@@ -10,6 +10,7 @@ from .has_attribute import has_attribute
 from .extract import extract
 from .copy import copy
 from .add import add
+from .merge import merge
 from .get import *
 from .set import *
 from .iterators import TopologyIterator

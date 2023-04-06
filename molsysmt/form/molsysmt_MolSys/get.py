@@ -1358,6 +1358,37 @@ def get_bonded_atoms_from_system(item):
     from ..molsysmt_Topology import get_bonded_atoms_from_system as aux_get
     return aux_get(item.topology)
 
+@digest(form=form)
+def get_occupancy_from_system(item, structure_indices='all'):
+
+    from ..molsysmt_Structures import get_occupancy_from_system as aux_get
+    return aux_get(item.structures, structure_indices='all')
+
+@digest(form=form)
+def get_b_factor_from_system(item, structure_indices='all'):
+
+    from ..molsysmt_Structures import get_b_factor_from_system as aux_get
+    return aux_get(item.structures, structure_indices='all')
+
+@digest(form=form)
+def get_alternate_location_from_system(item, structure_indices='all'):
+
+    from ..molsysmt_Structures import get_alternate_location_from_system as aux_get
+    return aux_get(item.structures, structure_indices='all')
+
+@digest(form=form)
+def get_bioassembly_from_system(item):
+
+    from ..molsysmt_Structures import get_bioassembly_from_system as aux_get
+    return aux_get(item.structures)
+
+@digest(form=form)
+def get_n_bioassemblies_from_system(item):
+
+    from ..molsysmt_Structures import get_n_bioassemblies_from_system as aux_get
+    return aux_get(item.structures)
+
+
 ## bond
 
 @digest(form=form)

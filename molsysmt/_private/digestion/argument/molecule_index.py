@@ -1,5 +1,13 @@
 from ...exceptions import ArgumentError
 from ...variables import is_all
+import numpy as np
+
+functions_with_boolean = (
+        'molsysmt.basic.get.get',
+        'molsysmt.basic.compare.compare',
+        'molsysmt.basic.iterator.__init__',
+        'iterators.__init__',
+        )
 
 def digest_molecule_index(molecule_index, caller=None):
     """Checks if `molecule_index` has the expected type and value.
@@ -25,9 +33,21 @@ def digest_molecule_index(molecule_index, caller=None):
         If the given `molecule_index` has not of the correct type or value.
     """
 
-    if caller=='molsysmt.basic.get.get':
-        if isinstance(molecule_index, bool):
-            return molecule_index
+    if caller is not None:
+        if caller.endswith(functions_with_boolean):
+            if isinstance(molecule_index, bool):
+                return molecule_index
+            else:
+                raise ArgumentError('molecule_index', value=molecule_index, caller=caller, message=None)
+
+    if isinstance(molecule_index, (int, np.int64)):
+        molecule_index=np.ndarray([molecule_index])
+
+    if isinstance(molecule_index, (tuple, list)):
+        molecule_index=np.ndarray(molecule_index)
+
+    if isinstance(molecule_index, np.ndarray):
+        return molecule_index
 
     raise ArgumentError('molecule_index', value=molecule_index, caller=caller, message=None)
 

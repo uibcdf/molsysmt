@@ -13,6 +13,7 @@
    copy.ipynb
    extract.ipynb
    get.ipynb
+   get_attributes.ipynb
    get_form.ipynb
    has_attribute.ipynb
    info.ipynb

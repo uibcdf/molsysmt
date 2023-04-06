@@ -2,6 +2,7 @@ from molsysmt._private.exceptions import NotImplementedMethodError, NotWithThisF
 from molsysmt._private.digestion import digest
 from molsysmt._private.variables import is_all
 from molsysmt import pyunitwizard as puw
+from copy import copy
 
 form='molsysmt.Structures'
 
@@ -120,6 +121,70 @@ def get_velocities_from_atom(item, indices='all', structure_indices='all'):
 
     return tmp_velocities
 
+@digest(form=form)
+def get_occupancy_from_atom(item, indices='all', structure_indices='all'):
+
+    if (indices is None) or (structure_indices is None):
+        return None
+
+    tmp_occupancy = item.occupancy
+
+    if tmp_occupancy is not None:
+
+        if not is_all(structure_indices):
+            tmp_occupancy = tmp_occupancy[structure_indices,:]
+
+        if not is_all(indices):
+            tmp_occupancy = tmp_occupancy[:,indices]
+
+    return tmp_occupancy
+
+
+@digest(form=form)
+def get_b_factor_from_atom(item, indices='all', structure_indices='all'):
+
+    if (indices is None) or (structure_indices is None):
+        return None
+
+    tmp_b_factor = item.b_factor
+
+    if tmp_b_factor is not None:
+
+        if not is_all(structure_indices):
+            tmp_b_factor = tmp_b_factor[structure_indices,:]
+
+        if not is_all(indices):
+            tmp_b_factor = tmp_b_factor[:,indices]
+
+    return tmp_b_factor
+
+@digest(form=form)
+def get_alternate_location_from_atom(item, indices='all', structure_indices='all'):
+
+    if (indices is None) or (structure_indices is None):
+        return None
+
+    if item.alternate_location is None:
+        return None
+
+    if is_all(indices):
+        tmp_output = copy(item.alternate_location)
+    else:
+        tmp_output = []
+        for aux_dict in item.alternate_location:
+            tmp_dict = {}
+            for aux_atom_index in aux_dict:
+                if aux_atom_index in indices:
+                    tmp_dict[aux_atom_index] = aux_dict[aux_atom_index]
+            tmp_output.append(tmp_dict)
+
+    if not is_all(structure_indices):
+        aux_tmp_output = []
+        for ii in structure_indices:
+            aux_tmp_output.append(tmp_output[ii])
+        tmp_output = aux_tmp_output
+
+    return tmp_output
 
 ## From group
 
@@ -416,4 +481,31 @@ def get_structure_id_from_system(item, structure_indices='all'):
     else:
         output = item.structure_id[structure_indices]
     return output
+
+@digest(form=form)
+def get_occupancy_from_system(item, structure_indices='all'):
+
+    return get_occupancy_from_atom(item, structure_indices=structure_indices)
+
+@digest(form=form)
+def get_b_factor_from_system(item, structure_indices='all'):
+
+    return get_b_factor_from_atom(item, structure_indices=structure_indices)
+
+@digest(form=form)
+def get_alternate_location_from_system(item, structure_indices='all'):
+
+    return get_alternate_location_from_atom(item, structure_indices=structure_indices)
+
+@digest(form=form)
+def get_bioassembly_from_system(item):
+
+    tmp_output = copy(item.bioassembly)
+
+    return tmp_output
+
+@digest(form=form)
+def get_n_bioassemblies_from_system(item):
+
+    return len(item.bioassembly)
 

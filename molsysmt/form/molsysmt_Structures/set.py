@@ -24,6 +24,38 @@ def set_coordinates_to_atom(item, indices='all', structure_indices='all', value=
 
     pass
 
+@digest(form='molsysmt.Structures')
+def set_occupancy_to_atom(item, indices='all', structure_indices='all', value=None):
+
+    if is_all(indices):
+        if is_all(structure_indices):
+            item.occupancy = value              
+        else:
+            item.occupancy[structure_indices,:] = value[:,:]
+    else:
+        if is_all(structure_indices):
+            item.occupancy[:,indices] = value[:,:]
+        else:
+            item.occupancy[np.ix_(structure_indices, indices)]=value[:,:]
+
+    pass
+
+@digest(form='molsysmt.Structures')
+def set_b_factor_to_atom(item, indices='all', structure_indices='all', value=None):
+
+    if is_all(indices):
+        if is_all(structure_indices):
+            item.b_factor = value              
+        else:
+            item.b_factor[structure_indices,:] = value[:,:]
+    else:
+        if is_all(structure_indices):
+            item.b_factor[:,indices] = value[:,:]
+        else:
+            item.b_factor[np.ix_(structure_indices, indices)]=value[:,:]
+
+    pass
+
 
 ## System
 

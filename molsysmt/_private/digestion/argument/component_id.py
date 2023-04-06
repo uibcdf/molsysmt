@@ -1,6 +1,12 @@
 from ...exceptions import ArgumentError
 from ...variables import is_all
 
+functions_with_boolean = (
+        'molsysmt.basic.get.get',
+        'molsysmt.basic.compare.compare',
+        )
+
+
 def digest_component_id(component_id, caller=None):
     """Checks if `component_id` has the expected type and value.
 
@@ -25,11 +31,16 @@ def digest_component_id(component_id, caller=None):
         If the given `component_id` has not of the correct type or value.
     """
 
-    if caller=='molsysmt.basic.get.get':
-        if isinstance(component_id, bool):
+
+    if caller is not None:
+
+        if caller.endswith(functions_with_boolean):
+            if isinstance(component_id, bool):
+                return component_id
+        elif caller.startswith('molsysmt.form.') and caller.count('.to_')==2:
             return component_id
-    elif caller.startswith('molsysmt.form.') and caller.count('.to_')==2:
-        return component_id
+
+        raise ArgumentError('component_id', value=component_id, caller=caller, message=None)
 
     raise ArgumentError('component_id', value=component_id, caller=caller, message=None)
 

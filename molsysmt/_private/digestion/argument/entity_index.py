@@ -1,5 +1,13 @@
 from ...exceptions import ArgumentError
 from ...variables import is_all
+import numpy as np
+
+functions_with_boolean = (
+        'molsysmt.basic.get.get',
+        'molsysmt.basic.compare.compare',
+        'molsysmt.basic.iterator.__init__',
+        'iterators.__init__',
+        )
 
 def digest_entity_index(entity_index, caller=None):
     """Checks if `entity_index` has the expected type and value.
@@ -25,9 +33,21 @@ def digest_entity_index(entity_index, caller=None):
         If the given `entity_index` has not of the correct type or value.
     """
 
-    if caller=='molsysmt.basic.get.get':
-        if isinstance(entity_index, bool):
-            return entity_index
+    if caller is not None:
+        if caller.endswith(functions_with_boolean):
+            if isinstance(entity_index, bool):
+                return entity_index
+            else:
+                raise ArgumentError('entity_index', value=entity_index, caller=caller, message=None)
+
+    if isinstance(entity_index, (int, np.int64)):
+        entity_index=np.ndarray([entity_index])
+
+    if isinstance(entity_index, (tuple, list)):
+        entity_index=np.ndarray(entity_index)
+
+    if isinstance(entity_index, np.ndarray):
+        return entity_index
 
     raise ArgumentError('entity_index', value=entity_index, caller=caller, message=None)
 

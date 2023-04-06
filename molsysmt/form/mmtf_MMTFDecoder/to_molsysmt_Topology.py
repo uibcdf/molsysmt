@@ -5,7 +5,7 @@ from molsysmt import pyunitwizard as puw
 import numpy as np
 
 @digest(form='mmtf.MMTFDecoder')
-def to_molsysmt_Topology(item, atom_indices='all', structure_indices='all'):
+def to_molsysmt_Topology(item, atom_indices='all'):
 
     import warnings
     from molsysmt.native import Topology
@@ -143,12 +143,7 @@ def to_molsysmt_Topology(item, atom_indices='all', structure_indices='all'):
 
     del(chain_name_array, chain_id_array)
 
-    # entities and molecules
-
-    entity_index_array = np.empty(n_atoms, dtype=int)
-    entity_name_array = np.empty(n_atoms, dtype=object)
-    entity_id_array = np.empty(n_atoms, dtype=object)
-    entity_type_array = np.empty(n_atoms, dtype=object)
+    # molecules
 
     molecule_index_array = np.empty(n_atoms, dtype=int)
     molecule_name_array = np.empty(n_atoms, dtype=object)
@@ -158,7 +153,6 @@ def to_molsysmt_Topology(item, atom_indices='all', structure_indices='all'):
     molecule_name_array.fill(np.nan)
     molecule_type_array.fill(np.nan)
 
-    entity_index = 0
     molecule_index = 0
 
     for mmtf_entity in item.entity_list:
@@ -256,24 +250,6 @@ def to_molsysmt_Topology(item, atom_indices='all', structure_indices='all'):
 
             raise ValueError("Entity type not recognized")
 
-        for chain_index in mmtf_entity['chainIndexList']:
-
-            for atom_index in np.where(chain_index_array==chain_index)[0]:
-
-                entity_index_array[atom_index] = entity_index
-                entity_name_array[atom_index] = entity_name
-                entity_type_array[atom_index] = entity_type
-                entity_id_array[atom_index] = entity_index
-
-        entity_index += 1
-
-    tmp_item.atoms_dataframe["entity_index"] = entity_index_array
-    tmp_item.atoms_dataframe["entity_name"] = entity_name_array
-    tmp_item.atoms_dataframe["entity_type"] = entity_type_array
-    tmp_item.atoms_dataframe["entity_id"] = entity_id_array
-
-    del(entity_index_array, entity_name_array, entity_type_array, entity_id_array)
-
     tmp_item.atoms_dataframe["molecule_index"] = molecule_index_array
     tmp_item.atoms_dataframe["molecule_name"] = molecule_name_array
     tmp_item.atoms_dataframe["molecule_type"] = molecule_type_array
@@ -283,13 +259,55 @@ def to_molsysmt_Topology(item, atom_indices='all', structure_indices='all'):
 
     del(group_index_array, chain_index_array, component_index_array)
 
+    # molecules
+
+    tmp_item._build_entities()
+
     ## nan to None
 
     tmp_item._nan_to_None()
 
-    ##
-    if not is_all(atom_indices):
-        tmp_item = tmp_item.extract(atom_indices)
+    ## If atoms with alternate location the highest occupancy or A is taken
+    ## other pseudo-atoms are removed
 
+    if not np.all(tmp_item.atoms_dataframe["alternate_location"]==None):
+        alt_loc = tmp_item.atoms_dataframe["alternate_location"].to_numpy()
+        alt_atom_indices = np.where(alt_loc!=None)[0]
+        alt_atom_names = tmp_item.atoms_dataframe["atom_name"][alt_atom_indices].to_numpy()
+        alt_group_ids = tmp_item.atoms_dataframe["group_id"][alt_atom_indices].to_numpy()
+        alt_chain_ids = tmp_item.atoms_dataframe["chain_id"][alt_atom_indices].to_numpy()
+        aux_dict = {}
+        for aux_atom_index, aux_atom_name, aux_group_id, aux_chain_id in zip(alt_atom_indices, alt_atom_names, alt_group_ids, alt_chain_ids):
+            aux_key = tuple([aux_atom_name, aux_group_id, aux_chain_id])
+            if aux_key in aux_dict:
+                aux_dict[aux_key].append(aux_atom_index)
+            else:
+                aux_dict[aux_key]=[aux_atom_index]
+
+    atoms_to_be_removed_with_alt_loc=[]
+    for same_atoms in aux_dict.values():
+        alt_occupancy = tmp_item.atoms_dataframe["occupancy"][same_atoms].to_numpy()
+        alt_loc = tmp_item.atoms_dataframe["alternate_location"][same_atoms].to_numpy()
+        if np.allclose(alt_occupancy, alt_occupancy[0]):
+            chosen = np.where(alt_loc=='A')[0][0]
+        else:
+            chosen = np.argmax(alt_occupancy)
+        chosen = same_atoms.pop(chosen)
+        atoms_to_be_removed_with_alt_loc += same_atoms
+
+    tmp_item.atoms_dataframe.__delitem__('alternate_location')
+    tmp_item.atoms_dataframe.__delitem__('occupancy')
+    tmp_item.atoms_dataframe.__delitem__('b_factor')
+    tmp_item.atoms_dataframe.__delitem__('formal_charge')
+    tmp_item.atoms_dataframe.__delitem__('partial_charge')
+  
+    if not is_all(atom_indices):
+        atom_indices = list(set(atom_indices)-set(atoms_to_be_removed_with_alt_loc))
+        tmp_item = tmp_item.extract(atom_indices)
+    else:
+        if len(atoms_to_be_removed_with_alt_loc):
+            atom_indices = list(set(np.arange(n_atoms))-set(atoms_to_be_removed_with_alt_loc))
+            tmp_item = tmp_item.extract(atom_indices)
+            
     return tmp_item
 

@@ -1,6 +1,11 @@
 from ...exceptions import ArgumentError
 from ...variables import is_all
 
+functions_with_boolean = (
+        'molsysmt.basic.get.get',
+        'molsysmt.basic.compare.compare',
+        )
+
 def digest_entity_id(entity_id, caller=None):
     """Checks if `entity_id` has the expected type and value.
 
@@ -25,11 +30,15 @@ def digest_entity_id(entity_id, caller=None):
         If the given `entity_id` has not of the correct type or value.
     """
 
-    if caller=='molsysmt.basic.get.get':
-        if isinstance(entity_id, bool):
+    if caller is not None:
+
+        if caller.endswith(functions_with_boolean):
+            if isinstance(entity_id, bool):
+                return entity_id
+        elif caller.startswith('molsysmt.form.') and caller.count('.to_')==2:
             return entity_id
-    elif caller.startswith('molsysmt.form.') and caller.count('.to_')==2:
-        return entity_id
+
+        raise ArgumentError('entity_id', value=entity_id, caller=caller, message=None)
 
     raise ArgumentError('entity_id', value=entity_id, caller=caller, message=None)
 

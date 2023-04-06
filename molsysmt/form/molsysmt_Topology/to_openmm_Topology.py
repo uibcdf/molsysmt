@@ -70,7 +70,7 @@ def to_openmm_Topology(item, box=None, atom_indices='all'):
 
         element = app.Element.getBySymbol(atom_type)
         atom = tmp_item.addAtom(atom_name, element, residue)
-
+        atom.id = atom_id
         list_new_atoms.append(atom)
 
     for atom_1, atom_2 in zip(bonds_atom1, bonds_atom2):

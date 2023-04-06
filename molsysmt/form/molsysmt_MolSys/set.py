@@ -8,11 +8,18 @@ import numpy as np
 ## Atom
 
 @digest(form='molsysmt.MolSys')
-def set_atom_name_to_atom(item, indices='all', structure_indices='all', value=None):
+def set_atom_name_to_atom(item, indices='all', value=None):
 
     from ..molsysmt_Topology import set_atom_name_to_atom as aux_set
 
     return aux_set(item.topology, indices=indices, structure_indices=structure_indices, value=value)
+
+@digest(form='molsysmt.MolSys')
+def set_atom_id_to_atom(item, indices='all', value=None):
+
+    from ..molsysmt_Topology import set_atom_id_to_atom as aux_set
+
+    return aux_set(item.topology, indices=indices, value=value)
 
 @digest(form='molsysmt.MolSys')
 def set_coordinates_to_atom(item, indices='all', structure_indices='all', value=None):
@@ -27,6 +34,21 @@ def set_coordinates_to_atom(item, indices='all', structure_indices='all', value=
 
     return molsysmt_Structures_set_coordinates_to_atom(item.structures, indices=indices, structure_indices=structure_indices,
                 value=value)
+
+@digest(form='molsysmt.MolSys')
+def set_b_factor_to_atom(item, indices='all', structure_indices='all', value=None):
+
+    from ..molsysmt_Structures import set_b_factor_to_atom as aux_set
+
+    return aux_set(item.structures, indices=indices, structure_indices=structure_indices, value=value)
+
+@digest(form='molsysmt.MolSys')
+def set_occupancy_to_atom(item, indices='all', structure_indices='all', value=None):
+
+    from ..molsysmt_Structures import set_occupancy_to_atom as aux_set
+
+    return aux_set(item.structures, indices=indices, structure_indices=structure_indices, value=value)
+
 ###
 ### System
 ###

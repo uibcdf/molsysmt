@@ -140,45 +140,45 @@ def get_coordinates_from_atom(item, indices='all', structure_indices='all'):
     return xyz
 
 @digest(form=form)
-def get_occupancy_from_atom (item, indices='all'):
+def get_occupancy_from_atom (item, indices='all', structure_indices='all'):
 
-    from .to_molsysmt_Topology import to_molsysmt_Topology
-    from ..molsysmt_Topology import get_occupancy_from_atom as aux_get
- 
-    tmp_item = to_molsysmt_Topology(item)
-    output = aux_get(tmp_item, indices=indices)
+    from .to_molsysmt_Structures import to_molsysmt_Structures
+    from ..molsysmt_Structures import get_occupancy_from_atom as aux_get
 
-    return output
-
-@digest(form=form)
-def get_alternate_location_from_atom (item, indices='all'):
-
-    from .to_molsysmt_Topology import to_molsysmt_Topology
-    from ..molsysmt_Topology import get_alternate_location_from_atom as aux_get
- 
-    tmp_item = to_molsysmt_Topology(item)
-    output = aux_get(tmp_item, indices=indices)
+    tmp_item = to_molsysmt_Structures(item)
+    output = aux_get(tmp_item, indices=indices, structure_indices='all')
 
     return output
 
 @digest(form=form)
-def get_b_factor_from_atom (item, indices='all'):
+def get_alternate_location_from_atom (item, indices='all', structure_indices='all'):
 
-    from .to_molsysmt_Topology import to_molsysmt_Topology
-    from ..molsysmt_Topology import get_b_factor_from_atom as aux_get
- 
-    tmp_item = to_molsysmt_Topology(item)
-    output = aux_get(tmp_item, indices=indices)
+    from .to_molsysmt_Structures import to_molsysmt_Structures
+    from ..molsysmt_Structures import get_alternate_location_from_atom as aux_get
+
+    tmp_item = to_molsysmt_Structures(item)
+    output = aux_get(tmp_item, indices=indices, structure_indices=structure_indices)
+
+    return output
+
+@digest(form=form)
+def get_b_factor_from_atom (item, indices='all', structure_indices='all'):
+
+    from .to_molsysmt_Structures import to_molsysmt_Structures
+    from ..molsysmt_Structures import get_b_factor_from_atom as aux_get
+
+    tmp_item = to_molsysmt_Structures(item)
+    output = aux_get(tmp_item, indices=indices, structure_indices='all')
 
     return output
 
 @digest(form=form)
 def get_formal_charge_from_atom (item, indices='all'):
 
-    from .to_molsysmt_Topology import to_molsysmt_Topology
-    from ..molsysmt_Topology import get_formal_charge_from_atom as aux_get
- 
-    tmp_item = to_molsysmt_Topology(item)
+    from .to_molsysmt_MolecularMechanics import to_molsysmt_MolecularMechanics
+    from ..molsysmt_MolecularMechanics import get_formal_charge_from_atom as aux_get
+
+    tmp_item = to_molsysmt_MolecularMechanics(item)
     output = aux_get(tmp_item, indices=indices)
 
     return output
@@ -186,10 +186,10 @@ def get_formal_charge_from_atom (item, indices='all'):
 @digest(form=form)
 def get_partial_charge_from_atom (item, indices='all'):
 
-    from .to_molsysmt_Topology import to_molsysmt_Topology
-    from ..molsysmt_Topology import get_partial_charge_from_atom as aux_get
- 
-    tmp_item = to_molsysmt_Topology(item)
+    from .to_molsysmt_MolecularMechanics import to_molsysmt_MolecularMechanics
+    from ..molsysmt_MolecularMechanics import get_partial_charge_from_atom as aux_get
+
+    tmp_item = to_molsysmt_MolecularMechanics(item)
     output = aux_get(tmp_item, indices=indices)
 
     return output
@@ -503,21 +503,20 @@ def get_structure_id_from_system(item, structure_indices='all'):
 
     return None
 
-
 @digest(form=form)
-def get_bioassemblies_from_system(item):
+def get_bioassembly_from_system(item):
 
     output = {}
 
     for bio_assembly in item.bio_assembly:
 
-        aux = {'chains': [], 'rotations': [], 'translations': []}
+        aux = {'chain_indices': [], 'rotations': [], 'translations': []}
 
         for transformation in bio_assembly['transformList']:
 
             matrix_transformation = np.array(transformation['matrix']).reshape(-1,4)
 
-            aux['chains'].append(transformation['chainIndexList'])
+            aux['chain_indices'].append(transformation['chainIndexList'])
             aux['rotations'].append(matrix_transformation[:3,:3])
             aux['translations'].append(puw.quantity(matrix_transformation[:3,3], unit='angstroms', standardized=True))
 

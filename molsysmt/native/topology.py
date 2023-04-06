@@ -131,11 +131,12 @@ class Topology():
         tmp_item.bonds_dataframe['atom1_index'] += n_atoms
         tmp_item.bonds_dataframe['atom2_index'] += n_atoms
 
-        self.atoms_dataframe = pd.concat([self.atoms_dataframe, tmp_item.atoms_dataframe], ignore_index=True)
-        self.bonds_dataframe = pd.concat([self.bonds_dataframe, tmp_item.bonds_dataframe], ignore_index=True)
 
+        self.atoms_dataframe = pd.concat([self.atoms_dataframe, tmp_item.atoms_dataframe],
+                ignore_index=True, copy=False)
+        self.bonds_dataframe = pd.concat([self.bonds_dataframe, tmp_item.bonds_dataframe],
+                ignore_index=True, copy=False)
         self._build_entities()
-
 
     def copy(self):
 
@@ -227,111 +228,75 @@ class Topology():
 
     def _build_entities(self):
 
-        molecule_index_from_atom = self.atoms_dataframe['molecule_index'].to_numpy()
-        molecule_type_from_atom = self.atoms_dataframe['molecule_type'].to_numpy()
-        group_name_from_atom = self.atoms_dataframe['group_name'].to_numpy()
+        n_atoms=self.atoms_dataframe.shape[0]
 
-        n_atoms = molecule_index_from_atom.shape[0]
-        not_None = np.where(molecule_index_from_atom!=None)
-        molecule_indices = np.unique(molecule_index_from_atom[not_None])
+        entity_index = np.empty(n_atoms, dtype=int)
+        entity_name = np.empty(n_atoms, dtype=object)
+        entity_id = np.empty(n_atoms, dtype=object)
+        entity_type = np.empty(n_atoms, dtype=object)
 
-        index_array = np.full(n_atoms, None, dtype=object)
-        id_array = np.full(n_atoms, None, dtype=object)
-        name_array = np.full(n_atoms, None, dtype=object)
-        type_array = np.full(n_atoms, None, dtype=object)
-
-        entities = {}
+        entities= {}
         n_entities = 0
-        n_peptides = 0
-        n_proteins = 0
 
-        for molecule_index in molecule_indices:
+        current_molecule_name = self.atoms_dataframe['molecule_name'][0]
+        current_molecule_type = self.atoms_dataframe['molecule_type'][0]
 
-            mask = (molecule_index_from_atom==molecule_index)
-            molecule_type = molecule_type_from_atom[mask][0]
+        current_entity_index = n_entities
+        current_entity_id = n_entities
+        current_entity_name = current_molecule_name
+        current_entity_type = current_molecule_type
 
-            if molecule_type == 'water':
-                entity_name = 'water'
-                entity_type = 'water'
+        entities[current_entity_name]={}
+        entities[current_entity_name]['entity_index'] = current_entity_index
+        entities[current_entity_name]['entity_id'] = current_entity_id
+        entities[current_entity_name]['entity_name'] = current_entity_name
+        entities[current_entity_name]['entity_type'] = current_entity_type
+
+        ii=0
+        for molecule_name, molecule_type in zip(self.atoms_dataframe['molecule_name'],
+                self.atoms_dataframe['molecule_type']):
+
+            if molecule_name!=current_molecule_name:
+
+                current_molecule_name=molecule_name
+                current_molecule_type=molecule_type
+
                 try:
-                    entity_index = entities[entity_name]
+
+                    current_entity_index = entities[current_molecule_name]['entity_index']
+                    current_entity_id = entities[current_molecule_name]['entity_id']
+                    current_entity_name = entities[current_molecule_name]['entity_name']
+                    current_entity_type = entities[current_molecule_name]['entity_type']
+
                 except:
-                    entities[entity_name]=n_entities
-                    entity_index=n_entities
-                    n_entities+=1
 
-            elif molecule_type == 'ion':
-                entity_name = group_name_from_atom[mask][0]
-                entity_type = 'ion'
-                try:
-                    entity_index = entities[entity_name]
-                except:
-                    entities[entity_name]=n_entities
-                    entity_index=n_entities
-                    n_entities+=1
+                    current_entity_index = n_entities
+                    current_entity_id = n_entities
+                    current_entity_name = current_molecule_name
+                    current_entity_type = current_molecule_type
 
-            elif molecule_type == 'peptide':
-                entity_name = 'Peptide_'+str(n_peptides)
-                entity_type = 'peptide'
-                n_peptides+=1
-                try:
-                    index = entities[entity_name]
-                except:
-                    entities[entity_name]=n_entities
-                    entity_index=n_entities
-                    n_entities+=1
+                    entities[current_entity_name]={}
+                    entities[current_entity_name]['entity_index'] = current_entity_index
+                    entities[current_entity_name]['entity_id'] = current_entity_id
+                    entities[current_entity_name]['entity_name'] = current_entity_name
+                    entities[current_entity_name]['entity_type'] = current_entity_type
 
-            elif molecule_type == 'protein':
-                entity_name = 'Protein_'+str(n_proteins)
-                entity_type = 'protein'
-                n_proteins+=1
-                try:
-                    entity_index = entities[entity_name]
-                except:
-                    entities[entity_name]=n_entities
-                    entity_index=n_entities
-                    n_entities+=1
+                    n_entities +=1
 
-            elif molecule_type == 'lipid':
-                entity_name = group_name_from_atom[mask][0]
-                entity_type = 'lipid'
-                try:
-                    entity_index = entities[entity_name]
-                except:
-                    entities[entity_name]=n_entities
-                    entity_index=n_entities
-                    n_entities+=1
+            entity_index[ii]=current_entity_index
+            entity_id[ii]=current_entity_id
+            entity_name[ii]=current_entity_name
+            entity_type[ii]=current_entity_type
 
-            elif molecule_type == 'small molecule':
-                entity_name = group_name_from_atom[mask][0]
-                entity_type = 'small molecule'
-                try:
-                    entity_index = entities[entity_name]
-                except:
-                    entities[entity_name]=n_entities
-                    entity_index=n_entities
-                    n_entities+=1
-            else:
-                entity_name = 'unknown'
-                entity_type = 'unknown'
-                try:
-                    entity_index = entities[entity_name]
-                except:
-                    entities[entity_name]=n_entities
-                    entity_index=n_entities
-                    n_entities+=1
+            ii+=1
 
-            index_array[mask]=entity_index
-            name_array[mask]=entity_name
-            type_array[mask]=entity_type
+        self.atoms_dataframe["entity_index"] = entity_index
+        self.atoms_dataframe["entity_name"] = entity_name
+        self.atoms_dataframe["entity_type"] = entity_type
+        self.atoms_dataframe["entity_id"] = entity_id
 
-        self.atoms_dataframe["entity_index"] = index_array
-        self.atoms_dataframe["entity_id"] = id_array
-        self.atoms_dataframe["entity_name"] = name_array
-        self.atoms_dataframe["entity_type"] = type_array
-
-        del(molecule_index_from_atom, molecule_type_from_atom, group_name_from_atom, index_array, id_array, name_array,
-                type_array)
+        del(entity_name, entity_type, entity_id)
+        del(entities)
 
     def _join_molecules(self, indices=None):
 
