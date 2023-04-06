@@ -2,6 +2,7 @@ from molsysmt._private.exceptions import NotImplementedMethodError
 from molsysmt._private.digestion import digest
 from molsysmt._private.variables import is_all
 import pandas as pd
+import numpy as np
 
 @digest(form='molsysmt.Topology')
 def merge(items, atom_indices='all'):
@@ -9,7 +10,8 @@ def merge(items, atom_indices='all'):
     from molsysmt.native import Topology
     from . import get_n_atoms_from_system, get_n_groups_from_system, \
             get_n_components_from_system, get_n_chains_from_system, \
-            get_n_molecules_from_system, get_n_entities_from_system
+            get_n_molecules_from_system, get_n_entities_from_system, \
+            get_n_bonds_from_system
     from . import extract
 
     n_items = len(items)
@@ -28,7 +30,7 @@ def merge(items, atom_indices='all'):
     n_components = []
     n_chains = []
     n_molecules = []
-    n_entities = []
+    n_bonds = []
     atoms_dataframes = []
     bonds_dataframes = []
 
@@ -44,7 +46,7 @@ def merge(items, atom_indices='all'):
         n_components.append(get_n_components_from_system(tmp_item))
         n_chains.append(get_n_chains_from_system(tmp_item))
         n_molecules.append(get_n_molecules_from_system(tmp_item))
-        n_entities.append(get_n_entities_from_system(tmp_item))
+        n_bonds.append(get_n_bonds_from_system(tmp_item))
         atoms_dataframes.append(tmp_item.atoms_dataframe)
         bonds_dataframes.append(tmp_item.bonds_dataframe)
 
@@ -56,33 +58,61 @@ def merge(items, atom_indices='all'):
     count_n_components=n_components[0]
     count_n_chains=n_chains[0]
     count_n_molecules=n_molecules[0]
-    count_n_entities=n_entities[0]
+    count_n_bonds=n_bonds[0]
 
-    for aux_n_atoms, aux_n_groups, aux_n_components, aux_n_chains, aux_n_molecules, aux_n_entities in zip(n_atoms[1:], n_groups[1:],
-            n_components[1:], n_chains[1:], n_molecules[1:], n_entities[1:]):
+    atom_index = output.atoms_dataframe['atom_index'].to_numpy(copy=False)
+    group_index = output.atoms_dataframe['group_index'].to_numpy(copy=False)
+    component_index = output.atoms_dataframe['component_index'].to_numpy(copy=False)
+    chain_index = output.atoms_dataframe['chain_index'].to_numpy(copy=False)
+    molecule_index = output.atoms_dataframe['molecule_index'].to_numpy(copy=False)
+    atom1_index = output.bonds_dataframe['atom1_index'].to_numpy(copy=False)
+    atom2_index = output.bonds_dataframe['atom2_index'].to_numpy(copy=False)
+
+    for aux_n_atoms, aux_n_groups, aux_n_components, aux_n_chains, aux_n_molecules, aux_n_bonds, in zip(n_atoms[1:], n_groups[1:],
+            n_components[1:], n_chains[1:], n_molecules[1:], n_bonds[1:]):
 
         next_count_n_atoms = count_n_atoms + aux_n_atoms
         next_count_n_groups = count_n_groups + aux_n_groups
         next_count_n_components = count_n_components + aux_n_components
         next_count_n_chains = count_n_chains + aux_n_chains
         next_count_n_molecules = count_n_molecules + aux_n_molecules
-        next_count_n_entities = count_n_entities + aux_n_entities
+        next_count_n_bonds = count_n_bonds + aux_n_bonds
 
-        output.atoms_dataframe.loc[count_n_atoms:next_count_n_atoms, 'atom_index'] += count_n_atoms
-        output.atoms_dataframe.loc[count_n_atoms:next_count_n_atoms, 'group_index'] += count_n_groups
-        output.atoms_dataframe.loc[count_n_atoms:next_count_n_atoms, 'component_index'] += count_n_components
-        output.atoms_dataframe.loc[count_n_atoms:next_count_n_atoms, 'chain_index'] += count_n_chains
-        output.atoms_dataframe.loc[count_n_atoms:next_count_n_atoms, 'molecule_index'] += count_n_molecules
-        output.atoms_dataframe.loc[count_n_atoms:next_count_n_atoms, 'entity_index'] += count_n_entities
-        output.bonds_dataframe.loc[count_n_atoms:next_count_n_atoms, 'atom1_index'] += count_n_atoms
-        output.bonds_dataframe.loc[count_n_atoms:next_count_n_atoms, 'atom2_index'] += count_n_atoms
+        atom_index[count_n_atoms:next_count_n_atoms] += count_n_atoms
+        group_index[count_n_atoms:next_count_n_atoms] += count_n_groups
+        component_index[count_n_atoms:next_count_n_atoms] += count_n_components
+        chain_index[count_n_atoms:next_count_n_atoms] += count_n_chains
+        molecule_index[count_n_atoms:next_count_n_atoms] += count_n_molecules
+        atom1_index[count_n_bonds:next_count_n_bonds] += count_n_atoms
+        atom2_index[count_n_bonds:next_count_n_bonds] += count_n_atoms
 
         count_n_atoms = next_count_n_atoms
         count_n_groups = next_count_n_groups
         count_n_components = next_count_n_components
         count_n_chains = next_count_n_chains
         count_n_molecules = next_count_n_molecules
-        count_n_entities = next_count_n_entities
+        count_n_bonds = next_count_n_bonds
+
+    if not np.shares_memory(atom_index, output.atoms_dataframe['atom_index']):
+        output.atoms_dataframe['atom_index'] = atom_index
+
+    if not np.shares_memory(group_index, output.atoms_dataframe['group_index']):
+        output.atoms_dataframe['group_index'] = group_index
+
+    if not np.shares_memory(component_index, output.atoms_dataframe['component_index']):
+        output.atoms_dataframe['component_index'] = component_index
+
+    if not np.shares_memory(chain_index, output.atoms_dataframe['chain_index']):
+        output.atoms_dataframe['chain_index'] = chain_index
+
+    if not np.shares_memory(molecule_index, output.atoms_dataframe['molecule_index']):
+        output.atoms_dataframe['molecule_index'] = molecule_index
+
+    if not np.shares_memory(atom1_index, output.bonds_dataframe['atom1_index']):
+        output.bonds_dataframe['atom1_index'] = atom1_index
+
+    if not np.shares_memory(atom2_index, output.bonds_dataframe['atom2_index']):
+        output.bonds_dataframe['atom2_index'] = atom2_index
 
     output._build_entities()
 

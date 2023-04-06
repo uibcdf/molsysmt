@@ -7,7 +7,6 @@ functions_with_boolean = (
         )
 
 
-
 def digest_component_name(component_name, caller=None):
     """Checks if `component_name` has the expected type and value.
 

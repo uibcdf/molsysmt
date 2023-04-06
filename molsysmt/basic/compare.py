@@ -5,8 +5,10 @@ import numpy as np
 
 @digest()
 def compare(molecular_system_A, molecular_system_B, selection_A='all', structure_indices_A='all',
-        selection_B='all', structure_indices_B='all', rule='equal', attributes_type=None,
+        selection_B='all', structure_indices_B='all', attributes_type=None,
         syntax='MolSysMT', output_type='boolean', **kwargs):
+
+    rule='equal'
 
     # attributes: 'all', 'topological', 'structural', 'mechanical' 
     # output_type: 'boolean', 'dictionary'
@@ -109,7 +111,7 @@ def compare(molecular_system_A, molecular_system_B, selection_A='all', structure
 
             n_groups_A = get(molecular_system_A, element='group', selection=selection_A,
                     syntax=syntax, n_groups=True)
-            n_groups_B = get(molecular_system_A, element='group', selection=selection_B,
+            n_groups_B = get(molecular_system_B, element='group', selection=selection_B,
                     syntax=syntax, n_groups=True)
 
             if n_groups_A!=n_groups_B:
@@ -129,7 +131,7 @@ def compare(molecular_system_A, molecular_system_B, selection_A='all', structure
                             syntax=syntax, output_type='dictionary', **args)
 
                     if 'n_groups' in atts:
-                        output_dict['n_groups']= True
+                        output_dict['n_groups']= (n_groups_A==n_groups_B)
 
                     if 'group_index' in atts:
                         output_dict['group_index']= np.array_equal(dict_A['group_index'], dict_B['group_index'])
@@ -148,7 +150,7 @@ def compare(molecular_system_A, molecular_system_B, selection_A='all', structure
 
                 else:
 
-                    args = {ii:True for ii in atts if ii not in ['n_groups', 'group_index']}
+                    args = {ii:True for ii in atts if ii not in ['n_groups']}
 
                     dict_A = get(molecular_system_A, element='group', selection=selection_A,
                             syntax=syntax, output_type='dictionary', **args)
@@ -156,10 +158,10 @@ def compare(molecular_system_A, molecular_system_B, selection_A='all', structure
                             syntax=syntax, output_type='dictionary', **args)
 
                     if 'n_groups' in atts:
-                        output_dict['n_groups']= True
+                        output_dict['n_groups']= (n_groups_A==n_groups_B)
 
                     if 'group_index' in atts:
-                        output_dict['group_index']= True
+                        output_dict['group_index']= np.array_equal(dict_A['group_index'], dict_B['group_index'])
 
                     if 'group_id' in atts:
                         output_dict['group_id']= np.array_equal(dict_A['group_id'], dict_B['group_id'])
@@ -180,7 +182,7 @@ def compare(molecular_system_A, molecular_system_B, selection_A='all', structure
 
             n_components_A = get(molecular_system_A, element='component', selection=selection_A,
                     syntax=syntax, n_components=True)
-            n_components_B = get(molecular_system_A, element='component', selection=selection_B,
+            n_components_B = get(molecular_system_B, element='component', selection=selection_B,
                     syntax=syntax, n_components=True)
 
             if n_components_A!=n_components_B:
@@ -200,7 +202,7 @@ def compare(molecular_system_A, molecular_system_B, selection_A='all', structure
                             syntax=syntax, output_type='dictionary', **args)
 
                     if 'n_components' in atts:
-                        output_dict['n_components']= True
+                        output_dict['n_components']= (n_components_A==n_components_B)
 
                     if 'component_index' in atts:
                         output_dict['component_index']= np.array_equal(dict_A['component_index'], dict_B['component_index'])
@@ -219,7 +221,7 @@ def compare(molecular_system_A, molecular_system_B, selection_A='all', structure
 
                 else:
 
-                    args = {ii:True for ii in atts if ii not in ['n_components', 'component_index']}
+                    args = {ii:True for ii in atts if ii not in ['n_components']}
 
                     dict_A = get(molecular_system_A, element='component', selection=selection_A,
                             syntax=syntax, output_type='dictionary', **args)
@@ -227,10 +229,10 @@ def compare(molecular_system_A, molecular_system_B, selection_A='all', structure
                             syntax=syntax, output_type='dictionary', **args)
 
                     if 'n_components' in atts:
-                        output_dict['n_components']= True
+                        output_dict['n_components']= (n_components_A==n_components_B)
 
                     if 'component_index' in atts:
-                        output_dict['component_index']= True
+                        output_dict['component_index']= np.array_equal(dict_A['component_index'], dict_B['component_index'])
 
                     if 'component_id' in atts:
                         output_dict['component_id']= np.array_equal(dict_A['component_id'], dict_B['component_id'])
@@ -251,7 +253,7 @@ def compare(molecular_system_A, molecular_system_B, selection_A='all', structure
 
             n_molecules_A = get(molecular_system_A, element='molecule', selection=selection_A,
                     syntax=syntax, n_molecules=True)
-            n_molecules_B = get(molecular_system_A, element='molecule', selection=selection_B,
+            n_molecules_B = get(molecular_system_B, element='molecule', selection=selection_B,
                     syntax=syntax, n_molecules=True)
 
             if n_molecules_A!=n_molecules_B:
@@ -271,7 +273,7 @@ def compare(molecular_system_A, molecular_system_B, selection_A='all', structure
                             syntax=syntax, output_type='dictionary', **args)
 
                     if 'n_molecules' in atts:
-                        output_dict['n_molecules']= True
+                        output_dict['n_molecules']= (n_molecules_A==n_molecules_B)
 
                     if 'molecule_index' in atts:
                         output_dict['molecule_index']= np.array_equal(dict_A['molecule_index'], dict_B['molecule_index'])
@@ -290,7 +292,7 @@ def compare(molecular_system_A, molecular_system_B, selection_A='all', structure
 
                 else:
 
-                    args = {ii:True for ii in atts if ii not in ['n_molecules', 'molecule_index']}
+                    args = {ii:True for ii in atts if ii not in ['n_molecules']}
 
                     dict_A = get(molecular_system_A, element='molecule', selection=selection_A,
                             syntax=syntax, output_type='dictionary', **args)
@@ -298,10 +300,10 @@ def compare(molecular_system_A, molecular_system_B, selection_A='all', structure
                             syntax=syntax, output_type='dictionary', **args)
 
                     if 'n_molecules' in atts:
-                        output_dict['n_molecules']= True
+                        output_dict['n_molecules']= (n_molecules_A==n_molecules_B)
 
                     if 'molecule_index' in atts:
-                        output_dict['molecule_index']= True
+                        output_dict['molecule_index']= np.array_equal(dict_A['molecule_index'], dict_B['molecule_index'])
 
                     if 'molecule_id' in atts:
                         output_dict['molecule_id']= np.array_equal(dict_A['molecule_id'], dict_B['molecule_id'])
@@ -322,7 +324,7 @@ def compare(molecular_system_A, molecular_system_B, selection_A='all', structure
 
             n_chains_A = get(molecular_system_A, element='chain', selection=selection_A,
                     syntax=syntax, n_chains=True)
-            n_chains_B = get(molecular_system_A, element='chain', selection=selection_B,
+            n_chains_B = get(molecular_system_B, element='chain', selection=selection_B,
                     syntax=syntax, n_chains=True)
 
             if n_chains_A!=n_chains_B:
@@ -342,7 +344,7 @@ def compare(molecular_system_A, molecular_system_B, selection_A='all', structure
                             syntax=syntax, output_type='dictionary', **args)
 
                     if 'n_chains' in atts:
-                        output_dict['n_chains']= True
+                        output_dict['n_chains']= (n_chains_A==n_chains_B)
 
                     if 'chain_index' in atts:
                         output_dict['chain_index']= np.array_equal(dict_A['chain_index'], dict_B['chain_index'])
@@ -361,7 +363,7 @@ def compare(molecular_system_A, molecular_system_B, selection_A='all', structure
 
                 else:
 
-                    args = {ii:True for ii in atts if ii not in ['n_chains', 'chain_index']}
+                    args = {ii:True for ii in atts if ii not in ['n_chains']}
 
                     dict_A = get(molecular_system_A, element='chain', selection=selection_A,
                             syntax=syntax, output_type='dictionary', **args)
@@ -369,10 +371,10 @@ def compare(molecular_system_A, molecular_system_B, selection_A='all', structure
                             syntax=syntax, output_type='dictionary', **args)
 
                     if 'n_chains' in atts:
-                        output_dict['n_chains']= True
+                        output_dict['n_chains']= (n_chains_A==n_chains_B)
 
                     if 'chain_index' in atts:
-                        output_dict['chain_index']= True
+                        output_dict['chain_index']= np.array_equal(dict_A['chain_index'], dict_B['chain_index'])
 
                     if 'chain_id' in atts:
                         output_dict['chain_id']= np.array_equal(dict_A['chain_id'], dict_B['chain_id'])
@@ -393,7 +395,7 @@ def compare(molecular_system_A, molecular_system_B, selection_A='all', structure
 
             n_entities_A = get(molecular_system_A, element='entity', selection=selection_A,
                     syntax=syntax, n_entities=True)
-            n_entities_B = get(molecular_system_A, element='entity', selection=selection_B,
+            n_entities_B = get(molecular_system_B, element='entity', selection=selection_B,
                     syntax=syntax, n_entities=True)
 
             if n_entities_A!=n_entities_B:
@@ -413,7 +415,7 @@ def compare(molecular_system_A, molecular_system_B, selection_A='all', structure
                             syntax=syntax, output_type='dictionary', **args)
 
                     if 'n_entities' in atts:
-                        output_dict['n_entities']= True
+                        output_dict['n_entities']= (n_entities_A==n_entities_B)
 
                     if 'entity_index' in atts:
                         output_dict['entity_index']= np.array_equal(dict_A['entity_index'], dict_B['entity_index'])
@@ -432,7 +434,7 @@ def compare(molecular_system_A, molecular_system_B, selection_A='all', structure
 
                 else:
 
-                    args = {ii:True for ii in atts if ii not in ['n_entities', 'entity_index']}
+                    args = {ii:True for ii in atts if ii not in ['n_entities']}
 
                     dict_A = get(molecular_system_A, element='entity', selection=selection_A,
                             syntax=syntax, output_type='dictionary', **args)
@@ -440,10 +442,10 @@ def compare(molecular_system_A, molecular_system_B, selection_A='all', structure
                             syntax=syntax, output_type='dictionary', **args)
 
                     if 'n_entities' in atts:
-                        output_dict['n_entities']= True
+                        output_dict['n_entities']= (n_entities_A==n_entities_B)
 
                     if 'entity_index' in atts:
-                        output_dict['entity_index']= True
+                        output_dict['entity_index']= np.array_equal(dict_A['entity_index'], dict_B['entity_index'])
 
                     if 'entity_id' in atts:
                         output_dict['entity_id']= np.array_equal(dict_A['entity_id'], dict_B['entity_id'])
@@ -468,7 +470,7 @@ def compare(molecular_system_A, molecular_system_B, selection_A='all', structure
 
             n_bonds_A = get(molecular_system_A, element='bond', selection=selection_A,
                     syntax=syntax, n_bonds=True)
-            n_bonds_B = get(molecular_system_A, element='bond', selection=selection_B,
+            n_bonds_B = get(molecular_system_B, element='bond', selection=selection_B,
                     syntax=syntax, n_bonds=True)
 
             if n_bonds_A!=n_bonds_B:
@@ -497,9 +499,10 @@ def compare(molecular_system_A, molecular_system_B, selection_A='all', structure
                     order_in_B = np.lexsort((atoms_pairs_B[:, 1], atoms_pairs_B[:, 0]))
 
                     if 'n_bonds' in atts:
-                        output_dict['n_bonds']= True
+                        output_dict['n_bonds']= (n_bonds_A==n_bonds_B)
 
                     if 'bond_index' in atts:
+
                         output_dict['bond_index']= np.array_equal(dict_A['bond_index'][order_in_A], dict_B['bond_index'][order_in_B])
 
                     if 'bond_id' in atts:
@@ -591,7 +594,7 @@ def compare(molecular_system_A, molecular_system_B, selection_A='all', structure
 
             else:
 
-                args = {ii:True for ii in atts if ii in ['n_structures', 'structure_indices', 'structure_id']}
+                args = {ii:True for ii in atts if ii in ['n_structures', 'structure_indices']}
 
                 if len(args)>0:
 
@@ -601,7 +604,7 @@ def compare(molecular_system_A, molecular_system_B, selection_A='all', structure
                             structure_indices=structure_indices_B, output_type='dictionary', **args)
 
                     if 'n_structures' in atts:
-                        output_dict['n_structures']= True
+                        output_dict['n_structures']= (n_structures_A==n_structures_B)
 
                     if 'structure_index' in atts:
                         output_dict['structure_index']= np.array_equal(dict_A['structure_index'], dict_B['structure_index'])
@@ -707,10 +710,11 @@ def compare(molecular_system_A, molecular_system_B, selection_A='all', structure
 
 
     for att_false in atts_false:
-        if output_dict[att_false]==False:
-            output_dict[att_false]==True:
-        else:
-            output_dict[att_false]==False:
+        if att_false in output_dict:
+            if output_dict[att_false]:
+                output_dict[att_false]=False
+            else:
+                output_dict[att_false]=True
 
     if output_type=='boolean':
 
