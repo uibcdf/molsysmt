@@ -17,6 +17,7 @@ Methods and wrappers to create and solvate boxes
 def solvate (molecular_system, box_shape="truncated octahedral", clearance='14.0 angstroms',
              anion='Cl-', n_anions="neutralize", cation='Na+', n_cations="neutralize",
              ionic_strength='0.0 molar', engine="OpenMM",
+             water_model='TIP3P', forcefield='AMBER14',
              to_form= None, verbose=False):
 
     """solvate(item, geometry=None, water=None, engine=None)
@@ -60,14 +61,16 @@ def solvate (molecular_system, box_shape="truncated octahedral", clearance='14.0
         modeller = convert(molecular_system, to_form='openmm.Modeller')
 
 
-        water_model = get(molecular_system, water_model=True)
-        forcefield = get_forcefield(molecular_system, engine='OpenMM')
+        aux_water_model = get(molecular_system, water_model=True)
+        aux_forcefield = get_forcefield(molecular_system, engine='OpenMM')
 
-        if water_model is None:
-            water_model = 'TIP3P'
+        if aux_water_model is not None:
+            water_model = aux_water_model
 
-        if forcefield is None:
-            forcefield = get_forcefield({'forcefield':'AMBER14', 'water_model':water_model}, engine='OpenMM')
+        if aux_forcefield is None:
+            forcefield = aux_forcefield
+
+        forcefield = get_forcefield({'forcefield':forcefield, 'water_model':water_model}, engine='OpenMM')
 
         solvent_model=None
         if water_model=='SPC':
