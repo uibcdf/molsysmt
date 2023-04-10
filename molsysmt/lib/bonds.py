@@ -4,32 +4,35 @@ import networkx as nx
 
 def component_indices(atom_indices):
 
-    g = nx.Graph(atom_indices)
-    components = list(nx.connected_components(g)) 
-    output = _sorted_component_indices(components, g.number_of_nodes)
+    g = nx.from_edgelist(atom_indices)
+    components = list(nx.connected_components(g))
 
-    return output
-
-@nb.jit(nb.types.Array(nb.int64, 1, "C")(nb.types.List(nb.types.Set(nb.int64)),nb.int64), nopython=True)
-def _sorted_component_indices(components, n_atoms):
-
-    output = np.empty([n_atoms], dtype=int)
+    output = np.empty((g.number_of_nodes()), dtype=int)
 
     component_index=0
     for component in components:
-        output[component]=component_index
+        output[list(component)]=component_index
         component_index+=1
 
-    
-    aux_dict=dict()
-    component_index=0
-    for ii in range(n_atoms):
-        try:
-            output[ii]=aux_dict[output[ii]]
-        except:
-            aux_dict[output[ii]]=component_index
-            output[ii]=component_index
-            component_index+1
+    _jit_reindexing_sorted(output, component_index)
 
     return output
+
+@nb.jit(nb.void(nb.int64[:],nb.int64), nopython=True)
+def _jit_reindexing_sorted(component_indices, n_components):
+
+    aux = np.zeros((n_components), dtype=nb.int64)
+    mask = np.zeros((n_components), dtype=nb.boolean)
+
+    new_index = 0
+    for ii in component_indices:
+        if not mask[ii]:
+            mask[ii]=True
+            aux[ii]=new_index
+            new_index+=1
+
+    for ii in range(component_indices.shape[0]):
+        component_indices[ii]=aux[component_indices[ii]]
+
+    pass
 
