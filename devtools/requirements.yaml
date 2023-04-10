@@ -6,14 +6,17 @@ setup:
     - defaults
   dependencies: &setup_dependencies
     - python
-    - setuptools
-    - numpy
+    - pip
+    - setuptools >=61.0
+    - versioningit~=2.0
 
 production:
   channels: &production_channels
     - *setup_channels
   dependencies: &production_dependencies
     - *setup_dependencies
+    - numpy
+    - numba
     - pyunitwizard
     - sabueso
     - mmtf-python

@@ -1,7 +1,6 @@
 import numpy as np
 
 def normalize_vect(a):
-
     raise NotImplementedError()
 
 def product_vect(a, b):

@@ -47,48 +47,19 @@ jobs:
       run: |
         uname -a
 
-    - name: Symlink gfortran
-      #if: runner.os == 'macOS'
-        #run: |
-        #  sudo ln -s /usr/local/bin/gfortran-10 /usr/local/bin/gfortran
-        #  sudo mkdir /usr/local/gfortran
-        #  sudo ln -s /usr/local/Cellar/gcc@10/*/lib/gcc/10 /usr/local/gfortran/lib
-        #  gfortran --version
-      uses:  modflowpy/install-gfortran-action@v1
-
-    #- name: Checking gfortran version
-    #  run: |
-    #    gfortran --version
-
-    # More info on options: https://github.com/conda-incubator/setup-miniconda
-    #- uses: conda-incubator/setup-miniconda@v2
-    #  with:
-    #    python-version: ${{ matrix.python-version }}
-    #    environment-file: devtools/conda-envs/test_env.yaml
-    #    #mamba-version: "*"
-    #    #use-mamba: true
-    #    channels: conda-forge,defaults
-
-    #    activate-environment: test
-    #    auto-update-conda: false
-    #    auto-activate-base: false
-    #    show-channel-urls: true
-
     - name: Setup conda env
       uses: mamba-org/provision-with-micromamba@main
       with:
         environment-file: devtools/conda-envs/test_env.yaml
         environment-name: test
         channels: uibcdf, conda-forge, ambermd, defaults
-
         extra-specs: |
           python==${{ matrix.cfg.python-version }}
 
     - name: Install package
-
       shell: bash -l {0}
       run: |
-        python setup.py develop
+        python -m pip install . --no-deps
 
     - name: Info conda
       shell: bash -l {0}

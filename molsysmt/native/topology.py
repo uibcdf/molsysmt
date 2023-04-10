@@ -181,7 +181,7 @@ class Topology():
 
         else:
 
-            index_array = _libbonds.component_indices(atom_index_from_bond, n_atoms, n_bonds)
+            index_array = _libbonds.component_indices(atom_index_from_bond)
             index_array = np.ascontiguousarray(index_array, dtype=int)
 
             component_indices = np.unique(index_array)
