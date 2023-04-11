@@ -1,6 +1,7 @@
 import math
 import numpy as np
 import numba as nb
+from .pbc import pbc, mic
 
 @nb.jit(nb.float64[:,:](nb.float64[:,:]), nopython=True)
 def invbox2d(box):
@@ -74,15 +75,48 @@ def lengths_and_angles_to_box(lengths, angles):
 
     return box
 
+@nb.jit(void(nb.float64[:,:,:], nb.float64[:,:,:], nb.float64[:,:,:], nb.boolean), nopython=True)
 def wrap_pbc(coors, centers, box, ortho):
 
-    raise NotImplementedError()
+    n_frames=coors.shape[0]
+    n_atoms=coors.shape[1]
 
+    for ii in range(n_frames):
+        tmp_inv=invbox2d(box[ii,:,:]):
+            for jj in range(n_atoms):
+                aux=coors[ii,jj,:]-center[ii,:]
+                pbc(aux, box[ii,:,:], tmp_inv, ortho)
+                coors[ii,jj,:]=center+aux
+
+    pass
+
+@nb.jit(void(nb.float64[:,:,:], nb.float64[:,:,:], nb.float64[:,:,:], nb.boolean), nopython=True)
 def wrap_mic(coors, centers, box, ortho):
 
-    raise NotImplementedError()
+    n_frames=coors.shape[0]
+    n_atoms=coors.shape[1]
 
+    for ii in range(n_frames):
+        tmp_inv=invbox2d(box[ii,:,:]):
+            for jj in range(n_atoms):
+                aux=coors[ii,jj,:]-center[ii,:]
+                mic(aux, box[ii,:,:], tmp_inv, ortho)
+                coors[ii,jj,:]=center+aux
+
+    pass
+
+@nb.jit(void(nb.float64[:,:,:], nb.float64[:,:,:], nb.boolean), nopython=True)
 def unwrap(coors, box, ortho):
 
-    raise NotImplementedError()
+    n_frames=coors.shape[0]
+    n_atoms=coors.shape[1]
+
+    for ii in range(n_frames-1):
+        tmp_inv=invbox2d(box[ii,:,:]):
+            for jj in range(n_atoms):
+                delta = coors[ii+1,jj,:]-coors[ii,jj,:]
+                mic(delta, box[ii,:,:], tmp_inv, ortho)
+                coors[ii+1,jj,:]=coors[ii,jj,:]+delta
+
+    pass
 
