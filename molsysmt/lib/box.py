@@ -4,7 +4,7 @@ import numba as nb
 from .math import inverse_matrix_3x3, norm_vector, dot_product
 from .pbc import pbc, mic
 
-@nb.jit(nb.float64[:,:](nb.float64[:,:,:]), nopython=True)
+@nb.njit(nb.float64[:,:](nb.float64[:,:,:]))
 def length_edges_box(box):
 
     n_frames = box.shape[0]
@@ -18,7 +18,7 @@ def length_edges_box(box):
 
     return lengths
 
-@nb.jit(nb.float64[:,:](nb.float64[:,:,:]), nopython=True)
+@nb.njit(nb.float64[:,:](nb.float64[:,:,:]))
 def angles_box(box):
 
     n_frames = box.shape[0]
@@ -41,7 +41,7 @@ def angles_box(box):
 
     return angles
 
-@nb.jit(nb.float64[:,:,:](nb.float64[:,:], nb.float64[:,:]), nopython=True)
+@nb.njit(nb.float64[:,:,:](nb.float64[:,:], nb.float64[:,:]))
 def lengths_and_angles_to_box(lengths, angles):
 
     n_frames = lengths.shape[0]
@@ -60,53 +60,55 @@ def lengths_and_angles_to_box(lengths, angles):
         box[ii,1,0]=y*math.cos(gamm)
         box[ii,1,1]=y*math.sin(gamm)
         box[ii,2,0]=z*math.cos(beta)
-        box[ii,2,1]=z*(math.cos(alpha)-math.cos(beta)*math.cos(gamm))/math.sin(gamm) 
+        box[ii,2,1]=z*(math.cos(alpha)-math.cos(beta)*math.cos(gamm))/math.sin(gamm)
         box[ii,2,2]=math.sqrt(z*z-box[ii,2,0]**2-box[ii,2,1]**2)
 
     return box
 
-@nb.jit(void(nb.float64[:,:,:], nb.float64[:,:,:], nb.float64[:,:,:], nb.boolean), nopython=True)
+@nb.njit(nb.void(nb.float64[:,:,:], nb.float64[:,:,:], nb.float64[:,:,:], nb.boolean))
 def wrap_pbc(coors, centers, box, ortho):
 
     n_frames=coors.shape[0]
     n_atoms=coors.shape[1]
 
     for ii in range(n_frames):
-        tmp_inv=inverse_matrix_3x3(box[ii,:,:]):
-            for jj in range(n_atoms):
-                aux=coors[ii,jj,:]-center[ii,:]
-                pbc(aux, box[ii,:,:], tmp_inv, ortho)
-                coors[ii,jj,:]=center+aux
+        tmp_inv=inverse_matrix_3x3(box[ii,:,:])
+        center=centers[ii,0,:]
+        for jj in range(n_atoms):
+            aux=coors[ii,jj,:]-center
+            pbc(aux, box[ii,:,:], tmp_inv, ortho)
+            coors[ii,jj,:]=center+aux
 
     pass
 
-@nb.jit(void(nb.float64[:,:,:], nb.float64[:,:,:], nb.float64[:,:,:], nb.boolean), nopython=True)
+@nb.njit(nb.void(nb.float64[:,:,:], nb.float64[:,:,:], nb.float64[:,:,:], nb.boolean))
 def wrap_mic(coors, centers, box, ortho):
 
     n_frames=coors.shape[0]
     n_atoms=coors.shape[1]
 
     for ii in range(n_frames):
-        tmp_inv=inverse_matrix_3x3(box[ii,:,:]):
-            for jj in range(n_atoms):
-                aux=coors[ii,jj,:]-center[ii,:]
-                mic(aux, box[ii,:,:], tmp_inv, ortho)
-                coors[ii,jj,:]=center+aux
+        tmp_inv=inverse_matrix_3x3(box[ii,:,:])
+        center=centers[ii,0,:]
+        for jj in range(n_atoms):
+            aux=coors[ii,jj,:]-center
+            mic(aux, box[ii,:,:], tmp_inv, ortho)
+            coors[ii,jj,:]=center+aux
 
     pass
 
-@nb.jit(void(nb.float64[:,:,:], nb.float64[:,:,:], nb.boolean), nopython=True)
+@nb.njit(nb.void(nb.float64[:,:,:], nb.float64[:,:,:], nb.boolean))
 def unwrap(coors, box, ortho):
 
     n_frames=coors.shape[0]
     n_atoms=coors.shape[1]
 
     for ii in range(n_frames-1):
-        tmp_inv=inverse_matrix_3x3(box[ii,:,:]):
-            for jj in range(n_atoms):
-                delta = coors[ii+1,jj,:]-coors[ii,jj,:]
-                mic(delta, box[ii,:,:], tmp_inv, ortho)
-                coors[ii+1,jj,:]=coors[ii,jj,:]+delta
+        tmp_inv=inverse_matrix_3x3(box[ii,:,:])
+        for jj in range(n_atoms):
+            delta = coors[ii+1,jj,:]-coors[ii,jj,:]
+            mic(delta, box[ii,:,:], tmp_inv, ortho)
+            coors[ii+1,jj,:]=coors[ii,jj,:]+delta
 
     pass
 

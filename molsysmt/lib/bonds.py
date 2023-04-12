@@ -18,7 +18,7 @@ def component_indices(atom_indices):
 
     return output
 
-@nb.jit(nb.void(nb.int64[:],nb.int64), nopython=True)
+@nb.njit(nb.void(nb.int64[:],nb.int64))
 def _jit_reindexing_sorted(component_indices, n_components):
 
     aux = np.zeros((n_components), dtype=nb.int64)

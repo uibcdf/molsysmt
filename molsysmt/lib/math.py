@@ -3,8 +3,7 @@ import numba as nb
 import math
 
 
-
-@nb.jit(nb.float64[:,:](nb.float64[:,:]), nopython=True)
+@nb.njit(nb.float64[:,:](nb.float64[:,:]))
 def inverse_matrix_3x3(m):
 
     inv = np.zeros(m.shape, dtype=nb.float64)
@@ -20,26 +19,26 @@ def inverse_matrix_3x3(m):
     return inv
 
 
-@nb.jit(nb.float64(nb.float64[:]), nopython=True)
+@nb.njit(nb.float64(nb.float64[:]))
 def norm_vector(a):
 
     return math.sqrt(a[0]*a[0]+a[1]*a[1]+a[2]*a[2])
 
 
-@nb.jit(nb.float64(nb.float64[:]), nopython=True)
+@nb.njit(nb.float64[:](nb.float64[:]))
 def normalize_vector(a):
 
     norm = math.sqrt(a[0]*a[0]+a[1]*a[1]+a[2]*a[2])
     return a/norm
 
 
-@nb.jit(nb.float64(nb.float64[:], nb.float64[:]), nopython=True)
+@nb.njit(nb.float64(nb.float64[:], nb.float64[:]))
 def dot_product(a, b):
 
     return a[0]*b[0]+a[1]*b[1]+a[2]*b[2]
 
 
-@nb.jit(nb.float64[:](nb.float64[:], nb.float64[:]), nopython=True)
+@nb.njit(nb.float64[:](nb.float64[:], nb.float64[:]))
 def cross_product(a, b):
 
     output=np.empty((3), dtype=nb.float64)
@@ -51,20 +50,37 @@ def cross_product(a, b):
     return output
 
 
-@nb.jit(nb.float64[:,:](nb.float64[:], nb.float64[:,:], nb.float64[:], nb.float64[:,:],), nopython=True)
-def rotandtrans_rmsd(center_orig, U, center_ref, coors):
+@nb.njit(nb.void(nb.float64[:,:], nb.float64[:], nb.float64[:,:], nb.float64[:]))
+def rotation_and_translation_single_structure(coors, center_rotation, rotation_matrix, translation):
 
-    dim_coors = coors.shape[0]
+    n_atoms = coors.shape[0]
 
-    new_coors=np.empty((dim_coors,3), dtype=float)
+    rotation_matrix_t = np.ascontiguousarray(np.transpose(rotation_matrix))
 
-    for ii in range(dim_coors):
-       new_coors[ii,:]=np.matmul(np.transpose(U),coors[ii,:]-center_orig)+center_ref
+    coors=np.ascontiguousarray(coors)
 
-    return new_coors
+    for ii in range(n_atoms):
+       coors[ii,:]=rotation_matrix_t@(coors[ii,:]-center_rotation)+translation
 
+    pass
 
-@nb.jit(nb.types.Tuple((nb.int64[:],nb.int64[:]))(nb.int64[:]), nopython=True)
+@nb.njit(nb.void(nb.float64[:,:,:], nb.float64[:], nb.float64[:,:], nb.float64[:]))
+def rotation_and_translation(coors, center_rotation, rotation_matrix, translation):
+
+    n_atoms = coors.shape[1]
+    n_structures = coors.shape[0]
+
+    rotation_matrix_t = np.ascontiguousarray(np.transpose(rotation_matrix))
+
+    coors=np.ascontiguousarray(coors)
+
+    for jj in range(n_structures):
+        for ii in range(n_atoms):
+            coors[jj,ii,:]=rotation_matrix_t@(coors[jj,ii,:]-center_rotation)+translation
+
+    pass
+
+@nb.njit(nb.types.Tuple((nb.int64[:],nb.int64[:]))(nb.int64[:]))
 def serie_to_chunks (serie):
 
     gaps = np.where((serie[1:]-serie[:-1])>1)
@@ -85,7 +101,7 @@ def serie_to_chunks (serie):
     return starts, chunk_size
 
 
-@nb.jit(nb.int64[:](nb.int64[:],nb.int64[:]), nopython=True)
+@nb.njit(nb.int64[:](nb.int64[:],nb.int64[:]))
 def chunks_to_serie (starts, chunk_size):
 
     shape=np.sum(chunk_size)
@@ -158,7 +174,7 @@ class serialized_lists():
             self.n_indices = self.indices.shape[0]
 
 
-def nb.jit(nb.types.UniTuple(nb.int64[:], 2)(nb.types.List(dtype=nb.types.List(dtype=nb.int64))), nopython=True)
+@nb.njit(nb.types.UniTuple(nb.int64[:], 2)(nb.types.List(dtype=nb.types.List(dtype=nb.int64))))
 def _jit_serialize(item):
 
     n_values=0
@@ -167,8 +183,8 @@ def _jit_serialize(item):
         n_values+=len(segment)
         n_starts+=1
 
-    values = np.empty((n_values), dtype=int)
-    starts = np.empty((n_starts+1), dtype=int)
+    values = np.empty((n_values), dtype=nb.int64)
+    starts = np.empty((n_starts+1), dtype=nb.int64)
 
     counter=0
     for ii,segment in enumerate(item):
@@ -181,8 +197,8 @@ def _jit_serialize(item):
 
     return starts, values
 
-def nb.jit(void(nb.float64[:], nb.float64[:], nb.float64), nopython=True)
-def rogrigues_rotation(vector, unit_vector, angle):
+@nb.njit(nb.void(nb.float64[:], nb.float64[:], nb.float64))
+def rodrigues_rotation(vector, unit_vector, angle):
 
     aux_ang = math.radians(angle)
 
@@ -198,7 +214,7 @@ def rogrigues_rotation(vector, unit_vector, angle):
 
     pass
 
-def nb.jit(nb.float64[:,:],(nb.float64[:]), nopython=True)
+@nb.njit(nb.float64[:,:](nb.float64[:]))
 def quaternion_to_rotation_matrix(q):
 
     q0, q1, q2, q3 = q
@@ -208,10 +224,14 @@ def quaternion_to_rotation_matrix(q):
     q00=2*q0*q0
     q11=2*q1*q1
     q22=2*q2*q2
+    q33=2*q3*q3
 
     q01=2*q0*q1
     q02=2*q0*q2
+    q03=2*q0*q3
     q12=2*q1*q2
+    q13=2*q1*q3
+    q23=2*q2*q3
 
     U[0,0]=q00+q11-1.0
     U[1,1]=q00+q22-1.0

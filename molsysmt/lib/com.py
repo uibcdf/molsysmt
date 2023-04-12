@@ -1,7 +1,7 @@
 import numpy as np
 import numba as nb
 
-@nb.jit(nb.float64[:,:,:](nb.float64[:,:,:],nb.int64[:],nb.int64[:],nb.int64[:]), nopython=True)
+@nb.njit(nb.float64[:,:,:](nb.float64[:,:,:],nb.int64[:],nb.int64[:],nb.int64[:]))
 def geometrical_center(coors, group_indices, groups_atoms_indices, groups_starts):
 
 
@@ -13,7 +13,7 @@ def geometrical_center(coors, group_indices, groups_atoms_indices, groups_starts
 
     return center
 
-@nb.jit(nb.float64[:,:,:](nb.float64[:,:,:],nb.int64[:],nb.int64[:],nb.int64[:],nb.float64[:]), nopython=True)
+@nb.njit(nb.float64[:,:,:](nb.float64[:,:,:],nb.int64[:],nb.int64[:],nb.int64[:],nb.float64[:]))
 def center_of_mass(coors, group_indices, groups_atoms_indices, groups_starts, weights):
 
     n_structures=coors.shape[0]

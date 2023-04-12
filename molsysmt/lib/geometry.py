@@ -2,10 +2,11 @@ import numpy as np
 import numba as nb
 import math
 from .pbc import mic
-from .math import norm_vector, cross_product, dot_product
+from .math import norm_vector, cross_product, dot_product, inverse_matrix_3x3, normalize_vector,\
+        rodrigues_rotation
 
 
-@nb.jit(nb.float64(nb.float64[:], nb.float64[:], nb.float64[:,:], nb.float64[:,:], nb.boolean, nb.boolean), nopython=True)
+@nb.njit(nb.float64(nb.float64[:], nb.float64[:], nb.float64[:,:], nb.float64[:,:], nb.boolean, nb.boolean))
 def distance_2_points(point1, point2, box, inv, ortho, mic_opt):
 
     vect_aux=point1-point2
@@ -17,8 +18,8 @@ def distance_2_points(point1, point2, box, inv, ortho, mic_opt):
     return dist
 
 
-@nb.jit(nb.float64(nb.float64[:], nb.float64[:], nb.float64[:]), nopython=True)
-def angle_3_vects(vec1, vec2, vec3):
+@nb.njit(nb.float64(nb.float64[:], nb.float64[:], nb.float64[:]))
+def angle_3_vectors(vec1, vec2, vec3):
 
     aux1 = cross_product(vec1, vec2)
     aux2 = cross_product(vec2, vec3)
@@ -40,8 +41,8 @@ def angle_3_vects(vec1, vec2, vec3):
     return ang
 
 
-@nb.jit(nb.float64[:,:,:](nb.boolean,nb.float64[:,:,:], nb.float64[:,:,:], nb.float64[:,:,:],
-    np.boolean, np.boolean), nopython=True)
+@nb.njit(nb.float64[:,:,:](nb.boolean,nb.float64[:,:,:], nb.float64[:,:,:], nb.float64[:,:,:],
+    nb.boolean, nb.boolean))
 def distance(diff_set, coors1, coors2, box, ortho, mic_opt):
 
     n_structures = coors1.shape[0]
@@ -77,8 +78,8 @@ def distance(diff_set, coors1, coors2, box, ortho, mic_opt):
     return matrix
 
 
-@nb.jit(nb.float64[:,:](nb.boolean,nb.float64[:,:,:], nb.float64[:,:,:], nb.float64[:,:,:],
-    np.boolean, np.boolean), nopython=True)
+@nb.njit(nb.float64[:,:](nb.float64[:,:,:], nb.float64[:,:,:], nb.float64[:,:,:],
+    nb.boolean, nb.boolean))
 def distance_pairs(coors1, coors2, box, ortho, mic_opt):
 
     n_structures = coors1.shape[0]
@@ -95,26 +96,30 @@ def distance_pairs(coors1, coors2, box, ortho, mic_opt):
     return matrix
 
 
-@nb.jit(void(nb.boolean,nb.float64[:,:,:], nb.float64[:,:], nb.float64[:]), nopython=True)
+@nb.njit(nb.void(nb.float64[:,:,:], nb.float64[:,:], nb.int64[:]))
 def translate(coors, shifts, structure_indices):
 
     n_structures_indices=structure_indices.shape[0]
+    n_atoms=coors.shape[1]
 
     for ii in range(n_structures_indices):
         kk=structure_indices[ii]
         for jj in range(n_atoms):
             coors[kk,jj,:]=coors[kk,jj,:]+shifts[ii,:]
 
+    pass
 
-@nb.jit(nb.float64[:,:](nb.float64[:,:,:], nb.float64[:,:,:], np.boolean, np.boolean, np.int64[:,:]), nopython=True)
+@nb.njit(nb.float64[:,:](nb.float64[:,:,:], nb.float64[:,:,:], nb.boolean, nb.boolean, nb.int64[:,:]))
 def dihedral_angles(coors, box, ortho, mic_opt, quartets):
 
     n_structures=coors.shape[0]
-    n_angs=quartets[0]
+    n_angs=quartets.shape[0]
+
+    angs=np.empty((n_structures,n_angs), dtype=nb.float64)
 
     for jj in range(n_structures):
         tmp_box=box[jj,:,:]
-        tmp_inv=inverse_matrix_3x3[tmp_box]
+        tmp_inv=inverse_matrix_3x3(tmp_box)
         counter=0
         for at0, at1, at2, at3 in quartets:
             vect0=coors[jj,at1]-coors[jj,at0]
@@ -130,14 +135,14 @@ def dihedral_angles(coors, box, ortho, mic_opt, quartets):
     return angs
 
 
-@nb.jit(void(nb.float64[:,:,:], nb.float64[:,:,:], np.boolean, np.boolean, np.int64[:,:],
-    nb.float64[:,:], nb.int64[:], nb.int64[:]), nopython=True)
+@nb.njit(nb.void(nb.float64[:,:,:], nb.float64[:,:,:], nb.boolean, nb.boolean, nb.int64[:,:],
+    nb.float64[:,:], nb.int64[:], nb.int64[:]))
 def set_dihedral_angles(coors, box, ortho, mic_opt, quartets, angs, blocks, atoms_per_block):
 
     n_structures=coors.shape[0]
     n_angs=angs.shape[0]
 
-    aux_block = np.zeros((n_angs+1), dtype=int)
+    aux_block = np.zeros((n_angs+1), dtype=nb.int64)
 
     for ii in range(n_angs):
         aux_block[ii+1:]=aux_block[ii+1:]+atoms_per_block[ii]
@@ -158,10 +163,11 @@ def set_dihedral_angles(coors, box, ortho, mic_opt, quartets, angs, blocks, atom
             old_ang=angle_3_vectors(vect0, vect1, vect2)
             shift_ang=angs[jj,counter]-old_ang
             for kk in range(aux_block[ii], aux_block[ii+1]):
-                vect_aux=coors[jj,kk,:]-coors[jj,at2,:]
+                ll=blocks[kk]
+                vect_aux=coors[jj,ll,:]-coors[jj,at2,:]
                 if mic_opt:
                     mic(vect_aux, tmp_box, tmp_inv, ortho)
-                rogrigues_rotation(vect_aux, u_vect, shift_ang)
+                rodrigues_rotation(vect_aux, u_vect, shift_ang)
                 if mic_opt:
                     mic(vect_aux, tmp_box, tmp_inv, ortho)
                 coors[jj,ll,:]=coors[jj,at2,:]+vect_aux
