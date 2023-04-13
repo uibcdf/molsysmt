@@ -1,6 +1,8 @@
 import numpy as np
 import numba as nb
-from .math import dot_product
+from .math import dot_product, quaternion_to_rotation_matrix,\
+        rotation_and_translation_single_structure
+import math
 
 @nb.njit(nb.float64[:](nb.float64[:,:,:], nb.int64[:], nb.float64[:,:,:], nb.int64[:]))
 def rmsd(coors, list_atoms, coors_ref, structure_indices):
@@ -8,14 +10,14 @@ def rmsd(coors, list_atoms, coors_ref, structure_indices):
     n_structure_indices = structure_indices.shape[0]
     n_list_atoms = list_atoms.shape[0]
 
-    output = np.empty((n_structure_indices), dtype=float)
+    output = np.empty((n_structure_indices), dtype=nb.float64)
 
     counter=0
     for ll in structure_indices:
         val_aux=0.0
         for ii in list_atoms:
             vect_aux=coors_ref[0,ii,:]-coors[ll,list_atoms[ii],:]
-            val_aux+=dot_product(vect_aux)
+            val_aux+=dot_product(vect_aux,vect_aux)
         output[counter]=val_aux
         counter+=1
 
@@ -30,20 +32,21 @@ def least_rmsd(coors, list_atoms, coors_ref, structure_indices):
     n_structure_indices = structure_indices.shape[0]
     n_list_atoms = list_atoms.shape[0]
 
-    center_ref=np.empty((3), dtype=float)
+    center_ref=np.empty((3), dtype=nb.float64)
+    center_2=np.empty((3), dtype=nb.float64)
 
-    x=np.zeros((n_list_atoms,3), dtype=float)
-    y=np.zeros((n_list_atoms,3), dtype=float)
+    x=np.zeros((n_list_atoms,3), dtype=nb.float64)
+    y=np.zeros((n_list_atoms,3), dtype=nb.float64)
 
-    output=np.zeros((n_structure_indices), dtype=float)
+    output_rmsd=np.zeros((n_structure_indices), dtype=nb.float64)
 
-    R=np.zeros((3,3), dtype=float)
-    F=np.zeros((4,4), dtype=float)
+    R=np.zeros((3,3), dtype=nb.float64)
+    F=np.zeros((4,4), dtype=nb.float64)
 
     # copy and weigth coordinates
 
     ##weights for atoms
-    w=np.ones((n_list_atoms), dtype=float)
+    w=np.ones((n_list_atoms), dtype=nb.float64)
 
     for ii in range(n_list_atoms):
         x[ii,:]=w[ii]*coors_ref[0,ii,:]
@@ -53,29 +56,28 @@ def least_rmsd(coors, list_atoms, coors_ref, structure_indices):
     for ii in range(3):
         center_ref[ii]=np.sum(x[:,ii])/n_list_atoms
         x[:,ii]=x[:,ii]-center_ref[ii]
-        x_norm=x_norm+dot_product(x[:,ii])
+        x_norm=x_norm+dot_product(x[:,ii],x[:,ii])
 
     for ll in range(n_structure_indices):
 
         structure_index=structure_indices[ll]
 
-        y=0.0
-        rmsd=0.0
         msd=0.0
-        center_2=0.0
         y_norm=0.0
-        R=0.0
-        F=0.0
+        center_2[:]=0.0
+        y[:,:]=0.0
+        R[:,:]=0.0
+        F[:,:]=0.0
 
         # copy and weight coordinates
         for ii in range(n_list_atoms):
-            y[ii,:]=w[ii]*coors[structure_index, list_atoms[ii], :]
-
+            mm = list_atoms[ii]
+            y[ii,:]=w[ii]*coors[structure_index,mm,:]
         # baricentros, centroides y normas
         for ii in range(3):
             center_2[ii]=np.sum(y[:,ii])/n_list_atoms
             y[:,ii]=y[:,ii]-center_2[ii]
-            y_norm=y_norm+dot_product(y[:,ii])
+            y_norm=y_norm+dot_product(y[:,ii], y[:,ii])
 
         # R matrix
         for ii in range(3):
@@ -105,26 +107,26 @@ def least_rmsd(coors, list_atoms, coors_ref, structure_indices):
 
         # rmsd
         msd=max(0.0,((x_norm+y_norm)-2.0*eigvalues[3]))/n_list_atoms
-        rmsd=sqrt(msd)
-        rmsd_val(ll)=rmsd
+        output_rmsd[ll]=math.sqrt(msd)
 
-    return rmsd_val
+    return output_rmsd
 
-@nb.njit(void(nb.float64[:,:,:], nb.int64[:], nb.float64[:,:,:], nb.int64[:]))
+@nb.njit(nb.void(nb.float64[:,:,:], nb.int64[:], nb.float64[:,:,:], nb.int64[:]))
 def least_rmsd_fit(coors, list_atoms, coors_ref, structure_indices):
 
     n_structure_indices = structure_indices.shape[0]
     n_list_atoms = list_atoms.shape[0]
 
-    center_ref=np.empty((3), dtype=float)
+    center_ref=np.empty((3), dtype=nb.float64)
+    center_2=np.empty((3), dtype=nb.float64)
 
-    x=np.zeros((n_list_atoms,3), dtype=float)
-    y=np.zeros((n_list_atoms,3), dtype=float)
+    x=np.zeros((n_list_atoms,3), dtype=nb.float64)
+    y=np.zeros((n_list_atoms,3), dtype=nb.float64)
 
-    output=np.zeros((n_structure_indices), dtype=float)
+    output=np.zeros((n_structure_indices), dtype=nb.float64)
 
-    R=np.zeros((3,3), dtype=float)
-    F=np.zeros((4,4), dtype=float)
+    R=np.zeros((3,3), dtype=nb.float64)
+    F=np.zeros((4,4), dtype=nb.float64)
 
     # copy and weigth coordinates
 
@@ -139,29 +141,29 @@ def least_rmsd_fit(coors, list_atoms, coors_ref, structure_indices):
     for ii in range(3):
         center_ref[ii]=np.sum(x[:,ii])/n_list_atoms
         x[:,ii]=x[:,ii]-center_ref[ii]
-        x_norm=x_norm+dot_product(x[:,ii])
+        x_norm=x_norm+dot_product(x[:,ii],x[:,ii])
 
     for ll in range(n_structure_indices):
 
         structure_index=structure_indices[ll]
 
-        y=0.0
-        rmsd=0.0
         msd=0.0
-        center_2=0.0
         y_norm=0.0
-        R=0.0
-        F=0.0
+        center_2[:]=0.0
+        y[:,:]=0.0
+        R[:,:]=0.0
+        F[:,:]=0.0
 
         # copy and weight coordinates
         for ii in range(n_list_atoms):
-            y[ii,:]=w[ii]*coors[structure_index, list_atoms[ii], :]
+            mm=list_atoms[ii]
+            y[ii,:]=w[ii]*coors[structure_index, mm, :]
 
         # baricentros, centroides y normas
         for ii in range(3):
             center_2[ii]=np.sum(y[:,ii])/n_list_atoms
             y[:,ii]=y[:,ii]-center_2[ii]
-            y_norm=y_norm+dot_product(y[:,ii])
+            y_norm=y_norm+dot_product(y[:,ii],y[:,ii])
 
         # R matrix
         for ii in range(3):
@@ -187,12 +189,12 @@ def least_rmsd_fit(coors, list_atoms, coors_ref, structure_indices):
         F[3,3]=-R[0,0]-R[1,1]+R[2,2]
 
         # Diagonalization with dsyevx (Lapack)
-        eigvalues, eigvectors = np.linalg.eigvalsh(F)
+        eigvalues, eigvectors = np.linalg.eigh(F)
 
         # Rotation matrix
         U=quaternion_to_rotation_matrix(eigvectors[:,3])
 
-        # New positions wit translation and rotation
+        # New positions with translation and rotation
         rotation_and_translation_single_structure(coors[structure_index,:,:], center_2, U, center_ref)
 
     pass

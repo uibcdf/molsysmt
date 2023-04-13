@@ -1,7 +1,7 @@
 from molsysmt._private.exceptions import NotImplementedMethodError
 from molsysmt._private.digestion import digest
-from molsysmt._private.math import serialized_lists
-from molsysmt.lib import com as libcom
+from molsysmt.lib.math import serialized_lists
+from molsysmt.lib.com import center_of_mass
 from molsysmt import pyunitwizard as puw
 import numpy as np
 
@@ -31,10 +31,10 @@ def get_center(molecular_system, selection='all', groups_of_atoms=None, weights=
         n_atoms = coordinates.shape[1]
         n_structures = coordinates.shape[0]
 
-        com = libcom.center_of_mass(coordinates,
-                                    groups_serialized.indices, groups_serialized.values, groups_serialized.starts,
-                                    weights, n_structures, n_atoms,
-                                    groups_serialized.n_indices, groups_serialized.n_values)
+        com = center_of_mass(coordinates,
+                             groups_serialized.indices, groups_serialized.values, groups_serialized.starts,
+                             weights, n_structures, n_atoms,
+                             groups_serialized.n_indices, groups_serialized.n_values)
 
         del(coordinates, groups_serialized)
 

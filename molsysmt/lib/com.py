@@ -5,11 +5,17 @@ import numba as nb
 def geometrical_center(coors, group_indices, groups_atoms_indices, groups_starts):
 
 
-    n_groups_atoms=groups_atoms_indices.shape[0]
+    n_structures=coors.shape[0]
+    n_groups=group_indices.shape[0]
 
-    weights=np.ones((n_groups_atoms), dtype=nb.float64)
+    center=np.zeros((n_structures, n_groups, 3), dtype=nb.float64)
 
-    center=center_of_mass(coors, group_indices, groups_atoms_indices, groups_starts, weights)
+    for ii in range(n_groups):
+        n_atoms_in_group = groups_starts[ii+1]-groups_starts[ii]
+        for jj in range(groups_starts[ii], groups_starts[ii+1]):
+            atom_index = groups_atoms_indices[jj]
+            for ll in range(n_structures):
+                center[ll,ii,:]=center[ll,ii,:]+coors[ll,atom_index,:]/n_atoms_in_group
 
     return center
 

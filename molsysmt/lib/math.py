@@ -50,6 +50,33 @@ def cross_product(a, b):
     return output
 
 
+@nb.njit(nb.float64(nb.float64[:],
+                     nb.float64[:],
+                     nb.float64[:],
+                     ),
+        )
+def dihedral_angle(vect0, vect1, vect2):
+
+    aux0 = cross_product(vect0, vect1)
+    aux1 = cross_product(vect1, vect2)
+
+    cosa = dot_product(aux0,aux1)/(norm_vector(aux0)*norm_vector(aux1))
+
+    if cosa>=1.0:
+        cosa=1.0
+    if cosa<=-1.0:
+        cosa=-1.0
+
+    ang = math.degrees(math.acos(cosa))
+
+    aux2 = cross_product(aux0,aux1)
+
+    if dot_product(aux2,vect1)<=0:
+        ang=-ang
+
+    return ang
+
+
 @nb.njit(nb.void(nb.float64[:,:], nb.float64[:], nb.float64[:,:], nb.float64[:]))
 def rotation_and_translation_single_structure(coors, center_rotation, rotation_matrix, translation):
 
@@ -247,4 +274,24 @@ def quaternion_to_rotation_matrix(q):
     U[2,1]=q23+q01
 
     return U
+
+@nb.njit(nb.int64(nb.int64[:]))
+def occurrence_order(serie):
+
+
+    output = np.zeros(serie.shape[0], dtype=nb.int64)
+
+    aux={}
+    in_aux = 0
+
+    for ii in component_indices:
+        if not ii in aux:
+            aux[ii]=in_aux
+            in_aux+=1
+
+    for ii, jj in enumerate(component_indices):
+        output[ii]=aux[jj]
+
+    pass
+
 

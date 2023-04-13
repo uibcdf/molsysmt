@@ -20,9 +20,24 @@ classifiers = [
 ]
 requires-python = "~=3.8,~=3.9"
 # Declare any run-time dependencies that should be installed with the package.
-#dependencies = [
-#    "importlib-resources;python_version<'3.10'",
-#]
+dependencies = [
+    "numpy",
+    "numba",
+    "pyunitwizard",
+    "sabueso",
+    "mmtf-python",
+    "pandas",
+    "openmm",
+    "pdbfixer",
+    "nglview",
+    "ambertools",
+    "networkx",
+    "mdtraj",
+    "mdanalysis",
+    "biopython",
+    "tqdm",
+    "ipywidgets<8",
+]
 
 # Update the urls once the hosting is set up.
 [project.urls]

@@ -1,14 +1,14 @@
 from molsysmt._private.exceptions import NotImplementedMethodError
 from molsysmt._private.digestion import digest
 from molsysmt._private.variables import is_all
-from molsysmt.lib import geometry as libgeometry
+from molsysmt.lib.geometry import distance
 from molsysmt import pyunitwizard as puw
 import numpy as np
 
 @digest()
 def get_distances(molecular_system, selection="all", groups_of_atoms=None, group_behavior=None, structure_indices="all",
              molecular_system_2=None, selection_2=None, groups_of_atoms_2=None, group_behavior_2=None, structure_indices_2=None,
-             pairs=False, crossed_structures=False, pbc=False, output_type='numpy.ndarray',
+             pairs=False, crossed_structures=False, pbc=True, output_type='numpy.ndarray',
              output_with_atom_indices=False, output_with_structure_indices=False, engine='MolSysMT',
              syntax='MolSysMT'):
     """get_distances(item, to_form='molsysmt.MolSys', selection='all', structure_indices='all', syntax='MolSysMT', **kwargs)
@@ -204,14 +204,12 @@ def get_distances(molecular_system, selection="all", groups_of_atoms=None, group
                 raise ValueError("Both structure_indices and structure_indices_2 need the same number of structures.")
             else:
                 if pairs is False:
-                    dists = libgeometry.distance(int(diff_set), coordinates_1, coordinates_2, box, orthogonal, int(pbc),
-                                                 nelements1, nelements2, nstructures_1)
+                    dists = distance(diff_set, coordinates_1, coordinates_2, box, orthogonal, pbc)
                 else:
                     if nstructures_1 != nstructures_2:
                         raise ValueError("Both selection and selection_2 need the same number of atoms.")
                     else:
-                        dists = libgeometry.distance_pairs(coordinates_1, coordinates_2, box, orthogonal, int(pbc),
-                                                           nelements1, nelements2, nstructures_1)
+                        dists = distance_pairs(coordinates_1, coordinates_2, box, orthogonal, pbc)
         else:
             raise NotImplementedMethodError
 

@@ -160,7 +160,7 @@ def get_coordinates_from_atom(item, indices='all', structure_indices='all'):
     if (indices is None) or (structure_indices is None):
         return None
 
-    from molsysmt._private.math import serie_to_chunks
+    from molsysmt.lib.math import serie_to_chunks
 
     if is_all(structure_indices):
         structure_indices = np.arange(get_n_structures_from_system(item))
@@ -508,7 +508,7 @@ def get_box_from_system(item, structure_indices='all'):
     if structure_indices is None:
         return None
 
-    from molsysmt._private.math import serie_to_chunks
+    from molsysmt.lib.math import serie_to_chunks
     from molsysmt.pbc import get_box_from_lengths_and_angles
 
     if is_all(structure_indices):
@@ -542,7 +542,7 @@ def get_time_from_system(item, structure_indices='all'):
     if structure_indices is None:
         return None
 
-    from molsysmt._private.math import serie_to_chunks
+    from molsysmt.lib.math import serie_to_chunks
 
     if is_all(structure_indices):
         structure_indices = np.arange(get_n_structures_from_system(item))
