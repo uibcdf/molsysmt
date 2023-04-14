@@ -205,8 +205,20 @@ def distance_pairs(coors1, coors2, box, pbc=True):
     return matrix
 
 
+@nb.njit([nb.float64[:,:,:](nb.float64[:,:,:],
+                            nb.float64[:,:,:],
+                            nb.optional(nb.float64[:,:,:]),
+                            nb.types.Omitted(True),
+                            ),
+          nb.float64[:,:,:](nb.boolean,
+                            nb.float64[:,:,:],
+                            nb.optional(nb.float64[:,:,:]),
+                            nb.optional(nb.float64[:,:,:]),
+                            nb.boolean,
+                           )
+         ])
 @nb.njit(nb.void(nb.float64[:,:,:], nb.float64[:,:], nb.int64[:]))
-def translate(coors, shifts, structure_indices):
+def translate(coordinates, translation, atom_indices, structure_indices):
 
     n_structures_indices=structure_indices.shape[0]
     n_atoms=coors.shape[1]
