@@ -1,27 +1,22 @@
 import numpy as np
 import numba as nb
 import math
+from .make_numba_signature import make_numba_signature
 from .pbc import mic_single_structure
 from .math import norm_vector, cross_product, dot_product, inverse_matrix_3x3, normalize_vector,\
         rodrigues_rotation
 
-
-@nb.njit([nb.float64(nb.float64[:],
-                     nb.float64[:],
-                     nb.optional(nb.float64[:,:]),
-                     nb.optional(nb.float64[:,:]),
-                     nb.optional(nb.boolean),
-                     nb.types.Omitted(True),
-                     ),
-          nb.float64(nb.float64[:],
-                     nb.float64[:],
-                     nb.optional(nb.float64[:,:]),
-                     nb.optional(nb.float64[:,:]),
-                     nb.optional(nb.boolean),
-                     nb.boolean,
-                     )
-         ])
-def distance_2_points_single_structure(point1, point2, box, inv_box, orthogonal, pbc=True):
+arguments=[
+        nb.float64[:],
+        nb.float64[:],
+        [nb.float64[:,:], None],
+        [nb.float64[:,:], None],
+        [nb.boolean, None],
+        [nb.boolean, True]
+        ]
+output=nb.float64
+@nb.njit(make_numba_signature(arguments,output))
+def distance_2_points_single_structure(point1, point2, box=None, inv_box=None, orthogonal=None, pbc=True):
 
     if pbc and (box is None):
         pbc=False
@@ -37,32 +32,26 @@ def distance_2_points_single_structure(point1, point2, box, inv_box, orthogonal,
     return dist
 
 
-@nb.njit([nb.float64(nb.float64[:],
-                     nb.float64[:],
-                     nb.float64[:],
-                     nb.optional(nb.float64[:,:]),
-                     nb.optional(nb.float64[:,:]),
-                     nb.optional(nb.boolean),
-                     nb.types.Omitted(True),
-                     ),
-          nb.float64(nb.float64[:],
-                     nb.float64[:],
-                     nb.float64[:]),
-                     nb.optional(nb.float64[:,:]),
-                     nb.optional(nb.float64[:,:]),
-                     nb.optional(nb.boolean),
-                     nb.boolean,
-                     )
-         ])
-def dihedral_angle_single_structure(vect0, vect1, vect2, box, inv, orthogonal, pbc=True):
+arguments=[
+        nb.float64[:],
+        nb.float64[:],
+        nb.float64[:],
+        [nb.float64[:,:], None],
+        [nb.float64[:,:], None],
+        [nb.boolean, None],
+        [nb.boolean, True]
+        ]
+output=nb.float64
+@nb.njit(make_numba_signature(arguments,output))
+def dihedral_angle_single_structure(vect0, vect1, vect2, box=None, inv_box=None, orthogonal=None, pbc=True):
 
     if pbc and (box is None):
         pbc=False
 
     if pbc:
-        minimum_image_convention(vect0, box, inv, ortho)
-        minimum_image_convention(vect1, box, inv, ortho)
-        minimum_image_convention(vect2, box, inv, ortho)
+        minimum_image_convention(vect0, box, inv_box, ortho)
+        minimum_image_convention(vect1, box, inv_box, ortho)
+        minimum_image_convention(vect2, box, inv_box, ortho)
 
     dist=norm_vector(vect_aux)
     aux0 = cross_product(vect0, vect1)
@@ -85,20 +74,15 @@ def dihedral_angle_single_structure(vect0, vect1, vect2, box, inv, orthogonal, p
     return ang
 
 
-@nb.njit([nb.float64[:,:,:](nb.boolean,
-                            nb.float64[:,:,:],
-                            nb.optional(nb.float64[:,:,:]),
-                            nb.optional(nb.float64[:,:,:]),
-                            nb.types.Omitted(True),
-                            ),
-          nb.float64[:,:,:](nb.boolean,
-                            nb.float64[:,:,:],
-                            nb.optional(nb.float64[:,:,:]),
-                            nb.optional(nb.float64[:,:,:]),
-                            nb.boolean,
-                           )
-         ])
-def distance(coors1, coors2, box, pbc=True):
+arguments=[
+        nb.float64[:,:,:],
+        nb.float64[:,:,:],
+        [nb.float64[:,:,:], None],
+        [nb.boolean, True]
+        ]
+output=nb.float64[:,:,:]
+@nb.njit(make_numba_signature(arguments,output))
+def distance(coors1, coors2, box=None,  pbc=True):
 
     if pbc and (box is None):
         pbc=False

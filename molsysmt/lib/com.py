@@ -1,7 +1,15 @@
 import numpy as np
 import numba as nb
+from .make_numba_signature import make_numba_signature
 
-@nb.njit(nb.float64[:,:,:](nb.float64[:,:,:],nb.int64[:],nb.int64[:],nb.int64[:]))
+arguments=[
+        nb.float64[:,:,:],
+        nb.int64[:],
+        nb.int64[:],
+        nb.int64[:]
+        ]
+output=nb.float64[:,:,:]
+@nb.njit(make_numba_signature(artuments,output))
 def geometrical_center(coors, group_indices, groups_atoms_indices, groups_starts):
 
 
@@ -19,7 +27,15 @@ def geometrical_center(coors, group_indices, groups_atoms_indices, groups_starts
 
     return center
 
-@nb.njit(nb.float64[:,:,:](nb.float64[:,:,:],nb.int64[:],nb.int64[:],nb.int64[:],nb.float64[:]))
+arguments=[
+        nb.float64[:,:,:],
+        nb.int64[:],
+        nb.int64[:],
+        nb.int64[:],
+        nb.float64[:]
+        ]
+output=nb.float64[:,:,:]
+@nb.njit(make_numba_signature(artuments,output))
 def center_of_mass(coors, group_indices, groups_atoms_indices, groups_starts, weights):
 
     n_structures=coors.shape[0]
@@ -37,3 +53,5 @@ def center_of_mass(coors, group_indices, groups_atoms_indices, groups_starts, we
                 center[ll,ii,:]=center[ll,ii,:]+weights[jj]*coors[ll,atom_index,:]/total_weight
 
     return center
+
+del(artuments, output, np, nb)
