@@ -9,6 +9,7 @@ def get_angles_from_box(box):
     angles_value = msmlib.pbc.get_angles_from_box(box_value)
     angles = puw.quantity(angles.round(6), 'radians')
 
+    angles = puw.standardize()
 
     return angles
 
