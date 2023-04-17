@@ -99,7 +99,7 @@ def box_is_orthogonal_single_structure(box):
                  nb.optional(nb.boolean),
                  )
         )
-def pbc_single_structure(vector, box, inv_box, orthogonal):
+def pbc_vector(vector, box, inv_box, orthogonal):
 
     if orthogonal is None:
         orthogonal = box_is_orthogonal_single_structure(box)
@@ -135,7 +135,7 @@ def pbc_single_structure(vector, box, inv_box, orthogonal):
                  nb.optional(nb.boolean)
                  )
         )
-def mic_single_structure(vector, box, inv_box, orthogonal):
+def mic_vector(vector, box, inv_box, orthogonal):
 
     if orthogonal is None:
         orthogonal = box_is_orthogonal_single_structure(box)

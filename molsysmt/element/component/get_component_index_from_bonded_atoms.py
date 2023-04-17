@@ -1,6 +1,6 @@
 import numpy as np
 import networkx as nx
-from molsysmt.lib.math import occurrence_order
+from molsysmt import lib as msmlib
 
 def get_component_index_from_bonded_atoms(bonded_atoms):
 
@@ -14,7 +14,7 @@ def get_component_index_from_bonded_atoms(bonded_atoms):
         output[list(component)]=component_index
         component_index+=1
 
-    output=occurrence_order(output)
+    output=msmlib.math.occurrence_order(output)
 
     return output
 

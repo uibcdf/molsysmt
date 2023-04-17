@@ -3,17 +3,17 @@ import numba as nb
 from .make_numba_signature import make_numba_signature
 
 arguments=[
-        nb.float64[:,:,:],
-        nb.int64[:],
-        nb.int64[:],
-        nb.int64[:]
+        nb.float64[:,:,:], # coordinates
+        nb.int64[:], # group_indices
+        nb.int64[:], # groups_atoms_indices
+        nb.int64[:] # groups_starts
         ]
 output=nb.float64[:,:,:]
 @nb.njit(make_numba_signature(artuments,output))
-def geometrical_center(coors, group_indices, groups_atoms_indices, groups_starts):
+def geometrical_center(coordinates, group_indices, groups_atoms_indices, groups_starts):
 
 
-    n_structures=coors.shape[0]
+    n_structures=coordinates.shape[0]
     n_groups=group_indices.shape[0]
 
     center=np.zeros((n_structures, n_groups, 3), dtype=nb.float64)
@@ -23,22 +23,23 @@ def geometrical_center(coors, group_indices, groups_atoms_indices, groups_starts
         for jj in range(groups_starts[ii], groups_starts[ii+1]):
             atom_index = groups_atoms_indices[jj]
             for ll in range(n_structures):
-                center[ll,ii,:]=center[ll,ii,:]+coors[ll,atom_index,:]/n_atoms_in_group
+                center[ll,ii,:]=center[ll,ii,:]+coordinates[ll,atom_index,:]/n_atoms_in_group
 
     return center
 
+
 arguments=[
-        nb.float64[:,:,:],
-        nb.int64[:],
-        nb.int64[:],
-        nb.int64[:],
-        nb.float64[:]
+        nb.float64[:,:,:], # coordinates
+        nb.int64[:], # group_indices
+        nb.int64[:], # groups_atoms_indices
+        nb.int64[:], # groups_starts
+        nb.float64[:] # weights
         ]
 output=nb.float64[:,:,:]
 @nb.njit(make_numba_signature(artuments,output))
-def center_of_mass(coors, group_indices, groups_atoms_indices, groups_starts, weights):
+def center_of_mass(coordinates, group_indices, groups_atoms_indices, groups_starts, weights):
 
-    n_structures=coors.shape[0]
+    n_structures=coordinates.shape[0]
     n_groups=group_indices.shape[0]
 
     center=np.zeros((n_structures, n_groups, 3), dtype=nb.float64)
@@ -50,8 +51,9 @@ def center_of_mass(coors, group_indices, groups_atoms_indices, groups_starts, we
         for jj in range(groups_starts[ii], groups_starts[ii+1]):
             atom_index = groups_atoms_indices[jj]
             for ll in range(n_structures):
-                center[ll,ii,:]=center[ll,ii,:]+weights[jj]*coors[ll,atom_index,:]/total_weight
+                center[ll,ii,:]=center[ll,ii,:]+weights[jj]*coordinates[ll,atom_index,:]/total_weight
 
     return center
 
 del(artuments, output, np, nb)
+
