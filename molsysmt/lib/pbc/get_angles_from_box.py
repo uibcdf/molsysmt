@@ -3,9 +3,12 @@ import numpy as np
 import math
 from .math import inverse_matrix_3x3, norm_vector, dot_product
 
-
-@nb.njit(nb.float64[:,:](nb.float64[:,:,:]))
-def angles_box(box):
+arguments=[
+        nb.float64[:,:,:], # box
+        ]
+output=nb.float64[:,:]
+@nb.njit(make_numba_signature(arguments, output))
+def get_angles_from_box(box):
 
     n_frames = box.shape[0]
     angles = np.zeros((n_frames,3), dtype=nb.float64)
@@ -18,12 +21,9 @@ def angles_box(box):
         x = norm_vector(v0)
         y = norm_vector(v1)
         z = norm_vector(v2)
-        a=math.acos(dot_product(v1,v2)/(y*z)) # alpha: v2 and v3
-        b=math.acos(dot_product(v2,v0)/(x*z)) # beta: v1 and v3
-        c=math.acos(dot_product(v1,v0)/(x*y)) # gamma: v1 and v2
-        angles[ii,0] = math.degrees(a)
-        angles[ii,1] = math.degrees(b)
-        angles[ii,2] = math.degrees(c)
+        angles[ii,0] = math.acos(dot_product(v1,v2)/(y*z)) # alpha: v2 and v3
+        angles[ii,1] = math.acos(dot_product(v2,v0)/(x*z)) # beta: v1 and v3
+        angles[ii,2] = math.acos(dot_product(v1,v0)/(x*y)) # gamma: v1 and v2
 
     return angles
 

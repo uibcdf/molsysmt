@@ -16,6 +16,7 @@ def get_lengths_from_box(box):
     lengths = np.zeros((n_frames,3), dtype=nb.float64)
 
     for ii in range(n_structures):
+
         lengths[:,0] = norm_vector(box[ii,0,:])
         lengths[:,1] = norm_vector(box[ii,1,:])
         lengths[:,2] = norm_vector(box[ii,2,:])

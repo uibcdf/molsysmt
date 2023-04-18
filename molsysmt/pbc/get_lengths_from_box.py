@@ -8,6 +8,7 @@ def get_lengths_from_box(box):
     box_value, box_unit  = puw.get_value_and_unit(box)
     lengths_value = msmlib.pbc.get_lengths_from_box(box_value)
     lengths = puw.quantity(lengths_value.round(6), box_unit)
+    lengths = puw.standardize(lengths)
 
     return lengths
 
