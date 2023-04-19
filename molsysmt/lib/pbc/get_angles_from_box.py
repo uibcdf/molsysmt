@@ -1,7 +1,8 @@
 import numba as nb
 import numpy as np
+from ..make_numba_signature import make_numba_signature
 import math
-from .math import inverse_matrix_3x3, norm_vector, dot_product
+from .math import norm_vector, dot_product
 
 arguments=[
         nb.float64[:,:,:], # box

@@ -4,57 +4,6 @@ import math
 from .math import inverse_matrix_3x3, norm_vector, dot_product
 
 
-
-@nb.njit(nb.float64[:,:,:](nb.float64[:,:],
-                           nb.float64[:,:],
-                           )
-        )
-def lengths_and_angles_to_box(lengths, angles):
-
-    n_frames = lengths.shape[0]
-
-    box = np.zeros((n_frames,3,3), dtype=nb.float64)
-
-    for ii in range(n_frames):
-
-        alpha=math.radians(angles[ii,0])
-        beta=math.radians(angles[ii,1])
-        gamm=math.radians(angles[ii,2])
-        x=lengths[ii,0]
-        y=lengths[ii,1]
-        z=lengths[ii,2]
-        box[ii,0,0]=x
-        box[ii,1,0]=y*math.cos(gamm)
-        box[ii,1,1]=y*math.sin(gamm)
-        box[ii,2,0]=z*math.cos(beta)
-        box[ii,2,1]=z*(math.cos(alpha)-math.cos(beta)*math.cos(gamm))/math.sin(gamm)
-        box[ii,2,2]=math.sqrt(z*z-box[ii,2,0]**2-box[ii,2,1]**2)
-
-    return box
-
-
-@nb.njit(nb.boolean(nb.float64[:,:,:]))
-def box_is_orthogonal(box):
-
-    p01=dot_product(box[0,0,:], box[0,1,:])
-    p02=dot_product(box[0,0,:], box[0,2,:])
-    p12=dot_product(box[0,1,:], box[0,2,:])
-
-    orthogonal = np.allclose([p01,p02,12],[0.0,0.0,0.0])
-
-    return orthogonal
-
-@nb.njit(nb.boolean(nb.float64[:,:]))
-def box_is_orthogonal_single_structure(box):
-
-    p01=dot_product(box[0,:], box[1,:])
-    p02=dot_product(box[0,:], box[2,:])
-    p12=dot_product(box[1,:], box[2,:])
-
-    orthogonal = np.allclose([p01,p02,12],[0.0,0.0,0.0])
-
-    return orthogonal
-
 @nb.njit(nb.void(nb.float64[:],
                  nb.float64[:,:],
                  nb.optional(nb.float64[:,:]),

@@ -27,13 +27,6 @@ def get_lengths_and_angles_from_box(box):
         lengths[:,1] = norm_vector(v1)
         lengths[:,2] = norm_vector(v2)
 
-    return lengths, angles
-
-    for ii in range(n_frames):
-
-        v0 = box[ii,0,:]
-        v1 = box[ii,1,:]
-        v2 = box[ii,2,:]
         x = norm_vector(v0)
         y = norm_vector(v1)
         z = norm_vector(v2)
@@ -41,5 +34,5 @@ def get_lengths_and_angles_from_box(box):
         angles[ii,1] = math.acos(dot_product(v2,v0)/(x*z)) # beta: v1 and v3
         angles[ii,2] = math.acos(dot_product(v1,v0)/(x*y)) # gamma: v1 and v2
 
-    return angles
+    return lengths, angles
 
