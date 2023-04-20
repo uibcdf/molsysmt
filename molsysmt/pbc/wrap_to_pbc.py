@@ -7,7 +7,7 @@ import numpy as np
 @digest()
 def wrap_to_pbc(molecular_system, selection='all', structure_indices='all',
                 center_coordinates='[0,0,0] nanometers', center_of_selection=None, weights=None,
-                recenter=True, keep_covalent_bonds=False,
+                center_at_origin=True, keep_covalent_bonds=False,
                 syntax='MolSysMT', engine='MolSysMT', in_place=False):
 
     if engine=='MolSysMT':

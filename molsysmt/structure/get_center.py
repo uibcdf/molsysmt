@@ -6,7 +6,7 @@ from molsysmt import pyunitwizard as puw
 import numpy as np
 
 @digest()
-def get_center(molecular_system, selection='all', groups_of_atoms=None, weights=None,
+def get_center(molecular_system, selection='all', groups_of_atoms=None, center_of_mass=False, weights=None,
         structure_indices='all', syntax='MolSysMT', engine='MolSysMT'):
 
     from molsysmt.basic import select, get
