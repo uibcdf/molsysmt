@@ -130,7 +130,7 @@ class serialized_lists():
             self.n_indices = self.indices.shape[0]
 
 
-@nb.njit(nb.types.UniTuple(nb.int64[:], 2)(nb.types.List(dtype=nb.types.List(dtype=nb.int64))))
+@nb.njit(nb.types.UniTuple(nb.int64[:], 2)(nb.types.ListType(nb.types.ListType(nb.int64))))
 def _jit_serialize(item):
 
     n_values=0
