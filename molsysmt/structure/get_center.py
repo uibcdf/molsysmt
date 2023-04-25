@@ -1,7 +1,6 @@
 from molsysmt._private.exceptions import NotImplementedMethodError
 from molsysmt._private.digestion import digest
-from molsysmt.lib.math import serialized_lists
-from molsysmt.lib.com import center_of_mass
+from molsysmt import lib as msmlib
 from molsysmt import pyunitwizard as puw
 import numpy as np
 
@@ -13,32 +12,22 @@ def get_center(molecular_system, selection='all', groups_of_atoms=None, center_o
 
     if engine=='MolSysMT':
 
-        if groups_of_atoms is None:
-            atom_indices = select(molecular_system, selection=selection, syntax=syntax)
-            groups_of_atoms = [atom_indices]
-
-        groups_serialized = serialized_lists(groups_of_atoms, dtype='int64')
-
-        if weights is None:
-            weights = np.ones((groups_serialized.n_values))
-        elif isinstance(weights, str):
-            raise NotImplementedMethodError()
-
         coordinates = get(molecular_system, element='system', structure_indices=structure_indices, coordinates=True)
+        coordinates_value, coordinates_unit = puw.get_value_and_unit(coordinates)
 
-        length_units = puw.get_unit(coordinates)
-        coordinates = np.asfortranarray(puw.get_value(coordinates), dtype='float64')
-        n_atoms = coordinates.shape[1]
-        n_structures = coordinates.shape[0]
+        if groups_of_atoms is None:
+            if is_all(selection):
+                atom_indices='all'
+            else:
+                atom_indices = select(molecular_system, selection=selection, syntax=syntax)
+            center = msmlib.structure.get_center(coordinates_value, atom_indices, weights)
+        else:
+            center = msmlib.structure.get_center_groups(coordinates_value, groups_of_atoms, weights)
 
-        com = center_of_mass(coordinates,
-                             groups_serialized.indices, groups_serialized.values, groups_serialized.starts,
-                             weights, n_structures, n_atoms,
-                             groups_serialized.n_indices, groups_serialized.n_values)
+        center = puw.quantity(center, coordinates_unit)
+        center = puw.standardize(center)
 
-        del(coordinates, groups_serialized)
-
-        return com*length_units
+        return center
 
     else:
 
