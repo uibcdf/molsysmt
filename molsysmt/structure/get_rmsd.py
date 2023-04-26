@@ -14,40 +14,26 @@ def get_rmsd(molecular_system, selection='backbone', structure_indices='all',
 
         from molsysmt.basic import select, get
 
-        n_atoms, n_structures = get(molecular_system, n_atoms=True, n_structures=True)
-        atom_indices = select(molecular_system, selection=selection, syntax=syntax)
-        n_atom_indices = atom_indices.shape[0]
-        if is_all(structure_indices):
-            structure_indices = np.arange(n_structures)
-        n_structure_indices = structure_indices.shape[0]
-
-        coordinates = get(molecular_system, structure_indices='all', coordinates=True)
-        units = puw.get_unit(coordinates)
-        coordinates = np.asfortranarray(puw.get_value(coordinates), dtype='float64')
-
         if reference_molecular_system is None:
             reference_molecular_system = molecular_system
 
         if reference_selection is None:
             reference_selection = selection
 
-        reference_atom_indices = select(reference_molecular_system,
-                selection=reference_selection, syntax=syntax)
+        coordinates = get(molecular_system, selection=selection, structure_indices=structure_indices,
+                          syntax=syntax, coordinates=True)
 
-        reference_coordinates = get(reference_molecular_system, element='atom', indices=reference_atom_indices,
-                                    structure_indices=reference_structure_index, coordinates=True)
+        reference_coordinates = get(reference_molecular_system, selection=reference_selection,
+                                    structure_indices=reference_structure_index, syntax=syntax,
+                                    coordinates=True)
 
-        reference_coordinates = np.asfortranarray(puw.get_value(reference_coordinates, to_unit=units), dtype='float64')
-
-        if reference_coordinates.shape[1]!=n_atom_indices:
-            raise ValueError("reference selection and selection needs to have the same number of atoms")
+        coordinates_value, coordinates_unit = puw.get_value_and_unit(coordinates)
+        reference_coordinates_value, reference_coordinates_unit = puw.get_value_and_unit(reference_coordinates)
 
         rmsd_val = librmsd.rmsd(coordinates, atom_indices, reference_coordinates, structure_indices,
                                  n_atoms, n_structures, n_atom_indices, n_structure_indices)
 
-        rmsd_val = rmsd_val * units
-        rmsd_val = puw.standardize(rmsd_val)
-        del(coordinates, units)
+        rmsd_val = puw.quantity(rmsd_val, coordinates_unit, standardize=True)
 
         return rmsd_val
 

@@ -13,26 +13,18 @@ def get_least_rmsd (molecular_system=None, selection='backbone', structure_indic
 
     if engine=='MolSysMT':
 
-        n_atoms, n_structures = get(molecular_system, n_atoms=True, n_structures=True)
-        atom_indices = select(molecular_system, selection=selection, syntax=syntax)
-        n_atom_indices = atom_indices.shape[0]
-        if is_all(structure_indices):
-            structure_indices = np.arange(n_structures)
-        n_structure_indices = structure_indices.shape[0]
+        coordinates = get(molecular_system, element='atom', selection=selection, structure_indices='all',
+                          syntax=syntax, coordinates=True)
 
-        if reference_coordinates is None:
+        if reference_molecular_system is None:
+            reference_molecular_system = molecular_system
 
-            if reference_molecular_system is None:
-                reference_molecular_system = molecular_system
 
-            if reference_selection is None:
-                reference_selection = selection
+        if reference_selection is None:
+            reference_selection = selection
 
-            reference_atom_indices = select(reference_molecular_system,
-                    selection=reference_selection, syntax=syntax)
-
-            reference_coordinates = get(reference_molecular_system, element='atom', indices=reference_atom_indices,
-                                        structure_indices=reference_structure_index, coordinates=True)
+        reference_coordinates = get(reference_molecular_system, element='atom', selection=reference_selection,
+                                    structure_indices=reference_structure_index, syntax=syntax, coordinates=True)
 
         coordinates = get(molecular_system, structure_indices='all', coordinates=True)
         units = puw.get_unit(coordinates)
