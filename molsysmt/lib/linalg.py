@@ -44,8 +44,8 @@ def dihedral_angle(vect0, vect1, vect2):
     return ang
 
 
-@nb.njit(nb.void(nb.float64[:,:], nb.float64[:], nb.float64[:,:], nb.float64[:]))
-def rotation_and_translation_single_structure(coors, center_rotation, rotation_matrix, translation):
+@nb.njit(nb.void(nb.float64[:,:], nb.int64[:], nb.float64[:], nb.float64[:,:], nb.float64[:]))
+def rotation_and_translation_single_structure(coors, atom_indices, center_rotation, rotation_matrix, translation):
 
     n_atoms = coors.shape[0]
 
@@ -53,13 +53,19 @@ def rotation_and_translation_single_structure(coors, center_rotation, rotation_m
 
     coors=np.ascontiguousarray(coors)
 
-    for ii in range(n_atoms):
-       coors[ii,:]=rotation_matrix_t@(coors[ii,:]-center_rotation)+translation
+    if atom_indices is None:
 
+        for ii in range(n_atoms):
+            coors[ii,:]=rotation_matrix_t@(coors[ii,:]-center_rotation)+translation
+
+    else:
+
+        for ii in atom_indices:
+            coors[ii,:]=rotation_matrix_t@(coors[ii,:]-center_rotation)+translation
     pass
 
 @nb.njit(nb.void(nb.float64[:,:,:], nb.float64[:], nb.float64[:,:], nb.float64[:]))
-def rotation_and_translation(coors, center_rotation, rotation_matrix, translation):
+def rotation_and_translation(coors, atom_indices, structure_indices, center_rotation, rotation_matrix, translation):
 
     n_atoms = coors.shape[1]
     n_structures = coors.shape[0]
@@ -68,9 +74,12 @@ def rotation_and_translation(coors, center_rotation, rotation_matrix, translatio
 
     coors=np.ascontiguousarray(coors)
 
-    for jj in range(n_structures):
-        for ii in range(n_atoms):
-            coors[jj,ii,:]=rotation_matrix_t@(coors[jj,ii,:]-center_rotation)+translation
+    if atom_indices is None:
+        if structure_indices is None:
+
+            for jj in range(n_structures):
+                for ii in range(n_atoms):
+                    coors[jj,ii,:]=rotation_matrix_t@(coors[jj,ii,:]-center_rotation)+translation
 
     pass
 

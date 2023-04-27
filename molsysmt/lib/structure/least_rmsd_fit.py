@@ -20,43 +20,61 @@ output=None
 def least_rmsd_fit(coordinates, atom_indices, atom_indices_to_move, structure_indices,
                    reference_coordinates, reference_atom_indices, reference_structure_indices):
 
-    n_structures, n_atoms = coordinates.shape[:-1]
+    n_atoms_rmsd = len(atom_indices)
 
     if reference_coordinates is None:
         reference_coordinates = coordinates
 
-    n_ref_structures, n_ref_atoms = coordinates.shape[:-1]
- 
+    n_structures=coordinates.shape[0]
+    n_reference_structures=reference_coordinates.shape[0]
+    reference_is_single_structure=False
+    if len(reference_structure_indices)==1:
+        reference_is_single_structure=True
 
     center_ref=np.empty((3), dtype=nb.float64)
     center_2=np.empty((3), dtype=nb.float64)
 
-    x=np.zeros((n_atoms,3), dtype=nb.float64)
-    y=np.zeros((n_atoms,3), dtype=nb.float64)
+    x=np.zeros((n_atoms_rmsd,3), dtype=nb.float64)
+    y=np.zeros((n_atoms_rmsd,3), dtype=nb.float64)
 
-    output=np.zeros((n_structure_indices), dtype=nb.float64)
+    output=np.zeros((n_structures), dtype=nb.float64)
 
     R=np.zeros((3,3), dtype=nb.float64)
     F=np.zeros((4,4), dtype=nb.float64)
 
-    # copy and weigth coordinates
+    w=np.ones((n_atoms_rmsd), dtype=float)
 
-    ##weights for atoms
-    w=np.ones((n_list_atoms), dtype=float)
+    if reference_is_single_structure:
 
-    for ii in range(n_list_atoms):
-        x[ii,:]=w[ii]*coors_ref[0,ii,:]
+        nn = reference_structure_indices[0]
 
-    # calculo baricentros, centroides y normas:
-    x_norm=0.0
-    for ii in range(3):
-        center_ref[ii]=np.sum(x[:,ii])/n_list_atoms
-        x[:,ii]=x[:,ii]-center_ref[ii]
-        x_norm=x_norm+dot_product(x[:,ii],x[:,ii])
+        for ii in range(n_atoms_rmsd):
+            jj = reference_atom_indices[ii]
+            x[ii,:]=w[ii]*coordinates_ref[nn,jj,:]
+
+        x_norm=0.0
+        for ii in range(3):
+            center_ref[ii]=np.sum(x[:,ii])/n_atoms_rmsd
+            x[:,ii]=x[:,ii]-center_ref[ii]
+            x_norm=x_norm+dot_product(x[:,ii],x[:,ii])
 
     for ll in range(n_structure_indices):
 
-        structure_index=structure_indices[ll]
+        if not reference_is_single_structure:
+
+            nn=reference_structure_indices[ll]
+
+            for ii in range(n_atoms_rmsd):
+                jj = reference_atom_indices[ii]
+                x[ii,:]=w[ii]*coordinates_ref[nn,jj,:]
+
+            x_norm=0.0
+            for ii in range(3):
+                center_ref[ii]=np.sum(x[:,ii])/n_atoms_rmsd
+                x[:,ii]=x[:,ii]-center_ref[ii]
+                x_norm=x_norm+dot_product(x[:,ii],x[:,ii])
+
+        mm=structure_indices[ll]
 
         msd=0.0
         y_norm=0.0
@@ -66,9 +84,9 @@ def least_rmsd_fit(coordinates, atom_indices, atom_indices_to_move, structure_in
         F[:,:]=0.0
 
         # copy and weight coordinates
-        for ii in range(n_list_atoms):
-            mm=list_atoms[ii]
-            y[ii,:]=w[ii]*coors[structure_index, mm, :]
+        for ii in range(n_atoms_rmsd):
+            jj=atom_indices[ii]
+            y[ii,:]=w[ii]*coordinates[mm, jj, :]
 
         # baricentros, centroides y normas
         for ii in range(3):
@@ -106,7 +124,8 @@ def least_rmsd_fit(coordinates, atom_indices, atom_indices_to_move, structure_in
         U=quaternion_to_rotation_matrix(eigvectors[:,3])
 
         # New positions with translation and rotation
-        rotation_and_translation_single_structure(coors[structure_index,:,:], center_2, U, center_ref)
+        rotation_and_translation_single_structure(coordinates[mm,:,:],
+                atom_indices_to_move, center_2, U, center_ref)
 
     pass
 
