@@ -1,7 +1,8 @@
 import numpy as np
 import numba as nb
-from .math import dot_product
-from .make_numba_signature import make_numba_signature
+from ..math import dot_product, transpmatmul
+from ..make_numba_signature import make_numba_signature
+from ..itertools import infinite_sequence, repeat
 
 arguments=[
     nb.float64[:,:], # coordinates [n_atoms,3]
@@ -13,48 +14,28 @@ output=nb.float64[:,:]
 @nb.njit(make_numba_signature(arguments,output))
 def rotate_single_structure(coordinates, center_rotation, rotation_matrix, atom_indices=None):
 
-    n_atoms = coors.shape[0]
-
-    rotation_matrix_t = np.ascontiguousarray(np.transpose(rotation_matrix))
-    coordinates=np.ascontiguousarray(coordinates)
+    new_coordinates=coordinates.copy()
 
     if atom_indices is None:
-
-        new_coordinates=np.empty((n_atoms,3), dtype=nb.float64)
-
-        if center_rotation.shape[0]==1:
-            if rotation_matrix.shape[0]==1:
-                for ii in range(n_atoms):
-                    new_coordinates[ii,:]=rotation_matrix_t[0,:,:]@(coordinates[ii,:]-center_rotation[0,:])
-            else:
-                for ii in range(n_atoms):
-                    new_coordinates[ii,:]=rotation_matrix_t[ii,:,:]@(coordinates[ii,:]-center_rotation[0,:])
-        else:
-            if rotation_matrix.shape[0]==1:
-                for ii in range(n_atoms):
-                    new_coordinates[ii,:]=rotation_matrix_t[0,:,:]@(coordinates[ii,:]-center_rotation[ii,:])
-            else:
-                for ii in range(n_atoms):
-                    new_coordinates[ii,:]=rotation_matrix_t[ii,:,:]@(coordinates[ii,:]-center_rotation[ii,:])
-
+        iter_atoms = range(coordinates.shape[0])
     else:
+        iter_atoms = atom_indices
 
-        new_coordinates=coordinates.copy()
+    if center_rotation.shape[0]==1:
+        iter_atoms_center_rotation=repeat(0)
+    else:
+        iter_atoms_center_rotation=infinite_sequence(0,1)
 
-        if center_rotation.shape[0]==1:
-            if rotation_matrix.shape[0]==1:
-                for ii in atom_indices:
-                    new_coordinates[ii,:]=rotation_matrix_t[0,:,:]@(coordinates[ii,:]-center_rotation[0,:])
-            else:
-                for aa,ii in enumerate(atom_indices):
-                    new_coordinates[ii,:]=rotation_matrix_t[aa,:,:]@(coordinates[ii,:]-center_rotation[0,:])
-        else:
-            if rotation_matrix.shape[0]==1:
-                for aa,ii in enumerate(atom_indices):
-                    new_coordinates[ii,:]=rotation_matrix_t[0,:,:]@(coordinates[ii,:]-center_rotation[aa,:])
-            else:
-                for aa,ii in enumerate(atom_indices):
-                    new_coordinates[ii,:]=rotation_matrix_t[aa,:,:]@(coordinates[ii,:]-center_rotation[aa,:])
+    if rotation_matrix.shape[0]==1:
+        iter_atoms_rotation_matrix=repeat(0)
+    else:
+        iter_atoms_rotation_matrix=infinite_sequence(0,1)
+
+    for ii in iter_atoms:
+        a_cr=next(iter_atoms_center_rotation)
+        a_rm=next(iter_atoms_rotation_matrix)
+        aux_vect=coordinates[ii,:]-center_rotation[a_cr,:]
+        new_coordinates[ii,:]=transpmatmul(rotation_matrix[a_rm,:,:],aux_vect)
 
     return new_coordinates
 
@@ -67,47 +48,50 @@ arguments=[
     [nb.int64[:], None], # atom_indices [n_atoms] or None
     [nb.int64[:], None], # atom_indices [n_structures] or None
 ]
-output=nb.float64[:,:]
+output=None
 @nb.njit(make_numba_signature(arguments,output))
 def rotate_single_structure(coordinates, center_rotation, rotation_matrix, atom_indices=None, structure_indices=None):
 
-    n_structures, n_atoms = coordinates.shape[:-1]
+    new_coordinates=coordinates.copy()
 
-    n_s_cr, n_a_cr = center_rotation[:-1]
-    n_s_rm, n_a_rm = rotation_matrix[:-2]
-    w_s_cr=False if n_s_cr==1 else True
-    w_a_cr=False if n_a_cr==1 else True
-    w_s_rm=False if n_s_rm==1 else True
-    w_a_rm=False if n_a_rm==1 else True
-    cc=0
-    dd=0
-    ee=0
-    ff=0
+    if structure_indices is None:
+        iter_structures = range(coordinates.shape[0])
+    else:
+        iter_structures = structure_indices
 
     if atom_indices is None:
-        if structure_indices is None:
-            for ii in range(n_structures):
-                for jj in range(n_atoms):
-                    if w_s_rm:
-                        cc=ii
-                    if w_a_rm:
-                        dd=jj
-                    if w_s_cr:
-                        ee=ii
-                    if w_a_cr:
-                        ff=jj
-                    coordinates[ii,jj,:]=rotation_matrix_t[cc,dd,:,:]@(coordinates[ii,jj,:]-center_rotation[ee,ff,:])
-        else:
-            for aa,ii in enumerate(structure_indices):
-                for jj in range(n_atoms):
-                    if w_s_rm:
-                        cc=aa
-                    if w_a_rm:
-                        dd=jj
-                    if w_s_cr:
-                        ee=aa
-                    if w_a_cr:
-                        ff=jj
-                    coordinates[ii,jj,:]=rotation_matrix_t[cc,dd,:,:]@(coordinates[ii,jj,:]-center_rotation[ee,ff,:])
+        iter_atoms = range(coordinates.shape[1])
+    else:
+        iter_atoms = atom_indices
 
+    if center_rotation.shape[0]==1:
+        iter_structures_center_rotation=repeat(0)
+    else:
+        iter_structures_center_rotation=infinite_sequence(0,1)
+
+    if rotation_matrix.shape[0]==1:
+        iter_structures_rotation_matrix=repeat(0)
+    else:
+        iter_structures_rotation_matrix=infinite_sequence(0,1)
+
+    for ii in iter_structures:
+
+        s_cr=next(iter_structures_center_rotation)
+        s_rm=next(iter_structures_rotation_matrix)
+
+        if center_rotation.shape[1]==1:
+            iter_atoms_center_rotation=repeat(0)
+        else:
+            iter_atoms_center_rotation=infinite_sequence(0,1)
+
+        if rotation_matrix.shape[1]==1:
+            iter_atoms_rotation_matrix=repeat(0)
+        else:
+            iter_atoms_rotation_matrix=infinite_sequence(0,1)
+
+        for jj in iter_atoms:
+            a_cr=next(iter_atoms_center_rotation)
+            a_rm=next(iter_atoms_rotation_matrix)
+            aux_vect=coordinates[ii,jj,:]-center_rotation[s_cr,a_cr,:]
+            new_coordinates[ii,jj,:]=transpmatmul(rotation_matrix[s_rm,a_rm,:,:],aux_vect)
 

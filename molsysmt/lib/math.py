@@ -18,6 +18,21 @@ def inverse_matrix_3x3(m):
 
     return inv
 
+@nb.njit(nb.float64[:](nb.float64[:,:],nb.float64[:]))
+def matmul(m,v):
+    o = np.zeros(m.shape[0], nb.float64)
+    for ii in range(m.shape[0]):
+        for jj in range(m.shape[1]):
+            o[ii]+=m[ii,jj]*v[jj]
+    return o
+
+@nb.njit(nb.float64[:](nb.float64[:,:],nb.float64[:]))
+def transpmatmul(m,v):
+    o = np.zeros(m.shape[1], nb.float64)
+    for jj in range(m.shape[0]):
+        for ii in range(m.shape[1]):
+            o[ii]+=m[jj,ii]*v[jj]
+    return o
 
 @nb.njit(nb.float64(nb.float64[:], nb.float64[:]))
 def dot_product(a, b):
