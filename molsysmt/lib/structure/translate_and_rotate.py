@@ -5,14 +5,14 @@ from .make_numba_signature import make_numba_signature
 
 arguments=[
     nb.float64[:,:], # coordinates [n_atoms,3]
+    nb.float64[:,:], # translation [n_atoms, 3]
     nb.float64[:,:], # center_rotation  [n_atoms,3]
     nb.float64[:,:,:], # rotation_matrix [n_atoms, 3, 3]
-    nb.float64[:,:], # translation [n_atoms, 3]
     [nb.int64[:], None], # atom_indices [n_atoms] or None
 ]
 output=nb.float64[:,:]
 @nb.njit(make_numba_signature(arguments,output))
-def rotate_and_translate_single_structure(coordinates, center_rotation, rotation_matrix, translation, atom_indices=None):
+def translate_and_rotate_single_structure(coordinates, translation, center_rotation, rotation_matrix, atom_indices=None):
 
     new_coordinates=coordinates.copy()
 
@@ -37,24 +37,24 @@ def rotate_and_translate_single_structure(coordinates, center_rotation, rotation
         iter_atoms_t=infinite_sequence(0,1)
 
     for ii, a_cr, a_rm, a_t in zip(iter_atoms, iter_atoms_cr, iter_atoms_rm, iter_atoms_t):
-        aux_vect=coordinates[ii,:]-center_rotation[a_cr,:]
-        aux_vect=transpmatmul(rotation_matrix[a_rm,:,:],aux_vect)
-        new_coordinates[ii,:]=aux_vect+translation[a_t,:]
+        aux_vect=coordinates[ii,:]+translation[a_t,:]
+        aux_vect=aux_vect-center_rotation[a_cr,:]
+        new_coordinates[ii,:]=transpmatmul(rotation_matrix[a_rm,:,:],aux_vect)
 
     return new_coordinates
 
 
 arguments=[
     nb.float64[:,:,:], # coordinates [n_structures, n_atoms,3]
+    nb.float64[:,:,:], # translation [n_structures, n_atoms, 3]
     nb.float64[:,:,:], # center_rotation  [n_structures, n_atoms,3]
     nb.float64[:,:,:,:], # rotation_matrix [n_structures, n_atoms, 3, 3]
-    nb.float64[:,:,:], # translation [n_structures, n_atoms, 3]
     [nb.int64[:], None], # atom_indices [n_atoms] or None
     [nb.int64[:], None], # atom_indices [n_structures] or None
 ]
 output=None
 @nb.njit(make_numba_signature(arguments,output))
-def rotate_and_translate(coordinates, center_rotation, rotation_matrix, translation, atom_indices=None, structure_indices=None):
+def translate_and_rotate(coordinates, translation, center_rotation, rotation_matrix, atom_indices=None, structure_indices=None):
 
     new_coordinates=coordinates.copy()
 
@@ -102,8 +102,8 @@ def rotate_and_translate(coordinates, center_rotation, rotation_matrix, translat
             iter_atoms_t=infinite_sequence(0,1)
 
         for jj, a_cr, a_rm, a_t in zip(iter_atoms, iter_atoms_cr, iter_atoms_rm, iter_atoms_t):
-            aux_vect=coordinates[ii,jj,:]-center_rotation[s_cr,a_cr,:]
-            aux_vect=transpmatmul(rotation_matrix[s_rm,a_rm,:,:],aux_vect)
-            new_coordinates[ii,jj,:]=aux_vect+translation[a_s,a_t,:]
+            aux_vect=coordinates[ii,jj,:]+translation[s_t,a_t,:]
+            aux_vect=aux_vect-center_rotation[s_cr,a_cr,:]
+            new_coordinates[ii,jj,:]=transpmatmul(rotation_matrix[s_rm,a_rm,:,:],aux_vect)
 
 
