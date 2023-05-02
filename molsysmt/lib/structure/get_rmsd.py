@@ -1,12 +1,12 @@
 import numpy as np
 import numba as nb
-from .math import dot_product
-from .make_numba_signature import make_numba_signature
+from ..math import dot_product
+from ..make_numba_signature import make_numba_signature
 from ..itertools import infinite_sequence, repeat
 
 arguments=[
-    nb.float64[:,:], # coordinates
-    nb.float64[:,:], # coordinates_ref
+    nb.float64[:,:], # coordinates: [n_atoms, 3]
+    nb.float64[:,:], # reference_coordinates: [n_atoms, 3]
     [nb.int64[:], None], # atom_indices [n_atoms] or None
     [nb.int64[:], None], # atom_indices [n_atoms] or None
 ]
@@ -45,7 +45,7 @@ arguments=[
     [nb.int64[:], None], # reference_atom_indices [n_atoms] or None
     [nb.int64[:], None], # reference_structure_indices [n_structures] or None
 ]
-output=nb.float64
+output=nb.float64[:]
 @nb.njit(make_numba_signature(arguments,output))
 def get_rmsd(coordinates, reference_coordinates=None, atom_indices=None, structure_indices=None,
              reference_atom_indices=None, reference_structure_indices=None):
@@ -64,37 +64,46 @@ def get_rmsd(coordinates, reference_coordinates=None, atom_indices=None, structu
         n_atoms = len(atom_indices)
         iter_atoms = atom_indices
 
-
     if reference_coordinates is None:
         reference_coordinates = coordinates
-
-
-    if reference_structure_indices is None:
-        n_ref_structure_indices = reference_coordinates.shape[0]
-        iter_ref_structure_indices = range(n_ref_structure_indices)
-    elif len(reference_structure_indices)==1:
-        n_ref_structure_indices = 1
-        iter_ref_structure_indices=repeat(reference_coordinates[0])
+        if reference_structure_indices is None:
+            raise ValueError('reference_structure_indices needed.')
+        elif len(reference_structure_indices)==1:
+            n_ref_structure_indices = 1
+            iter_ref_structure_indices=repeat(reference_structure_indices[0])
+        else:
+            n_ref_structure_indices = len(reference_structure_indices)
+            iter_ref_structure_indices = reference_structure_indices
+        if reference_atom_indices is None:
+            if atom_indices is None:
+                n_ref_atoms = coordinates.shape[0]
+                iter_ref_atoms = range(n_atoms)
+            else:
+                n_ref_atoms = len(atom_indices)
+                iter_ref_atoms = atom_indices
+        else:
+            n_ref_atoms = len(reference_atom_indices)
+            iter_ref_atoms = reference_atom_indices
     else:
-        n_ref_structure_indices = len(reference_structure_indices)
-        iter_ref_structure_indices = reference_structure_indices
+        if reference_structure_indices is None:
+            n_ref_structure_indices = reference_coordinates.shape[0]
+            iter_ref_structure_indices = range(n_ref_structure_indices)
+        elif len(reference_structure_indices)==1:
+            n_ref_structure_indices = 1
+            iter_ref_structure_indices=repeat(reference_coordinates[0])
+        else:
+            n_ref_structure_indices = len(reference_structure_indices)
+            iter_ref_structure_indices = reference_structure_indices
 
-    if reference_atom_indices is None:
-        n_atoms = coordinates.shape[0]
-        iter_atoms = range(n_atoms)
-    else:
-        n_atoms = len(atom_indices)
-        iter_atoms = atom_indices
+    output = np.zeros((n_structures), dtype=nb.float64)
 
-
-
-    output = 0.0
-
-    for ii, ii_ref in zip(iter_atoms, iter_ref_atoms):
-        vect_aux=reference_coordinates[ii_ref,:]-coordinates[ii,:]
-        output+=dot_product(vect_aux,vect_aux)
-
-    output=np.sqrt(output/n_atoms)
+    iter_out_structures = infinite_sequence(0)
+    for oo, ii, ii_ref in zip(iter_out_structures, iter_structures, iter_ref_structures):
+        val_aux = 0.0
+        for jj, jj_ref in zip(iter_atoms, iter_ref_atoms):
+            vect_aux=reference_coordinates[ii_ref,jj_ref,:]-coordinates[ii,jj,:]
+            val_aux+=dot_product(vect_aux,vect_aux)
+        output[oo]=np.sqrt(val_aux/n_atoms)
 
     return output
 

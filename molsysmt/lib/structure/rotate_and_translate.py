@@ -106,4 +106,4 @@ def rotate_and_translate(coordinates, center_rotation, rotation_matrix, translat
             aux_vect=transpmatmul(rotation_matrix[s_rm,a_rm,:,:],aux_vect)
             new_coordinates[ii,jj,:]=aux_vect+translation[a_s,a_t,:]
 
-
+    pass

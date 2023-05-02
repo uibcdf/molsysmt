@@ -10,7 +10,6 @@ def serie_to_chunks (serie):
     offset = 0
     starts = []
     chunk_size = []
-    print(gaps)
     for ii in gaps[0]:
         chunk_size.append(ii+1-offset)
         starts.append(serie[offset])
@@ -97,7 +96,7 @@ class serialized_lists():
             self.n_indices = self.indices.shape[0]
 
 
-@nb.njit(nb.types.UniTuple(nb.int64[:], 2)(nb.types.List(dtype=nb.types.List(dtype=nb.int64))))
+@nb.njit(nb.types.UniTuple(nb.int64[:], 2)(nb.types.ListType(dtype=nb.types.ListType(dtype=nb.int64))))
 def _jit_serialize(item):
 
     n_values=0
