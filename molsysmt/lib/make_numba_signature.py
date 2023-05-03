@@ -38,7 +38,7 @@ def make_numba_signature(arguments=None, output=None):
         output=nb.void
 
     if isinstance(output,(list,tuple)):
-        output=nb.types.Tuple(tuple(*output))
+        output=nb.types.Tuple(tuple(output))
 
     signature=[]
     

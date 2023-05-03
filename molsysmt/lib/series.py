@@ -96,7 +96,7 @@ class serialized_lists():
             self.n_indices = self.indices.shape[0]
 
 
-@nb.njit(nb.types.UniTuple(nb.int64[:], 2)(nb.types.ListType(dtype=nb.types.ListType(dtype=nb.int64))))
+@nb.njit(nb.types.UniTuple(nb.int64[:], 2)(nb.types.ListType(nb.types.ListType(nb.int64))))
 def _jit_serialize(item):
 
     n_values=0
@@ -120,7 +120,7 @@ def _jit_serialize(item):
     return starts, values
 
 
-@nb.njit(nb.int64(nb.int64[:]))
+@nb.njit(nb.int64[:](nb.int64[:]))
 def occurrence_order(serie):
 
 
@@ -129,13 +129,13 @@ def occurrence_order(serie):
     aux={}
     in_aux = 0
 
-    for ii in component_indices:
+    for ii in serie:
         if not ii in aux:
             aux[ii]=in_aux
             in_aux+=1
 
-    for ii, jj in enumerate(component_indices):
+    for ii, jj in enumerate(serie):
         output[ii]=aux[jj]
 
-    pass
+    return output
 

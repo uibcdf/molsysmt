@@ -1,7 +1,7 @@
-from .box_is_orthogonal import box_is_orthogonal
-from .get_angles_from_box import get_angles_from_box
+from .box_is_orthogonal import box_is_orthogonal, box_is_orthogonal_single_structure
+from .get_angles_from_box import get_angles_from_box, get_angles_from_box_single_structure
 from .get_box_from_lengths_and_angles import get_box_from_lengths_and_angles
-from .get_lengths_and_angles_from_box import get_lengths_and_angles_from_box
+from .get_lengths_and_angles_from_box import get_lengths_and_angles_from_box, get_lengths_and_angles_from_box
 from .get_lengths_from_box import get_lengths_from_box
 from .unwrap import unwrap
 from .wrap_to_mic import wrap_to_mic
