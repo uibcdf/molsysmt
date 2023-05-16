@@ -1,11 +1,12 @@
 import numpy as np
 import numba as nb
-from .math import dot_product
-from .make_numba_signature import make_numba_signature
+from ..math import dot_product
+from ..make_numba_signature import make_numba_signature
+from ..itertools import repeat
 
 arguments=[
     nb.float64[:,:], # coordinates [n_atoms,3]
-    nb.float64[:,:] # translation [n_atoms, 3]
+    nb.float64[:,:], # translation [n_atoms, 3]
     [nb.int64[:], None], # atom_indices [n_atoms] or None
 ]
 output=nb.float64[:,:]

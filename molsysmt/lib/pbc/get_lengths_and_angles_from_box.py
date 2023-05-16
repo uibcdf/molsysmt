@@ -1,7 +1,7 @@
 import numba as nb
 import numpy as np
 import math
-from ..math import norm_vector
+from ..math import norm_vector, dot_product
 from ..make_numba_signature import make_numba_signature
 
 

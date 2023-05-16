@@ -1,5 +1,6 @@
 import numba as nb
 import numpy as np
+from .box_is_orthogonal import box_is_orthogonal_single_structure
 from ..make_numba_signature import make_numba_signature
 from ..math import inverse_matrix_3x3, dot_product
 
@@ -20,7 +21,7 @@ def unwrap(coordinates, box, inv_box=None, orthogonal=None):
         with_inv_box = True
 
     if orthogonal is None:
-        orthogonal = box_is_orthogonal_single_structure(box)
+        orthogonal = box_is_orthogonal_single_structure(box[0,:,:])
 
     if orthogonal:
 
@@ -65,7 +66,7 @@ def unwrap(coordinates, box, inv_box=None, orthogonal=None):
                             dd=dot_product(vaux3,vaux3)
                             if dmin>dd:
                                 vmin=vaux3
-                                dmin=d
+                                dmin=dd
                 coordinates[ii+1,jj,:]=coordinates[ii,jj,:]+delta
 
     pass

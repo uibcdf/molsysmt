@@ -2,6 +2,8 @@ import numba as nb
 import numpy as np
 import math
 from ..math import inverse_matrix_3x3
+from ..make_numba_signature import make_numba_signature
+from .box_is_orthogonal import box_is_orthogonal_single_structure
 
 arguments=[nb.float64[:,:,:], # coordinates
            nb.float64[:,:,:], # box
@@ -9,7 +11,6 @@ arguments=[nb.float64[:,:,:], # coordinates
            [nb.boolean, None], # center_at_origin
            [nb.float64[:,:,:], None], # inv_box
            [nb.boolean, None], # orthogonal
-           [nb.float64[:,:,:], None], # new_center
           ]
 output=None
 @nb.njit(make_numba_signature(arguments, output))
@@ -17,24 +18,22 @@ def wrap_to_pbc(coordinates, box, center=None, center_at_origin=None, inv_box=No
 
     n_structures, n_atoms = coordinates.shape[:-1]
 
-    with_center = False
-
     if center is not None:
         with_center = True
         if center_at_origin is None:
             center_at_origin = False
-    
+
     with_inv_box = False
 
     if inv_box is not None:
         with_inv_box = True
 
     if orthogonal is None:
-        orthogonal = box_is_orthogonal_single_structure(box)
+        orthogonal = box_is_orthogonal_single_structure(box[0,:,:])
 
     if orthogonal:
 
-        if with_center:
+        if center is not None:
 
             for ii in range(n_structures):
                 tmp_box=np.diag(box[ii,:,:])
@@ -62,7 +61,7 @@ def wrap_to_pbc(coordinates, box, center=None, center_at_origin=None, inv_box=No
 
         vaux = np.empty((3), dtype=float)
 
-        if with_center:
+        if center is not None:
 
             for ii in range(n_structures):
                 tmp_box=box[ii,:,:]
@@ -108,5 +107,4 @@ def wrap_to_pbc(coordinates, box, center=None, center_at_origin=None, inv_box=No
                     coordinates[ii,jj,:]=tmp_coors[:]
 
     pass
-
 
