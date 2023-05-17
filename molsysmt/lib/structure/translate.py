@@ -43,22 +43,35 @@ output=None
 @nb.njit(make_numba_signature(arguments,output))
 def translate(coordinates, translation, atom_indices=None, structure_indices=None):
 
-    new_coordinates=coordinates.copy()
-
-    if structure_indices is None:
-        iter_structures = range(coordinates.shape[0])
-    else:
-        iter_structures = structure_indices
-
-    if atom_indices is None:
-        iter_atoms = range(coordinates.shape[1])
-    else:
-        iter_atoms = atom_indices
-
     if translation.shape[0]==1:
-        iter_structures_t=repeat(0)
+        iter_structures_t=infinite_sequence(0,0)
     else:
         iter_structures_t=infinite_sequence(0,1)
+
+    new_coordinates=coordinates.copy()
+
+    n_structures, n_atoms = coordinates.shape[:-1]
+
+    if (atom_indices is None) and (structure_indices is None):
+
+        iter_atoms = range(n_atoms)
+        iter_structures = range(n_structures)
+
+    elif (atom_indices is None) and (structure_indices is not None):
+
+        iter_atoms = range(n_atoms)
+        iter_structures = structure_indices
+
+    elif (atom_indices is not None) and (structure_indices is None):
+
+        iter_atoms = atom_indices
+        iter_atoms = range(n_structures)
+
+    else:
+
+        iter_atoms = atom_indices
+        iter_structures = structure_indices
+
 
     for ii, s_t in zip(iter_structures, iter_structures_t):
 
