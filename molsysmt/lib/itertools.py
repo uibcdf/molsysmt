@@ -6,8 +6,3 @@ def infinite_sequence(a,b):
     while True:
         yield num
         num += b
-
-@nb.njit(nb.void(nb.int64))
-def repeat(a):
-    while True:
-        yield a

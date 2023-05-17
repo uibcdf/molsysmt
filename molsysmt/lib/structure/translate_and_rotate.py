@@ -2,6 +2,7 @@ import numpy as np
 import numba as nb
 from .math import dot_product
 from .make_numba_signature import make_numba_signature
+from ..itertools import repeat, infinite_sequence
 
 arguments=[
     nb.float64[:,:], # coordinates [n_atoms,3]

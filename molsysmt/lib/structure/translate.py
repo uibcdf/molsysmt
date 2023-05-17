@@ -1,13 +1,12 @@
 import numpy as np
 import numba as nb
-from ..math import dot_product
 from ..make_numba_signature import make_numba_signature
-from ..itertools import repeat
+from ..itertools import infinite_sequence
 
 arguments=[
     nb.float64[:,:], # coordinates [n_atoms,3]
     nb.float64[:,:], # translation [n_atoms, 3]
-    [nb.int64[:], None], # atom_indices [n_atoms] or None
+    nb.int64[:], # atom_indices [n_atoms]
 ]
 output=nb.float64[:,:]
 @nb.njit(make_numba_signature(arguments,output))
@@ -15,18 +14,22 @@ def translate_single_structure(coordinates, translation, atom_indices=None):
 
     new_coordinates=coordinates.copy()
 
-    if atom_indices is None:
-        iter_atoms = range(coordinates.shape[0])
-    else:
-        iter_atoms = atom_indices
-
     if translation.shape[0]==1:
-        iter_atoms_t=repeat(0)
+        iter_atoms_t=infinite_sequence(0,0)
     else:
         iter_atoms_t=infinite_sequence(0,1)
 
-    for ii, a_t in zip(iter_atoms, iter_atoms_t):
-        new_coordinates[ii,:]=coordinates[ii,:]+translation[a_t,:]
+    if atom_indices is None:
+
+        iter_atoms = range(coordinates.shape[0])
+        for ii, a_t in zip(iter_atoms, iter_atoms_t):
+            new_coordinates[ii,:]=coordinates[ii,:]+translation[a_t,:]
+
+    else:
+
+        iter_atoms = atom_indices
+        for ii, a_t in zip(iter_atoms, iter_atoms_t):
+            new_coordinates[ii,:]=coordinates[ii,:]+translation[a_t,:]
 
     return new_coordinates
 
