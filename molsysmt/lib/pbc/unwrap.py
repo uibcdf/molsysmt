@@ -10,7 +10,7 @@ arguments=[nb.float64[:,:,:], # coordinates
            [nb.boolean, None], # orthogonal
           ]
 output=None
-@nb.njit(make_numba_signature(arguments, output))
+@nb.njit(make_numba_signature(arguments, output), cache=True)
 def unwrap(coordinates, box, inv_box=None, orthogonal=None):
 
     n_structures, n_atoms = coordinates.shape[:-1]

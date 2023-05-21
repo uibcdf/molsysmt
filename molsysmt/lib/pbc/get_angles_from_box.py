@@ -9,7 +9,7 @@ arguments=[
         nb.float64[:,:], # box: [3,3]
         ]
 output=nb.float64[:]
-@nb.njit(make_numba_signature(arguments, output))
+@nb.njit(make_numba_signature(arguments, output), cache=True)
 def get_angles_from_box_single_structure(box):
 
     angles = np.empty((3), dtype=nb.float64)
@@ -31,7 +31,7 @@ arguments=[
         nb.float64[:,:,:], # box: [n_structures,3,3]
         ]
 output=nb.float64[:,:]
-@nb.njit(make_numba_signature(arguments, output))
+@nb.njit(make_numba_signature(arguments, output), cache=True)
 def get_angles_from_box(box):
 
     n_frames = box.shape[0]

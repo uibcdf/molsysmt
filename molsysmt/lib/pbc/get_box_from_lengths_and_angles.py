@@ -7,7 +7,7 @@ arguments=[nb.float64[:,:], # lengths
            nb.float64[:,:]  # angles
           ]
 output=nb.float64[:,:,:] # box
-@nb.njit(make_numba_signature(arguments, output))
+@nb.njit(make_numba_signature(arguments, output), cache=True)
 def get_box_from_lengths_and_angles(lengths, angles):
 
     n_structures = lengths.shape[0]

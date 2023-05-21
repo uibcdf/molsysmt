@@ -3,7 +3,7 @@ import numba as nb
 import math
 
 
-@nb.njit(nb.types.Tuple((nb.int64[:],nb.int64[:]))(nb.int64[:]))
+@nb.njit(nb.types.Tuple((nb.int64[:],nb.int64[:]))(nb.int64[:]), cache=True)
 def serie_to_chunks (serie):
 
     gaps = np.where((serie[1:]-serie[:-1])>1)
@@ -23,7 +23,7 @@ def serie_to_chunks (serie):
     return starts, chunk_size
 
 
-@nb.njit(nb.int64[:](nb.int64[:],nb.int64[:]))
+@nb.njit(nb.int64[:](nb.int64[:],nb.int64[:]), cache=True)
 def chunks_to_serie (starts, chunk_size):
 
     shape=np.sum(chunk_size)
@@ -96,7 +96,7 @@ class serialized_lists():
             self.n_indices = self.indices.shape[0]
 
 
-@nb.njit(nb.types.UniTuple(nb.int64[:], 2)(nb.types.ListType(nb.types.ListType(nb.int64))))
+@nb.njit(nb.types.UniTuple(nb.int64[:], 2)(nb.types.ListType(nb.types.ListType(nb.int64))), cache=True)
 def _jit_serialize(item):
 
     n_values=0
@@ -120,7 +120,7 @@ def _jit_serialize(item):
     return starts, values
 
 
-@nb.njit(nb.int64[:](nb.int64[:]))
+@nb.njit(nb.int64[:](nb.int64[:]), cache=True)
 def occurrence_order(serie):
 
 

@@ -7,7 +7,7 @@ arguments=[
         nb.float64[:,:], # box: [3,3]
         ]
 output=nb.boolean
-@nb.njit(make_numba_signature(arguments, output))
+@nb.njit(make_numba_signature(arguments, output), cache=True)
 def box_is_orthogonal_single_structure(box):
 
     output = False
@@ -24,7 +24,7 @@ arguments=[
         nb.float64[:,:,:], # box: [n_structures,3,3]
         ]
 output=nb.boolean
-@nb.njit(make_numba_signature(arguments, output))
+@nb.njit(make_numba_signature(arguments, output), cache=True)
 def box_is_orthogonal(box):
 
     output = False

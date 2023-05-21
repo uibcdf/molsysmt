@@ -1,38 +1,24 @@
 import numpy as np
 import numba as nb
-from .math import dot_product, quaternion_to_rotation_matrix,\
+from ..math import dot_product, quaternion_to_rotation_matrix,\
         rotation_and_translation_single_structure
 import math
-from .make_numba_signature import make_numba_signature
-from ..itertools import infinite_sequence, repeat
+from ..make_numba_signature import make_numba_signature
 
 
 arguments=[
     nb.float64[:,:], # coordinates: [n_atoms, 3]
     nb.float64[:,:], # reference_coordinates: [n_atoms, 3]
-    [nb.int64[:], None], # atom_indices [n_atoms] or None
-    [nb.int64[:], None], # atom_indices [n_atoms] or None
-    [nb.int64[:], None], # atom_indices [n_atoms] or None
+    nb.int64[:], # atom_indices [n_atoms]
+    nb.int64[:], # atom_indices [n_atoms]
+    nb.int64[:], # atom_indices [n_atoms]
 ]
 output=nb.float64[:,:]
-@nb.njit(make_numba_signature(arguments,output))
-def least_rmsd_fit_single_structure(coordinates, reference_coordinates, atom_indices=None,
-                                    atom_indices_to_move=None, reference_atom_indices=None):
+@nb.njit(make_numba_signature(arguments,output), cache=True)
+def least_rmsd_fit_single_structure(coordinates, reference_coordinates, atom_indices,
+                                    atom_indices_to_move, reference_atom_indices):
 
-    if atom_indices is None:
-        n_atoms = coordinates.shape[0]
-        iter_atoms = range(n_atoms)
-    else:
-        n_atoms = len(atom_indices)
-        iter_atoms = atom_indices
-
-    if atom_indices_to_move is None:
-        atom_indices_to_move=atom_indices
-
-    if reference_atom_indices is None:
-        iter_ref_atoms = range(reference_coordinates.shape[0])
-    else:
-        iter_ref_atoms = reference_atom_indices
+    n_atoms = atom_indices.shape[0]
 
     center_ref=np.empty((3), dtype=nb.float64)
     center=np.empty((3), dtype=nb.float64)
@@ -47,8 +33,10 @@ def least_rmsd_fit_single_structure(coordinates, reference_coordinates, atom_ind
 
     # reference coordinates
 
-    for aa,ii in enumerate(iter_ref_atoms):
+    aa=0
+    for ii in reference_atom_indices:
         x[aa,:]=w[aa]*reference_coordinates[ii,:]
+        aa+=1
 
     x_norm=0.0
     for ii in range(3):
@@ -58,8 +46,10 @@ def least_rmsd_fit_single_structure(coordinates, reference_coordinates, atom_ind
 
     # coordinates
 
-    for aa,ii in enumerate(iter_atoms):
+    aa=0
+    for ii in atom_indices:
         y[aa,:]=w[aa]*coordinates[ii,:]
+        aa+=1
 
     y_norm=0.0
     for ii in range(3):
@@ -105,57 +95,29 @@ def least_rmsd_fit_single_structure(coordinates, reference_coordinates, atom_ind
 
 arguments=[
     nb.float64[:,:,:], # coordinates: [n_structures, n_atoms, 3]
-    [nb.float64[:,:,:], None], # reference_coordinates: [n_ref_structures, n_ref_atoms, 3] or None
-    [nb.int64[:], None], # atom_indices: [n_atoms] or None
-    [nb.int64[:], None], # atom_indices_to_move: [n_atoms] or None
-    [nb.int64[:], None], # structure_indices: [n_structures] or None
-    [nb.int64[:], None], # reference_atom_indices: [n_atoms] or None
-    [nb.int64[:], None], # reference_structure_indices: [n_structures] or None
+    nb.float64[:,:,:], # reference_coordinates: [n_ref_structures, n_ref_atoms, 3]
+    nb.int64[:], # atom_indices: [n_atoms]
+    nb.int64[:], # atom_indices_to_move: [n_atoms]
+    nb.int64[:], # structure_indices: [n_structures]
+    nb.int64[:], # reference_atom_indices: [n_atoms]
+    nb.int64[:], # reference_structure_indices: [n_structures]
 ]
 output=None
-@nb.njit(make_numba_signature(arguments,output))
-def least_rmsd_fit(coordinates, reference_coordinates=None,
-                   atom_indices=None, atom_indices_to_move=None, structure_indices=None,
-                   reference_atom_indices=None, reference_structure_indices=None):
+@nb.njit(make_numba_signature(arguments,output), cache=True)
+def least_rmsd_fit(coordinates, reference_coordinates,
+                   atom_indices, atom_indices_to_move, structure_indices,
+                   reference_atom_indices, reference_structure_indices):
 
-    if atom_indices_to_move is None:
-        atom_indices_to_move=atom_indices
-
-    if structure_indices is None:
-        n_structure_indices = coordinates.shape[0]
-        iter_structure_indices = range(n_structure_indices)
-    else:
-        n_atoms = len(structure_indices)
-        iter_structure_indices = structure_indices
-
-    if reference_coordinates is None:
-        reference_coordinates = coordinates
-        if reference_structure_indices is None:
-            raise ValueError('reference_structure_indices needed.')
-        elif len(reference_structure_indices)==1:
-            n_ref_structure_indices = 1
-            iter_ref_structure_indices=repeat(reference_structure_indices[0])
-        else:
-            n_ref_structure_indices = len(reference_structure_indices)
-            iter_ref_structure_indices = reference_structure_indices
-    else:
-        if reference_structure_indices is None:
-            n_ref_structure_indices = reference_coordinates.shape[0]
-            iter_ref_structure_indices = range(n_ref_structure_indices)
-        elif len(reference_structure_indices)==1:
-            n_ref_structure_indices = 1
-            iter_ref_structure_indices=repeat(reference_coordinates[0])
-        else:
-            n_ref_structure_indices = len(reference_structure_indices)
-            iter_ref_structure_indices = reference_structure_indices
+    n_structures = structure_indices.shape[0]
+    n_atoms = atom_indices.shape[0]
 
     w=np.ones((n_atoms), dtype=nb.float64)
 
     center_ref=np.empty((3), dtype=nb.float64)
     center=np.empty((3), dtype=nb.float64)
 
-    x=np.zeros((n_atoms_rmsd,3), dtype=nb.float64)
-    y=np.zeros((n_atoms_rmsd,3), dtype=nb.float64)
+    x=np.zeros((n_atoms,3), dtype=nb.float64)
+    y=np.zeros((n_atoms,3), dtype=nb.float64)
 
     R=np.zeros((3,3), dtype=nb.float64)
     F=np.zeros((4,4), dtype=nb.float64)
