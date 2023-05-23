@@ -1,7 +1,7 @@
 import numpy as np
 import numba as nb
-from ..math import dot_product, quaternion_to_rotation_matrix,\
-        rotation_and_translation_single_structure
+from ..math import dot_product, quaternion_to_rotation_matrix
+from .rotate_and_translate import rotate_and_translate_single_structure
 import math
 from ..make_numba_signature import make_numba_signature
 
@@ -87,8 +87,10 @@ def least_rmsd_fit_single_structure(coordinates, reference_coordinates, atom_ind
     U=quaternion_to_rotation_matrix(eigvectors[:,3])
 
     # New positions with translation and rotation
-    new_coordinates = rotate_and_translate_single_structure(coordinates, center, U, center_ref,
-                                                            atom_indices=atom_indices_to_move)
+    center = np.expand_dims(center,0)
+    U = np.expand_dims(U,0)
+    center_ref = np.expand_dims(center_ref,0)
+    new_coordinates = rotate_and_translate_single_structure(coordinates, center, U, center_ref, atom_indices_to_move)
 
     return new_coordinates
 
@@ -111,6 +113,10 @@ def least_rmsd_fit(coordinates, reference_coordinates,
     n_structures = structure_indices.shape[0]
     n_atoms = atom_indices.shape[0]
 
+    n_reference_structures = reference_structure_indices.shape[0]
+
+    single_reference_structure = (reference_structure_indices==1)
+
     w=np.ones((n_atoms), dtype=nb.float64)
 
     center_ref=np.empty((3), dtype=nb.float64)
@@ -122,61 +128,54 @@ def least_rmsd_fit(coordinates, reference_coordinates,
     R=np.zeros((3,3), dtype=nb.float64)
     F=np.zeros((4,4), dtype=nb.float64)
 
+    bb = 0
+    ii_ref = 0
     flag=True
-    for ll, mm in zip(iter_structures, iter_ref_structures):
+    for ii in structure_indices:
 
         # reference coordinates
         if flag==True:
 
-            if n_ref_structures==1:
-                flag=False
-
-            if reference_atom_indices is None:
-                if atom_indices is None:
-                    iter_ref_atoms = range(reference_coordinates.shape[1])
-                else:
-                    iter_ref_atoms = atom_indices
-            else:
-                iter_ref_atoms = reference_atom_indices
-
             x_norm=0.0
             x[:,:]=0.0
 
-            for aa,jj in enumerate(iter_ref_atoms):
-                x[aa,:]=w[aa]*reference_coordinates[mm,jj,:]
+            aa=0
+            for jj in reference_atom_indices:
+                x[aa,:]=w[aa]*reference_coordinates[ii_ref,jj,:]
+                aa+=1
 
-            for ii in range(3):
-                center_ref[ii]=np.sum(x[:,ii])/n_atoms
-                x[:,ii]=x[:,ii]-center_ref[ii]
-                x_norm=x_norm+dot_product(x[:,ii],x[:,ii])
+            for jj in range(3):
+                center_ref[jj]=np.sum(x[:,jj])/n_atoms
+                x[:,jj]=x[:,jj]-center_ref[jj]
+                x_norm=x_norm+dot_product(x[:,jj],x[:,jj])
+
+            if single_reference_structure==1:
+                flag=False
+            else:
+                ii_ref+=1
 
         # coordinates
-
-        if atom_indices is None:
-            n_atoms = coordinates.shape[0]
-            iter_atoms = range(n_atoms)
-        else:
-            n_atoms = len(atom_indices)
-            iter_atoms = atom_indices
 
         y_norm=0.0
         y[:,:]=0.0
 
-        for aa,jj in enumerate(iter_atoms):
-            y[aa,:]=w[aa]*coordinates[ll,jj,:]
+        aa=0
+        for jj in atom_indices:
+            y[aa,:]=w[aa]*coordinates[ii,jj,:]
+            aa+=1
 
-        for ii in range(3):
-            center[ii]=np.sum(x[:,ii])/n_atoms
-            x[:,ii]=x[:,ii]-center[ii]
-            x_norm=x_norm+dot_product(x[:,ii],x[:,ii])
+        for jj in range(3):
+            center[jj]=np.sum(x[:,jj])/n_atoms
+            x[:,jj]=x[:,jj]-center[jj]
+            x_norm=x_norm+dot_product(x[:,jj],x[:,jj])
 
         R[:,:]=0.0
         F[:,:]=0.0
 
         # R matrix
-        for ii in range(3):
-            for jj in range(3):
-                R[ii,jj]=dot_product(x[:,ii], y[:,jj])
+        for ll in range(3):
+            for mm in range(3):
+                R[ll,mm]=dot_product(x[:,ll], y[:,mm])
 
         # F matrix
         F[0,0]=R[0,0]+R[1,1]+R[2,2]
@@ -203,8 +202,11 @@ def least_rmsd_fit(coordinates, reference_coordinates,
         U=quaternion_to_rotation_matrix(eigvectors[:,3])
 
         # New positions with translation and rotation
-        coordinates[ll,:,:] = rotate_and_translate_single_structure(coordinates[ll,:,:], center, U, center_ref,
-                                                                    atom_indices=atom_indices_to_move)
+        coordinates[ii,:,:] = rotate_and_translate_single_structure(coordinates[ii,:,:],
+                                                                    np.expand_dims(center,0),
+                                                                    np.expand_dims(U,0),
+                                                                    np.expand_dims(center_ref,0),
+                                                                    atom_indices_to_move)
 
     pass
 

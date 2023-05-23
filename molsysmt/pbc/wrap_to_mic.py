@@ -1,7 +1,7 @@
 from molsysmt._private.exceptions import NotImplementedMethodError
 from molsysmt._private.digestion import digest
 from molsysmt import pyunitwizard as puw
-from molsysmt.lib import box as libbox
+from molsysmt import lib as msmlib
 import numpy as np
 
 @digest()
@@ -53,7 +53,7 @@ def wrap_to_mic(molecular_system, selection='all', structure_indices='all',
         coordinates = np.asfortranarray(puw.get_value(coordinates), dtype='float64')
         center_coordinates = np.asfortranarray(puw.get_value(center_coordinates), dtype='float64')
 
-        libbox.wrap_mic(coordinates, center_coordinates, box, orthogonal, n_atoms, n_structures)
+        msmlib.pbc.wrap_to_mic(coordinates, center_coordinates, box, orthogonal, n_atoms, n_structures)
 
         if recenter:
             translation = np.tile(-center_coordinates,(n_atoms,1))

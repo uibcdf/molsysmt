@@ -1,7 +1,7 @@
 from molsysmt._private.exceptions import NotImplementedMethodError
 from molsysmt._private.digestion import digest
 from molsysmt import pyunitwizard as puw
-from molsysmt.lib import box as libbox
+from molsysmt import lib as msmlib
 import numpy as np
 
 @digest()
@@ -30,7 +30,7 @@ def unwrap(molecular_system, selection='all', structure_indices='all',
         box = np.asfortranarray(puw.get_value(box), dtype='float64')
         coordinates = np.asfortranarray(puw.get_value(coordinates), dtype='float64')
 
-        libbox.unwrap(coordinates, box, orthogonal, n_atoms, n_structures)
+        msmlib.pbc.unwrap(coordinates, box, orthogonal, n_atoms, n_structures)
 
         coordinates=np.ascontiguousarray(coordinates)*length_units
 

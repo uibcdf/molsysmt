@@ -1,7 +1,7 @@
 from molsysmt._private.exceptions import NotImplementedMethodError
 from molsysmt._private.digestion import digest
 from molsysmt._private.variables import is_all
-from molsysmt.lib.geometry import distance
+from molsysmt import lib as msmlib
 from molsysmt import pyunitwizard as puw
 import numpy as np
 

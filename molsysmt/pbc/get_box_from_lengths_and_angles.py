@@ -1,5 +1,5 @@
 from molsysmt._private.digestion import digest
-from molsysmt.lib import box as libbox
+from molsysmt import lib as msmlib
 import numpy as np
 from molsysmt import pyunitwizard as puw
 
@@ -14,7 +14,7 @@ def get_box_from_lengths_and_angles(box_lengths, box_angles):
     n_structures = box_lengths.shape[0]
 
     
-    box = libbox.lengths_and_angles_to_box(lengths_value, angles_value)
+    box = msmlib.pbc.lengths_and_angles_to_box(lengths_value, angles_value)
     box = box.round(6)*units
 
     del(lengths_value, angles_value)
