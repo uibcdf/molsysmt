@@ -2,7 +2,7 @@ from molsysmt._private.exceptions import NotImplementedMethodError
 from molsysmt._private.digestion import digest
 import numpy as np
 from molsysmt import pyunitwizard as puw
-from molsysmt.lib import geometry as libgeometry
+from molsysmt import lib as msmlib
 
 @digest()
 def set_dihedral_angles(molecular_system, quartets=None, angles=None, blocks=None,
@@ -107,7 +107,7 @@ def set_dihedral_angles(molecular_system, quartets=None, angles=None, blocks=Non
         aux_blocks = np.ravel(aux_blocks)
         aux_atoms_per_block = np.array(aux_atoms_per_block, dtype=int)
 
-        libgeometry.set_dihedral_angles(coordinates, box, orthogonal, int(pbc), quartets, angles,
+        msmlib.structure.set_dihedral_angles(coordinates, box, orthogonal, int(pbc), quartets, angles,
                                          aux_blocks, aux_atoms_per_block, n_quartets, n_atoms, n_structures, aux_blocks.shape[0])
 
         coordinates=np.ascontiguousarray(coordinates)*length_units

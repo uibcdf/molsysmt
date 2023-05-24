@@ -2,9 +2,9 @@ from molsysmt._private.exceptions import NotImplementedMethodError
 from molsysmt._private.digestion import digest
 from molsysmt._private.variables import is_all
 from molsysmt.basic import select, get
-import numpy as np
-from molsysmt.lib import rmsd as librmsd
+from molsysmt import lib as msmlib
 from molsysmt import pyunitwizard as puw
+import numpy as np
 
 @digest()
 def get_least_rmsd (molecular_system=None, selection='backbone', structure_indices='all',

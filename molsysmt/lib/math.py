@@ -80,7 +80,7 @@ def dihedral_angle(vect0, vect1, vect2):
     if cosa<=-1.0:
         cosa=-1.0
 
-    ang = math.degrees(math.acos(cosa))
+    ang = math.acos(cosa)
 
     aux2 = cross_product(aux0,aux1)
 
@@ -93,10 +93,8 @@ def dihedral_angle(vect0, vect1, vect2):
 @nb.njit(nb.void(nb.float64[:], nb.float64[:], nb.float64), cache=True)
 def rodrigues_rotation(vector, unit_vector, angle):
 
-    aux_ang = math.radians(angle)
-
-    cosa = math.cos(aux_ang)
-    sina = math.sin(aux_ang)
+    cosa = math.cos(angle)
+    sina = math.sin(angle)
 
     aux1 = vector*cosa
     aux2 = cross_product(unit_vector, vector)

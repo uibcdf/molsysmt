@@ -2,7 +2,7 @@ from molsysmt._private.exceptions import NotImplementedMethodError
 from molsysmt._private.digestion import digest
 from molsysmt._private.variables import is_all
 import numpy as np
-from molsysmt.lib import rmsd as librmsd
+from molsysmt import lib as msmlib
 from molsysmt import pyunitwizard as puw
 
 @digest()
@@ -41,7 +41,7 @@ def fit (molecular_system=None, selection=None, structure_indices='all',
         if reference_coordinates.shape[1]!=n_atom_indices:
             raise ValueError("reference selection and selection needs to have the same number of atoms")
 
-        librmsd.least_rmsd_fit(coordinates, atom_indices, reference_coordinates, structure_indices,
+        msmlib.structure.least_rmsd_fit(coordinates, atom_indices, reference_coordinates, structure_indices,
                                 n_atoms, n_structures, n_atom_indices, n_structure_indices)
 
         coordinates=np.ascontiguousarray(coordinates)*units

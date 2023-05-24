@@ -2,6 +2,7 @@ import numpy as np
 import numba as nb
 from ..math import dot_product
 from ..make_numba_signature import make_numba_signature
+import math
 
 arguments=[
     nb.float64[:,:], # coordinates: [n_atoms, 3]
@@ -21,7 +22,7 @@ def get_rmsd_single_structure(coordinates, reference_coordinates, atom_indices, 
         vect_aux=reference_coordinates[ii_ref,:]-coordinates[ii,:]
         output+=dot_product(vect_aux,vect_aux)
 
-    output=np.sqrt(output/n_atoms)
+    output=math.sqrt(output/n_atoms)
 
     return output
 
@@ -54,7 +55,7 @@ def get_rmsd(coordinates, reference_coordinates, atom_indices, structure_indices
         val_aux = 0.0
         for jj, jj_ref in zip(atom_indices, reference_atom_indices):
             vect_aux=reference_coordinates[ii_ref,jj_ref,:]-coordinates[ii,jj,:]
-        output[oo]=np.sqrt(val_aux/n_atoms)
+        output[oo]=math.sqrt(val_aux/n_atoms)
         oo+=1
         if not single_reference_structure:
             ii_ref+=1

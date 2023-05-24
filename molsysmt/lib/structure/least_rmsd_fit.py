@@ -13,7 +13,7 @@ arguments=[
     nb.int64[:], # atom_indices [n_atoms]
     nb.int64[:], # atom_indices [n_atoms]
 ]
-output=nb.float64[:,:]
+output=None
 @nb.njit(make_numba_signature(arguments,output), cache=True)
 def least_rmsd_fit_single_structure(coordinates, reference_coordinates, atom_indices,
                                     atom_indices_to_move, reference_atom_indices):
@@ -90,9 +90,9 @@ def least_rmsd_fit_single_structure(coordinates, reference_coordinates, atom_ind
     center = np.expand_dims(center,0)
     U = np.expand_dims(U,0)
     center_ref = np.expand_dims(center_ref,0)
-    new_coordinates = rotate_and_translate_single_structure(coordinates, center, U, center_ref, atom_indices_to_move)
+    rotate_and_translate_single_structure(coordinates, center, U, center_ref, atom_indices_to_move)
 
-    return new_coordinates
+    pass
 
 
 arguments=[
@@ -202,11 +202,11 @@ def least_rmsd_fit(coordinates, reference_coordinates,
         U=quaternion_to_rotation_matrix(eigvectors[:,3])
 
         # New positions with translation and rotation
-        coordinates[ii,:,:] = rotate_and_translate_single_structure(coordinates[ii,:,:],
-                                                                    np.expand_dims(center,0),
-                                                                    np.expand_dims(U,0),
-                                                                    np.expand_dims(center_ref,0),
-                                                                    atom_indices_to_move)
+        rotate_and_translate_single_structure(coordinates[ii,:,:],
+                                              np.expand_dims(center,0),
+                                              np.expand_dims(U,0),
+                                              np.expand_dims(center_ref,0),
+                                              atom_indices_to_move)
 
     pass
 

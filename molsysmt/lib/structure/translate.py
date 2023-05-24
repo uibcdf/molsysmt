@@ -7,11 +7,9 @@ arguments=[
     nb.float64[:,:], # translation [n_atoms, 3]
     nb.int64[:], # atom_indices [n_atoms]
 ]
-output=nb.float64[:,:]
+output=None
 @nb.njit(make_numba_signature(arguments,output), cache=True)
 def translate_single_structure(coordinates, translation, atom_indices):
-
-    new_coordinates=coordinates.copy()
 
     n_atoms = coordinates.shape[0]
     n_atoms_translation = translation.shape[0]
@@ -19,11 +17,11 @@ def translate_single_structure(coordinates, translation, atom_indices):
 
     a_t=0
     for ii in atom_indices:
-        new_coordinates[ii,:]=coordinates[ii,:]+translation[a_t,:]
+        coordinates[ii,:]=coordinates[ii,:]+translation[a_t,:]
         if not single_atom_translation:
             a_t+=1
 
-    return new_coordinates
+    pass
 
 arguments=[
     nb.float64[:,:,:], # coordinates

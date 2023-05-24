@@ -1,6 +1,5 @@
 import numba as nb
 import numpy as np
-import math
 from ..math import norm_vector
 from ..make_numba_signature import make_numba_signature
 
@@ -18,6 +17,7 @@ def get_lengths_from_box_single_structure(box):
     lengths[2] = norm_vector(box[2,:])
 
     return lengths
+
 
 arguments=[
         nb.float64[:,:,:], # box

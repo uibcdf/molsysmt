@@ -2,7 +2,7 @@ import numpy as np
 from molsysmt import pyunitwizard as puw
 from molsysmt._private.digestion import digest
 from molsysmt.basic import get
-from molsysmt.lib import geometry as libgeometry
+from molsysmt import lib as msmlib
 
 @digest()
 def get_dihedral_angles(molecular_system, selection='all', quartets=None,
@@ -46,7 +46,7 @@ def get_dihedral_angles(molecular_system, selection='all', quartets=None,
 
         n_angles = quartets.shape[0]
 
-        angles = libgeometry.dihedral_angles(coordinates, box, orthogonal, int(pbc), quartets, n_angles, n_atoms, n_structures)
+        angles = msmlib.structure.get_dihedral_angles(coordinates, box, orthogonal, int(pbc), quartets, n_angles, n_atoms, n_structures)
         angles = np.ascontiguousarray(angles)*puw.unit('degrees')
 
         return angles
@@ -61,7 +61,7 @@ def get_dihedral_angles(molecular_system, selection='all', quartets=None,
 
             n_angles = quartets.shape[0]
 
-            angles = libgeometry.dihedral_angles(coordinates, box, orthogonal, int(pbc), quartets, n_angles, n_atoms, n_structures)
+            angles = msmlib.structure.get_dihedral_angles(coordinates, box, orthogonal, int(pbc), quartets, n_angles, n_atoms, n_structures)
             angles = np.ascontiguousarray(angles)*puw.unit('degrees')
 
             all_angles.append(angles)
@@ -72,3 +72,4 @@ def get_dihedral_angles(molecular_system, selection='all', quartets=None,
             all_angles = all_angles[0]
 
         return all_angles
+

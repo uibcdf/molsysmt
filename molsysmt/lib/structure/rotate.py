@@ -9,11 +9,10 @@ arguments=[
     nb.float64[:,:,:], # rotation_matrix [n_atoms, 3, 3]
     nb.int64[:], # atom_indices [n_atoms]
 ]
-output=nb.float64[:,:]
+output=None
 @nb.njit(make_numba_signature(arguments,output), cache=True)
 def rotate_single_structure(coordinates, center_rotation, rotation_matrix, atom_indices):
 
-    new_coordinates=coordinates.copy()
     n_atoms_rotation = rotation_matrix.shape[0]
     n_atoms_center = center_rotation.shape[0]
 
@@ -25,13 +24,13 @@ def rotate_single_structure(coordinates, center_rotation, rotation_matrix, atom_
 
     for ii in atom_indices:
         aux_vect=coordinates[ii,:]-center_rotation[a_c,:]
-        new_coordinates[ii,:]=transpmatmul(rotation_matrix[a_r,:,:],aux_vect)
+        coordinates[ii,:]=transpmatmul(rotation_matrix[a_r,:,:],aux_vect)
         if not single_atom_rotation:
             a_r+=1
         if not single_atom_center:
             a_c+=1
 
-    return new_coordinates
+    pass
 
 
 arguments=[

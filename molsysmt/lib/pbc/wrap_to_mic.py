@@ -13,7 +13,7 @@ output=nb.float64[:]
 @nb.njit(make_numba_signature(arguments, output), cache=True)
 def wrap_to_mic_vector_single_structure(vector, box, inv_box, orthogonal):
 
-    output = np.empty((3), dtype=np.float)
+    output = np.empty((3), dtype=np.float64)
 
     if inv_box is None:
         inv_box = inverse_matrix_3x3(box)
@@ -29,7 +29,7 @@ def wrap_to_mic_vector_single_structure(vector, box, inv_box, orthogonal):
 
     else:
 
-        vaux = np.empty((3), dtype=float)
+        vaux = np.empty((3), dtype=np.float64)
 
         vaux[0]=inv_box[0,0]*vector[0]+inv_box[1,0]*vector[1]+inv_box[2,0]*vector[2]
         vaux[1]=                       inv_box[1,1]*vector[1]+inv_box[2,1]*vector[2]

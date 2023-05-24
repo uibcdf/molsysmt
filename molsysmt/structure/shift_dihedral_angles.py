@@ -1,7 +1,6 @@
 from molsysmt._private.digestion import digest
 import numpy as np
 from molsysmt import pyunitwizard as puw
-from molsysmt.lib import geometry as libgeometry
 
 @digest()
 def shift_dihedral_angles(molecular_system, quartets=None, angles_shifts=None, blocks=None,

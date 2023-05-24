@@ -8,11 +8,11 @@ arguments=[
     nb.float64[:], # weights: [n_atoms]
     nb.int64[:], # atom indices: [n_atoms]
 ]
-output=nb.float64[:,:] # center: [0,3]
+output=nb.float64[:] # center: [0,3]
 @nb.njit(make_numba_signature(arguments,output), cache=True)
 def get_center_single_structure(coordinates, weights, atom_indices):
 
-    center=np.zeros((1, 3), dtype=nb.float64)
+    center=np.zeros((3), dtype=nb.float64)
     aux=np.zeros((3), dtype=nb.float64)
 
     weight=0.0
@@ -21,7 +21,7 @@ def get_center_single_structure(coordinates, weights, atom_indices):
         aux[:]+=weights[a_w]*coordinates[ii,:]
         weight+=weights[a_w]
         a_w+=1
-    center[0,:]=aux/weight
+    center[:]=aux/weight
 
     return center
 
@@ -32,13 +32,13 @@ arguments=[
     nb.int64[:], # atom indices: [n_atoms]
     nb.int64[:], # structure indices: [n_structures]
 ]
-output=nb.float64[:,:,:]
+output=nb.float64[:,:]
 @nb.njit(make_numba_signature(arguments,output), cache=True)
 def get_center(coordinates, weights, atom_indices, structure_indices):
 
     n_structures = coordinates.shape[0]
 
-    center=np.zeros((n_structures, 1, 3), dtype=nb.float64)
+    center=np.zeros((n_structures, 3), dtype=nb.float64)
     aux=np.zeros((3), dtype=nb.float64)
 
     ss=0
@@ -50,7 +50,7 @@ def get_center(coordinates, weights, atom_indices, structure_indices):
             aux[:]+=weights[a_w]*coordinates[ii,jj,:]
             weight+=weights[a_w]
             a_w+=1
-        center[ss,0,:]=aux/weight
+        center[ss,:]=aux/weight
         ss+=1
 
     return center
