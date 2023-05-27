@@ -8,16 +8,14 @@ def get_box_from_lengths_and_angles(box_lengths, box_angles):
 
     units = puw.get_unit(box_lengths)
     lengths_value = puw.get_value(box_lengths)
-    angles_value = puw.get_value(box_angles, to_unit='degrees')
-    lengths_value =  np.asfortranarray(lengths_value, dtype='float64')
-    angles_value =  np.asfortranarray(angles_value, dtype='float64')
-    n_structures = box_lengths.shape[0]
+    angles_value = puw.get_value(box_angles, to_unit='radians')
 
-    
-    box = msmlib.pbc.lengths_and_angles_to_box(lengths_value, angles_value)
+    box = msmlib.pbc.get_box_from_lengths_and_angles(lengths_value, angles_value)
     box = box.round(6)*units
 
     del(lengths_value, angles_value)
+
+    box = puw.standardize(box)
 
     return box
 

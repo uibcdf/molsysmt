@@ -1,7 +1,7 @@
 import pandas as pd
 import numpy as np
 from molsysmt._private.variables import is_all
-from molsysmt.lib import bonds as libbonds
+from molsysmt.element.component import get_component_index_from_bonded_atoms
 
 
 class Atoms(pd.DataFrame):
@@ -487,11 +487,8 @@ class Elements():
 
     def build_components(self):
 
-        #self.atoms['component_index'], n_components = libbonds.component_indices(self.bonds[['atom1_index', 'atom2_index']].to_numpy(),
-        #    self.atoms.shape[0], self.bonds.shape[0])
-
-        component_indices = libbonds.component_indices(self.bonds[['atom1_index', 'atom2_index']].to_numpy(),
-            self.atoms.shape[0], self.bonds.shape[0])
+        component_indices = get_component_index_from_bonded_atoms(self.bonds[['atom1_index', 'atom2_index']].to_numpy(),
+            self.atoms.shape[0])
 
         n_components = component_indices[-1]+1
 

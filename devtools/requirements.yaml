@@ -18,7 +18,6 @@ production:
     - numpy
     - numba
     - pyunitwizard
-    - sabueso
     - mmtf-python
     - pandas
     - openmm

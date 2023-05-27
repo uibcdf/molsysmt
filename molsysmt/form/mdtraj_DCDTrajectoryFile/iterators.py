@@ -67,16 +67,16 @@ class StructuresIterator():
                 for ii in indices:
                     self.molecular_system.seek(indices)
                     coordinates_aux, box_lengths_aux, box_angles_aux = self.molecular_system.read(1, 0, self._mdtraj_atom_indices)
-                    coordinates.append(coordinates_aux)
-                    box_lengths.append(box_lengths_aux)
-                    box_angles.append(box_angles_aux)
+                    coordinates.append(np.float64(coordinates_aux))
+                    box_lengths.append(np.float64(box_lengths_aux))
+                    box_angles.append(np.float64(box_angles_aux))
                     del(coordinates_aux, box_lengths_aux, box_angles_aux)
             else:
                 self.molecular_system.seek(indices)
                 coordinates_aux, box_lengths_aux, box_angles_aux = self.molecular_system.read(1, 0, self._mdtraj_atom_indices)
-                coordinates=coordinates_aux
-                box_lengths=box_lengths_aux
-                box_angles=box_angles_aux
+                coordinates=np.float64(coordinates_aux)
+                box_lengths=np.float64(box_lengths_aux)
+                box_angles=np.float64(box_angles_aux)
                 del(coordinates_aux, box_lengths_aux, box_angles_aux)
 
             for argument in self.arguments:

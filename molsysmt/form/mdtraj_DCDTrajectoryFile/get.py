@@ -245,7 +245,7 @@ def get_n_structures_from_system(item, structure_indices='all'):
 @digest(form=form)
 def get_box_from_system(item, structure_indices='all'):
 
-    from molsysmt.lib.math import serie_to_chunks
+    from molsysmt.lib.series import serie_to_chunks
     from molsysmt.pbc import get_box_from_lengths_and_angles
 
     if is_all(structure_indices):

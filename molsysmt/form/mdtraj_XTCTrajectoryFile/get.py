@@ -67,7 +67,7 @@ def get_n_inner_bonds_from_atom(item, indices='all'):
 @digest(form=form)
 def get_coordinates_from_atom(item, indices='all', structure_indices='all'):
 
-    from molsysmt.lib.math import serie_to_chunks
+    from molsysmt.lib.series import serie_to_chunks
 
     if is_all(structure_indices):
 
@@ -240,7 +240,7 @@ def get_n_structures_from_system(item, structure_indices='all'):
 @digest(form=form)
 def get_box_from_system(item, structure_indices='all'):
 
-    from molsysmt.lib.math import serie_to_chunks
+    from molsysmt.lib.series import serie_to_chunks
 
     if is_all(structure_indices):
 
@@ -269,7 +269,7 @@ def get_box_from_system(item, structure_indices='all'):
 @digest(form=form)
 def get_time_from_system(item, structure_indices='all'):
 
-    from molsysmt.lib.math import serie_to_chunks
+    from molsysmt.lib.series import serie_to_chunks
 
     if is_all(structure_indices):
 
@@ -298,7 +298,7 @@ def get_time_from_system(item, structure_indices='all'):
 @digest(form=form)
 def get_structure_id_from_system(item, structure_indices='all'):
 
-    from molsysmt.lib.math import serie_to_chunks
+    from molsysmt.lib.series import serie_to_chunks
 
     if is_all(structure_indices):
 

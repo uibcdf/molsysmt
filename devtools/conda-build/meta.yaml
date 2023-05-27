@@ -19,7 +19,6 @@ requirements:
   - numpy
   - numba
   - pyunitwizard
-  - sabueso
   - mmtf-python
   - pandas
   - openmm

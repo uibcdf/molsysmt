@@ -9,6 +9,7 @@ from . import lipid
 from . import oligosaccharide
 
 from .get_component_index_from_atom import get_component_index_from_atom
+from .get_component_index_from_bonded_atoms import get_component_index_from_bonded_atoms
 from .get_component_id_from_component import get_component_id_from_component
 from .get_component_name_from_component import get_component_name_from_component
 from .get_component_type_from_group_names import get_component_type_from_group_names

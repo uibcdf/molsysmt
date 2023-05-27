@@ -9,7 +9,7 @@ def get_lengths_and_angles_from_box(box):
     lengths_value, angles_value = msmlib.pbc.get_lengths_and_angles_from_box(box_value)
     lengths = puw.quantity(lengths_value.round(6), box_unit)
     lengths = puw.standardize(lengths)
-    angles = puw.quantity(angles.round(6), 'radians')
+    angles = puw.quantity(angles_value.round(6), 'radians')
     angles = puw.standardize(angles)
 
     return lengths, angles
