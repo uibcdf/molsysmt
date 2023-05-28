@@ -32,209 +32,27 @@ def get_mic_distance_two_points_single_structure(point1, point2, box, inv_box, o
 
 arguments=[nb.float64[:,:,:], # coordinates
            nb.float64[:,:,:], # box
-           nb.int64[:], # atom_indices1 [n_atoms]
-           nb.int64[:], # structure_indices1 [n_structures]
-           [nb.int64[:],None], # atom_indices2 [n_atoms]
-           [nb.int64[:],None], # structure_indices2 [n_structures]
           ]
 output=nb.float64[:,:,:]
 @nb.njit(make_numba_signature(arguments, output), cache=True)
-def get_mic_distances_single_system(coordinates, box, atom_indices1, structure_indices1,
-        atom_indices2, structure_indices2):
+def get_mic_distances_single_system(coordinates, box):
 
-    if atom_indices2 is None:
+    n_structures, n_atoms = coordinates.shape[0:2]
 
-        if structure_indices2 is None:
+    distances = np.zeros((n_structures, n_atoms, n_atoms), dtype=np.float64)
 
-            n_atoms=atom_indices1.shape[0]
-            n_structures=structure_indices1.shape[0]
-
-            distances = np.zeros((n_structures, n_atoms, n_atoms), dtype=np.float64)
-
-            for aa in range(n_structures):
-                ii = structure_indices1[aa]
-                tmp_box = box[ii,:,:]
-                inv_box = inverse_matrix_3x3(tmp_box)
-                orthogonal = box_is_orthogonal_single_structure(tmp_box)
-                for bb in range(n_atoms):
-                    jj=atom_indices1[bb]
-                    point1 = coordinates[ii,jj,:]
-                    for cc in range(bb+1, n_atoms):
-                        kk=atom_indices1[cc]
-                        point2 = coordinates[ii,kk,:]
-                        aux = get_mic_distance_two_points_single_structure(point1, point2, tmp_box,
-                                inv_box, orthogonal)
-                        distances[aa,bb,cc]=aux
-                        distances[aa,cc,bb]=aux
-
-        else:
-
-            n_atoms=atom_indices1.shape[0]
-            n_structures=structure_indices1.shape[0]
-
-            distances = np.zeros((n_structures, n_atoms, n_atoms), dtype=np.float64)
-
-            for aa in range(n_structures):
-                ii = structure_indices1[aa]
-                jj = structure_indices2[aa]
-                tmp_box = box[ii,:,:]
-                inv_box = inverse_matrix_3x3(tmp_box)
-                orthogonal = box_is_orthogonal_single_structure(tmp_box)
-
-                for bb in range(n_atoms):
-                    kk=atom_indices1[bb]
-                    point1 = coordinates[ii,kk,:]
-                    for cc in range(n_atoms):
-                        ll=atom_indices1[cc]
-                        point2 = coordinates[jj,ll,:]
-                        aux = get_mic_distance_two_points_single_structure(point1, point2, tmp_box,
-                                inv_box, orthogonal)
-                        distances[aa,bb,cc]=aux
-
-    else:
-
-        if structure_indices2 is None:
-
-            n_atoms1=atom_indices1.shape[0]
-            n_atoms2=atom_indices2.shape[0]
-            n_structures=structure_indices1.shape[0]
-
-            distances = np.zeros((n_structures, n_atoms1, n_atoms2), dtype=np.float64)
-
-            for aa in range(n_structures):
-                ii = structure_indices1[aa]
-                tmp_box = box[ii,:,:]
-                inv_box = inverse_matrix_3x3(tmp_box)
-                orthogonal = box_is_orthogonal_single_structure(tmp_box)
-
-                for bb in range(n_atoms1):
-                    jj=atom_indices1[bb]
-                    point1 = coordinates[ii,jj,:]
-                    for cc in range(n_atoms2):
-                        kk=atom_indices2[cc]
-                        point2 = coordinates[ii,kk,:]
-                        aux = get_mic_distance_two_points_single_structure(point1, point2, tmp_box,
-                                inv_box, orthogonal)
-                        distances[aa,bb,cc]=aux
-
-        else:
-
-            n_atoms1=atom_indices1.shape[0]
-            n_atoms2=atom_indices2.shape[0]
-            n_structures=structure_indices1.shape[0]
-
-            distances = np.zeros((n_structures, n_atoms1, n_atoms2), dtype=np.float64)
-
-            for aa in range(n_structures):
-                ii = structure_indices1[aa]
-                jj = structure_indices2[aa]
-                tmp_box = box[ii,:,:]
-                inv_box = inverse_matrix_3x3(tmp_box)
-                orthogonal = box_is_orthogonal_single_structure(tmp_box)
-
-                for bb in range(n_atoms1):
-                    kk=atom_indices1[bb]
-                    point1 = coordinates[ii,kk,:]
-                    for cc in range(n_atoms2):
-                        ll=atom_indices2[cc]
-                        point2 = coordinates[jj,ll,:]
-                        aux = get_mic_distance_two_points_single_structure(point1, point2, tmp_box,
-                                inv_box, orthogonal)
-                        distances[aa,bb,cc]=aux
-
-    return distances
-
-
-arguments=[nb.float64[:,:,:], # coordinates1
-           nb.float64[:,:,:], # coordinates2
-           nb.float64[:,:,:], # box
-           nb.int64[:], # atom_indices1 [n_atoms]
-           nb.int64[:], # structure_indices1 [n_structures]
-           nb.int64[:], # atom_indices2 [n_atoms]
-           nb.int64[:], # structure_indices2 [n_structures]
-          ]
-output=nb.float64[:,:,:]
-@nb.njit(make_numba_signature(arguments, output), cache=True)
-def get_mic_distances_two_systems(coordinates1, coordinates2, box, atom_indices1, structure_indices1,
-        atom_indices2, structure_indices2):
-
-    n_atoms1=atom_indices1.shape[0]
-    n_atoms2=atom_indices2.shape[0]
-    n_structures=structure_indices1.shape[0]
-
-    distances = np.zeros((n_structures, n_atoms1, n_atoms2), dtype=np.float64)
-
-    for aa in range(n_structures):
-        ii = structure_indices1[aa]
-        jj = structure_indices2[aa]
+    for ii in range(n_structures):
         tmp_box = box[ii,:,:]
         inv_box = inverse_matrix_3x3(tmp_box)
         orthogonal = box_is_orthogonal_single_structure(tmp_box)
-
-        for bb in range(n_atoms1):
-            kk=atom_indices1[bb]
-            point1 = coordinates1[ii,kk,:]
-            for cc in range(n_atoms2):
-                ll=atom_indices2[cc]
-                point2 = coordinates2[jj,ll,:]
-                aux = get_mic_distance_two_points_single_structure(point1, point2, tmp_box,
-                        inv_box, orthogonal)
-                distances[aa,bb,cc]=aux
-
-    return distances
-
-
-arguments=[nb.float64[:,:,:], # coordinates
-           nb.float64[:,:,:], # box
-           nb.int64[:], # atom_indices1 [n_atoms]
-           nb.int64[:], # structure_indices1 [n_structures]
-           nb.int64[:], # atom_indices2 [n_atoms]
-           [nb.int64[:],None], # structure_indices2 [n_structures]
-          ]
-output=nb.float64[:,:]
-@nb.njit(make_numba_signature(arguments, output), cache=True)
-def get_mic_distances_pairs_single_system(coordinates, box, atom_indices1, structure_indices1,
-        atom_indices2, structure_indices2):
-
-    n_atoms=atom_indices1.shape[0]
-    n_structures=structure_indices1.shape[0]
-
-    distances = np.zeros((n_structures, n_atoms), dtype=np.float64)
-
-    if structure_indices2 is None:
-
-        for aa in range(n_structures):
-            ii = structure_indices1[aa]
-            tmp_box = box[ii,:,:]
-            inv_box = inverse_matrix_3x3(tmp_box)
-            orthogonal = box_is_orthogonal_single_structure(tmp_box)
-
-            for bb in range(n_atoms):
-                jj=atom_indices1[bb]
-                kk=atom_indices2[bb]
-                point1 = coordinates[ii,jj,:]
+        for jj in range(n_atoms):
+            point1 = coordinates[ii,jj,:]
+            for kk in range(jj+1, n_atoms):
                 point2 = coordinates[ii,kk,:]
                 aux = get_mic_distance_two_points_single_structure(point1, point2, tmp_box,
-                            inv_box, orthogonal)
-                distances[aa,bb]=aux
-
-    else:
-
-        for aa in range(n_structures):
-            ii = structure_indices1[aa]
-            jj = structure_indices2[aa]
-            tmp_box = box[ii,:,:]
-            inv_box = inverse_matrix_3x3(tmp_box)
-            orthogonal = box_is_orthogonal_single_structure(tmp_box)
-
-            for bb in range(n_atoms):
-                kk=atom_indices1[bb]
-                ll=atom_indices2[bb]
-                point1 = coordinates[ii,kk,:]
-                point2 = coordinates[jj,ll,:]
-                aux = get_mic_distance_two_points_single_structure(point1, point2, tmp_box,
-                            inv_box, orthogonal)
-                distances[aa,bb]=aux
+                                inv_box, orthogonal)
+                distances[ii,jj,kk]=aux
+                distances[ii,kk,jj]=aux
 
     return distances
 
@@ -242,85 +60,78 @@ def get_mic_distances_pairs_single_system(coordinates, box, atom_indices1, struc
 arguments=[nb.float64[:,:,:], # coordinates1
            nb.float64[:,:,:], # coordinates2
            nb.float64[:,:,:], # box
-           nb.int64[:], # atom_indices1 [n_atoms]
-           nb.int64[:], # structure_indices1 [n_structures]
-           nb.int64[:], # atom_indices2 [n_atoms]
-           nb.int64[:], # structure_indices2 [n_structures]
           ]
-output=nb.float64[:,:]
+output=nb.float64[:,:,:]
 @nb.njit(make_numba_signature(arguments, output), cache=True)
-def get_mic_distances_pairs_two_systems(coordinates1, coordinates2, box, atom_indices1, structure_indices1,
-        atom_indices2, structure_indices2):
+def get_mic_distances(coordinates1, coordinates2, box):
 
-    n_atoms=atom_indices1.shape[0]
-    n_structures=structure_indices1.shape[0]
+    n_structures1, n_atoms1 = coordinates1.shape[0:2]
+    n_structures2, n_atoms2 = coordinates2.shape[0:2]
 
-    distances = np.zeros((n_structures, n_atoms), dtype=np.float64)
+    distances = np.zeros((n_structures1, n_atoms1, n_atoms2), dtype=np.float64)
 
-    for aa in range(n_structures):
-        ii = structure_indices1[aa]
-        jj = structure_indices2[aa]
+    for ii in range(n_structures1):
         tmp_box = box[ii,:,:]
         inv_box = inverse_matrix_3x3(tmp_box)
         orthogonal = box_is_orthogonal_single_structure(tmp_box)
+        for jj in range(n_atoms1):
+            point1 = coordinates1[ii,jj,:]
+            for kk in range(n_atoms2):
+                point2 = coordinates2[ii,jj,:]
+                aux = get_mic_distance_two_points_single_structure(point1, point2, tmp_box,
+                        inv_box, orthogonal)
+                distances[ii,jj,kk]=aux
 
-        for bb in range(n_atoms):
-            kk=atom_indices1[bb]
-            ll=atom_indices2[bb]
-            point1 = coordinates1[ii,kk,:]
-            point2 = coordinates2[jj,ll,:]
+    return distances
+
+
+arguments=[nb.float64[:,:,:], # coordinates1
+           nb.float64[:,:,:], # coordinates2
+           nb.float64[:,:,:], # box
+          ]
+output=nb.float64[:,:]
+@nb.njit(make_numba_signature(arguments, output), cache=True)
+def get_mic_distances_pairs(coordinates1, coordinates2, box):
+
+    n_structures, n_atoms = coordinates1.shape[0:2]
+
+    distances = np.zeros((n_structures, n_atoms), dtype=np.float64)
+
+    for ii in range(n_structures):
+        tmp_box = box[ii,:,:]
+        inv_box = inverse_matrix_3x3(tmp_box)
+        orthogonal = box_is_orthogonal_single_structure(tmp_box)
+        for jj in range(n_atoms):
+            point1 = coordinates1[ii,jj,:]
+            point2 = coordinates2[ii,jj,:]
             aux = get_mic_distance_two_points_single_structure(point1, point2, tmp_box,
                         inv_box, orthogonal)
-            distances[aa,bb]=aux
+            distances[ii,jj]=aux
 
     return distances
 
 
 arguments=[nb.float64[:,:], # coordinates
            nb.float64[:,:], # box
-           nb.int64[:], # atom_indices1 [n_atoms]
-           [nb.int64[:],None], # atom_indices2 [n_atoms]
           ]
 output=nb.float64[:,:]
 @nb.njit(make_numba_signature(arguments, output), cache=True)
-def get_mic_distances_single_system_single_structure(coordinates, box, atom_indices1, atom_indices2):
+def get_mic_distances_single_system_single_structure(coordinates, box):
+
+    n_atoms = coordinates.shape[0]
+
+    distances = np.zeros((n_atoms, n_atoms), dtype=np.float64)
 
     inv_box = inverse_matrix_3x3(box)
     orthogonal = box_is_orthogonal_single_structure(box)
-
-    if atom_indices2 is None:
-
-        n_atoms=atom_indices1.shape[0]
-
-        distances = np.zeros((n_atoms, n_atoms), dtype=np.float64)
-
-        for bb in range(n_atoms):
-            jj=atom_indices1[bb]
-            point1 = coordinates[jj,:]
-            for cc in range(bb+1, n_atoms):
-                kk=atom_indices1[cc]
-                point2 = coordinates[kk,:]
-                aux = get_mic_distance_two_points_single_structure(point1, point2, box,
+    for ii in range(n_atoms):
+        point1 = coordinates[ii,:]
+        for jj in range(ii+1, n_atoms):
+            point2 = coordinates[jj,:]
+            aux = get_mic_distance_two_points_single_structure(point1, point2, box,
                                 inv_box, orthogonal)
-                distances[bb,cc]=aux
-                distances[cc,bb]=aux
-
-    else:
-
-        n_atoms1=atom_indices1.shape[0]
-        n_atoms2=atom_indices2.shape[0]
-
-        distances = np.zeros((n_atoms1, n_atoms2), dtype=np.float64)
-
-        for bb in range(n_atoms1):
-            jj=atom_indices1[bb]
-            point1 = coordinates[jj,:]
-            for cc in range(n_atoms2):
-                kk=atom_indices2[cc]
-                point2 = coordinates[kk,:]
-                aux = get_mic_distance_two_points_single_structure(point1, point2, box,
-                        inv_box, orthogonal)
-                distances[bb,cc]=aux
+            distances[ii,jj]=aux
+            distances[jj,ii]=aux
 
     return distances
 
@@ -328,58 +139,25 @@ def get_mic_distances_single_system_single_structure(coordinates, box, atom_indi
 arguments=[nb.float64[:,:], # coordinates1
            nb.float64[:,:], # coordinates2
            nb.float64[:,:], # box
-           nb.int64[:], # atom_indices1 [n_atoms]
-           nb.int64[:], # atom_indices2 [n_atoms]
           ]
 output=nb.float64[:,:]
 @nb.njit(make_numba_signature(arguments, output), cache=True)
-def get_mic_distances_two_systems_single_structure(coordinates1, coordinates2, box, atom_indices1, atom_indices2):
+def get_mic_distances_single_structure(coordinates1, coordinates2, box):
 
-    inv_box = inverse_matrix_3x3(box)
-    orthogonal = box_is_orthogonal_single_structure(box)
-
-    n_atoms1=atom_indices1.shape[0]
-    n_atoms2=atom_indices2.shape[0]
+    n_atoms1 = coordinates1.shape[0]
+    n_atoms2 = coordinates2.shape[0]
 
     distances = np.zeros((n_atoms1, n_atoms2), dtype=np.float64)
 
-    for bb in range(n_atoms1):
-        kk=atom_indices1[bb]
-        point1 = coordinates1[kk,:]
-        for cc in range(n_atoms2):
-            ll=atom_indices2[cc]
-            point2 = coordinates2[ll,:]
-            aux = get_mic_distance_two_points_single_structure(point1, point2, box,
-                        inv_box, orthogonal)
-            distances[bb,cc]=aux
-
-    return distances
-
-
-arguments=[nb.float64[:,:], # coordinates
-           nb.float64[:,:], # box
-           nb.int64[:], # atom_indices1 [n_atoms]
-           nb.int64[:], # atom_indices2 [n_atoms]
-          ]
-output=nb.float64[:]
-@nb.njit(make_numba_signature(arguments, output), cache=True)
-def get_mic_distances_pairs_single_system_single_structure(coordinates, box, atom_indices1, atom_indices2):
-
     inv_box = inverse_matrix_3x3(box)
     orthogonal = box_is_orthogonal_single_structure(box)
-
-    n_atoms=atom_indices1.shape[0]
-
-    distances = np.zeros((n_atoms), dtype=np.float64)
-
-    for bb in range(n_atoms):
-        jj=atom_indices1[bb]
-        kk=atom_indices2[bb]
-        point1 = coordinates[jj,:]
-        point2 = coordinates[kk,:]
-        aux = get_mic_distance_two_points_single_structure(point1, point2, box,
-                            inv_box, orthogonal)
-        distances[bb]=aux
+    for ii in range(n_atoms1):
+        point1 = coordinates1[ii,:]
+        for jj in range(n_atoms2):
+            point2 = coordinates2[jj,:]
+            aux = get_mic_distance_two_points_single_structure(point1, point2, box,
+                    inv_box, orthogonal)
+            distances[ii,jj]=aux
 
     return distances
 
@@ -387,28 +165,23 @@ def get_mic_distances_pairs_single_system_single_structure(coordinates, box, ato
 arguments=[nb.float64[:,:], # coordinates1
            nb.float64[:,:], # coordinates2
            nb.float64[:,:], # box
-           nb.int64[:], # atom_indices1 [n_atoms]
-           nb.int64[:], # atom_indices2 [n_atoms]
           ]
 output=nb.float64[:]
 @nb.njit(make_numba_signature(arguments, output), cache=True)
-def get_mic_distances_pairs_two_systems_single_structure(coordinates1, coordinates2, box, atom_indices1, atom_indices2):
+def get_mic_distances_pairs_single_structure(coordinates1, coordinates2, box):
 
-    inv_box = inverse_matrix_3x3(box)
-    orthogonal = box_is_orthogonal_single_structure(box)
-
-    n_atoms=atom_indices1.shape[0]
+    n_atoms = coordinates1.shape[0]
 
     distances = np.zeros((n_atoms), dtype=np.float64)
 
-    for bb in range(n_atoms):
-        kk=atom_indices1[bb]
-        ll=atom_indices2[bb]
-        point1 = coordinates1[kk,:]
-        point2 = coordinates2[ll,:]
+    inv_box = inverse_matrix_3x3(box)
+    orthogonal = box_is_orthogonal_single_structure(box)
+    for ii in range(n_atoms):
+        point1 = coordinates1[ii,:]
+        point2 = coordinates2[ii,:]
         aux = get_mic_distance_two_points_single_structure(point1, point2, box,
-                        inv_box, orthogonal)
-        distances[bb]=aux
+                    inv_box, orthogonal)
+        distances[ii]=aux
 
     return distances
 

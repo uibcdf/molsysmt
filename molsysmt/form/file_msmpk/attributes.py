@@ -36,5 +36,4 @@ attributes['box'] = True
 attributes['time'] = True
 attributes['structure_id'] = True
 
-
 del(_all_attributes)

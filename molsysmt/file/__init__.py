@@ -1,3 +1,4 @@
+from .is_file import is_file
 from .open import open
 from .close import close
 from .is_opened import is_opened
