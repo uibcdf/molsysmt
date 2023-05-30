@@ -55,7 +55,7 @@ def get_distances(coordinates1, coordinates2):
         for jj in range(n_atoms1):
             point1 = coordinates1[ii,jj,:]
             for kk in range(n_atoms2):
-                point2 = coordinates2[ii,jj,:]
+                point2 = coordinates2[ii,kk,:]
                 aux = get_distance_two_points_single_structure(point1, point2)
                 distances[ii,jj,kk]=aux
 

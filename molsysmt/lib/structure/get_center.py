@@ -29,36 +29,30 @@ def get_center_single_structure(coordinates, weights, atom_indices):
 arguments=[
     nb.float64[:,:,:], # coordinates: [n_structures, n_atoms, 3]
     nb.float64[:], # weights: [n_atoms]
-    nb.int64[:], # atom indices: [n_atoms]
-    nb.int64[:], # structure indices: [n_structures]
 ]
 output=nb.float64[:,:]
 @nb.njit(make_numba_signature(arguments,output), cache=True)
-def get_center(coordinates, weights, atom_indices, structure_indices):
+def get_center(coordinates, weights):
 
-    n_structures = coordinates.shape[0]
+    n_structures, n_atoms = coordinates.shape[0:2]
 
     center=np.zeros((n_structures, 3), dtype=nb.float64)
-    aux=np.zeros((3), dtype=nb.float64)
+    aux_coors=np.zeros((3), dtype=nb.float64)
 
-    ss=0
-    for ii in structure_indices:
-        weight=0.0
-        aux[:]=0.0
-        a_w=0
-        for jj in atom_indices:
-            aux[:]+=weights[a_w]*coordinates[ii,jj,:]
-            weight+=weights[a_w]
-            a_w+=1
-        center[ss,:]=aux/weight
-        ss+=1
+    for ii in range(n_structures):
+        aux_weight=0.0
+        aux_coors[:]=0.0
+        for jj in range(n_atoms):
+            aux_coors[:]+=weights[jj]*coordinates[ii,jj,:]
+            aux_weight+=weights[jj]
+        center[ii,:]=aux_coors/aux_weight
 
     return center
 
 
 arguments=[
     nb.float64[:,:], # coordinates: [n_atoms, 3]
-    nb.types.ListType(nb.types.ListType(nb.float64)), # weights: lists of lists of atom indices
+    nb.types.ListType(nb.types.ListType(nb.float64)), # weights: lists of lists of weights
     nb.types.ListType(nb.types.ListType(nb.int64)), # groups_of_atoms: lists of lists of atom indices
 ]
 output=nb.float64[:,:] # center: [n_groups,3]

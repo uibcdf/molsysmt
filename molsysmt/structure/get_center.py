@@ -1,8 +1,10 @@
 from molsysmt._private.exceptions import NotImplementedMethodError
 from molsysmt._private.digestion import digest
 from molsysmt import lib as msmlib
+from molsysmt._private.variables import is_all
 from molsysmt import pyunitwizard as puw
 import numpy as np
+import gc
 
 @digest()
 def get_center(molecular_system, selection='all', groups_of_atoms=None, center_of_mass=False, weights=None,
@@ -12,20 +14,33 @@ def get_center(molecular_system, selection='all', groups_of_atoms=None, center_o
 
     if engine=='MolSysMT':
 
-        coordinates = get(molecular_system, element='system', structure_indices=structure_indices, coordinates=True)
-        coordinates_value, coordinates_unit = puw.get_value_and_unit(coordinates)
-
         if groups_of_atoms is None:
-            if is_all(selection):
-                atom_indices='all'
-            else:
-                atom_indices = select(molecular_system, selection=selection, syntax=syntax)
-            center = msmlib.structure.get_center(coordinates_value, atom_indices, weights)
+
+            coordinates = get(molecular_system, element='atom', selection=selection,
+                    structure_indices=structure_indices, coordinates=True)
+            coordinates, length_unit = puw.get_value_and_unit(coordinates)
+
+            if weights is None:
+                weights = np.ones((coordinates.shape[1]), dtype=np.float64)
+
+            center = msmlib.structure.get_center(coordinates, weights)
+            center = puw.quantity(center, length_unit)
+
+            del(coordinates, length_unit)
+
         else:
+
+            if weights is None:
+                n_groups = len(groups_of_atoms)
+                weights = []
+                for group_of_atoms in groups_of_atoms:
+                    weights.append([1.0 for ii in range(len(group_of_atoms))])
             center = msmlib.structure.get_center_groups(coordinates_value, groups_of_atoms, weights)
 
-        center = puw.quantity(center, coordinates_unit)
+
         center = puw.standardize(center)
+
+        gc.collect()
 
         return center
 
