@@ -17,9 +17,11 @@ from .get_center import get_center_groups_of_atoms
 
 from .get_rmsd import get_rmsd_single_structure
 from .get_rmsd import get_rmsd
+from .get_rmsd import get_rmsd_with_single_reference_structure
 
 from .get_least_rmsd import get_least_rmsd_single_structure
 from .get_least_rmsd import get_least_rmsd
+from .get_least_rmsd import get_least_rmsd_with_single_reference_structure
 
 from .least_rmsd_fit import least_rmsd_fit_single_structure
 from .least_rmsd_fit import least_rmsd_fit

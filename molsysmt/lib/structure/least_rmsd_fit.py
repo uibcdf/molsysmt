@@ -9,16 +9,12 @@ from ..make_numba_signature import make_numba_signature
 arguments=[
     nb.float64[:,:], # coordinates: [n_atoms, 3]
     nb.float64[:,:], # reference_coordinates: [n_atoms, 3]
-    nb.int64[:], # atom_indices [n_atoms]
-    nb.int64[:], # atom_indices [n_atoms]
-    nb.int64[:], # atom_indices [n_atoms]
 ]
 output=None
 @nb.njit(make_numba_signature(arguments,output), cache=True)
-def least_rmsd_fit_single_structure(coordinates, reference_coordinates, atom_indices,
-                                    atom_indices_to_move, reference_atom_indices):
+def least_rmsd_fit_single_structure(coordinates, reference_coordinates):
 
-    n_atoms = atom_indices.shape[0]
+    n_atoms = coordinates.shape[0]
 
     center_ref=np.empty((3), dtype=nb.float64)
     center=np.empty((3), dtype=nb.float64)
@@ -33,10 +29,8 @@ def least_rmsd_fit_single_structure(coordinates, reference_coordinates, atom_ind
 
     # reference coordinates
 
-    aa=0
-    for ii in reference_atom_indices:
-        x[aa,:]=w[aa]*reference_coordinates[ii,:]
-        aa+=1
+    for ii in range(n_atoms):
+        x[ii,:]=w[ii]*reference_coordinates[ii,:]
 
     x_norm=0.0
     for ii in range(3):
@@ -46,10 +40,8 @@ def least_rmsd_fit_single_structure(coordinates, reference_coordinates, atom_ind
 
     # coordinates
 
-    aa=0
-    for ii in atom_indices:
-        y[aa,:]=w[aa]*coordinates[ii,:]
-        aa+=1
+    for ii in range(n_atoms):
+        y[ii,:]=w[ii]*coordinates[ii,:]
 
     y_norm=0.0
     for ii in range(3):
@@ -90,7 +82,7 @@ def least_rmsd_fit_single_structure(coordinates, reference_coordinates, atom_ind
     center = np.expand_dims(center,0)
     U = np.expand_dims(U,0)
     center_ref = np.expand_dims(center_ref,0)
-    rotate_and_translate_single_structure(coordinates, center, U, center_ref, atom_indices_to_move)
+    #rotate_and_translate_single_structure(coordinates, center, U, center_ref, atom_indices_to_move)
 
     pass
 
