@@ -32,20 +32,17 @@ def get_dihedral_angles_single_structure(coordinates, quartets):
 
 arguments=[nb.float64[:,:,:], # coordinates
            nb.int64[:,:], # quartets [n_atoms,4]
-           nb.int64[:], # structure_indices
           ]
 output=nb.float64[:,:]
 @nb.njit(make_numba_signature(arguments, output), cache=True)
-def get_dihedral_angles(coordinates, quartets, structure_indices):
+def get_dihedral_angles(coordinates, quartets):
 
-    n_structures = structure_indices.shape[0]
+    n_structures = coordinates.shape[0]
     n_angles = quartets.shape[0]
 
     angles = np.empty((n_structures, n_angles), dtype=np.float64)
 
-    for aa in range(n_structures):
-
-        ii = structure_indices[aa]
+    for ii in range(n_structures):
 
         for jj in range(n_angles):
 
@@ -58,7 +55,7 @@ def get_dihedral_angles(coordinates, quartets, structure_indices):
             vect1=coordinates[ii,at2]-coordinates[ii,at1]
             vect2=coordinates[ii,at3]-coordinates[ii,at2]
 
-            angles[aa,jj]=dihedral_angle(vect0,vect1,vect2)
+            angles[ii,jj]=dihedral_angle(vect0,vect1,vect2)
 
     return angles
 

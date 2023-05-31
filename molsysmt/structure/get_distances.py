@@ -89,11 +89,11 @@ def _get_distances_in_memory(molecular_system, selection="all", groups_of_atoms=
                           coordinates=True)
     else:
 
-        if group_behavior == 'center_of_mass':
+        if group_behavior == 'center of mass':
             coordinates = get_center_of_mass(molecular_system, selection=selection,
                     groups_of_atoms=groups_of_atoms, structure_indices=structure_indices)
 
-        elif group_behavior == 'geometric_center':
+        elif group_behavior == 'geometric center':
             coordinates= get_geometric_center(molecular_system, selection=selection,
                     groups_of_atoms=groups_of_atoms, structure_indices=structure_indices)
 
@@ -110,7 +110,15 @@ def _get_distances_in_memory(molecular_system, selection="all", groups_of_atoms=
 
         if (selection_2 is None) and (structure_indices_2 is None):
 
-            coordinates_2 = None
+            if molecular_system_2 is None:
+                coordinates_2 = None
+            else:
+                structure_indices_2 = structure_indices
+                selection_2 = selection
+
+                coordinates_2 = get(molecular_system_2, element='atom', selection=selection_2,
+                                    structure_indices=structure_indices_2, syntax=syntax,
+                                    coordinates=True)
 
         else:
 
@@ -136,18 +144,18 @@ def _get_distances_in_memory(molecular_system, selection="all", groups_of_atoms=
                     if selection is not None:
                         selection_2=selection
 
-        if group_behavior_2 == 'center_of_mass':
+        if group_behavior_2 == 'center of mass':
             coordinates_2 = get_center_of_mass(molecular_system_2, selection=selection_2,
                     groups_of_atoms=groups_of_atoms_2, structure_indices=structure_indices_2)
 
-        elif group_behavior == 'geometric_center':
+        elif group_behavior_2 == 'geometric center':
             coordinates_2= get_geometric_center(molecular_system_2, selection=selection_2,
                     groups_of_atoms=groups_of_atoms_2, structure_indices=structure_indices_2)
 
-        elif group_behavior == 'closest':
+        elif group_behavior_2 == 'closest':
             raise NotImplementedError
 
-        elif group_behavior == 'farthest':
+        elif group_behavior_2 == 'farthest':
             raise NotImplementedError
 
         else:

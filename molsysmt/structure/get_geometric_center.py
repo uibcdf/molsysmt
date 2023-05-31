@@ -6,6 +6,6 @@ def get_geometric_center(molecular_system, selection='all', groups_of_atoms=None
 
     from . import get_center
 
-    return get_center(molecular_system, selection=selection, groups_of_atoms=groups_of_atoms, weights=None, structure_indices=structure_indices, syntax=syntax,
-                      engine=engine)
+    return get_center(molecular_system, selection=selection, groups_of_atoms=groups_of_atoms, weights=None,
+                      structure_indices=structure_indices, syntax=syntax, engine=engine)
 

@@ -5,10 +5,10 @@ import numpy as np
 @digest()
 def get_neighbors(molecular_system, selection="all", groups_of_atoms=None, group_behavior=None, structure_indices="all",
                   molecular_system_2=None, selection_2=None, groups_of_atoms_2=None, group_behavior_2=None, structure_indices_2=None,
-                  threshold=None, n_neighbors=None, atom_indices=False, pbc=False, output_type='numpy.ndarray',
-                  engine='MolSysMT', syntax='MolSysMT'):
+                  threshold=None, n_neighbors=None, pbc=False, engine='MolSysMT', syntax='MolSysMT'):
 
     from . import get_distances
+    from molsysmt.basic import select
 
     #if (threshold is None) and (n_neighbors is None):
     #    raise BadCallError(BadCallMessage)
@@ -32,21 +32,11 @@ def get_neighbors(molecular_system, selection="all", groups_of_atoms=None, group
 
     same_set= (same_selections or same_groups) and same_structures
 
-    if atom_indices:
-
-        atom_indices_1, atom_indices_2, all_dists = get_distances(molecular_system=molecular_system, selection=selection, groups_of_atoms=groups_of_atoms,
-                                                    group_behavior=group_behavior, structure_indices=structure_indices,
-                                                    molecular_system_2=molecular_system_2, selection_2=selection_2, groups_of_atoms_2=groups_of_atoms_2,
-                                                    group_behavior_2=group_behavior_2, structure_indices_2=structure_indices_2,
-                                                    pbc=pbc, output_type='numpy.ndarray', engine=engine, syntax=syntax)
-
-    else:
-
-        all_dists = get_distances(molecular_system=molecular_system, selection=selection, groups_of_atoms=groups_of_atoms,
-                            group_behavior=group_behavior, structure_indices=structure_indices,
-                            selection_2=selection_2, groups_of_atoms_2=groups_of_atoms_2,
-                            group_behavior_2=group_behavior_2, structure_indices_2=structure_indices_2,
-                            pbc=pbc, output_type='numpy.ndarray', engine=engine, syntax=syntax)
+    all_dists = get_distances(molecular_system=molecular_system, selection=selection, groups_of_atoms=groups_of_atoms,
+                        group_behavior=group_behavior, structure_indices=structure_indices,
+                        selection_2=selection_2, groups_of_atoms_2=groups_of_atoms_2,
+                        group_behavior_2=group_behavior_2, structure_indices_2=structure_indices_2,
+                        pbc=pbc, engine=engine, syntax=syntax)
 
     nstructures, nelements_1, nelements_2 = all_dists.shape
     length_units = puw.get_unit(all_dists)
@@ -68,10 +58,7 @@ def get_neighbors(molecular_system, selection="all", groups_of_atoms=None, group
                 good_order = np.argsort(dists_aux)
                 neighs_aux = neighs_aux[good_order]
                 dists_aux = dists_aux[good_order]
-                if atom_indices:
-                    neighs[indice_structure,ii,:]=atom_indices_2[neighs_aux[offset:]]
-                else:
-                    neighs[indice_structure,ii,:]=neighs_aux[offset:]
+                neighs[indice_structure,ii,:]=neighs_aux[offset:]
                 dists[indice_structure,ii,:]=dists_aux[offset:]
                 if same_set:
                     if dists_aux[0] > 0.01:
@@ -99,10 +86,7 @@ def get_neighbors(molecular_system, selection="all", groups_of_atoms=None, group
                 good_order = np.argsort(dists_aux)
                 neighs_aux = neighs_aux[good_order]
                 dists_aux = dists_aux[good_order]
-                if atom_indices:
-                    neighs[indice_structure,ii]=atom_indices_2[np.array(neighs_aux,dtype=int)[offset:]]
-                else:
-                    neighs[indice_structure,ii]=np.array(neighs_aux,dtype=int)[offset:]
+                neighs[indice_structure,ii]=np.array(neighs_aux,dtype=int)[offset:]
                 dists[indice_structure,ii]=np.array(dists_aux,dtype=float)[offset:]
                 if same_set:
                     if dists_aux[0] > 0.01:
@@ -116,26 +100,6 @@ def get_neighbors(molecular_system, selection="all", groups_of_atoms=None, group
 
         raise ValueError("Use either threshold or n_neighbors, but not both at the same time")
 
-    if output_type == 'numpy.ndarray':
 
-        return neighs, dists
-
-    elif output_type == 'dictionary':
-
-        aux_neighs = []
-        aux_dists = []
-
-        for kk in range(len(neighs)):
-
-            dict_neighs = {}
-            dict_dists = {}
-
-            for ii, jj in enumerate(neighs[kk]):
-                dict_neighs[atom_indices_1[ii]]=jj
-                dict_dists[atom_indices_1[ii]]=dists[kk][ii]
-
-            aux_neighs.append(dict_neighs)
-            aux_dists.append(dict_dists)
-
-
+    return neighs, dists
 
