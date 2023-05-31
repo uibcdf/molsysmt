@@ -37,7 +37,10 @@ def transpmatmul(m,v):
 @nb.njit(nb.float64(nb.float64[:], nb.float64[:]), cache=True)
 def dot_product(a, b):
 
-    return a[0]*b[0]+a[1]*b[1]+a[2]*b[2]
+    aux = 0.0
+    for ii in range(a.shape[0]):
+        aux += a[ii]*b[ii]
+    return aux
 
 
 @nb.njit(nb.float64[:](nb.float64[:], nb.float64[:]), cache=True)
@@ -54,14 +57,20 @@ def cross_product(a, b):
 @nb.njit(nb.float64(nb.float64[:]), cache=True)
 def norm_vector(a):
 
-    return math.sqrt(a[0]*a[0]+a[1]*a[1]+a[2]*a[2])
+    aux = 0.0
+    for ii in range(a.shape[0]):
+        aux += a[ii]*a[ii]
+    return math.sqrt(aux)
 
 
 @nb.njit(nb.float64[:](nb.float64[:]), cache=True)
 def normalize_vector(a):
 
-    norm = math.sqrt(a[0]*a[0]+a[1]*a[1]+a[2]*a[2])
-    return a/norm
+    aux = 0.0
+    for ii in range(a.shape[0]):
+        aux += a[ii]*a[ii]
+
+    return a/aux
 
 @nb.njit(nb.float64(nb.float64[:],
                      nb.float64[:],
