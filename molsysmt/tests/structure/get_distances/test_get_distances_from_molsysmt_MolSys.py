@@ -73,15 +73,15 @@ def test_get_distances_from_molsysmt_MolSys_groups_6():
     check_distance = np.isclose(puw.get_value(distances[0, 2, 3], to_unit='nm'), 0.386833)
     assert check_shape and check_distance
 
-def test_get_distances_from_molsysmt_MolSys_groups_6():
+def test_get_distances_from_molsysmt_MolSys_groups_7():
     molsys = msm.convert(msm.demo['pentalanine']['traj.h5'], to_form='molsysmt.MolSys')
     distances = msm.structure.get_distances(molsys, selection="group_index==0", group_behavior="geometric center",
                          selection_2="group_index==6", group_behavior_2="geometric center")
     check_shape = ((5000,1,1)==distances.shape)
-    check_distance = np.isclose(puw.get_value(distances[1000, 0, 0], to_unit='nm'), 2.0584818)
+    check_distance = np.isclose(puw.get_value(distances[1000, 0, 0], to_unit='nm'), 0.818624)
     assert check_shape and check_distance
 
-def test_get_distances_from_molsysmt_MolSys_groups_7():
+def test_get_distances_from_molsysmt_MolSys_groups_8():
     molsys = msm.convert(msm.demo['pentalanine']['traj.h5'], to_form='molsysmt.MolSys')
     list_groups_1 = msm.get(molsys, element="group", selection="all", atom_index=True)
     distances = msm.structure.get_distances(molsys, groups_of_atoms=list_groups_1, group_behavior="geometric center",
@@ -90,7 +90,7 @@ def test_get_distances_from_molsysmt_MolSys_groups_7():
     check_distance = np.isclose(puw.get_value(distances[0, 2, 4], to_unit='nm'), 0.681850)
     assert check_shape and check_distance
 
-def test_get_distances_from_molsysmt_MolSys_groups_8():
+def test_get_distances_from_molsysmt_MolSys_groups_9():
     molsys = msm.convert(msm.demo['pentalanine']['traj.h5'], to_form='molsysmt.MolSys')
     distances = msm.structure.get_distances(molsys,
                          selection="group_index==0", group_behavior="geometric center",
@@ -101,7 +101,7 @@ def test_get_distances_from_molsysmt_MolSys_groups_8():
     check_distance = np.isclose(puw.get_value(distances[0, 0, 0], to_unit='nm'), 0.5978502)
     assert check_shape and check_distance
 
-def test_get_distances_from_molsysmt_MolSys_groups_9():
+def test_get_distances_from_molsysmt_MolSys_groups_10():
     molsys = msm.convert(msm.demo['pentalanine']['traj.h5'], to_form='molsysmt.MolSys')
     n_structures = msm.get(molsys, n_structures=True)
     all_structure_indices = np.arange(n_structures)
@@ -111,7 +111,7 @@ def test_get_distances_from_molsysmt_MolSys_groups_9():
     check_distance = np.isclose(puw.get_value(displacements[1000, 0, 3], to_unit='nm'), 0.84082184)
     assert check_shape and check_distance
 
-def test_get_distances_from_molsysmt_MolSys_groups_10():
+def test_get_distances_from_molsysmt_MolSys_groups_11():
     molsys = msm.convert(msm.demo['pentalanine']['traj.h5'], to_form='molsysmt.MolSys')
     n_structures = msm.get(molsys, n_structures=True)
     all_structure_indices = np.arange(n_structures)
@@ -121,7 +121,7 @@ def test_get_distances_from_molsysmt_MolSys_groups_10():
     check_distance = np.isclose(puw.get_value(displacements[1000, 30, 30], to_unit='nm'), 0.4517681)
     assert check_shape and check_distance
 
-def test_get_distances_from_molsysmt_MolSys_groups_11():
+def test_get_distances_from_molsysmt_MolSys_groups_12():
     molsys = msm.convert(msm.demo['pentalanine']['traj.h5'], to_form='molsysmt.MolSys')
     list_atom_groups = msm.get(molsys, element='group', selection='all', atom_index=True)
     distances = msm.structure.get_distances(molsys, groups_of_atoms=list_atom_groups,
@@ -130,7 +130,7 @@ def test_get_distances_from_molsysmt_MolSys_groups_11():
     check_distance = np.isclose(puw.get_value(distances[1000, 2, 3], to_unit='nm'), 0.4240467)
     assert check_shape and check_distance
 
-def test_get_distances_from_molsysmt_MolSys_groups_12():
+def test_get_distances_from_molsysmt_MolSys_groups_13():
     from itertools import combinations
     molsys = msm.convert(msm.demo['pentalanine']['traj.h5'], to_form='molsysmt.MolSys')
     list_atom_groups = msm.get(molsys, element='group', selection='all', atom_index=True)

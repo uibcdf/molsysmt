@@ -1,16 +1,18 @@
 import numpy as np
 import numba as nb
-from ..math import dot_product
-from ..make_numba_signature import make_numba_signature
+from ..math import dot_product, quaternion_to_rotation_matrix
+from .rotate_and_translate import rotate_and_translate_single_structure
 import math
+from ..make_numba_signature import make_numba_signature
+
 
 arguments=[
     nb.float64[:,:], # coordinates: [n_atoms, 3]
     nb.float64[:,:], # reference_coordinates: [n_atoms, 3]
 ]
-output=nb.float64
+output=[nb.float64[:], nb.float64[:,:], nb.float64[:]]
 @nb.njit(make_numba_signature(arguments,output), cache=True)
-def get_least_rmsd_single_structure(coordinates, reference_coordinates):
+def get_least_rmsd_rotation_and_translation_single_structure(coordinates, reference_coordinates):
 
     n_atoms = coordinates.shape[0]
 
@@ -71,26 +73,32 @@ def get_least_rmsd_single_structure(coordinates, reference_coordinates):
     F[3,3]=-R[0,0]-R[1,1]+R[2,2]
 
     # Diagonalization with dsyevx (Lapack)
-    eigvalues = np.linalg.eigvalsh(F)
+    eigvalues, eigvectors = np.linalg.eigh(F)
 
-    # rmsd
-    msd=max(0.0,((x_norm+y_norm)-2.0*eigvalues[3]))/n_atoms
-    output_rmsd=math.sqrt(msd)
+    # Rotation matrix
+    rotation=quaternion_to_rotation_matrix(eigvectors[:,3])
+    center_rotation = center
 
-    return output_rmsd
+    # New positions with translation and rotation
+    translation = center_ref
+
+    return center_rotation, rotation, translation
+    #rotate_and_translate_single_structure(coordinates, center, U, center_ref, atom_indices_to_move)
 
 
 arguments=[
     nb.float64[:,:,:], # coordinates: [n_structures, n_atoms, 3]
-    nb.float64[:,:,:], # coordinates_ref: [n_structures, n_atoms, 3]
+    nb.float64[:,:,:], # reference_coordinates: [n_ref_structures, n_ref_atoms, 3]
 ]
-output=nb.float64[:]
+output=[nb.float64[:,:,:], nb.float64[:,:], nb.float64[:,:,:]]
 @nb.njit(make_numba_signature(arguments,output), cache=True)
-def get_least_rmsd(coordinates, reference_coordinates):
+def get_least_rmsd_rotation_and_translation(coordinates, reference_coordinates):
 
     n_structures, n_atoms = coordinates.shape[0:2]
 
-    output_rmsd = np.zeros((n_structures), dtype=nb.float64)
+    center_rotation = np.empty([n_structures,0,3], dtype=np.float64)
+    rotation = np.empty([n_structures,3,3], dtype=np.float64)
+    translation = np.empty([n_structures,0,3], dtype=np.float64)
 
     w=np.ones((n_atoms), dtype=nb.float64)
 
@@ -103,10 +111,9 @@ def get_least_rmsd(coordinates, reference_coordinates):
     R=np.zeros((3,3), dtype=nb.float64)
     F=np.zeros((4,4), dtype=nb.float64)
 
-
     for ii in range(n_structures):
 
-        # reference_coordinates
+        # reference coordinates
 
         x_norm=0.0
         x[:,:]=0.0
@@ -132,7 +139,6 @@ def get_least_rmsd(coordinates, reference_coordinates):
             y[:,jj]=y[:,jj]-center[jj]
             y_norm=y_norm+dot_product(y[:,jj],y[:,jj])
 
-        msd=0.0
         R[:,:]=0.0
         F[:,:]=0.0
 
@@ -160,26 +166,39 @@ def get_least_rmsd(coordinates, reference_coordinates):
         F[3,3]=-R[0,0]-R[1,1]+R[2,2]
 
         # Diagonalization with dsyevx (Lapack)
-        eigvalues = np.linalg.eigvalsh(F)
+        eigvalues, eigvectors = np.linalg.eigh(F)
 
-        # rmsd
-        msd=max(0.0,((x_norm+y_norm)-2.0*eigvalues[3]))/n_atoms
-        output_rmsd[ii]=math.sqrt(msd)
+        # Rotation matrix
+        rotation[ii,:,:]=quaternion_to_rotation_matrix(eigvectors[:,3])
+        center_rotation[ii,0,:]=center
 
-    return output_rmsd
+        # Translation
+        translation[ii,0,:]=center_ref
+
+        # New positions with translation and rotation
+        #rotate_and_translate_single_structure(coordinates[ii,:,:],
+        #                                      np.expand_dims(center,0),
+        #                                      np.expand_dims(U,0),
+        #                                      np.expand_dims(center_ref,0),
+        #                                      atom_indices_to_move)
+
+
+    return center_rotation, rotation, translation
 
 
 arguments=[
     nb.float64[:,:,:], # coordinates: [n_structures, n_atoms, 3]
-    nb.float64[:,:], # coordinates_ref: [n_atoms, 3]
+    nb.float64[:,:], # reference_coordinates: [n_ref_atoms, 3]
 ]
-output=nb.float64[:]
+output=[nb.float64[:,:,:], nb.float64[:,:], nb.float64[:,:,:]]
 @nb.njit(make_numba_signature(arguments,output), cache=True)
-def get_least_rmsd_with_single_reference_structure(coordinates, reference_coordinates):
+def get_least_rmsd_rotation_and_translation_with_single_reference_structure(coordinates, reference_coordinates):
 
     n_structures, n_atoms = coordinates.shape[0:2]
 
-    output_rmsd = np.zeros((n_structures), dtype=nb.float64)
+    center_rotation = np.empty([n_structures,0,3], dtype=np.float64)
+    rotation = np.empty([n_structures,3,3], dtype=np.float64)
+    translation = np.empty([n_structures,0,3], dtype=np.float64)
 
     w=np.ones((n_atoms), dtype=nb.float64)
 
@@ -192,7 +211,7 @@ def get_least_rmsd_with_single_reference_structure(coordinates, reference_coordi
     R=np.zeros((3,3), dtype=nb.float64)
     F=np.zeros((4,4), dtype=nb.float64)
 
-    # reference_coordinates
+    # reference coordinates
 
     x_norm=0.0
     x[:,:]=0.0
@@ -220,7 +239,6 @@ def get_least_rmsd_with_single_reference_structure(coordinates, reference_coordi
             y[:,jj]=y[:,jj]-center[jj]
             y_norm=y_norm+dot_product(y[:,jj],y[:,jj])
 
-        msd=0.0
         R[:,:]=0.0
         F[:,:]=0.0
 
@@ -248,11 +266,22 @@ def get_least_rmsd_with_single_reference_structure(coordinates, reference_coordi
         F[3,3]=-R[0,0]-R[1,1]+R[2,2]
 
         # Diagonalization with dsyevx (Lapack)
-        eigvalues = np.linalg.eigvalsh(F)
+        eigvalues, eigvectors = np.linalg.eigh(F)
 
-        # rmsd
-        msd=max(0.0,((x_norm+y_norm)-2.0*eigvalues[3]))/n_atoms
-        output_rmsd[ii]=math.sqrt(msd)
+        # Rotation matrix
+        rotation[ii,:,:]=quaternion_to_rotation_matrix(eigvectors[:,3])
+        center_rotation[ii,0,:]=center
 
-    return output_rmsd
+        # Translation
+        translation[ii,0,:]=center_ref
+
+        # New positions with translation and rotation
+        #rotate_and_translate_single_structure(coordinates[ii,:,:],
+        #                                      np.expand_dims(center,0),
+        #                                      np.expand_dims(U,0),
+        #                                      np.expand_dims(center_ref,0),
+        #                                      atom_indices_to_move)
+
+
+    return center_rotation, rotation, translation
 

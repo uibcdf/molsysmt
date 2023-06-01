@@ -7,7 +7,7 @@ import numpy as np
 import gc
 
 @digest()
-def get_rmsd(molecular_system, selection='all', structure_indices='all',
+def get_rmsd(molecular_system, selection='atom_type!="H"', structure_indices='all',
           reference_molecular_system=None, reference_selection=None, reference_structure_indices=0,
           syntax='MolSysMT', engine='MolSysMT'):
 

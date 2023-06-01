@@ -79,9 +79,6 @@ def _get_distances_in_memory(molecular_system, selection="all", groups_of_atoms=
     from .get_geometric_center import get_geometric_center
     from .get_center_of_mass import get_center_of_mass
 
-    if molecular_system_2 is None:
-        molecular_system_2 = molecular_system
-
     if group_behavior is None:
 
         coordinates = get(molecular_system, element='atom', selection=selection,
@@ -106,6 +103,7 @@ def _get_distances_in_memory(molecular_system, selection="all", groups_of_atoms=
         else:
             raise NotImplementedError
 
+
     if group_behavior_2 is None:
 
         if (selection_2 is None) and (structure_indices_2 is None):
@@ -126,12 +124,16 @@ def _get_distances_in_memory(molecular_system, selection="all", groups_of_atoms=
                 structure_indices_2 = structure_indices
             if selection_2 is None:
                 selection_2 = selection
+            if molecular_system_2 is None:
+                molecular_system_2 = molecular_system
 
             coordinates_2 = get(molecular_system_2, element='atom', selection=selection_2,
                                 structure_indices=structure_indices_2, syntax=syntax,
                                 coordinates=True)
     else:
 
+        if molecular_system_2 is None:
+            molecular_system_2 = molecular_system
 
         if structure_indices_2 is None:
             structure_indices_2 = structure_indices
