@@ -1,37 +1,73 @@
 from molsysmt._private.digestion import digest
 import numpy as np
-from scipy.spatial.transform import Rotation as R
+from scipy.spatial.transform import Rotation
 from molsysmt import pyunitwizard as puw
+import gc
 
 @digest()
-def rotate(molecular_system, rotation=None, selection='all', structure_indices='all',
+def rotate(molecular_system, rotation=None, rotation_center=None, selection='all', structure_indices='all',
         syntax='MolSysMT', in_place=False):
 
-    from molsysmt.basic import get, set, select, copy
+    from molsysmt.basic import get, set, select
+    from molsysmt.structure import translate
 
     atom_indices = select(molecular_system, selection=selection, syntax=syntax)
     coordinates = get(molecular_system, element='atom', indices=atom_indices, structure_indices=structure_indices,
                       coordinates=True)
 
+    if rotation_center is not None:
+
+        coordinates = translate(coordinates, translation=-rotation_center)
+
+    coordinates, length_unit =  puw.get_value_and_unit(coordinates)
+
     if isinstance(rotation, np.ndarray):
 
-        rotator = R.from_matrix(rotation)
+        shape=rotation.shape
 
-    unit = puw.get_unit(coordinates)
-    value = puw.get_value(coordinates)
-    del(coordinates)
+        if shape[:2]==(1,1):
+            rotator = Rotation.from_matrix(rotation[0,0,:,:])
+            for ii in range(coordinates.shape[0]):
+                coordinates[ii,:,:] = rotator.apply(coordinates[ii,:,:])
+        elif shape[1]==1:
+            for ii in range(coordinates.shape[0]):
+                rotator = Rotation.from_matrix(rotation[ii,0,:,:])
+                coordinates[ii,:,:] = rotator.apply(coordinates[ii,:,:])
+        else:
+            for ii in range(coordinates.shape[0]):
+                for jj in range(coordinates.shape[1]):
+                    rotator = Rotation.from_matrix(rotation[ii,jj,:,:])
+                    coordinates[ii,jj,:] = rotator.apply(coordinates[ii,jj,:])
 
-    new_coordinates = []
-    for aux in value[:]:
-        new_coordinates.append(rotator.apply(aux))
-    new_coordinates = puw.quantity(np.array(new_coordinates), unit)
+    elif isinstance(rotation, type(Rotation)):
+
+        raise NotImplementedError
+
+    else:
+
+        raise NotImplementedError
+
+    coordinates = puw.quantity(coordinates, unit=length_unit)
+
+    if rotation_center is not None:
+
+        coordinates = translate(coordinates, translation=rotation_center)
+
 
     if in_place:
-        return set(molecular_system, element='atom', indices=atom_indices, structure_indices=structure_indices,
-                   coordinates=new_coordinates)
+
+        set(molecular_system, element='atom', indices=atom_indices, structure_indices=structure_indices,
+            coordinates=coordinates)
+        del(coordinates, rotation_center, atom_indices)
+        gc.collect()
+
     else:
+
         tmp_molecular_system = copy(molecular_system)
         set(tmp_molecular_system, element='atom', indices=atom_indices, structure_indices=structure_indices,
             coordinates=new_coordinates)
+        del(coordinates, rotation_center, atom_indices)
+        gc.collect()
+
         return tmp_molecular_system
 

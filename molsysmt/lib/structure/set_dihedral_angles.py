@@ -46,16 +46,15 @@ arguments=[nb.float64[:,:,:], # coordinates
            nb.float64[:,:], # angles [n_angs]
            nb.int64[:,:], # quartets [n_angs,4]
            nb.boolean[:,:], # blocks [n_angs,n_atoms]
-           nb.int64[:], # structure_indices
           ]
 output=None
 @nb.njit(make_numba_signature(arguments, output), cache=True)
-def set_dihedral_angles(coordinates, angles, quartets, blocks, structure_indices):
+def set_dihedral_angles(coordinates, angles, quartets, blocks):
 
     n_angles = angles.shape[0]
-    n_atoms = coordinates.shape[1]
+    n_structures, n_atoms = coordinates.shape[:2]
 
-    for ii in structure_indices:
+    for ii in range(n_structures):
 
         for aa in range(n_angles):
 
@@ -64,11 +63,11 @@ def set_dihedral_angles(coordinates, angles, quartets, blocks, structure_indices
             at2=quartets[aa,2]
             at3=quartets[aa,3]
 
-            coordinates_at2=coordinates[ii,at2]
+            coordinates_at2=coordinates[ii,at2,:]
 
-            vect0=coordinates[ii,at1]-coordinates[ii,at0]
-            vect1=coordinates_at2-coordinates[ii,at1]
-            vect2=coordinates[ii,at3]-coordinates_at2
+            vect0=coordinates[ii,at1,:]-coordinates[ii,at0,:]
+            vect1=coordinates_at2-coordinates[ii,at1,:]
+            vect2=coordinates[ii,at3,:]-coordinates_at2
 
             old_ang=dihedral_angle(vect0,vect1,vect2)
             u_vect = normalize_vector(vect1)

@@ -20,8 +20,7 @@ def digest_coordinates(coordinates, caller=None):
     if coordinates is None:
         return None
 
-    value = puw.get_value(coordinates)
-    unit = puw.get_unit(coordinates)
+    value, unit = puw.get_value_and_unit(coordinates)
 
     if not puw.check(unit, dimensionality={'[L]':1}):
         raise ArgumentError('coordinates', value=coordinates, caller=caller, message=None)

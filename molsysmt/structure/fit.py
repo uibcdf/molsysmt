@@ -4,35 +4,30 @@ from molsysmt._private.variables import is_all
 import numpy as np
 from molsysmt import lib as msmlib
 from molsysmt import pyunitwizard as puw
+import gc
 
 @digest()
-def least_rmsd_fit (molecular_system=None, selection='atom_type!="H"', selection_rot_and_trans='all', structure_indices='all',
-         reference_molecular_system=None, reference_selection=None, reference_structure_indices=0,
-         to_form=None, in_place=False, syntax='MolSysMT', engine='MolSysMT'):
-
-    if reference_molecular_system is None:
-        reference_molecular_system = molecular_system
-
-    if reference_selection is None:
-        reference_selection = selection
+def fit(molecular_system=None, selection='all', selection_fit='atom_type!="H"', structure_indices='all',
+        reference_molecular_system=None, reference_selection_fit=None, reference_structure_indices=0,
+        to_form=None, in_place=False, syntax='MolSysMT', engine='MolSysMT'):
 
     if engine=='MolSysMT':
 
-        from molsysmt.basic import select, get
+        from molsysmt.basic import select, get, copy, convert
+        from . import rotate, translate
 
-        coordinates = get(molecular_system, element='atom', selection=selection,
-                structure_indices=structure_indices, syntax=syntax,
-                coordinates=True)
+        coordinates = get(molecular_system, element='atom', selection=selection_fit,
+                structure_indices=structure_indices, syntax=syntax, coordinates=True)
 
         if reference_molecular_system is None:
             reference_molecular_system = molecular_system
 
-        if reference_selection is None:
-            reference_selection = selection
+        if reference_selection_fit is None:
+            reference_selection_fit = selection_fit
 
-        reference_coordinates = get(reference_molecular_system, element='atom', selection=reference_selection,
-                structure_indices=reference_structure_indices, syntax=syntax,
-                coordinates=True)
+        reference_coordinates = get(reference_molecular_system, element='atom',
+                selection=reference_selection_fit, structure_indices=reference_structure_indices,
+                syntax=syntax, coordinates=True)
 
         coordinates, length_unit = puw.get_value_and_unit(coordinates)
         reference_coordinates = puw.get_value(reference_coordinates, to_unit=length_unit)
@@ -56,29 +51,34 @@ def least_rmsd_fit (molecular_system=None, selection='atom_type!="H"', selection
         translation = puw.quantity(translation, length_unit, standardized=True)
 
         del(coordinates, reference_coordinates)
-        gc.collect()
 
         if in_place:
 
             rotate(molecular_system, rotation=rotation, rotation_center=rotation_center,
-                   selection=selection_rot_and_trans, structure_indices=structure_indices,
+                   selection=selection, structure_indices=structure_indices,
                    syntax=syntax, in_place=True)
 
-            translate(molecular_system, rotation=rotation, rotation_center=rotation_center,
-                   selection=selection_rot_and_trans, structure_indices=structure_indices,
+            translate(molecular_system, translation=translation,
+                   selection=selection, structure_indices=structure_indices,
                    syntax=syntax, in_place=True)
+
+            del(rotation, rotation_center, translation)
+            gc.collect()
 
         else:
 
             tmp_molecular_system = copy(molecular_system)
 
             rotate(tmp_molecular_system, rotation=rotation, rotation_center=rotation_center,
-                   selection=selection_rot_and_trans, structure_indices=structure_indices,
+                   selection=selection, structure_indices=structure_indices,
                    syntax=syntax, in_place=True)
 
-            translate(tmp_molecular_system, rotation=rotation, rotation_center=rotation_center,
-                   selection=selection_rot_and_trans, structure_indices=structure_indices,
+            translate(tmp_molecular_system, translation=translation,
+                   selection=selection, structure_indices=structure_indices,
                    syntax=syntax, in_place=True)
+
+            del(rotation, rotation_center, translation)
+            gc.collect()
 
             if to_form is None:
                 return tmp_molecular_system
