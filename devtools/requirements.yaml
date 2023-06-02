@@ -28,7 +28,7 @@ production:
     - mdtraj
     - mdanalysis
     - biopython
-    - ipywidgets <8
+    - ipywidgets
     - tqdm
 
 test:
