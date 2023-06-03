@@ -65,7 +65,7 @@ def rotate(molecular_system, rotation=None, rotation_center=None, selection='all
 
         tmp_molecular_system = copy(molecular_system)
         set(tmp_molecular_system, element='atom', indices=atom_indices, structure_indices=structure_indices,
-            coordinates=new_coordinates)
+            coordinates=coordinates)
         del(coordinates, rotation_center, atom_indices)
         gc.collect()
 

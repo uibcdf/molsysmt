@@ -56,6 +56,8 @@ def set_dihedral_angles(molecular_system, quartets=None, angles=None, blocks=Non
 
             del(quartets, angles, blocks, on_in_blocks)
 
+        coordinates = puw.quantity(coordinates, length_unit)
+
         if in_place:
             set(molecular_system, element='system', structure_indices=structure_indices, coordinates=coordinates)
             del(coordinates)
