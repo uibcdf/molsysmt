@@ -254,8 +254,8 @@ add_attribute('n_saccharides', synonyms=['n_saccharide'], depends_on=['molecule_
 add_attribute('structure_index', synonyms=['runs_on_structures'], dependants='n_structures', runs_on_structures=True, structural=True)
 
 ## structure_id
-add_attribute('structure_id', synonyms=['structure_ids', 'structures_id', 'structures_ids', 'md_step', 'md_steps', 'mdstep', 'mdsteps'], runs_on_structures=True, structural=True,
-        get_from=['system'], set_to='system')
+add_attribute('structure_id', synonyms=['structure_ids', 'structures_id', 'structures_ids', 'md_step', 'md_steps', 'mdstep', 'mdsteps'],
+        runs_on_structures=True, structural=True, get_from=['system'], set_to='system')
 
 ## time
 add_attribute('time', synonyms=['times'], runs_on_structures=True, structural=True,

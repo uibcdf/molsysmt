@@ -5,10 +5,12 @@ channels:
 - defaults
 dependencies:
 - python
-- setuptools
+- pip
+- setuptools >=61.0
+- versioningit~=2.0
 - numpy
+- numba
 - pyunitwizard
-- sabueso
 - mmtf-python
 - pandas
 - openmm
@@ -17,6 +19,7 @@ dependencies:
 - ambertools
 - networkx
 - mdtraj
+- mdanalysis
 - biopython
 - ipywidgets <8
 - tqdm

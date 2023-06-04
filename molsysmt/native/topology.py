@@ -162,8 +162,8 @@ class Topology():
 
     def _build_components(self):
 
-        from molsysmt.lib import bonds as _libbonds
         from molsysmt.element.component import get_component_type_from_group_names
+        from molsysmt.element.component import get_component_index_from_bonded_atoms
 
         n_atoms = self.atoms_dataframe.shape[0]
         n_bonds = self.bonds_dataframe.shape[0]
@@ -181,9 +181,7 @@ class Topology():
 
         else:
 
-            index_array = _libbonds.component_indices(atom_index_from_bond, n_atoms, n_bonds)
-            index_array = np.ascontiguousarray(index_array, dtype=int)
-
+            index_array = get_component_index_from_bonded_atoms(atom_index_from_bond, n_atoms)
             component_indices = np.unique(index_array)
             n_components = component_indices.shape[0]
 

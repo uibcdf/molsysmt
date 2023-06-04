@@ -60,7 +60,7 @@ def get_group_index_from_atom(item, indices='all'):
 @digest(form=form)
 def get_component_index_from_atom(item, indices='all'):
 
-    from molsysmt.lib import bonds as _libbonds
+    from molsysmt.element.component import get_component_index_from_bonded_atoms
 
     n_atoms = get_n_atoms_from_system(item)
     n_bonds = get_n_bonds_from_system(item)
@@ -73,8 +73,7 @@ def get_component_index_from_atom(item, indices='all'):
 
         atom_indices = get_bonded_atoms_from_bond(item)
 
-        output = _libbonds.component_indices(atom_indices, n_atoms, n_bonds)
-        output = np.ascontiguousarray(output, dtype=int)
+        output = get_component_index_from_bonded_atoms(atom_indices, n_atoms)
 
     if not is_all(indices):
         output = output[indices]

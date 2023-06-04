@@ -120,6 +120,7 @@ devtools/playground/*
 !devtools/playground/README.md
 !molsysmt/build/*
 !molsysmt/docs/contents/build/*
+!molsysmt/lib
 
 # pycharm
 .idea/

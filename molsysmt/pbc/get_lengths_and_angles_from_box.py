@@ -1,21 +1,16 @@
 from molsysmt._private.digestion import digest
 from molsysmt import pyunitwizard as puw
-from molsysmt.lib import box as libbox
-import numpy as np
+from molsysmt import lib as msmlib
 
 @digest()
 def get_lengths_and_angles_from_box(box):
 
-    n_structures = box.shape[0]
-    unit = puw.get_unit(box)
-    tmp_box =  np.asfortranarray(puw.get_value(box), dtype='float64')
+    box_value, box_unit  = puw.get_value_and_unit(box)
+    lengths_value, angles_value = msmlib.pbc.get_lengths_and_angles_from_box(box_value)
+    lengths = puw.quantity(lengths_value.round(6), box_unit)
+    lengths = puw.standardize(lengths)
+    angles = puw.quantity(angles_value.round(6), 'radians')
+    angles = puw.standardize(angles)
 
-    lengths = libbox.length_edges_box(tmp_box, n_structures)
-    lengths = np.ascontiguousarray(lengths, dtype='float64')
+    return lengths, angles
 
-    angles = libbox.angles_box(tmp_box, n_structures)
-    angles = np.ascontiguousarray(angles, dtype='float64')
-
-    del(tmp_box)
-
-    return lengths.round(6)*unit, puw.quantity(angles.round(6), 'degrees')
