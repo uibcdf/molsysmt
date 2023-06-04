@@ -1,9 +1,10 @@
 from molsysmt._private.exceptions import NotImplementedMethodError
 from molsysmt._private.digestion import digest
-from molsysmt._private.math import serialized_lists
-from molsysmt.lib import com as libcom
+from molsysmt import lib as msmlib
+from molsysmt._private.variables import is_all
 from molsysmt import pyunitwizard as puw
 import numpy as np
+import gc
 
 @digest()
 def get_center(molecular_system, selection='all', groups_of_atoms=None, weights=None,
@@ -14,31 +15,42 @@ def get_center(molecular_system, selection='all', groups_of_atoms=None, weights=
     if engine=='MolSysMT':
 
         if groups_of_atoms is None:
-            atom_indices = select(molecular_system, selection=selection, syntax=syntax)
-            groups_of_atoms = [atom_indices]
 
-        groups_serialized = serialized_lists(groups_of_atoms, dtype='int64')
+            coordinates = get(molecular_system, element='atom', selection=selection,
+                    structure_indices=structure_indices, coordinates=True)
+            coordinates, length_unit = puw.get_value_and_unit(coordinates)
 
-        if weights is None:
-            weights = np.ones((groups_serialized.n_values))
-        elif isinstance(weights, str):
-            raise NotImplementedMethodError()
+            if weights is None:
+                weights = np.ones((coordinates.shape[1]), dtype=np.float64)
 
-        coordinates = get(molecular_system, element='system', structure_indices=structure_indices, coordinates=True)
+            center = msmlib.structure.get_center(coordinates, weights)
+            center = puw.quantity(center, length_unit)
 
-        length_units = puw.get_unit(coordinates)
-        coordinates = np.asfortranarray(puw.get_value(coordinates), dtype='float64')
-        n_atoms = coordinates.shape[1]
-        n_structures = coordinates.shape[0]
+            del(coordinates, length_unit)
 
-        com = libcom.center_of_mass(coordinates,
-                                    groups_serialized.indices, groups_serialized.values, groups_serialized.starts,
-                                    weights, n_structures, n_atoms,
-                                    groups_serialized.n_indices, groups_serialized.n_values)
+        else:
 
-        del(coordinates, groups_serialized)
+            atoms_per_group = np.array([len(group) for group in groups_of_atoms], dtype=np.int64)
+            groups_of_atoms = np.concatenate(groups_of_atoms)
+            coordinates = get(molecular_system, element='atom', selection=groups_of_atoms,
+                    structure_indices=structure_indices, coordinates=True)
+            coordinates, length_unit = puw.get_value_and_unit(coordinates)
 
-        return com*length_units
+            if weights is None:
+                weights = np.ones((coordinates.shape[1]), dtype=np.float64)
+            else:
+                weights = np.concatenate(weights)
+
+            center = msmlib.structure.get_center_groups_of_atoms(coordinates, atoms_per_group, weights)
+            center = puw.quantity(center, length_unit)
+
+            del(coordinates, length_unit, groups_of_atoms, weights)
+
+        center = puw.standardize(center)
+
+        gc.collect()
+
+        return center
 
     else:
 

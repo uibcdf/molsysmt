@@ -9,13 +9,13 @@ import numpy as np
 def test_compare_all_eq_1():
     molsys_A = msm.convert(msm.demo['T4 lysozyme L99A']['vacuum.msmpk'], to_form='molsysmt.MolSys')
     molsys_B = msm.convert(msm.demo['T4 lysozyme L99A']['vacuum.msmpk'], to_form='molsysmt.MolSys')
-    output = msm.compare(molsys_A, molsys_B, rule='equal', attributes_type='topological', coordinates=True, box=True)
+    output = msm.compare(molsys_A, molsys_B, attributes_type='topological', coordinates=True, box=True)
     assert output == True
 
 def test_compare_all_eq_2():
     molsys_A = msm.convert(msm.demo['T4 lysozyme L99A']['vacuum.msmpk'], to_form='molsysmt.MolSys')
     molsys_B = msm.convert(msm.demo['chicken villin HP35']['vacuum.msmpk'], to_form='molsysmt.MolSys')
-    output = msm.compare(molsys_A, molsys_B, rule='equal', attributes_type='topological', coordinates=True, box=True)
+    output = msm.compare(molsys_A, molsys_B, attributes_type='topological', coordinates=True, box=True)
     assert output == False
 
 def test_compare_all_eq_3():

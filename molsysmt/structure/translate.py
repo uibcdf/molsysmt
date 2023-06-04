@@ -1,6 +1,7 @@
 from molsysmt._private.digestion import digest
 import numpy as np
 from molsysmt import pyunitwizard as puw
+import gc
 
 @digest()
 def translate(molecular_system, translation=None, selection='all', structure_indices='all',
@@ -12,21 +13,31 @@ def translate(molecular_system, translation=None, selection='all', structure_ind
     coordinates = get(molecular_system, element='atom', indices=atom_indices, structure_indices=structure_indices,
                       coordinates=True)
 
-    if len(translation.shape)==1:
-        n_atoms = coordinates.shape[1]
-        value = puw.get_value(translation)
-        unit = puw.get_unit(translation)
-        value = np.tile(value, (n_atoms,1))
-        translation = puw.quantity(value, unit)
+    coordinates, length_unit = puw.get_value_and_unit(coordinates)
+    translation = puw.get_value(translation, to_unit=length_unit)
 
-    coordinates+=translation
+    if translation.shape==(1,1,3):
+        coordinates += translation[0,0,:]
+    elif translation.shape==(coordinates.shape[0],1,3):
+        for ii in range(coordinates.shape[0]):
+            coordinates[ii,:,:] += translation[ii,0,:]
+    elif np.all(translation.shape[:]==coordinates.shape[:]):
+        coordinates += translation
+    else:
+        raise ValueError
+
+    coordinates = puw.quantity(coordinates, length_unit)
 
     if in_place:
-        return set(molecular_system, element='atom', indices=atom_indices, structure_indices=structure_indices,
-                   coordinates=coordinates)
+        set(molecular_system, element='atom', indices=atom_indices, structure_indices=structure_indices,
+            coordinates=coordinates)
+        del(coordinates, atom_indices, translation)
+        gc.collect()
     else:
         tmp_molecular_system = copy(molecular_system)
         set(tmp_molecular_system, element='atom', indices=atom_indices, structure_indices=structure_indices,
             coordinates=coordinates)
+        del(coordinates, atom_indices, translation)
+        gc.collect()
         return tmp_molecular_system
 

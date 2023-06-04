@@ -2,59 +2,89 @@ from molsysmt._private.exceptions import NotImplementedMethodError
 from molsysmt._private.digestion import digest
 from molsysmt._private.variables import is_all
 import numpy as np
-from molsysmt.lib import rmsd as librmsd
+from molsysmt import lib as msmlib
 from molsysmt import pyunitwizard as puw
+import gc
 
 @digest()
-def fit (molecular_system=None, selection=None, structure_indices='all',
-         reference_molecular_system=None, reference_selection=None, reference_structure_index=0,
-         to_form=None, syntax='MolSysMT', method='least rmsd', engine='MolSysMT'):
-
-    from molsysmt.basic import select, get, set, convert, copy, is_a_molecular_system
+def fit(molecular_system=None, selection='all', selection_fit='atom_type!="H"', structure_indices='all',
+        reference_molecular_system=None, reference_selection_fit=None, reference_structure_indices=0,
+        to_form=None, in_place=False, syntax='MolSysMT', engine='MolSysMT'):
 
     if engine=='MolSysMT':
 
-        n_atoms, n_structures = get(molecular_system, n_atoms=True, n_structures=True)
-        atom_indices = select(molecular_system, selection=selection, syntax=syntax)
-        n_atom_indices = atom_indices.shape[0]
-        if is_all(structure_indices):
-            structure_indices = np.arange(n_structures)
-        n_structure_indices = structure_indices.shape[0]
+        from molsysmt.basic import select, get, copy, convert
+        from . import rotate, translate
+
+        coordinates = get(molecular_system, element='atom', selection=selection_fit,
+                structure_indices=structure_indices, syntax=syntax, coordinates=True)
 
         if reference_molecular_system is None:
             reference_molecular_system = molecular_system
 
-        if reference_selection is None:
-            reference_selection = selection
+        if reference_selection_fit is None:
+            reference_selection_fit = selection_fit
 
-        reference_atom_indices = select(reference_molecular_system, selection=reference_selection,
-                syntax=syntax)
+        reference_coordinates = get(reference_molecular_system, element='atom',
+                selection=reference_selection_fit, structure_indices=reference_structure_indices,
+                syntax=syntax, coordinates=True)
 
-        reference_coordinates = get(reference_molecular_system, element='atom', indices=reference_atom_indices,
-                                    structure_indices=reference_structure_index, coordinates=True)
+        coordinates, length_unit = puw.get_value_and_unit(coordinates)
+        reference_coordinates = puw.get_value(reference_coordinates, to_unit=length_unit)
 
-        coordinates = get(molecular_system, structure_indices='all', coordinates=True)
-        units = puw.get_unit(coordinates)
-        coordinates = np.asfortranarray(puw.get_value(coordinates), dtype='float64')
-        reference_coordinates = np.asfortranarray(puw.get_value(reference_coordinates, to_unit=units), dtype='float64')
-
-        if reference_coordinates.shape[1]!=n_atom_indices:
+        if coordinates.shape[1]!=reference_coordinates.shape[1]:
             raise ValueError("reference selection and selection needs to have the same number of atoms")
 
-        librmsd.least_rmsd_fit(coordinates, atom_indices, reference_coordinates, structure_indices,
-                                n_atoms, n_structures, n_atom_indices, n_structure_indices)
-
-        coordinates=np.ascontiguousarray(coordinates)*units
-        coordinates=puw.standardize(coordinates)
-
-        if to_form is None:
-            tmp_molecular_system = copy(molecular_system)
+        if coordinates.shape[0]==1 and reference_coordinates.shape[0]>1:
+            rotation_center, rotation, translation = \
+                    msmlib.structure.get_least_rmsd_rotation_and_translation_with_single_reference_structure(
+                        reference_coordinates, coordinates[0])
+        elif coordinates.shape[0]>1 and reference_coordinates.shape[0]==1:
+            rotation_center, rotation, translation = \
+                    msmlib.structure.get_least_rmsd_rotation_and_translation_with_single_reference_structure(
+                        coordinates, reference_coordinates[0])
         else:
-            tmp_molecular_system = convert(molecular_system, to_form=to_form)
+            rotation_center, rotation, translation = msmlib.structure.get_least_rmsd_rotation_and_translation(
+                coordinates, reference_coordinates)
 
-        set(tmp_molecular_system, element='system', coordinates=coordinates)
-        del(coordinates, units)
-        return tmp_molecular_system
+        rotation_center = puw.quantity(rotation_center, length_unit, standardized=True)
+        translation = puw.quantity(translation, length_unit, standardized=True)
+
+        del(coordinates, reference_coordinates)
+
+        if in_place:
+
+            rotate(molecular_system, rotation=rotation, rotation_center=rotation_center,
+                   selection=selection, structure_indices=structure_indices,
+                   syntax=syntax, in_place=True)
+
+            translate(molecular_system, translation=translation,
+                   selection=selection, structure_indices=structure_indices,
+                   syntax=syntax, in_place=True)
+
+            del(rotation, rotation_center, translation)
+            gc.collect()
+
+        else:
+
+            tmp_molecular_system = copy(molecular_system)
+
+            rotate(tmp_molecular_system, rotation=rotation, rotation_center=rotation_center,
+                   selection=selection, structure_indices=structure_indices,
+                   syntax=syntax, in_place=True)
+
+            translate(tmp_molecular_system, translation=translation,
+                   selection=selection, structure_indices=structure_indices,
+                   syntax=syntax, in_place=True)
+
+            del(rotation, rotation_center, translation)
+            gc.collect()
+
+            if to_form is None:
+                return tmp_molecular_system
+            else:
+                tmp_molecular_system = convert(tmp_molecular_system, to_form=to_form)
+                return tmp_molecular_system
 
     else:
 

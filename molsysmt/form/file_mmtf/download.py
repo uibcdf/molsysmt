@@ -1,2 +1,3 @@
-from sabueso.tools.file_mmtf import download
 
+def download():
+    raise NotImplementedError

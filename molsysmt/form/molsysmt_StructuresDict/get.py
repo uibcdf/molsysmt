@@ -74,7 +74,7 @@ def get_coordinates_from_atom(item, indices='all', structure_indices='all'):
     if not is_all(indices):
         tmp_coordinates = tmp_coordinates[:,indices,:]
 
-    return tmp_coordinates
+    return tmp_coordinates.astype(np.float64)
 
 
 ## From group
@@ -246,7 +246,7 @@ def get_box_from_system(item, structure_indices='all'):
                 n_structures=len(structure_indices)
             output=np.tile(item['box'], (n_structures, 1, 1))
 
-    return output
+    return output.astype(np.float64)
 
 @digest(form=form)
 def get_structure_id_from_system(item, structure_indices='all'):

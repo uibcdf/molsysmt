@@ -18,6 +18,8 @@ def test_wrap_to_pbc_molsysmt_StructuresDict_1():
     box_length = msm.get(molsys_wrapped, element='system', box_lengths=True)[0,0]
     check_limits_wrapped = ( box_length >= (np.max(molsys_wrapped['coordinates']) - np.min(molsys_wrapped['coordinates'])))
     check_limits = ( box_length <= (np.max(molsys['coordinates']) - np.min(molsys['coordinates'])))
-    assert check_limits and check_distances and check_limits_wrapped
+    assert check_limits
+    assert check_distances
+    assert check_limits_wrapped
 
 

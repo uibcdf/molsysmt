@@ -2,121 +2,71 @@ from molsysmt._private.exceptions import NotImplementedMethodError
 from molsysmt._private.digestion import digest
 import numpy as np
 from molsysmt import pyunitwizard as puw
-from molsysmt.lib import geometry as libgeometry
+from molsysmt import lib as msmlib
+import gc
 
 @digest()
 def set_dihedral_angles(molecular_system, quartets=None, angles=None, blocks=None,
         structure_indices='all', pbc=True, in_place=False, engine='MolSysMT'):
 
-    from molsysmt.basic import get, convert, set, copy
-    from molsysmt.topology.get_covalent_blocks import get_covalent_blocks
-
-    if type(quartets) in [list,tuple]:
-        quartets = np.array(quartets, dtype=int)
-    elif type(quartets) is np.ndarray:
-        pass
-    else:
-        raise ValueError
-
-    shape = quartets.shape
-
-    if len(shape)==1:
-        if shape[0]==4:
-            quartets=quartets.reshape([1,4])
-        else:
-            raise ValueError
-    elif len(shape)==2:
-        if shape[1]!=4:
-            raise ValueError
-    else:
-        raise ValueError
-
-    n_atoms = get(molecular_system, element='system', n_atoms=True)
-    n_quartets = quartets.shape[0]
-    n_structures = get(molecular_system, element='system', structure_indices=structure_indices, n_structures=True)
-
-    angles_units = puw.get_unit(angles)
-    angles_value = puw.get_value(angles)
-
-    if type(angles_value) in [float]:
-        if (n_quartets==1 and n_structures==1):
-            angles_value = np.array([[angles_value]], dtype=float)
-        else:
-            raise ValueError("angles do not match the number of frames and quartets")
-    elif type(angles_value) in [list,tuple]:
-        angles_value = np.array(angles_value, dtype=float)
-    elif type(angles_value) is np.ndarray:
-        pass
-    else:
-        raise ValueError
-
-    shape = angles_value.shape
-
-    if len(shape)==1:
-        angles_value = angles_value.reshape([n_structures, n_quartets])
-
-    angles = angles_value*angles_units
-
     if engine=='MolSysMT':
 
+        from molsysmt.basic import get, convert, set, copy
+        from molsysmt.topology.get_covalent_blocks import get_covalent_blocks
+
+        coordinates = get(molecular_system, element='system', structure_indices=structure_indices,
+                coordinates=True)
+        coordinates, length_unit = puw.get_value_and_unit(coordinates)
+
+        angles = puw.get_value(angles, to_unit='radians')
+
+        n_quartets = quartets.shape[0]
+        on_in_blocks = np.zeros((n_quartets, coordinates.shape[1]), dtype=np.bool_)
+
         if blocks is None:
-
-
-            blocks = []
-
-            for quartet in quartets:
-
-                tmp_blocks = get_covalent_blocks(molecular_system, remove_bonds=[quartet[1],
-                    quartet[2]])
-                blocks.append(tmp_blocks)
-
-
-        coordinates = get(molecular_system, element='system', structure_indices=structure_indices, coordinates=True)
+            for ii in range(n_quartets):
+                blocks = get_covalent_blocks(molecular_system, remove_bonds=[quartets[ii,1],quartets[ii,2]])
+                for block in blocks:
+                    if quartets[ii,3] in block:
+                        on_in_blocks[ii,list(block)] = True
+        else:
+            for ii in range(n_quartets):
+                for block in blocks:
+                    if quartets[ii,3] in block:
+                        on_in_blocks[ii,list(block)] = True
 
         if pbc:
 
-            box, box_shape = get(molecular_system, element='system', structure_indices=structure_indices, box=True,
-                                 box_shape=True)
-            if box_shape is None:
-                raise ValueError("The system has no PBC box. The input argument 'pbc' can not be True.")
-            orthogonal = 0
+            box = get(molecular_system, element='system', structure_indices=structure_indices, box=True)
 
-            if box_shape is None:
-                orthogonal =1
-            elif box_shape == 'cubic':
-                orthogonal =1
+            if box is not None:
+                if box[0] is not None:
+                    box = puw.get_value(box, to_unit=length_unit)
+                    msmlib.structure.set_mic_dihedral_angles(coordinates, box, angles, quartets,
+                            on_in_blocks)
+                    del(box, quartets, angles, blocks, on_in_blocks)
+                else:
+                    pbc = False
+            else:
+                pbc = False
 
-        else:
+        if not pbc:
 
-            orthogonal = 1
-            box= np.zeros([n_structures,3,3])*puw.unit('nm')
+            msmlib.structure.set_dihedral_angles(coordinates, angles, quartets, on_in_blocks)
 
-        length_units = puw.unit(coordinates)
-        box = np.asfortranarray(puw.get_value(box, to_unit=length_units), dtype='float64')
-        coordinates = np.asfortranarray(puw.get_value(coordinates), dtype='float64')
-        angles = np.asfortranarray(puw.get_value(angles), dtype='float64')
+            del(quartets, angles, blocks, on_in_blocks)
 
-        aux_blocks = []
-        aux_atoms_per_block = []
-
-        for block in blocks:
-
-            aux_atoms_per_block.append(len(block[1]))
-            aux_blocks.append(list(block[1]))
-
-        aux_blocks = np.ravel(aux_blocks)
-        aux_atoms_per_block = np.array(aux_atoms_per_block, dtype=int)
-
-        libgeometry.set_dihedral_angles(coordinates, box, orthogonal, int(pbc), quartets, angles,
-                                         aux_blocks, aux_atoms_per_block, n_quartets, n_atoms, n_structures, aux_blocks.shape[0])
-
-        coordinates=np.ascontiguousarray(coordinates)*length_units
+        coordinates = puw.quantity(coordinates, length_unit)
 
         if in_place:
-            return set(molecular_system, element='system', structure_indices=structure_indices, coordinates=coordinates)
+            set(molecular_system, element='system', structure_indices=structure_indices, coordinates=coordinates)
+            del(coordinates)
+            gc.collect()
         else:
             tmp_molecular_system = copy(molecular_system)
             set(tmp_molecular_system, element='system', structure_indices=structure_indices, coordinates=coordinates)
+            del(coordinates)
+            gc.collect()
             return tmp_molecular_system
 
     else:

@@ -24,8 +24,8 @@ def test_get_geometric_center_molsysmt_MolSys_2():
     center_group_0 = msm.structure.get_geometric_center(molsys, selection='group_index==0')
     center_group_1 = msm.structure.get_geometric_center(molsys, selection='group_index==1')
     distance_groups = msm.structure.get_distances(center_group_0, molecular_system_2=center_group_1)
-    distance_groups_2 = msm.structure.get_distances(molsys, selection='group_index==0', group_behavior='geometric_center',
-                                                            selection_2='group_index==1', group_behavior_2='geometric_center')
+    distance_groups_2 = msm.structure.get_distances(molsys, selection='group_index==0', group_behavior='geometric center',
+                                                            selection_2='group_index==1', group_behavior_2='geometric center')
     check = np.allclose(distance_groups, distance_groups_2)
     assert check
 

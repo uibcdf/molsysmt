@@ -12,7 +12,7 @@ def test_copy_1():
     molsys = msm.demo['pentalanine']['traj.h5']
     molsys = msm.convert(molsys, to_form='molsysmt.MolSys')
     molsys_2 = msm.copy(molsys)
-    output = msm.compare(molsys, molsys_2, rule='equal', elements=True, coordinates=True, box=True, form=True)
+    output = msm.compare(molsys, molsys_2, attributes_type='topological', coordinates=True, box=True)
     assert output==True
 
 def test_copy_2():

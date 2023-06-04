@@ -18,6 +18,9 @@ def test_unwrap_molsysmt_StructuresDict_1():
     check_limits = ( box_length <= (np.max(molsys['coordinates']) - np.min(molsys['coordinates'])))
     check_limits_unwrapped = ( box_length <= (np.max(molsys_unwrapped['coordinates']) - np.min(molsys['coordinates'])))
     check = np.allclose(molsys_unwrapped['coordinates'][:,:,:], molsys['coordinates'][:,:,:])
-    assert check_limits and check_limits_unwrapped and check_limits_wrapped and check
+    assert check_limits
+    assert check_limits_unwrapped
+    assert check_limits_wrapped
+    assert check
 
 

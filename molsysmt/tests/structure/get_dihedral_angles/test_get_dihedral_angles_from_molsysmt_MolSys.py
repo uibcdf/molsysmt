@@ -14,17 +14,19 @@ def test_get_dihedral_angles_from_molsysmt_MolSys_1():
     covalent_chains = msm.topology.get_covalent_chains(molsys, chain=['atom_name=="C"', 'atom_name=="N"',
                                                                'atom_name=="CA"', 'atom_name=="C"'])
     dihedral_angles = msm.structure.get_dihedral_angles(molsys, quartets=covalent_chains[2])
-    true_value = np.array([[-179.99999499]])
-    check = np.allclose(true_value,msm.pyunitwizard.get_value(dihedral_angles, to_unit='degrees'))
-    assert check
+    check1 = np.allclose(np.array([[-180.0]]), msm.pyunitwizard.get_value(dihedral_angles, to_unit='degrees'))
+    check2 = np.allclose(np.array([[180.0]]), msm.pyunitwizard.get_value(dihedral_angles, to_unit='degrees'))
+    assert (check1 or check2)
 
 def test_get_dihedral_angles_from_molsysmt_MolSys_2():
     molsys = msm.convert(msm.demo['Met-enkephalin']['vacuum.msmpk'], to_form='molsysmt.MolSys')
     covalent_chains = msm.topology.get_dihedral_quartets(molsys, phi=True)
     dihedral_angles = msm.structure.get_dihedral_angles(molsys, quartets=covalent_chains)
-    true_value = np.array([[-179.99999, -179.99999, -179.99999, -179.99999]])
-    check = np.allclose(true_value,msm.pyunitwizard.get_value(dihedral_angles, to_unit='degrees'))
-    assert check
+    true_value = np.array([[-180.0, -180.0, -180.0, -180.0]])
+    check1 = np.allclose(true_value,msm.pyunitwizard.get_value(dihedral_angles, to_unit='degrees'))
+    true_value = np.array([[180.0, 180.0, 180.0, 180.0]])
+    check2 = np.allclose(true_value,msm.pyunitwizard.get_value(dihedral_angles, to_unit='degrees'))
+    assert (check1 or check2)
 
 def test_get_dihedral_angles_from_molsysmt_MolSys_3():
     molsys = msm.convert(msm.demo['pentalanine']['traj.h5'], to_form='molsysmt.MolSys')
@@ -50,7 +52,10 @@ def test_get_dihedral_angles_from_molsysmt_MolSys_3():
     check_value_1 = np.allclose(true_values_1,msm.pyunitwizard.get_value(dihedral_angles[0:5], to_unit='degrees'))
     check_value_2 = np.allclose(true_values_2,msm.pyunitwizard.get_value(dihedral_angles[1000:1005], to_unit='degrees'))
     check_value_3 = np.allclose(true_values_3,msm.pyunitwizard.get_value(dihedral_angles[2000:2005], to_unit='degrees'))
-    assert check_shape and check_value_1 and check_value_2 and check_value_3
+    assert check_shape
+    assert check_value_1
+    assert check_value_2
+    assert check_value_3
 
 def test_get_dihedral_angles_from_molsysmt_MolSys_4():
     molsys = msm.convert(msm.demo['pentalanine']['traj.h5'], to_form='molsysmt.MolSys')

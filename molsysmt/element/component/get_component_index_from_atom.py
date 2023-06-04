@@ -6,7 +6,7 @@ import numpy as np
 def get_component_index_from_atom(molecular_system, indices='all'):
 
     from molsysmt.basic import get
-    from molsysmt.lib import bonds as _libbonds
+    from molsysmt.element.component import get_component_index_from_bonded_atoms
 
     n_atoms, n_bonds = get(molecular_system, element='system', n_atoms=True, n_bonds=True)
 
@@ -18,8 +18,7 @@ def get_component_index_from_atom(molecular_system, indices='all'):
 
         atoms_indices = get(molecular_system, element='bond', indices='all', bonded_atoms=True)
 
-        output = _libbonds.component_indices(atoms_indices, n_atoms, n_bonds)
-        output = np.ascontiguousarray(output, dtype=int)
+        output = get_component_index_from_bonded_atoms(atoms_indices, n_atoms)
 
     if not is_all(indices):
 
