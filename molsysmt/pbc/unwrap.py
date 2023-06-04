@@ -3,6 +3,7 @@ from molsysmt._private.digestion import digest
 from molsysmt import pyunitwizard as puw
 from molsysmt import lib as msmlib
 import numpy as np
+import gc
 
 @digest()
 def unwrap(molecular_system, selection='all', structure_indices='all',
@@ -10,29 +11,19 @@ def unwrap(molecular_system, selection='all', structure_indices='all',
 
     if engine=='MolSysMT':
 
-        from molsysmt.basic import select, get, set, extract
+        from molsysmt.basic import select, get, set, extract, copy
 
         coordinates= get(molecular_system, element='atom', selection=selection, coordinates=True)
         n_structures = coordinates.shape[0]
         n_atoms = coordinates.shape[1]
-        box, box_shape = get(molecular_system, element='system', structure_indices=structure_indices, box=True,
-                             box_shape=True)
+        box = get(molecular_system, element='system', structure_indices=structure_indices, box=True)
 
-        orthogonal = 0
-        if box_shape is None:
-            raise ValueError("The system has no PBC box. The input argument 'pbc' can not be True.")
-        elif box_shape == 'cubic':
-            orthogonal =1
+        coordinates, length_units = puw.get_value_and_unit(coordinates)
+        box = puw.get_value(box, to_unit=length_units)
 
-        length_units = puw.get_unit(coordinates)
-        box = puw.convert(box, to_unit=length_units)
+        msmlib.pbc.unwrap(coordinates, box)
 
-        box = np.asfortranarray(puw.get_value(box), dtype='float64')
-        coordinates = np.asfortranarray(puw.get_value(coordinates), dtype='float64')
-
-        msmlib.pbc.unwrap(coordinates, box, orthogonal, n_atoms, n_structures)
-
-        coordinates=np.ascontiguousarray(coordinates)*length_units
+        coordinates=puw.quantity(coordinates, length_units)
 
     else:
 
@@ -43,14 +34,20 @@ def unwrap(molecular_system, selection='all', structure_indices='all',
         set(molecular_system, element='atom', selection=selection, structure_indices=structure_indices,
             syntax=syntax, coordinates=coordinates)
 
-        pass
+        del(coordinates, box)
+        
+        gc.collect()
 
     else:
 
-        tmp_molecular_system = extract(molecular_system, selection=selection, structure_indices=structure_indices,
-                                       syntax=syntax)
-        set(tmp_molecular_system, element='atom', selection='all', structure_indices='all', syntax='MolSysMT',
-            coordinates=coordinates)
+        tmp_molecular_system = copy(molecular_system)
+
+        set(tmp_molecular_system, element='atom', selection=selection, structure_indices=structure_indices,
+            syntax='MolSysMT', coordinates=coordinates)
+
+        del(coordinates, box)
+        
+        gc.collect()
 
         return tmp_molecular_system
 

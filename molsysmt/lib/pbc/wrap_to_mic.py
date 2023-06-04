@@ -57,7 +57,7 @@ def wrap_to_mic_vector_single_structure(vector, box, inv_box, orthogonal):
 
 arguments=[nb.float64[:,:], # coordinates
            nb.float64[:,:], # box
-           [nb.float64[:], None], # center
+           nb.float64[:], # center
            nb.boolean, # center_at_origin
           ]
 output=None
@@ -69,28 +69,20 @@ def wrap_to_mic_single_structure(coordinates, box, center, center_at_origin):
     orthogonal = box_is_orthogonal_single_structure(box[:,:])
     inv_box = inverse_matrix_3x3(box)
 
-    if center is None:
-
-        for ii in range(n_atoms):
-            coordinates[ii,:] = wrap_to_mic_vector_single_structure(coordinates[ii,:], box, inv_box,
-                    orthogonal)
-
-    else:
-
-        for ii in range(n_atoms):
-            tmp_vect = coordinates[ii,:]-center
-            tmp_vect = wrap_to_mic_vector_single_structure(tmp_vect, box, inv_box,
-                    orthogonal)
-            if not center_at_origin:
-                tmp_vect=tmp_vect+center
-            coordinates[ii,:]=tmp_vect
+    for ii in range(n_atoms):
+        tmp_vect = coordinates[ii,:]-center
+        tmp_vect = wrap_to_mic_vector_single_structure(tmp_vect, box, inv_box,
+                orthogonal)
+        if not center_at_origin:
+            tmp_vect=tmp_vect+center
+        coordinates[ii,:]=tmp_vect
 
     pass
 
 
 arguments=[nb.float64[:,:,:], # coordinates
            nb.float64[:,:,:], # box
-           [nb.float64[:,:], None], # center
+           nb.float64[:,:,:], # center
            nb.boolean, # center_at_origin
           ]
 output=None
@@ -99,36 +91,22 @@ def wrap_to_mic(coordinates, box, center, center_at_origin):
 
     n_structures, n_atoms = coordinates.shape[:2]
 
+    single_structure_center = (center.shape[0]==1)
 
-    if center is None:
+    aa=0
+    for ii in range(n_structures):
+        tmp_box = box[ii,:,:]
+        orthogonal = box_is_orthogonal_single_structure(tmp_box)
+        inv_box = inverse_matrix_3x3(tmp_box)
+        tmp_center = center[aa,0,:]
+        for jj in range(n_atoms):
+            tmp_vect = coordinates[ii,jj,:]-tmp_center
+            tmp_vect = wrap_to_mic_vector_single_structure(tmp_vect, tmp_box, inv_box, orthogonal)
+            if not center_at_origin:
+                tmp_vect=tmp_vect+tmp_center
+            coordinates[ii,jj,:]=tmp_vect
+        if not single_structure_center:
+            aa+=1
 
-        for ii in range(n_structures):
-            tmp_box = box[ii,:,:]
-            orthogonal = box_is_orthogonal_single_structure(tmp_box)
-            inv_box = inverse_matrix_3x3(tmp_box)
-            for jj in range(n_atoms):
-                coordinates[ii,jj,:] = wrap_to_mic_vector_single_structure(coordinates[ii,jj,:],
-                        tmp_box, inv_box, orthogonal)
-
-    else:
-
-        single_structure_center = (center.shape[0]==1)
-
-        aa=0
-        for ii in range(n_structures):
-            tmp_box = box[ii,:,:]
-            orthogonal = box_is_orthogonal_single_structure(tmp_box)
-            inv_box = inverse_matrix_3x3(tmp_box)
-            tmp_center = center[aa,:]
-            for jj in range(n_atoms):
-                tmp_vect = coordinates[ii,jj,:]-tmp_center
-                tmp_vect = wrap_to_mic_vector_single_structure(tmp_vect, tmp_box, inv_box, orthogonal)
-                if not center_at_origin:
-                    tmp_vect=tmp_vect+tmp_center
-                coordinates[ii,jj,:]=tmp_vect
-            if not single_structure_center:
-                aa+=1
     pass
-
-
 

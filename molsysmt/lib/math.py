@@ -66,9 +66,7 @@ def norm_vector(a):
 @nb.njit(nb.float64[:](nb.float64[:]), cache=True)
 def normalize_vector(a):
 
-    aux = 0.0
-    for ii in range(a.shape[0]):
-        aux += a[ii]*a[ii]
+    aux = norm_vector(a)
 
     return a/aux
 
@@ -106,11 +104,10 @@ def rodrigues_rotation(vector, unit_vector, angle):
     sina = math.sin(angle)
 
     aux1 = vector*cosa
-    aux2 = cross_product(unit_vector, vector)
-    aux2 = aux2*sina
+    aux2 = cross_product(unit_vector, vector)*sina
     aux3 = dot_product(unit_vector, vector)*(1.0-cosa)*unit_vector
 
-    vector = aux1+aux2+aux3
+    vector[:] = aux1[:]+aux2[:]+aux3[:]
 
     pass
 

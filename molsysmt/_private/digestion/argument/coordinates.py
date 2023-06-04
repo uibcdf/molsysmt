@@ -28,6 +28,8 @@ def digest_coordinates(coordinates, caller=None):
     if not isinstance(value, np.ndarray):
         value = np.array(value)
 
+
+    value = value.astype(np.float64)
     shape = value.shape
 
     if len(shape) == 1:

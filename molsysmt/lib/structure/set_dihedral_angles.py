@@ -63,8 +63,6 @@ def set_dihedral_angles(coordinates, angles, quartets, blocks):
 
     ll=0
 
-    print(coordinates)
-
     for ii in range(n_structures):
 
         mm=0
@@ -89,16 +87,12 @@ def set_dihedral_angles(coordinates, angles, quartets, blocks):
 
             for jj in range(n_atoms):
                 if blocks[aa,jj]:
-                    print(jj)
                     vect_aux = coordinates[ii,jj,:]-coordinates_at2
                     rodrigues_rotation(vect_aux, u_vect, shift_ang)
-                    print(vect_aux)
                     coordinates[ii,jj,:]=coordinates_at2+vect_aux
 
             mm+=inc_angles
         ll+=inc_structures
-
-    print(coordinates)
 
     pass
 

@@ -6,22 +6,14 @@ from ..math import inverse_matrix_3x3, dot_product
 
 arguments=[nb.float64[:,:,:], # coordinates
            nb.float64[:,:,:], # box
-           [nb.float64[:,:,:], None], # inv_box
-           [nb.boolean, None], # orthogonal
           ]
 output=None
 @nb.njit(make_numba_signature(arguments, output), cache=True)
-def unwrap(coordinates, box, inv_box=None, orthogonal=None):
+def unwrap(coordinates, box):
 
     n_structures, n_atoms = coordinates.shape[:-1]
 
-    with_inv_box = False
-
-    if inv_box is not None:
-        with_inv_box = True
-
-    if orthogonal is None:
-        orthogonal = box_is_orthogonal_single_structure(box[0,:,:])
+    orthogonal = box_is_orthogonal_single_structure(box[0,:,:])
 
     if orthogonal:
 
@@ -40,10 +32,7 @@ def unwrap(coordinates, box, inv_box=None, orthogonal=None):
 
         for ii in range(n_structures-1):
             tmp_box=box[ii,:,:]
-            if inv_box is None:
-                tmp_inv_box=inverse_matrix_3x3(tmp_box)
-            else:
-                tmp_inv_box=inv_box[ii,:,:]
+            tmp_inv_box=inverse_matrix_3x3(tmp_box)
             for jj in range(n_atoms):
                 delta = coordinates[ii+1,jj,:]-coordinates[ii,jj,:]
                 vaux[0]=tmp_inv_box[0,0]*delta[0]+tmp_inv_box[1,0]*delta[1]+tmp_inv_box[2,0]*delta[2]
