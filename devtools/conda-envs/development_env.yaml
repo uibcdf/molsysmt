@@ -21,11 +21,12 @@ dependencies:
 - mdtraj
 - mdanalysis
 - biopython
-- ipywidgets <8
+- ipywidgets
 - tqdm
 - pytest
 - pytest-cov
 - codecov
+- pytest-xdist
 - sphinx
 - sphinx_rtd_theme
 - sphinxcontrib-bibtex

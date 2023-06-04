@@ -29,7 +29,7 @@ requirements:
   - mdtraj
   - mdanalysis
   - biopython
-  - ipywidgets <8
+  - ipywidgets
   - tqdm
 about:
   home: https://uibcdf.org

@@ -21,7 +21,7 @@ dependencies:
 - mdtraj
 - mdanalysis
 - biopython
-- ipywidgets <8
+- ipywidgets
 - tqdm
 - sphinx
 - sphinx_rtd_theme
