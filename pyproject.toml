@@ -36,7 +36,7 @@ dependencies = [
     "mdanalysis",
     "biopython",
     "tqdm",
-    "ipywidgets<8",
+    "ipywidgets",
 ]
 
 # Update the urls once the hosting is set up.
@@ -73,13 +73,14 @@ zip-safe = false
 include-package-data = true
 [tool.setuptools.packages.find]
 namespaces = true
-where = ["molsysmt"]
+#where = ["molsysmt"]
 
 # Ref https://setuptools.pypa.io/en/latest/userguide/datafiles.html#package-data
 [tool.setuptools.package-data]
 molsysmt = [
     "py.typed"
 ]
+"molsysmt.data" = ["*"]
 
 [tool.versioningit]
 default-version = "1+unknown"
