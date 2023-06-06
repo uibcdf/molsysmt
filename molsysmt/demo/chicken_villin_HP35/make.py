@@ -5,20 +5,18 @@ from openmm import app
 from openmm import unit
 from sys import stdout
 from mdtraj.reporters import HDF5Reporter
+from pathlib import Path
+import shutil
 
-
-# purge
-print('Removing old files...')
-files_to_be_purged = ['1vii.pdb', '1vii.mmtf', 'vacuum.msmpk',
-        'solvated.msmpk', 'traj_explicit_solvent.dcd', 'traj_explicit_solvent.h5']
-for filename in files_to_be_purged:
-    if os.path.isfile(filename):
-        os.remove(filename)
+data_dir = Path('../../data/.')
 
 # 1vii pdb and mmtf files
 print('Protein Data Bank files...')
 msm.convert('pdb_id:1vii', to_form='1vii.pdb')
 msm.convert('pdb_id:1vii', to_form='1vii.mmtf')
+shutil.move('1vii.pdb', Path(data_dir, 'pdb/1vii.pdb'))
+shutil.move('1vii.mmtf', Path(data_dir, 'mmtf/1vii.mmtf'))
+
 
 # vacuum
 print('Vacuum system in msmpk file...')
@@ -27,14 +25,19 @@ molsys = msm.basic.remove(molsys, selection='group_type==["water", "ion"]')
 molsys = msm.basic.remove(molsys, selection='atom_type=="H"')
 molsys = msm.build.add_missing_terminal_cappings(molsys, N_terminal='ACE', C_terminal='NME')
 molsys = msm.build.add_missing_hydrogens(molsys, pH=7.4)
-_ = msm.convert(molsys, to_form='vacuum.msmpk')
+_ = msm.convert(molsys, to_form='chicken_villin_HP35.msmpk')
+shutil.move('chicken_villin_HP35.msmpk', Path(data_dir, 'msmpk/chicken_villin_HP35.msmpk'))
+
 
 # solvated
 print('Solvated system in msmpk file...')
 molsys = msm.build.solvate([molsys, {'forcefield':'AMBER14', 'water_model':'TIP3P'}],
                    box_shape='truncated octahedral', clearance='14.0 angstroms',
                    to_form='molsysmt.MolSys')
-_ = msm.convert(molsys, to_form='solvated.msmpk')
+_ = msm.convert(molsys, to_form='chicken_villin_HP35_solvated.msmpk')
+shutil.move('chicken_villin_HP35_solvated.msmpk', Path(data_dir, 'msmpk/chicken_villin_HP35_solvated.msmpk'))
+
+
 
 # simulation
 print('Trajectory files...')
@@ -49,9 +52,12 @@ simulation.minimizeEnergy()
 simulation.context.setVelocitiesToTemperature(300*unit.kelvin)
 simulation.reporters.append(app.StateDataReporter(stdout, 50000, progress=True,
     potentialEnergy=True, temperature=True, remainingTime=True, totalSteps=1000000))
-simulation.reporters.append(app.DCDReporter('traj_explicit_solvent.dcd', 50000, enforcePeriodicBox=True))
-simulation.reporters.append(HDF5Reporter('traj_explicit_solvent.h5', 50000))
+simulation.reporters.append(app.DCDReporter('traj_chicken_villin_HP35_solvated.dcd', 50000, enforcePeriodicBox=True))
+simulation.reporters.append(HDF5Reporter('traj_chicken_villin_HP35_solvated.h5', 50000))
 simulation.step(1000000)
 simulation.reporters[2].close()
 final_positions = simulation.context.getState(getPositions=True).getPositions()
+
+shutil.move('traj_chicken_villin_HP35_solvated.dcd', Path(data_dir, 'dcd/traj_chicken_villin_HP35_solvated.dcd'))
+shutil.move('traj_chicken_villin_HP35_solvated.h5', Path(data_dir, 'h5/traj_chicken_villin_HP35_solvated.h5'))
 

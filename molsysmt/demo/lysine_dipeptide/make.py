@@ -2,16 +2,12 @@ import molsysmt as msm
 import numpy as np
 from pathlib import Path
 import os
+import shutil
 
-# purge
-print('Removing old files...')
-files_to_be_purged = ['vacuum.msmpk']
-for filename in files_to_be_purged:
-    if os.path.isfile(filename):
-        os.remove(filename)
+data_dir = Path('../../data/.')
 
 molsys = msm.build.build_peptide('AceLysNme')
-molsys = msm.convert(molsys, to_form='vacuum.msmpk')
-del(molsys)
+molsys = msm.convert(molsys, to_form='dilysine.msmpk')
+shutil.move('dilysine.msmpk', Path(data_dir, 'msmpk/dilysine.msmpk'))
 
 

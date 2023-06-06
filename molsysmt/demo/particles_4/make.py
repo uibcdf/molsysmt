@@ -3,11 +3,10 @@ from molsysmt import pyunitwizard as puw
 import numpy as np
 from pathlib import Path
 import os
+from pathlib import Path
+import shutil
 
-# Removing all msmpk files
-
-for xyznpy_file in Path('.').glob('*.xyznpy'):
-    os.remove(xyznpy)
+data_dir = Path('../../data/.')
 
 # New xyznpy files
 
@@ -24,7 +23,7 @@ molecular_system[2,2,:] = [-1, 1, 0] * puw.unit('nm')
 molecular_system[0,3,:] = [-2, -2, -2] * puw.unit('nm')
 molecular_system[1,3,:] = [0, 0, 0] * puw.unit('nm')
 molecular_system[2,3,:] = [2, 2, 2] * puw.unit('nm')
-msm.convert(molecular_system, to_form='traj.xyznpy')
+msm.convert(molecular_system, to_form='traj_particles_4.xyznpy')
 
-
+shutil.move('traj_particles_4.xyznpy', Path(data_dir, 'xyznpy/traj_particles_4.xyznpy'))
 
