@@ -73,7 +73,7 @@ zip-safe = false
 include-package-data = false
 [tool.setuptools.packages.find]
 namespaces = false
-where = ["molsysmt"]
+where = ["."]
 
 # Ref https://setuptools.pypa.io/en/latest/userguide/datafiles.html#package-data
 [tool.setuptools.package-data]
