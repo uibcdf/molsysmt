@@ -1,6 +1,7 @@
-from pathlib import PurePath
+import importlib.resources
+from pathlib import Path
 
-parent = PurePath(__file__).parent
+data_dir = importlib.resources('molsysmt/data')
 
 demo = {}
 
