@@ -20,6 +20,7 @@ production:
     - pyunitwizard
     - mmtf-python
     - pandas
+    - jinja2
     - openmm
     - pdbfixer
     - nglview

@@ -1,4 +1,7 @@
-from importlib.resources import path
+from importlib.resources import files
+
+def path(package, file):
+    return files(package).joinpath(file)
 
 tests = {}
 
@@ -141,5 +144,5 @@ tests['caffeine'] = {}
 tests['caffeine']['caffeine.mol2'] = path('molsysmt.data.mol2', 'caffeine.mol2')
 
 
-del(path)
+del(path, files)
 
