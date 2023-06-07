@@ -4,6 +4,7 @@ Unit and regression test for the get module of the molsysmt package on xtc file 
 
 # Import package, test suite, and other packages as needed
 import molsysmt as msm
+from molsysmt.systems import tests as tests_systems
 import numpy as np
 
 

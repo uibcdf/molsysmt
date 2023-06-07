@@ -1,5 +1,6 @@
 from ...exceptions import ArgumentError
 from ...variables import is_all
+from pathlib import PosixPath
 
 def digest_output_filename(output_filename, caller=None):
     """Checks if `group_type` has the expected type and value.
@@ -24,6 +25,9 @@ def digest_output_filename(output_filename, caller=None):
     ArgumentError
         If the given `group_type` has not of the correct type or value.
     """
+
+    if isinstance(output_filename, PosixPath):
+        output_filename = output_filename.absolute().__str__()
 
     if output_filename is None:
         return output_filename

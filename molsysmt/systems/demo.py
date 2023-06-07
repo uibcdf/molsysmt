@@ -129,6 +129,7 @@ demo['Barnase-Barstar'] = {}
 demo['Barnase-Barstar']['barnase_barstar.msmpk'] = Path(data_dir, 'msmpk/barnase_barstar.msmpk')
 demo['Barnase-Barstar']['1brs.mmtf'] = Path(data_dir, 'mmtf/1brs.mmtf')
 
+
 # POPC membrane
 
 demo['POPC membrane'] = {}
@@ -136,6 +137,11 @@ demo['POPC membrane']['popc_membrane.psf'] = Path(data_dir, 'psf/popc_membrane.p
 demo['POPC membrane']['popc_membrane.dcd'] = Path(data_dir, 'dcd/popc_membrane.dcd')
 demo['POPC membrane']['popc_membrane.msmpk'] = Path(data_dir, 'msmpk/popc_membrane.msmpk')
 
+
+### caffeine
+
+demo['caffeine'] = {}
+demo['caffeine']['caffeine.mol2'] = Path(data_dir, 'mol2/caffeine.mol2')
 
 
 del(resources, Path, data_dir)

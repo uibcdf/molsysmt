@@ -4,33 +4,34 @@ Unit and regression test for the get_form module of the molsysmt package.
 
 # Import package, test suite, and other packages as needed
 import molsysmt as msm
+from molsysmt.systems import tests as tests_systems
 import numpy as np
 
 ## Files
 
 def test_file_pdb():
-    molsys = msm.demo['chicken villin HP35']['1vii.pdb']
+    molsys = tests_systems['chicken villin HP35']['1vii.pdb']
     output = msm.get_form(molsys)
     assert output == 'file:pdb'
 
 def test_file_mmtf():
-    molsys = msm.demo['chicken villin HP35']['1vii.mmtf']
+    molsys = tests_systems['chicken villin HP35']['1vii.mmtf']
     output = msm.get_form(molsys)
     assert output == 'file:mmtf'
 
 def test_file_inpcrd_prmtop():
-    molsys1 = msm.demo['pentalanine']['pentalanine.inpcrd']
-    molsys2 = msm.demo['pentalanine']['pentalanine.prmtop']
+    molsys1 = tests_systems['pentalanine']['pentalanine.inpcrd']
+    molsys2 = tests_systems['pentalanine']['pentalanine.prmtop']
     output = msm.get_form([molsys1, molsys2])
     assert output == ['file:inpcrd', 'file:prmtop']
 
 def test_file_xyznpy():
-    molsys = msm.demo['4 particles']['traj.xyznpy']
+    molsys = tests_systems['particles 4']['traj_particles_4.xyznpy']
     output = msm.get_form(molsys)
     assert output == 'file:xyznpy'
 
 def test_file_msmpk():
-    molsys = msm.demo['chicken villin HP35']['vacuum.msmpk']
+    molsys = tests_systems['chicken villin HP35']['chicken_villin_HP35.msmpk']
     output = msm.get_form(molsys)
     assert output == 'file:msmpk'
 
@@ -67,21 +68,21 @@ def test_string_aminoacids1_automatic_detection():
     assert output == 'string:aminoacids1'
 
 def test_string_pdb_text():
-    molsys = msm.demo['benzamidine']['benzamidine.pdb']
+    molsys = tests_systems['benzamidine']['benzamidine.pdb']
     molsys = msm.convert(molsys, 'string:pdb_text')
     molsys = 'pdb_text:'+molsys
     output = msm.get_form(molsys)
     assert output == 'string:pdb_text'
 
 def test_string_pdb_text_2():
-    fff=open(msm.demo['T4 lysozyme L99A']['181l.pdb'],'r')
+    fff=open(tests_systems['T4 lysozyme L99A']['181l.pdb'],'r')
     molsys = fff.read()
     fff.close()
     output = msm.get_form(molsys)
     assert output == 'string:pdb_text'
 
 def test_string_pdb_automatic_detection():
-    molsys = msm.demo['benzamidine']['benzamidine.pdb']
+    molsys = tests_systems['benzamidine']['benzamidine.pdb']
     molsys = msm.convert(molsys, 'string:pdb_text')
     output = msm.get_form(molsys)
     assert output == 'string:pdb_text'
@@ -94,13 +95,13 @@ def test_class_XYZ():
     assert output == 'XYZ'
 
 def test_molsysmt_MolSys():
-    molsys = msm.demo['chicken villin HP35']['vacuum.msmpk']
+    molsys = tests_systems['chicken villin HP35']['chicken_villin_HP35.msmpk']
     molsys = msm.convert(molsys, to_form='molsysmt.MolSys')
     output = msm.get_form(molsys)
     assert output == 'molsysmt.MolSys'
 
 def test_nglview_NGLWidget():
-    molsys = msm.demo['chicken villin HP35']['vacuum.msmpk']
+    molsys = tests_systems['chicken villin HP35']['chicken_villin_HP35.msmpk']
     molsys = msm.convert(molsys, to_form='molsysmt.MolSys')
     molsys = msm.view(molsys)
     output = msm.get_form(molsys)

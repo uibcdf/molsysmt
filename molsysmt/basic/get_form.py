@@ -1,4 +1,5 @@
 from molsysmt._private.exceptions import NotSupportedFormError
+from pathlib import PosixPath
 
 # This method must not be digested
 def get_form(molecular_system):
@@ -11,6 +12,9 @@ def get_form(molecular_system):
     if isinstance(molecular_system, (list, tuple)):
         output = [get_form(ii) for ii in molecular_system]
         return output
+
+    if isinstance(molecular_system, PosixPath):
+        molecular_system = molecular_system.absolute().__str__()
 
     output = None
 

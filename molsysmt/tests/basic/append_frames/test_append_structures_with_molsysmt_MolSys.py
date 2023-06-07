@@ -5,10 +5,11 @@ objects.
 
 # Import package, test suite, and other packages as needed
 import molsysmt as msm
+from molsysmt.systems import tests as tests_systems
 import numpy as np
 
 def test_append_structures_with_molsysmt_MolSys():
-    molsys_1 = msm.convert(msm.demo['proline dipeptide']['vacuum.msmpk'], to_form='molsysmt.MolSys')
+    molsys_1 = msm.convert(tests_systems['proline dipeptide']['proline_dipeptide.msmpk'], to_form='molsysmt.MolSys')
     molsys_2 = msm.structure.translate(molsys_1, translation='[0.1, 0.1, 0.1] nanometers')
     molsys_3 = msm.structure.translate(molsys_1, translation='[0.2, 0.2, 0.2] nanometers')
     n_atoms_1, n_structures_1 = msm.get(molsys_1, element='system', n_atoms=True, n_structures=True)

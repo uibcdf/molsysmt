@@ -4,12 +4,13 @@ Unit and regression test for the merge module of the molsysmt package.
 
 # Import package, test suite, and other packages as needed
 import molsysmt as msm
+from molsysmt.systems import tests as tests_systems
 import numpy as np
 
 def test_merge_molsysmt_MolSys_1():
-    molsys_1 = msm.convert(msm.demo['proline dipeptide']['vacuum.msmpk'], to_form='molsysmt.MolSys')
-    molsys_2 = msm.convert(msm.demo['valine dipeptide']['vacuum.msmpk'], to_form='molsysmt.MolSys')
-    molsys_3 = msm.convert(msm.demo['lysine dipeptide']['vacuum.msmpk'], to_form='molsysmt.MolSys')
+    molsys_1 = msm.convert(tests_systems['proline dipeptide']['proline_dipeptide.msmpk'], to_form='molsysmt.MolSys')
+    molsys_2 = msm.convert(tests_systems['valine dipeptide']['valine_dipeptide.msmpk'], to_form='molsysmt.MolSys')
+    molsys_3 = msm.convert(tests_systems['lysine dipeptide']['lysine_dipeptide.msmpk'], to_form='molsysmt.MolSys')
     n_atoms_1 = msm.get(molsys_1, element='system', n_atoms=True)
     n_atoms_2 = msm.get(molsys_2, element='system', n_atoms=True)
     n_atoms_3 = msm.get(molsys_3, element='system', n_atoms=True)

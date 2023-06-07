@@ -4,12 +4,13 @@ Unit and regression test for the convert module of the molsysmt package.
 
 # Import package, test suite, and other packages as needed
 import molsysmt as msm
+from molsysmt.systems import tests as tests_systems
 from molsysmt.basic.convert import _convert_multiple_to_one_with_shortcuts, _convert_multiple_to_one
 import numpy as np
 import os
 
 def test_convert_molsysmt_MolSys_and_molsysmt_MolecularMechanicsDict_to_molsysmt_MolecularMechanicsDict():
-    molsys = msm.convert(msm.demo['chicken villin HP35']['vacuum.msmpk'], to_form='molsysmt.MolSys')
+    molsys = msm.convert(tests_systems['chicken villin HP35']['chicken_villin_HP35.msmpk'], to_form='molsysmt.MolSys')
     molsys.molecular_mechanics.dispersion_correction=True
     molsys = msm.convert([molsys, {'forcefield':'AMBER14', 'water_model':'TIP3P'}], to_form='molsysmt.MolecularMechanicsDict')
     form = msm.get_form(molsys)
