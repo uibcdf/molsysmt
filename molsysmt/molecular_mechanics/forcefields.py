@@ -165,9 +165,9 @@ def get_forcefield(molecular_system, engine=None):
     elif forcefield is None:
         return None
     else:
-        return _translate_native_forcefield_to_engine(forcefield, engine, implicit_solvent=implicit_solvent, water_model=water_model)
+        return _translate_forcefield_to_engine(forcefield, engine, implicit_solvent=implicit_solvent, water_model=water_model)
 
-def _translate_native_forcefield_to_engine(forcefield, engine, implicit_solvent=None, water_model=None):
+def _translate_forcefield_to_engine(forcefield, engine, implicit_solvent=None, water_model=None):
 
     forcefields_out=[]
 

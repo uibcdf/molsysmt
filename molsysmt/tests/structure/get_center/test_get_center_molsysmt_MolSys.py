@@ -5,13 +5,14 @@ systems.
 
 # Import package, test suite, and other packages as needed
 import molsysmt as msm
+from molsysmt.systems import tests as tests_systems
 import numpy as np
 
 # Distance between atoms in space and time
 
 def test_get_center_molsysmt_MolSys_1():
 
-    molsys = msm.convert(msm.demo['pentalanine']['traj.h5'], to_form='molsysmt.MolSys')
+    molsys = msm.convert(tests_systems['pentalanine']['traj_pentalanine.h5'], to_form='molsysmt.MolSys')
     list_CAs = msm.select(molsys, selection='atom_name=="CA"')
     n_atoms_CAs = list_CAs.shape[0]
     center = msm.structure.get_center(molsys, selection=list_CAs, weights=np.ones(n_atoms_CAs))

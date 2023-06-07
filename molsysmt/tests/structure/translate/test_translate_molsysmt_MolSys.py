@@ -5,12 +5,13 @@ systems.
 
 # Import package, test suite, and other packages as needed
 import molsysmt as msm
+from molsysmt.systems import tests as tests_systems
 import numpy as np
 
 # Distance between atoms in space and time
 
 def test_translate_molsysmt_MolSys_1():
-    molsys = msm.convert(msm.demo['Met-enkephalin']['vacuum.msmpk'], to_form='molsysmt.MolSys')
+    molsys = msm.convert(tests_systems['Met-enkephalin']['met_enkephalin.msmpk'], to_form='molsysmt.MolSys')
     coordinates_0 = msm.get(molsys, coordinates=True)
     n_atoms = msm.get(molsys, n_atoms=True)
     shifts = np.ones([n_atoms,3], dtype=float)*msm.pyunitwizard.unit('nm')
@@ -20,7 +21,7 @@ def test_translate_molsysmt_MolSys_1():
     assert check_value
 
 def test_translate_molsysmt_MolSys_2():
-    molsys = msm.convert(msm.demo['Met-enkephalin']['vacuum.msmpk'], to_form='molsysmt.MolSys')
+    molsys = msm.convert(tests_systems['Met-enkephalin']['met_enkephalin.msmpk'], to_form='molsysmt.MolSys')
     coordinates_0 = msm.get(molsys, coordinates=True)
     shifts = np.array([1.0, 1.0, 1.0], dtype=float)*msm.pyunitwizard.unit('nm')
     molsys = msm.structure.translate(molsys, translation=shifts, selection=[0,1,2], in_place=False)

@@ -5,12 +5,13 @@ systems with mdtraj
 
 # Import package, test suite, and other packages as needed
 import molsysmt as msm
+from molsysmt.systems import tests as tests_systems
 import numpy as np
 
 # Distance between atoms in space and time
 
 def test_get_sasa_from_molsysmt_MolSys_with_mdtraj_1():
-    molsys = msm.convert(msm.demo['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
+    molsys = msm.convert(tests_systems['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
     molsys = msm.remove(molsys, selection="group_type in ['water', 'ion']")
     sasa_per_residue = msm.structure.get_sasa(molsys, element='group', engine='mdtraj')
     sasa_per_molecule = msm.structure.get_sasa(molsys, element='molecule', engine='mdtraj')

@@ -4,6 +4,7 @@ Unit and regression test for the add_terminal_cappings of the molsysmt package.
 
 # Import package, test suite, and other packages as needed
 import molsysmt as msm
+from molsysmt.systems import tests as tests_systems
 from molsysmt import pyunitwizard as puw
 import numpy as np
 import os
@@ -34,7 +35,7 @@ def test_solve_atoms_with_alternate_location_molsysmt_MolSys_1():
 
 def test_solve_atoms_with_alternate_location_molsysmt_MolSys_2():
 
-    molecular_system = msm.convert(msm.demo['Barnase-Barstar']['1brs.mmtf'], to_form='molsysmt.MolSys')
+    molecular_system = msm.convert(tests_systems['Barnase-Barstar']['1brs.mmtf'], to_form='molsysmt.MolSys')
     msm.build.solve_atoms_with_alternate_location(molecular_system, location_id='B')
     atom_id, b_factor, occupancy, coordinates = msm.get(molecular_system, element='atom', selection=[2686,2687],
             atom_id=True, b_factor=True, occupancy=True, coordinates=True)
@@ -47,7 +48,7 @@ def test_solve_atoms_with_alternate_location_molsysmt_MolSys_2():
 
 def test_solve_atoms_with_alternate_location_molsysmt_MolSys_3():
 
-    molecular_system = msm.convert(msm.demo['Barnase-Barstar']['1brs.mmtf'], to_form='molsysmt.MolSys')
+    molecular_system = msm.convert(tests_systems['Barnase-Barstar']['1brs.mmtf'], to_form='molsysmt.MolSys')
     msm.build.solve_atoms_with_alternate_location(molecular_system, selection=[2686,2687], location_id=['A','B'])
     atom_id, b_factor, occupancy, coordinates = msm.get(molecular_system, element='atom', selection=[2686,2687],
             atom_id=True, b_factor=True, occupancy=True, coordinates=True)

@@ -5,14 +5,15 @@ systems.
 
 # Import package, test suite, and other packages as needed
 import molsysmt as msm
+from molsysmt.systems import tests as tests_systems
 import numpy as np
 import math as math
 
 # Distance between atoms in space and time
 
 def test_get_sequence_identity_molsysmt_MolSys_1():
-    molsys = msm.convert(msm.demo['T4 lysozyme L99A']['181l.msmpk'], to_form='molsysmt.MolSys')
-    molsys_2 = msm.convert(msm.demo['T4 lysozyme L99A']['1l17.msmpk'], to_form='molsysmt.MolSys')
+    molsys = msm.convert(tests_systems['T4 lysozyme L99A']['181l.msmpk'], to_form='molsysmt.MolSys')
+    molsys_2 = msm.convert(tests_systems['T4 lysozyme L99A']['1l17.msmpk'], to_form='molsysmt.MolSys')
     identity, intersection, ref_intersection = msm.topology.get_sequence_identity(molsys, selection='molecule_type=="protein"',
                                                reference_molecular_system=molsys_2, reference_selection='molecule_type=="protein"')
     intersection_true = np.array([0, 1, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21,

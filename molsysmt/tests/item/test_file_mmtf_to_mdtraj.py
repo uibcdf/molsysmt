@@ -1,4 +1,5 @@
 import molsysmt as msm
+from molsysmt.systems import tests as tests_systems
 from molsysmt.form import file_mmtf
 import mdtraj as mdt
 import numpy as np
@@ -7,18 +8,15 @@ import pytest
 
 @pytest.fixture()
 def mmtf_file_paths():
-    # return ["../../../data/mmtf/1sux.mmtf",
-    #         "../../../data/mmtf/5zmz.mmtf",
-    #         ]
-    return [msm.demo["1SUX"]["1sux.mmtf"],
-            msm.demo["5ZMZ"]["5zmz.mmtf"],
+    return [tests_systems["1SUX"]["1sux.mmtf"],
+            tests_systems["5ZMZ"]["5zmz.mmtf"],
             ]
 
 
 @pytest.fixture()
 def pdb_file_paths():
-    return [msm.demo["1SUX"]["1sux.pdb"],
-            msm.demo["5ZMZ"]["5zmz.pdb"],
+    return [tests_systems["1SUX"]["1sux.pdb"],
+            tests_systems["5ZMZ"]["5zmz.pdb"],
             ]
 
 
@@ -49,12 +47,12 @@ def positions_5zmz_in_nanometers():
 
 
 def test_load_mmtf(mmtf_file_paths, positions_5zmz_in_nanometers):
-    traj = file_mmtf.load_mmtf(mmtf_file_paths[0])
+    traj = file_mmtf.load_mmtf(mmtf_file_paths[0].absolute().__str__())
     assert traj.n_atoms == 4257
     assert traj.n_frames == 1
     assert traj.n_residues == 882
 
-    traj_2 = file_mmtf.load_mmtf(mmtf_file_paths[1])
+    traj_2 = file_mmtf.load_mmtf(mmtf_file_paths[1].absolute().__str__())
     assert traj_2.n_atoms == 31
     assert traj_2.n_frames == 1
     assert traj_2.n_residues == 5
@@ -82,7 +80,7 @@ def test_mmtf_trajectory_file_load_name_replacement_tables():
 
 
 def test_mmtf_trajectory_file_read(mmtf_file_paths, positions_5zmz_in_nanometers):
-    positions, topology, unit_lengths, unit_angles = file_mmtf.MMTFTrajectoryFile._read(mmtf_file_paths[0], True)
+    positions, topology, unit_lengths, unit_angles = file_mmtf.MMTFTrajectoryFile._read(mmtf_file_paths[0].absolute().__str__(), True)
     assert positions.shape == (1, 4257, 3)
     assert np.allclose([42.869998931884766, 75.58000183105469, 146.4499969482422],
                        unit_lengths)
@@ -94,7 +92,7 @@ def test_mmtf_trajectory_file_read(mmtf_file_paths, positions_5zmz_in_nanometers
     assert topology.n_chains == 12
     assert topology.n_bonds == 3949
 
-    positions, topology, unit_lengths, unit_angles = file_mmtf.MMTFTrajectoryFile._read(mmtf_file_paths[1], True)
+    positions, topology, unit_lengths, unit_angles = file_mmtf.MMTFTrajectoryFile._read(mmtf_file_paths[1].absolute().__str__(), True)
     assert positions.shape == (1, 31, 3)
 
     # Here expected is in nanometers, we multiply by 10 to convert to angstroms

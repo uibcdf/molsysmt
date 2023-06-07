@@ -5,13 +5,14 @@ systems.
 
 # Import package, test suite, and other packages as needed
 import molsysmt as msm
+from molsysmt.systems import tests as tests_systems
 import numpy as np
 
 # Distance between atoms in space and time
 
 def test_get_structure_alignment_molsysmt_MolSys_1():
 
-    molsys_1 = msm.convert(msm.demo['T4 lysozyme L99A']['181l.msmpk'], to_form='molsysmt.MolSys',
+    molsys_1 = msm.convert(tests_systems['T4 lysozyme L99A']['181l.msmpk'], to_form='molsysmt.MolSys',
                            selection='molecule_type=="protein"')
     molsys_2 = msm.structure.translate(molsys_1, translation="[2.0, 0.0, 0.0] nm")
     rmsd = msm.structure.get_rmsd(molsys_2, selection='backbone', reference_molecular_system=molsys_1, reference_selection='backbone')
@@ -20,9 +21,9 @@ def test_get_structure_alignment_molsysmt_MolSys_1():
 
 def test_get_structure_alignment_molsysmt_MolSys_2():
 
-    molsys_1 = msm.convert(msm.demo['T4 lysozyme L99A']['181l.msmpk'], to_form='molsysmt.MolSys')
+    molsys_1 = msm.convert(tests_systems['T4 lysozyme L99A']['181l.msmpk'], to_form='molsysmt.MolSys')
     molsys_1 = msm.extract(molsys_1, selection='molecule_type=="protein"')
-    molsys_2 = msm.convert(msm.demo['T4 lysozyme L99A']['1l17.msmpk'], to_form='molsysmt.MolSys')
+    molsys_2 = msm.convert(tests_systems['T4 lysozyme L99A']['1l17.msmpk'], to_form='molsysmt.MolSys')
     molsys_2 = msm.convert(molsys_2, to_form='molsysmt.MolSys', selection='molecule_type=="protein"')
     molsys_2on1 = msm.structure.align(molsys_2, selection='backbone',
                                       reference_molecular_system=molsys_1,

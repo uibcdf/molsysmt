@@ -60,19 +60,19 @@ def solvate (molecular_system, box_shape="truncated octahedral", clearance='14.0
 
         modeller = convert(molecular_system, to_form='openmm.Modeller')
 
-
         aux_water_model = get(molecular_system, water_model=True)
         aux_forcefield = get_forcefield(molecular_system, engine='OpenMM')
 
         if aux_water_model is not None:
             water_model = aux_water_model
 
-        if aux_forcefield is None:
+        if aux_forcefield is not None:
             forcefield = aux_forcefield
-
-        forcefield = get_forcefield({'forcefield':forcefield, 'water_model':water_model}, engine='OpenMM')
+        else:
+            forcefield = get_forcefield({'forcefield':forcefield, 'water_model':water_model}, engine='OpenMM')
 
         solvent_model=None
+
         if water_model=='SPC':
             solvent_model='tip3p'
         elif water_model in ['TIP3P','TIP3PFB','SPCE','TIP4PEW','TIP4PFB','TIP5P']:

@@ -1,5 +1,6 @@
 from molsysmt.form.mdtraj_Trajectory.iterate import iterate_mdtraj_trajectory
 import molsysmt as msm
+from molsysmt.systems import tests as tests_systems
 from molsysmt import pyunitwizard as puw
 import numpy as np
 import mdtraj as mdt
@@ -139,7 +140,7 @@ def test_iterate_mdtraj_with_custom_chunk_size(mdtraj_trajectory_with_five_frame
 
 
 def test_iterate_pentalanine_with_mdtraj_trajectory():
-    traj = mdt.load(msm.demo["pentalanine"]["traj.h5"])
+    traj = mdt.load(tests_systems["pentalanine"]["traj_pentalanine.h5"])
 
     n_iterations = 0
     expected_time = 10.

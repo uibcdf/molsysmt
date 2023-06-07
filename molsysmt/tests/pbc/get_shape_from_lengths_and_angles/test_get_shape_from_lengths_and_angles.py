@@ -4,6 +4,7 @@ Unit and regression test for the get_shape_from_box_angles module of the molsysm
 
 # Import package, test suite, and other packages as needed
 import molsysmt as msm
+from molsysmt.systems import tests as tests_systems
 import numpy as np
 
 # Distance between atoms in space and time
