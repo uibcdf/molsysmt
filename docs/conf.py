@@ -25,9 +25,17 @@ import molsysmt
 # -- Project information -----------------------------------------------------
 
 project = 'MolSysMT'
-copyright = ("2022, UIBCDF Lab at the Mexico City Childrens Hospital Federico Gomez and authors."
-             "Computational Molecular Science Python Cookiecutter version 1.5")
+copyright = ''
+#copyright = ("2022, UIBCDF Lab at the Mexico City Childrens Hospital Federico Gomez and authors."
+#             "Computational Molecular Science Python Cookiecutter version 1.5")
 author = 'Liliana M. Moreno Vargas & Diego Prada Gracia'
+author = """
+Liliana M. Moreno Vargas & Diego Prada Gracia | <a href= "mailto:uibcdf@gmail.com">Contáctanos</a>.
+<br>
+<a href="https://uibcdf.org">Unidad de Investigación en Biología Computacional y Diseño de Fármacos</a> del <a href=
+"http://himfg.com.mx">Hospital Infantil de México Federico Gómez.</a>
+"""
+
 
 # The short X.Y version
 version = molsysmt.__version__.split('+')[0]
@@ -57,8 +65,10 @@ extensions = [
     'sphinx.ext.githubpages',
     'sphinxcontrib.bibtex',
     'sphinx.ext.extlinks',
-    'sphinx_remove_toctrees',
     'sphinx_copybutton',
+    'sphinx_remove_toctrees',
+    'sphinx_design',
+    'sphinx_favicon'
     'myst_nb'
 ]
 
@@ -66,7 +76,8 @@ extensions = [
 
 myst_enable_extensions = [
     'dollarmath',
-    'amsmath'
+    'amsmath',
+    'colon_fence'
 ]
 
 myst_heading_anchors = 3
@@ -95,7 +106,7 @@ templates_path = ['_templates']
 source_parsers={
 }
 
-source_suffix = ['.rst', '.md', '.ipynb']
+source_suffix = ['.md', '.ipynb']
 
 # The master toctree document.
 master_doc = 'index'
@@ -130,7 +141,7 @@ for directory in os.walk('api'):
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
-html_theme = 'sphinx_rtd_theme'
+html_theme = 'pydata_sphinx_theme'
 
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the
@@ -138,18 +149,11 @@ html_theme = 'sphinx_rtd_theme'
 #
 # html_theme_options = {}
 html_theme_options = {
-    'canonical_url': '',
-    'analytics_id': '',
-    'logo_only': False,
-    'display_version': True,
-    'prev_next_buttons_location': 'bottom',
-    'style_external_links': False,
-    # Toc options
-    'collapse_navigation': False,
-    'sticky_navigation': False,
-    'navigation_depth': 4,
-    'includehidden': True,
-    'titles_only': True
+            "logo": {"alt_text": "MolSysMT"},
+            "use_source_button": True,
+            "use_repository_button": True,
+            "repository_provider": "github",
+            "repository_url": "https://github.com/uibcdf/MolSysMT"
 }
 
 # Add any paths that contain custom themes here, relative to this directory.
@@ -160,36 +164,19 @@ html_theme_path = []
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = ['_static']
 
-#### I should check
-#### https://github.com/lotharschulz/sphinx-pages/blob/master/conf.py for more
-#### options
+html_logo = "_static/LogoMolSysMT_vectorizado.svg"
 
-# Disable showing Sphinx footer message:
-# "Built with Sphinx using a theme provided by Read the Docs. "
-html_show_sphinx = False
-
-# Disable the Copyright footer for Read the docs at the bottom of the page
-# by setting property html_show_copyright = False
-html_show_copyright = True
+favicons = ["favicon-16x16.png",
+            "favicon-124x124.png",
+            "favicon-128x128.png",
+            "favicon-192x192.png",
+            "icon.svg"]
 
 # Custom css
 
 html_css_files = [
     'custom.css',
 ]
-
-# Custom sidebar templates, must be a dictionary that maps document names
-# to template names.
-#
-# The default sidebars (for documents that don't match any pattern) are
-# defined by theme itself.  Builtin themes are using these templates by
-# default: ``['localtoc.html', 'relations.html', 'sourcelink.html',
-# 'searchbox.html']``.
-#
-# html_sidebars = {}
-
-html_show_sourcelink = False
-
 
 
 # -- Options for HTMLHelp output ---------------------------------------------
@@ -201,29 +188,12 @@ htmlhelp_basename = 'molsysmtdoc'
 # -- Options for LaTeX output ------------------------------------------------
 
 latex_elements = {
-    # The paper size ('letterpaper' or 'a4paper').
-    #
-    # 'papersize': 'letterpaper',
-
-    # The font size ('10pt', '11pt' or '12pt').
-    #
-    # 'pointsize': '10pt',
-
-    # Additional stuff for the LaTeX preamble.
-    #
-    # 'preamble': '',
-
-    # Latex figure (float) alignment
-    #
-    # 'figure_align': 'htbp',
 }
 
 # Grouping the document tree into LaTeX files. List of tuples
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-    (master_doc, 'molsysmt.tex', 'MolSysMT Documentation',
-     'molsysmt', 'manual'),
 ]
 
 
@@ -232,8 +202,6 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    (master_doc, 'molsysmt', 'MolSysMT Documentation',
-     [author], 1)
 ]
 
 
@@ -243,18 +211,9 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-    (master_doc, 'molsysmt', 'MolSysMT Documentation',
-     author, 'molsysmt', 'One line description of project.',
-     'Miscellaneous'),
 ]
 
 
-# -- Extension configuration -------------------------------------------------
-
-# -- Options for intersphinx extension ---------------------------------------
-
-# Example configuration for intersphinx: refer to the Python standard library.
-#intersphinx_mapping = {'https://docs.python.org/': None}
 
 # -- Options for todo extension ----------------------------------------------
 
