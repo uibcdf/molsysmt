@@ -1,4 +1,4 @@
-# Examples
+# Cookbook
 
 ```{eval-rst}
 .. toctree::

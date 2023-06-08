@@ -1,6 +1,23 @@
-.wy-nav-content {
-    max-width: 100% !important;
+/* Change the default width of primary sidebar */
+.bd-sidebar-primary { 
+    width: 16%;
 }
+
+/* Change the default width of secondary sidebar */
+.bd-sidebar-secondary {
+    width: 20%;
+}
+
+.bd-page-width {
+  max-width: 90%;  /* default is 88rem */
+}
+
+
+.bd-main .bd-content .bd-article-container {
+  max-width: 78%;  /* default is 60em */
+}
+
+
 
 /* To change the left bar of executable cells in markdown and executable cells in jupyter notebooks */
 /* See https://github.com/executablebooks/meta/discussions/667 */

@@ -56,6 +56,7 @@ docs:
     - sphinx-favicon
     - myst-nb
     - seaborn
+    - nbsphinx
 
 development:
   channels:
