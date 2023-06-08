@@ -68,8 +68,9 @@ extensions = [
     'sphinx_copybutton',
     'sphinx_remove_toctrees',
     'sphinx_design',
-    'sphinx_favicon'
-    'myst_nb'
+    'sphinx_favicon',
+    'myst_nb',
+    'nbsphinx',
 ]
 
 # Myst extensions and options
@@ -149,12 +150,17 @@ html_theme = 'pydata_sphinx_theme'
 #
 # html_theme_options = {}
 html_theme_options = {
-            "logo": {"alt_text": "MolSysMT"},
-            "use_source_button": True,
-            "use_repository_button": True,
-            "repository_provider": "github",
-            "repository_url": "https://github.com/uibcdf/MolSysMT"
+    "icon_links": [
+        {
+            "name": "GitHub",
+            "url": "https://github.com/uibcdf/MolSysMT",
+            "icon": "fa-brands fa-github",
+        },
+    ],
+    "use_edit_page_button": False,
 }
+
+html_show_sourcelink = False
 
 # Add any paths that contain custom themes here, relative to this directory.
 html_theme_path = []
@@ -164,13 +170,21 @@ html_theme_path = []
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = ['_static']
 
-html_logo = "_static/LogoMolSysMT_vectorizado.svg"
+html_logo = "_static/logo.png"
 
 favicons = ["favicon-16x16.png",
             "favicon-124x124.png",
             "favicon-128x128.png",
             "favicon-192x192.png",
             "icon.svg"]
+
+html_context = {
+    "github_user": "uibcdf",
+    "github_repo": "MolSysMT",
+    "github_version": "main",
+    "doc_path": "docs",
+}
+
 
 # Custom css
 

@@ -52,6 +52,8 @@ docs:
     - sphinxcontrib-bibtex
     - sphinx-remove-toctrees
     - sphinx-copybutton
+    - sphinx-design
+    - sphinx-favicon
     - myst-nb
     - seaborn
 
