@@ -1,4 +1,4 @@
-# Cookbook
+# **Cookbook**
 
 ```{eval-rst}
 .. toctree::

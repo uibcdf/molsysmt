@@ -1,76 +1,40 @@
-# User Guide
+# User guide
 
+::::{grid} 3
 
-## Introduction
-
-::::{grid} 2
-:gutter: 1
-
-:::{grid-item-card}
+:::{grid-item-card} Introduction
 :columns: 4
-:class-card: sd-font-weight-bold
-[What is MolSysMT?](intro/molsysmt.ipynb)
-:::
-:::{grid-item-card}
-:columns: 8
-Description of MolSysMT
+:link: intro/index.md
+Have a look to the Introduction section to familiarize yourself with the philosophy of MolSysMT.
 :::
 
-:::{grid-item-card}
+:::{grid-item-card} Tools
 :columns: 4
-:class-card: sd-font-weight-bold
-[Installation](intro/installation.ipynb)
+:link: tools/index.md
+MolSysMT includes a large tools set to operate with molecular systems. They are categorized
+according to their purpose and functionality: basic tools, building tools, topology
+tools, structure tools, ...
 :::
-:::{grid-item-card}
-:columns: 8
-Installation instructions
+
+
+:::{grid-item-card} Cookbook
+:columns: 4
+:link: cookbook/index.md
+Some recipes and examples on how to deal with specific situations can be found in the following sections.
 :::
 
 ::::
 
+## Quickstart guide
+
+bla, bla, bla
 
 
 ```{eval-rst}
 .. toctree::
-   :caption: Introduction
    :hidden:
 
-   intro/molsysmt.ipynb
-   intro/installation.ipynb
-   intro/molecular_systems/index.md
-   intro/native_forms/index.md
-   intro/selection_syntax.ipynb
-   intro/tools.ipynb
-   intro/viewers.ipynb
-   intro/memory_management.ipynb
-   intro/quantities_and_units.ipynb
-```
-
-
-## Tools
-
-```{eval-rst}
-.. toctree::
-   :caption: Tools
-   :hidden:
-
-   tools/basic/index.md
-   tools/build/index.md
-   tools/topology/index.md
-   tools/structure/index.md
-   tools/pbc/index.md
-   tools/element/index.md
-   tools/thirds/index.md
-```
-
-
-## Cookbook
-
-```{eval-rst}
-.. toctree::
-   :caption: Cookbook
-   :hidden:
-
+   intro/index.md
+   tools/index.md
    cookbook/index.md
 ```
-
