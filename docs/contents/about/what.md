@@ -1,6 +1,5 @@
-# What's MolSysMT?
+# What is MolSysMT?
 
 To be written soon.
 
-## bla bla
-asdflñkjasdf
+

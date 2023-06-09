@@ -170,7 +170,7 @@ html_theme_path = []
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = ['_static']
 
-html_logo = "_static/logo.png"
+html_logo = "_static/logo.svg"
 
 favicons = ["favicon-16x16.png",
             "favicon-124x124.png",

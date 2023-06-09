@@ -2,10 +2,27 @@
 
 ```{eval-rst}
 .. toctree::
-   :maxdepth: 2
-   :hidden:
+   :caption: Introduction
 
-   contents/developer/intro/index.md
-   contents/developer/new_form.ipynb
-   contents/developer/documentation/index.md
+   intro/Introduction.md
+   intro/fork.md
 ```
+
+```{eval-rst}
+.. toctree::
+   :caption: New form
+
+   new_form.ipynb
+
+```
+
+```{eval-rst}
+.. toctree::
+   :caption: Documentation
+
+   api/index.md
+   web/index.md
+
+```
+
+
