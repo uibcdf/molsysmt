@@ -8,7 +8,10 @@ Breve texto de introducción
 :hidden:
 
 quickstart
-selection
 barnase_barstar
-thirds
+dialanine_montecarlo
+md_trajectory
+membrane
+openmm
+nglview
 ```
