@@ -6,7 +6,7 @@ import inspect
 def add(to_molecular_system, from_molecular_system, selection='all', structure_indices='all',
         syntax='MolSysMT'):
 
-    """Adding elements of a molecular system into another molecular system
+    """Adding elements of a molecular system into another molecular system.
 
     Elements of a molecular system are added to another molecular system. If the target system
     (`to_molecular_system`) has structures, the source system (`from_molecular_system`) must have
@@ -17,7 +17,8 @@ def add(to_molecular_system, from_molecular_system, selection='all', structure_i
     ----------
 
     to_molecular_system: molecular system
-        Target molecular system in any of the supported forms (See: XXX). Elements from the source
+        Target molecular system in any of the supported forms (See :ref:`Add in User Guide 
+        <UserGuide_Tools_Basic_Add>`). Elements from the source
         molecular system will be added to this system.
 
     from_molecular_system: molecular system
@@ -38,22 +39,42 @@ def add(to_molecular_system, from_molecular_system, selection='all', structure_i
        Syntaxis used in the argument `selection` (in case it is a string). The
        current options supported by MolSysMt can be found in section XXX (see: :func:`molsysmt.select`).
 
-    Returns
-    -------
-    None
-        The method prints out a pandas dataframe with relevant information depending on the element
-        and the form of the item.
+    Raises
+    ------
 
-    Examples
-    --------
+    Errors raised by the function
 
     See Also
     --------
 
-    :func:`molsysmt.get`, :func:`molsysmt.select`
+    :ref:`User Guide>Tools>Basic>Add <UserGuide_Tools_Basic_Add>`
+        Add tutorial in the User Guide.
+
+    :func:`molsysmt.basic.select`
+        Selection function.
+
     Notes
     -----
 
+    .. versionadded:: 0.1.0
+
+    A tutorial on how to work with this function can be found in the documentation section 
+    :ref:`User Guide>Tools>Basic>Add <UserGuide_Tools_Basic_Add>`.    
+
+    Examples
+    --------
+
+    The following example illustrates the use of the function.
+
+    >>> import molsysmt as msm
+    >>> from molsysmt.systems import demo
+    >>> molecular_system_1 = msm.convert(demo['alanine dipeptide']['alanine_dipeptide.msmpk'])
+    >>> molecular_system_2 = msm.convert(demo['valine dipeptide']['valine_dipeptide.msmpk'])
+    >>> msm.get(molecular_system_1, n_molecules=True)
+    1
+    >>> msm.add(molecular_system_1, molecular_system_2)
+    >>> msm.get(molecular_system_1, n_molecules=True)
+    2
     """
 
     from . import get_form, convert, select
