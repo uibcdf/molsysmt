@@ -6,15 +6,25 @@ import inspect
 def add(to_molecular_system, from_molecular_system, selection='all', structure_indices='all',
         syntax='MolSysMT'):
 
-    """XXX
+    """Adding elements of a molecular system into another molecular system
 
-    Paragraph with detailed explanation.
+    Elements of a molecular system are added to another molecular system. If the target system
+    (`to_molecular_system`) has structures, the source system (`from_molecular_system`) must have
+    the same number of structures. Otherwise, the input argument `structure_indices` needs to be
+    used to specify the indices to extract the structural attributes of the elements to be added.
 
     Parameters
     ----------
 
-    item: molecular model
-        Molecular model in any of the supported forms by MolSysMT. (See: XXX)
+    to_molecular_system: molecular system
+        Target molecular system in any of the supported forms (See: XXX). Elements from the source
+        molecular system will be added to this system.
+
+    from_molecular_system: molecular system
+        Source molecular system in any of the supported forms (See: XXX). Elements from this system
+        will be added to the target molecular system.
+
+
 
     to_form: str, default='molsysmt.MolSys'
         Any accepted form by MolSysMt for the output object.

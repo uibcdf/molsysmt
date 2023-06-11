@@ -107,7 +107,7 @@ templates_path = ['_templates']
 source_parsers={
 }
 
-source_suffix = ['.md', '.ipynb']
+source_suffix = ['.rst', '.md', '.ipynb']
 
 # The master toctree document.
 master_doc = 'index'

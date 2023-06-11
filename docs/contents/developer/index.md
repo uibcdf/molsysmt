@@ -1,4 +1,4 @@
-# Developer Guide
+# Developer guide
 
 ```{eval-rst}
 .. toctree::

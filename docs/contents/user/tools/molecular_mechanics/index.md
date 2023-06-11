@@ -1,4 +1,4 @@
-# Molecular Mechanics
+# Molecular mechanics
 
 ```{eval-rst}
 .. toctree::

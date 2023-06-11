@@ -1,10 +1,20 @@
-# API Documentation
+# API documentation
 
 ```{eval-rst}
 .. toctree::
-   :maxdepth: 2
-   :hidden:
+   :caption: User
 
-   users/api_users.rst
-   developers/api_developers.rst
+   basic/api_basic.rst
+   build/api_build.rst
+   topology/api_topology.rst
+   structure/api_structure.rst
+   form/api_form.rst
+   thirds/api_thirds.rst
+
+```
+
+```{eval-rst}
+.. toctree::
+   :caption: Developer
+   _private/api__private.rst
 ```

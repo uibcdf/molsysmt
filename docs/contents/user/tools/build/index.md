@@ -1,4 +1,4 @@
-# Building
+# Build
 
 ```{eval-rst}
 .. toctree::
