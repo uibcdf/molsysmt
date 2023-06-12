@@ -2,6 +2,98 @@ from molsysmt._private.digestion import digest
 
 @digest()
 def concatenate_structures(molecular_systems, selections='all', structure_indices='all', to_form=None):
+    """
+    Concatenating the structures found a list of molecular systems.
+
+    The structures found in a list of  molecular system are concatenated and returned in a new
+    molecular system. Every system must have the same number of atoms. Otherwise the input argument
+    ``selections`` needs to be used to select the elements defining the structures to be
+    concatenated. In addition, the argument ``structure_indices`` can be used to choose specific
+    structures in any of the molecular systems.
+
+
+    Parameters
+    ----------
+    molecular_systems : list of molecular systems
+        A list of molecular system in any of :ref:`the supported forms <Introduction_Forms>`.
+        The structures to be concatenated are chosen from these systems.
+
+    selections : list of (tuple, list, numpy.ndarrays, str), or 'all', default 'all'
+        Selections of atoms to which this function applies. The default value is 'all' to indicate
+        that all entire structures in all systems will be concatenated. If different sets of elements need
+        to be specified to extract structures from the list of systems, a list of selections given
+        by lists, tuples, numpy arrays of atom indices (0-based
+        integers), or strings following any of :ref:`the selection
+        syntaxes parsable by MolSysMT <Introduction_Selection>` must be provided. This former list
+        will be applied to the list of molecular systems in the same order.
+
+    structure_indices : list of (tuple, list, numpy.ndarray, 'all'), or 'all', default 'all'
+        List of indices of structures (0-based integers) to which this function applies. The
+        default value is 'all' to indicate that all structures in all systems will be concatenated.
+        If a list of different indices of structures are indicated for the list of  system, they
+        will be read and applied to the list of molecular systems in the same order.
+
+    syntax : str, default 'MolSysMT'
+        :ref:`Supported syntax <Introduction_Selection>` used in the argument
+        `selection` (in case it is a string).
+
+
+    Raises
+    ------
+
+    NotSupportedFormError
+        The function raises a NotSupportedFormError in case a molecular system
+        is introduced with a not supported form.
+
+    ArgumentError
+        The function raises an ArgumentError in case an input argument value
+        does not meet the required conditions. 
+
+    SyntaxError
+        The function raises a SyntaxError in case the syntax argument takes a not supported value. 
+
+
+    .. versionadded:: 0.1.0
+
+    Notes
+    -----
+
+    The list of supported molecular systems' forms is detailed in the documentation section
+    :ref:`User Guide > Introduction > Molecular systems > Forms <Introduction_Forms>`.    
+
+    The list of supported selection syntaxes can be checked in the documentation section
+    :ref:`User Guide > Introduction > Selection syntaxes <Introduction_Selection>`.    
+
+
+    See Also
+    --------
+
+    :func:`molsysmt.basic.select`
+        Selecting elements of a molecular system
+
+    Examples
+    --------
+
+    The following example illustrates the use of the function.
+
+    >>> import molsysmt as msm
+    >>> from molsysmt.systems import demo
+    >>> molecular_system_1 = msm.basic.convert(demo['alanine dipeptide']['alanine_dipeptide.msmpk'])
+    >>> molecular_system_2 = msm.structure.translate(molecular_system_1, translation='[0.1, 0.1, 0.1] nanometers')
+    >>> msm.basic.get(molecular_system_1, n_strctures=True)
+    1
+    >>> msm.basic.append_structures(molecular_system_1, molecular_system_2)
+    >>> msm.basic.get(molecular_system_1, n_structures=True)
+    2
+
+
+    .. admonition:: User guide
+
+       Follow this link for a tutorial on how to work with this function:
+       :ref:`User Guide > Tools > Basic > Append structures <Tutorial_Append_structures>`.    
+
+    """
+
 
     from . import convert, extract, get, get_form
     from molsysmt.form import _dict_modules

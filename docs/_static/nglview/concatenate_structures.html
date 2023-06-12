@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>nglview-demo</title>
+</head>
+<body>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.0/jquery-ui.css">
+
+
+<!-- Load require.js. Delete this if your page already loads require.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@jupyter-widgets/html-manager@^1.0.1/dist/embed-amd.js" crossorigin="anonymous"></script>
+
+<script type="application/vnd.jupyter.widget-state+json">
+{
+  "version_major": 2,
+  "version_minor": 0,
+  "state": {
+    "b015f4f1892741f699e83a1bc28be02e": {
+      "model_name": "LayoutModel",
+      "model_module": "@jupyter-widgets/base",
+      "model_module_version": "2.0.0",
+      "state": {}
+    },
+    "da32d7022cdf46d98023dc58bd78d004": {
+      "model_name": "ColormakerRegistryModel",
+      "model_module": "nglview-js-widgets",
+      "model_module_version": "3.0.1",
+      "state": {
+        "_dom_classes": [],
+        "_msg_ar": [],
+        "_msg_q": [],
+        "_ready": true,
+        "layout": "IPY_MODEL_b015f4f1892741f699e83a1bc28be02e"
+      }
+    },
+    "4f590e601e704350ac2da0881d3c44a3": {
+      "model_name": "LayoutModel",
+      "model_module": "@jupyter-widgets/base",
+      "model_module_version": "2.0.0",
+      "state": {}
+    },
+    "9a4684352a5b461d8120d5826060a888": {
+      "model_name": "NGLModel",
+      "model_module": "nglview-js-widgets",
+      "model_module_version": "3.0.1",
+      "state": {
+        "_camera_orientation": [
+          23.724046452766743,
+          0,
+          0,
+          0,
+          0,
+          23.724046452766743,
+          0,
+          0,
+          0,
+          0,
+          23.724046452766743,
+          0,
+          -4.1114999651908875,
+          -4.823999881744385,
+          0.6205000281333923,
+          1
+        ],
+        "_dom_classes": [],
+        "_ibtn_fullscreen": "IPY_MODEL_407767117c3248bcac0649719148c888",
+        "_igui": null,
+        "_iplayer": "IPY_MODEL_0c76b78453854a53abd1b6a075dc2230",
+        "_ngl_color_dict": {},
+        "_ngl_coordinate_resource": {
+          "0": [
+            "BAAAQAAAgD+pe661BAAAQI/CBUCVv9Yz5j2+P90LHUCBy2M/vD2+P+kLHUA+y2O/2VpbQMkCKUCcU0m2on+MQNdO8D+Rdd22RYtjQLoOfkCYCVC2cOsuQBDMkUCpe6617E2bQEelk0C4SJC2BwutQOUYikDuymM/aCm1QCQRh0AHt52/wvGjQAGvkECbZQjA7SzUQIUBl0BaV5q/j9+5QA4ESUC05Z6/Ps6WQDIkxECi57s19nBmQPHi1ECYCdA23hK7QF232kCsxSc2hJXXQEF+y0CVv9a04hK7QMqKBEGYCdA2xzGaQB9dCkGpey43eIPLQBtdCkHKy2M/ZoPLQCBdCkEpy2O/",
+            "BABAQAAAAEDq/38/BABAQI/CRUABAIA/8x4fQN0LXUDB5fE/3h4fQOkLXUANpuE9ba2NQMkCaUDO/38/on+sQGsnOECR/38/o8WRQF0Hn0DM/38/cOtuQBDMsUDq/38/7E27QEels0C4/38/BwvNQOUYqkB35fE/aCnVQCQRp0A1uG2+wvHDQAGvsEA3y5C/7Sz0QIUBt0DMulK+j9/ZQAeChEChLXe+Ps62QDIk5EAMAIA/eziTQPHi9EA0AIA/3hLbQF23+kAVAIA/hJX3QEF+60D5/38/4hLbQMqKFEE0AIA/xzG6QB9dGkFXAIA/eIPrQBtdGkHl5fE/ZoPrQCBdGkG8puE9",
+            "AgCAQAAAQED1//8/AgCAQEjhgkAAAABA8x5fQO6FjkDg8jhA3h5fQPWFjkBhGo4/ba2tQGWBlEDn//8/on/MQGsneEDJ//8/o8WxQF0Hv0Dm//8/uHWXQBDM0UD1//8/7E3bQEel00Dc//8/BwvtQOUYykC78jhAaCn1QCQRx0DzkUQ/wvHjQAGv0EC2WQa+dhYKQYUB10BNUUs/j9/5QAeCpECYNEI/Ps7WQBkSAkEGAABAezizQHhxCkEaAABA3hL7QK9bDUEKAABAwsoLQSG/BUH9//8/4hL7QMqKJEEaAABAxzHaQB9dKkEsAABAvMEFQRtdKkHy8jhAs8EFQSBdKkFsGo4/"
+          ],
+          "n_frames": 3
+        },
+        "_ngl_full_stage_parameters": {
+          "impostor": true,
+          "quality": "medium",
+          "workerDefault": true,
+          "sampleLevel": 0,
+          "backgroundColor": "white",
+          "rotateSpeed": 2,
+          "zoomSpeed": 1.2,
+          "panSpeed": 1,
+          "clipNear": 0,
+          "clipFar": 100,
+          "clipDist": 10,
+          "clipMode": "scene",
+          "clipScale": "relative",
+          "fogNear": 50,
+          "fogFar": 100,
+          "cameraFov": 40,
+          "cameraEyeSep": 0.3,
+          "cameraType": "perspective",
+          "lightColor": 14540253,
+          "lightIntensity": 1,
+          "ambientColor": 14540253,
+          "ambientIntensity": 0.2,
+          "hoverTimeout": 0,
+          "tooltip": true,
+          "mousePreset": "default"
+        },
+        "_ngl_msg_archive": [
+          {
+            "target": "Stage",
+            "type": "call_method",
+            "methodName": "loadFile",
+            "reconstruc_color_scheme": false,
+            "args": [
+              {
+                "type": "blob",
+                "data": "REMARK   1 CREATED WITH OPENMM 8.0 BY MOLSYSMT 0.7.5+64.ge8c4d6c5.dirty, 2023-06-12\nHETATM    1  H1  ACE 1   1       2.000   1.000  -0.000  1.00  0.00           H  \nHETATM    2  CH3 ACE 1   1       2.000   2.090   0.000  1.00  0.00           C  \nHETATM    3  H2  ACE 1   1       1.486   2.454   0.890  1.00  0.00           H  \nHETATM    4  H3  ACE 1   1       1.486   2.454  -0.890  1.00  0.00           H  \nHETATM    5  C   ACE 1   1       3.427   2.641  -0.000  1.00  0.00           C  \nHETATM    6  O   ACE 1   1       4.391   1.877  -0.000  1.00  0.00           O  \nATOM      7  N   ALA 1   2       3.555   3.970  -0.000  1.00  0.00           N  \nATOM      8  H   ALA 1   2       2.733   4.556  -0.000  1.00  0.00           H  \nATOM      9  CA  ALA 1   2       4.853   4.614  -0.000  1.00  0.00           C  \nATOM     10  HA  ALA 1   2       5.408   4.316   0.890  1.00  0.00           H  \nATOM     11  CB  ALA 1   2       5.661   4.221  -1.232  1.00  0.00           C  \nATOM     12  HB1 ALA 1   2       5.123   4.521  -2.131  1.00  0.00           H  \nATOM     13  HB2 ALA 1   2       6.630   4.719  -1.206  1.00  0.00           H  \nATOM     14  HB3 ALA 1   2       5.809   3.141  -1.241  1.00  0.00           H  \nATOM     15  C   ALA 1   2       4.713   6.129   0.000  1.00  0.00           C  \nATOM     16  O   ALA 1   2       3.601   6.653   0.000  1.00  0.00           O  \nHETATM   17  N   NME 1   3       5.846   6.835   0.000  1.00  0.00           N  \nHETATM   18  H   NME 1   3       6.737   6.359  -0.000  1.00  0.00           H  \nHETATM   19  C   NME 1   3       5.846   8.284   0.000  1.00  0.00           C  \nHETATM   20  H1  NME 1   3       4.819   8.648   0.000  1.00  0.00           H  \nHETATM   21  H2  NME 1   3       6.360   8.648   0.890  1.00  0.00           H  \nHETATM   22  H3  NME 1   3       6.360   8.648  -0.890  1.00  0.00           H  \nTER      23      NME 1   3\nCONECT    1    2\nCONECT    2    3    4    1    5\nCONECT    3    2\nCONECT    4    2\nCONECT    5    6    7    2\nCONECT    6    5\nCONECT    7    5\nCONECT   15   17\nCONECT   17   18   15   19\nCONECT   18   17\nCONECT   19   20   21   22   17\nCONECT   20   19\nCONECT   21   19\nCONECT   22   19\nEND\n",
+                "binary": false
+              }
+            ],
+            "kwargs": {
+              "name": "nglview.adaptor.MolSysMTTrajectory",
+              "defaultRepresentation": true,
+              "ext": "pdb"
+            }
+          }
+        ],
+        "_ngl_original_stage_parameters": {
+          "impostor": true,
+          "quality": "medium",
+          "workerDefault": true,
+          "sampleLevel": 0,
+          "backgroundColor": "white",
+          "rotateSpeed": 2,
+          "zoomSpeed": 1.2,
+          "panSpeed": 1,
+          "clipNear": 0,
+          "clipFar": 100,
+          "clipDist": 10,
+          "clipMode": "scene",
+          "clipScale": "relative",
+          "fogNear": 50,
+          "fogFar": 100,
+          "cameraFov": 40,
+          "cameraEyeSep": 0.3,
+          "cameraType": "perspective",
+          "lightColor": 14540253,
+          "lightIntensity": 1,
+          "ambientColor": 14540253,
+          "ambientIntensity": 0.2,
+          "hoverTimeout": 0,
+          "tooltip": true,
+          "mousePreset": "default"
+        },
+        "_ngl_repr_dict": {
+          "0": {
+            "0": {
+              "type": "ball+stick",
+              "params": {
+                "lazy": false,
+                "visible": true,
+                "quality": "high",
+                "sphereDetail": 2,
+                "radialSegments": 20,
+                "openEnded": true,
+                "disableImpostor": false,
+                "aspectRatio": 1.5,
+                "lineOnly": false,
+                "cylinderOnly": false,
+                "multipleBond": "off",
+                "bondScale": 0.3,
+                "bondSpacing": 0.75,
+                "linewidth": 2,
+                "radiusType": "size",
+                "radiusData": {},
+                "radiusSize": 0.15,
+                "radiusScale": 2,
+                "assembly": "default",
+                "defaultAssembly": "",
+                "clipNear": 0,
+                "clipRadius": 0,
+                "clipCenter": {
+                  "x": 0,
+                  "y": 0,
+                  "z": 0
+                },
+                "flatShaded": false,
+                "opacity": 1,
+                "depthWrite": true,
+                "side": "double",
+                "wireframe": false,
+                "colorScheme": "element",
+                "colorScale": "",
+                "colorReverse": false,
+                "colorValue": 9474192,
+                "colorMode": "hcl",
+                "roughness": 0.4,
+                "metalness": 0,
+                "diffuse": 16777215,
+                "diffuseInterior": false,
+                "useInteriorColor": true,
+                "interiorColor": 2236962,
+                "interiorDarkening": 0,
+                "matrix": {
+                  "elements": [
+                    1,
+                    0,
+                    0,
+                    0,
+                    0,
+                    1,
+                    0,
+                    0,
+                    0,
+                    0,
+                    1,
+                    0,
+                    0,
+                    0,
+                    0,
+                    1
+                  ]
+                },
+                "disablePicking": false,
+                "sele": ""
+              }
+            }
+          }
+        },
+        "_ngl_serialize": true,
+        "_ngl_version": "2.0.0-dev.39",
+        "_ngl_view_id": [
+          "DAB3AFB1-D451-4610-839C-7520B3AB6AE4"
+        ],
+        "_player_dict": {},
+        "_scene_position": {},
+        "_scene_rotation": {},
+        "_synced_model_ids": [],
+        "_synced_repr_model_ids": [],
+        "frame": 2,
+        "layout": "IPY_MODEL_4f590e601e704350ac2da0881d3c44a3",
+        "max_frame": 2,
+        "n_components": 1,
+        "picked": {}
+      }
+    },
+    "75953681398541679303834ab25618e4": {
+      "model_name": "LayoutModel",
+      "model_module": "@jupyter-widgets/base",
+      "model_module_version": "2.0.0",
+      "state": {}
+    },
+    "52c475f1347c4e149152f0a85af3f5bc": {
+      "model_name": "ImageModel",
+      "model_module": "@jupyter-widgets/controls",
+      "model_module_version": "2.0.0",
+      "state": {
+        "_dom_classes": [],
+        "layout": "IPY_MODEL_75953681398541679303834ab25618e4",
+        "width": "900.0"
+      }
+    },
+    "bbc6a8488a8c43d2a9b17db0426abcd0": {
+      "model_name": "LayoutModel",
+      "model_module": "@jupyter-widgets/base",
+      "model_module_version": "2.0.0",
+      "state": {}
+    },
+    "a6c1731bd26f450790283f86e5c05d64": {
+      "model_name": "DescriptionStyleModel",
+      "model_module": "@jupyter-widgets/controls",
+      "model_module_version": "2.0.0",
+      "state": {}
+    },
+    "ee791c809ebb466c8bc571a31a041bda": {
+      "model_name": "PlayModel",
+      "model_module": "@jupyter-widgets/controls",
+      "model_module_version": "2.0.0",
+      "state": {
+        "_dom_classes": [],
+        "layout": "IPY_MODEL_bbc6a8488a8c43d2a9b17db0426abcd0",
+        "max": 2,
+        "style": "IPY_MODEL_a6c1731bd26f450790283f86e5c05d64",
+        "value": 2
+      }
+    },
+    "301f22b5160b4168bd36c62d7ee695b2": {
+      "model_name": "LayoutModel",
+      "model_module": "@jupyter-widgets/base",
+      "model_module_version": "2.0.0",
+      "state": {}
+    },
+    "996afe0fac224f97b59814814a8ccb0c": {
+      "model_name": "SliderStyleModel",
+      "model_module": "@jupyter-widgets/controls",
+      "model_module_version": "2.0.0",
+      "state": {}
+    },
+    "28015f5224914e7f8e17729d67df2d11": {
+      "model_name": "IntSliderModel",
+      "model_module": "@jupyter-widgets/controls",
+      "model_module_version": "2.0.0",
+      "state": {
+        "_dom_classes": [],
+        "layout": "IPY_MODEL_301f22b5160b4168bd36c62d7ee695b2",
+        "max": 2,
+        "style": "IPY_MODEL_996afe0fac224f97b59814814a8ccb0c",
+        "value": 2
+      }
+    },
+    "f7922f3ec6ed4e1e8ade0f3d6378e022": {
+      "model_name": "LayoutModel",
+      "model_module": "@jupyter-widgets/base",
+      "model_module_version": "2.0.0",
+      "state": {}
+    },
+    "0c76b78453854a53abd1b6a075dc2230": {
+      "model_name": "HBoxModel",
+      "model_module": "@jupyter-widgets/controls",
+      "model_module_version": "2.0.0",
+      "state": {
+        "_dom_classes": [],
+        "children": [
+          "IPY_MODEL_ee791c809ebb466c8bc571a31a041bda",
+          "IPY_MODEL_28015f5224914e7f8e17729d67df2d11"
+        ],
+        "layout": "IPY_MODEL_f7922f3ec6ed4e1e8ade0f3d6378e022"
+      }
+    },
+    "a61aaa4e792540f9b718f3e811010369": {
+      "model_name": "LinkModel",
+      "model_module": "@jupyter-widgets/controls",
+      "model_module_version": "2.0.0",
+      "state": {
+        "source": [
+          "IPY_MODEL_ee791c809ebb466c8bc571a31a041bda",
+          "value"
+        ],
+        "target": [
+          "IPY_MODEL_28015f5224914e7f8e17729d67df2d11",
+          "value"
+        ]
+      }
+    },
+    "4370e6ba89c04553811dd85fe0aaf9a8": {
+      "model_name": "LinkModel",
+      "model_module": "@jupyter-widgets/controls",
+      "model_module_version": "2.0.0",
+      "state": {
+        "source": [
+          "IPY_MODEL_ee791c809ebb466c8bc571a31a041bda",
+          "value"
+        ],
+        "target": [
+          "IPY_MODEL_9a4684352a5b461d8120d5826060a888",
+          "frame"
+        ]
+      }
+    },
+    "21c65b50dbb5455a9d0ba9b4f256a9dd": {
+      "model_name": "LinkModel",
+      "model_module": "@jupyter-widgets/controls",
+      "model_module_version": "2.0.0",
+      "state": {
+        "source": [
+          "IPY_MODEL_ee791c809ebb466c8bc571a31a041bda",
+          "max"
+        ],
+        "target": [
+          "IPY_MODEL_9a4684352a5b461d8120d5826060a888",
+          "max_frame"
+        ]
+      }
+    },
+    "9ccc93c17a434302b1949b6ef53a233f": {
+      "model_name": "LinkModel",
+      "model_module": "@jupyter-widgets/controls",
+      "model_module_version": "2.0.0",
+      "state": {
+        "source": [
+          "IPY_MODEL_28015f5224914e7f8e17729d67df2d11",
+          "max"
+        ],
+        "target": [
+          "IPY_MODEL_9a4684352a5b461d8120d5826060a888",
+          "max_frame"
+        ]
+      }
+    },
+    "fb4a3828c687493fade08926d09b3cc2": {
+      "model_name": "LayoutModel",
+      "model_module": "@jupyter-widgets/base",
+      "model_module_version": "2.0.0",
+      "state": {
+        "width": "34px"
+      }
+    },
+    "b5ca27f88a41403b8ee0b742815e4d7b": {
+      "model_name": "ButtonStyleModel",
+      "model_module": "@jupyter-widgets/controls",
+      "model_module_version": "2.0.0",
+      "state": {}
+    },
+    "407767117c3248bcac0649719148c888": {
+      "model_name": "ButtonModel",
+      "model_module": "@jupyter-widgets/controls",
+      "model_module_version": "2.0.0",
+      "state": {
+        "_dom_classes": [],
+        "icon": "compress",
+        "layout": "IPY_MODEL_fb4a3828c687493fade08926d09b3cc2",
+        "style": "IPY_MODEL_b5ca27f88a41403b8ee0b742815e4d7b"
+      }
+    }
+  }
+}
+</script>
+<script type="application/vnd.jupyter.widget-view+json">
+{"version_major": 2, "version_minor": 0, "model_id": "da32d7022cdf46d98023dc58bd78d004"}
+</script>
+<script type="application/vnd.jupyter.widget-view+json">
+{"version_major": 2, "version_minor": 0, "model_id": "9a4684352a5b461d8120d5826060a888"}
+</script>
+
+</body>
+</html>

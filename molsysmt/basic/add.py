@@ -27,7 +27,7 @@ def add(to_molecular_system, from_molecular_system, selection='all', structure_i
         Elements from this system will be added to the target molecular system.
 
     selection : tuple, list, numpy.ndarray or str, default 'all'
-        Atoms selection over which this method applies. The selection can be
+        Selection of atoms to which this method applies. The selection can be
         given by a list, tuple or numpy array of atom indices (0-based
         integers); or by means of a string following any of :ref:`the selection
         syntaxes parsable by MolSysMT <Introduction_Selection>`.

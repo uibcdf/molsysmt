@@ -4,46 +4,94 @@ from molsysmt._private.variables import is_all
 import numpy as np
 
 @digest()
-def compare(molecular_system_A, molecular_system_B, selection_A='all', structure_indices_A='all',
-        selection_B='all', structure_indices_B='all', attributes_type=None,
-        syntax='MolSysMT', output_type='boolean', **kwargs):
+def compare(molecular_system, molecular_system_2, selection='all', structure_indices='all',
+        selection_2='all', structure_indices_2='all',  syntax='MolSysMT', rule='equal',
+        output_type='boolean', attributes_type=None, **kwargs):
     """
     Comparing molecular systems.
 
-    Structures of a molecular system are appended to another molecular system.
-    The indices of the structures from the source system
-    (`from_molecular_system`) can be chosen by the input argument
-    `structure_indices`. The number of atoms of the structures to be appended
-    must be equal to the number of atoms of the target system
-    (`to_molecular_system`). Otherwise, the input argument `selection` needs to
-    be used to specify the atom indices or elements selected from the source
-    system which structural attributes will be appended fulfilling this former condition.
+    Attributes from two molecular systems can be compared according to two rules: equality
+    ('equal') and containment ('in').
+    However, if no attributes are chosen to be compared, the entire input systems are
+    compared. If you only want to include certain elements or structures in the comparison, make
+    use of the input arguments ``selection``, ``structure_indices``, ``selection_2``, and
+    ``structure_indices_2``.
 
 
     Parameters
     ----------
-    to_molecular_system : molecular system
-        Target molecular system in any of :ref:`the supported forms <Introduction_Forms>`.
-        Structures from the source molecular system will be appended to this system.
 
-    from_molecular_system : molecular system
-        Source molecular system in any of :ref:`the supported forms <Introduction_Forms>`.
-        Strucctures from this system will be appended to the target molecular system.
+    molecular_system : molecular system
+        The first molecular system, in any of :ref:`the supported forms
+        <Introduction_Forms>`, to be compared.
+
+    molecular_system_2 : molecular system
+        The second molecular system, in any of :ref:`the supported forms
+        <Introduction_Forms>`, to be compared.
 
     selection : tuple, list, numpy.ndarray or str, default 'all'
-        Atoms selection over which this method applies. The selection can be
+        Selection of elements of the first molecular system to which this method applies. The selection can be
         given by a list, tuple or numpy array of atom indices (0-based
         integers); or by means of a string following any of :ref:`the selection
         syntaxes parsable by MolSysMT <Introduction_Selection>`.
 
     structure_indices : tuple, list, numpy.ndarray or 'all', default 'all'
-        Indices of structures (0-based integers) of the source molecular system
-        to get the structural attributes of the selected atoms, if any, to be
-        appended.
+        Indices of structures (0-based integers) of the first molecular system
+        to which this method applies.
+
+    selection_2 : tuple, list, numpy.ndarray or str, default 'all'
+        Selection of elements of the second molecular system to which this method applies. The selection can be
+        given by a list, tuple or numpy array of atom indices (0-based
+        integers); or by means of a string following any of :ref:`the selection
+        syntaxes parsable by MolSysMT <Introduction_Selection>`.
+
+    structure_indices_2 : tuple, list, numpy.ndarray or 'all', default 'all'
+        Indices of structures (0-based integers) of the second molecular system
+        to which this method applies.
 
     syntax : str, default 'MolSysMT'
-        :ref:`Supported syntax <Introduction_Selection>` used in the argument
-        `selection` (in case it is a string).
+        :ref:`Supported syntax <Introduction_Selection>` used in the `selection` argument (in case
+        it is a string).
+
+    rule : {'equal', 'in'}, default 'equal'
+        Comparison rule applied:
+
+        * 'equal': equality.
+        * 'in': containment.
+
+    output_type : 'boolean' or 'dictionary', default 'boolean'
+        The returned objects can be chosen according to two options:
+
+        * 'boolean': a boolean (True or False) is returned reporting if the rule applies to the
+          condition (attributes) required.
+        * 'dictionary': a dictionary is returned with the input attribute names as keys, and the corresponding booleans (True
+        or False) as values.
+
+    attribute_types : {'topological', 'structural', 'mecanichal', None}, default None
+        If no specific attributes are introduced as additional keywords, a set of attributes can be
+        chosen:
+
+        * 'topological': every :ref:`topological attribute <Introduction_Attributes>` in the systems is compared.
+        * 'structural': every :ref:`structural attribute <Introduction_Attributes>` in the systems is compared.
+        * 'mechanical': every :ref:`mechanical attribute <Introduction_Attributes>` in the systems is compared.
+        * None: either all attributes introduced as additional keywords are compared (if any), or
+          all attributes are compared if ``**kwargs==None``.
+
+    **kwargs : {{keyword : str,  value : bool}, default None}
+        The attributes to be compared are introduced as additional keywords with value either 'True'
+        to the check the truth of the ``rule``, or 'False' to check the falsehood of the ``rule`` (not
+        the ``rule``). If no additional keyword is introduced, every attribute in the
+        systems or those specified by the argument ``attribute_types`` are included in the positive
+        comparison.
+
+
+    Returns
+    -------
+
+    bool or dict
+        A boolean value is returned if the input argument ``output_type=='boolean'`` reporting the
+        success of the comparison. If the input argument ``output_type=='dictionary'``, a
+        dictionary reporting the success of the comparison for each attribute required is returned.
 
 
     Raises
@@ -55,22 +103,22 @@ def compare(molecular_system_A, molecular_system_B, selection_A='all', structure
 
     ArgumentError
         The function raises an ArgumentError in case an input argument value
-        does not meet the required conditions. 
+        does not meet the required conditions.
 
     SyntaxError
-        The function raises a SyntaxError in case the syntax argument takes a not supported value. 
+        The function raises a SyntaxError in case the syntax argument takes a not supported value.
 
 
-    .. versionadded:: 0.1.0
+    .. versionadded:: 0.5.0
 
     Notes
     -----
 
     The list of supported molecular systems' forms is detailed in the documentation section
-    :ref:`User Guide > Introduction > Molecular systems > Forms <Introduction_Forms>`.    
+    :ref:`User Guide > Introduction > Molecular systems > Forms <Introduction_Forms>`.
 
     The list of supported selection syntaxes can be checked in the documentation section
-    :ref:`User Guide > Introduction > Selection syntaxes <Introduction_Selection>`.    
+    :ref:`User Guide > Introduction > Selection syntaxes <Introduction_Selection>`.
 
 
     See Also
@@ -86,19 +134,22 @@ def compare(molecular_system_A, molecular_system_B, selection_A='all', structure
 
     >>> import molsysmt as msm
     >>> from molsysmt.systems import demo
-    >>> molecular_system_1 = msm.basic.convert(demo['alanine dipeptide']['alanine_dipeptide.msmpk'])
-    >>> molecular_system_2 = msm.structure.translate(molecular_system_1, translation='[0.1, 0.1, 0.1] nanometers')
-    >>> msm.basic.get(molecular_system_1, n_strctures=True)
-    1
-    >>> msm.basic.append_structures(molecular_system_1, molecular_system_2)
-    >>> msm.basic.get(molecular_system_1, n_structures=True)
-    2
+    >>> molecular_system_1 = msm.basic.convert(demo['T4 lysozyme L99A']['181l.mmtf'])
+    >>> molecular_system_2 = msm.basic.convert(demo['T4 lysozyme L99A']['181l.mmtf'], selection='molecule_type=="protein"')
+    >>> msm.basic.compare(molecular_system_1, molecular_system_2)
+    False
+    >>> msm.basic.compare(molecular_system_1, molecular_system_2, box=True)
+    True
+    >>> msm.basic.compare(molecular_system_1, molecular_system_2, n_groups=False)
+    True
+    >>> msm.basic.compare(molecular_system_1, molecular_system_2, selection='molecule_type=="protein"', n_groups=True)
+    True
 
 
     .. admonition:: User guide
 
        Follow this link for a tutorial on how to work with this function:
-       :ref:`User Guide > Tools > Basic > Append structures <Tutorial_Append_structures>`.    
+       :ref:`User Guide > Tools > Basic > Compare <Tutorial_Compare>`.
 
     """
 
@@ -146,8 +197,8 @@ def compare(molecular_system_A, molecular_system_B, selection_A='all', structure
                     atts_to_be_compared.remove(key)
 
 
-    atts_of_A = get_attributes(molecular_system_A, output_type='list')
-    atts_of_B = get_attributes(molecular_system_B, output_type='list')
+    atts_of_A = get_attributes(molecular_system, output_type='list')
+    atts_of_B = get_attributes(molecular_system_2, output_type='list')
 
     atts_required = set(atts_to_be_compared) & set(atts_of_A) & set(atts_of_B)
 
@@ -161,9 +212,9 @@ def compare(molecular_system_A, molecular_system_B, selection_A='all', structure
 
         if len(atts)>0:
 
-            n_atoms_A = get(molecular_system_A, element='atom', selection=selection_A,
+            n_atoms_A = get(molecular_system, element='atom', selection=selection,
                     syntax=syntax, n_atoms=True)
-            n_atoms_B = get(molecular_system_A, element='atom', selection=selection_B,
+            n_atoms_B = get(molecular_system, element='atom', selection=selection_2,
                     syntax=syntax, n_atoms=True)
 
             if n_atoms_A!=n_atoms_B:
@@ -175,9 +226,9 @@ def compare(molecular_system_A, molecular_system_B, selection_A='all', structure
 
                 args = {ii:True for ii in atts if ii not in ['n_atoms', 'atom_index']}
 
-                dict_A = get(molecular_system_A, element='atom', selection=selection_A,
+                dict_A = get(molecular_system, element='atom', selection=selection,
                         syntax=syntax, output_type='dictionary', **args)
-                dict_B = get(molecular_system_B, element='atom', selection=selection_B,
+                dict_B = get(molecular_system_2, element='atom', selection=selection_2,
                         syntax=syntax, output_type='dictionary', **args)
 
                 if 'n_atoms' in atts:
@@ -203,9 +254,9 @@ def compare(molecular_system_A, molecular_system_B, selection_A='all', structure
 
         if len(atts)>0:
 
-            n_groups_A = get(molecular_system_A, element='group', selection=selection_A,
+            n_groups_A = get(molecular_system, element='group', selection=selection,
                     syntax=syntax, n_groups=True)
-            n_groups_B = get(molecular_system_B, element='group', selection=selection_B,
+            n_groups_B = get(molecular_system_2, element='group', selection=selection_2,
                     syntax=syntax, n_groups=True)
 
             if n_groups_A!=n_groups_B:
@@ -219,9 +270,9 @@ def compare(molecular_system_A, molecular_system_B, selection_A='all', structure
 
                     args = {ii:True for ii in atts if ii not in ['n_groups']}
 
-                    dict_A = get(molecular_system_A, element='atom', selection=selection_A,
+                    dict_A = get(molecular_system, element='atom', selection=selection,
                             syntax=syntax, output_type='dictionary', **args)
-                    dict_B = get(molecular_system_B, element='atom', selection=selection_B,
+                    dict_B = get(molecular_system_2, element='atom', selection=selection_2,
                             syntax=syntax, output_type='dictionary', **args)
 
                     if 'n_groups' in atts:
@@ -246,9 +297,9 @@ def compare(molecular_system_A, molecular_system_B, selection_A='all', structure
 
                     args = {ii:True for ii in atts if ii not in ['n_groups']}
 
-                    dict_A = get(molecular_system_A, element='group', selection=selection_A,
+                    dict_A = get(molecular_system, element='group', selection=selection,
                             syntax=syntax, output_type='dictionary', **args)
-                    dict_B = get(molecular_system_B, element='group', selection=selection_B,
+                    dict_B = get(molecular_system_2, element='group', selection=selection_2,
                             syntax=syntax, output_type='dictionary', **args)
 
                     if 'n_groups' in atts:
@@ -274,9 +325,9 @@ def compare(molecular_system_A, molecular_system_B, selection_A='all', structure
 
         if len(atts)>0:
 
-            n_components_A = get(molecular_system_A, element='component', selection=selection_A,
+            n_components_A = get(molecular_system, element='component', selection=selection,
                     syntax=syntax, n_components=True)
-            n_components_B = get(molecular_system_B, element='component', selection=selection_B,
+            n_components_B = get(molecular_system_2, element='component', selection=selection_2,
                     syntax=syntax, n_components=True)
 
             if n_components_A!=n_components_B:
@@ -290,9 +341,9 @@ def compare(molecular_system_A, molecular_system_B, selection_A='all', structure
 
                     args = {ii:True for ii in atts if ii not in ['n_components']}
 
-                    dict_A = get(molecular_system_A, element='component', selection=selection_A,
+                    dict_A = get(molecular_system, element='component', selection=selection,
                             syntax=syntax, output_type='dictionary', **args)
-                    dict_B = get(molecular_system_B, element='component', selection=selection_B,
+                    dict_B = get(molecular_system_2, element='component', selection=selection_2,
                             syntax=syntax, output_type='dictionary', **args)
 
                     if 'n_components' in atts:
@@ -317,9 +368,9 @@ def compare(molecular_system_A, molecular_system_B, selection_A='all', structure
 
                     args = {ii:True for ii in atts if ii not in ['n_components']}
 
-                    dict_A = get(molecular_system_A, element='component', selection=selection_A,
+                    dict_A = get(molecular_system, element='component', selection=selection,
                             syntax=syntax, output_type='dictionary', **args)
-                    dict_B = get(molecular_system_B, element='component', selection=selection_B,
+                    dict_B = get(molecular_system_2, element='component', selection=selection_2,
                             syntax=syntax, output_type='dictionary', **args)
 
                     if 'n_components' in atts:
@@ -345,9 +396,9 @@ def compare(molecular_system_A, molecular_system_B, selection_A='all', structure
 
         if len(atts)>0:
 
-            n_molecules_A = get(molecular_system_A, element='molecule', selection=selection_A,
+            n_molecules_A = get(molecular_system, element='molecule', selection=selection,
                     syntax=syntax, n_molecules=True)
-            n_molecules_B = get(molecular_system_B, element='molecule', selection=selection_B,
+            n_molecules_B = get(molecular_system_2, element='molecule', selection=selection_2,
                     syntax=syntax, n_molecules=True)
 
             if n_molecules_A!=n_molecules_B:
@@ -361,9 +412,9 @@ def compare(molecular_system_A, molecular_system_B, selection_A='all', structure
 
                     args = {ii:True for ii in atts if ii not in ['n_molecules']}
 
-                    dict_A = get(molecular_system_A, element='molecule', selection=selection_A,
+                    dict_A = get(molecular_system, element='molecule', selection=selection,
                             syntax=syntax, output_type='dictionary', **args)
-                    dict_B = get(molecular_system_B, element='molecule', selection=selection_B,
+                    dict_B = get(molecular_system_2, element='molecule', selection=selection_2,
                             syntax=syntax, output_type='dictionary', **args)
 
                     if 'n_molecules' in atts:
@@ -388,9 +439,9 @@ def compare(molecular_system_A, molecular_system_B, selection_A='all', structure
 
                     args = {ii:True for ii in atts if ii not in ['n_molecules']}
 
-                    dict_A = get(molecular_system_A, element='molecule', selection=selection_A,
+                    dict_A = get(molecular_system, element='molecule', selection=selection,
                             syntax=syntax, output_type='dictionary', **args)
-                    dict_B = get(molecular_system_B, element='molecule', selection=selection_B,
+                    dict_B = get(molecular_system_2, element='molecule', selection=selection_2,
                             syntax=syntax, output_type='dictionary', **args)
 
                     if 'n_molecules' in atts:
@@ -416,9 +467,9 @@ def compare(molecular_system_A, molecular_system_B, selection_A='all', structure
 
         if len(atts)>0:
 
-            n_chains_A = get(molecular_system_A, element='chain', selection=selection_A,
+            n_chains_A = get(molecular_system, element='chain', selection=selection,
                     syntax=syntax, n_chains=True)
-            n_chains_B = get(molecular_system_B, element='chain', selection=selection_B,
+            n_chains_B = get(molecular_system_2, element='chain', selection=selection_2,
                     syntax=syntax, n_chains=True)
 
             if n_chains_A!=n_chains_B:
@@ -432,9 +483,9 @@ def compare(molecular_system_A, molecular_system_B, selection_A='all', structure
 
                     args = {ii:True for ii in atts if ii not in ['n_chains']}
 
-                    dict_A = get(molecular_system_A, element='chain', selection=selection_A,
+                    dict_A = get(molecular_system, element='chain', selection=selection,
                             syntax=syntax, output_type='dictionary', **args)
-                    dict_B = get(molecular_system_B, element='chain', selection=selection_B,
+                    dict_B = get(molecular_system_2, element='chain', selection=selection_2,
                             syntax=syntax, output_type='dictionary', **args)
 
                     if 'n_chains' in atts:
@@ -459,9 +510,9 @@ def compare(molecular_system_A, molecular_system_B, selection_A='all', structure
 
                     args = {ii:True for ii in atts if ii not in ['n_chains']}
 
-                    dict_A = get(molecular_system_A, element='chain', selection=selection_A,
+                    dict_A = get(molecular_system, element='chain', selection=selection,
                             syntax=syntax, output_type='dictionary', **args)
-                    dict_B = get(molecular_system_B, element='chain', selection=selection_B,
+                    dict_B = get(molecular_system_2, element='chain', selection=selection_2,
                             syntax=syntax, output_type='dictionary', **args)
 
                     if 'n_chains' in atts:
@@ -487,9 +538,9 @@ def compare(molecular_system_A, molecular_system_B, selection_A='all', structure
 
         if len(atts)>0:
 
-            n_entities_A = get(molecular_system_A, element='entity', selection=selection_A,
+            n_entities_A = get(molecular_system, element='entity', selection=selection,
                     syntax=syntax, n_entities=True)
-            n_entities_B = get(molecular_system_B, element='entity', selection=selection_B,
+            n_entities_B = get(molecular_system_2, element='entity', selection=selection_2,
                     syntax=syntax, n_entities=True)
 
             if n_entities_A!=n_entities_B:
@@ -503,9 +554,9 @@ def compare(molecular_system_A, molecular_system_B, selection_A='all', structure
 
                     args = {ii:True for ii in atts if ii not in ['n_entities']}
 
-                    dict_A = get(molecular_system_A, element='entity', selection=selection_A,
+                    dict_A = get(molecular_system, element='entity', selection=selection,
                             syntax=syntax, output_type='dictionary', **args)
-                    dict_B = get(molecular_system_B, element='entity', selection=selection_B,
+                    dict_B = get(molecular_system_2, element='entity', selection=selection_2,
                             syntax=syntax, output_type='dictionary', **args)
 
                     if 'n_entities' in atts:
@@ -530,9 +581,9 @@ def compare(molecular_system_A, molecular_system_B, selection_A='all', structure
 
                     args = {ii:True for ii in atts if ii not in ['n_entities']}
 
-                    dict_A = get(molecular_system_A, element='entity', selection=selection_A,
+                    dict_A = get(molecular_system, element='entity', selection=selection,
                             syntax=syntax, output_type='dictionary', **args)
-                    dict_B = get(molecular_system_B, element='entity', selection=selection_B,
+                    dict_B = get(molecular_system_2, element='entity', selection=selection_2,
                             syntax=syntax, output_type='dictionary', **args)
 
                     if 'n_entities' in atts:
@@ -562,9 +613,9 @@ def compare(molecular_system_A, molecular_system_B, selection_A='all', structure
 
         if len(atts)>0:
 
-            n_bonds_A = get(molecular_system_A, element='bond', selection=selection_A,
+            n_bonds_A = get(molecular_system, element='bond', selection=selection,
                     syntax=syntax, n_bonds=True)
-            n_bonds_B = get(molecular_system_B, element='bond', selection=selection_B,
+            n_bonds_B = get(molecular_system_2, element='bond', selection=selection_2,
                     syntax=syntax, n_bonds=True)
 
             if n_bonds_A!=n_bonds_B:
@@ -582,9 +633,9 @@ def compare(molecular_system_A, molecular_system_B, selection_A='all', structure
                     if 'bonded_atoms' not in args:
                         args['bonded_atoms']=True
 
-                    dict_A = get(molecular_system_A, element='bond', selection=selection_A,
+                    dict_A = get(molecular_system, element='bond', selection=selection,
                             syntax=syntax, output_type='dictionary', **args)
-                    dict_B = get(molecular_system_B, element='bond', selection=selection_B,
+                    dict_B = get(molecular_system_2, element='bond', selection=selection_2,
                             syntax=syntax, output_type='dictionary', **args)
 
                     atoms_pairs_A = dict_A['bonded_atoms']
@@ -622,7 +673,7 @@ def compare(molecular_system_A, molecular_system_B, selection_A='all', structure
 
                     need_inner = True
 
-                    if is_all(selection_A) and is_all(selection_B):
+                    if is_all(selection) and is_all(selection_2):
 
                         need_inner = False
 
@@ -646,9 +697,9 @@ def compare(molecular_system_A, molecular_system_B, selection_A='all', structure
 
                     if need_inner:
 
-                        dict_A = get(molecular_system_A, element='atom', selection=selection_A,
+                        dict_A = get(molecular_system, element='atom', selection=selection,
                                 syntax=syntax, output_type='dictionary', **args)
-                        dict_B = get(molecular_system_B, element='atom', selection=selection_B,
+                        dict_B = get(molecular_system_2, element='atom', selection=selection_2,
                                 syntax=syntax, output_type='dictionary', **args)
 
                         atoms_pairs_A = dict_A['inner_bonded_atoms']
@@ -675,11 +726,11 @@ def compare(molecular_system_A, molecular_system_B, selection_A='all', structure
 
         if len(atts)>0:
 
-            n_structures_A = get(molecular_system_A, element='system', selection=selection_A,
-                    structure_indices=structure_indices_A, syntax=syntax, n_structures=True)
+            n_structures_A = get(molecular_system, element='system',
+                    structure_indices=structure_indices, syntax=syntax, n_structures=True)
 
-            n_structures_B = get(molecular_system_B, element='system', selection=selection_B,
-                    structure_indices=structure_indices_B, syntax=syntax, n_structures=True)
+            n_structures_B = get(molecular_system_2, element='system',
+                    structure_indices=structure_indices_2, syntax=syntax, n_structures=True)
 
             if n_structures_A!=n_structures_B:
 
@@ -692,10 +743,10 @@ def compare(molecular_system_A, molecular_system_B, selection_A='all', structure
 
                 if len(args)>0:
 
-                    dict_A = get(molecular_system_A, element='system',
-                            structure_indices=structure_indices_A, output_type='dictionary', **args)
-                    dict_B = get(molecular_system_B, element='system',
-                            structure_indices=structure_indices_B, output_type='dictionary', **args)
+                    dict_A = get(molecular_system, element='system',
+                            structure_indices=structure_indices, output_type='dictionary', **args)
+                    dict_B = get(molecular_system_2, element='system',
+                            structure_indices=structure_indices_2, output_type='dictionary', **args)
 
                     if 'n_structures' in atts:
                         output_dict['n_structures']= (n_structures_A==n_structures_B)
@@ -712,9 +763,9 @@ def compare(molecular_system_A, molecular_system_B, selection_A='all', structure
 
                 if len(args)>0:
 
-                    n_atoms_A = get(molecular_system_A, element='atom', selection=selection_A,
+                    n_atoms_A = get(molecular_system, element='atom', selection=selection,
                             syntax=syntax, n_atoms=True)
-                    n_atoms_B = get(molecular_system_B, element='atom', selection=selection_B,
+                    n_atoms_B = get(molecular_system_2, element='atom', selection=selection_2,
                             syntax=syntax, n_atoms=True)
 
                     if n_atoms_A!=n_atoms_B:
@@ -727,10 +778,10 @@ def compare(molecular_system_A, molecular_system_B, selection_A='all', structure
 
                     else:
 
-                        dict_A = get(molecular_system_A, element='atom', selection=selection_A,
-                                structure_indices=structure_indices_A, syntax=syntax, output_type='dictionary', **args)
-                        dict_B = get(molecular_system_B, element='atom', selection=selection_B,
-                                structure_indices=structure_indices_B, syntax=syntax, output_type='dictionary', **args)
+                        dict_A = get(molecular_system, element='atom', selection=selection,
+                                structure_indices=structure_indices, syntax=syntax, output_type='dictionary', **args)
+                        dict_B = get(molecular_system_2, element='atom', selection=selection_2,
+                                structure_indices=structure_indices_2, syntax=syntax, output_type='dictionary', **args)
 
                         if 'coordinates' in atts:
 
@@ -764,10 +815,10 @@ def compare(molecular_system_A, molecular_system_B, selection_A='all', structure
 
                 if len(args)>0:
 
-                    box_A = get(molecular_system_A, element='system',
-                            structure_indices=structure_indices_A, box=True)
-                    box_B = get(molecular_system_B, element='system',
-                            structure_indices=structure_indices_B, box=True)
+                    box_A = get(molecular_system, element='system',
+                            structure_indices=structure_indices, box=True)
+                    box_B = get(molecular_system_2, element='system',
+                            structure_indices=structure_indices_2, box=True)
 
                     equal_box = False
                     if box_A is None:
