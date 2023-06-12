@@ -3,7 +3,7 @@
 |      |      |
 | :--- | :--- |
 | [Add](add.ipynb) | Adding elements of a molecular system into another molecular system |    
-| [Append structures](append_structures.ipynb) | Adding the structures from a molecular system to another molecular system |     
+| [Append structures](append_structures.ipynb) | Adding structures from a molecular system to another molecular system |     
 | [Compare](compare.ipynb) | Comparing molecular systems |     
 | [Concatenate structures](concatenate_structures.ipynb) | Concatenating the structures of a molecular systems' list |
 | [Contains](contains.ipynb) | Checking if a molecular system contains certain elements |    

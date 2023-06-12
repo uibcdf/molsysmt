@@ -83,15 +83,25 @@ myst_enable_extensions = [
 
 myst_heading_anchors = 3
 
+# -- Options for autodoc ----------------------------------------------------
+# https://www.sphinx-doc.org/en/master/usage/extensions/autodoc.html#configuration
+
+# Automatically extract typehints when specified and place them in
+# descriptions of the relevant function/method.
+autodoc_typehints = "description"
+
+# Don't show class signature with the class' name.
+autodoc_class_signature = "separated"
+
 # Autosummary options
 
 autosummary_generate = True
 
 # Napoleon settings
-napoleon_numpy_docstring = True
-napoleon_google_docstring = False
-napoleon_use_param = False
-napoleon_use_ivar = True
+#napoleon_numpy_docstring = True
+#napoleon_google_docstring = False
+#napoleon_use_param = False
+#napoleon_use_ivar = True
 
 # sphinxcontrib-bibtex
 bibtex_bibfiles = ['bibliography.bib'] # list of *.bib files

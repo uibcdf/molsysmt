@@ -5,7 +5,8 @@
    :maxdepth: 1
 
    description.ipynb
+   items.ipynb
+   forms.ipynb
    elements.ipynb
    attributes.ipynb
-   items_and_forms.ipynb
 ```

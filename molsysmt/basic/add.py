@@ -5,61 +5,75 @@ import inspect
 @digest()
 def add(to_molecular_system, from_molecular_system, selection='all', structure_indices='all',
         syntax='MolSysMT'):
+    """
+    Adding elements of a molecular system into another molecular system.
 
-    """Adding elements of a molecular system into another molecular system.
+    Elements of a molecular system are added to another molecular system. If
+    the target system (`to_molecular_system`) has structures, the source system
+    (`from_molecular_system`) must have the same number of structures.
+    Otherwise, the input argument `structure_indices` needs to be used to
+    specify the indices to extract the structural attributes of the elements to
+    be added.
 
-    Elements of a molecular system are added to another molecular system. If the target system
-    (`to_molecular_system`) has structures, the source system (`from_molecular_system`) must have
-    the same number of structures. Otherwise, the input argument `structure_indices` needs to be
-    used to specify the indices to extract the structural attributes of the elements to be added.
 
     Parameters
     ----------
+    to_molecular_system : molecular system
+        Target molecular system in any of :ref:`the supported forms <Introduction_Forms>`.
+        Elements from the source molecular system will be added to this system.
 
-    to_molecular_system: molecular system
-        Target molecular system in any of the supported forms (See :ref:`Add in User Guide 
-        <UserGuide_Tools_Basic_Add>`). Elements from the source
-        molecular system will be added to this system.
+    from_molecular_system : molecular system
+        Source molecular system in any of :ref:`the supported forms <Introduction_Forms>`.
+        Elements from this system will be added to the target molecular system.
 
-    from_molecular_system: molecular system
-        Source molecular system in any of the supported forms (See: XXX). Elements from this system
-        will be added to the target molecular system.
+    selection : tuple, list, numpy.ndarray or str, default 'all'
+        Atoms selection over which this method applies. The selection can be
+        given by a list, tuple or numpy array of atom indices (0-based
+        integers); or by means of a string following any of :ref:`the selection
+        syntaxes parsable by MolSysMT <Introduction_Selection>`.
 
+    structure_indices : tuple, list, numpy.ndarray or 'all', default 'all'
+        Indices of structures (0-based integers) of the source molecular system
+        to get the structural attributes of the selected atoms, if any, to be
+        added.
 
+    syntax : str, default 'MolSysMT'
+        :ref:`Supported syntax <Introduction_Selection>` used in the argument
+        `selection` (in case it is a string).
 
-    to_form: str, default='molsysmt.MolSys'
-        Any accepted form by MolSysMt for the output object.
-
-    selection: str, list, tuple or np.ndarray, defaul='all'
-       Atoms selection over which this method applies. The selection can be given by a
-       list, tuple or numpy array of integers (0-based), or by means of a string following any of
-       the selection syntax parsable by MolSysMT (see: :func:`molsysmt.select`).
-
-    syntax: str, default='MolSysMT'
-       Syntaxis used in the argument `selection` (in case it is a string). The
-       current options supported by MolSysMt can be found in section XXX (see: :func:`molsysmt.select`).
 
     Raises
     ------
 
-    Errors raised by the function
+    NotSupportedFormError
+        The function raises a NotSupportedFormError in case a molecular system
+        is introduced with a not supported form.
 
-    See Also
-    --------
+    ArgumentError
+        The function raises an ArgumentError in case an input argument value
+        does not meet the required conditions. 
 
-    :ref:`User Guide>Tools>Basic>Add <UserGuide_Tools_Basic_Add>`
-        Add tutorial in the User Guide.
+    SyntaxError
+        The function raises a SyntaxError in case the syntax argument takes a not supported value. 
 
-    :func:`molsysmt.basic.select`
-        Selection function.
+
+    .. versionadded:: 0.1.0
 
     Notes
     -----
 
-    .. versionadded:: 0.1.0
+    The list of supported molecular systems' forms is detailed in the documentation section
+    :ref:`User Guide > Introduction > Molecular systems > Forms <Introduction_Forms>`.    
 
-    A tutorial on how to work with this function can be found in the documentation section 
-    :ref:`User Guide>Tools>Basic>Add <UserGuide_Tools_Basic_Add>`.    
+    The list of supported selection syntaxes can be checked in the documentation section
+    :ref:`User Guide > Introduction > Selection syntaxes <Introduction_Selection>`.    
+
+
+    See Also
+    --------
+
+    :func:`molsysmt.basic.select`
+        Selecting elements of a molecular system
 
     Examples
     --------
@@ -68,13 +82,20 @@ def add(to_molecular_system, from_molecular_system, selection='all', structure_i
 
     >>> import molsysmt as msm
     >>> from molsysmt.systems import demo
-    >>> molecular_system_1 = msm.convert(demo['alanine dipeptide']['alanine_dipeptide.msmpk'])
-    >>> molecular_system_2 = msm.convert(demo['valine dipeptide']['valine_dipeptide.msmpk'])
-    >>> msm.get(molecular_system_1, n_molecules=True)
+    >>> molecular_system_1 = msm.basic.convert(demo['alanine dipeptide']['alanine_dipeptide.msmpk'])
+    >>> molecular_system_2 = msm.basic.convert(demo['valine dipeptide']['valine_dipeptide.msmpk'])
+    >>> msm.basic.get(molecular_system_1, n_molecules=True)
     1
-    >>> msm.add(molecular_system_1, molecular_system_2)
-    >>> msm.get(molecular_system_1, n_molecules=True)
+    >>> msm.basic.add(molecular_system_1, molecular_system_2)
+    >>> msm.basic.get(molecular_system_1, n_molecules=True)
     2
+
+
+    .. admonition:: User guide
+
+       Follow this link for a tutorial on how to work with this function:
+       :ref:`User Guide > Tools > Basic > Add <Tutorial_Add>`.    
+
     """
 
     from . import get_form, convert, select
