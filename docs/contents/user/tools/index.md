@@ -1,50 +1,57 @@
 # **Tools**
 
-## Basic
+::::{grid} 3
+:gutter: 2
 
-The ["Basic"](basic/index.md) tools module includes a set of functions to manipulate and examine molecular
-systems.
+:::{grid-item-card} Basic
+:columns: 3
+:link: basic/index.md
+Set of functions to manipulate and examine molecular systems.
+:::
 
-## Build
+:::{grid-item-card} Build
+:columns: 3
+:link: build/index.md
+Set of functions to build and complete molecular systems.
+:::
 
-The ["Build"](build/index.md) tools module is composed of functions to build and complete molecular
-systems.
+:::{grid-item-card} Topology
+:columns: 3
+:link: topology/index.md
+Set of functions to explore the topology of a molecular system is found.
+:::
 
-## Topology
+:::{grid-item-card} Structure
+:columns: 3
+:link: structure/index.md
+Set of functions to explore and manipulate the structures of a molecular system.
+:::
 
-In the ["Topology"](topology/index.md) tools module, a set of functions to explore the topology of a molecular system is
-found.
+:::{grid-item-card} Periodic boundary conditions
+:columns: 3
+:link: structure/index.md
+Set of functions to work with the periodic boundary conditions of a molecular system.
+:::
 
-## Structure
+:::{grid-item-card} Molecular mechanics
+:columns: 3
+:link: molecular\_mechanics/index.md
+Set of functions to work the molecular mechanics of a molecular system is found.
+:::
 
-The ["Structure"](structure/index.md) tools module contains a set of functions to explore and manipulate the structures of a
-molecular system.
+:::{grid-item-card} Element
+:columns: 3
+:link: element/index.md
+Set of functions to work with the different elements of a molecular system.
+:::
 
+:::{grid-item-card} Thirds
+:columns: 3
+:link: thirds/index.md
+Set of function to make the work with third libraries easier.
+:::
 
-## Periodic boundary conditions
-
-Functions to work with the periodic boundary conditions of a molecular system are found in the
-tools module named ["Periodic boundary conditions"](pbc/index.md).
-
-## Molecular mechanics
-
-In the ["Molecular mechanics"](molecular_mechanics/index.md) tools module, a set of functions to work the molecular mechanics of a molecular system is
-found.
-
-## Element
-
-The ["Element"](element/index.md) tools module contains functions to work with the different elements of a molecular
-system.
-
-## Thirds
-
-To work with third libraries in your workflows, MolSysMT includes the ["Thirds"](thirds/index.md) module with useful functions
-implemented to their use easier.
-
-
-
-
-
+::::
 
 
 

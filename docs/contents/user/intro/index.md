@@ -9,6 +9,7 @@ ASDFSADF
    molsysmt.ipynb
    installation.ipynb
    molecular_systems/index.md
+   demo_systems.ipynb
    native_forms/index.md
    selection_syntaxes.ipynb
    tools.ipynb

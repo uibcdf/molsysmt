@@ -21,6 +21,17 @@ def _evaluation(condition, n_in_system):
 def contains(molecular_system, selection='all', syntax='MolSysMT',
         ions=None, waters=None, small_molecules=None, peptides=None, proteins=None,
         dnas=None, rnas=None, lipids=None, oligosaccharides=None, hydrogens=None):
+    """
+    Checking if a molecular system contains certain elements.
+
+    Attributes from two molecular systems can be compared according to two rules: equality
+    ('equal') and containment ('in').
+    However, if no attributes are chosen to be compared, the entire input systems are
+    compared. If you only want to include certain elements or structures in the comparison, make
+    use of the input arguments ``selection``, ``structure_indices``, ``selection_2``, and
+    ``structure_indices_2``.
+
+
 
     from . import get, select
 

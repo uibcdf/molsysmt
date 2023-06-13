@@ -3,9 +3,9 @@ from molsysmt._private.digestion import digest
 @digest()
 def concatenate_structures(molecular_systems, selections='all', structure_indices='all', to_form=None):
     """
-    Concatenating the structures found a list of molecular systems.
+    Concatenating the structures found in a list of molecular systems.
 
-    The structures found in a list of  molecular system are concatenated and returned in a new
+    The structures found in a list of molecular system are concatenated and returned in a new
     molecular system. Every system must have the same number of atoms. Otherwise the input argument
     ``selections`` needs to be used to select the elements defining the structures to be
     concatenated. In addition, the argument ``structure_indices`` can be used to choose specific
@@ -30,12 +30,27 @@ def concatenate_structures(molecular_systems, selections='all', structure_indice
     structure_indices : list of (tuple, list, numpy.ndarray, 'all'), or 'all', default 'all'
         List of indices of structures (0-based integers) to which this function applies. The
         default value is 'all' to indicate that all structures in all systems will be concatenated.
-        If a list of different indices of structures are indicated for the list of  system, they
+        If a list of different indices of structures is introduced, they
         will be read and applied to the list of molecular systems in the same order.
 
     syntax : str, default 'MolSysMT'
         :ref:`Supported syntax <Introduction_Selection>` used in the argument
         `selection` (in case it is a string).
+
+    to_form: str or None, default None
+        Form of the output molecular system. If no form is indicated, with the default value None, the
+        output form will be the same as the first molecular system found in ``molecular_systems``.
+
+
+    Returns
+    -------
+
+    Molecular system
+        A molecular system with the topology extracted from the first molecular
+        system of the list is returned. This molecular system has all the
+        structures required by the user by means or the input arguments
+        concatenated. The form of this output system can be chosen making use
+        of the `to_form` input argument.
 
 
     Raises
@@ -71,6 +86,10 @@ def concatenate_structures(molecular_systems, selections='all', structure_indice
     :func:`molsysmt.basic.select`
         Selecting elements of a molecular system
 
+    :func:`molsysmt.basic.append_structures`
+        Adding structures from a molecular system to another molecular system.
+
+
     Examples
     --------
 
@@ -80,17 +99,15 @@ def concatenate_structures(molecular_systems, selections='all', structure_indice
     >>> from molsysmt.systems import demo
     >>> molecular_system_1 = msm.basic.convert(demo['alanine dipeptide']['alanine_dipeptide.msmpk'])
     >>> molecular_system_2 = msm.structure.translate(molecular_system_1, translation='[0.1, 0.1, 0.1] nanometers')
-    >>> msm.basic.get(molecular_system_1, n_strctures=True)
-    1
-    >>> msm.basic.append_structures(molecular_system_1, molecular_system_2)
-    >>> msm.basic.get(molecular_system_1, n_structures=True)
+    >>> molecular_system_3 = msm.basic.concatenate_structures([molecular_system_1, molecular_system_2])
+    >>> msm.basic.get(molecular_system_3, n_structures=True)
     2
 
 
     .. admonition:: User guide
 
        Follow this link for a tutorial on how to work with this function:
-       :ref:`User Guide > Tools > Basic > Append structures <Tutorial_Append_structures>`.    
+       :ref:`User Guide > Tools > Basic > Concatenate structures <Tutorial_Concatenate_structures>`.    
 
     """
 

@@ -75,6 +75,10 @@ def append_structures(to_molecular_system, from_molecular_system, selection='all
     :func:`molsysmt.basic.select`
         Selecting elements of a molecular system
 
+    :func:`molsysmt.basic.concatenate_structures`
+        Concatenating the structures found in a list of molecular systems.
+
+
     Examples
     --------
 
@@ -84,7 +88,7 @@ def append_structures(to_molecular_system, from_molecular_system, selection='all
     >>> from molsysmt.systems import demo
     >>> molecular_system_1 = msm.basic.convert(demo['alanine dipeptide']['alanine_dipeptide.msmpk'])
     >>> molecular_system_2 = msm.structure.translate(molecular_system_1, translation='[0.1, 0.1, 0.1] nanometers')
-    >>> msm.basic.get(molecular_system_1, n_strctures=True)
+    >>> msm.basic.get(molecular_system_1, n_structures=True)
     1
     >>> msm.basic.append_structures(molecular_system_1, molecular_system_2)
     >>> msm.basic.get(molecular_system_1, n_structures=True)
