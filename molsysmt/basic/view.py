@@ -2,13 +2,13 @@ from molsysmt._private.digestion import digest
 from molsysmt.thirds.nglview import load_html_in_jupyter_notebook
 from inspect import stack
 from pathlib import Path
-from molsysmt.config import view_from_htmlfiles
+from molsysmt.config import _view_from_htmlfiles
 
 @digest()
 def view(molecular_system=None, viewer='NGLView', selection='all', structure_indices='all',
          standard=False, with_water_as=None, syntax='MolSysMT'):
 
-    if view_from_htmlfiles:
+    if _view_from_htmlfiles:
         if 'nglview_htmlfile' in stack()[2][0].f_locals:
             htmlfile = stack()[2][0].f_locals['nglview_htmlfile']
             if htmlfile is not None:

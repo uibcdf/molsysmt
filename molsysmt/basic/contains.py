@@ -18,9 +18,7 @@ def _evaluation(condition, n_in_system):
     return output
 
 @digest()
-def contains(molecular_system, selection='all', syntax='MolSysMT',
-        ions=None, waters=None, small_molecules=None, peptides=None, proteins=None,
-        dnas=None, rnas=None, lipids=None, oligosaccharides=None, hydrogens=None):
+def contains(molecular_system, selection=None, syntax='MolSysMT', **kwargs):
     """
     Checking if a molecular system contains certain elements.
 
@@ -30,83 +28,35 @@ def contains(molecular_system, selection='all', syntax='MolSysMT',
     compared. If you only want to include certain elements or structures in the comparison, make
     use of the input arguments ``selection``, ``structure_indices``, ``selection_2``, and
     ``structure_indices_2``.
+    """
+
+    from . import get
+
+    atts_required = {}
+    aux_atts = {}
+    for key in kwargs.keys():
+        atts_required[key] = kwargs[key]
+        aux_atts[key] = True
+
+    n_atts_required = len(atts_required)
+
+    if n_atts_required:
+
+        atts_values = get(molecular_system, selection=selection, syntax=syntax, **aux_atts)
 
 
+        if n_atts_required==1:
+            atts_values = [atts_values]
 
-    from . import get, select
+        for att, att_value in zip(aux_atts.keys(), atts_values):
+            if not _evaluation(atts_required[att], att_value):
+                return False
 
-    if ions is not None:
+    else:
 
-        n_in_system = get(molecular_system, selection=selection, n_ions=True)
+        n_atoms = get(molecular_system, element='atom', selection=selection, syntax=syntax, n_atoms=True)
 
-        if not _evaluation(ions, n_in_system):
-            return False
-
-    if waters is not None:
-
-        n_in_system = get(molecular_system, n_waters=True)
-
-        if not _evaluation(waters, n_in_system):
-            return False
-
-    if small_molecules is not None:
-
-        n_in_system = get(molecular_system, n_small_molecules=True)
-
-        if not _evaluation(small_molecules, n_in_system):
-            return False
-
-    if peptides is not None:
-
-        n_in_system = get(molecular_system, n_peptides=True)
-
-        if not _evaluation(peptides, n_in_system):
-            return False
-
-    if proteins is not None:
-
-        n_in_system = get(molecular_system, n_proteins=True)
-
-        if not _evaluation(proteins, n_in_system):
-            return False
-
-    if dnas is not None:
-
-        n_in_system = get(molecular_system, n_dnas=True)
-
-        if not _evaluation(dnas, n_in_system):
-            return False
-
-    if rnas is not None:
-
-        n_in_system = get(molecular_system, n_rnas=True)
-
-        if not _evaluation(rnas, n_in_system):
-            return False
-
-    if lipids is not None:
-
-        n_in_system = get(molecular_system, n_lipids=True)
-
-        if not _evaluation(lipids, n_in_system):
-            return False
-
-    if oligosaccharides is not None:
-
-        n_in_system = get(molecular_system, n_oligosaccharides=True)
-
-        if not _evaluation(oligosaccharides, n_in_system):
-            return False
-
-    if hydrogens is not None:
-
-        hydrogen_indices = select(molecular_system, selection='atom_type=="H"')
-        selection_indices = select(molecular_system, selection=selection)
-
-        intersection = np.intersect1d(hydrogen_indices, selection_indices)
-        n_in_system = intersection.shape[0]
-
-        if not _evaluation(hydrogens, n_in_system):
+        if not n_atoms:
             return False
 
     return True

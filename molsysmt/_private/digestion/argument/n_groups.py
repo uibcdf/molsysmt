@@ -14,6 +14,9 @@ def digest_n_groups(n_groups, caller=None):
                 return n_groups
             else:
                 raise ArgumentError('n_groups', value=n_groups, caller=caller, message=None)
+        elif caller=='molsysmt.basic.contains.contains':
+            if isinstance(n_groups, (bool, int)):
+                return n_groups
 
     raise ArgumentError('n_groups', value=n_groups, caller=caller, message=None)
 

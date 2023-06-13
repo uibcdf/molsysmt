@@ -306,9 +306,11 @@ def select_with_MolSysMT(item, selection):
             locals()['auxiliar_variable_'+var_name]=var_value
 
 
-    for key in selection_shortcuts:
+    shortcuts = selection_shortcuts['MolSysMT']
+
+    for key in shortcuts:
         if key in selection:
-            tmp_selection = tmp_selection.replace(key, selection_shortcuts[key])
+            tmp_selection = tmp_selection.replace(key, shortcuts[key])
 
     indices = tmp_item.atoms_dataframe.query(tmp_selection).index.to_numpy()
 

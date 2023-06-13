@@ -1,15 +1,18 @@
 # Configuration file for MolSysMT
 
 # Set this variable true while testing
-testing = False
+_testing = False
 
 # Set this variable true while debugging
-debugging = False
+_debugging = False
 
 # Selection shortcuts
 
 selection_shortcuts={
-        'backbone':'(atom_name==["CA", "N", "C", "O"])'
+        'MolSysMT': {
+            'backbone':'(atom_name==["CA", "N", "C", "O"])',
+            'hydrogens':'(atom_type=="H")',
+            }
         }
 
 # Units
@@ -34,6 +37,6 @@ def set_default_standard_units(standards=['nm', 'ps', 'K', 'mole', 'amu', 'e',
 
 # Is sphinx working?
 from os import environ
-view_from_htmlfiles=('SPHINXWORKING' in environ)
+_view_from_htmlfiles=('SPHINXWORKING' in environ)
 del(environ)
 

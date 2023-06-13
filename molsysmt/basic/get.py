@@ -94,7 +94,7 @@ def get(molecular_system,
                 indices = 'all'
             else:
                 indices = select(molecular_system, element=element, selection=mask, syntax=syntax)
-                
+
     output = []
 
     for in_attribute in in_attributes:

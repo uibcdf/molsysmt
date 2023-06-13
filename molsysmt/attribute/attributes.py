@@ -190,7 +190,7 @@ add_attribute('n_entities', synonyms=['n_entity'], depends_on=['entity_index'], 
         get_from=['atom', 'group', 'component', 'molecule', 'chain', 'entity', 'system'])
 
 ## n_bonds
-add_attribute('n_bonds', synonyms=['n_bond'], depends_on=['bond_index'], runs_on_elements=True, topological=True,
+add_attribute('n_bonds', synonyms=['n_bond', 'bond', 'bonds'], depends_on=['bond_index'], runs_on_elements=True, topological=True,
         get_from=['system'])
 
 ## n_inner_bonds
@@ -206,43 +206,43 @@ add_attribute('n_nucleotides', synonyms=['n_nucleotide'], depends_on=['group_typ
         get_from=['system'])
 
 ## n_ions
-add_attribute('n_ions', synonyms=['n_ion'], depends_on=['molecule_type'], runs_on_elements=True, topological=True,
+add_attribute('n_ions', synonyms=['n_ion', 'ion', 'ions'], depends_on=['molecule_type'], runs_on_elements=True, topological=True,
         get_from=['system'])
 
 ## n_waters
-add_attribute('n_waters', synonyms=['n_water'], depends_on=['molecule_type'], runs_on_elements=True, topological=True,
+add_attribute('n_waters', synonyms=['n_water', 'water', 'waters'], depends_on=['molecule_type'], runs_on_elements=True, topological=True,
         get_from=['system'])
 
 ## n_small_molecules
-add_attribute('n_small_molecules', synonyms=['n_small_molecule'], depends_on=['molecule_type'], runs_on_elements=True, topological=True,
-        get_from=['system'])
+add_attribute('n_small_molecules', synonyms=['n_small_molecule', 'small_molecule', 'small_molecules'], depends_on=['molecule_type'],
+        runs_on_elements=True, topological=True, get_from=['system'])
 
 ## n_peptides
-add_attribute('n_peptides', synonyms=['n_peptide'], depends_on=['molecule_type'], runs_on_elements=True, topological=True,
+add_attribute('n_peptides', synonyms=['n_peptide', 'peptide', 'peptides'], depends_on=['molecule_type'], runs_on_elements=True, topological=True,
         get_from=['system'])
 
 ## n_proteins
-add_attribute('n_proteins', synonyms=['n_protein'], depends_on=['molecule_type'], runs_on_elements=True, topological=True,
+add_attribute('n_proteins', synonyms=['n_protein', 'protein', 'proteins'], depends_on=['molecule_type'], runs_on_elements=True, topological=True,
         get_from=['system'])
 
 ## n_dnas
-add_attribute('n_dnas', synonyms=['n_dna'], depends_on=['molecule_type'], runs_on_elements=True, topological=True,
+add_attribute('n_dnas', synonyms=['n_dna', 'dna', 'dnas'], depends_on=['molecule_type'], runs_on_elements=True, topological=True,
         get_from=['system'])
 
 ## n_rnas
-add_attribute('n_rnas', synonyms=['n_rna'], depends_on=['molecule_type'], runs_on_elements=True, topological=True,
+add_attribute('n_rnas', synonyms=['n_rna', 'rna', 'rnas'], depends_on=['molecule_type'], runs_on_elements=True, topological=True,
         get_from=['system'])
 
 ## n_lipids
-add_attribute('n_lipids', synonyms=['n_lipid'], depends_on=['molecule_type'], runs_on_elements=True, topological=True,
+add_attribute('n_lipids', synonyms=['n_lipid', 'lipid', 'lipids'], depends_on=['molecule_type'], runs_on_elements=True, topological=True,
         get_from=['system'])
 
 ## n_oligosaccharides
-add_attribute('n_oligosaccharides', synonyms=['n_oligosaccharide'], depends_on=['molecule_type'], runs_on_elements=True, topological=True,
-        get_from=['system'])
+add_attribute('n_oligosaccharides', synonyms=['n_oligosaccharide', 'oligosaccharide', 'oligosaccharides'], depends_on=['molecule_type'],
+        runs_on_elements=True, topological=True, get_from=['system'])
 
 ## n_saccharides
-add_attribute('n_saccharides', synonyms=['n_saccharide'], depends_on=['molecule_type'], runs_on_elements=True, topological=True,
+add_attribute('n_saccharides', synonyms=['n_saccharide', 'saccharide', 'saccharides'], depends_on=['molecule_type'], runs_on_elements=True, topological=True,
         get_from=['system'])
 
 

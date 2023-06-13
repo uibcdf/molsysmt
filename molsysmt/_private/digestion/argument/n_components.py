@@ -14,6 +14,10 @@ def digest_n_components(n_components, caller=None):
                 return n_components
             else:
                 raise ArgumentError('n_components', value=n_components, caller=caller, message=None)
+        elif caller=='molsysmt.basic.contains.contains':
+            if isinstance(n_components, (bool, int)):
+                return n_components
+
 
     raise ArgumentError('n_components', value=n_components, caller=caller, message=None)
 

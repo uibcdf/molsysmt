@@ -41,6 +41,12 @@ def argument_names_standardization(caller, kwargs):
             if arg in _attribute_synonyms:
                 kwargs = _replace_key_in_dict(kwargs, arg, _attribute_synonyms[arg])
 
+    elif caller=='molsysmt.basic.contains.contains':
+
+        for arg in kwargs:
+            if arg in _attribute_synonyms:
+                kwargs = _replace_key_in_dict(kwargs, arg, _attribute_synonyms[arg])
+
     elif caller=='molsysmt.build.mutate.mutate':
 
         if 'mutation' in kwargs:
