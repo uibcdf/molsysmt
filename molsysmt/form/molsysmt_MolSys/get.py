@@ -263,6 +263,78 @@ def get_partial_charge_from_atom (item, indices='all'):
     from ..molsysmt_MolecularMechanics import get_partial_charge_from_atom as aux_get
     return aux_get(item.molecular_mechanics, indices=indices)
 
+@digest(form=form)
+def get_n_aminoacids_from_atom (item, indices='all'):
+
+    from ..molsysmt_Topology import get_n_aminoacids_from_atom as aux_get
+    return aux_get(item.topology, indices=indices)
+
+@digest(form=form)
+def get_n_nucleotides_from_atom (item, indices='all'):
+
+    from ..molsysmt_Topology import get_n_nucleotides_from_atom as aux_get
+    return aux_get(item.topology, indices=indices)
+
+@digest(form=form)
+def get_n_ions_from_atom (item, indices='all'):
+
+    from ..molsysmt_Topology import get_n_ions_from_atom as aux_get
+    return aux_get(item.topology, indices=indices)
+
+@digest(form=form)
+def get_n_waters_from_atom (item, indices='all'):
+
+    from ..molsysmt_Topology import get_n_waters_from_atom as aux_get
+    return aux_get(item.topology, indices=indices)
+
+@digest(form=form)
+def get_n_small_molecules_from_atom (item, indices='all'):
+
+    from ..molsysmt_Topology import get_n_small_molecules_from_atom as aux_get
+    return aux_get(item.topology, indices=indices)
+
+@digest(form=form)
+def get_n_peptides_from_atom (item, indices='all'):
+
+    from ..molsysmt_Topology import get_n_peptides_from_atom as aux_get
+    return aux_get(item.topology, indices=indices)
+
+@digest(form=form)
+def get_n_proteins_from_atom (item, indices='all'):
+
+    from ..molsysmt_Topology import get_n_proteins_from_atom as aux_get
+    return aux_get(item.topology, indices=indices)
+
+@digest(form=form)
+def get_n_dnas_from_atom (item, indices='all'):
+
+    from ..molsysmt_Topology import get_n_dnas_from_atom as aux_get
+    return aux_get(item.topology, indices=indices)
+
+@digest(form=form)
+def get_n_rnas_from_atom (item, indices='all'):
+
+    from ..molsysmt_Topology import get_n_rnas_from_atom as aux_get
+    return aux_get(item.topology, indices=indices)
+
+@digest(form=form)
+def get_n_lipids_from_atom (item, indices='all'):
+
+    from ..molsysmt_Topology import get_n_lipids_from_atom as aux_get
+    return aux_get(item.topology, indices=indices)
+
+@digest(form=form)
+def get_n_oligosaccharides_from_atom (item, indices='all'):
+
+    from ..molsysmt_Topology import get_n_oligosaccharides_from_atom as aux_get
+    return aux_get(item.topology, indices=indices)
+
+@digest(form=form)
+def get_n_saccharides_from_atom (item, indices='all'):
+
+    from ..molsysmt_Topology import get_n_saccharides_from_atom as aux_get
+    return aux_get(item.topology, indices=indices)
+
 
 ## group
 
@@ -446,6 +518,79 @@ def get_n_entities_from_group (item, indices='all'):
     from ..molsysmt_Topology import get_n_entities_from_group as aux_get
     return aux_get(item.topology, indices=indices)
 
+@digest(form=form)
+def get_n_aminoacids_from_group (item, indices='all'):
+
+    from ..molsysmt_Topology import get_n_aminoacids_from_group as aux_get
+    return aux_get(item.topology, indices=indices)
+
+@digest(form=form)
+def get_n_nucleotides_from_group (item, indices='all'):
+
+    from ..molsysmt_Topology import get_n_nucleotides_from_group as aux_get
+    return aux_get(item.topology, indices=indices)
+
+@digest(form=form)
+def get_n_ions_from_group (item, indices='all'):
+
+    from ..molsysmt_Topology import get_n_ions_from_group as aux_get
+    return aux_get(item.topology, indices=indices)
+
+@digest(form=form)
+def get_n_waters_from_group (item, indices='all'):
+
+    from ..molsysmt_Topology import get_n_waters_from_group as aux_get
+    return aux_get(item.topology, indices=indices)
+
+@digest(form=form)
+def get_n_small_molecules_from_group (item, indices='all'):
+
+    from ..molsysmt_Topology import get_n_small_molecules_from_group as aux_get
+    return aux_get(item.topology, indices=indices)
+
+@digest(form=form)
+def get_n_peptides_from_group (item, indices='all'):
+
+    from ..molsysmt_Topology import get_n_peptides_from_group as aux_get
+    return aux_get(item.topology, indices=indices)
+
+@digest(form=form)
+def get_n_proteins_from_group (item, indices='all'):
+
+    from ..molsysmt_Topology import get_n_proteins_from_group as aux_get
+    return aux_get(item.topology, indices=indices)
+
+@digest(form=form)
+def get_n_dnas_from_group (item, indices='all'):
+
+    from ..molsysmt_Topology import get_n_dnas_from_group as aux_get
+    return aux_get(item.topology, indices=indices)
+
+@digest(form=form)
+def get_n_rnas_from_group (item, indices='all'):
+
+    from ..molsysmt_Topology import get_n_rnas_from_group as aux_get
+    return aux_get(item.topology, indices=indices)
+
+@digest(form=form)
+def get_n_lipids_from_group (item, indices='all'):
+
+    from ..molsysmt_Topology import get_n_lipids_from_group as aux_get
+    return aux_get(item.topology, indices=indices)
+
+@digest(form=form)
+def get_n_oligosaccharides_from_group (item, indices='all'):
+
+    from ..molsysmt_Topology import get_n_oligosaccharides_from_group as aux_get
+    return aux_get(item.topology, indices=indices)
+
+@digest(form=form)
+def get_n_saccharides_from_group (item, indices='all'):
+
+    from ..molsysmt_Topology import get_n_saccharides_from_group as aux_get
+    return aux_get(item.topology, indices=indices)
+
+
 ## component
 
 @digest(form=form)
@@ -628,6 +773,79 @@ def get_n_entities_from_component (item, indices='all'):
     from ..molsysmt_Topology import get_n_entities_from_component as aux_get
     return aux_get(item.topology, indices=indices)
 
+@digest(form=form)
+def get_n_aminoacids_from_component (item, indices='all'):
+
+    from ..molsysmt_Topology import get_n_aminoacids_from_component as aux_get
+    return aux_get(item.topology, indices=indices)
+
+@digest(form=form)
+def get_n_nucleotides_from_component (item, indices='all'):
+
+    from ..molsysmt_Topology import get_n_nucleotides_from_component as aux_get
+    return aux_get(item.topology, indices=indices)
+
+@digest(form=form)
+def get_n_ions_from_component (item, indices='all'):
+
+    from ..molsysmt_Topology import get_n_ions_from_component as aux_get
+    return aux_get(item.topology, indices=indices)
+
+@digest(form=form)
+def get_n_waters_from_component (item, indices='all'):
+
+    from ..molsysmt_Topology import get_n_waters_from_component as aux_get
+    return aux_get(item.topology, indices=indices)
+
+@digest(form=form)
+def get_n_small_molecules_from_component (item, indices='all'):
+
+    from ..molsysmt_Topology import get_n_small_molecules_from_component as aux_get
+    return aux_get(item.topology, indices=indices)
+
+@digest(form=form)
+def get_n_peptides_from_component (item, indices='all'):
+
+    from ..molsysmt_Topology import get_n_peptides_from_component as aux_get
+    return aux_get(item.topology, indices=indices)
+
+@digest(form=form)
+def get_n_proteins_from_component (item, indices='all'):
+
+    from ..molsysmt_Topology import get_n_proteins_from_component as aux_get
+    return aux_get(item.topology, indices=indices)
+
+@digest(form=form)
+def get_n_dnas_from_component (item, indices='all'):
+
+    from ..molsysmt_Topology import get_n_dnas_from_component as aux_get
+    return aux_get(item.topology, indices=indices)
+
+@digest(form=form)
+def get_n_rnas_from_component (item, indices='all'):
+
+    from ..molsysmt_Topology import get_n_rnas_from_component as aux_get
+    return aux_get(item.topology, indices=indices)
+
+@digest(form=form)
+def get_n_lipids_from_component (item, indices='all'):
+
+    from ..molsysmt_Topology import get_n_lipids_from_component as aux_get
+    return aux_get(item.topology, indices=indices)
+
+@digest(form=form)
+def get_n_oligosaccharides_from_component (item, indices='all'):
+
+    from ..molsysmt_Topology import get_n_oligosaccharides_from_component as aux_get
+    return aux_get(item.topology, indices=indices)
+
+@digest(form=form)
+def get_n_saccharides_from_component (item, indices='all'):
+
+    from ..molsysmt_Topology import get_n_saccharides_from_component as aux_get
+    return aux_get(item.topology, indices=indices)
+
+
 ## molecule
 
 @digest(form=form)
@@ -808,6 +1026,78 @@ def get_n_chains_from_molecule (item, indices='all'):
 def get_n_entities_from_molecule (item, indices='all'):
 
     from ..molsysmt_Topology import get_n_entities_from_molecule as aux_get
+    return aux_get(item.topology, indices=indices)
+
+@digest(form=form)
+def get_n_aminoacids_from_molecule (item, indices='all'):
+
+    from ..molsysmt_Topology import get_n_aminoacids_from_molecule as aux_get
+    return aux_get(item.topology, indices=indices)
+
+@digest(form=form)
+def get_n_nucleotides_from_molecule (item, indices='all'):
+
+    from ..molsysmt_Topology import get_n_nucleotides_from_molecule as aux_get
+    return aux_get(item.topology, indices=indices)
+
+@digest(form=form)
+def get_n_ions_from_molecule (item, indices='all'):
+
+    from ..molsysmt_Topology import get_n_ions_from_molecule as aux_get
+    return aux_get(item.topology, indices=indices)
+
+@digest(form=form)
+def get_n_waters_from_molecule (item, indices='all'):
+
+    from ..molsysmt_Topology import get_n_waters_from_molecule as aux_get
+    return aux_get(item.topology, indices=indices)
+
+@digest(form=form)
+def get_n_small_molecules_from_molecule (item, indices='all'):
+
+    from ..molsysmt_Topology import get_n_small_molecules_from_molecule as aux_get
+    return aux_get(item.topology, indices=indices)
+
+@digest(form=form)
+def get_n_peptides_from_molecule (item, indices='all'):
+
+    from ..molsysmt_Topology import get_n_peptides_from_molecule as aux_get
+    return aux_get(item.topology, indices=indices)
+
+@digest(form=form)
+def get_n_proteins_from_molecule (item, indices='all'):
+
+    from ..molsysmt_Topology import get_n_proteins_from_molecule as aux_get
+    return aux_get(item.topology, indices=indices)
+
+@digest(form=form)
+def get_n_dnas_from_molecule (item, indices='all'):
+
+    from ..molsysmt_Topology import get_n_dnas_from_molecule as aux_get
+    return aux_get(item.topology, indices=indices)
+
+@digest(form=form)
+def get_n_rnas_from_molecule (item, indices='all'):
+
+    from ..molsysmt_Topology import get_n_rnas_from_molecule as aux_get
+    return aux_get(item.topology, indices=indices)
+
+@digest(form=form)
+def get_n_lipids_from_molecule (item, indices='all'):
+
+    from ..molsysmt_Topology import get_n_lipids_from_molecule as aux_get
+    return aux_get(item.topology, indices=indices)
+
+@digest(form=form)
+def get_n_oligosaccharides_from_molecule (item, indices='all'):
+
+    from ..molsysmt_Topology import get_n_oligosaccharides_from_molecule as aux_get
+    return aux_get(item.topology, indices=indices)
+
+@digest(form=form)
+def get_n_saccharides_from_molecule (item, indices='all'):
+
+    from ..molsysmt_Topology import get_n_saccharides_from_molecule as aux_get
     return aux_get(item.topology, indices=indices)
 
 
@@ -993,6 +1283,79 @@ def get_n_entities_from_chain (item, indices='all'):
     from ..molsysmt_Topology import get_n_entities_from_chain as aux_get
     return aux_get(item.topology, indices=indices)
 
+@digest(form=form)
+def get_n_aminoacids_from_chain (item, indices='all'):
+
+    from ..molsysmt_Topology import get_n_aminoacids_from_chain as aux_get
+    return aux_get(item.topology, indices=indices)
+
+@digest(form=form)
+def get_n_nucleotides_from_chain (item, indices='all'):
+
+    from ..molsysmt_Topology import get_n_nucleotides_from_chain as aux_get
+    return aux_get(item.topology, indices=indices)
+
+@digest(form=form)
+def get_n_ions_from_chain (item, indices='all'):
+
+    from ..molsysmt_Topology import get_n_ions_from_chain as aux_get
+    return aux_get(item.topology, indices=indices)
+
+@digest(form=form)
+def get_n_waters_from_chain (item, indices='all'):
+
+    from ..molsysmt_Topology import get_n_waters_from_chain as aux_get
+    return aux_get(item.topology, indices=indices)
+
+@digest(form=form)
+def get_n_small_molecules_from_chain (item, indices='all'):
+
+    from ..molsysmt_Topology import get_n_small_molecules_from_chain as aux_get
+    return aux_get(item.topology, indices=indices)
+
+@digest(form=form)
+def get_n_peptides_from_chain (item, indices='all'):
+
+    from ..molsysmt_Topology import get_n_peptides_from_chain as aux_get
+    return aux_get(item.topology, indices=indices)
+
+@digest(form=form)
+def get_n_proteins_from_chain (item, indices='all'):
+
+    from ..molsysmt_Topology import get_n_proteins_from_chain as aux_get
+    return aux_get(item.topology, indices=indices)
+
+@digest(form=form)
+def get_n_dnas_from_chain (item, indices='all'):
+
+    from ..molsysmt_Topology import get_n_dnas_from_chain as aux_get
+    return aux_get(item.topology, indices=indices)
+
+@digest(form=form)
+def get_n_rnas_from_chain (item, indices='all'):
+
+    from ..molsysmt_Topology import get_n_rnas_from_chain as aux_get
+    return aux_get(item.topology, indices=indices)
+
+@digest(form=form)
+def get_n_lipids_from_chain (item, indices='all'):
+
+    from ..molsysmt_Topology import get_n_lipids_from_chain as aux_get
+    return aux_get(item.topology, indices=indices)
+
+@digest(form=form)
+def get_n_oligosaccharides_from_chain (item, indices='all'):
+
+    from ..molsysmt_Topology import get_n_oligosaccharides_from_chain as aux_get
+    return aux_get(item.topology, indices=indices)
+
+@digest(form=form)
+def get_n_saccharides_from_chain (item, indices='all'):
+
+    from ..molsysmt_Topology import get_n_saccharides_from_chain as aux_get
+    return aux_get(item.topology, indices=indices)
+
+
 ## entity
 
 @digest(form=form)
@@ -1173,6 +1536,79 @@ def get_n_chains_from_entity (item, indices='all'):
 def get_n_entities_from_entity (item, indices='all'):
 
     from ..molsysmt_Topology import get_n_entities_from_entity as aux_get
+    return aux_get(item.topology, indices=indices)
+
+
+@digest(form=form)
+def get_n_aminoacids_from_entity (item, indices='all'):
+
+    from ..molsysmt_Topology import get_n_aminoacids_from_entity as aux_get
+    return aux_get(item.topology, indices=indices)
+
+@digest(form=form)
+def get_n_nucleotides_from_entity (item, indices='all'):
+
+    from ..molsysmt_Topology import get_n_nucleotides_from_entity as aux_get
+    return aux_get(item.topology, indices=indices)
+
+@digest(form=form)
+def get_n_ions_from_entity (item, indices='all'):
+
+    from ..molsysmt_Topology import get_n_ions_from_entity as aux_get
+    return aux_get(item.topology, indices=indices)
+
+@digest(form=form)
+def get_n_waters_from_entity (item, indices='all'):
+
+    from ..molsysmt_Topology import get_n_waters_from_entity as aux_get
+    return aux_get(item.topology, indices=indices)
+
+@digest(form=form)
+def get_n_small_molecules_from_entity (item, indices='all'):
+
+    from ..molsysmt_Topology import get_n_small_molecules_from_entity as aux_get
+    return aux_get(item.topology, indices=indices)
+
+@digest(form=form)
+def get_n_peptides_from_entity (item, indices='all'):
+
+    from ..molsysmt_Topology import get_n_peptides_from_entity as aux_get
+    return aux_get(item.topology, indices=indices)
+
+@digest(form=form)
+def get_n_proteins_from_entity (item, indices='all'):
+
+    from ..molsysmt_Topology import get_n_proteins_from_entity as aux_get
+    return aux_get(item.topology, indices=indices)
+
+@digest(form=form)
+def get_n_dnas_from_entity (item, indices='all'):
+
+    from ..molsysmt_Topology import get_n_dnas_from_entity as aux_get
+    return aux_get(item.topology, indices=indices)
+
+@digest(form=form)
+def get_n_rnas_from_entity (item, indices='all'):
+
+    from ..molsysmt_Topology import get_n_rnas_from_entity as aux_get
+    return aux_get(item.topology, indices=indices)
+
+@digest(form=form)
+def get_n_lipids_from_entity (item, indices='all'):
+
+    from ..molsysmt_Topology import get_n_lipids_from_entity as aux_get
+    return aux_get(item.topology, indices=indices)
+
+@digest(form=form)
+def get_n_oligosaccharides_from_entity (item, indices='all'):
+
+    from ..molsysmt_Topology import get_n_oligosaccharides_from_entity as aux_get
+    return aux_get(item.topology, indices=indices)
+
+@digest(form=form)
+def get_n_saccharides_from_entity (item, indices='all'):
+
+    from ..molsysmt_Topology import get_n_saccharides_from_entity as aux_get
     return aux_get(item.topology, indices=indices)
 
 

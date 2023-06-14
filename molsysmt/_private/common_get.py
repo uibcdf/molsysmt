@@ -461,29 +461,29 @@ def get_n_nucleotides_from_atom(item, indices='all'):
 @digest(form=form)
 def get_n_ions_from_atom(item, indices='all'):
 
-    group_indices = get_group_index_from_atom(item, indices=indices)
-    group_indices = np.unique(group_indices).shape[0]
-    group_types = get_group_type_from_group(item, indices=group_indices)
+    molecule_indices = get_molecule_index_from_atom(item, indices=indices)
+    molecule_indices = np.unique(molecule_indices).shape[0]
+    molecule_types = get_molecule_type_from_molecule(item, indices=molecule_indices)
 
-    return (group_types=='ion').sum()
+    return (molecule_types=='ion').sum()
 
 @digest(form=form)
 def get_n_waters_from_atom(item, indices='all'):
 
-    group_indices = get_group_index_from_atom(item, indices=indices)
-    group_indices = np.unique(group_indices).shape[0]
-    group_types = get_group_type_from_group(item, indices=group_indices)
+    molecule_indices = get_molecule_index_from_atom(item, indices=indices)
+    molecule_indices = np.unique(molecule_indices).shape[0]
+    molecule_types = get_molecule_type_from_molecule(item, indices=molecule_indices)
 
-    return (group_types=='water').sum()
+    return (molecule_types=='water').sum()
 
 @digest(form=form)
 def get_n_small_molecules_from_atom(item, indices='all'):
 
-    group_indices = get_group_index_from_atom(item, indices=indices)
-    group_indices = np.unique(group_indices).shape[0]
-    group_types = get_group_type_from_group(item, indices=group_indices)
+    molecule_indices = get_molecule_index_from_atom(item, indices=indices)
+    molecule_indices = np.unique(molecule_indices).shape[0]
+    get_molecule_type_from_molecule(item, indices=molecule_indices)
 
-    return (group_types=='small molecule').sum()
+    return (molecule_types=='small molecule').sum()
 
 @digest(form=form)
 def get_n_peptides_from_atom(item, indices='all'):
@@ -1012,23 +1012,29 @@ def get_n_nucleotides_from_group(item, indices='all'):
 @digest(form=form)
 def get_n_ions_from_group(item, indices='all'):
 
-    group_types = get_group_type_from_group(item, indices=indices)
+    molecule_indices = get_molecule_index_from_group(item, indices=indices)
+    molecule_indices = np.unique(molecule_indices).shape[0]
+    molecule_types = get_molecule_type_from_molecule(item, indices=molecule_indices)
 
-    return (group_types=='ion').sum()
+    return (molecule_types=='ion').sum()
 
 @digest(form=form)
 def get_n_waters_from_group(item, indices='all'):
 
-    group_types = get_group_type_from_group(item, indices=indices)
+    molecule_indices = get_molecule_index_from_group(item, indices=indices)
+    molecule_indices = np.unique(molecule_indices).shape[0]
+    molecule_types = get_molecule_type_from_molecule(item, indices=molecule_indices)
 
-    return (group_types=='water').sum()
+    return (molecule_types=='water').sum()
 
 @digest(form=form)
 def get_n_small_molecules_from_group(item, indices='all'):
 
-    group_types = get_group_type_from_group(item, indices=indices)
+    molecule_indices = get_molecule_index_from_group(item, indices=indices)
+    molecule_indices = np.unique(molecule_indices).shape[0]
+    molecule_types = get_molecule_type_from_molecule(item, indices=molecule_indices)
 
-    return (group_types=='small molecule').sum()
+    return (molecule_types=='small molecule').sum()
 
 @digest(form=form)
 def get_n_peptides_from_group(item, indices='all'):
@@ -1599,29 +1605,29 @@ def get_n_nucleotides_from_component(item, indices='all'):
 @digest(form=form)
 def get_n_ions_from_component(item, indices='all'):
 
-    group_indices = get_group_index_from_component(item, indices=indices)
-    group_indices = np.unique(group_indices).shape[0]
-    group_types = get_group_type_from_group(item, indices=group_indices)
+    molecule_indices = get_molecule_index_from_component(item, indices=indices)
+    molecule_indices = np.unique(molecule_indices).shape[0]
+    molecule_types = get_molecule_type_from_molecule(item, indices=molecule_indices)
 
-    return (group_types=='ion').sum()
+    return (molecule_types=='ion').sum()
 
 @digest(form=form)
 def get_n_waters_from_component(item, indices='all'):
 
-    group_indices = get_group_index_from_component(item, indices=indices)
-    group_indices = np.unique(group_indices).shape[0]
-    group_types = get_group_type_from_group(item, indices=group_indices)
+    molecule_indices = get_molecule_index_from_component(item, indices=indices)
+    molecule_indices = np.unique(molecule_indices).shape[0]
+    molecule_types = get_molecule_type_from_molecule(item, indices=molecule_indices)
 
-    return (group_types=='water').sum()
+    return (molecule_types=='water').sum()
 
 @digest(form=form)
 def get_n_small_molecules_from_component(item, indices='all'):
 
-    group_indices = get_group_index_from_component(item, indices=indices)
-    group_indices = np.unique(group_indices).shape[0]
-    group_types = get_group_type_from_group(item, indices=group_indices)
+    molecule_indices = get_molecule_index_from_component(item, indices=indices)
+    molecule_indices = np.unique(molecule_indices).shape[0]
+    molecule_types = get_molecule_type_from_molecule(item, indices=molecule_indices)
 
-    return (group_types=='small molecule').sum()
+    return (molecule_types=='small molecule').sum()
 
 @digest(form=form)
 def get_n_peptides_from_component(item, indices='all'):
@@ -2262,61 +2268,60 @@ def get_n_waters_from_molecule(item, indices='all'):
     return (molecule_types=='water').sum()
 
 @digest(form=form)
-def get_n_small_molecules_from_component(item, indices='all'):
+def get_n_small_molecules_from_molecule(item, indices='all'):
 
     molecule_types = get_molecule_type_from_molecule(item, indices=indices)
 
     return (molecule_types=='small molecule').sum()
 
 @digest(form=form)
-def get_n_peptides_from_component(item, indices='all'):
+def get_n_peptides_from_molecule(item, indices='all'):
 
     molecule_types = get_molecule_type_from_molecule(item, indices=indices)
 
     return (molecule_types=='peptide').sum()
 
 @digest(form=form)
-def get_n_proteins_from_component(item, indices='all'):
+def get_n_proteins_from_molecule(item, indices='all'):
 
     molecule_types = get_molecule_type_from_molecule(item, indices=indices)
 
     return (molecule_types=='protein').sum()
 
 @digest(form=form)
-def get_n_dnas_from_component(item, indices='all'):
+def get_n_dnas_from_molecule(item, indices='all'):
 
     molecule_types = get_molecule_type_from_molecule(item, indices=indices)
 
     return (molecule_types=='dna').sum()
 
 @digest(form=form)
-def get_n_rnas_from_component(item, indices='all'):
+def get_n_rnas_from_molecule(item, indices='all'):
 
     molecule_types = get_molecule_type_from_molecule(item, indices=indices)
 
     return (molecule_types=='rna').sum()
 
 @digest(form=form)
-def get_n_lipids_from_component(item, indices='all'):
+def get_n_lipids_from_molecule(item, indices='all'):
 
     molecule_types = get_molecule_type_from_molecule(item, indices=indices)
 
     return (molecule_types=='lipid').sum()
 
 @digest(form=form)
-def get_n_oligosaccharides_from_component(item, indices='all'):
+def get_n_oligosaccharides_from_molecule(item, indices='all'):
 
     molecule_types = get_molecule_type_from_molecule(item, indices=indices)
 
     return (molecule_types=='oligosaccharide').sum()
 
 @digest(form=form)
-def get_n_saccharides_from_component(item, indices='all'):
+def get_n_saccharides_from_molecule(item, indices='all'):
 
     molecule_types = get_molecule_type_from_molecule(item, indices=indices)
 
     return (molecule_types=='saccharide').sum()
-
 
 
 ## chain
@@ -2893,6 +2898,114 @@ def get_partial_charge_from_chain(item, indices='all'):
 
     return output
 
+@digest(form=form)
+def get_n_aminoacids_from_chain(item, indices='all'):
+
+    group_indices = get_group_index_from_chain(item, indices=indices)
+    group_indices = np.unique(group_indices).shape[0]
+    group_types = get_group_type_from_group(item, indices=group_indices)
+
+    return (group_types=='aminoacid').sum()
+
+@digest(form=form)
+def get_n_nucleotides_from_chain(item, indices='all'):
+
+    group_indices = get_group_index_from_chain(item, indices=indices)
+    group_indices = np.unique(group_indices).shape[0]
+    group_types = get_group_type_from_group(item, indices=group_indices)
+
+    return (group_types=='nucleotide').sum()
+
+@digest(form=form)
+def get_n_ions_from_chain(item, indices='all'):
+
+    molecule_indices = get_molecule_index_from_chain(item, indices=indices)
+    molecule_indices = np.unique(molecule_indices).shape[0]
+    molecule_types = get_molecule_type_from_molecule(item, indices=molecule_indices)
+
+    return (molecule_types=='ion').sum()
+
+@digest(form=form)
+def get_n_waters_from_chain(item, indices='all'):
+
+    molecule_indices = get_molecule_index_from_chain(item, indices=indices)
+    molecule_indices = np.unique(molecule_indices).shape[0]
+    molecule_types = get_molecule_type_from_molecule(item, indices=molecule_indices)
+
+    return (molecule_types=='water').sum()
+
+@digest(form=form)
+def get_n_small_molecules_from_chain(item, indices='all'):
+
+    molecule_indices = get_molecule_index_from_chain(item, indices=indices)
+    molecule_indices = np.unique(molecule_indices).shape[0]
+    molecule_types = get_molecule_type_from_molecule(item, indices=molecule_indices)
+
+    return (molecule_types=='small molecule').sum()
+
+@digest(form=form)
+def get_n_peptides_from_chain(item, indices='all'):
+
+    molecule_indices = get_molecule_index_from_chain(item, indices=indices)
+    molecule_indices = np.unique(molecule_indices).shape[0]
+    molecule_types = get_molecule_type_from_molecule(item, indices=molecule_indices)
+
+    return (molecule_types=='peptide').sum()
+
+@digest(form=form)
+def get_n_proteins_from_chain(item, indices='all'):
+
+    molecule_indices = get_molecule_index_from_chain(item, indices=indices)
+    molecule_indices = np.unique(molecule_indices).shape[0]
+    molecule_types = get_molecule_type_from_molecule(item, indices=molecule_indices)
+
+    return (molecule_types=='protein').sum()
+
+@digest(form=form)
+def get_n_dnas_from_chain(item, indices='all'):
+
+    molecule_indices = get_molecule_index_from_chain(item, indices=indices)
+    molecule_indices = np.unique(molecule_indices).shape[0]
+    molecule_types = get_molecule_type_from_molecule(item, indices=molecule_indices)
+
+    return (molecule_types=='dna').sum()
+
+@digest(form=form)
+def get_n_rnas_from_chain(item, indices='all'):
+
+    molecule_indices = get_molecule_index_from_chain(item, indices=indices)
+    molecule_indices = np.unique(molecule_indices).shape[0]
+    molecule_types = get_molecule_type_from_molecule(item, indices=molecule_indices)
+
+    return (molecule_types=='rna').sum()
+
+@digest(form=form)
+def get_n_lipids_from_chain(item, indices='all'):
+
+    molecule_indices = get_molecule_index_from_chain(item, indices=indices)
+    molecule_indices = np.unique(molecule_indices).shape[0]
+    molecule_types = get_molecule_type_from_molecule(item, indices=molecule_indices)
+
+    return (molecule_types=='lipid').sum()
+
+@digest(form=form)
+def get_n_oligosaccharides_from_chain(item, indices='all'):
+
+    molecule_indices = get_molecule_index_from_chain(item, indices=indices)
+    molecule_indices = np.unique(molecule_indices).shape[0]
+    molecule_types = get_molecule_type_from_molecule(item, indices=molecule_indices)
+
+    return (molecule_types=='oligosaccharide').sum()
+
+@digest(form=form)
+def get_n_saccharides_from_chain(item, indices='all'):
+
+    molecule_indices = get_molecule_index_from_chain(item, indices=indices)
+    molecule_indices = np.unique(molecule_indices).shape[0]
+    molecule_types = get_molecule_type_from_molecule(item, indices=molecule_indices)
+
+    return (molecule_types=='saccharide').sum()
+
 
 ## From entity
 
@@ -3464,6 +3577,114 @@ def get_partial_charge_from_entity(item, indices='all'):
     output = np.array(output)
 
     return output
+
+@digest(form=form)
+def get_n_aminoacids_from_entity(item, indices='all'):
+
+    group_indices = get_group_index_from_entity(item, indices=indices)
+    group_indices = np.unique(group_indices).shape[0]
+    group_types = get_group_type_from_group(item, indices=group_indices)
+
+    return (group_types=='aminoacid').sum()
+
+@digest(form=form)
+def get_n_nucleotides_from_entity(item, indices='all'):
+
+    group_indices = get_group_index_from_entity(item, indices=indices)
+    group_indices = np.unique(group_indices).shape[0]
+    group_types = get_group_type_from_group(item, indices=group_indices)
+
+    return (group_types=='nucleotide').sum()
+
+@digest(form=form)
+def get_n_ions_from_entity(item, indices='all'):
+
+    molecule_indices = get_molecule_index_from_entity(item, indices=indices)
+    molecule_indices = np.unique(molecule_indices).shape[0]
+    molecule_types = get_molecule_type_from_molecule(item, indices=molecule_indices)
+
+    return (molecule_types=='ion').sum()
+
+@digest(form=form)
+def get_n_waters_from_entity(item, indices='all'):
+
+    molecule_indices = get_molecule_index_from_entity(item, indices=indices)
+    molecule_indices = np.unique(molecule_indices).shape[0]
+    molecule_types = get_molecule_type_from_molecule(item, indices=molecule_indices)
+
+    return (molecule_types=='water').sum()
+
+@digest(form=form)
+def get_n_small_molecules_from_entity(item, indices='all'):
+
+    molecule_indices = get_molecule_index_from_entity(item, indices=indices)
+    molecule_indices = np.unique(molecule_indices).shape[0]
+    molecule_types = get_molecule_type_from_molecule(item, indices=molecule_indices)
+
+    return (molecule_types=='small molecule').sum()
+
+@digest(form=form)
+def get_n_peptides_from_entity(item, indices='all'):
+
+    molecule_indices = get_molecule_index_from_entity(item, indices=indices)
+    molecule_indices = np.unique(molecule_indices).shape[0]
+    molecule_types = get_molecule_type_from_molecule(item, indices=molecule_indices)
+
+    return (molecule_types=='peptide').sum()
+
+@digest(form=form)
+def get_n_proteins_from_entity(item, indices='all'):
+
+    molecule_indices = get_molecule_index_from_entity(item, indices=indices)
+    molecule_indices = np.unique(molecule_indices).shape[0]
+    molecule_types = get_molecule_type_from_molecule(item, indices=molecule_indices)
+
+    return (molecule_types=='protein').sum()
+
+@digest(form=form)
+def get_n_dnas_from_entity(item, indices='all'):
+
+    molecule_indices = get_molecule_index_from_entity(item, indices=indices)
+    molecule_indices = np.unique(molecule_indices).shape[0]
+    molecule_types = get_molecule_type_from_molecule(item, indices=molecule_indices)
+
+    return (molecule_types=='dna').sum()
+
+@digest(form=form)
+def get_n_rnas_from_entity(item, indices='all'):
+
+    molecule_indices = get_molecule_index_from_entity(item, indices=indices)
+    molecule_indices = np.unique(molecule_indices).shape[0]
+    molecule_types = get_molecule_type_from_molecule(item, indices=molecule_indices)
+
+    return (molecule_types=='rna').sum()
+
+@digest(form=form)
+def get_n_lipids_from_entity(item, indices='all'):
+
+    molecule_indices = get_molecule_index_from_entity(item, indices=indices)
+    molecule_indices = np.unique(molecule_indices).shape[0]
+    molecule_types = get_molecule_type_from_molecule(item, indices=molecule_indices)
+
+    return (molecule_types=='lipid').sum()
+
+@digest(form=form)
+def get_n_oligosaccharides_from_entity(item, indices='all'):
+
+    molecule_indices = get_molecule_index_from_entity(item, indices=indices)
+    molecule_indices = np.unique(molecule_indices).shape[0]
+    molecule_types = get_molecule_type_from_molecule(item, indices=molecule_indices)
+
+    return (molecule_types=='oligosaccharide').sum()
+
+@digest(form=form)
+def get_n_saccharides_from_entity(item, indices='all'):
+
+    molecule_indices = get_molecule_index_from_entity(item, indices=indices)
+    molecule_indices = np.unique(molecule_indices).shape[0]
+    molecule_types = get_molecule_type_from_molecule(item, indices=molecule_indices)
+
+    return (molecule_types=='saccharide').sum()
 
 
 ## system

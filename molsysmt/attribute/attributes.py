@@ -55,24 +55,29 @@ add_attribute('atom_type', synonyms=['atom_types'], runs_on_elements=True, topol
         get_from=['atom','group','component','molecule','chain','entity'], set_to='atom')
 
 ## group_index
-add_attribute('group_index', synonyms=['group_indices', 'residue_indices', 'residue_index'], dependants=['n_groups'], runs_on_elements=True, topological=True,
-        get_from=['atom','group','component','molecule','chain','entity'])
+add_attribute('group_index', synonyms=['group_indices', 'residue_indices', 'residue_index'],
+              dependants=['n_groups'], runs_on_elements=True, topological=True,
+              get_from=['atom','group','component','molecule','chain','entity'])
 
 ## group_name
-add_attribute('group_name', synonyms=['group_names', 'residue_names', 'residue_name'], runs_on_elements=True, topological=True,
-        get_from=['atom','group','component','molecule','chain','entity'], set_to='group')
+add_attribute('group_name', synonyms=['group_names', 'residue_names', 'residue_name'],
+              runs_on_elements=True, topological=True,
+              get_from=['atom','group','component','molecule','chain','entity'], set_to='group')
 
 ## group_id
-add_attribute('group_id', synonyms=['group_ids', 'residue_ids', 'residue_id'], runs_on_elements=True, topological=True,
-        get_from=['atom','group','component','molecule','chain','entity'], set_to='group')
+add_attribute('group_id', synonyms=['group_ids', 'residue_ids', 'residue_id'],
+              runs_on_elements=True, topological=True,
+              get_from=['atom','group','component','molecule','chain','entity'], set_to='group')
 
 ## group_type
-add_attribute('group_type', synonyms=['group_types', 'residue_types', 'residue_type'], runs_on_elements=True, topological=True,
-        get_from=['atom','group','component','molecule','chain','entity'], set_to='group')
+add_attribute('group_type', synonyms=['group_types', 'residue_types', 'residue_type'],
+              runs_on_elements=True, topological=True,
+              get_from=['atom','group','component','molecule','chain','entity'], set_to='group')
 
 ## component_index
-add_attribute('component_index', synonyms=['component_indices'], dependants=['n_components'], runs_on_elements=True, topological=True,
-        get_from=['atom','group','component','molecule','chain','entity'])
+add_attribute('component_index', synonyms=['component_indices'], dependants=['n_components'],
+              runs_on_elements=True, topological=True,
+              get_from=['atom','group','component','molecule','chain','entity'])
 
 ## component_name
 add_attribute('component_name', synonyms=['component_names'], runs_on_elements=True, topological=True,
@@ -87,8 +92,8 @@ add_attribute('component_type', synonyms=['component_types'], runs_on_elements=T
         get_from=['atom','group','component','molecule','chain','entity'], set_to='component')
 
 ## chain_index
-add_attribute('chain_index', synonyms=['chain_indices'], dependants=['n_chains'], runs_on_elements=True, topological=True,
-        get_from=['atom','group','component','molecule','chain','entity'])
+add_attribute('chain_index', synonyms=['chain_indices'], dependants=['n_chains'], runs_on_elements=True,
+              topological=True, get_from=['atom','group','component','molecule','chain','entity'])
 
 ## chain_name
 add_attribute('chain_name', synonyms=['chain_names'], runs_on_elements=True, topological=True,
@@ -103,8 +108,9 @@ add_attribute('chain_type', synonyms=['chain_types'], runs_on_elements=True, top
         get_from=['atom','group','component','molecule','chain','entity'], set_to='chain')
 
 ## molecule_index
-add_attribute('molecule_index', synonyms=['molecule_indices'], dependants=['n_molecules'], runs_on_elements=True, topological=True,
-        get_from=['atom','group','component','molecule','chain','entity'])
+add_attribute('molecule_index', synonyms=['molecule_indices'], dependants=['n_molecules'],
+              runs_on_elements=True, topological=True,
+              get_from=['atom','group','component','molecule','chain','entity'])
 
 ## molecule_name
 add_attribute('molecule_name', synonyms=['molecule_names'], runs_on_elements=True, topological=True,
@@ -122,8 +128,9 @@ add_attribute('molecule_type', synonyms=['molecule_types'],
         get_from=['atom','group','component','molecule','chain','entity'], set_to='molecule')
 
 ## entity_index
-add_attribute('entity_index', synonyms=['entity_indices'], dependants=['n_entities'], runs_on_elements=True, topological=True,
-        get_from=['atom','group','component','molecule','chain','entity'])
+add_attribute('entity_index', synonyms=['entity_indices'], dependants=['n_entities'],
+              runs_on_elements=True, topological=True,
+              get_from=['atom','group','component','molecule','chain','entity'])
 
 ## entity_name
 add_attribute('entity_name', synonyms=['entity_names'], runs_on_elements=True, topological=True,
@@ -138,8 +145,8 @@ add_attribute('entity_type', synonyms=['entity_types'], runs_on_elements=True, t
         get_from=['atom','group','component','molecule','chain','entity'], set_to='entity')
 
 ## bond_index
-add_attribute('bond_index', synonyms=['bond_indices'], dependants=['n_bonds'], runs_on_elements=True, topological=True,
-        get_from=['atom','bond'])
+add_attribute('bond_index', synonyms=['bond_indices'], dependants=['n_bonds'], runs_on_elements=True,
+              topological=True, get_from=['atom','bond'])
 
 ## bond_id
 add_attribute('bond_id', synonyms=['bond_ids'], runs_on_elements=True, topological=True,
@@ -154,96 +161,115 @@ add_attribute('bond_order', synonyms=['bonds_order'], runs_on_elements=True, top
         get_from=['bond'], set_to='bond')
 
 ## bonded_atoms
-add_attribute('bonded_atoms', synonyms=['bonded_atom'], dependants=['inner_bonded_atoms'], runs_on_elements=True, topological=True,
-        get_from=['atom','bond'], set_to='bond')
+add_attribute('bonded_atoms', synonyms=['bonded_atom'], dependants=['inner_bonded_atoms'],
+              runs_on_elements=True, topological=True,
+              get_from=['atom','bond'], set_to='bond')
 
 ## inner_bonded_atoms
-add_attribute('inner_bonded_atoms', synonyms=['inner_bonded_atom'], depends_on=['bonded_atoms'], runs_on_elements=True, topological=True,
-        get_from=['atom'])
+add_attribute('inner_bonded_atoms', synonyms=['inner_bonded_atom'], depends_on=['bonded_atoms'],
+              runs_on_elements=True, topological=True, get_from=['atom'])
 
 ## inner_bond_index
-add_attribute('inner_bond_index', synonyms=['inner_bond_indices'], depends_on=['bonded_atoms'], runs_on_elements=True, topological=True,
-        get_from=['atom'])
+add_attribute('inner_bond_index', synonyms=['inner_bond_indices'], depends_on=['bonded_atoms'],
+              runs_on_elements=True, topological=True, get_from=['atom'])
 
 ## n_atoms
-add_attribute('n_atoms', synonyms=['n_atom'], depends_on=['atom_index'], runs_on_elements=True, topological=True,
-        get_from=['atom', 'group', 'component', 'molecule', 'chain', 'entity', 'system'])
+add_attribute('n_atoms', synonyms=['n_atom'], depends_on=['atom_index'], runs_on_elements=True,
+              topological=True,
+              get_from=['atom', 'group', 'component', 'molecule', 'chain', 'entity', 'system'])
 
 ## n_groups
-add_attribute('n_groups', synonyms=['n_group'], depends_on=['group_index'], runs_on_elements=True, topological=True,
-        get_from=['atom', 'group', 'component', 'molecule', 'chain', 'entity', 'system'])
+add_attribute('n_groups', synonyms=['n_group'], depends_on=['group_index'], runs_on_elements=True,
+              topological=True,
+              get_from=['atom', 'group', 'component', 'molecule', 'chain', 'entity', 'system'])
 
 ## n_components
-add_attribute('n_components', synonyms=['n_component'], depends_on=['component_index'], runs_on_elements=True, topological=True,
-        get_from=['atom', 'group', 'component', 'molecule', 'chain', 'entity', 'system'])
+add_attribute('n_components', synonyms=['n_component'], depends_on=['component_index'],
+              runs_on_elements=True, topological=True,
+              get_from=['atom', 'group', 'component', 'molecule', 'chain', 'entity', 'system'])
 
 ## n_chains
-add_attribute('n_chains', synonyms=['n_chain'], depends_on=['chain_index'], runs_on_elements=True, topological=True,
-        get_from=['atom', 'group', 'component', 'molecule', 'chain', 'entity', 'system'])
+add_attribute('n_chains', synonyms=['n_chain'], depends_on=['chain_index'],
+              runs_on_elements=True, topological=True,
+              get_from=['atom', 'group', 'component', 'molecule', 'chain', 'entity', 'system'])
 
 ## n_molecules
-add_attribute('n_molecules', synonyms=['n_molecule'], depends_on=['molecule_index'], runs_on_elements=True, topological=True,
-        get_from=['atom', 'group', 'component', 'molecule', 'chain', 'entity', 'system'])
+add_attribute('n_molecules', synonyms=['n_molecule'], depends_on=['molecule_index'],
+              runs_on_elements=True, topological=True,
+              get_from=['atom', 'group', 'component', 'molecule', 'chain', 'entity', 'system'])
 
 ## n_entities
-add_attribute('n_entities', synonyms=['n_entity'], depends_on=['entity_index'], runs_on_elements=True, topological=True,
-        get_from=['atom', 'group', 'component', 'molecule', 'chain', 'entity', 'system'])
+add_attribute('n_entities', synonyms=['n_entity'], depends_on=['entity_index'],
+              runs_on_elements=True, topological=True,
+              get_from=['atom', 'group', 'component', 'molecule', 'chain', 'entity', 'system'])
 
 ## n_bonds
-add_attribute('n_bonds', synonyms=['n_bond', 'bond', 'bonds'], depends_on=['bond_index'], runs_on_elements=True, topological=True,
-        get_from=['system'])
+add_attribute('n_bonds', synonyms=['n_bond', 'bond', 'bonds'], depends_on=['bond_index'],
+              runs_on_elements=True, topological=True, get_from=['system'])
 
 ## n_inner_bonds
-add_attribute('n_inner_bonds', synonyms=['n_inner_bond'], depends_on=['bonded_atoms'], runs_on_elements=True, topological=True,
-        get_from=['atom'])
+add_attribute('n_inner_bonds', synonyms=['n_inner_bond'], depends_on=['bonded_atoms'],
+              runs_on_elements=True, topological=True, get_from=['atom'])
 
 ## n_aminoacids
-add_attribute('n_aminoacids', synonyms=['n_aminoacid'], depends_on=['group_type'], runs_on_elements=True, topological=True,
-        get_from=['system'])
+add_attribute('n_aminoacids', synonyms=['n_aminoacid'], depends_on=['group_type'],
+              runs_on_elements=True, topological=True,
+              get_from=['atom', 'group', 'component', 'molecule', 'chain', 'entity', 'system'])
 
 ## n_nucleotides
-add_attribute('n_nucleotides', synonyms=['n_nucleotide'], depends_on=['group_type'], runs_on_elements=True, topological=True,
-        get_from=['system'])
+add_attribute('n_nucleotides', synonyms=['n_nucleotide'], depends_on=['group_type'],
+              runs_on_elements=True, topological=True,
+              get_from=['atom', 'group', 'component', 'molecule', 'chain', 'entity', 'system'])
 
 ## n_ions
-add_attribute('n_ions', synonyms=['n_ion', 'ion', 'ions'], depends_on=['molecule_type'], runs_on_elements=True, topological=True,
-        get_from=['system'])
+add_attribute('n_ions', synonyms=['n_ion', 'ion', 'ions'], depends_on=['molecule_type'],
+              runs_on_elements=True, topological=True,
+              get_from=['atom', 'group', 'component', 'molecule', 'chain', 'entity', 'system'])
 
 ## n_waters
-add_attribute('n_waters', synonyms=['n_water', 'water', 'waters'], depends_on=['molecule_type'], runs_on_elements=True, topological=True,
-        get_from=['system'])
+add_attribute('n_waters', synonyms=['n_water', 'water', 'waters'], depends_on=['molecule_type'],
+              runs_on_elements=True, topological=True,
+              get_from=['atom', 'group', 'component', 'molecule', 'chain', 'entity', 'system'])
 
 ## n_small_molecules
-add_attribute('n_small_molecules', synonyms=['n_small_molecule', 'small_molecule', 'small_molecules'], depends_on=['molecule_type'],
-        runs_on_elements=True, topological=True, get_from=['system'])
+add_attribute('n_small_molecules', synonyms=['n_small_molecule', 'small_molecule', 'small_molecules'],
+              depends_on=['molecule_type'], runs_on_elements=True, topological=True,
+              get_from=['atom', 'group', 'component', 'molecule', 'chain', 'entity', 'system'])
 
 ## n_peptides
-add_attribute('n_peptides', synonyms=['n_peptide', 'peptide', 'peptides'], depends_on=['molecule_type'], runs_on_elements=True, topological=True,
-        get_from=['system'])
+add_attribute('n_peptides', synonyms=['n_peptide', 'peptide', 'peptides'], depends_on=['molecule_type'],
+              runs_on_elements=True, topological=True,
+              get_from=['atom', 'group', 'component', 'molecule', 'chain', 'entity', 'system'])
 
 ## n_proteins
-add_attribute('n_proteins', synonyms=['n_protein', 'protein', 'proteins'], depends_on=['molecule_type'], runs_on_elements=True, topological=True,
-        get_from=['system'])
+add_attribute('n_proteins', synonyms=['n_protein', 'protein', 'proteins'], depends_on=['molecule_type'],
+              runs_on_elements=True, topological=True,
+              get_from=['atom', 'group', 'component', 'molecule', 'chain', 'entity', 'system'])
 
 ## n_dnas
-add_attribute('n_dnas', synonyms=['n_dna', 'dna', 'dnas'], depends_on=['molecule_type'], runs_on_elements=True, topological=True,
-        get_from=['system'])
+add_attribute('n_dnas', synonyms=['n_dna', 'dna', 'dnas'], depends_on=['molecule_type'],
+              runs_on_elements=True, topological=True,
+              get_from=['atom', 'group', 'component', 'molecule', 'chain', 'entity', 'system'])
 
 ## n_rnas
-add_attribute('n_rnas', synonyms=['n_rna', 'rna', 'rnas'], depends_on=['molecule_type'], runs_on_elements=True, topological=True,
-        get_from=['system'])
+add_attribute('n_rnas', synonyms=['n_rna', 'rna', 'rnas'], depends_on=['molecule_type'],
+              runs_on_elements=True, topological=True,
+              get_from=['atom', 'group', 'component', 'molecule', 'chain', 'entity', 'system'])
 
 ## n_lipids
-add_attribute('n_lipids', synonyms=['n_lipid', 'lipid', 'lipids'], depends_on=['molecule_type'], runs_on_elements=True, topological=True,
-        get_from=['system'])
+add_attribute('n_lipids', synonyms=['n_lipid', 'lipid', 'lipids'], depends_on=['molecule_type'],
+              runs_on_elements=True, topological=True,
+              get_from=['atom', 'group', 'component', 'molecule', 'chain', 'entity', 'system'])
 
 ## n_oligosaccharides
-add_attribute('n_oligosaccharides', synonyms=['n_oligosaccharide', 'oligosaccharide', 'oligosaccharides'], depends_on=['molecule_type'],
-        runs_on_elements=True, topological=True, get_from=['system'])
+add_attribute('n_oligosaccharides', synonyms=['n_oligosaccharide', 'oligosaccharide', 'oligosaccharides'],
+              depends_on=['molecule_type'], runs_on_elements=True, topological=True,
+              get_from=['atom', 'group', 'component', 'molecule', 'chain', 'entity', 'system'])
 
 ## n_saccharides
-add_attribute('n_saccharides', synonyms=['n_saccharide', 'saccharide', 'saccharides'], depends_on=['molecule_type'], runs_on_elements=True, topological=True,
-        get_from=['system'])
+add_attribute('n_saccharides', synonyms=['n_saccharide', 'saccharide', 'saccharides'],
+              depends_on=['molecule_type'], runs_on_elements=True, topological=True,
+              get_from=['atom', 'group', 'component', 'molecule', 'chain', 'entity', 'system'])
 
 
 ###
@@ -251,61 +277,63 @@ add_attribute('n_saccharides', synonyms=['n_saccharide', 'saccharide', 'sacchari
 ###
 
 ## structure_index
-add_attribute('structure_index', synonyms=['runs_on_structures'], dependants='n_structures', runs_on_structures=True, structural=True)
+add_attribute('structure_index', synonyms=['runs_on_structures'], dependants='n_structures',
+              runs_on_structures=True, structural=True)
 
 ## structure_id
-add_attribute('structure_id', synonyms=['structure_ids', 'structures_id', 'structures_ids', 'md_step', 'md_steps', 'mdstep', 'mdsteps'],
-        runs_on_structures=True, structural=True, get_from=['system'], set_to='system')
+add_attribute('structure_id', synonyms=['structure_ids', 'structures_id', 'structures_ids', 'md_step',
+                                        'md_steps', 'mdstep', 'mdsteps'],
+               runs_on_structures=True, structural=True, get_from=['system'], set_to='system')
 
 ## time
 add_attribute('time', synonyms=['times'], runs_on_structures=True, structural=True,
-        get_from=['system'], set_to='system')
+              get_from=['system'], set_to='system')
 
 ## box
 add_attribute('box', synonyms=['boxes'],
-        dependants=['box_shape', 'box_angles', 'box_lengths', 'box_volume'],
-        runs_on_structures=True, structural=True,
-        get_from=['system'], set_to='system')
+              dependants=['box_shape', 'box_angles', 'box_lengths', 'box_volume'],
+              runs_on_structures=True, structural=True,
+              get_from=['system'], set_to='system')
 
 ## box_shape
-add_attribute('box_shape', synonyms=['box_shapes'], depends_on=['box'], runs_on_structures=True, structural=True,
-        get_from=['system'])
+add_attribute('box_shape', synonyms=['box_shapes'], depends_on=['box'], runs_on_structures=True,
+              structural=True, get_from=['system'])
 
 ## box_angles
-add_attribute('box_angles', synonyms=['box_angle'], depends_on=['box'], runs_on_structures=True, structural=True,
-        get_from=['system'])
+add_attribute('box_angles', synonyms=['box_angle'], depends_on=['box'], runs_on_structures=True,
+              structural=True, get_from=['system'])
 
 ## box_lengths
-add_attribute('box_lengths', synonyms=['box_length'], depends_on=['box'], runs_on_structures=True, structural=True,
-        get_from=['system'])
+add_attribute('box_lengths', synonyms=['box_length'], depends_on=['box'], runs_on_structures=True,
+              structural=True, get_from=['system'])
 
 ## box_volume
-add_attribute('box_volume', synonyms=['box_volumes'], depends_on=['box'], runs_on_structures=True, structural=True,
-        get_from=['system'])
+add_attribute('box_volume', synonyms=['box_volumes'], depends_on=['box'], runs_on_structures=True,
+              structural=True, get_from=['system'])
 
 ## coordinates
-add_attribute('coordinates', synonyms=['coordinate', 'positions', 'position'], runs_on_elements=True, runs_on_structures=True, structural=True,
-        get_from=['atom', 'system'], set_to='atom')
+add_attribute('coordinates', synonyms=['coordinate', 'positions', 'position'], runs_on_elements=True,
+              runs_on_structures=True, structural=True, get_from=['atom', 'system'], set_to='atom')
 
 ## velocities
-add_attribute('velocities', synonyms=['velocity'], runs_on_elements=True, runs_on_structures=True, structural=True,
-        get_from=['atom', 'system'], set_to='atom')
+add_attribute('velocities', synonyms=['velocity'], runs_on_elements=True, runs_on_structures=True,
+              structural=True, get_from=['atom', 'system'], set_to='atom')
 
 ## n_structures
-add_attribute('n_structures', synonyms=['n_structure'], depends_on=['structure_index'], runs_on_elements=True, runs_on_structures=True, structural=True,
-        get_from=['system'])
+add_attribute('n_structures', synonyms=['n_structure'], depends_on=['structure_index'], runs_on_elements=True,
+              runs_on_structures=True, structural=True, get_from=['system'])
 
 ## occupancy
-add_attribute('occupancy', synonyms=['occupancies'], runs_on_elements=True, runs_on_structures=True, structural=True,
-        get_from=['atom','system'], set_to='atom')
+add_attribute('occupancy', synonyms=['occupancies'], runs_on_elements=True, runs_on_structures=True,
+              structural=True, get_from=['atom','system'], set_to='atom')
 
 ## b_factor
-add_attribute('b_factor', synonyms=['b_factors'], runs_on_elements=True, runs_on_structures=True, structural=True,
-        get_from=['atom','system'], set_to='atom')
+add_attribute('b_factor', synonyms=['b_factors'], runs_on_elements=True, runs_on_structures=True,
+              structural=True, get_from=['atom','system'], set_to='atom')
 
 ## alternate_location
-add_attribute('alternate_location', synonyms=['alternate_locations'], runs_on_elements=True, runs_on_structures=True, structural=True,
-        get_from=['atom','system'], set_to='system')
+add_attribute('alternate_location', synonyms=['alternate_locations'], runs_on_elements=True,
+              runs_on_structures=True, structural=True, get_from=['atom','system'], set_to='system')
 
 ## temperature
 add_attribute('temperature', synonyms=['temperatures'], runs_on_structures=True, structural=True,
