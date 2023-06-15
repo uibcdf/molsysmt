@@ -56,7 +56,7 @@ def forms(form_type=None):
             set_table_styles([ dict(selector='th', props=[('text-align', 'left')] ) ])
 
 
-def convert(from_form=None, to_form=None, from_form_type=None, to_form_type=None, as_rows='from'):
+def conversions(from_form=None, to_form=None, from_form_type=None, to_form_type=None, as_rows='from'):
 
     if from_form_type is not None:
         if from_form_type in dict_forms_of_type:
@@ -113,8 +113,8 @@ def convert(from_form=None, to_form=None, from_form_type=None, to_form_type=None
 
     return tmp_output.style.applymap(color).set_properties(**{'text-align': 'center'})
 
+def syntaxes():
 
-def select():
     pass
 
 def viewers(from_form=None, from_form_type=None, to_viewer=None):

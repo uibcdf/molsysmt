@@ -14,7 +14,9 @@ ASDFSADF
    selection_syntaxes.ipynb
    tools.ipynb
    viewers.ipynb
+   supported.ipynb
    memory_management.ipynb
    quantities_and_units.ipynb
+   configuration_options.ipynb
 ```
 

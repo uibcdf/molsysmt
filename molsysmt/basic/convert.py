@@ -124,7 +124,7 @@ def _convert_multiple_to_one_with_shortcuts(molecular_system,
 
     elif ('molsysmt.MolSys' in _multiple_conversion_shortcuts[sorted_forms]) and (to_form in _dict_modules['molsysmt.MolSys']._convert_to):
 
-        output = _convert_multiple_to_one(molecular_system, to_form='molsysmt.MolSys', selection=selection,
+        output = _convert_multiple_to_one_with_shortcuts(molecular_system, to_form='molsysmt.MolSys', selection=selection,
                 structure_indices=structure_indices, syntax=syntax, **kwargs)
         output = _convert_one_to_one(output, to_form=to_form)
 
@@ -163,7 +163,6 @@ def _convert_multiple_to_one(molecular_system,
             output_is_file=True
             conversion_arguments['output_filename'] = to_form
             to_form = get_form(to_form)
-
 
     #### Checking attributes sets for straight and indirect conversion
 
@@ -348,53 +347,113 @@ def convert(molecular_system,
             selection='all',
             structure_indices='all',
             syntax='MolSysMT',
-            verbose=False,
             **kwargs):
-    """convert(item, to_form='molsysmt.MolSys', selection='all', structure_indices='all', syntax='MolSysMT', **kwargs)
+    """
+    Converting a molecular system into other form or forms.
 
-    Convert an input form of a molecular system into other form.
+    A molecular system can be converted in to other form or forms with this function.
+    Using the arguments `selection` and `structure_indices`, the conversion can be done only over a
+    part of the system.
 
-    A molecular model in a given accepted form can be converted into any other supported form
-    by MolSysMt. The list of supported forms can be found in the section 'XXX'.
 
     Parameters
     ----------
 
-    molecular_system: molecular model
-        Molecular model in any supported form by MolSysMT (see: XXX).
+    molecular_system : molecular system
+        The first molecular system, in any of :ref:`the supported forms
+        <Introduction_Forms>`, to be compared.
 
-    selection: str, list, tuple or np.ndarray, defaul='all'
-       Atoms selection over which this method applies. The selection can be given by a
-       list, tuple or numpy array of integers (0-based), or by means of a string following any of
-       the selection syntax parsable by MolSysMT (see: :func:`molsysmt.select`).
+    selection : tuple, list, numpy.ndarray or str, default 'all'
+        Selection of elements of the molecular system to be converted by the function. The selection can be
+        given by a list, tuple or numpy array of atom indices (0-based
+        integers); or by means of a string following any of :ref:`the selection
+        syntaxes parsable by MolSysMT <Introduction_Selection>`.
 
-    to_form: str, default='molsysmt.MolSys'
-        The output object will take the form specified here. This form supported form by MolSysMt
-        for the output object.
+    structure_indices : tuple, list, numpy.ndarray or 'all', default 'all'
+        Indices of structures (0-based integers) of the molecular system
+        to which this method applies.
 
-    syntax: str, default='MolSysMT'
-       Syntaxis used in the argument `selection` (in case it is a string). The
-       current options supported by MolSysMt can be found in section XXX (see: :func:`molsysmt.select`).
+    to_form: list of str, str, default='molsysmt.MolSys'
+
+        The form, or list of forms, of the conversion product (see :ref:`the supported
+        conversions <Introduction_Supported>`).
+
+    syntax : str, default 'MolSysMT'
+        :ref:`Supported syntax <Introduction_Selection>` used in the `selection` argument (in case
+        it is a string).
+
 
     Returns
     -------
 
-       item: molecular model
+    Molecular system
+        A molecular system with the form or forms specified by the argument `to_form`.
 
-       A new object is returned with the form specified by the argument `to_form`.
 
-    Examples
-    --------
+    Raises
+    ------
+
+    NotSupportedFormError
+        The function raises a NotSupportedFormError in case a molecular system
+        is introduced with a not supported form.
+
+    ArgumentError
+        The function raises an ArgumentError in case an input argument value
+        does not meet the required conditions.
+
+    SyntaxError
+        The function raises a SyntaxError in case the syntax argument takes a not supported value.
+
+
+    .. versionadded:: 0.1.0
+
+
+    Notes
+    -----
+
+    The list of supported molecular systems' forms is detailed in the documentation section
+    :ref:`User Guide > Introduction > Molecular systems > Forms <Introduction_Forms>`.
+
+    The list of supported selection syntaxes can be checked in the documentation section
+    :ref:`User Guide > Introduction > Selection syntaxes <Introduction_Selection>`.
+
 
     See Also
     --------
 
     :func:`molsysmt.basic.select`
+        Selecting elements of a molecular system
 
-    Notes
-    -----
+    :func:`molsysmt.basic.append_structures`
+        Adding structures from a molecular system to another molecular system.
+
+
+    Examples
+    --------
+
+    The following example illustrates the use of the function.
+
+    >>> import molsysmt as msm
+    >>> molecular_system_1 = '2LAO'
+    >>> msm.basic.get_form(molecular_system_1)
+    'string:pdb_id'
+    >>> molecular_system_2 = msm.basic.convert(molecular_system_1, to_form='openmm.Topology')
+    >>> msm.basic.get_form(molecular_system_2)
+    'openmm.Topology'
+
+
+    .. admonition:: User guide
+
+       Follow this link for a tutorial on how to work with this function:
+       :ref:`User Guide > Tools > Basic > Convert <Tutorial_Convert>`.
+
 
     """
+
+    verbose = False
+    if 'verbose' in kwargs:
+        verbose = kwargs.pop('verbose')
+        del(kwargs)
 
     from . import get_form
     from molsysmt._private import _multiple_conversion_shortcuts
@@ -427,7 +486,7 @@ def convert(molecular_system,
 
         # conversions in private shortcuts
         if tuple(sorted(from_form)) in _multiple_conversion_shortcuts:
-            output = _convert_multiple_to_one(molecular_system, to_form=to_form, selection=selection, structure_indices=structure_indices,
+            output = _convert_multiple_to_one_with_shortcuts(molecular_system, to_form=to_form, selection=selection, structure_indices=structure_indices,
                 syntax=syntax, verbose=verbose, **kwargs)
 
         # general conversion

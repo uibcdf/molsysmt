@@ -50,8 +50,8 @@ def compare(molecular_system, molecular_system_2, selection='all', structure_ind
         to which this method applies.
 
     syntax : str, default 'MolSysMT'
-        :ref:`Supported syntax <Introduction_Selection>` used in the `selection` argument (in case
-        it is a string).
+        :ref:`Supported syntax <Introduction_Selection>` used in the `selection` and `selection_2`
+        arguments (in case they are strings).
 
     rule : {'equal', 'in'}, default 'equal'
         Comparison rule applied:

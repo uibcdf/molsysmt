@@ -7,8 +7,8 @@
 | [Are multiple molecular systems](are_multiple_molecular_systems.ipynb) | Verifying the validity of a list of molecular systems |
 | [Compare](compare.ipynb) | Comparing molecular systems |     
 | [Concatenate structures](concatenate_structures.ipynb) | Concatenating the structures found in a list of molecular systems |
-| [Contains](contains.ipynb) | Checking if a molecular system contains certain elements |    
-| [Convert](convert.ipynb) | Converting a molecular system into other form |
+| [Contains](contains.ipynb) | Checking if a molecular system contains certain elements or attributes |    
+| [Convert](convert.ipynb) | Converting a molecular system into other form or forms.|
 | [Copy](copy.ipynb) | Making copies of molecular systems |
 | [Extract](extract.ipynb) | Extracting a portion of a molecular system |
 | [Get](get.ipynb) | Getting attributes' values from a molecular system |

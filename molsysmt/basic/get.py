@@ -1,6 +1,6 @@
 from molsysmt._private.digestion import digest
 from molsysmt._private.variables import is_all
-
+import numpy as np
 
 @digest()
 def get(molecular_system,
@@ -85,6 +85,19 @@ def get(molecular_system,
 
     if not isinstance(molecular_system, (list, tuple)):
         molecular_system = [molecular_system]
+
+    # Correction from element='system' to element='atom' if:
+    #   selection is not 'all' or indices is not None
+    #   all attributes are attributable to atoms
+
+    if (element=='system') and (indices is None) and (not is_all(selection)):
+
+        from molsysmt.attribute import attributes as _attributes
+
+        all_attributes_from_atom = np.all(['atom' in _attributes[ii]['get_from'] for ii in in_attributes])
+
+        if all_attributes_from_atom:
+            element = 'atom'
 
     if indices is None:
         if not is_all(selection):
