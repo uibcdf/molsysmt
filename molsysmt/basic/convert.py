@@ -361,8 +361,8 @@ def convert(molecular_system,
     ----------
 
     molecular_system : molecular system
-        The first molecular system, in any of :ref:`the supported forms
-        <Introduction_Forms>`, to be compared.
+        Molecular system in any of :ref:`the supported forms
+        <Introduction_Forms>` to be converted by the function.
 
     selection : tuple, list, numpy.ndarray or str, default 'all'
         Selection of elements of the molecular system to be converted by the function. The selection can be

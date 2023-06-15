@@ -2,6 +2,24 @@ from molsysmt._private.digestion import digest
 
 @digest()
 def copy(molecular_system, output_filename=None):
+    """
+    Making copies of molecular systems.
+
+    This function makes an independent copy of a molecular system.
+
+    Parameters
+    ----------
+
+    molecular_system : molecular system
+        Molecular system in any of :ref:`the supported forms
+        <Introduction_Forms>` to be duplicated by the function.
+
+    output_filename : str
+        Output file name in case the molecular system to be copied is a file.
+
+
+
+    """
 
     from . import get_form
     from molsysmt.form import is_file, _dict_modules
