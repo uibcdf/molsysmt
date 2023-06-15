@@ -43,7 +43,7 @@ def contains(molecular_system, selection='all', syntax='MolSysMT', **kwargs):
         <Introduction_Forms>` to be analysed by the function.
 
     selection : tuple, list, numpy.ndarray or str, default 'all'
-        Selection of elements of the molecular system to which to be checked by the function. The selection can be
+        Selection of elements of the molecular system to be checked by the function. The selection can be
         given by a list, tuple or numpy array of atom indices (0-based
         integers); or by means of a string following any of :ref:`the selection
         syntaxes parsable by MolSysMT <Introduction_Selection>`.

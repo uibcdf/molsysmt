@@ -7,6 +7,7 @@ def copy(molecular_system, output_filename=None):
 
     This function makes an independent copy of a molecular system.
 
+
     Parameters
     ----------
 
@@ -17,6 +18,55 @@ def copy(molecular_system, output_filename=None):
     output_filename : str
         Output file name in case the molecular system to be copied is a file.
 
+
+    Returns
+    -------
+
+    Molecular system
+        Molecular system copied from the molecular system introduced as input argument.
+
+
+    Raises
+    ------
+
+    NotSupportedFormError
+        The function raises a NotSupportedFormError in case a molecular system
+        is introduced with a not supported form.
+
+    ArgumentError
+        The function raises an ArgumentError in case an input argument value
+        does not meet the required conditions.
+
+
+    .. versionadded:: 0.1.0
+
+
+    Notes
+    -----
+
+    The list of supported molecular systems' forms is detailed in the documentation section
+    :ref:`User Guide > Introduction > Molecular systems > Forms <Introduction_Forms>`.
+
+
+    Examples
+    --------
+
+    The following example illustrates the use of the function.
+
+    >>> import molsysmt as msm
+    >>> from molsysmt.systems import demo
+    >>> molecular_system_1 = msm.basic.convert(demo['T4 lysozyme L99A']['181l.mmtf'])
+    >>> molecular_system_2 = msm.basic.copy(molecular_system_1)
+    >>> msm.basic.compare(molecular_system_1, molecular_system_2, rule='equal')
+    True
+    >>> id(molecular_system_1)==id(molecular_system_2)
+    False
+
+
+    .. admonition:: User guide
+
+       Follow this link for a tutorial on how to work with this function:
+       :ref:`User Guide > Tools > Basic > Copy <Tutorial_Copy>`.
 
 
     """
