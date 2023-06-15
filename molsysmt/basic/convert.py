@@ -347,6 +347,7 @@ def convert(molecular_system,
             selection='all',
             structure_indices='all',
             syntax='MolSysMT',
+            verbose=False,
             **kwargs):
     """
     Converting a molecular system into other form or forms.
@@ -449,11 +450,6 @@ def convert(molecular_system,
 
 
     """
-
-    verbose = False
-    if 'verbose' in kwargs:
-        verbose = kwargs.pop('verbose')
-        del(kwargs)
 
     from . import get_form
     from molsysmt._private import _multiple_conversion_shortcuts
