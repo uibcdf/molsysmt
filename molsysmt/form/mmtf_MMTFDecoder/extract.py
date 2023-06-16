@@ -12,6 +12,7 @@ def extract(item, atom_indices='all', structure_indices='all', copy_if_all=True)
         else:
             tmp_item = item
     else:
+
         raise NotImplementedMethodError()
 
     return tmp_item

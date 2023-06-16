@@ -71,8 +71,7 @@ def extract(molecular_system, selection='all', structure_indices='all', to_form=
     -----
 
     The list of supported molecular systems' forms is detailed in the documentation section
-    :ref:`User Guide > Introduction > Molecular systems > Extract <Introduction_Extract>`.
-
+    :ref:`User Guide > Introduction > Molecular systems > Forms <Introduction_Forms>`.
 
     Examples
     --------

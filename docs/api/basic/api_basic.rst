@@ -17,6 +17,7 @@ Basic
    convert
    copy
    extract
+   get_attributes
    get_form
    get
    has_attribute

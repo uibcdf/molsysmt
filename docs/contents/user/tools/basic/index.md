@@ -11,9 +11,9 @@
 | [Convert](convert.ipynb) | Converting a molecular system into other form or forms.|
 | [Copy](copy.ipynb) | Making copies of molecular systems |
 | [Extract](extract.ipynb) | Extracting a portion of a molecular system |
-| [Get](get.ipynb) | Getting attributes' values from a molecular system |
 | [Get attributes](get_attributes.ipynb) | Getting the list of attributes of a molecular system |
 | [Get form](get_form.ipynb) | Getting the form of a molecular system |
+| [Get](get.ipynb) | Getting attributes' values from a molecular system |
 | [Has attribute](has_attribute.ipynb) | Checking if a molecular system has certain attribute |
 | [Info](info.ipynb) | Printing out summary information of a molecular system |
 | [Is a molecular system](is_a_molecular_system.ipynb) | Verifying the validity of a molecular system |
@@ -42,9 +42,9 @@
    convert.ipynb
    copy.ipynb
    extract.ipynb
-   get.ipynb
    get_attributes.ipynb
    get_form.ipynb
+   get.ipynb
    has_attribute.ipynb
    info.ipynb
    is_a_molecular_system.ipynb

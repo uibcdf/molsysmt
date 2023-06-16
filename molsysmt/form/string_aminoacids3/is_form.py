@@ -16,16 +16,27 @@ def is_form(item):
             from molsysmt.element.group.aminoacid import names as aminoacid_names
             from molsysmt.element.group.terminal_capping import names as terminal_capping_names
 
-            chunks = [item[ii:ii+3].upper() for ii in range(0, len(item), 3)]
+            tmp_item = item.upper()
 
-            valid_chunks = aminoacid_names+terminal_capping_names
+            valid_patterns = aminoacid_names+terminal_capping_names+['HOH']
 
-            output = True
+            not_found_string = ''
 
-            for chunk in chunks:
-                if chunk not in valid_chunks:
-                    output = False
-                    break
+            while len(tmp_item):
+
+                found = False
+
+                for pattern in valid_patterns:
+                    if tmp_item.startswith(pattern):
+                        tmp_item = tmp_item[len(pattern):]
+                        found = True
+                        break
+
+                if not found:
+                    not_found_string += tmp_item[0]
+                    tmp_item = tmp_item[1:]
+
+            output = (len(not_found_string)/len(item) <0.05)
 
     return output
 
