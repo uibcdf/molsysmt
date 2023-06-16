@@ -1,7 +1,6 @@
 # If digest is used in this method, other methods become slower
 
 def get_attributes(molecular_system):
-
     """
     Getting the list of attributes of a molecular system.
 
