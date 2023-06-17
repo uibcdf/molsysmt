@@ -8,7 +8,7 @@
 | [Compare](compare.ipynb) | Comparing molecular systems |     
 | [Concatenate structures](concatenate_structures.ipynb) | Concatenating the structures found in a list of molecular systems |
 | [Contains](contains.ipynb) | Checking if a molecular system contains certain elements or attributes |    
-| [Convert](convert.ipynb) | Converting a molecular system into other form or forms.|
+| [Convert](convert.ipynb) | Converting a molecular system into other form or forms |
 | [Copy](copy.ipynb) | Making copies of molecular systems |
 | [Extract](extract.ipynb) | Extracting a portion of a molecular system |
 | [Get attributes](get_attributes.ipynb) | Getting the list of attributes of a molecular system |

@@ -22,7 +22,8 @@
 /* To change the left bar of executable cells in markdown and executable cells in jupyter notebooks */
 /* See https://github.com/executablebooks/meta/discussions/667 */
 div.cell div.cell_input {
-    border-left-color: #C9C9C9;
+    border-left-color: #789abd;
+    
 }
 
 /*********************************************
@@ -88,3 +89,22 @@ div.cell.tag_scroll-input div.cell_input::-webkit-scrollbar-thumb:hover {
 		 overflow-x: visible;
 	}
 }
+
+
+
+/*********************************************
+* Color changes in theme
+* See https://github.com/pydata/pydata-sphinx-theme/blob/main/src/pydata_sphinx_theme/assets/styles/variables/_color.scss
+* https://pydata-sphinx-theme.readthedocs.io/en/v0.9.0/user_guide/customizing.html
+*********************************************/
+
+html[data-theme="light"] {
+  --pst-color-primary: rgb(53, 88, 124);
+  --pst-color-target: rgb(255, 236, 158);
+  --pst-color-inline-code: rgb(214, 84, 41);
+  --sd-color-card-border-hover: hsla(210, 34%, 60%, 1);
+  --sd-color-tabs-label-active: hsla(210, 34%, 60%, 1);
+  --sd-color-tabs-label-hover: hsla(210, 34%, 60%, 1);
+  --sd-color-tabs-underline-active: hsla(210, 34%, 60%, 1);
+ }
+

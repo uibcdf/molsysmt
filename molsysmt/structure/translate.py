@@ -10,7 +10,7 @@ def translate(molecular_system, translation=None, selection='all', structure_ind
     from molsysmt.basic import get, set, select, copy
 
     atom_indices = select(molecular_system, selection=selection, syntax=syntax)
-    coordinates = get(molecular_system, element='atom', indices=atom_indices, structure_indices=structure_indices,
+    coordinates = get(molecular_system, element='atom', selection=atom_indices, structure_indices=structure_indices,
                       coordinates=True)
 
     coordinates, length_unit = puw.get_value_and_unit(coordinates)
@@ -29,13 +29,13 @@ def translate(molecular_system, translation=None, selection='all', structure_ind
     coordinates = puw.quantity(coordinates, length_unit)
 
     if in_place:
-        set(molecular_system, element='atom', indices=atom_indices, structure_indices=structure_indices,
+        set(molecular_system, element='atom', selection=atom_indices, structure_indices=structure_indices,
             coordinates=coordinates)
         del(coordinates, atom_indices, translation)
         gc.collect()
     else:
         tmp_molecular_system = copy(molecular_system)
-        set(tmp_molecular_system, element='atom', indices=atom_indices, structure_indices=structure_indices,
+        set(tmp_molecular_system, element='atom', selection=atom_indices, structure_indices=structure_indices,
             coordinates=coordinates)
         del(coordinates, atom_indices, translation)
         gc.collect()

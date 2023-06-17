@@ -6,7 +6,6 @@ import numpy as np
 @digest()
 def set(molecular_system,
         element='system',
-        indices=None,
         selection='all',
         structure_indices='all',
         syntax='MolSysMT',
@@ -76,14 +75,13 @@ def set(molecular_system,
 
     # doing the work here
 
-    if indices is None:
-        if not is_all(selection):
-            indices = select(molecular_system,
-                             element=element,
-                             selection=selection,
-                             syntax=syntax)
-        else:
-            indices = 'all'
+    if not is_all(selection):
+        indices = select(molecular_system,
+                         element=element,
+                         selection=selection,
+                         syntax=syntax)
+    else:
+        indices = 'all'
 
     for in_attribute in in_attributes:
 
