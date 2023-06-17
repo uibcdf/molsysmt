@@ -13,7 +13,7 @@
 | [Extract](extract.ipynb) | Extracting a portion of a molecular system |
 | [Get attributes](get_attributes.ipynb) | Getting the list of attributes of a molecular system |
 | [Get form](get_form.ipynb) | Getting the form of a molecular system |
-| [Get](get.ipynb) | Getting attributes' values from a molecular system |
+| [Get](get.ipynb) | Getting attribute values from a molecular system |
 | [Has attribute](has_attribute.ipynb) | Checking if a molecular system has certain attribute |
 | [Info](info.ipynb) | Printing out summary information of a molecular system |
 | [Is a molecular system](is_a_molecular_system.ipynb) | Verifying the validity of a molecular system |
