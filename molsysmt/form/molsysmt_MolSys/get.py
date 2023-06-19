@@ -519,6 +519,12 @@ def get_n_entities_from_group (item, indices='all'):
     return aux_get(item.topology, indices=indices)
 
 @digest(form=form)
+def get_n_bonds_from_group (item, indices='all'):
+
+    from ..molsysmt_Topology import get_n_bonds_from_group as aux_get
+    return aux_get(item.topology, indices=indices)
+
+@digest(form=form)
 def get_n_aminoacids_from_group (item, indices='all'):
 
     from ..molsysmt_Topology import get_n_aminoacids_from_group as aux_get
@@ -771,6 +777,12 @@ def get_n_chains_from_component (item, indices='all'):
 def get_n_entities_from_component (item, indices='all'):
 
     from ..molsysmt_Topology import get_n_entities_from_component as aux_get
+    return aux_get(item.topology, indices=indices)
+
+@digest(form=form)
+def get_n_bonds_from_component (item, indices='all'):
+
+    from ..molsysmt_Topology import get_n_bonds_from_component as aux_get
     return aux_get(item.topology, indices=indices)
 
 @digest(form=form)
@@ -1029,6 +1041,12 @@ def get_n_entities_from_molecule (item, indices='all'):
     return aux_get(item.topology, indices=indices)
 
 @digest(form=form)
+def get_n_bonds_from_molecule (item, indices='all'):
+
+    from ..molsysmt_Topology import get_n_bonds_from_molecule as aux_get
+    return aux_get(item.topology, indices=indices)
+
+@digest(form=form)
 def get_n_aminoacids_from_molecule (item, indices='all'):
 
     from ..molsysmt_Topology import get_n_aminoacids_from_molecule as aux_get
@@ -1281,6 +1299,12 @@ def get_n_chains_from_chain (item, indices='all'):
 def get_n_entities_from_chain (item, indices='all'):
 
     from ..molsysmt_Topology import get_n_entities_from_chain as aux_get
+    return aux_get(item.topology, indices=indices)
+
+@digest(form=form)
+def get_n_bonds_from_chain (item, indices='all'):
+
+    from ..molsysmt_Topology import get_n_bonds_from_chain as aux_get
     return aux_get(item.topology, indices=indices)
 
 @digest(form=form)
@@ -1538,6 +1562,11 @@ def get_n_entities_from_entity (item, indices='all'):
     from ..molsysmt_Topology import get_n_entities_from_entity as aux_get
     return aux_get(item.topology, indices=indices)
 
+@digest(form=form)
+def get_n_bonds_from_entity (item, indices='all'):
+
+    from ..molsysmt_Topology import get_n_bonds_from_entity as aux_get
+    return aux_get(item.topology, indices=indices)
 
 @digest(form=form)
 def get_n_aminoacids_from_entity (item, indices='all'):

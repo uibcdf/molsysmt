@@ -205,11 +205,13 @@ add_attribute('n_entities', synonyms=['n_entity'], depends_on=['entity_index'],
 
 ## n_bonds
 add_attribute('n_bonds', synonyms=['n_bond', 'bond', 'bonds'], depends_on=['bond_index'],
-              runs_on_elements=True, topological=True, get_from=['system'])
+              runs_on_elements=True, topological=True, get_from=['atom', 'group', 'component',
+                  'molecule', 'chain', 'entity', 'system'])
 
 ## n_inner_bonds
 add_attribute('n_inner_bonds', synonyms=['n_inner_bond'], depends_on=['bonded_atoms'],
-              runs_on_elements=True, topological=True, get_from=['atom'])
+              runs_on_elements=True, topological=True, get_from=['atom', 'group', 'component',
+                  'molecule', 'chain', 'entity', 'system'])
 
 ## n_aminoacids
 add_attribute('n_aminoacids', synonyms=['n_aminoacid'], depends_on=['group_type'],

@@ -961,6 +961,35 @@ def get_n_entities_from_group(item, indices='all'):
     return output
 
 @digest(form=form)
+def get_n_bonds_from_group(item, indices='all'):
+
+    if indices is None:
+        return 0
+
+    if is_all(indices):
+        return get_n_bonds_from_system(item)
+    else:
+        atom_indices = get_atom_index_from_group(item, indices=indices)
+        output = []
+        for aux_indices in atom_indices:
+            aux_val = get_n_bonds_from_atom(item, indices=aux_indices)
+            output.append(np.sum(aux_val))
+        return np.array(output)
+
+@digest(form=form)
+def get_n_inner_bonds_from_group(item, indices='all'):
+
+    if is_all(indices):
+        return get_n_inner_bonds_from_system(item)
+    else:
+        atom_indices = get_atom_index_from_group(item, indices=indices)
+        output = []
+        for aux_indices in atom_indices:
+            aux_val = get_n_inner_bonds_from_atom(item, indices=aux_indices)
+            output.append(np.sum(aux_val))
+        return np.array(output)
+
+@digest(form=form)
 def get_formal_charge_from_group(item, indices='all'):
 
     if indices is None:
@@ -1551,6 +1580,35 @@ def get_n_entities_from_component(item, indices='all'):
         output = np.unique(output).shape[0]
 
     return output
+
+@digest(form=form)
+def get_n_bonds_from_component(item, indices='all'):
+
+    if indices is None:
+        return 0
+
+    if is_all(indices):
+        return get_n_bonds_from_system(item)
+    else:
+        atom_indices = get_atom_index_from_component(item, indices=indices)
+        output = []
+        for aux_indices in atom_indices:
+            aux_val = get_n_bonds_from_atom(item, indices=aux_indices)
+            output.append(np.sum(aux_val))
+        return np.array(output)
+
+@digest(form=form)
+def get_n_inner_bonds_from_component(item, indices='all'):
+
+    if is_all(indices):
+        return get_n_inner_bonds_from_system(item)
+    else:
+        atom_indices = get_atom_index_from_component(item, indices=indices)
+        output = []
+        for aux_indices in atom_indices:
+            aux_val = get_n_inner_bonds_from_atom(item, indices=aux_indices)
+            output.append(np.sum(aux_val))
+        return np.array(output)
 
 @digest(form=form)
 def get_formal_charge_from_component(item, indices='all'):
@@ -2202,6 +2260,35 @@ def get_n_entities_from_molecule(item, indices='all'):
         output = np.unique(output).shape[0]
 
     return output
+
+@digest(form=form)
+def get_n_bonds_from_molecule(item, indices='all'):
+
+    if indices is None:
+        return 0
+
+    if is_all(indices):
+        return get_n_bonds_from_system(item)
+    else:
+        atom_indices = get_atom_index_from_molecule(item, indices=indices)
+        output = []
+        for aux_indices in atom_indices:
+            aux_val = get_n_bonds_from_atom(item, indices=aux_indices)
+            output.append(np.sum(aux_val))
+        return np.array(output)
+
+@digest(form=form)
+def get_n_inner_bonds_from_molecule(item, indices='all'):
+
+    if is_all(indices):
+        return get_n_inner_bonds_from_system(item)
+    else:
+        atom_indices = get_atom_index_from_molecule(item, indices=indices)
+        output = []
+        for aux_indices in atom_indices:
+            aux_val = get_n_inner_bonds_from_atom(item, indices=aux_indices)
+            output.append(np.sum(aux_val))
+        return np.array(output)
 
 @digest(form=form)
 def get_formal_charge_from_molecule(item, indices='all'):
@@ -2865,6 +2952,35 @@ def get_n_entities_from_chain(item, indices='all'):
         output = np.unique(output).shape[0]
 
     return output
+
+@digest(form=form)
+def get_n_bonds_from_chain(item, indices='all'):
+
+    if indices is None:
+        return 0
+
+    if is_all(indices):
+        return get_n_bonds_from_system(item)
+    else:
+        atom_indices = get_atom_index_from_chain(item, indices=indices)
+        output = []
+        for aux_indices in atom_indices:
+            aux_val = get_n_bonds_from_atom(item, indices=aux_indices)
+            output.append(np.sum(aux_val))
+        return np.array(output)
+
+@digest(form=form)
+def get_n_inner_bonds_from_chain(item, indices='all'):
+
+    if is_all(indices):
+        return get_n_inner_bonds_from_system(item)
+    else:
+        atom_indices = get_atom_index_from_chain(item, indices=indices)
+        output = []
+        for aux_indices in atom_indices:
+            aux_val = get_n_inner_bonds_from_atom(item, indices=aux_indices)
+            output.append(np.sum(aux_val))
+        return np.array(output)
 
 @digest(form=form)
 def get_formal_charge_from_chain(item, indices='all'):
@@ -3545,6 +3661,35 @@ def get_n_entities_from_entity(item, indices='all'):
         output = indices.shape[0]
 
     return output
+
+@digest(form=form)
+def get_n_bonds_from_entity(item, indices='all'):
+
+    if indices is None:
+        return 0
+
+    if is_all(indices):
+        return get_n_bonds_from_system(item)
+    else:
+        atom_indices = get_atom_index_from_entity(item, indices=indices)
+        output = []
+        for aux_indices in atom_indices:
+            aux_val = get_n_bonds_from_atom(item, indices=aux_indices)
+            output.append(np.sum(aux_val))
+        return np.array(output)
+
+@digest(form=form)
+def get_n_inner_bonds_from_entity(item, indices='all'):
+
+    if is_all(indices):
+        return get_n_inner_bonds_from_system(item)
+    else:
+        atom_indices = get_atom_index_from_entity(item, indices=indices)
+        output = []
+        for aux_indices in atom_indices:
+            aux_val = get_n_inner_bonds_from_atom(item, indices=aux_indices)
+            output.append(np.sum(aux_val))
+        return np.array(output)
 
 @digest(form=form)
 def get_formal_charge_from_entity(item, indices='all'):

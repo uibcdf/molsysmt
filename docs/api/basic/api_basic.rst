@@ -19,6 +19,7 @@ Basic
    extract
    get_attributes
    get_form
+   get_label
    get
    has_attribute
    info
