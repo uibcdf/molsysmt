@@ -89,7 +89,12 @@ def info(molecular_system,
     >>> from molsysmt.systems import demo
     >>> molecular_system = msm.basic.convert(demo['T4 lysozyme L99A']['181l.mmtf'])
     >>> info_df = msm.basic.info(molecular_system, element='entity')
-    >>> info_df['']
+    >>> print(info_df.to_string())
+    index name type n atoms n groups n components n chains n molecules
+    0 T4 lysozyme protein 1291 164 3 3 3
+    1 2-hydroxyethyl disulfide small molecule 8 1 1 1 1
+    2 Benzene small molecule 6 1 1 1 1
+    3 water water 136 136 136 1 136
 
     .. admonition:: User guide
 
