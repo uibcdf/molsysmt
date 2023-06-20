@@ -94,6 +94,8 @@ def get_label(molecular_system,
     >>> import molsysmt as msm
     >>> from molsysmt.systems import demo
     >>> molecular_system = msm.basic.convert(demo['T4 lysozyme L99A']['181l.mmtf'])
+    >>> msm.basic.get_label(molecular_system, element='group', selection=[10,12,14],
+    >>>                     string='{group_name}{group_id}/{entity_name}')
     ['GLU11/T4 lysozyme', 'LEU13/T4 lysozyme', 'LEU15/T4 lysozyme']
 
 
