@@ -8,7 +8,9 @@ def digest_n_ions(n_ions, caller=None):
     elif caller=='molsysmt.basic.contains.contains':
         if isinstance(n_ions, (bool, int)):
             return n_ions
-
+    elif caller=='molsysmt.basic.is_composed_of.is_composed_of':
+        if isinstance(n_ions, (bool, int)):
+            return n_ions
 
     raise ArgumentError('n_ions', value=n_ions, caller=caller, message=None)
 

@@ -71,7 +71,7 @@ class TopologyIterator():
 
         from molsysmt import get
 
-        self._get_result = get(self.molecular_system, element=self.element, indices=self.indices, output_type='dictionary', **kwargs)
+        self._get_result = get(self.molecular_system, element=self.element, selection=self.indices, output_type='dictionary', **kwargs)
 
         self._indices_iterator = indices_iterator(start=self.start, stop=self.stop, step=self.step, chunk=self.chunk)
 

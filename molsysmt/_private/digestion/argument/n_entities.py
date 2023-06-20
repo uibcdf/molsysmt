@@ -17,6 +17,9 @@ def digest_n_entities(n_entities, caller=None):
         elif caller=='molsysmt.basic.contains.contains':
             if isinstance(n_entities, (bool, int)):
                 return n_entities
+        elif caller=='molsysmt.basic.is_composed_of.is_composed_of':
+            if isinstance(n_entities, (bool, int)):
+                return n_entities
 
     raise ArgumentError('n_entities', value=n_entities, caller=caller, message=None)
 

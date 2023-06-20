@@ -8,7 +8,6 @@ class Iterator():
     def __init__(self,
                  molecular_system,
                  element = 'atom',
-                 indices = None,
                  selection = 'all',
                  start = 0,
                  stop = None,
@@ -27,10 +26,7 @@ class Iterator():
 
         self.molecular_system = molecular_system
         self.element = element
-        if indices is None:
-            self.indices = select(molecular_system, element=element, selection=selection, syntax=syntax)
-        else:
-            self.indices = indices
+        self.indices = select(molecular_system, element=element, selection=selection, syntax=syntax)
         self.structure_indices = structure_indices
         self.start = start
         self.stop = stop
@@ -52,8 +48,9 @@ class Iterator():
 
         if len(self.arguments)==0:
             self.arguments = ['structure_id', 'time', 'coordinates', 'box']
-            self._output_molecular_system = convert(self.molecular_system, selection=self.indices,
+            self._output_molecular_system = convert(self.molecular_system, selection=selection,
                     structure_indices=None, to_form=self._output_form)
+
         self._output_dictionary = {ii:None for ii in self.arguments}
 
         aux_items_forms = {}
@@ -90,7 +87,7 @@ class Iterator():
         del(aux_items_forms, aux_items_arguments)
 
     def __iter__(self):
-        
+
         return self
 
     def __next__(self):

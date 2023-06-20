@@ -17,6 +17,10 @@ def digest_n_molecules(n_molecules, caller=None):
         elif caller=='molsysmt.basic.contains.contains':
             if isinstance(n_molecules, (bool, int)):
                 return n_molecules
+        elif caller=='molsysmt.basic.is_composed_of.is_composed_of':
+            if isinstance(n_molecules, (bool, int)):
+                return n_molecules
+
 
     raise ArgumentError('n_molecules', value=n_molecules, caller=caller, message=None)
 

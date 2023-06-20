@@ -8,6 +8,9 @@ def digest_n_saccharides(n_saccharides, caller=None):
     elif caller=='molsysmt.basic.contains.contains':
         if isinstance(n_saccharides, (bool, int)):
             return n_saccharides
+    elif caller=='molsysmt.basic.is_composed_of.is_composed_of':
+        if isinstance(n_saccharides, (bool, int)):
+            return n_saccharides
 
     raise ArgumentError('n_saccharides', value=n_saccharides, caller=caller, message=None)
 

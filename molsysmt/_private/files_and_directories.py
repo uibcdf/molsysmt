@@ -1,4 +1,5 @@
 import tempfile
+from pathlib import PosixPath
 
 
 def temp_filename(dir=None, extension=None):
@@ -15,3 +16,10 @@ def temp_filename(dir=None, extension=None):
 def temp_directory():
 
     return tempfile.mkdtemp()
+
+def str_filename(filename):
+
+    if isinstance(filename, PosixPath):
+        return str(filename)
+    else:
+        return filename

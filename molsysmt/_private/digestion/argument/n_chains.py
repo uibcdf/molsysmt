@@ -17,6 +17,10 @@ def digest_n_chains(n_chains, caller=None):
         elif caller=='molsysmt.basic.contains.contains':
             if isinstance(n_chains, (bool, int)):
                 return n_chains
+        elif caller=='molsysmt.basic.is_composed_of.is_composed_of':
+            if isinstance(n_chains, (bool, int)):
+                return n_chains
+
 
 
     raise ArgumentError('n_chains', value=n_chains, caller=caller, message=None)

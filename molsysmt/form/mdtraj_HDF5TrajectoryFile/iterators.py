@@ -77,8 +77,8 @@ class StructuresIterator():
                 elif argument == 'structure_id':
                     self._output_dictionary['structure_id'] = indices
                 elif argument == 'box':
-                    box_lengths = puw.quantity(self._node['cell_lengths'][indices,:], 'nm', standardized=True)
-                    box_angles = puw.quantity(self._node['cell_angles'][indices,:], 'degrees', standardized=True)
+                    box_lengths = puw.quantity(self._node['cell_lengths'][indices,:].astype(np.float64), 'nm', standardized=True)
+                    box_angles = puw.quantity(self._node['cell_angles'][indices,:].astype(np.float64), 'degrees', standardized=True)
                     if isinstance(indices, int):
                         box_lengths = np.expand_dims(box_lengths, axis=0)
                         box_angles = np.expand_dims(box_angles, axis=0)

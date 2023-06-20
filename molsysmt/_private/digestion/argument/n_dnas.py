@@ -8,7 +8,9 @@ def digest_n_dnas(n_dnas, caller=None):
     elif caller=='molsysmt.basic.contains.contains':
         if isinstance(n_dnas, (bool, int)):
             return n_dnas
-
+    elif caller=='molsysmt.basic.is_composed_of.is_composed_of':
+        if isinstance(n_dnas, (bool, int)):
+            return n_dnas
 
     raise ArgumentError('n_dnas', value=n_dnas, caller=caller, message=None)
 

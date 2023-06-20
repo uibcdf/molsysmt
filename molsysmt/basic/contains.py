@@ -97,7 +97,10 @@ def contains(molecular_system, selection='all', syntax='MolSysMT', **kwargs):
     --------
 
     :func:`molsysmt.basic.select`
-        Selecting elements of a molecular system
+        Selecting elements of a molecular system.
+
+    :func:`molsysmt.basic.is_composed_of`
+        Checking if a molecular system is composed of specific elements.
 
     Examples
     --------
@@ -105,8 +108,7 @@ def contains(molecular_system, selection='all', syntax='MolSysMT', **kwargs):
     The following example illustrates the use of the function.
 
     >>> import molsysmt as msm
-    >>> from molsysmt.systems import demo
-    >>> molecular_system = msm.basic.convert(demo['T4 lysozyme L99A']['181l.mmtf'])
+    >>> molecular_system = msm.systems.demo['T4 lysozyme L99A']['181l.mmtf']
     >>> msm.basic.contains(molecular_system, waters=True, ions=True)
     True
     >>> msm.basic.contains(molecular_system, selection='atom_name=="Cl"')
