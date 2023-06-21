@@ -91,13 +91,15 @@ myst_heading_anchors = 3
 autodoc_typehints = "description"
 
 # Don't show class signature with the class' name.
-autodoc_class_signature = "separated"
+autodoc_class_signature = "mixed"
 
 # Autosummary options
 
 autosummary_generate = True
 
 # Napoleon settings
+napoleon_include_special_with_doc = True
+
 #napoleon_numpy_docstring = True
 #napoleon_google_docstring = False
 #napoleon_use_param = False

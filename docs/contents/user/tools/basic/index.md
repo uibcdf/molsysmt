@@ -18,14 +18,14 @@
 | [Has attribute](has_attribute.ipynb) | Checking if a molecular system has certain attribute |
 | [Info](info.ipynb) | Printing out summary information of a molecular system |
 | [Is a molecular system](is_a_molecular_system.ipynb) | Verifying the validity of a molecular system |
-| [Is composed of](is_composed_of) | Checking if a molecular system is composed of specific elements |
-| [Iterator](Iterator) | Iterator over attributes of a molecular system |
-| [Merge](merge) | Merging the elements of different molecular systems |
-| [Remove](remove) | Removing elements or structures from a molecular system |
-| [Select](select) | Selecting elements of a molecular system |
-| [Set](set) | Setting values to attributes of a molecular system |
-| [View](view) | Showing a molecular system |
-| [Where is attribute](view) | Getting the item where a specific attribute is found |
+| [Is composed of](is_composed_of.ipynb) | Checking if a molecular system is composed of specific elements |
+| [Iterator](iterator.ipynb) | Iterator over attributes of a molecular system |
+| [Merge](merge.ipynb) | Merging the elements of different molecular systems |
+| [Remove](remove.ipynb) | Removing elements or structures from a molecular system |
+| [Select](select.ipynb) | Selecting elements of a molecular system |
+| [Set](set.ipynb) | Setting values to attributes of a molecular system |
+| [View](view.ipynb) | Showing a molecular system |
+| [Where is attribute](view.ipynb) | Getting the item where a specific attribute is found |
 
 
 

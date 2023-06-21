@@ -25,6 +25,7 @@ Basic
    info
    is_a_molecular_system
    is_composed_of
+   Iterator
    merge
    remove
    select

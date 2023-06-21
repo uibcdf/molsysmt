@@ -3,6 +3,40 @@ from molsysmt._private.exceptions import NotImplementedIteratorError
 #from molsysmt._private.exceptions import IteratorError
 
 class Iterator():
+    """
+    Iterator over attributes of a molecular system.
+
+    This class is an iterator over specific topological or structural
+    attributes of a molecular system. New objects can be instanstated
+    specifying the set of attributes to be iterated, the selection of elements
+    to get those attributes, and some input parameters to
+    control the iterations.
+
+    Parameters
+    ----------
+
+    molecular_system : molecular system
+        The molecular system in any of :ref:`the supported forms
+        <Introduction_Forms>` to be analysed by the function.
+
+    selection : tuple, list, numpy.ndarray or str, default 'all'
+        Selection of elements of the molecular system to be checked by the function. The selection can be
+        given by a list, tuple or numpy array of atom indices (0-based
+        integers); or by means of a string following any of :ref:`the selection
+        syntaxes parsable by MolSysMT <Introduction_Selection>`.
+
+    syntax : str, default 'MolSysMT'
+        :ref:`Supported syntax <Introduction_Selection>` used in the `selection` argument (in case
+        it is a string).
+
+    **kwargs : {{keyword : str,  value : (bool, int)}, default None}
+        The elements to be checked in the molecular system are introduced as
+        additional keywords with value either 'True', 'False', or by means of an integer to
+        indicate to amount of specific elements the system is composed of.
+
+
+    """
+
 
     @digest()
     def __init__(self,
@@ -19,6 +53,17 @@ class Iterator():
                  output_form = 'molsysmt.MolSys',
                  **kwargs,
                  ):
+        """
+        Iterator over attributes of a molecular system.
+
+        This class is an iterator over specific topological or structural
+        attributes of a molecular system. New objects can be instanstated
+        specifying the set of attributes to be iterated, the selection of elements
+        to get those attributes, and some input parameters to
+        control the iterations.
+        """
+
+
 
         from . import select, get_form, where_is_attribute, convert
         from molsysmt.attribute import is_structural_attribute
@@ -87,10 +132,30 @@ class Iterator():
         del(aux_items_forms, aux_items_arguments)
 
     def __iter__(self):
+        """
+        Iterator over attributes of a molecular system.
+
+        This class is an iterator over specific topological or structural
+        attributes of a molecular system. New objects can be instanstated
+        specifying the set of attributes to be iterated, the selection of elements
+        to get those attributes, and some input parameters to
+        control the iterations.
+        """
+
 
         return self
 
     def __next__(self):
+        """
+        Iterator over attributes of a molecular system.
+
+        This class is an iterator over specific topological or structural
+        attributes of a molecular system. New objects can be instanstated
+        specifying the set of attributes to be iterated, the selection of elements
+        to get those attributes, and some input parameters to
+        control the iterations.
+        """
+
 
         try:
 
