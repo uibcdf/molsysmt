@@ -54,7 +54,7 @@
    iterator.ipynb
    merge.ipynb
    remove.ipynb
-   selection.ipynb
+   select.ipynb
    set.ipynb
    view.ipynb
    where_is_attribute.ipynb

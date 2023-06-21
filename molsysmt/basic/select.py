@@ -105,50 +105,101 @@ def select_bonded_to(molecular_system, selection, syntax):
 @digest()
 def select(molecular_system, selection='all', structure_indices='all', element='atom',
         syntax='MolSysMT', to_syntax=None):
+    """
+    Selecting elements in a molecular system
 
-    # to_syntax: 'NGLView', 'MDTraj', ...
+    The indices of the elements that matches a query string can be obtained with this function.
 
-    """select(item, selection='all', element='atom', syntax='MolSysMT')
-
-    Get the atom indices corresponding to a selection criterion.
-
-    Paragraph with detailed explanation.
 
     Parameters
     ----------
 
-    item: molecular model
-        Molecular model in any supported form (see: :doc:`/Forms`). The object being acted on by the method.
+    molecular_system : molecular system
+        Molecular system in any of :ref:`the supported forms
+        <Introduction_Forms>` to be analysed by the function.
 
-    selection: str, list, tuple, np.ndarray, default='all'
-       Selection criterion given by means of a string following any of the selection syntax parsable by MolSysMT.
+    selection : tuple, list, numpy.ndarray or str, default 'all'
+        Selection of elements of the molecular system to be extracted by the function. The selection can be
+        given by a list, tuple or numpy array of element indices (0-based
+        integers); or by means of a query string following any of :ref:`the selection
+        syntaxes parsable by MolSysMT <Introduction_Selection>`.
 
-    element: str, default='atom'
-       The output indices list can correspond to 'atom', 'group', 'component', 'molecule', 'chain',
-       'entity' or 'bond' indices.
+    structure_indices : tuple, list, numpy.ndarray or 'all', default 'all'
+        Indices of structures (0-based integers) to be analysed by the selection function if
+        spatial constraints are included.
 
-    syntax: str, default='MolSysMT'
-       Syntaxis used to write the argument `selection`. The current options supported by MolSysMt
-       can be found in :doc:`/Atoms_Selection`.
+    element: {'atom', 'group', 'component', 'molecule', 'chain', 'entity', 'system'}, default 'system'
+        The indices returned by this function corresponds to the elements specified by this input
+        argument -matching the selecton criteria-.
+
+    syntax : str, default 'MolSysMT'
+        :ref:`Supported syntax <Introduction_Selection>` used in the `selection` argument (in case
+        it is a string).
+
+    to_syntax : str, default None
+        The function will return a query string with the syntax specified by this input argument if
+        its value is different from None.
+
 
     Returns
     -------
 
-    Numpy array of integers
-        List of indices in agreement with the selection criterion applied over `item`. The nature
-        of the indices is chosen with the input argument 'output_indices': 'atom' (default),
-        'group', 'component', 'molecule', 'chain' or 'entity'.
+    numpy.ndarray of int
+        List of element indices in agreement with the selection criterion applied over the input molecular
+        system. The nature of the elements is chosen with the input argument ``element``.
 
-    Examples
-    --------
 
-    :doc:`/Atoms_Selection`
+    Raises
+    ------
+
+    NotSupportedFormError
+        The function raises a NotSupportedFormError in case a molecular system
+        is introduced with a not supported form.
+
+    ArgumentError
+        The function raises an ArgumentError in case an input argument value
+        does not meet the required conditions.
+
+    SyntaxError
+        The function raises a SyntaxError in case the syntax argument takes a not supported value. 
+
+
+    .. versionadded:: 0.1.0
+
+
+    Notes
+    -----
+
+    The list of supported molecular systems' forms is detailed in the documentation section
+    :ref:`User Guide > Introduction > Molecular systems > Forms <Introduction_Forms>`.
+
+    The list of supported selection syntaxes can be checked in the documentation section
+    :ref:`User Guide > Introduction > Selection syntaxes <Introduction_Selection>`.
+
 
     See Also
     --------
 
-    Notes
-    -----
+    :ref:'User Guide > Introduction > Configuration options'
+
+    :ref:'User Guide > Introduction > Selection syntaxes'
+
+
+    Examples
+    --------
+
+    The following example illustrates the use of the function.
+
+    >>> import molsysmt as msm
+    >>> molecular_system = msm.systems.demo['T4 lysozyme L99A']['181l.mmtf']
+    >>> msm.basic.select(molecular_system, element='group', selection='group_name in ["HIS","THR"]')
+    array([ 20,  25,  30,  33,  53,  58, 108, 114, 141, 150, 151, 154, 156])
+
+    .. admonition:: User guide
+
+       Follow this link for a tutorial on how to work with this function:
+       :ref:`User Guide > Tools > Basic > Select <Tutorial_Select>`.
+
 
     """
 
@@ -202,6 +253,8 @@ def selection_with_special_subsentences(selection):
             break
 
     return output
+
+
 
 def select_with_MDTraj(item, selection):
 
@@ -343,11 +396,11 @@ def indices_to_selection(molecular_system, indices, element='atom', syntax=None)
             output_string = '@'+','.join([str(ii) for ii in indices])
         elif element=='group':
             from molsysmt import get
-            group_ids, chain_ids = get(molecular_system, element='group', indices=indices, group_id=True, chain_id=True)
+            group_ids, chain_ids = get(molecular_system, element='group', selection=indices, group_id=True, chain_id=True)
             output_string = ' '.join([str(ii)+':'+str(jj) for ii,jj in zip(group_ids, chain_ids)])
         elif element=='chain':
             from molsysmt import get
-            chain_ids = get(molecular_system, element='chain', indices=indices, chain_id=True)
+            chain_ids = get(molecular_system, element='chain', selection=indices, chain_id=True)
             output_string = ' '.join([':'+ii for ii in chain_ids])
         else:
             raise NotImplementedMethodError

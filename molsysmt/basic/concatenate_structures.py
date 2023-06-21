@@ -45,7 +45,7 @@ def concatenate_structures(molecular_systems, selections='all', structure_indice
     Returns
     -------
 
-    Molecular system
+    molecular system
         A molecular system with the topology extracted from the first molecular
         system of the list is returned. This molecular system has all the
         structures required by the user by means or the input arguments

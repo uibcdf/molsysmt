@@ -18,21 +18,26 @@ def standardize_view (view, atom_indices='all', structure_indices='all'):
 
     tmp_topology = convert(view, to_form='molsysmt.Topology')
 
-    sel_cartoon = select(tmp_topology, selection='molecule_type in ["protein", "dna", "rna"]', mask=atom_indices, to_syntax='NGLView')
-    sel_balls = select(tmp_topology, selection='molecule_type in ["ion"]', mask=atom_indices, to_syntax='NGLView')
-    sel_licorice = select(tmp_topology, selection='molecule_type in ["lipid", "small molecule"]', mask=atom_indices, to_syntax='NGLView')
+    mask_string = ''
+    if not is_all(atom_indices):
+        mask_string = ' and atom_index in @atom_indices'
+
+    sel_cartoon = select(tmp_topology, selection='molecule_type in ["protein", "dna", "rna"]'+mask_string, to_syntax='NGLView')
+    sel_balls = select(tmp_topology, selection='molecule_type in ["ion"]'+mask_string, to_syntax='NGLView')
+    sel_licorice = select(tmp_topology, selection='molecule_type in ["lipid", "small molecule"]'+mask_string, to_syntax='NGLView')
 
     peptide_indices = select(tmp_topology, selection='molecule_type=="peptide"', element='molecule')
     peptides_to_cartoon = []
     peptides_to_licorice = []
     for peptide_index in peptide_indices:
-        n_groups = get(tmp_topology, element='molecule', indices=peptide_index, n_groups=True)[0]
+        n_groups = get(tmp_topology, element='molecule', selection=peptide_index, n_groups=True)[0]
         if n_groups > 5:
             peptides_to_cartoon.append(peptide_index)
         else:
             peptides_to_licorice.append(peptide_index)
-    sel_peptides_cartoon = select(tmp_topology, selection='molecule_index in @peptides_to_cartoon', mask=atom_indices, to_syntax='NGLView')
-    sel_peptides_licorice = select(tmp_topology, selection='molecule_index in @peptides_to_licorice', mask=atom_indices, to_syntax='NGLView')
+
+    sel_peptides_cartoon = select(tmp_topology, selection='molecule_index in @peptides_to_cartoon'+mask_string, to_syntax='NGLView')
+    sel_peptides_licorice = select(tmp_topology, selection='molecule_index in @peptides_to_licorice'+mask_string, to_syntax='NGLView')
 
     view.add_cartoon(selection=sel_cartoon)
     view.add_cartoon(selection=sel_peptides_cartoon)

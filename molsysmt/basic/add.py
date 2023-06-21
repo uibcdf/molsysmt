@@ -75,6 +75,17 @@ def add(to_molecular_system, from_molecular_system, selection='all', structure_i
     :func:`molsysmt.basic.select`
         Selecting elements of a molecular system
 
+    :func:`molsysmt.basic.merge`
+        Merging the elements of different molecular systems.
+
+    :func:`molsysmt.basic.append_structures`
+        Adding structures from a molecular system to another molecular system.
+
+    :func:`molsysmt.basic.concatenate_structures`
+        Concatenating the structures found in a list of molecular systems.
+
+
+
     Examples
     --------
 
