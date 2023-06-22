@@ -6,6 +6,8 @@ from molsysmt import pyunitwizard as puw
 
 def digest_value(value, caller=None):
 
+    # Atom
+
     if caller.endswith('set_atom_id_to_atom'):
         from .atom_id import digest_atom_id
         return digest_atom_id(value, caller=caller)
@@ -21,6 +23,12 @@ def digest_value(value, caller=None):
     if caller.endswith('set_b_factor_to_atom'):
         from .b_factor import digest_b_factor
         return digest_b_factor(value, caller=caller)
+
+    # Group
+
+    if caller.endswith('set_group_name_to_group'):
+        from .group_name import digest_group_name
+        return digest_group_name(value, caller=caller)
 
     # System
 

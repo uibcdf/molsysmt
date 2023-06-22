@@ -49,6 +49,16 @@ def set_occupancy_to_atom(item, indices='all', structure_indices='all', value=No
 
     return aux_set(item.structures, indices=indices, structure_indices=structure_indices, value=value)
 
+## Group
+
+@digest(form='molsysmt.MolSys')
+def set_group_name_to_group(item, indices='all', value=None):
+
+    from ..molsysmt_Topology import set_group_name_to_group as aux_set
+
+    return aux_set(item.topology, indices=indices, value=value)
+
+
 ###
 ### System
 ###

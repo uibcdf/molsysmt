@@ -23,7 +23,7 @@
 | [Merge](merge.ipynb) | Merging the elements of different molecular systems |
 | [Remove](remove.ipynb) | Removing elements or structures from a molecular system |
 | [Select](select.ipynb) | Selecting elements of a molecular system |
-| [Set](set.ipynb) | Setting values to attributes of a molecular system |
+| [Set](set.ipynb) | Setting attribute values to a molecular system |
 | [View](view.ipynb) | Showing a molecular system |
 | [Where is attribute](view.ipynb) | Getting the item where a specific attribute is found |
 

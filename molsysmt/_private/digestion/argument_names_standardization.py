@@ -22,24 +22,6 @@ def argument_names_standardization(caller, kwargs):
             if arg in _attribute_synonyms:
                 kwargs = _replace_key_in_dict(kwargs, arg, _attribute_synonyms[arg])
 
-    elif caller=='molsysmt.basic.set.set':
-
-        element = kwargs['element']
-
-        if 'name' in kwargs:
-            kwargs = _replace_key_in_dict(kwargs, 'name', element+'_name')
-        if 'index' in kwargs:
-            kwargs = _replace_key_in_dict(kwargs, 'index', element+'_index')
-        if 'id' in kwargs:
-            kwargs = _replace_key_in_dict(kwargs, 'id', element+'_id')
-        if 'type' in kwargs:
-            kwargs = _replace_key_in_dict(kwargs, 'type', element+'_type')
-        if 'order' in kwargs:
-            kwargs = _replace_key_in_dict(kwargs, 'order', element+'_order')
-
-        for arg in kwargs:
-            if arg in _attribute_synonyms:
-                kwargs = _replace_key_in_dict(kwargs, arg, _attribute_synonyms[arg])
 
     elif caller=='molsysmt.basic.contains.contains':
 

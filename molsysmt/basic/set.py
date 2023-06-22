@@ -5,59 +5,99 @@ import numpy as np
 
 @digest()
 def set(molecular_system,
-        element='system',
         selection='all',
         structure_indices='all',
         syntax='MolSysMT',
         **kwargs):
-    """into(item, element='system', indices=None, selection='all', structure_indices='all', syntax='MolSysMT')
+    """
+    Setting attribute values to a molecular system.
 
-    Set a new value to an attribute.
-
-    Paragraph with detailed explanation.
+    This function sets new values to attributes of a molecular system. The
+    changed is done over the selection of elements and structure indices -if it
+    is the case- specified through the input arguments. 
 
     Parameters
     ----------
 
-    molecular_system: molecular model
-        Molecular model in any of the supported forms by MolSysMT. (See: XXX)
+    molecular_system : molecular system
+        Molecular system, in any of :ref:`the supported forms
+        <Introduction_Forms>`, to which the value of the attributes will be set by the function.
 
-    element: str, default='system'
-        The nature of the entities this method is going to work with: 'atom', 'group', 'chain' or
-        'system'.
+    selection : index, tuple, list, numpy.ndarray or str, default 'all'
+        Selection of elements of the molecular system to which the value of the attributes will be set by the
+        function. The selection can be given by a list, tuple or numpy array of
+        element indices (0-based integers) -up to the value of the ``element``
+        input argument-; or by means of a query string following any of
+        :ref:`the selection syntaxes parsable by MolSysMT <Introduction_Selection>`.
 
-    indices: int, list, tuple or np.ndarray, default=None
-        List of indices referring the set of elementted entities ('atom', 'group' or 'chain') this
-        method is going to work with. The set of indices can be given by a list, tuple or numpy
-        array of integers (0-based).
+    structure_indices : integer, tuple, list, numpy.ndarray or 'all', default 'all'
+        Indices of structures (0-based integers) to be set when the attributes are structural.
 
-    selection: str, list, tuple or np.ndarray, default='all'
-       Atoms selection over which this method applies. The selection can be given by a
-       list, tuple or numpy array of integers (0-based), or by means of a string following any of
-       the selection syntax parsable by MolSysMT (see: :func:`molsysmt.select`).
+    syntax : str, default 'MolSysMT'
+        :ref:`Supported syntax <Introduction_Selection>` used in the `selection` argument (in case
+        it is a string).
 
-    structure_indices: int, list, tuple, np.ndarray or 'all', default='all'
-        List of indices referring the set of frames this method is going to work with. This set of indices can be given by a list, tuple or numpy
-        array of integers (0-based).
+    **kwargs : {{keyword : str,  value : any}, default None}
+        The attributes to be changed are introduced as additional keywords together with the new values.
 
-    syntax: str, default='MolSysMT'
-       Syntaxis used in the argument `selection` (in case it is a string). The
-       current options supported by MolSysMt can be found in section XXX (see: :func:`molsysmt.select`).
 
-    Returns
-    -------
-    None
+    Raises
+    ------
 
-    Examples
-    --------
+    NotSupportedFormError
+        The function raises a NotSupportedFormError in case a molecular system
+        is introduced with a not supported form.
+
+    ArgumentError
+        The function raises an ArgumentError in case an input argument value
+        does not meet the required conditions.
+
+    SyntaxError
+        The function raises a SyntaxError in case the syntax argument takes a not supported value. 
+
+
+    .. versionadded:: 0.1.0
+
+
+    Notes
+    -----
+
+    The list of supported molecular systems' forms is detailed in the documentation section
+    :ref:`User Guide > Introduction > Molecular systems > Forms <Introduction_Forms>`.
+
+    The list of supported selection syntaxes can be checked in the documentation section
+    :ref:`User Guide > Introduction > Selection syntaxes <Introduction_Selection>`.
+
 
     See Also
     --------
 
-    :func:`molsysmt.select`
+    :func:`molsysmt.basic.select`
+        Selecting elements of a molecular system.
 
-    Notes
-    -----
+    :func:`molsysmt.basic.get`
+        Getting attribute values from a molecular system.
+
+
+    Examples
+    --------
+
+    The following example illustrates the use of the function.
+
+    >>> import molsysmt as msm
+    >>> molecular_system = msm.convert('181L')
+    >>> msm.basic.get(molecular_system, element='group', selection='group_index==30', group_name=True)
+    'HIS'
+    >>> msm.basic.set(molecular_system, selection='group_index==30', group_name='HSD')
+    >>> msm.basic.get(molecular_system, element='group', selection='group_index==30', group_name=True)
+    'HSD'
+
+
+    .. admonition:: User guide
+
+       Follow this link for a tutorial on how to work with this function:
+       :ref:`User Guide > Tools > Basic > Set <Tutorial_Set>`.
+
 
     """
 
@@ -69,26 +109,31 @@ def set(molecular_system,
     for key in kwargs.keys():
         value_of_in_attribute[key] = kwargs[key]
 
-    # selection works as a mask if indices or ids are used
+    # selection
 
     in_attributes = value_of_in_attribute.keys()
 
+    element_indices = {}
+    for in_attribute in in_attributes:
+        if attributes[in_attribute]['runs_on_elements']:
+            element = attributes[in_attribute]['set_to']
+            if element not in element_indices:
+                if is_all(selection):
+                    element_indices[element] = 'all'
+                else:
+                    element_indices[element] = select(molecular_system, element=element, selection=selection,
+                                                      syntax=syntax)
+
     # doing the work here
 
-    if not is_all(selection):
-        indices = select(molecular_system,
-                         element=element,
-                         selection=selection,
-                         syntax=syntax)
-    else:
-        indices = 'all'
-
     for in_attribute in in_attributes:
+
+        element = attributes[in_attribute]['set_to']
 
         dict_indices = {}
         if element != 'system':
             if attributes[in_attribute]['runs_on_elements']:
-                dict_indices['indices'] = indices
+                dict_indices['indices'] = element_indices[element]
         if attributes[in_attribute]['runs_on_structures']:
             dict_indices['structure_indices'] = structure_indices
 
