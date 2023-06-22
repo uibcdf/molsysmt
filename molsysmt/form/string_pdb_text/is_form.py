@@ -17,5 +17,6 @@ def is_form(string):
             if output:
                 break
 
+
     return output
 

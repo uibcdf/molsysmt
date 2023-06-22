@@ -28,5 +28,6 @@ _piped_forms_in_info=[
         #'file:prmtop',
         'file:psf',
         'string:pdb_id',
-        'mmtf.MMTFDecoder'
+        'mmtf.MMTFDecoder',
+        'nglview.NGLWidget'
         ]

@@ -106,8 +106,7 @@ def get(molecular_system,
     The following example illustrates the use of the function.
 
     >>> import molsysmt as msm
-    >>> from molsysmt.systems import demo
-    >>> molecular_system = msm.basic.convert(demo['T4 lysozyme L99A']['181l.mmtf'])
+    >>> molecular_system = msm.systems.demo['T4 lysozyme L99A']['181l.mmtf']
     >>> msm.basic.get(molecular_system, element='group', selection=[10,11,12], n_atoms=True)
     [9, 6, 8]
     >>> msm.get(molecular_system, element='molecule', selection='molecule_type=="water"', n_molecules=True)

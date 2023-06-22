@@ -12,6 +12,7 @@ def to_nglview_NGLWidget(item, atom_indices='all', structure_indices='all'):
     else:
         tmp_item = item
 
+
     tmp_item = show_molsysmt(tmp_item)
 
     return tmp_item

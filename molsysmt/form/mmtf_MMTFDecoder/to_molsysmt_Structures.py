@@ -7,6 +7,7 @@ from molsysmt import pyunitwizard as puw
 def to_molsysmt_Structures(item, atom_indices='all', structure_indices='all'):
 
     from molsysmt.native.structures import Structures
+    from molsysmt.form.molsysmt_Structures import extract as extract_molsysmt_Structures
     from molsysmt.pbc import get_box_from_lengths_and_angles
 
     n_atoms = item.num_atoms
@@ -133,11 +134,6 @@ def to_molsysmt_Structures(item, atom_indices='all', structure_indices='all'):
 
         box = None
 
-    if not is_all(structure_indices):
-        if box is not None:
-            box = box[structure_indices,:,:]
-
-
     bioassembly = {}
 
     for aux_bioassembly in item.bio_assembly:
@@ -156,6 +152,10 @@ def to_molsysmt_Structures(item, atom_indices='all', structure_indices='all'):
 
     tmp_item = Structures(structure_id=structure_id, time=time, coordinates=coordinates, box=box,
             occupancy=occupancy, b_factor=b_factor, alternate_location=alternate_location, bioassembly=bioassembly)
+
+    if not is_all(atom_indices)*is_all(structure_indices):
+
+        tmp_item = extract_molsysmt_Structures(tmp_item, atom_indices=atom_indices, structure_indices=structure_indices)
 
     return tmp_item
 
