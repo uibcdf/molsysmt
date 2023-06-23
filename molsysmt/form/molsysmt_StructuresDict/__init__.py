@@ -17,10 +17,16 @@ from .set import *
 from .iterators import StructuresIterator
 
 from .to_molsysmt_Structures import to_molsysmt_Structures
+from .to_molsysmt_Topology import to_molsysmt_Topology
+from .to_molsysmt_MolecularMechanics import to_molsysmt_MolecularMechanics
+from .to_molsysmt_MolSys import to_molsysmt_MolSys
 from .to_file_trjpk import to_file_trjpk
 
 _convert_to={
         'molsysmt.StructuresDict': extract,
         'molsysmt.Structures': to_molsysmt_Structures,
+        'molsysmt.Topology': to_molsysmt_Topology,
+        'molsysmt.MolecularMechanics': to_molsysmt_MolecularMechanics,
+        'molsysmt.MolSys': to_molsysmt_MolSys,
         'file:trjpk': to_file_trjpk,
         }

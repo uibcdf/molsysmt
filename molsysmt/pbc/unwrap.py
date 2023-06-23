@@ -31,18 +31,18 @@ def unwrap(molecular_system, selection='all', structure_indices='all',
 
     if in_place:
 
-        set(molecular_system, element='atom', selection=selection, structure_indices=structure_indices,
+        set(molecular_system, selection=selection, structure_indices=structure_indices,
             syntax=syntax, coordinates=coordinates)
 
         del(coordinates, box)
-        
+
         gc.collect()
 
     else:
 
         tmp_molecular_system = copy(molecular_system)
 
-        set(tmp_molecular_system, element='atom', selection=selection, structure_indices=structure_indices,
+        set(tmp_molecular_system, selection=selection, structure_indices=structure_indices,
             syntax='MolSysMT', coordinates=coordinates)
 
         del(coordinates, box)

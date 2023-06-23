@@ -104,7 +104,7 @@ def select_bonded_to(molecular_system, selection, syntax):
 
 @digest()
 def select(molecular_system, selection='all', structure_indices='all', element='atom',
-        syntax='MolSysMT', to_syntax=None):
+        mask=None, syntax='MolSysMT', to_syntax=None):
     """
     Selecting elements in a molecular system
 
@@ -131,6 +131,11 @@ def select(molecular_system, selection='all', structure_indices='all', element='
     element: {'atom', 'group', 'component', 'molecule', 'chain', 'entity', 'system'}, default 'system'
         The indices returned by this function corresponds to the elements specified by this input
         argument -matching the selecton criteria-.
+
+    mask: tuple, list, numpy.ndarray or str, default=None
+        Mask to be applied in the selection. If this argument is different
+        from None, the selection is done only over the elements specified by this
+        argument.
 
     syntax : str, default 'MolSysMT'
         :ref:`Supported syntax <Introduction_Selection>` used in the `selection` argument (in case
@@ -206,6 +211,9 @@ def select(molecular_system, selection='all', structure_indices='all', element='
     from . import get_form, where_is_attribute, is_a_molecular_system
     from molsysmt.form import _dict_modules
 
+    if is_all(mask):
+        mask=None
+
     if type(selection)==str:
 
         while selection_with_special_subsentences(selection):
@@ -237,6 +245,11 @@ def select(molecular_system, selection='all', structure_indices='all', element='
 
         output_indices = selection
         #atom_indices = select_standard(molecular_system, selection, syntax)
+
+    if mask is not None:
+        if isinstance(mask, str):
+            mask = select(molecular_system, selection=mask, element=element, syntax=syntax)
+        output_indices = np.intersect1d(output_indices, mask, assume_unique=True)
 
     if to_syntax is None:
         return output_indices

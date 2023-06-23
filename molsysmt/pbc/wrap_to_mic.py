@@ -18,7 +18,7 @@ def wrap_to_mic(molecular_system, selection='all', structure_indices='all',
 
         atom_indices = select(molecular_system, selection=selection, syntax=syntax)
 
-        coordinates= get(molecular_system, element='atom', indices=atom_indices, coordinates=True)
+        coordinates= get(molecular_system, element='atom', selection=atom_indices, coordinates=True)
         box = get(molecular_system, element='system', structure_indices=structure_indices, box=True)
 
         if center_of_selection is not None:
@@ -43,7 +43,7 @@ def wrap_to_mic(molecular_system, selection='all', structure_indices='all',
 
     if in_place:
 
-        set(molecular_system, element='atom', indices=atom_indices, structure_indices=structure_indices,
+        set(molecular_system, selection='atom_index in @atom_indices', structure_indices=structure_indices,
             syntax=syntax, coordinates=coordinates)
 
         del(coordinates, atom_indices, structure_indices)
@@ -55,7 +55,7 @@ def wrap_to_mic(molecular_system, selection='all', structure_indices='all',
     else:
 
         tmp_molecular_system = copy(molecular_system)
-        set(tmp_molecular_system, element='atom', indices=atom_indices, structure_indices=structure_indices,
+        set(tmp_molecular_system, selection='atom_index in @atom_indices', structure_indices=structure_indices,
             syntax=syntax, coordinates=coordinates)
 
         del(coordinates, atom_indices, structure_indices)

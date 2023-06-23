@@ -12,6 +12,7 @@ selection_shortcuts={
         'MolSysMT': {
             'backbone':'(atom_name==["CA", "N", "C", "O"])',
             'hydrogens':'(atom_type=="H")',
+            'hydrogen':'(atom_type=="H")',
             }
         }
 
