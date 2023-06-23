@@ -56,7 +56,7 @@ def rotate(molecular_system, rotation=None, rotation_center=None, selection='all
 
     if in_place:
 
-        set(molecular_system, element='atom', indices=atom_indices, structure_indices=structure_indices,
+        set(molecular_system, indices='atom_index in @atom_indices', structure_indices=structure_indices,
             coordinates=coordinates)
         del(coordinates, rotation_center, atom_indices)
         gc.collect()
@@ -64,7 +64,7 @@ def rotate(molecular_system, rotation=None, rotation_center=None, selection='all
     else:
 
         tmp_molecular_system = copy(molecular_system)
-        set(tmp_molecular_system, element='atom', indices=atom_indices, structure_indices=structure_indices,
+        set(tmp_molecular_system, indices='atom_index in @atom_indices', structure_indices=structure_indices,
             coordinates=coordinates)
         del(coordinates, rotation_center, atom_indices)
         gc.collect()

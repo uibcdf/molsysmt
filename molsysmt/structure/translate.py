@@ -29,13 +29,13 @@ def translate(molecular_system, translation=None, selection='all', structure_ind
     coordinates = puw.quantity(coordinates, length_unit)
 
     if in_place:
-        set(molecular_system, element='atom', selection=atom_indices, structure_indices=structure_indices,
+        set(molecular_system, selection='atom_index in @atom_indices', structure_indices=structure_indices,
             coordinates=coordinates)
         del(coordinates, atom_indices, translation)
         gc.collect()
     else:
         tmp_molecular_system = copy(molecular_system)
-        set(tmp_molecular_system, element='atom', selection=atom_indices, structure_indices=structure_indices,
+        set(tmp_molecular_system, selection='atom_index in @atom_indices', structure_indices=structure_indices,
             coordinates=coordinates)
         del(coordinates, atom_indices, translation)
         gc.collect()

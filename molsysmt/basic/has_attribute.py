@@ -1,7 +1,6 @@
 # If digest is used in this method, other methods become slower
 
 def has_attribute(molecular_system, attribute):
-
     """
     Checking if a molecular system has a certain attribute.
 
@@ -53,8 +52,7 @@ def has_attribute(molecular_system, attribute):
     The following example illustrates the use of the function.
 
     >>> import molsysmt as msm
-    >>> from molsysmt.systems import demo
-    >>> molecular_system = msm.basic.convert(demo['T4 lysozyme L99A']['181l.mmtf'])
+    >>> msm.systems.demo['T4 lysozyme L99A']['181l.mmtf']
     >>> msm.basic.has_attribute(molecular_system, 'box')
     True
     >>> msm.basic.has_attribute(molecular_system, 'forcefield')
