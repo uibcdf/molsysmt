@@ -220,6 +220,84 @@ def test_info_11():
 
 def test_info_12():
     molsys = msm.convert(tests_systems['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
+    output = msm.info(molsys, element='atom', selection=10, output_type='short_string')
+    true_output = 'CA-11@10'
+    assert output == true_output
+
+def test_info_13():
+    molsys = msm.convert(tests_systems['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
+    output = msm.info(molsys, element='atom', selection=[10, 11, 12, 13], output_type='short_string')
+    true_output = ['CA-11@10', 'C-12@11', 'O-13@12', 'CB-14@13']
+    assert np.all(output == true_output)
+
+def test_info_14():
+    molsys = msm.convert(tests_systems['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
+    output = msm.info(molsys, element='atom', selection=10, output_type='long_string')
+    true_output = 'CA-11@10/PRO-5@1/A-A@0/Triosephosphate isomerase@0'
+    assert output == true_output
+
+def test_info_15():
+    molsys = msm.convert(tests_systems['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
+    output = msm.info(molsys, element='group', selection=0, output_type='short_string')
+    true_output = 'LYS-4@0'
+    assert output == true_output
+
+def test_info_15():
+    molsys = msm.convert(tests_systems['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
+    output = msm.info(molsys, element='group', selection=3, output_type='long_string')
+    true_output = 'PRO-7@3/A-A@0/Triosephosphate isomerase@0'
+    assert output == true_output
+
+def test_info_16():
+    molsys = msm.convert(tests_systems['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
+    output = msm.info(molsys, element='component', selection=2, output_type='short_string')
+    true_output = '2'
+    assert output == true_output
+
+def test_info_17():
+    molsys = msm.convert(tests_systems['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
+    output = msm.info(molsys, element='component', selection=2, output_type='long_string')
+    true_output = '2/A-C@2/water@2'
+    assert output == true_output
+
+def test_info_18():
+    molsys = msm.convert(tests_systems['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
+    output = msm.info(molsys, element='chain', selection=2, output_type='short_string')
+    true_output = 'A-C@2'
+    assert output == true_output
+
+def test_info_19():
+    molsys = msm.convert(tests_systems['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
+    output = msm.info(molsys, element='chain', selection=2, output_type='long_string')
+    true_output = 'A-C@2'
+    assert output == true_output
+
+def test_info_20():
+    molsys = msm.convert(tests_systems['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
+    output = msm.info(molsys, element='molecule', selection=0, output_type='short_string')
+    true_output = 'Triosephosphate isomerase@0'
+    assert output == true_output
+
+def test_info_21():
+    molsys = msm.convert(tests_systems['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
+    output = msm.info(molsys, element='molecule', selection=0, output_type='long_string')
+    true_output = 'Triosephosphate isomerase@0'
+    assert output == true_output
+
+def test_info_22():
+    molsys = msm.convert(tests_systems['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
+    output = msm.info(molsys, element='entity', selection=0, output_type='short_string')
+    true_output = 'Triosephosphate isomerase@0'
+    assert output == true_output
+
+def test_info_23():
+    molsys = msm.convert(tests_systems['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
+    output = msm.info(molsys, element='entity', selection=0, output_type='long_string')
+    true_output = 'Triosephosphate isomerase@0'
+    assert output == true_output
+
+def test_info_24():
+    molsys = msm.convert(tests_systems['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
     df = msm.info(molsys, element='component', selection='molecule_type=="protein"')
     true_dict = {'index': {0: 0, 1: 1},
         'n atoms': {0: 1906, 1: 1912},
@@ -233,11 +311,11 @@ def test_info_12():
     true_df = DataFrame(true_dict)
     assert df.data.equals(true_df)
 
-def test_info_13():
+def test_info_25():
     molsys = msm.convert(tests_systems['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
     group_index_in_component_0 = msm.get(molsys, element='group', selection='component_index==0', index=True)[69]
     group_index_in_component_1 = msm.get(molsys, element='group', selection='component_index==1', index=True)[12]
-    df = msm.info(molsys, element='group', selection=[group_index_in_component_0,
+    df = msm.info(molsys, element='group', indices=[group_index_in_component_0,
                                                     group_index_in_component_1])
     true_dict = {'index': {0: 69, 1: 260},
         'id': {0: 73, 1: 15},

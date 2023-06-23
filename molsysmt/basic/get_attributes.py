@@ -1,6 +1,6 @@
 # If digest is used in this method, other methods become slower
 
-def get_attributes(molecular_system):
+def get_attributes(molecular_system, output_type='dictionary'):
     """
     Getting the list of attributes of a molecular system.
 
@@ -15,12 +15,16 @@ def get_attributes(molecular_system):
         Molecular system in any of :ref:`the supported forms
         <Introduction_Forms>` to be checked by the function.
 
+    output_type : {'dictionary', 'list'}, default 'dictionary'
 
     Returns
     -------
-    dict
-        Dictionary with all attribute names as keys and booleans as values: True if the attribute
+    dict, list
+        If ``output_type=='dictionary'`` a dictionary is returned with all
+        attribute names as keys and booleans as values: True if the attribute
         is found in the molecular system, False otherwise.
+        If ``output_type=='list'`` a list is returned with all
+        attribute names in the molecular system.
 
 
     Raises
@@ -80,5 +84,8 @@ def get_attributes(molecular_system):
             if value:
                 output[key]=value
 
-    return output
+    if output_type=='dictionary':
+        return output
+    elif output_type=='list':
+        return [att for att in output if output[att]]
 

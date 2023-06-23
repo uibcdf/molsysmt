@@ -109,13 +109,6 @@ def test_select_16():
 def test_select_17():
     molsys = msm.convert(tests_systems['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
     indices=list(range(10,30))
-    output = msm.select(molsys, 'atom_name=="C"', mask=indices)
-    true_output = np.array([11, 18, 27])
-    assert np.all(output==true_output)
-
-def test_select_18():
-    molsys = msm.convert(tests_systems['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
-    indices=list(range(10,30))
     output = msm.select(molsys, 'atom_name=="C" and atom_index in @indices')
     true_output = np.array([11, 18, 27])
     assert np.all(output==true_output)
@@ -167,18 +160,6 @@ def test_select_26():
     molsys = msm.convert(tests_systems['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
     output = msm.select(molsys, 'group_index==5', element='bond')
     true_output = np.array([37, 38, 39, 40])
-    assert np.all(output==true_output)
-
-def test_select_27():
-    molsys = msm.convert(tests_systems['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
-    output = msm.select(molsys, 'atom_index in [0,1,2,3,4]', mask=[0,1,2], element='atom')
-    true_output = np.array([0, 1, 2])
-    assert np.all(output==true_output)
-
-def test_select_28():
-    molsys = msm.convert(tests_systems['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
-    output = msm.select(molsys, 'group_index in [0,1,2,3,4]', mask=[0,1,2], element='group')
-    true_output = np.array([0, 1, 2])
     assert np.all(output==true_output)
 
 def test_select_29():
