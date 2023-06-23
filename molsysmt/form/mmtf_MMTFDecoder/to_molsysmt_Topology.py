@@ -300,7 +300,7 @@ def to_molsysmt_Topology(item, atom_indices='all'):
     tmp_item.atoms_dataframe.__delitem__('b_factor')
     tmp_item.atoms_dataframe.__delitem__('formal_charge')
     tmp_item.atoms_dataframe.__delitem__('partial_charge')
-  
+
     if not is_all(atom_indices):
         atom_indices = list(set(atom_indices)-set(atoms_to_be_removed_with_alt_loc))
         tmp_item = tmp_item.extract(atom_indices)
@@ -308,6 +308,6 @@ def to_molsysmt_Topology(item, atom_indices='all'):
         if len(atoms_to_be_removed_with_alt_loc):
             atom_indices = list(set(np.arange(n_atoms))-set(atoms_to_be_removed_with_alt_loc))
             tmp_item = tmp_item.extract(atom_indices)
-            
+
     return tmp_item
 

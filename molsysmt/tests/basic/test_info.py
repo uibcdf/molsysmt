@@ -100,32 +100,7 @@ def test_info_4():
     true_df = DataFrame(true_dict)
     assert df.data.equals(true_df)
 
-#def test_info_5():
-#    molsys = tests_systems.classes.TcTIM_in_pdbid_1tcd(to_form='molsysmt.MolSys')
-#    df = msm.info(molsys, element='chain')
-#    true_dict = {'index': {0: 0, 1: 1, 2: 2, 3: 3},
-#                 'id': {0: 'A', 1: 'B', 2: 'C', 3: 'D'},
-#                 'name': {0: 'A', 1: 'B', 2: 'A', 3: 'B'},
-#                 'n atoms': {0: 1906, 1: 1912, 2: 73, 3: 92},
-#                 'n groups': {0: 248, 1: 249, 2: 73, 3: 92},
-#                 'n components': {0: 1, 1: 1, 2: 73, 3: 92},
-#                 'molecule index': {0: 0,
-#                  1: 0,
-#                  2: np.array(list(range(1, 74))),
-#                  3: np.array(list(range(74, 166)))},
-#                 'molecule type': {0: 'protein',
-#                  1: 'protein',
-#                  2: np.array(['water' for ii in range(73)], dtype=object),
-#                  3: np.array(['water' for ii in range(92)], dtype=object)},
-#                 'entity index': {0: 0, 1: 0, 2: 1, 3: 1},
-#                 'entity name': {0: 'Triosephosphate isomerase',
-#                  1: 'Triosephosphate isomerase',
-#                  2: 'water',
-#                  3: 'water'}}
-#    true_df = DataFrame(true_dict)
-#    assert df.data.equals(true_df)
-
-def test_info_6():
+def test_info_5():
     molsys = msm.convert(tests_systems['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
     df = msm.info(molsys, element='molecule', selection='molecule_type!="water"')
     true_dict = {'index': {0: 0, 1: 1},
@@ -140,7 +115,7 @@ def test_info_6():
                   1: 'Triosephosphate isomerase'}}
     assert df.data.to_dict()==true_dict
 
-def test_info_7():
+def test_info_6():
     molsys = msm.convert(tests_systems['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
     df = msm.info(molsys, element='entity')
     true_dict = {'index': {0: 0, 1: 1},
@@ -153,7 +128,7 @@ def test_info_7():
                  'n molecules': {0: 2, 1: 165}}
     assert df.data.to_dict()==true_dict
 
-def test_info_8():
+def test_info_7():
     molsys = msm.convert(tests_systems['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
     df = msm.info(molsys)
     true_dict = {'form': {0: 'molsysmt.MolSys'},
@@ -169,7 +144,7 @@ def test_info_8():
     true_df = DataFrame(true_dict)
     assert df.data.equals(true_df)
 
-def test_info_9():
+def test_info_8():
     molsys = msm.convert(tests_systems['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
     molsys = msm.convert(molsys, to_form='molsysmt.Topology')
     df = msm.info(molsys)
@@ -186,7 +161,7 @@ def test_info_9():
     true_df = DataFrame(true_dict)
     assert df.data.equals(true_df)
 
-def test_info_10():
+def test_info_9():
     molsys = msm.convert(tests_systems['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
     molsys = msm.convert(molsys, to_form='molsysmt.Structures')
     df = msm.info(molsys)
@@ -201,7 +176,7 @@ def test_info_10():
     true_df = DataFrame(true_dict)
     assert df.data.equals(true_df)
 
-def test_info_11():
+def test_info_10():
     molsys = msm.convert(tests_systems['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
     molsys = msm.convert(molsys, to_form=['molsysmt.Topology', 'molsysmt.Structures'])
     df = msm.info(molsys)
@@ -218,7 +193,7 @@ def test_info_11():
     true_df = DataFrame(true_dict)
     assert df.data.equals(true_df)
 
-def test_info_12():
+def test_info_11():
     molsys = msm.convert(tests_systems['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
     df = msm.info(molsys, element='component', selection='molecule_type=="protein"')
     true_dict = {'index': {0: 0, 1: 1},
@@ -233,7 +208,7 @@ def test_info_12():
     true_df = DataFrame(true_dict)
     assert df.data.equals(true_df)
 
-def test_info_13():
+def test_info_12():
     molsys = msm.convert(tests_systems['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
     group_index_in_component_0 = msm.get(molsys, element='group', selection='component_index==0', index=True)[69]
     group_index_in_component_1 = msm.get(molsys, element='group', selection='component_index==1', index=True)[12]

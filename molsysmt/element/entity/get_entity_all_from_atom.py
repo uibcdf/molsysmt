@@ -38,7 +38,7 @@ def get_entity_all_from_atom(molecular_system):
                     index=n_entities
                     n_entities+=1
             elif m_type == 'ion':
-                group_name = get(molecular_system, element='atom', indices=m_atoms, group_name=True)[0]
+                group_name = get(molecular_system, element='atom', selection=m_atoms, group_name=True)[0]
                 name = group_name
                 type = 'ion'
                 try:
@@ -68,7 +68,7 @@ def get_entity_all_from_atom(molecular_system):
                     index=n_entities
                     n_entities+=1
             elif m_type == 'lipid':
-                group_name = get(molecular_system, element='atom', indices=m_atoms[0], group_name=True)[0]
+                group_name = get(molecular_system, element='atom', selection=m_atoms[0], group_name=True)[0]
                 name = group_name
                 type = 'lipid'
                 try:
@@ -78,7 +78,7 @@ def get_entity_all_from_atom(molecular_system):
                     index=n_entities
                     n_entities+=1
             elif m_type == 'small molecule':
-                group_name = get(molecular_system, element='atom', indices=m_atoms[0], group_name=True)[0]
+                group_name = get(molecular_system, element='atom', selection=m_atoms[0], group_name=True)[0]
                 name = group_name
                 type = 'small molecule'
                 try:

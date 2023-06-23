@@ -444,7 +444,7 @@ def get_inner_bond_index_from_atom(item, indices='all'):
 def get_n_aminoacids_from_atom(item, indices='all'):
 
     group_indices = get_group_index_from_atom(item, indices=indices)
-    group_indices = np.unique(group_indices).shape[0]
+    group_indices = np.unique(group_indices)
     group_types = get_group_type_from_group(item, indices=group_indices)
 
     return (group_types=='aminoacid').sum()
@@ -453,7 +453,7 @@ def get_n_aminoacids_from_atom(item, indices='all'):
 def get_n_nucleotides_from_atom(item, indices='all'):
 
     group_indices = get_group_index_from_atom(item, indices=indices)
-    group_indices = np.unique(group_indices).shape[0]
+    group_indices = np.unique(group_indices)
     group_types = get_group_type_from_group(item, indices=group_indices)
 
     return (group_types=='nucleotide').sum()
@@ -462,7 +462,7 @@ def get_n_nucleotides_from_atom(item, indices='all'):
 def get_n_ions_from_atom(item, indices='all'):
 
     molecule_indices = get_molecule_index_from_atom(item, indices=indices)
-    molecule_indices = np.unique(molecule_indices).shape[0]
+    molecule_indices = np.unique(molecule_indices)
     molecule_types = get_molecule_type_from_molecule(item, indices=molecule_indices)
 
     return (molecule_types=='ion').sum()
@@ -471,7 +471,7 @@ def get_n_ions_from_atom(item, indices='all'):
 def get_n_waters_from_atom(item, indices='all'):
 
     molecule_indices = get_molecule_index_from_atom(item, indices=indices)
-    molecule_indices = np.unique(molecule_indices).shape[0]
+    molecule_indices = np.unique(molecule_indices)
     molecule_types = get_molecule_type_from_molecule(item, indices=molecule_indices)
 
     return (molecule_types=='water').sum()
@@ -480,8 +480,8 @@ def get_n_waters_from_atom(item, indices='all'):
 def get_n_small_molecules_from_atom(item, indices='all'):
 
     molecule_indices = get_molecule_index_from_atom(item, indices=indices)
-    molecule_indices = np.unique(molecule_indices).shape[0]
-    get_molecule_type_from_molecule(item, indices=molecule_indices)
+    molecule_indices = np.unique(molecule_indices)
+    molecule_types = get_molecule_type_from_molecule(item, indices=molecule_indices)
 
     return (molecule_types=='small molecule').sum()
 
@@ -489,7 +489,7 @@ def get_n_small_molecules_from_atom(item, indices='all'):
 def get_n_peptides_from_atom(item, indices='all'):
 
     molecule_indices = get_molecule_index_from_atom(item, indices=indices)
-    molecule_indices = np.unique(molecule_indices).shape[0]
+    molecule_indices = np.unique(molecule_indices)
     molecule_types = get_molecule_type_from_molecule(item, indices=molecule_indices)
 
     return (molecule_types=='peptide').sum()
@@ -498,7 +498,7 @@ def get_n_peptides_from_atom(item, indices='all'):
 def get_n_proteins_from_atom(item, indices='all'):
 
     molecule_indices = get_molecule_index_from_atom(item, indices=indices)
-    molecule_indices = np.unique(molecule_indices).shape[0]
+    molecule_indices = np.unique(molecule_indices)
     molecule_types = get_molecule_type_from_molecule(item, indices=molecule_indices)
 
     return (molecule_types=='protein').sum()
@@ -507,7 +507,7 @@ def get_n_proteins_from_atom(item, indices='all'):
 def get_n_dnas_from_atom(item, indices='all'):
 
     molecule_indices = get_molecule_index_from_atom(item, indices=indices)
-    molecule_indices = np.unique(molecule_indices).shape[0]
+    molecule_indices = np.unique(molecule_indices)
     molecule_types = get_molecule_type_from_molecule(item, indices=molecule_indices)
 
     return (molecule_types=='dna').sum()
@@ -516,7 +516,7 @@ def get_n_dnas_from_atom(item, indices='all'):
 def get_n_rnas_from_atom(item, indices='all'):
 
     molecule_indices = get_molecule_index_from_atom(item, indices=indices)
-    molecule_indices = np.unique(molecule_indices).shape[0]
+    molecule_indices = np.unique(molecule_indices)
     molecule_types = get_molecule_type_from_molecule(item, indices=molecule_indices)
 
     return (molecule_types=='rna').sum()
@@ -525,7 +525,7 @@ def get_n_rnas_from_atom(item, indices='all'):
 def get_n_lipids_from_atom(item, indices='all'):
 
     molecule_indices = get_molecule_index_from_atom(item, indices=indices)
-    molecule_indices = np.unique(molecule_indices).shape[0]
+    molecule_indices = np.unique(molecule_indices)
     molecule_types = get_molecule_type_from_molecule(item, indices=molecule_indices)
 
     return (molecule_types=='lipid').sum()
@@ -534,7 +534,7 @@ def get_n_lipids_from_atom(item, indices='all'):
 def get_n_oligosaccharides_from_atom(item, indices='all'):
 
     molecule_indices = get_molecule_index_from_atom(item, indices=indices)
-    molecule_indices = np.unique(molecule_indices).shape[0]
+    molecule_indices = np.unique(molecule_indices)
     molecule_types = get_molecule_type_from_molecule(item, indices=molecule_indices)
 
     return (molecule_types=='oligosaccharide').sum()
@@ -543,7 +543,7 @@ def get_n_oligosaccharides_from_atom(item, indices='all'):
 def get_n_saccharides_from_atom(item, indices='all'):
 
     molecule_indices = get_molecule_index_from_atom(item, indices=indices)
-    molecule_indices = np.unique(molecule_indices).shape[0]
+    molecule_indices = np.unique(molecule_indices)
     molecule_types = get_molecule_type_from_molecule(item, indices=molecule_indices)
 
     return (molecule_types=='saccharide').sum()

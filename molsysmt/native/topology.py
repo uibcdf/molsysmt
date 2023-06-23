@@ -236,19 +236,7 @@ class Topology():
         entities= {}
         n_entities = 0
 
-        current_molecule_name = self.atoms_dataframe['molecule_name'][0]
-        current_molecule_type = self.atoms_dataframe['molecule_type'][0]
-
-        current_entity_index = n_entities
-        current_entity_id = n_entities
-        current_entity_name = current_molecule_name
-        current_entity_type = current_molecule_type
-
-        entities[current_entity_name]={}
-        entities[current_entity_name]['entity_index'] = current_entity_index
-        entities[current_entity_name]['entity_id'] = current_entity_id
-        entities[current_entity_name]['entity_name'] = current_entity_name
-        entities[current_entity_name]['entity_type'] = current_entity_type
+        current_molecule_name = '@'
 
         ii=0
         for molecule_name, molecule_type in zip(self.atoms_dataframe['molecule_name'],
@@ -259,14 +247,14 @@ class Topology():
                 current_molecule_name=molecule_name
                 current_molecule_type=molecule_type
 
-                try:
+                if current_molecule_name in entities:
 
                     current_entity_index = entities[current_molecule_name]['entity_index']
                     current_entity_id = entities[current_molecule_name]['entity_id']
                     current_entity_name = entities[current_molecule_name]['entity_name']
                     current_entity_type = entities[current_molecule_name]['entity_type']
 
-                except:
+                else:
 
                     current_entity_index = n_entities
                     current_entity_id = n_entities
