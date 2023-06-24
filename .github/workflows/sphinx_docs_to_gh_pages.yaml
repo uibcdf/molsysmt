@@ -37,7 +37,7 @@ jobs:
               - defaults
             channel_priority: strict
           create-args: >-
-            python="3.10"
+            python=="3.10"
 
       - name: Install package
         shell: bash -l {0}
