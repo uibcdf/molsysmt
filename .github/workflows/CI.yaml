@@ -61,7 +61,7 @@ jobs:
           channel_priority: strict
 
         create-args: >-
-          python==${{ matrix.cfg.python-version }}
+          python=${{ matrix.cfg.python-version }}
 
     - name: Install package
       shell: bash -l {0}
