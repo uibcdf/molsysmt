@@ -70,7 +70,7 @@ extensions = [
     'sphinx_design',
     'sphinx_favicon',
     'myst_nb',
-    'nbsphinx',
+    # 'nbsphinx', # for local testing instead of myst_nb
 ]
 
 # Myst extensions and options
