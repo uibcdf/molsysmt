@@ -11,9 +11,8 @@ def rotate(molecular_system, rotation=None, rotation_center=None, selection='all
     from molsysmt.basic import get, set, select
     from molsysmt.structure import translate
 
-    atom_indices = select(molecular_system, selection=selection, syntax=syntax)
-    coordinates = get(molecular_system, element='atom', indices=atom_indices, structure_indices=structure_indices,
-                      coordinates=True)
+    coordinates = get(molecular_system, element='atom', selection=selection, structure_indices=structure_indices,
+                      syntax=syntax, coordinates=True)
 
     if rotation_center is not None:
 
@@ -56,17 +55,17 @@ def rotate(molecular_system, rotation=None, rotation_center=None, selection='all
 
     if in_place:
 
-        set(molecular_system, indices='atom_index in @atom_indices', structure_indices=structure_indices,
-            coordinates=coordinates)
-        del(coordinates, rotation_center, atom_indices)
+        set(molecular_system, selection=selection, structure_indices=structure_indices,
+            syntax=syntax, coordinates=coordinates)
+        del(coordinates, rotation_center)
         gc.collect()
 
     else:
 
         tmp_molecular_system = copy(molecular_system)
-        set(tmp_molecular_system, indices='atom_index in @atom_indices', structure_indices=structure_indices,
-            coordinates=coordinates)
-        del(coordinates, rotation_center, atom_indices)
+        set(tmp_molecular_system, selection=selection, structure_indices=structure_indices,
+            syntax=syntax, coordinates=coordinates)
+        del(coordinates, rotation_center)
         gc.collect()
 
         return tmp_molecular_system

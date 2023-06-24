@@ -95,7 +95,7 @@ def get_coordinates_from_atom(item, indices='all', structure_indices='all'):
     if (indices is None) or (structure_indices is None):
         return None
 
-    tmp_coordinates = item.coordinates
+    tmp_coordinates = copy(item.coordinates)
 
     if not is_all(structure_indices):
         tmp_coordinates = tmp_coordinates[structure_indices,:,:]
@@ -111,7 +111,7 @@ def get_velocities_from_atom(item, indices='all', structure_indices='all'):
     if (indices is None) or (structure_indices is None):
         return None
 
-    tmp_velocities = item.velocities
+    tmp_velocities = copy(item.velocities)
 
     if not is_all(structure_indices):
         tmp_velocities = tmp_velocities[structure_indices,:,:]
@@ -127,7 +127,7 @@ def get_occupancy_from_atom(item, indices='all', structure_indices='all'):
     if (indices is None) or (structure_indices is None):
         return None
 
-    tmp_occupancy = item.occupancy
+    tmp_occupancy = copy(item.occupancy)
 
     if tmp_occupancy is not None:
 
@@ -146,7 +146,7 @@ def get_b_factor_from_atom(item, indices='all', structure_indices='all'):
     if (indices is None) or (structure_indices is None):
         return None
 
-    tmp_b_factor = item.b_factor
+    tmp_b_factor = copy(item.b_factor)
 
     if tmp_b_factor is not None:
 
@@ -375,7 +375,7 @@ def get_coordinates_from_system(item, structure_indices='all'):
         return None
 
     if is_all(structure_indices):
-        output=item.coordinates
+        output=copy(item.coordinates)
     else:
         output=item.coordinates[structure_indices,:,:]
     return output
@@ -387,7 +387,7 @@ def get_velocities_from_system(item, structure_indices='all'):
         return None
 
     if is_all(structure_indices):
-        output=item.velocities
+        output=copy(item.velocities)
     else:
         output=item.velocities[structure_indices,:,:]
     return output
@@ -401,7 +401,7 @@ def get_box_from_system(item, structure_indices='all'):
     output=None
     if item.box is not None:
         if is_all(structure_indices):
-            output=item.box
+            output=copy(item.box)
         else:
             output=item.box[structure_indices,:,:]
     return output
@@ -465,7 +465,7 @@ def get_time_from_system(item, structure_indices='all'):
         return None
 
     if is_all(structure_indices):
-        output = item.time
+        output = copy(item.time)
     else:
         output = item.time[structure_indices]
     return output
@@ -477,7 +477,7 @@ def get_structure_id_from_system(item, structure_indices='all'):
         return None
 
     if is_all(structure_indices):
-        output = item.structure_id
+        output = copy(item.structure_id)
     else:
         output = item.structure_id[structure_indices]
     return output

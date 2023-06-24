@@ -10,12 +10,6 @@ def mutate(molecular_system, mutations=None, keys='group_index', selection="all"
 
         from molsysmt.basic import get, convert, get_form, contains, select
 
-        if is_all(selection):
-            get_suffix = ''
-        else:
-            atom_indices_selection = select(molecular_system, element='atom', selection=selection, syntax=syntax)
-            get_suffix = ' and atom_index in @atom_indices_selection'
-
         if isinstance(mutations, (tuple, list)):
 
             group_indices = []
@@ -24,7 +18,7 @@ def mutate(molecular_system, mutations=None, keys='group_index', selection="all"
             for mutation_string in mutations:
                 old_group_name, group_id, new_group_name = mutation_string.split('-')
                 aux_index, group_name = get(molecular_system, element='group',
-                        selection='group_id=='+group_id+get_suffix,
+                        selection='group_id=='+group_id, mask=selection,
                         group_index=True, group_name=True)
                 if group_name[0].lower()!=old_group_name.lower():
                     raise ValueError(f'The group with id {group_id} is {group_name} and not {old_group_name}')
@@ -42,7 +36,7 @@ def mutate(molecular_system, mutations=None, keys='group_index', selection="all"
                 group_indices = []
                 for ii in group_ids:
                     aux_indices = get(molecular_system, element='group',
-                            selection='group_id==@ii'+get_suffix,
+                            selection='group_id==@ii', mask=selection,
                             group_index=True)
                     if aux_indices.shape[0]>1:
                         raise ValueError(f'There are multiple groups with the group_id: {ii}')
@@ -53,7 +47,7 @@ def mutate(molecular_system, mutations=None, keys='group_index', selection="all"
                 to_group_names = []
                 for from_name, to_name in mutations.items():
                     aux_indices = get(molecular_system, element='group',
-                            selection='group_name==@from_name'+get_suffix, group_index=True)
+                            selection='group_name==@from_name', mask=selection, group_index=True)
                     for aux_index in aux_indices:
                         group_indices.append(aux_index)
                         to_group_names.append(to_name)

@@ -50,8 +50,8 @@ def get_dihedral_quartets(molecular_system, with_blocks=False, selection='all',
             for quartet_index in range(n_quartets):
 
                 quartet = quartets[quartet_index]
-                component_index = get(molecular_system, element='atom', indices=quartet[1], component_index=True)[0]
-                component_atom_indices = get(molecular_system, element='component', indices=component_index,
+                component_index = get(molecular_system, element='atom', selection=quartet[1], component_index=True)[0]
+                component_atom_indices = get(molecular_system, element='component', selection=component_index,
                                              atom_index=True)[0]
                 tmp_blocks = get_covalent_blocks(molecular_system, remove_bonds=[quartet[1],
                     quartet[2]], output_type='sets')

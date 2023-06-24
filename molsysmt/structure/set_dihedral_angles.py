@@ -59,12 +59,12 @@ def set_dihedral_angles(molecular_system, quartets=None, angles=None, blocks=Non
         coordinates = puw.quantity(coordinates, length_unit)
 
         if in_place:
-            set(molecular_system, element='system', structure_indices=structure_indices, coordinates=coordinates)
+            set(molecular_system, structure_indices=structure_indices, coordinates=coordinates)
             del(coordinates)
             gc.collect()
         else:
             tmp_molecular_system = copy(molecular_system)
-            set(tmp_molecular_system, element='system', structure_indices=structure_indices, coordinates=coordinates)
+            set(tmp_molecular_system, structure_indices=structure_indices, coordinates=coordinates)
             del(coordinates)
             gc.collect()
             return tmp_molecular_system
