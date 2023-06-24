@@ -40,7 +40,6 @@ jobs:
             python="3.10"
 
       - name: Install package
-
         shell: bash -l {0}
         run: |
           python -m pip install . --no-deps
