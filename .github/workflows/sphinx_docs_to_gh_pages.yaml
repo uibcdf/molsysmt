@@ -44,11 +44,11 @@ jobs:
         run: |
           python -m pip install . --no-deps
 
-        - name: Info conda
-          shell: bash -l {0}
-          run: |
-            micromamba info
-            micromamba list
+      - name: Info conda
+        shell: bash -l {0}
+        run: |
+          micromamba info
+          micromamba list
 
       - name: Test import module
         shell: bash -l {0}
