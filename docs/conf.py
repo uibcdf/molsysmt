@@ -26,15 +26,6 @@ import molsysmt
 
 project = 'MolSysMT'
 copyright = ''
-#copyright = ("2022, UIBCDF Lab at the Mexico City Childrens Hospital Federico Gomez and authors."
-#             "Computational Molecular Science Python Cookiecutter version 1.5")
-author = 'Liliana M. Moreno Vargas & Diego Prada Gracia'
-author = """
-Liliana M. Moreno Vargas & Diego Prada Gracia | <a href= "mailto:uibcdf@gmail.com">Contáctanos</a>.
-<br>
-<a href="https://uibcdf.org">Unidad de Investigación en Biología Computacional y Diseño de Fármacos</a> del <a href=
-"http://himfg.com.mx">Hospital Infantil de México Federico Gómez.</a>
-"""
 
 
 # The short X.Y version
