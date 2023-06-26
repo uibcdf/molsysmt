@@ -13,8 +13,8 @@ jobs:
     strategy:
       fail-fast: false  # do not cancel all in-progress jobs if any job variation fails
       matrix:
-        os: [ubuntu-latest, macOS-latest] #[macOS-latest, ubuntu-latest]
-        python-version: ["3.8", "3.9"] # 3.10 with errors
+        os: ubuntu-latest #[macOS-latest, ubuntu-latest]
+        python-version: ["3.8", "3.9", "3.10"] # 3.10 with errors
 
     steps:
 
@@ -27,40 +27,27 @@ jobs:
       run: |
         uname -a
 
-    - name: Setup GNU Fortran
-      uses: modflowpy/install-gfortran-action@v1 # https://github.com/modflowpy/install-gfortran-action
-
-    - name: Checking gfortran version
-      run: |
-        gfortran --version
-
-        #- name: Conda environment creation and activation
-        #  uses: conda-incubator/setup-miniconda@v2
-        #  with:
-        #    python-version: ${{ matrix.python-version }}
-        #    environment-file: devtools/conda-envs/build_env.yaml    # Path to the build conda environment
-        #    #mamba-version: "*"
-        #    #use-mamba: false
-        #    auto-update-conda: false
-        #    auto-activate-base: false
-        #    show-channel-urls: true
-
     - name: Setup conda env
-      uses: mamba-org/provision-with-micromamba@main
+      uses: mamba-org/setup-micromamba@v1
       with:
         environment-file: devtools/conda-envs/build_env.yaml
         environment-name: build
-        channels: uibcdf, conda-forge, ambermd, defaults
+        condarc: |
+          channels:
+            - uibcdf
+            - conda-forge
+            - ambermd
+            - defaults
+          channel_priority: strict
 
-        extra-specs: |
-          python==${{ matrix.python-version }}
+        create-args: >-
+          python=${{ matrix.python-version }}
 
     - name: Info conda
       shell: bash -l {0}
       run: |
         micromamba info
         micromamba list
-
 
     - name: Build and upload the conda packages
       uses: uibcdf/action-build-and-upload-conda-packages@v1.2.0
@@ -70,5 +57,8 @@ jobs:
         mambabuild: false
         user: uibcdf
         label: auto
+        platform_linux-64: true
+        platform_osx-64: true
+        platform_win-64: false
         token: ${{ secrets.ANACONDA_UIBCDF_TOKEN }} # Replace with the right name of your secret
 
