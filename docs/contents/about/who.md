@@ -2,8 +2,8 @@
 
 MolSysMT is a project conceived and developed by the members of
 the [Computational Biology and Drug Design Research Unit
-(UIBCDF)](https://www.uibcdf.org/) at the [Mexican National Institute of Health
-- Children's Hospital of Mexico Federico Gómez](http://www.himfg.edu.mx/).
+(UIBCDF)](https://www.uibcdf.org/) at the 
+[Mexican National Institute of Health - Children's Hospital of Mexico Federico Gómez](http://www.himfg.edu.mx/).
 
 ## Authors
 

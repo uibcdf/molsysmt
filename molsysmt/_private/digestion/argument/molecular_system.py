@@ -22,6 +22,7 @@ def digest_molecular_system(molecular_system, caller=None):
             If the given object is not a molecular system.
     """
     from molsysmt.basic import is_a_molecular_system, are_multiple_molecular_systems
+    from molsysmt.basic import merge
 
     if isinstance(molecular_system, PosixPath):
         molecular_system = molecular_system.absolute().__str__()
@@ -35,7 +36,7 @@ def digest_molecular_system(molecular_system, caller=None):
         if is_a_molecular_system(molecular_system):
             return molecular_system
         elif are_multiple_molecular_systems(molecular_system):
-            return molecular_system
+            return merge(molecular_system, to_form='molsysmt.MolSys')
 
     if is_a_molecular_system(molecular_system):
         return molecular_system
