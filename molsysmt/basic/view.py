@@ -106,7 +106,6 @@ def view(molecular_system=None, selection='all', structure_indices='all',
 
     """
 
-    _view_from_htmlfiles=False
     if _view_from_htmlfiles:
         if 'nglview_htmlfile' in stack()[2][0].f_locals:
             htmlfile = stack()[2][0].f_locals['nglview_htmlfile']

@@ -34,10 +34,13 @@ def set_default_standard_units(standards=['nm', 'ps', 'K', 'mole', 'amu', 'e',
     from molsysmt import pyunitwizard as puw
     puw.configure.set_standard_units(standards)
 
-# NGLview and Sphinx
+# Sphinx
 
 # Is sphinx working?
 from os import environ
-_view_from_htmlfiles=('SPHINXWORKING' in environ)
+_sphinx_is_working = ('SPHINXWORKING' in environ)
 del(environ)
+
+# NGLview
+_view_from_htmlfiles=False
 
