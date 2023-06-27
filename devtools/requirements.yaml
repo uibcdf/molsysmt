@@ -66,6 +66,8 @@ development:
     - *test_dependencies
     - *docs_dependencies
     - jupyterlab
+      #    - ipympl
+    - plotly
 
 conda-build:
   channels:
