@@ -74,6 +74,8 @@ myst_enable_extensions = [
 
 myst_heading_anchors = 3
 
+nb_execution_timeout = 100
+
 # -- Options for autodoc ----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/extensions/autodoc.html#configuration
 

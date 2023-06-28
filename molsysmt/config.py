@@ -43,4 +43,6 @@ del(environ)
 
 # NGLview
 _view_from_htmlfiles=False
+if _sphinx_is_working:
+    _view_from_htmlfiles=True
 

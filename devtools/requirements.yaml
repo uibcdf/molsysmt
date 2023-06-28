@@ -47,6 +47,7 @@ docs:
     - *production_channels
   dependencies: &docs_dependencies
     - *production_dependencies
+    - jupyterlab
     - sphinx
     - pydata-sphinx-theme
     - sphinxcontrib-bibtex
@@ -57,6 +58,7 @@ docs:
     - myst-nb
     - seaborn
     - nbsphinx
+    - plotly
 
 development:
   channels:
@@ -65,9 +67,6 @@ development:
     - *production_dependencies
     - *test_dependencies
     - *docs_dependencies
-    - jupyterlab
-      #    - ipympl
-    - plotly
 
 conda-build:
   channels:
