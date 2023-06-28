@@ -4,6 +4,7 @@ channels:
 - ambermd
 - defaults
 dependencies:
+- python
 - pip
 - setuptools >=61.0
 - versioningit~=2.0
@@ -38,3 +39,4 @@ dependencies:
 - seaborn
 - nbsphinx
 - jupyterlab
+- plotly
