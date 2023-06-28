@@ -24,6 +24,7 @@ dependencies:
 - biopython
 - ipywidgets
 - tqdm
+- jupyterlab
 - sphinx
 - pydata-sphinx-theme
 - sphinxcontrib-bibtex
@@ -31,6 +32,8 @@ dependencies:
 - sphinx-copybutton
 - sphinx-design
 - sphinx-favicon
+- sphinx-tabs
 - myst-nb
 - seaborn
 - nbsphinx
+- plotly

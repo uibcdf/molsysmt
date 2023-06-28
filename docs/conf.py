@@ -60,6 +60,7 @@ extensions = [
     'sphinx_remove_toctrees',
     'sphinx_design',
     'sphinx_favicon',
+    'sphinx_tabs.tabs',
     'myst_nb',
     # 'nbsphinx', # for local testing instead of myst_nb
 ]
