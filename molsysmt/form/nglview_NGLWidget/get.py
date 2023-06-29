@@ -130,17 +130,20 @@ def get_coordinates_from_atom(item, indices='all', structure_indices='all'):
         n_structures = get_n_structures_from_system(item)
         structure_indices = np.arange(n_structures)
 
-    coordinates = []
-
-    for ii in structure_indices:
-        if is_all(indices):
-            coordinates.append(item.component_0.get_coordinates(ii))
-        else:
-            coordinates.append(item.component_0.get_coordinates(ii)[indices,:])
-
-    coordinates = np.array(coordinates)
-    coordinates = puw.quantity(coordinates, unit='angstroms')
-    coordinates = puw.standardize(coordinates)
+    if hasattr(item.component_0, 'get_coordinates'):
+        coordinates = []
+        for ii in structure_indices:
+            if is_all(indices):
+                coordinates.append(item.component_0.get_coordinates(ii))
+            else:
+                coordinates.append(item.component_0.get_coordinates(ii)[indices,:])
+        coordinates = np.array(coordinates)
+        coordinates = puw.quantity(coordinates, unit='angstroms')
+        coordinates = puw.standardize(coordinates)
+    else:
+        from ..string_pdb_text import get_coordinates_from_atom as aux_get
+        string_pdb_text = item.get_state()['_ngl_msg_archive'][0]['args'][0]['data']
+        coordinates = aux_get(string_pdb_text, indices=indices, structure_indices=structure_indices)
 
     return coordinates
 
@@ -403,7 +406,7 @@ def get_n_bonds_from_system(item):
 def get_n_structures_from_system(item, structure_indices='all'):
 
     if is_all(structure_indices):
-        n_structures = item.component_0.n_frames
+        n_structures = item.max_frame + 1
     else:
         n_structures = len(structure_indices)
 

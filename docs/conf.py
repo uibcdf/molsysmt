@@ -60,8 +60,8 @@ extensions = [
     'sphinx_remove_toctrees',
     'sphinx_design',
     'sphinx_favicon',
-    'sphinx_tabs.tabs',
     'myst_nb',
+    'sphinx_tabs.tabs', # Do not move from the last position
     # 'nbsphinx', # for local testing instead of myst_nb
 ]
 
@@ -163,10 +163,14 @@ html_theme_options = {
             "icon": "fa-brands fa-github",
         },
     ],
+    "github_user": "uibcdf",
+    "github_repo": "MolSysMT",
+    "github_version": "main",
+    "doc_path": "docs",
     "use_edit_page_button": False,
 }
 
-html_show_sourcelink = False
+html_show_sourcelink = True
 
 # Add any paths that contain custom themes here, relative to this directory.
 html_theme_path = []
@@ -198,6 +202,9 @@ html_css_files = [
     'custom.css',
 ]
 
+# Custom css for tabs
+def setup(app):
+    app.add_css_file('sphinx_tabs.css')
 
 # -- Options for HTMLHelp output ---------------------------------------------
 

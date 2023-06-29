@@ -410,7 +410,10 @@ def indices_to_selection(molecular_system, indices, element='atom', syntax=None)
         elif element=='group':
             from molsysmt import get
             group_ids, chain_ids = get(molecular_system, element='group', selection=indices, group_id=True, chain_id=True)
-            output_string = ' '.join([str(ii)+':'+str(jj) for ii,jj in zip(group_ids, chain_ids)])
+            if np.all(np.isin(np.unique(chain_ids), [' ', None])):
+                output_string = ','.join([str(ii) for ii in group_ids])
+            else:
+                output_string = ' '.join([str(ii)+':'+str(jj) for ii,jj in zip(group_ids, chain_ids)])
         elif element=='chain':
             from molsysmt import get
             chain_ids = get(molecular_system, element='chain', selection=indices, chain_id=True)
