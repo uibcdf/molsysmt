@@ -1,3 +1,5 @@
+.. _API Build:
+
 Build
 =====
 
@@ -11,7 +13,6 @@ Build
    add_missing_hydrogens
    add_missing_terminal_cappings
    build_peptide
-   get_atoms_with_alternate_locations
    get_missing_bonds
    get_missing_heavy_atoms
    get_missing_residues
@@ -21,6 +22,6 @@ Build
    make_bioassembly
    model_loop
    mutate
-   remove_atoms_with_alternate_locations
    solvate
+   solve_atoms_with_alternate_location
 

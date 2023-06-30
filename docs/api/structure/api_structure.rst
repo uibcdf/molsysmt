@@ -1,3 +1,5 @@
+.. _API Structure:
+
 Structure
 =========
 
@@ -21,7 +23,7 @@ Structure
    get_neighbors
    get_rmsd
    get_sasa
-   iterator
+   move_away
    rotate
    set_dihedral_angles
    shift_dihedral_angles
