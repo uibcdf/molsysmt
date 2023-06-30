@@ -170,7 +170,7 @@ html_theme_options = {
     "use_edit_page_button": False,
 }
 
-html_show_sourcelink = True
+html_show_sourcelink = False
 
 # Add any paths that contain custom themes here, relative to this directory.
 html_theme_path = []
