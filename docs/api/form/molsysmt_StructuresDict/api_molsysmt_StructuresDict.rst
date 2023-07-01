@@ -17,6 +17,9 @@ molsysmt.Structures
    TopologicalIterator
    merge
    set
-   to_molsysmt_StructuresDict
-   to_XYZ
+   to_file_trjpk
+   to_molsysmt_MolecularMechanics
+   to_molsysmt_MolSys
+   to_molsysmt_Structures
+   to_molsysmt_Topology
 

@@ -1,7 +1,7 @@
-molsysmt.Structures
-===================
+file:psf
+========
 
-.. currentmodule:: molsysmt.form.molsysmt_Structures
+.. currentmodule:: molsysmt.form.file_psf
 
 .. autosummary::
    :toctree: autosummary
@@ -17,6 +17,8 @@ molsysmt.Structures
    TopologicalIterator
    merge
    set
-   to_molsysmt_StructuresDict
-   to_XYZ
+   to_molsysmt_MolSys
+   to_molsysmt_Topology
+   to_openmm_CharmmPsfFile
+   to_openmm_Topology
 

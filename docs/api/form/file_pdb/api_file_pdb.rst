@@ -1,7 +1,7 @@
-molsysmt.MolSys
-===============
+file:pdb
+========
 
-.. currentmodule:: molsysmt.form.molsysmt_MolSys
+.. currentmodule:: molsysmt.form.file_pdb
 
 .. autosummary::
    :toctree: autosummary
@@ -9,36 +9,37 @@ molsysmt.MolSys
    add
    append_structures
    copy
+   download
    extract
    get
+   has_atoms_with_alternate_locations
    has_attribute
    is_form
    StructuresIterator
    TopologicalIterator
    merge
+   replace_HETATM_by_ATOM_in_terminal_cappings
    set
-   to_biopython_Seq
-   to_biopython_SeqRecord
-   to_file_msmpk
-   to_file_pdb
+   to_file_mol2
+   to_MDAnalysis_topology_PDBParser
+   to_MDAnalysis_Topology
+   to_MDAnalysis_Universe
+   to_mdtraj_PDBTrajectoryFile
    to_mdtraj_Topology
    to_mdtraj_Trajectory
-   to_molsysmt_MolecularMechanicsDict
-   to_molsysmt_MolecularMechanics
+   to_molsysmt_MolSys
    to_molsysmt_Structures
    to_molsysmt_Topology
    to_nglview_NGLWidget
-   to_openmm_Context
    to_openmm_Modeller
+   to_openmm_PDBFile
    to_openmm_Simulation
    to_openmm_System
    to_openmm_Topology
+   to_parmed_Structure
    to_pdbfixer_PDBFixer
    to_pytraj_Topology
    to_pytraj_Trajectory
-   to_string_aminoacids1
-   to_string_aminoacids3
    to_string_pdb_text
-   to_XYZ
 
 

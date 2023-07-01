@@ -1,7 +1,7 @@
-molsysmt.Structures
-===================
+file:msmpk
+==========
 
-.. currentmodule:: molsysmt.form.molsysmt_Structures
+.. currentmodule:: molsysmt.form.file_msmpk
 
 .. autosummary::
    :toctree: autosummary
@@ -9,6 +9,7 @@ molsysmt.Structures
    add
    append_structures
    copy
+   download
    extract
    get
    has_attribute
@@ -17,6 +18,8 @@ molsysmt.Structures
    TopologicalIterator
    merge
    set
-   to_molsysmt_StructuresDict
-   to_XYZ
+   to_molsysmt_MolSys
+   to_molsysmt_Structures
+   to_molsysmt_Topology
+   to_nglview_NGLWidget
 

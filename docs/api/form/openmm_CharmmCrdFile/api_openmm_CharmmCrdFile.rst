@@ -1,7 +1,7 @@
-molsysmt.Structures
-===================
+openmm.CharmmCrdFile
+====================
 
-.. currentmodule:: molsysmt.form.molsysmt_Structures
+.. currentmodule:: molsysmt.form.openmm_CharmmCrdFile
 
 .. autosummary::
    :toctree: autosummary
@@ -17,6 +17,4 @@ molsysmt.Structures
    TopologicalIterator
    merge
    set
-   to_molsysmt_StructuresDict
-   to_XYZ
 

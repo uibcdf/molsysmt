@@ -1,7 +1,7 @@
-molsysmt.Structures
-===================
+networkx.Graph
+==============
 
-.. currentmodule:: molsysmt.form.molsysmt_Structures
+.. currentmodule:: molsysmt.form.networkx_Graph
 
 .. autosummary::
    :toctree: autosummary
@@ -17,6 +17,4 @@ molsysmt.Structures
    TopologicalIterator
    merge
    set
-   to_molsysmt_StructuresDict
-   to_XYZ
 

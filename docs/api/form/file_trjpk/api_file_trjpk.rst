@@ -1,7 +1,7 @@
-molsysmt.Structures
-===================
+file:trjpk
+==========
 
-.. currentmodule:: molsysmt.form.molsysmt_Structures
+.. currentmodule:: molsysmt.form.file_trjpk
 
 .. autosummary::
    :toctree: autosummary
@@ -18,5 +18,4 @@ molsysmt.Structures
    merge
    set
    to_molsysmt_StructuresDict
-   to_XYZ
 

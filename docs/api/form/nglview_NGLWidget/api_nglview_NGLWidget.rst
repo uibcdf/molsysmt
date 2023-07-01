@@ -1,0 +1,27 @@
+nglview_NGLWidget
+=================
+
+.. currentmodule:: molsysmt.form.nglview_NGLWidget
+
+.. autosummary::
+   :toctree: autosummary
+
+   add
+   append_structures
+   copy
+   extract
+   get
+   has_attribute
+   is_form
+   StructuresIterator
+   TopologicalIterator
+   merge
+   set
+   to_molsysmt_MolSys
+   to_molsysmt_Structures
+   to_molsysmt_Topology
+   to_openmm_Topology
+   to_string_aminoacids1
+   to_string_aminoacids3
+   to_string_pdb_text
+

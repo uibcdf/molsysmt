@@ -1,7 +1,7 @@
-molsysmt.Structures
-===================
+openmm.AmberPrmtopFile
+======================
 
-.. currentmodule:: molsysmt.form.molsysmt_Structures
+.. currentmodule:: molsysmt.form.openmm_AmberPrmtopFile
 
 .. autosummary::
    :toctree: autosummary
@@ -17,6 +17,7 @@ molsysmt.Structures
    TopologicalIterator
    merge
    set
-   to_molsysmt_StructuresDict
-   to_XYZ
+   to_molsysmt_Topology
+   to_openmm_System
+   to_openmm_Topology
 

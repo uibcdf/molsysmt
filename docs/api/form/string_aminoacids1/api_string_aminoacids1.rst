@@ -1,7 +1,7 @@
-molsysmt.Structures
-===================
+string:aminoacids1
+==================
 
-.. currentmodule:: molsysmt.form.molsysmt_Structures
+.. currentmodule:: molsysmt.form.string_aminoacids1
 
 .. autosummary::
    :toctree: autosummary
@@ -17,6 +17,8 @@ molsysmt.Structures
    TopologicalIterator
    merge
    set
-   to_molsysmt_StructuresDict
-   to_XYZ
+   to_biopython_Seq
+   to_biopython_SeqRecord
+   to_string_aminoacids3
+
 

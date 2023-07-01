@@ -1,7 +1,7 @@
-molsysmt.Structures
-===================
+pytraj.Topology
+===============
 
-.. currentmodule:: molsysmt.form.molsysmt_Structures
+.. currentmodule:: molsysmt.form.pytraj_Topology
 
 .. autosummary::
    :toctree: autosummary
@@ -17,6 +17,6 @@ molsysmt.Structures
    TopologicalIterator
    merge
    set
-   to_molsysmt_StructuresDict
-   to_XYZ
+   to_molsysmt_Topology
+   to_pytraj_Trajectory
 

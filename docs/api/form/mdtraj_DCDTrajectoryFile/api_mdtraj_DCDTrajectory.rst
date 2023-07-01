@@ -1,7 +1,7 @@
-molsysmt.Structures
-===================
+mdtraj.DCDTrajectoryFile
+========================
 
-.. currentmodule:: molsysmt.form.molsysmt_Structures
+.. currentmodule:: molsysmt.form.mdtraj_DCDTrajectoryFile
 
 .. autosummary::
    :toctree: autosummary
@@ -17,6 +17,6 @@ molsysmt.Structures
    TopologicalIterator
    merge
    set
-   to_molsysmt_StructuresDict
-   to_XYZ
+   to_molsysmt_MolSys
+   to_molsysmt_Structures
 

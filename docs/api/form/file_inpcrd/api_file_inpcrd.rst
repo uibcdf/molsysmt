@@ -1,7 +1,7 @@
-molsysmt.Structures
-===================
+file:inpcrd
+===========
 
-.. currentmodule:: molsysmt.form.molsysmt_Structures
+.. currentmodule:: molsysmt.form.file_inpcrd
 
 .. autosummary::
    :toctree: autosummary
@@ -17,6 +17,6 @@ molsysmt.Structures
    TopologicalIterator
    merge
    set
-   to_molsysmt_StructuresDict
-   to_XYZ
+   to_molsysmt_Structures.py
+   to_openmm_AmberInpcrdFile.py
 

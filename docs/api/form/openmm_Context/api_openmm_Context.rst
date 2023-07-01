@@ -1,7 +1,7 @@
-molsysmt.Structures
-===================
+openmm.Context
+==============
 
-.. currentmodule:: molsysmt.form.molsysmt_Structures
+.. currentmodule:: molsysmt.form.openmm_Context
 
 .. autosummary::
    :toctree: autosummary
@@ -17,6 +17,6 @@ molsysmt.Structures
    TopologicalIterator
    merge
    set
-   to_molsysmt_StructuresDict
-   to_XYZ
+   to_molsysmt_Structures
+   to_openmm_System
 

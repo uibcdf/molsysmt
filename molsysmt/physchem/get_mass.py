@@ -3,7 +3,7 @@ from molsysmt import pyunitwizard as puw
 import numpy as np
 
 @digest()
-def mass(molecular_system, element ='atom', selection = 'all', syntax = 'MolSysMT'):
+def get_mass(molecular_system, element ='atom', selection = 'all', syntax = 'MolSysMT'):
 
     from molsysmt.basic import get
     from molsysmt.physchem.atoms.mass import physical, units

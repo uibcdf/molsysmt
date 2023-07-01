@@ -1,7 +1,7 @@
-molsysmt.Structures
-===================
+molsysmt.MolecularMechanicsDict
+===============================
 
-.. currentmodule:: molsysmt.form.molsysmt_Structures
+.. currentmodule:: molsysmt.form.molsysmt_MolecularMechanicsDict
 
 .. autosummary::
    :toctree: autosummary
@@ -17,6 +17,5 @@ molsysmt.Structures
    TopologicalIterator
    merge
    set
-   to_molsysmt_StructuresDict
-   to_XYZ
+   to_molsysmt_MolecularMechanics
 

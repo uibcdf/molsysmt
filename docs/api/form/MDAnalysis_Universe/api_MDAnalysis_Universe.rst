@@ -1,7 +1,7 @@
-molsysmt.Structures
+MDAnalysis.Universe
 ===================
 
-.. currentmodule:: molsysmt.form.molsysmt_Structures
+.. currentmodule:: molsysmt.form.MDAnalysis_Universe
 
 .. autosummary::
    :toctree: autosummary
@@ -17,6 +17,11 @@ molsysmt.Structures
    TopologicalIterator
    merge
    set
-   to_molsysmt_StructuresDict
-   to_XYZ
+   to_file_pdb
+   to_mdtraj_Trajectory
+   to_molsysmt_MolSys
+   to_molsysmt_Structures
+   to_molsysmt_Topology
+   to_nglview_NGLWidget
+
 
