@@ -2,7 +2,7 @@ from molsysmt._private.exceptions import NotImplementedMethodError
 from molsysmt._private.digestion import digest
 import numpy as np
 
-def buried_fraction(molecular_system, selection='all', definition='janin'):
+def get_buried_fraction(molecular_system, selection='all', definition='janin'):
 
     from molsysmt.basic import get
 

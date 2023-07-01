@@ -4,7 +4,7 @@ from molsysmt import pyunitwizard as puw
 import numpy as np
 
 @digest()
-def polarity(molecular_system, selection = 'all', syntax='MolSysMT', definition='grantham'):
+def get_polarity(molecular_system, selection = 'all', syntax='MolSysMT', definition='grantham'):
 
     from molsysmt.basic import get
 

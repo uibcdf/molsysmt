@@ -17,7 +17,6 @@
 | [Get neighbors](get_neighbors.ipynb) | Getting the list of neighboring elements or groups of elements of a molecular system from specific elements or group of elements of another molecular system |
 | [Get radius of gyration](get_radius_of_gyration.ipynb) | Getting radius of gyration of a molecular system |
 | [Get RMSD](get_radius_of_gyration.ipynb) | Getting the RMSD of a molecular system from a reference molecular system |
-| [Get SASA](get_sasa.ipynb) | Getting the solvent accesible surface area of a molecular system |
 | [Move away](move_away.ipynb) | Moving away a molecular system from another molecular system |
 | [Rotate](rotate.ipynb) | Rotating a molecular system |
 | [Set dihedral angles](set_dihedral_angles.ipynb) | Setting new dihedral angles values in a molecular system |
@@ -44,7 +43,6 @@
    get_neighbors.ipynb
    get_radius_of_gyration.ipynb
    get_rmsd.ipynb
-   get_sasa.ipynb
    move_away.ipynb
    rotate.ipynb   
    set_dihedral_angles.ipynb

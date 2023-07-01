@@ -29,7 +29,7 @@ Set of functions to explore and manipulate the structures of a molecular system.
 
 :::{grid-item-card} Periodic boundary conditions
 :columns: 3
-:link: structure/index.html
+:link: pbc/index.html
 Set of functions to work with the periodic boundary conditions of a molecular system.
 :::
 
@@ -65,6 +65,7 @@ Set of function to make the work with third libraries easier.
    topology/index.md
    structure/index.md
    pbc/index.md
+   physchem/index.md
    molecular_mechanics/index.md
    element/index.md
    thirds/index.md

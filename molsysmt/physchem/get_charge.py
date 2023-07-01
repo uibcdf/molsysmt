@@ -4,7 +4,7 @@ import numpy as np
 from molsysmt import pyunitwizard as puw
 
 @digest()
-def charge(molecular_system, element='group', selection='all', definition=None, engine='OpenMM',
+def get_charge(molecular_system, element='group', selection='all', definition=None, engine='OpenMM',
         syntax='MolSysMT'):
 
     if definition in ['physical_pH7', 'collantes']:

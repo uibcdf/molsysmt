@@ -4,7 +4,7 @@ from molsysmt import pyunitwizard as puw
 import numpy as np
 
 @digest()
-def atomic_radius(molecular_system, selection='all', definition='vdw'):
+def get_atomic_radius(molecular_system, selection='all', definition='vdw'):
 
     from molsysmt.basic import get
     from molsysmt.physico_chemical_properties.atoms.radius import units

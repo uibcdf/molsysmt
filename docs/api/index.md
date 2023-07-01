@@ -8,6 +8,7 @@
    build/api_build.rst
    topology/api_topology.rst
    structure/api_structure.rst
+   pbc/pbc.rst
    form/api_form.rst
    thirds/api_thirds.rst
 

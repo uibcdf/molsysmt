@@ -3,7 +3,7 @@ from molsysmt._private.exceptions import NotImplementedMethodError
 import numpy as np
 
 @digest()
-def transmembrane_tendency(molecular_system, selection='all', syntax='MolSysMT', definition='zhao'):
+def get_transmembrane_tendency(molecular_system, selection='all', syntax='MolSysMT', definition='zhao'):
 
     from molsysmt.basic import get
 

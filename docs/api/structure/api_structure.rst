@@ -22,7 +22,6 @@ Structure
    get_minimum_distances
    get_neighbors
    get_rmsd
-   get_sasa
    move_away
    rotate
    set_dihedral_angles

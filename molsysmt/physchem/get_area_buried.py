@@ -3,7 +3,7 @@ from molsysmt._private.digestion import digest
 import numpy as np
 
 @digest()
-def area_buried(molecular_system, selection='all', type='rose'):
+def get_area_buried(molecular_system, selection='all', type='rose'):
 
     from molsysmt.basic import get
 
