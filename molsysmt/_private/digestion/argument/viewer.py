@@ -16,7 +16,7 @@ def digest_viewer(viewer, caller=None):
 
     """
 
-    from molsysmt.viewer.viewers import lowercase_viewers
+    from molsysmt.supported.viewers import lowercase_viewers
 
     try:
         tmp_viewer = lowercase_viewers[viewer.lower()]

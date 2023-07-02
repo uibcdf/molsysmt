@@ -48,7 +48,6 @@ def test_view_molsyst_MolSys_with_NGLView_4():
     molsys_concatenated = msm.concatenate_structures([molsys_1, molsys_2])
     view = msm.view(molsys_concatenated, viewer='NGLView')
     comparison = msm.compare(view, molsys_concatenated, attributes_type='topological',
-            coordinates=True, box=True, entity_name=False, entity_id=False,
-            bond_index=False, inner_bond_index=False)
+            coordinates=True, box=True, bond_index=False, inner_bond_index=False)
     assert comparison
 

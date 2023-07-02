@@ -6,7 +6,7 @@ def to_string_aminoacids1(item, group_indices='all'):
     if item.startswith('aminoacids3:'):
         item = item[12:]
 
-    from molsysmt.element.group.aminoacid import get_1letter_code_from_name
+    from molsysmt.element.group.amino_acid import get_1_letter_code_from_name
     from molsysmt.element.group.terminal_capping import names as terminal_capping_names
 
     tmp_item = ''
@@ -15,7 +15,7 @@ def to_string_aminoacids1(item, group_indices='all'):
 
     for chunk in chunks:
         if chunk not in terminal_capping_names:
-            tmp_item += get_1letter_code_from_name(chunk)
+            tmp_item += get_1_letter_code_from_name(chunk)
 
     return tmp_item
 

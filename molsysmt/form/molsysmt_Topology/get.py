@@ -411,7 +411,7 @@ def get_n_aminoacids_from_atom(item, indices='all'):
         group_indices = get_group_index_from_atom (item, indices=indices)
         group_indices = np.unique(group_indices)
         group_types = get_group_type_from_group(item, indices=group_indices)
-        return (group_types=='aminoacid').sum()
+        return (group_types=='amino acid').sum()
 
 @digest(form=form)
 def get_n_nucleotides_from_atom(item, indices='all'):
@@ -849,7 +849,7 @@ def get_n_aminoacids_from_group(item, indices='all'):
         return get_n_aminoacids_from_system (item)
     else:
         group_types = get_group_type_from_group(item, indices=indices)
-        return (group_types=='aminoacid').sum()
+        return (group_types=='amino acid').sum()
 
 @digest(form=form)
 def get_n_nucleotides_from_group(item, indices='all'):

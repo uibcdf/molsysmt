@@ -4,8 +4,6 @@ import numpy as np
 
 def digest_mask(mask, caller=None):
 
-    from molsysmt.syntax.syntaxes import lowercase_syntaxes
-
     if caller in ['molsysmt.basic.select.select', 'molsysmt.basic.get.get']:
 
         if mask is None:

@@ -29,8 +29,8 @@ from . import build
 from . import supported
 from . import pbc
 from . import physchem
-from . import mm
-from . import md
+from . import molecular_mechanics
+from . import molecular_dynamics
 from . import hbonds
 from . import thirds
 

@@ -114,7 +114,7 @@ def view(molecular_system=None, selection='all', structure_indices='all',
                     return load_html_in_jupyter_notebook(htmlfile)
 
     from . import convert
-    from molsysmt.viewer.viewers import viewers_forms
+    from molsysmt.supported.viewers import viewers_forms
 
     form_viewer = viewers_forms[viewer]
 

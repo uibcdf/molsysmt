@@ -7,6 +7,7 @@ def get(molecular_system,
         element='system',
         selection='all',
         structure_indices='all',
+        mask=None,
         syntax='MolSysMT',
         output_type='values',
         **kwargs):
@@ -150,6 +151,8 @@ def get(molecular_system,
     if not isinstance(molecular_system, (list, tuple)):
         molecular_system = [molecular_system]
 
+
+
     # Correction from element='system' to element='atom' if:
     #   selection is not 'all' or indices is not None
     #   all attributes are attributable to atoms
@@ -164,9 +167,12 @@ def get(molecular_system,
             element = 'atom'
 
     if not is_all(selection):
-        indices = select(molecular_system, element=element, selection=selection, syntax=syntax)
+        indices = select(molecular_system, element=element, selection=selection, mask=mask, syntax=syntax)
     else:
-        indices = 'all'
+        if (mask is None) or (is_all(mask)):
+            indices = 'all'
+        else:
+            indices = select(molecular_system, element=element, selection=mask, syntax=syntax)
 
     output = []
 

@@ -33,7 +33,7 @@ def digest_engine(engine, caller=None):
 
     """
 
-    from molsysmt.engine.engines import lowercase_engines
+    from molsysmt.supported.engines import lowercase_engines
 
     if isinstance(engine, str):
         try:

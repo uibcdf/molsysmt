@@ -105,7 +105,6 @@ def info(molecular_system,
     """
 
     from . import get_form, get, convert, select
-    from molsysmt.element import elements_to_string
     from molsysmt.form import _piped_forms_in_info, _dict_modules
 
     form = get_form(molecular_system)
