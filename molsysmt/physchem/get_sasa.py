@@ -7,6 +7,9 @@ import numpy as np
 @digest()
 def get_sasa (molecular_system, element='atom', selection='all', structure_indices='all', syntax='MolSysMT',
           engine='MDTraj'):
+    """
+    To be written soon...
+    """
 
     if engine == 'MDTraj':
 

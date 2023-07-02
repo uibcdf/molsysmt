@@ -8,6 +8,9 @@ import gc
 @digest()
 def unwrap(molecular_system, selection='all', structure_indices='all',
         syntax='MolSysMT', engine='MolSysMT', in_place=False):
+    """
+    To be written soon...
+    """
 
     if engine=='MolSysMT':
 

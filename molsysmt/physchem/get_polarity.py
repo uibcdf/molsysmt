@@ -5,6 +5,9 @@ import numpy as np
 
 @digest()
 def get_polarity(molecular_system, selection = 'all', syntax='MolSysMT', definition='grantham'):
+    """
+    To be written soon...
+    """
 
     from molsysmt.basic import get
 

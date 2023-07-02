@@ -10,6 +10,9 @@ def wrap_to_mic(molecular_system, selection='all', structure_indices='all',
                 center_coordinates='[0,0,0] nanometers', center_of_selection=None, weights=None,
                 center_at_origin=True, keep_covalent_bonds=False,
                 syntax='MolSysMT', engine='MolSysMT', in_place=False):
+    """
+    To be written soon...
+    """
 
     if engine=='MolSysMT':
 

@@ -7,6 +7,9 @@ import warnings
 @digest()
 def get_missing_bonds(molecular_system, threshold='2 angstroms', selection='all',
                       structure_indices='all', syntax='MolSysMT', engine='MolSysMT'):
+    """
+    To be written soon...
+    """
 
     output = []
 

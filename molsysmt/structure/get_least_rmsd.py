@@ -10,6 +10,9 @@ import gc
 def get_least_rmsd(molecular_system, selection='atom_type!="H"', structure_indices='all',
           reference_molecular_system=None, reference_selection=None, reference_structure_indices=0,
           syntax='MolSysMT', engine='MolSysMT'):
+    """
+    To be written soon...
+    """
 
     if reference_molecular_system is None:
         reference_molecular_system = molecular_system

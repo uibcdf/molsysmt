@@ -3,7 +3,10 @@ from molsysmt._private.exceptions import NotImplementedMethodError
 import numpy as np
 
 @digest()
-def surface_area(molecular_system, selection='all', syntax='MolSysMT', definition='collantes'):
+def get_surface_area(molecular_system, selection='all', syntax='MolSysMT', definition='collantes'):
+    """
+    To be written soon...
+    """
 
     from molsysmt.basic import get
 

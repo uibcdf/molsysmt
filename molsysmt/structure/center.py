@@ -6,6 +6,9 @@ import numpy as np
 @digest()
 def center(molecular_system, selection='all', center_of_selection='all', weights=None, center_coordinates=None, structure_indices='all',
            syntax='MolSysMT', engine='MolSysMT', in_place=False):
+    """
+    To be written soon...
+    """
 
     from . import get_center
     from . import translate

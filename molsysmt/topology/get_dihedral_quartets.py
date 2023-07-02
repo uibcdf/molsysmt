@@ -4,6 +4,9 @@ import numpy as np
 @digest()
 def get_dihedral_quartets(molecular_system, with_blocks=False, selection='all',
                                syntax='MolSysMT', **kwargs):
+    """
+    To be written soon...
+    """
 
     # phi, psi, omega, chi1, chi2, chi3, chi4, chi5
 

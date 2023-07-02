@@ -6,6 +6,9 @@ import numpy as np
 def get_neighbors(molecular_system, selection="all", groups_of_atoms=None, group_behavior=None, structure_indices="all",
                   molecular_system_2=None, selection_2=None, groups_of_atoms_2=None, group_behavior_2=None, structure_indices_2=None,
                   threshold=None, n_neighbors=None, pbc=False, engine='MolSysMT', syntax='MolSysMT'):
+    """
+    To be written soon...
+    """
 
     from . import get_distances
     from molsysmt.basic import select

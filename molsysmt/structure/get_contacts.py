@@ -9,6 +9,9 @@ def get_contacts(molecular_system, selection=None, groups_of_atoms=None, group_b
                  selection_2=None, groups_of_atoms_2=None, group_behavior_2=None, structure_indices_2=None,
                  threshold='12 angstroms', pbc=False,
                  engine='MolSysMT', syntax='MolSysMT'):
+    """
+    To be written soon...
+    """
 
     from molsysmt.structure.get_distances import get_distances
 

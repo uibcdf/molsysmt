@@ -4,6 +4,9 @@ import numpy as np
 
 @digest()
 def get_transmembrane_tendency(molecular_system, selection='all', syntax='MolSysMT', definition='zhao'):
+    """
+    To be written soon...
+    """
 
     from molsysmt.basic import get
 

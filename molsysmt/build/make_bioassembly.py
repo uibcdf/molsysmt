@@ -3,6 +3,9 @@ import numpy as np
 
 @digest()
 def make_bioassembly(molecular_system, bioassembly, structure_indices=0, to_form=None):
+    """
+    To be written soon...
+    """
 
     from molsysmt.basic import extract, merge, get
     from molsysmt.structure import rotate, translate

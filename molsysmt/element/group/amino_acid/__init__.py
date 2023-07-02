@@ -1,0 +1,5 @@
+from .names import names
+from .get_amino_acid_type_from_name import get_amino_acid_type_from_name
+from .get_1_letter_code_from_name import get_1_letter_code_from_name
+from .is_amino_acid import is_amino_acid
+

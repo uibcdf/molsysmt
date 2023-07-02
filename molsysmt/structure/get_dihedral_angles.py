@@ -8,6 +8,9 @@ import gc
 @digest()
 def get_dihedral_angles(molecular_system, selection='all', quartets=None,
                         structure_indices='all', syntax='MolSysMT', pbc=False, **kwargs):
+    """
+    To be written soon...
+    """
 
     # phi, psi, omega, chi1, chi2, chi3, chi4, chi5
 

@@ -6,6 +6,9 @@ from networkx import connected_components
 @digest()
 def get_covalent_blocks(molecular_system, selection='all', remove_bonds=None, output_type='sets',
         syntax='MolSysMT'):
+    """
+    To be written soon...
+    """
 
     from molsysmt.basic import get
     from . import get_bondgraph

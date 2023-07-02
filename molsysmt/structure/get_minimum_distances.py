@@ -7,6 +7,9 @@ import gc
 def get_minimum_distances(molecular_system, selection="all", groups_of_atoms=None, group_behavior=None, as_entity=True, structure_indices="all",
                      molecular_system_2=None, selection_2=None, groups_of_atoms_2=None, group_behavior_2=None, as_entity_2=True, structure_indices_2=None,
                      pairs=False, pbc=False, engine='MolSysMT', syntax='MolSysMT'):
+    """
+    To be written soon...
+    """
 
     from . import get_distances
 

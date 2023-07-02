@@ -3,6 +3,9 @@ from molsysmt._private.digestion import digest
 @digest()
 def get_geometric_center(molecular_system, selection='all', groups_of_atoms=None,
         structure_indices='all', syntax='MolSysMT', engine='MolSysMT'):
+    """
+    To be written soon...
+    """
 
     from . import get_center
 

@@ -5,6 +5,9 @@ import numpy as np
 
 @digest()
 def get_atomic_radius(molecular_system, selection='all', definition='vdw'):
+    """
+    To be written soon...
+    """
 
     from molsysmt.basic import get
     from molsysmt.physico_chemical_properties.atoms.radius import units

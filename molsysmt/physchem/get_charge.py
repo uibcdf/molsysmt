@@ -6,6 +6,9 @@ from molsysmt import pyunitwizard as puw
 @digest()
 def get_charge(molecular_system, element='group', selection='all', definition=None, engine='OpenMM',
         syntax='MolSysMT'):
+    """
+    To be written soon...
+    """
 
     if definition in ['physical_pH7', 'collantes']:
 

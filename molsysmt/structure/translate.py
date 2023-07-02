@@ -6,6 +6,9 @@ import gc
 @digest()
 def translate(molecular_system, translation=None, selection='all', structure_indices='all',
         syntax='MolSysMT', in_place=False):
+    """
+    To be written soon...
+    """
 
     from molsysmt.basic import get, set, select, copy
 

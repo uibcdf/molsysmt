@@ -1,7 +1,5 @@
-.. _API Periodic boundary conditions:
-
-Periodic boundary conditions
-============================
+API Periodic boundary conditions
+================================
 
 .. currentmodule:: molsysmt.pbc
 

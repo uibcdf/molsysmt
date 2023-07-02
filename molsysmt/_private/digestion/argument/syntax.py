@@ -17,7 +17,7 @@ def digest_syntax(syntax, caller=None):
 
     """
 
-    from molsysmt.syntax.syntaxes import lowercase_syntaxes
+    from molsysmt.supported.syntaxes import lowercase_syntaxes
 
     if isinstance(syntax, str):
         if syntax.lower() in lowercase_syntaxes:

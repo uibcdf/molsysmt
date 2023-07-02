@@ -19,8 +19,9 @@ def solvate (molecular_system, box_shape="truncated octahedral", clearance='14.0
              ionic_strength='0.0 molar', engine="OpenMM",
              water_model='TIP3P', forcefield='AMBER14',
              to_form= None, verbose=False):
+    """
+    To be written soon...
 
-    """solvate(item, geometry=None, water=None, engine=None)
     Methods and wrappers to create and solvate boxes
     Parameters
     ----------

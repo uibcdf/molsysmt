@@ -3,7 +3,9 @@ from molsysmt._private.digestion import digest
 @digest()
 def add_missing_hydrogens(molecular_system, pH=7.4, forcefield='AMBER99SB-ILDN', engine='OpenMM'):
 
-    """add_missing_hydrogens(item, pH=7.4, forcefield='AMBER99SB-ILDN', engine='OpenMM')
+    """
+    To be written soon...
+
     The missing hydrogens of a molecular model are added. This method does not remove any hydrogen
     already present.
     Regarding the protonation states of the aminoacids the documentation corresponding to the

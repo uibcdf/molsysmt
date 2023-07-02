@@ -4,6 +4,9 @@ import numpy as np
 
 @digest()
 def get_mass(molecular_system, element ='atom', selection = 'all', syntax = 'MolSysMT'):
+    """
+    To be written soon...
+    """
 
     from molsysmt.basic import get
     from molsysmt.physchem.atoms.mass import physical, units

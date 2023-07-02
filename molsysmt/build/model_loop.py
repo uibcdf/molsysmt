@@ -2,6 +2,9 @@ from molsysmt._private.digestion import digest
 
 @digest()
 def model_loop (item, target_sequence=None, finesse=0, engine='modeller', verbose=False):
+    """
+    To be written soon...
+    """
 
     if engine=='modeller':
 

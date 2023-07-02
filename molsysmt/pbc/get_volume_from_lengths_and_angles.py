@@ -4,6 +4,9 @@ import numpy as np
 
 @digest()
 def get_volume_from_lengths_and_angles(box_lengths, box_angles):
+    """
+    To be written soon...
+    """
 
     from .get_box_from_lengths_and_angles import get_box_from_lengths_and_angles
     from .get_volume_from_box import get_volume_from_box

@@ -1,14 +1,13 @@
-.. _API Molecular mechanics:
-
-Molecular mechanics
-===================
+API Molecular mechanics
+=======================
 
 .. currentmodule:: molsysmt.mm
 
 .. autosummary::
    :toctree: autosummary
-   
-   forcefields
+  
+   forcefield_to_engine
+   get_forcefields
    get_potential_energy
    potential_energy_minimization
 

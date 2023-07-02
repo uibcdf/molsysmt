@@ -6,6 +6,9 @@ import numpy as np
 @digest()
 def solve_atoms_with_alternate_location(molecular_system, selection='all',
         structure_indices='all', location_id='occupancy', syntax='MolSysMT'):
+    """
+    To be written soon...
+    """
 
     from molsysmt import get, set, select
 

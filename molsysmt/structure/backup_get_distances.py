@@ -11,7 +11,8 @@ def get_distances(molecular_system, selection="all", groups_of_atoms=None, group
              pairs=False, crossed_structures=False, pbc=True, output_type='numpy.ndarray',
              output_with_atom_indices=False, output_with_structure_indices=False, engine='MolSysMT',
              syntax='MolSysMT'):
-    """get_distances(item, to_form='molsysmt.MolSys', selection='all', structure_indices='all', syntax='MolSysMT', **kwargs)
+    """
+    To be written soon...
 
     This is a sentence
 

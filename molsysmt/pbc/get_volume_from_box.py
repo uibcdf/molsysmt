@@ -4,6 +4,9 @@ import numpy as np
 
 @digest()
 def get_volume_from_box(box):
+    """
+    To be written soon...
+    """
 
     if box is not None:
         units = puw.get_unit(box)

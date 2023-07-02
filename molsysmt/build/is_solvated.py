@@ -3,6 +3,9 @@ from molsysmt import pyunitwizard as puw
 
 @digest()
 def is_solvated(molecular_system):
+    """
+    To be written soon...
+    """
 
     from molsysmt.basic import get
 

@@ -10,7 +10,8 @@ import gc
 def get_distances(molecular_system, selection="all", groups_of_atoms=None, group_behavior=None, structure_indices="all",
              molecular_system_2=None, selection_2=None, groups_of_atoms_2=None, group_behavior_2=None, structure_indices_2=None,
              pairs=False, pbc=True, engine='MolSysMT', syntax='MolSysMT'):
-    """get_distances(item, to_form='molsysmt.MolSys', selection='all', structure_indices='all', syntax='MolSysMT', **kwargs)
+    """
+    To be written soon...
 
     This is a sentence
 

@@ -1,7 +1,7 @@
 .. _API Basic:
 
-Basic
-=====
+API Basic
+=========
 
 .. currentmodule:: molsysmt.basic
 

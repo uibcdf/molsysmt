@@ -2,6 +2,9 @@ from molsysmt._private.digestion import digest
 
 @digest()
 def build_peptide (molecular_system, to_form='molsysmt.MolSys', engine='LEaP'):
+    """
+    To be written soon...
+    """
 
     if engine=="LEaP":
 

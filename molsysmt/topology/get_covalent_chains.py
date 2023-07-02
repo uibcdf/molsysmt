@@ -5,6 +5,9 @@ from molsysmt.basic import select
 
 @digest()
 def get_covalent_chains(molecular_system, chain=None, selection='all', syntax='MolSysMT'):
+    """
+    To be written soon...
+    """
 
     from . import get_bondgraph
 

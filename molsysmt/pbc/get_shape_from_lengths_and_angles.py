@@ -4,6 +4,9 @@ from molsysmt import pyunitwizard as puw
 
 @digest()
 def get_shape_from_lengths_and_angles(box_lengths, box_angles):
+    """
+    To be written soon...
+    """
 
     shape = None
 

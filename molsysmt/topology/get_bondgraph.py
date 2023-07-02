@@ -4,6 +4,10 @@ from networkx import Graph
 @digest()
 def get_bondgraph(molecular_system, nodes_name='atom_index', selection='all', syntax='MolSysMT',
               to_form='networkx.Graph'):
+    """
+    To be written soon...
+    """
+
 
     # tengo que incluir la forma NetworkX para convertir.
     # en el caso de convert, lo que obtengo es una red con el nombre de los nodos dado por la

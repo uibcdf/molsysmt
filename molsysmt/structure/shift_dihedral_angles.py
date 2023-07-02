@@ -5,6 +5,9 @@ from molsysmt import pyunitwizard as puw
 @digest()
 def shift_dihedral_angles(molecular_system, quartets=None, angles_shifts=None, blocks=None,
                           structure_indices='all', pbc=True, in_place=False, engine='MolSysMT'):
+    """
+    To be written soon...
+    """
 
     from . import get_dihedral_angles, set_dihedral_angles
     from molsysmt.basic import get

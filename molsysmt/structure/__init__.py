@@ -8,12 +8,12 @@ from .get_geometric_center import get_geometric_center
 from .get_center_of_mass import get_center_of_mass
 from .center import center
 from .translate import translate
-#from .move_away import move_away
+from .move_away import move_away
 from .rotate import rotate
 from .get_dihedral_angles import get_dihedral_angles
 from .set_dihedral_angles import set_dihedral_angles
 from .shift_dihedral_angles import shift_dihedral_angles
-#from .get_radius_of_gyration import get_radius_of_gyration
+from .get_radius_of_gyration import get_radius_of_gyration
 from .get_rmsd import get_rmsd
 from .get_least_rmsd import get_least_rmsd
 from .fit import fit

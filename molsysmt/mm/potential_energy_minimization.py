@@ -5,7 +5,10 @@ from molsysmt._private.digestion import digest
 def potential_energy_minimization(molecular_system, molecular_mechanics={'forcefield':'AMBER99SB-ILDN'}, method='L-BFGS',
         engine='OpenMM', to_form=None, inplace=False, verbose=True):
 
-    """potential_energy_minimization(molecular_system, ...)
+    """
+    To be written soon...
+
+    potential_energy_minimization(molecular_system, ...)
 
     A new structure is returned with the molecular model relaxed to the nearest potential energy local
     minimum.

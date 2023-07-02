@@ -2,6 +2,9 @@ from molsysmt._private.exceptions import *
 from molsysmt._private.digestion import *
 
 def add_missing_bonds(molecular_system, threshold='2 angstroms', engine='MolSysMT', check=True):
+    """
+    To be written soon...
+    """
 
     if check:
 

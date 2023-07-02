@@ -3,6 +3,9 @@ from molsysmt._private.digestion import digest
 import numpy as np
 
 def get_buried_fraction(molecular_system, selection='all', definition='janin'):
+    """
+    To be written soon...
+    """
 
     from molsysmt.basic import get
 

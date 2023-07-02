@@ -1,23 +1,6 @@
 ﻿molsysmt.structure.move\_away
 =============================
 
-.. automodule:: molsysmt.structure.move_away
+.. currentmodule:: molsysmt.structure
 
-   
-   
-   
-
-   
-   
-   
-
-   
-   
-   
-
-   
-   
-   
-
-
-
+.. autofunction:: move_away

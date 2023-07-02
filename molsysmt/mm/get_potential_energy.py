@@ -15,9 +15,8 @@ from molsysmt._private.digestion import digest
 
 @digest()
 def get_potential_energy(molecular_system, molecular_mechanics={'forcefield':'AMBER99SB-ILDN'}, engine='OpenMM'):
-
-    """get_potential_energy(molecular_system, ...)
-
+    """
+    To be written soon...
     """
 
     from molsysmt import convert, get_form, has_attribute

@@ -4,6 +4,9 @@ import numpy as np
 @digest()
 def get_sequence_identity(molecular_system, selection='all', reference_molecular_system=None,
                           reference_selection='all', syntax='MolSysMT', engine='Biopython'):
+    """
+    To be written soon...
+    """
 
     from molsysmt.topology.get_sequence_alignment import get_sequence_alignment
     from molsysmt.basic import select

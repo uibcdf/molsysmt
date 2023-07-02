@@ -1,7 +1,7 @@
 .. _API Build:
 
-Build
-=====
+API Build
+=========
 
 .. currentmodule:: molsysmt.build
 

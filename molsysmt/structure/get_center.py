@@ -9,6 +9,9 @@ import gc
 @digest()
 def get_center(molecular_system, selection='all', groups_of_atoms=None, weights=None,
         structure_indices='all', syntax='MolSysMT', engine='MolSysMT'):
+    """
+    To be written soon...
+    """
 
     from molsysmt.basic import select, get
 

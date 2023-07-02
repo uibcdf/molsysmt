@@ -29,6 +29,9 @@ donor_exclusion_rules = [
 
 def get_acceptor_atoms(molecular_system, selection='all',  inclusion_rules=[], exclusion_rules=[],
                        default_inclusion_rules=True, default_exclusion_rules=True, syntax='MolSysMT', engine='MolSysMT'):
+    """
+    To be written soon...
+    """
 
     engine = digest_engine(engine)
 
@@ -63,6 +66,9 @@ def get_acceptor_atoms(molecular_system, selection='all',  inclusion_rules=[], e
 def get_donor_atoms(molecular_system, selection='all',  inclusion_rules=[], exclusion_rules=[],
                     default_inclusion_rules=True, default_exclusion_rules=True,
                     syntax='MolSysMT', engine='MolSysMT', with_Hs=False):
+    """
+    To be written soon...
+    """
 
     from molsysmt.topology import get_covalent_chains
 

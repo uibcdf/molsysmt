@@ -7,6 +7,9 @@ import gc
 @digest()
 def rotate(molecular_system, rotation=None, rotation_center=None, selection='all', structure_indices='all',
         syntax='MolSysMT', in_place=False):
+    """
+    To be written soon...
+    """
 
     from molsysmt.basic import get, set, select
     from molsysmt.structure import translate

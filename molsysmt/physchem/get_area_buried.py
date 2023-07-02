@@ -4,6 +4,9 @@ import numpy as np
 
 @digest()
 def get_area_buried(molecular_system, selection='all', type='rose'):
+    """
+    To be written soon...
+    """
 
     from molsysmt.basic import get
 

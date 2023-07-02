@@ -1,7 +1,7 @@
 .. _API Topology:
 
-Topology
-========
+API Topology
+============
 
 .. currentmodule:: molsysmt.topology
 

@@ -156,6 +156,9 @@ switcher['LEaP'] = {
 }
 
 def get_forcefield(molecular_system, engine=None):
+    """
+    To be written soon...
+    """
 
     from molsysmt.basic import get
 
@@ -165,9 +168,12 @@ def get_forcefield(molecular_system, engine=None):
     elif forcefield is None:
         return None
     else:
-        return _translate_forcefield_to_engine(forcefield, engine, implicit_solvent=implicit_solvent, water_model=water_model)
+        return forcefield_to_engine(forcefield, engine, implicit_solvent=implicit_solvent, water_model=water_model)
 
-def _translate_forcefield_to_engine(forcefield, engine, implicit_solvent=None, water_model=None):
+def forcefield_to_engine(forcefield, engine, implicit_solvent=None, water_model=None):
+    """
+    To be written soon...
+    """
 
     forcefields_out=[]
 

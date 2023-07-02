@@ -1,7 +1,5 @@
-.. _API Physical and chemical properties:
-
-Physical and chemical properties
-================================
+API Physical and chemical properties
+====================================
 
 .. currentmodule:: molsysmt.physchem
 

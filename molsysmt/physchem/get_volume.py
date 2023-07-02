@@ -3,7 +3,10 @@ from molsysmt._private.exceptions import NotImplementedMethodError
 import numpy as np
 
 @digest()
-def volume(molecular_system, selection='all', syntax='MolSysMT', definition='grantham'):
+def get_volume(molecular_system, selection='all', syntax='MolSysMT', definition='grantham'):
+    """
+    To be written soon...
+    """
 
     from molsysmt.basic import get
 

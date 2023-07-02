@@ -2,7 +2,7 @@ from molsysmt._private.digestion import digest
 from .water import is_water
 from .ion import is_ion
 from .small_molecule import is_small_molecule
-from .aminoacid import is_aminoacid
+from .amino_acid import is_amino_acid
 from .terminal_capping import is_terminal_capping
 from .nucleotide import is_nucleotide
 from .lipid import is_lipid
@@ -19,8 +19,8 @@ def get_group_type_from_group_name(group_name):
         output = 'ion'
     elif is_small_molecule(group_name):
         output = 'small molecule'
-    elif is_aminoacid(group_name):
-        output = 'aminoacid'
+    elif is_amino_acid(group_name):
+        output = 'amino acid'
     elif is_terminal_capping(group_name):
         output = 'terminal capping'
     elif is_nucleotide(group_name):

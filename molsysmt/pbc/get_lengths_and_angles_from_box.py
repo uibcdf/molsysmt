@@ -4,6 +4,9 @@ from molsysmt import lib as msmlib
 
 @digest()
 def get_lengths_and_angles_from_box(box):
+    """
+    To be written soon...
+    """
 
     box_value, box_unit  = puw.get_value_and_unit(box)
     lengths_value, angles_value = msmlib.pbc.get_lengths_and_angles_from_box(box_value)

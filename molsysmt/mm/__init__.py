@@ -1,3 +1,3 @@
 from .potential_energy_minimization import potential_energy_minimization
 from .get_potential_energy import get_potential_energy
-from .forcefields import get_forcefield
+from .forcefields import get_forcefield, forcefield_to_engine

@@ -1,7 +1,7 @@
 .. _API Structure:
 
-Structure
-=========
+API Structure
+=============
 
 .. currentmodule:: molsysmt.structure
 
