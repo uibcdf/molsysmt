@@ -11,7 +11,7 @@ def rotate(molecular_system, rotation=None, rotation_center=None, selection='all
     To be written soon...
     """
 
-    from molsysmt.basic import get, set, select
+    from molsysmt.basic import get, set, select, copy
     from molsysmt.structure import translate
 
     coordinates = get(molecular_system, element='atom', selection=selection, structure_indices=structure_indices,

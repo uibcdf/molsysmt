@@ -23,7 +23,9 @@ def digest_bioassembly(bioassembly, caller=None):
                 raise ArgumentError('bioassembly', value=bioassembly, caller=caller, message=None)
 
         if caller=='molsysmt.build.make_bioassembly.make_bioassembly':
-            if isinstance(bioassembly, str):
+            if bioassembly is None:
+                return bioassembly
+            elif isinstance(bioassembly, str):
                 return bioassembly
             elif isinstance(bioassembly, dict):
                 right_format=True

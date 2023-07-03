@@ -2,7 +2,7 @@ from molsysmt._private.digestion import digest
 import numpy as np
 
 @digest()
-def make_bioassembly(molecular_system, bioassembly, structure_indices=0, to_form=None):
+def make_bioassembly(molecular_system, bioassembly=None, structure_indices=0, to_form=None):
     """
     To be written soon...
     """
@@ -10,7 +10,14 @@ def make_bioassembly(molecular_system, bioassembly, structure_indices=0, to_form
     from molsysmt.basic import extract, merge, get
     from molsysmt.structure import rotate, translate
 
-    if isinstance(bioassembly, str):
+    if bioassembly is None:
+
+        aux_bioassemblies = get(molecular_system, bioassembly=True)
+        bioassembly = list(aux_bioassemblies.keys())[0]
+        bioassembly = aux_bioassemblies[bioassembly]
+
+    elif isinstance(bioassembly, str):
+
         aux_bioassemblies = get(molecular_system, bioassembly=True)
         bioassembly = aux_bioassemblies[bioassembly]
 

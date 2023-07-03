@@ -68,6 +68,7 @@ development:
     - *production_dependencies
     - *test_dependencies
     - *docs_dependencies
+    - mamba
 
 conda-build:
   channels:
