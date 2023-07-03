@@ -14,7 +14,7 @@ mdtraj.Trajectory
    has_attribute
    is_form
    StructuresIterator
-   TopologicalIterator
+   TopologyIterator
    merge
    set
    to_biopython_Seq

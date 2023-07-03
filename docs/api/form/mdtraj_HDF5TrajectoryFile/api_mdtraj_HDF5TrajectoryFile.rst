@@ -14,7 +14,7 @@ mdtraj.HDF5TrajectoryFile
    has_attribute
    is_form
    StructuresIterator
-   TopologicalIterator
+   TopologyIterator
    merge
    set
    to_mdtraj_Topology

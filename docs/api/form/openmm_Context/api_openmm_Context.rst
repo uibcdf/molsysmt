@@ -14,7 +14,7 @@ openmm.Context
    has_attribute
    is_form
    StructuresIterator
-   TopologicalIterator
+   TopologyIterator
    merge
    set
    to_molsysmt_Structures

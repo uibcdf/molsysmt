@@ -16,7 +16,7 @@ file:pdb
    has_attribute
    is_form
    StructuresIterator
-   TopologicalIterator
+   TopologyIterator
    merge
    replace_HETATM_by_ATOM_in_terminal_cappings
    set

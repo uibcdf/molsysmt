@@ -14,7 +14,6 @@ file:xyznpy
    has_attribute
    is_form
    StructuresIterator
-   TopologicalIterator
    merge
    set
    to_XYZ

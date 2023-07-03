@@ -14,7 +14,6 @@ molsysmt.Structures
    has_attribute
    is_form
    StructuresIterator
-   TopologicalIterator
    merge
    set
    to_molsysmt_StructuresDict

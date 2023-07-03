@@ -1,7 +1,7 @@
-openmm.Modeller
-===============
+openmm.System
+=============
 
-.. currentmodule:: molsysmt.form.openmm_Modeller
+.. currentmodule:: molsysmt.form.openmm_System
 
 .. autosummary::
    :toctree: autosummary
@@ -14,16 +14,9 @@ openmm.Modeller
    has_attribute
    is_form
    StructuresIterator
-   TopologicalIterator
+   TopologyIterator
    merge
    set
-   to_file_pdb
-   to_molsysmt_MolSys
-   to_molsysmt_Structures
-   to_molsysmt_Topology
-   to_molsysmt_Trajectory
    to_openmm_Context
-   to_openmm_Modeller
-   to_openmm_Topology
-   to_pdbfixer_PDBFixer
+   to_openmm_Simulation
 

@@ -1,7 +1,7 @@
 molsysmt.Structures
 ===================
 
-.. currentmodule:: molsysmt.form.molsysmt_Structures
+.. currentmodule:: molsysmt.form.molsysmt_StructuresDict
 
 .. autosummary::
    :toctree: autosummary
@@ -14,7 +14,6 @@ molsysmt.Structures
    has_attribute
    is_form
    StructuresIterator
-   TopologicalIterator
    merge
    set
    to_file_trjpk

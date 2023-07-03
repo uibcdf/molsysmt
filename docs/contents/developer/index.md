@@ -20,8 +20,8 @@
 .. toctree::
    :caption: Documentation
 
-   api/index.md
-   web/index.md
+   documentation/api/index.md
+   documentation/web/index.md
 
 ```
 

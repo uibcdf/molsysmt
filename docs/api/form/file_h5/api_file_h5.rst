@@ -14,16 +14,16 @@ file:h5
    has_attribute
    is_form
    StructuresIterator
-   TopologicalIterator
+   TopologyIterator
    merge
    set
-   to_file_pdb.py
-   to_mdtraj_HDF5TrajectoryFile.py
-   to_mdtraj_Topology.py
-   to_mdtraj_Trajectory.py
-   to_molsysmt_MolSys.py
-   to_molsysmt_Structures.py
-   to_molsysmt_Topology.py
-   to_nglview_NGLWidget.py
-   to_openmm_Topology.py
+   to_file_pdb
+   to_mdtraj_HDF5TrajectoryFile
+   to_mdtraj_Topology
+   to_mdtraj_Trajectory
+   to_molsysmt_MolSys
+   to_molsysmt_Structures
+   to_molsysmt_Topology
+   to_nglview_NGLWidget
+   to_openmm_Topology
 

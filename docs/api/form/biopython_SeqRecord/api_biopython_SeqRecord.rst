@@ -7,12 +7,11 @@ biopython.SeqRecord
    :toctree: autosummary
 
    add
-   copy
    extract
    get
    has_attribute
    is_form
-   TopologicalIterator
+   TopologyIterator
    merge
    set
 

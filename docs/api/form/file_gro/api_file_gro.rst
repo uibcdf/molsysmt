@@ -14,7 +14,7 @@ file:gro
    has_attribute
    is_form
    StructuresIterator
-   TopologicalIterator
+   TopologyIterator
    merge
    set
    to_mdtraj_GroTrajectoryFile

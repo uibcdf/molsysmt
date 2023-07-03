@@ -9,13 +9,12 @@ file:msmpk
    add
    append_structures
    copy
-   download
    extract
    get
    has_attribute
    is_form
    StructuresIterator
-   TopologicalIterator
+   TopologyIterator
    merge
    set
    to_molsysmt_MolSys

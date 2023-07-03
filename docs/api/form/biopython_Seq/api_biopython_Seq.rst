@@ -12,7 +12,7 @@ biopython.Seq
    get
    has_attribute
    is_form
-   TopologicalIterator
+   TopologyIterator
    merge
    set
    to_biopython_SeqRecord

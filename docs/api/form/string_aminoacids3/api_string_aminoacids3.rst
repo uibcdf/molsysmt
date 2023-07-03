@@ -13,8 +13,7 @@ string:aminoacids3
    get
    has_attribute
    is_form
-   StructuresIterator
-   TopologicalIterator
+   TopologyIterator
    merge
    set
    to_biopython_Seq

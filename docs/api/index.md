@@ -43,7 +43,7 @@ API of the module of functions to get physical and chemical attributes of a mole
 
 :::{grid-item-card} API Molecular mechanics
 :columns: 3
-:link: mm/api_mm.html
+:link: molecular_mechanics/api_molecular_mechanics.html
 API of the set of functions to work the molecular mechanics of a molecular system is found.
 :::
 
@@ -55,7 +55,7 @@ API of the set of functions to analyse hydrogen bonds.
 
 :::{grid-item-card} API Molecular Dynamics
 :columns: 3
-:link: md/api_md.html
+:link: md/api_molecular_dynamics.html
 API of the set of functions to analyse molecular dynamics trajectories.
 :::
 
@@ -91,9 +91,9 @@ Set of function to make the work with third libraries easier.
    structure/api_structure
    pbc/api_pbc
    physchem/api_physchem
-   mm/api_mm
+   molecular_mechanics/api_molecular_mechanics
    hbonds/api_hbonds
-   md/api_md
+   molecular_dynamics/api_molecular_dynamics
    element/api_element
    form/api_form
    thirds/api_thirds

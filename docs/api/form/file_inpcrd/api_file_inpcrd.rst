@@ -14,9 +14,8 @@ file:inpcrd
    has_attribute
    is_form
    StructuresIterator
-   TopologicalIterator
    merge
    set
-   to_molsysmt_Structures.py
-   to_openmm_AmberInpcrdFile.py
+   to_molsysmt_Structures
+   to_openmm_AmberInpcrdFile
 

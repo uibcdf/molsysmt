@@ -22,8 +22,8 @@ Form
    file_trjpk/api_file_trjpk.rst
    file_xtc/api_file_xtc.rst
    file_xyznpy/api_file_xyznpy.rst
-   mdanalysis_Topology/api_mdanalysis_Topology.rst
-   mdanalysis_Universe/api_mdanalysis_Universe.rst
+   MDAnalysis_Topology/api_MDAnalysis_Topology.rst
+   MDAnalysis_Universe/api_MDAnalysis_Universe.rst
    mdtraj_DCDTrajectoryFile/api_mdtraj_DCDTrajectoryFile.rst
    mdtraj_HDF5TrajectoryFile/api_mdtraj_HDF5TrajectoryFile.rst
    mdtraj_Topology/api_mdtraj_Topology.rst

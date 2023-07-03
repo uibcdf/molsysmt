@@ -15,7 +15,7 @@ file:mmtf
    has_attribute
    is_form
    StructuresIterator
-   TopologicalIterator
+   TopologyIterator
    merge
    set
    to_file_pdb

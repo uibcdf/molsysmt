@@ -71,12 +71,12 @@ API of the set of functions to examine waters.
 
    amino_acid/api_amino_acid.rst
    ion/api_ion.rst
-   lipid/lipid.rst
-   nucleotide/nucleotide.rst
-   saccharide/saccharide.rst
-   small_molecule/small_molecule.rst
-   terminal_capping/terminal_capping.rst
-   water/water.rst
+   lipid/api_lipid.rst
+   nucleotide/api_nucleotide.rst
+   saccharide/api_saccharide.rst
+   small_molecule/api_small_molecule.rst
+   terminal_capping/api_terminal_capping.rst
+   water/api_water.rst
 ```
 
 
