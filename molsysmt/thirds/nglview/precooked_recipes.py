@@ -31,7 +31,7 @@ def standardize_view (view, atom_indices='all', structure_indices='all'):
     peptides_to_licorice = []
     for peptide_index in peptide_indices:
         n_groups = get(tmp_topology, element='molecule', selection=peptide_index, n_groups=True)[0]
-        if n_groups > 5:
+        if n_groups >7: # two turns of alpha-helix
             peptides_to_cartoon.append(peptide_index)
         else:
             peptides_to_licorice.append(peptide_index)
