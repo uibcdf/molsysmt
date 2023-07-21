@@ -102,6 +102,62 @@ def select_bonded_to(molecular_system, selection, syntax):
 
     return output
 
+
+def select_groups_of(molecular_system, selection, syntax):
+
+    from molsysmt.basic import get
+
+    selection=selection.replace('groups of ', '')
+
+    output = get(molecular_system, element='group', selection=selection, atom_index=True)
+
+    return output
+
+
+def select_components_of(molecular_system, selection, syntax):
+
+    from molsysmt.basic import get
+
+    selection=selection.replace('components of ', '')
+
+    output = get(molecular_system, element='component', selection=selection, atom_index=True)
+
+    return output
+
+
+def select_molecules_of(molecular_system, selection, syntax):
+
+    from molsysmt.basic import get
+
+    selection=selection.replace('molecules of ', '')
+
+    output = get(molecular_system, element='molecule', selection=selection, atom_index=True)
+
+    return output
+
+
+def select_chains_of(molecular_system, selection, syntax):
+
+    from molsysmt.basic import get
+
+    selection=selection.replace('chains of ', '')
+
+    output = get(molecular_system, element='chain', selection=selection, atom_index=True)
+
+    return output
+
+
+def select_entities_of(molecular_system, selection, syntax):
+
+    from molsysmt.basic import get
+
+    selection=selection.replace('entities of ', '')
+
+    output = get(molecular_system, element='entity', selection=selection, atom_index=True)
+
+    return output
+
+
 @digest()
 def select(molecular_system, selection='all', structure_indices='all', element='atom',
         mask=None, syntax='MolSysMT', to_syntax=None):
@@ -226,6 +282,22 @@ def select(molecular_system, selection='all', structure_indices='all', element='
                                          structure_indices=structure_indices, syntax=syntax)
         elif 'bonded to' in selection:
             atom_indices = select_bonded_to(molecular_system, selection=selection, syntax=syntax)
+
+        elif selection.startswith('groups of'):
+            atom_indices = select_groups_of(molecular_system, selection=selection, syntax=syntax)
+
+        elif selection.startswith('components of'):
+            atom_indices = select_components_of(molecular_system, selection=selection, syntax=syntax)
+
+        elif selection.startswith('molecules of'):
+            atom_indices = select_molecules_of(molecular_system, selection=selection, syntax=syntax)
+
+        elif selection.startswith('chains of'):
+            atom_indices = select_chains_of(molecular_system, selection=selection, syntax=syntax)
+
+        elif selection.startswith('entities of'):
+            atom_indices = select_entities_of(molecular_system, selection=selection, syntax=syntax)
+
         else:
             atom_indices = select_standard(molecular_system, selection=selection, syntax=syntax)
 
