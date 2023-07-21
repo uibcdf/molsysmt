@@ -1,6 +1,14 @@
 Form
 ====
 
+.. currentmodule:: molsysmt.form
+
+.. autosummary::
+   :toctree: autosummary
+  
+   get_attributes
+   has_attribute
+
 .. toctree::
    :name: form
    :caption: Form

@@ -7,7 +7,7 @@ def add_missing_heavy_atoms(molecular_system, selection='all', syntax='MolSysMT'
     To be written soon...
     """
 
-    from molsysmt.basic import get_form, convert, select
+    from molsysmt.basic import get_form, convert, select, get_attributes
 
     output_molecular_system = None
     form_in = get_form(molecular_system)
@@ -15,7 +15,11 @@ def add_missing_heavy_atoms(molecular_system, selection='all', syntax='MolSysMT'
 
     if engine=="PDBFixer":
 
+        attributes = get_attributes(molecular_system)
+
         temp_molecular_system = convert(molecular_system, to_form="pdbfixer.PDBFixer")
+
+        temp_attributes = get_attributes(temp_molecular_system)
 
         temp_molecular_system.findMissingResidues()
         temp_molecular_system.findMissingAtoms()

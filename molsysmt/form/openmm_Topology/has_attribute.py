@@ -7,5 +7,11 @@ def has_attribute(molecular_system, attribute):
 
     output = attributes[attribute]
 
+
+
+    if attribute in ['box', 'box_shape', 'box_angles', 'box_lengths', 'box_volume']:
+        if molecular_system.getPeriodicBoxVectors() is None:
+            output = False
+
     return output
 

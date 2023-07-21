@@ -1,19 +1,18 @@
 # If digest is used in this method, other methods become slower
 
-def get_attributes(molecular_system, output_type='dictionary'):
+def get_attributes(form, output_type='dictionary'):
     """
-    Getting the list of attributes with value of a molecular system.
+    Getting the list of attributes of a molecular system's form.
 
     The function returns a dictionary with all attribute names as keys and True or False as values
-    reporting whether or not the attribute is in the input molecular system.
+    reporting whether or not the attribute is in the molecular system's form.
 
 
     Parameters
     ----------
 
-    molecular_system : molecular system
-        Molecular system in any of :ref:`the supported forms
-        <Introduction_Forms>` to be checked by the function.
+    form : str, list or tuple of str
+        Any of :ref:`the supported forms <Introduction_Forms>` by MolSysMT, or a list of them.
 
     output_type : {'dictionary', 'list'}, default 'dictionary'
 
@@ -22,9 +21,9 @@ def get_attributes(molecular_system, output_type='dictionary'):
     dict, list
         If ``output_type=='dictionary'`` a dictionary is returned with all
         attribute names as keys and booleans as values: True if the attribute
-        is found in the molecular system, False otherwise.
+        is in the input molecular system's form, False otherwise.
         If ``output_type=='list'`` a list is returned with all
-        attribute names in the molecular system.
+        attribute names in the molecular system's form.
 
 
     Raises
@@ -35,7 +34,7 @@ def get_attributes(molecular_system, output_type='dictionary'):
         is introduced with a not supported form.
 
 
-    .. versionadded:: 0.5.0
+    .. versionadded:: 0.8.3
 
 
     Notes
@@ -51,39 +50,38 @@ def get_attributes(molecular_system, output_type='dictionary'):
     The following example illustrates the use of the function.
 
     >>> import molsysmt as msm
-    >>> from molsysmt.systems import demo
-    >>> molecular_system = msm.basic.convert(demo['T4 lysozyme L99A']['181l.mmtf'])
-    >>> dict_attributes = msm.basic.get_attributes(molecular_system)
+    >>> dict_attributes = msm.form.get_attributes('file:mmtf')
     >>> dict_attributes['box']
     True
     >>> dict_attributes['forcefield']
     False
+    >>> dict_attributes = msm.form.get_attributes(['file:mmtf','molsysmt.MolecularMechanicsDict'])
+    >>> dict_attributes['box']
+    True
+    >>> dict_attributes['forcefield']
+    True
 
 
     .. admonition:: User guide
 
        Follow this link for a tutorial on how to work with this function:
-       :ref:`User Guide > Tools > Basic > Get attributes <Tutorial_Get_attributes>`.
+       :ref:`User Guide > Tools > Form > Get attributes <UTF_Get_attributes>`.
 
 
     """
 
-    from . import get_form
-    from molsysmt.form import _dict_modules
+    from . import _dict_modules
     from molsysmt.attribute.attributes import attributes as _all_attributes
 
-    if not isinstance(molecular_system, (list, tuple)):
-        molecular_system = [molecular_system]
-
-    forms_in = get_form(molecular_system)
+    if not isinstance(form, (list, tuple)):
+        form = [form]
 
     output = {ii:False for ii in _all_attributes}
 
-    for form_in, item in zip(forms_in, molecular_system):
-        for key, value in  _dict_modules[form_in].attributes.items():
+    for aux_form in form:
+        for key, value in  _dict_modules[aux_form].attributes.items():
             if value:
-                if _dict_modules[form_in].has_attribute(item, key):
-                    output[key]=value
+                output[key]=value
 
     if output_type=='dictionary':
         return output

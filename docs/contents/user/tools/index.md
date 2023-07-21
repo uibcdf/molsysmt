@@ -45,6 +45,12 @@ Set of functions to work the molecular mechanics of a molecular system is found.
 Set of functions to work with the different elements of a molecular system.
 :::
 
+:::{grid-item-card} Form
+:columns: 3
+:link: form/index.html
+Set of functions to work with molecular systems' form, and functions to work with specific forms of molecular systems.
+:::
+
 :::{grid-item-card} Thirds
 :columns: 3
 :link: thirds/index.html
@@ -68,5 +74,6 @@ Set of function to make the work with third libraries easier.
    physchem/index.md
    molecular_mechanics/index.md
    element/index.md
+   form/index.md
    thirds/index.md
 ```
