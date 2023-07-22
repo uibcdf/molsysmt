@@ -98,9 +98,9 @@ class Topology():
 
             tmp_item.atoms_dataframe.index=tmp_item.atoms_dataframe['atom_index'].to_numpy()
 
-            tmp_item._build_components()
+            #tmp_item._build_components()
 
-            for column in ['group_index', 'molecule_index', 'chain_index', 'entity_index']:
+            for column in ['group_index', 'component_index', 'molecule_index', 'chain_index', 'entity_index']:
                 aux_array=tmp_item.atoms_dataframe[column].to_numpy()
                 old_index=-1
                 count=-1

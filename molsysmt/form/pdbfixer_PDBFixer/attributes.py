@@ -15,14 +15,11 @@ attributes['group_id'] = True
 attributes['group_name'] = True
 attributes['group_type'] = True
 attributes['component_index'] = True
+attributes['component_type'] = True
 attributes['molecule_index'] = True
-attributes['molecule_id'] = True
-attributes['molecule_name'] = True
 attributes['molecule_type'] = True
 attributes['chain_index'] = True
 attributes['chain_id'] = True
-attributes['chain_name'] = True
-attributes['chain_type'] = True
 attributes['n_atoms'] = True
 attributes['n_groups'] = True
 attributes['n_components'] = True
@@ -49,7 +46,11 @@ attributes['bond_id'] = True
 attributes['bond_type'] = True
 attributes['bond_order'] = True
 attributes['bonded_atoms'] = True
-attributes['n_bonds'] = True     
+attributes['inner_bond_index'] = True
+attributes['inner_bonded_atoms'] = True
+attributes['n_bonds'] = True
+attributes['n_inner_bonds'] = True
+
 
 ###
 ### STRUCTURAL ATTRIBUTES

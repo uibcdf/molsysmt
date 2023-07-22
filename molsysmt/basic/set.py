@@ -5,6 +5,7 @@ import numpy as np
 
 @digest()
 def set(molecular_system,
+        element=None,
         selection='all',
         structure_indices='all',
         syntax='MolSysMT',
@@ -114,33 +115,58 @@ def set(molecular_system,
     in_attributes = value_of_in_attribute.keys()
 
     element_indices = {}
-    for in_attribute in in_attributes:
-        if attributes[in_attribute]['runs_on_elements']:
-            element = attributes[in_attribute]['set_to']
-            if element not in element_indices:
-                if is_all(selection):
-                    element_indices[element] = 'all'
-                else:
-                    element_indices[element] = select(molecular_system, element=element, selection=selection,
-                                                      syntax=syntax)
 
-    # doing the work here
+    if element is None:
 
-    for in_attribute in in_attributes:
-
-        element = attributes[in_attribute]['set_to']
-
-        dict_indices = {}
-        if element != 'system':
+        for in_attribute in in_attributes:
             if attributes[in_attribute]['runs_on_elements']:
-                dict_indices['indices'] = element_indices[element]
-        if attributes[in_attribute]['runs_on_structures']:
-            dict_indices['structure_indices'] = structure_indices
+                element = attributes[in_attribute]['set_to']
+                if element not in element_indices:
+                    if is_all(selection):
+                        element_indices[element] = 'all'
+                    else:
+                        element_indices[element] = select(molecular_system, element=element, selection=selection,
+                                                          syntax=syntax)
 
-        item, form = where_is_attribute(molecular_system, in_attribute, check_if_None=False)
-        in_value = value_of_in_attribute[in_attribute]
-        set_function = getattr(_dict_modules[form], f'set_{in_attribute}_to_{element}')
-        set_function(item, **dict_indices, value=in_value)
+        for in_attribute in in_attributes:
+
+            element = attributes[in_attribute]['set_to']
+
+            dict_indices = {}
+            if element != 'system':
+                if attributes[in_attribute]['runs_on_elements']:
+                    dict_indices['indices'] = element_indices[element]
+            if attributes[in_attribute]['runs_on_structures']:
+                dict_indices['structure_indices'] = structure_indices
+
+            item, form = where_is_attribute(molecular_system, in_attribute, check_if_None=False)
+            in_value = value_of_in_attribute[in_attribute]
+            set_function = getattr(_dict_modules[form], f'set_{in_attribute}_to_{element}')
+            set_function(item, **dict_indices, value=in_value)
+
+    else:
+
+        indices = None
+        if element!='system':
+            if is_all(selection):
+                indices = 'all'
+            else:
+                indices = select(molecular_system, element=element, selection=selection, syntax=syntax)
+
+        # doing the work here
+
+        for in_attribute in in_attributes:
+
+            dict_indices = {}
+            if element != 'system':
+                dict_indices['indices'] = indices
+            if attributes[in_attribute]['runs_on_structures']:
+                dict_indices['structure_indices'] = structure_indices
+
+            item, form = where_is_attribute(molecular_system, in_attribute, check_if_None=False)
+            in_value = value_of_in_attribute[in_attribute]
+            set_function = getattr(_dict_modules[form], f'set_{in_attribute}_to_{element}')
+            set_function(item, **dict_indices, value=in_value)
 
     pass
 

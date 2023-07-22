@@ -7,7 +7,7 @@ def add_missing_heavy_atoms(molecular_system, selection='all', syntax='MolSysMT'
     To be written soon...
     """
 
-    from molsysmt.basic import get_form, convert, select, get_attributes
+    from molsysmt.basic import get_form, convert, select, get, set
 
     output_molecular_system = None
     form_in = get_form(molecular_system)
@@ -15,11 +15,12 @@ def add_missing_heavy_atoms(molecular_system, selection='all', syntax='MolSysMT'
 
     if engine=="PDBFixer":
 
-        attributes = get_attributes(molecular_system)
-
         temp_molecular_system = convert(molecular_system, to_form="pdbfixer.PDBFixer")
 
-        temp_attributes = get_attributes(temp_molecular_system)
+        atts_from_groups = get(molecular_system, element='group', component_id=True, component_name=True,
+                               molecule_id=True, molecule_name=True, chain_name=True,
+                               entity_index=True, entity_id=True, entity_name=True, entity_type=True,
+                               output_type='dictionary')
 
         temp_molecular_system.findMissingResidues()
         temp_molecular_system.findMissingAtoms()
@@ -39,11 +40,14 @@ def add_missing_heavy_atoms(molecular_system, selection='all', syntax='MolSysMT'
 
         temp_molecular_system.addMissingAtoms()
 
+        output_molecular_system = convert(temp_molecular_system, to_form=form_out)
+
+        set(output_molecular_system, element='group', **atts_from_groups)
+
     else:
 
         raise NotImplementedMethodError
 
-    output_molecular_system = convert(temp_molecular_system, to_form=form_out)
 
     return output_molecular_system
 

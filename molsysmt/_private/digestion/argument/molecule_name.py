@@ -1,5 +1,6 @@
 from ...exceptions import ArgumentError
 from ...variables import is_all
+from numpy import ndarray
 
 def digest_molecule_name(molecule_name, caller=None):
     """Checks if `molecule_name` has the expected type and value.
@@ -30,6 +31,9 @@ def digest_molecule_name(molecule_name, caller=None):
             return molecule_name
     elif caller.startswith('molsysmt.form.') and caller.count('.to_')==2:
         return molecule_name
+    elif caller=='molsysmt.basic.set.set':
+        if isinstance(molecule_name, (int, list, tuple, ndarray)):
+            return molecule_name
     elif isinstance(molecule_name, str):
         return molecule_name
 

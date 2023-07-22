@@ -1,5 +1,6 @@
 from ...exceptions import ArgumentError
 from ...variables import is_all
+from numpy import ndarray
 
 def digest_chain_type(chain_type, caller=None):
     """Checks if `chain_type` has the expected type and value.

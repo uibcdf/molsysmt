@@ -1,5 +1,6 @@
 from ...exceptions import ArgumentError
 from ...variables import is_all
+from numpy import ndarray
 
 def digest_chain_name(chain_name, caller=None):
     """Checks if `chain_name` has the expected type and value.
@@ -30,6 +31,9 @@ def digest_chain_name(chain_name, caller=None):
             return chain_name
     elif caller.startswith('molsysmt.form.') and caller.count('.to_')==2:
         return chain_name
+    elif caller=='molsysmt.basic.set.set':
+        if isinstance(chain_name, (int, str, list, tuple, ndarray)):
+            return chain_name
     elif isinstance(chain_name, str):
         return chain_name
 

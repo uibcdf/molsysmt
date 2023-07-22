@@ -25,6 +25,9 @@ def digest_element(element, caller=None):
             return elements_from_plural[element_name_lower]
         if element_name_lower in elements:
             return element_name_lower
+    elif element is None:
+        if caller=='molsysmt.basic.set.set':
+            return element
 
     raise ArgumentError('element', value=element, caller=caller, message=None)
 
