@@ -31,7 +31,7 @@ def digest_molecule_id(molecule_id, caller=None):
             return molecule_id
     elif caller.startswith('molsysmt.form.') and caller.count('.to_')==2:
         return molecule_id
-    elif caller=='molsysmt.basic.set.set':
+    elif '.set.set' in caller:
         if isinstance(molecule_id, (int, list, tuple, ndarray)):
             return molecule_id
 

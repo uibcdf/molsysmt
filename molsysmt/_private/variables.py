@@ -1,3 +1,5 @@
+from numpy import ndarray
+
 def is_all(variable):
 
     """Checks if the value of a variable is equal to 'all', 'All', or 'ALL'.
@@ -31,6 +33,13 @@ def is_all(variable):
 
     if isinstance(variable, str):
         return variable in ['all', 'All', 'ALL']
+
+    return False
+
+def is_iterable_of_iterables(variable):
+
+    if isinstance(variable, (list, tuple, set, ndarray)):
+        return all([isinstance(ii, (list, tuple, set, ndarray)) for ii in variable])
 
     return False
 

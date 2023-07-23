@@ -31,7 +31,7 @@ def digest_entity_type(entity_type, caller=None):
             return entity_type
     elif caller.startswith('molsysmt.form.') and caller.count('.to_')==2:
         return entity_type
-    elif caller=='molsysmt.basic.set.set':
+    elif '.set.set' in caller:
         if isinstance(entity_type, (int, str, list, tuple, ndarray)):
             return entity_type
 

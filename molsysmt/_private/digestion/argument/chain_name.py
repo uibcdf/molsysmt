@@ -31,7 +31,7 @@ def digest_chain_name(chain_name, caller=None):
             return chain_name
     elif caller.startswith('molsysmt.form.') and caller.count('.to_')==2:
         return chain_name
-    elif caller=='molsysmt.basic.set.set':
+    elif '.set.set' in caller:
         if isinstance(chain_name, (int, str, list, tuple, ndarray)):
             return chain_name
     elif isinstance(chain_name, str):

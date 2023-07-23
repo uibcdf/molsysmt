@@ -44,6 +44,8 @@ def add_missing_heavy_atoms(molecular_system, selection='all', syntax='MolSysMT'
 
         set(output_molecular_system, element='group', **atts_from_groups)
 
+        del(atts_from_groups, group_indices_in_selection, temp_molecular_system)
+
     else:
 
         raise NotImplementedMethodError

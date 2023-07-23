@@ -13,8 +13,9 @@ From energy minimization to potential energy contribution of specific set of ato
 from molsysmt import pyunitwizard as puw
 from molsysmt._private.digestion import digest
 
-@digest()
-def get_potential_energy(molecular_system, molecular_mechanics={'forcefield':'AMBER99SB-ILDN'}, engine='OpenMM'):
+#@digest()
+def get_potential_energy(molecular_system, selection='all', selection_2=None,
+                         forcefield='AMBER99SB-ILDN', engine='OpenMM'):
     """
     To be written soon...
     """
@@ -24,6 +25,8 @@ def get_potential_energy(molecular_system, molecular_mechanics={'forcefield':'AM
     in_form = get_form(molecular_system)
 
     if engine=='OpenMM':
+
+        openmm_context = convert(molecular_system, to_form='openmm.Context')
 
         if in_form=='openmm.Context':
 

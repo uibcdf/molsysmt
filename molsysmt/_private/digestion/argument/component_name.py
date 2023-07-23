@@ -39,7 +39,7 @@ def digest_component_name(component_name, caller=None):
                 return component_name
         elif caller.startswith('molsysmt.form.') and caller.count('.to_')==2:
             return component_name
-        elif caller=='molsysmt.basic.set.set':
+        elif '.set.set' in caller:
             if isinstance(component_name, (int, str, list, tuple, ndarray)):
                 return component_name
 
