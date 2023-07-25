@@ -13,13 +13,11 @@ From energy minimization to potential energy contribution of specific set of ato
 from molsysmt import pyunitwizard as puw
 from molsysmt._private.digestion import digest
 
-#@digest()
+@digest()
 def get_potential_energy(molecular_system, selection='all', selection_2=None, platform='CUDA', engine='OpenMM'):
 
     from molsysmt import convert, get_form, has_attribute
     from molsysmt.config import default_attribute
-
-    in_form = get_form(molecular_system)
 
     if engine=='OpenMM':
 
@@ -48,8 +46,12 @@ def get_potential_energy(molecular_system, selection='all', selection_2=None, pl
             context = convert(molecular_system, to_form='openmm.Context',
                     **extra_conversion_arguments, platform=platform)
 
-        state = context.getState(getEnergy=True)
-        energy = state.getPotentialEnergy()
+        if is_all(selection):
+
+            state = context.getState(getEnergy=True)
+            energy = state.getPotentialEnergy()
+
+        else:
 
         energy = puw.standardize(energy)
 

@@ -2,8 +2,8 @@ from molsysmt._private.digestion import digest
 
 @digest(form='openmm.System')
 def to_openmm_Context(item, atom_indices='all', coordinates=None,
-        integrator=None, temperature=None, friction=None, time_step=None,
-        platform=None):
+        integrator='Langevin', temperature='300 kelvin', friction='1.0/picoseconds', time_step='2 femtoseconds',
+        platform='CUDA'):
 
     from molsysmt import pyunitwizard as puw
     from molsysmt.form.openmm_Context import set_coordinates_to_atom

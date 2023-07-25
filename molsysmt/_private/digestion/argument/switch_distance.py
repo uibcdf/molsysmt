@@ -8,6 +8,9 @@ def digest_switch_distance(switch_distance, caller=None):
         if switch_distance is None:
             return switch_distance
 
+    if switch_distance is None:
+        return switch_distance
+
     if puw.is_quantity(switch_distance):
         if puw.check(switch_distance, dimensionality={'[L]':1}):
             return puw.standardize(switch_distance)

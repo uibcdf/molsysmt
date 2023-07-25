@@ -16,7 +16,7 @@ default_attribute = {
         'constraints':'hbonds',
         'dispersion_correction':False,
         'switch_distance':None,
-        'ewald_error_tolerance':None,
+        'ewald_error_tolerance':0.0005,
         'integrator':'Langevin',
         'temperature':'0.0 kelvin',
         'friction':'1.0/picoseconds',

@@ -13,6 +13,9 @@ def digest_time_step(time_step, caller=None):
         if isinstance(time_step, bool):
             return time_step
 
+    if time_step is None:
+        return time_step
+
     value, unit = puw.get_value_and_unit(time_step)
 
     if not puw.check(unit, dimensionality={'[T]':1}):
