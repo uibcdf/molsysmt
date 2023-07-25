@@ -6,7 +6,7 @@ structural_attributes = []
 mechanical_attributes = []
 
 def add_attribute(name, synonyms=[], depends_on=[], dependants=[], runs_on_elements=False, runs_on_structures=False,
-        topological=False, structural=False, mechanical=False, get_from=[], set_to=None):
+        topological=False, structural=False, mechanical=False, dynamical=False, get_from=[], set_to=None, values=[]):
 
     attributes[name] = {
             'synonyms' : synonyms,
@@ -15,8 +15,10 @@ def add_attribute(name, synonyms=[], depends_on=[], dependants=[], runs_on_eleme
             'topological' :  topological,
             'structural' :  structural,
             'mechanical' :  mechanical,
+            'dynamical' :  dynamical,
             'get_from' : get_from,
-            'set_to' : set_to
+            'set_to' : set_to,
+            'values' : values,
             }
 
     for alternative_name in synonyms:
@@ -364,11 +366,23 @@ add_attribute('partial_charge', synonyms=['partial_charges'], runs_on_elements=T
 
 ## forcefield
 add_attribute('forcefield', synonyms=['force field', 'forcefields', 'force_field', 'force_fields'], mechanical=True,
-        get_from=['system'], set_to='system')
+        get_from=['system'], set_to='system',
+        values=['AMBER14',
+                'AMBER10',
+                'AMBER03',
+                'AMBER99',
+                'AMBER99SB',
+                'AMBER99SBILDN',
+                'AMBER99SBNMR',
+                'AMBER96',
+                'CHARMM36',
+                'GAFF',
+                ]
+)
 
 ## non_bonded_method
 add_attribute('non_bonded_method', synonyms=['non bonded method'], mechanical=True,
-        get_from=['system'], set_to='system')
+        get_from=['system'], set_to='system', values=['no cutoff'])
 
 ## cutoff_distance
 add_attribute('cutoff_distance', synonyms=['cutoff distance'], mechanical=True,
@@ -392,7 +406,7 @@ add_attribute('hydrogen_mass', synonyms=['hydrogen mass'], mechanical=True,
 
 ## constraints
 add_attribute('constraints', synonyms=['constraints'], mechanical=True,
-        get_from=['system'], set_to='system')
+        get_from=['system'], set_to='system', values=['hbonds'])
 
 ## flexible_constraints
 add_attribute('flexible_constraints', synonyms=['flexible constraints', 'flexible constraint', 'flexible_constraint'], mechanical=True,
@@ -400,7 +414,21 @@ add_attribute('flexible_constraints', synonyms=['flexible constraints', 'flexibl
 
 ## water_model
 add_attribute('water_model', synonyms=['water model'], mechanical=True,
-        get_from=['system'], set_to='system')
+        get_from=['system'], set_to='system', values=[
+            'SPC',
+            'SPC/E',
+            'TIP3P',
+            'TIP3P-FB',
+            'TIP3P-PME-B',
+            'TIP3P-PME-F',
+            'TIP4P',
+            'TIP4P-EW',
+            'TIP4P-FB',
+            'TIP4P-2005',
+            'TIP5P',
+            'TIP5P-EW',
+            ]
+        )
 
 ## rigid_water
 add_attribute('rigid_water', synonyms=['rigid water'], mechanical=True,
@@ -425,4 +453,23 @@ add_attribute('salt_concentration', synonyms=['salt concentration'], mechanical=
 ## kappa
 add_attribute('kappa', synonyms=['debye_length', 'debye length'], mechanical=True,
         get_from=['system'], set_to='system')
+
+###
+### DYNAMICAL ATTRIBUTES
+###
+
+## integrator
+add_attribute('integrator', synonyms=[], dynamical=True,
+        get_from=['system'], set_to='system',
+        values=['Langevin'])
+
+## friction
+add_attribute('friction', synonyms=['damping'], dynamical=True,
+        get_from=['system'], set_to='system')
+
+## time_step
+add_attribute('time_step', synonyms=['time_steps', 'timestep', 'timesteps'], dynamical=True,
+        get_from=['system'], set_to='system')
+
+
 

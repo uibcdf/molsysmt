@@ -1,4 +1,5 @@
 from molsysmt._private.exceptions import NotImplementedConversionError
+from molsysmt._private.exceptions import NotCompatibleConversionError
 from molsysmt._private.digestion import digest
 from molsysmt._private.variables import is_all
 import inspect
@@ -54,6 +55,11 @@ def _convert_one_to_one(molecular_system,
                 else:
                     conversion_arguments[_element_indices[element]] = 'all'
                 break
+
+        missing_arguments = input_arguments - (set(conversion_arguments) | set(kwargs) | {'item'})
+
+        if len(missing_arguments)>0:
+            raise NotCompatibleConversionError(from_form, to_form, missing_arguments)
 
         output = function(molecular_system, **conversion_arguments, **kwargs)
 
@@ -331,7 +337,7 @@ def _convert_multiple_to_one(molecular_system,
             set_to = _attributes[aux_attribute]['set_to']
             set_function = getattr(_dict_modules[to_form], f'set_{aux_attribute}_to_{set_to}')
             set_function(output, value=value_to_set)
-       
+
     elif to_form!='molsysmt.MolSys':
 
         output = _convert_multiple_to_one(molecular_system, to_form='molsysmt.MolSys', selection=selection,

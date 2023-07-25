@@ -1,5 +1,6 @@
 from molsysmt._private.exceptions import *
 
+
 forcefields = {
 
     'AMBER14': "",
@@ -155,52 +156,17 @@ switcher['LEaP'] = {
 
 }
 
-def get_forcefield(molecular_system, engine=None):
-    """
-    To be written soon...
-    """
 
-    from molsysmt.basic import get
+def forcefield_to_engine(forcefield, implicit_solvent=None, water_model=None, engine='OpenMM'):
 
-    forcefield, implicit_solvent, water_model = get(molecular_system, forcefield=True, implicit_solvent=True, water_model=True)
-    if engine is None:
-        return forcefield
-    elif forcefield is None:
-        return None
+    forcefield_out = None
+
+    if implicit_solvent is not None:
+        forcefield_out = switcher[engine][forcefield][implicit_solvent]
+    elif water_model is not None:
+        forcefield_out = switcher[engine][forcefield][water_model]
     else:
-        return forcefield_to_engine(forcefield, engine, implicit_solvent=implicit_solvent, water_model=water_model)
+        forcefield_out = switcher[engine][forcefield]['vacuum']
 
-def forcefield_to_engine(forcefield, engine, implicit_solvent=None, water_model=None):
-    """
-    To be written soon...
-    """
-
-    forcefields_out=[]
-
-    if type(forcefield) not in [list, tuple]:
-        forcefield=[forcefield]
-
-    for ff in forcefield:
-        try:
-            if implicit_solvent is not None:
-                if implicit_solvent in implicit_solvent_models:
-                    aux = switcher[engine][ff][implicit_solvent]
-                    forcefields_out.extend(aux)
-                else:
-                    raise ValueError('The implicit solvent {} is unknown for MolSysMT. Either it is mispelled or either it needs to be implemented in MolSysMT'.format(implicit_solvent))
-            elif water_model is not None:
-                if water_model in water_models:
-                    aux = switcher[engine][ff][water_model]
-                    forcefields_out.extend(aux)
-                else:
-                    raise ValueError('The water model {} is unknown for MolSysMT. Either it is mispelled or it needs to be implemented in MolSysMT'.format(water_model))
-            else:
-                aux = switcher[engine][ff]['vacuum']
-                forcefields_out.extend(aux)
-        except:
-            raise NotImplementedError('{} with implicit solvent {} or water model {} and {} needs to be implemented in MolSysMT'.format(ff, implicit_solvent, water_model, engine))
-
-    forcefields_out = list(set(forcefields_out))
-
-    return forcefields_out
+    return forcefield_out
 

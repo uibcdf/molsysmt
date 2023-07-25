@@ -6,8 +6,25 @@ _testing = False
 # Set this variable true while debugging
 _debugging = False
 
-# Selection shortcuts
+# Default attribute values
 
+default_attribute = {
+        'forcefield':'AMBER14',
+        'implicit_solvent':None,
+        'water_model':None,
+        'non_bonded_method':'no cutoff',
+        'constraints':'hbonds',
+        'dispersion_correction':False,
+        'switch_distance':None,
+        'ewald_error_tolerance':None,
+        'integrator':'Langevin',
+        'temperature':'0.0 kelvin',
+        'friction':'1.0/picoseconds',
+        'time_step':'2.0 femtoseconds',
+        'platform':'CUDA',
+        }
+
+# Selection sortcuts
 selection_shortcuts={
         'MolSysMT': {
             'backbone':'(atom_name==["CA", "N", "C", "O"])',

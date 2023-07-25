@@ -1,26 +1,28 @@
 from molsysmt._private.digestion import digest
 
 @digest(form='openmm.System')
-def to_openmm_Context(item, atom_indices='all', structure_indices='all'):
+def to_openmm_Context(item, atom_indices='all', coordinates=None,
+        integrator=None, temperature=None, friction=None, time_step=None,
+        platform=None):
 
-    from molsysmt.basic import convert, get
-    from openmm import Context
+    from molsysmt import pyunitwizard as puw
+    from molsysmt.form.openmm_Context import set_coordinates_to_atom
+    import openmm as mm
 
-    positions = get(molecular_system, element='atom', selection=atom_indices, structure_indices=structure_indices,
-                    coordinates=True)
-    positions = puw.convert(positions[0], to_form='openmm.unit', to_unit='nm')
-    simulation = convert(molecular_system, to_form='molsysmt.Simulation')
+    temperature = puw.convert(temperature, to_form='openmm.unit')
+    friction = puw.convert(friction, to_form='openmm.unit')
+    time_step = puw.convert(time_step, to_form='openmm.unit')
 
-    integrator = simulation.to_openmm_Integrator()
-    platform = simulation.to_openmm_Platform()
+    if integrator=='Langevin':
+        integrator = mm.LangevinIntegrator(temperature, friction, time_step)
 
-    properties = simulation.get_openmm_Context_parameters()
+    if platform=='CUDA':
+        platform    = mm.Platform.getPlatformByName('CUDA')
 
-    tmp_item = Context(item, integrator, platform, properties)
-    tmp_item.setPositions(positions)
-    if simulation.initial_velocities_to_temperature:
-        temperature = puw.convert(simulation.temperature, to_form='openmm.unit', to_unit='K')
-        tmp_item.setVelocitiesToTemperature(temperature)
+    context = mm.Context(item, integrator, platform)
 
-    return tmp_item
+    if coordinates is not None:
+        set_coordinates_to_atom(context, indices=atom_indices, value=coordinates)
+
+    return context
 

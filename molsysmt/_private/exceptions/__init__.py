@@ -12,6 +12,7 @@ from .not_supported_form_error import NotSupportedFormError
 from .not_supported_syntax_error import NotSupportedSyntaxError
 from .not_with_this_form_error import NotWithThisFormError
 from .file_already_handled_error import FileAlreadyHandledError
+from .not_compatible_conversion_error import NotCompatibleConversionError
 
 # Warnings
 from .not_digested_argument_warning import NotDigestedArgumentWarning

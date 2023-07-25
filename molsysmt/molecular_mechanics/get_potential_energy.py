@@ -14,38 +14,43 @@ from molsysmt import pyunitwizard as puw
 from molsysmt._private.digestion import digest
 
 #@digest()
-def get_potential_energy(molecular_system, selection='all', selection_2=None,
-                         forcefield='AMBER99SB-ILDN', engine='OpenMM'):
-    """
-    To be written soon...
-    """
+def get_potential_energy(molecular_system, selection='all', selection_2=None, platform='CUDA', engine='OpenMM'):
 
     from molsysmt import convert, get_form, has_attribute
+    from molsysmt.config import default_attribute
 
     in_form = get_form(molecular_system)
 
     if engine=='OpenMM':
 
-        openmm_context = convert(molecular_system, to_form='openmm.Context')
+        form_in = get_form(molecular_system)
 
-        if in_form=='openmm.Context':
+        if form_in == 'openmm.Context':
 
-            state = molecular_system.getState(getEnergy=True)
+            context=molecular_system
 
-        elif in_form=='openmm.Simulation':
+        elif form_in == 'openmm.Simulation':
 
-            state = molecular_system.context.getState(getEnergy=True)
+            context = item.context
 
         else:
 
-            if has_attribute(molecular_system, 'mechanical'):
-                context = convert(molecular_system, to_form='openmm.Context')
-            else:
-                context = convert([molecular_system, molecular_mechanics], to_form='openmm.Context')
+            extra_conversion_arguments={}
 
-            state = output.context.getState(getEnergy=True)
+            possible_missing_attributes=['forcefield', 'water_model', 'implicit_solvent', 'constraints',
+                    'non_bonded_method', 'switch_distance', 'dispersion_correction', 'ewald_error_tolerance',
+                    'integrator', 'temperature', 'friction', 'time_step']
 
+            for att in possible_missing_attributes:
+                if not has_attribute(molecular_system, att):
+                    extra_conversion_arguments[att]=default_attribute[att]
+
+            context = convert(molecular_system, to_form='openmm.Context',
+                    **extra_conversion_arguments, platform=platform)
+
+        state = context.getState(getEnergy=True)
         energy = state.getPotentialEnergy()
+
         energy = puw.standardize(energy)
 
         return energy
@@ -53,3 +58,4 @@ def get_potential_energy(molecular_system, selection='all', selection_2=None,
     else:
 
         raise NotImplementedError
+
