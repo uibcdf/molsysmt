@@ -1,3 +1,4 @@
 from .potential_energy_minimization import potential_energy_minimization
 from .get_potential_energy import get_potential_energy
+from .get_non_bonded_potential_energy import get_non_bonded_potential_energy
 from .forcefields import forcefield_to_engine

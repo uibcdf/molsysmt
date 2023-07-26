@@ -12,14 +12,17 @@ From energy minimization to potential energy contribution of specific set of ato
 
 from molsysmt import pyunitwizard as puw
 from molsysmt._private.digestion import digest
+from molsysmt._private.variables import is_all
 
 @digest()
-def get_potential_energy(molecular_system, selection='all', selection_2=None, platform='CUDA', engine='OpenMM'):
+def get_potential_energy(molecular_system, decomposition=False, platform='CUDA', engine='OpenMM'):
 
     from molsysmt import convert, get_form, has_attribute
     from molsysmt.config import default_attribute
 
     if engine=='OpenMM':
+
+        import openmm as mm
 
         form_in = get_form(molecular_system)
 
@@ -46,16 +49,37 @@ def get_potential_energy(molecular_system, selection='all', selection_2=None, pl
             context = convert(molecular_system, to_form='openmm.Context',
                     **extra_conversion_arguments, platform=platform)
 
-        if is_all(selection):
+        if decomposition:
 
-            state = context.getState(getEnergy=True)
-            energy = state.getPotentialEnergy()
+            tmp_system = context.getSystem()
+
+            forcegroups = {}
+            for ii in range(tmp_system.getNumForces()):
+                force = tmp_system.getForce(ii)
+                force.setForceGroup(ii)
+                forcegroups[force] = ii
+
+            tmp_context = mm.Context(tmp_system, mm.VerletIntegrator(0.001), context.getPlatform())
+            tmp_context.setPositions(context.getState(getPositions=True).getPositions())
+
+            context_forcegroups = {}
+            for forcegroup, ii in forcegroups.items():
+                context_forcegroups[forcegroup.getName()] = tmp_context.getState(getEnergy=True, groups={ii})
+
+            output = {}
+            for forcegroup_name, tmp_context in context_forcegroups.items():
+                output[forcegroup_name] = tmp_context.getPotentialEnergy()
+
+            for energy_term, energy_value in output.items():
+                output[energy_term]=puw.standardize(energy_value)
 
         else:
 
-        energy = puw.standardize(energy)
+            state = context.getState(getEnergy=True)
+            output = state.getPotentialEnergy()
+            output = puw.standardize(output)
 
-        return energy
+        return output
 
     else:
 
