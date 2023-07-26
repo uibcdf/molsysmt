@@ -12,7 +12,7 @@ From energy minimization to potential energy contribution of specific set of ato
 
 from molsysmt import pyunitwizard as puw
 from molsysmt._private.digestion import digest
-from molsysmt._private.variables import is_all
+from molsysmt._private.variables import is_iterable_of_iterables, is_iterable_of_iterables
 import openmm as mm
 from openmm import unit
 
@@ -84,13 +84,29 @@ def get_non_bonded_potential_energy(molecular_system, selection='all', selection
         if atom_indices_2 is None:
 
             output = _aux_openmm(atom_indices, non_bonded_force, non_bonded_forcegroup,
-                    tmp_context, original_particle_parameters, original_exception_parameters)
+                     tmp_context, original_particle_parameters, original_exception_parameters)
 
             output = puw.standardize(output)
 
         else:
 
-            raise NotImplementedError
+            if not is_iterable_of_iterables(atom_indices) and not is_iterable_of_iterables(atom_indices_2):
+
+                output = _aux_openmm_crossed(atom_indices, atom_indices_2, non_bonded_force, non_bonded_forcegroup,
+                         tmp_context, original_particle_parameters, original_exception_parameters)
+
+                output = puw.standardize(output)
+
+            else:
+
+                output = _aux_openmm_crossed_lists(atom_indices, atom_indices_2, non_bonded_force, non_bonded_forcegroup,
+                         tmp_context, original_particle_parameters, original_exception_parameters)
+
+                output = puw.standardize(output)
+
+            else:
+
+                raise NotImplementedError
 
 
         return output
@@ -112,6 +128,7 @@ def _aux_openmm(atoms_in, non_bonded_force, non_bonded_forcegroup, context, orig
         if ii not in atoms_in:
             charge = 0.0 * unit.elementary_charge
             epsilon = 0.0 * unit.kilojoule_per_mole
+            sigma = 0.0 * unit.nanometer
 
         non_bonded_force.setParticleParameters(ii, charge, sigma, epsilon)
 
@@ -123,10 +140,11 @@ def _aux_openmm(atoms_in, non_bonded_force, non_bonded_forcegroup, context, orig
         sigma = parameters['sigma']
         epsilon = parameters['epsilon']
 
-        if (particle1 not in atoms_in) and (particle2 not in atoms_in):
+        if (particle1 not in atoms_in) or (particle2 not in atoms_in):
             epsilon = 0.0 * unit.kilojoule_per_mole
+            sigma = 0.0 * unit.nanometer
             if chargeProd != 0.0 * unit.elementary_charge**2:
-                chargeProd = 0.0000000000001 * unit.elementary_charge **2
+                chargeProd = 1e-22 * unit.elementary_charge **2
 
         non_bonded_force.setExceptionParameters(ii, particle1, particle2, chargeProd,
                                                 sigma, epsilon)
@@ -136,4 +154,178 @@ def _aux_openmm(atoms_in, non_bonded_force, non_bonded_forcegroup, context, orig
     energy = context.getState(getEnergy=True, groups={non_bonded_forcegroup}).getPotentialEnergy()
 
     return energy
+
+
+def _aux_openmm_crossed(atoms_in_1, atoms_in_2, non_bonded_force, non_bonded_forcegroup, context, original_particle_parameters,
+                original_exception_parameters):
+
+    aux_exc_pars_11 = []
+    aux_exc_pars_22 = []
+    aux_exc_pars_12 = []
+
+    zero_charge = 0.0 * unit.elementary_charge
+    zero_chargeProd = 0.0 * unit.elementary_charge**2
+    zero_almost_chargeProd = 1e-22 * unit.elementary_charge**2
+    zero_epsilon = 0.0 * unit.kilojoule_per_mole
+    zero_sigma = 0.0 * unit.nanometer
+
+    # All to zero
+
+    for ii, parameters in original_particle_parameters.items():
+
+        non_bonded_force.setParticleParameters(ii, zero_charge, zero_sigma, zero_epsilon)
+
+    for ii, parameters in original_exception_parameters.items():
+
+        particle1 = parameters['particle1']
+        particle2 = parameters['particle2']
+        chargeProd = parameters['chargeProd']
+        sigma = parameters['sigma']
+        epsilon = parameters['epsilon']
+
+        if (particle1 in atoms_in_1) and (particle2 in atoms_in_1):
+            aux_exc_pars_11.append([ii, particle1, particle2, chargeProd, sigma, epsilon])
+
+        elif (particle1 in atoms_in_2) and (particle2 in atoms_in_2):
+            aux_exc_pars_22.append([ii, particle1, particle2, chargeProd, sigma, epsilon])
+
+        elif ((particle1 in atoms_in_1) and (particle2 in atoms_in_2)) or ((particle1 in
+            atoms_in_2) and (particle2 in atoms_in_1)):
+            aux_exc_pars_12.append([ii, particle1, particle2, chargeProd, sigma, epsilon])
+
+        if chargeProd != 0.0 * unit.elementary_charge**2:
+            non_bonded_force.setExceptionParameters(ii, particle1, particle2, zero_almost_chargeProd,
+                                                zero_sigma, zero_epsilon)
+        else:
+            non_bonded_force.setExceptionParameters(ii, particle1, particle2, zero_chargeProd,
+                                                zero_sigma, zero_epsilon)
+
+    non_bonded_force.updateParametersInContext(context)
+
+    # subsystem1
+
+    for ii in atoms_in_1:
+
+        charge = original_particle_parameters[ii]['charge']
+        sigma = original_particle_parameters[ii]['sigma']
+        epsilon = original_particle_parameters[ii]['epsilon']
+
+        non_bonded_force.setParticleParameters(ii, charge, sigma, epsilon)
+
+    for ii, particle1, particle2, chargeProd, sigma, epsilon in aux_exc_pars_11:
+
+        non_bonded_force.setExceptionParameters(ii, particle1, particle2,
+                chargeProd, sigma, epsilon)
+
+    non_bonded_force.updateParametersInContext(context)
+
+    energy_1 = context.getState(getEnergy=True, groups={non_bonded_forcegroup}).getPotentialEnergy()
+
+    # subsystem1 union subsystem2
+
+
+    for ii in atoms_in_2:
+
+        charge = original_particle_parameters[ii]['charge']
+        sigma = original_particle_parameters[ii]['sigma']
+        epsilon = original_particle_parameters[ii]['epsilon']
+
+        non_bonded_force.setParticleParameters(ii, charge, sigma, epsilon)
+
+    for ii, particle1, particle2, chargeProd, sigma, epsilon in aux_exc_pars_22:
+
+        non_bonded_force.setExceptionParameters(ii, particle1, particle2,
+                chargeProd, sigma, epsilon)
+
+    for ii, particle1, particle2, chargeProd, sigma, epsilon in aux_exc_pars_12:
+
+        non_bonded_force.setExceptionParameters(ii, particle1, particle2,
+                chargeProd, sigma, epsilon)
+
+    non_bonded_force.updateParametersInContext(context)
+
+    energy_12 = context.getState(getEnergy=True, groups={non_bonded_forcegroup}).getPotentialEnergy()
+
+    # subsystem2 (subsystem1 to zero)
+
+    for ii in atoms_in_1:
+
+        non_bonded_force.setParticleParameters(ii, zero_charge, zero_sigma, zero_epsilon)
+
+    for ii, particle1, particle2, chargeProd, sigma, epsilon in aux_exc_pars_11:
+        if chargeProd != 0.0 * unit.elementary_charge**2:
+            non_bonded_force.setExceptionParameters(ii, particle1, particle2,
+                zero_almost_chargeProd, zero_sigma, zero_epsilon)
+        else:
+            non_bonded_force.setExceptionParameters(ii, particle1, particle2,
+                zero_chargeProd, zero_sigma, zero_epsilon)
+
+    for ii, particle1, particle2, chargeProd, sigma, epsilon in aux_exc_pars_12:
+        if chargeProd != 0.0 * unit.elementary_charge**2:
+            non_bonded_force.setExceptionParameters(ii, particle1, particle2,
+                zero_almost_chargeProd, zero_sigma, zero_epsilon)
+        else:
+            non_bonded_force.setExceptionParameters(ii, particle1, particle2,
+                zero_chargeProd, zero_sigma, zero_epsilon)
+
+    non_bonded_force.updateParametersInContext(context)
+
+    energy_2 = context.getState(getEnergy=True, groups={non_bonded_forcegroup}).getPotentialEnergy()
+
+    energy = energy_12-energy_1-energy_2
+
+    return energy
+
+def _aux_openmm_crossed_lists(atoms_in_1, atoms_in_2, non_bonded_force, non_bonded_forcegroup, context, original_particle_parameters,
+                original_exception_parameters):
+
+    if not_iterable_of_iterables(atoms_in_1):
+        atoms_in_1=[atoms_in_1]
+
+    if not_iterable_of_iterables(atoms_in_2):
+        atoms_in_1=[atoms_in_2]
+
+    aux_exc_pars_11 = []
+    aux_exc_pars_22 = []
+    aux_exc_pars_12 = []
+
+    zero_charge = 0.0 * unit.elementary_charge
+    zero_chargeProd = 0.0 * unit.elementary_charge**2
+    zero_almost_chargeProd = 1e-22 * unit.elementary_charge**2
+    zero_epsilon = 0.0 * unit.kilojoule_per_mole
+    zero_sigma = 0.0 * unit.nanometer
+
+    # All to zero
+
+    for ii, parameters in original_particle_parameters.items():
+
+        non_bonded_force.setParticleParameters(ii, zero_charge, zero_sigma, zero_epsilon)
+
+    for ii, parameters in original_exception_parameters.items():
+
+        particle1 = parameters['particle1']
+        particle2 = parameters['particle2']
+        chargeProd = parameters['chargeProd']
+        sigma = parameters['sigma']
+        epsilon = parameters['epsilon']
+
+        if (particle1 in atoms_in_1) and (particle2 in atoms_in_1):
+            aux_exc_pars_11.append([ii, particle1, particle2, chargeProd, sigma, epsilon])
+
+        elif (particle1 in atoms_in_2) and (particle2 in atoms_in_2):
+            aux_exc_pars_22.append([ii, particle1, particle2, chargeProd, sigma, epsilon])
+
+        elif ((particle1 in atoms_in_1) and (particle2 in atoms_in_2)) or ((particle1 in
+            atoms_in_2) and (particle2 in atoms_in_1)):
+            aux_exc_pars_12.append([ii, particle1, particle2, chargeProd, sigma, epsilon])
+
+        if chargeProd != 0.0 * unit.elementary_charge**2:
+            non_bonded_force.setExceptionParameters(ii, particle1, particle2, zero_almost_chargeProd,
+                                                zero_sigma, zero_epsilon)
+        else:
+            non_bonded_force.setExceptionParameters(ii, particle1, particle2, zero_chargeProd,
+                                                zero_sigma, zero_epsilon)
+
+    non_bonded_force.updateParametersInContext(context)
+
 
