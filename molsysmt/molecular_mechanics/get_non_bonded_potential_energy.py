@@ -103,7 +103,7 @@ def get_non_bonded_potential_energy(molecular_system, selection='all', selection
                 output = _aux_openmm_crossed_lists(atom_indices, atom_indices_2, non_bonded_force, non_bonded_forcegroup,
                          tmp_context, original_particle_parameters, original_exception_parameters)
 
-                #output = puw.standardize(output)
+                output = puw.standardize(output)
 
         return output
 

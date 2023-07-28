@@ -1,15 +1,16 @@
 from molsysmt._private.exceptions import NotImplementedMethodError
 from molsysmt._private.digestion import digest
-from molsysmt._private.variables import is_all
+from molsysmt._private.variables import is_all, is_iterable_of_iterables
 from molsysmt import lib as msmlib
 from molsysmt import pyunitwizard as puw
 import numpy as np
 import gc
 
+
 @digest()
-def get_distances(molecular_system, selection="all", groups_of_atoms=None, group_behavior=None, structure_indices="all",
-             molecular_system_2=None, selection_2=None, groups_of_atoms_2=None, group_behavior_2=None, structure_indices_2=None,
-             pairs=False, pbc=True, engine='MolSysMT', syntax='MolSysMT'):
+def get_distances(molecular_system, selection="all", structure_indices="all", center_of_atoms=False, weights=None,
+        molecular_system_2=None, selection_2=None, structure_indices_2=None, center_of_atoms_2=False, weights_2=None,
+        pairs=False, pbc=True, engine='MolSysMT', syntax='MolSysMT'):
     """
     To be written soon...
 
@@ -34,9 +35,29 @@ def get_distances(molecular_system, selection="all", groups_of_atoms=None, group
 
     """
 
-    # group_behavior in
+    # atoms_center in
     # ['center_of_mass','geometric_center','minimum_distance','maximum_distance']
     # output in ['numpy.ndarray','dictionary']
+
+    from molsysmt.basic import select
+
+    selection = select(molecular_system, selection=selection, syntax=syntax)
+
+    if molecular_system_2 is not None:
+        if selection_2 is None:
+            selection_2 = selection
+        if structure_indices_2 is None:
+            structure_indices_2 = structure_indices
+        selection_2 = select(molecular_system_2, selection=selection_2)
+    else:
+        if selection_2 is not None:
+            selection_2 = select(molecular_system, selection=selection_2)
+
+    if is_iterable_of_iterables(selection):
+        center_of_atoms = True
+
+    if is_iterable_of_iterables(selection_2):
+        center_of_atoms_2 = True
 
     if engine=='MolSysMT':
 
@@ -55,12 +76,9 @@ def get_distances(molecular_system, selection="all", groups_of_atoms=None, group
         if in_memory:
 
             output = _get_distances_in_memory(molecular_system,
-                    selection=selection, groups_of_atoms=groups_of_atoms,
-                    group_behavior=group_behavior, structure_indices=structure_indices,
-                    molecular_system_2=molecular_system_2, selection_2=selection_2,
-                    groups_of_atoms_2=groups_of_atoms_2, group_behavior_2=group_behavior_2,
-                    structure_indices_2=structure_indices_2,
-                    pairs=pairs, pbc=pbc, syntax=syntax)
+                    selection=selection, structure_indices=structure_indices, center_of_atoms=center_of_atoms, weights=weights,
+                    molecular_system_2=molecular_system_2, selection_2=selection_2, structure_indices_2=structure_indices_2,
+                    center_of_atoms_2=center_of_atoms_2, weights_2=weights_2, pairs=pairs, pbc=pbc, syntax=syntax)
 
         else:
 
@@ -72,46 +90,50 @@ def get_distances(molecular_system, selection="all", groups_of_atoms=None, group
 
     return output
 
-def _get_distances_in_memory(molecular_system, selection="all", groups_of_atoms=None, group_behavior=None, structure_indices="all",
-        molecular_system_2=None, selection_2=None, groups_of_atoms_2=None, group_behavior_2=None, structure_indices_2=None,
+
+def _get_distances_in_memory(molecular_system, selection="all", structure_indices="all",
+        center_of_atoms=False, weights=None,
+        molecular_system_2=None, selection_2=None, structure_indices_2=None,
+        center_of_atoms_2=False, weights_2=None,
         pairs=False, pbc=True, aux_dict=False, syntax='MolSysMT'):
 
-    from molsysmt.basic import select, get
-    from .get_geometric_center import get_geometric_center
-    from .get_center_of_mass import get_center_of_mass
+    from molsysmt.basic import get
+    from .get_center import get_center
 
-    if group_behavior is None:
+    if center_of_atoms:
+
+        coordinates = get_center(molecular_system, selection=selection,
+                structure_indices=structure_indices, weights=weights)
+
+    else:
 
         coordinates = get(molecular_system, element='atom', selection=selection,
                           structure_indices=structure_indices, syntax=syntax,
                           coordinates=True)
+
+    if center_of_atoms_2:
+
+        if molecular_system_2 is None:
+
+            molecular_system_2 = molecular_system
+
+        if structure_indices_2 is None:
+
+            structure_indices_2 = structure_indices
+
+        coordinates_2 = get_center(molecular_system_2, selection=selection_2,
+            structure_indices=structure_indices_2, weights=weights_2)
+
     else:
-
-        if group_behavior == 'center of mass':
-            coordinates = get_center_of_mass(molecular_system, selection=selection,
-                    groups_of_atoms=groups_of_atoms, structure_indices=structure_indices)
-
-        elif group_behavior == 'geometric center':
-            coordinates= get_geometric_center(molecular_system, selection=selection,
-                    groups_of_atoms=groups_of_atoms, structure_indices=structure_indices)
-
-        elif group_behavior == 'closest':
-            raise NotImplementedError
-
-        elif group_behavior == 'farthest':
-            raise NotImplementedError
-
-        else:
-            raise NotImplementedError
-
-
-    if group_behavior_2 is None:
 
         if (selection_2 is None) and (structure_indices_2 is None):
 
             if molecular_system_2 is None:
+
                 coordinates_2 = None
+
             else:
+
                 structure_indices_2 = structure_indices
                 selection_2 = selection
 
@@ -122,49 +144,20 @@ def _get_distances_in_memory(molecular_system, selection="all", groups_of_atoms=
         else:
 
             if structure_indices_2 is None:
+
                 structure_indices_2 = structure_indices
+
             if selection_2 is None:
+
                 selection_2 = selection
+
             if molecular_system_2 is None:
+
                 molecular_system_2 = molecular_system
 
             coordinates_2 = get(molecular_system_2, element='atom', selection=selection_2,
                                 structure_indices=structure_indices_2, syntax=syntax,
                                 coordinates=True)
-    else:
-
-        if molecular_system_2 is None:
-            molecular_system_2 = molecular_system
-
-        if structure_indices_2 is None:
-            structure_indices_2 = structure_indices
-
-        if groups_of_atoms_2 is None:
-            if selection_2 is None:
-                if groups_of_atoms is not None:
-                    groups_of_atoms_2=groups_of_atoms
-                else:
-                    if selection is not None:
-                        selection_2=selection
-
-        if group_behavior_2 == 'center of mass':
-            coordinates_2 = get_center_of_mass(molecular_system_2, selection=selection_2,
-                    groups_of_atoms=groups_of_atoms_2, structure_indices=structure_indices_2)
-
-        elif group_behavior_2 == 'geometric center':
-            coordinates_2= get_geometric_center(molecular_system_2, selection=selection_2,
-                    groups_of_atoms=groups_of_atoms_2, structure_indices=structure_indices_2)
-
-        elif group_behavior_2 == 'closest':
-            raise NotImplementedError
-
-        elif group_behavior_2 == 'farthest':
-            raise NotImplementedError
-
-        else:
-            raise NotImplementedError
-
-
     if not pairs:
 
         if coordinates_2 is None:
