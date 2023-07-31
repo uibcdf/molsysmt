@@ -8,7 +8,7 @@ from mdtraj.reporters import HDF5Reporter
 from pathlib import Path
 import shutil
 
-data_dir = Path('../../../data/.')
+data_dir = Path('../../data/.')
 
 # Purge
 
@@ -43,6 +43,7 @@ molsys = msm.basic.remove(molsys, selection='group_type==["water", "ion"]')
 molsys = msm.basic.remove(molsys, selection='atom_type=="H"')
 molsys = msm.build.add_missing_terminal_cappings(molsys, N_terminal='ACE', C_terminal='NME')
 molsys = msm.build.add_missing_hydrogens(molsys, pH=7.4)
+msm.molecular_mechanics.potential_energy_minimization(molsys)
 _ = msm.convert(molsys, to_form='chicken_villin_HP35.msmpk')
 shutil.move('chicken_villin_HP35.msmpk', Path(data_dir, 'msmpk/chicken_villin_HP35.msmpk'))
 
