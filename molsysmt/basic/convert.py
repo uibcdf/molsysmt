@@ -2,6 +2,7 @@ from molsysmt._private.exceptions import NotImplementedConversionError
 from molsysmt._private.exceptions import NotCompatibleConversionError
 from molsysmt._private.digestion import digest
 from molsysmt._private.variables import is_all
+from molsysmt.config import default_attribute
 import inspect
 import numpy as np
 
@@ -56,7 +57,15 @@ def _convert_one_to_one(molecular_system,
                     conversion_arguments[_element_indices[element]] = 'all'
                 break
 
-        missing_arguments = input_arguments - (set(conversion_arguments) | set(kwargs) | {'item'})
+        missing_arguments = input_arguments - (set(conversion_arguments) | set(kwargs) | {'item',
+            'copy_if_all'})
+
+        for missing_argument in missing_arguments:
+            if missing_argument in default_attribute:
+                kwargs[missing_argument]=default_attribute[missing_argument]
+
+        missing_arguments = input_arguments - (set(conversion_arguments) | set(kwargs) | {'item',
+        'copy_if_all'})
 
         if len(missing_arguments)>0:
             raise NotCompatibleConversionError(from_form, to_form, missing_arguments)

@@ -15,9 +15,8 @@ def center(molecular_system, selection='all', center_of_selection='all', weights
 
     if engine=='MolSysMT':
 
-        coordinates_selection_center = get_center(molecular_system, selection=center_of_selection, groups_of_atoms=None, weights=weights,
-                                                  structure_indices=structure_indices,
-                                                  syntax=syntax, engine=engine)
+        coordinates_selection_center = get_center(molecular_system, selection=center_of_selection, weights=weights,
+                                                  structure_indices=structure_indices, syntax=syntax, engine=engine)
 
         if center_coordinates is None:
             translation = -coordinates_selection_center

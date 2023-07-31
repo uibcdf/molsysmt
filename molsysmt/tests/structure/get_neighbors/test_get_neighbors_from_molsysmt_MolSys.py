@@ -35,10 +35,7 @@ def test_get_neighbors_from_molsysmt_MolSys_3():
     molsys = msm.convert(tests_systems['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
     atoms_in_residues_chain_0 = msm.get(molsys, element='group',
                                         selection="molecule_type=='protein' and chain_index==0", atom_index=True)
-    atoms_in_residues_chain_1 = msm.get(molsys, element='group',
-                                        selection="molecule_type=='protein' and chain_index==1", atom_index=True)
-    neighbors, distances = msm.structure.get_neighbors(molsys, groups_of_atoms=atoms_in_residues_chain_0,
-                                     group_behavior= 'geometric center', n_neighbors=8)
+    neighbors, distances = msm.structure.get_neighbors(molsys, selection=atoms_in_residues_chain_0, n_neighbors=8)
     check_shape_1 = ((1, 248, 8)==neighbors.shape)
     check_neighbors = (2==neighbors[0,0,7])
     check_distance = np.isclose(puw.get_value(distances[0,0,7], to_unit='nm'), 0.86807833)
@@ -53,10 +50,8 @@ def test_get_neighbors_from_molsysmt_MolSys_4():
     atoms_in_residues_chain_1 = msm.get(molsys, element='group',
                                         selection="molecule_type=='protein' and chain_index==1", atom_index=True)
     neighbors, distances = msm.structure.get_neighbors(molsys,
-                                     groups_of_atoms=atoms_in_residues_chain_0,
-                                     group_behavior= 'geometric center',
-                                     groups_of_atoms_2=atoms_in_residues_chain_1,
-                                     group_behavior_2= 'geometric center',
+                                     selection=atoms_in_residues_chain_0,
+                                     selection_2=atoms_in_residues_chain_1,
                                      n_neighbors=8)
     check_neighbors = (69==neighbors[0,0,7])
     check_distance = np.isclose(puw.get_value(distances[0,0,7], to_unit='nm'), 3.5652103)
@@ -68,8 +63,7 @@ def test_get_neighbors_from_molsysmt_MolSys_5():
     atoms_in_residues_chain_1 = msm.get(molsys, element='group',
                                         selection="molecule_type=='protein' and chain_index==1", atom_index=True)
     neighbors, distances = msm.structure.get_neighbors(molsys, selection=100,
-                                     groups_of_atoms_2=atoms_in_residues_chain_1,
-                                     group_behavior_2= 'geometric center',
+                                     selection_2=atoms_in_residues_chain_1,
                                      n_neighbors=4)
     check_neighbors = (77==neighbors[0,0,3])
     check_distance = np.isclose(puw.get_value(distances[0,0,3], to_unit='nm'), 0.8498448)
@@ -98,10 +92,8 @@ def test_get_neighbors_from_molsysmt_MolSys_7():
     atoms_in_residues_chain_1 = msm.get(molsys, element='group',
                                         selection="molecule_type=='protein' and chain_index==1", atom_index=True)
     neighbors, distances = msm.structure.get_neighbors(molsys,
-                                     groups_of_atoms= atoms_in_residues_chain_0,
-                                     group_behavior='geometric center',
-                                     groups_of_atoms_2= atoms_in_residues_chain_1,
-                                     group_behavior_2='geometric center',
+                                     selection= atoms_in_residues_chain_0,
+                                     selection_2= atoms_in_residues_chain_1,
                                      threshold=1.2*puw.unit('nanometers'))
     check_n_contacts = (18==len(neighbors[0,11]))
     assert check_n_contacts

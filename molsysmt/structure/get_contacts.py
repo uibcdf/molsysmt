@@ -5,8 +5,8 @@ import numpy as np
 import gc
 
 @digest()
-def get_contacts(molecular_system, selection=None, groups_of_atoms=None, group_behavior=None, structure_indices="all",
-                 selection_2=None, groups_of_atoms_2=None, group_behavior_2=None, structure_indices_2=None,
+def get_contacts(molecular_system, selection=None, center_of_atoms=False, weights=None, structure_indices="all",
+                 selection_2=None, center_of_atoms_2=False, weights_2=None, structure_indices_2=None,
                  threshold='12 angstroms', pbc=False,
                  engine='MolSysMT', syntax='MolSysMT'):
     """
@@ -15,11 +15,10 @@ def get_contacts(molecular_system, selection=None, groups_of_atoms=None, group_b
 
     from molsysmt.structure.get_distances import get_distances
 
-    all_dists = get_distances(molecular_system=molecular_system, selection=selection, groups_of_atoms=groups_of_atoms,
-                group_behavior=group_behavior, structure_indices=structure_indices,
-                selection_2=selection_2, groups_of_atoms_2=groups_of_atoms_2,
-                group_behavior_2=group_behavior_2, structure_indices_2=structure_indices_2,
-                pbc=pbc, engine=engine, syntax=syntax)
+    all_dists = get_distances(molecular_system=molecular_system, selection=selection,
+                center_of_atoms=center_of_atoms, weights=weights, structure_indices=structure_indices,
+                selection_2=selection_2, center_of_atoms_2=center_of_atoms_2, weights_2=weights_2,
+                structure_indices_2=structure_indices_2, pbc=pbc, engine=engine, syntax=syntax)
 
     length_units = puw.get_unit(all_dists)
     threshold = puw.get_value(threshold, to_unit=length_units)

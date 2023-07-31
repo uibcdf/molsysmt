@@ -16,8 +16,7 @@ Methods and wrappers to create and solvate boxes
 @digest()
 def solvate (molecular_system, box_shape="truncated octahedral", clearance='14.0 angstroms',
              anion='Cl-', n_anions="neutralize", cation='Na+', n_cations="neutralize",
-             ionic_strength='0.0 molar', engine="OpenMM",
-             water_model='TIP3P', forcefield='AMBER14',
+             ionic_strength='0.0 molar', water_model='TIP3P', engine="OpenMM",
              to_form= None, verbose=False):
     """
     To be written soon...
@@ -53,24 +52,26 @@ def solvate (molecular_system, box_shape="truncated octahedral", clearance='14.0
 
         from openmm import Vec3
         from molsysmt.basic import get
-        from molsysmt.molecular_mechanics import get_forcefield
         from openmm.app import ForceField
+        from molsysmt.config import default_attribute
+        from molsysmt.molecular_mechanics import forcefield_to_engine
 
         clearance = puw.convert(clearance, to_form='openmm.unit')
         ionic_strength = puw.convert(ionic_strength, to_form='openmm.unit')
 
         modeller = convert(molecular_system, to_form='openmm.Modeller')
 
-        aux_water_model = get(molecular_system, water_model=True)
-        aux_forcefield = get_forcefield(molecular_system, engine='OpenMM')
+        aux_water_model, aux_forcefield = get(molecular_system, water_model=True, forcefield=True)
 
         if aux_water_model is not None:
             water_model = aux_water_model
 
-        if aux_forcefield is not None:
-            forcefield = aux_forcefield
+        if aux_forcefield is None:
+            forcefield = default_attribute['forcefield']
         else:
-            forcefield = get_forcefield({'forcefield':forcefield, 'water_model':water_model}, engine='OpenMM')
+            forcefield = aux_forcefield
+
+        forcefield = forcefield_to_engine(forcefield, water_model=water_model, engine='OpenMM')
 
         solvent_model=None
 

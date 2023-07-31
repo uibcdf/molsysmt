@@ -3,8 +3,8 @@ from molsysmt import pyunitwizard as puw
 import numpy as np
 
 @digest()
-def get_neighbors(molecular_system, selection="all", groups_of_atoms=None, group_behavior=None, structure_indices="all",
-                  molecular_system_2=None, selection_2=None, groups_of_atoms_2=None, group_behavior_2=None, structure_indices_2=None,
+def get_neighbors(molecular_system, selection="all", structure_indices="all", center_of_atoms=False, weights=None,
+                  molecular_system_2=None, selection_2=None, structure_indices_2=None, center_of_atoms_2=False, weights_2=None,
                   threshold=None, n_neighbors=None, pbc=False, engine='MolSysMT', syntax='MolSysMT'):
     """
     To be written soon...
@@ -13,33 +13,23 @@ def get_neighbors(molecular_system, selection="all", groups_of_atoms=None, group
     from . import get_distances
     from molsysmt.basic import select
 
-    #if (threshold is None) and (n_neighbors is None):
-    #    raise BadCallError(BadCallMessage)
-
     same_set = False
 
     same_selections = False
-    same_groups = False
     same_structures = False
 
-    if groups_of_atoms is not None:
-        selection=None
-
-    if (selection is not None) and (selection_2 is None) and (groups_of_atoms_2 is None):
+    if (selection is not None) and (selection_2 is None):
         same_selections = True
-    elif (groups_of_atoms is not None) and (selection_2 is None) and (groups_of_atoms_2 is None):
-        same_groups = True
 
     if structure_indices_2 is None:
         same_structures = True
 
-    same_set= (same_selections or same_groups) and same_structures
+    same_set= same_selections and same_structures
 
-    all_dists = get_distances(molecular_system=molecular_system, selection=selection, groups_of_atoms=groups_of_atoms,
-                        group_behavior=group_behavior, structure_indices=structure_indices,
-                        selection_2=selection_2, groups_of_atoms_2=groups_of_atoms_2,
-                        group_behavior_2=group_behavior_2, structure_indices_2=structure_indices_2,
-                        pbc=pbc, engine=engine, syntax=syntax)
+    all_dists = get_distances(molecular_system=molecular_system, selection=selection,
+            structure_indices=structure_indices, center_of_atoms=center_of_atoms, weights=weights,
+            selection_2=selection_2, structure_indices_2=structure_indices_2, center_of_atoms_2=center_of_atoms_2,
+            weights_2=weights_2, pbc=pbc, engine=engine, syntax=syntax)
 
     nstructures, nelements_1, nelements_2 = all_dists.shape
     length_units = puw.get_unit(all_dists)

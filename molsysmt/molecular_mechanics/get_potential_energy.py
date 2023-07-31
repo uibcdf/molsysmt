@@ -15,7 +15,8 @@ from molsysmt._private.digestion import digest
 from molsysmt._private.variables import is_all
 
 @digest()
-def get_potential_energy(molecular_system, decomposition=False, platform='CUDA', engine='OpenMM'):
+def get_potential_energy(molecular_system, selection='all', decomposition=False, platform='CUDA',
+        engine='OpenMM', syntax='MolSysMT'):
 
     from molsysmt import convert, get_form, has_attribute
     from molsysmt.config import default_attribute
@@ -28,11 +29,27 @@ def get_potential_energy(molecular_system, decomposition=False, platform='CUDA',
 
         if form_in == 'openmm.Context':
 
-            context=molecular_system
+            if is_all(selection):
+
+                context=molecular_system
+
+            else:
+
+                from molsysmt.form.openmm_Context import extract
+
+                context=extract(molecular_system, selection=selection, syntax=syntax)
 
         elif form_in == 'openmm.Simulation':
 
-            context = item.context
+            if is_all(selection):
+
+                context = item.context
+
+            else:
+
+                from molsysmt.form.openmm_Simulation import extract
+
+                context=extract(molecular_system, selection=selection, syntax=syntax)
 
         else:
 
@@ -46,8 +63,8 @@ def get_potential_energy(molecular_system, decomposition=False, platform='CUDA',
                 if not has_attribute(molecular_system, att):
                     extra_conversion_arguments[att]=default_attribute[att]
 
-            context = convert(molecular_system, to_form='openmm.Context',
-                    **extra_conversion_arguments, platform=platform)
+            context = convert(molecular_system, to_form='openmm.Context', selection=selection,
+                    syntax=syntax, **extra_conversion_arguments, platform=platform)
 
         if decomposition:
 

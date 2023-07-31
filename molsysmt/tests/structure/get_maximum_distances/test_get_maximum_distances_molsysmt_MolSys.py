@@ -14,8 +14,7 @@ import numpy as np
 def test_get_maximum_distances_from_molsysmt_MolSys_1():
     molsys = msm.convert(tests_systems['pentalanine']['traj_pentalanine.h5'], to_form='molsysmt.MolSys')
     list_atom_groups = msm.get(molsys, element='group', selection='all', atom_index=True)
-    max_pairs, max_distances = msm.structure.get_maximum_distances(molsys, groups_of_atoms=list_atom_groups,
-                                                group_behavior='geometric center')
+    max_pairs, max_distances = msm.structure.get_maximum_distances(molsys, selection=list_atom_groups)
     check_shape_1 = ((5000,2)==max_pairs.shape)
     check_shape_2 = ((5000,)==max_distances.shape)
     check_pairs = np.all(max_pairs[0]==np.array([0, 6]))
@@ -30,10 +29,8 @@ def test_get_maximum_distances_from_molsysmt_MolSys_2():
     list_atom_groups = msm.get(molsys, element='group', selection='all', atom_index=True)
     frames=np.arange(msm.get(molsys, n_structures=True))
     max_group, max_distances = msm.structure.get_maximum_distances(molsys,
-                                                groups_of_atoms=list_atom_groups,
-                                                group_behavior='geometric center',
-                                                groups_of_atoms_2=list_atom_groups,
-                                                group_behavior_2='geometric center',
+                                                selection=list_atom_groups,
+                                                selection_2=list_atom_groups,
                                                 structure_indices=frames[:-1],
                                                 structure_indices_2=frames[1:],
                                                 pairs=True)

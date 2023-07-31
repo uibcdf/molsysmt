@@ -41,22 +41,24 @@ def get_distances(molecular_system, selection="all", structure_indices="all", ce
 
     from molsysmt.basic import select
 
-    selection = select(molecular_system, selection=selection, syntax=syntax)
+    atom_indices = select(molecular_system, selection=selection, syntax=syntax)
 
     if molecular_system_2 is not None:
         if selection_2 is None:
             selection_2 = selection
         if structure_indices_2 is None:
             structure_indices_2 = structure_indices
-        selection_2 = select(molecular_system_2, selection=selection_2)
+        atom_indices_2 = select(molecular_system_2, selection=selection_2)
     else:
         if selection_2 is not None:
-            selection_2 = select(molecular_system, selection=selection_2)
+            atom_indices_2 = select(molecular_system, selection=selection_2)
+        else:
+            atom_indices_2 = None
 
-    if is_iterable_of_iterables(selection):
+    if is_iterable_of_iterables(atom_indices):
         center_of_atoms = True
 
-    if is_iterable_of_iterables(selection_2):
+    if is_iterable_of_iterables(atom_indices_2):
         center_of_atoms_2 = True
 
     if engine=='MolSysMT':
@@ -76,8 +78,8 @@ def get_distances(molecular_system, selection="all", structure_indices="all", ce
         if in_memory:
 
             output = _get_distances_in_memory(molecular_system,
-                    selection=selection, structure_indices=structure_indices, center_of_atoms=center_of_atoms, weights=weights,
-                    molecular_system_2=molecular_system_2, selection_2=selection_2, structure_indices_2=structure_indices_2,
+                    selection=atom_indices, structure_indices=structure_indices, center_of_atoms=center_of_atoms, weights=weights,
+                    molecular_system_2=molecular_system_2, selection_2=atom_indices_2, structure_indices_2=structure_indices_2,
                     center_of_atoms_2=center_of_atoms_2, weights_2=weights_2, pairs=pairs, pbc=pbc, syntax=syntax)
 
         else:

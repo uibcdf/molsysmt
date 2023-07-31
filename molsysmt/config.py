@@ -9,9 +9,16 @@ _debugging = False
 # Default attribute values
 
 default_attribute = {
+
+        'box':None,
+        'structure_id':None,
+        'box':None,
+        'coordinates':None,
+        'time':None,
+
         'forcefield':'AMBER14',
         'implicit_solvent':None,
-        'water_model':None,
+        'water_model':'TIP3P',
         'non_bonded_method':'no cutoff',
         'constraints':'hbonds',
         'dispersion_correction':False,

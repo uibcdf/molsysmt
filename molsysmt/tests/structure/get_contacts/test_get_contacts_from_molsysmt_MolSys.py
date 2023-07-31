@@ -38,8 +38,8 @@ def test_get_contacts_from_molsysmt_MolSys_3():
     atoms_in_residues_chain_1 = msm.get(molsys, element='group',
                                         selection="molecule_type=='protein' and chain_index==1", atom_index=True)
     contact_map = msm.structure.get_contacts(molsys,
-                              groups_of_atoms=atoms_in_residues_chain_0, group_behavior='geometric center',
-                              groups_of_atoms_2=atoms_in_residues_chain_1, group_behavior_2='geometric center',
+                              selection=atoms_in_residues_chain_0,
+                              selection_2=atoms_in_residues_chain_1,
                               threshold=1.2*puw.unit('nm'))
     check_shape_1 = ((1, 248, 249)==contact_map.shape)
     check_value_1 = np.all(np.array([False, False, False, False,  True, False, False,  True, False, False])==contact_map[0,48,40:50])

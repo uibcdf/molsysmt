@@ -22,6 +22,7 @@ barstar_F_over_E = msm.structure.align(barstar_F, selection='atom_name=="CA"',
 barnase_barstar = msm.merge([barnase, barstar_F_over_E])
 barnase_barstar = msm.build.add_missing_heavy_atoms(barnase_barstar)
 barnase_barstar = msm.build.add_missing_hydrogens(barnase_barstar, pH=7.4)
+msm.molecular_mechanics.potential_energy_minimization(barnase_barstar)
 _ = msm.convert(barnase_barstar, to_form='../../data/pdb/barnase_barstar.pdb')
 _ = msm.convert(barnase_barstar, to_form='../../data/msmpk/barnase_barstar.msmpk')
 

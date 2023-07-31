@@ -16,10 +16,8 @@ def test_get_minimum_distances_from_molsysmt_MolSys_1():
     atoms_groups_component_0 = msm.get(molsys, element='group', selection='component_index==0', atom_index=True)
     atoms_groups_component_1 = msm.get(molsys, element='group', selection='component_index==1', atom_index=True)
     min_pairs, min_distances = msm.structure.get_minimum_distances(molsys,
-                                                groups_of_atoms=atoms_groups_component_0,
-                                                group_behavior='geometric center',
-                                                groups_of_atoms_2=atoms_groups_component_1,
-                                                group_behavior_2='geometric center')
+                                                selection=atoms_groups_component_0,
+                                                selection_2=atoms_groups_component_1)
     check_shape_1 = ((1,2)==min_pairs.shape)
     check_shape_2 = ((1,)==min_distances.shape)
     check_pairs = np.all(min_pairs[0]==np.array([69, 12]))
