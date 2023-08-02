@@ -21,7 +21,7 @@ def get_angles_single_structure(coordinates, triplets):
         at1=triplets[ii,1]
         at2=triplets[ii,2]
 
-        vect0=coordinates[at1]-coordinates[at0]
+        vect0=coordinates[at0]-coordinates[at1]
         vect1=coordinates[at2]-coordinates[at1]
 
         angles[ii]=angle(vect0,vect1)
@@ -48,7 +48,7 @@ def get_angles(coordinates, triplets):
             at1=triplets[jj,1]
             at2=triplets[jj,2]
 
-            vect0=coordinates[ii,at1]-coordinates[ii,at0]
+            vect0=coordinates[ii,at0]-coordinates[ii,at1]
             vect1=coordinates[ii,at2]-coordinates[ii,at1]
 
             angles[ii,jj]=angle(vect0,vect1)

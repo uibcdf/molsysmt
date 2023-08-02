@@ -27,7 +27,7 @@ def get_mic_angles_single_structure(coordinates, box, triplets):
         at1=triplets[ii,1]
         at2=triplets[ii,2]
 
-        vect0=coordinates[at1]-coordinates[at0]
+        vect0=coordinates[at0]-coordinates[at1]
         vect1=coordinates[at2]-coordinates[at1]
 
         vect0=wrap_to_mic_vector_single_structure(vect0, box, inv_box, orthogonal)
@@ -62,7 +62,7 @@ def get_mic_angles(coordinates, box, triplets):
             at1=triplets[jj,1]
             at2=triplets[jj,2]
 
-            vect0=coordinates[ii,at1]-coordinates[ii,at0]
+            vect0=coordinates[ii,at0]-coordinates[ii,at1]
             vect1=coordinates[ii,at2]-coordinates[ii,at1]
 
             vect0=wrap_to_mic_vector_single_structure(vect0, tmp_box, inv_box, orthogonal)
