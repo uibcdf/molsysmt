@@ -70,6 +70,25 @@ def normalize_vector(a):
 
     return a/aux
 
+
+@nb.njit(nb.float64(nb.float64[:],
+                     nb.float64[:],
+                     ),
+        cache=True)
+def angle(vect0, vect1):
+
+    cosa = dot_product(vect0,vect1)/(norm_vector(vect0)*norm_vector(vect1))
+
+    if cosa>=1.0:
+        cosa=1.0
+    if cosa<=-1.0:
+        cosa=-1.0
+
+    ang = math.acos(cosa)
+
+    return ang
+
+
 @nb.njit(nb.float64(nb.float64[:],
                      nb.float64[:],
                      nb.float64[:],

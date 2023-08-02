@@ -51,5 +51,11 @@ def digest_output_type(output_type, caller=None):
             if output_type.lower() in ['values', 'dictionary']:
                 return output_type.lower()
 
+    elif caller=='molsysmt.hbonds.get_hbonds.get_hbonds':
+
+        if isinstance(output_type, str):
+            if output_type.lower() in ['numpy.ndarray', 'dictionary']:
+                return output_type.lower()
+
     raise ArgumentError('output_type', value=output_type, caller=caller, message=None)
 

@@ -37,6 +37,12 @@ from .get_mic_dihedral_angles import get_mic_dihedral_angles
 from .get_dihedral_angles import get_dihedral_angles_single_structure
 from .get_dihedral_angles import get_dihedral_angles
 
+from .get_mic_angles import get_mic_angles_single_structure
+from .get_mic_angles import get_mic_angles
+
+from .get_angles import get_angles_single_structure
+from .get_angles import get_angles
+
 from .set_mic_dihedral_angles import set_mic_dihedral_angles_single_structure
 from .set_mic_dihedral_angles import set_mic_dihedral_angles
 

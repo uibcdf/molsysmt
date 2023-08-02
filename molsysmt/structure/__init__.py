@@ -8,6 +8,7 @@ from .center import center
 from .translate import translate
 from .move_away import move_away
 from .rotate import rotate
+from .get_angles import get_angles
 from .get_dihedral_angles import get_dihedral_angles
 from .set_dihedral_angles import set_dihedral_angles
 from .shift_dihedral_angles import shift_dihedral_angles

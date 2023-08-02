@@ -1,7 +1,6 @@
-from molsysmt._private.exceptions import *
-from molsysmt._private.digestion import *
-from molsysmt.basic.select import select
+from molsysmt._private.digestion import digest
 import numpy as np
+
 
 acceptor_inclusion_rules = [
     "atom_type=='O'",
@@ -15,40 +14,32 @@ acceptor_exclusion_rules = [
     "(atom_name=='ND1' and group_name=='HIS') bonded to (atom_type=='H')",
 ]
 
+@digest()
+def get_acceptor_atoms(molecular_system, selection='all', inclusion_rules=None,
+        exclusion_rules=None, default_inclusion_rules=True, default_exclusion_rules=True,
+        syntax='MolSysMT'):
 
-def get_acceptor_atoms(molecular_system, selection='all',  inclusion_rules=[], exclusion_rules=[],
-                       default_inclusion_rules=True, default_exclusion_rules=True, syntax='MolSysMT', engine='MolSysMT'):
-    """
-    To be written soon...
-    """
+    from molsysmt import select
 
-    engine = digest_engine(engine)
+    output = set()
 
-    if engine=='MolSysMT':
+    mask = select(molecular_system, selection=selection, syntax=syntax)
 
-        output = set()
+    if default_inclusion_rules:
+        inclusion_rules += acceptor_inclusion_rules
 
-        mask = select(molecular_system, selection=selection, syntax=syntax)
+    if default_exclusion_rules:
+        exclusion_rules += acceptor_exclusion_rules
 
-        if default_inclusion_rules:
-            inclusion_rules += acceptor_inclusion_rules
+    for rule in inclusion_rules:
+        tmp_acceptors = select(molecular_system, selection=rule, mask=mask, syntax=syntax)
+        output.update(tmp_acceptors)
 
-        if default_exclusion_rules:
-            exclusion_rules += acceptor_exclusion_rules
+    for rule in exclusion_rules:
+        tmp_not_acceptors = select(molecular_system, selection=rule, mask=mask, syntax=syntax)
+        output.difference_update(tmp_not_acceptors)
 
-        for rule in inclusion_rules:
-            tmp_acceptors = select(molecular_system, selection=rule, mask=mask, syntax=syntax)
-            output.update(tmp_acceptors)
-
-        for rule in exclusion_rules:
-            tmp_not_acceptors = select(molecular_system, selection=rule, mask=mask, syntax=syntax)
-            output.difference_update(tmp_not_acceptors)
-
-        output = np.sort(list(output))
-
-    else:
-
-        raise NotImplementedError()
+    output = np.sort(list(output))
 
     return output
 
