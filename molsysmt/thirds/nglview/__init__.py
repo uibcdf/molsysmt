@@ -10,5 +10,9 @@ from .precooked_recipes import show_system_as_transparent_surface
 from .precooked_recipes import show_water_as_licorice
 from .patching_nglview import adding_molsysmt
 
-from .add_hbonds import add_hbonds
 from .add_cylinders import add_cylinders
+from .add_contacts import add_contacts
+from .show_contacts import show_contacts
+from .add_hbonds import add_hbonds
+#from .add_hbonds import add_hbonds
+

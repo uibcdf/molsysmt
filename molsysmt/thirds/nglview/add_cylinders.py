@@ -1,11 +1,17 @@
 from molsysmt._private.digestion import digest
-from molsysmt._private.variables import is_all
-from matplotlib.colors import to_rgb
+from molsysmt._private.variables import is_all, is_iterable
+from molsysmt._private.colors import color_to_list_of_colors, get_list_of_colors_from_values
 from molsysmt import pyunitwizard as puw
+import numpy as np
 
 
 #@digest()
-def add_cylinders(view, start, end, color='#808080', color2='#808080', radius='0.2 angstroms'):
+def add_cylinders(view, start, end, color='#808080', color_2=None, radius='0.1 angstroms',
+        color_values=None, min_color_value=None, mid_color_value=None, max_color_value=None,
+        color_values_scale='linear', colormap='bwr', color_values_2=None, min_color_value_2=None,
+        mid_color_value_2=None, max_color_value_2=None, center_color_value_2=None,
+        color_values_scale_2=None, colormap_2=None):
+
     """Adding cylinders to a view.
 
     Cylinders can be added to an NGL view (NGLWidget).
@@ -48,7 +54,7 @@ def add_cylinders(view, start, end, color='#808080', color2='#808080', radius='0
     >>> view = nv.NGLWidget()
     >>> start = puw.quantity([[0,0,0], [0,5,0]], 'angstroms')
     >>> end = puw.quantity([[10,0,0], [0,10,0]], 'angstroms')
-    >>> msm.thirds.nglview.add_cylinders(view, start, end, color='#ff0000', color2='#0000ff', radius='0.2 angstroms')
+    >>> msm.thirds.nglview.add_cylinders(view, start, end, color='#ff0000', color_2='#0000ff', radius='0.2 angstroms')
     >>> view
 
     See Also
@@ -66,31 +72,44 @@ def add_cylinders(view, start, end, color='#808080', color2='#808080', radius='0
 
     """
 
-    if isinstance(color, str):
-
-        color=to_rgb(color)
-
-    if isinstance(color2, str):
-
-        color2=to_rgb(color2)
-
-
-
     n_cylinders=start.shape[0]
 
     ngl_start = puw.get_value(start, to_unit='angstroms')
     ngl_end = puw.get_value(end, to_unit='angstroms')
     ngl_radius = puw.get_value(radius, to_unit='angstroms')
-    ngl_color = color
-    ngl_color2 = color2
+
+    if not is_iterable(ngl_radius):
+        ngl_radius = [ngl_radius for ii in range(n_cylinders)]
+
+    if color_values is not None:
+        ngl_color = get_list_of_colors_from_values(color_values, min_value=min_color_value,
+                mid_value=mid_color_value, max_value=max_color_value, scale=color_values_scale,
+                colormap=colormap, form='rgb')
+    else:
+        ngl_color = color_to_list_of_colors(color, n_cylinders, 'rgb')
+
+    if color_values_2 is not None:
+        if colormap_2 is None:
+            colormap_2 = colormap
+        if color_values_scale_2 is None:
+            color_values_scale_2 = color_values_scale
+        ngl_color_2 = get_list_of_colors_from_values(color_values_2, min_value=min_color_value_2,
+                mid_value=mid_color_value_2, max_value=max_color_value_2, scale=color_values_scale_2,
+                colormap=colormap_2, form='rgb')
+    else:
+        if color_2 is None:
+            ngl_color_2 = ngl_color
+        else:
+            ngl_color_2 = color_to_list_of_colors(color_2, n_cylinders, 'rgb')
+
 
     for ii in range(n_cylinders):
 
         kwargs = {'position1':ngl_start[ii].tolist(),
                   'position2':ngl_end[ii].tolist(),
-                  'color': ngl_color,
-                  'color2': ngl_color2,
-                  'radius': [ngl_radius]}
+                  'color': ngl_color[ii],
+                  'color2': ngl_color_2[ii],
+                  'radius': [ngl_radius[ii]]}
 
         msg = view._get_remote_call_msg("addBuffer",
                                         target="Widget",

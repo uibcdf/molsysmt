@@ -43,6 +43,13 @@ def is_iterable_of_iterables(variable):
 
     return False
 
+def is_iterable(variable):
+
+    if isinstance(variable, (list, tuple, set, ndarray)):
+        return True
+
+    return False
+
 
 def is_next(variable):
 
