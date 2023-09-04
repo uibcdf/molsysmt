@@ -36,13 +36,6 @@ def is_all(variable):
 
     return False
 
-def is_iterable_of_iterables(variable):
-
-    if isinstance(variable, (list, tuple, set, ndarray)):
-        return all([isinstance(ii, (list, tuple, set, ndarray)) for ii in variable])
-
-    return False
-
 def is_iterable(variable):
 
     if isinstance(variable, (list, tuple, set, ndarray)):
@@ -50,6 +43,19 @@ def is_iterable(variable):
 
     return False
 
+def is_iterable_of_iterables(variable):
+
+    if isinstance(variable, (list, tuple, set, ndarray)):
+        return all([is_iterable(ii) for ii in variable])
+
+    return False
+
+def is_iterable_of_iterables_of_iterables(variable):
+
+    if isinstance(variable, (list, tuple, set, ndarray)):
+        return all([is_iterable_of_iterables(ii) for ii in variable])
+
+    return False
 
 def is_next(variable):
 

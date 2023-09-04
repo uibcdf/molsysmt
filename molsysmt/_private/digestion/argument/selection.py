@@ -1,5 +1,5 @@
 from molsysmt._private.exceptions import ArgumentError
-from molsysmt._private.variables import is_iterable_of_iterables
+from molsysmt._private.variables import is_iterable
 import numpy as np
 
 def digest_selection(selection, syntax="MolSysMT", caller=None):
@@ -28,12 +28,12 @@ def digest_selection(selection, syntax="MolSysMT", caller=None):
         if isinstance(selection, str):
             return selection
         elif isinstance(selection, (int, np.int64, np.int32)):
-            return np.array([selection], dtype='int64')
-        elif isinstance(selection, (np.ndarray, list, tuple, range)):
-            if is_iterable_of_iterables(selection):
-                return np.array(selection, dtype=object)
+            return [selection]
+        elif is_iterable(selection):
+            if all([isinstance(ii, (int, np.int64, np.int32)) for ii in selection]):
+                return list(selection)
             else:
-                return np.array(selection, dtype='int64')
+                return list([digest_selection(ii, syntax=syntax, caller=caller) for ii in selection])
         elif selection is None:
             return None
     else:
