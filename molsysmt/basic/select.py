@@ -2,46 +2,7 @@ from molsysmt._private.exceptions import NotImplementedMethodError, NotSupported
 from molsysmt._private.digestion import digest
 import numpy as np
 from molsysmt._private.variables import is_all, is_iterable_of_iterables
-from molsysmt._private.strings import get_parenthesis
-from re import findall
-from inspect import stack, getargvalues
-
-
-def select_standard(molecular_system, selection='all', syntax='MolSysMT'):
-
-    from . import where_is_attribute
-    from molsysmt.form import _dict_modules
-
-    if type(selection)==str:
-        if is_all(selection):
-            aux_item, aux_form = where_is_attribute(molecular_system, 'n_atoms')
-            n_atoms = _dict_modules[aux_form].get_n_atoms_from_system(aux_item)
-            atom_indices = np.arange(n_atoms, dtype='int64')
-        else:
-            #aux_item, aux_form = where_is_attribute(molecular_system, 'atom_index')
-            if syntax=='MolSysMT':
-                atom_indices = select_with_MolSysMT(molecular_system, selection)
-            elif syntax=='MDTraj':
-                atom_indices = select_with_MDTraj(molecular_system, selection)
-            elif syntax=='Amber':
-                atom_indices = select_with_Amber(molecular_system, selection)
-            elif syntax=='ParmEd':
-                atom_indices = select_with_ParmEd(molecular_system, selection)
-            elif syntax=='MDAnalysis':
-                atom_indices = select_with_MDAnalysis(molecular_system, selection)
-            else:
-                raise NotSupportedSyntaxError()
-
-    elif type(selection) in [int, np.int64, np.int32]:
-        atom_indices = np.array([selection], dtype='int64')
-    elif type(selection)==set:
-        atom_indices = np.array(list(selection), dtype='int64')
-    elif hasattr(selection, '__iter__'):
-        atom_indices = np.array(selection, dtype='int64')
-    else :
-        atom_indices = None
-
-    return atom_indices
+from .selector import _dict_select, _dict_indices_to_selection
 
 
 @digest()
@@ -150,74 +111,79 @@ def select(molecular_system, selection='all', structure_indices='all', element='
 
     """
 
-    from . import get_form, where_is_attribute, is_a_molecular_system
+    from molsysmt.basic import get, where_is_attribute
     from molsysmt.form import _dict_modules
 
     if is_all(mask):
         mask=None
 
-    if type(selection)==str:
+    if is_all(selection):
 
-        while selection_with_special_subsentences(selection):
-            sub_selection = selection_with_special_subsentences(selection)
-            sub_atom_indices = select(molecular_system, sub_selection, syntax=syntax)
-            selection = selection.replace(sub_selection, 'atom_index==@sub_atom_indices')
+        n_atoms = get(molecular_system, n_atoms=True)
+        atom_indices = np.arange(n_atoms, dtype='int64').tolist()
 
-        if 'in groups of' in selection:
-            atom_indices = select_in_groups_of(molecular_system, selection=selection, syntax=syntax)
+    elif isinstance(selection, (int, np.int64, np.int32)):
 
-        elif 'in components of' in selection:
-            atom_indices = select_in_components_of(molecular_system, selection=selection, syntax=syntax)
+        atom_indices = [selection]
 
-        elif 'in molecules of' in selection:
-            atom_indices = select_in_molecules_of(molecular_system, selection=selection, syntax=syntax)
+    elif selection is None:
 
-        elif 'in chains of' in selection:
-            atom_indices = select_in_chains_of(molecular_system, selection=selection, syntax=syntax)
+        atom_indices = None
 
-        elif 'in entities of' in selection:
-            atom_indices = select_in_entities_of(molecular_system, selection=selection, syntax=syntax)
+    elif isinstance(selection, (list, tuple, np.ndarray)):
 
-        elif 'within' in selection:
-            atom_indices = select_within(molecular_system, selection=selection,
-                                         structure_indices=structure_indices, syntax=syntax)
-        elif 'bonded to' in selection:
-            atom_indices = select_bonded_to(molecular_system, selection=selection, syntax=syntax)
+        if all([isinstance(ii, (int, np.int32, np.int64)) for ii in selection]):
+
+            atom_indices = list(selection)
 
         else:
-            atom_indices = select_standard(molecular_system, selection=selection, syntax=syntax)
 
-        if element=='atom':
-            output_indices = atom_indices
+            atom_indices = []
 
-        elif element in ['group', 'component', 'chain', 'molecule', 'entity']:
+            for ii in selection:
 
-            if is_iterable_of_iterables(atom_indices):
+                tmp_atom_indices = select(molecular_system, selection=selection,
+                        structure_indices=structure_indices, syntax=syntax)
 
-                output_indices = []
-                aux_item, aux_form = where_is_attribute(molecular_system, element+'_index')
-                for aux_atom_indices in atom_indices:
-                    temp_output_indices = getattr(_dict_modules[aux_form], f'get_{element}_index_from_atom')(aux_item, indices=aux_atom_indices)
-                    output_indices.append(np.unique(temp_output_indices).astype('object'))
-                output_indices = np.array(output_indices, dtype='object')
-
-            else:
-
-                aux_item, aux_form = where_is_attribute(molecular_system, element+'_index')
-                output_indices = getattr(_dict_modules[aux_form], f'get_{element}_index_from_atom')(aux_item, indices=atom_indices)
-                output_indices = np.unique(output_indices)
-
-
-        elif element=='bond':
-            aux_item, aux_form = where_is_attribute(molecular_system, 'inner_bond_index')
-            output_indices = _dict_modules[aux_form].get_inner_bond_index_from_atom(aux_item, indices=atom_indices)
-
-        else:
-            raise NotImplementedMethodError()
+                atom_indices.append(tmp_atom_indices)
 
     else:
 
-        output_indices = selection
+        if syntax in _dict_select:
+            atom_indices = _dict_select[syntax](molecular_system, selection, structure_indices)
+        else:
+            raise NotSupportedSyntaxError()
+
+    if element=='atom':
+
+        output_indices = atom_indices
+
+    elif element in ['group', 'component', 'chain', 'molecule', 'entity']:
+
+        if is_iterable_of_iterables(atom_indices):
+
+            output_indices = []
+
+            aux_item, aux_form = where_is_attribute(molecular_system, element+'_index')
+            for aux_atom_indices in atom_indices:
+                temp_output_indices = getattr(_dict_modules[aux_form], f'get_{element}_index_from_atom')(aux_item, indices=aux_atom_indices)
+                output_indices.append(np.unique(temp_output_indices).tolist())
+
+
+        else:
+
+             aux_item, aux_form = where_is_attribute(molecular_system, element+'_index')
+             output_indices = getattr(_dict_modules[aux_form], f'get_{element}_index_from_atom')(aux_item, indices=atom_indices)
+             output_indices = np.unique(output_indices).tolist()
+
+    elif element=='bond':
+
+        aux_item, aux_form = where_is_attribute(molecular_system, 'inner_bond_index')
+        output_indices = _dict_modules[aux_form].get_inner_bond_index_from_atom(aux_item, indices=atom_indices)
+
+    else:
+
+        raise NotImplementedMethodError()
 
     if mask is not None:
         if isinstance(mask, str):
@@ -225,47 +191,16 @@ def select(molecular_system, selection='all', structure_indices='all', element='
         output_indices = np.intersect1d(output_indices, mask, assume_unique=True)
 
     if to_syntax is None:
-        return output_indices
-    else:
-        return indices_to_selection(molecular_system, output_indices, element=element, syntax=to_syntax)
 
-
-def indices_to_selection(molecular_system, indices, element='atom', syntax=None):
-
-    output_string = ''
-
-    if syntax=='NGLView':
-
-        if element=='atom':
-            output_string = '@'+','.join([str(ii) for ii in indices])
-        elif element=='group':
-            from molsysmt import get
-            group_ids, chain_ids = get(molecular_system, element='group', selection=indices, group_id=True, chain_id=True)
-            if np.all(np.isin(np.unique(chain_ids), [' ', None])):
-                output_string = ','.join([str(ii) for ii in group_ids])
-            else:
-                output_string = ' '.join([str(ii)+':'+str(jj) for ii,jj in zip(group_ids, chain_ids)])
-        elif element=='chain':
-            from molsysmt import get
-            chain_ids = get(molecular_system, element='chain', selection=indices, chain_id=True)
-            output_string = ' '.join([':'+ii for ii in chain_ids])
-        else:
-            raise NotImplementedMethodError
-
-    elif syntax=='MDTraj':
-
-        if element=='atom':
-            output_string = 'index '+' '.join([str(ii) for ii in indices])
-        elif element=='group':
-            output_string = 'resid '+' '.join([str(ii) for ii in indices])
-        elif element=='chain':
-            output_string = 'chainid '+' '.join([str(ii) for ii in indices])
-        else:
-            raise NotImplementedMethodError
+        output = output_indices
 
     else:
 
-        raise NotImplementedMethodError
+        if to_syntax in _dict_indices_to_selection:
+            output = _dict_indices_to_selection[to_syntax](molecular_system, output_indices, element)
+        else:
+            raise NotSupportedSyntaxError()
 
-    return output_string
+
+    return output
 

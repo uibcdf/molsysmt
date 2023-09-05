@@ -1,6 +1,6 @@
 from molsysmt._private.exceptions import NotImplementedMethodError
 
-def select(item, selection):
+def select(item, selection, structure_indices):
 
     #from . import convert, get_form
 
