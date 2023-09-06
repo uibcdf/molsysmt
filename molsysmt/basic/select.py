@@ -121,11 +121,11 @@ def select(molecular_system, selection='all', structure_indices='all', element='
         aux_item, aux_form = where_is_attribute(molecular_system, attribute)
         n_elements = getattr(_dict_modules[aux_form], f'get_{attribute}_from_system')(aux_item)
 
-        return np.arange(n_elements, dtype='int64').tolist()
+        return np.arange(n_elements, dtype='int64')
 
     elif isinstance(selection, (int, np.int64, np.int32)):
 
-        return [selection]
+        return np.array([selection])
 
     elif selection is None:
 
@@ -135,15 +135,15 @@ def select(molecular_system, selection='all', structure_indices='all', element='
 
         if all([isinstance(ii, (int, np.int32, np.int64)) for ii in selection]):
 
-            return list(selection)
+            return np.array(selection)
 
         else:
 
             output = []
 
-            for ii in selection:
+            for tmp_selection in selection:
 
-                tmp_indices = select(molecular_system, selection=selection,
+                tmp_indices = select(molecular_system, selection=tmp_selection,
                         structure_indices=structure_indices, element=element, syntax=syntax)
 
                 output.append(tmp_indices)
@@ -173,14 +173,14 @@ def select(molecular_system, selection='all', structure_indices='all', element='
             aux_item, aux_form = where_is_attribute(molecular_system, element+'_index')
             for aux_atom_indices in atom_indices:
                 temp_output_indices = getattr(_dict_modules[aux_form], f'get_{element}_index_from_atom')(aux_item, indices=aux_atom_indices)
-                output_indices.append(np.unique(temp_output_indices).tolist())
+                output_indices.append(np.unique(temp_output_indices))
 
 
         else:
 
              aux_item, aux_form = where_is_attribute(molecular_system, element+'_index')
              output_indices = getattr(_dict_modules[aux_form], f'get_{element}_index_from_atom')(aux_item, indices=atom_indices)
-             output_indices = np.unique(output_indices).tolist()
+             output_indices = np.unique(output_indices)
 
     elif element=='bond':
 

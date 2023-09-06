@@ -5,7 +5,8 @@ _elements = [
         'molecule',
         'chain',
         'entity',
-        'bond'
+        'bond',
+        'system'
         ]
 
 _element_indices = {

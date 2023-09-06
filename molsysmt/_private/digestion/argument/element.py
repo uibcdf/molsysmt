@@ -17,13 +17,13 @@ def digest_element(element, caller=None):
 
     """
 
-    from molsysmt.element.elements import elements, elements_from_plural
+    from molsysmt.element import _elements, _element_plural_to_singular
 
     if isinstance(element, str):
         element_name_lower = element.lower()
-        if element_name_lower in elements_from_plural:
-            return elements_from_plural[element_name_lower]
-        if element_name_lower in elements:
+        if element_name_lower in _element_plural_to_singular:
+            return _element_plural_to_singular[element_name_lower]
+        if element_name_lower in _elements:
             return element_name_lower
     elif element is None:
         if caller=='molsysmt.basic.set.set':

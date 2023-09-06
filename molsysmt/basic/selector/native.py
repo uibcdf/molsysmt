@@ -7,7 +7,7 @@ from re import findall
 from inspect import stack, getargvalues
 
 
-def select(molecular_system, selection, structure_indices):
+def select(molecular_system, selection='all', structure_indices='all'):
 
     if isinstance(selection, str):
 
@@ -60,7 +60,7 @@ def select_standard(item, selection):
 
     if '@' in selection:
 
-        var_names = [ii[1:] for ii in findall(r"@[\w']+", selection)]
+        var_names = _var_names_in_selection(selection)
 
         all_stack_frames = stack()
 
@@ -72,7 +72,12 @@ def select_standard(item, selection):
         for aux_stack in no_wrapper_stack_frames:
             args, args_paramname, kwargs_paramname, values = getargvalues(aux_stack.frame)
             if 'selection' in args:
-                counter+=1
+                selection_input = values['selection']
+                aux_var_names = _var_names_in_selection(selection_input)
+                if all([ii in aux_var_names for ii in var_names]):
+                    counter+=1
+                else:
+                    break
             else:
                 break
 
@@ -107,7 +112,10 @@ def select_standard(item, selection):
         if key in selection:
             tmp_selection = tmp_selection.replace(key, shortcuts[key])
 
-    output = tmp_item.atoms_dataframe.query(tmp_selection).index.to_numpy()
+    if is_all(tmp_selection):
+        output = np.array(np.arange(tmp_item.atoms_dataframe.shape[0]))
+    else:
+        output = tmp_item.atoms_dataframe.query(tmp_selection).index.to_numpy()
 
     return output
 
@@ -134,10 +142,10 @@ def select_within(molecular_system, selection, structure_indices):
 
     threshold, selection_2 = tmp_selection.split(" of ")
 
-    atom_indices_1 = select(molecular_system, selection=selection_1)
-    atom_indices_2 = select(molecular_system, selection=selection_2)
+    atom_indices_1 = select(molecular_system, selection_1)
+    atom_indices_2 = select(molecular_system, selection_2)
     cmap = get_contacts(molecular_system, selection=atom_indices_1, selection_2=atom_indices_2,
-            structure_indices=structure_indices, threshold=threshold, pbc=pbc, engine='MolSysMT')
+            structure_indices=structure_indices, threshold=threshold, pbc=pbc)
 
     if not_within:
         output = atom_indices_1[np.where(cmap.all(axis=2)[0]==False)[0]]
@@ -182,14 +190,14 @@ def select_in_groups_of(molecular_system, selection):
     if before=='' or is_all(before):
 
         output = get(molecular_system, element='group', selection=after, atom_index=True)
+        output = [ii for ii in output]
 
     else:
 
         pre_output = get(molecular_system, element='group', selection=after, atom_index=True)
-        mask = select(molecular_system, element='atom', selection=before)
-        output = [np.intersect1d(ii, mask).astype('object') for ii in pre_output]
+        mask = select(molecular_system, selection=before)
+        output = [np.intersect1d(ii, mask) for ii in pre_output]
         output = [ii for ii in output if ii.shape[0]>0]
-        output = np.array(output, dtype='object')
 
     return output
 
@@ -209,7 +217,7 @@ def select_in_components_of(molecular_system, selection):
     else:
 
         pre_output = get(molecular_system, element='component', selection=after, atom_index=True)
-        mask = select(molecular_system, element='atom', selection=before)
+        mask = select(molecular_system, selection=before)
         output = [np.intersect1d(ii, mask).astype('object') for ii in pre_output]
         output = [ii for ii in output if ii.shape[0]>0]
         output = np.array(output, dtype='object')
@@ -232,7 +240,7 @@ def select_in_molecules_of(molecular_system, selection):
     else:
 
         pre_output = get(molecular_system, element='molecule', selection=after, atom_index=True)
-        mask = select(molecular_system, element='atom', selection=before)
+        mask = select(molecular_system, selection=before)
         output = [np.intersect1d(ii, mask).astype('object') for ii in pre_output]
         output = [ii for ii in output if ii.shape[0]>0]
         output = np.array(output, dtype='object')
@@ -255,7 +263,7 @@ def select_in_chains_of(molecular_system, selection):
     else:
 
         pre_output = get(molecular_system, element='chain', selection=after, atom_index=True)
-        mask = select(molecular_system, element='atom', selection=before)
+        mask = select(molecular_system, selection=before)
         output = [np.intersect1d(ii, mask).astype('object') for ii in pre_output]
         output = [ii for ii in output if ii.shape[0]>0]
         output = np.array(output, dtype='object')
@@ -278,7 +286,7 @@ def select_in_entities_of(molecular_system, selection):
     else:
 
         pre_output = get(molecular_system, element='entity', selection=after, atom_index=True)
-        mask = select(molecular_system, element='atom', selection=before)
+        mask = select(molecular_system, selection=before)
         output = [np.intersect1d(ii, mask).astype('object') for ii in pre_output]
         output = [ii for ii in output if ii.shape[0]>0]
         output = np.array(output, dtype='object')
@@ -297,4 +305,19 @@ def selection_with_special_subsentences(selection):
 
     return output
 
+def _var_names_in_selection(selection):
+
+    var_names = []
+
+    if isinstance(selection, str):
+
+        var_names = [ii[1:] for ii in findall(r"@[\w']+", selection)]
+
+    elif isinstance(selection, (tuple, list)):
+
+        for ii in selection:
+
+            var_names += _var_names_in_selection(ii)
+
+    return var_names
 
