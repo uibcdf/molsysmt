@@ -2,6 +2,7 @@ from molsysmt._private.exceptions import NotImplementedMethodError, NotSupported
 from molsysmt._private.digestion import digest
 import numpy as np
 from molsysmt._private.variables import is_all, is_iterable_of_iterables
+from molsysmt.element import _element_singular_to_plural
 from .selector import _dict_select, _dict_indices_to_selection
 
 
@@ -114,44 +115,49 @@ def select(molecular_system, selection='all', structure_indices='all', element='
     from molsysmt.basic import get, where_is_attribute
     from molsysmt.form import _dict_modules
 
-    if is_all(mask):
-        mask=None
-
     if is_all(selection):
 
-        n_atoms = get(molecular_system, n_atoms=True)
-        atom_indices = np.arange(n_atoms, dtype='int64').tolist()
+        attribute = 'n_'+_element_singular_to_plural(element)
+        aux_item, aux_form = where_is_attribute(molecular_system, attribute)
+        n_elements = getattr(_dict_modules[aux_form], f'get_{attribute}_from_system')(aux_item)
+
+        return np.arange(n_elements, dtype='int64').tolist()
 
     elif isinstance(selection, (int, np.int64, np.int32)):
 
-        atom_indices = [selection]
+        return [selection]
 
     elif selection is None:
 
-        atom_indices = None
+        return None
 
     elif isinstance(selection, (list, tuple, np.ndarray)):
 
         if all([isinstance(ii, (int, np.int32, np.int64)) for ii in selection]):
 
-            atom_indices = list(selection)
+            return list(selection)
 
         else:
 
-            atom_indices = []
+            output = []
 
             for ii in selection:
 
-                tmp_atom_indices = select(molecular_system, selection=selection,
-                        structure_indices=structure_indices, syntax=syntax)
+                tmp_indices = select(molecular_system, selection=selection,
+                        structure_indices=structure_indices, element=element, syntax=syntax)
 
-                atom_indices.append(tmp_atom_indices)
+                output.append(tmp_indices)
+
+            return output
 
     else:
 
         if syntax in _dict_select:
+
             atom_indices = _dict_select[syntax](molecular_system, selection, structure_indices)
+
         else:
+
             raise NotSupportedSyntaxError()
 
     if element=='atom':
@@ -184,6 +190,9 @@ def select(molecular_system, selection='all', structure_indices='all', element='
     else:
 
         raise NotImplementedMethodError()
+
+    if is_all(mask):
+        mask=None
 
     if mask is not None:
         if isinstance(mask, str):

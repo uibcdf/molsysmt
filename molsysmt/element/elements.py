@@ -9,7 +9,7 @@ elements = [
     'bond',
 ]
 
-elements_from_plural = {
+elements_plural_to_singular = {
     'atoms': 'atom',
     'groups': 'group',
     'residue': 'group',
@@ -21,5 +21,17 @@ elements_from_plural = {
     'systems': 'system',
     'bonds': 'bond',
 }
+
+elements_singular_to_plural = {
+    'atom': 'atoms',
+    'group': 'groups',
+    'component': 'components',
+    'chain': 'chains',
+    'molecule': 'molecules',
+    'entity': 'entities',
+    'bond': 'bonds',
+    'system': 'systems',
+}
+
 
 
