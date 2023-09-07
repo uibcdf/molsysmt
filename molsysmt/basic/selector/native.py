@@ -3,6 +3,7 @@ from molsysmt._private.digestion import digest
 import numpy as np
 from molsysmt._private.variables import is_all, is_iterable_of_iterables
 from molsysmt._private.strings import get_parenthesis
+from molsysmt.element import _element_plural_to_singular, _element_index
 from re import findall
 from inspect import stack, getargvalues
 
@@ -17,20 +18,9 @@ def select(molecular_system, selection='all', structure_indices='all'):
             sub_atom_indices = select(molecular_system, sub_selection, structure_indices)
             selection = selection.replace(sub_selection, 'atom_index==@sub_atom_indices')
 
-        if 'in groups of' in selection:
-            atom_indices = select_in_groups_of(molecular_system, selection)
+        if _in_elements_of(selection):
 
-        elif 'in components of' in selection:
-            atom_indices = select_in_components_of(molecular_system, selection)
-
-        elif 'in molecules of' in selection:
-            atom_indices = select_in_molecules_of(molecular_system, selection)
-
-        elif 'in chains of' in selection:
-            atom_indices = select_in_chains_of(molecular_system, selection)
-
-        elif 'in entities of' in selection:
-            atom_indices = select_in_entities_of(molecular_system, selection)
+            atom_indices = select_in_elements_of(molecular_system, selection)
 
         elif 'within' in selection:
             atom_indices = select_within(molecular_system, selection, structure_indices)
@@ -179,6 +169,103 @@ def select_bonded_to(molecular_system, selection):
     return output
 
 
+
+_aux_dict_in_elements_in={
+        'groups':['components',
+                  'molecules',
+                  'chains',
+                  'entities'],
+        'components':['molecules',
+                  'chains',
+                  'entities'],
+        'molecules':['chains',
+                  'entities'],
+        'chains':['molecules',
+                  'entities'],
+        'entities':[],
+            }
+
+
+def select_in_elements_of(molecular_system, selection):
+
+    from molsysmt.basic import get
+
+    for elements_1, list_elements_2 in _aux_dict_in_elements_in.items():
+
+        if 'in '+elements_1 in selection:
+
+            before, after = selection.split('in '+elements_1)
+
+            before = before.strip()
+            after = after.strip()
+
+            if _in_elements_of(after):
+
+                for elements_2 in list_elements_2:
+
+                    if 'in '+elements_2 in after:
+
+                        element_1 = _element_plural_to_singular[elements_1]
+                        element_2 = _element_plural_to_singular[elements_2]
+
+                        bbefore, aafter = after.split('in '+elements_2)
+
+                        bbefore = bbefore.strip()
+                        aafter = aafter.strip()
+
+                        bbefore = bbefore.replace('of ', '')
+                        aafter = aafter.replace('of ', '')
+
+                        if bbefore == '':
+                            bbefore = 'all'
+
+                        if aafter == '':
+                            aafter = 'all'
+
+                        kwarg = {_element_index[element_1]:True}
+                        pre_output = get(molecular_system, element=element_2, selection=aafter, **kwarg)
+                        mask = get(molecular_system, element=element_1, selection=bbefore, index=True)
+                        output_2 = [np.intersect1d(ii, mask) for ii in pre_output]
+                        output_2 = [ii for ii in output_2 if ii.shape[0]>0]
+
+                        if before == '':
+                            before = 'all'
+
+                        mask = select(molecular_system, selection=before)
+
+                        output = []
+
+                        for aux_after in output_2:
+
+                            pre_output = get(molecular_system, element=element_1, selection=aux_after, atom_index=True)
+                            aux_output = [np.intersect1d(ii, mask) for ii in pre_output]
+                            aux_output = [ii for ii in aux_output if ii.shape[0]>0]
+                            output.append(aux_output)
+
+                        return output
+
+            else:
+
+                element_1 = _element_plural_to_singular[elements_1]
+
+                after = after.replace('of ', '')
+
+                if before == '':
+                    before = 'all'
+
+                if after == '':
+                    after = 'all'
+
+                pre_output = get(molecular_system, element=element_1, selection=after, atom_index=True)
+                mask = select(molecular_system, selection=before)
+                output = [np.intersect1d(ii, mask) for ii in pre_output]
+                output = [ii for ii in output if ii.shape[0]>0]
+
+                return output
+
+    raise NotImplementedError
+
+
 def select_in_groups_of(molecular_system, selection):
 
     from molsysmt.basic import get
@@ -202,98 +289,6 @@ def select_in_groups_of(molecular_system, selection):
     return output
 
 
-def select_in_components_of(molecular_system, selection):
-
-    from molsysmt.basic import get
-
-    before, after=selection.split('in components of')
-    before = before.strip()
-    after = after.strip()
-
-    if before=='' or is_all(before):
-
-        output = get(molecular_system, element='component', selection=after, atom_index=True)
-
-    else:
-
-        pre_output = get(molecular_system, element='component', selection=after, atom_index=True)
-        mask = select(molecular_system, selection=before)
-        output = [np.intersect1d(ii, mask).astype('object') for ii in pre_output]
-        output = [ii for ii in output if ii.shape[0]>0]
-        output = np.array(output, dtype='object')
-
-    return output
-
-
-def select_in_molecules_of(molecular_system, selection):
-
-    from molsysmt.basic import get
-
-    before, after=selection.split('in molecules of')
-    before = before.strip()
-    after = after.strip()
-
-    if before=='' or is_all(before):
-
-        output = get(molecular_system, element='molecule', selection=after, atom_index=True)
-
-    else:
-
-        pre_output = get(molecular_system, element='molecule', selection=after, atom_index=True)
-        mask = select(molecular_system, selection=before)
-        output = [np.intersect1d(ii, mask).astype('object') for ii in pre_output]
-        output = [ii for ii in output if ii.shape[0]>0]
-        output = np.array(output, dtype='object')
-
-    return output
-
-
-def select_in_chains_of(molecular_system, selection):
-
-    from molsysmt.basic import get
-
-    before, after=selection.split('in chains of')
-    before = before.strip()
-    after = after.strip()
-
-    if before=='' or is_all(before):
-
-        output = get(molecular_system, element='chain', selection=after, atom_index=True)
-
-    else:
-
-        pre_output = get(molecular_system, element='chain', selection=after, atom_index=True)
-        mask = select(molecular_system, selection=before)
-        output = [np.intersect1d(ii, mask).astype('object') for ii in pre_output]
-        output = [ii for ii in output if ii.shape[0]>0]
-        output = np.array(output, dtype='object')
-
-    return output
-
-
-def select_in_entities_of(molecular_system, selection):
-
-    from molsysmt.basic import get
-
-    before, after=selection.split('in entities of')
-    before = before.strip()
-    after = after.strip()
-
-    if before=='' or is_all(before):
-
-        output = get(molecular_system, element='entity', selection=after, atom_index=True)
-
-    else:
-
-        pre_output = get(molecular_system, element='entity', selection=after, atom_index=True)
-        mask = select(molecular_system, selection=before)
-        output = [np.intersect1d(ii, mask).astype('object') for ii in pre_output]
-        output = [ii for ii in output if ii.shape[0]>0]
-        output = np.array(output, dtype='object')
-
-    return output
-
-
 def selection_with_special_subsentences(selection):
 
     output = None
@@ -304,6 +299,7 @@ def selection_with_special_subsentences(selection):
             break
 
     return output
+
 
 def _var_names_in_selection(selection):
 
@@ -320,4 +316,23 @@ def _var_names_in_selection(selection):
             var_names += _var_names_in_selection(ii)
 
     return var_names
+
+
+def _in_elements_of(selection):
+
+    output = False
+
+    if "in groups" in selection:
+        output = True
+    elif "in components" in selection:
+        output = True
+    elif "in chains" in selection:
+        output = True
+    elif "in molecules" in selection:
+        output = True
+    elif "in entities" in selection:
+        output = True
+
+    return output
+
 
