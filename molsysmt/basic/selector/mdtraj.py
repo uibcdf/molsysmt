@@ -1,15 +1,15 @@
 from molsysmt._private.exceptions import NotImplementedMethodError
 
-def select(item, selection):
+def select(molecular_system, selection='all', structure_indices='all'):
 
-    from . import convert, get_form
+    from molsysmt.basic import convert, get_form
 
-    form_in = get_form(item)
+    form_in = get_form(molecular_system)
 
     if form_in == 'mdtraj.Topology':
-        tmp_item = item
+        tmp_item = molecular_system
     else:
-        tmp_item = convert(item, to_form='mdtraj.Topology')
+        tmp_item = convert(molecular_system, to_form='mdtraj.Topology')
 
     atom_indices = tmp_item.select(selection)
 

@@ -1,6 +1,6 @@
 from molsysmt._private.exceptions import NotImplementedMethodError
 
-def select(item, selection, structure_indices):
+def select(molecular_system, selection='all', structure_indices='all'):
 
     #from . import convert, get_form
 

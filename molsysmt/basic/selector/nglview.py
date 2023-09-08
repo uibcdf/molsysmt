@@ -1,6 +1,7 @@
+import numpy as np
 from molsysmt._private.exceptions import NotImplementedMethodError
 
-def select(item, selection):
+def select(molecular_system, selection='all', structure_indices='all'):
 
     #from . import convert, get_form
 
