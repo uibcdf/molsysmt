@@ -117,7 +117,7 @@ def select(molecular_system, selection='all', structure_indices='all', element='
 
     if is_all(selection):
 
-        attribute = 'n_'+_element_singular_to_plural(element)
+        attribute = 'n_'+_element_singular_to_plural[element]
         aux_item, aux_form = where_is_attribute(molecular_system, attribute)
         n_elements = getattr(_dict_modules[aux_form], f'get_{attribute}_from_system')(aux_item)
 

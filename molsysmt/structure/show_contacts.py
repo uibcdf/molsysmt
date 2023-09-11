@@ -19,7 +19,7 @@ def show_contacts(molecular_system, selection=None, groups_of_atoms=None, group_
                           string='{group_name}-{group_id}')
 
     fig = px.imshow(~contact_map, animation_frame=0, binary_string=True, height=600, origin='lower')
-    
+
     fig.update_layout(
         xaxis = dict(
             tickmode = 'array',

@@ -17,4 +17,6 @@ from .get_rmsd import get_rmsd
 from .get_least_rmsd import get_least_rmsd
 from .fit import fit
 from .align import align
+from .get_principal_geometric_axis import get_principal_geometric_axis
+from .get_principal_inertia_axis import get_principal_inertia_axis
 from .show_contacts import show_contacts

@@ -15,9 +15,12 @@
 | [Get maximum distances](get_maximum_distances.ipynb) | Getting the maximum distance between specific groups of elements of a molecular system or two different molecular systems |
 | [Get minimum distances](get_minimum_distances.ipynb) | Getting the minimum distance between specific groups of elements of a molecular system or two different molecular systems |
 | [Get neighbors](get_neighbors.ipynb) | Getting the list of neighboring elements or groups of elements of a molecular system from specific elements or group of elements of another molecular system |
+| [Get principal geometric axis](get_principal_geometric_axis.ipynb) | Getting the principal geometric axis of a molecular system |
+| [Get principal inertia axis](get_principal_inertia_axis.ipynb) | Getting the principal axis of inertia of a molecular system |
 | [Get radius of gyration](get_radius_of_gyration.ipynb) | Getting radius of gyration of a molecular system |
 | [Get RMSD](get_radius_of_gyration.ipynb) | Getting the RMSD of a molecular system from a reference molecular system |
 | [Move away](move_away.ipynb) | Moving away a molecular system from another molecular system |
+| [Principal component analysis](principal_component_analysis.ipynb) | Principal component analysis |
 | [Rotate](rotate.ipynb) | Rotating a molecular system |
 | [Set dihedral angles](set_dihedral_angles.ipynb) | Setting new dihedral angles values in a molecular system |
 | [Shift dihedral angles](shift_dihedral_angles.ipynb) | Shifting dihedral angles in a molecular system |
