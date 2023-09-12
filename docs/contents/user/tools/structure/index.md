@@ -2,9 +2,9 @@
 
 |      |      |
 | :--- | :--- |
-| [Align](align.ipynb) | Aligning the structure of a molecular system over a reference molecular system|
+| [Align principal axes](align_principal_axes.ipynb) | Aligning the principal inertia or geometric axes of a molecular system over a reference coordinates axes|
 | [Center](center.ipynb) | Centering a molecular system |
-| [Fit](fit.ipynb) | Fitting the structure of a molecular system over a reference molecular system|
+| [Flip](flip.ipynb) | Flip a molecular system over a plane|
 | [Get center of mass](get_center_of_mass.ipynb) | Getting the center of mass of a molecular system |
 | [Get center](get_center.ipynb) | Getting the center of a molecular system |
 | [Get contacts](get_contacts.ipynb) | Getting the contact matrix of specific elements of a molecular system or two different molecular systems|
@@ -15,10 +15,11 @@
 | [Get maximum distances](get_maximum_distances.ipynb) | Getting the maximum distance between specific groups of elements of a molecular system or two different molecular systems |
 | [Get minimum distances](get_minimum_distances.ipynb) | Getting the minimum distance between specific groups of elements of a molecular system or two different molecular systems |
 | [Get neighbors](get_neighbors.ipynb) | Getting the list of neighboring elements or groups of elements of a molecular system from specific elements or group of elements of another molecular system |
-| [Get principal geometric axis](get_principal_geometric_axis.ipynb) | Getting the principal geometric axis of a molecular system |
-| [Get principal inertia axis](get_principal_inertia_axis.ipynb) | Getting the principal axis of inertia of a molecular system |
+| [Get principal axes](get_principal_axes.ipynb) | Getting the principal inertia or geometric axes of a molecular system |
 | [Get radius of gyration](get_radius_of_gyration.ipynb) | Getting radius of gyration of a molecular system |
 | [Get RMSD](get_radius_of_gyration.ipynb) | Getting the RMSD of a molecular system from a reference molecular system |
+| [Least RMSD align](least_rmsd_align.ipynb) | Aligning the structure of a molecular system over a reference molecular system|
+| [Least RMSD fit](least_rmsd_fit.ipynb) | Fitting the structure of a molecular system over a reference molecular system|
 | [Move away](move_away.ipynb) | Moving away a molecular system from another molecular system |
 | [Principal component analysis](principal_component_analysis.ipynb) | Principal component analysis |
 | [Rotate](rotate.ipynb) | Rotating a molecular system |
@@ -31,9 +32,9 @@
    :maxdepth: 2
    :hidden:
    
-   align.ipynb
-   center.ipynb  
-   fit.ipynb
+   align_principal_axis.ipynb
+   center.ipynb
+   flip.ipynb
    get_center_of_mass.ipynb   
    get_center.ipynb
    get_contacts.ipynb
@@ -44,9 +45,13 @@
    get_maximum_distances.ipynb
    get_minimum_distances.ipynb
    get_neighbors.ipynb
+   get_principal_axes.ipynb
    get_radius_of_gyration.ipynb
    get_rmsd.ipynb
+   least_rmsd_align.ipynb
+   least_rmsd_fit.ipynb
    move_away.ipynb
+   principal_component_analysis.ipynb
    rotate.ipynb   
    set_dihedral_angles.ipynb
    shift_dihedral_angles.ipynb   

@@ -145,6 +145,12 @@ demo['POPC membrane']['popc_membrane.psf'] = path('molsysmt.data.psf', 'popc_mem
 demo['POPC membrane']['popc_membrane.dcd'] = path('molsysmt.data.dcd', 'popc_membrane.dcd')
 demo['POPC membrane']['popc_membrane.msmpk'] = path('molsysmt.data.msmpk', 'popc_membrane.msmpk')
 
+# POPC
+
+demo['POPC'] = {}
+demo['POPC']['popc.crd'] = path('molsysmt.data.crd', 'popc.crd')
+
+
 
 ### caffeine
 

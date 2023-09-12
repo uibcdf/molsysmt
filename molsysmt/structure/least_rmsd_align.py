@@ -4,7 +4,7 @@ import numpy as np
 import gc
 
 @digest()
-def align(molecular_system, selection='atom_name=="CA"', structure_indices='all',
+def least_rmsd_align(molecular_system, selection='atom_name=="CA"', structure_indices='all',
           reference_molecular_system=None, reference_selection=None, reference_structure_indices=0,
           syntax='MolSysMT', method='sequence alignment and least rmsd fit',
           engine_sequence_alignment = 'Biopython', engine_least_rmsd_fit = 'MolSysMT'):

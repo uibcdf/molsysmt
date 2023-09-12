@@ -12,7 +12,7 @@ output=[
         nb.float64[:,:], # center: [3,3]
 ]
 @nb.njit(make_numba_signature(arguments,output), cache=True)
-def get_principal_geometric_axis_single_structure(coordinates, weights):
+def get_principal_geometric_axes_single_structure(coordinates, weights):
 
     n_atoms = coordinates.shape[0]
 
@@ -57,7 +57,7 @@ output=[
         nb.float64[:,:,:], # [n_structures, 3, 3]
 ]
 @nb.njit(make_numba_signature(arguments,output), cache=True)
-def get_principal_geometric_axis(coordinates, weights):
+def get_principal_geometric_axes(coordinates, weights):
 
     n_structures, n_atoms = coordinates.shape[0:2]
 

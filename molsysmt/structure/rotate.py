@@ -41,9 +41,11 @@ def rotate(molecular_system, rotation=None, rotation_center=None, selection='all
                     rotator = Rotation.from_matrix(rotation[ii,jj,:,:])
                     coordinates[ii,jj,:] = rotator.apply(coordinates[ii,jj,:])
 
-    elif isinstance(rotation, type(Rotation)):
+    elif isinstance(rotation, Rotation):
 
-        raise NotImplementedError
+        rotator = rotation
+        for ii in range(coordinates.shape[0]):
+            coordinates[ii,:,:] = rotator.apply(coordinates[ii,:,:])
 
     else:
 

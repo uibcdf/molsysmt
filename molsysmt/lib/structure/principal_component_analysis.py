@@ -7,8 +7,8 @@ arguments=[
     nb.float64[:,:,:], # coordinates: [n_structures, n_atoms, 3]
     nb.float64[:], # weights: [n_atoms]
 ]
-output=[nb.float64[:,:], # [n_atoms]
-        nb.float64[:,:,:], # [n_atoms, n_atoms]
+output=[nb.float64[:], # [n_atoms*3]
+        nb.float64[:,:], # [n_atoms*3, n_atoms*3]
 ]
 @nb.njit(make_numba_signature(arguments,output), cache=True)
 def principal_component_analysis(coordinates, weights):
@@ -17,8 +17,8 @@ def principal_component_analysis(coordinates, weights):
 
     eigenvectors=np.zeros((n_atoms*3, n_atoms*3), dtype=nb.float64)
     eigenvalues=np.zeros((n_atoms*3), dtype=nb.float64)
-    C=np.zeros((n_atoms*3, n_atoms*3), dtype=nb.float64)
-    mean=np.zeros((n_atoms, 3), dtype=nb.float64)
+    Cov=np.zeros((n_atoms*3, n_atoms*3), dtype=nb.float64)
+    mean=np.zeros((n_atoms*3), dtype=nb.float64)
     aux_ind=np.zeros((n_atoms,3), dtype=np.int64)
 
     gg=0
@@ -40,7 +40,7 @@ def principal_component_analysis(coordinates, weights):
 
                    yy=aux_ind[ii2,jj2]
 
-                   C[xx,yy]+=coordinates[ll,ii2,jj2]
+                   Cov[xx,yy]+=coordinates[ll,ii2,jj2]
 
     mean = mean/n_structures
 
@@ -48,15 +48,15 @@ def principal_component_analysis(coordinates, weights):
         for ii in range(n_atoms):
             xx=aux_ind[ii,jj]
             aux_mean=mean[xx]
-            aux_weight=sqrt(weight[ii])
+            aux_weight=sqrt(weights[ii])
             for ii2 in range(ii,n_atoms):
-                aux_weight2=sqrt(weight[ii2])
+                aux_weight2=sqrt(weights[ii2])
                 for jj2 in range(jj,3):
                     yy=aux_ind[ii2,jj2]
-                    C[xx,yy]=aux_weight*aux_weight2(C[xx,yy]/n_structures-aux_mean*mean[yy])
-                    C[yy,xx]=C[xx,yy]
+                    Cov[xx,yy]=aux_weight*aux_weight2*(Cov[xx,yy]/n_structures-aux_mean*mean[yy])
+                    Cov[yy,xx]=Cov[xx,yy]
 
-    eigenvalues[:], eigenvectors[:,:] = np.linalg.eigh(matrix)
+    eigenvalues[:], eigenvectors[:,:] = np.linalg.eigh(Cov)
     eigenvectors[:,:] = eigenvectors[:,:].transpose()
 
     return eigenvalues, eigenvectors

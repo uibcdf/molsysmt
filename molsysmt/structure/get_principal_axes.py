@@ -7,8 +7,8 @@ import numpy as np
 import gc
 
 @digest()
-def get_principal_geometric_axis(molecular_system, selection='all', structure_indices='all',
-        weights=None, syntax='MolSysMT', engine='MolSysMT'):
+def get_principal_axes(molecular_system, selection='all', structure_indices='all',
+        weights=None, principal_axes_type='inertia', syntax='MolSysMT', engine='MolSysMT'):
 
     from molsysmt.basic import select, get
 
@@ -23,13 +23,20 @@ def get_principal_geometric_axis(molecular_system, selection='all', structure_in
         if weights is None:
             weights = np.ones((coordinates.shape[1]), dtype=np.float64)
 
-        variances, axis = msmlib.structure.get_principal_geometric_axis(coordinates, weights)
+        if principal_axes_type=='geometric':
+
+            variances, axes = msmlib.structure.get_principal_geometric_axes(coordinates, weights)
+            moments=variances
+
+        elif principal_axes_type=='inertia':
+
+            moments, axes = msmlib.structure.get_principal_inertia_axes(coordinates, weights)
 
         del(coordinates, atom_indices, weights)
 
         gc.collect()
 
-        return axis, variances
+        return axes, moments
 
     else:
 

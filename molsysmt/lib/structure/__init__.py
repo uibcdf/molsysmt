@@ -55,11 +55,13 @@ from .shift_mic_dihedral_angles import shift_mic_dihedral_angles
 from .shift_dihedral_angles import shift_dihedral_angles_single_structure
 from .shift_dihedral_angles import shift_dihedral_angles
 
-from .get_principal_inertia_axis import get_principal_inertia_axis_single_structure
-from .get_principal_inertia_axis import get_principal_inertia_axis
+from .get_principal_inertia_axes import get_principal_inertia_axes_single_structure
+from .get_principal_inertia_axes import get_principal_inertia_axes
 
-from .get_principal_geometric_axis import get_principal_geometric_axis_single_structure
-from .get_principal_geometric_axis import get_principal_geometric_axis
+from .get_principal_geometric_axes import get_principal_geometric_axes_single_structure
+from .get_principal_geometric_axes import get_principal_geometric_axes
 
 from .principal_component_analysis import principal_component_analysis
+
+from .flip import flip
 

@@ -1,6 +1,7 @@
 import numpy as np
 from molsysmt import pyunitwizard as puw
 from ...exceptions import ArgumentError
+from scipy.spatial.transform import Rotation
 
 def digest_rotation(rotation, caller=None):
 
@@ -15,6 +16,8 @@ def digest_rotation(rotation, caller=None):
         elif len(rotation.shape)==4 and rotation.shape[2:]==(3,3):
             return rotation
 
+    if isinstance(rotation, Rotation):
+        return rotation
 
     raise ArgumentError('rotation', value=rotation, caller=caller, message=None)
 

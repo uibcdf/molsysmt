@@ -7,7 +7,7 @@ from molsysmt import pyunitwizard as puw
 import gc
 
 @digest()
-def fit(molecular_system=None, selection='all', selection_fit='atom_type!="H"', structure_indices='all',
+def least_rmsd_fit(molecular_system=None, selection='all', selection_fit='atom_type!="H"', structure_indices='all',
         reference_molecular_system=None, reference_selection_fit=None, reference_structure_indices=0,
         to_form=None, in_place=False, syntax='MolSysMT', engine='MolSysMT'):
     """

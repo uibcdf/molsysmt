@@ -8,6 +8,7 @@ from .center import center
 from .translate import translate
 from .move_away import move_away
 from .rotate import rotate
+from .flip import flip
 from .get_angles import get_angles
 from .get_dihedral_angles import get_dihedral_angles
 from .set_dihedral_angles import set_dihedral_angles
@@ -15,8 +16,9 @@ from .shift_dihedral_angles import shift_dihedral_angles
 from .get_radius_of_gyration import get_radius_of_gyration
 from .get_rmsd import get_rmsd
 from .get_least_rmsd import get_least_rmsd
-from .fit import fit
-from .align import align
-from .get_principal_geometric_axis import get_principal_geometric_axis
-from .get_principal_inertia_axis import get_principal_inertia_axis
+from .least_rmsd_fit import least_rmsd_fit
+from .least_rmsd_align import least_rmsd_align
+from .get_principal_axes import get_principal_axes
+from .principal_component_analysis import principal_component_analysis
+from .align_principal_axes import align_principal_axes
 from .show_contacts import show_contacts
