@@ -44,5 +44,10 @@ def digest_center(center, syntax="MolSysMT", caller=None):
             elif center is None:
                 return None
 
+    elif caller=='molsysmt.structure.align_principal_axes.align_principal_axes':
+        if isinstance(center, bool):
+            return center
+
+
     raise ArgumentError('center', value=center, caller=caller, message=None)
 

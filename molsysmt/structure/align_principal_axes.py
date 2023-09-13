@@ -3,6 +3,7 @@ from molsysmt._private.digestion import digest
 from molsysmt import lib as msmlib
 from molsysmt._private.variables import is_all, is_iterable_of_iterables
 from molsysmt import pyunitwizard as puw
+from scipy.spatial.transform import Rotation as R
 import numpy as np
 import gc
 
@@ -12,8 +13,8 @@ def align_principal_axes(molecular_system, selection='all',
         structure_indices='all', weights=None, axes=[[1,0,0],[0,1,0],[0,0,1]], center=False,
         syntax='MolSysMT', engine='MolSysMT', in_place=False):
 
-    from molsysmt.basic import select, get, set
-    from . import get_principal_inertia_axes, get_center
+    from molsysmt.basic import select, get, set, copy
+    from . import get_principal_axes, get_center
 
     if engine=='MolSysMT':
 
@@ -21,7 +22,7 @@ def align_principal_axes(molecular_system, selection='all',
 
             principal_axes_of_selection = selection
 
-        aux_axes, _ = get_principal_inertia_axes(molecular_system,
+        aux_axes, _ = get_principal_axes(molecular_system,
                 selection=principal_axes_of_selection, structure_indices=structure_indices,
                 principal_axes_type=principal_axes_type,
                 weights=weights, syntax=syntax)
@@ -39,16 +40,15 @@ def align_principal_axes(molecular_system, selection='all',
 
         n_structures = coordinates.shape[0]
 
-        if np.dot(np.cross(axes[ii,0], axes[ii,1]), axes[ii,2])<0.0:
-            axes[ii,2]=-axes[ii,2]
+        if np.dot(np.cross(axes[0], axes[1]), axes[2])<0.0:
+            axes[2]=-axes[2]
 
         for ii in range(n_structures):
 
             if np.dot(np.cross(aux_axes[ii,0], aux_axes[ii,1]), aux_axes[ii,2])<0.0:
                 aux_axes[ii,2]=-aux_axes[ii,2]
 
-            rot, val_aux = R.align_vectors(aux_axes, axes)
-
+            rot, val_aux = R.align_vectors(axes, aux_axes[ii])
             coordinates[ii,:,:]=coordinates[ii,:,:]-aux_center[ii,0,:]
             coordinates[ii,:,:]=rot.apply(coordinates[ii,:,:])
             if not center:

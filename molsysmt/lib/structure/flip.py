@@ -18,9 +18,10 @@ def flip_single_structure(coordinates, vector, point):
 
     for ii in range(n_atoms):
 
-        vect = coordinates[ii,:]-point[:]
-        dist = coordinates[ii,0]*vector[0]+coordinates[ii,1]*vector[1]+coordinates[ii,2]*vector[2]
-        output[ii,:]=coordinates[ii,:]-2*dist*vect
+        position = coordinates[ii,:]
+        aux_vector = position-point
+        dist = aux_vector[0]*vector[0]+aux_vector[1]*vector[1]+aux_vector[2]*vector[2]
+        output[ii,:]=position-2*dist*vector
 
     return output
 
@@ -40,9 +41,10 @@ def flip(coordinates, vector, point):
     for jj in range(n_structures):
         for ii in range(n_atoms):
 
-            vect = coordinates[ii,:]-point[:]
-            dist = coordinates[ii,0]*vector[0]+coordinates[ii,1]*vector[1]+coordinates[ii,2]*vector[2]
-            output[ii,:]=coordinates[ii,:]-2*dist*vect
+            position = coordinates[jj,ii,:]
+            aux_vector = position-point
+            dist = aux_vector[0]*vector[0]+aux_vector[1]*vector[1]+aux_vector[2]*vector[2]
+            output[jj,ii,:]=position-2*dist*vector
 
     return output
 

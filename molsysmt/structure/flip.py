@@ -18,7 +18,7 @@ def flip(molecular_system, vector=[0,0,1], point=[0,0,0], selection='all', struc
                       syntax=syntax, coordinates=True)
 
     coordinates, length_unit =  puw.get_value_and_unit(coordinates)
-
+    point = puw.get_value(point, to_unit=length_unit)
 
     coordinates = msmlib.structure.flip(coordinates, vector, point)
 
@@ -28,7 +28,7 @@ def flip(molecular_system, vector=[0,0,1], point=[0,0,0], selection='all', struc
 
         set(molecular_system, selection=selection, structure_indices=structure_indices,
             syntax=syntax, coordinates=coordinates)
-        del(coordinates, rotation_center)
+        del(coordinates)
         gc.collect()
 
     else:
@@ -36,7 +36,7 @@ def flip(molecular_system, vector=[0,0,1], point=[0,0,0], selection='all', struc
         tmp_molecular_system = copy(molecular_system)
         set(tmp_molecular_system, selection=selection, structure_indices=structure_indices,
             syntax=syntax, coordinates=coordinates)
-        del(coordinates, rotation_center)
+        del(coordinates)
         gc.collect()
 
         return tmp_molecular_system
