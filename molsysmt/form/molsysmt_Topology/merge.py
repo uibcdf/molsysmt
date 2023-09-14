@@ -78,13 +78,19 @@ def merge(items, atom_indices='all'):
         next_count_n_molecules = count_n_molecules + aux_n_molecules
         next_count_n_bonds = count_n_bonds + aux_n_bonds
 
-        atom_index[count_n_atoms:next_count_n_atoms] += count_n_atoms
-        group_index[count_n_atoms:next_count_n_atoms] += count_n_groups
-        component_index[count_n_atoms:next_count_n_atoms] += count_n_components
-        chain_index[count_n_atoms:next_count_n_atoms] += count_n_chains
-        molecule_index[count_n_atoms:next_count_n_atoms] += count_n_molecules
-        atom1_index[count_n_bonds:next_count_n_bonds] += count_n_atoms
-        atom2_index[count_n_bonds:next_count_n_bonds] += count_n_atoms
+        if count_n_atoms:
+            atom_index[count_n_atoms:next_count_n_atoms] += count_n_atoms
+        if count_n_groups:
+            group_index[count_n_atoms:next_count_n_atoms] += count_n_groups
+        if count_n_components:
+            component_index[count_n_atoms:next_count_n_atoms] += count_n_components
+        if count_n_chains:
+            chain_index[count_n_atoms:next_count_n_atoms] += count_n_chains
+        if count_n_molecules:
+            molecule_index[count_n_atoms:next_count_n_atoms] += count_n_molecules
+        if count_n_bonds:
+            atom1_index[count_n_bonds:next_count_n_bonds] += count_n_atoms
+            atom2_index[count_n_bonds:next_count_n_bonds] += count_n_atoms
 
         count_n_atoms = next_count_n_atoms
         count_n_groups = next_count_n_groups

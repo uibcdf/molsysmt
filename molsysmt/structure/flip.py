@@ -5,7 +5,7 @@ from molsysmt import lib as msmlib
 import gc
 
 @digest()
-def flip(molecular_system, vector=[0,0,1], point=[0,0,0], selection='all', structure_indices='all',
+def flip(molecular_system, vector=[0,0,1], point='[0,0,0] nm', selection='all', structure_indices='all',
         syntax='MolSysMT', in_place=False):
     """
     To be written soon...
