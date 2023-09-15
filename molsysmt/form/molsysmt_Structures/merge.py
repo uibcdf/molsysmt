@@ -53,7 +53,6 @@ def merge(items, atom_indices='all', structure_indices='all'):
 
     for aux_item, aux_atom_indices, aux_structure_indices in zip(items, atom_indices, structure_indices):
 
-
         if is_all(aux_structure_indices):
             if is_all(aux_atom_indices):
 
@@ -195,7 +194,6 @@ def merge(items, atom_indices='all', structure_indices='all'):
 
         count_n_atoms += aux_n_atoms
 
-
     if any([ii is None for ii in list_coordinates]):
         output.coordinates = None
     else:
@@ -217,6 +215,8 @@ def merge(items, atom_indices='all', structure_indices='all'):
         output.occupancy = np.hstack(list_occupancy)
 
     del(list_coordinates, list_velocities, list_b_factor, list_occupancy)
+
+    output.n_atoms = count_n_atoms
 
     return output
 

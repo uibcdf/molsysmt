@@ -67,10 +67,10 @@ def merge(molecular_systems,
 
     ArgumentError
         The function raises an ArgumentError in case an input argument value
-        does not meet the required conditions. 
+        does not meet the required conditions.
 
     SyntaxError
-        The function raises a SyntaxError in case the syntax argument takes a not supported value. 
+        The function raises a SyntaxError in case the syntax argument takes a not supported value.
 
 
     .. versionadded:: 0.1.0
@@ -79,10 +79,10 @@ def merge(molecular_systems,
     -----
 
     The list of supported molecular systems' forms is detailed in the documentation section
-    :ref:`User Guide > Introduction > Molecular systems > Forms <Introduction_Forms>`.    
+    :ref:`User Guide > Introduction > Molecular systems > Forms <Introduction_Forms>`.
 
     The list of supported selection syntaxes can be checked in the documentation section
-    :ref:`User Guide > Introduction > Selection syntaxes <Introduction_Selection>`.    
+    :ref:`User Guide > Introduction > Selection syntaxes <Introduction_Selection>`.
 
 
     See Also
