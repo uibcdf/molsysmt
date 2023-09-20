@@ -28,6 +28,9 @@ def digest_chain_id(chain_id, caller=None):
     if caller=='molsysmt.basic.get.get':
         if isinstance(chain_id, bool):
             return chain_id
+    elif caller=='molsysmt.basic.set.set':
+        if isinstance(chain_id, str):
+            return chain_id
     elif caller.startswith('molsysmt.form.') and caller.count('.to_')==2:
         return chain_id
 
