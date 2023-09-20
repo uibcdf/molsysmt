@@ -14,4 +14,5 @@ from .is_solvated import is_solvated
 from .solvate import solvate
 from .model_loop import model_loop
 from .mutate import mutate
+from .define_chain import define_chain
 

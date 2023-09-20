@@ -154,7 +154,6 @@ def set(molecular_system,
                 indices = select(molecular_system, element=element, selection=selection, syntax=syntax)
 
         # doing the work here
-
         for in_attribute in in_attributes:
 
             dict_indices = {}

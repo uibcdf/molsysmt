@@ -1,4 +1,5 @@
 from molsysmt._private.digestion import digest
+from molsysmt._private.variables import is_all
 from molsysmt import pyunitwizard as puw
 import numpy as np
 
@@ -11,168 +12,244 @@ form='molsysmt.Topology'
 @digest(form=form)
 def set_atom_index_to_atom(item, indices='all', value=None):
 
-    item.atoms_dataframe.loc[indices, 'atom_index']=value
+    if is_all(indices):
+        item.atoms_dataframe['atom_index']=value
+    else:
+        item.atoms_dataframe.loc[indices, 'atom_index']=value
 
     pass
 
 @digest(form=form)
 def set_atom_name_to_atom(item, indices='all', value=None):
 
-    item.atoms_dataframe.loc[indices, 'atom_name']=value
+    if is_all(indices):
+        item.atoms_dataframe['atom_name']=value
+    else:
+        item.atoms_dataframe.loc[indices, 'atom_name']=value
 
     pass
 
 @digest(form=form)
 def set_atom_id_to_atom(item, indices='all', value=None):
 
-    item.atoms_dataframe.loc[indices, 'atom_id']=value
+    if is_all(indices):
+        item.atoms_dataframe['atom_id']=value
+    else:
+        item.atoms_dataframe.loc[indices, 'atom_id']=value
 
     pass
 
 @digest(form=form)
 def set_atom_type_to_atom(item, indices='all', value=None):
 
-    item.atoms_dataframe.loc[indices, 'atom_type']=value
+    if is_all(indices):
+        item.atoms_dataframe['atom_type']=value
+    else:
+        item.atoms_dataframe.loc[indices, 'atom_type']=value
 
     pass
 
 @digest(form=form)
 def set_group_index_to_atom(item, indices='all', value=None):
 
-    item.atoms_dataframe.loc[indices, 'group_index']=value
+    if is_all(indices):
+        item.atoms_dataframe['group_index']=value
+    else:
+        item.atoms_dataframe.loc[indices, 'group_index']=value
 
     pass
 
 @digest(form=form)
 def set_group_name_to_atom(item, indices='all', value=None):
 
-    item.atoms_dataframe.loc[indices, 'group_name']=value
+    if is_all(indices):
+        item.atoms_dataframe['group_name']=value
+    else:
+        item.atoms_dataframe.loc[indices, 'group_name']=value
 
     pass
 
 @digest(form=form)
 def set_group_id_to_atom(item, indices='all', value=None):
 
-    item.atoms_dataframe.loc[indices, 'group_id']=value
+    if is_all(indices):
+        item.atoms_dataframe['group_id']=value
+    else:
+        item.atoms_dataframe.loc[indices, 'group_id']=value
 
     pass
 
 @digest(form=form)
 def set_group_type_to_atom(item, indices='all', value=None):
 
-    item.atoms_dataframe.loc[indices, 'group_type']=value
+    if is_all(indices):
+        item.atoms_dataframe['group_type']=value
+    else:
+        item.atoms_dataframe.loc[indices, 'group_type']=value
 
     pass
 
 @digest(form=form)
 def set_component_index_to_atom(item, indices='all', value=None):
 
-    item.atoms_dataframe.loc[indices, 'component_index']=value
+    if is_all(indices):
+        item.atoms_dataframe['component_index']=value
+    else:
+        item.atoms_dataframe.loc[indices, 'component_index']=value
 
     pass
 
 @digest(form=form)
 def set_component_name_to_atom(item, indices='all', value=None):
 
-    item.atoms_dataframe.loc[indices, 'component_name']=value
+    if is_all(indices):
+        item.atoms_dataframe['component_name']=value
+    else:
+        item.atoms_dataframe.loc[indices, 'component_name']=value
 
     pass
 
 @digest(form=form)
 def set_component_id_to_atom(item, indices='all', value=None):
 
-    item.atoms_dataframe.loc[indices, 'component_id']=value
+    if is_all(indices):
+        item.atoms_dataframe['component_id']=value
+    else:
+        item.atoms_dataframe.loc[indices, 'component_id']=value
 
     pass
 
 @digest(form=form)
 def set_component_type_to_atom(item, indices='all', value=None):
 
-    item.atoms_dataframe.loc[indices, 'component_type']=value
+    if is_all(indices):
+        item.atoms_dataframe['component_type']=value
+    else:
+        item.atoms_dataframe.loc[indices, 'component_type']=value
 
     pass
 
 @digest(form=form)
 def set_molecule_index_to_atom(item, indices='all', value=None):
 
-    item.atoms_dataframe.loc[indices, 'molecule_index']=value
+    if is_all(indices):
+        item.atoms_dataframe['molecule_index']=value
+    else:
+        item.atoms_dataframe.loc[indices, 'molecule_index']=value
 
     pass
 
 @digest(form=form)
 def set_molecule_name_to_atom(item, indices='all', value=None):
 
-    item.atoms_dataframe.loc[indices, 'molecule_name']=value
+    if is_all(indices):
+        item.atoms_dataframe['molecule_name']=value
+    else:
+        item.atoms_dataframe.loc[indices, 'molecule_name']=value
 
     pass
 
 @digest(form=form)
 def set_molecule_id_to_atom(item, indices='all', value=None):
 
-    item.atoms_dataframe.loc[indices, 'molecule_id']=value
+    if is_all(indices):
+        item.atoms_dataframe['molecule_id']=value
+    else:
+        item.atoms_dataframe.loc[indices, 'molecule_id']=value
 
     pass
 
 @digest(form=form)
 def set_molecule_type_to_atom(item, indices='all', value=None):
 
-    item.atoms_dataframe.loc[indices, 'molecule_type']=value
+    if is_all(indices):
+        item.atoms_dataframe['molecule_type']=value
+    else:
+        item.atoms_dataframe.loc[indices, 'molecule_type']=value
 
     pass
 
 @digest(form=form)
 def set_chain_index_to_atom(item, indices='all', value=None):
 
-    item.atoms_dataframe.loc[indices, 'chain_index']=value
+    if is_all(indices):
+        item.atoms_dataframe['chain_index']=value
+    else:
+        item.atoms_dataframe.loc[indices, 'chain_index']=value
 
     pass
 
 @digest(form=form)
 def set_chain_name_to_atom(item, indices='all', value=None):
 
-    item.atoms_dataframe.loc[indices, 'chain_name']=value
+    if is_all(indices):
+        item.atoms_dataframe['chain_name']=value
+    else:
+        item.atoms_dataframe.loc[indices, 'chain_name']=value
 
     pass
 
 @digest(form=form)
 def set_chain_id_to_atom(item, indices='all', value=None):
 
-    item.atoms_dataframe.loc[indices, 'chain_id']=value
+    if is_all(indices):
+        item.atoms_dataframe['chain_id']=value
+        item.atoms_dataframe['chain_index']=0
+    else:
+        item.atoms_dataframe.loc[indices, 'chain_id']=value
+        aux_list = item.atoms_dataframe['chain_id'].unique()
+        for new_index, id for enumerate(aux_list):
+            item[item['chain_id']==id]=new_index
 
     pass
 
 @digest(form=form)
 def set_chain_type_to_atom(item, indices='all', value=None):
 
-    item.atoms_dataframe.loc[indices, 'chain_type']=value
+    if is_all(indices):
+        item.atoms_dataframe['chain_type']=value
+    else:
+        item.atoms_dataframe.loc[indices, 'chain_type']=value
 
     pass
 
 @digest(form=form)
 def set_entity_index_to_atom(item, indices='all', value=None):
 
-    item.atoms_dataframe.loc[indices, 'entity_index']=value
+    if is_all(indices):
+        item.atoms_dataframe['entity_index']=value
+    else:
+        item.atoms_dataframe.loc[indices, 'entity_index']=value
 
     pass
 
 @digest(form=form)
 def set_entity_name_to_atom(item, indices='all', value=None):
 
-    item.atoms_dataframe.loc[indices, 'entity_name']=value
+    if is_all(indices):
+        item.atoms_dataframe['entity_name']=value
+    else:
+        item.atoms_dataframe.loc[indices, 'entity_name']=value
 
     pass
 
 @digest(form=form)
 def set_entity_id_to_atom(item, indices='all', value=None):
 
-    item.atoms_dataframe.loc[indices, 'entity_id']=value
+    if is_all(indices):
+        item.atoms_dataframe['entity_id']=value
+    else:
+        item.atoms_dataframe.loc[indices, 'entity_id']=value
 
     pass
 
 @digest(form=form)
 def set_entity_type_to_atom(item, indices='all', value=None):
 
-    item.atoms_dataframe.loc[indices, 'entity_type']=value
+    if is_all(indices):
+        item.atoms_dataframe['entity_type']=value
+    else:
+        item.atoms_dataframe.loc[indices, 'entity_type']=value
 
     pass
 

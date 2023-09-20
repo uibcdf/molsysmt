@@ -1,6 +1,10 @@
 from ...exceptions import ArgumentError
 from ...variables import is_all
 
+set_functions = (
+        'set.set',
+        'set_chain_id_to_atom')
+
 def digest_chain_id(chain_id, caller=None):
     """Checks if `chain_id` has the expected type and value.
 
@@ -28,7 +32,7 @@ def digest_chain_id(chain_id, caller=None):
     if caller=='molsysmt.basic.get.get':
         if isinstance(chain_id, bool):
             return chain_id
-    elif caller=='molsysmt.basic.set.set':
+    elif caller.endswith(set_functions):
         if isinstance(chain_id, str):
             return chain_id
     elif caller.startswith('molsysmt.form.') and caller.count('.to_')==2:
