@@ -198,7 +198,7 @@ def set_chain_id_to_atom(item, indices='all', value=None):
     else:
         item.atoms_dataframe.loc[indices, 'chain_id']=value
         aux_list = item.atoms_dataframe['chain_id'].unique()
-        for new_index, id for enumerate(aux_list):
+        for new_index, id in enumerate(aux_list):
             item[item['chain_id']==id]=new_index
 
     pass

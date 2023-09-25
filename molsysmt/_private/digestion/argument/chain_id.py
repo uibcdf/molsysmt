@@ -3,7 +3,8 @@ from ...variables import is_all
 
 set_functions = (
         'set.set',
-        'set_chain_id_to_atom')
+        'set_chain_id_to_atom',
+        'define_new_chain')
 
 def digest_chain_id(chain_id, caller=None):
     """Checks if `chain_id` has the expected type and value.

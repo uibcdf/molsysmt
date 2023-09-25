@@ -34,6 +34,11 @@ def digest_chain_name(chain_name, caller=None):
     elif '.set.set' in caller:
         if isinstance(chain_name, (int, str, list, tuple, ndarray)):
             return chain_name
+    elif caller.endswith('.define_new_chain'):
+        if chain_name is None:
+            return chain_name
+        if isinstance(chain_name, (int, str, list, tuple, ndarray)):
+            return chain_name
     elif isinstance(chain_name, str):
         return chain_name
 
