@@ -27,6 +27,7 @@ from .to_openmm_Topology import to_openmm_Topology
 from .to_openmm_Modeller import to_openmm_Modeller
 from .to_openmm_Simulation import to_openmm_Simulation
 from .to_openmm_System import to_openmm_System
+from .to_parmed_Structure import to_parmed_Structure
 from .to_pytraj_Topology import to_pytraj_Topology
 from .to_pytraj_Trajectory import to_pytraj_Trajectory
 from .to_biopython_Seq import to_biopython_Seq
@@ -39,6 +40,7 @@ from .to_string_aminoacids3 import to_string_aminoacids3
 from .to_string_pdb_text import to_string_pdb_text
 from .to_file_msmpk import to_file_msmpk
 from .to_file_pdb import to_file_pdb
+from .to_file_psf import to_file_psf
 
 _convert_to={
         'molsysmt.MolSys': extract,
@@ -52,6 +54,7 @@ _convert_to={
         'openmm.Topology': to_openmm_Topology,
         'openmm.Modeller': to_openmm_Modeller,
         'openmm.System': to_openmm_System,
+        'parmed.Structure': to_parmed_Structure,
         'pytraj.Topology': to_pytraj_Topology,
         'pytraj.Trajectory': to_pytraj_Trajectory,
         'biopython.Seq': to_biopython_Seq,
@@ -64,5 +67,6 @@ _convert_to={
         'string:pdb_text': to_string_pdb_text,
         'file:msmpk': to_file_msmpk,
         'file:pdb': to_file_pdb,
+        'file:psf': to_file_psf,
         }
 

@@ -26,9 +26,10 @@ _piped_forms_in_info=[
         #'file:inpcrd',
         'file:mmtf',
         'file:msmpk',
-        #'file:pdb',
+        'file:pdb',
         #'file:prmtop',
         'file:psf',
+        'file:crd',
         'string:pdb_id',
         'mmtf.MMTFDecoder',
         'nglview.NGLWidget'

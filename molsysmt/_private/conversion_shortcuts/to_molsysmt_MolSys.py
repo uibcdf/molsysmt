@@ -74,6 +74,31 @@ def file_psf_and_file_dcd_to_molsysmt_MolSys(molecular_system, atom_indices='all
 
     return output_item
 
+def file_psf_and_file_crd_to_molsysmt_MolSys(molecular_system, atom_indices='all', structure_indices='all'):
+
+    from molsysmt.basic import get_form
+    from molsysmt.form.file_psf import to_molsysmt_Topology as file_psf_to_molsysmt_Topology
+    from molsysmt.form.file_crd import to_molsysmt_Structures as file_crd_to_molsysmt_Structures
+    from molsysmt.native import MolSys
+
+    forms = get_form(molecular_system)
+
+    item_psf = None
+    item_crd = None
+
+    for form, item in zip(forms, molecular_system):
+        if form=='file:psf':
+            item_psf = item
+        else:
+            item_crd = item
+
+    output_item = MolSys()
+
+    output_item.topology = file_psf_to_molsysmt_Topology(item_psf, atom_indices=atom_indices)
+    output_item.structures = file_crd_to_molsysmt_Structures(item_crd, atom_indices=atom_indices, structure_indices=structure_indices)
+
+    return output_item
+
 def file_gro_and_file_xtc_to_molsysmt_MolSys(molecular_system, atom_indices='all', structure_indices='all'):
 
     from molsysmt.basic import get_form

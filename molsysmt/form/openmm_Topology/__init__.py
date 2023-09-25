@@ -18,6 +18,7 @@ from .iterators import TopologyIterator
 
 from .to_string_pdb_text import to_string_pdb_text
 from .to_file_pdb import to_file_pdb
+from .to_file_psf import to_file_psf
 from .to_molsysmt_MolSys import to_molsysmt_MolSys
 from .to_molsysmt_Topology import to_molsysmt_Topology
 from .to_mdtraj_Topology import to_mdtraj_Topology
@@ -30,11 +31,13 @@ from .to_pdbfixer_PDBFixer import to_pdbfixer_PDBFixer
 from .to_nglview_NGLWidget import to_nglview_NGLWidget
 from .to_string_aminoacids1 import to_string_aminoacids1
 from .to_string_aminoacids3 import to_string_aminoacids3
+from .to_parmed_Structure import to_parmed_Structure
 
 _convert_to={
         'openmm.Topology': extract,
         'string:pdb_text': to_string_pdb_text,
         'file:pdb': to_file_pdb,
+        'file:psf': to_file_psf,
         'molsysmt.MolSys': to_molsysmt_MolSys,
         'molsysmt.Topology': to_molsysmt_Topology,
         'mdtraj.Topology': to_mdtraj_Topology,
@@ -43,6 +46,7 @@ _convert_to={
         'openmm.Context': to_openmm_Context,
         'openmm.PDBFile': to_openmm_PDBFile,
         'openmm.System': to_openmm_PDBFile,
+        'parmed.Structure': to_parmed_Structure,
         'pdbfixer.PDBFixer': to_pdbfixer_PDBFixer,
         'nglview.NGLWidget': to_nglview_NGLWidget,
         'string:aminoacids1': to_string_aminoacids1,

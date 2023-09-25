@@ -149,6 +149,7 @@ demo['POPC membrane']['popc_membrane.msmpk'] = path('molsysmt.data.msmpk', 'popc
 
 demo['POPC'] = {}
 demo['POPC']['popc.crd'] = path('molsysmt.data.crd', 'popc.crd')
+demo['POPC']['popc.psf'] = path('molsysmt.data.psf', 'popc.psf')
 
 
 

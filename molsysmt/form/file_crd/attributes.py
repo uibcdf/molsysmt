@@ -14,5 +14,9 @@ attributes['coordinates'] = True
 attributes['box'] = True
 attributes['time'] = True
 attributes['structure_id'] = True
+attributes['n_atoms'] = True
+attributes['n_groups'] = True
+attributes['n_structures'] = True
 
 del(_all_attributes)
+
