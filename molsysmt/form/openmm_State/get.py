@@ -197,7 +197,7 @@ def get_entity_type_from_entity(item, indices='all'):
 @digest(form=form)
 def get_n_atoms_from_system(item):
 
-    n_atoms = len(state.getPosisions())
+    n_atoms = len(item.getPositions())
 
     return n_atoms
 
