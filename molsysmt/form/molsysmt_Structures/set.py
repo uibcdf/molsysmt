@@ -11,7 +11,7 @@ def set_coordinates_to_atom(item, indices='all', structure_indices='all', value=
 
     if is_all(indices):
         if is_all(structure_indices):
-            item.coordinates = value              
+            item.coordinates = value
             item.n_structures = value.shape[0]
             item.n_atoms = value.shape[1]
         else:
@@ -25,11 +25,29 @@ def set_coordinates_to_atom(item, indices='all', structure_indices='all', value=
     pass
 
 @digest(form='molsysmt.Structures')
+def set_velocities_to_atom(item, indices='all', structure_indices='all', value=None):
+
+    if is_all(indices):
+        if is_all(structure_indices):
+            item.velocities = value
+            item.n_structures = value.shape[0]
+            item.n_atoms = value.shape[1]
+        else:
+            item.velocities[structure_indices,:,:] = value[:,:,:]
+    else:
+        if is_all(structure_indices):
+            item.velocities[:,indices,:] = value[:,:,:]
+        else:
+            item.velocities[np.ix_(structure_indices, indices)]=value[:,:,:]
+
+    pass
+
+@digest(form='molsysmt.Structures')
 def set_occupancy_to_atom(item, indices='all', structure_indices='all', value=None):
 
     if is_all(indices):
         if is_all(structure_indices):
-            item.occupancy = value              
+            item.occupancy = value
         else:
             item.occupancy[structure_indices,:] = value[:,:]
     else:
@@ -45,7 +63,7 @@ def set_b_factor_to_atom(item, indices='all', structure_indices='all', value=Non
 
     if is_all(indices):
         if is_all(structure_indices):
-            item.b_factor = value              
+            item.b_factor = value
         else:
             item.b_factor[structure_indices,:] = value[:,:]
     else:
@@ -95,4 +113,10 @@ def set_coordinates_to_system(item, indices='all', structure_indices='all', valu
     return set_coordinates_to_atom(item, indices='all', structure_indices=structure_indices,
             value=value)
 
+
+@digest(form='molsysmt.Structures')
+def set_velocities_to_system(item, indices='all', structure_indices='all', value=None):
+
+    return set_velocities_to_atom(item, indices='all', structure_indices=structure_indices,
+            value=value)
 

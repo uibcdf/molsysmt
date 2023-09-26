@@ -9,7 +9,7 @@ from molsysmt._private.variables import is_all
 from molsysmt import pyunitwizard as puw
 import numpy as np
 
-form='openmm.Context'
+form='openmm.State'
 
 
 ## From atom
@@ -67,7 +67,7 @@ def get_n_inner_bonds_from_atom(item, indices='all'):
 @digest(form=form)
 def get_coordinates_from_atom(item, indices='all', structure_indices='all'):
 
-    coordinates = item.getState(getPositions=True).getPositions(asNumpy=True)
+    coordinates = item.getPositions(asNumpy=True)
     unit = puw.get_unit(coordinates)
     coordinates = puw.get_value(coordinates)
     coordinates = coordinates.reshape(1, coordinates.shape[0], coordinates.shape[1])
@@ -86,7 +86,7 @@ def get_coordinates_from_atom(item, indices='all', structure_indices='all'):
 @digest(form=form)
 def get_velocities_from_atom(item, indices='all', structure_indices='all'):
 
-    velocities = item.getState(getVelocities=True).getVelocities(asNumpy=True)
+    velocities = item.getVelocities(asNumpy=True)
     unit = puw.get_unit(velocities)
     velocities = puw.get_value(velocities)
     velocities = velocities.reshape(1, velocities.shape[0], velocities.shape[1])
@@ -197,7 +197,9 @@ def get_entity_type_from_entity(item, indices='all'):
 @digest(form=form)
 def get_n_atoms_from_system(item):
 
-    return item.getSystem().getNumParticles()
+    n_atoms = len(state.getPosisions())
+
+    return n_atoms
 
 @digest(form=form)
 def get_n_groups_from_system(item):
@@ -232,7 +234,7 @@ def get_n_bonds_from_system(item):
 @digest(form=form)
 def get_box_from_system(item, structure_indices='all'):
 
-    box=item.getState().getPeriodicBoxVectors(asNumpy=True)
+    box=item.getPeriodicBoxVectors(asNumpy=True)
 
     if box is not None:
         box_unit = box.unit
@@ -253,7 +255,7 @@ def get_box_from_system(item, structure_indices='all'):
 @digest(form=form)
 def get_time_from_system(item, structure_indices='all'):
 
-    output = item.getState().getTime()
+    output = item.getTime()
     value = puw.get_value(output)
     unit = puw.get_unit(output)
     output = np.array([value])*unit
@@ -269,10 +271,7 @@ def get_structure_id_from_system(item, structure_indices='all'):
 @digest(form=form)
 def get_n_structures_from_system(item, structure_indices='all'):
 
-    if is_all(structure_indices):
-        return 1
-    else:
-        len(structure_indices)
+    return 1
 
 @digest(form=form)
 def get_bonded_atoms_from_system(item):

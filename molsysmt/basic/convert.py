@@ -281,7 +281,8 @@ def _convert_multiple_to_one(molecular_system,
                         'status_set_attributes': status_set_attributes,
                         }
 
-    if verbose:
+    #if verbose:
+    if False:
         for ii in straight_conversions:
             print(ii, straight_conversions[ii])
             print('----')
@@ -289,7 +290,7 @@ def _convert_multiple_to_one(molecular_system,
 
     basic_index = None
     n_set_attributes = np.inf
-    
+
     for aux_index, aux_dict in straight_conversions.items():
         if aux_dict['status_set_attributes']:
             if n_set_attributes > len(aux_dict['set_attributes']):
@@ -346,6 +347,24 @@ def _convert_multiple_to_one(molecular_system,
             set_to = _attributes[aux_attribute]['set_to']
             set_function = getattr(_dict_modules[to_form], f'set_{aux_attribute}_to_{set_to}')
             set_function(output, value=value_to_set)
+
+    elif to_form=='molsysmt.MolSys' and basic_index is None:
+
+        print('The conversion needs to include new set functions:')
+
+        for aux_index, aux_dict in straight_conversions.items():
+            print('   ')
+            print('To ', aux_dict['form'], ':')
+            print('   ')
+            for att, mm in aux_dict['set_attributes'].items():
+                set_to = _attributes[att]['set_to']
+                if not hasattr(_dict_modules[to_form], f'set_{att}_to_{set_to}'):
+                    print(att, 'from', mm[1], 'to', set_to)
+
+
+            print('   ')
+
+        raise ValueError()
 
     elif to_form!='molsysmt.MolSys':
 
@@ -519,4 +538,5 @@ def convert(molecular_system,
             output = output[0]
 
     return output
+
 

@@ -28,7 +28,6 @@ attributes['entity_id'] = True
 attributes['entity_name'] = True
 attributes['entity_type'] = True
 attributes['box'] = True
-attributes['forcefield'] = True
 attributes['temperature'] = True
 attributes['pressure'] = True
 attributes['integrator'] = True

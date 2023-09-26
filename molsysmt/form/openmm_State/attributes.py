@@ -10,6 +10,5 @@ attributes['velocities'] = True
 attributes['box'] = True
 attributes['time'] = True
 attributes['structure_id'] = True
-attributes['temperature'] = True
 
 del(_all_attributes)

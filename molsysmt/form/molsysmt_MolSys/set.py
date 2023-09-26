@@ -192,6 +192,20 @@ def set_coordinates_to_atom(item, indices='all', structure_indices='all', value=
                 value=value)
 
 @digest(form=form)
+def set_velocities_to_atom(item, indices='all', structure_indices='all', value=None):
+
+    from ..molsysmt_Structures import set_velocities_to_atom as molsysmt_Structures_set_velocities_to_atom
+    from ..molsysmt_Topology import get_n_atoms_from_system as molsysmt_Topology_get_n_atoms_from_system
+
+    if is_all(indices):
+        n_atoms = molsysmt_Topology_get_n_atoms_from_system(item.topology)
+        if n_atoms!=value.shape[1]:
+            raise ValueError('Coordinates has a different atoms number.')
+
+    return molsysmt_Structures_set_velocities_to_atom(item.structures, indices=indices, structure_indices=structure_indices,
+                value=value)
+
+@digest(form=form)
 def set_b_factor_to_atom(item, indices='all', structure_indices='all', value=None):
 
     from ..molsysmt_Structures import set_b_factor_to_atom as aux_set
