@@ -22,71 +22,28 @@ def harmonic_potential_to_plane(molecular_system=None, selection='all', force_co
     coordinates_minimum = puw.convert(coordinates_minimum[0], to_form='openmm.unit')
 
 
-    # Add a restrining potential to keep atoms in z=0
-
-    if np.isclose(normal_vector, [1.0, 0.0, 0.0]):
-
-        if pbc:
-            potential = '0.5 * k * (r^2); \
-                    r = periodicdistance(x, y, z, px, y, z);'
-        else:
-            potential = '0.5 * k * (r^2); \
-                    r = (x - px);'
-
-        force = CustomExternalForce(potential)
-        force.addGlobalParameter('k', force_constant)
-        force.addGlobalParameter('px', point[0])
-
-    elif np.isclose(normal_vector, [0.0, 1.0 , 0.0]):
-
-        if pbc:
-            potential = '0.5 * k * (r^2); \
-                    r = periodicdistance(x, y, z, x, py, z);'
-        else:
-            potential = '0.5 * k * (r^2); \
-                    r = (y - py);'
-
-        force = CustomExternalForce(potential)
-        force.addGlobalParameter('k', force_constant)
-        force.addGlobalParameter('py', point[1])
-
-    elif np.isclose(normal_vector, [0.0, 0.0, 1.0]):
-
-        if pbc:
-            potential = '0.5 * k * (r^2); \
-                    r = periodicdistance(x, y, z, x, y, pz);'
-        else:
-            potential = '0.5 * k * (r^2); \
-                    r = (z - pz);'
-
-        force = CustomExternalForce(potential)
-        force.addGlobalParameter('k', force_constant)
-        force.addGlobalParameter('pz', point[2])
-
-    else:
-
-        if pbc:
-            potential = '0.5 * k * (r^2); \
+    if pbc:
+        potential = '0.5 * k * (r^2); \
                 r = abs(periodicdistance(a, b, c, 0, 0, 0)); \
                 a = u*vx; \
                 b = u*vy; \
                 c = u*vz; \
                 u = (x-px)*vx+(y-py)*vy+(z-pz)*vz;'
-        else:
-            potential = '0.5 * k * (a^2+b^2+c^2); \
+    else:
+        potential = '0.5 * k * (a^2+b^2+c^2); \
                 a = u*vx; \
                 b = u*vy; \
                 c = u*vz; \
                 u = (x-px)*vx+(y-py)*vy+(z-pz)*vz;'
 
-        force = CustomExternalForce(potential)
-        force.addGlobalParameter('k', force_constant)
-        force.addGlobalParameter('px', point[0])
-        force.addGlobalParameter('py', point[1])
-        force.addGlobalParameter('pz', point[2])
-        force.addGlobalParameter('vx', normal_vector[0])
-        force.addGlobalParameter('vy', normal_vector[1])
-        force.addGlobalParameter('vz', normal_vector[2])
+    force = CustomExternalForce(potential)
+    force.addGlobalParameter('k', force_constant)
+    force.addGlobalParameter('px', point[0])
+    force.addGlobalParameter('py', point[1])
+    force.addGlobalParameter('pz', point[2])
+    force.addGlobalParameter('vx', normal_vector[0])
+    force.addGlobalParameter('vy', normal_vector[1])
+    force.addGlobalParameter('vz', normal_vector[2])
 
     for atom_index in atom_indices:
         force.addParticle(atom_index)

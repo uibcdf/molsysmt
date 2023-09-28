@@ -7,6 +7,7 @@ def harmonic_potential_to_coordinates(molecular_system=None, selection='all', fo
 
     from molsysmt import select, get, get_form
     from openmm import CustomExternalForce
+    from openmm import unit as u
 
     if molecular_system is not None:
         atom_indices = select(molecular_system, selection=selection, syntax=syntax)
@@ -16,10 +17,10 @@ def harmonic_potential_to_coordinates(molecular_system=None, selection='all', fo
     if coordinates_minimum is None:
         if molecular_system is not None:
             coordinates_minimum = get(molecular_system, element='atom', selection=atom_indices,
-                    coordinates=True)
+                    coordinates=True)[0]
 
-    force_constant = puw.convert(force_constant, to_form='openmm.unit')
-    coordinates_minimum = puw.convert(coordinates_minimum[0], to_form='openmm.unit')
+    force_constant = puw.convert(force_constant, to_unit=u.kilojoule_per_mole/(u.nanometer**2), to_form='openmm.unit')
+    coordinates_minimum = puw.convert(coordinates_minimum, to_unit=u.nanometer, to_form='openmm.unit')
 
     if pbc:
         potential = "0.5*k*periodicdistance(x, y, z, x0, y0, z0)^2"

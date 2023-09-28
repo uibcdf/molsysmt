@@ -18,6 +18,8 @@ def to_openmm_Context(item, atom_indices='all', coordinates=None,
 
     if platform=='CUDA':
         platform    = mm.Platform.getPlatformByName('CUDA')
+    elif platform=='CPU':
+        platform    = mm.Platform.getPlatformByName('CPU')
 
     context = mm.Context(item, integrator, platform)
 
