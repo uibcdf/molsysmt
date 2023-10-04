@@ -18,7 +18,6 @@ def to_molsysmt_Topology(item, atom_indices='all'):
     atom_name_array = empty(n_atoms, dtype=object)
     atom_id_array = empty(n_atoms, dtype=int)
     atom_type_array = empty(n_atoms, dtype=object)
-    atom_bonded_atom_indices_array = empty(n_atoms, dtype=object)
 
     group_index_array = empty(n_atoms, dtype=int)
     group_name_array = empty(n_atoms, dtype=object)
