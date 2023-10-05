@@ -5,6 +5,7 @@
 from molsysmt._private.execfile import execfile
 from molsysmt._private.exceptions import NotImplementedMethodError, NotWithThisFormError
 from molsysmt._private.digestion import digest
+from molsysmt._private.variables import is_all
 
 form='parmed.Structure'
 
@@ -63,7 +64,22 @@ def get_n_inner_bonds_from_atom(item, indices='all'):
 @digest(form=form)
 def get_coordinates_from_atom(item, indices='all', structure_indices='all'):
 
-    raise NotImplementedMethodError()
+    output = item.coordinates
+
+    if output is None:
+        return output
+
+    if not is_all(indices):
+        output = output[:,indices,:]
+    if not is_all(structure_indices):
+        output = output[structure_indices,:,:]
+
+    if not puw.is_quantity(output):
+        output = puw.quantity(output,'angstroms')
+
+    output = puw.standardize(output)
+
+    return output
 
 ## From group
 
@@ -191,22 +207,41 @@ def get_n_bonds_from_system(item):
 @digest(form=form)
 def get_n_structures_from_system(item, structure_indices='all'):
 
-    raise NotImplementedMethodError()
+    if is_all(structure_indices):
+        if item.coordinates is None:
+            return 0
+        else:
+            return item.coordinates.shape[0]
+    else:
+        return len(structure_indices)
 
 @digest(form=form)
 def get_box_from_system(item, structure_indices='all'):
 
-    raise NotImplementedMethodError()
+    output = item.box
+
+    if output is None:
+        return output
+
+    if not is_all(structure_indices):
+        output = output[structure_indices,:,:]
+
+    if not puw.is_quantity(output):
+        output = puw.quantity(output,'angstroms')
+
+    output = puw.standardize(output)
+
+    return output
 
 @digest(form=form)
 def get_time_from_system(item, structure_indices='all'):
 
-    raise NotImplementedMethodError()
+    return None
 
 @digest(form=form)
 def get_structure_id_from_system(item, structure_indices='all'):
 
-    raise NotImplementedMethodError()
+    return None
 
 ## From bond
 

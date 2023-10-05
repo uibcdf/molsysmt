@@ -1,6 +1,7 @@
 atom={
 'H'    : 'atH'    ,
 'HN'   : 'atH'    ,    # charmm.pdb
+'HN1'  : 'atH'    ,    #
 'H1'   : 'atH1'   ,
 'H2'   : 'atH2'   ,
 '2HH'  : 'atH2'   ,    # pymol.pdb
@@ -78,22 +79,28 @@ atom={
 'H8S'  : 'atH8S'  ,    # lipid POPC
 'H8X'  : 'atH8X'  ,    # lipid POPC 
 'H8Y'  : 'atH8Y'  ,    # lipid POPC 
+'H9R'  : 'atH9R'  ,    # lipid POPC 
+'H9S'  : 'atH9S'  ,    # lipid POPC 
 'H9X'  : 'atH9X'  ,    # lipid POPC 
 'H9Y'  : 'atH9Y'  ,    # lipid POPC 
+'H10R' : 'atH10R' ,    # lipid POPC 
+'H10S' : 'atH10S' ,    # lipid POPC 
 'H10X' : 'atH10X' ,    # lipid POPC 
 'H10Y' : 'atH10Y' ,    # lipid POPC 
 'H11A' : 'atH11A' ,    # lipid POPC
 'H11B' : 'atH11B' ,    # lipid POPC
 'H11R' : 'atH11R' ,    # lipid POPC 
+'H11S' : 'atH11S' ,    # lipid POPC 
 'H11X' : 'atH11X' ,    # lipid POPC 
 'H11Y' : 'atH11Y' ,    # lipid POPC 
-'H11S' : 'atH11S' ,    # lipid POPC 
 'H12A' : 'atH12A' ,    # lipid POPC
 'H12B' : 'atH12B' ,    # lipid POPC
 'H12R' : 'atH12R' ,    # lipid POPC 
 'H12S' : 'atH12S' ,    # lipid POPC 
+'H12T' : 'atH12T' ,    # lipid POPC 
 'H12X' : 'atH12X' ,    # lipid POPC 
 'H12Y' : 'atH12Y' ,    # lipid POPC 
+'H12Z' : 'atH12Z' ,    # lipid POPC 
 'H13A' : 'atH13A' ,    # lipid POPC
 'H13B' : 'atH13B' ,    # lipid POPC
 'H13C' : 'atH13C' ,    # lipid POPC
@@ -228,6 +235,7 @@ atom={
 'HH32' : 'atHH32' ,    # opls.gro
 '3HH3' : 'atHH33' ,
 'HH33' : 'atHH33' ,    # opls.gro
+'HR'   : 'atHR'   ,   # lipid
 'HS'   : 'atHS'   ,   # lipid POPC
 'HNT'  : 'atHT'   ,   # ACEMD (NME Terminal)
 'HX'   : 'atHX'   ,   # lipid POPC
@@ -500,35 +508,41 @@ atom_type={
 'atH8S' : 'H'   ,  
 'atH8X' : 'H'   ,  
 'atH8Y' : 'H'   ,  
+'atH9R' : 'H'   ,  
+'atH9S' : 'H'   ,  
 'atH9X' : 'H'   ,  
 'atH9Y' : 'H'   ,  
+'atH10R' : 'H'   ,  
+'atH10S' : 'H'   ,  
 'atH10X' : 'H'   ,  
 'atH10Y' : 'H'   ,  
+'atH11R' : 'H'   ,  
+'atH11S' : 'H'   ,  
 'atH11X' : 'H'   ,  
 'atH11Y' : 'H'   ,  
+'atH12S' : 'H'   ,  
+'atH12R' : 'H'   ,  
+'atH12T' : 'H'   ,  
 'atH12X' : 'H'   ,  
 'atH12Y' : 'H'   ,  
+'atH12Z' : 'H'   ,  
+'atH13R' : 'H'   ,  
+'atH13S' : 'H'   ,  
 'atH13X' : 'H'   ,  
 'atH13Y' : 'H'   ,  
+'atH14R' : 'H'   ,  
+'atH14S' : 'H'   ,  
 'atH14X' : 'H'   ,  
 'atH14Y' : 'H'   ,  
+'atH15R' : 'H'   ,  
+'atH15S' : 'H'   ,  
 'atH15X' : 'H'   ,  
 'atH15Y' : 'H'   ,  
+'atH16R' : 'H'   ,  
+'atH16S' : 'H'   ,  
 'atH16X' : 'H'   ,  
 'atH16Y' : 'H'   ,  
 'atH16Z' : 'H'   ,
-'atH11R' : 'H'   ,  
-'atH11S' : 'H'   ,  
-'atH12R' : 'H'   ,  
-'atH12S' : 'H'   ,  
-'atH13R' : 'H'   ,  
-'atH13S' : 'H'   ,  
-'atH14R' : 'H'   ,  
-'atH14S' : 'H'   ,  
-'atH15R' : 'H'   ,  
-'atH15S' : 'H'   ,  
-'atH16R' : 'H'   ,  
-'atH16S' : 'H'   ,  
 'atH17R' : 'H'   ,  
 'atH17S' : 'H'   ,  
 'atH18R' : 'H'   ,  
@@ -574,6 +588,7 @@ atom_type={
 'atHH31': 'H'   , 
 'atHH32': 'H'   , 
 'atHH33': 'H'   ,
+'atHR'  : 'H'   , 
 'atHS'  : 'H'   , 
 'atHT'  : 'H'   , 
 'atHT1' : 'H'   , 

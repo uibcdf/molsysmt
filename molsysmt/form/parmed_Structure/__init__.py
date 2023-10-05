@@ -19,6 +19,7 @@ from .iterators import StructuresIterator, TopologyIterator
 from .to_file_mol2 import to_file_mol2
 from .to_file_pdb import to_file_pdb
 from .to_file_psf import to_file_psf
+from .to_file_cif import to_file_cif
 from .to_mdtraj_Topology import to_mdtraj_Topology
 from .to_mdtraj_Trajectory import to_mdtraj_Trajectory
 from .to_nglview_NGLWidget import to_nglview_NGLWidget

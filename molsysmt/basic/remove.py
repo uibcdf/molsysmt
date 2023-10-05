@@ -1,7 +1,7 @@
 from molsysmt._private.digestion import digest
 from molsysmt._private.structure_indices import complementary_structure_indices
 from molsysmt._private.atom_indices import complementary_atom_indices
-
+from molsysmt._private.variables import is_all
 
 @digest()
 def remove(molecular_system, selection=None, structure_indices=None, to_form=None, syntax='MolSysMT'):
@@ -61,7 +61,7 @@ def remove(molecular_system, selection=None, structure_indices=None, to_form=Non
 
     """
 
-    from . import select, extract
+    from . import select, extract, get
 
     atom_indices_to_be_kept = 'all'
     structure_indices_to_be_kept = 'all'
@@ -71,6 +71,9 @@ def remove(molecular_system, selection=None, structure_indices=None, to_form=Non
         atom_indices_to_be_kept = complementary_atom_indices(molecular_system, atom_indices_to_be_removed)
 
     if structure_indices is not None:
+        if is_all(structure_indices):
+            n_structures = get(molecular_system, element='system', n_structures=True)
+            structure_indices= list(range(n_structures))
         structure_indices_to_be_kept = complementary_structure_indices(molecular_system, structure_indices)
 
     tmp_item = extract(molecular_system, selection=atom_indices_to_be_kept,
