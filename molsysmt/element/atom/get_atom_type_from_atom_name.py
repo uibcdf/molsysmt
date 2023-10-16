@@ -1,5 +1,5 @@
 from molsysmt._private.digestion import digest
-from .names import atom, atom_type
+from .names import atom as atom_type_from_name
 
 @digest()
 def get_atom_type_from_atom_name(atom_name):
@@ -8,7 +8,9 @@ def get_atom_type_from_atom_name(atom_name):
     """
 
     try:
-        return atom_type[atom[atom_name]]
+        return atom_type_from_name[atom_name]
     except:
-        raise ValueError('Atom name '+atom_name+' has not known atom type.')
+        print(atom_name)
+        return 'ANK'
+        #raise ValueError('Atom name '+atom_name+' has not known atom type.')
 
