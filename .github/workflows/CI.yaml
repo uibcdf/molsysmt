@@ -87,7 +87,7 @@ jobs:
 
       shell: bash -l {0}
       run: |
-        pytest -v --cov=molsysmt --cov-report=xml --color=yes molsysmt/tests/
+        pytest -n auto -v --cov=molsysmt --cov-report=xml --color=yes molsysmt/tests/
 
     - name: CodeCov
       uses: codecov/codecov-action@v1

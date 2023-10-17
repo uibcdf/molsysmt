@@ -34,6 +34,8 @@ def digest_selection(selection, syntax="MolSysMT", caller=None):
                 return list(selection)
             else:
                 return list([digest_selection(ii, syntax=syntax, caller=caller) for ii in selection])
+        elif isinstance(selection, range):
+            return list(selection)
         elif selection is None:
             return None
     else:
@@ -43,6 +45,8 @@ def digest_selection(selection, syntax="MolSysMT", caller=None):
             return np.array([selection], dtype='int64')
         elif isinstance(selection, (np.ndarray, list, tuple, range)):
             return np.array(selection, dtype='int64')
+        elif isinstance(selection, range):
+            return list(selection)
         elif selection is None:
             return None
 
