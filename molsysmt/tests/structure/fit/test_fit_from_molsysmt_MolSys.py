@@ -12,7 +12,7 @@ import numpy as np
 
 def test_fit_molsysmt_MolSys_1():
     molsys = msm.convert(tests_systems['pentalanine']['traj_pentalanine.h5'], to_form='molsysmt.MolSys')
-    fitted_molsys = msm.structure.fit(molsys, selection_fit='backbone', reference_structure_indices=0)
+    fitted_molsys = msm.structure.least_rmsd_fit(molsys, selection_fit='backbone', reference_structure_indices=0)
     fitted_rmsd = msm.structure.get_rmsd(fitted_molsys, selection='backbone', reference_structure_indices=0)
     lrmsd = msm.structure.get_least_rmsd(molsys, selection='backbone', reference_structure_indices=0)
     check_value_1 = np.allclose(msm.pyunitwizard.get_value(fitted_rmsd, to_unit='nm'), msm.pyunitwizard.get_value(lrmsd, to_unit='nm'))
