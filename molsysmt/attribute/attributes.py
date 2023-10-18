@@ -323,6 +323,18 @@ add_attribute('coordinates', synonyms=['coordinate', 'positions', 'position'], r
 add_attribute('velocities', synonyms=['velocity'], runs_on_elements=True, runs_on_structures=True,
               structural=True, get_from=['atom', 'system'], set_to='atom')
 
+## potential_energy
+add_attribute('potential_energy', synonyms=['potential_energies'],
+              runs_on_structures=True, structural=True, get_from=['system'], set_to='system')
+
+## kinetic_energy
+add_attribute('kinetic_energy', synonyms=['kinetic_energies'],
+              runs_on_structures=True, structural=True, get_from=['system'], set_to='system')
+
+## total_energy
+add_attribute('total_energy', synonyms=['total_energies'],
+              runs_on_structures=True, structural=True, get_from=['system'], set_to='system')
+
 ## n_structures
 add_attribute('n_structures', synonyms=['n_structure'], depends_on=['structure_index'], runs_on_elements=True,
               runs_on_structures=True, structural=True, get_from=['system'])

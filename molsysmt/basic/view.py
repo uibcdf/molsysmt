@@ -6,7 +6,8 @@ from molsysmt.config import _view_from_htmlfiles
 
 @digest()
 def view(molecular_system=None, selection='all', structure_indices='all',
-         standard=False, with_water_as=None, viewer='NGLView', syntax='MolSysMT'):
+         standard=False, with_water_as=None, with_ions_as=None,
+         viewer='NGLView', syntax='MolSysMT'):
     """
     Showing a molecular system.
 
@@ -35,6 +36,9 @@ def view(molecular_system=None, selection='all', structure_indices='all',
 
     with_water_as :{'licorice', 'surface', None}, default None
         Input argument to choose the water molecules representation.
+
+    with_ions_as :{'licorice', 'balls', 'balls and sticks', None}, default None
+        Input argument to choose the ions molecules representation.
 
     viewer : {'NGLView'}, default 'NGLView'
         Molecular visualization library to be used as viewer.
@@ -136,6 +140,17 @@ def view(molecular_system=None, selection='all', structure_indices='all',
             if viewer=='NGLView':
                 from molsysmt.thirds.nglview import show_water_as_licorice
                 show_water_as_licorice(tmp_item)
+
+    if with_ions_as is not None:
+
+        if with_ions_as == 'licorice':
+            if viewer=='NGLView':
+                from molsysmt.thirds.nglview import show_ions_as_licorice
+                show_ions_as_licorice(tmp_item)
+        elif with_ions_as in ['balls and sticks', 'balls']:
+            if viewer=='NGLView':
+                from molsysmt.thirds.nglview import show_ions_as_ball_and_stick
+                show_ions_as_ball_and_stick(tmp_item)
 
 
     return tmp_item

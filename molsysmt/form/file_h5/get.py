@@ -436,6 +436,49 @@ def get_structure_id_from_system(item, structure_indices='all'):
 
     return output
 
+@digest(form=form)
+def get_temperature_from_system(item, structure_indices='all'):
+
+    from . import to_mdtraj_HDF5TrajectoryFile
+    from ..mdtraj_HDF5TrajectoryFile import get_temperature_from_system as aux_get
+
+    tmp_item = to_mdtraj_HDF5TrajectoryFile(item)
+    output = aux_get(tmp_item, structure_indices=structure_indices)
+
+    return output
+
+@digest(form=form)
+def get_potential_energy_from_system(item, structure_indices='all'):
+
+    from . import to_mdtraj_HDF5TrajectoryFile
+    from ..mdtraj_HDF5TrajectoryFile import get_potential_energy_from_system as aux_get
+
+    tmp_item = to_mdtraj_HDF5TrajectoryFile(item)
+    output = aux_get(tmp_item, structure_indices=structure_indices)
+
+    return output
+
+@digest(form=form)
+def get_kinetic_energy_from_system(item, structure_indices='all'):
+
+    from . import to_mdtraj_HDF5TrajectoryFile
+    from ..mdtraj_HDF5TrajectoryFile import get_kinetic_energy_from_system as aux_get
+
+    tmp_item = to_mdtraj_HDF5TrajectoryFile(item)
+    output = aux_get(tmp_item, structure_indices=structure_indices)
+
+    return output
+
+@digest(form=form)
+def get_total_energy_from_system(item, structure_indices='all'):
+
+    from . import to_mdtraj_HDF5TrajectoryFile
+    from ..mdtraj_HDF5TrajectoryFile import get_total_energy_from_system as aux_get
+
+    tmp_item = to_mdtraj_HDF5TrajectoryFile(item)
+    output = aux_get(tmp_item, structure_indices=structure_indices)
+
+    return output
 
 ## bond
 

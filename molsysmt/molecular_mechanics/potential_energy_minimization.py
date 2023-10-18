@@ -3,7 +3,7 @@ from molsysmt._private.digestion import digest
 
 @digest()
 def potential_energy_minimization(molecular_system, method='L-BFGS',
-        platform='CUDA', engine='OpenMM', to_form=None, in_place=True, verbose=False):
+        platform='CUDA', engine='OpenMM', to_form=None, in_place=False, verbose=False):
 
     """
     To be written soon...

@@ -568,6 +568,131 @@ def get_time_from_system(item, structure_indices='all'):
     return time
 
 @digest(form=form)
+def get_temperature_from_system(item, structure_indices='all'):
+
+    if structure_indices is None:
+        return None
+
+    from molsysmt.lib.series import serie_to_chunks
+
+    if is_all(structure_indices):
+        structure_indices = np.arange(get_n_structures_from_system(item))
+
+    starts_serie_frames, size_serie_frames = serie_to_chunks(structure_indices)
+
+    temperature_list = []
+
+    for start, size in zip(starts_serie_frames, size_serie_frames):
+        item.seek(start)
+        frame_hdf5 = item.read(n_frames=size)
+        temperature = frame_hdf5.temperature
+        temperature_list.append(temperature)
+
+    temperature = np.concatenate(temperature_list)
+    del(temperature_list)
+
+    temperature = temperature.astype('float64')
+
+    temperature = temperature*puw.unit('kelvin')
+    temperature = puw.standardize(temperature)
+
+    return temperature
+
+@digest(form=form)
+def get_potential_energy_from_system(item, structure_indices='all'):
+
+    if structure_indices is None:
+        return None
+
+    from molsysmt.lib.series import serie_to_chunks
+
+    if is_all(structure_indices):
+        structure_indices = np.arange(get_n_structures_from_system(item))
+
+    starts_serie_frames, size_serie_frames = serie_to_chunks(structure_indices)
+
+    potential_energy_list = []
+
+    for start, size in zip(starts_serie_frames, size_serie_frames):
+        item.seek(start)
+        frame_hdf5 = item.read(n_frames=size)
+        potential_energy = frame_hdf5.potentialEnergy
+        potential_energy_list.append(potential_energy)
+
+    potential_energy = np.concatenate(potential_energy_list)
+    del(potential_energy_list)
+
+    potential_energy = potential_energy.astype('float64')
+
+    potential_energy = potential_energy*puw.unit('kJ/mol')
+    potential_energy = puw.standardize(potential_energy)
+
+    return potential_energy
+
+@digest(form=form)
+def get_kinetic_energy_from_system(item, structure_indices='all'):
+
+    if structure_indices is None:
+        return None
+
+    from molsysmt.lib.series import serie_to_chunks
+
+    if is_all(structure_indices):
+        structure_indices = np.arange(get_n_structures_from_system(item))
+
+    starts_serie_frames, size_serie_frames = serie_to_chunks(structure_indices)
+
+    kinetic_energy_list = []
+
+    for start, size in zip(starts_serie_frames, size_serie_frames):
+        item.seek(start)
+        frame_hdf5 = item.read(n_frames=size)
+        kinetic_energy = frame_hdf5.kineticEnergy
+        kinetic_energy_list.append(kinetic_energy)
+
+    kinetic_energy = np.concatenate(kinetic_energy_list)
+    del(kinetic_energy_list)
+
+    kinetic_energy = kinetic_energy.astype('float64')
+
+    kinetic_energy = kinetic_energy*puw.unit('kJ/mol')
+    kinetic_energy = puw.standardize(kinetic_energy)
+
+    return kinetic_energy
+
+@digest(form=form)
+def get_total_energy_from_system(item, structure_indices='all'):
+
+    if structure_indices is None:
+        return None
+
+    from molsysmt.lib.series import serie_to_chunks
+
+    if is_all(structure_indices):
+        structure_indices = np.arange(get_n_structures_from_system(item))
+
+    starts_serie_frames, size_serie_frames = serie_to_chunks(structure_indices)
+
+    total_energy_list = []
+
+    for start, size in zip(starts_serie_frames, size_serie_frames):
+        item.seek(start)
+        frame_hdf5 = item.read(n_frames=size)
+        total_energy = frame_hdf5.potentialEnergy+frame_hdf5.kineticEnergy
+        total_energy_list.append(total_energy)
+
+    total_energy = np.concatenate(total_energy_list)
+    del(total_energy_list)
+
+    total_energy = total_energy.astype('float64')
+
+    total_energy = total_energy*puw.unit('kJ/mol')
+    total_energy = puw.standardize(total_energy)
+
+    return total_energy
+
+
+@digest(form=form)
 def get_structure_id_from_system(item, structure_indices='all'):
 
     if structure_indices is None:

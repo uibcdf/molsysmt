@@ -71,6 +71,9 @@ attributes['box_lengths'] = True
 attributes['box_volume'] = True
 attributes['coordinates'] = True
 attributes['velocities'] = True
+attributes['potential_energy'] = True
+attributes['kinetic_energy'] = True
+attributes['total_energy'] = True
 attributes['n_structures'] = True
 
 ###

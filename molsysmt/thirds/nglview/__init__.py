@@ -8,6 +8,8 @@ from .write_html import write_html
 from .precooked_recipes import standardize_view, add_gui
 from .precooked_recipes import show_system_as_transparent_surface
 from .precooked_recipes import show_water_as_licorice
+from .precooked_recipes import show_ions_as_licorice
+from .precooked_recipes import show_ions_as_ball_and_stick
 from .patching_nglview import adding_molsysmt
 
 from .add_cylinders import add_cylinders
