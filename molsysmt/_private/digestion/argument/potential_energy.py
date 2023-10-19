@@ -36,6 +36,9 @@ def digest_potential_energy(potential_energy, caller=None):
         if isinstance(potential_energy, bool):
             return potential_energy
 
+    if potential_energy is None:
+        return None
+
     value, unit = puw.get_value_and_unit(potential_energy)
 
     if not puw.check(unit, dimensionality={'[L]': 2, '[M]': 1, '[T]': -2, '[mol]': -1}):

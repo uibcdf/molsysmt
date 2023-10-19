@@ -36,6 +36,9 @@ def digest_kinetic_energy(kinetic_energy, caller=None):
         if isinstance(kinetic_energy, bool):
             return kinetic_energy
 
+    if kinetic_energy is None:
+        return None
+
     value, unit = puw.get_value_and_unit(kinetic_energy)
 
     if not puw.check(unit, dimensionality={'[L]': 2, '[M]': 1, '[T]': -2, '[mol]': -1}):

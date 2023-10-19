@@ -36,6 +36,9 @@ def digest_temperature(temperature, caller=None):
         if isinstance(temperature, bool):
             return temperature
 
+    if temperature is None:
+        return temperature
+
     value, unit = puw.get_value_and_unit(temperature)
 
     if not puw.check(unit, dimensionality={'[K]':1}):

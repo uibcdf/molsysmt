@@ -3,7 +3,6 @@ import numpy as np
 from molsysmt import pyunitwizard as puw
 from molsysmt._private.variables import is_all
 from molsysmt.basic import get
-from molsysmt.pbc import get_lengths_and_angles_from_box
 from molsysmt._private.exceptions import IteratorError
 from molsysmt._private.digestion import digest
 
@@ -38,7 +37,8 @@ class Structures:
 
     @digest()
     def __init__(self, structure_id=None, time=None, coordinates=None, velocities=None, box=None,
-            occupancy=None, b_factor=None, alternate_location=None, bioassembly=None):
+            occupancy=None, b_factor=None, alternate_location=None, bioassembly=None,
+            temperature=None, potential_energy=None, kinetic_energy=None):
 
         self.structure_id = structure_id
         self.time = time
@@ -49,6 +49,9 @@ class Structures:
         self.b_factor = b_factor
         self.alternate_location = alternate_location
         self.bioassembly = bioassembly
+        self.temperature = temperature
+        self.potential_energy = potential_energy
+        self.kinetic_energy = kinetic_energy
 
         if coordinates is not None:
             self.n_structures = coordinates.shape[0]
@@ -63,17 +66,18 @@ class Structures:
             self.n_atoms = 0
 
     @staticmethod
-    def _concatenate_arrays(array_1, array_2, name):
+    def _concatenate_arrays(array_1, array_2):
         """ Concatenates two arrays provided that they are not null."""
         if array_2 is not None:
             if array_1 is None:
                 raise ValueError(
-                    f"The trajectory has no {name} array to append the new frame.")
+                    f"The trajectory has no array to append the new frame.")
             else:
                 return np.concatenate([array_1, array_2])
 
     @digest()
-    def append_structures(self, structure_id=None, time=None, coordinates=None, velocities=None, box=None):
+    def append_structures(self, structure_id=None, time=None, coordinates=None, velocities=None,
+            box=None, temperature=None, potential_energy=None, kinetic_energy=None):
         """ Append structures or frames to this object.
 
              box : pint.Quantity of shape (n_structures, 3, 3)
@@ -89,7 +93,7 @@ class Structures:
 
         n_structures = 0
         n_atoms = 0
-    
+
         if structure_id is not None and not isinstance(structure_id, (list, np.ndarray)):
             structure_id = np.array([structure_id])
 
@@ -103,6 +107,12 @@ class Structures:
             velocities = puw.standardize(velocities)
         if box is not None:
             box = puw.standardize(box)
+        if temperature is not None:
+            temperature = puw.standardize(temperature)
+        if potential_energy is not None:
+            potential_energy = puw.standardize(potential_energy)
+        if kinetic_energy is not None:
+            kinetic_energy = puw.standardize(kinetic_energy)
 
         if self.n_structures == 0:
 
@@ -111,6 +121,9 @@ class Structures:
             self.structure_id = structure_id
             self.time = time
             self.box = box
+            self.temperature = temperature
+            self.potential_energy = potential_energy
+            self.kinetic_energy = kinetic_energy
             self.n_structures = n_structures
             self.n_atoms = n_atoms
 
@@ -121,32 +134,18 @@ class Structures:
                     "The coordinates to be appended in the system "
                     "need to have the same number of atoms.")
 
-            self.structure_id = self._concatenate_arrays(self.structure_id, structure_id, "structure_ids")
-            self.time = self._concatenate_arrays(self.time, time, "time")
-            self.box = self._concatenate_arrays(self.box, box, "structure_ids")
+            self.structure_id = self._concatenate_arrays(self.structure_id, structure_id)
+            self.time = self._concatenate_arrays(self.time, time)
+            self.box = self._concatenate_arrays(self.box, box)
+            self.temperature = self._concatenate_arrays(self.temperature, temperature)
+            self.potential_energy = self._concatenate_arrays(self.potential_energy,
+                    potential_energy)
+            self.kinetic_energy = self._concatenate_arrays(self.kinetic_energy,
+                    kinetic_energy)
 
-            self.coordinates = self._concatenate_arrays(self.coordinates, coordinates, "coordinates")
-            self.velocities = self._concatenate_arrays(self.velocities, velocities, "velocities")
+            self.coordinates = self._concatenate_arrays(self.coordinates, coordinates)
+            self.velocities = self._concatenate_arrays(self.velocities, velocities)
             self.n_structures += n_structures
-
-    def get_box_lengths(self):
-
-
-        if self.box is not None:
-            lengths, _ = get_lengths_and_angles_from_box(self.box)
-        else:
-            lengths = None
-
-        return lengths
-
-    def get_box_angles(self):
-
-        if self.box is not None:
-            _, angles = get_lengths_and_angles_from_box(self.box)
-        else:
-            _, angles = None
-
-        return angles
 
     @digest()
     def extract(self, atom_indices='all', structure_indices='all'):
@@ -188,6 +187,21 @@ class Structures:
             else:
                 box = deepcopy(self.box)
 
+            if self.temperature is not None and extract_structures:
+                temperature = self.temperature[structure_indices]
+            else:
+                temperature = deepcopy(self.temperature)
+
+            if self.potential_energy is not None and extract_structures:
+                potential_energy = self.potential_energy[structure_indices]
+            else:
+                potential_energy = deepcopy(self.potential_energy)
+
+            if self.kinetic_energy is not None and extract_structures:
+                kinetic_energy = self.kinetic_energy[structure_indices]
+            else:
+                kinetic_energy = deepcopy(self.kinetic_energy)
+
             if self.coordinates is not None:
                 if not is_all(atom_indices):
                     coordinates = self.coordinates[:, atom_indices, :]
@@ -213,275 +227,12 @@ class Structures:
                           coordinates=coordinates,
                           velocities=velocities,
                           box=box,
+                          temperature=temperature,
+                          potential_energy=potential_energy,
+                          kinetic_energy=kinetic_energy
                           )
-
-    @digest()
-    def add(self, item, selection='all', structure_indices='all'):
-        """ Adds the coordinates of another item to this.
-
-            Parameters
-            ----------
-
-            item : MolecularSystem
-                The molecular system whose coordinates will be added.
-
-            selection : str or arraylike of int, default='all'
-                Selects only these atoms from the given item.
-
-            structure_indices : str or arraylike of int, default='all'
-                Select only these structures from the given item
-
-        """
-
-
-
-        n_structures = get(item,
-                           element="system",
-                           structure_indices=structure_indices,
-                           n_structures=True,
-                           )
-
-        coordinates = get(item,
-                          element="atom",
-                          selection=selection,
-                          structure_indices=structure_indices,
-                          coordinates=True,
-                          )
-
-        velocities = get(item,
-                          element="atom",
-                          selection=selection,
-                          structure_indices=structure_indices,
-                          velocities=True,
-                          )
-
-        if self.n_structures != n_structures:
-            raise ValueError('Both items need to have the same n_structures')
-
-        if (self.coordinates is None) or (coordinates is None):
-            self.coordinates = None
-        else:
-            unit = puw.get_unit(self.coordinates)
-            value_coordinates = puw.get_value(coordinates, to_unit=unit)
-            value_self_coordinates = puw.get_value(self.coordinates)
-            self.coordinates = np.hstack([value_self_coordinates, value_coordinates]) * unit
-
-        if (self.velocities is None) or (velocities is None):
-            self.velocities = None
-        else:
-            unit = puw.get_unit(self.velocities)
-            value_velocities = puw.get_value(velocities, to_unit=unit)
-            value_self_velocities = puw.get_value(self.velocities)
-            self.velocities = np.hstack([value_self_velocities, value_velocities]) * unit
-
-        self.n_atoms = self.coordinates.shape[1]
-
-    @digest()
-    def append(self, item, selection='all', structure_indices='all'):
-        """ Appends the structure_id, time coordinates and box of the given item to this.
-
-            Parameters
-            ----------
-            item : MolecularSystem
-                The molecular system that will be appended.
-
-            selection : str or arraylike of int, default='all'
-                Selects only these atoms from the given item.
-
-            structure_indices : str or arraylike of int, default='all'
-                Select only these structures from the given item
-        """
-
-        structure_id, time, coordinates, velocities, box = get(item,
-                                           selection=selection,
-                                           structure_indices=structure_indices,
-                                           structure_id=True,
-                                           time=True,
-                                           coordinates=True,
-                                           velocities=True,
-                                           box=True,
-                                           )
-
-        self.append_structures(structure_id, time, coordinates, velocities, box)
 
     def copy(self):
         """ Returns a copy of the structures."""
         return deepcopy(self)
 
-###    def get_structure_data(self, structure, selection="all", chunk_size=1):
-###        """ Returns the structure_ids, time, coordinates and box of the
-###            given structure
-###
-###            Parameters
-###            ----------
-###            structure : int
-###                The index of the structure
-###
-###            selection : arraylike of int, default="all"
-###                The indices of the selected atoms.
-###
-###            chunk_size : int, default=1
-###                Amount of structures to return in each of the arrays.
-###
-###            Returns
-###            -------
-###            box : pint.Quantity of shape (3, 3)
-###                The box of the structure. If chunk_size is greater than one
-###                the shape will be (chunk_size, 3, 3)
-###
-###            coordinates : pint.Quantity of shape (n_atoms, 3)
-###                The coordinates of the structure. If chunk_size is greater than one
-###                the shape will be (chunk_size, n_atoms, 3)
-###
-###            time :  pint.Quantity
-###                The times of the structure. If chunk_size is greater than one
-###                the shape will be (chunk_size,)
-###        """
-###        structure_end = structure + chunk_size
-###
-###        if self.structure_id is not None:
-###            structure_id = self.structure_id[structure: structure_end]
-###        else:
-###            structure_id = None
-###
-###        if self.time is not None:
-###            time = self.time[structure: structure_end]
-###        else:
-###            time = None
-###
-###        if self.coordinates is not None:
-###            if is_all(selection):
-###                # If chunk size is 1 we return a 2D array. If not coordinates will
-###                # be a 3D array
-###                if chunk_size == 1:
-###                    coordinates = self.coordinates[structure]
-###                else:
-###                    coordinates = self.coordinates[structure: structure_end]
-###            else:
-###                if chunk_size == 1:
-###                    coordinates = self.coordinates[structure, selection, :]
-###                else:
-###                    coordinates = self.coordinates[structure: structure_end, selection, :]
-###        else:
-###            coordinates = None
-###
-###        if self.velocities is not None:
-###            if is_all(selection):
-###                if chunk_size == 1:
-###                    velocities = self.velocities[structure]
-###                else:
-###                    velocities = self.velocities[structure: structure_end]
-###            else:
-###                if chunk_size == 1:
-###                    velocities = self.velocities[structure, selection, :]
-###                else:
-###                    velocities = self.velocities[structure: structure_end, selection, :]
-###        else:
-###            velocities = None
-###
-###        if self.box is not None:
-###            if chunk_size == 1:
-###                box = self.box[structure]
-###            else:
-###                box = self.box[structure: structure_end]
-###        else:
-###            box = None
-###
-###        return structure_id, time, coordinates, velocities, box
-###
-###    def _iterate_structures(self, start=0, stop=None,
-###                            interval=1, selection="all", chunk_size=1):
-###        """ Helper function for the iterate method."""
-###        self._current_structure = start
-###        while self._current_structure < self.n_structures:
-###            if self._current_structure >= stop:
-###                break
-###
-###            yield self.get_structure_data(self._current_structure,
-###                                          selection,
-###                                          chunk_size)
-###
-###            if chunk_size > 1:
-###                self._current_structure += chunk_size
-###            else:
-###                self._current_structure += interval
-###
-###    def iterate(self, start=0, stop=None,
-###                interval=1, selection="all", chunk_size=1):
-###        """ Generator to iterate over the structure_ids, time, coordinates and box
-###            of each structure (frame).
-###
-###            Parameters
-###            ----------
-###            start: int
-###                First structure index of the trajectory to start with.
-###
-###            stop: int, default=None
-###                The iteration finishes if the current structure index
-###                is larger than or equal to this integer.
-###
-###            interval : int, default=1
-###                Number of structure indices to skip in each iteration
-###
-###            selection : arraylike of int or 'all', default='all'
-###                The indices of the selected atoms.
-###
-###            chunk_size : int, default=1
-###                Amount of structures in the output of each iteration.
-###
-###            Yields
-###            ------
-###            structure_id :
-###
-###            box : pint.Quantity of shape (3, 3)
-###                The box of the structure
-###
-###            coordinates : pint.Quantity of shape (n_atoms, 3)
-###                The coordinates of the structure.
-###
-###            time :  pint.Quantity
-###                The times of the structure
-###
-###        """
-###        if start < 0 or start >= self.n_structures:
-###            raise IteratorError(
-###                f"Start should be > 0 and < {self.n_structures}"
-###            )
-###
-###        if interval < 1 or interval > self.n_structures:
-###            raise IteratorError(
-###                f"Interval should be > 0 and < {self.n_structures}"
-###            )
-###
-###        if chunk_size < 1 or chunk_size > self.n_structures:
-###            raise IteratorError(
-###                f"Chunk size should be > 0 and < {self.n_structures}")
-###
-###        if interval != 1 and chunk_size != 1:
-###            # We cannot have an interval and a chunk size greater than 1 simultaneously
-###            raise IteratorError(
-###                "Chunk size and interval cannot be greater than one simultaneously.")
-###
-###        if stop is None:
-###            stop = self.n_structures
-###
-###        if stop < 1 or stop > self.n_structures:
-###            raise IteratorError(
-###                f"Stop should be > 0 and < {self.n_structures}"
-###            )
-###
-###        return self._iterate_structures(start, stop, interval, selection, chunk_size)
-###
-###    def __iter__(self):
-###        self._current_structure = -1
-###        return self
-###
-###    def __next__(self):
-###        """ Iterate through the structure_ids, time, coordinates and box
-###            of each structure (frame).
-###        """
-###        self._current_structure += 1
-###        if self._current_structure >= self.n_structures:
-###            raise StopIteration
-###
-###        return self.get_structure_data(self._current_structure)
