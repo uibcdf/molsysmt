@@ -37,6 +37,7 @@ selection_shortcuts={
             'backbone':'(molecule_type==["protein", "peptide"] and atom_name==["CA", "N", "C", "O"])',
             'heavy atoms not solvent':'(atom_name!=["H"]) and (molecule_type!=["water", "ion"])',
             'heavy atoms':'(atom_name!=["H"])',
+            'not solvent':'(molecule_type==["water", "ion"])',
             'solvent':'(molecule_type==["water", "ion"])',
             'hydrogens':'(atom_type=="H")',
             'hydrogen':'(atom_type=="H")',
