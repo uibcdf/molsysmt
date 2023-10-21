@@ -47,9 +47,72 @@ def _add_topology_to_msmh5(item, file, atom_indices='all'):
     if not file_is_msmh5:
         raise ValueError
 
-    # Atoms
+    n_atoms = item.atoms_dataframe.shape[0]
 
     n_atoms = item.atoms_dataframe.shape[0]
+
+    atom_index_array = item.atoms_dataframe["atom_index"].to_numpy()
+    atom_name_array = item.atoms_dataframe["atom_name"].to_numpy()
+    atom_id_array = item.atoms_dataframe["atom_id"].to_numpy()
+    atom_type_array = item.atoms_dataframe["atom_type"].to_numpy()
+
+    group_index_array = item.atoms_dataframe["group_index"].to_numpy()
+    group_name_array = item.atoms_dataframe["group_name"].to_numpy()
+    group_id_array = item.atoms_dataframe["group_id"].to_numpy()
+    group_type_array = item.atoms_dataframe["group_type"].to_numpy()
+
+    component_index_array = item.atoms_dataframe["component_index"].to_numpy()
+    component_name_array = item.atoms_dataframe["component_name"].to_numpy()
+    component_id_array = item.atoms_dataframe["component_id"].to_numpy()
+    component_type_array = item.atoms_dataframe["component_type"].to_numpy()
+
+    group_index_array = item.atoms_dataframe["group_index"].to_numpy()
+    group_name_array = item.atoms_dataframe["group_name"].to_numpy()
+    group_id_array = item.atoms_dataframe["group_id"].to_numpy()
+    group_type_array = item.atoms_dataframe["group_type"].to_numpy()
+
+
+
+    chain_index_array = item.atoms_dataframe["chain_index"].to_numpy()
+    chain_name_array = item.atoms_dataframe["chain_name"].to_numpy()
+    chain_id_array = item.atoms_dataframe["chain_id"].to_numpy()
+    chain_type_array = item.atoms_dataframe["chain_type"].to_numpy()
+
+    bonds_atom1 = item.bonds_dataframe["atom1_index"].to_numpy()
+    bonds_atom2 = item.bonds_dataframe["atom2_index"].to_numpy()
+
+
+    for ii in range(n_atoms):
+
+
+
+
+    aux_indices = item.atoms_dataframe['group_index'].unique()
+    where_not_None = np.where(aux_indices!=None)
+    aux_indices = aux_indices[where_not_None]
+    n_groups = aux_indices.shape[0]
+
+    aux_indices = item.atoms_dataframe['component_index'].unique()
+    where_not_None = np.where(aux_indices!=None)
+    aux_indices = aux_indices[where_not_None]
+    n_components = aux_indices.shape[0]
+
+    aux_indices = item.atoms_dataframe['molecule_index'].unique()
+    where_not_None = np.where(aux_indices!=None)
+    aux_indices = aux_indices[where_not_None]
+    n_molecules = aux_indices.shape[0]
+
+    aux_indices = item.atoms_dataframe['entity_index'].unique()
+    where_not_None = np.where(aux_indices!=None)
+    aux_indices = aux_indices[where_not_None]
+    n_entities = aux_indices.shape[0]
+
+    aux_indices = item.atoms_dataframe['chain_index'].unique()
+    where_not_None = np.where(aux_indices!=None)
+    aux_indices = aux_indices[where_not_None]
+    n_chains = aux_indices.shape[0]
+
+    # Atoms
 
     atoms = file['topology']['atoms']
 
@@ -58,33 +121,42 @@ def _add_topology_to_msmh5(item, file, atom_indices='all'):
     atoms['id'].resize((n_atoms,))
     atoms['name'].resize((n_atoms,))
     atoms['type'].resize((n_atoms,))
-    atoms['group_index'].resize((n_atoms,))
-    atoms['chain_index'].resize((n_atoms,))
 
     atoms['id'][:] = item.atoms_dataframe['atom_id'].to_numpy()
     atoms['name'][:] = item.atoms_dataframe['atom_name'].to_numpy()
     atoms['type'][:] = item.atoms_dataframe['atom_type'].to_numpy()
-    atoms['group_index'][:] = item.atoms_dataframe['group_index'].to_numpy()
-    atoms['chain_index'][:] = item.atoms_dataframe['chain_index'].to_numpy()
 
     # Groups
 
-    n_groups = items.atoms_dataframe['group_index'].iloc[-1]+1
+    if n_groups > 0:
 
-    groups = file['topology']['groups']
+        groups = file['topology']['groups']
 
-    groups.attrs['n_groups'] = n_groups
+        groups.attrs['n_groups'] = n_groups
 
-    groups['id'].resize((n_groups,))
-    groups['name'].resize((n_groups,))
-    groups['type'].resize((n_groups,))
-    groups['group_index'].resize((n_groups,))
-    groups['chain_index'].resize((n_groups,))
+        atoms['group_index'].resize((n_atoms,))
+        groups['id'].resize((n_groups,))
+        groups['name'].resize((n_groups,))
+        groups['type'].resize((n_groups,))
 
-    groups['id'][:] = item.atoms_dataframe['group_id'].to_numpy()
-    groups['name'][:] = item.atoms_dataframe['group_name'].to_numpy()
-    groups['type'][:] = item.atoms_dataframe['group_type'].to_numpy()
-    groups['component_index'][:] = item.atoms_dataframe['component_index'].to_numpy()
+        atoms['group_index'][:] = item.atoms_dataframe['group_index'].to_numpy()
+        groups['id'][:] = item.atoms_dataframe['group_id'].to_numpy()
+        groups['name'][:] = item.atoms_dataframe['group_name'].to_numpy()
+        groups['type'][:] = item.atoms_dataframe['group_type'].to_numpy()
+
+    # Components
+
+    if n_components > 0:
+
+        groups['component_index'].resize((n_groups,))
+        groups['component_index'][:] = item.atoms_dataframe['component_index'].to_numpy()
+
+    # Chains
+
+    if n_chains > 0:
+
+        atoms['chain_index'].resize((n_atoms,))
+        atoms['chain_index'][:] = item.atoms_dataframe['chain_index'].to_numpy()
 
 
     if needs_to_be_closed:
