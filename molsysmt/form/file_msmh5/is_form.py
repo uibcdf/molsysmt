@@ -1,4 +1,5 @@
 from pathlib import PosixPath
+import h5py
 
 def is_form(item):
 
@@ -8,7 +9,11 @@ def is_form(item):
         item = item.absolute().__str__()
 
     if isinstance(item, str):
-        output = item.endswith('.msmpk')
+        if item.endswith('.msmh5'):
+
+            with h5py.File(item, "r") as file:
+                if 'type' in file.attrs:
+                    output = (file.attrs['type']=='msmh5')
 
     return output
 

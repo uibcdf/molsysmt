@@ -19,6 +19,7 @@ from .iterators import TopologyIterator
 from .to_string_pdb_text import to_string_pdb_text
 from .to_file_pdb import to_file_pdb
 from .to_file_psf import to_file_psf
+from .to_file_msmh5 import to_file_msmh5
 from .to_molsysmt_MolSys import to_molsysmt_MolSys
 from .to_molsysmt_Topology import to_molsysmt_Topology
 from .to_mdtraj_Topology import to_mdtraj_Topology
@@ -38,6 +39,7 @@ _convert_to={
         'string:pdb_text': to_string_pdb_text,
         'file:pdb': to_file_pdb,
         'file:psf': to_file_psf,
+        'file:msmh5': to_file_msmh5,
         'molsysmt.MolSys': to_molsysmt_MolSys,
         'molsysmt.Topology': to_molsysmt_Topology,
         'mdtraj.Topology': to_mdtraj_Topology,

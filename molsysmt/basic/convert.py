@@ -68,7 +68,14 @@ def _convert_one_to_one(molecular_system,
         'copy_if_all'})
 
         if len(missing_arguments)>0:
-            raise NotCompatibleConversionError(from_form, to_form, missing_arguments)
+
+            missing_arguments.discard('compression')
+            missing_arguments.discard('compression_opts')
+            missing_arguments.discard('int_precision')
+            missing_arguments.discard('float_precision')
+
+            if len(missing_arguments)>0:
+                raise NotCompatibleConversionError(from_form, to_form, missing_arguments)
 
         output = function(molecular_system, **conversion_arguments, **kwargs)
 

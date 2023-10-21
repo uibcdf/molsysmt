@@ -15,6 +15,7 @@ production:
     - *setup_channels
   dependencies: &production_dependencies
     - *setup_dependencies
+    - h5py
     - numpy
     - numba
     - pyunitwizard
