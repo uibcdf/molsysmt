@@ -47,72 +47,11 @@ def _add_topology_to_msmh5(item, file, atom_indices='all'):
     if not file_is_msmh5:
         raise ValueError
 
-    n_atoms = item.atoms_dataframe.shape[0]
-
-    n_atoms = item.atoms_dataframe.shape[0]
-
-    atom_index_array = item.atoms_dataframe["atom_index"].to_numpy()
-    atom_name_array = item.atoms_dataframe["atom_name"].to_numpy()
-    atom_id_array = item.atoms_dataframe["atom_id"].to_numpy()
-    atom_type_array = item.atoms_dataframe["atom_type"].to_numpy()
-
-    group_index_array = item.atoms_dataframe["group_index"].to_numpy()
-    group_name_array = item.atoms_dataframe["group_name"].to_numpy()
-    group_id_array = item.atoms_dataframe["group_id"].to_numpy()
-    group_type_array = item.atoms_dataframe["group_type"].to_numpy()
-
-    component_index_array = item.atoms_dataframe["component_index"].to_numpy()
-    component_name_array = item.atoms_dataframe["component_name"].to_numpy()
-    component_id_array = item.atoms_dataframe["component_id"].to_numpy()
-    component_type_array = item.atoms_dataframe["component_type"].to_numpy()
-
-    group_index_array = item.atoms_dataframe["group_index"].to_numpy()
-    group_name_array = item.atoms_dataframe["group_name"].to_numpy()
-    group_id_array = item.atoms_dataframe["group_id"].to_numpy()
-    group_type_array = item.atoms_dataframe["group_type"].to_numpy()
-
-
-
-    chain_index_array = item.atoms_dataframe["chain_index"].to_numpy()
-    chain_name_array = item.atoms_dataframe["chain_name"].to_numpy()
-    chain_id_array = item.atoms_dataframe["chain_id"].to_numpy()
-    chain_type_array = item.atoms_dataframe["chain_type"].to_numpy()
-
-    bonds_atom1 = item.bonds_dataframe["atom1_index"].to_numpy()
-    bonds_atom2 = item.bonds_dataframe["atom2_index"].to_numpy()
-
-
-    for ii in range(n_atoms):
-
-
-
-
-    aux_indices = item.atoms_dataframe['group_index'].unique()
-    where_not_None = np.where(aux_indices!=None)
-    aux_indices = aux_indices[where_not_None]
-    n_groups = aux_indices.shape[0]
-
-    aux_indices = item.atoms_dataframe['component_index'].unique()
-    where_not_None = np.where(aux_indices!=None)
-    aux_indices = aux_indices[where_not_None]
-    n_components = aux_indices.shape[0]
-
-    aux_indices = item.atoms_dataframe['molecule_index'].unique()
-    where_not_None = np.where(aux_indices!=None)
-    aux_indices = aux_indices[where_not_None]
-    n_molecules = aux_indices.shape[0]
-
-    aux_indices = item.atoms_dataframe['entity_index'].unique()
-    where_not_None = np.where(aux_indices!=None)
-    aux_indices = aux_indices[where_not_None]
-    n_entities = aux_indices.shape[0]
-
-    aux_indices = item.atoms_dataframe['chain_index'].unique()
-    where_not_None = np.where(aux_indices!=None)
-    aux_indices = aux_indices[where_not_None]
-    n_chains = aux_indices.shape[0]
-
     # Atoms
+
+    atoms_df = item.atoms_dataframe
+
+    n_atoms = atoms_df.shape[0]
 
     atoms = file['topology']['atoms']
 
@@ -122,41 +61,212 @@ def _add_topology_to_msmh5(item, file, atom_indices='all'):
     atoms['name'].resize((n_atoms,))
     atoms['type'].resize((n_atoms,))
 
-    atoms['id'][:] = item.atoms_dataframe['atom_id'].to_numpy()
-    atoms['name'][:] = item.atoms_dataframe['atom_name'].to_numpy()
-    atoms['type'][:] = item.atoms_dataframe['atom_type'].to_numpy()
+    atoms['id'][:] = atoms_df['atom_id'].to_numpy(dtype=int)
+    atoms['name'][:] = atoms_df['atom_name'].to_numpy(dtype=str)
+    atoms['type'][:] = atoms_df['atom_type'].to_numpy(dtype=str)
 
     # Groups
 
+    groups_df = atoms_df[['group_index', 'group_id', 'group_name', 'group_type', 'component_index']].drop_duplicates()
+
+    n_groups = groups_df.shape[0]
+
+    if n_groups==1:
+        if groups_df['group_index'].iloc[0] == None:
+            n_groups = 0
+
+    groups = file['topology']['groups']
+    groups.attrs['n_groups'] = n_groups
+
     if n_groups > 0:
 
-        groups = file['topology']['groups']
+        if all(groups_df['group_id'].unique()==[None]):
+            groups_df['group_id']=groups_df['group_index']
 
-        groups.attrs['n_groups'] = n_groups
+        if all(groups_df['group_name'].unique()==[None]):
+            groups_df['group_name']='UNK'
+
+        if all(groups_df['group_type'].unique()==[None]):
+            groups_df['group_type']='UNK'
 
         atoms['group_index'].resize((n_atoms,))
         groups['id'].resize((n_groups,))
         groups['name'].resize((n_groups,))
         groups['type'].resize((n_groups,))
 
-        atoms['group_index'][:] = item.atoms_dataframe['group_index'].to_numpy()
-        groups['id'][:] = item.atoms_dataframe['group_id'].to_numpy()
-        groups['name'][:] = item.atoms_dataframe['group_name'].to_numpy()
-        groups['type'][:] = item.atoms_dataframe['group_type'].to_numpy()
+        atoms['group_index'][:] = atoms_df['group_index'].to_numpy(dtype=int)
+        groups['id'][:] = groups_df['group_id'].to_numpy(dtype=int)
+        groups['name'][:] = groups_df['group_name'].to_numpy(dtype=str)
+        groups['type'][:] = groups_df['group_type'].to_numpy(dtype=str)
 
     # Components
 
+    components_df = atoms_df[['component_index', 'component_id', 'component_name', 'component_type', 'molecule_index']].drop_duplicates()
+
+    n_components = components_df.shape[0]
+
+    if n_components==1:
+        if components_df['component_index'].iloc[0] == None:
+            n_components = 0
+
+    components = file['topology']['components']
+    components.attrs['n_components'] = n_components
+
     if n_components > 0:
 
+        if all(components_df['component_id'].unique()==[None]):
+            components_df['component_id']=components_df['component_index']
+
+        if all(components_df['component_name'].unique()==[None]):
+            components_df['component_name']='UNK'
+
+        if all(components_df['component_type'].unique()==[None]):
+            components_df['component_type']='UNK'
+
         groups['component_index'].resize((n_groups,))
-        groups['component_index'][:] = item.atoms_dataframe['component_index'].to_numpy()
+        components['id'].resize((n_components,))
+        components['name'].resize((n_components,))
+        components['type'].resize((n_components,))
+
+        groups['component_index'][:] = groups_df['component_index'].to_numpy(dtype=int)
+        components['id'][:] = components_df['component_id'].to_numpy(dtype=int)
+        components['name'][:] = components_df['component_name'].to_numpy(dtype=str)
+        components['type'][:] = components_df['component_type'].to_numpy(dtype=str)
+
+    # Molecules
+
+    molecules_df = atoms_df[['molecule_index', 'molecule_id', 'molecule_name', 'molecule_type', 'entity_index']].drop_duplicates()
+
+    n_molecules = molecules_df.shape[0]
+
+    if n_molecules==1:
+        if molecules_df['molecule_index'].iloc[0] == None:
+            n_molecules = 0
+
+    molecules = file['topology']['molecules']
+    molecules.attrs['n_molecules'] = n_molecules
+
+    if n_molecules > 0:
+
+        if all(molecules_df['molecule_id'].unique()==[None]):
+            molecules_df['molecule_id']=molecules_df['molecule_index']
+
+        if all(molecules_df['molecule_name'].unique()==[None]):
+            molecules_df['molecule_name']='UNK'
+
+        if all(molecules_df['molecule_type'].unique()==[None]):
+            molecules_df['molecule_type']='UNK'
+
+        components['molecule_index'].resize((n_components,))
+        molecules['id'].resize((n_molecules,))
+        molecules['name'].resize((n_molecules,))
+        molecules['type'].resize((n_molecules,))
+
+        components['molecule_index'][:] = components_df['molecule_index'].to_numpy(dtype=int)
+        molecules['id'][:] = molecules_df['molecule_id'].to_numpy(dtype=int)
+        molecules['name'][:] = molecules_df['molecule_name'].to_numpy(dtype=str)
+        molecules['type'][:] = molecules_df['molecule_type'].to_numpy(dtype=str)
+
+    # Entities
+
+    entities_df = atoms_df[['entity_index', 'entity_id', 'entity_name', 'entity_type']].drop_duplicates()
+
+    n_entities = entities_df.shape[0]
+
+    if n_entities==1:
+        if entities_df['entity_index'].iloc[0] == None:
+            n_entities = 0
+
+    entities = file['topology']['entities']
+    entities.attrs['n_entities'] = n_entities
+
+    if n_entities > 0:
+
+        if all(entities_df['entity_id'].unique()==[None]):
+            entities_df['entity_id']=entities_df['entity_index']
+
+        if all(entities_df['entity_name'].unique()==[None]):
+            entities_df['entity_name']='UNK'
+
+        if all(entities_df['entity_type'].unique()==[None]):
+            entities_df['entity_type']='UNK'
+
+        molecules['entity_index'].resize((n_molecules,))
+        entities['id'].resize((n_entities,))
+        entities['name'].resize((n_entities,))
+        entities['type'].resize((n_entities,))
+
+        molecules['entity_index'][:] = molecules_df['entity_index'].to_numpy(dtype=int)
+        entities['id'][:] = entities_df['entity_id'].to_numpy(dtype=int)
+        entities['name'][:] = entities_df['entity_name'].to_numpy(dtype=str)
+        entities['type'][:] = entities_df['entity_type'].to_numpy(dtype=str)
+
 
     # Chains
 
+    chains_df = atoms_df[['chain_index', 'chain_id', 'chain_name', 'chain_type']].drop_duplicates()
+
+    n_chains = chains_df.shape[0]
+
+    if n_chains==1:
+        if chains_df['chain_index'].iloc[0] == None:
+            n_chains = 0
+
+    chains = file['topology']['chains']
+    chains.attrs['n_chains'] = n_chains
+
     if n_chains > 0:
 
+        if all(chains_df['chain_id'].unique()==[None]):
+            chains_df['chain_id']=chains_df['chain_index']
+
+        if chains_df['chain_id'].dtype == 'O':
+            chains_df['chain_id']=chains_df['chain_index']
+
+        if all(chains_df['chain_name'].unique()==[None]):
+            chains_df['chain_name']='UNK'
+
+        if all(chains_df['chain_type'].unique()==[None]):
+            chains_df['chain_type']='UNK'
+
         atoms['chain_index'].resize((n_atoms,))
-        atoms['chain_index'][:] = item.atoms_dataframe['chain_index'].to_numpy()
+        chains['id'].resize((n_chains,))
+        chains['name'].resize((n_chains,))
+        chains['type'].resize((n_chains,))
+
+        atoms['chain_index'][:] = atoms_df['chain_index'].to_numpy(dtype=int)
+        chains['id'][:] = chains_df['chain_id'].to_numpy(dtype=int)
+        chains['name'][:] = chains_df['chain_name'].to_numpy(dtype=str)
+        chains['type'][:] = chains_df['chain_type'].to_numpy(dtype=str)
+
+    del(groups_df, components_df, molecules_df, entities_df, chains_df)
+
+    # Bonds
+
+    bonds_df = item.bonds_dataframe
+
+    n_bonds = bonds_df.shape[0]
+
+    bonds = file['topology']['bonds']
+    bonds.attrs['n_bonds'] = n_bonds
+
+    if n_bonds>0:
+
+        if all(bonds_df['order'].unique()==[None]):
+            bonds_df['order']='UNK'
+
+        if all(bonds_df['type'].unique()==[None]):
+            bonds_df['type']='UNK'
+
+        bonds['atom1_index'].resize((n_bonds,))
+        bonds['atom2_index'].resize((n_bonds,))
+        bonds['order'].resize((n_bonds,))
+        bonds['type'].resize((n_bonds,))
+
+        bonds['atom1_index'][:] = bonds_df['atom1_index'].to_numpy(dtype=int)
+        bonds['atom2_index'][:] = bonds_df['atom2_index'].to_numpy(dtype=int)
+        bonds['order'][:] = bonds_df['order'].to_numpy(dtype=str)
+        bonds['type'][:] = bonds_df['type'].to_numpy(dtype=str)
 
 
     if needs_to_be_closed:

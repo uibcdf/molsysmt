@@ -145,13 +145,13 @@ def _new_msmfile(filename, creator='MolSysMT', compression="gzip", compression_o
     structures.attrs['time_unit']='ps'
     structures.attrs['energy_unit']='kJ/mol'
 
-    bonds.create_dataset('id', (0,), dtype=int_type, maxshape=(None,), **global_dataset_options)
-    bonds.create_dataset('box', (0,6), dtype=float_type, maxshape=(None,6), **global_dataset_options)
-    bonds.create_dataset('coordinates', (0,0,3), dtype=float_type, maxshape=(None,None,3), **global_dataset_options)
-    bonds.create_dataset('velocities', (0,0,3), dtype=float_type, maxshape=(None,None,3), **global_dataset_options)
-    bonds.create_dataset('kinetic_energy', (0,), dtype=float_type, maxshape=(None,), **global_dataset_options)
-    bonds.create_dataset('potential_energy', (0,), dtype=float_type, maxshape=(None,), **global_dataset_options)
-    bonds.create_dataset('temperature', (0,), dtype=float_type, maxshape=(None,), **global_dataset_options)
+    structures.create_dataset('id', (0,), dtype=int_type, maxshape=(None,), **global_dataset_options)
+    structures.create_dataset('box', (0,6), dtype=float_type, maxshape=(None,6), **global_dataset_options)
+    structures.create_dataset('coordinates', (0,0,3), dtype=float_type, maxshape=(None,None,3), **global_dataset_options)
+    structures.create_dataset('velocities', (0,0,3), dtype=float_type, maxshape=(None,None,3), **global_dataset_options)
+    structures.create_dataset('kinetic_energy', (0,), dtype=float_type, maxshape=(None,), **global_dataset_options)
+    structures.create_dataset('potential_energy', (0,), dtype=float_type, maxshape=(None,), **global_dataset_options)
+    structures.create_dataset('temperature', (0,), dtype=float_type, maxshape=(None,), **global_dataset_options)
 
     return file
 

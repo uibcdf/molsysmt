@@ -1,9 +1,10 @@
 import pandas as pd
 import numpy as np
 
+
 class Atoms_DataFrame(pd.DataFrame):
 
-    def __init__(self, n_atoms=0):
+    def __init__(self):
 
         columns = ['atom_index', 'atom_name', 'atom_id', 'atom_type',
                    'group_index', 'group_name', 'group_id', 'group_type',
@@ -13,49 +14,96 @@ class Atoms_DataFrame(pd.DataFrame):
                    'entity_index', 'entity_name', 'entity_id', 'entity_type',
                    'occupancy', 'alternate_location', 'b_factor', 'formal_charge', 'partial_charge']
 
-        # columns with dimensionality:
-        #
-        # 'b_factor' = {'[L]': 2}
-        # 'formal_charge' = {'[T]': 1, '[A]:1'}
-        # 'partial_charge' = {'[T]': 1, '[A]:1'}
+        super().__init__(columns=columns)
+
+    def _nan_to_UNK(self):
+
+        for column in self:
+            self[column].where(self[column].notnull(), 'UNK', inplace=True)
+
+
+class Groups_DataFrame(pd.DataFrame):
+
+    def __init__(self):
+
+        columns = ['group_name', 'group_id', 'group_type', 'component_index']
 
         super().__init__(columns=columns)
 
-        if n_atoms:
-            self["atom_index"] = np.arange(0, n_atoms, dtype=int)
-            self._nan_to_None()
-
-    def _nan_to_None(self):
+    def _nan_to_UNK(self):
 
         for column in self:
-            self[column].where(self[column].notnull(), None, inplace=True)
+            self[column].where(self[column].notnull(), 'UNK', inplace=True)
+
+
+class Components_DataFrame(pd.DataFrame):
+
+    def __init__(self):
+
+        columns = ['component_name', 'component_id', 'component_type', 'molecule_index']
+
+        super().__init__(columns=columns)
+
+    def _nan_to_UNK(self):
+
+        for column in self:
+            self[column].where(self[column].notnull(), 'UNK', inplace=True)
+
+
+class Molecules_DataFrame(pd.DataFrame):
+
+    def __init__(self):
+
+        columns = ['molecule_name', 'molecule_id', 'molecule_type', 'entity_index']
+
+        super().__init__(columns=columns)
+
+    def _nan_to_UNK(self):
+
+        for column in self:
+            self[column].where(self[column].notnull(), 'UNK', inplace=True)
+
+
+class Entities_DataFrame(pd.DataFrame):
+
+    def __init__(self):
+
+        columns = ['entity_name', 'entity_id', 'entity_type']
+
+        super().__init__(columns=columns)
+
+    def _nan_to_UNK(self):
+
+        for column in self:
+            self[column].where(self[column].notnull(), 'UNK', inplace=True)
+
+
+class Chains_DataFrame(pd.DataFrame):
+
+    def __init__(self):
+
+        columns = ['chain_name', 'chain_id', 'chain_type']
+
+        super().__init__(columns=columns)
+
+    def _nan_to_UNK(self):
+
+        for column in self:
+            self[column].where(self[column].notnull(), 'UNK', inplace=True)
 
 
 class Bonds_DataFrame(pd.DataFrame):
 
-    def __init__(self, n_bonds=0):
+    def __init__(self):
 
         columns = ['atom1_index', 'atom2_index', 'order', 'type']
 
         super().__init__(columns=columns)
 
-        if n_bonds:
-            self["atom_index"] = np.arange(0, n_atoms, dtype=int)
-            self._nan_to_None()
-
-    def all_nan_to_None(self):
-
-        list_columns_where_nan = ['atom1_index','atom2_index','order','type']
+    def _nan_to_UNK(self):
 
         for column in self:
-            self[column].where(self[column].notnull(), None, inplace=True)
-
-    def _nan_to_None(self):
-
-        list_columns_where_nan = ['order','type']
-
-        for column in self:
-            self[column].where(self[column].notnull(), None, inplace=True)
+            self[column].where(self[column].notnull(), 'UNK', inplace=True)
 
     def _sort_bonds(self):
 
@@ -65,14 +113,20 @@ class Bonds_DataFrame(pd.DataFrame):
         self.sort_values(by=['atom1_index', 'atom2_index'], inplace=True)
         self.reset_index(drop=True, inplace=True)
 
-class Topology():
+
+class Topology2():
 
     def __init__(self, n_atoms=0, n_bonds=0):
 
-        self.atoms_dataframe=Atoms_DataFrame(n_atoms=n_atoms)
-        self.bonds_dataframe=Bonds_DataFrame(n_bonds=n_bonds)
+        self.atoms = Atoms_DataFrame()
+        self.groups = Groups_DataFrame()
+        self.components = Components_DataFrame()
+        self.molecules = Molecules_DataFrame()
+        self.entities = Entities_DataFrame()
+        self.chains = Chains_DataFrame()
+        self.bonds = Bonds_DataFrame()
 
-    def extract(self, atom_indices='all', structure_indices='all'):
+    def extract(self, atom_indices='all'):
 
         if type(atom_indices)==str:
 
@@ -81,94 +135,44 @@ class Topology():
 
         else:
 
-            tmp_item = Topology()
-            tmp_item.atoms_dataframe = self.atoms_dataframe.iloc[atom_indices].copy()
-
-            bond_atom1 = self.bonds_dataframe['atom1_index'].to_numpy()
-            bond_atom2 = self.bonds_dataframe['atom2_index'].to_numpy()
-            mask_atom1 = np.in1d(bond_atom1, atom_indices)
-            mask_atom2 = np.in1d(bond_atom2, atom_indices)
-            mask = mask_atom1*mask_atom2
-            tmp_item.bonds_dataframe = self.bonds_dataframe[mask].copy()
-            tmp_item.bonds_dataframe.reset_index(drop=True, inplace=True)
-            del(bond_atom1, bond_atom2, mask_atom1, mask_atom2)
-
-            n_atoms=tmp_item.atoms_dataframe.shape[0]
-            n_bonds=tmp_item.bonds_dataframe.shape[0]
-
-            tmp_item.atoms_dataframe['atom_index']=np.arange(n_atoms)
-            aux_dict=tmp_item.atoms_dataframe['atom_index'].to_dict()
-            tmp_item.atoms_dataframe.index=np.arange(n_atoms)
-
-            vaux_dict = np.vectorize(aux_dict.__getitem__)
-
-            if n_bonds>0:
-                tmp_item.bonds_dataframe['atom1_index']=vaux_dict(tmp_item.bonds_dataframe['atom1_index'].to_numpy())
-                tmp_item.bonds_dataframe['atom2_index']=vaux_dict(tmp_item.bonds_dataframe['atom2_index'].to_numpy())
-
-            tmp_item.atoms_dataframe.index=tmp_item.atoms_dataframe['atom_index'].to_numpy()
-
-            #tmp_item._build_components()
-
-            for column in ['group_index', 'component_index', 'molecule_index', 'chain_index', 'entity_index']:
-                aux_array=tmp_item.atoms_dataframe[column].to_numpy()
-                old_index=-1
-                count=-1
-                for ii in range(n_atoms):
-                    if old_index!=aux_array[ii]:
-                        old_index=aux_array[ii]
-                        count+=1
-                    aux_array[ii]=count
-                tmp_item.atoms_dataframe[column]=aux_array
+            raise NotImplementedError
 
         return tmp_item
 
-    def add(self, item, selection='all', structure_indices='all'):
 
-        from molsysmt import convert, get
+    def add(self, item, selection='all'):
 
-        tmp_item = convert(item, to_form='molsysmt.Topology', selection=selection, structure_indices=structure_indices)
+        raise NotImplementedError
 
-        n_atoms, n_groups, n_components, n_chains, n_molecules = get(self, element='system', n_atoms=True,
-                                                                     n_groups=True, n_components=True, n_chains=True,
-                                                                     n_molecules=True)
-
-        tmp_item.atoms_dataframe['atom_index'] += n_atoms
-        tmp_item.atoms_dataframe['group_index'] += n_groups
-        tmp_item.atoms_dataframe['component_index'] += n_components
-        tmp_item.atoms_dataframe['chain_index'] += n_chains
-        tmp_item.atoms_dataframe['molecule_index'] += n_molecules
-        tmp_item.bonds_dataframe['atom1_index'] += n_atoms
-        tmp_item.bonds_dataframe['atom2_index'] += n_atoms
-
-
-        self.atoms_dataframe = pd.concat([self.atoms_dataframe, tmp_item.atoms_dataframe],
-                ignore_index=True, copy=False)
-        self.bonds_dataframe = pd.concat([self.bonds_dataframe, tmp_item.bonds_dataframe],
-                ignore_index=True, copy=False)
-        self._build_entities()
 
     def copy(self):
 
-        tmp_item = Topology()
+        tmp_item = Topology2()
 
-        tmp_item.atoms_dataframe = Atoms_DataFrame()
-        tmp_item.bonds_dataframe = Bonds_DataFrame()
+        tmp_item.atoms = Atoms_DataFrame()
+        tmp_item.groups = Groups_DataFrame()
+        tmp_item.components = Components_DataFrame()
+        tmp_item.molecules = Molecules_DataFrame()
+        tmp_item.entities = Entities_DataFrame()
+        tmp_item.chains = Chains_DataFrame()
+        tmp_item.bonds = Bonds_DataFrame()
 
-        for column in self.atoms_dataframe.columns:
-            tmp_item.atoms_dataframe[column]=self.atoms_dataframe[column].to_numpy()
+        for column in self.atoms.columns:
+            tmp_item.atoms[column]=self.atoms[column].to_numpy()
+
+        for column in self.groups.columns:
+            tmp_item.groups[column]=self.groups[column].to_numpy()
+
+        for column in self.groups.columns:
+            tmp_item.groups[column]=self.groups[column].to_numpy()
+
+
 
         for column in self.bonds_dataframe.columns:
             tmp_item.bonds_dataframe[column]=self.bonds_dataframe[column].to_numpy()
 
         return tmp_item
 
-    #def _to_pdb_string(self, trajectory_item, structure_indices='all'):
-
-    #    from molsysmt.native.io.topology import to_pdb as molsysmt_Topology_to_pdb
-
-    #    return molsysmt_Topology_to_pdb(self, trajectory_item=trajectory_item, output_filepath='.pdb',
-    #                                     atom_indices='all', structure_indices=structure_indices)
 
     def _build_components(self):
 
