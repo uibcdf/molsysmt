@@ -1,5 +1,6 @@
 from .molsys import MolSys
 from .topology import Topology
+from .topology2 import Topology2
 from .structures import Structures
 from .molecular_mechanics import MolecularMechanics
 from .trajectory_file import TrajectoryFile

@@ -1,4 +1,4 @@
-form_name = 'molsysmt.Structures'
+form_name = 'molsysmt.Topology2'
 form_type = 'class'
 form_info = ["", ""]
 
@@ -14,15 +14,11 @@ from .merge import merge
 from .append_structures import append_structures
 from .get import *
 from .set import *
-from .iterators import StructuresIterator
+from .iterators import TopologyIterator
 
-from .to_molsysmt_StructuresDict import to_molsysmt_StructuresDict
 from .to_file_msmh5 import to_file_msmh5
-from .to_XYZ import to_XYZ
 
 _convert_to={
-        'molsysmt.Structures': extract,
-        'molsysmt.StructuresDict': to_molsysmt_StructuresDict,
+        'molsysmt.Topology2': extract,
         'file:msmh5': to_file_msmh5,
-        'XYZ': to_XYZ,
         }

@@ -21,6 +21,7 @@ def to_molsysmt_Topology(item, atom_indices='all'):
     tmp_item.atoms_dataframe['atom_type']=topology_ds['atoms']['type'].asstr()[:]
     tmp_item.atoms_dataframe['atom_name']=topology_ds['atoms']['name'].asstr()[:]
     tmp_item.atoms_dataframe['group_index']=topology_ds['atoms']['group_index'][:]
+    tmp_item.atoms_dataframe['chain_index']=topology_ds['atoms']['chain_index'][:]
 
     # Groups
 
@@ -95,6 +96,23 @@ def to_molsysmt_Topology(item, atom_indices='all'):
     tmp_item.atoms_dataframe['entity_type']=aux_df['entity_type']
 
     del(entities_df, aux_df)
+
+    # Chains
+
+    chains_df = pd.DataFrame({
+        'chain_id':topology_ds['chains']['id'][:],
+        'chain_name':topology_ds['chains']['name'].asstr()[:],
+        'chain_type':topology_ds['chains']['type'].asstr()[:],
+        })
+
+    aux_df = chains_df.iloc[tmp_item.atoms_dataframe['chain_index'].to_numpy()]
+    aux_df.reset_index(inplace=True, drop=True)
+
+    tmp_item.atoms_dataframe['chain_id']=aux_df['chain_id']
+    tmp_item.atoms_dataframe['chain_name']=aux_df['chain_name']
+    tmp_item.atoms_dataframe['chain_type']=aux_df['chain_type']
+
+    del(chains_df, aux_df)
 
     # Bonds
 
