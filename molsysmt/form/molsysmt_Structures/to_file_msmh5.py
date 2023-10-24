@@ -1,4 +1,6 @@
 from molsysmt._private.digestion import digest
+from molsysmt import pyunitwizard as puw
+import numpy as np
 
 @digest(form='molsysmt.Structures')
 def to_file_msmh5(item, atom_indices='all', structure_indices='all', output_filename=None,
@@ -48,235 +50,84 @@ def _add_structures_to_msmh5(item, file, atom_indices='all', structure_indices='
     if not file_is_msmh5:
         raise ValueError
 
-    item.attrs['n_atoms'] = item.n_atoms
-    item.attrs['n_structures'] = item.n_structures
-
-    length_unit = 
-    length_unit = 
-
-    item.attrs['length_unit']=
-
-    # Atoms
-
-    atoms_df = item.atoms_dataframe
-
-    n_atoms = atoms_df.shape[0]
-
-    atoms = file['topology']['atoms']
-
-    atoms.attrs['n_atoms'] = n_atoms
-
-    atoms['id'].resize((n_atoms,))
-    atoms['name'].resize((n_atoms,))
-    atoms['type'].resize((n_atoms,))
-
-    atoms['id'][:] = atoms_df['atom_id'].to_numpy(dtype=int)
-    atoms['name'][:] = atoms_df['atom_name'].to_numpy(dtype=str)
-    atoms['type'][:] = atoms_df['atom_type'].to_numpy(dtype=str)
-
-    # Groups
-
-    groups_df = atoms_df[['group_index', 'group_id', 'group_name', 'group_type', 'component_index']].drop_duplicates()
-
-    n_groups = groups_df.shape[0]
-
-    if n_groups==1:
-        if groups_df['group_index'].iloc[0] == None:
-            n_groups = 0
-
-    groups = file['topology']['groups']
-    groups.attrs['n_groups'] = n_groups
-
-    if n_groups > 0:
-
-        if all(groups_df['group_id'].unique()==[None]):
-            groups_df['group_id']=groups_df['group_index']
-
-        if all(groups_df['group_name'].unique()==[None]):
-            groups_df['group_name']='UNK'
-
-        if all(groups_df['group_type'].unique()==[None]):
-            groups_df['group_type']='UNK'
-
-        atoms['group_index'].resize((n_atoms,))
-        groups['id'].resize((n_groups,))
-        groups['name'].resize((n_groups,))
-        groups['type'].resize((n_groups,))
-
-        atoms['group_index'][:] = atoms_df['group_index'].to_numpy(dtype=int)
-        groups['id'][:] = groups_df['group_id'].to_numpy(dtype=int)
-        groups['name'][:] = groups_df['group_name'].to_numpy(dtype=str)
-        groups['type'][:] = groups_df['group_type'].to_numpy(dtype=str)
-
-    # Components
-
-    components_df = atoms_df[['component_index', 'component_id', 'component_name', 'component_type', 'molecule_index']].drop_duplicates()
-
-    n_components = components_df.shape[0]
-
-    if n_components==1:
-        if components_df['component_index'].iloc[0] == None:
-            n_components = 0
-
-    components = file['topology']['components']
-    components.attrs['n_components'] = n_components
-
-    if n_components > 0:
-
-        if all(components_df['component_id'].unique()==[None]):
-            components_df['component_id']=components_df['component_index']
-
-        if all(components_df['component_name'].unique()==[None]):
-            components_df['component_name']='UNK'
-
-        if all(components_df['component_type'].unique()==[None]):
-            components_df['component_type']='UNK'
-
-        groups['component_index'].resize((n_groups,))
-        components['id'].resize((n_components,))
-        components['name'].resize((n_components,))
-        components['type'].resize((n_components,))
-
-        groups['component_index'][:] = groups_df['component_index'].to_numpy(dtype=int)
-        components['id'][:] = components_df['component_id'].to_numpy(dtype=int)
-        components['name'][:] = components_df['component_name'].to_numpy(dtype=str)
-        components['type'][:] = components_df['component_type'].to_numpy(dtype=str)
-
-    # Molecules
-
-    molecules_df = atoms_df[['molecule_index', 'molecule_id', 'molecule_name', 'molecule_type', 'entity_index']].drop_duplicates()
-
-    n_molecules = molecules_df.shape[0]
-
-    if n_molecules==1:
-        if molecules_df['molecule_index'].iloc[0] == None:
-            n_molecules = 0
-
-    molecules = file['topology']['molecules']
-    molecules.attrs['n_molecules'] = n_molecules
-
-    if n_molecules > 0:
-
-        if all(molecules_df['molecule_id'].unique()==[None]):
-            molecules_df['molecule_id']=molecules_df['molecule_index']
-
-        if all(molecules_df['molecule_name'].unique()==[None]):
-            molecules_df['molecule_name']='UNK'
-
-        if all(molecules_df['molecule_type'].unique()==[None]):
-            molecules_df['molecule_type']='UNK'
-
-        components['molecule_index'].resize((n_components,))
-        molecules['id'].resize((n_molecules,))
-        molecules['name'].resize((n_molecules,))
-        molecules['type'].resize((n_molecules,))
-
-        components['molecule_index'][:] = components_df['molecule_index'].to_numpy(dtype=int)
-        molecules['id'][:] = molecules_df['molecule_id'].to_numpy(dtype=int)
-        molecules['name'][:] = molecules_df['molecule_name'].to_numpy(dtype=str)
-        molecules['type'][:] = molecules_df['molecule_type'].to_numpy(dtype=str)
-
-    # Entities
-
-    entities_df = atoms_df[['entity_index', 'entity_id', 'entity_name', 'entity_type']].drop_duplicates()
-
-    n_entities = entities_df.shape[0]
-
-    if n_entities==1:
-        if entities_df['entity_index'].iloc[0] == None:
-            n_entities = 0
-
-    entities = file['topology']['entities']
-    entities.attrs['n_entities'] = n_entities
-
-    if n_entities > 0:
-
-        if all(entities_df['entity_id'].unique()==[None]):
-            entities_df['entity_id']=entities_df['entity_index']
-
-        if all(entities_df['entity_name'].unique()==[None]):
-            entities_df['entity_name']='UNK'
-
-        if all(entities_df['entity_type'].unique()==[None]):
-            entities_df['entity_type']='UNK'
-
-        molecules['entity_index'].resize((n_molecules,))
-        entities['id'].resize((n_entities,))
-        entities['name'].resize((n_entities,))
-        entities['type'].resize((n_entities,))
-
-        molecules['entity_index'][:] = molecules_df['entity_index'].to_numpy(dtype=int)
-        entities['id'][:] = entities_df['entity_id'].to_numpy(dtype=int)
-        entities['name'][:] = entities_df['entity_name'].to_numpy(dtype=str)
-        entities['type'][:] = entities_df['entity_type'].to_numpy(dtype=str)
-
-
-    # Chains
-
-    chains_df = atoms_df[['chain_index', 'chain_id', 'chain_name', 'chain_type']].drop_duplicates()
-
-    n_chains = chains_df.shape[0]
-
-    if n_chains==1:
-        if chains_df['chain_index'].iloc[0] == None:
-            n_chains = 0
-
-    chains = file['topology']['chains']
-    chains.attrs['n_chains'] = n_chains
-
-    if n_chains > 0:
-
-        if all(chains_df['chain_id'].unique()==[None]):
-            chains_df['chain_id']=chains_df['chain_index']
-
-        if chains_df['chain_id'].dtype == 'O':
-            chains_df['chain_id']=chains_df['chain_index']
-
-        if all(chains_df['chain_name'].unique()==[None]):
-            chains_df['chain_name']='UNK'
-
-        if all(chains_df['chain_type'].unique()==[None]):
-            chains_df['chain_type']='UNK'
-
-        atoms['chain_index'].resize((n_atoms,))
-        chains['id'].resize((n_chains,))
-        chains['name'].resize((n_chains,))
-        chains['type'].resize((n_chains,))
-
-        atoms['chain_index'][:] = atoms_df['chain_index'].to_numpy(dtype=int)
-        chains['id'][:] = chains_df['chain_id'].to_numpy(dtype=int)
-        chains['name'][:] = chains_df['chain_name'].to_numpy(dtype=str)
-        chains['type'][:] = chains_df['chain_type'].to_numpy(dtype=str)
-
-    del(groups_df, components_df, molecules_df, entities_df, chains_df)
-
-    # Bonds
-
-    bonds_df = item.bonds_dataframe
-
-    n_bonds = bonds_df.shape[0]
-
-    bonds = file['topology']['bonds']
-    bonds.attrs['n_bonds'] = n_bonds
-
-    if n_bonds>0:
-
-        if all(bonds_df['order'].unique()==[None]):
-            bonds_df['order']='UNK'
-
-        if all(bonds_df['type'].unique()==[None]):
-            bonds_df['type']='UNK'
-
-        bonds['atom1_index'].resize((n_bonds,))
-        bonds['atom2_index'].resize((n_bonds,))
-        bonds['order'].resize((n_bonds,))
-        bonds['type'].resize((n_bonds,))
-
-        bonds['atom1_index'][:] = bonds_df['atom1_index'].to_numpy(dtype=int)
-        bonds['atom2_index'][:] = bonds_df['atom2_index'].to_numpy(dtype=int)
-        bonds['order'][:] = bonds_df['order'].to_numpy(dtype=str)
-        bonds['type'][:] = bonds_df['type'].to_numpy(dtype=str)
-
+    int_precision = file.attrs['int_precision']
+    float_precision = file.attrs['float_precision']
+
+    if int_precision=='single':
+        int_type=np.int32
+    elif int_precision=='double':
+        int_type=np.int64
+
+    if float_precision=='single':
+        float_type=np.float32
+    elif float_precision=='double':
+        float_type=np.float64
+
+    structures_ds = file['structures']
+
+    n_atoms = item.n_atoms
+    n_structures = item.n_structures
+
+    structures_ds.attrs['n_atoms'] = item.n_atoms
+    structures_ds.attrs['n_structures'] = item.n_structures
+
+    length_unit = puw.get_standard_units(dimensionality={'[L]':1})
+    time_unit = puw.get_standard_units(dimensionality={'[T]':1})
+    energy_unit = puw.get_standard_units(dimensionality={'[L]':2, '[M]':1, '[T]':-2,
+        '[mol]': -1})
+    temperature_unit = puw.get_standard_units(dimensionality={'[K]':1})
+
+    structures_ds.attrs['length_unit']=str(length_unit)
+    structures_ds.attrs['time_unit']=str(time_unit)
+    structures_ds.attrs['energy_unit']=str(energy_unit)
+
+    if item.coordinates is not None:
+        structures_ds['coordinates'].resize((n_structures,n_atoms,3))
+        if puw.check(item.coordinates, unit=length_unit):
+            aux = puw.get_value(item.coordinates).astype(float_precision)
+        else:
+            aux = puw.get_value(item.coordinates, to_unit=length_unit).astype(float_precision)
+        structures_ds['coordinates'][:,:,:] = aux
+
+    if item.velocities is not None:
+        structures_ds['velocities'].resize((n_structures,n_atoms,3))
+        if puw.check(item.velocities, unit=length_unit/length_time):
+            aux = puw.get_value(item.velocities).astype(float_precision)
+        else:
+            aux = puw.get_value(item.velocities, to_unit=length_unit/length_time).astype(float_precision)
+        structures_ds['velocities'][:,:,:] = aux
+
+    if item.box is not None:
+        structures_ds['box'].resize((n_structures,3,3))
+        if puw.check(item.box, unit=length_unit):
+            aux = puw.get_value(item.box).astype(float_precision)
+        else:
+            aux = puw.get_value(item.box, to_unit=length_unit).astype(float_precision)
+        structures_ds['box'][:,:,:] = aux
+
+    if item.kinetic_energy is not None:
+        structures_ds['kinetic_energy'].resize((n_structures))
+        if puw.check(item.kinetic_energy, unit=energy_unit):
+            aux = puw.get_value(item.kinetic_energy).astype(float_precision)
+        else:
+            aux = puw.get_value(item.kinetic_energy, to_unit=length_unit).astype(float_precision)
+        structures_ds['kinetic_energy'][:] = aux
+
+    if item.potential_energy is not None:
+        structures_ds['potential_energy'].resize((n_structures))
+        if puw.check(item.potential_energy, unit=energy_unit):
+            aux = puw.get_value(item.potential_energy).astype(float_precision)
+        else:
+            aux = puw.get_value(item.potential_energy, to_unit=length_unit).astype(float_precision)
+        structures_ds['potential_energy'][:] = aux
+
+    if item.temperature is not None:
+        structures_ds['temperature'].resize((n_structures))
+        if puw.check(item.temperature, unit=temperature_unit):
+            aux = puw.get_value(item.temperature).astype(float_precision)
+        else:
+            aux = puw.get_value(item.temperature, to_unit=length_unit).astype(float_precision)
+        structures_ds['temperature'][:] = aux
 
     if needs_to_be_closed:
         file.close()

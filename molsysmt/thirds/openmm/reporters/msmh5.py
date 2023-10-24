@@ -1,11 +1,20 @@
-from openmm import unit
+from molsysmt._private.variables import is_all
+from molsysmt.basic import select
 import numpy as np
 
-class MolSysMTTrajectoryDictReporter(object):
+class MSMH5Reporter(object):
 
-    def __init__(self, reportInterval, time=True, coordinates=True, velocities=False,
-             potentialEnergy=False, kineticEnergy=False, temperature=False,
-             box=False):
+    def __init__(self, file, reportInterval, stepSize, steps=None,
+            context=None, topology=None, selection='all',
+            time=True, box=True, coordinates=True, velocities=False,
+            potentialEnergy=False, kineticEnergy=False, temperature=False,
+            includeInitialContext=True, constantReportInterval=True,
+            constantStepSize=True, constantBox=True,
+            compression='gzip', compression_opts=4,
+            int_precision='single', float_precision='single',
+            syntax='MolSysMT'):
+
+        self._initialized = False
 
         self._needsPositions = coordinates
         self._needsVelocities = velocities
@@ -20,34 +29,26 @@ class MolSysMTTrajectoryDictReporter(object):
         self._kineticEnergy = kineticEnergy
         self._temperature = temperature
 
-
-        self._initialized = False
         self._reportInterval = reportInterval
-        self._dict = {}
+        self._stepSize = stepSize
+        self._steps = steps
 
-        if self._time:
-            self._dict['time']=[]*unit.picoseconds
+        self._atom_indices = selection
 
-        if self._coordinates:
-            self._dict['coordinates']=[]*unit.nanometer
+        if not is_all(self._atom_indices):
+            if topology is None:
+                raise ValueError('A topology object is needed.')
+            self._atom_indices = select(topology, selection=selection, syntax=syntax)
 
-        if self._velocities:
-            self._dict['velocities']=[]*unit.nanometer/unit.picoseconds
+        self._file_handler = MSMH5FileHandler(file, io_mode='w', creator='OpenMM',
+                compression=compression, compression_opts=compression_opts,
+                int_precision=int_precision, float_precision=float_precision,
+                length_unit='nm', time_unit='ps', energy_unit='kJ/mol',
+                temperature_unit='kelvin', charge_unit='e', mass_unit='dalton')
 
-        if self._potentialEnergy:
-            self._dict['potential_energy']=[]*unit.kilojoule/unit.mole
+        if topology is not None:
+            self._file_handler.write_topology(topology, selection=self._atom_indices)
 
-        if self._kineticEnergy:
-            self._dict['kinetic_energy']=[]*unit.kilojoule/unit.mole
-
-        if self._totalEnergy:
-            self._dict['total_energy']=[]*unit.kilojoule/unit.mole
-
-        if self._temperature:
-            self._dict['temperature']=[]*unit.kelvin
-
-        if self._box:
-            self._dict['box']=[]*unit.nanometer
 
     def _initialize(self, simulation):
 
@@ -61,8 +62,10 @@ class MolSysMTTrajectoryDictReporter(object):
                     dof += 3
             dof -= system.getNumConstraints()
             if any(isinstance(frc, mm.CMMotionRemover) for frc in frclist):
-                dof -= 3
+            dof -= 3
             self._dof = dof
+
+        # Tengo que detectar si hay barostato
 
         self._initialized = True
 
@@ -74,8 +77,8 @@ class MolSysMTTrajectoryDictReporter(object):
 
     def report(self, simulation, state):
 
-        if not self._initialized:
-            self._initialize(simulation)
+            if not self._initialized:
+        self._initialize(simulation)
 
         if self._time:
             time = state.getTime()

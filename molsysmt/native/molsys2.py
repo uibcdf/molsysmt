@@ -1,0 +1,49 @@
+from molsysmt._private.variables import is_all
+
+class MolSys2:
+
+    def __init__(self):
+
+        from .topology import Topology2
+        from .structures import Structures2
+        from .molecular_mechanics import MolecularMechanics
+
+        self.topology = Topology2()
+        self.structures = Structures2()
+        self.molecular_mechanics = MolecularMechanics()
+
+    def extract(self, atom_indices='all', structure_indices='all'):
+
+        if is_all(atom_indices) and is_all(structure_indices):
+
+            return self.copy()
+
+        else:
+
+            tmp_item = MolSys2()
+            tmp_item.topology = self.topology.extract(atom_indices=atom_indices, structure_indices=structure_indices)
+            tmp_item.structures = self.structures.extract(atom_indices=atom_indices, structure_indices=structure_indices)
+            tmp_item.molecular_mechanics = self.molecular_mechanics.copy()
+
+            return tmp_item
+
+    def add(self, item, selection='all', structure_indices='all', syntax='MolSysMT'):
+
+        from molsysmt import convert, get_form, select
+        atom_indices=select(item, selection=selection, syntax=syntax)
+        self.topology.add(item.topology, selection=atom_indices)
+        self.structures.add(item.structures, selection=atom_indices, structure_indices=structure_indices)
+
+    def load_frames(self, selection='all', structure_indices='all', syntax='MolSysMT'):
+
+        atom_indices = self.select(selection=selection, syntax=syntax)
+        return self.structures.load_frames(atom_indices=atom_indices, structure_indices=structure_indices)
+
+    def copy(self):
+
+        tmp_item = MolSys2()
+        tmp_item.topology = self.topology.copy()
+        tmp_item.structures = self.structures.copy()
+        tmp_item.molecular_mechanics = self.molecular_mechanics.copy()
+        return tmp_item
+

@@ -16,6 +16,8 @@ from .get import *
 from .set import *
 from .iterators import TopologyIterator
 
+from .write_topology_to_msmh5 import write_topology_to_msmh5
+
 from .to_string_aminoacids3 import to_string_aminoacids3
 from .to_string_aminoacids1 import to_string_aminoacids1
 from .to_string_pdb_text import to_string_pdb_text
