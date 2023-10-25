@@ -71,7 +71,6 @@ def _new_msmfile(filename, creator='MolSysMT', compression="gzip", compression_o
     file.attrs['creator'] = creator
     file.attrs['int_precision'] = int_precision
     file.attrs['float_precision'] = int_precision
-    file.attrs['written_structures'] = 0
 
     if length_unit is None:
         structures.attrs['length_unit']=puw.get_standard_units(dimensionality={'[L]':1}, form='string')
@@ -194,6 +193,7 @@ def _new_msmfile(filename, creator='MolSysMT', compression="gzip", compression_o
     structures = file.create_group("structures")
     structures.attrs['n_atoms'] = 0
     structures.attrs['n_structures'] = 0
+    structures.attrs['n_structures_to_be_written'] = 0
     structures.attrs['constant_time_step']=False
     structures.attrs['time_step']=0.0
     structures.attrs['constant_id_step']=False
@@ -201,6 +201,7 @@ def _new_msmfile(filename, creator='MolSysMT', compression="gzip", compression_o
     structures.attrs['constant_box']=False
 
     structures.create_dataset('id', (0,), dtype=int_type, maxshape=(None,), **global_dataset_options)
+    structures.create_dataset('time', (0,), dtype=float_type, maxshape=(None,), **global_dataset_options)
     structures.create_dataset('box', (0,3,3), dtype=float_type, maxshape=(None,3,3), **global_dataset_options)
     structures.create_dataset('coordinates', (0,0,3), dtype=float_type, maxshape=(None,None,3), **global_dataset_options)
     structures.create_dataset('velocities', (0,0,3), dtype=float_type, maxshape=(None,None,3), **global_dataset_options)
