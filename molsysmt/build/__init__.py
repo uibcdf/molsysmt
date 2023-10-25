@@ -7,6 +7,7 @@ from .get_missing_terminal_cappings import get_missing_terminal_cappings
 from .get_missing_residues import get_missing_residues
 from .get_missing_bonds import get_missing_bonds
 from .get_non_standard_residues import get_non_standard_residues
+from .has_hydrogens import has_hydrogens
 from .make_bioassembly import make_bioassembly
 from .solve_atoms_with_alternate_location import solve_atoms_with_alternate_location
 from .build_peptide import build_peptide

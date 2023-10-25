@@ -4,13 +4,13 @@ import numpy as np
 class MolSysMTTrajectoryDictReporter(object):
 
     def __init__(self, reportInterval, time=True, coordinates=True, velocities=False,
-             potentialEnergy=False, kineticEnergy=False, temperature=False,
-             box=False):
+             potentialEnergy=False, kineticEnergy=False, totalEnergy=False, temperature=False,
+             box=False, includeInitialContext=True):
 
         self._needsPositions = coordinates
         self._needsVelocities = velocities
         self._needsForces = False
-        self._needEnergy = (potentialEnergy or kineticEnergy or totalEnergy or temperature)
+        self._needsEnergy = (potentialEnergy or kineticEnergy or totalEnergy or temperature)
 
         self._time = time
         self._box = box
@@ -18,11 +18,13 @@ class MolSysMTTrajectoryDictReporter(object):
         self._velocities = velocities
         self._potentialEnergy = potentialEnergy
         self._kineticEnergy = kineticEnergy
+        self._totalEnergy = totalEnergy
         self._temperature = temperature
 
 
         self._initialized = False
         self._reportInterval = reportInterval
+        self._includeInitialContext = includeInitialContext
         self._dict = {}
 
         if self._time:
@@ -68,9 +70,17 @@ class MolSysMTTrajectoryDictReporter(object):
 
     def describeNextReport(self, simulation):
 
+        if simulation.currentStep==0 and self._includeInitialContext:
+            initial_state = simulation.context.getState(getPositions=self._needsPositions,
+                                                       getVelocities=self._needsVelocities,
+                                                       getForces=self._needsForces,
+                                                       getEnergy=self._needsEnergy)
+            self.report(simulation, initial_state)
+            del(initial_state)
+
         steps_left = simulation.currentStep % self._reportInterval
         steps = self._reportInterval - steps_left
-        return (steps, self._needsPositions, self._needsVelocities, self._needsForces, self._needEnergy)
+        return (steps, self._needsPositions, self._needsVelocities, self._needsForces, self._needsEnergy)
 
     def report(self, simulation, state):
 

@@ -17,7 +17,7 @@ class MSMH5FileHandler():
             self.file = _new_msmfile(filename, creator=creator, compression=compression,
                     compression_opts=compression_opts, int_precision=int_precision,
                     float_precision=float_precision, length_unit=None, time_unit=None,
-                    energy_unit=None, temperature_unit=None, charge_unit=None, mass_unit=None):
+                    energy_unit=None, temperature_unit=None, charge_unit=None, mass_unit=None)
 
         elif io_mode=='r':
 

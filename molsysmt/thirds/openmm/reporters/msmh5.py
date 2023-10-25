@@ -4,9 +4,8 @@ import numpy as np
 
 class MSMH5Reporter(object):
 
-    def __init__(self, file, reportInterval, stepSize, steps=None,
-            context=None, topology=None, selection='all',
-            time=True, box=True, coordinates=True, velocities=False,
+    def __init__(self, file, reportInterval, steps, selection='all',
+            topology=True, time=True, box=True, coordinates=True, velocities=False,
             potentialEnergy=False, kineticEnergy=False, temperature=False,
             includeInitialContext=True, constantReportInterval=True,
             constantStepSize=True, constantBox=True,
@@ -62,7 +61,7 @@ class MSMH5Reporter(object):
                     dof += 3
             dof -= system.getNumConstraints()
             if any(isinstance(frc, mm.CMMotionRemover) for frc in frclist):
-            dof -= 3
+                dof -= 3
             self._dof = dof
 
         # Tengo que detectar si hay barostato
@@ -77,50 +76,10 @@ class MSMH5Reporter(object):
 
     def report(self, simulation, state):
 
-            if not self._initialized:
-        self._initialize(simulation)
+        if not self._initialized:
+            self._initialize(simulation)
 
-        if self._time:
-            time = state.getTime()
-            self._dict['time'].append(time)
+    def close(self):
 
-        if self._coordinates:
-            coordinates = state.getPositions(asNumpy=True)
-            self._dict['coordinates'].append(coordinates)
-
-        if self._velocities:
-            velocities = state.getVelocities(asNumpy=True)
-            self._dict['velocities'].append(velocities)
-
-        if self._potentialEnergy:
-            potential_energy = state.getPotentialEnergy()
-            self._dict['potential_energy'].append(potential_energy)
-
-        if self._kineticEnergy:
-            kinetic_energy = state.getKineticEnergy()
-            self._dict['kinetic_energy'].append(kinetic_energy)
-
-        if self._totalEnergy:
-            if not self._kineticEnergy:
-                kinetic_energy = state.getKineticEnergy()
-            if not self._potentialEnergy:
-                potential_energy = state.getPotentialEnergy()
-            self._dict['total_energy'].append(kinetic_energy+potential_energy)
-
-        if self._temperature:
-            if not self._kineticEnergy:
-                kinetic_energy = state.getKineticEnergy()
-            temperature = 2 * kinetic_energy / (self._dof * unit.MOLAR_GAS_CONSTANT_R)
-            self._dict['temperature'].append(temperature)
-
-        if self._box:
-            box = state.getPeriodicBoxVectors(asNumpy=True)
-            self._dict['box'].append(box)
-
-    def finalize(self):
-
-        for key in self._dict.keys():
-            self._dict[key]._value = np.stack(self._dict[key]._value)
-
-        return self._dict
+        return self._file_handler.close()
 
