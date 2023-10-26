@@ -7,7 +7,7 @@ msmh5_version = "1.0"
 class MSMH5FileHandler():
 
     def __init__(self, filename, io_mode='r', creator='MolSysMT', compression="gzip", compression_opts=4,
-            int_precision='single', float_precision='single', time_unit=None, energy_unit=None,
+            int_precision='single', float_precision='single', length_unit=None, time_unit=None, energy_unit=None,
             temperature_unit=None, charge_unit=None, mass_unit=None, closed=False):
 
         self.file = None
@@ -16,8 +16,9 @@ class MSMH5FileHandler():
 
             self.file = _new_msmfile(filename, creator=creator, compression=compression,
                     compression_opts=compression_opts, int_precision=int_precision,
-                    float_precision=float_precision, length_unit=None, time_unit=None,
-                    energy_unit=None, temperature_unit=None, charge_unit=None, mass_unit=None)
+                    float_precision=float_precision, length_unit=length_unit, time_unit=time_unit,
+                    energy_unit=energy_unit, temperature_unit=temperature_unit,
+                    charge_unit=charge_unit, mass_unit=mass_unit)
 
         elif io_mode=='r':
 

@@ -12,6 +12,8 @@ class MSMH5Reporter(object):
             int_precision='single', float_precision='single',
             syntax='MolSysMT'):
 
+        from molsysmt.native import MSMH5FileHandler
+
         self._initialized = False
 
         self._needs_positions = coordinates
