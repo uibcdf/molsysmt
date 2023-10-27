@@ -9,7 +9,7 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all'):
 
     tmp_item = MolSys()
     tmp_item.topology = openmm_Simulation_to_molsysmt_Topology(item, atom_indices=atom_indices)
-    tmp_item.trajectory = openmm_Simulation_to_molsysmt_Structures(item, atom_indices=atom_indices, structure_indices=structure_indices)
+    tmp_item.structures = openmm_Simulation_to_molsysmt_Structures(item, atom_indices=atom_indices, structure_indices=structure_indices)
 
     return tmp_item
 

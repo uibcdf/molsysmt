@@ -1,14 +1,16 @@
 from molsysmt._private.variables import is_all
 import numpy as np
+import openmm as mm
+from openmm import unit
 
 class MSMH5Reporter(object):
 
-    def __init__(self, file, reportInterval, selection='all', steps=None,
+    def __init__(self, file, reportInterval, steps, selection='all',
             topology=True, time=True, box=True, coordinates=True, velocities=False,
             potentialEnergy=False, kineticEnergy=False, temperature=False,
             includeInitialContext=True, constantReportInterval=True,
             constantStepSize=True, constantBox=True,
-            compression='gzip', compression_opts=4,
+            compression='lzf', compression_opts=None,
             int_precision='single', float_precision='single',
             syntax='MolSysMT'):
 
@@ -45,8 +47,7 @@ class MSMH5Reporter(object):
         self._selection_is_all = False
         self._syntax = syntax
 
-        self._n_intervals_to_be_reported = None
-        self._n_intervals_reported = 0
+        self._n_structures_reported = 0
 
         self._file_handler = MSMH5FileHandler(file, io_mode='w', creator='OpenMM',
                 compression=compression, compression_opts=compression_opts,
@@ -59,7 +60,6 @@ class MSMH5Reporter(object):
     def _initialize(self, simulation):
 
         from molsysmt.basic import select, get
-        import openmm as mm
 
         system = simulation.system
         context = simulation.context
@@ -68,6 +68,7 @@ class MSMH5Reporter(object):
 
         if not is_all(self._selection):
             self._selection = select(topology, selection=self._selection, syntax=self._syntax)
+            self._selection_is_all = False
             self._n_atoms = len(self._selection)
         else:
             self._selection_is_all = True
@@ -81,7 +82,7 @@ class MSMH5Reporter(object):
         if self._temperature:
             dof = 0
             for i in range(system.getNumParticles()):
-                if system.getParticleMass(i) > 0*unit.dalton:
+                if system.getParticleMass(i) > 0.0*unit.dalton:
                     dof += 3
             dof -= system.getNumConstraints()
             if any(isinstance(frc, mm.CMMotionRemover) for frc in frclist):
@@ -92,53 +93,53 @@ class MSMH5Reporter(object):
             if system.usesPeriodicBoundaryConditions():
                 if  self._constant_box:
                     self._constant_box = True # Barostat needs to be checked
-                    self._structures_sd.attr['constant_box']=True
+                    self._structures_sd.attrs['constant_box']=True
 
         if self._constant_report_interval:
-            self._structures_sd.attr['constant_id_step']=True
+            self._structures_sd.attrs['constant_id_step']=True
             if self._constant_step_size:
                 self._step_size = integrator.getStepSize()
-                self._structures_sd.attr['constant_time_step']=True
+                self._structures_sd.attrs['constant_time_step']=True
 
         if self._steps is not None:
 
-            self.n_intervals_to_be_reported = int(self._steps/self._report_interval)
+            self._steps = int(self._steps/self._report_interval)
             if self._include_initial_context:
-                self.n_intervals_to_be_reported +=1
+                self._steps +=1
 
             if self._constant_report_interval:
-                self._structures_sd['id'].resize((1))
+                self._structures_sd['id'].resize((1,))
             else:
-                self._structures_sd['id'].resize((n_intervals_to_be_reported))
+                self._structures_sd['id'].resize((self._steps))
 
             if self._time:
                 if self._constant_report_interval and self._constant_step_size:
-                    self._structures_sd['time'].resize((1))
+                    self._structures_sd['time'].resize((1,))
                 else:
-                    self._structures_sd['time'].resize((n_intervals_to_be_reported))
+                    self._structures_sd['time'].resize((self._steps))
 
             if self._box:
                 if self._constant_box:
                     self._structures_sd['box'].resize((1, 3, 3))
                 else:
-                    self._structures_sd['box'].resize((n_intervals_to_be_reported, 3, 3))
+                    self._structures_sd['box'].resize((self._steps, 3, 3))
 
             if self._coordinates:
-                self._structures_sd['coordinates'].resize((n_intervals_to_be_reported, self._n_atoms, 3))
+                self._structures_sd['coordinates'].resize((self._steps, self._n_atoms, 3))
 
             if self._velocities:
-                self._structures_sd['velocities'].resize((n_intervals_to_be_reported, self._n_atoms, 3))
+                self._structures_sd['velocities'].resize((self._steps, self._n_atoms, 3))
 
             if self._kinetic_energy:
-                self._structures_sd['kinetic_energy'].resize((n_intervals_to_be_reported))
+                self._structures_sd['kinetic_energy'].resize((self._steps,))
 
             if self._potential_energy:
-                self._structures_sd['potential_energy'].resize((n_intervals_to_be_reported))
+                self._structures_sd['potential_energy'].resize((self._steps,))
 
             if self._temperature:
-                self._structures_sd['temperature'].resize((n_intervals_to_be_reported))
+                self._structures_sd['temperature'].resize((self._steps,))
 
-            self._structures_sd.attrs['n_structures_to_be_written'] = self._n_intervals_to_be_reported
+            self._structures_sd.attrs['n_structures'] = self._steps
 
         if self._include_initial_context:
             initial_state = simulation.context.getState(getPositions=self._needs_positions,
@@ -152,13 +153,17 @@ class MSMH5Reporter(object):
 
     def describeNextReport(self, simulation):
 
-        steps_left = simulation.currentStep % self._reportInterval
-        steps = self._reportInterval - steps_left
-        return (steps, self._needsPositions, self._needsVelocities, self._needsForces, self._needEnergy)
+        if not self._initialized:
+            self._initialize(simulation)
+
+        steps_left = simulation.currentStep % self._report_interval
+        steps = self._report_interval - steps_left
+        return (steps, self._needs_positions, self._needs_velocities, self._needs_forces,
+                self._needs_energy)
 
     def report(self, simulation, state):
 
-        index = self._n_intervals_reported
+        index = self._n_structures_reported
 
         if self._id:
             self._structures_sd['id'][index] = simulation.currentStep
@@ -199,8 +204,8 @@ class MSMH5Reporter(object):
             self._structures_sd['temperature'][index] = temperature._value
 
 
-        self._n_intervals_reported += 1
-        self._structures_sd.attrs['n_structures'] = self._n_intervals_reported
+        self._n_structures_reported += 1
+        self._structures_sd.attrs['n_structures_written'] = self._n_structures_reported
 
         pass
 

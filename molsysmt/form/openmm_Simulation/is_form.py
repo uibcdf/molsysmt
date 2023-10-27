@@ -1,6 +1,6 @@
 def is_form(item):
 
-    item_fullname = item.__class__.__module__+'.'+item.__class__.__name__
+    from openmm.app.simulation import Simulation
 
-    return 'openmm.Simulation'==item_fullname
+    return isinstance(item, Simulation)
 

@@ -31,10 +31,11 @@ class MSMH5FileHandler():
         if closed:
             self.file.close()
 
-    def write_topology(topology, selection='all', syntax='MolSysMT'):
+    def write_topology(self, topology, selection='all', syntax='MolSysMT'):
 
         from molsysmt.basic import get_form, select, convert
         from molsysmt._private.variables import is_all
+        from molsysmt.form import _dict_modules
 
         if is_all(selection):
             atom_indices = 'all'
@@ -43,11 +44,11 @@ class MSMH5FileHandler():
 
         try:
             topology_form = get_form(topology)
-            _dict_modules[topology_form].write_topology_in_msmh5(topology, self.file,
+            _dict_modules[topology_form].write_topology_in_msmh5(topology, file=self.file,
                     atom_indices=atom_indices)
         except:
             aux_topology = convert(topology, to_form='molsysmt.Topology', selection=atom_indices)
-            _dict_modules['molsysmt.Topology'].write_topology_in_msmh5(aux_topology, self.file,
+            _dict_modules['molsysmt.Topology'].write_topology_in_msmh5(aux_topology, file=self.file,
                     atom_indices=atom_indices)
             del(aux_topology)
 
@@ -73,38 +74,36 @@ def _new_msmfile(filename, creator='MolSysMT', compression="gzip", compression_o
     file.attrs['int_precision'] = int_precision
     file.attrs['float_precision'] = int_precision
 
-    structures_sd=file['structures']
-
     if length_unit is None:
-        structures_sd.attrs['length_unit']=puw.get_standard_units(dimensionality={'[L]':1}, form='string')
+        file.attrs['length_unit']=puw.get_standard_units(dimensionality={'[L]':1}, form='string')
     else:
-        structures_sd.attrs['length_unit']=puw.get_unit(length_unit, to_form='string')
+        file.attrs['length_unit']=puw.get_unit(length_unit, to_form='string')
 
     if time_unit is None:
-        structures_sd.attrs['time_unit']=puw.get_standard_units(dimensionality={'[T]':1}, form='string')
+        file.attrs['time_unit']=puw.get_standard_units(dimensionality={'[T]':1}, form='string')
     else:
-        structures_sd.attrs['time_unit']=puw.get_unit(time_unit, to_form='string')
+        file.attrs['time_unit']=puw.get_unit(time_unit, to_form='string')
 
     if energy_unit is None:
-        structures_sd.attrs['energy_unit']=puw.get_standard_units(dimensionality={'[L]':2, '[M]':1,
+        file.attrs['energy_unit']=puw.get_standard_units(dimensionality={'[L]':2, '[M]':1,
             '[T]':-2, '[mol]':-1}, form='string')
     else:
-        structures_sd.attrs['energy_unit']=puw.get_unit(energy_unit, to_form='string')
+        file.attrs['energy_unit']=puw.get_unit(energy_unit, to_form='string')
 
     if temperature_unit is None:
-        structures_sd.attrs['temperature_unit']=puw.get_standard_units(dimensionality={'[K]':1}, form='string')
+        file.attrs['temperature_unit']=puw.get_standard_units(dimensionality={'[K]':1}, form='string')
     else:
-        structures_sd.attrs['temperature_unit']=puw.get_unit(temperature_unit, to_form='string')
+        file.attrs['temperature_unit']=puw.get_unit(temperature_unit, to_form='string')
 
     if temperature_unit is None:
-        structures_sd.attrs['charge_unit']=puw.get_standard_units(dimensionality={'[A]':1, '[T]':1}, form='string')
+        file.attrs['charge_unit']=puw.get_standard_units(dimensionality={'[A]':1, '[T]':1}, form='string')
     else:
-        structures_sd.attrs['charge_unit']=puw.get_unit(temperature_unit, to_form='string')
+        file.attrs['charge_unit']=puw.get_unit(temperature_unit, to_form='string')
 
     if temperature_unit is None:
-        structures_sd.attrs['mass_unit']=puw.get_standard_units(dimensionality={'[M]':1}, form='string')
+        file.attrs['mass_unit']=puw.get_standard_units(dimensionality={'[M]':1}, form='string')
     else:
-        structures_sd.attrs['mass_unit']=puw.get_unit(mass_unit, to_form='string')
+        file.attrs['mass_unit']=puw.get_unit(mass_unit, to_form='string')
 
     global_dataset_options = {
             'compression':compression,
@@ -193,15 +192,16 @@ def _new_msmfile(filename, creator='MolSysMT', compression="gzip", compression_o
 
     # Structures
 
-    structures_sd = file.create_group("structures_sd")
+    structures_sd = file.create_group("structures")
     structures_sd.attrs['n_atoms'] = 0
-    structures_sd.attrs['n_structures_sd'] = 0
-    structures_sd.attrs['n_structures_sd_to_be_written'] = 0
+    structures_sd.attrs['n_structures'] = 0
+    structures_sd.attrs['n_structures_written'] = 0
     structures_sd.attrs['constant_time_step']=False
     structures_sd.attrs['time_step']=0.0
     structures_sd.attrs['constant_id_step']=False
     structures_sd.attrs['id_step']=0
     structures_sd.attrs['constant_box']=False
+    structures_sd.attrs['pbc']='pbc' # none, cell, mic, continuous
 
     structures_sd.create_dataset('id', (0,), dtype=int_type, maxshape=(None,), **global_dataset_options)
     structures_sd.create_dataset('time', (0,), dtype=float_type, maxshape=(None,), **global_dataset_options)
