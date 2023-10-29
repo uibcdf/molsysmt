@@ -1,4 +1,5 @@
 from molsysmt._private.variables import is_all
+from molsysmt.basic import select, get
 import numpy as np
 import openmm as mm
 from openmm import unit
@@ -12,7 +13,7 @@ class MSMH5Reporter(object):
             constantStepSize=True, constantBox=True,
             compression='lzf', compression_opts=None,
             int_precision='single', float_precision='single',
-            syntax='MolSysMT'):
+            auto_close=False, syntax='MolSysMT'):
 
         from molsysmt.native import MSMH5FileHandler
 
@@ -47,6 +48,7 @@ class MSMH5Reporter(object):
         self._selection_is_all = False
         self._syntax = syntax
 
+        self._n_structures = 0
         self._n_structures_reported = 0
 
         self._file_handler = MSMH5FileHandler(file, io_mode='w', creator='OpenMM',
@@ -55,27 +57,52 @@ class MSMH5Reporter(object):
                 length_unit='nm', time_unit='ps', energy_unit='kJ/mol',
                 temperature_unit='kelvin', charge_unit='e', mass_unit='dalton')
 
+        if isinstance(topology, mm.app.Topology):
+
+            if not is_all(self._selection):
+                self._selection = select(topology, selection=self._selection, syntax=self._syntax)
+                self._selection_is_all = False
+                self._n_atoms = len(self._selection)
+            else:
+                self._selection_is_all = True
+                self._n_atoms = get(topology, element='system', n_atoms=True)
+
+            self._file_handler.write_topology(topology, selection=self._selection)
+
+            self._topology = False
+
         self._structures_sd = self._file_handler.file['structures']
 
-    def _initialize(self, simulation):
+        self._auto_close = auto_close
 
-        from molsysmt.basic import select, get
+    def _initialize(self, simulation):
 
         system = simulation.system
         context = simulation.context
         topology = simulation.topology
         integrator = simulation.integrator
 
-        if not is_all(self._selection):
-            self._selection = select(topology, selection=self._selection, syntax=self._syntax)
-            self._selection_is_all = False
-            self._n_atoms = len(self._selection)
-        else:
-            self._selection_is_all = True
-            self._n_atoms = get(topology, element='system', n_atoms=True)
-
         if self._topology:
+
+            if not is_all(self._selection):
+                self._selection = select(topology, selection=self._selection, syntax=self._syntax)
+                self._selection_is_all = False
+                self._n_atoms = len(self._selection)
+            else:
+                self._selection_is_all = True
+                self._n_atoms = get(topology, element='system', n_atoms=True)
+
             self._file_handler.write_topology(topology, selection=self._selection)
+
+        elif self._n_atoms == 0:
+
+            if not is_all(self._selection):
+                self._selection = select(topology, selection=self._selection, syntax=self._syntax)
+                self._selection_is_all = False
+                self._n_atoms = len(self._selection)
+            else:
+                self._selection_is_all = True
+                self._n_atoms = get(topology, element='system', n_atoms=True)
 
         frclist = system.getForces()
 
@@ -94,52 +121,56 @@ class MSMH5Reporter(object):
                 if  self._constant_box:
                     self._constant_box = True # Barostat needs to be checked
                     self._structures_sd.attrs['constant_box']=True
+                    self._structures_sd.attrs['pbc']='continuous'
 
         if self._constant_report_interval:
             self._structures_sd.attrs['constant_id_step']=True
+            self._structures_sd.attrs['id_step']=self._report_interval
             if self._constant_step_size:
                 self._step_size = integrator.getStepSize()
                 self._structures_sd.attrs['constant_time_step']=True
+                self._structures_sd.attrs['time_step']=(self._step_size.in_units_of(unit.picoseconds)._value)*self._report_interval
 
         if self._steps is not None:
 
-            self._steps = int(self._steps/self._report_interval)
+            self._n_structures = int(self._steps/self._report_interval)
+
             if self._include_initial_context:
-                self._steps +=1
+                self._n_structures +=1
 
             if self._constant_report_interval:
                 self._structures_sd['id'].resize((1,))
             else:
-                self._structures_sd['id'].resize((self._steps))
+                self._structures_sd['id'].resize((self._n_structures))
 
             if self._time:
                 if self._constant_report_interval and self._constant_step_size:
                     self._structures_sd['time'].resize((1,))
                 else:
-                    self._structures_sd['time'].resize((self._steps))
+                    self._structures_sd['time'].resize((self._n_structures))
 
             if self._box:
                 if self._constant_box:
                     self._structures_sd['box'].resize((1, 3, 3))
                 else:
-                    self._structures_sd['box'].resize((self._steps, 3, 3))
+                    self._structures_sd['box'].resize((self._n_structures, 3, 3))
 
             if self._coordinates:
-                self._structures_sd['coordinates'].resize((self._steps, self._n_atoms, 3))
+                self._structures_sd['coordinates'].resize((self._n_structures, self._n_atoms, 3))
 
             if self._velocities:
-                self._structures_sd['velocities'].resize((self._steps, self._n_atoms, 3))
+                self._structures_sd['velocities'].resize((self._n_structures, self._n_atoms, 3))
 
             if self._kinetic_energy:
-                self._structures_sd['kinetic_energy'].resize((self._steps,))
+                self._structures_sd['kinetic_energy'].resize((self._n_structures,))
 
             if self._potential_energy:
-                self._structures_sd['potential_energy'].resize((self._steps,))
+                self._structures_sd['potential_energy'].resize((self._n_structures,))
 
             if self._temperature:
-                self._structures_sd['temperature'].resize((self._steps,))
+                self._structures_sd['temperature'].resize((self._n_structures,))
 
-            self._structures_sd.attrs['n_structures'] = self._steps
+            self._structures_sd.attrs['n_structures']=self._n_structures
 
         if self._include_initial_context:
             initial_state = simulation.context.getState(getPositions=self._needs_positions,
@@ -203,9 +234,12 @@ class MSMH5Reporter(object):
             temperature = 2 * kinetic_energy / (self._dof * unit.MOLAR_GAS_CONSTANT_R)
             self._structures_sd['temperature'][index] = temperature._value
 
-
         self._n_structures_reported += 1
         self._structures_sd.attrs['n_structures_written'] = self._n_structures_reported
+
+        if self._auto_close and self._steps is not None:
+            if (self._steps - simulation.currentStep) < self._report_interval:
+                self.close()
 
         pass
 

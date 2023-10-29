@@ -8,6 +8,7 @@ dependencies:
 - pip
 - setuptools >=61.0
 - versioningit~=2.0
+- h5py
 - numpy
 - numba
 - pyunitwizard
@@ -41,3 +42,4 @@ dependencies:
 - seaborn
 - nbsphinx
 - plotly
+- mamba

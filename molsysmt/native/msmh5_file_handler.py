@@ -95,10 +95,10 @@ def _new_msmfile(filename, creator='MolSysMT', compression="gzip", compression_o
     else:
         file.attrs['temperature_unit']=puw.get_unit(temperature_unit, to_form='string')
 
-    if temperature_unit is None:
+    if charge_unit is None:
         file.attrs['charge_unit']=puw.get_standard_units(dimensionality={'[A]':1, '[T]':1}, form='string')
     else:
-        file.attrs['charge_unit']=puw.get_unit(temperature_unit, to_form='string')
+        file.attrs['charge_unit']=puw.get_unit(charge_unit, to_form='string')
 
     if temperature_unit is None:
         file.attrs['mass_unit']=puw.get_standard_units(dimensionality={'[M]':1}, form='string')
@@ -201,7 +201,7 @@ def _new_msmfile(filename, creator='MolSysMT', compression="gzip", compression_o
     structures_sd.attrs['constant_id_step']=False
     structures_sd.attrs['id_step']=0
     structures_sd.attrs['constant_box']=False
-    structures_sd.attrs['pbc']='pbc' # none, cell, mic, continuous
+    structures_sd.attrs['pbc']='none' # none, cell, mic, continuous
 
     structures_sd.create_dataset('id', (0,), dtype=int_type, maxshape=(None,), **global_dataset_options)
     structures_sd.create_dataset('time', (0,), dtype=float_type, maxshape=(None,), **global_dataset_options)

@@ -59,7 +59,6 @@ args = parser.parse_args()
 # Open the base file
 with open(args.conda_file, "r") as handle:
     yaml_script = loader(handle.read())
-
 python_replacement_string = "python {}*".format(args.python)
 
 try:
@@ -75,21 +74,37 @@ finally:
     yaml_script['dependencies'].insert(0, python_replacement_string)
 
 # Figure out conda path
+conda_path = None
 if "CONDA_EXE" in os.environ:
     conda_path = os.environ["CONDA_EXE"]
 else:
     conda_path = shutil.which("conda")
+
+# Figure out mamba path
+mamba_path = None
+if "MAMBA_EXE" in os.environ:
+    mamba_path = os.environ["MAMBA_EXE"]
+else:
+    mamba_path = shutil.which("mamba")
+
 if conda_path is None:
     raise RuntimeError("Could not find a conda binary in CONDA_EXE variable or in executable search path")
 
 print("CONDA ENV NAME  {}".format(args.name))
 print("PYTHON VERSION  {}".format(args.python))
 print("CONDA FILE NAME {}".format(args.conda_file))
-print("CONDA PATH      {}".format(conda_path))
+if mamba_path is not None:
+    print("MAMBA PATH      {}".format(mamba_path))
+else:
+    print("CONDA PATH      {}".format(conda_path))
 
 # Write to a temp directory which will always be cleaned up
 with temp_cd():
     temp_file_name = "temp_script.yaml"
     with open(temp_file_name, 'w') as f:
         f.write(yaml.dump(yaml_script))
-    sp.call("{} env create -n {} -f {}".format(conda_path, args.name, temp_file_name), shell=True)
+    if mamba_path is not None:
+        sp.call("{} env create -n {} -f {}".format(mamba_path, args.name, temp_file_name), shell=True)
+    else:
+        sp.call("{} env create -n {} -f {}".format(conda_path, args.name, temp_file_name), shell=True)
+
