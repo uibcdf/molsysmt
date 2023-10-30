@@ -2,7 +2,7 @@ import h5py
 import numpy as np
 from molsysmt import pyunitwizard as puw
 
-msmh5_version = "1.0"
+msmh5_version = "0.2"
 
 class MSMH5FileHandler():
 

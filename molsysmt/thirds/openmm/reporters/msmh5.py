@@ -43,7 +43,7 @@ class MSMH5Reporter(object):
         self._step_size = None
         self._steps = steps
 
-        self._n_atoms = None
+        self._n_atoms = 0
         self._selection = selection
         self._selection_is_all = False
         self._syntax = syntax
@@ -171,6 +171,7 @@ class MSMH5Reporter(object):
                 self._structures_sd['temperature'].resize((self._n_structures,))
 
             self._structures_sd.attrs['n_structures']=self._n_structures
+            self._structures_sd.attrs['n_atoms']=self._n_atoms
 
         if self._include_initial_context:
             initial_state = simulation.context.getState(getPositions=self._needs_positions,
