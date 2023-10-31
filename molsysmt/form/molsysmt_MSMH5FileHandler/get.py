@@ -14,11 +14,7 @@ form='molsysmt.MSMH5FileHandler'
 @digest(form=form)
 def get_atom_id_from_atom(item, indices='all'):
 
-    output = None
-
     output = item.file['topology']['atoms']['id'][:].astype('int64')
-    if is_all(indices):
-
 
     raise NotImplementedError
 
