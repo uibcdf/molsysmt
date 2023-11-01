@@ -232,6 +232,97 @@ class Structures:
                           kinetic_energy=kinetic_energy
                           )
 
+
+    @digest()
+    def add(self, item, selection='all', structure_indices='all'):
+        """ Adds the coordinates of another item to this.
+
+            Parameters
+            ----------
+
+            item : MolecularSystem
+                The molecular system whose coordinates will be added.
+
+            selection : str or arraylike of int, default='all'
+                Selects only these atoms from the given item.
+
+            structure_indices : str or arraylike of int, default='all'
+                Select only these structures from the given item
+
+        """
+
+
+
+        n_structures = get(item,
+                           element="system",
+                           structure_indices=structure_indices,
+                           n_structures=True,
+                           )
+
+        coordinates = get(item,
+                          element="atom",
+                          selection=selection,
+                          structure_indices=structure_indices,
+                          coordinates=True,
+                          )
+
+        velocities = get(item,
+                          element="atom",
+                          selection=selection,
+                          structure_indices=structure_indices,
+                          velocities=True,
+                          )
+
+        if self.n_structures != n_structures:
+            raise ValueError('Both items need to have the same n_structures')
+
+        if (self.coordinates is None) or (coordinates is None):
+            self.coordinates = None
+        else:
+            unit = puw.get_unit(self.coordinates)
+            value_coordinates = puw.get_value(coordinates, to_unit=unit)
+            value_self_coordinates = puw.get_value(self.coordinates)
+            self.coordinates = np.hstack([value_self_coordinates, value_coordinates]) * unit
+
+        if (self.velocities is None) or (velocities is None):
+            self.velocities = None
+        else:
+            unit = puw.get_unit(self.velocities)
+            value_velocities = puw.get_value(velocities, to_unit=unit)
+            value_self_velocities = puw.get_value(self.velocities)
+            self.velocities = np.hstack([value_self_velocities, value_velocities]) * unit
+
+        self.n_atoms = self.coordinates.shape[1]
+
+    @digest()
+    def append(self, item, selection='all', structure_indices='all'):
+        """ Appends the structure_id, time coordinates and box of the given item to this.
+
+            Parameters
+            ----------
+            item : MolecularSystem
+                The molecular system that will be appended.
+
+            selection : str or arraylike of int, default='all'
+                Selects only these atoms from the given item.
+
+            structure_indices : str or arraylike of int, default='all'
+                Select only these structures from the given item
+        """
+
+        structure_id, time, coordinates, velocities, box = get(item,
+                                           selection=selection,
+                                           structure_indices=structure_indices,
+                                           structure_id=True,
+                                           time=True,
+                                           coordinates=True,
+                                           velocities=True,
+                                           box=True,
+                                           )
+
+        self.append_structures(structure_id, time, coordinates, velocities, box)
+
+
     def copy(self):
         """ Returns a copy of the structures."""
         return deepcopy(self)

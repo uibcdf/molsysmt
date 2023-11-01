@@ -422,10 +422,16 @@ def get_box_shape_from_system(item, structure_indices='all'):
 @digest(form=form)
 def get_box_lengths_from_system(item, structure_indices='all'):
 
+    from molsysmt.pbc import get_lengths_and_angles_from_box
+
     if structure_indices is None:
         return None
 
-    tmp_box_lengths = item.get_box_lengths()
+    if item.box is not None:
+        tmp_box_lengths, _ = get_lengths_and_angles_from_box(item.box)
+    else:
+        tmp_box_lengths = None
+
     if is_all(structure_indices):
         output = tmp_box_lengths
     else:
@@ -435,10 +441,16 @@ def get_box_lengths_from_system(item, structure_indices='all'):
 @digest(form=form)
 def get_box_angles_from_system(item, structure_indices='all'):
 
+    from molsysmt.pbc import get_lengths_and_angles_from_box
+
     if structure_indices is None:
         return None
 
-    tmp_box_angles = item.get_box_angles()
+    if item.box is not None:
+        _, tmp_box_angles = get_lengths_and_angles_from_box(item.box)
+    else:
+        tmp_box_angles = None
+
     if is_all(structure_indices):
         output = tmp_box_angles
     else:
