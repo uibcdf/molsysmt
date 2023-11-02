@@ -1,4 +1,4 @@
-form_name = 'molsysmt.MSMH5FileHandler'
+form_name = 'molsysmt.MolSysNEW'
 form_type = 'class'
 form_info = ["", ""]
 
@@ -16,22 +16,18 @@ from .get import *
 from .set import *
 from .iterators import StructuresIterator, TopologyIterator
 
-from .to_molsysmt_MolSys import to_molsysmt_MolSys
-from .to_molsysmt_MolSysNEW import to_molsysmt_MolSysNEW
-from .to_molsysmt_Topology import to_molsysmt_Topology
 from .to_molsysmt_TopologyNEW import to_molsysmt_TopologyNEW
-from .to_molsysmt_Structures import to_molsysmt_Structures
 from .to_molsysmt_StructuresNEW import to_molsysmt_StructuresNEW
-from .to_nglview_NGLWidget import to_nglview_NGLWidget
+from .to_molsysmt_MolecularMechanics import to_molsysmt_MolecularMechanics
+from .to_molsysmt_MolecularMechanicsDict import to_molsysmt_MolecularMechanicsDict
+from .to_file_msmpk import to_file_msmpk
 
 _convert_to={
-        'molsysmt.MSMH5FileHandler': extract,
-        'molsysmt.MolSys': to_molsysmt_MolSys,
-        'molsysmt.MolSysNEW': to_molsysmt_MolSysNEW,
-        'molsysmt.Topology': to_molsysmt_Topology,
+        'molsysmt.MolSysNEW': extract,
         'molsysmt.TopologyNEW': to_molsysmt_TopologyNEW,
-        'molsysmt.Structures': to_molsysmt_Structures,
         'molsysmt.StructuresNEW': to_molsysmt_StructuresNEW,
-        'nglview.NGLWidget': to_nglview_NGLWidget,
+        'molsysmt.MolecularMechanics': to_molsysmt_MolecularMechanics,
+        'molsysmt.MolecularMechanicsDict': to_molsysmt_MolecularMechanicsDict,
+        'file:msmpk': to_file_msmpk,
         }
 
