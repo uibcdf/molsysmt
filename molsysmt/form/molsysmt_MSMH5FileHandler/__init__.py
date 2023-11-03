@@ -17,17 +17,21 @@ from .set import *
 from .iterators import StructuresIterator, TopologyIterator
 
 from .to_molsysmt_MolSys import to_molsysmt_MolSys
+from .to_molsysmt_MolSysNEW import to_molsysmt_MolSysNEW
 from .to_molsysmt_Topology import to_molsysmt_Topology
-from .to_molsysmt_Topology2 import to_molsysmt_Topology2
+from .to_molsysmt_TopologyNEW import to_molsysmt_TopologyNEW
 from .to_molsysmt_Structures import to_molsysmt_Structures
+from .to_molsysmt_StructuresNEW import to_molsysmt_StructuresNEW
 from .to_nglview_NGLWidget import to_nglview_NGLWidget
 
 _convert_to={
         'molsysmt.MSMH5FileHandler': extract,
         'molsysmt.MolSys': to_molsysmt_MolSys,
+        'molsysmt.MolSysNEW': to_molsysmt_MolSysNEW,
         'molsysmt.Topology': to_molsysmt_Topology,
-        'molsysmt.Topology2': to_molsysmt_Topology2,
+        'molsysmt.TopologyNEW': to_molsysmt_TopologyNEW,
         'molsysmt.Structures': to_molsysmt_Structures,
+        'molsysmt.StructuresNEW': to_molsysmt_StructuresNEW,
         'nglview.NGLWidget': to_nglview_NGLWidget,
         }
 

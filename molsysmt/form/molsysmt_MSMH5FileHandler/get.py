@@ -15,9 +15,12 @@ form='molsysmt.MSMH5FileHandler'
 def get_atom_id_from_atom(item, indices='all'):
 
     output = item.file['topology']['atoms']['id'][:].astype('int64')
+<<<<<<< HEAD
 
     if not is_all(indices):
         output = output[indices]
+=======
+>>>>>>> 64e8c805958be78cd51fab8641486d745007536a
 
     return output
 

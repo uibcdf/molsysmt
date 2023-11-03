@@ -3,7 +3,7 @@ import os
 from pathlib import Path
 import shutil
 
-data_dir = Path('../../../data/.')
+data_dir = Path('../../data/.')
 
 # Purge
 

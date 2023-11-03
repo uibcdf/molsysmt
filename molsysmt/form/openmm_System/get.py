@@ -305,13 +305,7 @@ def get_entity_type_from_entity(item, indices='all'):
 @digest(form=form)
 def get_n_atoms_from_system(item):
 
-    from . import to_openmm_Topology
-    from ..openmm_Topology import get_n_atoms_from_system as aux_get
-
-    tmp_item = to_openmm_Topology(item)
-    output = aux_get(tmp_item, indices=indices)
-
-    return output
+    return item.getNumParticles()
 
 @digest(form=form)
 def get_n_groups_from_system(item):
