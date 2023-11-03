@@ -19,19 +19,19 @@ def forbidden_z_region(molecular_system=None, selection='all', z0='0.0 nm', widt
 
 
     if pbc:
-        potential = '0.5*K*q^2; \
-                    q = min(0, d-w); \
-                    d = periodicdistance(0, 0, z, 0, 0, z0)'
+        potential = '0.5*Kf*q^2; \
+                    q = min(0, d-wf); \
+                    d = periodicdistance(0, 0, z, 0, 0, zf)'
     else:
-        potential = '0.5*K*q^2; \
-                    q = min(0, d-w); \
-                    d = distance(0, 0, z, 0, 0, z0)'
+        potential = '0.5*Kf*q^2; \
+                    q = min(0, d-wf); \
+                    d = distance(0, 0, z, 0, 0, zf)'
 
 
     force = CustomExternalForce(potential)
-    force.addGlobalParameter('K', force_constant)
-    force.addGlobalParameter('w', width)
-    force.addGlobalParameter('z0', z0)
+    force.addGlobalParameter('Kf', force_constant)
+    force.addGlobalParameter('wf', width)
+    force.addGlobalParameter('zf', z0)
 
 
     for atom_index in atom_indices:
