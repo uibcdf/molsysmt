@@ -7,7 +7,7 @@ import gc
 #@digest()
 def get_contacts(molecular_system, selection=None, center_of_atoms=False, weights=None, structure_indices="all",
                  selection_2=None, center_of_atoms_2=False, weights_2=None, structure_indices_2=None,
-                 threshold='12 angstroms', pbc=False, syntax='MolSysMT', output_type='map', output_indices=None):
+                 threshold='12 angstroms', pbc=True, syntax='MolSysMT', output_type='map', output_indices=None):
 
     """
     To be written soon...
@@ -15,6 +15,10 @@ def get_contacts(molecular_system, selection=None, center_of_atoms=False, weight
 
     from molsysmt.structure.get_distances import get_distances
     from molsysmt.basic import select
+    from molsysmt.pbc import has_pbc
+
+    if pbc:
+        pbc=has_pbc(molecular_system)
 
     atom_indices = select(molecular_system, selection=selection, syntax=syntax)
 

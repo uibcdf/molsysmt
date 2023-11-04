@@ -16,4 +16,6 @@ from .solvate import solvate
 from .model_loop import model_loop
 from .mutate import mutate
 from .define_new_chain import define_new_chain
+from .make_water_box import make_water_box
+from .remove_overlapping_molecules import remove_overlapping_molecules
 

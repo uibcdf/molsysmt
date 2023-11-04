@@ -34,6 +34,7 @@ def digest_structure_index(structure_index, caller=None):
     """
 
     if caller is not None:
+
         if caller.endswith(functions_with_boolean):
             if isinstance(structure_index, bool):
                 return structure_index
@@ -41,12 +42,7 @@ def digest_structure_index(structure_index, caller=None):
                 raise ArgumentError('structure_index', value=structure_index, caller=caller, message=None)
 
     if isinstance(structure_index, (int, np.int64)):
-        structure_index=np.ndarray([structure_index])
-
-    if isinstance(structure_index, (tuple, list)):
-        structure_index=np.ndarray(structure_index)
-
-    if isinstance(structure_index, np.ndarray):
+        
         return structure_index
 
     raise ArgumentError('structure_index', value=structure_index, caller=caller, message=None)
