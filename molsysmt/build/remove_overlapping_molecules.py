@@ -14,7 +14,7 @@ def remove_overlapping_molecules(molecular_system, selection, selection_2=None,
     from molsysmt.structure import get_contacts
 
     if pbc:
-        pbc=has_pbc(molecule_system)
+        pbc=has_pbc(molecular_system)
 
     atom_indices = select(molecular_system, selection=selection, syntax=syntax)
 
