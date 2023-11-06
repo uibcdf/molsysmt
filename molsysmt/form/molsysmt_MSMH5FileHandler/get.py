@@ -34,47 +34,100 @@ def get_atom_name_from_atom(item, indices='all'):
 @digest(form=form)
 def get_atom_type_from_atom(item, indices='all'):
 
-    raise NotImplementedError
+    output = item.file['topology']['atoms']['type'][:].astype('str')
+
+    if not is_all(indices):
+        output = output[indices]
+
+    return output
 
 @digest(form=form)
 def get_group_index_from_atom(item, indices='all'):
 
-    raise NotImplementedError
+    output = item.file['topology']['atoms']['group_index'][:].astype('int')
+
+    if not is_all(indices):
+        output = output[indices]
+
+    return output
 
 @digest(form=form)
 def get_component_index_from_atom(item, indices='all'):
 
-    raise NotImplementedError
+    group_index = get_group_index_from_atom(item, indices)
+    component_index_from_group = item.file['topology']['groups']['component_index'][:].astype('int')
+    output = component_index_from_group[group_index]
+
+    return output
 
 @digest(form=form)
 def get_chain_index_from_atom(item, indices='all'):
 
-    raise NotImplementedError
+    output = item.file['topology']['atoms']['chain_index'][:].astype('int')
+
+    if not is_all(indices):
+        output = output[indices]
+
+    return output
 
 @digest(form=form)
 def get_molecule_index_from_atom(item, indices='all'):
 
-    raise NotImplementedError
+    component_index = get_component_index_from_atom(item, indices)
+    molecule_index_from_component = item.file['topology']['components']['molecule_index'][:].astype('int')
+    output = molecule_index_from_component[component_index]
+
+    return output
 
 @digest(form=form)
 def get_entity_index_from_atom(item, indices='all'):
 
-    raise NotImplementedError
+    molecule_index = get_molecule_index_from_atom(item, indices)
+    entity_index_from_molecule = item.file['topology']['molecules']['entity_index'][:].astype('int')
+    output = entity_index_from_molecule[molecule_index]
+
+    return output
 
 @digest(form=form)
 def get_inner_bonded_atoms_from_atom(item, indices='all'):
 
-    raise NotImplementedError
+    if is_all(indices):
+
+        output = get_bonded_atoms_from_bond(item, indices='all')
+
+    else:
+
+        bond_indices = get_inner_bond_index_from_atom (item, indices=indices)
+        output = get_bonded_atoms_from_bond(item, indices=bond_indices)
+        del(bond_indices)
+
+    output = output[np.lexsort((output[:, 1], output[:, 0]))]
+
+    return(output)
 
 @digest(form=form)
 def get_n_inner_bonds_from_atom(item, indices='all'):
 
-    raise NotImplementedError
+    bond_indices = get_inner_bond_index_from_atom(item, indices=indices)
+    output = bond_indices.shape[0]
+    del(bond_indices)
+    return(output)
 
 @digest(form=form)
 def get_coordinates_from_atom(item, indices='all', structure_indices='all'):
 
-    raise NotImplementedError
+    if is_all(structure_indices):
+        if is_all(indices):
+            output = item.file['structures']['coordinates'][:,:,:].astype('float')
+        else:
+            output = item.file['structures']['coordinates'][:,indices,:].astype('float')
+    else:
+        output = []
+        for ii in structure_indices:
+            output.append(item.file['structures']['coordinates'][ii,indices,:].astype('float'))
+        output = np.array(output)
+
+    return output
 
 ## From group
 
