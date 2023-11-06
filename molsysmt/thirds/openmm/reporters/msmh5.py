@@ -22,7 +22,7 @@ class MSMH5Reporter(object):
         self._needs_positions = coordinates
         self._needs_velocities = velocities
         self._needs_forces = False
-        self._needs_energy = (potentialEnergy or kineticEnergy or totalEnergy or temperature)
+        self._needs_energy = (potentialEnergy or kineticEnergy or temperature)
 
         self._id = True
         self._topology = topology
