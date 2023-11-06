@@ -5,13 +5,17 @@ import numpy as np
 @digest()
 def get_neighbors(molecular_system, selection="all", structure_indices="all", center_of_atoms=False, weights=None,
                   molecular_system_2=None, selection_2=None, structure_indices_2=None, center_of_atoms_2=False, weights_2=None,
-                  threshold=None, n_neighbors=None, pbc=False, engine='MolSysMT', syntax='MolSysMT'):
+                  threshold=None, n_neighbors=None, pbc=True, engine='MolSysMT', syntax='MolSysMT'):
     """
     To be written soon...
     """
 
     from . import get_distances
     from molsysmt.basic import select
+    from molsysmt.pbc import has_pbc
+
+    if pbc:
+        pbc=has_pbc(molecular_system)
 
     same_set = False
 

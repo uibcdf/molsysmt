@@ -40,6 +40,10 @@ def get_distances(molecular_system, selection="all", structure_indices="all", ce
     # output in ['numpy.ndarray','dictionary']
 
     from molsysmt.basic import select
+    from molsysmt.pbc import has_pbc
+
+    if pbc:
+        pbc=has_pbc(molecular_system)
 
     atom_indices = select(molecular_system, selection=selection, syntax=syntax)
 

@@ -16,12 +16,20 @@ def get_atom_id_from_atom(item, indices='all'):
 
     output = item.file['topology']['atoms']['id'][:].astype('int64')
 
-    raise NotImplementedError
+    if not is_all(indices):
+        output = output[indices]
+
+    return output
 
 @digest(form=form)
 def get_atom_name_from_atom(item, indices='all'):
 
-    raise NotImplementedError
+    output = item.file['topology']['atoms']['name'][:].astype('str')
+
+    if not is_all(indices):
+        output = output[indices]
+
+    return output
 
 @digest(form=form)
 def get_atom_type_from_atom(item, indices='all'):

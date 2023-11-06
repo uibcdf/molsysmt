@@ -12,7 +12,7 @@ def to_molsysmt_Structures(item, atom_indices='all', structure_indices='all'):
     time = get_time_from_system(item, structure_indices=structure_indices)
 
     tmp_item = Structures()
-    tmp_item.append(coordinates=coordinates, structure_id=structure_id, time=time, box=box)
+    tmp_item.append_structures(coordinates=coordinates, structure_id=structure_id, time=time, box=box)
 
     return tmp_item
 

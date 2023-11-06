@@ -25,5 +25,12 @@ def digest_threshold(threshold, caller=None):
             if puw.check(threshold, dimensionality={'[L]':1}):
                 return puw.standardize(threshold)
 
+    if caller in 'molsysmt.build.remove_overlapping_molecules.remove_overlapping_molecules':
+
+        if puw.is_quantity(threshold):
+            if puw.check(threshold, dimensionality={'[L]':1}):
+                return puw.standardize(threshold)
+
+
     raise ArgumentError('threshold', value=threshold, caller=caller, message=None)
 
