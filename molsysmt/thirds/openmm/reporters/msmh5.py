@@ -31,13 +31,14 @@ class MSMH5Reporter(object):
         self._coordinates = coordinates
         self._velocities = velocities
         self._potential_energy = potentialEnergy
-        self._kinetic_energy = kineticEnergy
+        self._kinetic_energy = (kineticEnergy or temperature)
         self._temperature = temperature
 
         self._include_initial_context = includeInitialContext
         self._constant_report_interval = constantReportInterval
         self._constant_step_size = constantStepSize
         self._constant_box = constantBox
+        self._temperature_from_kinetic_energy = is_all(selection)
 
         self._report_interval = reportInterval
         self._step_size = None
@@ -107,6 +108,7 @@ class MSMH5Reporter(object):
         frclist = system.getForces()
 
         if self._temperature:
+
             dof = 0
             for i in range(system.getNumParticles()):
                 if system.getParticleMass(i) > 0.0*unit.dalton:
@@ -114,22 +116,26 @@ class MSMH5Reporter(object):
             dof -= system.getNumConstraints()
             if any(isinstance(frc, mm.CMMotionRemover) for frc in frclist):
                 dof -= 3
-            self._dof = dof
+            self._structures_sd.attrs['n_degrees_of_freedom'] = dof
+
+            if self._temperature_from_kinetic_energy:
+                self._structures_sd.attrs['temperature_from_kinetic_energy']=True
+                self._temperature=False
 
         if self._box:
             if system.usesPeriodicBoundaryConditions():
                 if  self._constant_box:
                     self._constant_box = True # Barostat needs to be checked
-                    self._structures_sd.attrs['constant_box']=True
-                    self._structures_sd.attrs['pbc']='continuous'
+                    self._structures_sd.attrs['constant_box'] = True
+                    self._structures_sd.attrs['pbc'] = 'continuous'
 
         if self._constant_report_interval:
-            self._structures_sd.attrs['constant_id_step']=True
-            self._structures_sd.attrs['id_step']=self._report_interval
+            self._structures_sd.attrs['constant_id_step'] = True
+            self._structures_sd.attrs['id_step'] = self._report_interval
             if self._constant_step_size:
                 self._step_size = integrator.getStepSize()
-                self._structures_sd.attrs['constant_time_step']=True
-                self._structures_sd.attrs['time_step']=(self._step_size.in_units_of(unit.picoseconds)._value)*self._report_interval
+                self._structures_sd.attrs['constant_time_step'] = True
+                self._structures_sd.attrs['time_step'] = (self._step_size.in_units_of(unit.picoseconds)._value)*self._report_interval
 
         if self._steps is not None:
 
@@ -171,7 +177,6 @@ class MSMH5Reporter(object):
                 self._structures_sd['temperature'].resize((self._n_structures,))
 
             self._structures_sd.attrs['n_structures']=self._n_structures
-            self._structures_sd.attrs['n_atoms']=self._n_atoms
 
         if self._include_initial_context:
             initial_state = simulation.context.getState(getPositions=self._needs_positions,
@@ -229,11 +234,6 @@ class MSMH5Reporter(object):
 
         if self._kinetic_energy:
             self._structures_sd['kinetic_energy'][index] = state.getKineticEnergy()._value
-
-        if self._temperature:
-            kinetic_energy = state.getKineticEnergy()
-            temperature = 2 * kinetic_energy / (self._dof * unit.MOLAR_GAS_CONSTANT_R)
-            self._structures_sd['temperature'][index] = temperature._value
 
         self._n_structures_reported += 1
         self._structures_sd.attrs['n_structures_written'] = self._n_structures_reported

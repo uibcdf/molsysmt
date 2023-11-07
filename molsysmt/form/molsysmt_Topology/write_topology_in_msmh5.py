@@ -40,8 +40,6 @@ def write_topology_in_msmh5(item, file, atom_indices='all'):
 
     atoms = file['topology']['atoms']
 
-    atoms.attrs['n_atoms'] = n_atoms
-
     atoms['id'].resize((n_atoms,))
     atoms['name'].resize((n_atoms,))
     atoms['type'].resize((n_atoms,))
@@ -61,7 +59,6 @@ def write_topology_in_msmh5(item, file, atom_indices='all'):
             n_groups = 0
 
     groups = file['topology']['groups']
-    groups.attrs['n_groups'] = n_groups
 
     if n_groups > 0:
 
@@ -95,7 +92,6 @@ def write_topology_in_msmh5(item, file, atom_indices='all'):
             n_components = 0
 
     components = file['topology']['components']
-    components.attrs['n_components'] = n_components
 
     if n_components > 0:
 
@@ -129,7 +125,6 @@ def write_topology_in_msmh5(item, file, atom_indices='all'):
             n_molecules = 0
 
     molecules = file['topology']['molecules']
-    molecules.attrs['n_molecules'] = n_molecules
 
     if n_molecules > 0:
 
@@ -163,7 +158,6 @@ def write_topology_in_msmh5(item, file, atom_indices='all'):
             n_entities = 0
 
     entities = file['topology']['entities']
-    entities.attrs['n_entities'] = n_entities
 
     if n_entities > 0:
 
@@ -198,7 +192,6 @@ def write_topology_in_msmh5(item, file, atom_indices='all'):
             n_chains = 0
 
     chains = file['topology']['chains']
-    chains.attrs['n_chains'] = n_chains
 
     if n_chains > 0:
 
@@ -233,7 +226,6 @@ def write_topology_in_msmh5(item, file, atom_indices='all'):
     n_bonds = bonds_df.shape[0]
 
     bonds = file['topology']['bonds']
-    bonds.attrs['n_bonds'] = n_bonds
 
     if n_bonds>0:
 

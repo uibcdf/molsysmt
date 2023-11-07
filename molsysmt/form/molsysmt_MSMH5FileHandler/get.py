@@ -14,40 +14,40 @@ form='molsysmt.MSMH5FileHandler'
 @digest(form=form)
 def get_atom_id_from_atom(item, indices='all'):
 
-    output = item.file['topology']['atoms']['id'][:].astype('int64')
-
-    if not is_all(indices):
-        output = output[indices]
+    if is_all(indices):
+        output = item.file['topology']['atoms']['id'][:].astype('int64')
+    else:
+        output = item.file['topology']['atoms']['id'][indices].astype('int64')
 
     return output
 
 @digest(form=form)
 def get_atom_name_from_atom(item, indices='all'):
 
-    output = item.file['topology']['atoms']['name'][:].astype('str')
-
-    if not is_all(indices):
-        output = output[indices]
+    if is_all(indices):
+        output = item.file['topology']['atoms']['name'][:].astype('str')
+    else:
+        output = item.file['topology']['atoms']['name'][indices].astype('str')
 
     return output
 
 @digest(form=form)
 def get_atom_type_from_atom(item, indices='all'):
 
-    output = item.file['topology']['atoms']['type'][:].astype('str')
-
-    if not is_all(indices):
-        output = output[indices]
+    if is_all(indices):
+        output = item.file['topology']['atoms']['type'][:].astype('str')
+    else:
+        output = item.file['topology']['atoms']['type'][indices].astype('str')
 
     return output
 
 @digest(form=form)
 def get_group_index_from_atom(item, indices='all'):
 
-    output = item.file['topology']['atoms']['group_index'][:].astype('int')
-
-    if not is_all(indices):
-        output = output[indices]
+    if is_all(indices):
+        output = item.file['topology']['atoms']['group_index'][:].astype('int')
+    else:
+        output = item.file['topology']['atoms']['group_index'][indices].astype('int')
 
     return output
 
@@ -55,18 +55,17 @@ def get_group_index_from_atom(item, indices='all'):
 def get_component_index_from_atom(item, indices='all'):
 
     group_index = get_group_index_from_atom(item, indices)
-    component_index_from_group = item.file['topology']['groups']['component_index'][:].astype('int')
-    output = component_index_from_group[group_index]
+    output = item.file['topology']['groups']['component_index'][group_index].astype('int')
 
     return output
 
 @digest(form=form)
 def get_chain_index_from_atom(item, indices='all'):
 
-    output = item.file['topology']['atoms']['chain_index'][:].astype('int')
-
-    if not is_all(indices):
-        output = output[indices]
+    if is_all(indices):
+        output = item.file['topology']['atoms']['chain_index'][:].astype('int')
+    else:
+        output = item.file['topology']['atoms']['chain_index'][indices].astype('int')
 
     return output
 
@@ -74,8 +73,7 @@ def get_chain_index_from_atom(item, indices='all'):
 def get_molecule_index_from_atom(item, indices='all'):
 
     component_index = get_component_index_from_atom(item, indices)
-    molecule_index_from_component = item.file['topology']['components']['molecule_index'][:].astype('int')
-    output = molecule_index_from_component[component_index]
+    output = item.file['topology']['components']['molecule_index'][component_index].astype('int')
 
     return output
 
@@ -83,8 +81,7 @@ def get_molecule_index_from_atom(item, indices='all'):
 def get_entity_index_from_atom(item, indices='all'):
 
     molecule_index = get_molecule_index_from_atom(item, indices)
-    entity_index_from_molecule = item.file['topology']['molecules']['entity_index'][:].astype('int')
-    output = entity_index_from_molecule[molecule_index]
+    output = item.file['topology']['molecules']['entity_index'][molecule_index].astype('int')
 
     return output
 
@@ -127,6 +124,26 @@ def get_coordinates_from_atom(item, indices='all', structure_indices='all'):
             output.append(item.file['structures']['coordinates'][ii,indices,:].astype('float'))
         output = np.array(output)
 
+    output = puw.quantity(output, item.file.attrs['length_unit'], standardized=True)
+
+    return output
+
+@digest(form=form)
+def get_velocities_from_atom(item, indices='all', structure_indices='all'):
+
+    if is_all(structure_indices):
+        if is_all(indices):
+            output = item.file['structures']['velocities'][:,:,:].astype('float')
+        else:
+            output = item.file['structures']['velocities'][:,indices,:].astype('float')
+    else:
+        output = []
+        for ii in structure_indices:
+            output.append(item.file['structures']['velocities'][ii,indices,:].astype('float'))
+        output = np.array(output)
+
+    output = puw.quantity(output, item.file.attrs['length_unit']+'/'+item.file.attrs['time_unit'], standardized=True)
+
     return output
 
 ## From group
@@ -134,140 +151,218 @@ def get_coordinates_from_atom(item, indices='all', structure_indices='all'):
 @digest(form=form)
 def get_group_id_from_group(item, indices='all'):
 
-    raise NotImplementedError
+    if is_all(indices):
+        output = item.file['topology']['groups']['id'][:].astype('int64')
+    else:
+        output = item.file['topology']['groups']['id'][indices].astype('int64')
+
+    return output
 
 @digest(form=form)
 def get_group_name_from_group(item, indices='all'):
 
-    raise NotImplementedError
+    if is_all(indices):
+        output = item.file['topology']['groups']['name'][:].astype('str')
+    else:
+        output = item.file['topology']['groups']['name'][indices].astype('str')
+
+    return output
 
 @digest(form=form)
 def get_group_type_from_group(item, indices='all'):
 
-    raise NotImplementedError
+    if is_all(indices):
+        output = item.file['topology']['groups']['type'][:].astype('str')
+    else:
+        output = item.file['topology']['groups']['type'][indices].astype('str')
+
+    return output
 
 ## From component
 
 @digest(form=form)
 def get_component_id_from_component(item, indices='all'):
 
-    raise NotImplementedError
+    if is_all(indices):
+        output = item.file['topology']['components']['id'][:].astype('int64')
+    else:
+        output = item.file['topology']['components']['id'][indices].astype('int64')
+
+    return output
 
 @digest(form=form)
 def get_component_name_from_component(item, indices='all'):
 
-    raise NotImplementedError
+    if is_all(indices):
+        output = item.file['topology']['components']['name'][:].astype('str')
+    else:
+        output = item.file['topology']['components']['name'][indices].astype('str')
+
+    return output
 
 @digest(form=form)
 def get_component_type_from_component(item, indices='all'):
 
-    raise NotImplementedError
+    if is_all(indices):
+        output = item.file['topology']['components']['type'][:].astype('str')
+    else:
+        output = item.file['topology']['components']['type'][indices].astype('str')
+
+    return output
 
 ## From molecule
 
 @digest(form=form)
 def get_molecule_id_from_molecule(item, indices='all'):
 
-    raise NotImplementedError
+    if is_all(indices):
+        output = item.file['topology']['molecules']['id'][:].astype('int')
+    else:
+        output = item.file['topology']['molecules']['id'][indices].astype('int')
+
+    return output
 
 @digest(form=form)
 def get_molecule_name_from_molecule(item, indices='all'):
 
-    raise NotImplementedError
+    if is_all(indices):
+        output = item.file['topology']['molecules']['name'][:].astype('str')
+    else:
+        output = item.file['topology']['molecules']['name'][indices].astype('str')
+
+    return output
 
 @digest(form=form)
 def get_molecule_type_from_molecule(item, indices='all'):
 
-    raise NotImplementedError
+    if is_all(indices):
+        output = item.file['topology']['molecules']['type'][:].astype('str')
+    else:
+        output = item.file['topology']['molecules']['type'][indices].astype('str')
 
+    return output
 
 ## From chain
 
 @digest(form=form)
 def get_chain_id_from_chain(item, indices='all'):
 
-    raise NotImplementedError
+    if is_all(indices):
+        output = item.file['topology']['chains']['id'][:].astype('int')
+    else:
+        output = item.file['topology']['chains']['id'][indices].astype('int')
+
+    return output
 
 @digest(form=form)
 def get_chain_name_from_chain(item, indices='all'):
 
-    raise NotImplementedError
+    if is_all(indices):
+        output = item.file['topology']['chains']['name'][:].astype('str')
+    else:
+        output = item.file['topology']['chains']['name'][indices].astype('str')
+
+    return output
 
 @digest(form=form)
 def get_chain_type_from_chain(item, indices='all'):
 
-    raise NotImplementedError
+    if is_all(indices):
+        output = item.file['topology']['chains']['type'][:].astype('str')
+    else:
+        output = item.file['topology']['chains']['type'][indices].astype('str')
 
+    return output
 
 ## From entity
 
 @digest(form=form)
 def get_entity_id_from_entity(item, indices='all'):
 
-    raise NotImplementedError
+    if is_all(indices):
+        output = item.file['topology']['entities']['id'][:].astype('int')
+    else:
+        output = item.file['topology']['entities']['id'][indices].astype('int')
+
+    return output
 
 @digest(form=form)
 def get_entity_name_from_entity(item, indices='all'):
 
-    raise NotImplementedError
+    if is_all(indices):
+        output = item.file['topology']['entities']['name'][:].astype('str')
+    else:
+        output = item.file['topology']['entities']['name'][indices].astype('str')
+
+    return output
 
 @digest(form=form)
 def get_entity_type_from_entity(item, indices='all'):
 
-    raise NotImplementedError
+    if is_all(indices):
+        output = item.file['topology']['entities']['type'][:].astype('str')
+    else:
+        output = item.file['topology']['entities']['type'][indices].astype('str')
 
+    if not is_all(indices):
+        output = output[indices]
+
+    return output
 
 ## From system
 
 @digest(form=form)
 def get_n_atoms_from_system(item):
 
-    output = item.file['topology']['atoms'].attrs['n_atoms']
+    output = item.file['topology']['atoms']['id'].shape[0]
 
     if output == 0:
-        output = item.file['structures'].attrs['n_atoms']
+        output = item.file['structures']['coordinates'].shape(1)
+
+    if output == 0:
+        output = item.file['structures']['velocities'].shape(1)
 
     return output
 
 @digest(form=form)
 def get_n_groups_from_system(item):
 
-    output = item.file['topology']['groups'].attrs['n_groups']
+    output = item.file['topology']['groups']['id'].shape[0]
 
     return output
 
 @digest(form=form)
 def get_n_components_from_system(item):
 
-    output = item.file['topology']['components'].attrs['n_components']
+    output = item.file['topology']['components']['id'].shape[0]
 
     return output
 
 @digest(form=form)
 def get_n_chains_from_system(item):
 
-    output = item.file['topology']['chains'].attrs['n_chains']
+    output = item.file['topology']['chains']['id'].shape[0]
 
     return output
 
 @digest(form=form)
 def get_n_molecules_from_system(item):
 
-    output = item.file['topology']['molecules'].attrs['n_molecules']
+    output = item.file['topology']['molecules']['id'].shape[0]
 
     return output
 
 @digest(form=form)
 def get_n_entities_from_system(item):
 
-    output = item.file['topology']['entities'].attrs['n_entities']
+    output = item.file['topology']['entities']['id'].shape[0]
 
     return output
 
 @digest(form=form)
 def get_n_bonds_from_system(item):
 
-    output = item.file['topology']['bonds'].attrs['n_bonds']
+    output = item.file['topology']['bonds']['atom1_index'].shape[0]
 
     return output
 
@@ -281,17 +376,111 @@ def get_n_structures_from_system(item, structure_indices='all'):
 @digest(form=form)
 def get_box_from_system(item, structure_indices='all'):
 
-    raise NotImplementedError
+    if item.file['structures'].attrs['constant_box']:
+        if is_all(structure_indices):
+            n_structures = item.file['structures'].attrs['n_structures_written']
+            output = item.file['structures']['box'][0,:,:]
+            output = np.repeat(output, n_structures)
+        else:
+            n_structures = len(structure_indices)
+            output = item.file['structures']['box'][0,:,:]
+            output = np.repeat(output, n_structures)
+    else:
+        if is_all(structure_indices):
+            output = item.file['structures']['box'][:,:,:]
+        else:
+            output = item.file['structures']['box'][structure_indices,:,:]
+
+    output = puw.quantity(output, item.file.attrs['length_unit'], standardized=True)
+
+    return output
 
 @digest(form=form)
 def get_time_from_system(item, structure_indices='all'):
 
-    raise NotImplementedError
+    if item.file['structures'].attrs['constant_time_step']:
+        init_time = item.file['structures']['time'][0]
+        time_step = item.file['structures'].attrs['time_step']
+        if is_all(structure_indices):
+            n_structures = item.file['structures'].attrs['n_structures_written']
+            output = init_time + time_step*np_arange(n_structures)
+        else:
+            output = init_time + time_step*structure_indices
+    else:
+        if is_all(structure_indices):
+            output = item.file['structures']['time'][:]
+        else:
+            output = item.file['structures']['time'][structure_indices]
+
+    output = puw.quantity(output, item.file.attrs['time_unit'], standardized=True)
+
+    return output
 
 @digest(form=form)
 def get_structure_id_from_system(item, structure_indices='all'):
 
-    raise NotImplementedError
+    if item.file['structures'].attrs['constant_id_step']:
+        init_id = item.file['structures']['id'][0]
+        id_step = item.file['structures'].attrs['id_step']
+        if is_all(structure_indices):
+            n_structures = item.file['structures'].attrs['n_structures_written']
+            output = init_id + id_step*np_arange(n_structures)
+        else:
+            output = init_id + id_step*structure_indices
+    else:
+        if is_all(structure_indices):
+            output = item.file['structures']['id'][:]
+        else:
+            output = item.file['structures']['id'][structure_indices]
+
+    return output
+
+@digest(form=form)
+def get_kinetic_energy_from_system(item, structure_indices='all'):
+
+    if is_all(structure_indices):
+        output = item.file['structures']['kinetic_energy'][:]
+    else:
+        output = item.file['structures']['kinetic_energy'][structure_indices]
+
+    output = puw.quantity(output, item.file.attrs['energy_unit'], standardized=True)
+
+    return output
+
+@digest(form=form)
+def get_potential_energy_from_system(item, structure_indices='all'):
+
+    if is_all(structure_indices):
+        output = item.file['structures']['potential_energy'][:]
+    else:
+        output = item.file['structures']['potential_energy'][structure_indices]
+
+    output = puw.quantity(output, item.file.attrs['energy_unit'], standardized=True)
+
+    return output
+
+@digest(form=form)
+def get_temperature_from_system(item, structure_indices='all'):
+
+    from openmm import unit
+
+    if item.file['structures'].attrs['temperature_from_kinetic_energy']:
+
+        kinetic_energy = get_kinetic_energy_from_system(item, structure_indices=structure_indices)
+        kinetic_energy = puw.convert(kinetic_energy, to_form='openmm.unit')
+        output = 2 * kinetic_energy / (item.file['structures'].attrs['n_degrees_of_freedom'] * unit.MOLAR_GAS_CONSTANT_R)
+        output = puw.standardize(output)
+
+    else:
+
+        if is_all(structure_indices):
+            output = item.file['structures']['temperature'][:]
+        else:
+            output = item.file['structures']['temperature'][structure_indices]
+
+        output = puw.quantity(output, item.file.attrs['temperature_unit'], standardized=True)
+
+    return output
 
 
 ## From bond
@@ -299,17 +488,42 @@ def get_structure_id_from_system(item, structure_indices='all'):
 @digest(form=form)
 def get_bond_order_from_bond(item, indices='all'):
 
-    raise NotImplementedError
+    output = item.file['topology']['bonds']['order'][:].astype('str')
+
+    if not is_all(indices):
+        output = output[indices]
+
+    return output
 
 @digest(form=form)
 def get_bond_type_from_bond(item, indices='all'):
 
-    raise NotImplementedError
+    output = item.file['topology']['bonds']['type'][:].astype('str')
+
+    if not is_all(indices):
+        output = output[indices]
+
+    return output
 
 @digest(form=form)
 def get_bonded_atoms_from_bond(item, indices='all'):
 
-    raise NotImplementedError
+    tmp_out = None
+
+    if is_all(indices):
+
+        atom1_index = item.file['topology']['bonds']['atom1_index'][:].astype('int64')
+        atom2_index = item.file['topology']['bonds']['atom2_index'][:].astype('int64')
+
+    else:
+
+        atom1_index = item.file['topology']['bonds']['atom1_index'][indices].astype('int64')
+        atom2_index = item.file['topology']['bonds']['atomw_index'][indices].astype('int64')
+
+    tmp_out = np.array([atom1_index, atom2_index])
+    tmp_out = np.sort(tmp_out)
+
+    return tmp_out
 
 
 #######################################################################################

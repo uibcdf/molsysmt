@@ -61,6 +61,11 @@ def _new_msmfile(filename, creator='MolSysMT', compression="gzip", compression_o
         time_unit=None, energy_unit=None, temperature_unit=None, charge_unit=None,
         mass_unit=None):
 
+    if int_precision=='single':
+        int_type=np.int32
+    elif int_precision=='double':
+        int_type=np.int64
+
     if float_precision=='single':
         float_type=np.float32
     elif float_precision=='double':
@@ -72,7 +77,7 @@ def _new_msmfile(filename, creator='MolSysMT', compression="gzip", compression_o
     file.attrs['type'] = "msmh5"
     file.attrs['creator'] = creator
     file.attrs['int_precision'] = int_precision
-    file.attrs['float_precision'] = int_precision
+    file.attrs['float_precision'] = float_precision
 
     if length_unit is None:
         file.attrs['length_unit']=puw.get_standard_units(dimensionality={'[L]':1}, form='string')
@@ -100,7 +105,7 @@ def _new_msmfile(filename, creator='MolSysMT', compression="gzip", compression_o
     else:
         file.attrs['charge_unit']=puw.get_unit(charge_unit, to_form='string')
 
-    if temperature_unit is None:
+    if mass_unit is None:
         file.attrs['mass_unit']=puw.get_standard_units(dimensionality={'[M]':1}, form='string')
     else:
         file.attrs['mass_unit']=puw.get_unit(mass_unit, to_form='string')
@@ -110,11 +115,6 @@ def _new_msmfile(filename, creator='MolSysMT', compression="gzip", compression_o
             'compression_opts':compression_opts,
             }
 
-    if int_precision=='single':
-        int_type=np.int32
-    elif int_precision=='double':
-        int_type=np.int64
-
     # Topology
 
     topology = file.create_group("topology")
@@ -122,7 +122,6 @@ def _new_msmfile(filename, creator='MolSysMT', compression="gzip", compression_o
     ## Atoms
 
     atoms = topology.create_group("atoms")
-    atoms.attrs['n_atoms'] = 0
 
     atoms.create_dataset('id', (0,), dtype=int_type, maxshape=(None,), **global_dataset_options)
     atoms.create_dataset('name', (0,), dtype=h5py.string_dtype(), maxshape=(None,), **global_dataset_options)
@@ -133,7 +132,6 @@ def _new_msmfile(filename, creator='MolSysMT', compression="gzip", compression_o
     ## Groups
 
     groups = topology.create_group("groups")
-    groups.attrs['n_groups'] = 0
 
     groups.create_dataset('id', (0,), dtype=int_type, maxshape=(None,), **global_dataset_options)
     groups.create_dataset('name', (0,), dtype=h5py.string_dtype(), maxshape=(None,), **global_dataset_options)
@@ -143,7 +141,6 @@ def _new_msmfile(filename, creator='MolSysMT', compression="gzip", compression_o
     ## Components
 
     components = topology.create_group("components")
-    components.attrs['n_components'] = 0
 
     components.create_dataset('id', (0,), dtype=int_type, maxshape=(None,), **global_dataset_options)
     components.create_dataset('name', (0,), dtype=h5py.string_dtype(), maxshape=(None,), **global_dataset_options)
@@ -153,7 +150,6 @@ def _new_msmfile(filename, creator='MolSysMT', compression="gzip", compression_o
     ## Molecules
 
     molecules = topology.create_group("molecules")
-    molecules.attrs['n_molecules'] = 0
 
     molecules.create_dataset('id', (0,), dtype=int_type, maxshape=(None,), **global_dataset_options)
     molecules.create_dataset('name', (0,), dtype=h5py.string_dtype(), maxshape=(None,), **global_dataset_options)
@@ -163,7 +159,6 @@ def _new_msmfile(filename, creator='MolSysMT', compression="gzip", compression_o
     ## Entities
 
     entities = topology.create_group("entities")
-    entities.attrs['n_entities'] = 0
 
     entities.create_dataset('id', (0,), dtype=int_type, maxshape=(None,), **global_dataset_options)
     entities.create_dataset('name', (0,), dtype=h5py.string_dtype(), maxshape=(None,), **global_dataset_options)
@@ -172,7 +167,6 @@ def _new_msmfile(filename, creator='MolSysMT', compression="gzip", compression_o
     ## Chains
 
     chains = topology.create_group("chains")
-    chains.attrs['n_chains'] = 0
 
     chains.create_dataset('id', (0,), dtype=int_type, maxshape=(None,), **global_dataset_options)
     chains.create_dataset('name', (0,), dtype=h5py.string_dtype(), maxshape=(None,), **global_dataset_options)
@@ -182,7 +176,6 @@ def _new_msmfile(filename, creator='MolSysMT', compression="gzip", compression_o
     ## Bonds
 
     bonds = topology.create_group("bonds")
-    bonds.attrs['n_bonds'] = 0
 
     bonds.create_dataset('atom1_index', (0,), dtype=int_type, maxshape=(None,), **global_dataset_options)
     bonds.create_dataset('atom2_index', (0,), dtype=int_type, maxshape=(None,), **global_dataset_options)
@@ -193,15 +186,16 @@ def _new_msmfile(filename, creator='MolSysMT', compression="gzip", compression_o
     # Structures
 
     structures_sd = file.create_group("structures")
-    structures_sd.attrs['n_atoms'] = 0
     structures_sd.attrs['n_structures'] = 0
     structures_sd.attrs['n_structures_written'] = 0
-    structures_sd.attrs['constant_time_step']=False
-    structures_sd.attrs['time_step']=0.0
-    structures_sd.attrs['constant_id_step']=False
-    structures_sd.attrs['id_step']=0
-    structures_sd.attrs['constant_box']=False
-    structures_sd.attrs['pbc']='none' # none, cell, mic, continuous
+    structures_sd.attrs['constant_time_step'] = False
+    structures_sd.attrs['time_step'] = 0.0
+    structures_sd.attrs['constant_id_step'] = False
+    structures_sd.attrs['id_step'] = 0
+    structures_sd.attrs['constant_box'] = False
+    structures_sd.attrs['pbc'] = 'none' # none, cell, mic, continuous
+    structures_sd.attrs['n_degrees_of_freedom'] = 0
+    structures_sd.attrs['temperature_from_kinetic_energy'] = False
 
     structures_sd.create_dataset('id', (0,), dtype=int_type, maxshape=(None,), **global_dataset_options)
     structures_sd.create_dataset('time', (0,), dtype=float_type, maxshape=(None,), **global_dataset_options)
