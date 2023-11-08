@@ -5,6 +5,7 @@
 from molsysmt._private.execfile import execfile
 from molsysmt._private.exceptions import NotImplementedMethodError, NotWithThisFormError
 from molsysmt._private.digestion import digest
+from molsysmt import pyunitwizard as puw
 
 form='molsysmt.MSMH5FileHandler'
 
@@ -377,11 +378,11 @@ def get_box_from_system(item, structure_indices='all'):
         if is_all(structure_indices):
             n_structures = item.file['structures'].attrs['n_structures_written']
             output = item.file['structures']['box'][0,:,:]
-            output = np.repeat(output, n_structures)
+            output = np.repeat(output[np.newaxis,:,:], n_structures, axis=0)
         else:
             n_structures = len(structure_indices)
             output = item.file['structures']['box'][0,:,:]
-            output = np.repeat(output, n_structures)
+            output = np.repeat(output[np.newaxis,:,:], n_structures, axis=0)
     else:
         if is_all(structure_indices):
             output = item.file['structures']['box'][:,:,:]
@@ -459,13 +460,13 @@ def get_potential_energy_from_system(item, structure_indices='all'):
 @digest(form=form)
 def get_temperature_from_system(item, structure_indices='all'):
 
-    from openmm import unit
+    constant_R = puw.get_constant('R')
 
     if item.file['structures'].attrs['temperature_from_kinetic_energy']:
 
         kinetic_energy = get_kinetic_energy_from_system(item, structure_indices=structure_indices)
         kinetic_energy = puw.convert(kinetic_energy, to_form='openmm.unit')
-        output = 2 * kinetic_energy / (item.file['structures'].attrs['n_degrees_of_freedom'] * unit.MOLAR_GAS_CONSTANT_R)
+        output = 2 * kinetic_energy / (item.file['structures'].attrs['n_degrees_of_freedom'] * constant_R)
         output = puw.standardize(output)
 
     else:

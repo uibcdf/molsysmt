@@ -247,8 +247,12 @@ def extract(item, atom_indices='all', structure_indices='all', output_filename=N
             output_file['topology']['bonds']['order'].resize((n_bonds,))
             output_file['topology']['bonds']['type'].resize((n_bonds,))
 
-            output_file['topology']['bonds']['atom1_index'][:] = input_file['topology']['bonds']['atom1_index'][mask]
-            output_file['topology']['bonds']['atom2_index'][:] = input_file['topology']['bonds']['atom2_index'][mask]
+            output_file['topology']['bonds']['atom1_index'][:] = np.searchsorted(atom_indices,
+                    input_file['topology']['bonds']['atom1_index'][mask].astype('int64'),
+                    side='left')
+            output_file['topology']['bonds']['atom2_index'][:] = np.searchsorted(atom_indices,
+                    input_file['topology']['bonds']['atom2_index'][mask].astype('int64'),
+                    side='left')
             output_file['topology']['bonds']['order'][:] = input_file['topology']['bonds']['order'][mask]
             output_file['topology']['bonds']['type'][:] = input_file['topology']['bonds']['type'][mask]
 
