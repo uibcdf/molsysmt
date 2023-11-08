@@ -1,4 +1,4 @@
-form_name = 'file:msmh5'
+form_name = 'file:h5msm'
 form_type = 'file'
 form_info = ["", ""]
 
@@ -16,7 +16,7 @@ from .get import *
 from .set import *
 from .iterators import StructuresIterator, TopologyIterator
 
-from .to_molsysmt_MSMH5FileHandler import to_molsysmt_MSMH5FileHandler
+from .to_molsysmt_H5MSMFileHandler import to_molsysmt_H5MSMFileHandler
 from .to_molsysmt_MolSys import to_molsysmt_MolSys
 from .to_molsysmt_MolSysNEW import to_molsysmt_MolSysNEW
 from .to_molsysmt_Topology import to_molsysmt_Topology
@@ -26,8 +26,8 @@ from .to_molsysmt_StructuresNEW import to_molsysmt_StructuresNEW
 from .to_nglview_NGLWidget import to_nglview_NGLWidget
 
 _convert_to={
-        'file:msmh5': extract,
-        'molsysmt.MSMH5FileHandler': to_molsysmt_MSMH5FileHandler,
+        'file:h5msm': extract,
+        'molsysmt.H5MSMFileHandler': to_molsysmt_H5MSMFileHandler,
         'molsysmt.MolSys': to_molsysmt_MolSys,
         'molsysmt.MolSysNEW': to_molsysmt_MolSysNEW,
         'molsysmt.Topology': to_molsysmt_Topology,

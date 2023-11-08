@@ -3,7 +3,7 @@ from molsysmt._private.variables import is_all
 from molsysmt import pyunitwizard as puw
 import numpy as np
 
-@digest(form='molsysmt.MSMH5FileHandler')
+@digest(form='molsysmt.H5MSMFileHandler')
 def to_molsysmt_Structures(item, atom_indices='all', structure_indices='all'):
 
     from molsysmt.native import Structures

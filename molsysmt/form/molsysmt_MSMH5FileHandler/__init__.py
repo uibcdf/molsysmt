@@ -1,4 +1,4 @@
-form_name = 'molsysmt.MSMH5FileHandler'
+form_name = 'molsysmt.H5MSMFileHandler'
 form_type = 'class'
 form_info = ["", ""]
 
@@ -25,7 +25,7 @@ from .to_molsysmt_StructuresNEW import to_molsysmt_StructuresNEW
 from .to_nglview_NGLWidget import to_nglview_NGLWidget
 
 _convert_to={
-        'molsysmt.MSMH5FileHandler': extract,
+        'molsysmt.H5MSMFileHandler': extract,
         'molsysmt.MolSys': to_molsysmt_MolSys,
         'molsysmt.MolSysNEW': to_molsysmt_MolSysNEW,
         'molsysmt.Topology': to_molsysmt_Topology,

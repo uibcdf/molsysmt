@@ -3,51 +3,51 @@ from molsysmt import pyunitwizard as puw
 import numpy as np
 
 @digest(form='molsysmt.StructuresNEW')
-def to_file_msmh5(item, atom_indices='all', structure_indices='all', output_filename=None,
+def to_file_h5msm(item, atom_indices='all', structure_indices='all', output_filename=None,
         compression='gzip', compression_opts=4, int_precision='single', float_precision='single'):
 
-    from molsysmt.native import MSMH5FileHandler
+    from molsysmt.native import H5MSMFileHandler
 
-    handler = MSMH5FileHandler(output_filename, io_mode='w', compression=compression,
+    handler = H5MSMFileHandler(output_filename, io_mode='w', compression=compression,
             compression_opts=compression_opts, int_precision=int_precision,
             float_precision=float_precision, closed=False)
 
-    _add_structures_to_msmh5(item, handler, atom_indices=atom_indices,
+    _add_structures_to_h5msm(item, handler, atom_indices=atom_indices,
             structure_indices=structure_indices)
 
     handler.close()
 
     return output_filename
 
-def _add_structures_to_msmh5(item, file, atom_indices='all', structure_indices='all'):
+def _add_structures_to_h5msm(item, file, atom_indices='all', structure_indices='all'):
 
     from h5py._hl.files import File as h5py_File
-    from molsysmt.native import MSMH5FileHandler
+    from molsysmt.native import H5MSMFileHandler
 
-    file_is_msmh5 = False
+    file_is_h5msm = False
     needs_to_be_closed = False
 
     if isinstance(file, h5py_File):
 
         if 'type' in file.attrs:
-            file_is_msmh5 = (file.attrs['type']=='msmh5')
+            file_is_h5msm = (file.attrs['type']=='h5msm')
 
-    elif isinstance(file, MSMH5FileHandler):
+    elif isinstance(file, H5MSMFileHandler):
 
             file = file.file
-            file_is_msmh5 = True
+            file_is_h5msm = True
 
     else:
 
-        from molsysmt.form.file_msmh5.is_form import is_form as is_file_msmh5_form
+        from molsysmt.form.file_h5msm.is_form import is_form as is_file_h5msm_form
 
-        file_is_msmh5 = is_file_msmh5_form(file)
+        file_is_h5msm = is_file_h5msm_form(file)
 
-        if file_is_msmh5:
+        if file_is_h5msm:
             file = h5py.File(file, "w")
             needs_to_be_closed = True
 
-    if not file_is_msmh5:
+    if not file_is_h5msm:
         raise ValueError
 
     int_precision = file.attrs['int_precision']

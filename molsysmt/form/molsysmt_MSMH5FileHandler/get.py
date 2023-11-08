@@ -7,7 +7,7 @@ from molsysmt._private.exceptions import NotImplementedMethodError, NotWithThisF
 from molsysmt._private.digestion import digest
 from molsysmt import pyunitwizard as puw
 
-form='molsysmt.MSMH5FileHandler'
+form='molsysmt.H5MSMFileHandler'
 
 
 ## From atom

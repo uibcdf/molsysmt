@@ -16,9 +16,9 @@ from .get import *
 from .set import *
 from .iterators import TopologyIterator
 
-from .to_file_msmh5 import to_file_msmh5
+from .to_file_h5msm import to_file_h5msm
 
 _convert_to={
         'molsysmt.TopologyNEW': extract,
-        'file:msmh5': to_file_msmh5,
+        'file:h5msm': to_file_h5msm,
         }

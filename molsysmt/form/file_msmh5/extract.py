@@ -3,7 +3,7 @@ from molsysmt._private.digestion import digest
 from molsysmt._private.variables import is_all
 import numpy as np
 
-@digest(form='file:msmh5')
+@digest(form='file:h5msm')
 def extract(item, atom_indices='all', structure_indices='all', output_filename=None, copy_if_all=True):
 
     if output_filename is None:
@@ -22,10 +22,10 @@ def extract(item, atom_indices='all', structure_indices='all', output_filename=N
             tmp_item = item
     else:
 
-        from .to_molsysmt_MSMH5FileHandler import to_molsysmt_MSMH5FileHandler
-        from molsysmt.native import MSMH5FileHandler
+        from .to_molsysmt_H5MSMFileHandler import to_molsysmt_H5MSMFileHandler
+        from molsysmt.native import H5MSMFileHandler
 
-        input_file_handler = to_molsysmt_MSMH5FileHandler(item)
+        input_file_handler = to_molsysmt_H5MSMFileHandler(item)
         input_file = input_file_handler.file
 
         int_precision = input_file_handler.file.attrs['int_precision']
@@ -37,7 +37,7 @@ def extract(item, atom_indices='all', structure_indices='all', output_filename=N
         charge_unit = input_file_handler.file.attrs['charge_unit']
         mass_unit = input_file_handler.file.attrs['mass_unit']
 
-        output_file_handler = MSMH5FileHandler(output_filename, io_mode='w',
+        output_file_handler = H5MSMFileHandler(output_filename, io_mode='w',
                 int_precision=int_precision, float_precision=float_precision,
                 length_unit=length_unit, time_unit=time_unit, energy_unit=energy_unit,
                 temperature_unit=temperature_unit, charge_unit=charge_unit,

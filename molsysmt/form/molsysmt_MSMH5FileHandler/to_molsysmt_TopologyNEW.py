@@ -2,7 +2,7 @@ from molsysmt._private.digestion import digest
 import pandas as pd
 import numpy as np
 
-@digest(form='molsysmt.MSMH5FileHandler')
+@digest(form='molsysmt.H5MSMFileHandler')
 def to_molsysmt_TopologyNEW(item, atom_indices='all'):
 
     from molsysmt.native import TopologyNEW

@@ -4,7 +4,7 @@ def digest_compression(compression, caller=None):
 
     if isinstance(compression, str):
 
-        if caller.endswith('to_file_msmh5'):
+        if caller.endswith('to_file_h5msm'):
             if compression in ['gzip', 'lzf', 'szip']:
                 return compression
 

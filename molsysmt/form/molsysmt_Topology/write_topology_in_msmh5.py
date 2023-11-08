@@ -1,35 +1,35 @@
 from molsysmt._private.digestion import digest
 
 @digest(form='molsysmt.Topology')
-def write_topology_in_msmh5(item, file, atom_indices='all'):
+def write_topology_in_h5msm(item, file, atom_indices='all'):
 
     from h5py._hl.files import File as h5py_File
-    from molsysmt.native import MSMH5FileHandler
+    from molsysmt.native import H5MSMFileHandler
 
-    file_is_msmh5 = False
+    file_is_h5msm = False
     needs_to_be_closed = False
 
     if isinstance(file, h5py_File):
 
         if 'type' in file.attrs:
-            file_is_msmh5 = (file.attrs['type']=='msmh5')
+            file_is_h5msm = (file.attrs['type']=='h5msm')
 
-    elif isinstance(file, MSMH5FileHandler):
+    elif isinstance(file, H5MSMFileHandler):
 
             file = file.file
-            file_is_msmh5 = True
+            file_is_h5msm = True
 
     else:
 
-        from molsysmt.form.file_msmh5.is_form import is_form as is_file_msmh5_form
+        from molsysmt.form.file_h5msm.is_form import is_form as is_file_h5msm_form
 
-        file_is_msmh5 = is_file_msmh5_form(file)
+        file_is_h5msm = is_file_h5msm_form(file)
 
-        if file_is_msmh5:
+        if file_is_h5msm:
             file = h5py.File(file, "w")
             needs_to_be_closed = True
 
-    if not file_is_msmh5:
+    if not file_is_h5msm:
         raise ValueError
 
     # Atoms

@@ -1,6 +1,6 @@
 from molsysmt._private.digestion import digest
 
-@digest(form='molsysmt.MSMH5FileHandler')
+@digest(form='molsysmt.H5MSMFileHandler')
 def to_nglview_NGLWidget(item, atom_indices='all', structure_indices='all'):
 
     from .to_molsysmt_MolSys import to_molsysmt_MolSys

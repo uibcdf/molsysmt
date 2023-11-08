@@ -4,7 +4,7 @@ import numpy as np
 import openmm as mm
 from openmm import unit
 
-class MSMH5Reporter(object):
+class H5MSMReporter(object):
 
     def __init__(self, file, reportInterval, steps, selection='all',
             topology=True, time=True, box=True, coordinates=True, velocities=False,
@@ -15,7 +15,7 @@ class MSMH5Reporter(object):
             int_precision='single', float_precision='single',
             auto_close=False, syntax='MolSysMT'):
 
-        from molsysmt.native import MSMH5FileHandler
+        from molsysmt.native import H5MSMFileHandler
 
         self._initialized = False
 
@@ -52,7 +52,7 @@ class MSMH5Reporter(object):
         self._n_structures = 0
         self._n_structures_reported = 0
 
-        self._file_handler = MSMH5FileHandler(file, io_mode='w', creator='OpenMM',
+        self._file_handler = H5MSMFileHandler(file, io_mode='w', creator='OpenMM',
                 compression=compression, compression_opts=compression_opts,
                 int_precision=int_precision, float_precision=float_precision,
                 length_unit='nm', time_unit='ps', energy_unit='kJ/mol',

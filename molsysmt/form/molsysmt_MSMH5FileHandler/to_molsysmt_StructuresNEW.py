@@ -2,7 +2,7 @@ from molsysmt._private.digestion import digest
 from molsysmt import pyunitwizard as puw
 import numpy as np
 
-@digest(form='molsysmt.MSMH5FileHandler')
+@digest(form='molsysmt.H5MSMFileHandler')
 def to_molsysmt_StructuresNEW(item, atom_indices='all', structure_indices='all'):
 
     from molsysmt.native import StructuresNEW

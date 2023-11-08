@@ -17,12 +17,12 @@ from .set import *
 from .iterators import StructuresIterator
 
 from .to_molsysmt_StructuresDict import to_molsysmt_StructuresDict
-from .to_file_msmh5 import to_file_msmh5
+from .to_file_h5msm import to_file_h5msm
 from .to_XYZ import to_XYZ
 
 _convert_to={
         'molsysmt.Structures': extract,
         'molsysmt.StructuresDict': to_molsysmt_StructuresDict,
-        'file:msmh5': to_file_msmh5,
+        'file:h5msm': to_file_h5msm,
         'XYZ': to_XYZ,
         }

@@ -1,7 +1,7 @@
 from molsysmt._private.exceptions import NotImplementedMethodError
 from molsysmt._private.digestion import digest
 
-@digest(form='file:msmh5')
+@digest(form='file:h5msm')
 def merge(items, atom_indices='all', structure_indices='all'):
 
     raise NotImplementedMethodError()

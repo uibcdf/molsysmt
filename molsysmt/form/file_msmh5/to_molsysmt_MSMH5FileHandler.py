@@ -1,8 +1,8 @@
 from molsysmt._private.digestion import digest
 
-@digest(form='file:msmh5')
-def to_molsysmt_MSMH5FileHandler(item, atom_indices='all'):
+@digest(form='file:h5msm')
+def to_molsysmt_H5MSMFileHandler(item, atom_indices='all'):
 
-    from molsysmt.native import MSMH5FileHandler
+    from molsysmt.native import H5MSMFileHandler
 
-    return MSMH5FileHandler(item, io_mode='r')
+    return H5MSMFileHandler(item, io_mode='r')

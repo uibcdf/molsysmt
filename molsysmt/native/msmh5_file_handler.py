@@ -2,9 +2,9 @@ import h5py
 import numpy as np
 from molsysmt import pyunitwizard as puw
 
-msmh5_version = "0.2"
+h5msm_version = "0.2"
 
-class MSMH5FileHandler():
+class H5MSMFileHandler():
 
     def __init__(self, filename, io_mode='r', creator='MolSysMT', compression="gzip", compression_opts=4,
             int_precision='single', float_precision='single', length_unit=None, time_unit=None, energy_unit=None,
@@ -44,11 +44,11 @@ class MSMH5FileHandler():
 
         try:
             topology_form = get_form(topology)
-            _dict_modules[topology_form].write_topology_in_msmh5(topology, file=self.file,
+            _dict_modules[topology_form].write_topology_in_h5msm(topology, file=self.file,
                     atom_indices=atom_indices)
         except:
             aux_topology = convert(topology, to_form='molsysmt.Topology', selection=atom_indices)
-            _dict_modules['molsysmt.Topology'].write_topology_in_msmh5(aux_topology, file=self.file,
+            _dict_modules['molsysmt.Topology'].write_topology_in_h5msm(aux_topology, file=self.file,
                     atom_indices=atom_indices)
             del(aux_topology)
 
@@ -73,8 +73,8 @@ def _new_msmfile(filename, creator='MolSysMT', compression="gzip", compression_o
 
     file = h5py.File(filename, "w")
 
-    file.attrs['version'] = msmh5_version
-    file.attrs['type'] = "msmh5"
+    file.attrs['version'] = h5msm_version
+    file.attrs['type'] = "h5msm"
     file.attrs['creator'] = creator
     file.attrs['int_precision'] = int_precision
     file.attrs['float_precision'] = float_precision

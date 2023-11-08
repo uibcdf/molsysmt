@@ -16,7 +16,7 @@ from .get import *
 from .set import *
 from .iterators import TopologyIterator
 
-from .write_topology_in_msmh5 import write_topology_in_msmh5
+from .write_topology_in_h5msm import write_topology_in_h5msm
 
 from .to_string_pdb_text import to_string_pdb_text
 from .to_file_pdb import to_file_pdb
