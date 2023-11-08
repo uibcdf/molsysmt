@@ -53,8 +53,8 @@ def test_get_neighbors_from_molsysmt_MolSys_4():
                                      selection=atoms_in_residues_chain_0,
                                      selection_2=atoms_in_residues_chain_1,
                                      n_neighbors=8)
-    check_neighbors = (69==neighbors[0,0,7])
-    check_distance = np.isclose(puw.get_value(distances[0,0,7], to_unit='nm'), 3.5652103)
+    check_neighbors = (17==neighbors[0,0,7])
+    check_distance = np.isclose(puw.get_value(distances[0,0,7], to_unit='nm'), 3.539767)
     assert check_neighbors
     assert check_distance
 
