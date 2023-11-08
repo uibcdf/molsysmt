@@ -121,6 +121,7 @@ devtools/playground/*
 !molsysmt/build/*
 !molsysmt/docs/contents/build/*
 !molsysmt/lib
+molsysmt/_version.py
 
 # pycharm
 .idea/
