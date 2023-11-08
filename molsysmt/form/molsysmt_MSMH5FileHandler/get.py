@@ -314,55 +314,52 @@ def get_entity_type_from_entity(item, indices='all'):
 @digest(form=form)
 def get_n_atoms_from_system(item):
 
-    output = item.file['topology']['atoms']['id'].shape[0]
+    output = item.file['topology'].attrs['n_atoms']
 
-    if output == 0:
-        output = item.file['structures']['coordinates'].shape(1)
-
-    if output == 0:
-        output = item.file['structures']['velocities'].shape(1)
+    if output==0:
+        output = item.file['structures'].attrs['n_atoms']
 
     return output
 
 @digest(form=form)
 def get_n_groups_from_system(item):
 
-    output = item.file['topology']['groups']['id'].shape[0]
+    output = item.file['topology'].attrs['n_groups']
 
     return output
 
 @digest(form=form)
 def get_n_components_from_system(item):
 
-    output = item.file['topology']['components']['id'].shape[0]
+    output = item.file['topology'].attrs['n_components']
 
     return output
 
 @digest(form=form)
 def get_n_chains_from_system(item):
 
-    output = item.file['topology']['chains']['id'].shape[0]
+    output = item.file['topology'].attrs['n_chains']
 
     return output
 
 @digest(form=form)
 def get_n_molecules_from_system(item):
 
-    output = item.file['topology']['molecules']['id'].shape[0]
+    output = item.file['topology'].attrs['n_molecules']
 
     return output
 
 @digest(form=form)
 def get_n_entities_from_system(item):
 
-    output = item.file['topology']['entities']['id'].shape[0]
+    output = item.file['topology'].attrs['n_entities']
 
     return output
 
 @digest(form=form)
 def get_n_bonds_from_system(item):
 
-    output = item.file['topology']['bonds']['atom1_index'].shape[0]
+    output = item.file['topology'].attrs['n_bonds']
 
     return output
 

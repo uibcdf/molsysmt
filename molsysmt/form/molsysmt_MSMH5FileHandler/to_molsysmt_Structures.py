@@ -12,10 +12,10 @@ def to_molsysmt_Structures(item, atom_indices='all', structure_indices='all'):
     n_atoms = structures_ds.attrs['n_atoms']
     n_structures = structures_ds.attrs['n_structures']
 
-    length_unit = puw.unit(structures_ds.attrs['length_unit'])
-    time_unit = puw.unit(structures_ds.attrs['time_unit'])
-    energy_unit = puw.unit(structures_ds.attrs['energy_unit'])
-    temperature_unit = puw.unit(structures_ds.attrs['temperature_unit'])
+    length_unit = puw.unit(item.file.attrs['length_unit'])
+    time_unit = puw.unit(item.file.attrs['time_unit'])
+    energy_unit = puw.unit(item.file.attrs['energy_unit'])
+    temperature_unit = puw.unit(item.file.attrs['temperature_unit'])
 
     standard_length_unit = puw.get_standard_units(length_unit)
     standard_time_unit = puw.get_standard_units(time_unit)

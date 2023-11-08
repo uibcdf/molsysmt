@@ -9,8 +9,8 @@ def to_molsysmt_Topology(item, atom_indices='all'):
 
     topology_ds = item.file['topology']
 
-    n_atoms = topology_ds['atoms'].attrs['n_atoms']
-    n_bonds = topology_ds['bonds'].attrs['n_bonds']
+    n_atoms = topology_ds.attrs['n_atoms']
+    n_bonds = topology_ds.attrs['n_bonds']
 
     tmp_item = Topology()
 

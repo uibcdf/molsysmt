@@ -177,6 +177,7 @@ class MSMH5Reporter(object):
                 self._structures_sd['temperature'].resize((self._n_structures,))
 
             self._structures_sd.attrs['n_structures']=self._n_structures
+            self._structures_sd.attrs['n_atoms']=self._n_atoms
 
         if self._include_initial_context:
             initial_state = simulation.context.getState(getPositions=self._needs_positions,

@@ -37,8 +37,10 @@ def write_topology_in_msmh5(item, file, atom_indices='all'):
     atoms_df = item.atoms_dataframe
 
     n_atoms = atoms_df.shape[0]
+    file['topology'].attrs['n_atoms'] = n_atoms
 
     atoms = file['topology']['atoms']
+
 
     atoms['id'].resize((n_atoms,))
     atoms['name'].resize((n_atoms,))
@@ -53,6 +55,7 @@ def write_topology_in_msmh5(item, file, atom_indices='all'):
     groups_df = atoms_df[['group_index', 'group_id', 'group_name', 'group_type', 'component_index']].drop_duplicates()
 
     n_groups = groups_df.shape[0]
+    file['topology'].attrs['n_groups'] = n_groups
 
     if n_groups==1:
         if groups_df['group_index'].iloc[0] == None:
@@ -86,6 +89,7 @@ def write_topology_in_msmh5(item, file, atom_indices='all'):
     components_df = atoms_df[['component_index', 'component_id', 'component_name', 'component_type', 'molecule_index']].drop_duplicates()
 
     n_components = components_df.shape[0]
+    file['topology'].attrs['n_components'] = n_components
 
     if n_components==1:
         if components_df['component_index'].iloc[0] == None:
@@ -119,6 +123,7 @@ def write_topology_in_msmh5(item, file, atom_indices='all'):
     molecules_df = atoms_df[['molecule_index', 'molecule_id', 'molecule_name', 'molecule_type', 'entity_index']].drop_duplicates()
 
     n_molecules = molecules_df.shape[0]
+    file['topology'].attrs['n_molecules'] = n_molecules
 
     if n_molecules==1:
         if molecules_df['molecule_index'].iloc[0] == None:
@@ -152,6 +157,7 @@ def write_topology_in_msmh5(item, file, atom_indices='all'):
     entities_df = atoms_df[['entity_index', 'entity_id', 'entity_name', 'entity_type']].drop_duplicates()
 
     n_entities = entities_df.shape[0]
+    file['topology'].attrs['n_entities'] = n_entities
 
     if n_entities==1:
         if entities_df['entity_index'].iloc[0] == None:
@@ -186,6 +192,7 @@ def write_topology_in_msmh5(item, file, atom_indices='all'):
     chains_df = atoms_df[['chain_index', 'chain_id', 'chain_name', 'chain_type']].drop_duplicates()
 
     n_chains = chains_df.shape[0]
+    file['topology'].attrs['n_chains'] = n_chains
 
     if n_chains==1:
         if chains_df['chain_index'].iloc[0] == None:
@@ -224,6 +231,7 @@ def write_topology_in_msmh5(item, file, atom_indices='all'):
     bonds_df = item.bonds_dataframe
 
     n_bonds = bonds_df.shape[0]
+    file['topology'].attrs['n_bonds'] = n_bonds
 
     bonds = file['topology']['bonds']
 

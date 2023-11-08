@@ -118,6 +118,13 @@ def _new_msmfile(filename, creator='MolSysMT', compression="gzip", compression_o
     # Topology
 
     topology = file.create_group("topology")
+    topology.attrs['n_atoms']=0
+    topology.attrs['n_groups']=0
+    topology.attrs['n_components']=0
+    topology.attrs['n_molecules']=0
+    topology.attrs['n_entities']=0
+    topology.attrs['n_chains']=0
+    topology.attrs['n_bonds']=0
 
     ## Atoms
 
@@ -186,6 +193,7 @@ def _new_msmfile(filename, creator='MolSysMT', compression="gzip", compression_o
     # Structures
 
     structures_sd = file.create_group("structures")
+    structures_sd.attrs['n_atoms'] = 0
     structures_sd.attrs['n_structures'] = 0
     structures_sd.attrs['n_structures_written'] = 0
     structures_sd.attrs['constant_time_step'] = False

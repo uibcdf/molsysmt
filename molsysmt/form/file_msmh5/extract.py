@@ -1,6 +1,7 @@
 from molsysmt._private.exceptions import NotImplementedMethodError
 from molsysmt._private.digestion import digest
 from molsysmt._private.variables import is_all
+import numpy as np
 
 @digest(form='file:msmh5')
 def extract(item, atom_indices='all', structure_indices='all', output_filename=None, copy_if_all=True):
@@ -22,6 +23,7 @@ def extract(item, atom_indices='all', structure_indices='all', output_filename=N
     else:
 
         from .to_molsysmt_MSMH5FileHandler import to_molsysmt_MSMH5FileHandler
+        from molsysmt.native import MSMH5FileHandler
 
         input_file_handler = to_molsysmt_MSMH5FileHandler(item)
         input_file = input_file_handler.file
@@ -36,7 +38,6 @@ def extract(item, atom_indices='all', structure_indices='all', output_filename=N
         mass_unit = input_file_handler.file.attrs['mass_unit']
 
         output_file_handler = MSMH5FileHandler(output_filename, io_mode='w',
-                compression=compression, compression_opts=compression_opts,
                 int_precision=int_precision, float_precision=float_precision,
                 length_unit=length_unit, time_unit=time_unit, energy_unit=energy_unit,
                 temperature_unit=temperature_unit, charge_unit=charge_unit,
@@ -48,6 +49,7 @@ def extract(item, atom_indices='all', structure_indices='all', output_filename=N
         if is_all(atom_indices):
 
             n_atoms = input_file['atoms'].shape[0]
+            output_file['topology'].attrs['n_atoms'] = n_atoms
 
             output_file['topology']['atoms']['id'].resize((n_atoms,))
             output_file['topology']['atoms']['name'].resize((n_atoms,))
@@ -62,6 +64,7 @@ def extract(item, atom_indices='all', structure_indices='all', output_filename=N
             output_file['topology']['atoms']['chain_index'][:] = input_file['topology']['atoms']['chain_index'][:]
 
             n_groups = input_file['groups'].shape[0]
+            output_file['topology'].attrs['n_groups'] = n_groups
 
             output_file['topology']['groups']['id'].resize((n_groups,))
             output_file['topology']['groups']['name'].resize((n_groups,))
@@ -74,6 +77,7 @@ def extract(item, atom_indices='all', structure_indices='all', output_filename=N
             output_file['topology']['groups']['component_index'][:] = input_file['topology']['groups']['component_index'][:]
 
             n_components = input_file['components'].shape[0]
+            output_file['topology'].attrs['n_components'] = n_components
 
             output_file['topology']['components']['id'].resize((n_components,))
             output_file['topology']['components']['name'].resize((n_components,))
@@ -86,6 +90,7 @@ def extract(item, atom_indices='all', structure_indices='all', output_filename=N
             output_file['topology']['components']['molecule_index'][:] = input_file['topology']['components']['molecule_index'][:]
 
             n_molecules = input_file['molecules'].shape[0]
+            output_file['topology'].attrs['n_molecules'] = n_molecules
 
             output_file['topology']['molecules']['id'].resize((n_molecules,))
             output_file['topology']['molecules']['name'].resize((n_molecules,))
@@ -98,6 +103,7 @@ def extract(item, atom_indices='all', structure_indices='all', output_filename=N
             output_file['topology']['molecules']['entity_index'][:] = input_file['topology']['molecules']['entity_index'][:]
 
             n_entities = input_file['entities'].shape[0]
+            output_file['topology'].attrs['n_entities'] = n_entities
 
             output_file['topology']['entities']['id'].resize((n_entities,))
             output_file['topology']['entities']['name'].resize((n_entities,))
@@ -108,6 +114,7 @@ def extract(item, atom_indices='all', structure_indices='all', output_filename=N
             output_file['topology']['entities']['type'][:] = input_file['topology']['entities']['type'][:]
 
             n_chains = input_file['chains'].shape[0]
+            output_file['topology'].attrs['n_chains'] = n_chains
 
             output_file['topology']['chains']['id'].resize((n_chains,))
             output_file['topology']['chains']['name'].resize((n_chains,))
@@ -118,6 +125,7 @@ def extract(item, atom_indices='all', structure_indices='all', output_filename=N
             output_file['topology']['chains']['type'][:] = input_file['topology']['chains']['type'][:]
 
             n_bonds = input_file['bonds'].shape[0]
+            output_file['topology'].attrs['n_bonds'] = n_bonds
 
             output_file['topology']['bonds']['atom1_index'].resize((n_bonds,))
             output_file['topology']['bonds']['atom2_index'].resize((n_bonds,))
@@ -132,6 +140,7 @@ def extract(item, atom_indices='all', structure_indices='all', output_filename=N
         else:
 
             n_atoms = len(atom_indices)
+            output_file['topology'].attrs['n_atoms'] = n_atoms
 
             output_file['topology']['atoms']['id'].resize((n_atoms,))
             output_file['topology']['atoms']['name'].resize((n_atoms,))
@@ -154,6 +163,7 @@ def extract(item, atom_indices='all', structure_indices='all', output_filename=N
             output_file['topology']['atoms']['chain_index'][:] = aux
 
             n_groups = len(group_indices)
+            output_file['topology'].attrs['n_groups'] = n_groups
 
             output_file['topology']['groups']['id'].resize((n_groups,))
             output_file['topology']['groups']['name'].resize((n_groups,))
@@ -170,6 +180,7 @@ def extract(item, atom_indices='all', structure_indices='all', output_filename=N
             output_file['topology']['groups']['component_index'][:] = aux
 
             n_components = len(component_indices)
+            output_file['topology'].attrs['n_components'] = n_components
 
             output_file['topology']['components']['id'].resize((n_components,))
             output_file['topology']['components']['name'].resize((n_components,))
@@ -180,28 +191,45 @@ def extract(item, atom_indices='all', structure_indices='all', output_filename=N
             output_file['topology']['components']['name'][:] = input_file['topology']['components']['name'][component_indices]
             output_file['topology']['components']['type'][:] = input_file['topology']['components']['type'][component_indices]
 
-            entity_indices, aux = np.unique(input_file['topology']['components']['molecule_index'][component_indices],
+            molecule_indices, aux = np.unique(input_file['topology']['components']['molecule_index'][component_indices],
                     return_inverse=True)
 
             output_file['topology']['components']['molecule_index'][:] = aux
 
+            n_molecules = len(molecule_indices)
+            output_file['topology'].attrs['n_molecules'] = n_molecules
+
+            output_file['topology']['molecules']['id'].resize((n_molecules,))
+            output_file['topology']['molecules']['name'].resize((n_molecules,))
+            output_file['topology']['molecules']['type'].resize((n_molecules,))
+            output_file['topology']['molecules']['entity_index'].resize((n_molecules,))
+
+            output_file['topology']['molecules']['id'][:] = input_file['topology']['molecules']['id'][component_indices]
+            output_file['topology']['molecules']['name'][:] = input_file['topology']['molecules']['name'][component_indices]
+            output_file['topology']['molecules']['type'][:] = input_file['topology']['molecules']['type'][component_indices]
+
+            entity_indices, aux = np.unique(input_file['topology']['molecules']['entity_index'][molecule_indices],
+                    return_inverse=True)
+
+            output_file['topology']['molecules']['entity_index'][:] = aux
+
             n_entities = len(entity_indices)
+            output_file['topology'].attrs['n_entities'] = n_entities
 
             output_file['topology']['entities']['id'].resize((n_entities,))
             output_file['topology']['entities']['name'].resize((n_entities,))
             output_file['topology']['entities']['type'].resize((n_entities,))
-            output_file['topology']['entities']['molecule_index'].resize((n_entities,))
 
             output_file['topology']['entities']['id'][:] = input_file['topology']['entities']['id'][entity_indices]
             output_file['topology']['entities']['name'][:] = input_file['topology']['entities']['name'][entity_indices]
             output_file['topology']['entities']['type'][:] = input_file['topology']['entities']['type'][entity_indices]
 
             n_chains = len(chain_indices)
+            output_file['topology'].attrs['n_chains'] = n_chains
 
             output_file['topology']['chains']['id'].resize((n_chains,))
             output_file['topology']['chains']['name'].resize((n_chains,))
             output_file['topology']['chains']['type'].resize((n_chains,))
-            output_file['topology']['chains']['component_index'].resize((n_chains,))
 
             output_file['topology']['chains']['id'][:] = input_file['topology']['chains']['id'][chain_indices]
             output_file['topology']['chains']['name'][:] = input_file['topology']['chains']['name'][chain_indices]
@@ -212,6 +240,7 @@ def extract(item, atom_indices='all', structure_indices='all', output_filename=N
             mask = mask1*mask2
 
             n_bonds = np.sum(mask)
+            output_file['topology'].attrs['n_bonds'] = n_bonds
 
             output_file['topology']['bonds']['atom1_index'].resize((n_bonds,))
             output_file['topology']['bonds']['atom2_index'].resize((n_bonds,))
@@ -270,6 +299,8 @@ def extract(item, atom_indices='all', structure_indices='all', output_filename=N
 
             if is_all(atom_indices):
 
+                output_file['structures'].attrs['n_atoms'] = input_file['structures'].attrs['n_atoms']
+
                 aux_n_structures, aux_n_atoms = input_file['structures']['coordinates'].shape[0:2]
                 if aux_n_structures:
                     output_file['structures']['coordinates'].resize((aux_n_structures,aux_n_atoms,3))
@@ -283,6 +314,7 @@ def extract(item, atom_indices='all', structure_indices='all', output_filename=N
             else:
 
                 aux_n_atoms = len(atom_indices)
+                output_file['structures'].attrs['n_atoms'] = aux_n_atoms
 
                 aux_n_structures = input_file['structures']['coordinates'].shape[0]
                 if aux_n_structures:
@@ -371,6 +403,7 @@ def extract(item, atom_indices='all', structure_indices='all', output_filename=N
 
             if is_all(atom_indices):
 
+                output_file['structures'].attrs['n_atoms'] = input_file['structures'].attrs['n_atoms']
                 aux_n_structures, aux_n_atoms = input_file['structures']['coordinates'].shape[0:2]
                 if aux_n_structures:
                     output_file['structures']['coordinates'].resize((n_structures,aux_n_atoms,3))
@@ -384,6 +417,7 @@ def extract(item, atom_indices='all', structure_indices='all', output_filename=N
             else:
 
                 n_atoms = len(atom_indices)
+                output_file['structures'].attrs['n_atoms'] = n_atoms
 
                 aux_n_structures = input_file['structures']['coordinates'].shape[0]
                 if aux_n_structures:
@@ -400,5 +434,5 @@ def extract(item, atom_indices='all', structure_indices='all', output_filename=N
         input_file_handler.close()
         output_file_handler.close()
 
-    return tmp_item
+    return output_filename
 
