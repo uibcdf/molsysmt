@@ -86,30 +86,12 @@ def get_entity_index_from_atom(item, indices='all'):
 
     return output
 
-@digest(form=form)
-def get_inner_bonded_atoms_from_atom(item, indices='all'):
 
-    if is_all(indices):
-
-        output = get_bonded_atoms_from_bond(item, indices='all')
-
-    else:
-
-        bond_indices = get_inner_bond_index_from_atom (item, indices=indices)
-        output = get_bonded_atoms_from_bond(item, indices=bond_indices)
-        del(bond_indices)
-
-    output = output[np.lexsort((output[:, 1], output[:, 0]))]
-
-    return(output)
 
 @digest(form=form)
-def get_n_inner_bonds_from_atom(item, indices='all'):
+def get_inner_bond_index_from_atom(item, indices='all'):
 
-    bond_indices = get_inner_bond_index_from_atom(item, indices=indices)
-    output = bond_indices.shape[0]
-    del(bond_indices)
-    return(output)
+    raise NotImplementedError
 
 @digest(form=form)
 def get_coordinates_from_atom(item, indices='all', structure_indices='all'):
@@ -516,7 +498,7 @@ def get_bonded_atoms_from_bond(item, indices='all'):
     else:
 
         atom1_index = item.file['topology']['bonds']['atom1_index'][indices].astype('int64')
-        atom2_index = item.file['topology']['bonds']['atomw_index'][indices].astype('int64')
+        atom2_index = item.file['topology']['bonds']['atom2_index'][indices].astype('int64')
 
     tmp_out = np.array([atom1_index, atom2_index])
     tmp_out = np.sort(tmp_out)

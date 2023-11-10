@@ -121,11 +121,11 @@ def select(molecular_system, selection='all', structure_indices='all', element='
         aux_item, aux_form = where_is_attribute(molecular_system, attribute)
         n_elements = getattr(_dict_modules[aux_form], f'get_{attribute}_from_system')(aux_item)
 
-        return np.arange(n_elements, dtype='int64')
+        return np.arange(n_elements, dtype='int64').tolist()
 
     elif isinstance(selection, (int, np.int64, np.int32)):
 
-        return np.array([selection])
+        return [selection]
 
     elif selection is None:
 
@@ -135,7 +135,7 @@ def select(molecular_system, selection='all', structure_indices='all', element='
 
         if all([isinstance(ii, (int, np.int32, np.int64)) for ii in selection]):
 
-            return np.array(selection)
+            return list(selection)
 
         else:
 
