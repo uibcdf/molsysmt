@@ -112,7 +112,8 @@ record.txt
 *.mod
 *.swp
 
-# JetBrains
+# VSCode
+.vscode
 .idea
 
 # In This Library
@@ -123,5 +124,3 @@ devtools/playground/*
 !molsysmt/lib
 molsysmt/_version.py
 
-# pycharm
-.idea/
