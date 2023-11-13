@@ -74,3 +74,6 @@ _view_from_htmlfiles=False
 if _sphinx_is_working:
     _view_from_htmlfiles=True
 
+# Optimization
+large_list_length = 10000
+
