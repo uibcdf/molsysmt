@@ -2,10 +2,7 @@ from molsysmt._private.digestion import digest
 from molsysmt._private.variables import is_all
 from molsysmt import pyunitwizard as puw
 import numpy as np
-from molsysmt._private.get import _get_index_from_element, _get_inf_index_from_element, _get_supr_index_from_element
-from molsysmt._private.get import _get_inf_attr_from_element, _get_supr_attr_from_element
-from molsysmt._private.get import _get_n_elements, _get_n_sup_from_element
-from molsysmt._private.get import _get_n_group_type_from_element, get_n_molecule_type_from_element
+from molsysmt._private.get import _auxiliary_getter
 from networkx import Graph
 
 form = 'molsysmt.TopologyNEW'
@@ -16,8 +13,7 @@ form = 'molsysmt.TopologyNEW'
 @digest(form=form)
 def get_atom_index_from_atom(item, indices='all'):
 
-    faux = get_atom_index_from_atom
-    return _get_index_from_element(faux.__module__, faux.__name__, item, indices)
+    return _auxiliary_getter(get_atom_index_from_atom, item, indices)
 
 
 @digest(form=form)
@@ -67,22 +63,19 @@ def get_group_index_from_atom(item, indices='all'):
 @digest(form=form)
 def get_group_id_from_atom(item, indices='all'):
 
-    faux = get_group_id_from_atom
-    return _get_supr_attr_from_element(faux.__module__, faux.__name__, item, indices)
+    return _auxiliary_getter(get_group_id_from_atom, item, indices)
 
 
 @digest(form=form)
 def get_group_name_from_atom(item, indices='all'):
 
-    faux = get_group_name_from_atom
-    return _get_supr_attr_from_element(faux.__module__, faux.__name__, item, indices)
+    return _get_supr_attr_from_element(get_group_name_from_atom, item, indices)
 
 
 @digest(form=form)
 def get_group_type_from_atom(item, indices='all'):
 
-    faux = get_group_type_from_atom
-    return _get_supr_attr_from_element(faux.__module__, faux.__name__, item, indices)
+    return _get_supr_attr_from_element(get_group_type_from_atom, item, indices)
 
 
 @digest(form=form)
@@ -98,22 +91,19 @@ def get_component_index_from_atom(item, indices='all'):
 @digest(form=form)
 def get_component_id_from_atom(item, indices='all'):
 
-    faux = get_component_id_from_atom
-    return _get_supr_attr_from_element(faux.__module__, faux.__name__, item, indices)
+    return _get_supr_attr_from_element(get_component_id_from_atom, item, indices)
 
 
 @digest(form=form)
 def get_component_name_from_atom(item, indices='all'):
 
-    faux = get_component_name_from_atom
-    return _get_supr_attr_from_element(faux.__module__, faux.__name__, item, indices)
+    return _get_supr_attr_from_element(get_component_name_from_atom, item, indices)
 
 
 @digest(form=form)
 def get_component_type_from_atom(item, indices='all'):
 
-    faux = get_component_type_from_atom
-    return _get_supr_attr_from_element(faux.__module__, faux.__name__, item, indices)
+    return _get_supr_attr_from_element(get_component_type_from_atom, item, indices)
 
 
 @digest(form=form)
@@ -129,22 +119,19 @@ def get_molecule_index_from_atom(item, indices='all'):
 @digest(form=form)
 def get_molecule_id_from_atom(item, indices='all'):
 
-    faux = get_molecule_id_from_atom
-    return _get_supr_attr_from_element(faux.__module__, faux.__name__, item, indices)
+    return _get_supr_attr_from_element(get_molecule_id_from_atom, item, indices)
 
 
 @digest(form=form)
 def get_molecule_name_from_atom(item, indices='all'):
 
-    faux = get_molecule_name_from_atom
-    return _get_supr_attr_from_element(faux.__module__, faux.__name__, item, indices)
+    return _get_supr_attr_from_element(get_molecule_name_from_atom, item, indices)
 
 
 @digest(form=form)
 def get_molecule_type_from_atom(item, indices='all'):
 
-    faux = get_molecule_type_from_atom
-    return _get_supr_attr_from_element(faux.__module__, faux.__name__, item, indices)
+    return _get_supr_attr_from_element(get_molecule_type_from_atom, item, indices)
 
 
 @digest(form=form)
@@ -160,22 +147,19 @@ def get_entity_index_from_atom(item, indices='all'):
 @digest(form=form)
 def get_entity_id_from_atom(item, indices='all'):
 
-    faux = get_entity_id_from_atom
-    return _get_supr_attr_from_element(faux.__module__, faux.__name__, item, indices)
+    return _get_supr_attr_from_element(get_entity_id_from_atom, item, indices)
 
 
 @digest(form=form)
 def get_entity_name_from_atom(item, indices='all'):
 
-    faux = get_entity_name_from_atom
-    return _get_supr_attr_from_element(faux.__module__, faux.__name__, item, indices)
+    return _get_supr_attr_from_element(get_entity_name_from_atom, item, indices)
 
 
 @digest(form=form)
 def get_entity_type_from_atom(item, indices='all'):
 
-    faux = get_entity_type_from_atom
-    return _get_supr_attr_from_element(faux.__module__, faux.__name__, item, indices)
+    return _get_supr_attr_from_element(get_entity_type_from_atom, item, indices)
 
 
 @digest(form=form)
@@ -192,22 +176,19 @@ def get_chain_index_from_atom(item, indices='all'):
 @digest(form=form)
 def get_chain_id_from_atom(item, indices='all'):
 
-    faux = get_chain_id_from_atom
-    return _get_supr_attr_from_element(faux.__module__, faux.__name__, item, indices)
+    return _get_supr_attr_from_element(get_chain_id_from_atom, item, indices)
 
 
 @digest(form=form)
 def get_chain_name_from_atom(item, indices='all'):
 
-    faux = get_chain_name_from_atom
-    return _get_supr_attr_from_element(faux.__module__, faux.__name__, item, indices)
+    return _get_supr_attr_from_element(get_chain_name_from_atom, item, indices)
 
 
 @digest(form=form)
 def get_chain_type_from_atom(item, indices='all'):
 
-    faux = get_chain_type_from_atom
-    return _get_supr_attr_from_element(faux.__module__, faux.__name__, item, indices)
+    return _get_supr_attr_from_element(get_chain_type_from_atom, item, indices)
 
 
 @digest(form=form)
@@ -324,38 +305,37 @@ def get_inner_bonded_atoms_from_atom(item, indices='all'):
 @digest(form=form)
 def get_n_atoms_from_atom(item, indices='all'):
 
-    faux = get_n_atoms_from_atom
-    return _get_n_elements(faux.__module__, faux.__name__, item, indices)
+    return _get_n_elements(get_n_atoms_from_atom, item, indices)
 
 
 @digest(form=form)
 def get_n_groups_from_atom(item, indices='all'):
 
-    return _get_n_sup_from_element(item, indices, 'group', 'atom')
+    return _get_n_sup_from_element(get_n_groups_from_atom, item, indices)
 
 
 @digest(form=form)
 def get_n_components_from_atom(item, indices='all'):
 
-    return _get_n_sup_from_element(item, indices, 'component', 'atom')
+    return _get_n_sup_from_element(get_n_components_from_atom, item, indices)
 
 
 @digest(form=form)
 def get_n_molecules_from_atom(item, indices='all'):
 
-    return _get_n_sup_from_element(item, indices, 'molecule', 'atom')
+    return _get_n_sup_from_element(get_n_molecules_from_atom, item, indices)
 
 
 @digest(form=form)
 def get_n_chains_from_atom(item, indices='all'):
 
-    return _get_n_sup_from_element(item, indices, 'chain', 'atom')
+    return _get_n_sup_from_element(get_n_chains_from_atom, item, indices)
 
 
 @digest(form=form)
 def get_n_entities_from_atom(item, indices='all'):
 
-    return _get_n_sup_from_element(item, indices, 'entity', 'atom')
+    return _get_n_sup_from_element(get_n_entities_from_atom, item, indices)
 
 
 @digest(form=form)
@@ -401,67 +381,66 @@ def get_n_inner_bonds_from_atom(item, indices='all'):
 @digest(form=form)
 def get_n_aminoacids_from_atom(item, indices='all'):
 
-    return _get_n_group_type_from_element(item, indices, 'aminoacid', 'atom')
+    return _get_n_group_type_from_element(get_n_aminoacids_from_atom, item, indices)
 
 
 @digest(form=form)
 def get_n_nucleotides_from_atom(item, indices='all'):
 
-    return _get_n_group_type_from_element(item, indices, 'nucleotide', 'atom')
+    return _get_n_group_type_from_element(get_n_nucleotides_from_atom, item, indices)
 
 
 @digest(form=form)
 def get_n_ions_from_atom(item, indices='all'):
 
-    return _get_n_group_type_from_element(item, indices, 'ion', 'atom')
+    return _get_n_group_type_from_element(get_n_ions_from_atom, item, indices)
 
 @digest(form=form)
 def get_n_waters_from_atom(item, indices='all'):
 
-    return _get_n_group_type_from_element(item, indices, 'water', 'atom')
+    return _get_n_group_type_from_element(get_n_waters_from_atom, item, indices)
 
 
 @digest(form=form)
 def get_n_small_molecules_from_atom(item, indices='all'):
 
-    return _get_n_molecule_type_from_element(item, indices, 'small molecule', 'atom')
+    return _get_n_molecule_type_from_element(get_n_small_molecules_from_atom, item, indices)
 
 @digest(form=form)
 def get_n_peptides_from_atom(item, indices='all'):
 
-    return _get_n_molecule_type_from_element(item, indices, 'peptide', 'atom')
+    return _get_n_molecule_type_from_element(get_n_peptides_from_atom, item, indices)
 
 @digest(form=form)
 def get_n_proteins_from_atom(item, indices='all'):
 
-    return _get_n_molecule_type_from_element(item, indices, 'protein', 'atom')
+    return _get_n_molecule_type_from_element(get_n_proteins_from_atom, item, indices)
 
 @digest(form=form)
 def get_n_dnas_from_atom(item, indices='all'):
 
-    return _get_n_molecule_type_from_element(item, indices, 'dna', 'atom')
+    return _get_n_molecule_type_from_element(get_n_dnas_from_atom, item, indices)
 
 @digest(form=form)
 def get_n_rnas_from_atom(item, indices='all'):
 
-    return _get_n_molecule_type_from_element(item, indices, 'rna', 'atom')
+    return _get_n_molecule_type_from_element(get_n_rnas_from_atom, item, indices)
 
 @digest(form=form)
 def get_n_lipids_from_atom(item, indices='all'):
 
-    return _get_n_molecule_type_from_element(item, indices, 'lipid', 'atom')
+    return _get_n_molecule_type_from_element(get_n_lipids_from_atoms, item, indices)
 
 @digest(form=form)
 def get_n_oligosaccharides_from_atom(item, indices='all'):
 
-    return _get_n_molecule_type_from_element(item, indices, 'oligosaccharide', 'atom')
+    return _get_n_molecule_type_from_element(get_n_oligosaccharides_from_atom, item, indices)
 
 
 @digest(form=form)
 def get_n_saccharides_from_atom(item, indices='all'):
 
-    return _get_n_molecule_type_from_element(item, indices, 'saccharide', 'atom')
-
+    return _get_n_molecule_type_from_element(get_n_saccharides_from_atom, item, indices)
 
 
 @digest(form=form)
@@ -513,6 +492,36 @@ def get_partial_charge_from_atom(item, indices='all'):
 # group
 
 @digest(form=form)
+def get_atom_index_from_group(item, indices='all'):
+
+    return _get_inf_index_from_element(get_atom_index_from_group, item, indices)
+
+
+@digest(form=form)
+def get_atom_id_from_group(item, indices='all'):
+
+    return get_inf_attr_from_element(get_atom_id_from_group, item, indices)
+
+
+@digest(form=form)
+def get_atom_name_from_group(item, indices='all'):
+
+    return get_inf_attr_from_element(get_atom_name_from_group, item, indices)
+
+
+@digest(form=form)
+def get_atom_type_from_group(item, indices='all'):
+
+    return get_inf_attr_from_element(get_atom_type_from_group, item, indices)
+
+
+@digest(form=form)
+def get_group_index_from_group(item, indices='all'):
+
+    return _get_index_from_element(get_group_index_from_group, item, indices)
+
+
+@digest(form=form)
 def get_group_id_from_group(item, indices='all'):
 
     if is_all(indices):
@@ -521,6 +530,7 @@ def get_group_id_from_group(item, indices='all'):
         output = item.groups['group_id'][indices].to_list()
 
     return output
+
 
 @digest(form=form)
 def get_group_name_from_group(item, indices='all'):
@@ -532,6 +542,7 @@ def get_group_name_from_group(item, indices='all'):
 
     return output
 
+
 @digest(form=form)
 def get_group_type_from_group(item, indices='all'):
 
@@ -539,6 +550,165 @@ def get_group_type_from_group(item, indices='all'):
         output = item.groups['group_type'].to_list()
     else:
         output = item.groups['group_type'][indices].to_list()
+
+    return output
+
+
+@digest(form=form)
+def get_component_index_from_group(item, indices='all'):
+
+    return _get_supr_index_from_element(get_component_index_from_group, item, indices)
+
+
+@digest(form=form)
+def get_component_id_from_group(item, indices='all'):
+
+    return _get_supr_attr_from_element(get_component_id_from_group, item, indices)
+
+
+@digest(form=form)
+def get_component_name_from_group(item, indices='all'):
+
+    return _get_supr_attr_from_element(get_component_name_from_group, item, indices)
+
+
+@digest(form=form)
+def get_component_type_from_group(item, indices='all'):
+
+    return _get_supr_attr_from_element(get_component_type_from_group, item, indices)
+
+
+@digest(form=form)
+def get_chain_index_from_group(item, indices='all'):
+
+    return _get_supr_index_from_element(get_chain_index_from_group, item, indices)
+
+
+@digest(form=form)
+def get_chain_id_from_group(item, indices='all'):
+
+    return _get_supr_attr_from_element(get_chain_id_from_group, item, indices)
+
+
+@digest(form=form)
+def get_chain_name_from_group(item, indices='all'):
+
+    return _get_supr_attr_from_element(get_chain_name_from_group, item, indices)
+
+
+@digest(form=form)
+def get_chain_type_from_group(item, indices='all'):
+
+    return _get_supr_attr_from_element(get_chain_type_from_group, item, indices)
+
+
+@digest(form=form)
+def get_molecule_index_from_group(item, indices='all'):
+
+    return _get_supr_index_from_element(get_molecule_index_from_group, item, indices)
+
+
+@digest(form=form)
+def get_molecule_id_from_group(item, indices='all'):
+
+    return _get_supr_attr_from_element(get_molecule_id_from_group, item, indices)
+
+
+@digest(form=form)
+def get_molecule_name_from_group(item, indices='all'):
+
+    return _get_supr_attr_from_element(get_molecule_name_from_group, item, indices)
+
+
+@digest(form=form)
+def get_molecule_type_from_group(item, indices='all'):
+
+    return _get_supr_attr_from_element(get_molecule_type_from_group, item, indices)
+
+
+@digest(form=form)
+def get_entity_index_from_group(item, indices='all'):
+
+    return _get_supr_index_from_element(get_entity_index_from_group, item, indices)
+
+
+@digest(form=form)
+def get_entity_id_from_group(item, indices='all'):
+
+    return _get_supr_attr_from_element(get_entity_id_from_group, item, indices)
+
+
+@digest(form=form)
+def get_entity_name_from_group(item, indices='all'):
+
+    return _get_supr_attr_from_element(get_entity_name_from_group, item, indices)
+
+
+@digest(form=form)
+def get_entity_type_from_group(item, indices='all'):
+
+    return _get_supr_attr_from_element(get_entity_type_from_group, item, indices)
+
+
+@digest(form=form)
+def get_n_atoms_from_group(item, indices='all'):
+
+    return _get_n_inf_from_element(get_n_atoms_from_group, item, indices)
+
+
+@digest(form=form)
+def get_n_groups_from_group(item, indices='all'):
+
+    return _get_n_elements(get_n_groups_from_group, item, indices)
+
+
+@digest(form=form)
+def get_n_components_from_group(item, indices='all'):
+
+    return _get_n_sup_from_element(get_n_components_from_group, item, indices)
+
+
+@digest(form=form)
+def get_n_molecules_from_group(item, indices='all'):
+
+    if indices is None:
+        return 0
+
+    if is_all(indices):
+        return get_n_molecules_from_system(item)
+    else:
+        output = get_molecule_index_from_group(item, indices=indices)
+        output = np.unique(output).shape[0]
+
+    return output
+
+
+@digest(form=form)
+def get_n_chains_from_group(item, indices='all'):
+
+    if indices is None:
+        return 0
+
+    if is_all(indices):
+        return get_n_chains_from_system(item)
+    else:
+        output = get_chain_index_from_group(item, indices=indices)
+        output = np.unique(output).shape[0]
+
+    return output
+
+
+@digest(form=form)
+def get_n_entities_from_group(item, indices='all'):
+
+    if indices is None:
+        return 0
+
+    if is_all(indices):
+        return get_n_entities_from_system(item)
+    else:
+        output = get_entity_index_from_group(item, indices=indices)
+        output = np.unique(output).shape[0]
 
     return output
 
