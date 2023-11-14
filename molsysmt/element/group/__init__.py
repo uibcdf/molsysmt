@@ -8,7 +8,20 @@ from . import lipid
 from . import saccharide
 from . import oligosaccharide
 
+from .is_group_type import is_group_type
 from .get_group_type_from_group_name import get_group_type_from_group_name
+
+_group_types = [
+        'water',
+        'ion',
+        'small molecule',
+        'amino acid',
+        'terminal capping',
+        'nucleotide',
+        'lipid',
+        'saccharide',
+        'oligosaccharide'
+        ]
 
 _singular_group_type_to_plural = {
     'water': 'waters',

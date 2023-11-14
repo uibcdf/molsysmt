@@ -16,6 +16,20 @@ from .get_molecule_type_from_group_names import get_molecule_type_from_group_nam
 from .get_molecule_type_from_sequence import get_molecule_type_from_sequence
 from .get_n_molecules_from_system import get_n_molecules_from_system
 
+from .is_molecule_type import is_molecule_type
+
+_component_types = [
+        'water',
+        'ion',
+        'small molecule',
+        'peptide',
+        'protein',
+        'dna',
+        'rna',
+        'lipid',
+        'oligosaccharide'
+        ]
+
 _singular_molecule_type_to_plural = {
     'water': 'waters',
     'ion': 'ions',
@@ -39,4 +53,5 @@ _plural_molecule_types_to_singular = {
     'lipids': 'lipid',
     'oligosaccharides': 'oligosaccharide',
 }
+
 
