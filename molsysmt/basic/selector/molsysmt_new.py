@@ -1,9 +1,7 @@
-from molsysmt._private.exceptions import NotImplementedMethodError, NotSupportedSyntaxError
-from molsysmt._private.digestion import digest
 import numpy as np
-from molsysmt._private.variables import is_all, is_iterable_of_iterables
+from molsysmt._private.variables import is_all
 from molsysmt._private.strings import get_parenthesis
-from molsysmt.element import _element_plural_to_singular, _element_index
+from molsysmt.element import _plural_elements_to_singular, _element_index
 from re import findall
 from inspect import stack, getargvalues
 
@@ -205,8 +203,8 @@ def select_in_elements_of(molecular_system, selection):
 
                     if 'in '+elements_2 in after:
 
-                        element_1 = _element_plural_to_singular[elements_1]
-                        element_2 = _element_plural_to_singular[elements_2]
+                        element_1 = _plural_elements_to_singular[elements_1]
+                        element_2 = _plural_elements_to_singular[elements_2]
 
                         bbefore, aafter = after.split('in '+elements_2)
 
@@ -246,7 +244,7 @@ def select_in_elements_of(molecular_system, selection):
 
             else:
 
-                element_1 = _element_plural_to_singular[elements_1]
+                element_1 = _plural_elements_to_singular[elements_1]
 
                 after = after.replace('of ', '')
 

@@ -8,14 +8,18 @@ from molsysmt.element.molecule import is_molecule_type
 import numpy as np
 import pandas as pd
 from networkx import Graph
+from importlib import import_module
 
-def _auxiliary_getter(function, item, indices):
+def _auxiliary_getter(function, item, indices='all'):
 
-    words = function.__name__.split('_')
+    module = import_module(function.__module__)
+    function_name = function.__name__
+
+    words = function_name.split('_')
 
     if 'n' == words[1]:
 
-        aux_word = function.__name__.split('get_n_')[-1].split('_from_')[0].replace('_', ' ')
+        aux_word = function_name.split('get_n_')[-1].split('_from_')[0].replace('_', ' ')
 
         if is_element(aux_word):
 
@@ -24,17 +28,17 @@ def _auxiliary_getter(function, item, indices):
 
             if involved_element == base_element:
 
-                return _get_n_elements(function.__module__, base_element, item, indices)
+                return _get_n_elements(module, base_element, item, indices)
 
             else:
 
                 if is_composed_of(base_element, involved_element):
 
-                    return _get_n_inf_from_element(function.__module__, involved_element, base_element, item, indices)
+                    return _get_n_inf_from_element(module, involved_element, base_element, item, indices)
 
                 else:
 
-                    return _get_n_sup_from_element(function.__module__, involved_element, base_element, item, indices)
+                    return _get_n_sup_from_element(module, involved_element, base_element, item, indices)
 
         elif is_group_type(aux_word):
 
@@ -42,7 +46,13 @@ def _auxiliary_getter(function, item, indices):
             if aux_word in _plural_group_types_to_singular:
                 aux_word = _plural_group_types_to_singular[aux_word]
 
-            return _get_n_group_type_from_element(function.__module__, aux_word, base_element, item, indices)
+            if base_element == 'system':
+
+                return _get_n_group_type_from_system(module, aux_word, item)
+
+            else:
+
+                return _get_n_group_type_from_element(module, aux_word, base_element, item, indices)
 
         elif is_molecule_type(aux_word):
 
@@ -50,9 +60,17 @@ def _auxiliary_getter(function, item, indices):
             if aux_word in _plural_molecule_types_to_singular:
                 aux_word = _plural_molecule_types_to_singular[aux_word]
 
-            return _get_n_molecule_type_from_element(function.__module__, aux_word, base_element, item, indices)
+            if base_element == 'system':
 
-            pass
+                return _get_n_molecule_type_from_system(module, aux_word, item)
+
+            else:
+
+                return _get_n_molecule_type_from_element(module, aux_word, base_element, item, indices)
+
+        else:
+
+            raise NotImplementedError
 
     elif 'index' == words[2]:
 
@@ -61,17 +79,17 @@ def _auxiliary_getter(function, item, indices):
 
         if involved_element == base_element:
 
-            return _get_index_from_element(function.__module__, base_element, item, indices)
+            return _get_index_from_element(module, base_element, item, indices)
 
         else:
 
             if is_composed_of(base_element, involved_element):
 
-                return _get_inf_index_from_element(function.__module__, involved_element, base_element, item, indices)
+                return _get_inf_index_from_element(module, involved_element, base_element, item, indices)
 
             else:
 
-                return _get_sup_index_from_element(function.__module__, involved_element, base_element, item, indices)
+                return _get_sup_index_from_element(module, involved_element, base_element, item, indices)
 
     elif is_element(words[1]):
 
@@ -87,38 +105,41 @@ def _auxiliary_getter(function, item, indices):
 
             if is_composed_of(base_element, involved_element):
 
-                return _get_inf_attr_from_element(function.__module__, involved_element, attribute, base_element, item,
+                return _get_inf_attr_from_element(module, involved_element, attribute, base_element, item,
                                                   indices)
 
             else:
 
-                return _get_sup_attr_from_element(function.__module__, involved_element, attribute, base_element, item,
+                return _get_sup_attr_from_element(module, involved_element, attribute, base_element, item,
                                                   indices)
 
-    elif function.__name__ == 'get_bond_index_from_atom':
+    elif function_name == 'get_bond_index_from_atom':
 
-        return _get_bond_index_from_atom(function.__module__, item, indices)
+        return _get_bond_index_from_atom(module, item, indices)
 
-    elif function.__name__ == 'get_bonded_atoms_from_atom':
+    elif function_name == 'get_bonded_atoms_from_atom':
 
-        return _get_bonded_atoms_from_atom(function.__module__, item, indices)
+        return _get_bonded_atoms_from_atom(module, item, indices)
 
-    elif function.__name__ == 'get_inner_bond_index_from_atom':
+    elif function_name == 'get_inner_bond_index_from_atom':
 
-        return _get_inner_bond_index_from_atom(function.__module__, item, indices)
+        return _get_inner_bond_index_from_atom(module, item, indices)
 
-    elif function.__name__ == 'get_inner_bonded_atoms_from_atom':
+    elif function_name == 'get_inner_bonded_atoms_from_atom':
 
-        return _get_inner_bonded_atoms_from_atom(function.__module__, item, indices)
+        return _get_inner_bonded_atoms_from_atom(module, item, indices)
 
-    elif function.__name__ == 'get_n_bonds_from_atom':
+    elif function_name == 'get_n_bonds_from_atom':
 
-        return _get_n_bonds_from_atom(function.__module__, item, indices)
+        return _get_n_bonds_from_atom(module, item, indices)
 
-    elif function.__name__ == 'get_n_inner_bonds_from_atom':
+    elif function_name == 'get_n_inner_bonds_from_atom':
 
-        return _get_n_inner_bonds_from_atom(function.__module__, item, indices)
+        return _get_n_inner_bonds_from_atom(module, item, indices)
 
+    else:
+
+        raise NotImplementedError
 
 
 # n elements
@@ -183,9 +204,9 @@ def _get_inf_index_from_element(module, involved_element, base_element, item, in
         serie = pd.Series(target_index)
         groups_serie = serie.groupby(serie).apply(lambda x: x.index.tolist())
         if is_all(indices):
-            output = [ii.tolist() for ii in groups_serie]
+            output = [ii for ii in groups_serie]
         else:
-            output = [groups_serie[ii].tolist() for ii in indices]
+            output = [groups_serie[ii] for ii in indices]
 
     else:
 
@@ -225,17 +246,17 @@ def _get_sup_index_from_element(module, involved_element, base_element, item, in
 def _get_inf_attr_from_element(module, involved_element, attribute, base_element, item, indices):
 
     get_1 = getattr(module, f'get_{involved_element}_index_from_{base_element}')
-    target_indices = get_1(item)
+    target_indices = get_1(item, indices=indices)
     get_2 = getattr(module, f'get_{involved_element}_{attribute}_from_{involved_element}')
 
     aux_unique_indices, aux_indices = np.unique(np.concatenate(target_indices), return_inverse=True)
     aux_vals = get_2(item, indices=aux_unique_indices)
-    aux_output = aux_vals[aux_indices]
+    aux_output = np.array(aux_vals)[aux_indices]
     output = []
     ii = 0
     for aux in target_indices:
         jj = ii+len(aux)
-        output.append(aux_output[ii:jj].to_lists())
+        output.append(aux_output[ii:jj].tolist())
         ii = jj
 
     del aux_unique_indices, aux_vals, aux_output, target_indices
@@ -269,7 +290,17 @@ def _get_n_group_type_from_element(module, group_type, element, item, indices):
     group_indices = get_1(item, indices=indices)
     group_indices = np.unique(group_indices)
     group_types = get_2(item, indices=group_indices)
-    output = (group_types == group_type).sum()
+    output = (np.array(group_types) == group_type).sum()
+
+    return output
+
+
+def _get_n_group_type_from_system(module, group_type, item):
+
+    get_1 = getattr(module, 'get_group_type_from_group')
+
+    group_types = get_1(item)
+    output = (np.array(group_types) == group_type).sum()
 
     return output
 
@@ -282,7 +313,17 @@ def _get_n_molecule_type_from_element(module, molecule_type, element, item, indi
     molecule_indices = get_1(item, indices=indices)
     molecule_indices = np.unique(molecule_indices)
     molecule_types = get_2(item, indices=molecule_indices)
-    output = (molecule_types == molecule_type).sum()
+    output = (np.array(molecule_types) == molecule_type).sum()
+
+    return output
+
+
+def _get_n_molecule_type_from_system(module, molecule_type, item):
+
+    get_1 = getattr(module, 'get_molecule_type_from_molecule')
+
+    molecule_types = get_1(item)
+    output = (np.array(molecule_types) == molecule_type).sum()
 
     return output
 
@@ -303,7 +344,8 @@ def _get_bond_index_from_atom(module, item, indices):
 
     if is_all(indices):
 
-        indices = get_atom_index_from_atom(item)
+        aux_get = getattr(module, 'get_atom_index_from_atom')
+        indices = aux_get(item)
 
     output = []
 
@@ -321,39 +363,6 @@ def _get_bond_index_from_atom(module, item, indices):
 
 
 def _get_bonded_atoms_from_atom(module, item, indices):
-
-    output = None
-
-    aux_get_1 = getattr(module, 'get_bonded_atoms_from_bond')
-    aux_get_2 = getattr(module, 'get_atom_index_from_atom')
-
-    G = Graph()
-    edges = aux_get_1(item)
-    G.add_edges_from(edges)
-
-    if is_all(indices):
-
-        indices = aux_get_2(item)
-
-    output = []
-
-    for ii in indices:
-        if ii in G:
-            output.append(np.array([n for n in G[ii]]))
-        else:
-            output.append(np.array([]))
-
-    output = np.array(output, dtype=object)
-
-    for ii in range(output.shape[0]):
-        output[ii] = np.sort(output[ii])
-
-    del G, edges
-
-    return output
-
-
-def _get_bonded_atoms_from_atom(module, item, indices='all'):
 
     output = None
 
@@ -410,6 +419,7 @@ def _get_inner_bonded_atoms_from_atom(module, item, indices):
 
     return output
 
+
 def _get_n_bonds_from_atom(module, item, indices):
 
     aux_get = getattr(module, 'get_bonded_atoms_from_bond')
@@ -418,7 +428,8 @@ def _get_n_bonds_from_atom(module, item, indices):
     output = len(bond_indices)
     del bond_indices
 
-    return(output)
+    return output
+
 
 def _get_n_inner_bonds_from_atom(module, item, indices):
 
@@ -428,9 +439,4 @@ def _get_n_inner_bonds_from_atom(module, item, indices):
     output = len(bond_indices)
     del bond_indices
 
-    return(output)
-
-
-
-
-
+    return output

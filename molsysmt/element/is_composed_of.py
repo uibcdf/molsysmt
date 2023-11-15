@@ -1,13 +1,12 @@
 def is_composed_of(element_1, element_2):
 
-    from molsysmt.element import _element_plural_to_singular
-    from molsysmt.element import _element_singular_to_plural
+    from molsysmt.element import _plural_elements_to_singular
 
-    if element_1 in _element_plural_to_singular:
-        element_1 = _element_plural_to_singular[element_1]
+    if element_1 in _plural_elements_to_singular:
+        element_1 = _plural_elements_to_singular[element_1]
 
-    if element_2 in _element_plural_to_singular:
-        element_2 = _element_plural_to_singular[element_2]
+    if element_2 in _plural_elements_to_singular:
+        element_2 = _plural_elements_to_singular[element_2]
 
     if element_1 == 'system':
         if element_2 in ['atom', 'group', 'component', 'molecule', 'entity', 'bond', 'chain']:

@@ -18,7 +18,7 @@ from .get_n_molecules_from_system import get_n_molecules_from_system
 
 from .is_molecule_type import is_molecule_type
 
-_component_types = [
+_molecule_types = [
         'water',
         'ion',
         'small molecule',

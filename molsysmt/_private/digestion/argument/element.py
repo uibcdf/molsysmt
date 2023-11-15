@@ -17,12 +17,12 @@ def digest_element(element, caller=None):
 
     """
 
-    from molsysmt.element import _elements, _element_plural_to_singular
+    from molsysmt.element import _elements, _plural_elements_to_singular
 
     if isinstance(element, str):
         element_name_lower = element.lower()
-        if element_name_lower in _element_plural_to_singular:
-            return _element_plural_to_singular[element_name_lower]
+        if element_name_lower in _plural_elements_to_singular:
+            return _plural_elements_to_singular[element_name_lower]
         if element_name_lower in _elements:
             return element_name_lower
     elif element is None:
