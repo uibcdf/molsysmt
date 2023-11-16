@@ -7,20 +7,20 @@ def to_molsysmt_StructuresNEW(item, atom_indices='all', structure_indices='all')
 
     from molsysmt.native import StructuresNEW
 
-    structures_ds = item.file['structures']
-
-    n_atoms = structures_ds.attrs['n_atoms']
-    n_structures = structures_ds.attrs['n_structures']
-
-    length_unit = puw.unit(structures_ds.attrs['length_unit'])
-    time_unit = puw.unit(structures_ds.attrs['time_unit'])
-    energy_unit = puw.unit(structures_ds.attrs['energy_unit'])
-    temperature_unit = puw.unit(structures_ds.attrs['temperature_unit'])
+    length_unit = puw.unit(item.file.attrs['length_unit'])
+    time_unit = puw.unit(item.file.attrs['time_unit'])
+    energy_unit = puw.unit(item.file.attrs['energy_unit'])
+    temperature_unit = puw.unit(item.file.attrs['temperature_unit'])
 
     standard_length_unit = puw.get_standard_units(length_unit)
     standard_time_unit = puw.get_standard_units(time_unit)
     standard_energy_unit = puw.get_standard_units(energy_unit)
     standard_temperature_unit = puw.get_standard_units(temperature_unit)
+
+    structures_ds = item.file['structures']
+
+    n_atoms = structures_ds.attrs['n_atoms']
+    n_structures = structures_ds.attrs['n_structures_written']
 
     tmp_item = StructuresNEW()
 
