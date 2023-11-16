@@ -1,5 +1,6 @@
 syntaxes = [
     'MolSysMT',
+    'MolSysMT_NEW',
     'Amber',
     'MDAnalysis',
     'MDTraj',

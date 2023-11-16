@@ -1,12 +1,14 @@
-from . import native
+from . import molsysmt
+from . import molsysmt_new
 from . import mdtraj
 from . import amber
 from . import nglview
 from . import mdanalysis
 
-
+## Selection Syntaxes
 _dict_select = {
-        'MolSysMT': native.select,
+        'MolSysMT': molsysmt.select,
+        'MolSysMT_NEW': molsysmt_new.select,
         'MDTraj': mdtraj.select,
         'Amber': amber.select,
         'NGLView': nglview.select,

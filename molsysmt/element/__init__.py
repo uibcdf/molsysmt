@@ -1,3 +1,13 @@
+from . import atom as atom
+from . import group as group
+from . import component as component
+from . import molecule as molecule
+from . import chain as chain
+from . import entity as entity
+
+from .is_element import is_element
+from .is_composed_of import is_composed_of
+
 _elements = [
         'atom',
         'group',
@@ -29,7 +39,7 @@ _element_index = {
         'bond': 'bond_index'
         }
 
-_element_plural_to_singular = {
+_plural_elements_to_singular = {
     'atoms': 'atom',
     'groups': 'group',
     'residue': 'group',
@@ -41,7 +51,7 @@ _element_plural_to_singular = {
     'bonds': 'bond',
 }
 
-_element_singular_to_plural = {
+_singular_element_to_plural = {
     'atom': 'atoms',
     'group': 'groups',
     'component': 'components',
@@ -50,12 +60,4 @@ _element_singular_to_plural = {
     'entity': 'entities',
     'bond': 'bonds',
 }
-
-
-from . import atom as atom
-from . import group as group
-from . import component as component
-from . import molecule as molecule
-from . import chain as chain
-from . import entity as entity
 

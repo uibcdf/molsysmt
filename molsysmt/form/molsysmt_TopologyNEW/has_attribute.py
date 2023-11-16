@@ -7,5 +7,4 @@ def has_attribute(molecular_system, attribute):
 
     output = attributes[attribute]
 
-    raise NotImplementedError
-
+    return output

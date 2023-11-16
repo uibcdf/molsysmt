@@ -2,13 +2,13 @@ from molsysmt._private.exceptions import NotImplementedMethodError, NotSupported
 from molsysmt._private.digestion import digest
 import numpy as np
 from molsysmt._private.variables import is_all, is_iterable_of_iterables
-from molsysmt.element import _element_singular_to_plural
+from molsysmt.element import _singular_element_to_plural
 from .selector import _dict_select, _dict_indices_to_selection
 
 
 @digest()
 def select(molecular_system, selection='all', structure_indices='all', element='atom',
-        mask=None, syntax='MolSysMT', to_syntax=None):
+           mask=None, syntax='MolSysMT', to_syntax=None):
     """
     Selecting elements in a molecular system
 
@@ -112,20 +112,20 @@ def select(molecular_system, selection='all', structure_indices='all', element='
 
     """
 
-    from molsysmt.basic import get, where_is_attribute
+    from molsysmt.basic import where_is_attribute
     from molsysmt.form import _dict_modules
 
     if is_all(selection):
 
-        attribute = 'n_'+_element_singular_to_plural[element]
+        attribute = 'n_'+_singular_element_to_plural[element]
         aux_item, aux_form = where_is_attribute(molecular_system, attribute)
         n_elements = getattr(_dict_modules[aux_form], f'get_{attribute}_from_system')(aux_item)
 
-        return np.arange(n_elements, dtype='int64')
+        return np.arange(n_elements, dtype='int64').tolist()
 
     elif isinstance(selection, (int, np.int64, np.int32)):
 
-        return np.array([selection])
+        return [selection]
 
     elif selection is None:
 
@@ -135,7 +135,7 @@ def select(molecular_system, selection='all', structure_indices='all', element='
 
         if all([isinstance(ii, (int, np.int32, np.int64)) for ii in selection]):
 
-            return np.array(selection)
+            return list(selection)
 
         else:
 
@@ -144,7 +144,7 @@ def select(molecular_system, selection='all', structure_indices='all', element='
             for tmp_selection in selection:
 
                 tmp_indices = select(molecular_system, selection=tmp_selection,
-                        structure_indices=structure_indices, element=element, syntax=syntax)
+                                     structure_indices=structure_indices, element=element, syntax=syntax)
 
                 output.append(tmp_indices)
 
@@ -160,7 +160,7 @@ def select(molecular_system, selection='all', structure_indices='all', element='
 
             raise NotSupportedSyntaxError()
 
-    if element=='atom':
+    if element == 'atom':
 
         output_indices = atom_indices
 
@@ -172,17 +172,18 @@ def select(molecular_system, selection='all', structure_indices='all', element='
 
             aux_item, aux_form = where_is_attribute(molecular_system, element+'_index')
             for aux_atom_indices in atom_indices:
-                temp_output_indices = getattr(_dict_modules[aux_form], f'get_{element}_index_from_atom')(aux_item, indices=aux_atom_indices)
+                temp_output_indices = getattr(_dict_modules[aux_form],
+                                              f'get_{element}_index_from_atom')(aux_item, indices=aux_atom_indices)
                 output_indices.append(np.unique(temp_output_indices))
-
 
         else:
 
-             aux_item, aux_form = where_is_attribute(molecular_system, element+'_index')
-             output_indices = getattr(_dict_modules[aux_form], f'get_{element}_index_from_atom')(aux_item, indices=atom_indices)
-             output_indices = np.unique(output_indices)
+            aux_item, aux_form = where_is_attribute(molecular_system, element+'_index')
+            output_indices = getattr(_dict_modules[aux_form], f'get_{element}_index_from_atom')(aux_item,
+                                                                                                indices=atom_indices)
+            output_indices = np.unique(output_indices)
 
-    elif element=='bond':
+    elif element == 'bond':
 
         aux_item, aux_form = where_is_attribute(molecular_system, 'inner_bond_index')
         output_indices = _dict_modules[aux_form].get_inner_bond_index_from_atom(aux_item, indices=atom_indices)
@@ -192,7 +193,7 @@ def select(molecular_system, selection='all', structure_indices='all', element='
         raise NotImplementedMethodError()
 
     if is_all(mask):
-        mask=None
+        mask = None
 
     if mask is not None:
         if isinstance(mask, str):
@@ -210,6 +211,4 @@ def select(molecular_system, selection='all', structure_indices='all', element='
         else:
             raise NotSupportedSyntaxError()
 
-
     return output
-
