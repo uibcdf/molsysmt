@@ -6,7 +6,7 @@ import numpy as np
 
 ## Atom
 
-@digest(form='molsysmt.Structures')
+@digest(form='molsysmt.StructuresNEW')
 def set_coordinates_to_atom(item, indices='all', structure_indices='all', value=None):
 
     if is_all(indices):
@@ -24,7 +24,7 @@ def set_coordinates_to_atom(item, indices='all', structure_indices='all', value=
 
     pass
 
-@digest(form='molsysmt.Structures')
+@digest(form='molsysmt.StructuresNEW')
 def set_velocities_to_atom(item, indices='all', structure_indices='all', value=None):
 
     if is_all(indices):
@@ -42,7 +42,7 @@ def set_velocities_to_atom(item, indices='all', structure_indices='all', value=N
 
     pass
 
-@digest(form='molsysmt.Structures')
+@digest(form='molsysmt.StructuresNEW')
 def set_occupancy_to_atom(item, indices='all', structure_indices='all', value=None):
 
     if is_all(indices):
@@ -58,7 +58,7 @@ def set_occupancy_to_atom(item, indices='all', structure_indices='all', value=No
 
     pass
 
-@digest(form='molsysmt.Structures')
+@digest(form='molsysmt.StructuresNEW')
 def set_b_factor_to_atom(item, indices='all', structure_indices='all', value=None):
 
     if is_all(indices):
@@ -77,7 +77,7 @@ def set_b_factor_to_atom(item, indices='all', structure_indices='all', value=Non
 
 ## System
 
-@digest(form='molsysmt.Structures')
+@digest(form='molsysmt.StructuresNEW')
 def set_structure_id_to_system(item, structure_indices='all', value=None):
 
     if is_all(structure_indices):
@@ -87,7 +87,7 @@ def set_structure_id_to_system(item, structure_indices='all', value=None):
 
     pass
 
-@digest(form='molsysmt.Structures')
+@digest(form='molsysmt.StructuresNEW')
 def set_time_to_system(item, structure_indices='all', value=None):
 
     if is_all(structure_indices):
@@ -97,7 +97,7 @@ def set_time_to_system(item, structure_indices='all', value=None):
 
     pass
 
-@digest(form='molsysmt.Structures')
+@digest(form='molsysmt.StructuresNEW')
 def set_box_to_system(item, structure_indices='all', value=None):
 
     if is_all(structure_indices):
@@ -107,14 +107,14 @@ def set_box_to_system(item, structure_indices='all', value=None):
 
     pass
 
-@digest(form='molsysmt.Structures')
+@digest(form='molsysmt.StructuresNEW')
 def set_coordinates_to_system(item, indices='all', structure_indices='all', value=None):
 
     return set_coordinates_to_atom(item, indices='all', structure_indices=structure_indices,
             value=value)
 
 
-@digest(form='molsysmt.Structures')
+@digest(form='molsysmt.StructuresNEW')
 def set_velocities_to_system(item, indices='all', structure_indices='all', value=None):
 
     return set_velocities_to_atom(item, indices='all', structure_indices=structure_indices,

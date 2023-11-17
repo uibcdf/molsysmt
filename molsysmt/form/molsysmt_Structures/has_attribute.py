@@ -1,6 +1,6 @@
 from molsysmt._private.digestion import digest
 
-@digest(form='molsysmt.Structures')
+@digest(form='molsysmt.StructuresNEW')
 def has_attribute(molecular_system, attribute):
 
     from . import attributes
@@ -16,7 +16,7 @@ def has_attribute(molecular_system, attribute):
             output = False
 
     elif attribute=='structure_id':
-        if molecular_system.structure_id is None:
+        if molecular_system.id is None:
             output = False
 
     elif attribute=='coordinates':

@@ -6,7 +6,7 @@ import numpy as np
 
 class StructuresIterator():
 
-    @digest(form='molsysmt.Structures')
+    @digest(form='molsysmt.StructuresNEW')
     def __init__(self, molecular_system, atom_indices='all', start=0, stop=None, step=1, chunk=1,
             structure_indices=None, output_type = 'values', **kwargs):
 
@@ -62,8 +62,8 @@ class StructuresIterator():
                     del(coordinates)
                 elif argument == 'time':
                     self._output_dictionary['time'] = self.time[indices]
-                elif argument == 'structure_id':
-                    self._output_dictionary['structure_id'] = indices
+                elif argument == 'id':
+                    self._output_dictionary['id'] = indices
                 elif argument == 'box':
                     self._output_dictionary['box'] = self.box[indices,:,:]
 

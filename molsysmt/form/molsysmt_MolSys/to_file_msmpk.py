@@ -1,6 +1,6 @@
 from molsysmt._private.digestion import digest
 
-@digest(form='molsysmt.MolSys')
+@digest(form='molsysmt.MolSysNEW')
 def to_file_msmpk(item, atom_indices='all', structure_indices='all', output_filename=None):
 
     from . import extract
