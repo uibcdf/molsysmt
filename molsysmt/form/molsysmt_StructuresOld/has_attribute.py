@@ -1,6 +1,6 @@
 from molsysmt._private.digestion import digest
 
-@digest(form='molsysmt.Structures')
+@digest(form='molsysmt.StructuresOld')
 def has_attribute(molecular_system, attribute):
 
     from . import attributes

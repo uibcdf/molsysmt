@@ -1,13 +1,13 @@
 from molsysmt._private.digestion import digest
 
-@digest(form='molsysmt.MolSys')
+@digest(form='molsysmt.MolSysOld')
 def to_file_psf(item, atom_indices='all', output_filename=None):
 
-    from .to_molsysmt_Topology import to_molsysmt_Topology as molsysmt_MolSys_to_molsysmt_Topology
-    from ..molsysmt_Topology import to_file_psf as molsysmt_Topology_to_file_psf
+    from .to_molsysmt_TopologyOld import to_molsysmt_TopologyOld as molsysmt_MolSysOld_to_molsysmt_TopologyOld
+    from ..molsysmt_TopologyOld import to_file_psf as molsysmt_TopologyOld_to_file_psf
 
-    tmp_item = molsysmt_MolSys_to_molsysmt_Topology(item, atom_indices=atom_indices)
-    tmp_item = molsysmt_Topology_to_file_psf(tmp_item, output_filename=output_filename)
+    tmp_item = molsysmt.MolSysOld_to_molsysmt_TopologyOld(item, atom_indices=atom_indices)
+    tmp_item = molsysmt_TopologyOld_to_file_psf(tmp_item, output_filename=output_filename)
 
     return tmp_item
 

@@ -3,7 +3,7 @@ from molsysmt._private.variables import is_all
 from molsysmt import pyunitwizard as puw
 import numpy as np
 
-form='molsysmt.Topology'
+form='molsysmt.TopologyOld'
 
 ###### Set
 

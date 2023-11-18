@@ -1,6 +1,6 @@
 from molsysmt._private.digestion import digest
 
-@digest(form='molsysmt.MolSys')
+@digest(form='molsysmt.MolSysOld')
 def to_openmm_Simulation(item, atom_indices='all', structure_indices='all'):
 
     from . import to_openmm_Topology

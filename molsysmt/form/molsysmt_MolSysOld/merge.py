@@ -2,12 +2,12 @@ from molsysmt._private.exceptions import NotImplementedMethodError
 from molsysmt._private.digestion import digest
 from molsysmt._private.variables import is_all
 
-@digest(form='molsysmt.MolSys')
+@digest(form='molsysmt.MolSysOld')
 def merge(items, atom_indices='all', structure_indices='all'):
 
-    from molsysmt.native import MolSys
-    from ..molsysmt_Topology import merge as merge_molsysmt_Topology
-    from ..molsysmt_Structures import merge as merge_molsysmt_Structures
+    from molsysmt.native import MolSysOld
+    from ..molsysmt_TopologyOld import merge as merge_molsysmt_TopologyOld
+    from ..molsysmt_StructuresOld import merge as merge_molsysmt_StructuresOld
     from ..molsysmt_MolecularMechanics import merge as merge_molsysmt_MolecularMechanics
 
     n_items = len(items)
@@ -24,9 +24,9 @@ def merge(items, atom_indices='all', structure_indices='all'):
     if len(structure_indices)!=n_items:
         raise ValueError(structure_indices)
 
-    output = MolSys()
-    output.topology = merge_molsysmt_Topology([ii.topology for ii in items], atom_indices=atom_indices)
-    output.structures = merge_molsysmt_Structures([ii.structures for ii in items],
+    output = MolSysOld()
+    output.topology = merge_molsysmt_TopologyOld([ii.topology for ii in items], atom_indices=atom_indices)
+    output.structures = merge_molsysmt_StructuresOld([ii.structures for ii in items],
             atom_indices=atom_indices, structure_indices=structure_indices)
     output.molecular_mechanics = merge_molsysmt_MolecularMechanics([ii.molecular_mechanics for ii in items],
             atom_indices=atom_indices)

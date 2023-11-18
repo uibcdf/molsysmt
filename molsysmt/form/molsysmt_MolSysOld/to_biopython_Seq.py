@@ -1,6 +1,6 @@
 from molsysmt._private.digestion import digest
 
-@digest(form='molsysmt.MolSys')
+@digest(form='molsysmt.MolSysOld')
 def to_biopython_Seq(item, group_indices='all'):
 
     from . import to_string_aminoacids1

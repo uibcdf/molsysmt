@@ -5,7 +5,7 @@ from molsysmt import pyunitwizard as puw
 import numpy as np
 from copy import deepcopy
 
-@digest(form='molsysmt.StructuresNEW')
+@digest(form='molsysmt.Structures')
 def merge(items, atom_indices='all', structure_indices='all'):
 
     from molsysmt.native import Structures

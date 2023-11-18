@@ -5,7 +5,7 @@ import numpy as np
 from molsysmt._private.get_topological_attributes import _auxiliary_getter
 import types
 
-form = 'molsysmt.TopologyNEW'
+form = 'molsysmt.Topology'
 
 
 #######################################################################

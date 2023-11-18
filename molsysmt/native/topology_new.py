@@ -110,7 +110,7 @@ class Bonds_DataFrame(pd.DataFrame):
         self.reset_index(drop=True, inplace=True)
 
 
-class TopologyNEW():
+class Topology():
 
     def __init__(self, n_atoms=0, n_bonds=0):
 
@@ -143,7 +143,7 @@ class TopologyNEW():
 
     def copy(self):
 
-        tmp_item = Topology2()
+        tmp_item = Topology()
 
         tmp_item.atoms = Atoms_DataFrame()
         tmp_item.groups = Groups_DataFrame()

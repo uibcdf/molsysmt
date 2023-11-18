@@ -2,7 +2,7 @@ from molsysmt._private.exceptions import LibraryNotFoundError
 from molsysmt._private.digestion import digest
 from molsysmt._private.variables import is_all
 
-@digest(form='molsysmt.Topology')
+@digest(form='molsysmt.TopologyOld')
 def to_openmm_Topology(item, box=None, atom_indices='all'):
 
     try:

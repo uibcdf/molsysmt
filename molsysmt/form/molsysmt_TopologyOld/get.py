@@ -5,7 +5,7 @@ from molsysmt import pyunitwizard as puw
 import numpy as np
 from networkx import Graph
 
-form='molsysmt.Topology'
+form='molsysmt.TopologyOld'
 
 ## From atom
 

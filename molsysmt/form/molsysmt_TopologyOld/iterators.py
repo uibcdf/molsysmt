@@ -6,7 +6,7 @@ from molsysmt._private.indices import indices_iterator
 
 class TopologyIterator():
 
-    @digest(form='molsysmt.Topology')
+    @digest(form='molsysmt.TopologyOld')
     def __init__(self, molecular_system, element='atom', indices='all', start=0, stop=None, step=1, chunk=1,
             output_type='values', **kwargs):
  

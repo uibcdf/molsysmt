@@ -1,6 +1,6 @@
 from molsysmt._private.digestion import digest
 
-@digest(form='molsysmt.MolSys')
+@digest(form='molsysmt.MolSysOld')
 def to_mdtraj_Topology(item, atom_indices='all'):
 
     from . import to_molsysmt_Topology

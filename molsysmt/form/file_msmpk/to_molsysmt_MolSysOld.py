@@ -1,0 +1,36 @@
+from molsysmt._private.digestion import digest
+
+@digest(form='file:msmpk')
+def to_molsysmt_MolSysOld(item, atom_indices='all', structure_indices='all'):
+
+    from ..molsysmt_MolSysOld import extract as extract_molsysmt_MolSysOld
+    from molsysmt import pyunitwizard as puw
+    import pickle
+    import bz2
+
+    fff = bz2.BZ2File(item,'rb')
+    tmp_item = pickle.load(fff)
+    fff.close()
+
+    # lengths with nm values and time in ps
+
+    if tmp_item.structures.coordinates is not None:
+        value = tmp_item.structures.coordinates
+        quantity = puw.quantity(value, 'nm')
+        tmp_item.structures.coordinates = puw.standardize(quantity)
+
+    if tmp_item.structures.box is not None:
+        value = tmp_item.structures.box
+        quantity = puw.quantity(value, 'nm')
+        tmp_item.structures.box = puw.standardize(quantity)
+
+    if tmp_item.structures.time is not None:
+        value = tmp_item.structures.time
+        quantity = puw.quantity(value, 'ps')
+        tmp_item.structures.time = puw.standardize(quantity)
+
+    tmp_item = extract_molsysmt_MolSysOld(tmp_item, atom_indices=atom_indices,
+            structure_indices=structure_indices, copy_if_all=False)
+
+    return tmp_item
+

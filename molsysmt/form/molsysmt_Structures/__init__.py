@@ -1,4 +1,4 @@
-form_name = 'molsysmt.StructuresNEW'
+form_name = 'molsysmt.Structures'
 form_type = 'class'
 form_info = ["", ""]
 
@@ -19,6 +19,6 @@ from .iterators import StructuresIterator
 from .to_file_h5msm import to_file_h5msm
 
 _convert_to={
-        'molsysmt.StructuresNEW': extract,
+        'molsysmt.Structures': extract,
         'file:h5msm': to_file_h5msm,
         }

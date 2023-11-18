@@ -1,7 +1,7 @@
 from molsysmt._private.digestion import digest
 import numpy as np
 
-@digest(form='molsysmt.Topology')
+@digest(form='molsysmt.TopologyOld')
 def to_string_aminoacids3(item, group_indices='all'):
 
     from . import get_group_name_from_group

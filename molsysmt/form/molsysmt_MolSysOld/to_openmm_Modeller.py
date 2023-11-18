@@ -1,7 +1,7 @@
 from molsysmt._private.digestion import *
 from molsysmt._private.exceptions import LibraryNotFoundError
 
-@digest(form='molsysmt.MolSys')
+@digest(form='molsysmt.MolSysOld')
 def to_openmm_Modeller(item, atom_indices='all', structure_indices='all'):
 
     try:

@@ -4,7 +4,7 @@ from molsysmt._private.variables import is_all
 from molsysmt import pyunitwizard as puw
 from copy import copy
 
-form='molsysmt.StructuresNEW'
+form='molsysmt.Structures'
 
 
 ## atom

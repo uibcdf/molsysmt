@@ -2,7 +2,7 @@ from molsysmt._private.exceptions import LibraryNotFoundError
 from molsysmt._private.digestion import digest
 import numpy as np
 
-@digest(form='molsysmt.Topology')
+@digest(form='molsysmt.TopologyOld')
 def to_pytraj_Topology(item, atom_indices='all'):
 
     try:

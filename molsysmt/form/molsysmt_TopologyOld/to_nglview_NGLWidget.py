@@ -1,6 +1,6 @@
 from molsysmt._private.digestion import digest
 
-@digest(form='molsysmt.Topology')
+@digest(form='molsysmt.TopologyOld')
 def to_nglview_NGLWidget(item, coordinates, box, atom_indices='all'):
 
     from . import to_molsysmt_MolSys

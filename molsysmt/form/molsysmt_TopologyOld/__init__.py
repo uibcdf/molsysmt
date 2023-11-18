@@ -1,4 +1,4 @@
-form_name = 'molsysmt.Topology'
+form_name = 'molsysmt.TopologyOld'
 form_type = 'class'
 form_info = ["", ""]
 
@@ -29,10 +29,10 @@ from .to_parmed_Structure import to_parmed_Structure
 from .to_pytraj_Topology import to_pytraj_Topology
 from .to_mdtraj_Topology import to_mdtraj_Topology
 from .to_nglview_NGLWidget import to_nglview_NGLWidget
-from .to_molsysmt_MolSys import to_molsysmt_MolSys
+from .to_molsysmt_MolSysOld import to_molsysmt_MolSysOld
 
 _convert_to={
-        'molsysmt.Topology': extract,
+        'molsysmt.TopologyOld': extract,
         'string:aminoacids1': to_string_aminoacids1,
         'string:aminoacids3': to_string_aminoacids3,
         'string:pdb_text': to_string_pdb_text,
@@ -44,5 +44,5 @@ _convert_to={
         'pytraj.Topology': to_pytraj_Topology,
         'mdtraj.Topology': to_mdtraj_Topology,
         'nglview.NGLWidget': to_nglview_NGLWidget,
-        'molsysmt.MolSys': to_molsysmt_MolSys,
+        'molsysmt.MolSysOld': to_molsysmt_MolSysOld,
         }

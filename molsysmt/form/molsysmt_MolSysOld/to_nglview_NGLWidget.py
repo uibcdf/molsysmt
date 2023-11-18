@@ -1,7 +1,7 @@
 from molsysmt._private.digestion import digest
 from molsysmt._private.variables import is_all
 
-@digest(form='molsysmt.MolSys')
+@digest(form='molsysmt.MolSysOld')
 def to_nglview_NGLWidget(item, atom_indices='all', structure_indices='all'):
 
     from nglview import show_molsysmt

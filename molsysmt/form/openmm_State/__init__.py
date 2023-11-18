@@ -17,11 +17,11 @@ from .set import *
 from .iterators import StructuresIterator, TopologyIterator
 
 from .to_XYZ import to_XYZ
-from .to_molsysmt_Structures import to_molsysmt_Structures
+from .to_molsysmt_StructuresOld import to_molsysmt_StructuresOld
 
 _convert_to={
         'openmm.State': extract,
-        'molsysmt.Structures': to_molsysmt_Structures,
+        'molsysmt.StructuresOld': to_molsysmt_StructuresOld,
         'XYZ': to_XYZ,
         }
 

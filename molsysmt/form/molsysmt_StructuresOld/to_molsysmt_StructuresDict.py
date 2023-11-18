@@ -1,6 +1,6 @@
 from molsysmt._private.digestion import digest
 
-@digest(form='molsysmt.Structures')
+@digest(form='molsysmt.StructuresOld')
 def to_molsysmt_StructuresDict(item, atom_indices='all', structure_indices='all'):
 
     from . import get_coordinates_from_atom, get_structure_id_from_system, get_time_from_system, get_box_from_system

@@ -19,9 +19,9 @@ from .iterators import StructuresIterator, TopologyIterator
 from .to_molsysmt_MolSys import to_molsysmt_MolSys
 from .to_molsysmt_Topology import to_molsysmt_Topology
 from .to_molsysmt_Structures import to_molsysmt_Structures
-from .to_molsysmt_MolSysNEW import to_molsysmt_MolSysNEW
-from .to_molsysmt_TopologyNEW import to_molsysmt_TopologyNEW
-from .to_molsysmt_StructuresNEW import to_molsysmt_StructuresNEW
+from .to_molsysmt_MolSysOld import to_molsysmt_MolSysOld
+from .to_molsysmt_TopologyOld import to_molsysmt_TopologyOld
+from .to_molsysmt_StructuresOld import to_molsysmt_StructuresOld
 from .to_nglview_NGLWidget import to_nglview_NGLWidget
 
 _convert_to={
@@ -29,9 +29,9 @@ _convert_to={
         'molsysmt.MolSys': to_molsysmt_MolSys,
         'molsysmt.Topology': to_molsysmt_Topology,
         'molsysmt.Structures': to_molsysmt_Structures,
-        'molsysmt.MolSysNEW': to_molsysmt_MolSysNEW,
-        'molsysmt.TopologyNEW': to_molsysmt_TopologyNEW,
-        'molsysmt.StructuresNEW': to_molsysmt_StructuresNEW,
+        'molsysmt.MolSysOld': to_molsysmt_MolSysOld,
+        'molsysmt.TopologyOld': to_molsysmt_TopologyOld,
+        'molsysmt.StructuresOld': to_molsysmt_StructuresOld,
         'nglview.NGLWidget': to_nglview_NGLWidget,
         }
 

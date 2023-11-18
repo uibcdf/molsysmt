@@ -1,6 +1,6 @@
 from molsysmt._private.digestion import digest
 
-@digest(form='molsysmt.Topology')
+@digest(form='molsysmt.TopologyOld')
 def to_string_pdb_text(item, atom_indices='all', coordinates=None, box=None):
 
     from . import to_openmm_Topology

@@ -1,6 +1,6 @@
 from molsysmt._private.digestion import digest
 
-@digest(form='molsysmt.MolSys')
+@digest(form='molsysmt.MolSysOld')
 def to_openmm_Context(item, atom_indices='all', structure_indices='all',
         forcefield='AMBER14', water_model=None, implicit_solvent=None,
         non_bonded_method='no cutoff', constraints='hbonds', switch_distance=None,

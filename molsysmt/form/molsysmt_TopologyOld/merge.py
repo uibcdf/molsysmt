@@ -4,10 +4,10 @@ from molsysmt._private.variables import is_all
 import pandas as pd
 import numpy as np
 
-@digest(form='molsysmt.Topology')
+@digest(form='molsysmt.TopologyOld')
 def merge(items, atom_indices='all'):
 
-    from molsysmt.native import Topology
+    from molsysmt.native import TopologyOld
     from . import get_n_atoms_from_system, get_n_groups_from_system, \
             get_n_components_from_system, get_n_chains_from_system, \
             get_n_molecules_from_system, get_n_entities_from_system, \
@@ -16,7 +16,7 @@ def merge(items, atom_indices='all'):
 
     n_items = len(items)
 
-    output = Topology()
+    output = TopologyOld()
 
 
     if is_all(atom_indices):

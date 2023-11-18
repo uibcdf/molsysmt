@@ -8,7 +8,7 @@ from .attributes import attributes
 from .has_attribute import has_attribute
 
 from .extract import extract
-from .copy import copy 
+from .copy import copy
 from .add import add
 from .merge import merge
 from .append_structures import append_structures
@@ -17,10 +17,10 @@ from .set import *
 from .iterators import StructuresIterator, TopologyIterator
 
 from .to_openmm_System import to_openmm_System
-from .to_molsysmt_Structures import to_molsysmt_Structures
+from .to_molsysmt_StructuresOld import to_molsysmt_StructuresOld
 
 _convert_to={
         'openmm.Context': extract,
         'openmm.System': to_openmm_System,
-        'molsysmt.Structures': to_molsysmt_Structures,
+        'molsysmt.StructuresOld': to_molsysmt_StructuresOld,
         }
