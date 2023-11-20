@@ -21,6 +21,8 @@ from .write_topology_in_h5msm import write_topology_in_h5msm
 from .to_string_pdb_text import to_string_pdb_text
 from .to_file_pdb import to_file_pdb
 from .to_file_psf import to_file_psf
+from .to_molsysmt_MolSys import to_molsysmt_MolSys
+from .to_molsysmt_Topology import to_molsysmt_Topology
 from .to_molsysmt_MolSysOld import to_molsysmt_MolSysOld
 from .to_molsysmt_TopologyOld import to_molsysmt_TopologyOld
 from .to_mdtraj_Topology import to_mdtraj_Topology
@@ -40,6 +42,8 @@ _convert_to={
         'string:pdb_text': to_string_pdb_text,
         'file:pdb': to_file_pdb,
         'file:psf': to_file_psf,
+        'molsysmt.MolSys': to_molsysmt_MolSys,
+        'molsysmt.Topology': to_molsysmt_Topology,
         'molsysmt.MolSysOld': to_molsysmt_MolSysOld,
         'molsysmt.TopologyOld': to_molsysmt_TopologyOld,
         'mdtraj.Topology': to_mdtraj_Topology,

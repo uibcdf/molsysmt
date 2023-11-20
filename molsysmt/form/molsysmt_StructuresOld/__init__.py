@@ -21,6 +21,7 @@ from .to_file_h5msm import to_file_h5msm
 from .to_XYZ import to_XYZ
 
 _convert_to={
+        'molsysmt.StructuresOld': extract,
         'molsysmt.StructuresDict': to_molsysmt_StructuresDict,
         'file:h5msm': to_file_h5msm,
         'XYZ': to_XYZ,
