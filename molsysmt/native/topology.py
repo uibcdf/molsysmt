@@ -7,8 +7,7 @@ class Atoms_DataFrame(pd.DataFrame):
     def __init__(self):
 
         columns = ['atom_name', 'atom_id', 'atom_type',
-                   'group_index', 'chain_index',
-                   'occupancy', 'alternate_location', 'b_factor', 'formal_charge', 'partial_charge']
+                   'group_index', 'chain_index']
 
         super().__init__(columns=columns)
 
@@ -177,15 +176,15 @@ class Topology():
         return tmp_item
 
 
-    def _build_components(self):
+    def rebuild_components(self):
 
         raise NotImplementedError
 
-    def _build_molecules(self):
+    def rebuild_molecules(self):
 
         raise NotImplementedError
 
-    def _build_entities(self):
+    def rebuild_entities(self):
 
         raise NotImplementedError
 
