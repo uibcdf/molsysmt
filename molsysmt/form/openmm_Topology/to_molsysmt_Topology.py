@@ -118,10 +118,9 @@ def to_molsysmt_Topology(item, atom_indices='all'):
 
     # nan to None
 
-    #tmp_item._nan_to_None()
+    tmp_item._fix_null_values()
+    tmp_item.bonds._sort_bonds()
 
-    # extract if atom_indices is not 'all'
-
-    #tmp_item = extract(tmp_item, atom_indices=atom_indices, copy_if_all=False)
+    tmp_item = tmp_item.extract(atom_indices=atom_indices, copy_if_all=False)
 
     return tmp_item

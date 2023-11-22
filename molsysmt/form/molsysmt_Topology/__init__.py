@@ -17,8 +17,10 @@ from .set import *
 from .iterators import TopologyIterator
 
 from .to_file_h5msm import to_file_h5msm
+from .to_networkx_Graph import to_networkx_Graph
 
 _convert_to={
         'molsysmt.Topology': extract,
         'file:h5msm': to_file_h5msm,
+        'networkx.Graph': to_networkx_Graph,
         }

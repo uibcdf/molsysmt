@@ -1,48 +1,63 @@
 import pandas as pd
-import numpy as np
+from molsysmt._private.variables import is_all
 
 
 class Atoms_DataFrame(pd.DataFrame):
 
     def __init__(self):
 
-        columns = ['atom_name', 'atom_id', 'atom_type',
-                   'group_index', 'chain_index']
+        columns = ['atom_id', 'atom_name', 'atom_type', 'group_index', 'chain_index']
 
         super().__init__(columns=columns)
 
-    def _nan_to_UNK(self):
+        self['atom_id'] = self['atom_id'].astype('Int64')
+        self['atom_name'] = self['atom_name'].astype(str)
+        self['atom_type'] = self['atom_type'].astype(str)
+        self['group_index'] = self['group_index'].astype('Int64')
+        self['chain_index'] = self['chain_index'].astype('Int64')
+
+    def _fix_null_values(self):
 
         for column in self:
-            self[column].where(self[column].notnull(), 'UNK', inplace=True)
+            self[column].fillna(pd.NA, inplace=True)
 
 
 class Groups_DataFrame(pd.DataFrame):
 
     def __init__(self):
 
-        columns = ['group_name', 'group_id', 'group_type', 'component_index']
+        columns = ['group_id', 'group_name', 'group_type', 'component_index']
 
         super().__init__(columns=columns)
 
-    def _nan_to_UNK(self):
+        self['group_id'] = self['group_id'].astype('Int64')
+        self['group_name'] = self['group_name'].astype(str)
+        self['group_type'] = self['group_type'].astype(str)
+        self['component_index'] = self['component_index'].astype('Int64')
+
+    def _fix_null_values(self):
 
         for column in self:
-            self[column].where(self[column].notnull(), 'UNK', inplace=True)
+            self[column].fillna(pd.NA, inplace=True)
 
 
 class Components_DataFrame(pd.DataFrame):
 
     def __init__(self):
 
-        columns = ['component_name', 'component_id', 'component_type', 'molecule_index']
+        columns = ['component_id', 'component_name', 'component_type', 'molecule_index']
 
         super().__init__(columns=columns)
 
-    def _nan_to_UNK(self):
+        self['component_id'] = self['component_id'].astype('Int64')
+        self['component_name'] = self['component_name'].astype(str)
+        self['component_type'] = self['component_type'].astype(str)
+        self['molecule_index'] = self['molecule_index'].astype('Int64')
+
+    def _fix_null_values(self):
 
         for column in self:
-            self[column].where(self[column].notnull(), 'UNK', inplace=True)
+            self[column].fillna(pd.NA, inplace=True)
 
 
 class Molecules_DataFrame(pd.DataFrame):
@@ -53,38 +68,51 @@ class Molecules_DataFrame(pd.DataFrame):
 
         super().__init__(columns=columns)
 
-    def _nan_to_UNK(self):
+        self['molecule_id'] = self['molecule_id'].astype('Int64')
+        self['molecule_name'] = self['molecule_name'].astype(str)
+        self['molecule_type'] = self['molecule_type'].astype(str)
+        self['entity_index'] = self['entity_index'].astype('Int64')
+
+    def _fix_null_values(self):
 
         for column in self:
-            self[column].where(self[column].notnull(), 'UNK', inplace=True)
+            self[column].fillna(pd.NA, inplace=True)
 
 
 class Entities_DataFrame(pd.DataFrame):
 
     def __init__(self):
 
-        columns = ['entity_name', 'entity_id', 'entity_type']
+        columns = ['entity_id', 'entity_name', 'entity_type']
 
         super().__init__(columns=columns)
 
-    def _nan_to_UNK(self):
+        self['entity_id'] = self['entity_id'].astype('Int64')
+        self['entity_name'] = self['entity_name'].astype(str)
+        self['entity_type'] = self['entity_type'].astype(str)
+
+    def _fix_null_values(self):
 
         for column in self:
-            self[column].where(self[column].notnull(), 'UNK', inplace=True)
+            self[column].fillna(pd.NA, inplace=True)
 
 
 class Chains_DataFrame(pd.DataFrame):
 
     def __init__(self):
 
-        columns = ['chain_name', 'chain_id', 'chain_type']
+        columns = ['chain_id', 'chain_name', 'chain_type']
 
         super().__init__(columns=columns)
 
-    def _nan_to_UNK(self):
+        self['chain_id'] = self['chain_id'].astype('Int64')
+        self['chain_name'] = self['chain_name'].astype(str)
+        self['chain_type'] = self['chain_type'].astype(str)
+
+    def _fix_null_values(self):
 
         for column in self:
-            self[column].where(self[column].notnull(), 'UNK', inplace=True)
+            self[column].fillna(pd.NA, inplace=True)
 
 
 class Bonds_DataFrame(pd.DataFrame):
@@ -95,23 +123,27 @@ class Bonds_DataFrame(pd.DataFrame):
 
         super().__init__(columns=columns)
 
-    def _nan_to_UNK(self):
+        self['atom1_index'] = self['atom1_index'].astype('Int64')
+        self['atom2_index'] = self['atom2_index'].astype('Int64')
+        self['order'] = self['order'].astype(str)
+        self['type'] = self['type'].astype(str)
+
+    def _fix_null_values(self):
 
         for column in self:
-            self[column].where(self[column].notnull(), 'UNK', inplace=True)
+            self[column].fillna(pd.NA, inplace=True)
 
     def _sort_bonds(self):
 
         self_mask = self['atom1_index'] > self['atom2_index']
-        self.update(self.loc[self_mask].rename({'atom1_index': 'atom2_index',
-                                      'atom2_index': 'atom1_index'}, axis=1))
+        self.update(self.loc[self_mask].rename({'atom1_index': 'atom2_index', 'atom2_index': 'atom1_index'}, axis=1))
         self.sort_values(by=['atom1_index', 'atom2_index'], inplace=True)
         self.reset_index(drop=True, inplace=True)
 
 
 class Topology():
 
-    def __init__(self, n_atoms=0, n_bonds=0):
+    def __init__(self, n_atoms=0, n_groups=0, n_components=0, n_molecules=0, n_entities=0, n_chains=0, n_bonds=0):
 
         self.atoms = Atoms_DataFrame()
         self.groups = Groups_DataFrame()
@@ -121,60 +153,39 @@ class Topology():
         self.chains = Chains_DataFrame()
         self.bonds = Bonds_DataFrame()
 
-    def extract(self, atom_indices='all'):
+    def extract(self, atom_indices='all', copy_if_all=False):
 
-        if type(atom_indices)==str:
+        if is_all(atom_indices):
 
-            if atom_indices in ['all', 'All', 'ALL']:
+            if copy_if_all:
+
                 return self.copy()
+
+            else:
+
+                return self
 
         else:
 
             raise NotImplementedError
 
-        return tmp_item
-
-
     def add(self, item, selection='all'):
 
         raise NotImplementedError
-
 
     def copy(self):
 
         tmp_item = Topology()
 
-        tmp_item.atoms = Atoms_DataFrame()
-        tmp_item.groups = Groups_DataFrame()
-        tmp_item.components = Components_DataFrame()
-        tmp_item.molecules = Molecules_DataFrame()
-        tmp_item.entities = Entities_DataFrame()
-        tmp_item.chains = Chains_DataFrame()
-        tmp_item.bonds = Bonds_DataFrame()
-
-        for column in self.atoms.columns:
-            tmp_item.atoms[column]=self.atoms[column].to_numpy()
-
-        for column in self.groups.columns:
-            tmp_item.groups[column]=self.groups[column].to_numpy()
-
-        for column in self.components.columns:
-            tmp_item.components[column]=self.components[column].to_numpy()
-
-        for column in self.molecules.columns:
-            tmp_item.molecules[column]=self.molecules[column].to_numpy()
-
-        for column in self.entities.columns:
-            tmp_item.entities[column]=self.entities[column].to_numpy()
-
-        for column in self.chains.columns:
-            tmp_item.chains[column]=self.chains[column].to_numpy()
-
-        for column in self.bonds_dataframe.columns:
-            tmp_item.bonds_dataframe[column]=self.bonds_dataframe[column].to_numpy()
+        tmp_item.atoms = self.atoms.copy()
+        tmp_item.groups = self.groups.copy()
+        tmp_item.components = self.components.copy()
+        tmp_item.molecules = self.molecules.copy()
+        tmp_item.entities = self.entities.copy()
+        tmp_item.chains = self.chains.copy()
+        tmp_item.bonds = self.bonds.copy()
 
         return tmp_item
-
 
     def rebuild_components(self):
 
@@ -192,13 +203,16 @@ class Topology():
 
         raise NotImplementedError
 
-    def _nan_to_None(self):
+    def _fix_null_values(self):
 
-        self.atoms._nan_to_None()
-        self.groups._nan_to_None()
-        self.components._nan_to_None()
-        self.molecules._nan_to_None()
-        self.entities._nan_to_None()
-        self.chains._nan_to_None()
-        self.bonds._nan_to_None()
+        self.atoms._fix_null_values()
+        self.groups._fix_null_values()
+        self.components._fix_null_values()
+        self.molecules._fix_null_values()
+        self.entities._fix_null_values()
+        self.chains._fix_null_values()
+        self.bonds._fix_null_values()
 
+    def _sort_bonds(self):
+
+        self.bonds._sort_bonds()
