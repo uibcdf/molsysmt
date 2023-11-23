@@ -187,9 +187,17 @@ class Topology():
 
         return tmp_item
 
+    def rebuild_groups(self):
+
+        from molsysmt.element.group import get_group_type
+
+        group_types_from_groups = get_group_type(self, element='group', redefine_types=True)
+
     def rebuild_components(self):
 
-        raise NotImplementedError
+        from molsysmt.element.component import get_component_index
+
+        component_indices_from_groups = get_component_index(self, element='group', redefine_indices=True)
 
     def rebuild_molecules(self):
 

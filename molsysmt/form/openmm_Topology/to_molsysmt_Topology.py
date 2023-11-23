@@ -104,9 +104,13 @@ def to_molsysmt_Topology(item, atom_indices='all'):
     del bond_atom1_array, bond_atom2_array
     del bond_order_array, bond_type_array
 
+    # groups
+
+    tmp_item.rebuild_groups()
+
     # components
 
-    #tmp_item._build_components()
+    tmp_item.rebuild_components()
 
     # molecules
 

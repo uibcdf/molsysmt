@@ -6,12 +6,12 @@ import numpy as np
 
 
 @digest()
-def get_component_index(molecular_system, element='atom', selection='all', redefine_components=False,
+def get_component_index(molecular_system, element='atom', selection='all', redefine_indices=False,
                         syntax='MolSysMT'):
 
     from molsysmt import get
 
-    if redefine_components:
+    if redefine_indices:
 
         from molsysmt import convert
 
@@ -39,12 +39,12 @@ def get_component_index(molecular_system, element='atom', selection='all', redef
         if element == 'atom':
 
             output = component_index_of_atoms.tolist()
-            del group_index
 
         elif element == 'group':
 
-            group_index_of_atoms = get(molecular_system, selection=selection, syntax=syntax, group_index=True)
-            group_index, first_atom_indices = np.unique(group_index_of_atoms)
+            group_index_of_atoms = get(molecular_system, element='atom', selection=selection, syntax=syntax,
+                                       group_index=True)
+            group_index, first_atom_indices = np.unique(group_index_of_atoms, return_index=True)
             output = component_index_of_atoms[first_atom_indices].tolist()
             del group_index, group_index_of_atoms
 

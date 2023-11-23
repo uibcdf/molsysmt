@@ -12,13 +12,13 @@ def get_component_type(molecular_system, element='atom', selection='all', redefi
         from molsysmt.basic import get
 
         component_indices = get_component_index(molecular_system, element='group',
-                                                selection=selection, redefine_components=True,
+                                                selection=selection, redefine_indices=True,
                                                 syntax=syntax)
 
         group_types = get(molecular_system, element='group', selection=selection,
                           syntax=syntax, group_name=True, group_type=True)
 
-
+        print(group_types)
 
         if element == 'atom':
             from molsysmt.basic import get
