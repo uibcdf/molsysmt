@@ -1,7 +1,6 @@
 from molsysmt._private.digestion import digest
 from molsysmt import pyunitwizard as puw
 from molsysmt.element.atom import get_atom_type_from_atom_name
-from molsysmt.element.group import get_group_type_from_group_name
 import numpy as np
 
 @digest(form='file:psf')

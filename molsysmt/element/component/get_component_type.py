@@ -6,51 +6,62 @@ import numpy as np
 def get_component_type(molecular_system, element='atom', selection='all', redefine_components=False,
                        redefine_types=False, syntax='MolSysMT'):
 
-    if redefine_components:
+    from molsysmt.basic import get
+    from .get_component_index import get_component_index
 
-        from .get_component_index import get_component_index
-        from molsysmt.basic import get
+    if redefine_components:
 
         component_indices = get_component_index(molecular_system, element='group',
                                                 selection=selection, redefine_indices=True,
                                                 syntax=syntax)
 
-        group_types = get(molecular_system, element='group', selection=selection,
-                          syntax=syntax, group_name=True, group_type=True)
+        group_names, group_types = get(molecular_system, element='group', selection=selection,
+                                       syntax=syntax, group_name=True, group_type=True)
 
-        print(group_types)
+        counts = np.unique(component_indices, return_counts=True)
+
+        component_types_from_component = []
+
+        kk=0
+        for count in counts:
+            ll=kk+count
+            component_type = _get_component_type_from_group_names_and_types(group_names[kk:ll], group_types[kk:ll])
+            component_types_from_component.append(component_type)
+            kk=ll
+
+        del group_names, group_types, counts
 
         if element == 'atom':
-            from molsysmt.basic import get
-            n_atoms = get(molecular_system, element='atom', selection=selection, syntax=syntax)
-            output = np.full(n_atoms, None, dtype=object).to_list()
+            aux = get(molecular_system, element='atom', selection=selection, syntax=syntax,
+                    component_index=True)
+            output = np.array(component_types_from_component, dtype=object)[aux].tolist()
         elif element == 'group':
-            from molsysmt.basic import get
-            n_groups = get(molecular_system, element='group', selection=selection, syntax=syntax)
-            output = np.full(n_groups, None, dtype=object).to_list()
+            aux = get(molecular_system, element='group', selection=selection, syntax=syntax,
+                    component_index=True)
+            output = np.array(component_types_from_component, dtype=object)[aux].tolist()
         elif element == 'component':
-            from .get_n_components import get_n_components
-            n_components = get_n_components(molecular_system, selection=selection, redefine_components=True,
-                                            syntax=syntax)
-            output = np.full(n_components, None, dtype=object).to_list()
+            output = component_types_from_component
         else:
             raise NotImplementedError
 
     elif redefine_types:
 
+        group_names, group_types = get(molecular_system, element='component', selection=selection,
+                                       syntax=syntax, group_name=True, group_type=True)
+
+        component_types_from_component =  [_get_component_type_from_group_names_and_types(ii, jj)
+                for ii,jj in zip(group_names, group_types)]
+
         if element == 'atom':
-            from molsysmt.basic import get
-            n_atoms = get(molecular_system, element='atom', selection=selection, syntax=syntax)
-            output = np.full(n_atoms, None, dtype=object).to_list()
+            aux = get(molecular_system, element='atom', selection=selection, syntax=syntax,
+                    component_index=True)
+            output = np.array(component_types_from_component, dtype=object)[aux].tolist()
         elif element == 'group':
-            from molsysmt.basic import get
-            n_groups = get(molecular_system, element='group', selection=selection, syntax=syntax)
-            output = np.full(n_groups, None, dtype=object).to_list()
+            aux = get(molecular_system, element='group', selection=selection, syntax=syntax,
+                    component_index=True)
+            output = np.array(component_types_from_component, dtype=object)[aux].tolist()
         elif element == 'component':
-            from .get_n_components import get_n_components
-            n_components = get_n_components(molecular_system, selection=selection, redefine_components=False,
-                                            syntax=syntax)
-            output = np.full(n_components, None, dtype=object).to_list()
+            output = component_types_from_component
         else:
             raise NotImplementedError
 

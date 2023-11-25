@@ -8,12 +8,12 @@ from . import rna
 from . import lipid
 from . import oligosaccharide
 
+from .is_component_type import is_component_type
 from .get_component_index import get_component_index
 from .get_component_id import get_component_id
 from .get_component_name import get_component_name
 from .get_component_type import get_component_type
 from .get_n_components import get_n_components
-from .is_component_type import is_component_type
 
 _component_types = [
         'water',

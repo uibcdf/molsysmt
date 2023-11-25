@@ -1,11 +1,11 @@
 from molsysmt._private.digestion import digest
-
+from molsysmt.element.group.get_group_type import _get_group_type_from_group_name
+import numpy as np
 
 @digest(form='openmm.Topology')
 def to_molsysmt_Topology(item, atom_indices='all'):
 
     from molsysmt.native import Topology
-    from numpy import empty
     from ..molsysmt_Topology import extract
 
     tmp_item = Topology()
@@ -17,11 +17,11 @@ def to_molsysmt_Topology(item, atom_indices='all'):
 
     # atoms
 
-    atom_name_array = empty(n_atoms, dtype=object)
-    atom_id_array = empty(n_atoms, dtype=int)
-    atom_type_array = empty(n_atoms, dtype=object)
-    group_index_array = empty(n_atoms, dtype=int)
-    chain_index_array = empty(n_atoms, dtype=int)
+    atom_name_array = np.empty(n_atoms, dtype=object)
+    atom_id_array = np.empty(n_atoms, dtype=int)
+    atom_type_array = np.empty(n_atoms, dtype=object)
+    group_index_array = np.empty(n_atoms, dtype=int)
+    chain_index_array = np.empty(n_atoms, dtype=int)
 
     index = 0
 
@@ -47,26 +47,32 @@ def to_molsysmt_Topology(item, atom_indices='all'):
 
     # groups
 
-    group_name_array = empty(n_groups, dtype=object)
-    group_id_array = empty(n_groups, dtype=int)
+    group_id_array = np.empty(n_groups, dtype=int)
+    group_name_array = np.empty(n_groups, dtype=object)
 
     index = 0
 
+    aux_dict = {}
+
     for residue in item.residues():
 
-        group_name_array[index] = residue.name
         group_id_array[index] = residue.id
+        group_name_array[index] = residue.name
+
+        if residue.name not in aux_dict:
+            aux_dict[residue.name] = _get_group_type_from_group_name(residue.name)
 
         index += 1
 
-    tmp_item.groups["group_name"] = group_name_array
     tmp_item.groups["group_id"] = group_id_array
+    tmp_item.groups["group_name"] = group_name_array
+    tmp_item.groups["group_type"] = np.array([aux_dict[ii] for ii in group_name_array], dtype=object)
 
     del group_id_array, group_name_array
 
     # chains
 
-    chain_name_array = empty(n_chains, dtype=object)
+    chain_name_array = np.empty(n_chains, dtype=object)
 
     index = 0
 
@@ -80,10 +86,10 @@ def to_molsysmt_Topology(item, atom_indices='all'):
 
     # bonds
 
-    bond_atom1_array = empty(n_bonds, dtype=int)
-    bond_atom2_array = empty(n_bonds, dtype=int)
-    bond_type_array = empty(n_bonds, dtype=object)
-    bond_order_array = empty(n_bonds, dtype=object)
+    bond_atom1_array = np.empty(n_bonds, dtype=int)
+    bond_atom2_array = np.empty(n_bonds, dtype=int)
+    bond_type_array = np.empty(n_bonds, dtype=object)
+    bond_order_array = np.empty(n_bonds, dtype=object)
 
     index = 0
 
@@ -104,21 +110,17 @@ def to_molsysmt_Topology(item, atom_indices='all'):
     del bond_atom1_array, bond_atom2_array
     del bond_order_array, bond_type_array
 
-    # groups
-
-    tmp_item.rebuild_groups()
-
     # components
 
     tmp_item.rebuild_components()
 
     # molecules
 
-    #tmp_item._build_molecules()
+    tmp_item.rebuild_molecules()
 
     # entity
 
-    #tmp_item._build_entities()
+    tmp_item.rebuild_entities()
 
     # nan to None
 

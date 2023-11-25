@@ -13,15 +13,15 @@ import numpy as np
 @digest()
 def get_group_type(molecular_system, element='atom', selection='all', redefine_types=False, syntax='MolSysMT'):
 
+    from molsysmt.basic import get
+
     if redefine_types:
 
         if element == 'atom':
 
-            from molsysmt.basic import get
-
             group_names_from_atom = get(molecular_system, element='atom', selection=selection, syntax=syntax,
                                         group_name=True)
-            unique_group_names = np.unique(group_names)
+            unique_group_names = np.unique(group_names_from_atom)
             aux_dict = {}
             for name in unique_group_names:
                 aux_dict[name] = _get_group_type_from_group_name(name)
@@ -29,20 +29,27 @@ def get_group_type(molecular_system, element='atom', selection='all', redefine_t
             output = [aux_dict[ii] for ii in group_names_from_atom]
 
         elif element == 'group':
-            from molsysmt.basic import get
-            n_groups = get(molecular_system, element='group', selection=selection, syntax=syntax)
-            output = np.full(n_groups, None, dtype=object).to_list()
+
+            group_names_from_group = get(molecular_system, element='group', selection=selection, syntax=syntax,
+                                        group_name=True)
+            unique_group_names = np.unique(group_names_from_group)
+            aux_dict = {}
+            for name in unique_group_names:
+                aux_dict[name] = _get_group_type_from_group_name(name)
+
+            output = [aux_dict[ii] for ii in group_names_from_group]
+
         elif element == 'component':
-            from .get_n_components import get_n_components
-            n_components = get_n_components(molecular_system, selection=selection, redefine_components=False,
-                                            syntax=syntax)
-            output = np.full(n_components, None, dtype=object).to_list()
+
+            raise NotImplementedError
+
         else:
+
             raise NotImplementedError
 
     else:
 
-        from molsysmt.basic import get
+
         output = get(molecular_system, element=element, selection=selection, syntax=syntax,
                      group_type=True)
 
