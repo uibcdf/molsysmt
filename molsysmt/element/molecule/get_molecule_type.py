@@ -1,13 +1,15 @@
 from molsysmt._private.digestion import digest
-
+import numpy as np
 
 @digest()
 def get_molecule_type(molecular_system, element='atom', selection='all',
         redefine_molecules=False, redefine_types=False, syntax='MolSysMT'):
 
+    from ..component import get_component_type
+    from molsysmt.basic import get
+
     if redefine_molecules:
 
-        from ..component import get_component_type
 
         molecule_types_from_molecule = get_component_type(molecular_system, element='component', selection=selection,
                 redefine_components=True, syntax=syntax)
@@ -29,9 +31,7 @@ def get_molecule_type(molecular_system, element='atom', selection='all',
         else:
             raise NotImplementedError
 
-    if redefine_types:
-
-        from ..component import get_component_type
+    elif redefine_types:
 
         molecule_types_from_molecule = get_component_type(molecular_system, element='component', selection=selection,
                 redefine_components=False, redefine_types=False, syntax=syntax)
@@ -50,6 +50,12 @@ def get_molecule_type(molecular_system, element='atom', selection='all',
             output = np.array(molecule_types_from_molecule, dtype=object)[aux].tolist()
         elif element == 'molecule':
             output = molecule_types_from_molecule
+        elif element == 'entity':
+            aux = get(molecular_system, element='entity', selection=selection, syntax=syntax,
+                      molecule_index=True)
+            output = []
+            for molecules_in_entity in aux:
+                output.append(np.array(molecule_types_from_molecule, dtype=object)[aux].tolist())
         else:
             raise NotImplementedError
 
