@@ -26,6 +26,7 @@ from .to_molsysmt_Topology import to_molsysmt_Topology
 from .to_molsysmt_MolSysOld import to_molsysmt_MolSysOld
 from .to_molsysmt_TopologyOld import to_molsysmt_TopologyOld
 from .to_mdtraj_Topology import to_mdtraj_Topology
+from .to_networkx_Graph import to_networkx_Graph
 from .to_openmm_Modeller import to_openmm_Modeller
 from .to_openmm_Simulation import to_openmm_Simulation
 from .to_openmm_Context import to_openmm_Context
@@ -47,6 +48,7 @@ _convert_to={
         'molsysmt.MolSysOld': to_molsysmt_MolSysOld,
         'molsysmt.TopologyOld': to_molsysmt_TopologyOld,
         'mdtraj.Topology': to_mdtraj_Topology,
+        'networkx.Graph': to_networkx_Graph,
         'openmm.Modeller': to_openmm_Modeller,
         'openmm.Simulation': to_openmm_Simulation,
         'openmm.Context': to_openmm_Context,

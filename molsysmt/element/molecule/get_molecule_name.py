@@ -39,12 +39,18 @@ def get_molecule_name(molecular_system, element='atom', selection='all', redefin
             n_molecules = get_n_molecules(molecular_system, selection=selection, redefine_molecules=False,
                                             syntax=syntax)
             output = np.full(n_molecules, None, dtype=object).tolist()
+        elif element == 'entity':
+            from .get_n_molecules import get_n_molecules
+            n_molecules = get_n_molecules(molecular_system, selection=selection, redefine_molecules=False,
+                                            syntax=syntax)
+            output = np.full(n_molecules, None, dtype=object).tolist()
         else:
             raise NotImplementedError
 
     else:
 
         from molsysmt.basic import get
+
         output = get(molecular_system, element=element, selection=selection, syntax=syntax,
                      molecule_name=True)
 

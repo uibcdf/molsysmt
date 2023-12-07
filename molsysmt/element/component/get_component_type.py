@@ -18,7 +18,7 @@ def get_component_type(molecular_system, element='atom', selection='all', redefi
         group_names, group_types = get(molecular_system, element='group', selection=selection,
                                        syntax=syntax, group_name=True, group_type=True)
 
-        counts = np.unique(component_indices, return_counts=True)
+        _, counts = np.unique(component_indices, return_counts=True)
 
         component_types_from_component = []
 

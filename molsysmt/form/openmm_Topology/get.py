@@ -102,8 +102,8 @@ def get_molecule_index_from_atom(item, indices='all'):
 @digest(form=form)
 def get_entity_index_from_atom(item, indices='all'):
 
-    from molsysmt.element.entity import get_entity_index_from_atom as _get
-    return _get(item, indices=indices)
+    from molsysmt.element.entity import get_entity_index as _get
+    return _get(item, element='atom', selection=indices)
 
 @digest(form=form)
 def get_inner_bonded_atoms_from_atom(item, indices='all'):
@@ -176,14 +176,14 @@ def get_group_name_from_group(item, indices='all'):
 @digest(form=form)
 def get_group_type_from_group(item, indices='all'):
 
-    from molsysmt.element.group import get_group_type_from_group_name
+    from molsysmt.element.group.get_group_type import _get_group_type_from_group_name
 
     if is_all(indices):
         n_indices = get_n_groups_from_system(item)
         indices = range(n_indices)
 
     group=list(item.residues())
-    output = [get_group_type_from_group_name(group[ii].name) for ii in indices]
+    output = [_get_group_type_from_group_name(group[ii].name) for ii in indices]
     del(group)
     output = np.array(output, dtype=object)
 
@@ -208,55 +208,32 @@ def get_component_name_from_component(item, indices='all'):
 @digest(form=form)
 def get_component_type_from_component(item, indices='all'):
 
-    from molsysmt.element.component import get_component_type_from_group_names
+    from molsysmt.element.component import get_component_type as _get
 
-    output = []
-    group_names_from_components = get_group_name_from_component(item, indices=indices)
-    for group_names in group_names_from_components:
-        output.append(get_component_type_from_group_names(group_names))
-    output = np.array(output, dtype=object)
-    return output
+    return _get(item, element='component', selection=indices, redefine_components=True)
 
 ## From molecule
 
 @digest(form=form)
 def get_molecule_id_from_molecule(item, indices='all'):
 
-    if is_all(indices):
-        n_molecules = get_n_molecules_from_system(item)
-        output = np.full(n_molecules, None, dtype=object)
-    else:
-        output = np.full(indices.shape[0], None, dtype=object)
+    from molsysmt.element.molecule import get_molecule_id as _get
 
-    return output
+    return _get(item, element='molecule', selection=indices, redefine_molecules=True)
 
 @digest(form=form)
 def get_molecule_name_from_molecule(item, indices='all'):
 
-    if is_all(indices):
-        n_molecules = get_n_molecules_from_system(item)
-        output = np.full(n_molecules, None, dtype=object)
-    else:
-        output = np.full(indices.shape[0], None, dtype=object)
+    from molsysmt.element.molecule import get_molecule_name as _get
 
-    return output
+    return _get(item, element='molecule', selection=indices, redefine_molecules=True)
 
 @digest(form=form)
 def get_molecule_type_from_molecule(item, indices='all'):
 
-    from molsysmt.element.molecule import get_molecule_type_from_group_names
+    from molsysmt.element.molecule import get_molecule_type as _get
 
-    group_names_from_molecule = get_group_name_from_molecule(item, indices=indices)
-
-    output = []
-
-    for group_names in group_names_from_molecule:
-        molecule_type = get_molecule_type_from_group_names(group_names)
-        output.append(molecule_type)
-
-    output = np.array(output, dtype=object)
-
-    return output
+    return _get(item, element='molecule', selection=indices, redefine_molecules=True)
 
 ## From chain
 
