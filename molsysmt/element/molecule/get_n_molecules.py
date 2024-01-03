@@ -7,10 +7,11 @@ def get_n_molecules(molecular_system, selection='all', redefine_molecules=False,
 
     if redefine_molecules:
 
-        from ..component import get_component_index
+        from .get_molecule_index import get_molecule_index
 
-        aux = get_component_index(molecular_system, element='component', selection=selection,
+        aux = get_molecule_index(molecular_system, element='molecule', selection=selection,
                                   redefine_indices=True, syntax=syntax)
+
         output = len(aux)
 
         del aux

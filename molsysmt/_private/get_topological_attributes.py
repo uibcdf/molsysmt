@@ -160,7 +160,7 @@ def _get_n_inf_from_element(module, involved_element, base_element, item, indice
 
     aux_get = getattr(module, f'get_{involved_element}_index_from_{base_element}')
     output = aux_get(item, indices)
-    output = [ii.shape[0] for ii in output]
+    output = [len(ii) for ii in output]
 
     return output
 

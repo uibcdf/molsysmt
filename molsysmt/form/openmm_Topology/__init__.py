@@ -12,7 +12,7 @@ from .copy import copy
 from .add import add
 from .merge import merge
 from .append_structures import append_structures
-from .get import *
+from .get_topological_attributes import *
 from .set import *
 from .iterators import TopologyIterator
 

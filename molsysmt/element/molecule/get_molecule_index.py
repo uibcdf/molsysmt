@@ -8,8 +8,12 @@ def get_molecule_index(molecular_system, element='atom', selection='all',
     if redefine_indices:
 
         from ..component import get_component_index
-        output = get_component_index(molecular_system, element=element, selection=selection,
-                redefine_indices=redefine_components, syntax=syntax)
+        component_indices = get_component_index(molecular_system, element=element, selection=selection,
+                            redefine_indices=redefine_components, syntax=syntax)
+        if element in ['atom', 'group', 'component']:
+            output = component_indices
+        else:
+            output = [ii[0] for ii in component_indices]
 
     else:
 

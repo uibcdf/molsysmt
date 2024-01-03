@@ -60,23 +60,9 @@ def get_group_index_from_atom(item, indices='all'):
 @digest(form=form)
 def get_component_index_from_atom(item, indices='all'):
 
-    from molsysmt.element.component import get_component_index_from_bonded_atoms
+    from molsysmt.element.component import get_component_index as _get
 
-    n_atoms = get_n_atoms_from_system(item)
-    n_bonds = get_n_bonds_from_system(item)
-
-    if n_bonds==0:
-
-        output = np.full(n_atoms, None, dtype=object)
-
-    else:
-
-        atom_indices = get_bonded_atoms_from_bond(item)
-
-        output = get_component_index_from_bonded_atoms(atom_indices, n_atoms)
-
-    if not is_all(indices):
-        output = output[indices]
+    output = _get(item, element='atom', selection=indices, redefine_indices=True)
 
     return output
 
@@ -91,6 +77,7 @@ def get_chain_index_from_atom(item, indices='all'):
 
     return output
 
+
 @digest(form=form)
 def get_molecule_index_from_atom(item, indices='all'):
 
@@ -103,7 +90,9 @@ def get_molecule_index_from_atom(item, indices='all'):
 def get_entity_index_from_atom(item, indices='all'):
 
     from molsysmt.element.entity import get_entity_index as _get
-    return _get(item, element='atom', selection=indices)
+    return _get(item, element='atom', selection=indices, redefine_molecules=True,
+            redefine_indices=True)
+
 
 @digest(form=form)
 def get_inner_bonded_atoms_from_atom(item, indices='all'):

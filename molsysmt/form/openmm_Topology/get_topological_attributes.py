@@ -62,36 +62,12 @@ def get_group_index_from_atom(item, indices='all'):
 @digest(form=form)
 def get_component_index_from_atom(item, indices='all'):
 
-    from molsysmt.element.component import get_component_index_from_bonded_atoms
+    from molsysmt.element.component import get_component_index as _get
 
-    n_atoms = get_n_atoms_from_system(item)
-    n_bonds = get_n_bonds_from_system(item)
-
-    if n_bonds==0:
-
-        output = np.full(n_atoms, None, dtype=object)
-
-    else:
-
-        atom_indices = get_bonded_atoms_from_bond(item)
-
-        output = get_component_index_from_bonded_atoms(atom_indices, n_atoms)
-
-    if not is_all(indices):
-        output = output[indices]
+    output = _get(item, element='atom', selection=indices, redefine_indices=True)
 
     return output
 
-@digest(form=form)
-def get_chain_index_from_atom(item, indices='all'):
-
-    tmp_indices = get_atom_index_from_atom(item, indices=indices)
-    atom=list(item.atoms())
-    output = [atom[ii].residue.chain.index for ii in tmp_indices]
-    del(atom)
-    output = np.array(output)
-
-    return output
 
 @digest(form=form)
 def get_molecule_index_from_atom(item, indices='all'):
@@ -105,39 +81,20 @@ def get_molecule_index_from_atom(item, indices='all'):
 def get_entity_index_from_atom(item, indices='all'):
 
     from molsysmt.element.entity import get_entity_index as _get
-    return _get(item, element='atom', selection=indices)
+    return _get(item, element='atom', selection=indices, redefine_molecules=True,
+            redefine_indices=True)
+
 
 @digest(form=form)
-def get_inner_bonded_atoms_from_atom(item, indices='all'):
+def get_chain_index_from_atom(item, indices='all'):
 
-    output=[]
+    tmp_indices = get_atom_index_from_atom(item, indices=indices)
+    atom=list(item.atoms())
+    output = [atom[ii].residue.chain.index for ii in tmp_indices]
+    del(atom)
+    output = np.array(output)
 
-    if is_all(indices):
-
-        for bond in item.bonds():
-            output.append([bond.atom1.index, bond.atom2.index])
-
-    else:
-
-        set_indices = set(indices)
-
-        for bond in item.bonds():
-            if bond.atom1.index in set_indices:
-                if bond.atom2.index in set_indices:
-                    output.append([bond.atom1.index, bond.atom2.index])
-
-    output = np.array(output, dtype=int)
-
-    return(output)
-
-@digest(form=form)
-def get_n_inner_bonds_from_atom(item, indices='all'):
-
-    if is_all(indices):
-        return get_n_bonds_from_system(item)
-    else:
-        inner_bonded_atoms = get_inner_bonded_atoms_from_atom(item, indices=indices)
-        return inner_bonded_atoms.shape[0]
+    return output
 
 
 ## From group
@@ -408,7 +365,7 @@ def get_bond_type_from_bond(item, indices='all'):
 
     return output
 
-@digest(form=form)
+@digest(form=type)
 def get_bonded_atoms_from_bond(item, indices='all'):
 
     if is_all(indices):
@@ -422,13 +379,1532 @@ def get_bonded_atoms_from_bond(item, indices='all'):
 
     return output
 
-#######################################################################################
-######### DO NOT TOUCH THE FOLLOWING LINES, JUST INCLUDE THEM AS THEY ARE #############
-#######################################################################################
 
-from os import path
-this_folder = path.dirname(path.abspath(__file__))
-common_get = path.join(this_folder, '../../_private/common_get.py')
-execfile(common_get, globals(), locals())
-del(path, this_folder, common_get)
+#######################################################################
+#             Assisted by the auxiliary getter function               #
+#######################################################################
+
+
+# From atom
+
+@digest(form=form)
+def get_atom_index_from_atom(item, indices='all'):
+
+    return _auxiliary_getter(get_atom_index_from_atom, item, indices)
+
+
+@digest(form=form)
+def get_group_id_from_atom(item, indices='all'):
+
+    return _auxiliary_getter(get_group_id_from_atom, item, indices)
+
+
+@digest(form=form)
+def get_group_name_from_atom(item, indices='all'):
+
+    return _auxiliary_getter(get_group_name_from_atom, item, indices)
+
+
+@digest(form=form)
+def get_group_type_from_atom(item, indices='all'):
+
+    return _auxiliary_getter(get_group_type_from_atom, item, indices)
+
+
+@digest(form=form)
+def get_component_id_from_atom(item, indices='all'):
+
+    return _auxiliary_getter(get_component_id_from_atom, item, indices)
+
+
+@digest(form=form)
+def get_component_name_from_atom(item, indices='all'):
+
+    return _auxiliary_getter(get_component_name_from_atom, item, indices)
+
+
+@digest(form=form)
+def get_component_type_from_atom(item, indices='all'):
+
+    return _auxiliary_getter(get_component_type_from_atom, item, indices)
+
+
+@digest(form=form)
+def get_molecule_id_from_atom(item, indices='all'):
+
+    return _auxiliary_getter(get_molecule_id_from_atom, item, indices)
+
+
+@digest(form=form)
+def get_molecule_name_from_atom(item, indices='all'):
+
+    return _auxiliary_getter(get_molecule_name_from_atom, item, indices)
+
+
+@digest(form=form)
+def get_molecule_type_from_atom(item, indices='all'):
+
+    return _auxiliary_getter(get_molecule_type_from_atom, item, indices)
+
+
+@digest(form=form)
+def get_entity_id_from_atom(item, indices='all'):
+
+    return _auxiliary_getter(get_entity_id_from_atom, item, indices)
+
+
+@digest(form=form)
+def get_entity_name_from_atom(item, indices='all'):
+
+    return _auxiliary_getter(get_entity_name_from_atom, item, indices)
+
+
+@digest(form=form)
+def get_entity_type_from_atom(item, indices='all'):
+
+    return _auxiliary_getter(get_entity_type_from_atom, item, indices)
+
+
+@digest(form=form)
+def get_chain_id_from_atom(item, indices='all'):
+
+    return _auxiliary_getter(get_chain_id_from_atom, item, indices)
+
+
+@digest(form=form)
+def get_chain_name_from_atom(item, indices='all'):
+
+    return _auxiliary_getter(get_chain_name_from_atom, item, indices)
+
+
+@digest(form=form)
+def get_chain_type_from_atom(item, indices='all'):
+
+    return _auxiliary_getter(get_chain_type_from_atom, item, indices)
+
+
+@digest(form=form)
+def get_bond_index_from_atom(item, indices='all'):
+
+    return _auxiliary_getter(get_bond_index_from_atom, item, indices)
+
+
+@digest(form=form)
+def get_bond_type_from_atom(item, indices='all'):
+
+    return _auxiliary_getter(get_bond_type_from_atom, item, indices)
+
+
+@digest(form=form)
+def get_bond_order_from_atom(item, indices='all'):
+
+    return _auxiliary_getter(get_bond_order_from_atom, item, indices)
+
+
+@digest(form=form)
+def get_bonded_atoms_from_atom(item, indices='all'):
+
+    return _auxiliary_getter(get_bonded_atoms_from_atom, item, indices)
+
+
+@digest(form=form)
+def get_inner_bond_index_from_atom(item, indices='all'):
+
+    return _auxiliary_getter(get_inner_bond_index_from_atom, item, indices)
+
+
+@digest(form=form)
+def get_inner_bonded_atoms_from_atom(item, indices='all'):
+
+    return _auxiliary_getter(get_inner_bonded_atoms_from_atom, item, indices)
+
+
+@digest(form=form)
+def get_n_atoms_from_atom(item, indices='all'):
+
+    return _auxiliary_getter(get_n_atoms_from_atom, item, indices)
+
+
+@digest(form=form)
+def get_n_groups_from_atom(item, indices='all'):
+
+    return _auxiliary_getter(get_n_groups_from_atom, item, indices)
+
+
+@digest(form=form)
+def get_n_components_from_atom(item, indices='all'):
+
+    return _auxiliary_getter(get_n_components_from_atom, item, indices)
+
+
+@digest(form=form)
+def get_n_molecules_from_atom(item, indices='all'):
+
+    return _auxiliary_getter(get_n_molecules_from_atom, item, indices)
+
+
+@digest(form=form)
+def get_n_chains_from_atom(item, indices='all'):
+
+    return _auxiliary_getter(get_n_chains_from_atom, item, indices)
+
+
+@digest(form=form)
+def get_n_entities_from_atom(item, indices='all'):
+
+    return _auxiliary_getter(get_n_entities_from_atom, item, indices)
+
+
+@digest(form=form)
+def get_n_bonds_from_atom(item, indices='all'):
+
+    return _auxiliary_getter(get_n_bonds_from_atom, item, indices)
+
+
+@digest(form=form)
+def get_n_inner_bonds_from_atom(item, indices='all'):
+
+    return _auxiliary_getter(get_n_inner_bonds_from_atom, item, indices)
+
+
+@digest(form=form)
+def get_n_aminoacids_from_atom(item, indices='all'):
+
+    return _auxiliary_getter(get_n_aminoacids_from_atom, item, indices)
+
+
+@digest(form=form)
+def get_n_nucleotides_from_atom(item, indices='all'):
+
+    return _auxiliary_getter(get_n_nucleotides_from_atom, item, indices)
+
+
+@digest(form=form)
+def get_n_ions_from_atom(item, indices='all'):
+
+    return _auxiliary_getter(get_n_ions_from_atom, item, indices)
+
+
+@digest(form=form)
+def get_n_waters_from_atom(item, indices='all'):
+
+    return _auxiliary_getter(get_n_waters_from_atom, item, indices)
+
+
+@digest(form=form)
+def get_n_small_molecules_from_atom(item, indices='all'):
+
+    return _auxiliary_getter(get_n_small_molecules_from_atom, item, indices)
+
+
+@digest(form=form)
+def get_n_peptides_from_atom(item, indices='all'):
+
+    return _auxiliary_getter(get_n_peptides_from_atom, item, indices)
+
+
+@digest(form=form)
+def get_n_proteins_from_atom(item, indices='all'):
+
+    return _auxiliary_getter(get_n_proteins_from_atom, item, indices)
+
+
+@digest(form=form)
+def get_n_dnas_from_atom(item, indices='all'):
+
+    return _auxiliary_getter(get_n_dnas_from_atom, item, indices)
+
+
+@digest(form=form)
+def get_n_rnas_from_atom(item, indices='all'):
+
+    return _auxiliary_getter(get_n_rnas_from_atom, item, indices)
+
+
+@digest(form=form)
+def get_n_lipids_from_atom(item, indices='all'):
+
+    return _auxiliary_getter(get_n_lipids_from_atom, item, indices)
+
+
+@digest(form=form)
+def get_n_oligosaccharides_from_atom(item, indices='all'):
+
+    return _auxiliary_getter(get_n_oligosaccharides_from_atom, item, indices)
+
+
+@digest(form=form)
+def get_n_saccharides_from_atom(item, indices='all'):
+
+    return _auxiliary_getter(get_n_saccharides_from_atom, item, indices)
+
+
+# From group
+
+
+@digest(form=form)
+def get_atom_index_from_group(item, indices='all'):
+
+    return _auxiliary_getter(get_atom_index_from_group, item, indices)
+
+
+@digest(form=form)
+def get_atom_id_from_group(item, indices='all'):
+
+    return _auxiliary_getter(get_atom_id_from_group, item, indices)
+
+
+@digest(form=form)
+def get_atom_name_from_group(item, indices='all'):
+
+    return _auxiliary_getter(get_atom_name_from_group, item, indices)
+
+
+@digest(form=form)
+def get_atom_type_from_group(item, indices='all'):
+
+    return _auxiliary_getter(get_atom_type_from_group, item, indices)
+
+
+@digest(form=form)
+def get_group_index_from_group(item, indices='all'):
+
+    return _auxiliary_getter(get_group_index_from_group, item, indices)
+
+
+@digest(form=form)
+def get_component_index_from_group(item, indices='all'):
+
+    return _auxiliary_getter(get_component_index_from_group, item, indices)
+
+
+@digest(form=form)
+def get_component_id_from_group(item, indices='all'):
+
+    return _auxiliary_getter(get_component_id_from_group, item, indices)
+
+
+@digest(form=form)
+def get_component_name_from_group(item, indices='all'):
+
+    return _auxiliary_getter(get_component_name_from_group, item, indices)
+
+
+@digest(form=form)
+def get_component_type_from_group(item, indices='all'):
+
+    return _auxiliary_getter(get_component_type_from_group, item, indices)
+
+
+@digest(form=form)
+def get_chain_index_from_group(item, indices='all'):
+
+    return _auxiliary_getter(get_chain_index_from_group, item, indices)
+
+
+@digest(form=form)
+def get_chain_id_from_group(item, indices='all'):
+
+    return _auxiliary_getter(get_chain_id_from_group, item, indices)
+
+
+@digest(form=form)
+def get_chain_name_from_group(item, indices='all'):
+
+    return _auxiliary_getter(get_chain_name_from_group, item, indices)
+
+
+@digest(form=form)
+def get_chain_type_from_group(item, indices='all'):
+
+    return _auxiliary_getter(get_chain_type_from_group, item, indices)
+
+
+@digest(form=form)
+def get_molecule_index_from_group(item, indices='all'):
+
+    return _auxiliary_getter(get_molecule_index_from_group, item, indices)
+
+
+@digest(form=form)
+def get_molecule_id_from_group(item, indices='all'):
+
+    return _auxiliary_getter(get_molecule_id_from_group, item, indices)
+
+
+@digest(form=form)
+def get_molecule_name_from_group(item, indices='all'):
+
+    return _auxiliary_getter(get_molecule_name_from_group, item, indices)
+
+
+@digest(form=form)
+def get_molecule_type_from_group(item, indices='all'):
+
+    return _auxiliary_getter(get_molecule_type_from_group, item, indices)
+
+
+@digest(form=form)
+def get_entity_index_from_group(item, indices='all'):
+
+    return _auxiliary_getter(get_entity_index_from_group, item, indices)
+
+
+@digest(form=form)
+def get_entity_id_from_group(item, indices='all'):
+
+    return _auxiliary_getter(get_entity_id_from_group, item, indices)
+
+
+@digest(form=form)
+def get_entity_name_from_group(item, indices='all'):
+
+    return _auxiliary_getter(get_entity_name_from_group, item, indices)
+
+
+@digest(form=form)
+def get_entity_type_from_group(item, indices='all'):
+
+    return _auxiliary_getter(get_entity_type_from_group, item, indices)
+
+
+@digest(form=form)
+def get_n_atoms_from_group(item, indices='all'):
+
+    return _auxiliary_getter(get_n_atoms_from_group, item, indices)
+
+
+@digest(form=form)
+def get_n_groups_from_group(item, indices='all'):
+
+    return _auxiliary_getter(get_n_groups_from_group, item, indices)
+
+
+@digest(form=form)
+def get_n_components_from_group(item, indices='all'):
+
+    return _auxiliary_getter(get_n_components_from_group, item, indices)
+
+
+@digest(form=form)
+def get_n_molecules_from_group(item, indices='all'):
+
+    return _auxiliary_getter(get_n_molecules_from_group, item, indices)
+
+
+@digest(form=form)
+def get_n_chains_from_group(item, indices='all'):
+
+    return _auxiliary_getter(get_n_chains_from_group, item, indices)
+
+
+@digest(form=form)
+def get_n_entities_from_group(item, indices='all'):
+
+    return _auxiliary_getter(get_n_entities_from_group, item, indices)
+
+
+# From component
+
+
+@digest(form=form)
+def get_atom_index_from_component(item, indices='all'):
+
+    return _auxiliary_getter(get_atom_index_from_component, item, indices)
+
+
+@digest(form=form)
+def get_atom_id_from_component(item, indices='all'):
+
+    return _auxiliary_getter(get_atom_id_from_component, item, indices)
+
+
+@digest(form=form)
+def get_atom_name_from_component(item, indices='all'):
+
+    return _auxiliary_getter(get_atom_name_from_component, item, indices)
+
+
+@digest(form=form)
+def get_atom_type_from_component(item, indices='all'):
+
+    return _auxiliary_getter(get_atom_type_from_component, item, indices)
+
+
+@digest(form=form)
+def get_group_index_from_component(item, indices='all'):
+
+    return _auxiliary_getter(get_group_index_from_component, item, indices)
+
+
+@digest(form=form)
+def get_group_id_from_component(item, indices='all'):
+
+    return _auxiliary_getter(get_group_id_from_component, item, indices)
+
+
+@digest(form=form)
+def get_group_name_from_component(item, indices='all'):
+
+    return _auxiliary_getter(get_group_name_from_component, item, indices)
+
+
+@digest(form=form)
+def get_group_type_from_component(item, indices='all'):
+
+    return _auxiliary_getter(get_group_type_from_component, item, indices)
+
+
+@digest(form=form)
+def get_component_index_from_component(item, indices='all'):
+
+    return _auxiliary_getter(get_component_index_from_component, item, indices)
+
+
+@digest(form=form)
+def get_chain_index_from_component(item, indices='all'):
+
+    return _auxiliary_getter(get_chain_index_from_component, item, indices)
+
+
+@digest(form=form)
+def get_chain_id_from_component(item, indices='all'):
+
+    return _auxiliary_getter(get_chain_id_from_component, item, indices)
+
+
+@digest(form=form)
+def get_chain_name_from_component(item, indices='all'):
+
+    return _auxiliary_getter(get_chain_name_from_component, item, indices)
+
+
+@digest(form=form)
+def get_chain_type_from_component(item, indices='all'):
+
+    return _auxiliary_getter(get_chain_type_from_component, item, indices)
+
+
+@digest(form=form)
+def get_molecule_index_from_component(item, indices='all'):
+
+    return _auxiliary_getter(get_molecule_index_from_component, item, indices)
+
+
+@digest(form=form)
+def get_molecule_id_from_component(item, indices='all'):
+
+    return _auxiliary_getter(get_molecule_id_from_component, item, indices)
+
+
+@digest(form=form)
+def get_molecule_name_from_component(item, indices='all'):
+
+    return _auxiliary_getter(get_molecule_name_from_component, item, indices)
+
+
+@digest(form=form)
+def get_molecule_type_from_component(item, indices='all'):
+
+    return _auxiliary_getter(get_molecule_type_from_component, item, indices)
+
+
+@digest(form=form)
+def get_entity_index_from_component(item, indices='all'):
+
+    return _auxiliary_getter(get_entity_index_from_component, item, indices)
+
+
+@digest(form=form)
+def get_entity_id_from_component(item, indices='all'):
+
+    return _auxiliary_getter(get_entity_id_from_component, item, indices)
+
+
+@digest(form=form)
+def get_entity_name_from_component(item, indices='all'):
+
+    return _auxiliary_getter(get_entity_name_from_component, item, indices)
+
+
+@digest(form=form)
+def get_entity_type_from_component(item, indices='all'):
+
+    return _auxiliary_getter(get_entity_type_from_component, item, indices)
+
+
+@digest(form=form)
+def get_n_atoms_from_component(item, indices='all'):
+
+    return _auxiliary_getter(get_n_atoms_from_component, item, indices)
+
+
+@digest(form=form)
+def get_n_groups_from_component(item, indices='all'):
+
+    return _auxiliary_getter(get_n_groups_from_component, item, indices)
+
+
+@digest(form=form)
+def get_n_components_from_component(item, indices='all'):
+
+    return _auxiliary_getter(get_n_components_from_component, item, indices)
+
+
+@digest(form=form)
+def get_n_molecules_from_component(item, indices='all'):
+
+    return _auxiliary_getter(get_n_molecules_from_component, item, indices)
+
+
+@digest(form=form)
+def get_n_chains_from_component(item, indices='all'):
+
+    return _auxiliary_getter(get_n_chains_from_component, item, indices)
+
+
+@digest(form=form)
+def get_n_entities_from_component(item, indices='all'):
+
+    return _auxiliary_getter(get_n_entities_from_component, item, indices)
+
+
+@digest(form=form)
+def get_n_bonds_from_component(item, indices='all'):
+
+    return _auxiliary_getter(get_n_bonds_from_component, item, indices)
+
+
+@digest(form=form)
+def get_n_inner_bonds_from_component(item, indices='all'):
+
+    return _auxiliary_getter(get_n_inner_bonds_from_component, item, indices)
+
+
+@digest(form=form)
+def get_n_aminoacids_from_component(item, indices='all'):
+
+    return _auxiliary_getter(get_n_aminoacids_from_component, item, indices)
+
+
+@digest(form=form)
+def get_n_nucleotides_from_component(item, indices='all'):
+
+    return _auxiliary_getter(get_n_nucleotides_from_component, item, indices)
+
+
+@digest(form=form)
+def get_n_ions_from_component(item, indices='all'):
+
+    return _auxiliary_getter(get_n_ions_from_component, item, indices)
+
+
+@digest(form=form)
+def get_n_waters_from_component(item, indices='all'):
+
+    return _auxiliary_getter(get_n_waters_from_component, item, indices)
+
+
+@digest(form=form)
+def get_n_small_molecules_from_component(item, indices='all'):
+
+    return _auxiliary_getter(get_n_small_molecules_from_component, item, indices)
+
+
+@digest(form=form)
+def get_n_peptides_from_component(item, indices='all'):
+
+    return _auxiliary_getter(get_n_peptides_from_component, item, indices)
+
+
+@digest(form=form)
+def get_n_proteins_from_component(item, indices='all'):
+
+    return _auxiliary_getter(get_n_proteins_from_component, item, indices)
+
+
+@digest(form=form)
+def get_n_dnas_from_component(item, indices='all'):
+
+    return _auxiliary_getter(get_n_dnas_from_component, item, indices)
+
+
+@digest(form=form)
+def get_n_rnas_from_component(item, indices='all'):
+
+    return _auxiliary_getter(get_n_rnas_from_component, item, indices)
+
+
+@digest(form=form)
+def get_n_lipids_from_component(item, indices='all'):
+
+    return _auxiliary_getter(get_n_lipids_from_component, item, indices)
+
+
+@digest(form=form)
+def get_n_oligosaccharides_from_component(item, indices='all'):
+
+    return _auxiliary_getter(get_n_oligosaccharides_from_component, item, indices)
+
+
+@digest(form=form)
+def get_n_saccharides_from_component(item, indices='all'):
+
+    return _auxiliary_getter(get_n_saccharides_from_component, item, indices)
+
+
+# From molecule
+
+
+@digest(form=form)
+def get_atom_index_from_molecule(item, indices='all'):
+
+    return _auxiliary_getter(get_atom_index_from_molecule, item, indices)
+
+
+@digest(form=form)
+def get_atom_id_from_molecule(item, indices='all'):
+
+    return _auxiliary_getter(get_atom_id_from_molecule, item, indices)
+
+
+@digest(form=form)
+def get_atom_name_from_molecule(item, indices='all'):
+
+    return _auxiliary_getter(get_atom_name_from_molecule, item, indices)
+
+
+@digest(form=form)
+def get_atom_type_from_molecule(item, indices='all'):
+
+    return _auxiliary_getter(get_atom_type_from_molecule, item, indices)
+
+
+@digest(form=form)
+def get_group_index_from_molecule(item, indices='all'):
+
+    return _auxiliary_getter(get_group_index_from_molecule, item, indices)
+
+
+@digest(form=form)
+def get_group_id_from_molecule(item, indices='all'):
+
+    return _auxiliary_getter(get_group_id_from_molecule, item, indices)
+
+
+@digest(form=form)
+def get_group_name_from_molecule(item, indices='all'):
+
+    return _auxiliary_getter(get_group_name_from_molecule, item, indices)
+
+
+@digest(form=form)
+def get_group_type_from_molecule(item, indices='all'):
+
+    return _auxiliary_getter(get_group_type_from_molecule, item, indices)
+
+
+@digest(form=form)
+def get_component_index_from_molecule(item, indices='all'):
+
+    return _auxiliary_getter(get_component_index_from_molecule, item, indices)
+
+
+@digest(form=form)
+def get_component_id_from_molecule(item, indices='all'):
+
+    return _auxiliary_getter(get_component_id_from_molecule, item, indices)
+
+
+@digest(form=form)
+def get_component_name_from_molecule(item, indices='all'):
+
+    return _auxiliary_getter(get_component_name_from_molecule, item, indices)
+
+
+@digest(form=form)
+def get_component_type_from_molecule(item, indices='all'):
+
+    return _auxiliary_getter(get_component_type_from_molecule, item, indices)
+
+
+@digest(form=form)
+def get_chain_index_from_molecule(item, indices='all'):
+
+    return _auxiliary_getter(get_chain_index_from_molecule, item, indices)
+
+
+@digest(form=form)
+def get_chain_id_from_molecule(item, indices='all'):
+
+    return _auxiliary_getter(get_chain_id_from_molecule, item, indices)
+
+
+@digest(form=form)
+def get_chain_name_from_molecule(item, indices='all'):
+
+    return _auxiliary_getter(get_chain_name_from_molecule, item, indices)
+
+
+@digest(form=form)
+def get_chain_type_from_molecule(item, indices='all'):
+
+    return _auxiliary_getter(get_chain_type_from_molecule, item, indices)
+
+
+@digest(form=form)
+def get_molecule_index_from_molecule(item, indices='all'):
+
+    return _auxiliary_getter(get_molecule_index_from_molecule, item, indices)
+
+
+@digest(form=form)
+def get_entity_index_from_molecule(item, indices='all'):
+
+    return _auxiliary_getter(get_entity_index_from_molecule, item, indices)
+
+
+@digest(form=form)
+def get_entity_id_from_molecule(item, indices='all'):
+
+    return _auxiliary_getter(get_entity_id_from_molecule, item, indices)
+
+
+@digest(form=form)
+def get_entity_name_from_molecule(item, indices='all'):
+
+    return _auxiliary_getter(get_entity_name_from_molecule, item, indices)
+
+
+@digest(form=form)
+def get_entity_type_from_molecule(item, indices='all'):
+
+    return _auxiliary_getter(get_entity_type_from_molecule, item, indices)
+
+
+@digest(form=form)
+def get_n_atoms_from_molecule(item, indices='all'):
+
+    return _auxiliary_getter(get_n_atoms_from_molecule, item, indices)
+
+
+@digest(form=form)
+def get_n_groups_from_molecule(item, indices='all'):
+
+    return _auxiliary_getter(get_n_groups_from_molecule, item, indices)
+
+
+@digest(form=form)
+def get_n_components_from_molecule(item, indices='all'):
+
+    return _auxiliary_getter(get_n_components_from_molecule, item, indices)
+
+
+@digest(form=form)
+def get_n_molecules_from_molecule(item, indices='all'):
+
+    return _auxiliary_getter(get_n_molecules_from_molecule, item, indices)
+
+
+@digest(form=form)
+def get_n_chains_from_molecule(item, indices='all'):
+
+    return _auxiliary_getter(get_n_chains_from_molecule, item, indices)
+
+
+@digest(form=form)
+def get_n_entities_from_molecule(item, indices='all'):
+
+    return _auxiliary_getter(get_n_entities_from_molecule, item, indices)
+
+
+@digest(form=form)
+def get_n_bonds_from_molecule(item, indices='all'):
+
+    return _auxiliary_getter(get_n_bonds_from_molecule, item, indices)
+
+
+@digest(form=form)
+def get_n_inner_bonds_from_molecule(item, indices='all'):
+
+    return _auxiliary_getter(get_n_inner_bonds_from_molecule, item, indices)
+
+
+@digest(form=form)
+def get_n_aminoacids_from_molecule(item, indices='all'):
+
+    return _auxiliary_getter(get_n_aminoacids_from_molecule, item, indices)
+
+
+@digest(form=form)
+def get_n_nucleotides_from_molecule(item, indices='all'):
+
+    return _auxiliary_getter(get_n_nucleotides_from_molecule, item, indices)
+
+
+@digest(form=form)
+def get_n_ions_from_molecule(item, indices='all'):
+
+    return _auxiliary_getter(get_n_ions_from_molecule, item, indices)
+
+
+@digest(form=form)
+def get_n_waters_from_molecule(item, indices='all'):
+
+    return _auxiliary_getter(get_n_waters_from_molecule, item, indices)
+
+
+@digest(form=form)
+def get_n_small_molecules_from_molecule(item, indices='all'):
+
+    return _auxiliary_getter(get_n_small_molecules_from_molecule, item, indices)
+
+
+@digest(form=form)
+def get_n_peptides_from_molecule(item, indices='all'):
+
+    return _auxiliary_getter(get_n_peptides_from_molecule, item, indices)
+
+
+@digest(form=form)
+def get_n_proteins_from_molecule(item, indices='all'):
+
+    return _auxiliary_getter(get_n_proteins_from_molecule, item, indices)
+
+
+@digest(form=form)
+def get_n_dnas_from_molecule(item, indices='all'):
+
+    return _auxiliary_getter(get_n_dnas_from_molecule, item, indices)
+
+
+@digest(form=form)
+def get_n_rnas_from_molecule(item, indices='all'):
+
+    return _auxiliary_getter(get_n_rnas_from_molecule, item, indices)
+
+
+@digest(form=form)
+def get_n_lipids_from_molecule(item, indices='all'):
+
+    return _auxiliary_getter(get_n_lipids_from_molecule, item, indices)
+
+
+@digest(form=form)
+def get_n_oligosaccharides_from_molecule(item, indices='all'):
+
+    return _auxiliary_getter(get_n_oligosaccharides_from_molecule, item, indices)
+
+
+@digest(form=form)
+def get_n_saccharides_from_molecule(item, indices='all'):
+
+    return _auxiliary_getter(get_n_saccharides_from_molecule, item, indices)
+
+
+# Entity
+
+
+@digest(form=form)
+def get_atom_index_from_entity(item, indices='all'):
+
+    return _auxiliary_getter(get_atom_index_from_entity, item, indices)
+
+
+@digest(form=form)
+def get_atom_id_from_entity(item, indices='all'):
+
+    return _auxiliary_getter(get_atom_id_from_entity, item, indices)
+
+
+@digest(form=form)
+def get_atom_name_from_entity(item, indices='all'):
+
+    return _auxiliary_getter(get_atom_name_from_entity, item, indices)
+
+
+@digest(form=form)
+def get_atom_type_from_entity(item, indices='all'):
+
+    return _auxiliary_getter(get_atom_type_from_entity, item, indices)
+
+
+@digest(form=form)
+def get_group_index_from_entity(item, indices='all'):
+
+    return _auxiliary_getter(get_group_index_from_entity, item, indices)
+
+
+@digest(form=form)
+def get_group_id_from_entity(item, indices='all'):
+
+    return _auxiliary_getter(get_group_id_from_entity, item, indices)
+
+
+@digest(form=form)
+def get_group_name_from_entity(item, indices='all'):
+
+    return _auxiliary_getter(get_group_name_from_entity, item, indices)
+
+
+@digest(form=form)
+def get_group_type_from_entity(item, indices='all'):
+
+    return _auxiliary_getter(get_group_type_from_entity, item, indices)
+
+
+@digest(form=form)
+def get_component_index_from_entity(item, indices='all'):
+
+    return _auxiliary_getter(get_component_index_from_entity, item, indices)
+
+
+@digest(form=form)
+def get_component_id_from_entity(item, indices='all'):
+
+    return _auxiliary_getter(get_component_id_from_entity, item, indices)
+
+
+@digest(form=form)
+def get_component_name_from_entity(item, indices='all'):
+
+    return _auxiliary_getter(get_component_name_from_entity, item, indices)
+
+
+@digest(form=form)
+def get_component_type_from_entity(item, indices='all'):
+
+    return _auxiliary_getter(get_component_type_from_entity, item, indices)
+
+
+@digest(form=form)
+def get_chain_index_from_entity(item, indices='all'):
+
+    return _auxiliary_getter(get_chain_index_from_entity, item, indices)
+
+
+@digest(form=form)
+def get_chain_id_from_entity(item, indices='all'):
+
+    return _auxiliary_getter(get_chain_id_from_entity, item, indices)
+
+
+@digest(form=form)
+def get_chain_name_from_entity(item, indices='all'):
+
+    return _auxiliary_getter(get_chain_name_from_entity, item, indices)
+
+
+@digest(form=form)
+def get_chain_type_from_entity(item, indices='all'):
+
+    return _auxiliary_getter(get_chain_type_from_entity, item, indices)
+
+
+@digest(form=form)
+def get_molecule_index_from_entity(item, indices='all'):
+
+    return _auxiliary_getter(get_molecule_index_from_entity, item, indices)
+
+
+@digest(form=form)
+def get_molecule_id_from_entity(item, indices='all'):
+
+    return _auxiliary_getter(get_molecule_id_from_entity, item, indices)
+
+
+@digest(form=form)
+def get_molecule_name_from_entity(item, indices='all'):
+
+    return _auxiliary_getter(get_molecule_name_from_entity, item, indices)
+
+
+@digest(form=form)
+def get_molecule_type_from_entity(item, indices='all'):
+
+    return _auxiliary_getter(get_molecule_type_from_entity, item, indices)
+
+
+@digest(form=form)
+def get_entity_index_from_entity(item, indices='all'):
+
+    return _auxiliary_getter(get_entity_index_from_entity, item, indices)
+
+
+@digest(form=form)
+def get_n_atoms_from_entity(item, indices='all'):
+
+    return _auxiliary_getter(get_n_atoms_from_entity, item, indices)
+
+
+@digest(form=form)
+def get_n_groups_from_entity(item, indices='all'):
+
+    return _auxiliary_getter(get_n_groups_from_entity, item, indices)
+
+
+@digest(form=form)
+def get_n_components_from_entity(item, indices='all'):
+
+    return _auxiliary_getter(get_n_components_from_entity, item, indices)
+
+
+@digest(form=form)
+def get_n_molecules_from_entity(item, indices='all'):
+
+    return _auxiliary_getter(get_n_molecules_from_entity, item, indices)
+
+
+@digest(form=form)
+def get_n_chains_from_entity(item, indices='all'):
+
+    return _auxiliary_getter(get_n_chains_from_entity, item, indices)
+
+
+@digest(form=form)
+def get_n_entities_from_entity(item, indices='all'):
+
+    return _auxiliary_getter(get_n_entities_from_entity, item, indices)
+
+
+@digest(form=form)
+def get_n_bonds_from_entity(item, indices='all'):
+
+    return _auxiliary_getter(get_n_bonds_from_entity, item, indices)
+
+
+@digest(form=form)
+def get_n_inner_bonds_from_entity(item, indices='all'):
+
+    return _auxiliary_getter(get_n_inner_bonds_from_entity, item, indices)
+
+
+@digest(form=form)
+def get_n_aminoacids_from_entity(item, indices='all'):
+
+    return _auxiliary_getter(get_n_aminoacids_from_entity, item, indices)
+
+
+@digest(form=form)
+def get_n_nucleotides_from_entity(item, indices='all'):
+
+    return _auxiliary_getter(get_n_nucleotides_from_entity, item, indices)
+
+
+@digest(form=form)
+def get_n_ions_from_entity(item, indices='all'):
+
+    return _auxiliary_getter(get_n_ions_from_entity, item, indices)
+
+
+@digest(form=form)
+def get_n_waters_from_entity(item, indices='all'):
+
+    return _auxiliary_getter(get_n_waters_from_entity, item, indices)
+
+
+@digest(form=form)
+def get_n_small_molecules_from_entity(item, indices='all'):
+
+    return _auxiliary_getter(get_n_small_molecules_from_entity, item, indices)
+
+
+@digest(form=form)
+def get_n_peptides_from_entity(item, indices='all'):
+
+    return _auxiliary_getter(get_n_peptides_from_entity, item, indices)
+
+
+@digest(form=form)
+def get_n_proteins_from_entity(item, indices='all'):
+
+    return _auxiliary_getter(get_n_proteins_from_entity, item, indices)
+
+
+@digest(form=form)
+def get_n_dnas_from_entity(item, indices='all'):
+
+    return _auxiliary_getter(get_n_dnas_from_entity, item, indices)
+
+
+@digest(form=form)
+def get_n_rnas_from_entity(item, indices='all'):
+
+    return _auxiliary_getter(get_n_rnas_from_entity, item, indices)
+
+
+@digest(form=form)
+def get_n_lipids_from_entity(item, indices='all'):
+
+    return _auxiliary_getter(get_n_lipids_from_entity, item, indices)
+
+
+@digest(form=form)
+def get_n_oligosaccharides_from_entity(item, indices='all'):
+
+    return _auxiliary_getter(get_n_oligosaccharides_from_entity, item, indices)
+
+
+@digest(form=form)
+def get_n_saccharides_from_entity(item, indices='all'):
+
+    return _auxiliary_getter(get_n_saccharides_from_entity, item, indices)
+
+
+# Chain
+
+
+@digest(form=form)
+def get_atom_index_from_chain(item, indices='all'):
+
+    return _auxiliary_getter(get_atom_index_from_chain, item, indices)
+
+
+@digest(form=form)
+def get_atom_id_from_chain(item, indices='all'):
+
+    return _auxiliary_getter(get_atom_id_from_chain, item, indices)
+
+
+@digest(form=form)
+def get_atom_name_from_chain(item, indices='all'):
+
+    return _auxiliary_getter(get_atom_name_from_chain, item, indices)
+
+
+@digest(form=form)
+def get_atom_type_from_chain(item, indices='all'):
+
+    return _auxiliary_getter(get_atom_type_from_chain, item, indices)
+
+
+@digest(form=form)
+def get_group_index_from_chain(item, indices='all'):
+
+    return _auxiliary_getter(get_group_index_from_chain, item, indices)
+
+
+@digest(form=form)
+def get_group_id_from_chain(item, indices='all'):
+
+    return _auxiliary_getter(get_group_id_from_chain, item, indices)
+
+
+@digest(form=form)
+def get_group_name_from_chain(item, indices='all'):
+
+    return _auxiliary_getter(get_group_name_from_chain, item, indices)
+
+
+@digest(form=form)
+def get_group_type_from_chain(item, indices='all'):
+
+    return _auxiliary_getter(get_group_type_from_chain, item, indices)
+
+
+@digest(form=form)
+def get_component_index_from_chain(item, indices='all'):
+
+    return _auxiliary_getter(get_component_index_from_chain, item, indices)
+
+
+@digest(form=form)
+def get_component_id_from_chain(item, indices='all'):
+
+    return _auxiliary_getter(get_component_id_from_chain, item, indices)
+
+
+@digest(form=form)
+def get_component_name_from_chain(item, indices='all'):
+
+    return _auxiliary_getter(get_component_name_from_chain, item, indices)
+
+
+@digest(form=form)
+def get_component_type_from_chain(item, indices='all'):
+
+    return _auxiliary_getter(get_component_type_from_chain, item, indices)
+
+
+@digest(form=form)
+def get_chain_index_from_chain(item, indices='all'):
+
+    return _auxiliary_getter(get_chain_index_from_chain, item, indices)
+
+
+@digest(form=form)
+def get_molecule_index_from_chain(item, indices='all'):
+
+    return _auxiliary_getter(get_molecule_index_from_chain, item, indices)
+
+
+@digest(form=form)
+def get_molecule_id_from_chain(item, indices='all'):
+
+    return _auxiliary_getter(get_molecule_id_from_chain, item, indices)
+
+
+@digest(form=form)
+def get_molecule_name_from_chain(item, indices='all'):
+
+    return _auxiliary_getter(get_molecule_name_from_chain, item, indices)
+
+
+@digest(form=form)
+def get_molecule_type_from_chain(item, indices='all'):
+
+    return _auxiliary_getter(get_molecule_type_from_chain, item, indices)
+
+
+@digest(form=form)
+def get_entity_index_from_chain(item, indices='all'):
+
+    return _auxiliary_getter(get_entity_index_from_chain, item, indices)
+
+
+@digest(form=form)
+def get_entity_id_from_chain(item, indices='all'):
+
+    return _auxiliary_getter(get_entity_id_from_chain, item, indices)
+
+
+@digest(form=form)
+def get_entity_name_from_chain(item, indices='all'):
+
+    return _auxiliary_getter(get_entity_name_from_chain, item, indices)
+
+
+@digest(form=form)
+def get_entity_type_from_chain(item, indices='all'):
+
+    return _auxiliary_getter(get_entity_type_from_chain, item, indices)
+
+
+@digest(form=form)
+def get_n_atoms_from_chain(item, indices='all'):
+
+    return _auxiliary_getter(get_n_atoms_from_chain, item, indices)
+
+
+@digest(form=form)
+def get_n_groups_from_chain(item, indices='all'):
+
+    return _auxiliary_getter(get_n_groups_from_chain, item, indices)
+
+
+@digest(form=form)
+def get_n_components_from_chain(item, indices='all'):
+
+    return _auxiliary_getter(get_n_components_from_chain, item, indices)
+
+
+@digest(form=form)
+def get_n_molecules_from_chain(item, indices='all'):
+
+    return _auxiliary_getter(get_n_molecules_from_chain, item, indices)
+
+
+@digest(form=form)
+def get_n_chains_from_chain(item, indices='all'):
+
+    return _auxiliary_getter(get_n_chains_from_chain, item, indices)
+
+
+@digest(form=form)
+def get_n_entities_from_chain(item, indices='all'):
+
+    return _auxiliary_getter(get_n_entities_from_chain, item, indices)
+
+
+@digest(form=form)
+def get_n_bonds_from_chain(item, indices='all'):
+
+    return _auxiliary_getter(get_n_bonds_from_chain, item, indices)
+
+
+@digest(form=form)
+def get_n_inner_bonds_from_chain(item, indices='all'):
+
+    return _auxiliary_getter(get_n_inner_bonds_from_chain, item, indices)
+
+
+@digest(form=form)
+def get_n_aminoacids_from_chain(item, indices='all'):
+
+    return _auxiliary_getter(get_n_aminoacids_from_chain, item, indices)
+
+
+@digest(form=form)
+def get_n_nucleotides_from_chain(item, indices='all'):
+
+    return _auxiliary_getter(get_n_nucleotides_from_chain, item, indices)
+
+
+@digest(form=form)
+def get_n_ions_from_chain(item, indices='all'):
+
+    return _auxiliary_getter(get_n_ions_from_chain, item, indices)
+
+
+@digest(form=form)
+def get_n_waters_from_chain(item, indices='all'):
+
+    return _auxiliary_getter(get_n_waters_from_chain, item, indices)
+
+
+@digest(form=form)
+def get_n_small_molecules_from_chain(item, indices='all'):
+
+    return _auxiliary_getter(get_n_small_molecules_from_chain, item, indices)
+
+
+@digest(form=form)
+def get_n_peptides_from_chain(item, indices='all'):
+
+    return _auxiliary_getter(get_n_peptides_from_chain, item, indices)
+
+
+@digest(form=form)
+def get_n_proteins_from_chain(item, indices='all'):
+
+    return _auxiliary_getter(get_n_proteins_from_chain, item, indices)
+
+
+@digest(form=form)
+def get_n_dnas_from_chain(item, indices='all'):
+
+    return _auxiliary_getter(get_n_dnas_from_chain, item, indices)
+
+
+@digest(form=form)
+def get_n_rnas_from_chain(item, indices='all'):
+
+    return _auxiliary_getter(get_n_rnas_from_chain, item, indices)
+
+
+@digest(form=form)
+def get_n_lipids_from_chain(item, indices='all'):
+
+    return _auxiliary_getter(get_n_lipids_from_chain, item, indices)
+
+
+@digest(form=form)
+def get_n_oligosaccharides_from_chain(item, indices='all'):
+
+    return _auxiliary_getter(get_n_oligosaccharides_from_chain, item, indices)
+
+
+@digest(form=form)
+def get_n_saccharides_from_chain(item, indices='all'):
+
+    return _auxiliary_getter(get_n_saccharides_from_chain, item, indices)
+
+
+# Bond
+
+
+@digest(form=form)
+def get_bond_index_from_bond(item, indices='all'):
+
+    return _auxiliary_getter(get_bond_index_from_bond, item, indices)
+
+
+@digest(form=form)
+def get_n_bonds_from_bond(item, indices='all'):
+
+    return _auxiliary_getter(get_n_bonds_from_bond, item, indices)
+
+
+# System
+
+
+@digest(form=form)
+def get_n_aminoacids_from_system(item):
+
+    return _auxiliary_getter(get_n_aminoacids_from_system, item)
+
+
+@digest(form=form)
+def get_n_nucleotides_from_system(item):
+
+    return _auxiliary_getter(get_n_nucleotides_from_system, item)
+
+
+@digest(form=form)
+def get_n_ions_from_system(item):
+
+    return _auxiliary_getter(get_n_ions_from_system, item)
+
+
+@digest(form=form)
+def get_n_waters_from_system(item):
+
+    return _auxiliary_getter(get_n_waters_from_system, item)
+
+
+@digest(form=form)
+def get_n_small_molecules_from_system(item):
+
+    return _auxiliary_getter(get_n_small_molecules_from_system, item)
+
+
+@digest(form=form)
+def get_n_peptides_from_system(item):
+
+    return _auxiliary_getter(get_n_peptides_from_system, item)
+
+
+@digest(form=form)
+def get_n_proteins_from_system(item):
+
+    return _auxiliary_getter(get_n_proteins_from_system, item)
+
+
+@digest(form=form)
+def get_n_dnas_from_system(item):
+
+    return _auxiliary_getter(get_n_dnas_from_system, item)
+
+
+@digest(form=form)
+def get_n_rnas_from_system(item):
+
+    return _auxiliary_getter(get_n_rnas_from_system, item)
+
+
+@digest(form=form)
+def get_n_lipids_from_system(item):
+
+    return _auxiliary_getter(get_n_lipids_from_system, item)
+
+
+@digest(form=form)
+def get_n_oligosaccharides_from_system(item):
+
+    return _auxiliary_getter(get_n_oligosaccharides_from_system, item)
+
+
+@digest(form=form)
+def get_n_saccharides_from_system(item):
+
+    return _auxiliary_getter(get_n_saccharides_from_system, item)
+
+
+
+@digest(form=form)
+def get_bonded_atoms_from_system(item):
+
+    return _auxiliary_getter(get_bonded_atoms_from_system, item)
+
+
+@digest(form=form)
+def get_bond_index_from_system(item):
+
+    return _auxiliary_getter(get_bond_index_from_system, item)
+
+
+# List of functions to be imported
+
+
+__all__ = [name for name, obj in globals().items() if isinstance(obj, types.FunctionType) and name.startswith('get_')]
 

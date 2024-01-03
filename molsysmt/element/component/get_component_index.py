@@ -9,44 +9,47 @@ import numpy as np
 def get_component_index(molecular_system, element='atom', selection='all', redefine_indices=False,
                         syntax='MolSysMT'):
 
-    from molsysmt import get
-
     if redefine_indices:
 
-        from molsysmt import convert
+        from molsysmt import convert, get
 
         component_index_of_atoms = None
 
-        if is_all(selection):
+        g = convert(molecular_system, to_form='networkx.Graph')
 
-            g = convert(molecular_system, to_form='networkx.Graph')
+        components = list(nx.connected_components(g))
 
-            components = list(nx.connected_components(g))
+        aux_n_components = len(components)
 
-            aux_n_components = len(components)
+        component_index_of_atoms = np.empty((g.number_of_nodes()), dtype=int)
 
-            component_index_of_atoms = np.empty((g.number_of_nodes()), dtype=int)
+        for component_index, component in enumerate(components):
+            component_index_of_atoms[list(component)] = component_index
 
-            for component_index, component in enumerate(components):
-                component_index_of_atoms[list(component)] = component_index
-
-            component_index_of_atoms = msmlib.series.occurrence_order(component_index_of_atoms)
-
-        else:
-
-            raise NotImplementedError
+        component_index_of_atoms = msmlib.series.occurrence_order(component_index_of_atoms)
 
         if element == 'atom':
 
-            output = component_index_of_atoms.tolist()
+            if is_all(selection):
+                output = component_index_of_atoms.tolist()
+            else:
+                output = component_index_of_atoms[selection].tolist()
 
         elif element == 'group':
 
-            group_index_of_atoms = get(molecular_system, element='atom', selection=selection, syntax=syntax,
+            group_index_of_atoms = get(molecular_system, element='atom', selection='all', syntax=syntax,
                                        group_index=True)
             group_index, first_atom_indices = np.unique(group_index_of_atoms, return_index=True)
-            output = component_index_of_atoms[first_atom_indices].tolist()
+            output = component_index_of_atoms[first_atom_indices]
             del group_index, group_index_of_atoms
+
+            if is_all(selection):
+
+                output = output.tolist()
+
+            else:
+
+                output = output[selection].tolist()
 
         elif element == 'component':
 
@@ -64,6 +67,8 @@ def get_component_index(molecular_system, element='atom', selection='all', redef
             raise NotImplementedError
 
     else:
+
+        from molsysmt import get
 
         output = get(molecular_system, element=element, selection=selection, syntax=syntax,
                      component_index=True)
