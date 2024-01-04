@@ -55,7 +55,8 @@ def get_molecule_type(molecular_system, element='atom', selection='all',
                       molecule_index=True)
             output = []
             for molecules_in_entity in aux:
-                output.append(np.array(molecule_types_from_molecule, dtype=object)[aux].tolist())
+                output.append(np.array(molecule_types_from_molecule,
+                    dtype=object)[molecules_in_entity].tolist())
         else:
             raise NotImplementedError
 

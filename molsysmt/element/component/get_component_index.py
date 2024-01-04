@@ -60,7 +60,7 @@ def get_component_index(molecular_system, element='atom', selection='all', redef
 
             else:
 
-                raise NotImplementedError
+                output = selection
 
         else:
 

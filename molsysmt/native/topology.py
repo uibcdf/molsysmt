@@ -268,7 +268,6 @@ class Topology():
         del entity_name
 
         entity_type = get_entity_type(self, element='entity', redefine_types=True)
-
         self.entities["entity_type"] = np.array(entity_type, dtype=object)
         del entity_type
         del n_entities
