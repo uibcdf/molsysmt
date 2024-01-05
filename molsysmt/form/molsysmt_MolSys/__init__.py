@@ -21,6 +21,7 @@ from .to_molsysmt_Structures import to_molsysmt_Structures
 from .to_molsysmt_MolecularMechanics import to_molsysmt_MolecularMechanics
 from .to_molsysmt_MolecularMechanicsDict import to_molsysmt_MolecularMechanicsDict
 from .to_file_msmpk import to_file_msmpk
+from .to_file_h5msm import to_file_h5msm
 
 _convert_to={
         'molsysmt.MolSys': extract,
@@ -29,5 +30,6 @@ _convert_to={
         'molsysmt.MolecularMechanics': to_molsysmt_MolecularMechanics,
         'molsysmt.MolecularMechanicsDict': to_molsysmt_MolecularMechanicsDict,
         'file:msmpk': to_file_msmpk,
+        'file:h5msm': to_file_h5msm,
         }
 
