@@ -120,7 +120,8 @@ class Bonds_DataFrame(pd.DataFrame):
 
     def __init__(self, n_bonds=0):
 
-        columns = ['atom1_index', 'atom2_index', 'order', 'type']
+        columns = ['atom1_index', 'atom2_index']
+        columns += ['order', 'type'] # extra columns -not necessary-
 
         super().__init__(index=range(n_bonds), columns=columns)
 

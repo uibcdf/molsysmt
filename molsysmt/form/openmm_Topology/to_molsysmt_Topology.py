@@ -110,6 +110,12 @@ def to_molsysmt_Topology(item, atom_indices='all'):
     del bond_atom1_array, bond_atom2_array
     del bond_order_array, bond_type_array
 
+    if tmp_item.bonds["order"].isnull().all():
+        tmp_item.bonds.drop("order", axis=1, inplace=True)
+
+    if tmp_item.bonds["type"].isnull().all():
+        tmp_item.bonds.drop("type", axis=1, inplace=True)
+
     # components
 
     tmp_item.rebuild_components()
