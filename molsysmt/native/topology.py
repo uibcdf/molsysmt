@@ -247,6 +247,15 @@ class Topology():
         del molecule_type
         del n_molecules
 
+    def rebuild_chain_types(self):
+
+        from molsysmt.element.chain import get_chain_type
+
+        chain_type = get_chain_type(self, element='chain', redefine_types=True, redefine_molecules=False,
+                                   redefine_molecule_types=False)
+        self.chains["chain_type"] = np.array(chain_type, dtype=object)
+        del chain_type
+
     def rebuild_entities(self):
 
         from molsysmt.element.entity import get_entity_index, get_entity_id,\

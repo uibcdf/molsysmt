@@ -81,6 +81,7 @@ def to_molsysmt_Topology(item, atom_indices='all'):
         chain_name_array[index] = chain.id
 
     tmp_item.chains["chain_name"] = chain_name_array
+    tmp_item.chains["chain_id"] = tmp_item.chains.index
 
     del chain_name_array
 
@@ -123,6 +124,10 @@ def to_molsysmt_Topology(item, atom_indices='all'):
     # molecules
 
     tmp_item.rebuild_molecules()
+
+    # chain types
+
+    tmp_item.rebuild_chain_types()
 
     # entity
 

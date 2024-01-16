@@ -20,6 +20,8 @@
       set_occupancy_to_atom
       set_structure_id_to_system
       set_time_to_system
+      set_velocities_to_atom
+      set_velocities_to_system
    
    
 

@@ -100,7 +100,6 @@
       get_component_type_from_entity
       get_component_type_from_group
       get_component_type_from_molecule
-      get_coordinates_from_atom
       get_coordinates_from_system
       get_entity_id_from_atom
       get_entity_id_from_chain

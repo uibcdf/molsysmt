@@ -4,12 +4,12 @@ from pathlib import Path
 import os
 import shutil
 
-data_dir = Path('../../data/.')
+data_dir = Path('../.')
 
 # Purge
 
 files_to_be_purged = [
-        'msmpk/proline_dipeptide.msmpk',
+        'h5msm/alanine_dipeptide.h5msm',
         ]
 
 for filename in files_to_be_purged:
@@ -19,8 +19,7 @@ for filename in files_to_be_purged:
 
 # Make
 
-molsys = msm.build.build_peptide('AceProNme')
-molsys = msm.convert(molsys, to_form='proline_dipeptide.msmpk')
-shutil.move('proline_dipeptide.msmpk', Path(data_dir, 'msmpk/proline_dipeptide.msmpk'))
-
+molsys = msm.build.build_peptide('AceAlaNme')
+molsys = msm.convert(molsys, to_form='alanine_dipeptide.h5msm')
+shutil.move('alanine_dipeptide.h5msm', Path(data_dir, 'h5msm/alanine_dipeptide.h5msm'))
 

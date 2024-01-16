@@ -1,4 +1,5 @@
 from molsysmt._private.digestion import digest
+import numpy as np
 
 @digest(form='molsysmt.Topology')
 def to_file_h5msm(item, atom_indices='all', coordinates=None, output_filename=None,

@@ -333,6 +333,7 @@
       get_partial_charge_from_system
       get_structure_id_from_system
       get_time_from_system
+      get_velocities_from_atom
       get_velocities_from_system
    
    
