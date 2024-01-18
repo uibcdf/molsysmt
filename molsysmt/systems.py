@@ -28,7 +28,7 @@ systems = {}
 # Alanine dipeptide
 
 systems['alanine dipeptide'] = {}
-systems['alanine dipeptide']['alanine_dipeptide.msmpk'] = path('molsysmt.data.msmpk', 'alanine_dipeptide.msmpk')
+systems['alanine dipeptide']['alanine_dipeptide.h5msm'] = path('molsysmt.data.h5msm', 'alanine_dipeptide.h5msm')
 
 
 # Proline dipeptide
@@ -40,13 +40,13 @@ systems['proline dipeptide']['proline_dipeptide.h5msm'] = path('molsysmt.data.h5
 # Valine dipeptide
 
 systems['valine dipeptide'] = {}
-systems['valine dipeptide']['valine_dipeptide.msmpk'] = path('molsysmt.data.msmpk', 'valine_dipeptide.msmpk')
+systems['valine dipeptide']['valine_dipeptide.h5msm'] = path('molsysmt.data.h5msm', 'valine_dipeptide.h5msm')
 
 
 # Lysine dipeptide
 
 systems['lysine dipeptide'] = {}
-systems['lysine dipeptide']['lysine_dipeptide.msmpk'] = path('molsysmt.data.msmpk', 'lysine_dipeptide.msmpk')
+systems['lysine dipeptide']['lysine_dipeptide.h5msm'] = path('molsysmt.data.h5msm', 'lysine_dipeptide.h5msm')
 
 
 # Villin HP35

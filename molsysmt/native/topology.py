@@ -171,9 +171,36 @@ class Topology():
 
             raise NotImplementedError
 
-    def add(self, item, selection='all'):
+    def add(self, item, selection='all', syntax='MolSysMT'):
 
-        raise NotImplementedError
+        from molsysmt import get_form, convert, get
+
+        if get_form(item) == 'molsysmt.Topology':
+
+            if is_all(selection):
+                tmp_item = item
+            else:
+                tmp_item = item.extract(selection=selection, syntax=syntax)
+
+        else:
+
+            tmp_item =  convert(item, to_form='molsysmt.Topology', selection=selection, syntax=syntax)
+
+        n_atoms = tmp_item.atoms.shape[0]
+        n_groups = tmp_item.groups.shape[0]
+        n_components = tmp_item.components.shape[0]
+        n_chains = tmp_item.chains.shape[0]
+        n_molecules = tmp_item.molecules.shape[0]
+
+        tmp_item.atoms['atom_index'] += n_atoms
+        tmp_item.atoms['group_index'] += n_groups
+        tmp_item.atoms['component_index'] += n_components
+        tmp_item.atoms['chain_index'] += n_chains
+        tmp_item.atoms['molecule_index'] += n_molecules
+        tmp_item.bonds['atom1_index'] += n_atoms
+        tmp_item.bonds['atom2_index'] += n_atoms
+
+        return tmp_item
 
     def copy(self):
 

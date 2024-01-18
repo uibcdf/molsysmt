@@ -200,13 +200,17 @@ def _add_topology_to_h5msm(item, file, atom_indices='all'):
 
         bonds['atom1_index'].resize((n_bonds,))
         bonds['atom2_index'].resize((n_bonds,))
-        bonds['order'].resize((n_bonds,))
-        bonds['type'].resize((n_bonds,))
 
         bonds['atom1_index'][:] = bonds_df['atom1_index'].to_numpy(dtype=int_type)
         bonds['atom2_index'][:] = bonds_df['atom2_index'].to_numpy(dtype=int_type)
-        bonds['order'][:] = bonds_df['order'].to_numpy(dtype=str)
-        bonds['type'][:] = bonds_df['type'].to_numpy(dtype=str)
+
+        if 'order' in bonds_df:
+            bonds['order'].resize((n_bonds,))
+            bonds['order'][:] = bonds_df['order'].to_numpy(dtype=str)
+
+        if 'type' in bonds_df:
+            bonds['type'].resize((n_bonds,))
+            bonds['type'][:] = bonds_df['type'].to_numpy(dtype=str)
 
 
     if needs_to_be_closed:

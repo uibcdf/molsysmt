@@ -50,17 +50,23 @@ def to_molsysmt_Topology(item, atom_indices='all'):
         tmp_item.entities['entity_type']=topology_ds['entities']['type'].asstr()[:]
 
         # Chains
-
         tmp_item.chains['chain_id']=topology_ds['chains']['id'][:].astype('int64')
         tmp_item.chains['chain_name']=topology_ds['chains']['name'].asstr()[:]
         tmp_item.chains['chain_type']=topology_ds['chains']['type'].asstr()[:]
 
         # Bonds
 
+        if topology_ds['bonds']['type'].size:
+            tmp_item.bonds['type']=topology_ds['bonds']['type'].asstr()[:]
+        else:
+            tmp_item.bonds.drop('type', axis=1, inplace=True)
+        if topology_ds['bonds']['order'].size:
+            tmp_item.bonds['order']=topology_ds['bonds']['order'].asstr()[:]
+        else:
+            tmp_item.bonds.drop('order', axis=1, inplace=True)
+
         tmp_item.bonds['atom1_index']=topology_ds['bonds']['atom1_index'][:].astype('int64')
         tmp_item.bonds['atom2_index']=topology_ds['bonds']['atom2_index'][:].astype('int64')
-        tmp_item.bonds['type']=topology_ds['bonds']['type'].asstr()[:]
-        tmp_item.bonds['order']=topology_ds['bonds']['order'].asstr()[:]
 
     else:
 
