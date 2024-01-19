@@ -21,22 +21,21 @@ class MolSys:
         else:
 
             tmp_item = MolSys()
-            tmp_item.topology = self.topology.extract(atom_indices=atom_indices, structure_indices=structure_indices)
+            tmp_item.topology = self.topology.extract(atom_indices=atom_indices)
             tmp_item.structures = self.structures.extract(atom_indices=atom_indices, structure_indices=structure_indices)
             tmp_item.molecular_mechanics = self.molecular_mechanics.copy()
 
             return tmp_item
 
-    def add(self, item, selection='all', structure_indices='all', syntax='MolSysMT'):
+    def add(self, item, atom_indices='all', structure_indices='all'):
 
-        from molsysmt import convert, get_form, select
-        atom_indices=select(item, selection=selection, syntax=syntax)
-        self.topology.add(item.topology, selection=atom_indices)
-        self.structures.add(item.structures, selection=atom_indices, structure_indices=structure_indices)
+        from molsysmt import convert, get_form
 
-    def load_frames(self, selection='all', structure_indices='all', syntax='MolSysMT'):
+        self.topology.add(item.topology, atom_indices=atom_indices)
+        self.structures.add(item.structures, atom_indices=atom_indices, structure_indices=structure_indices)
 
-        atom_indices = self.select(selection=selection, syntax=syntax)
+    def load_frames(self, atom_indices='all', structure_indices='all'):
+
         return self.structures.load_frames(atom_indices=atom_indices, structure_indices=structure_indices)
 
     def copy(self):

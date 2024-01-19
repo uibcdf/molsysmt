@@ -160,31 +160,82 @@ class Topology():
         if is_all(atom_indices):
 
             if copy_if_all:
-
                 return self.copy()
-
             else:
+                return self
 
+        elif len(atom_indices) == self.atoms.shape[0]:
+
+            if copy_if_all:
+                return self.copy()
+            else:
                 return self
 
         else:
 
-            raise NotImplementedError
+            from molsysmt.lib.series import occurrence_order_sorted_serie as occurrence_order
 
-    def add(self, item, selection='all', syntax='MolSysMT'):
+            atom_indices = np.sort(atom_indices)
 
-        from molsysmt import get_form, convert, get
+            tmp_item = Topology()
+            tmp_item.atoms = self.atoms.iloc[atom_indices].copy()
+            tmp_item.atoms.reset_index(drop=True, inplace=True)
 
-        if get_form(item) == 'molsysmt.Topology':
+            old_group_indices = tmp_item.atoms['group_index'].unique()
+            tmp_item.groups = self.groups.iloc[old_group_indices].copy()
+            tmp_item.groups.reset_index(drop=True, inplace=True)
+            del old_group_indices
 
-            if is_all(selection):
-                tmp_item = item
-            else:
-                tmp_item = item.extract(selection=selection, syntax=syntax)
+            old_component_indices = tmp_item.groups['component_index'].unique()
+            tmp_item.components = self.components.iloc[old_component_indices].copy()
+            tmp_item.components.reset_index(drop=True, inplace=True)
+            del old_component_indices
 
+            old_molecule_indices = tmp_item.components['molecule_index'].unique()
+            tmp_item.molecules = self.molecules.iloc[old_molecule_indices].copy()
+            tmp_item.molecules.reset_index(drop=True, inplace=True)
+            del old_molecule_indices
+
+            old_entity_indices = tmp_item.molecules['entity_index'].unique()
+            tmp_item.entities = self.molecules.iloc[old_entity_indices].copy()
+            tmp_item.entities.reset_index(drop=True, inplace=True)
+            del old_entity_indices
+
+            old_chain_indices = tmp_item.atoms['chain_index'].unique()
+            tmp_item.chains = self.chains.iloc[old_chain_indices].copy()
+            tmp_item.chains.reset_index(drop=True, inplace=True)
+            del old_chain_indices
+
+            tmp_item.atoms['group_index'] = occurrence_order(tmp_item.atoms['group_index'].to_numpy())
+            tmp_item.groups['component_index'] = occurrence_order(tmp_item.groups['component_index'].to_numpy())
+            tmp_item.components['molecule_index'] = occurrence_order(tmp_item.components['molecule_index'].to_numpy())
+            tmp_item.molecules['entity_index'] = occurrence_order(tmp_item.molecules['entity_index'].to_numpy())
+            tmp_item.atoms['chain_index'] = occurrence_order(tmp_item.atoms['chain_index'].to_numpy())
+
+            if self.bonds.shape[0]:
+
+                mask_atom1 = np.in1d(self.bonds['atom1_index'], atom_indices)
+                mask_atom2 = np.in1d(self.bonds['atom2_index'], atom_indices)
+                mask = mask_atom1*mask_atom2
+                tmp_item.bonds = self.bonds[mask].copy()
+                tmp_item.bonds.reset_index(drop=True, inplace=True)
+                del(mask_atom1, mask_atom2)
+
+                if tmp_item.bonds.shape[0]:
+                    aux_dict = {jj: ii for ii, jj in enumerate(atom_indices)}
+                    vaux_dict = np.vectorize(aux_dict.__getitem__)
+                    tmp_item.bonds['atom1_index']=vaux_dict(tmp_item.bonds['atom1_index'].to_numpy())
+                    tmp_item.bonds['atom2_index']=vaux_dict(tmp_item.bonds['atom2_index'].to_numpy())
+                    del aux_dict, vaux_dict
+
+            return tmp_item
+
+    def add(self, item, atom_indices='all'):
+
+        if is_all(atom_indices):
+            tmp_item = item
         else:
-
-            tmp_item =  convert(item, to_form='molsysmt.Topology', selection=selection, syntax=syntax)
+            tmp_item = item.extract(atom_indices=atom_indices)
 
         n_atoms = tmp_item.atoms.shape[0]
         n_groups = tmp_item.groups.shape[0]
@@ -192,15 +243,21 @@ class Topology():
         n_chains = tmp_item.chains.shape[0]
         n_molecules = tmp_item.molecules.shape[0]
 
-        tmp_item.atoms['atom_index'] += n_atoms
         tmp_item.atoms['group_index'] += n_groups
-        tmp_item.atoms['component_index'] += n_components
         tmp_item.atoms['chain_index'] += n_chains
-        tmp_item.atoms['molecule_index'] += n_molecules
+        tmp_item.groups['component_index'] += n_components
+        tmp_item.components['molecule_index'] += n_molecules
         tmp_item.bonds['atom1_index'] += n_atoms
         tmp_item.bonds['atom2_index'] += n_atoms
 
-        return tmp_item
+        self.atoms = pd.concat([self.atoms, tmp_item.atoms], ignore_index=True, copy=False)
+        self.groups = pd.concat([self.groups, tmp_item.groups], ignore_index=True, copy=False)
+        self.components = pd.concat([self.components, tmp_item.components], ignore_index=True, copy=False)
+        self.molecules = pd.concat([self.molecules, tmp_item.molecules], ignore_index=True, copy=False)
+        self.bonds = pd.concat([self.bonds, tmp_item.bonds], ignore_index=True, copy=False)
+        self.rebuild_entities()
+
+        del tmp_item
 
     def copy(self):
 
