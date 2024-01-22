@@ -71,6 +71,6 @@ def get_component_index(molecular_system, element='atom', selection='all', redef
         from molsysmt import get
 
         output = get(molecular_system, element=element, selection=selection, syntax=syntax,
-                     component_index=True)
+                     component_index=True, skip_digestion=True)
 
     return output

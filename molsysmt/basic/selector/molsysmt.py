@@ -162,53 +162,55 @@ def select_standard(item, selection):
 
         if len(entity_columns):
 
-            aux_df = pd.merge(item.molecules[molecule_columns], item.entities[entity_columns],
+            aux_df = pd.merge(tmp_item.molecules[molecule_columns], tmp_item.entities[entity_columns],
                               left_on='entity_index', right_index=True)
 
         if len(molecule_columns):
 
             if aux_df is None:
 
-                aux_df = pd.merge(item.components[component_columns], item.molecules[molecule_columns],
+                aux_df = pd.merge(tmp_item.components[component_columns], tmp_item.molecules[molecule_columns],
                                   left_on='molecule_index', right_index=True)
 
             else:
 
-                aux_df = pd.merge(item.components[component_columns], aux_df,
+                aux_df = pd.merge(tmp_item.components[component_columns], aux_df,
                                   left_on='molecule_index', right_index=True)
 
         if len(component_columns):
 
             if aux_df is None:
 
-                aux_df = pd.merge(item.groups[group_columns], item.components[component_columns],
+                aux_df = pd.merge(tmp_item.groups[group_columns], tmp_item.components[component_columns],
                                   left_on='component_index', right_index=True)
 
             else:
 
-                aux_df = pd.merge(item.groups[group_columns], aux_df,
+                aux_df = pd.merge(tmp_item.groups[group_columns], aux_df,
                                   left_on='component_index', right_index=True)
 
         if len(group_columns):
 
             if aux_df is None:
 
-                aux_df = pd.merge(item.atoms[atom_columns], item.groups[group_columns],
+                aux_df = pd.merge(tmp_item.atoms[atom_columns], tmp_item.groups[group_columns],
                                   left_on='group_index', right_index=True)
 
             else:
 
-                aux_df = pd.merge(item.atoms[atom_columns], aux_df,
+                aux_df = pd.merge(tmp_item.atoms[atom_columns], aux_df,
                                   left_on='group_index', right_index=True)
 
         else:
 
-            aux_df = item.atoms[atom_columns]
+            aux_df = tmp_item.atoms[atom_columns]
 
         if len(chain_columns):
 
-            aux_df = pd.merge(aux_df, item.chains[chain_columns],
+            aux_df = pd.merge(aux_df, tmp_item.chains[chain_columns],
                               left_on='chain_index', right_index=True)
+
+        tmp_selection = tmp_selection.replace('atom_index','index')
 
         output = aux_df.query(tmp_selection).index.to_list()
 

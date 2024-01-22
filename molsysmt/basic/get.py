@@ -10,6 +10,7 @@ def get(molecular_system,
         mask=None,
         syntax='MolSysMT',
         output_type='values',
+        skip_digestion=False,
         **kwargs):
     """
     Getting attribute values from a molecular system.

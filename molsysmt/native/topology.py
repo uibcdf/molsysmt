@@ -1,7 +1,7 @@
 import pandas as pd
 import numpy as np
 from molsysmt._private.variables import is_all
-
+from molsysmt._private.digestion import digest
 
 class Atoms_DataFrame(pd.DataFrame):
 
@@ -145,7 +145,9 @@ class Bonds_DataFrame(pd.DataFrame):
 
 class Topology():
 
-    def __init__(self, n_atoms=0, n_groups=0, n_components=0, n_molecules=0, n_entities=0, n_chains=0, n_bonds=0):
+    @digest()
+    def __init__(self, n_atoms=0, n_groups=0, n_components=0, n_molecules=0, n_entities=0, n_chains=0, n_bonds=0,
+                skip_digestion=False):
 
         self.atoms = Atoms_DataFrame(n_atoms=n_atoms)
         self.groups = Groups_DataFrame(n_groups=n_groups)
@@ -155,7 +157,8 @@ class Topology():
         self.chains = Chains_DataFrame(n_chains=n_chains)
         self.bonds = Bonds_DataFrame(n_bonds=n_bonds)
 
-    def extract(self, atom_indices='all', copy_if_all=False):
+    @digest()
+    def extract(self, atom_indices='all', copy_if_all=False, skip_digestion=False):
 
         if is_all(atom_indices):
 
@@ -177,7 +180,7 @@ class Topology():
 
             atom_indices = np.sort(atom_indices)
 
-            tmp_item = Topology()
+            tmp_item = Topology(skip_digestion=True)
             tmp_item.atoms = self.atoms.iloc[atom_indices].copy()
             tmp_item.atoms.reset_index(drop=True, inplace=True)
 
@@ -230,12 +233,13 @@ class Topology():
 
             return tmp_item
 
-    def add(self, item, atom_indices='all'):
+    @digest(form='molsysmt.Topology')
+    def add(self, item, atom_indices='all', skip_digestion=False):
 
         if is_all(atom_indices):
             tmp_item = item
         else:
-            tmp_item = item.extract(atom_indices=atom_indices)
+            tmp_item = item.extract(atom_indices=atom_indices, skip_digestion=True)
 
         n_atoms = tmp_item.atoms.shape[0]
         n_groups = tmp_item.groups.shape[0]
@@ -255,7 +259,9 @@ class Topology():
         self.components = pd.concat([self.components, tmp_item.components], ignore_index=True, copy=False)
         self.molecules = pd.concat([self.molecules, tmp_item.molecules], ignore_index=True, copy=False)
         self.bonds = pd.concat([self.bonds, tmp_item.bonds], ignore_index=True, copy=False)
-        self.rebuild_entities()
+        #self.rebuild_components(redefine_indices=False)
+        #self.rebuild_molecules()
+        #self.rebuild_entities()
 
         del tmp_item
 
@@ -280,13 +286,13 @@ class Topology():
         group_types_from_groups = get_group_type(self, element='group', redefine_types=True)
         self.groups["group_type"] = np.array(group_types_from_groups, dtype=object)
 
-    def rebuild_components(self):
+    def rebuild_components(self, redefine_indices=True):
 
         from molsysmt.element.component import get_component_index, get_component_id,\
         get_component_name, get_component_type
 
-        component_indices_from_groups = get_component_index(self, element='group', redefine_indices=True)
-        self.groups["component_index"] = np.array(component_indices_from_groups, dtype=object)
+        component_indices_from_groups = get_component_index(self, element='group', redefine_indices=redefine_indices)
+        self.groups["component_index"] = np.array(component_indices_from_groups, dtype=int)
         n_components = component_indices_from_groups[-1]+1
         del component_indices_from_groups
 
@@ -312,6 +318,7 @@ class Topology():
 
         molecule_indices_from_components = get_molecule_index(self, element='component',
                 redefine_components=False, redefine_indices=True)
+
         self.components["molecule_index"] = np.array(molecule_indices_from_components, dtype=object)
         n_molecules = molecule_indices_from_components[-1]+1
         del molecule_indices_from_components
@@ -340,13 +347,13 @@ class Topology():
         self.chains["chain_type"] = np.array(chain_type, dtype=object)
         del chain_type
 
-    def rebuild_entities(self):
+    def rebuild_entities(self, redefine_indices=True):
 
         from molsysmt.element.entity import get_entity_index, get_entity_id,\
         get_entity_name, get_entity_type
 
         entity_indices_from_molecules = get_entity_index(self, element='molecule',
-                redefine_molecules=False, redefine_indices=True)
+                redefine_molecules=False, redefine_indices=redefine_indices)
         self.molecules["entity_index"] = np.array(entity_indices_from_molecules, dtype=object)
         n_entities = entity_indices_from_molecules[-1]+1
         del entity_indices_from_molecules

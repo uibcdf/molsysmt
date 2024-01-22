@@ -10,6 +10,7 @@ def get_component_name(molecular_system, element='atom', selection='all', redefi
 
         from .get_component_index import get_component_index
         from .get_component_type import get_component_type
+        from molsysmt import get
 
         component_index_from_atom = get_component_index(molecular_system, element='atom',
             selection='all', syntax='MolSysMT', redefine_indices=redefine_components)
@@ -23,12 +24,29 @@ def get_component_name(molecular_system, element='atom', selection='all', redefi
 
         counter = {'peptide':0, 'protein':0, 'small molecule':0, 'unknown':0}
 
+        peptides = {}
+
         component_name_from_component = []
 
         for component_type, first_atom, n_atoms in zip(component_type_from_component, first_atom_per_component,
                                                        n_atoms_per_component):
 
-            if component_type in ['peptide', 'protein', 'small molecule']:
+            if component_type in ['peptide']:
+
+                atom_indices_peptide = np.arange(n_atoms) + first_atom
+                selection_peptide = 'atom_index in @atom_indices_peptide'
+                group_names = get(molecular_system, element='group', selection=selection_peptide,
+                                  group_name=True, skip_digestion=True)
+                string_peptide = ','.join(group_names)
+
+                if string_peptide in peptides:
+                    name = peptides[string_peptide]
+                else:
+                    name = component_type+' '+str(counter[component_type])
+                    peptides[string_peptide] = name
+                    counter[component_type] += 1
+
+            elif component_type in ['protein', 'small molecule']:
 
                 name = component_type+' '+str(counter[component_type])
                 counter[component_type]+=1

@@ -17,12 +17,12 @@ def has_attribute(molecular_system, attribute):
             'molecule_index', 'molecule_id', 'molecule_name', 'molecule_type',
             'chain_index', 'chain_id', 'chain_name', 'chain_type',
             'entity_index', 'entity_id', 'entity_name', 'entity_type']:
-        if molecular_system.topology.atoms_dataframe.shape[0]:
+        if molecular_system.topology.atoms.shape[0]:
             output = True 
 
     elif attribute in ['bond_index', 'bond_id', 'bond_type',
             'bond_order', 'bond_atoms']:
-        if molecular_system.topology.bonds_dataframe.shape[0]:
+        if molecular_system.topology.bonds.shape[0]:
             output = True 
 
     ###

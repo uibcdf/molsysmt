@@ -40,7 +40,7 @@ class Structures:
             id_step=None, constant_box=False,
             structure_id=None, time=None, coordinates=None, velocities=None, box=None,
             occupancy=None, b_factor=None, alternate_location=None, bioassembly=None,
-            temperature=None, potential_energy=None, kinetic_energy=None):
+            temperature=None, potential_energy=None, kinetic_energy=None, skip_digestion=False):
 
         self.n_atoms = 0
         self.n_structures = 0
@@ -78,94 +78,181 @@ class Structures:
             self.n_structures = 0
             self.n_atoms = 0
 
-    def _concatenate_arrays(array_1, array_2):
-        """ Concatenates two arrays provided that they are not null."""
-        if array_2 is not None:
-            if array_1 is None:
-                raise ValueError(
-                    f"The trajectory has no array to append the new frame.")
-            else:
-                return np.concatenate([array_1, array_2])
 
-
-    def _append_structure_id(self, structure_id):
+    @digest()
+    def append_structure_id(self, structure_id, structure_indices='all', skip_digestion=False):
 
         if self.structure_id is None:
-            self.structure_id = structure_id
+            if is_all(structure_indices):
+                self.structure_id = deepcopy(structure_id)
+            else:
+                self.structure_id = structure_id[structure_indices]
         else:
-            self.structure_id = self._concatenate_arrays(self.structure_id, structure_id)
+            if is_all(structure_indices):
+                self.structure_id = np.concatenate([self.structure_id, structure_id])
+            else:
+                self.structure_id = np.concatenate([self.structure_id, structure_id[structure_indices]])
 
 
-    def _append_time(self, time):
+    @digest()
+    def append_time(self, time, structure_indices='all', skip_digestion=False):
 
         time = puw.standardize(time)
 
         if self.time is None:
-            self.time = time
+            if is_all(structure_indices):
+                self.time = deepcopy(time)
+            else:
+                self.time = time[structure_indices]
         else:
-            self.time = self._concatenate_arrays(self.time, time)
+            if is_all(structure_indices):
+                self.time = np.concatenate([self.time, time])
+            else:
+                self.time = np.concatenate([self.time, time[structure_indices]])
 
 
-    def _append_coordinates(self, coordinates):
+    @digest()
+    def append_coordinates(self, coordinates, atom_indices='all', structure_indices='all', skip_digestion=False):
 
         coordinates = puw.standardize(coordinates)
 
         if self.coordinates is None:
-            self.coordinates = coordinates
+            if is_all(structure_indices):
+                if is_all(atom_indices):
+                    self.coordinates = deepcopy(coordinates)
+                else:
+                    self.coordinates = coordinates[:,atom_indices,:]
+            else:
+                if is_all(atom_indices):
+                    self.coordinates = coordinates[structure_indices,:,:]
+                else:
+                    self.coordinates = coordinates[np.ix_(structure_indices, atom_indices)]
         else:
             if self.coordinates.shape[1] != coordinates.shape[1]:
                 raise ValueError(
                     "The coordinates to be appended in the system "
                     "need to have the same number of atoms.")
             self.coordinates = self._concatenate_arrays(self.coordinates, coordinates)
+            if is_all(structure_indices):
+                if is_all(atom_indices):
+                    self.coordinates = np.concatenate([self.coordinates, coordinates])
+                else:
+                    self.coordinates = np.concatenate([self.coordinates, coordinates[:,atom_indices,:]])
+            else:
+                if is_all(atom_indices):
+                    self.coordinates = np.concatenate([self.coordinates, coordinates[structure_indices,:,:]])
+                else:
+                    self.coordinates = np.concatenate([self.coordinates,
+                                                       coordinates[np.ix_(structure_indices, atom_indices)]])
 
 
-    def _append_velocities(self, velocities):
+    @digest()
+    def append_velocities(self, velocities, atom_indices='all', structure_indices='all', skip_digestion=False):
 
         velocities = puw.standardize(velocities)
 
         if self.velocities is None:
-            self.velocities = velocities
+            if is_all(structure_indices):
+                if is_all(atom_indices):
+                    self.velocities = deepcopy(velocities)
+                else:
+                    self.velocities = velocities[:,atom_indices,:]
+            else:
+                if is_all(atom_indices):
+                    self.velocities = velocities[structure_indices,:,:]
+                else:
+                    self.velocities = velocities[np.ix_(structure_indices, atom_indices)]
         else:
             if self.velocities.shape[1] != velocities.shape[1]:
                 raise ValueError(
                     "The velocities to be appended in the system "
                     "need to have the same number of atoms.")
             self.velocities = self._concatenate_arrays(self.velocities, velocities)
+            if is_all(structure_indices):
+                if is_all(atom_indices):
+                    self.velocities = np.concatenate([self.velocities, velocities])
+                else:
+                    self.velocities = np.concatenate([self.velocities, velocities[:,atom_indices,:]])
+            else:
+                if is_all(atom_indices):
+                    self.velocities = np.concatenate([self.velocities, velocities[structure_indices,:,:]])
+                else:
+                    self.velocities = np.concatenate([self.velocities,
+                                                       velocities[np.ix_(structure_indices, atom_indices)]])
 
 
-    def _append_box(self, box):
+    @digest()
+    def append_box(self, box, structure_indices='all', skip_digestion=False):
 
         box = puw.standardize(box)
 
         if self.box is None:
-            self.box = box
+            if is_all(structure_indices):
+                self.box = deepcopy(box)
+            else:
+                self.box = box[structure_indices]
         else:
-            self.box = self._concatenate_arrays(self.box, box)
+            if is_all(structure_indices):
+                self.box = np.concatenate([self.box, box])
+            else:
+                self.box = np.concatenate([self.box, box[structure_indices]])
 
 
-    def _append_temperature(self, temperature):
+    @digest()
+    def append_temperature(self, temperature, structure_indices='all', skip_digestion=False):
 
         temperature = puw.standardize(temperature)
 
         if self.temperature is None:
-            self.temperature = temperature
+            if is_all(structure_indices):
+                self.temperature = deepcopy(temperature)
+            else:
+                self.temperature = temperature[structure_indices]
         else:
-            self.temperature = self._concatenate_arrays(self.temperature, temperature)
+            if is_all(structure_indices):
+                self.temperature = np.concatenate([self.temperature, temperature])
+            else:
+                self.temperature = np.concatenate([self.temperature, temperature[structure_indices]])
 
 
-    def _append_potential_energy(self, potential_energy):
+    @digest()
+    def append_potential_energy(self, potential_energy, structure_indices='all', skip_digestion=False):
 
         potential_energy = puw.standardize(potential_energy)
 
         if self.potential_energy is None:
-            self.potential_energy = potential_energy
+            if is_all(structure_indices):
+                self.potential_energy = deepcopy(potential_energy)
+            else:
+                self.potential_energy = potential_energy[structure_indices]
         else:
-            self.potential_energy = self._concatenate_arrays(self.potential_energy, potential_energy)
+            if is_all(structure_indices):
+                self.potential_energy = np.concatenate([self.potential_energy, potential_energy])
+            else:
+                self.potential_energy = np.concatenate([self.potential_energy, potential_energy[structure_indices]])
 
 
+    @digest()
+    def append_kinetic_energy(self, kinetic_energy, structure_indices='all', skip_digestion=False):
+
+        kinetic_energy = puw.standardize(kinetic_energy)
+
+        if self.kinetic_energy is None:
+            if is_all(structure_indices):
+                self.kinetic_energy = deepcopy(kinetic_energy)
+            else:
+                self.kinetic_energy = kinetic_energy[structure_indices]
+        else:
+            if is_all(structure_indices):
+                self.kinetic_energy = np.concatenate([self.kinetic_energy, kinetic_energy])
+            else:
+                self.kinetic_energy = np.concatenate([self.kinetic_energy, kinetic_energy[structure_indices]])
+
+
+    @digest()
     def append(self, structure_id=None, time=None, coordinates=None, velocities=None,
-            box=None, temperature=None, potential_energy=None, kinetic_energy=None):
+               box=None, temperature=None, potential_energy=None, kinetic_energy=None,
+               atom_indices='all', structure_indices='all', skip_digestion=False):
         """ Append structures or frames to this object.
 
              box : pint.Quantity of shape (n_structures, 3, 3)
@@ -179,96 +266,236 @@ class Structures:
 
         """
 
+        n_structures = None
+
         if structure_id is not None:
-            self._append_structure_id(self, structure_id)
+
+            tmp_n_structures = len(structure_id)
+            if n_structures is None:
+                n_structures = tmp_n_structures
+            elif n_structures != tmp_n_structures:
+                raise ValueError('Not all input attributes have the same number of structures.')
 
         if time is not None:
-            self._append_time(self, time)
+
+            tmp_n_structures = len(time)
+            if n_structures is None:
+                n_structures = tmp_n_structures
+            elif n_structures != tmp_n_structures:
+                raise ValueError('Not all input arguments have the same number of structures to be appended.')
 
         if coordinates is not None:
-            self._append_coordinates(self, coordinates)
 
+            tmp_n_structures = coordinates.shape[0]
+            if n_structures is None:
+                n_structures = tmp_n_structures
+            elif n_structures != tmp_n_structures:
+                raise ValueError('Not all input arguments have the same number of structures to be appended.')
+        
         if velocities is not None:
-            self._append_velocities(self, velocities)
+
+            tmp_n_structures = velocities.shape[0]
+            if n_structures is None:
+                n_structures = tmp_n_structures
+            elif n_structures != tmp_n_structures:
+                raise ValueError('Not all input arguments have the same number of structures to be appended.')
 
         if box is not None:
-            self._append_box(self, box)
+
+            tmp_n_structures = box.shape[0]
+            if n_structures is None:
+                n_structures = tmp_n_structures
+            elif n_structures != tmp_n_structures:
+                raise ValueError('Not all input arguments have the same number of structures to be appended.')
 
         if temperature is not None:
-            self._append_temperature(self, temperature)
+
+            tmp_n_structures = len(temperature)
+            if n_structures is None:
+                n_structures = tmp_n_structures
+            elif n_structures != tmp_n_structures:
+                raise ValueError('Not all input arguments have the same number of structures to be appended.')
 
         if potential_energy is not None:
-            self._append_potential_energy(self, potential_energy)
+
+            tmp_n_structures = len(potential_energy)
+            if n_structures is None:
+                n_structures = tmp_n_structures
+            elif n_structures != tmp_n_structures:
+                raise ValueError('Not all input arguments have the same number of structures to be appended.')
 
         if kinetic_energy is not None:
-            self._append_kinetic_energy(self, kinetic_energy)
 
+            tmp_n_structures = len(kinetic_energy)
+            if n_structures is None:
+                n_structures = tmp_n_structures
+            elif n_structures != tmp_n_structures:
+                raise ValueError('Not all input arguments have the same number of structures to be appended.')
+
+        if self.n_structures==0:
+
+            if structure_id is not None:
+                self.append_structure_id(structure_id, structure_indices=structure_indices, skip_digestion=True)
+
+            if time is not None:
+                self.append_time(time, structure_indices=structure_indices, skip_digestion=True)
+
+            if coordinates is not None:
+                self.append_coordinates(coordinates, atom_indices=atom_indices, structure_indices=structure_indices,
+                                         skip_digestion=True)
+
+            if velocities is not None:
+                self.append_velocities(velocities, atom_indices=atom_indices, structure_indices=structure_indices,
+                                        skip_digestion=True)
+
+            if box is not None:
+                self.append_box(box, structure_indices=structure_indices, skip_digestion=True)
+
+            if temperature is not None:
+                self.append_temperature(temperature, structure_indices=structure_indices, skip_digestion=True)
+
+            if potential_energy is not None:
+                self.append_potential_energy(potential_energy, structure_indices=structure_indices,
+                                              skip_digestion=True)
+
+            if kinetic_energy is not None:
+                self.append_kinetic_energy(kinetic_energy, structure_indices=structure_indices,
+                                            skip_digestion=True)
+
+
+        else:
+
+            if (self.structure_id is not None) and (structure_id is not None):
+                self.append_structure_id(self, structure_id, structure_indices=structure_indices,
+                                          skip_digestion=True)
+
+            if (self.time is not None) and (time is not None):
+                self.append_time(self, time, structure_indices=structure_indices, skip_digestion=True)
+
+            if (self.coordinates is not None) and (coordinates is not None):
+                self.append_coordinates(self, coordinates, atom_indices=atom_indices,
+                                         structure_indices=structure_indices, skip_digestion=True)
+
+            if (self.velocities is not None) and (velocities is not None):
+                self.append_velocities(self, velocities, atom_indices=atom_indices,
+                                        structure_indices=structure_indices, skip_digestion=True)
+
+            if (self.box is not None) and (box is not None):
+                self.append_box(self, box, structure_indices=structure_indices, skip_digestion=True)
+
+            if (self.temperature is not None) and (temperature is not None):
+                self.append_temperature(self, temperature, structure_indices=structure_indices, skip_digestion=True)
+
+            if (self.potential_energy is not None) and (potential_energy is not None):
+                self.append_potential_energy(self, potential_energy, structure_indices=structure_indices)
+
+            if (self.kinetic_energy is not None) and (kinetic_energy is not None):
+                self.append_kinetic_energy(self, kinetic_energy, structure_indices=structure_indices, 
+                                            skip_digestion=True)
 
         self.n_structures += n_structures
 
 
+    @digest(form='molsysmt.Structures')
+    def append_structures(self, item, atom_indices='all', structure_indices='all', skip_digestion=False):
+
+        self.append(structure_id=item.structure_id,
+                    time=item.time,
+                    coordinates=item.coordinates,
+                    velocities=item.velocities,
+                    box=item.box,
+                    temperature=item.temperature,
+                    potential_energy=item.potential_energy,
+                    kinetic_energy=item.kinetic_energy,
+                    atom_indices=item.atom_indices,
+                    structure_indices=item.structure_indices,
+                    skip_digestion=True
+                   )
+
+
+    @digest(form='molsysmt.Structures')
+    def add(self, item, atom_indices='all', structure_indices='all', skip_digestion=False):
+
+        if is_all(structure_indices):
+            if self.n_structures!=item.n_structures:
+                raise ValueError('Both items need to have the same n_structures')
+        elif self.n_structures!=len(structure_indices):
+            raise ValueError('Both items need to have the same n_structures')
+
+        if item.coordinates is not None:
+            if self.coordinates is None:
+                if is_all(structure_indices):
+                    if is_all(atom_indices):
+                        self.coordinates = deepcopy(item.coordinates)
+                    else:
+                        self.coordinates = item.coordinates[:,atom_indices,:]
+                else:
+                    if is_all(atom_indices):
+                        self.coordinates = item.coordinates[structure_indices,:,:]
+                    else:
+                        self.coordinates = item.coordinates[np.ix_(structure_indices, atom_indices)]
+            else:
+                if is_all(structure_indices):
+                    if is_all(atom_indices):
+                        value_self_coordinates, unit = puw.get_value_and_unit(self.coordinates)
+                        value_coordinates = puw.get_value(item.coordinates, to_unit=unit)
+                        self.coordinates = np.hstack([value_self_coordinates, value_coordinates])*unit
+                    else:
+                        value_self_coordinates, unit = puw.get_value_and_unit(self.coordinates)
+                        value_coordinates = puw.get_value(item.coordinates[:,atom_indices,:], to_unit=unit)
+                        self.coordinates = np.hstack([value_self_coordinates, value_coordinates])*unit
+                else:
+                    if is_all(atom_indices):
+                        value_self_coordinates, unit = puw.get_value_and_unit(self.coordinates)
+                        value_coordinates = puw.get_value(item.coordinates[structure_indices,:,:], to_unit=unit)
+                        self.coordinates = np.hstack([value_self_coordinates, value_coordinates])*unit
+                    else:
+                        value_self_coordinates, unit = puw.get_value_and_unit(self.coordinates)
+                        value_coordinates = puw.get_value(item.coordinates[np.ix_(structure_indices, atom_indices)],
+                                                          to_unit=unit)
+                        self.coordinates = np.hstack([value_self_coordinates, value_coordinates])*unit
+ 
+        if item.velocities is not None:
+            if self.velocities is None:
+                if is_all(structure_indices):
+                    if is_all(atom_indices):
+                        self.velocities = deepcopy(item.velocities)
+                    else:
+                        self.velocities = item.velocities[:,atom_indices,:]
+                else:
+                    if is_all(atom_indices):
+                        self.velocities = item.velocities[structure_indices,:,:]
+                    else:
+                        self.velocities = item.velocities[np.ix_(structure_indices, atom_indices)]
+            else:
+                if is_all(structure_indices):
+                    if is_all(atom_indices):
+                        value_self_velocities, unit = puw.get_value_and_unit(self.velocities)
+                        value_velocities = puw.get_value(item.velocities, to_unit=unit)
+                        self.velocities = np.hstack([value_self_velocities, value_velocities])*unit
+                    else:
+                        value_self_velocities, unit = puw.get_value_and_unit(self.velocities)
+                        value_velocities = puw.get_value(item.velocities[:,atom_indices,:], to_unit=unit)
+                        self.velocities = np.hstack([value_self_velocities, value_velocities])*unit
+                else:
+                    if is_all(atom_indices):
+                        value_self_velocities, unit = puw.get_value_and_unit(self.velocities)
+                        value_velocities = puw.get_value(item.velocities[structure_indices,:,:], to_unit=unit)
+                        self.velocities = np.hstack([value_self_velocities, value_velocities])*unit
+                    else:
+                        value_self_velocities, unit = puw.get_value_and_unit(self.velocities)
+                        value_velocities = puw.get_value(item.velocities[np.ix_(structure_indices, atom_indices)],
+                                                          to_unit=unit)
+                        self.velocities = np.hstack([value_self_velocities, value_velocities])*unit
+
+        if self.coordinates is not None:
+            self.n_atoms = self.coordinates.shape[1]
+        elif self.velocities is not None:
+            self.n_atoms = self.velocities.shape[1]
+
 
     @digest()
-    def append_structures(self, item, atom_indices='all', structure_indices='all'):
-
-        n_structures = 0
-        n_atoms = 0
-
-        if structure_id is not None and not isinstance(structure_id, (list, np.ndarray)):
-            structure_id = np.array([structure_id])
-
-        if time is not None:
-            time = puw.standardize(time)
-        if coordinates is not None:
-            coordinates = puw.standardize(coordinates)
-            n_structures = coordinates.shape[0]
-            n_atoms = coordinates.shape[1]
-        if velocities is not None:
-            velocities = puw.standardize(velocities)
-        if box is not None:
-            box = puw.standardize(box)
-        if temperature is not None:
-            temperature = puw.standardize(temperature)
-        if potential_energy is not None:
-            potential_energy = puw.standardize(potential_energy)
-        if kinetic_energy is not None:
-            kinetic_energy = puw.standardize(kinetic_energy)
-
-        if self.n_structures == 0:
-
-            self.coordinates = coordinates
-            self.velocities = velocities
-            self.structure_id = structure_id
-            self.time = time
-            self.box = box
-            self.temperature = temperature
-            self.potential_energy = potential_energy
-            self.kinetic_energy = kinetic_energy
-            self.n_structures = n_structures
-            self.n_atoms = n_atoms
-
-        else:
-
-            if n_atoms != self.n_atoms:
-                raise ValueError(
-                    "The coordinates to be appended in the system "
-                    "need to have the same number of atoms.")
-
-            self.structure_id = self._concatenate_arrays(self.structure_id, structure_id)
-            self.time = self._concatenate_arrays(self.time, time)
-            self.box = self._concatenate_arrays(self.box, box)
-            self.temperature = self._concatenate_arrays(self.temperature, temperature)
-            self.potential_energy = self._concatenate_arrays(self.potential_energy,
-                    potential_energy)
-            self.kinetic_energy = self._concatenate_arrays(self.kinetic_energy,
-                    kinetic_energy)
-
-            self.coordinates = self._concatenate_arrays(self.coordinates, coordinates)
-            self.velocities = self._concatenate_arrays(self.velocities, velocities)
-            self.n_structures += n_structures
-
-    @digest()
-    def extract(self, atom_indices='all', structure_indices='all'):
+    def extract(self, atom_indices='all', structure_indices='all', skip_digestion=False):
         """ Returns a new Structures object with the specified atoms and/or
             structures.
 
@@ -286,61 +513,87 @@ class Structures:
                 The new structures object with the extracted atoms and frames.
         """
         if is_all(atom_indices) and is_all(structure_indices):
+
             return self.copy()
 
         else:
 
-            extract_structures = not is_all(structure_indices)
 
-            if self.structure_id is not None and extract_structures:
-                id = self.structure_id[structure_indices]
+            if self.structure_id is None:
+                structure_id = None
             else:
-                id = deepcopy(self.structure_id)
-
-            if self.time is not None and extract_structures:
-                time = self.time[structure_indices]
-            else:
-                time = deepcopy(self.time)
-
-            if self.box is not None and extract_structures:
-                box = self.box[structure_indices]
-            else:
-                box = deepcopy(self.box)
-
-            if self.temperature is not None and extract_structures:
-                temperature = self.temperature[structure_indices]
-            else:
-                temperature = deepcopy(self.temperature)
-
-            if self.potential_energy is not None and extract_structures:
-                potential_energy = self.potential_energy[structure_indices]
-            else:
-                potential_energy = deepcopy(self.potential_energy)
-
-            if self.kinetic_energy is not None and extract_structures:
-                kinetic_energy = self.kinetic_energy[structure_indices]
-            else:
-                kinetic_energy = deepcopy(self.kinetic_energy)
-
-            if self.coordinates is not None:
-                if not is_all(atom_indices):
-                    coordinates = self.coordinates[:, atom_indices, :]
+                if is_all(structure_indices):
+                    structure_id = deepcopy(self.structure_id)
                 else:
-                    coordinates = deepcopy(self.coordinates)
-                if not is_all(structure_indices):
-                    coordinates = coordinates[structure_indices, :, :]
+                    structure_id = self.structure_id[structure_indices]
+
+            if self.time is None:
+                time = None
             else:
+                if is_all(structure_indices):
+                    time = deepcopy(self.time)
+                else:
+                    time = self.time[structure_indices]
+
+            if self.box is None:
+                box = None
+            else:
+                if is_all(structure_indices):
+                    box = deepcopy(self.box)
+                else:
+                    box = self.box[structure_indices]
+
+            if self.temperature is None:
+                temperature = None
+            else:
+                if is_all(structure_indices):
+                    temperature = deepcopy(self.temperature)
+                else:
+                    temperature = self.temperature[structure_indices]
+
+            if self.potential_energy is None:
+                potential_energy = None
+            else:
+                if is_all(structure_indices):
+                    potential_energy = deepcopy(self.potential_energy)
+                else:
+                    potential_energy = self.potential_energy[structure_indices]
+
+            if self.kinetic_energy is None:
+                kinetic_energy = None
+            else:
+                if is_all(structure_indices):
+                    kinetic_energy = deepcopy(self.kinetic_energy)
+                else:
+                    kinetic_energy = self.kinetic_energy[structure_indices]
+
+            if self.coordinates is None:
                 coordinates = None
-
-            if self.velocities is not None:
-                if not is_all(atom_indices):
-                    velocities = self.velocities[:, atom_indices, :]
-                else:
-                    velocities = deepcopy(self.velocities)
-                if not is_all(structure_indices):
-                    velocities = velocities[structure_indices, :, :]
             else:
+                if is_all(structure_indices):
+                    if is_all(atom_indices):
+                        coordinates = deepcopy(self.coordinates)
+                    else:
+                        coordinates = self.coordinates[:,atom_indices,:]
+                else:
+                    if is_all(atom_indices):
+                        coordinates = self.coordinates[structure_indices,:,:]
+                    else:
+                        coordinates = self.coordinates[np.ix_(structure_indices, atom_indices)]
+
+            if self.velocities is None:
                 velocities = None
+            else:
+                if is_all(structure_indices):
+                    if is_all(atom_indices):
+                        velocities = deepcopy(self.velocities)
+                    else:
+                        velocities = self.velocities[:,atom_indices,:]
+                else:
+                    if is_all(atom_indices):
+                        velocities = self.velocities[structure_indices,:,:]
+                    else:
+                        velocities = self.velocities[np.ix_(structure_indices, atom_indices)]
 
         return Structures(structure_id=structure_id,
                           time=time,
@@ -349,88 +602,9 @@ class Structures:
                           box=box,
                           temperature=temperature,
                           potential_energy=potential_energy,
-                          kinetic_energy=kinetic_energy
+                          kinetic_energy=kinetic_energy,
+                          skip_digestion=True
                           )
-
-    def add(self, item, atom_indices='all', structure_indices='all'):
-        """ Adds the coordinates of another item to this.
-
-            Parameters
-            ----------
-
-            item : MolecularSystem
-                The molecular system whose coordinates will be added.
-
-            selection : str or arraylike of int, default='all'
-                Selects only these atoms from the given item.
-
-            structure_indices : str or arraylike of int, default='all'
-                Select only these structures from the given item
-
-        """
-
-        n_structures = 0
-        n_atoms = 0
-
-        if is_all(atom_indices) and is_all(atom_indices)
-
-
-        if structure_id is not None and not isinstance(structure_id, (list, np.ndarray)):
-            structure_id = np.array([structure_id])
-
-        if time is not None:
-            time = puw.standardize(time)
-        if coordinates is not None:
-            coordinates = puw.standardize(coordinates)
-            n_structures = coordinates.shape[0]
-            n_atoms = coordinates.shape[1]
-        if velocities is not None:
-            velocities = puw.standardize(velocities)
-        if box is not None:
-            box = puw.standardize(box)
-        if temperature is not None:
-            temperature = puw.standardize(temperature)
-        if potential_energy is not None:
-            potential_energy = puw.standardize(potential_energy)
-        if kinetic_energy is not None:
-            kinetic_energy = puw.standardize(kinetic_energy)
-
-        if self.n_structures == 0:
-
-            self.coordinates = coordinates
-            self.velocities = velocities
-            self.structure_id = structure_id
-            self.time = time
-            self.box = box
-            self.temperature = temperature
-            self.potential_energy = potential_energy
-            self.kinetic_energy = kinetic_energy
-            self.n_structures = n_structures
-            self.n_atoms = n_atoms
-
-        else:
-
-            if n_atoms != self.n_atoms:
-                raise ValueError(
-                    "The coordinates to be appended in the system "
-                    "need to have the same number of atoms.")
-
-            self.structure_id = self._concatenate_arrays(self.structure_id, structure_id)
-            self.time = self._concatenate_arrays(self.time, time)
-            self.box = self._concatenate_arrays(self.box, box)
-            self.temperature = self._concatenate_arrays(self.temperature, temperature)
-            self.potential_energy = self._concatenate_arrays(self.potential_energy,
-                    potential_energy)
-            self.kinetic_energy = self._concatenate_arrays(self.kinetic_energy,
-                    kinetic_energy)
-
-            self.coordinates = self._concatenate_arrays(self.coordinates, coordinates)
-            self.velocities = self._concatenate_arrays(self.velocities, velocities)
-            self.n_structures += n_structures
-
-
-
-
 
 
     def copy(self):

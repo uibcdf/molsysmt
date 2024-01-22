@@ -48,6 +48,9 @@ def digest(**kwargs):
         @functools.wraps(func)
         def wrapper(*args, **kwargs):
 
+            if kwargs.get('skip_digestion', False):
+                return func(*args, **kwargs)
+
             # Define caller
 
             caller = func.__module__+'.'+func.__name__
