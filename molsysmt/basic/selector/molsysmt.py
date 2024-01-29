@@ -22,18 +22,22 @@ def select(molecular_system, selection='all', structure_indices='all'):
             atom_indices = select_in_elements_of(molecular_system, selection)
 
         elif 'within' in selection:
+
             atom_indices = select_within(molecular_system, selection, structure_indices)
 
         elif 'bonded to' in selection:
+
             atom_indices = select_bonded_to(molecular_system, selection)
 
         else:
+
             atom_indices = select_standard(molecular_system, selection)
 
     return atom_indices
 
 
 def select_standard(item, selection):
+
 
     from molsysmt.basic import convert, get_form
     from molsysmt.config import selection_shortcuts
@@ -43,9 +47,10 @@ def select_standard(item, selection):
     if form_in == 'molsysmt.Topology':
         tmp_item = item
     else:
-        tmp_item = convert(item, to_form='molsysmt.Topology')
+        tmp_item = convert(item, to_form='molsysmt.Topology', skip_digestion=True)
 
     tmp_selection = selection
+
 
     if '@' in selection:
 

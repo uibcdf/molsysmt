@@ -7,7 +7,7 @@ import numpy as np
 
 @digest()
 def get_component_index(molecular_system, element='atom', selection='all', redefine_indices=False,
-                        syntax='MolSysMT'):
+                        syntax='MolSysMT', skip_digestion=False):
 
     if redefine_indices:
 
@@ -15,7 +15,7 @@ def get_component_index(molecular_system, element='atom', selection='all', redef
 
         component_index_of_atoms = None
 
-        g = convert(molecular_system, to_form='networkx.Graph')
+        g = convert(molecular_system, to_form='networkx.Graph', skip_digestion=True)
 
         components = list(nx.connected_components(g))
 
@@ -38,7 +38,7 @@ def get_component_index(molecular_system, element='atom', selection='all', redef
         elif element == 'group':
 
             group_index_of_atoms = get(molecular_system, element='atom', selection='all', syntax=syntax,
-                                       group_index=True)
+                                       group_index=True, skip_digestion=True)
             group_index, first_atom_indices = np.unique(group_index_of_atoms, return_index=True)
             output = component_index_of_atoms[first_atom_indices]
             del group_index, group_index_of_atoms

@@ -1,6 +1,7 @@
-# If digest is used in this method, other methods become slower
+from molsysmt._private.digestion import digest
 
-def where_is_attribute(molecular_system, attribute, check_if_None=True):
+@digest()
+def where_is_attribute(molecular_system, attribute, check_if_None=True, skip_digestion=False):
     """
     Getting the item where a specific attribute is found.
 

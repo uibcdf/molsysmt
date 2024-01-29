@@ -259,7 +259,7 @@ class Topology():
         self.components = pd.concat([self.components, tmp_item.components], ignore_index=True, copy=False)
         self.molecules = pd.concat([self.molecules, tmp_item.molecules], ignore_index=True, copy=False)
         self.bonds = pd.concat([self.bonds, tmp_item.bonds], ignore_index=True, copy=False)
-        #self.rebuild_components(redefine_indices=False)
+        self.rebuild_components(redefine_indices=False, redefine_ids=False, redefine_names=True, redefine_types=False)
         #self.rebuild_molecules()
         #self.rebuild_entities()
 
@@ -286,30 +286,35 @@ class Topology():
         group_types_from_groups = get_group_type(self, element='group', redefine_types=True)
         self.groups["group_type"] = np.array(group_types_from_groups, dtype=object)
 
-    def rebuild_components(self, redefine_indices=True):
+    def rebuild_components(self, redefine_indices=True, redefine_ids=True, redefine_names=True, redefine_types=True):
 
         from molsysmt.element.component import get_component_index, get_component_id,\
         get_component_name, get_component_type
 
-        component_indices_from_groups = get_component_index(self, element='group', redefine_indices=redefine_indices)
-        self.groups["component_index"] = np.array(component_indices_from_groups, dtype=int)
-        n_components = component_indices_from_groups[-1]+1
-        del component_indices_from_groups
+        if redefine_indices:
+            component_indices_from_groups = get_component_index(self, element='group',
+                                                                redefine_indices=True, skip_digestion=True)
+            self.groups["component_index"] = np.array(component_indices_from_groups, dtype=int)
+            n_components = component_indices_from_groups[-1]+1
+            self.components = Components_DataFrame(n_components=n_components)
+            del component_indices_from_groups
+            del n_components
 
-        self.components = Components_DataFrame(n_components=n_components)
+        if redefine_ids:
+            component_id = get_component_id(self, element='component', redefine_ids=True, skip_digestion=True)
+            self.components["component_id"] = np.array(component_id, dtype=int)
+            del component_id
 
-        component_id = get_component_id(self, element='component', redefine_ids=True)
-        self.components["component_id"] = np.array(component_id, dtype=int)
-        del component_id
+        if redefine_names:
+            component_name = get_component_name(self, element='component', redefine_names=True, skip_digestion=True)
+            self.components["component_name"] = np.array(component_name, dtype=object)
+            del component_name
 
-        component_name = get_component_name(self, element='component', redefine_names=True)
-        self.components["component_name"] = np.array(component_name, dtype=object)
-        del component_name
+        if redefine_types:
+            component_type = get_component_type(self, element='component', redefine_types=True, skip_digestion=True)
+            self.components["component_type"] = np.array(component_type, dtype=object)
+            del component_type
 
-        component_type = get_component_type(self, element='component', redefine_types=True)
-        self.components["component_type"] = np.array(component_type, dtype=object)
-        del component_type
-        del n_components
 
     def rebuild_molecules(self):
 
