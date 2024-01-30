@@ -4,7 +4,7 @@ import pandas as pd
 import numpy as np
 
 @digest(form='molsysmt.H5MSMFileHandler')
-def to_molsysmt_Topology(item, atom_indices='all'):
+def to_molsysmt_Topology(item, atom_indices='all', skip_digestion=False):
 
     from molsysmt.native import Topology
 

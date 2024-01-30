@@ -7,7 +7,7 @@ class StructuresIterator():
 
     @digest(form='mmdtf.MMTFDecoder')
     def __init__(self, molecular_system, atom_indices='all', start=0, stop=None, step=1, chunk=1,
-            structure_indices=None, output_type = 'values', **kwargs):
+            structure_indices=None, output_type = 'values', skip_digestion=False, **kwargs):
 
         self.molecular_system = molecular_system
         self.atom_indices = atom_indices
@@ -41,7 +41,7 @@ class TopologyIterator():
 
     @digest(form='mmdtf.MMTFDecoder')
     def __init__(self, molecular_system, element='atom', indices='all', start=0, stop=None, step=1, chunk=1,
-            output_type='values', **kwargs):
+            output_type='values', skip_digestion=False, **kwargs):
  
         self.molecular_system = molecular_system
         self.element = element
@@ -65,13 +65,14 @@ class TopologyIterator():
         if self.stop is None:
             if is_all(indices):
                 from .get import get_n_atoms_from_system
-                self.stop = get_n_atoms_from_system(molecular_system)
+                self.stop = get_n_atoms_from_system(molecular_system, skip_digestion=True)
             else:
                 self.stop = len(indices)
 
         from molsysmt import get
 
-        self._get_result = get(self.molecular_system, element=self.element, selection=self.indices, output_type='dictionary', **kwargs)
+        self._get_result = get(self.molecular_system, element=self.element, selection=self.indices, output_type='dictionary',
+                               skip_digestion=True, **kwargs)
 
         self._indices_iterator = indices_iterator(start=self.start, stop=self.stop, step=self.step, chunk=self.chunk)
 

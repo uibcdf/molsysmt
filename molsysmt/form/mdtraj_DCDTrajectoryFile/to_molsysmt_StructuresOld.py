@@ -3,13 +3,13 @@ from molsysmt import pyunitwizard as puw
 import numpy as np
 
 @digest(form='mdtraj.DCDTrajectoryFile')
-def to_molsysmt_StructuresOld(item, atom_indices='all', structure_indices='all'):
+def to_molsysmt_StructuresOld(item, atom_indices='all', structure_indices='all', skip_digestion=False):
 
     from .iterators import StructuresIterator
     from molsysmt.native.structures import StructuresOld
 
     iterator = StructuresIterator(item, atom_indices=atom_indices, structure_indices=structure_indices,
-            coordinates=True, box=True, structure_id=True)
+            coordinates=True, box=True, structure_id=True, skip_digestion=True)
 
     coordinates = []
     box = []

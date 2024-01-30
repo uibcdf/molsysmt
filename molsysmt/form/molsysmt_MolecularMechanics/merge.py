@@ -5,7 +5,7 @@ from molsysmt import pyunitwizard as puw
 from copy import deepcopy
 
 @digest(form='molsysmt.MolecularMechanics')
-def merge(items, atom_indices='all'):
+def merge(items, atom_indices='all', skip_digestion=False):
 
     output = items[0].copy()
 

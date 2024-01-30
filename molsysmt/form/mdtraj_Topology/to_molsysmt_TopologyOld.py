@@ -1,7 +1,7 @@
 from molsysmt._private.digestion import digest
 
 @digest(form='mdtraj.Topology')
-def to_molsysmt_TopologyOld(item, atom_indices='all'):
+def to_molsysmt_TopologyOld(item, atom_indices='all', skip_digestion=False):
 
     from molsysmt.native import TopologyOld
     import numpy as np

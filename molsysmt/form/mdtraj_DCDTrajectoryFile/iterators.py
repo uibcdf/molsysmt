@@ -10,7 +10,7 @@ class StructuresIterator():
 
     @digest(form='mdtraj.DCDTrajectoryFile')
     def __init__(self, molecular_system, atom_indices='all', start=0, stop=None, step=1, chunk=1,
-            structure_indices=None, output_type = 'values', **kwargs):
+            structure_indices=None, output_type='values', skip_digestion=False, **kwargs):
 
         self.molecular_system = molecular_system
         self.atom_indices = atom_indices
@@ -38,12 +38,12 @@ class StructuresIterator():
         if self.stop is None:
             if structure_indices is None:
                 from .get import get_n_structures_from_system
-                self.stop = get_n_structures_from_system(molecular_system)
+                self.stop = get_n_structures_from_system(molecular_system, skip_digestion=True)
             else:
                 self.stop = len(structure_indices)
 
         self._indices_iterator = indices_iterator(indices=structure_indices, start=self.start,
-                stop=self.stop, step=self.step, chunk=self.chunk)
+                stop=self.stop, step=self.step, chunk=self.chunk, skip_digestion=True)
 
         self._mdtraj_atom_indices = self.atom_indices
         if is_all(self.atom_indices):
@@ -89,7 +89,8 @@ class StructuresIterator():
                 elif argument == 'box':
                     box_lengths = puw.quantity(np.array(box_lengths), 'angstroms', standardized=True)
                     box_angles = puw.quantity(np.array(box_angles), 'degrees', standardized=True)
-                    self._output_dictionary['box'] = get_box_from_lengths_and_angles(box_lengths, box_angles)
+                    self._output_dictionary['box'] = get_box_from_lengths_and_angles(box_lengths, box_angles,
+                                                                                     skip_digestion=True)
                     del(box_lengths, box_angles)
 
             if self._output_type=='values':

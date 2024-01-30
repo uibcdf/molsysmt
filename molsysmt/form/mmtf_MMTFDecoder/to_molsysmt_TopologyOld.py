@@ -5,7 +5,7 @@ from molsysmt import pyunitwizard as puw
 import numpy as np
 
 @digest(form='mmtf.MMTFDecoder')
-def to_molsysmt_TopologyOld(item, atom_indices='all'):
+def to_molsysmt_TopologyOld(item, atom_indices='all', skip_digestion=False):
 
     import warnings
     from molsysmt.native import TopologyOld

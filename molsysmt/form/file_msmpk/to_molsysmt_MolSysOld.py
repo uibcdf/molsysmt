@@ -1,7 +1,7 @@
 from molsysmt._private.digestion import digest
 
 @digest(form='file:msmpk')
-def to_molsysmt_MolSysOld(item, atom_indices='all', structure_indices='all'):
+def to_molsysmt_MolSysOld(item, atom_indices='all', structure_indices='all', skip_digestion=False):
 
     from ..molsysmt_MolSysOld import extract as extract_molsysmt_MolSysOld
     from molsysmt import pyunitwizard as puw
@@ -30,7 +30,7 @@ def to_molsysmt_MolSysOld(item, atom_indices='all', structure_indices='all'):
         tmp_item.structures.time = puw.standardize(quantity)
 
     tmp_item = extract_molsysmt_MolSysOld(tmp_item, atom_indices=atom_indices,
-            structure_indices=structure_indices, copy_if_all=False)
+            structure_indices=structure_indices, copy_if_all=False, skip_digestion=True)
 
     return tmp_item
 
