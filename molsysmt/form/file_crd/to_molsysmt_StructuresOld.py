@@ -3,7 +3,7 @@ from molsysmt import pyunitwizard as puw
 import numpy as np
 
 @digest(form='file:crd')
-def to_molsysmt_StructuresOld(item, atom_indices='all', structure_indices='all'):
+def to_molsysmt_StructuresOld(item, atom_indices='all', structure_indices='all', skip_digestion=False):
 
         # EXT:
         #      (i10,2x,a)  natoms,'EXT'

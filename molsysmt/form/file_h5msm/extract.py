@@ -4,7 +4,8 @@ from molsysmt._private.variables import is_all
 import numpy as np
 
 @digest(form='file:h5msm')
-def extract(item, atom_indices='all', structure_indices='all', output_filename=None, copy_if_all=True):
+def extract(item, atom_indices='all', structure_indices='all', output_filename=None, copy_if_all=True,
+            skip_digestion=False):
 
     if output_filename is None:
         output_filename = item
@@ -25,7 +26,7 @@ def extract(item, atom_indices='all', structure_indices='all', output_filename=N
         from .to_molsysmt_H5MSMFileHandler import to_molsysmt_H5MSMFileHandler
         from molsysmt.native import H5MSMFileHandler
 
-        input_file_handler = to_molsysmt_H5MSMFileHandler(item)
+        input_file_handler = to_molsysmt_H5MSMFileHandler(item, skip_digestion=True)
         input_file = input_file_handler.file
 
         int_precision = input_file_handler.file.attrs['int_precision']

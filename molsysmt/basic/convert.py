@@ -58,6 +58,8 @@ def _convert_one_to_one(molecular_system,
                     conversion_arguments[_element_indices[element]] = 'all'
                 break
 
+        kwargs['skip_digestion']=True
+
         missing_arguments = input_arguments - (set(conversion_arguments) | set(kwargs) | {'item',
             'copy_if_all'})
 

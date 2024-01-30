@@ -5,7 +5,7 @@ from molsysmt.element.group.get_group_type import _get_group_type_from_group_nam
 import numpy as np
 
 @digest(form='file:crd')
-def to_molsysmt_TopologyOld(item, atom_indices='all', structure_indices='all'):
+def to_molsysmt_TopologyOld(item, atom_indices='all', structure_indices='all', skip_digestion=False):
 
         # EXT:
         #      (i10,2x,a)  natoms,'EXT'

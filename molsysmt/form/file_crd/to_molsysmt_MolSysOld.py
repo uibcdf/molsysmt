@@ -1,7 +1,7 @@
 from molsysmt._private.digestion import digest
 
 @digest(form='file:crd')
-def to_molsysmt_MolSysOld(item, atom_indices='all', structure_indices='all'):
+def to_molsysmt_MolSysOld(item, atom_indices='all', structure_indices='all', skip_digestion=False):
 
     from molsysmt.native.molsys_old import MolSysOld
     from .to_molsysmt_TopologyOld import to_molsysmt_TopologyOld
