@@ -3,7 +3,7 @@ from molsysmt._private.digestion import digest
 from molsysmt._private.variables import is_all
 
 @digest(form='molsysmt.MolecularMechanicsDict')
-def extract(item, copy_if_all=True):
+def extract(item, copy_if_all=True, skip_digestion=False):
 
     if copy_if_all:
         return item.copy()
