@@ -1,7 +1,7 @@
 from molsysmt._private.digestion import digest
 
 @digest(form='molsysmt.TopologyOld')
-def to_molsysmt_MolSysOld(item, coordinates=None, box=None, atom_indices='all'):
+def to_molsysmt_MolSysOld(item, coordinates=None, box=None, atom_indices='all', skip_digestion=False):
 
     from molsysmt.native.molsys_old import MolSysOld
     from molsysmt.native.structures_old import StructuresOld

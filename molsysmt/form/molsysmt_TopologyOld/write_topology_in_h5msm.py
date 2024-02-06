@@ -1,7 +1,7 @@
 from molsysmt._private.digestion import digest
 
 @digest(form='molsysmt.TopologyOld')
-def write_topology_in_h5msm(item, file, atom_indices='all'):
+def write_topology_in_h5msm(item, file, atom_indices='all', skip_digestion=False):
 
     from h5py._hl.files import File as h5py_File
     from molsysmt.native import H5MSMFileHandler

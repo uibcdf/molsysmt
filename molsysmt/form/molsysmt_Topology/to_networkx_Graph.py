@@ -4,7 +4,7 @@ import networkx as nx
 
 
 @digest(form='molsysmt.Topology')
-def to_networkx_Graph(item, atom_indices='all'):
+def to_networkx_Graph(item, atom_indices='all', skip_digestion=False):
 
     g = nx.Graph()
 

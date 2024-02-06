@@ -5,7 +5,7 @@ import pandas as pd
 import numpy as np
 
 @digest(form='molsysmt.Topology')
-def merge(items, atom_indices='all'):
+def merge(items, atom_indices='all', skip_digestion=False):
 
     raise NotImplementedError
 

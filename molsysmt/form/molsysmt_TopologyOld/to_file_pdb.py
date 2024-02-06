@@ -1,7 +1,7 @@
 from molsysmt._private.digestion import digest
 
 @digest(form='molsysmt.TopologyOld')
-def to_file_pdb(item, coordinates, box, atom_indices='all', output_filename=None):
+def to_file_pdb(item, coordinates, box, atom_indices='all', output_filename=None, skip_digestion=False):
 
     from . import to_openmm_Topology
     from ..openmm_Topology import to_file_pdb as openmm_Topology_to_file_pdb

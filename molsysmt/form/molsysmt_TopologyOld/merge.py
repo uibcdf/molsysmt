@@ -5,7 +5,7 @@ import pandas as pd
 import numpy as np
 
 @digest(form='molsysmt.TopologyOld')
-def merge(items, atom_indices='all'):
+def merge(items, atom_indices='all', skip_digestion=False):
 
     from molsysmt.native import TopologyOld
     from . import get_n_atoms_from_system, get_n_groups_from_system, \

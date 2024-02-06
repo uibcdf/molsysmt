@@ -3,7 +3,7 @@ from molsysmt._private.digestion import digest
 import numpy as np
 
 @digest(form='molsysmt.TopologyOld')
-def to_pytraj_Topology(item, atom_indices='all'):
+def to_pytraj_Topology(item, atom_indices='all', skip_digestion=False):
 
     try:
         from pytraj import Topology

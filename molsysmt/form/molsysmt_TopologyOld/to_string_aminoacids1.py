@@ -1,7 +1,7 @@
 from molsysmt._private.digestion import digest
 
 @digest(form='molsysmt.TopologyOld')
-def to_string_aminoacids1(item, group_indices='all'):
+def to_string_aminoacids1(item, group_indices='all', skip_digestion=False):
 
     from . import to_string_aminoacids3
     from ..string_aminoacids3 import to_string_aminoacids1 as string_aminoacids3_to_string_aminoacids1

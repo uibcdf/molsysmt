@@ -8,7 +8,7 @@ class TopologyIterator():
 
     @digest(form='molsysmt.TopologyOld')
     def __init__(self, molecular_system, element='atom', indices='all', start=0, stop=None, step=1, chunk=1,
-            output_type='values', **kwargs):
+            output_type='values', skip_digestion=False):
  
         self.molecular_system = molecular_system
         self.element = element

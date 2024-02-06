@@ -3,7 +3,7 @@ from molsysmt._private.digestion import digest
 from molsysmt._private.variables import is_all
 
 @digest(form='molsysmt.TopologyOld')
-def to_openmm_Topology(item, box=None, atom_indices='all'):
+def to_openmm_Topology(item, box=None, atom_indices='all', skip_digestion=False):
 
     try:
         import openmm as mm

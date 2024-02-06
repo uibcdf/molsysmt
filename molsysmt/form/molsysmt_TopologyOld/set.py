@@ -10,7 +10,7 @@ form='molsysmt.TopologyOld'
 ## Atom
 
 @digest(form=form)
-def set_atom_index_to_atom(item, indices='all', value=None):
+def set_atom_index_to_atom(item, indices='all', value=None, skip_digestion=False):
 
     if is_all(indices):
         item.atoms_dataframe['atom_index']=value
@@ -20,7 +20,7 @@ def set_atom_index_to_atom(item, indices='all', value=None):
     pass
 
 @digest(form=form)
-def set_atom_name_to_atom(item, indices='all', value=None):
+def set_atom_name_to_atom(item, indices='all', value=None, skip_digestion=False):
 
     if is_all(indices):
         item.atoms_dataframe['atom_name']=value
@@ -30,7 +30,7 @@ def set_atom_name_to_atom(item, indices='all', value=None):
     pass
 
 @digest(form=form)
-def set_atom_id_to_atom(item, indices='all', value=None):
+def set_atom_id_to_atom(item, indices='all', value=None, skip_digestion=False):
 
     if is_all(indices):
         item.atoms_dataframe['atom_id']=value
@@ -40,7 +40,7 @@ def set_atom_id_to_atom(item, indices='all', value=None):
     pass
 
 @digest(form=form)
-def set_atom_type_to_atom(item, indices='all', value=None):
+def set_atom_type_to_atom(item, indices='all', value=None, skip_digestion=False):
 
     if is_all(indices):
         item.atoms_dataframe['atom_type']=value
@@ -50,7 +50,7 @@ def set_atom_type_to_atom(item, indices='all', value=None):
     pass
 
 @digest(form=form)
-def set_group_index_to_atom(item, indices='all', value=None):
+def set_group_index_to_atom(item, indices='all', value=None, skip_digestion=False):
 
     if is_all(indices):
         item.atoms_dataframe['group_index']=value
@@ -60,7 +60,7 @@ def set_group_index_to_atom(item, indices='all', value=None):
     pass
 
 @digest(form=form)
-def set_group_name_to_atom(item, indices='all', value=None):
+def set_group_name_to_atom(item, indices='all', value=None, skip_digestion=False):
 
     if is_all(indices):
         item.atoms_dataframe['group_name']=value
@@ -70,7 +70,7 @@ def set_group_name_to_atom(item, indices='all', value=None):
     pass
 
 @digest(form=form)
-def set_group_id_to_atom(item, indices='all', value=None):
+def set_group_id_to_atom(item, indices='all', value=None, skip_digestion=False):
 
     if is_all(indices):
         item.atoms_dataframe['group_id']=value
@@ -80,7 +80,7 @@ def set_group_id_to_atom(item, indices='all', value=None):
     pass
 
 @digest(form=form)
-def set_group_type_to_atom(item, indices='all', value=None):
+def set_group_type_to_atom(item, indices='all', value=None, skip_digestion=False):
 
     if is_all(indices):
         item.atoms_dataframe['group_type']=value
@@ -90,7 +90,7 @@ def set_group_type_to_atom(item, indices='all', value=None):
     pass
 
 @digest(form=form)
-def set_component_index_to_atom(item, indices='all', value=None):
+def set_component_index_to_atom(item, indices='all', value=None, skip_digestion=False):
 
     if is_all(indices):
         item.atoms_dataframe['component_index']=value
@@ -100,7 +100,7 @@ def set_component_index_to_atom(item, indices='all', value=None):
     pass
 
 @digest(form=form)
-def set_component_name_to_atom(item, indices='all', value=None):
+def set_component_name_to_atom(item, indices='all', value=None, skip_digestion=False):
 
     if is_all(indices):
         item.atoms_dataframe['component_name']=value
@@ -110,7 +110,7 @@ def set_component_name_to_atom(item, indices='all', value=None):
     pass
 
 @digest(form=form)
-def set_component_id_to_atom(item, indices='all', value=None):
+def set_component_id_to_atom(item, indices='all', value=None, skip_digestion=False):
 
     if is_all(indices):
         item.atoms_dataframe['component_id']=value
@@ -120,7 +120,7 @@ def set_component_id_to_atom(item, indices='all', value=None):
     pass
 
 @digest(form=form)
-def set_component_type_to_atom(item, indices='all', value=None):
+def set_component_type_to_atom(item, indices='all', value=None, skip_digestion=False):
 
     if is_all(indices):
         item.atoms_dataframe['component_type']=value
@@ -130,7 +130,7 @@ def set_component_type_to_atom(item, indices='all', value=None):
     pass
 
 @digest(form=form)
-def set_molecule_index_to_atom(item, indices='all', value=None):
+def set_molecule_index_to_atom(item, indices='all', value=None, skip_digestion=False):
 
     if is_all(indices):
         item.atoms_dataframe['molecule_index']=value
@@ -140,7 +140,7 @@ def set_molecule_index_to_atom(item, indices='all', value=None):
     pass
 
 @digest(form=form)
-def set_molecule_name_to_atom(item, indices='all', value=None):
+def set_molecule_name_to_atom(item, indices='all', value=None, skip_digestion=False):
 
     if is_all(indices):
         item.atoms_dataframe['molecule_name']=value
@@ -150,7 +150,7 @@ def set_molecule_name_to_atom(item, indices='all', value=None):
     pass
 
 @digest(form=form)
-def set_molecule_id_to_atom(item, indices='all', value=None):
+def set_molecule_id_to_atom(item, indices='all', value=None, skip_digestion=False):
 
     if is_all(indices):
         item.atoms_dataframe['molecule_id']=value
@@ -160,7 +160,7 @@ def set_molecule_id_to_atom(item, indices='all', value=None):
     pass
 
 @digest(form=form)
-def set_molecule_type_to_atom(item, indices='all', value=None):
+def set_molecule_type_to_atom(item, indices='all', value=None, skip_digestion=False):
 
     if is_all(indices):
         item.atoms_dataframe['molecule_type']=value
@@ -170,7 +170,7 @@ def set_molecule_type_to_atom(item, indices='all', value=None):
     pass
 
 @digest(form=form)
-def set_chain_index_to_atom(item, indices='all', value=None):
+def set_chain_index_to_atom(item, indices='all', value=None, skip_digestion=False):
 
     if is_all(indices):
         item.atoms_dataframe['chain_index']=value
@@ -180,7 +180,7 @@ def set_chain_index_to_atom(item, indices='all', value=None):
     pass
 
 @digest(form=form)
-def set_chain_name_to_atom(item, indices='all', value=None):
+def set_chain_name_to_atom(item, indices='all', value=None, skip_digestion=False):
 
     if is_all(indices):
         item.atoms_dataframe['chain_name']=value
@@ -190,7 +190,7 @@ def set_chain_name_to_atom(item, indices='all', value=None):
     pass
 
 @digest(form=form)
-def set_chain_id_to_atom(item, indices='all', value=None):
+def set_chain_id_to_atom(item, indices='all', value=None, skip_digestion=False):
 
     if is_all(indices):
         item.atoms_dataframe['chain_id']=value
@@ -204,7 +204,7 @@ def set_chain_id_to_atom(item, indices='all', value=None):
     pass
 
 @digest(form=form)
-def set_chain_type_to_atom(item, indices='all', value=None):
+def set_chain_type_to_atom(item, indices='all', value=None, skip_digestion=False):
 
     if is_all(indices):
         item.atoms_dataframe['chain_type']=value
@@ -214,7 +214,7 @@ def set_chain_type_to_atom(item, indices='all', value=None):
     pass
 
 @digest(form=form)
-def set_entity_index_to_atom(item, indices='all', value=None):
+def set_entity_index_to_atom(item, indices='all', value=None, skip_digestion=False):
 
     if is_all(indices):
         item.atoms_dataframe['entity_index']=value
@@ -224,7 +224,7 @@ def set_entity_index_to_atom(item, indices='all', value=None):
     pass
 
 @digest(form=form)
-def set_entity_name_to_atom(item, indices='all', value=None):
+def set_entity_name_to_atom(item, indices='all', value=None, skip_digestion=False):
 
     if is_all(indices):
         item.atoms_dataframe['entity_name']=value
@@ -234,7 +234,7 @@ def set_entity_name_to_atom(item, indices='all', value=None):
     pass
 
 @digest(form=form)
-def set_entity_id_to_atom(item, indices='all', value=None):
+def set_entity_id_to_atom(item, indices='all', value=None, skip_digestion=False):
 
     if is_all(indices):
         item.atoms_dataframe['entity_id']=value
@@ -244,7 +244,7 @@ def set_entity_id_to_atom(item, indices='all', value=None):
     pass
 
 @digest(form=form)
-def set_entity_type_to_atom(item, indices='all', value=None):
+def set_entity_type_to_atom(item, indices='all', value=None, skip_digestion=False):
 
     if is_all(indices):
         item.atoms_dataframe['entity_type']=value
@@ -257,7 +257,7 @@ def set_entity_type_to_atom(item, indices='all', value=None):
 ## Group
 
 @digest(form=form)
-def set_group_index_to_group(item, indices='all', value=None):
+def set_group_index_to_group(item, indices='all', value=None, skip_digestion=False):
 
     from . import get_atom_index_from_group
 
@@ -281,7 +281,7 @@ def set_group_index_to_group(item, indices='all', value=None):
     pass
 
 @digest(form=form)
-def set_group_name_to_group(item, indices='all', value=None):
+def set_group_name_to_group(item, indices='all', value=None, skip_digestion=False):
 
     from . import get_atom_index_from_group
 
@@ -305,7 +305,7 @@ def set_group_name_to_group(item, indices='all', value=None):
     pass
 
 @digest(form=form)
-def set_group_id_to_group(item, indices='all', value=None):
+def set_group_id_to_group(item, indices='all', value=None, skip_digestion=False):
 
     from . import get_atom_index_from_group
 
@@ -329,7 +329,7 @@ def set_group_id_to_group(item, indices='all', value=None):
     pass
 
 @digest(form=form)
-def set_group_type_to_group(item, indices='all', value=None):
+def set_group_type_to_group(item, indices='all', value=None, skip_digestion=False):
 
     from . import get_atom_index_from_group
 
@@ -353,7 +353,7 @@ def set_group_type_to_group(item, indices='all', value=None):
     pass
 
 @digest(form=form)
-def set_component_index_to_group(item, indices='all', value=None):
+def set_component_index_to_group(item, indices='all', value=None, skip_digestion=False):
 
     from . import get_atom_index_from_group
 
@@ -377,7 +377,7 @@ def set_component_index_to_group(item, indices='all', value=None):
     pass
 
 @digest(form=form)
-def set_component_id_to_group(item, indices='all', value=None):
+def set_component_id_to_group(item, indices='all', value=None, skip_digestion=False):
 
     from . import get_atom_index_from_group
 
@@ -401,7 +401,7 @@ def set_component_id_to_group(item, indices='all', value=None):
     pass
 
 @digest(form=form)
-def set_component_name_to_group(item, indices='all', value=None):
+def set_component_name_to_group(item, indices='all', value=None, skip_digestion=False):
 
     from . import get_atom_index_from_group
 
@@ -425,7 +425,7 @@ def set_component_name_to_group(item, indices='all', value=None):
     pass
 
 @digest(form=form)
-def set_component_type_to_group(item, indices='all', value=None):
+def set_component_type_to_group(item, indices='all', value=None, skip_digestion=False):
 
     from . import get_atom_index_from_group
 
@@ -449,7 +449,7 @@ def set_component_type_to_group(item, indices='all', value=None):
     pass
 
 @digest(form=form)
-def set_molecule_index_to_group(item, indices='all', value=None):
+def set_molecule_index_to_group(item, indices='all', value=None, skip_digestion=False):
 
     from . import get_atom_index_from_group
 
@@ -473,7 +473,7 @@ def set_molecule_index_to_group(item, indices='all', value=None):
     pass
 
 @digest(form=form)
-def set_molecule_id_to_group(item, indices='all', value=None):
+def set_molecule_id_to_group(item, indices='all', value=None, skip_digestion=False):
 
     from . import get_atom_index_from_group
 
@@ -497,7 +497,7 @@ def set_molecule_id_to_group(item, indices='all', value=None):
     pass
 
 @digest(form=form)
-def set_molecule_name_to_group(item, indices='all', value=None):
+def set_molecule_name_to_group(item, indices='all', value=None, skip_digestion=False):
 
     from . import get_atom_index_from_group
 
@@ -521,7 +521,7 @@ def set_molecule_name_to_group(item, indices='all', value=None):
     pass
 
 @digest(form=form)
-def set_molecule_type_to_group(item, indices='all', value=None):
+def set_molecule_type_to_group(item, indices='all', value=None, skip_digestion=False):
 
     from . import get_atom_index_from_group
 
@@ -545,7 +545,7 @@ def set_molecule_type_to_group(item, indices='all', value=None):
     pass
 
 @digest(form=form)
-def set_chain_index_to_group(item, indices='all', value=None):
+def set_chain_index_to_group(item, indices='all', value=None, skip_digestion=False):
 
     from . import get_atom_index_from_group
 
@@ -569,7 +569,7 @@ def set_chain_index_to_group(item, indices='all', value=None):
     pass
 
 @digest(form=form)
-def set_chain_id_to_group(item, indices='all', value=None):
+def set_chain_id_to_group(item, indices='all', value=None, skip_digestion=False):
 
     from . import get_atom_index_from_group
 
@@ -593,7 +593,7 @@ def set_chain_id_to_group(item, indices='all', value=None):
     pass
 
 @digest(form=form)
-def set_chain_name_to_group(item, indices='all', value=None):
+def set_chain_name_to_group(item, indices='all', value=None, skip_digestion=False):
 
     from . import get_atom_index_from_group
 
@@ -617,7 +617,7 @@ def set_chain_name_to_group(item, indices='all', value=None):
     pass
 
 @digest(form=form)
-def set_chain_type_to_group(item, indices='all', value=None):
+def set_chain_type_to_group(item, indices='all', value=None, skip_digestion=False):
 
     from . import get_atom_index_from_group
 
@@ -641,7 +641,7 @@ def set_chain_type_to_group(item, indices='all', value=None):
     pass
 
 @digest(form=form)
-def set_entity_index_to_group(item, indices='all', value=None):
+def set_entity_index_to_group(item, indices='all', value=None, skip_digestion=False):
 
     from . import get_atom_index_from_group
 
@@ -665,7 +665,7 @@ def set_entity_index_to_group(item, indices='all', value=None):
     pass
 
 @digest(form=form)
-def set_entity_id_to_group(item, indices='all', value=None):
+def set_entity_id_to_group(item, indices='all', value=None, skip_digestion=False):
 
     from . import get_atom_index_from_group
 
@@ -689,7 +689,7 @@ def set_entity_id_to_group(item, indices='all', value=None):
     pass
 
 @digest(form=form)
-def set_entity_name_to_group(item, indices='all', value=None):
+def set_entity_name_to_group(item, indices='all', value=None, skip_digestion=False):
 
     from . import get_atom_index_from_group
 
@@ -713,7 +713,7 @@ def set_entity_name_to_group(item, indices='all', value=None):
     pass
 
 @digest(form=form)
-def set_entity_type_to_group(item, indices='all', value=None):
+def set_entity_type_to_group(item, indices='all', value=None, skip_digestion=False):
 
     from . import get_atom_index_from_group
 
@@ -739,7 +739,7 @@ def set_entity_type_to_group(item, indices='all', value=None):
 ## Component
 
 @digest(form=form)
-def set_component_index_to_component(item, indices='all', value=None):
+def set_component_index_to_component(item, indices='all', value=None, skip_digestion=False):
 
     from . import get_atom_index_from_component
 
@@ -763,7 +763,7 @@ def set_component_index_to_component(item, indices='all', value=None):
     pass
 
 @digest(form=form)
-def set_component_id_to_component(item, indices='all', value=None):
+def set_component_id_to_component(item, indices='all', value=None, skip_digestion=False):
 
     from . import get_atom_index_from_component
 
@@ -787,7 +787,7 @@ def set_component_id_to_component(item, indices='all', value=None):
     pass
 
 @digest(form=form)
-def set_component_name_to_component(item, indices='all', value=None):
+def set_component_name_to_component(item, indices='all', value=None, skip_digestion=False):
 
     from . import get_atom_index_from_component
 
@@ -811,7 +811,7 @@ def set_component_name_to_component(item, indices='all', value=None):
     pass
 
 @digest(form=form)
-def set_component_type_to_component(item, indices='all', value=None):
+def set_component_type_to_component(item, indices='all', value=None, skip_digestion=False):
 
     from . import get_atom_index_from_component
 
@@ -835,7 +835,7 @@ def set_component_type_to_component(item, indices='all', value=None):
     pass
 
 @digest(form=form)
-def set_molecule_index_to_component(item, indices='all', value=None):
+def set_molecule_index_to_component(item, indices='all', value=None, skip_digestion=False):
 
     from . import get_atom_index_from_component
 
@@ -859,7 +859,7 @@ def set_molecule_index_to_component(item, indices='all', value=None):
     pass
 
 @digest(form=form)
-def set_molecule_id_to_component(item, indices='all', value=None):
+def set_molecule_id_to_component(item, indices='all', value=None, skip_digestion=False):
 
     from . import get_atom_index_from_component
 
@@ -883,7 +883,7 @@ def set_molecule_id_to_component(item, indices='all', value=None):
     pass
 
 @digest(form=form)
-def set_molecule_name_to_component(item, indices='all', value=None):
+def set_molecule_name_to_component(item, indices='all', value=None, skip_digestion=False):
 
     from . import get_atom_index_from_component
 
@@ -907,7 +907,7 @@ def set_molecule_name_to_component(item, indices='all', value=None):
     pass
 
 @digest(form=form)
-def set_molecule_type_to_component(item, indices='all', value=None):
+def set_molecule_type_to_component(item, indices='all', value=None, skip_digestion=False):
 
     from . import get_atom_index_from_component
 
@@ -931,7 +931,7 @@ def set_molecule_type_to_component(item, indices='all', value=None):
     pass
 
 @digest(form=form)
-def set_chain_index_to_component(item, indices='all', value=None):
+def set_chain_index_to_component(item, indices='all', value=None, skip_digestion=False):
 
     from . import get_atom_index_from_component
 
@@ -955,7 +955,7 @@ def set_chain_index_to_component(item, indices='all', value=None):
     pass
 
 @digest(form=form)
-def set_chain_id_to_component(item, indices='all', value=None):
+def set_chain_id_to_component(item, indices='all', value=None, skip_digestion=False):
 
     from . import get_atom_index_from_component
 
@@ -979,7 +979,7 @@ def set_chain_id_to_component(item, indices='all', value=None):
     pass
 
 @digest(form=form)
-def set_chain_name_to_component(item, indices='all', value=None):
+def set_chain_name_to_component(item, indices='all', value=None, skip_digestion=False):
 
     from . import get_atom_index_from_component
 
@@ -1003,7 +1003,7 @@ def set_chain_name_to_component(item, indices='all', value=None):
     pass
 
 @digest(form=form)
-def set_chain_type_to_component(item, indices='all', value=None):
+def set_chain_type_to_component(item, indices='all', value=None, skip_digestion=False):
 
     from . import get_atom_index_from_component
 
@@ -1027,7 +1027,7 @@ def set_chain_type_to_component(item, indices='all', value=None):
     pass
 
 @digest(form=form)
-def set_entity_index_to_component(item, indices='all', value=None):
+def set_entity_index_to_component(item, indices='all', value=None, skip_digestion=False):
 
     from . import get_atom_index_from_component
 
@@ -1051,7 +1051,7 @@ def set_entity_index_to_component(item, indices='all', value=None):
     pass
 
 @digest(form=form)
-def set_entity_id_to_component(item, indices='all', value=None):
+def set_entity_id_to_component(item, indices='all', value=None, skip_digestion=False):
 
     from . import get_atom_index_from_component
 
@@ -1075,7 +1075,7 @@ def set_entity_id_to_component(item, indices='all', value=None):
     pass
 
 @digest(form=form)
-def set_entity_type_to_component(item, indices='all', value=None):
+def set_entity_type_to_component(item, indices='all', value=None, skip_digestion=False):
 
     from . import get_atom_index_from_component
 
@@ -1101,7 +1101,7 @@ def set_entity_type_to_component(item, indices='all', value=None):
 ## Molecule
 
 @digest(form=form)
-def set_molecule_index_to_molecule(item, indices='all', value=None):
+def set_molecule_index_to_molecule(item, indices='all', value=None, skip_digestion=False):
 
     from . import get_atom_index_from_molecule
 
@@ -1125,7 +1125,7 @@ def set_molecule_index_to_molecule(item, indices='all', value=None):
     pass
 
 @digest(form=form)
-def set_molecule_id_to_molecule(item, indices='all', value=None):
+def set_molecule_id_to_molecule(item, indices='all', value=None, skip_digestion=False):
 
     from . import get_atom_index_from_molecule
 
@@ -1149,7 +1149,7 @@ def set_molecule_id_to_molecule(item, indices='all', value=None):
     pass
 
 @digest(form=form)
-def set_molecule_name_to_molecule(item, indices='all', value=None):
+def set_molecule_name_to_molecule(item, indices='all', value=None, skip_digestion=False):
 
     from . import get_atom_index_from_molecule
 
@@ -1173,7 +1173,7 @@ def set_molecule_name_to_molecule(item, indices='all', value=None):
     pass
 
 @digest(form=form)
-def set_molecule_type_to_molecule(item, indices='all', value=None):
+def set_molecule_type_to_molecule(item, indices='all', value=None, skip_digestion=False):
 
     from . import get_atom_index_from_molecule
 
@@ -1197,7 +1197,7 @@ def set_molecule_type_to_molecule(item, indices='all', value=None):
     pass
 
 @digest(form=form)
-def set_chain_index_to_molecule(item, indices='all', value=None):
+def set_chain_index_to_molecule(item, indices='all', value=None, skip_digestion=False):
 
     from . import get_atom_index_from_molecule
 
@@ -1221,7 +1221,7 @@ def set_chain_index_to_molecule(item, indices='all', value=None):
     pass
 
 @digest(form=form)
-def set_chain_id_to_molecule(item, indices='all', value=None):
+def set_chain_id_to_molecule(item, indices='all', value=None, skip_digestion=False):
 
     from . import get_atom_index_from_molecule
 
@@ -1245,7 +1245,7 @@ def set_chain_id_to_molecule(item, indices='all', value=None):
     pass
 
 @digest(form=form)
-def set_chain_name_to_molecule(item, indices='all', value=None):
+def set_chain_name_to_molecule(item, indices='all', value=None, skip_digestion=False):
 
     from . import get_atom_index_from_molecule
 
@@ -1269,7 +1269,7 @@ def set_chain_name_to_molecule(item, indices='all', value=None):
     pass
 
 @digest(form=form)
-def set_chain_type_to_molecule(item, indices='all', value=None):
+def set_chain_type_to_molecule(item, indices='all', value=None, skip_digestion=False):
 
     from . import get_atom_index_from_molecule
 
@@ -1293,7 +1293,7 @@ def set_chain_type_to_molecule(item, indices='all', value=None):
     pass
 
 @digest(form=form)
-def set_entity_index_to_molecule(item, indices='all', value=None):
+def set_entity_index_to_molecule(item, indices='all', value=None, skip_digestion=False):
 
     from . import get_atom_index_from_molecule
 
@@ -1317,7 +1317,7 @@ def set_entity_index_to_molecule(item, indices='all', value=None):
     pass
 
 @digest(form=form)
-def set_entity_id_to_molecule(item, indices='all', value=None):
+def set_entity_id_to_molecule(item, indices='all', value=None, skip_digestion=False):
 
     from . import get_atom_index_from_molecule
 
@@ -1341,7 +1341,7 @@ def set_entity_id_to_molecule(item, indices='all', value=None):
     pass
 
 @digest(form=form)
-def set_entity_type_to_molecule(item, indices='all', value=None):
+def set_entity_type_to_molecule(item, indices='all', value=None, skip_digestion=False):
 
     from . import get_atom_index_from_molecule
 
@@ -1367,7 +1367,7 @@ def set_entity_type_to_molecule(item, indices='all', value=None):
 ## Chain
 
 @digest(form=form)
-def set_chain_index_to_chain(item, indices='all', value=None):
+def set_chain_index_to_chain(item, indices='all', value=None, skip_digestion=False):
 
     from . import get_atom_index_from_chain
 
@@ -1391,7 +1391,7 @@ def set_chain_index_to_chain(item, indices='all', value=None):
     pass
 
 @digest(form=form)
-def set_chain_id_to_chain(item, indices='all', value=None):
+def set_chain_id_to_chain(item, indices='all', value=None, skip_digestion=False):
 
     from . import get_atom_index_from_chain
 
@@ -1415,7 +1415,7 @@ def set_chain_id_to_chain(item, indices='all', value=None):
     pass
 
 @digest(form=form)
-def set_chain_name_to_chain(item, indices='all', value=None):
+def set_chain_name_to_chain(item, indices='all', value=None, skip_digestion=False):
 
     from . import get_atom_index_from_chain
 
@@ -1439,7 +1439,7 @@ def set_chain_name_to_chain(item, indices='all', value=None):
     pass
 
 @digest(form=form)
-def set_chain_type_to_chain(item, indices='all', value=None):
+def set_chain_type_to_chain(item, indices='all', value=None, skip_digestion=False):
 
     from . import get_atom_index_from_chain
 
@@ -1463,7 +1463,7 @@ def set_chain_type_to_chain(item, indices='all', value=None):
     pass
 
 @digest(form=form)
-def set_entity_index_to_chain(item, indices='all', value=None):
+def set_entity_index_to_chain(item, indices='all', value=None, skip_digestion=False):
 
     from . import get_atom_index_from_chain
 
@@ -1487,7 +1487,7 @@ def set_entity_index_to_chain(item, indices='all', value=None):
     pass
 
 @digest(form=form)
-def set_entity_id_to_chain(item, indices='all', value=None):
+def set_entity_id_to_chain(item, indices='all', value=None, skip_digestion=False):
 
     from . import get_atom_index_from_chain
 
@@ -1511,7 +1511,7 @@ def set_entity_id_to_chain(item, indices='all', value=None):
     pass
 
 @digest(form=form)
-def set_entity_type_to_chain(item, indices='all', value=None):
+def set_entity_type_to_chain(item, indices='all', value=None, skip_digestion=False):
 
     from . import get_atom_index_from_chain
 
@@ -1537,7 +1537,7 @@ def set_entity_type_to_chain(item, indices='all', value=None):
 ## Entity
 
 @digest(form=form)
-def set_entity_index_to_entity(item, indices='all', value=None):
+def set_entity_index_to_entity(item, indices='all', value=None, skip_digestion=False):
 
     from . import get_atom_index_from_entity
 
@@ -1561,7 +1561,7 @@ def set_entity_index_to_entity(item, indices='all', value=None):
     pass
 
 @digest(form=form)
-def set_entity_id_to_entity(item, indices='all', value=None):
+def set_entity_id_to_entity(item, indices='all', value=None, skip_digestion=False):
 
     from . import get_atom_index_from_entity
 
@@ -1585,7 +1585,7 @@ def set_entity_id_to_entity(item, indices='all', value=None):
     pass
 
 @digest(form=form)
-def set_entity_type_to_entity(item, indices='all', value=None):
+def set_entity_type_to_entity(item, indices='all', value=None, skip_digestion=False):
 
     from . import get_atom_index_from_entity
 
