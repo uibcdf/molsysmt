@@ -75,11 +75,11 @@ def get_partial_charge_from_atom(item, indices='all', skip_digestion=False):
 @digest(form=form)
 def get_n_atoms_from_system(item, skip_digestion=False):
 
-    return get_n_atoms_from_atom(item)
+    return get_n_atoms_from_atom(item, skip_digestion=True)
 
 
 @digest(form=form)
-def get_forcefield_from_system(item):
+def get_forcefield_from_system(item, skip_digestion=False):
 
     try:
         return item['forcefield']
