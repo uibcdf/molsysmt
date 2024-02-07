@@ -16,7 +16,7 @@ form='openmm.Topology'
 ## From atom
 
 @digest(form=form)
-def get_atom_id_from_atom(item, indices='all'):
+def get_atom_id_from_atom(item, indices='all', skip_digestion=False):
 
     tmp_indices = get_atom_index_from_atom(item, indices=indices)
     atom=list(item.atoms())
@@ -27,7 +27,7 @@ def get_atom_id_from_atom(item, indices='all'):
     return output
 
 @digest(form=form)
-def get_atom_name_from_atom(item, indices='all'):
+def get_atom_name_from_atom(item, indices='all', skip_digestion=False):
 
     tmp_indices = get_atom_index_from_atom(item, indices=indices)
     atom=list(item.atoms())
@@ -38,7 +38,7 @@ def get_atom_name_from_atom(item, indices='all'):
     return output
 
 @digest(form=form)
-def get_atom_type_from_atom(item, indices='all'):
+def get_atom_type_from_atom(item, indices='all', skip_digestion=False):
 
     tmp_indices = get_atom_index_from_atom(item, indices=indices)
     atom=list(item.atoms())
@@ -49,7 +49,7 @@ def get_atom_type_from_atom(item, indices='all'):
     return output
 
 @digest(form=form)
-def get_group_index_from_atom(item, indices='all'):
+def get_group_index_from_atom(item, indices='all', skip_digestion=False):
 
     tmp_indices = get_atom_index_from_atom(item, indices=indices)
     atom=list(item.atoms())
@@ -60,7 +60,7 @@ def get_group_index_from_atom(item, indices='all'):
     return output
 
 @digest(form=form)
-def get_component_index_from_atom(item, indices='all'):
+def get_component_index_from_atom(item, indices='all', skip_digestion=False):
 
     from molsysmt.element.component import get_component_index as _get
 
@@ -70,7 +70,7 @@ def get_component_index_from_atom(item, indices='all'):
 
 
 @digest(form=form)
-def get_molecule_index_from_atom(item, indices='all'):
+def get_molecule_index_from_atom(item, indices='all', skip_digestion=False):
 
     output = get_component_index_from_atom(item, indices=indices)
 
@@ -78,7 +78,7 @@ def get_molecule_index_from_atom(item, indices='all'):
 
 
 @digest(form=form)
-def get_entity_index_from_atom(item, indices='all'):
+def get_entity_index_from_atom(item, indices='all', skip_digestion=False):
 
     from molsysmt.element.entity import get_entity_index as _get
     return _get(item, element='atom', selection=indices, redefine_molecules=True,
@@ -86,7 +86,7 @@ def get_entity_index_from_atom(item, indices='all'):
 
 
 @digest(form=form)
-def get_chain_index_from_atom(item, indices='all'):
+def get_chain_index_from_atom(item, indices='all', skip_digestion=False):
 
     tmp_indices = get_atom_index_from_atom(item, indices=indices)
     atom=list(item.atoms())
@@ -100,7 +100,7 @@ def get_chain_index_from_atom(item, indices='all'):
 ## From group
 
 @digest(form=form)
-def get_group_id_from_group(item, indices='all'):
+def get_group_id_from_group(item, indices='all', skip_digestion=False):
 
     if is_all(indices):
         n_indices = get_n_groups_from_system(item)
@@ -114,7 +114,7 @@ def get_group_id_from_group(item, indices='all'):
     return output
 
 @digest(form=form)
-def get_group_name_from_group(item, indices='all'):
+def get_group_name_from_group(item, indices='all', skip_digestion=False):
 
     if is_all(indices):
         n_indices = get_n_groups_from_system(item)
@@ -128,7 +128,7 @@ def get_group_name_from_group(item, indices='all'):
     return output
 
 @digest(form=form)
-def get_group_type_from_group(item, indices='all'):
+def get_group_type_from_group(item, indices='all', skip_digestion=False):
 
     from molsysmt.element.group.get_group_type import _get_group_type_from_group_name
 
@@ -147,21 +147,21 @@ def get_group_type_from_group(item, indices='all'):
 ## From component
 
 @digest(form=form)
-def get_component_id_from_component(item, indices='all'):
+def get_component_id_from_component(item, indices='all', skip_digestion=False):
 
     output = get_component_index_from_component(item, indices=indices)
 
     return output
 
 @digest(form=form)
-def get_component_name_from_component(item, indices='all'):
+def get_component_name_from_component(item, indices='all', skip_digestion=False):
 
     output = get_component_index_from_component(item, indices=indices)
 
     return output
 
 @digest(form=form)
-def get_component_type_from_component(item, indices='all'):
+def get_component_type_from_component(item, indices='all', skip_digestion=False):
 
     from molsysmt.element.component import get_component_type as _get
 
@@ -171,21 +171,21 @@ def get_component_type_from_component(item, indices='all'):
 ## From molecule
 
 @digest(form=form)
-def get_molecule_id_from_molecule(item, indices='all'):
+def get_molecule_id_from_molecule(item, indices='all', skip_digestion=False):
 
     from molsysmt.element.molecule import get_molecule_id as _get
 
     return _get(item, element='molecule', selection=indices, redefine_molecules=True)
 
 @digest(form=form)
-def get_molecule_name_from_molecule(item, indices='all'):
+def get_molecule_name_from_molecule(item, indices='all', skip_digestion=False):
 
     from molsysmt.element.molecule import get_molecule_name as _get
 
     return _get(item, element='molecule', selection=indices, redefine_molecules=True)
 
 @digest(form=form)
-def get_molecule_type_from_molecule(item, indices='all'):
+def get_molecule_type_from_molecule(item, indices='all', skip_digestion=False):
 
     from molsysmt.element.molecule import get_molecule_type as _get
 
@@ -195,7 +195,7 @@ def get_molecule_type_from_molecule(item, indices='all'):
 ## From chain
 
 @digest(form=form)
-def get_chain_id_from_chain(item, indices='all'):
+def get_chain_id_from_chain(item, indices='all', skip_digestion=False):
 
     if is_all(indices):
         n_indices = get_n_chains_from_system(item)
@@ -209,7 +209,7 @@ def get_chain_id_from_chain(item, indices='all'):
     return output
 
 @digest(form=form)
-def get_chain_name_from_chain(item, indices='all'):
+def get_chain_name_from_chain(item, indices='all', skip_digestion=False):
 
     if is_all(indices):
         n_indices = get_n_chains_from_system(item)
@@ -220,7 +220,7 @@ def get_chain_name_from_chain(item, indices='all'):
     return output
 
 @digest(form=form)
-def get_chain_type_from_chain(item, indices='all'):
+def get_chain_type_from_chain(item, indices='all', skip_digestion=False):
 
     if is_all(indices):
         n_indices = get_n_chains_from_system(item)
@@ -234,19 +234,19 @@ def get_chain_type_from_chain(item, indices='all'):
 ## From entity
 
 @digest(form=form)
-def get_entity_id_from_entity(item, indices='all'):
+def get_entity_id_from_entity(item, indices='all', skip_digestion=False):
 
     from molsysmt.element.entity import get_entity_id_from_entity as _get
     return _get(item, indices)
 
 @digest(form=form)
-def get_entity_name_from_entity(item, indices='all'):
+def get_entity_name_from_entity(item, indices='all', skip_digestion=False):
 
     from molsysmt.element.entity import get_entity_name_from_entity as _get
     return _get(item, indices)
 
 @digest(form=form)
-def get_entity_type_from_entity(item, indices='all'):
+def get_entity_type_from_entity(item, indices='all', skip_digestion=False):
 
     from molsysmt.element.entity import get_entity_type_from_entity as _get
     return _get(item, indices)
@@ -255,17 +255,17 @@ def get_entity_type_from_entity(item, indices='all'):
 ## From system
 
 @digest(form=form)
-def get_n_atoms_from_system(item):
+def get_n_atoms_from_system(item, skip_digestion=False):
 
     return item.getNumAtoms()
 
 @digest(form=form)
-def get_n_groups_from_system(item):
+def get_n_groups_from_system(item, skip_digestion=False):
 
     return item.getNumResidues()
 
 @digest(form=form)
-def get_n_components_from_system(item):
+def get_n_components_from_system(item, skip_digestion=False):
 
     component_index_from_atom = get_component_index_from_atom(item, indices='all')
 
@@ -278,12 +278,12 @@ def get_n_components_from_system(item):
     return n_components
 
 @digest(form=form)
-def get_n_chains_from_system(item):
+def get_n_chains_from_system(item, skip_digestion=False):
 
     return item.getNumChains()
 
 @digest(form=form)
-def get_n_molecules_from_system(item):
+def get_n_molecules_from_system(item, skip_digestion=False):
 
     molecule_index_from_atom = get_molecule_index_from_atom(item)
     if molecule_index_from_atom[0] is None:
@@ -294,7 +294,7 @@ def get_n_molecules_from_system(item):
     return n_molecules
 
 @digest(form=form)
-def get_n_entities_from_system(item):
+def get_n_entities_from_system(item, skip_digestion=False):
 
     entity_index_from_atom = get_entity_index_from_atom(item)
     if entity_index_from_atom[0] is None:
@@ -305,17 +305,17 @@ def get_n_entities_from_system(item):
     return n_entities
 
 @digest(form=form)
-def get_n_bonds_from_system(item):
+def get_n_bonds_from_system(item, skip_digestion=False):
 
     return item.getNumBonds()
 
 @digest(form=form)
-def get_n_structures_from_system(item, structure_indices='all'):
+def get_n_structures_from_system(item, structure_indices='all', skip_digestion=False):
 
     return 0
 
 @digest(form=form)
-def get_box_from_system(item, structure_indices='all'):
+def get_box_from_system(item, structure_indices='all', skip_digestion=False):
 
     box = item.getPeriodicBoxVectors()
 
@@ -331,12 +331,12 @@ def get_box_from_system(item, structure_indices='all'):
     return output
 
 @digest(form=form)
-def get_time_from_system(item, structure_indices='all'):
+def get_time_from_system(item, structure_indices='all', skip_digestion=False):
 
     return None
 
 @digest(form=form)
-def get_structure_id_from_system(item, structure_indices='all'):
+def get_structure_id_from_system(item, structure_indices='all', skip_digestion=False):
 
     return None
 
@@ -344,7 +344,7 @@ def get_structure_id_from_system(item, structure_indices='all'):
 ## From bond
 
 @digest(form=form)
-def get_bond_order_from_bond(item, indices='all'):
+def get_bond_order_from_bond(item, indices='all', skip_digestion=False):
 
     tmp_indices = get_bond_index_from_bond(item, indices=indices)
     bond = list(item.bonds())
@@ -355,7 +355,7 @@ def get_bond_order_from_bond(item, indices='all'):
     return output
 
 @digest(form=form)
-def get_bond_type_from_bond(item, indices='all'):
+def get_bond_type_from_bond(item, indices='all', skip_digestion=False):
 
     tmp_indices = get_bond_index_from_bond(item, indices=indices)
     bond = list(item.bonds())
@@ -366,7 +366,7 @@ def get_bond_type_from_bond(item, indices='all'):
     return output
 
 @digest(form=type)
-def get_bonded_atoms_from_bond(item, indices='all'):
+def get_bonded_atoms_from_bond(item, indices='all', skip_digestion=False):
 
     if is_all(indices):
         n_bonds = get_n_bonds_from_system(item)
@@ -388,61 +388,61 @@ def get_bonded_atoms_from_bond(item, indices='all'):
 # From atom
 
 @digest(form=form)
-def get_atom_index_from_atom(item, indices='all'):
+def get_atom_index_from_atom(item, indices='all', skip_digestion=False):
 
     return _auxiliary_getter(get_atom_index_from_atom, item, indices)
 
 
 @digest(form=form)
-def get_group_id_from_atom(item, indices='all'):
+def get_group_id_from_atom(item, indices='all', skip_digestion=False):
 
     return _auxiliary_getter(get_group_id_from_atom, item, indices)
 
 
 @digest(form=form)
-def get_group_name_from_atom(item, indices='all'):
+def get_group_name_from_atom(item, indices='all', skip_digestion=False):
 
     return _auxiliary_getter(get_group_name_from_atom, item, indices)
 
 
 @digest(form=form)
-def get_group_type_from_atom(item, indices='all'):
+def get_group_type_from_atom(item, indices='all', skip_digestion=False):
 
     return _auxiliary_getter(get_group_type_from_atom, item, indices)
 
 
 @digest(form=form)
-def get_component_id_from_atom(item, indices='all'):
+def get_component_id_from_atom(item, indices='all', skip_digestion=False):
 
     return _auxiliary_getter(get_component_id_from_atom, item, indices)
 
 
 @digest(form=form)
-def get_component_name_from_atom(item, indices='all'):
+def get_component_name_from_atom(item, indices='all', skip_digestion=False):
 
     return _auxiliary_getter(get_component_name_from_atom, item, indices)
 
 
 @digest(form=form)
-def get_component_type_from_atom(item, indices='all'):
+def get_component_type_from_atom(item, indices='all', skip_digestion=False):
 
     return _auxiliary_getter(get_component_type_from_atom, item, indices)
 
 
 @digest(form=form)
-def get_molecule_id_from_atom(item, indices='all'):
+def get_molecule_id_from_atom(item, indices='all', skip_digestion=False):
 
     return _auxiliary_getter(get_molecule_id_from_atom, item, indices)
 
 
 @digest(form=form)
-def get_molecule_name_from_atom(item, indices='all'):
+def get_molecule_name_from_atom(item, indices='all', skip_digestion=False):
 
     return _auxiliary_getter(get_molecule_name_from_atom, item, indices)
 
 
 @digest(form=form)
-def get_molecule_type_from_atom(item, indices='all'):
+def get_molecule_type_from_atom(item, indices='all', skip_digestion=False):
 
     return _auxiliary_getter(get_molecule_type_from_atom, item, indices)
 

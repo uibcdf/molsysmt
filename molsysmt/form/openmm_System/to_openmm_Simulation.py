@@ -1,7 +1,7 @@
 from molsysmt._private.digestion import digest
 
 @digest(form='openmm.System')
-def to_openmm_Simulation(item, atom_indices='all', structure_indices='all'):
+def to_openmm_Simulation(item, atom_indices='all', structure_indices='all', skip_digestion=False):
 
     from molsysmt.basic import convert, get
     from openmm.app import Simulation
