@@ -3,7 +3,7 @@ from molsysmt._private.exceptions import LibraryNotFoundError
 import numpy as np
 
 @digest(form='pytraj.Topology')
-def to_pytraj_Trajectory(item, atom_indices='all', coordinates=None, box=None):
+def to_pytraj_Trajectory(item, atom_indices='all', coordinates=None, box=None, skip_digestion=False):
 
     try:
         import pytraj as pt
@@ -14,12 +14,12 @@ def to_pytraj_Trajectory(item, atom_indices='all', coordinates=None, box=None):
     from molsysmt import pyunitwizard as puw
     from molsysmt.pbc import get_lengths_and_angles_from_box
 
-    tmp_item = extract(item, atom_indices=atom_indices, copy_if_all=False)
+    tmp_item = extract(item, atom_indices=atom_indices, copy_if_all=False, skip_digestion=True)
 
     coordinates = puw.get_value(coordinates, to_unit='angstroms')
     tmp_item = pt.Trajectory(xyz=coordinates.astype('float64'), top=tmp_item)
 
-    box_lengths, box_angles = get_lengths_and_angles_from_box(box)
+    box_lengths, box_angles = get_lengths_and_angles_from_box(box, skip_digestion=True)
 
     box_lengths = puw.get_value(box_lengths, to_unit='angstroms')
     box_angles = puw.get_value(box_angles, to_unit='degrees')

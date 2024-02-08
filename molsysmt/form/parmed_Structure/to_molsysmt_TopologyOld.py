@@ -1,7 +1,7 @@
 from molsysmt._private.digestion import digest
 
 @digest(form='parmed.Structure')
-def to_molsysmt_TopologyOld(item, atom_indices='all'):
+def to_molsysmt_TopologyOld(item, atom_indices='all', skip_digestion=False):
 
     from molsysmt.native import TopologyOld
     from numpy import empty, array, arange, reshape, where, unique, nan, sort, zeros
@@ -128,7 +128,7 @@ def to_molsysmt_TopologyOld(item, atom_indices='all'):
 
     ## extract if atom_indices is not 'all'
 
-    tmp_item = extract(tmp_item, atom_indices=atom_indices, copy_if_all=False)
+    tmp_item = extract(tmp_item, atom_indices=atom_indices, copy_if_all=False, skip_digestion=True)
 
     return tmp_item
 

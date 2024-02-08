@@ -1,13 +1,13 @@
 from molsysmt._private.digestion import digest
 
 @digest(form='openmm.Topology')
-def to_openmm_PDBFile(item, atom_indices='all', coordinates=None):
+def to_openmm_PDBFile(item, atom_indices='all', coordinates=None, skip_digestion=False):
 
     from . import to_string_pdb_text
     from io import StringIO
     from openmm.app import PDBFile
 
-    string_pdb_text = to_string_pdb_text(item, atom_indices=atom_indices, coordinates=coordinates)
+    string_pdb_text = to_string_pdb_text(item, atom_indices=atom_indices, coordinates=coordinates, skip_digestion=True)
 
     tmp_io = StringIO()
     tmp_io.read(string_pdb_text)

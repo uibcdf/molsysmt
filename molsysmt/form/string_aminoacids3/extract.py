@@ -4,7 +4,7 @@ from molsysmt._private.variables import is_all
 from copy import copy
 
 @digest(form='string:aminoacids3')
-def extract(item, group_indices='all', copy_if_all=True):
+def extract(item, group_indices='all', copy_if_all=True, skip_digestion=False):
 
     if is_all(group_indices):
 

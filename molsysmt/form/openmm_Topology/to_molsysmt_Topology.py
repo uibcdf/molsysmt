@@ -3,7 +3,7 @@ from molsysmt.element.group.get_group_type import _get_group_type_from_group_nam
 import numpy as np
 
 @digest(form='openmm.Topology')
-def to_molsysmt_Topology(item, atom_indices='all'):
+def to_molsysmt_Topology(item, atom_indices='all', skip_digestion=False):
 
     from molsysmt.native import Topology
     from ..molsysmt_Topology import extract
@@ -138,6 +138,6 @@ def to_molsysmt_Topology(item, atom_indices='all'):
     tmp_item._fix_null_values()
     tmp_item.bonds._sort_bonds()
 
-    tmp_item = tmp_item.extract(atom_indices=atom_indices, copy_if_all=False)
+    tmp_item = tmp_item.extract(atom_indices=atom_indices, copy_if_all=False, skip_digestion=True)
 
     return tmp_item
