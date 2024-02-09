@@ -16,7 +16,8 @@ def to_pdbfixer_PDBFixer(item, atom_indices='all', structure_indices='all', skip
         pdb_id = pdb_id.replace('pdb_id','')
 
     tmp_item = PDBFixer(pdbid=pdb_id)
-    tmp_item = extract(tmp_item, atom_indices=atom_indices, structure_indices=structure_indices, copy_if_all=False)
+    tmp_item = extract(tmp_item, atom_indices=atom_indices, structure_indices=structure_indices, copy_if_all=False,
+                       skip_digestion=True)
 
     return tmp_item
 

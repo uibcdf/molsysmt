@@ -1,13 +1,14 @@
 from molsysmt._private.digestion import digest
 
 @digest(form='string:pdb_text')
-def to_openmm_System(item, atom_indices='all', structure_indices='all'):
+def to_openmm_System(item, atom_indices='all', structure_indices='all', skip_digestion=False):
 
     from . import to_openmm_Modeller
     from molsysmt.tools.openmm_Modeller import to_openmm_System as openmm_Modeller_to_openmm_System
 
-    tmp_item = to_openmm_Modeller(item, atom_indices=atom_indices, structure_indices=structure_indices)
-    tmp_item = openmm_Modeller_to_openmm_System(tmp_item)
+    tmp_item = to_openmm_Modeller(item, atom_indices=atom_indices, structure_indices=structure_indices,
+                                  skip_digestion=True)
+    tmp_item = openmm_Modeller_to_openmm_System(tmp_item, skip_digestion=True)
 
     return tmp_item
 

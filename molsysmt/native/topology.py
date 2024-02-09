@@ -158,6 +158,18 @@ class Topology():
         self.bonds = Bonds_DataFrame(n_bonds=n_bonds)
 
     @digest()
+    def from_elements_dataframes(atoms_dataframe, groups_dataframe, components_dataframe, molecules_dataframe,
+                                 entities_dataframe, chains_dataframe, bonds_dataframe, skip_digestion=False):
+
+        self.atoms = atoms_dataframe
+        self.groups = groups_dataframe
+        self.components = components_dataframe
+        self.molecules = molecules_dataframe
+        self.entities = entities_dataframe
+        self.chains = chains_dataframe
+        self.bonds = bonds_dataframe
+
+    @digest()
     def extract(self, atom_indices='all', copy_if_all=False, skip_digestion=False):
 
         if is_all(atom_indices):
