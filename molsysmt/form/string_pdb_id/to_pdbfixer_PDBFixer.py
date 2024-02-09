@@ -1,7 +1,7 @@
 from molsysmt._private.digestion import digest
 
 @digest(form='string:pdb_id')
-def to_pdbfixer_PDBFixer(item, atom_indices='all', structure_indices='all'):
+def to_pdbfixer_PDBFixer(item, atom_indices='all', structure_indices='all', skip_digestion=False):
 
     try:
         from pdbfixer import PDBFixer
