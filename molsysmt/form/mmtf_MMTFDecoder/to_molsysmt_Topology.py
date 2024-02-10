@@ -8,7 +8,7 @@ import numpy as np
 def to_molsysmt_Topology(item, atom_indices='all', skip_digestion=False):
 
     import warnings
-    from molsysmt.native import Topology, Atoms_DataFrame, Groups_DataFrame, Components_DataFrame,
+    from molsysmt.native import Topology, Atoms_DataFrame, Groups_DataFrame, Components_DataFrame,\
     Molecules_DataFrame, Entities_DataFrame, Chains_DataFrame, Bonds_DataFrame
     #from molsysmt.element.group import get_group_type_from_group_name
     #from molsysmt.element.entity import get_entity_type_from_MMTFDecoder_entity
@@ -24,6 +24,10 @@ def to_molsysmt_Topology(item, atom_indices='all', skip_digestion=False):
     n_atoms = item.num_atoms
     n_groups = item.num_groups
     n_bonds = item.num_bonds
+
+    atoms_dataframe = Atoms_DataFrame(n_atoms=n_atoms)
+    groups_dataframe = Groups_DataFrame(n_groups=n_groups)
+    bonds_dataframe = Bonds_DataFrame(n_bonds=n_bonds)
 
     atom_name_array = np.empty(n_atoms, dtype=object)
     atom_id_array = np.empty(n_atoms, dtype=int)
