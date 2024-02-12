@@ -68,3 +68,9 @@ def get_molecule_type(molecular_system, element='atom', selection='all',
 
     return output
 
+def _get_molecule_type_from_group_names_and_types(group_names, group_types):
+
+    from ..component.get_component_type import _get_component_type_from_group_names_and_types
+
+    return _get_component_type_from_group_names_and_types(group_names, group_types)
+

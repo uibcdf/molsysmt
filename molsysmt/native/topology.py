@@ -158,18 +158,6 @@ class Topology():
         self.bonds = Bonds_DataFrame(n_bonds=n_bonds)
 
     @digest()
-    def from_elements_dataframes(atoms_dataframe, groups_dataframe, components_dataframe, molecules_dataframe,
-                                 entities_dataframe, chains_dataframe, bonds_dataframe, skip_digestion=False):
-
-        self.atoms = atoms_dataframe
-        self.groups = groups_dataframe
-        self.components = components_dataframe
-        self.molecules = molecules_dataframe
-        self.entities = entities_dataframe
-        self.chains = chains_dataframe
-        self.bonds = bonds_dataframe
-
-    @digest()
     def extract(self, atom_indices='all', copy_if_all=False, skip_digestion=False):
 
         if is_all(atom_indices):
@@ -291,41 +279,52 @@ class Topology():
 
         return tmp_item
 
-    def rebuild_groups(self):
+    def rebuild_groups(self, redefine_ids=True, redefine_types=True):
 
-        from molsysmt.element.group import get_group_type
+        from molsysmt.element.group.get_group_type import _get_group_type_from_group_name
 
-        group_types_from_groups = get_group_type(self, element='group', redefine_types=True)
+        group_types_from_groups = [_get_group_type_from_group_name(ii) for ii in self.groups['group_name'].values]
         self.groups["group_type"] = np.array(group_types_from_groups, dtype=object)
+
+        del group_types_from_groups
 
     def rebuild_components(self, redefine_indices=True, redefine_ids=True, redefine_names=True, redefine_types=True):
 
-        from molsysmt.element.component import get_component_index, get_component_id,\
-        get_component_name, get_component_type
-
         if redefine_indices:
-            component_indices_from_groups = get_component_index(self, element='group',
-                                                                redefine_indices=True, skip_digestion=True)
-            self.groups["component_index"] = np.array(component_indices_from_groups, dtype=int)
-            n_components = component_indices_from_groups[-1]+1
-            self.components = Components_DataFrame(n_components=n_components)
-            del component_indices_from_groups
-            del n_components
+
+            import networkx as nx
+            from molsysmt.form.molsysmt_Topology import to_networkx_Graph
+            from molsysmt.lib.series import occurrence_order
+
+            g = to_networkx_Graph(self, skip_digestion=True)
+            components = list(nx.connected_components(g))
+            aux_n_components = len(components)
+            component_index_of_atoms = np.empty((g.number_of_nodes()), dtype=int)
+            for component_index, component in enumerate(components):
+                component_index_of_atoms[list(component)] = component_index
+            component_index_of_atoms = occurrence_order(component_index_of_atoms)
+
+            group_index, first_atom_indices = np.unique(self.atoms['group_index'], return_index=True)
+            component_index_of_groups = component_index_of_atoms[first_atom_indices]
+
+            self.groups["component_index"] = np.array(component_index_of_groups, dtype=int)
+            self.components = Components_DataFrame(n_components=aux_n_components)
+
+            del g, components, component_index_of_atoms, group_index, first_atom_indices, component_index_of_groups
 
         if redefine_ids:
-            component_id = get_component_id(self, element='component', redefine_ids=True, skip_digestion=True)
-            self.components["component_id"] = np.array(component_id, dtype=int)
-            del component_id
 
-        if redefine_names:
-            component_name = get_component_name(self, element='component', redefine_names=True, skip_digestion=True)
-            self.components["component_name"] = np.array(component_name, dtype=object)
-            del component_name
+            self.components["component_id"] = np.arange(self.components.shape[0], dtype=int)
 
-        if redefine_types:
-            component_type = get_component_type(self, element='component', redefine_types=True, skip_digestion=True)
-            self.components["component_type"] = np.array(component_type, dtype=object)
-            del component_type
+        #if redefine_names:
+        #    component_name = get_component_name(self, element='component', redefine_names=True, skip_digestion=True)
+        #    self.components["component_name"] = np.array(component_name, dtype=object)
+        #    del component_name
+
+        #if redefine_types:
+        #    component_type = get_component_type(self, element='component', redefine_types=True, skip_digestion=True)
+        #    self.components["component_type"] = np.array(component_type, dtype=object)
+        #    del component_type
 
 
     def rebuild_molecules(self):
