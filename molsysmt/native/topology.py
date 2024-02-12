@@ -65,7 +65,7 @@ class Molecules_DataFrame(pd.DataFrame):
 
     def __init__(self, n_molecules=0):
 
-        columns = ['molecule_name', 'molecule_id', 'molecule_type', 'entity_index']
+        columns = ['molecule_id', 'molecule_name', 'molecule_type', 'entity_index']
 
         super().__init__(index=range(n_molecules), columns=columns)
 
@@ -149,12 +149,40 @@ class Topology():
     def __init__(self, n_atoms=0, n_groups=0, n_components=0, n_molecules=0, n_entities=0, n_chains=0, n_bonds=0,
                 skip_digestion=False):
 
+        self.reset_atoms(n_atoms=n_atoms)
+        self.reset_groups(n_groups=n_groups)
+        self.reset_components(n_components=n_components)
+        self.reset_molecules(n_molecules=n_molecules)
+        self.reset_entities(n_entities=n_entities)
+        self.reset_chains(n_chains=n_chains)
+        self.reset_bonds(n_bonds=n_bonds)
+
+    def reset_atoms(self, n_atoms=0):
+
         self.atoms = Atoms_DataFrame(n_atoms=n_atoms)
+
+    def reset_groups(self, n_groups=0):
+
         self.groups = Groups_DataFrame(n_groups=n_groups)
+
+    def reset_components(self, n_components=0):
+
         self.components = Components_DataFrame(n_components=n_components)
+
+    def reset_molecules(self, n_molecules=0):
+
         self.molecules = Molecules_DataFrame(n_molecules=n_molecules)
+
+    def reset_entities(self, n_entities=0):
+
         self.entities = Entities_DataFrame(n_entities=n_entities)
+
+    def reset_chains(self, n_chains=0):
+
         self.chains = Chains_DataFrame(n_chains=n_chains)
+
+    def reset_bonds(self, n_bonds=0):
+
         self.bonds = Bonds_DataFrame(n_bonds=n_bonds)
 
     @digest()
@@ -327,32 +355,47 @@ class Topology():
         #    del component_type
 
 
-    def rebuild_molecules(self):
+    def rebuild_molecules(self, redefine_indices=True, redefine_ids=True, redefine_names=True, redefine_types=True):
 
-        from molsysmt.element.molecule import get_molecule_index, get_molecule_id,\
-        get_molecule_name, get_molecule_type
 
-        molecule_indices_from_components = get_molecule_index(self, element='component',
-                redefine_components=False, redefine_indices=True)
+        if redefine_indices:
 
-        self.components["molecule_index"] = np.array(molecule_indices_from_components, dtype=object)
-        n_molecules = molecule_indices_from_components[-1]+1
-        del molecule_indices_from_components
+            raise NotImplementedError
 
-        self.molecules = Molecules_DataFrame(n_molecules=n_molecules)
+        if redefine_ids:
 
-        molecule_id = get_molecule_id(self, element='molecule', redefine_ids=True)
-        self.molecules["molecule_id"] = np.array(molecule_id, dtype=int)
-        del molecule_id
+            self.molecules["molecule_id"]=np.arange(self.molecules.shape[0], dtype=int)
 
-        molecule_name = get_molecule_name(self, element='molecule', redefine_names=True)
-        self.molecules["molecule_name"] = np.array(molecule_name, dtype=object)
-        del molecule_name
+        if redefine_names:
 
-        molecule_type = get_molecule_type(self, element='molecule', redefine_types=True)
-        self.molecules["molecule_type"] = np.array(molecule_type, dtype=object)
-        del molecule_type
-        del n_molecules
+            self.molecules['molecule_name']=self.components.groupby('molecule_index')['component_name'].first().to_numpy()
+
+        if redefine_types:
+
+            from molsysmt.config import min_length_protein
+
+            aux_groups = self.components.groupby('molecule_index')['component_type']
+            aux_dict = aux_groups.apply(list).to_dict()
+            aux_dict_2 = self.components.groupby('molecule_index').indices
+
+            for molecule_index, component_types in aux_dict.items():
+                if len(component_types)==1:
+                    self.molecules.iat[molecule_index,2]=component_types[0]
+                else:
+                    if 'protein' in component_types:
+                        self.molecules.iat[molecule_index,2]='protein'
+                    elif 'peptide' in component_types:
+                        aux_components = aux_dict_2[molecule_index] 
+                        group_types = df.loc[self.groups['component_index'].isin(aux_components), 'group_type']
+                        n_amino_acids = np.sum(group_types=='amino acid')
+                        if n_amino_acids >= min_length_protein:
+                            self.molecules.iat[molecule_index,2]='protein'
+                        else:
+                            self.molecules.iat[molecule_index,2]='peptide'
+                    else:
+                        raise NotImplementedError
+
+            del aux_groups, aux_dict, aux_dict_2
 
     def rebuild_chain_types(self):
 
@@ -363,31 +406,90 @@ class Topology():
         self.chains["chain_type"] = np.array(chain_type, dtype=object)
         del chain_type
 
-    def rebuild_entities(self, redefine_indices=True):
+    def rebuild_entities(self, redefine_indices=True, redefine_ids=True, redefine_names=True, redefine_types=True):
 
-        from molsysmt.element.entity import get_entity_index, get_entity_id,\
-        get_entity_name, get_entity_type
+        if redefine_indices:
 
-        entity_indices_from_molecules = get_entity_index(self, element='molecule',
-                redefine_molecules=False, redefine_indices=redefine_indices)
-        self.molecules["entity_index"] = np.array(entity_indices_from_molecules, dtype=object)
-        n_entities = entity_indices_from_molecules[-1]+1
-        del entity_indices_from_molecules
+            molecule_names = self.molecules['molecule_name'].to_numpy()
+            molecule_types = self.molecules['molecule_type'].to_numpy()
 
-        self.entities = Entities_DataFrame(n_entities=n_entities)
+            count = 0
+            entity_indices = []
+            aux_dict = {}
 
-        entity_id = get_entity_id(self, element='entity', redefine_ids=True)
-        self.entities["entity_id"] = np.array(entity_id, dtype=int)
-        del entity_id
+            for molecule_name, molecule_type in zip(molecule_names, molecule_types):
+                if molecule_type == 'water':
+                    if 'water' not in aux_dict:
+                        aux_dict['water'] = count
+                        entity_index = count
+                        count += 1
+                    else:
+                        entity_index = aux_dict['water']
+                elif molecule_type == 'ion':
+                    if molecule_name not in aux_dict:
+                        aux_dict[molecule_name] = count
+                        entity_index = count
+                        count += 1
+                    else:
+                        entity_index = aux_dict[molecule_name]
+                elif molecule_type == 'lipid':
+                    if molecule_name not in aux_dict:
+                        aux_dict[molecule_name] = count
+                        entity_index = count
+                        count += 1
+                    else:
+                        entity_index = aux_dict[molecule_name]
+                elif molecule_type == 'small molecule':
+                    if molecule_name not in aux_dict:
+                        aux_dict[molecule_name] = count
+                        entity_index = count
+                        count += 1
+                    else:
+                        entity_index = aux_dict[molecule_name]
+                elif molecule_type == 'peptide':
+                    if molecule_name not in aux_dict:
+                        aux_dict[molecule_name] = count
+                        entity_index = count
+                        count += 1
+                    else:
+                        entity_index = aux_dict[molecule_name]
+                elif molecule_type == 'protein':
+                    if molecule_name not in aux_dict:
+                        aux_dict[molecule_name] = count
+                        entity_index = count
+                        count += 1
+                    else:
+                        entity_index = aux_dict[molecule_name]
+                else:
+                    if 'unknown' in aux_dict:
+                        aux_dict['unknown'] = count
+                        entity_index = count
+                        count += 1
+                    else:
+                        entity_index = aux_dict['unknown']
 
-        entity_name = get_entity_name(self, element='entity', redefine_names=True)
-        self.entities["entity_name"] = np.array(entity_name, dtype=object)
-        del entity_name
+                entity_indices.append(entity_index)
 
-        entity_type = get_entity_type(self, element='entity', redefine_types=True)
-        self.entities["entity_type"] = np.array(entity_type, dtype=object)
-        del entity_type
-        del n_entities
+            del molecule_names, molecule_types
+
+            n_entities = count
+
+            self.molecules['entity_index']=np.array(entity_indices, dtype=int)
+
+            self.reset_entities(n_entities=n_entities)
+
+        if redefine_ids:
+
+            self.entities['entity_id']=np.arange(self.entities.shape[0], dtype=int)
+
+        if redefine_names:
+
+            self.entities['entity_name']=self.molecules.groupby('entity_index')['molecule_name'].first().to_numpy()
+
+        if redefine_types:
+
+            self.entities['entity_type']=self.molecules.groupby('entity_index')['molecule_type'].first().to_numpy()
+
 
     def _join_molecules(self, indices=None):
 

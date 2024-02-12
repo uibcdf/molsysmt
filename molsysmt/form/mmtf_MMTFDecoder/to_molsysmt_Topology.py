@@ -250,10 +250,16 @@ def to_molsysmt_Topology(item, atom_indices='all', skip_digestion=False):
 
     del dict_chain_to_groups
 
+    aux_n_molecules = molecule_index
 
     # molecules
 
-    #tmp_item._build_entities()
+    tmp_item.reset_molecules(n_molecules=aux_n_molecules)
+    tmp_item.rebuild_molecules(redefine_indices=False, redefine_ids=True, redefine_names=True, redefine_types=True)
+
+    # entities
+
+    tmp_item.rebuild_entities(redefine_indices=True, redefine_ids=True, redefine_names=True, redefine_types=True)
 
     ## nan to None
 
@@ -261,6 +267,14 @@ def to_molsysmt_Topology(item, atom_indices='all', skip_digestion=False):
 
     ## If atoms with alternate location the highest occupancy or A is taken
     ## other pseudo-atoms are removed
+
+    occupancy = item.occupancy_list
+
+    #tmp_item.atoms_dataframe["alternate_location"] = np.array(item.alt_loc_list)
+    #tmp_item.atoms_dataframe["alternate_location"].replace({'':None}, inplace=True)
+
+
+
 
     #if not np.all(tmp_item.atoms_dataframe["alternate_location"]==None):
     #    alt_loc = tmp_item.atoms_dataframe["alternate_location"].to_numpy()
