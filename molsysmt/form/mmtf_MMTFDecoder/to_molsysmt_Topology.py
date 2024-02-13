@@ -244,7 +244,7 @@ def to_molsysmt_Topology(item, atom_indices='all', skip_digestion=False):
 
             else:
 
-                raise ValueError("Entity type not recognized")
+                raise ValueError("Entity type not recognized:", first_group_type)
 
             del group_indices
 
