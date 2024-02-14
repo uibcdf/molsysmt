@@ -138,6 +138,7 @@ def to_molsysmt_Topology(item, atom_indices='all', skip_digestion=False):
     tmp_item.bonds["atom2_index"] = bond_atom2_index_array
     #tmp_item.bonds["order"] = bond_order_array
     del(bond_atom1_index_array, bond_atom2_index_array) #bond_order_array)
+    tmp_item.bonds._sort_bonds()
 
     #### chains
 
@@ -271,13 +272,13 @@ def to_molsysmt_Topology(item, atom_indices='all', skip_digestion=False):
     occupancy = item.occupancy_list
     alternate_location = np.array(item.alt_loc_list)
     alt_atom_indices = np.where(alternate_location!='')[0]
+    aux_dict = {}
 
     if len(alt_atom_indices):
 
         alt_atom_names = tmp_item.atoms["atom_name"][alt_atom_indices].to_numpy()
         alt_group_index = tmp_item.atoms["group_index"][alt_atom_indices].to_numpy()
         alt_chain_index = tmp_item.atoms["chain_index"][alt_atom_indices].to_numpy()
-        aux_dict = {}
         for aux_atom_index, aux_atom_name, aux_group_index, aux_chain_index in zip(alt_atom_indices,
                                                                              alt_atom_names, alt_group_index,
                                                                              alt_chain_index):

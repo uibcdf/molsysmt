@@ -64,14 +64,14 @@ def _get_group_type_from_group_name(group_name):
         output = 'water'
     elif is_ion(group_name):
         output = 'ion'
-    elif is_small_molecule(group_name):
-        output = 'small molecule'
     elif is_amino_acid(group_name):
         output = 'amino acid'
     elif is_terminal_capping(group_name):
         output = 'terminal capping'
     elif is_nucleotide(group_name):
         output = 'nucleotide'
+    elif is_small_molecule(group_name):
+        output = 'small molecule'
     elif is_lipid(group_name):
         output = 'lipid'
     elif is_saccharide(group_name):

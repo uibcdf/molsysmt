@@ -1,4 +1,4 @@
-form_name = 'molsysmt.H5MSMFileHandler'
+form_name = 'molsysmt.CIFFileHandler'
 form_type = 'class'
 form_info = ["", ""]
 
@@ -16,6 +16,10 @@ from .get import *
 from .set import *
 from .iterators import StructuresIterator, TopologyIterator
 
+#from .to_pytraj_Topology import to_pytraj_Topology
+
 _convert_to={
+        'molsysmt.CIFFileHandler': extract,
+        #'MDAnalysis.Topology': to_MDAnalysis_Topology,
         }
 

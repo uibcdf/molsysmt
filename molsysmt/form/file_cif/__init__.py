@@ -16,6 +16,10 @@ from .get import *
 from .set import *
 from .iterators import StructuresIterator, TopologyIterator
 
+from .to_molsysmt_CIFFileHandler import to_molsysmt_CIFFileHandler
+
 _convert_to={
+        'file:cif': extract,
+        'molsysmt.CIFFileHandler': to_molsysmt_CIFFileHandler,
         }
 

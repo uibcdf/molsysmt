@@ -288,8 +288,8 @@ class Topology():
         self.molecules = pd.concat([self.molecules, tmp_item.molecules], ignore_index=True, copy=False)
         self.bonds = pd.concat([self.bonds, tmp_item.bonds], ignore_index=True, copy=False)
         self.rebuild_components(redefine_indices=False, redefine_ids=False, redefine_names=True, redefine_types=False)
-        #self.rebuild_molecules()
-        #self.rebuild_entities()
+        self.rebuild_molecules()
+        self.rebuild_entities()
 
         del tmp_item
 
@@ -357,10 +357,13 @@ class Topology():
 
     def rebuild_molecules(self, redefine_indices=True, redefine_ids=True, redefine_names=True, redefine_types=True):
 
-
         if redefine_indices:
 
-            raise NotImplementedError
+            component_indices_from_component = np.arange(self.components.shape[0])
+            molecule_indices_from_component = component_indices_from_component
+
+            self.components["molecule_index"] = molecule_indices_from_component
+            self.reset_molecules(n_molecules = len(molecule_indices_from_component))
 
         if redefine_ids:
 

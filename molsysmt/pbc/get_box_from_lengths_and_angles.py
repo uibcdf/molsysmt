@@ -4,7 +4,7 @@ import numpy as np
 from molsysmt import pyunitwizard as puw
 
 @digest()
-def get_box_from_lengths_and_angles(box_lengths, box_angles):
+def get_box_from_lengths_and_angles(box_lengths, box_angles, skip_digestion=False):
     """
     To be written soon...
     """
