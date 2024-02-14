@@ -80,7 +80,7 @@ class Structures:
 
 
     @digest()
-    def append_structure_id(self, structure_id, structure_indices='all', skip_digestion=False):
+    def _append_structure_id(self, structure_id, structure_indices='all', skip_digestion=False):
 
         if self.structure_id is None:
             if is_all(structure_indices):
@@ -95,7 +95,7 @@ class Structures:
 
 
     @digest()
-    def append_time(self, time, structure_indices='all', skip_digestion=False):
+    def _append_time(self, time, structure_indices='all', skip_digestion=False):
 
         time = puw.standardize(time)
 
@@ -112,7 +112,7 @@ class Structures:
 
 
     @digest()
-    def append_coordinates(self, coordinates, atom_indices='all', structure_indices='all', skip_digestion=False):
+    def _append_coordinates(self, coordinates, atom_indices='all', structure_indices='all', skip_digestion=False):
 
         coordinates = puw.standardize(coordinates)
 
@@ -147,7 +147,7 @@ class Structures:
 
 
     @digest()
-    def append_velocities(self, velocities, atom_indices='all', structure_indices='all', skip_digestion=False):
+    def _append_velocities(self, velocities, atom_indices='all', structure_indices='all', skip_digestion=False):
 
         velocities = puw.standardize(velocities)
 
@@ -182,7 +182,7 @@ class Structures:
 
 
     @digest()
-    def append_box(self, box, structure_indices='all', skip_digestion=False):
+    def _append_box(self, box, structure_indices='all', skip_digestion=False):
 
         box = puw.standardize(box)
 
@@ -199,7 +199,7 @@ class Structures:
 
 
     @digest()
-    def append_temperature(self, temperature, structure_indices='all', skip_digestion=False):
+    def _append_temperature(self, temperature, structure_indices='all', skip_digestion=False):
 
         temperature = puw.standardize(temperature)
 
@@ -216,7 +216,7 @@ class Structures:
 
 
     @digest()
-    def append_potential_energy(self, potential_energy, structure_indices='all', skip_digestion=False):
+    def _append_potential_energy(self, potential_energy, structure_indices='all', skip_digestion=False):
 
         potential_energy = puw.standardize(potential_energy)
 
@@ -233,7 +233,7 @@ class Structures:
 
 
     @digest()
-    def append_kinetic_energy(self, kinetic_energy, structure_indices='all', skip_digestion=False):
+    def _append_kinetic_energy(self, kinetic_energy, structure_indices='all', skip_digestion=False):
 
         kinetic_energy = puw.standardize(kinetic_energy)
 
@@ -335,62 +335,62 @@ class Structures:
         if self.n_structures==0:
 
             if structure_id is not None:
-                self.append_structure_id(structure_id, structure_indices=structure_indices, skip_digestion=True)
+                self._append_structure_id(structure_id, structure_indices=structure_indices, skip_digestion=True)
 
             if time is not None:
-                self.append_time(time, structure_indices=structure_indices, skip_digestion=True)
+                self._append_time(time, structure_indices=structure_indices, skip_digestion=True)
 
             if coordinates is not None:
-                self.append_coordinates(coordinates, atom_indices=atom_indices, structure_indices=structure_indices,
+                self._append_coordinates(coordinates, atom_indices=atom_indices, structure_indices=structure_indices,
                                          skip_digestion=True)
 
             if velocities is not None:
-                self.append_velocities(velocities, atom_indices=atom_indices, structure_indices=structure_indices,
+                self._append_velocities(velocities, atom_indices=atom_indices, structure_indices=structure_indices,
                                         skip_digestion=True)
 
             if box is not None:
-                self.append_box(box, structure_indices=structure_indices, skip_digestion=True)
+                self._append_box(box, structure_indices=structure_indices, skip_digestion=True)
 
             if temperature is not None:
-                self.append_temperature(temperature, structure_indices=structure_indices, skip_digestion=True)
+                self._append_temperature(temperature, structure_indices=structure_indices, skip_digestion=True)
 
             if potential_energy is not None:
-                self.append_potential_energy(potential_energy, structure_indices=structure_indices,
+                self._append_potential_energy(potential_energy, structure_indices=structure_indices,
                                               skip_digestion=True)
 
             if kinetic_energy is not None:
-                self.append_kinetic_energy(kinetic_energy, structure_indices=structure_indices,
+                self._append_kinetic_energy(kinetic_energy, structure_indices=structure_indices,
                                             skip_digestion=True)
 
 
         else:
 
             if (self.structure_id is not None) and (structure_id is not None):
-                self.append_structure_id(self, structure_id, structure_indices=structure_indices,
+                self._append_structure_id(self, structure_id, structure_indices=structure_indices,
                                           skip_digestion=True)
 
             if (self.time is not None) and (time is not None):
-                self.append_time(self, time, structure_indices=structure_indices, skip_digestion=True)
+                self._append_time(self, time, structure_indices=structure_indices, skip_digestion=True)
 
             if (self.coordinates is not None) and (coordinates is not None):
-                self.append_coordinates(self, coordinates, atom_indices=atom_indices,
+                self._append_coordinates(self, coordinates, atom_indices=atom_indices,
                                          structure_indices=structure_indices, skip_digestion=True)
 
             if (self.velocities is not None) and (velocities is not None):
-                self.append_velocities(self, velocities, atom_indices=atom_indices,
+                self._append_velocities(self, velocities, atom_indices=atom_indices,
                                         structure_indices=structure_indices, skip_digestion=True)
 
             if (self.box is not None) and (box is not None):
-                self.append_box(self, box, structure_indices=structure_indices, skip_digestion=True)
+                self._append_box(self, box, structure_indices=structure_indices, skip_digestion=True)
 
             if (self.temperature is not None) and (temperature is not None):
-                self.append_temperature(self, temperature, structure_indices=structure_indices, skip_digestion=True)
+                self._append_temperature(self, temperature, structure_indices=structure_indices, skip_digestion=True)
 
             if (self.potential_energy is not None) and (potential_energy is not None):
-                self.append_potential_energy(self, potential_energy, structure_indices=structure_indices)
+                self._append_potential_energy(self, potential_energy, structure_indices=structure_indices)
 
             if (self.kinetic_energy is not None) and (kinetic_energy is not None):
-                self.append_kinetic_energy(self, kinetic_energy, structure_indices=structure_indices, 
+                self._append_kinetic_energy(self, kinetic_energy, structure_indices=structure_indices, 
                                             skip_digestion=True)
 
         self.n_structures += n_structures
