@@ -77,3 +77,7 @@ if _sphinx_is_working:
 # Optimization
 large_list_length = 10000
 
+# Topology
+min_length_protein = 50
+
+

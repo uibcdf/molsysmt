@@ -35,7 +35,7 @@ def merge(items, atom_indices='all', structure_indices='all'):
     else:
         output.n_structures = len(structure_indices)
         output.box = items[0].box[structure_indices,:,:]
-        output.structure_id = items[0].structure_id[structure_indices]
+        output.id = items[0].id[structure_indices]
         output.time = items[0].time[structure_indices]
 
 

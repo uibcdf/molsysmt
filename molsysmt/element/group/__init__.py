@@ -9,7 +9,7 @@ from . import saccharide
 from . import oligosaccharide
 
 from .is_group_type import is_group_type
-from .get_group_type_from_group_name import get_group_type_from_group_name
+from .get_group_type import get_group_type
 
 _group_types = [
         'water',

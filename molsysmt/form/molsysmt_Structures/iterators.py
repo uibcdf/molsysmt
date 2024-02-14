@@ -62,8 +62,8 @@ class StructuresIterator():
                     del(coordinates)
                 elif argument == 'time':
                     self._output_dictionary['time'] = self.time[indices]
-                elif argument == 'structure_id':
-                    self._output_dictionary['structure_id'] = indices
+                elif argument == 'id':
+                    self._output_dictionary['id'] = indices
                 elif argument == 'box':
                     self._output_dictionary['box'] = self.box[indices,:,:]
 

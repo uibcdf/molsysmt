@@ -10,6 +10,7 @@ def get(molecular_system,
         mask=None,
         syntax='MolSysMT',
         output_type='values',
+        skip_digestion=False,
         **kwargs):
     """
     Getting attribute values from a molecular system.
@@ -167,7 +168,7 @@ def get(molecular_system,
             element = 'atom'
 
     if not is_all(selection):
-        indices = select(molecular_system, element=element, selection=selection, mask=mask, syntax=syntax)
+        indices = select(molecular_system, element=element, selection=selection, mask=mask, syntax=syntax, skip_digestion=True)
     else:
         if (mask is None) or (is_all(mask)):
             indices = 'all'

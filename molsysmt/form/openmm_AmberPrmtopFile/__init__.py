@@ -16,13 +16,13 @@ from .get import *
 from .set import *
 from .iterators import TopologyIterator
 
-from .to_molsysmt_Topology import to_molsysmt_Topology
+from .to_molsysmt_TopologyOld import to_molsysmt_TopologyOld
 from .to_openmm_System import to_openmm_System
 from .to_openmm_Topology import to_openmm_Topology
 
 _convert_to={
         'openmm.AmberPrmtopFile': extract,
-        'molsysmt.Topology': to_molsysmt_Topology,
+        'molsysmt.TopologyOld': to_molsysmt_TopologyOld,
         'openmm.System': to_openmm_System,
         'openmm.Topology': to_openmm_Topology,
         }

@@ -139,3 +139,20 @@ def occurrence_order(serie):
 
     return output
 
+
+@nb.njit(nb.int64[:](nb.int64[:]), cache=True)
+def occurrence_order_sorted_serie(serie):
+
+    output = np.zeros(serie.shape[0], dtype=nb.int64)
+
+    aux = 0
+    ant = serie[0]
+
+    for ii, jj in enumerate(serie):
+        if jj!=ant:
+            ant=jj
+            aux+=1
+        output[ii]=aux
+
+    return output
+

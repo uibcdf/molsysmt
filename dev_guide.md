@@ -2,6 +2,8 @@
 
 ## Basic
 
+pip install --no-deps --editable .
+
 ## Get
 
 - n_atoms is always an integer even when there is no topological info.

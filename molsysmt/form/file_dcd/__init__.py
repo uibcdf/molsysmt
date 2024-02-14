@@ -17,13 +17,13 @@ from .set import *
 from .iterators import StructuresIterator
 
 from .to_mdtraj_DCDTrajectoryFile import to_mdtraj_DCDTrajectoryFile
-from .to_molsysmt_Structures import to_molsysmt_Structures
-from .to_molsysmt_MolSys import to_molsysmt_MolSys
+from .to_molsysmt_StructuresOld import to_molsysmt_StructuresOld
+from .to_molsysmt_MolSysOld import to_molsysmt_MolSysOld
 
 _convert_to={
         'file:dcd': extract,
         'mdtraj.DCDTrajectoryFile': to_mdtraj_DCDTrajectoryFile,
-        'molsysmt.Structures': to_molsysmt_Structures,
-        'molsysmt.MolSys': to_molsysmt_MolSys
+        'molsysmt.StructuresOld': to_molsysmt_StructuresOld,
+        'molsysmt.MolSysOld': to_molsysmt_MolSysOld
         }
 

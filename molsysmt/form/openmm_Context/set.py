@@ -10,7 +10,7 @@ form='openmm.Context'
 ## to atom
 
 @digest(form=form)
-def set_coordinates_to_atom(item, indices='all', value=None):
+def set_coordinates_to_atom(item, indices='all', value=None, skip_digestion=False):
 
     value = puw.convert(value[0], to_unit='nanometers', to_form='openmm.unit')
 
@@ -28,7 +28,7 @@ def set_coordinates_to_atom(item, indices='all', value=None):
 ###
 
 @digest(form=form)
-def set_coordinates_to_system(item, value=None):
+def set_coordinates_to_system(item, value=None, skip_digestion=False):
 
     return set_coordinates_to_atom(item, indices='all', value=value)
 

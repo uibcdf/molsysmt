@@ -24,6 +24,9 @@ from .to_mmtf_MMTFDecoder import to_mmtf_MMTFDecoder
 from .to_molsysmt_MolSys import to_molsysmt_MolSys
 from .to_molsysmt_Topology import to_molsysmt_Topology
 from .to_molsysmt_Structures import to_molsysmt_Structures
+from .to_molsysmt_MolSysOld import to_molsysmt_MolSysOld
+from .to_molsysmt_TopologyOld import to_molsysmt_TopologyOld
+from .to_molsysmt_StructuresOld import to_molsysmt_StructuresOld
 from .to_mdtraj_Trajectory import to_mdtraj_Trajectory
 from .to_mdtraj_Topology import to_mdtraj_Topology
 from .to_pdbfixer_PDBFixer import to_pdbfixer_PDBFixer
@@ -43,6 +46,9 @@ _convert_to={
         'molsysmt.MolSys': to_molsysmt_MolSys,
         'molsysmt.Topology': to_molsysmt_Topology,
         'molsysmt.Structures': to_molsysmt_Structures,
+        'molsysmt.MolSysOld': to_molsysmt_MolSysOld,
+        'molsysmt.TopologyOld': to_molsysmt_TopologyOld,
+        'molsysmt.StructuresOld': to_molsysmt_StructuresOld,
         'mdtraj.Trajectory': to_mdtraj_Trajectory,
         'mdtraj.Topology': to_mdtraj_Topology,
         'pdbfixer.PDBFixer': to_pdbfixer_PDBFixer,

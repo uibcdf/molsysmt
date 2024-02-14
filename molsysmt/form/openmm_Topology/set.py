@@ -4,7 +4,7 @@ from molsysmt import pyunitwizard as puw
 ## System
 
 @digest(form='openmm.Topology')
-def set_box_to_system(item, structure_indices='all', value=None):
+def set_box_to_system(item, structure_indices='all', value=None, skip_digestion=False):
 
     if value is None:
 

@@ -2,7 +2,7 @@ from molsysmt._private.digestion import digest
 from molsysmt._private.variables import is_all
 
 @digest(form='XYZ')
-def extract(item, atom_indices='all', structure_indices='all', copy_if_all=True):
+def extract(item, atom_indices='all', structure_indices='all', copy_if_all=True, skip_digestion=False):
 
     if is_all(atom_indices) and is_all(structure_indices):
 
@@ -15,7 +15,8 @@ def extract(item, atom_indices='all', structure_indices='all', copy_if_all=True)
 
         from . import get_coordinates_from_atom
 
-        tmp_item = get_coordinates_from_atom(item, indices=atom_indices, structure_indices=structure_indices)
+        tmp_item = get_coordinates_from_atom(item, indices=atom_indices, structure_indices=structure_indices,
+                                             skip_digestion=True)
 
     return tmp_item
 

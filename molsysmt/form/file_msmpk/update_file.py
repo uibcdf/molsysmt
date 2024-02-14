@@ -1,7 +1,7 @@
 from molsysmt._private.digestion import digest
 
 @digest(form='file:msmpk')
-def update_file(item):
+def update_file(item, skip_digestion=False):
 
     from molsysmt.native import MolSys
     from ..molsysmt_MolSys import to_file_msmpk as molsysmt_MolSys_to_file_msmpk
@@ -178,7 +178,7 @@ def update_file(item):
 
     # New msmpk
 
-    tmp_item = molsysmt_MolSys_to_file_msmpk(molsys, output_filename=item)
+    tmp_item = molsysmt_MolSys_to_file_msmpk(molsys, output_filename=item, skip_digestion=True)
 
     return tmp_item
 

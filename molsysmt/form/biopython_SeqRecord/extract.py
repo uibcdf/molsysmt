@@ -3,7 +3,7 @@ from molsysmt._private.digestion import digest
 from molsysmt._private.variables import is_all
 
 @digest(form='biopython.SeqRecord')
-def extract(item, group_indices='all', copy_if_all=True):
+def extract(item, group_indices='all', copy_if_all=True, skip_digestion=False):
 
     if is_all(group_indices):
 

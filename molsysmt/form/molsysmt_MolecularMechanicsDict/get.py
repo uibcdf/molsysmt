@@ -13,11 +13,11 @@ form='molsysmt.MolecularMechanicsDict'
 ## From atom
 
 @digest(form=form)
-def get_atom_index_from_atom(item, indices='all'):
+def get_atom_index_from_atom(item, indices='all', skip_digestion=False):
 
     if is_all(indices):
 
-        n_atoms = get_n_atoms_from_system(item)
+        n_atoms = get_n_atoms_from_system(item, skip_digestion=True)
         return np.arange(0,n_atoms)
 
     else:
@@ -25,7 +25,7 @@ def get_atom_index_from_atom(item, indices='all'):
         return indices
 
 @digest(form=form)
-def get_n_atoms_from_atom (item, indices='all'):
+def get_n_atoms_from_atom (item, indices='all', skip_digestion=False):
 
     output = None
 
@@ -43,7 +43,7 @@ def get_n_atoms_from_atom (item, indices='all'):
     return output
 
 @digest(form=form)
-def get_formal_charge_from_atom(item, indices='all'):
+def get_formal_charge_from_atom(item, indices='all', skip_digestion=False):
 
     if is_all(indices):
         try:
@@ -57,7 +57,7 @@ def get_formal_charge_from_atom(item, indices='all'):
             return None
 
 @digest(form=form)
-def get_partial_charge_from_atom(item, indices='all'):
+def get_partial_charge_from_atom(item, indices='all', skip_digestion=False):
 
     if is_all(indices):
         try:
@@ -73,13 +73,13 @@ def get_partial_charge_from_atom(item, indices='all'):
 ## From system
 
 @digest(form=form)
-def get_n_atoms_from_system(item):
+def get_n_atoms_from_system(item, skip_digestion=False):
 
-    return get_n_atoms_from_atom(item)
+    return get_n_atoms_from_atom(item, skip_digestion=True)
 
 
 @digest(form=form)
-def get_forcefield_from_system(item):
+def get_forcefield_from_system(item, skip_digestion=False):
 
     try:
         return item['forcefield']
@@ -87,7 +87,7 @@ def get_forcefield_from_system(item):
         return None
 
 @digest(form=form)
-def get_non_bonded_method_from_system(item):
+def get_non_bonded_method_from_system(item, skip_digestion=False):
 
     try:
         return item['non_bonded_method']
@@ -95,7 +95,7 @@ def get_non_bonded_method_from_system(item):
         return None
 
 @digest(form=form)
-def get_cutoff_distance_from_system(item):
+def get_cutoff_distance_from_system(item, skip_digestion=False):
 
     try:
         return item['cutoff_distance']
@@ -103,7 +103,7 @@ def get_cutoff_distance_from_system(item):
         return None
 
 @digest(form=form)
-def get_switch_distance_from_system(item):
+def get_switch_distance_from_system(item, skip_digestion=False):
 
     try:
         return item['switch_distance']
@@ -111,7 +111,7 @@ def get_switch_distance_from_system(item):
         return None
 
 @digest(form=form)
-def get_dispersion_correction_from_system(item):
+def get_dispersion_correction_from_system(item, skip_digestion=False):
 
     try:
         return item['dispersion_correction']
@@ -119,7 +119,7 @@ def get_dispersion_correction_from_system(item):
         return None
 
 @digest(form=form)
-def get_ewald_error_tolerance_from_system(item):
+def get_ewald_error_tolerance_from_system(item, skip_digestion=False):
 
     try:
         return item['ewald_error_tolerance']
@@ -127,7 +127,7 @@ def get_ewald_error_tolerance_from_system(item):
         return None
 
 @digest(form=form)
-def get_hydrogen_mass_from_system(item):
+def get_hydrogen_mass_from_system(item, skip_digestion=False):
 
     try:
         return item['hydrogen_mass']
@@ -135,7 +135,7 @@ def get_hydrogen_mass_from_system(item):
         return None
 
 @digest(form=form)
-def get_constraints_from_system(item):
+def get_constraints_from_system(item, skip_digestion=False):
 
     try:
         return item['constraints']
@@ -143,7 +143,7 @@ def get_constraints_from_system(item):
         return None
 
 @digest(form=form)
-def get_flexible_constraints_from_system(item):
+def get_flexible_constraints_from_system(item, skip_digestion=False):
 
     try:
         return item['flexible_constraints']
@@ -151,7 +151,7 @@ def get_flexible_constraints_from_system(item):
         return None
 
 @digest(form=form)
-def get_water_model_from_system(item):
+def get_water_model_from_system(item, skip_digestion=False):
 
     try:
         return item['water_model']
@@ -159,7 +159,7 @@ def get_water_model_from_system(item):
         return None
 
 @digest(form=form)
-def get_rigid_water_from_system(item):
+def get_rigid_water_from_system(item, skip_digestion=False):
 
     try:
         return item['rigid_water']
@@ -167,7 +167,7 @@ def get_rigid_water_from_system(item):
         return None
 
 @digest(form=form)
-def get_implicit_solvent_from_system(item):
+def get_implicit_solvent_from_system(item, skip_digestion=False):
 
     try:
         return item['implicit_solvent']
@@ -175,7 +175,7 @@ def get_implicit_solvent_from_system(item):
         return None
 
 @digest(form=form)
-def get_solute_dielectric_from_system(item):
+def get_solute_dielectric_from_system(item, skip_digestion=False):
 
     try:
         return item['solute_dielectric']
@@ -183,7 +183,7 @@ def get_solute_dielectric_from_system(item):
         return None
 
 @digest(form=form)
-def get_solvent_dielectric_from_system(item):
+def get_solvent_dielectric_from_system(item, skip_digestion=False):
 
     try:
         return item['solvent_dielectric']
@@ -191,7 +191,7 @@ def get_solvent_dielectric_from_system(item):
         return None
 
 @digest(form=form)
-def get_salt_concentration_from_system(item):
+def get_salt_concentration_from_system(item, skip_digestion=False):
 
     try:
         return item['salt_concentration']
@@ -199,7 +199,7 @@ def get_salt_concentration_from_system(item):
         return None
 
 @digest(form=form)
-def get_kappa_from_system(item):
+def get_kappa_from_system(item, skip_digestion=False):
 
     try:
         return item['kappa']

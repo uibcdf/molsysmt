@@ -2,7 +2,7 @@ from molsysmt._private.digestion import digest
 from molsysmt._private.variables import is_all
 
 @digest(form='nglview.NGLWidget')
-def to_string_pdb_text(item, atom_indices='all', structure_indices='all'):
+def to_string_pdb_text(item, atom_indices='all', structure_indices='all', skip_digestion=False):
 
     from ..string_pdb_text import extract
 
@@ -13,7 +13,7 @@ def to_string_pdb_text(item, atom_indices='all', structure_indices='all'):
 
     if not (is_all(atom_indices)*is_all(structure_indices)):
 
-        tmp_item = extract(tmp_item, atom_indices=atom_indices, structure_indices=structure_indices)
+        tmp_item = extract(tmp_item, atom_indices=atom_indices, structure_indices=structure_indices, skip_digestion=True)
 
     return tmp_item
 

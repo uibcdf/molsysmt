@@ -2,7 +2,7 @@ from molsysmt._private.digestion import digest
 from molsysmt._private.exceptions import LibraryNotFoundError
 
 @digest(form='file:mmtf')
-def to_MDAnalysis_Universe(item, atom_indices='all', structure_indices='all'):
+def to_MDAnalysis_Universe(item, atom_indices='all', structure_indices='all', skip_digestion=False):
 
     try:
         from MDAnalysis import Universe
@@ -14,6 +14,7 @@ def to_MDAnalysis_Universe(item, atom_indices='all', structure_indices='all'):
     tmp_item = Universe(item)
     tmp_item = extract_MDAnalysis_Universe(tmp_item, atom_indices=atom_indices,
                                            structure_indices=structure_indices, copy_if_all=False,
+                                           skip_digestion=True
                                            )
 
     return tmp_item

@@ -4,7 +4,7 @@ from molsysmt._private.variables import is_all
 
 @digest(form='file:crd')
 def extract(item, atom_indices='all', structure_indices='all', output_filename=None, copy_if_all=True,
-        progress_bar=False):
+        progress_bar=False, skip_digestion=False):
 
     if output_filename is None:
         output_filename = item

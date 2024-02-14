@@ -13,7 +13,7 @@ form='molsysmt.H5MSMFileHandler'
 ## From atom
 
 @digest(form=form)
-def get_atom_id_from_atom(item, indices='all'):
+def get_atom_id_from_atom(item, indices='all', skip_digestion=False):
 
     if is_all(indices):
         output = item.file['topology']['atoms']['id'][:].astype('int64')
@@ -23,7 +23,7 @@ def get_atom_id_from_atom(item, indices='all'):
     return output
 
 @digest(form=form)
-def get_atom_name_from_atom(item, indices='all'):
+def get_atom_name_from_atom(item, indices='all', skip_digestion=False):
 
     if is_all(indices):
         output = item.file['topology']['atoms']['name'][:].astype('str')
@@ -33,7 +33,7 @@ def get_atom_name_from_atom(item, indices='all'):
     return output
 
 @digest(form=form)
-def get_atom_type_from_atom(item, indices='all'):
+def get_atom_type_from_atom(item, indices='all', skip_digestion=False):
 
     if is_all(indices):
         output = item.file['topology']['atoms']['type'][:].astype('str')
@@ -43,7 +43,7 @@ def get_atom_type_from_atom(item, indices='all'):
     return output
 
 @digest(form=form)
-def get_group_index_from_atom(item, indices='all'):
+def get_group_index_from_atom(item, indices='all', skip_digestion=False):
 
     if is_all(indices):
         output = item.file['topology']['atoms']['group_index'][:].astype('int')
@@ -53,15 +53,15 @@ def get_group_index_from_atom(item, indices='all'):
     return output
 
 @digest(form=form)
-def get_component_index_from_atom(item, indices='all'):
+def get_component_index_from_atom(item, indices='all', skip_digestion=False):
 
-    group_index = get_group_index_from_atom(item, indices)
+    group_index = get_group_index_from_atom(item, indices, skip_digestion=False)
     output = item.file['topology']['groups']['component_index'][group_index].astype('int')
 
     return output
 
 @digest(form=form)
-def get_chain_index_from_atom(item, indices='all'):
+def get_chain_index_from_atom(item, indices='all', skip_digestion=False):
 
     if is_all(indices):
         output = item.file['topology']['atoms']['chain_index'][:].astype('int')
@@ -71,17 +71,17 @@ def get_chain_index_from_atom(item, indices='all'):
     return output
 
 @digest(form=form)
-def get_molecule_index_from_atom(item, indices='all'):
+def get_molecule_index_from_atom(item, indices='all', skip_digestion=False):
 
-    component_index = get_component_index_from_atom(item, indices)
+    component_index = get_component_index_from_atom(item, indices, skip_digestion=False)
     output = item.file['topology']['components']['molecule_index'][component_index].astype('int')
 
     return output
 
 @digest(form=form)
-def get_entity_index_from_atom(item, indices='all'):
+def get_entity_index_from_atom(item, indices='all', skip_digestion=False):
 
-    molecule_index = get_molecule_index_from_atom(item, indices)
+    molecule_index = get_molecule_index_from_atom(item, indices, skip_digestion=False)
     output = item.file['topology']['molecules']['entity_index'][molecule_index].astype('int')
 
     return output
@@ -89,12 +89,12 @@ def get_entity_index_from_atom(item, indices='all'):
 
 
 @digest(form=form)
-def get_inner_bond_index_from_atom(item, indices='all'):
+def get_inner_bond_index_from_atom(item, indices='all', skip_digestion=False):
 
     raise NotImplementedError
 
 @digest(form=form)
-def get_coordinates_from_atom(item, indices='all', structure_indices='all'):
+def get_coordinates_from_atom(item, indices='all', structure_indices='all', skip_digestion=False):
 
     if is_all(structure_indices):
         if is_all(indices):
@@ -112,7 +112,7 @@ def get_coordinates_from_atom(item, indices='all', structure_indices='all'):
     return output
 
 @digest(form=form)
-def get_velocities_from_atom(item, indices='all', structure_indices='all'):
+def get_velocities_from_atom(item, indices='all', structure_indices='all', skip_digestion=False):
 
     if is_all(structure_indices):
         if is_all(indices):
@@ -132,7 +132,7 @@ def get_velocities_from_atom(item, indices='all', structure_indices='all'):
 ## From group
 
 @digest(form=form)
-def get_group_id_from_group(item, indices='all'):
+def get_group_id_from_group(item, indices='all', skip_digestion=False):
 
     if is_all(indices):
         output = item.file['topology']['groups']['id'][:].astype('int64')
@@ -142,7 +142,7 @@ def get_group_id_from_group(item, indices='all'):
     return output
 
 @digest(form=form)
-def get_group_name_from_group(item, indices='all'):
+def get_group_name_from_group(item, indices='all', skip_digestion=False):
 
     if is_all(indices):
         output = item.file['topology']['groups']['name'][:].astype('str')
@@ -152,7 +152,7 @@ def get_group_name_from_group(item, indices='all'):
     return output
 
 @digest(form=form)
-def get_group_type_from_group(item, indices='all'):
+def get_group_type_from_group(item, indices='all', skip_digestion=False):
 
     if is_all(indices):
         output = item.file['topology']['groups']['type'][:].astype('str')
@@ -164,7 +164,7 @@ def get_group_type_from_group(item, indices='all'):
 ## From component
 
 @digest(form=form)
-def get_component_id_from_component(item, indices='all'):
+def get_component_id_from_component(item, indices='all', skip_digestion=False):
 
     if is_all(indices):
         output = item.file['topology']['components']['id'][:].astype('int64')
@@ -174,7 +174,7 @@ def get_component_id_from_component(item, indices='all'):
     return output
 
 @digest(form=form)
-def get_component_name_from_component(item, indices='all'):
+def get_component_name_from_component(item, indices='all', skip_digestion=False):
 
     if is_all(indices):
         output = item.file['topology']['components']['name'][:].astype('str')
@@ -184,7 +184,7 @@ def get_component_name_from_component(item, indices='all'):
     return output
 
 @digest(form=form)
-def get_component_type_from_component(item, indices='all'):
+def get_component_type_from_component(item, indices='all', skip_digestion=False):
 
     if is_all(indices):
         output = item.file['topology']['components']['type'][:].astype('str')
@@ -196,7 +196,7 @@ def get_component_type_from_component(item, indices='all'):
 ## From molecule
 
 @digest(form=form)
-def get_molecule_id_from_molecule(item, indices='all'):
+def get_molecule_id_from_molecule(item, indices='all', skip_digestion=False):
 
     if is_all(indices):
         output = item.file['topology']['molecules']['id'][:].astype('int')
@@ -206,7 +206,7 @@ def get_molecule_id_from_molecule(item, indices='all'):
     return output
 
 @digest(form=form)
-def get_molecule_name_from_molecule(item, indices='all'):
+def get_molecule_name_from_molecule(item, indices='all', skip_digestion=False):
 
     if is_all(indices):
         output = item.file['topology']['molecules']['name'][:].astype('str')
@@ -216,7 +216,7 @@ def get_molecule_name_from_molecule(item, indices='all'):
     return output
 
 @digest(form=form)
-def get_molecule_type_from_molecule(item, indices='all'):
+def get_molecule_type_from_molecule(item, indices='all', skip_digestion=False):
 
     if is_all(indices):
         output = item.file['topology']['molecules']['type'][:].astype('str')
@@ -228,7 +228,7 @@ def get_molecule_type_from_molecule(item, indices='all'):
 ## From chain
 
 @digest(form=form)
-def get_chain_id_from_chain(item, indices='all'):
+def get_chain_id_from_chain(item, indices='all', skip_digestion=False):
 
     if is_all(indices):
         output = item.file['topology']['chains']['id'][:].astype('int')
@@ -238,7 +238,7 @@ def get_chain_id_from_chain(item, indices='all'):
     return output
 
 @digest(form=form)
-def get_chain_name_from_chain(item, indices='all'):
+def get_chain_name_from_chain(item, indices='all', skip_digestion=False):
 
     if is_all(indices):
         output = item.file['topology']['chains']['name'][:].astype('str')
@@ -248,7 +248,7 @@ def get_chain_name_from_chain(item, indices='all'):
     return output
 
 @digest(form=form)
-def get_chain_type_from_chain(item, indices='all'):
+def get_chain_type_from_chain(item, indices='all', skip_digestion=False):
 
     if is_all(indices):
         output = item.file['topology']['chains']['type'][:].astype('str')
@@ -260,7 +260,7 @@ def get_chain_type_from_chain(item, indices='all'):
 ## From entity
 
 @digest(form=form)
-def get_entity_id_from_entity(item, indices='all'):
+def get_entity_id_from_entity(item, indices='all', skip_digestion=False):
 
     if is_all(indices):
         output = item.file['topology']['entities']['id'][:].astype('int')
@@ -270,7 +270,7 @@ def get_entity_id_from_entity(item, indices='all'):
     return output
 
 @digest(form=form)
-def get_entity_name_from_entity(item, indices='all'):
+def get_entity_name_from_entity(item, indices='all', skip_digestion=False):
 
     if is_all(indices):
         output = item.file['topology']['entities']['name'][:].astype('str')
@@ -280,7 +280,7 @@ def get_entity_name_from_entity(item, indices='all'):
     return output
 
 @digest(form=form)
-def get_entity_type_from_entity(item, indices='all'):
+def get_entity_type_from_entity(item, indices='all', skip_digestion=False):
 
     if is_all(indices):
         output = item.file['topology']['entities']['type'][:].astype('str')
@@ -295,7 +295,7 @@ def get_entity_type_from_entity(item, indices='all'):
 ## From system
 
 @digest(form=form)
-def get_n_atoms_from_system(item):
+def get_n_atoms_from_system(item, skip_digestion=False):
 
     output = item.file['topology'].attrs['n_atoms']
 
@@ -305,56 +305,56 @@ def get_n_atoms_from_system(item):
     return output
 
 @digest(form=form)
-def get_n_groups_from_system(item):
+def get_n_groups_from_system(item, skip_digestion=False):
 
     output = item.file['topology'].attrs['n_groups']
 
     return output
 
 @digest(form=form)
-def get_n_components_from_system(item):
+def get_n_components_from_system(item, skip_digestion=False):
 
     output = item.file['topology'].attrs['n_components']
 
     return output
 
 @digest(form=form)
-def get_n_chains_from_system(item):
+def get_n_chains_from_system(item, skip_digestion=False):
 
     output = item.file['topology'].attrs['n_chains']
 
     return output
 
 @digest(form=form)
-def get_n_molecules_from_system(item):
+def get_n_molecules_from_system(item, skip_digestion=False):
 
     output = item.file['topology'].attrs['n_molecules']
 
     return output
 
 @digest(form=form)
-def get_n_entities_from_system(item):
+def get_n_entities_from_system(item, skip_digestion=False):
 
     output = item.file['topology'].attrs['n_entities']
 
     return output
 
 @digest(form=form)
-def get_n_bonds_from_system(item):
+def get_n_bonds_from_system(item, skip_digestion=False):
 
     output = item.file['topology'].attrs['n_bonds']
 
     return output
 
 @digest(form=form)
-def get_n_structures_from_system(item, structure_indices='all'):
+def get_n_structures_from_system(item, structure_indices='all', skip_digestion=False):
 
     output = item.file['structures'].attrs['n_structures_written']
 
     return output
 
 @digest(form=form)
-def get_box_from_system(item, structure_indices='all'):
+def get_box_from_system(item, structure_indices='all', skip_digestion=False):
 
     if item.file['structures'].attrs['constant_box']:
         if is_all(structure_indices):
@@ -376,7 +376,7 @@ def get_box_from_system(item, structure_indices='all'):
     return output
 
 @digest(form=form)
-def get_time_from_system(item, structure_indices='all'):
+def get_time_from_system(item, structure_indices='all', skip_digestion=False):
 
     if item.file['structures'].attrs['constant_time_step']:
         init_time = item.file['structures']['time'][0]
@@ -397,7 +397,7 @@ def get_time_from_system(item, structure_indices='all'):
     return output
 
 @digest(form=form)
-def get_structure_id_from_system(item, structure_indices='all'):
+def get_structure_id_from_system(item, structure_indices='all', skip_digestion=False):
 
     if item.file['structures'].attrs['constant_id_step']:
         init_id = item.file['structures']['id'][0]
@@ -416,7 +416,7 @@ def get_structure_id_from_system(item, structure_indices='all'):
     return output
 
 @digest(form=form)
-def get_kinetic_energy_from_system(item, structure_indices='all'):
+def get_kinetic_energy_from_system(item, structure_indices='all', skip_digestion=False):
 
     if is_all(structure_indices):
         output = item.file['structures']['kinetic_energy'][:]
@@ -428,7 +428,7 @@ def get_kinetic_energy_from_system(item, structure_indices='all'):
     return output
 
 @digest(form=form)
-def get_potential_energy_from_system(item, structure_indices='all'):
+def get_potential_energy_from_system(item, structure_indices='all', skip_digestion=False):
 
     if is_all(structure_indices):
         output = item.file['structures']['potential_energy'][:]
@@ -440,13 +440,13 @@ def get_potential_energy_from_system(item, structure_indices='all'):
     return output
 
 @digest(form=form)
-def get_temperature_from_system(item, structure_indices='all'):
+def get_temperature_from_system(item, structure_indices='all', skip_digestion=False):
 
     constant_R = puw.get_constant('R')
 
     if item.file['structures'].attrs['temperature_from_kinetic_energy']:
 
-        kinetic_energy = get_kinetic_energy_from_system(item, structure_indices=structure_indices)
+        kinetic_energy = get_kinetic_energy_from_system(item, structure_indices=structure_indices, skip_digestion=False)
         kinetic_energy = puw.convert(kinetic_energy, to_form='openmm.unit')
         output = 2 * kinetic_energy / (item.file['structures'].attrs['n_degrees_of_freedom'] * constant_R)
         output = puw.standardize(output)
@@ -466,7 +466,7 @@ def get_temperature_from_system(item, structure_indices='all'):
 ## From bond
 
 @digest(form=form)
-def get_bond_order_from_bond(item, indices='all'):
+def get_bond_order_from_bond(item, indices='all', skip_digestion=False):
 
     output = item.file['topology']['bonds']['order'][:].astype('str')
 
@@ -476,7 +476,7 @@ def get_bond_order_from_bond(item, indices='all'):
     return output
 
 @digest(form=form)
-def get_bond_type_from_bond(item, indices='all'):
+def get_bond_type_from_bond(item, indices='all', skip_digestion=False):
 
     output = item.file['topology']['bonds']['type'][:].astype('str')
 
@@ -486,7 +486,7 @@ def get_bond_type_from_bond(item, indices='all'):
     return output
 
 @digest(form=form)
-def get_bonded_atoms_from_bond(item, indices='all'):
+def get_bonded_atoms_from_bond(item, indices='all', skip_digestion=False):
 
     tmp_out = None
 

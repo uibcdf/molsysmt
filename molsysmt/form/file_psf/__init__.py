@@ -16,15 +16,15 @@ from .get import *
 from .set import *
 from .iterators import TopologyIterator
 
-from .to_molsysmt_MolSys import to_molsysmt_MolSys
-from .to_molsysmt_Topology import to_molsysmt_Topology
+from .to_molsysmt_MolSysOld import to_molsysmt_MolSysOld
+from .to_molsysmt_TopologyOld import to_molsysmt_TopologyOld
 from .to_openmm_CharmmPsfFile import to_openmm_CharmmPsfFile
 from .to_openmm_Topology import to_openmm_Topology
 
 _convert_to={
         'file:psf': extract,
-        'molsysmt.MolSys': to_molsysmt_MolSys,
-        'molsysmt.Topology': to_molsysmt_Topology,
+        'molsysmt.MolSysOld': to_molsysmt_MolSysOld,
+        'molsysmt.TopologyOld': to_molsysmt_TopologyOld,
         'openmm.CharmPsfFile': to_openmm_CharmmPsfFile,
         'openmm.Topology': to_openmm_Topology,
         }

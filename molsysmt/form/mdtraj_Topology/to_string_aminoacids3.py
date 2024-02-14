@@ -3,11 +3,11 @@ from molsysmt._private.variables import is_all
 import numpy as np
 
 @digest(form='mdtraj.Topology')
-def to_string_aminoacids3(item, atom_indices='all'):
+def to_string_aminoacids3(item, atom_indices='all', skip_digestion=False):
 
     from . import get_group_index_from_atom
 
-    group_indices = get_group_index_from_atom(item, indices=atom_indices)
+    group_indices = get_group_index_from_atom(item, indices=atom_indices, skip_digestion=True)
     group_indices = np.unique(group_indices)
 
     if is_all(group_indices):

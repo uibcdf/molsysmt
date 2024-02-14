@@ -160,6 +160,7 @@
       get_inner_bond_index_from_system
       get_inner_bonded_atoms_from_atom
       get_inner_bonded_atoms_from_system
+      get_kinetic_energy_from_system
       get_molecule_id_from_atom
       get_molecule_id_from_chain
       get_molecule_id_from_component
@@ -331,8 +332,11 @@
       get_partial_charge_from_group
       get_partial_charge_from_molecule
       get_partial_charge_from_system
+      get_potential_energy_from_system
       get_structure_id_from_system
+      get_temperature_from_system
       get_time_from_system
+      get_total_energy_from_system
       get_velocities_from_system
    
    

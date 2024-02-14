@@ -1,14 +1,14 @@
 from molsysmt._private.digestion import digest
 
 @digest(form='string:pdb_text')
-def to_pdbfixer_PDBFixer(item, atom_indices='all', structure_indices='all'):
+def to_pdbfixer_PDBFixer(item, atom_indices='all', structure_indices='all', skip_digestion=False):
 
     from io import StringIO
     from pdbfixer.pdbfixer import PDBFixer
     from . import extract
 
     tmp_item = extract(item, atom_indices=atom_indices, structure_indices=structure_indices,
-            copy_if_all=False)
+            copy_if_all=False, skip_digestion=True)
 
     tmp_io = StringIO()
     tmp_io.write(tmp_item)

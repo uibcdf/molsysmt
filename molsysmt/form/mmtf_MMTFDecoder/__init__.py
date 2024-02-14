@@ -21,6 +21,9 @@ from .to_file_pdb import to_file_pdb
 from .to_molsysmt_MolSys import to_molsysmt_MolSys
 from .to_molsysmt_Topology import to_molsysmt_Topology
 from .to_molsysmt_Structures import to_molsysmt_Structures
+from .to_molsysmt_MolSysOld import to_molsysmt_MolSysOld
+from .to_molsysmt_TopologyOld import to_molsysmt_TopologyOld
+from .to_molsysmt_StructuresOld import to_molsysmt_StructuresOld
 from .to_molsysmt_MolecularMechanics import to_molsysmt_MolecularMechanics
 from .to_mdtraj_Trajectory import to_mdtraj_Trajectory
 from .to_openmm_Topology import to_openmm_Topology
@@ -35,6 +38,9 @@ _convert_to={
         'molsysmt.MolSys': to_molsysmt_MolSys,
         'molsysmt.Topology': to_molsysmt_Topology,
         'molsysmt.Structures': to_molsysmt_Structures,
+        'molsysmt.MolSysOld': to_molsysmt_MolSysOld,
+        'molsysmt.TopologyOld': to_molsysmt_TopologyOld,
+        'molsysmt.StructuresOld': to_molsysmt_StructuresOld,
         'molsysmt.MolecularMechanics': to_molsysmt_MolecularMechanics,
         'mdtraj.Trajectory': to_mdtraj_Trajectory,
         'openmm.Topology': to_openmm_Topology,

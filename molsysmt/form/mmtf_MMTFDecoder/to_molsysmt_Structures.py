@@ -4,7 +4,7 @@ import numpy as np
 from molsysmt import pyunitwizard as puw
 
 @digest(form='mmtf.MMTFDecoder')
-def to_molsysmt_Structures(item, atom_indices='all', structure_indices='all'):
+def to_molsysmt_Structures(item, atom_indices='all', structure_indices='all', skip_digestion=False):
 
     from molsysmt.native.structures import Structures
     from molsysmt.form.molsysmt_Structures import extract as extract_molsysmt_Structures
@@ -127,7 +127,7 @@ def to_molsysmt_Structures(item, atom_indices='all', structure_indices='all'):
         cell_lengths = puw.quantity(cell_lengths, 'angstroms')
         cell_angles = puw.quantity(cell_angles, 'degrees')
 
-        box = get_box_from_lengths_and_angles(cell_lengths, cell_angles)
+        box = get_box_from_lengths_and_angles(cell_lengths, cell_angles, skip_digestion=True)
         box = puw.standardize(box)
 
     else:
@@ -155,7 +155,8 @@ def to_molsysmt_Structures(item, atom_indices='all', structure_indices='all'):
 
     if not is_all(atom_indices)*is_all(structure_indices):
 
-        tmp_item = extract_molsysmt_Structures(tmp_item, atom_indices=atom_indices, structure_indices=structure_indices)
+        tmp_item = extract_molsysmt_Structures(tmp_item, atom_indices=atom_indices,
+                                                  structure_indices=structure_indices, skip_digestion=True)
 
     return tmp_item
 

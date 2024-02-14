@@ -1,7 +1,7 @@
 from molsysmt._private.digestion import digest
 
 @digest(form='openmm.Modeller')
-def copy(item):
+def copy(item, skip_digestion=False):
 
     from openmm.app import Modeller
 

@@ -2,7 +2,7 @@ from molsysmt._private.exceptions import NotImplementedMethodError
 from molsysmt._private.digestion import digest
 
 @digest(form='file:h5')
-def copy(item, output_filename=None, progress_bar=False):
+def copy(item, output_filename=None, progress_bar=False, skip_digestion=False):
 
     if output_filename is None:
         output_filename = item

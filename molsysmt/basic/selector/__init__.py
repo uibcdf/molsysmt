@@ -1,5 +1,5 @@
 from . import molsysmt
-from . import molsysmt_new
+from . import molsysmt_old
 from . import mdtraj
 from . import amber
 from . import nglview
@@ -7,8 +7,8 @@ from . import mdanalysis
 
 ## Selection Syntaxes
 _dict_select = {
+        'MolSysMT_OLD': molsysmt_old.select,
         'MolSysMT': molsysmt.select,
-        'MolSysMT_NEW': molsysmt_new.select,
         'MDTraj': mdtraj.select,
         'Amber': amber.select,
         'NGLView': nglview.select,

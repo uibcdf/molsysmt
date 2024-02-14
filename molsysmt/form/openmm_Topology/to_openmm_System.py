@@ -3,14 +3,14 @@ from molsysmt._private.digestion import digest
 @digest(form='openmm.Topology')
 def to_openmm_System(item, atom_indices='all', forcefield=None, water_model=None, implicit_solvent=None,
         non_bonded_method=None, constraints=None, switch_distance=None,
-        dispersion_correction=None, ewald_error_tolerance=None):
+        dispersion_correction=None, ewald_error_tolerance=None, skip_digestion=False):
 
     from openmm import app
     from molsysmt.molecular_mechanics import forcefield_to_engine
 
     forcefield = forcefield_to_engine(forcefield,
                  water_model=water_model, implicit_solvent=implicit_solvent,
-                 engine='OpenMM')
+                 engine='OpenMM', skip_digestion=True)
 
     forcefield = app.ForceField(*forcefield)
 
