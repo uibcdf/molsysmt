@@ -10,87 +10,7 @@ form='molsysmt.Structures'
 ## atom
 
 @digest(form=form)
-def get_atom_id_from_atom(item, indices='all'):
-
-    if indices is None:
-        return None
-
-    raise NotWithThisFormError()
-
-@digest(form=form)
-def get_atom_name_from_atom(item, indices='all'):
-
-    if indices is None:
-        return None
-
-    raise NotWithThisFormError()
-
-@digest(form=form)
-def get_atom_type_from_atom(item, indices='all'):
-
-    if indices is None:
-        return None
-
-    raise NotWithThisFormError()
-
-@digest(form=form)
-def get_group_index_from_atom(item, indices='all'):
-
-    if indices is None:
-        return None
-
-    raise NotWithThisFormError()
-
-@digest(form=form)
-def get_component_index_from_atom(item, indices='all'):
-
-    if indices is None:
-        return None
-
-    raise NotWithThisFormError()
-
-@digest(form=form)
-def get_chain_index_from_atom(item, indices='all'):
-
-    if indices is None:
-        return None
-
-    raise NotWithThisFormError()
-
-@digest(form=form)
-def get_molecule_index_from_atom(item, indices='all'):
-
-    if indices is None:
-        return None
-
-    raise NotWithThisFormError()
-
-@digest(form=form)
-def get_entity_index_from_atom(item, indices='all'):
-
-    if indices is None:
-        return None
-
-    raise NotWithThisFormError()
-
-@digest(form=form)
-def get_inner_bonded_atoms_from_atom(item, indices='all'):
-
-    if indices is None:
-        return None
-
-    raise NotWithThisFormError()
-
-@digest(form=form)
-def get_n_inner_bonds_from_atom(item, indices='all'):
-
-    if indices is None:
-        return None
-
-    raise NotWithThisFormError()
-
-@digest(form=form)
-def get_coordinates_from_atom(item, indices='all', structure_indices='all'):
+def get_coordinates_from_atom(item, indices='all', structure_indices='all', skip_digestion=False):
 
     if (indices is None) or (structure_indices is None):
         return None
@@ -106,7 +26,7 @@ def get_coordinates_from_atom(item, indices='all', structure_indices='all'):
     return tmp_coordinates
 
 @digest(form=form)
-def get_velocities_from_atom(item, indices='all', structure_indices='all'):
+def get_velocities_from_atom(item, indices='all', structure_indices='all', skip_digestion=False):
 
     if (indices is None) or (structure_indices is None):
         return None
@@ -122,7 +42,7 @@ def get_velocities_from_atom(item, indices='all', structure_indices='all'):
     return tmp_velocities
 
 @digest(form=form)
-def get_occupancy_from_atom(item, indices='all', structure_indices='all'):
+def get_occupancy_from_atom(item, indices='all', structure_indices='all', skip_digestion=False):
 
     if (indices is None) or (structure_indices is None):
         return None
@@ -141,7 +61,7 @@ def get_occupancy_from_atom(item, indices='all', structure_indices='all'):
 
 
 @digest(form=form)
-def get_b_factor_from_atom(item, indices='all', structure_indices='all'):
+def get_b_factor_from_atom(item, indices='all', structure_indices='all', skip_digestion=False):
 
     if (indices is None) or (structure_indices is None):
         return None
@@ -159,7 +79,7 @@ def get_b_factor_from_atom(item, indices='all', structure_indices='all'):
     return tmp_b_factor
 
 @digest(form=form)
-def get_alternate_location_from_atom(item, indices='all', structure_indices='all'):
+def get_alternate_location_from_atom(item, indices='all', structure_indices='all', skip_digestion=False):
 
     if (indices is None) or (structure_indices is None):
         return None
@@ -186,182 +106,17 @@ def get_alternate_location_from_atom(item, indices='all', structure_indices='all
 
     return tmp_output
 
-## From group
-
-@digest(form=form)
-def get_group_id_from_group(item, indices='all'):
-
-    if indices is None:
-        return None
-
-    raise NotImplementedMethodError()
-
-@digest(form=form)
-def get_group_name_from_group(item, indices='all'):
-
-    if indices is None:
-        return None
-
-    raise NotImplementedMethodError()
-
-@digest(form=form)
-def get_group_type_from_group(item, indices='all'):
-
-    if indices is None:
-        return None
-
-    raise NotImplementedMethodError()
-
-
-## From component
-
-@digest(form=form)
-def get_component_id_from_group(item, indices='all'):
-
-    if indices is None:
-        return None
-
-    raise NotWithThisFormError()
-
-@digest(form=form)
-def get_component_name_from_group(item, indices='all'):
-
-    if indices is None:
-        return None
-
-    raise NotWithThisFormError()
-
-@digest(form=form)
-def get_component_type_from_group(item, indices='all'):
-
-    if indices is None:
-        return None
-
-    raise NotWithThisFormError()
-
-
-## From molecule
-
-@digest(form=form)
-def get_molecule_id_from_group(item, indices='all'):
-
-    if indices is None:
-        return None
-
-    raise NotWithThisFormError()
-
-@digest(form=form)
-def get_molecule_name_from_group(item, indices='all'):
-
-    if indices is None:
-        return None
-
-    raise NotWithThisFormError()
-
-@digest(form=form)
-def get_molecule_type_from_group(item, indices='all'):
-
-    if indices is None:
-        return None
-
-    raise NotWithThisFormError()
-
-
-## From chain
-
-@digest(form=form)
-def get_chain_id_from_group(item, indices='all'):
-
-    if indices is None:
-        return None
-
-    raise NotWithThisFormError()
-
-@digest(form=form)
-def get_chain_name_from_group(item, indices='all'):
-
-    if indices is None:
-        return None
-
-    raise NotWithThisFormError()
-
-@digest(form=form)
-def get_chain_type_from_group(item, indices='all'):
-
-    if indices is None:
-        return None
-
-    raise NotWithThisFormError()
-
-
-## From entity
-
-@digest(form=form)
-def get_entity_id_from_group(item, indices='all'):
-
-    if indices is None:
-        return None
-
-    raise NotWithThisFormError()
-
-@digest(form=form)
-def get_entity_name_from_group(item, indices='all'):
-
-    if indices is None:
-        return None
-
-    raise NotWithThisFormError()
-
-@digest(form=form)
-def get_entity_type_from_group(item, indices='all'):
-
-    if indices is None:
-        return None
-
-    raise NotWithThisFormError()
-
-
 ## system
 
 @digest(form=form)
-def get_n_atoms_from_system(item):
+def get_n_atoms_from_system(item, skip_digestion=False):
 
     output=item.coordinates.shape[1]
 
     return output
 
 @digest(form=form)
-def get_n_groups_from_system(item):
-
-    raise NotWithThisFormError()
-
-@digest(form=form)
-def get_n_components_from_system(item):
-
-    raise NotWithThisFormError()
-
-@digest(form=form)
-def get_n_chains_from_system(item):
-
-    raise NotWithThisFormError()
-
-@digest(form=form)
-def get_n_molecules_from_system(item):
-
-    raise NotWithThisFormError()
-
-@digest(form=form)
-def get_n_entities_from_system(item):
-
-    raise NotWithThisFormError()
-
-@digest(form=form)
-def get_n_bonds_from_system(item):
-
-    raise NotWithThisFormError()
-
-@digest(form=form)
-def get_n_structures_from_system(item, structure_indices='all'):
+def get_n_structures_from_system(item, structure_indices='all', skip_digestion=False):
 
     if is_all(structure_indices):
         return item.n_structures
@@ -369,7 +124,7 @@ def get_n_structures_from_system(item, structure_indices='all'):
         return len(structure_indices)
 
 @digest(form=form)
-def get_coordinates_from_system(item, structure_indices='all'):
+def get_coordinates_from_system(item, structure_indices='all', skip_digestion=False):
 
     if structure_indices is None:
         return None
@@ -381,7 +136,7 @@ def get_coordinates_from_system(item, structure_indices='all'):
     return output
 
 @digest(form=form)
-def get_velocities_from_system(item, structure_indices='all'):
+def get_velocities_from_system(item, structure_indices='all', skip_digestion=False):
 
     if structure_indices is None:
         return None
@@ -393,7 +148,7 @@ def get_velocities_from_system(item, structure_indices='all'):
     return output
 
 @digest(form=form)
-def get_box_from_system(item, structure_indices='all'):
+def get_box_from_system(item, structure_indices='all', skip_digestion=False):
 
     if structure_indices is None:
         return None
@@ -407,20 +162,20 @@ def get_box_from_system(item, structure_indices='all'):
     return output
 
 @digest(form=form)
-def get_box_shape_from_system(item, structure_indices='all'):
+def get_box_shape_from_system(item, structure_indices='all', skip_digestion=False):
 
     if structure_indices is None:
         return None
 
     from molsysmt.pbc import get_shape_from_box
     output = None
-    box = get_box_from_system(item, structure_indices=structure_indices)
+    box = get_box_from_system(item, structure_indices=structure_indices, skip_digestion=True)
     if box is not None:
-        output = get_shape_from_box(box)
+        output = get_shape_from_box(box, skip_digestion=False)
     return output
 
 @digest(form=form)
-def get_box_lengths_from_system(item, structure_indices='all'):
+def get_box_lengths_from_system(item, structure_indices='all', skip_digestion=False):
 
     from molsysmt.pbc import get_lengths_and_angles_from_box
 
@@ -428,7 +183,7 @@ def get_box_lengths_from_system(item, structure_indices='all'):
         return None
 
     if item.box is not None:
-        tmp_box_lengths, _ = get_lengths_and_angles_from_box(item.box)
+        tmp_box_lengths, _ = get_lengths_and_angles_from_box(item.box, skip_digestion=True)
     else:
         tmp_box_lengths = None
 
@@ -439,7 +194,7 @@ def get_box_lengths_from_system(item, structure_indices='all'):
     return output
 
 @digest(form=form)
-def get_box_angles_from_system(item, structure_indices='all'):
+def get_box_angles_from_system(item, structure_indices='all', skip_digestion=False):
 
     from molsysmt.pbc import get_lengths_and_angles_from_box
 
@@ -447,7 +202,7 @@ def get_box_angles_from_system(item, structure_indices='all'):
         return None
 
     if item.box is not None:
-        _, tmp_box_angles = get_lengths_and_angles_from_box(item.box)
+        _, tmp_box_angles = get_lengths_and_angles_from_box(item.box, skip_digestion=True)
     else:
         tmp_box_angles = None
 
@@ -458,20 +213,20 @@ def get_box_angles_from_system(item, structure_indices='all'):
     return output
 
 @digest(form=form)
-def get_box_volume_from_system(item, structure_indices='all'):
+def get_box_volume_from_system(item, structure_indices='all', skip_digestion=False):
 
     if structure_indices is None:
         return None
 
     from molsysmt.pbc import get_volume_from_box
     output = None
-    box = get_box_from_system(item, structure_indices=structure_indices)
+    box = get_box_from_system(item, structure_indices=structure_indices, skip_digestion=True)
     if box is not None:
         output = get_volume_from_box(box)
     return output
 
 @digest(form=form)
-def get_time_from_system(item, structure_indices='all'):
+def get_time_from_system(item, structure_indices='all', skip_digestion=False):
 
     if structure_indices is None:
         return None
@@ -483,7 +238,7 @@ def get_time_from_system(item, structure_indices='all'):
     return output
 
 @digest(form=form)
-def get_structure_id_from_system(item, structure_indices='all'):
+def get_structure_id_from_system(item, structure_indices='all', skip_digestion=False):
 
     if structure_indices is None:
         return None
@@ -495,29 +250,29 @@ def get_structure_id_from_system(item, structure_indices='all'):
     return output
 
 @digest(form=form)
-def get_occupancy_from_system(item, structure_indices='all'):
+def get_occupancy_from_system(item, structure_indices='all', skip_digestion=False):
 
-    return get_occupancy_from_atom(item, structure_indices=structure_indices)
-
-@digest(form=form)
-def get_b_factor_from_system(item, structure_indices='all'):
-
-    return get_b_factor_from_atom(item, structure_indices=structure_indices)
+    return get_occupancy_from_atom(item, structure_indices=structure_indices, skip_digestion=True)
 
 @digest(form=form)
-def get_alternate_location_from_system(item, structure_indices='all'):
+def get_b_factor_from_system(item, structure_indices='all', skip_digestion=False):
 
-    return get_alternate_location_from_atom(item, structure_indices=structure_indices)
+    return get_b_factor_from_atom(item, structure_indices=structure_indices, skip_digestion=True)
 
 @digest(form=form)
-def get_bioassembly_from_system(item):
+def get_alternate_location_from_system(item, structure_indices='all', skip_digestion=False):
+
+    return get_alternate_location_from_atom(item, structure_indices=structure_indices, skip_digestion=True)
+
+@digest(form=form)
+def get_bioassembly_from_system(item, skip_digestion=False):
 
     tmp_output = copy(item.bioassembly)
 
     return tmp_output
 
 @digest(form=form)
-def get_n_bioassemblies_from_system(item):
+def get_n_bioassemblies_from_system(item, skip_digestion=False):
 
     return len(item.bioassembly)
 
