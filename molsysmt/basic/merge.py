@@ -8,6 +8,7 @@ def merge(molecular_systems,
           structure_indices='all',
           syntax='MolSysMT',
           to_form=None,
+          skip_digestion=False
           ):
 
     """
@@ -150,11 +151,11 @@ def merge(molecular_systems,
             if is_all(tmp_selection):
                 aux_atom_indices.append(tmp_selection)
             else:
-                aux_atom_indices.append(selection(tmp_molecular_system, selection=selection, syntax=syntax))
+                aux_atom_indices.append(selection(tmp_molecular_system, selection=selection, syntax=syntax, skip_digestion=True))
             aux_structure_indices.append(tmp_structure_indices)
         else:
             aux = convert(tmp_molecular_system, to_form=to_form, selection=tmp_selection,
-                    structure_indices=tmp_structure_indices)
+                    structure_indices=tmp_structure_indices, skip_digestion=True)
             aux_molecular_systems.append(aux)
             aux_atom_indices.append('all')
             aux_structure_indices.append('all')
@@ -168,6 +169,8 @@ def merge(molecular_systems,
 
     if 'structure_indices' in input_arguments:
         merge_arguments['structure_indices']=aux_structure_indices
+
+    merge_arguments['skip_digestion']=True
 
     output = merge_function(aux_molecular_systems, **merge_arguments)
 

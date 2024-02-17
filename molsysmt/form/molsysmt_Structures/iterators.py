@@ -8,7 +8,7 @@ class StructuresIterator():
 
     @digest(form='molsysmt.Structures')
     def __init__(self, molecular_system, atom_indices='all', start=0, stop=None, step=1, chunk=1,
-            structure_indices=None, output_type = 'values', **kwargs):
+            structure_indices=None, output_type = 'values', skip_digestion=False, **kwargs):
 
         self.molecular_system = molecular_system
         self.atom_indices = atom_indices

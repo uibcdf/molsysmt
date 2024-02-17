@@ -140,10 +140,10 @@ systems['lysine dipeptide']['lysine_dipeptide.h5msm'] = path('molsysmt.data.h5ms
 
 # POPC membrane
 
-#systems['POPC membrane'] = {}
-#systems['POPC membrane']['popc_membrane.psf'] = path('molsysmt.data.psf', 'popc_membrane.psf')
-#systems['POPC membrane']['popc_membrane.dcd'] = path('molsysmt.data.dcd', 'popc_membrane.dcd')
-#systems['POPC membrane']['popc_membrane.msmpk'] = path('molsysmt.data.msmpk', 'popc_membrane.msmpk')
+systems['POPC membrane'] = {}
+systems['POPC membrane']['popc_membrane.psf'] = path('molsysmt.data.psf', 'popc_membrane.psf')
+systems['POPC membrane']['popc_membrane.dcd'] = path('molsysmt.data.dcd', 'popc_membrane.dcd')
+systems['POPC membrane']['popc_membrane.msmpk'] = path('molsysmt.data.msmpk', 'popc_membrane.msmpk')
 
 # POPC
 

@@ -5,7 +5,7 @@ import gc
 
 @digest()
 def translate(molecular_system, translation=None, selection='all', structure_indices='all',
-        syntax='MolSysMT', in_place=False):
+        syntax='MolSysMT', in_place=False, skip_digestion=False):
     """
     To be written soon...
     """
@@ -13,7 +13,7 @@ def translate(molecular_system, translation=None, selection='all', structure_ind
     from molsysmt.basic import get, set, select, copy
 
     coordinates = get(molecular_system, element='atom', selection=selection, structure_indices=structure_indices,
-                      syntax=syntax, coordinates=True)
+                      syntax=syntax, coordinates=True, skip_digestion=True)
 
     coordinates, length_unit = puw.get_value_and_unit(coordinates)
     translation = puw.get_value(translation, to_unit=length_unit)
@@ -32,13 +32,13 @@ def translate(molecular_system, translation=None, selection='all', structure_ind
 
     if in_place:
         set(molecular_system, selection=selection, structure_indices=structure_indices,
-            syntax=syntax, coordinates=coordinates)
+            syntax=syntax, coordinates=coordinates, skip_digestion=True)
         del(coordinates, translation)
         gc.collect()
     else:
         tmp_molecular_system = copy(molecular_system)
         set(tmp_molecular_system, selection=selection, structure_indices=structure_indices,
-            syntax=syntax, coordinates=coordinates)
+            syntax=syntax, coordinates=coordinates, skip_digestion=True)
         del(coordinates, translation)
         gc.collect()
         return tmp_molecular_system

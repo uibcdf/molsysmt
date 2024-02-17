@@ -9,25 +9,42 @@ def to_molsysmt_MolSysOld(item, atom_indices='all', structure_indices='all', ski
     import bz2
 
     fff = bz2.BZ2File(item,'rb')
-    tmp_item = pickle.load(fff)
+    aux_item = pickle.load(fff)
     fff.close()
 
     # lengths with nm values and time in ps
 
-    if tmp_item.structures.coordinates is not None:
-        value = tmp_item.structures.coordinates
+    if aux_item.structures.coordinates is not None:
+        value = aux_item.structures.coordinates
         quantity = puw.quantity(value, 'nm')
-        tmp_item.structures.coordinates = puw.standardize(quantity)
+        aux_item.structures.coordinates = puw.standardize(quantity)
 
-    if tmp_item.structures.box is not None:
-        value = tmp_item.structures.box
+    if aux_item.structures.box is not None:
+        value = aux_item.structures.box
         quantity = puw.quantity(value, 'nm')
-        tmp_item.structures.box = puw.standardize(quantity)
+        aux_item.structures.box = puw.standardize(quantity)
 
-    if tmp_item.structures.time is not None:
-        value = tmp_item.structures.time
+    if aux_item.structures.time is not None:
+        value = aux_item.structures.time
         quantity = puw.quantity(value, 'ps')
-        tmp_item.structures.time = puw.standardize(quantity)
+        aux_item.structures.time = puw.standardize(quantity)
+
+    from molsysmt.native import MolSysOld
+    from copy import deepcopy
+
+    tmp_item = MolSysOld()
+
+    tmp_item.topology.atoms_dataframe = deepcopy(aux_item.topology.atoms_dataframe)
+    tmp_item.topology.bonds_dataframe = deepcopy(aux_item.topology.bonds_dataframe)
+
+    tmp_item.structures.n_atoms = aux_item.structures.n_atoms
+    tmp_item.structures.n_structures = aux_item.structures.n_structures
+
+    tmp_item.structures.coordinates = deepcopy(aux_item.structures.coordinates)
+    tmp_item.structures.box = deepcopy(aux_item.structures.box)
+    tmp_item.structures.time = deepcopy(aux_item.structures.time)
+
+    del aux_item
 
     tmp_item = extract_molsysmt_MolSysOld(tmp_item, atom_indices=atom_indices,
             structure_indices=structure_indices, copy_if_all=False, skip_digestion=True)

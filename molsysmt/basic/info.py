@@ -139,11 +139,11 @@ def info(molecular_system,
         chain_index, \
         molecule_index, molecule_type, \
         entity_index, entity_name = get(molecular_system, element=element, selection=selection,
-                                        syntax=syntax, atom_index=True, atom_id=True, atom_name=True,
-                                        atom_type=True, group_index=True, group_id=True, group_name=True,
-                                        group_type=True, component_index=True, chain_index=True,
-                                        molecule_index=True,
-                                        molecule_type=True, entity_index=True, entity_name=True,
+                                        syntax=syntax, skip_digestion=True, atom_index=True, atom_id=True,
+                                        atom_name=True, atom_type=True, group_index=True, group_id=True,
+                                        group_name=True, group_type=True, component_index=True,
+                                        chain_index=True, molecule_index=True, molecule_type=True,
+                                        entity_index=True, entity_name=True,
                                         )
 
         if not attributes_filter['atom_index']: atom_index=None
@@ -176,9 +176,9 @@ def info(molecular_system,
         chain_index, \
         molecule_index, molecule_type, \
         entity_index, entity_name = get(molecular_system, element=element, selection=selection,
-                                        syntax=syntax, group_index=True, group_id=True, group_name=True,
-                                        group_type=True, n_atoms=True, component_index=True, chain_index=True,
-                                        molecule_index=True, molecule_type=True, entity_index=True,
+                                        syntax=syntax, skip_digestion=True, group_index=True, group_id=True,
+                                        group_name=True, group_type=True, n_atoms=True, component_index=True,
+                                        chain_index=True, molecule_index=True, molecule_type=True, entity_index=True,
                                         entity_name=True)
 
         if not attributes_filter['group_index']: group_index=None
@@ -206,9 +206,9 @@ def info(molecular_system,
         chain_index, \
         molecule_index, molecule_type, \
         entity_index, entity_name = get(molecular_system, element=element, selection=selection,
-                                        syntax=syntax, component_index=True, n_atoms=True, n_groups=True,
-                                        chain_index=True, molecule_index=True, molecule_type=True,
-                                        entity_index=True, entity_name=True)
+                                        syntax=syntax, skip_digestion=True, component_index=True,
+                                        n_atoms=True, n_groups=True, chain_index=True, molecule_index=True,
+                                        molecule_type=True, entity_index=True, entity_name=True)
 
         if not attributes_filter['component_index']: component_index=None
         if not attributes_filter['n_atoms']: n_atoms=None
@@ -231,9 +231,9 @@ def info(molecular_system,
         n_atoms, n_groups, n_components, \
         molecule_index, molecule_type, \
         entity_index, entity_name = get(molecular_system, element=element, selection=selection,
-                                        syntax=syntax, chain_index=True, chain_id=True, chain_name=True,
-                                        n_atoms=True, n_groups=True, n_components=True, molecule_index=True,
-                                        molecule_type=True, entity_index=True, entity_name=True)
+                                        syntax=syntax, skip_digestion=True, chain_index=True, chain_id=True,
+                                        chain_name=True, n_atoms=True, n_groups=True, n_components=True,
+                                        molecule_index=True, molecule_type=True, entity_index=True, entity_name=True)
 
         if not attributes_filter['chain_index']: chain_index=None
         if not attributes_filter['chain_id']: chain_id=None
@@ -286,7 +286,7 @@ def info(molecular_system,
         molecule_index, molecule_name, molecule_type, \
         n_atoms, n_groups, n_components, chain_index, \
         entity_index, entity_name = get(molecular_system, element=element, selection=selection,
-                                        syntax=syntax, molecule_index=True, molecule_name=True,
+                                        syntax=syntax, skip_digestion=True, molecule_index=True, molecule_name=True,
                                         molecule_type=True, n_atoms=True, n_groups=True, n_components=True,
                                         chain_index=True, entity_index=True, entity_name=True)
 
@@ -321,8 +321,9 @@ def info(molecular_system,
         entity_index, entity_name, entity_type, \
         n_atoms, n_groups, n_components, n_chains, \
         n_molecules = get(molecular_system, element=element, selection=selection,
-                          syntax=syntax, entity_index=True, entity_name=True, entity_type=True, n_atoms=True,
-                          n_groups=True, n_components=True, n_chains=True, n_molecules=True)
+                          syntax=syntax, skip_digestion=True, entity_index=True, entity_name=True,
+                          entity_type=True, n_atoms=True, n_groups=True, n_components=True, n_chains=True,
+                          n_molecules=True)
 
         if not attributes_filter['entity_index']: entity_index=None
         if not attributes_filter['entity_name']: entity_name=None
@@ -342,7 +343,8 @@ def info(molecular_system,
 
         n_atoms, n_groups, n_components, n_chains, n_molecules, n_entities, n_structures, \
         n_ions, n_waters, n_small_molecules, n_peptides, n_proteins, n_dnas, \
-        n_rnas, n_lipids, n_oligosaccharides, n_saccharides = get(molecular_system, element=element, n_atoms=True, n_groups=True,
+        n_rnas, n_lipids, n_oligosaccharides, n_saccharides = get(molecular_system, element=element, skip_digestion=True,
+                n_atoms=True, n_groups=True,
                 n_components=True, n_chains=True, n_molecules=True, n_entities=True, n_structures=True, n_ions=True,
                 n_waters=True, n_small_molecules=True, n_peptides=True, n_proteins=True, n_dnas=True,
                 n_rnas=True, n_lipids=True, n_oligosaccharides=True, n_saccharides=True)

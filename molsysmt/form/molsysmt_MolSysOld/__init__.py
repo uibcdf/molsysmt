@@ -16,6 +16,7 @@ from .get import *
 from .set import *
 from .iterators import StructuresIterator, TopologyIterator
 
+from .to_molsysmt_MolSys import to_molsysmt_MolSys
 from .to_molsysmt_TopologyOld import to_molsysmt_TopologyOld
 from .to_molsysmt_StructuresOld import to_molsysmt_StructuresOld
 from .to_molsysmt_MolecularMechanics import to_molsysmt_MolecularMechanics
@@ -44,6 +45,7 @@ from .to_file_psf import to_file_psf
 
 _convert_to={
         'molsysmt.MolSysOld': extract,
+        'molsysmt.MolSys': to_molsysmt_MolSys,
         'molsysmt.TopologyOld': to_molsysmt_TopologyOld,
         'molsysmt.StructuresOld': to_molsysmt_StructuresOld,
         'molsysmt.MolecularMechanics': to_molsysmt_MolecularMechanics,

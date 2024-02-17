@@ -6,7 +6,7 @@ import numpy as np
 from copy import deepcopy
 
 @digest(form='molsysmt.Structures')
-def merge(items, atom_indices='all', structure_indices='all'):
+def merge(items, atom_indices='all', structure_indices='all', skip_digestion=False):
 
     from molsysmt.native import Structures
 
