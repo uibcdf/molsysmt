@@ -17,7 +17,59 @@ def _auxiliary_getter(function, item, indices='all'):
 
     words = function_name.split('_')
 
-    if 'n' == words[1]:
+    if function_name == 'get_bond_index_from_atom':
+
+        return _get_bond_index_from_atom(module, item, indices)
+
+    elif function_name == 'get_bonded_atoms_from_atom':
+
+        return _get_bonded_atoms_from_atom(module, item, indices)
+
+    elif function_name == 'get_bonded_atoms_pairs_from_atom':
+
+        return _get_bonded_atoms_pairs_from_atom(module, item, indices)
+
+    elif function_name == 'get_inner_bond_index_from_atom':
+
+        return _get_inner_bond_index_from_atom(module, item, indices)
+
+    elif function_name == 'get_inner_bonded_atoms_from_atom':
+
+        return _get_inner_bonded_atoms_from_atom(module, item, indices)
+
+    elif function_name == 'get_inner_bonded_atoms_pairs_from_atom':
+
+        return _get_inner_bonded_atoms_pairs_from_atom(module, item, indices)
+
+    elif function_name == 'get_n_bonds_from_atom':
+
+        return _get_n_bonds_from_atom(module, item, indices)
+
+    elif function_name == 'get_n_inner_bonds_from_atom':
+
+        return _get_n_inner_bonds_from_atom(module, item, indices)
+
+    elif function_name == 'get_bonded_atoms_from_system':
+
+        return _get_bonded_atoms_from_atom(module, item, 'all')
+
+    elif function_name == 'get_bonded_atoms_pairs_from_system':
+
+        return _get_bonded_atoms_pairs_from_atom(module, item, 'all')
+
+    elif function_name == 'get_inner_bonded_atoms_from_system':
+
+        return _get_bonded_atoms_from_atom(module, item, 'all')
+
+    elif function_name == 'get_inner_bonded_atoms_pairs_from_system':
+
+        return _get_bonded_atoms_from_atom(module, item, 'all')
+
+    elif function_name == 'get_bonded_atoms_pairs_from_bond':
+
+        return _get_bonded_atoms_pairs_from_bond(module, item, indices)
+
+    elif 'n' == words[1]:
 
         aux_word = function_name.split('get_n_')[-1].split('_from_')[0].replace('_', ' ')
 
@@ -112,31 +164,6 @@ def _auxiliary_getter(function, item, indices='all'):
 
                 return _get_sup_attr_from_element(module, involved_element, attribute, base_element, item,
                                                   indices)
-
-    elif function_name == 'get_bond_index_from_atom':
-
-        return _get_bond_index_from_atom(module, item, indices)
-
-    elif function_name == 'get_bonded_atoms_from_atom':
-
-        return _get_bonded_atoms_from_atom(module, item, indices)
-
-    elif function_name == 'get_inner_bond_index_from_atom':
-
-        return _get_inner_bond_index_from_atom(module, item, indices)
-
-    elif function_name == 'get_inner_bonded_atoms_from_atom':
-
-        return _get_inner_bonded_atoms_from_atom(module, item, indices)
-
-    elif function_name == 'get_n_bonds_from_atom':
-
-        return _get_n_bonds_from_atom(module, item, indices)
-
-    elif function_name == 'get_n_inner_bonds_from_atom':
-
-        return _get_n_inner_bonds_from_atom(module, item, indices)
-
     else:
 
         raise NotImplementedError
@@ -185,11 +212,11 @@ def _get_index_from_element(module, element, item, indices):
     if is_all(indices):
         aux_get = getattr(module, f'get_n_{_singular_element_to_plural[element]}_from_system')
         n_aux = aux_get(item)
-        output = np.arange(n_aux, dtype=int)
+        output = np.arange(n_aux, dtype=int).tolist()
     else:
-        output = np.array(indices, dtype=int)
+        output = indices.tolist()
 
-    return output.tolist()
+    return output
 
 
 def _get_inf_index_from_element(module, involved_element, base_element, item, indices):
@@ -288,6 +315,8 @@ def _get_n_group_type_from_element(module, group_type, element, item, indices):
     get_2 = getattr(module, 'get_group_type_from_group')
 
     group_indices = get_1(item, indices=indices)
+    if element in ['component', 'molecule', 'entity', 'chain']:
+        group_indices=np.concatenate([np.array(ii) for ii in group_indices])
     group_indices = np.unique(group_indices)
     group_types = get_2(item, indices=group_indices)
     output = (np.array(group_types) == group_type).sum()
@@ -332,13 +361,13 @@ def _get_n_molecule_type_from_system(module, molecule_type, item):
 
 def _get_bond_index_from_atom(module, item, indices):
 
-    aux_get = getattr(module, 'get_bonded_atoms_from_bond')
+    aux_get = getattr(module, 'get_bonded_atoms_pairs_from_bond')
 
     output = None
 
     G = Graph()
     edges = aux_get(item)
-    n_bonds = edges.shape[0]
+    n_bonds = len(edges)
     edge_indices = np.array([{'index': ii} for ii in range(n_bonds)]).reshape([n_bonds, 1])
     G.add_edges_from(np.hstack([edges, edge_indices]))
 
@@ -351,11 +380,9 @@ def _get_bond_index_from_atom(module, item, indices):
 
     for ii in indices:
         if ii in G:
-            output.append(np.array([n['index'] for n in G[ii].values()]))
+            output.append([n['index'] for n in G[ii].values()])
         else:
-            output.append(np.array([]))
-
-    output = np.array(output, dtype=object)
+            output.append([])
 
     del G, edges, edge_indices
 
@@ -366,11 +393,12 @@ def _get_bonded_atoms_from_atom(module, item, indices):
 
     output = None
 
-    aux_get_1 = getattr(module, 'get_bonded_atoms_from_bond')
+    aux_get_1 = getattr(module, 'get_bonded_atoms_pairs_from_bond')
     aux_get_2 = getattr(module, 'get_atom_index_from_atom')
 
     G = Graph()
     edges = aux_get_1(item)
+    
     G.add_edges_from(edges)
 
     if is_all(indices):
@@ -381,62 +409,155 @@ def _get_bonded_atoms_from_atom(module, item, indices):
 
     for ii in indices:
         if ii in G:
-            output.append(np.array([n for n in G[ii]]))
+            output.append(list(G.neighbors(ii)))
         else:
-            output.append(np.array([]))
-
-    output = np.array(output, dtype=object)
-
-    for ii in range(output.shape[0]):
-        output[ii] = np.sort(output[ii])
+            output.append([])
 
     del G, edges
 
     return output
 
 
-def _get_inner_bond_index_from_atom(module, item, indices):
+def _get_bonded_atoms_pairs_from_atom(module, item, indices):
 
-    raise NotImplementedError
+    output = None
 
-
-def _get_inner_bonded_atoms_from_atom(module, item, indices):
-
-    aux_get_1 = getattr(module, 'get_bonded_atoms_from_bond')
-    aux_get_2 = getattr(module, 'get_inner_bond_index_from_atom')
+    aux_get_1 = getattr(module, 'get_bonded_atoms_pairs_from_bond')
 
     if is_all(indices):
 
         output = aux_get_1(item)
+   
+    else:
+
+        pairs = aux_get_1(item)
+        pairs = np.array(pairs)
+        mask = np.isin(pairs[:,0], indices) | np.isin(pairs[:,1], indices)
+        output = pairs[mask,:].tolist()
+
+        del pairs, mask
+
+    return output
+
+
+def _get_inner_bond_index_from_atom(module, item, indices):
+
+    aux_get = getattr(module, 'get_bonded_atoms_pairs_from_bond')
+
+    output = None
+
+    G = Graph()
+    edges = aux_get(item)
+    n_bonds = len(edges)
+    edge_indices = np.array([{'index': ii} for ii in range(n_bonds)]).reshape([n_bonds, 1])
+    G.add_edges_from(np.hstack([edges, edge_indices]))
+
+    if is_all(indices):
+
+        aux_get = getattr(module, 'get_atom_index_from_atom')
+        indices = aux_get(item)
 
     else:
 
-        bond_indices = aux_get_2(item, indices=indices)
-        output = aux_get_1(item, indices=bond_indices)
-        del bond_indices
+        G = G.subgraph(indices)
 
-    output = output[np.lexsort((output[:, 1], output[:, 0]))]
+    output = []
+
+    for ii in indices:
+        if ii in G:
+            output.append([n['index'] for n in G[ii].values()])
+        else:
+            output.append([])
+
+    del G, edges, edge_indices
+
+    return output
+
+def _get_inner_bonded_atoms_from_atom(module, item, indices):
+
+    output = None
+
+    aux_get_1 = getattr(module, 'get_bonded_atoms_pairs_from_bond')
+
+    G = Graph()
+    edges = aux_get_1(item)
+    
+    G.add_edges_from(edges)
+
+    if not is_all(indices):
+
+        G = G.subgraph(indices)
+
+    output = []
+    for nodo in G.nodes():
+        output.append(list(G.neighbors(nodo)))
+
+    del G, edges
+
+    return output
+
+
+def _get_inner_bonded_atoms_pairs_from_atom(module, item, indices):
+
+    output = None
+
+    aux_get_1 = getattr(module, 'get_bonded_atoms_pairs_from_bond')
+
+    if is_all(indices):
+
+        output = aux_get_1(item)
+   
+    else:
+
+        pairs = aux_get_1(item)
+        pairs = np.array(pairs)
+        mask = np.isin(pairs[:,0], indices) * np.isin(pairs[:,1], indices)
+        output = pairs[mask,:].tolist()
+
+        del pairs, mask
 
     return output
 
 
 def _get_n_bonds_from_atom(module, item, indices):
 
-    aux_get = getattr(module, 'get_bonded_atoms_from_bond')
+    if is_all(indices):
 
-    bond_indices = aux_get(item, indices)
-    output = len(bond_indices)
-    del bond_indices
+        aux_get = getattr(module, 'get_n_bonds_from_system')
+        output = aux_get(item)
+
+    else:
+
+        aux_get = getattr(module, 'get_bond_index_from_atom')
+        bond_indices = aux_get(item, indices)
+        output = np.unique(np.concatenate(bond_indices)).shape[0]
+        del bond_indices
 
     return output
 
 
 def _get_n_inner_bonds_from_atom(module, item, indices):
 
-    aux_get = getattr(module, 'get_inner_bonded_atoms_from_bond')
+    if is_all(indices):
 
-    bond_indices = aux_get(item, indices)
-    output = len(bond_indices)
-    del bond_indices
+        aux_get = getattr(module, 'get_n_bonds_from_system')
+        output = aux_get(item)
+
+    else:
+
+        aux_get = getattr(module, 'get_inner_bond_index_from_atom')
+        bond_indices = aux_get(item, indices)
+        output = np.unique(np.concatenate(bond_indices)).shape[0]
+        del bond_indices
 
     return output
+
+
+def _get_bonded_atoms_pairs_from_bond(module, item, indices):
+
+    aux_get = getattr(module, 'get_bonded_atoms_from_bond')
+
+    output = aux_get(item, indices)
+
+    return output
+

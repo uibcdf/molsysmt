@@ -12,6 +12,11 @@ form = 'molsysmt.MolSys'
 
 # From atom
 
+@digest(form=form)
+def get_atom_index_from_atom(item, indices='all', skip_digestion=False):
+
+    from ..molsysmt_Topology import get_atom_index_from_atom as aux_get
+    return aux_get(item.topology, indices=indices, skip_digestion=True)
 
 @digest(form=form)
 def get_atom_id_from_atom(item, indices='all', skip_digestion=False):
@@ -42,243 +47,6 @@ def get_group_index_from_atom(item, indices='all', skip_digestion=False):
 
 
 @digest(form=form)
-def get_component_index_from_atom(item, indices='all', skip_digestion=False):
-
-    from ..molsysmt_Topology import get_component_index_from_atom as aux_get
-    return aux_get(item.topology, indices=indices, skip_digestion=True)
-
-
-@digest(form=form)
-def get_molecule_index_from_atom(item, indices='all', skip_digestion=False):
-
-    from ..molsysmt_Topology import get_molecule_index_from_atom as aux_get
-    return aux_get(item.topology, indices=indices, skip_digestion=True)
-
-
-@digest(form=form)
-def get_entity_index_from_atom(item, indices='all', skip_digestion=False):
-
-    from ..molsysmt_Topology import get_entity_index_from_atom as aux_get
-    return aux_get(item.topology, indices=indices, skip_digestion=True)
-
-
-@digest(form=form)
-def get_chain_index_from_atom(item, indices='all', skip_digestion=False):
-
-    from ..molsysmt_Topology import get_chain_index_from_atom as aux_get
-    return aux_get(item.topology, indices=indices, skip_digestion=True)
-
-
-# From group
-
-
-@digest(form=form)
-def get_group_id_from_group(item, indices='all', skip_digestion=False):
-
-    from ..molsysmt_Topology import get_group_id_from_group as aux_get
-    return aux_get(item.topology, indices=indices, skip_digestion=True)
-
-
-@digest(form=form)
-def get_group_name_from_group(item, indices='all', skip_digestion=False):
-
-    from ..molsysmt_Topology import get_group_name_from_group as aux_get
-    return aux_get(item.topology, indices=indices, skip_digestion=True)
-
-
-@digest(form=form)
-def get_group_type_from_group(item, indices='all', skip_digestion=False):
-
-    from ..molsysmt_Topology import get_group_type_from_group as aux_get
-    return aux_get(item.topology, indices=indices, skip_digestion=True)
-
-
-# From component
-
-
-@digest(form=form)
-def get_component_id_from_component(item, indices='all', skip_digestion=False):
-
-    from ..molsysmt_Topology import get_component_id_from_component as aux_get
-    return aux_get(item.topology, indices=indices, skip_digestion=True)
-
-
-@digest(form=form)
-def get_component_name_from_component(item, indices='all', skip_digestion=False):
-
-    from ..molsysmt_Topology import get_component_name_from_component as aux_get
-    return aux_get(item.topology, indices=indices, skip_digestion=True)
-
-
-@digest(form=form)
-def get_component_type_from_component(item, indices='all', skip_digestion=False):
-
-    from ..molsysmt_Topology import get_component_type_from_component as aux_get
-    return aux_get(item.topology, indices=indices, skip_digestion=True)
-
-
-# From molecule
-
-
-@digest(form=form)
-def get_molecule_id_from_molecule(item, indices='all', skip_digestion=False):
-
-    from ..molsysmt_Topology import get_molecule_id_from_molecule as aux_get
-    return aux_get(item.topology, indices=indices, skip_digestion=True)
-
-
-@digest(form=form)
-def get_molecule_name_from_molecule(item, indices='all', skip_digestion=False):
-
-    from ..molsysmt_Topology import get_molecule_name_from_molecule as aux_get
-    return aux_get(item.topology, indices=indices, skip_digestion=True)
-
-
-@digest(form=form)
-def get_molecule_type_from_molecule(item, indices='all', skip_digestion=False):
-
-    from ..molsysmt_Topology import get_molecule_type_from_molecule as aux_get
-    return aux_get(item.topology, indices=indices, skip_digestion=True)
-
-
-# From entity
-
-
-@digest(form=form)
-def get_entity_id_from_entity(item, indices='all', skip_digestion=False):
-
-    from ..molsysmt_Topology import get_entity_id_from_entity as aux_get
-    return aux_get(item.topology, indices=indices, skip_digestion=True)
-
-
-@digest(form=form)
-def get_entity_name_from_entity(item, indices='all', skip_digestion=False):
-
-    from ..molsysmt_Topology import get_entity_name_from_entity as aux_get
-    return aux_get(item.topology, indices=indices, skip_digestion=True)
-
-@digest(form=form)
-def get_entity_type_from_entity(item, indices='all', skip_digestion=False):
-
-    from ..molsysmt_Topology import get_entity_type_from_entity as aux_get
-    return aux_get(item.topology, indices=indices, skip_digestion=True)
-
-
-# From chain
-
-
-@digest(form=form)
-def get_chain_id_from_chain(item, indices='all', skip_digestion=False):
-
-    from ..molsysmt_Topology import get_chain_id_from_chain as aux_get
-    return aux_get(item.topology, indices=indices, skip_digestion=True)
-
-
-@digest(form=form)
-def get_chain_name_from_chain(item, indices='all', skip_digestion=False):
-
-    from ..molsysmt_Topology import get_chain_name_from_chain as aux_get
-    return aux_get(item.topology, indices=indices, skip_digestion=True)
-
-
-@digest(form=form)
-def get_chain_type_from_chain(item, indices='all', skip_digestion=False):
-
-    from ..molsysmt_Topology import get_chain_type_from_chain as aux_get
-    return aux_get(item.topology, indices=indices, skip_digestion=True)
-
-
-# From bond
-
-
-@digest(form=form)
-def get_bond_order_from_bond(item, indices='all', skip_digestion=False):
-
-    from ..molsysmt_Topology import get_bond_order_from_bond as aux_get
-    return aux_get(item.topology, indices=indices, skip_digestion=True)
-
-
-@digest(form=form)
-def get_bond_type_from_bond(item, indices='all', skip_digestion=False):
-
-    from ..molsysmt_Topology import get_bond_type_from_bond as aux_get
-    return aux_get(item.topology, indices=indices, skip_digestion=True)
-
-
-@digest(form=form)
-def get_bonded_atoms_from_bond(item, indices='all', skip_digestion=False):
-
-    from ..molsysmt_Topology import get_bonded_atoms_from_bond as aux_get
-    return aux_get(item.topology, indices=indices, skip_digestion=True)
-
-
-# From system
-
-
-@digest(form=form)
-def get_n_atoms_from_system(item, skip_digestion=False):
-
-    from ..molsysmt_Topology import get_n_atoms_from_system as aux_get
-    return aux_get(item.topology, skip_digestion=True)
-
-
-@digest(form=form)
-def get_n_groups_from_system(item, skip_digestion=False):
-
-    from ..molsysmt_Topology import get_n_groups_from_system as aux_get
-    return aux_get(item.topology, skip_digestion=True)
-
-
-@digest(form=form)
-def get_n_components_from_system(item, skip_digestion=False):
-
-    from ..molsysmt_Topology import get_n_components_from_system as aux_get
-    return aux_get(item.topology, skip_digestion=True)
-
-
-@digest(form=form)
-def get_n_chains_from_system(item, skip_digestion=False):
-
-    from ..molsysmt_Topology import get_n_chains_from_system as aux_get
-    return aux_get(item.topology, skip_digestion=True)
-
-
-@digest(form=form)
-def get_n_molecules_from_system(item, skip_digestion=False):
-
-    from ..molsysmt_Topology import get_n_molecules_from_system as aux_get
-    return aux_get(item.topology, skip_digestion=True)
-
-
-@digest(form=form)
-def get_n_entities_from_system(item, skip_digestion=False):
-
-    from ..molsysmt_Topology import get_n_entities_from_system as aux_get
-    return aux_get(item.topology, skip_digestion=True)
-
-
-@digest(form=form)
-def get_n_bonds_from_system(item, skip_digestion=False):
-
-    from ..molsysmt_Topology import get_n_bonds_from_system as aux_get
-    return aux_get(item.topology, skip_digestion=True)
-
-
-#######################################################################
-#             Assisted by the auxiliary getter function               #
-#######################################################################
-
-
-# From atom
-
-@digest(form=form)
-def get_atom_index_from_atom(item, indices='all', skip_digestion=False):
-
-    from ..molsysmt_Topology import get_atom_index_from_atom as aux_get
-    return aux_get(item.topology, indices=indices, skip_digestion=True)
-
-
-@digest(form=form)
 def get_group_id_from_atom(item, indices='all', skip_digestion=False):
 
     from ..molsysmt_Topology import get_group_id_from_atom as aux_get
@@ -296,6 +64,13 @@ def get_group_name_from_atom(item, indices='all', skip_digestion=False):
 def get_group_type_from_atom(item, indices='all', skip_digestion=False):
 
     from ..molsysmt_Topology import get_group_type_from_atom as aux_get
+    return aux_get(item.topology, indices=indices, skip_digestion=True)
+
+
+@digest(form=form)
+def get_component_index_from_atom(item, indices='all', skip_digestion=False):
+
+    from ..molsysmt_Topology import get_component_index_from_atom as aux_get
     return aux_get(item.topology, indices=indices, skip_digestion=True)
 
 
@@ -321,6 +96,13 @@ def get_component_type_from_atom(item, indices='all', skip_digestion=False):
 
 
 @digest(form=form)
+def get_molecule_index_from_atom(item, indices='all', skip_digestion=False):
+
+    from ..molsysmt_Topology import get_molecule_index_from_atom as aux_get
+    return aux_get(item.topology, indices=indices, skip_digestion=True)
+
+
+@digest(form=form)
 def get_molecule_id_from_atom(item, indices='all', skip_digestion=False):
 
     from ..molsysmt_Topology import get_molecule_id_from_atom as aux_get
@@ -342,6 +124,13 @@ def get_molecule_type_from_atom(item, indices='all', skip_digestion=False):
 
 
 @digest(form=form)
+def get_entity_index_from_atom(item, indices='all', skip_digestion=False):
+
+    from ..molsysmt_Topology import get_entity_index_from_atom as aux_get
+    return aux_get(item.topology, indices=indices, skip_digestion=True)
+
+
+@digest(form=form)
 def get_entity_id_from_atom(item, indices='all', skip_digestion=False):
 
     from ..molsysmt_Topology import get_entity_id_from_atom as aux_get
@@ -359,6 +148,12 @@ def get_entity_name_from_atom(item, indices='all', skip_digestion=False):
 def get_entity_type_from_atom(item, indices='all', skip_digestion=False):
 
     from ..molsysmt_Topology import get_entity_type_from_atom as aux_get
+    return aux_get(item.topology, indices=indices, skip_digestion=True)
+
+@digest(form=form)
+def get_chain_index_from_atom(item, indices='all', skip_digestion=False):
+
+    from ..molsysmt_Topology import get_chain_index_from_atom as aux_get
     return aux_get(item.topology, indices=indices, skip_digestion=True)
 
 
@@ -412,6 +207,13 @@ def get_bonded_atoms_from_atom(item, indices='all', skip_digestion=False):
 
 
 @digest(form=form)
+def get_bonded_atoms_pairs_from_atom(item, indices='all', skip_digestion=False):
+
+    from ..molsysmt_Topology import get_bonded_atoms_pairs_from_atom as aux_get
+    return aux_get(item.topology, indices=indices, skip_digestion=True)
+
+
+@digest(form=form)
 def get_inner_bond_index_from_atom(item, indices='all', skip_digestion=False):
 
     from ..molsysmt_Topology import get_inner_bond_index_from_atom as aux_get
@@ -422,6 +224,13 @@ def get_inner_bond_index_from_atom(item, indices='all', skip_digestion=False):
 def get_inner_bonded_atoms_from_atom(item, indices='all', skip_digestion=False):
 
     from ..molsysmt_Topology import get_inner_bonded_atoms_from_atom as aux_get
+    return aux_get(item.topology, indices=indices, skip_digestion=True)
+
+
+@digest(form=form)
+def get_inner_bonded_atoms_pairs_from_atom(item, indices='all', skip_digestion=False):
+
+    from ..molsysmt_Topology import get_inner_bonded_atoms_pairs_from_atom as aux_get
     return aux_get(item.topology, indices=indices, skip_digestion=True)
 
 
@@ -604,6 +413,26 @@ def get_group_index_from_group(item, indices='all', skip_digestion=False):
 
 
 @digest(form=form)
+def get_group_id_from_group(item, indices='all', skip_digestion=False):
+
+    from ..molsysmt_Topology import get_group_id_from_group as aux_get
+    return aux_get(item.topology, indices=indices, skip_digestion=True)
+
+
+@digest(form=form)
+def get_group_name_from_group(item, indices='all', skip_digestion=False):
+
+    from ..molsysmt_Topology import get_group_name_from_group as aux_get
+    return aux_get(item.topology, indices=indices, skip_digestion=True)
+
+
+@digest(form=form)
+def get_group_type_from_group(item, indices='all', skip_digestion=False):
+
+    from ..molsysmt_Topology import get_group_type_from_group as aux_get
+    return aux_get(item.topology, indices=indices, skip_digestion=True)
+
+@digest(form=form)
 def get_component_index_from_group(item, indices='all', skip_digestion=False):
 
     from ..molsysmt_Topology import get_component_index_from_group as aux_get
@@ -628,34 +457,6 @@ def get_component_name_from_group(item, indices='all', skip_digestion=False):
 def get_component_type_from_group(item, indices='all', skip_digestion=False):
 
     from ..molsysmt_Topology import get_component_type_from_group as aux_get
-    return aux_get(item.topology, indices=indices, skip_digestion=True)
-
-
-@digest(form=form)
-def get_chain_index_from_group(item, indices='all', skip_digestion=False):
-
-    from ..molsysmt_Topology import get_chain_index_from_group as aux_get
-    return aux_get(item.topology, indices=indices, skip_digestion=True)
-
-
-@digest(form=form)
-def get_chain_id_from_group(item, indices='all', skip_digestion=False):
-
-    from ..molsysmt_Topology import get_chain_id_from_group as aux_get
-    return aux_get(item.topology, indices=indices, skip_digestion=True)
-
-
-@digest(form=form)
-def get_chain_name_from_group(item, indices='all', skip_digestion=False):
-
-    from ..molsysmt_Topology import get_chain_name_from_group as aux_get
-    return aux_get(item.topology, indices=indices, skip_digestion=True)
-
-
-@digest(form=form)
-def get_chain_type_from_group(item, indices='all', skip_digestion=False):
-
-    from ..molsysmt_Topology import get_chain_type_from_group as aux_get
     return aux_get(item.topology, indices=indices, skip_digestion=True)
 
 
@@ -716,6 +517,34 @@ def get_entity_type_from_group(item, indices='all', skip_digestion=False):
 
 
 @digest(form=form)
+def get_chain_index_from_group(item, indices='all', skip_digestion=False):
+
+    from ..molsysmt_Topology import get_chain_index_from_group as aux_get
+    return aux_get(item.topology, indices=indices, skip_digestion=True)
+
+
+@digest(form=form)
+def get_chain_id_from_group(item, indices='all', skip_digestion=False):
+
+    from ..molsysmt_Topology import get_chain_id_from_group as aux_get
+    return aux_get(item.topology, indices=indices, skip_digestion=True)
+
+
+@digest(form=form)
+def get_chain_name_from_group(item, indices='all', skip_digestion=False):
+
+    from ..molsysmt_Topology import get_chain_name_from_group as aux_get
+    return aux_get(item.topology, indices=indices, skip_digestion=True)
+
+
+@digest(form=form)
+def get_chain_type_from_group(item, indices='all', skip_digestion=False):
+
+    from ..molsysmt_Topology import get_chain_type_from_group as aux_get
+    return aux_get(item.topology, indices=indices, skip_digestion=True)
+
+
+@digest(form=form)
 def get_n_atoms_from_group(item, indices='all', skip_digestion=False):
 
     from ..molsysmt_Topology import get_n_atoms_from_group as aux_get
@@ -744,16 +573,16 @@ def get_n_molecules_from_group(item, indices='all', skip_digestion=False):
 
 
 @digest(form=form)
-def get_n_chains_from_group(item, indices='all', skip_digestion=False):
+def get_n_entities_from_group(item, indices='all', skip_digestion=False):
 
-    from ..molsysmt_Topology import get_n_chains_from_group as aux_get
+    from ..molsysmt_Topology import get_n_entities_from_group as aux_get
     return aux_get(item.topology, indices=indices, skip_digestion=True)
 
 
 @digest(form=form)
-def get_n_entities_from_group(item, indices='all', skip_digestion=False):
+def get_n_chains_from_group(item, indices='all', skip_digestion=False):
 
-    from ..molsysmt_Topology import get_n_entities_from_group as aux_get
+    from ..molsysmt_Topology import get_n_chains_from_group as aux_get
     return aux_get(item.topology, indices=indices, skip_digestion=True)
 
 
@@ -824,30 +653,23 @@ def get_component_index_from_component(item, indices='all', skip_digestion=False
 
 
 @digest(form=form)
-def get_chain_index_from_component(item, indices='all', skip_digestion=False):
+def get_component_id_from_component(item, indices='all', skip_digestion=False):
 
-    from ..molsysmt_Topology import get_chain_index_from_component as aux_get
+    from ..molsysmt_Topology import get_component_id_from_component as aux_get
     return aux_get(item.topology, indices=indices, skip_digestion=True)
 
 
 @digest(form=form)
-def get_chain_id_from_component(item, indices='all', skip_digestion=False):
+def get_component_name_from_component(item, indices='all', skip_digestion=False):
 
-    from ..molsysmt_Topology import get_chain_id_from_component as aux_get
+    from ..molsysmt_Topology import get_component_name_from_component as aux_get
     return aux_get(item.topology, indices=indices, skip_digestion=True)
 
 
 @digest(form=form)
-def get_chain_name_from_component(item, indices='all', skip_digestion=False):
+def get_component_type_from_component(item, indices='all', skip_digestion=False):
 
-    from ..molsysmt_Topology import get_chain_name_from_component as aux_get
-    return aux_get(item.topology, indices=indices, skip_digestion=True)
-
-
-@digest(form=form)
-def get_chain_type_from_component(item, indices='all', skip_digestion=False):
-
-    from ..molsysmt_Topology import get_chain_type_from_component as aux_get
+    from ..molsysmt_Topology import get_component_type_from_component as aux_get
     return aux_get(item.topology, indices=indices, skip_digestion=True)
 
 
@@ -903,6 +725,34 @@ def get_entity_name_from_component(item, indices='all', skip_digestion=False):
 def get_entity_type_from_component(item, indices='all', skip_digestion=False):
 
     from ..molsysmt_Topology import get_entity_type_from_component as aux_get
+    return aux_get(item.topology, indices=indices, skip_digestion=True)
+
+
+@digest(form=form)
+def get_chain_index_from_component(item, indices='all', skip_digestion=False):
+
+    from ..molsysmt_Topology import get_chain_index_from_component as aux_get
+    return aux_get(item.topology, indices=indices, skip_digestion=True)
+
+
+@digest(form=form)
+def get_chain_id_from_component(item, indices='all', skip_digestion=False):
+
+    from ..molsysmt_Topology import get_chain_id_from_component as aux_get
+    return aux_get(item.topology, indices=indices, skip_digestion=True)
+
+
+@digest(form=form)
+def get_chain_name_from_component(item, indices='all', skip_digestion=False):
+
+    from ..molsysmt_Topology import get_chain_name_from_component as aux_get
+    return aux_get(item.topology, indices=indices, skip_digestion=True)
+
+
+@digest(form=form)
+def get_chain_type_from_component(item, indices='all', skip_digestion=False):
+
+    from ..molsysmt_Topology import get_chain_type_from_component as aux_get
     return aux_get(item.topology, indices=indices, skip_digestion=True)
 
 
@@ -1134,37 +984,30 @@ def get_component_type_from_molecule(item, indices='all', skip_digestion=False):
 
 
 @digest(form=form)
-def get_chain_index_from_molecule(item, indices='all', skip_digestion=False):
-
-    from ..molsysmt_Topology import get_chain_index_from_molecule as aux_get
-    return aux_get(item.topology, indices=indices, skip_digestion=True)
-
-
-@digest(form=form)
-def get_chain_id_from_molecule(item, indices='all', skip_digestion=False):
-
-    from ..molsysmt_Topology import get_chain_id_from_molecule as aux_get
-    return aux_get(item.topology, indices=indices, skip_digestion=True)
-
-
-@digest(form=form)
-def get_chain_name_from_molecule(item, indices='all', skip_digestion=False):
-
-    from ..molsysmt_Topology import get_chain_name_from_molecule as aux_get
-    return aux_get(item.topology, indices=indices, skip_digestion=True)
-
-
-@digest(form=form)
-def get_chain_type_from_molecule(item, indices='all', skip_digestion=False):
-
-    from ..molsysmt_Topology import get_chain_type_from_molecule as aux_get
-    return aux_get(item.topology, indices=indices, skip_digestion=True)
-
-
-@digest(form=form)
 def get_molecule_index_from_molecule(item, indices='all', skip_digestion=False):
 
     from ..molsysmt_Topology import get_molecule_index_from_molecule as aux_get
+    return aux_get(item.topology, indices=indices, skip_digestion=True)
+
+
+@digest(form=form)
+def get_molecule_id_from_molecule(item, indices='all', skip_digestion=False):
+
+    from ..molsysmt_Topology import get_molecule_id_from_molecule as aux_get
+    return aux_get(item.topology, indices=indices, skip_digestion=True)
+
+
+@digest(form=form)
+def get_molecule_name_from_molecule(item, indices='all', skip_digestion=False):
+
+    from ..molsysmt_Topology import get_molecule_name_from_molecule as aux_get
+    return aux_get(item.topology, indices=indices, skip_digestion=True)
+
+
+@digest(form=form)
+def get_molecule_type_from_molecule(item, indices='all', skip_digestion=False):
+
+    from ..molsysmt_Topology import get_molecule_type_from_molecule as aux_get
     return aux_get(item.topology, indices=indices, skip_digestion=True)
 
 
@@ -1193,6 +1036,34 @@ def get_entity_name_from_molecule(item, indices='all', skip_digestion=False):
 def get_entity_type_from_molecule(item, indices='all', skip_digestion=False):
 
     from ..molsysmt_Topology import get_entity_type_from_molecule as aux_get
+    return aux_get(item.topology, indices=indices, skip_digestion=True)
+
+
+@digest(form=form)
+def get_chain_index_from_molecule(item, indices='all', skip_digestion=False):
+
+    from ..molsysmt_Topology import get_chain_index_from_molecule as aux_get
+    return aux_get(item.topology, indices=indices, skip_digestion=True)
+
+
+@digest(form=form)
+def get_chain_id_from_molecule(item, indices='all', skip_digestion=False):
+
+    from ..molsysmt_Topology import get_chain_id_from_molecule as aux_get
+    return aux_get(item.topology, indices=indices, skip_digestion=True)
+
+
+@digest(form=form)
+def get_chain_name_from_molecule(item, indices='all', skip_digestion=False):
+
+    from ..molsysmt_Topology import get_chain_name_from_molecule as aux_get
+    return aux_get(item.topology, indices=indices, skip_digestion=True)
+
+
+@digest(form=form)
+def get_chain_type_from_molecule(item, indices='all', skip_digestion=False):
+
+    from ..molsysmt_Topology import get_chain_type_from_molecule as aux_get
     return aux_get(item.topology, indices=indices, skip_digestion=True)
 
 
@@ -1336,7 +1207,7 @@ def get_n_saccharides_from_molecule(item, indices='all', skip_digestion=False):
     return aux_get(item.topology, indices=indices, skip_digestion=True)
 
 
-# Entity
+# From entity
 
 
 @digest(form=form)
@@ -1424,34 +1295,6 @@ def get_component_type_from_entity(item, indices='all', skip_digestion=False):
 
 
 @digest(form=form)
-def get_chain_index_from_entity(item, indices='all', skip_digestion=False):
-
-    from ..molsysmt_Topology import get_chain_index_from_entity as aux_get
-    return aux_get(item.topology, indices=indices, skip_digestion=True)
-
-
-@digest(form=form)
-def get_chain_id_from_entity(item, indices='all', skip_digestion=False):
-
-    from ..molsysmt_Topology import get_chain_id_from_entity as aux_get
-    return aux_get(item.topology, indices=indices, skip_digestion=True)
-
-
-@digest(form=form)
-def get_chain_name_from_entity(item, indices='all', skip_digestion=False):
-
-    from ..molsysmt_Topology import get_chain_name_from_entity as aux_get
-    return aux_get(item.topology, indices=indices, skip_digestion=True)
-
-
-@digest(form=form)
-def get_chain_type_from_entity(item, indices='all', skip_digestion=False):
-
-    from ..molsysmt_Topology import get_chain_type_from_entity as aux_get
-    return aux_get(item.topology, indices=indices, skip_digestion=True)
-
-
-@digest(form=form)
 def get_molecule_index_from_entity(item, indices='all', skip_digestion=False):
 
     from ..molsysmt_Topology import get_molecule_index_from_entity as aux_get
@@ -1483,6 +1326,55 @@ def get_molecule_type_from_entity(item, indices='all', skip_digestion=False):
 def get_entity_index_from_entity(item, indices='all', skip_digestion=False):
 
     from ..molsysmt_Topology import get_entity_index_from_entity as aux_get
+    return aux_get(item.topology, indices=indices, skip_digestion=True)
+
+
+@digest(form=form)
+def get_entity_id_from_entity(item, indices='all', skip_digestion=False):
+
+    from ..molsysmt_Topology import get_entity_id_from_entity as aux_get
+    return aux_get(item.topology, indices=indices, skip_digestion=True)
+
+
+@digest(form=form)
+def get_entity_name_from_entity(item, indices='all', skip_digestion=False):
+
+    from ..molsysmt_Topology import get_entity_name_from_entity as aux_get
+    return aux_get(item.topology, indices=indices, skip_digestion=True)
+
+
+@digest(form=form)
+def get_entity_type_from_entity(item, indices='all', skip_digestion=False):
+
+    from ..molsysmt_Topology import get_entity_type_from_entity as aux_get
+    return aux_get(item.topology, indices=indices, skip_digestion=True)
+
+
+@digest(form=form)
+def get_chain_index_from_entity(item, indices='all', skip_digestion=False):
+
+    from ..molsysmt_Topology import get_chain_index_from_entity as aux_get
+    return aux_get(item.topology, indices=indices, skip_digestion=True)
+
+
+@digest(form=form)
+def get_chain_id_from_entity(item, indices='all', skip_digestion=False):
+
+    from ..molsysmt_Topology import get_chain_id_from_entity as aux_get
+    return aux_get(item.topology, indices=indices, skip_digestion=True)
+
+
+@digest(form=form)
+def get_chain_name_from_entity(item, indices='all', skip_digestion=False):
+
+    from ..molsysmt_Topology import get_chain_name_from_entity as aux_get
+    return aux_get(item.topology, indices=indices, skip_digestion=True)
+
+
+@digest(form=form)
+def get_chain_type_from_entity(item, indices='all', skip_digestion=False):
+
+    from ..molsysmt_Topology import get_chain_type_from_entity as aux_get
     return aux_get(item.topology, indices=indices, skip_digestion=True)
 
 
@@ -1626,7 +1518,7 @@ def get_n_saccharides_from_entity(item, indices='all', skip_digestion=False):
     return aux_get(item.topology, indices=indices, skip_digestion=True)
 
 
-# Chain
+# From chain
 
 
 @digest(form=form)
@@ -1714,13 +1606,6 @@ def get_component_type_from_chain(item, indices='all', skip_digestion=False):
 
 
 @digest(form=form)
-def get_chain_index_from_chain(item, indices='all', skip_digestion=False):
-
-    from ..molsysmt_Topology import get_chain_index_from_chain as aux_get
-    return aux_get(item.topology, indices=indices, skip_digestion=True)
-
-
-@digest(form=form)
 def get_molecule_index_from_chain(item, indices='all', skip_digestion=False):
 
     from ..molsysmt_Topology import get_molecule_index_from_chain as aux_get
@@ -1773,6 +1658,34 @@ def get_entity_name_from_chain(item, indices='all', skip_digestion=False):
 def get_entity_type_from_chain(item, indices='all', skip_digestion=False):
 
     from ..molsysmt_Topology import get_entity_type_from_chain as aux_get
+    return aux_get(item.topology, indices=indices, skip_digestion=True)
+
+
+@digest(form=form)
+def get_chain_index_from_chain(item, indices='all', skip_digestion=False):
+
+    from ..molsysmt_Topology import get_chain_index_from_chain as aux_get
+    return aux_get(item.topology, indices=indices, skip_digestion=True)
+
+
+@digest(form=form)
+def get_chain_id_from_chain(item, indices='all', skip_digestion=False):
+
+    from ..molsysmt_Topology import get_chain_id_from_chain as aux_get
+    return aux_get(item.topology, indices=indices, skip_digestion=True)
+
+
+@digest(form=form)
+def get_chain_name_from_chain(item, indices='all', skip_digestion=False):
+
+    from ..molsysmt_Topology import get_chain_name_from_chain as aux_get
+    return aux_get(item.topology, indices=indices, skip_digestion=True)
+
+
+@digest(form=form)
+def get_chain_type_from_chain(item, indices='all', skip_digestion=False):
+
+    from ..molsysmt_Topology import get_chain_type_from_chain as aux_get
     return aux_get(item.topology, indices=indices, skip_digestion=True)
 
 
@@ -1916,7 +1829,7 @@ def get_n_saccharides_from_chain(item, indices='all', skip_digestion=False):
     return aux_get(item.topology, indices=indices, skip_digestion=True)
 
 
-# Bond
+# From bond
 
 
 @digest(form=form)
@@ -1927,14 +1840,90 @@ def get_bond_index_from_bond(item, indices='all', skip_digestion=False):
 
 
 @digest(form=form)
+def get_bond_order_from_bond(item, indices='all', skip_digestion=False):
+
+    from ..molsysmt_Topology import get_bond_order_from_bond as aux_get
+    return aux_get(item.topology, indices=indices, skip_digestion=True)
+
+
+@digest(form=form)
+def get_bond_type_from_bond(item, indices='all', skip_digestion=False):
+
+    from ..molsysmt_Topology import get_bond_type_from_bond as aux_get
+    return aux_get(item.topology, indices=indices, skip_digestion=True)
+
+
+@digest(form=form)
+def get_bonded_atoms_from_bond(item, indices='all', skip_digestion=False):
+
+    from ..molsysmt_Topology import get_bonded_atoms_from_bond as aux_get
+    return aux_get(item.topology, indices=indices, skip_digestion=True)
+
+
+@digest(form=form)
+def get_bonded_atoms_pairs_from_bond(item, indices='all', skip_digestion=False):
+
+    from ..molsysmt_Topology import get_bonded_atoms_pairs_from_bond as aux_get
+    return aux_get(item.topology, indices=indices, skip_digestion=True)
+
+
+@digest(form=form)
 def get_n_bonds_from_bond(item, indices='all', skip_digestion=False):
 
     from ..molsysmt_Topology import get_n_bonds_from_bond as aux_get
     return aux_get(item.topology, indices=indices, skip_digestion=True)
 
 
-# System
+# From system
 
+
+@digest(form=form)
+def get_n_atoms_from_system(item, skip_digestion=False):
+
+    from ..molsysmt_Topology import get_n_atoms_from_system as aux_get
+    return aux_get(item.topology, skip_digestion=True)
+
+
+@digest(form=form)
+def get_n_groups_from_system(item, skip_digestion=False):
+
+    from ..molsysmt_Topology import get_n_groups_from_system as aux_get
+    return aux_get(item.topology, skip_digestion=True)
+
+
+@digest(form=form)
+def get_n_components_from_system(item, skip_digestion=False):
+
+    from ..molsysmt_Topology import get_n_components_from_system as aux_get
+    return aux_get(item.topology, skip_digestion=True)
+
+
+@digest(form=form)
+def get_n_chains_from_system(item, skip_digestion=False):
+
+    from ..molsysmt_Topology import get_n_chains_from_system as aux_get
+    return aux_get(item.topology, skip_digestion=True)
+
+
+@digest(form=form)
+def get_n_molecules_from_system(item, skip_digestion=False):
+
+    from ..molsysmt_Topology import get_n_molecules_from_system as aux_get
+    return aux_get(item.topology, skip_digestion=True)
+
+
+@digest(form=form)
+def get_n_entities_from_system(item, skip_digestion=False):
+
+    from ..molsysmt_Topology import get_n_entities_from_system as aux_get
+    return aux_get(item.topology, skip_digestion=True)
+
+
+@digest(form=form)
+def get_n_bonds_from_system(item, skip_digestion=False):
+
+    from ..molsysmt_Topology import get_n_bonds_from_system as aux_get
+    return aux_get(item.topology, skip_digestion=True)
 
 @digest(form=form)
 def get_n_aminoacids_from_system(item, skip_digestion=False):
@@ -2019,6 +2008,26 @@ def get_n_saccharides_from_system(item, skip_digestion=False):
     return aux_get(item.topology, skip_digestion=True)
 
 
+@digest(form=form)
+def get_bond_index_from_system(item, skip_digestion=False):
+
+    from ..molsysmt_Topology import get_bonded_index_from_system as aux_get
+    return aux_get(item.topology, skip_digestion=True)
+
+
+@digest(form=form)
+def get_inner_bonded_atoms_from_system(item, skip_digestion=False):
+
+    from ..molsysmt_Topology import get_inner_bonded_atoms_from_system as aux_get
+    return aux_get(item.topology, skip_digestion=True)
+
+
+@digest(form=form)
+def get_inner_bonded_atoms_pairs_from_system(item, skip_digestion=False):
+
+    from ..molsysmt_Topology import get_inner_bonded_atoms_pairs_from_system as aux_get
+    return aux_get(item.topology, skip_digestion=True)
+
 
 @digest(form=form)
 def get_bonded_atoms_from_system(item, skip_digestion=False):
@@ -2028,9 +2037,9 @@ def get_bonded_atoms_from_system(item, skip_digestion=False):
 
 
 @digest(form=form)
-def get_bond_index_from_system(item, skip_digestion=False):
+def get_bonded_atoms_pairs_from_system(item, skip_digestion=False):
 
-    from ..molsysmt_Topology import get_bonded_index_from_system as aux_get
+    from ..molsysmt_Topology import get_bonded_atoms_pairs_from_system as aux_get
     return aux_get(item.topology, skip_digestion=True)
 
 

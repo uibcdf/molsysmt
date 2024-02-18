@@ -307,14 +307,58 @@ class Topology():
 
         return tmp_item
 
+
+    def rebuild_atoms(self, redefine_ids=True, redefine_types=True):
+
+        if redefine_ids:
+
+            self.atoms['atom_id']=np.arange(self.atoms.shape[0], dtype=int)
+
+        if redefine_types:
+
+            from molsysmt.element.atom.get_atom_type import _get_atom_type_from_atom_name
+
+            aux_dict = {}
+
+            atom_types = []
+
+            for atom_name in self.atoms['atom_name'].values:
+                if atom_name not in aux_dict:
+                    atom_type=_get_atom_type_from_atom_name(atom_name)
+                    aux_dict[atom_name]=atom_type
+                    atom_types.append(atom_type)
+                else:
+                    atom_types.append(aux_dict[atom_name])
+
+            self.atoms.atom_type = np.array(atom_types, dtype=object)
+
+            del aux_dict, atom_types
+
     def rebuild_groups(self, redefine_ids=True, redefine_types=True):
 
-        from molsysmt.element.group.get_group_type import _get_group_type_from_group_name
+        if redefine_ids:
 
-        group_types_from_groups = [_get_group_type_from_group_name(ii) for ii in self.groups['group_name'].values]
-        self.groups["group_type"] = np.array(group_types_from_groups, dtype=object)
+            self.groups['group_id']=np.arange(self.groups.shape[0], dtype=int)
 
-        del group_types_from_groups
+        if redefine_types:
+
+            from molsysmt.element.group.get_group_type import _get_group_type_from_group_name
+
+            aux_dict = {}
+
+            group_types = []
+
+            for group_name in self.groups['group_name'].values:
+                if group_name not in aux_dict:
+                    group_type = _get_group_type_from_group_name(group_name)
+                    aux_dict[group_name]= group_type
+                    group_types.append(group_type)
+                else:
+                    group_types.append(aux_dict[group_name])
+
+            self.groups.group_type = np.array(group_types, dtype=object)
+
+            del aux_dict, group_types
 
     def rebuild_components(self, redefine_indices=True, redefine_ids=True, redefine_names=True, redefine_types=True):
 
@@ -474,14 +518,20 @@ class Topology():
 
             del aux_groups, aux_dict, aux_dict_2
 
-    def rebuild_chain_types(self):
+    def rebuild_chains(self, redefine_ids=True, redefine_types=True):
 
-        from molsysmt.element.chain import get_chain_type
+        if redefine_ids:
 
-        chain_type = get_chain_type(self, element='chain', redefine_types=True, redefine_molecules=False,
-                                   redefine_molecule_types=False)
-        self.chains["chain_type"] = np.array(chain_type, dtype=object)
-        del chain_type
+            self.chains["chain_id"]=np.arange(self.chains.shape[0], dtype=int)
+
+        if redefine_types:
+
+            from molsysmt.element.chain import get_chain_type
+
+            chain_type = get_chain_type(self, element='chain', redefine_types=True, redefine_molecules=False,
+                                       redefine_molecule_types=False)
+            self.chains["chain_type"] = np.array(chain_type, dtype=object)
+            del chain_type
 
     def rebuild_entities(self, redefine_indices=True, redefine_ids=True, redefine_names=True, redefine_types=True):
 
@@ -566,7 +616,6 @@ class Topology():
         if redefine_types:
 
             self.entities['entity_type']=self.molecules.groupby('entity_index')['molecule_type'].first().to_numpy()
-
 
     def _join_molecules(self, indices=None):
 

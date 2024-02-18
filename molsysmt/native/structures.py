@@ -145,7 +145,6 @@ class Structures:
                     self.coordinates = np.concatenate([self.coordinates,
                                                        coordinates[np.ix_(structure_indices, atom_indices)]])
 
-
     @digest()
     def _append_velocities(self, velocities, atom_indices='all', structure_indices='all', skip_digestion=False):
 
@@ -267,6 +266,7 @@ class Structures:
         """
 
         n_structures = None
+        n_atoms = None
 
         if structure_id is not None:
 
@@ -287,18 +287,28 @@ class Structures:
         if coordinates is not None:
 
             tmp_n_structures = coordinates.shape[0]
+            tmp_n_atoms = coordinates.shape[1]
             if n_structures is None:
                 n_structures = tmp_n_structures
             elif n_structures != tmp_n_structures:
                 raise ValueError('Not all input arguments have the same number of structures to be appended.')
+            if n_atoms is None:
+                n_atoms = tmp_n_atoms
+            elif n_atoms != tmp_n_atoms:
+                raise ValueError('Not all input arguments have the same number of atoms to be appended.')
         
         if velocities is not None:
 
             tmp_n_structures = velocities.shape[0]
+            tmp_n_atoms = velocities.shape[1]
             if n_structures is None:
                 n_structures = tmp_n_structures
             elif n_structures != tmp_n_structures:
                 raise ValueError('Not all input arguments have the same number of structures to be appended.')
+            if n_atoms is None:
+                n_atoms = tmp_n_atoms
+            elif n_atoms != tmp_n_atoms:
+                raise ValueError('Not all input arguments have the same number of atoms to be appended.')
 
         if box is not None:
 
@@ -393,7 +403,11 @@ class Structures:
                 self._append_kinetic_energy(self, kinetic_energy, structure_indices=structure_indices, 
                                             skip_digestion=True)
 
-        self.n_structures += n_structures
+        if self.n_structures==0 and self.n_atoms==0:
+            self.n_structures = n_structures
+            self.n_atoms = n_atoms
+        else:
+            self.n_structures += n_structures
 
 
     @digest(form='molsysmt.Structures')

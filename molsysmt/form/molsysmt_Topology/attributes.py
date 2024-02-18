@@ -51,8 +51,10 @@ attributes['bond_id'] = False
 attributes['bond_type'] = True
 attributes['bond_order'] = True
 attributes['bonded_atoms'] = True
+attributes['bonded_atoms_pairs'] = True
 attributes['inner_bond_index'] = True
 attributes['inner_bonded_atoms'] = True
+attributes['inner_bonded_atoms_pairs'] = True
 attributes['n_bonds'] = True
 attributes['n_inner_bonds'] = True
 

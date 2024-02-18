@@ -6,7 +6,8 @@ import warnings
 
 @digest()
 def get_missing_bonds(molecular_system, threshold='2 angstroms', selection='all',
-                      structure_indices='all', syntax='MolSysMT', engine='MolSysMT'):
+                      structure_indices=0, syntax='MolSysMT', engine='MolSysMT',
+                      with_templates=True, skip_digestion=False):
     """
     To be written soon...
     """
@@ -15,37 +16,119 @@ def get_missing_bonds(molecular_system, threshold='2 angstroms', selection='all'
 
     if engine=="MolSysMT":
 
-        from molsysmt.basic import get, select
+        from molsysmt.basic import get, select, get_form
         from molsysmt.structure import get_neighbors
 
-        atom_indices = select(molecular_system, selection=selection, syntax=syntax)
+        if is_all(selection):
 
-        if is_all(structure_indices):
-            n_atoms = get(molecular_system, element='system', n_structures=True)
-            structure_indices = np.arange(n_atoms)
+            bonds = []
+            bonds_templates = []
+            bonds_distances = []
+            indices_with_distance = []
 
-        old_bonds = get(molecular_system, element='atom', selection=atom_indices, inner_bonded_atoms=True)
+            if with_templates:
 
-        for ii in range(len(old_bonds)):
-            if old_bonds[ii][0]>old_bonds[ii][1]:
-                old_bonds[ii][0], old_bonds[ii][1] = old_bonds[ii][1], old_bonds[ii][0]
+                form = get_form(molecular_system)
 
-        neighbors, distance = get_neighbors(molecular_system, selection=atom_indices,
-                                            selection_2=atom_indices, threshold=threshold, output='dict')
+                if form=='molsysmt.Topology':
 
-        for atom_i, atom_j in old_bonds:
-            for kk, neighbors_frame in enumerate(neighbors):
-                if atom_j not in neighbors_frame[atom_i]:
-                    warnings.warn(f"The bond between atoms {atom_i} and {atom_j} was observed with a length larger than the threshold: distance[kk][atom_i]")
+                    raise ValueError('The molecular system needs to have coordinates')
 
-        for ii, atom_index in enumerate(atom_indices):
-            atom_i = atom_index
-            for neighbors_frame in neighbors:
-                for atom_j in neighbors_frame[ii]:
-                    if atom_i < atom_j:
-                        if [atom_i, atom_j] not in old_bonds:
-                            if [atom_i, atom_j] not in output:
-                                output.append([atom_i, atom_j])
+                if form=='molsysmt.MolSys':
+
+                    aux_output = [np.arange(molecular_system.topology.groups.shape[0]).tolist(),
+                                  molecular_system.topology.groups.group_name.tolist(),
+                                  molecular_system.topology.groups.group_type.tolist()]
+
+                    former_group_index = -1
+
+                    atom_indices = []
+                    atom_names = []
+                    atom_types = []
+
+                    aux_atom_indices = []
+                    aux_atom_names = []
+                    aux_atom_types = []
+
+                    for atom in molecular_system.topology.atoms.itertuples():
+                        if former_group_index != atom.group_index:
+                            if former_group_index != -1:
+                                atom_indices.append(aux_atom_indices)
+                                atom_names.append(aux_atom_names)
+                                atom_types.append(aux_atom_types)
+                                aux_atom_indices = []
+                                aux_atom_names = []
+                                aux_atom_types = []
+                            former_group_index = atom.group_index
+                        aux_atom_indices.append(atom.Index)
+                        aux_atom_names.append(atom.atom_name)
+                        aux_atom_types.append(atom.atom_type)
+
+                    aux_output += [atom_indices, atom_names, atom_types]
+
+                    del atom_indices, atom_names, atom_types, aux_atom_indices, aux_atom_names, aux_atom_types
+
+                else:
+
+                    aux_output = get(molecular_system, element='group', group_index=True, group_name=True,
+                                     group_type=True, atom_index=True, atom_name=True, atom_type=True,
+                                     skip_digestion=True)
+
+                for group_index, group_name, group_type, atom_indices, atom_names, atom_types in zip(*aux_output):
+
+                    if group_type=='water':
+                        aux_bonds = _bonds_in_water(atom_indices, atom_names, atom_types)
+                        bonds_templates += aux_bonds
+                        mask[atom_indices]=False
+                    elif group_type=='ion':
+                        aux_bonds = _bonds_in_ion(atom_indices, atom_names, atom_types)
+                        bonds_templates += aux_bonds
+                        mask[atom_indices]=False
+                    else:
+                        indices_with_distance += atom_indices
+
+            else:
+
+                indices_with_distance = 'all'
+
+            neighbors, _ = get_neighbors(molecular_system, selection=indices_with_distance, threshold=threshold)
+
+            if is_all(indices_with_distance):
+                for atom_i, neighbors_frame in enumerate(neighbors):
+                    for atom_j in neighbors_frame[ii]:
+                        if atom_i < atom_j:
+                            bonds_with_distance.append([atom_i, atom_j])
+            else:
+                for atom_i, neighbors_frame in enumerate(neighbors):
+                    for atom_j in neighbors_frame[ii]:
+                        if atom_i < atom_j:
+                            bonds_with_distance.append([atom_i, atom_j])
+
+
+
+            output = bonds
+
+        else:
+
+            raise NotImplementedError
+
+
+        #neighbors, distance = get_neighbors(molecular_system, selection=atom_indices,
+        #                                    selection_2=atom_indices, threshold=threshold, output='dict')
+
+        #for atom_i, atom_j in old_bonds:
+        #    for kk, neighbors_frame in enumerate(neighbors):
+        #        if atom_j not in neighbors_frame[atom_i]:
+        #            warnings.warn(f"The bond between atoms {atom_i} and {atom_j} was observed with a length larger than the threshold: distance[kk][atom_i]")
+
+        #for ii, atom_index in enumerate(atom_indices):
+        #    atom_i = atom_index
+        #    for neighbors_frame in neighbors:
+        #        for atom_j in neighbors_frame[ii]:
+        #            if atom_i < atom_j:
+        #                if [atom_i, atom_j] not in old_bonds:
+        #                    if [atom_i, atom_j] not in output:
+        #                        output.append([atom_i, atom_j])
 
     elif engine=="pytraj":
 
@@ -78,7 +161,40 @@ def get_missing_bonds(molecular_system, threshold='2 angstroms', selection='all'
 
         raise NotImplementedMethodError
 
-    output = np.array(output)
-
     return output
+
+def _bonds_in_water(atom_indices, atom_names, atom_type):
+
+    if len(atom_indices)>=3:
+
+        O = None
+        Hs = []
+
+        for ii,jj in zip(atom_indices, atom_type):
+            if jj=='O':
+                O=ii
+            else:
+                Hs.append(ii)
+
+        return  [[O,Hs[0]], [O,Hs[1]]]
+
+    else:
+
+        return []
+
+def _bonds_in_ion(atom_indices, atom_names, atom_type):
+
+    n_atoms=len(atom_indices)
+
+    if n_atoms==1:
+
+        return []
+
+    elif n_atoms==2:
+
+        return [atom_indices]
+    
+    else:
+
+        raise NotImplementedError
 

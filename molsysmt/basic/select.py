@@ -186,6 +186,7 @@ def select(molecular_system, selection='all', structure_indices='all', element='
 
         aux_item, aux_form = where_is_attribute(molecular_system, 'inner_bond_index', skip_digestion=True)
         output_indices = _dict_modules[aux_form].get_inner_bond_index_from_atom(aux_item, indices=atom_indices)
+        output_indices = np.unique(np.concatenate(output_indices)).tolist()
 
     else:
 
