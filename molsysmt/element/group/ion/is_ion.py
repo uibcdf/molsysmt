@@ -1,9 +1,9 @@
-from .ion_names import ion_names
+from .group_names import group_names
 
 def is_ion(name):
     """
     To be written soon...
     """
 
-    return (name in ion_names)
+    return (name in group_names)
 

@@ -1,8 +1,8 @@
-from .get_amino_acid_type_from_name import name_to_type
+from .group_names import group_names
 
 def is_amino_acid(name):
     """
     To be written soon...
     """
-    return (name in name_to_type)
+    return (name in group_names)
 

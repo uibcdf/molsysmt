@@ -1,2 +1,3 @@
-from .small_molecule_names import small_molecule_names
 from .is_small_molecule import is_small_molecule
+from .group_names import group_names
+
