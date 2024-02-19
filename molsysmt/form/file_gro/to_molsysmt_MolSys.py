@@ -93,7 +93,7 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
 
     coordinates=puw.quantity(coordinates,'nm')
     box=puw.quantity(box,'nm')
-    if velocities:
+    if with_velocities:
         velocities=puw.quantity(velocities,'nm/ps')
         
     tmp_item.structures.append(coordinates=coordinates, box=box, velocities=velocities)
