@@ -221,9 +221,9 @@ def get_bonded_atoms_from_atom(item, indices='all', skip_digestion=False):
 
 
 @digest(form=form)
-def get_bonded_atoms_pairs_from_atom(item, indices='all', skip_digestion=False):
+def get_bonded_atom_pairs_from_atom(item, indices='all', skip_digestion=False):
 
-    return _auxiliary_getter(get_bonded_atoms_pairs_from_atom, item, indices)
+    return _auxiliary_getter(get_bonded_atom_pairs_from_atom, item, indices)
 
 
 @digest(form=form)
@@ -239,9 +239,9 @@ def get_inner_bonded_atoms_from_atom(item, indices='all', skip_digestion=False):
 
 
 @digest(form=form)
-def get_inner_bonded_atoms_pairs_from_atom(item, indices='all', skip_digestion=False):
+def get_inner_bonded_atom_pairs_from_atom(item, indices='all', skip_digestion=False):
 
-    return _auxiliary_getter(get_inner_bonded_atoms_pairs_from_atom, item, indices)
+    return _auxiliary_getter(get_inner_bonded_atom_pairs_from_atom, item, indices)
 
 
 @digest(form=form)
@@ -1917,7 +1917,7 @@ def get_bonded_atoms_from_bond(item, indices='all', skip_digestion=False):
 
 
 @digest(form=form)
-def get_bonded_atoms_pairs_from_bond(item, indices='all', skip_digestion=False):
+def get_bonded_atom_pairs_from_bond(item, indices='all', skip_digestion=False):
 
     return get_bonded_atoms_from_bond(item, indices=indices, skip_digestion=True)
 
@@ -2058,9 +2058,9 @@ def get_inner_bonded_atoms_from_system(item, skip_digestion=False):
 
 
 @digest(form=form)
-def get_inner_bonded_atoms_pairs_from_system(item, skip_digestion=False):
+def get_inner_bonded_atom_pairs_from_system(item, skip_digestion=False):
 
-    return _auxiliary_getter(get_inner_bonded_atoms_pairs_from_system, item, indices)
+    return _auxiliary_getter(get_inner_bonded_atom_pairs_from_system, item, indices)
 
 
 @digest(form=form)
@@ -2070,9 +2070,9 @@ def get_bonded_atoms_from_system(item, skip_digestion=False):
 
 
 @digest(form=form)
-def get_bonded_atoms_pairs_from_system(item, skip_digestion=False):
+def get_bonded_atom_pairs_from_system(item, skip_digestion=False):
 
-    return _auxiliary_getter(get_bonded_atoms_pairs_from_system, item)
+    return _auxiliary_getter(get_bonded_atom_pairs_from_system, item)
 
 
 

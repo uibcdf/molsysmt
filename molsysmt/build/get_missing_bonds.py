@@ -3,6 +3,7 @@ from molsysmt._private.exceptions import NotImplementedMethodError
 from molsysmt._private.variables import is_all
 import numpy as np
 import warnings
+from molsysmt.element.group.amino_acid import get_bonded_atom_pairs as _bonds_in_amino_acid
 
 @digest()
 def get_missing_bonds(molecular_system, threshold='2 angstroms', selection='all',
@@ -11,8 +12,6 @@ def get_missing_bonds(molecular_system, threshold='2 angstroms', selection='all'
     """
     To be written soon...
     """
-
-    output = []
 
     if engine=="MolSysMT":
 
@@ -24,9 +23,10 @@ def get_missing_bonds(molecular_system, threshold='2 angstroms', selection='all'
             bonds = []
             bonds_templates = []
             bonds_distances = []
-            indices_with_distance = []
 
             if with_templates:
+
+                aux_peptidic_bonds={'C':[], 'N':[]}
 
                 form = get_form(molecular_system)
 
@@ -81,9 +81,24 @@ def get_missing_bonds(molecular_system, threshold='2 angstroms', selection='all'
                         bonds_templates += aux_bonds
                         mask[atom_indices]=False
                     elif group_type=='ion':
-                        aux_bonds = _bonds_in_ion(atom_indices, atom_names, atom_types)
+                        aux_bonds = _bonds_in_ion(group_name, atom_indices, atom_names)
                         bonds_templates += aux_bonds
                         mask[atom_indices]=False
+                    elif group_type=='amino acid':
+                        aux_bonds, unk_atom_indices = _bonds_in_amino_acid(group_name, atom_indices, atom_names)
+                        bonds_templates += aux_bonds
+                        aux_peptidic_bonds['C'].append(atom_indices[atom_names.index('C')])
+                        aux_peptidic_bonds['N'].append(atom_indices[atom_names.index('N')])
+                        if len(unk_atom_indices):
+                            neighbors, _ = get_neighbors(molecular_system, selection=unk_atom_indices,
+                                                         selection_2=atom_indices, structure_indices=structure_indices,
+                                                         threshold=threshold)
+                            for ii, nn in zip(unk_atom_indices, neighbors[0]):
+                                print(nn[1:])
+                                print(atom_types[ii], atom_types[nn[1:]])
+
+
+
                     else:
                         indices_with_distance += atom_indices
 
@@ -91,22 +106,22 @@ def get_missing_bonds(molecular_system, threshold='2 angstroms', selection='all'
 
                 indices_with_distance = 'all'
 
-            neighbors, _ = get_neighbors(molecular_system, selection=indices_with_distance, threshold=threshold)
+            #neighbors, _ = get_neighbors(molecular_system, selection=indices_with_distance, threshold=threshold)
 
-            if is_all(indices_with_distance):
-                for atom_i, neighbors_frame in enumerate(neighbors):
-                    for atom_j in neighbors_frame[ii]:
-                        if atom_i < atom_j:
-                            bonds_with_distance.append([atom_i, atom_j])
-            else:
-                for atom_i, neighbors_frame in enumerate(neighbors):
-                    for atom_j in neighbors_frame[ii]:
-                        if atom_i < atom_j:
-                            bonds_with_distance.append([atom_i, atom_j])
+            #if is_all(indices_with_distance):
+            #    for atom_i, neighbors_frame in enumerate(neighbors):
+            #        for atom_j in neighbors_frame[ii]:
+            #            if atom_i < atom_j:
+            #                bonds_with_distance.append([atom_i, atom_j])
+            #else:
+            #    for atom_i, neighbors_frame in enumerate(neighbors):
+            #        for atom_j in neighbors_frame[ii]:
+            #            if atom_i < atom_j:
+            #                bonds_with_distance.append([atom_i, atom_j])
 
 
 
-            output = bonds
+            output = sorted(bonds)
 
         else:
 
@@ -182,7 +197,7 @@ def _bonds_in_water(atom_indices, atom_names, atom_type):
 
         return []
 
-def _bonds_in_ion(atom_indices, atom_names, atom_type):
+def _bonds_in_ion(group_name, atom_indices, atom_names):
 
     n_atoms=len(atom_indices)
 

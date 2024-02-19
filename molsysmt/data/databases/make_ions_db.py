@@ -50,8 +50,21 @@ for value in ions:
     except:
         aux_dict['charge']=[]
     if '_chem_comp_bond' in key:
-        aux_dict['bonds']=[[ii,jj] for ii,jj in zip(key['_chem_comp_bond']['atom_id_1'],
-                                                    key['_chem_comp_bond']['atom_id_2'])]
+        bonds = []
+        atom_id_1 = key['_chem_comp_bond']['atom_id_1']
+        if isinstance(atom_id_1, str):
+            atom_id_1=[atom_id_1]
+        atom_id_2 = key['_chem_comp_bond']['atom_id_2']
+        if isinstance(atom_id_2, str):
+            atom_id_2=[atom_id_2]
+        for ii,jj in zip(atom_id_1, atom_id_2):
+            iii = aux_dict['atom_name'].index(ii)
+            jjj = aux_dict['atom_name'].index(jj)
+            if iii>jjj:
+                bonds.append([jjj,iii])
+            else:
+                bonds.append([iii,jjj])
+        aux_dict['bonds']=bonds
     else:
         aux_dict['bonds']=[]
 

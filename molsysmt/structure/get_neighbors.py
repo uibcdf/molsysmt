@@ -83,8 +83,8 @@ def get_neighbors(molecular_system, selection="all", structure_indices="all", ce
                 good_order = np.argsort(dists_aux)
                 neighs_aux = neighs_aux[good_order]
                 dists_aux = dists_aux[good_order]
-                neighs[indice_structure,ii]=np.array(neighs_aux,dtype=int)[offset:]
-                dists[indice_structure,ii]=np.array(dists_aux,dtype=float)[offset:]
+                neighs[indice_structure,ii]=neighs_aux[offset:]
+                dists[indice_structure,ii]=dists_aux[offset:]
                 if same_set:
                     if dists_aux[0] > 0.01:
                         raise ValueError("Error in algorithm, sets are different.")

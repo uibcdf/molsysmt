@@ -168,7 +168,7 @@ add_attribute('bonded_atoms', synonyms=['bonded_atom'], dependants=['inner_bonde
               get_from=['atom','bond'], set_to='bond')
 
 ## bonded_atoms
-add_attribute('bonded_atoms_pairs', synonyms=['bonded_atom_pairs'], dependants=['inner_bonded_atoms_pairs'],
+add_attribute('bonded_atom_pairs', synonyms=['bonded_atoms_pairs'], dependants=['inner_bonded_atom_pairs'],
               runs_on_elements=True, topological=True,
               get_from=['atom','bond'], set_to='bond')
 
@@ -177,7 +177,7 @@ add_attribute('inner_bonded_atoms', synonyms=['inner_bonded_atom'], depends_on=[
               runs_on_elements=True, topological=True, get_from=['atom'])
 
 ## inner_bonded_atoms
-add_attribute('inner_bonded_atoms_pairs', synonyms=['inner_bonded_atom_pairs'], depends_on=['bonded_atoms_pairs'],
+add_attribute('inner_bonded_atom_pairs', synonyms=['inner_bonded_atoms_pairs'], depends_on=['bonded_atom_pairs'],
               runs_on_elements=True, topological=True, get_from=['atom'])
 
 ## inner_bond_index

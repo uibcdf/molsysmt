@@ -1,4 +1,4 @@
-from .types import name_to_type as _name_to_type
+from molsysmt.data.databases.amino_acids.group_types import name_to_type
 
 aa3_to_aa1 = {
         'ALA': 'A', # Alanine

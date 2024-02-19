@@ -53,8 +53,15 @@ for value in data:
     except:
         aux_dict['charge']=[]
     if '_chem_comp_bond' in key:
-        aux_dict['bonds']=[[ii,jj] for ii,jj in zip(key['_chem_comp_bond']['atom_id_1'],
-                                                    key['_chem_comp_bond']['atom_id_2'])]
+        bonds = []
+        for ii,jj in zip(key['_chem_comp_bond']['atom_id_1'], key['_chem_comp_bond']['atom_id_2']):
+            iii = aux_dict['atom_name'].index(ii)
+            jjj = aux_dict['atom_name'].index(jj)
+            if iii>jjj:
+                bonds.append([jjj,iii])
+            else:
+                bonds.append([iii,jjj])
+        aux_dict['bonds']=bonds
     else:
         aux_dict['bonds']=[]
 
