@@ -5,7 +5,7 @@ import numpy as np
 @digest()
 def get_neighbors(molecular_system, selection="all", structure_indices="all", center_of_atoms=False, weights=None,
                   molecular_system_2=None, selection_2=None, structure_indices_2=None, center_of_atoms_2=False, weights_2=None,
-                  threshold=None, n_neighbors=None, pbc=True, engine='MolSysMT', syntax='MolSysMT'):
+                  threshold=None, n_neighbors=None, pbc=True, engine='MolSysMT', syntax='MolSysMT', skip_digestion=False):
     """
     To be written soon...
     """

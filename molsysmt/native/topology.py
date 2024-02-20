@@ -400,7 +400,7 @@ class Topology():
 
         if redefine_names:
 
-            from molsysmt.element.group.small_molecule import small_molecule_names
+            from molsysmt.element.group.small_molecule import group_names as small_molecule_names
 
             aux_df = self.groups.groupby('component_index').agg(group_name=('group_name', list),
                                                                 group_type=('group_type', list))

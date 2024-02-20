@@ -76,6 +76,7 @@ def _convert_one_to_one(molecular_system,
             missing_arguments.discard('compression_opts')
             missing_arguments.discard('int_precision')
             missing_arguments.discard('float_precision')
+            missing_arguments.discard('get_missing_bonds')
 
             if len(missing_arguments)>0:
                 raise NotCompatibleConversionError(from_form, to_form, missing_arguments)

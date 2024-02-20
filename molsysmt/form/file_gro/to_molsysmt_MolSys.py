@@ -1,9 +1,11 @@
 from molsysmt._private.digestion import digest
 from molsysmt import pyunitwizard as puw
+from molsysmt.build import get_missing_bonds as _get_missing_bonds
 import numpy as np
 
 @digest(form='file:gro')
-def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_digestion=False):
+def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', get_missing_bonds=False,
+                       skip_digestion=False):
 
     from molsysmt.native import MolSys
 
@@ -98,7 +100,22 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
         
     tmp_item.structures.append(coordinates=coordinates, box=box, velocities=velocities)
 
-    #tmp_item.topology.rebuild_chains(redefine_ids=False, redefine_types=True)
+    if get_missing_bonds:
+
+        bonds = _get_missing_bonds(tmp_item)
+        bonds = np.array(bonds)
+        tmp_item.topology.reset_bonds(n_bonds=bonds.shape[0])
+        tmp_item.topology.bonds.drop(['order', 'type'], axis=1, inplace=True)
+        tmp_item.topology.bonds.atom1_index=bonds[:,0]
+        tmp_item.topology.bonds.atom2_index=bonds[:,1]
+
+        tmp_item.topology.rebuild_components()
+        tmp_item.topology.rebuild_molecules()
+        tmp_item.topology.rebuild_chains(redefine_types=True)
+        tmp_item.topology.rebuild_entities()
+
+
+    tmp_item = tmp_item.extract(atom_indices=atom_indices, copy_if_all=False, skip_digestion=True)
 
     return tmp_item
 
