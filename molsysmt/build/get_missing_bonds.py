@@ -87,6 +87,13 @@ def get_missing_bonds(molecular_system, threshold='2 angstroms', selection='all'
                         bonds_templates += aux_bonds
                         aux_peptidic_bonds['C'].append(atom_indices[atom_names.index('C')])
                         aux_peptidic_bonds['N'].append(atom_indices[atom_names.index('N')])
+
+                        if len(unk_atom_indices):
+                            iii=[]
+                            for ii in unk_atom_indices:
+                                iii.append(atom_names[atom_indices.index(ii)])
+                            print('>>',group_name,unk_atom_indices,iii)
+
                         if len(unk_atom_indices):
                             aux_bonds_unk_atoms = []
                             neighbors, _ = get_neighbors(molecular_system, selection=unk_atom_indices,
@@ -114,6 +121,9 @@ def get_missing_bonds(molecular_system, threshold='2 angstroms', selection='all'
                                             else:
                                                 aux_bonds_unk_atoms.append([jjj,iii])
                             bonds_distances += aux_bonds_unk_atoms
+                            print(aux_bonds_unk_atoms)
+                            print(' ')
+
                     elif group_type=='small molecule':
                         raise NotImplementedError
                     elif group_type=='terminal capping':
