@@ -9,6 +9,7 @@ def set(molecular_system,
         selection='all',
         structure_indices='all',
         syntax='MolSysMT',
+        skip_digestion=False,
         **kwargs):
     """
     Setting attribute values to a molecular system.

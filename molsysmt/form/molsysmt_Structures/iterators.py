@@ -32,7 +32,7 @@ class StructuresIterator():
         if self.stop is None:
             if structure_indices is None:
                 from .get import get_n_structures_from_system
-                self.stop = get_n_structures_from_system(molecular_system)
+                self.stop = get_n_structures_from_system(molecular_system, skip_digestion=True)
             else:
                 self.stop = len(structure_indices)
 

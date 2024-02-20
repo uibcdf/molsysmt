@@ -3,8 +3,7 @@ from ...variables import is_all
 
 set_functions = (
         'set.set',
-        'set_chain_id_to_atom',
-        'define_new_chain')
+        'set_chain_id_to_atom')
 
 def digest_chain_id(chain_id, caller=None):
     """Checks if `chain_id` has the expected type and value.
@@ -34,8 +33,13 @@ def digest_chain_id(chain_id, caller=None):
         if isinstance(chain_id, bool):
             return chain_id
     elif caller.endswith(set_functions):
-        if isinstance(chain_id, str):
+        if isinstance(chain_id, int):
             return chain_id
+    elif caller=='molsysmt.build.define_new_chain.define_new_chain':
+        if isinstance(chain_id, int):
+            return chain_id
+        elif chain_id is None:
+            return None
     elif caller.startswith('molsysmt.form.') and caller.count('.to_')==2:
         return chain_id
 
