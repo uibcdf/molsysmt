@@ -1,5 +1,8 @@
 # wget https://files.wwpdb.org/pub/pdb/data/monomers/components.cif
 
+output = {}
+
+#### Protein Data Bank ####
 from molsysmt.native import CIFFileHandler
 import pickle
 
@@ -31,44 +34,128 @@ data = []
 for ii in types:
     data += types_dict[ii]
 
-output = {}
-
 for value in data:
     
     key = cif_entries[value]
 
-    aux_dict={}
+    tmp_dict={}
 
-    aux_dict['name']=key['_chem_comp']['name']
-    aux_dict['three_letter_code']=key['_chem_comp']['three_letter_code']
-    aux_dict['formal_charge']=float(key['_chem_comp']['pdbx_formal_charge'])
-    aux_dict['atom_name']=key['_chem_comp_atom']['atom_id']
-    aux_dict['alt_atom_name']=key['_chem_comp_atom']['alt_atom_id']
-    aux_dict['atom_type']=key['_chem_comp_atom']['type_symbol']
-    try:
-        charge = []
-        for ii in key['_chem_comp_atom']['charge']:
-            charge.append(float(ii))
-        aux_dict['charge']=charge
-    except:
-        aux_dict['charge']=[]
+    tmp_dict['name']=key['_chem_comp']['name']
+    tmp_dict['three_letter_code']=key['_chem_comp']['three_letter_code']
+    tmp_dict['atom_name']=[key['_chem_comp_atom']['atom_id']]
+    tmp_dict['atom_name'].append(key['_chem_comp_atom']['atom_id'])
     if '_chem_comp_bond' in key:
         bonds = []
         for ii,jj in zip(key['_chem_comp_bond']['atom_id_1'], key['_chem_comp_bond']['atom_id_2']):
-            iii = aux_dict['atom_name'].index(ii)
-            jjj = aux_dict['atom_name'].index(jj)
+            iii = tmp_dict['atom_name'][0].index(ii)
+            jjj = tmp_dict['atom_name'][0].index(jj)
             if iii>jjj:
                 bonds.append([jjj,iii])
             else:
                 bonds.append([iii,jjj])
-        aux_dict['bonds']=bonds
+        tmp_dict['bonds']=bonds
     else:
-        aux_dict['bonds']=[]
+        tmp_dict['bonds']=[]
 
-    output[value]=aux_dict
+    output[value]=tmp_dict
 
 #with open('small_molecules_db.pkl', 'wb') as fff:
 #    pickle.dump(output, fff)
+
+#### Gromacs ####
+
+import networkx as nx
+from molsysmt.element.atom.get_atom_type import _get_atom_type_from_atom_name
+
+residues_path = '/usr/local/gromacs/share/gromacs/top/residues.xml'
+
+aux_dict={}
+
+with open(residues_path, 'r') as fff:
+
+    for line in fff.readlines():
+
+        if '<residue restype' in line:
+            resname = line.split('"')[1]
+            aux_dict[resname]={'atoms':[], 'bonds':[]}
+        elif '<ratom name' in line:
+            iii = line.split('"')
+            aux_dict[resname]['atoms'].append(iii[1])
+        elif '<rbond a1' in line:
+            iii =  line.split('"')
+            aux_dict[resname]['bonds'].append([iii[1], iii[3]])
+
+for ii in ['ACE', 'HOH', 'HEME', 'NAC', 'NH2', 'OCT']:
+    del aux_dict[ii]
+
+for resname in aux_dict:
+
+    if resname in output:
+
+        old_graph = nx.Graph()
+        new_graph = nx.Graph()
+
+        for bond in output[resname]['bonds']:
+            old_graph.add_edge(bond[0], bond[1])
+
+        for bond in aux_dict[resname]['bonds']:
+            new_graph.add_edge(bond[0], bond[1])
+
+        new_graph.remove_node('-C')
+
+        matcher = nx.algorithms.isomorphism.GraphMatcher(old_graph, new_graph)
+
+        is_subgraph_isomorphic = matcher.subgraph_is_isomorphic()
+        
+        if is_subgraph_isomorphic:
+
+            eq_max=0
+            candidato=None
+            for mapping in matcher.subgraph_isomorphisms_iter():
+                mask=[]
+                eq=0
+                for ii,jj in mapping.items():
+                    iii = _get_atom_type_from_atom_name(output[resname]['atom_name'][0][ii])
+                    jjj = _get_atom_type_from_atom_name(jj)
+                    mask.append(iii==jjj)
+                    if output[resname]['atom_name'][0][ii]==jj:
+                        eq+=1
+                if all(mask):
+                    if eq_max<eq:
+                        eq_max=eq
+                        candidato=mapping
+
+            n_atoms = len(output[resname]['atom_name'][0])
+            new_atoms = ['' for ii in range(n_atoms)]
+            for ii,jj in candidato.items():
+                new_atoms[ii]=jj
+            output[resname]['atom_name'].append(new_atoms)
+
+        else:
+
+            print(f'{resname} with problems')
+
+    else: 
+
+        tmp_dict={}
+        bonds = []
+
+        tmp_dict['name']=resname
+        tmp_dict['three_letter_code']=resname
+        tmp_dict['atom_name']=[aux_dict[resname]['atoms']]
+        for ii,jj in aux_dict[resname]['bonds']:
+            if ii!='-C' and jj!='-C':
+                iii = aux_dict[resname]['atoms'].index(ii)
+                jjj = aux_dict[resname]['atoms'].index(jj)
+                if iii>jjj:
+                    bonds.append([jjj,iii])
+                else:
+                    bonds.append([iii,jjj])
+                tmp_dict['bonds']=bonds
+
+        output[resname]=tmp_dict
+
+#### End ####
 
 split_output = {}
 for name,value in output.items():

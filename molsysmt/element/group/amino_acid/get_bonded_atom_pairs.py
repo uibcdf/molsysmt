@@ -31,36 +31,38 @@ def get_bonded_atom_pairs(group_name, atom_indices=None, atom_names=None):
         atom_indices = np.arange(len(atom_names), dtype=int).tolist()
 
     
-    atom_int_indices = []
-    unk_atom_indices = []
-    _aux_dict = {}
-    
-    for jj, atom_name in enumerate(atom_names):
+    is_in = -1
+    for ii,db_atom_names in enumerate(db['atom_name']):
+        if np.all(np.isin(atom_names, db_atom_names)):
+            is_in=ii
 
-        try:
-            ii = db['atom_name'].index(atom_name)
-        except:
-            try:
-                ii = db['alt_atom_name'].index(atom_name)
-            except:
-                ii = None
-        if ii is not None:
+    if is_in!=-1:
+
+        atom_int_indices = []
+        _aux_dict = {}
+        bonds = []
+        unk_atom_indices = []
+
+        for jj, atom_name in enumerate(atom_names):
+
+            ii = db['atom_name'][is_in].index(atom_name)
             atom_int_indices.append(ii)
             _aux_dict[ii]=atom_indices[jj]
-        else:
-            unk_atom_indices.append(atom_indices[jj])
 
-    bonds = []
+        for ii,jj in db['bonds']:
 
-    for ii,jj in db['bonds']:
+            if ii in atom_int_indices:
+                if jj in atom_int_indices:
+                    iii = _aux_dict[ii]
+                    jjj = _aux_dict[jj]
+                    if iii<jjj:
+                        bonds.append([iii,jjj])
+                    else:
+                        bonds.append([jjj,iii])
 
-        if ii in atom_int_indices:
-            if jj in atom_int_indices:
-                iii = _aux_dict[ii]
-                jjj = _aux_dict[jj]
-                if iii<jjj:
-                    bonds.append([iii,jjj])
-                else:
-                    bonds.append([jjj,iii])
-    
-    return sorted(bonds), unk_atom_indices
+        return sorted(bonds), unk_atom_indices
+
+    else:
+
+        return [], atom_indices
+

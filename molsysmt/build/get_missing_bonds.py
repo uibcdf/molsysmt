@@ -93,7 +93,7 @@ def get_missing_bonds(molecular_system, threshold='2 angstroms', selection='all'
                             for ii in unk_atom_indices:
                                 iii.append(atom_names[atom_indices.index(ii)])
                             print('>>',group_name,unk_atom_indices,iii)
-
+                            print('')
                         if len(unk_atom_indices):
                             aux_bonds_unk_atoms = []
                             neighbors, _ = get_neighbors(molecular_system, selection=unk_atom_indices,

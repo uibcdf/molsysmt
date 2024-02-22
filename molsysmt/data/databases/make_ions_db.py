@@ -38,17 +38,8 @@ for value in ions:
 
     aux_dict['name']=key['_chem_comp']['name']
     aux_dict['three_letter_code']=key['_chem_comp']['three_letter_code']
-    aux_dict['formal_charge']=float(key['_chem_comp']['pdbx_formal_charge'])
-    aux_dict['atom_name']=key['_chem_comp_atom']['atom_id']
-    aux_dict['alt_atom_name']=key['_chem_comp_atom']['alt_atom_id']
-    aux_dict['atom_type']=key['_chem_comp_atom']['type_symbol']
-    try:
-        charge = []
-        for ii in key['_chem_comp_atom']['charge']:
-            charge.append(float(ii))
-        aux_dict['charge']=charge
-    except:
-        aux_dict['charge']=[]
+    aux_dict['atom_name']=[key['_chem_comp_atom']['atom_id']]
+    aux_dict['atom_name'].append(key['_chem_comp_atom']['alt_atom_id'])
     if '_chem_comp_bond' in key:
         bonds = []
         atom_id_1 = key['_chem_comp_bond']['atom_id_1']
@@ -58,8 +49,8 @@ for value in ions:
         if isinstance(atom_id_2, str):
             atom_id_2=[atom_id_2]
         for ii,jj in zip(atom_id_1, atom_id_2):
-            iii = aux_dict['atom_name'].index(ii)
-            jjj = aux_dict['atom_name'].index(jj)
+            iii = aux_dict['atom_name'][0].index(ii)
+            jjj = aux_dict['atom_name'][0].index(jj)
             if iii>jjj:
                 bonds.append([jjj,iii])
             else:
