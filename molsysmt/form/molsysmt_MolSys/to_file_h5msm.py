@@ -13,9 +13,8 @@ def to_file_h5msm(item, atom_indices='all', structure_indices='all', output_file
             compression_opts=compression_opts, int_precision=int_precision,
             float_precision=float_precision, closed=False, skip_digestion=True)
 
-    _add_topology_to_h5msm(item.topology, handler, atom_indices=atom_indices, skip_digestion=True)
-    _add_structures_to_h5msm(item.structures, handler, atom_indices=atom_indices, structure_indices=structure_indices,
-                            skip_digestion=True)
+    _add_topology_to_h5msm(item.topology, handler, atom_indices=atom_indices)
+    _add_structures_to_h5msm(item.structures, handler, atom_indices=atom_indices, structure_indices=structure_indices)
 
     handler.close()
 

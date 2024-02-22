@@ -8,7 +8,7 @@ class H5MSMFileHandler():
 
     def __init__(self, filename, io_mode='r', creator='MolSysMT', compression="gzip", compression_opts=4,
             int_precision='single', float_precision='single', length_unit=None, time_unit=None, energy_unit=None,
-            temperature_unit=None, charge_unit=None, mass_unit=None, closed=False):
+            temperature_unit=None, charge_unit=None, mass_unit=None, closed=False, skip_digestion=False):
 
         self.file = None
 

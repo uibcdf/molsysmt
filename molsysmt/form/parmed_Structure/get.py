@@ -66,6 +66,9 @@ def get_coordinates_from_atom(item, indices='all', structure_indices='all', skip
 
     output = item.coordinates
 
+    if len(output.shape)==2 and output.shape[1]==3:
+        output = output[np.newaxis,:,:]
+
     if output is None:
         return output
 

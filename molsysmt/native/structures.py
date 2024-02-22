@@ -132,7 +132,7 @@ class Structures:
                 raise ValueError(
                     "The coordinates to be appended in the system "
                     "need to have the same number of atoms.")
-            self.coordinates = self._concatenate_arrays(self.coordinates, coordinates)
+            self.coordinates = _concatenate_arrays(self.coordinates, coordinates)
             if is_all(structure_indices):
                 if is_all(atom_indices):
                     self.coordinates = np.concatenate([self.coordinates, coordinates])
@@ -166,7 +166,7 @@ class Structures:
                 raise ValueError(
                     "The velocities to be appended in the system "
                     "need to have the same number of atoms.")
-            self.velocities = self._concatenate_arrays(self.velocities, velocities)
+            self.velocities = _concatenate_arrays(self.velocities, velocities)
             if is_all(structure_indices):
                 if is_all(atom_indices):
                     self.velocities = np.concatenate([self.velocities, velocities])
@@ -376,31 +376,31 @@ class Structures:
         else:
 
             if (self.structure_id is not None) and (structure_id is not None):
-                self._append_structure_id(self, structure_id, structure_indices=structure_indices,
+                self._append_structure_id(structure_id, structure_indices=structure_indices,
                                           skip_digestion=True)
 
             if (self.time is not None) and (time is not None):
-                self._append_time(self, time, structure_indices=structure_indices, skip_digestion=True)
+                self._append_time(time, structure_indices=structure_indices, skip_digestion=True)
 
             if (self.coordinates is not None) and (coordinates is not None):
-                self._append_coordinates(self, coordinates, atom_indices=atom_indices,
+                self._append_coordinates(coordinates, atom_indices=atom_indices,
                                          structure_indices=structure_indices, skip_digestion=True)
 
             if (self.velocities is not None) and (velocities is not None):
-                self._append_velocities(self, velocities, atom_indices=atom_indices,
+                self._append_velocities(velocities, atom_indices=atom_indices,
                                         structure_indices=structure_indices, skip_digestion=True)
 
             if (self.box is not None) and (box is not None):
-                self._append_box(self, box, structure_indices=structure_indices, skip_digestion=True)
+                self._append_box(box, structure_indices=structure_indices, skip_digestion=True)
 
             if (self.temperature is not None) and (temperature is not None):
-                self._append_temperature(self, temperature, structure_indices=structure_indices, skip_digestion=True)
+                self._append_temperature(temperature, structure_indices=structure_indices, skip_digestion=True)
 
             if (self.potential_energy is not None) and (potential_energy is not None):
-                self._append_potential_energy(self, potential_energy, structure_indices=structure_indices)
+                self._append_potential_energy(potential_energy, structure_indices=structure_indices)
 
             if (self.kinetic_energy is not None) and (kinetic_energy is not None):
-                self._append_kinetic_energy(self, kinetic_energy, structure_indices=structure_indices, 
+                self._append_kinetic_energy(kinetic_energy, structure_indices=structure_indices, 
                                             skip_digestion=True)
 
         if self.n_structures==0 and self.n_atoms==0:
@@ -624,4 +624,15 @@ class Structures:
     def copy(self):
         """ Returns a copy of the structures."""
         return deepcopy(self)
+
+
+@staticmethod
+def _concatenate_arrays(array_1, array_2):
+    """ Concatenates two arrays provided that they are not null."""
+    if array_2 is not None:
+        if array_1 is None:
+            raise ValueError(
+                f"The trajectory has no array to append the new frame.")
+        else:
+            return np.concatenate([array_1, array_2])
 

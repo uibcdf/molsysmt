@@ -13,8 +13,8 @@ def is_form(item):
 
         elif not ' ' in item:
 
-            from molsysmt.element.group.amino_acid import names as aminoacid_names
-            from molsysmt.element.group.terminal_capping import names as terminal_capping_names
+            from molsysmt.element.group.amino_acid import group_names as aminoacid_names
+            from molsysmt.element.group.terminal_capping import group_names as terminal_capping_names
 
             tmp_item = item.upper()
 

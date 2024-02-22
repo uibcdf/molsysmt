@@ -6,5 +6,5 @@ c_terminal_capping_names = [
         'NME'
         ]
 
-names = n_terminal_capping_names + c_terminal_capping_names
+group_names = n_terminal_capping_names + c_terminal_capping_names
 

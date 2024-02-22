@@ -25,12 +25,20 @@ def digest_item(item, form=None, caller=None):
         >>> digest_item(item=sequence, form="biopython.Seq")
 
     """
+
     from molsysmt.basic import get_form
     try:
         in_form = get_form(item)
         output = True
     except:
         output = False
+
+    if caller.startswith('molsysmt.form') and caller.endswith('append_structures'):
+
+        if item is None:
+            return None
+        elif output==True:
+            return item
 
     if output:
         if form is not None:
