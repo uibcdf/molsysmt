@@ -132,7 +132,7 @@ class Structures:
                 raise ValueError(
                     "The coordinates to be appended in the system "
                     "need to have the same number of atoms.")
-            self.coordinates = _concatenate_arrays(self.coordinates, coordinates)
+
             if is_all(structure_indices):
                 if is_all(atom_indices):
                     self.coordinates = np.concatenate([self.coordinates, coordinates])
@@ -166,7 +166,6 @@ class Structures:
                 raise ValueError(
                     "The velocities to be appended in the system "
                     "need to have the same number of atoms.")
-            self.velocities = _concatenate_arrays(self.velocities, velocities)
             if is_all(structure_indices):
                 if is_all(atom_indices):
                     self.velocities = np.concatenate([self.velocities, velocities])
@@ -426,7 +425,6 @@ class Structures:
                     skip_digestion=True
                    )
 
-
     @digest(form='molsysmt.Structures')
     def add(self, item, atom_indices='all', structure_indices='all', skip_digestion=False):
 
@@ -624,15 +622,4 @@ class Structures:
     def copy(self):
         """ Returns a copy of the structures."""
         return deepcopy(self)
-
-
-@staticmethod
-def _concatenate_arrays(array_1, array_2):
-    """ Concatenates two arrays provided that they are not null."""
-    if array_2 is not None:
-        if array_1 is None:
-            raise ValueError(
-                f"The trajectory has no array to append the new frame.")
-        else:
-            return np.concatenate([array_1, array_2])
 
