@@ -1,68 +1,74 @@
-import pickle
-import sys
-import gzip
 import numpy as np
-from molsysmt.element.group.amino_acid import group_names
 
-if sys.version_info[1]==10:
-    from importlib.resources import files
-    def path(package, file):
-        return files(package).joinpath(file)
-elif sys.version_info[1] in (8,9):
-    from pathlib import PurePath
-    parent = PurePath(__file__).parent
-    def path(package, file):
-        data_dir = package.split('.')[-1]
-        return parent.joinpath('../data/'+data_dir+'/'+file).__str__()
+def get_bonded_atom_pairs(group_name, atom_names, atom_indices=None):
 
-def get_bonded_atom_pairs(group_name, atom_indices=None, atom_names=None):
+    from molsysmt.element.group.amino_acid import group_names, get_group_db
 
     if group_name not in group_names:
         raise ValueError
     
-    with gzip.open(path('molsysmt.data.databases.amino_acids',group_name[0]+'.pkl.gz'), 'rb') as fff:
-        dbs = pickle.load(fff)
-
-    db = dbs[group_name]
-
-    if atom_names is None:
-        atom_names = db['atom_name']
     if atom_indices is None:
         atom_indices = np.arange(len(atom_names), dtype=int).tolist()
 
-    
-    is_in = -1
-    for ii,db_atom_names in enumerate(db['atom_name']):
-        if np.all(np.isin(atom_names, db_atom_names)):
-            is_in=ii
+    aux_group_names = [group_name]
 
-    if is_in!=-1:
+    if 'C'+group_name in group_names:
+        aux_group_names.append('C'+group_name)
 
-        atom_int_indices = []
-        _aux_dict = {}
-        bonds = []
-        unk_atom_indices = []
+    if 'N'+group_name in group_names:
+        aux_group_names.append('N'+group_name)
 
-        for jj, atom_name in enumerate(atom_names):
+    for aux_group_name in aux_group_names:
 
-            ii = db['atom_name'][is_in].index(atom_name)
-            atom_int_indices.append(ii)
-            _aux_dict[ii]=atom_indices[jj]
+        db = get_group_db(aux_group_name)
+        
+        is_in = -1
+        for ii,jj in enumerate(db['topology']):
+            if np.all(np.isin(atom_names, jj['atoms'])):
+                is_in=ii
+                break
 
-        for ii,jj in db['bonds']:
+        if is_in!=-1:
 
-            if ii in atom_int_indices:
-                if jj in atom_int_indices:
-                    iii = _aux_dict[ii]
-                    jjj = _aux_dict[jj]
-                    if iii<jjj:
-                        bonds.append([iii,jjj])
-                    else:
-                        bonds.append([jjj,iii])
+            bonds = []
+            for ii,jj in db['topology'][is_in]['bonds']:
+                if ii in atom_names:
+                    if jj in atom_names:
+                        iii = atom_indices[atom_names.index(ii)]
+                        jjj = atom_indices[atom_names.index(jj)]
+                        if iii<jjj:
+                            bonds.append([iii,jjj])
+                        else:
+                            bonds.append([jjj,iii])
 
-        return sorted(bonds), unk_atom_indices
+            return sorted(bonds)
 
-    else:
+    if group_name in ['HIS']:
+        for aux_group_name in group_names:
+            try:
 
-        return [], atom_indices
+                db = get_group_db(aux_group_name)
+                for ii,jj in enumerate(db['topology']):
+                    if len(atom_names)==len(jj['atoms']):
+                        if np.all(np.isin(atom_names, jj['atoms'])):
+                            if np.all(np.isin(jj['atoms'], atom_names)):
+ 
+                                bonds = []
+                                for aa,bb in jj['bonds']:
+                                    if aa in atom_names:
+                                        if bb in atom_names:
+                                            iii = atom_indices[atom_names.index(aa)]
+                                            jjj = atom_indices[atom_names.index(bb)]
+                                            if iii<jjj:
+                                                bonds.append([iii,jjj])
+                                            else:
+                                                bonds.append([jjj,iii])
+
+                                return sorted(bonds)
+
+            except:
+                pass
+
+
+    return None
 

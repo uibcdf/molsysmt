@@ -77,29 +77,30 @@ def get_missing_bonds(molecular_system, threshold='2 angstroms', selection='all'
                 for group_index, group_name, group_type, atom_indices, atom_names, atom_types in zip(*aux_output):
 
                     if group_type=='water':
+
                         aux_bonds = _bonds_in_water(atom_indices, atom_names, atom_types)
                         bonds_templates += aux_bonds
+
                     elif group_type=='ion':
+
                         aux_bonds = _bonds_in_ion(group_name, atom_indices, atom_names)
                         bonds_templates += aux_bonds
-                    elif group_type=='amino acid':
-                        aux_bonds, unk_atom_indices = _bonds_in_amino_acid(group_name, atom_indices, atom_names)
-                        bonds_templates += aux_bonds
-                        aux_peptidic_bonds['C'].append(atom_indices[atom_names.index('C')])
-                        aux_peptidic_bonds['N'].append(atom_indices[atom_names.index('N')])
 
-                        if len(unk_atom_indices):
-                            iii=[]
-                            for ii in unk_atom_indices:
-                                iii.append(atom_names[atom_indices.index(ii)])
-                            print('>>',group_name,unk_atom_indices,iii)
-                            print('')
-                        if len(unk_atom_indices):
+                    elif group_type=='amino acid':
+
+                        aux_bonds = _bonds_in_amino_acid(group_name, atom_names, atom_indices)
+
+                        if aux_bonds is None:
+
+                            print(f'Bonds by distances with {group_name}')
+                            print('>',atom_names)
+
                             aux_bonds_unk_atoms = []
-                            neighbors, _ = get_neighbors(molecular_system, selection=unk_atom_indices,
+
+                            neighbors, _ = get_neighbors(molecular_system, selection=atom_indices,
                                                          selection_2=atom_indices, structure_indices=structure_indices,
                                                          threshold=threshold, skip_digestion=True)
-                            for ii, nn in zip(unk_atom_indices, neighbors[0]):
+                            for ii, nn in zip(atom_indices, neighbors[0]):
                                 mm = atom_indices.index(ii)
                                 ii_type = atom_types[mm]
                                 if ii_type == 'H':
@@ -121,8 +122,13 @@ def get_missing_bonds(molecular_system, threshold='2 angstroms', selection='all'
                                             else:
                                                 aux_bonds_unk_atoms.append([jjj,iii])
                             bonds_distances += aux_bonds_unk_atoms
-                            print(aux_bonds_unk_atoms)
-                            print(' ')
+
+                        else:
+
+                            bonds_templates += aux_bonds
+
+                        aux_peptidic_bonds['C'].append(atom_indices[atom_names.index('C')])
+                        aux_peptidic_bonds['N'].append(atom_indices[atom_names.index('N')])
 
                     elif group_type=='small molecule':
                         raise NotImplementedError
