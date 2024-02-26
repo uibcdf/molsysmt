@@ -69,9 +69,6 @@ def _add_structures_to_h5msm(item, file, atom_indices='all', structure_indices='
     n_atoms = item.n_atoms
     n_structures = item.n_structures
 
-    structures_ds.attrs['n_atoms'] = item.n_atoms
-    structures_ds.attrs['n_structures'] = item.n_structures
-
     length_unit = puw.get_standard_units(dimensionality={'[L]':1})
     time_unit = puw.get_standard_units(dimensionality={'[T]':1})
     energy_unit = puw.get_standard_units(dimensionality={'[L]':2, '[M]':1, '[T]':-2,
@@ -129,6 +126,10 @@ def _add_structures_to_h5msm(item, file, atom_indices='all', structure_indices='
         else:
             aux = puw.get_value(item.temperature, to_unit=length_unit).astype(float_precision)
         structures_ds['temperature'][:] = aux
+
+    structures_ds.attrs['n_atoms'] = n_atoms
+    structures_ds.attrs['n_structures'] = n_structures
+    structures_ds.attrs['n_structures_written'] = n_structures
 
     if needs_to_be_closed:
         file.close()

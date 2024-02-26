@@ -27,8 +27,9 @@ except:
     n_terminal_capping_names = None
     print('The file molsysmt.data.databases.terminal_cappings.group_names_n_terminal.pkl.gz was not loaded.')
 
-group_names = set()
+group_names = []
 if n_terminal_capping_names is not None:
-    group_names = group_names | n_terminal_capping_names
+    group_names += n_terminal_capping_names
 if c_terminal_capping_names is not None:
-    group_names = group_names | c_terminal_capping_names
+    group_names += c_terminal_capping_names
+

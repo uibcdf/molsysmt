@@ -7,5 +7,5 @@ with open('group_names.dat', 'r') as fff:
         group_names.append(line.strip())
 
 with gzip.open('group_names.pkl.gz', 'wb', compresslevel=9) as fff:
-    pickle.dump(set(group_names), fff)
+    pickle.dump(group_names, fff)
 
