@@ -1,5 +1,6 @@
 from molsysmt._private.variables import is_all
 from molsysmt._private.digestion import digest
+import numpy as np
 
 class MolSys:
 
@@ -53,4 +54,41 @@ class MolSys:
         tmp_item.structures = self.structures.copy()
         tmp_item.molecular_mechanics = self.molecular_mechanics.copy()
         return tmp_item
+
+
+    def add_missing_bonds(self, threshold='2 angstroms', selection='all', structure_indices=0, syntax='MolSysMT',
+                          engine='MolSysMT', with_templates=True, with_distances=True, skip_digestion=False):
+
+        from molsysmt.build import get_missing_bonds as _get_missing_bonds
+
+        bonds = _get_missing_bonds(self, threshold=threshold, selection=selection, structure_indices=structure_indices,
+                                   syntax=syntax, engine='MolSysMT', with_templates=True, with_distances=False,
+                                   skip_digestion=True)
+
+        self.topology.bonds['atom1_index'] = np.array(bonds, dtype=int)[:,0]
+        self.topology.bonds['atom2_index'] = np.array(bonds, dtype=int)[:,1]
+
+    def rebuild_atoms(self, redefine_ids=True, redefine_types=True):
+
+        self.topology.rebuild_atoms(redefine_ids=redefine_ids, redefine_types=redefine_types)
+
+    def rebuild_groups(self, redefine_ids=True, redefine_types=True):
+
+        self.topology.rebuild_groups(redefine_ids=redefine_ids, redefine_types=redefine_types)
+
+    def rebuild_components(self, redefine_ids=True, redefine_types=True):
+
+        self.topology.rebuild_components(redefine_ids=redefine_ids, redefine_types=redefine_types)
+
+    def rebuild_molecules(self, redefine_ids=True, redefine_types=True):
+
+        self.topology.rebuild_molecules(redefine_ids=redefine_ids, redefine_types=redefine_types)
+
+    def rebuild_chains(self, redefine_ids=True, redefine_types=True):
+
+        self.topology.rebuild_chains(redefine_ids=redefine_ids, redefine_types=redefine_types)
+
+    def rebuild_entities(self, redefine_ids=True, redefine_types=True):
+
+        self.topology.rebuild_entities(redefine_ids=redefine_ids, redefine_types=redefine_types)
 

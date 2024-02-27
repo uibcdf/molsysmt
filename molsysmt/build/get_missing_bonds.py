@@ -8,7 +8,7 @@ from molsysmt.element.group.amino_acid import get_bonded_atom_pairs as _bonds_in
 @digest()
 def get_missing_bonds(molecular_system, threshold='2 angstroms', selection='all',
                       structure_indices=0, syntax='MolSysMT', engine='MolSysMT',
-                      with_templates=True, skip_digestion=False):
+                      with_templates=True, with_distances=True, skip_digestion=False):
     """
     To be written soon...
     """
@@ -146,22 +146,26 @@ def get_missing_bonds(molecular_system, threshold='2 angstroms', selection='all'
                         indices_with_distance += atom_indices
 
                 if len(aux_peptidic_bonds['C']) and len(aux_peptidic_bonds['N']):
-                    aux_bonds = []
-                    neighbors, _ = get_neighbors(molecular_system, selection=aux_peptidic_bonds['C'],
-                                                 selection_2=aux_peptidic_bonds['N'],
-                                                 structure_indices=structure_indices,
-                                                 threshold=threshold)
-                    for iii, nn in zip(aux_peptidic_bonds['C'], neighbors[0]):
-                        for jj in nn:
-                            jjj = aux_peptidic_bonds['N'][jj]
-                            if iii<jjj:
-                                aux_bonds.append([iii,jjj])
-                            else:
-                                aux_bonds.append([jjj,iii])
-                    bonds_distances += aux_bonds
+
+
+                    if with_distances:
+                        aux_bonds = []
+                        neighbors, _ = get_neighbors(molecular_system, selection=aux_peptidic_bonds['C'],
+                                                     selection_2=aux_peptidic_bonds['N'],
+                                                     structure_indices=structure_indices,
+                                                     threshold=threshold)
+                        for iii, nn in zip(aux_peptidic_bonds['C'], neighbors[0]):
+                            for jj in nn:
+                                jjj = aux_peptidic_bonds['N'][jj]
+                                if iii<jjj:
+                                    aux_bonds.append([iii,jjj])
+                                else:
+                                    aux_bonds.append([jjj,iii])
+                        bonds_distances += aux_bonds
                     
                 bonds += bonds_templates
-                bonds += bonds_distances
+                if with_distances:
+                    bonds += bonds_distances
 
             else:
 

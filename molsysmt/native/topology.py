@@ -307,6 +307,16 @@ class Topology():
 
         return tmp_item
 
+    def add_missing_bonds(self, selection='all', syntax='MolSysMT', skip_digestion=False):
+
+        from molsysmt.build import get_missing_bonds as _get_missing_bonds
+
+        bonds = _get_missing_bonds(self, selection=selection, syntax=syntax,
+                                   engine='MolSysMT', with_templates=True, with_distances=False,
+                                   skip_digestion=True)
+
+        self.bonds['atom1_index'] = np.array(bonds, dtype=int)[:,0]
+        self.bonds['atom2_index'] = np.array(bonds, dtype=int)[:,1]
 
     def rebuild_atoms(self, redefine_ids=True, redefine_types=True):
 
@@ -634,3 +644,4 @@ class Topology():
     def _sort_bonds(self):
 
         self.bonds._sort_bonds()
+
