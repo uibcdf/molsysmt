@@ -64,6 +64,10 @@ def get_missing_bonds(molecular_system, threshold='2 angstroms', selection='all'
                         aux_atom_names.append(atom.atom_name)
                         aux_atom_types.append(atom.atom_type)
 
+                    atom_indices.append(aux_atom_indices)
+                    atom_names.append(aux_atom_names)
+                    atom_types.append(aux_atom_types)
+
                     aux_output += [atom_indices, atom_names, atom_types]
 
                     del atom_indices, atom_names, atom_types, aux_atom_indices, aux_atom_names, aux_atom_types

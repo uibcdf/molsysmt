@@ -228,7 +228,7 @@ class Topology():
             del old_molecule_indices
 
             old_entity_indices = tmp_item.molecules['entity_index'].unique()
-            tmp_item.entities = self.molecules.iloc[old_entity_indices].copy()
+            tmp_item.entities = self.entities.iloc[old_entity_indices].copy()
             tmp_item.entities.reset_index(drop=True, inplace=True)
             del old_entity_indices
 
@@ -237,11 +237,11 @@ class Topology():
             tmp_item.chains.reset_index(drop=True, inplace=True)
             del old_chain_indices
 
-            tmp_item.atoms['group_index'] = occurrence_order(tmp_item.atoms['group_index'].to_numpy())
-            tmp_item.groups['component_index'] = occurrence_order(tmp_item.groups['component_index'].to_numpy())
-            tmp_item.components['molecule_index'] = occurrence_order(tmp_item.components['molecule_index'].to_numpy())
-            tmp_item.molecules['entity_index'] = occurrence_order(tmp_item.molecules['entity_index'].to_numpy())
-            tmp_item.atoms['chain_index'] = occurrence_order(tmp_item.atoms['chain_index'].to_numpy())
+            tmp_item.atoms['group_index'] = occurrence_order(tmp_item.atoms['group_index'].to_numpy(dtype=int))
+            tmp_item.groups['component_index'] = occurrence_order(tmp_item.groups['component_index'].to_numpy(dtype=int))
+            tmp_item.components['molecule_index'] = occurrence_order(tmp_item.components['molecule_index'].to_numpy(dtype=int))
+            tmp_item.molecules['entity_index'] = occurrence_order(tmp_item.molecules['entity_index'].to_numpy(dtype=int))
+            tmp_item.atoms['chain_index'] = occurrence_order(tmp_item.atoms['chain_index'].to_numpy(dtype=int))
 
             if self.bonds.shape[0]:
 

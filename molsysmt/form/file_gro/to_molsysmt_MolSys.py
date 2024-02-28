@@ -16,7 +16,7 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', get_mi
     
         atom_id_array = np.ndarray(shape=[n_atoms], dtype=int)
         atom_name_array = np.ndarray(shape=[n_atoms], dtype=object)
-        group_index_array = np.ndarray(shape=[n_atoms], dtype=object)
+        group_index_array = np.ndarray(shape=[n_atoms], dtype=int)
         group_id_array = []
         group_name_array = []
     
