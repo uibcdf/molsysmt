@@ -22,30 +22,32 @@ def to_openmm_Topology(item, box=None, atom_indices='all', skip_digestion=False)
     former_chain_index = -1
 
     list_new_atoms = []
+    list_new_residues = []
+    list_new_chains = []
+
+    for chain in item.chains.itertuples(index=True):
+        tmp_chain = tmp_item.addChain(id=str(chain.chain_id))
+        list_new_chains.append(tmp_chain)
+
+    group_chain_mapping = item.atoms.groupby('group_index')['chain_index'].agg('first').to_dict()
+
+    for group in item.groups.itertuples(index=True):
+        tmp_residue = tmp_item.addResidue(group.group_name, list_new_chains[group_chain_mapping[group.Index]],
+                                      id=str(group.group_id))
+        list_new_residues.append(tmp_residue)
 
     for atom in item.atoms.itertuples(index=True):
 
-        new_group = (former_group_index!=atom.group_index)
-        new_chain = (former_chain_index!=atom.chain_index)
-
-        if new_chain:
-            former_chain_index = atom.chain_index
-            chain_id = item.chains.iloc[atom.chain_index,0]
-            chain = tmp_item.addChain(id=str(chain_id))
-
-        if new_group:
-            former_group_index = atom.group_index
-            residue_id, residue_name = item.groups.iloc[atom.group_index,0:2]
-            residue = tmp_item.addResidue(residue_name, chain, id=str(residue_id))
-
         element = app.Element.getBySymbol(atom.atom_type)
-        new_atom = tmp_item.addAtom(atom.atom_name, element, residue)
-        new_atom.id = atom.atom_id
-        list_new_atoms.append(new_atom)
+        tmp_atom = tmp_item.addAtom(atom.atom_name, element, list_new_residues[atom.group_index])
+        tmp_atom.id = str(atom.atom_id)
+        list_new_atoms.append(tmp_atom)
 
     for bond in item.bonds.itertuples(index=False):
 
         tmp_item.addBond(list_new_atoms[bond.atom1_index], list_new_atoms[bond.atom2_index])
+
+    del list_new_atoms, list_new_residues, list_new_chains
 
     if box is not None:
 
