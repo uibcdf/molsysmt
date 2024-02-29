@@ -12,7 +12,6 @@ def to_nglview_NGLWidget(item, atom_indices='all', structure_indices='all', skip
     else:
         tmp_item = item
 
-
     tmp_item = show_molsysmt(tmp_item, skip_digestion=True)
 
     return tmp_item

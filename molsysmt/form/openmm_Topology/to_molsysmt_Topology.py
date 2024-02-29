@@ -119,23 +119,24 @@ def to_molsysmt_Topology(item, atom_indices='all', skip_digestion=False):
 
     # components
 
-    tmp_item.rebuild_components()
+    tmp_item.rebuild_components(redefine_indices=True, redefine_ids=True, redefine_names=True,
+                                redefine_types=True)
 
     # molecules
 
-    tmp_item.rebuild_molecules()
+    tmp_item.rebuild_molecules(redefine_indices=True, redefine_ids=True, redefine_names=True,
+                               redefine_types=True)
 
     # chain types
 
-    tmp_item.rebuild_chain_types()
+    tmp_item.rebuild_chains(redefine_ids=True, redefine_types=True)
 
     # entity
 
-    tmp_item.rebuild_entities()
+    tmp_item.rebuild_entities(redefine_indices=True, redefine_ids=True, redefine_names=True,
+                               redefine_types=True)
 
-    # nan to None
 
-    tmp_item._fix_null_values()
     tmp_item.bonds._sort_bonds()
 
     tmp_item = tmp_item.extract(atom_indices=atom_indices, copy_if_all=False, skip_digestion=True)
