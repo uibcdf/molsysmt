@@ -100,6 +100,7 @@ def to_string_pdb_text(item, atom_indices='all', structure_indices='all', skip_d
             f"{chain_id:>1}"
             f"{group_id:>4}"
             f"{' ':1}"
+            f"{' ':3}"
             f"{x:>8.3f}"
             f"{y:>8.3f}"
             f"{z:>8.3f}"

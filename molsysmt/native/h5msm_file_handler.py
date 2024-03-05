@@ -11,6 +11,7 @@ class H5MSMFileHandler():
             temperature_unit=None, charge_unit=None, mass_unit=None, closed=False, skip_digestion=False):
 
         self.file = None
+        self.format_version = None
 
         if io_mode=='w':
 

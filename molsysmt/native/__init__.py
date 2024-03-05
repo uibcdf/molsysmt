@@ -11,4 +11,6 @@ from .trajectory_file import TrajectoryFile
 from .simulation import Simulation
 from .h5msm_file_handler import H5MSMFileHandler
 from .cif_file_handler import CIFFileHandler
+from .pdb_file_handler import PDBFileHandler
+from .pdb_atomic_coordinate_entry import PDBAtomicCoordinateEntry
 
