@@ -30,15 +30,16 @@ def get_missing_bonds(molecular_system, threshold='2 angstroms', selection='all'
 
                 form = get_form(molecular_system)
 
-                if form=='molsysmt.Topology':
+                if form in ['molsysmt.MolSys', 'molsysmt.Topology']:
 
-                    raise ValueError('The molecular system needs to have coordinates')
+                    if form == 'molsysmt.MolSys':
+                        aux_item = molecular_system.topology
+                    else:
+                        aux_item = molecular_system
 
-                if form=='molsysmt.MolSys':
-
-                    aux_output = [np.arange(molecular_system.topology.groups.shape[0]).tolist(),
-                                  molecular_system.topology.groups.group_name.tolist(),
-                                  molecular_system.topology.groups.group_type.tolist()]
+                    aux_output = [np.arange(aux_item.groups.shape[0]).tolist(),
+                                  aux_item.groups.group_name.tolist(),
+                                  aux_item.groups.group_type.tolist()]
 
                     former_group_index = -1
 
@@ -50,7 +51,7 @@ def get_missing_bonds(molecular_system, threshold='2 angstroms', selection='all'
                     aux_atom_names = []
                     aux_atom_types = []
 
-                    for atom in molecular_system.topology.atoms.itertuples():
+                    for atom in aux_item.atoms.itertuples():
                         if former_group_index != atom.group_index:
                             if former_group_index != -1:
                                 atom_indices.append(aux_atom_indices)
@@ -94,10 +95,7 @@ def get_missing_bonds(molecular_system, threshold='2 angstroms', selection='all'
 
                         aux_bonds = _bonds_in_amino_acid(group_name, atom_names, atom_indices)
 
-                        if aux_bonds is None:
-
-                            print(f'Bonds by distances with {group_name}')
-                            print('>',atom_names)
+                        if aux_bonds is None and with_distances:
 
                             aux_bonds_unk_atoms = []
 

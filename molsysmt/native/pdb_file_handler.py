@@ -900,7 +900,7 @@ def parse_format33(file):
             cryst1.alpha = float(line[33:40])
             cryst1.beta = float(line[40:47])
             cryst1.gamma = float(line[47:54])
-            cryst1.gamma = line[55:66].strip()
+            cryst1.sGroup = line[55:66].strip()
 
             counter += 1
             line = lines[counter]
@@ -1183,6 +1183,7 @@ class PDBFileHandler():
 
             self.file = open(filename, "r")
             self.format_version = guess_format_version(self.file)
+            self.load()
 
         else:
 
@@ -1204,16 +1205,4 @@ class PDBFileHandler():
     def dump(self):
 
         pass
-
-    def get_atoms_with_alternate_locations(self):
-
-        output = {}
-
-        for model in self.entry.coordinate.model:
-            output[model.serial]=[]
-            for record in model.record:
-                if record.altLoc != ' ':
-                    output[model.serial].append(deepcopy(record))
-
-        return output
 

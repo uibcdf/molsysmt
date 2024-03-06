@@ -7,6 +7,7 @@ import numpy as np
 def to_molsysmt_Topology(item, atom_indices='all', get_missing_bonds=False, skip_digestion=False):
 
     from molsysmt.native import Topology
+    from molsysmt.build import get_missing_bonds as _get_missing_bonds
 
     tmp_item = Topology()
 
@@ -15,7 +16,8 @@ def to_molsysmt_Topology(item, atom_indices='all', get_missing_bonds=False, skip
     group_index_array = []
     group_id_array = []
     group_name_array = []
-    chain_id_array = []
+    chain_index_array = []
+    chain_name_array = []
 
     occupancy_array = []
     alternate_location_array = []
@@ -51,7 +53,7 @@ def to_molsysmt_Topology(item, atom_indices='all', get_missing_bonds=False, skip
             else:
                 chain_index += 1
                 aux_dict_chain[atom_record.chainId]=chain_index
-                chain_id_array.append(atom_record.chainId)
+                chain_name_array.append(atom_record.chainId)
 
         chain_index_array.append(chain_index)
 
@@ -94,7 +96,50 @@ def to_molsysmt_Topology(item, atom_indices='all', get_missing_bonds=False, skip
         chosen = same_atoms.pop(chosen)
         atoms_to_be_removed_with_alt_loc += same_atoms
     
+    atom_id_array = np.delete(atom_id_array, atoms_to_be_removed_with_alt_loc)
+    atom_name_array = np.delete(atom_name_array, atoms_to_be_removed_with_alt_loc)
+    group_index_array = np.delete(group_index_array, atoms_to_be_removed_with_alt_loc)
+    chain_index_array = np.delete(chain_index_array, atoms_to_be_removed_with_alt_loc)
 
+    n_atoms = atom_id_array.shape[0]
+    n_groups = group_name_array.shape[0]
+    n_chains = chain_name_array.shape[0]
+
+    tmp_item.reset_atoms(n_atoms=n_atoms)
+    tmp_item.reset_groups(n_groups=n_groups)
+    tmp_item.reset_chains(n_chains=n_chains)
+
+    tmp_item.atoms.atom_id = atom_id_array
+    tmp_item.atoms.atom_name = atom_name_array
+    tmp_item.atoms.group_index = group_index_array
+    tmp_item.atoms.chain_index = chain_index_array
+
+    tmp_item.rebuild_atoms(redefine_ids=False, redefine_types=True)
+
+    tmp_item.groups.group_id = group_id_array
+    tmp_item.groups.group_name = group_name_array
+
+    tmp_item.rebuild_groups(redefine_ids=False, redefine_types=True)
+
+    tmp_item.chains.chain_name = chain_name_array
+
+    tmp_item.rebuild_chains(redefine_ids=True, redefine_types=False )
+
+    if get_missing_bonds:
+
+        bonds = _get_missing_bonds(tmp_item, with_distances=False)
+        bonds = np.array(bonds)
+        tmp_item.reset_bonds(n_bonds=bonds.shape[0])
+        tmp_item.bonds.drop(['order', 'type'], axis=1, inplace=True)
+        tmp_item.bonds.atom1_index=bonds[:,0]
+        tmp_item.bonds.atom2_index=bonds[:,1]
+
+        tmp_item.rebuild_components()
+        tmp_item.rebuild_molecules()
+        tmp_item.rebuild_chains(redefine_ids=False, redefine_types=True)
+        tmp_item.rebuild_entities()
+
+    tmp_item = tmp_item.extract(atom_indices=atom_indices, copy_if_all=False, skip_digestion=True)
 
     return tmp_item
 

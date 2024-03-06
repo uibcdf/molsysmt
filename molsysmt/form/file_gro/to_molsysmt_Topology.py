@@ -5,6 +5,7 @@ import numpy as np
 def to_molsysmt_Topology(item, atom_indices='all', get_missing_bonds=False, skip_digestion=False):
 
     from molsysmt.native import Topology
+    from molsysmt.build import get_missing_bonds as _get_missing_bonds
 
     with open(item,'r') as fff:
         
