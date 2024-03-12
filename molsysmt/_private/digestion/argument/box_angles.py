@@ -36,5 +36,24 @@ def digest_box_angles(box_angles, caller=None):
         if not puw.check(box_angles, dimensionality={}):
             raise ArgumentError('box_angles', value=box_angles, caller=caller, message=None)
 
-        return puw.standardize(box_angles)
+        value, unit = puw.get_value_and_unit(box_angles)
+        
+        if not isinstance(value, np.ndarray):
+            value = np.array(value)
+        
+        shape = value.shape
+
+        if len(shape) == 1:
+            if shape[0] != 3:
+                raise ArgumentError('box_angles', caller=caller, message=None)
+            value = np.expand_dims(value, axis=0)
+        elif len(shape) == 2:
+            if shape[1] != 3:
+                raise ArgumentError('box_angles', value=box_angles, caller=caller, message=None)
+        else:
+            raise ArgumentError('box_angles', value=box_angles, caller=caller, message=None)
+
+        box_angles = puw.quantity(value, unit, standardized=True)
+
+        return box_angles
 

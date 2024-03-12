@@ -70,6 +70,8 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', get_mi
     occupancy_array = np.array(occupancy_array, dtype=float)
     alternate_location_array = np.array(alternate_location_array, dtype=str)
 
+    coordinates_array = np.array(coordinates_array, dtype=float)
+
     alt_atom_indices = np.where(alternate_location_array!=' ')[0]
     aux_dict = {}
 
@@ -132,9 +134,15 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', get_mi
     cryst1 = item.entry.crystallographic_and_coordinate_transformation.cryst1
     box_lengths = puw.quantity([[cryst1.a, cryst1.b, cryst1.c]], 'angstroms')
     box_angles = puw.quantity([[cryst1.alpha, cryst1.beta, cryst1.gamma]], 'degrees')
-    print(box_lengths, box_angles)
-    box = get_box_from_lengths_and_angles(box_lengths, box_angles)
-    print(box)
+    box = get_box_from_lengths_and_angles(box_lengths, box_angles, skip_digestion=True)
+
+    coordinates = puw.quantity(coordinates_array, 'angstroms')
+    tmp_item.structures.append(coordinates=coordinates, box=box)
+
+    del(coordinates_array, box, box_lengths, box_angles)
+    del(atom_id_array, atom_name_array, group_index_array, chain_index_array,
+        group_id_array, group_name_array, chain_name_array, occupancy_array,
+        alternate_location_array, alt_atom_indices, aux_dict)
 
     if get_missing_bonds:
 
@@ -144,6 +152,8 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', get_mi
         tmp_item.topology.bonds.drop(['order', 'type'], axis=1, inplace=True)
         tmp_item.topology.bonds.atom1_index=bonds[:,0]
         tmp_item.topology.bonds.atom2_index=bonds[:,1]
+
+        del(bonds)
 
         tmp_item.topology.rebuild_components()
         tmp_item.topology.rebuild_molecules()

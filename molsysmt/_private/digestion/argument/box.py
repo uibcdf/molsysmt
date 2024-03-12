@@ -67,8 +67,7 @@ def digest_box(box, caller=None):
         else:
             raise ArgumentError('box', value=box, caller=caller, message=None)
 
-        box = puw.quantity(box_value, box_unit)
-        box = puw.standardize(box)
+        box = puw.quantity(box_value, box_unit, standardized=True)
 
         return box
 
