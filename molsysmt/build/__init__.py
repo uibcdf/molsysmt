@@ -1,3 +1,4 @@
+from .add_bonds import add_bonds
 from .add_missing_hydrogens import add_missing_hydrogens
 from .add_missing_heavy_atoms import add_missing_heavy_atoms
 from .add_missing_terminal_cappings import add_missing_terminal_cappings

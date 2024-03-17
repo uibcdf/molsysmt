@@ -307,6 +307,18 @@ class Topology():
 
         return tmp_item
 
+    def add_bonds(self, bonded_atom_pairs, skip_digestion=False):
+
+        bonded_atom_pairs = np.array(bonded_atom_pairs)        
+        n_bonds = bonded_atom_pairs.shape[0]
+
+        aux_bonds_dataframe = Bonds_DataFrame(n_bonds=n_bonds)
+        aux_bonds_dataframe.atom1_index=bonded_atom_pairs[:,0]
+        aux_bonds_dataframe.atom2_index=bonded_atom_pairs[:,1]
+
+
+        df_concatenado = pd.concat([df_original, nuevas_filas], ignore_index=True)
+
     def add_missing_bonds(self, selection='all', syntax='MolSysMT', skip_digestion=False):
 
         from molsysmt.build import get_missing_bonds as _get_missing_bonds
