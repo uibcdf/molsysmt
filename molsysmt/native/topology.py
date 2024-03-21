@@ -142,6 +142,13 @@ class Bonds_DataFrame(pd.DataFrame):
         self.sort_values(by=['atom1_index', 'atom2_index'], inplace=True)
         self.reset_index(drop=True, inplace=True)
 
+    def _remove_empty_columns(self):
+
+        if (self['order']=='nan').all():
+            del self['order']
+
+        if (self['type']=='nan').all():
+            del self['type']
 
 class Topology():
 
@@ -316,8 +323,19 @@ class Topology():
         aux_bonds_dataframe.atom1_index=bonded_atom_pairs[:,0]
         aux_bonds_dataframe.atom2_index=bonded_atom_pairs[:,1]
 
+        df_concatenado = pd.concat([self.bonds, aux_bonds_dataframe], ignore_index=True)
 
-        df_concatenado = pd.concat([df_original, nuevas_filas], ignore_index=True)
+        self.bonds = Bonds_DataFrame(n_bonds=df_concatenado.shape[0])
+        self.bonds['atom1_index'] = df_concatenado['atom1_index']
+        self.bonds['atom2_index'] = df_concatenado['atom2_index']
+        self.bonds['order'] = df_concatenado['order']
+        self.bonds['type'] = df_concatenado['type']
+
+        self.bonds._sort_bonds()
+        self.bonds._remove_empty_columns()
+
+        del(df_concatenado, aux_bonds_dataframe)
+
 
     def add_missing_bonds(self, selection='all', syntax='MolSysMT', skip_digestion=False):
 
@@ -327,8 +345,7 @@ class Topology():
                                    engine='MolSysMT', with_templates=True, with_distances=False,
                                    skip_digestion=True)
 
-        self.bonds['atom1_index'] = np.array(bonds, dtype=int)[:,0]
-        self.bonds['atom2_index'] = np.array(bonds, dtype=int)[:,1]
+        self.add_bonds(bonds, skip_digestion=True)
 
     def rebuild_atoms(self, redefine_ids=True, redefine_types=True):
 
