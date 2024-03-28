@@ -26,6 +26,7 @@ from .to_molsysmt_MolecularMechanicsDict import to_molsysmt_MolecularMechanicsDi
 from .to_networkx_Graph import to_networkx_Graph
 from .to_nglview_NGLWidget import to_nglview_NGLWidget
 from .to_openmm_Topology import to_openmm_Topology
+from .to_pdbfixer_PDBFixer import to_pdbfixer_PDBFixer
 from .to_file_msmpk import to_file_msmpk
 from .to_file_h5msm import to_file_h5msm
 from .to_string_pdb_text import to_string_pdb_text
@@ -38,10 +39,11 @@ _convert_to={
         'molsysmt.MolecularMechanicsDict': to_molsysmt_MolecularMechanicsDict,
         'networkx.Graph': to_networkx_Graph,
         'nglview.NGLWidget': to_nglview_NGLWidget,
+        'openmm.Topology': to_openmm_Topology,
+        'pdbfixer.PDBFixer': to_pdbfixer_PDBFixer,
+        'string:pdb_text': to_string_pdb_text,
         'file:msmpk': to_file_msmpk,
         'file:h5msm': to_file_h5msm,
-        'openmm.Topology': to_openmm_Topology,
-        'string:pdb_text': to_string_pdb_text,
         }
 
 

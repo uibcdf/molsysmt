@@ -14,7 +14,7 @@ def to_molsysmt_Structures(item, atom_indices='all', structure_indices='all', sk
                                           skip_digestion=True)
     box = get_box_from_system(item, structure_indices=structure_indices, skip_digestion=True)
 
-    tmp_item.append_structures(coordinates=coordinates, velocities=velocities, box=box, skip_digestion=True)
+    tmp_item.append(coordinates=coordinates, velocities=velocities, box=box, skip_digestion=True)
 
     return tmp_item
 

@@ -19,6 +19,7 @@ from .iterators import StructuresIterator, TopologyIterator
 from .to_file_pdb import to_file_pdb
 from .to_file_mmtf import to_file_mmtf
 from .to_file_msmpk import to_file_msmpk
+from .to_file_h5msm import to_file_h5msm
 from .to_file_fasta import to_file_fasta
 from .to_mmtf_MMTFDecoder import to_mmtf_MMTFDecoder
 from .to_molsysmt_MolSys import to_molsysmt_MolSys
@@ -41,6 +42,7 @@ _convert_to={
         'file:pdb': to_file_pdb,
         'file:mmtf': to_file_mmtf,
         'file:msmpk': to_file_msmpk,
+        'file:h5msm': to_file_h5msm,
         'file:fasta': to_file_fasta,
         'mmtf.MMTFDecoder': to_mmtf_MMTFDecoder,
         'molsysmt.MolSys': to_molsysmt_MolSys,
