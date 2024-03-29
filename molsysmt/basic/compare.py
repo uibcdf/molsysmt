@@ -638,29 +638,53 @@ def compare(molecular_system, molecular_system_2, selection='all', structure_ind
                     dict_B = get(molecular_system_2, element='bond', selection=selection_2,
                             syntax=syntax, output_type='dictionary', **args)
 
-                    atoms_pairs_A = dict_A['bonded_atoms']
-                    atoms_pairs_B = dict_B['bonded_atoms']
-                    order_in_A = np.lexsort((atoms_pairs_A[:, 1], atoms_pairs_A[:, 0]))
-                    order_in_B = np.lexsort((atoms_pairs_B[:, 1], atoms_pairs_B[:, 0]))
+                    atoms_pairs_A = np.array(dict_A['bonded_atoms'])
+                    atoms_pairs_B = np.array(dict_B['bonded_atoms'])
+                    order_in_A = np.lexsort((atoms_pairs_A[:, 1], atoms_pairs_A[:, 0])).tolist()
+                    order_in_B = np.lexsort((atoms_pairs_B[:, 1], atoms_pairs_B[:, 0])).tolist()
 
                     if 'n_bonds' in atts:
                         output_dict['n_bonds']= (n_bonds_A==n_bonds_B)
 
                     if 'bond_index' in atts:
-
-                        output_dict['bond_index']= np.array_equal(dict_A['bond_index'][order_in_A], dict_B['bond_index'][order_in_B])
+                        tmp_A = [dict_A['bond_index'][ii] for ii in order_in_A]
+                        tmp_B = [dict_B['bond_index'][ii] for ii in order_in_B]
+                        output_dict['bond_index']= np.array_equal(tmp_A, tmp_B)
+                        del tmp_A, tmp_B
 
                     if 'bond_id' in atts:
-                        output_dict['bond_id']= np.array_equal(dict_A['bond_id'][order_in_A], dict_B['bond_id'][order_in_B])
+                        tmp_A = [dict_A['bond_id'][ii] for ii in order_in_A]
+                        tmp_B = [dict_B['bond_id'][ii] for ii in order_in_B]
+                        output_dict['bond_id']= np.array_equal(tmp_A, tmp_B)
+                        del tmp_A, tmp_B
 
                     if 'bond_order' in atts:
-                        output_dict['bond_order']= np.array_equal(dict_A['bond_order'][order_in_A], dict_B['bond_order'][order_in_B])
+                        if (dict_A['bond_order'] is not None) and (dict_B['bond_order'] is not None):
+                            tmp_A = [dict_A['bond_order'][ii] for ii in order_in_A]
+                            tmp_B = [dict_B['bond_order'][ii] for ii in order_in_B]
+                            output_dict['bond_order']= np.array_equal(tmp_A, tmp_B)
+                            del tmp_A, tmp_B
+                        elif (dict_A['bond_order'] is None) and (dict_B['bond_order'] is None):
+                            output_dict['bond_order'] = True
+                        else:
+                            output_dict['bond_order'] = False
 
                     if 'bond_type' in atts:
-                        output_dict['bond_type']= np.array_equal(dict_A['bond_type'][order_in_A], dict_B['bond_type'][order_in_B])
+                        if (dict_A['bond_type'] is not None) and (dict_B['bond_type'] is not None):
+                            tmp_A = [dict_A['bond_type'][ii] for ii in order_in_A]
+                            tmp_B = [dict_B['bond_type'][ii] for ii in order_in_B]
+                            output_dict['bond_type']= np.array_equal(tmp_A, tmp_B)
+                            del tmp_A, tmp_B
+                        elif (dict_A['bond_type'] is None) and (dict_B['bond_type'] is None):
+                            output_dict['bond_type'] = True
+                        else:
+                            output_dict['bond_type'] = False
 
                     if 'bonded_atoms' in atts:
-                        output_dict['bonded_atoms']= np.array_equal(dict_A['bonded_atoms'][order_in_A], dict_B['bonded_atoms'][order_in_B])
+                        tmp_A = [dict_A['bonded_atoms'][ii] for ii in order_in_A]
+                        tmp_B = [dict_B['bonded_atoms'][ii] for ii in order_in_B]
+                        output_dict['bonded_atoms']= np.array_equal(tmp_A, tmp_B)
+                        del tmp_A, tmp_B
 
                     del(dict_A, dict_B)
 

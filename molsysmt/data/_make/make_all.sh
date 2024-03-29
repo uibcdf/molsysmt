@@ -15,3 +15,8 @@ echo "DONE"
 echo -n "valine_dipeptide.py   "
 python valine_dipeptide.py
 echo "DONE"
+
+echo -n "t4_lysozyme_L99A.py   "
+python t4_lysozyme_L99A.py
+echo "DONE"
+

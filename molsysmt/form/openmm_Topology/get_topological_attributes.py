@@ -21,7 +21,6 @@ def get_atom_id_from_atom(item, indices='all', skip_digestion=False):
     tmp_indices = get_atom_index_from_atom(item, indices=indices)
     atom=list(item.atoms())
     output=[atom[ii].id for ii in tmp_indices]
-    output=np.array(output, dtype=int)
     del(atom)
 
     return output
@@ -32,7 +31,6 @@ def get_atom_name_from_atom(item, indices='all', skip_digestion=False):
     tmp_indices = get_atom_index_from_atom(item, indices=indices)
     atom=list(item.atoms())
     output=[atom[ii].name for ii in tmp_indices]
-    output=np.array(output)
     del(atom)
 
     return output
@@ -43,7 +41,6 @@ def get_atom_type_from_atom(item, indices='all', skip_digestion=False):
     tmp_indices = get_atom_index_from_atom(item, indices=indices)
     atom=list(item.atoms())
     output=[atom[ii].element.symbol for ii in tmp_indices]
-    output=np.array(output)
     del(atom)
 
     return output
@@ -54,7 +51,6 @@ def get_group_index_from_atom(item, indices='all', skip_digestion=False):
     tmp_indices = get_atom_index_from_atom(item, indices=indices)
     atom=list(item.atoms())
     output = [atom[ii].residue.index for ii in tmp_indices]
-    output=np.array(output)
     del(atom)
 
     return output
@@ -92,7 +88,6 @@ def get_chain_index_from_atom(item, indices='all', skip_digestion=False):
     atom=list(item.atoms())
     output = [atom[ii].residue.chain.index for ii in tmp_indices]
     del(atom)
-    output = np.array(output)
 
     return output
 
@@ -109,7 +104,6 @@ def get_group_id_from_group(item, indices='all', skip_digestion=False):
     group=list(item.residues())
     output = [group[ii].id for ii in indices]
     del(group)
-    output = np.array(output, dtype=int)
 
     return output
 
@@ -123,7 +117,6 @@ def get_group_name_from_group(item, indices='all', skip_digestion=False):
     group=list(item.residues())
     output = [group[ii].name for ii in indices]
     del(group)
-    output = np.array(output, dtype=object)
 
     return output
 
@@ -139,7 +132,6 @@ def get_group_type_from_group(item, indices='all', skip_digestion=False):
     group=list(item.residues())
     output = [_get_group_type_from_group_name(group[ii].name) for ii in indices]
     del(group)
-    output = np.array(output, dtype=object)
 
     return output
 
@@ -204,7 +196,6 @@ def get_chain_id_from_chain(item, indices='all', skip_digestion=False):
     chain=list(item.chains())
     output = [chain[ii].id for ii in indices]
     del(chain)
-    output = np.array(output)
 
     return output
 
@@ -216,7 +207,6 @@ def get_chain_name_from_chain(item, indices='all', skip_digestion=False):
         indices = range(n_indices)
 
     output = [None for ii in indices]
-    output = np.array(output)
     return output
 
 @digest(form=form)
@@ -227,7 +217,6 @@ def get_chain_type_from_chain(item, indices='all', skip_digestion=False):
         indices = range(n_indices)
 
     output = [None for ii in indices]
-    output = np.array(output)
     return output
 
 
@@ -349,7 +338,6 @@ def get_bond_order_from_bond(item, indices='all', skip_digestion=False):
     tmp_indices = get_bond_index_from_bond(item, indices=indices)
     bond = list(item.bonds())
     output=[bond[ii].order for ii in tmp_indices]
-    output=np.array(output)
     del(bond)
 
     return output
@@ -360,7 +348,6 @@ def get_bond_type_from_bond(item, indices='all', skip_digestion=False):
     tmp_indices = get_bond_index_from_bond(item, indices=indices)
     bond = list(item.bonds())
     output=[bond[ii].type for ii in tmp_indices]
-    output=np.array(output)
     del(bond)
 
     return output
@@ -374,7 +361,7 @@ def get_bonded_atoms_from_bond(item, indices='all', skip_digestion=False):
 
     bond = list(item.bonds())
     output=[[bond[ii].atom1.index, bond[ii].atom2.index] for ii in indices]
-    output=np.sort(np.array(output))
+    output=np.sort(np.array(output)).tolist()
     del(bond)
 
     return output

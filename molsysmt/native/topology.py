@@ -409,6 +409,7 @@ class Topology():
 
             g = to_networkx_Graph(self, skip_digestion=True)
             components = list(nx.connected_components(g))
+
             aux_n_components = len(components)
             component_index_of_atoms = np.empty((g.number_of_nodes()), dtype=int)
             for component_index, component in enumerate(components):
@@ -484,7 +485,7 @@ class Topology():
                         component_name = small_molecules[group_name]
                     else:
                         if group_name in small_molecule_names:
-                            component_name = small_molecule_names[group_name]
+                            component_name = group_name
                         else:
                             component_name = group_name
                         small_molecules[component_name] = component_name

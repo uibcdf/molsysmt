@@ -1,20 +1,20 @@
 from molsysmt._private.digestion import digest
 
 @digest()
-def add_missing_terminal_cappings(molecular_system, N_terminal=None, C_terminal=None, pH=7.4, selection='all',
-                         syntax='MolSysMT', engine='PDBFixer'):
+def add_missing_terminal_cappings(molecular_system, N_terminal=None, C_terminal=None, pH=7.4, 
+                                  keep_ids=False, selection='all', syntax='MolSysMT', engine='PDBFixer'):
     """
     To be written soon...
     """
 
-    from molsysmt.basic import get_form, convert, get, select
+    from molsysmt.basic import get_form
 
     output_molecular_system = None
     form_in = get_form(molecular_system)
-    form_out = form_in
 
     if engine == 'PDBFixer':
 
+        from molsysmt.basic import convert, get, select, has_attribute, set
         from pdbfixer.pdbfixer import Sequence
 
         temp_molecular_system = convert(molecular_system, to_form='pdbfixer.PDBFixer')
@@ -22,26 +22,24 @@ def add_missing_terminal_cappings(molecular_system, N_terminal=None, C_terminal=
         atom_indices_in_components = get(temp_molecular_system, element='component', selection='component_type in ["peptide", "protein"] \
                                          and atom_index in @atom_indices_in_selection', atom_index=True)
 
+        temp_molecular_system.findMissingResidues()
+
         for atom_indices_in_component in atom_indices_in_components:
 
-            chain_id = get(temp_molecular_system, element='chain', selection='atom_index in @atom_indices_in_component',
-                           chain_id=True)
-            groups_sequence = get(temp_molecular_system, element='group',
-                                  selection='atom_index in @atom_indices_in_component', group_name=True)
+            chain_index = get(temp_molecular_system, element='chain', selection='atom_index in @atom_indices_in_component',
+                           chain_index=True)[0]
 
-            groups_sequence = list(groups_sequence)
+            n_groups = get(temp_molecular_system, element='group',
+                           selection='atom_index in @atom_indices_in_component', n_groups=True)
 
             if N_terminal is not None:
 
-                groups_sequence = [N_terminal]+groups_sequence
+                temp_molecular_system.missingResidues[(chain_index,0)]=[N_terminal]
 
             if C_terminal is not None:
 
-                groups_sequence = groups_sequence+[C_terminal]
+                temp_molecular_system.missingResidues[(chain_index,n_groups)]=[C_terminal]
 
-            temp_molecular_system.sequences.append(Sequence(chain_id, groups_sequence))
-
-        temp_molecular_system.findMissingResidues()
         temp_molecular_system.findMissingAtoms()
         temp_molecular_system.addMissingAtoms()
 
@@ -51,13 +49,27 @@ def add_missing_terminal_cappings(molecular_system, N_terminal=None, C_terminal=
 
             temp_molecular_system.addMissingHydrogens(pH)
 
-        output_molecular_system = temp_molecular_system
+        output_molecular_system = convert(temp_molecular_system, to_form=form_in)
+
+        if has_attribute(molecular_system, 'component_name'):
+            component_names = get(molecular_system, element='component', component_name=True)
+            set(output_molecular_system, element='component', component_name=component_names)
+
+        if has_attribute(molecular_system, 'molecule_name'):
+            molecule_names = get(molecular_system, element='molecule', molecule_name=True)
+            set(output_molecular_system, element='molecule', molecule_name=molecule_names)
+
+        if has_attribute(molecular_system, 'entity_name'):
+            entity_names = get(molecular_system, element='entity', entity_name=True)
+            set(output_molecular_system, element='entity', entity_name=entity_names)
+
+        if keep_ids:
+            raise NotImplementedError
+
+        return output_molecular_system
 
     else:
 
         raise NotImplementedError
 
-    output_molecular_system = convert(output_molecular_system, to_form=form_out)
-
-    return output_molecular_system
 

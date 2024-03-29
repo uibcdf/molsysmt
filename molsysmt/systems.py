@@ -62,14 +62,14 @@ systems['lysine dipeptide']['lysine_dipeptide.h5msm'] = path('molsysmt.data.h5ms
 
 # T4 Lysozyme L99A
 
-#systems['T4 lysozyme L99A'] = {}
-#systems['T4 lysozyme L99A']['181l.pdb'] = path('molsysmt.data.pdb', '181l.pdb')
-#systems['T4 lysozyme L99A']['181l.mmtf'] = path('molsysmt.data.mmtf', '181l.mmtf')
-#systems['T4 lysozyme L99A']['181l.msmpk'] = path('molsysmt.data.msmpk', '181l.msmpk')
-#systems['T4 lysozyme L99A']['1l17.pdb'] = path('molsysmt.data.pdb', '1l17.pdb')
-#systems['T4 lysozyme L99A']['1l17.mmtf'] = path('molsysmt.data.mmtf', '1l17.mmtf')
-#systems['T4 lysozyme L99A']['1l17.msmpk'] = path('molsysmt.data.msmpk', '1l17.msmpk')
-#systems['T4 lysozyme L99A']['t4_lysozyme_L99A.msmpk'] = path('molsysmt.data.msmpk', 't4_lysozyme_L99A.msmpk')
+systems['T4 lysozyme L99A'] = {}
+systems['T4 lysozyme L99A']['181l.pdb'] = path('molsysmt.data.pdb', '181l.pdb')
+systems['T4 lysozyme L99A']['181l.mmtf'] = path('molsysmt.data.mmtf', '181l.mmtf')
+systems['T4 lysozyme L99A']['181l.h5msm'] = path('molsysmt.data.h5msm', '181l.h5msm')
+systems['T4 lysozyme L99A']['1l17.pdb'] = path('molsysmt.data.pdb', '1l17.pdb')
+systems['T4 lysozyme L99A']['1l17.mmtf'] = path('molsysmt.data.mmtf', '1l17.mmtf')
+systems['T4 lysozyme L99A']['1l17.h5msm'] = path('molsysmt.data.h5msm', '1l17.h5msm')
+systems['T4 lysozyme L99A']['t4_lysozyme_L99A.h5msm'] = path('molsysmt.data.h5msm', 't4_lysozyme_L99A.h5msm')
 
 
 # Pentalanine

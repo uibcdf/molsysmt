@@ -17,6 +17,9 @@ from .set import *
 from .iterators import StructuresIterator, TopologyIterator
 
 from .to_file_pdb import to_file_pdb
+from .to_molsysmt_MolSys import to_molsysmt_MolSys
+from .to_molsysmt_Topology import to_molsysmt_Topology
+from .to_molsysmt_Structures import to_molsysmt_Structures
 from .to_molsysmt_MolSysOld import to_molsysmt_MolSysOld
 from .to_molsysmt_TopologyOld import to_molsysmt_TopologyOld
 from .to_molsysmt_StructuresOld import to_molsysmt_StructuresOld
@@ -31,6 +34,9 @@ from .to_nglview_NGLWidget import to_nglview_NGLWidget
 _convert_to={
         'openmm.Modeller': extract,
         'file:pdb': to_file_pdb,
+        'molsysmt.MolSys': to_molsysmt_MolSys,
+        'molsysmt.Topology': to_molsysmt_Topology,
+        'molsysmt.Structures': to_molsysmt_Structures,
         'molsysmt.MolSysOld': to_molsysmt_MolSysOld,
         'molsysmt.TopologyOld': to_molsysmt_TopologyOld,
         'molsysmt.StructuresOld': to_molsysmt_StructuresOld,

@@ -23,7 +23,7 @@ for filename in files_to_be_purged:
         os.remove(filepath)
 
 # 181l pdb, mmtf, h5msm files
-print('Protein Data Bank files...')
+#print('Protein Data Bank files...')
 msm.convert('pdb_id:181l', to_form='181l.pdb')
 msm.convert('pdb_id:181l', to_form='181l.mmtf')
 msm.convert('pdb_id:181l', to_form='181l.h5msm')
@@ -40,7 +40,7 @@ shutil.move('1l17.mmtf', Path(data_dir, 'mmtf/1l17.mmtf'))
 shutil.move('1l17.h5msm', Path(data_dir, 'h5msm/1l17.h5msm'))
 
 # vacuum
-print('Vacuum system in h5msm file...')
+#print('Vacuum system in h5msm file...')
 molsys = msm.convert('pdb_id:181l', to_form='molsysmt.MolSys')
 molsys = msm.basic.remove(molsys, selection='group_type in ["ion", "water"]')
 molsys = msm.basic.remove(molsys, selection='atom_type=="H"')

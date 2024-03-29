@@ -117,6 +117,8 @@ def to_molsysmt_Topology(item, atom_indices='all', skip_digestion=False):
     if tmp_item.bonds["type"].isnull().all():
         tmp_item.bonds.drop("type", axis=1, inplace=True)
 
+    tmp_item.bonds._sort_bonds()
+
     # components
 
     tmp_item.rebuild_components(redefine_indices=True, redefine_ids=True, redefine_names=True,
@@ -135,9 +137,6 @@ def to_molsysmt_Topology(item, atom_indices='all', skip_digestion=False):
 
     tmp_item.rebuild_entities(redefine_indices=True, redefine_ids=True, redefine_names=True,
                                redefine_types=True)
-
-
-    tmp_item.bonds._sort_bonds()
 
     tmp_item = tmp_item.extract(atom_indices=atom_indices, copy_if_all=False, skip_digestion=True)
 

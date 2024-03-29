@@ -1883,10 +1883,16 @@ def get_bond_index_from_bond(item, indices='all', skip_digestion=False):
 @digest(form=form)
 def get_bond_order_from_bond(item, indices='all', skip_digestion=False):
 
-    if is_all(indices):
-        output = item.bonds['order'].to_list()
+    if 'order' in item.bonds:
+
+        if is_all(indices):
+            output = item.bonds['order'].to_list()
+        else:
+            output = item.bonds['order'][indices].to_list()
+
     else:
-        output = item.bonds['order'][indices].to_list()
+
+        output = None
 
     return output
 
@@ -1894,10 +1900,16 @@ def get_bond_order_from_bond(item, indices='all', skip_digestion=False):
 @digest(form=form)
 def get_bond_type_from_bond(item, indices='all', skip_digestion=False):
 
-    if is_all(indices):
-        output = item.bonds['order'].to_list()
+    if 'type' in item.bonds:
+
+        if is_all(indices):
+            output = item.bonds['type'].to_list()
+        else:
+            output = item.bonds['type'][indices].to_list()
+
     else:
-        output = item.bonds['order'][indices].to_list()
+
+        output = None
 
     return output
 
