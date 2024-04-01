@@ -568,7 +568,7 @@ class Topology():
 
             from molsysmt.element.chain import get_chain_type
 
-            chain_type = get_chain_type(self, element='chain', redefine_types=True, redefine_molecules=False,
+            chain_type = get_chain_type(self, element='chain', redefine_types=True, redefine_molecule_indices=False,
                                        redefine_molecule_types=False)
             self.chains["chain_type"] = np.array(chain_type, dtype=object)
             del chain_type

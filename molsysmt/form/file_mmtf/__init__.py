@@ -21,6 +21,9 @@ from .to_mdtraj import load_mmtf, MMTFTrajectoryFile
 from .to_file_pdb import to_file_pdb
 from .to_MDAnalysis_Universe import to_MDAnalysis_Universe
 from .to_mmtf_MMTFDecoder import to_mmtf_MMTFDecoder
+from .to_molsysmt_MolSys import to_molsysmt_MolSys
+from .to_molsysmt_Structures import to_molsysmt_Structures
+from .to_molsysmt_Topology import to_molsysmt_Topology
 from .to_molsysmt_MolSysOld import to_molsysmt_MolSysOld
 from .to_molsysmt_StructuresOld import to_molsysmt_StructuresOld
 from .to_molsysmt_TopologyOld import to_molsysmt_TopologyOld
@@ -33,6 +36,9 @@ _convert_to={
         'file:mmtf': extract,
         'file:pdb': to_file_pdb,
         'mmtf.MMTFDecoder': to_mmtf_MMTFDecoder,
+        'molsysmt.MolSys': to_molsysmt_MolSys,
+        'molsysmt.Structures': to_molsysmt_Structures,
+        'molsysmt.Topology': to_molsysmt_Topology,
         'molsysmt.MolSysOld': to_molsysmt_MolSysOld,
         'molsysmt.StructuresOld': to_molsysmt_StructuresOld,
         'molsysmt.TopologyOld': to_molsysmt_TopologyOld,

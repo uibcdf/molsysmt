@@ -15,30 +15,31 @@ def get_component_type(molecular_system, element='atom', selection='all', redefi
 
         if redefine_indices:
 
-            atom_indices = select(molecular_system, element=element, selection=selection,
+            atom_indices = select(molecular_system, element='atom', selection=selection,
                                   syntax=syntax, skip_digestion=True)
 
-            if element!='atom':
-                aux_atom_indices = []
-                for aux in atom_indices:
-                    aux_atom_indices += aux
-                atom_indices = aux_atom_indices
+            #if element!='atom':
+            #    aux_atom_indices = []
+            #    for aux in atom_indices:
+            #        aux_atom_indices += aux
+            #    atom_indices = aux_atom_indices
 
             component_indices = get_component_index(molecular_system, element='atom',
                                                     selection='all', redefine_indices=True,
                                                     skip_digestion=True)
 
             unique_component_indices, first_atoms, n_atoms = np.unique(component_indices, return_index=True,
-                                                                      return_count=True)
+                                                                      return_counts=True)
 
             component_types={}
 
             for component_index, first_atom, aux_n_atoms in zip(unique_component_indices, first_atoms, n_atoms):
 
-                atom_indices_component = list(arange(aux_n_atoms))+first_atom
+                atom_indices_component = list(np.arange(aux_n_atoms))+first_atom
                 aux_group_names, aux_group_types = get(molecular_system, element='group',
-                                                       selection='atom_indices in @atom_indices_component',
-                                                       syntax='molsysmt.MolSys', skip_digestion=True)
+                                                       selection='atom_index in @atom_indices_component',
+                                                       group_name=True, group_type=True,
+                                                       syntax='MolSysMT', skip_digestion=True)
 
                 component_type = _get_component_type_from_group_names_and_types(aux_group_names, aux_group_types)
 
@@ -46,7 +47,7 @@ def get_component_type(molecular_system, element='atom', selection='all', redefi
 
             if element == 'atom':
 
-                output = [component_type[component_indices[ii]] for ii in atom_indices]
+                output = [component_types[component_indices[ii]] for ii in atom_indices]
 
             elif element == 'group':
 

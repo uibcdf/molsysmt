@@ -20,7 +20,7 @@ def get_atom_id_from_atom(item, indices='all', skip_digestion=False):
 
     tmp_indices = get_atom_index_from_atom(item, indices=indices)
     atom=list(item.atoms())
-    output=[atom[ii].id for ii in tmp_indices]
+    output=[int(atom[ii].id) for ii in tmp_indices]
     del(atom)
 
     return output
@@ -102,7 +102,7 @@ def get_group_id_from_group(item, indices='all', skip_digestion=False):
         indices = range(n_indices)
 
     group=list(item.residues())
-    output = [group[ii].id for ii in indices]
+    output = [int(group[ii].id) for ii in indices]
     del(group)
 
     return output
@@ -157,7 +157,7 @@ def get_component_type_from_component(item, indices='all', skip_digestion=False)
 
     from molsysmt.element.component import get_component_type as _get
 
-    return _get(item, element='component', selection=indices, redefine_components=True)
+    return _get(item, element='component', selection=indices, redefine_indices=True)
 
 
 ## From molecule
@@ -167,21 +167,21 @@ def get_molecule_id_from_molecule(item, indices='all', skip_digestion=False):
 
     from molsysmt.element.molecule import get_molecule_id as _get
 
-    return _get(item, element='molecule', selection=indices, redefine_molecules=True)
+    return _get(item, element='molecule', selection=indices, redefine_indices=True)
 
 @digest(form=form)
 def get_molecule_name_from_molecule(item, indices='all', skip_digestion=False):
 
     from molsysmt.element.molecule import get_molecule_name as _get
 
-    return _get(item, element='molecule', selection=indices, redefine_molecules=True)
+    return _get(item, element='molecule', selection=indices, redefine_indices=True)
 
 @digest(form=form)
 def get_molecule_type_from_molecule(item, indices='all', skip_digestion=False):
 
     from molsysmt.element.molecule import get_molecule_type as _get
 
-    return _get(item, element='molecule', selection=indices, redefine_molecules=True)
+    return _get(item, element='molecule', selection=indices, redefine_indices=True)
 
 
 ## From chain

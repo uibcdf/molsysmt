@@ -4,12 +4,12 @@ import numpy as np
 
 @digest()
 def get_chain_type(molecular_system, element='atom', selection='all',
-        redefine_types=False, redefine_molecules=False, redefine_molecule_types=False, syntax='MolSysMT'):
+        redefine_types=False, redefine_molecule_indices=False, redefine_molecule_types=False, syntax='MolSysMT'):
 
     from ..molecule import get_molecule_type, get_n_molecules
     from molsysmt.basic import get
 
-    if redefine_molecules:
+    if redefine_molecule_indices:
 
         redefine_molecule_types = True
         redefine_types = True
@@ -17,10 +17,10 @@ def get_chain_type(molecular_system, element='atom', selection='all',
     if redefine_types:
 
         molecule_types_from_chain = get_molecule_type(molecular_system, element='chain', selection=selection,
-                                                      redefine_molecules=redefine_molecules,
+                                                      redefine_indices=redefine_molecule_indices,
                                                       redefine_types=redefine_molecule_types)
 
-        n_molecules = get_n_molecules(molecular_system, redefine_molecules=redefine_molecules)
+        n_molecules = get_n_molecules(molecular_system, redefine_molecules=redefine_molecule_indices)
 
         chain_types_from_chain = []
 

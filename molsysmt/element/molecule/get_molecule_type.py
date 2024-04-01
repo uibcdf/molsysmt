@@ -3,16 +3,16 @@ import numpy as np
 
 @digest()
 def get_molecule_type(molecular_system, element='atom', selection='all',
-        redefine_molecules=False, redefine_types=False, syntax='MolSysMT'):
+        redefine_indices=False, redefine_types=False, syntax='MolSysMT'):
 
     from ..component import get_component_type
     from molsysmt.basic import get
 
-    if redefine_molecules:
+    if redefine_indices:
 
 
         molecule_types_from_molecule = get_component_type(molecular_system, element='component', selection=selection,
-                redefine_components=True, syntax=syntax)
+                redefine_indices=True, syntax=syntax)
 
         if element == 'atom':
             aux = get(molecular_system, element='atom', selection=selection, syntax=syntax,
