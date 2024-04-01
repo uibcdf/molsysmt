@@ -45,11 +45,11 @@ class H5MSMFileHandler():
 
         try:
             topology_form = get_form(topology)
-            _dict_modules[topology_form].write_topology_in_h5msm(topology, file=self.file,
+            _dict_modules[topology_form].dump_topology_to_h5msm(topology, file=self.file,
                     atom_indices=atom_indices)
         except:
             aux_topology = convert(topology, to_form='molsysmt.Topology', selection=atom_indices)
-            _dict_modules['molsysmt.Topology'].write_topology_in_h5msm(aux_topology, file=self.file,
+            _dict_modules['molsysmt.Topology'].dump_topology_to_h5msm(aux_topology, file=self.file,
                     atom_indices=atom_indices)
             del(aux_topology)
 

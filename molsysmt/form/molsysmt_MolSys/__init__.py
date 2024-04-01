@@ -25,6 +25,7 @@ from .to_molsysmt_MolecularMechanics import to_molsysmt_MolecularMechanics
 from .to_molsysmt_MolecularMechanicsDict import to_molsysmt_MolecularMechanicsDict
 from .to_networkx_Graph import to_networkx_Graph
 from .to_nglview_NGLWidget import to_nglview_NGLWidget
+from .to_openmm_Context import to_openmm_Context
 from .to_openmm_Topology import to_openmm_Topology
 from .to_openmm_Modeller import to_openmm_Modeller
 from .to_pdbfixer_PDBFixer import to_pdbfixer_PDBFixer
@@ -40,6 +41,7 @@ _convert_to={
         'molsysmt.MolecularMechanicsDict': to_molsysmt_MolecularMechanicsDict,
         'networkx.Graph': to_networkx_Graph,
         'nglview.NGLWidget': to_nglview_NGLWidget,
+        'openmm.Context': to_openmm_Context,
         'openmm.Topology': to_openmm_Topology,
         'openmm.Modeller': to_openmm_Modeller,
         'pdbfixer.PDBFixer': to_pdbfixer_PDBFixer,

@@ -157,7 +157,7 @@ switcher['LEaP'] = {
 }
 
 
-def forcefield_to_engine(forcefield, implicit_solvent=None, water_model=None, engine='OpenMM'):
+def forcefield_to_engine(forcefield, implicit_solvent=None, water_model=None, engine='OpenMM', skip_digestion=False):
 
     forcefield_out = None
 

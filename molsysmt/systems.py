@@ -51,13 +51,13 @@ systems['lysine dipeptide']['lysine_dipeptide.h5msm'] = path('molsysmt.data.h5ms
 
 # Villin HP35
 
-#systems['chicken villin HP35'] = {}
-#systems['chicken villin HP35']['1vii.pdb'] = path('molsysmt.data.pdb', '1vii.pdb')
-#systems['chicken villin HP35']['1vii.mmtf'] = path('molsysmt.data.mmtf', '1vii.mmtf')
-#systems['chicken villin HP35']['chicken_villin_HP35.msmpk'] = path('molsysmt.data.msmpk', 'chicken_villin_HP35.msmpk')
-#systems['chicken villin HP35']['chicken_villin_HP35_solvated.msmpk'] = path('molsysmt.data.msmpk', 'chicken_villin_HP35_solvated.msmpk')
-#systems['chicken villin HP35']['traj_chicken_villin_HP35_solvated.dcd'] = path('molsysmt.data.dcd', 'traj_chicken_villin_HP35_solvated.dcd')
-#systems['chicken villin HP35']['traj_chicken_villin_HP35_solvated.h5'] = path('molsysmt.data.h5', 'traj_chicken_villin_HP35_solvated.h5')
+systems['chicken villin HP35'] = {}
+systems['chicken villin HP35']['1vii.pdb'] = path('molsysmt.data.pdb', '1vii.pdb')
+systems['chicken villin HP35']['1vii.mmtf'] = path('molsysmt.data.mmtf', '1vii.mmtf')
+systems['chicken villin HP35']['chicken_villin_HP35.h5msm'] = path('molsysmt.data.h5msm', 'chicken_villin_HP35.h5msm')
+systems['chicken villin HP35']['chicken_villin_HP35_solvated.h5msm'] = path('molsysmt.data.h5msm', 'chicken_villin_HP35_solvated.h5msm')
+systems['chicken villin HP35']['traj_chicken_villin_HP35_solvated.dcd'] = path('molsysmt.data.dcd', 'traj_chicken_villin_HP35_solvated.dcd')
+systems['chicken villin HP35']['traj_chicken_villin_HP35_solvated.h5'] = path('molsysmt.data.h5', 'traj_chicken_villin_HP35_solvated.h5')
 
 
 # T4 Lysozyme L99A

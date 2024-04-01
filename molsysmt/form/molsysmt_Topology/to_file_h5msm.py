@@ -18,7 +18,7 @@ def to_file_h5msm(item, atom_indices='all', coordinates=None, output_filename=No
 
     return output_filename
 
-def _add_topology_to_h5msm(item, file, atom_indices='all'):
+def dump_topology_to_h5msm(item, file, atom_indices='all'):
 
     from h5py._hl.files import File as h5py_File
     from molsysmt.native import H5MSMFileHandler
