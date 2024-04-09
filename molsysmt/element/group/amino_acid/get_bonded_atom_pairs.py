@@ -1,6 +1,8 @@
 import numpy as np
 
-def get_bonded_atom_pairs(group_name, atom_names, atom_indices=None):
+_sorted=sorted
+
+def get_bonded_atom_pairs(group_name, atom_names, atom_indices=None, sorted=True):
 
     from molsysmt.element.group.amino_acid import group_names, get_group_db
 
@@ -40,8 +42,10 @@ def get_bonded_atom_pairs(group_name, atom_names, atom_indices=None):
                             bonds.append([iii,jjj])
                         else:
                             bonds.append([jjj,iii])
-
-            return sorted(bonds)
+            if sorted:
+                return _sorted(bonds)
+            else:
+                return bonds
 
     if group_name in ['HIS']:
         for aux_group_name in group_names:
@@ -63,8 +67,10 @@ def get_bonded_atom_pairs(group_name, atom_names, atom_indices=None):
                                                 bonds.append([iii,jjj])
                                             else:
                                                 bonds.append([jjj,iii])
-
-                                return sorted(bonds)
+                                if sorted:
+                                    return _sorted(bonds)
+                                else:
+                                    return bonds
 
             except:
                 pass

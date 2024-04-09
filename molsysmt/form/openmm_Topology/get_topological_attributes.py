@@ -123,14 +123,14 @@ def get_group_name_from_group(item, indices='all', skip_digestion=False):
 @digest(form=form)
 def get_group_type_from_group(item, indices='all', skip_digestion=False):
 
-    from molsysmt.element.group.get_group_type import _get_group_type_from_group_name
+    from molsysmt.element.group import get_group_type_from_group_name
 
     if is_all(indices):
         n_indices = get_n_groups_from_system(item)
         indices = range(n_indices)
 
     group=list(item.residues())
-    output = [_get_group_type_from_group_name(group[ii].name) for ii in indices]
+    output = [get_group_type_from_group_name(group[ii].name) for ii in indices]
     del(group)
 
     return output

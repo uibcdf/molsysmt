@@ -24,7 +24,7 @@ def get_group_type(molecular_system, element='atom', selection='all', redefine_t
             unique_group_names = np.unique(group_names_from_atom)
             aux_dict = {}
             for name in unique_group_names:
-                aux_dict[name] = _get_group_type_from_group_name(name)
+                aux_dict[name] = get_group_type_from_group_name(name)
 
             output = [aux_dict[ii] for ii in group_names_from_atom]
 
@@ -56,7 +56,7 @@ def get_group_type(molecular_system, element='atom', selection='all', redefine_t
     return output
 
 
-def _get_group_type_from_group_name(group_name):
+def get_group_type_from_group_name(group_name):
 
     output = None
 

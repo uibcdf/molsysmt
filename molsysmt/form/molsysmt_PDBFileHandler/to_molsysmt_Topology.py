@@ -4,7 +4,7 @@ import pandas as pd
 import numpy as np
 
 @digest(form='molsysmt.PDBFileHandler')
-def to_molsysmt_Topology(item, atom_indices='all', get_missing_bonds=False, skip_digestion=False):
+def to_molsysmt_Topology(item, atom_indices='all', get_missing_bonds=True, skip_digestion=False):
 
     from molsysmt.native import Topology
     from molsysmt.build import get_missing_bonds as _get_missing_bonds
@@ -127,7 +127,7 @@ def to_molsysmt_Topology(item, atom_indices='all', get_missing_bonds=False, skip
 
     if get_missing_bonds:
 
-        bonds = _get_missing_bonds(tmp_item, with_distances=False)
+        bonds = _get_missing_bonds(tmp_item, with_distances=True)
         bonds = np.array(bonds)
         tmp_item.reset_bonds(n_bonds=bonds.shape[0])
         tmp_item.bonds.drop(['order', 'type'], axis=1, inplace=True)

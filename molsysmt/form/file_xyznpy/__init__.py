@@ -2,6 +2,10 @@ form_name = 'file:xyznpy'
 form_type = 'file'
 form_info = ["XYZ file format like saved with Numpy", ""]
 
+piped_topological_attribute = None
+piped_structural_attribute = None
+piped_any_attribute = None
+
 from .is_form import is_form
 
 from .attributes import attributes

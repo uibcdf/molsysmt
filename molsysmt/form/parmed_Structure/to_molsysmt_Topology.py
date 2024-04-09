@@ -1,7 +1,7 @@
 from molsysmt._private.digestion import digest
 import numpy as np
-from molsysmt.element.group.get_group_type import _get_group_type_from_group_name
-from molsysmt.element.atom.get_atom_type import _get_atom_type_from_atom_name
+from molsysmt.element.group import get_group_type_from_group_name
+from molsysmt.element.atom import get_atom_type_from_atom_name
 
 @digest(form='parmed.Structure')
 def to_molsysmt_Topology(item, atom_indices='all', skip_digestion=False):
@@ -37,14 +37,14 @@ def to_molsysmt_Topology(item, atom_indices='all', skip_digestion=False):
 
         tmp_item.atoms.iloc[atom_index,0] = atom.idx
         tmp_item.atoms.iloc[atom_index,1] = atom.name
-        tmp_item.atoms.iloc[atom_index,2] = _get_atom_type_from_atom_name(atom.name)
+        tmp_item.atoms.iloc[atom_index,2] = get_atom_type_from_atom_name(atom.name)
         tmp_item.atoms.iloc[atom_index,3] = group_index
         tmp_item.atoms.iloc[atom_index,4] = chain_index
 
         if former_group_index!=group_index:
             tmp_item.groups.iloc[group_index,0] = atom.residue.idx
             tmp_item.groups.iloc[group_index,1] = atom.residue.name
-            tmp_item.groups.iloc[group_index,2] = _get_group_type_from_group_name(atom.residue.name)
+            tmp_item.groups.iloc[group_index,2] = get_group_type_from_group_name(atom.residue.name)
             former_group_index+=1
 
         atom_index+=1

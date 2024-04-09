@@ -676,7 +676,7 @@ class PDBAtomicCoordinateEntry():
         self.heterogen = HeterogenSection()
         self.secondary_structure = SecondaryStructureSection()
         self.connectivity_annotation = ConnectivityAnnotationSection()
-        self.miscellaneour_features = MiscellaneousFeaturesSection()
+        self.miscellaneous_features = MiscellaneousFeaturesSection()
         self.crystallographic_and_coordinate_transformation = CrystallographicAndCoordinateTransformationSection()
         self.coordinate = CoordinateSection()
         self.connectivity = ConnectivitySection()

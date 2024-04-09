@@ -2,6 +2,10 @@ form_name = 'openmm.CharmmPsfFile'
 form_type = 'class'
 form_info = ["", ""]
 
+piped_topological_attribute = None
+piped_structural_attribute = None
+piped_any_attribute = None
+
 from .is_form import is_form
 
 from .attributes import attributes
@@ -17,10 +21,12 @@ from .set import *
 from .iterators import StructuresIterator, TopologyIterator
 
 from .to_openmm_Topology import to_openmm_Topology
+from .to_molsysmt_Topology import to_molsysmt_Topology
 from .to_molsysmt_TopologyOld import to_molsysmt_TopologyOld
 
 _convert_to={
         'openmm.CharmmPsfFile': extract,
         'openmm.Topology': to_openmm_Topology,
+        'molsysmt.Topology': to_molsysmt_Topology,
         'molsysmt.TopologyOld': to_molsysmt_TopologyOld,
         }

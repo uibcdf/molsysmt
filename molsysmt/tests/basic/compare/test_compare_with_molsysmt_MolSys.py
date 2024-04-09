@@ -22,5 +22,61 @@ def test_compare_all_eq_2():
 def test_compare_all_eq_3():
     molsys_A = msm.convert(systems['T4 lysozyme L99A']['181l.mmtf'], to_form='openmm.Modeller')
     molsys_B = msm.convert(molsys_A, to_form='molsysmt.MolSys')
-    output = msm.compare(molsys_A, molsys_B)
+    comparison = msm.compare(molsys_A, molsys_B, output_type='dictionary')
+
+    output = True
+
+    if comparison['atom_index']!=True:
+        output = False
+    if comparison['atom_name']!=True:
+        output = False
+    if comparison['atom_id']!=True:
+        output = False
+    if comparison['atom_type']!=True:
+        output = False
+
+    if comparison['group_index']!=True:
+        output = False
+    if comparison['group_name']!=True:
+        output = False
+    if comparison['group_id']!=True:
+        output = False
+    if comparison['group_type']!=True:
+        output = False
+
+    if comparison['component_index']!=True:
+        output = False
+    if comparison['component_type']!=True:
+        output = False
+
+    if comparison['chain_index']!=True:
+        output = False
+    if comparison['chain_name']!=False:
+        output = False
+    if comparison['chain_id']!=False:
+        output = False
+    if comparison['chain_type']!=False:
+        output = False
+
+    if comparison['molecule_index']!=True:
+        output = False
+    if comparison['molecule_type']!=True:
+        output = False
+
+    if comparison['bonded_atoms']!=True:
+        output = False
+
+    if comparison['n_atoms']!=True:
+        output = False
+    if comparison['n_groups']!=True:
+        output = False
+    if comparison['n_components']!=True:
+        output = False
+    if comparison['n_chains']!=True:
+        output = False
+    if comparison['n_molecules']!=True:
+        output = False
+    if comparison['n_bonds']!=True:
+        output = False
+
     assert output == True

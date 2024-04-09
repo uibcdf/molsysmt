@@ -82,8 +82,8 @@ systems['T4 lysozyme L99A']['t4_lysozyme_L99A.h5msm'] = path('molsysmt.data.h5ms
 
 # Particles_4
 
-#systems['particles 4'] = {}
-#systems['particles 4']['traj_particles_4.xyznpy'] = path('molsysmt.data.xyznpy', 'traj_particles_4.xyznpy')
+systems['particles 4'] = {}
+systems['particles 4']['traj_particles_4.xyznpy'] = path('molsysmt.data.xyznpy', 'traj_particles_4.xyznpy')
 
 
 # Benzamidine
@@ -155,7 +155,7 @@ systems['POPC membrane']['popc_membrane.msmpk'] = path('molsysmt.data.msmpk', 'p
 
 ### caffeine
 
-#systems['caffeine'] = {}
-#systems['caffeine']['caffeine.mol2'] = path('molsysmt.data.mol2', 'caffeine.mol2')
+systems['caffeine'] = {}
+systems['caffeine']['caffeine.mol2'] = path('molsysmt.data.mol2', 'caffeine.mol2')
 
 

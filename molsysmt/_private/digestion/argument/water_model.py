@@ -1,7 +1,7 @@
 from molsysmt._private.exceptions import ArgumentError
-from molsysmt.attribute import attributes
 
 def digest_water_model(water_model, caller=None):
+
 
     if caller=='molsysmt.basic.get.get':
         if isinstance(water_model, bool):
@@ -14,6 +14,7 @@ def digest_water_model(water_model, caller=None):
             return water_model
 
     if isinstance(water_model, str):
+        from molsysmt.attribute import attributes
         if water_model in attributes['water_model']['values']:
             return water_model
 

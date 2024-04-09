@@ -3,6 +3,10 @@ form_type = 'file'
 form_info = ["Gromacs gro file format",
              "http://manual.gromacs.org/documentation/2018/user-guide/file-formats.html#gro"]
 
+piped_topological_attribute = None
+piped_structural_attribute = None
+piped_any_attribute = None
+
 from .is_form import is_form
 
 from .attributes import attributes

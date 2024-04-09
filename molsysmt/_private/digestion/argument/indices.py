@@ -28,12 +28,15 @@ def digest_indices(indices, caller=None):
     elif is_all(indices):
         return 'all'
     elif isinstance(indices, (int, np.int64, np.int32)):
-        return np.array([indices], dtype='int64')
-    elif isinstance(indices, (np.ndarray, list, tuple, range)):
-        if is_iterable_of_iterables(indices):
-            return np.array(indices, dtype=object)
-        else:
-            return np.array(indices, dtype='int64')
+        return [indices]
+    elif isinstance(indices, range):
+        return list(indices)
+    elif isinstance(indices, tuple):
+        return list(indices)
+    elif isinstance(indices, np.ndarray):
+        return indices.tolist()
+    elif isinstance(indices, list):
+        return indices
 
     raise ArgumentError('indices', value=indices, caller=caller, message=None)
 

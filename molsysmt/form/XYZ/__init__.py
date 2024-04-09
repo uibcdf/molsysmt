@@ -2,6 +2,10 @@ form_name = 'XYZ'
 form_type = 'class'
 form_info = ["", ""]
 
+piped_topological_attribute = None
+piped_structural_attribute = None
+piped_any_attribute = None
+
 from .is_form import is_form
 from .get_rank_3_XYZ import get_rank_3_XYZ
 

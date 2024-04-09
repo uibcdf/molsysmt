@@ -1,5 +1,4 @@
 from molsysmt._private.exceptions import ArgumentError
-from molsysmt.attribute import attributes
 
 def digest_forcefield(forcefield, caller=None):
 
@@ -8,6 +7,7 @@ def digest_forcefield(forcefield, caller=None):
             return forcefield
 
     if isinstance(forcefield, str):
+        from molsysmt.attribute import attributes
         if forcefield in attributes['forcefield']['values']:
             return forcefield
 

@@ -1,7 +1,7 @@
 from molsysmt._private.digestion import digest
 from molsysmt import pyunitwizard as puw
-from molsysmt.element.atom.get_atom_type import _get_atom_type_from_atom_name
-from molsysmt.element.group.get_group_type import _get_group_type_from_group_name
+from molsysmt.element.atom import get_atom_type_from_atom_name
+from molsysmt.element.group import get_group_type_from_group_name
 import numpy as np
 
 @digest(form='file:crd')
@@ -73,10 +73,10 @@ def to_molsysmt_Topology(item, atom_indices='all', structure_indices='all', skip
         raise ValueError
 
     for ii in atom_name:
-        atom_type.append(_get_atom_type_from_atom_name(ii))
+        atom_type.append(get_atom_type_from_atom_name(ii))
 
     for ii in group_name:
-        group_type.append(_get_group_type_from_group_name(ii))
+        group_type.append(get_group_type_from_group_name(ii))
 
     n_groups = len(group_name)
     n_chains = len(chain_name)

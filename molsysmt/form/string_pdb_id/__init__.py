@@ -2,6 +2,10 @@ form_name = 'string:pdb_id'
 form_type = 'string'
 form_info = ["", ""]
 
+piped_topological_attribute = None
+piped_structural_attribute = None
+piped_any_attribute = None
+
 from .is_form import is_form
 
 from .attributes import attributes

@@ -2,6 +2,10 @@ form_name = 'file:pdb'
 form_type = 'file'
 form_info = ["Protein Data Bank file format", "https://www.rcsb.org/pdb/static.do?p=file_formats/pdb/index.html"]
 
+piped_topological_attribute = None
+piped_structural_attribute = None
+piped_any_attribute = None
+
 from .is_form import is_form
 
 from .attributes import attributes

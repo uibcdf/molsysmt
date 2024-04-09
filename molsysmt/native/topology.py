@@ -355,7 +355,7 @@ class Topology():
 
         if redefine_types:
 
-            from molsysmt.element.atom.get_atom_type import _get_atom_type_from_atom_name
+            from molsysmt.element.atom import get_atom_type_from_atom_name
 
             aux_dict = {}
 
@@ -363,7 +363,7 @@ class Topology():
 
             for atom_name in self.atoms['atom_name'].values:
                 if atom_name not in aux_dict:
-                    atom_type=_get_atom_type_from_atom_name(atom_name)
+                    atom_type=get_atom_type_from_atom_name(atom_name)
                     aux_dict[atom_name]=atom_type
                     atom_types.append(atom_type)
                 else:
@@ -381,7 +381,7 @@ class Topology():
 
         if redefine_types:
 
-            from molsysmt.element.group.get_group_type import _get_group_type_from_group_name
+            from molsysmt.element.group import get_group_type_from_group_name
 
             aux_dict = {}
 
@@ -389,7 +389,7 @@ class Topology():
 
             for group_name in self.groups['group_name'].values:
                 if group_name not in aux_dict:
-                    group_type = _get_group_type_from_group_name(group_name)
+                    group_type = get_group_type_from_group_name(group_name)
                     aux_dict[group_name]= group_type
                     group_types.append(group_type)
                 else:

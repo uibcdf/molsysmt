@@ -402,6 +402,11 @@ class Structures:
                 self._append_kinetic_energy(kinetic_energy, structure_indices=structure_indices, 
                                             skip_digestion=True)
 
+        if n_structures is None:
+            n_structures = 0
+        if n_atoms is None:
+            n_atoms = 0
+
         if self.n_structures==0 and self.n_atoms==0:
             self.n_structures = n_structures
             self.n_atoms = n_atoms

@@ -1,7 +1,7 @@
 from molsysmt._private.digestion import digest
 from molsysmt import pyunitwizard as puw
 from molsysmt.element.atom import get_atom_type_from_atom_name
-from molsysmt.element.group.get_group_type import _get_group_type_from_group_name
+from molsysmt.element.group import get_group_type_from_group_name
 import numpy as np
 
 @digest(form='file:crd')
@@ -67,7 +67,7 @@ def to_molsysmt_TopologyOld(item, atom_indices='all', structure_indices='all', s
         group_index.append(counter)
 
     for ii in group_name:
-        group_type.append(_get_group_type_from_group_name(ii))
+        group_type.append(get_group_type_from_group_name(ii))
 
     counter = 0
     prev = chain_id[0]

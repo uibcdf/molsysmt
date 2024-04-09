@@ -3,12 +3,13 @@ from molsysmt._private.exceptions import NotImplementedMethodError
 from molsysmt._private.variables import is_all
 import numpy as np
 import warnings
-from molsysmt.element.group.amino_acid import get_bonded_atom_pairs as _bonds_in_amino_acid
+
+_sorted=sorted
 
 @digest()
 def get_missing_bonds(molecular_system, threshold='2 angstroms', selection='all',
                       structure_indices=0, syntax='MolSysMT', engine='MolSysMT',
-                      with_templates=True, with_distances=True, skip_digestion=False):
+                      with_templates=True, with_distances=True, sorted=True, skip_digestion=False):
     """
     To be written soon...
     """
@@ -17,6 +18,10 @@ def get_missing_bonds(molecular_system, threshold='2 angstroms', selection='all'
 
         from molsysmt.basic import get, select, get_form
         from molsysmt.structure import get_neighbors
+        from molsysmt.element.group.amino_acid import get_bonded_atom_pairs as _bonds_in_amino_acid
+        from molsysmt.element.group.terminal_capping import get_bonded_atom_pairs as _bonds_in_terminal_capping
+        from molsysmt.element.group.terminal_capping import is_n_terminal_capping, is_c_terminal_capping
+        from molsysmt.element.group.small_molecule import get_bonded_atom_pairs as _bonds_in_small_molecule
 
         if is_all(selection):
 
@@ -83,89 +88,67 @@ def get_missing_bonds(molecular_system, threshold='2 angstroms', selection='all'
 
                     if group_type=='water':
 
-                        aux_bonds = _bonds_in_water(atom_indices, atom_names, atom_types)
+                        aux_bonds = _bonds_in_water(atom_indices, atom_names, atom_types, sorted=False)
                         bonds_templates += aux_bonds
 
                     elif group_type=='ion':
 
-                        aux_bonds = _bonds_in_ion(group_name, atom_indices, atom_names)
+                        aux_bonds = _bonds_in_ion(group_name, atom_indices, atom_names, sorted=False)
                         bonds_templates += aux_bonds
 
                     elif group_type=='amino acid':
 
-                        aux_bonds = _bonds_in_amino_acid(group_name, atom_names, atom_indices)
+                        aux_bonds = _bonds_in_amino_acid(group_name, atom_names, atom_indices, sorted=False)
+                        bonds_templates += aux_bonds
 
-                        if aux_bonds is None and with_distances:
+                        aux_peptidic_bonds['C'].append([atom_indices[atom_names.index('C')], group_index])
+                        aux_peptidic_bonds['N'].append([atom_indices[atom_names.index('N')], group_index])
 
-                            aux_bonds_unk_atoms = []
+                    elif group_type=='terminal capping':
 
-                            neighbors, _ = get_neighbors(molecular_system, selection=atom_indices,
-                                                         selection_2=atom_indices, structure_indices=structure_indices,
-                                                         threshold=threshold, skip_digestion=True)
-                            for ii, nn in zip(atom_indices, neighbors[0]):
-                                mm = atom_indices.index(ii)
-                                ii_type = atom_types[mm]
-                                if ii_type == 'H':
-                                    for jj in nn:
-                                        if ii!=atom_indices[jj] and atom_types[jj]!='H':
-                                            iii = ii
-                                            jjj = atom_indices[jj]
-                                            if iii<jjj:
-                                                aux_bonds_unk_atoms.append([iii,jjj])
-                                            else:
-                                                aux_bonds_unk_atoms.append([jjj,iii])
-                                else:
-                                    for jj in nn:
-                                        if ii!=atom_indices[jj]:
-                                            iii = ii
-                                            jjj = atom_indices[jj]
-                                            if iii<jjj:
-                                                aux_bonds_unk_atoms.append([iii,jjj])
-                                            else:
-                                                aux_bonds_unk_atoms.append([jjj,iii])
-                            bonds_distances += aux_bonds_unk_atoms
+                        aux_bonds = _bonds_in_terminal_capping(group_name, atom_names, atom_indices, sorted=False)
+                        bonds_templates += aux_bonds
 
+                        if is_c_terminal_capping(group_name):
+                            aux_peptidic_bonds['C'].append([atom_indices[atom_names.index('C')], group_index])
                         else:
-
-                            bonds_templates += aux_bonds
-
-                        aux_peptidic_bonds['C'].append(atom_indices[atom_names.index('C')])
-                        aux_peptidic_bonds['N'].append(atom_indices[atom_names.index('N')])
+                            aux_peptidic_bonds['N'].append([atom_indices[atom_names.index('N')], group_index])
 
                     elif group_type=='small molecule':
-                        raise NotImplementedError
-                    elif group_type=='terminal capping':
-                        raise NotImplementedError
+
+                        aux_bonds = _bonds_in_small_molecule(group_name, atom_names, atom_indices, sorted=False)
+                        bonds_templates += aux_bonds
+
                     elif group_type=='saccharide':
+
                         raise NotImplementedError
+
                     elif group_type=='oligosaccharide':
+
                         raise NotImplementedError
+
                     elif group_type=='lipid':
+
                         raise NotImplementedError
+
                     elif group_type=='nucleotide':
+
                         raise NotImplementedError
+
                     else:
+
                         indices_with_distance += atom_indices
 
-                if len(aux_peptidic_bonds['C']) and len(aux_peptidic_bonds['N']):
+                # peptidic bonds
 
+                for aux_1, aux_2 in zip(aux_peptidic_bonds['C'], aux_peptidic_bonds['N']):
+                    if (aux_1[1]+1)==(aux_2[1]):
+                        bonds_templates += [[aux_1[0], aux_2[0]]]
+                    else:
+                        raise ValueError
 
-                    if with_distances:
-                        aux_bonds = []
-                        neighbors, _ = get_neighbors(molecular_system, selection=aux_peptidic_bonds['C'],
-                                                     selection_2=aux_peptidic_bonds['N'],
-                                                     structure_indices=structure_indices,
-                                                     threshold=threshold)
-                        for iii, nn in zip(aux_peptidic_bonds['C'], neighbors[0]):
-                            for jj in nn:
-                                jjj = aux_peptidic_bonds['N'][jj]
-                                if iii<jjj:
-                                    aux_bonds.append([iii,jjj])
-                                else:
-                                    aux_bonds.append([jjj,iii])
-                        bonds_distances += aux_bonds
-                    
                 bonds += bonds_templates
+
                 if with_distances:
                     bonds += bonds_distances
 
@@ -187,8 +170,10 @@ def get_missing_bonds(molecular_system, threshold='2 angstroms', selection='all'
             #                bonds_with_distance.append([atom_i, atom_j])
 
 
-
-            output = sorted(bonds)
+            if sorted:
+                output = _sorted(bonds)
+            else:
+                output = bonds
 
         else:
 
@@ -245,7 +230,7 @@ def get_missing_bonds(molecular_system, threshold='2 angstroms', selection='all'
 
     return output
 
-def _bonds_in_water(atom_indices, atom_names, atom_type):
+def _bonds_in_water(atom_indices, atom_names, atom_type, sorted=True):
 
     if len(atom_indices)>=3:
 
@@ -258,13 +243,16 @@ def _bonds_in_water(atom_indices, atom_names, atom_type):
             else:
                 Hs.append(ii)
 
-        return  [[O,Hs[0]], [O,Hs[1]]]
+        if sorted:
+            return  sorted([[O,Hs[0]], [O,Hs[1]]])
+        else:
+            return  [[O,Hs[0]], [O,Hs[1]]]
 
     else:
 
         return []
 
-def _bonds_in_ion(group_name, atom_indices, atom_names):
+def _bonds_in_ion(group_name, atom_indices, atom_names, sorted=True):
 
     n_atoms=len(atom_indices)
 
@@ -279,4 +267,35 @@ def _bonds_in_ion(group_name, atom_indices, atom_names):
     else:
 
         raise NotImplementedError
+
+#                        if aux_bonds is None and with_distances:
+#
+#                            aux_bonds_unk_atoms = []
+#
+#                            neighbors, _ = get_neighbors(molecular_system, selection=atom_indices,
+#                                                         selection_2=atom_indices, structure_indices=structure_indices,
+#                                                         threshold=threshold, skip_digestion=True)
+#                            for ii, nn in zip(atom_indices, neighbors[0]):
+#                                mm = atom_indices.index(ii)
+#                                ii_type = atom_types[mm]
+#                                if ii_type == 'H':
+#                                    for jj in nn:
+#                                        if ii!=atom_indices[jj] and atom_types[jj]!='H':
+#                                            iii = ii
+#                                            jjj = atom_indices[jj]
+#                                            if iii<jjj:
+#                                                aux_bonds_unk_atoms.append([iii,jjj])
+#                                            else:
+#                                                aux_bonds_unk_atoms.append([jjj,iii])
+#                                else:
+#                                    for jj in nn:
+#                                        if ii!=atom_indices[jj]:
+#                                            iii = ii
+#                                            jjj = atom_indices[jj]
+#                                            if iii<jjj:
+#                                                aux_bonds_unk_atoms.append([iii,jjj])
+#                                            else:
+#                                                aux_bonds_unk_atoms.append([jjj,iii])
+#                            bonds_distances += aux_bonds_unk_atoms
+
 

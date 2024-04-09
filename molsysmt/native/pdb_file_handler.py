@@ -41,7 +41,7 @@ def parse_format33(file):
     Dbref1Dbref2Record, SeqadvRecord, SeqresRecord, ModresRecord, HetRecord, HetnamRecord,\
     HetsynRecord, FormulRecord, HelixRecord, SheetRecord, SsbondRecord, LinkRecord, CispepRecord,\
     SiteRecord, Cryst1Record, OrigxRecord, ScaleRecord, MtrixRecord, Model, AtomRecord,\
-    HetatmRecord, MasterRecord
+    HetatmRecord, MasterRecord, ConectRecord
 
     if isinstance(file, io.IOBase):
 
@@ -455,7 +455,7 @@ def parse_format33(file):
 
             while record=='REMARK':
 
-                if line[11:79].isspace() and int(line[7:10])!=mark_id:
+                if int(line[7:10])!=mark_id:
                     remark = RemarkRecord()
                     pdb.title.remarks.append(remark)
                     remark.remarkNum = int(line[7:10])
@@ -870,15 +870,25 @@ def parse_format33(file):
                 site.iCode1 = line[27]
                 site.resName2 = line[29:32]
                 site.chainId2 = line[33]
-                site.seq2 = int(line[34:38])
+                if line[34:38]!='    ':
+                    site.seq2 = int(line[34:38])
+                else:
+                    site.seq2 = None
                 site.iCode2 = line[38]
                 site.resName3 = line[40:43]
                 site.chainId3 = line[44]
-                site.seq3 = int(line[45:49])
+                if line[45:49]!='    ':
+                    site.seq3 = int(line[45:49])
+                else:
+                    site.seq3 = None
+                site.iCode2 = line[38]
                 site.iCode3 = line[49]
                 site.resName4 = line[51:54]
                 site.chainId4 = line[55]
-                site.seq4 = int(line[56:60])
+                if line[56:60]!='    ':
+                    site.seq4 = int(line[56:60])
+                else:
+                    site.seq4 = None
                 site.iCode4 = line[60]
 
                 counter += 1
@@ -1115,18 +1125,18 @@ def parse_format33(file):
 
                     position=11
                     while not line[position:position+5].isspace():
-                        conect.bondedAtomsSerNum(int(line[position:position+5]))
+                        conect.bondedAtomsSerNum.append(int(line[position:position+5]))
                         position+=5
                         if position>=31:
                             break
 
-                    previous_serial_atom_number = connect.atomSerNum
+                    previous_serial_atom_number = conect.atomSerNum
 
                 else:
 
                     position=11
                     while not line[position:position+5].isspace():
-                        conect.bondedAtomsSerNum(int(line[position:position+5]))
+                        conect.bondedAtomsSerNum.append(int(line[position:position+5]))
                         position+=5
                         if position>=31:
                             break
@@ -1169,25 +1179,41 @@ def parse_format33(file):
 
 class PDBFileHandler():
 
-    def __init__(self, filename, io_mode='r', closed=False, skip_digestion=False):
+    def __init__(self, file, io_mode='r', closed=False, skip_digestion=False):
 
         self.file = None
         self.format_version = None
         self.entry = None
 
-        if io_mode=='w':
+        if isinstance(file, str):
 
-            self.file = None
+            if file.endswith('.pdb'):
 
-        elif io_mode=='r':
+                if io_mode=='w':
 
-            self.file = open(filename, "r")
-            self.format_version = guess_format_version(self.file)
-            self.load()
+                    self.file = None
 
-        else:
+                elif io_mode=='r':
 
-            raise NotImplementedError
+                    self.file = open(file, "r")
+                    self.format_version = guess_format_version(self.file)
+                    self.load()
+
+                else:
+
+                    raise NotImplementedError
+
+            else:
+
+
+                if io_mode=='r':
+                    file = io.StringIO(file)
+
+        if isinstance(file, io.StringIO):
+            if io_mode=='r':
+                self.file = file
+                self.format_version = guess_format_version(self.file)
+                self.load()
 
         if closed:
             self.file.close()

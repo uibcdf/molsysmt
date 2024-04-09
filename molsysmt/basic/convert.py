@@ -528,7 +528,7 @@ def convert(molecular_system,
     if not isinstance(from_form, (list, tuple)):
 
         output = _convert_one_to_one(molecular_system, from_form, to_form=to_form, selection=selection, structure_indices=structure_indices,
-                syntax=syntax, verbose=verbose, **kwargs)
+                syntax=syntax, verbose=verbose, skip_digestion=True, **kwargs)
 
     # If multiple to one
 
@@ -537,12 +537,12 @@ def convert(molecular_system,
         # conversions in private shortcuts
         if tuple(sorted(from_form)) in _multiple_conversion_shortcuts:
             output = _convert_multiple_to_one_with_shortcuts(molecular_system, from_form, to_form=to_form, selection=selection, structure_indices=structure_indices,
-                syntax=syntax, verbose=verbose, **kwargs)
+                syntax=syntax, verbose=verbose, skip_digestion=True, **kwargs)
 
         # general conversion
         if output is None:
             output = _convert_multiple_to_one(molecular_system, from_form, to_form=to_form, selection=selection, structure_indices=structure_indices,
-                syntax=syntax, verbose=verbose, **kwargs)
+                syntax=syntax, verbose=verbose, skip_digestion=True, **kwargs)
 
     # Returning the output
 

@@ -1,5 +1,4 @@
 from molsysmt._private.exceptions import ArgumentError
-from molsysmt.attribute import attributes
 
 def digest_implicit_solvent(implicit_solvent, caller=None):
 
@@ -14,6 +13,7 @@ def digest_implicit_solvent(implicit_solvent, caller=None):
             return implicit_solvent
 
     if isinstance(implicit_solvent, str):
+        from molsysmt.attribute import attributes
         if implicit_solvent in attributes['implicit_solvent']['values']:
             return implicit_solvent
 
