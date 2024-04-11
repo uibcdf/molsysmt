@@ -31,16 +31,6 @@ def get_box_from_system(item, structure_indices='all', skip_digestion=False):
 
     return output
 
-@digest(form=form)
-def get_time_from_system(item, structure_indices='all', skip_digestion=False):
-
-    return None
-
-@digest(form=form)
-def get_structure_id_from_system(item, structure_indices='all', skip_digestion=False):
-
-    return None
-
 
 # List of functions to be imported
 
