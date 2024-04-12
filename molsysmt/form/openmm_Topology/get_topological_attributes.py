@@ -3804,7 +3804,7 @@ def get_n_rnas_from_chain(item, indices='all', skip_digestion=False):
 def get_bond_index_from_bond(item, indices='all', skip_digestion=False):
 
     if is_all(indices):
-        n_aux = get_n_bonds_from_system(item)
+        n_aux = get_n_bonds_from_system(item, skip_digestion=True)
         output = np.arange(n_aux, dtype=int).tolist()
     else:
         output = indices.tolist()

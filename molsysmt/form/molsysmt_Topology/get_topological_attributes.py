@@ -1702,18 +1702,6 @@ def get_n_molecules_from_component(item, indices='all', skip_digestion=False):
 
 
 @digest(form=form)
-def get_n_chains_from_component(item, indices='all', skip_digestion=False):
-
-    if is_all(indices):
-        output = get_n_chains_from_system(item, skip_digestion=True)
-    else:
-        output = get_chain_index_from_component(item, indices=indices, skip_digestion=True)
-        output = np.unique(output).shape[0]
-
-    return output
-
-
-@digest(form=form)
 def get_n_entities_from_component(item, indices='all', skip_digestion=False):
 
 
@@ -1721,6 +1709,18 @@ def get_n_entities_from_component(item, indices='all', skip_digestion=False):
         output = get_n_entities_from_system(item, skip_digestion=True)
     else:
         output = get_entity_index_from_component(item, indices=indices, skip_digestion=True)
+        output = np.unique(output).shape[0]
+
+    return output
+
+
+@digest(form=form)
+def get_n_chains_from_component(item, indices='all', skip_digestion=False):
+
+    if is_all(indices):
+        output = get_n_chains_from_system(item, skip_digestion=True)
+    else:
+        output = get_chain_index_from_component(item, indices=indices, skip_digestion=True)
         output = np.unique(output).shape[0]
 
     return output
@@ -1739,7 +1739,7 @@ def get_n_inner_bonds_from_component(item, indices='all', skip_digestion=False):
 
 
 @digest(form=form)
-def get_n_aminoacids_from_component(item, indices='all', skip_digestion=False):
+def get_n_amino_acids_from_component(item, indices='all', skip_digestion=False):
 
 
     group_indices = get_group_index_from_component(item, indices=indices, skip_digestion=True)
@@ -2232,6 +2232,54 @@ def get_chain_type_from_molecule(item, indices='all', skip_digestion=False):
     del aux_indices, aux_unique_indices, aux_vals, aux_new_indices
 
     return output.tolist()
+
+
+@digest(form=form)
+def get_bond_index_from_molecule(item, indices='all', skip_digestion=False):
+
+    raise NotImplementedMethodError()
+
+
+@digest(form=form)
+def get_bond_type_from_molecule(item, indices='all', skip_digestion=False):
+
+    raise NotImplementedMethodError()
+
+
+@digest(form=form)
+def get_bond_order_from_molecule(item, indices='all', skip_digestion=False):
+
+    raise NotImplementedMethodError()
+
+
+@digest(form=form)
+def get_bonded_atoms_from_molecule(item, indices='all', skip_digestion=False):
+
+    raise NotImplementedMethodError()
+
+
+@digest(form=form)
+def get_bonded_atom_pairs_from_molecule(item, indices='all', skip_digestion=False):
+
+    raise NotImplementedMethodError()
+
+
+@digest(form=form)
+def get_inner_bond_index_from_molecule(item, indices='all', skip_digestion=False):
+
+    raise NotImplementedMethodError()
+
+
+@digest(form=form)
+def get_inner_bonded_atoms_from_molecule(item, indices='all', skip_digestion=False):
+
+    raise NotImplementedMethodError()
+
+
+@digest(form=form)
+def get_inner_bonded_atom_pairs_from_molecule(item, indices='all', skip_digestion=False):
+
+    raise NotImplementedMethodError()
 
 
 @digest(form=form)
@@ -2813,6 +2861,54 @@ def get_chain_type_from_entity(item, indices='all', skip_digestion=False):
     del aux_indices, aux_unique_indices, aux_vals, aux_new_indices
 
     return output.tolist()
+
+
+@digest(form=form)
+def get_bond_index_from_entity(item, indices='all', skip_digestion=False):
+
+    raise NotImplementedMethodError()
+
+
+@digest(form=form)
+def get_bond_type_from_entity(item, indices='all', skip_digestion=False):
+
+    raise NotImplementedMethodError()
+
+
+@digest(form=form)
+def get_bond_order_from_entity(item, indices='all', skip_digestion=False):
+
+    raise NotImplementedMethodError()
+
+
+@digest(form=form)
+def get_bonded_atoms_from_entity(item, indices='all', skip_digestion=False):
+
+    raise NotImplementedMethodError()
+
+
+@digest(form=form)
+def get_bonded_atom_pairs_from_entity(item, indices='all', skip_digestion=False):
+
+    raise NotImplementedMethodError()
+
+
+@digest(form=form)
+def get_inner_bond_index_from_entity(item, indices='all', skip_digestion=False):
+
+    raise NotImplementedMethodError()
+
+
+@digest(form=form)
+def get_inner_bonded_atoms_from_entity(item, indices='all', skip_digestion=False):
+
+    raise NotImplementedMethodError()
+
+
+@digest(form=form)
+def get_inner_bonded_atom_pairs_from_entity(item, indices='all', skip_digestion=False):
+
+    raise NotImplementedMethodError()
 
 
 @digest(form=form)
@@ -3781,12 +3877,6 @@ def get_n_components_from_system(item, skip_digestion=False):
 
 
 @digest(form=form)
-def get_n_chains_from_system(item, skip_digestion=False):
-
-    return item.chains.shape[0]
-
-
-@digest(form=form)
 def get_n_molecules_from_system(item, skip_digestion=False):
 
     return item.molecules.shape[0]
@@ -3799,13 +3889,19 @@ def get_n_entities_from_system(item, skip_digestion=False):
 
 
 @digest(form=form)
+def get_n_chains_from_system(item, skip_digestion=False):
+
+    return item.chains.shape[0]
+
+
+@digest(form=form)
 def get_n_bonds_from_system(item, skip_digestion=False):
 
     return item.bonds.shape[0]
 
 
 @digest(form=form)
-def get_n_aminoacids_from_system(item, skip_digestion=False):
+def get_n_amino_acids_from_system(item, skip_digestion=False):
 
     group_types = get_group_type_from_group(item, skip_digestion=True)
     output = (np.array(group_types) == 'amino acid').sum()
