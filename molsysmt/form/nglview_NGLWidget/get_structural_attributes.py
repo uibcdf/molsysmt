@@ -2,12 +2,13 @@
 ########### THE FOLLOWING LINES NEED TO BE CUSTOMIZED FOR EVERY CLASS  ################
 #######################################################################################
 
-from molsysmt._private.execfile import execfile
 from molsysmt._private.exceptions import NotImplementedMethodError, NotWithThisFormError
 from molsysmt._private.digestion import digest
 from molsysmt._private.variables import is_all
 from molsysmt import pyunitwizard as puw
 import numpy as np
+import types
+
 
 form='nglview.NGLWidget'
 
@@ -81,14 +82,7 @@ def get_structure_id_from_system(item, structure_indices='all', skip_digestion=F
     return output
 
 
+# List of functions to be imported
 
-#######################################################################################
-######### DO NOT TOUCH THE FOLLOWING LINES, JUST INCLUDE THEM AS THEY ARE #############
-#######################################################################################
-
-from os import path
-this_folder = path.dirname(path.abspath(__file__))
-common_get = path.join(this_folder, '../../_private/common_get.py')
-execfile(common_get, globals(), locals())
-del(path, this_folder, common_get)
+__all__ = [name for name, obj in globals().items() if isinstance(obj, types.FunctionType) and name.startswith('get_')]
 

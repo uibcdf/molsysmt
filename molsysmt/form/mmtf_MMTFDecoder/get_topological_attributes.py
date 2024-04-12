@@ -1,12 +1,12 @@
 #######################################################################################
 ########### THE FOLLOWING LINES NEED TO BE CUSTOMIZED FOR EVERY CLASS  ################
 #######################################################################################
-from molsysmt._private.execfile import execfile
 from molsysmt._private.exceptions import NotImplementedMethodError, NotWithThisFormError
 from molsysmt._private.digestion import digest
 from molsysmt._private.variables import is_all
 from molsysmt import pyunitwizard as puw
 import numpy as np
+import types
 
 form='mmtf.MMTFDecoder'
 
@@ -1245,7 +1245,7 @@ def get_n_dnas_from_group(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=group)
+@digest(form=form)
 def get_n_rnas_from_group(item, indices='all', skip_digestion=False):
 
     from . import to_molsysmt_Topology

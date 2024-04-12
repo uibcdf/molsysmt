@@ -1266,7 +1266,7 @@ def get_n_dnas_from_group(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=group)
+@digest(form=form)
 def get_n_rnas_from_group(item, indices='all', skip_digestion=False):
 
     molecule_indices = get_molecule_index_from_group(item, indices=indices, skip_digestion=True)

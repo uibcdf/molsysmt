@@ -1,10 +1,13 @@
-from molsysmt._private.digestion import digest
-from molsysmt._private.variables import is_all
-import types
-from molsysmt._private.exceptions import NotImplementedMethodError, NotWithThisFormError
-from molsysmt.attribute import bonds_are_required_to_get_attribute
+#######################################################################################
+########### THE FOLLOWING LINES NEED TO BE CUSTOMIZED FOR EVERY CLASS  ################
+#######################################################################################
 
-form='nglview.NGLWidget'
+from molsysmt._private.exceptions import NotImplementedMethodError, NotWithThisFormError
+from molsysmt._private.digestion import digest
+from molsysmt.attribute import bonds_are_required_to_get_attribute
+import types
+
+form='string:pdb_text'
 
 
 ## From atom
@@ -4475,4 +4478,3 @@ def get_inner_bonded_atom_pairs_from_system(item, skip_digestion=False):
 # List of functions to be imported
 
 __all__ = [name for name, obj in globals().items() if isinstance(obj, types.FunctionType) and name.startswith('get_')]
-

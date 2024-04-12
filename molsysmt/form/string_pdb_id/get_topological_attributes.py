@@ -5,6 +5,7 @@ from molsysmt._private.exceptions import NotImplementedMethodError, NotWithThisF
 from molsysmt.attribute import bonds_are_required_to_get_attribute
 
 form='nglview.NGLWidget'
+form='string:pdb_id'
 
 
 ## From atom
@@ -4475,4 +4476,3 @@ def get_inner_bonded_atom_pairs_from_system(item, skip_digestion=False):
 # List of functions to be imported
 
 __all__ = [name for name, obj in globals().items() if isinstance(obj, types.FunctionType) and name.startswith('get_')]
-
