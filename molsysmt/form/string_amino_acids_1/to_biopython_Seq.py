@@ -1,7 +1,7 @@
 from molsysmt._private.exceptions import LibraryNotFoundError
 from molsysmt._private.digestion import digest
 
-@digest(form='string:aminoacids1')
+@digest(form='string:amino_acids_1')
 def to_biopython_Seq(item, group_indices='all', skip_digestion=False):
 
     try:

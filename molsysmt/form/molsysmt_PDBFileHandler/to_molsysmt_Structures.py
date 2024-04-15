@@ -6,105 +6,102 @@ import numpy as np
 def to_molsysmt_Structures(item, atom_indices='all', structure_indices='all', skip_digestion=False):
 
     from molsysmt.native import Structures
-
-    length_unit = puw.unit(item.file.attrs['length_unit'])
-    time_unit = puw.unit(item.file.attrs['time_unit'])
-    energy_unit = puw.unit(item.file.attrs['energy_unit'])
-    temperature_unit = puw.unit(item.file.attrs['temperature_unit'])
-
-    standard_length_unit = puw.get_standard_units(length_unit)
-    standard_time_unit = puw.get_standard_units(time_unit)
-    standard_energy_unit = puw.get_standard_units(energy_unit)
-    standard_temperature_unit = puw.get_standard_units(temperature_unit)
-
-    structures_ds = item.file['structures']
-
-    n_atoms = structures_ds.attrs['n_atoms']
-    n_structures = structures_ds.attrs['n_structures_written']
+    from molsysmt.pbc import get_box_from_lengths_and_angles
 
     tmp_item = Structures()
 
-    tmp_item.n_atoms = n_atoms
-    tmp_item.n_structures = n_structures
+    atom_name_array = []
+    group_index_array = []
+    chain_index_array = []
 
-    # Coordinates
+    occupancy_array = []
+    alternate_location_array = []
+    coordinates_array = []
 
-    if structures_ds['coordinates'].shape[0]>0:
+    group_index = -1
+    former_group_id = None
 
-        tmp_item.coordinates = puw.quantity(np.zeros([n_structures, n_atoms, 3], dtype='float64'),
-                standard_length_unit)
-        tmp_item.coordinates[:,:,:] = puw.quantity(structures_ds['coordinates'][:,:,:],
-                length_unit)
+    chain_index = -1
+    former_chain_name = None
+    aux_dict_chain = {}
 
-    else:
+    for atom_record in item.entry.coordinate.model[0].record:
 
-        tmp_item.coordinates = None
+        atom_name_array.append(atom_record.name)
 
-    # Velocities
+        occupancy_array.append(atom_record.occupancy)
+        alternate_location_array.append(atom_record.altLoc)
 
-    if structures_ds['velocities'].shape[0]>0:
 
-        tmp_item.velocities = puw.quantity(np.zeros([n_structures, n_atoms, 3], dtype='float64'),
-                standard_length_unit/standard_time_unit)
-        tmp_item.velocities[:,:,:] = puw.quantity(structures_ds['velocities'][:,:,:],
-                length_unit/time_unit)
+        if former_group_id!=atom_record.resSeq:
+            group_index += 1
+            former_group_id = atom_record.resSeq
 
-    else:
+        group_index_array.append(group_index)
 
-        tmp_item.velocities = None
+        if former_chain_name!=atom_record.chainId:
+            if atom_record.chainId in aux_dict_chain:
+                chain_index = aux_dict_chain[atom_record.chainId]
+            else:
+                chain_index += 1
+                aux_dict_chain[atom_record.chainId]=chain_index
 
-    # Box
+        chain_index_array.append(chain_index)
 
-    if structures_ds['box'].shape[0]>0:
+        coordinates_array.append([atom_record.x, atom_record.y, atom_record.z])
 
-        tmp_item.box = puw.quantity(np.zeros([n_structures, 3, 3], dtype='float64'),
-                standard_length_unit)
-        tmp_item.box[:,:,:] = puw.quantity(structures_ds['box'][:,:,:],
-                length_unit)
+    atom_name_array = np.array(atom_name_array, dtype=str)
+    group_index_array = np.array(group_index_array, dtype=int)
+    chain_index_array = np.array(chain_index_array, dtype=int)
+    occupancy_array = np.array(occupancy_array, dtype=float)
+    alternate_location_array = np.array(alternate_location_array, dtype=str)
 
-    else:
+    coordinates_array = np.array(coordinates_array, dtype=float)
 
-        tmp_item.box = None
+    alt_atom_indices = np.where(alternate_location_array!=' ')[0]
+    aux_dict = {}
 
-    # Kinetic Energy
+    if len(alt_atom_indices):
 
-    if structures_ds['kinetic_energy'].shape[0]>0:
+        alt_atom_names = atom_name_array[alt_atom_indices].to_numpy()
+        alt_group_index = group_index_array[alt_atom_indices].to_numpy()
+        alt_chain_index = chain_index_array[alt_atom_indices].to_numpy()
+        for aux_atom_index, aux_atom_name, aux_group_index, aux_chain_index in zip(alt_atom_indices,
+                                                                             alt_atom_names, alt_group_index,
+                                                                             alt_chain_index):
+            aux_key = tuple([aux_atom_name, aux_group_index, aux_chain_index])
+            if aux_key in aux_dict:
+                aux_dict[aux_key].append(aux_atom_index)
+            else:
+                aux_dict[aux_key]=[aux_atom_index]
 
-        tmp_item.kinetic_energy = puw.quantity(np.zeros([n_structures], dtype='float64'),
-                standard_energy_unit)
-        tmp_item.kinetic_energy[:] = puw.quantity(structures_ds['kinetic_energy'][:],
-                energy_unit)
+    atoms_to_be_removed_with_alt_loc=[]
+    for same_atoms in aux_dict.values():
+        alt_occupancy = occupancy[same_atoms]
+        alt_loc = alternate_location[same_atoms]
+        if np.allclose(alt_occupancy, alt_occupancy[0]):
+            chosen = np.where(alt_loc=='A')[0][0]
+        else:
+            chosen = np.argmax(alt_occupancy)
+        chosen = same_atoms.pop(chosen)
+        atoms_to_be_removed_with_alt_loc += same_atoms
 
-    else:
+    if len(atoms_to_be_removed_with_alt_loc):
+        coordinates_array = np.delete(coordinates_array, atoms_to_be_removed_with_alt_loc)
 
-        tmp_item.kinetic_energy = None
+    cryst1 = item.entry.crystallographic_and_coordinate_transformation.cryst1
+    box_lengths = puw.quantity([[cryst1.a, cryst1.b, cryst1.c]], 'angstroms')
+    box_angles = puw.quantity([[cryst1.alpha, cryst1.beta, cryst1.gamma]], 'degrees')
+    box = get_box_from_lengths_and_angles(box_lengths, box_angles, skip_digestion=True)
 
-    # Potential Energy
+    coordinates = puw.quantity(coordinates_array, 'angstroms')
+    tmp_item.append(coordinates=coordinates, box=box)
 
-    if structures_ds['potential_energy'].shape[0]>0:
+    del(coordinates_array, box, box_lengths, box_angles)
+    del(atom_name_array, group_index_array, chain_index_array,
+        occupancy_array, alternate_location_array, alt_atom_indices, aux_dict)
 
-        tmp_item.potential_energy = puw.quantity(np.zeros([n_structures], dtype='float64'),
-                standard_energy_unit)
-        tmp_item.potential_energy[:] = puw.quantity(structures_ds['potential_energy'][:],
-                energy_unit)
-
-    else:
-
-        tmp_item.potential_energy = None
-
-    # Temperature
-
-    if structures_ds['temperature'].shape[0]>0:
-
-        tmp_item.temperature = puw.quantity(np.zeros([n_structures], dtype='float64'),
-                standard_temperature_unit)
-        tmp_item.temperature[:] = puw.quantity(structures_ds['temperature'][:],
-                temperature_unit)
-
-    else:
-
-        tmp_item.temperature = None
-
+    tmp_item = tmp_item.extract(atom_indices=atom_indices, copy_if_all=False, skip_digestion=True)
 
     return tmp_item
 

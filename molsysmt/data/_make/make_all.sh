@@ -20,3 +20,7 @@ echo -n "t4_lysozyme_L99A.py   "
 python t4_lysozyme_L99A.py
 echo "DONE"
 
+echo -n "TcTIM.py   "
+python TcTIM.py
+echo "DONE"
+

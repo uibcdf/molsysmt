@@ -833,7 +833,7 @@ def get_group_type_from_group(item, indices='all', skip_digestion=False):
         n_indices = get_n_groups_from_system(item, skip_digestion=True)
         indices = range(n_indices)
 
-    group=list(item.residues())
+    group = list(item.residues())
     output = [get_group_type_from_group_name(group[ii].name, skip_digestion=True) for ii in indices]
     del(group)
 

@@ -38,8 +38,8 @@ from .to_nglview_NGLWidget import to_nglview_NGLWidget
 from .to_parmed_Structure import to_parmed_Structure
 from .to_pytraj_Trajectory import to_pytraj_Trajectory
 from .to_pytraj_Topology import to_pytraj_Topology
-from .to_string_aminoacids1 import to_string_aminoacids1
-from .to_string_aminoacids3 import to_string_aminoacids3
+from .to_string_amino_acids_1 import to_string_amino_acids_1
+from .to_string_amino_acids_3 import to_string_amino_acids_3
 
 _convert_to={
         'mdtraj.Trajectory': extract,
@@ -61,6 +61,6 @@ _convert_to={
         'parmed.Structure': to_parmed_Structure,
         'pytraj.Trajectory': to_pytraj_Trajectory,
         'pytraj.Topology': to_pytraj_Topology,
-        'string:aminoacids1': to_string_aminoacids1,
-        'string:aminoacids3': to_string_aminoacids3,
+        'string:amino_acids_1': to_string_amino_acids_1,
+        'string:amino_acids_3': to_string_amino_acids_3,
         }

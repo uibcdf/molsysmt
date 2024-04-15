@@ -32,8 +32,8 @@ from .to_molsysmt_MolSysOld import to_molsysmt_MolSysOld
 from .to_molsysmt_StructuresOld import to_molsysmt_StructuresOld
 from .to_molsysmt_TopologyOld import to_molsysmt_TopologyOld
 from .to_openmm_Topology import to_openmm_Topology
-from .to_string_aminoacids1 import to_string_aminoacids1
-from .to_string_aminoacids3 import to_string_aminoacids3
+from .to_string_amino_acids_1 import to_string_amino_acids_1
+from .to_string_amino_acids_3 import to_string_amino_acids_3
 from .to_string_pdb_text import to_string_pdb_text
 
 _convert_to={
@@ -47,7 +47,7 @@ _convert_to={
         'molsysmt.StructuresOld': to_molsysmt_StructuresOld,
         'molsysmt.TopologyOld': to_molsysmt_TopologyOld,
         'openmm.Topology': to_openmm_Topology,
-        'string:aminoacids1': to_string_aminoacids1,
-        'string:aminoacids3': to_string_aminoacids3,
+        'string:amino_acids_1': to_string_amino_acids_1,
+        'string:amino_acids_3': to_string_amino_acids_3,
         'string:pdb_text': to_string_pdb_text,
         }

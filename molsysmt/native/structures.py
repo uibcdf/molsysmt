@@ -512,7 +512,7 @@ class Structures:
 
 
     @digest()
-    def extract(self, atom_indices='all', structure_indices='all', skip_digestion=False):
+    def extract(self, atom_indices='all', structure_indices='all', copy_if_all=False, skip_digestion=False):
         """ Returns a new Structures object with the specified atoms and/or
             structures.
 
@@ -531,7 +531,13 @@ class Structures:
         """
         if is_all(atom_indices) and is_all(structure_indices):
 
-            return self.copy()
+            if copy_if_all:
+
+                return self.copy()
+
+            else:
+
+                return self
 
         else:
 

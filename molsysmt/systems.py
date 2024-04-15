@@ -74,10 +74,10 @@ systems['T4 lysozyme L99A']['t4_lysozyme_L99A.h5msm'] = path('molsysmt.data.h5ms
 
 # Pentalanine
 
-#systems['pentalanine'] = {}
-#systems['pentalanine']['pentalanine.inpcrd'] = path('molsysmt.data.inpcrd', 'pentalanine.inpcrd')
-#systems['pentalanine']['pentalanine.prmtop'] = path('molsysmt.data.prmtop', 'pentalanine.prmtop')
-#systems['pentalanine']['traj_pentalanine.h5'] = path('molsysmt.data.h5', 'traj_pentalanine.h5')
+systems['pentalanine'] = {}
+systems['pentalanine']['pentalanine.inpcrd'] = path('molsysmt.data.inpcrd', 'pentalanine.inpcrd')
+systems['pentalanine']['pentalanine.prmtop'] = path('molsysmt.data.prmtop', 'pentalanine.prmtop')
+systems['pentalanine']['traj_pentalanine.h5'] = path('molsysmt.data.h5', 'traj_pentalanine.h5')
 
 
 # Particles_4
@@ -94,21 +94,21 @@ systems['particles 4']['traj_particles_4.xyznpy'] = path('molsysmt.data.xyznpy',
 
 # NGLView
 
-#systems['nglview'] = {}
-#systems['nglview']['ala3.pdb'] = path('molsysmt.data.pdb', 'ala3.pdb')
-#systems['nglview']['md_1u19.gro'] = path('molsysmt.data.gro', 'md_1u19.gro')
-#systems['nglview']['md_1u19.pdb'] = path('molsysmt.data.pdb', 'md_1u19.pdb')
-#systems['nglview']['md_1u19.traj'] = path('molsysmt.data.traj', 'md_1u19.traj')
-#systems['nglview']['md_1u19.trr'] = path('molsysmt.data.trr', 'md_1u19.trr')
-#systems['nglview']['md_1u19.xtc'] = path('molsysmt.data.xtc', 'md_1u19.xtc')
+systems['nglview'] = {}
+systems['nglview']['ala3.pdb'] = path('molsysmt.data.pdb', 'ala3.pdb')
+systems['nglview']['md_1u19.gro'] = path('molsysmt.data.gro', 'md_1u19.gro')
+systems['nglview']['md_1u19.pdb'] = path('molsysmt.data.pdb', 'md_1u19.pdb')
+systems['nglview']['md_1u19.traj'] = path('molsysmt.data.traj', 'md_1u19.traj')
+systems['nglview']['md_1u19.trr'] = path('molsysmt.data.trr', 'md_1u19.trr')
+systems['nglview']['md_1u19.xtc'] = path('molsysmt.data.xtc', 'md_1u19.xtc')
 
 
 # TcTIM (to be removed)
 
-#systems['TcTIM'] = {}
-#systems['TcTIM']['1tcd.pdb'] = path('molsysmt.data.pdb', '1tcd.pdb')
-#systems['TcTIM']['1tcd.mmtf'] = path('molsysmt.data.mmtf', '1tcd.mmtf')
-#systems['TcTIM']['1tcd.msmpk'] = path('molsysmt.data.msmpk', '1tcd.msmpk')
+systems['TcTIM'] = {}
+systems['TcTIM']['1tcd.pdb'] = path('molsysmt.data.pdb', '1tcd.pdb')
+systems['TcTIM']['1tcd.mmtf'] = path('molsysmt.data.mmtf', '1tcd.mmtf')
+systems['TcTIM']['1tcd.h5msm'] = path('molsysmt.data.h5msm', '1tcd.h5msm')
 
 
 # Trp-Cage

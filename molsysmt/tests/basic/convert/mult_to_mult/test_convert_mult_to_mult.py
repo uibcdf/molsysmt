@@ -4,14 +4,14 @@ Unit and regression test for the convert module of the molsysmt package.
 
 # Import package, test suite, and other packages as needed
 import molsysmt as msm
-from molsysmt.systems import tests as tests_systems
+from molsysmt import systems
 from molsysmt.basic.convert import _convert_multiple_to_one_with_shortcuts, _convert_multiple_to_one
 import numpy as np
 import os
 
 def test_convert_file_prmtop_and_file_inpcrd_to_molsysmt_Topology_and_molsysmt_Structures():
-    prmtop_file = tests_systems['pentalanine']['pentalanine.prmtop']
-    inpcrd_file = tests_systems['pentalanine']['pentalanine.inpcrd']
+    prmtop_file = systems['pentalanine']['pentalanine.prmtop']
+    inpcrd_file = systems['pentalanine']['pentalanine.inpcrd']
     molsys = msm.convert([prmtop_file, inpcrd_file], to_form=['molsysmt.Topology', 'molsysmt.Structures'])
     form = msm.get_form(molsys)
     n_atoms, n_structures, box = msm.get(molsys, n_atoms=True, n_structures=True, box=True)

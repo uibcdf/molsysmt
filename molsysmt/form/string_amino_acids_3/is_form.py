@@ -7,7 +7,7 @@ def is_form(item):
 
     if type(item) is str:
 
-        if item.startswith('aminoacids3:'):
+        if item.startswith('amino_acids_3:'):
 
             output = True
 

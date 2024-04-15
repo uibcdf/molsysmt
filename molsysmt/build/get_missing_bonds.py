@@ -31,7 +31,8 @@ def get_missing_bonds(molecular_system, threshold='2 angstroms', selection='all'
 
             if with_templates:
 
-                aux_peptidic_bonds={'C':[], 'N':[]}
+                aux_peptidic_bonds_C={}
+                aux_peptidic_bonds_N={}
 
                 form = get_form(molecular_system)
 
@@ -101,8 +102,8 @@ def get_missing_bonds(molecular_system, threshold='2 angstroms', selection='all'
                         aux_bonds = _bonds_in_amino_acid(group_name, atom_names, atom_indices, sorted=False)
                         bonds_templates += aux_bonds
 
-                        aux_peptidic_bonds['C'].append([atom_indices[atom_names.index('C')], group_index])
-                        aux_peptidic_bonds['N'].append([atom_indices[atom_names.index('N')], group_index])
+                        aux_peptidic_bonds_C[group_index]=atom_indices[atom_names.index('C')]
+                        aux_peptidic_bonds_N[group_index]=atom_indices[atom_names.index('N')]
 
                     elif group_type=='terminal capping':
 
@@ -110,9 +111,9 @@ def get_missing_bonds(molecular_system, threshold='2 angstroms', selection='all'
                         bonds_templates += aux_bonds
 
                         if is_c_terminal_capping(group_name):
-                            aux_peptidic_bonds['C'].append([atom_indices[atom_names.index('C')], group_index])
+                            aux_peptidic_bonds_C[group_index]=atom_indices[atom_names.index('C')]
                         else:
-                            aux_peptidic_bonds['N'].append([atom_indices[atom_names.index('N')], group_index])
+                            aux_peptidic_bonds_N[group_index]=atom_indices[atom_names.index('N')]
 
                     elif group_type=='small molecule':
 
@@ -141,11 +142,9 @@ def get_missing_bonds(molecular_system, threshold='2 angstroms', selection='all'
 
                 # peptidic bonds
 
-                for aux_1, aux_2 in zip(aux_peptidic_bonds['C'], aux_peptidic_bonds['N']):
-                    if (aux_1[1]+1)==(aux_2[1]):
-                        bonds_templates += [[aux_1[0], aux_2[0]]]
-                    else:
-                        raise ValueError
+                for group_index in aux_peptidic_bonds_C.keys():
+                    if group_index+1 in aux_peptidic_bonds_N:
+                        bonds_templates += [[aux_peptidic_bonds_C[group_index], aux_peptidic_bonds_N[group_index+1]]]
 
                 bonds += bonds_templates
 

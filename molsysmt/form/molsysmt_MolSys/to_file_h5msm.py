@@ -6,15 +6,15 @@ def to_file_h5msm(item, atom_indices='all', structure_indices='all', output_file
                   skip_digestion=False):
 
     from molsysmt.native import H5MSMFileHandler
-    from ..molsysmt_Topology.to_file_h5msm import _add_topology_to_h5msm
-    from ..molsysmt_Structures.to_file_h5msm import _add_structures_to_h5msm
+    from ..molsysmt_Topology.to_file_h5msm import dump_topology_to_h5msm
+    from ..molsysmt_Structures.to_file_h5msm import dump_structures_to_h5msm
 
     handler = H5MSMFileHandler(output_filename, io_mode='w', compression=compression,
             compression_opts=compression_opts, int_precision=int_precision,
             float_precision=float_precision, closed=False, skip_digestion=True)
 
-    _add_topology_to_h5msm(item.topology, handler, atom_indices=atom_indices)
-    _add_structures_to_h5msm(item.structures, handler, atom_indices=atom_indices, structure_indices=structure_indices)
+    dump_topology_to_h5msm(item.topology, handler, atom_indices=atom_indices)
+    dump_structures_to_h5msm(item.structures, handler, atom_indices=atom_indices, structure_indices=structure_indices)
 
     handler.close()
 

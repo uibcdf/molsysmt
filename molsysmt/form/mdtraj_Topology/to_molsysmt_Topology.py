@@ -1,5 +1,6 @@
 from molsysmt._private.digestion import digest
 from molsysmt.element.group import get_group_type_from_group_name
+import numpy as np
 
 @digest(form='mdtraj.Topology')
 def to_molsysmt_Topology(item, atom_indices='all', skip_digestion=False):
@@ -12,95 +13,58 @@ def to_molsysmt_Topology(item, atom_indices='all', skip_digestion=False):
     from molsysmt.native import Topology
     from ..molsysmt_Topology import extract
 
-    tmp_item = Topology()
 
     n_atoms = item.n_atoms
     n_groups = item.n_residues
     n_chains = item.n_chains
     n_bonds = item.n_bonds
 
+    tmp_item = Topology(n_atoms=n_atoms, n_groups=n_groups, n_chains=n_chains, n_bonds=n_bonds)
+
     # atoms
-
-    atom_name_array = np.empty(n_atoms, dtype=object)
-    atom_id_array = np.empty(n_atoms, dtype=int)
-    atom_type_array = np.empty(n_atoms, dtype=object)
-    group_index_array = np.empty(n_atoms, dtype=int)
-    chain_index_array = np.empty(n_atoms, dtype=int)
-
-    index = 0
 
     for atom_index, atom in enumerate(item.atoms):
 
-        atom_name_array[atom_index] = atom.name
-        atom_id_array[atom_index] = atom.serial
-        atom_type_array[atom_index] = atom.element
-        group_index_array[atom_index] = atom.residue.index
-        chain_index_array[chain_index] = atom.residue.chain.index
+        if atom.serial is not None:
+            tmp_item.atoms.iat[atom_index,0] = atoms.serial
+        else:
+            tmp_item.atoms.iat[atom_index,0] = atom_index
+        tmp_item.atoms.iat[atom_index,1] = atom.name
+        tmp_item.atoms.iat[atom_index,2] = atom.element
+        tmp_item.atoms.iat[atom_index,3] = atom.residue.index
+        tmp_item.atoms.iat[atom_index,4] = atom.residue.chain.index
 
-    tmp_item.atoms["atom_name"] = atom_name_array
-    tmp_item.atoms["atom_id"] = atom_id_array
-    tmp_item.atoms["atom_type"] = atom_type_array
-    tmp_item.atoms["group_index"] = group_index_array
-    tmp_item.atoms["chain_index"] = chain_index_array
-
-    del atom_name_array, atom_id_array, atom_type_array
-    del group_index_array, chain_index_array
 
     # groups
-
-    group_name_array = np.empty(n_groups, dtype=object)
-    group_id_array = np.empty(n_groups, dtype=int)
 
     aux_dict = {}
 
     for group_index, residue in enumerate(item.residues):
 
-        group_name_array[group_index] = residue.name
-        group_id_array[group_index] = residue.resSeq
+        tmp_item.groups.iat[group_index,1] = residue.name
+        tmp_item.groups.iat[group_index,0] = residue.resSeq
 
         if residue.name not in aux_dict:
             aux_dict[residue.name] = get_group_type_from_group_name(residue.name)
+        
+        tmp_item.groups.iat[group_index,2] = aux_dict[residue.name]
 
-    tmp_item.groups["group_id"] = group_id_array
-    tmp_item.groups["group_name"] = group_name_array
-    tmp_item.groups["group_type"] = np.array([aux_dict[ii] for ii in group_name_array], dtype=object)
-
-    del group_name_array, group_id_array
 
     # chains
 
-    chain_name_array = np.empty(n_chains, dtype=object)
+    for chain_index, chain in enumerate(item.chains):
 
-    for chain_index, chain in enumerate(item.chains()):
-
-        chain_name_array[chain_index] = chain.chain_id
-
-    tmp_item.chains["chain_name"] = chain_name_array
-    tmp_item.chains["chain_id"] = tmp_item.chains.index
-
-    del chain_name_array
+        tmp_item.chains.iat[chain_index,0] = chain_index
+        tmp_item.chains.iat[chain_index,1] = chain.chain_id
 
     # bonds
 
-    bond_atom1_array = np.empty(n_bonds, dtype=int)
-    bond_atom2_array = np.empty(n_bonds, dtype=int)
-    bond_type_array = np.empty(n_bonds, dtype=object)
-    bond_order_array = np.empty(n_bonds, dtype=object)
+    for bond_index, bond in enumerate(item.bonds):
 
-    for bond_index, bond in enumerate(item.bonds()):
-
-        bond_atom1_array[bond_index] = bond.atom1.index
-        bond_atom2_array[bond_index] = bond.atom2.index
-        bond_order_array[bond_index] = bond.order
-        bond_type_array[bond_index] = bond.type
-
-    tmp_item.bonds["atom1_index"] = bond_atom1_array
-    tmp_item.bonds["atom2_index"] = bond_atom2_array
-    tmp_item.bonds["order"] = bond_order_array
-    tmp_item.bonds["type"] = bond_type_array
-
-    del bond_atom1_array, bond_atom2_array
-    del bond_order_array, bond_type_array
+        tmp_item.bonds.iat[bond_index,0] = bond.atom1.index
+        tmp_item.bonds.iat[bond_index,1] = bond.atom2.index
+        tmp_item.bonds.iat[bond_index,2] = bond.order
+        tmp_item.bonds.iat[bond_index,3] = bond.type
 
     if tmp_item.bonds["order"].isnull().all():
         tmp_item.bonds.drop("order", axis=1, inplace=True)

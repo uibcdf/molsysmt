@@ -11,6 +11,6 @@ def get_atom_type_from_atom_name(atom_name):
         return atom_type_from_name[atom_name]
     except:
         print(f'The atom_name {atom_name} was not recognized')
-        return 'ANK'
+        return 'UNK'
         #raise ValueError('Atom name '+atom_name+' has not known atom type.')
 

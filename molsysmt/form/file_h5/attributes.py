@@ -39,6 +39,7 @@ attributes['n_entities'] = True
 attributes['n_ions'] = True
 attributes['n_waters'] = True
 attributes['n_small_molecules'] = True
+attributes['n_amino_acids'] = True
 attributes['n_peptides'] = True
 attributes['n_proteins'] = True
 attributes['n_dnas'] = True

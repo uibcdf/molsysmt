@@ -4,12 +4,12 @@ Unit and regression test for the get module of the molsysmt package.
 
 # Import package, test suite, and other packages as needed
 import molsysmt as msm
-from molsysmt.systems import tests as tests_systems
+from molsysmt import systems
 import numpy as np
 
 # Get on molsysmt.MolSys
 
-molsys = msm.convert(tests_systems['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
+molsys = msm.convert(systems['TcTIM']['1tcd.h5msm'], to_form='molsysmt.MolSys')
 
 def test_get_1():
     output = msm.get(molsys, element='atom', selection=[32, 33, 34], name=True)
@@ -174,7 +174,7 @@ def test_get_28():
 
 def test_get_29():
     names = msm.get(molsys, element='entity', selection=0, name=True)
-    true_names = np.array(['Triosephosphate isomerase'], dtype=object)
+    true_names = np.array(['TRIOSEPHOSPHATE ISOMERASE'], dtype=object)
     assert np.all(names==true_names)
 
 def test_get_30():
@@ -207,7 +207,7 @@ def test_get_34():
     assert check_molecule_types
 
 def test_get_35():
-    n_groups = msm.get(molsys, element='group', selection='group_type=="aminoacid"', n_groups=True)
+    n_groups = msm.get(molsys, element='group', selection='group_type=="amino acid"', n_groups=True)
     assert n_groups==497
 
 def test_get_36():
@@ -220,8 +220,8 @@ def test_get_37():
     assert n_groups==497
 
 def test_get_38():
-    n_aminoacids = msm.get(molsys, element='system', n_aminoacids=True)
-    assert n_aminoacids==497
+    n_amino_acids = msm.get(molsys, element='system', n_amino_acids=True)
+    assert n_amino_acids==497
 
 def test_get_39():
     n_waters = msm.get(molsys, element='system', n_waters=True)

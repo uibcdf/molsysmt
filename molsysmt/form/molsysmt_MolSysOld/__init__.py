@@ -40,8 +40,8 @@ from .to_biopython_SeqRecord import to_biopython_SeqRecord
 from .to_pdbfixer_PDBFixer import to_pdbfixer_PDBFixer
 from .to_nglview_NGLWidget import to_nglview_NGLWidget
 from .to_XYZ import to_XYZ
-from .to_string_aminoacids1 import to_string_aminoacids1
-from .to_string_aminoacids3 import to_string_aminoacids3
+from .to_string_amino_acids_1 import to_string_amino_acids_1
+from .to_string_amino_acids_3 import to_string_amino_acids_3
 from .to_string_pdb_text import to_string_pdb_text
 from .to_file_msmpk import to_file_msmpk
 from .to_file_pdb import to_file_pdb
@@ -68,8 +68,8 @@ _convert_to={
         'pdbfixer.PDBFixer': to_pdbfixer_PDBFixer,
         'nglview.NGLWidget': to_nglview_NGLWidget,
         'XYZ': to_XYZ,
-        'string:aminoacids1': to_string_aminoacids1,
-        'string:aminoacids3': to_string_aminoacids3,
+        'string:amino_acids_1': to_string_amino_acids_1,
+        'string:amino_acids_3': to_string_amino_acids_3,
         'string:pdb_text': to_string_pdb_text,
         'file:msmpk': to_file_msmpk,
         'file:pdb': to_file_pdb,

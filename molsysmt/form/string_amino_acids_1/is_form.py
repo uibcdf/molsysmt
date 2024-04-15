@@ -4,15 +4,15 @@ def is_form(item):
 
     if type(item) is str:
 
-        if item.startswith('aminoacids1:'):
+        if item.startswith('amino_acids_1:'):
 
             output = True
 
         else:
 
-            from ..string_aminoacids3 import is_form as is_string_aminoacids3
+            from ..string_amino_acids_3 import is_form as is_string_amino_acids_3
 
-            if not is_string_aminoacids3(item):
+            if not is_string_amino_acids_3(item):
 
                 from Bio.SeqUtils.ProtParam import ProteinAnalysis
                 analysed_seq = ProteinAnalysis(item)

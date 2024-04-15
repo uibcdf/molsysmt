@@ -39,8 +39,8 @@ from .to_openmm_PDBFile import to_openmm_PDBFile
 from .to_openmm_System import to_openmm_System
 from .to_pdbfixer_PDBFixer import to_pdbfixer_PDBFixer
 from .to_nglview_NGLWidget import to_nglview_NGLWidget
-from .to_string_aminoacids1 import to_string_aminoacids1
-from .to_string_aminoacids3 import to_string_aminoacids3
+from .to_string_amino_acids_1 import to_string_amino_acids_1
+from .to_string_amino_acids_3 import to_string_amino_acids_3
 from .to_parmed_Structure import to_parmed_Structure
 
 _convert_to={
@@ -62,6 +62,6 @@ _convert_to={
         'parmed.Structure': to_parmed_Structure,
         'pdbfixer.PDBFixer': to_pdbfixer_PDBFixer,
         'nglview.NGLWidget': to_nglview_NGLWidget,
-        'string:aminoacids1': to_string_aminoacids1,
-        'string:aminoacids3': to_string_aminoacids3,
+        'string:amino_acids_1': to_string_amino_acids_1,
+        'string:amino_acids_3': to_string_amino_acids_3,
         }

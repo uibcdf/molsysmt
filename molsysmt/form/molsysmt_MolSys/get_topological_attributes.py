@@ -291,9 +291,9 @@ def get_n_inner_bonds_from_atom(item, indices='all', skip_digestion=False):
 
 
 @digest(form=form)
-def get_n_aminoacids_from_atom(item, indices='all', skip_digestion=False):
+def get_n_amino_acids_from_atom(item, indices='all', skip_digestion=False):
 
-    from ..molsysmt_Topology import get_n_aminoacids_from_atom as aux_get
+    from ..molsysmt_Topology import get_n_amino_acids_from_atom as aux_get
     return aux_get(item.topology, indices=indices, skip_digestion=True)
 
 
@@ -813,9 +813,9 @@ def get_n_inner_bonds_from_component(item, indices='all', skip_digestion=False):
 
 
 @digest(form=form)
-def get_n_aminoacids_from_component(item, indices='all', skip_digestion=False):
+def get_n_amino_acids_from_component(item, indices='all', skip_digestion=False):
 
-    from ..molsysmt_Topology import get_n_aminoacids_from_component as aux_get
+    from ..molsysmt_Topology import get_n_amino_acids_from_component as aux_get
     return aux_get(item.topology, indices=indices, skip_digestion=True)
 
 
@@ -1124,9 +1124,9 @@ def get_n_inner_bonds_from_molecule(item, indices='all', skip_digestion=False):
 
 
 @digest(form=form)
-def get_n_aminoacids_from_molecule(item, indices='all', skip_digestion=False):
+def get_n_amino_acids_from_molecule(item, indices='all', skip_digestion=False):
 
-    from ..molsysmt_Topology import get_n_aminoacids_from_molecule as aux_get
+    from ..molsysmt_Topology import get_n_amino_acids_from_molecule as aux_get
     return aux_get(item.topology, indices=indices, skip_digestion=True)
 
 
@@ -1435,9 +1435,9 @@ def get_n_inner_bonds_from_entity(item, indices='all', skip_digestion=False):
 
 
 @digest(form=form)
-def get_n_aminoacids_from_entity(item, indices='all', skip_digestion=False):
+def get_n_amino_acids_from_entity(item, indices='all', skip_digestion=False):
 
-    from ..molsysmt_Topology import get_n_aminoacids_from_entity as aux_get
+    from ..molsysmt_Topology import get_n_amino_acids_from_entity as aux_get
     return aux_get(item.topology, indices=indices, skip_digestion=True)
 
 
@@ -1746,9 +1746,9 @@ def get_n_inner_bonds_from_chain(item, indices='all', skip_digestion=False):
 
 
 @digest(form=form)
-def get_n_aminoacids_from_chain(item, indices='all', skip_digestion=False):
+def get_n_amino_acids_from_chain(item, indices='all', skip_digestion=False):
 
-    from ..molsysmt_Topology import get_n_aminoacids_from_chain as aux_get
+    from ..molsysmt_Topology import get_n_amino_acids_from_chain as aux_get
     return aux_get(item.topology, indices=indices, skip_digestion=True)
 
 
@@ -1926,9 +1926,9 @@ def get_n_bonds_from_system(item, skip_digestion=False):
     return aux_get(item.topology, skip_digestion=True)
 
 @digest(form=form)
-def get_n_aminoacids_from_system(item, skip_digestion=False):
+def get_n_amino_acids_from_system(item, skip_digestion=False):
 
-    from ..molsysmt_Topology import get_n_aminoacids_from_system as aux_get
+    from ..molsysmt_Topology import get_n_amino_acids_from_system as aux_get
     return aux_get(item.topology, skip_digestion=True)
 
 

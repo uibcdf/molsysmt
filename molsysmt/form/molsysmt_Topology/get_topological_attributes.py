@@ -2,8 +2,10 @@ from molsysmt._private.digestion import digest
 from molsysmt._private.variables import is_all
 from molsysmt import pyunitwizard as puw
 import numpy as np
+import pandas as pd
 from molsysmt._private.exceptions import NotImplementedMethodError, NotWithThisFormError
 import types
+from networkx import Graph
 
 form = 'molsysmt.Topology'
 
@@ -314,7 +316,7 @@ def get_bond_index_from_atom(item, indices='all', skip_digestion=False):
     output = None
 
     G = Graph()
-    edges = get_bonded_atoms_pairs_from_bond(item, skip_digestion=True)
+    edges = get_bonded_atom_pairs_from_bond(item, skip_digestion=True)
     n_bonds = len(edges)
     edge_indices = np.array([{'index': ii} for ii in range(n_bonds)]).reshape([n_bonds, 1])
     G.add_edges_from(np.hstack([edges, edge_indices]))
@@ -368,7 +370,7 @@ def get_bonded_atoms_from_atom(item, indices='all', skip_digestion=False):
     output = None
 
     G = Graph()
-    edges = get_bonded_atoms_pairs_from_bond(item, skip_digestion=True)
+    edges = get_bonded_atom_pairs_from_bond(item, skip_digestion=True)
     
     G.add_edges_from(edges)
 
@@ -4023,7 +4025,7 @@ def get_bonded_atoms_from_system(item, skip_digestion=False):
     output = None
 
     G = Graph()
-    edges = get_bonded_atoms_pairs_from_bond(item, skip_digestion=True)
+    edges = get_bonded_atom_pairs_from_bond(item, skip_digestion=True)
     
     G.add_edges_from(edges)
 
@@ -4045,7 +4047,7 @@ def get_bonded_atoms_from_system(item, skip_digestion=False):
 @digest(form=form)
 def get_bonded_atom_pairs_from_system(item, skip_digestion=False):
 
-    output = get_bonded_atoms_pairs_from_bond(item, skip_digestion=True)
+    output = get_bonded_atom_pairs_from_bond(item, skip_digestion=True)
    
     return output
 
@@ -4065,7 +4067,7 @@ def get_inner_bonded_atoms_from_system(item, skip_digestion=False):
     output = None
 
     G = Graph()
-    edges = get_bonded_atoms_pairs_from_bond(item, skip_digestion=True)
+    edges = get_bonded_atom_pairs_from_bond(item, skip_digestion=True)
     
     G.add_edges_from(edges)
 
@@ -4081,7 +4083,7 @@ def get_inner_bonded_atoms_from_system(item, skip_digestion=False):
 @digest(form=form)
 def get_inner_bonded_atom_pairs_from_system(item, skip_digestion=False):
 
-    output = get_bonded_atoms_pairs_from_bond(item)
+    output = get_bonded_atom_pairs_from_bond(item)
    
     return output
 

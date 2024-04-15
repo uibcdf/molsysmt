@@ -13,14 +13,14 @@ def to_file_h5msm(item, atom_indices='all', structure_indices='all', output_file
             compression_opts=compression_opts, int_precision=int_precision,
             float_precision=float_precision, closed=False)
 
-    _add_structures_to_h5msm(item, handler, atom_indices=atom_indices,
+    dump_structures_to_h5msm(item, handler, atom_indices=atom_indices,
             structure_indices=structure_indices)
 
     handler.close()
 
     return output_filename
 
-def _add_structures_to_h5msm(item, file, atom_indices='all', structure_indices='all'):
+def dump_structures_to_h5msm(item, file, atom_indices='all', structure_indices='all'):
 
     from h5py._hl.files import File as h5py_File
     from molsysmt.native import H5MSMFileHandler

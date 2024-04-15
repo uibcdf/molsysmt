@@ -218,6 +218,9 @@ def get_box_volume_from_system(item, structure_indices='all', skip_digestion=Fal
     if structure_indices is None:
         return None
 
+    if item.time is None:
+        return None
+
     from molsysmt.pbc import get_volume_from_box
     output = None
     box = get_box_from_system(item, structure_indices=structure_indices, skip_digestion=True)
@@ -231,6 +234,9 @@ def get_time_from_system(item, structure_indices='all', skip_digestion=False):
     if structure_indices is None:
         return None
 
+    if item.time is None:
+        return None
+
     if is_all(structure_indices):
         output = copy(item.time)
     else:
@@ -241,6 +247,9 @@ def get_time_from_system(item, structure_indices='all', skip_digestion=False):
 def get_structure_id_from_system(item, structure_indices='all', skip_digestion=False):
 
     if structure_indices is None:
+        return None
+
+    if item.time is None:
         return None
 
     if is_all(structure_indices):

@@ -26,7 +26,7 @@ from .to_biopython_Seq import to_biopython_Seq
 
 _convert_to={
         'string:amino_acids_3': extract,
-        'string:amino_acids_1': to_string_aminoacids1,
+        'string:amino_acids_1': to_string_amino_acids_1,
         'biopython.SeqRecord': to_biopython_SeqRecord,
         'biopython.Seq': to_biopython_Seq,
         }

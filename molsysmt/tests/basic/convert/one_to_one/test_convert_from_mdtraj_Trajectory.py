@@ -10,12 +10,12 @@ import os
 
 # Whole systems (selection='all' and structure_indices='all')
 
-def test_mdtraj_Trajectory_to_string_aminoacids1():
+def test_mdtraj_Trajectory_to_string_amino_acids_1():
     molsys = systems['chicken villin HP35']['1vii.pdb']
     molsys = msm.convert(molsys, to_form='mdtraj.Trajectory')
-    molsys = msm.convert(molsys, to_form='string:aminoacids1')
+    molsys = msm.convert(molsys, to_form='string:amino_acids_1')
     form = msm.get_form(molsys)
-    assert 'string:aminoacids1'==form
+    assert 'string:amino_acids_1'==form
 
 # Selection
 

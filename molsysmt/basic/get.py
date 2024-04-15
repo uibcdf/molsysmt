@@ -189,7 +189,7 @@ def get(molecular_system,
                 all([ii is None for ii in piped_structural_attribute.values()]) & \
                 all([ii is None for ii in piped_any_attribute.values()])  
 
-    if not_piped:
+    if not_piped or len(in_attributes)==1:
 
         aux_molecular_system = molecular_system
 
@@ -206,15 +206,15 @@ def get(molecular_system,
                                                                                 skip_digestion=True)
             if is_topological_attribute(in_attribute, skip_digestion=True):
                 _, aux_form = where_is_attribute(molecular_system, in_attribute, skip_digestion=True)
-                if aux_form not in aux_piped_topological_attribute:
+                if piped_topological_attribute[aux_form] not in aux_piped_topological_attribute:
                     aux_piped_topological_attribute.append(piped_topological_attribute[aux_form])
-                if aux_form not in aux_piped_any_attribute:
+                if piped_any_attribute[aux_form] not in aux_piped_any_attribute:
                     aux_piped_any_attribute.append(piped_any_attribute[aux_form])
             elif is_structural_attribute(in_attribute, skip_digestion=True):
                 _, aux_form = where_is_attribute(molecular_system, in_attribute)
-                if aux_form not in aux_piped_structural_attribute:
+                if piped_structural_attribute[aux_form] not in aux_piped_structural_attribute:
                     aux_piped_structural_attribute.append(piped_structural_attribute[aux_form])
-                if aux_form not in aux_piped_any_attribute:
+                if piped_any_attribute[aux_form] not in aux_piped_any_attribute:
                     aux_piped_any_attribute.append(piped_any_attribute[aux_form])
 
         n_top = len(aux_piped_topological_attribute)

@@ -1,4 +1,5 @@
-def molsysmt_Topology_and_molsysmt_Structures_to_molsysmt_MolSys(molecular_system, atom_indices='all', structure_indices='all'):
+def molsysmt_Topology_and_molsysmt_Structures_to_molsysmt_MolSys(molecular_system, atom_indices='all',
+                                                                 structure_indices='all', skip_digestion=False):
 
     from molsysmt.basic import get_form
     from molsysmt.native.molsys import MolSys
@@ -18,13 +19,14 @@ def molsysmt_Topology_and_molsysmt_Structures_to_molsysmt_MolSys(molecular_syste
 
     tmp_item = MolSys()
 
-    tmp_item.topology = extract_topology(topology, atom_indices=atom_indices, copy_if_all=True)
+    tmp_item.topology = extract_topology(topology, atom_indices=atom_indices, copy_if_all=True, skip_digestion=True)
     tmp_item.structures = extract_structures(structures, atom_indices=atom_indices,
-            structure_indices=structure_indices, copy_if_all=True)
+            structure_indices=structure_indices, copy_if_all=True, skip_digestion=True)
 
     return tmp_item
 
-def file_prmtop_and_file_inpcrd_to_molsysmt_MolSys(molecular_system, atom_indices='all', structure_indices='all'):
+def file_prmtop_and_file_inpcrd_to_molsysmt_MolSys(molecular_system, atom_indices='all',
+                                                   structure_indices='all', skip_digestion=False):
 
     from molsysmt.basic import get_form
     from molsysmt.form.file_prmtop import to_molsysmt_Topology as file_prmtop_to_molsysmt_Topology
@@ -44,12 +46,16 @@ def file_prmtop_and_file_inpcrd_to_molsysmt_MolSys(molecular_system, atom_indice
 
     output_item = MolSys()
 
-    output_item.topology = file_prmtop_to_molsysmt_Topology(item_prmtop, atom_indices=atom_indices)
-    output_item.structures = file_inpcrd_to_molsysmt_Structures(item_inpcrd, atom_indices=atom_indices, structure_indices=structure_indices)
+    output_item.topology = file_prmtop_to_molsysmt_Topology(item_prmtop, atom_indices=atom_indices,
+                                                            skip_digestion=True)
+    output_item.structures = file_inpcrd_to_molsysmt_Structures(item_inpcrd, atom_indices=atom_indices,
+                                                                structure_indices=structure_indices,
+                                                                skip_digestion=True)
 
     return output_item
 
-def file_psf_and_file_dcd_to_molsysmt_MolSys(molecular_system, atom_indices='all', structure_indices='all'):
+def file_psf_and_file_dcd_to_molsysmt_MolSys(molecular_system, atom_indices='all', structure_indices='all',
+                                             skip_digestion=False):
 
     from molsysmt.basic import get_form
     from molsysmt.form.file_psf import to_molsysmt_Topology as file_psf_to_molsysmt_Topology
@@ -69,12 +75,14 @@ def file_psf_and_file_dcd_to_molsysmt_MolSys(molecular_system, atom_indices='all
 
     output_item = MolSys()
 
-    output_item.topology = file_psf_to_molsysmt_Topology(item_psf, atom_indices=atom_indices)
-    output_item.structures = file_dcd_to_molsysmt_Structures(item_dcd, atom_indices=atom_indices, structure_indices=structure_indices)
+    output_item.topology = file_psf_to_molsysmt_Topology(item_psf, atom_indices=atom_indices, skip_digestion=True)
+    output_item.structures = file_dcd_to_molsysmt_Structures(item_dcd, atom_indices=atom_indices,
+                                                             structure_indices=structure_indices, skip_digestion=True)
 
     return output_item
 
-def file_psf_and_file_crd_to_molsysmt_MolSys(molecular_system, atom_indices='all', structure_indices='all'):
+def file_psf_and_file_crd_to_molsysmt_MolSys(molecular_system, atom_indices='all', structure_indices='all', 
+                                             skip_digestion=False):
 
     from molsysmt.basic import get_form
     from molsysmt.form.file_psf import to_molsysmt_Topology as file_psf_to_molsysmt_Topology
@@ -94,12 +102,14 @@ def file_psf_and_file_crd_to_molsysmt_MolSys(molecular_system, atom_indices='all
 
     output_item = MolSys()
 
-    output_item.topology = file_psf_to_molsysmt_Topology(item_psf, atom_indices=atom_indices)
-    output_item.structures = file_crd_to_molsysmt_Structures(item_crd, atom_indices=atom_indices, structure_indices=structure_indices)
+    output_item.topology = file_psf_to_molsysmt_Topology(item_psf, atom_indices=atom_indices, skip_digestion=True)
+    output_item.structures = file_crd_to_molsysmt_Structures(item_crd, atom_indices=atom_indices,
+                                                             structure_indices=structure_indices, skip_digestion=True)
 
     return output_item
 
-def file_gro_and_file_xtc_to_molsysmt_MolSys(molecular_system, atom_indices='all', structure_indices='all'):
+def file_gro_and_file_xtc_to_molsysmt_MolSys(molecular_system, atom_indices='all', structure_indices='all',
+                                             skip_digestion=False):
 
     from molsysmt.basic import get_form
     from molsysmt.form.file_gro import to_molsysmt_Topology as file_gro_to_molsysmt_Topology
@@ -119,8 +129,9 @@ def file_gro_and_file_xtc_to_molsysmt_MolSys(molecular_system, atom_indices='all
 
     output_item = MolSys()
 
-    output_item.topology = file_gro_to_molsysmt_Topology(item_gro, atom_indices=atom_indices)
-    output_item.structures = file_xtc_to_molsysmt_Structures(item_xtc, atom_indices=atom_indices, structure_indices=structure_indices)
+    output_item.topology = file_gro_to_molsysmt_Topology(item_gro, atom_indices=atom_indices, skip_digestion=True)
+    output_item.structures = file_xtc_to_molsysmt_Structures(item_xtc, atom_indices=atom_indices,
+                                                             structure_indices=structure_indices, skip_digestion=True)
 
     return output_item
 

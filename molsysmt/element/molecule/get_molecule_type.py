@@ -3,7 +3,8 @@ import numpy as np
 
 @digest()
 def get_molecule_type(molecular_system, element='atom', selection='all',
-        redefine_indices=False, redefine_types=False, syntax='MolSysMT'):
+        redefine_indices=False, redefine_types=False, syntax='MolSysMT',
+        skip_digestion=False):
 
     from ..component import get_component_type
     from molsysmt.basic import get
@@ -68,7 +69,7 @@ def get_molecule_type(molecular_system, element='atom', selection='all',
 
     return output
 
-def _get_molecule_type_from_group_names_and_types(group_names, group_types):
+def _get_molecule_type_from_group_names_and_types(group_names, group_types, skip_digestion=False):
 
     from ..component.get_component_type import _get_component_type_from_group_names_and_types
 

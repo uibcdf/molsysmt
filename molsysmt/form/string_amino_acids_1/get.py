@@ -6,7 +6,7 @@ from molsysmt._private.execfile import execfile
 from molsysmt._private.exceptions import NotImplementedMethodError, NotWithThisFormError
 from molsysmt._private.digestion import digest
 
-form='string:aminoacids1'
+form='string:amino_acids_1'
 
 ## From atom
 

@@ -14,21 +14,21 @@ SOURCE   5 EXPRESSION_SYSTEM: ESCHERICHIA COLI;
 SOURCE   6 EXPRESSION_SYSTEM_TAXID: 562;                                        
 SOURCE   7 EXPRESSION_SYSTEM_STRAIN: BL23 (DE3);                                
 SOURCE   8 EXPRESSION_SYSTEM_CELLULAR_LOCATION: CYTOPLASM                       
-KEYWDS    ISOMERASE, INTRAMOLECULAR OXIDOREDUCTASE, GLYCOLYSIS,                 
-KEYWDS   2 ISOMERIZATION BETWEEN GLYCERALDEHYDE 3-PHOSPHATE AND                 
-KEYWDS   3 DIHYDROXYACETONE, ALPHA-BETA BARREL                                  
+KEYWDS    ISOMERASE, INTRAMOLECULAR OXIDOREDUCTASE, GLYCOLYSIS, ISOMERIZATION   
+KEYWDS   2 BETWEEN GLYCERALDEHYDE 3-PHOSPHATE AND DIHYDROXYACETONE, ALPHA-BETA  
+KEYWDS   3 BARREL                                                               
 EXPDTA    X-RAY DIFFRACTION                                                     
-AUTHOR    E.MALDONADO,M.SORIANO-GARCIA,N.CABRERA,G.GARZA-RAMOS,                 
-AUTHOR   2 M.TUENA DE GOMEZ-PUYOU,A.GOMEZ-PUYOU,R.PEREZ-MONTFORT                
+AUTHOR    E.MALDONADO,M.SORIANO-GARCIA,N.CABRERA,G.GARZA-RAMOS,M.TUENA DE       
+AUTHOR   2 GOMEZ-PUYOU,A.GOMEZ-PUYOU,R.PEREZ-MONTFORT                           
+REVDAT   4   09-AUG-23 1TCD    1       REMARK                                   
 REVDAT   3   24-FEB-09 1TCD    1       VERSN                                    
 REVDAT   2   01-APR-03 1TCD    1       JRNL                                     
 REVDAT   1   13-JAN-99 1TCD    0                                                
 JRNL        AUTH   E.MALDONADO,M.SORIANO-GARCIA,A.MORENO,N.CABRERA,             
 JRNL        AUTH 2 G.GARZA-RAMOS,M.DE GOMEZ-PUYOU,A.GOMEZ-PUYOU,                
 JRNL        AUTH 3 R.PEREZ-MONTFORT                                             
-JRNL        TITL   DIFFERENCES IN THE INTERSUBUNIT CONTACTS IN                  
-JRNL        TITL 2 TRIOSEPHOSPHATE ISOMERASE FROM TWO CLOSELY RELATED           
-JRNL        TITL 3 PATHOGENIC TRYPANOSOMES.                                     
+JRNL        TITL   DIFFERENCES IN THE INTERSUBUNIT CONTACTS IN TRIOSEPHOSPHATE  
+JRNL        TITL 2 ISOMERASE FROM TWO CLOSELY RELATED PATHOGENIC TRYPANOSOMES.  
 JRNL        REF    J.MOL.BIOL.                   V. 283   193 1998              
 JRNL        REFN                   ISSN 0022-2836                               
 JRNL        PMID   9761683                                                      
@@ -107,9 +107,9 @@ REMARK   3   ESD FROM C-V SIGMAA          (A) : 0.25
 REMARK   3                                                                      
 REMARK   3  RMS DEVIATIONS FROM IDEAL VALUES.                                   
 REMARK   3   BOND LENGTHS                 (A) : 0.013                           
-REMARK   3   BOND ANGLES            (DEGREES) : 1.70                            
+REMARK   3   BOND ANGLES            (DEGREES) : 1.700                           
 REMARK   3   DIHEDRAL ANGLES        (DEGREES) : 24.70                           
-REMARK   3   IMPROPER ANGLES        (DEGREES) : 0.97                            
+REMARK   3   IMPROPER ANGLES        (DEGREES) : 0.970                           
 REMARK   3                                                                      
 REMARK   3  ISOTROPIC THERMAL MODEL : RESTRAINED                                
 REMARK   3                                                                      
@@ -134,9 +134,10 @@ REMARK   3  TOPOLOGY FILE  3   : NULL
 REMARK   3                                                                      
 REMARK   3  OTHER REFINEMENT REMARKS: BULK SOLVENT MODEL USED                   
 REMARK   4                                                                      
-REMARK   4 1TCD COMPLIES WITH FORMAT V. 3.15, 01-DEC-08                         
+REMARK   4 1TCD COMPLIES WITH FORMAT V. 3.30, 13-JUL-11                         
 REMARK 100                                                                      
 REMARK 100 THIS ENTRY HAS BEEN PROCESSED BY BNL.                                
+REMARK 100 THE DEPOSITION ID IS D_1000176610.                                   
 REMARK 200                                                                      
 REMARK 200 EXPERIMENTAL DETAILS                                                 
 REMARK 200  EXPERIMENT TYPE                : X-RAY DIFFRACTION                  
@@ -4389,5 +4390,5 @@ HETATM 3982  O   HOH B 340       5.721  65.375  48.936  1.00 33.23           O
 HETATM 3983  O   HOH B 341      26.850  62.692  53.171  1.00 37.06           O  
 HETATM 3984  O   HOH B 342       0.135  46.709  36.203  1.00 32.07           O  
 HETATM 3985  O   HOH B 343       5.324  65.124  51.425  1.00 31.84           O  
-MASTER      274    0    0   28   16    0    0    9 3983    2    0   40          
+MASTER      275    0    0   28   16    0    0    9 3983    2    0   40          
 END                                                                             

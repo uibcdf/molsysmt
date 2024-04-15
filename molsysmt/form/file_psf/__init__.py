@@ -2,7 +2,7 @@ form_name='file:psf'
 form_type = 'file'
 form_info = ["CHARMM Protein Structure File (PSF).","https://www.ks.uiuc.edu/Training/Tutorials/namd/namd-tutorial-unix-html/node23.html"]
 
-piped_topological_attribute = None
+piped_topological_attribute = 'molsysmt.Topology'
 piped_structural_attribute = None
 piped_any_attribute = None
 

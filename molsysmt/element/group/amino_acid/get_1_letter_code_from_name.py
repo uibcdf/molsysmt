@@ -34,7 +34,7 @@ def get_1_letter_code_from_name(name):
     To be written soon...
     """
 
-    aa_type = _name_to_type[name]
+    aa_type = name_to_type[name]
 
     return aa3_to_aa1[aa_type]
 

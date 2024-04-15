@@ -70,6 +70,9 @@ def _convert_one_to_one(molecular_system,
         missing_arguments = input_arguments - (set(conversion_arguments) | set(kwargs) | {'item',
         'copy_if_all'})
 
+        if 'get_missing_bonds' in kwargs and 'get_missing_bonds' not in input_arguments:
+            del kwargs['get_missing_bonds']
+
         if len(missing_arguments)>0:
 
             missing_arguments.discard('compression')
@@ -521,12 +524,11 @@ def convert(molecular_system,
         for item_out in to_form:
             output.append(
                 convert(molecular_system, to_form=item_out, selection=selection, structure_indices=structure_indices,
-                        syntax=syntax, verbose=verbose, skip_digestion=True))
+                        syntax=syntax, verbose=verbose, skip_digestion=True, **kwargs))
         return output
 
     # If one to one
     if not isinstance(from_form, (list, tuple)):
-
         output = _convert_one_to_one(molecular_system, from_form, to_form=to_form, selection=selection, structure_indices=structure_indices,
                 syntax=syntax, verbose=verbose, skip_digestion=True, **kwargs)
 

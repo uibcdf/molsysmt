@@ -22,8 +22,8 @@ from .iterators import TopologyIterator
 
 from .write_topology_in_h5msm import write_topology_in_h5msm
 
-from .to_string_aminoacids3 import to_string_aminoacids3
-from .to_string_aminoacids1 import to_string_aminoacids1
+from .to_string_amino_acids_3 import to_string_amino_acids_3
+from .to_string_amino_acids_1 import to_string_amino_acids_1
 from .to_string_pdb_text import to_string_pdb_text
 from .to_file_pdb import to_file_pdb
 from .to_file_psf import to_file_psf
@@ -37,8 +37,8 @@ from .to_molsysmt_MolSysOld import to_molsysmt_MolSysOld
 
 _convert_to={
         'molsysmt.TopologyOld': extract,
-        'string:aminoacids1': to_string_aminoacids1,
-        'string:aminoacids3': to_string_aminoacids3,
+        'string:amino_acids_1': to_string_amino_acids_1,
+        'string:amino_acids_3': to_string_amino_acids_3,
         'string:pdb_text': to_string_pdb_text,
         'file:pdb': to_file_pdb,
         'file:psf': to_file_psf,

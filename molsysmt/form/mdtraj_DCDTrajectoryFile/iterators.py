@@ -43,7 +43,7 @@ class StructuresIterator():
                 self.stop = len(structure_indices)
 
         self._indices_iterator = indices_iterator(indices=structure_indices, start=self.start,
-                stop=self.stop, step=self.step, chunk=self.chunk, skip_digestion=True)
+                stop=self.stop, step=self.step, chunk=self.chunk)
 
         self._mdtraj_atom_indices = self.atom_indices
         if is_all(self.atom_indices):

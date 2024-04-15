@@ -224,8 +224,8 @@ add_attribute('n_inner_bonds', synonyms=['n_inner_bond'], depends_on=['bonded_at
               runs_on_elements=True, topological=True, get_from=['atom', 'group', 'component',
                   'molecule', 'chain', 'entity', 'system'])
 
-## n_aminoacids
-add_attribute('n_aminoacids', synonyms=['n_aminoacid'], depends_on=['group_type'],
+## n_amino_acids
+add_attribute('n_amino_acids', synonyms=['n_amino_acid', 'n_aminoacids', 'n_aminoacid'], depends_on=['group_type'],
               runs_on_elements=True, topological=True,
               get_from=['atom', 'group', 'component', 'molecule', 'chain', 'entity', 'system'])
 
