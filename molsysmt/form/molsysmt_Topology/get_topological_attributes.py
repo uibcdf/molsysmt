@@ -3786,7 +3786,7 @@ def get_bond_index_from_bond(item, indices='all', skip_digestion=False):
         n_aux = get_n_bonds_from_system(item)
         output = np.arange(n_aux, dtype=int).tolist()
     else:
-        output = indices.tolist()
+        output = indices
 
     return output
 
@@ -3849,10 +3849,9 @@ def get_bonded_atom_pairs_from_bond(item, indices='all', skip_digestion=False):
 def get_n_bonds_from_bond(item, indices='all', skip_digestion=False):
 
     if is_all(indices):
-        n_aux = get_n_bonds_from_system(item, skip_digestion=True)
-        output = list(range(n_aux))
+        output = get_n_bonds_from_system(item, skip_digestion=True)
     else:
-        output = indices
+        output = len(indices)
 
     return output
 

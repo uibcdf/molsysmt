@@ -1,8 +1,8 @@
 from ...exceptions import ArgumentError
 from ...variables import is_all
 
-def digest_inner_bonded_atoms_pairs(inner_bonded_atoms_pairs, caller=None):
-    """Checks if `inner_bonded_atoms_pairs` has the expected type and value.
+def digest_inner_bonded_atom_pairs(inner_bonded_atom_pairs, caller=None):
+    """Checks if `inner_bonded_atom_pairs` has the expected type and value.
 
     Parameters
     ----------
@@ -26,8 +26,8 @@ def digest_inner_bonded_atoms_pairs(inner_bonded_atoms_pairs, caller=None):
     """
 
     if caller=='molsysmt.basic.get.get':
-        if isinstance(inner_bonded_atoms_pairs, bool):
-            return inner_bonded_atoms_pairs
+        if isinstance(inner_bonded_atom_pairs, bool):
+            return inner_bonded_atom_pairs
 
-    raise ArgumentError('inner_bonded_atoms_pairs', value=inner_bonded_atoms_pairs, caller=caller, message=None)
+    raise ArgumentError('inner_bonded_atom_pairs', value=inner_bonded_atom_pairs, caller=caller, message=None)
 
