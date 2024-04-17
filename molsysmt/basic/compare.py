@@ -6,7 +6,7 @@ import numpy as np
 @digest()
 def compare(molecular_system, molecular_system_2, selection='all', structure_indices='all',
         selection_2='all', structure_indices_2='all',  syntax='MolSysMT', rule='equal',
-        output_type='boolean', attributes_type=None, **kwargs):
+        output_type='boolean', attribute_type=None, **kwargs):
     """
     Comparing molecular systems.
 
@@ -67,7 +67,7 @@ def compare(molecular_system, molecular_system_2, selection='all', structure_ind
         * 'dictionary': a dictionary is returned with the input attribute names as keys, and the corresponding booleans (True
         or False) as values.
 
-    attribute_types : {'topological', 'structural', 'mecanichal', None}, default None
+    attribute_type : {'topological', 'structural', 'mecanichal', None}, default None
         If no specific attributes are introduced as additional keywords, a set of attributes can be
         chosen:
 
@@ -168,14 +168,14 @@ def compare(molecular_system, molecular_system_2, selection='all', structure_ind
 
     atts_false = []
 
-    if isinstance(attributes_type, str):
-        if attributes_type == 'topological':
+    if isinstance(attribute_type, str):
+        if attribute_type == 'topological':
             atts_to_be_compared += _topological_attributes
-        elif attributes_type == 'structural':
+        elif attribute_type == 'structural':
             atts_to_be_compared += _structural_attributes
-        elif attributes_type == 'mechanical':
+        elif attribute_type == 'mechanical':
             atts_to_be_compared += _mechanical_attributes
-        elif is_all(attributes_type):
+        elif is_all(attribute_type):
             atts_to_be_compared += list(attributes.keys())
 
     for key in kwargs.keys():

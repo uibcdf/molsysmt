@@ -16,8 +16,9 @@ def get_missing_bonds(molecular_system, threshold='2 angstroms', selection='all'
 
     if engine=="MolSysMT":
 
+        from molsysmt._private.atom_indices import complementary_atom_indices
         from molsysmt.basic import get, select, get_form
-        from molsysmt.structure import get_neighbors
+        from molsysmt.structure import get_contacts
         from molsysmt.element.group.amino_acid import get_bonded_atom_pairs as _bonds_in_amino_acid
         from molsysmt.element.group.terminal_capping import get_bonded_atom_pairs as _bonds_in_terminal_capping
         from molsysmt.element.group.terminal_capping import is_n_terminal_capping, is_c_terminal_capping
@@ -28,6 +29,20 @@ def get_missing_bonds(molecular_system, threshold='2 angstroms', selection='all'
             bonds = []
             bonds_templates = []
             bonds_distances = []
+
+            n_atoms = get(molecular_system, n_atoms=True)
+            atoms_water = select(molecular_system, selection='group_type=="water"')
+            atoms_not_water = complementary_atom_indices(molecular_system, atoms_water)
+            heavy_atoms_not_water = select(molecular_system, selection='atom_type!="H"', mask=atoms_not_water)
+            h_atoms_no_water = [ii for ii in atoms_not_water if ii not in heavy_atoms_not_water] 
+
+            if with_distances:
+
+                contacts_heavy_atoms = get_contacts(molecular_system, selection=heavy_atoms_not_water,
+                                                    threshold=threshold, output_type='pairs',
+                                                    output_indices='atom_index', pbc=True)
+
+                return contacts_heavy_atoms
 
             if with_templates:
 

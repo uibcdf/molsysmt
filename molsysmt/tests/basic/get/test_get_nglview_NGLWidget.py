@@ -8,6 +8,7 @@ from molsysmt import systems
 import numpy as np
 
 
+
 def test_get_nglview_NGLWidget_1():
     molsys = msm.convert([systems['nglview']['md_1u19.gro'], systems['nglview']['md_1u19.xtc']],
                          to_form='molsysmt.MolSys')
