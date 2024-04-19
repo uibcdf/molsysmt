@@ -4,10 +4,11 @@ from molsysmt import pyunitwizard as puw
 import numpy as np
 import gc
 
-#@digest()
+@digest()
 def get_contacts(molecular_system, selection=None, center_of_atoms=False, weights=None, structure_indices="all",
                  selection_2=None, center_of_atoms_2=False, weights_2=None, structure_indices_2=None,
-                 threshold='12 angstroms', pbc=True, syntax='MolSysMT', output_type='map', output_indices=None):
+                 threshold='12 angstroms', pbc=True, syntax='MolSysMT', output_type='map', output_indices=None,
+                 skip_digestion=False):
 
     """
     To be written soon...
@@ -45,29 +46,43 @@ def get_contacts(molecular_system, selection=None, center_of_atoms=False, weight
 
     gc.collect()
 
+    output = None
+
     if output_type=='map':
-        return contact_map
-    elif output_type=='pairs':
+
+        output = contact_map
+
+    elif output_type in ['pairs', 'sorted pairs']:
 
         pairs = []
         n_contact_maps = contact_map.shape[0]
 
         for ii in range(n_contact_maps):
             aux_pairs = np.nonzero(np.triu(contact_map[ii],k=1)==True)
-            aux_pairs = np.column_stack(aux_pairs)
+            aux_pairs = np.column_stack(aux_pairs).tolist()
             pairs.append(aux_pairs)
 
-        if output_indices is None:
-            return pairs
-        elif output_indices=='atom_index':
+        if output_indices=='atom_index':
+
+            atom_indices = np.array(atom_indices)
+
             if atom_indices_2 is None:
                 for ii in range(n_contact_maps):
-                    pairs[ii]=atom_indices[pairs[ii]]
+                    pairs[ii]=atom_indices[pairs[ii]].tolist()
             else:
+                atom_indices_2 = np.array(atom_indices_2)
                 for ii in range(n_contact_maps):
-                    pairs[ii]=np.column_stack(atom_indices[pairs[ii][:,0]],
-                            atom_indices_2[pairs[ii][:,1]])
-            return pairs
+                    aux_pairs = np.array(pairs[ii])
+                    pairs[ii]=np.column_stack(atom_indices[aux_pairs[:,0]],
+                            atom_indices_2[aux_pairs[:,1]]).tolist()
 
-    pass
+        if output_type=='sorted pairs':
+            for ii in range(n_contact_maps):
+                pairs[ii] = sorted(pairs[ii])
+
+        output = pairs
+
+    return output
+
+
 
