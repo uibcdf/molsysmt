@@ -7,7 +7,7 @@ import gc
 @digest()
 def get_contacts(molecular_system, selection=None, center_of_atoms=False, weights=None, structure_indices="all",
                  selection_2=None, center_of_atoms_2=False, weights_2=None, structure_indices_2=None,
-                 threshold='12 angstroms', pbc=True, syntax='MolSysMT', output_type='map', output_indices=None,
+                 threshold='12 angstroms', pbc=True, syntax='MolSysMT', output_type='matrix', output_indices='selection',
                  skip_digestion=False):
 
     """
@@ -48,7 +48,7 @@ def get_contacts(molecular_system, selection=None, center_of_atoms=False, weight
 
     output = None
 
-    if output_type=='map':
+    if output_type=='matrix':
 
         output = contact_map
 
@@ -62,7 +62,7 @@ def get_contacts(molecular_system, selection=None, center_of_atoms=False, weight
             aux_pairs = np.column_stack(aux_pairs).tolist()
             pairs.append(aux_pairs)
 
-        if output_indices=='atom_index':
+        if output_indices=='atom':
 
             atom_indices = np.array(atom_indices)
 

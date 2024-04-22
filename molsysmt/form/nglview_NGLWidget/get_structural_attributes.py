@@ -23,10 +23,10 @@ def get_coordinates_from_atom(item, indices='all', structure_indices='all', skip
 
     coordinates = []
     for ii in structure_indices:
-        if is_all(atom_indices):
+        if is_all(indices):
             coordinates.append(item[0].get_coordinates(ii))
         else:
-            coordinates.append(item[0].get_coordinates(ii)[atom_indices,:])
+            coordinates.append(item[0].get_coordinates(ii)[indices,:])
     coordinates = np.array(coordinates)
     coordinates = puw.quantity(coordinates, unit='angstroms')
     coordinates = puw.standardize(coordinates)

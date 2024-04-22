@@ -42,14 +42,33 @@ def select_standard(item, selection):
     from molsysmt.basic import convert, get_form
     from molsysmt.config import selection_shortcuts
 
+
+    tmp_selection = selection
+
+    shortcuts = selection_shortcuts['MolSysMT']
+
+    for key in shortcuts:
+        if key in selection:
+            tmp_selection = tmp_selection.replace(key, shortcuts[key])
+
+
+
     form_in = get_form(item)
 
     if form_in == 'molsysmt.Topology':
         tmp_item = item
     else:
-        tmp_item = convert(item, to_form='molsysmt.Topology', skip_digestion=True)
 
-    tmp_selection = selection
+        from molsysmt.attribute.bonds_are_required_to_get_attribute import bond_dependent_attributes
+
+        bonds_required_by_selection = False
+        for attribute in bond_dependent_attributes:
+            if attribute in tmp_selection:
+                bonds_required_by_selection = True
+                break
+
+        tmp_item = convert(item, to_form='molsysmt.Topology', get_missing_bonds=bonds_required_by_selection,
+                           skip_digestion=True)
 
 
     if '@' in selection:
@@ -99,12 +118,6 @@ def select_standard(item, selection):
             if type(var_value) in [np.ndarray]:
                 var_value = list(var_value)
             locals()['auxiliar_variable_'+var_name]=var_value
-
-    shortcuts = selection_shortcuts['MolSysMT']
-
-    for key in shortcuts:
-        if key in selection:
-            tmp_selection = tmp_selection.replace(key, shortcuts[key])
 
     if is_all(tmp_selection):
 

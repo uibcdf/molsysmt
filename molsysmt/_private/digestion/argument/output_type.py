@@ -36,7 +36,7 @@ def digest_output_type(output_type, caller=None):
     elif caller=='molsysmt.structure.get_contacts.get_contacts':
 
         if isinstance(output_type, str):
-            if output_type.lower() in ['numpy.ndarray', 'dictionary']:
+            if output_type.lower() in ['pairs', 'sorted pairs', 'matrix']:
                 return output_type.lower()
 
     elif caller=='molsysmt.topology.get_covalent_blocks.get_covalent_blocks':

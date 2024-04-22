@@ -30,6 +30,7 @@ def get_missing_bonds(molecular_system, threshold='2 angstroms', selection='all'
             bonds_templates = []
             bonds_distances = []
 
+            print('llega_0')
             n_atoms = get(molecular_system, n_atoms=True)
             atoms_water = select(molecular_system, selection='group_type=="water"')
             atoms_not_water = complementary_atom_indices(molecular_system, atoms_water)
@@ -37,10 +38,10 @@ def get_missing_bonds(molecular_system, threshold='2 angstroms', selection='all'
             h_atoms_no_water = [ii for ii in atoms_not_water if ii not in heavy_atoms_not_water] 
 
             if with_distances:
-
+                print('llega_1')
                 contacts_heavy_atoms = get_contacts(molecular_system, selection=heavy_atoms_not_water,
                                                     threshold=threshold, output_type='pairs',
-                                                    output_indices='atom_index', pbc=True)
+                                                    output_indices='atom', pbc=True, skip_digestion=False)
 
                 return contacts_heavy_atoms
 
