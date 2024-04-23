@@ -30,18 +30,34 @@ def get_missing_bonds(molecular_system, threshold='2 angstroms', selection='all'
             bonds_templates = []
             bonds_distances = []
 
-            print('llega_0')
-            n_atoms = get(molecular_system, n_atoms=True)
-            atoms_water = select(molecular_system, selection='group_type=="water"')
+            n_atoms = get(molecular_system, n_atoms=True, skip_digestion=True)
+            atoms_water = select(molecular_system, selection='group_type=="water"', skip_digestion=True)
             atoms_not_water = complementary_atom_indices(molecular_system, atoms_water)
-            heavy_atoms_not_water = select(molecular_system, selection='atom_type!="H"', mask=atoms_not_water)
-            h_atoms_no_water = [ii for ii in atoms_not_water if ii not in heavy_atoms_not_water] 
+            heavy_atoms_not_water = select(molecular_system, selection='atom_type!="H"', mask=atoms_not_water,
+                                           skip_digestion=True)
+            o_atoms_water = select(molecular_system, selection='atom_type!="H"', mask=atoms_water,
+                                   skip_digestion=True)
+            h_atoms_not_water = [ii for ii in atoms_not_water if ii not in heavy_atoms_not_water] 
+            h_atoms_water = [ii for ii in atoms_water if ii not in o_atoms_water] 
+
+            if len(atoms_water):
+                if len(h_atoms_water):
+                    print('System with hydrogens and waters... to be implemented')
+                    raise NotImplementedError()
+
+                pass
 
             if with_distances:
-                print('llega_1')
+
                 contacts_heavy_atoms = get_contacts(molecular_system, selection=heavy_atoms_not_water,
                                                     threshold=threshold, output_type='pairs',
-                                                    output_indices='atom', pbc=True, skip_digestion=False)
+                                                    output_indices='atom', pbc=True, skip_digestion=True)
+
+                bonds_distances += contacts_heavy_atoms
+
+                if len(h_atoms_not_water):
+                    print('System with hydrogens... to be implemented')
+                    raise NotImplementedError()
 
                 return contacts_heavy_atoms
 
@@ -103,12 +119,7 @@ def get_missing_bonds(molecular_system, threshold='2 angstroms', selection='all'
 
                 for group_index, group_name, group_type, atom_indices, atom_names, atom_types in zip(*aux_output):
 
-                    if group_type=='water':
-
-                        aux_bonds = _bonds_in_water(atom_indices, atom_names, atom_types, sorted=False)
-                        bonds_templates += aux_bonds
-
-                    elif group_type=='ion':
+                    if group_type=='ion':
 
                         aux_bonds = _bonds_in_ion(group_name, atom_indices, atom_names, sorted=False)
                         bonds_templates += aux_bonds
@@ -162,11 +173,6 @@ def get_missing_bonds(molecular_system, threshold='2 angstroms', selection='all'
                     if group_index+1 in aux_peptidic_bonds_N:
                         bonds_templates += [[aux_peptidic_bonds_C[group_index], aux_peptidic_bonds_N[group_index+1]]]
 
-                bonds += bonds_templates
-
-                if with_distances:
-                    bonds += bonds_distances
-
             else:
 
                 raise NotImplementedError
@@ -185,10 +191,12 @@ def get_missing_bonds(molecular_system, threshold='2 angstroms', selection='all'
             #                bonds_with_distance.append([atom_i, atom_j])
 
 
-            if sorted:
-                output = _sorted(bonds)
-            else:
-                output = bonds
+            #if sorted:
+            #    output = _sorted(bonds)
+            #else:
+            #    output = bonds
+
+            return bonds_distances, bonds_templates
 
         else:
 
