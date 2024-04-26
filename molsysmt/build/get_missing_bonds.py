@@ -49,17 +49,31 @@ def get_missing_bonds(molecular_system, threshold='2 angstroms', selection='all'
 
             if with_distances:
 
+                # Protein:
+                # Enlace C-N: aproximadamente 1.33 Å
+                # Enlace C-C: aproximadamente 1.54 Å
+                # Enlace C-S: aproximadamente 1.82 Å
+                # Small molecule:
+                # Enlace C-H: aproximadamente 1.09 Å
+                # Enlace C-C: aproximadamente 1.54 Å
+                # Enlace C-O: aproximadamente 1.43 Å
+                # Enlace C-N: aproximadamente 1.47 Å
+                # Water molecule:
+                # Enlace O-H: aproximadamente 0.96 Å
+                # Lipid:
+                # Enlace C-H: aproximadamente 1.09 Å
+                # Enlace C-C: aproximadamente 1.54 Å
+                # Enlace P-O: aproximadamente 1.61 Å
+
                 contacts_heavy_atoms = get_contacts(molecular_system, selection=heavy_atoms_not_water,
                                                     threshold=threshold, output_type='pairs',
                                                     output_indices='atom', pbc=True, skip_digestion=True)
 
-                bonds_distances += contacts_heavy_atoms
+                bonds_distances += contacts_heavy_atoms[0]
 
                 if len(h_atoms_not_water):
                     print('System with hydrogens... to be implemented')
                     raise NotImplementedError()
-
-                return contacts_heavy_atoms
 
             if with_templates:
 
@@ -117,9 +131,16 @@ def get_missing_bonds(molecular_system, threshold='2 angstroms', selection='all'
                                      group_type=True, atom_index=True, atom_name=True, atom_type=True,
                                      skip_digestion=True)
 
+                indices_no_template = []
+
                 for group_index, group_name, group_type, atom_indices, atom_names, atom_types in zip(*aux_output):
 
-                    if group_type=='ion':
+                    if group_type=='water':
+
+                        aux_bonds = _bonds_in_water(atom_indices, atom_names, atom_types, sorted=False)
+                        bonds_templates += aux_bonds
+
+                    elif group_type=='ion':
 
                         aux_bonds = _bonds_in_ion(group_name, atom_indices, atom_names, sorted=False)
                         bonds_templates += aux_bonds
@@ -165,60 +186,61 @@ def get_missing_bonds(molecular_system, threshold='2 angstroms', selection='all'
 
                     else:
 
-                        indices_with_distance += atom_indices
+                        indices_no_template += atom_indices
 
                 # peptidic bonds
 
                 for group_index in aux_peptidic_bonds_C.keys():
                     if group_index+1 in aux_peptidic_bonds_N:
-                        bonds_templates += [[aux_peptidic_bonds_C[group_index], aux_peptidic_bonds_N[group_index+1]]]
+                        possible_bond = [aux_peptidic_bonds_C[group_index], aux_peptidic_bonds_N[group_index+1]]
+                        if with_distances:
+                            if possible_bond in bonds_distances:
+                                bonds_templates += [[aux_peptidic_bonds_C[group_index],
+                                                     aux_peptidic_bonds_N[group_index+1]]]
 
             else:
 
                 raise NotImplementedError
-
-            #neighbors, _ = get_neighbors(molecular_system, selection=indices_with_distance, threshold=threshold)
-
-            #if is_all(indices_with_distance):
-            #    for atom_i, neighbors_frame in enumerate(neighbors):
-            #        for atom_j in neighbors_frame[ii]:
-            #            if atom_i < atom_j:
-            #                bonds_with_distance.append([atom_i, atom_j])
-            #else:
-            #    for atom_i, neighbors_frame in enumerate(neighbors):
-            #        for atom_j in neighbors_frame[ii]:
-            #            if atom_i < atom_j:
-            #                bonds_with_distance.append([atom_i, atom_j])
-
 
             #if sorted:
             #    output = _sorted(bonds)
             #else:
             #    output = bonds
 
-            return bonds_distances, bonds_templates
+            if with_distances and with_templates:
+
+                distances_in_templates = True
+                templates_in_distances = True
+
+                for ii in bonds_distances:
+                    if ii not in bonds_templates:
+                        distances_in_templates = False
+                        break
+
+                for ii in bonds_distances:
+                    if ii not in bonds_templates:
+                        templates_in_distances = False
+                        break
+
+                if distances_in_templates and templates_in_distances:
+                   output = bonds_distances 
+
+            else:
+
+                raise NotImplementedError
+                
+
+            if sorted:
+                output = _sorted(output)
+            else:
+                output = bonds
+
+            return output
 
         else:
 
             raise NotImplementedError
 
-
-        #neighbors, distance = get_neighbors(molecular_system, selection=atom_indices,
-        #                                    selection_2=atom_indices, threshold=threshold, output='dict')
-
-        #for atom_i, atom_j in old_bonds:
-        #    for kk, neighbors_frame in enumerate(neighbors):
-        #        if atom_j not in neighbors_frame[atom_i]:
-        #            warnings.warn(f"The bond between atoms {atom_i} and {atom_j} was observed with a length larger than the threshold: distance[kk][atom_i]")
-
-        #for ii, atom_index in enumerate(atom_indices):
-        #    atom_i = atom_index
-        #    for neighbors_frame in neighbors:
-        #        for atom_j in neighbors_frame[ii]:
-        #            if atom_i < atom_j:
-        #                if [atom_i, atom_j] not in old_bonds:
-        #                    if [atom_i, atom_j] not in output:
-        #                        output.append([atom_i, atom_j])
 
     elif engine=="pytraj":
 
@@ -253,14 +275,14 @@ def get_missing_bonds(molecular_system, threshold='2 angstroms', selection='all'
 
     return output
 
-def _bonds_in_water(atom_indices, atom_names, atom_type, sorted=True):
+def _bonds_in_water(atom_indices, atom_names, atom_types, sorted=True):
 
     if len(atom_indices)>=3:
 
         O = None
         Hs = []
 
-        for ii,jj in zip(atom_indices, atom_type):
+        for ii,jj in zip(atom_indices, atom_types):
             if jj=='O':
                 O=ii
             else:

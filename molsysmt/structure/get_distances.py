@@ -81,10 +81,11 @@ def get_distances(molecular_system, selection="all", structure_indices="all", ce
 
         if in_memory:
 
-            output = _get_distances_in_memory(molecular_system,
-                    selection=atom_indices, structure_indices=structure_indices, center_of_atoms=center_of_atoms, weights=weights,
-                    molecular_system_2=molecular_system_2, selection_2=atom_indices_2, structure_indices_2=structure_indices_2,
-                    center_of_atoms_2=center_of_atoms_2, weights_2=weights_2, pairs=pairs, pbc=pbc, syntax=syntax)
+            output = _get_distances_in_memory(molecular_system, selection=atom_indices,
+                    structure_indices=structure_indices, center_of_atoms=center_of_atoms, weights=weights,
+                    molecular_system_2=molecular_system_2, selection_2=atom_indices_2,
+                    structure_indices_2=structure_indices_2, center_of_atoms_2=center_of_atoms_2, weights_2=weights_2,
+                    pairs=pairs, pbc=pbc, syntax=syntax)
 
         else:
 

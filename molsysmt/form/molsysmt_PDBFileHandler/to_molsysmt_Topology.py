@@ -128,7 +128,7 @@ def to_molsysmt_Topology(item, atom_indices='all', structure_indices=0, get_miss
 
     if get_missing_bonds:
 
-        bonds = _get_missing_bonds(tmp_item, with_distances=True)
+        bonds = _get_missing_bonds(tmp_item, skip_digestion=True)
         bonds = np.array(bonds)
         tmp_item.reset_bonds(n_bonds=bonds.shape[0])
         tmp_item.bonds.drop(['order', 'type'], axis=1, inplace=True)
