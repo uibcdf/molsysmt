@@ -57,10 +57,17 @@ def get_contacts(molecular_system, selection=None, center_of_atoms=False, weight
         pairs = []
         n_contact_maps = contact_map.shape[0]
 
-        for ii in range(n_contact_maps):
-            aux_pairs = np.nonzero(np.triu(contact_map[ii],k=1)==True)
-            aux_pairs = np.column_stack(aux_pairs).tolist()
-            pairs.append(aux_pairs)
+
+        if selection_2 is None:
+            for ii in range(n_contact_maps):
+                aux_pairs = np.nonzero(np.triu(contact_map[ii],k=1)==True)
+                aux_pairs = np.column_stack(aux_pairs).tolist()
+                pairs.append(aux_pairs)
+        else:
+            for ii in range(n_contact_maps):
+                aux_pairs = np.nonzero(contact_map[ii])
+                aux_pairs = np.column_stack(aux_pairs).tolist()
+                pairs.append(aux_pairs)
 
         if output_indices=='atom':
 
@@ -73,8 +80,8 @@ def get_contacts(molecular_system, selection=None, center_of_atoms=False, weight
                 atom_indices_2 = np.array(atom_indices_2)
                 for ii in range(n_contact_maps):
                     aux_pairs = np.array(pairs[ii])
-                    pairs[ii]=np.column_stack(atom_indices[aux_pairs[:,0]],
-                            atom_indices_2[aux_pairs[:,1]]).tolist()
+                    pairs[ii]=np.column_stack([atom_indices[aux_pairs[:,0]],
+                            atom_indices_2[aux_pairs[:,1]]]).tolist()
 
         if output_type=='sorted pairs':
             for ii in range(n_contact_maps):

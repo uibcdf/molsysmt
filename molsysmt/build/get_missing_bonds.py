@@ -40,6 +40,8 @@ def get_missing_bonds(molecular_system, threshold='2 angstroms', selection='all'
             h_atoms_not_water = [ii for ii in atoms_not_water if ii not in heavy_atoms_not_water] 
             h_atoms_water = [ii for ii in atoms_water if ii not in o_atoms_water] 
 
+
+            # bonds in water molecules are defined by template and independently
             if len(atoms_water):
                 if len(h_atoms_water):
                     print('System with hydrogens and waters... to be implemented')
@@ -72,8 +74,20 @@ def get_missing_bonds(molecular_system, threshold='2 angstroms', selection='all'
                 bonds_distances += contacts_heavy_atoms[0]
 
                 if len(h_atoms_not_water):
-                    print('System with hydrogens... to be implemented')
-                    raise NotImplementedError()
+
+                    aux_contacts = get_contacts(molecular_system, selection=heavy_atoms_not_water,
+                                                selection_2=h_atoms_not_water, threshold=threshold,
+                                                output_type='pairs', output_indices='atom',
+                                                pbc=True, skip_digestion=True)
+
+                    # Hydrogen bonds need to be removed: let's work with those bonds intra group only.
+                    contacts_heavy_atoms_with_h_atoms = []
+                    group_indices = get(molecular_system, element='atom', group_index=True)
+                    for ii,jj in aux_contacts[0]:
+                        if group_indices[ii]==group_indices[jj]:
+                            contacts_heavy_atoms_with_h_atoms.append([ii,jj])
+
+                    bonds_distances += contacts_heavy_atoms_with_h_atoms
 
             if with_templates:
 
@@ -202,11 +216,6 @@ def get_missing_bonds(molecular_system, threshold='2 angstroms', selection='all'
 
                 raise NotImplementedError
 
-            #if sorted:
-            #    output = _sorted(bonds)
-            #else:
-            #    output = bonds
-
             if with_distances and with_templates:
 
                 distances_in_templates = True
@@ -223,8 +232,11 @@ def get_missing_bonds(molecular_system, threshold='2 angstroms', selection='all'
                         break
 
                 if distances_in_templates and templates_in_distances:
-                   output = bonds_distances 
-
+                   output = bonds_distances
+                else:
+                    #raise ValueError('templates and distances do not match')
+                    print('templates and distances do not match')
+                    return bonds_distances, bonds_templates
             else:
 
                 raise NotImplementedError
