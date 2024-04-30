@@ -15,13 +15,15 @@ from .extract import extract
 from .copy import copy
 from .add import add
 from .merge import merge
-from .add_bonds import add_bonds
 from .append_structures import append_structures
 from .get_topological_attributes import *
 from .get_structural_attributes import *
 from .get_mechanical_attributes import *
 from .set import *
 from .iterators import StructuresIterator, TopologyIterator
+
+from .add_bonds import add_bonds
+from .remove_bonds import remove_bonds
 
 from .to_mdtraj_Topology import to_mdtraj_Topology
 from .to_mdtraj_Trajectory import to_mdtraj_Trajectory

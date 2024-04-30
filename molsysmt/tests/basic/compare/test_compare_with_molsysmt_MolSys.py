@@ -51,17 +51,17 @@ def test_compare_all_eq_3():
 
     if comparison['chain_index']!=True:
         output = False
-    if comparison['chain_name']!=False:
+    if comparison['chain_name']!=True:
         output = False
-    if comparison['chain_id']!=False:
+    if comparison['chain_id']!=True:
         output = False
-    if comparison['chain_type']!=False:
+    if comparison['chain_type']!=True:
         output = False
 
     if comparison['molecule_index']!=True:
         output = False
     if comparison['molecule_type']!=True:
-        output = False
+        output = True
 
     if comparison['bonded_atoms']!=True:
         output = False

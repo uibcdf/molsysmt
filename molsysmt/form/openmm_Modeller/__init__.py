@@ -2,9 +2,9 @@ form_name = 'openmm.Modeller'
 form_type = 'class'
 form_info = ["", ""]
 
-piped_topological_attribute = None
-piped_structural_attribute = None
-piped_any_attribute = None
+piped_topological_attribute = 'molsysmt.Topology'
+piped_structural_attribute = 'molsysmt.Structures'
+piped_any_attribute = 'molsysmt.MolSys'
 
 from .is_form import is_form
 

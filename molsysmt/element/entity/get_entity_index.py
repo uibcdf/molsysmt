@@ -3,7 +3,8 @@ from molsysmt._private.digestion import digest
 
 @digest()
 def get_entity_index(molecular_system, element='atom', selection='all',
-        redefine_molecules=False, redefine_indices=False, syntax='MolSysMT'):
+                     redefine_molecules=False, redefine_indices=False, syntax='MolSysMT',
+                     skip_digestion=False):
 
     if redefine_molecules or redefine_indices:
 
@@ -12,18 +13,20 @@ def get_entity_index(molecular_system, element='atom', selection='all',
         if redefine_molecules:
 
             molecule_name_from_molecules = get_molecule_name(molecular_system, element='molecule',
-                    selection=selection, redefine_molecules=True, syntax=syntax)
+                    selection=selection, redefine_molecules=True, syntax=syntax, skip_digestion=True)
 
             molecule_type_from_molecules = get_molecule_type(molecular_system, element='molecule',
-                    selection=selection, redefine_molecules=True, syntax=syntax)
+                    selection=selection, redefine_molecules=True, syntax=syntax, skip_digestion=True)
 
         else:
 
             molecule_name_from_molecules = get_molecule_name(molecular_system, element='molecule',
-                    selection=selection, redefine_molecules=False, redefine_names=False, syntax=syntax)
+                    selection=selection, redefine_molecules=False, redefine_names=False, syntax=syntax,
+                                                            skip_digestion=True)
 
             molecule_type_from_molecules = get_molecule_type(molecular_system, element='molecule',
-                    selection=selection, redefine_molecules=False, redefine_types=False, syntax=syntax)
+                    selection=selection, redefine_molecules=False, redefine_types=False, syntax=syntax,
+                                                            skip_digestion=True)
 
         count = 0
         output = []
@@ -87,7 +90,7 @@ def get_entity_index(molecular_system, element='atom', selection='all',
 
         from molsysmt import get
         output = get(molecular_system, element=element, selection=selection, syntax=syntax,
-                     entity_index=True)
+                     entity_index=True, skip_digestion=True)
 
     return output
 

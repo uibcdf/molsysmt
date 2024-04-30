@@ -334,7 +334,45 @@ class Topology():
         self.bonds._sort_bonds()
         self.bonds._remove_empty_columns()
 
+        self.rebuild_components()
+        self.rebuild_molecules()
+        self.rebuild_entities()
+
         del(df_concatenado, aux_bonds_dataframe)
+
+    def remove_bonds(self, bond_indices='all', skip_digestion=False):
+
+        if is_all(bond_indices):
+
+            self.bonds = Bonds_DataFrame(n_bonds=0)
+
+        else:
+
+            tmp_dataframe = self.bonds.drop(bond_indices)
+
+            n_bonds = bonded_atom_pairs.shape[0]
+
+            self.bonds = Bonds_DataFrame(n_bonds=n_bonds)
+            self.bonds.atom1_index=tmp_dataframe.atom1_index
+            self.bonds.atom2_index=tmp_dataframe.atom2_index
+
+            if 'order' in tmp_dataframe:
+                self.bonds['order'] = tmp_dataframe['order']
+            else:
+                del self.bonds['order']
+
+            if 'type' in tmp_dataframe:
+                self.bonds['type'] = tmp_dataframe['type']
+            else:
+                del self.bonds['type']
+
+            self.bonds._sort_bonds()
+
+            del(tmp_dataframe)
+
+        self.rebuild_components()
+        self.rebuild_molecules()
+        self.rebuild_entities()
 
 
     def add_missing_bonds(self, selection='all', syntax='MolSysMT', skip_digestion=False):
@@ -346,6 +384,10 @@ class Topology():
                                    skip_digestion=True)
 
         self.add_bonds(bonds, skip_digestion=True)
+
+        self.rebuild_components()
+        self.rebuild_molecules()
+        self.rebuild_entities()
 
     def rebuild_atoms(self, redefine_ids=True, redefine_types=True):
 

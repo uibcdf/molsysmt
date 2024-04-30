@@ -20,6 +20,9 @@ from .get_topological_attributes import *
 from .set import *
 from .iterators import TopologyIterator
 
+from .add_bonds import add_bonds
+from .remove_bonds import remove_bonds
+
 from .to_string_amino_acids_3 import to_string_amino_acids_3
 from .to_string_amino_acids_1 import to_string_amino_acids_1
 from .to_string_pdb_text import to_string_pdb_text

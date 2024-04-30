@@ -1,5 +1,6 @@
 from molsysmt._private.digestion import digest
 from molsysmt._private.variables import is_all
+from molsysmt import pyunitwizard as puw
 import pandas as pd
 import numpy as np
 
@@ -7,10 +8,9 @@ import numpy as np
 def to_molsysmt_Topology(item, atom_indices='all', structure_indices=0, get_missing_bonds=True,
                          skip_digestion=False):
 
-    from molsysmt.native import Topology
-    from molsysmt.build import get_missing_bonds as _get_missing_bonds
+    from molsysmt.native import MolSys
 
-    tmp_item = Topology()
+    tmp_item = MolSys()
 
     atom_id_array = []
     atom_name_array = []
@@ -22,6 +22,7 @@ def to_molsysmt_Topology(item, atom_indices='all', structure_indices=0, get_miss
 
     occupancy_array = []
     alternate_location_array = []
+    coordinates_array = []
 
     group_index = -1
     former_group_id = None
@@ -29,8 +30,6 @@ def to_molsysmt_Topology(item, atom_indices='all', structure_indices=0, get_miss
     chain_index = -1
     former_chain_name = None
     aux_dict_chain = {}
-
-
 
     for atom_record in item.entry.coordinate.model[0].record:
 
@@ -58,6 +57,8 @@ def to_molsysmt_Topology(item, atom_indices='all', structure_indices=0, get_miss
 
         chain_index_array.append(chain_index)
 
+        coordinates_array.append([atom_record.x, atom_record.y, atom_record.z])
+
     atom_id_array = np.array(atom_id_array, dtype=int)
     atom_name_array = np.array(atom_name_array, dtype=str)
     group_index_array = np.array(group_index_array, dtype=int)
@@ -68,6 +69,8 @@ def to_molsysmt_Topology(item, atom_indices='all', structure_indices=0, get_miss
 
     occupancy_array = np.array(occupancy_array, dtype=float)
     alternate_location_array = np.array(alternate_location_array, dtype=str)
+
+    coordinates_array = np.array(coordinates_array, dtype=float)
 
     alt_atom_indices = np.where(alternate_location_array!=' ')[0]
     aux_dict = {}
@@ -96,51 +99,72 @@ def to_molsysmt_Topology(item, atom_indices='all', structure_indices=0, get_miss
             chosen = np.argmax(alt_occupancy)
         chosen = same_atoms.pop(chosen)
         atoms_to_be_removed_with_alt_loc += same_atoms
-    
+
     atom_id_array = np.delete(atom_id_array, atoms_to_be_removed_with_alt_loc)
     atom_name_array = np.delete(atom_name_array, atoms_to_be_removed_with_alt_loc)
     group_index_array = np.delete(group_index_array, atoms_to_be_removed_with_alt_loc)
     chain_index_array = np.delete(chain_index_array, atoms_to_be_removed_with_alt_loc)
 
+    if len(atoms_to_be_removed_with_alt_loc):
+        coordinates_array = np.delete(coordinates_array, atoms_to_be_removed_with_alt_loc)
+
     n_atoms = atom_id_array.shape[0]
     n_groups = group_name_array.shape[0]
     n_chains = chain_name_array.shape[0]
 
-    tmp_item.reset_atoms(n_atoms=n_atoms)
-    tmp_item.reset_groups(n_groups=n_groups)
-    tmp_item.reset_chains(n_chains=n_chains)
+    tmp_item.topology.reset_atoms(n_atoms=n_atoms)
+    tmp_item.topology.reset_groups(n_groups=n_groups)
+    tmp_item.topology.reset_chains(n_chains=n_chains)
 
-    tmp_item.atoms.atom_id = atom_id_array
-    tmp_item.atoms.atom_name = atom_name_array
-    tmp_item.atoms.group_index = group_index_array
-    tmp_item.atoms.chain_index = chain_index_array
+    tmp_item.topology.atoms.atom_id = atom_id_array
+    tmp_item.topology.atoms.atom_name = atom_name_array
+    tmp_item.topology.atoms.group_index = group_index_array
+    tmp_item.topology.atoms.chain_index = chain_index_array
 
-    tmp_item.rebuild_atoms(redefine_ids=False, redefine_types=True)
+    tmp_item.topology.rebuild_atoms(redefine_ids=False, redefine_types=True)
 
-    tmp_item.groups.group_id = group_id_array
-    tmp_item.groups.group_name = group_name_array
+    tmp_item.topology.groups.group_id = group_id_array
+    tmp_item.topology.groups.group_name = group_name_array
 
-    tmp_item.rebuild_groups(redefine_ids=False, redefine_types=True)
+    tmp_item.topology.rebuild_groups(redefine_ids=False, redefine_types=True)
 
-    tmp_item.chains.chain_name = chain_name_array
+    tmp_item.topology.chains.chain_name = chain_name_array
 
-    tmp_item.rebuild_chains(redefine_ids=True, redefine_types=False )
+    tmp_item.topology.rebuild_chains(redefine_ids=True, redefine_types=False )
+
+    del(atom_id_array, atom_name_array,
+        group_index_array, group_id_array, group_name_array,
+        chain_index_array, chain_name_array,
+        occupancy_array, alternate_location_array, alt_atom_indices, aux_dict)
 
     if get_missing_bonds:
 
+        from molsysmt.build import get_missing_bonds as _get_missing_bonds
+        from molsysmt.pbc import get_box_from_lengths_and_angles
+
+        cryst1 = item.entry.crystallographic_and_coordinate_transformation.cryst1
+        box_lengths = puw.quantity([[cryst1.a, cryst1.b, cryst1.c]], 'angstroms')
+        box_angles = puw.quantity([[cryst1.alpha, cryst1.beta, cryst1.gamma]], 'degrees')
+        box = get_box_from_lengths_and_angles(box_lengths, box_angles, skip_digestion=True)
+
+        coordinates = puw.quantity(coordinates_array, 'angstroms')
+        tmp_item.structures.append(coordinates=coordinates, box=box)
+
+        del(coordinates_array, box, box_lengths, box_angles)
+
         bonds = _get_missing_bonds(tmp_item, skip_digestion=True)
         bonds = np.array(bonds)
-        tmp_item.reset_bonds(n_bonds=bonds.shape[0])
-        tmp_item.bonds.drop(['order', 'type'], axis=1, inplace=True)
-        tmp_item.bonds.atom1_index=bonds[:,0]
-        tmp_item.bonds.atom2_index=bonds[:,1]
+        tmp_item.topology,reset_bonds(n_bonds=bonds.shape[0])
+        tmp_item.topology.bonds.drop(['order', 'type'], axis=1, inplace=True)
+        tmp_item.topology.bonds.atom1_index=bonds[:,0]
+        tmp_item.topology.bonds.atom2_index=bonds[:,1]
 
-        tmp_item.rebuild_components()
-        tmp_item.rebuild_molecules()
-        tmp_item.rebuild_chains(redefine_ids=False, redefine_types=True)
-        tmp_item.rebuild_entities()
+        tmp_item.topology.rebuild_components()
+        tmp_item.topology.rebuild_molecules()
+        tmp_item.topology.rebuild_chains(redefine_ids=False, redefine_types=True)
+        tmp_item.topology.rebuild_entities()
 
-    tmp_item = tmp_item.extract(atom_indices=atom_indices, copy_if_all=False, skip_digestion=True)
+    tmp_item = tmp_item.topology.extract(atom_indices=atom_indices, copy_if_all=False, skip_digestion=True)
 
     return tmp_item
 
