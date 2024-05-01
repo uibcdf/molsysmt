@@ -1,6 +1,7 @@
 from molsysmt._private.exceptions import NotImplementedMethodError
 from molsysmt._private.digestion import digest
 from molsysmt._private.variables import is_all, is_iterable_of_iterables
+from molsysmt._private.variables import is_iterable_of_pairs
 from molsysmt import lib as msmlib
 from molsysmt import pyunitwizard as puw
 import numpy as np
@@ -44,6 +45,13 @@ def get_distances(molecular_system, selection="all", structure_indices="all", ce
 
     if pbc:
         pbc=has_pbc(molecular_system)
+
+    if pairs and (selection_2 is None):
+        if is_iterable_or_pairs(selection):
+            if not isinstance(selection, np.ndarray):
+                selection=np.array(selection)
+            selection_2 = selection[:,1]
+            selection = selection[:,0]
 
     atom_indices = select(molecular_system, selection=selection, syntax=syntax)
 

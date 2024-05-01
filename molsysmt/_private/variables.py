@@ -64,3 +64,16 @@ def is_next(variable):
 
     return False
 
+def is_iterable_of_pairs(variable):
+
+    output = False
+
+    if isinstance(variable, ndarray):
+        if len(variable.shape)==2:
+            if variable.shape[1]==2:
+                output = True
+    elif isinstance(variable, (list, tuple, set)):
+        output = all(len(ii) == 2 for ii in variable)
+
+    return output
+
