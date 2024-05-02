@@ -44,6 +44,8 @@ def get_missing_bonds(molecular_system, threshold='2 angstroms', selection='all'
         from molsysmt.element.group.small_molecule import get_bonded_atom_pairs as _bonds_in_small_molecule
         from molsysmt.element.group.terminal_capping import is_n_terminal_capping, is_c_terminal_capping
 
+        old_bonds = get(molecular_system, bonded_atom_pairs=True)
+
         aux_lists = get(molecular_system, element='group', selection=selection, group_name=True,
                         group_type=True, atom_index=True, atom_name=True,
                         skip_digestion=True)
@@ -149,6 +151,15 @@ def get_missing_bonds(molecular_system, threshold='2 angstroms', selection='all'
                     tmp_bonds += bond
             bonds = tmp_bonds
 
+
+        if old_bonds:
+
+            tmp_bonds = []
+            for ii in bonds:
+                if ii not in old_bonds:
+                    tmp_bonds.append(ii)
+            bonds = tmp_bonds
+
     elif engine=="pytraj":
 
         from molsysmt.basic import convert, get
@@ -182,8 +193,8 @@ def get_missing_bonds(molecular_system, threshold='2 angstroms', selection='all'
 
         raise NotImplementedMethodError
 
-    #if sorted:
-    #    bonds = _sorted(bonds)
+    if sorted:
+        bonds = _sorted(bonds)
 
     return bonds
 
