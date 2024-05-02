@@ -1,7 +1,7 @@
 from molsysmt._private.digestion import digest
 from .water import is_water
 from .ion import is_ion
-from .small_molecule import is_small_molecule
+from .small_molecule import is_small_molecule, small_molecule_is_amino_acid
 from .amino_acid import is_amino_acid
 from .terminal_capping import is_terminal_capping
 from .nucleotide import is_nucleotide
@@ -20,12 +20,16 @@ def get_group_type(molecular_system, element='atom', selection='all', redefine_t
 
         if element == 'atom':
 
-            group_names_from_atom = get(molecular_system, element='atom', selection=selection, syntax=syntax,
-                                        group_name=True)
+            group_names_from_atom = get(molecular_system, element='atom', selection=selection,
+                                        syntax=syntax, group_name=True)
             unique_group_names = np.unique(group_names_from_atom)
             aux_dict = {}
             for name in unique_group_names:
-                aux_dict[name] = get_group_type_from_group_name(name)
+                tmp_group_type = get_group_type_from_group_name(name)
+                if tmp_group_type == 'small molecule':
+                    if _small_molecule_is_amino_acid(molecular_system, name):
+                        tmp_group_type = 'amino acid'
+                aux_dict[name] = tmp_group_type
 
             output = [aux_dict[ii] for ii in group_names_from_atom]
 
@@ -36,6 +40,10 @@ def get_group_type(molecular_system, element='atom', selection='all', redefine_t
             unique_group_names = np.unique(group_names_from_group)
             aux_dict = {}
             for name in unique_group_names:
+                tmp_group_type = _get_group_type_from_group_name(name)
+                if tmp_group_type == 'small molecule':
+                    if _small_molecule_is_amino_acid(molecular_system, group_index):
+                        tmp_group_type = 'amino acid'
                 aux_dict[name] = _get_group_type_from_group_name(name)
 
             output = [aux_dict[ii] for ii in group_names_from_group]

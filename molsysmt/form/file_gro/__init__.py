@@ -3,9 +3,9 @@ form_type = 'file'
 form_info = ["Gromacs gro file format",
              "http://manual.gromacs.org/documentation/2018/user-guide/file-formats.html#gro"]
 
-piped_topological_attribute = None
-piped_structural_attribute = None
-piped_any_attribute = None
+piped_topological_attribute = 'molsysmt.MolSys'
+piped_structural_attribute = 'molsysmt.Structure'
+piped_any_attribute = 'molsysmt.MolSys'
 
 from .is_form import is_form
 
@@ -30,6 +30,7 @@ from .to_molsysmt_Structures import to_molsysmt_Structures
 from .to_molsysmt_MolSysOld import to_molsysmt_MolSysOld
 from .to_molsysmt_TopologyOld import to_molsysmt_TopologyOld
 from .to_molsysmt_StructuresOld import to_molsysmt_StructuresOld
+from .to_molsysmt_GROFileHandler import to_molsysmt_GROFileHandler
 from .to_openmm_Topology import to_openmm_Topology
 from .to_openmm_Modeller import to_openmm_Modeller
 from .to_openmm_GromacsGroFile import to_openmm_GromacsGroFile
@@ -46,6 +47,7 @@ _convert_to={
         'molsysmt.MolSysOld': to_molsysmt_MolSysOld,
         'molsysmt.TopologyOld': to_molsysmt_TopologyOld,
         'molsysmt.StructuresOld': to_molsysmt_StructuresOld,
+        'molsysmt.GROFileHandler': to_molsysmt_GROFileHandler,
         'openmm.Topology': to_openmm_Topology,
         'openmm.Modeller': to_openmm_Modeller,
         'openmm.GromacsGroFile': to_openmm_GromacsGroFile,

@@ -196,11 +196,13 @@ def compare(molecular_system, molecular_system_2, selection='all', structure_ind
                 if key in atts_to_be_compared:
                     atts_to_be_compared.remove(key)
 
-
     atts_of_A = get_attributes(molecular_system, output_type='list')
     atts_of_B = get_attributes(molecular_system_2, output_type='list')
 
     atts_required = set(atts_to_be_compared) & set(atts_of_A) & set(atts_of_B)
+
+    molecular_system = _piped_molecular_system(molecular_system, atts_required)
+    molecular_system_2 = _piped_molecular_system(molecular_system_2, atts_required)
 
     ######   EQUAL   #####
 

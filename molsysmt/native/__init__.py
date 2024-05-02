@@ -13,4 +13,6 @@ from .h5msm_file_handler import H5MSMFileHandler
 from .cif_file_handler import CIFFileHandler
 from .pdb_file_handler import PDBFileHandler
 from .pdb_atomic_coordinate_entry import PDBAtomicCoordinateEntry
+from .gro_file_handler import GROFileHandler
+from .gro_file_handler import GROAtomicCoordinateEntry
 

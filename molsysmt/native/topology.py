@@ -424,6 +424,7 @@ class Topology():
         if redefine_types:
 
             from molsysmt.element.group import get_group_type_from_group_name
+            from molsysmt.element.group.small_molecule import small_molecule_is_amino_acid
 
             aux_dict = {}
 
@@ -432,6 +433,9 @@ class Topology():
             for group_name in self.groups['group_name'].values:
                 if group_name not in aux_dict:
                     group_type = get_group_type_from_group_name(group_name)
+                    if group_type == 'small molecule':
+                        if small_molecule_is_amino_acid(self, group_name):
+                            group_type = 'amino acid'
                     aux_dict[group_name]= group_type
                     group_types.append(group_type)
                 else:

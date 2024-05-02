@@ -25,7 +25,7 @@ _sorted=sorted
 
 @digest()
 def get_missing_bonds(molecular_system, threshold='2 angstroms', selection='all',
-                      structure_indices=0, syntax='MolSysMT', engine='MolSysMT',
+                      structure_index=0, syntax='MolSysMT', engine='MolSysMT',
                       sorted=True, skip_digestion=False):
     """
     To be written soon...
@@ -70,12 +70,23 @@ def get_missing_bonds(molecular_system, threshold='2 angstroms', selection='all'
 
                 case 'ion':
 
-                    aux_bonds = _bonds_in_ion(group_name, atom_names, atom_indices, sorted=False)
+                    try:
+                        aux_bonds = _bonds_in_ion(group_name, atom_names, atom_indices, sorted=False)
+                    except:
+                        aux_bonds = _bonds_in_unknown_group(molecular_system, atom_indices, atom_names,
+                                                            structure_index=structure_index, threshold=threshold,
+                                                            sorted=False)
                     bonds += aux_bonds
 
                 case 'amino acid':
 
-                    aux_bonds = _bonds_in_amino_acid(group_name, atom_names, atom_indices, sorted=False)
+                    try:
+                        aux_bonds = _bonds_in_amino_acid(group_name, atom_names, atom_indices, sorted=False)
+                    except:
+                        aux_bonds = _bonds_in_unknown_group(molecular_system, atom_indices, atom_names,
+                                                            structure_index=structure_index, threshold=threshold,
+                                                            sorted=False)
+
                     bonds += aux_bonds
 
                     aux_peptidic_bonds_C[group_index]=atom_indices[atom_names.index('C')]
@@ -83,7 +94,12 @@ def get_missing_bonds(molecular_system, threshold='2 angstroms', selection='all'
 
                 case 'terminal capping':
 
-                    aux_bonds = _bonds_in_terminal_capping(group_name, atom_names, atom_indices, sorted=False)
+                    try:
+                        aux_bonds = _bonds_in_terminal_capping(group_name, atom_names, atom_indices, sorted=False)
+                    except:
+                        aux_bonds = _bonds_in_unknown_group(molecular_system, atom_indices, atom_names,
+                                                            structure_index=structure_index, threshold=threshold,
+                                                            sorted=False)
                     bonds += aux_bonds
 
                     if is_c_terminal_capping(group_name):
@@ -95,7 +111,12 @@ def get_missing_bonds(molecular_system, threshold='2 angstroms', selection='all'
 
                 case 'small molecule':
 
-                    aux_bonds = _bonds_in_small_molecule(group_name, atom_names, atom_indices, sorted=False)
+                    try:
+                        aux_bonds = _bonds_in_small_molecule(group_name, atom_names, atom_indices, sorted=False)
+                    except:
+                        aux_bonds = _bonds_in_unknown_group(molecular_system, atom_indices, atom_names,
+                                                            structure_index=structure_index, threshold=threshold,
+                                                            sorted=False)
                     bonds += aux_bonds
 
                 case 'saccharide':
@@ -198,4 +219,33 @@ def get_missing_bonds(molecular_system, threshold='2 angstroms', selection='all'
 
     return bonds
 
+def _bonds_in_unknown_group(molecular_system, atom_indices, atom_names, structure_index=0,
+                            threshold='2 angstroms', sorted=False):
+
+    from molsysmt.element.atom import get_atom_type_from_atom_name
+    from molsysmt.structure import get_contacts
+
+    heavy_atoms=[]
+    h_atoms=[]
+
+    for index, name in zip(atom_indices, atom_names):
+        if 'H'==get_atom_type_from_atom_name(name):
+            h_atoms.append(index)
+        else:
+            heavy_atoms.append(index)
+
+    heavy_bonds = get_contacts(molecular_system, selection=heavy_atoms,
+                               structure_indices = structure_index, threshold=threshold,
+                               output_type='pairs', output_indices='atom', pbc=True, skip_digestion=True)[0]
+
+    h_bonds = get_contacts(molecular_system, selection=heavy_atoms, selection_2=h_atoms,
+                           structure_indices = structure_index, threshold=threshold,
+                           output_type='pairs', output_indices='atom', pbc=True, skip_digestion=True)[0]
+
+    bonds = heavy_bonds + h_bonds
+
+    if sorted:
+        bonds = _sorted(bonds)
+
+    return bonds
 

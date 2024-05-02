@@ -130,7 +130,7 @@ def to_molsysmt_Topology(item, atom_indices='all', structure_indices=0, get_miss
 
     tmp_item.topology.chains.chain_name = chain_name_array
 
-    tmp_item.topology.rebuild_chains(redefine_ids=True, redefine_types=False )
+    tmp_item.topology.rebuild_chains(redefine_ids=True, redefine_types=False)
 
     del(atom_id_array, atom_name_array,
         group_index_array, group_id_array, group_name_array,
@@ -154,7 +154,7 @@ def to_molsysmt_Topology(item, atom_indices='all', structure_indices=0, get_miss
 
         bonds = _get_missing_bonds(tmp_item, skip_digestion=True)
         bonds = np.array(bonds)
-        tmp_item.topology,reset_bonds(n_bonds=bonds.shape[0])
+        tmp_item.topology.reset_bonds(n_bonds=bonds.shape[0])
         tmp_item.topology.bonds.drop(['order', 'type'], axis=1, inplace=True)
         tmp_item.topology.bonds.atom1_index=bonds[:,0]
         tmp_item.topology.bonds.atom2_index=bonds[:,1]

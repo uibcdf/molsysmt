@@ -176,6 +176,52 @@ def get(molecular_system,
         else:
             indices = select(molecular_system, element=element, selection=mask, syntax=syntax, skip_digestion=True)
 
+    aux_molecular_system = _piped_molecular_system(molecular_system, in_attributes)
+
+    output = []
+
+    for in_attribute in in_attributes:
+
+        if attributes_filter[in_attribute]:
+
+            dict_indices = {}
+            if element != 'system':
+                if attributes[in_attribute]['runs_on_elements']:
+                    dict_indices['indices'] = indices
+            if attributes[in_attribute]['runs_on_structures']:
+                dict_indices['structure_indices'] = structure_indices
+
+            aux_item, aux_form = where_is_attribute(aux_molecular_system, in_attribute, skip_digestion=True)
+
+            if aux_item is None:
+                result = None
+            else:
+                aux_get = getattr(_dict_modules[aux_form], f'get_{in_attribute}_from_{element}')
+                result = aux_get(aux_item, **dict_indices)
+
+        else:
+
+            result = None
+
+        output.append(result)
+
+    if output_type=='values':
+        if len(output) == 1:
+            return output[0]
+        else:
+            return output
+    elif output_type=='dictionary':
+        return dict(zip(in_attributes, output))
+
+
+def _piped_molecular_system(molecular_system, in_attributes):
+
+    from .. import select, where_is_attribute, get_form, convert
+    from molsysmt.form import _dict_modules
+    from molsysmt.attribute import attributes, bonds_are_required_to_get_attribute
+    from molsysmt.attribute import is_topological_attribute, is_structural_attribute
+
+
     piped_topological_attribute = {}
     piped_structural_attribute = {}
     piped_any_attribute = {}
@@ -260,38 +306,4 @@ def get(molecular_system,
                 aux_molecular_system = convert(molecular_system, to_form='molsysmt.MolSys',
                                                get_missing_bonds=bonds_required_by_attributes, skip_digestion=True)
 
-    output = []
-
-    for in_attribute in in_attributes:
-
-        if attributes_filter[in_attribute]:
-
-            dict_indices = {}
-            if element != 'system':
-                if attributes[in_attribute]['runs_on_elements']:
-                    dict_indices['indices'] = indices
-            if attributes[in_attribute]['runs_on_structures']:
-                dict_indices['structure_indices'] = structure_indices
-
-            aux_item, aux_form = where_is_attribute(aux_molecular_system, in_attribute, skip_digestion=True)
-
-            if aux_item is None:
-                result = None
-            else:
-                aux_get = getattr(_dict_modules[aux_form], f'get_{in_attribute}_from_{element}')
-                result = aux_get(aux_item, **dict_indices)
-
-        else:
-
-            result = None
-
-        output.append(result)
-
-    if output_type=='values':
-        if len(output) == 1:
-            return output[0]
-        else:
-            return output
-    elif output_type=='dictionary':
-        return dict(zip(in_attributes, output))
-
+    return aux_molecular_system

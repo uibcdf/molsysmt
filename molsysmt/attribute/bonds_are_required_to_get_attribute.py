@@ -15,6 +15,7 @@ bond_dependent_attributes = [
     'entity_id', 
     'entity_type', 
     'entity_name', 
+    'chain_type', 
     'n_entities', 
     'bond_index', 
     'bond_type', 
