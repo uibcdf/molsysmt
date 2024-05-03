@@ -5,7 +5,7 @@ import pandas as pd
 import numpy as np
 
 @digest(form='molsysmt.Topology')
-def merge(items, atom_indices='all', skip_digestion=False):
+def merge(items, atom_indices='all', keep_ids=True, skip_digestion=False):
 
     from molsysmt.native import Topology
     from . import extract
@@ -91,6 +91,17 @@ def merge(items, atom_indices='all', skip_digestion=False):
         count_n_chains = next_count_n_chains
         count_n_molecules = next_count_n_molecules
         count_n_bonds = next_count_n_bonds
+
+    if not keep_ids:
+        output.rebuild_atoms(redefine_ids=True, redefine_types=False)
+        output.rebuild_groups(redefine_ids=True, redefine_types=False)
+        output.rebuild_components(redefine_indices=False, redefine_ids=True, redefine_types=False,
+                                  redefine_names=False)
+        output.rebuild_molecules(redefine_indices=False, redefine_ids=True, redefine_types=False,
+                                  redefine_names=False)
+        output.rebuild_chains(redefine_ids=True, redefine_types=True)
+    else:
+        output.rebuild_chains(redefine_ids=False, redefine_types=True)
 
     output.rebuild_entities()
 

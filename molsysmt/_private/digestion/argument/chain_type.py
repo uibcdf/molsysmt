@@ -2,6 +2,14 @@ from ...exceptions import ArgumentError
 from ...variables import is_all
 from numpy import ndarray
 
+functions_with_boolean = (
+        'molsysmt.basic.get.get',
+        'molsysmt.basic.compare.compare',
+        'molsysmt.basic.iterator.__init__',
+        'iterators.__init__',
+        )
+
+
 def digest_chain_type(chain_type, caller=None):
     """Checks if `chain_type` has the expected type and value.
 
@@ -26,7 +34,7 @@ def digest_chain_type(chain_type, caller=None):
         If the given `chain_type` has not of the correct type or value.
     """
 
-    if caller=='molsysmt.basic.get.get':
+    if caller.endswith(functions_with_boolean):
         if isinstance(chain_type, bool):
             return chain_type
     elif caller.startswith('molsysmt.form.') and caller.count('.to_')==2:

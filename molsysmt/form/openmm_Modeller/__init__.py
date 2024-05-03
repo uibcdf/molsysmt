@@ -5,6 +5,8 @@ form_info = ["", ""]
 piped_topological_attribute = 'molsysmt.Topology'
 piped_structural_attribute = 'molsysmt.Structures'
 piped_any_attribute = 'molsysmt.MolSys'
+bonds_are_explicit = True
+bonds_can_be_computed = True
 
 from .is_form import is_form
 

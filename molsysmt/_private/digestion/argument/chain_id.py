@@ -1,6 +1,13 @@
 from ...exceptions import ArgumentError
 from ...variables import is_all
 
+functions_with_boolean = (
+        'molsysmt.basic.get.get',
+        'molsysmt.basic.compare.compare',
+        'molsysmt.basic.iterator.__init__',
+        'iterators.__init__',
+        )
+
 set_functions = (
         'set.set',
         'set_chain_id_to_atom')
@@ -29,7 +36,8 @@ def digest_chain_id(chain_id, caller=None):
         If the given `chain_id` has not of the correct type or value.
     """
 
-    if caller=='molsysmt.basic.get.get':
+
+    if caller.endswith(functions_with_boolean):
         if isinstance(chain_id, bool):
             return chain_id
     elif caller.endswith(set_functions):

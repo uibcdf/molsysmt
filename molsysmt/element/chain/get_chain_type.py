@@ -20,6 +20,10 @@ def get_chain_type(molecular_system, element='atom', selection='all',
                                                       redefine_indices=redefine_molecule_indices,
                                                       redefine_types=redefine_molecule_types)
 
+        for ii in range(len(molecule_types_from_chain)):
+            if isinstance(molecule_types_from_chain[ii], str):
+                molecule_types_from_chain[ii]=[molecule_types_from_chain[ii]]
+
         n_molecules = get_n_molecules(molecular_system, redefine_molecules=redefine_molecule_indices)
 
         chain_types_from_chain = []

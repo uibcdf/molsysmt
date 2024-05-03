@@ -35,9 +35,9 @@ class MolSys:
             return tmp_item
 
     @digest(form='molsysmt.MolSys')
-    def add(self, item, atom_indices='all', structure_indices='all', skip_digestion=False):
+    def add(self, item, atom_indices='all', structure_indices='all', keep_ids=True, skip_digestion=False):
 
-        self.topology.add(item.topology, atom_indices=atom_indices, skip_digestion=True)
+        self.topology.add(item.topology, atom_indices=atom_indices, keep_ids=keep_ids, skip_digestion=True)
         self.structures.add(item.structures, atom_indices=atom_indices, structure_indices=structure_indices,
                            skip_digestion=True)
 

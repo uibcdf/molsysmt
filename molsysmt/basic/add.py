@@ -4,7 +4,7 @@ import inspect
 
 @digest()
 def add(to_molecular_system, from_molecular_system, selection='all', structure_indices='all',
-        syntax='MolSysMT'):
+        keep_ids=True, syntax='MolSysMT'):
     """
     Adding elements of a molecular system into another molecular system.
 

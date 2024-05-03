@@ -4,14 +4,14 @@ Unit and regression test for the view module of the molsysmt package on molsysmt
 
 # Import package, test suite, and other packages as needed
 import molsysmt as msm
-from molsysmt.systems import tests as tests_systems
+from molsysmt import systems
 import numpy as np
 
 def test_view_molsyst_MolSys_with_NLGView_1():
 
     import nglview as nv
 
-    molsys = tests_systems['T4 lysozyme L99A']['181l.pdb']
+    molsys = systems['T4 lysozyme L99A']['181l.pdb']
     molsys = msm.convert(molsys, to_form='molsysmt.MolSys')
     molsys_2 = nv.show_molsysmt(molsys)
     check = ('nglview.NGLWidget'==msm.get_form(molsys_2))
@@ -23,7 +23,7 @@ def test_view_molsyst_MolSys_with_NLGView_1():
 
 def test_view_molsyst_MolSys_with_NGLView_2():
 
-    molsys = msm.convert(tests_systems['alanine dipeptide']['alanine_dipeptide.msmpk'], to_form='molsysmt.MolSys')
+    molsys = msm.convert(systems['alanine dipeptide']['alanine_dipeptide.h5msm'], to_form='molsysmt.MolSys')
     view = msm.view(molsys, viewer='NGLView')
     check_comparison_1 = msm.compare(view, molsys)
     check_comparison_2 = msm.compare(view, molsys, coordinates=True, box=True)
@@ -32,22 +32,22 @@ def test_view_molsyst_MolSys_with_NGLView_2():
 
 def test_view_molsyst_MolSys_with_NGLView_3():
 
-    molsys_1 = msm.convert(tests_systems['alanine dipeptide']['alanine_dipeptide.msmpk'], to_form='molsysmt.MolSys')
+    molsys_1 = msm.convert(systems['alanine dipeptide']['alanine_dipeptide.h5msm'], to_form='molsysmt.MolSys')
     molsys_2 = msm.structure.translate(molsys_1, translation='[0.5, 0.0, 0.0] nm')
-    molsys_merged = msm.merge([molsys_1, molsys_2])
+    molsys_merged = msm.merge([molsys_1, molsys_2], keep_ids=False)
     view = msm.view(molsys_merged, viewer='NGLView')
-    comparison = msm.compare(view, molsys_merged, attributes_type='topological',
-            coordinates=True, box=True, atom_id=False, component_name=False, component_id=False,
-            bond_index=False, inner_bond_index=False)
+    comparison = msm.compare(view, molsys_merged, attribute_type='topological',
+            coordinates=True, box=True, chain_index=False, chain_id=False, chain_name=False, chain_type=False,
+                            n_chains=False)
     assert comparison
 
 def test_view_molsyst_MolSys_with_NGLView_4():
 
-    molsys_1 = msm.convert(tests_systems['alanine dipeptide']['alanine_dipeptide.msmpk'], to_form='molsysmt.MolSys')
+    molsys_1 = msm.convert(systems['alanine dipeptide']['alanine_dipeptide.h5msm'], to_form='molsysmt.MolSys')
     molsys_2 = msm.structure.translate(molsys_1, translation='[0.5, 0.0, 0.0] nm')
     molsys_concatenated = msm.concatenate_structures([molsys_1, molsys_2])
     view = msm.view(molsys_concatenated, viewer='NGLView')
-    comparison = msm.compare(view, molsys_concatenated, attributes_type='topological',
-            coordinates=True, box=True, bond_index=False, inner_bond_index=False)
+    comparison = msm.compare(view, molsys_concatenated, attribute_type='topological',
+            coordinates=True, box=True)
     assert comparison
 

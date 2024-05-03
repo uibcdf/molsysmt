@@ -269,7 +269,7 @@ class Topology():
             return tmp_item
 
     @digest(form='molsysmt.Topology')
-    def add(self, item, atom_indices='all', skip_digestion=False):
+    def add(self, item, atom_indices='all', keep_ids=True, skip_digestion=False):
 
         if is_all(atom_indices):
             tmp_item = item
@@ -294,8 +294,21 @@ class Topology():
         self.components = pd.concat([self.components, tmp_item.components], ignore_index=True, copy=False)
         self.molecules = pd.concat([self.molecules, tmp_item.molecules], ignore_index=True, copy=False)
         self.bonds = pd.concat([self.bonds, tmp_item.bonds], ignore_index=True, copy=False)
-        self.rebuild_components(redefine_indices=False, redefine_ids=False, redefine_names=True, redefine_types=False)
-        self.rebuild_molecules()
+        if keep_ids:
+            self.rebuild_components(redefine_indices=False, redefine_ids=False, redefine_names=False,
+                                    redefine_types=False)
+            self.rebuild_molecules(redefine_indices=False, redefine_ids=False, redefine_types=False,
+                                   redefine_names=False)
+            self.rebuild_chains(redefine_ids=False, redefine_types=True)
+        else:
+            self.rebuild_atoms(redefine_ids=True, redefine_types=False)
+            self.rebuild_groups(redefine_ids=True, redefine_types=False)
+            self.rebuild_components(redefine_indices=False, redefine_ids=True, redefine_types=False,
+                                    redefine_names=False)
+            self.rebuild_molecules(redefine_indices=False, redefine_ids=True, redefine_types=False,
+                                   redefine_names=False)
+            self.rebuild_chains(redefine_ids=True, redefine_types=True)
+
         self.rebuild_entities()
 
         del tmp_item

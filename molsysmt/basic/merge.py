@@ -6,6 +6,7 @@ import inspect
 def merge(molecular_systems,
           selections='all',
           structure_indices='all',
+          keep_ids = True,
           syntax='MolSysMT',
           to_form=None,
           skip_digestion=False
@@ -171,6 +172,7 @@ def merge(molecular_systems,
         merge_arguments['structure_indices']=aux_structure_indices
 
     merge_arguments['skip_digestion']=True
+    merge_arguments['keep_ids']=keep_ids
 
     output = merge_function(aux_molecular_systems, **merge_arguments)
 
