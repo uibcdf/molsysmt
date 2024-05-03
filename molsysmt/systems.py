@@ -115,14 +115,14 @@ systems['TcTIM']['1tcd.h5msm'] = path('molsysmt.data.h5msm', '1tcd.h5msm')
 
 systems['Trp-Cage'] = {}
 systems['Trp-Cage']['1l2y.pdb'] = path('molsysmt.data.pdb', '1l2y.pdb')
-systems['Trp-Cage']['1l2y.mmtf'] = path('molsysmt.data.mmtf', '1l2y.mmtf')
+systems['Trp-Cage']['1l2y.h5msm'] = path('molsysmt.data.h5msm', '1l2y.h5msm')
 
 
 # Metenkephalin
 
-#systems['Met-enkephalin'] = {}
-#systems['Met-enkephalin']['met_enkephalin.pdb'] = path('molsysmt.data.pdb', 'met_enkephalin.pdb')
-#systems['Met-enkephalin']['met_enkephalin.msmpk'] = path('molsysmt.data.msmpk', 'met_enkephalin.msmpk')
+systems['Met-enkephalin'] = {}
+systems['Met-enkephalin']['met_enkephalin.pdb'] = path('molsysmt.data.pdb', 'met_enkephalin.pdb')
+systems['Met-enkephalin']['met_enkephalin.h5msm'] = path('molsysmt.data.h5msm', 'met_enkephalin.h5msm')
 
 
 # Two LJ particles

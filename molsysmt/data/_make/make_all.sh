@@ -24,3 +24,10 @@ echo -n "TcTIM.py   "
 python TcTIM.py
 echo "DONE"
 
+echo -n "met_enkephalin.py   "
+python met_enkephalin.py
+echo "DONE"
+
+echo -n "trp-cage.py   "
+python trp-cage.py
+echo "DONE"

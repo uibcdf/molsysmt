@@ -14,7 +14,7 @@ def build_peptide (molecular_system, to_form='molsysmt.MolSys', engine='LEaP'):
         from molsysmt._private.files_and_directories import temp_directory, temp_filename
         from shutil import rmtree, copyfile
 
-        sequence = convert(molecular_system, to_form='string:aminoacids3')
+        sequence = convert(molecular_system, to_form='string:amino_acids_3')
         sequence = sequence.upper()
         sequence = ' '.join([sequence[ii:ii+3] for ii in range(0, len(sequence), 3)])
 

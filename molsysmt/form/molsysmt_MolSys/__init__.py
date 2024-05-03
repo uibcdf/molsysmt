@@ -41,6 +41,7 @@ from .to_openmm_Modeller import to_openmm_Modeller
 from .to_pdbfixer_PDBFixer import to_pdbfixer_PDBFixer
 from .to_file_msmpk import to_file_msmpk
 from .to_file_h5msm import to_file_h5msm
+from .to_file_pdb import to_file_pdb
 from .to_string_pdb_text import to_string_pdb_text
 
 _convert_to={
@@ -60,6 +61,7 @@ _convert_to={
         'string:pdb_text': to_string_pdb_text,
         'file:msmpk': to_file_msmpk,
         'file:h5msm': to_file_h5msm,
+        'file:pdb': to_file_pdb,
         }
 
 
