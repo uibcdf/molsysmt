@@ -236,36 +236,6 @@ def info(molecular_system,
         if not attributes_filter['entity_index']: entity_index=None
         if not attributes_filter['entity_name']: entity_name=None
 
-        if len(molecule_index.shape) > 1:
-            n_objects = molecule_index.shape[0]
-            aux_obj1_array = np.empty([n_objects], dtype='object')
-            aux_obj2_array = np.empty([n_objects], dtype='object')
-            for ii in range(n_objects):
-                aux_obj1_array[ii] = molecule_index[ii]
-                aux_obj2_array[ii] = molecule_type[ii]
-            molecule_index = aux_obj1_array
-            molecule_type = aux_obj2_array
-
-        for ii in range(len(molecule_index)):
-            if len(molecule_index[ii]) == 1:
-                molecule_index[ii] = molecule_index[ii][0]
-                molecule_type[ii] = molecule_type[ii][0]
-
-        if len(entity_index.shape) > 1:
-            n_objects = entity_index.shape[0]
-            aux_obj1_array = np.empty([n_objects], dtype='object')
-            aux_obj2_array = np.empty([n_objects], dtype='object')
-            for ii in range(n_objects):
-                aux_obj1_array[ii] = entity_index[ii]
-                aux_obj2_array[ii] = entity_name[ii]
-            entity_index = aux_obj1_array
-            entity_name = aux_obj2_array
-
-        for ii in range(len(entity_index)):
-            if len(entity_index[ii]) == 1:
-                entity_index[ii] = entity_index[ii][0]
-                entity_name[ii] = entity_name[ii][0]
-
         return df({'index': chain_index, 'id': chain_id, 'name': chain_name,
                    'n atoms': n_atoms, 'n groups': n_groups, 'n components': n_components,
                    'molecule index': molecule_index, 'molecule type': molecule_type,
@@ -289,17 +259,6 @@ def info(molecular_system,
         if not attributes_filter['chain_index']: chain_index=None
         if not attributes_filter['entity_index']: entity_index=None
         if not attributes_filter['entity_name']: entity_name=None
-
-        if len(chain_index.shape) > 1:
-            n_objects = chain_index.shape[0]
-            aux_obj_array = np.empty([n_objects], dtype='object')
-            for ii in range(n_objects):
-                aux_obj_array[ii] = chain_index[ii]
-            chain_index = aux_obj_array
-
-        for ii in range(len(chain_index)):
-            if len(chain_index[ii]) == 1:
-                chain_index[ii] = chain_index[ii][0]
 
         return df({'index': molecule_index, 'name': molecule_name, 'type': molecule_type,
                    'n atoms': n_atoms, 'n groups': n_groups, 'n components': n_components,

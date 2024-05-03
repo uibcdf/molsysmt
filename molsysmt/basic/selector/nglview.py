@@ -20,15 +20,15 @@ def indices_to_selection(molecular_system, indices, element='atom'):
         output_string = '@'+','.join([str(ii) for ii in indices])
     elif element=='group':
         from molsysmt import get
-        group_ids, chain_ids = get(molecular_system, element='group', selection=indices, group_id=True, chain_id=True)
-        if np.all(np.isin(np.unique(chain_ids), [' ', None])):
+        group_ids, chain_names = get(molecular_system, element='group', selection=indices, group_id=True, chain_name=True)
+        if np.all(np.isin(np.unique(chain_names), [' ', None])):
             output_string = ','.join([str(ii) for ii in group_ids])
         else:
-            output_string = ' '.join([str(ii)+':'+str(jj) for ii,jj in zip(group_ids, chain_ids)])
+            output_string = ' '.join([str(ii)+':'+str(jj) for ii,jj in zip(group_ids, chain_names)])
     elif element=='chain':
         from molsysmt import get
-        chain_ids = get(molecular_system, element='chain', selection=indices, chain_id=True)
-        output_string = ' '.join([':'+ii for ii in chain_ids])
+        chain_names = get(molecular_system, element='chain', selection=indices, chain_id=True)
+        output_string = ' '.join([':'+ii for ii in chain_names])
     else:
         raise NotImplementedMethodError
 

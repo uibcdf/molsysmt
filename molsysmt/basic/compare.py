@@ -161,6 +161,7 @@ def compare(molecular_system, molecular_system_2, selection='all', structure_ind
     from molsysmt.basic import select, get, get_form, get_attributes
     from molsysmt.form import _dict_modules
     from molsysmt.attribute import attributes, _topological_attributes, _structural_attributes, _mechanical_attributes
+    from molsysmt.basic.get import _piped_molecular_system
 
     output_dict = {}
 
@@ -201,8 +202,8 @@ def compare(molecular_system, molecular_system_2, selection='all', structure_ind
 
     atts_required = set(atts_to_be_compared) & set(atts_of_A) & set(atts_of_B)
 
-    molecular_system = _piped_molecular_system(molecular_system, atts_required)
-    molecular_system_2 = _piped_molecular_system(molecular_system_2, atts_required)
+    molecular_system = _piped_molecular_system(molecular_system, 'atom', atts_required)
+    molecular_system_2 = _piped_molecular_system(molecular_system_2, 'atom', atts_required)
 
     ######   EQUAL   #####
 

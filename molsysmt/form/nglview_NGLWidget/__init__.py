@@ -5,6 +5,8 @@ form_info = ["NGLView visualization native object", "http://nglviewer.org/nglvie
 piped_topological_attribute = 'molsysmt.Topology'
 piped_structural_attribute = 'molsysmt.Structures'
 piped_any_attribute = 'molsysmt.MolSys'
+bonds_are_explicit = False
+bonds_can_be_computed = True
 
 from .is_form import is_form
 

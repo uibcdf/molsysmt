@@ -41,7 +41,7 @@ def select_standard(item, selection):
 
     from molsysmt.basic import convert, get_form
     from molsysmt.config import selection_shortcuts
-
+    from molsysmt.form import _dict_modules
 
     tmp_selection = selection
 
@@ -59,17 +59,33 @@ def select_standard(item, selection):
         tmp_item = item
     else:
 
-        from molsysmt.attribute.bonds_are_required_to_get_attribute import bond_dependent_attributes
+        conversion_needs_missing_bonds=False
 
-        bonds_required_by_selection = False
-        for attribute in bond_dependent_attributes:
-            if attribute in tmp_selection:
-                bonds_required_by_selection = True
-                break
+        if isinstance(form_in, (list, tuple)):
+            for ii in form_in:
+                if (not _dict_modules[ii].bonds_are_explicit) and _dict_modules[ii].bonds_can_be_computed:
+                    conversion_needs_missing_bonds=True
+                    break
+        else: 
+            if (not _dict_modules[form_in].bonds_are_explicit) and _dict_modules[form_in].bonds_can_be_computed:
+                conversion_needs_missing_bonds=True
 
-        tmp_item = convert(item, to_form='molsysmt.Topology', get_missing_bonds=bonds_required_by_selection,
-                           skip_digestion=True)
+        if conversion_needs_missing_bonds:
 
+            from molsysmt.attribute.bonds_are_required_to_get_attribute import bond_dependent_attributes
+
+            bonds_required_by_selection = False
+            for attribute in bond_dependent_attributes:
+                if attribute in tmp_selection:
+                    bonds_required_by_selection = True
+                    break
+
+            tmp_item = convert(item, to_form='molsysmt.Topology', get_missing_bonds=bonds_required_by_selection,
+                               skip_digestion=True)
+
+        else:
+
+            tmp_item = convert(item, to_form='molsysmt.Topology', skip_digestion=True)
 
     if '@' in selection:
 
@@ -265,9 +281,9 @@ def select_within(molecular_system, selection, structure_indices):
                         structure_indices=structure_indices, threshold=threshold, pbc=pbc)
 
     if not_within:
-        output = atom_indices_1[np.where(cmap.all(axis=2)[0] == False)[0]]
+        output = np.array(atom_indices_1)[np.where(cmap.all(axis=2)[0] == False)[0]].tolist()
     else:
-        output = atom_indices_1[np.where(cmap.any(axis=2)[0] == True)[0]]
+        output = np.array(atom_indices_1)[np.where(cmap.any(axis=2)[0] == True)[0]].tolist()
 
     return output
 
@@ -289,9 +305,9 @@ def select_bonded_to(molecular_system, selection):
     atom_indices_2 = np.unique(np.concatenate(atom_indices_2).ravel())
 
     if not_bonded:
-        output = np.setdiff1d(atom_indices_1, atom_indices_2, assume_unique=True)
+        output = np.setdiff1d(atom_indices_1, atom_indices_2, assume_unique=True).tolist()
     else:
-        output = np.intersect1d(atom_indices_1, atom_indices_2, assume_unique=True)
+        output = np.intersect1d(atom_indices_1, atom_indices_2, assume_unique=True).tolist()
 
     return output
 

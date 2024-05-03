@@ -3,13 +3,13 @@ Unit and regression test for the remove module of the molsysmt package.
 """
 
 import molsysmt as msm
-from molsysmt.systems import tests as tests_systems
+from molsysmt import systems
 import numpy as np
 from pandas import DataFrame
 
 def test_remove_1():
 
-    molsys = msm.convert(tests_systems['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
+    molsys = msm.convert(systems['TcTIM']['1tcd.h5msm'], to_form='molsysmt.MolSys')
     molsys = msm.remove(molsys, selection='chain_index==[1,2,3]')
     df = msm.info(molsys)
     true_dict = {'form': {0: 'molsysmt.MolSys'},
@@ -26,7 +26,7 @@ def test_remove_1():
 
 def test_remove_2():
 
-    molsys = tests_systems['Trp-Cage']['1l2y.pdb']
+    molsys = systems['Trp-Cage']['1l2y.pdb']
     molsys = msm.convert(molsys, to_form='molsysmt.Structures')
     molsys = msm.remove(molsys, structure_indices=range(1, 38))
     df = msm.info(molsys)

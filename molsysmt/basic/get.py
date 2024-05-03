@@ -176,7 +176,7 @@ def get(molecular_system,
         else:
             indices = select(molecular_system, element=element, selection=mask, syntax=syntax, skip_digestion=True)
 
-    aux_molecular_system = _piped_molecular_system(molecular_system, in_attributes)
+    aux_molecular_system = _piped_molecular_system(molecular_system, element, in_attributes)
 
     output = []
 
@@ -214,17 +214,22 @@ def get(molecular_system,
         return dict(zip(in_attributes, output))
 
 
-def _piped_molecular_system(molecular_system, in_attributes):
+def _piped_molecular_system(molecular_system, element, in_attributes):
 
     from .. import select, where_is_attribute, get_form, convert
     from molsysmt.form import _dict_modules
     from molsysmt.attribute import attributes, bonds_are_required_to_get_attribute
     from molsysmt.attribute import is_topological_attribute, is_structural_attribute
 
-
     piped_topological_attribute = {}
     piped_structural_attribute = {}
     piped_any_attribute = {}
+
+    form = get_form(molecular_system)
+
+    if not isinstance(molecular_system, (list, tuple)):
+        molecular_system = [molecular_system]
+        form = [form]
 
     for aux_form in form:
         piped_topological_attribute[aux_form] = getattr(_dict_modules[aux_form], f'piped_topological_attribute')

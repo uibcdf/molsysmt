@@ -133,7 +133,6 @@ def _convert_multiple_to_one_with_shortcuts(molecular_system,
     sorted_forms = tuple(sorted(from_forms))
 
     if to_form in _multiple_conversion_shortcuts[sorted_forms]:
-
         function = _multiple_conversion_shortcuts[sorted_forms][to_form]
 
         input_arguments = set(inspect.signature(function).parameters)
@@ -154,7 +153,6 @@ def _convert_multiple_to_one_with_shortcuts(molecular_system,
         output = function(molecular_system, **conversion_arguments, **kwargs)
 
     elif ('molsysmt.MolSys' in _multiple_conversion_shortcuts[sorted_forms]) and (to_form in _dict_modules['molsysmt.MolSys']._convert_to):
-
         output = _convert_multiple_to_one_with_shortcuts(molecular_system, sorted_forms, to_form='molsysmt.MolSys', selection=selection,
                 structure_indices=structure_indices, syntax=syntax, **kwargs)
         output = _convert_one_to_one(output, 'molsysmt.MolSys', to_form=to_form)

@@ -88,8 +88,8 @@ systems['particles 4']['traj_particles_4.xyznpy'] = path('molsysmt.data.xyznpy',
 
 # Benzamidine
 
-#systems['benzamidine'] = {}
-#systems['benzamidine']['benzamidine.pdb'] = path('molsysmt.data.pdb', 'benzamidine.pdb')
+systems['benzamidine'] = {}
+systems['benzamidine']['benzamidine.pdb'] = path('molsysmt.data.pdb', 'benzamidine.pdb')
 
 
 # NGLView
@@ -113,9 +113,9 @@ systems['TcTIM']['1tcd.h5msm'] = path('molsysmt.data.h5msm', '1tcd.h5msm')
 
 # Trp-Cage
 
-#systems['Trp-Cage'] = {}
-#systems['Trp-Cage']['1l2y.pdb'] = path('molsysmt.data.pdb', '1l2y.pdb')
-#systems['Trp-Cage']['1l2y.mmtf'] = path('molsysmt.data.mmtf', '1l2y.mmtf')
+systems['Trp-Cage'] = {}
+systems['Trp-Cage']['1l2y.pdb'] = path('molsysmt.data.pdb', '1l2y.pdb')
+systems['Trp-Cage']['1l2y.mmtf'] = path('molsysmt.data.mmtf', '1l2y.mmtf')
 
 
 # Metenkephalin

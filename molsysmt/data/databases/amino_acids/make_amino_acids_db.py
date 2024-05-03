@@ -72,9 +72,9 @@ types = ['"L-PEPTIDE LINKING"',
          '"peptide linking"',
          '"L-peptide NH3 amino terminus"',
          '"L-peptide COOH carboxy terminus"',
+         '"D-peptide NH3 amino terminus"',
          '"L-PEPTIDE COOH CARBOXY TERMINUS"',
-         '"D-PEPTIDE NH3 AMINO TERMINUS"',
-         '"D-peptide NH3 amino terminus"']
+         '"D-PEPTIDE NH3 AMINO TERMINUS"']
 
 data = []
 for ii in types:
@@ -131,6 +131,20 @@ for forcefield_dir in forcefield_dirs:
                 tmp_dict['topology']=[]
                 tmp_dict['topology'].append(jj)
                 output[ii]=tmp_dict
+
+#### Extra ####
+
+import json
+
+with open('extra.json', 'r') as fff:
+    extra = json.load(fff)
+
+for name in extra.keys():
+    if name not in output:
+        output[name]=extra[name]
+    else:
+        output[name]['topology']+=extra[name]['topology']
+
 
 #### End ####
 

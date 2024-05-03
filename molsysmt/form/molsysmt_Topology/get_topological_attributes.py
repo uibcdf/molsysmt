@@ -104,7 +104,7 @@ def get_group_type_from_atom(item, indices='all', skip_digestion=False):
 
     aux_indices = get_group_index_from_atom(item, indices=indices, skip_digestion=True)
     aux_unique_indices, aux_new_indices = np.unique(aux_indices, return_inverse=True)
-    aux_vals = get_group_name_from_group(item, indices=aux_unique_indices, skip_digestion=True)
+    aux_vals = get_group_type_from_group(item, indices=aux_unique_indices, skip_digestion=True)
     output = np.array(aux_vals)[aux_new_indices]
 
     del aux_indices, aux_unique_indices, aux_vals, aux_new_indices
@@ -239,7 +239,7 @@ def get_entity_name_from_atom(item, indices='all', skip_digestion=False):
 
     aux_indices = get_entity_index_from_atom(item, indices=indices, skip_digestion=True)
     aux_unique_indices, aux_new_indices = np.unique(aux_indices, return_inverse=True)
-    aux_vals = get_entity_id_from_entity(item, indices=aux_unique_indices, skip_digestion=True)
+    aux_vals = get_entity_name_from_entity(item, indices=aux_unique_indices, skip_digestion=True)
     output = np.array(aux_vals)[aux_new_indices]
 
     del aux_indices, aux_unique_indices, aux_vals, aux_new_indices
@@ -2807,9 +2807,9 @@ def get_entity_name_from_entity(item, indices='all', skip_digestion=False):
 def get_entity_type_from_entity(item, indices='all', skip_digestion=False):
 
     if is_all(indices):
-        output = item.entities['entity_name'].to_list()
+        output = item.entities['entity_type'].to_list()
     else:
-        output = item.entities['entity_name'][indices].to_list()
+        output = item.entities['entity_type'][indices].to_list()
 
     return output
 
@@ -2818,10 +2818,15 @@ def get_entity_type_from_entity(item, indices='all', skip_digestion=False):
 def get_chain_index_from_entity(item, indices='all', skip_digestion=False):
 
     atom_index_from_target = get_atom_index_from_entity(item, indices=indices, skip_digestion=True)
-    first_atom_index_from_target = np.array([ii[0] for ii in atom_index_from_target])
-    output = get_chain_index_from_atom(item, indices=first_atom_index_from_target, skip_digestion=True)
+    output = []
+    for aux in atom_index_from_target:
+        aux2 = get_chain_index_from_atom(item, indices=aux, skip_digestion=True)
+        aux2 = np.unique(aux2).tolist()
+        if len(aux2)==1:
+            aux2=aux2[0]
+        output.append(aux2)
 
-    del atom_index_from_target, first_atom_index_from_target
+    del atom_index_from_target, aux
 
     return output
 
@@ -2829,40 +2834,76 @@ def get_chain_index_from_entity(item, indices='all', skip_digestion=False):
 @digest(form=form)
 def get_chain_id_from_entity(item, indices='all', skip_digestion=False):
 
-    aux_indices = get_chain_index_from_entity(item, indices=indices, skip_digestion=True)
-    aux_unique_indices, aux_new_indices = np.unique(aux_indices, return_inverse=True)
+    target_indices = get_chain_index_from_entity(item, indices=indices, skip_digestion=True)
+    aux_unique_indices, aux_indices = np.unique(np.hstack(target_indices), return_inverse=True)
     aux_vals = get_chain_id_from_chain(item, indices=aux_unique_indices, skip_digestion=True)
-    output = np.array(aux_vals)[aux_new_indices]
+    aux_output = np.array(aux_vals)[aux_indices]
+    output = []
+    ii = 0
+    for aux in target_indices:
+        if isinstance(aux, (list, tuple)):
+            jj = ii+len(aux)
+            output.append(aux_output[ii:jj].tolist())
+        elif isinstance(aux, int):
+            jj = ii+1
+            output.append(aux_output[ii])
+        else:
+            raise ValueError
+        ii = jj
 
-    del aux_indices, aux_unique_indices, aux_vals, aux_new_indices
+    del aux_unique_indices, aux_vals, aux_output, target_indices
 
-    return output.tolist()
+    return output
 
 
 @digest(form=form)
 def get_chain_name_from_entity(item, indices='all', skip_digestion=False):
 
-    aux_indices = get_chain_index_from_entity(item, indices=indices, skip_digestion=True)
-    aux_unique_indices, aux_new_indices = np.unique(aux_indices, return_inverse=True)
+    target_indices = get_chain_index_from_entity(item, indices=indices, skip_digestion=True)
+    aux_unique_indices, aux_indices = np.unique(np.hstack(target_indices), return_inverse=True)
     aux_vals = get_chain_name_from_chain(item, indices=aux_unique_indices, skip_digestion=True)
-    output = np.array(aux_vals)[aux_new_indices]
+    aux_output = np.array(aux_vals)[aux_indices]
+    output = []
+    ii = 0
+    for aux in target_indices:
+        if isinstance(aux, (list, tuple)):
+            jj = ii+len(aux)
+            output.append(aux_output[ii:jj].tolist())
+        elif isinstance(aux, int):
+            jj = ii+1
+            output.append(aux_output[ii])
+        else:
+            raise ValueError
+        ii = jj
 
-    del aux_indices, aux_unique_indices, aux_vals, aux_new_indices
+    del aux_unique_indices, aux_vals, aux_output, target_indices
 
-    return output.tolist()
+    return output
 
 
 @digest(form=form)
 def get_chain_type_from_entity(item, indices='all', skip_digestion=False):
 
-    aux_indices = get_chain_index_from_entity(item, indices=indices, skip_digestion=True)
-    aux_unique_indices, aux_new_indices = np.unique(aux_indices, return_inverse=True)
+    target_indices = get_chain_index_from_entity(item, indices=indices, skip_digestion=True)
+    aux_unique_indices, aux_indices = np.unique(np.hstack(target_indices), return_inverse=True)
     aux_vals = get_chain_type_from_chain(item, indices=aux_unique_indices, skip_digestion=True)
-    output = np.array(aux_vals)[aux_new_indices]
+    aux_output = np.array(aux_vals)[aux_indices]
+    output = []
+    ii = 0
+    for aux in target_indices:
+        if isinstance(aux, (list, tuple)):
+            jj = ii+len(aux)
+            output.append(aux_output[ii:jj].tolist())
+        elif isinstance(aux, int):
+            jj = ii+1
+            output.append(aux_output[ii])
+        else:
+            raise ValueError
+        ii = jj
 
-    del aux_indices, aux_unique_indices, aux_vals, aux_new_indices
+    del aux_unique_indices, aux_vals, aux_output, target_indices
 
-    return output.tolist()
+    return output
 
 
 @digest(form=form)
@@ -2963,11 +3004,13 @@ def get_n_entities_from_entity(item, indices='all', skip_digestion=False):
 @digest(form=form)
 def get_n_chains_from_entity(item, indices='all', skip_digestion=False):
 
-    if is_all(indices):
-        output = get_n_chains_from_system(item, skip_digestion=True)
-    else:
-        output = get_chain_index_from_entity(item, indices=indices, skip_digestion=True)
-        output = np.unique(output).shape[0]
+    aux = get_chain_index_from_entity(item, indices=indices, skip_digestion=True)
+    output = []
+    for ii in aux:
+        try:
+            output.append(len(ii))
+        except:
+            output.append(1)
 
     return output
 
@@ -3190,14 +3233,16 @@ def get_atom_type_from_chain(item, indices='all', skip_digestion=False):
 @digest(form=form)
 def get_group_index_from_chain(item, indices='all', skip_digestion=False):
 
-    target_index = get_chain_index_from_group(item, skip_digestion=True)
+    atom_index_from_target = get_atom_index_from_chain(item, indices=indices, skip_digestion=True)
+    output = []
+    for aux in atom_index_from_target:
+        aux2 = get_group_index_from_atom(item, indices=aux, skip_digestion=True)
+        aux2 = np.unique(aux2).tolist()
+        if len(aux2)==1:
+            aux2=aux2[0]
+        output.append(aux2)
 
-    serie = pd.Series(target_index)
-    groups_serie = serie.groupby(serie).apply(lambda x: x.index.tolist())
-    if is_all(indices):
-        output = [ii for ii in groups_serie]
-    else:
-        output = [groups_serie[ii] for ii in indices]
+    del atom_index_from_target, aux
 
     return output
 
@@ -3206,14 +3251,20 @@ def get_group_index_from_chain(item, indices='all', skip_digestion=False):
 def get_group_id_from_chain(item, indices='all', skip_digestion=False):
 
     target_indices = get_group_index_from_chain(item, indices=indices, skip_digestion=True)
-    aux_unique_indices, aux_indices = np.unique(np.concatenate(target_indices), return_inverse=True)
+    aux_unique_indices, aux_indices = np.unique(np.hstack(target_indices), return_inverse=True)
     aux_vals = get_group_id_from_group(item, indices=aux_unique_indices, skip_digestion=True)
     aux_output = np.array(aux_vals)[aux_indices]
     output = []
     ii = 0
     for aux in target_indices:
-        jj = ii+len(aux)
-        output.append(aux_output[ii:jj].tolist())
+        if isinstance(aux, (list, tuple)):
+            jj = ii+len(aux)
+            output.append(aux_output[ii:jj].tolist())
+        elif isinstance(aux, int):
+            jj = ii+1
+            output.append(aux_output[ii])
+        else:
+            raise ValueError
         ii = jj
 
     del aux_unique_indices, aux_vals, aux_output, target_indices
@@ -3225,14 +3276,20 @@ def get_group_id_from_chain(item, indices='all', skip_digestion=False):
 def get_group_name_from_chain(item, indices='all', skip_digestion=False):
 
     target_indices = get_group_index_from_chain(item, indices=indices, skip_digestion=True)
-    aux_unique_indices, aux_indices = np.unique(np.concatenate(target_indices), return_inverse=True)
+    aux_unique_indices, aux_indices = np.unique(np.hstack(target_indices), return_inverse=True)
     aux_vals = get_group_name_from_group(item, indices=aux_unique_indices, skip_digestion=True)
     aux_output = np.array(aux_vals)[aux_indices]
     output = []
     ii = 0
     for aux in target_indices:
-        jj = ii+len(aux)
-        output.append(aux_output[ii:jj].tolist())
+        if isinstance(aux, (list, tuple)):
+            jj = ii+len(aux)
+            output.append(aux_output[ii:jj].tolist())
+        elif isinstance(aux, int):
+            jj = ii+1
+            output.append(aux_output[ii])
+        else:
+            raise ValueError
         ii = jj
 
     del aux_unique_indices, aux_vals, aux_output, target_indices
@@ -3244,14 +3301,20 @@ def get_group_name_from_chain(item, indices='all', skip_digestion=False):
 def get_group_type_from_chain(item, indices='all', skip_digestion=False):
 
     target_indices = get_group_index_from_chain(item, indices=indices, skip_digestion=True)
-    aux_unique_indices, aux_indices = np.unique(np.concatenate(target_indices), return_inverse=True)
+    aux_unique_indices, aux_indices = np.unique(np.hstack(target_indices), return_inverse=True)
     aux_vals = get_group_type_from_group(item, indices=aux_unique_indices, skip_digestion=True)
     aux_output = np.array(aux_vals)[aux_indices]
     output = []
     ii = 0
     for aux in target_indices:
-        jj = ii+len(aux)
-        output.append(aux_output[ii:jj].tolist())
+        if isinstance(aux, (list, tuple)):
+            jj = ii+len(aux)
+            output.append(aux_output[ii:jj].tolist())
+        elif isinstance(aux, int):
+            jj = ii+1
+            output.append(aux_output[ii])
+        else:
+            raise ValueError
         ii = jj
 
     del aux_unique_indices, aux_vals, aux_output, target_indices
@@ -3262,14 +3325,16 @@ def get_group_type_from_chain(item, indices='all', skip_digestion=False):
 @digest(form=form)
 def get_component_index_from_chain(item, indices='all', skip_digestion=False):
 
-    target_index = get_chain_index_from_component(item, skip_digestion=True)
+    atom_index_from_target = get_atom_index_from_chain(item, indices=indices, skip_digestion=True)
+    output = []
+    for aux in atom_index_from_target:
+        aux2 = get_component_index_from_atom(item, indices=aux, skip_digestion=True)
+        aux2 = np.unique(aux2).tolist()
+        if len(aux2)==1:
+            aux2=aux2[0]
+        output.append(aux2)
 
-    serie = pd.Series(target_index)
-    groups_serie = serie.groupby(serie).apply(lambda x: x.index.tolist())
-    if is_all(indices):
-        output = [ii for ii in groups_serie]
-    else:
-        output = [groups_serie[ii] for ii in indices]
+    del atom_index_from_target, aux
 
     return output
 
@@ -3278,14 +3343,20 @@ def get_component_index_from_chain(item, indices='all', skip_digestion=False):
 def get_component_id_from_chain(item, indices='all', skip_digestion=False):
 
     target_indices = get_component_index_from_chain(item, indices=indices, skip_digestion=True)
-    aux_unique_indices, aux_indices = np.unique(np.concatenate(target_indices), return_inverse=True)
+    aux_unique_indices, aux_indices = np.unique(np.hstack(target_indices), return_inverse=True)
     aux_vals = get_component_id_from_component(item, indices=aux_unique_indices, skip_digestion=True)
     aux_output = np.array(aux_vals)[aux_indices]
     output = []
     ii = 0
     for aux in target_indices:
-        jj = ii+len(aux)
-        output.append(aux_output[ii:jj].tolist())
+        if isinstance(aux, (list, tuple)):
+            jj = ii+len(aux)
+            output.append(aux_output[ii:jj].tolist())
+        elif isinstance(aux, int):
+            jj = ii+1
+            output.append(aux_output[ii])
+        else:
+            raise ValueError
         ii = jj
 
     del aux_unique_indices, aux_vals, aux_output, target_indices
@@ -3297,14 +3368,20 @@ def get_component_id_from_chain(item, indices='all', skip_digestion=False):
 def get_component_name_from_chain(item, indices='all', skip_digestion=False):
 
     target_indices = get_component_index_from_chain(item, indices=indices, skip_digestion=True)
-    aux_unique_indices, aux_indices = np.unique(np.concatenate(target_indices), return_inverse=True)
+    aux_unique_indices, aux_indices = np.unique(np.hstack(target_indices), return_inverse=True)
     aux_vals = get_component_name_from_component(item, indices=aux_unique_indices, skip_digestion=True)
     aux_output = np.array(aux_vals)[aux_indices]
     output = []
     ii = 0
     for aux in target_indices:
-        jj = ii+len(aux)
-        output.append(aux_output[ii:jj].tolist())
+        if isinstance(aux, (list, tuple)):
+            jj = ii+len(aux)
+            output.append(aux_output[ii:jj].tolist())
+        elif isinstance(aux, int):
+            jj = ii+1
+            output.append(aux_output[ii])
+        else:
+            raise ValueError
         ii = jj
 
     del aux_unique_indices, aux_vals, aux_output, target_indices
@@ -3316,14 +3393,20 @@ def get_component_name_from_chain(item, indices='all', skip_digestion=False):
 def get_component_type_from_chain(item, indices='all', skip_digestion=False):
 
     target_indices = get_component_index_from_chain(item, indices=indices, skip_digestion=True)
-    aux_unique_indices, aux_indices = np.unique(np.concatenate(target_indices), return_inverse=True)
+    aux_unique_indices, aux_indices = np.unique(np.hstack(target_indices), return_inverse=True)
     aux_vals = get_component_type_from_component(item, indices=aux_unique_indices, skip_digestion=True)
     aux_output = np.array(aux_vals)[aux_indices]
     output = []
     ii = 0
     for aux in target_indices:
-        jj = ii+len(aux)
-        output.append(aux_output[ii:jj].tolist())
+        if isinstance(aux, (list, tuple)):
+            jj = ii+len(aux)
+            output.append(aux_output[ii:jj].tolist())
+        elif isinstance(aux, int):
+            jj = ii+1
+            output.append(aux_output[ii])
+        else:
+            raise ValueError
         ii = jj
 
     del aux_unique_indices, aux_vals, aux_output, target_indices
@@ -3334,14 +3417,16 @@ def get_component_type_from_chain(item, indices='all', skip_digestion=False):
 @digest(form=form)
 def get_molecule_index_from_chain(item, indices='all', skip_digestion=False):
 
-    target_index = get_chain_index_from_molecule(item, skip_digestion=True)
+    atom_index_from_target = get_atom_index_from_chain(item, indices=indices, skip_digestion=True)
+    output = []
+    for aux in atom_index_from_target:
+        aux2 = get_molecule_index_from_atom(item, indices=aux, skip_digestion=True)
+        aux2 = np.unique(aux2).tolist()
+        if len(aux2)==1:
+            aux2=aux2[0]
+        output.append(aux2)
 
-    serie = pd.Series(target_index)
-    groups_serie = serie.groupby(serie).apply(lambda x: x.index.tolist())
-    if is_all(indices):
-        output = [ii for ii in groups_serie]
-    else:
-        output = [groups_serie[ii] for ii in indices]
+    del atom_index_from_target, aux
 
     return output
 
@@ -3350,14 +3435,20 @@ def get_molecule_index_from_chain(item, indices='all', skip_digestion=False):
 def get_molecule_id_from_chain(item, indices='all', skip_digestion=False):
 
     target_indices = get_molecule_index_from_chain(item, indices=indices, skip_digestion=True)
-    aux_unique_indices, aux_indices = np.unique(np.concatenate(target_indices), return_inverse=True)
+    aux_unique_indices, aux_indices = np.unique(np.hstack(target_indices), return_inverse=True)
     aux_vals = get_molecule_id_from_molecule(item, indices=aux_unique_indices, skip_digestion=True)
     aux_output = np.array(aux_vals)[aux_indices]
     output = []
     ii = 0
     for aux in target_indices:
-        jj = ii+len(aux)
-        output.append(aux_output[ii:jj].tolist())
+        if isinstance(aux, (list, tuple)):
+            jj = ii+len(aux)
+            output.append(aux_output[ii:jj].tolist())
+        elif isinstance(aux, int):
+            jj = ii+1
+            output.append(aux_output[ii])
+        else:
+            raise ValueError
         ii = jj
 
     del aux_unique_indices, aux_vals, aux_output, target_indices
@@ -3369,14 +3460,20 @@ def get_molecule_id_from_chain(item, indices='all', skip_digestion=False):
 def get_molecule_name_from_chain(item, indices='all', skip_digestion=False):
 
     target_indices = get_molecule_index_from_chain(item, indices=indices, skip_digestion=True)
-    aux_unique_indices, aux_indices = np.unique(np.concatenate(target_indices), return_inverse=True)
+    aux_unique_indices, aux_indices = np.unique(np.hstack(target_indices), return_inverse=True)
     aux_vals = get_molecule_name_from_molecule(item, indices=aux_unique_indices, skip_digestion=True)
     aux_output = np.array(aux_vals)[aux_indices]
     output = []
     ii = 0
     for aux in target_indices:
-        jj = ii+len(aux)
-        output.append(aux_output[ii:jj].tolist())
+        if isinstance(aux, (list, tuple)):
+            jj = ii+len(aux)
+            output.append(aux_output[ii:jj].tolist())
+        elif isinstance(aux, int):
+            jj = ii+1
+            output.append(aux_output[ii])
+        else:
+            raise ValueError
         ii = jj
 
     del aux_unique_indices, aux_vals, aux_output, target_indices
@@ -3388,14 +3485,20 @@ def get_molecule_name_from_chain(item, indices='all', skip_digestion=False):
 def get_molecule_type_from_chain(item, indices='all', skip_digestion=False):
 
     target_indices = get_molecule_index_from_chain(item, indices=indices, skip_digestion=True)
-    aux_unique_indices, aux_indices = np.unique(np.concatenate(target_indices), return_inverse=True)
+    aux_unique_indices, aux_indices = np.unique(np.hstack(target_indices), return_inverse=True)
     aux_vals = get_molecule_type_from_molecule(item, indices=aux_unique_indices, skip_digestion=True)
     aux_output = np.array(aux_vals)[aux_indices]
     output = []
     ii = 0
     for aux in target_indices:
-        jj = ii+len(aux)
-        output.append(aux_output[ii:jj].tolist())
+        if isinstance(aux, (list, tuple)):
+            jj = ii+len(aux)
+            output.append(aux_output[ii:jj].tolist())
+        elif isinstance(aux, int):
+            jj = ii+1
+            output.append(aux_output[ii])
+        else:
+            raise ValueError
         ii = jj
 
     del aux_unique_indices, aux_vals, aux_output, target_indices
@@ -3406,14 +3509,16 @@ def get_molecule_type_from_chain(item, indices='all', skip_digestion=False):
 @digest(form=form)
 def get_entity_index_from_chain(item, indices='all', skip_digestion=False):
 
-    target_index = get_chain_index_from_entity(item, skip_digestion=True)
+    atom_index_from_target = get_atom_index_from_chain(item, indices=indices, skip_digestion=True)
+    output = []
+    for aux in atom_index_from_target:
+        aux2 = get_entity_index_from_atom(item, indices=aux, skip_digestion=True)
+        aux2 = np.unique(aux2).tolist()
+        if len(aux2)==1:
+            aux2=aux2[0]
+        output.append(aux2)
 
-    serie = pd.Series(target_index)
-    groups_serie = serie.groupby(serie).apply(lambda x: x.index.tolist())
-    if is_all(indices):
-        output = [ii for ii in groups_serie]
-    else:
-        output = [groups_serie[ii] for ii in indices]
+    del atom_index_from_target, aux
 
     return output
 
@@ -3422,14 +3527,20 @@ def get_entity_index_from_chain(item, indices='all', skip_digestion=False):
 def get_entity_id_from_chain(item, indices='all', skip_digestion=False):
 
     target_indices = get_entity_index_from_chain(item, indices=indices, skip_digestion=True)
-    aux_unique_indices, aux_indices = np.unique(np.concatenate(target_indices), return_inverse=True)
+    aux_unique_indices, aux_indices = np.unique(np.hstack(target_indices), return_inverse=True)
     aux_vals = get_entity_id_from_entity(item, indices=aux_unique_indices, skip_digestion=True)
     aux_output = np.array(aux_vals)[aux_indices]
     output = []
     ii = 0
     for aux in target_indices:
-        jj = ii+len(aux)
-        output.append(aux_output[ii:jj].tolist())
+        if isinstance(aux, (list, tuple)):
+            jj = ii+len(aux)
+            output.append(aux_output[ii:jj].tolist())
+        elif isinstance(aux, int):
+            jj = ii+1
+            output.append(aux_output[ii])
+        else:
+            raise ValueError
         ii = jj
 
     del aux_unique_indices, aux_vals, aux_output, target_indices
@@ -3441,14 +3552,20 @@ def get_entity_id_from_chain(item, indices='all', skip_digestion=False):
 def get_entity_name_from_chain(item, indices='all', skip_digestion=False):
 
     target_indices = get_entity_index_from_chain(item, indices=indices, skip_digestion=True)
-    aux_unique_indices, aux_indices = np.unique(np.concatenate(target_indices), return_inverse=True)
+    aux_unique_indices, aux_indices = np.unique(np.hstack(target_indices), return_inverse=True)
     aux_vals = get_entity_name_from_entity(item, indices=aux_unique_indices, skip_digestion=True)
     aux_output = np.array(aux_vals)[aux_indices]
     output = []
     ii = 0
     for aux in target_indices:
-        jj = ii+len(aux)
-        output.append(aux_output[ii:jj].tolist())
+        if isinstance(aux, (list, tuple)):
+            jj = ii+len(aux)
+            output.append(aux_output[ii:jj].tolist())
+        elif isinstance(aux, int):
+            jj = ii+1
+            output.append(aux_output[ii])
+        else:
+            raise ValueError
         ii = jj
 
     del aux_unique_indices, aux_vals, aux_output, target_indices
@@ -3460,14 +3577,20 @@ def get_entity_name_from_chain(item, indices='all', skip_digestion=False):
 def get_entity_type_from_chain(item, indices='all', skip_digestion=False):
 
     target_indices = get_entity_index_from_chain(item, indices=indices, skip_digestion=True)
-    aux_unique_indices, aux_indices = np.unique(np.concatenate(target_indices), return_inverse=True)
+    aux_unique_indices, aux_indices = np.unique(np.hstack(target_indices), return_inverse=True)
     aux_vals = get_entity_type_from_entity(item, indices=aux_unique_indices, skip_digestion=True)
     aux_output = np.array(aux_vals)[aux_indices]
     output = []
     ii = 0
     for aux in target_indices:
-        jj = ii+len(aux)
-        output.append(aux_output[ii:jj].tolist())
+        if isinstance(aux, (list, tuple)):
+            jj = ii+len(aux)
+            output.append(aux_output[ii:jj].tolist())
+        elif isinstance(aux, int):
+            jj = ii+1
+            output.append(aux_output[ii])
+        else:
+            raise ValueError
         ii = jj
 
     del aux_unique_indices, aux_vals, aux_output, target_indices
@@ -3580,8 +3703,13 @@ def get_n_atoms_from_chain(item, indices='all', skip_digestion=False):
 @digest(form=form)
 def get_n_groups_from_chain(item, indices='all', skip_digestion=False):
 
-    output = get_group_index_from_chain(item, indices, skip_digestion=True)
-    output = [len(ii) for ii in output]
+    aux = get_group_index_from_chain(item, indices, skip_digestion=True)
+    output = []
+    for ii in aux:
+        try:
+            output.append(len(ii))
+        except:
+            output.append(1)
 
     return output
 
@@ -3589,8 +3717,13 @@ def get_n_groups_from_chain(item, indices='all', skip_digestion=False):
 @digest(form=form)
 def get_n_components_from_chain(item, indices='all', skip_digestion=False):
 
-    output = get_component_index_from_chain(item, indices, skip_digestion=True)
-    output = [len(ii) for ii in output]
+    aux = get_component_index_from_chain(item, indices, skip_digestion=True)
+    output = []
+    for ii in aux:
+        try:
+            output.append(len(ii))
+        except:
+            output.append(1)
 
     return output
 
@@ -3598,8 +3731,13 @@ def get_n_components_from_chain(item, indices='all', skip_digestion=False):
 @digest(form=form)
 def get_n_molecules_from_chain(item, indices='all', skip_digestion=False):
 
-    output = get_molecule_index_from_chain(item, indices, skip_digestion=True)
-    output = [len(ii) for ii in output]
+    aux = get_molecule_index_from_chain(item, indices, skip_digestion=True)
+    output = []
+    for ii in aux:
+        try:
+            output.append(len(ii))
+        except:
+            output.append(1)
 
     return output
 
@@ -3607,8 +3745,13 @@ def get_n_molecules_from_chain(item, indices='all', skip_digestion=False):
 @digest(form=form)
 def get_n_entities_from_chain(item, indices='all', skip_digestion=False):
 
-    output = get_entity_index_from_chain(item, indices, skip_digestion=True)
-    output = [len(ii) for ii in output]
+    aux = get_entity_index_from_chain(item, indices, skip_digestion=True)
+    output = []
+    for ii in aux:
+        try:
+            output.append(len(ii))
+        except:
+            output.append(1)
 
     return output
 
