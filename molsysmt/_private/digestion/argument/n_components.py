@@ -22,6 +22,9 @@ def digest_n_components(n_components, caller=None):
     elif caller=='molsysmt.native.topology.__init__':
         if isinstance(n_components, int):
             return n_components
+    elif caller=='molsysmt.native.molsys.__init__':
+        if isinstance(n_components, int):
+            return n_components
 
     raise ArgumentError('n_components', value=n_components, caller=caller, message=None)
 

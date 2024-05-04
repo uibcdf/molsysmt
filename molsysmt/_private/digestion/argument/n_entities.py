@@ -22,6 +22,9 @@ def digest_n_entities(n_entities, caller=None):
     elif caller=='molsysmt.native.topology.__init__':
         if isinstance(n_entities, int):
             return n_entities
+    elif caller=='molsysmt.native.molsys.__init__':
+        if isinstance(n_entities, int):
+            return n_entities
 
     raise ArgumentError('n_entities', value=n_entities, caller=caller, message=None)
 

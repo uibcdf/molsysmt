@@ -10,6 +10,7 @@ from . import oligosaccharide
 
 from .is_group_type import is_group_type
 from .get_group_type import get_group_type, get_group_type_from_group_name
+from .get_bonded_atom_pairs import get_bonded_atom_pairs
 
 _group_types = [
         'water',

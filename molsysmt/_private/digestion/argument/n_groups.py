@@ -22,6 +22,9 @@ def digest_n_groups(n_groups, caller=None):
     elif caller=='molsysmt.native.topology.__init__':
         if isinstance(n_groups, int):
             return n_groups
+    elif caller=='molsysmt.native.molsys.__init__':
+        if isinstance(n_groups, int):
+            return n_groups
 
     raise ArgumentError('n_groups', value=n_groups, caller=caller, message=None)
 

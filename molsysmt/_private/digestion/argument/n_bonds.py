@@ -11,5 +11,8 @@ def digest_n_bonds(n_bonds, caller=None):
     elif caller=='molsysmt.native.topology.__init__':
         if isinstance(n_bonds, int):
             return n_bonds
+    elif caller=='molsysmt.native.molsys.__init__':
+        if isinstance(n_bonds, int):
+            return n_bonds
 
     raise ArgumentError('n_entities', value=n_entities, caller=caller, message=None)

@@ -22,6 +22,9 @@ def digest_n_atoms(n_atoms, caller=None):
     elif caller=='molsysmt.native.topology.__init__':
         if isinstance(n_atoms, int):
             return n_atoms
+    elif caller=='molsysmt.native.molsys.__init__':
+        if isinstance(n_atoms, int):
+            return n_atoms
 
     raise ArgumentError('n_atoms', value=n_atoms, caller=caller, message=None)
 

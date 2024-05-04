@@ -31,10 +31,39 @@ class MolSys:
         else:
 
             tmp_item = MolSys()
-            tmp_item.topology = self.topology.extract(atom_indices=atom_indices, skip_digestion=True)
+            tmp_item.topology = self.topology.extract(atom_indices=atom_indices, copy_if_all=True,skip_digestion=True)
             tmp_item.structures = self.structures.extract(atom_indices=atom_indices,
-                                                          structure_indices=structure_indices, skip_digestion=True)
+                                                          structure_indices=structure_indices, copy_if_all=True,
+                                                          skip_digestion=True)
             tmp_item.molecular_mechanics = self.molecular_mechanics.copy()
+
+            return tmp_item
+
+
+    @digest()
+    def remove(self, atom_indices=None, structure_indices=None, copy_if_None=False, skip_digestion=False):
+
+        if (atom_indices is None) and (structure_indices is None):
+
+            if copy_if_None:
+                return self.copy()
+            else:
+                return self
+
+        else:
+
+            if atom_indices is not None:
+                atom_indices_to_be_kept = np.setdiff1d(np.arange(self.topology.n_atoms), atom_indices)
+            else:
+                atom_indices_to_be_kept = 'all'
+
+            if structure_indices is not None:
+                structure_indices_to_be_kept = np.setdiff1d(np.arange(self.structures.n_structures), structure_indices)
+            else:
+                structure_indices_to_be_kept = 'all'
+
+            tmp_item = self.extract(atom_indices=atom_indices_to_be_kept,
+                                    structure_indices=structure_indices_to_be_kept, skip_digestion=True)
 
             return tmp_item
 

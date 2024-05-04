@@ -22,6 +22,9 @@ def digest_n_chains(n_chains, caller=None):
     elif caller=='molsysmt.native.topology.__init__':
         if isinstance(n_chains, int):
             return n_chains
+    elif caller=='molsysmt.native.molsys.__init__':
+        if isinstance(n_chains, int):
+            return n_chains
 
     raise ArgumentError('n_chains', value=n_chains, caller=caller, message=None)
 

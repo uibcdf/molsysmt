@@ -9,8 +9,8 @@ import numpy as np
 @digest(form='mmtf.MMTFDecoder')
 def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_digestion=False):
 
-    import warnings
     from molsysmt.native import MolSys
+    from molsysmt.config import min_length_protein
 
     # atoms, groups and bonds intra group
 
@@ -34,8 +34,6 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
 
     bond_atom1_index_array = np.empty(n_bonds, dtype=int)
     bond_atom2_index_array = np.empty(n_bonds, dtype=int)
-    bond_type_array = np.empty(n_bonds, dtype=object)
-    bond_order_array = np.empty(n_bonds, dtype=int)
 
     formal_charge_array = np.empty(n_atoms, dtype=float)
 
@@ -50,12 +48,21 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
 
         # bonds intra-groups
 
-        for bond_pair, bond_order in zip(np.reshape(mmtf_group['bondAtomList'],(-1,2)), mmtf_group['bondOrderList']):
+        if len(np.unique(mmtf_group['bondAtomList']))==len(mmtf_group['atomNameList']):
 
-            bond_atom1_index_array[bond_index]=bond_pair[0]+atom_index
-            bond_atom2_index_array[bond_index]=bond_pair[1]+atom_index
-            bond_order_array[bond_index]=bond_order
-            bond_index+=1
+            for bond_pair in np.reshape(mmtf_group['bondAtomList'],(-1,2)):
+
+                bond_atom1_index_array[bond_index]=bond_pair[0]+atom_index
+                bond_atom2_index_array[bond_index]=bond_pair[1]+atom_index
+                bond_index+=1
+
+        else:
+
+            aux_bonds = get_bonded_atom_pairs(mmtf_group['groupName'], mmtf_group['atomNameList'])
+
+            print(aux_bonds)
+            print('error', mmtf_group['groupName'])
+
 
         for atom_name, atom_type, atom_formal_charge in zip(mmtf_group['atomNameList'], mmtf_group['elementList'], mmtf_group['formalChargeList']):
 
@@ -73,7 +80,7 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
     for bond_pair, bond_order in zip(np.reshape(item.bond_atom_list,(-1,2)), item.bond_order_list):
         bond_atom1_index_array[bond_index]=bond_pair[0]
         bond_atom2_index_array[bond_index]=bond_pair[1]
-        bond_order_array[bond_index]=bond_order
+        #bond_order_array[bond_index]=bond_order
         bond_index+=1
 
     # chains
@@ -150,6 +157,8 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
 
     if len(alt_atom_indices):
 
+        print('>@>',alt_atom_indices)
+
         alt_atom_names = atom_name[alt_atom_indices]
         alt_group_ids = group_id[alt_atom_indices]
         alt_chain_ids = chain_id[alt_atom_indices]
@@ -174,11 +183,12 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
             chosen_with_alt_loc.append(chosen)
             atoms_to_be_removed_with_alt_loc += [ii for ii in same_atoms if ii !=chosen]
 
-        atom_indices_to_be_kept = list(set(np.arange(n_atoms))-set(atoms_to_be_removed_with_alt_loc))
+        atom_indices_to_be_kept = np.setdiff1(np.arange(n_atoms), atoms_to_be_removed_with_alt_loc)
+        dict_old_to_new_atom_indices = {jj: ii for ii, jj in enumerate(atom_indices_to_be_kept)}
 
         aux_alternate_location = [{}]
         for chosen, same_atoms in zip(chosen_with_alt_loc, aux_dict.values()):
-            atom_index = np.where(atom_indices_to_be_kept==chosen)[0][0]
+            atom_index = dict_old_to_new_atom_indices[chosen]
             aux_dict={
                     'location_id':alternate_location[same_atoms],
                     'occupancy':occupancy[same_atoms],
@@ -188,77 +198,62 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
                     }
             aux_alternate_location[0][atom_index]=aux_dict
 
-        atom_name_array = np.empty(n_atoms, dtype=object)
-        atom_id_array = np.empty(n_atoms, dtype=int)
-        atom_type_array = np.empty(n_atoms, dtype=object)
-        group_index_array = np.empty(n_atoms, dtype=int)
-        chain_index_array = np.empty(n_atoms, dtype=int)
+        atom_name_array = atom_name_array[atom_indices_to_be_kept]
+        atom_id_array = atom_id_array[atom_indices_to_be_kept]
+        atom_type_array = atom_type_array[atom_indices_to_be_kept]
+        group_index_array = group_index_array[atom_indices_to_be_kept]
+        chain_index_array = chain_index_array[atom_indices_to_be_kept]
 
+        mask1 = np.isin(bond_atom1_index_array, atom_indices_to_be_kept)
+        mask2 = np.isin(bond_atom2_index_array, atom_indices_to_be_kept)
+        mask = mask1*mask2
 
-        bond_atom1_index_array = np.empty(n_bonds, dtype=int)
-        bond_atom2_index_array = np.empty(n_bonds, dtype=int)
-        bond_type_array = np.empty(n_bonds, dtype=object)
-        bond_order_array = np.empty(n_bonds, dtype=int)
-
-        formal_charge_array = np.empty(n_atoms, dtype=float)
-
+        vaux_dict = np.vectorize(dict_old_to_new_atom_indices.__getitem__)
+        bond_atom1_index_array = bond_atom1_index_array[mask]
+        bond_atom1_index_array = vaux_dict(bond_atom1_index_array)
+        bond_atom2_index_array = bond_atom2_index_array[mask]
+        bond_atom2_index_array = vaux_dict(bond_atom2_index_array)
+        #bond_type_array = bond_type_array[mask]
+        #bond_order_array = bond_order_array[mask]
+        
         coordinates = coordinates[:,atom_indices_to_be_kept,:]
         b_factor = b_factor[atom_indices_to_be_kept]
+        formal_charge_array = formal_charge_array[atom_indices_to_be_kept]
         alternate_location = aux_alternate_location
 
+    n_atoms=atom_name_array.shape[0]
+    n_bonds= bond_atom1_index_array.shape[0]
 
-
-
-
-
-
-
-
+    tmp_item = MolSys(n_atoms=n_atoms, n_groups=n_groups, n_chains=n_chains, n_bonds=n_bonds)
 
     tmp_item.topology.atoms["atom_name"] = atom_name_array
     tmp_item.topology.atoms["atom_id"] = atom_id_array
     tmp_item.topology.atoms["atom_type"] = atom_type_array
     tmp_item.topology.atoms["group_index"] = group_index_array
-    del(atom_name_array, atom_id_array, atom_type_array, group_index_array)
-
-    #tmp_item.atoms_dataframe["occupancy"] = item.occupancy_list
-
-    #tmp_item.atoms_dataframe["alternate_location"] = np.array(item.alt_loc_list)
-    #tmp_item.atoms_dataframe["alternate_location"].replace({'':None}, inplace=True)
+    tmp_item.topology.atoms["chain_index"] = chain_index_array
+    del(atom_name_array, atom_id_array, atom_type_array, group_index_array, chain_index_array)
 
     tmp_item.topology.groups["group_name"] = group_name_array
     tmp_item.topology.groups["group_id"] = group_id_array
-    tmp_item.topology.groups["group_type"] = group_type_array
-    del(group_name_array, group_id_array, group_type_array)
-    tmp_item.topology.rebuild_groups(redefine_ids=False, redefine_types=True)
+    del(group_name_array, group_id_array)
 
-    #b_factor_array = puw.quantity(np.array(item.b_factor_list), unit='angstroms**2', standardized=True)
-    #tmp_item.atoms_dataframe["b_factor"] = puw.get_value(b_factor_array)
-
-    #formal_charge_array = puw.quantity(formal_charge_array, unit='e', standardized=True)
-    #tmp_item.atoms_dataframe["formal_charge"] = puw.get_value(formal_charge_array)
-    #del(formal_charge_array, b_factor_array)
-
-    #### bonds
+    tmp_item.topology.chains["chain_name"] = chain_name_array
+    tmp_item.topology.chains["chain_id"] = chain_id_array
+    del(chain_name_array, chain_id_array)
 
     tmp_item.topology.bonds["atom1_index"] = bond_atom1_index_array
     tmp_item.topology.bonds["atom2_index"] = bond_atom2_index_array
-    #tmp_item.bonds["order"] = bond_order_array
-    del(bond_atom1_index_array, bond_atom2_index_array) #bond_order_array)
+    #tmp_item.topology.bonds["order"] = bond_order_array
+    tmp_item.topology.bonds._remove_empty_columns()
     tmp_item.topology.bonds._sort_bonds()
+    del(bond_atom1_index_array, bond_atom2_index_array)
 
-    #### chains
 
-    tmp_item.topology.atoms["chain_index"] = chain_index_array
-    tmp_item.topology.chains["chain_name"] = chain_name_array
-    tmp_item.topology.chains["chain_id"] = chain_id_array
-
-    del(chain_index_array, chain_name_array, chain_id_array)
-
-    # components
-
+    tmp_item.topology.rebuild_groups(redefine_ids=False, redefine_types=True)
     tmp_item.topology.rebuild_components(redefine_indices=True, redefine_ids=True,
-                                         redefine_names=False, redefine_types=False)
+                                         redefine_names=False, redefine_types=True)
+
+    return tmp_item
 
     molecule_index = 0
 
@@ -349,7 +344,7 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
 
             elif first_group_type == 'nucleotide':
 
-                pass
+                raise ValueError("Entity type not recognized:", first_group_type)
 
             else:
 
@@ -370,66 +365,12 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
 
     tmp_item.topology.rebuild_entities(redefine_indices=True, redefine_ids=True, redefine_names=True, redefine_types=True)
 
-    ## nan to None
+    # structures
 
-    #tmp_item._nan_to_None()
+    tmp_item.structures.append(coordinates=coordinates, box=box)
 
-
-    ## If atoms with alternate location the highest occupancy or A is taken
-    ## other pseudo-atoms are removed
-
-    occupancy = np.array(item.occupancy_list)
-    alternate_location = np.array(item.alt_loc_list)
-    b_factor = puw.quantity(np.array(item.b_factor_list), unit='angstroms**2', standardized=True)
-    alt_atom_indices = np.where(alternate_location!='')[0]
-
-    alt_atoms_dict = []
-    atoms_to_be_removed_with_alt_loc = []
-
-    if len(alt_atom_indices):
-
-        if item.num_models>1:
-            raise ValueError('Error: multiple models with alternate location.')
-
-        alt_atom_names = tmp_item.topology.atoms["atom_name"][alt_atom_indices].to_numpy()
-        alt_group_index = tmp_item.topology.atoms["group_index"][alt_atom_indices].to_numpy()
-        alt_chain_index = tmp_item.topology.atoms["chain_index"][alt_atom_indices].to_numpy()
-
-        aux_dict = {}
-
-        for aux_atom_index, aux_atom_name, aux_group_index, aux_chain_index in zip(alt_atom_indices,
-                                                                             alt_atom_names, alt_group_index,
-                                                                             alt_chain_index):
-            aux_key = tuple([aux_atom_name, aux_group_index, aux_chain_index])
-            if aux_key in aux_dict:
-                aux_dict[aux_key].append(aux_atom_index)
-            else:
-                aux_dict[aux_key]=[aux_atom_index]
-
-        aux_atoms_to_be_removed=[]
-        chosen_with_alt_loc = []
-        for same_atoms in aux_dict.values():
-            alt_occupancy = occupancy[same_atoms]
-            alt_loc = alternate_location[same_atoms]
-            if np.allclose(alt_occupancy, alt_occupancy[0]):
-                chosen = np.where(alt_loc=='A')[0][0]
-            else:
-                chosen = np.argmax(alt_occupancy)
-            chosen = same_atoms.pop(chosen)
-            aux_atoms_to_be_removed += same_atoms
-
-        alt_atoms_dict.append(aux_dict)
-
-        atom_id_array = np.delete(atom_id_array, aux_atoms_to_be_removed)
-        atom_name_array = np.delete(atom_name_array, aux_atoms_to_be_removed)
-        group_index_array = np.delete(group_index_array, aux_atoms_to_be_removed)
-        chain_index_array = np.delete(chain_index_array, aux_atoms_to_be_removed)
-        coordinates_array[0] = np.delete(coordinates_array[0], aux_atoms_to_be_removed)
-
-    tmp_item = tmp_item.extract(atom_indices=atom_indices, structure_indices=structure_indices,
-                                copy_if_all=False, skip_digestion=True)
-
-    #No siempre está
+    #tmp_item = tmp_item.extract(atom_indices=atom_indices, structure_indices=structure_indices,
+    #                            copy_if_all=False, skip_digestion=True)
 
     return tmp_item
 

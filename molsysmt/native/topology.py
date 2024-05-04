@@ -268,6 +268,25 @@ class Topology():
 
             return tmp_item
 
+    @digest()
+    def remove(self, atom_indices=None, copy_if_None=False, skip_digestion=False):
+
+        if atom_indices is None:
+
+            if copy_if_None:
+                return self.copy()
+            else:
+                return self
+
+        else:
+
+            atom_indices_to_be_kept = np.setdiff1d(np.arange(self.n_atoms), atom_indices)
+
+            tmp_item = self.extract(atom_indices=atom_indices_to_be_kept, skip_digestion=True)
+
+            return tmp_item
+
+
     @digest(form='molsysmt.Topology')
     def add(self, item, atom_indices='all', keep_ids=True, skip_digestion=False):
 

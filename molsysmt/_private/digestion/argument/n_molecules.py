@@ -22,6 +22,9 @@ def digest_n_molecules(n_molecules, caller=None):
     elif caller=='molsysmt.native.topology.__init__':
         if isinstance(n_molecules, int):
             return n_molecules
+    elif caller=='molsysmt.native.molsys.__init__':
+        if isinstance(n_molecules, int):
+            return n_molecules
 
     raise ArgumentError('n_molecules', value=n_molecules, caller=caller, message=None)
 
