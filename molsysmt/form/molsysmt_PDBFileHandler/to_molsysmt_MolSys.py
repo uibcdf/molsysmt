@@ -209,7 +209,8 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', get_mi
         tmp_item.topology.rebuild_chains(redefine_ids=False, redefine_types=True)
         tmp_item.topology.rebuild_entities()
 
-    tmp_item = tmp_item.extract(atom_indices=atom_indices, copy_if_all=False, skip_digestion=True)
+    tmp_item = tmp_item.extract(atom_indices=atom_indices, structure_indices=structure_indices,
+                                copy_if_all=False, skip_digestion=True)
 
     return tmp_item
 

@@ -4,13 +4,17 @@ import numpy as np
 
 class MolSys:
 
-    def __init__(self):
+    @digest()
+    def __init__(self, n_atoms=0, n_groups=0, n_components=0, n_molecules=0, n_entities=0, n_chains=0, n_bonds=0,
+                skip_digestion=False):
 
         from .topology import Topology
         from .structures import Structures
         from .molecular_mechanics import MolecularMechanics
 
-        self.topology = Topology(skip_digestion=True)
+        self.topology = Topology(n_atoms=n_atoms, n_groups=n_groups, n_components=n_components,
+                                 n_molecules=n_molecules, n_entities=n_entities, n_chains=n_chains,
+                                 n_bonds=n_bonds, skip_digestion=True)
         self.structures = Structures(skip_digestion=True)
         self.molecular_mechanics = MolecularMechanics()
 
