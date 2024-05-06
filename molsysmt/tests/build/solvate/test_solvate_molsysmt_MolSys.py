@@ -6,13 +6,13 @@ systems.
 # Import package, test suite, and other packages as needed
 import pytest
 import molsysmt as msm
-from molsysmt.systems import tests as tests_systems
+from molsysmt import systems
 import numpy as np
 
 # Distance between atoms in space and time
 
 def test_solvate_molsysmt_MolSys_1():
-    molsys = msm.convert(tests_systems['chicken villin HP35']['chicken_villin_HP35.msmpk'], to_form='molsysmt.MolSys')
+    molsys = msm.convert(systems['chicken villin HP35']['chicken_villin_HP35.h5msm'], to_form='molsysmt.MolSys')
     molsys = msm.build.add_missing_terminal_cappings(molsys)
     molsys = msm.build.add_missing_hydrogens(molsys)
     molsys = msm.build.solvate([molsys, {'forcefield':'AMBER14', 'water_model':'TIP3P'}],
@@ -25,7 +25,7 @@ def test_solvate_molsysmt_MolSys_1():
     assert n_ions==2
 
 def test_solvate_molsysmt_MolSys_2():
-    molsys = msm.convert(tests_systems['chicken villin HP35']['chicken_villin_HP35.msmpk'], to_form='molsysmt.MolSys')
+    molsys = msm.convert(systems['chicken villin HP35']['chicken_villin_HP35.h5msm'], to_form='molsysmt.MolSys')
     molsys = msm.build.add_missing_terminal_cappings(molsys)
     molsys = msm.build.add_missing_hydrogens(molsys)
     molsys = msm.build.solvate([molsys, {'forcefield':'AMBER14', 'water_model':'TIP3P'}],
@@ -36,7 +36,7 @@ def test_solvate_molsysmt_MolSys_2():
     assert 'truncated octahedral'==box_shape
 
 def test_solvate_molsysmt_MolSys_3():
-    molsys = msm.convert(tests_systems['chicken villin HP35']['chicken_villin_HP35.msmpk'], to_form='molsysmt.MolSys')
+    molsys = msm.convert(systems['chicken villin HP35']['chicken_villin_HP35.h5msm'], to_form='molsysmt.MolSys')
     molsys = msm.build.add_missing_terminal_cappings(molsys)
     molsys = msm.build.add_missing_hydrogens(molsys)
     molsys = msm.build.solvate([molsys, {'forcefield':'AMBER14', 'water_model':'TIP3P'}],

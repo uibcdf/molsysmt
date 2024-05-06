@@ -263,7 +263,7 @@ def get_n_atoms_from_atom(item, indices='all'):
     if is_all(indices):
         output = get_n_atoms_from_system(item)
     else:
-        output = indices.shape[0]
+        output = len(indices)
 
     return output
 
@@ -900,7 +900,7 @@ def get_n_groups_from_group(item, indices='all'):
     if is_all(indices):
         output = get_n_groups_from_system(item)
     else:
-        output = indices.shape[0]
+        output = len(indices)
 
     return output
 
@@ -1535,7 +1535,7 @@ def get_n_components_from_component(item, indices='all'):
     if is_all(indices):
         output = get_n_components_from_system(item)
     else:
-        output = indices.shape[0]
+        output = len(indices)
 
     return output
 
@@ -2232,7 +2232,7 @@ def get_n_molecules_from_molecule(item, indices='all'):
     if is_all(indices):
         output = get_n_molecules_from_system(item)
     else:
-        output = indices.shape[0]
+        output = len(indices)
 
     return output
 
@@ -2935,7 +2935,7 @@ def get_n_chains_from_chain(item, indices='all'):
     if is_all(indices):
         output = get_n_chains_from_system(item)
     else:
-        output = indices.shape[0]
+        output = len(indices)
 
     return output
 
@@ -3658,7 +3658,7 @@ def get_n_entities_from_entity(item, indices='all'):
     if is_all(indices):
         output = get_n_entities_from_system(item)
     else:
-        output = indices.shape[0]
+        output = len(indices)
 
     return output
 
@@ -4070,7 +4070,7 @@ def get_n_bonds_from_bond(item, indices='all'):
     if is_all(indices):
         output = get_n_bonds_from_system(item)
     else:
-        output = indices.shape[0]
+        output = len(indices)
 
     return output
 

@@ -9,7 +9,7 @@ import gc
 def wrap_to_mic(molecular_system, selection='all', structure_indices='all',
                 center_coordinates='[0,0,0] nanometers', center_of_selection=None, weights=None,
                 center_at_origin=True, keep_covalent_bonds=False,
-                syntax='MolSysMT', engine='MolSysMT', in_place=False):
+                syntax='MolSysMT', engine='MolSysMT', in_place=False, skip_digestion=False):
     """
     To be written soon...
     """
@@ -19,16 +19,16 @@ def wrap_to_mic(molecular_system, selection='all', structure_indices='all',
         from molsysmt.basic import select, get, set, extract, copy
         from molsysmt.structure import get_center
 
-        atom_indices = select(molecular_system, selection=selection, syntax=syntax)
+        atom_indices = select(molecular_system, selection=selection, syntax=syntax, skip_digestion=True)
 
-        coordinates= get(molecular_system, element='atom', selection=atom_indices, coordinates=True)
-        box = get(molecular_system, element='system', structure_indices=structure_indices, box=True)
+        coordinates= get(molecular_system, element='atom', selection=atom_indices, coordinates=True, skip_digestion=True)
+        box = get(molecular_system, element='system', structure_indices=structure_indices, box=True, skip_digestion=True)
 
         if center_of_selection is not None:
 
             center_coordinates = get_center(molecular_system, selection=center_of_selection,
                                 weights=weights, structure_indices=structure_indices,
-                                syntax=syntax, engine='MolSysMT')
+                                syntax=syntax, engine='MolSysMT', skip_digestion=True)
 
         coordinates, length_units = puw.get_value_and_unit(coordinates)
         box = puw.get_value(box, to_unit=length_units)
@@ -47,7 +47,7 @@ def wrap_to_mic(molecular_system, selection='all', structure_indices='all',
     if in_place:
 
         set(molecular_system, selection='atom_index in @atom_indices', structure_indices=structure_indices,
-            syntax=syntax, coordinates=coordinates)
+            syntax=syntax, coordinates=coordinates, skip_digestion=True)
 
         del(coordinates, atom_indices, structure_indices)
 
@@ -57,9 +57,9 @@ def wrap_to_mic(molecular_system, selection='all', structure_indices='all',
 
     else:
 
-        tmp_molecular_system = copy(molecular_system)
+        tmp_molecular_system = copy(molecular_system, skip_digestion=True)
         set(tmp_molecular_system, selection='atom_index in @atom_indices', structure_indices=structure_indices,
-            syntax=syntax, coordinates=coordinates)
+            syntax=syntax, coordinates=coordinates, skip_digestion=True)
 
         del(coordinates, atom_indices, structure_indices)
 

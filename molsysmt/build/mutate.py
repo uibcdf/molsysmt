@@ -40,7 +40,7 @@ def mutate(molecular_system, mutations=None, keys='group_index', selection="all"
                     aux_indices = get(molecular_system, element='group',
                             selection='group_id==@ii', mask=selection,
                             group_index=True)
-                    if aux_indices.shape[0]>1:
+                    if len(aux_indices)>1:
                         raise ValueError(f'There are multiple groups with the group_id: {ii}')
                     else:
                         group_indices.append(aux_indices[0])

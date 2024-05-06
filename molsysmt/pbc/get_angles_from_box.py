@@ -3,7 +3,7 @@ from molsysmt import pyunitwizard as puw
 from molsysmt import lib as msmlib
 
 @digest()
-def get_angles_from_box(box):
+def get_angles_from_box(box, skip_digestion=False):
     """
     To be written soon...
     """

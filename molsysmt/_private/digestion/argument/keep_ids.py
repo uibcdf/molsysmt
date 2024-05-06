@@ -1,12 +1,15 @@
 from ...exceptions import ArgumentError
 
+functions_with_boolean = (
+        'merge.merge',
+        'add.add',
+        'add_missing_terminal_cappings.add_missing_terminal_cappings'
+        )
+
+
 def digest_keep_ids(keep_ids, caller=None):
 
-    if caller.endswith('.merge.merge'):
-        if isinstance(keep_ids, bool):
-            return keep_ids
-
-    if caller.endswith('.add.add'):
+    if caller.endswith(functions_with_boolean):
         if isinstance(keep_ids, bool):
             return keep_ids
 

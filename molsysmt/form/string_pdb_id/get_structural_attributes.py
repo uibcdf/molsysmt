@@ -163,6 +163,17 @@ def get_n_bioassemblies_from_system(item, skip_digestion=False):
 
     return output
 
+@digest(form=form)
+def get_alternate_location_from_system (item, skip_digestion=False):
+
+    from . import to_mmtf_MMTFDecoder
+    from ..mmtf_MMTFDecoder import get_alternate_location_from_system as aux_get
+
+    tmp_item = to_mmtf_MMTFDecoder(item, skip_digestion=True)
+    output = aux_get(tmp_item, skip_digestion=True)
+
+    return output
+
 
 # List of functions to be imported
 

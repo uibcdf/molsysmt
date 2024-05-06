@@ -7,7 +7,7 @@ import gc
 
 @digest()
 def unwrap(molecular_system, selection='all', structure_indices='all',
-        syntax='MolSysMT', engine='MolSysMT', in_place=False):
+        syntax='MolSysMT', engine='MolSysMT', in_place=False, skip_digestion=False):
     """
     To be written soon...
     """
@@ -16,10 +16,10 @@ def unwrap(molecular_system, selection='all', structure_indices='all',
 
         from molsysmt.basic import select, get, set, extract, copy
 
-        coordinates= get(molecular_system, element='atom', selection=selection, coordinates=True)
+        coordinates= get(molecular_system, element='atom', selection=selection, coordinates=True, skip_digestion=True)
         n_structures = coordinates.shape[0]
         n_atoms = coordinates.shape[1]
-        box = get(molecular_system, element='system', structure_indices=structure_indices, box=True)
+        box = get(molecular_system, element='system', structure_indices=structure_indices, box=True, skip_digestion=True)
 
         coordinates, length_units = puw.get_value_and_unit(coordinates)
         box = puw.get_value(box, to_unit=length_units)
@@ -35,7 +35,7 @@ def unwrap(molecular_system, selection='all', structure_indices='all',
     if in_place:
 
         set(molecular_system, selection=selection, structure_indices=structure_indices,
-            syntax=syntax, coordinates=coordinates)
+            syntax=syntax, coordinates=coordinates, skip_digestion=True)
 
         del(coordinates, box)
 
@@ -43,10 +43,10 @@ def unwrap(molecular_system, selection='all', structure_indices='all',
 
     else:
 
-        tmp_molecular_system = copy(molecular_system)
+        tmp_molecular_system = copy(molecular_system, skip_digestion=True)
 
         set(tmp_molecular_system, selection=selection, structure_indices=structure_indices,
-            syntax='MolSysMT', coordinates=coordinates)
+            syntax='MolSysMT', coordinates=coordinates, skip_digestion=True)
 
         del(coordinates, box)
         

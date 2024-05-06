@@ -43,6 +43,8 @@ from .to_file_msmpk import to_file_msmpk
 from .to_file_h5msm import to_file_h5msm
 from .to_file_pdb import to_file_pdb
 from .to_string_pdb_text import to_string_pdb_text
+from .to_string_amino_acids_1 import to_string_amino_acids_1
+from .to_string_amino_acids_3 import to_string_amino_acids_3
 
 _convert_to={
         'molsysmt.MolSys': extract,
@@ -59,6 +61,8 @@ _convert_to={
         'openmm.Modeller': to_openmm_Modeller,
         'pdbfixer.PDBFixer': to_pdbfixer_PDBFixer,
         'string:pdb_text': to_string_pdb_text,
+        'string:amino_acids_1': to_string_amino_acids_1,
+        'string:amino_acids_3': to_string_amino_acids_3,
         'file:msmpk': to_file_msmpk,
         'file:h5msm': to_file_h5msm,
         'file:pdb': to_file_pdb,

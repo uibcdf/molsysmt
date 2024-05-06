@@ -2,7 +2,7 @@ from molsysmt._private.digestion import digest
 from molsysmt import pyunitwizard as puw
 
 @digest()
-def is_solvated(molecular_system):
+def is_solvated(molecular_system, skip_digestion=False):
     """
     To be written soon...
     """
@@ -11,7 +11,7 @@ def is_solvated(molecular_system):
 
     output = False
 
-    n_waters, volume = get(molecular_system, element='system', n_waters=True, box_volume=True)
+    n_waters, volume = get(molecular_system, element='system', n_waters=True, box_volume=True, skip_digestion=True)
 
     if (n_waters>0) and (volume is not None):
 
