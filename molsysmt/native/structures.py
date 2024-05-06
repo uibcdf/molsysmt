@@ -417,18 +417,22 @@ class Structures:
     @digest(form='molsysmt.Structures')
     def append_structures(self, item, atom_indices='all', structure_indices='all', skip_digestion=False):
 
-        self.append(structure_id=item.structure_id,
-                    time=item.time,
-                    coordinates=item.coordinates,
-                    velocities=item.velocities,
-                    box=item.box,
-                    temperature=item.temperature,
-                    potential_energy=item.potential_energy,
-                    kinetic_energy=item.kinetic_energy,
-                    atom_indices=item.atom_indices,
-                    structure_indices=item.structure_indices,
-                    skip_digestion=True
-                   )
+        if is_all(atom_indices) and is_all(structure_indices):
+
+            self.append(structure_id=item.structure_id,
+                        time=item.time,
+                        coordinates=item.coordinates,
+                        velocities=item.velocities,
+                        box=item.box,
+                        temperature=item.temperature,
+                        potential_energy=item.potential_energy,
+                        kinetic_energy=item.kinetic_energy,
+                        skip_digestion=True
+                       )
+
+        else:
+
+            raise NotImplementedError
 
     @digest(form='molsysmt.Structures')
     def add(self, item, atom_indices='all', structure_indices='all', skip_digestion=False):

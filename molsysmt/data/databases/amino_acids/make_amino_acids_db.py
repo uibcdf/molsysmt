@@ -111,14 +111,15 @@ del(output_pdb)
 
 #### Gromacs ####
 
-gromacs_top_path = '/usr/local/gromacs/share/gromacs/top/'
+gromacs_top_path = '/usr/local/gromacs/share/gromacs/top' # nauta
+gromacs_top_path = '/usr/share/gromacs/top' # aleph
 
 forcefield_dirs = ['amber03.ff', 'amber94.ff', 'amber96.ff', 'amber99.ff', 'amber99sb.ff', 'amber99sb-ildn.ff', 'amberGS.ff',
                    'charmm27.ff', 'gromos43a1.ff', 'gromos43a2.ff', 'gromos45a3.ff', 'gromos53a5.ff', 'gromos53a6.ff',
                    'gromos54a7.ff', 'oplsaa.ff']
 
 for forcefield_dir in forcefield_dirs: 
-    path = f'/usr/local/gromacs/share/gromacs/top/{forcefield_dir}/aminoacids.rtp'
+    path = f'{gromacs_top_path}/{forcefield_dir}/aminoacids.rtp'
     output_rtp=get_amino_acids_from_gromacs_rtp(path)
     for ii,jj in output_rtp.items():
         if ii in valid_names and len(jj['bonds']):

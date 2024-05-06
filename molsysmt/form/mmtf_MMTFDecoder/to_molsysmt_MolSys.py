@@ -11,6 +11,7 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
 
     from molsysmt.native import MolSys
     from molsysmt.config import min_length_protein
+    from molsysmt.element.group import get_bonded_atom_pairs
 
     # atoms, groups and bonds intra group
 
@@ -32,13 +33,12 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
     chain_name_array = np.empty(n_chains, dtype=object)
     chain_id_array = np.empty(n_chains, dtype=int)
 
-    bond_atom1_index_array = np.empty(n_bonds, dtype=int)
-    bond_atom2_index_array = np.empty(n_bonds, dtype=int)
+    bond_atom1_index_array = []
+    bond_atom2_index_array = []
 
     formal_charge_array = np.empty(n_atoms, dtype=float)
 
     atom_index = 0
-    bond_index = 0
 
     for mmtf_group_type, group_index, group_id in zip(item.group_type_list, range(item.num_groups), item.group_id_list):
 
@@ -52,17 +52,17 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
 
             for bond_pair in np.reshape(mmtf_group['bondAtomList'],(-1,2)):
 
-                bond_atom1_index_array[bond_index]=bond_pair[0]+atom_index
-                bond_atom2_index_array[bond_index]=bond_pair[1]+atom_index
-                bond_index+=1
+                bond_atom1_index_array.append(bond_pair[0]+atom_index)
+                bond_atom2_index_array.append(bond_pair[1]+atom_index)
 
         else:
 
             aux_bonds = get_bonded_atom_pairs(mmtf_group['groupName'], mmtf_group['atomNameList'])
 
-            print(aux_bonds)
-            print('error', mmtf_group['groupName'])
+            for bond_pair in aux_bonds:
 
+                bond_atom1_index_array.append(bond_pair[0]+atom_index)
+                bond_atom2_index_array.append(bond_pair[1]+atom_index)
 
         for atom_name, atom_type, atom_formal_charge in zip(mmtf_group['atomNameList'], mmtf_group['elementList'], mmtf_group['formalChargeList']):
 
@@ -78,10 +78,11 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
     # bonds inter-groups in graph
 
     for bond_pair, bond_order in zip(np.reshape(item.bond_atom_list,(-1,2)), item.bond_order_list):
-        bond_atom1_index_array[bond_index]=bond_pair[0]
-        bond_atom2_index_array[bond_index]=bond_pair[1]
-        #bond_order_array[bond_index]=bond_order
-        bond_index+=1
+        bond_atom1_index_array.append(bond_pair[0])
+        bond_atom2_index_array.append(bond_pair[1])
+    
+    bond_atom1_index_array = np.array(bond_atom1_index_array)
+    bond_atom2_index_array = np.array(bond_atom2_index_array)
 
     # chains
 
@@ -157,7 +158,7 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
 
     if len(alt_atom_indices):
 
-        print('>@>',alt_atom_indices)
+        print('>@> PDB with alt atom location')
 
         alt_atom_names = atom_name[alt_atom_indices]
         alt_group_ids = group_id[alt_atom_indices]
@@ -213,8 +214,6 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
         bond_atom1_index_array = vaux_dict(bond_atom1_index_array)
         bond_atom2_index_array = bond_atom2_index_array[mask]
         bond_atom2_index_array = vaux_dict(bond_atom2_index_array)
-        #bond_type_array = bond_type_array[mask]
-        #bond_order_array = bond_order_array[mask]
         
         coordinates = coordinates[:,atom_indices_to_be_kept,:]
         b_factor = b_factor[atom_indices_to_be_kept]
@@ -243,7 +242,6 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
 
     tmp_item.topology.bonds["atom1_index"] = bond_atom1_index_array
     tmp_item.topology.bonds["atom2_index"] = bond_atom2_index_array
-    #tmp_item.topology.bonds["order"] = bond_order_array
     tmp_item.topology.bonds._remove_empty_columns()
     tmp_item.topology.bonds._sort_bonds()
     del(bond_atom1_index_array, bond_atom2_index_array)
@@ -252,8 +250,6 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
     tmp_item.topology.rebuild_groups(redefine_ids=False, redefine_types=True)
     tmp_item.topology.rebuild_components(redefine_indices=True, redefine_ids=True,
                                          redefine_names=False, redefine_types=True)
-
-    return tmp_item
 
     molecule_index = 0
 
@@ -356,21 +352,52 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
 
     aux_n_molecules = molecule_index
 
-    # molecules
-
     tmp_item.topology.reset_molecules(n_molecules=aux_n_molecules)
     tmp_item.topology.rebuild_molecules(redefine_indices=False, redefine_ids=True, redefine_names=True, redefine_types=True)
-
-    # entities
-
     tmp_item.topology.rebuild_entities(redefine_indices=True, redefine_ids=True, redefine_names=True, redefine_types=True)
-
-    # structures
+    tmp_item.topology.rebuild_chains(redefine_ids=False, redefine_types=True)
 
     tmp_item.structures.append(coordinates=coordinates, box=box)
 
-    #tmp_item = tmp_item.extract(atom_indices=atom_indices, structure_indices=structure_indices,
-    #                            copy_if_all=False, skip_digestion=True)
+    if item.num_models>1:
+
+        item_per_model = []
+        chain_index_to_atom_indices = tmp_item.topology.atoms.groupby('chain_index').indices
+        chain_index = 0
+        if item.num_models > 1:
+            for n_chains_in_model in item.chains_per_model:
+                chain_indices = [ii for ii in range(chain_index, chain_index+n_chains_in_model)]
+                aux_atom_indices = []
+                for ii in chain_indices:
+                    aux_atom_indices += chain_index_to_atom_indices[ii].tolist()
+                item_per_model.append(tmp_item.extract(atom_indices=aux_atom_indices, skip_digestion=True))
+                chain_index += n_chains_in_model
+
+        comparison=[]
+        for ii in range(1, item.num_models):
+            aux = item_per_model[0].topology.compare(item_per_model[ii].topology,
+                                                     atom_id=False, atom_name=True, atom_type=True,
+                                                     group_index=True, group_id=True, group_name=True,
+                                                     component_index=True, component_name=True,
+                                                     molecule_index=True, molecule_name=True,
+                                                     skip_digestion=True)
+            comparison.append(aux)
+
+        if all(comparison): 
+
+            for ii in range(1, item.num_models):
+                item_per_model[0].structures.append_structures(item_per_model[ii].structures)
+
+            tmp_item = item_per_model[0]
+
+            tmp_item = tmp_item.extract(atom_indices=atom_indices, structure_indices=structure_indices,
+                                        copy_if_all=False, skip_digestion=True)
+
+        else:
+
+            print('Warning! The models have different molecular systems. They will be returned separately.')
+
+            tmp_item = item_per_model
 
     return tmp_item
 

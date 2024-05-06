@@ -753,3 +753,157 @@ class Topology():
 
         self.bonds._sort_bonds()
 
+    @digest()
+    def compare(self, item, rule='equal', output_type='boolean', skip_digestion=False, **kwargs):
+
+        if rule == 'equal':
+
+            output = {}
+
+            if 'n_atoms' in kwargs:
+
+                tmp_output = (self.atoms.shape[0]==item.atoms.shape[0])
+                output['n_atoms'] = (kwargs['n_atoms'] == tmp_output)
+
+            if 'atom_index' in kwargs:
+
+                tmp_output = (self.atoms.shape[0]==item.atoms.shape[0])
+                output['atom_index'] = (kwargs['atom_index'] == tmp_output)
+
+            if 'atom_id' in kwargs:
+
+                tmp_output = (self.atoms['atom_id'].values==item.atoms['atom_id'].values).all()
+                output['atom_id'] = (kwargs['atom_id'] == tmp_output)
+
+            if 'atom_name' in kwargs:
+
+                tmp_output = (self.atoms['atom_name'].values==item.atoms['atom_name'].values).all()
+                output['atom_name'] = (kwargs['atom_name'] == tmp_output)
+
+            if 'atom_type' in kwargs:
+
+                tmp_output = (self.atoms['atom_type'].values==item.atoms['atom_type'].values).all()
+                output['atom_type'] = (kwargs['atom_type'] == tmp_output)
+
+            if 'n_groups' in kwargs:
+
+                tmp_output = (self.groups.shape[0]==item.groups.shape[0])
+                output['n_groups'] = (kwargs['n_groups'] == tmp_output)
+
+            if 'group_index' in kwargs:
+
+                tmp_output = (self.atoms['group_index'].values==item.atoms['group_index'].values).all()
+                output['group_index'] = (kwargs['group_index'] == tmp_output)
+
+            if 'group_id' in kwargs:
+
+                tmp_output = (self.groups['group_id'].values==item.groups['group_id'].values).all()
+                output['group_id'] = (kwargs['group_id'] == tmp_output)
+
+            if 'group_name' in kwargs:
+
+                tmp_output = (self.groups['group_name'].values==item.groups['group_name'].values).all()
+                output['group_name'] = (kwargs['group_name'] == tmp_output)
+
+            if 'group_type' in kwargs:
+
+                tmp_output = (self.groups['group_type'].values==item.groups['group_type'].values).all()
+                output['group_type'] = (kwargs['group_type'] == tmp_output)
+
+            if 'component_index' in kwargs:
+
+                tmp_output = (self.groups['component_index'].values==item.groups['component_index'].values).all()
+                output['component_index'] = (kwargs['component_index'] == tmp_output)
+
+            if 'component_id' in kwargs:
+
+                tmp_output = (self.components['component_id'].values==item.components['component_id'].values).all()
+                output['component_id'] = (kwargs['component_id'] == tmp_output)
+
+            if 'component_name' in kwargs:
+
+                tmp_output = (self.components['component_name'].values==item.components['component_name'].values).all()
+                output['component_name'] = (kwargs['component_name'] == tmp_output)
+
+            if 'component_type' in kwargs:
+
+                tmp_output = (self.components['component_type'].values==item.components['component_type'].values).all()
+                output['component_type'] = (kwargs['component_type'] == tmp_output)
+
+            if 'molecule_index' in kwargs:
+
+                tmp_output = (self.components['molecule_index'].values==item.components['molecule_index'].values).all()
+                output['molecule_index'] = (kwargs['molecule_index'] == tmp_output)
+
+            if 'molecule_id' in kwargs:
+
+                tmp_output = (self.molecules['molecule_id'].values==item.molecules['molecule_id'].values).all()
+                output['molecule_id'] = (kwargs['molecule_id'] == tmp_output)
+
+            if 'molecule_name' in kwargs:
+
+                tmp_output = (self.molecules['molecule_name'].values==item.molecules['molecule_name'].values).all()
+                output['molecule_name'] = (kwargs['molecule_name'] == tmp_output)
+
+            if 'molecule_type' in kwargs:
+
+                tmp_output = (self.molecules['molecule_type'].values==item.molecules['molecule_type'].values).all()
+                output['molecule_type'] = (kwargs['molecule_type'] == tmp_output)
+
+            if 'entity_index' in kwargs:
+
+                tmp_output = (self.molecules['entity_index'].values==item.molecules['entity_index'].values).all()
+                output['entity_index'] = (kwargs['entity_index'] == tmp_output)
+
+            if 'entity_id' in kwargs:
+
+                tmp_output = (self.entities['entity_id'].values==item.entities['entity_id'].values).all()
+                output['entity_id'] = (kwargs['entity_id'] == tmp_output)
+
+            if 'entity_name' in kwargs:
+
+                tmp_output = (self.entities['entity_name'].values==item.entities['entity_name'].values).all()
+                output['entity_name'] = (kwargs['entity_name'] == tmp_output)
+
+            if 'entity_type' in kwargs:
+
+                tmp_output = (self.entities['entity_type'].values==item.entities['entity_type'].values).all()
+                output['entity_type'] = (kwargs['entity_type'] == tmp_output)
+
+            if 'chain_index' in kwargs:
+
+                tmp_output = (self.atoms['chain_index'].values==item.atoms['chain_index'].values).all()
+                output['chain_index'] = (kwargs['chain_index'] == tmp_output)
+
+            if 'chain_id' in kwargs:
+
+                tmp_output = (self.chains['chain_id'].values==item.chains['chain_id'].values).all()
+                output['chain_id'] = (kwargs['chain_id'] == tmp_output)
+
+            if 'chain_name' in kwargs:
+
+                tmp_output = (self.chains['chain_name'].values==item.chains['chain_name'].values).all()
+                output['chain_name'] = (kwargs['chain_name'] == tmp_output)
+
+            if 'chain_type' in kwargs:
+
+                tmp_output = (self.chains['chain_type'].values==item.chains['chain_type'].values).all()
+                output['chain_type'] = (kwargs['chain_type'] == tmp_output)
+
+            if 'n_bonds' in kwargs:
+
+                tmp_output = (self.bonds.shape[0]==item.bonds.shape[0]).all()
+                output['n_bonds'] = (kwargs['n_bonds'] == tmp_output)
+
+            if 'bonded_atom_pairs' in kwargs:
+
+                tmp_output1 = (self.bonds['atom1_index'] == item.bonds['atom1_index']).all()
+                tmp_output2 = (self.bonds['atom2_index'] == item.bonds['atom2_index']).all()
+                tmp_output = tmp_output1*tmp_output2
+                output['bonded_atom_pairs'] = (kwargs['bonded_atom_pairs'] == tmp_output)
+
+        if output_type=='boolean':
+            output = all(list(output.values()))
+
+        return output
+

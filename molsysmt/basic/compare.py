@@ -3,6 +3,8 @@ from molsysmt._private.exceptions import NotImplementedMethodError
 from molsysmt._private.variables import is_all
 import numpy as np
 
+from time import time
+
 @digest()
 def compare(molecular_system, molecular_system_2, selection='all', structure_indices='all',
         selection_2='all', structure_indices_2='all',  syntax='MolSysMT', rule='equal',

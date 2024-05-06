@@ -2,6 +2,13 @@ from ...exceptions import ArgumentError
 from ...variables import is_all
 from numpy import ndarray
 
+
+functions_with_boolean = (
+        'molsysmt.basic.get.get',
+        'molsysmt.basic.compare.compare',
+        )
+
+
 def digest_molecule_id(molecule_id, caller=None):
     """Checks if `molecule_id` has the expected type and value.
 
@@ -26,7 +33,7 @@ def digest_molecule_id(molecule_id, caller=None):
         If the given `molecule_id` has not of the correct type or value.
     """
 
-    if caller=='molsysmt.basic.get.get':
+    if caller.endswith(functions_with_boolean):
         if isinstance(molecule_id, bool):
             return molecule_id
     elif caller.startswith('molsysmt.form.') and caller.count('.to_')==2:
