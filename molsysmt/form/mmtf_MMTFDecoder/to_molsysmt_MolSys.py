@@ -158,11 +158,12 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
 
     if len(alt_atom_indices):
 
-        print('>@> PDB with alt atom location')
+        alt_atom_names = atom_name_array[alt_atom_indices]
+        alt_group_indices = group_index_array[alt_atom_indices]
+        alt_chain_indices = chain_index_array[alt_atom_indices]
+        alt_group_ids = group_id_array[alt_group_indices]
+        alt_chain_ids = chain_id_array[alt_chain_indices]
 
-        alt_atom_names = atom_name[alt_atom_indices]
-        alt_group_ids = group_id[alt_atom_indices]
-        alt_chain_ids = chain_id[alt_atom_indices]
         aux_dict = {}
         for aux_atom_index, aux_atom_name, aux_group_id, aux_chain_id in zip(alt_atom_indices, alt_atom_names,
                                                                              alt_group_ids, alt_chain_ids):
@@ -184,7 +185,7 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
             chosen_with_alt_loc.append(chosen)
             atoms_to_be_removed_with_alt_loc += [ii for ii in same_atoms if ii !=chosen]
 
-        atom_indices_to_be_kept = np.setdiff1(np.arange(n_atoms), atoms_to_be_removed_with_alt_loc)
+        atom_indices_to_be_kept = np.setdiff1d(np.arange(n_atoms), atoms_to_be_removed_with_alt_loc)
         dict_old_to_new_atom_indices = {jj: ii for ii, jj in enumerate(atom_indices_to_be_kept)}
 
         aux_alternate_location = [{}]
@@ -194,7 +195,7 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
                     'location_id':alternate_location[same_atoms],
                     'occupancy':occupancy[same_atoms],
                     'b_factor':b_factor[same_atoms],
-                    'atom_id':atom_id[same_atoms],
+                    'atom_id':atom_id_array[same_atoms],
                     'coordinates':coordinates[0,same_atoms,:]
                     }
             aux_alternate_location[0][atom_index]=aux_dict
@@ -357,7 +358,7 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
     tmp_item.topology.rebuild_entities(redefine_indices=True, redefine_ids=True, redefine_names=True, redefine_types=True)
     tmp_item.topology.rebuild_chains(redefine_ids=False, redefine_types=True)
 
-    tmp_item.structures.append(coordinates=coordinates, box=box)
+    tmp_item.structures.append(coordinates=coordinates, box=box, alternate_location=alternate_location)
 
     if item.num_models>1:
 

@@ -39,7 +39,7 @@ class Structures:
     def __init__(self, constant_time_step=False, time_step=None, constant_id_step=False,
             id_step=None, constant_box=False,
             structure_id=None, time=None, coordinates=None, velocities=None, box=None,
-            occupancy=None, b_factor=None, alternate_location=None, bioassembly=None,
+            b_factor=None, alternate_location=None, bioassembly=None,
             temperature=None, potential_energy=None, kinetic_energy=None, skip_digestion=False):
 
         self.n_atoms = 0
@@ -58,7 +58,6 @@ class Structures:
         self.coordinates = coordinates
         self.velocities = velocities
         self.box = box
-        self.occupancy = occupancy
         self.b_factor = b_factor
         self.alternate_location = alternate_location
         self.bioassembly = bioassembly
@@ -246,10 +245,24 @@ class Structures:
             else:
                 self.kinetic_energy = np.concatenate([self.kinetic_energy, kinetic_energy[structure_indices]])
 
+    @digest()
+    def _append_alternate_location(self, alternate_location, structure_indices='all', skip_digestion=False):
+
+        if self.alternate_location is None:
+            if is_all(structure_indices):
+                self.alternate_location = deepcopy(alternate_location)
+            else:
+                self.alternate_location = alternate_location[structure_indices]
+        else:
+            if is_all(structure_indices):
+                self.alternate_location.append(alternate_location)
+            else:
+                self.alternate_location.append(alternate_location[structure_indices])
 
     @digest()
     def append(self, structure_id=None, time=None, coordinates=None, velocities=None,
                box=None, temperature=None, potential_energy=None, kinetic_energy=None,
+               alternate_location=None,
                atom_indices='all', structure_indices='all', skip_digestion=False):
         """ Append structures or frames to this object.
 
@@ -341,6 +354,14 @@ class Structures:
             elif n_structures != tmp_n_structures:
                 raise ValueError('Not all input arguments have the same number of structures to be appended.')
 
+        if alternate_location is not None:
+
+            tmp_n_structures = len(alternate_location)
+            if n_structures is None:
+                n_structures = tmp_n_structures
+            elif n_structures != tmp_n_structures:
+                raise ValueError('Not all input arguments have the same number of structures to be appended.')
+
         if self.n_structures==0:
 
             if structure_id is not None:
@@ -371,6 +392,9 @@ class Structures:
                 self._append_kinetic_energy(kinetic_energy, structure_indices=structure_indices,
                                             skip_digestion=True)
 
+            if alternate_location is not None:
+                self._append_alternate_location(alternate_location, structure_indices=structure_indices,
+                                                skip_digestion=True)
 
         else:
 
@@ -402,6 +426,10 @@ class Structures:
                 self._append_kinetic_energy(kinetic_energy, structure_indices=structure_indices, 
                                             skip_digestion=True)
 
+            if (self.alternate_location is not None) and (alternate_location is not None):
+                self._append_alternate_location(alternate_location, structure_indices=structure_indices, 
+                                            skip_digestion=True)
+
         if n_structures is None:
             n_structures = 0
         if n_atoms is None:
@@ -427,6 +455,7 @@ class Structures:
                         temperature=item.temperature,
                         potential_energy=item.potential_energy,
                         kinetic_energy=item.kinetic_energy,
+                        alternate_location=item.alternate_location,
                         skip_digestion=True
                        )
 
@@ -615,6 +644,21 @@ class Structures:
                     if is_all(atom_indices):
                         velocities = deepcopy(self.velocities)
                     else:
+                        velocities = self.velocities[:,atom_indices,:]
+                else:
+                    if is_all(atom_indices):
+                        velocities = self.velocities[structure_indices,:,:]
+                    else:
+                        velocities = self.velocities[np.ix_(structure_indices, atom_indices)]
+
+            if self.alternate_location is None:
+                alternate_location = None
+            else:
+                if is_all(structure_indices):
+                    if is_all(atom_indices):
+                        alternate_location = deepcopy(self.alternate_location)
+                    else:
+
                         velocities = self.velocities[:,atom_indices,:]
                 else:
                     if is_all(atom_indices):
