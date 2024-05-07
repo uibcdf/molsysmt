@@ -133,9 +133,9 @@ systems['Met-enkephalin']['met_enkephalin.h5msm'] = path('molsysmt.data.h5msm', 
 
 # Barnase - Barstar
 
-#systems['Barnase-Barstar'] = {}
-#systems['Barnase-Barstar']['barnase_barstar.msmpk'] = path('molsysmt.data.msmpk', 'barnase_barstar.msmpk')
-#systems['Barnase-Barstar']['1brs.mmtf'] = path('molsysmt.data.mmtf', '1brs.mmtf')
+systems['Barnase-Barstar'] = {}
+systems['Barnase-Barstar']['barnase_barstar.h5msm'] = path('molsysmt.data.h5msm', 'barnase_barstar.h5msm')
+systems['Barnase-Barstar']['1brs.mmtf'] = path('molsysmt.data.mmtf', '1brs.mmtf')
 
 
 # POPC membrane

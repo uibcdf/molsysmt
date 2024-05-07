@@ -53,10 +53,6 @@ def has_attribute(molecular_system, attribute, skip_digestion=False):
         if molecular_system.structures.box is None:
             output = False
 
-    elif attribute=='occupancy':
-        if molecular_system.structures.occupancy is None:
-            output = False
-
     elif attribute=='alternate_location':
         if molecular_system.structures.alternate_location is None:
             output = False

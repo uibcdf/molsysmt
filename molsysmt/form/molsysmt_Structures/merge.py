@@ -47,7 +47,6 @@ def merge(items, atom_indices='all', structure_indices='all', skip_digestion=Fal
     list_coordinates = []
     list_velocities = []
     list_b_factor = []
-    list_occupancy = []
 
     count_n_atoms=0
 
@@ -66,7 +65,6 @@ def merge(items, atom_indices='all', structure_indices='all', skip_digestion=Fal
                     list_coordinates.append(aux_item.coordinates)
                     list_velocities.append(aux_item.velocities)
                     list_b_factor.append(aux_item.b_factor)
-                    list_occupancy.append(aux_item.occupancy)
 
                     if aux_item.alternate_location is not None:
                         for ii, alt_loc_dict in enumerate(aux_item.alternate_location):
@@ -96,11 +94,6 @@ def merge(items, atom_indices='all', structure_indices='all', skip_digestion=Fal
                         list_b_factor.append(aux_item.b_factor[:,aux_atom_indices])
                     else:
                         list_b_factor.append(None)
-
-                    if aux_item.occupancy is not None:
-                        list_occupancy.append(aux_item.occupancy[:,aux_atom_indices])
-                    else:
-                        list_occupancy.append(None)
 
                     if aux_item.alternate_location is not None:
                         for ii, alt_loc_dict in enumerate(aux_item.alternate_location):
@@ -138,11 +131,6 @@ def merge(items, atom_indices='all', structure_indices='all', skip_digestion=Fal
                         else:
                             list_b_factor.append(None)
 
-                        if aux_item.occupancy is not None:
-                            list_occupancy.append(aux_item.occupancy[aux_structure_indices,:])
-                        else:
-                            list_occupancy.append(None)
-
                         if aux_item.alternate_location is not None:
                             for ii, alt_loc_dict in enumerate(aux_item.alternate_location):
                                 if alt_loc_dict is not None:
@@ -177,12 +165,6 @@ def merge(items, atom_indices='all', structure_indices='all', skip_digestion=Fal
                         else:
                             list_b_factor.append(None)
 
-                        if aux_item.occupancy is not None:
-                            tmp = aux_item.occupancy[aux_structure_indices,:]
-                            list_occupancy.append(tmp[:,aux_atom_indices])
-                        else:
-                            list_occupancy.append(None)
-
                         if aux_item.alternate_location is not None:
                             for ii, alt_loc_dict in enumerate(aux_item.alternate_location):
                                 if ii in aux_structure_indices:
@@ -209,12 +191,7 @@ def merge(items, atom_indices='all', structure_indices='all', skip_digestion=Fal
     else:
         output.b_factor = puw.hstack(list_b_factor)
 
-    if any([ii is None for ii in list_occupancy]):
-        output.occupancy = None
-    else:
-        output.occupancy = np.hstack(list_occupancy)
-
-    del(list_coordinates, list_velocities, list_b_factor, list_occupancy)
+    del(list_coordinates, list_velocities, list_b_factor)
 
     output.n_atoms = count_n_atoms
 

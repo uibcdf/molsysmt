@@ -14,13 +14,15 @@ def solve_atoms_with_alternate_location(molecular_system, selection='all',
 
     alt_loc_dict = get(molecular_system, alternate_location=True)
 
+    system_with_b_factors = (get(molecular_system, b_factors=True) is not None)
+
     if is_all(structure_indices):
 
         n_structures = get(molecular_system, n_structures=True)
         structure_indices = np.arange(n_structures)
 
     atom_indices = select(molecular_system, selection=selection, syntax=syntax)
-    n_atoms = atom_indices.shape[0]
+    n_atoms = len(atom_indices)
 
     if isinstance(location_id, str):
         if len(location_id)==1:
@@ -31,27 +33,23 @@ def solve_atoms_with_alternate_location(molecular_system, selection='all',
             raise ValueError()
 
         aux_atom_indices=[]
-        aux_occupancy=[]
         aux_b_factor=[]
         aux_atom_id=[]
         aux_coordinates=[]
         for structure_index in structure_indices:
             aux2_atom_indices=[]
-            aux2_occupancy=[]
             aux2_b_factor=[]
             aux2_atom_id=[]
             aux2_coordinates=[]
             for tmp_atom_index, tmp_alt_loc_value in alt_loc_dict[structure_index].items():
                 if tmp_atom_index in atom_indices:
-                    aux_arg = np.where(atom_indices==tmp_atom_index)[0][0]
+                    aux_arg = np.argwhere(np.array(atom_indices)==tmp_atom_index)[0][0]
                     arg = np.where(tmp_alt_loc_value['location_id']==location_id[aux_arg])[0][0]
                     aux2_atom_indices.append(tmp_atom_index)
-                    aux2_occupancy.append(tmp_alt_loc_value['occupancy'][arg])
                     aux2_b_factor.append(tmp_alt_loc_value['b_factor'][arg])
                     aux2_atom_id.append(tmp_alt_loc_value['atom_id'][arg])
                     aux2_coordinates.append(tmp_alt_loc_value['coordinates'][arg])
             aux_atom_indices.append(aux2_atom_indices)
-            aux_occupancy.append(aux2_occupancy)
             aux_b_factor.append(puw.concatenate(aux2_b_factor))
             aux_atom_id.append(aux2_atom_id)
             aux_coordinates.append(puw.concatenate(aux2_coordinates))
@@ -68,25 +66,32 @@ def solve_atoms_with_alternate_location(molecular_system, selection='all',
 
         if equal_atom_indices_all_structures:
             mask=aux_atom_indices[0]
+            atts_to_set = {
+                'atom_id':aux_atom_id[0],
+                'coordinates':aux_coordinates}
+            if system_with_b_factors:
+                atts_to_set['b_factor']=aux_b_factor
             set(molecular_system, selection='atom_index in @mask', structure_indices=structure_indices,
-                    atom_id=aux_atom_id[0], occupancy=aux_occupancy, b_factor=aux_b_factor, coordinates=aux_coordinates)
+                **atts_to_set)
         else:
             for ii in structure_indices:
                 mask=aux_atom_indices[ii]
+                atts_to_set = {
+                    'atom_id':aux_atom_id[ii],
+                    'coordinates':aux_coordinates[ii]}
+                if system_with_b_factors:
+                    atts_to_set['b_factor']=aux_b_factor[ii]
                 set(molecular_system, selection='atom_index in @mask', structure_indices=structure_indices[ii],
-                    atom_id=aux_atom_id[ii], occupancy=aux_occupancy[ii],
-                    b_factor=aux_b_factor[ii], coordinates=aux_coordinates[ii])
+                    **atts_to_set)
 
     elif location_id=='occupancy':
 
         aux_atom_indices=[]
-        aux_occupancy=[]
         aux_b_factor=[]
         aux_atom_id=[]
         aux_coordinates=[]
         for structure_index in structure_indices:
             aux2_atom_indices=[]
-            aux2_occupancy=[]
             aux2_b_factor=[]
             aux2_atom_id=[]
             aux2_coordinates=[]
@@ -94,12 +99,10 @@ def solve_atoms_with_alternate_location(molecular_system, selection='all',
                 if tmp_atom_index in atom_indices:
                     arg = np.max_arg(tmp_alt_loc_value['occupancy'])
                     aux2_atom_indices.append(tmp_atom_index)
-                    aux2_occupancy.append(tmp_alt_loc_value['occupancy'][arg])
                     aux2_b_factor.append(tmp_alt_loc_value['b_factor'][arg])
                     aux2_atom_id.append(tmp_alt_loc_value['atom_id'][arg])
                     aux2_coordinates.append(tmp_alt_loc_value['coordinates'][arg])
             aux_atom_indices.append(aux2_atom_indices)
-            aux_occupancy.append(aux2_occupancy)
             aux_b_factor.append(aux2_b_factor)
             aux_atom_id.append(aux2_atom_id)
             aux_coordinates.append(aux2_coordinates)
@@ -117,13 +120,23 @@ def solve_atoms_with_alternate_location(molecular_system, selection='all',
 
         if equal_atom_indices_all_structures:
             mask=aux_atom_indices[0]
+            atts_to_set = {
+                'atom_id':aux_atom_id[0],
+                'coordinates':aux_coordinates}
+            if system_with_b_factors:
+                atts_to_set['b_factor']=aux_b_factor
             set(molecular_system, selection='atom_index in @mask', structure_indices=structure_indices,
-                    atom_id=aux_atom_id[0], occupancy=aux_occupancy, b_factor=aux_b_factor, coordinates=aux_coordinates)
+                **atts_to_set)
         else:
             for ii in structure_indices:
                 mask=aux_atom_indices[ii]
+                atts_to_set = {
+                    'atom_id':aux_atom_id[ii],
+                    'coordinates':aux_coordinates[ii]}
+                if system_with_b_factors:
+                    atts_to_set['b_factor']=aux_b_factor[ii]
                 set(molecular_system, selection='atom_index in @mask', structure_indices=structure_indices[ii],
-                    atom_id=aux_atom_id[ii], occupancy=aux_occupancy[ii], b_factor=aux_b_factor[ii], coordinates=aux_coordinates[ii])
+                    **atts_to_set)
 
     pass
 

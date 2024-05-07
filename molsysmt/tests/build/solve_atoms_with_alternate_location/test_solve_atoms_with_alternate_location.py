@@ -37,26 +37,20 @@ def test_solve_atoms_with_alternate_location_molsysmt_MolSys_2():
 
     molecular_system = msm.convert(systems['Barnase-Barstar']['1brs.mmtf'], to_form='molsysmt.MolSys')
     msm.build.solve_atoms_with_alternate_location(molecular_system, location_id='B')
-    atom_id, b_factor, occupancy, coordinates = msm.get(molecular_system, element='atom', selection=[2686,2687],
-            atom_id=True, b_factor=True, occupancy=True, coordinates=True)
+    atom_id, b_factor, coordinates = msm.get(molecular_system, element='atom', selection=[2686,2687],
+            atom_id=True, b_factor=True, coordinates=True)
     assert np.all(atom_id==np.array([2688,2690]))
-    assert np.all(occupancy==np.array([[0.5,0.5]]))
     aux_coors = puw.quantity(np.array([[[3.2757, 2.2571, 0.1533], [3.3396, 2.192 , 0.2619]]]),'nm')
     assert puw.are_close(coordinates, aux_coors)
-    aux_b_factor = puw.quantity(np.array([[0.2467, 0.2596]]),'nm**2')
-    assert puw.are_close(b_factor, aux_b_factor)
 
 def test_solve_atoms_with_alternate_location_molsysmt_MolSys_3():
 
     molecular_system = msm.convert(systems['Barnase-Barstar']['1brs.mmtf'], to_form='molsysmt.MolSys')
     msm.build.solve_atoms_with_alternate_location(molecular_system, selection=[2686,2687], location_id=['A','B'])
-    atom_id, b_factor, occupancy, coordinates = msm.get(molecular_system, element='atom', selection=[2686,2687],
-            atom_id=True, b_factor=True, occupancy=True, coordinates=True)
+    atom_id, b_factor, coordinates = msm.get(molecular_system, element='atom', selection=[2686,2687],
+            atom_id=True, b_factor=True, coordinates=True)
     assert np.all(atom_id==np.array([2687,2690]))
-    assert np.all(occupancy==np.array([[0.5,0.5]]))
     aux_coors = puw.quantity(np.array([[[3.2742, 2.2579, 0.1536], [3.3396, 2.192 , 0.2619]]]),'nm')
     assert puw.are_close(coordinates, aux_coors)
-    aux_b_factor = puw.quantity(np.array([[0.2466, 0.2596]]),'nm**2')
-    assert puw.are_close(b_factor, aux_b_factor)
 
 

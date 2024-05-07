@@ -107,6 +107,16 @@ def set_group_type_to_group(item, indices='all', value=None, skip_digestion=Fals
 
     pass
 
+@digest(form=form)
+def set_component_index_to_group(item, indices='all', value=None, skip_digestion=False):
+
+    if is_all(indices):
+        item.groups.component_index=value
+    else:
+        item.groups.iloc[indices, 3]=value
+
+    pass
+
 
 ## Component
 

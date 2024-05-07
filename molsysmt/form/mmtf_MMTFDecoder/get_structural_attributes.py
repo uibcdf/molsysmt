@@ -163,6 +163,21 @@ def get_n_bioassemblies_from_system(item, skip_digestion=False):
 
     return len(item.bio_assembly)
 
+@digest(form=form)
+def get_alternate_location_from_system(item, structure_indices='all', skip_digestion=False):
+
+    from .to_molsysmt_Structures import to_molsysmt_Structures
+    from ..molsysmt_Structures import get_alternate_location_from_system as aux_get
+
+    tmp_item = to_molsysmt_Structures(item, skip_digestion=True)
+    output = aux_get(tmp_item, structure_indices=structure_indices, skip_digestion=True)
+
+    return output
+
+
+
+
+
 # List of functions to be imported
 
 __all__ = [name for name, obj in globals().items() if isinstance(obj, types.FunctionType) and name.startswith('get_')]

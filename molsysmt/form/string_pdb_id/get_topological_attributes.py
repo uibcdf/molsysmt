@@ -4,7 +4,6 @@ import types
 from molsysmt._private.exceptions import NotImplementedMethodError, NotWithThisFormError
 from molsysmt.attribute import bonds_are_required_to_get_attribute
 
-form='nglview.NGLWidget'
 form='string:pdb_id'
 
 

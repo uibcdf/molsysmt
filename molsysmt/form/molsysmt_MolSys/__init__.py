@@ -39,6 +39,8 @@ from .to_openmm_Context import to_openmm_Context
 from .to_openmm_Topology import to_openmm_Topology
 from .to_openmm_Modeller import to_openmm_Modeller
 from .to_pdbfixer_PDBFixer import to_pdbfixer_PDBFixer
+from .to_biopython_Seq import to_biopython_Seq
+from .to_biopython_SeqRecord import to_biopython_SeqRecord
 from .to_file_msmpk import to_file_msmpk
 from .to_file_h5msm import to_file_h5msm
 from .to_file_pdb import to_file_pdb
@@ -60,6 +62,8 @@ _convert_to={
         'openmm.Topology': to_openmm_Topology,
         'openmm.Modeller': to_openmm_Modeller,
         'pdbfixer.PDBFixer': to_pdbfixer_PDBFixer,
+        'biopython.Seq': to_biopython_Seq,
+        'biopython.SeqRecord': to_biopython_SeqRecord,
         'string:pdb_text': to_string_pdb_text,
         'string:amino_acids_1': to_string_amino_acids_1,
         'string:amino_acids_3': to_string_amino_acids_3,

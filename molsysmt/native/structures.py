@@ -658,13 +658,28 @@ class Structures:
                     if is_all(atom_indices):
                         alternate_location = deepcopy(self.alternate_location)
                     else:
-
-                        velocities = self.velocities[:,atom_indices,:]
+                        alternate_location = []
+                        for tmp_alt_loc in self.alternate_location:
+                            aux_dict={}
+                            for tmp_atom_index in tmp_alt_loc.keys():
+                                if tmp_atom_index in atom_indices:
+                                    new_atom_index = np.argwhere(atom_indices == tmp_atom_index)[0][0]
+                                    aux_dict[new_atom_index] = tmp_alt_loc[tmp_atom_index]
+                            alternate_location.append(aux_dict)
                 else:
                     if is_all(atom_indices):
-                        velocities = self.velocities[structure_indices,:,:]
+                        alternate_location = [self.alternate_location[ii] for ii in structure_indices]
                     else:
-                        velocities = self.velocities[np.ix_(structure_indices, atom_indices)]
+                        aux_alternate_location = [self.alternate_location[ii] for ii in structure_indices]
+                        alternate_location = []
+                        for tmp_alt_loc in aux_alternate_location:
+                            aux_dict={}
+                            for tmp_atom_index in tmp_alt_loc.keys():
+                                if tmp_atom_index in atom_indices:
+                                    new_atom_index = np.where(atom_indices == tmp_atom_index)[0]
+                                    aux_dict[new_atom_index] = tmp_alt_loc[tmp_atom_index]
+                            alternate_location.append(aux_dict)
+                        del(aux_alternate_location)
 
         return Structures(structure_id=structure_id,
                           time=time,
@@ -674,6 +689,7 @@ class Structures:
                           temperature=temperature,
                           potential_energy=potential_energy,
                           kinetic_energy=kinetic_energy,
+                          alternate_location=alternate_location,
                           skip_digestion=True
                           )
 

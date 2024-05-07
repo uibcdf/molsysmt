@@ -348,10 +348,6 @@ add_attribute('total_energy', synonyms=['total_energies'],
 add_attribute('n_structures', synonyms=['n_structure'], depends_on=['structure_index'], runs_on_elements=True,
               runs_on_structures=True, structural=True, get_from=['system'])
 
-## occupancy
-add_attribute('occupancy', synonyms=['occupancies'], runs_on_elements=True, runs_on_structures=True,
-              structural=True, get_from=['atom','system'], set_to='atom')
-
 ## b_factor
 add_attribute('b_factor', synonyms=['b_factors'], runs_on_elements=True, runs_on_structures=True,
               structural=True, get_from=['atom','system'], set_to='atom')
