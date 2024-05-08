@@ -5,14 +5,14 @@ systems.
 
 # Import package, test suite, and other packages as needed
 import molsysmt as msm
-from molsysmt.systems import tests as tests_systems
+from molsysmt import systems
 from molsysmt import pyunitwizard as puw
 import numpy as np
 
 # Distance between atoms in space and time
 
 def test_get_minimum_distances_from_molsysmt_MolSys_1():
-    molsys = msm.convert(tests_systems['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
+    molsys = msm.convert(systems['TcTIM']['1tcd.h5msm'], to_form='molsysmt.MolSys')
     atoms_groups_component_0 = msm.get(molsys, element='group', selection='component_index==0', atom_index=True)
     atoms_groups_component_1 = msm.get(molsys, element='group', selection='component_index==1', atom_index=True)
     min_pairs, min_distances = msm.structure.get_minimum_distances(molsys,

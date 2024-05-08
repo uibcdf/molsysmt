@@ -3,6 +3,7 @@ from molsysmt._private.digestion import digest
 from molsysmt._private.variables import is_all
 from molsysmt import pyunitwizard as puw
 from copy import copy
+import numpy as np
 
 form='molsysmt.Structures'
 
@@ -18,10 +19,13 @@ def get_coordinates_from_atom(item, indices='all', structure_indices='all', skip
     tmp_coordinates = copy(item.coordinates)
 
     if not is_all(structure_indices):
-        tmp_coordinates = tmp_coordinates[structure_indices,:,:]
-
-    if not is_all(indices):
-        tmp_coordinates = tmp_coordinates[:,indices,:]
+        if not is_all(indices):
+            tmp_coordinates = tmp_coordinates[np.ix_(structure_indices, indices)]
+        else:
+            tmp_coordinates = tmp_coordinates[structure_indices,:,:]
+    else:
+        if not is_all(indices):
+            tmp_coordinates = tmp_coordinates[:,indices,:]
 
     return tmp_coordinates
 
@@ -34,10 +38,13 @@ def get_velocities_from_atom(item, indices='all', structure_indices='all', skip_
     tmp_velocities = copy(item.velocities)
 
     if not is_all(structure_indices):
-        tmp_velocities = tmp_velocities[structure_indices,:,:]
-
-    if not is_all(indices):
-        tmp_velocities = tmp_velocities[:,indices,:]
+        if not is_all(indices):
+            tmp_velocities = tmp_velocities[np.ix_(structure_indices, indices)]
+        else:
+            tmp_velocities = tmp_velocities[structure_indices,:,:]
+    else:
+        if not is_all(indices):
+            tmp_velocities = tmp_velocities[:,indices,:]
 
     return tmp_velocities
 

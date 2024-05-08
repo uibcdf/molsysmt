@@ -1,4 +1,5 @@
 from molsysmt._private.digestion import digest
+from molsysmt._private.variables import is_all
 from molsysmt import pyunitwizard as puw
 import numpy as np
 
@@ -19,7 +20,17 @@ def to_molsysmt_Structures(item, atom_indices='all', structure_indices='all', sk
 
     structures_ds = item.file['structures']
 
-    n_atoms = structures_ds.attrs['n_atoms']
+    
+    if is_all(atom_indices):
+        n_atoms = structures_ds.attrs['n_atoms']
+    else:
+        n_atoms = len(atom_indices)
+
+    if is_all(structure_indices):
+        n_structures = structures_ds.attrs['n_structures']
+    else:
+        n_structures = len(structure_indices)
+
     n_structures = structures_ds.attrs['n_structures_written']
 
     tmp_item = Structures()
@@ -30,66 +41,87 @@ def to_molsysmt_Structures(item, atom_indices='all', structure_indices='all', sk
     # Coordinates
 
     if structures_ds['coordinates'].shape[0]>0:
-
         tmp_item.coordinates = puw.quantity(np.zeros([n_structures, n_atoms, 3], dtype='float64'),
                 standard_length_unit)
-        tmp_item.coordinates[:,:,:] = puw.quantity(structures_ds['coordinates'][:,:,:],
-                length_unit)
-
+        if is_all(structure_indices):
+            if is_all(atom_indices):
+                tmp_item.coordinates[:,:,:] = puw.quantity(structures_ds['coordinates'][:,:,:],
+                                                           length_unit)
+            else:
+                tmp_item.coordinates[:,:,:] = puw.quantity(structures_ds['coordinates'][:,atom_indices,:],
+                                                           length_unit)
+        else:
+            if is_all(atom_indices):
+                tmp_item.coordinates[:,:,:] = puw.quantity(structures_ds['coordinates'][structure_indices,:,:],
+                                                           length_unit)
+            else:
+                tmp_item.coordinates[:,:,:] = puw.quantity(structures_ds['coordinates'][np.ix_(structure_indices, atom_indices)],
+                                                           length_unit)
     else:
-
         tmp_item.coordinates = None
 
     # Velocities
 
     if structures_ds['velocities'].shape[0]>0:
-
         tmp_item.velocities = puw.quantity(np.zeros([n_structures, n_atoms, 3], dtype='float64'),
                 standard_length_unit/standard_time_unit)
-        tmp_item.velocities[:,:,:] = puw.quantity(structures_ds['velocities'][:,:,:],
-                length_unit/time_unit)
-
+        if is_all(structure_indices):
+            if is_all(atom_indices):
+                tmp_item.velocities[:,:,:] = puw.quantity(structures_ds['velocities'][:,:,:],
+                                                          length_unit/time_unit)
+            else:
+                tmp_item.velocities[:,:,:] = puw.quantity(structures_ds['velocities'][:,atom_indices,:],
+                                                          length_unit/time_unit)
+        else:
+            if is_all(atom_indices):
+                tmp_item.velocities[:,:,:] = puw.quantity(structures_ds['velocities'][structure_indices,:,:],
+                                                           length_unit)
+            else:
+                tmp_item.velocities[:,:,:] = puw.quantity(structures_ds['velocities'][np.ix_(structure_indices, atom_indices)],
+                                                           length_unit)
     else:
-
         tmp_item.velocities = None
 
     # Box
 
     if structures_ds['box'].shape[0]>0:
-
         tmp_item.box = puw.quantity(np.zeros([n_structures, 3, 3], dtype='float64'),
                 standard_length_unit)
-        tmp_item.box[:,:,:] = puw.quantity(structures_ds['box'][:,:,:],
-                length_unit)
-
+        if is_all(structure_indices):
+            tmp_item.box[:,:,:] = puw.quantity(structures_ds['box'][:,:,:],
+                    length_unit)
+        else:
+            tmp_item.box[:,:,:] = puw.quantity(structures_ds['box'][structure_indices,:,:],
+                    length_unit)
     else:
-
         tmp_item.box = None
 
     # Kinetic Energy
 
     if structures_ds['kinetic_energy'].shape[0]>0:
-
         tmp_item.kinetic_energy = puw.quantity(np.zeros([n_structures], dtype='float64'),
                 standard_energy_unit)
-        tmp_item.kinetic_energy[:] = puw.quantity(structures_ds['kinetic_energy'][:],
-                energy_unit)
-
+        if is_all(structure_indices):
+            tmp_item.kinetic_energy[:] = puw.quantity(structures_ds['kinetic_energy'][:],
+                                         energy_unit)
+        else:
+            tmp_item.kinetic_energy[:] = puw.quantity(structures_ds['kinetic_energy'][structure_indices],
+                                         energy_unit)
     else:
-
         tmp_item.kinetic_energy = None
 
     # Potential Energy
 
     if structures_ds['potential_energy'].shape[0]>0:
-
         tmp_item.potential_energy = puw.quantity(np.zeros([n_structures], dtype='float64'),
                 standard_energy_unit)
-        tmp_item.potential_energy[:] = puw.quantity(structures_ds['potential_energy'][:],
-                energy_unit)
-
+        if is_all(structure_indices):
+            tmp_item.potential_energy[:] = puw.quantity(structures_ds['potential_energy'][:],
+                                                        energy_unit)
+        else:
+            tmp_item.potential_energy[:] = puw.quantity(structures_ds['potential_energy'][structure_indices],
+                                                        energy_unit)
     else:
-
         tmp_item.potential_energy = None
 
     # Temperature
@@ -98,11 +130,13 @@ def to_molsysmt_Structures(item, atom_indices='all', structure_indices='all', sk
 
         tmp_item.temperature = puw.quantity(np.zeros([n_structures], dtype='float64'),
                 standard_temperature_unit)
-        tmp_item.temperature[:] = puw.quantity(structures_ds['temperature'][:],
-                temperature_unit)
-
+        if is_all(structure_indices):
+            tmp_item.temperature[:] = puw.quantity(structures_ds['temperature'][:],
+                                      temperature_unit)
+        else:
+            tmp_item.temperature[:] = puw.quantity(structures_ds['temperature'][structure_indices],
+                                      temperature_unit)
     else:
-
         tmp_item.temperature = None
 
 

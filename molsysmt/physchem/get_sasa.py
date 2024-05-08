@@ -36,7 +36,7 @@ def get_sasa (molecular_system, element='atom', selection='all', structure_indic
 
             new_sasa_array = np.empty([n_structures, n_sets], dtype='float')
             for ii in range(n_sets):
-                new_sasa_array[:,ii] = sasa_array[:,sets_atoms[ii].astype(int)].sum(axis=1)
+                new_sasa_array[:,ii] = sasa_array[:,sets_atoms[ii]].sum(axis=1)
             sasa_array = new_sasa_array
 
         sasa_array = puw.quantity(sasa_array, 'nm**2')

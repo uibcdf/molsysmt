@@ -5,14 +5,14 @@ systems.
 
 # Import package, test suite, and other packages as needed
 import molsysmt as msm
-from molsysmt.systems import tests as tests_systems
+from molsysmt import systems
 from molsysmt import pyunitwizard as puw
 import numpy as np
 
 # Distance between atoms in space and time
 
 def test_get_neighbors_from_molsysmt_MolSys_1():
-    molsys = msm.convert(tests_systems['pentalanine']['traj_pentalanine.h5'], to_form='molsysmt.MolSys')
+    molsys = msm.convert(systems['pentalanine']['traj_pentalanine.h5'], to_form='molsysmt.MolSys')
     CA_atoms_list = msm.select(molsys, selection='atom_name=="CA"')
     neighbors, distances = msm.structure.get_neighbors(molsys, selection=CA_atoms_list, n_neighbors=3)
     check_shape_1 = ((5000, 5, 3)==neighbors.shape)
@@ -23,7 +23,7 @@ def test_get_neighbors_from_molsysmt_MolSys_1():
     assert check_distance
 
 def test_get_neighbors_from_molsysmt_MolSys_2():
-    molsys = msm.convert(tests_systems['pentalanine']['traj_pentalanine.h5'], to_form='molsysmt.MolSys')
+    molsys = msm.convert(systems['pentalanine']['traj_pentalanine.h5'], to_form='molsysmt.MolSys')
     CA_atoms_list = msm.select(molsys, selection='atom_name=="CA"')
     neighbors, distances = msm.structure.get_neighbors(molsys, selection=CA_atoms_list, selection_2='all', n_neighbors=4)
     check_neighbors = (10==neighbors[2000,0,3])
@@ -32,7 +32,7 @@ def test_get_neighbors_from_molsysmt_MolSys_2():
     assert check_distance
 
 def test_get_neighbors_from_molsysmt_MolSys_3():
-    molsys = msm.convert(tests_systems['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
+    molsys = msm.convert(systems['TcTIM']['1tcd.h5msm'], to_form='molsysmt.MolSys')
     atoms_in_residues_chain_0 = msm.get(molsys, element='group',
                                         selection="molecule_type=='protein' and chain_index==0", atom_index=True)
     neighbors, distances = msm.structure.get_neighbors(molsys, selection=atoms_in_residues_chain_0, n_neighbors=8)
@@ -44,7 +44,7 @@ def test_get_neighbors_from_molsysmt_MolSys_3():
     assert check_distance
 
 def test_get_neighbors_from_molsysmt_MolSys_4():
-    molsys = msm.convert(tests_systems['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
+    molsys = msm.convert(systems['TcTIM']['1tcd.h5msm'], to_form='molsysmt.MolSys')
     atoms_in_residues_chain_0 = msm.get(molsys, element='group',
                                         selection="molecule_type=='protein' and chain_index==0", atom_index=True)
     atoms_in_residues_chain_1 = msm.get(molsys, element='group',
@@ -59,7 +59,7 @@ def test_get_neighbors_from_molsysmt_MolSys_4():
     assert check_distance
 
 def test_get_neighbors_from_molsysmt_MolSys_5():
-    molsys = msm.convert(tests_systems['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
+    molsys = msm.convert(systems['TcTIM']['1tcd.h5msm'], to_form='molsysmt.MolSys')
     atoms_in_residues_chain_1 = msm.get(molsys, element='group',
                                         selection="molecule_type=='protein' and chain_index==1", atom_index=True)
     neighbors, distances = msm.structure.get_neighbors(molsys, selection=100,
@@ -71,7 +71,7 @@ def test_get_neighbors_from_molsysmt_MolSys_5():
     assert check_distance
 
 def test_get_neighbors_from_molsysmt_MolSys_6():
-    molsys = msm.convert(tests_systems['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
+    molsys = msm.convert(systems['TcTIM']['1tcd.h5msm'], to_form='molsysmt.MolSys')
     CA_atoms = msm.select(molsys, selection='atom_name=="CA"')
     neighbors, distances = msm.structure.get_neighbors(molsys, selection=CA_atoms, threshold='8 angstroms')
     check_shape_1 = ((1, 497)==neighbors.shape)
@@ -86,7 +86,7 @@ def test_get_neighbors_from_molsysmt_MolSys_6():
     assert check_distance
 
 def test_get_neighbors_from_molsysmt_MolSys_7():
-    molsys = msm.convert(tests_systems['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
+    molsys = msm.convert(systems['TcTIM']['1tcd.h5msm'], to_form='molsysmt.MolSys')
     atoms_in_residues_chain_0 = msm.get(molsys, element='group',
                                         selection="molecule_type=='protein' and chain_index==0", atom_index=True)
     atoms_in_residues_chain_1 = msm.get(molsys, element='group',

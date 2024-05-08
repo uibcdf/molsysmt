@@ -5,14 +5,14 @@ systems.
 
 # Import package, test suite, and other packages as needed
 import molsysmt as msm
-from molsysmt.systems import tests as tests_systems
+from molsysmt import systems
 from molsysmt import pyunitwizard as puw
 import numpy as np
 
 # Distances between atoms in space and time
 
 def test_get_distances_from_molsysmt_MolSys_1():
-    molsys = msm.convert(tests_systems['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
+    molsys = msm.convert(systems['TcTIM']['1tcd.h5msm'], to_form='molsysmt.MolSys')
     distances = msm.structure.get_distances(molsys, selection="group_index==0", selection_2="group_index==1")
     check_shape = ((1,9,7)==distances.shape)
     check_distance = np.isclose(puw.get_value(distances[0,5,5], to_unit='nm'), 0.5271685)
@@ -21,7 +21,7 @@ def test_get_distances_from_molsysmt_MolSys_1():
 # Distances between atom groups
 
 def test_get_distances_from_molsysmt_MolSys_groups_1():
-    molsys = msm.convert(tests_systems['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
+    molsys = msm.convert(systems['TcTIM']['1tcd.h5msm'], to_form='molsysmt.MolSys')
     distances = msm.structure.get_distances(molsys, selection="group_index==0",
                          center_of_atoms=True, selection_2="group_index==1")
     check_shape = ((1,1,7)==distances.shape)
@@ -29,7 +29,7 @@ def test_get_distances_from_molsysmt_MolSys_groups_1():
     assert check_shape and check_distance
 
 def test_get_distances_from_molsysmt_MolSys_groups_2():
-    molsys = msm.convert(tests_systems['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
+    molsys = msm.convert(systems['TcTIM']['1tcd.h5msm'], to_form='molsysmt.MolSys')
     distances = msm.structure.get_distances(molsys, selection="group_index==0",
             center_of_atoms=True, selection_2="group_index==1", center_of_atoms_2=True)
     check_shape = ((1,1,1)==distances.shape)
@@ -37,7 +37,7 @@ def test_get_distances_from_molsysmt_MolSys_groups_2():
     assert check_shape and check_distance
 
 def test_get_distances_from_molsysmt_MolSys_groups_3():
-    molsys = msm.convert(tests_systems['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
+    molsys = msm.convert(systems['TcTIM']['1tcd.h5msm'], to_form='molsysmt.MolSys')
     list_groups_2 = msm.get(molsys, element="group", selection="group_index in [4,5,6,7,8]", atom_index=True)
     distances = msm.structure.get_distances(molsys, selection="group_index==0",
                          selection_2=list_groups_2, center_of_atoms_2=True)
@@ -46,7 +46,7 @@ def test_get_distances_from_molsysmt_MolSys_groups_3():
     assert check_shape and check_distance
 
 def test_get_distances_from_molsysmt_MolSys_groups_4():
-    molsys = msm.convert(tests_systems['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
+    molsys = msm.convert(systems['TcTIM']['1tcd.h5msm'], to_form='molsysmt.MolSys')
     list_groups_1 = msm.get(molsys, element="group", selection="group_index in [0,1,2,3]", atom_index=True)
     list_groups_2 = msm.get(molsys, element="group", selection="group_index in [4,5,6,7,8]", atom_index=True)
     distances = msm.structure.get_distances(molsys, selection="group_index==0",
@@ -56,7 +56,7 @@ def test_get_distances_from_molsysmt_MolSys_groups_4():
     assert check_shape and check_distance
 
 def test_get_distances_from_molsysmt_MolSys_groups_5():
-    molsys = msm.convert(tests_systems['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
+    molsys = msm.convert(systems['TcTIM']['1tcd.h5msm'], to_form='molsysmt.MolSys')
     list_groups_1 = msm.get(molsys, element="group", selection="group_index in [0,1,2,3]", atom_index=True)
     list_groups_2 = msm.get(molsys, element="group", selection="group_index in [4,5,6,7,8]", atom_index=True)
     distances = msm.structure.get_distances(molsys, selection=list_groups_1, center_of_atoms=True,
@@ -66,7 +66,7 @@ def test_get_distances_from_molsysmt_MolSys_groups_5():
     assert check_shape and check_distance
 
 def test_get_distances_from_molsysmt_MolSys_groups_6():
-    molsys = msm.convert(tests_systems['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
+    molsys = msm.convert(systems['TcTIM']['1tcd.h5msm'], to_form='molsysmt.MolSys')
     list_groups_1 = msm.get(molsys, element="group", selection="group_index in [0,1,2,3]", atom_index=True)
     list_groups_2 = msm.get(molsys, element="group", selection="group_index in [4,5,6,7,8]", atom_index=True)
     distances = msm.structure.get_distances(molsys, selection=list_groups_1, center_of_atoms=True)
@@ -75,7 +75,7 @@ def test_get_distances_from_molsysmt_MolSys_groups_6():
     assert check_shape and check_distance
 
 def test_get_distances_from_molsysmt_MolSys_groups_7():
-    molsys = msm.convert(tests_systems['pentalanine']['traj_pentalanine.h5'], to_form='molsysmt.MolSys')
+    molsys = msm.convert(systems['pentalanine']['traj_pentalanine.h5'], to_form='molsysmt.MolSys')
     distances = msm.structure.get_distances(molsys, selection="group_index==0",
             center_of_atoms=True, selection_2="group_index==6", center_of_atoms_2=True)
     check_shape = ((5000,1,1)==distances.shape)
@@ -83,7 +83,7 @@ def test_get_distances_from_molsysmt_MolSys_groups_7():
     assert check_shape and check_distance
 
 def test_get_distances_from_molsysmt_MolSys_groups_8():
-    molsys = msm.convert(tests_systems['pentalanine']['traj_pentalanine.h5'], to_form='molsysmt.MolSys')
+    molsys = msm.convert(systems['pentalanine']['traj_pentalanine.h5'], to_form='molsysmt.MolSys')
     list_groups_1 = msm.get(molsys, element="group", selection="all", atom_index=True)
     distances = msm.structure.get_distances(molsys, selection=list_groups_1, center_of_atoms=True,
                          structure_indices=3000)
@@ -92,7 +92,7 @@ def test_get_distances_from_molsysmt_MolSys_groups_8():
     assert check_shape and check_distance
 
 def test_get_distances_from_molsysmt_MolSys_groups_9():
-    molsys = msm.convert(tests_systems['pentalanine']['traj_pentalanine.h5'], to_form='molsysmt.MolSys')
+    molsys = msm.convert(systems['pentalanine']['traj_pentalanine.h5'], to_form='molsysmt.MolSys')
     distances = msm.structure.get_distances(molsys,
                          selection="group_index==0", center_of_atoms=True,
                          structure_indices=100,
@@ -103,7 +103,7 @@ def test_get_distances_from_molsysmt_MolSys_groups_9():
     assert check_shape and check_distance
 
 def test_get_distances_from_molsysmt_MolSys_groups_10():
-    molsys = msm.convert(tests_systems['pentalanine']['traj_pentalanine.h5'], to_form='molsysmt.MolSys')
+    molsys = msm.convert(systems['pentalanine']['traj_pentalanine.h5'], to_form='molsysmt.MolSys')
     n_structures = msm.get(molsys, n_structures=True)
     all_structure_indices = np.arange(n_structures)
     displacements = msm.structure.get_distances(molsys, selection="group_index==0",
@@ -113,7 +113,7 @@ def test_get_distances_from_molsysmt_MolSys_groups_10():
     assert check_shape and check_distance
 
 def test_get_distances_from_molsysmt_MolSys_groups_11():
-    molsys = msm.convert(tests_systems['pentalanine']['traj_pentalanine.h5'], to_form='molsysmt.MolSys')
+    molsys = msm.convert(systems['pentalanine']['traj_pentalanine.h5'], to_form='molsysmt.MolSys')
     n_structures = msm.get(molsys, n_structures=True)
     all_structure_indices = np.arange(n_structures)
     displacements = msm.structure.get_distances(molsys, selection="all",
@@ -123,7 +123,7 @@ def test_get_distances_from_molsysmt_MolSys_groups_11():
     assert check_shape and check_distance
 
 def test_get_distances_from_molsysmt_MolSys_groups_12():
-    molsys = msm.convert(tests_systems['pentalanine']['traj_pentalanine.h5'], to_form='molsysmt.MolSys')
+    molsys = msm.convert(systems['pentalanine']['traj_pentalanine.h5'], to_form='molsysmt.MolSys')
     list_atom_groups = msm.get(molsys, element='group', selection='all', atom_index=True)
     distances = msm.structure.get_distances(molsys, selection=list_atom_groups, center_of_atoms=True)
     check_shape = ((5000,7,7)==distances.shape)
@@ -132,7 +132,7 @@ def test_get_distances_from_molsysmt_MolSys_groups_12():
 
 def test_get_distances_from_molsysmt_MolSys_groups_13():
     from itertools import combinations
-    molsys = msm.convert(tests_systems['pentalanine']['traj_pentalanine.h5'], to_form='molsysmt.MolSys')
+    molsys = msm.convert(systems['pentalanine']['traj_pentalanine.h5'], to_form='molsysmt.MolSys')
     list_atom_groups = msm.get(molsys, element='group', selection='all', atom_index=True)
     list_atom_groups_1=[]
     list_atom_groups_2=[]

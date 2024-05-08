@@ -5,14 +5,14 @@ systems.
 
 # Import package, test suite, and other packages as needed
 import molsysmt as msm
-from molsysmt.systems import tests as tests_systems
+from molsysmt import systems
 from molsysmt import pyunitwizard as puw
 import numpy as np
 
 # Distance between atoms in space and time
 
 def test_get_maximum_distances_from_molsysmt_MolSys_1():
-    molsys = msm.convert(tests_systems['pentalanine']['traj_pentalanine.h5'], to_form='molsysmt.MolSys')
+    molsys = msm.convert(systems['pentalanine']['traj_pentalanine.h5'], to_form='molsysmt.MolSys')
     list_atom_groups = msm.get(molsys, element='group', selection='all', atom_index=True)
     max_pairs, max_distances = msm.structure.get_maximum_distances(molsys, selection=list_atom_groups)
     check_shape_1 = ((5000,2)==max_pairs.shape)
@@ -25,7 +25,7 @@ def test_get_maximum_distances_from_molsysmt_MolSys_1():
     assert check_distance
 
 def test_get_maximum_distances_from_molsysmt_MolSys_2():
-    molsys = msm.convert(tests_systems['pentalanine']['traj_pentalanine.h5'], to_form='molsysmt.MolSys')
+    molsys = msm.convert(systems['pentalanine']['traj_pentalanine.h5'], to_form='molsysmt.MolSys')
     list_atom_groups = msm.get(molsys, element='group', selection='all', atom_index=True)
     frames=np.arange(msm.get(molsys, n_structures=True))
     max_group, max_distances = msm.structure.get_maximum_distances(molsys,
