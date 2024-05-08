@@ -35,3 +35,7 @@ echo "DONE"
 echo -n "barnase_barstar.py   "
 python trp-cage.py
 echo "DONE"
+
+echo -n "two_lj_particles.py   "
+python two_lj_particles.py
+echo "DONE"

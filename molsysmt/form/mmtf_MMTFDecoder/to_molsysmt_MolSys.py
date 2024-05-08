@@ -221,6 +221,10 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
         formal_charge_array = formal_charge_array[atom_indices_to_be_kept]
         alternate_location = aux_alternate_location
 
+    else:
+
+        alternate_location = None
+
     n_atoms=atom_name_array.shape[0]
     n_bonds= bond_atom1_index_array.shape[0]
 

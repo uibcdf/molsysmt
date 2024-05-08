@@ -1,7 +1,7 @@
 from molsysmt._private.digestion import digest
 
 @digest()
-def copy(molecular_system, output_filename=None):
+def copy(molecular_system, output_filename=None, skip_digestion=False):
     """
     Making copies of molecular systems.
 

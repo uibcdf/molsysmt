@@ -127,8 +127,8 @@ systems['Met-enkephalin']['met_enkephalin.h5msm'] = path('molsysmt.data.h5msm', 
 
 # Two LJ particles
 
-#systems['two LJ particles'] = {}
-#systems['two LJ particles']['traj_two_lj_particles.trjpk'] = path('molsysmt.data.trjpk', 'traj_two_lj_particles.trjpk')
+systems['two LJ particles'] = {}
+systems['two LJ particles']['traj_two_lj_particles.trjpk'] = path('molsysmt.data.trjpk', 'traj_two_lj_particles.trjpk')
 
 
 # Barnase - Barstar

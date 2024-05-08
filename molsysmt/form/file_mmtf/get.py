@@ -133,17 +133,6 @@ def get_coordinates_from_atom(item, indices='all', structure_indices='all', skip
     return output
 
 @digest(form=form)
-def get_occupancy_from_atom(item, indices='all', skip_digestion=False):
-
-    from . import to_mmtf_MMTFDecoder
-    from ..mmtf_MMTFDecoder import get_occupancy_from_atom as aux_get
-
-    tmp_item = to_mmtf_MMTFDecoder(item, skip_digestion=True)
-    output = aux_get(tmp_item, indices=indices, skip_digestion=True)
-
-    return output
-
-@digest(form=form)
 def get_alternate_location_from_atom(item, indices='all', skip_digestion=False):
 
     from . import to_mmtf_MMTFDecoder

@@ -8,7 +8,7 @@ import gc
 
 @digest()
 def get_center(molecular_system, selection='all', weights=None,
-        structure_indices='all', syntax='MolSysMT', engine='MolSysMT'):
+        structure_indices='all', syntax='MolSysMT', engine='MolSysMT', skip_digestion=False):
 
     from molsysmt.basic import select, get
 

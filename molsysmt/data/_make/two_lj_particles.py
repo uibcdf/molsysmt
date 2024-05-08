@@ -5,13 +5,21 @@ from openmm import app
 from openmm import unit
 import numpy as np
 from tqdm import tqdm
+import shutil
+from pathlib import Path
+
+data_dir = Path('../.')
 
 # purge
 print('Removing old files...')
-files_to_be_purged = ['traj.trjpk']
+
+files_to_be_purged = [
+    'trjpk/traj_two_lj_particles.trjpk']
+
 for filename in files_to_be_purged:
-    if os.path.isfile(filename):
-        os.remove(filename)
+    filepath = Path(data_dir, filename)
+    if os.path.isfile(filepath):
+        os.remove(filepath)
 
 # simulation
 
@@ -104,4 +112,5 @@ trajdict={
           }
 
 msm.convert(trajdict, to_form='traj.trjpk')
+shutil.move('traj.trjpk', Path(data_dir, 'trjpk/traj_two_lj_particles.trjpk'))
 
