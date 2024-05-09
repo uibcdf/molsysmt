@@ -8,7 +8,7 @@ def build_peptide (molecular_system, to_form='molsysmt.MolSys', engine='LEaP'):
 
     if engine=="LEaP":
 
-        from molsysmt.basic import convert
+        from molsysmt.basic import convert, set
         from os import getcwd, chdir
         from molsysmt.thirds.tleap import TLeap
         from molsysmt._private.files_and_directories import temp_directory, temp_filename
@@ -46,6 +46,9 @@ def build_peptide (molecular_system, to_form='molsysmt.MolSys', engine='LEaP'):
         del(tleap)
 
         temp_item = convert([temp_prmtop, temp_inpcrd], to_form=to_form)
+
+        if to_form in ['molsysmt.MolSys', 'molsysmt.Topology']:
+            set(temp_item, element='chain', selection='all', chain_name='A')
 
         rmtree(working_directory)
 

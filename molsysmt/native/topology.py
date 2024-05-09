@@ -291,20 +291,20 @@ class Topology():
     def add(self, item, atom_indices='all', keep_ids=True, skip_digestion=False):
 
         if is_all(atom_indices):
-            tmp_item = item
+            tmp_item = item.copy()
         else:
             tmp_item = item.extract(atom_indices=atom_indices, skip_digestion=True)
 
-        n_atoms = tmp_item.atoms.shape[0]
-        n_groups = tmp_item.groups.shape[0]
-        n_components = tmp_item.components.shape[0]
-        n_chains = tmp_item.chains.shape[0]
-        n_molecules = tmp_item.molecules.shape[0]
+        n_atoms = self.atoms.shape[0]
+        n_groups = self.groups.shape[0]
+        n_components = self.components.shape[0]
+        n_molecules = self.molecules.shape[0]
+        n_chains = self.chains.shape[0]
 
         tmp_item.atoms['group_index'] += n_groups
-        tmp_item.atoms['chain_index'] += n_chains
         tmp_item.groups['component_index'] += n_components
         tmp_item.components['molecule_index'] += n_molecules
+        tmp_item.atoms['chain_index'] += n_chains
         tmp_item.bonds['atom1_index'] += n_atoms
         tmp_item.bonds['atom2_index'] += n_atoms
 
@@ -312,23 +312,20 @@ class Topology():
         self.groups = pd.concat([self.groups, tmp_item.groups], ignore_index=True, copy=False)
         self.components = pd.concat([self.components, tmp_item.components], ignore_index=True, copy=False)
         self.molecules = pd.concat([self.molecules, tmp_item.molecules], ignore_index=True, copy=False)
+        self.chains = pd.concat([self.chains, tmp_item.chains], ignore_index=True, copy=False)
         self.bonds = pd.concat([self.bonds, tmp_item.bonds], ignore_index=True, copy=False)
-        if keep_ids:
-            self.rebuild_components(redefine_indices=False, redefine_ids=False, redefine_names=False,
-                                    redefine_types=False)
-            self.rebuild_molecules(redefine_indices=False, redefine_ids=False, redefine_types=False,
-                                   redefine_names=False)
-            self.rebuild_chains(redefine_ids=False, redefine_types=True)
-        else:
+
+        if not keep_ids:
             self.rebuild_atoms(redefine_ids=True, redefine_types=False)
             self.rebuild_groups(redefine_ids=True, redefine_types=False)
-            self.rebuild_components(redefine_indices=False, redefine_ids=True, redefine_types=False,
-                                    redefine_names=False)
-            self.rebuild_molecules(redefine_indices=False, redefine_ids=True, redefine_types=False,
-                                   redefine_names=False)
-            self.rebuild_chains(redefine_ids=True, redefine_types=True)
 
-        self.rebuild_entities()
+        self.rebuild_components(redefine_indices=False, redefine_ids=(not keep_ids), redefine_names=True,
+                                    redefine_types=False)
+        self.rebuild_molecules(redefine_indices=False, redefine_ids=(not keep_ids), redefine_types=False,
+                                   redefine_names=True)
+        self.rebuild_chains(redefine_ids=(not keep_ids), redefine_types=True)
+
+        self.rebuild_entities(redefine_indices=True, redefine_ids=True, redefine_names=True, redefine_types=True)
 
         del tmp_item
 

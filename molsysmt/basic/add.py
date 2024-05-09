@@ -150,7 +150,7 @@ def add(to_molecular_system, from_molecular_system, selection='all', structure_i
         if 'structure_indices' in input_arguments:
             add_arguments['structure_indices']=aux_structure_indices
 
-        add_function(to_item, aux_from_item, **add_arguments)
+        add_function(to_item, aux_from_item, keep_ids=keep_ids, **add_arguments)
 
     pass
 
