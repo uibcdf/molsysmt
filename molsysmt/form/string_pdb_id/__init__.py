@@ -33,6 +33,7 @@ from .to_molsysmt_Structures import to_molsysmt_Structures
 from .to_molsysmt_MolSysOld import to_molsysmt_MolSysOld
 from .to_molsysmt_TopologyOld import to_molsysmt_TopologyOld
 from .to_molsysmt_StructuresOld import to_molsysmt_StructuresOld
+from .to_molsysmt_BCIFFileHandler import to_molsysmt_BCIFFileHandler
 from .to_mdtraj_Trajectory import to_mdtraj_Trajectory
 from .to_mdtraj_Topology import to_mdtraj_Topology
 from .to_pdbfixer_PDBFixer import to_pdbfixer_PDBFixer
@@ -49,6 +50,8 @@ _convert_to={
         'file:msmpk': to_file_msmpk,
         'file:h5msm': to_file_h5msm,
         'file:fasta': to_file_fasta,
+        'file:bcif': to_file_bcif,
+        'file:bcif.gz': to_file_bcif_gz,
         'mmtf.MMTFDecoder': to_mmtf_MMTFDecoder,
         'molsysmt.MolSys': to_molsysmt_MolSys,
         'molsysmt.Topology': to_molsysmt_Topology,
@@ -56,6 +59,7 @@ _convert_to={
         'molsysmt.MolSysOld': to_molsysmt_MolSysOld,
         'molsysmt.TopologyOld': to_molsysmt_TopologyOld,
         'molsysmt.StructuresOld': to_molsysmt_StructuresOld,
+        'molsysmt.BCIFFileHandler': to_molsysmt_BCIFFileHandler,
         'mdtraj.Trajectory': to_mdtraj_Trajectory,
         'mdtraj.Topology': to_mdtraj_Topology,
         'pdbfixer.PDBFixer': to_pdbfixer_PDBFixer,
