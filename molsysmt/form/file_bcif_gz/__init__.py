@@ -5,6 +5,8 @@ form_info = ["", ""]
 piped_topological_attribute = None
 piped_structural_attribute = None
 piped_any_attribute = None
+bonds_are_explicit = True
+bonds_can_be_computed = True
 
 from .is_form import is_form
 
@@ -22,10 +24,10 @@ from .iterators import StructuresIterator, TopologyIterator
 
 from .download import download
 
-from .to_molsysmt_BCIFFileHandler import to_molsysmt_BCIFFileHandler
+from .to_mmcif_PdbxContainers_DataContainer import to_mmcif_PdbxContainers_DataContainer
 
 _convert_to={
-        'file:cif.gz': extract,
-        'molsysmt.BCIFFileHandler': to_molsysmt_BCIFFileHandler,
+        'file:bcif.gz': extract,
+        'mmcif.PdbxContainers_DataContainer': to_mmcif_PdbxContainers_DataContainer,
         }
 

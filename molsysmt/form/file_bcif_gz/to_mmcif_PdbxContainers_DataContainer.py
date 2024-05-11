@@ -1,6 +1,6 @@
 from molsysmt._private.digestion import digest
 
-@digest(form='file:cif')
+@digest(form='file:cif.gz')
 def to_mmcif_PdbxContainers_DataContainer(item, atom_indices='all', skip_digestion=False):
 
     from mmcif.io.BinaryCifReader import BinaryCifReader
