@@ -11,10 +11,11 @@ import pandas as pd
 def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_digestion=False):
 
     from molsysmt.native import MolSys
+    from molsysmt.element.group import get_bonded_atom_pairs
 
     index_att = {jj:ii for ii,jj in enumerate(item.getObj('atom_site').getAttributeList())}
 
-    n_atoms = len(data_atom_site)
+    n_atoms = len(item.getObj('atom_site').data)
 
     atom_name_array = np.empty(n_atoms, dtype=object)
     atom_id_array = np.empty(n_atoms, dtype=int)
@@ -28,16 +29,15 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
     alternate_location_array = np.empty(n_atoms,dtype=object)
     b_factor_array = np.empty(n_atoms,dtype=float)
 
-    bond_atom1_index_array = []
-    bond_atom2_index_array = []
+    atom_pairs_bonded = []
 
     model_num_array = np.empty(n_atoms, dtype=int)
 
     group_name_array = []
     group_id_array = []
 
-    chain_id_array = []
     chain_name_array = []
+    chain_id_array = []
 
     former_group_id = None
     group_index = -1
@@ -55,10 +55,10 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
         coordinates_array[0,atom_index,2] = atom_record[index_att['Cartn_z']]
 
         occupancy_array[atom_index] = atom_record[index_att['occupancy']]
-        alternate_location_array[atom_index] = atom_record['label_alt_id']
-        b_factor_array[atom_index] = atom_record['B_iso_or_equiv']
+        alternate_location_array[atom_index] = atom_record[index_att['label_alt_id']]
+        b_factor_array[atom_index] = atom_record[index_att['B_iso_or_equiv']]
 
-        model_num_array[atom_index] = atom_record['pdbx_PDB_model_num']
+        model_num_array[atom_index] = atom_record[index_att['pdbx_PDB_model_num']]
 
         group_id = atom_record[index_att['auth_seq_id']]
         group_name = atom_record[index_att['auth_comp_id']]
@@ -67,14 +67,15 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
         entity_id = atom_record[index_att['label_entity_id']]
 
         if former_group_id!=group_id:
-            group_name_list.append(group_name)
-            group_id_list.append(group_id)
+            group_name_array.append(group_name)
+            group_id_array.append(group_id)
             former_group_id=group_id
             group_index+=1
 
-        if former_chain_name!=chain_name:
-            chain_name_list.append(chain_name)
-            former_chain_name=chain_name
+        if former_chain_id!=chain_id:
+            chain_name_array.append(chain_name)
+            chain_id_array.append(chain_id)
+            former_chain_id=chain_id
             chain_index+=1
 
         atom_group_index_array[atom_index] = group_index
@@ -86,21 +87,76 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
     chain_name_array = np.array(chain_name_array, dtype='object')
     chain_id_array = np.array(chain_id_array, dtype='object')
 
-    bonds_intra_group = {}
+    # bonds intra group
 
-    for record in item.getObj('chem_comp_bond'):
-        try:
-            bonds_intra_group[record[0]].append([record[1], record[2]])
-        except:
-            bonds_intra_group[record[0]]=[[record[1], record[2]]]
+    if item.exists('chem_comp_bond'):
 
-    aux_series = pd.Series(atom_group_index_array)
-    group_index_to_atom_indices = {key: list(group.index) for key, group in aux_series.groupby(aux_series)}
-    for group_index, atom_indices in group_index_to_atom_indices.items():
-        atom_names = atom_name_array[atom_indices]
-        group_name = group_name_array[group_index]
-    
+        bonds_intra_group = {}
+
+        for record in item.getObj('chem_comp_bond'):
+            try:
+                bonds_intra_group[record[0]].append([record[1], record[2]])
+            except:
+                bonds_intra_group[record[0]]=[[record[1], record[2]]]
+
+        aux_series = pd.Series(atom_group_index_array)
+        group_index_to_atom_indices = {key: list(group.index) for key, group in aux_series.groupby(aux_series)}
+
+        for group_index, atom_indices in group_index_to_atom_indices.items():
+
+            atom_names = atom_name_array[atom_indices]
+            group_name = group_name_array[group_index]
+
+            dict_aux = {ii:jj for ii,jj in zip(atom_names,atom_indices)}
+            dict_mask = {ii:False for ii in atom_names}
+
+            aux_atom_pairs_bonded = []
+
+            for at1, at2 in bonds_intra_group[group_name]:
+                try:
+                    aux_atom_pairs_bonded.append(sorted([dict_aux[at1],dict_aux[at2]]))
+                    dict_mask[at1]=True
+                    dict_mask[at2]=True
+                except:
+                    pass
+
+            remains = [ii for ii,jj in dict_mask.items() if not jj]
+
+            if len(remains):
+                if set(remains)==set(['H1','H3']):
+                    for at1, at2 in [['N', 'H1'], ['N', 'H3']]:
+                        aux_atom_pairs_bonded.append(sorted([dict_aux[at1],dict_aux[at2]]))
+                    atom_pairs_bonded += aux_atom_pairs_bonded
+                elif len(atom_indices)==1:
+                    atom_pairs_bonded += []
+                else:
+                    print(f'Warning! The bonds of group {group_name} were recalculated by MolSysMT.')
+                    aux_pairs_bonded = get_bonded_atom_pairs(group_name, atom_names, atom_indices)
+                    atom_pairs_bonded += aux_atom_pairs_bonded
+            else:
+                atom_pairs_bonded += aux_atom_pairs_bonded
+
+    else:
+
+        aux_series = pd.Series(atom_group_index_array)
+        group_index_to_atom_indices = {key: list(group.index) for key, group in aux_series.groupby(aux_series)}
+
+        for group_index, atom_indices in group_index_to_atom_indices.items():
+
+            atom_names = atom_name_array[atom_indices].tolist()
+            group_name = group_name_array[group_index]
+            aux_atom_pairs_bonded = get_bonded_atom_pairs(group_name, atom_names, atom_indices)
+            atom_pairs_bonded += aux_atom_pairs_bonded
+
+    atom_pairs_bonded = np.array(sorted(atom_pairs_bonded))
+    bond_atom1_index_array = atom_pairs_bonded[:,0]
+    bond_atom2_index_array = atom_pairs_bonded[:,1]
+    del(atom_pairs_bonded)
+
+    # alternate locations
+
     alt_atom_indices = np.where(alternate_location_array!='.')[0]
+    alternate_location = None
 
     if len(alt_atom_indices):
 
@@ -122,8 +178,8 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
         atoms_to_be_removed_with_alt_loc=[]
         chosen_with_alt_loc = []
         for same_atoms in aux_dict.values():
-            alt_occupancy = occupancy[same_atoms]
-            alt_loc = alternate_location[same_atoms]
+            alt_occupancy = occupancy_array[same_atoms]
+            alt_loc = alternate_location_array[same_atoms]
             if np.allclose(alt_occupancy, alt_occupancy[0]):
                 chosen = same_atoms[np.where(alt_loc=='A')[0][0]]
             else:
@@ -134,7 +190,7 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
         atom_indices_to_be_kept = np.setdiff1d(np.arange(n_atoms), atoms_to_be_removed_with_alt_loc)
         dict_old_to_new_atom_indices = {jj: ii for ii, jj in enumerate(atom_indices_to_be_kept)}
 
-        aux_alternate_location = [{}]
+        alternate_location = [{}]
         for chosen, same_atoms in zip(chosen_with_alt_loc, aux_dict.values()):
             atom_index = dict_old_to_new_atom_indices[chosen]
             aux_dict={
@@ -144,7 +200,7 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
                     'atom_id':atom_id_array[same_atoms],
                     'coordinates':coordinates_array[0,same_atoms,:]
                     }
-            aux_alternate_location[0][atom_index]=aux_dict
+            alternate_location[0][atom_index]=aux_dict
 
         atom_name_array = atom_name_array[atom_indices_to_be_kept]
         atom_id_array = atom_id_array[atom_indices_to_be_kept]
@@ -165,7 +221,5 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
         coordinates_array = coordinates_array[:,atom_indices_to_be_kept,:]
         b_factor_array = b_factor_array[atom_indices_to_be_kept]
 
-    else:
 
-        alternate_location = None
-
+    return alternate_location

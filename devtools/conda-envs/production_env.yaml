@@ -25,3 +25,5 @@ dependencies:
 - biopython
 - ipywidgets
 - tqdm
+- pip:
+  - mmcif

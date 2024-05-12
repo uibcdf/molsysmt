@@ -33,6 +33,8 @@ requirements:
   - biopython
   - ipywidgets
   - tqdm
+  - pip:
+    - mmcif
 about:
   home: https://uibcdf.org
   license: MIT License

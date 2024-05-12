@@ -25,6 +25,8 @@ dependencies:
 - biopython
 - ipywidgets
 - tqdm
+- pip:
+  - mmcif
 - jupyterlab
 - sphinx
 - pydata-sphinx-theme
