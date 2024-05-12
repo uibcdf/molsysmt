@@ -65,7 +65,7 @@ _convert_to={
     'molsysmt.StructuresOld': to_molsysmt_StructuresOld,
     'mdtraj.Trajectory': to_mdtraj_Trajectory,
     'mdtraj.Topology': to_mdtraj_Topology,
-    'to_mmcif_PdbxContainers_DataContainer': to_mmcif_PdbxContainers_DataContainer,
+    'mmcif.PdbxContainers.DataContainer': to_mmcif_PdbxContainers_DataContainer,
     'pdbfixer.PDBFixer': to_pdbfixer_PDBFixer,
     'openmm.Modeller': to_openmm_Modeller,
     'openmm.Topology': to_openmm_Topology,

@@ -3,6 +3,7 @@ from molsysmt._private.digestion import digest
 from molsysmt._private.variables import is_all
 from molsysmt import pyunitwizard as puw
 import numpy as np
+import pandas as pd
 
 # https://github.com/rcsb/mmtf/blob/master/spec.md
 
@@ -10,157 +11,102 @@ import numpy as np
 def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_digestion=False):
 
     from molsysmt.native import MolSys
-    from molsysmt.config import min_length_protein
-    from molsysmt.element.group import get_bonded_atom_pairs
 
-    # atoms, groups and bonds intra group
+    index_att = {jj:ii for ii,jj in enumerate(item.getObj('atom_site').getAttributeList())}
 
-    n_atoms = item.num_atoms
-    n_groups = item.num_groups
-    n_bonds = item.num_bonds
-    n_chains = item.num_chains
-    n_structures = item.num_models
+    n_atoms = len(data_atom_site)
 
     atom_name_array = np.empty(n_atoms, dtype=object)
     atom_id_array = np.empty(n_atoms, dtype=int)
     atom_type_array = np.empty(n_atoms, dtype=object)
-    group_index_array = np.empty(n_atoms, dtype=int)
-    chain_index_array = np.empty(n_atoms, dtype=int)
+    atom_group_index_array = np.empty(n_atoms, dtype=int)
+    atom_chain_index_array = np.empty(n_atoms, dtype=int)
+    atom_entity_id_array = np.empty(n_atoms, dtype=int)
 
-    group_name_array = np.empty(n_groups, dtype=object)
-    group_id_array = np.empty(n_groups, dtype=int)
-
-    chain_name_array = np.empty(n_chains, dtype=object)
-    chain_id_array = np.empty(n_chains, dtype=int)
+    coordinates_array = np.empty([1,n_atoms,3],dtype=float)
+    occupancy_array = np.empty(n_atoms,dtype=float)
+    alternate_location_array = np.empty(n_atoms,dtype=object)
+    b_factor_array = np.empty(n_atoms,dtype=float)
 
     bond_atom1_index_array = []
     bond_atom2_index_array = []
 
-    formal_charge_array = np.empty(n_atoms, dtype=float)
+    model_num_array = np.empty(n_atoms, dtype=int)
 
-    atom_index = 0
+    group_name_array = []
+    group_id_array = []
 
-    for mmtf_group_type, group_index, group_id in zip(item.group_type_list, range(item.num_groups), item.group_id_list):
+    chain_id_array = []
+    chain_name_array = []
 
-        mmtf_group = item.group_list[mmtf_group_type]
-        group_name_array[group_index] = mmtf_group['groupName']
-        group_id_array[group_index] = group_id
+    former_group_id = None
+    group_index = -1
+    former_chain_id = None
+    chain_index = -1
 
-        # bonds intra-groups
+    for atom_index, atom_record in enumerate(item.getObj('atom_site').data):
 
-        if len(np.unique(mmtf_group['bondAtomList']))==len(mmtf_group['atomNameList']):
+        atom_id_array[atom_index] = atom_record[index_att['id']]
+        atom_type_array[atom_index] = atom_record[index_att['type_symbol']]
+        atom_name_array[atom_index] = atom_record[index_att['auth_atom_id']]
 
-            for bond_pair in np.reshape(mmtf_group['bondAtomList'],(-1,2)):
+        coordinates_array[0,atom_index,0] = atom_record[index_att['Cartn_x']]
+        coordinates_array[0,atom_index,1] = atom_record[index_att['Cartn_y']]
+        coordinates_array[0,atom_index,2] = atom_record[index_att['Cartn_z']]
 
-                bond_atom1_index_array.append(bond_pair[0]+atom_index)
-                bond_atom2_index_array.append(bond_pair[1]+atom_index)
+        occupancy_array[atom_index] = atom_record[index_att['occupancy']]
+        alternate_location_array[atom_index] = atom_record['label_alt_id']
+        b_factor_array[atom_index] = atom_record['B_iso_or_equiv']
 
-        else:
+        model_num_array[atom_index] = atom_record['pdbx_PDB_model_num']
 
-            aux_bonds = get_bonded_atom_pairs(mmtf_group['groupName'], mmtf_group['atomNameList'])
+        group_id = atom_record[index_att['auth_seq_id']]
+        group_name = atom_record[index_att['auth_comp_id']]
+        chain_id = atom_record[index_att['label_asym_id']]
+        chain_name = atom_record[index_att['auth_asym_id']]
+        entity_id = atom_record[index_att['label_entity_id']]
 
-            for bond_pair in aux_bonds:
+        if former_group_id!=group_id:
+            group_name_list.append(group_name)
+            group_id_list.append(group_id)
+            former_group_id=group_id
+            group_index+=1
 
-                bond_atom1_index_array.append(bond_pair[0]+atom_index)
-                bond_atom2_index_array.append(bond_pair[1]+atom_index)
+        if former_chain_name!=chain_name:
+            chain_name_list.append(chain_name)
+            former_chain_name=chain_name
+            chain_index+=1
 
-        for atom_name, atom_type, atom_formal_charge in zip(mmtf_group['atomNameList'], mmtf_group['elementList'], mmtf_group['formalChargeList']):
+        atom_group_index_array[atom_index] = group_index
+        atom_chain_index_array[atom_index] = chain_index
+        atom_entity_id_array[atom_index] = entity_id
 
-            atom_name_array[atom_index] = atom_name
-            atom_id_array[atom_index] = item.atom_id_list[atom_index]
-            atom_type_array[atom_index] = atom_type
-            formal_charge_array[atom_index] = atom_formal_charge
+    group_name_array = np.array(group_name_array, dtype='object')
+    group_id_array = np.array(group_id_array, dtype=int)
+    chain_name_array = np.array(chain_name_array, dtype='object')
+    chain_id_array = np.array(chain_id_array, dtype='object')
 
-            group_index_array[atom_index] = group_index
+    bonds_intra_group = {}
 
-            atom_index+=1
+    for record in item.getObj('chem_comp_bond'):
+        try:
+            bonds_intra_group[record[0]].append([record[1], record[2]])
+        except:
+            bonds_intra_group[record[0]]=[[record[1], record[2]]]
 
-    # bonds inter-groups in graph
-
-    for bond_pair, bond_order in zip(np.reshape(item.bond_atom_list,(-1,2)), item.bond_order_list):
-        bond_atom1_index_array.append(bond_pair[0])
-        bond_atom2_index_array.append(bond_pair[1])
+    aux_series = pd.Series(atom_group_index_array)
+    group_index_to_atom_indices = {key: list(group.index) for key, group in aux_series.groupby(aux_series)}
+    for group_index, atom_indices in group_index_to_atom_indices.items():
+        atom_names = atom_name_array[atom_indices]
+        group_name = group_name_array[group_index]
     
-    bond_atom1_index_array = np.array(bond_atom1_index_array)
-    bond_atom2_index_array = np.array(bond_atom2_index_array)
-
-    # chains
-
-    count_groups = 0
-
-    dict_chain_id = {}
-    aux_chain_id = 0
-
-    for chain_index, chain_id, chain_name in zip(range(n_chains), item.chain_id_list, item.chain_name_list):
-
-        if chain_id not in dict_chain_id:
-            dict_chain_id[chain_id]=aux_chain_id
-            aux_chain_id+=1
-
-        chain_name_array[chain_index] = chain_name
-        chain_id_array[chain_index] = dict_chain_id[chain_id]
-
-        n_groups_chain = item.groups_per_chain[chain_index]
-
-        for group_index in range(count_groups, count_groups+n_groups_chain):
-            for atom_index in np.where(group_index_array==group_index)[0]:
-
-                chain_index_array[atom_index] = chain_index
-
-        count_groups+=n_groups_chain
-
-    coordinates = np.column_stack([item.x_coord_list, item.y_coord_list, item.z_coord_list])
-    coordinates = coordinates.reshape([-1, item.num_atoms, 3])
-    coordinates = puw.quantity(coordinates, 'angstroms')
-    coordinates = puw.standardize(coordinates)
-
-    if item.unit_cell is not None:
-
-        from molsysmt.pbc import get_box_from_lengths_and_angles
-
-        cell_lengths = np.empty([n_structures,3], dtype='float64')
-        cell_angles = np.empty([n_structures,3], dtype='float64')
-        for ii in range(3):
-            cell_lengths[:,ii] = item.unit_cell[ii]
-            cell_angles[:,ii] = item.unit_cell[ii+3]
-
-        cell_lengths = puw.quantity(cell_lengths, 'angstroms')
-        cell_angles = puw.quantity(cell_angles, 'degrees')
-
-        box = get_box_from_lengths_and_angles(cell_lengths, cell_angles, skip_digestion=True)
-        box = puw.standardize(box)
-
-    else:
-
-        box = None
-
-    bioassembly = {}
-
-    for aux_bioassembly in item.bio_assembly:
-
-        aux = {'chain_indices': [], 'rotations': [], 'translations': []}
-
-        for transformation in aux_bioassembly['transformList']:
-
-            matrix_transformation = np.array(transformation['matrix']).reshape(-1,4)
-
-            aux['chain_indices'].append(transformation['chainIndexList'])
-            aux['rotations'].append(matrix_transformation[:3,:3])
-            aux['translations'].append(puw.quantity(matrix_transformation[:3,3], unit='angstroms', standardized=True))
-
-        bioassembly[aux_bioassembly['name']] = aux
-
-    occupancy = np.array(item.occupancy_list)
-    alternate_location = np.array(item.alt_loc_list)
-    b_factor = puw.quantity(np.array(item.b_factor_list), unit='angstroms**2', standardized=True)
-
-    alt_atom_indices = np.where(alternate_location!='')[0]
+    alt_atom_indices = np.where(alternate_location_array!='.')[0]
 
     if len(alt_atom_indices):
 
         alt_atom_names = atom_name_array[alt_atom_indices]
-        alt_group_indices = group_index_array[alt_atom_indices]
-        alt_chain_indices = chain_index_array[alt_atom_indices]
+        alt_group_indices = atom_group_index_array[alt_atom_indices]
+        alt_chain_indices = atom_chain_index_array[alt_atom_indices]
         alt_group_ids = group_id_array[alt_group_indices]
         alt_chain_ids = chain_id_array[alt_chain_indices]
 
@@ -192,19 +138,19 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
         for chosen, same_atoms in zip(chosen_with_alt_loc, aux_dict.values()):
             atom_index = dict_old_to_new_atom_indices[chosen]
             aux_dict={
-                    'location_id':alternate_location[same_atoms],
-                    'occupancy':occupancy[same_atoms],
-                    'b_factor':b_factor[same_atoms],
+                    'location_id':alternate_location_array[same_atoms],
+                    'occupancy':occupancy_array[same_atoms],
+                    'b_factor':b_factor_array[same_atoms],
                     'atom_id':atom_id_array[same_atoms],
-                    'coordinates':coordinates[0,same_atoms,:]
+                    'coordinates':coordinates_array[0,same_atoms,:]
                     }
             aux_alternate_location[0][atom_index]=aux_dict
 
         atom_name_array = atom_name_array[atom_indices_to_be_kept]
         atom_id_array = atom_id_array[atom_indices_to_be_kept]
         atom_type_array = atom_type_array[atom_indices_to_be_kept]
-        group_index_array = group_index_array[atom_indices_to_be_kept]
-        chain_index_array = chain_index_array[atom_indices_to_be_kept]
+        atom_group_index_array = atom_group_index_array[atom_indices_to_be_kept]
+        atom_chain_index_array = atom_chain_index_array[atom_indices_to_be_kept]
 
         mask1 = np.isin(bond_atom1_index_array, atom_indices_to_be_kept)
         mask2 = np.isin(bond_atom2_index_array, atom_indices_to_be_kept)
@@ -216,193 +162,10 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
         bond_atom2_index_array = bond_atom2_index_array[mask]
         bond_atom2_index_array = vaux_dict(bond_atom2_index_array)
         
-        coordinates = coordinates[:,atom_indices_to_be_kept,:]
-        b_factor = b_factor[atom_indices_to_be_kept]
-        formal_charge_array = formal_charge_array[atom_indices_to_be_kept]
-        alternate_location = aux_alternate_location
+        coordinates_array = coordinates_array[:,atom_indices_to_be_kept,:]
+        b_factor_array = b_factor_array[atom_indices_to_be_kept]
 
     else:
 
         alternate_location = None
-
-    n_atoms=atom_name_array.shape[0]
-    n_bonds= bond_atom1_index_array.shape[0]
-
-    tmp_item = MolSys(n_atoms=n_atoms, n_groups=n_groups, n_chains=n_chains, n_bonds=n_bonds)
-
-    tmp_item.topology.atoms["atom_name"] = atom_name_array
-    tmp_item.topology.atoms["atom_id"] = atom_id_array
-    tmp_item.topology.atoms["atom_type"] = atom_type_array
-    tmp_item.topology.atoms["group_index"] = group_index_array
-    tmp_item.topology.atoms["chain_index"] = chain_index_array
-    del(atom_name_array, atom_id_array, atom_type_array, group_index_array, chain_index_array)
-
-    tmp_item.topology.groups["group_name"] = group_name_array
-    tmp_item.topology.groups["group_id"] = group_id_array
-    del(group_name_array, group_id_array)
-
-    tmp_item.topology.chains["chain_name"] = chain_name_array
-    tmp_item.topology.chains["chain_id"] = chain_id_array
-    del(chain_name_array, chain_id_array)
-
-    tmp_item.topology.bonds["atom1_index"] = bond_atom1_index_array
-    tmp_item.topology.bonds["atom2_index"] = bond_atom2_index_array
-    tmp_item.topology.bonds._remove_empty_columns()
-    tmp_item.topology.bonds._sort_bonds()
-    del(bond_atom1_index_array, bond_atom2_index_array)
-
-
-    tmp_item.topology.rebuild_groups(redefine_ids=False, redefine_types=True)
-    tmp_item.topology.rebuild_components(redefine_indices=True, redefine_ids=True,
-                                         redefine_names=False, redefine_types=True)
-
-    molecule_index = 0
-
-    dict_chain_to_groups = tmp_item.topology.atoms.groupby('chain_index')['group_index'].unique().to_dict()
-
-    for mmtf_entity in item.entity_list:
-
-        entity_name = mmtf_entity['description']
-
-        for chain_index in mmtf_entity['chainIndexList']:
-
-            group_indices = dict_chain_to_groups[chain_index]
-
-            first_group_type = tmp_item.topology.groups.iat[group_indices[0],2]
-
-            if first_group_type == 'water':
-
-                for group_index in group_indices:
-
-                    component_index = tmp_item.topology.groups.iat[group_index,3]
-
-                    tmp_item.topology.components.iat[component_index,3]=molecule_index
-                    tmp_item.topology.components.iat[component_index,2]='water'
-                    tmp_item.topology.components.iat[component_index,1]='water'
-                    molecule_index+=1
-
-            elif first_group_type == 'ion':
-
-                for group_index in group_indices:
-
-                    component_index = tmp_item.topology.groups.iat[group_index,3]
-
-                    tmp_item.topology.components.iat[component_index,3]=molecule_index
-                    tmp_item.topology.components.iat[component_index,2]='ion'
-                    tmp_item.topology.components.iat[component_index,1]=entity_name
-                    molecule_index+=1
-
-            elif first_group_type == 'small molecule':
-
-                for group_index in group_indices:
-
-                    component_index = tmp_item.topology.groups.iat[group_index,3]
-
-                    tmp_item.topology.components.iat[component_index,3]=molecule_index
-                    tmp_item.topology.components.iat[component_index,2]='small molecule'
-                    tmp_item.topology.components.iat[component_index,1]=entity_name
-                    molecule_index+=1
-
-            elif first_group_type == 'lipid':
-
-                for group_index in group_indices:
-
-                    component_index = tmp_item.topology.groups.iat[group_index,3]
-
-                    tmp_item.topology.components.iat[component_index,3]=molecule_index
-                    tmp_item.topology.components.iat[component_index,2]='lipid'
-                    tmp_item.topology.components.iat[component_index,1]=entity_name
-                    molecule_index+=1
-
-            elif first_group_type in ['terminal capping', 'amino acid']:
-
-                n_groups = len(group_indices)
-
-                if first_group_type == 'terminal capping':
-                    n_groups -= 1
-
-                last_group_type = tmp_item.topology.groups.iat[group_indices[-1],2]
-
-                if last_group_type == 'terminal capping':
-                    n_groups -= 1
-
-                if n_groups >= min_length_protein:
-                    tmp_type = 'protein'
-                else:
-                    tmp_type = 'peptide'
-
-                component_indices = tmp_item.topology.groups.iloc[group_indices,3].unique()
-
-                for component_index in component_indices:
-
-                    tmp_item.topology.components.iat[component_index,3]=molecule_index
-                    tmp_item.topology.components.iat[component_index,2]=tmp_type
-                    tmp_item.topology.components.iat[component_index,1]=entity_name
-
-                molecule_index+=1
-
-                pass
-
-            elif first_group_type == 'nucleotide':
-
-                raise ValueError("Entity type not recognized:", first_group_type)
-
-            else:
-
-                raise ValueError("Entity type not recognized:", first_group_type)
-
-            del group_indices
-
-    del dict_chain_to_groups
-
-    aux_n_molecules = molecule_index
-
-    tmp_item.topology.reset_molecules(n_molecules=aux_n_molecules)
-    tmp_item.topology.rebuild_molecules(redefine_indices=False, redefine_ids=True, redefine_names=True, redefine_types=True)
-    tmp_item.topology.rebuild_entities(redefine_indices=True, redefine_ids=True, redefine_names=True, redefine_types=True)
-    tmp_item.topology.rebuild_chains(redefine_ids=False, redefine_types=True)
-
-    tmp_item.structures.append(coordinates=coordinates, box=box, alternate_location=alternate_location)
-
-    if item.num_models>1:
-
-        item_per_model = []
-        chain_index_to_atom_indices = tmp_item.topology.atoms.groupby('chain_index').indices
-        chain_index = 0
-        if item.num_models > 1:
-            for n_chains_in_model in item.chains_per_model:
-                chain_indices = [ii for ii in range(chain_index, chain_index+n_chains_in_model)]
-                aux_atom_indices = []
-                for ii in chain_indices:
-                    aux_atom_indices += chain_index_to_atom_indices[ii].tolist()
-                item_per_model.append(tmp_item.extract(atom_indices=aux_atom_indices, skip_digestion=True))
-                chain_index += n_chains_in_model
-
-        comparison=[]
-        for ii in range(1, item.num_models):
-            aux = item_per_model[0].topology.compare(item_per_model[ii].topology,
-                                                     atom_id=False, atom_name=True, atom_type=True,
-                                                     group_index=True, group_id=True, group_name=True,
-                                                     component_index=True, component_name=True,
-                                                     molecule_index=True, molecule_name=True,
-                                                     skip_digestion=True)
-            comparison.append(aux)
-
-        if all(comparison): 
-
-            for ii in range(1, item.num_models):
-                item_per_model[0].structures.append_structures(item_per_model[ii].structures)
-
-            tmp_item = item_per_model[0]
-
-            tmp_item = tmp_item.extract(atom_indices=atom_indices, structure_indices=structure_indices,
-                                        copy_if_all=False, skip_digestion=True)
-
-        else:
-
-            print('Warning! The models have different molecular systems. They will be returned separately.')
-
-            tmp_item = item_per_model
-
-    return tmp_item
 

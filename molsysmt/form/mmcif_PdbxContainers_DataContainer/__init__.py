@@ -2,6 +2,9 @@ form_name = 'mmcif.PdbxContainers.DataContainer'
 form_type = 'class'
 form_info = ["", ""]
 
+# https://mmcif.wwpdb.org/
+# https://github.com/rcsb/py-mmcif
+
 piped_topological_attribute = 'molsysmt.Topology'
 piped_structural_attribute = 'molsysmt.Structures'
 piped_any_attribute = 'molsysmt.MolSys'

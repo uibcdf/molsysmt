@@ -28,6 +28,6 @@ from .to_mmcif_PdbxContainers_DataContainer import to_mmcif_PdbxContainers_DataC
 
 _convert_to={
         'file:bcif.gz': extract,
-        'mmcif.PdbxContainers_DataContainer': to_mmcif_PdbxContainers_DataContainer,
+        'mmcif.PdbxContainers.DataContainer': to_mmcif_PdbxContainers_DataContainer,
         }
 
