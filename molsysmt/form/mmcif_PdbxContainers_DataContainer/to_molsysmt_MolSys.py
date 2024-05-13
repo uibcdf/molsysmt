@@ -22,7 +22,6 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
     atom_type_array = np.empty(n_atoms, dtype=object)
     atom_group_index_array = np.empty(n_atoms, dtype=int)
     atom_chain_index_array = np.empty(n_atoms, dtype=int)
-    atom_entity_id_array = np.empty(n_atoms, dtype=int)
 
     coordinates_array = np.empty([1,n_atoms,3],dtype=float)
     occupancy_array = np.empty(n_atoms,dtype=float)
@@ -35,6 +34,8 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
 
     group_name_array = []
     group_id_array = []
+    group_entity_id_array = []
+    group_chain_id_array = []
 
     chain_name_array = []
     chain_id_array = []
@@ -69,6 +70,8 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
         if former_group_id!=group_id:
             group_name_array.append(group_name)
             group_id_array.append(group_id)
+            group_entity_id_array.append(entity_id)
+            group_chain_id_array.append(chain_id)
             former_group_id=group_id
             group_index+=1
 
@@ -80,14 +83,17 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
 
         atom_group_index_array[atom_index] = group_index
         atom_chain_index_array[atom_index] = chain_index
-        atom_entity_id_array[atom_index] = entity_id
 
     group_name_array = np.array(group_name_array, dtype='object')
     group_id_array = np.array(group_id_array, dtype=int)
     chain_name_array = np.array(chain_name_array, dtype='object')
     chain_id_array = np.array(chain_id_array, dtype='object')
 
-    # bonds intra group
+    aux_series = pd.Series(atom_group_index_array)
+    group_index_to_atom_indices = {key: list(group.index) for key, group in aux_series.groupby(aux_series)}
+    del(aux_series)
+
+    # bonds intra-group
 
     if item.exists('chem_comp_bond'):
 
@@ -98,9 +104,6 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
                 bonds_intra_group[record[0]].append([record[1], record[2]])
             except:
                 bonds_intra_group[record[0]]=[[record[1], record[2]]]
-
-        aux_series = pd.Series(atom_group_index_array)
-        group_index_to_atom_indices = {key: list(group.index) for key, group in aux_series.groupby(aux_series)}
 
         for group_index, atom_indices in group_index_to_atom_indices.items():
 
@@ -152,6 +155,25 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
     bond_atom1_index_array = atom_pairs_bonded[:,0]
     bond_atom2_index_array = atom_pairs_bonded[:,1]
     del(atom_pairs_bonded)
+
+    # components, molecules and entities, and bonds extra-group
+
+    entity_id_array = []
+    entity_name_array = []
+    entity_type_array = []
+    entity_id_to_entity_index = {}
+
+    index_att = {jj:ii for ii,jj in enumerate(item.getObj('entity').getAttributeList())}
+
+    for entity_index, entity_record in enumerate(item.getObj('entity').data):
+
+        entity_id_array.append(entity_record[index_att['id']])
+        entity_name_array.append(entity_record[index_att['pdbx_description']])
+        entity_type_array.append(entity_record[index_att['pdbx_description']])
+
+    for group_index, atom_indices in group_index_to_atom_indices.items():
+
+
 
     # alternate locations
 
