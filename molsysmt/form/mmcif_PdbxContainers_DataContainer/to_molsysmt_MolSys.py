@@ -176,15 +176,19 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
 
     index_att = {jj:ii for ii,jj in enumerate(item.getObj('entity_poly').getAttributeList())}
 
-    for entity_index, entity_record in enumerate(item.getObj('entity_poly').data):
+    entity_poly_dict = {}
 
+    for entity_poly_record in item.getObj('entity_poly').data:
+
+        
+        entity_poly_dict[entity_poly_record[index_att['id']]]={}
         entity_id_array.append(entity_record[index_att['id']])
         entity_name_array.append(entity_record[index_att['pdbx_description']])
         entity_type_array.append(entity_record[index_att['type']])
         entity_id_to_entity_index[entity_record[index_att['id']]]=entity_index
 
 
-    for group_index, atom_indices in group_index_to_atom_indices.items():
+    #for group_index, atom_indices in group_index_to_atom_indices.items():
 
 
 
