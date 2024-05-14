@@ -40,6 +40,9 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
     chain_name_array = []
     chain_id_array = []
 
+    chain_id_to_group_indices = {}
+    group_index_to_atom_indices = {}
+
     former_group_id = None
     group_index = -1
     former_chain_id = None
@@ -67,31 +70,31 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
         chain_name = atom_record[index_att['auth_asym_id']]
         entity_id = atom_record[index_att['label_entity_id']]
 
+        if former_chain_id!=chain_id:
+            chain_index+=1
+            chain_name_array.append(chain_name)
+            chain_id_array.append(chain_id)
+            chain_id_to_group_indices[chain_id]=[]
+            former_chain_id=chain_id
+
         if former_group_id!=group_id:
+            group_index+=1
             group_name_array.append(group_name)
             group_id_array.append(group_id)
             group_entity_id_array.append(entity_id)
             group_chain_id_array.append(chain_id)
+            chain_id_to_group_indices[chain_id].append(group_index)
+            group_index_to_atom_indices[group_index]=[]
             former_group_id=group_id
-            group_index+=1
-
-        if former_chain_id!=chain_id:
-            chain_name_array.append(chain_name)
-            chain_id_array.append(chain_id)
-            former_chain_id=chain_id
-            chain_index+=1
 
         atom_group_index_array[atom_index] = group_index
         atom_chain_index_array[atom_index] = chain_index
+        group_index_to_atom_indices[group_index].append(atom_index)
 
     group_name_array = np.array(group_name_array, dtype='object')
     group_id_array = np.array(group_id_array, dtype=int)
     chain_name_array = np.array(chain_name_array, dtype='object')
     chain_id_array = np.array(chain_id_array, dtype='object')
-
-    aux_series = pd.Series(atom_group_index_array)
-    group_index_to_atom_indices = {key: list(group.index) for key, group in aux_series.groupby(aux_series)}
-    del(aux_series)
 
     # bonds intra-group
 
@@ -151,46 +154,80 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
             aux_atom_pairs_bonded = get_bonded_atom_pairs(group_name, atom_names, atom_indices)
             atom_pairs_bonded += aux_atom_pairs_bonded
 
-    atom_pairs_bonded = np.array(sorted(atom_pairs_bonded))
-    bond_atom1_index_array = atom_pairs_bonded[:,0]
-    bond_atom2_index_array = atom_pairs_bonded[:,1]
-    del(atom_pairs_bonded)
-
-    # components, molecules and entities, and bonds extra-group
+    # entities
 
     entity_id_array = []
     entity_name_array = []
     entity_type_array = []
-    entity_id_to_entity_index = {}
+
+    entity_dict = {}
 
     index_att = {jj:ii for ii,jj in enumerate(item.getObj('entity').getAttributeList())}
 
-    for entity_index, entity_record in enumerate(item.getObj('entity').data):
+    for entity_index, record in enumerate(item.getObj('entity').data):
 
-        entity_id_array.append(entity_record[index_att['id']])
-        entity_name_array.append(entity_record[index_att['pdbx_description']])
-        entity_type_array.append(entity_record[index_att['type']])
-        entity_id_to_entity_index[entity_record[index_att['id']]]=entity_index
+        entity_id = record[index_att['id']]
+        entity_name = record[index_att['pdbx_description']]
+        entity_type = record[index_att['type']]
 
-    chain_id_to_entity_index = {}
+        entity_id_array.append(entity_id)
+        entity_name_array.append(entity_name)
+        entity_type_array.append(entity_type)
+
+        aux_dict = {}
+        aux_dict['entity_index'] = entity_index
+        aux_dict['entity_id'] = entity_id
+        aux_dict['entity_name'] = entity_name
+        aux_dict['entity_type'] = entity_type
+        entity_dict[entity_id]=aux_dict
 
     index_att = {jj:ii for ii,jj in enumerate(item.getObj('entity_poly').getAttributeList())}
 
-    entity_poly_dict = {}
+    for record in item.getObj('entity_poly').data:
 
-    for entity_poly_record in item.getObj('entity_poly').data:
+        entity_id = record[index_att['entity_id']]
 
-        
-        entity_poly_dict[entity_poly_record[index_att['id']]]={}
-        entity_id_array.append(entity_record[index_att['id']])
-        entity_name_array.append(entity_record[index_att['pdbx_description']])
-        entity_type_array.append(entity_record[index_att['type']])
-        entity_id_to_entity_index[entity_record[index_att['id']]]=entity_index
+        aux_dict = {}
+        entity_dict[entity_id]['poly_type']=record[index_att['type']]
+        entity_dict[entity_id]['amino_acids_1']=record[index_att['pdbx_seq_one_letter_code']]
+        entity_dict[entity_id]['chain_id']=record[index_att['pdbx_strand_id']].split(',')
+        entity_dict[entity_id]['seq']=[]
 
+    index_att = {jj:ii for ii,jj in enumerate(item.getObj('entity_poly_seq').getAttributeList())}
 
-    #for group_index, atom_indices in group_index_to_atom_indices.items():
+    for record in item.getObj('entity_poly_seq').data:
 
+        entity_dict[record[index_att['entity_id']]]['seq'].append([record[index_att['num']],record[index_att['mon_id']]])
 
+    
+    # bonds extra-group
+    pair_groups_peptidic_bonds=[]
+    for entity_id, aux_dict in entity_dict.items():
+        if aux_dict['entity_type']=='polymer':
+            if aux_dict['poly_type']=='polypeptide(L)':
+                for chain_id in aux_dict['chain_id']:
+                    former_group_id = -10
+                    former_group_index = -10
+                    for group_index in chain_id_to_group_indices[chain_id]:
+                        group_id = group_id_array[group_index]
+                        if former_group_id+1 == group_id:
+                            pair_groups_peptidic_bonds.append([former_group_index, group_index])
+                        former_group_id=group_id
+                        former_group_index=group_index
+
+    for group_index_1, group_index_2 in pair_groups_peptidic_bonds:
+
+        atom_indices_1 = group_index_to_atom_indices[group_index_1]
+        C_index = np.argwhere(atom_name_array[atom_indices_1]=='C')
+        atom_indices_2 = group_index_to_atom_indices[group_index_2]
+        N_index = np.argwhere(atom_name_array[atom_indices_2]=='N')
+        if len(C_index) and len(N_index):
+            atom_pairs_bonded.append([C_index[0,0], N_index[0,0]])
+
+    atom_pairs_bonded = np.array(sorted(atom_pairs_bonded))
+    bond_atom1_index_array = atom_pairs_bonded[:,0]
+    bond_atom2_index_array = atom_pairs_bonded[:,1]
+    del(atom_pairs_bonded)
 
     # alternate locations
 
@@ -260,5 +297,19 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
         coordinates_array = coordinates_array[:,atom_indices_to_be_kept,:]
         b_factor_array = b_factor_array[atom_indices_to_be_kept]
 
+    n_atoms = atom_name_array.shape[0]
+    n_bonds = bond_atom1_index_array.shape[0]
+    n_chains = chain_id_array.shape[0]
+    n_bonds = bond_atom_1_index_array.shape[0]
 
-    return alternate_location
+    tmp_item = MolSys(n_atoms=n_atoms, n_groups=n_groups, n_chains=n_chains, n_bonds=n_bonds)
+
+    tmp_item.topology.atoms["atom_name"] = atom_name_array
+    tmp_item.topology.atoms["atom_id"] = atom_id_array
+    tmp_item.topology.atoms["atom_type"] = atom_type_array
+    tmp_item.topology.atoms["group_index"] = group_index_array
+    tmp_item.topology.atoms["chain_index"] = chain_index_array
+    del(atom_name_array, atom_id_array, atom_type_array, group_index_array, chain_index_array)
+
+
+    return tmp_item
