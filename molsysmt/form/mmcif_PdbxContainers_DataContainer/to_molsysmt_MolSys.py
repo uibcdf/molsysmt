@@ -222,7 +222,7 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
         atom_indices_2 = group_index_to_atom_indices[group_index_2]
         N_index = np.argwhere(atom_name_array[atom_indices_2]=='N')
         if len(C_index) and len(N_index):
-            atom_pairs_bonded.append([C_index[0,0], N_index[0,0]])
+            atom_pairs_bonded.append([atom_indices_1[C_index[0,0]], atom_indices_2[N_index[0,0]]])
 
     atom_pairs_bonded = np.array(sorted(atom_pairs_bonded))
     bond_atom1_index_array = atom_pairs_bonded[:,0]
@@ -253,6 +253,7 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
 
         atoms_to_be_removed_with_alt_loc=[]
         chosen_with_alt_loc = []
+        to_be_fixed_in_bonds = {}
         for same_atoms in aux_dict.values():
             alt_occupancy = occupancy_array[same_atoms]
             alt_loc = alternate_location_array[same_atoms]
@@ -262,6 +263,7 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
                 chosen = same_atoms[np.argmax(alt_occupancy)]
             chosen_with_alt_loc.append(chosen)
             atoms_to_be_removed_with_alt_loc += [ii for ii in same_atoms if ii !=chosen]
+            to_be_fixed_in_bonds[max(same_atoms)]=chosen
 
         atom_indices_to_be_kept = np.setdiff1d(np.arange(n_atoms), atoms_to_be_removed_with_alt_loc)
         dict_old_to_new_atom_indices = {jj: ii for ii, jj in enumerate(atom_indices_to_be_kept)}
@@ -283,6 +285,10 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
         atom_type_array = atom_type_array[atom_indices_to_be_kept]
         atom_group_index_array = atom_group_index_array[atom_indices_to_be_kept]
         atom_chain_index_array = atom_chain_index_array[atom_indices_to_be_kept]
+
+        for old_atom, new_atom in to_be_fixed_in_bonds.items():
+            bond_atom1_index_array[bond_atom1_index_array==old_atom]=new_atom
+            bond_atom2_index_array[bond_atom2_index_array==old_atom]=new_atom
 
         mask1 = np.isin(bond_atom1_index_array, atom_indices_to_be_kept)
         mask2 = np.isin(bond_atom2_index_array, atom_indices_to_be_kept)
@@ -334,5 +340,18 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
     tmp_item.topology.rebuild_components(redefine_indices=True, redefine_ids=True,
                                          redefine_names=False, redefine_types=True)
 
+    molecule_index = 0
+
+    dict_chain_to_groups = tmp_item.topology.atoms.groupby('chain_index')['group_index'].unique().to_dict()
+    dict_chain_to_components = {ii:[] for ii in range(n_chains)}
+
+    for ii in range(tmp_item.topology.components.shape[0]):
+
+        component_index, component_df in tmp_item.components:
+        dict_chain_to_components[chain_index]=tmp_item.topology.groups['component_index']
+
+    #tmp_item.topology.rebuild_chains(redefine_ids=True, redefine_types=True)
+
 
     return tmp_item
+

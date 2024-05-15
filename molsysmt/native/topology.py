@@ -2,6 +2,7 @@ import pandas as pd
 import numpy as np
 from molsysmt._private.variables import is_all
 from molsysmt._private.digestion import digest
+from molsysmt.lib.series import occurrence_order
 
 class Atoms_DataFrame(pd.DataFrame):
 
@@ -485,19 +486,30 @@ class Topology():
             g = to_networkx_Graph(self, skip_digestion=True)
             components = list(nx.connected_components(g))
 
-            aux_n_components = len(components)
-            component_index_of_atoms = np.empty((g.number_of_nodes()), dtype=int)
-            for component_index, component in enumerate(components):
-                component_index_of_atoms[list(component)] = component_index
-            component_index_of_atoms = occurrence_order(component_index_of_atoms)
+            n_components = len(components)
 
-            group_index, first_atom_indices = np.unique(self.atoms['group_index'], return_index=True)
-            component_index_of_groups = component_index_of_atoms[first_atom_indices]
+            component_index_of_groups = np.zeros(self.groups.shape[0], dtype=int)
 
-            self.groups["component_index"] = np.array(component_index_of_groups, dtype=int)
-            self.components = Components_DataFrame(n_components=aux_n_components)
+            series_aux = self.atoms['group_index']
 
-            del g, components, component_index_of_atoms, group_index, first_atom_indices, component_index_of_groups
+            group_indices_per_component = [series_aux.iloc[list(indices)].unique() for indices in components]
+            for component_index, group_indices in enumerate(group_indices_per_component):
+                component_index_of_groups[group_indices]=component_index
+
+
+            #component_index_of_atoms = np.empty((g.number_of_nodes()), dtype=int)
+            #for component_index, component in enumerate(components):
+            #    component_index_of_atoms[list(component)] = component_index
+            #component_index_of_atoms = occurrence_order(component_index_of_atoms)
+
+            #group_index, first_atom_indices = np.unique(self.atoms['group_index'], return_index=True)
+            #component_index_of_groups = component_index_of_atoms[first_atom_indices]
+
+            component_index_of_groups = occurrence_order(component_index_of_groups)
+            self.groups["component_index"] = component_index_of_groups
+            self.components = Components_DataFrame(n_components=n_components)
+
+            del g, components, component_index_of_groups, group_indices_per_component, series_aux
 
         if redefine_ids:
 
