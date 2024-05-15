@@ -298,18 +298,41 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
         b_factor_array = b_factor_array[atom_indices_to_be_kept]
 
     n_atoms = atom_name_array.shape[0]
+    n_groups = group_name_array.shape[0]
+    n_chains = chain_name_array.shape[0]
     n_bonds = bond_atom1_index_array.shape[0]
-    n_chains = chain_id_array.shape[0]
-    n_bonds = bond_atom_1_index_array.shape[0]
 
     tmp_item = MolSys(n_atoms=n_atoms, n_groups=n_groups, n_chains=n_chains, n_bonds=n_bonds)
 
     tmp_item.topology.atoms["atom_name"] = atom_name_array
     tmp_item.topology.atoms["atom_id"] = atom_id_array
     tmp_item.topology.atoms["atom_type"] = atom_type_array
-    tmp_item.topology.atoms["group_index"] = group_index_array
-    tmp_item.topology.atoms["chain_index"] = chain_index_array
-    del(atom_name_array, atom_id_array, atom_type_array, group_index_array, chain_index_array)
+    tmp_item.topology.atoms["group_index"] = atom_group_index_array
+    tmp_item.topology.atoms["chain_index"] = atom_chain_index_array
+    del(atom_name_array, atom_id_array, atom_type_array, atom_group_index_array, atom_chain_index_array)
+
+    tmp_item.topology.groups["group_name"] = group_name_array
+    tmp_item.topology.groups["group_id"] = group_id_array
+    del(group_name_array, group_id_array)
+
+    tmp_item.topology.chains["chain_name"] = chain_name_array
+    tmp_item.topology.chains["chain_id"] = chain_id_array
+    del(chain_name_array, chain_id_array)
+
+    tmp_item.topology.entities["entity_name"] = entity_name_array
+    tmp_item.topology.entities["entity_id"] = entity_id_array
+    tmp_item.topology.entities["entity_type"] = entity_type_array
+    del(entity_name_array, entity_id_array, entity_type_array)
+
+    tmp_item.topology.bonds["atom1_index"] = bond_atom1_index_array
+    tmp_item.topology.bonds["atom2_index"] = bond_atom2_index_array
+    tmp_item.topology.bonds._remove_empty_columns()
+    tmp_item.topology.bonds._sort_bonds()
+    del(bond_atom1_index_array, bond_atom2_index_array)
+
+    tmp_item.topology.rebuild_groups(redefine_ids=False, redefine_types=True)
+    tmp_item.topology.rebuild_components(redefine_indices=True, redefine_ids=True,
+                                         redefine_names=False, redefine_types=True)
 
 
     return tmp_item
