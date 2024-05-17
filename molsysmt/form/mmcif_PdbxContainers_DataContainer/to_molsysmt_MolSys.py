@@ -112,34 +112,36 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
             atom_names = atom_name_array[aux_atom_indices]
             group_name = group_name_array[group_index]
 
-            dict_aux = {ii:jj for ii,jj in zip(atom_names,aux_atom_indices)}
-            dict_mask = {ii:False for ii in atom_names}
+            if group_name in bonds_intra_group:
 
-            aux_atom_pairs_bonded = []
+                dict_aux = {ii:jj for ii,jj in zip(atom_names,aux_atom_indices)}
+                dict_mask = {ii:False for ii in atom_names}
 
-            for at1, at2 in bonds_intra_group[group_name]:
-                try:
-                    aux_atom_pairs_bonded.append(sorted([dict_aux[at1],dict_aux[at2]]))
-                    dict_mask[at1]=True
-                    dict_mask[at2]=True
-                except:
-                    pass
+                aux_atom_pairs_bonded = []
 
-            remains = [ii for ii,jj in dict_mask.items() if not jj]
-
-            if len(remains):
-                if set(remains)==set(['H1','H3']):
-                    for at1, at2 in [['N', 'H1'], ['N', 'H3']]:
+                for at1, at2 in bonds_intra_group[group_name]:
+                    try:
                         aux_atom_pairs_bonded.append(sorted([dict_aux[at1],dict_aux[at2]]))
-                    atom_pairs_bonded += aux_atom_pairs_bonded
-                elif len(aux_atom_indices)==1:
-                    atom_pairs_bonded += []
+                        dict_mask[at1]=True
+                        dict_mask[at2]=True
+                    except:
+                        pass
+
+                remains = [ii for ii,jj in dict_mask.items() if not jj]
+
+                if len(remains):
+                    if set(remains)==set(['H1','H3']):
+                        for at1, at2 in [['N', 'H1'], ['N', 'H3']]:
+                            aux_atom_pairs_bonded.append(sorted([dict_aux[at1],dict_aux[at2]]))
+                        atom_pairs_bonded += aux_atom_pairs_bonded
+                    elif len(aux_atom_indices)==1:
+                        atom_pairs_bonded += []
+                    else:
+                        print(f'Warning! The bonds of group {group_name} were recalculated by MolSysMT.')
+                        aux_pairs_bonded = get_bonded_atom_pairs(group_name, atom_names, aux_atom_indices)
+                        atom_pairs_bonded += aux_atom_pairs_bonded
                 else:
-                    print(f'Warning! The bonds of group {group_name} were recalculated by MolSysMT.')
-                    aux_pairs_bonded = get_bonded_atom_pairs(group_name, atom_names, aux_atom_indices)
                     atom_pairs_bonded += aux_atom_pairs_bonded
-            else:
-                atom_pairs_bonded += aux_atom_pairs_bonded
 
     else:
 

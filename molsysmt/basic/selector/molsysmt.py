@@ -326,6 +326,20 @@ _aux_dict_in_elements_in = {
         'entities': [],
             }
 
+#_aux_dict_in_elements_in = {
+#        'entities': [],
+#        'chains': ['molecules',
+#                   'entities'],
+#        'molecules': ['chains',
+#                      'entities'],
+#        'components': ['molecules',
+#                       'chains',
+#                       'entities'],
+#        'groups': ['components',
+#                   'molecules',
+#                   'chains',
+#                   'entities'],
+#            }
 
 def select_in_elements_of(molecular_system, selection):
 
@@ -366,25 +380,36 @@ def select_in_elements_of(molecular_system, selection):
                         kwarg = {_element_index[element_1]: True}
                         pre_output = get(molecular_system, element=element_2, selection=aafter, skip_digestion=True,
                                          **kwarg)
-                        mask = get(molecular_system, element=element_1, selection=bbefore, skip_digestion=True,
-                                   **kwarg)
-                        output_2 = [np.intersect1d(ii, mask) for ii in pre_output]
-                        output_2 = [ii for ii in output_2 if ii.shape[0] > 0]
+                        if is_all(bbefore):
+                            output_2 = pre_output
+                        else:
+                            mask = get(molecular_system, element=element_1, selection=bbefore, skip_digestion=True,
+                                       **kwarg)
+                            output_2 = [np.intersect1d(ii, mask).tolist() for ii in pre_output]
+                        output_2 = [ii for ii in output_2 if len(ii) > 0]
+
+                        output = []
+
+                        aux_output_2 = np.concatenate(output_2).tolist()
+                        pre_output = get(molecular_system, element=element_1, selection=aux_output_2, skip_digestion=True,
+                                         atom_index=True)
+                        aux_dict = {ii:jj for ii,jj in zip(aux_output_2, pre_output)}
 
                         if before == '':
                             before = 'all'
 
-                        mask = select(molecular_system, selection=before)
-
-                        output = []
-
-                        for aux_after in output_2:
-
-                            pre_output = get(molecular_system, element=element_1, selection=aux_after, skip_digestion=True,
-                                             atom_index=True)
-                            aux_output = [np.intersect1d(ii, mask).tolist() for ii in pre_output]
-                            aux_output = [ii for ii in aux_output if len(ii) > 0]
-                            output.append(aux_output)
+                        if is_all(before):
+                            for aux_after in output_2:
+                                pre_output = [aux_dict[ii] for ii in aux_after]
+                                aux_output = [ii for ii in pre_output if len(ii) > 0]
+                                output.append(aux_output)
+                        else:
+                            mask = select(molecular_system, selection=before)
+                            for aux_after in output_2:
+                                pre_output = [aux_dict[ii] for ii in aux_after]
+                                aux_output = [np.intersect1d(ii, mask).tolist() for ii in pre_output]
+                                aux_output = [ii for ii in aux_output if len(ii) > 0]
+                                output.append(aux_output)
 
                         return output
 
@@ -402,7 +427,7 @@ def select_in_elements_of(molecular_system, selection):
 
                 pre_output = get(molecular_system, element=element_1, selection=after, skip_digestion=True,
                                  atom_index=True)
-                mask = select(molecular_system, selection=before, skip_digestion=True)
+                mask = select(molecular_system, selection=before)
                 output = [np.intersect1d(ii, mask).tolist() for ii in pre_output]
                 output = [ii for ii in output if len(ii) > 0]
 
@@ -411,27 +436,27 @@ def select_in_elements_of(molecular_system, selection):
     raise NotImplementedError
 
 
-def select_in_groups_of(molecular_system, selection):
-
-    from molsysmt.basic import get
-
-    before, after = selection.split('in groups of')
-    before = before.strip()
-    after = after.strip()
-
-    if before == '' or is_all(before):
-
-        output = get(molecular_system, element='group', selection=after, atom_index=True)
-        output = [ii for ii in output]
-
-    else:
-
-        pre_output = get(molecular_system, element='group', selection=after, atom_index=True)
-        mask = select(molecular_system, selection=before)
-        output = [np.intersect1d(ii, mask) for ii in pre_output]
-        output = [ii for ii in output if ii.shape[0] > 0]
-
-    return output
+#def select_in_groups_of(molecular_system, selection):
+#
+#    from molsysmt.basic import get
+#
+#    before, after = selection.split('in groups of')
+#    before = before.strip()
+#    after = after.strip()
+#
+#    if before == '' or is_all(before):
+#
+#        output = get(molecular_system, element='group', selection=after, atom_index=True)
+#        output = [ii for ii in output]
+#
+#    else:
+#
+#        pre_output = get(molecular_system, element='group', selection=after, atom_index=True)
+#        mask = select(molecular_system, selection=before)
+#        output = [np.intersect1d(ii, mask) for ii in pre_output]
+#        output = [ii for ii in output if ii.shape[0] > 0]
+#
+#    return output
 
 
 def selection_with_special_subsentences(selection):
