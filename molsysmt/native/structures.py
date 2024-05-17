@@ -228,7 +228,6 @@ class Structures:
             else:
                 self.potential_energy = np.concatenate([self.potential_energy, potential_energy[structure_indices]])
 
-
     @digest()
     def _append_kinetic_energy(self, kinetic_energy, structure_indices='all', skip_digestion=False):
 
@@ -244,6 +243,23 @@ class Structures:
                 self.kinetic_energy = np.concatenate([self.kinetic_energy, kinetic_energy])
             else:
                 self.kinetic_energy = np.concatenate([self.kinetic_energy, kinetic_energy[structure_indices]])
+
+    @digest()
+    def _append_b_factor(self, b_factor, structure_indices='all', skip_digestion=False):
+
+        b_factor = puw.standardize(b_factor)
+
+        if self.b_factor is None:
+            if is_all(structure_indices):
+                self.b_factor = deepcopy(b_factor)
+            else:
+                self.b_factor = b_factor[structure_indices]
+        else:
+            if is_all(structure_indices):
+                self.b_factor = np.concatenate([self.b_factor, b_factor])
+            else:
+                self.b_factor = np.concatenate([self.b_factor, b_factor[structure_indices]])
+
 
     @digest()
     def _append_alternate_location(self, alternate_location, structure_indices='all', skip_digestion=False):
@@ -262,7 +278,7 @@ class Structures:
     @digest()
     def append(self, structure_id=None, time=None, coordinates=None, velocities=None,
                box=None, temperature=None, potential_energy=None, kinetic_energy=None,
-               alternate_location=None,
+               b_factor=None, alternate_location=None,
                atom_indices='all', structure_indices='all', skip_digestion=False):
         """ Append structures or frames to this object.
 
@@ -354,6 +370,14 @@ class Structures:
             elif n_structures != tmp_n_structures:
                 raise ValueError('Not all input arguments have the same number of structures to be appended.')
 
+        if b_factor is not None:
+
+            tmp_n_structures = len(b_factor)
+            if n_structures is None:
+                n_structures = tmp_n_structures
+            elif n_structures != tmp_n_structures:
+                raise ValueError('Not all input arguments have the same number of structures to be appended.')
+
         if alternate_location is not None:
 
             tmp_n_structures = len(alternate_location)
@@ -392,6 +416,10 @@ class Structures:
                 self._append_kinetic_energy(kinetic_energy, structure_indices=structure_indices,
                                             skip_digestion=True)
 
+            if b_factor is not None:
+                self._append_b_factor(b_factor, structure_indices=structure_indices,
+                                      skip_digestion=True)
+
             if alternate_location is not None:
                 self._append_alternate_location(alternate_location, structure_indices=structure_indices,
                                                 skip_digestion=True)
@@ -424,6 +452,10 @@ class Structures:
 
             if (self.kinetic_energy is not None) and (kinetic_energy is not None):
                 self._append_kinetic_energy(kinetic_energy, structure_indices=structure_indices, 
+                                            skip_digestion=True)
+
+            if (self.b_factor is not None) and (kinetic_energy is not None):
+                self._append_b_factor(b_factor, structure_indices=structure_indices, 
                                             skip_digestion=True)
 
             if (self.alternate_location is not None) and (alternate_location is not None):

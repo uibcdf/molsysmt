@@ -22,6 +22,7 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
     atom_type_array = np.empty(n_atoms, dtype=object)
     atom_group_index_array = np.empty(n_atoms, dtype=int)
     atom_chain_index_array = np.empty(n_atoms, dtype=int)
+    atom_num_model_array = np.empty(n_atoms, dtype=int)
 
     coordinates_array = np.empty([1,n_atoms,3],dtype=float)
     occupancy_array = np.empty(n_atoms,dtype=float)
@@ -29,8 +30,6 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
     b_factor_array = np.empty(n_atoms,dtype=float)
 
     atom_pairs_bonded = []
-
-    model_num_array = np.empty(n_atoms, dtype=int)
 
     group_name_array = []
     group_id_array = []
@@ -62,7 +61,7 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
         alternate_location_array[atom_index] = atom_record[index_att['label_alt_id']]
         b_factor_array[atom_index] = atom_record[index_att['B_iso_or_equiv']]
 
-        model_num_array[atom_index] = atom_record[index_att['pdbx_PDB_model_num']]
+        atom_num_model_array[atom_index] = atom_record[index_att['pdbx_PDB_model_num']]
 
         group_id = atom_record[index_att['auth_seq_id']]
         group_name = atom_record[index_att['auth_comp_id']]
@@ -108,12 +107,12 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
             except:
                 bonds_intra_group[record[0]]=[[record[1], record[2]]]
 
-        for group_index, atom_indices in group_index_to_atom_indices.items():
+        for group_index, aux_atom_indices in group_index_to_atom_indices.items():
 
-            atom_names = atom_name_array[atom_indices]
+            atom_names = atom_name_array[aux_atom_indices]
             group_name = group_name_array[group_index]
 
-            dict_aux = {ii:jj for ii,jj in zip(atom_names,atom_indices)}
+            dict_aux = {ii:jj for ii,jj in zip(atom_names,aux_atom_indices)}
             dict_mask = {ii:False for ii in atom_names}
 
             aux_atom_pairs_bonded = []
@@ -133,11 +132,11 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
                     for at1, at2 in [['N', 'H1'], ['N', 'H3']]:
                         aux_atom_pairs_bonded.append(sorted([dict_aux[at1],dict_aux[at2]]))
                     atom_pairs_bonded += aux_atom_pairs_bonded
-                elif len(atom_indices)==1:
+                elif len(aux_atom_indices)==1:
                     atom_pairs_bonded += []
                 else:
                     print(f'Warning! The bonds of group {group_name} were recalculated by MolSysMT.')
-                    aux_pairs_bonded = get_bonded_atom_pairs(group_name, atom_names, atom_indices)
+                    aux_pairs_bonded = get_bonded_atom_pairs(group_name, atom_names, aux_atom_indices)
                     atom_pairs_bonded += aux_atom_pairs_bonded
             else:
                 atom_pairs_bonded += aux_atom_pairs_bonded
@@ -147,11 +146,11 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
         aux_series = pd.Series(atom_group_index_array)
         group_index_to_atom_indices = {key: list(group.index) for key, group in aux_series.groupby(aux_series)}
 
-        for group_index, atom_indices in group_index_to_atom_indices.items():
+        for group_index, aux_atom_indices in group_index_to_atom_indices.items():
 
-            atom_names = atom_name_array[atom_indices].tolist()
+            atom_names = atom_name_array[aux_atom_indices].tolist()
             group_name = group_name_array[group_index]
-            aux_atom_pairs_bonded = get_bonded_atom_pairs(group_name, atom_names, atom_indices)
+            aux_atom_pairs_bonded = get_bonded_atom_pairs(group_name, atom_names, aux_atom_indices)
             atom_pairs_bonded += aux_atom_pairs_bonded
 
     # entities
@@ -274,12 +273,14 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
         alternate_location = [{}]
         for chosen, same_atoms in zip(chosen_with_alt_loc, aux_dict.values()):
             atom_index = dict_old_to_new_atom_indices[chosen]
+            aux_coordinates = puw.quantity(coordinates_array[0,same_atoms,:], unit='angstroms', standardized=True)
+            aux_b_factor = puw.quantity(b_factor_array[same_atoms], unit='angstroms**2', standardized=True)
             aux_dict={
                     'location_id':alternate_location_array[same_atoms],
                     'occupancy':occupancy_array[same_atoms],
-                    'b_factor':b_factor_array[same_atoms],
+                    'b_factor':aux_b_factor,
                     'atom_id':atom_id_array[same_atoms],
-                    'coordinates':coordinates_array[0,same_atoms,:]
+                    'coordinates':aux_coordinates
                     }
             alternate_location[0][atom_index]=aux_dict
 
@@ -424,7 +425,7 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
                                         redefine_types=True)
     tmp_item.topology.rebuild_entities(redefine_indices=False, redefine_ids=True, redefine_names=False, redefine_types=True)
     tmp_item.topology.rebuild_chains(redefine_ids=True, redefine_types=True)
-    old_chain_ids_to_chain_index = {ii:jj for ii,jj in enumerate(chain_id_array)}
+    old_chain_id_to_chain_index = {jj:ii for ii,jj in enumerate(chain_id_array)}
 
     coordinates_array = puw.quantity(coordinates_array, 'angstroms')
     coordinates_array = puw.standardize(coordinates_array)
@@ -484,22 +485,65 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
     for record in item.getObj('pdbx_struct_assembly_gen'):
         operator_id = record[index_att['oper_expression']]
         aux = {'chain_indices': [], 'rotations': [], 'translations': []}
-        old_chain_ids = record[intex_att['asym_id_list']].split(',')
-        aux['chain_indices']=[old_chain_ids_to_chain_indices[ii] for ii in old_chain_ids]
+        old_chain_ids = record[index_att['asym_id_list']].split(',')
+        aux['chain_indices']=[old_chain_id_to_chain_index[ii] for ii in old_chain_ids]
         aux['rotations']=[operators[operator_id]['matrix']]
         aux['translations']=[operators[operator_id]['vector']]
-        bioassembly[index_att['id']]=aux
+        bioassembly[index_att['assembly_id']]=aux
 
-    b_factor = puw.quantity(np.array(item.b_factor_list), unit='angstroms**2', standardized=True)
+    b_factor_array = puw.quantity(np.array(b_factor_array), unit='angstroms**2', standardized=True)
 
     tmp_item.structures.append(coordinates=coordinates_array, box=box, alternate_location=alternate_location,
                               b_factor=b_factor_array)
+    tmp_item.structures.bioassembly=bioassembly
 
     del(atom_name_array, atom_id_array, atom_type_array, atom_group_index_array, atom_chain_index_array)
     del(group_name_array, group_id_array)
     del(chain_name_array, chain_id_array)
     del(entity_name_array, entity_id_array, entity_type_array)
     del(bond_atom1_index_array, bond_atom2_index_array)
+
+    models = np.unique(atom_num_model_array)
+    n_models = models.shape[0]
+
+    if n_models>1:
+
+        item_per_model = []
+        for model_index in models:
+            aux_atom_indices = np.where(atom_num_model_array==model_index)[0].tolist()
+            item_per_model.append(tmp_item.extract(atom_indices=aux_atom_indices, skip_digestion=True))
+
+        comparison=[]
+        for ii in range(1, n_models):
+            aux = item_per_model[0].topology.compare(item_per_model[ii].topology,
+                                                     atom_id=False, atom_name=True, atom_type=True,
+                                                     group_index=True, group_id=True, group_name=True,
+                                                     component_index=True, component_name=True,
+                                                     molecule_index=True, molecule_name=True,
+                                                     skip_digestion=True)
+            comparison.append(aux)
+
+        if all(comparison): 
+
+            for ii in range(1, n_models):
+                item_per_model[0].structures.append_structures(item_per_model[ii].structures)
+
+
+            tmp_item = item_per_model[0]
+
+
+        else:
+
+            print('Warning! The models have different molecular systems. They will be returned separately.')
+
+            tmp_item = item_per_model
+
+            return tmp_item
+
+    del(atom_num_model_array)
+
+    tmp_item = tmp_item.extract(atom_indices=atom_indices, structure_indices=structure_indices,
+                                copy_if_all=False, skip_digestion=True)
 
     return tmp_item
 

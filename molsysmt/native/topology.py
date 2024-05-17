@@ -194,7 +194,7 @@ class Topology():
         self.bonds = Bonds_DataFrame(n_bonds=n_bonds)
 
     @digest()
-    def extract(self, atom_indices='all', copy_if_all=False, skip_digestion=False):
+    def extract(self, atom_indices='all', keep_ids=True, copy_if_all=False, skip_digestion=False):
 
         if is_all(atom_indices):
 
@@ -266,6 +266,14 @@ class Topology():
                     tmp_item.bonds['atom1_index']=vaux_dict(tmp_item.bonds['atom1_index'].to_numpy())
                     tmp_item.bonds['atom2_index']=vaux_dict(tmp_item.bonds['atom2_index'].to_numpy())
                     del aux_dict, vaux_dict
+
+            tmp_item.rebuild_components(redefine_indices=False, redefine_ids=(not keep_ids), redefine_names=False,
+                                        redefine_types=True)
+            tmp_item.rebuild_molecules(redefine_indices=False, redefine_ids=(not keep_ids), redefine_names=False,
+                                       redefine_types=True)
+            tmp_item.rebuild_chains(redefine_ids=(not keep_ids), redefine_types=True)
+            tmp_item.rebuild_entities(redefine_indices=False, redefine_ids=(not keep_ids), redefine_names=False,
+                                      redefine_types=True)
 
             return tmp_item
 
@@ -592,12 +600,9 @@ class Topology():
 
                 self.components.iloc[row.Index,1] = component_name
             
-
-
         #    component_name = get_component_name(self, element='component', redefine_names=True, skip_digestion=True)
         #    self.components["component_name"] = np.array(component_name, dtype=object)
         #    del component_name
-
 
 
     def rebuild_molecules(self, redefine_indices=True, redefine_ids=True, redefine_names=True, redefine_types=True):
@@ -634,7 +639,8 @@ class Topology():
                         self.molecules.iat[molecule_index,2]='protein'
                     elif 'peptide' in component_types:
                         aux_components = aux_dict_2[molecule_index] 
-                        group_types = df.loc[self.groups['component_index'].isin(aux_components), 'group_type']
+                        aux_groups = self.groups.index[self.groups['component_index'].isin(aux_components)].tolist()
+                        group_types = self.groups.iloc[aux_groups, 2]
                         n_amino_acids = np.sum(group_types=='amino acid')
                         if n_amino_acids >= min_length_protein:
                             self.molecules.iat[molecule_index,2]='protein'
@@ -645,7 +651,10 @@ class Topology():
 
             del aux_groups, aux_dict, aux_dict_2
 
+
     def rebuild_chains(self, redefine_ids=True, redefine_types=True):
+
+        from molsysmt.element.molecule import _singular_molecule_type_to_plural
 
         if redefine_ids:
 
@@ -653,12 +662,50 @@ class Topology():
 
         if redefine_types:
 
-            from molsysmt.element.chain import get_chain_type
+            atom_indices = [ii.tolist() for ii in self.atoms.groupby('chain_index').groups.values()]
 
-            chain_type = get_chain_type(self, element='chain', redefine_types=True, redefine_molecule_indices=False,
-                                       redefine_molecule_types=False)
-            self.chains["chain_type"] = np.array(chain_type, dtype=object)
-            del chain_type
+            if len(atom_indices)==1 and len(atom_indices[0])==self.atoms.shape[0]:
+
+                chain_types_from_chain = ['system']
+
+                del(atom_indices)
+
+            else:
+
+                group_indices = []
+                for aux_atom_indices in atom_indices:
+                    group_indices.append(np.unique(self.atoms.iloc[aux_atom_indices,3]))
+
+                component_indices = []
+                for aux_group_indices in group_indices:
+                    component_indices.append(np.unique(self.groups.iloc[aux_group_indices,3]))
+
+                molecule_indices = []
+                for aux_component_indices in component_indices:
+                    molecule_indices.append(np.unique(self.components.iloc[aux_component_indices,3]))
+
+                molecule_types = []
+                for aux_molecule_indices in molecule_indices:
+                    molecule_types.append(self.molecules.iloc[aux_molecule_indices,2].tolist())
+
+                chain_types_from_chain = []
+
+                for aux_molecule_types in molecule_types:
+                    aux = []
+                    array_molecule_types = np.array(aux_molecule_types)
+                    for aux_type in ['protein', 'peptide', 'dna', 'rna', 'oligosaccharide', 'small molecule', 'lipid',
+                                     'ion', 'water']:
+                        if aux_type in aux_molecule_types:
+                            counter = np.sum(array_molecule_types == aux_type)
+                            if counter == 1:
+                                aux.append(aux_type)
+                            else:
+                                aux.append(_singular_molecule_type_to_plural[aux_type])
+                    chain_types_from_chain.append(' + '.join(aux))
+
+                del(atom_indices, group_indices, component_indices, molecule_indices, molecule_types)
+
+            self.chains["chain_type"] = np.array(chain_types_from_chain, dtype=object)
 
     def rebuild_entities(self, redefine_indices=True, redefine_ids=True, redefine_names=True, redefine_types=True):
 

@@ -29,11 +29,11 @@ _molecule_types = [
         ]
 
 _singular_molecule_type_to_plural = {
-    'water': 'waters',
+    'water': 'water',
     'ion': 'ions',
     'small molecule': 'small molecules',
     'peptide': 'peptides',
-    'protein': 'protein',
+    'protein': 'proteins',
     'dna': 'dnas',
     'rna': 'rnas',
     'lipid': 'lipids',
@@ -41,7 +41,7 @@ _singular_molecule_type_to_plural = {
 }
 
 _plural_molecule_types_to_singular = {
-    'waters': 'water',
+    'water': 'water',
     'ions': 'ion',
     'small molecules': 'small molecule',
     'peptides': 'peptide',
