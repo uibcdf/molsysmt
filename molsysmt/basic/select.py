@@ -173,14 +173,14 @@ def select(molecular_system, selection='all', structure_indices='all', element='
             for aux_atom_indices in atom_indices:
                 temp_output_indices = getattr(_dict_modules[aux_form],
                                               f'get_{element}_index_from_atom')(aux_item, indices=aux_atom_indices)
-                output_indices.append(np.unique(temp_output_indices))
+                output_indices.append(np.unique(temp_output_indices).tolist())
 
         else:
 
             aux_item, aux_form = where_is_attribute(molecular_system, element+'_index', skip_digestion=True)
             output_indices = getattr(_dict_modules[aux_form], f'get_{element}_index_from_atom')(aux_item,
                                                                                                 indices=atom_indices)
-            output_indices = np.unique(output_indices)
+            output_indices = np.unique(output_indices).tolist()
 
     elif element == 'bond':
 

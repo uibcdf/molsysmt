@@ -245,8 +245,7 @@ def select_standard(item, selection):
                               left_on='chain_index', right_index=True)
 
         tmp_selection = tmp_selection.replace('atom_index','index')
-
-        output = aux_df.query(tmp_selection).index.to_list()
+        output = aux_df.query(tmp_selection, engine='python').index.to_list()
 
         del aux_df
 
@@ -365,8 +364,10 @@ def select_in_elements_of(molecular_system, selection):
                             aafter = 'all'
 
                         kwarg = {_element_index[element_1]: True}
-                        pre_output = get(molecular_system, element=element_2, selection=aafter, **kwarg)
-                        mask = get(molecular_system, element=element_1, selection=bbefore, index=True)
+                        pre_output = get(molecular_system, element=element_2, selection=aafter, skip_digestion=True,
+                                         **kwarg)
+                        mask = get(molecular_system, element=element_1, selection=bbefore, skip_digestion=True,
+                                   **kwarg)
                         output_2 = [np.intersect1d(ii, mask) for ii in pre_output]
                         output_2 = [ii for ii in output_2 if ii.shape[0] > 0]
 
@@ -379,9 +380,10 @@ def select_in_elements_of(molecular_system, selection):
 
                         for aux_after in output_2:
 
-                            pre_output = get(molecular_system, element=element_1, selection=aux_after, atom_index=True)
-                            aux_output = [np.intersect1d(ii, mask) for ii in pre_output]
-                            aux_output = [ii for ii in aux_output if ii.shape[0] > 0]
+                            pre_output = get(molecular_system, element=element_1, selection=aux_after, skip_digestion=True,
+                                             atom_index=True)
+                            aux_output = [np.intersect1d(ii, mask).tolist() for ii in pre_output]
+                            aux_output = [ii for ii in aux_output if len(ii) > 0]
                             output.append(aux_output)
 
                         return output
@@ -398,10 +400,11 @@ def select_in_elements_of(molecular_system, selection):
                 if after == '':
                     after = 'all'
 
-                pre_output = get(molecular_system, element=element_1, selection=after, atom_index=True)
-                mask = select(molecular_system, selection=before)
-                output = [np.intersect1d(ii, mask) for ii in pre_output]
-                output = [ii for ii in output if ii.shape[0] > 0]
+                pre_output = get(molecular_system, element=element_1, selection=after, skip_digestion=True,
+                                 atom_index=True)
+                mask = select(molecular_system, selection=before, skip_digestion=True)
+                output = [np.intersect1d(ii, mask).tolist() for ii in pre_output]
+                output = [ii for ii in output if len(ii) > 0]
 
                 return output
 
