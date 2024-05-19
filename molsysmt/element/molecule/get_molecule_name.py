@@ -4,7 +4,7 @@ import numpy as np
 
 @digest()
 def get_molecule_name(molecular_system, element='atom', selection='all', redefine_molecules=False,
-                       redefine_names=False, syntax='MolSysMT'):
+                       redefine_names=False, syntax='MolSysMT', skip_digestion=False):
 
     if redefine_molecules or redefine_names:
 

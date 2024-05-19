@@ -257,16 +257,18 @@ def _piped_molecular_system(molecular_system, element, in_attributes):
                                                                                 skip_digestion=True)
             if is_topological_attribute(in_attribute, skip_digestion=True):
                 _, aux_form = where_is_attribute(molecular_system, in_attribute, skip_digestion=True)
-                if piped_topological_attribute[aux_form] not in aux_piped_topological_attribute:
-                    aux_piped_topological_attribute.append(piped_topological_attribute[aux_form])
-                if piped_any_attribute[aux_form] not in aux_piped_any_attribute:
-                    aux_piped_any_attribute.append(piped_any_attribute[aux_form])
+                if aux_form is not None:
+                    if piped_topological_attribute[aux_form] not in aux_piped_topological_attribute:
+                        aux_piped_topological_attribute.append(piped_topological_attribute[aux_form])
+                    if piped_any_attribute[aux_form] not in aux_piped_any_attribute:
+                        aux_piped_any_attribute.append(piped_any_attribute[aux_form])
             elif is_structural_attribute(in_attribute, skip_digestion=True):
                 _, aux_form = where_is_attribute(molecular_system, in_attribute)
-                if piped_structural_attribute[aux_form] not in aux_piped_structural_attribute:
-                    aux_piped_structural_attribute.append(piped_structural_attribute[aux_form])
-                if piped_any_attribute[aux_form] not in aux_piped_any_attribute:
-                    aux_piped_any_attribute.append(piped_any_attribute[aux_form])
+                if aux_form is not None:
+                    if piped_structural_attribute[aux_form] not in aux_piped_structural_attribute:
+                        aux_piped_structural_attribute.append(piped_structural_attribute[aux_form])
+                    if piped_any_attribute[aux_form] not in aux_piped_any_attribute:
+                        aux_piped_any_attribute.append(piped_any_attribute[aux_form])
 
         n_top = len(aux_piped_topological_attribute)
         n_str = len(aux_piped_structural_attribute)

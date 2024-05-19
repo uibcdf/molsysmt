@@ -11,10 +11,8 @@ def get_molecule_type(molecular_system, element='atom', selection='all',
 
     if redefine_indices:
 
-        print('da1')
         molecule_types_from_molecule = get_component_type(molecular_system, element='component', selection=selection,
                 redefine_indices=True, syntax=syntax)
-        print('da2')
 
         if element == 'atom':
             aux = get(molecular_system, element='atom', selection=selection, syntax=syntax,

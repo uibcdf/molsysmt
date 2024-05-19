@@ -41,6 +41,7 @@ attributes['n_rnas'] = True
 attributes['n_lipids'] = True
 attributes['n_oligosaccharides'] = True
 attributes['n_saccharides'] = True
+attributes['n_entities'] = True
 
 attributes['bond_index'] = True
 attributes['bond_id'] = True
