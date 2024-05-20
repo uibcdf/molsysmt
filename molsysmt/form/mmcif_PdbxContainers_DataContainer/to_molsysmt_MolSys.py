@@ -426,7 +426,7 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
     tmp_item.topology.rebuild_molecules(redefine_indices=False, redefine_ids=True, redefine_names=False,
                                         redefine_types=True)
     tmp_item.topology.rebuild_entities(redefine_indices=False, redefine_ids=True, redefine_names=False, redefine_types=True)
-    tmp_item.topology.rebuild_chains(redefine_ids=True, redefine_types=True)
+    tmp_item.topology.rebuild_chains(redefine_ids=True, redefine_types=True, redefine_names=False)
     old_chain_id_to_chain_index = {jj:ii for ii,jj in enumerate(chain_id_array)}
 
     coordinates_array = puw.quantity(coordinates_array, 'angstroms')

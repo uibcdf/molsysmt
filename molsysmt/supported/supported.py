@@ -111,7 +111,8 @@ def conversions(from_form=None, to_form=None, from_form_type=None, to_form_type=
             color = '#C2CFB2'
         return 'background-color: %s' % color
 
-    return tmp_output.style.applymap(color).set_properties(**{'text-align': 'center'})
+    #return tmp_output.style.applymap(color).set_properties(**{'text-align': 'center'})
+    return tmp_output.style.map(color).set_properties(**{'text-align': 'center'})
 
 def syntaxes():
 

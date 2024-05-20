@@ -89,6 +89,28 @@ def to_string_pdb_text(item, atom_indices='all', structure_indices='all', skip_d
 
         element_symbol = atom.atom_type
 
+        line = ''
+        line += f"{head:<6}"
+        line += f"{atom_id:>5}"
+        line += f"{' ':1}"
+        line += f"{atom_name:<4}"
+        line += f"{' ':1}"
+        line += f"{group_name:>3}"
+        line += f"{' ':1}"
+        line += f"{chain_id:>1}"
+        line += f"{group_id:>4}"
+        line += f"{' ':1}"
+        line += f"{' ':3}"
+        line += f"{x:>8.3f}"
+        line += f"{y:>8.3f}"
+        line += f"{z:>8.3f}"
+        line += f"{occupancy:>6.2f}"
+        line += f"{temp_factor:>6.2f}"
+        line += f"{' ':10}"
+        line += f"{element_symbol:>2}"
+        line += f"\n"
+ 
+
         line = (
             f"{head:<6}"
             f"{atom_id:>5}"

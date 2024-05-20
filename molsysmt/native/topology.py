@@ -3,6 +3,7 @@ import numpy as np
 from molsysmt._private.variables import is_all
 from molsysmt._private.digestion import digest
 from molsysmt.lib.series import occurrence_order
+import string
 
 class Atoms_DataFrame(pd.DataFrame):
 
@@ -652,7 +653,7 @@ class Topology():
             del aux_groups, aux_dict, aux_dict_2
 
 
-    def rebuild_chains(self, redefine_ids=True, redefine_types=True):
+    def rebuild_chains(self, redefine_ids=True, redefine_types=True, redefine_names=True):
 
         from molsysmt.element.molecule import _singular_molecule_type_to_plural
 
@@ -706,6 +707,27 @@ class Topology():
                 del(atom_indices, group_indices, component_indices, molecule_indices, molecule_types)
 
             self.chains["chain_type"] = np.array(chain_types_from_chain, dtype=object)
+
+        if redefine_names:
+
+            alphabet = string.ascii_uppercase
+            chain_name_list = []
+            ii = 0
+            while len(chain_name_list) < self.chains.shape[0]:
+                if ii < len(alphabet):
+                    chain_name_list.append(alphabet[ii])
+                else:
+                    for first_letter in alphabet:
+                        for second_letter in alphabet:
+                            chain_name_list.append(first_letter + second_letter)
+                            if len(chain_name_list) >= self.chains.shape[0]:
+                                break
+                        if len(chain_name_list) >= self.chains.shape[0]:
+                            break
+                ii += 1
+
+            self.chains["chain_name"]=np.array(chain_name_list[:self.chains.shape[0]], dtype=object)
+
 
     def rebuild_entities(self, redefine_indices=True, redefine_ids=True, redefine_names=True, redefine_types=True):
 

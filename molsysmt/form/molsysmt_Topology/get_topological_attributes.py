@@ -1154,13 +1154,25 @@ def get_n_chains_from_group(item, indices='all', skip_digestion=False):
 @digest(form=form)
 def get_n_bonds_from_group(item, indices='all', skip_digestion=False):
 
-    raise NotImplementedMethodError()
+    output = []
+    atom_indices = get_atom_index_from_group(item, indices, skip_digestion=True)
+    for aux_atom_indices in atom_indices:
+        bond_indices = get_bond_index_from_atom(item, aux_atom_indices, skip_digestion=True)
+        output.append(np.unique(np.concatenate(bond_indices)).shape[0])
+
+    return output
 
 
 @digest(form=form)
 def get_n_inner_bonds_from_group(item, indices='all', skip_digestion=False):
 
-    raise NotImplementedMethodError()
+    output = []
+    atom_indices = get_atom_index_from_group(item, indices, skip_digestion=True)
+    for aux_atom_indices in atom_indices:
+        bond_indices = get_inner_bond_index_from_atom(item, aux_atom_indices, skip_digestion=True)
+        output.append(np.unique(np.concatenate(bond_indices)).shape[0])
+
+    return output
 
 
 @digest(form=form)
@@ -1731,13 +1743,25 @@ def get_n_chains_from_component(item, indices='all', skip_digestion=False):
 @digest(form=form)
 def get_n_bonds_from_component(item, indices='all', skip_digestion=False):
 
-    raise NotImplementedMethodError()
+    output = []
+    atom_indices = get_atom_index_from_component(item, indices, skip_digestion=True)
+    for aux_atom_indices in atom_indices:
+        bond_indices = get_bond_index_from_atom(item, aux_atom_indices, skip_digestion=True)
+        output.append(np.unique(np.concatenate(bond_indices)).shape[0])
+
+    return output
 
 
 @digest(form=form)
 def get_n_inner_bonds_from_component(item, indices='all', skip_digestion=False):
 
-    raise NotImplementedMethodError()
+    output = []
+    atom_indices = get_atom_index_from_component(item, indices, skip_digestion=True)
+    for aux_atom_indices in atom_indices:
+        bond_indices = get_inner_bond_index_from_atom(item, aux_atom_indices, skip_digestion=True)
+        output.append(np.unique(np.concatenate(bond_indices)).shape[0])
+
+    return output
 
 
 @digest(form=form)
@@ -2349,13 +2373,25 @@ def get_n_chains_from_molecule(item, indices='all', skip_digestion=False):
 @digest(form=form)
 def get_n_bonds_from_molecule(item, indices='all', skip_digestion=False):
 
-    return _auxiliary_getter(get_n_bonds_from_molecule, item, indices)
+    output = []
+    atom_indices = get_atom_index_from_molecule(item, indices, skip_digestion=True)
+    for aux_atom_indices in atom_indices:
+        bond_indices = get_bond_index_from_atom(item, aux_atom_indices, skip_digestion=True)
+        output.append(np.unique(np.concatenate(bond_indices)).shape[0])
+
+    return output
 
 
 @digest(form=form)
 def get_n_inner_bonds_from_molecule(item, indices='all', skip_digestion=False):
 
-    return _auxiliary_getter(get_n_inner_bonds_from_molecule, item, indices)
+    output = []
+    atom_indices = get_atom_index_from_molecule(item, indices, skip_digestion=True)
+    for aux_atom_indices in atom_indices:
+        bond_indices = get_inner_bond_index_from_atom(item, aux_atom_indices, skip_digestion=True)
+        output.append(np.unique(np.concatenate(bond_indices)).shape[0])
+
+    return output
 
 
 @digest(form=form)
@@ -3018,13 +3054,25 @@ def get_n_chains_from_entity(item, indices='all', skip_digestion=False):
 @digest(form=form)
 def get_n_bonds_from_entity(item, indices='all', skip_digestion=False):
 
-    raise NotImplementedMethodError()
+    output = []
+    atom_indices = get_atom_index_from_entity(item, indices, skip_digestion=True)
+    for aux_atom_indices in atom_indices:
+        bond_indices = get_bond_index_from_atom(item, aux_atom_indices, skip_digestion=True)
+        output.append(np.unique(np.concatenate(bond_indices)).shape[0])
+
+    return output
 
 
 @digest(form=form)
 def get_n_inner_bonds_from_entity(item, indices='all', skip_digestion=False):
 
-    raise NotImplementedMethodError()
+    output = []
+    atom_indices = get_atom_index_from_entity(item, indices, skip_digestion=True)
+    for aux_atom_indices in atom_indices:
+        bond_indices = get_inner_bond_index_from_atom(item, aux_atom_indices, skip_digestion=True)
+        output.append(np.unique(np.concatenate(bond_indices)).shape[0])
+
+    return output
 
 
 @digest(form=form)
@@ -3770,13 +3818,25 @@ def get_n_chains_from_chain(item, indices='all', skip_digestion=False):
 @digest(form=form)
 def get_n_bonds_from_chain(item, indices='all', skip_digestion=False):
 
-    raise NotImplementedMethodError()
+    output = []
+    atom_indices = get_atom_index_from_chain(item, indices, skip_digestion=True)
+    for aux_atom_indices in atom_indices:
+        bond_indices = get_bond_index_from_atom(item, aux_atom_indices, skip_digestion=True)
+        output.append(np.unique(np.concatenate(bond_indices)).shape[0])
+
+    return output
 
 
 @digest(form=form)
 def get_n_inner_bonds_from_chain(item, indices='all', skip_digestion=False):
 
-    raise NotImplementedMethodError()
+    output = []
+    atom_indices = get_atom_index_from_chain(item, indices, skip_digestion=True)
+    for aux_atom_indices in atom_indices:
+        bond_indices = get_inner_bond_index_from_atom(item, aux_atom_indices, skip_digestion=True)
+        output.append(np.unique(np.concatenate(bond_indices)).shape[0])
+
+    return output
 
 
 @digest(form=form)

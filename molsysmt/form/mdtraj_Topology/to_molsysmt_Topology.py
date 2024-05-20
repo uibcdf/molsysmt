@@ -30,7 +30,7 @@ def to_molsysmt_Topology(item, atom_indices='all', skip_digestion=False):
         else:
             tmp_item.atoms.iat[atom_index,0] = atom_index
         tmp_item.atoms.iat[atom_index,1] = atom.name
-        tmp_item.atoms.iat[atom_index,2] = atom.element
+        tmp_item.atoms.iat[atom_index,2] = atom.element.symbol
         tmp_item.atoms.iat[atom_index,3] = atom.residue.index
         tmp_item.atoms.iat[atom_index,4] = atom.residue.chain.index
 
@@ -56,6 +56,8 @@ def to_molsysmt_Topology(item, atom_indices='all', skip_digestion=False):
 
         tmp_item.chains.iat[chain_index,0] = chain_index
         tmp_item.chains.iat[chain_index,1] = chain.chain_id
+
+    rebuild_chain_name = tmp_item.chains['chain_name'].isna().all()
 
     # bonds
 
@@ -84,9 +86,8 @@ def to_molsysmt_Topology(item, atom_indices='all', skip_digestion=False):
     tmp_item.rebuild_molecules(redefine_indices=True, redefine_ids=True, redefine_names=True,
                                redefine_types=True)
 
-    # chain types
-
-    tmp_item.rebuild_chains(redefine_ids=True, redefine_types=True)
+    # chains
+    tmp_item.rebuild_chains(redefine_ids=True, redefine_types=True, redefine_names=rebuild_chain_name)
 
     # entity
 

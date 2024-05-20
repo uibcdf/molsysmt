@@ -1023,7 +1023,6 @@ def parse_format33(file):
 
         ### ATOM/HETATM
         elif record in ['ATOM  ', 'HETATM']:
-
             model = Model()
             model.record = []
             try:
@@ -1099,8 +1098,11 @@ def parse_format33(file):
                     record_element.anisou23 = int(line[63:70])
 
                 counter += 1
-                line = lines[counter]
-                record = line[0:6]
+                try:
+                    line = lines[counter]
+                    record = line[0:6]
+                except:
+                    record=None
 
 
         ##### Connectivity section
