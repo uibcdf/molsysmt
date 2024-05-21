@@ -2,6 +2,7 @@ from molsysmt._private.exceptions import NotImplementedIteratorError
 from molsysmt._private.digestion import digest
 from molsysmt._private.indices import indices_iterator
 from molsysmt._private.variables import is_all
+import numpy as np
 
 class StructuresIterator():
 
@@ -73,6 +74,7 @@ class TopologyIterator():
 
         self._get_result = get(self.molecular_system, element=self.element, selection=self.indices, output_type='dictionary',
                                skip_digestion=True, **kwargs)
+        self._get_result = {ii:np.array(jj) for ii,jj in self._get_result.items()}
 
         self._indices_iterator = indices_iterator(start=self.start, stop=self.stop, step=self.step, chunk=self.chunk)
 
@@ -91,7 +93,7 @@ class TopologyIterator():
                 self._output_dictionary[key]=self._get_result[key][indices]
 
             if self._output_type=='values':
-                output = list(self._output_dictionary.values())
+                output = list(self._output_dictionary.values().tolist())
                 if len(output) == 1:
                     output = output[0]
             elif self._output_type=='dictionary':
