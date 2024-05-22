@@ -65,8 +65,9 @@ def get_component_type(molecular_system, element='atom', selection='all', redefi
                 if is_all(selection):
                     output = list(component_types.values())
                 else:
-                    raise NotImplementedError
-
+                    component_indices = select(molecular_system, element='component', selection=selection,
+                                        syntax=syntax, skip_digestion=True)
+                    output = [component_types[ii] for ii in component_indices]
             else:
 
                 raise NotImplementedError

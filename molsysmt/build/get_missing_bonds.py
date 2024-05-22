@@ -88,9 +88,12 @@ def get_missing_bonds(molecular_system, threshold='2 angstroms', selection='all'
                                                             sorted=False)
 
                     bonds += aux_bonds
+                    
+                    if 'C' in atom_names:
+                        aux_peptidic_bonds_C[group_index]=atom_indices[atom_names.index('C')]
 
-                    aux_peptidic_bonds_C[group_index]=atom_indices[atom_names.index('C')]
-                    aux_peptidic_bonds_N[group_index]=atom_indices[atom_names.index('N')]
+                    if 'N' in atom_names:
+                        aux_peptidic_bonds_N[group_index]=atom_indices[atom_names.index('N')]
 
                 case 'terminal capping':
 

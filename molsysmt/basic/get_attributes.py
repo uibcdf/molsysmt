@@ -82,7 +82,7 @@ def get_attributes(molecular_system, output_type='dictionary'):
     for form_in, item in zip(forms_in, molecular_system):
         for key, value in  _dict_modules[form_in].attributes.items():
             if value:
-                if _dict_modules[form_in].has_attribute(item, key):
+                if _dict_modules[form_in].has_attribute(item, key, skip_digestion=True):
                     output[key]=value
 
     if output_type=='dictionary':

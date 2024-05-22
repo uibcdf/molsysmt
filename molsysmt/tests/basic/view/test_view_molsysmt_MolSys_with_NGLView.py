@@ -37,8 +37,7 @@ def test_view_molsyst_MolSys_with_NGLView_3():
     molsys_merged = msm.merge([molsys_1, molsys_2], keep_ids=False)
     view = msm.view(molsys_merged, viewer='NGLView')
     comparison = msm.compare(view, molsys_merged, attribute_type='topological',
-            coordinates=True, box=True, chain_index=False, chain_id=False, chain_name=False, chain_type=False,
-                            n_chains=False)
+            coordinates=True)
     assert comparison
 
 def test_view_molsyst_MolSys_with_NGLView_4():

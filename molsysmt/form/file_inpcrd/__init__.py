@@ -4,8 +4,10 @@ form_info = ["AMBER ASCII restart/inpcrd file format",
              "https://ambermd.org/FileFormats.php#trajectory"]
 
 piped_topological_attribute = None
-piped_structural_attribute = None
+piped_structural_attribute = 'molsysmt.Structures'
 piped_any_attribute = None
+bonds_are_explicit = False
+bonds_can_be_computed = False
 
 from .is_form import is_form
 

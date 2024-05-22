@@ -140,6 +140,9 @@ def _convert_multiple_to_one_with_shortcuts(molecular_system,
         if 'structure_indices' in input_arguments:
             conversion_arguments['structure_indices']=structure_indices
 
+        if 'get_missing_bonds' in kwargs and 'get_missing_bonds' not in input_arguments:
+            del kwargs['get_missing_bonds']
+
         for element, element_index in _element_index.items():
             if _element_indices[element] in input_arguments:
                 if not is_all(selection):
@@ -174,8 +177,6 @@ def _convert_multiple_to_one(molecular_system,
     from molsysmt._private import _multiple_conversion_shortcuts
     from molsysmt.basic import has_attribute
     from molsysmt.attribute import attributes as _attributes
-
-    output = None
 
     n_items = len(from_forms)
 
@@ -502,7 +503,6 @@ def convert(molecular_system,
 
 
     """
-
     from . import get_form
     from molsysmt._private import _multiple_conversion_shortcuts
 
