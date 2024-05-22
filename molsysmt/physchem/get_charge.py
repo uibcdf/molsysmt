@@ -5,7 +5,7 @@ from molsysmt import pyunitwizard as puw
 
 @digest()
 def get_charge(molecular_system, element='group', selection='all', definition=None, engine='OpenMM',
-        syntax='MolSysMT'):
+        syntax='MolSysMT', skip_digestion=False):
     """
     To be written soon...
     """

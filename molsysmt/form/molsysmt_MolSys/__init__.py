@@ -38,6 +38,8 @@ from .to_nglview_NGLWidget import to_nglview_NGLWidget
 from .to_openmm_Context import to_openmm_Context
 from .to_openmm_Topology import to_openmm_Topology
 from .to_openmm_Modeller import to_openmm_Modeller
+from .to_openmm_Simulation import to_openmm_Simulation
+from .to_openmm_System import to_openmm_System
 from .to_pdbfixer_PDBFixer import to_pdbfixer_PDBFixer
 from .to_biopython_Seq import to_biopython_Seq
 from .to_biopython_SeqRecord import to_biopython_SeqRecord
@@ -62,6 +64,8 @@ _convert_to={
         'openmm.Context': to_openmm_Context,
         'openmm.Topology': to_openmm_Topology,
         'openmm.Modeller': to_openmm_Modeller,
+        'openmm.System': to_openmm_System,
+        'openmm.Simulation': to_openmm_Simulation,
         'pdbfixer.PDBFixer': to_pdbfixer_PDBFixer,
         'biopython.Seq': to_biopython_Seq,
         'biopython.SeqRecord': to_biopython_SeqRecord,
