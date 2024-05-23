@@ -40,6 +40,8 @@ def add_missing_terminal_cappings(molecular_system, N_terminal=None, C_terminal=
 
                 temp_molecular_system.missingResidues[(chain_index,n_groups)]=[C_terminal]
 
+        print(temp_molecular_system.missingResidues)
+
         temp_molecular_system.findMissingAtoms()
         temp_molecular_system.addMissingAtoms()
 
