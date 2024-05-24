@@ -9,7 +9,7 @@ import numpy as np
 import types
 
 
-form='pdbfixer.PDBFixer'
+form='openmm.Modeller'
 
 
 ## From atom
