@@ -4,6 +4,9 @@
 
 from molsysmt._private.exceptions import NotImplementedMethodError, NotWithThisFormError
 from molsysmt._private.digestion import digest
+from molsysmt import pyunitwizard as puw
+import numpy as np
+from molsysmt._private.variables import is_all
 import types
 
 form='pdbfixer.PDBFixer'

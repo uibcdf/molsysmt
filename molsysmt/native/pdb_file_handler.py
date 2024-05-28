@@ -455,12 +455,20 @@ def parse_format33(file):
 
             while record=='REMARK':
 
-                if int(line[7:10])!=mark_id:
-                    remark = RemarkRecord()
-                    pdb.title.remarks.append(remark)
-                    remark.remarkNum = int(line[7:10])
-                    mark_id = int(line[7:10])
-                    remark.message = ''
+                if not line[7:10].isspace():
+                    if int(line[7:10])!=mark_id:
+                        remark = RemarkRecord()
+                        pdb.title.remarks.append(remark)
+                        remark.remarkNum = int(line[7:10])
+                        mark_id = int(line[7:10])
+                        remark.message = ''
+                else:
+                    if mark_id==-1:
+                        remark = RemarkRecord()
+                        pdb.title.remarks.append(remark)
+                        remark.remarkNum = 1
+                        mark_id += 1
+                        remark.message = ''
 
                 remark.message += line[11:79].strip()+'\n'
 
