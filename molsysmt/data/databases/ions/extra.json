@@ -1,0 +1,243 @@
+{
+  "BE": {
+    "name": "BE",
+    "topology": [
+      {
+        "atoms": [
+		"BE"
+	],
+        "bonds": [
+        ]
+      }
+    ]
+  },
+  "CA+2": {
+    "name": "CA+2",
+    "topology": [
+      {
+        "atoms": [
+		"CA+2"
+	],
+        "bonds": [
+        ]
+      }
+    ]
+  },
+  "CAL": {
+    "name": "CAL",
+    "topology": [
+      {
+        "atoms": [
+		"CAL"
+	],
+        "bonds": [
+        ]
+      }
+    ]
+  },
+  "CL-": {
+    "name": "CL-",
+    "topology": [
+      {
+        "atoms": [
+		"CL-"
+	],
+        "bonds": [
+        ]
+      }
+    ]
+  },
+  "I": {
+    "name": "I",
+    "topology": [
+      {
+        "atoms": [
+		"I"
+	],
+        "bonds": [
+        ]
+      }
+    ]
+  },
+  "IB+": {
+    "name": "IB+",
+    "topology": [
+      {
+        "atoms": [
+		"IB+"
+	],
+        "bonds": [
+        ]
+      }
+    ]
+  },
+  "K+": {
+    "name": "K+",
+    "topology": [
+      {
+        "atoms": [
+		"K+"
+	],
+        "bonds": [
+        ]
+      }
+    ]
+  },
+  "MN5": {
+    "name": "MN5",
+    "topology": [
+      {
+        "atoms": [
+		"MN5"
+	],
+        "bonds": [
+        ]
+      }
+    ]
+  },
+  "MN6": {
+    "name": "MN6",
+    "topology": [
+      {
+        "atoms": [
+		"MN6"
+	],
+        "bonds": [
+        ]
+      }
+    ]
+  },
+  "NA+": {
+    "name": "NA+",
+    "topology": [
+      {
+        "atoms": [
+		"NA+"
+	],
+        "bonds": [
+        ]
+      }
+    ]
+  },
+  "NA+2": {
+    "name": "NA+2",
+    "topology": [
+      {
+        "atoms": [
+		"NA+2"
+	],
+        "bonds": [
+        ]
+      }
+    ]
+  },
+  "NA2": {
+    "name": "NA2",
+    "topology": [
+      {
+        "atoms": [
+		"NA2"
+	],
+        "bonds": [
+        ]
+      }
+    ]
+  },
+  "NA5": {
+    "name": "NA5",
+    "topology": [
+      {
+        "atoms": [
+		"NA5"
+	],
+        "bonds": [
+        ]
+      }
+    ]
+  },
+  "NA6": {
+    "name": "NA6",
+    "topology": [
+      {
+        "atoms": [
+		"NA6"
+	],
+        "bonds": [
+        ]
+      }
+    ]
+  },
+  "NI1": {
+    "name": "NI1",
+    "topology": [
+      {
+        "atoms": [
+		"NI1"
+	],
+        "bonds": [
+        ]
+      }
+    ]
+  },
+  "NI2": {
+    "name": "NI2",
+    "topology": [
+      {
+        "atoms": [
+		"NI2"
+	],
+        "bonds": [
+        ]
+      }
+    ]
+  },
+  "NI3": {
+    "name": "NI3",
+    "topology": [
+      {
+        "atoms": [
+		"NI3"
+	],
+        "bonds": [
+        ]
+      }
+    ]
+  },
+  "V2+": {
+    "name": "V2+",
+    "topology": [
+      {
+        "atoms": [
+		"V2+"
+	],
+        "bonds": [
+        ]
+      }
+    ]
+  },
+  "ZN2": {
+    "name": "ZN2",
+    "topology": [
+      {
+        "atoms": [
+		"ZN2"
+	],
+        "bonds": [
+        ]
+      }
+    ]
+  },
+  "ZN3": {
+    "name": "ZN3",
+    "topology": [
+      {
+        "atoms": [
+		"ZN3"
+	],
+        "bonds": [
+        ]
+      }
+    ]
+  }
+}
+

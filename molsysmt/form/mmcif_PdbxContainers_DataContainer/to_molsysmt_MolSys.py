@@ -96,7 +96,6 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
     chain_id_array = np.array(chain_id_array, dtype='object')
 
     # bonds intra-group
-
     if item.exists('chem_comp_bond'):
 
         bonds_intra_group = {}
@@ -137,8 +136,9 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
                     elif len(aux_atom_indices)==1:
                         atom_pairs_bonded += []
                     else:
-                        print(f'Warning! The bonds of group {group_name} were recalculated by MolSysMT.')
                         aux_pairs_bonded = get_bonded_atom_pairs(group_name, atom_names, aux_atom_indices)
+                        if len(aux_pairs_bonded):
+                            print(f'Warning! The bonds of group {group_name} were recalculated by MolSysMT.')
                         atom_pairs_bonded += aux_atom_pairs_bonded
                 else:
                     atom_pairs_bonded += aux_atom_pairs_bonded
@@ -254,7 +254,6 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
                 aux_dict[aux_key].append(aux_atom_index)
             else:
                 aux_dict[aux_key]=[aux_atom_index]
-
         atoms_to_be_removed_with_alt_loc=[]
         chosen_with_alt_loc = []
         to_be_fixed_in_bonds = {}
@@ -262,7 +261,10 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
             alt_occupancy = occupancy_array[same_atoms]
             alt_loc = alternate_location_array[same_atoms]
             if np.allclose(alt_occupancy, alt_occupancy[0]):
-                chosen = same_atoms[np.where(alt_loc=='A')[0][0]]
+                if len(alt_loc)>1:
+                    chosen = same_atoms[np.where(alt_loc=='A')[0][0]]
+                else:
+                    chosen = same_atoms[0]
             else:
                 chosen = same_atoms[np.argmax(alt_occupancy)]
             chosen_with_alt_loc.append(chosen)
@@ -361,6 +363,7 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
         entity_index = np.where(tmp_item.topology.entities['entity_id']==entity_id)[0][0]
         entity_type = tmp_item.topology.entities.iat[entity_index,2]
         entity_name = tmp_item.topology.entities.iat[entity_index,1]
+
 
         match component_type:
 

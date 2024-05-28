@@ -61,8 +61,20 @@ for value in ions:
 
     output[value]=aux_dict
 
-#with open('small_molecules_db.pkl', 'wb') as fff:
-#    pickle.dump(output, fff)
+#### Extra ####
+
+import json
+
+with open('extra.json', 'r') as fff:
+    extra = json.load(fff)
+
+for name in extra.keys():
+    if name not in output:
+        output[name]=extra[name]
+    else:
+        output[name]['topology']+=extra[name]['topology']
+
+#### End ####
 
 split_output = {}
 for name,value in output.items():
@@ -73,10 +85,9 @@ for name,value in output.items():
 import gzip
 
 for file_name, aux_output in split_output.items():
-    with gzip.open('ions/'+file_name+'.pkl.gz', 'wb', compresslevel=9) as fff:
+    with gzip.open(file_name+'.pkl.gz', 'wb', compresslevel=9) as fff:
         pickle.dump(aux_output, fff)
 
-with gzip.open('ions/group_names.pkl.gz', 'wb', compresslevel=9) as fff:
+with gzip.open('group_names.pkl.gz', 'wb', compresslevel=9) as fff:
         pickle.dump(list(output.keys()), fff)
-
 

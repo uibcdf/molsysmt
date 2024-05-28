@@ -695,7 +695,7 @@ class Structures:
                             aux_dict={}
                             for tmp_atom_index in tmp_alt_loc.keys():
                                 if tmp_atom_index in atom_indices:
-                                    new_atom_index = np.argwhere(atom_indices == tmp_atom_index)[0][0]
+                                    new_atom_index = np.where(np.array(atom_indices) == tmp_atom_index)[0][0]
                                     aux_dict[new_atom_index] = tmp_alt_loc[tmp_atom_index]
                             alternate_location.append(aux_dict)
                 else:

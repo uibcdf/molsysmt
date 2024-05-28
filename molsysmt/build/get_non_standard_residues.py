@@ -15,10 +15,10 @@ def get_non_standard_residues(molecular_system, selection='all', syntax='MolSysM
 
         group_indices_in_selection = select(molecular_system, element='group', selection=selection)
 
-        temp_molecular_system = convert(molecular_system, to_form="pdbfixer.PDBFixer", selection=selection,
+        tmp_item = convert(molecular_system, to_form="pdbfixer.PDBFixer", selection=selection,
                                         syntax=syntax)
 
-        temp_molecular_system.findNonstandardResidues()
+        tmp_item.findNonstandardResidues()
 
         for group, substitution in tmp_item.nonstandardResidues:
             original_group_index = group_indices_in_selection[group.index]

@@ -494,7 +494,6 @@ class Topology():
 
             g = to_networkx_Graph(self, skip_digestion=True)
             components = list(nx.connected_components(g))
-
             n_components = len(components)
 
             component_index_of_groups = np.zeros(self.groups.shape[0], dtype=int)
@@ -504,7 +503,6 @@ class Topology():
             group_indices_per_component = [series_aux.iloc[list(indices)].unique() for indices in components]
             for component_index, group_indices in enumerate(group_indices_per_component):
                 component_index_of_groups[group_indices]=component_index
-
 
             #component_index_of_atoms = np.empty((g.number_of_nodes()), dtype=int)
             #for component_index, component in enumerate(components):
