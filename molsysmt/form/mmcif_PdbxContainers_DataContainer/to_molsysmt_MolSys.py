@@ -488,13 +488,33 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
 
     index_att = {jj:ii for ii,jj in enumerate(item.getObj('pdbx_struct_assembly_gen').getAttributeList())}
     for record in item.getObj('pdbx_struct_assembly_gen'):
-        operator_id = record[index_att['oper_expression']]
         aux = {'chain_indices': [], 'rotations': [], 'translations': []}
         old_chain_ids = record[index_att['asym_id_list']].split(',')
         aux['chain_indices']=[old_chain_id_to_chain_index[ii] for ii in old_chain_ids]
-        aux['rotations']=[operators[operator_id]['matrix']]
-        aux['translations']=[operators[operator_id]['vector']]
-        bioassembly[index_att['assembly_id']]=aux
+        operation_expression = record[index_att['oper_expression']]
+        oper = []
+        oper2 = []
+        print(operation_expression)
+        parenCount = operation_expression.count("(")
+        if parenCount == 0 : oper.append(operation_expression)
+        if parenCount == 1 : oper.extend(_parse_operation_expression(operation_expression))
+        if parenCount == 2 :
+            temp = operation_expression.find(")")
+            oper.extend(_parse_operation_expression(operation_expression[0:temp+1]))
+            oper2.extend(_parse_operation_expression(operation_expression[temp+1:]))
+        if len(oper2)==0:
+            for ii in oper:
+                aux['rotations'].append(operators[ii]['matrix'])
+                aux['translations'].append(operators[ii]['vector'])
+        else:
+            for ii in oper:
+                for jj in oper2:
+                    aux_trans, aux_rot = _compose_operation(operators[ii]['vector'], operators[ii]['matrix'],
+                                                            operators[jj]['vector'], operators[jj]['matrix'])
+                    aux['rotations'].append(aux_rot)
+                    aux['translations'].append(aux_trans)
+
+        bioassembly[record[index_att['assembly_id']]]=aux
 
     b_factor_array = puw.quantity(np.array(b_factor_array), unit='angstroms**2', standardized=True)
 
@@ -551,4 +571,58 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
                                 copy_if_all=False, skip_digestion=True)
 
     return tmp_item
+
+def _parse_operation_expression(expression) :
+    operations = []
+    stops = [ "," , "-" , ")" ]
+
+    currentOp = ""
+    i = 1
+	
+    # Iterate over the operation expression
+    while i in range(1, len(expression) - 1):
+        pos = i
+
+        # Read an operation
+        while expression[pos] not in stops and pos < len(expression) - 1 : 
+            pos += 1    
+        currentOp = expression[i : pos]
+
+        # Handle single operations
+        if expression[pos] != "-" :
+            operations.append(currentOp)
+            i = pos
+
+        # Handle ranges
+        if expression[pos] == "-" :
+            pos += 1
+            i = pos
+			
+            # Read in the range's end value
+            while expression[pos] not in stops :
+                pos += 1
+            end = int(expression[i : pos])
+			
+            # Add all the operations in [currentOp, end]
+            for val in range((int(currentOp)), end + 1) :
+                operations.append(str(val))
+            i = pos
+        i += 1
+    return operations
+
+def _compose_operation(trans1, rot1, trans2, rot2) :
+
+    op1 = np.zeros([4,4], dtype=float)
+    op1[3,3] = 1.0
+    op1[:3,:3] = rot1
+    op1[:3,3] = trans1
+
+    op2 = np.zeros([4,4], dtype=float)
+    op2[3,3] = 1.0
+    op2[:3,:3] = rot2
+    op2[:3,3] = trans2
+
+    composed = np.dot(op1,op2)
+
+    return composed[:3,3], composed[:3,:3]
 
