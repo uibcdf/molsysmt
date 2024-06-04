@@ -484,7 +484,8 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
         vector[0] = record[index_att['vector[1]']]
         vector[1] = record[index_att['vector[2]']]
         vector[2] = record[index_att['vector[3]']]
-        operators[record[index_att['id']]]={'matrix':matrix, 'vector':vector}
+        vector = puw.quantity(vector, unit='angstroms', standardized=True)
+        operators[str(record[index_att['id']])]={'matrix':matrix, 'vector':vector}
 
     index_att = {jj:ii for ii,jj in enumerate(item.getObj('pdbx_struct_assembly_gen').getAttributeList())}
     for record in item.getObj('pdbx_struct_assembly_gen'):
@@ -494,27 +495,31 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
         operation_expression = record[index_att['oper_expression']]
         oper = []
         oper2 = []
-        print(operation_expression)
         parenCount = operation_expression.count("(")
-        if parenCount == 0 : oper.append(operation_expression)
-        if parenCount == 1 : oper.extend(_parse_operation_expression(operation_expression))
+        if parenCount == 0 :
+            if ',' in operation_expression:
+                oper.extend(operation_expression.split(','))
+            else:
+                oper.append(operation_expression)
+        if parenCount == 1 :
+            oper.extend(_parse_operation_expression(operation_expression))
         if parenCount == 2 :
             temp = operation_expression.find(")")
             oper.extend(_parse_operation_expression(operation_expression[0:temp+1]))
             oper2.extend(_parse_operation_expression(operation_expression[temp+1:]))
         if len(oper2)==0:
             for ii in oper:
-                aux['rotations'].append(operators[ii]['matrix'])
-                aux['translations'].append(operators[ii]['vector'])
+                aux['rotations'].append(operators[str(ii)]['matrix'])
+                aux['translations'].append(operators[str(ii)]['vector'])
         else:
             for ii in oper:
                 for jj in oper2:
-                    aux_trans, aux_rot = _compose_operation(operators[ii]['vector'], operators[ii]['matrix'],
-                                                            operators[jj]['vector'], operators[jj]['matrix'])
+                    aux_trans, aux_rot = _compose_operation(operators[str(ii)]['vector'], operators[str(ii)]['matrix'],
+                                                            operators[str(jj)]['vector'], operators[str(jj)]['matrix'])
                     aux['rotations'].append(aux_rot)
                     aux['translations'].append(aux_trans)
 
-        bioassembly[record[index_att['assembly_id']]]=aux
+        bioassembly[str(record[index_att['assembly_id']])]=aux
 
     b_factor_array = puw.quantity(np.array(b_factor_array), unit='angstroms**2', standardized=True)
 
@@ -612,17 +617,23 @@ def _parse_operation_expression(expression) :
 
 def _compose_operation(trans1, rot1, trans2, rot2) :
 
+    trans1_value, trans1_unit = puw.get_value_and_unit(trans1)
+    trans2_value, trans2_unit = puw.get_value_and_unit(trans2)
+
     op1 = np.zeros([4,4], dtype=float)
     op1[3,3] = 1.0
     op1[:3,:3] = rot1
-    op1[:3,3] = trans1
+    op1[:3,3] = trans1_value
 
     op2 = np.zeros([4,4], dtype=float)
     op2[3,3] = 1.0
     op2[:3,:3] = rot2
-    op2[:3,3] = trans2
+    op2[:3,3] = trans2_value
 
     composed = np.dot(op1,op2)
 
-    return composed[:3,3], composed[:3,:3]
+    output_trans = puw.quantity(composed[:3,3], trans1_unit)
+    output_rot = composed[:3,:3]
+
+    return output_trans, output_rot
 

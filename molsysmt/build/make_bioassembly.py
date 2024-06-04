@@ -1,4 +1,5 @@
 from molsysmt._private.digestion import digest
+from molsysmt._private.variables import is_iterable_of_iterables
 import numpy as np
 
 @digest()
@@ -7,7 +8,7 @@ def make_bioassembly(molecular_system, bioassembly=None, structure_indices=0, to
     To be written soon...
     """
 
-    from molsysmt.basic import extract, merge, get
+    from molsysmt.basic import extract, merge, get, copy
     from molsysmt.structure import rotate, translate
 
     if bioassembly is None:
@@ -38,13 +39,23 @@ def make_bioassembly(molecular_system, bioassembly=None, structure_indices=0, to
 
     else:
 
-        for chains, rotation, translation in zip(bioassembly['chain_indices'], bioassembly['rotations'], bioassembly['translations']):
+        if not is_iterable_of_iterables(bioassembly['chain_indices']):
 
-            unit = extract(molecular_system, structure_indices=0, selection='chain_index in @chains', syntax='MolSysMT')
-            unit = rotate(unit, rotation=rotation)
-            unit = translate(unit, translation=translation)
+            chains = bioassembly['chain_indices']
+            subsystem = extract(molecular_system, structure_indices=0, selection='chain_index in @chains',
+                                syntax='MolSysMT')
 
-            units.append(unit)
+            for rotation, translation in zip(bioassembly['rotations'], bioassembly['translations']):
+
+                unit = copy(subsystem)
+                unit = rotate(unit, rotation=rotation)
+                unit = translate(unit, translation=translation)
+            
+                units.append(unit)
+
+        else:
+
+            raise NotImplementedError
 
     output = merge(units, to_form=to_form)
 
