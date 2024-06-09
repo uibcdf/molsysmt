@@ -57,10 +57,11 @@ def make_water_box(box, form='molsysmt.MolSys'):
 
     del(tile, aux_tile, inv_box)
 
-    output = MolSys() 
-
     n_atoms = new_coors.shape[0]
     n_waters = int(n_atoms/3)
+
+    output = MolSys(n_atoms=n_atoms, n_groups=n_waters, n_components=n_waters, n_molecules=n_waters,
+                    n_entities=1, n_chains=1, n_bonds=2*n_waters, skip_digestion=True) 
 
     output.structures.box = puw.quantity(box[np.newaxis,:,:], 'nm')
     output.structures.coordinates = puw.quantity(new_coors[np.newaxis,:,:], 'nm')
@@ -71,32 +72,29 @@ def make_water_box(box, form='molsysmt.MolSys'):
 
     del(new_coors, box)
 
-    output.topology.atoms_dataframe['atom_index'] = np.arange(n_atoms)
-    output.topology.atoms_dataframe['atom_name'] = np.tile(['OW','HW1','HW2'], n_waters)
-    output.topology.atoms_dataframe['atom_id'] = np.arange(n_atoms)
-    output.topology.atoms_dataframe['atom_type'] = np.tile(['O','H','H'], n_waters)
-    output.topology.atoms_dataframe['group_index'] = np.repeat(np.arange(n_waters), 3)
-    output.topology.atoms_dataframe['group_name'] = 'WAT'
-    output.topology.atoms_dataframe['group_id'] = np.repeat(np.arange(n_waters), 3)
-    output.topology.atoms_dataframe['group_type'] = 'water'
-    output.topology.atoms_dataframe['component_index'] = np.repeat(np.arange(n_waters), 3)
-    output.topology.atoms_dataframe['component_name'] = 'water'
-    output.topology.atoms_dataframe['component_id'] = np.repeat(np.arange(n_waters), 3)
-    output.topology.atoms_dataframe['component_type'] = 'water'
-    output.topology.atoms_dataframe['molecule_index'] = np.repeat(np.arange(n_waters), 3)
-    output.topology.atoms_dataframe['molecule_name'] = 'water'
-    output.topology.atoms_dataframe['molecule_id'] = np.repeat(np.arange(n_waters), 3)
-    output.topology.atoms_dataframe['molecule_type'] = 'water'
-    output.topology.atoms_dataframe['entity_index'] = 0
-    output.topology.atoms_dataframe['entity_name'] = 'water'
-    output.topology.atoms_dataframe['entity_id'] = 0
-    output.topology.atoms_dataframe['entity_type'] = 'water'
-    output.topology.atoms_dataframe['chain_index'] = 0
-    output.topology.atoms_dataframe['chain_name'] = 'A'
-    output.topology.atoms_dataframe['chain_id'] = 0
-    output.topology.atoms_dataframe['chain_type'] = 'water'
-
-    output.topology.atoms_dataframe._nan_to_None()
+    output.topology.atoms['atom_id'] = np.arange(n_atoms)
+    output.topology.atoms['atom_name'] = np.tile(['OW','HW1','HW2'], n_waters)
+    output.topology.atoms['atom_type'] = np.tile(['O','H','H'], n_waters)
+    output.topology.atoms['group_index'] = np.repeat(np.arange(n_waters), 3)
+    output.topology.atoms['chain_index'] = 0
+    output.topology.groups['group_id'] = np.arange(n_waters)
+    output.topology.groups['group_name'] = 'WAT'
+    output.topology.groups['group_type'] = 'water'
+    output.topology.groups['component_index'] = np.arange(n_waters)
+    output.topology.components['component_id'] = np.arange(n_waters)
+    output.topology.components['component_name'] = 'water'
+    output.topology.components['component_type'] = 'water'
+    output.topology.components['molecule_index'] = np.arange(n_waters)
+    output.topology.molecules['molecule_name'] = 'water'
+    output.topology.molecules['molecule_id'] = np.arange(n_waters)
+    output.topology.molecules['molecule_type'] = 'water'
+    output.topology.molecules['entity_index'] = 0
+    output.topology.entities['entity_name'] = 'water'
+    output.topology.entities['entity_id'] = 0
+    output.topology.entities['entity_type'] = 'water'
+    output.topology.chains['chain_name'] = 'A'
+    output.topology.chains['chain_id'] = 0
+    output.topology.chains['chain_type'] = 'water'
 
     aux = np.zeros(n_waters*2, dtype='int')
     mask = np.arange(0,n_waters*2,2)
@@ -104,9 +102,9 @@ def make_water_box(box, form='molsysmt.MolSys'):
     mask = np.arange(1,n_waters*2,2)
     aux[mask] = np.arange(2,n_atoms,3)
 
-    output.topology.bonds_dataframe['atom1_index']=np.repeat(np.arange(n_waters)*3,2)
-    output.topology.bonds_dataframe['atom2_index']=aux
-    output.topology.bonds_dataframe._nan_to_None()
+    output.topology.bonds['atom1_index']=np.repeat(np.arange(n_waters)*3,2)
+    output.topology.bonds['atom2_index']=aux
+    output.topology.bonds._remove_empty_columns()
 
     del(aux, mask)
 

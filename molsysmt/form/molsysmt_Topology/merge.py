@@ -99,9 +99,9 @@ def merge(items, atom_indices='all', keep_ids=True, skip_digestion=False):
                                   redefine_names=False)
         output.rebuild_molecules(redefine_indices=False, redefine_ids=True, redefine_types=False,
                                   redefine_names=False)
-        output.rebuild_chains(redefine_ids=True, redefine_types=True)
+        output.rebuild_chains(redefine_ids=True, redefine_types=True, redefine_names=False)
     else:
-        output.rebuild_chains(redefine_ids=False, redefine_types=True)
+        output.rebuild_chains(redefine_ids=False, redefine_types=True, redefine_names=False)
 
     output.rebuild_entities()
 

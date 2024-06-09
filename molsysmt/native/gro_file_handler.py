@@ -1,6 +1,7 @@
 import numpy as np
 from molsysmt import pyunitwizard as puw
 import io
+from pathlib import PosixPath
 
 
 class GROAtomicCoordinateEntry():
@@ -97,8 +98,12 @@ class GROFileHandler():
 
     def __init__(self, file, io_mode='r', closed=False, skip_digestion=False):
 
+
         self.file = None
         self.entry = None
+
+        if isinstance(file, PosixPath):
+            file = str(file)
 
         if isinstance(file, str):
 

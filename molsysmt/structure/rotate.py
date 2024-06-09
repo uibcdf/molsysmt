@@ -6,7 +6,7 @@ import gc
 
 @digest()
 def rotate(molecular_system, rotation=None, rotation_center=None, selection='all', structure_indices='all',
-        syntax='MolSysMT', in_place=False):
+        syntax='MolSysMT', in_place=False, skip_digestion=False):
     """
     To be written soon...
     """

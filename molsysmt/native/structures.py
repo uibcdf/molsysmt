@@ -1,7 +1,7 @@
 from copy import deepcopy
 import numpy as np
 from molsysmt import pyunitwizard as puw
-from molsysmt._private.variables import is_all
+from molsysmt._private.variables import is_all, is_iterable
 from molsysmt.basic import get
 from molsysmt._private.exceptions import IteratorError
 from molsysmt._private.digestion import digest
@@ -667,6 +667,10 @@ class Structures:
                     if is_all(atom_indices):
                         coordinates = self.coordinates[structure_indices,:,:]
                     else:
+                        if not is_iterable(structure_indices):
+                            structure_indices=[structure_indices]
+                        if not is_iterable(atom_indices):
+                            atom_indices=[atom_indices]
                         coordinates = self.coordinates[np.ix_(structure_indices, atom_indices)]
 
             if self.velocities is None:

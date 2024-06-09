@@ -3,7 +3,7 @@ from molsysmt._private.variables import is_all
 
 @digest()
 def extract(molecular_system, selection='all', structure_indices='all', to_form=None, syntax='MolSysMT',
-            copy_if_all=True):
+            copy_if_all=True, skip_digestion=False):
 
     """
     Extract a portion of a molecular model.
@@ -101,12 +101,12 @@ def extract(molecular_system, selection='all', structure_indices='all', to_form=
     if to_form is not None:
 
         return convert(molecular_system, to_form=to_form, selection=selection, structure_indices=structure_indices,
-                       syntax=syntax)
+                       syntax=syntax, skip_digestion=True)
 
     forms_in = get_form(molecular_system)
 
     if not is_all(selection):
-        atom_indices = select(molecular_system, selection=selection, syntax=syntax)
+        atom_indices = select(molecular_system, selection=selection, syntax=syntax, skip_digestion=True)
     else:
         atom_indices = 'all'
 
@@ -117,7 +117,9 @@ def extract(molecular_system, selection='all', structure_indices='all', to_form=
     output = []
 
     for form_in, item in zip(forms_in, molecular_system):
-        output_item = _dict_modules[form_in].extract(item, atom_indices=atom_indices, structure_indices=structure_indices, copy_if_all=copy_if_all)
+        output_item = _dict_modules[form_in].extract(item, atom_indices=atom_indices,
+                                                     structure_indices=structure_indices, copy_if_all=copy_if_all,
+                                                     skip_digestion=True)
         output.append(output_item)
 
     if len(output)==1:

@@ -31,7 +31,7 @@ class MolSys:
         else:
 
             tmp_item = MolSys()
-            tmp_item.topology = self.topology.extract(atom_indices=atom_indices, copy_if_all=True,skip_digestion=True)
+            tmp_item.topology = self.topology.extract(atom_indices=atom_indices, copy_if_all=True, skip_digestion=True)
             tmp_item.structures = self.structures.extract(atom_indices=atom_indices,
                                                           structure_indices=structure_indices, copy_if_all=True,
                                                           skip_digestion=True)
