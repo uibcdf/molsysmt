@@ -83,9 +83,8 @@ def get_bonded_atom_pairs(group_name, atom_names, atom_indices=None, sorted=True
             except:
                 pass
 
-    print(group_name, atom_names, atom_indices)
     print(f'Warning! The amino acid {group_name} has no template.')
-    raise ValueError
+    print(f'No bonds were added by element.group.amino_acid.get_bonded_atom_pairs')
 
     return None
 

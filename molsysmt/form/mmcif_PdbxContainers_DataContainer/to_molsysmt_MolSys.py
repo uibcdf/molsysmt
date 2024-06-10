@@ -96,6 +96,9 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
     chain_id_array = np.array(chain_id_array, dtype='object')
 
     # bonds intra-group
+
+    atoms_without_bonds=[]
+
     if item.exists('chem_comp_bond'):
 
         bonds_intra_group = {}
@@ -136,10 +139,11 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
                     elif len(aux_atom_indices)==1:
                         atom_pairs_bonded += []
                     else:
-                        aux_pairs_bonded = get_bonded_atom_pairs(group_name, atom_names, aux_atom_indices)
-                        if len(aux_pairs_bonded):
-                            print(f'Warning! The bonds of group {group_name} were recalculated by MolSysMT.')
-                        atom_pairs_bonded += aux_atom_pairs_bonded
+                        aux_atom_pairs_bonded = get_bonded_atom_pairs(group_name, atom_names, aux_atom_indices)
+                        if aux_atom_pairs_bonded is None:
+                            atoms_without_bonds += aux_atom_indices
+                        else:
+                            atom_pairs_bonded += aux_atom_pairs_bonded
                 else:
                     atom_pairs_bonded += aux_atom_pairs_bonded
 
@@ -153,7 +157,10 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
             atom_names = atom_name_array[aux_atom_indices].tolist()
             group_name = group_name_array[group_index]
             aux_atom_pairs_bonded = get_bonded_atom_pairs(group_name, atom_names, aux_atom_indices)
-            atom_pairs_bonded += aux_atom_pairs_bonded
+            if aux_atom_pairs_bonded is None:
+                atoms_without_bonds += aux_atom_indices
+            else:
+                atom_pairs_bonded += aux_atom_pairs_bonded
 
     # entities
 
@@ -274,6 +281,10 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
         atom_indices_to_be_kept = np.setdiff1d(np.arange(n_atoms), atoms_to_be_removed_with_alt_loc)
         dict_old_to_new_atom_indices = {jj: ii for ii, jj in enumerate(atom_indices_to_be_kept)}
 
+        if len(atoms_without_bonds):
+            atoms_without_bonds = np.setdiff1d(atoms_without_bonds, atoms_to_be_removed_with_alt_loc)
+            atoms_without_bonds = [dict_old_to_new_atom_indices[ii] for ii in atoms_without_bonds]
+
         alternate_location = [{}]
         for chosen, same_atoms in zip(chosen_with_alt_loc, aux_dict.values()):
             atom_index = dict_old_to_new_atom_indices[chosen]
@@ -311,13 +322,104 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
         coordinates_array = coordinates_array[:,atom_indices_to_be_kept,:]
         b_factor_array = b_factor_array[atom_indices_to_be_kept]
 
+
+    coordinates_array = puw.quantity(coordinates_array, 'angstroms')
+    coordinates_array = puw.standardize(coordinates_array)
+
+    if item.exists('cell'):
+
+        from molsysmt.pbc import get_box_from_lengths_and_angles
+
+        index_att = {jj:ii for ii,jj in enumerate(item.getObj('cell').getAttributeList())}
+
+        cell_data = item.getObj('cell').data[0]
+
+        cell_lengths = np.empty([1,3], dtype='float64')
+        cell_angles = np.empty([1,3], dtype='float64')
+
+        cell_lengths[0,0]= cell_data[index_att['length_a']]
+        cell_lengths[0,1]= cell_data[index_att['length_b']]
+        cell_lengths[0,2]= cell_data[index_att['length_c']]
+
+        cell_angles[0,0]= cell_data[index_att['angle_alpha']]
+        cell_angles[0,1]= cell_data[index_att['angle_beta']]
+        cell_angles[0,2]= cell_data[index_att['angle_gamma']]
+
+        cell_lengths = puw.quantity(cell_lengths, 'angstroms')
+        cell_angles = puw.quantity(cell_angles, 'degrees')
+
+        box = get_box_from_lengths_and_angles(cell_lengths, cell_angles, skip_digestion=True)
+        box = puw.standardize(box)
+
+    else:
+
+        box = None
+
+
+    bioassembly = {}
+    operators = {}
+
+    index_att = {jj:ii for ii,jj in enumerate(item.getObj('pdbx_struct_oper_list').getAttributeList())}
+    for record in item.getObj('pdbx_struct_oper_list'):
+        matrix = np.zeros([3,3], dtype=float)
+        vector = np.zeros([3], dtype=float)
+        matrix[0,0] = record[index_att['matrix[1][1]']]
+        matrix[0,1] = record[index_att['matrix[1][2]']]
+        matrix[0,2] = record[index_att['matrix[1][3]']]
+        matrix[1,0] = record[index_att['matrix[2][1]']]
+        matrix[1,1] = record[index_att['matrix[2][2]']]
+        matrix[1,2] = record[index_att['matrix[2][3]']]
+        matrix[2,0] = record[index_att['matrix[3][1]']]
+        matrix[2,1] = record[index_att['matrix[3][2]']]
+        matrix[2,2] = record[index_att['matrix[3][3]']]
+        vector[0] = record[index_att['vector[1]']]
+        vector[1] = record[index_att['vector[2]']]
+        vector[2] = record[index_att['vector[3]']]
+        vector = puw.quantity(vector, unit='angstroms', standardized=True)
+        operators[str(record[index_att['id']])]={'matrix':matrix, 'vector':vector}
+
+    index_att = {jj:ii for ii,jj in enumerate(item.getObj('pdbx_struct_assembly_gen').getAttributeList())}
+    for record in item.getObj('pdbx_struct_assembly_gen'):
+        aux = {'chain_indices': [], 'rotations': [], 'translations': []}
+        old_chain_ids = record[index_att['asym_id_list']].split(',')
+        aux['chain_indices']=[old_chain_id_to_chain_index[ii] for ii in old_chain_ids]
+        operation_expression = record[index_att['oper_expression']]
+        oper = []
+        oper2 = []
+        parenCount = operation_expression.count("(")
+        if parenCount == 0 :
+            if ',' in operation_expression:
+                oper.extend(operation_expression.split(','))
+            else:
+                oper.append(operation_expression)
+        if parenCount == 1 :
+            oper.extend(_parse_operation_expression(operation_expression))
+        if parenCount == 2 :
+            temp = operation_expression.find(")")
+            oper.extend(_parse_operation_expression(operation_expression[0:temp+1]))
+            oper2.extend(_parse_operation_expression(operation_expression[temp+1:]))
+        if len(oper2)==0:
+            for ii in oper:
+                aux['rotations'].append(operators[str(ii)]['matrix'])
+                aux['translations'].append(operators[str(ii)]['vector'])
+        else:
+            for ii in oper:
+                for jj in oper2:
+                    aux_trans, aux_rot = _compose_operation(operators[str(ii)]['vector'], operators[str(ii)]['matrix'],
+                                                            operators[str(jj)]['vector'], operators[str(jj)]['matrix'])
+                    aux['rotations'].append(aux_rot)
+                    aux['translations'].append(aux_trans)
+
+        bioassembly[str(record[index_att['assembly_id']])]=aux
+
+    b_factor_array = puw.quantity(np.array(b_factor_array), unit='angstroms**2', standardized=True)
+
     n_atoms = atom_name_array.shape[0]
     n_groups = group_name_array.shape[0]
     n_chains = chain_name_array.shape[0]
-    n_bonds = bond_atom1_index_array.shape[0]
     n_entities = entity_name_array.shape[0]
 
-    tmp_item = MolSys(n_atoms=n_atoms, n_groups=n_groups, n_chains=n_chains, n_bonds=n_bonds, n_entities=n_entities)
+    tmp_item = MolSys(n_atoms=n_atoms, n_groups=n_groups, n_chains=n_chains, n_entities=n_entities)
 
     tmp_item.topology.atoms["atom_name"] = atom_name_array
     tmp_item.topology.atoms["atom_id"] = atom_id_array
@@ -335,6 +437,19 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
     tmp_item.topology.entities["entity_id"] = entity_id_array
     tmp_item.topology.entities["entity_type"] = entity_type_array
 
+    tmp_item.structures.append(coordinates=coordinates_array, box=box, alternate_location=alternate_location,
+                              b_factor=b_factor_array)
+    tmp_item.structures.bioassembly=bioassembly
+
+    if len(atoms_without_bonds):
+   
+        missing_bonds = get_missing_bonds(tmp_item, selection=atoms_without_bonds, with_templates=False)
+
+        return missing_bonds
+
+    n_bonds = bond_atom1_index_array.shape[0]
+
+    tmp_item.topology.bonds._reset(n_bonds=n_bonds)
     tmp_item.topology.bonds["atom1_index"] = bond_atom1_index_array
     tmp_item.topology.bonds["atom2_index"] = bond_atom2_index_array
     tmp_item.topology.bonds._remove_empty_columns()
@@ -431,102 +546,6 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
     tmp_item.topology.rebuild_entities(redefine_indices=False, redefine_ids=True, redefine_names=False, redefine_types=True)
     tmp_item.topology.rebuild_chains(redefine_ids=True, redefine_types=True, redefine_names=False)
     old_chain_id_to_chain_index = {jj:ii for ii,jj in enumerate(chain_id_array)}
-
-    coordinates_array = puw.quantity(coordinates_array, 'angstroms')
-    coordinates_array = puw.standardize(coordinates_array)
-
-    if item.exists('cell'):
-
-        from molsysmt.pbc import get_box_from_lengths_and_angles
-
-        index_att = {jj:ii for ii,jj in enumerate(item.getObj('cell').getAttributeList())}
-
-        cell_data = item.getObj('cell').data[0]
-
-        cell_lengths = np.empty([1,3], dtype='float64')
-        cell_angles = np.empty([1,3], dtype='float64')
-
-        cell_lengths[0,0]= cell_data[index_att['length_a']]
-        cell_lengths[0,1]= cell_data[index_att['length_b']]
-        cell_lengths[0,2]= cell_data[index_att['length_c']]
-
-        cell_angles[0,0]= cell_data[index_att['angle_alpha']]
-        cell_angles[0,1]= cell_data[index_att['angle_beta']]
-        cell_angles[0,2]= cell_data[index_att['angle_gamma']]
-
-        cell_lengths = puw.quantity(cell_lengths, 'angstroms')
-        cell_angles = puw.quantity(cell_angles, 'degrees')
-
-        box = get_box_from_lengths_and_angles(cell_lengths, cell_angles, skip_digestion=True)
-        box = puw.standardize(box)
-
-    else:
-
-        box = None
-
-
-    bioassembly = {}
-    operators = {}
-
-    index_att = {jj:ii for ii,jj in enumerate(item.getObj('pdbx_struct_oper_list').getAttributeList())}
-    for record in item.getObj('pdbx_struct_oper_list'):
-        matrix = np.zeros([3,3], dtype=float)
-        vector = np.zeros([3], dtype=float)
-        matrix[0,0] = record[index_att['matrix[1][1]']]
-        matrix[0,1] = record[index_att['matrix[1][2]']]
-        matrix[0,2] = record[index_att['matrix[1][3]']]
-        matrix[1,0] = record[index_att['matrix[2][1]']]
-        matrix[1,1] = record[index_att['matrix[2][2]']]
-        matrix[1,2] = record[index_att['matrix[2][3]']]
-        matrix[2,0] = record[index_att['matrix[3][1]']]
-        matrix[2,1] = record[index_att['matrix[3][2]']]
-        matrix[2,2] = record[index_att['matrix[3][3]']]
-        vector[0] = record[index_att['vector[1]']]
-        vector[1] = record[index_att['vector[2]']]
-        vector[2] = record[index_att['vector[3]']]
-        vector = puw.quantity(vector, unit='angstroms', standardized=True)
-        operators[str(record[index_att['id']])]={'matrix':matrix, 'vector':vector}
-
-    index_att = {jj:ii for ii,jj in enumerate(item.getObj('pdbx_struct_assembly_gen').getAttributeList())}
-    for record in item.getObj('pdbx_struct_assembly_gen'):
-        aux = {'chain_indices': [], 'rotations': [], 'translations': []}
-        old_chain_ids = record[index_att['asym_id_list']].split(',')
-        aux['chain_indices']=[old_chain_id_to_chain_index[ii] for ii in old_chain_ids]
-        operation_expression = record[index_att['oper_expression']]
-        oper = []
-        oper2 = []
-        parenCount = operation_expression.count("(")
-        if parenCount == 0 :
-            if ',' in operation_expression:
-                oper.extend(operation_expression.split(','))
-            else:
-                oper.append(operation_expression)
-        if parenCount == 1 :
-            oper.extend(_parse_operation_expression(operation_expression))
-        if parenCount == 2 :
-            temp = operation_expression.find(")")
-            oper.extend(_parse_operation_expression(operation_expression[0:temp+1]))
-            oper2.extend(_parse_operation_expression(operation_expression[temp+1:]))
-        if len(oper2)==0:
-            for ii in oper:
-                aux['rotations'].append(operators[str(ii)]['matrix'])
-                aux['translations'].append(operators[str(ii)]['vector'])
-        else:
-            for ii in oper:
-                for jj in oper2:
-                    aux_trans, aux_rot = _compose_operation(operators[str(ii)]['vector'], operators[str(ii)]['matrix'],
-                                                            operators[str(jj)]['vector'], operators[str(jj)]['matrix'])
-                    aux['rotations'].append(aux_rot)
-                    aux['translations'].append(aux_trans)
-
-        bioassembly[str(record[index_att['assembly_id']])]=aux
-
-    b_factor_array = puw.quantity(np.array(b_factor_array), unit='angstroms**2', standardized=True)
-
-    tmp_item.structures.append(coordinates=coordinates_array, box=box, alternate_location=alternate_location,
-                              b_factor=b_factor_array)
-    tmp_item.structures.bioassembly=bioassembly
-
     del(atom_name_array, atom_id_array, atom_type_array, atom_group_index_array, atom_chain_index_array)
     del(group_name_array, group_id_array)
     del(chain_name_array, chain_id_array)
@@ -574,6 +593,7 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
 
     tmp_item = tmp_item.extract(atom_indices=atom_indices, structure_indices=structure_indices,
                                 copy_if_all=False, skip_digestion=True)
+
 
     return tmp_item
 

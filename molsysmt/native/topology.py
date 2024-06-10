@@ -132,6 +132,18 @@ class Bonds_DataFrame(pd.DataFrame):
         self['order'] = self['order'].astype(str)
         self['type'] = self['type'].astype(str)
 
+    def _reset(self, n_bonds=0):
+
+        columns = ['atom1_index', 'atom2_index']
+        columns += ['order', 'type'] # extra columns -not necessary-
+
+        super().__init__(index=range(n_bonds), columns=columns)
+
+        self['atom1_index'] = self['atom1_index'].astype('Int64')
+        self['atom2_index'] = self['atom2_index'].astype('Int64')
+        self['order'] = self['order'].astype(str)
+        self['type'] = self['type'].astype(str)
+
     def _fix_null_values(self):
 
         for column in self:

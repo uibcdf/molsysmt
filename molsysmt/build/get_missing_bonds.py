@@ -26,7 +26,7 @@ _sorted=sorted
 @digest()
 def get_missing_bonds(molecular_system, threshold='2 angstroms', selection='all',
                       structure_index=0, syntax='MolSysMT', engine='MolSysMT',
-                      sorted=True, skip_digestion=False):
+                      sorted=True, with_templates=True, skip_digestion=False):
     """
     To be written soon...
     """
@@ -44,137 +44,146 @@ def get_missing_bonds(molecular_system, threshold='2 angstroms', selection='all'
         from molsysmt.element.group.small_molecule import get_bonded_atom_pairs as _bonds_in_small_molecule
         from molsysmt.element.group.terminal_capping import is_n_terminal_capping, is_c_terminal_capping
 
-        old_bonds = get(molecular_system, bonded_atom_pairs=True)
+        old_bonds = get(molecular_system, selection=selection, inner_bonded_atom_pairs=True)
 
-        aux_lists = get(molecular_system, element='group', selection=selection, group_name=True,
-                        group_type=True, atom_index=True, atom_name=True,
-                        skip_digestion=True)
+        if with_templates:
 
-        group_index = -1
-        groups_undone = []
-        atoms_undone = []
+            aux_lists = get(molecular_system, element='group', selection=selection, group_name=True,
+                            group_type=True, atom_index=True, atom_name=True,
+                            skip_digestion=True)
 
-        aux_peptidic_bonds_C={}
-        aux_peptidic_bonds_N={}
+            group_index = -1
+            groups_undone = []
+            atoms_undone = []
 
-        for group_name, group_type, atom_indices, atom_names in zip(*aux_lists):
+            aux_peptidic_bonds_C={}
+            aux_peptidic_bonds_N={}
 
-            group_index += 1
+            for group_name, group_type, atom_indices, atom_names in zip(*aux_lists):
 
-            match group_type:
+                group_index += 1
 
-                case 'water':
+                match group_type:
 
-                    aux_bonds = _bonds_in_water(atom_names, atom_indices, sorted=False)
-                    bonds += aux_bonds
+                    case 'water':
 
-                case 'ion':
+                        aux_bonds = _bonds_in_water(atom_names, atom_indices, sorted=False)
+                        bonds += aux_bonds
 
-                    try:
-                        aux_bonds = _bonds_in_ion(group_name, atom_names, atom_indices, sorted=False)
-                    except:
-                        aux_bonds = _bonds_in_unknown_group(molecular_system, atom_indices, atom_names,
-                                                            structure_index=structure_index, threshold=threshold,
-                                                            sorted=False)
-                    bonds += aux_bonds
+                    case 'ion':
 
-                case 'amino acid':
+                        try:
+                            aux_bonds = _bonds_in_ion(group_name, atom_names, atom_indices, sorted=False)
+                        except:
+                            aux_bonds = _bonds_in_unknown_group(molecular_system, atom_indices, atom_names,
+                                                                structure_index=structure_index, threshold=threshold,
+                                                                sorted=False)
+                        bonds += aux_bonds
 
-                    try:
-                        aux_bonds = _bonds_in_amino_acid(group_name, atom_names, atom_indices, sorted=False)
-                    except:
-                        aux_bonds = _bonds_in_unknown_group(molecular_system, atom_indices, atom_names,
-                                                            structure_index=structure_index, threshold=threshold,
-                                                            sorted=False)
+                    case 'amino acid':
 
-                    bonds += aux_bonds
-                    
-                    if 'C' in atom_names:
-                        aux_peptidic_bonds_C[group_index]=atom_indices[atom_names.index('C')]
+                        try:
+                            aux_bonds = _bonds_in_amino_acid(group_name, atom_names, atom_indices, sorted=False)
+                        except:
+                            aux_bonds = _bonds_in_unknown_group(molecular_system, atom_indices, atom_names,
+                                                                structure_index=structure_index, threshold=threshold,
+                                                                sorted=False)
 
-                    if 'N' in atom_names:
-                        aux_peptidic_bonds_N[group_index]=atom_indices[atom_names.index('N')]
+                        bonds += aux_bonds
+                        
+                        if 'C' in atom_names:
+                            aux_peptidic_bonds_C[group_index]=atom_indices[atom_names.index('C')]
 
-                case 'terminal capping':
+                        if 'N' in atom_names:
+                            aux_peptidic_bonds_N[group_index]=atom_indices[atom_names.index('N')]
 
-                    try:
-                        aux_bonds = _bonds_in_terminal_capping(group_name, atom_names, atom_indices, sorted=False)
-                    except:
-                        aux_bonds = _bonds_in_unknown_group(molecular_system, atom_indices, atom_names,
-                                                            structure_index=structure_index, threshold=threshold,
-                                                            sorted=False)
-                    bonds += aux_bonds
+                    case 'terminal capping':
 
-                    if is_c_terminal_capping(group_name):
-                        aux_peptidic_bonds_C[group_index]=atom_indices[atom_names.index('C')]
-                    elif is_n_terminal_capping(group_name):
-                        aux_peptidic_bonds_N[group_index]=atom_indices[atom_names.index('N')]
-                    else:
-                        raise ValueError("terminal capping not recognized as C- or N-")
+                        try:
+                            aux_bonds = _bonds_in_terminal_capping(group_name, atom_names, atom_indices, sorted=False)
+                        except:
+                            aux_bonds = _bonds_in_unknown_group(molecular_system, atom_indices, atom_names,
+                                                                structure_index=structure_index, threshold=threshold,
+                                                                sorted=False)
+                        bonds += aux_bonds
 
-                case 'small molecule':
+                        if is_c_terminal_capping(group_name):
+                            aux_peptidic_bonds_C[group_index]=atom_indices[atom_names.index('C')]
+                        elif is_n_terminal_capping(group_name):
+                            aux_peptidic_bonds_N[group_index]=atom_indices[atom_names.index('N')]
+                        else:
+                            raise ValueError("terminal capping not recognized as C- or N-")
 
-                    try:
-                        aux_bonds = _bonds_in_small_molecule(group_name, atom_names, atom_indices, sorted=False)
-                    except:
-                        aux_bonds = _bonds_in_unknown_group(molecular_system, atom_indices, atom_names,
-                                                            structure_index=structure_index, threshold=threshold,
-                                                            sorted=False)
-                    bonds += aux_bonds
+                    case 'small molecule':
 
-                case 'saccharide':
+                        try:
+                            aux_bonds = _bonds_in_small_molecule(group_name, atom_names, atom_indices, sorted=False)
+                        except:
+                            aux_bonds = _bonds_in_unknown_group(molecular_system, atom_indices, atom_names,
+                                                                structure_index=structure_index, threshold=threshold,
+                                                                sorted=False)
+                        bonds += aux_bonds
 
-                    raise NotImplementedError('Group type "saccharide" not implemented')
+                    case 'saccharide':
 
-                case 'oligosaccharide':
+                        raise NotImplementedError('Group type "saccharide" not implemented')
 
-                    raise NotImplementedError('Group type "oligosaccharide" not implemented')
+                    case 'oligosaccharide':
 
-                case 'lipid':
+                        raise NotImplementedError('Group type "oligosaccharide" not implemented')
 
-                    raise NotImplementedError('Group type "lipid" not implemented')
+                    case 'lipid':
 
-                case 'nucleotide':
+                        raise NotImplementedError('Group type "lipid" not implemented')
 
-                    raise NotImplementedError('Group type "nucleotide" not implemented')
+                    case 'nucleotide':
 
-                case _:
+                        raise NotImplementedError('Group type "nucleotide" not implemented')
 
-                    groups_undone.append(group_index)
+                    case _:
 
-        # peptidic bonds
+                        groups_undone.append(group_index)
 
-        aux_C = []
-        aux_N = []
+            # peptidic bonds
 
-        for group_index in aux_peptidic_bonds_C.keys():
-            if group_index+1 in aux_peptidic_bonds_N:
-                aux_C.append(aux_peptidic_bonds_C[group_index])
-                aux_N.append(aux_peptidic_bonds_N[group_index+1])
+            aux_C = []
+            aux_N = []
 
-        if len(aux_C):
-            peptidic_bonds = get_contacts(molecular_system, selection=aux_C, selection_2=aux_N,
-                                          threshold=threshold, pairs=True, output_type='pairs',
-                                          output_indices='atom', pbc=True, skip_digestion=True)[0]
+            for group_index in aux_peptidic_bonds_C.keys():
+                if group_index+1 in aux_peptidic_bonds_N:
+                    aux_C.append(aux_peptidic_bonds_C[group_index])
+                    aux_N.append(aux_peptidic_bonds_N[group_index+1])
 
-            bonds += peptidic_bonds
+            if len(aux_C):
+                peptidic_bonds = get_contacts(molecular_system, selection=aux_C, selection_2=aux_N,
+                                              threshold=threshold, pairs=True, output_type='pairs',
+                                              output_indices='atom', pbc=True, skip_digestion=True)[0]
 
-        del(aux_lists, group_name, group_type, atom_indices, atom_names)
-        del(aux_peptidic_bonds_C, aux_peptidic_bonds_N, aux_C, aux_N)
-        
-        if len(groups_undone):
-            raise NotImplementedError('Some groups not defined with templates')
-        if len(atoms_undone):
-            raise NotImplementedError('Some atoms not defined with templates')
+                bonds += peptidic_bonds
 
-        if not is_all(selection):
-            mask =  select(molecular_system, element='atom', selection=selection)
-            tmp_bonds = []
-            for bond in bonds:
-                if (bond[0] in mask) and (bond[1] in mask):
-                    tmp_bonds += bond
-            bonds = tmp_bonds
+            del(aux_lists, group_name, group_type, atom_indices, atom_names)
+            del(aux_peptidic_bonds_C, aux_peptidic_bonds_N, aux_C, aux_N)
+            
+            if len(groups_undone):
+                raise NotImplementedError('Some groups not defined with templates')
+            if len(atoms_undone):
+                raise NotImplementedError('Some atoms not defined with templates')
 
+            if not is_all(selection):
+                mask =  select(molecular_system, element='atom', selection=selection)
+                tmp_bonds = []
+                for bond in bonds:
+                    if (bond[0] in mask) and (bond[1] in mask):
+                        tmp_bonds += bond
+                bonds = tmp_bonds
+
+        else:
+
+            aux_lists = get(molecular_system, element='atom', selection=selection, atom_index=True,
+                            atom_name=True, atom_type=True, group_index=True, group_type=True,
+                            skip_digestion=True)
+
+            pass
 
         if old_bonds:
 
