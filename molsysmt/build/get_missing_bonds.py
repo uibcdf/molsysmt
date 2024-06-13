@@ -179,11 +179,131 @@ def get_missing_bonds(molecular_system, threshold='2 angstroms', selection='all'
 
         else:
 
-            aux_lists = get(molecular_system, element='atom', selection=selection, atom_index=True,
-                            atom_name=True, atom_type=True, group_index=True, group_type=True,
-                            skip_digestion=True)
+            atom_indices, atom_names, atom_types, group_indices, group_types = get(molecular_system, element='atom',
+                                                                               selection=selection,
+                                                                               atom_index=True, atom_name=True,
+                                                                               atom_type=True, group_index=True,
+                                                                               group_type=True, skip_digestion=True)
 
-            pass
+            heavy_atoms=[]
+            heavy_atoms_name=[]
+            heavy_atoms_group_index=[]
+            heavy_atoms_group_type=[]
+            h_atoms=[]
+            h_atoms_group_index=[]
+
+            for index, atom_name, atom_type, group_index, group_type in zip(atom_indices, atom_names, atom_types,
+                                                                            group_indices, group_types):
+                if 'H'==atom_type:
+                    h_atoms.append(index)
+                    h_atoms_group_index.append(group_index)
+                else:
+                    heavy_atoms.append(index)
+                    heavy_atoms_name.append(atom_name)
+                    heavy_atoms_group_index.append(group_index)
+                    heavy_atoms_group_type.append(group_type)
+
+            heavy_bonds = get_contacts(molecular_system, selection=heavy_atoms,
+                                       structure_indices = structure_index, threshold=threshold,
+                                       output_type='pairs', output_indices='selection', pbc=True,
+                                       skip_digestion=True)[0]
+
+            h_bonds = get_contacts(molecular_system, selection=heavy_atoms, selection_2=h_atoms,
+                                   structure_indices = structure_index, threshold=threshold,
+                                   output_type='pairs', output_indices='selection', pbc=True, skip_digestion=True)[0]
+
+            bonds_with_distance = []
+
+            for pair in heavy_bonds:
+                ii,jj=pair
+                if heavy_atoms_group_index[ii]==heavy_atoms_group_index[jj]:
+                    if heavy_atoms_group_type[ii]=='amino acid':
+                        ii_name = heavy_atoms_name[ii]
+                        jj_name = heavy_atoms_name[jj]
+                        if 'N' in [ii_name, jj_name]:
+                            if set(['N','CA'])==set([ii_name, jj_name]):
+                                ii = heavy_atoms[ii]
+                                jj = heavy_atoms[jj]
+                                if ii<jj:
+                                    bonds_with_distance.append([ii,jj])
+                                else:
+                                    bonds_with_distance.append([jj,ii])
+                        elif 'C' in [ii_name, jj_name]:
+                            if set(['C','CA'])==set([ii_name, jj_name]):
+                                ii = heavy_atoms[ii]
+                                jj = heavy_atoms[jj]
+                                if ii<jj:
+                                    bonds_with_distance.append([ii,jj])
+                                else:
+                                    bonds_with_distance.append([jj,ii])
+                            elif set(['C','O'])==set([ii_name, jj_name]):
+                                ii = heavy_atoms[ii]
+                                jj = heavy_atoms[jj]
+                                if ii<jj:
+                                    bonds_with_distance.append([ii,jj])
+                                else:
+                                    bonds_with_distance.append([jj,ii])
+                        elif 'CA' in [ii_name, jj_name]:
+                            if set(['CA','CB'])==set([ii_name, jj_name]):
+                                ii = heavy_atoms[ii]
+                                jj = heavy_atoms[jj]
+                                if ii<jj:
+                                    bonds_with_distance.append([ii,jj])
+                                else:
+                                    bonds_with_distance.append([jj,ii])
+                        else:
+                            ii = heavy_atoms[ii]
+                            jj = heavy_atoms[jj]
+                            if ii<jj:
+                                bonds_with_distance.append([ii,jj])
+                            else:
+                                bonds_with_distance.append([jj,ii])
+                    else:
+                        ii = heavy_atoms[ii]
+                        jj = heavy_atoms[jj]
+                        if ii<jj:
+                            bonds_with_distance.append([ii,jj])
+                        else:
+                            bonds_with_distance.append([jj,ii])
+                elif heavy_atoms_name[ii]=='C' and heavy_atoms_name[jj]=='N':
+                    if heavy_atoms_group_type[ii] in ['amino acid', 'terminal capping'] and heavy_atoms_group_type[jj] in ['amino acid', 'terminal capping']:
+                        if heavy_atoms_group_index[ii]+1==heavy_atoms_group_index[jj]:
+                            ii = heavy_atoms[ii]
+                            jj = heavy_atoms[jj]
+                            if ii<jj:
+                                bonds_with_distance.append([ii,jj])
+                            else:
+                                bonds_with_distance.append([jj,ii])
+                elif heavy_atoms_name[ii]=='N' and heavy_atoms_name[jj]=='C':
+                    if heavy_atoms_group_type[ii] in ['amino acid', 'terminal capping'] and heavy_atoms_group_type[jj] in ['amino acid', 'terminal capping']:
+                        if heavy_atoms_group_index[ii]==heavy_atoms_group_index[jj]+1:
+                            ii = heavy_atoms[ii]
+                            jj = heavy_atoms[jj]
+                            if ii<jj:
+                                bonds_with_distance.append([ii,jj])
+                            else:
+                                bonds_with_distance.append([jj,ii])
+
+            for pair in h_bonds:
+                ii,jj=pair
+                if heavy_atoms_group_index[ii]==h_atoms_group_index[jj]:
+                    if heavy_atoms_group_type[ii]=='amino acid':
+                        if heavy_atoms_name[ii] not in ['CA','C','O']:
+                            ii = heavy_atoms[ii]
+                            jj = h_atoms[jj]
+                            if ii<jj:
+                                bonds_with_distance.append([ii,jj])
+                            else:
+                                bonds_with_distance.append([jj,ii])
+                    else:
+                        ii = heavy_atoms[ii]
+                        jj = h_atoms[jj]
+                        if ii<jj:
+                            bonds_with_distance.append([ii,jj])
+                        else:
+                            bonds_with_distance.append([jj,ii])
+
+            bonds += bonds_with_distance
 
         if old_bonds:
 

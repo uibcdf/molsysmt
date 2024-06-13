@@ -1,12 +1,12 @@
 from molsysmt._private.digestion import digest
 
 @digest()
-def model_loop (item, target_sequence=None, finesse=0, engine='modeller', verbose=False):
+def model_loop (item, target_sequence=None, finesse=0, engine='MolSysMT', verbose=False, skip_digestion=False):
     """
     To be written soon...
     """
 
-    if engine=='modeller':
+    if engine=='Modeller':
 
         from molsysmt.topology import get_sequence_alignment as get_sequence_alignment
         import tempfile as _tempfile
@@ -22,10 +22,9 @@ def model_loop (item, target_sequence=None, finesse=0, engine='modeller', verbos
 
         tmp_box = get(item, box=True)
 
-        seq_original = convert(item, to_form='string:aminoacids1')
-        seq_aligned, _, _, _, _ = get_sequence_alignment('aminoacids1:'+seq_original,
-                                                      'aminoacids1:'+target_sequence)[0]
-
+        seq_original = convert(item, to_form='string:amino_acids_1')
+        seq_aligned, _, _, _, _ = get_sequence_alignment('amino_acids_1:'+seq_original,
+                                                      'amino_acids_1:'+target_sequence)[0]
         tmp_pdbfilename = tempfile.NamedTemporaryFile(suffix=".pdb").name
         tmp_name = tmp_pdbfilename.split('/')[-1].split('.')[0]
         tmp_seqfilename = '/tmp/'+tmp_name+'.seq'
@@ -110,9 +109,7 @@ def model_loop (item, target_sequence=None, finesse=0, engine='modeller', verbos
 
         return tmp_item
 
-    elif engine=='pyrosetta':
-        pass
 
-    elif engine=='ensembler':
+    elif engine=='MolSysMT':
         pass
 

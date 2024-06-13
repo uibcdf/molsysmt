@@ -12,6 +12,7 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
 
     from molsysmt.native import MolSys
     from molsysmt.element.group import get_bonded_atom_pairs
+    from molsysmt.build import get_missing_bonds
 
     index_att = {jj:ii for ii,jj in enumerate(item.getObj('atom_site').getAttributeList())}
 
@@ -323,6 +324,8 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
         b_factor_array = b_factor_array[atom_indices_to_be_kept]
 
 
+    # coordinates, box, bioassembly, b-factor
+
     coordinates_array = puw.quantity(coordinates_array, 'angstroms')
     coordinates_array = puw.standardize(coordinates_array)
 
@@ -355,7 +358,6 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
 
         box = None
 
-
     bioassembly = {}
     operators = {}
 
@@ -379,11 +381,14 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
         operators[str(record[index_att['id']])]={'matrix':matrix, 'vector':vector}
 
     index_att = {jj:ii for ii,jj in enumerate(item.getObj('pdbx_struct_assembly_gen').getAttributeList())}
+    old_chain_id_to_chain_index = {jj:ii for ii,jj in enumerate(chain_id_array)}
     for record in item.getObj('pdbx_struct_assembly_gen'):
         aux = {'chain_indices': [], 'rotations': [], 'translations': []}
         old_chain_ids = record[index_att['asym_id_list']].split(',')
         aux['chain_indices']=[old_chain_id_to_chain_index[ii] for ii in old_chain_ids]
         operation_expression = record[index_att['oper_expression']]
+        if isinstance(operation_expression, int):
+            operation_expression = str(operation_expression)
         oper = []
         oper2 = []
         parenCount = operation_expression.count("(")
@@ -437,15 +442,22 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
     tmp_item.topology.entities["entity_id"] = entity_id_array
     tmp_item.topology.entities["entity_type"] = entity_type_array
 
+    tmp_item.topology.rebuild_groups(redefine_ids=False, redefine_types=True)
+
     tmp_item.structures.append(coordinates=coordinates_array, box=box, alternate_location=alternate_location,
                               b_factor=b_factor_array)
+
     tmp_item.structures.bioassembly=bioassembly
 
     if len(atoms_without_bonds):
-   
-        missing_bonds = get_missing_bonds(tmp_item, selection=atoms_without_bonds, with_templates=False)
+         
+        missing_bonds = get_missing_bonds(tmp_item, selection=atoms_without_bonds, with_templates=False,
+                                          skip_digestion=False)
 
-        return missing_bonds
+        if len(missing_bonds):
+            missing_bonds_array = np.array(missing_bonds)
+            bond_atom1_index_array = np.concatenate([bond_atom1_index_array, missing_bonds_array[:,0]])
+            bond_atom2_index_array = np.concatenate([bond_atom2_index_array, missing_bonds_array[:,1]])
 
     n_bonds = bond_atom1_index_array.shape[0]
 
@@ -455,7 +467,6 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
     tmp_item.topology.bonds._remove_empty_columns()
     tmp_item.topology.bonds._sort_bonds()
 
-    tmp_item.topology.rebuild_groups(redefine_ids=False, redefine_types=True)
     tmp_item.topology.rebuild_components(redefine_indices=True, redefine_ids=True,
                                          redefine_names=False, redefine_types=True)
 

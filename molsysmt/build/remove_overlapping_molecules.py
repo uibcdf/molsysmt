@@ -25,10 +25,10 @@ def remove_overlapping_molecules(molecular_system, selection, selection_2=None,
 
     contact_map = get_contacts(molecular_system, selection=atom_indices, selection_2=atom_indices_2,
                                structure_indices=structure_index, threshold=threshold, pbc=pbc,
-                               output_type='map')
+                               output_type='matrix')
 
     mask = np.any(contact_map[0], axis=1)
-    atoms_to_be_removed = atom_indices[mask]
+    atoms_to_be_removed = np.array(atom_indices)[mask].tolist()
     molecules_to_be_removed = get(molecular_system, element='atom', selection=atoms_to_be_removed, molecule_index=True)
     molecules_to_be_removed = np.unique(molecules_to_be_removed)
     atoms_to_be_removed = select(molecular_system, selection='molecule_index==@molecules_to_be_removed')

@@ -479,11 +479,15 @@ def get_inner_bonded_atom_pairs_from_atom(item, indices='all', skip_digestion=Fa
     else:
 
         pairs = get_bonded_atom_pairs_from_bond(item, skip_digestion=True)
-        pairs = np.array(pairs)
-        mask = np.isin(pairs[:,0], indices) * np.isin(pairs[:,1], indices)
-        output = pairs[mask,:].tolist()
+        if len(pairs):
+            pairs = np.array(pairs)
+            mask = np.isin(pairs[:,0], indices) * np.isin(pairs[:,1], indices)
+            output = pairs[mask,:].tolist()
+            del mask
+        else:
+            output = []
 
-        del pairs, mask
+        del pairs
 
     return output
 
