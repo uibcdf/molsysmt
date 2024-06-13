@@ -17,9 +17,6 @@ def get_component_name(molecular_system, element='atom', selection='all', redefi
         else:
             redefine_types=False
 
-        import time
-        start=time.time()
-
         component_index_from_atom = get_component_index(molecular_system, element='atom',
             selection='all', syntax='MolSysMT', redefine_indices=redefine_indices, skip_digestion=True)
 
@@ -36,11 +33,6 @@ def get_component_name(molecular_system, element='atom', selection='all', redefi
 
         component_name_from_component = []
         
-        end = time.time()
-        print('<<<', end-start)
-
-        start=time.time()
-
         for component_type, first_atom, n_atoms in zip(component_type_from_component, first_atom_per_component,
                                                        n_atoms_per_component):
             
@@ -120,9 +112,6 @@ def get_component_name(molecular_system, element='atom', selection='all', redefi
         else:
 
             raise NotImplementedError
-
-        end = time.time()
-        print('>>>', end-start)
 
     else:
 

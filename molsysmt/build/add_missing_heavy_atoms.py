@@ -44,6 +44,7 @@ def add_missing_heavy_atoms(molecular_system, selection='all', syntax='MolSysMT'
 
         temp_molecular_system.addMissingAtoms()
 
+        return temp_molecular_system
         output_molecular_system = convert(temp_molecular_system, to_form=form_out)
 
         set(output_molecular_system, element='component', **atts_from_components)
