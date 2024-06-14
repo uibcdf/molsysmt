@@ -284,7 +284,7 @@ class Topology():
                                         redefine_types=True)
             tmp_item.rebuild_molecules(redefine_indices=False, redefine_ids=(not keep_ids), redefine_names=False,
                                        redefine_types=True)
-            tmp_item.rebuild_chains(redefine_ids=(not keep_ids), redefine_types=True)
+            tmp_item.rebuild_chains(redefine_ids=(not keep_ids), redefine_types=True, redefine_names=False)
             tmp_item.rebuild_entities(redefine_indices=False, redefine_ids=(not keep_ids), redefine_names=False,
                                       redefine_types=True)
 

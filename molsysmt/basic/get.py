@@ -176,43 +176,50 @@ def get(molecular_system,
         else:
             indices = select(molecular_system, element=element, selection=mask, syntax=syntax, skip_digestion=True)
 
-    aux_molecular_system = _piped_molecular_system(molecular_system, element, in_attributes)
+    piped_molecular_systems, piped_attributes = _piped_molecular_system(molecular_system, element, in_attributes)
 
-    output = []
+    if piped_molecular_systems is None:
 
-    for in_attribute in in_attributes:
+        output = []
 
-        if attributes_filter[in_attribute]:
+        for in_attribute in in_attributes:
 
-            dict_indices = {}
-            if element != 'system':
-                if attributes[in_attribute]['runs_on_elements']:
-                    dict_indices['indices'] = indices
-            if attributes[in_attribute]['runs_on_structures']:
-                dict_indices['structure_indices'] = structure_indices
+            if attributes_filter[in_attribute]:
 
-            aux_item, aux_form = where_is_attribute(aux_molecular_system, in_attribute, skip_digestion=True)
+                dict_indices = {}
+                if element != 'system':
+                    if attributes[in_attribute]['runs_on_elements']:
+                        dict_indices['indices'] = indices
+                if attributes[in_attribute]['runs_on_structures']:
+                    dict_indices['structure_indices'] = structure_indices
 
-            if aux_item is None:
-                result = None
+                aux_item, aux_form = where_is_attribute(aux_molecular_system, in_attribute, skip_digestion=True)
+
+                if aux_item is None:
+                    result = None
+                else:
+                    aux_get = getattr(_dict_modules[aux_form], f'get_{in_attribute}_from_{element}')
+                    result = aux_get(aux_item, **dict_indices)
+
             else:
-                aux_get = getattr(_dict_modules[aux_form], f'get_{in_attribute}_from_{element}')
-                result = aux_get(aux_item, **dict_indices)
 
-        else:
+                result = None
 
-            result = None
+            output.append(result)
 
-        output.append(result)
+        if output_type=='values':
+            if len(output) == 1:
+                return output[0]
+            else:
+                return output
+        elif output_type=='dictionary':
+            return dict(zip(in_attributes, output))
 
-    if output_type=='values':
-        if len(output) == 1:
-            return output[0]
-        else:
-            return output
-    elif output_type=='dictionary':
-        return dict(zip(in_attributes, output))
+    else:
 
+        output_dictionary = {}
+
+        for aux_molecular_systems, aux_attributes in zip(piped_molecular_systems, piped_attributes):
 
 def _piped_molecular_system(molecular_system, element, in_attributes):
 
@@ -247,6 +254,7 @@ def _piped_molecular_system(molecular_system, element, in_attributes):
     else:
 
         aux_piped_topological_attribute = []
+        topological_attributes = 
         aux_piped_structural_attribute = []
         aux_piped_any_attribute = []
 
@@ -277,6 +285,11 @@ def _piped_molecular_system(molecular_system, element, in_attributes):
         n_top = len(aux_piped_topological_attribute)
         n_str = len(aux_piped_structural_attribute)
         n_any = len(aux_piped_any_attribute)
+
+        print(n_top, n_str, n_any)
+        print(aux_piped_topological_attribute)
+        print(aux_piped_structural_attribute)
+        print(aux_piped_any_attribute)
 
         if n_top==0 and n_str==0:
 
