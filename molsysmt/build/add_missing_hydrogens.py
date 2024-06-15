@@ -11,35 +11,52 @@ def add_missing_hydrogens(molecular_system, pH=7.4, engine='OpenMM'):
 
     if engine=="OpenMM":
 
-        #atts_from_groups = get(molecular_system, element='group', component_id=True, component_name=True,
-        #                       molecule_id=True, molecule_name=True, chain_name=True,
-        #                       entity_index=True, entity_id=True, entity_name=True, entity_type=True,
-        #                       output_type='dictionary')
+        atts_from_components = get(molecular_system, element='component', component_name=True,
+                                   output_type='dictionary')
+        atts_from_molecules = get(molecular_system, element='molecule', molecule_name=True,
+                                  output_type='dictionary')
+        atts_from_chains = get(molecular_system, element='chain', chain_id=True, chain_name=True,
+                               output_type='dictionary')
+        atts_from_entities = get(molecular_system, element='entity', entity_name=True,
+                                 output_type='dictionary')
 
         temp_molecular_system = convert(molecular_system, to_form="openmm.Modeller")
         log_residues_changed = temp_molecular_system.addHydrogens(pH=pH)
         output_molecular_system = convert(temp_molecular_system, to_form=form_out)
 
-        #set(output_molecular_system, element='group', **atts_from_groups)
+        set(output_molecular_system, element='component', **atts_from_components)
+        set(output_molecular_system, element='molecule', **atts_from_molecules)
+        set(output_molecular_system, element='chain', **atts_from_chains)
+        set(output_molecular_system, element='entity', **atts_from_entities)
 
-        #del(atts_from_groups, temp_molecular_system)
+        del(atts_from_components, atts_from_molecules, atts_from_chains, atts_from_entities)
+
         del(temp_molecular_system)
 
     elif engine=='PDBFixer':
 
 
-        atts_from_groups = get(molecular_system, element='group', component_id=True, component_name=True,
-                               molecule_id=True, molecule_name=True, chain_name=True,
-                               entity_index=True, entity_id=True, entity_name=True, entity_type=True,
+        atts_from_components = get(molecular_system, element='component', component_name=True,
+                                   output_type='dictionary')
+        atts_from_molecules = get(molecular_system, element='molecule', molecule_name=True,
+                                  output_type='dictionary')
+        atts_from_chains = get(molecular_system, element='chain', chain_id=True, chain_name=True,
                                output_type='dictionary')
+        atts_from_entities = get(molecular_system, element='entity', entity_name=True,
+                                 output_type='dictionary')
 
         temp_molecular_system = convert(molecular_system, to_form="pdbfixer.PDBFixer")
         temp_molecular_system.addMissingHydrogens(pH=pH)
         output_molecular_system = convert(temp_molecular_system, to_form=form_out)
 
-        set(output_molecular_system, element='group', **atts_from_groups)
+        set(output_molecular_system, element='component', **atts_from_components)
+        set(output_molecular_system, element='molecule', **atts_from_molecules)
+        set(output_molecular_system, element='chain', **atts_from_chains)
+        set(output_molecular_system, element='entity', **atts_from_entities)
 
-        del(atts_from_groups, temp_molecular_system)
+        del(atts_from_components, atts_from_molecules, atts_from_chains, atts_from_entities)
+
+        del(temp_molecular_system)
 
     else:
 

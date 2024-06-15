@@ -193,7 +193,7 @@ def get(molecular_system,
                 if attributes[in_attribute]['runs_on_structures']:
                     dict_indices['structure_indices'] = structure_indices
 
-                aux_item, aux_form = where_is_attribute(aux_molecular_system, in_attribute, skip_digestion=True)
+                aux_item, aux_form = where_is_attribute(molecular_system, in_attribute, skip_digestion=True)
 
                 if aux_item is None:
                     result = None
@@ -207,19 +207,36 @@ def get(molecular_system,
 
             output.append(result)
 
-        if output_type=='values':
-            if len(output) == 1:
-                return output[0]
-            else:
-                return output
-        elif output_type=='dictionary':
-            return dict(zip(in_attributes, output))
-
     else:
 
         output_dictionary = {}
 
-        for aux_molecular_systems, aux_attributes in zip(piped_molecular_systems, piped_attributes):
+        for aux_molecular_system, aux_attributes in zip(piped_molecular_systems, piped_attributes):
+
+            if aux_molecular_system is None:
+                aux_molecular_system = molecular_system
+
+            aux_dict = get(aux_molecular_system, element=element, selection=selection,
+                           structure_indices=structure_indices, mask=mask, syntax=syntax,
+                           get_missing_bonds=get_missing_bonds, output_type='dictionary', skip_digestion=True,
+                           **{ii:True for ii in aux_attributes})
+
+            output_dictionary.update(aux_dict)
+
+        output = []
+
+        for in_attribute in in_attributes:
+
+            output.append(output_dictionary[in_attribute])
+
+    if output_type=='values':
+        if len(output) == 1:
+            return output[0]
+        else:
+            return output
+    elif output_type=='dictionary':
+        return dict(zip(in_attributes, output))
+        
 
 def _piped_molecular_system(molecular_system, element, in_attributes):
 
@@ -228,9 +245,9 @@ def _piped_molecular_system(molecular_system, element, in_attributes):
     from molsysmt.attribute import attributes, bonds_are_required_to_get_attribute
     from molsysmt.attribute import is_topological_attribute, is_structural_attribute
 
-    piped_topological_attribute = {}
-    piped_structural_attribute = {}
-    piped_any_attribute = {}
+    topological_pipes = {}
+    structural_pipes = {}
+    any_pipes = {}
 
     form = get_form(molecular_system)
 
@@ -239,24 +256,25 @@ def _piped_molecular_system(molecular_system, element, in_attributes):
         form = [form]
 
     for aux_form in form:
-        piped_topological_attribute[aux_form] = getattr(_dict_modules[aux_form], f'piped_topological_attribute')
-        piped_structural_attribute[aux_form] = getattr(_dict_modules[aux_form], f'piped_structural_attribute')
-        piped_any_attribute[aux_form] = getattr(_dict_modules[aux_form], f'piped_any_attribute')
+        topological_pipes[aux_form] = getattr(_dict_modules[aux_form], f'piped_topological_attribute')
+        structural_pipes[aux_form] = getattr(_dict_modules[aux_form], f'piped_structural_attribute')
+        any_pipes[aux_form] = getattr(_dict_modules[aux_form], f'piped_any_attribute')
 
-    not_piped = all([ii is None for ii in piped_topological_attribute.values()]) & \
-                all([ii is None for ii in piped_structural_attribute.values()]) & \
-                all([ii is None for ii in piped_any_attribute.values()])  
+    not_piped = all([ii is None for ii in topological_pipes.values()]) & \
+                all([ii is None for ii in structural_pipes.values()]) & \
+                all([ii is None for ii in any_pipes.values()])  
 
     if not_piped or len(in_attributes)==1:
 
-        aux_molecular_system = molecular_system
+        return None, None
 
     else:
 
-        aux_piped_topological_attribute = []
-        topological_attributes = 
-        aux_piped_structural_attribute = []
-        aux_piped_any_attribute = []
+        aux_topological_attributes = []
+        aux_topological_pipes = []
+        aux_structural_attributes = []
+        aux_structural_pipes = []
+        aux_any_pipes = []
 
         bonds_required_by_attributes = False
 
@@ -264,42 +282,46 @@ def _piped_molecular_system(molecular_system, element, in_attributes):
             bonds_required_by_attributes += bonds_are_required_to_get_attribute(in_attribute, element,
                                                                                 skip_digestion=True)
             if is_topological_attribute(in_attribute, skip_digestion=True):
+                aux_topological_attributes.append(in_attribute)
                 _, aux_form = where_is_attribute(molecular_system, in_attribute, skip_digestion=True)
                 if aux_form is not None:
-                    if piped_topological_attribute[aux_form] is not None:
-                        if piped_topological_attribute[aux_form] not in aux_piped_topological_attribute:
-                            aux_piped_topological_attribute.append(piped_topological_attribute[aux_form])
-                    if piped_any_attribute[aux_form] is not None:
-                        if piped_any_attribute[aux_form] not in aux_piped_any_attribute:
-                            aux_piped_any_attribute.append(piped_any_attribute[aux_form])
+                    if topological_pipes[aux_form] is not None:
+                        if topological_pipes[aux_form] not in aux_topological_pipes:
+                            aux_topological_pipes.append(topological_pipes[aux_form])
+                    if any_pipes[aux_form] is not None:
+                        if any_attribute[aux_form] not in aux_any_pipes:
+                            aux_any_pipes.append(any_pipes[aux_form])
             elif is_structural_attribute(in_attribute, skip_digestion=True):
                 _, aux_form = where_is_attribute(molecular_system, in_attribute)
+                aux_structural_attributes.append(in_attribute)
                 if aux_form is not None:
-                    if piped_structural_attribute[aux_form] is not None:
-                        if piped_structural_attribute[aux_form] not in aux_piped_structural_attribute:
-                            aux_piped_structural_attribute.append(piped_structural_attribute[aux_form])
-                    if piped_any_attribute[aux_form] is not None:
-                        if piped_any_attribute[aux_form] not in aux_piped_any_attribute:
-                            aux_piped_any_attribute.append(piped_any_attribute[aux_form])
+                    if structural_pipes[aux_form] is not None:
+                        if structural_pipes[aux_form] not in aux_structural_pipes:
+                            aux_structural_pipes.append(structural_pipes[aux_form])
+                    if any_pipes[aux_form] is not None:
+                        if any_pipes[aux_form] not in aux_any_pipes:
+                            aux_any_pipes.append(any_pipes[aux_form])
 
-        n_top = len(aux_piped_topological_attribute)
-        n_str = len(aux_piped_structural_attribute)
-        n_any = len(aux_piped_any_attribute)
+        n_top_pipes = len(aux_topological_pipes)
+        n_str_pipes = len(aux_structural_pipes)
+        n_any_pipes = len(aux_any_pipes)
 
-        print(n_top, n_str, n_any)
-        print(aux_piped_topological_attribute)
-        print(aux_piped_structural_attribute)
-        print(aux_piped_any_attribute)
+        n_top_atts = len(aux_topological_attributes)
+        n_str_atts = len(aux_structural_attributes)
 
-        if n_top==0 and n_str==0:
+        output_systems = []
+        output_attributes = []
 
-            aux_molecular_system = molecular_system
+        if n_top_pipes==0 and n_str_pipes==0 and n_any_pipes==0:
 
-        elif n_top!=0 and n_str==0:
+            output_systems = None
+            output_attributes = None
 
-            if n_top == 1:
+        elif n_top_atts>0 and n_str_atts==0:
 
-                aux_molecular_system = convert(molecular_system, to_form=aux_piped_topological_attribute[0],
+            if n_top_pipes==1:
+
+                aux_molecular_system = convert(molecular_system, to_form=aux_topological_pipes[0],
                                                get_missing_bonds=bonds_required_by_attributes, skip_digestion=True)
 
             else:
@@ -307,27 +329,69 @@ def _piped_molecular_system(molecular_system, element, in_attributes):
                 aux_molecular_system = convert(molecular_system, to_form='molsysmt.Topology',
                                                get_missing_bonds=bonds_required_by_attributes, skip_digestion=True)
 
-        elif n_top==0 and n_str!=0:
+            output_systems.append(aux_molecular_system)
+            output_attributes.append(aux_topological_attributes)
 
-            if n_str == 1:
+        elif n_top_atts==0 and n_str_atts>0:
 
-                aux_molecular_system = convert(molecular_system, to_form=aux_piped_structural_attribute[0],
+            if n_str_pipes == 1:
+
+                aux_molecular_system = convert(molecular_system, to_form=aux_structural_pipes[0],
                                                skip_digestion=True)
 
             else:
 
                 aux_molecular_system = convert(molecular_system, to_form='molsysmt.Structures', skip_digestion=True)
 
+            output_systems.append(aux_molecular_system)
+            output_attributes.append(aux_structural_attributes)
+
         else:
 
-            if n_any == 1:
+            if n_any_pipes == 1:
 
                 aux_molecular_system = convert(molecular_system, to_form=aux_piped_any_attribute[0],
                                                get_missing_bonds=bonds_required_by_attributes, skip_digestion=True)
 
-            else:
+            elif n_any_pipes > 1:
 
                 aux_molecular_system = convert(molecular_system, to_form='molsysmt.MolSys',
                                                get_missing_bonds=bonds_required_by_attributes, skip_digestion=True)
 
-    return aux_molecular_system
+            elif n_any_pipes == 0:
+
+                if n_top_pipes == 1:
+
+                    aux_molecular_system = convert(molecular_system, to_form=aux_topological_pipes[0],
+                                                   get_missing_bonds=bonds_required_by_attributes, skip_digestion=True)
+
+                elif n_top_pipes > 1:
+
+                    aux_molecular_system = convert(molecular_system, to_form='molsysmt.Topology',
+                                                   get_missing_bonds=bonds_required_by_attributes, skip_digestion=True)
+
+                else:
+
+                    aux_molecular_system = None
+
+                output_systems.append(aux_molecular_system)
+                output_attributes.append(aux_topological_attributes)
+
+                if n_str_pipes == 1:
+
+                    aux_molecular_system = convert(molecular_system, to_form=aux_structural_pipes[0],
+                                                   skip_digestion=True)
+
+                elif n_str_pipes > 1:
+
+                    aux_molecular_system = convert(molecular_system, to_form='molsysmt.Structures', skip_digestion=True)
+
+                else:
+
+                    aux_molecular_system = None
+
+                output_systems.append(aux_molecular_system)
+                output_attributes.append(aux_structural_attributes)
+
+    return output_systems, output_attributes
+

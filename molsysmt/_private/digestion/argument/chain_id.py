@@ -1,5 +1,6 @@
 from ...exceptions import ArgumentError
 from ...variables import is_all
+from numpy import ndarray
 
 functions_with_boolean = (
         'molsysmt.basic.get.get',
@@ -7,10 +8,6 @@ functions_with_boolean = (
         'molsysmt.basic.iterator.__init__',
         'iterators.__init__',
         )
-
-set_functions = (
-        'set.set',
-        'set_chain_id_to_atom')
 
 def digest_chain_id(chain_id, caller=None):
     """Checks if `chain_id` has the expected type and value.
@@ -40,8 +37,8 @@ def digest_chain_id(chain_id, caller=None):
     if caller.endswith(functions_with_boolean):
         if isinstance(chain_id, bool):
             return chain_id
-    elif caller.endswith(set_functions):
-        if isinstance(chain_id, int):
+    elif 'set.set' in caller:
+        if isinstance(chain_id, (int, list, tuple, ndarray)):
             return chain_id
     elif caller=='molsysmt.build.define_new_chain.define_new_chain':
         if isinstance(chain_id, int):
@@ -51,5 +48,5 @@ def digest_chain_id(chain_id, caller=None):
     elif caller.startswith('molsysmt.form.') and caller.count('.to_')==2:
         return chain_id
 
-    raise ArgumentError('chain_id', caller=caller, message=None)
+    raise ArgumentError('chain_id', value=chain_id, caller=caller, message=None)
 

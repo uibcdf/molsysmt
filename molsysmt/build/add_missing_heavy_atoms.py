@@ -21,8 +21,8 @@ def add_missing_heavy_atoms(molecular_system, selection='all', syntax='MolSysMT'
                                    output_type='dictionary')
         atts_from_molecules = get(molecular_system, element='molecule', molecule_name=True,
                                   output_type='dictionary')
-        #atts_from_chains = get(molecular_system, element='chain', chain_id=True, chain_name=True,
-        #                       chain_type=True, output_type='dictionary')
+        atts_from_chains = get(molecular_system, element='chain', chain_id=True, chain_name=True,
+                               output_type='dictionary')
         atts_from_entities = get(molecular_system, element='entity', entity_name=True,
                                  output_type='dictionary')
 
@@ -44,17 +44,15 @@ def add_missing_heavy_atoms(molecular_system, selection='all', syntax='MolSysMT'
 
         temp_molecular_system.addMissingAtoms()
 
-        return temp_molecular_system
         output_molecular_system = convert(temp_molecular_system, to_form=form_out)
 
-        set(output_molecular_system, element='component', **atts_from_components)
-        set(output_molecular_system, element='molecule', **atts_from_molecules)
-        #set(output_molecular_system, element='chain', **atts_from_chains)
-        set(output_molecular_system, element='entity', **atts_from_entities)
+        set(output_molecular_system, element='component', **atts_from_components, skip_digestion=True)
+        set(output_molecular_system, element='molecule', **atts_from_molecules, skip_digestion=True)
+        set(output_molecular_system, element='chain', **atts_from_chains, skip_digestion=True)
+        set(output_molecular_system, element='entity', **atts_from_entities, skip_digestion=True)
 
         del(group_indices_in_selection, temp_molecular_system)
-        #del(atts_from_components, atts_from_molecules, atts_from_chains, atts_from_entities)
-        del(atts_from_components, atts_from_molecules, atts_from_entities)
+        del(atts_from_components, atts_from_molecules, atts_from_chains, atts_from_entities)
 
     else:
 
