@@ -112,7 +112,7 @@ del(output_pdb)
 #### Gromacs ####
 
 gromacs_top_path = '/usr/local/gromacs/share/gromacs/top' # nauta
-gromacs_top_path = '/usr/share/gromacs/top' # aleph
+#gromacs_top_path = '/usr/share/gromacs/top' # aleph
 
 forcefield_dirs = ['amber03.ff', 'amber94.ff', 'amber96.ff', 'amber99.ff', 'amber99sb.ff', 'amber99sb-ildn.ff', 'amberGS.ff',
                    'charmm27.ff', 'gromos43a1.ff', 'gromos43a2.ff', 'gromos45a3.ff', 'gromos53a5.ff', 'gromos53a6.ff',

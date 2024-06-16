@@ -15,6 +15,6 @@ def get_shape_from_box(box, skip_digestion=False):
         return None
     else:
 
-        lengths, angles = get_lengths_and_angles_from_box(box, skip_digestion=True)
-        return get_shape_from_lengths_and_angles(lengths, angles, skip_digestion=True)
+        angles = get_angles_from_box(box, skip_digestion=True)
+        return get_shape_from_angles(angles, skip_digestion=True)
 

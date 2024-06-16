@@ -7,7 +7,7 @@ def get_bonded_atom_pairs(group_name, atom_names, atom_indices=None, sorted=True
     from molsysmt.element.group.amino_acid import group_names, get_group_db
 
     if group_name not in group_names:
-        raise ValueError
+        return None
     
     if atom_indices is None:
         atom_indices = np.arange(len(atom_names), dtype=int).tolist()

@@ -86,10 +86,10 @@ def color_by_value(view, values, element='group', selection='all', cmap='bwr_r',
     norm = Normalize(vmin=min_value,vmax=max_value)
 
     if element=='group':
-        elements_selection = select(view, element='group', selection=selection, syntax=syntax, to_syntax='NGLview')
+        elements_selection = select(view, element='group', selection=selection, syntax=syntax, to_syntax='NGLView')
         scheme = _ColorScheme([[to_hex(cmap(norm(ii))), jj] for ii,jj in zip(values, elements_selection.split(' '))], label='user')
     elif element=='atom':
-        elements_selection = select(view, element='atom', selection=selection, syntax=syntax, to_syntax='NGLview')
+        elements_selection = select(view, element='atom', selection=selection, syntax=syntax, to_syntax='NGLView')
         scheme = _ColorScheme([[to_hex(cmap(norm(ii))), '@'+jj] for ii,jj in zip(values, elements_selection[1:].split(','))], label='user')
     else:
         raise ValueError()

@@ -29,7 +29,11 @@ def get_molecule_type(molecular_system, element='atom', selection='all',
         elif element == 'molecule':
             output = molecule_types_from_molecule
         else:
-            raise NotImplementedError
+            aux = get(molecular_system, element='chain', selection=selection, syntax=syntax,
+                      molecule_index=True)
+            output = []
+            for aux_mols_chain in aux:
+                output.append([molecule_types_from_molecule[ii] for ii in aux_mols_chain])
 
     elif redefine_types:
 

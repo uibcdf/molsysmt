@@ -6,7 +6,7 @@ from .get_lengths_from_box import get_lengths_from_box
 from .get_angles_from_box import get_angles_from_box
 from .get_lengths_and_angles_from_box import get_lengths_and_angles_from_box
 from .get_shape_from_box import get_shape_from_box
-from .get_shape_from_lengths_and_angles import get_shape_from_lengths_and_angles
+from .get_shape_from_angles import get_shape_from_angles
 from .get_volume_from_box import get_volume_from_box
 from .get_volume_from_lengths_and_angles import get_volume_from_lengths_and_angles
 from .has_pbc import has_pbc

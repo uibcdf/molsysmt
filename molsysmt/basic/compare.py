@@ -192,7 +192,7 @@ def compare(molecular_system, molecular_system_2, selection='all', structure_ind
                 'n_components', 'component_index', 'component_type',
                 'n_molecules', 'molecule_index', 'molecule_type',
                 'n_chains', 'chain_index', 'chain_id', 'chain_name', 'chain_type',
-                'n_bonds', 'bonded_atoms',
+                'n_bonds', 'bonded_atom_pairs',
                 ]
         for key in kwargs.keys():
             if not kwargs[key]:
@@ -204,679 +204,312 @@ def compare(molecular_system, molecular_system_2, selection='all', structure_ind
 
     atts_required = set(atts_to_be_compared) & set(atts_of_A) & set(atts_of_B)
 
-    molecular_system = _piped_molecular_system(molecular_system, 'atom', atts_required)
-    molecular_system_2 = _piped_molecular_system(molecular_system_2, 'atom', atts_required)
+    piped_system_A, piped_atts_A = _piped_molecular_system(molecular_system, 'atom', atts_required)
+    piped_system_B, piped_atts_B = _piped_molecular_system(molecular_system_2, 'atom', atts_required)
+
+    dict_A = {}
+    dict_B = {}
+
+    aux = [
+        ['atom', set(['n_atoms', 'atom_index', 'atom_id', 'atom_name', 'atom_type'])],
+        ['group', set(['n_groups', 'group_index', 'group_id', 'group_name', 'group_type'])],
+        ['component', set(['n_components', 'component_index', 'component_id', 'component_name', 'component_type'])],
+        ['molecule', set(['n_molecules', 'molecule_index', 'molecule_id', 'molecule_name', 'molecule_type'])],
+        ['chain', set(['n_chains', 'chain_index', 'chain_id', 'chain_name', 'chain_type'])],
+        ['entity', set(['n_entities', 'entity_index', 'entity_id', 'entity_name', 'entity_type'])],
+        ['bond',set(['n_bonds', 'bond_index', 'bond_id', 'bond_order', 'bond_type', 'bonded_atom_pairs'])],
+        ['atom', set(['inner_bonded_atom_pairs', 'inner_bond_index', 'n_inner_bonds'])],
+        ['atom',set(['coordinates', 'velocities'])],
+        ['system',set(['n_structures', 'structure_index', 'structure_id', 'box',
+                     'box_shape', 'box_angles', 'box_lengths', 'box_volume'])]
+    ]
+
+    for aux2 in aux:
+
+        element=aux2[0]
+        atts = atts_required & aux2[1]
+
+        if piped_system_A is None:
+            aux_molecular_system = molecular_system
+        else:
+            for aux_molecular_system, aux_atts in zip(piped_system_A, piped_atts_A):
+                if atts.issubset(aux_atts):
+                    break
+        dict_aux = get(aux_molecular_system, element=element, selection=selection,
+                       structure_indices=structure_indices, syntax=syntax,
+                       output_type='dictionary', **{ii:True for ii in atts})
+        dict_A.update(dict_aux)
+
+        if piped_system_B is None:
+            aux_molecular_system = molecular_system_2
+        else:
+            for aux_molecular_system, aux_atts in zip(piped_system_B, piped_atts_B):
+                if atts.issubset(aux_atts):
+                    break
+
+        dict_aux = get(aux_molecular_system, element=element, selection=selection_2,
+                       structure_indices=structure_indices_2, syntax=syntax,
+                       output_type='dictionary', **{ii:True for ii in atts})
+
+        dict_B.update(dict_aux)
 
     ######   EQUAL   #####
 
     if rule == 'equal':
 
-        ## n_atoms, atom_index, atom_name, atom_id, atom_type
+        if 'n_atoms' in atts_required:
+            output_dict['n_atoms']= (dict_A['n_atoms']==dict_B['n_atoms'])
 
-        atts = atts_required & set(['n_atoms', 'atom_index', 'atom_id', 'atom_name', 'atom_type'])
+        if 'atom_index' in atts_required:
+            output_dict['atom_index']= np.array_equal(dict_A['atom_index'], dict_B['atom_index'])
 
-        if len(atts)>0:
+        if 'atom_id' in atts_required:
+            output_dict['atom_id']= np.array_equal(dict_A['atom_id'], dict_B['atom_id'])
 
-            n_atoms_A = get(molecular_system, element='atom', selection=selection,
-                    syntax=syntax, n_atoms=True)
-            n_atoms_B = get(molecular_system, element='atom', selection=selection_2,
-                    syntax=syntax, n_atoms=True)
+        if 'atom_name' in atts_required:
+            output_dict['atom_name']= np.array_equal(dict_A['atom_name'], dict_B['atom_name'])
 
-            if n_atoms_A!=n_atoms_B:
+        if 'atom_type' in atts_required:
+            output_dict['atom_type']= np.array_equal(dict_A['atom_type'], dict_B['atom_type'])
 
-                for att in atts:
-                    output_dict[att]=False
+        if 'n_groups' in atts_required:
+            output_dict['n_groups']= (dict_A['n_groups']==dict_B['n_groups'])
 
-            else:
+        if 'group_index' in atts_required:
+            output_dict['group_index']= np.array_equal(dict_A['group_index'], dict_B['group_index'])
 
-                args = {ii:True for ii in atts if ii not in ['n_atoms', 'atom_index']}
+        if 'group_id' in atts_required:
+            output_dict['group_id']= np.array_equal(dict_A['group_id'], dict_B['group_id'])
 
-                dict_A = get(molecular_system, element='atom', selection=selection,
-                        syntax=syntax, output_type='dictionary', **args)
-                dict_B = get(molecular_system_2, element='atom', selection=selection_2,
-                        syntax=syntax, output_type='dictionary', **args)
+        if 'group_name' in atts_required:
+            output_dict['group_name']= np.array_equal(dict_A['group_name'], dict_B['group_name'])
 
-                if 'n_atoms' in atts:
-                    output_dict['n_atoms']= True
+        if 'group_type' in atts_required:
+            output_dict['group_type']= np.array_equal(dict_A['group_type'], dict_B['group_type'])
 
-                if 'atom_index' in atts:
-                    output_dict['atom_index']= True
+        if 'n_components' in atts_required:
+            output_dict['n_components']= (dict_A['n_components']==dict_B['n_components'])
 
-                if 'atom_id' in atts:
-                    output_dict['atom_id']= np.array_equal(dict_A['atom_id'], dict_B['atom_id'])
+        if 'component_index' in atts_required:
+            output_dict['component_index']= np.array_equal(dict_A['component_index'], dict_B['component_index'])
 
-                if 'atom_name' in atts:
-                    output_dict['atom_name']= np.array_equal(dict_A['atom_name'], dict_B['atom_name'])
+        if 'component_id' in atts_required:
+            output_dict['component_id']= np.array_equal(dict_A['component_id'], dict_B['component_id'])
 
-                if 'atom_type' in atts:
-                    output_dict['atom_type']= np.array_equal(dict_A['atom_type'], dict_B['atom_type'])
+        if 'component_name' in atts_required:
+            output_dict['component_name']= np.array_equal(dict_A['component_name'], dict_B['component_name'])
 
-                del(dict_A, dict_B)
+        if 'component_type' in atts_required:
+            output_dict['component_type']= np.array_equal(dict_A['component_type'], dict_B['component_type'])
 
-        ## n_groups, group_index, group_name, group_id, group_type
+        if 'n_molecules' in atts_required:
+            output_dict['n_molecules']= (dict_A['n_molecules']==dict_B['n_molecules'])
 
-        atts = atts_required & set(['n_groups', 'group_index', 'group_id', 'group_name', 'group_type'])
+        if 'molecule_index' in atts_required:
+            output_dict['molecule_index']= np.array_equal(dict_A['molecule_index'], dict_B['molecule_index'])
 
-        if len(atts)>0:
+        if 'molecule_id' in atts_required:
+            output_dict['molecule_id']= np.array_equal(dict_A['molecule_id'], dict_B['molecule_id'])
 
-            n_groups_A = get(molecular_system, element='group', selection=selection,
-                    syntax=syntax, n_groups=True)
-            n_groups_B = get(molecular_system_2, element='group', selection=selection_2,
-                    syntax=syntax, n_groups=True)
+        if 'molecule_name' in atts_required:
+            output_dict['molecule_name']= np.array_equal(dict_A['molecule_name'], dict_B['molecule_name'])
 
-            if n_groups_A!=n_groups_B:
+        if 'molecule_type' in atts_required:
+            output_dict['molecule_type']= np.array_equal(dict_A['molecule_type'], dict_B['molecule_type'])
 
-                for att in atts:
-                    output_dict[att]=False
+        if 'n_chains' in atts_required:
+            output_dict['n_chains']= (dict_A['n_chains']==dict_B['n_chains'])
 
-            else:
+        if 'chain_index' in atts_required:
+            output_dict['chain_index']= np.array_equal(dict_A['chain_index'], dict_B['chain_index'])
 
-                if ('atom_index' in atts_of_A) and ('atom_index' in atts_of_B):
+        if 'chain_id' in atts_required:
+            output_dict['chain_id']= np.array_equal(dict_A['chain_id'], dict_B['chain_id'])
 
-                    args = {ii:True for ii in atts if ii not in ['n_groups']}
+        if 'chain_name' in atts_required:
+            output_dict['chain_name']= np.array_equal(dict_A['chain_name'], dict_B['chain_name'])
 
-                    dict_A = get(molecular_system, element='atom', selection=selection,
-                            syntax=syntax, output_type='dictionary', **args)
-                    dict_B = get(molecular_system_2, element='atom', selection=selection_2,
-                            syntax=syntax, output_type='dictionary', **args)
+        if 'chain_type' in atts_required:
+            output_dict['chain_type']= np.array_equal(dict_A['chain_type'], dict_B['chain_type'])
 
-                    if 'n_groups' in atts:
-                        output_dict['n_groups']= (n_groups_A==n_groups_B)
+        if 'n_entities' in atts_required:
+            output_dict['n_entities']= (dict_A['n_entities']==dict_B['n_entities'])
 
-                    if 'group_index' in atts:
-                        output_dict['group_index']= np.array_equal(dict_A['group_index'], dict_B['group_index'])
+        if 'entity_index' in atts_required:
+            output_dict['entity_index']= np.array_equal(dict_A['entity_index'], dict_B['entity_index'])
 
-                    if 'group_id' in atts:
-                        output_dict['group_id']= np.array_equal(dict_A['group_id'], dict_B['group_id'])
+        if 'entity_id' in atts_required:
+            output_dict['entity_id']= np.array_equal(dict_A['entity_id'], dict_B['entity_id'])
 
-                    if 'group_name' in atts:
-                        output_dict['group_name']= np.array_equal(dict_A['group_name'], dict_B['group_name'])
+        if 'entity_name' in atts_required:
+            output_dict['entity_name']= np.array_equal(dict_A['entity_name'], dict_B['entity_name'])
 
-                    if 'group_type' in atts:
-                        output_dict['group_type']= np.array_equal(dict_A['group_type'], dict_B['group_type'])
-
-                    del(dict_A, dict_B)
-
-
-                else:
-
-                    args = {ii:True for ii in atts if ii not in ['n_groups']}
-
-                    dict_A = get(molecular_system, element='group', selection=selection,
-                            syntax=syntax, output_type='dictionary', **args)
-                    dict_B = get(molecular_system_2, element='group', selection=selection_2,
-                            syntax=syntax, output_type='dictionary', **args)
-
-                    if 'n_groups' in atts:
-                        output_dict['n_groups']= (n_groups_A==n_groups_B)
-
-                    if 'group_index' in atts:
-                        output_dict['group_index']= np.array_equal(dict_A['group_index'], dict_B['group_index'])
-
-                    if 'group_id' in atts:
-                        output_dict['group_id']= np.array_equal(dict_A['group_id'], dict_B['group_id'])
-
-                    if 'group_name' in atts:
-                        output_dict['group_name']= np.array_equal(dict_A['group_name'], dict_B['group_name'])
-
-                    if 'group_type' in atts:
-                        output_dict['group_type']= np.array_equal(dict_A['group_type'], dict_B['group_type'])
-
-                    del(dict_A, dict_B)
-
-        ## n_components, component_index, component_name, component_id, component_type
-
-        atts = atts_required & set(['n_components', 'component_index', 'component_id', 'component_name', 'component_type'])
-
-        if len(atts)>0:
-
-            n_components_A = get(molecular_system, element='component', selection=selection,
-                    syntax=syntax, n_components=True)
-            n_components_B = get(molecular_system_2, element='component', selection=selection_2,
-                    syntax=syntax, n_components=True)
-
-            if n_components_A!=n_components_B:
-
-                for att in atts:
-                    output_dict[att]=False
-
-            else:
-
-                if ('atom_index' in atts_of_A) and ('atom_index' in atts_of_B):
-
-                    args = {ii:True for ii in atts if ii not in ['n_components']}
-
-                    dict_A = get(molecular_system, element='component', selection=selection,
-                            syntax=syntax, output_type='dictionary', **args)
-                    dict_B = get(molecular_system_2, element='component', selection=selection_2,
-                            syntax=syntax, output_type='dictionary', **args)
-
-                    if 'n_components' in atts:
-                        output_dict['n_components']= (n_components_A==n_components_B)
-
-                    if 'component_index' in atts:
-                        output_dict['component_index']= np.array_equal(dict_A['component_index'], dict_B['component_index'])
-
-                    if 'component_id' in atts:
-                        output_dict['component_id']= np.array_equal(dict_A['component_id'], dict_B['component_id'])
-
-                    if 'component_name' in atts:
-                        output_dict['component_name']= np.array_equal(dict_A['component_name'], dict_B['component_name'])
-
-                    if 'component_type' in atts:
-                        output_dict['component_type']= np.array_equal(dict_A['component_type'], dict_B['component_type'])
-
-                    del(dict_A, dict_B)
-
-
-                else:
-
-                    args = {ii:True for ii in atts if ii not in ['n_components']}
-
-                    dict_A = get(molecular_system, element='component', selection=selection,
-                            syntax=syntax, output_type='dictionary', **args)
-                    dict_B = get(molecular_system_2, element='component', selection=selection_2,
-                            syntax=syntax, output_type='dictionary', **args)
-
-                    if 'n_components' in atts:
-                        output_dict['n_components']= (n_components_A==n_components_B)
-
-                    if 'component_index' in atts:
-                        output_dict['component_index']= np.array_equal(dict_A['component_index'], dict_B['component_index'])
-
-                    if 'component_id' in atts:
-                        output_dict['component_id']= np.array_equal(dict_A['component_id'], dict_B['component_id'])
-
-                    if 'component_name' in atts:
-                        output_dict['component_name']= np.array_equal(dict_A['component_name'], dict_B['component_name'])
-
-                    if 'component_type' in atts:
-                        output_dict['component_type']= np.array_equal(dict_A['component_type'], dict_B['component_type'])
-
-                    del(dict_A, dict_B)
-
-        ## n_molecules, molecule_index, molecule_name, molecule_id, molecule_type
-
-        atts = atts_required & set(['n_molecules', 'molecule_index', 'molecule_id', 'molecule_name', 'molecule_type'])
-
-        if len(atts)>0:
-
-            n_molecules_A = get(molecular_system, element='molecule', selection=selection,
-                    syntax=syntax, n_molecules=True)
-            n_molecules_B = get(molecular_system_2, element='molecule', selection=selection_2,
-                    syntax=syntax, n_molecules=True)
-
-            if n_molecules_A!=n_molecules_B:
-
-                for att in atts:
-                    output_dict[att]=False
-
-            else:
-
-                if ('atom_index' in atts_of_A) and ('atom_index' in atts_of_B):
-
-                    args = {ii:True for ii in atts if ii not in ['n_molecules']}
-
-                    dict_A = get(molecular_system, element='molecule', selection=selection,
-                            syntax=syntax, output_type='dictionary', **args)
-                    dict_B = get(molecular_system_2, element='molecule', selection=selection_2,
-                            syntax=syntax, output_type='dictionary', **args)
-
-                    if 'n_molecules' in atts:
-                        output_dict['n_molecules']= (n_molecules_A==n_molecules_B)
-
-                    if 'molecule_index' in atts:
-                        output_dict['molecule_index']= np.array_equal(dict_A['molecule_index'], dict_B['molecule_index'])
-
-                    if 'molecule_id' in atts:
-                        output_dict['molecule_id']= np.array_equal(dict_A['molecule_id'], dict_B['molecule_id'])
-
-                    if 'molecule_name' in atts:
-                        output_dict['molecule_name']= np.array_equal(dict_A['molecule_name'], dict_B['molecule_name'])
-
-                    if 'molecule_type' in atts:
-                        output_dict['molecule_type']= np.array_equal(dict_A['molecule_type'], dict_B['molecule_type'])
-
-                    del(dict_A, dict_B)
-
-
-                else:
-
-                    args = {ii:True for ii in atts if ii not in ['n_molecules']}
-
-                    dict_A = get(molecular_system, element='molecule', selection=selection,
-                            syntax=syntax, output_type='dictionary', **args)
-                    dict_B = get(molecular_system_2, element='molecule', selection=selection_2,
-                            syntax=syntax, output_type='dictionary', **args)
-
-                    if 'n_molecules' in atts:
-                        output_dict['n_molecules']= (n_molecules_A==n_molecules_B)
-
-                    if 'molecule_index' in atts:
-                        output_dict['molecule_index']= np.array_equal(dict_A['molecule_index'], dict_B['molecule_index'])
-
-                    if 'molecule_id' in atts:
-                        output_dict['molecule_id']= np.array_equal(dict_A['molecule_id'], dict_B['molecule_id'])
-
-                    if 'molecule_name' in atts:
-                        output_dict['molecule_name']= np.array_equal(dict_A['molecule_name'], dict_B['molecule_name'])
-
-                    if 'molecule_type' in atts:
-                        output_dict['molecule_type']= np.array_equal(dict_A['molecule_type'], dict_B['molecule_type'])
-
-                    del(dict_A, dict_B)
-
-        ## n_chains, chain_index, chain_name, chain_id, chain_type
-
-        atts = atts_required & set(['n_chains', 'chain_index', 'chain_id', 'chain_name', 'chain_type'])
-
-        if len(atts)>0:
-
-            n_chains_A = get(molecular_system, element='chain', selection=selection,
-                    syntax=syntax, n_chains=True)
-            n_chains_B = get(molecular_system_2, element='chain', selection=selection_2,
-                    syntax=syntax, n_chains=True)
-
-            if n_chains_A!=n_chains_B:
-
-                for att in atts:
-                    output_dict[att]=False
-
-            else:
-
-                if ('atom_index' in atts_of_A) and ('atom_index' in atts_of_B):
-
-                    args = {ii:True for ii in atts if ii not in ['n_chains']}
-
-                    dict_A = get(molecular_system, element='chain', selection=selection,
-                            syntax=syntax, output_type='dictionary', **args)
-                    dict_B = get(molecular_system_2, element='chain', selection=selection_2,
-                            syntax=syntax, output_type='dictionary', **args)
-
-                    if 'n_chains' in atts:
-                        output_dict['n_chains']= (n_chains_A==n_chains_B)
-
-                    if 'chain_index' in atts:
-                        output_dict['chain_index']= np.array_equal(dict_A['chain_index'], dict_B['chain_index'])
-
-                    if 'chain_id' in atts:
-                        output_dict['chain_id']= np.array_equal(dict_A['chain_id'], dict_B['chain_id'])
-
-                    if 'chain_name' in atts:
-                        output_dict['chain_name']= np.array_equal(dict_A['chain_name'], dict_B['chain_name'])
-
-                    if 'chain_type' in atts:
-                        output_dict['chain_type']= np.array_equal(dict_A['chain_type'], dict_B['chain_type'])
-
-                    del(dict_A, dict_B)
-
-
-                else:
-
-                    args = {ii:True for ii in atts if ii not in ['n_chains']}
-
-                    dict_A = get(molecular_system, element='chain', selection=selection,
-                            syntax=syntax, output_type='dictionary', **args)
-                    dict_B = get(molecular_system_2, element='chain', selection=selection_2,
-                            syntax=syntax, output_type='dictionary', **args)
-
-                    if 'n_chains' in atts:
-                        output_dict['n_chains']= (n_chains_A==n_chains_B)
-
-                    if 'chain_index' in atts:
-                        output_dict['chain_index']= np.array_equal(dict_A['chain_index'], dict_B['chain_index'])
-
-                    if 'chain_id' in atts:
-                        output_dict['chain_id']= np.array_equal(dict_A['chain_id'], dict_B['chain_id'])
-
-                    if 'chain_name' in atts:
-                        output_dict['chain_name']= np.array_equal(dict_A['chain_name'], dict_B['chain_name'])
-
-                    if 'chain_type' in atts:
-                        output_dict['chain_type']= np.array_equal(dict_A['chain_type'], dict_B['chain_type'])
-
-                    del(dict_A, dict_B)
-
-        ## n_entities, entity_index, entity_name, entity_id, entity_type
-
-        atts = atts_required & set(['n_entities', 'entity_index', 'entity_id', 'entity_name', 'entity_type'])
-
-        if len(atts)>0:
-
-            n_entities_A = get(molecular_system, element='entity', selection=selection,
-                    syntax=syntax, n_entities=True)
-            n_entities_B = get(molecular_system_2, element='entity', selection=selection_2,
-                    syntax=syntax, n_entities=True)
-
-            if n_entities_A!=n_entities_B:
-
-                for att in atts:
-                    output_dict[att]=False
-
-            else:
-
-                if ('atom_index' in atts_of_A) and ('atom_index' in atts_of_B):
-
-                    args = {ii:True for ii in atts if ii not in ['n_entities']}
-
-                    dict_A = get(molecular_system, element='entity', selection=selection,
-                            syntax=syntax, output_type='dictionary', **args)
-                    dict_B = get(molecular_system_2, element='entity', selection=selection_2,
-                            syntax=syntax, output_type='dictionary', **args)
-
-                    if 'n_entities' in atts:
-                        output_dict['n_entities']= (n_entities_A==n_entities_B)
-
-                    if 'entity_index' in atts:
-                        output_dict['entity_index']= np.array_equal(dict_A['entity_index'], dict_B['entity_index'])
-
-                    if 'entity_id' in atts:
-                        output_dict['entity_id']= np.array_equal(dict_A['entity_id'], dict_B['entity_id'])
-
-                    if 'entity_name' in atts:
-                        output_dict['entity_name']= np.array_equal(dict_A['entity_name'], dict_B['entity_name'])
-
-                    if 'entity_type' in atts:
-                        output_dict['entity_type']= np.array_equal(dict_A['entity_type'], dict_B['entity_type'])
-
-                    del(dict_A, dict_B)
-
-
-                else:
-
-                    args = {ii:True for ii in atts if ii not in ['n_entities']}
-
-                    dict_A = get(molecular_system, element='entity', selection=selection,
-                            syntax=syntax, output_type='dictionary', **args)
-                    dict_B = get(molecular_system_2, element='entity', selection=selection_2,
-                            syntax=syntax, output_type='dictionary', **args)
-
-                    if 'n_entities' in atts:
-                        output_dict['n_entities']= (n_entities_A==n_entities_B)
-
-                    if 'entity_index' in atts:
-                        output_dict['entity_index']= np.array_equal(dict_A['entity_index'], dict_B['entity_index'])
-
-                    if 'entity_id' in atts:
-                        output_dict['entity_id']= np.array_equal(dict_A['entity_id'], dict_B['entity_id'])
-
-                    if 'entity_name' in atts:
-                        output_dict['entity_name']= np.array_equal(dict_A['entity_name'], dict_B['entity_name'])
-
-                    if 'entity_type' in atts:
-                        output_dict['entity_type']= np.array_equal(dict_A['entity_type'], dict_B['entity_type'])
-
-                    del(dict_A, dict_B)
-
-
-        ## n_bonds, bond_index, bond_order, bond_id, bond_type
-        ## bonded_atoms, inner_bonded_atoms, inner_bond_index
-        ## n_inner_bonds
+        if 'entity_type' in atts_required:
+            output_dict['entity_type']= np.array_equal(dict_A['entity_type'], dict_B['entity_type'])
 
         atts = atts_required & set(['n_bonds', 'bond_index', 'bond_id', 'bond_order', 'bond_type',
-            'bonded_atoms', 'inner_bonded_atoms', 'inner_bond_index', 'n_inner_bonds'])
+            'bonded_atom_pairs'])
 
         if len(atts)>0:
 
-            n_bonds_A = get(molecular_system, element='bond', selection=selection,
-                    syntax=syntax, n_bonds=True)
-            n_bonds_B = get(molecular_system_2, element='bond', selection=selection_2,
-                    syntax=syntax, n_bonds=True)
+            if 'bonded_atom_pairs' not in atts:
 
-            if n_bonds_A!=n_bonds_B:
-
-                for att in atts:
-                    output_dict[att]=False
+                atom_pairs_A = get(molecular_system, element='bond', selection=selection,
+                                     syntax=syntax, bonded_atom_pairs=True)
+                atom_pairs_B = get(molecular_system_2, element='bond', selection=selection_2,
+                        syntax=syntax, bonded_atom_pairs=True)
 
             else:
 
-                args = {ii:True for ii in atts if ii in ['n_bonds', 'bonded_atoms', 'bond_index',
-                    'bond_id', 'bond_order', 'bond_type']}
+                atom_pairs_A = dict_A['bonded_atom_pairs']
+                atom_pairs_B = dict_B['bonded_atom_pairs']
 
-                if len(args)>0:
+            atom_pairs_A = np.array(atom_pairs_A)
+            atom_pairs_B = np.array(atom_pairs_B)
 
-                    if 'bonded_atoms' not in args:
-                        args['bonded_atoms']=True
+            order_in_A = np.lexsort((atom_pairs_A[:, 1], atom_pairs_A[:, 0])).tolist()
+            order_in_B = np.lexsort((atom_pairs_B[:, 1], atom_pairs_B[:, 0])).tolist()
 
-                    dict_A = get(molecular_system, element='bond', selection=selection,
-                            syntax=syntax, output_type='dictionary', **args)
-                    dict_B = get(molecular_system_2, element='bond', selection=selection_2,
-                            syntax=syntax, output_type='dictionary', **args)
+            if 'n_bonds' in atts:
+                output_dict['n_bonds']= (dict_A['n_bonds']==dict_B['n_bonds'])
 
-                    atoms_pairs_A = np.array(dict_A['bonded_atoms'])
-                    atoms_pairs_B = np.array(dict_B['bonded_atoms'])
-                    order_in_A = np.lexsort((atoms_pairs_A[:, 1], atoms_pairs_A[:, 0])).tolist()
-                    order_in_B = np.lexsort((atoms_pairs_B[:, 1], atoms_pairs_B[:, 0])).tolist()
+            if 'bond_index' in atts:
+                tmp_A = [dict_A['bond_index'][ii] for ii in order_in_A]
+                tmp_B = [dict_B['bond_index'][ii] for ii in order_in_B]
+                output_dict['bond_index']= np.array_equal(tmp_A, tmp_B)
+                del tmp_A, tmp_B
 
-                    if 'n_bonds' in atts:
-                        output_dict['n_bonds']= (n_bonds_A==n_bonds_B)
+            if 'bond_id' in atts:
+                tmp_A = [dict_A['bond_id'][ii] for ii in order_in_A]
+                tmp_B = [dict_B['bond_id'][ii] for ii in order_in_B]
+                output_dict['bond_id']= np.array_equal(tmp_A, tmp_B)
+                del tmp_A, tmp_B
 
-                    if 'bond_index' in atts:
-                        tmp_A = [dict_A['bond_index'][ii] for ii in order_in_A]
-                        tmp_B = [dict_B['bond_index'][ii] for ii in order_in_B]
-                        output_dict['bond_index']= np.array_equal(tmp_A, tmp_B)
-                        del tmp_A, tmp_B
+            if 'bond_order' in atts:
+                if (dict_A['bond_order'] is not None) and (dict_B['bond_order'] is not None):
+                    tmp_A = [dict_A['bond_order'][ii] for ii in order_in_A]
+                    tmp_B = [dict_B['bond_order'][ii] for ii in order_in_B]
+                    output_dict['bond_order']= np.array_equal(tmp_A, tmp_B)
+                    del tmp_A, tmp_B
+                elif (dict_A['bond_order'] is None) and (dict_B['bond_order'] is None):
+                    output_dict['bond_order'] = True
+                else:
+                    output_dict['bond_order'] = False
 
-                    if 'bond_id' in atts:
-                        tmp_A = [dict_A['bond_id'][ii] for ii in order_in_A]
-                        tmp_B = [dict_B['bond_id'][ii] for ii in order_in_B]
-                        output_dict['bond_id']= np.array_equal(tmp_A, tmp_B)
-                        del tmp_A, tmp_B
+            if 'bond_type' in atts:
+                if (dict_A['bond_type'] is not None) and (dict_B['bond_type'] is not None):
+                    tmp_A = [dict_A['bond_type'][ii] for ii in order_in_A]
+                    tmp_B = [dict_B['bond_type'][ii] for ii in order_in_B]
+                    output_dict['bond_type']= np.array_equal(tmp_A, tmp_B)
+                    del tmp_A, tmp_B
+                elif (dict_A['bond_type'] is None) and (dict_B['bond_type'] is None):
+                    output_dict['bond_type'] = True
+                else:
+                    output_dict['bond_type'] = False
 
-                    if 'bond_order' in atts:
-                        if (dict_A['bond_order'] is not None) and (dict_B['bond_order'] is not None):
-                            tmp_A = [dict_A['bond_order'][ii] for ii in order_in_A]
-                            tmp_B = [dict_B['bond_order'][ii] for ii in order_in_B]
-                            output_dict['bond_order']= np.array_equal(tmp_A, tmp_B)
-                            del tmp_A, tmp_B
-                        elif (dict_A['bond_order'] is None) and (dict_B['bond_order'] is None):
-                            output_dict['bond_order'] = True
-                        else:
-                            output_dict['bond_order'] = False
+            if 'bonded_atom_pairs' in atts:
+                tmp_A = [dict_A['bonded_atom_pairs'][ii] for ii in order_in_A]
+                tmp_B = [dict_B['bonded_atom_pairs'][ii] for ii in order_in_B]
+                output_dict['bonded_atom_pairs']= np.array_equal(tmp_A, tmp_B)
+                del tmp_A, tmp_B
 
-                    if 'bond_type' in atts:
-                        if (dict_A['bond_type'] is not None) and (dict_B['bond_type'] is not None):
-                            tmp_A = [dict_A['bond_type'][ii] for ii in order_in_A]
-                            tmp_B = [dict_B['bond_type'][ii] for ii in order_in_B]
-                            output_dict['bond_type']= np.array_equal(tmp_A, tmp_B)
-                            del tmp_A, tmp_B
-                        elif (dict_A['bond_type'] is None) and (dict_B['bond_type'] is None):
-                            output_dict['bond_type'] = True
-                        else:
-                            output_dict['bond_type'] = False
+            del(order_in_A, order_in_B, atom_pairs_A, atom_pairs_B)
 
-                    if 'bonded_atoms' in atts:
-                        tmp_A = [dict_A['bonded_atoms'][ii] for ii in order_in_A]
-                        tmp_B = [dict_B['bonded_atoms'][ii] for ii in order_in_B]
-                        output_dict['bonded_atoms']= np.array_equal(tmp_A, tmp_B)
-                        del tmp_A, tmp_B
+        atts = atts_required & set(['inner_bonded_atom_pairs', 'inner_bond_index', 'n_inner_bonds'])
 
-                    del(dict_A, dict_B)
+        if len(atts)>0:
 
-                args = {ii:True for ii in atts if ii in ['inner_bonded_atoms', 'inner_bond_index', 'n_inner_bonds']}
+            if 'inner_bonded_atom_pairs' not in atts:
 
-                if len(args)>0:
+                atom_pairs_A = get(molecular_system, element='atom', selection=selection,
+                                     syntax=syntax, inner_bonded_atom_pairs=True)
+                atom_pairs_B = get(molecular_system_2, element='atom', selection=selection_2,
+                        syntax=syntax, inner_bonded_atom_pairs=True)
 
-                    if 'inner_bonded_atoms' not in args:
-                        args['inner_bonded_atoms']=True
+            else:
 
-                    need_inner = True
+                atom_pairs_A = dict_A['inner_bonded_atom_pairs']
+                atom_pairs_B = dict_B['inner_bonded_atom_pairs']
 
-                    if is_all(selection) and is_all(selection_2):
+            atom_pairs_A = np.array(atom_pairs_A)
+            atom_pairs_B = np.array(atom_pairs_B)
+            order_in_A = np.lexsort((atom_pairs_A[:, 1], atom_pairs_A[:, 0])).tolist()
+            order_in_B = np.lexsort((atom_pairs_B[:, 1], atom_pairs_B[:, 0])).tolist()
 
-                        need_inner = False
+            if 'n_inner_bonds' in atts:
+                output_dict['n_inner_bonds']= (dict_A['n_inner_bonds'] == dict_B['n_inner_bonds'])
 
-                        if (need_inner==False) and ('n_inner_bonds' in atts):
-                            if 'n_bonds' in atts:
-                                output_dict['n_inner_bonds']=output_dict['n_bonds']
-                            else:
-                                need_inner = True
+            if 'inner_bond_index' in atts:
+                if len(dict_A['inner_bond_index'])==len(dict_B['inner_bond_index']):
+                    aux = [ii==jj for ii,jj in zip(dict_A['inner_bond_index'], dict_B['inner_bond_index'])]
+                    output_dict['inner_bond_index']= all(aux)
+                else:
+                    output_dict['inner_bond_index']= False
 
-                        if (need_inner==False) and ('inner_bond_index' in atts):
-                            if 'bond_index' in atts:
-                                output_dict['inner_bond_index']=output_dict['bond_index']
-                            else:
-                                need_inner = True
 
-                        if (need_inner==False) and ('inner_bonded_atoms' in atts):
-                            if 'bonded_atoms' in atts:
-                                output_dict['inner_bonded_atoms']=output_dict['bonded_atoms']
-                            else:
-                                need_inner = True
-
-                    if need_inner:
-
-                        dict_A = get(molecular_system, element='atom', selection=selection,
-                                syntax=syntax, output_type='dictionary', **args)
-                        dict_B = get(molecular_system_2, element='atom', selection=selection_2,
-                                syntax=syntax, output_type='dictionary', **args)
-
-                        atoms_pairs_A = dict_A['inner_bonded_atoms']
-                        atoms_pairs_B = dict_B['inner_bonded_atoms']
-                        order_in_A = np.lexsort((atoms_pairs_A[:, 1], atoms_pairs_A[:, 0]))
-                        order_in_B = np.lexsort((atoms_pairs_B[:, 1], atoms_pairs_B[:, 0]))
-
-                        if 'n_inner_bonds' in atts:
-                            output_dict['n_inner_bonds']= (dict_A['n_inner_bonds'] == dict_B['n_inner_bonds'])
-
-                        if 'inner_bond_index' in atts:
-                            output_dict['inner_bond_index']= np.array_equal(dict_A['inner_bond_index'], dict_B['inner_bond_index'])
-
-                        if 'inner_bonded_atoms' in atts:
-                            output_dict['inner_bonded_atoms']= np.array_equal(dict_A['inner_bonded_atoms'][order_in_A], dict_B['inner_bonded_atoms'][order_in_B])
-
-                        del(dict_A, dict_B)
+            if 'inner_bonded_atom_pairs' in atts:
+                tmp_A = [dict_A['inner_bonded_atom_pairs'][ii] for ii in order_in_A]
+                tmp_B = [dict_B['inner_bonded_atom_pairs'][ii] for ii in order_in_B]
+                output_dict['inner_bonded_atom_pairs']= np.array_equal(tmp_A, tmp_B)
 
         ## n_structures, structure_index, structure_id, coordinates, velocities, box
 
-        atts = atts_required & set(['n_structures', 'structure_index', 'structure_id',
-            'coordinates', 'velocities', 'box', 'box_shape', 'box_angles', 'box_lengths',
-            'box_volume'])
+        if 'n_structures' in atts_required:
+            output_dict['n_structures']= (dict_A['n_structures']==dict_B['n_structures'])
 
-        if len(atts)>0:
+        if 'structure_index' in atts_required:
+            output_dict['structure_index']= np.array_equal(dict_A['structure_index'], dict_B['structure_index'])
 
-            n_structures_A = get(molecular_system, element='system',
-                    structure_indices=structure_indices, syntax=syntax, n_structures=True)
+        if 'structure_id' in atts_required:
+            output_dict['structure_id']= np.array_equal(dict_A['structure_id'], dict_B['structure_id'])
 
-            n_structures_B = get(molecular_system_2, element='system',
-                    structure_indices=structure_indices_2, syntax=syntax, n_structures=True)
-
-            if n_structures_A!=n_structures_B:
-
-                for att in atts:
-                    output_dict[att]=False
-
+        if 'coordinates' in atts_required:
+            
+            if dict_A['coordinates'] is None:
+                if dict_B['coordinates'] is None:
+                    output_dict['coordinates']=True
+                else:
+                    output_dict['coordinates']=False
             else:
-
-                args = {ii:True for ii in atts if ii in ['n_structures', 'structure_indices']}
-
-                if len(args)>0:
-
-                    dict_A = get(molecular_system, element='system',
-                            structure_indices=structure_indices, output_type='dictionary', **args)
-                    dict_B = get(molecular_system_2, element='system',
-                            structure_indices=structure_indices_2, output_type='dictionary', **args)
-
-                    if 'n_structures' in atts:
-                        output_dict['n_structures']= (n_structures_A==n_structures_B)
-
-                    if 'structure_index' in atts:
-                        output_dict['structure_index']= np.array_equal(dict_A['structure_index'], dict_B['structure_index'])
-
-                    if 'structure_id' in atts:
-                        output_dict['structure_id']= np.array_equal(dict_A['structure_id'], dict_B['structure_id'])
-
-                    del(dict_A, dict_B)
-
-                args = {ii:True for ii in atts if ii in ['coordinates', 'velocities']}
-
-                if len(args)>0:
-
-                    n_atoms_A = get(molecular_system, element='atom', selection=selection,
-                            syntax=syntax, n_atoms=True)
-                    n_atoms_B = get(molecular_system_2, element='atom', selection=selection_2,
-                            syntax=syntax, n_atoms=True)
-
-                    if n_atoms_A!=n_atoms_B:
-
-                        if 'coordinates' in atts:
-                            output_dict['coordinates']=False
-
-                        if 'velocities' in atts:
-                            output_dict['velocities']=False
-
+                if dict_B['coordinates'] is None:
+                    output_dict['coordinates']=False
+                else:
+                    if dict_A['coordinates'].shape == dict_B['coordinates'].shape:
+                        output_dict['coordinates'] = np.allclose(dict_A['coordinates'], dict_B['coordinates'])
                     else:
+                        output_dict['coordinates'] = False
 
-                        dict_A = get(molecular_system, element='atom', selection=selection,
-                                structure_indices=structure_indices, syntax=syntax, output_type='dictionary', **args)
-                        dict_B = get(molecular_system_2, element='atom', selection=selection_2,
-                                structure_indices=structure_indices_2, syntax=syntax, output_type='dictionary', **args)
-
-                        if 'coordinates' in atts:
-
-                            if dict_A['coordinates'] is None:
-                                if dict_B['coordinates'] is None:
-                                    output_dict['coordinates']=True
-                                else:
-                                    output_dict['coordinates']=False
-                            else:
-                                if dict_B['coordinates'] is None:
-                                    output_dict['coordinates']=False
-                                else:
-                                    output_dict['coordinates'] = np.allclose(dict_A['coordinates'], dict_B['coordinates'])
-
-                        if 'velocities' in atts:
-                            if dict_A['velocities'] is None:
-                                if dict_B['velocities'] is None:
-                                    output_dict['velocities']=True
-                                else:
-                                    output_dict['velocities']=False
-                            else:
-                                if dict_B['velocities'] is None:
-                                    output_dict['velocities']=False
-                                else:
-                                    output_dict['velocities'] = np.allclose(dict_A['velocities'], dict_B['velocities'])
-
-                        del(dict_A, dict_B)
-
-                args = {ii:True for ii in atts if ii in ['box', 'box_shape', 'box_volume',
-                    'box_lengths', 'box_angles', 'box_volume']}
-
-                if len(args)>0:
-
-                    box_A = get(molecular_system, element='system',
-                            structure_indices=structure_indices, box=True)
-                    box_B = get(molecular_system_2, element='system',
-                            structure_indices=structure_indices_2, box=True)
-
-                    equal_box = False
-                    if box_A is None:
-                        if box_B is None:
-                            equal_box = True
-                        else:
-                            equal_box = False
+        if 'velocities' in atts:
+            if dict_A['velocities'] is None:
+                if dict_B['velocities'] is None:
+                    output_dict['velocities']=True
+                else:
+                    output_dict['velocities']=False
+            else:
+                if dict_B['velocities'] is None:
+                    output_dict['velocities']=False
+                else:
+                    if dict_A['velocities'].shape == dict_B['velocities'].shape:
+                        output_dict['velocities'] = np.allclose(dict_A['velocities'], dict_B['velocities'])
                     else:
-                        if box_B is None:
-                            equal_box = False
-                        else:
-                            equal_box = np.allclose(box_A, box_B)
+                        output_dict['velocities'] = False
 
-                    if 'box' in atts:
-                        output_dict['box']=equal_box
+        if 'box' in atts_required:
 
-                    if 'box_shape' in atts:
-                        output_dict['box_shape']=equal_box
+            output_dict['box']= np.allclose(dict_A['box'], dict_B['box'])
 
-                    if 'box_volume' in atts:
-                        output_dict['box_volume']=equal_box
+        if 'box_shape' in atts_required:
+            output_dict['box_shape']= (dict_A['box_shape']==dict_B['box_shape'])
 
-                    if 'box_lengths' in atts:
-                        output_dict['box_lengths']=equal_box
+        if 'box_volume' in atts:
+            output_dict['box_volume']=(dict_A['box_volume']==dict_B['box_volume'])
 
-                    if 'box_angles' in atts:
-                        output_dict['box_angles']=equal_box
+        if 'box_lengths' in atts:
+            output_dict['box_lengths']=np.allclose(dict_A['box_lengths'], dict_B['box_lengths'])
 
-                    del(box_A, box_B)
+        if 'box_angles' in atts:
+            output_dict['box_angles']=np.allclose(dict_A['box_angles'], dict_B['box_angles'])
+
 
     elif rule == 'in':
 

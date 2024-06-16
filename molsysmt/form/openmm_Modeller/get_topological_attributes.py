@@ -3829,7 +3829,7 @@ def get_bonded_atoms_from_bond(item, indices='all', skip_digestion=False):
 def get_bonded_atom_pairs_from_bond(item, indices='all', skip_digestion=False):
 
     from . import to_openmm_Topology
-    from ..openmm_Topology import get_bonded_atom_pairs_bond as aux_get
+    from ..openmm_Topology import get_bonded_atom_pairs_from_bond as aux_get
 
     tmp_item = to_openmm_Topology(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
@@ -3841,7 +3841,7 @@ def get_bonded_atom_pairs_from_bond(item, indices='all', skip_digestion=False):
 def get_n_bonds_from_bond(item, indices='all', skip_digestion=False):
 
     from . import to_openmm_Topology
-    from ..openmm_Topology import get_n_bonds_bond as aux_get
+    from ..openmm_Topology import get_n_bonds_from_bond as aux_get
 
     tmp_item = to_openmm_Topology(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)

@@ -48,8 +48,10 @@ attributes['n_saccharides'] = True
 
 attributes['bond_index'] = True
 attributes['bonded_atoms'] = True
+attributes['bonded_atom_pairs'] = True
 attributes['inner_bond_index'] = True
 attributes['inner_bonded_atoms'] = True
+attributes['inner_bonded_atom_pairs'] = True
 attributes['n_bonds'] = True
 attributes['n_inner_bonds'] = True
 

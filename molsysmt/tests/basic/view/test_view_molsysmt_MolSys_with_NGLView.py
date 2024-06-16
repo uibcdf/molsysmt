@@ -35,6 +35,7 @@ def test_view_molsyst_MolSys_with_NGLView_3():
     molsys_1 = msm.convert(systems['alanine dipeptide']['alanine_dipeptide.h5msm'], to_form='molsysmt.MolSys')
     molsys_2 = msm.structure.translate(molsys_1, translation='[0.5, 0.0, 0.0] nm')
     molsys_merged = msm.merge([molsys_1, molsys_2], keep_ids=False)
+    msm.build.define_new_chain(molsys_merged)
     view = msm.view(molsys_merged, viewer='NGLView')
     comparison = msm.compare(view, molsys_merged, attribute_type='topological',
             coordinates=True)

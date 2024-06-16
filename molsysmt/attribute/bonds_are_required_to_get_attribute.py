@@ -24,6 +24,7 @@ bond_dependent_attributes = [
     'bonded_atom_pairs', 
     'inner_bond_index', 
     'inner_bonded_atoms', 
+    'inner_bonded_atom_pairs', 
     'n_bonds', 
     'n_inner_bonds', 
     'n_peptides', 

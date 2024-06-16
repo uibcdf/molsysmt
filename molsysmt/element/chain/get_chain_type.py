@@ -42,7 +42,7 @@ def get_chain_type(molecular_system, element='atom', selection='all',
                             aux.append(aux_type)
                         else:
                             aux.append(_singular_molecule_type_to_plural[aux_type])
-                chain_types_from_chain = ' + '.join(aux)
+                chain_types_from_chain.append(' + '.join(aux))
 
         if element == 'atom':
             aux = get(molecular_system, element='atom', selection=selection, syntax=syntax,

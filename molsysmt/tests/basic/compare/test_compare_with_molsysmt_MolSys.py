@@ -20,7 +20,7 @@ def test_compare_all_eq_2():
     assert output == False
 
 def test_compare_all_eq_3():
-    molsys_A = msm.convert(systems['T4 lysozyme L99A']['181l.mmtf'], to_form='openmm.Modeller')
+    molsys_A = msm.convert(systems['T4 lysozyme L99A']['181l.h5msm'], to_form='openmm.Modeller')
     molsys_B = msm.convert(molsys_A, to_form='molsysmt.MolSys')
     comparison = msm.compare(molsys_A, molsys_B, output_type='dictionary')
 
@@ -63,7 +63,7 @@ def test_compare_all_eq_3():
     if comparison['molecule_type']!=True:
         output = True
 
-    if comparison['bonded_atoms']!=True:
+    if comparison['bonded_atom_pairs']!=True:
         output = False
 
     if comparison['n_atoms']!=True:

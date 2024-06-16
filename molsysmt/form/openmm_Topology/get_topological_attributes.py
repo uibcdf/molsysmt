@@ -305,7 +305,7 @@ def get_bond_index_from_atom(item, indices='all', skip_digestion=False):
     output = None
 
     G = Graph()
-    edges = get_bonded_atoms_pairs_from_bond(item, skip_digestion=True)
+    edges = get_bonded_atom_pairs_from_bond(item, skip_digestion=True)
     n_bonds = len(edges)
     edge_indices = np.array([{'index': ii} for ii in range(n_bonds)]).reshape([n_bonds, 1])
     G.add_edges_from(np.hstack([edges, edge_indices]))
@@ -359,7 +359,7 @@ def get_bonded_atoms_from_atom(item, indices='all', skip_digestion=False):
     output = None
 
     G = Graph()
-    edges = get_bonded_atoms_pairs_from_bond(item, skip_digestion=True)
+    edges = get_bonded_atom_pairs_from_bond(item, skip_digestion=True)
     
     G.add_edges_from(edges)
 
@@ -3511,34 +3511,35 @@ def get_chain_index_from_chain(item, indices='all', skip_digestion=False):
 @digest(form=form)
 def get_chain_id_from_chain(item, indices='all', skip_digestion=False):
 
+    chains=list(item.chains())
     if is_all(indices):
-        n_indices = get_n_chains_from_system(item, skip_digestion=True)
-        indices = range(n_indices)
-
-    chain=list(item.chains())
-    output = [chain[ii].id for ii in indices]
-    del(chain)
+        output = [int(chain.id) for chain in chains]
+    else:
+        output = [int(chain[ii].id) for ii in indices]
+    del(chains)
 
     return output
 
 @digest(form=form)
 def get_chain_name_from_chain(item, indices='all', skip_digestion=False):
 
+    chains=list(item.chains())
     if is_all(indices):
-        n_indices = get_n_chains_from_system(item, skip_digestion=True)
-        indices = range(n_indices)
+        output = [chain.id for chain in chains]
+    else:
+        output = [chain[ii].id for ii in indices]
+    del(chains)
 
-    output = [None for ii in indices]
     return output
 
 @digest(form=form)
 def get_chain_type_from_chain(item, indices='all', skip_digestion=False):
 
-    if is_all(indices):
-        n_indices = get_n_chains_from_system(item, skip_digestion=True)
-        indices = range(n_indices)
+    from molsysmt.element.chain import get_chain_type
 
-    output = [None for ii in indices]
+    output = get_chain_type(item, element='chain', selection=indices,
+                           redefine_types=True, redefine_molecule_indices=True, redefine_molecule_types=True)
+
     return output
 
 
@@ -3859,9 +3860,9 @@ def get_n_bonds_from_bond(item, indices='all', skip_digestion=False):
 
     if is_all(indices):
         n_aux = get_n_bonds_from_system(item, skip_digestion=True)
-        output = list(range(n_aux))
+        output = n_aux
     else:
-        output = indices
+        output = len(indices)
 
     return output
 
@@ -4052,7 +4053,7 @@ def get_bonded_atoms_from_system(item, skip_digestion=False):
     output = None
 
     G = Graph()
-    edges = get_bonded_atoms_pairs_from_bond(item, skip_digestion=True)
+    edges = get_bonded_atom_pairs_from_bond(item, skip_digestion=True)
     
     G.add_edges_from(edges)
 
@@ -4074,7 +4075,7 @@ def get_bonded_atoms_from_system(item, skip_digestion=False):
 @digest(form=form)
 def get_bonded_atom_pairs_from_system(item, skip_digestion=False):
 
-    output = get_bonded_atoms_pairs_from_bond(item, skip_digestion=True)
+    output = get_bonded_atom_pairs_from_bond(item, skip_digestion=True)
    
     return output
 
@@ -4094,7 +4095,7 @@ def get_inner_bonded_atoms_from_system(item, skip_digestion=False):
     output = None
 
     G = Graph()
-    edges = get_bonded_atoms_pairs_from_bond(item, skip_digestion=True)
+    edges = get_bonded_atom_pairs_from_bond(item, skip_digestion=True)
     
     G.add_edges_from(edges)
 
@@ -4110,7 +4111,7 @@ def get_inner_bonded_atoms_from_system(item, skip_digestion=False):
 @digest(form=form)
 def get_inner_bonded_atom_pairs_from_system(item, skip_digestion=False):
 
-    output = get_bonded_atoms_pairs_from_bond(item)
+    output = get_bonded_atom_pairs_from_bond(item)
    
     return output
 

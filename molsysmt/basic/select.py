@@ -121,25 +121,25 @@ def select(molecular_system, selection='all', structure_indices='all', element='
         aux_item, aux_form = where_is_attribute(molecular_system, attribute, skip_digestion=True)
         n_elements = getattr(_dict_modules[aux_form], f'get_{attribute}_from_system')(aux_item)
 
-        return np.arange(n_elements, dtype='int64').tolist()
+        output_indices = np.arange(n_elements, dtype='int64').tolist()
 
     elif isinstance(selection, (int, np.int64, np.int32)):
 
-        return [selection]
+        output_indices = [selection]
 
     elif selection is None:
 
-        return None
+        output_indices = None
 
     elif isinstance(selection, (list, tuple, np.ndarray)):
 
         if all([isinstance(ii, (int, np.int32, np.int64)) for ii in selection]):
 
-            return list(selection)
+            output_indices = list(selection)
 
         else:
 
-            output = []
+            output_indices = []
 
             for tmp_selection in selection:
 
@@ -147,9 +147,7 @@ def select(molecular_system, selection='all', structure_indices='all', element='
                                      structure_indices=structure_indices, element=element, syntax=syntax,
                                      skip_digestion=True)
 
-                output.append(tmp_indices)
-
-            return output
+                output_indices.append(tmp_indices)
 
     else:
 
@@ -159,43 +157,43 @@ def select(molecular_system, selection='all', structure_indices='all', element='
 
             raise NotSupportedSyntaxError()
 
-    if element == 'atom':
+        if element == 'atom':
 
-        output_indices = atom_indices
+            output_indices = atom_indices
 
-    elif element in ['group', 'component', 'chain', 'molecule', 'entity']:
+        elif element in ['group', 'component', 'chain', 'molecule', 'entity']:
 
-        if is_iterable_of_iterables(atom_indices):
+            if is_iterable_of_iterables(atom_indices):
 
-            output_indices = []
+                output_indices = []
 
-            aux_item, aux_form = where_is_attribute(molecular_system, element+'_index', skip_digestion=True)
-            for aux_atom_indices in atom_indices:
-                temp_output_indices = getattr(_dict_modules[aux_form],
-                                              f'get_{element}_index_from_atom')(aux_item, indices=aux_atom_indices)
-                output_indices.append(np.unique(temp_output_indices).tolist())
+                aux_item, aux_form = where_is_attribute(molecular_system, element+'_index', skip_digestion=True)
+                for aux_atom_indices in atom_indices:
+                    temp_output_indices = getattr(_dict_modules[aux_form],
+                                                  f'get_{element}_index_from_atom')(aux_item, indices=aux_atom_indices)
+                    output_indices.append(np.unique(temp_output_indices).tolist())
+
+            else:
+
+                aux_item, aux_form = where_is_attribute(molecular_system, element+'_index', skip_digestion=True)
+                output_indices = getattr(_dict_modules[aux_form], f'get_{element}_index_from_atom')(aux_item,
+                                                                                                    indices=atom_indices)
+                output_indices = np.unique(output_indices).tolist()
+
+        elif element == 'bond':
+
+            aux_item, aux_form = where_is_attribute(molecular_system, 'inner_bond_index', skip_digestion=True)
+            output_indices = _dict_modules[aux_form].get_inner_bond_index_from_atom(aux_item, indices=atom_indices)
+            output_indices = np.unique(np.concatenate(output_indices)).tolist()
 
         else:
 
-            aux_item, aux_form = where_is_attribute(molecular_system, element+'_index', skip_digestion=True)
-            output_indices = getattr(_dict_modules[aux_form], f'get_{element}_index_from_atom')(aux_item,
-                                                                                                indices=atom_indices)
-            output_indices = np.unique(output_indices).tolist()
-
-    elif element == 'bond':
-
-        aux_item, aux_form = where_is_attribute(molecular_system, 'inner_bond_index', skip_digestion=True)
-        output_indices = _dict_modules[aux_form].get_inner_bond_index_from_atom(aux_item, indices=atom_indices)
-        output_indices = np.unique(np.concatenate(output_indices)).tolist()
-
-    else:
-
-        raise NotImplementedMethodError()
+            raise NotImplementedMethodError()
 
     if is_all(mask):
         mask = None
 
-    if mask is not None:
+    if (mask is not None) and (output_indices is not None):
         if isinstance(mask, str):
             mask = select(molecular_system, selection=mask, element=element, syntax=syntax, skip_digestion=True)
         output_indices = np.intersect1d(output_indices, mask, assume_unique=True)

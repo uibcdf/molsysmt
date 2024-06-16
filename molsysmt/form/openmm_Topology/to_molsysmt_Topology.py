@@ -117,7 +117,7 @@ def to_molsysmt_Topology(item, atom_indices='all', skip_digestion=False):
 
     # chain types
 
-    tmp_item.rebuild_chains(redefine_ids=True, redefine_types=True)
+    tmp_item.rebuild_chains(redefine_ids=True, redefine_types=True, redefine_names=False)
 
     # entity
 

@@ -59,6 +59,8 @@ def get_missing_bonds(molecular_system, threshold='2 angstroms', selection='all'
             aux_peptidic_bonds_C={}
             aux_peptidic_bonds_N={}
 
+            bonds = []
+
             for group_name, group_type, atom_indices, atom_names in zip(*aux_lists):
 
                 group_index += 1
@@ -72,9 +74,9 @@ def get_missing_bonds(molecular_system, threshold='2 angstroms', selection='all'
 
                     case 'ion':
 
-                        try:
-                            aux_bonds = _bonds_in_ion(group_name, atom_names, atom_indices, sorted=False)
-                        except:
+                        
+                        aux_bonds = _bonds_in_ion(group_name, atom_names, atom_indices, sorted=False)
+                        if aux_bonds is None:
                             aux_bonds = _bonds_in_unknown_group(molecular_system, atom_indices, atom_names,
                                                                 structure_index=structure_index, threshold=threshold,
                                                                 sorted=False)
@@ -82,13 +84,11 @@ def get_missing_bonds(molecular_system, threshold='2 angstroms', selection='all'
 
                     case 'amino acid':
 
-                        try:
-                            aux_bonds = _bonds_in_amino_acid(group_name, atom_names, atom_indices, sorted=False)
-                        except:
+                        aux_bonds = _bonds_in_amino_acid(group_name, atom_names, atom_indices, sorted=False)
+                        if aux_bonds is None:
                             aux_bonds = _bonds_in_unknown_group(molecular_system, atom_indices, atom_names,
                                                                 structure_index=structure_index, threshold=threshold,
                                                                 sorted=False)
-
                         bonds += aux_bonds
                         
                         if 'C' in atom_names:
@@ -99,9 +99,8 @@ def get_missing_bonds(molecular_system, threshold='2 angstroms', selection='all'
 
                     case 'terminal capping':
 
-                        try:
-                            aux_bonds = _bonds_in_terminal_capping(group_name, atom_names, atom_indices, sorted=False)
-                        except:
+                        aux_bonds = _bonds_in_terminal_capping(group_name, atom_names, atom_indices, sorted=False)
+                        if aux_bonds is None:
                             aux_bonds = _bonds_in_unknown_group(molecular_system, atom_indices, atom_names,
                                                                 structure_index=structure_index, threshold=threshold,
                                                                 sorted=False)
@@ -116,9 +115,8 @@ def get_missing_bonds(molecular_system, threshold='2 angstroms', selection='all'
 
                     case 'small molecule':
 
-                        try:
-                            aux_bonds = _bonds_in_small_molecule(group_name, atom_names, atom_indices, sorted=False)
-                        except:
+                        aux_bonds = _bonds_in_small_molecule(group_name, atom_names, atom_indices, sorted=False)
+                        if aux_bonds is None:
                             aux_bonds = _bonds_in_unknown_group(molecular_system, atom_indices, atom_names,
                                                                 structure_index=structure_index, threshold=threshold,
                                                                 sorted=False)
