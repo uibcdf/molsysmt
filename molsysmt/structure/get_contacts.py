@@ -9,7 +9,7 @@ import gc
 def get_contacts(molecular_system, selection=None, center_of_atoms=False, weights=None, structure_indices="all",
                  selection_2=None, center_of_atoms_2=False, weights_2=None, structure_indices_2=None,
                  threshold='12 angstroms', pairs=False, pbc=True, syntax='MolSysMT',
-                 output_type='matrix', output_indices='selection', skip_digestion=False):
+                 output_type='numpy.ndarray', output_indices='selection', skip_digestion=False):
 
     """
     To be written soon...

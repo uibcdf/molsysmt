@@ -11,7 +11,8 @@ import gc
 @digest()
 def get_distances(molecular_system, selection="all", structure_indices="all", center_of_atoms=False, weights=None,
         molecular_system_2=None, selection_2=None, structure_indices_2=None, center_of_atoms_2=False, weights_2=None,
-        pairs=False, pbc=True, engine='MolSysMT', syntax='MolSysMT'):
+        pairs=False, pbc=True, output_type='numpy.ndarray', output_indices='selection',
+        engine='MolSysMT', syntax='MolSysMT', skip_digestion=False):
     """
     To be written soon...
 
@@ -36,9 +37,8 @@ def get_distances(molecular_system, selection="all", structure_indices="all", ce
 
     """
 
-    # atoms_center in
-    # ['center_of_mass','geometric_center','minimum_distance','maximum_distance']
-    # output in ['numpy.ndarray','dictionary']
+    # center_of_atoms and center_of_atoms_2: bool
+    # output_type in ['numpy.ndarray','dictionary']
 
     from molsysmt.basic import select
     from molsysmt.pbc import has_pbc
@@ -110,7 +110,7 @@ def _get_distances_in_memory(molecular_system, selection="all", structure_indice
         center_of_atoms=False, weights=None,
         molecular_system_2=None, selection_2=None, structure_indices_2=None,
         center_of_atoms_2=False, weights_2=None,
-        pairs=False, pbc=True, aux_dict=False, syntax='MolSysMT'):
+        pairs=False, pbc=True, syntax='MolSysMT'):
 
     from molsysmt.basic import get
     from .get_center import get_center
