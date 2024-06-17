@@ -60,5 +60,5 @@ jobs:
           echo "::endgroup::"
 
       - name: Running the Sphinx to gh-pages Action
-        uses: uibcdf/action-sphinx-docs-to-gh-pages@v2.0.0
+        uses: uibcdf/action-sphinx-docs-to-gh-pages@v2.1.0
 
