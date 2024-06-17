@@ -11,7 +11,7 @@ import gc
 @digest()
 def get_distances(molecular_system, selection="all", structure_indices="all", center_of_atoms=False, weights=None,
         molecular_system_2=None, selection_2=None, structure_indices_2=None, center_of_atoms_2=False, weights_2=None,
-        pairs=False, pbc=True, output_type='numpy.ndarray', output_indices='selection',
+        pairs=False, pbc=True, output_type='numpy.ndarray', output_atom_indices=None, output_structure_indices=None,
         engine='MolSysMT', syntax='MolSysMT', skip_digestion=False):
     """
     To be written soon...
@@ -89,7 +89,7 @@ def get_distances(molecular_system, selection="all", structure_indices="all", ce
 
         if in_memory:
 
-            output = _get_distances_in_memory(molecular_system, selection=atom_indices,
+            distances = _get_distances_in_memory(molecular_system, selection=atom_indices,
                     structure_indices=structure_indices, center_of_atoms=center_of_atoms, weights=weights,
                     molecular_system_2=molecular_system_2, selection_2=atom_indices_2,
                     structure_indices_2=structure_indices_2, center_of_atoms_2=center_of_atoms_2, weights_2=weights_2,
@@ -102,6 +102,104 @@ def get_distances(molecular_system, selection="all", structure_indices="all", ce
     else:
 
         raise NotImplementedMethodError
+
+
+    if output_type=='numpy.ndarray':
+
+        output_list = []
+
+        if output_atom_indices is not None:
+
+            if pairs:
+
+                raise NotImplementedError()
+
+            else:
+
+                if output_atom_indices == 'selection': # works also with center of atoms
+
+                    output_list.append( list(range(distances.shape[-2])) )
+
+                    if atom_indices_2 is not None:
+
+                        output_list.append( list(range(distances.shape[-1])) )
+
+                elif output_atom_indices == 'atom':
+
+                    output_list.append( atom_indices )
+
+                    if atom_indices_2 is not None:
+
+                        output_list.append( atom_indices_2 )
+
+                elif output_atom_indices == 'group':
+
+                    raise NotImplementedError()
+
+        if output_structure_indices is not None:
+
+            if output_structure_indices == 'selection':
+
+                output_list.append( list(range(distances.shape[0])) )
+
+                if structure_indices_2 is not None:
+
+                    output_list.append( list(range(distances.shape[1])) )
+
+            elif output_atom_indices == 'structure':
+
+                output_list.append( structure_indices )
+
+                if structure_indices_2 is not None:
+
+                    output_list.append( structure_indices_2 )
+
+        output_list.append(distances)
+
+        if len(output_list)==1:
+            output = output_list[0]
+        else:
+            output = tuple(output_list)
+
+    elif output_type=='dictionary':
+
+        output_dictionary = {}
+
+            if pairs:
+
+                raise NotImplementedError()
+
+            else:
+
+                for ii in range(len(atom_indices_1)):
+                        atom1=atom_indices_1[ii]
+                        tmp_dict[atom1]={}
+                        for jj in range(len(atom_indices_2)):
+                            atom2=atom_indices_2[jj]
+                            tmp_dict[atom1][atom2]={}
+                            for kk in range(len(structure_indices)):
+                                structure_index_1 = structure_indices[kk]
+                                tmp_dict[atom1][atom2][structure_index_1]=dists[kk,ii,jj]
+                    return tmp_dict
+                else:
+                    raise NotImplementedMethodError
+                        else:
+                if crossed_structures is False:
+                    tmp_dict={}
+                    for ii in range(len(atom_indices_1)):
+                        atom1=atom_indices_1[ii]
+                        atom2=atom_indices_2[ii]
+                        if atom1 not in tmp_dict:
+                            tmp_dict[atom1]={}
+                        if atom2 not in tmp_dict[atom1]:
+                            tmp_dict[atom1][atom2]={}
+                        for kk in range(len(structure_indices)):
+                            structure_index_1 = structure_indices[kk]
+                            tmp_dict[atom1][atom2][structure_index_1]=dists[kk,ii]
+                    return tmp_dict
+                else:
+                    raise NotImplementedMethodError
+
 
     return output
 
