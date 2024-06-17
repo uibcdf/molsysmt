@@ -147,9 +147,9 @@ systems['POPC membrane']['popc_membrane.msmpk'] = path('molsysmt.data.msmpk', 'p
 
 # POPC
 
-#systems['POPC'] = {}
-#systems['POPC']['popc.crd'] = path('molsysmt.data.crd', 'popc.crd')
-#systems['POPC']['popc.psf'] = path('molsysmt.data.psf', 'popc.psf')
+systems['POPC'] = {}
+systems['POPC']['popc.crd'] = path('molsysmt.data.crd', 'popc.crd')
+systems['POPC']['popc.psf'] = path('molsysmt.data.psf', 'popc.psf')
 
 
 

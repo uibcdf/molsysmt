@@ -76,10 +76,10 @@ def to_string_pdb_text(item, atom_indices='all', structure_indices='all', skip_d
 
         head = 'ATOM'
 
-        atom_id = atom.atom_id
+        atom_id = str(atom.atom_id)
         atom_name = atom.atom_name
         group_name = item.topology.groups.iloc[atom.group_index,1]
-        group_id = item.topology.groups.iloc[atom.group_index,0]
+        group_id = str(item.topology.groups.iloc[atom.group_index,0])
         chain_id = item.topology.chains.iloc[atom.chain_index,1]
 
         x,y,z = aux_coors[atom.Index, :]
@@ -89,38 +89,16 @@ def to_string_pdb_text(item, atom_indices='all', structure_indices='all', skip_d
 
         element_symbol = atom.atom_type
 
-        line = ''
-        line += f"{head:<6}"
-        line += f"{atom_id:>5}"
-        line += f"{' ':1}"
-        line += f"{atom_name:<4}"
-        line += f"{' ':1}"
-        line += f"{group_name:>3}"
-        line += f"{' ':1}"
-        line += f"{chain_id:>1}"
-        line += f"{group_id:>4}"
-        line += f"{' ':1}"
-        line += f"{' ':3}"
-        line += f"{x:>8.3f}"
-        line += f"{y:>8.3f}"
-        line += f"{z:>8.3f}"
-        line += f"{occupancy:>6.2f}"
-        line += f"{temp_factor:>6.2f}"
-        line += f"{' ':10}"
-        line += f"{element_symbol:>2}"
-        line += f"\n"
- 
-
         line = (
-            f"{head:<6}"
-            f"{atom_id:>5}"
+            f"{head[:6].ljust(6)}"
+            f"{atom_id[:5].rjust(5)}"
             f"{' ':1}"
-            f"{atom_name:<4}"
+            f"{atom_name[:4].ljust(4)}"
             f"{' ':1}"
-            f"{group_name:>3}"
+            f"{group_name[:3].rjust(3)}"
             f"{' ':1}"
-            f"{chain_id:>1}"
-            f"{group_id:>4}"
+            f"{chain_id[:1].rjust(1)}"
+            f"{group_id[:4].rjust(4)}"
             f"{' ':1}"
             f"{' ':3}"
             f"{x:>8.3f}"
@@ -129,7 +107,7 @@ def to_string_pdb_text(item, atom_indices='all', structure_indices='all', skip_d
             f"{occupancy:>6.2f}"
             f"{temp_factor:>6.2f}"
             f"{' ':10}"
-            f"{element_symbol:>2}"
+            f"{element_symbol[:2].rjust(2)}"
             f"\n"
         )
         tmp_item += line

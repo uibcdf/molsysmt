@@ -8,8 +8,8 @@ def get_shape_from_box(box, skip_digestion=False):
     To be written soon...
     """
 
-    from molsysmt.pbc.get_lengths_and_angles_from_box import get_lengths_and_angles_from_box
-    from molsysmt.pbc.get_shape_from_lengths_and_angles import get_shape_from_lengths_and_angles
+    from molsysmt.pbc.get_angles_from_box import get_angles_from_box
+    from molsysmt.pbc.get_shape_from_angles import get_shape_from_angles
 
     if box is None:
         return None
