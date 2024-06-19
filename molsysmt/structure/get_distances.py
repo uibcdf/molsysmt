@@ -11,7 +11,7 @@ import gc
 @digest()
 def get_distances(molecular_system, selection="all", structure_indices="all", center_of_atoms=False, weights=None,
         molecular_system_2=None, selection_2=None, structure_indices_2=None, center_of_atoms_2=False, weights_2=None,
-        pairs=False, pbc=True, output_type='numpy.ndarray', output_atom_indices=None, output_structure_indices=None,
+        pairs=False, pbc=True, output_type='numpy.ndarray', output_indices=None, output_structure_indices=None,
         engine='MolSysMT', syntax='MolSysMT', skip_digestion=False):
     """
     To be written soon...
@@ -47,7 +47,7 @@ def get_distances(molecular_system, selection="all", structure_indices="all", ce
         pbc=has_pbc(molecular_system)
 
     if pairs and (selection_2 is None):
-        if is_iterable_or_pairs(selection):
+        if is_iterable_of_pairs(selection):
             if not isinstance(selection, np.ndarray):
                 selection=np.array(selection)
             selection_2 = selection[:,1]
@@ -108,7 +108,7 @@ def get_distances(molecular_system, selection="all", structure_indices="all", ce
 
         output_list = []
 
-        if output_atom_indices is not None:
+        if output_indices is not None:
 
             if pairs:
 
@@ -116,15 +116,17 @@ def get_distances(molecular_system, selection="all", structure_indices="all", ce
 
             else:
 
-                if output_atom_indices == 'selection': # works also with center of atoms
+                if output_indices == 'selection': # works also with center of atoms
 
-                    output_list.append( list(range(distances.shape[-2])) )
+                    atom_indices = list(range(distances.shape[-2]))
+                    output_list.append( atom_indices )
 
                     if atom_indices_2 is not None:
 
-                        output_list.append( list(range(distances.shape[-1])) )
+                        atom_indices_2 = list(range(distances.shape[-1]))
+                        output_list.append( atom_indices_2 )
 
-                elif output_atom_indices == 'atom':
+                elif output_indices == 'atom':
 
                     output_list.append( atom_indices )
 
@@ -132,7 +134,7 @@ def get_distances(molecular_system, selection="all", structure_indices="all", ce
 
                         output_list.append( atom_indices_2 )
 
-                elif output_atom_indices == 'group':
+                elif output_indices == 'group':
 
                     raise NotImplementedError()
 
@@ -140,19 +142,28 @@ def get_distances(molecular_system, selection="all", structure_indices="all", ce
 
             if output_structure_indices == 'selection':
 
-                output_list.append( list(range(distances.shape[0])) )
-
-                if structure_indices_2 is not None:
-
-                    output_list.append( list(range(distances.shape[1])) )
-
-            elif output_atom_indices == 'structure':
-
+                structure_indices = list(range(distances.shape[0]))
                 output_list.append( structure_indices )
 
                 if structure_indices_2 is not None:
 
+                    structure_indices_2 = list(range(distances.shape[1]))
                     output_list.append( structure_indices_2 )
+
+            elif output_indices == 'structure':
+
+                if is_all(structure_indices):
+                    structure_indices = list(range(distances.shape[0]))
+                    output_list.append( structure_indices )
+                else:
+                    output_list.append( structure_indices )
+
+                if structure_indices_2 is not None:
+                    if is_all(structure_indices_2):
+                        structure_indices_2 = list(range(distances.shape[1]))
+                        output_list.append( structure_indices_2 )
+                    else:
+                        output_list.append( structure_indices_2 )
 
         output_list.append(distances)
 
@@ -165,41 +176,166 @@ def get_distances(molecular_system, selection="all", structure_indices="all", ce
 
         output_dictionary = {}
 
-            if pairs:
+        if pairs:
 
-                raise NotImplementedError()
+            if output_indices is None:
+                output_indices = 'atom'
+            
+            if output_indices is not None:
 
-            else:
-
-                for ii in range(len(atom_indices_1)):
-                        atom1=atom_indices_1[ii]
-                        tmp_dict[atom1]={}
-                        for jj in range(len(atom_indices_2)):
-                            atom2=atom_indices_2[jj]
-                            tmp_dict[atom1][atom2]={}
-                            for kk in range(len(structure_indices)):
-                                structure_index_1 = structure_indices[kk]
-                                tmp_dict[atom1][atom2][structure_index_1]=dists[kk,ii,jj]
-                    return tmp_dict
-                else:
-                    raise NotImplementedMethodError
+                if output_indices == 'selection': # works also with center of atoms
+                    if output_structure_indices is None:
+                        for ii in range(distances.shape[-1]):
+                            output_dictionary[ii] = distances[:,ii]
+                    else:
+                        if is_all(structure_indices):
+                            structure_indices = list(range(distances.shape[0]))
+                        if structure_indices_2 is None:
+                            for ii in range(distances.shape[-1]):
+                                output_dictionary[ii] = {}
+                                aux_ii = output_dictionary[ii]
+                                for ll,kk in enumerate(structure_indices):
+                                    aux_ii[kk]=distances[ll,ii]
                         else:
-                if crossed_structures is False:
-                    tmp_dict={}
-                    for ii in range(len(atom_indices_1)):
-                        atom1=atom_indices_1[ii]
-                        atom2=atom_indices_2[ii]
-                        if atom1 not in tmp_dict:
-                            tmp_dict[atom1]={}
-                        if atom2 not in tmp_dict[atom1]:
-                            tmp_dict[atom1][atom2]={}
-                        for kk in range(len(structure_indices)):
-                            structure_index_1 = structure_indices[kk]
-                            tmp_dict[atom1][atom2][structure_index_1]=dists[kk,ii]
-                    return tmp_dict
-                else:
-                    raise NotImplementedMethodError
+                            if is_all(structure_indices_2):
+                                structure_indices_2 = list(range(distances.shape[1]))
+                            for ii in range(distances.shape[-1]):
+                                output_dictionary[ii] = {}
+                                aux_ii = output_dictionary[ii]
+                                for ll,kk in enumerate(structure_indices):
+                                    aux_ii[kk]={}
+                                    aux_ii_kk = aux_ii[kk]
+                                    for mm,nn in enumerate(structure_indices_2):
+                                        aux_ii_kk[nn]=distances[ll,mm,ii]
 
+                elif output_indices == 'atom':
+                    if output_structure_indices is None:
+                        for aa,xx in enumerate(zip(atom_indices, atom_indices_2)):
+                            if xx[0] not in output_dictionary:
+                                output_dictionary[xx[0]] = {}
+                            output_dictionary[xx[0]][xx[1]] = distances[:,aa]
+                    else:
+                        if is_all(structure_indices):
+                            structure_indices = list(range(distances.shape[0]))
+                        if structure_indices_2 is None:
+                            for aa,xx in enumerate(zip(atom_indices, atom_indices_2)):
+                                if xx[0] not in output_dictionary:
+                                    output_dictionary[xx[0]] = {}
+                                aux_0_1 = output_dictionary[xx[0]][xx[1]]
+                                for ll,kk in enumerate(structure_indices):
+                                    aux_0_1[kk]=distances[ll,aa]
+                        else:
+                            if is_all(structure_indices_2):
+                                structure_indices_2 = list(range(distances.shape[1]))
+                            for aa,xx in enumerate(zip(atom_indices, atom_indices_2)):
+                                if xx[0] not in output_dictionary:
+                                    output_dictionary[xx[0]] = {}
+                                aux_0_1 = output_dictionary[xx[0]][xx[1]]
+                                for ll,kk in enumerate(structure_indices):
+                                    aux_0_1[kk]={}
+                                    aux_0_1_kk=aux_0_1[kk]
+                                    for mm,nn in enumerate(structure_indices_2):
+                                        aux_0_1_kk[nn]=distances[ll,mm,aa]
+
+                elif output_indices == 'group':
+
+                    raise NotImplementedError()
+
+        else:
+
+            if output_indices is None:
+                output_indices = 'atom'
+            
+            if output_indices is not None:
+
+                if output_indices == 'selection': # works also with center of atoms
+                    if output_structure_indices is None:
+                        for ii in range(distances.shape[-2]):
+                            output_dictionary[ii] = {jj:distances[:,ii,jj] for jj in range(distances.shape[-1])}
+                    else:
+                        if is_all(structure_indices):
+                            structure_indices = list(range(distances.shape[0]))
+                        if structure_indices_2 is None:
+                            for ii in range(distances.shape[-2]):
+                                output_dictionary[ii] = {}
+                                aux_ii = output_dictionary[ii]
+                                for jj in range(distances.shape[-1]):
+                                    aux_ii[jj] = {}
+                                    aux_ii_jj = aux_ii[jj]
+                                    for ll,kk in enumerate(structure_indices):
+                                        aux_ii_jj[kk]=distances[ll,ii,jj]
+                        else:
+                            if is_all(structure_indices_2):
+                                structure_indices_2 = list(range(distances.shape[1]))
+                            for ii in range(distances.shape[-2]):
+                                output_dictionary[ii] = {}
+                                aux_ii = output_dictionary[ii]
+                                for jj in range(distances.shape[-1]):
+                                    aux_ii[jj] = {}
+                                    aux_ii_jj = aux_ii[jj]
+                                    for ll,kk in enumerate(structure_indices):
+                                        aux_ii_jj[kk]={}
+                                        aux_ii_jj_kk = aux_ii_jj[kk]
+                                        for mm,nn in enumerate(structure_indices_2):
+                                            aux_ii_jj_kk[nn]=distances[ll,mm,ii,jj]
+
+                elif output_indices == 'atom':
+                    if output_structure_indices is None:
+                        for aa,ii in enumerate(atom_indices):
+                            output_dictionary[ii] = {}
+                            aux_ii = output_dictionary[ii]
+                            if atom_indices_2 is None:
+                                for bb,jj in enumerate(atom_indices):
+                                    aux_ii[jj] = distances[:,aa,bb]
+                            else:
+                                for bb,jj in enumerate(atom_indices_2):
+                                    aux_ii[jj] = distances[:,aa,bb]
+                    else:
+                        if is_all(structure_indices):
+                            structure_indices = list(range(distances.shape[0]))
+                        if structure_indices_2 is None:
+                            for aa,ii in enumerate(atom_indices):
+                                output_dictionary[ii] = {}
+                                aux_ii = output_dictionary[ii]
+                                if atom_indices_2 is None:
+                                    for bb,jj in enumerate(atom_indices):
+                                        aux_ii[jj] = {}
+                                        aux_ii_jj = aux_ii[jj]
+                                        for ll,kk in enumerate(structure_indices):
+                                            aux_ii_jj[kk]=distances[ll,aa,bb]
+                                else:
+                                    for bb,jj in enumerate(atom_indices_2):
+                                        aux_ii[jj] = {}
+                                        aux_ii_jj = aux_ii[jj]
+                                        for ll,kk in enumerate(structure_indices):
+                                            aux_ii_jj[kk]=distances[ll,aa,bb]
+                        else:
+                            if is_all(structure_indices_2):
+                                structure_indices_2 = list(range(distances.shape[1]))
+                            for aa,ii in enumerate(atom_indices):
+                                output_dictionary[ii] = {}
+                                aux_ii = output_dictionary[ii]
+                                if atom_indices_2 is None:
+                                    for bb,jj in enumerate(atom_indices):
+                                        aux_ii[jj] = {}
+                                        aux_ii_jj = aux_ii[jj]
+                                        for ll,kk in enumerate(structure_indices):
+                                            aux_ii_jj[kk]=distances[ll,aa,bb]
+                                else:
+                                    for bb,jj in enumerate(atom_indices_2):
+                                        aux_ii[jj] = {}
+                                        aux_ii_jj = aux_ii[jj]
+                                        for ll,kk in enumerate(structure_indices):
+                                            aux_ii_jj[kk] = {}
+                                            aux_ii_jj_kk=aux_ii_jj[kk]
+                                            for mm,nn in enumerate(structure_indices_2):
+                                                aux_ii_jj_kk[nn]=distances[ll,mm,aa,bb]
+
+                elif output_indices == 'group':
+
+                    raise NotImplementedError()
+
+        output = output_dictionary
 
     return output
 
