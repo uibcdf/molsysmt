@@ -1,5 +1,5 @@
 from molsysmt._private.digestion import digest
-
+import numpy as np
 
 #@digest()
 def show_contacts(view, selection=None, center_of_atoms=False, weights=None, structure_indices="all",
@@ -18,9 +18,9 @@ def show_contacts(view, selection=None, center_of_atoms=False, weights=None, str
             weights=weights, structure_indices=structure_indices, selection_2=selection_2,
             center_of_atoms_2=center_of_atoms_2, weights_2=weights_2,
             structure_indices_2=structure_indices_2, threshold=threshold, pbc=pbc,
-            output_type='pairs', output_indices='atom_index', syntax=syntax)
+            output_type='pairs', output_indices='atom', syntax=syntax)
 
-    add_contacts(view, pairs[0],
+    add_contacts(view, np.array(pairs[0]),
             color=color, color_2=color_2, radius=radius,
             color_values=color_values, min_color_value=min_color_value,
             mid_color_value=mid_color_value, max_color_value=max_color_value,

@@ -717,6 +717,25 @@ class Structures:
                             alternate_location.append(aux_dict)
                         del(aux_alternate_location)
 
+            if self.b_factor is None:
+                b_factor = None
+            else:
+                if is_all(structure_indices):
+                    if is_all(atom_indices):
+                        b_factor = deepcopy(self.b_factor)
+                    else:
+                        b_factor = self.b_factor[:,atom_indices]
+                else:
+                    if is_all(atom_indices):
+                        b_factor = self.b_factor[structure_indices,:,:]
+                    else:
+                        if not is_iterable(structure_indices):
+                            structure_indices=[structure_indices]
+                        if not is_iterable(atom_indices):
+                            atom_indices=[atom_indices]
+                        b_factor = self.b_factor[np.ix_(structure_indices, atom_indices)]
+
+
         return Structures(structure_id=structure_id,
                           time=time,
                           coordinates=coordinates,
@@ -726,6 +745,7 @@ class Structures:
                           potential_energy=potential_energy,
                           kinetic_energy=kinetic_energy,
                           alternate_location=alternate_location,
+                          b_factor=b_factor,
                           skip_digestion=True
                           )
 

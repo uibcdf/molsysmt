@@ -5,7 +5,7 @@ import gc
 
 @digest()
 def least_rmsd_align(molecular_system, selection='atom_name=="CA"', structure_indices='all',
-          reference_molecular_system=None, reference_selection=None, reference_structure_indices=0,
+          reference_molecular_system=None, reference_selection=None, reference_structure_index=0,
           syntax='MolSysMT',
           engine_sequence_alignment = 'Biopython', engine_least_rmsd_fit = 'MolSysMT'):
     """
@@ -52,11 +52,12 @@ def least_rmsd_align(molecular_system, selection='atom_name=="CA"', structure_in
         output = least_rmsd_fit(molecular_system=molecular_system, selection=atoms_in_components_selected,
                 selection_fit=selection_to_be_fitted,
                 structure_indices=structure_indices, reference_molecular_system=reference_molecular_system,
-                reference_selection_fit=reference_selection_to_be_fitted, reference_structure_indices=reference_structure_indices,
+                reference_selection_fit=reference_selection_to_be_fitted,
+                                reference_structure_index=reference_structure_index,
                 to_form=None, in_place=False, engine='MolSysMT', syntax=syntax)
 
         del(atoms_in_components_selected, selection_to_be_fitted, reference_selection_to_be_fitted)
-        del(structure_indices, reference_structure_indices)
+        del(structure_indices, reference_structure_index)
 
     else:
 

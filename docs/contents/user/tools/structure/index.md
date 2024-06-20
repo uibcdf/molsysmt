@@ -5,12 +5,10 @@
 | [Align principal axes](align_principal_axes.ipynb) | Aligning the principal inertia or geometric axes of a molecular system over a reference coordinates axes|
 | [Center](center.ipynb) | Centering a molecular system |
 | [Flip](flip.ipynb) | Flip a molecular system over a plane|
-| [Get center of mass](get_center_of_mass.ipynb) | Getting the center of mass of a molecular system |
 | [Get center](get_center.ipynb) | Getting the center of a molecular system |
 | [Get contacts](get_contacts.ipynb) | Getting the contact matrix of specific elements of a molecular system or two different molecular systems|
 | [Get dihedral_angles](get_dihedral_angles.ipynb) | Getting the dihedral angles of a molecular system |
 | [Get distances](get_distances.ipynb) | Getting the distance between specific elements of a molecular system or two different molecular systems |
-| [Get geometric center](get_geometric_center.ipynb) | Getting the geometric center of a molecular system |
 | [Get least RMSD](get_least_rmsd.ipynb) | Getting the least RMSD of a molecular system from a reference molecular system |
 | [Get maximum distances](get_maximum_distances.ipynb) | Getting the maximum distance between specific groups of elements of a molecular system or two different molecular systems |
 | [Get minimum distances](get_minimum_distances.ipynb) | Getting the minimum distance between specific groups of elements of a molecular system or two different molecular systems |
@@ -34,8 +32,7 @@
    
    align_principal_axis.ipynb
    center.ipynb
-   flip.ipynb
-   get_center_of_mass.ipynb   
+   flip.ipynb  
    get_center.ipynb
    get_contacts.ipynb
    get_dihedral_angles.ipynb

@@ -27,14 +27,21 @@ def add_missing_hydrogens(molecular_system, pH=7.4, engine='OpenMM'):
         set(output_molecular_system, element='component', **atts_from_components)
         set(output_molecular_system, element='molecule', **atts_from_molecules)
         set(output_molecular_system, element='chain', **atts_from_chains)
-        set(output_molecular_system, element='entity', **atts_from_entities)
+        if form_out=='molsysmt.MolSys':
+            output_molecular_system.topology.rebuild_entities(redefine_indices=True, redefine_ids=True,
+                                                              redefine_names=True, redefine_types=True)
+            set(output_molecular_system, element='entity', **atts_from_entities)
+        elif form_out=='molsysmt.Topology':
+            output_molecular_system.rebuild_entities(redefine_indices=True, redefine_ids=True,
+                                                     redefine_names=True, redefine_types=True)
+            set(output_molecular_system, element='entity', **atts_from_entities)
+
 
         del(atts_from_components, atts_from_molecules, atts_from_chains, atts_from_entities)
 
         del(temp_molecular_system)
 
     elif engine=='PDBFixer':
-
 
         atts_from_components = get(molecular_system, element='component', component_name=True,
                                    output_type='dictionary')
@@ -52,7 +59,15 @@ def add_missing_hydrogens(molecular_system, pH=7.4, engine='OpenMM'):
         set(output_molecular_system, element='component', **atts_from_components)
         set(output_molecular_system, element='molecule', **atts_from_molecules)
         set(output_molecular_system, element='chain', **atts_from_chains)
-        set(output_molecular_system, element='entity', **atts_from_entities)
+        if form_out=='molsysmt.MolSys':
+            output_molecular_system.topology.rebuild_entities(redefine_indices=True, redefine_ids=True,
+                                                              redefine_names=True, redefine_types=True)
+            set(output_molecular_system, element='entity', **atts_from_entities)
+        elif form_out=='molsysmt.Topology':
+            output_molecular_system.rebuild_entities(redefine_indices=True, redefine_ids=True,
+                                                     redefine_names=True, redefine_types=True)
+            set(output_molecular_system, element='entity', **atts_from_entities)
+
 
         del(atts_from_components, atts_from_molecules, atts_from_chains, atts_from_entities)
 
