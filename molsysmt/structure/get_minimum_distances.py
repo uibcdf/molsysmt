@@ -4,19 +4,21 @@ import numpy as np
 import gc
 
 @digest()
-def get_minimum_distances(molecular_system, selection="all", center_of_atoms=False, weights=None, as_entity=True, structure_indices="all",
-                     molecular_system_2=None, selection_2=None, center_of_atoms_2=False, weights_2=None, as_entity_2=True, structure_indices_2=None,
-                     pairs=False, pbc=False, engine='MolSysMT', syntax='MolSysMT'):
+def get_minimum_distances(molecular_system, selection="all", center_of_atoms=False, weights=None, as_entity=True,
+        structure_indices="all", molecular_system_2=None, selection_2=None, center_of_atoms_2=False, weights_2=None,
+        as_entity_2=True, structure_indices_2=None, pairs=False, pbc=False, engine='MolSysMT', syntax='MolSysMT',
+        skip_digestion=False):
     """
     To be written soon...
     """
 
     from . import get_distances
 
-    all_dists = get_distances(molecular_system=molecular_system, selection=selection, center_of_atoms=center_of_atoms, weights=weights,
-                structure_indices=structure_indices, molecular_system_2=molecular_system_2, selection_2=selection_2,
-                center_of_atoms_2=center_of_atoms_2, weights_2=weights, structure_indices_2=structure_indices_2,
-                pairs=pairs, pbc=pbc, engine=engine, syntax=syntax)
+    all_dists = get_distances(molecular_system=molecular_system, selection=selection, center_of_atoms=center_of_atoms,
+            weights=weights, structure_indices=structure_indices, molecular_system_2=molecular_system_2,
+            selection_2=selection_2, center_of_atoms_2=center_of_atoms_2, weights_2=weights,
+            structure_indices_2=structure_indices_2, pairs=pairs, pbc=pbc, engine=engine, syntax=syntax,
+            skip_digestion=True)
 
     if pairs is False:
 

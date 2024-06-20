@@ -5,7 +5,7 @@ def digest_output_indices(output_indices, caller=None):
 
     if caller=='molsysmt.structure.get_contacts.get_contacts':
 
-        if output_atom_indices is None:
+        if output_indices is None:
             return None
         elif isinstance(output_indices, str):
             if output_indices.lower() in ['selection', 'atom', 'group']:

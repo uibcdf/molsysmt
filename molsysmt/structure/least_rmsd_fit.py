@@ -8,7 +8,7 @@ import gc
 
 @digest()
 def least_rmsd_fit(molecular_system=None, selection='all', selection_fit='atom_type!="H"', structure_indices='all',
-        reference_molecular_system=None, reference_selection_fit=None, reference_structure_indices=0,
+        reference_molecular_system=None, reference_selection_fit=None, reference_structure_index=0,
         to_form=None, in_place=False, syntax='MolSysMT', engine='MolSysMT'):
     """
     To be written soon...
@@ -29,7 +29,7 @@ def least_rmsd_fit(molecular_system=None, selection='all', selection_fit='atom_t
             reference_selection_fit = selection_fit
 
         reference_coordinates = get(reference_molecular_system, element='atom',
-                selection=reference_selection_fit, structure_indices=reference_structure_indices,
+                selection=reference_selection_fit, structure_indices=reference_structure_index,
                 syntax=syntax, coordinates=True)
 
         coordinates, length_unit = puw.get_value_and_unit(coordinates)

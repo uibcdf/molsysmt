@@ -8,7 +8,7 @@ import gc
 
 @digest()
 def get_rmsd(molecular_system, selection='atom_type!="H"', structure_indices='all',
-          reference_molecular_system=None, reference_selection=None, reference_structure_indices=0,
+          reference_molecular_system=None, reference_selection=None, reference_structure_index=0,
           syntax='MolSysMT', engine='MolSysMT'):
     """
     To be written soon...
@@ -35,7 +35,7 @@ def get_rmsd(molecular_system, selection='atom_type!="H"', structure_indices='al
             reference_selection = selection
 
         reference_coordinates = get(reference_molecular_system, element='atom', selection=reference_selection,
-                structure_indices=reference_structure_indices, syntax=syntax,
+                structure_indices=reference_structure_index, syntax=syntax,
                 coordinates=True)
 
         coordinates, length_unit = puw.get_value_and_unit(coordinates)
