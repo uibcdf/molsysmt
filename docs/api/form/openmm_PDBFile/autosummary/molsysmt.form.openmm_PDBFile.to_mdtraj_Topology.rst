@@ -1,6 +1,0 @@
-﻿molsysmt.form.openmm\_PDBFile.to\_mdtraj\_Topology
-==================================================
-
-.. currentmodule:: molsysmt.form.openmm_PDBFile
-
-.. autofunction:: to_mdtraj_Topology

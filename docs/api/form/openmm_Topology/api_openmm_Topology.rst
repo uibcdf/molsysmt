@@ -10,7 +10,8 @@ openmm.Topology
    append_structures
    copy
    extract
-   get
+   get_topological_attributes
+   get_structural_attributes
    has_attribute
    is_form
    TopologyIterator
@@ -27,7 +28,7 @@ openmm.Topology
    to_openmm_Simulation
    to_openmm_System
    to_pdbfixer_PDBFixer
-   to_string_aminoacids1
-   to_string_aminoacids3
+   to_string_amino_acids_1
+   to_string_amino_acids_3
    to_string_pdb_text
 

@@ -10,7 +10,8 @@ openmm.Modeller
    append_structures
    copy
    extract
-   get
+   get_topological_attributes
+   get_structural_attributes
    has_attribute
    is_form
    StructuresIterator

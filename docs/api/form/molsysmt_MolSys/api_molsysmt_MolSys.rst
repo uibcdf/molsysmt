@@ -10,7 +10,8 @@ molsysmt.MolSys
    append_structures
    copy
    extract
-   get
+   get_topological_attributes
+   get_structural_attributes
    has_attribute
    is_form
    StructuresIterator
@@ -36,8 +37,8 @@ molsysmt.MolSys
    to_pdbfixer_PDBFixer
    to_pytraj_Topology
    to_pytraj_Trajectory
-   to_string_aminoacids1
-   to_string_aminoacids3
+   to_string_amino_acids_1
+   to_string_amino_acids_3
    to_string_pdb_text
    to_XYZ
 

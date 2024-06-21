@@ -16,7 +16,7 @@ openmm.AmberPrmtopFile
    TopologyIterator
    merge
    set
-   to_molsysmt_Topology
+   to_molsysmt_TopologyOld
    to_openmm_System
    to_openmm_Topology
 

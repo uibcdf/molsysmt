@@ -18,10 +18,9 @@ openmm.Simulation
    merge
    set
    to_file_pdb
-   to_molsysmt_MolSys
-   to_molsysmt_Structures
-   to_molsysmt_Topology
-   to_molsysmt_Trajectory
+   to_molsysmt_MolSysOld
+   to_molsysmt_StructuresOld
+   to_molsysmt_TopologyOld
    to_openmm_Context
    to_openmm_Modeller
    to_openmm_Topology

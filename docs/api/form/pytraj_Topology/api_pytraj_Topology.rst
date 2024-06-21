@@ -17,6 +17,6 @@ pytraj.Topology
    TopologyIterator
    merge
    set
-   to_molsysmt_Topology
+   to_molsysmt_TopologyOld
    to_pytraj_Trajectory
 

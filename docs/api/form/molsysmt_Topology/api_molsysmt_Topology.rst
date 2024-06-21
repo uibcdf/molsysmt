@@ -10,7 +10,7 @@ molsysmt.Topology
    append_structures
    copy
    extract
-   get
+   get_topological_attributes
    has_attribute
    is_form
    TopologyIterator
@@ -22,7 +22,7 @@ molsysmt.Topology
    to_nglview_NGLWidget
    to_openmm_Topology
    to_pytraj_Topology
-   to_string_aminoacids1
-   to_string_aminoacids3
+   to_string_amino_acids_1
+   to_string_amino_acids_3
    to_string_pdb_text
 

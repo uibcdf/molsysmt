@@ -10,12 +10,11 @@ molsysmt.Structures
    append_structures
    copy
    extract
-   get
+   get_structural_attributes
    has_attribute
    is_form
    StructuresIterator
    merge
    set
-   to_molsysmt_StructuresDict
-   to_XYZ
+   to_file_h5msm
 

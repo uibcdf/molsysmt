@@ -7,6 +7,5 @@ API Amino acid
    :toctree: autosummary
 
    get_1_letter_code_from_name
-   get_amino_acid_type_from_name
    is_amino_acid
 
