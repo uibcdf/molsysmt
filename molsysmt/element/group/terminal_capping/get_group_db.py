@@ -4,7 +4,7 @@ import json
 import numpy as np
 from molsysmt.element.group.terminal_capping import n_terminal_capping_names, c_terminal_capping_names
 
-if sys.version_info[1]==10:
+if sys.version_info[1] in (10,11):
     from importlib.resources import files
     def path(package, file):
         return files(package).joinpath(file)

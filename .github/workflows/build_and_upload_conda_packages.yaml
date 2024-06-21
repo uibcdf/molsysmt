@@ -14,7 +14,7 @@ jobs:
       fail-fast: false  # do not cancel all in-progress jobs if any job variation fails
       matrix:
         #os: ubuntu-latest #[macOS-latest, ubuntu-latest]
-        python-version: ["3.10"]
+        python-version: ["3.9", "3.10", "3.11"]
 
     steps:
 
@@ -50,7 +50,7 @@ jobs:
           micromamba list
 
       - name: Build and upload the conda packages
-        uses: uibcdf/action-build-and-upload-conda-packages@v1.2.0
+        uses: uibcdf/action-build-and-upload-conda-packages@v1.3.0
         with:
           meta_yaml_dir: devtools/conda-build
           python-version: ${{ matrix.python-version }} # Values previously defined in `matrix`

@@ -1,6 +1,6 @@
 import sys
 
-if sys.version_info[1]==10:
+if sys.version_info[1] in (10,11):
     from importlib.resources import files
     def path(package, file):
         return files(package).joinpath(file)
