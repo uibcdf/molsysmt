@@ -13,7 +13,7 @@ elif sys.version_info[1] in (8,9):
     parent = PurePath(__file__).parent
     def path(package, file):
         data_dir = package.split('.')[-1]
-        return parent.joinpath('../data/'+data_dir+'/'+file).__str__()
+        return parent.joinpath('../../../data/databases/'+data_dir+'/'+file).__str__()
 
 def get_group_db(group_name):
 
