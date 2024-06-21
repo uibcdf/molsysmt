@@ -65,82 +65,79 @@ def get_missing_bonds(molecular_system, threshold='2 angstroms', selection='all'
 
                 group_index += 1
 
-                match group_type:
+                if group_type=="water": # Use match-case whenever Python 3.9 is deprecated
 
-                    case 'water':
+                    aux_bonds = _bonds_in_water(atom_names, atom_indices, sorted=False)
+                    bonds += aux_bonds
 
-                        aux_bonds = _bonds_in_water(atom_names, atom_indices, sorted=False)
-                        bonds += aux_bonds
-
-                    case 'ion':
-
+                elif group_type=="ion":
                         
-                        aux_bonds = _bonds_in_ion(group_name, atom_names, atom_indices, sorted=False)
-                        if aux_bonds is None:
-                            aux_bonds = _bonds_in_unknown_group(molecular_system, atom_indices, atom_names,
-                                                                structure_index=structure_index, threshold=threshold,
-                                                                sorted=False)
-                        bonds += aux_bonds
+                    aux_bonds = _bonds_in_ion(group_name, atom_names, atom_indices, sorted=False)
+                    if aux_bonds is None:
+                        aux_bonds = _bonds_in_unknown_group(molecular_system, atom_indices, atom_names,
+                                                            structure_index=structure_index, threshold=threshold,
+                                                            sorted=False)
+                    bonds += aux_bonds
 
-                    case 'amino acid':
+                elif group_type=='amino acid':
 
-                        aux_bonds = _bonds_in_amino_acid(group_name, atom_names, atom_indices, sorted=False)
-                        if aux_bonds is None:
-                            aux_bonds = _bonds_in_unknown_group(molecular_system, atom_indices, atom_names,
-                                                                structure_index=structure_index, threshold=threshold,
-                                                                sorted=False)
-                        bonds += aux_bonds
-                        
-                        if 'C' in atom_names:
-                            aux_peptidic_bonds_C[group_index]=atom_indices[atom_names.index('C')]
+                    aux_bonds = _bonds_in_amino_acid(group_name, atom_names, atom_indices, sorted=False)
+                    if aux_bonds is None:
+                        aux_bonds = _bonds_in_unknown_group(molecular_system, atom_indices, atom_names,
+                                                            structure_index=structure_index, threshold=threshold,
+                                                            sorted=False)
+                    bonds += aux_bonds
+                    
+                    if 'C' in atom_names:
+                        aux_peptidic_bonds_C[group_index]=atom_indices[atom_names.index('C')]
 
-                        if 'N' in atom_names:
-                            aux_peptidic_bonds_N[group_index]=atom_indices[atom_names.index('N')]
+                    if 'N' in atom_names:
+                        aux_peptidic_bonds_N[group_index]=atom_indices[atom_names.index('N')]
 
-                    case 'terminal capping':
+                elif group_type=='terminal capping':
 
-                        aux_bonds = _bonds_in_terminal_capping(group_name, atom_names, atom_indices, sorted=False)
-                        if aux_bonds is None:
-                            aux_bonds = _bonds_in_unknown_group(molecular_system, atom_indices, atom_names,
-                                                                structure_index=structure_index, threshold=threshold,
-                                                                sorted=False)
-                        bonds += aux_bonds
+                    aux_bonds = _bonds_in_terminal_capping(group_name, atom_names, atom_indices, sorted=False)
+                    if aux_bonds is None:
+                        aux_bonds = _bonds_in_unknown_group(molecular_system, atom_indices, atom_names,
+                                                            structure_index=structure_index, threshold=threshold,
+                                                            sorted=False)
+                    bonds += aux_bonds
 
-                        if is_c_terminal_capping(group_name):
-                            aux_peptidic_bonds_C[group_index]=atom_indices[atom_names.index('C')]
-                        elif is_n_terminal_capping(group_name):
-                            aux_peptidic_bonds_N[group_index]=atom_indices[atom_names.index('N')]
-                        else:
-                            raise ValueError("terminal capping not recognized as C- or N-")
+                    if is_c_terminal_capping(group_name):
+                        aux_peptidic_bonds_C[group_index]=atom_indices[atom_names.index('C')]
+                    elif is_n_terminal_capping(group_name):
+                        aux_peptidic_bonds_N[group_index]=atom_indices[atom_names.index('N')]
+                    else:
+                        raise ValueError("terminal capping not recognized as C- or N-")
 
-                    case 'small molecule':
+                elif group_type=='small molecule':
 
-                        aux_bonds = _bonds_in_small_molecule(group_name, atom_names, atom_indices, sorted=False)
-                        if aux_bonds is None:
-                            aux_bonds = _bonds_in_unknown_group(molecular_system, atom_indices, atom_names,
-                                                                structure_index=structure_index, threshold=threshold,
-                                                                sorted=False)
-                        bonds += aux_bonds
+                    aux_bonds = _bonds_in_small_molecule(group_name, atom_names, atom_indices, sorted=False)
+                    if aux_bonds is None:
+                        aux_bonds = _bonds_in_unknown_group(molecular_system, atom_indices, atom_names,
+                                                            structure_index=structure_index, threshold=threshold,
+                                                            sorted=False)
+                    bonds += aux_bonds
 
-                    case 'saccharide':
+                elif group_type=='saccharide':
 
-                        raise NotImplementedError('Group type "saccharide" not implemented')
+                    raise NotImplementedError('Group type "saccharide" not implemented')
 
-                    case 'oligosaccharide':
+                elif group_type=='oligosaccharide':
 
-                        raise NotImplementedError('Group type "oligosaccharide" not implemented')
+                    raise NotImplementedError('Group type "oligosaccharide" not implemented')
 
-                    case 'lipid':
+                elif group_type=='lipid':
 
-                        raise NotImplementedError('Group type "lipid" not implemented')
+                    raise NotImplementedError('Group type "lipid" not implemented')
 
-                    case 'nucleotide':
+                elif group_type=='nucleotide':
 
-                        raise NotImplementedError('Group type "nucleotide" not implemented')
+                    raise NotImplementedError('Group type "nucleotide" not implemented')
 
-                    case _:
+                else:
 
-                        groups_undone.append(group_index)
+                    groups_undone.append(group_index)
 
             # peptidic bonds
 
