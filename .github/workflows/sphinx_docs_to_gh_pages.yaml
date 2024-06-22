@@ -1,4 +1,4 @@
-name: Sphinx docs to gh-pages
+name: Documentation
 
 on:
   release:
