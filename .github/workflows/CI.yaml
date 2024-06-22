@@ -89,10 +89,14 @@ jobs:
         echo "::endgroup::"
 
     - name: Run tests
-
       shell: bash -l {0}
       run: |
         pytest -n logical -v --cov=molsysmt --cov-report=xml --color=yes molsysmt/tests/
+
+    - name: Check coverage
+      shell: bash -l {0}
+      run: |
+        cat ./coverage.xml
 
     - name: Upload coverage reports to Codecov
       uses: codecov/codecov-action@v4
