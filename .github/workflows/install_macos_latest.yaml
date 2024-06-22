@@ -1,5 +1,5 @@
 
-name: Test installation on macos-latest
+name: Installation on macos-latest
 
 on:
   workflow_dispatch:

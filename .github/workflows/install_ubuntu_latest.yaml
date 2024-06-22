@@ -1,5 +1,5 @@
 
-name: Test installation on ubuntu-latest
+name: Installation on ubuntu-latest
 
 on:
   workflow_dispatch:
