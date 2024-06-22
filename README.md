@@ -2,12 +2,15 @@ MolSysMT
 ==============================
 
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 [![DOI](https://zenodo.org/badge/137937243.svg)](https://zenodo.org/badge/latestdoi/137937243)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Install with conda](https://img.shields.io/badge/Install%20with-conda-brightgreen.svg)](https://conda.anaconda.org/uibcdf/MolSysMT)
 [![](https://img.shields.io/badge/Python-3.9%20%7C%203.10%20%7C%203.11-blue.svg)](https://www.python.org/downloads/) 
 [![CI](https://github.com/uibcdf/MolSysMT/actions/workflows/CI.yaml/badge.svg)](https://github.com/uibcdf/MolSysMT/actions/workflows/CI.yaml)
 [![codecov](https://codecov.io/gh/uibcdf/MolSysMT/branch/master/graph/badge.svg)](https://codecov.io/gh/uibcdf/MolSysMT/branch/master)
+
+[![Install with conda](https://img.shields.io/badge/Install%20with-conda-brightgreen.svg)](https://conda.anaconda.org/uibcdf/MolSysMT)
+[![Test installation on ubuntu-latest](https://github.com/uibcdf/MolSysMT/actions/workflows/install_ubuntu_latest.yaml/badge.svg)](https://github.com/uibcdf/MolSysMT/actions/workflows/install_ubuntu_latest.yaml)
+[![Test installation on macos-latest](https://github.com/uibcdf/MolSysMT/actions/workflows/install_macos_latest.yaml/badge.svg)](https://github.com/uibcdf/MolSysMT/actions/workflows/install_macos_latest.yaml)
 
 
 **[Installation](#installation)** |

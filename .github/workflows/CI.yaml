@@ -94,10 +94,12 @@ jobs:
       run: |
         pytest -n logical -v --cov=molsysmt --cov-report=xml --color=yes molsysmt/tests/
 
-    - name: CodeCov
-      uses: codecov/codecov-action@v1
+    - name: Upload coverage reports to Codecov
+      uses: codecov/codecov-action@v4
       with:
+        verbose: true
         file: ./coverage.xml
         flags: unittests
         name: codecov-${{ matrix.cfg.os }}-py${{ matrix.cfg.python-version }}
+        token: ${{ secrets.CODECOV_TOKEN }}
 
