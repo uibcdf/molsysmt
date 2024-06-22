@@ -4,7 +4,7 @@ MolSysMT
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 [![DOI](https://zenodo.org/badge/137937243.svg)](https://zenodo.org/badge/latestdoi/137937243)
 [![](https://img.shields.io/badge/Python-3.9%20%7C%203.10%20%7C%203.11-blue.svg)](https://www.python.org/downloads/) 
-[![Updated documentation](https://github.com/uibcdf/MolSysMT/actions/workflows/sphinx_docs_to_gh_pages.yaml/badge.svg)](https://github.com/uibcdf/MolSysMT/actions/workflows/sphinx_docs_to_gh_pages.yaml)
+[![Documentation](https://github.com/uibcdf/MolSysMT/actions/workflows/sphinx_docs_to_gh_pages.yaml/badge.svg)](https://github.com/uibcdf/MolSysMT/actions/workflows/sphinx_docs_to_gh_pages.yaml)
 [![CI](https://github.com/uibcdf/MolSysMT/actions/workflows/CI.yaml/badge.svg)](https://github.com/uibcdf/MolSysMT/actions/workflows/CI.yaml)
 [![codecov](https://codecov.io/github/uibcdf/MolSysMT/graph/badge.svg?token=9ZMA4YZLOR)](https://codecov.io/github/uibcdf/MolSysMT)
 [![Install with conda](https://img.shields.io/badge/Install%20with-conda-brightgreen.svg)](https://conda.anaconda.org/uibcdf/MolSysMT)
