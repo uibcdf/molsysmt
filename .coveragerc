@@ -1,0 +1,9 @@
+# .coveragerc
+
+[run]
+branch = True
+source = molsysmt
+
+[report]
+show_missing = True
+

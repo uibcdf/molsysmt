@@ -91,6 +91,7 @@ jobs:
     - name: Run tests
       shell: bash -l {0}
       run: |
+        export PYTHONPATH=$PYTHONPATH:$(pwd)
         pytest -n logical -v --cov=molsysmt --cov-report=xml --color=yes molsysmt/tests/
 
     - name: Check coverage
