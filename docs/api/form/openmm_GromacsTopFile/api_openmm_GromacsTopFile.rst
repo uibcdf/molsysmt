@@ -1,7 +1,7 @@
 openmm.GromacsGroFile
 =====================
 
-.. currentmodule:: molsysmt.form.openmm_GromacsGroFile
+.. currentmodule:: molsysmt.form.openmm_GromacsTopFile
 
 .. autosummary::
    :toctree: autosummary
@@ -13,14 +13,10 @@ openmm.GromacsGroFile
    get
    has_attribute
    is_form
-   StructuresIterator
    TopologyIterator
    merge
    set
-   to_molsysmt_MolSys
-   to_molsysmt_Structures
-   to_molsysmt_Topology
-   to_openmm_Modeller
+   to_molsysmt_TopologyOld
    to_openmm_Topology
 
 

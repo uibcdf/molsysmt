@@ -62,8 +62,12 @@ extensions = [
     'sphinx_favicon',
     'myst_nb',
     'sphinx_tabs.tabs', # Do not move from the last position
-    # 'nbsphinx', # for local testing instead of myst_nb
+    #'nbsphinx', # for local testing instead of myst_nb
 ]
+
+# nbsphinx extensions and options
+
+#nbsphinx_execute = 'cache'
 
 # Myst extensions and options
 
@@ -74,6 +78,8 @@ myst_enable_extensions = [
 ]
 
 myst_heading_anchors = 3
+
+nb_execution_mode = 'auto'
 
 nb_execution_timeout = 100
 
@@ -207,6 +213,9 @@ html_css_files = [
 # Custom css for tabs
 def setup(app):
     app.add_css_file('sphinx_tabs.css')
+    app.add_css_file('custom.css')
+    app.add_js_file('https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js')
+    app.add_js_file('https://cdn.jsdelivr.net/npm/nglview-js-widgets@3.1.0/dist/index.js')
 
 # -- Options for HTMLHelp output ---------------------------------------------
 
