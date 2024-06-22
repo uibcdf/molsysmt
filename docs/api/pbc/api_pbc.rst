@@ -11,7 +11,7 @@ API Periodic boundary conditions
    get_lengths_and_angles_from_box 
    get_lengths_from_box 
    get_shape_from_box 
-   get_shape_from_lengths_and_angles
+   get_shape_from_angles
    get_volume_from_box
    get_volume_from_lengths_and_angles
    unwrap

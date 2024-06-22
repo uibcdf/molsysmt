@@ -32,6 +32,6 @@ mdtraj.Trajectory
    to_pdbfixer_PDBFixer
    to_pytraj_Topology
    to_pytraj_Trajectory
-   to_string_aminoacids1
-   to_string_aminoacids3
+   to_string_amino_acids_1
+   to_string_amino_acids_3
 

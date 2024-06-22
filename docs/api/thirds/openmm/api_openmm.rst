@@ -6,5 +6,4 @@ OpenMM
 .. autosummary::
    :toctree: autosummary
 
-   check_platforms
 

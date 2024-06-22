@@ -35,8 +35,6 @@ molsysmt.MolSys
    to_openmm_System
    to_openmm_Topology
    to_pdbfixer_PDBFixer
-   to_pytraj_Topology
-   to_pytraj_Trajectory
    to_string_amino_acids_1
    to_string_amino_acids_3
    to_string_pdb_text

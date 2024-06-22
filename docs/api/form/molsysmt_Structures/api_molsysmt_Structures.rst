@@ -10,7 +10,7 @@ molsysmt.Structures
    append_structures
    copy
    extract
-   get_structural_attributes
+   get
    has_attribute
    is_form
    StructuresIterator

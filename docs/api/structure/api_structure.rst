@@ -8,15 +8,13 @@ API Structure
 .. autosummary::
    :toctree: autosummary
 
-   align
+   least_rmsd_align
    center
-   fit
-   get_center_of_mass
+   least_rmsd_fit
    get_center
    get_contacts
    get_dihedral_angles
    get_distances
-   get_geometric_center
    get_least_rmsd
    get_maximum_distances
    get_minimum_distances

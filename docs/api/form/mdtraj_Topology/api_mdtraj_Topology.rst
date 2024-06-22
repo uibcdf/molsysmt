@@ -22,6 +22,6 @@ mdtraj.Topology
    to_openmm_Topology
    to_parmed_GromacsTopologyFile
    to_parmed_Structure
-   to_string_aminoacids1
-   to_string_aminoacids3
+   to_string_amino_acids_1
+   to_string_amino_acids_3
 

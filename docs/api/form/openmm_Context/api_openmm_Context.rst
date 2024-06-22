@@ -17,6 +17,6 @@ openmm.Context
    TopologyIterator
    merge
    set
-   to_molsysmt_Structures
+   to_molsysmt_StructuresOld
    to_openmm_System
 

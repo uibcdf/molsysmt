@@ -8,5 +8,6 @@ API Hydrogen bonds
   
    get_acceptor_atoms
    get_donor_atoms
-   get_hbonds
+   get_buch_hbonds
+   get_luzard_chandler_hbonds
 
