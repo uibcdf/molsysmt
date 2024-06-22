@@ -6,7 +6,7 @@ MolSysMT
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Install with conda](https://img.shields.io/badge/Install%20with-conda-brightgreen.svg)](https://conda.anaconda.org/uibcdf/MolSysMT)
 [![](https://img.shields.io/badge/Python-3.9%20%7C%203.10%20%7C%203.11-blue.svg)](https://www.python.org/downloads/) 
-[![GitHub Actions Build Status](https://github.com/uibcdf/MolSysMT/workflows/CI/badge.svg)](https://github.com/uibcdf/MolSysMT/actions?query=workflow%3ACI)
+[![CI](https://github.com/uibcdf/MolSysMT/actions/workflows/CI.yaml/badge.svg)](https://github.com/uibcdf/MolSysMT/actions/workflows/CI.yaml)
 [![codecov](https://codecov.io/gh/uibcdf/MolSysMT/branch/master/graph/badge.svg)](https://codecov.io/gh/uibcdf/MolSysMT/branch/master)
 
 
