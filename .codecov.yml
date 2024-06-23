@@ -17,3 +17,5 @@ comment:
 
 ignore:
   - "molsysmt/form/**"
+  - "molsysmt/_private/**"
+  - "molsysmt/lib/**"

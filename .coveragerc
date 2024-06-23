@@ -8,3 +8,5 @@ source = molsysmt
 show_missing = True
 omit =
     molsysmt/form/**
+    molsysmt/_private/**
+    molsysmt/lib/**
