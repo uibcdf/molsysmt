@@ -6,4 +6,5 @@ source = molsysmt
 
 [report]
 show_missing = True
-
+omit =
+    molsysmt/form/**

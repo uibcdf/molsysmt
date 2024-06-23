@@ -92,7 +92,7 @@ jobs:
       shell: bash -l {0}
       run: |
         export PYTHONPATH=$PYTHONPATH:$(pwd)
-        pytest -n logical -v --cov=molsysmt --cov-report=xml --color=yes molsysmt/tests/
+        pytest -n logical -v --cov=molsysmt --cov-report=xml --color=yes tests/
 
     - name: Check coverage
       shell: bash -l {0}
@@ -100,6 +100,7 @@ jobs:
         cat ./coverage.xml
 
     - name: Upload coverage reports to Codecov
+      if: matrix.cfg.os == 'ubuntu-latest' && matrix.cfg.python-version == '3.11'
       uses: codecov/codecov-action@v4
       with:
         verbose: true

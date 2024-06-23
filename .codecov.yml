@@ -1,10 +1,12 @@
 # Codecov configuration to make it a bit less noisy
+
 coverage:
   status:
     patch: false
     project:
       default:
         threshold: 50%
+
 comment:
   layout: "header"
   require_changes: false
@@ -12,3 +14,6 @@ comment:
   behavior: default
   flags: null
   paths: null
+
+ignore:
+  - "molsysmt/form/**"
