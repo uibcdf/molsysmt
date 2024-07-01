@@ -13,12 +13,13 @@ def extract(item, atom_indices='all', structure_indices='all', output_filename=N
 
         if copy_if_all or (output_filename!=item):
 
-            raise NotImplementedMethodError()
+            from shutil import copy as copy_file
+            copy_file(item, output_filename)
+            tmp_item = output_filename
 
         else:
 
-            raise NotImplementedMethodError()
-
+            tmp_item = item
     else:
 
         raise NotImplementedMethodError()

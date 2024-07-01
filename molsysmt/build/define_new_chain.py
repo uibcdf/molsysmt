@@ -23,6 +23,15 @@ def define_new_chain(molecular_system, selection='all', chain_id=None, chain_nam
 
     else:
 
+        atom_indices = select(molecular_system, selection=selection)
+        rest_atom_indices = complementary_atom_indices(molecular_system, selection=selection)
+
+        former_chain_ids, former_chain_names = get(molecular_system, selection=rest_atom_indices, chain_id=True,
+                                                   chain_name=True)
+
+        former_chain_ids = sort(np.unique(fomer_chain_ids).tolist())
+        former_chain_names = sort(np.unique(former_chain_names).tolist())
+
         raise NotImplementedError
 
     pass

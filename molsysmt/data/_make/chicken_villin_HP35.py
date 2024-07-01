@@ -33,14 +33,16 @@ for filename in files_to_be_purged:
 # 1vii pdb and mmtf files
 print('Protein Data Bank files...')
 msm.convert('pdb_id:1vii', to_form='1vii.pdb')
-msm.convert('pdb_id:1vii', to_form='1vii.mmtf')
-shutil.move('1vii.pdb', Path(data_dir, 'pdb/1vii.pdb'))
-shutil.move('1vii.mmtf', Path(data_dir, 'mmtf/1vii.mmtf'))
+msm.convert('pdb_id:1vii', to_form='1vii.bcif')
+msm.convert('pdb_id:1vii', to_form='1vii.bcif.gz')
+shutil.move('1vii.pdb', Path(data_dir, 'bcif/1vii.pdb'))
+shutil.move('1vii.bcif', Path(data_dir, 'mmtf/1vii.bcif'))
+shutil.move('1vii.bcif.gz', Path(data_dir, 'mmtf/1vii.bcif.gz'))
 
 
 # vacuum
 print('Vacuum system in h5msm file...')
-molsys = msm.convert('pdb_id:1vii', to_form='molsysmt.MolSys')
+molsys = msm.convert('1VII', to_form='molsysmt.MolSys')
 molsys = msm.basic.remove(molsys, selection='group_type==["water", "ion"]')
 molsys = msm.basic.remove(molsys, selection='atom_type=="H"')
 molsys = msm.build.add_missing_terminal_cappings(molsys, N_terminal='ACE', C_terminal='NME')
@@ -74,13 +76,13 @@ simulation.reporters.append(app.StateDataReporter(stdout, 50000, progress=True,
     potentialEnergy=True, temperature=True, remainingTime=True, totalSteps=1000000))
 simulation.reporters.append(app.DCDReporter('traj_chicken_villin_HP35_solvated.dcd', 50000, enforcePeriodicBox=True))
 simulation.reporters.append(HDF5Reporter('traj_chicken_villin_HP35_solvated.h5', 50000))
-#simulation.reporters.append(msm.thirds.openmm.reporters.H5MSMReporter('traj_chicken_villin_HP35_solvated.h5msm', 
-#                                                                      10000000, 50000))
+simulation.reporters.append(msm.thirds.openmm.reporters.H5MSMReporter('traj_chicken_villin_HP35_solvated.h5msm', 
+                                                                      10000000, 50000))
 simulation.step(1000000)
 simulation.reporters[2].close()
 final_positions = simulation.context.getState(getPositions=True).getPositions()
 
 shutil.move('traj_chicken_villin_HP35_solvated.dcd', Path(data_dir, 'dcd/traj_chicken_villin_HP35_solvated.dcd'))
 shutil.move('traj_chicken_villin_HP35_solvated.h5', Path(data_dir, 'h5/traj_chicken_villin_HP35_solvated.h5'))
-#shutil.move('traj_chicken_villin_HP35_solvated.h5msm', Path(data_dir, 'h5/traj_chicken_villin_HP35_solvated.h5msm'))
+shutil.move('traj_chicken_villin_HP35_solvated.h5msm', Path(data_dir, 'h5/traj_chicken_villin_HP35_solvated.h5msm'))
 

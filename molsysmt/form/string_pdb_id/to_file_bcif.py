@@ -6,7 +6,7 @@ def to_file_bcif(item, atom_indices='all', structure_indices='all', output_filen
     from ..file_bcif import download
     from ..file_bcif import extract
 
-    tmp_item = download(item.replace('bcif:', ''), output_filename)
+    tmp_item = download(item.replace('pdb_id:', ''), output_filename)
     tmp_item = extract(tmp_item, atom_indices=atom_indices, structure_indices=structure_indices,
             output_filename=tmp_item, copy_if_all=False, skip_digestion=True)
 

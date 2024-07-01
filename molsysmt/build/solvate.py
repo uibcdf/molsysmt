@@ -51,10 +51,17 @@ def solvate (molecular_system, box_shape="truncated octahedral", clearance='14.0
     if engine=="OpenMM":
 
         from openmm import Vec3
-        from molsysmt.basic import get
+        from molsysmt.basic import get, set
         from openmm.app import ForceField
         from molsysmt.config import default_attribute
         from molsysmt.molecular_mechanics import forcefield_to_engine
+
+        component_indices, component_names = get(molecular_system, element='component', component_index=True,
+                                                 component_name=True)
+        molecule_indices, molecule_names = get(molecular_system, element='molecule', molecule_index=True,
+                                               molecule_name=True)
+        chain_indices, chain_ids, chain_names = get(molecular_system, element='chain', chain_index=True,
+                                                    chain_id=True, chain_name=True)
 
         clearance = puw.convert(clearance, to_form='openmm.unit')
         ionic_strength = puw.convert(ionic_strength, to_form='openmm.unit')
@@ -111,6 +118,18 @@ def solvate (molecular_system, box_shape="truncated octahedral", clearance='14.0
         tmp_item = convert(modeller, to_form=to_form)
 
         del(modeller)
+
+        set(tmp_item, element='component', selection=component_indices, component_name=component_names,
+            skip_digestion=True)
+        set(tmp_item, element='molecule', selection=molecule_indices, molecule_name=molecule_names,
+            skip_digestion=True)
+        set(tmp_item, element='chain', selection=chain_indices, chain_id=chain_ids, chain_name=chain_names,
+            skip_digestion=True)
+
+        if to_form=='molsysmt.MolSys':
+            tmp_item.topology.rebuild_entities(redefine_indices=True, redefine_ids=True, redefine_names=True, redefine_types=True)
+        elif to_form=='molsysmt.Topology':
+            tmp_item.rebuild_entities(redefine_indices=True, redefine_ids=True, redefine_names=True, redefine_types=True)
 
         return tmp_item
 
