@@ -1,6 +1,6 @@
 from ...exceptions import ArgumentError
 from ...variables import is_all
-from numpy import ndarray
+import numpy as np
 
 functions_with_boolean = (
         'molsysmt.basic.get.get',
@@ -38,11 +38,18 @@ def digest_entity_id(entity_id, caller=None):
                 return entity_id
         elif caller.startswith('molsysmt.form.') and caller.count('.to_')==2:
             return entity_id
-        elif '.set.set' in caller:
-            if isinstance(entity_id, (int, str, list, tuple, ndarray)):
-                return entity_id
 
-        raise ArgumentError('entity_id', value=entity_id, caller=caller, message=None)
+    if isinstance(entity_id, (int, np.int64)):
+        return [entity_id]
+
+    elif isinstance(entity_id, list):
+        return entity_id
+
+    elif isinstance(entity_id, tuple):
+        return list(entity_id)
+
+    elif isinstance(entity_id, np.ndarray):
+        return entity_id.tolist()
 
     raise ArgumentError('entity_id', value=entity_id, caller=caller, message=None)
 

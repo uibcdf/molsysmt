@@ -41,13 +41,16 @@ def digest_component_index(component_index, caller=None):
                 raise ArgumentError('component_index', value=component_index, caller=caller, message=None)
 
     if isinstance(component_index, (int, np.int64)):
-        component_index=np.ndarray([component_index])
+        return [component_index]
 
-    if isinstance(component_index, (tuple, list)):
-        component_index=np.ndarray(component_index)
+    elif isinstance(component_index, list):
+        return component_index
+
+    elif isinstance(component_index, tuple):
+        return list(component_index)
 
     if isinstance(component_index, np.ndarray):
-        return component_index
+        return component_index.tolist()
 
     raise ArgumentError('component_index', value=component_index, caller=caller, message=None)
 

@@ -41,13 +41,16 @@ def digest_molecule_index(molecule_index, caller=None):
                 raise ArgumentError('molecule_index', value=molecule_index, caller=caller, message=None)
 
     if isinstance(molecule_index, (int, np.int64)):
-        molecule_index=np.ndarray([molecule_index])
+        return [molecule_index]
 
-    if isinstance(molecule_index, (tuple, list)):
-        molecule_index=np.ndarray(molecule_index)
+    elif isinstance(molecule_index, list):
+        return molecule_index
+
+    elif isinstance(molecule_index, tuple):
+        return list(molecule_index)
 
     if isinstance(molecule_index, np.ndarray):
-        return molecule_index
+        return molecule_index.tolist()
 
     raise ArgumentError('molecule_index', value=molecule_index, caller=caller, message=None)
 

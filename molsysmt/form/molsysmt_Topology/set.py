@@ -54,25 +54,28 @@ def set_group_index_to_atom(item, indices='all', value=None, skip_digestion=Fals
 def set_chain_index_to_atom(item, indices='all', value=None, skip_digestion=False):
 
     if is_all(indices):
-        item.atoms.chain_index=value
+        if len(value)==1:
+            item.atoms.chain_index=value[0]
+        else:
+            item.atoms.chain_index=value
     else:
         item.atoms.iloc[indices, 4]=value
 
     pass
 
-@digest(form=form)
-def set_chain_id_to_atom(item, indices='all', value=None, skip_digestion=False):
-
-    if is_all(indices):
-        item.atoms.chain_index=0
-        item.reset_chains(n_chains=1)
-        item.chains.chain_id=value
-        item.chains.chain_name='A'
-        item.rebuild_chains(redefine_ids=False, redefine_types=True)
-    else:
-        raise NotImplementedError
-
-    pass
+#@digest(form=form)
+#def set_chain_id_to_atom(item, indices='all', value=None, skip_digestion=False):
+#
+#    if is_all(indices):
+#        item.atoms.chain_index=0
+#        item.reset_chains(n_chains=1)
+#        item.chains.chain_id=value
+#        item.chains.chain_name='A'
+#        item.rebuild_chains(redefine_ids=False, redefine_types=True)
+#    else:
+#        raise NotImplementedError
+#
+#    pass
 
 
 ## Group

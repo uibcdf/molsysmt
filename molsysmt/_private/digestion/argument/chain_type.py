@@ -1,6 +1,6 @@
 from ...exceptions import ArgumentError
 from ...variables import is_all
-from numpy import ndarray
+import numpy as np
 
 functions_with_boolean = (
         'molsysmt.basic.get.get',
@@ -39,6 +39,18 @@ def digest_chain_type(chain_type, caller=None):
             return chain_type
     elif caller.startswith('molsysmt.form.') and caller.count('.to_')==2:
         return chain_type
+
+    if isinstance(chain_type, str):
+        return chain_type
+
+    elif isinstance(chain_type, list):
+        return chain_type
+
+    elif isinstance(chain_type, tuple):
+        return list(chain_type)
+
+    elif isinstance(chain_type, np.ndarray):
+        return chain_type.tolist()
 
     raise ArgumentError('chain_type', value=chain_type, caller=caller, message=None)
 

@@ -41,13 +41,16 @@ def digest_bond_index(bond_index, caller=None):
                 raise ArgumentError('bond_index', value=bond_index, caller=caller, message=None)
 
     if isinstance(bond_index, (int, np.int64)):
-        bond_index=np.ndarray([bond_index])
+        return [bond_index]
 
-    if isinstance(bond_index, (tuple, list)):
-        bond_index=np.ndarray(bond_index)
+    elif isinstance(bond_index, list):
+        return bond_index
+
+    elif isinstance(bond_index, tuple):
+        return list(bond_index)
 
     if isinstance(bond_index, np.ndarray):
-        return bond_index
+        return bond_index.tolist()
 
     raise ArgumentError('bond_index', value=bond_index, caller=caller, message=None)
 

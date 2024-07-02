@@ -1,6 +1,6 @@
 from ...exceptions import ArgumentError
 from ...variables import is_all
-from numpy import ndarray
+import numpy as np
 
 functions_with_boolean = (
         'molsysmt.basic.get.get',
@@ -37,9 +37,6 @@ def digest_chain_id(chain_id, caller=None):
     if caller.endswith(functions_with_boolean):
         if isinstance(chain_id, bool):
             return chain_id
-    elif 'set.set' in caller:
-        if isinstance(chain_id, (int, list, tuple, ndarray)):
-            return chain_id
     elif caller=='molsysmt.build.define_new_chain.define_new_chain':
         if isinstance(chain_id, int):
             return chain_id
@@ -47,6 +44,18 @@ def digest_chain_id(chain_id, caller=None):
             return None
     elif caller.startswith('molsysmt.form.') and caller.count('.to_')==2:
         return chain_id
+
+    if isinstance(chain_id, (int, np.int64)):
+        return [chain_id]
+
+    elif isinstance(chain_id, list):
+        return chain_id
+
+    elif isinstance(chain_id, tuple):
+        return list(chain_id)
+
+    if isinstance(chain_id, np.ndarray):
+        return chain_id.tolist()
 
     raise ArgumentError('chain_id', value=chain_id, caller=caller, message=None)
 

@@ -1,6 +1,6 @@
 from ...exceptions import ArgumentError
 from ...variables import is_all
-from numpy import ndarray
+import numpy as np
 
 
 functions_with_boolean = (
@@ -38,9 +38,18 @@ def digest_molecule_id(molecule_id, caller=None):
             return molecule_id
     elif caller.startswith('molsysmt.form.') and caller.count('.to_')==2:
         return molecule_id
-    elif '.set.set' in caller:
-        if isinstance(molecule_id, (int, list, tuple, ndarray)):
-            return molecule_id
+
+    if isinstance(molecule_id, (int, np.int64)):
+        return [molecule_id]
+
+    elif isinstance(molecule_id, list):
+        return molecule_id
+
+    elif isinstance(molecule_id, tuple):
+        return list(molecule_id)
+
+    elif isinstance(molecule_id, np.ndarray):
+        return molecule_id.tolist()
 
     raise ArgumentError('molecule_id', value=molecule_id, caller=caller, message=None)
 

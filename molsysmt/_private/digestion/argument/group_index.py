@@ -41,13 +41,16 @@ def digest_group_index(group_index, caller=None):
                 raise ArgumentError('group_index', value=group_index, caller=caller, message=None)
 
     if isinstance(group_index, (int, np.int64)):
-        group_index=np.ndarray([group_index])
+        return [group_index]
 
-    if isinstance(group_index, (tuple, list)):
-        group_index=np.ndarray(group_index)
+    elif isinstance(group_index, list):
+        return group_index
+
+    elif isinstance(group_index, tuple):
+        return list(group_index)
 
     if isinstance(group_index, np.ndarray):
-        return group_index
+        return group_index.tolist()
 
     raise ArgumentError('group_index', value=group_index, caller=caller, message=None)
 

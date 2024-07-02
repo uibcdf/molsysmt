@@ -41,13 +41,16 @@ def digest_atom_index(atom_index, caller=None):
                 raise ArgumentError('atom_index', value=atom_index, caller=caller, message=None)
 
     if isinstance(atom_index, (int, np.int64)):
-        atom_index=np.ndarray([atom_index])
+        return [atom_index]
 
-    if isinstance(atom_index, (tuple, list)):
-        atom_index=np.ndarray(atom_index)
+    elif isinstance(atom_index, list):
+        return atom_index
+
+    elif isinstance(atom_index, tuple):
+        return list(atom_index)
 
     if isinstance(atom_index, np.ndarray):
-        return atom_index
+        return atom_index.tolist()
 
     raise ArgumentError('atom_index', value=atom_index, caller=caller, message=None)
 

@@ -15,3 +15,4 @@ omit =
     molsysmt/element/atom/donors.py
     molsysmt/element/atom/names.py
     molsysmt/element/atom/names_cg.py
+    molsysmt/element/chain/chain_names.py

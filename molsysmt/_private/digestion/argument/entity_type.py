@@ -1,6 +1,6 @@
 from ...exceptions import ArgumentError
 from ...variables import is_all
-from numpy import ndarray
+import numpy as np
 
 def digest_entity_type(entity_type, caller=None):
     """Checks if `entity_type` has the expected type and value.
@@ -31,10 +31,18 @@ def digest_entity_type(entity_type, caller=None):
             return entity_type
     elif caller.startswith('molsysmt.form.') and caller.count('.to_')==2:
         return entity_type
-    elif '.set.set' in caller:
-        if isinstance(entity_type, (int, str, list, tuple, ndarray)):
-            return entity_type
 
+    if isinstance(entity_type, str):
+        return entity_type
+
+    elif isinstance(entity_type, list):
+        return entity_type
+
+    elif isinstance(entity_type, tuple):
+        return list(entity_type)
+
+    elif isinstance(entity_type, np.ndarray):
+        return entity_type.tolist()
 
     raise ArgumentError('entity_type', value=entity_type, caller=caller, message=None)
 

@@ -39,11 +39,17 @@ def digest_atom_id(atom_id, caller=None):
         elif caller.startswith('molsysmt.form.') and caller.count('.to_')==2:
             return atom_id
 
-    if isinstance(atom_id, (tuple, list)):
-        return np.array(atom_id)
+    if isinstance(atom_id, (int, np.int64)):
+        return [atom_id]
 
-    if isinstance(atom_id, np.ndarray):
+    elif isinstance(atom_id, list):
         return atom_id
+
+    elif isinstance(atom_id, tuple):
+        return list(atom_id)
+
+    elif isinstance(atom_id, np.ndarray):
+        return atom_id.tolist()
 
     raise ArgumentError('atom_id', value=atom_id, caller=caller, message=None)
 

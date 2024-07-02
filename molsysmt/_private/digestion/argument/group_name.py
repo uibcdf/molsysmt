@@ -37,7 +37,17 @@ def digest_group_name(group_name, caller=None):
             return group_name
     elif caller.startswith('molsysmt.form.') and caller.count('.to_')==2:
         return group_name
-    elif isinstance(group_name, str):
+
+    if isinstance(group_name, str):
         return group_name
+
+    elif isinstance(group_name, list):
+        return group_name
+
+    elif isinstance(group_name, tuple):
+        return list(group_name)
+
+    if isinstance(group_name, np.ndarray):
+        return group_name.tolist()
 
     raise ArgumentError('group_name', value=group_name, caller=caller, message=None)

@@ -41,13 +41,16 @@ def digest_entity_index(entity_index, caller=None):
                 raise ArgumentError('entity_index', value=entity_index, caller=caller, message=None)
 
     if isinstance(entity_index, (int, np.int64)):
-        entity_index=np.ndarray([entity_index])
+        return [entity_index]
 
-    if isinstance(entity_index, (tuple, list)):
-        entity_index=np.array(entity_index)
+    elif isinstance(entity_index, list):
+        return entity_index
+
+    elif isinstance(entity_index, tuple):
+        return list(entity_index)
 
     if isinstance(entity_index, np.ndarray):
-        return entity_index
+        return entity_index.tolist()
 
     raise ArgumentError('entity_index', value=entity_index, caller=caller, message=None)
 

@@ -41,13 +41,16 @@ def digest_chain_index(chain_index, caller=None):
                 raise ArgumentError('chain_index', value=chain_index, caller=caller, message=None)
 
     if isinstance(chain_index, (int, np.int64)):
-        chain_index=np.ndarray([chain_index])
+        return [chain_index]
 
-    if isinstance(chain_index, (tuple, list)):
-        chain_index=np.ndarray(chain_index)
+    elif isinstance(chain_index, list):
+        return chain_index
+
+    elif isinstance(chain_index, tuple):
+        return list(chain_index)
 
     if isinstance(chain_index, np.ndarray):
-        return chain_index
+        return chain_index.tolist()
 
     raise ArgumentError('chain_index', value=chain_index, caller=caller, message=None)
 

@@ -52,6 +52,7 @@ def solvate (molecular_system, box_shape="truncated octahedral", clearance='14.0
 
         from openmm import Vec3
         from molsysmt.basic import get, set
+        from molsysmt.build import define_new_chain
         from openmm.app import ForceField
         from molsysmt.config import default_attribute
         from molsysmt.molecular_mechanics import forcefield_to_engine
@@ -131,11 +132,22 @@ def solvate (molecular_system, box_shape="truncated octahedral", clearance='14.0
         elif to_form=='molsysmt.Topology':
             tmp_item.rebuild_entities(redefine_indices=True, redefine_ids=True, redefine_names=True, redefine_types=True)
 
+        define_new_chain(tmp_item, selection='group_type in ["water","ion"]')
+
         return tmp_item
 
     elif engine=="PDBFixer":
 
         from openmm import Vec3
+        from molsysmt.basic import get, set
+        from molsysmt.build import define_new_chain
+
+        component_indices, component_names = get(molecular_system, element='component', component_index=True,
+                                                 component_name=True)
+        molecule_indices, molecule_names = get(molecular_system, element='molecule', molecule_index=True,
+                                               molecule_name=True)
+        chain_indices, chain_ids, chain_names = get(molecular_system, element='chain', chain_index=True,
+                                                    chain_id=True, chain_name=True)
 
         clearance = puw.convert(clearance, to_form='openmm.unit')
         ionic_strength = puw.convert(ionic_strength, to_form='openmm.unit')
@@ -169,6 +181,20 @@ def solvate (molecular_system, box_shape="truncated octahedral", clearance='14.0
 
         del(pdbfixer)
 
+        set(tmp_item, element='component', selection=component_indices, component_name=component_names,
+            skip_digestion=True)
+        set(tmp_item, element='molecule', selection=molecule_indices, molecule_name=molecule_names,
+            skip_digestion=True)
+        set(tmp_item, element='chain', selection=chain_indices, chain_id=chain_ids, chain_name=chain_names,
+            skip_digestion=True)
+
+        if to_form=='molsysmt.MolSys':
+            tmp_item.topology.rebuild_entities(redefine_indices=True, redefine_ids=True, redefine_names=True, redefine_types=True)
+        elif to_form=='molsysmt.Topology':
+            tmp_item.rebuild_entities(redefine_indices=True, redefine_ids=True, redefine_names=True, redefine_types=True)
+
+        define_new_chain(tmp_item, selection='group_type in ["water","ion"]')
+
         return tmp_item
 
     elif engine=="LEaP":
@@ -178,7 +204,15 @@ def solvate (molecular_system, box_shape="truncated octahedral", clearance='14.0
         from molsysmt.form.file_pdb import replace_HETATM_by_ATOM_in_terminal_cappings
         from shutil import rmtree, copyfile
         from os import getcwd, chdir
-        from molsysmt.basic import set as _set, select, remove, contains
+        from molsysmt.basic import set, get, select, remove, contains
+        from molsysmt.build import define_new_chain
+
+        component_indices, component_names = get(molecular_system, element='component', component_index=True,
+                                                 component_name=True)
+        molecule_indices, molecule_names = get(molecular_system, element='molecule', molecule_index=True,
+                                               molecule_name=True)
+        chain_indices, chain_ids, chain_names = get(molecular_system, element='chain', chain_index=True,
+                                                    chain_id=True, chain_name=True)
 
         if contains(molecular_system, hydrogens=True):
             raise ValueError("A molecular system without hydrogen atoms is needed.")
@@ -190,7 +224,7 @@ def solvate (molecular_system, box_shape="truncated octahedral", clearance='14.0
         with_NME_C = (len(indices_NME_C)>0)
 
         if with_NME_C:
-            _set(molecular_system, element='atom', selection='group_name=="NME" and atom_name=="C"', atom_name='CH3')
+            set(molecular_system, element='atom', selection='group_name=="NME" and atom_name=="C"', atom_name='CH3')
 
         current_directory = getcwd()
         working_directory = temp_directory()
@@ -246,9 +280,24 @@ def solvate (molecular_system, box_shape="truncated octahedral", clearance='14.0
         tmp_item = convert([tmp_prmtop, tmp_inpcrd], to_form=to_form)
 
         if with_NME_C:
-            _set(tmp_item, element='atom', selection='group_name=="NME" and atom_name=="CH3"', atom_name='C')
+            set(tmp_item, element='atom', selection='group_name=="NME" and atom_name=="CH3"', atom_name='C')
 
         rmtree(working_directory)
+
+        set(tmp_item, element='component', selection=component_indices, component_name=component_names,
+            skip_digestion=True)
+        set(tmp_item, element='molecule', selection=molecule_indices, molecule_name=molecule_names,
+            skip_digestion=True)
+        set(tmp_item, element='chain', selection=chain_indices, chain_id=chain_ids, chain_name=chain_names,
+            skip_digestion=True)
+
+        if to_form=='molsysmt.MolSys':
+            tmp_item.topology.rebuild_entities(redefine_indices=True, redefine_ids=True, redefine_names=True, redefine_types=True)
+        elif to_form=='molsysmt.Topology':
+            tmp_item.rebuild_entities(redefine_indices=True, redefine_ids=True, redefine_names=True, redefine_types=True)
+
+        define_new_chain(tmp_item, selection='group_type in ["water","ion"]')
+
 
         return tmp_item
 

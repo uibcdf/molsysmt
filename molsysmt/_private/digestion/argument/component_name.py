@@ -1,6 +1,6 @@
 from ...exceptions import ArgumentError
 from ...variables import is_all
-from numpy import ndarray
+import numpy as np
 
 functions_with_boolean = (
         'molsysmt.basic.get.get',
@@ -39,14 +39,18 @@ def digest_component_name(component_name, caller=None):
                 return component_name
         elif caller.startswith('molsysmt.form.') and caller.count('.to_')==2:
             return component_name
-        elif '.set.set' in caller:
-            if isinstance(component_name, (int, str, list, tuple, ndarray)):
-                return component_name
-
-        raise ArgumentError('component_name', value=component_name, caller=caller, message=None)
 
     if isinstance(component_name, str):
-            return component_name
+        return component_name
+
+    elif isinstance(component_name, list):
+        return component_name
+
+    elif isinstance(component_name, tuple):
+        return list(component_name)
+
+    if isinstance(component_name, np.ndarray):
+        return component_name.tolist()
 
     raise ArgumentError('component_name', value=component_name, caller=caller, message=None)
 

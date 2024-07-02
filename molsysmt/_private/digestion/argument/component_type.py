@@ -1,5 +1,6 @@
 from ...exceptions import ArgumentError
 from ...variables import is_all
+import numpy as np
 
 def digest_component_type(component_type, caller=None):
     """Checks if `component_type` has the expected type and value.
@@ -30,6 +31,18 @@ def digest_component_type(component_type, caller=None):
             return component_type
     elif caller.startswith('molsysmt.form.') and caller.count('.to_')==2:
         return component_type
+
+    if isinstance(component_type, str):
+        return component_type
+
+    elif isinstance(component_type, list):
+        return component_type
+
+    elif isinstance(component_type, tuple):
+        return list(component_type)
+
+    elif isinstance(component_type, np.ndarray):
+        return component_type.tolist()
 
     raise ArgumentError('component_type', value=component_type, caller=caller, message=None)
 

@@ -47,14 +47,14 @@ molsys = msm.basic.remove(molsys, selection='group_type==["water", "ion"]')
 molsys = msm.basic.remove(molsys, selection='atom_type=="H"')
 molsys = msm.build.add_missing_terminal_cappings(molsys, N_terminal='ACE', C_terminal='NME')
 molsys = msm.build.add_missing_hydrogens(molsys, pH=7.4)
-msm.molecular_mechanics.potential_energy_minimization(molsys)
+molsys = msm.molecular_mechanics.potential_energy_minimization(molsys)
 _ = msm.convert(molsys, to_form='chicken_villin_HP35.h5msm')
 shutil.move('chicken_villin_HP35.h5msm', Path(data_dir, 'h5msm/chicken_villin_HP35.h5msm'))
 
 
 # solvated
 print('Solvated system in h5msm file...')
-molsys = msm.build.solvate([molsys, {'forcefield':'AMBER14', 'water_model':'TIP3P'}],
+molsys = msm.build.solvate(molsys, 
                    box_shape='truncated octahedral', clearance='14.0 angstroms',
                    to_form='molsysmt.MolSys')
 _ = msm.convert(molsys, to_form='chicken_villin_HP35_solvated.h5msm')
@@ -84,5 +84,5 @@ final_positions = simulation.context.getState(getPositions=True).getPositions()
 
 shutil.move('traj_chicken_villin_HP35_solvated.dcd', Path(data_dir, 'dcd/traj_chicken_villin_HP35_solvated.dcd'))
 shutil.move('traj_chicken_villin_HP35_solvated.h5', Path(data_dir, 'h5/traj_chicken_villin_HP35_solvated.h5'))
-shutil.move('traj_chicken_villin_HP35_solvated.h5msm', Path(data_dir, 'h5/traj_chicken_villin_HP35_solvated.h5msm'))
+shutil.move('traj_chicken_villin_HP35_solvated.h5msm', Path(data_dir, 'h5msm/traj_chicken_villin_HP35_solvated.h5msm'))
 

@@ -39,16 +39,23 @@ def digest_chain_name(chain_name, caller=None):
             return chain_name
     elif caller.startswith('molsysmt.form.') and caller.count('.to_')==2:
         return chain_name
-    elif '.set.set' in caller:
-        if isinstance(chain_name, (int, str, list, tuple, ndarray)):
-            return chain_name
     elif caller=='molsysmt.build.define_new_chain.define_new_chain':
         if isinstance(chain_name, str):
             return chain_name
         elif chain_name is None:
             return chain_name
-    elif isinstance(chain_name, str):
+
+    if isinstance(chain_name, str):
         return chain_name
+
+    elif isinstance(chain_name, list):
+        return chain_name
+
+    elif isinstance(chain_name, tuple):
+        return list(chain_name)
+
+    if isinstance(chain_name, np.ndarray):
+        return chain_name.tolist()
 
     raise ArgumentError('chain_name', value=chain_name, caller=caller, message=None)
 

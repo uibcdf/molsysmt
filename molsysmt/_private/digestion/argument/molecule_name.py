@@ -31,11 +31,18 @@ def digest_molecule_name(molecule_name, caller=None):
             return molecule_name
     elif caller.startswith('molsysmt.form.') and caller.count('.to_')==2:
         return molecule_name
-    elif '.set.set' in caller:
-        if isinstance(molecule_name, (int, list, tuple, ndarray)):
-            return molecule_name
-    elif isinstance(molecule_name, str):
+
+    if isinstance(molecule_name, str):
         return molecule_name
+
+    elif isinstance(molecule_name, list):
+        return molecule_name
+
+    elif isinstance(molecule_name, tuple):
+        return list(molecule_name)
+
+    if isinstance(molecule_name, np.ndarray):
+        return molecule_name.tolist()
 
     raise ArgumentError('molecule_name', value=molecule_name, caller=caller, message=None)
 
