@@ -666,6 +666,7 @@ class Topology():
     def rebuild_chains(self, redefine_ids=True, redefine_types=True, redefine_names=True):
 
         from molsysmt.element.molecule import _singular_molecule_type_to_plural
+        from molsysmt.element.chain import all_chain_names
 
         if redefine_ids:
 
@@ -720,23 +721,7 @@ class Topology():
 
         if redefine_names:
 
-            alphabet = string.ascii_uppercase
-            chain_name_list = []
-            ii = 0
-            while len(chain_name_list) < self.chains.shape[0]:
-                if ii < len(alphabet):
-                    chain_name_list.append(alphabet[ii])
-                else:
-                    for first_letter in alphabet:
-                        for second_letter in alphabet:
-                            chain_name_list.append(first_letter + second_letter)
-                            if len(chain_name_list) >= self.chains.shape[0]:
-                                break
-                        if len(chain_name_list) >= self.chains.shape[0]:
-                            break
-                ii += 1
-
-            self.chains["chain_name"]=np.array(chain_name_list[:self.chains.shape[0]], dtype=object)
+            self.chains["chain_name"]=np.array(all_chain_names[:self.chains.shape[0]], dtype=object)
 
 
     def rebuild_entities(self, redefine_indices=True, redefine_ids=True, redefine_names=True, redefine_types=True):

@@ -16,12 +16,6 @@ def test_file_mmtf_to_molsysmt_MolSys_1():
     form = msm.get_form(molsys)
     assert 'molsysmt.MolSys'==form
 
-def test_file_mmtf_to_molsysmt_MolSys_2():
-    molsys = systems['chicken villin HP35']['1vii.mmtf']
-    molsys = msm.convert(molsys, to_form='molsysmt.MolSys')
-    form = msm.get_form(molsys)
-    assert 'molsysmt.MolSys'==form
-
 #def test_file_mmtf_to_string_aminoacids1():
 #    molsys = tests_systems['T4 lysozyme L99A']['181l.mmtf']
 #    molsys = msm.convert(molsys, to_form='string:aminoacids1')

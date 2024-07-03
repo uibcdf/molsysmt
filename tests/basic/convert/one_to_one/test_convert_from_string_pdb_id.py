@@ -21,11 +21,17 @@ def test_string_pdb_id_to_file_pdb():
     os.remove(molsys)
     assert 'file:pdb'==form
 
-def test_string_pdb_id_to_file_mmtf():
-    molsys = msm.convert('pdb_id:181l', to_form='181l.mmtf')
+def test_string_pdb_id_to_file_bcif():
+    molsys = msm.convert('pdb_id:181l', to_form='181l.bcif')
     form = msm.get_form(molsys)
     os.remove(molsys)
-    assert 'file:mmtf'==form
+    assert 'file:bcif'==form
+
+def test_string_pdb_id_to_file_bcif_gz():
+    molsys = msm.convert('pdb_id:181l', to_form='181l.bcif.gz')
+    form = msm.get_form(molsys)
+    os.remove(molsys)
+    assert 'file:bcif.gz'==form
 
 def test_string_pdb_id_to_mdtraj_Trajectory():
     molsys = msm.convert('pdb_id:181l', to_form='mdtraj.Trajectory')

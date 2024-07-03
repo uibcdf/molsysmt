@@ -21,7 +21,7 @@ def define_new_chain(molecular_system, selection='all', chain_id=None, chain_nam
             chain_name = 'A'
 
         set(molecular_system, element='atom', selection='all', chain_index=0, skip_digestion=True)
-        set(molecular_system, element='chain', selection=0, chain_id=chain_id, chain_name=chain_name, skip_digestion=True)
+        set(molecular_system, element='chain', selection='all', chain_id=[chain_id], chain_name=[chain_name], skip_digestion=True)
 
     else:
 

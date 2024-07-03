@@ -14,7 +14,6 @@ data_dir = Path('../.')
 
 files_to_be_purged = [
         'pdb/1vii.pdb',
-        'mmtf/1vii.mmtf',
         'h5msm/chicken_villin_HP35.h5msm',
         'h5msm/chicken_villin_HP35_solvated.h5msm',
         'dcd/traj_chicken_villin_HP35.dcd',
@@ -35,9 +34,9 @@ print('Protein Data Bank files...')
 msm.convert('pdb_id:1vii', to_form='1vii.pdb')
 msm.convert('pdb_id:1vii', to_form='1vii.bcif')
 msm.convert('pdb_id:1vii', to_form='1vii.bcif.gz')
-shutil.move('1vii.pdb', Path(data_dir, 'bcif/1vii.pdb'))
-shutil.move('1vii.bcif', Path(data_dir, 'mmtf/1vii.bcif'))
-shutil.move('1vii.bcif.gz', Path(data_dir, 'mmtf/1vii.bcif.gz'))
+shutil.move('1vii.pdb', Path(data_dir, 'pdb/1vii.pdb'))
+shutil.move('1vii.bcif', Path(data_dir, 'bcif/1vii.bcif'))
+shutil.move('1vii.bcif.gz', Path(data_dir, 'bcif_gz/1vii.bcif.gz'))
 
 
 # vacuum

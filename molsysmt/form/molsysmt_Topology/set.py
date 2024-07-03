@@ -56,8 +56,13 @@ def set_chain_index_to_atom(item, indices='all', value=None, skip_digestion=Fals
     if is_all(indices):
         if len(value)==1:
             item.atoms.chain_index=value[0]
+            n_chains = 1
         else:
             item.atoms.chain_index=value
+            n_chains = np.unique(value).shape[0]
+        if n_chains!=item.chains.shape[0]:
+            item.reset_chains(n_chains=n_chains)
+            item.rebuild_chains(redefine_ids=True, redefine_types=True, redefine_names=True)
     else:
         item.atoms.iloc[indices, 4]=value
 
