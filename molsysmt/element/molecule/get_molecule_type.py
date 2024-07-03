@@ -38,7 +38,7 @@ def get_molecule_type(molecular_system, element='atom', selection='all',
     elif redefine_types:
 
         molecule_types_from_molecule = get_component_type(molecular_system, element='component', selection=selection,
-                redefine_components=False, redefine_types=False, syntax=syntax)
+                redefine_indices=False, redefine_types=False, syntax=syntax)
 
         if element == 'atom':
             aux = get(molecular_system, element='atom', selection=selection, syntax=syntax,

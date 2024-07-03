@@ -15,68 +15,65 @@ def get_component_type(molecular_system, element='atom', selection='all', redefi
         from .get_component_index import get_component_index
 
         if redefine_indices:
+            redefine_types=True
 
-            component_indices = get_component_index(molecular_system, element='atom',
-                                                    selection='all', redefine_indices=True,
-                                                    skip_digestion=True)
+        component_indices = get_component_index(molecular_system, element='atom',
+                                                selection='all', redefine_indices=redefine_indices,
+                                                skip_digestion=True)
 
-            group_index_per_atom = get(molecular_system, element='atom', selection='all', group_index=True,
-                                       skip_digestion=True)
+        group_index_per_atom = get(molecular_system, element='atom', selection='all', group_index=True,
+                                   skip_digestion=True)
 
-            group_names, group_types = get(molecular_system, element='group', selection='all', group_name=True,
-                                           group_type=True, skip_digestion=True)
+        group_names, group_types = get(molecular_system, element='group', selection='all', group_name=True,
+                                       group_type=True, skip_digestion=True)
 
-            group_names = np.array(group_names)
-            group_types = np.array(group_types)
+        group_names = np.array(group_names)
+        group_types = np.array(group_types)
 
 
-            aux_df = pd.DataFrame({'component_indices':component_indices, 'group_indices':group_index_per_atom})
-            aux_dict = aux_df.groupby('component_indices')['group_indices'].unique().to_dict()
-            
-            component_types={}
+        aux_df = pd.DataFrame({'component_indices':component_indices, 'group_indices':group_index_per_atom})
+        aux_dict = aux_df.groupby('component_indices')['group_indices'].unique().to_dict()
+        
+        component_types={}
 
-            for component_index, group_indices in aux_dict.items():
+        for component_index, group_indices in aux_dict.items():
 
-                component_type = _get_component_type_from_group_names_and_types(group_names[group_indices],
-                                                                                group_types[group_indices])
+            component_type = _get_component_type_from_group_names_and_types(group_names[group_indices],
+                                                                            group_types[group_indices])
 
-                component_types[component_index]=component_type
+            component_types[component_index]=component_type
 
-            if element == 'atom':
+        if element == 'atom':
 
-                atom_indices = select(molecular_system, element='atom', selection=selection,
-                                      syntax=syntax, skip_digestion=True)
-                output = [component_types[component_indices[ii]] for ii in atom_indices]
+            atom_indices = select(molecular_system, element='atom', selection=selection,
+                                  syntax=syntax, skip_digestion=True)
+            output = [component_types[component_indices[ii]] for ii in atom_indices]
 
-            elif element == 'group':
+        elif element == 'group':
 
-                output = []
-                group_indices = get(molecular_system, element='atom',
-                                        selection=selection, group_indices=True, skip_digestion=True)
-                former_index = -1
-                for ii,jj,kk in zip(group_indices, atom_indices, component_indices):
-                    if ii!=former_index:
-                        output.append(component_types[kk])
+            output = []
+            group_indices = get(molecular_system, element='atom',
+                                    selection=selection, group_indices=True, skip_digestion=True)
+            former_index = -1
+            for ii,jj,kk in zip(group_indices, atom_indices, component_indices):
+                if ii!=former_index:
+                    output.append(component_types[kk])
 
-                del(group_indices)
+            del(group_indices)
 
-            elif element == 'component':
+        elif element == 'component':
 
-                if is_all(selection):
-                    output = list(component_types.values())
-                else:
-                    component_indices = select(molecular_system, element='component', selection=selection,
-                                        syntax=syntax, skip_digestion=True)
-                    output = [component_types[ii] for ii in component_indices]
+            if is_all(selection):
+                output = list(component_types.values())
             else:
-
-                raise NotImplementedError
-
-            del component_types, component_indices, group_index_per_atom, group_names, group_types
-
+                component_indices = select(molecular_system, element='component', selection=selection,
+                                    syntax=syntax, skip_digestion=True)
+                output = [component_types[ii] for ii in component_indices]
         else:
 
-            pass
+            raise NotImplementedError
+
+        del component_types, component_indices, group_index_per_atom, group_names, group_types
 
     else:
 

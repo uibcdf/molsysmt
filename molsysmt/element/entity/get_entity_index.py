@@ -1,4 +1,5 @@
 from molsysmt._private.digestion import digest
+import numpy as np
 
 @digest()
 def get_entity_index(molecular_system, element='atom', selection='all',
@@ -9,23 +10,11 @@ def get_entity_index(molecular_system, element='atom', selection='all',
 
         from ..molecule import get_molecule_name, get_molecule_type
 
-        if redefine_molecules:
+        molecule_name_from_molecules = get_molecule_name(molecular_system, element='molecule',
+                selection=selection, redefine_indices=redefine_molecules, syntax=syntax, skip_digestion=True)
 
-            molecule_name_from_molecules = get_molecule_name(molecular_system, element='molecule',
-                    selection=selection, redefine_indices=True, syntax=syntax, skip_digestion=True)
-
-            molecule_type_from_molecules = get_molecule_type(molecular_system, element='molecule',
-                    selection=selection, redefine_indices=True, syntax=syntax, skip_digestion=True)
-
-        else:
-
-            molecule_name_from_molecules = get_molecule_name(molecular_system, element='molecule',
-                    selection=selection, redefine_indices=False, redefine_names=False, syntax=syntax,
-                                                            skip_digestion=True)
-
-            molecule_type_from_molecules = get_molecule_type(molecular_system, element='molecule',
-                    selection=selection, redefine_indices=False, redefine_types=False, syntax=syntax,
-                                                            skip_digestion=True)
+        molecule_type_from_molecules = get_molecule_type(molecular_system, element='molecule',
+                selection=selection, redefine_indices=redefine_molecules, syntax=syntax, skip_digestion=True)
 
         count = 0
         output = []
@@ -84,6 +73,13 @@ def get_entity_index(molecular_system, element='atom', selection='all',
                     entity_index = aux_dict['unknown']
 
             output.append(entity_index)
+
+        if element=='molecule':
+            output=output
+        elif element=='entity':
+            output=np.unique(output).tolist()
+        else:
+            raise NotImplementedError
 
     else:
 

@@ -1,1 +1,0 @@
-from .get_name_from_mmtf_name import get_name_from_mmtf_name

@@ -1,13 +1,3 @@
-from . import water
-from . import ion
-from . import small_molecule
-from . import peptide
-from . import protein
-from . import dna
-from . import rna
-from . import lipid
-from . import oligosaccharide
-
 from .is_component_type import is_component_type
 from .get_component_index import get_component_index
 from .get_component_id import get_component_id

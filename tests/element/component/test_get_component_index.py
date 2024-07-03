@@ -12,7 +12,7 @@ def test_get_component_index_1():
                                                        redefine_indices=True)
     assert [0 for ii in range(38)] + [1,2] == output[:40]
 
-def test_get_component_index_1():
+def test_get_component_index_2():
     molsys = msm.convert(msm.systems['chicken villin HP35']['chicken_villin_HP35_solvated.h5msm'])
     output = msm.element.component.get_component_index(molsys, element='component', selection='all',
                                                        redefine_indices=True)

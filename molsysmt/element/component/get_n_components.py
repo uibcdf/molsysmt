@@ -10,7 +10,7 @@ def get_n_components(molecular_system, selection='all', redefine_components=Fals
         from .get_component_index import get_component_index
 
         aux = get_component_index(molecular_system, element='component', selection=selection,
-                                  redefine_components=True, syntax=syntax)
+                                  redefine_indices=True, syntax=syntax)
         output = len(aux)
 
         del aux

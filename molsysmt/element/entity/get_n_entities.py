@@ -10,7 +10,7 @@ def get_n_entities(molecular_system, selection='all', redefine_entities=False,
         from .get_entity_index import get_entity_index
 
         aux = get_entity_index(molecular_system, element='entity', selection=selection,
-                                  redefine_entities=True, syntax=syntax)
+                                  redefine_indices=True, syntax=syntax)
         output = len(aux)
 
         del aux
