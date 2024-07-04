@@ -16,4 +16,6 @@ omit =
     molsysmt/element/atom/names.py
     molsysmt/element/atom/names_cg.py
     molsysmt/element/chain/chain_names.py
+    molsysmt/native/file_tng.py
+    molsysmt/native/file_xtc.py
 

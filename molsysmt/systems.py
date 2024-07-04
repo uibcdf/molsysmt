@@ -58,6 +58,7 @@ systems['chicken villin HP35']['chicken_villin_HP35.h5msm'] = path('molsysmt.dat
 systems['chicken villin HP35']['chicken_villin_HP35_solvated.h5msm'] = path('molsysmt.data.h5msm', 'chicken_villin_HP35_solvated.h5msm')
 systems['chicken villin HP35']['traj_chicken_villin_HP35_solvated.dcd'] = path('molsysmt.data.dcd', 'traj_chicken_villin_HP35_solvated.dcd')
 systems['chicken villin HP35']['traj_chicken_villin_HP35_solvated.h5'] = path('molsysmt.data.h5', 'traj_chicken_villin_HP35_solvated.h5')
+systems['chicken villin HP35']['traj_chicken_villin_HP35_solvated.h5msm'] = path('molsysmt.data.h5msm', 'traj_chicken_villin_HP35_solvated.h5msm')
 
 
 # T4 Lysozyme L99A

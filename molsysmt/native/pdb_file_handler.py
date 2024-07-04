@@ -184,7 +184,7 @@ def parse_format33(file):
                 elif aux.startswith('EC:'): ### EC
                     compnd.ec = aux[3:].strip()[:-1]
                 elif aux.startswith('SYNONYM:'): ### SYNONYM
-                    compnd.synonym += [ii.strip() for ii in aux[8:].strip()[:-1].split(',')]
+                    compnd.synonym = [ii.strip() for ii in aux[8:].strip()[:-1].split(',')]
                 elif aux.startswith('ENGINEERED:'): ### ENGINEERED
                     compnd.engineered = aux[11:].strip()[:-1]
                 elif aux.startswith('MUTATION:'): ### MUTATION
@@ -561,7 +561,10 @@ def parse_format33(file):
                 seqadv.database = _dict_database_name[line[24:28].strip()]
                 seqadv.dbAccesion = line[29:38].strip()
                 seqadv.dbRes = line[39:42].strip()
-                seqadv.dbSeq = int(line[43:48])
+                try:
+                    seqadv.dbSeq = int(line[43:48])
+                except:
+                    seqadv.dbSeq = None
                 seqadv.conflict = line[49:70].strip()
 
                 counter += 1
@@ -1092,8 +1095,8 @@ def parse_format33(file):
 
                 elif record == 'ANISOU':
 
-                    record_element = AtomRecord()
-                    model.record.append(record_element)
+                    #record_element = AtomRecord()
+                    #model.record.append(record_element)
 
                     if record_element.serial!=int(line[6:11]):
                         raise ValueError("ANISOU record not referring previous atom record.")
