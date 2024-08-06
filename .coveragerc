@@ -18,4 +18,5 @@ omit =
     molsysmt/element/chain/chain_names.py
     molsysmt/native/file_tng.py
     molsysmt/native/file_xtc.py
+    molsysmt/thirds/nglview/patching_nglview.py
 

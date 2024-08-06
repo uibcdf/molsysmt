@@ -23,7 +23,7 @@ def get_contacts(molecular_system, selection=None, center_of_atoms=False, weight
         pbc=has_pbc(molecular_system)
 
     if pairs and (selection_2 is None):
-        if is_iterable_or_pairs(selection):
+        if is_iterable_of_pairs(selection):
             if not isinstance(selection, np.ndarray):
                 selection=np.array(selection)
             selection_2 = selection[:,1]

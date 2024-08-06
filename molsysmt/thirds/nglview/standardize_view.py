@@ -4,7 +4,7 @@ from molsysmt._private.variables import is_all
 # https://github.com/arose/ngl/blob/master/doc/usage/selection-language.md
 
 @digest()
-def standardize_view (view, atom_indices='all', structure_indices='all'):
+def standardize_view(view, atom_indices='all', structure_indices='all'):
 
     view.clear()
 
@@ -49,70 +49,4 @@ def standardize_view (view, atom_indices='all', structure_indices='all'):
 
     pass
 
-@digest()
-def show_water_as_transparent_surface(view, atom_indices='all', structure_indices='all'):
 
-    if not is_all(atom_indices):
-        string_atom_indices = '@'+','.join(map(str, atom_indices))
-    else:
-        string_atom_indices = 'all'
-
-    string_atom_indices = string_atom_indices+' and water'
-    view.add_surface(selection=string_atom_indices, opacity=0.3)
-
-    pass
-
-@digest()
-def show_water_as_licorice(view, atom_indices='all', structure_indices='all'):
-
-    if not is_all(atom_indices):
-        string_atom_indices = '@'+','.join(map(str, atom_indices))
-    else:
-        string_atom_indices = 'all'
-
-    string_atom_indices = string_atom_indices+' and water'
-    view.add_licorice(selection=string_atom_indices)
-
-    pass
-
-
-@digest()
-def show_ions_as_licorice(view, atom_indices='all', structure_indices='all'):
-
-    if not is_all(atom_indices):
-        string_atom_indices = '@'+','.join(map(str, atom_indices))
-    else:
-        string_atom_indices = 'all'
-
-    string_atom_indices = string_atom_indices+' and ion'
-    view.add_licorice(selection=string_atom_indices)
-
-    pass
-
-@digest()
-def show_ions_as_ball_and_stick(view, atom_indices='all', structure_indices='all'):
-
-    if not is_all(atom_indices):
-        string_atom_indices = '@'+','.join(map(str, atom_indices))
-    else:
-        string_atom_indices = 'all'
-
-    string_atom_indices = string_atom_indices+' and ion'
-    view.add_ball_and_stick(selection=string_atom_indices)
-
-    pass
-
-@digest()
-def show_system_as_transparent_surface(view, atom_indices='all', structure_indices='all'):
-
-    view.add_surface(selection='all', opacity=0.3, color='lightblue')
-
-    pass
-
-
-@digest()
-def add_gui(view):
-
-    view.gui_style = 'ngl'
-
-    pass

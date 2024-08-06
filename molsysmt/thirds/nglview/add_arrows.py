@@ -1,12 +1,11 @@
 from molsysmt._private.digestion import digest
 from molsysmt._private.variables import is_all
-from matplotlib.colors import to_rgb
 from molsysmt import pyunitwizard as puw
 
 # https://github.com/arose/ngl/blob/master/doc/usage/selection-language.md
 
 @digest()
-def add_arrows(view, coordinates, arrows, color='#808080', radius='0.2 angstroms'):
+def add_arrows(view, arrows, origin=None, selection=None, color='#808080', radius='0.2 angstroms'):
     """Adding arrows to a view.
 
     A list of arrows can be added to an NGL view (NGLWidget).
@@ -43,7 +42,7 @@ def add_arrows(view, coordinates, arrows, color='#808080', radius='0.2 angstroms
     >>> coordinates = msm.get(molecular_system, element='atom', selection='atom_name=="CA"', coordinates=True)
     >>> arrows = puw.quantity(np.ones([coordinates.shape[0],3]), 'angstroms')
     >>> view = msm.view(molecular_system)
-    >>> msm.thirds.add_arrows(view, coordinates, arrows)
+    >>> msm.thirds.add_arrows(view, arrows, origin=coordinates)
     >>> view
 
     See Also
@@ -61,23 +60,31 @@ def add_arrows(view, coordinates, arrows, color='#808080', radius='0.2 angstroms
 
     """
 
-    if isinstance(color, str):
+    from molsysmt import get
+    from molsysmt._private.colors import color_to_list_of_colors
 
-        color=to_rgb(color)
+    if origin is not None:
+        coordinates = puw.get_value(origin[0], to_unit='angstroms')
+    elif selection is not None:
+        from molsysmt import get
+        coordinates = get(view, element='atom', selection=selection, coordinates=True)
+        coordinates = puw.get_value(coordinates[0], to_unit='angstroms')
+    else:
+        raise ValueError()
 
-
-    coordinates = puw.get_value(coordinates[0], to_unit='angstroms')
     arrows = puw.get_value(arrows[0], to_unit='angstroms')
     radius = puw.get_value(radius, to_unit='angstroms')
 
     n_arrows=coordinates.shape[0]
     end_arrows = coordinates+arrows
-    
+
+    list_of_colors = color_to_list_of_colors(color, n_arrows, form='rgb')
+
     for ii in range(n_arrows):
     
         kwargs = {'position1':coordinates[ii].tolist(),
                   'position2':end_arrows[ii].tolist(),
-                  'color': color,
+                  'color': list_of_colors[ii],
                   'radius': [radius]}
                         
         msg = view._get_remote_call_msg("addBuffer",
