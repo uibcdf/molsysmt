@@ -92,7 +92,7 @@ jobs:
       shell: bash -l {0}
       run: |
         export PYTHONPATH=$PYTHONPATH:$(pwd)
-        pytest -n logical -v --cov-config=.coveragerc --cov=molsysmt --cov-report=xml --color=yes
+        pytest -n logical -v --cov-config=.coveragerc --cov=molsysmt --cov-report=xml --junitxml=junit.xml --color=yes
 
     - name: Check coverage
       shell: bash -l {0}
@@ -107,5 +107,11 @@ jobs:
         file: ./coverage.xml
         flags: unittests
         name: codecov-${{ matrix.cfg.os }}-py${{ matrix.cfg.python-version }}
+        token: ${{ secrets.CODECOV_TOKEN }}
+
+    - name: Upload test results to Codecov
+      if: ${{ !cancelled() }}
+      uses: codecov/test-results-action@v1
+      with:
         token: ${{ secrets.CODECOV_TOKEN }}
 
