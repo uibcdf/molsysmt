@@ -14,10 +14,15 @@ def test_file_pdb():
     output = msm.get_form(molsys)
     assert output == 'file:pdb'
 
-def test_file_mmtf():
-    molsys = systems['chicken villin HP35']['1vii.mmtf']
+def test_file_bcif():
+    molsys = systems['chicken villin HP35']['1vii.bcif']
     output = msm.get_form(molsys)
-    assert output == 'file:mmtf'
+    assert output == 'file:bcif'
+
+def test_file_bcif_gz():
+    molsys = systems['chicken villin HP35']['1vii.bcif.gz']
+    output = msm.get_form(molsys)
+    assert output == 'file:bcif.gz'
 
 def test_file_inpcrd_prmtop():
     molsys1 = systems['pentalanine']['pentalanine.inpcrd']

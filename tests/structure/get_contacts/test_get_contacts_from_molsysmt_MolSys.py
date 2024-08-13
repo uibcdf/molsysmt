@@ -45,3 +45,9 @@ def test_get_contacts_from_molsysmt_MolSys_3():
     check_value_1 = np.all(np.array([False, False, False, False,  True, False, False,  True, False, False])==contact_map[0,48,40:50])
     assert check_shape_1 and check_value_1
 
+def test_get_contacts_from_molsysmt_MolSys_4():
+    molsys = msm.convert(systems['chicken villin HP35']['chicken_villin_HP35.h5msm'])
+    contacts = msm.structure.get_contacts(molsys, selection='atom_name=="CA"', threshold='5 angstroms',
+                                          output_type='pairs')
+    assert len(contacts[0])==46
+

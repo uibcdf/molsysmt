@@ -61,7 +61,7 @@ def mutate(molecular_system, mutations=None, keys='group_index', selection="all"
 
         from_group_names, group_ids, in_chain_ids = get(tmp_molecular_system, element='group',
                                                         selection=group_indices, group_name=True, group_id=True,
-                                                        chain_id=True)
+                                                        chain_name=True)
 
         for group_id, from_group_name, to_group_name, in_chain_id in zip(group_ids, from_group_names, to_group_names, in_chain_ids):
             mutation_string = "-".join([from_group_name,str(group_id),to_group_name])

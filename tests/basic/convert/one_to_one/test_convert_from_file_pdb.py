@@ -40,8 +40,12 @@ def test_file_pdb_to_parmed_Structure():
     form = msm.get_form(molsys)
     assert 'parmed.Structure'==form
 
-# Selection
-
-## Multiple outputs
+def test_file_pdb_to_molsysmt_MolSys_1():
+    molsys = systems['chicken villin HP35']['1vii.pdb']
+    molsys = msm.convert(molsys)
+    form = msm.get_form(molsys)
+    box = msm.get(molsys, box=True)
+    assert 'molsysmt.MolSys'==form
+    assert box is None
 
 

@@ -12,7 +12,8 @@ print('Removing old files...')
 files_to_be_purged = [
     'pdb/barnase_barstar.pdb',
     'h5msm/barnase_barstar.msmpk',
-    'mmtf/1brs.mmtf']
+    'bcif/1brs.bcif',
+    'bcif_gz/1brs.bcif.gz']
 
 for filename in files_to_be_purged:
     filepath = Path(data_dir, filename)
@@ -21,6 +22,8 @@ for filename in files_to_be_purged:
 
 # make
 print('Making new files...')
+_ = msm.convert('1BRS', '1brs.bcif')
+_ = msm.convert('1BRS', '1brs.bcif.gz')
 molecular_system = msm.convert('1BRS')
 molecular_system = msm.convert(molecular_system)
 molecular_system = msm.extract(molecular_system, selection='molecule_type=="protein"')
@@ -37,6 +40,8 @@ msm.molecular_mechanics.potential_energy_minimization(barnase_barstar, in_place=
 msm.build.define_new_chain(barnase_barstar, selection='all', chain_id=0, chain_name='A')
 _ = msm.convert(barnase_barstar, to_form='barnase_barstar.pdb')
 _ = msm.convert(barnase_barstar, to_form='barnase_barstar.h5msm')
-shutil.move('barnase_barstar.pdb', Path(data_dir, 'h5msm/barnase_barstar.pdb'))
+shutil.move('1brs.bcif', Path(data_dir, 'bcif/1brs.bcif'))
+shutil.move('1brs.bcif.gz', Path(data_dir, 'bcif_gz/1brs.bcif.gz'))
+shutil.move('barnase_barstar.pdb', Path(data_dir, 'pdb/barnase_barstar.pdb'))
 shutil.move('barnase_barstar.h5msm', Path(data_dir, 'h5msm/barnase_barstar.h5msm'))
 

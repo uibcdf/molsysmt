@@ -54,7 +54,7 @@ def digest_alternate_location(alternate_location, caller=None):
                             right_format=False
                             break
                     if aux_dict['atom_id'] is not None:
-                        if aux_dict['atom_id'].shape[0]!=n_atoms:
+                        if len(aux_dict['atom_id'])!=n_atoms:
                             right_format=False
                             break
                     if aux_dict['coordinates'] is not None:

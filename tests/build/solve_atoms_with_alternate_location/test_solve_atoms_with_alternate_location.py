@@ -35,7 +35,7 @@ def test_solve_atoms_with_alternate_location_molsysmt_MolSys_1():
 
 def test_solve_atoms_with_alternate_location_molsysmt_MolSys_2():
 
-    molecular_system = msm.convert(systems['Barnase-Barstar']['1brs.mmtf'], to_form='molsysmt.MolSys')
+    molecular_system = msm.convert(systems['Barnase-Barstar']['1brs.bcif'], to_form='molsysmt.MolSys')
     msm.build.solve_atoms_with_alternate_location(molecular_system, location_id='B')
     atom_id, b_factor, coordinates = msm.get(molecular_system, element='atom', selection=[2686,2687],
             atom_id=True, b_factor=True, coordinates=True)
@@ -45,7 +45,7 @@ def test_solve_atoms_with_alternate_location_molsysmt_MolSys_2():
 
 def test_solve_atoms_with_alternate_location_molsysmt_MolSys_3():
 
-    molecular_system = msm.convert(systems['Barnase-Barstar']['1brs.mmtf'], to_form='molsysmt.MolSys')
+    molecular_system = msm.convert(systems['Barnase-Barstar']['1brs.bcif'], to_form='molsysmt.MolSys')
     msm.build.solve_atoms_with_alternate_location(molecular_system, selection=[2686,2687], location_id=['A','B'])
     atom_id, b_factor, coordinates = msm.get(molecular_system, element='atom', selection=[2686,2687],
             atom_id=True, b_factor=True, coordinates=True)

@@ -5,12 +5,11 @@ from molsysmt import pyunitwizard as puw
 import numpy as np
 
 
-#@digest()
-def add_cylinders(view, start, end, color='#808080', color_2=None, radius='0.1 angstroms',
+@digest()
+def add_cylinders(view, bottom=None, top=None, vectors=None, color='#808080', color_2=None, radius='0.1 angstroms',
         color_values=None, min_color_value=None, mid_color_value=None, max_color_value=None,
         color_values_scale='linear', colormap='bwr', color_values_2=None, min_color_value_2=None,
-        mid_color_value_2=None, max_color_value_2=None, center_color_value_2=None,
-        color_values_scale_2=None, colormap_2=None):
+        mid_color_value_2=None, max_color_value_2=None, color_values_scale_2=None, colormap_2=None):
 
     """Adding cylinders to a view.
 
@@ -72,10 +71,37 @@ def add_cylinders(view, start, end, color='#808080', color_2=None, radius='0.1 a
 
     """
 
-    n_cylinders=start.shape[0]
+    from molsysmt import get
+    from molsysmt._private.input_arguments import can_be_selection
 
-    ngl_start = puw.get_value(start, to_unit='angstroms')
-    ngl_end = puw.get_value(end, to_unit='angstroms')
+    if can_be_selection(bottom):
+        bottom = get(view, element='atom', selection=bottom, coordinates=True)
+    if can_be_selection(top):
+        top = get(view, element='atom', selection=top, coordinates=True)
+
+    if (bottom is not None) and (top is not None):
+        bottom = puw.get_value(bottom[0], to_unit='angstroms')
+        top = puw.get_value(top[0], to_unit='angstroms')
+    elif (bottom is not None) and (vectors is not None):
+        bottom = puw.get_value(bottom[0], to_unit='angstroms')
+        vectors = puw.get_value(vectors[0], to_unit='angstroms')
+        if bottom.shape[0]!=vectors.shape[0] and vectors.shape[0]==1:
+            vectors = np.tile(vectors, (bottom.shape[0], 1))
+        top = bottom + vectors
+    elif (top is not None) and (vectors is not None):
+        top = puw.get_value(top[0], to_unit='angstroms')
+        vectors = puw.get_value(vectors[0], to_unit='angstroms')
+        if bottom.shape[0]!=vectors.shape[0] and vectors.shape[0]==1:
+            vectors = np.tile(vectors, (bottom.shape[0], 1))
+        bottom = top - vectors
+    else:
+        raise ValueError()
+
+
+    n_cylinders=bottom.shape[0]
+
+    ngl_start = bottom
+    ngl_end = top
     ngl_radius = puw.get_value(radius, to_unit='angstroms')
 
     if not is_iterable(ngl_radius):

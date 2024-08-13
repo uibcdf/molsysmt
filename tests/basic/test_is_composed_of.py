@@ -31,6 +31,6 @@ def test_is_composed_of_5():
     assert output == False
 
 def test_is_composed_of_6():
-    output = msm.is_composed_of(molsys, ions=2, waters=1283, peptides=1)
+    output = msm.is_composed_of(molsys, ions=2, waters=1347, peptides=1)
     assert output == True
 

@@ -25,9 +25,10 @@ from .iterators import StructuresIterator, TopologyIterator
 from .download import download
 
 from .to_mmcif_PdbxContainers_DataContainer import to_mmcif_PdbxContainers_DataContainer
+from .to_molsysmt_MolSys import to_molsysmt_MolSys
 
 _convert_to={
     'file:bcif': extract,
-    'mmcif.PdbxContainers.DataContainer': to_mmcif_PdbxContainers_DataContainer,
+    'molsysmt.MolSys': to_molsysmt_MolSys,
     }
 

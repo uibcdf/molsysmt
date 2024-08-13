@@ -1,11 +1,13 @@
 from molsysmt._private.digestion import digest
 from molsysmt._private.variables import is_all
 from molsysmt import pyunitwizard as puw
+import numpy as np
 
 # https://github.com/arose/ngl/blob/master/doc/usage/selection-language.md
 
 @digest()
-def add_arrows(view, arrows, origin=None, selection=None, color='#808080', radius='0.2 angstroms'):
+def add_arrows(view, origin=None, end=None, vectors=None,
+               color='#808080', radius='0.2 angstroms'):
     """Adding arrows to a view.
 
     A list of arrows can be added to an NGL view (NGLWidget).
@@ -40,9 +42,9 @@ def add_arrows(view, arrows, origin=None, selection=None, color='#808080', radiu
     >>> import numpy as np
     >>> molecular_system = msm.convert('181L', selection='molecule_type=="protein"')
     >>> coordinates = msm.get(molecular_system, element='atom', selection='atom_name=="CA"', coordinates=True)
-    >>> arrows = puw.quantity(np.ones([coordinates.shape[0],3]), 'angstroms')
+    >>> vectors = puw.quantity(np.ones([coordinates.shape[0],3]), 'angstroms')
     >>> view = msm.view(molecular_system)
-    >>> msm.thirds.add_arrows(view, arrows, origin=coordinates)
+    >>> msm.thirds.add_arrows(view, origin=coordinates, vectors=arrows)
     >>> view
 
     See Also
@@ -62,28 +64,40 @@ def add_arrows(view, arrows, origin=None, selection=None, color='#808080', radiu
 
     from molsysmt import get
     from molsysmt._private.colors import color_to_list_of_colors
+    from molsysmt._private.input_arguments import can_be_selection
 
-    if origin is not None:
-        coordinates = puw.get_value(origin[0], to_unit='angstroms')
-    elif selection is not None:
-        from molsysmt import get
-        coordinates = get(view, element='atom', selection=selection, coordinates=True)
-        coordinates = puw.get_value(coordinates[0], to_unit='angstroms')
+    if can_be_selection(origin):
+        origin = get(view, element='atom', selection=origin, coordinates=True)
+    if can_be_selection(end):
+        end = get(view, element='atom', selection=end, coordinates=True)
+
+    if (origin is not None) and (end is not None):
+        origin = puw.get_value(origin[0], to_unit='angstroms')
+        end = puw.get_value(end[0], to_unit='angstroms')
+    elif (origin is not None) and (vectors is not None):
+        origin = puw.get_value(origin[0], to_unit='angstroms')
+        vectors = puw.get_value(vectors[0], to_unit='angstroms')
+        if origin.shape[0]!=vectors.shape[0] and vectors.shape[0]==1:
+            vectors = np.tile(vectors, (origin.shape[0], 1))
+        end = origin + vectors
+    elif (end is not None) and (vectors is not None):
+        end = puw.get_value(end[0], to_unit='angstroms')
+        vectors = puw.get_value(vectors[0], to_unit='angstroms')
+        if origin.shape[0]!=vectors.shape[0] and vectors.shape[0]==1:
+            vectors = np.tile(vectors, (origin.shape[0], 1))
+        origin = end - vectors
     else:
         raise ValueError()
 
-    arrows = puw.get_value(arrows[0], to_unit='angstroms')
     radius = puw.get_value(radius, to_unit='angstroms')
-
-    n_arrows=coordinates.shape[0]
-    end_arrows = coordinates+arrows
+    n_arrows=origin.shape[0]
 
     list_of_colors = color_to_list_of_colors(color, n_arrows, form='rgb')
 
     for ii in range(n_arrows):
     
-        kwargs = {'position1':coordinates[ii].tolist(),
-                  'position2':end_arrows[ii].tolist(),
+        kwargs = {'position1':origin[ii].tolist(),
+                  'position2':end[ii].tolist(),
                   'color': list_of_colors[ii],
                   'radius': [radius]}
                         

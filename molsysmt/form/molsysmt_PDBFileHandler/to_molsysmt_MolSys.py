@@ -180,8 +180,13 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', get_mi
 
     coordinates_array = puw.quantity(coordinates_array, 'angstroms')
 
+    check_if_cell = True
+    if item.entry.title.expdta is not None:
+        if 'NMR' in item.entry.title.expdta.technique:
+            check_if_cell = False
+
     cryst1 = item.entry.crystallographic_and_coordinate_transformation.cryst1
-    if cryst1 is not None:
+    if (cryst1 is not None) and check_if_cell:
         box_lengths = puw.quantity([[cryst1.a, cryst1.b, cryst1.c] for _ in range(n_models)], 'angstroms')
         box_angles = puw.quantity([[cryst1.alpha, cryst1.beta, cryst1.gamma] for _ in range(n_models)], 'degrees')
         box = get_box_from_lengths_and_angles(box_lengths, box_angles, skip_digestion=True)

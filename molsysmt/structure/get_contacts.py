@@ -48,6 +48,7 @@ def get_contacts(molecular_system, selection=None, center_of_atoms=False, weight
     num_structures=all_dists.shape[0]
     contact_map=np.empty(all_dists.shape, dtype=bool)
 
+
     for indice_structure in range(num_structures):
         if pairs:
             contact_map[indice_structure,:]=(all_dists[indice_structure,:]<=threshold)

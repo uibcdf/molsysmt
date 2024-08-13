@@ -329,7 +329,12 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
     coordinates_array = puw.quantity(coordinates_array, 'angstroms')
     coordinates_array = puw.standardize(coordinates_array)
 
-    if item.exists('cell'):
+    check_if_cell = True
+    if item.exists('exptl'):
+        if 'NMR' in item.getObj('exptl').getValue('method'):
+            check_if_cell = False
+
+    if item.exists('cell') and check_if_cell:
 
         from molsysmt.pbc import get_box_from_lengths_and_angles
 

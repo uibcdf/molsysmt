@@ -92,7 +92,7 @@ jobs:
       shell: bash -l {0}
       run: |
         export PYTHONPATH=$PYTHONPATH:$(pwd)
-        pytest -n logical -v --cov=molsysmt --cov-report=xml --color=yes tests/
+        pytest -n logical -v --cov-config=.coveragerc --cov=molsysmt --cov-report=xml --color=yes
 
     - name: Check coverage
       shell: bash -l {0}

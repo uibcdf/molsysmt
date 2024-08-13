@@ -21,6 +21,13 @@ def test_string_pdb_id_to_molsysmt_MolSys_2():
     is_only_protein = msm.is_composed_of(molsys, n_proteins=1)
     assert 'molsysmt.MolSys'==form and is_only_protein==True
 
+def test_string_pdb_id_to_molsysmt_MolSys_3():
+    molsys = msm.convert('1vii')
+    form = msm.get_form(molsys)
+    box = msm.get(molsys, box=True)
+    assert 'molsysmt.MolSys'==form
+    assert box is None
+
 def test_string_pdb_id_to_file_pdb():
     molsys = msm.convert('pdb_id:181l', to_form='181l.pdb')
     form = msm.get_form(molsys)

@@ -53,7 +53,8 @@ systems['lysine dipeptide']['lysine_dipeptide.h5msm'] = path('molsysmt.data.h5ms
 
 systems['chicken villin HP35'] = {}
 systems['chicken villin HP35']['1vii.pdb'] = path('molsysmt.data.pdb', '1vii.pdb')
-systems['chicken villin HP35']['1vii.mmtf'] = path('molsysmt.data.mmtf', '1vii.mmtf')
+systems['chicken villin HP35']['1vii.bcif.gz'] = path('molsysmt.data.bcif_gz', '1vii.bcif.gz')
+systems['chicken villin HP35']['1vii.bcif'] = path('molsysmt.data.bcif', '1vii.bcif')
 systems['chicken villin HP35']['chicken_villin_HP35.h5msm'] = path('molsysmt.data.h5msm', 'chicken_villin_HP35.h5msm')
 systems['chicken villin HP35']['chicken_villin_HP35_solvated.h5msm'] = path('molsysmt.data.h5msm', 'chicken_villin_HP35_solvated.h5msm')
 systems['chicken villin HP35']['traj_chicken_villin_HP35_solvated.dcd'] = path('molsysmt.data.dcd', 'traj_chicken_villin_HP35_solvated.dcd')
@@ -136,7 +137,8 @@ systems['two LJ particles']['traj_two_lj_particles.trjpk'] = path('molsysmt.data
 
 systems['Barnase-Barstar'] = {}
 systems['Barnase-Barstar']['barnase_barstar.h5msm'] = path('molsysmt.data.h5msm', 'barnase_barstar.h5msm')
-systems['Barnase-Barstar']['1brs.mmtf'] = path('molsysmt.data.mmtf', '1brs.mmtf')
+systems['Barnase-Barstar']['1brs.bcif'] = path('molsysmt.data.bcif', '1brs.bcif')
+systems['Barnase-Barstar']['1brs.bcif.gz'] = path('molsysmt.data.bcif_gz', '1brs.bcif.gz')
 
 
 # POPC membrane

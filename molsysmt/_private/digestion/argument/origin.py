@@ -1,8 +1,22 @@
 from ...exceptions import ArgumentError
 import numpy as np
 from molsysmt import pyunitwizard as puw
+from molsysmt._private.input_arguments import can_be_selection
+from molsysmt._private.variables import make_coordinates_like
 
 methods_where_bool = [
+]
+
+methods_where_none = [
+    'molsysmt.thirds.nglview.add_arrows.add_arrows'
+]
+
+methods_where_xyz = [
+    'molsysmt.thirds.nglview.add_arrows.add_arrows'
+]
+
+methods_where_can_be_selection = [
+    'molsysmt.thirds.nglview.add_arrows.add_arrows'
 ]
 
 def digest_origin(origin, caller=None):
@@ -11,30 +25,19 @@ def digest_origin(origin, caller=None):
         if isinstance(origin, bool):
             return origin
 
-    if caller.endswith('add_arrows'):
+    if caller in methods_where_none:
         if origin is None:
             return None
 
-    value = puw.get_value(origin)
-    unit = puw.get_unit(origin)
+    if caller in methods_where_xyz:
+        try:
+            return make_coordinates_like(origin)
+        except:
+            pass
 
-    if not puw.check(unit, dimensionality={'[L]':1}):
-        raise ArgumentError('origin', value=origin, caller=caller, message=None)
-
-    if not isinstance(value, np.ndarray):
-        value = np.array(value)
-
-    shape = value.shape
-
-    if len(shape) == 1:
-        if shape[0] == 3:
-            return puw.quantity(value[np.newaxis, np.newaxis, :], unit, standardized=True)
-    elif len(shape) == 2:
-        if shape[1] == 3:
-            return puw.quantity(value[np.newaxis, :, :], unit, standardized=True)
-    elif len(shape) == 3:
-        if shape[2] == 3:
-            return puw.quantity(value, unit, standardized=True)
+    if caller in methods_where_can_be_selection:
+        if can_be_selection(origin):
+            return origin
 
     raise ArgumentError('origin', value=origin, caller=caller, message=None)
 

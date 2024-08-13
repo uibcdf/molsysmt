@@ -3507,16 +3507,14 @@ def get_chain_index_from_chain(item, indices='all', skip_digestion=False):
 
     return output
 
-
 @digest(form=form)
 def get_chain_id_from_chain(item, indices='all', skip_digestion=False):
 
-    chains=list(item.chains())
     if is_all(indices):
-        output = [int(chain.id) for chain in chains]
+        n_aux = get_n_chains_from_system(item, skip_digestion=True)
+        output = list(range(n_aux))
     else:
-        output = [int(chain[ii].id) for ii in indices]
-    del(chains)
+        output = indices
 
     return output
 
@@ -3527,7 +3525,7 @@ def get_chain_name_from_chain(item, indices='all', skip_digestion=False):
     if is_all(indices):
         output = [chain.id for chain in chains]
     else:
-        output = [chain[ii].id for ii in indices]
+        output = [chains[ii].id for ii in indices]
     del(chains)
 
     return output
