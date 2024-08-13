@@ -20,3 +20,13 @@ def test_add_missing_bonds_molsysmt_MolSys_1():
 
     assert n_bonds_before==n_bonds_after
 
+def test_add_missing_bonds_molsysmt_MolSys_2():
+
+    molsys = msm.systems['alanine dipeptide']['alanine_dipeptide.h5msm']
+    molsys = msm.convert(molsys)
+    bonded_atom_pairs = msm.get(molsys, bonded_atom_pairs=True)
+    msm.build.remove_bonds(molsys)
+    msm.build.add_missing_bonds(molsys)
+    new_bonded_atom_pairs = msm.get(molsys, bonded_atom_pairs=True)
+    
+    assert new_bonded_atom_pairs == bonded_atom_pairs

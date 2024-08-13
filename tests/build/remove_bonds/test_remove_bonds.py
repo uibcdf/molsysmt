@@ -20,3 +20,11 @@ def test_remove_bonds_molsysmt_MolSys_1():
     assert n_bonds_before==2645
     assert n_bonds_after==0
 
+def test_remove_bonds_molsysmt_MolSys_2():
+
+    molsys = msm.systems['alanine dipeptide']['alanine_dipeptide.h5msm']
+    molsys = msm.convert(molsys)
+    msm.build.remove_bonds(molsys)
+    bonded_atoms_pairs = msm.get(molsys, bonded_atoms_pairs=True)
+    
+    assert len(bonded_atoms_pairs)==0

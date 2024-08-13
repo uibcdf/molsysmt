@@ -21,17 +21,7 @@ def add_missing_bonds(molecular_system, threshold='2 angstroms', selection='all'
 
         return add_bonds(molecular_system, bonds, in_place=in_place, skip_digestion=True)
 
-    elif engine=="ParmEd":
-
-        raise NotImplementedError
-
-    elif engine=="pytraj":
-
-        raise NotImplementedError
-
     else:
 
         raise NotImplementedError
-
-    raise NotImplementedError
 
