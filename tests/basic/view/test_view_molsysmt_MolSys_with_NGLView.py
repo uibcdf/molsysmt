@@ -51,3 +51,17 @@ def test_view_molsyst_MolSys_with_NGLView_4():
             coordinates=True, box=True)
     assert comparison
 
+def test_view_molsyst_MolSys_with_NGLView_5():
+
+    molsys = msm.convert(systems['alanine dipeptide']['alanine_dipeptide.h5msm'], to_form='molsysmt.MolSys')
+    view = msm.view(molsys, viewer='NGLView', standard=True)
+    comparison = msm.compare(view, molsys, attribute_type='topological', coordinates=True, box=True)
+    assert comparison
+
+def test_view_molsyst_MolSys_with_NGLView_6():
+
+    molsys = msm.systems['chicken villin HP35']['chicken_villin_HP35_solvated.h5msm']
+    view = msm.view(molsys, viewer='NGLView', standard=True)
+    comparison = msm.compare(view, molsys, attribute_type='topological', coordinates=True, box=True)
+    assert comparison
+

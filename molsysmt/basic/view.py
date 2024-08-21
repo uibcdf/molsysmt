@@ -7,7 +7,7 @@ from molsysmt.config import _view_from_htmlfiles
 @digest()
 def view(molecular_system=None, selection='all', structure_indices='all',
          standard=False, with_water_as=None, with_ions_as=None,
-         viewer='NGLView', syntax='MolSysMT'):
+         viewer='NGLView', syntax='MolSysMT', skip_digestion=False):
     """
     Showing a molecular system.
 
