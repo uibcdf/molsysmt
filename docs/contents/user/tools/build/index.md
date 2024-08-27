@@ -14,6 +14,7 @@
 | [Get missing residues](get_missing_residues.ipynb) | Getting the missing residues of a molecular system |
 | [Get missing terminal_cappings](get_missing_terminal_cappings.ipynb) | Getting the missing terminal cappings of a molecular system |
 | [Get non standard residues](get_non_standard_residues.ipynb) | Getting the non standard residues of a molecular system |
+| [Has hydrogens](has_hydrogens.ipynb) | Checking if a molecular system has hydrogen atoms |
 | [Is solvated](is_solvated.ipynb) | Checking if a molecular system is solvated |
 | [Make bioassembly](make_bioassembly.ipynb) | Making a bioassembly of a molecular system |
 | [Make water box](make_water_box.ipynb) | Making a water box system |
