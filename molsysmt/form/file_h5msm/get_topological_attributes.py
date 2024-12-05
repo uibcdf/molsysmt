@@ -3144,6 +3144,18 @@ def get_bond_index_from_bond(item, indices='all', skip_digestion=False):
     return output
 
 @digest(form=form)
+def get_bond_id_from_bond(item, indices='all', skip_digestion=False):
+
+    from . import to_molsysmt_H5MSMFileHandler
+    from ..molsysmt_H5MSMFileHandler import get_bond_id_from_bond as aux_get
+
+    tmp_item = to_molsysmt_H5MSMFileHandler(item, skip_digestion=True)
+    output = aux_get(tmp_item, indices=indices, skip_digestion=True)
+    tmp_item.close()
+
+    return output
+
+@digest(form=form)
 def get_bond_order_from_bond(item, indices='all', skip_digestion=False):
 
     from . import to_molsysmt_H5MSMFileHandler
