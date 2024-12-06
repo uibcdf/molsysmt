@@ -4089,17 +4089,6 @@ def get_bond_index_from_bond(item, indices='all', skip_digestion=False):
 
 
 @digest(form=form)
-def get_bond_id_from_bond(item, indices='all', skip_digestion=False):
-
-    output = item.file['topology']['bonds']['id'][:].astype('int64')
-
-    if not is_all(indices):
-        output = output[indices]
-
-    return output
-
-
-@digest(form=form)
 def get_bond_order_from_bond(item, indices='all', skip_digestion=False):
 
     output = item.file['topology']['bonds']['order'][:].astype('str')
@@ -4138,6 +4127,7 @@ def get_bonded_atoms_from_bond(item, indices='all', skip_digestion=False):
 
     tmp_out = np.array([atom1_index, atom2_index])
     tmp_out = np.sort(tmp_out)
+    tmp_out = tmp_out.transpose().tolist()
 
     return tmp_out
 
