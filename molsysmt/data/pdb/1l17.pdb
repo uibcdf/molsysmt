@@ -14,6 +14,7 @@ SOURCE   5 EXPRESSION_SYSTEM_PLASMID: M13
 KEYWDS    HYDROLASE (O-GLYCOSYL)                                                
 EXPDTA    X-RAY DIFFRACTION                                                     
 AUTHOR    M.MATSUMURA,S.DAO-PIN,B.W.MATTHEWS                                    
+REVDAT   6   22-MAY-24 1L17    1       REMARK                                   
 REVDAT   5   23-NOV-22 1L17    1       SOURCE JRNL   SEQADV SCALE               
 REVDAT   5 2                   1       ATOM                                     
 REVDAT   4   29-NOV-17 1L17    1       HELIX                                    

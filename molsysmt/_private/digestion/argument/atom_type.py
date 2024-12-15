@@ -1,5 +1,11 @@
 from ...exceptions import ArgumentError
 from ...variables import is_all
+from numpy import ndarray
+
+functions_with_boolean = (
+        'molsysmt.basic.get.get',
+        'molsysmt.basic.compare.compare',
+        )
 
 def digest_atom_type(atom_type, caller=None):
     """Checks if `atom_type` has the expected type and value.
@@ -25,11 +31,13 @@ def digest_atom_type(atom_type, caller=None):
         If the given `atom_type` has not of the correct type or value.
     """
 
-    if caller=='molsysmt.basic.get.get':
-        if isinstance(atom_type, bool):
+    if caller is not None:
+
+        if caller.endswith(functions_with_boolean):
+            if isinstance(atom_type, bool):
+                return atom_type
+        elif caller.startswith('molsysmt.form.') and caller.count('.to_')==2:
             return atom_type
-    elif caller.startswith('molsysmt.form.') and caller.count('.to_')==2:
-        return atom_type
 
     if isinstance(atom_type, str):
         return atom_type
@@ -40,7 +48,7 @@ def digest_atom_type(atom_type, caller=None):
     elif isinstance(atom_type, tuple):
         return list(atom_type)
 
-    elif isinstance(atom_type, np.ndarray):
+    elif isinstance(atom_type, ndarray):
         return atom_type.tolist()
 
     raise ArgumentError('atom_type', value=atom_type, caller=caller, message=None)

@@ -4118,11 +4118,24 @@ def get_bond_type_from_bond(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=type)
+@digest(form=form)
 def get_bonded_atoms_from_bond(item, indices='all', skip_digestion=False):
 
     from . import to_molsysmt_Topology
     from ..molsysmt_Topology import get_bonded_atoms_from_bond as aux_get
+
+    bonds_required = bonds_are_required_to_get_attribute('bonded_atoms', 'bond')
+    tmp_item = to_molsysmt_Topology(item, get_missing_bonds=bonds_required, skip_digestion=True)
+    output = aux_get(tmp_item, indices=indices, skip_digestion=True)
+
+    return output
+
+
+@digest(form=form)
+def get_bonded_atom_pairs_from_bond(item, indices='all', skip_digestion=False):
+
+    from . import to_molsysmt_Topology
+    from ..molsysmt_Topology import get_bonded_atom_pairs_from_bond as aux_get
 
     bonds_required = bonds_are_required_to_get_attribute('bonded_atoms', 'bond')
     tmp_item = to_molsysmt_Topology(item, get_missing_bonds=bonds_required, skip_digestion=True)

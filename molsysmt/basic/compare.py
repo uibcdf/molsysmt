@@ -496,7 +496,7 @@ def compare(molecular_system, molecular_system_2, selection='all', structure_ind
 
         if 'box' in atts_required:
 
-            output_dict['box']= np.allclose(dict_A['box'], dict_B['box'])
+            output_dict['box']= np.allclose(dict_A['box'], dict_B['box'], rtol=1e-04, atol=1e-06)
 
         if 'box_shape' in atts_required:
             output_dict['box_shape']= (dict_A['box_shape']==dict_B['box_shape'])

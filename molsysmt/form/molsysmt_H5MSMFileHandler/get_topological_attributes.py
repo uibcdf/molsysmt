@@ -311,7 +311,7 @@ def get_bond_index_from_atom(item, indices='all', skip_digestion=False):
     output = None
 
     G = Graph()
-    edges = get_bonded_atoms_pairs_from_bond(item, skip_digestion=True)
+    edges = get_bonded_atom_pairs_from_bond(item, skip_digestion=True)
     n_bonds = len(edges)
     edge_indices = np.array([{'index': ii} for ii in range(n_bonds)]).reshape([n_bonds, 1])
     G.add_edges_from(np.hstack([edges, edge_indices]))
@@ -365,7 +365,7 @@ def get_bonded_atoms_from_atom(item, indices='all', skip_digestion=False):
     output = None
 
     G = Graph()
-    edges = get_bonded_atoms_pairs_from_bond(item, skip_digestion=True)
+    edges = get_bonded_atom_pairs_from_bond(item, skip_digestion=True)
     
     G.add_edges_from(edges)
 
@@ -3832,7 +3832,7 @@ def get_n_rnas_from_chain(item, indices='all', skip_digestion=False):
 def get_n_atoms_from_system(item, skip_digestion=False):
 
     output = item.file['topology'].attrs['n_atoms']
-
+    
     if output==0:
         output = item.file['structures'].attrs['n_atoms']
 
@@ -4010,7 +4010,7 @@ def get_bonded_atoms_from_system(item, skip_digestion=False):
     output = None
 
     G = Graph()
-    edges = get_bonded_atoms_pairs_from_bond(item, skip_digestion=True)
+    edges = get_bonded_atom_pairs_from_bond(item, skip_digestion=True)
     
     G.add_edges_from(edges)
 
@@ -4032,7 +4032,7 @@ def get_bonded_atoms_from_system(item, skip_digestion=False):
 @digest(form=form)
 def get_bonded_atom_pairs_from_system(item, skip_digestion=False):
 
-    output = get_bonded_atoms_pairs_from_bond(item, skip_digestion=True)
+    output = get_bonded_atom_pairs_from_bond(item, skip_digestion=True)
    
     return output
 
@@ -4052,7 +4052,7 @@ def get_inner_bonded_atoms_from_system(item, skip_digestion=False):
     output = None
 
     G = Graph()
-    edges = get_bonded_atoms_pairs_from_bond(item, skip_digestion=True)
+    edges = get_bonded_atom_pairs_from_bond(item, skip_digestion=True)
     
     G.add_edges_from(edges)
 
@@ -4068,7 +4068,7 @@ def get_inner_bonded_atoms_from_system(item, skip_digestion=False):
 @digest(form=form)
 def get_inner_bonded_atom_pairs_from_system(item, skip_digestion=False):
 
-    output = get_bonded_atoms_pairs_from_bond(item)
+    output = get_bonded_atom_pairs_from_bond(item)
    
     return output
 
@@ -4093,8 +4093,12 @@ def get_bond_order_from_bond(item, indices='all', skip_digestion=False):
 
     output = item.file['topology']['bonds']['order'][:].astype('str')
 
+    if len(output)==0:
+        output = None
+
     if not is_all(indices):
-        output = output[indices]
+        if output is not None:
+            output = output[indices]
 
     return output
 
@@ -4104,8 +4108,12 @@ def get_bond_type_from_bond(item, indices='all', skip_digestion=False):
 
     output = item.file['topology']['bonds']['type'][:].astype('str')
 
+    if len(output)==0:
+        output = None
+
     if not is_all(indices):
-        output = output[indices]
+        if output is not None:
+            output = output[indices]
 
     return output
 
@@ -4126,7 +4134,6 @@ def get_bonded_atoms_from_bond(item, indices='all', skip_digestion=False):
         atom2_index = item.file['topology']['bonds']['atom2_index'][indices].astype('int64')
 
     tmp_out = np.array([atom1_index, atom2_index])
-    tmp_out = np.sort(tmp_out)
     tmp_out = tmp_out.transpose().tolist()
 
     return tmp_out
@@ -4142,10 +4149,9 @@ def get_bonded_atom_pairs_from_bond(item, indices='all', skip_digestion=False):
 def get_n_bonds_from_bond(item, indices='all', skip_digestion=False):
 
     if is_all(indices):
-        n_aux = get_n_bonds_from_system(item, skip_digestion=True)
-        output = list(range(n_aux))
+        output = get_n_bonds_from_system(item, skip_digestion=True)
     else:
-        output = indices
+        output = len(indices)
 
     return output
 

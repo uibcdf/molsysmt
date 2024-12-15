@@ -68,9 +68,9 @@ def dump_topology_to_h5msm(item, file, atom_indices='all'):
 
     n_atoms = atoms_df.shape[0]
 
-    atoms = file['topology']['atoms']
+    file['topology'].attrs['n_atoms'] = n_atoms
 
-    atoms.attrs['n_atoms'] = n_atoms
+    atoms = file['topology']['atoms']
 
     atoms['id'].resize((n_atoms,))
     atoms['name'].resize((n_atoms,))
@@ -90,8 +90,9 @@ def dump_topology_to_h5msm(item, file, atom_indices='all'):
 
     n_groups = groups_df.shape[0]
 
+    file['topology'].attrs['n_groups'] = n_groups
+
     groups = file['topology']['groups']
-    groups.attrs['n_groups'] = n_groups
 
     if n_groups > 0:
 
@@ -111,8 +112,9 @@ def dump_topology_to_h5msm(item, file, atom_indices='all'):
 
     n_components = components_df.shape[0]
 
+    file['topology'].attrs['n_components'] = n_components
+
     components = file['topology']['components']
-    components.attrs['n_components'] = n_components
 
     if n_components > 0:
 
@@ -132,8 +134,9 @@ def dump_topology_to_h5msm(item, file, atom_indices='all'):
 
     n_molecules = molecules_df.shape[0]
 
+    file['topology'].attrs['n_molecules'] = n_molecules
+
     molecules = file['topology']['molecules']
-    molecules.attrs['n_molecules'] = n_molecules
 
     if n_molecules > 0:
 
@@ -153,8 +156,9 @@ def dump_topology_to_h5msm(item, file, atom_indices='all'):
 
     n_entities = entities_df.shape[0]
 
+    file['topology'].attrs['n_entities'] = n_entities
+
     entities = file['topology']['entities']
-    entities.attrs['n_entities'] = n_entities
 
     if n_entities > 0:
 
@@ -173,8 +177,9 @@ def dump_topology_to_h5msm(item, file, atom_indices='all'):
 
     n_chains = chains_df.shape[0]
 
+    file['topology'].attrs['n_chains'] = n_chains
+
     chains = file['topology']['chains']
-    chains.attrs['n_chains'] = n_chains
 
     if n_chains > 0:
 
@@ -194,8 +199,9 @@ def dump_topology_to_h5msm(item, file, atom_indices='all'):
 
     n_bonds = bonds_df.shape[0]
 
+    file['topology'].attrs['n_bonds'] = n_bonds
+
     bonds = file['topology']['bonds']
-    bonds.attrs['n_bonds'] = n_bonds
 
     if n_bonds>0:
 

@@ -45,9 +45,8 @@ def add_missing_terminal_cappings(molecular_system, N_terminal=None, C_terminal=
 
         n_hs = get(temp_molecular_system, element='atom', selection='atom_type=="H"', n_atoms=True)
 
-        if n_hs > 0:
-
-            temp_molecular_system.addMissingHydrogens(pH)
+        #if n_hs > 0:
+        #    temp_molecular_system.addMissingHydrogens(pH)
 
         output_molecular_system = convert(temp_molecular_system, to_form=form_in)
 
@@ -62,6 +61,11 @@ def add_missing_terminal_cappings(molecular_system, N_terminal=None, C_terminal=
         if has_attribute(molecular_system, 'entity_name'):
             entity_names = get(molecular_system, element='entity', entity_name=True)
             set(output_molecular_system, element='entity', entity_name=entity_names)
+
+        if n_hs > 0:
+        
+            from molsysmt.build import add_missing_hydrogens
+            output_molecular_system = add_missing_hydrogens(output_molecular_system, pH=pH)
 
         if keep_ids:
             raise NotImplementedError

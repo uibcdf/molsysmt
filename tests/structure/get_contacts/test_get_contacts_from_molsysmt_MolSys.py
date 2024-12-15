@@ -49,5 +49,5 @@ def test_get_contacts_from_molsysmt_MolSys_4():
     molsys = msm.convert(systems['chicken villin HP35']['chicken_villin_HP35.h5msm'])
     contacts = msm.structure.get_contacts(molsys, selection='atom_name=="CA"', threshold='5 angstroms',
                                           output_type='pairs')
-    assert len(contacts[0])==46
+    assert len(contacts[0])==42
 

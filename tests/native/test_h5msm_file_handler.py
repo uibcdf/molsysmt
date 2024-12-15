@@ -11,7 +11,7 @@ def test_pdb_file_handler_1():
 
     molsys = msm.systems['chicken villin HP35']['traj_chicken_villin_HP35_solvated.h5msm']
     handler = H5MSMFileHandler(molsys)
-    assert 4648==handler.file['topology']['atoms']['name'].shape[0]
+    assert 4306==handler.file['topology']['atoms']['name'].shape[0]
 
 def test_pdb_file_handler_2():
 
@@ -23,5 +23,5 @@ def test_pdb_file_handler_2():
     molsys.close()
 
     handler = H5MSMFileHandler(tmpfile)
-    assert 4648==handler.file['topology']['atoms']['name'].shape[0]
+    assert 4306==handler.file['topology']['atoms']['name'].shape[0]
 

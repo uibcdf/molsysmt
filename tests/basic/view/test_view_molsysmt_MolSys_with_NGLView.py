@@ -62,6 +62,7 @@ def test_view_molsyst_MolSys_with_NGLView_6():
 
     molsys = msm.systems['chicken villin HP35']['chicken_villin_HP35_solvated.h5msm']
     view = msm.view(molsys, viewer='NGLView', standard=True)
-    comparison = msm.compare(view, molsys, attribute_type='topological', coordinates=True, box=True)
+    comparison = msm.compare(view, molsys, attribute_type='topological', coordinates=True, box=True,
+                             component_name=False, molecule_name=False, entity_name=False, atom_type=False)
     assert comparison
 

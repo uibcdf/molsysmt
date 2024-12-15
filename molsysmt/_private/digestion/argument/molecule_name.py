@@ -2,6 +2,11 @@ from ...exceptions import ArgumentError
 from ...variables import is_all
 from numpy import ndarray
 
+functions_with_boolean = (
+        'molsysmt.basic.get.get',
+        'molsysmt.basic.compare.compare',
+        )
+
 def digest_molecule_name(molecule_name, caller=None):
     """Checks if `molecule_name` has the expected type and value.
 
@@ -26,11 +31,13 @@ def digest_molecule_name(molecule_name, caller=None):
         If the given `molecule_name` has not of the correct type or value.
     """
 
-    if caller=='molsysmt.basic.get.get':
-        if isinstance(molecule_name, bool):
+    if caller is not None:
+
+        if caller.endswith(functions_with_boolean):
+            if isinstance(molecule_name, bool):
+                return molecule_name
+        elif caller.startswith('molsysmt.form.') and caller.count('.to_')==2:
             return molecule_name
-    elif caller.startswith('molsysmt.form.') and caller.count('.to_')==2:
-        return molecule_name
 
     if isinstance(molecule_name, str):
         return molecule_name
@@ -41,7 +48,7 @@ def digest_molecule_name(molecule_name, caller=None):
     elif isinstance(molecule_name, tuple):
         return list(molecule_name)
 
-    if isinstance(molecule_name, np.ndarray):
+    if isinstance(molecule_name, ndarray):
         return molecule_name.tolist()
 
     raise ArgumentError('molecule_name', value=molecule_name, caller=caller, message=None)

@@ -51,7 +51,7 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
     for atom_index, atom_record in enumerate(item.getObj('atom_site').data):
 
         atom_id_array[atom_index] = atom_record[index_att['id']]
-        atom_type_array[atom_index] = atom_record[index_att['type_symbol']]
+        atom_type_array[atom_index] = atom_record[index_att['type_symbol']].upper()
         atom_name_array[atom_index] = atom_record[index_att['auth_atom_id']]
 
         coordinates_array[0,atom_index,0] = atom_record[index_att['Cartn_x']]

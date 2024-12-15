@@ -3215,7 +3215,7 @@ def get_n_atoms_from_system(item, skip_digestion=False):
     from ..molsysmt_H5MSMFileHandler import get_n_atoms_from_system as aux_get
 
     tmp_item = to_molsysmt_H5MSMFileHandler(item, skip_digestion=True)
-    output = aux_get(tmp_item, indices=indices, skip_digestion=True)
+    output = aux_get(tmp_item, skip_digestion=True)
     tmp_item.close()
 
     return output
@@ -3227,7 +3227,7 @@ def get_n_groups_from_system(item, skip_digestion=False):
     from ..molsysmt_H5MSMFileHandler import get_n_groups_from_system as aux_get
 
     tmp_item = to_molsysmt_H5MSMFileHandler(item, skip_digestion=True)
-    output = aux_get(tmp_item, indices=indices, skip_digestion=True)
+    output = aux_get(tmp_item, skip_digestion=True)
     tmp_item.close()
 
     return output
@@ -3239,7 +3239,7 @@ def get_n_components_from_system(item, skip_digestion=False):
     from ..molsysmt_H5MSMFileHandler import get_n_components_from_system as aux_get
 
     tmp_item = to_molsysmt_H5MSMFileHandler(item, skip_digestion=True)
-    output = aux_get(tmp_item, indices=indices, skip_digestion=True)
+    output = aux_get(tmp_item, skip_digestion=True)
     tmp_item.close()
 
     return output
@@ -3251,7 +3251,7 @@ def get_n_chains_from_system(item, skip_digestion=False):
     from ..molsysmt_H5MSMFileHandler import get_n_chains_from_system as aux_get
 
     tmp_item = to_molsysmt_H5MSMFileHandler(item, skip_digestion=True)
-    output = aux_get(tmp_item, indices=indices, skip_digestion=True)
+    output = aux_get(tmp_item, skip_digestion=True)
     tmp_item.close()
 
     return output
@@ -3263,7 +3263,7 @@ def get_n_molecules_from_system(item, skip_digestion=False):
     from ..molsysmt_H5MSMFileHandler import get_n_molecules_from_system as aux_get
 
     tmp_item = to_molsysmt_H5MSMFileHandler(item, skip_digestion=True)
-    output = aux_get(tmp_item, indices=indices, skip_digestion=True)
+    output = aux_get(tmp_item, skip_digestion=True)
     tmp_item.close()
 
     return output
@@ -3275,7 +3275,7 @@ def get_n_entities_from_system(item, skip_digestion=False):
     from ..molsysmt_H5MSMFileHandler import get_n_entities_from_system as aux_get
 
     tmp_item = to_molsysmt_H5MSMFileHandler(item, skip_digestion=True)
-    output = aux_get(tmp_item, indices=indices, skip_digestion=True)
+    output = aux_get(tmp_item, skip_digestion=True)
     tmp_item.close()
 
     return output
@@ -3287,7 +3287,7 @@ def get_n_bonds_from_system(item, skip_digestion=False):
     from ..molsysmt_H5MSMFileHandler import get_n_bonds_from_system as aux_get
 
     tmp_item = to_molsysmt_H5MSMFileHandler(item, skip_digestion=True)
-    output = aux_get(tmp_item, indices=indices, skip_digestion=True)
+    output = aux_get(tmp_item, skip_digestion=True)
     tmp_item.close()
 
     return output
@@ -3299,7 +3299,7 @@ def get_n_amino_acids_from_system(item, skip_digestion=False):
     from ..molsysmt_H5MSMFileHandler import get_n_amino_acids_from_system as aux_get
 
     tmp_item = to_molsysmt_H5MSMFileHandler(item, skip_digestion=True)
-    output = aux_get(tmp_item, indices=indices, skip_digestion=True)
+    output = aux_get(tmp_item, skip_digestion=True)
     tmp_item.close()
 
     return output
@@ -3311,7 +3311,7 @@ def get_n_nucleotides_from_system(item, skip_digestion=False):
     from ..molsysmt_H5MSMFileHandler import get_n_nucleotides_from_system as aux_get
 
     tmp_item = to_molsysmt_H5MSMFileHandler(item, skip_digestion=True)
-    output = aux_get(tmp_item, indices=indices, skip_digestion=True)
+    output = aux_get(tmp_item, skip_digestion=True)
     tmp_item.close()
 
     return output
@@ -3323,7 +3323,7 @@ def get_n_ions_from_system(item, skip_digestion=False):
     from ..molsysmt_H5MSMFileHandler import get_n_ions_from_system as aux_get
 
     tmp_item = to_molsysmt_H5MSMFileHandler(item, skip_digestion=True)
-    output = aux_get(tmp_item, indices=indices, skip_digestion=True)
+    output = aux_get(tmp_item, skip_digestion=True)
     tmp_item.close()
 
     return output
@@ -3335,7 +3335,7 @@ def get_n_waters_from_system(item, skip_digestion=False):
     from ..molsysmt_H5MSMFileHandler import get_n_waters_from_system as aux_get
 
     tmp_item = to_molsysmt_H5MSMFileHandler(item, skip_digestion=True)
-    output = aux_get(tmp_item, indices=indices, skip_digestion=True)
+    output = aux_get(tmp_item, skip_digestion=True)
     tmp_item.close()
 
     return output
@@ -3347,7 +3347,7 @@ def get_n_small_molecules_from_system(item, skip_digestion=False):
     from ..molsysmt_H5MSMFileHandler import get_n_small_molecules_from_system as aux_get
 
     tmp_item = to_molsysmt_H5MSMFileHandler(item, skip_digestion=True)
-    output = aux_get(tmp_item, indices=indices, skip_digestion=True)
+    output = aux_get(tmp_item, skip_digestion=True)
     tmp_item.close()
 
     return output
@@ -3359,7 +3359,7 @@ def get_n_peptides_from_system(item, skip_digestion=False):
     from ..molsysmt_H5MSMFileHandler import get_n_peptides_from_system as aux_get
 
     tmp_item = to_molsysmt_H5MSMFileHandler(item, skip_digestion=True)
-    output = aux_get(tmp_item, indices=indices, skip_digestion=True)
+    output = aux_get(tmp_item, skip_digestion=True)
     tmp_item.close()
 
     return output
@@ -3371,7 +3371,7 @@ def get_n_proteins_from_system(item, skip_digestion=False):
     from ..molsysmt_H5MSMFileHandler import get_n_proteins_from_system as aux_get
 
     tmp_item = to_molsysmt_H5MSMFileHandler(item, skip_digestion=True)
-    output = aux_get(tmp_item, indices=indices, skip_digestion=True)
+    output = aux_get(tmp_item, skip_digestion=True)
     tmp_item.close()
 
     return output
@@ -3383,7 +3383,7 @@ def get_n_dnas_from_system(item, skip_digestion=False):
     from ..molsysmt_H5MSMFileHandler import get_n_dnas_from_system as aux_get
 
     tmp_item = to_molsysmt_H5MSMFileHandler(item, skip_digestion=True)
-    output = aux_get(tmp_item, indices=indices, skip_digestion=True)
+    output = aux_get(tmp_item, skip_digestion=True)
     tmp_item.close()
 
     return output
@@ -3395,7 +3395,7 @@ def get_n_rnas_from_system(item, skip_digestion=False):
     from ..molsysmt_H5MSMFileHandler import get_n_rnas_from_system as aux_get
 
     tmp_item = to_molsysmt_H5MSMFileHandler(item, skip_digestion=True)
-    output = aux_get(tmp_item, indices=indices, skip_digestion=True)
+    output = aux_get(tmp_item, skip_digestion=True)
     tmp_item.close()
 
     return output
@@ -3407,7 +3407,7 @@ def get_n_lipids_from_system(item, skip_digestion=False):
     from ..molsysmt_H5MSMFileHandler import get_n_lipids_from_system as aux_get
 
     tmp_item = to_molsysmt_H5MSMFileHandler(item, skip_digestion=True)
-    output = aux_get(tmp_item, indices=indices, skip_digestion=True)
+    output = aux_get(tmp_item, skip_digestion=True)
     tmp_item.close()
 
     return output
@@ -3419,7 +3419,7 @@ def get_n_oligosaccharides_from_system(item, skip_digestion=False):
     from ..molsysmt_H5MSMFileHandler import get_n_oligosaccharides_from_system as aux_get
 
     tmp_item = to_molsysmt_H5MSMFileHandler(item, skip_digestion=True)
-    output = aux_get(tmp_item, indices=indices, skip_digestion=True)
+    output = aux_get(tmp_item, skip_digestion=True)
     tmp_item.close()
 
     return output
@@ -3431,7 +3431,7 @@ def get_n_saccharides_from_system(item, skip_digestion=False):
     from ..molsysmt_H5MSMFileHandler import get_n_saccharides_from_system as aux_get
 
     tmp_item = to_molsysmt_H5MSMFileHandler(item, skip_digestion=True)
-    output = aux_get(tmp_item, indices=indices, skip_digestion=True)
+    output = aux_get(tmp_item, skip_digestion=True)
     tmp_item.close()
 
     return output
@@ -3443,7 +3443,7 @@ def get_bond_index_from_system(item, skip_digestion=False):
     from ..molsysmt_H5MSMFileHandler import get_bond_index_from_system as aux_get
 
     tmp_item = to_molsysmt_H5MSMFileHandler(item, skip_digestion=True)
-    output = aux_get(tmp_item, indices=indices, skip_digestion=True)
+    output = aux_get(tmp_item, skip_digestion=True)
     tmp_item.close()
 
     return output
@@ -3455,7 +3455,7 @@ def get_inner_bonded_atoms_from_system(item, skip_digestion=False):
     from ..molsysmt_H5MSMFileHandler import get_inner_bonded_atoms_from_system as aux_get
 
     tmp_item = to_molsysmt_H5MSMFileHandler(item, skip_digestion=True)
-    output = aux_get(tmp_item, indices=indices, skip_digestion=True)
+    output = aux_get(tmp_item, skip_digestion=True)
     tmp_item.close()
 
     return output
@@ -3467,7 +3467,7 @@ def get_inner_bonded_atom_pairs_from_system(item, skip_digestion=False):
     from ..molsysmt_H5MSMFileHandler import get_inner_bonded_atom_pairs_from_system as aux_get
 
     tmp_item = to_molsysmt_H5MSMFileHandler(item, skip_digestion=True)
-    output = aux_get(tmp_item, indices=indices, skip_digestion=True)
+    output = aux_get(tmp_item, skip_digestion=True)
     tmp_item.close()
 
     return output
@@ -3479,7 +3479,7 @@ def get_bonded_atoms_from_system(item, skip_digestion=False):
     from ..molsysmt_H5MSMFileHandler import get_bonded_atoms_from_system as aux_get
 
     tmp_item = to_molsysmt_H5MSMFileHandler(item, skip_digestion=True)
-    output = aux_get(tmp_item, indices=indices, skip_digestion=True)
+    output = aux_get(tmp_item, skip_digestion=True)
     tmp_item.close()
 
     return output
@@ -3491,7 +3491,7 @@ def get_bonded_atom_pairs_from_system(item, skip_digestion=False):
     from ..molsysmt_H5MSMFileHandler import get_bonded_atom_pairs_from_system as aux_get
 
     tmp_item = to_molsysmt_H5MSMFileHandler(item, skip_digestion=True)
-    output = aux_get(tmp_item, indices=indices, skip_digestion=True)
+    output = aux_get(tmp_item, skip_digestion=True)
     tmp_item.close()
 
     return output

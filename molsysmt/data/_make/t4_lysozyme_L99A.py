@@ -9,10 +9,8 @@ data_dir = Path('../.')
 
 files_to_be_purged = [
         'pdb/181l.pdb',
-        'mmtf/181l.mmtf',
         'h5msm/181l.h5msm',
         'pdb/1l17.pdb',
-        'mmtf/1l17.mmtf',
         'h5msm/1l17.h5msm',
         'h5msm/t4_lysozyme_L99A.h5msm',
         ]
@@ -25,18 +23,14 @@ for filename in files_to_be_purged:
 # 181l pdb, mmtf, h5msm files
 #print('Protein Data Bank files...')
 msm.convert('pdb_id:181l', to_form='181l.pdb')
-msm.convert('pdb_id:181l', to_form='181l.mmtf')
 msm.convert('pdb_id:181l', to_form='181l.h5msm')
 shutil.move('181l.pdb', Path(data_dir, 'pdb/181l.pdb'))
-shutil.move('181l.mmtf', Path(data_dir, 'mmtf/181l.mmtf'))
 shutil.move('181l.h5msm', Path(data_dir, 'h5msm/181l.h5msm'))
 
 # 1l17 pdb, mmtf, h5msm files
 msm.convert('pdb_id:1l17', to_form='1l17.pdb')
-msm.convert('pdb_id:1l17', to_form='1l17.mmtf')
 msm.convert('pdb_id:1l17', to_form='1l17.h5msm')
 shutil.move('1l17.pdb', Path(data_dir, 'pdb/1l17.pdb'))
-shutil.move('1l17.mmtf', Path(data_dir, 'mmtf/1l17.mmtf'))
 shutil.move('1l17.h5msm', Path(data_dir, 'h5msm/1l17.h5msm'))
 
 # vacuum
