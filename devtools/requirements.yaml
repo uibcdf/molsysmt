@@ -32,8 +32,7 @@ production:
     - biopython
     - ipywidgets
     - tqdm
-    - pip:
-      - mmcif
+    - bcifreader
 
 test:
   channels: &test_channels

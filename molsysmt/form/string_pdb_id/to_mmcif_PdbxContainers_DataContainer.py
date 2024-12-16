@@ -3,7 +3,8 @@ from molsysmt._private.digestion import digest
 @digest(form='string:pdb_id')
 def to_mmcif_PdbxContainers_DataContainer(item, atom_indices='all', structure_indices='all', skip_digestion=False):
 
-    from mmcif.io.BinaryCifReader import BinaryCifReader
+    #from mmcif.io.BinaryCifReader import BinaryCifReader
+    from bcifreader import BinaryCifReader
 
 
     tmp_item = item.split(':')[-1]

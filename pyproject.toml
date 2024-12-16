@@ -37,6 +37,7 @@ dependencies = [
     "biopython",
     "tqdm",
     "ipywidgets",
+    "bcifreader"
 ]
 
 # Update the urls once the hosting is set up.

@@ -25,8 +25,7 @@ dependencies:
 - biopython
 - ipywidgets
 - tqdm
-- pip:
-  - mmcif
+- bcifreader
 - pytest
 - pytest-cov
 - codecov
