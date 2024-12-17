@@ -116,6 +116,19 @@ def solvate (molecular_system, box_shape="truncated octahedral", clearance='14.0
                                ionicStrength=ionic_strength, positiveIon=cation,
                                negativeIon=anion)
 
+        # fixing a bug of OpenMM
+        list_atoms = list(modeller.topology.atoms())
+        atom_id = int(list_atoms[0].id)
+        for atom in list_atoms[1:]:
+            atom_id += 1
+            atom.id = str(atom_id)
+        list_residues = list(modeller.topology.residues())
+        residue_id = int(list_residues[0].id)
+        for residue in list_residues[1:]:
+            residue_id += 1
+            residue.id = str(residue_id)
+        #
+
         tmp_item = convert(modeller, to_form=to_form)
 
         del(modeller)

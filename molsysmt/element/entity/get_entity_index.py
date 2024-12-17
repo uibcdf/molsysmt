@@ -8,7 +8,10 @@ def get_entity_index(molecular_system, element='atom', selection='all',
 
     if redefine_molecules or redefine_indices:
 
-        from ..molecule import get_molecule_name, get_molecule_type
+        from ..molecule import get_molecule_name, get_molecule_type, get_molecule_index
+
+        molecule_index_from_atoms = get_molecule_index(molecular_system, element='atom',
+                selection=selection, redefine_indices=redefine_molecules, syntax=syntax, skip_digestion=True)
 
         molecule_name_from_molecules = get_molecule_name(molecular_system, element='molecule',
                 selection=selection, redefine_indices=redefine_molecules, syntax=syntax, skip_digestion=True)
@@ -74,7 +77,9 @@ def get_entity_index(molecular_system, element='atom', selection='all',
 
             output.append(entity_index)
 
-        if element=='molecule':
+        if element=='atom':
+            output=[output[ii] for ii in molecule_index_from_atoms]
+        elif element=='molecule':
             output=output
         elif element=='entity':
             output=np.unique(output).tolist()

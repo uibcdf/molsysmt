@@ -4,8 +4,8 @@ from molsysmt._private.variables import is_all
 # https://github.com/arose/ngl/blob/master/doc/usage/selection-language.md
 
 
-@digest()
-def show_as_balls_and_sticks(view, selection='all'):
+@digest(form='nglview.NGLWidget')
+def show_as_balls_and_sticks(view, selection='all', skip_digestion=False):
 
     from molsysmt import select
 
@@ -18,7 +18,8 @@ def show_as_balls_and_sticks(view, selection='all'):
             nglview_selection='ion'
 
     if nglview_selection is None:
-        nglview_selection = select(view, element='atom', selection=selection, to_syntax='NGLView')
+        nglview_selection = select(view, element='atom', selection=selection, to_syntax='NGLView',
+                                  skip_digestion=True)
 
     view.add_ball_and_stick(selection=nglview_selection)
 

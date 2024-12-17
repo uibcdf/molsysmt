@@ -134,23 +134,24 @@ def view(molecular_system=None, selection='all', structure_indices='all',
 
         if with_water_as == 'surface':
             if viewer=='NGLView':
-                from molsysmt.thirds.nglview import show_system_as_transparent_surface
-                show_system_as_transparent_surface(tmp_item)
+                from molsysmt.thirds.nglview import show_as_surface
+                show_as_surface(tmp_item, selection='molecule_type=="water"',
+                                opacity=0.2, color='lightblue', skip_digestion=True)
         elif with_water_as == 'licorice':
             if viewer=='NGLView':
-                from molsysmt.thirds.nglview import show_water_as_licorice
-                show_water_as_licorice(tmp_item)
+                from molsysmt.thirds.nglview import show_as_licorice
+                show_as_licorice(tmp_item, selection='molecule_type=="water"')
 
     if with_ions_as is not None:
 
         if with_ions_as == 'licorice':
             if viewer=='NGLView':
-                from molsysmt.thirds.nglview import show_ions_as_licorice
-                show_ions_as_licorice(tmp_item)
+                from molsysmt.thirds.nglview import show_as_licorice
+                show_as_licorice(tmp_item, selection='molecule_type=="ion"')
         elif with_ions_as in ['balls and sticks', 'balls']:
             if viewer=='NGLView':
-                from molsysmt.thirds.nglview import show_ions_as_ball_and_stick
-                show_ions_as_ball_and_stick(tmp_item)
+                from molsysmt.thirds.nglview import show_as_balls_and_sticks
+                show_as_balls_and_sticks(tmp_item)
 
 
     return tmp_item
