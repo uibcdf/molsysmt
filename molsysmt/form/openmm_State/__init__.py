@@ -22,10 +22,12 @@ from .iterators import StructuresIterator, TopologyIterator
 
 from .to_XYZ import to_XYZ
 from .to_molsysmt_StructuresOld import to_molsysmt_StructuresOld
+from .to_molsysmt_Structures import to_molsysmt_Structures
 
 _convert_to={
         'openmm.State': extract,
         'molsysmt.StructuresOld': to_molsysmt_StructuresOld,
+        'molsysmt.Structures': to_molsysmt_Structures,
         'XYZ': to_XYZ,
         }
 
