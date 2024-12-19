@@ -4,8 +4,8 @@ from molsysmt import pyunitwizard as puw
 import numpy as np
 
 @digest()
-def center(molecular_system, selection='all', center_of_selection='all', weights=None, center_coordinates=None, structure_indices='all',
-           syntax='MolSysMT', engine='MolSysMT', in_place=False):
+def center(molecular_system, selection='all', center_of_selection='all', weights=None, center_coordinates=None,
+           structure_indices='all', syntax='MolSysMT', engine='MolSysMT', in_place=False, skip_digestion=False):
     """
     To be written soon...
     """
