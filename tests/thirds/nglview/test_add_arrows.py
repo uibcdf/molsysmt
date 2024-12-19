@@ -13,7 +13,7 @@ def test_add_arrows_1():
 
     molsys = msm.systems['T4 lysozyme L99A']['181l.h5msm']
     molecular_system = msm.convert(molsys, selection='molecule_type=="protein"')
-    view = msm.view(molecular_system)
+    view = msm.view(molecular_system, standard=False)
     msm.thirds.nglview.add_arrows(view, vectors='[2,2,2] angstroms', origin='atom_name=="CA"', color='#808080', radius='0.2 angstroms')
     n_arrows, coordinates = msm.get(molsys, element='atom', selection='atom_name=="CA"', n_atoms=True, coordinates=True)
     check_all_arrows = False
@@ -37,7 +37,7 @@ def test_add_arrows_2():
 
     molsys = msm.systems['T4 lysozyme L99A']['181l.h5msm']
     molecular_system = msm.convert(molsys, selection='molecule_type=="protein"')
-    view = msm.view(molecular_system)
+    view = msm.view(molecular_system, standard=False)
     colors = ['#FF0000', '#00FF00', '#0000FF']
     arrows = puw.quantity([[10,0,0],[0,10,0],[0,0,10]], 'angstroms')
     msm.thirds.nglview.add_arrows(view, vectors=arrows,
@@ -66,7 +66,7 @@ def test_add_arrows_3():
 
     molsys = msm.systems['T4 lysozyme L99A']['181l.h5msm']
     molecular_system = msm.convert(molsys, selection='molecule_type=="protein"')
-    view = msm.view(molecular_system)
+    view = msm.view(molecular_system, standard=False)
 
     arrows = puw.quantity([[9,0,0],[0,6,0],[0,0,-12], [0,5,5]], 'angstroms')
     coordinates = msm.get(view, element='atom',

@@ -26,3 +26,5 @@ dependencies:
 - ipywidgets
 - tqdm
 - bcifreader
+- plotly
+- matplotlib

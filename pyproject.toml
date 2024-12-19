@@ -38,7 +38,9 @@ dependencies = [
     "biopython",
     "tqdm",
     "ipywidgets",
-    "bcifreader"
+    "bcifreader",
+    "plotly",
+    "matplotlib",
 ]
 
 # Update the urls once the hosting is set up.

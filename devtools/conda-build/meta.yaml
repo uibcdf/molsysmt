@@ -34,6 +34,8 @@ requirements:
   - ipywidgets
   - tqdm
   - bcifreader
+  - plotly
+  - matplotlib
 about:
   home: https://uibcdf.org
   license: MIT License

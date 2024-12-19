@@ -26,6 +26,8 @@ dependencies:
 - ipywidgets
 - tqdm
 - bcifreader
+- plotly
+- matplotlib
 - pytest
 - pytest-cov
 - codecov

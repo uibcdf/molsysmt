@@ -26,6 +26,8 @@ dependencies:
 - ipywidgets
 - tqdm
 - bcifreader
+- plotly
+- matplotlib
 - pytest
 - pytest-cov
 - codecov
@@ -42,5 +44,4 @@ dependencies:
 - myst-nb
 - seaborn
 - nbsphinx
-- plotly
 - mamba

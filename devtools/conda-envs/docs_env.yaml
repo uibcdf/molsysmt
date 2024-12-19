@@ -26,6 +26,8 @@ dependencies:
 - ipywidgets
 - tqdm
 - bcifreader
+- plotly
+- matplotlib
 - jupyterlab
 - sphinx
 - pydata-sphinx-theme
@@ -38,4 +40,3 @@ dependencies:
 - myst-nb
 - seaborn
 - nbsphinx
-- plotly
