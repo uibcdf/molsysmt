@@ -4,9 +4,8 @@ from molsysmt._private.digestion import digest
 from molsysmt import lib as msmlib
 import gc
 
-#@digest()
-def get_angles(molecular_system, triplets,
-               structure_indices='all', pbc=False):
+@digest()
+def get_angles(molecular_system, triplets, structure_indices='all', pbc=False, skip_digestion=False):
 
     from molsysmt.basic import get
 
