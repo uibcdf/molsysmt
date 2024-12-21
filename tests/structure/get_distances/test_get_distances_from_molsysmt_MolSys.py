@@ -18,6 +18,7 @@ def test_get_distances_from_molsysmt_MolSys_1():
     check_distance = np.isclose(puw.get_value(distances[0,5,5], to_unit='nm'), 0.5271685)
     assert check_shape and check_distance
 
+
 # Distances between atom groups
 
 def test_get_distances_from_molsysmt_MolSys_groups_1():

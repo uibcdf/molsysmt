@@ -147,23 +147,23 @@ def get_distances(molecular_system, selection="all", structure_indices="all", ce
 
                 if structure_indices_2 is not None:
 
-                    structure_indices_2 = list(range(distances.shape[1]))
+                    structure_indices_2 = list(range(distances.shape[0]))
                     output_list.append( structure_indices_2 )
 
-            elif output_indices == 'structure':
+            elif output_structure_indices == 'structure':
 
                 if is_all(structure_indices):
                     structure_indices = list(range(distances.shape[0]))
                     output_list.append( structure_indices )
                 else:
-                    output_list.append( structure_indices )
+                    output_list.append( structure_indices.tolist() )
 
                 if structure_indices_2 is not None:
                     if is_all(structure_indices_2):
-                        structure_indices_2 = list(range(distances.shape[1]))
+                        structure_indices_2 = list(range(distances.shape[0]))
                         output_list.append( structure_indices_2 )
                     else:
-                        output_list.append( structure_indices_2 )
+                        output_list.append( structure_indices_2.tolist() )
 
         output_list.append(distances)
 
@@ -263,10 +263,11 @@ def get_distances(molecular_system, selection="all", structure_indices="all", ce
                                     aux_ii[jj] = {}
                                     aux_ii_jj = aux_ii[jj]
                                     for ll,kk in enumerate(structure_indices):
+                                        kk = ll
                                         aux_ii_jj[kk]=distances[ll,ii,jj]
                         else:
                             if is_all(structure_indices_2):
-                                structure_indices_2 = list(range(distances.shape[1]))
+                                structure_indices_2 = list(range(distances.shape[0]))
                             for ii in range(distances.shape[-2]):
                                 output_dictionary[ii] = {}
                                 aux_ii = output_dictionary[ii]
@@ -274,10 +275,11 @@ def get_distances(molecular_system, selection="all", structure_indices="all", ce
                                     aux_ii[jj] = {}
                                     aux_ii_jj = aux_ii[jj]
                                     for ll,kk in enumerate(structure_indices):
+                                        nn = ll
+                                        kk = ll
                                         aux_ii_jj[kk]={}
                                         aux_ii_jj_kk = aux_ii_jj[kk]
-                                        for mm,nn in enumerate(structure_indices_2):
-                                            aux_ii_jj_kk[nn]=distances[ll,mm,ii,jj]
+                                        aux_ii_jj_kk[nn]=distances[ll,ii,jj]
 
                 elif output_indices == 'atom':
                     if output_structure_indices is None:
@@ -326,10 +328,10 @@ def get_distances(molecular_system, selection="all", structure_indices="all", ce
                                         aux_ii[jj] = {}
                                         aux_ii_jj = aux_ii[jj]
                                         for ll,kk in enumerate(structure_indices):
+                                            nn=structure_indices_2[ll]
                                             aux_ii_jj[kk] = {}
                                             aux_ii_jj_kk=aux_ii_jj[kk]
-                                            for mm,nn in enumerate(structure_indices_2):
-                                                aux_ii_jj_kk[nn]=distances[ll,mm,aa,bb]
+                                            aux_ii_jj_kk[nn]=distances[ll,aa,bb]
 
                 elif output_indices == 'group':
 
