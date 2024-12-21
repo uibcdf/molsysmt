@@ -19,4 +19,5 @@ omit =
     molsysmt/native/file_tng.py
     molsysmt/native/file_xtc.py
     molsysmt/thirds/nglview/patching_nglview.py
+    molsysmt/basic/selector/molsysmt_old.py
 
