@@ -8,7 +8,7 @@ import gc
 
 @digest()
 def principal_component_analysis(molecular_system, selection='all', structure_indices='all',
-        weights=None, syntax='MolSysMT', engine='MolSysMT'):
+        weights=None, syntax='MolSysMT', engine='MolSysMT', skip_digestion=False):
 
     from molsysmt.basic import select, get
 
