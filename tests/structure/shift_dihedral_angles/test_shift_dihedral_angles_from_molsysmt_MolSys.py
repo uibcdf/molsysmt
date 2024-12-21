@@ -8,8 +8,6 @@ import molsysmt as msm
 from molsysmt import systems
 import numpy as np
 
-# Distance between atoms in space and time
-
 def test_shift_dihedral_angles_from_molsysmt_MolSys_1():
     molsys = msm.convert(systems['Met-enkephalin']['met_enkephalin.h5msm'], to_form='molsysmt.MolSys')
     phi_chains = msm.topology.get_dihedral_quartets(molsys, phi=True)

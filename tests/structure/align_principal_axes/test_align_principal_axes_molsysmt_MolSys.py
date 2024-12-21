@@ -10,7 +10,7 @@ import numpy as np
 
 # Distance between atoms in space and time
 
-def test_get_structure_alignment_molsysmt_MolSys_1():
+def test_align_principal_axes_molsysmt_MolSys_1():
 
     crd = msm.systems['POPC']['popc.crd']
     psf = msm.systems['POPC']['popc.psf']
