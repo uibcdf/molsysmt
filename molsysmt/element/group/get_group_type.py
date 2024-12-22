@@ -40,11 +40,11 @@ def get_group_type(molecular_system, element='atom', selection='all', redefine_t
             unique_group_names = np.unique(group_names_from_group)
             aux_dict = {}
             for name in unique_group_names:
-                tmp_group_type = _get_group_type_from_group_name(name)
+                tmp_group_type = get_group_type_from_group_name(name)
                 if tmp_group_type == 'small molecule':
                     if _small_molecule_is_amino_acid(molecular_system, group_index):
                         tmp_group_type = 'amino acid'
-                aux_dict[name] = _get_group_type_from_group_name(name)
+                aux_dict[name] = get_group_type_from_group_name(name)
 
             output = [aux_dict[ii] for ii in group_names_from_group]
 
