@@ -40,6 +40,8 @@ def get_chain_type(molecular_system, element='atom', selection='all',
                         counter = np.sum(array_molecule_types == aux_type)
                         if counter == 1:
                             aux.append(aux_type)
+                        elif aux_type=='water':
+                            aux.append(aux_type)
                         else:
                             aux.append(_singular_molecule_type_to_plural[aux_type])
                 chain_types_from_chain.append(' + '.join(aux))
