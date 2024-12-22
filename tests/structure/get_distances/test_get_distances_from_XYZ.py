@@ -128,7 +128,7 @@ def test_get_distances_from_XYZ_12():
     assert sind1 == [0,1]
     assert sind2 == [1,2]
 
-def test_get_distances_from_XYZ_12():
+def test_get_distances_from_XYZ_13():
     molsys = msm.convert(systems['particles 4']['traj_particles_4.xyznpy'], to_form='XYZ')
     distances = msm.structure.get_distances(molsys, selection=[0,1,2], selection_2=[1,2,3],
                                             structure_indices=[0,1],
@@ -140,7 +140,7 @@ def test_get_distances_from_XYZ_12():
     assert np.isclose(puw.get_value(distances[1][1][0]), 0.0)
     assert np.isclose(puw.get_value(distances[1][1][1]), 0.0)
 
-def test_get_distances_from_XYZ_13():
+def test_get_distances_from_XYZ_14():
     molsys = msm.convert(systems['particles 4']['traj_particles_4.xyznpy'], to_form='XYZ')
     distances = msm.structure.get_distances(molsys, selection=[0,1,2], selection_2=[1,2,3],
                                             structure_indices=[0,1], structure_indices_2=[1,2],
@@ -154,7 +154,7 @@ def test_get_distances_from_XYZ_13():
     assert np.isclose(puw.get_value(distances[0][1][0][1]), 3.0)
     assert np.isclose(puw.get_value(distances[0][1][1][2]), 3.0)
 
-def test_get_distances_from_XYZ_14():
+def test_get_distances_from_XYZ_15():
     molsys = msm.convert(systems['particles 4']['traj_particles_4.xyznpy'], to_form='XYZ')
     distances = msm.structure.get_distances(molsys, selection=[0,1,2], selection_2=[1,2,3],
                                             structure_indices=[0,1], structure_indices_2=[1,2],
@@ -168,7 +168,7 @@ def test_get_distances_from_XYZ_14():
     assert np.isclose(puw.get_value(distances[0][0][0][0]), 3.0)
     assert np.isclose(puw.get_value(distances[0][0][1][1]), 3.0)
 
-def test_get_distances_from_XYZ_15():
+def test_get_distances_from_XYZ_16():
     molsys = msm.convert(systems['particles 4']['traj_particles_4.xyznpy'], to_form='XYZ')
     distances = msm.structure.get_distances(molsys, selection=[0,1,2], selection_2=[1,2,3],
                                             structure_indices=[0,1],
@@ -180,7 +180,7 @@ def test_get_distances_from_XYZ_15():
     assert list(distances[2].keys()) == [3]
     assert np.allclose(puw.get_value(distances[0][1]), np.array([2.44948974, 3.46410162]))
 
-def test_get_distances_from_XYZ_16():
+def test_get_distances_from_XYZ_17():
     molsys = msm.convert(systems['particles 4']['traj_particles_4.xyznpy'], to_form='XYZ')
     distances = msm.structure.get_distances(molsys, selection=[0,1,2], selection_2=[1,2,3],
                                             structure_indices=[0,1],
