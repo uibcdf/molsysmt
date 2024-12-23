@@ -18,7 +18,6 @@ def add_missing_bonds(molecular_system, threshold='2 angstroms', selection='all'
         bonds = get_missing_bonds(molecular_system, threshold=threshold, selection=selection,
                                  structure_index=structure_index, syntax=syntax,
                                  skip_digestion=True)
-
         return add_bonds(molecular_system, bonds, in_place=in_place, skip_digestion=True)
 
     else:

@@ -11,7 +11,7 @@ def digest_bonded_atom_pairs(bonded_atom_pairs, caller=None):
             for sublist in bonded_atom_pairs:
                 if not (isinstance(sublist, list) and len(sublist) == 2):
                     raise ArgumentError('bonded_atom_pairs', value=bonded_atom_pairs, caller=caller, message=None)
-                if not all(isinstance(item, int) for item in sublist):
+                if not all(isinstance(item, (int, np.integer)) for item in sublist):
                     print('aa')
                     raise ArgumentError('bonded_atom_pairs', value=bonded_atom_pairs, caller=caller, message=None)
             return np.array(bonded_atom_pairs)
