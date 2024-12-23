@@ -13,7 +13,7 @@ jobs:
         #os: [macOS-latest, ubuntu-latest] # [macOS-latest, ubuntu-latest, windows-latest]
         #python-version: [3.7] # [3.7, 3.8, 3.9]
         cfg:
-          - { os: ubuntu-latest, python-version: "3.10"}
+          - { os: ubuntu-latest, python-version: "3.12"}
 
     steps:
     - uses: actions/checkout@v3

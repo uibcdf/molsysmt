@@ -4,17 +4,9 @@ import gzip
 import numpy as np
 from molsysmt.element.group.ion import group_names
 
-if sys.version_info[1] in (10,11):
-    from importlib.resources import files
-    def path(package, file):
-        return files(package).joinpath(file)
-elif sys.version_info[1] in (8,9):
-    from pathlib import PurePath
-    parent = PurePath(__file__).parent
-    def path(package, file):
-        data_dir = package.split('.')[-1]
-        return parent.joinpath('../../../data/databases/'+data_dir+'/'+file).__str__()
-
+from importlib.resources import files
+def path(package, file):
+    return files(package).joinpath(file)
 
 def get_group_db(group_name):
 

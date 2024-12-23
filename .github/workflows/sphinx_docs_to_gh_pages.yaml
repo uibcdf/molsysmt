@@ -27,7 +27,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: 3.11
+          python-version: 3.12
 
       - name: Setup conda env
         uses: mamba-org/setup-micromamba@v1
@@ -42,7 +42,7 @@ jobs:
               - defaults
             channel_priority: strict
           create-args: >-
-            python=3.11
+            python=3.12
 
       - name: Info conda
         shell: bash -l {0}
