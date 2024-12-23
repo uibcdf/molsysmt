@@ -1,21 +1,17 @@
+from molsysmt._private.digestion import digest
 import numpy as np
+
 
 _sorted=sorted
 
-def get_bonded_atom_pairs(group_name, atom_names, atom_indices=None, sorted=True):
+@digest()
+def get_bonded_atom_pairs(group_name, atom_names, atom_indices=None, sorted=True, skip_digestion=False):
 
     n_atoms=len(atom_names)
 
     if n_atoms==1:
 
         return []
-
-    elif n_atoms==2:
-
-        if atom_indices is None:
-            return [[0,1]]
-        else:
-            return [atom_indices]
 
     else:
 
@@ -34,15 +30,17 @@ def get_bonded_atom_pairs(group_name, atom_names, atom_indices=None, sorted=True
             db = get_group_db(aux_group_name)
             
             is_in = -1
-            for ii,jj in enumerate(db['topology']):
-                if np.all(np.isin(atom_names, jj['atoms'])):
+            for ii,jj in enumerate(db['atom_name']):
+                if np.all(np.isin(atom_names, jj)):
                     is_in=ii
                     break
 
             if is_in!=-1:
 
                 bonds = []
-                for ii,jj in db['topology'][is_in]['bonds']:
+                for i,j in db['bonds']:
+                    ii = db['atom_name'][is_in][i]
+                    jj = db['atom_name'][is_in][j]
                     if ii in atom_names:
                         if jj in atom_names:
                             iii = atom_indices[atom_names.index(ii)]

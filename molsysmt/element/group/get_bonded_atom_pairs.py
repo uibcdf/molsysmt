@@ -13,48 +13,50 @@ def get_bonded_atom_pairs(group_name, atom_names, atom_indices=None, sorted=True
 
     bonds = None
 
-    if group_type=='amino acid': # Replace by match-case whenever Python 3.9 is deprecated
+    match group_type:
 
-        bonds = get_bonded_atom_pairs_from_amino_acid(group_name, atom_names, atom_indices=atom_indices,
-                                                      sorted=sorted)
-    
-    elif group_type=='ion':
+        case 'amino acid':
 
-        bonds = get_bonded_atom_pairs_from_ion(group_name, atom_names, atom_indices=atom_indices, sorted=sorted)
-
-    elif group_type=='lipid':
-
-        pass
-
-    elif group_type=='nucleotide':
-
-        pass
-
-    elif group_type=='oligosaccharide':
-
-        pass
-
-    elif group_type=='saccharide':
-
-        pass
-
-    elif group_type=='small molecule':
-
-        bonds = get_bonded_atom_pairs_from_small_molecule(group_name, atom_names, atom_indices=atom_indices,
+            bonds = get_bonded_atom_pairs_from_amino_acid(group_name, atom_names, atom_indices=atom_indices,
                                                           sorted=sorted)
+        
+        case 'ion':
 
-    elif group_type=='terminal capping':
+            bonds = get_bonded_atom_pairs_from_ion(group_name, atom_names, atom_indices=atom_indices, sorted=sorted)
 
-        bonds = get_bonded_atom_pairs_from_terminal_capping(group_name, atom_names, atom_indices=atom_indices,
-                                                            sorted=sorted)
+        case 'lipid':
 
-    elif group_type=='water':
+            pass
 
-        bonds = get_bonded_atom_pairs_from_water(atom_names, atom_indices=atom_indices, sorted=sorted)
+        case 'nucleotide':
+
+            pass
+
+        case 'oligosaccharide':
+
+            pass
+
+        case 'saccharide':
+
+            pass
+
+        case 'small molecule':
+
+            bonds = get_bonded_atom_pairs_from_small_molecule(group_name, atom_names, atom_indices=atom_indices,
+                                                              sorted=sorted)
+
+        case 'terminal capping':
+
+            bonds = get_bonded_atom_pairs_from_terminal_capping(group_name, atom_names, atom_indices=atom_indices,
+                                                                sorted=sorted)
+
+        case 'water':
+
+            bonds = get_bonded_atom_pairs_from_water(atom_names, atom_indices=atom_indices, sorted=sorted)
 
 
-    if bonds is None:
-        print(f'Warning! The amino acid {group_name} has no template.')
+        case _:
+            print(f'Warning! The amino acid {group_name} has no template.')
 
     return bonds
 
