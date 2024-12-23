@@ -20,6 +20,7 @@ from .wrap_to_mic import wrap_to_mic_single_structure
 from .wrap_to_mic import wrap_to_mic
 
 from .wrap_to_pbc import wrap_to_pbc_vector_single_structure
-from .wrap_to_pbc import wrap_to_pbc_single_structure
-from .wrap_to_pbc import wrap_to_pbc
+#from .wrap_to_pbc import wrap_to_pbc_single_structure
+from .wrap_to_pbc import wrap_to_pbc_center
+from .wrap_to_pbc import wrap_to_pbc_no_center
 

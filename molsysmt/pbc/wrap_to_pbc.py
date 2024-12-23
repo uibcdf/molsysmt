@@ -7,8 +7,8 @@ import gc
 
 @digest()
 def wrap_to_pbc(molecular_system, selection='all', structure_indices='all',
-                center_coordinates='[0,0,0] nanometers', center_of_selection=None, weights=None,
-                center_at_origin=True, keep_covalent_bonds=False,
+                center_at_origin=False, center_of_selection='all', weights=None,
+                center_coordinates='[0,0,0] nanometers', keep_covalent_bonds=False,
                 syntax='MolSysMT', engine='MolSysMT', in_place=False):
     """
     To be written soon...
@@ -24,21 +24,32 @@ def wrap_to_pbc(molecular_system, selection='all', structure_indices='all',
         coordinates= get(molecular_system, element='atom', selection=atom_indices, coordinates=True)
         box = get(molecular_system, element='system', structure_indices=structure_indices, box=True)
 
-        if center_of_selection is not None:
+        if center_at_origin:
 
             center_coordinates = get_center(molecular_system, selection=center_of_selection,
                                 weights=weights, structure_indices=structure_indices,
                                 syntax=syntax, engine='MolSysMT')
 
-        coordinates, length_units = puw.get_value_and_unit(coordinates)
-        box = puw.get_value(box, to_unit=length_units)
-        center_coordinates = puw.get_value(center_coordinates, to_unit=length_units)
+            coordinates, length_units = puw.get_value_and_unit(coordinates)
+            box = puw.get_value(box, to_unit=length_units)
+            center_coordinates = puw.get_value(center_coordinates, to_unit=length_units)
 
-        msmlib.pbc.wrap_to_pbc(coordinates, box, center_coordinates, center_at_origin)
+            msmlib.pbc.wrap_to_pbc_center(coordinates, box, center_coordinates)
 
-        coordinates=puw.quantity(coordinates, length_units)
+            coordinates=puw.quantity(coordinates, length_units)
 
-        del(box, center_coordinates)
+            del(box, center_coordinates)
+
+        else:
+
+            coordinates, length_units = puw.get_value_and_unit(coordinates)
+            box = puw.get_value(box, to_unit=length_units)
+
+            msmlib.pbc.wrap_to_pbc_no_center(coordinates, box)
+
+            coordinates=puw.quantity(coordinates, length_units)
+
+            del(box)
 
     else:
 
