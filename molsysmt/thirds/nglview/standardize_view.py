@@ -24,7 +24,7 @@ def standardize_view(view, atom_indices='all', structure_indices='all'):
 
     sel_cartoon = select(tmp_topology, selection='molecule_type in ["protein", "dna", "rna"]'+mask_string, to_syntax='NGLView')
     sel_balls = select(tmp_topology, selection='molecule_type in ["ion"]'+mask_string, to_syntax='NGLView')
-    sel_licorice = select(tmp_topology, selection='molecule_type in ["lipid", "small molecule"]'+mask_string, to_syntax='NGLView')
+    sel_licorice = select(tmp_topology, selection='molecule_type in ["lipid", "small molecule", "saccharide"]'+mask_string, to_syntax='NGLView')
 
     peptide_indices = select(tmp_topology, selection='molecule_type=="peptide"', element='molecule')
     peptides_to_cartoon = []

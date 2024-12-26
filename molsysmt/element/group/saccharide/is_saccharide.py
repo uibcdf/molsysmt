@@ -1,6 +1,9 @@
-from .saccharide_names import saccharide_names
+from .group_names import group_names
 
 def is_saccharide(name):
+    """
+    To be written soon...
+    """
 
-    return (name in saccharide_names)
+    return (name in group_names)
 

@@ -495,62 +495,71 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
         entity_type = tmp_item.topology.entities.iat[entity_index,2]
         entity_name = tmp_item.topology.entities.iat[entity_index,1]
 
+        match component_type:
 
-        if component_type=='water': # Replace by match-case whenever Python 3.9 is deprecated
+            case 'water':
 
-            molecule_index += 1
-            tmp_item.topology.components.iat[component_index,3]=molecule_index
-            tmp_item.topology.components.iat[component_index,1]='water'
-            molecule_name_array.append('water')
-            molecule_entity_index_array.append(entity_index)
+                molecule_index += 1
+                tmp_item.topology.components.iat[component_index,3]=molecule_index
+                tmp_item.topology.components.iat[component_index,1]='water'
+                molecule_name_array.append('water')
+                molecule_entity_index_array.append(entity_index)
 
-        elif component_type=='ion':
+            case 'ion':
 
-            molecule_index += 1
-            tmp_item.topology.components.iat[component_index,3]=molecule_index
-            tmp_item.topology.components.iat[component_index,1]=entity_name
-            molecule_name_array.append(entity_name)
-            molecule_entity_index_array.append(entity_index)
+                molecule_index += 1
+                tmp_item.topology.components.iat[component_index,3]=molecule_index
+                tmp_item.topology.components.iat[component_index,1]=entity_name
+                molecule_name_array.append(entity_name)
+                molecule_entity_index_array.append(entity_index)
 
-        elif component_type=='small molecule':
+            case 'small molecule':
 
-            molecule_index += 1
-            tmp_item.topology.components.iat[component_index,3]=molecule_index
-            tmp_item.topology.components.iat[component_index,1]=entity_name
-            molecule_name_array.append(entity_name)
-            molecule_entity_index_array.append(entity_index)
+                molecule_index += 1
+                tmp_item.topology.components.iat[component_index,3]=molecule_index
+                tmp_item.topology.components.iat[component_index,1]=entity_name
+                molecule_name_array.append(entity_name)
+                molecule_entity_index_array.append(entity_index)
+
+            case 'saccharide':
+
+                molecule_index += 1
+                tmp_item.topology.components.iat[component_index,3]=molecule_index
+                tmp_item.topology.components.iat[component_index,1]=entity_name
+                molecule_name_array.append(entity_name)
+                molecule_entity_index_array.append(entity_index)
         
-        elif component_type=='lipid':
+            case 'lipid':
 
-            molecule_index += 1
-            tmp_item.topology.components.iat[component_index,3]=molecule_index
-            tmp_item.topology.components.iat[component_index,1]=entity_name
-            molecule_name_array.append(entity_name)
-            molecule_entity_index_array.append(entity_index)
-
-        elif component_type=='peptide':
-
-            if chain_id not in polymers_dict_aux:
                 molecule_index += 1
-                polymers_dict_aux[chain_id] = molecule_index
+                tmp_item.topology.components.iat[component_index,3]=molecule_index
+                tmp_item.topology.components.iat[component_index,1]=entity_name
                 molecule_name_array.append(entity_name)
                 molecule_entity_index_array.append(entity_index)
-            tmp_item.topology.components.iat[component_index,3]=polymers_dict_aux[chain_id]
-            tmp_item.topology.components.iat[component_index,1]=entity_name
 
-        elif component_type=='protein':
+            case 'peptide':
 
-            if chain_id not in polymers_dict_aux:
-                molecule_index += 1
-                polymers_dict_aux[chain_id] = molecule_index
-                molecule_name_array.append(entity_name)
-                molecule_entity_index_array.append(entity_index)
-            tmp_item.topology.components.iat[component_index,3]=polymers_dict_aux[chain_id]
-            tmp_item.topology.components.iat[component_index,1]=entity_name
+                if chain_id not in polymers_dict_aux:
+                    molecule_index += 1
+                    polymers_dict_aux[chain_id] = molecule_index
+                    molecule_name_array.append(entity_name)
+                    molecule_entity_index_array.append(entity_index)
+                tmp_item.topology.components.iat[component_index,3]=polymers_dict_aux[chain_id]
+                tmp_item.topology.components.iat[component_index,1]=entity_name
 
-        else:
+            case 'protein':
 
-            raise ValueError(f'Component type not recognized {component_type}')
+                if chain_id not in polymers_dict_aux:
+                    molecule_index += 1
+                    polymers_dict_aux[chain_id] = molecule_index
+                    molecule_name_array.append(entity_name)
+                    molecule_entity_index_array.append(entity_index)
+                tmp_item.topology.components.iat[component_index,3]=polymers_dict_aux[chain_id]
+                tmp_item.topology.components.iat[component_index,1]=entity_name
+
+            case _:
+
+                raise ValueError(f'Component type not recognized {component_type}')
 
 
     molecule_name_array = np.array(molecule_name_array, dtype=object)

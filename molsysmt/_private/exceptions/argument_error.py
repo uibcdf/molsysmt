@@ -29,7 +29,7 @@ class ArgumentError(Exception):
     .. admonition:: See Also
        :class: attention
 
-        :ref:`Developer Guide \> Exceptions \> BadCallError <developer:exceptions:BadCallError>`
+        :ref:`Developer Guide > Exceptions > BadCallError <developer:exceptions:BadCallError>`
 
     """
 

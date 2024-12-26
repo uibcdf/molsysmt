@@ -8,6 +8,7 @@ def get_bonded_atom_pairs(group_name, atom_names, atom_indices=None, sorted=True
     from .small_molecule import get_bonded_atom_pairs as get_bonded_atom_pairs_from_small_molecule
     from .terminal_capping import get_bonded_atom_pairs as get_bonded_atom_pairs_from_terminal_capping
     from .water import get_bonded_atom_pairs as get_bonded_atom_pairs_from_water
+    from .saccharide import get_bonded_atom_pairs as get_bonded_atom_pairs_from_saccharide
 
     group_type = get_group_type_from_group_name(group_name)
 
@@ -38,7 +39,7 @@ def get_bonded_atom_pairs(group_name, atom_names, atom_indices=None, sorted=True
 
         case 'saccharide':
 
-            pass
+            bonds = get_bonded_atom_pairs_from_saccharide(group_name, atom_names, atom_indices=atom_indices, sorted=sorted)
 
         case 'small molecule':
 

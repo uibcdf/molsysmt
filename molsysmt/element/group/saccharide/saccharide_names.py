@@ -1,3 +1,0 @@
-saccharide_names = [
-]
-

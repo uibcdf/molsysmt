@@ -7,7 +7,7 @@ import gc
 
 @digest()
 def wrap_to_pbc(molecular_system, selection='all', structure_indices='all',
-                center_at_origin=False, center_of_selection='all', weights=None,
+                periodicity_from='[0,0,0] nanometers', center_of_selection=None, weights=None,
                 center_coordinates='[0,0,0] nanometers', keep_covalent_bonds=False,
                 syntax='MolSysMT', engine='MolSysMT', in_place=False):
     """

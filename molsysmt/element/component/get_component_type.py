@@ -93,7 +93,7 @@ def _get_component_type_from_group_names_and_types(group_names, group_types):
     last_group_type = group_types[-1]
     first_group_name = group_names[0]
 
-    if first_group_type in ['water', 'ion', 'small molecule', 'lipid']:
+    if first_group_type in ['water', 'ion', 'small molecule', 'lipid', 'saccharide']:
         tmp_type = first_group_type
     elif (first_group_type == 'amino acid') or (first_group_type == 'terminal capping'):
         if first_group_type == 'terminal capping':

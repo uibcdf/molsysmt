@@ -395,7 +395,7 @@ class TLeap:
                 known_error_msg.append("Could not create one of the system files.")
 
         # Look for errors in log that don't raise CalledProcessError
-        error_patterns = ['Argument #\d+ is type \S+ must be of type: \S+']
+        error_patterns = ['Argument #\\d+ is type \\S+ must be of type: \\S+']
         for pattern in error_patterns:
             m = re.search(pattern, leap_output)
             if m is not None:
@@ -403,7 +403,7 @@ class TLeap:
                 break
 
         # Analyze log file for water mismatch
-        m = re.search("Could not find bond parameter for: EP - \w+W", leap_output)
+        m = re.search("Could not find bond parameter for: EP - \\w+W", leap_output)
         if m is not None:
             # Found mismatch water and missing parameters
             known_error_msg.append('It looks like the water used has virtual sites, but '

@@ -42,6 +42,7 @@ def get_missing_bonds(molecular_system, threshold='2 angstroms', selection='all'
         from molsysmt.element.group.amino_acid import get_bonded_atom_pairs as _bonds_in_amino_acid
         from molsysmt.element.group.terminal_capping import get_bonded_atom_pairs as _bonds_in_terminal_capping
         from molsysmt.element.group.small_molecule import get_bonded_atom_pairs as _bonds_in_small_molecule
+        from molsysmt.element.group.saccharide import get_bonded_atom_pairs as _bonds_in_saccharide
         from molsysmt.element.group.terminal_capping import is_n_terminal_capping, is_c_terminal_capping
 
         old_bonds = get(molecular_system, selection=selection, inner_bonded_atom_pairs=True)
@@ -121,7 +122,12 @@ def get_missing_bonds(molecular_system, threshold='2 angstroms', selection='all'
 
                 elif group_type=='saccharide':
 
-                    raise NotImplementedError('Group type "saccharide" not implemented')
+                    aux_bonds = _bonds_in_saccharide(group_name, atom_names, atom_indices, sorted=False)
+                    if aux_bonds is None:
+                        aux_bonds = _bonds_in_unknown_group(molecular_system, atom_indices, atom_names,
+                                                            structure_index=structure_index, threshold=threshold,
+                                                            sorted=False)
+                    bonds += aux_bonds
 
                 elif group_type=='oligosaccharide':
 

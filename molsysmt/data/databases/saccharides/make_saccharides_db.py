@@ -16,28 +16,13 @@ for ii in cif_entries:
         types_dict[jj] = [ii]
 
 # Adding only non-polymer and other
-types = ['NON-POLYMER', 'non-polymer', 'other']
+types = ['saccharide', 'D-saccharide', '"L-saccharide, beta linking"', '"L-saccharide, alpha linking"',
+        'D-SACCHARIDE', 'L-saccharide', '"D-saccharide, beta linking"', '"D-saccharide, alpha linking"',
+        'L-SACCHARIDE', 'SACCHARIDE']
+
 data = []
 for ii in types:
     data += types_dict[ii]
-data.remove('UNL')
-
-# removing ions
-ions = []
-for value in data:
-    key = cif_entries[value]
-    if key['_chem_comp']['name'].endswith(' ION"') or key['_chem_comp']['name'].endswith(' ion"'):
-        ions.append(value)
-
-for ion in ions:
-    data.remove(ion)
-
-# removing saccharides
-types = ['saccharide', 'D-saccharide', '"L-saccharide, beta linking"', '"L-saccharide, alpha linking"',
-        'D-SACCHARIDE', 'L-saccharide', '"D-saccharide, beta linking"', '"D-saccharide, alpha linking"',
-        'L-SACCHARIDE', 'SACCHARIDE', '']
-
-
 
 output = {}
 

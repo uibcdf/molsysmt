@@ -25,6 +25,7 @@ _molecule_types = [
         'dna',
         'rna',
         'lipid',
+        'saccharide',
         'oligosaccharide'
         ]
 
@@ -37,6 +38,7 @@ _singular_molecule_type_to_plural = {
     'dna': 'dnas',
     'rna': 'rnas',
     'lipid': 'lipids',
+    'saccharide': 'saccharides',
     'oligosaccharide': 'oligosaccharides',
 }
 
@@ -49,6 +51,7 @@ _plural_molecule_types_to_singular = {
     'dnas': 'dna',
     'rnas': 'rna',
     'lipids': 'lipid',
+    'saccharides': 'saccharide',
     'oligosaccharides': 'oligosaccharide',
 }
 

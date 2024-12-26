@@ -547,17 +547,19 @@ class Topology():
         if redefine_names:
 
             from molsysmt.element.group.small_molecule import group_names as small_molecule_names
+            from molsysmt.element.group.saccharide import group_names as saccharide_names
 
             aux_df = self.groups.groupby('component_index').agg(group_name=('group_name', list),
                                                                 group_type=('group_type', list))
 
             component_types = self.components['component_type'].to_numpy()
 
-            counter = {'peptide':0, 'protein':0, 'small molecule':0, 'unknown':0}
+            counter = {'peptide':0, 'protein':0, 'small molecule':0, 'saccharide':0, 'unknown':0}
 
             peptides = {}
             proteins = {}
             small_molecules = {}
+            saccharides = {}
 
             for component_type, row in zip(component_types, aux_df.itertuples(index=True)):
             
@@ -595,6 +597,19 @@ class Topology():
                         else:
                             component_name = group_name
                         small_molecules[component_name] = component_name
+
+                elif component_type == 'saccharide':
+
+                    group_name = row.group_name[0]
+
+                    if group_name in saccharides:
+                        component_name = saccharides[group_name]
+                    else:
+                        if group_name in saccharide_names:
+                            component_name = group_name
+                        else:
+                            component_name = group_name
+                        saccharides[component_name] = component_name
 
                 elif component_type in ['ion', 'lipid']:
 
@@ -705,8 +720,8 @@ class Topology():
                 for aux_molecule_types in molecule_types:
                     aux = []
                     array_molecule_types = np.array(aux_molecule_types)
-                    for aux_type in ['protein', 'peptide', 'dna', 'rna', 'oligosaccharide', 'small molecule', 'lipid',
-                                     'ion', 'water']:
+                    for aux_type in ['protein', 'peptide', 'dna', 'rna', 'oligosaccharide', 'saccharide',
+                                     'small molecule', 'lipid', 'ion', 'water']:
                         if aux_type in aux_molecule_types:
                             counter = np.sum(array_molecule_types == aux_type)
                             if counter == 1:
@@ -760,6 +775,13 @@ class Topology():
                     else:
                         entity_index = aux_dict[molecule_name]
                 elif molecule_type == 'small molecule':
+                    if molecule_name not in aux_dict:
+                        aux_dict[molecule_name] = count
+                        entity_index = count
+                        count += 1
+                    else:
+                        entity_index = aux_dict[molecule_name]
+                elif molecule_type == 'saccharide':
                     if molecule_name not in aux_dict:
                         aux_dict[molecule_name] = count
                         entity_index = count

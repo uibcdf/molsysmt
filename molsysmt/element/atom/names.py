@@ -482,6 +482,9 @@ atom={
 'O2D'  : 'O',
 'O31'  : 'O',
 'O32'  : 'O',
+'O1P'  : 'O',
+'O2P'  : 'O',
+'O3P'  : 'O',
 'OT1'  : 'O',
 'OT2'  : 'O',
 'OC1'  : 'O',
@@ -512,6 +515,10 @@ atom={
 'CL'    :  'CL',
 'Cl'    :  'CL',
 'CLA'   :  'CL',
-'FE'   :  'FE'
+'FE'   :  'FE',
+
+## Unknown
+'UNK'   :  'X',
+
 }
 
