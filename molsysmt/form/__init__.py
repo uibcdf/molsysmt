@@ -31,6 +31,7 @@ _piped_forms_in_info=[
         'file:psf',
         'file:crd',
         'string:pdb_id',
+        'string:alphafold_id',
         'mmtf.MMTFDecoder',
         'nglview.NGLWidget'
         ]

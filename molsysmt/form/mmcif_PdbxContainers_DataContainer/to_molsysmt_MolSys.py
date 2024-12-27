@@ -363,64 +363,68 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
 
         box = None
 
+
     bioassembly = {}
-    operators = {}
 
-    index_att = {jj:ii for ii,jj in enumerate(item.getObj('pdbx_struct_oper_list').getAttributeList())}
-    for record in item.getObj('pdbx_struct_oper_list'):
-        matrix = np.zeros([3,3], dtype=float)
-        vector = np.zeros([3], dtype=float)
-        matrix[0,0] = record[index_att['matrix[1][1]']]
-        matrix[0,1] = record[index_att['matrix[1][2]']]
-        matrix[0,2] = record[index_att['matrix[1][3]']]
-        matrix[1,0] = record[index_att['matrix[2][1]']]
-        matrix[1,1] = record[index_att['matrix[2][2]']]
-        matrix[1,2] = record[index_att['matrix[2][3]']]
-        matrix[2,0] = record[index_att['matrix[3][1]']]
-        matrix[2,1] = record[index_att['matrix[3][2]']]
-        matrix[2,2] = record[index_att['matrix[3][3]']]
-        vector[0] = record[index_att['vector[1]']]
-        vector[1] = record[index_att['vector[2]']]
-        vector[2] = record[index_att['vector[3]']]
-        vector = puw.quantity(vector, unit='angstroms', standardized=True)
-        operators[str(record[index_att['id']])]={'matrix':matrix, 'vector':vector}
+    if item.exists('pdbx_struct_oper_list') and item.exists('pdbx_struct_assembly_gen'):
 
-    index_att = {jj:ii for ii,jj in enumerate(item.getObj('pdbx_struct_assembly_gen').getAttributeList())}
-    old_chain_id_to_chain_index = {jj:ii for ii,jj in enumerate(chain_id_array)}
-    for record in item.getObj('pdbx_struct_assembly_gen'):
-        aux = {'chain_indices': [], 'rotations': [], 'translations': []}
-        old_chain_ids = record[index_att['asym_id_list']].split(',')
-        aux['chain_indices']=[old_chain_id_to_chain_index[ii] for ii in old_chain_ids]
-        operation_expression = record[index_att['oper_expression']]
-        if isinstance(operation_expression, int):
-            operation_expression = str(operation_expression)
-        oper = []
-        oper2 = []
-        parenCount = operation_expression.count("(")
-        if parenCount == 0 :
-            if ',' in operation_expression:
-                oper.extend(operation_expression.split(','))
+        operators = {}
+
+        index_att = {jj:ii for ii,jj in enumerate(item.getObj('pdbx_struct_oper_list').getAttributeList())}
+        for record in item.getObj('pdbx_struct_oper_list'):
+            matrix = np.zeros([3,3], dtype=float)
+            vector = np.zeros([3], dtype=float)
+            matrix[0,0] = record[index_att['matrix[1][1]']]
+            matrix[0,1] = record[index_att['matrix[1][2]']]
+            matrix[0,2] = record[index_att['matrix[1][3]']]
+            matrix[1,0] = record[index_att['matrix[2][1]']]
+            matrix[1,1] = record[index_att['matrix[2][2]']]
+            matrix[1,2] = record[index_att['matrix[2][3]']]
+            matrix[2,0] = record[index_att['matrix[3][1]']]
+            matrix[2,1] = record[index_att['matrix[3][2]']]
+            matrix[2,2] = record[index_att['matrix[3][3]']]
+            vector[0] = record[index_att['vector[1]']]
+            vector[1] = record[index_att['vector[2]']]
+            vector[2] = record[index_att['vector[3]']]
+            vector = puw.quantity(vector, unit='angstroms', standardized=True)
+            operators[str(record[index_att['id']])]={'matrix':matrix, 'vector':vector}
+
+        index_att = {jj:ii for ii,jj in enumerate(item.getObj('pdbx_struct_assembly_gen').getAttributeList())}
+        old_chain_id_to_chain_index = {jj:ii for ii,jj in enumerate(chain_id_array)}
+        for record in item.getObj('pdbx_struct_assembly_gen'):
+            aux = {'chain_indices': [], 'rotations': [], 'translations': []}
+            old_chain_ids = record[index_att['asym_id_list']].split(',')
+            aux['chain_indices']=[old_chain_id_to_chain_index[ii] for ii in old_chain_ids]
+            operation_expression = record[index_att['oper_expression']]
+            if isinstance(operation_expression, int):
+                operation_expression = str(operation_expression)
+            oper = []
+            oper2 = []
+            parenCount = operation_expression.count("(")
+            if parenCount == 0 :
+                if ',' in operation_expression:
+                    oper.extend(operation_expression.split(','))
+                else:
+                    oper.append(operation_expression)
+            if parenCount == 1 :
+                oper.extend(_parse_operation_expression(operation_expression))
+            if parenCount == 2 :
+                temp = operation_expression.find(")")
+                oper.extend(_parse_operation_expression(operation_expression[0:temp+1]))
+                oper2.extend(_parse_operation_expression(operation_expression[temp+1:]))
+            if len(oper2)==0:
+                for ii in oper:
+                    aux['rotations'].append(operators[str(ii)]['matrix'])
+                    aux['translations'].append(operators[str(ii)]['vector'])
             else:
-                oper.append(operation_expression)
-        if parenCount == 1 :
-            oper.extend(_parse_operation_expression(operation_expression))
-        if parenCount == 2 :
-            temp = operation_expression.find(")")
-            oper.extend(_parse_operation_expression(operation_expression[0:temp+1]))
-            oper2.extend(_parse_operation_expression(operation_expression[temp+1:]))
-        if len(oper2)==0:
-            for ii in oper:
-                aux['rotations'].append(operators[str(ii)]['matrix'])
-                aux['translations'].append(operators[str(ii)]['vector'])
-        else:
-            for ii in oper:
-                for jj in oper2:
-                    aux_trans, aux_rot = _compose_operation(operators[str(ii)]['vector'], operators[str(ii)]['matrix'],
-                                                            operators[str(jj)]['vector'], operators[str(jj)]['matrix'])
-                    aux['rotations'].append(aux_rot)
-                    aux['translations'].append(aux_trans)
+                for ii in oper:
+                    for jj in oper2:
+                        aux_trans, aux_rot = _compose_operation(operators[str(ii)]['vector'], operators[str(ii)]['matrix'],
+                                                                operators[str(jj)]['vector'], operators[str(jj)]['matrix'])
+                        aux['rotations'].append(aux_rot)
+                        aux['translations'].append(aux_trans)
 
-        bioassembly[str(record[index_att['assembly_id']])]=aux
+            bioassembly[str(record[index_att['assembly_id']])]=aux
 
     b_factor_array = puw.quantity(np.array(b_factor_array), unit='angstroms**2', standardized=True)
 

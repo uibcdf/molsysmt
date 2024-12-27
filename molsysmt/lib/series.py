@@ -123,7 +123,6 @@ def _jit_serialize(item):
 @nb.njit(nb.int64[:](nb.int64[:]), cache=True)
 def occurrence_order(serie):
 
-
     output = np.zeros(serie.shape[0], dtype=nb.int64)
 
     aux={}

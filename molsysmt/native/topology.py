@@ -225,8 +225,6 @@ class Topology():
 
         else:
 
-            from molsysmt.lib.series import occurrence_order_sorted_serie as occurrence_order
-
             atom_indices = np.sort(atom_indices)
 
             tmp_item = Topology(skip_digestion=True)
@@ -502,7 +500,6 @@ class Topology():
 
             import networkx as nx
             from molsysmt.form.molsysmt_Topology import to_networkx_Graph
-            from molsysmt.lib.series import occurrence_order
 
             g = to_networkx_Graph(self, skip_digestion=True)
             components = list(nx.connected_components(g))
