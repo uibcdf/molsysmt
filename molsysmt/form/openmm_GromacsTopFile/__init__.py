@@ -21,10 +21,10 @@ from .set import *
 from .iterators import TopologyIterator
 
 from .to_openmm_Topology import to_openmm_Topology
-from .to_molsysmt_TopologyOld import to_molsysmt_TopologyOld
+from .to_molsysmt_Topology import to_molsysmt_Topology
 
 _convert_to={
         'openmm.GromacsTopFile': extract,
         'openmm.Topology': to_openmm_Topology,
-        'molsysmt.TopologyOld': to_molsysmt_TopologyOld,
+        'molsysmt.Topology': to_molsysmt_Topology,
         }

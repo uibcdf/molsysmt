@@ -23,12 +23,10 @@ from .iterators import StructuresIterator
 from .to_mdtraj_Trajectory import to_mdtraj_Trajectory
 from .to_mdtraj_XTCTrajectoryFile import to_mdtraj_XTCTrajectoryFile
 from .to_molsysmt_Structures import to_molsysmt_Structures
-from .to_molsysmt_StructuresOld import to_molsysmt_StructuresOld
 
 _convert_to={
         'file:xtc': extract,
         'mdtraj.Trajectory': to_mdtraj_Trajectory,
         'mdtraj.XTCTrajectoryFile': to_mdtraj_XTCTrajectoryFile,
         'molsysmt.Structures': to_molsysmt_Structures,
-        'molsysmt.StructuresOld': to_molsysmt_StructuresOld,
         }

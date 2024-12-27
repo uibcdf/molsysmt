@@ -22,15 +22,15 @@ from .iterators import StructuresIterator, TopologyIterator
 
 from .to_openmm_Topology import to_openmm_Topology
 from .to_openmm_Modeller import to_openmm_Modeller
-from .to_molsysmt_TopologyOld import to_molsysmt_TopologyOld
-from .to_molsysmt_StructuresOld import to_molsysmt_StructuresOld
-from .to_molsysmt_MolSysOld import to_molsysmt_MolSysOld
+from .to_molsysmt_Topology import to_molsysmt_Topology
+from .to_molsysmt_Structures import to_molsysmt_Structures
+from .to_molsysmt_MolSys import to_molsysmt_MolSys
 
 _convert_to={
         'openmm.GromacsGroFile': extract,
         'openmm.Topology': to_openmm_Topology,
         'openmm.Modeller': to_openmm_Modeller,
-        'molsysmt.TopologyOld': to_molsysmt_TopologyOld,
-        'molsysmt.StructuresOld': to_molsysmt_StructuresOld,
-        'molsysmt.MolSysOld': to_molsysmt_MolSysOld
+        'molsysmt.Topology': to_molsysmt_Topology,
+        'molsysmt.Structures': to_molsysmt_Structures,
+        'molsysmt.MolSys': to_molsysmt_MolSys
         }

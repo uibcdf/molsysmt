@@ -24,7 +24,7 @@ def wrap_to_pbc(molecular_system, selection='all', structure_indices='all',
         coordinates= get(molecular_system, element='atom', selection=atom_indices, coordinates=True)
         box = get(molecular_system, element='system', structure_indices=structure_indices, box=True)
 
-        if center_at_origin:
+        if center_of_selection is not None:
 
             center_coordinates = get_center(molecular_system, selection=center_of_selection,
                                 weights=weights, structure_indices=structure_indices,

@@ -20,11 +20,11 @@ from .get import *
 from .set import *
 from .iterators import StructuresIterator, TopologyIterator
 
-from .to_molsysmt_TopologyOld import to_molsysmt_TopologyOld
+from .to_molsysmt_Topology import to_molsysmt_Topology
 from .to_pytraj_Trajectory import to_pytraj_Trajectory
 
 _convert_to={
         'pytraj.Topology': extract,
-        'molsysmt.TopologyOld': to_molsysmt_TopologyOld,
+        'molsysmt.Topology': to_molsysmt_Topology,
         'pytraj.Trajectory': to_pytraj_Trajectory,
         }

@@ -20,12 +20,10 @@ from .get import *
 from .set import *
 from .iterators import StructuresIterator
 
-from .to_molsysmt_StructuresOld import to_molsysmt_StructuresOld
 from .to_molsysmt_Structures import to_molsysmt_Structures
 
 _convert_to={
         'openmm.AmberInpcrdFile': extract,
-        'molsysmt.StructuresOld': to_molsysmt_StructuresOld,
         'molsysmt.Structures': to_molsysmt_Structures,
         }
 

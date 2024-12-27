@@ -39,3 +39,7 @@ echo "DONE"
 echo -n "two_lj_particles.py   "
 python two_lj_particles.py
 echo "DONE"
+
+echo -n "popc.py   "
+python popc.py
+echo "DONE"

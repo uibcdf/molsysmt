@@ -40,13 +40,17 @@ from .to_openmm_Topology import to_openmm_Topology
 from .to_openmm_Modeller import to_openmm_Modeller
 from .to_openmm_Simulation import to_openmm_Simulation
 from .to_openmm_System import to_openmm_System
+from .to_parmed_Structure import to_parmed_Structure
 from .to_pdbfixer_PDBFixer import to_pdbfixer_PDBFixer
+from .to_pytraj_Topology import to_pytraj_Topology
+from .to_pytraj_Trajectory import to_pytraj_Trajectory
 from .to_biopython_Seq import to_biopython_Seq
 from .to_biopython_SeqRecord import to_biopython_SeqRecord
 from .to_XYZ import to_XYZ
 from .to_file_msmpk import to_file_msmpk
 from .to_file_h5msm import to_file_h5msm
 from .to_file_pdb import to_file_pdb
+from .to_file_psf import to_file_psf
 from .to_string_pdb_text import to_string_pdb_text
 from .to_string_amino_acids_1 import to_string_amino_acids_1
 from .to_string_amino_acids_3 import to_string_amino_acids_3
@@ -66,7 +70,10 @@ _convert_to={
         'openmm.Modeller': to_openmm_Modeller,
         'openmm.System': to_openmm_System,
         'openmm.Simulation': to_openmm_Simulation,
+        'parmed.Structure': to_parmed_Structure,
         'pdbfixer.PDBFixer': to_pdbfixer_PDBFixer,
+        'pytraj.Topology': to_pytraj_Topology,
+        'pytraj.Trajectory': to_pytraj_Trajectory,
         'biopython.Seq': to_biopython_Seq,
         'biopython.SeqRecord': to_biopython_SeqRecord,
         'XYZ': to_XYZ,
@@ -76,6 +83,7 @@ _convert_to={
         'file:msmpk': to_file_msmpk,
         'file:h5msm': to_file_h5msm,
         'file:pdb': to_file_pdb,
+        'file:psf': to_file_psf,
         }
 
 

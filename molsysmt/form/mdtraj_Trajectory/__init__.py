@@ -31,9 +31,6 @@ from .to_pdbfixer_PDBFixer import to_pdbfixer_PDBFixer
 from .to_molsysmt_MolSys import to_molsysmt_MolSys
 from .to_molsysmt_Structures import to_molsysmt_Structures
 from .to_molsysmt_Topology import to_molsysmt_Topology
-from .to_molsysmt_MolSysOld import to_molsysmt_MolSysOld
-from .to_molsysmt_StructuresOld import to_molsysmt_StructuresOld
-from .to_molsysmt_TopologyOld import to_molsysmt_TopologyOld
 from .to_nglview_NGLWidget import to_nglview_NGLWidget
 from .to_parmed_Structure import to_parmed_Structure
 from .to_pytraj_Trajectory import to_pytraj_Trajectory
@@ -54,9 +51,6 @@ _convert_to={
         'molsysmt.MolSys': to_molsysmt_MolSys,
         'molsysmt.Structures': to_molsysmt_Structures,
         'molsysmt.Topology': to_molsysmt_Topology,
-        'molsysmt.MolSysOld': to_molsysmt_MolSysOld,
-        'molsysmt.StructuresOld': to_molsysmt_StructuresOld,
-        'molsysmt.TopologyOld': to_molsysmt_TopologyOld,
         'nglview.NGLWidget': to_nglview_NGLWidget,
         'parmed.Structure': to_parmed_Structure,
         'pytraj.Trajectory': to_pytraj_Trajectory,

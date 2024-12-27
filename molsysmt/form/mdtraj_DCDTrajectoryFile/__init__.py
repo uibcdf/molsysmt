@@ -22,13 +22,9 @@ from .iterators import StructuresIterator
 
 from .to_molsysmt_MolSys import to_molsysmt_MolSys
 from .to_molsysmt_Structures import to_molsysmt_Structures
-from .to_molsysmt_MolSysOld import to_molsysmt_MolSysOld
-from .to_molsysmt_StructuresOld import to_molsysmt_StructuresOld
 
 _convert_to={
         'mdtraj.DCDTrajectoryFile': extract,
         'molsysmt.MolSys': to_molsysmt_MolSys,
         'molsysmt.Structures': to_molsysmt_Structures,
-        'molsysmt.MolSysOld': to_molsysmt_MolSysOld,
-        'molsysmt.StructuresOld': to_molsysmt_StructuresOld,
         }
