@@ -24,9 +24,9 @@ def wrap_to_pbc_vector_single_structure(vector, box, inv_box, orthogonal):
 
     if orthogonal:
 
-        output[0]=vector[0]-box[0,0]*(vector[0]//box[0,0])
-        output[1]=vector[1]-box[1,1]*(vector[1]//box[1,1])
-        output[2]=vector[2]-box[2,2]*(vector[2]//box[2,2])
+        output[0]=vector[0]-box[0,0]*np.floor(vector[0]/box[0,0])
+        output[1]=vector[1]-box[1,1]*np.floor(vector[1]/box[1,1])
+        output[2]=vector[2]-box[2,2]*np.floor(vector[2]/box[2,2])
 
     else:
 
@@ -35,39 +35,15 @@ def wrap_to_pbc_vector_single_structure(vector, box, inv_box, orthogonal):
         vaux[0]=inv_box[0,0]*vector[0]+inv_box[1,0]*vector[1]+inv_box[2,0]*vector[2]
         vaux[1]=                       inv_box[1,1]*vector[1]+inv_box[2,1]*vector[2]
         vaux[2]=                                              inv_box[2,2]*vector[2]
-        vaux[0]=vaux[0]-(vaux[0]//1.0)
-        vaux[1]=vaux[1]-(vaux[1]//1.0)
-        vaux[2]=vaux[2]-(vaux[2]//1.0)
+        vaux[0]=vaux[0]-np.floor(vaux[0])
+        vaux[1]=vaux[1]-np.floor(vaux[1])
+        vaux[2]=vaux[2]-np.floor(vaux[2])
         output[0]=box[0,0]*vaux[0]+box[1,0]*vaux[1]+box[2,0]*vaux[2]
         output[1]=                 box[1,1]*vaux[1]+box[2,1]*vaux[2]
         output[2]=                                  box[2,2]*vaux[2]
 
     return output
 
-
-#arguments=[nb.float64[:,:], # coordinates
-#           nb.float64[:,:], # box
-#           nb.float64[:], # center
-#           nb.boolean, # center_at_origin
-#          ]
-#output=None
-#@nb.njit(make_numba_signature(arguments, output), cache=True)
-#def wrap_to_pbc_single_structure(coordinates, box, center, center_at_origin):
-#
-#    n_atoms = coordinates.shape[0]
-#
-#    orthogonal = box_is_orthogonal_single_structure(box[:,:])
-#    inv_box = inverse_matrix_3x3(box)
-#
-#    for ii in range(n_atoms):
-#        tmp_vect = coordinates[ii,:]-center
-#        tmp_vect = wrap_to_pbc_vector_single_structure(tmp_vect, box, inv_box,
-#                orthogonal)
-#        if not center_at_origin:
-#            tmp_vect=tmp_vect+center
-#        coordinates[ii,:]=tmp_vect
-#
-#    pass
 
 arguments=[nb.float64[:,:,:], # coordinates
            nb.float64[:,:,:], # box
@@ -97,11 +73,12 @@ def wrap_to_pbc_center(coordinates, box, center):
     pass
 
 arguments=[nb.float64[:,:,:], # coordinates
-           nb.float64[:,:,:] # box
+           nb.float64[:,:,:], # box
+           nb.float64[:] # box
           ]
 output=None
 @nb.njit(make_numba_signature(arguments, output), cache=True)
-def wrap_to_pbc_no_center(coordinates, box):
+def wrap_to_pbc(coordinates, box, box_origin):
 
     n_structures, n_atoms = coordinates.shape[:2]
 
@@ -110,8 +87,9 @@ def wrap_to_pbc_no_center(coordinates, box):
         orthogonal = box_is_orthogonal_single_structure(tmp_box)
         inv_box = inverse_matrix_3x3(tmp_box)
         for jj in range(n_atoms):
-            tmp_vect = coordinates[ii,jj,:]
+            tmp_vect = coordinates[ii,jj,:]-box_origin[:]
             tmp_vect = wrap_to_pbc_vector_single_structure(tmp_vect, tmp_box, inv_box, orthogonal)
+            tmp_vect = tmp_vect+box_origin[:]
             coordinates[ii,jj,:]=tmp_vect
             
     pass

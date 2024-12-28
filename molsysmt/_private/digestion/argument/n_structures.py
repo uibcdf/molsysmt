@@ -14,8 +14,11 @@ def digest_n_structures(n_structures, caller=None):
             else:
                 raise ArgumentError('n_structures', value=n_structures, caller=caller, message=None)
         elif caller=='molsysmt.basic.contains.contains':
-            if isinstance(n_molecules, (bool, int)):
-                return n_molecules
+            if isinstance(n_structures, (bool, int)):
+                return n_structures
+        elif caller.endswith('get_box_with_shape'):
+            if isinstance(n_structures, int):
+                return n_structures
 
     raise ArgumentError('n_structures', value=n_structures, caller=caller, message=None)
 
