@@ -16,10 +16,10 @@ from .get_lengths_and_angles_from_box import get_lengths_and_angles_from_box
 from .unwrap import unwrap
 
 from .wrap_to_mic import wrap_to_mic_vector_single_structure
-from .wrap_to_mic import wrap_to_mic_single_structure
 from .wrap_to_mic import wrap_to_mic
 
 from .wrap_to_pbc import wrap_to_pbc_vector_single_structure
 from .wrap_to_pbc import wrap_to_pbc
-#from .wrap_to_pbc import wrap_to_pbc_no_center
+from .wrap_to_pbc import wrap_to_pbc_center_vector_single_structure
+from .wrap_to_pbc import wrap_to_pbc_center
 

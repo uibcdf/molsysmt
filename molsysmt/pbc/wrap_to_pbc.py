@@ -25,13 +25,13 @@ def wrap_to_pbc(molecular_system, selection='all', structure_indices='all',
         if center_of_selection is not None:
 
             molecular_system = center(molecular_system, selection=atom_indices,
-                                      center_of_selection=center_of_selection, weight=weight,
+                                      center_of_selection=center_of_selection, weights=weights,
                                       center_coordinates=center_coordinates, syntax=syntax, in_place=False,
                                       skip_digestion=True)
 
         coordinates= get(molecular_system, element='atom', selection=atom_indices, structure_indices=structure_indices,
-                         coordinates=True)
-        box = get(molecular_system, element='system', structure_indices=structure_indices, box=True)
+                         coordinates=True, skip_digestion=True)
+        box = get(molecular_system, element='system', structure_indices=structure_indices, box=True, skip_digestion=True)
 
         original_length_units = puw.get_unit(coordinates)
         coordinates, length_units = puw.get_value_and_unit(coordinates, standardized=True)
@@ -52,7 +52,13 @@ def wrap_to_pbc(molecular_system, selection='all', structure_indices='all',
 
         else:
 
-            raise NotImplementedError
+            box_center = puw.get_value(box_center, standardized=True)
+
+            if np.all(np.isclose(box_center, 0, atol=1e-4)):
+                box_origin = np.zeros((3), dtype=np.float64)
+
+            msmlib.pbc.wrap_to_pbc_center(coordinates, box, box_center)
+
 
         coordinates=puw.quantity(coordinates, length_units)
         coordinates=puw.convert(coordinates, to_unit=original_length_units)
