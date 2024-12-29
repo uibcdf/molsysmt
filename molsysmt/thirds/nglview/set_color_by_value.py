@@ -4,7 +4,7 @@ from molsysmt._private.variables import is_all
 # https://github.com/arose/ngl/blob/master/doc/usage/selection-language.md
 
 @digest()
-def color_by_value(view, values, element='group', selection='all', cmap='bwr_r',
+def set_color_by_value(view, values, element='group', selection='all', cmap='bwr_r',
         min_value=None, max_value=None, representation='cartoon', syntax='MolSysMT'):
     """Adding a new representation colored by a color scale.
 

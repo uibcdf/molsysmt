@@ -6,8 +6,9 @@ import gc
 @digest()
 def least_rmsd_align(molecular_system, selection='atom_name=="CA"', structure_indices='all',
           reference_molecular_system=None, reference_selection=None, reference_structure_index=0,
-          syntax='MolSysMT',
-          engine_sequence_alignment = 'Biopython', engine_least_rmsd_fit = 'MolSysMT'):
+          syntax='MolSysMT', engine_sequence_alignment = 'Biopython', engine_least_rmsd_fit = 'MolSysMT',
+          in_place=False, skip_digestion=False):
+
     """
     To be written soon...
     """
@@ -49,21 +50,38 @@ def least_rmsd_align(molecular_system, selection='atom_name=="CA"', structure_in
 
         from molsysmt.structure import least_rmsd_fit
 
-        output = least_rmsd_fit(molecular_system=molecular_system, selection=atoms_in_components_selected,
-                selection_fit=selection_to_be_fitted,
-                structure_indices=structure_indices, reference_molecular_system=reference_molecular_system,
-                reference_selection_fit=reference_selection_to_be_fitted,
-                                reference_structure_index=reference_structure_index,
-                to_form=None, in_place=False, engine='MolSysMT', syntax=syntax)
+        if in_place:
 
-        del(atoms_in_components_selected, selection_to_be_fitted, reference_selection_to_be_fitted)
-        del(structure_indices, reference_structure_index)
+            least_rmsd_fit(molecular_system=molecular_system, selection=atoms_in_components_selected,
+                    selection_fit=selection_to_be_fitted,
+                    structure_indices=structure_indices, reference_molecular_system=reference_molecular_system,
+                    reference_selection_fit=reference_selection_to_be_fitted,
+                    reference_structure_index=reference_structure_index,
+                    to_form=None, in_place=in_place, engine='MolSysMT', syntax=syntax, skip_digestion=True)
+
+            del(atoms_in_components_selected, selection_to_be_fitted, reference_selection_to_be_fitted)
+            del(structure_indices, reference_structure_index)
+
+            gc.collect()
+
+        else:
+
+            output = least_rmsd_fit(molecular_system=molecular_system, selection=atoms_in_components_selected,
+                    selection_fit=selection_to_be_fitted,
+                    structure_indices=structure_indices, reference_molecular_system=reference_molecular_system,
+                    reference_selection_fit=reference_selection_to_be_fitted,
+                                    reference_structure_index=reference_structure_index,
+                    to_form=None, in_place=in_place, engine='MolSysMT', syntax=syntax, skip_digestion=True)
+
+            del(atoms_in_components_selected, selection_to_be_fitted, reference_selection_to_be_fitted)
+            del(structure_indices, reference_structure_index)
+
+            gc.collect()
+
+            return output
 
     else:
 
         raise NotImplementedMethodError
 
-    gc.collect()
-
-    return output
 

@@ -12,4 +12,7 @@ def digest_color(color, caller=None):
         if len(color)==3:
             return color
 
+    if isinstance(color, str):
+        return color
+
     raise ArgumentError('color', value=color, caller=caller, message=None)
