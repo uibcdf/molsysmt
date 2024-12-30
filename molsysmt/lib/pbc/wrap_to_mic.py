@@ -23,9 +23,9 @@ def wrap_to_mic_vector_single_structure(vector, box, inv_box, orthogonal):
 
     if orthogonal:
 
-        output[0]=vector[0]-box[0,0]*np.floor(vector[0]/box[0,0])
-        output[1]=vector[1]-box[1,1]*np.floor(vector[1]/box[1,1])
-        output[2]=vector[2]-box[2,2]*np.floor(vector[2]/box[2,2])
+        output[0]=vector[0]-box[0,0]*np.floor(vector[0]/box[0,0]+0.5)
+        output[1]=vector[1]-box[1,1]*np.floor(vector[1]/box[1,1]+0.5)
+        output[2]=vector[2]-box[2,2]*np.floor(vector[2]/box[2,2]+0.5)
 
     else:
 
@@ -34,23 +34,23 @@ def wrap_to_mic_vector_single_structure(vector, box, inv_box, orthogonal):
         vaux[0]=inv_box[0,0]*vector[0]+inv_box[1,0]*vector[1]+inv_box[2,0]*vector[2]
         vaux[1]=                       inv_box[1,1]*vector[1]+inv_box[2,1]*vector[2]
         vaux[2]=                                              inv_box[2,2]*vector[2]
-        vaux[0]=vaux[0]-np.floor(vaux[0])
-        vaux[1]=vaux[1]-np.floor(vaux[1])
-        vaux[2]=vaux[2]-np.floor(vaux[2])
+        vaux[0]=vaux[0]-np.floor(vaux[0]+0.5)
+        vaux[1]=vaux[1]-np.floor(vaux[1]+0.5)
+        vaux[2]=vaux[2]-np.floor(vaux[2]+0.5)
         output[0]=box[0,0]*vaux[0]+box[1,0]*vaux[1]+box[2,0]*vaux[2]
         output[1]=                 box[1,1]*vaux[1]+box[2,1]*vaux[2]
         output[2]=                                  box[2,2]*vaux[2]
-        dmin=dot_product(output,output)
-        for ii in [-1,0,1]:
-            vaux=vector+ii*box[0,:]
-            for jj in [-1,0,1]:
-                vaux2=vaux+jj*box[1,:]
-                for kk in [-1,0,1]:
-                    vaux3=vaux2[:]+kk*box[2,:]
-                    dd=dot_product(vaux3,vaux3)
-                    if dmin>dd:
-                        output=vaux3
-                        dmin=dd
+        #dmin=dot_product(output,output)
+        #for ii in [-1,0,1]:
+        #    vaux=vector+ii*box[0,:]
+        #    for jj in [-1,0,1]:
+        #        vaux2=vaux+jj*box[1,:]
+        #        for kk in [-1,0,1]:
+        #            vaux3=vaux2[:]+kk*box[2,:]
+        #            dd=dot_product(vaux3,vaux3)
+        #            if dmin>dd:
+        #                output=vaux3
+        #                dmin=dd
 
     return output
 
