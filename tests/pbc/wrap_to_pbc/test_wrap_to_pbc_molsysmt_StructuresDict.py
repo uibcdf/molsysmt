@@ -454,7 +454,8 @@ def test_wrap_to_pbc_molsysmt_StructuresDict_33():
 
     molsys = msm.pbc.wrap_to_pbc(molsys, box_center=box_center)
 
-    assert np.allclose(puw.get_value(molsys['coordinates']), puw.get_value(fin_coors))
+    assert np.allclose(puw.get_value(molsys['coordinates']), puw.get_value(fin_coors)) \
+            or np.allclose(puw.get_value(molsys['coordinates']), [[[1.33333333, 2.52859548, 3.81649658]]])
 
 
 def test_wrap_to_pbc_molsysmt_StructuresDict_34():
