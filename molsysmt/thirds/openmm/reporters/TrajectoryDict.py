@@ -1,7 +1,7 @@
 from openmm import unit
 import numpy as np
 
-class MolSysMTTrajectoryDictReporter(object):
+class TrajectoryDictReporter(object):
 
     def __init__(self, reportInterval, time=True, coordinates=True, velocities=False,
              potentialEnergy=False, kineticEnergy=False, totalEnergy=False, temperature=False,

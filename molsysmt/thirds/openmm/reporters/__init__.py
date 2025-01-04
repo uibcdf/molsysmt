@@ -1,3 +1,3 @@
-from .molsysmt_TrajectoryDict import MolSysMTTrajectoryDictReporter
+from .TrajectoryDict import TrajectoryDictReporter
 from .tqdm import TQDMReporter
 from .h5msm import H5MSMReporter
