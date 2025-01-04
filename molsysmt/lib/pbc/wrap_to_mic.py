@@ -39,7 +39,9 @@ def wrap_to_mic_vector_single_structure(vector, box, inv_box, orthogonal):
         output[0]=box[0,0]*vaux[0]+box[1,0]*vaux[1]+box[2,0]*vaux[2]
         output[1]=                 box[1,1]*vaux[1]+box[2,1]*vaux[2]
         output[2]=                                  box[2,2]*vaux[2]
+
         dmin=dot_product(output,output)
+
         for ii in [-1,0,1]:
             vaux=vector+ii*box[0,:]
             for jj in [-1,0,1]:
