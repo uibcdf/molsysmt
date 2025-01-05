@@ -2,6 +2,7 @@ from .add_harmonic_potential_to_coordinates import add_harmonic_potential_to_coo
 from .add_harmonic_potential_to_plane import add_harmonic_potential_to_plane
 from .add_flat_harmonic_potential_to_plane import add_flat_harmonic_potential_to_plane
 from .add_harmonic_bonds_potential import add_harmonic_bonds_potential
-from .add_constant_pulling_force import add_constant_pulling_force
+from .add_constant_force import add_constant_force
 from .add_allowed_z_region import add_allowed_z_region 
 from .add_forbidden_z_region import add_forbidden_z_region 
+from .pin_atoms import pin_atoms

@@ -14,10 +14,10 @@ def get_entity_index(molecular_system, element='atom', selection='all',
                 selection=selection, redefine_indices=redefine_molecules, syntax=syntax, skip_digestion=True)
 
         molecule_name_from_molecules = get_molecule_name(molecular_system, element='molecule',
-                selection=selection, redefine_indices=redefine_molecules, syntax=syntax, skip_digestion=True)
+                selection='all', redefine_indices=redefine_molecules, syntax=syntax, skip_digestion=True)
 
         molecule_type_from_molecules = get_molecule_type(molecular_system, element='molecule',
-                selection=selection, redefine_indices=redefine_molecules, syntax=syntax, skip_digestion=True)
+                selection='all', redefine_indices=redefine_molecules, syntax=syntax, skip_digestion=True)
 
         count = 0
         output = []

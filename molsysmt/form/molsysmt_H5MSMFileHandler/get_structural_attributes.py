@@ -26,7 +26,10 @@ def get_coordinates_from_atom(item, indices='all', structure_indices='all', skip
     else:
         output = []
         for ii in structure_indices:
-            output.append(item.file['structures']['coordinates'][ii,indices,:].astype('float'))
+            if is_all(indices):
+                output.append(item.file['structures']['coordinates'][ii,:,:].astype('float'))
+            else:
+                output.append(item.file['structures']['coordinates'][ii,indices,:].astype('float'))
         output = np.array(output)
 
     output = puw.quantity(output, item.file.attrs['length_unit'], standardized=True)
@@ -44,7 +47,10 @@ def get_velocities_from_atom(item, indices='all', structure_indices='all', skip_
     else:
         output = []
         for ii in structure_indices:
-            output.append(item.file['structures']['velocities'][ii,indices,:].astype('float'))
+            if is_all(indices):
+                output.append(item.file['structures']['velocities'][ii,:,:].astype('float'))
+            else:
+                output.append(item.file['structures']['velocities'][ii,indices,:].astype('float'))
         output = np.array(output)
 
     output = puw.quantity(output, item.file.attrs['length_unit']+'/'+item.file.attrs['time_unit'], standardized=True)
