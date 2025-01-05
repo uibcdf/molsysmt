@@ -4,8 +4,8 @@
 .. toctree::
    :maxdepth: 2
 
-   allowed_z_region.ipynb
-   forbidden_z_region.ipynb
-   harmonic_potential_to_plane.ipynb
+   add_allowed_z_region.ipynb
+   add_forbidden_z_region.ipynb
+   add_harmonic_potential_to_plane.ipynb
    
 ```

@@ -2,8 +2,9 @@ from molsysmt._private.digestion import digest
 from molsysmt import pyunitwizard as puw
 
 @digest()
-def constant_pulling_force(molecular_system=None, selection='all', pulling_force='[500,0,0] kilojoules_per_mole/nm',
-        adding_force=False, syntax='MolSysMT'):
+def add_forbidden_z_region(molecular_system=None, selection='all', z0='0.0 nm', width='1.0 nm',
+                           force_constant='1000 kilojoules_per_mole/nm**2', pbc=False, adding_force=False,
+                           syntax='MolSysMT', skip_digestion=False):
 
     from molsysmt import select, get, get_form
     from openmm import CustomExternalForce
@@ -13,18 +14,29 @@ def constant_pulling_force(molecular_system=None, selection='all', pulling_force
     else:
         atom_indices = selection
 
-    for atom_index in atom_indices:
-        force.addParticle(int(atom_index))
+    force_constant = puw.convert(force_constant, to_form='openmm.unit')
+    z0 = puw.convert(z0, to_form='openmm.unit')
+    width = puw.convert(width, to_form='openmm.unit')
 
-    potential = "-(px*x+py*y+pz*z)"
+
+    if pbc:
+        potential = '0.5*Kf*q^2; \
+                    q = min(0, d-wf); \
+                    d = periodicdistance(0, 0, z, 0, 0, zf)'
+    else:
+        potential = '0.5*Kf*q^2; \
+                    q = min(0, d-wf); \
+                    d = distance(0, 0, z, 0, 0, zf)'
+
 
     force = CustomExternalForce(potential)
-    force.addGlobalParameter('px', pulling_force[0])
-    force.addGlobalParameter('py', pulling_force[1])
-    force.addGlobalParameter('pz', pulling_force[2])
+    force.addGlobalParameter('Kf', force_constant)
+    force.addGlobalParameter('wf', width)
+    force.addGlobalParameter('zf', z0)
 
-    for ii in atom_indices:
-        force.addParticle(int(atom_index))
+
+    for atom_index in atom_indices:
+        force.addParticle(atom_index)
 
     if adding_force:
         form_in = get_form(molecular_system)

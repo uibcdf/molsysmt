@@ -2,8 +2,8 @@ from molsysmt._private.digestion import digest
 from molsysmt import pyunitwizard as puw
 
 @digest()
-def harmonic_potential_to_coordinates(molecular_system=None, selection='all', force_constant=None,
-        coordinates_minimum=None, pbc=False, adding_force=False, syntax='MolSysMT'):
+def add_harmonic_potential_to_coordinates(molecular_system=None, selection='all', force_constant=None,
+        coordinates_minimum=None, pbc=False, adding_force=False, syntax='MolSysMT', skip_digestion=False):
 
     from molsysmt import select, get, get_form
     from openmm import CustomExternalForce

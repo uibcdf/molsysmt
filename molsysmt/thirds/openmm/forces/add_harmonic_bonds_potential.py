@@ -2,8 +2,9 @@ from molsysmt._private.digestion import digest
 from molsysmt import pyunitwizard as puw
 
 @digest()
-def harmonic_bonds_potential(molecular_system=None, atoms_pairs=None, force_constant='1000 kilojoules_per_mole/nm**2',
-        distances_minima=None, pbc=False, adding_force=False, syntax='MolSysMT'):
+def add_harmonic_bonds_potential(molecular_system=None, atoms_pairs=None,
+                                 force_constant='1000 kilojoules_per_mole/nm**2', distances_minima=None,
+                                 pbc=False, adding_force=False, syntax='MolSysMT', skip_digestion=False):
 
     from molsysmt import select, get, get_form
     from molsysmt.structures import get_distances

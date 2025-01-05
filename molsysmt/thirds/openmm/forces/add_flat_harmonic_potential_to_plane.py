@@ -2,8 +2,10 @@ from molsysmt._private.digestion import digest
 from molsysmt import pyunitwizard as puw
 
 @digest()
-def flat_harmonic_potential_to_plane(molecular_system=None, selection='all', force_constant='1000 kilojoules_per_mole/nm**2',
-        point=None, normal_vector=None, width=None, pbc=False, adding_force=False, syntax='MolSysMT'):
+def add_flat_harmonic_potential_to_plane(molecular_system=None, selection='all',
+                                         force_constant='1000 kilojoules_per_mole/nm**2', point=None,
+                                         normal_vector=None, width=None, pbc=False, adding_force=False,
+                                         syntax='MolSysMT', skip_digestion=False):
 
     from molsysmt import select, get, get_form
     from openmm import CustomExternalForce
