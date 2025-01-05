@@ -21,7 +21,9 @@ def test_H5MSMReporter_1():
     simulation.context.setPositions(modeller.positions)
     simulation.minimizeEnergy()
     simulation.context.setVelocitiesToTemperature(300*unit.kelvin)
-    tqdm_reporter = msm.thirds.openmm.reporters.H5MSMReporter('test.h5msm', 100, 1000)
+    tqdm_reporter = msm.thirds.openmm.reporters.H5MSMReporter('test.h5msm', 100, 1000, topology=True, time=True,
+                    box=True, coordinates=True, velocities=True, potentialEnergy=True, kineticEnergy=True,
+                    temperature=True)
     simulation.reporters.append(tqdm_reporter)
     simulation.step(1000)
     tqdm_reporter.close()
