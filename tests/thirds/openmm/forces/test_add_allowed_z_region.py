@@ -86,7 +86,7 @@ def test_add_allowed_z_region_3():
     integration_timestep = 2.0*unit.femtoseconds
     friction   = 5.0/unit.picoseconds
     integrator = mm.LangevinIntegrator(temperature, friction, integration_timestep)
-    platform = mm.Platform.getPlatformByName('OpenCL')
+    platform = mm.Platform.getPlatformByName('CPU')
     context = mm.Context(system, integrator, platform)
 
     fi = msm.thirds.openmm.forces.add_allowed_z_region(context, z0='1.0 nm', width='0.5 nm',
@@ -126,7 +126,7 @@ def test_add_allowed_z_region_r():
     integration_timestep = 2.0*unit.femtoseconds
     friction   = 5.0/unit.picoseconds
     integrator = mm.LangevinIntegrator(temperature, friction, integration_timestep)
-    platform = mm.Platform.getPlatformByName('OpenCL')
+    platform = mm.Platform.getPlatformByName('CPU')
 
 
     simulation = app.Simulation(topology, system, integrator, platform)
