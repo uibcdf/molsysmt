@@ -9,22 +9,20 @@ def add_constant_force(molecular_system=None, selection='all',
     from molsysmt import select, get, get_form
     from openmm import CustomExternalForce
 
-    if molecular_system is not None:
-        atom_indices = select(molecular_system, selection=selection, syntax=syntax)
-    else:
-        atom_indices = selection
+    atom_indices = select(molecular_system, selection=selection, syntax=syntax)
 
     potential = "-(px*x+py*y+pz*z)"
+    force = puw.convert(force, to_form='openmm.unit')
 
     ommforce = CustomExternalForce(potential)
-    ommforce.addGlobalParameter('px', pulling_force[0])
-    ommforce.addGlobalParameter('py', pulling_force[1])
-    ommforce.addGlobalParameter('pz', pulling_force[2])
+    ommforce.addGlobalParameter('px', force[0])
+    ommforce.addGlobalParameter('py', force[1])
+    ommforce.addGlobalParameter('pz', force[2])
 
     for ii in atom_indices:
-        ommforce.addParticle(int(atom_index))
+        ommforce.addParticle(int(ii))
 
-    if adding_force:
+    if not return_force:
         form_in = get_form(molecular_system)
         if form_in == 'openmm.Context':
             context = molecular_system

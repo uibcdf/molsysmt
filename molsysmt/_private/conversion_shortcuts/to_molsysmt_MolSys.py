@@ -135,4 +135,31 @@ def file_gro_and_file_xtc_to_molsysmt_MolSys(molecular_system, atom_indices='all
 
     return output_item
 
+def openmm_Topology_and_molsysmt_StructuresDict_to_molsysmt_MolSys(molecular_system, atom_indices='all',
+                                                                   structure_indices='all', skip_digestion=False):
+
+    from molsysmt.basic import get_form
+    from molsysmt.native.molsys import MolSys
+    from molsysmt.form.openmm_Topology import to_molsysmt_Topology as openmm_Topology_to_molsysmt_Topology
+    from molsysmt.form.molsysmt_Structures import extract as extract_structures
+
+    forms = get_form(molecular_system)
+
+    topology = None
+    structures = None
+
+    for form, item in zip(forms, molecular_system):
+        if form=='molsysmt.Topology':
+            topology = item
+        else:
+            structures = item
+
+    tmp_item = MolSys()
+
+    tmp_item.topology = extract_topology(topology, atom_indices=atom_indices, copy_if_all=True, skip_digestion=True)
+    tmp_item.structures = extract_structures(structures, atom_indices=atom_indices,
+            structure_indices=structure_indices, copy_if_all=True, skip_digestion=True)
+
+    return tmp_item
+
 
