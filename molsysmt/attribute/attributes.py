@@ -356,6 +356,10 @@ add_attribute('b_factor', synonyms=['b_factors'], runs_on_elements=True, runs_on
 add_attribute('alternate_location', synonyms=['alternate_locations'], runs_on_elements=True,
               runs_on_structures=True, structural=True, get_from=['atom','system'], set_to='system')
 
+## occupancy
+add_attribute('occupancy', synonyms=['occupancies'], runs_on_elements=True,
+              runs_on_structures=True, structural=True, get_from=['atom'], set_to='atom')
+
 ## temperature
 add_attribute('temperature', synonyms=['temperatures'], runs_on_structures=True, structural=True,
         get_from=['system'], set_to='system')

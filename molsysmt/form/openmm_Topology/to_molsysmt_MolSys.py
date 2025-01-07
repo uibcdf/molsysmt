@@ -13,7 +13,7 @@ def to_molsysmt_MolSys(item, atom_indices='all', coordinates=None, box=None, ski
     tmp_item.structures = Structures()
     if box is None:
         box = get_box_from_system(item)
-    tmp_item.structures.append_structures(coordinates=coordinates, box=box, skip_digestion=True)
+    tmp_item.structures.append(coordinates=coordinates, box=box, skip_digestion=True)
 
     return tmp_item
 

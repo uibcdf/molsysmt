@@ -2,7 +2,7 @@ from molsysmt._private.digestion import digest
 from molsysmt import pyunitwizard as puw
 
 @digest()
-def pin_atoms(molecular_system=None, selection='all',
+def pin_atoms(molecular_system, selection='all',
               force_constant='5000 kilojoules/(mol*nanometers**2)',
               pbc=True, return_force=False, syntax='MolSysMT',
               skip_digestion=False):

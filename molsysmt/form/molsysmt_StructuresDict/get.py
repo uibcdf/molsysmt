@@ -66,16 +66,25 @@ def get_n_inner_bonds_from_atom(item, indices='all', skip_digestion=False):
 @digest(form=form)
 def get_coordinates_from_atom(item, indices='all', structure_indices='all', skip_digestion=False):
 
-    tmp_coordinates = item['coordinates']
+    tmp_coordinates = None
 
-    if not is_all(structure_indices):
-        tmp_coordinates = tmp_coordinates[structure_indices,:,:]
+    if 'coordinates' in item:
 
-    if not is_all(indices):
-        tmp_coordinates = tmp_coordinates[:,indices,:]
+        tmp_coordinates = item['coordinates']
 
-    return tmp_coordinates.astype(np.float64)
+        if not is_all(structure_indices):
+            tmp_coordinates = tmp_coordinates[structure_indices,:,:]
 
+        if not is_all(indices):
+            tmp_coordinates = tmp_coordinates[:,indices,:]
+
+        value, unit = puw.get_value_and_unit(tmp_coordinates)
+        value = value.astype(np.float64)
+        tmp_coordinates = puw.quantity(value, unit, standardized=True)
+
+        return tmp_coordinates
+
+    return tmp_coordinates
 
 ## From group
 
@@ -246,26 +255,32 @@ def get_box_from_system(item, structure_indices='all', skip_digestion=False):
                 n_structures=len(structure_indices)
             output=np.tile(item['box'], (n_structures, 1, 1))
 
-    return output.astype(np.float64)
+        return output.astype(np.float64)
+
+    return output
 
 @digest(form=form)
 def get_structure_id_from_system(item, structure_indices='all', skip_digestion=False):
 
     output = None
-    if is_all(structure_indices):
-        output = item['structure_id']
-    else:
-        output = item['structure_id'][structure_indices]
+
+    if 'structure_id' in item:
+        if is_all(structure_indices):
+            output = item['structure_id']
+        else:
+            output = item['structure_id'][structure_indices]
+
     return output
 
 @digest(form=form)
 def get_time_from_system(item, structure_indices='all', skip_digestion=False):
 
     output = None
-    if is_all(structure_indices):
-        output = item['time']
-    else:
-        output = item['time'][structure_indices]
+    if 'time' in item:
+        if is_all(structure_indices):
+            output = item['time']
+        else:
+            output = item['time'][structure_indices]
     return output
 
 

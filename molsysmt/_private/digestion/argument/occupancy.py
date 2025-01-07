@@ -5,7 +5,7 @@ functions_where_boolean = (
     'molsysmt.basic.get.get',
     'molsysmt.basic.compare.compare',
     'molsysmt.basic.iterator.__init__',
-    '.iterators.__init__'
+    '.iterators.__init__',
     )
 
 def digest_occupancy(occupancy, caller=None):

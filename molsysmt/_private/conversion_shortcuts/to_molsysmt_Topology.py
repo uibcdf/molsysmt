@@ -17,6 +17,25 @@ def molsysmt_Topology_and_molsysmt_Structures_to_molsysmt_Topology(molecular_sys
 
     return tmp_item
 
+def molsysmt_Topology_and_molsysmt_StructuresDict_to_molsysmt_Topology(molecular_system, atom_indices='all',
+                                                                   structure_indices='all', skip_digestion=False):
+
+    from molsysmt.basic import get_form
+    from molsysmt.form.molsysmt_Topology import extract as extract_topology
+
+    forms = get_form(molecular_system)
+
+    topology = None
+
+    for form, item in zip(forms, molecular_system):
+        if form=='molsysmt.Topology':
+            topology = item
+            break
+
+    tmp_item = extract_topology(topology, atom_indices=atom_indices, copy_if_all=True, skip_digestion=True)
+
+    return tmp_item
+
 def file_prmtop_and_file_inpcrd_to_molsysmt_Topology(molecular_system, atom_indices='all',
                                                      structure_indices='all', skip_digestion=False):
 
@@ -95,4 +114,24 @@ def file_gro_and_file_xtc_to_molsysmt_Topology(molecular_system, atom_indices='a
                                              skip_digestion=True)
 
     return output_item
+
+def openmm_Topology_and_molsysmt_StructuresDict_to_molsysmt_Topology(molecular_system, atom_indices='all',
+                                                                   structure_indices='all', skip_digestion=False):
+
+    from molsysmt.basic import get_form
+    from molsysmt.form.openmm_Topology import to_molsysmt_Topology as openmm_Topology_to_molsysmt_Topology
+
+    forms = get_form(molecular_system)
+
+    topology = None
+
+    for form, item in zip(forms, molecular_system):
+        if form=='openmm.Topology':
+            topology = item
+            break
+
+    tmp_item = openmm_Topology_to_molsysmt_Topology(topology, atom_indices=atom_indices, skip_digestion=True)
+
+    return tmp_item
+
 
