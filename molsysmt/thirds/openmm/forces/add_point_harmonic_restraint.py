@@ -16,7 +16,7 @@ def add_point_harmonic_restraint(molecular_system, selection='all', force_consta
     if point is None:
         if form_in=='openmm.Context':
             raise ValueError("A point must be provided when the input is an OpenMM Context object.")
-        if molecular_system is not None:
+        else:
             point = get(molecular_system, element='atom', selection=atom_indices, coordinates=True)[0]
 
     force_constant = puw.convert(force_constant, to_unit=u.kilojoule_per_mole/(u.nanometer**2), to_form='openmm.unit')

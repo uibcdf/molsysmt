@@ -1,5 +1,5 @@
 """
-Unit and regression test for the copy module of the molsysmt package.
+Unit and regression test for the add_allowed_z_region function of the molsysmt module thirds.openmm.forces
 """
 
 import molsysmt as msm
@@ -16,7 +16,7 @@ atom = topology.addAtom(name='Ar', element= app.element.argon, residue=residue)
 def test_add_allowed_z_region_1():
 
     system = mm.System()
-    system.addParticle(atom.element.mass) # masa del átomo de argón
+    system.addParticle(atom.element.mass)
     fi = msm.thirds.openmm.forces.add_allowed_z_region(system, z0='1.0 nm', width='0.5 nm',
                                                        force_constant = '5000 kilojoules/(mol*angstroms**2)',
                                                        pbc=True)
@@ -31,7 +31,6 @@ def test_add_allowed_z_region_1():
     glob0_value = force.getGlobalParameterDefaultValue(0)
     glob1_value = force.getGlobalParameterDefaultValue(1)
     glob2_value = force.getGlobalParameterDefaultValue(2)
-
 
     assert fi==0
     assert f_name=='CustomExternalForce'
@@ -48,7 +47,7 @@ def test_add_allowed_z_region_1():
 def test_add_allowed_z_region_2():
 
     system = mm.System()
-    system.addParticle(atom.element.mass) # masa del átomo de argón
+    system.addParticle(atom.element.mass)
     fi = msm.thirds.openmm.forces.add_allowed_z_region(system, z0='1.0 nm', width='0.5 nm',
                                                        force_constant = '5000 kilojoules/(mol*angstroms**2)',
                                                        pbc=False)
@@ -80,7 +79,7 @@ def test_add_allowed_z_region_2():
 def test_add_allowed_z_region_3():
 
     system = mm.System()
-    system.addParticle(atom.element.mass) # masa del átomo de argón
+    system.addParticle(atom.element.mass)
 
     temperature = 300*unit.kelvin
     integration_timestep = 2.0*unit.femtoseconds
@@ -120,7 +119,7 @@ def test_add_allowed_z_region_3():
 def test_add_allowed_z_region_4():
 
     system = mm.System()
-    system.addParticle(atom.element.mass) # masa del átomo de argón
+    system.addParticle(atom.element.mass)
 
     temperature = 300*unit.kelvin
     integration_timestep = 2.0*unit.femtoseconds

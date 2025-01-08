@@ -18,7 +18,7 @@ MolSysMT
 **[Team](#team)**
 
 
-Molecular Systems Multi-Tool
+Molecular Systems MultiToolkit
 
 This library was thought as a humble frontend to make the life of a computational molecular biology lab, the UIBCDF,  easier. 
 MolSysMT is design to cover specific needs, or to speed up workflows, when you are working with tools such as:
