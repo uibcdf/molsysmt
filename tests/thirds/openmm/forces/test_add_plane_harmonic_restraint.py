@@ -19,7 +19,7 @@ def test_add_plane_harmonic_restraint_1():
     system.addParticle(atom.element.mass)
     fi = msm.thirds.openmm.forces.add_plane_harmonic_restraint(system, selection=[0],
                                             force_constant = '5000 kilojoules/(mol*nanometers**2)',
-                                            point='[0,0,0] nm', vector=[0,0,1], pbc=True)
+                                            point='[0,0,0] nm', normal_vector=[0,0,1], pbc=True)
 
     force = system.getForce(0)
     f_name = force.getName()
@@ -83,7 +83,7 @@ def test_add_plane_harmonic_restraint_2():
 
     fi = msm.thirds.openmm.forces.add_plane_harmonic_restraint(context, selection=[0],
                                             force_constant = '5000 kilojoules/(mol*nanometers**2)',
-                                            point='[0,0,0] nm', vector=[0,0,1], pbc=False)
+                                            point='[0,0,0] nm', normal_vector=[0,0,1], pbc=False)
 
     force = context.getSystem().getForce(0)
     f_name = force.getName()
@@ -152,7 +152,7 @@ def test_add_plane_harmonic_restraint_3():
 
     fi = msm.thirds.openmm.forces.add_plane_harmonic_restraint(simulation, selection=[0],
                                             force_constant = '5000 kilojoules/(mol*nanometers**2)',
-                                            vector=[0,0,1], pbc=True)
+                                            normal_vector=[0,0,1], pbc=True)
 
     force = system.getForce(0)
     f_name = force.getName()

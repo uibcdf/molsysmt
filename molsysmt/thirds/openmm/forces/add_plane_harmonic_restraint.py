@@ -3,7 +3,7 @@ from molsysmt import pyunitwizard as puw
 
 @digest()
 def add_plane_harmonic_restraint(molecular_system=None, selection='all', force_constant='5000 kilojoules/(mol*nanometers**2)',
-        point=None, vector=[0,0,1], pbc=False, return_force=False, syntax='MolSysMT', skip_digestion=False):
+        point=None, normal_vector=[0,0,1], pbc=False, return_force=False, syntax='MolSysMT', skip_digestion=False):
 
     from molsysmt import select, get, get_form
     from openmm import CustomExternalForce
@@ -38,9 +38,9 @@ def add_plane_harmonic_restraint(molecular_system=None, selection='all', force_c
 
         force = CustomExternalForce(potential)
         force.addGlobalParameter('k', force_constant)
-        force.addGlobalParameter('vx', vector[0])
-        force.addGlobalParameter('vy', vector[1])
-        force.addGlobalParameter('vz', vector[2])
+        force.addGlobalParameter('vx', normal_vector[0])
+        force.addGlobalParameter('vy', normal_vector[1])
+        force.addGlobalParameter('vz', normal_vector[2])
         force.addPerParticleParameter('px')
         force.addPerParticleParameter('py')
         force.addPerParticleParameter('pz')
@@ -62,9 +62,9 @@ def add_plane_harmonic_restraint(molecular_system=None, selection='all', force_c
 
         force = CustomExternalForce(potential)
         force.addGlobalParameter('k', force_constant)
-        force.addGlobalParameter('vx', vector[0])
-        force.addGlobalParameter('vy', vector[1])
-        force.addGlobalParameter('vz', vector[2])
+        force.addGlobalParameter('vx', normal_vector[0])
+        force.addGlobalParameter('vy', normal_vector[1])
+        force.addGlobalParameter('vz', normal_vector[2])
         force.addGlobalParameter('px', point[0])
         force.addGlobalParameter('py', point[1])
         force.addGlobalParameter('pz', point[2])

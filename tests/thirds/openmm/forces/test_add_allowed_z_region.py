@@ -37,12 +37,12 @@ def test_add_allowed_z_region_1():
     assert n_particles==1
     assert glob0_name=='Ka'
     assert glob1_name=='wa'
-    assert glob2_name=='za'
+    assert glob2_name=='pz'
     assert np.isclose(glob0_value,500000)
     assert np.isclose(glob1_value,0.25)
     assert np.isclose(glob2_value,1.0)
     assert f_pbc==True
-    assert f_expression== '0.5*Ka*q^2; q = max(0, d-wa); d = periodicdistance(0, 0, z, 0, 0, za)'
+    assert f_expression== '0.5*Ka*q^2; q = max(0, d-wa); d = periodicdistance(0, 0, z, 0, 0, pz)'
 
 def test_add_allowed_z_region_2():
 
@@ -69,12 +69,12 @@ def test_add_allowed_z_region_2():
     assert n_particles==1
     assert glob0_name=='Ka'
     assert glob1_name=='wa'
-    assert glob2_name=='za'
+    assert glob2_name=='pz'
     assert np.isclose(glob0_value,500000)
     assert np.isclose(glob1_value,0.25)
     assert np.isclose(glob2_value,1.0)
     assert f_pbc==False
-    assert f_expression== '0.5*Ka*q^2; q = max(0, d-wa); d = abs(z-za)'
+    assert f_expression== '0.5*Ka*q^2; q = max(0, d-wa); d = abs(z-pz)'
 
 def test_add_allowed_z_region_3():
 
@@ -109,12 +109,12 @@ def test_add_allowed_z_region_3():
     assert n_particles==1
     assert glob0_name=='Ka'
     assert glob1_name=='wa'
-    assert glob2_name=='za'
+    assert glob2_name=='pz'
     assert np.isclose(glob0_value,500000)
     assert np.isclose(glob1_value,0.25)
     assert np.isclose(glob2_value,1.0)
     assert f_pbc==True
-    assert f_expression== '0.5*Ka*q^2; q = max(0, d-wa); d = periodicdistance(0, 0, z, 0, 0, za)'
+    assert f_expression== '0.5*Ka*q^2; q = max(0, d-wa); d = periodicdistance(0, 0, z, 0, 0, pz)'
 
 def test_add_allowed_z_region_4():
 
@@ -151,10 +151,10 @@ def test_add_allowed_z_region_4():
     assert n_particles==1
     assert glob0_name=='Ka'
     assert glob1_name=='wa'
-    assert glob2_name=='za'
+    assert glob2_name=='pz'
     assert np.isclose(glob0_value,500000)
     assert np.isclose(glob1_value,0.25)
     assert np.isclose(glob2_value,1.0)
     assert f_pbc==True
-    assert f_expression== '0.5*Ka*q^2; q = max(0, d-wa); d = periodicdistance(0, 0, z, 0, 0, za)'
+    assert f_expression== '0.5*Ka*q^2; q = max(0, d-wa); d = periodicdistance(0, 0, z, 0, 0, pz)'
 
