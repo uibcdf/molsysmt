@@ -1,5 +1,5 @@
 from .add_point_harmonic_restraint import add_point_harmonic_restraint
-from .add_harmonic_potential_to_plane import add_harmonic_potential_to_plane
+from .add_plane_harmonic_restraint import add_plane_harmonic_restraint
 from .add_flat_harmonic_potential_to_plane import add_flat_harmonic_potential_to_plane
 from .add_harmonic_bonds_potential import add_harmonic_bonds_potential
 from .add_constant_force import add_constant_force

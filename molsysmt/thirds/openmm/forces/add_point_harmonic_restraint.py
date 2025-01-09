@@ -46,11 +46,7 @@ def add_point_harmonic_restraint(molecular_system, selection='all', force_consta
         if form_in == 'openmm.Context':
             context = molecular_system
             index_force = context.getSystem().addForce(force)
-            aux_positions = context.getState(getPositions=True).getPositions()
-            aux_velocities = context.getState(getVelocities=True).getVelocities()
-            context.reinitialize()
-            context.setPositions(aux_positions)
-            context.setVelocities(aux_velocities)
+            context.reinitialize(preserveState=True)
             return index_force
         elif form_in == 'openmm.System':
             system = molecular_system
