@@ -10,19 +10,26 @@ def add_harmonic_bond_force(molecular_system=None, atom_pair=None,
     from molsysmt.structure import get_distances
     from openmm import HarmonicBondForce
 
+    atom_pairs=atom_pair
+
+    n_pairs = len(atom_pairs)
+
     if bond_length is None:
         bond_length = get_distances(molecular_system, element='atom',
                       selection=atom_pairs, pairs=True, pbc=pbc)[0]
 
-    force_constant = puw.convert(force_constant, to_form='openmm.unit')
-    bond_length = puw.convert(bond_length, to_form='openmm.unit')
+    if len(bond_length) != n_pairs:
+        bond_length = [bond_length[0] for ii in range(n_pairs)]
+
+    if len(force_constant) != n_pairs:
+        force_constant = [force_constant[0] for ii in range(n_pairs)]
 
     force = HarmonicBondForce()
 
-    n_pairs_in_distances_minima = bond_length.shape[0]
-
-    for ii, atoms_pair in enumerate(atoms_pairs):
-        force.addBond(int(atom_pair[0]), int(atom_pair[1]), bond_length[ii], force_constant[ii])
+    for ii, atom_pair in enumerate(atom_pairs):
+        aux_force_constant = puw.convert(force_constant[ii], to_form='openmm.unit')
+        aux_bond_length = puw.convert(bond_length[ii], to_form='openmm.unit')
+        force.addBond(int(atom_pair[0]), int(atom_pair[1]), aux_bond_length, aux_force_constant)
 
     if not return_force:
         form_in = get_form(molecular_system)
