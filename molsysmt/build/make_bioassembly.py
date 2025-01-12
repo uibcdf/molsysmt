@@ -40,6 +40,9 @@ def make_bioassembly(molecular_system, bioassembly=None, structure_indices=0, to
 
         chains = bioassembly['chain_indices'][0]
 
+        if isinstance(chains, int):
+            chains = [chains]
+
         subsystem = extract(molecular_system, structure_indices=[0], selection='chain_index in @chains',
                             syntax='MolSysMT', skip_digestion=True)
 
@@ -56,6 +59,10 @@ def make_bioassembly(molecular_system, bioassembly=None, structure_indices=0, to
         if not is_iterable_of_iterables(bioassembly['chain_indices']):
 
             chains = bioassembly['chain_indices']
+
+            if isinstance(chains, int):
+                chains = [chains]
+
             subsystem = extract(molecular_system, structure_indices=[0], selection='chain_index in @chains',
                                 syntax='MolSysMT', skip_digestion=True)
 
