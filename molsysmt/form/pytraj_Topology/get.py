@@ -93,6 +93,14 @@ def get_entity_index_from_atom(item, indices='all', skip_digestion=False):
 @digest(form=form)
 def get_inner_bonded_atoms_from_atom(item, indices='all', skip_digestion=False):
 
+    if is_all(indices):
+        output = item.bond_indices.tolist()
+    else:
+        output = []
+        for ii,jj in item.bond_indices:
+            if ii in indices and jj in indices:
+                output.append([ii,jj])
+
     return output
 
 @digest(form=form)

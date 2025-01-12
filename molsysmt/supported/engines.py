@@ -9,6 +9,7 @@ engines = [
     'MolSysMT',
     'OpenPocket',
     'NGLView',
+    'pytraj'
 ]
 
 lowercase_engines = {ii.lower(): ii for ii in engines}

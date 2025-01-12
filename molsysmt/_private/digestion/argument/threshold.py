@@ -4,8 +4,6 @@ from ...exceptions import ArgumentError
 
 common_functions_with_threshold = [
     'molsysmt.structure.get_contacts.get_contacts',
-    'molsysmt.build.get_missing_bonds.get_missing_bonds',
-    'molsysmt.build.add_missing_bonds.add_missing_bonds',
     'molsysmt.build.remove_overlapping_molecules.remove_overlapping_molecules',
 ]
 

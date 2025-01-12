@@ -24,5 +24,7 @@ attributes['chain_id'] = True
 attributes['chain_name'] = True
 attributes['chain_type'] = True
 
+attributes['inner_bonded_atoms'] = True
+
 
 del(_all_attributes)

@@ -4,6 +4,13 @@ from molsysmt._private.variables import is_all
 import numpy as np
 import warnings
 
+def _sorted(bonds):
+
+    sorted_bonds = np.sort(bonds, axis=1)
+    sorted_bonds = sorted_bonds[np.lexsort((sorted_bonds[:, 0], sorted_bonds[:, 1]))]
+
+    return sorted_bonds.tolist()
+
 _sorted=sorted
 
 # Protein:
@@ -24,7 +31,7 @@ _sorted=sorted
 
 
 @digest()
-def get_missing_bonds(molecular_system, threshold='2 angstroms', selection='all',
+def get_missing_bonds(molecular_system, max_bond_distance='2 angstroms', selection='all',
                       structure_index=0, syntax='MolSysMT', engine='MolSysMT',
                       sorted=True, with_templates=True, skip_digestion=False):
     """
@@ -76,7 +83,7 @@ def get_missing_bonds(molecular_system, threshold='2 angstroms', selection='all'
                     aux_bonds = _bonds_in_ion(group_name, atom_names, atom_indices, sorted=False)
                     if aux_bonds is None:
                         aux_bonds = _bonds_in_unknown_group(molecular_system, atom_indices, atom_names,
-                                                            structure_index=structure_index, threshold=threshold,
+                                                            structure_index=structure_index, max_bond_distance=max_bond_distance,
                                                             sorted=False)
                     bonds += aux_bonds
 
@@ -85,7 +92,7 @@ def get_missing_bonds(molecular_system, threshold='2 angstroms', selection='all'
                     aux_bonds = _bonds_in_amino_acid(group_name, atom_names, atom_indices, sorted=False)
                     if aux_bonds is None:
                         aux_bonds = _bonds_in_unknown_group(molecular_system, atom_indices, atom_names,
-                                                            structure_index=structure_index, threshold=threshold,
+                                                            structure_index=structure_index, max_bond_distance=max_bond_distance,
                                                             sorted=False)
                     bonds += aux_bonds
                     
@@ -100,7 +107,7 @@ def get_missing_bonds(molecular_system, threshold='2 angstroms', selection='all'
                     aux_bonds = _bonds_in_terminal_capping(group_name, atom_names, atom_indices, sorted=False)
                     if aux_bonds is None:
                         aux_bonds = _bonds_in_unknown_group(molecular_system, atom_indices, atom_names,
-                                                            structure_index=structure_index, threshold=threshold,
+                                                            structure_index=structure_index, max_bond_distance=max_bond_distance,
                                                             sorted=False)
                     bonds += aux_bonds
 
@@ -116,7 +123,7 @@ def get_missing_bonds(molecular_system, threshold='2 angstroms', selection='all'
                     aux_bonds = _bonds_in_small_molecule(group_name, atom_names, atom_indices, sorted=False)
                     if aux_bonds is None:
                         aux_bonds = _bonds_in_unknown_group(molecular_system, atom_indices, atom_names,
-                                                            structure_index=structure_index, threshold=threshold,
+                                                            structure_index=structure_index, max_bond_distance=max_bond_distance,
                                                             sorted=False)
                     bonds += aux_bonds
 
@@ -125,7 +132,7 @@ def get_missing_bonds(molecular_system, threshold='2 angstroms', selection='all'
                     aux_bonds = _bonds_in_saccharide(group_name, atom_names, atom_indices, sorted=False)
                     if aux_bonds is None:
                         aux_bonds = _bonds_in_unknown_group(molecular_system, atom_indices, atom_names,
-                                                            structure_index=structure_index, threshold=threshold,
+                                                            structure_index=structure_index, max_bond_distance=max_bond_distance,
                                                             sorted=False)
                     bonds += aux_bonds
 
@@ -157,7 +164,7 @@ def get_missing_bonds(molecular_system, threshold='2 angstroms', selection='all'
 
             if len(aux_C):
                 peptidic_bonds = get_contacts(molecular_system, selection=aux_C, selection_2=aux_N,
-                                              threshold=threshold, pairs=True, output_type='pairs',
+                                              threshold=max_bond_distance, pairs=True, output_type='pairs',
                                               output_indices='atom', pbc=True, skip_digestion=True)[0]
 
                 bonds += peptidic_bonds
@@ -205,12 +212,12 @@ def get_missing_bonds(molecular_system, threshold='2 angstroms', selection='all'
                     heavy_atoms_group_type.append(group_type)
 
             heavy_bonds = get_contacts(molecular_system, selection=heavy_atoms,
-                                       structure_indices = structure_index, threshold=threshold,
+                                       structure_indices = structure_index, threshold=max_bond_distance,
                                        output_type='pairs', output_indices='selection', pbc=True,
                                        skip_digestion=True)[0]
 
             h_bonds = get_contacts(molecular_system, selection=heavy_atoms, selection_2=h_atoms,
-                                   structure_indices = structure_index, threshold=threshold,
+                                   structure_indices = structure_index, threshold=max_bond_distance,
                                    output_type='pairs', output_indices='selection', pbc=True, skip_digestion=True)[0]
 
             bonds_with_distance = []
@@ -320,23 +327,24 @@ def get_missing_bonds(molecular_system, threshold='2 angstroms', selection='all'
         from os import remove
         from molsysmt._private.files_and_directories import temp_filename
 
-        old_bonds = get(molecular_system, element='atom', selection=atom_indices, inner_bonded_atoms=True)
+        old_bonds = get(molecular_system, element='atom', selection=selection, inner_bonded_atoms=True)
 
-        for ii in range(old_bonds):
+        for ii in range(len(old_bonds)):
             if old_bonds[ii][0]>old_bonds[ii][1]:
                 old_bonds[ii][0], old_bonds[ii][1] = old_bonds[ii][1], old_bonds[ii][0]
 
 
         temp_pdb_file = temp_filename(extension='pdb')
         temp_molecular_system = convert(molecular_system, to_form=temp_pdb_file)
-        temp_molecular_system = convert(temp_molecular_system, to_form="pytraj.Topology", threshold=threshold)
+        temp_molecular_system = convert(temp_molecular_system, to_form="pytraj.Topology", max_bond_distance=max_bond_distance)
 
-        new_bonds = get(molecular_system, element='atom', selection=atom_indices, inner_bonded_atoms=True)
+        new_bonds = get(temp_molecular_system, element='atom', selection=selection, inner_bonded_atoms=True)
 
-        for ii in range(old_bonds):
-            if old_bonds[ii][0]>old_bonds[ii][1]:
-                old_bonds[ii][0], old_bonds[ii][1] = old_bonds[ii][1], old_bonds[ii][0]
+        for ii in range(len(new_bonds)):
+            if new_bonds[ii][0]>new_bonds[ii][1]:
+                new_bonds[ii][0], new_bonds[ii][1] = new_bonds[ii][1], new_bonds[ii][0]
 
+        output = []
         for bond in new_bonds:
             if bond not in old_bonds:
                 output.append(bond)
@@ -353,7 +361,7 @@ def get_missing_bonds(molecular_system, threshold='2 angstroms', selection='all'
     return bonds
 
 def _bonds_in_unknown_group(molecular_system, atom_indices, atom_names, structure_index=0,
-                            threshold='2 angstroms', sorted=False):
+                            max_bond_distance='2 angstroms', sorted=True):
 
     from molsysmt.element.atom import get_atom_type_from_atom_name
     from molsysmt.structure import get_contacts
@@ -368,11 +376,11 @@ def _bonds_in_unknown_group(molecular_system, atom_indices, atom_names, structur
             heavy_atoms.append(index)
 
     heavy_bonds = get_contacts(molecular_system, selection=heavy_atoms,
-                               structure_indices = structure_index, threshold=threshold,
+                               structure_indices = structure_index, threshold=max_bond_distance,
                                output_type='pairs', output_indices='atom', pbc=True, skip_digestion=True)[0]
 
     h_bonds = get_contacts(molecular_system, selection=heavy_atoms, selection_2=h_atoms,
-                           structure_indices = structure_index, threshold=threshold,
+                           structure_indices = structure_index, threshold=max_bond_distance,
                            output_type='pairs', output_indices='atom', pbc=True, skip_digestion=True)[0]
 
     bonds = heavy_bonds + h_bonds
