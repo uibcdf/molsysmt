@@ -52,6 +52,9 @@ def get_distances(molecular_system, selection="all", structure_indices="all", ce
                 selection=np.array(selection)
             selection_2 = selection[:,1]
             selection = selection[:,0]
+        elif len(selection)==2:
+            selection_2 = selection[1]
+            selection = selection[0]
 
     atom_indices = select(molecular_system, selection=selection, syntax=syntax)
 
@@ -351,6 +354,8 @@ def _get_distances_in_memory(molecular_system, selection="all", structure_indice
     from molsysmt.basic import get
     from .get_center import get_center
 
+    print(selection, selection_2, pairs, pbc)
+
     if center_of_atoms:
 
         coordinates = get_center(molecular_system, selection=selection,
@@ -409,6 +414,7 @@ def _get_distances_in_memory(molecular_system, selection="all", structure_indice
             coordinates_2 = get(molecular_system_2, element='atom', selection=selection_2,
                                 structure_indices=structure_indices_2, syntax=syntax,
                                 coordinates=True)
+
     if not pairs:
 
         if coordinates_2 is None:
@@ -458,54 +464,54 @@ def _get_distances_in_memory(molecular_system, selection="all", structure_indice
 
             distances = puw.quantity(distances, length_unit)
 
-    else:
+    else: # coordinates_2 is always not None
 
-        if coordinates_2 is None:
+        #if coordinates_2 is None:
 
-            coordinates, length_unit = puw.get_value_and_unit(coordinates)
+        #    coordinates, length_unit = puw.get_value_and_unit(coordinates)
 
-            if pbc:
-                box = get(molecular_system, element='system', structure_indices=structure_indices, box=True)
-                if box is not None:
-                    if box[0] is not None:
-                        box = puw.get_value(box, to_unit=length_unit)
-                        distances = msmlib.structure.get_mic_distances_pairs_single_system(coordinates,
-                                    box)
-                        del(coordinates, box)
-                    else:
-                        pbc = False
+        #    if pbc:
+        #        box = get(molecular_system, element='system', structure_indices=structure_indices, box=True)
+        #        if box is not None:
+        #            if box[0] is not None:
+        #                box = puw.get_value(box, to_unit=length_unit)
+        #                distances = msmlib.structure.get_mic_distances_pairs_single_system(coordinates,
+        #                            box)
+        #                del(coordinates, box)
+        #            else:
+        #                pbc = False
+        #        else:
+        #            pbc = False
+
+        #    if not pbc:
+        #        distances = msmlib.structure.get_distances_pairs_single_system(coordinates)
+        #        del(coordinates)
+
+        #    distances = puw.quantity(distances, length_unit)
+
+        #else:
+
+        coordinates, length_unit = puw.get_value_and_unit(coordinates)
+        coordinates_2 = puw.get_value(coordinates_2, to_unit=length_unit)
+
+        if pbc:
+            box = get(molecular_system, element='system', structure_indices=structure_indices, box=True)
+            if box is not None:
+                if box[0] is not None:
+                    box = puw.get_value(box, to_unit=length_unit)
+                    distances = msmlib.structure.get_mic_distances_pairs(coordinates,
+                                coordinates_2, box)
+                    del(coordinates, coordinates_2, box)
                 else:
                     pbc = False
+            else:
+                pbc = False
 
-            if not pbc:
-                distances = msmlib.structure.get_distances_pairs_single_system(coordinates)
-                del(coordinates)
+        if not pbc:
+            distances = msmlib.structure.get_distances_pairs(coordinates, coordinates_2)
+            del(coordinates, coordinates_2)
 
-            distances = puw.quantity(distances, length_unit)
-
-        else:
-
-            coordinates, length_unit = puw.get_value_and_unit(coordinates)
-            coordinates_2 = puw.get_value(coordinates_2, to_unit=length_unit)
-
-            if pbc:
-                box = get(molecular_system, element='system', structure_indices=structure_indices, box=True)
-                if box is not None:
-                    if box[0] is not None:
-                        box = puw.get_value(box, to_unit=length_unit)
-                        distances = msmlib.structure.get_mic_distances_pairs(coordinates,
-                                    coordinates_2, box)
-                        del(coordinates, coordinates_2, box)
-                    else:
-                        pbc = False
-                else:
-                    pbc = False
-
-            if not pbc:
-                distances = msmlib.structure.get_distances_pairs(coordinates, coordinates_2)
-                del(coordinates, coordinates_2)
-
-            distances = puw.quantity(distances, length_unit)
+        distances = puw.quantity(distances, length_unit)
 
     distances = puw.standardize(distances)
 
