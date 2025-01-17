@@ -354,8 +354,6 @@ def _get_distances_in_memory(molecular_system, selection="all", structure_indice
     from molsysmt.basic import get
     from .get_center import get_center
 
-    print(selection, selection_2, pairs, pbc)
-
     if center_of_atoms:
 
         coordinates = get_center(molecular_system, selection=selection,

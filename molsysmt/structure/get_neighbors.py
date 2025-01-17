@@ -1,11 +1,13 @@
 from molsysmt._private.digestion import digest
 from molsysmt import pyunitwizard as puw
+from molsysmt._private.lists import sorted_list_of_pairs
 import numpy as np
 
 @digest()
 def get_neighbors(molecular_system, selection="all", structure_indices="all", center_of_atoms=False, weights=None,
                   molecular_system_2=None, selection_2=None, structure_indices_2=None, center_of_atoms_2=False, weights_2=None,
-                  threshold=None, n_neighbors=None, pbc=True, engine='MolSysMT', syntax='MolSysMT', skip_digestion=False):
+                  threshold=None, n_neighbors=None, pairs=False, pbc=True, output_type='numpy.ndarray', output_indices=None, output_structure_indices=None,
+                  sorted=True, engine='MolSysMT', syntax='MolSysMT', skip_digestion=False):
     """
     To be written soon...
     """
@@ -30,10 +32,13 @@ def get_neighbors(molecular_system, selection="all", structure_indices="all", ce
 
     same_set= same_selections and same_structures
 
-    all_dists = get_distances(molecular_system=molecular_system, selection=selection,
-            structure_indices=structure_indices, center_of_atoms=center_of_atoms, weights=weights,
-            selection_2=selection_2, structure_indices_2=structure_indices_2, center_of_atoms_2=center_of_atoms_2,
-            weights_2=weights_2, pbc=pbc, engine=engine, syntax=syntax)
+    output_get_distances = get_distances(molecular_system=molecular_system, selection=selection,
+               structure_indices=structure_indices, center_of_atoms=center_of_atoms, weights=weights,
+               selection_2=selection_2, structure_indices_2=structure_indices_2, center_of_atoms_2=center_of_atoms_2,
+               output_type='numpy.ndarray', output_indices=output_indices, output_structure_indices=output_structure_indices,
+               weights_2=weights_2, pbc=pbc, engine=engine, syntax=syntax)
+
+    all_dists = output_get_distances[-1]
 
     nstructures, nelements_1, nelements_2 = all_dists.shape
     length_units = puw.get_unit(all_dists)
@@ -97,6 +102,43 @@ def get_neighbors(molecular_system, selection="all", structure_indices="all", ce
 
         raise ValueError("Use either threshold or n_neighbors, but not both at the same time")
 
+    if output_type == 'numpy.ndarray':
+        if output_indices is None and output_structure_indices is None:
+            return neighs, dists
+        else:
+            raise NotImplementedError
+    elif output_type == 'pairs':
+        with_output_indices = False
+        if output_indices is not None:
+            with_output_indices = True
+            if len(output_get_distances)==2:
+                aux_indices_1 = output_get_distances[0]
+                aux_indices_2 = aux_indices_1
+            elif len(output_get_distances)==3:
+                aux_indices_1 = output_get_distances[0]
+                aux_indices_2 = output_get_distances[1]
+            else:
+                raise NotImplementedError
+        if output_indices is not None:
+            neighs_pairs = []
+            dists_pairs = []
+            for ii in range(nstructures):
+                aux_pairs = []
+                aux_dists = []
+                for jj in range(nelements_1):
+                    for kk in range(len(neighs[ii,jj])):
+                        if same_set==False or jj<neighs[ii,jj][kk]:
+                            aux_dists.append(dists[ii,jj][kk])
+                            if with_output_indices:
+                                aux_pairs.append([aux_indices_1[jj], aux_indices_2[neighs[ii,jj][kk]]])
+                            else:
+                                aux_pairs.append([jj, neighs[ii,jj][kk]])
+                if sorted:
+                    aux_pairs, aux_dists = sorted_list_of_pairs(aux_pairs, aux_dists)
+                neighs_pairs.append(aux_pairs)
+                dists_pairs.append(aux_dists)
+            return neighs_pairs, dists_pairs
+        else:
+            raise NotImplementedError
 
-    return neighs, dists
-
+    raise ValueError

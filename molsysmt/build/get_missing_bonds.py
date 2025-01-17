@@ -1,39 +1,16 @@
 from molsysmt._private.digestion import digest
 from molsysmt._private.exceptions import NotImplementedMethodError
 from molsysmt._private.variables import is_all
+from molsysmt._private.lists import sorted_list_of_pairs
+from molsysmt.element.bond import max_expected_bond_length, bond_length_tolerance
 import numpy as np
 import warnings
 
-def _sorted(bonds):
-
-    sorted_bonds = np.sort(bonds, axis=1)
-    sorted_bonds = sorted_bonds[np.lexsort((sorted_bonds[:, 0], sorted_bonds[:, 1]))]
-
-    return sorted_bonds.tolist()
-
-_sorted=sorted
-
-# Protein:
-# Enlace C-N: aproximadamente 1.33 Å
-# Enlace C-C: aproximadamente 1.54 Å
-# Enlace C-S: aproximadamente 1.82 Å
-# Small molecule:
-# Enlace C-H: aproximadamente 1.09 Å
-# Enlace C-C: aproximadamente 1.54 Å
-# Enlace C-O: aproximadamente 1.43 Å
-# Enlace C-N: aproximadamente 1.47 Å
-# Water molecule:
-# Enlace O-H: aproximadamente 0.96 Å
-# Lipid:
-# Enlace C-H: aproximadamente 1.09 Å
-# Enlace C-C: aproximadamente 1.54 Å
-# Enlace P-O: aproximadamente 1.61 Å
-
-
 @digest()
-def get_missing_bonds(molecular_system, max_bond_distance='2 angstroms', selection='all',
-                      structure_index=0, syntax='MolSysMT', engine='MolSysMT',
-                      sorted=True, with_templates=True, skip_digestion=False):
+def get_missing_bonds(molecular_system, selection='all', structure_index=0, max_bond_distance='2 angstroms',
+                      disulfide_bonds=False, disulfide_group_names=['CYS'], pbc=True,
+                      syntax='MolSysMT', engine='MolSysMT', sorted=True, skip_digestion=False):
+
     """
     To be written soon...
     """
@@ -54,264 +31,95 @@ def get_missing_bonds(molecular_system, max_bond_distance='2 angstroms', selecti
 
         old_bonds = get(molecular_system, selection=selection, inner_bonded_atom_pairs=True)
 
-        if with_templates:
+        aux_lists = get(molecular_system, element='group', selection=selection, group_name=True,
+                        group_type=True, atom_index=True, atom_name=True, atom_type=True,
+                        skip_digestion=True)
 
-            aux_lists = get(molecular_system, element='group', selection=selection, group_name=True,
-                            group_type=True, atom_index=True, atom_name=True,
-                            skip_digestion=True)
+        group_index = -1
+        groups_undone = []
+        atoms_undone = []
 
-            group_index = -1
-            groups_undone = []
-            atoms_undone = []
+        aux_peptidic_bonds_C={}
+        aux_peptidic_bonds_N={}
 
-            aux_peptidic_bonds_C={}
-            aux_peptidic_bonds_N={}
+        bonds = []
 
-            bonds = []
+        for group_name, group_type, atom_indices, atom_names, atom_types in zip(*aux_lists):
 
-            for group_name, group_type, atom_indices, atom_names in zip(*aux_lists):
+            group_index += 1
 
-                group_index += 1
+            aux_bonds = None
 
-                if group_type=="water": # Use match-case whenever Python 3.9 is deprecated
-
+            match group_type:
+                case "water":
                     aux_bonds = _bonds_in_water(atom_names, atom_indices, sorted=False)
-                    bonds += aux_bonds
-
-                elif group_type=="ion":
-                        
+                case "ion":
                     aux_bonds = _bonds_in_ion(group_name, atom_names, atom_indices, sorted=False)
-                    if aux_bonds is None:
-                        aux_bonds = _bonds_in_unknown_group(molecular_system, atom_indices, atom_names,
-                                                            structure_index=structure_index, max_bond_distance=max_bond_distance,
-                                                            sorted=False)
-                    bonds += aux_bonds
-
-                elif group_type=='amino acid':
-
+                case "amino acid":
                     aux_bonds = _bonds_in_amino_acid(group_name, atom_names, atom_indices, sorted=False)
-                    if aux_bonds is None:
-                        aux_bonds = _bonds_in_unknown_group(molecular_system, atom_indices, atom_names,
-                                                            structure_index=structure_index, max_bond_distance=max_bond_distance,
-                                                            sorted=False)
-                    bonds += aux_bonds
-                    
                     if 'C' in atom_names:
                         aux_peptidic_bonds_C[group_index]=atom_indices[atom_names.index('C')]
-
                     if 'N' in atom_names:
                         aux_peptidic_bonds_N[group_index]=atom_indices[atom_names.index('N')]
-
-                elif group_type=='terminal capping':
-
+                case "terminal capping":
                     aux_bonds = _bonds_in_terminal_capping(group_name, atom_names, atom_indices, sorted=False)
-                    if aux_bonds is None:
-                        aux_bonds = _bonds_in_unknown_group(molecular_system, atom_indices, atom_names,
-                                                            structure_index=structure_index, max_bond_distance=max_bond_distance,
-                                                            sorted=False)
-                    bonds += aux_bonds
-
                     if is_c_terminal_capping(group_name):
                         aux_peptidic_bonds_C[group_index]=atom_indices[atom_names.index('C')]
                     elif is_n_terminal_capping(group_name):
                         aux_peptidic_bonds_N[group_index]=atom_indices[atom_names.index('N')]
                     else:
                         raise ValueError("terminal capping not recognized as C- or N-")
-
-                elif group_type=='small molecule':
-
+                case "small molecule":
                     aux_bonds = _bonds_in_small_molecule(group_name, atom_names, atom_indices, sorted=False)
-                    if aux_bonds is None:
-                        aux_bonds = _bonds_in_unknown_group(molecular_system, atom_indices, atom_names,
-                                                            structure_index=structure_index, max_bond_distance=max_bond_distance,
-                                                            sorted=False)
-                    bonds += aux_bonds
-
-                elif group_type=='saccharide':
-
+                case "saccharide":
                     aux_bonds = _bonds_in_saccharide(group_name, atom_names, atom_indices, sorted=False)
-                    if aux_bonds is None:
-                        aux_bonds = _bonds_in_unknown_group(molecular_system, atom_indices, atom_names,
-                                                            structure_index=structure_index, max_bond_distance=max_bond_distance,
-                                                            sorted=False)
-                    bonds += aux_bonds
+                case "oligosaccharide":
+                    aux_bonds = None
+                case "lipid":
+                    aux_bonds = None
+                case "nucleotide":
+                    aux_bonds = None
+                case _:
+                    aux_bonds = None
 
-                elif group_type=='oligosaccharide':
+            if aux_bonds is None:
+                aux_bonds = _bonds_in_group_without_template(molecular_system, atom_indices, atom_names, atom_types,
+                                                             group_name, group_type,
+                                                             structure_index=structure_index, max_bond_distance=max_bond_distance,
+                                                             sorted=False)
 
-                    raise NotImplementedError('Group type "oligosaccharide" not implemented')
+            bonds += aux_bonds
 
-                elif group_type=='lipid':
+        # peptidic bonds
 
-                    raise NotImplementedError('Group type "lipid" not implemented')
+        aux_bonds = _get_peptidic_bonds(molecular_system, aux_peptidic_bonds_C, aux_peptidic_bonds_N, structure_index=structure_index,
+                                        max_bond_distance=max_bond_distance, pbc=pbc, sorted=False)
 
-                elif group_type=='nucleotide':
+        bonds += aux_bonds
 
-                    raise NotImplementedError('Group type "nucleotide" not implemented')
+        # disulfide bonds
 
-                else:
+        if disulfide_bonds:
 
-                    groups_undone.append(group_index)
+            from .get_disulfide_bonds import get_disulfide_bonds
 
-            # peptidic bonds
+            aux_bonds = get_disulfide_bonds(molecular_system, selection=selection, structure_index=structure_index,
+                                            max_bond_distance=None, group_names=disulfide_group_names, pbc=pbc,
+                                            sorted=False, skip_digestion=True)
 
-            aux_C = []
-            aux_N = []
+            bonds += aux_bonds
 
-            for group_index in aux_peptidic_bonds_C.keys():
-                if group_index+1 in aux_peptidic_bonds_N:
-                    aux_C.append(aux_peptidic_bonds_C[group_index])
-                    aux_N.append(aux_peptidic_bonds_N[group_index+1])
+        # mask with selection
 
-            if len(aux_C):
-                peptidic_bonds = get_contacts(molecular_system, selection=aux_C, selection_2=aux_N,
-                                              threshold=max_bond_distance, pairs=True, output_type='pairs',
-                                              output_indices='atom', pbc=True, skip_digestion=True)[0]
+        if not is_all(selection):
+            mask =  select(molecular_system, element='atom', selection=selection)
+            tmp_bonds = []
+            for bond in bonds:
+                if (bond[0] in mask) and (bond[1] in mask):
+                    tmp_bonds += bond
+            bonds = tmp_bonds
 
-                bonds += peptidic_bonds
-
-            del(aux_lists, group_name, group_type, atom_indices, atom_names)
-            del(aux_peptidic_bonds_C, aux_peptidic_bonds_N, aux_C, aux_N)
-            
-            if len(groups_undone):
-                raise NotImplementedError('Some groups not defined with templates')
-            if len(atoms_undone):
-                raise NotImplementedError('Some atoms not defined with templates')
-
-            if not is_all(selection):
-                mask =  select(molecular_system, element='atom', selection=selection)
-                tmp_bonds = []
-                for bond in bonds:
-                    if (bond[0] in mask) and (bond[1] in mask):
-                        tmp_bonds += bond
-                bonds = tmp_bonds
-
-        else:
-
-            atom_indices, atom_names, atom_types, group_indices, group_types = get(molecular_system, element='atom',
-                                                                               selection=selection,
-                                                                               atom_index=True, atom_name=True,
-                                                                               atom_type=True, group_index=True,
-                                                                               group_type=True, skip_digestion=True)
-
-            heavy_atoms=[]
-            heavy_atoms_name=[]
-            heavy_atoms_group_index=[]
-            heavy_atoms_group_type=[]
-            h_atoms=[]
-            h_atoms_group_index=[]
-
-            for index, atom_name, atom_type, group_index, group_type in zip(atom_indices, atom_names, atom_types,
-                                                                            group_indices, group_types):
-                if 'H'==atom_type:
-                    h_atoms.append(index)
-                    h_atoms_group_index.append(group_index)
-                else:
-                    heavy_atoms.append(index)
-                    heavy_atoms_name.append(atom_name)
-                    heavy_atoms_group_index.append(group_index)
-                    heavy_atoms_group_type.append(group_type)
-
-            heavy_bonds = get_contacts(molecular_system, selection=heavy_atoms,
-                                       structure_indices = structure_index, threshold=max_bond_distance,
-                                       output_type='pairs', output_indices='selection', pbc=True,
-                                       skip_digestion=True)[0]
-
-            h_bonds = get_contacts(molecular_system, selection=heavy_atoms, selection_2=h_atoms,
-                                   structure_indices = structure_index, threshold=max_bond_distance,
-                                   output_type='pairs', output_indices='selection', pbc=True, skip_digestion=True)[0]
-
-            bonds_with_distance = []
-
-            for pair in heavy_bonds:
-                ii,jj=pair
-                if heavy_atoms_group_index[ii]==heavy_atoms_group_index[jj]:
-                    if heavy_atoms_group_type[ii]=='amino acid':
-                        ii_name = heavy_atoms_name[ii]
-                        jj_name = heavy_atoms_name[jj]
-                        if 'N' in [ii_name, jj_name]:
-                            if set(['N','CA'])==set([ii_name, jj_name]):
-                                ii = heavy_atoms[ii]
-                                jj = heavy_atoms[jj]
-                                if ii<jj:
-                                    bonds_with_distance.append([ii,jj])
-                                else:
-                                    bonds_with_distance.append([jj,ii])
-                        elif 'C' in [ii_name, jj_name]:
-                            if set(['C','CA'])==set([ii_name, jj_name]):
-                                ii = heavy_atoms[ii]
-                                jj = heavy_atoms[jj]
-                                if ii<jj:
-                                    bonds_with_distance.append([ii,jj])
-                                else:
-                                    bonds_with_distance.append([jj,ii])
-                            elif set(['C','O'])==set([ii_name, jj_name]):
-                                ii = heavy_atoms[ii]
-                                jj = heavy_atoms[jj]
-                                if ii<jj:
-                                    bonds_with_distance.append([ii,jj])
-                                else:
-                                    bonds_with_distance.append([jj,ii])
-                        elif 'CA' in [ii_name, jj_name]:
-                            if set(['CA','CB'])==set([ii_name, jj_name]):
-                                ii = heavy_atoms[ii]
-                                jj = heavy_atoms[jj]
-                                if ii<jj:
-                                    bonds_with_distance.append([ii,jj])
-                                else:
-                                    bonds_with_distance.append([jj,ii])
-                        else:
-                            ii = heavy_atoms[ii]
-                            jj = heavy_atoms[jj]
-                            if ii<jj:
-                                bonds_with_distance.append([ii,jj])
-                            else:
-                                bonds_with_distance.append([jj,ii])
-                    else:
-                        ii = heavy_atoms[ii]
-                        jj = heavy_atoms[jj]
-                        if ii<jj:
-                            bonds_with_distance.append([ii,jj])
-                        else:
-                            bonds_with_distance.append([jj,ii])
-                elif heavy_atoms_name[ii]=='C' and heavy_atoms_name[jj]=='N':
-                    if heavy_atoms_group_type[ii] in ['amino acid', 'terminal capping'] and heavy_atoms_group_type[jj] in ['amino acid', 'terminal capping']:
-                        if heavy_atoms_group_index[ii]+1==heavy_atoms_group_index[jj]:
-                            ii = heavy_atoms[ii]
-                            jj = heavy_atoms[jj]
-                            if ii<jj:
-                                bonds_with_distance.append([ii,jj])
-                            else:
-                                bonds_with_distance.append([jj,ii])
-                elif heavy_atoms_name[ii]=='N' and heavy_atoms_name[jj]=='C':
-                    if heavy_atoms_group_type[ii] in ['amino acid', 'terminal capping'] and heavy_atoms_group_type[jj] in ['amino acid', 'terminal capping']:
-                        if heavy_atoms_group_index[ii]==heavy_atoms_group_index[jj]+1:
-                            ii = heavy_atoms[ii]
-                            jj = heavy_atoms[jj]
-                            if ii<jj:
-                                bonds_with_distance.append([ii,jj])
-                            else:
-                                bonds_with_distance.append([jj,ii])
-
-            for pair in h_bonds:
-                ii,jj=pair
-                if heavy_atoms_group_index[ii]==h_atoms_group_index[jj]:
-                    if heavy_atoms_group_type[ii]=='amino acid':
-                        if heavy_atoms_name[ii] not in ['CA','C','O']:
-                            ii = heavy_atoms[ii]
-                            jj = h_atoms[jj]
-                            if ii<jj:
-                                bonds_with_distance.append([ii,jj])
-                            else:
-                                bonds_with_distance.append([jj,ii])
-                    else:
-                        ii = heavy_atoms[ii]
-                        jj = h_atoms[jj]
-                        if ii<jj:
-                            bonds_with_distance.append([ii,jj])
-                        else:
-                            bonds_with_distance.append([jj,ii])
-
-            bonds += bonds_with_distance
+        # remove old bonds
 
         if old_bonds:
 
@@ -356,37 +164,95 @@ def get_missing_bonds(molecular_system, max_bond_distance='2 angstroms', selecti
         raise NotImplementedMethodError
 
     if sorted:
-        bonds = _sorted(bonds)
+
+        bonds = sorted_list_of_pairs(bonds)
 
     return bonds
 
-def _bonds_in_unknown_group(molecular_system, atom_indices, atom_names, structure_index=0,
-                            max_bond_distance='2 angstroms', sorted=True):
+def _bonds_in_group_without_template(molecular_system, atom_indices, atom_names, atom_types, group_name, group_type,
+                            structure_index=0, max_bond_distance='2 angstroms', pbc=True, sorted=True):
 
-    from molsysmt.element.atom import get_atom_type_from_atom_name
-    from molsysmt.structure import get_contacts
+    from molsysmt.structure import get_neighbors
 
-    heavy_atoms=[]
-    h_atoms=[]
+    bonds = []
 
-    for index, name in zip(atom_indices, atom_names):
-        if 'H'==get_atom_type_from_atom_name(name):
-            h_atoms.append(index)
-        else:
-            heavy_atoms.append(index)
+    pairs, dists = get_neighbors(molecular_system, selection=atom_indices, structure_indices = structure_index,
+                                 threshold=max_bond_distance, output_type='pairs', output_indices='selection',
+                                 sorted=False, pbc=pbc, skip_digestion=True)
 
-    heavy_bonds = get_contacts(molecular_system, selection=heavy_atoms,
-                               structure_indices = structure_index, threshold=max_bond_distance,
-                               output_type='pairs', output_indices='atom', pbc=True, skip_digestion=True)[0]
+    n_bonds_hs = {}
 
-    h_bonds = get_contacts(molecular_system, selection=heavy_atoms, selection_2=h_atoms,
-                           structure_indices = structure_index, threshold=max_bond_distance,
-                           output_type='pairs', output_indices='atom', pbc=True, skip_digestion=True)[0]
+    for pair, dist in zip(pairs[0], dists[0]):
 
-    bonds = heavy_bonds + h_bonds
+        atom_type_1 = atom_types[pair[0]]
+        atom_type_2 = atom_types[pair[1]]
+
+        atom_index_1 = atom_indices[pair[0]]
+        atom_index_2 = atom_indices[pair[1]]
+
+        add_bond = False
+
+        try:
+            aux_bond_distance = max_expected_bond_length[group_type][atom_type_1][atom_type_2]
+            if aux_bond_distance is not None:
+                if dist<=aux_bond_distance+bond_length_tolerance:
+                    add_bond = True
+        except:
+            message = (f"No max bond length defined between atom types {atom_type_1} and {atom_type_2} "
+                       f"in group type {group_type}. The bond between atoms {pair} was defined "
+                       f"by max_bond_distance={round(max_bond_distance,4)}.")
+            print("Warning: "+message)
+            add_bond = True
+
+        if add_bond:
+            bonds.append(pair)
+            if atom_type_1=='H':
+                if atom_index_1 in n_bonds_hs:
+                    n_bonds_hs[atom_index_1] += 1
+                else:
+                    n_bonds_hs[atom_index_1] = 1
+            if atom_type_2=='H':
+                if atom_index_2 in n_bonds_hs:
+                    n_bonds_hs[atom_index_2] += 1
+                else:
+                    n_bonds_hs[atom_index_2] = 1
+
+    for ii in n_bonds_hs.keys():
+        if n_bonds_hs[ii]>1:
+            print(f"Warning: H atom {ii} in group {group_name} has {n_bonds_hs[ii]} bonds")
 
     if sorted:
-        bonds = _sorted(bonds)
+        bonds = sorted_list_of_pairs(bonds)
+
+    return bonds
+
+def _get_peptidic_bonds(molecular_system, aux_peptidic_bonds_C, aux_peptidic_bonds_N,
+                        selection='all', structure_index=0, max_bond_distance='2 angstroms', pbc=True, sorted=True):
+
+    from molsysmt.structure import get_neighbors
+
+    bonds = []
+
+    aux_C = []
+    aux_N = []
+
+    for group_index in aux_peptidic_bonds_C.keys():
+        if group_index+1 in aux_peptidic_bonds_N:
+            aux_C.append(aux_peptidic_bonds_C[group_index])
+            aux_N.append(aux_peptidic_bonds_N[group_index+1])
+
+    if len(aux_C):
+
+
+        pairs, dists = get_neighbors(molecular_system, selection=aux_C, selection_2=aux_N,
+                       structure_indices = structure_index, threshold=max_bond_distance, output_type='pairs',
+                       output_indices = 'atom', pbc=pbc, sorted=False, skip_digestion=True)
+        for pair, dist in zip(pairs[0], dists[0]):
+            if dist <= max_expected_bond_length['protein']['C']['N']+bond_length_tolerance:
+                bonds.append(pair)
+
+    if sorted:
+        bonds = sorted_list_of_pairs(bonds)
 
     return bonds
 
