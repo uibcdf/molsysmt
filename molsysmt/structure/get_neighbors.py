@@ -38,7 +38,10 @@ def get_neighbors(molecular_system, selection="all", structure_indices="all", ce
                output_type='numpy.ndarray', output_indices=output_indices, output_structure_indices=output_structure_indices,
                weights_2=weights_2, pbc=pbc, engine=engine, syntax=syntax)
 
-    all_dists = output_get_distances[-1]
+    if output_indices is None and output_structure_indices is None:
+        all_dists = output_get_distances
+    else:
+        all_dists = output_get_distances[-1]
 
     nstructures, nelements_1, nelements_2 = all_dists.shape
     length_units = puw.get_unit(all_dists)

@@ -205,7 +205,7 @@ def _bonds_in_group_without_template(molecular_system, atom_indices, atom_names,
             add_bond = True
 
         if add_bond:
-            bonds.append(pair)
+            bonds.append([atom_index_1, atom_index_2])
             if atom_type_1=='H':
                 if atom_index_1 in n_bonds_hs:
                     n_bonds_hs[atom_index_1] += 1
