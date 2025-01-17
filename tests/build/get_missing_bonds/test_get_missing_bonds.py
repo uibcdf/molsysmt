@@ -7,8 +7,9 @@ systems.
 import pytest
 import molsysmt as msm
 import numpy as np
+import sys
 
-
+@pytest.mark.skipif(sys.platform != "linux", reason="This test can only be run in linux")
 def test_get_missing_bonds_molsysmt_MolSys_1():
 
     molsys = msm.convert(msm.systems['nglview']['md_1u19.pdb'], to_form='molsysmt.MolSys')
