@@ -24,7 +24,6 @@ production:
     - jinja2
     - openmm
     - pdbfixer
-    - pytraj
     - nglview
     - ambertools
     - networkx
@@ -46,6 +45,9 @@ test:
     - pytest-cov
     - codecov
     - pytest-xdist
+    - pip
+    - pip:
+        - pytraj
 
 docs:
   channels: &docs_channels

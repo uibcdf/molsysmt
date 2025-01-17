@@ -17,7 +17,6 @@ dependencies:
 - jinja2
 - openmm
 - pdbfixer
-- pytraj
 - nglview
 - ambertools
 - networkx
@@ -33,3 +32,5 @@ dependencies:
 - pytest-cov
 - codecov
 - pytest-xdist
+- pip:
+  - pytraj
