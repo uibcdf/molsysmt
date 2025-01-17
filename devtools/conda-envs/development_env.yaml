@@ -17,6 +17,7 @@ dependencies:
 - jinja2
 - openmm
 - pdbfixer
+- pytraj
 - nglview
 - ambertools
 - networkx

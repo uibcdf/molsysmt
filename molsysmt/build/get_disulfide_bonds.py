@@ -6,7 +6,6 @@ from molsysmt.element.bond import max_expected_bond_length
 import numpy as np
 import warnings
 
-
 @digest()
 def get_disulfide_bonds(molecular_system, selection='all', structure_index=0, max_bond_length='2.05 angstroms',
                         group_names=['CYS'], pbc=True, syntax='MolSysMT', engine='MolSysMT', sorted=True,
