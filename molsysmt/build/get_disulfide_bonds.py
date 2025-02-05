@@ -1,3 +1,4 @@
+from molsysmt import pyunitwizard as puw
 from molsysmt._private.digestion import digest
 from molsysmt._private.exceptions import NotImplementedMethodError
 from molsysmt._private.variables import is_all
@@ -25,29 +26,34 @@ def get_disulfide_bonds(molecular_system, selection='all', structure_index=0, ma
         from molsysmt import select, get
         from molsysmt.structure import get_contacts
 
-        S_indices = select(molecular_system, selection=selection, group_name=group_names, atom_type='S')
+        if is_all(selection):
+            mask = None
+        else:
+            mask= select(molecular_system, selection=selection, syntax=syntax)
+
+        S_indices = select(molecular_system, element='atom', selection='atom_type=="S"',
+                           mask=mask, syntax='MolSysMT')
 
         if len(S_indices)>1:
 
-            tmp_group_indices, tmp_group_names = get(molecular_system, target='atom', indices=S_indices,
+            tmp_group_indices, tmp_group_names = get(molecular_system, element='atom', selection=S_indices,
                                                      group_index=True, group_name=True)
 
-            aux_group_indices = {ii:jj for ii,jj in zip(S_indices, tmp_group_indices)}
-            aux_group_names = {ii:jj for ii,jj in zip(S_indices, tmp_group_names)}
-
             contacts = get_contacts(molecular_system, selection=S_indices, structure_indices=structure_index,
-                                    threshold=max_bond_length, output_type='pairs', pbc=pbc, skip_digestion=True)
+                                    threshold=max_bond_length, output_type='pairs', output_indices='selection',
+                                    pbc=pbc, skip_digestion=True)
 
             for pair in contacts[0]:
-                if group_indices[pair[0]]!=group_indices[pair[1]]:
-                    if aux_group_names[pair[0]] in group_names and aux_group_names[pair[1]] in group_names:
-                        bonds.append(pair)
+                at1, at2 = pair
+                if tmp_group_indices[at1]!=tmp_group_indices[at2]:
+                    if tmp_group_names[at1] in group_names and tmp_group_names[at2] in group_names:
+                        bonds.append([S_indices[at1], S_indices[at2]])
                     else:
                         for ii in pair:
                             if aux_group_names[ii] not in group_names:
-                                message=(f"Warning: atom index {ii} in group {aux_group_names[ii]} with index"
-                                          f"{aux_group_indices[ii]} can not be part of a disulfide bond not defined"
-                                          f"with your input argument `group_names`")
+                                message=(f"Warning: atom index {S_indices[ii]} in group {aux_group_names[ii]} with index"
+                                          f"{aux_group_indices[ii]} can not be part of a disulfide bond because it is not in the list"
+                                          f"of your input argument `group_names`")
                                 warnings.warn(message)
 
     if sorted:

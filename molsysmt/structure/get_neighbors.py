@@ -6,7 +6,8 @@ import numpy as np
 @digest()
 def get_neighbors(molecular_system, selection="all", structure_indices="all", center_of_atoms=False, weights=None,
                   molecular_system_2=None, selection_2=None, structure_indices_2=None, center_of_atoms_2=False, weights_2=None,
-                  threshold=None, n_neighbors=None, pairs=False, pbc=True, output_type='numpy.ndarray', output_indices=None, output_structure_indices=None,
+                  threshold=None, n_neighbors=None, pairs=False, mutual_only=False, pbc=True, output_type='numpy.ndarray',
+                  output_indices=None, output_structure_indices=None,
                   sorted=True, engine='MolSysMT', syntax='MolSysMT', skip_digestion=False):
     """
     To be written soon...
@@ -130,12 +131,22 @@ def get_neighbors(molecular_system, selection="all", structure_indices="all", ce
                 aux_dists = []
                 for jj in range(nelements_1):
                     for kk in range(len(neighs[ii,jj])):
-                        if same_set==False or jj<neighs[ii,jj][kk]:
-                            aux_dists.append(dists[ii,jj][kk])
-                            if with_output_indices:
-                                aux_pairs.append([aux_indices_1[jj], aux_indices_2[neighs[ii,jj][kk]]])
-                            else:
-                                aux_pairs.append([jj, neighs[ii,jj][kk]])
+                        aux_dists.append(dists[ii,jj][kk])
+                        if with_output_indices:
+                            aux_pairs.append([aux_indices_1[jj], aux_indices_2[neighs[ii,jj][kk]]])
+                        else:
+                            aux_pairs.append([jj, neighs[ii,jj][kk]])
+                if mutual_only:
+                    tmp_pairs = []
+                    tmp_dists = []
+                    for pair, dist in zip(aux_pairs, aux_dists):
+                        if ([pair[1], pair[0]] in aux_pairs) and (pair[0]<pair[1]):
+                            tmp_pairs.append(pair)
+                            tmp_dists.append(dist)
+                    aux_pairs = tmp_pairs
+                    aux_dists = tmp_dists
+                if len(aux_dists)>0:
+                    aux_dists = puw.concatenate(aux_dists, type_value='list')
                 if sorted:
                     aux_pairs, aux_dists = sorted_list_of_pairs(aux_pairs, aux_dists)
                 neighs_pairs.append(aux_pairs)
