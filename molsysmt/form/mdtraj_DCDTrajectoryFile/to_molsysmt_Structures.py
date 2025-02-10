@@ -20,8 +20,8 @@ def to_molsysmt_Structures(item, atom_indices='all', structure_indices='all', sk
         box.append(jj[0])
         structure_id.append(kk)
 
-    coordinates = puw.concatenate(coordinates, type_value='numpy.ndarray')
-    box = puw.concatenate(box, type_value='numpy.ndarray')
+    coordinates = puw.utils.sequences.concatenate(coordinates, value_type='numpy.ndarray')
+    box = puw.utils.sequences.concatenate(box, value_type='numpy.ndarray')
     structure_id = np.array(structure_id)
 
     tmp_item = Structures()

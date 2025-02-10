@@ -17,7 +17,7 @@ def test_iterator_1():
     coordinates = []
     for aux_coordinates in iterator:
         coordinates.append(aux_coordinates[0])
-    coordinates = puw.concatenate(coordinates, type_value='numpy.ndarray')
+    coordinates = puw.utils.sequences.concatenate(coordinates, value_type='numpy.ndarray')
     assert coordinates.shape == (50, 294, 3)
 
 def test_iterator_2():
@@ -27,7 +27,7 @@ def test_iterator_2():
     coordinates = []
     for aux_coordinates in iterator:
         coordinates.append(aux_coordinates[0])
-    coordinates = puw.concatenate(coordinates, type_value='numpy.ndarray')
+    coordinates = puw.utils.sequences.concatenate(coordinates, value_type='numpy.ndarray')
     assert coordinates.shape == (50, 294, 3)
 
 def test_iterator_3():
@@ -37,6 +37,6 @@ def test_iterator_3():
     coordinates = []
     for aux_coordinates in iterator:
         coordinates.append(aux_coordinates[0])
-    coordinates = puw.concatenate(coordinates, type_value='numpy.ndarray')
+    coordinates = puw.utils.sequences.concatenate(coordinates, value_type='numpy.ndarray')
     assert coordinates.shape == (50, 294, 3)
 

@@ -179,17 +179,17 @@ def merge(items, atom_indices='all', structure_indices='all', skip_digestion=Fal
     if any([ii is None for ii in list_coordinates]):
         output.coordinates = None
     else:
-        output.coordinates = puw.hstack(list_coordinates)
+        output.coordinates = puw.utils.numpy.hstack(list_coordinates)
 
     if any([ii is None for ii in list_velocities]):
         output.velocities = None
     else:
-        output.velocities = puw.hstack(list_velocities)
+        output.velocities = puw.utils.numpy.hstack(list_velocities)
 
     if any([ii is None for ii in list_b_factor]):
         output.b_factor = None
     else:
-        output.b_factor = puw.hstack(list_b_factor)
+        output.b_factor = puw.utils.numpy.hstack(list_b_factor)
 
     del(list_coordinates, list_velocities, list_b_factor)
 

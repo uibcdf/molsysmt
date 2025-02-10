@@ -47,10 +47,10 @@ def get_buch_hbonds(molecular_system, selection='all', acceptors=None, donors=No
                             tmp_atoms.append([atom_d, atom_h, acceptors[jj]])
                             tmp_distances.append(dist)
                 output_atoms.append(np.array(tmp_atoms))
-                output_distances.append(puw.concatenate(tmp_distances, type_value='numpy.ndarray'))
+                output_distances.append(puw.utils.sequences.concatenate(tmp_distances, value_type='numpy.ndarray'))
 
             output_atoms=np.array(output_atoms)
-            output_distances=puw.concatenate(output_distances, type_value='numpy.ndarray')
+            output_distances=puw.utils.sequences.concatenate(output_distances, value_type='numpy.ndarray')
 
             return output_atoms, output_distances
 
@@ -105,10 +105,10 @@ def get_buch_hbonds(molecular_system, selection='all', acceptors=None, donors=No
                             tmp_distances.append(dist)
 
                 output_atoms.append(np.array(tmp_atoms))
-                output_distances.append(puw.concatenate(tmp_distances, type_value='numpy.ndarray'))
+                output_distances.append(puw.utils.sequences.concatenate(tmp_distances, value_type='numpy.ndarray'))
 
             output_atoms=np.array(output_atoms)
-            output_distances=puw.concatenate(output_distances, type_value='numpy.ndarray')
+            output_distances=puw.utils.sequences.concatenate(output_distances, value_type='numpy.ndarray')
 
             return output_atoms, output_distances
 

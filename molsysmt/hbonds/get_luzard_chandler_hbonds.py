@@ -61,7 +61,7 @@ def get_luzard_chandler_hbonds(molecular_system, selection='all', acceptors=None
                             tmp_distances.append(dist)
 
                 tmp_atoms = np.array(tmp_atoms)
-                tmp_distances = puw.concatenate(tmp_distances, type_value='numpy.ndarray')
+                tmp_distances = puw.utils.sequences.concatenate(tmp_distances, value_type='numpy.ndarray')
 
                 tmp_angles = get_angles(molecular_system, tmp_atoms[:,[1,0,2]], pbc=pbc,
                         structure_indices=mm)[0]
@@ -72,8 +72,8 @@ def get_luzard_chandler_hbonds(molecular_system, selection='all', acceptors=None
                 output_angles.append(tmp_angles[mask])
 
             output_atoms=np.array(output_atoms)
-            output_distances=puw.concatenate(output_distances, type_value='numpy.ndarray')
-            output_angles=puw.concatenate(output_angles, type_value='numpy.ndarray')
+            output_distances=puw.utils.sequences.concatenate(output_distances, value_type='numpy.ndarray')
+            output_angles=puw.utils.sequences.concatenate(output_angles, value_type='numpy.ndarray')
 
 
             return output_atoms, output_distances, output_angles
@@ -130,7 +130,7 @@ def get_luzard_chandler_hbonds(molecular_system, selection='all', acceptors=None
                             tmp_distances.append(dist)
 
                 tmp_atoms = np.array(tmp_atoms)
-                tmp_distances = puw.concatenate(tmp_distances, type_value='numpy.ndarray')
+                tmp_distances = puw.utils.sequences.concatenate(tmp_distances, value_type='numpy.ndarray')
 
                 tmp_angles = get_angles(molecular_system, tmp_atoms[:,[1,0,2]], pbc=pbc,
                         structure_indices=mm)[0]
@@ -141,8 +141,8 @@ def get_luzard_chandler_hbonds(molecular_system, selection='all', acceptors=None
                 output_angles.append(tmp_angles[mask])
 
             output_atoms=np.array(output_atoms)
-            output_distances=puw.concatenate(output_distances, type_value='numpy.ndarray')
-            output_angles=puw.concatenate(output_angles, type_value='numpy.ndarray')
+            output_distances=puw.utils.sequences.concatenate(output_distances, value_type='numpy.ndarray')
+            output_angles=puw.utils.sequences.concatenate(output_angles, value_type='numpy.ndarray')
 
             return output_atoms, output_distances, output_angles
 

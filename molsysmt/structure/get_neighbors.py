@@ -146,7 +146,7 @@ def get_neighbors(molecular_system, selection="all", structure_indices="all", ce
                     aux_pairs = tmp_pairs
                     aux_dists = tmp_dists
                 if len(aux_dists)>0:
-                    aux_dists = puw.concatenate(aux_dists, type_value='list')
+                    aux_dists = puw.utils.sequences.concatenate(aux_dists, value_type='list')
                 if sorted:
                     aux_pairs, aux_dists = sorted_list_of_pairs(aux_pairs, aux_dists)
                 neighs_pairs.append(aux_pairs)

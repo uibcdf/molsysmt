@@ -44,12 +44,12 @@ def merge(items, atom_indices='all', skip_digestion=False):
     if any([ii is None for ii in list_formal_charge]):
         output.formal_charge = None
     else:
-        output.formal_charge = puw.concatenate(list_formal_charge)
+        output.formal_charge = puw.utils.sequences.concatenate(list_formal_charge)
 
     if any([ii is None for ii in list_partial_charge]):
         output.partial_charge = None
     else:
-        output.partial_charge = puw.concatenate(list_partial_charge)
+        output.partial_charge = puw.utils.sequences.concatenate(list_partial_charge)
 
     return output
 

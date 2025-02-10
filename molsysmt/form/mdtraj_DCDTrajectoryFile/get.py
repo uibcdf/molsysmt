@@ -86,7 +86,7 @@ def get_coordinates_from_atom(item, indices='all', structure_indices='all', skip
         for aux_coordinates in iterator:
             coordinates.append(aux_coordinates)
 
-        coordinates = puw.concatenate(coordinates, output_value='numpy.ndarray')
+        coordinates = puw.utils.sequences.concatenate(coordinates, output_value='numpy.ndarray')
 
     return coordinates
 

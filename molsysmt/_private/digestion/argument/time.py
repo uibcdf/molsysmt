@@ -44,7 +44,7 @@ def digest_time(time, caller=None):
             return puw.standardize(time)
     elif type(time, (list, tuple, np.ndarray)):
         if puw.is_quantity(time[0]):
-            time = puw.concatenate(time, type_value='numpy.ndarray')
+            time = puw.utils.sequences.concatenate(time, value_type='numpy.ndarray')
             if puw.check(time, dimensionality={'[T]':1}):
                 return puw.standardize(time)
 
