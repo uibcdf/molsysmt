@@ -16,7 +16,7 @@ def is_form(item):
 
                 from Bio.SeqUtils.ProtParam import ProteinAnalysis
                 analysed_seq = ProteinAnalysis(item)
-                output = (sum(analysed_seq.get_amino_acids_percent().values()) > 0.99)
+                output = (sum(analysed_seq.amino_acids_percent.values()) > 99.0)
 
     return output
 
