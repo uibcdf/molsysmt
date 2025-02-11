@@ -6,8 +6,8 @@ import numpy as np
 @digest()
 def get_neighbors(molecular_system, selection="all", structure_indices="all", center_of_atoms=False, weights=None,
                   molecular_system_2=None, selection_2=None, structure_indices_2=None, center_of_atoms_2=False, weights_2=None,
-                  threshold=None, n_neighbors=None, pairs=False, mutual_only=False, pbc=True, output_type='numpy.ndarray',
-                  output_indices=None, output_structure_indices=None,
+                  threshold=None, n_neighbors=None, pairs=False, unique_pairs=False, mutual_only=False, pbc=True,
+                  output_type='numpy.ndarray', output_indices=None, output_structure_indices=None,
                   sorted=True, engine='MolSysMT', syntax='MolSysMT', skip_digestion=False):
     """
     To be written soon...
@@ -141,6 +141,15 @@ def get_neighbors(molecular_system, selection="all", structure_indices="all", ce
                     tmp_dists = []
                     for pair, dist in zip(aux_pairs, aux_dists):
                         if ([pair[1], pair[0]] in aux_pairs) and (pair[0]<pair[1]):
+                            tmp_pairs.append(pair)
+                            tmp_dists.append(dist)
+                    aux_pairs = tmp_pairs
+                    aux_dists = tmp_dists
+                if unique_pairs:
+                    tmp_pairs = []
+                    tmp_dists = []
+                    for pair, dist in zip(aux_pairs, aux_dists):
+                        if [pair[0],pair[1]] not in tmp_pairs and [pair[1],pair[0]] not in tmp_pairs:
                             tmp_pairs.append(pair)
                             tmp_dists.append(dist)
                     aux_pairs = tmp_pairs

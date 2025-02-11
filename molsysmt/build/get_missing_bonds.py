@@ -7,7 +7,7 @@ import numpy as np
 import warnings
 
 @digest()
-def get_missing_bonds(molecular_system, selection='all', structure_index=0, max_bond_distance='2 angstroms',
+def get_missing_bonds(molecular_system, selection='all', structure_index=0, max_bond_length='2 angstroms',
                       disulfide_bonds=False, disulfide_group_names=['CYS'], pbc=True,
                       syntax='MolSysMT', engine='MolSysMT', sorted=True, skip_digestion=False):
 
@@ -85,7 +85,7 @@ def get_missing_bonds(molecular_system, selection='all', structure_index=0, max_
             if aux_bonds is None:
                 aux_bonds = _bonds_in_group_without_template(molecular_system, atom_indices, atom_names, atom_types,
                                                              group_name, group_type,
-                                                             structure_index=structure_index, max_bond_distance=max_bond_distance,
+                                                             structure_index=structure_index, max_bond_length=max_bond_length,
                                                              sorted=False)
 
             bonds += aux_bonds
@@ -93,7 +93,7 @@ def get_missing_bonds(molecular_system, selection='all', structure_index=0, max_
         # peptidic bonds
 
         aux_bonds = _get_peptidic_bonds(molecular_system, aux_peptidic_bonds_C, aux_peptidic_bonds_N, structure_index=structure_index,
-                                        max_bond_distance=max_bond_distance, pbc=pbc, sorted=False)
+                                        max_bond_length=max_bond_length, pbc=pbc, sorted=False)
 
         bonds += aux_bonds
 
@@ -104,7 +104,7 @@ def get_missing_bonds(molecular_system, selection='all', structure_index=0, max_
             from .get_disulfide_bonds import get_disulfide_bonds
 
             aux_bonds = get_disulfide_bonds(molecular_system, selection=selection, structure_index=structure_index,
-                                            max_bond_distance=None, group_names=disulfide_group_names, pbc=pbc,
+                                            max_bond_length=None, group_names=disulfide_group_names, pbc=pbc,
                                             sorted=False, skip_digestion=True)
 
             bonds += aux_bonds
@@ -144,7 +144,7 @@ def get_missing_bonds(molecular_system, selection='all', structure_index=0, max_
 
         temp_pdb_file = temp_filename(extension='pdb')
         temp_molecular_system = convert(molecular_system, to_form=temp_pdb_file)
-        temp_molecular_system = convert(temp_molecular_system, to_form="pytraj.Topology", max_bond_distance=max_bond_distance)
+        temp_molecular_system = convert(temp_molecular_system, to_form="pytraj.Topology", max_bond_length=max_bond_length)
 
         new_bonds = get(temp_molecular_system, element='atom', selection=selection, inner_bonded_atoms=True)
 
@@ -170,14 +170,14 @@ def get_missing_bonds(molecular_system, selection='all', structure_index=0, max_
     return bonds
 
 def _bonds_in_group_without_template(molecular_system, atom_indices, atom_names, atom_types, group_name, group_type,
-                            structure_index=0, max_bond_distance='2 angstroms', pbc=True, sorted=True):
+                            structure_index=0, max_bond_length='2 angstroms', pbc=True, sorted=True):
 
     from molsysmt.structure import get_neighbors
 
     bonds = []
 
     pairs, dists = get_neighbors(molecular_system, selection=atom_indices, structure_indices = structure_index,
-                                 threshold=max_bond_distance, output_type='pairs', output_indices='selection',
+                                 threshold=max_bond_length, output_type='pairs', unique_pairs=True, output_indices='selection',
                                  sorted=False, pbc=pbc, skip_digestion=True)
 
     n_bonds_hs = {}
@@ -200,7 +200,7 @@ def _bonds_in_group_without_template(molecular_system, atom_indices, atom_names,
         except:
             message = (f"No max bond length defined between atom types {atom_type_1} and {atom_type_2} "
                        f"in group type {group_type}. The bond between atoms {pair} was defined "
-                       f"by max_bond_distance={round(max_bond_distance,4)}.")
+                       f"by max_bond_length={round(max_bond_length,4)}.")
             print("Warning: "+message)
             add_bond = True
 
@@ -227,7 +227,7 @@ def _bonds_in_group_without_template(molecular_system, atom_indices, atom_names,
     return bonds
 
 def _get_peptidic_bonds(molecular_system, aux_peptidic_bonds_C, aux_peptidic_bonds_N,
-                        selection='all', structure_index=0, max_bond_distance='2 angstroms', pbc=True, sorted=True):
+                        selection='all', structure_index=0, max_bond_length='2 angstroms', pbc=True, sorted=True):
 
     from molsysmt.structure import get_neighbors
 
@@ -245,7 +245,7 @@ def _get_peptidic_bonds(molecular_system, aux_peptidic_bonds_C, aux_peptidic_bon
 
 
         pairs, dists = get_neighbors(molecular_system, selection=aux_C, selection_2=aux_N,
-                       structure_indices = structure_index, threshold=max_bond_distance, output_type='pairs',
+                       structure_indices = structure_index, threshold=max_bond_length, output_type='pairs',
                        output_indices = 'atom', pbc=pbc, sorted=False, skip_digestion=True)
         for pair, dist in zip(pairs[0], dists[0]):
             if dist <= max_expected_bond_length['protein']['C']['N']+bond_length_tolerance:

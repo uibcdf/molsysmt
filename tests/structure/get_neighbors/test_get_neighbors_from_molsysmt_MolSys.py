@@ -98,4 +98,18 @@ def test_get_neighbors_from_molsysmt_MolSys_7():
     check_n_contacts = (18==len(neighbors[0,11]))
     assert check_n_contacts
 
+def test_get_neighbors_from_molsysmt_MolSys_8():
+    molsys = msm.convert('5XJH')
+    pairs_mutual, distances_mutual = msm.structure.get_neighbors(molsys, selection='atom_type=="S"',
+                                                                 n_neighbors=1, output_type='pairs', mutual_only=True,
+                                                                 output_indices='atom')
+    pairs, distances = msm.structure.get_neighbors(molsys, selection='atom_type=="S"', n_neighbors=1, output_type='pairs',
+                                               mutual_only=False, sorted=False, output_indices='atom')
+    assert pairs_mutual==[[[724, 911], [1251, 1519], [1653, 1692], [1782, 1907]]] 
+    assert puw.are_close(distances_mutual[0], puw.quantity([0.68968444, 0.21195179, 0.33566942, 0.20483012], 'nanometer'))
+    assert pairs==[[[26, 1692], [724, 911], [911, 724], [930, 1653], [962, 1251], [1251, 1519], [1390, 1907],
+                    [1519, 1251], [1653, 1692], [1692, 1653], [1782, 1907], [1907, 1782]]]
+    assert puw.are_close(distances[0], puw.quantity([1.52251590, 0.68968443, 0.68968443, 0.48412480, 1.58220669,
+                                                     0.21195178, 1.24337632, 0.21195178, 0.33566942, 0.33566942,
+                                                     0.20483012, 0.20483012], 'nanometer'))
 

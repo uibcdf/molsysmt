@@ -24,3 +24,4 @@ def test_get_missing_bonds_molsysmt_MolSys_1():
     assert len(bonds2)==5632
     assert len(bonds1_not_in_bonds2)==0
     assert len(bonds2_not_in_bonds1)==0
+
