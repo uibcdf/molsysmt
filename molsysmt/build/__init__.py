@@ -15,7 +15,6 @@ from .solve_atoms_with_alternate_location import solve_atoms_with_alternate_loca
 from .build_peptide import build_peptide
 from .is_solvated import is_solvated
 from .solvate import solvate
-from .model_loop import model_loop
 from .mutate import mutate
 from .define_new_chain import define_new_chain
 from .make_water_box import make_water_box

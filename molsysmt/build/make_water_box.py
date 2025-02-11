@@ -4,16 +4,9 @@ from molsysmt import pyunitwizard as puw
 import numpy as np
 import sys
 
-if sys.version_info[1] in (10,11):
-    from importlib.resources import files
-    def path(package, file):
-        return files(package).joinpath(file)
-elif sys.version_info[1] in (8,9):
-    from pathlib import PurePath
-    parent = PurePath(__file__).parent
-    def path(package, file):
-        data_dir = package.split('.')[-1]
-        return parent.joinpath('../data/'+data_dir+'/'+file).__str__()
+from importlib.resources import files
+def path(package, file):
+    return files(package).joinpath(file)
 
 @digest()
 def make_water_box(box, form='molsysmt.MolSys'):
