@@ -107,6 +107,16 @@ def add_cylinders(view, bottom=None, top=None, vectors=None, color='#808080', co
     if not is_iterable(ngl_radius):
         ngl_radius = [ngl_radius for ii in range(n_cylinders)]
 
+    if color_values_2 is not None and color_values is not None:
+
+        if min_color_value is None and min_color_value_2 is None:
+            min_color_value = min(np.min(color_values), np.min(color_values_2))
+            min_color_value_2 = min_color_value
+
+        if max_color_value is None and max_color_value_2 is None:
+            max_color_value = max(np.max(color_values), np.max(color_values_2))
+            max_color_value_2 = max_color_value
+
     if color_values is not None:
         ngl_color = get_list_of_colors_from_values(color_values, min_value=min_color_value,
                 mid_value=mid_color_value, max_value=max_color_value, scale=color_values_scale,

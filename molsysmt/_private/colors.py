@@ -118,7 +118,12 @@ def get_list_of_colors_from_values(values, min_value=None, mid_value=None, max_v
         raise NotImplementedError
 
     data = norm(values)
-    cmap = mcolormaps[colormap]
+
+    if isinstance(colormap, str):
+        cmap = mcolormaps[colormap]
+    else:
+        cmap = colormap
+
     output_rgba = cmap(data)
 
     if form!='rgba':

@@ -4,6 +4,9 @@ from molsysmt import pyunitwizard as puw
 
 def digest_color_2(color_2, caller=None):
 
+    if color_2 is None:
+        return None
+
     if isinstance(color_2, str):
         if len(color_2)==7 and color_2.startswith('#'):
             return color_2
