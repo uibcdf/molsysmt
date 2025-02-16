@@ -30,7 +30,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: ${{ matrix.python-version }}
+          python-version: 3.12
 
       - name: Setup conda env
         uses: mamba-org/setup-micromamba@v2
@@ -44,7 +44,6 @@ jobs:
             channel_priority: strict
           create-args: >-
             python=3.12
-            #python=${{ matrix.python-version }}
 
       - name: Info conda
         shell: bash -l {0}
