@@ -12,9 +12,9 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false  # do not cancel all in-progress jobs if any job variation fails
-      matrix:
+        #matrix:
         #os: ubuntu-latest #[macOS-latest, ubuntu-latest]
-        python-version: ["3.10", "3.11", "3.12"]
+        #python-version: ["3.10", "3.11", "3.12"]
 
     steps:
 
@@ -33,7 +33,7 @@ jobs:
           python-version: ${{ matrix.python-version }}
 
       - name: Setup conda env
-        uses: mamba-org/setup-micromamba@v1
+        uses: mamba-org/setup-micromamba@v2
         with:
           environment-file: devtools/conda-envs/build_env.yaml
           environment-name: build
@@ -41,12 +41,10 @@ jobs:
             channels:
               - uibcdf
               - conda-forge
-              - ambermd
-              - defaults
             channel_priority: strict
-
           create-args: >-
-            python=${{ matrix.python-version }}
+            python=3.12
+            #python=${{ matrix.python-version }}
 
       - name: Info conda
         shell: bash -l {0}
@@ -56,13 +54,13 @@ jobs:
           micromamba list
 
       - name: Build and upload the conda packages
-        uses: uibcdf/action-build-and-upload-conda-packages@v1.4.0
+        uses: uibcdf/action-build-and-upload-conda-packages@main
         with:
           meta_yaml_dir: devtools/conda-build
-          python-version: ${{ matrix.python-version }} # Values previously defined in `matrix`
           mambabuild: false
           user: uibcdf
-          label: auto
+          label: main
+          conda_build_args: --package-format tar.bz2
           platform_linux-64: true
           platform_osx-64: true
           platform_osx-arm64: true
