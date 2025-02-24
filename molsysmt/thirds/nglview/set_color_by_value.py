@@ -5,7 +5,7 @@ from molsysmt._private.variables import is_all
 
 @digest()
 def set_color_by_value(view, values, element='group', selection='all', cmap='bwr_r',
-        min_value=None, max_value=None, representation='cartoon', syntax='MolSysMT'):
+        min_value=None, mid_value=None, max_value=None, representation='cartoon', syntax='MolSysMT'):
     """Adding a new representation colored by a color scale.
 
     A new representation can be added to an NGL view (NGLWidget) with elements colored by a list of values and a color map.
@@ -32,6 +32,9 @@ def set_color_by_value(view, values, element='group', selection='all', cmap='bwr
 
     min_value: float, Quantity, default='None'
        Minimum value of the color scale. By default ('None'), the minimum of the input argument `values` is taken.
+
+    mid_value: float, Quantity, default='None'
+       Middle value of the color scale. By default ('None'), the center between of the range [min_value, max_value] is taken.
 
     max_value: float, Quantity, default='None'
        Maximum value of the color scale. By default ('None'), the maximum of the input argument `values` is taken.
@@ -82,6 +85,12 @@ def set_color_by_value(view, values, element='group', selection='all', cmap='bwr
         min_value = min(values)
     if max_value is None:
         max_value = max(values)
+    if mid_value is not None:
+        l_max = abs(max_value-mid_value)
+        l_min = abs(mid_value-min_value)
+        l = max(l_max, l_min)
+        min_value = mid_value - l
+        max_value = mid_value + l
 
     norm = Normalize(vmin=min_value,vmax=max_value)
 

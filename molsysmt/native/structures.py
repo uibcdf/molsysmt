@@ -727,7 +727,7 @@ class Structures:
                         b_factor = self.b_factor[:,atom_indices]
                 else:
                     if is_all(atom_indices):
-                        b_factor = self.b_factor[structure_indices,:,:]
+                        b_factor = self.b_factor[structure_indices,:]
                     else:
                         if not is_iterable(structure_indices):
                             structure_indices=[structure_indices]

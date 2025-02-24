@@ -343,3 +343,9 @@ def test_get_61():
     unit = msm.pyunitwizard.get_unit(box_angles)
     assert (unit==msm.pyunitwizard.unit('degree')) and (np.allclose(value, np.array([[ 90., 90., 90.]])))
 
+def test_get_62():
+    molsys = msm.convert('1V4T', structure_indices=0)
+    b_factors = msm.get(molsys, element='atom', b_factor=True)
+    n_atoms = msm.get(molsys, n_atoms=True)
+    assert b_factors.shape == (1, n_atoms)
+    assert msm.pyunitwizard.check(b_factors, unit='nm^2')

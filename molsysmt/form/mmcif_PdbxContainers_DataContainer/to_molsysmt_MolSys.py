@@ -28,7 +28,7 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
     coordinates_array = np.empty([1,n_atoms,3],dtype=float)
     occupancy_array = np.empty(n_atoms,dtype=float)
     alternate_location_array = np.empty(n_atoms,dtype=object)
-    b_factor_array = np.empty(n_atoms,dtype=float)
+    b_factor_array = np.empty([1,n_atoms],dtype=float)
 
     atom_pairs_bonded = []
 
@@ -60,7 +60,7 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
 
         occupancy_array[atom_index] = atom_record[index_att['occupancy']]
         alternate_location_array[atom_index] = atom_record[index_att['label_alt_id']]
-        b_factor_array[atom_index] = atom_record[index_att['B_iso_or_equiv']]
+        b_factor_array[0,atom_index] = atom_record[index_att['B_iso_or_equiv']]
 
         atom_num_model_array[atom_index] = atom_record[index_att['pdbx_PDB_model_num']]
 
@@ -290,7 +290,7 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
         for chosen, same_atoms in zip(chosen_with_alt_loc, aux_dict.values()):
             atom_index = dict_old_to_new_atom_indices[chosen]
             aux_coordinates = puw.quantity(coordinates_array[0,same_atoms,:], unit='angstroms', standardized=True)
-            aux_b_factor = puw.quantity(b_factor_array[same_atoms], unit='angstroms**2', standardized=True)
+            aux_b_factor = puw.quantity(b_factor_array[0,same_atoms], unit='angstroms**2', standardized=True)
             aux_dict={
                     'location_id':alternate_location_array[same_atoms],
                     'occupancy':occupancy_array[same_atoms],
@@ -321,7 +321,7 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
         bond_atom2_index_array = vaux_dict(bond_atom2_index_array)
         
         coordinates_array = coordinates_array[:,atom_indices_to_be_kept,:]
-        b_factor_array = b_factor_array[atom_indices_to_be_kept]
+        b_factor_array = b_factor_array[0,atom_indices_to_be_kept]
 
 
     # coordinates, box, bioassembly, b-factor
