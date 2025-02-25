@@ -4,6 +4,7 @@ from molsysmt._private.variables import is_all
 from molsysmt import pyunitwizard as puw
 from copy import copy
 import numpy as np
+import types
 
 form='molsysmt.Structures'
 
@@ -288,4 +289,8 @@ def get_bioassembly_from_system(item, skip_digestion=False):
 def get_n_bioassemblies_from_system(item, skip_digestion=False):
 
     return len(item.bioassembly)
+
+# List of functions to be imported
+
+__all__ = [name for name, obj in globals().items() if isinstance(obj, types.FunctionType) and name.startswith('get_')]
 

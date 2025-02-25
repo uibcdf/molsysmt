@@ -9,9 +9,9 @@ import openmm as mm
 from openmm import app
 from openmm import unit
 
-def test_TrajectoryDictReporter_1():
+def test_StructuresDictReporter_1():
 
-    reporter = msm.thirds.openmm.reporters.TrajectoryDictReporter(10)
+    reporter = msm.thirds.openmm.reporters.StructuresDictReporter(10)
 
     assert reporter._reportInterval == 10
     assert reporter._needsPositions is True
@@ -21,7 +21,7 @@ def test_TrajectoryDictReporter_1():
     assert 'coordinates' in reporter._dict
     assert 'temperature' not in reporter._dict
 
-def test_TrajectoryDictReporter_2():
+def test_StructuresDictReporter_2():
 
     modeller = msm.convert(msm.systems['Trp-Cage']['1l2y.h5msm'], to_form='openmm.Modeller', structure_indices=0)
     forcefield = app.ForceField("amber14-all.xml", "amber14/tip3p.xml")
@@ -32,7 +32,7 @@ def test_TrajectoryDictReporter_2():
     simulation.context.setPositions(modeller.positions)
     simulation.minimizeEnergy()
     simulation.context.setVelocitiesToTemperature(300*unit.kelvin)
-    tqdm_reporter = msm.thirds.openmm.reporters.TrajectoryDictReporter(100, time=True, coordinates=True,
+    tqdm_reporter = msm.thirds.openmm.reporters.StructuresDictReporter(100, time=True, coordinates=True,
                     velocities=True, potentialEnergy=True, kineticEnergy=True, totalEnergy=True, temperature=True,
                     box=True)
     simulation.reporters.append(tqdm_reporter)

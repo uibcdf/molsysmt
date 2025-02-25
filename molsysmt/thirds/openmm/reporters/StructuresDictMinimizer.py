@@ -1,7 +1,7 @@
 from openmm import unit
 import numpy as np
 
-class TrajectoryDictReporter(object):
+class StructuresDictMinimizerReporter(object):
 
     def __init__(self, reportInterval, time=True, coordinates=True, velocities=False,
              potentialEnergy=False, kineticEnergy=False, totalEnergy=False, temperature=False,
@@ -83,6 +83,8 @@ class TrajectoryDictReporter(object):
         return (steps, self._needsPositions, self._needsVelocities, self._needsForces, self._needsEnergy)
 
     def report(self, simulation, state):
+
+        print('entra', simulation, state)
 
         if not self._initialized:
             self._initialize(simulation)
