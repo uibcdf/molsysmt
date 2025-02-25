@@ -379,6 +379,17 @@ def get_n_structures_from_system(item, structure_indices='all', skip_digestion=F
     raise NotImplementedError()
 
 @digest(form=form)
+def get_coordinates_from_system(item, structure_indices='all', skip_digestion=False):
+
+    from . import to_openmm_Context
+    from ..openmm_Context import get_coordinates_from_system as aux_get
+
+    tmp_item = to_openmm_Context(item, skip_digestion=True)
+    output = aux_get(tmp_item, structure_indices=structure_indices, skip_digestion=True)
+
+    return output
+
+@digest(form=form)
 def get_box_from_system(item, structure_indices='all', skip_digestion=False):
 
     raise NotImplementedError()
