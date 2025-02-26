@@ -41,6 +41,23 @@ def get_n_structures_from_system(item, structure_indices='all', skip_digestion=F
     return 1
 
 @digest(form=form)
+def get_coordinates_from_system(item, structure_indices='all', skip_digestion=False):
+
+    coordinates = item.context.getState(getPositions=True).getPositions(asNumpy=True)
+    unit = puw.get_unit(coordinates)
+    coordinates = puw.get_value(coordinates)
+    coordinates = coordinates.reshape(1, coordinates.shape[0], coordinates.shape[1])
+
+    if not is_all(structure_indices):
+        coordinates = coordinates[structure_indices,:,:]
+
+    coordinates = coordinates * unit
+    coordinates = puw.standardize(coordinates)
+
+    return coordinates
+
+
+@digest(form=form)
 def get_box_from_system(item, structure_indices='all', skip_digestion=False):
 
     box=item.context.getState().getPeriodicBoxVectors(asNumpy=True)

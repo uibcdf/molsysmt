@@ -200,6 +200,8 @@ def set_chain_id_to_chain(item, indices='all', value=None, skip_digestion=False)
     if is_all(indices):
         item.chains.chain_id=value
     else:
+        if len(value)==1:
+            value=value[0]
         item.chains.iloc[indices, 0]=value
 
     pass
@@ -212,6 +214,7 @@ def set_chain_name_to_chain(item, indices='all', value=None, skip_digestion=Fals
     else:
         item.chains.iloc[indices, 1]=value
 
+
     pass
 
 @digest(form=form)
@@ -220,6 +223,8 @@ def set_chain_type_to_chain(item, indices='all', value=None, skip_digestion=Fals
     if is_all(indices):
         item.chains.chain_type=value
     else:
+        if len(value)==1:
+            value=value[0]
         item.chains.iloc[indices, 2]=value
 
     pass
