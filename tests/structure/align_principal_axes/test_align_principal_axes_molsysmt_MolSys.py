@@ -31,9 +31,9 @@ def test_align_principal_axes_molsysmt_MolSys_1():
                              [-8.58936055e-17,  3.60822483e-15,  1.00000000e+00]]])
 
     for ii in range(3):
-        if np.sign(axes_1[0,ii,0]) != np.sign(good_axes_1[0,ii,0]):
+        if np.dot(axes_1[0,ii,:], good_axes_1[0,ii,:])<0.0:
             good_axes_1[0,ii,:] = -good_axes_1[0,ii,:]
-        if np.sign(axes_2[0,ii,0]) != np.sign(good_axes_2[0,ii,0]):
+        if np.dot(axes_2[0,ii,:], good_axes_2[0,ii,:])<0.0:
             good_axes_2[0,ii,:] = -good_axes_2[0,ii,:]
 
     assert np.allclose(momenta_1, momenta_2), f"{momenta_1} {momenta_2}"
