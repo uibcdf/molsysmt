@@ -27,5 +27,5 @@ def test_principal_component_analysis_from_molsysmt_MolSys_1():
                              1.99369789e-03,  4.33715991e-03,  3.91734124e-02,  4.61545377e-01,
                              4.96569155e-01,  8.32111142e-01,  9.15973936e-01]) 
 
-    assert np.allclose(pcs[0], good_pc0)
-    assert np.allclose(sigmas, good_sigmas)
+    assert np.allclose(pcs[0], good_pc0), f"Test failed with {pcs[0]} and {good_pc0}"
+    assert np.allclose(sigmas, good_sigmas), f"Test failed with {sigmas} and {good_sigmas}"
