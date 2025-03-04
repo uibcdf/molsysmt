@@ -30,8 +30,8 @@ def test_align_principal_axes_molsysmt_MolSys_1():
                              [-2.87221485e-16,  1.00000000e+00, -3.60822483e-15],
                              [-8.58936055e-17,  3.60822483e-15,  1.00000000e+00]]])
 
-    assert np.allclose(momenta_1, momenta_2)
-    assert np.allclose(axes_1, good_axes_1)
-    assert np.allclose(axes_2, good_axes_2)
+    assert np.allclose(momenta_1, momenta_2), f"{momenta_1} {momenta_2}"
+    assert np.allclose(axes_1, good_axes_1), f"{axes_1} {good_axes_1}"
+    assert np.allclose(axes_2, good_axes_2), f"{axes_2} {good_axes_2}"
 
 
