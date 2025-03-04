@@ -35,9 +35,8 @@ def test_add_hbonds_1():
         check_5 = np.allclose(aux['kwargs']['color2'],(1.0, 0.76470588, 0.0))
         check_6 = np.allclose(aux['kwargs']['position1'],coordinates[hbonds[ii,1]])
         check_7 = np.allclose(aux['kwargs']['position2'],coordinates[hbonds[ii,2]])
-        check_all_contacts = all([check_1, check_2, check_3, check_4, check_5, check_6, check_7])
+        check_all_hbonds = all([check_1, check_2, check_3, check_4, check_5, check_6, check_7])
         if not check_all_hbonds:
-            print(ii)
             break
 
     assert check_all_hbonds==True
