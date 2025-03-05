@@ -21,5 +21,3 @@ from .add_contacts import add_contacts
 from .add_hbonds import add_hbonds
 from .add_arrows import add_arrows
 
-from .show_contacts import show_contacts
-

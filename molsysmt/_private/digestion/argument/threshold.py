@@ -7,6 +7,11 @@ common_functions_with_threshold = [
     'molsysmt.build.remove_overlapping_molecules.remove_overlapping_molecules',
 ]
 
+common_functions_with_threshold_and_None = [
+    'molsysmt.structure.get_neighbors.get_neighbors',
+    'molsysmt.thirds.nglview.add_contacts.add_contacts',
+]
+
 def digest_threshold(threshold, caller=None):
 
     if caller in common_functions_with_threshold:
@@ -15,7 +20,7 @@ def digest_threshold(threshold, caller=None):
             if puw.check(threshold, dimensionality={'[L]':1}):
                 return puw.standardize(threshold)
 
-    elif caller in 'molsysmt.structure.get_neighbors.get_neighbors':
+    elif caller in common_functions_with_threshold_and_None:
 
         if threshold is None:
             return None

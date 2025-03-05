@@ -9,7 +9,8 @@ import numpy as np
 def add_cylinders(view, bottom=None, top=None, vectors=None, color='#808080', color_2=None, radius='0.1 angstroms',
         color_values=None, min_color_value=None, mid_color_value=None, max_color_value=None,
         color_values_scale='linear', colormap='bwr', color_values_2=None, min_color_value_2=None,
-        mid_color_value_2=None, max_color_value_2=None, color_values_scale_2=None, colormap_2=None):
+        mid_color_value_2=None, max_color_value_2=None, color_values_scale_2=None, colormap_2=None,
+                 skip_digestion=False):
 
     """Adding cylinders to a view.
 
