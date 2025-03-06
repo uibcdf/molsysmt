@@ -14,7 +14,7 @@ from . import config
 
 from ._pyunitwizard import puw as pyunitwizard
 
-from . import file
+#from . import file
 
 from .basic import *
 from . import basic

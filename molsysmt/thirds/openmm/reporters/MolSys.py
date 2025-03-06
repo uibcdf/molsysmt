@@ -1,11 +1,10 @@
 import openmm.unit as unit
 from molsysmt.native.molsys import MolSys
-from molsysmt.native.trajectory import Trajectory
 import molsysmt as msm
-from molsysmt._private.variables import is_all as _is_all
+from molsysmt._private.variables import is_all
 import time
 
-class MolSysMTReporter():
+class MolSysReporter():
 
     def __init__(self, reportInterval, topology, selection='all', syntax='MolSysMT',
                  id=True, time=True, coordinates=True, boxVectors=True,
