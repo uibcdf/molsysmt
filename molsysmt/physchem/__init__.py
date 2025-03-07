@@ -9,4 +9,4 @@ from .get_hydrophobicity import get_hydrophobicity
 from .get_sasa import get_sasa
 from .get_surface_area import get_surface_area
 from .get_volume import get_volume
-
+from .get_degrees_of_freedom import get_degrees_of_freedom
