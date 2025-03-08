@@ -4,12 +4,12 @@ MolSysMT
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 [![DOI](https://zenodo.org/badge/137937243.svg)](https://zenodo.org/badge/latestdoi/137937243)
 [![](https://img.shields.io/badge/Python-3.10%20%7C%203.11%20%7C%203.12-blue.svg)](https://www.python.org/downloads/) 
-[![Documentation](https://github.com/uibcdf/MolSysMT/actions/workflows/sphinx_docs_to_gh_pages.yaml/badge.svg)](https://github.com/uibcdf/MolSysMT/actions/workflows/sphinx_docs_to_gh_pages.yaml)
-[![CI](https://github.com/uibcdf/MolSysMT/actions/workflows/CI.yaml/badge.svg)](https://github.com/uibcdf/MolSysMT/actions/workflows/CI.yaml)
-[![codecov](https://codecov.io/github/uibcdf/MolSysMT/graph/badge.svg?token=9ZMA4YZLOR)](https://codecov.io/github/uibcdf/MolSysMT)
-[![Install with conda](https://img.shields.io/badge/Install%20with-conda-brightgreen.svg)](https://conda.anaconda.org/uibcdf/MolSysMT)
-[![Installation on ubuntu-latest](https://github.com/uibcdf/MolSysMT/actions/workflows/install_ubuntu_latest.yaml/badge.svg)](https://github.com/uibcdf/MolSysMT/actions/workflows/install_ubuntu_latest.yaml)
-[![Installation on macos-latest](https://github.com/uibcdf/MolSysMT/actions/workflows/install_macos_latest.yaml/badge.svg)](https://github.com/uibcdf/MolSysMT/actions/workflows/install_macos_latest.yaml)
+[![Documentation](https://github.com/uibcdf/molsysmt/actions/workflows/sphinx_docs_to_gh_pages.yaml/badge.svg)](https://github.com/uibcdf/molsysmt/actions/workflows/sphinx_docs_to_gh_pages.yaml)
+[![CI](https://github.com/uibcdf/molsysmt/actions/workflows/CI.yaml/badge.svg)](https://github.com/uibcdf/MolSysMT/actions/workflows/CI.yaml)
+[![codecov](https://codecov.io/github/uibcdf/molsysmt/graph/badge.svg?token=9ZMA4YZLOR)](https://codecov.io/github/uibcdf/molsysmt)
+[![Install with conda](https://img.shields.io/badge/Install%20with-conda-brightgreen.svg)](https://conda.anaconda.org/uibcdf/molsysmt)
+[![Installation on ubuntu-latest](https://github.com/uibcdf/molsysmt/actions/workflows/install_ubuntu_latest.yaml/badge.svg)](https://github.com/uibcdf/molsysmt/actions/workflows/install_ubuntu_latest.yaml)
+[![Installation on macos-latest](https://github.com/uibcdf/molsysmt/actions/workflows/install_macos_latest.yaml/badge.svg)](https://github.com/uibcdf/molsysmt/actions/workflows/install_macos_latest.yaml)
 
 **[Installation](#installation)** |
 **[Documentation](#documentation)** |
