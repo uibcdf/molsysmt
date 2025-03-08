@@ -6,6 +6,9 @@ coverage:
     project:
       default:
         threshold: 50%
+  range: 60...80
+  round: nearest
+  precision: 1
 
 comment:
   layout: "header"
