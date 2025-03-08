@@ -1,25 +1,28 @@
-# Argos, P., Rao, J. K. M. & Hargrave, P. A.; Eur. J. Biochem. 1982, 128, 565–575.
+## Hydrophobicity scales from https://web.expasy.org/protscale/
 
-argos={
-    'ALA': 0.610,
-    'ARG': 0.600,
-    'ASN': 0.060,
-    'CYS': 1.070,
-    'GLN': 0.000,
-    'GLU': 0.470,
-    'GLY': 0.070,
-    'HIS': 0.610,
-    'ILE': 2.220,
-    'LEU': 1.530,
-    'LYS': 1.150,
-    'MET': 1.180,
-    'PHE': 2.020,
-    'PRO': 1.950,
-    'SER': 0.050,
-    'THR': 0.050,
-    'TRP': 2.650,
-    'TYR': 1.880,
-    'VAL': 1.320 
+# Rao M.J.K., Argos P. Biochim. Biophys. Acta 869:197-214(1986).
+
+rao={
+    'ALA':  1.360, 
+    'ARG':  0.150, 
+    'ASN':  0.330, 
+    'ASP':  0.110, 
+    'CYS':  1.270, 
+    'GLN':  0.330, 
+    'GLU':  0.250, 
+    'GLY':  1.090, 
+    'HIS':  0.680, 
+    'ILE':  1.440, 
+    'LEU':  1.470, 
+    'LYS':  0.090, 
+    'MET':  1.420, 
+    'PHE':  1.570, 
+    'PRO':  0.540, 
+    'SER':  0.970, 
+    'THR':  1.080, 
+    'TRP':  1.000, 
+    'TYR':  0.830, 
+    'VAL':  1.370 
 }
 
 # Eisenberg D., Schwarz E., Komarony M., Wall R. J. Mol. Biol. 179:125-142(1984).
@@ -28,6 +31,7 @@ eisenberg = {
     'ALA':  0.620,
     'ARG': -2.530,
     'ASN': -0.780,
+    'ASP': -0.900,
     'CYS':  0.290,
     'GLN': -0.850,
     'GLU': -0.740,

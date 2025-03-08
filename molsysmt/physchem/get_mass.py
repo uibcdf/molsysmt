@@ -4,7 +4,7 @@ from molsysmt._private.variables import is_all
 import numpy as np
 
 @digest()
-def get_mass(molecular_system, element ='system', selection = 'all', syntax = 'MolSysMT', method='physical',
+def get_mass(molecular_system, element ='system', selection = 'all', syntax = 'MolSysMT', definition='physical',
              skip_digestion=False):
     """
     To be written soon...
@@ -15,7 +15,7 @@ def get_mass(molecular_system, element ='system', selection = 'all', syntax = 'M
 
     output = []
 
-    if method=='physical':
+    if definition=='physical':
 
         if element == 'atom':
             atom_types = get(molecular_system, element=element, selection=selection, syntax=syntax, atom_type=True)
@@ -36,7 +36,7 @@ def get_mass(molecular_system, element ='system', selection = 'all', syntax = 'M
         else:
             output = puw.quantity(np.array(output), units)
     
-    elif method=='OpenMM':
+    elif definition=='OpenMM':
 
         from openmm import unit as _unit
 

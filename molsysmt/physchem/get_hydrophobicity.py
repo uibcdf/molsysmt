@@ -2,17 +2,22 @@ from molsysmt._private.exceptions import NotImplementedMethodError
 from molsysmt._private.digestion import digest
 import numpy as np
 
-def get_hydrophobicity(molecular_system, selection='all', definition='eisenberg'):
+@digest()
+def get_hydrophobicity(molecular_system, element='group', selection='all', definition='eisenberg', syntax='MolSysMT',
+                      skip_digestion=False):
     """
     To be written soon...
     """
 
     from molsysmt.basic import get
 
+    if element != 'group':
+        raise ValueError()
+
     if definition == 'eisenberg':
         from .groups.hydrophobicity import eisenberg as values
-    elif definition == 'argos':
-        from .groups.hydrophobicity import argos as values
+    elif definition == 'rao':
+        from .groups.hydrophobicity import rao as values
     elif definition == 'sweet':
         from .groups.hydrophobicity import sweet as values
     elif definition == 'kyte':
@@ -40,6 +45,7 @@ def get_hydrophobicity(molecular_system, selection='all', definition='eisenberg'
     elif definition == 'fauchere':
         from .groups.hydrophobicity import fauchere as values
     else:
+        print(definition)
         raise NotImplementedMethodError()
 
     group_types = get(molecular_system, element='group', selection=selection, name=True)
