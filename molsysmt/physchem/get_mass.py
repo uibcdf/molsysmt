@@ -1,9 +1,10 @@
 from molsysmt._private.digestion import digest
 from molsysmt import pyunitwizard as puw
+from molsysmt._private.variables import is_all
 import numpy as np
 
 @digest()
-def get_mass(molecular_system, element ='atom', selection = 'all', syntax = 'MolSysMT', method='physical',
+def get_mass(molecular_system, element ='system', selection = 'all', syntax = 'MolSysMT', method='physical',
              skip_digestion=False):
     """
     To be written soon...
@@ -41,33 +42,52 @@ def get_mass(molecular_system, element ='atom', selection = 'all', syntax = 'Mol
 
         form_in = get_form(molecular_system)
 
-        if form_in in ["openmm.Modeller", "openmm.System", "pdbfixer.PDBFixer"]:
+        if form_in in ["openmm.Modeller", "openmm.Topology", "pdbfixer.PDBFixer"]:
 
             if form_in in ["openmm.Modeller", "pdbfixer.PDBFixer"]:
-                from openmm.app import ForceField
-                forcefield_openmm = _digest_forcefields(forcefield)
-                system = ForceField(*forcefield_openmm).createSystem(item.topology)
+                openmm_topology = molecular_system.Topology
+            else:
+                openmm_topology = molecular_system
 
-            elif form_in == "openmm.System":
-                system = item
+            openmm_atoms = list(openmm_topology.atoms())
+
+            if element == 'atom':
+                atom_indices = get(openmm_topology, element=element, selection=selection, syntax=syntax, atom_indices=True)
+                for ii in atom_indices:
+                    output.append(openmm_atoms[ii].element.mass)
+                output = puw.utils.sequences.concatenate(output)
+            elif element in ['group', 'component', 'molecule', 'chain', 'entity']:
+                atom_indices_in_element = get(openmm_topology, element=element, selection=selection,
+                                            syntax=syntax, atom_indices=True)
+                for aux in atom_indices_in_element:
+                    output.append(np.sum([openmm_atoms[ii].element.mass for ii in aux]))
+                output = puw.utils.sequences.concatenate(output)
+            elif element == 'system':
+                if is_all(selection):
+                    aux = 0.0*_unit.amu
+                    for ii in openmm_atoms:
+                        aux += ii.element.mass
+                    output=aux
+                else:
+                    raise NotImplementedError
+
+        elif form_in == "openmm.System":
 
             if element == 'atom':
                 atom_indices = get(molecular_system, element=element, selection=selection, syntax=syntax, atom_indices=True)
                 for ii in atom_indices:
-                    output.append(system.getParticleMass(ii))
-            elif element in ['group', 'component', 'molecule', 'chain', 'entity']:
-                atom_indices_in_element = get(molecular_system, element=element, selection=selection,
-                                            syntax=syntax, atom_indices=True)
-                for aux in atom_types_in_element:
-                    output.append(np.sum([system.getParticleMass(ii) for ii in aux]))
+                    output.append(molecular_system.getParticleMass(ii))
+                output = puw.utils.sequences.concatenate(output)
             elif element == 'system':
                 if is_all(selection):
                     aux = 0.0 * _unit.amu
-                    for ii in range(system.getNumParticles()):
-                        aux += system.getParticleMass(ii)
+                    for ii in range(molecular_system.getNumParticles()):
+                        aux += molecular_system.getParticleMass(ii)
                     output=aux
                 else:
                     raise NotImplementedError
+            else:
+                raise NotImplementedError
 
         else:
             raise NotImplementedError
