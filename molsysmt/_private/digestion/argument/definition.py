@@ -6,6 +6,7 @@ definitions = {
     'get_hydrophobicity': ['eisenberg', 'rao', 'sweet', 'kyte', 'abraham', 'bull', 'guy', 'miyazawa', 'roseman',
                          'wolfenden', 'chothia', 'hopp', 'manavalan', 'black', 'fauchere'],
     'get_volume': ['grantham'],
+    'get_charge': ['physical_pH7'],
 }
 
 def digest_definition(definition, caller=None):
@@ -28,6 +29,11 @@ def digest_definition(definition, caller=None):
     elif caller=='molsysmt.physchem.get_volume.get_volume':
         if isinstance(definition, str):
             if definition in definitions['get_volume']:
+                return definition
+
+    elif caller=='molsysmt.physchem.get_charge.get_charge':
+        if isinstance(definition, str):
+            if definition in definitions['get_charge']:
                 return definition
 
     return ArgumentError('definition', value=definition, caller=caller, message=None)

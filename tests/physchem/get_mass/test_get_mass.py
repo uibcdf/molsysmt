@@ -38,9 +38,9 @@ def test_get_mass_2():
     molsys = msm.systems['Trp-Cage']['1l2y.h5msm']
     openmm_topology = msm.convert(molsys, to_form='openmm.Topology')
 
-    mass_atoms = msm.physchem.get_mass(openmm_topology, element='atom', method='OpenMM')
-    mass_groups = msm.physchem.get_mass(openmm_topology, element='group', method='OpenMM')
-    mass_system = msm.physchem.get_mass(openmm_topology, element='system', method='OpenMM')
+    mass_atoms = msm.physchem.get_mass(openmm_topology, element='atom', definition='OpenMM')
+    mass_groups = msm.physchem.get_mass(openmm_topology, element='group', definition='OpenMM')
+    mass_system = msm.physchem.get_mass(openmm_topology, element='system', definition='OpenMM')
 
     n_atoms = msm.get(molsys, n_atoms=True)
     n_groups = msm.get(molsys, n_groups=True)
@@ -65,8 +65,8 @@ def test_get_mass_3():
     forcefield = app.ForceField("amber14-all.xml", "amber14/tip3p.xml")
     system = forcefield.createSystem(openmm_topology, nonbondedMethod=app.NoCutoff, constraints=app.HBonds)
 
-    mass_atoms = msm.physchem.get_mass(system, element='atom', method='OpenMM')
-    mass_system = msm.physchem.get_mass(system, element='system', method='OpenMM')
+    mass_atoms = msm.physchem.get_mass(system, element='atom', definition='OpenMM')
+    mass_system = msm.physchem.get_mass(system, element='system', definition='OpenMM')
 
     n_atoms = msm.get(molsys, n_atoms=True)
 
