@@ -4,22 +4,22 @@ from molsysmt import pyunitwizard as puw
 import numpy as np
 
 @digest()
-def get_atomic_radius(molecular_system, selection='all', definition='vdw'):
+def get_atomic_radius(molecular_system, element='atom', selection='all', definition='vdw', syntax='MolSysMT',
+                      skip_digestion=False):
     """
     To be written soon...
     """
 
     from molsysmt.basic import get
-    from molsysmt.physico_chemical_properties.atoms.radius import units
-    from molsysmt._private._digestion import digest_element
+    from molsysmt.physchem.atoms.radius import units
 
     if definition=='vdw':
-        from molsysmt.physico_chemical_properties.atoms.radius import vdw as values
+        from molsysmt.physchem.atoms.radius import vdw as values
     else:
         raise NotImplementedError()
 
 
-    atom_types = get(molecular_system, element='atom', selection=selection, type=True)
+    atom_types = get(molecular_system, element='atom', selection=selection, atom_type=True)
 
     output = []
 

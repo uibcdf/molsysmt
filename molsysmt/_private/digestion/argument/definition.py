@@ -11,6 +11,8 @@ definitions = {
     'get_polarity': ['grantham', 'zimmerman'],
     'get_area_buried': ['rose'],
     'get_buried_fraction': ['janin'],
+    'get_atomic_radius': ['vdw'],
+    'get_transmembrane_tendency': ['zhao', 'senes'],
 }
 
 def digest_definition(definition, caller=None):
@@ -58,6 +60,16 @@ def digest_definition(definition, caller=None):
     elif caller=='molsysmt.physchem.get_buried_fraction.get_buried_fraction':
         if isinstance(definition, str):
             if definition in definitions['get_buried_fraction']:
+                return definition
+
+    elif caller=='molsysmt.physchem.get_atomic_radius.get_atomic_radius':
+        if isinstance(definition, str):
+            if definition in definitions['get_atomic_radius']:
+                return definition
+
+    elif caller=='molsysmt.physchem.get_transmembrane_tendency.get_transmembrane_tendency':
+        if isinstance(definition, str):
+            if definition in definitions['get_transmembrane_tendency']:
                 return definition
 
     return ArgumentError('definition', value=definition, caller=caller, message=None)
