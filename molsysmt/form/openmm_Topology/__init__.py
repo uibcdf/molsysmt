@@ -56,7 +56,7 @@ _convert_to={
         'openmm.Simulation': to_openmm_Simulation,
         'openmm.Context': to_openmm_Context,
         'openmm.PDBFile': to_openmm_PDBFile,
-        'openmm.System': to_openmm_PDBFile,
+        'openmm.System': to_openmm_System,
         'parmed.Structure': to_parmed_Structure,
         'pdbfixer.PDBFixer': to_pdbfixer_PDBFixer,
         'nglview.NGLWidget': to_nglview_NGLWidget,

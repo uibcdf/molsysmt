@@ -6,7 +6,7 @@ definitions = {
     'get_hydrophobicity': ['eisenberg', 'rao', 'sweet', 'kyte', 'abraham', 'bull', 'guy', 'miyazawa', 'roseman',
                          'wolfenden', 'chothia', 'hopp', 'manavalan', 'black', 'fauchere'],
     'get_volume': ['grantham'],
-    'get_charge': ['physical_pH7'],
+    'get_charge': ['physical_pH7', 'collantes', 'OpenMM'],
 }
 
 def digest_definition(definition, caller=None):

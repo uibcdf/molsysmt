@@ -1,8 +1,8 @@
 from molsysmt._private.digestion import digest
 
 @digest(form='openmm.Topology')
-def to_openmm_System(item, atom_indices='all', forcefield=None, water_model=None, implicit_solvent=None,
-        non_bonded_method=None, constraints=None, switch_distance=None,
+def to_openmm_System(item, atom_indices='all', forcefield='AMBER14', water_model=None, implicit_solvent=None,
+        non_bonded_method=None, constraints='hbonds', switch_distance=None,
         dispersion_correction=None, ewald_error_tolerance=None, skip_digestion=False):
 
     from openmm import app
@@ -14,8 +14,17 @@ def to_openmm_System(item, atom_indices='all', forcefield=None, water_model=None
 
     forcefield = app.ForceField(*forcefield)
 
+    if non_bonded_method is None:
+        if has_pbc(item):
+            non_bonded_method = 'PME'
+        else:
+            non_bonded_method = 'no cutoff'
+        non_bonded_method=app.CutoffNonPeriodic
+
     if non_bonded_method=='no cutoff':
         non_bonded_method=app.NoCutoff
+    elif non_bonded_method=='PME':
+        non_bonded_method=app.PME
 
     if constraints=='hbonds':
         contraints=app.HBonds

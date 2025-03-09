@@ -27,11 +27,10 @@ def to_molsysmt_Structures(item, atom_indices='all', structure_indices='all', sk
         n_atoms = len(atom_indices)
 
     if is_all(structure_indices):
-        n_structures = structures_ds.attrs['n_structures']
+        #n_structures = structures_ds.attrs['n_structures']
+        n_structures = structures_ds.attrs['n_structures_written']
     else:
         n_structures = len(structure_indices)
-
-    n_structures = structures_ds.attrs['n_structures_written']
 
     tmp_item = Structures()
 
