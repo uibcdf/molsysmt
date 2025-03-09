@@ -54,7 +54,18 @@ def forms(form_type=None):
             set_table_styles([ dict(selector='th', props=[('text-align', 'left')] ) ])
 
 
-def conversions(from_form=None, to_form=None, from_form_type=None, to_form_type=None, as_rows='from'):
+def conversions(from_form=None, to_form=None, from_form_type=None, to_form_type=None,
+                from_viewer=None, to_viewer=None, as_rows='from'):
+
+    if from_viewer is not None or to_viewer is not None:
+
+        from .viewers import viewers_forms
+
+        if from_viewer is not None:
+            from_form=viewers_forms[from_viewer]
+
+        if to_viewer is not None:
+            to_form=viewers_forms[to_viewer]
 
     if from_form_type is not None:
         if from_form_type in dict_forms_of_type:
@@ -115,19 +126,4 @@ def conversions(from_form=None, to_form=None, from_form_type=None, to_form_type=
 def syntaxes():
 
     pass
-
-def viewers(from_form=None, from_form_type=None, to_viewer=None):
-
-    from .viewers import viewers as _viewers
-    from .viewers import viewers_forms as _viewers_forms
-
-    if to_viewer is None:
-        to_viewer = _viewers
-
-    aux_to_forms = []
-
-    for viewer in to_viewer:
-        aux_to_forms.append(_viewers_forms[viewer])
-
-    return conversions(from_form=from_form, from_form_type=from_form_type, to_form=aux_to_forms)
 

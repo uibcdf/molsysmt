@@ -25,3 +25,4 @@ ignore:
   - "molsysmt/thirds/openmm/reporters/MolSys.py"
   - "molsysmt/file/**"
   - "molsysmt/native/trajectory_file.py"
+  - "molsysmt/molecular_dynamics/**"

@@ -31,7 +31,7 @@ from . import supported
 from . import pbc
 from . import physchem
 from . import molecular_mechanics
-from . import molecular_dynamics
+#from . import molecular_dynamics
 from . import hbonds
 from . import thirds
 

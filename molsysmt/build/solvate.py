@@ -55,7 +55,7 @@ def solvate (molecular_system, box_shape="truncated octahedral", clearance='14.0
         from molsysmt.build import define_new_chain
         from openmm.app import ForceField
         from molsysmt.config import default_attribute
-        from molsysmt.molecular_mechanics import forcefield_to_engine
+        from molsysmt.molecular_mechanics import get_engine_forcefield
 
         component_indices, component_names = get(molecular_system, element='component', component_index=True,
                                                  component_name=True)
@@ -79,7 +79,7 @@ def solvate (molecular_system, box_shape="truncated octahedral", clearance='14.0
         else:
             forcefield = aux_forcefield
 
-        forcefield = forcefield_to_engine(forcefield, water_model=water_model, engine='OpenMM')
+        forcefield = get_engine_forcefield(forcefield, water_model=water_model, engine='OpenMM')
 
         solvent_model=None
 

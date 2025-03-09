@@ -121,7 +121,7 @@ def test_supported_2():
 
 def test_supported_3():
 
-    df = msm.supported.viewers()
+    df = msm.supported.conversions(to_viewer='NGLView')
 
     good_aux_list = ['biopython.Seq', 'biopython.SeqRecord', 'file:bcif', 'file:bcif.gz',
        'file:cif', 'file:crd', 'file:dcd', 'file:gro', 'file:h5', 'file:h5msm',
