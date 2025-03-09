@@ -7,8 +7,8 @@ coverage:
       default:
         threshold: 50%
   range: 60...80
-  round: nearest
-  precision: 1
+  round: down
+  precision: 2
 
 comment:
   layout: "header"

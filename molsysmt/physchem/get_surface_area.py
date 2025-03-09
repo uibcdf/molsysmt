@@ -3,9 +3,9 @@ from molsysmt._private.exceptions import NotImplementedMethodError
 import numpy as np
 
 @digest()
-def get_surface_area(molecular_system, selection='all', syntax='MolSysMT', definition='collantes'):
+def get_surface_area(molecular_system, element='group', selection='all', syntax='MolSysMT', definition='collantes',
+                     skip_digestion=False):
     """
-    To be written soon...
     """
 
     from molsysmt.basic import get
@@ -15,14 +15,12 @@ def get_surface_area(molecular_system, selection='all', syntax='MolSysMT', defin
     else:
         raise NotImplementedMethodError
 
-    group_types = get(molecular_system, element='group', selection=selection, syntax=syntax, name=True)
+    group_types = get(molecular_system, element='group', selection=selection, syntax=syntax, group_name=True)
 
     output = []
 
     for ii in group_types:
         output.append(values[ii.upper()])
-
-    output = np.array(output)
 
     return output
 

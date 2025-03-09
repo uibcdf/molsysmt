@@ -4,7 +4,8 @@ from molsysmt import pyunitwizard as puw
 import numpy as np
 
 @digest()
-def get_polarity(molecular_system, selection = 'all', syntax='MolSysMT', definition='grantham'):
+def get_polarity(molecular_system, element='group', selection = 'all', syntax='MolSysMT', definition='grantham',
+                 skip_digestion=False):
     """
     To be written soon...
     """
@@ -12,9 +13,9 @@ def get_polarity(molecular_system, selection = 'all', syntax='MolSysMT', definit
     from molsysmt.basic import get
 
     if definition == 'grantham':
-        from molsysmt.physico_chemical_properties.groups.polarity import grantham as values
+        from molsysmt.physchem.groups.polarity import grantham as values
     elif definition == 'zimmerman':
-        from molsysmt.physico_chemical_properties.groups.polarity import zimmerman as values
+        from molsysmt.physchem.groups.polarity import zimmerman as values
     else:
         raise NotImplementedMethodError()
 
@@ -24,8 +25,6 @@ def get_polarity(molecular_system, selection = 'all', syntax='MolSysMT', definit
 
     for ii in group_names:
         output.append(values[ii.upper()])
-
-    output = np.array(output)
 
     return output
 
