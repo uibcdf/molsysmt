@@ -1,9 +1,8 @@
 from molsysmt._private.exceptions import *
 from molsysmt.form import _dict_modules
+from pandas import DataFrame
 
 dict_forms_of_type = { ii:[] for ii in ['class', 'string', 'file']}
-
-
 
 for ii, jj in _dict_modules.items():
     dict_forms_of_type[jj.form_type].append(ii)
@@ -46,13 +45,12 @@ def forms(form_type=None):
     else:
         raise BadCallError()
 
-
-    from pandas import DataFrame
-
     df=DataFrame([[form, _dict_modules[form].form_type, _dict_modules[form].form_info] for form in tmp_output], columns=['Form', 'Type', 'Info'])
+    df = df.sort_values(by=['Type', 'Form'], ascending=[True, True], key=lambda col: col.str.casefold())
+
     def make_clickable(val):
         return '<a target="_blank" href="{}">{}</a>'.format(val[1], val[0])
-    return df.style.hide_index().format({'Info':make_clickable}).set_properties(**{'text-align':'left','colheader_justify':'left'}).\
+    return df.style.hide(axis="index").format({'Info':make_clickable}).set_properties(**{'text-align':'left','colheader_justify':'left'}).\
             set_table_styles([ dict(selector='th', props=[('text-align', 'left')] ) ])
 
 
@@ -82,19 +80,17 @@ def conversions(from_form=None, to_form=None, from_form_type=None, to_form_type=
     if to_form is None:
         to_form = list(_dict_modules.keys())
 
-
-    from pandas import DataFrame
-
     dict_df = {}
     false_dict = {ii:False for ii in to_form}
     for ii in from_form:
-        dict_df[ii]=false_dict
+        dict_df[ii]=false_dict.copy()
 
 
     for ii in from_form:
         for jj in to_form:
-            if jj in convert_from[ii]:
-                dict_df[ii][jj]=True
+            if ii in convert_from.keys():
+                if jj in convert_from[ii]:
+                    dict_df[ii][jj]=True
 
     if as_rows=='from':
         tmp_output = DataFrame.from_dict(dict_df, orient='index')
@@ -103,6 +99,8 @@ def conversions(from_form=None, to_form=None, from_form_type=None, to_form_type=
     else:
         raise BadCallError()
 
+    tmp_output = tmp_output.reindex(sorted(tmp_output.columns, key=str.casefold), axis=1)
+    tmp_output = tmp_output.sort_index(key=lambda index: index.str.casefold())
 
     def color(val):
         if val is False:
@@ -120,8 +118,16 @@ def syntaxes():
 
 def viewers(from_form=None, from_form_type=None, to_viewer=None):
 
+    from .viewers import viewers as _viewers
+    from .viewers import viewers_forms as _viewers_forms
+
     if to_viewer is None:
-        return convert(from_form=from_form, from_form_type=from_form_type, to_form_type='viewer')
-    else:
-        raise NotImplementedError
+        to_viewer = _viewers
+
+    aux_to_forms = []
+
+    for viewer in to_viewer:
+        aux_to_forms.append(_viewers_forms[viewer])
+
+    return conversions(from_form=from_form, from_form_type=from_form_type, to_form=aux_to_forms)
 
