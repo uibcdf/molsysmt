@@ -2,7 +2,9 @@ from molsysmt._private.exceptions import NotImplementedMethodError
 from molsysmt._private.digestion import digest
 import numpy as np
 
-def get_buried_fraction(molecular_system, selection='all', definition='janin'):
+@digest()
+def get_buried_fraction(molecular_system, element='group', selection='all', definition='janin', syntax='MolSysMT',
+                        skip_digestion=False):
     """
     To be written soon...
     """
@@ -14,14 +16,12 @@ def get_buried_fraction(molecular_system, selection='all', definition='janin'):
     else:
         raise NotImplementedMethodError()
 
-    group_types = get(molecular_system, element='group', selection=selection, name=True)
+    group_types = get(molecular_system, element='group', selection=selection, group_name=True)
 
     output = []
 
     for ii in group_types:
         output.append(values[ii.upper()])
-
-    output = np.array(output)
 
     return output
 

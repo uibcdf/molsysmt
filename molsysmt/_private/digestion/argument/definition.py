@@ -9,6 +9,8 @@ definitions = {
     'get_charge': ['physical_pH7', 'collantes', 'OpenMM'],
     'get_surface_area': ['collantes'],
     'get_polarity': ['grantham', 'zimmerman'],
+    'get_area_buried': ['rose'],
+    'get_buried_fraction': ['janin'],
 }
 
 def digest_definition(definition, caller=None):
@@ -46,6 +48,16 @@ def digest_definition(definition, caller=None):
     elif caller=='molsysmt.physchem.get_polarity.get_polarity':
         if isinstance(definition, str):
             if definition in definitions['get_polarity']:
+                return definition
+
+    elif caller=='molsysmt.physchem.get_area_buried.get_area_buried':
+        if isinstance(definition, str):
+            if definition in definitions['get_area_buried']:
+                return definition
+
+    elif caller=='molsysmt.physchem.get_buried_fraction.get_buried_fraction':
+        if isinstance(definition, str):
+            if definition in definitions['get_buried_fraction']:
                 return definition
 
     return ArgumentError('definition', value=definition, caller=caller, message=None)
