@@ -9,12 +9,12 @@ from molsysmt import pyunitwizard as puw
 import numpy as np
 
 
-def test_get_luzard_chandler_hbonds_1():
+def test_get_buch_hbonds_1():
 
     molsys = msm.convert(msm.systems['Barnase-Barstar']['barnase_barstar.h5msm'])
 
-    hbonds, distance, angles = msm.hbonds.get_luzard_chandler_hbonds(molsys, selection='molecule_name=="BARNASE"',
-                                              selection_2='molecule_name=="BARSTAR"')
+    hbonds, distance = msm.hbonds.get_buch_hbonds(molsys, selection='molecule_name=="BARNASE"',
+                                                  selection_2='molecule_name=="BARSTAR"')
 
     good_hbonds = [[ 431,  432, 2361],
                    [ 431,  433, 2400],
@@ -26,6 +26,7 @@ def test_get_luzard_chandler_hbonds_1():
                    [1253, 1254, 2412],
                    [1253, 1255, 2361],
                    [1256, 1258, 2361],
+                   [1256, 1258, 2362],
                    [1311, 1312, 2362],
                    [1317, 1319, 2362],
                    [1568, 1569, 2194],
@@ -43,10 +44,10 @@ def test_get_luzard_chandler_hbonds_1():
     assert all_good
 
 
-def test_get_luzard_chandler_hbonds_2():
+def test_get_buch_hbonds_2():
 
     molsys = msm.convert(msm.systems['chicken villin HP35']['chicken_villin_HP35.h5msm'])
-    hbonds, distance, angles = msm.hbonds.get_luzard_chandler_hbonds(molsys)
+    hbonds, distance = msm.hbonds.get_buch_hbonds(molsys)
 
     good_hbonds = [[ 42,  43,  91],
                    [ 51,  52,  90],
@@ -54,6 +55,7 @@ def test_get_luzard_chandler_hbonds_2():
                    [ 92,  93,  47],
                    [112, 113,  58],
                    [130, 131,  78],
+                   [130, 132,  79],
                    [134, 135,  70],
                    [144, 145,  85],
                    [160, 161,  97],
@@ -69,6 +71,8 @@ def test_get_luzard_chandler_hbonds_2():
                    [283, 284, 223],
                    [293, 294, 258],
                    [307, 308, 268],
+                   [383, 384, 330],
+                   [401, 402, 529],
                    [401, 404, 530],
                    [405, 406, 330],
                    [419, 420, 268],
@@ -84,7 +88,8 @@ def test_get_luzard_chandler_hbonds_2():
                    [512, 515, 435],
                    [516, 517, 444],
                    [531, 532, 458],
-                   [549, 550, 149]]
+                   [549, 550, 149],
+                   [579, 580, 560]]
 
     all_good = True
 
@@ -94,3 +99,4 @@ def test_get_luzard_chandler_hbonds_2():
             break
 
     assert all_good
+

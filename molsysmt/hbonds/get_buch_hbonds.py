@@ -2,9 +2,10 @@ from molsysmt._private.digestion import digest
 from copy import copy
 import numpy as np
 
+@digest()
 def get_buch_hbonds(molecular_system, selection='all', acceptors=None, donors=None, structure_indices='all',
         molecular_system_2=None, selection_2=None, acceptors_2=None, donors_2=None, structure_indices_2=None,
-        threshold='2.3 angstroms', pbc=True, syntax='MolSysMT'):
+        distance_threshold='2.3 angstroms', pbc=True, syntax='MolSysMT', skip_digestion=False):
 
     from molsysmt.basic import select
     from .get_acceptor_atoms import get_acceptor_atoms
@@ -31,7 +32,7 @@ def get_buch_hbonds(molecular_system, selection='all', acceptors=None, donors=No
 
             neighs, distances = get_neighbors(molecular_system, selection=donors[:,1], selection_2=acceptors,
                 structure_indices=structure_indices, structure_indices_2=structure_indices_2,
-                threshold=threshold, pbc=pbc)
+                threshold=distance_threshold, pbc=pbc)
 
             output_atoms=[]
             output_distances=[]
@@ -74,11 +75,11 @@ def get_buch_hbonds(molecular_system, selection='all', acceptors=None, donors=No
 
             neighs, distances = get_neighbors(molecular_system, selection=donors[:,1],
                     selection_2=acceptors_2, structure_indices=structure_indices,
-                    structure_indices_2=structure_indices_2, threshold=threshold, pbc=pbc)
+                    structure_indices_2=structure_indices_2, threshold=distance_threshold, pbc=pbc)
 
             neighs_2, distances_2 = get_neighbors(molecular_system, selection=donors_2[:,1],
                     selection_2=acceptors, structure_indices=structure_indices,
-                    structure_indices_2=structure_indices_2, threshold=threshold, pbc=pbc)
+                    structure_indices_2=structure_indices_2, threshold=distance_threshold, pbc=pbc)
 
             output_atoms=[]
             output_distances=[]
