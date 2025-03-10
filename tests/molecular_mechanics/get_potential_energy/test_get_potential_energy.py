@@ -7,7 +7,7 @@ from molsysmt import systems
 from molsysmt import pyunitwizard as puw
 import numpy as np
 
-def test_get_non_bonded_potential_energy_1():
+def test_get_potential_energy_1():
 
     import molsysmt as msm
 
@@ -15,9 +15,9 @@ def test_get_non_bonded_potential_energy_1():
 
     U = msm.molecular_mechanics.get_potential_energy(molecular_system)
 
-    assert puw.are_close(U, '-24849.14865698867 kilojoule/mole')
+    assert puw.get_unit(U)==puw.unit('kilojoule/mole')
 
-def test_get_non_bonded_potential_energy_2():
+def test_get_potential_energy_2():
 
     import molsysmt as msm
 

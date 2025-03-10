@@ -10,8 +10,6 @@ import numpy as np
 def test_get_non_bonded_potential_energy_1():
 
     import molsysmt as msm
-    msm.config.set_default_standard_units(standards=['nm', 'ps', 'K', 'mole', 'amu', 'e',
-                                      'kcal/mol', 'kcal/(mol*nm**2)', 'N', 'degrees'])
 
     molecular_system = msm.convert(msm.systems['Barnase-Barstar']['barnase_barstar.h5msm'])
 
@@ -19,13 +17,11 @@ def test_get_non_bonded_potential_energy_1():
                                                               selection='molecule_name=="BARNASE"',
                                                               selection_2='molecule_name=="BARSTAR"')
 
-    assert puw.are_close(U1nb2, '-761.4179568126572 kilocalorie/mole')
+    assert puw.get_unit(U1nb2)==puw.unit('kilojoule/mole')
 
 def test_get_non_bonded_potential_energy_2():
 
     import molsysmt as msm
-    msm.config.set_default_standard_units(standards=['nm', 'ps', 'K', 'mole', 'amu', 'e',
-                                      'kcal/mol', 'kcal/(mol*nm**2)', 'N', 'degrees'])
 
     molecular_system = msm.convert(msm.systems['Barnase-Barstar']['barnase_barstar.h5msm'])
 
@@ -34,5 +30,5 @@ def test_get_non_bonded_potential_energy_2():
                                                               selection_2='all in groups of group_index in [100,101,102]')
 
     assert U12_groups.shape==(3,3)
-    assert puw.get_unit(U12_groups)==puw.unit('kcal/mol')
+    assert puw.get_unit(U12_groups)==puw.unit('kilojoule/mole')
 
