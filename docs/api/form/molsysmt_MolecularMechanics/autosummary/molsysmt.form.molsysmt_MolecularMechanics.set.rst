@@ -4,11 +4,6 @@
 .. automodule:: molsysmt.form.molsysmt_MolecularMechanics.set
 
    
-   
-   
-
-   
-   
    .. rubric:: Functions
 
    .. autosummary::
@@ -32,15 +27,3 @@
       set_switch_distance_to_system
       set_water_model_to_system
    
-   
-
-   
-   
-   
-
-   
-   
-   
-
-
-

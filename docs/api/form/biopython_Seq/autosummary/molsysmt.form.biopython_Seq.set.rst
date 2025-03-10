@@ -4,20 +4,3 @@
 .. automodule:: molsysmt.form.biopython_Seq.set
 
    
-   
-   
-
-   
-   
-   
-
-   
-   
-   
-
-   
-   
-   
-
-
-

@@ -4,20 +4,3 @@
 .. automodule:: molsysmt.form.mdtraj_DCDTrajectoryFile.set
 
    
-   
-   
-
-   
-   
-   
-
-   
-   
-   
-
-   
-   
-   
-
-
-

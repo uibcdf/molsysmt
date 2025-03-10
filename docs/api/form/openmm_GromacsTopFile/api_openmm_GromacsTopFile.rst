@@ -16,7 +16,7 @@ openmm.GromacsGroFile
    TopologyIterator
    merge
    set
-   to_molsysmt_TopologyOld
+   to_molsysmt_Topology
    to_openmm_Topology
 
 

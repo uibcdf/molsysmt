@@ -4,11 +4,6 @@
 .. automodule:: molsysmt.form.string_amino_acids_3.get
 
    
-   
-   
-
-   
-   
    .. rubric:: Functions
 
    .. autosummary::
@@ -323,15 +318,3 @@
       get_time_from_system
       get_velocities_from_system
    
-   
-
-   
-   
-   
-
-   
-   
-   
-
-
-

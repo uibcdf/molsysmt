@@ -4,11 +4,6 @@
 .. automodule:: molsysmt.form.molsysmt_Topology.set
 
    
-   
-   
-
-   
-   
    .. rubric:: Functions
 
    .. autosummary::
@@ -16,7 +11,6 @@
       set_atom_id_to_atom
       set_atom_name_to_atom
       set_atom_type_to_atom
-      set_chain_id_to_atom
       set_chain_id_to_chain
       set_chain_index_to_atom
       set_chain_name_to_chain
@@ -36,15 +30,3 @@
       set_molecule_name_to_molecule
       set_molecule_type_to_molecule
    
-   
-
-   
-   
-   
-
-   
-   
-   
-
-
-

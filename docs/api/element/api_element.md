@@ -39,6 +39,12 @@ API of the set of functions to examine chains.
 API of the set of functions to examine entities.
 :::
 
+:::{grid-item-card} API Bond
+:columns: 3
+:link: entity/bond_entity.html
+API of the set of functions to examine bonds.
+:::
+
 ::::
 
 ```{eval-rst}
@@ -51,6 +57,7 @@ API of the set of functions to examine entities.
    molecule/api_molecule.rst
    chain/api_chain.rst
    entity/api_entity.rst
+   bond/api_bond.rst
    
 ```
 

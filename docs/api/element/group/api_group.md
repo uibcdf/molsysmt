@@ -29,6 +29,12 @@ API of the set of functions to examine nucleotides.
 
 :::{grid-item-card} API Saccharide
 :columns: 3
+:link: oligosaccharide/api_oligosaccharide.html
+API of the set of functions to examine oligosaccharides.
+:::
+
+:::{grid-item-card} API Saccharide
+:columns: 3
 :link: saccharide/api_saccharide.html
 API of the set of functions to examine saccharides.
 :::
@@ -73,6 +79,7 @@ API of the set of functions to examine waters.
    ion/api_ion.rst
    lipid/api_lipid.rst
    nucleotide/api_nucleotide.rst
+   oligosaccharide/api_oligosaccharide.rst
    saccharide/api_saccharide.rst
    small_molecule/api_small_molecule.rst
    terminal_capping/api_terminal_capping.rst

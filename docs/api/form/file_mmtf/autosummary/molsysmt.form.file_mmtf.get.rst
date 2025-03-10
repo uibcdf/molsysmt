@@ -4,11 +4,6 @@
 .. automodule:: molsysmt.form.file_mmtf.get
 
    
-   
-   
-
-   
-   
    .. rubric:: Functions
 
    .. autosummary::
@@ -341,15 +336,3 @@
       get_time_from_system
       get_velocities_from_system
    
-   
-
-   
-   
-   
-
-   
-   
-   
-
-
-

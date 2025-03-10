@@ -4,26 +4,9 @@
 .. automodule:: molsysmt.form.openmm_Topology.set
 
    
-   
-   
-
-   
-   
    .. rubric:: Functions
 
    .. autosummary::
    
       set_box_to_system
    
-   
-
-   
-   
-   
-
-   
-   
-   
-
-
-

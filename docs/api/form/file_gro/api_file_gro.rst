@@ -20,6 +20,7 @@ file:gro
    to_mdtraj_GroTrajectoryFile
    to_mdtraj_Topology
    to_mdtraj_Trajectory
+   to_molsysmt_GROFileHandler
    to_molsysmt_MolSys
    to_molsysmt_Structures
    to_molsysmt_Topology

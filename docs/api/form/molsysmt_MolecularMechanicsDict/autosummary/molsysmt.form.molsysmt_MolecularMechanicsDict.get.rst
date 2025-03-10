@@ -4,11 +4,6 @@
 .. automodule:: molsysmt.form.molsysmt_MolecularMechanicsDict.get
 
    
-   
-   
-
-   
-   
    .. rubric:: Functions
 
    .. autosummary::
@@ -35,15 +30,3 @@
       get_switch_distance_from_system
       get_water_model_from_system
    
-   
-
-   
-   
-   
-
-   
-   
-   
-
-
-

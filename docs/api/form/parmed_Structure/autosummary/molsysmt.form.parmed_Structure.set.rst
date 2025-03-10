@@ -4,20 +4,3 @@
 .. automodule:: molsysmt.form.parmed_Structure.set
 
    
-   
-   
-
-   
-   
-   
-
-   
-   
-   
-
-   
-   
-   
-
-
-

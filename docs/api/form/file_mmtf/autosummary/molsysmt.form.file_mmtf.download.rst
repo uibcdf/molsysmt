@@ -4,26 +4,9 @@
 .. automodule:: molsysmt.form.file_mmtf.download
 
    
-   
-   
-
-   
-   
    .. rubric:: Functions
 
    .. autosummary::
    
       download
    
-   
-
-   
-   
-   
-
-   
-   
-   
-
-
-

@@ -4,11 +4,6 @@
 .. automodule:: molsysmt.form.molsysmt_MolSys.get_structural_attributes
 
    
-   
-   
-
-   
-   
    .. rubric:: Functions
 
    .. autosummary::
@@ -34,15 +29,3 @@
       get_velocities_from_atom
       get_velocities_from_system
    
-   
-
-   
-   
-   
-
-   
-   
-   
-
-
-

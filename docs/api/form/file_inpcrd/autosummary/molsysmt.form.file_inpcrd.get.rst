@@ -4,11 +4,6 @@
 .. automodule:: molsysmt.form.file_inpcrd.get
 
    
-   
-   
-
-   
-   
    .. rubric:: Functions
 
    .. autosummary::
@@ -321,15 +316,3 @@
       get_velocities_from_atom
       get_velocities_from_system
    
-   
-
-   
-   
-   
-
-   
-   
-   
-
-
-

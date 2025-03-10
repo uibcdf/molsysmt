@@ -4,11 +4,6 @@
 .. automodule:: molsysmt.form.molsysmt_MolSys.set
 
    
-   
-   
-
-   
-   
    .. rubric:: Functions
 
    .. autosummary::
@@ -126,15 +121,3 @@
       set_velocities_to_atom
       set_water_model_to_system
    
-   
-
-   
-   
-   
-
-   
-   
-   
-
-
-

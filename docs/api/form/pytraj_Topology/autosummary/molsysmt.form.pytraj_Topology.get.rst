@@ -4,11 +4,6 @@
 .. automodule:: molsysmt.form.pytraj_Topology.get
 
    
-   
-   
-
-   
-   
    .. rubric:: Functions
 
    .. autosummary::
@@ -330,15 +325,3 @@
       get_partial_charge_from_system
       get_velocities_from_system
    
-   
-
-   
-   
-   
-
-   
-   
-   
-
-
-

@@ -4,11 +4,6 @@
 .. automodule:: molsysmt.form.string_pdb_id.get_topological_attributes
 
    
-   
-   
-
-   
-   
    .. rubric:: Functions
 
    .. autosummary::
@@ -356,15 +351,3 @@
       get_n_waters_from_molecule
       get_n_waters_from_system
    
-   
-
-   
-   
-   
-
-   
-   
-   
-
-
-

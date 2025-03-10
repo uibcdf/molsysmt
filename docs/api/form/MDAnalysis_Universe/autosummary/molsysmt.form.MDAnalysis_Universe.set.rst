@@ -4,20 +4,3 @@
 .. automodule:: molsysmt.form.MDAnalysis_Universe.set
 
    
-   
-   
-
-   
-   
-   
-
-   
-   
-   
-
-   
-   
-   
-
-
-

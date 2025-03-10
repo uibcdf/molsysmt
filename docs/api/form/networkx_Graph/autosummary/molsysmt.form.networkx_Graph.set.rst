@@ -4,20 +4,3 @@
 .. automodule:: molsysmt.form.networkx_Graph.set
 
    
-   
-   
-
-   
-   
-   
-
-   
-   
-   
-
-   
-   
-   
-
-
-

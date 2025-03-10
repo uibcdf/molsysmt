@@ -28,6 +28,7 @@ file:pdb
    to_mdtraj_Topology
    to_mdtraj_Trajectory
    to_molsysmt_MolSys
+   to_molsysmt_PDBFileHandler
    to_molsysmt_Structures
    to_molsysmt_Topology
    to_nglview_NGLWidget

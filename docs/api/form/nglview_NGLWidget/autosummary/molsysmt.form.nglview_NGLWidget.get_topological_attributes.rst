@@ -4,11 +4,6 @@
 .. automodule:: molsysmt.form.nglview_NGLWidget.get_topological_attributes
 
    
-   
-   
-
-   
-   
    .. rubric:: Functions
 
    .. autosummary::
@@ -60,6 +55,7 @@
       get_bond_type_from_group
       get_bond_type_from_molecule
       get_bonded_atom_pairs_from_atom
+      get_bonded_atom_pairs_from_bond
       get_bonded_atom_pairs_from_chain
       get_bonded_atom_pairs_from_component
       get_bonded_atom_pairs_from_entity
@@ -356,15 +352,3 @@
       get_n_waters_from_molecule
       get_n_waters_from_system
    
-   
-
-   
-   
-   
-
-   
-   
-   
-
-
-

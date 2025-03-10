@@ -1,0 +1,27 @@
+file:h5msm
+==========
+
+.. currentmodule:: molsysmt.form.file_h5msm
+
+.. autosummary::
+   :toctree: autosummary
+
+   add
+   append_structures
+   copy
+   extract
+   get_structural_attributes
+   get_topological_attributes
+   has_attribute
+   is_form
+   StructuresIterator
+   TopologyIterator
+   merge
+   set
+   to_molsysmt_H5MSMFileHandler
+   to_molsysmt_MolSys
+   to_molsysmt_Structures
+   to_molsysmt_Topology
+   to_nglview_NGLWidget
+   to_string_amino_acids_1
+   to_string_amino_acids_3

@@ -17,8 +17,10 @@ parmed.Structure
    TopologyIterator
    merge
    set
+   to_file_cif
    to_file_mol2
    to_file_pdb
+   to_file_psf
    to_mdtraj_Topology
    to_mdtraj_Trajectory
    to_molsysmt_MolSys

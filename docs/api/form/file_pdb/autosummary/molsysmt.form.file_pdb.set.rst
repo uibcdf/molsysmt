@@ -4,20 +4,3 @@
 .. automodule:: molsysmt.form.file_pdb.set
 
    
-   
-   
-
-   
-   
-   
-
-   
-   
-   
-
-   
-   
-   
-
-
-

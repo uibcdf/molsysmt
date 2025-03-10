@@ -4,20 +4,3 @@
 .. automodule:: molsysmt.form.file_xyznpy.set
 
    
-   
-   
-
-   
-   
-   
-
-   
-   
-   
-
-   
-   
-   
-
-
-

@@ -4,11 +4,6 @@
 .. automodule:: molsysmt.form.molsysmt_MolSys.get_topological_attributes
 
    
-   
-   
-
-   
-   
    .. rubric:: Functions
 
    .. autosummary::
@@ -302,15 +297,3 @@
       get_n_waters_from_molecule
       get_n_waters_from_system
    
-   
-
-   
-   
-   
-
-   
-   
-   
-
-
-

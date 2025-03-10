@@ -16,10 +16,14 @@ Form
 
    biopython_Seq/api_biopython_Seq.rst
    biopython_SeqRecord/api_biopython_SeqRecord.rst
+   file_bcif/api_file_bcif.rst
+   file_bcif_gz/api_file_bcif_gz.rst
+   file_cif/api_file_cif.rst
    file_crd/api_file_crd.rst
    file_dcd/api_file_dcd.rst
    file_gro/api_file_gro.rst
    file_h5/api_file_h5.rst
+   file_h5msm/api_file_h5msm.rst
    file_inpcrd/api_file_inpcrd.rst
    file_mmtf/api_file_mmtf.rst
    file_mol2/api_file_mol2.rst
@@ -37,10 +41,15 @@ Form
    mdtraj_Topology/api_mdtraj_Topology.rst
    mdtraj_Trajectory/api_mdtraj_Trajectory.rst
    mdtraj_XTCTrajectoryFile/api_mdtraj_XTCTrajectoryFile.rst
+   mmcif_PdbxContainers_DataContainer/api_mmcif_PdbxContainers_DataContainer.rst
    mmtf_MMTFDecoder/api_mmtf_MMTFDecoder.rst
+   molsysmt_CIFFileHandler/api_molsysmt_CIFFileHandler.rst
+   molsysmt_GROFileHandler/api_molsysmt_GROFileHandler.rst
+   molsysmt_H5MSMFileHandler/api_molsysmt_H5MSMFileHandler.rst
    molsysmt_MolecularMechanics/api_molsysmt_MolecularMechanics.rst
    molsysmt_MolecularMechanicsDict/api_molsysmt_MolecularMechanicsDict.rst
    molsysmt_MolSys/api_molsysmt_MolSys.rst
+   molsysmt_PDBFileHandler/api_molsysmt_PDBFileHandler.rst
    molsysmt_Structures/api_molsysmt_Structures.rst
    molsysmt_StructuresDict/api_molsysmt_StructuresDict.rst
    molsysmt_Topology/api_molsysmt_Topology.rst
@@ -56,6 +65,7 @@ Form
    openmm_Modeller/api_openmm_Modeller.rst
    openmm_PDBFile/api_openmm_PDBFile.rst
    openmm_Simulation/api_openmm_Simulation.rst
+   openmm_State/api_openmm_State.rst
    openmm_System/api_openmm_System.rst
    openmm_Topology/api_openmm_Topology.rst
    parmed_Structure/api_parmed_Structure.rst

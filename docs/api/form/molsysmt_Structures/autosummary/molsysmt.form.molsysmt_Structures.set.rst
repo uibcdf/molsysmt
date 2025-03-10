@@ -4,11 +4,6 @@
 .. automodule:: molsysmt.form.molsysmt_Structures.set
 
    
-   
-   
-
-   
-   
    .. rubric:: Functions
 
    .. autosummary::
@@ -23,15 +18,3 @@
       set_velocities_to_atom
       set_velocities_to_system
    
-   
-
-   
-   
-   
-
-   
-   
-   
-
-
-

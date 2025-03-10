@@ -4,11 +4,6 @@
 .. automodule:: molsysmt.form.mdtraj_HDF5TrajectoryFile.get
 
    
-   
-   
-
-   
-   
    .. rubric:: Functions
 
    .. autosummary::
@@ -339,15 +334,3 @@
       get_total_energy_from_system
       get_velocities_from_system
    
-   
-
-   
-   
-   
-
-   
-   
-   
-
-
-

@@ -4,20 +4,3 @@
 .. automodule:: molsysmt.form.pytraj_Topology.set
 
    
-   
-   
-
-   
-   
-   
-
-   
-   
-   
-
-   
-   
-   
-
-
-

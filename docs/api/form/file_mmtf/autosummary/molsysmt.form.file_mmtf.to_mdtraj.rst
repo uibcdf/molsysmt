@@ -4,20 +4,11 @@
 .. automodule:: molsysmt.form.file_mmtf.to_mdtraj
 
    
-   
-   
-
-   
-   
    .. rubric:: Functions
 
    .. autosummary::
    
       load_mmtf
-   
-   
-
-   
    
    .. rubric:: Classes
 
@@ -26,11 +17,3 @@
       MMTFTrajectoryFile
       TrajMMTFEncoder
    
-   
-
-   
-   
-   
-
-
-

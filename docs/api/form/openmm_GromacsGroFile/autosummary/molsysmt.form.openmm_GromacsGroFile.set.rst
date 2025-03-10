@@ -4,20 +4,3 @@
 .. automodule:: molsysmt.form.openmm_GromacsGroFile.set
 
    
-   
-   
-
-   
-   
-   
-
-   
-   
-   
-
-   
-   
-   
-
-
-

@@ -4,20 +4,3 @@
 .. automodule:: molsysmt.form.string_amino_acids_1.set
 
    
-   
-   
-
-   
-   
-   
-
-   
-   
-   
-
-   
-   
-   
-
-
-
