@@ -6,7 +6,7 @@ coverage:
     project:
       default:
         threshold: 50%
-  range: 60...80
+  range: 50...80
   round: down
   precision: 2
 

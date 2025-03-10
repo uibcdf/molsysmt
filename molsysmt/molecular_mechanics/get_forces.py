@@ -4,8 +4,8 @@ from molsysmt._private.variables import is_all
 import numpy as np
 
 @digest()
-def get_forces(molecular_system, selection='all', norm=False, platform='CUDA',
-        engine='OpenMM', syntax='MolSysMT'):
+def get_forces(molecular_system, element='atom', selection='all', magnitude=False,
+        engine='OpenMM', syntax='MolSysMT', skip_digestion=False):
 
     from molsysmt import convert, select, get_form, has_attribute
     from molsysmt.config import default_attribute
@@ -44,25 +44,27 @@ def get_forces(molecular_system, selection='all', norm=False, platform='CUDA',
 
         else:
 
-            extra_conversion_arguments={}
+            raise NotImplementedError
 
-            possible_missing_attributes=['forcefield', 'water_model', 'implicit_solvent', 'constraints',
-                    'non_bonded_method', 'switch_distance', 'dispersion_correction', 'ewald_error_tolerance',
-                    'integrator', 'temperature', 'friction', 'time_step']
+            #extra_conversion_arguments={}
 
-            for att in possible_missing_attributes:
-                if not has_attribute(molecular_system, att):
-                    extra_conversion_arguments[att]=default_attribute[att]
+            #possible_missing_attributes=['forcefield', 'water_model', 'implicit_solvent', 'constraints',
+            #        'non_bonded_method', 'switch_distance', 'dispersion_correction', 'ewald_error_tolerance',
+            #        'integrator', 'temperature', 'friction', 'time_step', 'platform']
 
-            context = convert(molecular_system, to_form='openmm.Context', selection=selection,
-                    syntax=syntax, **extra_conversion_arguments, platform=platform)
+            #for att in possible_missing_attributes:
+            #    if not has_attribute(molecular_system, att):
+            #        extra_conversion_arguments[att]=default_attribute[att]
+
+            #context = convert(molecular_system, to_form='openmm.Context', selection=selection,
+            #        syntax=syntax, **extra_conversion_arguments)
 
         state = context.getState(getForces=True)
         output = state.getForces(asNumpy=True)
         output = output[atom_indices]
         output = puw.standardize(output)
 
-        if norm:
+        if magnitude:
             output_value, output_unit = puw.get_value_and_unit(output)
             output_value = np.linalg.norm(output_value, axis=1)
             output = puw.quantity(output_value, output_unit)

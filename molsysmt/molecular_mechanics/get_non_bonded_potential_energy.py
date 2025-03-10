@@ -19,7 +19,7 @@ import numpy as np
 
 @digest()
 def get_non_bonded_potential_energy(molecular_system, selection='all', selection_2=None,
-        platform='CUDA', engine='OpenMM', syntax='MolSysMT'):
+                                    platform='CPU', engine='OpenMM', syntax='MolSysMT', skip_digestion=False):
 
     from molsysmt import convert, get_form, has_attribute, select
     from molsysmt.config import default_attribute
