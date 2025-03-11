@@ -2,7 +2,7 @@ from molsysmt._private.digestion import digest
 from molsysmt.thirds.nglview import load_html_in_jupyter_notebook
 from inspect import stack
 from pathlib import Path
-from molsysmt.config import _view_from_htmlfiles
+import os
 
 @digest()
 def view(molecular_system=None, selection='all', structure_indices='all',
@@ -110,7 +110,7 @@ def view(molecular_system=None, selection='all', structure_indices='all',
 
     """
 
-    if _view_from_htmlfiles:
+    if os.environ.get("MSM_VIEWS_FROM_HTML_FILES", "").lower() == "true":
         if 'nglview_htmlfile' in stack()[2][0].f_locals:
             htmlfile = stack()[2][0].f_locals['nglview_htmlfile']
             if htmlfile is not None:

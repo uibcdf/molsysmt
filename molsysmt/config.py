@@ -65,14 +65,14 @@ def set_default_standard_units(standards=['nm', 'ps', 'K', 'mole', 'amu', 'e',
 # Sphinx
 
 # Is sphinx working?
-from os import environ
-_sphinx_is_working = ('SPHINXWORKING' in environ)
-del(environ)
-
-# NGLview
-_view_from_htmlfiles=False
-if _sphinx_is_working:
-    _view_from_htmlfiles=True
+#from os import environ
+#_sphinx_is_working = ('SPHINXWORKING' in environ)
+#del(environ)
+#
+## NGLview
+#_view_from_htmlfiles=False
+#if _sphinx_is_working:
+#    _view_from_htmlfiles=True
 
 # Optimization
 large_list_length = 10000

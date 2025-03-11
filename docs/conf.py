@@ -75,7 +75,7 @@ myst_enable_extensions = [
 
 myst_heading_anchors = 3
 
-jupyter_execute_notebooks = "off"
+nb_execution_mode = "off"
 
 # -- Options for autodoc ----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/extensions/autodoc.html#configuration
