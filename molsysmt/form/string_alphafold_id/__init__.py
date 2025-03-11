@@ -37,6 +37,7 @@ from .to_openmm_Modeller import to_openmm_Modeller
 from .to_openmm_Topology import to_openmm_Topology
 from .to_openmm_PDBFile import to_openmm_PDBFile
 from .to_string_pdb_text import to_string_pdb_text
+from .to_string_amino_acids_1 import to_string_amino_acids_1
 from .to_nglview_NGLWidget import to_nglview_NGLWidget
 
 _convert_to={
@@ -55,5 +56,6 @@ _convert_to={
     'openmm.Topology': to_openmm_Topology,
     'openmm.PDBFile': to_openmm_PDBFile,
     'string:pdb_text': to_string_pdb_text,
+    'string:amino_acids_1': to_string_amino_acids_1,
     'nglview.NGLWidget': to_nglview_NGLWidget,
     }

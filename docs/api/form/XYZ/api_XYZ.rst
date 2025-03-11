@@ -10,7 +10,8 @@ XYZ
    append_structures
    copy
    extract
-   get
+   get_structural_attributes
+   get_topological_attributes
    has_attribute
    is_form
    StructuresIterator
@@ -19,8 +20,8 @@ XYZ
    set
    to_file_xyznpy
    to_molsysmt_MolecularMechanics
-   to_molsysmt_MolSysOld
-   to_molsysmt_StructuresOld
-   to_molsysmt_TopologyOld
+   to_molsysmt_MolSys
+   to_molsysmt_Structures
+   to_molsysmt_Topology
 
 

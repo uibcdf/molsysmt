@@ -6,7 +6,9 @@ API Molecular mechanics
 .. autosummary::
    :toctree: autosummary
   
-   forcefield_to_engine
+   get_engine_forcefield
+   get_forces
+   get_non_bonded_potential_energy
    get_potential_energy
    potential_energy_minimization
 

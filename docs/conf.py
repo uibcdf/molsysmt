@@ -62,14 +62,10 @@ extensions = [
     'sphinx_favicon',
     'myst_nb',
     'sphinx_tabs.tabs', # Do not move from the last position
-    #'nbsphinx', # for local testing instead of myst_nb
 ]
 
-# nbsphinx extensions and options
 
-#nbsphinx_execute = 'cache'
-
-# Myst extensions and options
+# MyST-NB extensions and options
 
 myst_enable_extensions = [
     'dollarmath',
@@ -79,9 +75,7 @@ myst_enable_extensions = [
 
 myst_heading_anchors = 3
 
-nb_execution_mode = 'auto'
-
-nb_execution_timeout = 100
+jupyter_execute_notebooks = "off"
 
 # -- Options for autodoc ----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/extensions/autodoc.html#configuration

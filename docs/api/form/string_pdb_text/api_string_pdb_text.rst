@@ -10,7 +10,8 @@ string:pdb_text
    append_structures
    copy
    extract
-   get
+   get_structural_attributes
+   get_topological_attributes
    has_attribute
    is_form
    StructuresIterator
@@ -21,12 +22,14 @@ string:pdb_text
    to_mdtraj_Topology
    to_mdtraj_Trajectory
    to_molsysmt_MolSys
+   to_molsysmt_PDBFileHandler
    to_molsysmt_Structures
    to_molsysmt_Topology
    to_nglview_NGLWidget
    to_openmm_Modeller
    to_openmm_PDBFile
    to_openmm_Simulation
+   to_openmm_System
    to_openmm_System
    to_openmm_Topology
    to_pdbfixer_PDBFixer

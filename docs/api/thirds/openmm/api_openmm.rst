@@ -1,9 +1,12 @@
 OpenMM
 ======
 
-.. currentmodule:: molsysmt.thirds.openmm
+.. toctree::
+   :name: items
+   :caption: Items
+   :maxdepth: 2
 
-.. autosummary::
-   :toctree: autosummary
-
+   forces/api_forces.rst
+   platforms/api_platforms.rst
+   reporters/api_reporters.rst
 

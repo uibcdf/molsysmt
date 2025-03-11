@@ -72,6 +72,7 @@ Form
    pdbfixer_PDBFixer/api_pdbfixer_PDBFixer.rst
    pytraj_Topology/api_pytraj_Topology.rst
    pytraj_Trajectory/api_pytraj_Trajectory.rst
+   string_alphafold_id/api_string_alphafold_id.rst
    string_amino_acids_1/api_string_amino_acids_1.rst
    string_amino_acids_3/api_string_amino_acids_3.rst
    string_pdb_id/api_string_pdb_id.rst

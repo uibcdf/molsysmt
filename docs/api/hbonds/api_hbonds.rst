@@ -1,5 +1,5 @@
-API Hydrogen bonds
-==================
+API Hbonds
+==========
 
 .. currentmodule:: molsysmt.hbonds
 

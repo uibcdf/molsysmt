@@ -9,7 +9,6 @@ file:cif
    add
    append_structures
    copy
-   download
    extract
    get
    has_attribute
