@@ -229,3 +229,19 @@ def test_info_12():
     true_df = DataFrame(true_dict)
     assert df.data.equals(true_df)
 
+def test_info_13():
+    df = msm.info('181L')
+    true_dict = {'form': {0: 'string:pdb_id'},
+                 'n_atoms': {0: 1441},
+                 'n_groups': {0: 302},
+                 'n_components': {0: 141},
+                 'n_chains': {0: 6},
+                 'n_molecules': {0: 141},
+                 'n_entities': {0: 5},
+                 'n_waters': {0: 136},
+                 'n_ions': {0: 2},
+                 'n_small_molecules': {0: 2},
+                 'n_proteins': {0: 1},
+                 'n_structures': {0: 1}}
+    true_df = DataFrame(true_dict)
+    assert df.data.equals(true_df)

@@ -2,7 +2,7 @@ import nglview as nv
 
 def write_html(view, output_filename):
 
-    from molsysmt.form.nglview_NGLWidget.get import get_n_structures_from_system
+    from molsysmt.form.nglview_NGLWidget import get_n_structures_from_system
 
     n_structures = get_n_structures_from_system(view)
 
