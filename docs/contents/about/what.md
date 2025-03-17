@@ -38,7 +38,7 @@ kind regarding its use and results.
 
 We hope you find it useful!
 
-Diego Prada-Gracia, and Liliana M. Moreno Vargas.
+[The authors](who.md).
 
 <br/>
 
