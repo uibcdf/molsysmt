@@ -13,6 +13,7 @@ import numpy as np
 def test_get_dihedral_quartets_from_molsysmt_MolSys_1():
     molsys = msm.convert(systems['TcTIM']['1tcd.h5msm'], to_form='molsysmt.MolSys')
     chains = msm.topology.get_dihedral_quartets(molsys, phi=True)
+    chains = np.array(chains)
     true_value_1 = np.array([[ 2,  9, 10, 11],
        [11, 16, 17, 18],
        [18, 25, 26, 27],
@@ -37,6 +38,7 @@ def test_get_dihedral_quartets_from_molsysmt_MolSys_1():
 def test_get_dihedral_quartets_from_molsysmt_MolSys_2():
     molsys = msm.convert(systems['TcTIM']['1tcd.h5msm'], to_form='molsysmt.MolSys')
     chains = msm.topology.get_dihedral_quartets(molsys, selection='10<=group_index<=15', psi=True)
+    chains = np.array(chains)
     true_value_1 = np.array([[ 77,  78,  79,  86],
        [ 86,  87,  88,  92],
        [ 92,  93,  94, 100],
@@ -48,6 +50,7 @@ def test_get_dihedral_quartets_from_molsysmt_MolSys_2():
 def test_get_dihedral_quartets_from_molsysmt_MolSys_3():
     molsys = msm.convert(systems['TcTIM']['1tcd.h5msm'], to_form='molsysmt.MolSys')
     chains = msm.topology.get_dihedral_quartets(molsys, chi5=True)
+    chains = np.array(chains)
     true_value_1 = np.array([[1572, 1573, 1574, 1575],
        [1666, 1667, 1668, 1669],
        [1721, 1722, 1723, 1724],
