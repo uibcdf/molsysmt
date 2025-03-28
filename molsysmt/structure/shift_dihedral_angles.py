@@ -3,8 +3,9 @@ import numpy as np
 from molsysmt import pyunitwizard as puw
 
 @digest()
-def shift_dihedral_angles(molecular_system, quartets=None, angles_shifts=None, blocks=None,
-                          structure_indices='all', pbc=True, in_place=False, engine='MolSysMT'):
+def shift_dihedral_angles(molecular_system, dihedral_quartets=None, shifts=None, blocks=None,
+                          structure_indices='all', pbc=True, in_place=False, engine='MolSysMT',
+                          skip_digestion=False):
     """
     To be written soon...
     """
@@ -12,18 +13,18 @@ def shift_dihedral_angles(molecular_system, quartets=None, angles_shifts=None, b
     from . import get_dihedral_angles, set_dihedral_angles
     from molsysmt.basic import get
 
-    if type(quartets) in [list,tuple]:
-        quartets = np.array(quartets, dtype=int)
-    elif type(quartets) is np.ndarray:
+    if type(dihedral_quartets) in [list,tuple]:
+        dihedral_quartets = np.array(dihedral_quartets, dtype=int)
+    elif type(dihedral_quartets) is np.ndarray:
         pass
     else:
         raise ValueError
 
-    shape = quartets.shape
+    shape = dihedral_quartets.shape
 
     if len(shape)==1:
         if shape[0]==4:
-            quartets=quartets.reshape([1,4])
+            dihedral_quartets=dihedra_quartets.reshape([1,4])
         else:
             raise ValueError
     elif len(shape)==2:
@@ -32,36 +33,36 @@ def shift_dihedral_angles(molecular_system, quartets=None, angles_shifts=None, b
     else:
         raise ValueError
 
-    n_quartets = quartets.shape[0]
+    n_quartets = dihedral_quartets.shape[0]
     n_structures = get(molecular_system, element='system', structure_indices=structure_indices, n_structures=True)
 
-    angles_shifts_units = puw.get_unit(angles_shifts)
-    angles_shifts_value = puw.get_value(angles_shifts)
+    shifts_units = puw.get_unit(shifts)
+    shifts_value = puw.get_value(shifts)
 
-    if type(angles_shifts_value) in [float]:
+    if type(shifts_value) in [float]:
         if (n_quartets==1 and n_structures==1):
-            angles_shifts_value = np.array([[angles_shifts_value]], dtype=float)
+            shifts_value = np.array([[shifts_value]], dtype=float)
         else:
-            raise ValueError("angles_shifts do not match the number of frames and quartets")
-    elif type(angles_shifts_value) in [list,tuple]:
-        angles_shifts_value = np.array(angles_shifts_value, dtype=float)
-    elif type(angles_shifts_value) is np.ndarray:
+            raise ValueError("shifts do not match the number of frames and quartets")
+    elif type(shifts_value) in [list,tuple]:
+        shifts_value = np.array(shifts_value, dtype=float)
+    elif type(shifts_value) is np.ndarray:
         pass
     else:
         raise ValueError
 
-    shape = angles_shifts_value.shape
+    shape = shifts_value.shape
 
     if len(shape)==1:
-        angles_shifts_value = angles_shifts_value.reshape([n_structures, n_quartets])
+        shifts_value = shifts_value.reshape([n_structures, n_quartets])
 
-    angles_shifts=angles_shifts_value*angles_shifts_units
+    shifts=shifts_value*shifts_units
 
-    angles = get_dihedral_angles(molecular_system, quartets=quartets,
+    angles = get_dihedral_angles(molecular_system, dihedral_quartets=dihedral_quartets,
             structure_indices=structure_indices, pbc=pbc)
-    angles = angles + angles_shifts
+    angles = angles + shifts
 
-    return set_dihedral_angles(molecular_system, quartets=quartets, angles=angles, blocks=None,
+    return set_dihedral_angles(molecular_system, dihedral_quartets=dihedral_quartets, angles=angles, blocks=None,
                                structure_indices=structure_indices, pbc=pbc, in_place=in_place,
                                engine=engine)
 

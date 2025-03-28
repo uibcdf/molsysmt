@@ -6,7 +6,7 @@ from molsysmt import lib as msmlib
 import gc
 
 @digest()
-def set_dihedral_angles(molecular_system, quartets=None, angles=None, blocks=None,
+def set_dihedral_angles(molecular_system, dihedral_quartets=None, angles=None, blocks=None,
         structure_indices='all', pbc=True, in_place=False, engine='MolSysMT'):
     """
     To be written soon...
@@ -23,19 +23,19 @@ def set_dihedral_angles(molecular_system, quartets=None, angles=None, blocks=Non
 
         angles = puw.get_value(angles, to_unit='radians')
 
-        n_quartets = quartets.shape[0]
+        n_quartets = dihedral_quartets.shape[0]
         on_in_blocks = np.zeros((n_quartets, coordinates.shape[1]), dtype=np.bool_)
 
         if blocks is None:
             for ii in range(n_quartets):
-                blocks = get_covalent_blocks(molecular_system, remove_bonds=[quartets[ii,1],quartets[ii,2]])
+                blocks = get_covalent_blocks(molecular_system, remove_bonds=[dihedral_quartets[ii,1],dihedral_quartets[ii,2]])
                 for block in blocks:
-                    if quartets[ii,3] in block:
+                    if dihedral_quartets[ii,3] in block:
                         on_in_blocks[ii,list(block)] = True
         else:
             for ii in range(n_quartets):
                 for block in blocks:
-                    if quartets[ii,3] in block:
+                    if dihedral_quartets[ii,3] in block:
                         on_in_blocks[ii,list(block)] = True
 
         if pbc:
@@ -45,9 +45,9 @@ def set_dihedral_angles(molecular_system, quartets=None, angles=None, blocks=Non
             if box is not None:
                 if box[0] is not None:
                     box = puw.get_value(box, to_unit=length_unit)
-                    msmlib.structure.set_mic_dihedral_angles(coordinates, box, angles, quartets,
+                    msmlib.structure.set_mic_dihedral_angles(coordinates, box, angles, dihedral_quartets,
                             on_in_blocks)
-                    del(box, quartets, angles, blocks, on_in_blocks)
+                    del(box, dihedral_quartets, angles, blocks, on_in_blocks)
                 else:
                     pbc = False
             else:
@@ -55,9 +55,9 @@ def set_dihedral_angles(molecular_system, quartets=None, angles=None, blocks=Non
 
         if not pbc:
 
-            msmlib.structure.set_dihedral_angles(coordinates, angles, quartets, on_in_blocks)
+            msmlib.structure.set_dihedral_angles(coordinates, angles, dihedral_quartets, on_in_blocks)
 
-            del(quartets, angles, blocks, on_in_blocks)
+            del(dihedral_quartets, angles, blocks, on_in_blocks)
 
         coordinates = puw.quantity(coordinates, length_unit)
 

@@ -16,7 +16,7 @@ from molsysmt._private.variables import is_all
 
 @digest()
 def get_potential_energy(molecular_system, selection='all', decomposition=False, platform='CPU',
-        engine='OpenMM', syntax='MolSysMT'):
+        engine='OpenMM', syntax='MolSysMT', skip_digestion=False):
 
     from molsysmt import convert, get_form, has_attribute
     from molsysmt.config import default_attribute

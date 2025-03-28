@@ -6,7 +6,7 @@ from molsysmt import lib as msmlib
 import gc
 
 @digest()
-def get_dihedral_angles(molecular_system, selection='all', quartets=None,
+def get_dihedral_angles(molecular_system, selection='all', dihedral_quartets=None,
                         structure_indices='all', syntax='MolSysMT', pbc=False, **kwargs):
     """
     To be written soon...
@@ -16,37 +16,37 @@ def get_dihedral_angles(molecular_system, selection='all', quartets=None,
 
     angles_split=None
 
-    if quartets is None:
+    if dihedral_quartets is None:
 
         from molsysmt.topology import get_dihedral_quartets
 
-        quartets = []
+        dihedral_quartets = []
         angles_split=[]
         for key in kwargs.keys():
             if kwargs[key]:
-                aux_quartets = get_dihedral_quartets(molecular_system, selection=selection,
+                aux_dihedral_quartets = get_dihedral_quartets(molecular_system, selection=selection,
                                                      syntax=syntax, **{key:True})
-                quartets.append(aux_quartets)
-                angles_split.append(aux_quartets.shape[0])
-        quartets = np.concatenate(quartets)
+                dihedral_quartets.append(aux_dihedral_quartets)
+                angles_split.append(len(aux_dihedral_quartets))
+        dihedral_quartets = np.concatenate(dihedral_quartets)
 
     atom_indices=[]
-    n_quartets=quartets.shape[0]
-    aux_quartets=np.zeros((n_quartets,4), dtype=np.int64)
+    n_quartets=dihedral_quartets.shape[0]
+    aux_dihedral_quartets=np.zeros((n_quartets,4), dtype=np.int64)
     aux_dict={}
     mm=0
     for ii in range(n_quartets):
         for jj in range(4):
-            kk = quartets[ii,jj]
+            kk = dihedral_quartets[ii,jj]
             if kk in aux_dict:
-                aux_quartets[ii,jj]=aux_dict[kk]
+                aux_dihedral_quartets[ii,jj]=aux_dict[kk]
             else:
                 aux_dict[kk]=mm
                 atom_indices.append(kk)
-                aux_quartets[ii,jj]=mm
+                aux_dihedral_quartets[ii,jj]=mm
                 mm+=1
-    quartets=aux_quartets
-    del(aux_dict, aux_quartets)
+    dihedral_quartets=aux_dihedral_quartets
+    del(aux_dict, aux_dihedral_quartets)
 
     coordinates = get(molecular_system, element='atom', selection=atom_indices, structure_indices=structure_indices,
                       coordinates=True)
@@ -60,8 +60,8 @@ def get_dihedral_angles(molecular_system, selection='all', quartets=None,
         if box is not None:
             if box[0] is not None:
                 box = puw.get_value(box, to_unit=length_unit)
-                angles = msmlib.structure.get_mic_dihedral_angles(coordinates, box, quartets)
-                del(coordinates, box, quartets)
+                angles = msmlib.structure.get_mic_dihedral_angles(coordinates, box, dihedral_quartets)
+                del(coordinates, box, dihedral_quartets)
             else:
                 pbc = False
         else:
@@ -69,8 +69,8 @@ def get_dihedral_angles(molecular_system, selection='all', quartets=None,
 
     if not pbc:
 
-        angles = msmlib.structure.get_dihedral_angles(coordinates, quartets)
-        del(coordinates, quartets)
+        angles = msmlib.structure.get_dihedral_angles(coordinates, dihedral_quartets)
+        del(coordinates, dihedral_quartets)
 
 
     angles = puw.quantity(angles, 'radians')

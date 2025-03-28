@@ -1,8 +1,13 @@
 import numpy as np
 from molsysmt import pyunitwizard as puw
 from ...exceptions import ArgumentError
+from ...variables import is_iterable
 
 def digest_angles(angles, caller=None):
+
+    if is_iterable(angles):
+        if puw.is_quantity(angles[0]):
+            angles = puw.utils.sequences.concatenate(angles)
 
     if puw.is_quantity(angles):
         if puw.are_compatible(angles, '0.0 radians'):

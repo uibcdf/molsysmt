@@ -75,6 +75,7 @@ def get_dihedral_quartets(molecular_system, with_blocks=False, selection='all',
         all_quartets = None
         all_blocks = None
 
+    all_quartets = [ii.tolist() for ii in all_quartets]
     if with_blocks:
         return all_quartets, all_blocks
     else:
