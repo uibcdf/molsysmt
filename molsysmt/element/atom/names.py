@@ -419,6 +419,7 @@ atom={
 'CHB'  : 'C',
 'CHC'  : 'C',
 'CHD'  : 'C',
+'CLA'  : 'C',
 'CLB'  : 'C',
 'CLC'  : 'C',
 'CLD'  : 'C',
@@ -514,7 +515,6 @@ atom={
 'K'     :  'K',
 'CL'    :  'CL',
 'Cl'    :  'CL',
-'CLA'   :  'CL',
 'FE'   :  'FE',
 
 ## Unknown

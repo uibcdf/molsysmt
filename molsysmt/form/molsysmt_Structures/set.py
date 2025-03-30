@@ -1,5 +1,6 @@
 from molsysmt._private.digestion import digest
 from molsysmt._private.variables import is_all
+from molsysmt import pyunitwizard as puw
 import numpy as np
 
 ###### Set
@@ -11,9 +12,19 @@ def set_coordinates_to_atom(item, indices='all', structure_indices='all', value=
 
     if is_all(indices):
         if is_all(structure_indices):
+
             item.coordinates = value
             item.n_structures = value.shape[0]
             item.n_atoms = value.shape[1]
+
+            if item.box is not None:
+                if item.box.shape[0]!=item.n_structures:
+                    if item.box.shape[0]==1:
+                        item.box = puw.utils.numpy.repeat(item.box, item.n_structures, axis=0,
+                                                          value_type='numpy.ndarray')
+                    else:
+                        raise ValueError("The number of boxes is different than the number of frames")
+
         else:
             item.coordinates[structure_indices,:,:] = value[:,:,:]
     else:

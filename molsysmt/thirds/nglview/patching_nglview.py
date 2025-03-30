@@ -85,7 +85,7 @@ def adding_molsysmt():
 
     from pathlib import Path
     import nglview as nv
-
+    import importlib
 
     if not hasattr(nv, 'show_molsysmt'):
 
@@ -118,4 +118,6 @@ def adding_molsysmt():
                 f.write(content)
 
         print('NGLView patched')
+
+        importlib.reload(nv)
 

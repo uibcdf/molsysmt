@@ -11,7 +11,7 @@ def to_string_amino_acids_3(item, group_indices='all', skip_digestion=False):
     atom_indices = get_atom_index_from_group(item, indices=group_indices, skip_digestion=True)
     atom_indices = np.concatenate(atom_indices)
     tmp_item = to_molsysmt_Topology(item, atom_indices=atom_indices, skip_digestion=True)
-    tmp_item = molsysmt_Topology_to_string_aminoacids3(tmp_item, skip_digestion=True)
+    tmp_item = molsysmt_Topology_to_string_amino_acids_3(tmp_item, skip_digestion=True)
 
     return tmp_item
 

@@ -1,0 +1,1482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>nglview-demo</title>
+</head>
+<body>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.0/jquery-ui.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
+
+
+<!-- Load require.js. Delete this if your page already loads require.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@jupyter-widgets/html-manager@^1.0.1/dist/embed-amd.js" crossorigin="anonymous"></script>
+
+<script type="application/vnd.jupyter.widget-state+json">
+{
+  "version_major": 2,
+  "version_minor": 0,
+  "state": {
+    "20eea59ad17c48998a758ee2c152b596": {
+      "model_name": "LayoutModel",
+      "model_module": "@jupyter-widgets/base",
+      "model_module_version": "2.0.0",
+      "state": {}
+    },
+    "c23075f8c28b49ca8fba1fe08a631195": {
+      "model_name": "ColormakerRegistryModel",
+      "model_module": "nglview-js-widgets",
+      "model_module_version": "3.0.8",
+      "state": {
+        "_dom_classes": [],
+        "_msg_ar": [],
+        "_msg_q": [],
+        "_ready": true,
+        "layout": "IPY_MODEL_20eea59ad17c48998a758ee2c152b596"
+      }
+    },
+    "2c3e2dfa37e34b178aa3cf0494ead880": {
+      "model_name": "LayoutModel",
+      "model_module": "@jupyter-widgets/base",
+      "model_module_version": "2.0.0",
+      "state": {}
+    },
+    "abea7bca0f474ff5b702f4f22427be9d": {
+      "model_name": "NGLModel",
+      "model_module": "nglview-js-widgets",
+      "model_module_version": "3.0.8",
+      "state": {
+        "_camera_orientation": [
+          23.724046452766743,
+          0,
+          0,
+          0,
+          0,
+          23.724046452766743,
+          0,
+          0,
+          0,
+          0,
+          23.724046452766743,
+          0,
+          -4.1114999651908875,
+          -4.823999881744385,
+          0.6205000281333923,
+          1
+        ],
+        "_dom_classes": [],
+        "_ibtn_fullscreen": "IPY_MODEL_113282793b33496eb9a0074d3db910b0",
+        "_igui": null,
+        "_iplayer": "IPY_MODEL_10f2112548d3409f8ddef9c2e881d252",
+        "_ngl_color_dict": {},
+        "_ngl_coordinate_resource": {},
+        "_ngl_full_stage_parameters": {
+          "impostor": true,
+          "quality": "medium",
+          "workerDefault": true,
+          "sampleLevel": 0,
+          "backgroundColor": "white",
+          "rotateSpeed": 2,
+          "zoomSpeed": 1.2,
+          "panSpeed": 1,
+          "clipNear": 0,
+          "clipFar": 100,
+          "clipDist": 10,
+          "clipMode": "scene",
+          "clipScale": "relative",
+          "fogNear": 50,
+          "fogFar": 100,
+          "cameraFov": 40,
+          "cameraEyeSep": 0.3,
+          "cameraType": "perspective",
+          "lightColor": 14540253,
+          "lightIntensity": 1,
+          "ambientColor": 14540253,
+          "ambientIntensity": 0.2,
+          "hoverTimeout": 0,
+          "tooltip": true,
+          "mousePreset": "default"
+        },
+        "_ngl_msg_archive": [
+          {
+            "target": "Stage",
+            "type": "call_method",
+            "methodName": "loadFile",
+            "reconstruc_color_scheme": false,
+            "args": [
+              {
+                "type": "blob",
+                "data": "HEADER    MOLECULAR SYSTEM                        29-MAR-25       \nREMARK   1 Created by MolSysMT version 1.0 on 29-MAR-2025 at 16:58:58\nATOM      1 H1   ACE A   1       2.000   1.000  -0.000  0.00  0.00           H\nATOM      2 CH3  ACE A   1       2.000   2.090   0.000  0.00  0.00           C\nATOM      3 H2   ACE A   1       1.486   2.454   0.890  0.00  0.00           H\nATOM      4 H3   ACE A   1       1.486   2.454  -0.890  0.00  0.00           H\nATOM      5 C    ACE A   1       3.427   2.641  -0.000  0.00  0.00           C\nATOM      6 O    ACE A   1       4.391   1.877  -0.000  0.00  0.00           O\nATOM      7 N    ALA A   2       3.555   3.970  -0.000  0.00  0.00           N\nATOM      8 H    ALA A   2       2.733   4.556  -0.000  0.00  0.00           H\nATOM      9 CA   ALA A   2       4.853   4.614  -0.000  0.00  0.00           C\nATOM     10 HA   ALA A   2       5.408   4.316   0.890  0.00  0.00           H\nATOM     11 CB   ALA A   2       5.661   4.221  -1.232  0.00  0.00           C\nATOM     12 HB1  ALA A   2       5.123   4.521  -2.131  0.00  0.00           H\nATOM     13 HB2  ALA A   2       6.630   4.719  -1.206  0.00  0.00           H\nATOM     14 HB3  ALA A   2       5.809   3.141  -1.241  0.00  0.00           H\nATOM     15 C    ALA A   2       4.713   6.129   0.000  0.00  0.00           C\nATOM     16 O    ALA A   2       3.601   6.653   0.000  0.00  0.00           O\nATOM     17 N    NME A   3       5.846   6.835   0.000  0.00  0.00           N\nATOM     18 H    NME A   3       6.737   6.359  -0.000  0.00  0.00           H\nATOM     19 C    NME A   3       5.846   8.284   0.000  0.00  0.00           C\nATOM     20 H1   NME A   3       4.819   8.648   0.000  0.00  0.00           H\nATOM     21 H2   NME A   3       6.360   8.648   0.890  0.00  0.00           H\nATOM     22 H3   NME A   3       6.360   8.648  -0.890  0.00  0.00           H\nEND\n",
+                "binary": false
+              }
+            ],
+            "kwargs": {
+              "name": "nglview.adaptor.MolSysMTTrajectory",
+              "skipDigestion": true,
+              "defaultRepresentation": true,
+              "ext": "pdb"
+            }
+          },
+          {
+            "component_index": 0,
+            "target": "compList",
+            "type": "call_method",
+            "methodName": "removeAllRepresentations",
+            "reconstruc_color_scheme": false,
+            "args": [],
+            "kwargs": {}
+          },
+          {
+            "component_index": 0,
+            "target": "compList",
+            "type": "call_method",
+            "methodName": "addRepresentation",
+            "reconstruc_color_scheme": false,
+            "args": [
+              "cartoon"
+            ],
+            "kwargs": {
+              "sele": "@"
+            }
+          },
+          {
+            "component_index": 0,
+            "target": "compList",
+            "type": "call_method",
+            "methodName": "addRepresentation",
+            "reconstruc_color_scheme": false,
+            "args": [
+              "cartoon"
+            ],
+            "kwargs": {
+              "sele": "@"
+            }
+          },
+          {
+            "component_index": 0,
+            "target": "compList",
+            "type": "call_method",
+            "methodName": "addRepresentation",
+            "reconstruc_color_scheme": false,
+            "args": [
+              "licorice"
+            ],
+            "kwargs": {
+              "sele": "@",
+              "radius": 0.4
+            }
+          },
+          {
+            "component_index": 0,
+            "target": "compList",
+            "type": "call_method",
+            "methodName": "addRepresentation",
+            "reconstruc_color_scheme": false,
+            "args": [
+              "licorice"
+            ],
+            "kwargs": {
+              "sele": "@0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21",
+              "radius": 0.4
+            }
+          },
+          {
+            "component_index": 0,
+            "target": "compList",
+            "type": "call_method",
+            "methodName": "addRepresentation",
+            "reconstruc_color_scheme": false,
+            "args": [
+              "ball+stick"
+            ],
+            "kwargs": {
+              "sele": "@"
+            }
+          }
+        ],
+        "_ngl_original_stage_parameters": {
+          "impostor": true,
+          "quality": "medium",
+          "workerDefault": true,
+          "sampleLevel": 0,
+          "backgroundColor": "white",
+          "rotateSpeed": 2,
+          "zoomSpeed": 1.2,
+          "panSpeed": 1,
+          "clipNear": 0,
+          "clipFar": 100,
+          "clipDist": 10,
+          "clipMode": "scene",
+          "clipScale": "relative",
+          "fogNear": 50,
+          "fogFar": 100,
+          "cameraFov": 40,
+          "cameraEyeSep": 0.3,
+          "cameraType": "perspective",
+          "lightColor": 14540253,
+          "lightIntensity": 1,
+          "ambientColor": 14540253,
+          "ambientIntensity": 0.2,
+          "hoverTimeout": 0,
+          "tooltip": true,
+          "mousePreset": "default"
+        },
+        "_ngl_repr_dict": {
+          "0": {
+            "0": {
+              "type": "cartoon",
+              "params": {
+                "lazy": false,
+                "visible": true,
+                "quality": "medium",
+                "aspectRatio": 5,
+                "subdiv": 6,
+                "radialSegments": 10,
+                "tension": null,
+                "capped": true,
+                "smoothSheet": false,
+                "radiusType": "sstruc",
+                "radiusData": {},
+                "radiusSize": 1,
+                "radiusScale": 0.7,
+                "assembly": "default",
+                "defaultAssembly": "",
+                "clipNear": 0,
+                "clipRadius": 0,
+                "clipCenter": {
+                  "x": 0,
+                  "y": 0,
+                  "z": 0
+                },
+                "flatShaded": false,
+                "opacity": 1,
+                "depthWrite": true,
+                "side": "double",
+                "wireframe": false,
+                "colorScheme": "chainname",
+                "colorScale": "RdYlBu",
+                "colorReverse": false,
+                "colorValue": 9474192,
+                "colorMode": "hcl",
+                "roughness": 0.4,
+                "metalness": 0,
+                "diffuse": 16777215,
+                "diffuseInterior": false,
+                "useInteriorColor": true,
+                "interiorColor": 2236962,
+                "interiorDarkening": 0,
+                "matrix": {
+                  "elements": [
+                    1,
+                    0,
+                    0,
+                    0,
+                    0,
+                    1,
+                    0,
+                    0,
+                    0,
+                    0,
+                    1,
+                    0,
+                    0,
+                    0,
+                    0,
+                    1
+                  ]
+                },
+                "disablePicking": false,
+                "sele": "@"
+              }
+            },
+            "1": {
+              "type": "cartoon",
+              "params": {
+                "lazy": false,
+                "visible": true,
+                "quality": "medium",
+                "aspectRatio": 5,
+                "subdiv": 6,
+                "radialSegments": 10,
+                "tension": null,
+                "capped": true,
+                "smoothSheet": false,
+                "radiusType": "sstruc",
+                "radiusData": {},
+                "radiusSize": 1,
+                "radiusScale": 0.7,
+                "assembly": "default",
+                "defaultAssembly": "",
+                "clipNear": 0,
+                "clipRadius": 0,
+                "clipCenter": {
+                  "x": 0,
+                  "y": 0,
+                  "z": 0
+                },
+                "flatShaded": false,
+                "opacity": 1,
+                "depthWrite": true,
+                "side": "double",
+                "wireframe": false,
+                "colorScheme": "chainname",
+                "colorScale": "RdYlBu",
+                "colorReverse": false,
+                "colorValue": 9474192,
+                "colorMode": "hcl",
+                "roughness": 0.4,
+                "metalness": 0,
+                "diffuse": 16777215,
+                "diffuseInterior": false,
+                "useInteriorColor": true,
+                "interiorColor": 2236962,
+                "interiorDarkening": 0,
+                "matrix": {
+                  "elements": [
+                    1,
+                    0,
+                    0,
+                    0,
+                    0,
+                    1,
+                    0,
+                    0,
+                    0,
+                    0,
+                    1,
+                    0,
+                    0,
+                    0,
+                    0,
+                    1
+                  ]
+                },
+                "disablePicking": false,
+                "sele": "@"
+              }
+            },
+            "2": {
+              "type": "licorice",
+              "params": {
+                "lazy": false,
+                "visible": true,
+                "quality": "medium",
+                "sphereDetail": 1,
+                "radialSegments": 10,
+                "openEnded": true,
+                "disableImpostor": false,
+                "lineOnly": false,
+                "cylinderOnly": false,
+                "multipleBond": "off",
+                "bondScale": 0.4,
+                "bondSpacing": 1,
+                "linewidth": 2,
+                "radiusType": "size",
+                "radiusData": {},
+                "radiusSize": 0.4,
+                "radiusScale": 1,
+                "assembly": "default",
+                "defaultAssembly": "",
+                "clipNear": 0,
+                "clipRadius": 0,
+                "clipCenter": {
+                  "x": 0,
+                  "y": 0,
+                  "z": 0
+                },
+                "flatShaded": false,
+                "opacity": 1,
+                "depthWrite": true,
+                "side": "double",
+                "wireframe": false,
+                "colorScheme": "element",
+                "colorScale": "",
+                "colorReverse": false,
+                "colorValue": 9474192,
+                "colorMode": "hcl",
+                "roughness": 0.4,
+                "metalness": 0,
+                "diffuse": 16777215,
+                "diffuseInterior": false,
+                "useInteriorColor": true,
+                "interiorColor": 2236962,
+                "interiorDarkening": 0,
+                "matrix": {
+                  "elements": [
+                    1,
+                    0,
+                    0,
+                    0,
+                    0,
+                    1,
+                    0,
+                    0,
+                    0,
+                    0,
+                    1,
+                    0,
+                    0,
+                    0,
+                    0,
+                    1
+                  ]
+                },
+                "disablePicking": false,
+                "sele": "@"
+              }
+            },
+            "3": {
+              "type": "licorice",
+              "params": {
+                "lazy": false,
+                "visible": true,
+                "quality": "medium",
+                "sphereDetail": 1,
+                "radialSegments": 10,
+                "openEnded": true,
+                "disableImpostor": false,
+                "lineOnly": false,
+                "cylinderOnly": false,
+                "multipleBond": "off",
+                "bondScale": 0.4,
+                "bondSpacing": 1,
+                "linewidth": 2,
+                "radiusType": "size",
+                "radiusData": {},
+                "radiusSize": 0.4,
+                "radiusScale": 1,
+                "assembly": "default",
+                "defaultAssembly": "",
+                "clipNear": 0,
+                "clipRadius": 0,
+                "clipCenter": {
+                  "x": 0,
+                  "y": 0,
+                  "z": 0
+                },
+                "flatShaded": false,
+                "opacity": 1,
+                "depthWrite": true,
+                "side": "double",
+                "wireframe": false,
+                "colorScheme": "element",
+                "colorScale": "",
+                "colorReverse": false,
+                "colorValue": 9474192,
+                "colorMode": "hcl",
+                "roughness": 0.4,
+                "metalness": 0,
+                "diffuse": 16777215,
+                "diffuseInterior": false,
+                "useInteriorColor": true,
+                "interiorColor": 2236962,
+                "interiorDarkening": 0,
+                "matrix": {
+                  "elements": [
+                    1,
+                    0,
+                    0,
+                    0,
+                    0,
+                    1,
+                    0,
+                    0,
+                    0,
+                    0,
+                    1,
+                    0,
+                    0,
+                    0,
+                    0,
+                    1
+                  ]
+                },
+                "disablePicking": false,
+                "sele": "@0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21"
+              }
+            },
+            "4": {
+              "type": "ball+stick",
+              "params": {
+                "lazy": false,
+                "visible": true,
+                "quality": "medium",
+                "sphereDetail": 1,
+                "radialSegments": 10,
+                "openEnded": true,
+                "disableImpostor": false,
+                "aspectRatio": 2,
+                "lineOnly": false,
+                "cylinderOnly": false,
+                "multipleBond": "off",
+                "bondScale": 0.4,
+                "bondSpacing": 1,
+                "linewidth": 2,
+                "radiusType": "size",
+                "radiusData": {},
+                "radiusSize": 0.15,
+                "radiusScale": 1,
+                "assembly": "default",
+                "defaultAssembly": "",
+                "clipNear": 0,
+                "clipRadius": 0,
+                "clipCenter": {
+                  "x": 0,
+                  "y": 0,
+                  "z": 0
+                },
+                "flatShaded": false,
+                "opacity": 1,
+                "depthWrite": true,
+                "side": "double",
+                "wireframe": false,
+                "colorScheme": "element",
+                "colorScale": "",
+                "colorReverse": false,
+                "colorValue": 9474192,
+                "colorMode": "hcl",
+                "roughness": 0.4,
+                "metalness": 0,
+                "diffuse": 16777215,
+                "diffuseInterior": false,
+                "useInteriorColor": true,
+                "interiorColor": 2236962,
+                "interiorDarkening": 0,
+                "matrix": {
+                  "elements": [
+                    1,
+                    0,
+                    0,
+                    0,
+                    0,
+                    1,
+                    0,
+                    0,
+                    0,
+                    0,
+                    1,
+                    0,
+                    0,
+                    0,
+                    0,
+                    1
+                  ]
+                },
+                "disablePicking": false,
+                "sele": "@"
+              }
+            }
+          }
+        },
+        "_ngl_version": "2.2.2",
+        "_ngl_view_id": [
+          "017CEC9C-549F-4BA4-8DFD-7B92BC76C500"
+        ],
+        "_player_dict": {},
+        "_scene_position": {},
+        "_scene_rotation": {},
+        "_synced_model_ids": [],
+        "_synced_repr_model_ids": [],
+        "layout": "IPY_MODEL_2c3e2dfa37e34b178aa3cf0494ead880",
+        "n_components": 1,
+        "picked": {}
+      }
+    },
+    "54bbf3d7be64410c847dd38cf7ec0444": {
+      "model_name": "LayoutModel",
+      "model_module": "@jupyter-widgets/base",
+      "model_module_version": "2.0.0",
+      "state": {}
+    },
+    "48fba8bc64ad447b848403f91a10f86b": {
+      "model_name": "ImageModel",
+      "model_module": "@jupyter-widgets/controls",
+      "model_module_version": "2.0.0",
+      "state": {
+        "_dom_classes": [],
+        "layout": "IPY_MODEL_54bbf3d7be64410c847dd38cf7ec0444",
+        "width": "900.0"
+      }
+    },
+    "ca3a039ba732431e90e42cc90ff24dc4": {
+      "model_name": "LayoutModel",
+      "model_module": "@jupyter-widgets/base",
+      "model_module_version": "2.0.0",
+      "state": {}
+    },
+    "35c0143a3be745d9a4afd3233643773a": {
+      "model_name": "DescriptionStyleModel",
+      "model_module": "@jupyter-widgets/controls",
+      "model_module_version": "2.0.0",
+      "state": {}
+    },
+    "9c219a01ca9f4208bd5e2c2e4c2044e3": {
+      "model_name": "PlayModel",
+      "model_module": "@jupyter-widgets/controls",
+      "model_module_version": "2.0.0",
+      "state": {
+        "_dom_classes": [],
+        "layout": "IPY_MODEL_ca3a039ba732431e90e42cc90ff24dc4",
+        "max": 0,
+        "style": "IPY_MODEL_35c0143a3be745d9a4afd3233643773a"
+      }
+    },
+    "e28ae88014764e63bbd7a44157512642": {
+      "model_name": "LayoutModel",
+      "model_module": "@jupyter-widgets/base",
+      "model_module_version": "2.0.0",
+      "state": {}
+    },
+    "f1ad7ad738e24520af50446859844116": {
+      "model_name": "SliderStyleModel",
+      "model_module": "@jupyter-widgets/controls",
+      "model_module_version": "2.0.0",
+      "state": {}
+    },
+    "43b418ec860949e4a97b51ba29b51d6f": {
+      "model_name": "IntSliderModel",
+      "model_module": "@jupyter-widgets/controls",
+      "model_module_version": "2.0.0",
+      "state": {
+        "_dom_classes": [],
+        "layout": "IPY_MODEL_e28ae88014764e63bbd7a44157512642",
+        "max": 0,
+        "style": "IPY_MODEL_f1ad7ad738e24520af50446859844116"
+      }
+    },
+    "5a5dc1857b5040e39355db5c154542a5": {
+      "model_name": "LayoutModel",
+      "model_module": "@jupyter-widgets/base",
+      "model_module_version": "2.0.0",
+      "state": {}
+    },
+    "10f2112548d3409f8ddef9c2e881d252": {
+      "model_name": "HBoxModel",
+      "model_module": "@jupyter-widgets/controls",
+      "model_module_version": "2.0.0",
+      "state": {
+        "_dom_classes": [],
+        "children": [
+          "IPY_MODEL_9c219a01ca9f4208bd5e2c2e4c2044e3",
+          "IPY_MODEL_43b418ec860949e4a97b51ba29b51d6f"
+        ],
+        "layout": "IPY_MODEL_5a5dc1857b5040e39355db5c154542a5"
+      }
+    },
+    "1ead1a0f8d8e44edbbde1e2e09a6b363": {
+      "model_name": "LinkModel",
+      "model_module": "@jupyter-widgets/controls",
+      "model_module_version": "2.0.0",
+      "state": {
+        "source": [
+          "IPY_MODEL_9c219a01ca9f4208bd5e2c2e4c2044e3",
+          "value"
+        ],
+        "target": [
+          "IPY_MODEL_43b418ec860949e4a97b51ba29b51d6f",
+          "value"
+        ]
+      }
+    },
+    "29e28a28777244c782621eda4b68d6b3": {
+      "model_name": "LinkModel",
+      "model_module": "@jupyter-widgets/controls",
+      "model_module_version": "2.0.0",
+      "state": {
+        "source": [
+          "IPY_MODEL_9c219a01ca9f4208bd5e2c2e4c2044e3",
+          "value"
+        ],
+        "target": [
+          "IPY_MODEL_abea7bca0f474ff5b702f4f22427be9d",
+          "frame"
+        ]
+      }
+    },
+    "fcc036dc0c4b4d778fa96a947ac700fe": {
+      "model_name": "LinkModel",
+      "model_module": "@jupyter-widgets/controls",
+      "model_module_version": "2.0.0",
+      "state": {
+        "source": [
+          "IPY_MODEL_9c219a01ca9f4208bd5e2c2e4c2044e3",
+          "max"
+        ],
+        "target": [
+          "IPY_MODEL_abea7bca0f474ff5b702f4f22427be9d",
+          "max_frame"
+        ]
+      }
+    },
+    "f363ae2db272483c840b775e9e51549e": {
+      "model_name": "LinkModel",
+      "model_module": "@jupyter-widgets/controls",
+      "model_module_version": "2.0.0",
+      "state": {
+        "source": [
+          "IPY_MODEL_43b418ec860949e4a97b51ba29b51d6f",
+          "max"
+        ],
+        "target": [
+          "IPY_MODEL_abea7bca0f474ff5b702f4f22427be9d",
+          "max_frame"
+        ]
+      }
+    },
+    "3142572737c2450db2ad638cc04660fd": {
+      "model_name": "LayoutModel",
+      "model_module": "@jupyter-widgets/base",
+      "model_module_version": "2.0.0",
+      "state": {
+        "width": "34px"
+      }
+    },
+    "e213a82c451541328e0279620d430317": {
+      "model_name": "ButtonStyleModel",
+      "model_module": "@jupyter-widgets/controls",
+      "model_module_version": "2.0.0",
+      "state": {}
+    },
+    "113282793b33496eb9a0074d3db910b0": {
+      "model_name": "ButtonModel",
+      "model_module": "@jupyter-widgets/controls",
+      "model_module_version": "2.0.0",
+      "state": {
+        "_dom_classes": [],
+        "icon": "compress",
+        "layout": "IPY_MODEL_3142572737c2450db2ad638cc04660fd",
+        "style": "IPY_MODEL_e213a82c451541328e0279620d430317"
+      }
+    },
+    "2c57681c60fe4be4a47b173ee5a626cb": {
+      "model_name": "LayoutModel",
+      "model_module": "@jupyter-widgets/base",
+      "model_module_version": "2.0.0",
+      "state": {}
+    },
+    "5840995f5ec844e982cf534b47182312": {
+      "model_name": "NGLModel",
+      "model_module": "nglview-js-widgets",
+      "model_module_version": "3.0.8",
+      "state": {
+        "_camera_orientation": [
+          23.724046452766743,
+          0,
+          0,
+          0,
+          0,
+          23.724046452766743,
+          0,
+          0,
+          0,
+          0,
+          23.724046452766743,
+          0,
+          -4.1114999651908875,
+          -4.823999881744385,
+          0.6205000281333923,
+          1
+        ],
+        "_dom_classes": [],
+        "_ibtn_fullscreen": "IPY_MODEL_9b6b2ea869444b2b8972c03bfd2e9d29",
+        "_igui": null,
+        "_iplayer": "IPY_MODEL_f9e16992fdf44308930720911ac9f462",
+        "_ngl_color_dict": {},
+        "_ngl_coordinate_resource": {
+          "0": [
+            "BAAAQAAAgD+pe661BAAAQI/CBUCVv9Yz5j2+P90LHUCBy2M/vD2+P+kLHUA+y2O/2VpbQMkCKUCcU0m2on+MQNdO8D+Rdd22RYtjQLoOfkCYCVC2cOsuQBDMkUCpe6617E2bQEelk0C4SJC2BwutQOUYikDuymM/aCm1QCQRh0AHt52/wvGjQAGvkECbZQjA7SzUQIUBl0BaV5q/j9+5QA4ESUC05Z6/Ps6WQDIkxECi57s19nBmQPHi1ECYCdA23hK7QF232kCsxSc2hJXXQEF+y0CVv9a04hK7QMqKBEGYCdA2xzGaQB9dCkGpey43eIPLQBtdCkHKy2M/ZoPLQCBdCkEpy2O/"
+          ],
+          "n_frames": 1
+        },
+        "_ngl_full_stage_parameters": {
+          "impostor": true,
+          "quality": "medium",
+          "workerDefault": true,
+          "sampleLevel": 0,
+          "backgroundColor": "white",
+          "rotateSpeed": 2,
+          "zoomSpeed": 1.2,
+          "panSpeed": 1,
+          "clipNear": 0,
+          "clipFar": 100,
+          "clipDist": 10,
+          "clipMode": "scene",
+          "clipScale": "relative",
+          "fogNear": 50,
+          "fogFar": 100,
+          "cameraFov": 40,
+          "cameraEyeSep": 0.3,
+          "cameraType": "perspective",
+          "lightColor": 14540253,
+          "lightIntensity": 1,
+          "ambientColor": 14540253,
+          "ambientIntensity": 0.2,
+          "hoverTimeout": 0,
+          "tooltip": true,
+          "mousePreset": "default"
+        },
+        "_ngl_msg_archive": [
+          {
+            "target": "Stage",
+            "type": "call_method",
+            "methodName": "loadFile",
+            "reconstruc_color_scheme": false,
+            "args": [
+              {
+                "type": "blob",
+                "data": "HEADER    MOLECULAR SYSTEM                        29-MAR-25       \nREMARK   1 Created by MolSysMT version 1.0 on 29-MAR-2025 at 16:59:37\nATOM      1 H1   ACE A   1       2.000   1.000  -0.000  0.00  0.00           H\nATOM      2 CH3  ACE A   1       2.000   2.090   0.000  0.00  0.00           C\nATOM      3 H2   ACE A   1       1.486   2.454   0.890  0.00  0.00           H\nATOM      4 H3   ACE A   1       1.486   2.454  -0.890  0.00  0.00           H\nATOM      5 C    ACE A   1       3.427   2.641  -0.000  0.00  0.00           C\nATOM      6 O    ACE A   1       4.391   1.877  -0.000  0.00  0.00           O\nATOM      7 N    ALA A   2       3.555   3.970  -0.000  0.00  0.00           N\nATOM      8 H    ALA A   2       2.733   4.556  -0.000  0.00  0.00           H\nATOM      9 CA   ALA A   2       4.853   4.614  -0.000  0.00  0.00           C\nATOM     10 HA   ALA A   2       5.408   4.316   0.890  0.00  0.00           H\nATOM     11 CB   ALA A   2       5.661   4.221  -1.232  0.00  0.00           C\nATOM     12 HB1  ALA A   2       5.123   4.521  -2.131  0.00  0.00           H\nATOM     13 HB2  ALA A   2       6.630   4.719  -1.206  0.00  0.00           H\nATOM     14 HB3  ALA A   2       5.809   3.141  -1.241  0.00  0.00           H\nATOM     15 C    ALA A   2       4.713   6.129   0.000  0.00  0.00           C\nATOM     16 O    ALA A   2       3.601   6.653   0.000  0.00  0.00           O\nATOM     17 N    NME A   3       5.846   6.835   0.000  0.00  0.00           N\nATOM     18 H    NME A   3       6.737   6.359  -0.000  0.00  0.00           H\nATOM     19 C    NME A   3       5.846   8.284   0.000  0.00  0.00           C\nATOM     20 H1   NME A   3       4.819   8.648   0.000  0.00  0.00           H\nATOM     21 H2   NME A   3       6.360   8.648   0.890  0.00  0.00           H\nATOM     22 H3   NME A   3       6.360   8.648  -0.890  0.00  0.00           H\nEND\n",
+                "binary": false
+              }
+            ],
+            "kwargs": {
+              "name": "nglview.adaptor.MolSysMTTrajectory",
+              "skipDigestion": true,
+              "defaultRepresentation": true,
+              "ext": "pdb"
+            }
+          },
+          {
+            "component_index": 0,
+            "target": "compList",
+            "type": "call_method",
+            "methodName": "removeAllRepresentations",
+            "reconstruc_color_scheme": false,
+            "args": [],
+            "kwargs": {}
+          },
+          {
+            "component_index": 0,
+            "target": "compList",
+            "type": "call_method",
+            "methodName": "addRepresentation",
+            "reconstruc_color_scheme": false,
+            "args": [
+              "cartoon"
+            ],
+            "kwargs": {
+              "sele": "@"
+            }
+          },
+          {
+            "component_index": 0,
+            "target": "compList",
+            "type": "call_method",
+            "methodName": "addRepresentation",
+            "reconstruc_color_scheme": false,
+            "args": [
+              "cartoon"
+            ],
+            "kwargs": {
+              "sele": "@"
+            }
+          },
+          {
+            "component_index": 0,
+            "target": "compList",
+            "type": "call_method",
+            "methodName": "addRepresentation",
+            "reconstruc_color_scheme": false,
+            "args": [
+              "licorice"
+            ],
+            "kwargs": {
+              "sele": "@",
+              "radius": 0.4
+            }
+          },
+          {
+            "component_index": 0,
+            "target": "compList",
+            "type": "call_method",
+            "methodName": "addRepresentation",
+            "reconstruc_color_scheme": false,
+            "args": [
+              "licorice"
+            ],
+            "kwargs": {
+              "sele": "@0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21",
+              "radius": 0.4
+            }
+          },
+          {
+            "component_index": 0,
+            "target": "compList",
+            "type": "call_method",
+            "methodName": "addRepresentation",
+            "reconstruc_color_scheme": false,
+            "args": [
+              "ball+stick"
+            ],
+            "kwargs": {
+              "sele": "@"
+            }
+          }
+        ],
+        "_ngl_original_stage_parameters": {
+          "impostor": true,
+          "quality": "medium",
+          "workerDefault": true,
+          "sampleLevel": 0,
+          "backgroundColor": "white",
+          "rotateSpeed": 2,
+          "zoomSpeed": 1.2,
+          "panSpeed": 1,
+          "clipNear": 0,
+          "clipFar": 100,
+          "clipDist": 10,
+          "clipMode": "scene",
+          "clipScale": "relative",
+          "fogNear": 50,
+          "fogFar": 100,
+          "cameraFov": 40,
+          "cameraEyeSep": 0.3,
+          "cameraType": "perspective",
+          "lightColor": 14540253,
+          "lightIntensity": 1,
+          "ambientColor": 14540253,
+          "ambientIntensity": 0.2,
+          "hoverTimeout": 0,
+          "tooltip": true,
+          "mousePreset": "default"
+        },
+        "_ngl_repr_dict": {
+          "0": {
+            "0": {
+              "type": "cartoon",
+              "params": {
+                "lazy": false,
+                "visible": true,
+                "quality": "medium",
+                "aspectRatio": 5,
+                "subdiv": 6,
+                "radialSegments": 10,
+                "tension": null,
+                "capped": true,
+                "smoothSheet": false,
+                "radiusType": "sstruc",
+                "radiusData": {},
+                "radiusSize": 1,
+                "radiusScale": 0.7,
+                "assembly": "default",
+                "defaultAssembly": "",
+                "clipNear": 0,
+                "clipRadius": 0,
+                "clipCenter": {
+                  "x": 0,
+                  "y": 0,
+                  "z": 0
+                },
+                "flatShaded": false,
+                "opacity": 1,
+                "depthWrite": true,
+                "side": "double",
+                "wireframe": false,
+                "colorScheme": "chainname",
+                "colorScale": "RdYlBu",
+                "colorReverse": false,
+                "colorValue": 9474192,
+                "colorMode": "hcl",
+                "roughness": 0.4,
+                "metalness": 0,
+                "diffuse": 16777215,
+                "diffuseInterior": false,
+                "useInteriorColor": true,
+                "interiorColor": 2236962,
+                "interiorDarkening": 0,
+                "matrix": {
+                  "elements": [
+                    1,
+                    0,
+                    0,
+                    0,
+                    0,
+                    1,
+                    0,
+                    0,
+                    0,
+                    0,
+                    1,
+                    0,
+                    0,
+                    0,
+                    0,
+                    1
+                  ]
+                },
+                "disablePicking": false,
+                "sele": "@"
+              }
+            },
+            "1": {
+              "type": "cartoon",
+              "params": {
+                "lazy": false,
+                "visible": true,
+                "quality": "medium",
+                "aspectRatio": 5,
+                "subdiv": 6,
+                "radialSegments": 10,
+                "tension": null,
+                "capped": true,
+                "smoothSheet": false,
+                "radiusType": "sstruc",
+                "radiusData": {},
+                "radiusSize": 1,
+                "radiusScale": 0.7,
+                "assembly": "default",
+                "defaultAssembly": "",
+                "clipNear": 0,
+                "clipRadius": 0,
+                "clipCenter": {
+                  "x": 0,
+                  "y": 0,
+                  "z": 0
+                },
+                "flatShaded": false,
+                "opacity": 1,
+                "depthWrite": true,
+                "side": "double",
+                "wireframe": false,
+                "colorScheme": "chainname",
+                "colorScale": "RdYlBu",
+                "colorReverse": false,
+                "colorValue": 9474192,
+                "colorMode": "hcl",
+                "roughness": 0.4,
+                "metalness": 0,
+                "diffuse": 16777215,
+                "diffuseInterior": false,
+                "useInteriorColor": true,
+                "interiorColor": 2236962,
+                "interiorDarkening": 0,
+                "matrix": {
+                  "elements": [
+                    1,
+                    0,
+                    0,
+                    0,
+                    0,
+                    1,
+                    0,
+                    0,
+                    0,
+                    0,
+                    1,
+                    0,
+                    0,
+                    0,
+                    0,
+                    1
+                  ]
+                },
+                "disablePicking": false,
+                "sele": "@"
+              }
+            },
+            "2": {
+              "type": "licorice",
+              "params": {
+                "lazy": false,
+                "visible": true,
+                "quality": "medium",
+                "sphereDetail": 1,
+                "radialSegments": 10,
+                "openEnded": true,
+                "disableImpostor": false,
+                "lineOnly": false,
+                "cylinderOnly": false,
+                "multipleBond": "off",
+                "bondScale": 0.4,
+                "bondSpacing": 1,
+                "linewidth": 2,
+                "radiusType": "size",
+                "radiusData": {},
+                "radiusSize": 0.4,
+                "radiusScale": 1,
+                "assembly": "default",
+                "defaultAssembly": "",
+                "clipNear": 0,
+                "clipRadius": 0,
+                "clipCenter": {
+                  "x": 0,
+                  "y": 0,
+                  "z": 0
+                },
+                "flatShaded": false,
+                "opacity": 1,
+                "depthWrite": true,
+                "side": "double",
+                "wireframe": false,
+                "colorScheme": "element",
+                "colorScale": "",
+                "colorReverse": false,
+                "colorValue": 9474192,
+                "colorMode": "hcl",
+                "roughness": 0.4,
+                "metalness": 0,
+                "diffuse": 16777215,
+                "diffuseInterior": false,
+                "useInteriorColor": true,
+                "interiorColor": 2236962,
+                "interiorDarkening": 0,
+                "matrix": {
+                  "elements": [
+                    1,
+                    0,
+                    0,
+                    0,
+                    0,
+                    1,
+                    0,
+                    0,
+                    0,
+                    0,
+                    1,
+                    0,
+                    0,
+                    0,
+                    0,
+                    1
+                  ]
+                },
+                "disablePicking": false,
+                "sele": "@"
+              }
+            },
+            "3": {
+              "type": "licorice",
+              "params": {
+                "lazy": false,
+                "visible": true,
+                "quality": "medium",
+                "sphereDetail": 1,
+                "radialSegments": 10,
+                "openEnded": true,
+                "disableImpostor": false,
+                "lineOnly": false,
+                "cylinderOnly": false,
+                "multipleBond": "off",
+                "bondScale": 0.4,
+                "bondSpacing": 1,
+                "linewidth": 2,
+                "radiusType": "size",
+                "radiusData": {},
+                "radiusSize": 0.4,
+                "radiusScale": 1,
+                "assembly": "default",
+                "defaultAssembly": "",
+                "clipNear": 0,
+                "clipRadius": 0,
+                "clipCenter": {
+                  "x": 0,
+                  "y": 0,
+                  "z": 0
+                },
+                "flatShaded": false,
+                "opacity": 1,
+                "depthWrite": true,
+                "side": "double",
+                "wireframe": false,
+                "colorScheme": "element",
+                "colorScale": "",
+                "colorReverse": false,
+                "colorValue": 9474192,
+                "colorMode": "hcl",
+                "roughness": 0.4,
+                "metalness": 0,
+                "diffuse": 16777215,
+                "diffuseInterior": false,
+                "useInteriorColor": true,
+                "interiorColor": 2236962,
+                "interiorDarkening": 0,
+                "matrix": {
+                  "elements": [
+                    1,
+                    0,
+                    0,
+                    0,
+                    0,
+                    1,
+                    0,
+                    0,
+                    0,
+                    0,
+                    1,
+                    0,
+                    0,
+                    0,
+                    0,
+                    1
+                  ]
+                },
+                "disablePicking": false,
+                "sele": "@0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21"
+              }
+            },
+            "4": {
+              "type": "ball+stick",
+              "params": {
+                "lazy": false,
+                "visible": true,
+                "quality": "medium",
+                "sphereDetail": 1,
+                "radialSegments": 10,
+                "openEnded": true,
+                "disableImpostor": false,
+                "aspectRatio": 2,
+                "lineOnly": false,
+                "cylinderOnly": false,
+                "multipleBond": "off",
+                "bondScale": 0.4,
+                "bondSpacing": 1,
+                "linewidth": 2,
+                "radiusType": "size",
+                "radiusData": {},
+                "radiusSize": 0.15,
+                "radiusScale": 1,
+                "assembly": "default",
+                "defaultAssembly": "",
+                "clipNear": 0,
+                "clipRadius": 0,
+                "clipCenter": {
+                  "x": 0,
+                  "y": 0,
+                  "z": 0
+                },
+                "flatShaded": false,
+                "opacity": 1,
+                "depthWrite": true,
+                "side": "double",
+                "wireframe": false,
+                "colorScheme": "element",
+                "colorScale": "",
+                "colorReverse": false,
+                "colorValue": 9474192,
+                "colorMode": "hcl",
+                "roughness": 0.4,
+                "metalness": 0,
+                "diffuse": 16777215,
+                "diffuseInterior": false,
+                "useInteriorColor": true,
+                "interiorColor": 2236962,
+                "interiorDarkening": 0,
+                "matrix": {
+                  "elements": [
+                    1,
+                    0,
+                    0,
+                    0,
+                    0,
+                    1,
+                    0,
+                    0,
+                    0,
+                    0,
+                    1,
+                    0,
+                    0,
+                    0,
+                    0,
+                    1
+                  ]
+                },
+                "disablePicking": false,
+                "sele": "@"
+              }
+            }
+          }
+        },
+        "_ngl_serialize": true,
+        "_ngl_version": "2.2.2",
+        "_ngl_view_id": [
+          "E039DEE9-6A05-4695-9FB6-D354DFD7F7AD"
+        ],
+        "_player_dict": {},
+        "_scene_position": {},
+        "_scene_rotation": {},
+        "_synced_model_ids": [],
+        "_synced_repr_model_ids": [],
+        "layout": "IPY_MODEL_2c57681c60fe4be4a47b173ee5a626cb",
+        "n_components": 1,
+        "picked": {}
+      }
+    },
+    "00b7aae4f17d41d7a50ed0f8cc41a055": {
+      "model_name": "LayoutModel",
+      "model_module": "@jupyter-widgets/base",
+      "model_module_version": "2.0.0",
+      "state": {}
+    },
+    "17d950a0f9e7438a8316f0577fef296e": {
+      "model_name": "ImageModel",
+      "model_module": "@jupyter-widgets/controls",
+      "model_module_version": "2.0.0",
+      "state": {
+        "_dom_classes": [],
+        "layout": "IPY_MODEL_00b7aae4f17d41d7a50ed0f8cc41a055",
+        "width": "900.0"
+      }
+    },
+    "51c21cc0f1534d02a1ed3017b22c9d9b": {
+      "model_name": "LayoutModel",
+      "model_module": "@jupyter-widgets/base",
+      "model_module_version": "2.0.0",
+      "state": {}
+    },
+    "289be114a4574866b4fdcf71953e0c5f": {
+      "model_name": "DescriptionStyleModel",
+      "model_module": "@jupyter-widgets/controls",
+      "model_module_version": "2.0.0",
+      "state": {}
+    },
+    "ddb5e339993a47099aa18c4e6fb8c362": {
+      "model_name": "PlayModel",
+      "model_module": "@jupyter-widgets/controls",
+      "model_module_version": "2.0.0",
+      "state": {
+        "_dom_classes": [],
+        "layout": "IPY_MODEL_51c21cc0f1534d02a1ed3017b22c9d9b",
+        "max": 0,
+        "style": "IPY_MODEL_289be114a4574866b4fdcf71953e0c5f"
+      }
+    },
+    "a7d0b141cd16400dba91f626b56960db": {
+      "model_name": "LayoutModel",
+      "model_module": "@jupyter-widgets/base",
+      "model_module_version": "2.0.0",
+      "state": {}
+    },
+    "58d14d7c57094cb9b5856e80494419bb": {
+      "model_name": "SliderStyleModel",
+      "model_module": "@jupyter-widgets/controls",
+      "model_module_version": "2.0.0",
+      "state": {}
+    },
+    "7a8dc14141f44e9b862065023bf9e935": {
+      "model_name": "IntSliderModel",
+      "model_module": "@jupyter-widgets/controls",
+      "model_module_version": "2.0.0",
+      "state": {
+        "_dom_classes": [],
+        "layout": "IPY_MODEL_a7d0b141cd16400dba91f626b56960db",
+        "max": 0,
+        "style": "IPY_MODEL_58d14d7c57094cb9b5856e80494419bb"
+      }
+    },
+    "b7c5510c413e433cb83c7183d8f27764": {
+      "model_name": "LayoutModel",
+      "model_module": "@jupyter-widgets/base",
+      "model_module_version": "2.0.0",
+      "state": {}
+    },
+    "f9e16992fdf44308930720911ac9f462": {
+      "model_name": "HBoxModel",
+      "model_module": "@jupyter-widgets/controls",
+      "model_module_version": "2.0.0",
+      "state": {
+        "_dom_classes": [],
+        "children": [
+          "IPY_MODEL_ddb5e339993a47099aa18c4e6fb8c362",
+          "IPY_MODEL_7a8dc14141f44e9b862065023bf9e935"
+        ],
+        "layout": "IPY_MODEL_b7c5510c413e433cb83c7183d8f27764"
+      }
+    },
+    "a8bb561f821b4a21a01dde6d3fc65971": {
+      "model_name": "LinkModel",
+      "model_module": "@jupyter-widgets/controls",
+      "model_module_version": "2.0.0",
+      "state": {
+        "source": [
+          "IPY_MODEL_ddb5e339993a47099aa18c4e6fb8c362",
+          "value"
+        ],
+        "target": [
+          "IPY_MODEL_7a8dc14141f44e9b862065023bf9e935",
+          "value"
+        ]
+      }
+    },
+    "777925c8dab345349753f42af438e13f": {
+      "model_name": "LinkModel",
+      "model_module": "@jupyter-widgets/controls",
+      "model_module_version": "2.0.0",
+      "state": {
+        "source": [
+          "IPY_MODEL_ddb5e339993a47099aa18c4e6fb8c362",
+          "value"
+        ],
+        "target": [
+          "IPY_MODEL_5840995f5ec844e982cf534b47182312",
+          "frame"
+        ]
+      }
+    },
+    "644e4b2b930345fd9cd141f692e83aa9": {
+      "model_name": "LinkModel",
+      "model_module": "@jupyter-widgets/controls",
+      "model_module_version": "2.0.0",
+      "state": {
+        "source": [
+          "IPY_MODEL_ddb5e339993a47099aa18c4e6fb8c362",
+          "max"
+        ],
+        "target": [
+          "IPY_MODEL_5840995f5ec844e982cf534b47182312",
+          "max_frame"
+        ]
+      }
+    },
+    "abbf255537ab4e84a9e6c2010dab34a6": {
+      "model_name": "LinkModel",
+      "model_module": "@jupyter-widgets/controls",
+      "model_module_version": "2.0.0",
+      "state": {
+        "source": [
+          "IPY_MODEL_7a8dc14141f44e9b862065023bf9e935",
+          "max"
+        ],
+        "target": [
+          "IPY_MODEL_5840995f5ec844e982cf534b47182312",
+          "max_frame"
+        ]
+      }
+    },
+    "22c753d59f494acd9336dbbb8a016323": {
+      "model_name": "LayoutModel",
+      "model_module": "@jupyter-widgets/base",
+      "model_module_version": "2.0.0",
+      "state": {
+        "width": "34px"
+      }
+    },
+    "b655de5c9a7e4bd986b0383b319a44c7": {
+      "model_name": "ButtonStyleModel",
+      "model_module": "@jupyter-widgets/controls",
+      "model_module_version": "2.0.0",
+      "state": {}
+    },
+    "9b6b2ea869444b2b8972c03bfd2e9d29": {
+      "model_name": "ButtonModel",
+      "model_module": "@jupyter-widgets/controls",
+      "model_module_version": "2.0.0",
+      "state": {
+        "_dom_classes": [],
+        "icon": "compress",
+        "layout": "IPY_MODEL_22c753d59f494acd9336dbbb8a016323",
+        "style": "IPY_MODEL_b655de5c9a7e4bd986b0383b319a44c7"
+      }
+    }
+  }
+}
+</script>
+<script type="application/vnd.jupyter.widget-view+json">
+{"version_major": 2, "version_minor": 0, "model_id": "c23075f8c28b49ca8fba1fe08a631195"}
+</script>
+<script type="application/vnd.jupyter.widget-view+json">
+{"version_major": 2, "version_minor": 0, "model_id": "5840995f5ec844e982cf534b47182312"}
+</script>
+
+</body>
+</html>

@@ -18,9 +18,9 @@ def small_molecule_is_amino_acid(molecular_system, group_name):
                     if 'O' in unique_atom_names:
                         if 'N' in unique_atom_names:
                             output = True
-                            warning_message = f"Warning! The group name {group_name} is reserved in the Protein Data "
-                            warning_message += "Bank for a small molecule, not for an amino acid."
-                            print(warning_message)
+                            #warning_message = f"Warning! The group name {group_name} is reserved in the Protein Data "
+                            #warning_message += "Bank for a small molecule, not for an amino acid."
+                            #print(warning_message)
 
     return output
 
