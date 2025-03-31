@@ -216,9 +216,9 @@ def get(molecular_system,
             if aux_molecular_system is None:
                 aux_molecular_system = molecular_system
 
-            aux_dict = get(aux_molecular_system, element=element, selection=selection,
+            aux_dict = get(aux_molecular_system, element=element, selection=indices,
                            structure_indices=structure_indices, mask=mask, syntax=syntax,
-                           get_missing_bonds=get_missing_bonds, output_type='dictionary', skip_digestion=True,
+                           get_missing_bonds=get_missing_bonds, output_type='dictionary', skip_digestion=False,
                            **{ii:True for ii in aux_attributes})
 
             output_dictionary.update(aux_dict)
@@ -239,6 +239,7 @@ def get(molecular_system,
         
 
 def _piped_molecular_system(molecular_system, element, in_attributes):
+
 
     from .. import select, where_is_attribute, get_form, convert
     from molsysmt.form import _dict_modules

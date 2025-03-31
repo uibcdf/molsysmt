@@ -1,0 +1,876 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>nglview-demo</title>
+</head>
+<body>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.0/jquery-ui.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
+
+
+<!-- Load require.js. Delete this if your page already loads require.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@jupyter-widgets/html-manager@^1.0.1/dist/embed-amd.js" crossorigin="anonymous"></script>
+
+<script type="application/vnd.jupyter.widget-state+json">
+{
+  "version_major": 2,
+  "version_minor": 0,
+  "state": {
+    "6651be53a989457b84edbb3f68c2ef86": {
+      "model_name": "LayoutModel",
+      "model_module": "@jupyter-widgets/base",
+      "model_module_version": "2.0.0",
+      "state": {}
+    },
+    "b444288059844f70999e5dcf72384b64": {
+      "model_name": "ColormakerRegistryModel",
+      "model_module": "nglview-js-widgets",
+      "model_module_version": "3.0.8",
+      "state": {
+        "_dom_classes": [],
+        "_msg_ar": [],
+        "_msg_q": [],
+        "_ready": true,
+        "layout": "IPY_MODEL_6651be53a989457b84edbb3f68c2ef86"
+      }
+    },
+    "d2184da4e7214799bbf78b522429d848": {
+      "model_name": "LayoutModel",
+      "model_module": "@jupyter-widgets/base",
+      "model_module_version": "2.0.0",
+      "state": {}
+    },
+    "19b069e8e92e494c934d7dbdf20a3d9f": {
+      "model_name": "NGLModel",
+      "model_module": "nglview-js-widgets",
+      "model_module_version": "3.0.8",
+      "state": {
+        "_camera_orientation": [],
+        "_dom_classes": [],
+        "_ibtn_fullscreen": "IPY_MODEL_6198a9cde7d548e6a0de02945775c672",
+        "_igui": null,
+        "_iplayer": "IPY_MODEL_5d51ae852c7640a2bd74ef4f299ac884",
+        "_ngl_color_dict": {},
+        "_ngl_coordinate_resource": {},
+        "_ngl_full_stage_parameters": {},
+        "_ngl_msg_archive": [
+          {
+            "target": "Stage",
+            "type": "call_method",
+            "methodName": "loadFile",
+            "reconstruc_color_scheme": false,
+            "args": [
+              {
+                "type": "blob",
+                "data": "HEADER    MOLECULAR SYSTEM                        30-MAR-25       \nREMARK   1 Created by MolSysMT version 1.0 on 30-MAR-2025 at 21:17:38\nATOM      1 H1   ACE A   1      -2.493  -3.853   0.224  0.00  0.00           H\nATOM      2 CH3  ACE A   1      -2.493  -2.763   0.224  0.00  0.00           C\nATOM      3 H2   ACE A   1      -3.007  -2.400   1.113  0.00  0.00           H\nATOM      4 H3   ACE A   1      -3.007  -2.400  -0.666  0.00  0.00           H\nATOM      5 C    ACE A   1      -1.065  -2.213   0.224  0.00  0.00           C\nATOM      6 O    ACE A   1      -0.102  -2.976   0.224  0.00  0.00           O\nATOM      7 N    ALA A   2      -0.938  -0.884   0.224  0.00  0.00           N\nATOM      8 H    ALA A   2      -1.760  -0.297   0.224  0.00  0.00           H\nATOM      9 CA   ALA A   2       0.360  -0.240   0.224  0.00  0.00           C\nATOM     10 HA   ALA A   2       0.915  -0.538   1.113  0.00  0.00           H\nATOM     11 CB   ALA A   2       1.168  -0.633  -1.008  0.00  0.00           C\nATOM     12 HB1  ALA A   2       0.630  -0.332  -1.908  0.00  0.00           H\nATOM     13 HB2  ALA A   2       2.138  -0.135  -0.982  0.00  0.00           H\nATOM     14 HB3  ALA A   2       1.316  -1.713  -1.018  0.00  0.00           H\nATOM     15 C    ALA A   2       0.220   1.276   0.224  0.00  0.00           C\nATOM     16 O    ALA A   2      -0.892   1.799   0.224  0.00  0.00           O\nATOM     17 N    NME A   3       1.353   1.981   0.224  0.00  0.00           N\nATOM     18 H    NME A   3       2.244   1.506   0.224  0.00  0.00           H\nATOM     19 C    NME A   3       1.353   3.430   0.224  0.00  0.00           C\nATOM     20 H1   NME A   3       0.326   3.794   0.224  0.00  0.00           H\nATOM     21 H2   NME A   3       1.867   3.794   1.113  0.00  0.00           H\nATOM     22 H3   NME A   3       1.867   3.794  -0.666  0.00  0.00           H\nEND\n",
+                "binary": false
+              }
+            ],
+            "kwargs": {
+              "name": "nglview.adaptor.MolSysMTTrajectory",
+              "defaultRepresentation": true,
+              "ext": "pdb"
+            }
+          }
+        ],
+        "_ngl_original_stage_parameters": {},
+        "_ngl_repr_dict": {},
+        "_ngl_view_id": [],
+        "_player_dict": {},
+        "_scene_position": {},
+        "_scene_rotation": {},
+        "_synced_model_ids": [],
+        "_synced_repr_model_ids": [],
+        "layout": "IPY_MODEL_d2184da4e7214799bbf78b522429d848",
+        "picked": {}
+      }
+    },
+    "ccbd3ffa1bae457e85ca789cebd75d15": {
+      "model_name": "LayoutModel",
+      "model_module": "@jupyter-widgets/base",
+      "model_module_version": "2.0.0",
+      "state": {}
+    },
+    "d009d167c5da4e89937f4aa0adbdf3fb": {
+      "model_name": "ImageModel",
+      "model_module": "@jupyter-widgets/controls",
+      "model_module_version": "2.0.0",
+      "state": {
+        "_dom_classes": [],
+        "layout": "IPY_MODEL_ccbd3ffa1bae457e85ca789cebd75d15",
+        "width": "900.0"
+      }
+    },
+    "3e11384e6c9741c4b48e6f6ea6dc0156": {
+      "model_name": "LayoutModel",
+      "model_module": "@jupyter-widgets/base",
+      "model_module_version": "2.0.0",
+      "state": {}
+    },
+    "9b24ac18e3714d8ba4c647c1c18d6077": {
+      "model_name": "DescriptionStyleModel",
+      "model_module": "@jupyter-widgets/controls",
+      "model_module_version": "2.0.0",
+      "state": {}
+    },
+    "9992858811314f049011cf113ba945d8": {
+      "model_name": "PlayModel",
+      "model_module": "@jupyter-widgets/controls",
+      "model_module_version": "2.0.0",
+      "state": {
+        "_dom_classes": [],
+        "layout": "IPY_MODEL_3e11384e6c9741c4b48e6f6ea6dc0156",
+        "max": 0,
+        "style": "IPY_MODEL_9b24ac18e3714d8ba4c647c1c18d6077"
+      }
+    },
+    "76dcabf6fbc0498c8e704baaf5914155": {
+      "model_name": "LayoutModel",
+      "model_module": "@jupyter-widgets/base",
+      "model_module_version": "2.0.0",
+      "state": {}
+    },
+    "f522c6221d6c415d9e711f48b79dd4ad": {
+      "model_name": "SliderStyleModel",
+      "model_module": "@jupyter-widgets/controls",
+      "model_module_version": "2.0.0",
+      "state": {}
+    },
+    "475527dd796f491fadcc3e8753b64123": {
+      "model_name": "IntSliderModel",
+      "model_module": "@jupyter-widgets/controls",
+      "model_module_version": "2.0.0",
+      "state": {
+        "_dom_classes": [],
+        "layout": "IPY_MODEL_76dcabf6fbc0498c8e704baaf5914155",
+        "max": 0,
+        "style": "IPY_MODEL_f522c6221d6c415d9e711f48b79dd4ad"
+      }
+    },
+    "82048f1fb22c463ebcb89159cb4772f6": {
+      "model_name": "LayoutModel",
+      "model_module": "@jupyter-widgets/base",
+      "model_module_version": "2.0.0",
+      "state": {}
+    },
+    "5d51ae852c7640a2bd74ef4f299ac884": {
+      "model_name": "HBoxModel",
+      "model_module": "@jupyter-widgets/controls",
+      "model_module_version": "2.0.0",
+      "state": {
+        "_dom_classes": [],
+        "children": [
+          "IPY_MODEL_9992858811314f049011cf113ba945d8",
+          "IPY_MODEL_475527dd796f491fadcc3e8753b64123"
+        ],
+        "layout": "IPY_MODEL_82048f1fb22c463ebcb89159cb4772f6"
+      }
+    },
+    "ce42f812ae8047ada67b3ca091844fab": {
+      "model_name": "LinkModel",
+      "model_module": "@jupyter-widgets/controls",
+      "model_module_version": "2.0.0",
+      "state": {
+        "source": [
+          "IPY_MODEL_9992858811314f049011cf113ba945d8",
+          "value"
+        ],
+        "target": [
+          "IPY_MODEL_475527dd796f491fadcc3e8753b64123",
+          "value"
+        ]
+      }
+    },
+    "6ec5df8c69d046eba4b5ebdbefcad946": {
+      "model_name": "LinkModel",
+      "model_module": "@jupyter-widgets/controls",
+      "model_module_version": "2.0.0",
+      "state": {
+        "source": [
+          "IPY_MODEL_9992858811314f049011cf113ba945d8",
+          "value"
+        ],
+        "target": [
+          "IPY_MODEL_19b069e8e92e494c934d7dbdf20a3d9f",
+          "frame"
+        ]
+      }
+    },
+    "b0696f894b8f439788d7ba874ce2a2ee": {
+      "model_name": "LinkModel",
+      "model_module": "@jupyter-widgets/controls",
+      "model_module_version": "2.0.0",
+      "state": {
+        "source": [
+          "IPY_MODEL_9992858811314f049011cf113ba945d8",
+          "max"
+        ],
+        "target": [
+          "IPY_MODEL_19b069e8e92e494c934d7dbdf20a3d9f",
+          "max_frame"
+        ]
+      }
+    },
+    "290c5cc867fd4343a402f3c6564afa99": {
+      "model_name": "LinkModel",
+      "model_module": "@jupyter-widgets/controls",
+      "model_module_version": "2.0.0",
+      "state": {
+        "source": [
+          "IPY_MODEL_475527dd796f491fadcc3e8753b64123",
+          "max"
+        ],
+        "target": [
+          "IPY_MODEL_19b069e8e92e494c934d7dbdf20a3d9f",
+          "max_frame"
+        ]
+      }
+    },
+    "82446d53ff3c485896d68b69c0cc242e": {
+      "model_name": "LayoutModel",
+      "model_module": "@jupyter-widgets/base",
+      "model_module_version": "2.0.0",
+      "state": {
+        "width": "34px"
+      }
+    },
+    "31bea77448dc479d9472256ff3cfe207": {
+      "model_name": "ButtonStyleModel",
+      "model_module": "@jupyter-widgets/controls",
+      "model_module_version": "2.0.0",
+      "state": {}
+    },
+    "6198a9cde7d548e6a0de02945775c672": {
+      "model_name": "ButtonModel",
+      "model_module": "@jupyter-widgets/controls",
+      "model_module_version": "2.0.0",
+      "state": {
+        "_dom_classes": [],
+        "icon": "compress",
+        "layout": "IPY_MODEL_82446d53ff3c485896d68b69c0cc242e",
+        "style": "IPY_MODEL_31bea77448dc479d9472256ff3cfe207"
+      }
+    },
+    "4c5e22bdfa9244a2b84221b6dea9eb08": {
+      "model_name": "LayoutModel",
+      "model_module": "@jupyter-widgets/base",
+      "model_module_version": "2.0.0",
+      "state": {}
+    },
+    "6630ba9757924e97812bb4dcf31b3216": {
+      "model_name": "NGLModel",
+      "model_module": "nglview-js-widgets",
+      "model_module_version": "3.0.8",
+      "state": {
+        "_camera_orientation": [],
+        "_dom_classes": [],
+        "_ibtn_fullscreen": "IPY_MODEL_501a6e0c2a0c4cf08e0025be5793fb26",
+        "_igui": null,
+        "_iplayer": "IPY_MODEL_39b6e5b0bc424f89a43a9d9ed504de53",
+        "_ngl_color_dict": {},
+        "_ngl_coordinate_resource": {},
+        "_ngl_full_stage_parameters": {},
+        "_ngl_msg_archive": [
+          {
+            "target": "Stage",
+            "type": "call_method",
+            "methodName": "loadFile",
+            "reconstruc_color_scheme": false,
+            "args": [
+              {
+                "type": "blob",
+                "data": "HEADER    MOLECULAR SYSTEM                        30-MAR-25       \nREMARK   1 Created by MolSysMT version 1.0 on 30-MAR-2025 at 21:17:38\nATOM      1 H1   ACE A   1       7.648  -3.403  -0.499  0.00  0.00           H\nATOM      2 CH3  ACE A   1       7.648  -2.313  -0.499  0.00  0.00           C\nATOM      3 H2   ACE A   1       7.134  -1.949   0.391  0.00  0.00           H\nATOM      4 H3   ACE A   1       7.134  -1.949  -1.389  0.00  0.00           H\nATOM      5 C    ACE A   1       9.075  -1.762  -0.499  0.00  0.00           C\nATOM      6 O    ACE A   1      10.039  -2.525  -0.499  0.00  0.00           O\nATOM      7 N    PRO A   2       9.203  -0.433  -0.499  0.00  0.00           N\nATOM      8 CD   PRO A   2       8.045   0.453  -0.499  0.00  0.00           C\nATOM      9 HD2  PRO A   2       7.657   0.544   0.515  0.00  0.00           H\nATOM     10 HD3  PRO A   2       7.272   0.041  -1.148  0.00  0.00           H\nATOM     11 CG   PRO A   2       8.601   1.744  -1.021  0.00  0.00           C\nATOM     12 HG2  PRO A   2       8.141   2.573  -0.483  0.00  0.00           H\nATOM     13 HG3  PRO A   2       8.387   1.839  -2.086  0.00  0.00           H\nATOM     14 CB   PRO A   2      10.090   1.686  -0.775  0.00  0.00           C\nATOM     15 HB2  PRO A   2      10.336   2.307   0.087  0.00  0.00           H\nATOM     16 HB3  PRO A   2      10.614   2.061  -1.654  0.00  0.00           H\nATOM     17 CA   PRO A   2      10.503   0.212  -0.499  0.00  0.00           C\nATOM     18 HA   PRO A   2      11.080  -0.054  -1.385  0.00  0.00           H\nATOM     19 C    PRO A   2      11.294  -0.152   0.749  0.00  0.00           C\nATOM     20 O    PRO A   2      10.839  -0.951   1.565  0.00  0.00           O\nATOM     21 N    NME A   3      12.482   0.438   0.897  0.00  0.00           N\nATOM     22 H    NME A   3      12.814   1.089   0.199  0.00  0.00           H\nATOM     23 C    NME A   3      13.331   0.175   2.042  0.00  0.00           C\nATOM     24 H1   NME A   3      12.841  -0.542   2.701  0.00  0.00           H\nATOM     25 H2   NME A   3      14.282  -0.235   1.704  0.00  0.00           H\nATOM     26 H3   NME A   3      13.508   1.104   2.584  0.00  0.00           H\nEND\n",
+                "binary": false
+              }
+            ],
+            "kwargs": {
+              "name": "nglview.adaptor.MolSysMTTrajectory",
+              "defaultRepresentation": true,
+              "ext": "pdb"
+            }
+          }
+        ],
+        "_ngl_original_stage_parameters": {},
+        "_ngl_repr_dict": {},
+        "_ngl_view_id": [],
+        "_player_dict": {},
+        "_scene_position": {},
+        "_scene_rotation": {},
+        "_synced_model_ids": [],
+        "_synced_repr_model_ids": [],
+        "layout": "IPY_MODEL_4c5e22bdfa9244a2b84221b6dea9eb08",
+        "picked": {}
+      }
+    },
+    "3784022567d949b093980a12cc2e2c29": {
+      "model_name": "LayoutModel",
+      "model_module": "@jupyter-widgets/base",
+      "model_module_version": "2.0.0",
+      "state": {}
+    },
+    "0344af3224e6460bbedfc5b648ef505f": {
+      "model_name": "ImageModel",
+      "model_module": "@jupyter-widgets/controls",
+      "model_module_version": "2.0.0",
+      "state": {
+        "_dom_classes": [],
+        "layout": "IPY_MODEL_3784022567d949b093980a12cc2e2c29",
+        "width": "900.0"
+      }
+    },
+    "162138064fcc4fb292343a3e1e9bc8f8": {
+      "model_name": "LayoutModel",
+      "model_module": "@jupyter-widgets/base",
+      "model_module_version": "2.0.0",
+      "state": {}
+    },
+    "9a40ebea7fbc4a43ba214c07dce8def9": {
+      "model_name": "DescriptionStyleModel",
+      "model_module": "@jupyter-widgets/controls",
+      "model_module_version": "2.0.0",
+      "state": {}
+    },
+    "94c5270fc2454138b7565aea9598ff2f": {
+      "model_name": "PlayModel",
+      "model_module": "@jupyter-widgets/controls",
+      "model_module_version": "2.0.0",
+      "state": {
+        "_dom_classes": [],
+        "layout": "IPY_MODEL_162138064fcc4fb292343a3e1e9bc8f8",
+        "max": 0,
+        "style": "IPY_MODEL_9a40ebea7fbc4a43ba214c07dce8def9"
+      }
+    },
+    "736487437d384686820f1059bb4dd0c2": {
+      "model_name": "LayoutModel",
+      "model_module": "@jupyter-widgets/base",
+      "model_module_version": "2.0.0",
+      "state": {}
+    },
+    "613be504cd59486faeef453f13d2c63c": {
+      "model_name": "SliderStyleModel",
+      "model_module": "@jupyter-widgets/controls",
+      "model_module_version": "2.0.0",
+      "state": {}
+    },
+    "5164a4e5b9174ec68d45436de42c7c76": {
+      "model_name": "IntSliderModel",
+      "model_module": "@jupyter-widgets/controls",
+      "model_module_version": "2.0.0",
+      "state": {
+        "_dom_classes": [],
+        "layout": "IPY_MODEL_736487437d384686820f1059bb4dd0c2",
+        "max": 0,
+        "style": "IPY_MODEL_613be504cd59486faeef453f13d2c63c"
+      }
+    },
+    "95378f0039b44681834c886e4502558a": {
+      "model_name": "LayoutModel",
+      "model_module": "@jupyter-widgets/base",
+      "model_module_version": "2.0.0",
+      "state": {}
+    },
+    "39b6e5b0bc424f89a43a9d9ed504de53": {
+      "model_name": "HBoxModel",
+      "model_module": "@jupyter-widgets/controls",
+      "model_module_version": "2.0.0",
+      "state": {
+        "_dom_classes": [],
+        "children": [
+          "IPY_MODEL_94c5270fc2454138b7565aea9598ff2f",
+          "IPY_MODEL_5164a4e5b9174ec68d45436de42c7c76"
+        ],
+        "layout": "IPY_MODEL_95378f0039b44681834c886e4502558a"
+      }
+    },
+    "6fe63faff25f46b887c3a34227ef6302": {
+      "model_name": "LinkModel",
+      "model_module": "@jupyter-widgets/controls",
+      "model_module_version": "2.0.0",
+      "state": {
+        "source": [
+          "IPY_MODEL_94c5270fc2454138b7565aea9598ff2f",
+          "value"
+        ],
+        "target": [
+          "IPY_MODEL_5164a4e5b9174ec68d45436de42c7c76",
+          "value"
+        ]
+      }
+    },
+    "2aba1571c12d49eb992bc487b90f3240": {
+      "model_name": "LinkModel",
+      "model_module": "@jupyter-widgets/controls",
+      "model_module_version": "2.0.0",
+      "state": {
+        "source": [
+          "IPY_MODEL_94c5270fc2454138b7565aea9598ff2f",
+          "value"
+        ],
+        "target": [
+          "IPY_MODEL_6630ba9757924e97812bb4dcf31b3216",
+          "frame"
+        ]
+      }
+    },
+    "22d6ff31a45a4718a8c73c3f876b12b3": {
+      "model_name": "LinkModel",
+      "model_module": "@jupyter-widgets/controls",
+      "model_module_version": "2.0.0",
+      "state": {
+        "source": [
+          "IPY_MODEL_94c5270fc2454138b7565aea9598ff2f",
+          "max"
+        ],
+        "target": [
+          "IPY_MODEL_6630ba9757924e97812bb4dcf31b3216",
+          "max_frame"
+        ]
+      }
+    },
+    "dcecd387972d48a1a0a2418acd0fc66c": {
+      "model_name": "LinkModel",
+      "model_module": "@jupyter-widgets/controls",
+      "model_module_version": "2.0.0",
+      "state": {
+        "source": [
+          "IPY_MODEL_5164a4e5b9174ec68d45436de42c7c76",
+          "max"
+        ],
+        "target": [
+          "IPY_MODEL_6630ba9757924e97812bb4dcf31b3216",
+          "max_frame"
+        ]
+      }
+    },
+    "bc08c3924e5947a2ac33c9bfa90fb0f6": {
+      "model_name": "LayoutModel",
+      "model_module": "@jupyter-widgets/base",
+      "model_module_version": "2.0.0",
+      "state": {
+        "width": "34px"
+      }
+    },
+    "65ac9a85ad1042b38b70fee8cef88d47": {
+      "model_name": "ButtonStyleModel",
+      "model_module": "@jupyter-widgets/controls",
+      "model_module_version": "2.0.0",
+      "state": {}
+    },
+    "501a6e0c2a0c4cf08e0025be5793fb26": {
+      "model_name": "ButtonModel",
+      "model_module": "@jupyter-widgets/controls",
+      "model_module_version": "2.0.0",
+      "state": {
+        "_dom_classes": [],
+        "icon": "compress",
+        "layout": "IPY_MODEL_bc08c3924e5947a2ac33c9bfa90fb0f6",
+        "style": "IPY_MODEL_65ac9a85ad1042b38b70fee8cef88d47"
+      }
+    },
+    "e99f106143b247ad8d56cbf129b41876": {
+      "model_name": "LayoutModel",
+      "model_module": "@jupyter-widgets/base",
+      "model_module_version": "2.0.0",
+      "state": {}
+    },
+    "aa7e61753fde4d078a80e00bbcc8557b": {
+      "model_name": "NGLModel",
+      "model_module": "nglview-js-widgets",
+      "model_module_version": "3.0.8",
+      "state": {
+        "_camera_orientation": [
+          38.236449402503084,
+          0,
+          0,
+          0,
+          0,
+          38.236449402503084,
+          0,
+          0,
+          0,
+          0,
+          38.236449402503084,
+          0,
+          -5.637499809265137,
+          0.02950000762939453,
+          -0.6559999585151672,
+          1
+        ],
+        "_dom_classes": [],
+        "_ibtn_fullscreen": "IPY_MODEL_865e7244bafa44cf904b01bddedc326f",
+        "_igui": null,
+        "_iplayer": "IPY_MODEL_71ff59ea7498499d86b2b9c917c393ce",
+        "_ngl_color_dict": {},
+        "_ngl_coordinate_resource": {
+          "0": [
+            "2osfwFSfdsDPCGU+2osfwMTcMMAtCWU+7GxAwHeTGcDlho4/AW1AwGqTGcD1iCq/CmKIv4ucDcBdCGU+bJPRveh3PsBrB2U+ZQJwv2hCYr9WCGU+3UDhv5k5mL7PCGU+0H+4PmZMdb4GCGU+vChqPyi2Cb+cho4/4o2VPy30Ib/iFYG/ll4hP4YKqr4SKvS/+80IQKLECb5pbHu/gWaoP4w227+PRIK/zAlhPiJSoz+ECWU+pGtkvxxN5j/GCmU+vDOtP82e/T/OCWU+KZ8PQF66wD8LCWU+yzOtP9OLW0DGCmU+c72mPinVckDgC2U+IvbuPxrVckAKh44/3PXuPyvVckDfiCq/+rz0QBHDWcBQkf+++rz0QIIAFMAhkf++cUzkQGlu+b/fBcg+ZkzkQE9u+b/oybG/MjURQZCA4b+Jkf++TZ4gQaWbIcABkv++TUETQbmi3b6Mkf++F7kAQePE5z41kf++xgT1QAc1Cz9A5gM/CrboQHvYJj3U75K/oZ8JQTFC3z9XtYK/wkECQbykJEBfIve+vS8GQSVu6z+JeQXAF3EhQd7N1z8dXUa/XmAlQeClE0B6KbE9W9QpQcfkA0Cys9O/yAwoQdJgWT60kf++nkcxQejEXr1hPrG/P7Q0QWdlG747zT8/Vm4tQQV9c79WRMg/+LdHQe5Z4D4Bq2U/VARNQXRgiz88Ckw+BEpVQVJ6Mz4KswJA0HJNQRynCr8X3SxAnoNkQQxGcL44Edo/qCBYQT5QjT/MZyVA"
+          ],
+          "n_frames": 1
+        },
+        "_ngl_full_stage_parameters": {
+          "impostor": true,
+          "quality": "medium",
+          "workerDefault": true,
+          "sampleLevel": 0,
+          "backgroundColor": "white",
+          "rotateSpeed": 2,
+          "zoomSpeed": 1.2,
+          "panSpeed": 1,
+          "clipNear": 0,
+          "clipFar": 100,
+          "clipDist": 10,
+          "clipMode": "scene",
+          "clipScale": "relative",
+          "fogNear": 50,
+          "fogFar": 100,
+          "cameraFov": 40,
+          "cameraEyeSep": 0.3,
+          "cameraType": "perspective",
+          "lightColor": 14540253,
+          "lightIntensity": 1,
+          "ambientColor": 14540253,
+          "ambientIntensity": 0.2,
+          "hoverTimeout": 0,
+          "tooltip": true,
+          "mousePreset": "default"
+        },
+        "_ngl_msg_archive": [
+          {
+            "target": "Stage",
+            "type": "call_method",
+            "methodName": "loadFile",
+            "reconstruc_color_scheme": false,
+            "args": [
+              {
+                "type": "blob",
+                "data": "HEADER    MOLECULAR SYSTEM                        30-MAR-25       \nREMARK   1 Created by MolSysMT version 1.0 on 30-MAR-2025 at 21:17:53\nATOM      1 H1   ACE A   1      -2.493  -3.853   0.224  0.00  0.00           H\nATOM      2 CH3  ACE A   1      -2.493  -2.763   0.224  0.00  0.00           C\nATOM      3 H2   ACE A   1      -3.007  -2.400   1.113  0.00  0.00           H\nATOM      4 H3   ACE A   1      -3.007  -2.400  -0.666  0.00  0.00           H\nATOM      5 C    ACE A   1      -1.065  -2.213   0.224  0.00  0.00           C\nATOM      6 O    ACE A   1      -0.102  -2.976   0.224  0.00  0.00           O\nATOM      7 N    ALA A   2      -0.938  -0.884   0.224  0.00  0.00           N\nATOM      8 H    ALA A   2      -1.760  -0.297   0.224  0.00  0.00           H\nATOM      9 CA   ALA A   2       0.360  -0.240   0.224  0.00  0.00           C\nATOM     10 HA   ALA A   2       0.915  -0.538   1.113  0.00  0.00           H\nATOM     11 CB   ALA A   2       1.168  -0.633  -1.008  0.00  0.00           C\nATOM     12 HB1  ALA A   2       0.630  -0.332  -1.908  0.00  0.00           H\nATOM     13 HB2  ALA A   2       2.138  -0.135  -0.982  0.00  0.00           H\nATOM     14 HB3  ALA A   2       1.316  -1.713  -1.018  0.00  0.00           H\nATOM     15 C    ALA A   2       0.220   1.276   0.224  0.00  0.00           C\nATOM     16 O    ALA A   2      -0.892   1.799   0.224  0.00  0.00           O\nATOM     17 N    NME A   3       1.353   1.981   0.224  0.00  0.00           N\nATOM     18 H    NME A   3       2.244   1.506   0.224  0.00  0.00           H\nATOM     19 C    NME A   3       1.353   3.430   0.224  0.00  0.00           C\nATOM     20 H1   NME A   3       0.326   3.794   0.224  0.00  0.00           H\nATOM     21 H2   NME A   3       1.867   3.794   1.113  0.00  0.00           H\nATOM     22 H3   NME A   3       1.867   3.794  -0.666  0.00  0.00           H\nATOM      1 H1   ACE A   1       7.648  -3.403  -0.499  0.00  0.00           H\nATOM      2 CH3  ACE A   1       7.648  -2.313  -0.499  0.00  0.00           C\nATOM      3 H2   ACE A   1       7.134  -1.949   0.391  0.00  0.00           H\nATOM      4 H3   ACE A   1       7.134  -1.949  -1.389  0.00  0.00           H\nATOM      5 C    ACE A   1       9.075  -1.762  -0.499  0.00  0.00           C\nATOM      6 O    ACE A   1      10.039  -2.525  -0.499  0.00  0.00           O\nATOM      7 N    PRO A   2       9.203  -0.433  -0.499  0.00  0.00           N\nATOM      8 CD   PRO A   2       8.045   0.453  -0.499  0.00  0.00           C\nATOM      9 HD2  PRO A   2       7.657   0.544   0.515  0.00  0.00           H\nATOM     10 HD3  PRO A   2       7.272   0.041  -1.148  0.00  0.00           H\nATOM     11 CG   PRO A   2       8.601   1.744  -1.021  0.00  0.00           C\nATOM     12 HG2  PRO A   2       8.141   2.573  -0.483  0.00  0.00           H\nATOM     13 HG3  PRO A   2       8.387   1.839  -2.086  0.00  0.00           H\nATOM     14 CB   PRO A   2      10.090   1.686  -0.775  0.00  0.00           C\nATOM     15 HB2  PRO A   2      10.336   2.307   0.087  0.00  0.00           H\nATOM     16 HB3  PRO A   2      10.614   2.061  -1.654  0.00  0.00           H\nATOM     17 CA   PRO A   2      10.503   0.212  -0.499  0.00  0.00           C\nATOM     18 HA   PRO A   2      11.080  -0.054  -1.385  0.00  0.00           H\nATOM     19 C    PRO A   2      11.294  -0.152   0.749  0.00  0.00           C\nATOM     20 O    PRO A   2      10.839  -0.951   1.565  0.00  0.00           O\nATOM     21 N    NME A   3      12.482   0.438   0.897  0.00  0.00           N\nATOM     22 H    NME A   3      12.814   1.089   0.199  0.00  0.00           H\nATOM     23 C    NME A   3      13.331   0.175   2.042  0.00  0.00           C\nATOM     24 H1   NME A   3      12.841  -0.542   2.701  0.00  0.00           H\nATOM     25 H2   NME A   3      14.282  -0.235   1.704  0.00  0.00           H\nATOM     26 H3   NME A   3      13.508   1.104   2.584  0.00  0.00           H\nEND\n",
+                "binary": false
+              }
+            ],
+            "kwargs": {
+              "name": "nglview.adaptor.MolSysMTTrajectory",
+              "skipDigestion": true,
+              "defaultRepresentation": true,
+              "ext": "pdb"
+            }
+          },
+          {
+            "component_index": 0,
+            "target": "compList",
+            "type": "call_method",
+            "methodName": "removeAllRepresentations",
+            "reconstruc_color_scheme": false,
+            "args": [],
+            "kwargs": {}
+          },
+          {
+            "component_index": 0,
+            "target": "compList",
+            "type": "call_method",
+            "methodName": "addRepresentation",
+            "reconstruc_color_scheme": false,
+            "args": [
+              "licorice"
+            ],
+            "kwargs": {
+              "sele": "all"
+            }
+          }
+        ],
+        "_ngl_original_stage_parameters": {
+          "impostor": true,
+          "quality": "medium",
+          "workerDefault": true,
+          "sampleLevel": 0,
+          "backgroundColor": "white",
+          "rotateSpeed": 2,
+          "zoomSpeed": 1.2,
+          "panSpeed": 1,
+          "clipNear": 0,
+          "clipFar": 100,
+          "clipDist": 10,
+          "clipMode": "scene",
+          "clipScale": "relative",
+          "fogNear": 50,
+          "fogFar": 100,
+          "cameraFov": 40,
+          "cameraEyeSep": 0.3,
+          "cameraType": "perspective",
+          "lightColor": 14540253,
+          "lightIntensity": 1,
+          "ambientColor": 14540253,
+          "ambientIntensity": 0.2,
+          "hoverTimeout": 0,
+          "tooltip": true,
+          "mousePreset": "default"
+        },
+        "_ngl_repr_dict": {
+          "0": {
+            "0": {
+              "type": "licorice",
+              "params": {
+                "lazy": false,
+                "visible": true,
+                "quality": "medium",
+                "sphereDetail": 1,
+                "radialSegments": 10,
+                "openEnded": true,
+                "disableImpostor": false,
+                "lineOnly": false,
+                "cylinderOnly": false,
+                "multipleBond": "off",
+                "bondScale": 0.4,
+                "bondSpacing": 1,
+                "linewidth": 2,
+                "radiusType": "size",
+                "radiusData": {},
+                "radiusSize": 0.15,
+                "radiusScale": 1,
+                "assembly": "default",
+                "defaultAssembly": "",
+                "clipNear": 0,
+                "clipRadius": 0,
+                "clipCenter": {
+                  "x": 0,
+                  "y": 0,
+                  "z": 0
+                },
+                "flatShaded": false,
+                "opacity": 1,
+                "depthWrite": true,
+                "side": "double",
+                "wireframe": false,
+                "colorScheme": "element",
+                "colorScale": "",
+                "colorReverse": false,
+                "colorValue": 9474192,
+                "colorMode": "hcl",
+                "roughness": 0.4,
+                "metalness": 0,
+                "diffuse": 16777215,
+                "diffuseInterior": false,
+                "useInteriorColor": true,
+                "interiorColor": 2236962,
+                "interiorDarkening": 0,
+                "matrix": {
+                  "elements": [
+                    1,
+                    0,
+                    0,
+                    0,
+                    0,
+                    1,
+                    0,
+                    0,
+                    0,
+                    0,
+                    1,
+                    0,
+                    0,
+                    0,
+                    0,
+                    1
+                  ]
+                },
+                "disablePicking": false,
+                "sele": "all"
+              }
+            }
+          }
+        },
+        "_ngl_serialize": true,
+        "_ngl_version": "2.2.2",
+        "_ngl_view_id": [
+          "36D94DB8-ACD5-41CB-9C15-6DBDB1A95353"
+        ],
+        "_player_dict": {},
+        "_scene_position": {},
+        "_scene_rotation": {},
+        "_synced_model_ids": [],
+        "_synced_repr_model_ids": [],
+        "layout": "IPY_MODEL_e99f106143b247ad8d56cbf129b41876",
+        "n_components": 1,
+        "picked": {}
+      }
+    },
+    "b34671282ea745c99e6bb24673a14ee8": {
+      "model_name": "LayoutModel",
+      "model_module": "@jupyter-widgets/base",
+      "model_module_version": "2.0.0",
+      "state": {}
+    },
+    "4014b3323d4149e19d2483d5c9790a92": {
+      "model_name": "ImageModel",
+      "model_module": "@jupyter-widgets/controls",
+      "model_module_version": "2.0.0",
+      "state": {
+        "_dom_classes": [],
+        "layout": "IPY_MODEL_b34671282ea745c99e6bb24673a14ee8",
+        "width": "900.0"
+      }
+    },
+    "217fb9916eaf406f8a6e7627143dad6e": {
+      "model_name": "LayoutModel",
+      "model_module": "@jupyter-widgets/base",
+      "model_module_version": "2.0.0",
+      "state": {}
+    },
+    "16a18d49dff44e0882ad4d56599d9d36": {
+      "model_name": "DescriptionStyleModel",
+      "model_module": "@jupyter-widgets/controls",
+      "model_module_version": "2.0.0",
+      "state": {}
+    },
+    "7c101c81e149430492b174c32e49349e": {
+      "model_name": "PlayModel",
+      "model_module": "@jupyter-widgets/controls",
+      "model_module_version": "2.0.0",
+      "state": {
+        "_dom_classes": [],
+        "layout": "IPY_MODEL_217fb9916eaf406f8a6e7627143dad6e",
+        "max": 0,
+        "style": "IPY_MODEL_16a18d49dff44e0882ad4d56599d9d36"
+      }
+    },
+    "9e15e090383f417a8dfeea73ab43dac8": {
+      "model_name": "LayoutModel",
+      "model_module": "@jupyter-widgets/base",
+      "model_module_version": "2.0.0",
+      "state": {}
+    },
+    "1cb3b12d837540c3828e3a067e8c70fa": {
+      "model_name": "SliderStyleModel",
+      "model_module": "@jupyter-widgets/controls",
+      "model_module_version": "2.0.0",
+      "state": {}
+    },
+    "6cfed651fb614044b18da20943a02672": {
+      "model_name": "IntSliderModel",
+      "model_module": "@jupyter-widgets/controls",
+      "model_module_version": "2.0.0",
+      "state": {
+        "_dom_classes": [],
+        "layout": "IPY_MODEL_9e15e090383f417a8dfeea73ab43dac8",
+        "max": 0,
+        "style": "IPY_MODEL_1cb3b12d837540c3828e3a067e8c70fa"
+      }
+    },
+    "2eae79dcfaec42d788f50f76899db0f1": {
+      "model_name": "LayoutModel",
+      "model_module": "@jupyter-widgets/base",
+      "model_module_version": "2.0.0",
+      "state": {}
+    },
+    "71ff59ea7498499d86b2b9c917c393ce": {
+      "model_name": "HBoxModel",
+      "model_module": "@jupyter-widgets/controls",
+      "model_module_version": "2.0.0",
+      "state": {
+        "_dom_classes": [],
+        "children": [
+          "IPY_MODEL_7c101c81e149430492b174c32e49349e",
+          "IPY_MODEL_6cfed651fb614044b18da20943a02672"
+        ],
+        "layout": "IPY_MODEL_2eae79dcfaec42d788f50f76899db0f1"
+      }
+    },
+    "c1c30b82002841109590e2ac46bd3fed": {
+      "model_name": "LinkModel",
+      "model_module": "@jupyter-widgets/controls",
+      "model_module_version": "2.0.0",
+      "state": {
+        "source": [
+          "IPY_MODEL_7c101c81e149430492b174c32e49349e",
+          "value"
+        ],
+        "target": [
+          "IPY_MODEL_6cfed651fb614044b18da20943a02672",
+          "value"
+        ]
+      }
+    },
+    "f6c3c91fd4d24fedb3fd9c0eb7f9dac2": {
+      "model_name": "LinkModel",
+      "model_module": "@jupyter-widgets/controls",
+      "model_module_version": "2.0.0",
+      "state": {
+        "source": [
+          "IPY_MODEL_7c101c81e149430492b174c32e49349e",
+          "value"
+        ],
+        "target": [
+          "IPY_MODEL_aa7e61753fde4d078a80e00bbcc8557b",
+          "frame"
+        ]
+      }
+    },
+    "2a03411abb3d49c2a4ef0478756a9ce7": {
+      "model_name": "LinkModel",
+      "model_module": "@jupyter-widgets/controls",
+      "model_module_version": "2.0.0",
+      "state": {
+        "source": [
+          "IPY_MODEL_7c101c81e149430492b174c32e49349e",
+          "max"
+        ],
+        "target": [
+          "IPY_MODEL_aa7e61753fde4d078a80e00bbcc8557b",
+          "max_frame"
+        ]
+      }
+    },
+    "71626747a8b84f06ac0632197fa09c78": {
+      "model_name": "LinkModel",
+      "model_module": "@jupyter-widgets/controls",
+      "model_module_version": "2.0.0",
+      "state": {
+        "source": [
+          "IPY_MODEL_6cfed651fb614044b18da20943a02672",
+          "max"
+        ],
+        "target": [
+          "IPY_MODEL_aa7e61753fde4d078a80e00bbcc8557b",
+          "max_frame"
+        ]
+      }
+    },
+    "83c891d59ceb4f9ba9e908972316022c": {
+      "model_name": "LayoutModel",
+      "model_module": "@jupyter-widgets/base",
+      "model_module_version": "2.0.0",
+      "state": {
+        "width": "34px"
+      }
+    },
+    "e5a62d73f25c4743848a0f557056e430": {
+      "model_name": "ButtonStyleModel",
+      "model_module": "@jupyter-widgets/controls",
+      "model_module_version": "2.0.0",
+      "state": {}
+    },
+    "865e7244bafa44cf904b01bddedc326f": {
+      "model_name": "ButtonModel",
+      "model_module": "@jupyter-widgets/controls",
+      "model_module_version": "2.0.0",
+      "state": {
+        "_dom_classes": [],
+        "icon": "compress",
+        "layout": "IPY_MODEL_83c891d59ceb4f9ba9e908972316022c",
+        "style": "IPY_MODEL_e5a62d73f25c4743848a0f557056e430"
+      }
+    }
+  }
+}
+</script>
+<script type="application/vnd.jupyter.widget-view+json">
+{"version_major": 2, "version_minor": 0, "model_id": "b444288059844f70999e5dcf72384b64"}
+</script>
+<script type="application/vnd.jupyter.widget-view+json">
+{"version_major": 2, "version_minor": 0, "model_id": "aa7e61753fde4d078a80e00bbcc8557b"}
+</script>
+
+</body>
+</html>

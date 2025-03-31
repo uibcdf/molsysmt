@@ -7,6 +7,7 @@ def get_label(molecular_system,
               selection='all',
               string='{name}-{id}@{index}',
               syntax='MolSysMT',
+              skip_digestion=False
          ):
     """
     Getting label strings for elements
@@ -140,8 +141,8 @@ def get_label(molecular_system,
                 aux_dict[key]=get_dict[key][ii]
             output.append(string.format(**aux_dict))
 
-    if len(output)>1:
-        return output
-    else:
+    if len(output)==1:
         return output[0]
+    else:
+        return output
 
