@@ -226,8 +226,11 @@ def compare(molecular_system, molecular_system_2, selection='all', structure_ind
 
     for aux2 in aux:
 
+
         element=aux2[0]
         atts = atts_required & aux2[1]
+
+        print(aux2, atts, piped_system_A, piped_system_B)
 
         if piped_system_A is None:
             aux_molecular_system = molecular_system

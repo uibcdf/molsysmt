@@ -3,64 +3,50 @@ import numpy as np
 
 def are_multiple_molecular_systems(molecular_systems):
     """
-    Verifying the validity of a list of molecular systems.
+    Check whether a list contains only valid molecular systems.
 
-    A list of objects is checked to verify that all objects are molecular systems.
-
+    This function verifies that all elements in the input list are molecular systems,
+    each in one of the supported forms recognized by MolSysMT.
 
     Parameters
     ----------
-
     molecular_systems : list of molecular systems
-        A list of molecular system in any of :ref:`the supported forms <Introduction_Forms>`.
-
+        List of objects to check. Each item must be in one of 
+        :ref:`the supported forms <Introduction_Forms>`.
 
     Returns
     -------
-
     bool
-        The function returns True in case all objects in the input list are
-        molecular systems. The returned value is False otherwise.
-
-
-    .. versionadded:: 0.1.0
-
+        True if all objects in the list are valid molecular systems.
+        False if any object is not recognized as a molecular system.
 
     Notes
     -----
-
-    The list of supported molecular systems' forms is detailed in the documentation section
-    :ref:`User Guide > Introduction > Molecular systems > Forms <Introduction_Forms>`.    
-
+    The list of supported molecular system forms is detailed in
+    :ref:`User Guide > Introduction > Molecular systems > Forms <Introduction_Forms>`.
 
     See Also
     --------
-
     :func:`molsysmt.basic.is_a_molecular_system`
-        Verifying the validity of a molecular system.
-
+        Check whether a single object is a valid molecular system.
 
     Examples
     --------
-
-    The following example illustrates the use of the function.
-
     >>> import molsysmt as msm
-    >>> from molsysmt.systems import demo
-    >>> molecular_system_1 = '2LAO'
-    >>> molecular_system_2 = 'AVLYAWPA'
-    >>> molecular_system_3 = demo['Trp-Cage']['1l2y.mmtf']
-    >>> msm.basic.are_multiple_molecular_systems([molecular_system_1, molecular_system_2, molecular_system_3])
+    >>> from molsysmt import systems
+    >>> molsys_A = '2LAO'
+    >>> molsys_B = 'AVLYAWPA'
+    >>> molsys_C = systems['Trp-Cage']['1l2y.mmtf']
+    >>> msm.basic.are_multiple_molecular_systems([molsys_A, molsys_B, molsys_C])
     True
 
+    .. versionadded:: 1.0.0
 
     .. admonition:: User guide
 
        Follow this link for a tutorial on how to work with this function:
-       :ref:`User Guide > Tools > Basic > Are multiple molecular systems <Tutorial_Are_multiple_molecular_systems>`.    
-
+       :ref:`User Guide > Tools > Basic > Are multiple molecular systems <Tutorial_Are_multiple_molecular_systems>`.
     """
-
 
     from . import is_a_molecular_system
 

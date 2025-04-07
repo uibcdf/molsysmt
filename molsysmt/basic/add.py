@@ -47,11 +47,16 @@ def add(to_molecular_system, from_molecular_system, selection='all', structure_i
         Selection syntax to interpret the `selection` string. See :ref:`Introduction_Selection` for options.
 
     skip_digestion : bool, default=False
-        MolSysMT has a built-in digestion system to check the validity of the
-        arguments passed to its functions. This system does not only check, but
-        also corrects types or shape when possible. This digestion system can
-        be skipped
-        by setting this argument to True.
+        Whether to skip MolSysMT’s internal argument digestion mechanism.
+
+        MolSysMT includes a built-in digestion system that validates and normalizes
+        function arguments. This process checks types, shapes, and values, and automatically
+        adjusts them when possible to meet expected formats.
+
+        Setting `skip_digestion=True` disables this process, which may improve performance
+        in workflows where inputs are already validated. Use with caution: only set this to
+        `True` if you are certain all input arguments are correct and consistent.
+
 
     Raises
     ------
@@ -89,13 +94,13 @@ def add(to_molecular_system, from_molecular_system, selection='all', structure_i
     Examples
     --------
     >>> import molsysmt as msm
-    >>> from molsysmt.systems import demo
-    >>> molsys_1 = msm.convert(demo['alanine dipeptide']['alanine_dipeptide.msmpk'])
-    >>> molsys_2 = msm.convert(demo['valine dipeptide']['valine_dipeptide.msmpk'])
-    >>> msm.get(molsys_1, n_molecules=True)
+    >>> from molsysmt import systems
+    >>> molsys_A = msm.convert(systems['alanine dipeptide']['alanine_dipeptide.h5msm'])
+    >>> molsys_B = msm.convert(systems['valine dipeptide']['valine_dipeptide.h5msm'])
+    >>> msm.get(molsys_A, n_molecules=True)
     1
-    >>> msm.add(molsys_1, molsys_2)
-    >>> msm.get(molsys_1, n_molecules=True)
+    >>> msm.add(molsys_A, molsys_B)
+    >>> msm.get(molsys_A, n_molecules=True)
     2
 
     .. versionadded:: 1.0.0

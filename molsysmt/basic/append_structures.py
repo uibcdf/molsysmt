@@ -2,65 +2,94 @@ from molsysmt._private.digestion import digest
 
 @digest()
 def append_structures(to_molecular_system, from_molecular_system, selection='all',
-        structure_indices='all', syntax='MolSysMT'):
+                      structure_indices='all', syntax='MolSysMT', in_place=True,
+                      skip_digestion=False):
     """
-    Adding structures from a molecular system to another molecular system.
+    Append structures from one molecular system into another.
 
-    Structures of a molecular system are appended to another molecular system.
-    The indices of the structures from the source system
-    (`from_molecular_system`) can be chosen by the input argument
-    `structure_indices`. The number of atoms of the structures to be appended
-    must be equal to the number of atoms of the target system
-    (`to_molecular_system`). Otherwise, the input argument `selection` needs to
-    be used to specify the atom indices or elements selected from the source
-    system which structural attributes will be appended fulfilling this former condition.
+    This function appends structural information (coordinates, box dimensions, velocities, etc.)
+    from a source molecular system (`from_molecular_system`) into a target molecular system 
+    (`to_molecular_system`). The result is a molecular system with additional structures
+    (frames or conformations).
 
+    The appended structures must correspond to the same number of atoms as the target system.
+    If the number of atoms differs, a selection of atoms from the source system must be
+    provided using the `selection` argument. Only the structural attributes of the selected atoms
+    will be appended, and they must match the number of atoms in the target system.
+
+    By default, the operation modifies the input molecular system in place. This behavior can be
+    changed by setting `in_place=False`, in which case a new molecular system is returned.
 
     Parameters
     ----------
     to_molecular_system : molecular system
-        Target molecular system in any of :ref:`the supported forms <Introduction_Forms>`.
-        Structures from the source molecular system will be appended to this system.
+        Molecular system that will receive the new structures. Must be in one of
+        :ref:`the supported forms <Introduction_Forms>`.
 
     from_molecular_system : molecular system
-        Source molecular system in any of :ref:`the supported forms <Introduction_Forms>`.
-        Strucctures from this system will be appended to the target molecular system.
+        Molecular system providing the structures to append. Must be in one of
+        :ref:`the supported forms <Introduction_Forms>`.
 
-    selection : tuple, list, numpy.ndarray or str, default 'all'
-        Selection of atoms over which this method applies. The selection can be
-        given by a list, tuple or numpy array of atom indices (0-based
-        integers); or by means of a string following any of :ref:`the selection
-        syntaxes parsable by MolSysMT <Introduction_Selection>`.
+    selection : str, list, tuple or numpy.ndarray, default 'all'
+        Selection of atoms from the source system whose structural attributes
+        will be appended. Can be a list/array of atom indices, or a string using
+        any of the supported selection syntaxes 
+        (:ref:`Introduction_Selection`). Only needed when the number of atoms 
+        differs between systems.
 
-    structure_indices : tuple, list, numpy.ndarray or 'all', default 'all'
-        Indices of structures (0-based integers) of the source molecular system
-        to get the structural attributes of the selected atoms, if any, to be
-        appended.
+    structure_indices : int, list, tuple, numpy.ndarray or 'all', default 'all'
+        Indices (0-based) of the structures in the source system to append.
+
+    in_place : bool, default True
+        If True, modifies `to_molecular_system` directly. If False, returns a new
+        molecular system with the appended structures, leaving the original unmodified.
 
     syntax : str, default 'MolSysMT'
-        :ref:`Supported syntax <Introduction_Selection>` used in the argument
-        `selection` (in case it is a string).
+        Selection syntax used if `selection` is a string. Must be one of the
+        supported syntaxes in :ref:`Introduction_Selection`.
 
+    in_place : bool, default True
+        If True, modifies `to_molecular_system` directly. If False, returns a new
+        molecular system with the appended structures, leaving the original unmodified.
+
+    skip_digestion : bool, default False
+        Whether to skip MolSysMT’s internal argument digestion mechanism.
+
+        MolSysMT includes a built-in digestion system that validates and normalizes
+        function arguments. This process checks types, shapes, and values, and automatically
+        adjusts them when possible to meet expected formats.
+
+        Setting `skip_digestion=True` disables this process, which may improve performance
+        in workflows where inputs are already validated. Use with caution: only set this to
+        `True` if you are certain all input arguments are correct and consistent.
 
     Raises
     ------
-
     NotSupportedFormError
-        The function raises a NotSupportedFormError in case a molecular system
-        is introduced with a not supported form.
+        If either molecular system is not provided in a supported form.
 
     ArgumentError
-        The function raises an ArgumentError in case an input argument value
-        does not meet the required conditions. 
+        If arguments are inconsistent or conditions are not met, such as mismatched
+        atom counts without a proper selection.
 
     SyntaxError
-        The function raises a SyntaxError in case the syntax argument takes a not supported value. 
+        If the selection syntax is not recognized.
 
+    Returns
+    -------
+    molecular system or None
+        If `in_place=True`, returns `None` and modifies `to_molecular_system` directly.
+        If `in_place=False`, returns a new molecular system with the appended structures.
 
     .. versionadded:: 0.1.0
 
     Notes
     -----
+    - All forms listed in :ref:`Introduction_Forms` are accepted.
+    - Selection strings must follow one of the syntaxes described in
+      :ref:`Introduction_Selection`.
+    - Use this function to extend a molecular system with additional structures
+      (e.g., when combining simulations or generating trajectories).
 
     The list of supported molecular systems' forms is detailed in the documentation section
     :ref:`User Guide > Introduction > Molecular systems > Forms <Introduction_Forms>`.    
@@ -68,42 +97,39 @@ def append_structures(to_molecular_system, from_molecular_system, selection='all
     The list of supported selection syntaxes can be checked in the documentation section
     :ref:`User Guide > Introduction > Selection syntaxes <Introduction_Selection>`.    
 
-
     See Also
     --------
-
-    :func:`molsysmt.basic.select`
-        Selecting elements of a molecular system
-
     :func:`molsysmt.basic.concatenate_structures`
-        Concatenating the structures found in a list of molecular systems.
-
+        Concatenates structures from multiple molecular systems into one.
+    
+    :func:`molsysmt.basic.select`
+        Selects atoms or elements from a molecular system.
 
     Examples
     --------
-
-    The following example illustrates the use of the function.
-
     >>> import molsysmt as msm
-    >>> from molsysmt.systems import demo
-    >>> molecular_system_1 = msm.basic.convert(demo['alanine dipeptide']['alanine_dipeptide.msmpk'])
-    >>> molecular_system_2 = msm.structure.translate(molecular_system_1, translation='[0.1, 0.1, 0.1] nanometers')
-    >>> msm.basic.get(molecular_system_1, n_structures=True)
+    >>> from molsysmt import systems
+    >>> molsys_A = msm.convert(systems['alanine dipeptide']['alanine_dipeptide.h5msm'])
+    >>> molsys_B = msm.structure.translate(molsys_A, translation='[0.1, 0.1, 0.1] nanometers')
+    >>> msm.get(molsys_A, n_structures=True)
     1
-    >>> msm.basic.append_structures(molecular_system_1, molecular_system_2)
-    >>> msm.basic.get(molecular_system_1, n_structures=True)
+    >>> msm.append_structures(molsys_A, molsys_B)
+    >>> msm.get(molsys_A, n_structures=True)
     2
 
+    .. versionadded:: 1.0.0
 
     .. admonition:: User guide
 
        Follow this link for a tutorial on how to work with this function:
-       :ref:`User Guide > Tools > Basic > Append structures <Tutorial_Append_structures>`.    
-
+       :ref:`User Guide > Tools > Basic > Append structures <Tutorial_Append_structures>`.
     """
 
-    from . import get_form, convert, extract, get
+    from . import get_form, convert, extract, get, copy
     from molsysmt.form import _dict_modules
+
+    if not in_place:
+        to_molecular_system = copy(to_molecular_system)
 
     if not isinstance(to_molecular_system, (list, tuple)):
         to_molecular_system = [to_molecular_system]
@@ -121,5 +147,8 @@ def append_structures(to_molecular_system, from_molecular_system, selection='all
         _dict_modules[aux_to_form].append_structures(aux_to_item, structure_id=structure_id, time=time, coordinates=coordinates, box=box,
                 velocities=velocities)
 
-    pass
+    if not in_place:
+        return to_molecular_system
+    else:
+        pass
 
