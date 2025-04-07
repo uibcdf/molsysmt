@@ -105,14 +105,14 @@ def add(to_molecular_system, from_molecular_system, selection='all', structure_i
         :ref:`User Guide > Tools > Basic > Add <Tutorial_Add>`
     """
 
-    from . import get_form, convert, select
+    from . import get_form, convert, select, copy
     from molsysmt.form import _dict_modules
+
+    if not in_place:
+        to_molecular_system = copy(to_molecular_system)
 
     if not isinstance(to_molecular_system, (list, tuple)):
         to_molecular_system = [to_molecular_system]
-
-    if not in_place:
-        to_molecular_system = msm.copy(to_molecular_system)
 
     to_forms = get_form(to_molecular_system)
 
