@@ -81,7 +81,7 @@ class MolSysMTTrajectory(Trajectory, Structure):\n\
 "
 
 
-def adding_molsysmt():
+def add_molsysmt_to_nglview():
 
     from pathlib import Path
     import nglview as nv
@@ -117,7 +117,7 @@ def adding_molsysmt():
             with open(filepath,'w') as f:
                 f.write(content)
 
-        print('NGLView patched')
+        print('NGLView patched. Restart the kernel to use it.')
 
         importlib.reload(nv)
 

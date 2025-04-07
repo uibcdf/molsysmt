@@ -84,6 +84,10 @@ To be written
 
 http://www.uibcdf.org/MolSysMT/
 
+## Contributions
+
+🧩 Want to contribute? Check out our [contributing guide](CONTRIBUTING.md)!
+
 ## License
 
 ## Credits

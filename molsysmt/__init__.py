@@ -10,11 +10,10 @@ from ._version import __version__
 #__github_web__ = 'https://github.com/uibcdf/MolSysMT'
 #__github_issues_web__ = __github_web__ + '/issues'
 
+# Starting the modules
 from . import config
 
 from ._pyunitwizard import puw as pyunitwizard
-
-#from . import file
 
 from .basic import *
 from . import basic
@@ -38,8 +37,13 @@ from . import thirds
 from .systems import systems
 
 # Adding molsysmt to nglview
+#thirds.nglview.adding_molsysmt()
 
-thirds.nglview.adding_molsysmt()
+# Adding molsysmt to nglview
+from .thirds.nglview.patching_nglview import add_molsysmt_to_nglview
+add_molsysmt_to_nglview()
+del(add_molsysmt_to_nglview)
+
 
 # With the following list sphinx can document de methods in the api section without adding the
 # module files names explicitly:

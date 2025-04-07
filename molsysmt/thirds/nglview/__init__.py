@@ -1,5 +1,3 @@
-from .patching_nglview import adding_molsysmt
-
 from .show_gui import show_gui
 from .clear import clear
 
