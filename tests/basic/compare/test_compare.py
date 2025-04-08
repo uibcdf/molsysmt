@@ -80,3 +80,18 @@ def test_compare_all_eq_3():
         output = False
 
     assert output == True
+
+def test_compare_all_eq_4():
+
+    molsys_A = msm.convert('pdb_id:181L', to_form='openmm.Modeller')
+    molsys_B = msm.convert(molsys_A, to_form='molsysmt.MolSys')
+    molsys_C = msm.extract(molsys_B, selection='molecule_type=="protein"')
+
+
+    assert True == msm.compare(molsys_A, molsys_B)
+    assert False == msm.compare(molsys_A, molsys_C)
+    assert True == msm.compare(molsys_A, molsys_B, coordinates=True, box=True, n_groups=True)
+    assert False == msm.compare(molsys_B, molsys_C, coordinates=True, box=True, n_groups=True)
+    assert True == msm.compare(molsys_B, molsys_C, coordinates=False, box=True, n_groups=False)
+
+

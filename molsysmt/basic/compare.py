@@ -230,17 +230,19 @@ def compare(molecular_system, molecular_system_2, selection='all', structure_ind
         element=aux2[0]
         atts = atts_required & aux2[1]
 
-        print(aux2, atts, piped_system_A, piped_system_B)
-
         if piped_system_A is None:
             aux_molecular_system = molecular_system
         else:
             for aux_molecular_system, aux_atts in zip(piped_system_A, piped_atts_A):
                 if atts.issubset(aux_atts):
                     break
+            if aux_molecular_system is None:
+                aux_molecular_system = molecular_system
+
         dict_aux = get(aux_molecular_system, element=element, selection=selection,
                        structure_indices=structure_indices, syntax=syntax,
                        output_type='dictionary', **{ii:True for ii in atts})
+
         dict_A.update(dict_aux)
 
         if piped_system_B is None:
@@ -249,6 +251,8 @@ def compare(molecular_system, molecular_system_2, selection='all', structure_ind
             for aux_molecular_system, aux_atts in zip(piped_system_B, piped_atts_B):
                 if atts.issubset(aux_atts):
                     break
+            if aux_molecular_system is None:
+                aux_molecular_system = molecular_system_2
 
         dict_aux = get(aux_molecular_system, element=element, selection=selection_2,
                        structure_indices=structure_indices_2, syntax=syntax,
