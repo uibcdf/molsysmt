@@ -163,10 +163,42 @@ def get(molecular_system,
 
         from molsysmt.attribute import attributes as _attributes
 
-        all_attributes_from_atom = np.all(['atom' in _attributes[ii]['get_from'] for ii in in_attributes])
+        attributes_from_atom = []
+        attributes_from_system = []
+        for ii in in_attributes:
+            if 'atom' in _attributes[ii]['get_from']:
+                attributes_from_atom.append(ii)
+            elif 'system' in _attributes[ii]['get_from']:
+                attributes_from_system.append(ii)
 
-        if all_attributes_from_atom:
-            element = 'atom'
+        aux_result_atoms = {}
+        aux_result_system = {}
+
+        if len(attributes_from_atom) > 0:
+            aux_result_atoms = get(molecular_system, element='atom', selection=selection,
+                                    structure_indices=structure_indices, mask=mask, syntax=syntax,
+                                    get_missing_bonds=get_missing_bonds, output_type='dictionary',
+                                    skip_digestion=True, **{ii:True for ii in attributes_from_atom})
+
+        if len(attributes_from_system) > 0:
+            aux_result_system = get(molecular_system, element='system', selection='all',
+                                    structure_indices=structure_indices,
+                                    get_missing_bonds=get_missing_bonds, output_type='dictionary',
+                                    skip_digestion=True, **{ii:True for ii in attributes_from_system})
+
+        aux_result = aux_result_atoms | aux_result_system
+
+        output = []
+        for ii in in_attributes:
+            output.append(aux_result[ii])
+
+        if output_type=='values':
+            if len(output) == 1:
+                return output[0]
+            else:
+                return output
+        elif output_type=='dictionary':
+            return dict(zip(in_attributes, output))
 
     if not is_all(selection):
         indices = select(molecular_system, element=element, selection=selection, mask=mask, syntax=syntax, skip_digestion=True)

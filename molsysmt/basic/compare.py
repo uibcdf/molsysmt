@@ -10,68 +10,58 @@ def compare(molecular_system, molecular_system_2, selection='all', structure_ind
         selection_2='all', structure_indices_2='all',  syntax='MolSysMT', rule='equal',
         output_type='boolean', attribute_type=None, **kwargs):
     """
-    Comparing molecular systems.
+    Compare two molecular systems or parts of them.
 
-    Attributes from two molecular systems can be compared according to two rules: equality
-    ('equal') and containment ('in').
-    However, if no attributes are chosen to be compared, the entire input systems are
-    compared. If you only want to include certain elements or structures in the comparison, make
-    use of the input arguments ``selection``, ``structure_indices``, ``selection_2``, and
-    ``structure_indices_2``.
+    This function compares the attributes of two molecular systems or their selected subsets.
+    The comparison can be performed according to two rules: equality (``'equal'``) or containment (``'in'``).
+    You can restrict the comparison to specific elements and structures using the `selection`, 
+    `structure_indices`, `selection_2`, and `structure_indices_2` arguments.
 
+    If no specific attributes are passed as keyword arguments, all attributes—or those filtered by
+    `attribute_type`—are considered.
 
     Parameters
     ----------
-
     molecular_system : molecular system
-        The first molecular system, in any of :ref:`the supported forms
-        <Introduction_Forms>`, to be compared.
+        The first molecular system to compare. It can be provided in any of the 
+        :ref:`supported forms <Introduction_Forms>`.
 
     molecular_system_2 : molecular system
-        The second molecular system, in any of :ref:`the supported forms
-        <Introduction_Forms>`, to be compared.
+        The second molecular system to compare. Also accepted in any of the 
+        :ref:`supported forms <Introduction_Forms>`.
 
-    selection : tuple, list, numpy.ndarray or str, default 'all'
-        Selection of elements of the first molecular system to which this method applies. The selection can be
-        given by a list, tuple or numpy array of atom indices (0-based
-        integers); or by means of a string following any of :ref:`the selection
-        syntaxes parsable by MolSysMT <Introduction_Selection>`.
+    selection : str, list, tuple or ndarray, default='all'
+        Elements to include from the first molecular system. Can be a string following a 
+        :ref:`supported selection syntax <Introduction_Selection>` or a list/array of atom indices (0-based).
 
-    structure_indices : tuple, list, numpy.ndarray or 'all', default 'all'
-        Indices of structures (0-based integers) of the first molecular system
-        to which this method applies.
+    structure_indices : str, list, tuple or ndarray, default='all'
+        Structures to include from the first molecular system (0-based indices).
 
-    selection_2 : tuple, list, numpy.ndarray or str, default 'all'
-        Selection of elements of the second molecular system to which this method applies. The selection can be
-        given by a list, tuple or numpy array of atom indices (0-based
-        integers); or by means of a string following any of :ref:`the selection
-        syntaxes parsable by MolSysMT <Introduction_Selection>`.
+    selection_2 : str, list, tuple or ndarray, default='all'
+        Elements to include from the second molecular system. Same syntax as `selection`.
 
-    structure_indices_2 : tuple, list, numpy.ndarray or 'all', default 'all'
-        Indices of structures (0-based integers) of the second molecular system
-        to which this method applies.
+    structure_indices_2 : str, list, tuple or ndarray, default='all'
+        Structures to include from the second molecular system (0-based indices).
 
-    syntax : str, default 'MolSysMT'
-        :ref:`Supported syntax <Introduction_Selection>` used in the `selection` and `selection_2`
-        arguments (in case they are strings).
+    syntax : str, default='MolSysMT'
+        Syntax to interpret the `selection` and `selection_2` strings. 
+        See :ref:`selection syntaxes <Introduction_Selection>`.
 
-    rule : {'equal', 'in'}, default 'equal'
-        Comparison rule applied:
+    rule : {'equal', 'in'}, default='equal'
+        Rule to apply in the comparison:
+        
+        * `'equal'` — checks if values are identical.
+        * `'in'` — checks if values of the first system are contained in the second.
 
-        * 'equal': equality.
-        * 'in': containment.
+    output_type : {'boolean', 'dictionary'}, default='boolean'
+        Format of the output:
+        
+        * `'boolean'` — returns a single True/False indicating global comparison success.
+        * `'dictionary'` — returns a dict with per-attribute comparison results.
 
-    output_type : 'boolean' or 'dictionary', default 'boolean'
-        The returned objects can be chosen according to two options:
-
-        * 'boolean': a boolean (True or False) is returned reporting if the rule applies to the
-          condition (attributes) required.
-        * 'dictionary': a dictionary is returned with the input attribute names as keys, and the corresponding booleans (True
-        or False) as values.
-
-    attribute_type : {'topological', 'structural', 'mecanichal', None}, default None
-        If no specific attributes are introduced as additional keywords, a set of attributes can be
-        chosen:
+    attribute_type : {'topological', 'structural', 'mechanical', None}, default=None
+        Category of attributes to compare. If not set, either attributes passed as keywords
+        or all available attributes are considered.
 
         * 'topological': every :ref:`topological attribute <Introduction_Attributes>` in the systems is compared.
         * 'structural': every :ref:`structural attribute <Introduction_Attributes>` in the systems is compared.
@@ -79,79 +69,59 @@ def compare(molecular_system, molecular_system_2, selection='all', structure_ind
         * None: either all attributes introduced as additional keywords are compared (if any), or
           all attributes are compared if ``**kwargs==None``.
 
-    **kwargs : {{keyword : str,  value : bool}, default None}
-        The attributes to be compared are introduced as additional keywords with value either 'True'
-        to the check the truth of the ``rule``, or 'False' to check the falsehood of the ``rule`` (not
-        the ``rule``). If no additional keyword is introduced, every attribute in the
-        systems or those specified by the argument ``attribute_types`` are included in the positive
-        comparison.
+    **kwargs : dict, optional
+        Attribute names to compare as keys, with boolean values indicating expected outcome:
 
+        * `True` — the rule should hold (e.g. equality).
+        * `False` — the negation of the rule should hold (e.g. inequality).
 
     Returns
     -------
-
     bool or dict
-        A boolean value is returned if the input argument ``output_type=='boolean'`` reporting the
-        success of the comparison. If the input argument ``output_type=='dictionary'``, a
-        dictionary reporting the success of the comparison for each attribute required is returned.
-
+        Result of the comparison. A boolean if `output_type='boolean'`, or a dictionary
+        of per-attribute results if `output_type='dictionary'`.
 
     Raises
     ------
-
     NotSupportedFormError
-        The function raises a NotSupportedFormError in case a molecular system
-        is introduced with a not supported form.
+        If any molecular system is in an unsupported form.
 
     ArgumentError
-        The function raises an ArgumentError in case an input argument value
-        does not meet the required conditions.
-
-    SyntaxError
-        The function raises a SyntaxError in case the syntax argument takes a not supported value.
-
-
-    .. versionadded:: 0.5.0
+        If input arguments are invalid.
 
     Notes
     -----
+    For more information on forms and selection syntaxes, see:
 
-    The list of supported molecular systems' forms is detailed in the documentation section
-    :ref:`User Guide > Introduction > Molecular systems > Forms <Introduction_Forms>`.
-
-    The list of supported selection syntaxes can be checked in the documentation section
-    :ref:`User Guide > Introduction > Selection syntaxes <Introduction_Selection>`.
-
+    * :ref:`User Guide > Introduction > Molecular systems > Forms <Introduction_Forms>`
+    * :ref:`User Guide > Introduction > Selection syntaxes <Introduction_Selection>`
 
     See Also
     --------
-
-    :func:`molsysmt.basic.select`
-        Selecting elements of a molecular system
+    :func:`molsysmt.basic.select` : Select elements of a molecular system.
+    :func:`molsysmt.get` : Retrieve attribute values.
+    :func:`molsysmt.info` : Display system summary.
 
     Examples
     --------
-
-    The following example illustrates the use of the function.
-
     >>> import molsysmt as msm
     >>> from molsysmt.systems import demo
-    >>> molecular_system_1 = msm.basic.convert(demo['T4 lysozyme L99A']['181l.mmtf'])
-    >>> molecular_system_2 = msm.basic.convert(demo['T4 lysozyme L99A']['181l.mmtf'], selection='molecule_type=="protein"')
-    >>> msm.basic.compare(molecular_system_1, molecular_system_2)
+    >>> molsys_A = msm.convert(demo['T4 lysozyme L99A']['181l.h5msm'])
+    >>> molsys_B = msm.convert(demo['T4 lysozyme L99A']['181l.h5msm'], selection='molecule_type=="protein"')
+    >>> msm.compare(molsys_A, molsys_B)
     False
-    >>> msm.basic.compare(molecular_system_1, molecular_system_2, box=True)
+    >>> msm.compare(molsys_A, molsys_B, box=True)
     True
-    >>> msm.basic.compare(molecular_system_1, molecular_system_2, n_groups=False)
+    >>> msm.compare(molsys_A, molsys_B, n_groups=False)
     True
-    >>> msm.basic.compare(molecular_system_1, molecular_system_2, selection='molecule_type=="protein"', n_groups=True)
+    >>> msm.compare(molsys_A, molsys_B, selection='molecule_type=="protein"', n_groups=True)
     True
 
+    .. versionadded:: 1.0.0
 
     .. admonition:: User guide
 
-       Follow this link for a tutorial on how to work with this function:
-       :ref:`User Guide > Tools > Basic > Compare <Tutorial_Compare>`.
+       See the full tutorial here: :ref:`User Guide > Tools > Basic > Compare <Tutorial_Compare>`
 
     """
 

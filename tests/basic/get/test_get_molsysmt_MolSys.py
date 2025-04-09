@@ -349,3 +349,15 @@ def test_get_62():
     n_atoms = msm.get(molsys, n_atoms=True)
     assert b_factors.shape == (1, n_atoms)
     assert msm.pyunitwizard.check(b_factors, unit='nm^2')
+
+def test_get_63():
+    box, n_atoms = msm.get(molsys, element='system', selection='atom_index==0', structure_indices=0, box=True, n_atoms=True)
+    value = msm.pyunitwizard.get_value(box)
+    unit = msm.pyunitwizard.get_unit(box)
+    true_value = np.array([[[4.37099990e+00, 0.00000000e+00, 0.00000000e+00],
+        [0.0, 7.76500020e+00, 0.00000000e+00],
+        [0.0, 0.0, 1.49539993e+01]]])
+    assert (unit==msm.pyunitwizard.unit('nanometers')) and (np.allclose(value, true_value, atol=1e-06))
+    assert n_atoms == 1
+
+
