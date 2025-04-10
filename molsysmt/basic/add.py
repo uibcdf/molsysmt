@@ -103,11 +103,11 @@ def add(to_molecular_system, from_molecular_system, selection='all', structure_i
     >>> msm.get(molsys_A, n_molecules=True)
     2
 
-    .. versionadded:: 1.0.0
-
     .. admonition:: User guide
         See the following tutorial for a practical example of how to use this function:
         :ref:`User Guide > Tools > Basic > Add <Tutorial_Add>`
+
+    .. versionadded:: 1.0.0
     """
 
     from . import get_form, convert, select, copy

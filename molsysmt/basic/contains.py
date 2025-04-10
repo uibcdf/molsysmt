@@ -29,99 +29,80 @@ def _evaluation(condition, value):
 @digest()
 def contains(molecular_system, selection='all', syntax='MolSysMT', **kwargs):
     """
-    Checking if a molecular system contains certain elements or attributes.
+    Check whether a molecular system contains specific elements or satisfies certain conditions.
 
-    The function returns True or False depending on whether or not the system has the elements or
-    attributes required.
-
+    This function returns a boolean value indicating whether the molecular system, or a subset
+    defined by the given selection, contains specific elements or attributes as specified
+    via keyword arguments.
 
     Parameters
     ----------
-
     molecular_system : molecular system
-        The molecular system in any of :ref:`the supported forms
-        <Introduction_Forms>` to be analysed by the function.
+        The molecular system to be analyzed, in any of the :ref:`supported forms <Introduction_Forms>`.
 
-    selection : tuple, list, numpy.ndarray or str, default 'all'
-        Selection of elements of the molecular system to be checked by the function. The selection can be
-        given by a list, tuple or numpy array of atom indices (0-based
-        integers); or by means of a string following any of :ref:`the selection
-        syntaxes parsable by MolSysMT <Introduction_Selection>`.
+    selection : str, tuple, list, or numpy.ndarray, default 'all'
+        Subset of atoms to which the condition should be applied. Can be specified as:
+        - A string using a supported selection syntax.
+        - A tuple, list, or array of atom indices (0-based).
+        The default 'all' applies the condition to the entire system.
 
     syntax : str, default 'MolSysMT'
-        :ref:`Supported syntax <Introduction_Selection>` used in the `selection` argument (in case
-        it is a string).
+        Syntax used to parse the selection string, if `selection` is given as a string.
+        See :ref:`Introduction_Selection` for supported options.
 
-    **kwargs : {{keyword : str,  value : (bool, int)}, default None}
-        The attributes or elements to be checked in the molecular system are introduced as
-        additional keywords with value either 'True', 'False', or by means of an integer to
-        indicate to amount of specific elements the system contains.
-
+    **kwargs : dict
+        Keyword arguments specifying the conditions to be checked. Keys must be attribute names,
+        and values can be:
+        - `True`: the attribute must be present or non-zero.
+        - `False`: the attribute must be absent or zero.
+        - An integer: the attribute must equal the specified value.
 
     Returns
     -------
-
     bool
-        A boolean value is returned reporting if the molecular system contains the elements and/or
-        attributes required.
-
+        `True` if all specified conditions are satisfied by the selected subset of the system;
+        otherwise, `False`.
 
     Raises
     ------
-
     NotSupportedFormError
-        The function raises a NotSupportedFormError in case a molecular system
-        is introduced with a not supported form.
+        If the molecular system is not in a supported form.
 
     ArgumentError
-        The function raises an ArgumentError in case an input argument value
-        does not meet the required conditions.
-
-    SyntaxError
-        The function raises a SyntaxError in case the syntax argument takes a not supported value.
-
-
-    .. versionadded:: 0.5.0
+        If input arguments are invalid or inconsistent.
 
     Notes
     -----
+    See :ref:`User Guide > Introduction > Molecular systems > Forms <Introduction_Forms>` for a list of valid molecular system forms.
 
-    The list of supported molecular systems' forms is detailed in the documentation section
-    :ref:`User Guide > Introduction > Molecular systems > Forms <Introduction_Forms>`.
-
-    The list of supported selection syntaxes can be checked in the documentation section
-    :ref:`User Guide > Introduction > Selection syntaxes <Introduction_Selection>`.
-
+    See :ref:`User Guide > Introduction > Selection syntaxes <Introduction_Selection>` for details on supported selection strings.
 
     See Also
     --------
-
     :func:`molsysmt.basic.select`
-        Selecting elements of a molecular system.
+        Select elements from a molecular system.
 
     :func:`molsysmt.basic.is_composed_of`
-        Checking if a molecular system is composed of specific elements.
+        Check if a molecular system is composed of specific types of elements.
 
     Examples
     --------
-
-    The following example illustrates the use of the function.
-
     >>> import molsysmt as msm
-    >>> molecular_system = msm.systems.demo['T4 lysozyme L99A']['181l.mmtf']
-    >>> msm.basic.contains(molecular_system, waters=True, ions=True)
+    >>> molsys = msm.systems.demo['T4 lysozyme L99A']['181l.mmtf']
+    >>> msm.contains(molsys, waters=True, ions=True)
     True
-    >>> msm.basic.contains(molecular_system, selection='atom_name=="Cl"')
+    >>> msm.contains(molsys, selection='atom_name=="Cl"')
     True
-    >>> msm.basic.contains(molecular_system, selection='molecule_type!="water"', waters=True)
+    >>> msm.contains(molsys, selection='molecule_type!="water"', waters=True)
     False
-
 
     .. admonition:: User guide
 
-       Follow this link for a tutorial on how to work with this function:
-       :ref:`User Guide > Tools > Basic > Contains <Tutorial_Contains>`.
+       Follow this link for a tutorial on how to use this function:
+       :ref:`User Guide > Tools > Basic > Contains <Tutorial_Contains>`
 
+    .. versionadded:: 1.0.0
+    ```
 
     """
 

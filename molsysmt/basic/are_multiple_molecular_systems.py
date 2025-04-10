@@ -40,12 +40,12 @@ def are_multiple_molecular_systems(molecular_systems):
     >>> msm.basic.are_multiple_molecular_systems([molsys_A, molsys_B, molsys_C])
     True
 
-    .. versionadded:: 1.0.0
-
     .. admonition:: User guide
 
        Follow this link for a tutorial on how to work with this function:
        :ref:`User Guide > Tools > Basic > Are multiple molecular systems <Tutorial_Are_multiple_molecular_systems>`.
+
+    .. versionadded:: 1.0.0
     """
 
     from . import is_a_molecular_system

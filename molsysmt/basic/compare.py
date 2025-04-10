@@ -117,12 +117,11 @@ def compare(molecular_system, molecular_system_2, selection='all', structure_ind
     >>> msm.compare(molsys_A, molsys_B, selection='molecule_type=="protein"', n_groups=True)
     True
 
-    .. versionadded:: 1.0.0
-
     .. admonition:: User guide
 
        See the full tutorial here: :ref:`User Guide > Tools > Basic > Compare <Tutorial_Compare>`
 
+    .. versionadded:: 1.0.0
     """
 
     rule='equal'

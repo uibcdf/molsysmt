@@ -3,114 +3,85 @@ from molsysmt._private.digestion import digest
 @digest()
 def concatenate_structures(molecular_systems, selections='all', structure_indices='all', to_form=None):
     """
-    Concatenating the structures found in a list of molecular systems.
+    Concatenate structures from a list of molecular systems into a single molecular system.
 
-    The structures found in a list of molecular system are concatenated and returned in a new
-    molecular system. Every system must have the same number of atoms. Otherwise the input argument
-    ``selections`` needs to be used to select the elements defining the structures to be
-    concatenated. In addition, the argument ``structure_indices`` can be used to choose specific
-    structures in any of the molecular systems.
-
+    The structures found in a list of molecular systems are concatenated and returned in a new 
+    molecular system. All systems must have the same number of atoms. If this is not the case, 
+    use the argument ``selections`` to specify matching subsets of atoms. Optionally, 
+    ``structure_indices`` can be used to select specific structures from each system.
 
     Parameters
     ----------
     molecular_systems : list of molecular systems
-        A list of molecular system in any of :ref:`the supported forms <Introduction_Forms>`.
-        The structures to be concatenated are chosen from these systems.
+        List of molecular systems in any of the :ref:`supported forms <Introduction_Forms>`.
+        Structures to be concatenated are taken from these systems.
 
-    selections : list of (tuple, list, numpy.ndarrays, str), or 'all', default 'all'
-        Selections of atoms to which this function applies. The default value is 'all' to indicate
-        that all entire structures in all systems will be concatenated. If different sets of elements need
-        to be specified to extract structures from the list of systems, a list of selections given
-        by lists, tuples, numpy arrays of atom indices (0-based
-        integers), or strings following any of :ref:`the selection
-        syntaxes parsable by MolSysMT <Introduction_Selection>` must be provided. This former list
-        will be applied to the list of molecular systems in the same order.
+    selections : list of (str, tuple, list, ndarray), or 'all', default 'all'
+        Atom selections to extract structures from each molecular system. If different selections
+        are needed per system, provide a list with the same length as ``molecular_systems``.
+        Each element can be a string (parsed with the selected syntax), or a collection of indices.
+        See :ref:`selection syntaxes <Introduction_Selection>` for details.
 
-    structure_indices : list of (tuple, list, numpy.ndarray, 'all'), or 'all', default 'all'
-        List of indices of structures (0-based integers) to which this function applies. The
-        default value is 'all' to indicate that all structures in all systems will be concatenated.
-        If a list of different indices of structures is introduced, they
-        will be read and applied to the list of molecular systems in the same order.
+    structure_indices : list of (int, list, tuple, ndarray), or 'all', default 'all'
+        Structure indices to include from each system (0-based). If different indices per system
+        are required, provide a list with the same length as ``molecular_systems``.
 
     syntax : str, default 'MolSysMT'
-        :ref:`Supported syntax <Introduction_Selection>` used in the argument
-        `selection` (in case it is a string).
+        Syntax used to interpret selection strings. See :ref:`Introduction_Selection` for options.
 
-    to_form: str or None, default None
-        Form of the output molecular system. If no form is indicated, with the default value None, the
-        output form will be the same as the first molecular system found in ``molecular_systems``.
-
+    to_form : str or None, default None
+        Output form of the new molecular system. If None, the form of the first input system is used.
 
     Returns
     -------
-
-    molecular system
-        A molecular system with the topology extracted from the first molecular
-        system of the list is returned. This molecular system has all the
-        structures required by the user by means or the input arguments
-        concatenated. The form of this output system can be chosen making use
-        of the `to_form` input argument.
-
+    molecular_system : molecular system
+        A new molecular system with all specified structures concatenated. The topology is inherited
+        from the first system in ``molecular_systems``. The output format can be controlled with
+        ``to_form``.
 
     Raises
     ------
-
     NotSupportedFormError
-        The function raises a NotSupportedFormError in case a molecular system
-        is introduced with a not supported form.
+        If any input molecular system has an unsupported form.
 
     ArgumentError
-        The function raises an ArgumentError in case an input argument value
-        does not meet the required conditions. 
-
-    SyntaxError
-        The function raises a SyntaxError in case the syntax argument takes a not supported value. 
-
-
-    .. versionadded:: 0.1.0
+        If input values are invalid or inconsistent.
 
     Notes
     -----
+    All molecular systems must have a consistent number of atoms across selected elements.
+    Use ``selections`` to align atoms across systems as needed.
 
-    The list of supported molecular systems' forms is detailed in the documentation section
-    :ref:`User Guide > Introduction > Molecular systems > Forms <Introduction_Forms>`.    
+    See :ref:`User Guide > Introduction > Molecular systems > Forms <Introduction_Forms>` for 
+    supported forms.
 
-    The list of supported selection syntaxes can be checked in the documentation section
-    :ref:`User Guide > Introduction > Selection syntaxes <Introduction_Selection>`.    
-
+    See :ref:`User Guide > Introduction > Selection syntaxes <Introduction_Selection>` for selection options.
 
     See Also
     --------
-
     :func:`molsysmt.basic.select`
-        Selecting elements of a molecular system
+        Select elements from a molecular system.
 
     :func:`molsysmt.basic.append_structures`
-        Adding structures from a molecular system to another molecular system.
-
+        Append structures from one molecular system to another.
 
     Examples
     --------
-
-    The following example illustrates the use of the function.
-
     >>> import molsysmt as msm
     >>> from molsysmt.systems import demo
-    >>> molecular_system_1 = msm.basic.convert(demo['alanine dipeptide']['alanine_dipeptide.msmpk'])
-    >>> molecular_system_2 = msm.structure.translate(molecular_system_1, translation='[0.1, 0.1, 0.1] nanometers')
-    >>> molecular_system_3 = msm.basic.concatenate_structures([molecular_system_1, molecular_system_2])
-    >>> msm.basic.get(molecular_system_3, n_structures=True)
+    >>> molsys_A = msm.convert(demo['alanine dipeptide']['alanine_dipeptide.h5msm'])
+    >>> molsys_B = msm.structure.translate(molsys_A, translation='[0.1, 0.1, 0.1] nanometers')
+    >>> molsys_C = msm.concatenate_structures([molsys_A, molsys_B])
+    >>> msm.get(molsys_C, n_structures=True)
     2
-
 
     .. admonition:: User guide
 
-       Follow this link for a tutorial on how to work with this function:
-       :ref:`User Guide > Tools > Basic > Concatenate structures <Tutorial_Concatenate_structures>`.    
+       For a hands-on tutorial on using this function, see:
+       :ref:`User Guide > Tools > Basic > Concatenate structures <Tutorial_Concatenate_structures>`
 
+    .. versionadded:: 1.0.0
     """
-
 
     from . import convert, extract, get, get_form
     from molsysmt.form import _dict_modules

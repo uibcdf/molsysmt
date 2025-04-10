@@ -81,8 +81,6 @@ def append_structures(to_molecular_system, from_molecular_system, selection='all
         If `in_place=True`, returns `None` and modifies `to_molecular_system` directly.
         If `in_place=False`, returns a new molecular system with the appended structures.
 
-    .. versionadded:: 0.1.0
-
     Notes
     -----
     - All forms listed in :ref:`Introduction_Forms` are accepted.
@@ -117,12 +115,13 @@ def append_structures(to_molecular_system, from_molecular_system, selection='all
     >>> msm.get(molsys_A, n_structures=True)
     2
 
-    .. versionadded:: 1.0.0
-
     .. admonition:: User guide
 
        Follow this link for a tutorial on how to work with this function:
        :ref:`User Guide > Tools > Basic > Append structures <Tutorial_Append_structures>`.
+
+    .. versionadded:: 1.0.0
+
     """
 
     from . import get_form, convert, extract, get, copy
