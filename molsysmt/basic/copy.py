@@ -3,72 +3,65 @@ from molsysmt._private.digestion import digest
 @digest()
 def copy(molecular_system, output_filename=None, skip_digestion=False):
     """
-    Making copies of molecular systems.
+    Create an independent copy of a molecular system.
 
-    This function makes an independent copy of a molecular system.
-
+    This function returns a deep copy of the input molecular system, ensuring the result is fully 
+    detached and independent from the original. If the input is a file, a copy can optionally be 
+    written to a new file using the `output_filename` argument.
 
     Parameters
     ----------
-
     molecular_system : molecular system
-        Molecular system in any of :ref:`the supported forms
-        <Introduction_Forms>` to be duplicated by the function.
+        Molecular system to be duplicated, in any of the :ref:`supported forms <Introduction_Forms>`.
 
-    output_filename : str
-        Output file name in case the molecular system to be copied is a file.
+    output_filename : str, optional
+        Name of the output file to write, in case the molecular system is in file form. If not provided,
+        the copied file remains in memory or uses a temporary filename.
 
+    skip_digestion : bool, default False
+        If True, skip digestion and validation of the input system before copying.
 
     Returns
     -------
-
-    Molecular system
-        Molecular system copied from the molecular system introduced as input argument.
-
+    molecular_system : molecular system
+        A new molecular system, independent of the original.
 
     Raises
     ------
-
     NotSupportedFormError
-        The function raises a NotSupportedFormError in case a molecular system
-        is introduced with a not supported form.
+        If the input molecular system has a form that is not supported.
 
     ArgumentError
-        The function raises an ArgumentError in case an input argument value
-        does not meet the required conditions.
-
-
-    .. versionadded:: 0.1.0
-
+        If the input arguments are invalid or inconsistent.
 
     Notes
     -----
+    See :ref:`User Guide > Introduction > Molecular systems > Forms <Introduction_Forms>` for a list of supported forms.
 
-    The list of supported molecular systems' forms is detailed in the documentation section
-    :ref:`User Guide > Introduction > Molecular systems > Forms <Introduction_Forms>`.
+    See Also
+    --------
+    :func:`molsysmt.basic.convert`
+        Convert a molecular system into another form.
 
+    :func:`molsysmt.basic.compare`
+        Compare two molecular systems to check for identity or equality.
 
     Examples
     --------
-
-    The following example illustrates the use of the function.
-
     >>> import molsysmt as msm
-    >>> from molsysmt.systems import demo
-    >>> molecular_system_1 = msm.basic.convert(demo['T4 lysozyme L99A']['181l.mmtf'])
-    >>> molecular_system_2 = msm.basic.copy(molecular_system_1)
-    >>> msm.basic.compare(molecular_system_1, molecular_system_2, rule='equal')
+    >>> molsys_A = msm.convert(msm.systems['T4 lysozyme L99A']['181l.mmtf'])
+    >>> molsys_B = msm.copy(molsys_A)
+    >>> msm.compare(molsys_A, molsys_B, rule='equal')
     True
-    >>> id(molecular_system_1)==id(molecular_system_2)
+    >>> id(molsys_A) == id(molsys_B)
     False
-
 
     .. admonition:: User guide
 
-       Follow this link for a tutorial on how to work with this function:
-       :ref:`User Guide > Tools > Basic > Copy <Tutorial_Copy>`.
+       For a tutorial on using this function, see:
+       :ref:`User Guide > Tools > Basic > Copy <Tutorial_Copy>`
 
-
+    .. versionadded:: 1.0.0
     """
 
     from . import get_form

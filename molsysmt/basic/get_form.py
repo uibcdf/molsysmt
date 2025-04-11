@@ -4,65 +4,56 @@ from pathlib import PosixPath
 # This method must not be digested
 def get_form(molecular_system):
     """
-    Getting the form of a molecular system.
+    Return the form of a molecular system.
 
-    The function returns the name of the form of the molecular system introduced as input argument.
+    This function returns a string identifying the form of the input molecular system,
+    such as `'file:pdb'`, `'openmm.Topology'`, `'string:pdb_id'`, or any other
+    supported form.
 
     Parameters
     ----------
-
     molecular_system : molecular system
-        Molecular system in any of :ref:`the supported forms
-        <Introduction_Forms>` to be analysed by the function.
-
+        Molecular system to be analyzed, in any of the :ref:`supported forms <Introduction_Forms>`.
 
     Returns
     -------
     str
         Name of the form of the input molecular system.
 
-
     Raises
     ------
-
     NotSupportedFormError
-        The function raises a NotSupportedFormError in case a molecular system
-        is introduced with a not supported form.
-
-
-    .. versionadded:: 0.1.0
-
+        If the input molecular system has a form that is not supported.
 
     Notes
     -----
+    See :ref:`User Guide > Introduction > Molecular systems > Forms <Introduction_Forms>` for a full list of supported forms.
 
-    The list of supported molecular systems' forms is detailed in the documentation section
-    :ref:`User Guide > Introduction > Molecular systems > Forms <Introduction_Forms>`.
+    See Also
+    --------
+    :func:`molsysmt.convert`
+        Convert a molecular system into a different form.
 
+    :func:`molsysmt.get_attributes`
+        Get the set of available attributes in a molecular system.
 
     Examples
     --------
-
-    The following example illustrates the use of the function.
-
     >>> import molsysmt as msm
-    >>> from molsysmt.systems import demo
-    >>> molecular_system = msm.basic.convert(demo['T4 lysozyme L99A']['181l.mmtf'])
-    >>> msm.basic.get_form(molecular_system)
-    'file:mmtf'
-    >>> molecular_system_2 = msm.basic.convert(molecular_system, to_form='openmm.Topology')
-    >>> msm.basic.get_form(molecular_system_2)
+    >>> molsys_A = msm.convert(msm.systems['T4 lysozyme L99A']['181l.h5msm'])
+    >>> msm.get_form(molsys)
+    'file:h5msm'
+    >>> molsys_B = msm.convert(molsys_A, to_form='openmm.Topology')
+    >>> msm.get_form(molsys_B)
     'openmm.Topology'
-
 
     .. admonition:: User guide
 
-       Follow this link for a tutorial on how to work with this function:
-       :ref:`User Guide > Tools > Basic > Get form <Tutorial_Get_form>`.
+       For a tutorial on using this function, see:
+       :ref:`User Guide > Tools > Basic > Get form <Tutorial_Get_form>`
 
-
+    .. versionadded:: 0.1.0
     """
-
 
     # This method can check if molecular system is indeed a molecular system
     # This method is used to check that a molecular system is a molecular system

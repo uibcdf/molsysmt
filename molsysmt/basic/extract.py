@@ -2,97 +2,91 @@ from molsysmt._private.digestion import digest
 from molsysmt._private.variables import is_all
 
 @digest()
-def extract(molecular_system, selection='all', structure_indices='all', to_form=None, syntax='MolSysMT',
-            copy_if_all=True, skip_digestion=False):
-
+def extract(molecular_system, selection='all', structure_indices='all', to_form=None, copy_if_all=True,
+            syntax='MolSysMT', skip_digestion=False):
     """
-    Extract a portion of a molecular model.
+    Extract a subset of atoms and/or structures from a molecular system.
 
-    The function extracts a subsystem from a molecular system according to the
-    required selection of elements and structures given by the input arguments
-    ``selection`` and ``structure_indices``.
-
+    This function creates a new molecular system containing only the elements and structures
+    specified by the `selection` and `structure_indices` arguments. Optionally, the result can be
+    returned in a different form using `to_form`.
 
     Parameters
     ----------
-
     molecular_system : molecular system
-        Molecular system in any of :ref:`the supported forms
-        <Introduction_Forms>` to be duplicated by the function.
+        Molecular system to extract from, in any of the :ref:`supported forms <Introduction_Forms>`.
 
-    selection : tuple, list, numpy.ndarray or str, default 'all'
-        Selection of elements of the molecular system to be extracted by the function. The selection can be
-        given by a list, tuple or numpy array of atom indices (0-based
-        integers); or by means of a string following any of :ref:`the selection
-        syntaxes parsable by MolSysMT <Introduction_Selection>`.
+    selection : str, tuple, list, or numpy.ndarray, default 'all'
+        Subset of atoms to extract. Can be given as:
+        - A list, tuple, or array of 0-based atom indices.
+        - A string using a supported selection syntax.
+        The default 'all' selects all atoms.
 
-    structure_indices : tuple, list, numpy.ndarray or 'all', default 'all'
-        Indices of structures (0-based integers) to be extracted from the molecular system.
+    structure_indices : int, tuple, list, or numpy.ndarray, default 'all'
+        Indices of structures (0-based) to extract. The default 'all' includes all structures.
 
-    to_form: str, default=None
-        The form of the resultant molecular system (see :ref:`the supported
-        conversions <Introduction_Supported>`). If default value None is
-        kept, the output system has the same form as the input.
-
-    syntax : str, default 'MolSysMT'
-        :ref:`Supported syntax <Introduction_Selection>` used in the `selection` argument (in case
-        it is a string).
+    to_form : str or None, default None
+        Form of the output system. If None, the form is the same as the input system.
+        See :ref:`Supported conversions <Introduction_Supported>`.
 
     copy_if_all : bool, default True
-        If ``selection`` and ``structure_indices`` are 'all', the output can be
-        an independent copy of the input, with ``copy_if_all=True`` (default), or just a view.
+        If both `selection` and `structure_indices` are set to 'all':
+        - `True`: return an independent copy of the system.
+        - `False`: return a view or reference to the original data, if supported.
 
+    syntax : str, default 'MolSysMT'
+        Selection syntax used to interpret the `selection` string.
+        See :ref:`Introduction_Selection` for supported options.
+
+    skip_digestion : bool, default False
+        If True, skip input validation and digestion. For advanced use only.
 
     Returns
     -------
-    Molecular system
-        Molecular system extracted from the molecular system introduced as input argument.
-
+    molecular_system : molecular system
+        A new molecular system containing only the selected atoms and structures.
 
     Raises
     ------
-
     NotSupportedFormError
-        The function raises a NotSupportedFormError in case a molecular system
-        is introduced with a not supported form.
+        If the input or output form is not supported.
 
     ArgumentError
-        The function raises an ArgumentError in case an input argument value
-        does not meet the required conditions.
-
-    SyntaxError
-        The function raises a SyntaxError in case the syntax argument takes a not supported value. 
-
-
-    .. versionadded:: 0.1.0
-
+        If input arguments are invalid or inconsistent.
 
     Notes
     -----
-
-    The list of supported molecular systems' forms is detailed in the documentation section
+    For supported molecular system forms, see:
     :ref:`User Guide > Introduction > Molecular systems > Forms <Introduction_Forms>`.
+
+    See Also
+    --------
+    :func:`molsysmt.basic.select`
+        Select elements from a molecular system without extracting them.
+
+    :func:`molsysmt.basic.copy`
+        Create a full independent copy of a molecular system.
+
+    :func:`molsysmt.basic.convert`
+        Convert a molecular system into a different form.
 
     Examples
     --------
-
-    The following example illustrates the use of the function.
-
     >>> import molsysmt as msm
     >>> from molsysmt.systems import demo
-    >>> molecular_system_1 = msm.basic.convert(demo['T4 lysozyme L99A']['181l.mmtf'])
-    >>> molecular_system_2 = msm.basic.extract(molecular_system_1, selection='molecule_type=="protein"')
-    >>> msm.basic.contains(molecular_system_1, waters=True)
+    >>> molsys_A = msm.convert(demo['T4 lysozyme L99A']['181l.mmtf'])
+    >>> molsys_B = msm.extract(molsys_A, selection='molecule_type=="protein"')
+    >>> msm.contains(molsys_A, waters=True)
     True
-    >>> msm.basic.contains(molecular_system_2, waters=True)
+    >>> msm.contains(molsys_B, waters=True)
     False
-
 
     .. admonition:: User guide
 
-       Follow this link for a tutorial on how to work with this function:
-       :ref:`User Guide > Tools > Basic > Extract <Tutorial_Extract>`.
+       For a tutorial on using this function, see:
+       :ref:`User Guide > Tools > Basic > Extract <Tutorial_Extract>`
 
+    .. versionadded:: 1.0.0
     """
 
     from . import get_form, select, convert

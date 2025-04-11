@@ -2,70 +2,62 @@
 
 def get_attributes(molecular_system, output_type='dictionary'):
     """
-    Getting the list of attributes with value of a molecular system.
+    Retrieve the list of attributes present in a molecular system.
 
-    The function returns a dictionary with all attribute names as keys and True or False as values
-    reporting whether or not the attribute is in the input molecular system.
-
+    This function checks which attributes are available in the input molecular system and returns 
+    either a dictionary indicating the presence (`True`/`False`) of each attribute or a list of 
+    the attributes present, depending on the `output_type`.
 
     Parameters
     ----------
-
     molecular_system : molecular system
-        Molecular system in any of :ref:`the supported forms
-        <Introduction_Forms>` to be checked by the function.
+        The molecular system to be analyzed, in any of the :ref:`supported forms <Introduction_Forms>`.
 
     output_type : {'dictionary', 'list'}, default 'dictionary'
+        Format of the returned result. If 'dictionary', returns all supported attributes as keys
+        with boolean values indicating presence. If 'list', returns only the present attribute names.
 
     Returns
     -------
-    dict, list
-        If ``output_type=='dictionary'`` a dictionary is returned with all
-        attribute names as keys and booleans as values: True if the attribute
-        is found in the molecular system, False otherwise.
-        If ``output_type=='list'`` a list is returned with all
-        attribute names in the molecular system.
-
+    dict or list
+        - If `output_type == 'dictionary'`: a dictionary with attribute names as keys and booleans as values.
+        - If `output_type == 'list'`: a list with the names of attributes present in the molecular system.
 
     Raises
     ------
-
     NotSupportedFormError
-        The function raises a NotSupportedFormError in case a molecular system
-        is introduced with a not supported form.
-
-
-    .. versionadded:: 0.5.0
-
+        If the input molecular system has an unsupported form.
 
     Notes
     -----
+    See :ref:`User Guide > Introduction > Molecular systems > Forms <Introduction_Forms>` for a list of supported input forms.
 
-    The list of supported molecular systems' forms is detailed in the documentation section
-    :ref:`User Guide > Introduction > Molecular systems > Forms <Introduction_Forms>`.
+    See Also
+    --------
+    :func:`molsysmt.basic.has_attribute`
+        Check whether a specific attribute exists in a molecular system.
 
+    :func:`molsysmt.basic.get_form`
+        Retrieve the form of a molecular system.
 
     Examples
     --------
-
-    The following example illustrates the use of the function.
-
     >>> import molsysmt as msm
-    >>> from molsysmt.systems import demo
-    >>> molecular_system = msm.basic.convert(demo['T4 lysozyme L99A']['181l.mmtf'])
-    >>> dict_attributes = msm.basic.get_attributes(molecular_system)
-    >>> dict_attributes['box']
+    >>> molsys = msm.convert(msm.systems['T4 lysozyme L99A']['181l.mmtf'])
+    >>> attributes = msm.get_attributes(molsys)
+    >>> attributes['box']
     True
-    >>> dict_attributes['forcefield']
+    >>> attributes['forcefield']
     False
-
+    >>> msm.get_attributes(molsys, output_type='list')
+    ['coordinates', 'box', 'time', ...]
 
     .. admonition:: User guide
 
-       Follow this link for a tutorial on how to work with this function:
-       :ref:`User Guide > Tools > Basic > Get attributes <Tutorial_Get_attributes>`.
+       For a tutorial on how to use this function, see:
+       :ref:`User Guide > Tools > Basic > Get attributes <Tutorial_Get_attributes>`
 
-
+    .. versionadded:: 1.0.0
     """
 
     from . import get_form
