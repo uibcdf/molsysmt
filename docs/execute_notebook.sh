@@ -2,10 +2,6 @@
 
 export MSM_VIEWS_FROM_HTML_FILES=TRUE
 
-#!/bin/bash
-
-export MSM_VIEWS_FROM_HTML_FILES=TRUE
-
 # Función para mostrar el uso del script
 usage() {
     echo "Uso: $0 [-f|--force] path/al/notebook.ipynb"
