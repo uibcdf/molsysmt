@@ -10,98 +10,79 @@ def info(molecular_system,
          syntax='MolSysMT',
          ):
     """
-    Printing out summary information of a molecular system
+    Display a summary table of a molecular system or selected elements.
 
-    This function returns a Pandas DataFrame with a summary of the elements selection or of the
-    entiry system.
+    This function returns a Pandas DataFrame containing summary information about a molecular system,
+    either for the entire system or for a selection of elements (e.g., atoms, groups, molecules).
 
     Parameters
     ----------
-
     molecular_system : molecular system
-        Molecular system in any of :ref:`the supported forms
-        <Introduction_Forms>` to be analysed by this function.
+        Molecular system to be analyzed, in any of the :ref:`supported forms <Introduction_Forms>`.
 
-    element: {'atom', 'group', 'component', 'molecule', 'chain', 'entity', 'system'}, default 'system'
-        The summary information is obtained for the elements of the system specified by this argument.
+    element : {'atom', 'group', 'component', 'molecule', 'chain', 'entity', 'system'}, default 'system'
+        Type of element for which the summary will be generated.
 
-    selection : index, tuple, list, numpy.ndarray or str, default 'all'
-        Selection of elements of the molecular system to build the summary information table. The
-        selection can be given by a list, tuple or numpy array of element indices (0-based
-        integers) -up to the value of the ``element`` input argument-; or by means of a query
-        string following any of :ref:`the selection syntaxes parsable by MolSysMT
-        <Introduction_Selection>`.
+    selection : int, tuple, list, numpy.ndarray or str, default 'all'
+        Selection of elements of the specified type. Can be provided as:
+        - A list, tuple, or array of 0-based indices.
+        - A string parsed using a supported selection syntax.
+        The selection is interpreted in the context of the `element`.
 
     syntax : str, default 'MolSysMT'
-        :ref:`Supported syntax <Introduction_Selection>` used in the `selection` argument (in case
-        it is a string).
-
+        Selection syntax used to interpret the `selection` string. See :ref:`Introduction_Selection`.
 
     Returns
     -------
     pandas.DataFrame
-        The method returns a pandas dataframe with relevant information depending on the element
-        and the form of the item.
-
+        A DataFrame with summary information depending on the `element` and the input molecular system.
 
     Raises
     ------
-
     NotSupportedFormError
-        The function raises a NotSupportedFormError in case a molecular system
-        is introduced with a not supported form.
+        If the molecular system has an unsupported form.
 
     ArgumentError
-        The function raises an ArgumentError in case an input argument value
-        does not meet the required conditions.
+        If any input argument is invalid or inconsistent.
 
     SyntaxError
-        The function raises a SyntaxError in case the syntax argument takes a not supported value. 
-
-
-    .. versionadded:: 0.1.0
-
-
+        If the `syntax` argument is not supported.
 
     Notes
     -----
+    For details on supported forms, see:
+    :ref:`User Guide > Introduction > Molecular systems > Forms <Introduction_Forms>`
 
-    The list of supported molecular systems' forms is detailed in the documentation section
-    :ref:`User Guide > Introduction > Molecular systems > Forms <Introduction_Forms>`.
-
-    The list of supported selection syntaxes can be checked in the documentation section
-    :ref:`User Guide > Introduction > Selection syntaxes <Introduction_Selection>`.
-
+    For information on supported selection syntaxes, see:
+    :ref:`User Guide > Introduction > Selection syntaxes <Introduction_Selection>`
 
     See Also
     --------
-
     :func:`molsysmt.basic.select`
-        Selecting elements of a molecular system
+        Select elements from a molecular system.
 
+    :func:`molsysmt.basic.get`
+        Retrieve values of attributes from a molecular system.
 
     Examples
     --------
-
-    The following example illustrates the use of the function.
-
     >>> import molsysmt as msm
-    >>> from molsysmt.systems import demo
-    >>> molecular_system = msm.basic.convert(demo['T4 lysozyme L99A']['181l.mmtf'])
-    >>> info_df = msm.basic.info(molecular_system, element='entity')
+    >>> from molsysmt import systems
+    >>> molsys = msm.convert(systems['T4 lysozyme L99A']['181l.h5msm'])
+    >>> info_df = msm.info(molsys, element='entity')
     >>> print(info_df.to_string())
-    index name type n atoms n groups n components n chains n molecules
-    0 T4 lysozyme protein 1291 164 3 3 3
-    1 2-hydroxyethyl disulfide small molecule 8 1 1 1 1
-    2 Benzene small molecule 6 1 1 1 1
-    3 water water 136 136 136 1 136
+       index           name           type  n atoms  n groups  n components  n chains  n molecules
+    0      0    T4 lysozyme        protein     1291       164             3         3            3
+    1      1  2-hydroxyethyl  small molecule      8         1             1         1            1
+    2      2         Benzene  small molecule      6         1             1         1            1
+    3      3           water          water     136       136           136         1          136
 
     .. admonition:: User guide
 
-       Follow this link for a tutorial on how to work with this function:
-       :ref:`User Guide > Tools > Basic > Info <Tutorial_Info>`.
+       For a tutorial on how to use this function, see:
+       :ref:`User Guide > Tools > Basic > Info <Tutorial_Info>`
 
-
+    .. versionadded:: 1.0.0
     """
 
     from . import get_form, get, convert, select

@@ -2,69 +2,58 @@
 
 def has_attribute(molecular_system, attribute):
     """
-    Checking if a molecular system has a certain attribute.
+    Check whether a molecular system has a specific attribute.
 
-    The function returns True if the attribute is found in the molecular system, and False
-    otherwise.
-
+    This function returns `True` if the given attribute is present in the input molecular system,
+    and `False` otherwise. The presence of attributes depends on the form of the molecular system.
 
     Parameters
     ----------
-
     molecular_system : molecular system
-        Molecular system in any of :ref:`the supported forms
-        <Introduction_Forms>` to be analysed by the function.
+        The molecular system to be analyzed, in any of the :ref:`supported forms <Introduction_Forms>`.
 
-    attribute: str
-        The attribute name to be checked in the molecular system.
-
+    attribute : str
+        Name of the attribute to check.
 
     Returns
     -------
     bool
-        The function returns a boolean value reporting whether or not the attribute is found in the
-        molecular system.
+        `True` if the attribute is available in the molecular system, `False` otherwise.
 
-
-    .. versionadded:: 0.1.0
-
+    Raises
+    ------
+    NotSupportedFormError
+        If the molecular system has a form that is not supported.
 
     Notes
     -----
-
-    The list of supported molecular systems' forms is detailed in the documentation section
+    For a complete list of supported forms and their corresponding attributes, see:
     :ref:`User Guide > Introduction > Molecular systems > Forms <Introduction_Forms>`.
-
 
     See Also
     --------
-
     :func:`molsysmt.basic.get_attributes`
-        Getting the list of attributes of a molecular system.
+        Retrieve the list of attributes available in a molecular system.
 
     :func:`molsysmt.basic.get`
-        Getting attribute values from a molecular system.
-
+        Retrieve values of specific attributes from a molecular system.
 
     Examples
     --------
-
-    The following example illustrates the use of the function.
-
     >>> import molsysmt as msm
-    >>> msm.systems.demo['T4 lysozyme L99A']['181l.mmtf']
-    >>> msm.basic.has_attribute(molecular_system, 'box')
+    >>> from molsysmt import systems
+    >>> molsys = msm.convert(systems['T4 lysozyme L99A']['181l.mmtf'])
+    >>> msm.has_attribute(molsys, 'box')
     True
-    >>> msm.basic.has_attribute(molecular_system, 'forcefield')
+    >>> msm.has_attribute(molsys, 'forcefield')
     False
-
 
     .. admonition:: User guide
 
-       Follow this link for a tutorial on how to work with this function:
-       :ref:`User Guide > Tools > Basic > Has attribute <Tutorial_Has_attribute>`.
+       For a tutorial on using this function, see:
+       :ref:`User Guide > Tools > Basic > Has attribute <Tutorial_Has_attribute>`
 
-
+    .. versionadded:: 1.0.0
     """
 
     from molsysmt import get_form

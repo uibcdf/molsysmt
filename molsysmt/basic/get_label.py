@@ -10,101 +10,82 @@ def get_label(molecular_system,
               skip_digestion=False
          ):
     """
-    Getting label strings for elements
+    Generate label strings for selected elements of a molecular system.
 
-    This function returns label strings of a selection of elements of a molecular system.
-    The format and attributes of the label strings can be defined by the user by means of the input
-    argument ``string``.
+    This function returns one or more label strings for elements of a molecular system,
+    based on the specified element type (e.g., atoms, groups, molecules) and selection.
+    Labels are formatted according to a user-defined string pattern using element-specific attributes.
 
     Parameters
     ----------
-
     molecular_system : molecular system
-        Molecular system in any of :ref:`the supported forms
-        <Introduction_Forms>` to be analysed by this function.
+        Molecular system to be analyzed, in any of the :ref:`supported forms <Introduction_Forms>`.
 
-    element: {'atom', 'group', 'component', 'molecule', 'chain', 'entity', 'system'}, default 'atom'
-        The label strings are produced for the elements of the system specified by this argument.
+    element : {'atom', 'group', 'component', 'molecule', 'chain', 'entity', 'system'}, default 'atom'
+        Type of element for which the labels will be generated.
 
-    selection : index, tuple, list, numpy.ndarray or str, default 'all'
-        Selection of elements of the molecular system to get the label strings. The
-        selection can be given by a list, tuple or numpy array of element indices (0-based
-        integers) -up to the value of the ``element`` input argument-; or by means of a query
-        string following any of :ref:`the selection syntaxes parsable by MolSysMT
-        <Introduction_Selection>`.
+    selection : int, tuple, list, numpy.ndarray, or str, default 'all'
+        Selection of elements of the specified type. Can be given as:
+        - A list, tuple, or array of 0-based indices.
+        - A string parsed using a supported selection syntax (see :ref:`Introduction_Selection`).
+        The selection is interpreted relative to the chosen `element`.
 
-    string: str, default '{name}-{id}@{index}'
-        String with format and attributes to be produced for the selected elements. The value needs
-        to be a string written as a f-string (without the f). The attribute names "name", "id"
-        or "index" can be used instead of "element_name", "element_id" or "element_index". For
-        example, "name" will be automatically replaced by "atom_name" in case the input argument
-        ``element`` takes the value "atom".
+    string : str, default '{name}-{id}@{index}'
+        Pattern string used to construct labels. This must be written as a Python f-string (without the `f` prefix).
+        Allowed placeholder keywords include `name`, `id`, and `index`, which are automatically mapped to the 
+        appropriate attribute for the selected element (e.g., `atom_name`, `group_id`, etc.). Alternatively, explicit 
+        attribute names such as `atom_name`, `group_id`, or `molecule_id` can also be used directly, regardless of the `element` value.
 
     syntax : str, default 'MolSysMT'
-        :ref:`Supported syntax <Introduction_Selection>` used in the `selection` argument (in case
-        it is a string).
+        Syntax used to interpret the `selection` string, if applicable. See :ref:`Introduction_Selection`.
 
+    skip_digestion : bool, default False
+        If True, skip validation of the input molecular system. For advanced use only.
 
     Returns
     -------
-    str, list of str
-        The function returns the label string or label strings for the selected elements of the
-        system.
+    str or list of str
+        A single label string (if one element is selected), or a list of label strings for all selected elements.
 
     Raises
     ------
-
     NotSupportedFormError
-        The function raises a NotSupportedFormError in case a molecular system
-        is introduced with a not supported form.
+        If the input molecular system is in an unsupported form.
 
     ArgumentError
-        The function raises an ArgumentError in case an input argument value
-        does not meet the required conditions.
-
-    SyntaxError
-        The function raises a SyntaxError in case the syntax argument takes a not supported value.
-
-
-    .. versionadded:: 0.5.0
-
+        If input arguments are invalid or inconsistent.
 
     Notes
     -----
+    - Label formatting is flexible and customizable via the `string` argument.
+    - The mapping of generic placeholders (e.g., `name`, `id`) to specific attribute names depends on the value of `element`.
 
-    The list of supported molecular systems' forms is detailed in the documentation section
-    :ref:`User Guide > Introduction > Molecular systems > Forms <Introduction_Forms>`.
+    See :ref:`User Guide > Introduction > Molecular systems > Forms <Introduction_Forms>` for supported forms.
 
-    The list of supported selection syntaxes can be checked in the documentation section
-    :ref:`User Guide > Introduction > Selection syntaxes <Introduction_Selection>`.
-
+    See :ref:`User Guide > Introduction > Selection syntaxes <Introduction_Selection>` for supported selection strings.
 
     See Also
     --------
-
     :func:`molsysmt.basic.select`
-        Selecting elements of a molecular system
+        Select elements from a molecular system.
 
+    :func:`molsysmt.basic.get`
+        Retrieve values of attributes for selected elements.
 
     Examples
     --------
-
-    The following example illustrates the use of the function.
-
-
     >>> import molsysmt as msm
-    >>> from molsysmt.systems import demo
-    >>> molecular_system = msm.basic.convert(demo['T4 lysozyme L99A']['181l.mmtf'])
-    >>> msm.basic.get_label(molecular_system, element='group', selection=[10,12,14],
-    >>>                     string='{group_name}{group_id}/{entity_name}')
+    >>> molsys = msm.convert(msm.systems['T4 lysozyme L99A']['181l.h5msm'])
+    >>> msm.get_label(molsys, element='group', selection=[10, 12, 14],
+    ...               string='{group_name}{group_id}/{entity_name}')
     ['GLU11/T4 lysozyme', 'LEU13/T4 lysozyme', 'LEU15/T4 lysozyme']
-
 
     .. admonition:: User guide
 
-       Follow this link for a tutorial on how to work with this function:
-       :ref:`User Guide > Tools > Basic > Get label <Tutorial_Get_label>`.
+       For a tutorial on using this function, see:
+       :ref:`User Guide > Tools > Basic > Get label <Tutorial_Get_label>`
 
+    .. versionadded:: 1.0.0
     """
 
     if '{name}' in string:
