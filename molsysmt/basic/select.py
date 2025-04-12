@@ -10,106 +10,83 @@ from .selector import _dict_select, _dict_indices_to_selection
 def select(molecular_system, selection='all', structure_indices='all', element='atom',
            mask=None, syntax='MolSysMT', to_syntax=None, skip_digestion=False):
     """
-    Selecting elements in a molecular system
+    Selecting elements from a molecular system.
 
-    The indices of the elements that matches a query string can be obtained with this function.
-
+    This function returns the indices of elements that satisfy a selection query. The selection
+    can be based on topological or structural attributes, and applied to different element levels
+    (atoms, groups, molecules, etc.). If a `to_syntax` is specified, the function returns the
+    translated selection query in the desired syntax instead of indices.
 
     Parameters
     ----------
-
     molecular_system : molecular system
-        Molecular system in any of :ref:`the supported forms
-        <Introduction_Forms>` to be analysed by the function.
+        Molecular system in any of the :ref:`supported forms <Introduction_Forms>` to be analyzed
+        by the function.
 
-    selection : tuple, list, numpy.ndarray or str, default 'all'
-        Selection of elements of the molecular system to be extracted by the function. The selection can be
-        given by a list, tuple or numpy array of element indices (0-based
-        integers); or by means of a query string following any of :ref:`the selection
-        syntaxes parsable by MolSysMT <Introduction_Selection>`.
+    selection : str, tuple, list, or numpy.ndarray, default 'all'
+        Element selection to be applied to the molecular system. Can be provided as a list, tuple, or
+        array of 0-based indices; or as a string query following any of the
+        :ref:`supported selection syntaxes <Introduction_Selection>`.
 
-    structure_indices : tuple, list, numpy.ndarray or 'all', default 'all'
-        Indices of structures (0-based integers) to be analysed by the selection function if
-        spatial constraints are included.
+    structure_indices : str, tuple, list, or numpy.ndarray, default 'all'
+        Indices of structures (frames) to be considered for spatially constrained selections.
 
-    element: {'atom', 'group', 'component', 'molecule', 'chain', 'entity', 'system'}, default 'system'
-        The indices returned by this function corresponds to the elements specified by this input
-        argument -matching the selecton criteria-.
+    element : {'atom', 'group', 'component', 'molecule', 'chain', 'entity', 'system'}, default 'atom'
+        Element level on which the selection is applied. The returned indices correspond to this level.
 
-    mask: tuple, list, numpy.ndarray or str, default=None
-        Mask to be applied in the selection. If this argument is different
-        from None, the selection is done only over the elements specified by this
-        argument.
+    mask : str, tuple, list, or numpy.ndarray, optional
+        Optional mask that restricts the selection to a subset of elements. Works similarly to the
+        `selection` argument, and can be used to define a region of interest.
 
     syntax : str, default 'MolSysMT'
-        :ref:`Supported syntax <Introduction_Selection>` used in the `selection` argument (in case
-        it is a string).
+        Selection syntax used to interpret the `selection` string, if applicable.
 
-    to_syntax : str, default None
-        The function will return a query string with the syntax specified by this input argument if
-        its value is different from None.
-
+    to_syntax : str, optional
+        If specified, returns a translated query string in the desired syntax instead of numerical indices.
 
     Returns
     -------
-
-    numpy.ndarray of int
-        List of element indices in agreement with the selection criterion applied over the input molecular
-        system. The nature of the elements is chosen with the input argument ``element``.
-
+    list or str
+        If `to_syntax` is None, returns an array of 0-based indices of the selected elements.
+        If `to_syntax` is given, returns a translated selection query string.
 
     Raises
     ------
-
     NotSupportedFormError
-        The function raises a NotSupportedFormError in case a molecular system
-        is introduced with a not supported form.
+        Raised if the molecular system is provided in an unsupported form.
 
     ArgumentError
-        The function raises an ArgumentError in case an input argument value
-        does not meet the required conditions.
-
-    SyntaxError
-        The function raises a SyntaxError in case the syntax argument takes a not supported value.
-
-
-    .. versionadded:: 0.1.0
-
+        Raised if one or more input arguments are invalid.
 
     Notes
     -----
+    The list of supported molecular system forms is described in:
+    :ref:`User Guide > Introduction > Molecular systems > Forms <Introduction_Forms>`
 
-    The list of supported molecular systems' forms is detailed in the documentation section
-    :ref:`User Guide > Introduction > Molecular systems > Forms <Introduction_Forms>`.
-
-    The list of supported selection syntaxes can be checked in the documentation section
-    :ref:`User Guide > Introduction > Selection syntaxes <Introduction_Selection>`.
-
+    For selection syntax and query expression examples, see:
+    :ref:`User Guide > Introduction > Selection syntaxes <Introduction_Selection>`
 
     See Also
     --------
+    :func:`molsysmt.basic.get`
+        Retrieving attributes of selected elements.
 
-    :ref:'User Guide > Introduction > Configuration options'
-
-    :ref:'User Guide > Introduction > Selection syntaxes'
-
+    :func:`molsysmt.basic.remove`
+        Removing selected atoms or structures from a molecular system.
 
     Examples
     --------
-
-    The following example illustrates the use of the function.
-
     >>> import molsysmt as msm
-    >>> molecular_system = msm.systems.demo['T4 lysozyme L99A']['181l.mmtf']
-    >>> msm.basic.select(molecular_system, element='group', selection='group_name in ["HIS","THR"]')
-    array([ 20,  25,  30,  33,  53,  58, 108, 114, 141, 150, 151, 154, 156])
+    >>> molecular_system = msm.systems.demo['T4 lysozyme L99A']['181l.h5msm']
+    >>> msm.basic.select(molecular_system, element='group', selection='group_name in ["HIS", "THR"]')
+    [ 20,  25,  30,  33,  53,  58, 108, 114, 141, 150, 151, 154, 156]
 
     .. admonition:: User guide
 
        Follow this link for a tutorial on how to work with this function:
-       :ref:`User Guide > Tools > Basic > Select <Tutorial_Select>`.
+       :ref:`User Guide > Tools > Basic > Select <Tutorial_Select>`
 
-
+    .. versionadded:: 1.0.0
     """
 
     from molsysmt.basic import where_is_attribute

@@ -9,105 +9,87 @@ def view(molecular_system=None, selection='all', structure_indices='all',
          standard=True, with_water_as=None, with_ions_as=None,
          viewer='NGLView', syntax='MolSysMT', skip_digestion=False):
     """
-    Showing a molecular system.
+    Visualizing a molecular system.
 
-    This function assists the user in the usage of molecular visualization libraries ("viewer") to show
-    molecular systems in a Jupyter notebook.
+    This function displays a molecular system in a Jupyter notebook using an external molecular
+    visualization library (viewer). The user can control the level of detail and representation
+    for different components of the system, such as water or ions, and apply selections to atoms
+    or structures prior to rendering.
 
     Parameters
     ----------
+    molecular_system : molecular system, optional
+        Molecular system in any of the :ref:`supported forms <Introduction_Forms>` to be displayed.
+        If None, an empty viewer is returned.
 
-    molecular_system : molecular system
-        Molecular system in any of :ref:`the supported forms
-        <Introduction_Forms>` to be shown in the Jupyter notebook by the viewer.
+    selection : str, tuple, list, or numpy.ndarray, default 'all'
+        Selection of atoms to be shown. Can be provided as a list, tuple, or array of atom indices
+        (0-based); or as a query string following a :ref:`supported selection syntax <Introduction_Selection>`.
 
-    selection : index, tuple, list, numpy.ndarray or str, default 'all'
-        Selection of atoms of the molecular system to be shown by the viewer.
-        The selection can be given by a list, tuple or numpy array of
-        atom indices (0-based integers); or by means of a query string following any of
-        :ref:`the selection syntaxes parsable by MolSysMT <Introduction_Selection>`.
+    structure_indices : int, tuple, list, numpy.ndarray or 'all', default 'all'
+        Indices of structures (0-based integers) to be displayed in the viewer.
 
-    structure_indices : integer, tuple, list, numpy.ndarray or 'all', default 'all'
-        Indices of structures (0-based integers) to be shown by the viewer.
+    standard : bool, default True
+        Whether to apply a default standardized view layout. This includes basic visual styles and
+        coloring schemes appropriate for common systems.
 
-    standard : bool, default False
-        Option to standardize views with the following features:
-            - sdf
+    with_water_as : {'licorice', 'surface', None}, default None
+        Optional visual representation to be used for water molecules. If None, water is not displayed.
 
-    with_water_as :{'licorice', 'surface', None}, default None
-        Input argument to choose the water molecules representation.
-
-    with_ions_as :{'licorice', 'balls', 'balls and sticks', None}, default None
-        Input argument to choose the ions molecules representation.
+    with_ions_as : {'licorice', 'balls', 'balls and sticks', None}, default None
+        Optional visual representation to be used for ions. If None, ions are not displayed.
 
     viewer : {'NGLView'}, default 'NGLView'
-        Molecular visualization library to be used as viewer.
+        Viewer to use for visualization. Currently, only 'NGLView' is supported.
 
     syntax : str, default 'MolSysMT'
-        :ref:`Supported syntax <Introduction_Selection>` used in the `selection` argument (in case
-        it is a string).
-
+        Selection syntax used to interpret the `selection` string.
 
     Returns
     -------
-    view native object of viewer
-        The function returns the visualization native object of the viewer.
+    Viewer object
+        The visualization widget returned by the selected viewer. For NGLView, this is an
+        `nglview.NGLWidget` object.
 
     Raises
     ------
-
     NotSupportedFormError
-        The function raises a NotSupportedFormError in case a molecular system
-        is introduced with a not supported form.
+        Raised if the molecular system is provided in an unsupported form.
 
     ArgumentError
-        The function raises an ArgumentError in case an input argument value
-        does not meet the required conditions.
-
-    SyntaxError
-        The function raises a SyntaxError in case the syntax argument takes a not supported value.
-
-
-    .. versionadded:: 0.1.0
-
+        Raised if input arguments do not meet the required conditions.
 
     Notes
     -----
+    The list of supported molecular system forms is described in:
+    :ref:`User Guide > Introduction > Molecular systems > Forms <Introduction_Forms>`
 
-    The list of supported molecular systems' forms is detailed in the documentation section
-    :ref:`User Guide > Introduction > Molecular systems > Forms <Introduction_Forms>`.
+    For available selection syntaxes, see:
+    :ref:`User Guide > Introduction > Selection syntaxes <Introduction_Selection>`
 
-    The list of supported selection syntaxes can be checked in the documentation section
-    :ref:`User Guide > Introduction > Selection syntaxes <Introduction_Selection>`.
-
-    The list of supported viewers can be checked in the documentation section
-    :ref:`User Guide > Introduction > Viewers <Introduction_Viewers>`.
-
+    For a list of supported viewers and their options, see:
+    :ref:`User Guide > Introduction > Viewers <Introduction_Viewers>`
 
     See Also
     --------
-
     :func:`molsysmt.basic.select`
-        Selecting elements of a molecular system
-
+        Selecting atoms from a molecular system.
 
     Examples
     --------
-
-    The following example illustrates the use of the function.
+    The following example illustrates how to visualize only the protein component of a molecular system:
 
     >>> import molsysmt as msm
-    >>> molecular_system = msm.systems.demo['T4 lysozyme L99A']['181l.mmtf']
-    >>> msm.basic.view(molecular_system, selection='molecule_type="protein"', viewer='NGLView')
-    nglview.NGLWidget()
-
+    >>> molecular_system = msm.systems['T4 lysozyme L99A']['181l.h5msm']
+    >>> msm.basic.view(molecular_system, selection='molecule_type=="protein"', viewer='NGLView')
+    NGLWidget()
 
     .. admonition:: User guide
 
        Follow this link for a tutorial on how to work with this function:
-       :ref:`User Guide > Tools > Basic > View <Tutorial_View>`.
+       :ref:`User Guide > Tools > Basic > View <Tutorial_View>`
 
-
+    .. versionadded:: 0.1.0
     """
 
     if os.environ.get("MSM_VIEWS_FROM_HTML_FILES", "").lower() == "true":
@@ -155,5 +137,4 @@ def view(molecular_system=None, selection='all', structure_indices='all',
 
 
     return tmp_item
-
 
