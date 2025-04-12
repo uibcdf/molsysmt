@@ -2,9 +2,9 @@ form_name = 'file:bcif'
 form_type = 'file'
 form_info = ["", ""]
 
-piped_topological_attribute = None
-piped_structural_attribute = None
-piped_any_attribute = None
+piped_topological_attribute = 'molsysmt.Topology'
+piped_structural_attribute = 'molsysmt.Structures'
+piped_any_attribute = 'molsysmt.MolSys'
 bonds_are_explicit = True
 bonds_can_be_computed = True
 
@@ -26,9 +26,13 @@ from .download import download
 
 from .to_mmcif_PdbxContainers_DataContainer import to_mmcif_PdbxContainers_DataContainer
 from .to_molsysmt_MolSys import to_molsysmt_MolSys
+from .to_molsysmt_Topology import to_molsysmt_Topology
+from .to_molsysmt_Structures import to_molsysmt_Structures
 
 _convert_to={
     'file:bcif': extract,
     'molsysmt.MolSys': to_molsysmt_MolSys,
+    'molsysmt.Topology': to_molsysmt_Topology,
+    'molsysmt.Structures': to_molsysmt_Structures,
     }
 

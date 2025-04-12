@@ -23,6 +23,8 @@ class TopologyIterator():
         self.arguments = []
         self._output_dictionary = {}
         self._output_type = output_type
+        self._get_result = None
+        self._indices_iterator = None
 
         for ii, key in enumerate(kwargs.keys()):
             if kwargs[key]:
@@ -45,7 +47,6 @@ class TopologyIterator():
 
         self._indices_iterator = indices_iterator(start=self.start, stop=self.stop, step=self.step, chunk=self.chunk)
 
-
     def __iter__(self):
 
         return self
@@ -56,8 +57,12 @@ class TopologyIterator():
 
         if indices is not None:
 
-            for key in self.arguments:
-                self._output_dictionary[key]=self._get_result[key][indices]
+            if isinstance(indices, int):
+                for key in self.arguments:
+                    self._output_dictionary[key]=self._get_result[key][indices]
+            else:
+                for key in self.arguments:
+                    self._output_dictionary[key]=[self._get_result[key][ii] for ii in indices]
 
             if self._output_type=='values':
                 output = list(self._output_dictionary.values())

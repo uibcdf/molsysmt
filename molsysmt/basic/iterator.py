@@ -4,94 +4,63 @@ from molsysmt._private.exceptions import NotImplementedIteratorError
 
 class Iterator():
     """
-    Iterator over attributes of a molecular system.
+    Iterate over topological or structural attributes of a molecular system.
 
-    This class is an iterator over specific topological or structural attributes of a molecular
-    system. As any iterator, the class contains two privated methods which makes the class
-    functional in this context: ``__iter__`` and ``__next__`` (see :ref:`notes`).  New objects can be
-    instanstiated specifying the set of attributes to be extracted in each iteration, as well as
-    the selection of elements to get those attributes, and some input parameters to control the
-    iterations.
+    This class provides a unified interface to iterate over selected attributes of a molecular
+    system — either topological (e.g., `atom_name`, `group_index`) or structural (e.g., `coordinates`, `box`, `time`).
+    Iteration is element-based (atoms, groups, molecules, etc.) or structure-based depending on the attributes requested.
 
+    The class supports standard iterator behavior via the `__iter__()` and `__next__()` methods (see :ref:`notes`).
+    It is instantiated with a set of arguments defining the target attributes, selection criteria, and iteration control.
 
     Attributes
     ----------
+    molecular_system : molecular system
+        The molecular system from which attribute values are extracted.
 
-    molecular_system: molecular system
-        The molecular system whose attributes are extracted by the iterator.
+    element : {'atom', 'group', 'component', 'molecule', 'chain', 'entity', 'system'}
+        Type of elements over which the iteration is performed.
 
-    element: {'atom', 'group', 'component', 'molecule', 'chain', 'entity', 'system'}
-        The iterator extracts specific molecular systems attribute values in each iteration for a set of elements
-        defined by this attribute and the ``indices`` attribute.
+    indices : int, list, tuple, or numpy.ndarray
+        Indices of elements (e.g., atoms or groups) to iterate over.
 
-    indices: int, list, tuple, numpy.ndarray
-        Elements indices the iterator uses to extract the molecular systems attributes in each
-        iteration.
+    structure_indices : int, list, tuple, or numpy.ndarray
+        Indices of structures to be used if iterating over structural attributes.
 
-    structure_indices: int, list, tuple, numpy.ndarray
-        Structure indices the iterator uses in case structural attributes are extracted in each
-        iteration.
+    start, stop, step, chunk : int
+        Control parameters that define how the iteration proceeds.
 
-    start: int
-        Attribute to store the initial interation index.
+    iterator_index : int
+        Current index in the iteration.
 
-    stop: int
-        Attribute to store the final iteration index.
-
-    step: int
-        Attribute to store the iteration step -increment-.
-
-    chunk: int
-        Number of of steps -increments- effectively done by interation.
-
-    iterator_index: int
-        Attribute to store the current interation index.
-
-    arguments: list
-        List of molecular systems attributes to be extracted in each iteration.
-
-
-
-    .. versionadded:: 0.7.0
-
-
-    .. _notes:
+    arguments : list
+        List of attributes to be returned on each iteration.
 
     Notes
     -----
+    This class is a Python iterator and implements:
 
-    The class works as iterator thanks to the following private methods:
+    - `__iter__()`: returns `self`, enabling use in loops.
+    - `__next__()`: returns the next attribute values, or raises `StopIteration`.
 
-    - :func:`__iter__`
-        The private method :func:`__iter__` returns the `self` variable to make this class working
-        as an interator. It must be invoked with out any input argument.
+    If no attributes are requested, the iterator returns a molecular system per iteration
+    with updated structural attributes.
 
-    - :func:`__next__`
-        The private method :func:`__next__` returns the values of the molecular
-        systems' attributes corresponding to the next iteration. It must be invoked with out any
-        input argument.
-
-    The list of supported molecular systems' forms is detailed in the documentation section
-    :ref:`User Guide > Introduction > Molecular systems > Forms <Introduction_Forms>`.
-
-    The list of supported selection syntaxes can be checked in the documentation section
-    :ref:`User Guide > Introduction > Selection syntaxes <Introduction_Selection>`.
-
-    The list of supported selection syntaxes can be checked in the documentation section
-    :ref:`User Guide > Introduction > Molecular systems > Attributes <Introduction_Attributes>`.
-
+    See also:
+    :ref:`User Guide > Introduction > Molecular systems > Forms <Introduction_Forms>`  
+    :ref:`User Guide > Introduction > Selection syntaxes <Introduction_Selection>`  
+    :ref:`User Guide > Introduction > Molecular systems > Attributes <Introduction_Attributes>`
 
     See Also
     --------
-
     :func:`molsysmt.basic.select`
-        Selecting elements of a molecular system
+        Selecting elements of a molecular system.
 
     :func:`molsysmt.basic.get`
-        Getting attributes of a molecular system
+        Getting attribute values from a molecular system.
 
+    .. versionadded:: 1.0.0
     """
-
 
     @digest()
     def __init__(self,
@@ -109,134 +78,81 @@ class Iterator():
                  **kwargs,
                  ):
         """
-        Instantation method of the iterator.
-
-        The following parameters need to be introduced as input arguments to instante new
-        iterators.
-
-        The resultant object can be used to iterate over specific topological or structural
-        attributes of a molecular system. The set of attributes to be extracted in each iteration,
-        as well as the selection of elements to get those attributes, and some input parameters to
-        control the iterations, have to be specified with these arguments.
-
+        Initialize a new Iterator instance.
 
         Parameters
         ----------
+        molecular_system : molecular system
+            A molecular system in any of the :ref:`supported forms <Introduction_Forms>`.
 
-        molecular_system: molecular system
-            The molecular system in any of :ref:`the supported forms
-            <Introduction_Forms>`, whose attributes are extracted by the iterator.
-
-        element: {'atom', 'group', 'component', 'molecule', 'chain', 'entity', 'system'}, default 'atom'
-            The iterator extracts specific attribute values in each iteration for a set of elements
-            defined by this attribute and the ``selection`` input argument.
+        element : {'atom', 'group', 'component', 'molecule', 'chain', 'entity', 'system'}, default 'atom'
+            The element type over which the iteration is performed.
 
         selection : index, tuple, list, numpy.ndarray or str, default 'all'
-            Selection of elements of the molecular system to get the required attributes. The
-            selection can be given by a list, tuple or numpy array of element indices (0-based
-            integers) -up to the value of the ``element`` input argument-; or by means of a query
-            string following any of :ref:`the selection syntaxes parsable by MolSysMT
-            <Introduction_Selection>`.
+            Selection of elements to iterate over. Can be given as indices or a selection string.
+            See: :ref:`Introduction_Selection`.
 
-        structure_indices : integer, tuple, list, numpy.ndarray or 'all', default 'all'
-            Indices of structures (0-based integers) to be used by the iterator in case structural
-            attributes are extracted in each iteration.
+        structure_indices : int, list, tuple, numpy.ndarray or 'all', default 'all'
+            Indices of structures (0-based) to be used if structural attributes are selected.
 
-        start: int, default 0
-            Initial interation index.
-
-        stop: int, None, default None
-            Final iteration index. If None (default), the iterator runs as long as it is possible.
-
-        step: int, default 1
-            Iteration step -increment-.
-
-        chunk: int, default 1
-            Number of of steps -increments- effectively done by interation.
+        start, stop, step, chunk : int
+            Iteration control:
+            - `start`: starting index (default 0)
+            - `stop`: final index (default: as far as possible)
+            - `step`: increment between steps (default 1)
+            - `chunk`: number of steps per iteration (default 1)
 
         syntax : str, default 'MolSysMT'
-            :ref:`Supported syntax <Introduction_Selection>` used in the `selection` argument (in case
-            it is a string).
+            Selection syntax (if `selection` is a string).
 
-        output_type: {'values', 'dictionary'}, default 'values'
-            If 'values', the list of attribute values are returned in the same
-            order they were required every iteration step. With 'dictionary' a dictionary is returned
-            with the attribute names as keys, and corresponding attribute values as
-            values.
+        output_type : {'values', 'dictionary'}, default 'values'
+            Output format:
+            - `'values'`: tuple with attribute values in order
+            - `'dictionary'`: dict with attribute names as keys
 
-        output_form: 'molsysmt.MolSys'
-            If no attributes are required (``**kwargs=None``), a molecular system is returned every
-            iteration step with the structural attributes such as coordinates, box, step, and time,
-            updated. This input argument defines the form of the resultant molecular system.
+        output_form : str, default 'molsysmt.MolSys'
+            Form of returned molecular system if no attributes are requested.
 
-        **kwargs : {{keyword : str,  value : bool}, default None}
-            The attributes required are introduced as additional keywords with value 'True'
-            if their value needs to be extracted by the iterator.
-
+        **kwargs : {str: bool}, optional
+            Attributes to be extracted. Each keyword must be a valid attribute name, with `True` to include it.
 
         Returns
         -------
-        molsysmt.basic.iterator.Iterator
-            The function returns an Iterator object of this class. This object can be used as
-            iterator and the required attribute values as a list will be returned in each iteration
-            step if the input argument ``output_type`` takes the value 'values'; or together with
-            the attribute names in a dictionary if the argument ``output_type`` takes the value
-            'dictionary'. If a required attribute is not found in the form of the input molecular
-            system, the function assigns None as returned value.
-
+        molsysmt.basic.Iterator
+            An instance of the `Iterator` class, ready to be used in a loop.
 
         Raises
         ------
-
         NotSupportedFormError
-            The function raises a NotSupportedFormError in case a molecular system
-            is introduced with a not supported form.
+            If the input system has an unsupported form.
 
         ArgumentError
-            The function raises an ArgumentError in case an input argument value
-            does not meet the required conditions.
+            If any input argument is invalid or inconsistent.
 
         SyntaxError
-            The function raises a SyntaxError in case the syntax argument takes a not supported value.
-
+            If the `syntax` string is not recognized.
 
         Examples
         --------
-
-        The following example illustrates the use of this class to iterate over topological attributes.
-
         >>> import molsysmt as msm
-        >>> molecular_system = msm.systems.demo['chicken villin HP35']['1vii.mmtf']
-        >>> iterator = msm.Iterator(molecular_system, element='group', selection='molecule_type=="protein"', start=10, stop=20, step=2,
-        >>>                         group_index=True, group_name=True, formal_charge=True)
+        >>> molsys = msm.systems['chicken villin HP35']['1vii.bcif.gz']
+        >>> iterator = msm.Iterator(molsys, element='group', selection='molecule_type=="protein"',
+        ...                         start=10, stop=20, step=2,
+        ...                         group_index=True, group_name=True, formal_charge=True)
         >>> for group_index, group_name, formal_charge in iterator:
-        >>>     print(group_index, group_name, formal_charge)
-        10 PHE 0.0 elementary_charge
-        12 MET 0.0 elementary_charge
-        14 ARG 1.0 elementary_charge
-        16 ALA 0.0 elementary_charge
-        18 ALA 0.0 elementary_charge
+        ...     print(group_index, group_name, formal_charge)
 
-
-        This other example illustrates the use of this class to iterate over structural attributes.
-
-        >>> import molsysmt as msm
-        >>> molecular_system = msm.systems.demo['pentalanine']['traj_pentalanine.h5']
-        >>> iterator = msm.Iterator(molecular_system, selection='group_index==3 and atom_name=="CA"',
-        >>>                         structure_indices=[100, 110, 120], time=True, coordinates=True)
+        >>> molsys = msm.systems['pentalanine']['traj_pentalanine.h5']
+        >>> iterator = msm.Iterator(molsys, selection='group_index==3 and atom_name=="CA"',
+        ...                         structure_indices=[100, 110, 120],
+        ...                         time=True, coordinates=True)
         >>> for time, coordinates in iterator:
-        >>>     print(time, coordinates)
-        1010.0 picosecond [[[0.9690295457839966 1.146891474723816 -0.1522401124238968]]] nanometer
-        1110.0 picosecond [[[1.023858666419983 1.377505898475647 0.03329920768737793]]] nanometer
-        1210.0 picosecond [[[0.9038813710212708 1.1570117473602295 0.03575613722205162]]] nanometer
-
+        ...     print(time, coordinates)
 
         .. admonition:: User guide
 
-           Follow this link for a tutorial on how to work with this function:
-           :ref:`User Guide > Tools > Basic > Iterator <Tutorial_Iterator>`.
-
-
+           Follow this link for a tutorial on how to use this class:
+           :ref:`User Guide > Tools > Basic > Iterator <Tutorial_Iterator>`
         """
 
         from . import select, get_form, where_is_attribute, convert
