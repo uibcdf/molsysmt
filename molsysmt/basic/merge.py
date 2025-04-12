@@ -11,118 +11,93 @@ def merge(molecular_systems,
           to_form=None,
           skip_digestion=False
           ):
-
     """
-    Merging the elements of different molecular systems.
+    Merge elements from multiple molecular systems into a new one.
 
-    Elements coming from a list of molecular systems are merged into a new molecular system.
-    Every molecular system must have the same number of structures.
-    Otherwise, the input argument `structure_indices` needs to be used to
-    specify the indices to extract the structural attributes of the elements to
-    be added.
-
+    This function creates a new molecular system by merging selected elements from a list of input
+    molecular systems. All systems must contain the same number of structures. If this is not the
+    case, the `structure_indices` argument must be used to align the structures selected for merging.
 
     Parameters
     ----------
-    molecular_systems : molecular systems
-        List of  molecular systems in any of :ref:`the supported forms <Introduction_Forms>`.
-        Elements from these systems will be merged into a new system by this function.
+    molecular_systems : list of molecular systems
+        A list of molecular systems in any of the :ref:`supported forms <Introduction_Forms>`.
+        Elements from these systems will be merged into a new system.
 
-    selections : list of (tuple, list, numpy.ndarrays, str), or 'all', default 'all'
-        Selections of atoms to which this function applies. The default value is 'all' to indicate
-        that all elements in all systems will be merged. If different sets of elements need
-        to be specified to be merge from the list of systems, a list of selections given
-        by lists, tuples, numpy arrays of atom indices (0-based
-        integers), or strings following any of :ref:`the selection
-        syntaxes parsable by MolSysMT <Introduction_Selection>` must be provided. This former list
-        will be applied to the list of molecular systems in the same order.
+    selections : list of (tuple, list, numpy.ndarray, or str), or 'all', default 'all'
+        Atom selections for each molecular system. If `'all'`, all atoms are included.
+        If a list is provided, it must match the length of `molecular_systems`, and each element
+        can be a list, tuple, NumPy array of atom indices (0-based), or a selection string in a
+        :ref:`supported syntax <Introduction_Selection>`.
 
-    structure_indices : list of (tuple, list, numpy.ndarray, 'all'), or 'all', default 'all'
-        List of indices of structures (0-based integers) to which this function applies. The
-        default value is 'all' to indicate that all structures in all systems will be merged.
-        If a list of different indices of structures is introduced, they
-        will be read and applied to the list of molecular systems in the same order.
+    structure_indices : list of (tuple, list, numpy.ndarray, or 'all'), or 'all', default 'all'
+        Indices of structures (0-based) to include from each molecular system. If a list is provided,
+        it must match the length of `molecular_systems`.
 
     syntax : str, default 'MolSysMT'
-        :ref:`Supported syntax <Introduction_Selection>` used in the argument
-        `selections` (in case they contain strings).
+        The syntax used to interpret any string-based selections (see :ref:`Introduction_Selection`).
 
-    to_form: str or None, default None
-        Form of the output molecular system. If no form is indicated, with the default value None, the
-        output form will be the same as the first molecular system found in ``molecular_systems``.
+    keep_ids : bool, default True
+        Whether to preserve original atom, group, and molecule IDs. If `False`, IDs will be reset
+        in the merged system.
 
+    to_form : str or None, default None
+        Output form of the new molecular system. If `None`, the form of the first input system is used.
 
     Returns
     -------
     molecular system
-        A molecular system composed of elements extracted from the input molecular
-        systems. The form of this output system can be chosen making use
-        of the `to_form` input argument.
-
+        A new molecular system composed of the selected elements from the input systems.
+        The output form is controlled via the `to_form` argument.
 
     Raises
     ------
-
     NotSupportedFormError
-        The function raises a NotSupportedFormError in case a molecular system
-        is introduced with a not supported form.
+        If any input molecular system has an unsupported form.
 
     ArgumentError
-        The function raises an ArgumentError in case an input argument value
-        does not meet the required conditions.
-
-    SyntaxError
-        The function raises a SyntaxError in case the syntax argument takes a not supported value.
-
-
-    .. versionadded:: 0.1.0
+        If input arguments are invalid or inconsistent in length or compatibility.
 
     Notes
     -----
+    All input molecular systems must be structurally aligned in terms of number of structures,
+    or explicitly aligned via `structure_indices`.
 
-    The list of supported molecular systems' forms is detailed in the documentation section
-    :ref:`User Guide > Introduction > Molecular systems > Forms <Introduction_Forms>`.
+    For more information on supported forms and syntaxes, see:
 
-    The list of supported selection syntaxes can be checked in the documentation section
-    :ref:`User Guide > Introduction > Selection syntaxes <Introduction_Selection>`.
-
+    - :ref:`User Guide > Introduction > Molecular systems > Forms <Introduction_Forms>`
+    - :ref:`User Guide > Introduction > Selection syntaxes <Introduction_Selection>`
 
     See Also
     --------
-
     :func:`molsysmt.basic.select`
-        Selecting elements of a molecular system
+        Select elements from a molecular system.
 
     :func:`molsysmt.basic.add`
-        Adding elements of a molecular system into another molecular system.
+        Add elements from one system to another.
 
     :func:`molsysmt.basic.append_structures`
-        Adding structures from a molecular system to another molecular system.
+        Append structures from one system to another.
 
     :func:`molsysmt.basic.concatenate_structures`
-        Concatenating the structures found in a list of molecular systems.
-
+        Concatenate structures across multiple systems.
 
     Examples
     --------
-
-    The following example illustrates the use of the function.
-
     >>> import molsysmt as msm
-    >>> molecular_system = msm.systems.demo['alanine dipeptide']['alanine_dipeptide.msmpk']
-    >>> molecular_system_1 = msm.convert(molecular_system)
-    >>> molecular_system_2 = msm.structure.translate(molecular_system_1, translation='[0.1, 0.1, 0.1] nanometers')
-    >>> molecular_system_3 = msm.basic.merge([molecular_system_1, molecular_system_2])
-    >>> msm.basic.get(molecular_system_3, n_peptides=True)
+    >>> molsys = msm.systems['alanine dipeptide']['alanine_dipeptide.h5msm']
+    >>> molsys_A = msm.convert(molsys)
+    >>> molsys_B = msm.structure.translate(molsys_A, translation='[0.1, 0.1, 0.1] nanometers')
+    >>> molsys_merged = msm.basic.merge([molsys_A, molsys_B])
+    >>> msm.basic.get(molsys_merged, n_peptides=True)
     2
-
 
     .. admonition:: User guide
 
-       Follow this link for a tutorial on how to work with this function:
-       :ref:`User Guide > Tools > Basic > Merge <Tutorial_Merge>`.
+       For a tutorial on how to use this function, see:
+       :ref:`User Guide > Tools > Basic > Merge <Tutorial_Merge>`
 
-
+    .. versionadded:: 0.1.0
     """
 
     from . import convert, get_form, select

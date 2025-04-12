@@ -5,60 +5,78 @@ from molsysmt._private.variables import is_all
 
 @digest()
 def remove(molecular_system, selection=None, structure_indices=None, to_form=None, syntax='MolSysMT'):
+    """
+    Remove atoms or structures from a molecular system.
 
-    """remove(item, selection=None, structure_indices=None, syntax='MolSysMT')
-
-    Remove atoms or frames from the molecular model.
-
-    Paragraph with detailed explanation.
+    This function creates a new molecular system by removing selected atoms and/or specific
+    structures (frames) from the input. The selection of elements is done using the `selection`
+    argument, while the `structure_indices` argument allows frame-level removal.
 
     Parameters
     ----------
+    molecular_system : molecular system
+        A molecular system in any of the :ref:`supported forms <Introduction_Forms>`.
 
-    item: molecular model
-        Molecular model in any of the supported forms by MolSysMT. (See: XXX)
+    selection : str, tuple, list, or numpy.ndarray, optional
+        Selection of atoms to be removed from the system. Can be provided as a list, tuple, or NumPy
+        array of 0-based indices, or as a selection string using one of the
+        :ref:`supported syntaxes <Introduction_Selection>`. If `None`, no atoms are removed.
 
-    selection: str, list, tuple or np.ndarray, default=None
-       Atoms selection over which this method applies. The selection can be given by a
-       list, tuple or numpy array of integers (0-based), or by means of a string following any of
-       the selection syntax parsable by MolSysMT (see: :func:`molsysmt.select`).
+    structure_indices : str, tuple, list, or numpy.ndarray, optional
+        Indices of structures (frames) to be removed. If `None`, no structures are removed.
 
-    structure_indices: str, list, tuple or np.ndarray, default=None
-        XXX
+    to_form : str, optional
+        If provided, converts the output molecular system to the specified form. Otherwise, the form
+        will match the input.
 
-    syntax: str, default='MolSysMT'
-       Syntaxis used in the argument `selection` (in case it is a string). The
-       current options supported by MolSysMt can be found in section XXX (see: :func:`molsysmt.select`).
+    syntax : str, default 'MolSysMT'
+        Syntax used for interpreting the selection string (if `selection` is a string).
 
     Returns
     -------
-    item: molecular model
-        The result is a new molecular model with the same form as the input item.
+    molecular system
+        A new molecular system with the selected atoms and/or structures removed.
+        The form of the returned system is either specified by `to_form` or inferred from the input.
 
-    Examples
-    --------
-    Remove chains 0 and 1 from the pdb: 1B3T.
-    >>> import molsysmt as m3t
-    >>> system = m3t.load('pdb:1B3T')
-    Check the number of chains
-    >>> m3t.get(system,n_chains=True)
-    8
-    Remove chains 0 and 1
-    >>> new_system = m3t.remove(system,'chainid 0 1')
-    Check the number of chains of the new molecular model
-    >>> m3t.get(new_system,n_chains=True)
-    6
+    Raises
+    ------
+    NotSupportedFormError
+        If the molecular system is provided in an unsupported form.
 
-    See Also
-    --------
-
-    :func:`molsysmt.select`
+    ArgumentError
+        If the selection or structure_indices are invalid or incompatible with the system.
 
     Notes
     -----
-    There is a specific method to remove solvent atoms: molsysmt.remove_solvent and another one to
-    remove hydrogens: molsysmt.remove_hydrogens.
+    The list of supported molecular system forms is described here:
+    :ref:`User Guide > Introduction > Molecular systems > Forms <Introduction_Forms>`
 
+    For selection string syntax, see:
+    :ref:`User Guide > Introduction > Selection syntaxes <Introduction_Selection>`
+
+    See Also
+    --------
+    :func:`molsysmt.select`
+        Select atoms or structures from a molecular system.
+
+    Examples
+    --------
+    Remove chains 0 and 1 from a PDB structure:
+
+    >>> import molsysmt as msm
+    >>> system = msm.convert('pdb:1B3T')
+    >>> msm.get(system, n_chains=True)
+    8
+    >>> new_system = msm.remove(system, selection='chain_id==0 or chain_id==1')
+    >>> msm.get(new_system, n_chains=True)
+    6
+
+    .. admonition:: User guide
+
+       For a tutorial on how to use this function, see:
+       :ref:`User Guide > Tools > Basic > Remove <Tutorial_Remove>`
+
+    .. versionadded:: 1.0.0
     """
 
     from . import select, extract, get
