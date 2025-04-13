@@ -3,6 +3,7 @@
 
 |      |      |
 | :--- | :--- |
+| [Add bonds](add_bonds.ipynb) | Adding new covalent bonds between atoms in a molecular system |
 | [Add missing bonds](add_missing_bonds.ipynb) | Adding the missing bonds in a molecular system |
 | [Add missing heavy atoms](add_missing_heavy_atoms.ipynb) | Adding the missing heavy atoms in a molecular system |
 | [Add missing hydrogens](add_missing_hydrogens.ipynb) | Adding the missing hydrogen atoms in a molecular system |
