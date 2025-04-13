@@ -30,7 +30,8 @@
 .. toctree::
    :maxdepth: 2
    :hidden:
-   
+
+   add_bonds.ipynb
    add_missing_bonds.ipynb
    add_missing_heavy_atoms.ipynb
    add_missing_hydrogens.ipynb
