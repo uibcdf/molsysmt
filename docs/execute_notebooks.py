@@ -1,14 +1,16 @@
+#!/usr/bin/env python
+
 import os
 import subprocess
 from pathlib import Path
 from datetime import datetime, timezone
 import argparse
-
+import glob
 
 def write_timestamp_to_log(log_path: Path):
     timestamp = datetime.now(timezone.utc).timestamp()
     log_path.write_text(f"{timestamp:.6f}")
-    print(f"🕒 Timestamp written to {log_path}: {timestamp:.6f}")
+    print(f"Timestamp written to {log_path}: {timestamp:.6f}")
     return timestamp
 
 def read_timestamp_from_log(log_path: Path) -> float:
@@ -20,8 +22,7 @@ def read_timestamp_from_log(log_path: Path) -> float:
 def execute_notebook(notebook_path: Path, force: bool = False) -> bool:
 
     last_run_file = notebook_path.with_suffix('.nbconvert.last_run')
-    stdout_log_file = notebook_path.with_suffix('.nbconvert.stdout.log')
-    stderr_log_file = notebook_path.with_suffix('.nbconvert.stderr.log')
+    log_file = notebook_path.with_suffix('.nbconvert.log')
 
     needs_execution = False
 
@@ -37,7 +38,7 @@ def execute_notebook(notebook_path: Path, force: bool = False) -> bool:
 
         print(f"Executing notebook: {notebook_path}")
         env = os.environ.copy()
-        env["MOLSYSMT_DOCS_BUILDING"] = "true"
+        env["MSM_VIEWS_FROM_HTML_FILES"] = "True"
 
         result = subprocess.run(
             ["jupyter", "nbconvert", "--execute", "--inplace", str(notebook_path)],
@@ -46,11 +47,10 @@ def execute_notebook(notebook_path: Path, force: bool = False) -> bool:
             env=env
         )
 
-        stdout_log_file.write_text(result.stdout)
-        stderr_log_file.write_text(result.stderr)
+        log_file.write_text(result.stdout + "\n" + result.stderr)
 
         if result.returncode != 0:
-            print(f"Error executing {notebook_path}: check {stderr_log_file}")
+            print(f"Error executing {notebook_path}: check {log_file}")
             if last_run_file.exists():
                 last_run_file.unlink()
             return False
@@ -83,16 +83,35 @@ def main(force=False, notebook: Path = None):
 
 if __name__ == "__main__":
 
-    parser = argparse.ArgumentParser(description="Execute .ipynb files if updated.")
-    parser.add_argument("notebook", nargs="?", default=None,
-                        help="Specific notebook to execute (optional).")
+    parser = argparse.ArgumentParser(
+        description="""
+    Execute Jupyter notebooks if they have been modified since their last successful execution.
+    You can pass a single notebook path or a wildcard pattern (e.g. '*.ipynb').
+    
+    Examples:
+        python execute_notebooks.py                       # All notebooks in current directory
+        python execute_notebooks.py analysis.ipynb        # Only that notebook
+        python execute_notebooks.py '/home/user/*.ipynb'  # Wildcard pattern (quoted)
+        python execute_notebooks.py -f                    # Force re-execution of all
+    
+    Each successful run updates a corresponding .nbconvert.log file with a timestamp.
+    Notebooks are skipped if unchanged.
+    """,
+        formatter_class=argparse.RawDescriptionHelpFormatter
+    )
+
+    parser.add_argument("notebook", nargs="*", default=None,
+                        help="Notebook(s) to execute. Supports wildcard patterns (e.g. *.ipynb).")
     parser.add_argument("-f", "--force", action="store_true",
                         help="Force execution of notebooks regardless of timestamps.")
     args = parser.parse_args()
 
     if args.notebook:
-        nb_path = Path(args.notebook)
-        main(force=args.force, notebook=nb_path)
+        for nb in map(Path, args.notebook):
+            if nb.is_file():
+                main(force=args.force, notebook=nb)
+            else:
+                print(f"❌ File not found or not a notebook: {nb}")
     else:
         main(force=args.force)
 
