@@ -4,7 +4,100 @@ from molsysmt._private.digestion import digest
 def add_missing_terminal_cappings(molecular_system, N_terminal=None, C_terminal=None, pH=7.4, 
                                   keep_ids=False, selection='all', syntax='MolSysMT', engine='PDBFixer'):
     """
-    To be written soon...
+    Adding terminal cappings to peptides and proteins.
+
+    This function adds chemical groups to the N- and/or C-termini of protein or peptide chains. 
+    These terminal groups can either neutralize terminal charges or simply complete missing atoms 
+    for a standard terminal residue. The resulting cappings are consistent with typical protonation 
+    states at the specified pH.
+
+    Parameters
+    ----------
+    molecular_system : molecular system
+        Molecular system in any of :ref:`the supported forms <Introduction_Forms>` to which terminal 
+        cappings will be added.
+
+    N_terminal : str or None, default None
+        Residue name to cap the N-terminus. If `None`, the missing atoms are added to the 
+        native terminal residue without introducing a separate cap. Use `'ACE'` to cap with 
+        an acetyl group, or other recognized residue names.
+
+    C_terminal : str or None, default None
+        Residue name to cap the C-terminus. If `None`, the missing atoms are added to the 
+        native terminal residue without introducing a separate cap. Use `'NME'` to cap with 
+        a N-methyl amide group, or other recognized residue names.
+
+    pH : float, default 7.4
+        Approximate pH used to determine the protonation states of terminal groups and nearby residues.
+
+    keep_ids : bool, default False
+        If `True`, preserves the original atom, group, and molecule IDs. Otherwise, new IDs may be reassigned.
+
+    selection : str, list, tuple, or numpy.ndarray, default 'all'
+        Selection of atoms or residues to which this operation applies. Can be a list of indices or a 
+        query string following :ref:`MolSysMT selection syntax <Introduction_Selection>`.
+
+    syntax : str, default 'MolSysMT'
+        Syntax used to parse the `selection` argument, if it is a string.
+
+    engine : {'PDBFixer'}, default 'PDBFixer'
+        Engine used to perform capping. Determines atom placement and protonation based on templates.
+
+    Returns
+    -------
+    molecular system
+        A new molecular system with modified termini, in the same form as the input system.
+
+    Raises
+    ------
+    NotSupportedFormError
+        Raised if the input molecular system is in a non-supported form.
+
+    ArgumentError
+        Raised if an input argument value is invalid.
+
+    Notes
+    -----
+    Common capping groups:
+      - `'ACE'` for acetyl (N-terminal)
+      - `'NME'` for N-methyl amide (C-terminal)
+
+    If no capping residues are provided, the function only completes missing terminal atoms 
+    in the native residues (which are often charged).
+
+    The list of supported molecular system forms is detailed in:
+    :ref:`User Guide > Introduction > Molecular systems > Forms <Introduction_Forms>`
+
+    See Also
+    --------
+    :func:`molsysmt.build.build_peptide`
+        Construct a peptide sequence with optional terminal cappings.
+
+    :func:`molsysmt.build.add_missing_heavy_atoms`
+        Add missing non-hydrogen atoms to standard residues.
+
+    :func:`molsysmt.basic.info`
+        Inspect the content and composition of a molecular system.
+
+    :func:`molsysmt.physchem.get_charge`
+        Calculate the total or partial charge of a system.
+
+    Examples
+    --------
+    >>> import molsysmt as msm
+    >>> molsys = msm.build.build_peptide('AlaValPro')
+    >>> molsys = msm.build.add_missing_terminal_cappings(molsys, N_terminal='ACE', C_terminal='NME')
+    >>> msm.physchem.get_charge(capped_system)
+    0.0 elementary_charge
+    >>> msm.convert(molsys, to_form='string:amino_acids_3')
+    'AceAlaValProNme'
+
+    .. admonition:: User guide
+
+       Follow this link for a tutorial on how to work with this function:  
+       :ref:`User Guide > Tools > Build > Add missing terminal cappings <Tutorial_Add_missing_terminal_cappings>`
+
+    .. versionadded:: 1.0.0
     """
 
     from molsysmt.basic import get_form

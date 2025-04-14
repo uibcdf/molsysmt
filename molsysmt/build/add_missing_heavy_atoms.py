@@ -4,7 +4,91 @@ from molsysmt._private.digestion import digest
 @digest()
 def add_missing_heavy_atoms(molecular_system, selection='all', syntax='MolSysMT', engine='PDBFixer'):
     """
-    To be written soon...
+    Adding missing non-hydrogen atoms to a molecular system.
+
+    This function checks for missing heavy atoms (non-hydrogens) in a molecular system and adds
+    them when possible. The missing atoms are identified based on known residue templates and
+    inferred topological context. The coordinates of new atoms are estimated using internal
+    geometry rules or external reconstruction engines such as PDBFixer.
+
+    Parameters
+    ----------
+    molecular_system : molecular system
+        Molecular system in any of :ref:`the supported forms <Introduction_Forms>` to which missing
+        heavy atoms will be added.
+
+    selection : tuple, list, numpy.ndarray or str, default 'all'
+        Selection of atoms that define the residues or molecules to analyze.
+        Can be provided as indices (list, tuple, array of 0-based integers) or as a string using any
+        of the supported :ref:`selection syntaxes <Introduction_Selection>`.
+
+    syntax : str, default 'MolSysMT'
+        :ref:`Selection syntax <Introduction_Selection>` used when `selection` is a string.
+
+    engine : {'MolSysMT', 'PDBFixer'}, default 'PDBFixer'
+        Engine used to rebuild the missing atoms. If `'MolSysMT'` is chosen, internal geometry
+        templates are used. If `'PDBFixer'` is selected, the external PDBFixer engine is called.
+
+    Returns
+    -------
+    molecular system
+        A molecular system with the missing heavy atoms added, in the same form as the input system.
+
+    Raises
+    ------
+    NotSupportedFormError
+        Raised if the input molecular system is in an unsupported format.
+
+    ArgumentError
+        Raised if one or more input arguments are invalid.
+
+    EngineError
+        Raised if the specified engine fails to rebuild the atoms.
+
+    Notes
+    -----
+    This function adds only non-hydrogen atoms (heavy atoms) that are missing from standard
+    residues. Hydrogen atoms can be added using other tools or methods.
+
+    The list of supported molecular systems' forms is detailed in:
+    :ref:`User Guide > Introduction > Molecular systems > Forms <Introduction_Forms>`
+
+    The list of supported selection syntaxes is available at:
+    :ref:`User Guide > Introduction > Selection syntaxes <Introduction_Selection>`
+
+    See Also
+    --------
+    :func:`molsysmt.build.get_missing_heavy_atoms`
+        Identify heavy atoms that are missing based on residue templates.
+
+    :func:`molsysmt.basic.remove`
+        Remove atoms from a molecular system.
+
+    :func:`molsysmt.basic.contains`
+        Check whether specific elements are present in a molecular system.
+
+    :func:`molsysmt.build.build_peptide`
+        Build capped peptide structures from amino acid sequences.
+
+    Examples
+    --------
+    >>> import molsysmt as msm
+    >>> molsys = msm.build.build_peptide('AAA')
+    >>> msm.get(molsys, selection='atom_name=="CB"', n_atoms=True)
+    3
+    >>> molsys = msm.build.remove(molsys, selection='atom_name=="CB"')
+    >>> msm.get(molsys, selection='atom_name=="CB"', n_atoms=True)
+    0
+    >>> molsys = msm.build.add_missing_heavy_atoms(molsys)
+    >>> msm.get(molsys, selection='atom_name=="CB"', n_atoms=True)
+    3
+
+    .. admonition:: User guide
+
+       Follow this link for a tutorial on how to work with this function:  
+       :ref:`User Guide > Tools > Build > Add missing heavy atoms <Tutorial_Add_missing_heavy_atoms>`.
+
+    .. versionadded:: 1.0.0
     """
 
     from molsysmt.basic import get_form, convert, select, get, set

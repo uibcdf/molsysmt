@@ -1,0 +1,142 @@
+
+[NbConvertApp] Converting notebook contents/user/tools/build/make_bioassembly.ipynb to notebook
+Traceback (most recent call last):
+  File "/conda/miniconda3/envs/MolSysMT@uibcdf_3.12/bin/jupyter-nbconvert", line 10, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/conda/miniconda3/envs/MolSysMT@uibcdf_3.12/lib/python3.12/site-packages/jupyter_core/application.py", line 283, in launch_instance
+    super().launch_instance(argv=argv, **kwargs)
+  File "/conda/miniconda3/envs/MolSysMT@uibcdf_3.12/lib/python3.12/site-packages/traitlets/config/application.py", line 1075, in launch_instance
+    app.start()
+  File "/conda/miniconda3/envs/MolSysMT@uibcdf_3.12/lib/python3.12/site-packages/nbconvert/nbconvertapp.py", line 420, in start
+    self.convert_notebooks()
+  File "/conda/miniconda3/envs/MolSysMT@uibcdf_3.12/lib/python3.12/site-packages/nbconvert/nbconvertapp.py", line 597, in convert_notebooks
+    self.convert_single_notebook(notebook_filename)
+  File "/conda/miniconda3/envs/MolSysMT@uibcdf_3.12/lib/python3.12/site-packages/nbconvert/nbconvertapp.py", line 563, in convert_single_notebook
+    output, resources = self.export_single_notebook(
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/conda/miniconda3/envs/MolSysMT@uibcdf_3.12/lib/python3.12/site-packages/nbconvert/nbconvertapp.py", line 487, in export_single_notebook
+    output, resources = self.exporter.from_filename(
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/conda/miniconda3/envs/MolSysMT@uibcdf_3.12/lib/python3.12/site-packages/nbconvert/exporters/exporter.py", line 201, in from_filename
+    return self.from_file(f, resources=resources, **kw)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/conda/miniconda3/envs/MolSysMT@uibcdf_3.12/lib/python3.12/site-packages/nbconvert/exporters/exporter.py", line 220, in from_file
+    return self.from_notebook_node(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/conda/miniconda3/envs/MolSysMT@uibcdf_3.12/lib/python3.12/site-packages/nbconvert/exporters/notebook.py", line 36, in from_notebook_node
+    nb_copy, resources = super().from_notebook_node(nb, resources, **kw)
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/conda/miniconda3/envs/MolSysMT@uibcdf_3.12/lib/python3.12/site-packages/nbconvert/exporters/exporter.py", line 154, in from_notebook_node
+    nb_copy, resources = self._preprocess(nb_copy, resources)
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/conda/miniconda3/envs/MolSysMT@uibcdf_3.12/lib/python3.12/site-packages/nbconvert/exporters/exporter.py", line 353, in _preprocess
+    nbc, resc = preprocessor(nbc, resc)
+                ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/conda/miniconda3/envs/MolSysMT@uibcdf_3.12/lib/python3.12/site-packages/nbconvert/preprocessors/base.py", line 48, in __call__
+    return self.preprocess(nb, resources)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/conda/miniconda3/envs/MolSysMT@uibcdf_3.12/lib/python3.12/site-packages/nbconvert/preprocessors/execute.py", line 103, in preprocess
+    self.preprocess_cell(cell, resources, index)
+  File "/conda/miniconda3/envs/MolSysMT@uibcdf_3.12/lib/python3.12/site-packages/nbconvert/preprocessors/execute.py", line 124, in preprocess_cell
+    cell = self.execute_cell(cell, index, store_history=True)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/conda/miniconda3/envs/MolSysMT@uibcdf_3.12/lib/python3.12/site-packages/jupyter_core/utils/__init__.py", line 165, in wrapped
+    return loop.run_until_complete(inner)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/conda/miniconda3/envs/MolSysMT@uibcdf_3.12/lib/python3.12/asyncio/base_events.py", line 691, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/conda/miniconda3/envs/MolSysMT@uibcdf_3.12/lib/python3.12/site-packages/nbclient/client.py", line 1062, in async_execute_cell
+    await self._check_raise_for_error(cell, cell_index, exec_reply)
+  File "/conda/miniconda3/envs/MolSysMT@uibcdf_3.12/lib/python3.12/site-packages/nbclient/client.py", line 918, in _check_raise_for_error
+    raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
+nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
+------------------
+molecular_system = msm.build.make_bioassembly(molecular_system, bioassembly='1')
+------------------
+
+
+[31m---------------------------------------------------------------------------[39m
+[31mIndexError[39m                                Traceback (most recent call last)
+[36mCell[39m[36m [39m[32mIn[9][39m[32m, line 1[39m
+[32m----> [39m[32m1[39m molecular_system = [43mmsm[49m[43m.[49m[43mbuild[49m[43m.[49m[43mmake_bioassembly[49m[43m([49m[43mmolecular_system[49m[43m,[49m[43m [49m[43mbioassembly[49m[43m=[49m[33;43m'[39;49m[33;43m1[39;49m[33;43m'[39;49m[43m)[49m
+
+[36mFile [39m[32m~/repos@uibcdf/molsysmt/molsysmt/_private/digestion/digest.py:122[39m, in [36mdigest.<locals>.digestor.<locals>.wrapper[39m[34m(*args, **kwargs)[39m
+[32m    120[39m     [38;5;28;01mreturn[39;00m func(all_args[[33m'[39m[33mself[39m[33m'[39m], **final_args)
+[32m    121[39m [38;5;28;01melse[39;00m:
+[32m--> [39m[32m122[39m     [38;5;28;01mreturn[39;00m [43mfunc[49m[43m([49m[43m*[49m[43m*[49m[43mfinal_args[49m[43m)[49m
+
+[36mFile [39m[32m~/repos@uibcdf/molsysmt/molsysmt/build/make_bioassembly.py:66[39m, in [36mmake_bioassembly[39m[34m(molecular_system, bioassembly, structure_indices, to_form, skip_digestion)[39m
+[32m     63[39m [38;5;28;01mif[39;00m [38;5;28misinstance[39m(chains, [38;5;28mint[39m):
+[32m     64[39m     chains = [chains]
+[32m---> [39m[32m66[39m subsystem = [43mextract[49m[43m([49m[43mmolecular_system[49m[43m,[49m[43m [49m[43mstructure_indices[49m[43m=[49m[43m[[49m[32;43m0[39;49m[43m][49m[43m,[49m[43m [49m[43mselection[49m[43m=[49m[33;43m'[39;49m[33;43mchain_index in @chains[39;49m[33;43m'[39;49m[43m,[49m
+[32m     67[39m [43m                    [49m[43msyntax[49m[43m=[49m[33;43m'[39;49m[33;43mMolSysMT[39;49m[33;43m'[39;49m[43m,[49m[43m [49m[43mskip_digestion[49m[43m=[49m[38;5;28;43;01mTrue[39;49;00m[43m)[49m
+[32m     69[39m [38;5;28;01mfor[39;00m rotation, translation [38;5;129;01min[39;00m [38;5;28mzip[39m(aux_rotations, aux_translations):
+[32m     71[39m     unit = copy(subsystem, skip_digestion=[38;5;28;01mTrue[39;00m)
+
+[36mFile [39m[32m~/repos@uibcdf/molsysmt/molsysmt/_private/digestion/digest.py:52[39m, in [36mdigest.<locals>.digestor.<locals>.wrapper[39m[34m(*args, **kwargs)[39m
+[32m     48[39m [38;5;129m@functools[39m.wraps(func)
+[32m     49[39m [38;5;28;01mdef[39;00m[38;5;250m [39m[34mwrapper[39m(*args, **kwargs):
+[32m     51[39m     [38;5;28;01mif[39;00m kwargs.get([33m'[39m[33mskip_digestion[39m[33m'[39m, [38;5;28;01mFalse[39;00m):
+[32m---> [39m[32m52[39m         [38;5;28;01mreturn[39;00m [43mfunc[49m[43m([49m[43m*[49m[43margs[49m[43m,[49m[43m [49m[43m*[49m[43m*[49m[43mkwargs[49m[43m)[49m
+[32m     54[39m     [38;5;66;03m# Define caller[39;00m
+[32m     56[39m     caller = func.[34m__module__[39m+[33m'[39m[33m.[39m[33m'[39m+func.[34m__name__[39m
+
+[36mFile [39m[32m~/repos@uibcdf/molsysmt/molsysmt/basic/extract.py:114[39m, in [36mextract[39m[34m(molecular_system, selection, structure_indices, to_form, copy_if_all, syntax, skip_digestion)[39m
+[32m    111[39m output = []
+[32m    113[39m [38;5;28;01mfor[39;00m form_in, item [38;5;129;01min[39;00m [38;5;28mzip[39m(forms_in, molecular_system):
+[32m--> [39m[32m114[39m     output_item = [43m_dict_modules[49m[43m[[49m[43mform_in[49m[43m][49m[43m.[49m[43mextract[49m[43m([49m[43mitem[49m[43m,[49m[43m [49m[43matom_indices[49m[43m=[49m[43matom_indices[49m[43m,[49m
+[32m    115[39m [43m                                                 [49m[43mstructure_indices[49m[43m=[49m[43mstructure_indices[49m[43m,[49m[43m [49m[43mcopy_if_all[49m[43m=[49m[43mcopy_if_all[49m[43m,[49m
+[32m    116[39m [43m                                                 [49m[43mskip_digestion[49m[43m=[49m[38;5;28;43;01mTrue[39;49;00m[43m)[49m
+[32m    117[39m     output.append(output_item)
+[32m    119[39m [38;5;28;01mif[39;00m [38;5;28mlen[39m(output)==[32m1[39m:
+
+[36mFile [39m[32m~/repos@uibcdf/molsysmt/molsysmt/_private/digestion/digest.py:52[39m, in [36mdigest.<locals>.digestor.<locals>.wrapper[39m[34m(*args, **kwargs)[39m
+[32m     48[39m [38;5;129m@functools[39m.wraps(func)
+[32m     49[39m [38;5;28;01mdef[39;00m[38;5;250m [39m[34mwrapper[39m(*args, **kwargs):
+[32m     51[39m     [38;5;28;01mif[39;00m kwargs.get([33m'[39m[33mskip_digestion[39m[33m'[39m, [38;5;28;01mFalse[39;00m):
+[32m---> [39m[32m52[39m         [38;5;28;01mreturn[39;00m [43mfunc[49m[43m([49m[43m*[49m[43margs[49m[43m,[49m[43m [49m[43m*[49m[43m*[49m[43mkwargs[49m[43m)[49m
+[32m     54[39m     [38;5;66;03m# Define caller[39;00m
+[32m     56[39m     caller = func.[34m__module__[39m+[33m'[39m[33m.[39m[33m'[39m+func.[34m__name__[39m
+
+[36mFile [39m[32m~/repos@uibcdf/molsysmt/molsysmt/form/molsysmt_MolSys/extract.py:7[39m, in [36mextract[39m[34m(item, atom_indices, structure_indices, copy_if_all, skip_digestion)[39m
+[32m      4[39m [38;5;129m@digest[39m(form=[33m'[39m[33mmolsysmt.MolSys[39m[33m'[39m)
+[32m      5[39m [38;5;28;01mdef[39;00m[38;5;250m [39m[34mextract[39m(item, atom_indices=[33m'[39m[33mall[39m[33m'[39m, structure_indices=[33m'[39m[33mall[39m[33m'[39m, copy_if_all=[38;5;28;01mTrue[39;00m, skip_digestion=[38;5;28;01mFalse[39;00m):
+[32m----> [39m[32m7[39m     [38;5;28;01mreturn[39;00m [43mitem[49m[43m.[49m[43mextract[49m[43m([49m[43matom_indices[49m[43m=[49m[43matom_indices[49m[43m,[49m[43m [49m[43mstructure_indices[49m[43m=[49m[43mstructure_indices[49m[43m,[49m[43m [49m[43mcopy_if_all[49m[43m=[49m[43mcopy_if_all[49m[43m,[49m
+[32m      8[39m [43m                        [49m[43mskip_digestion[49m[43m=[49m[38;5;28;43;01mTrue[39;49;00m[43m)[49m
+
+[36mFile [39m[32m~/repos@uibcdf/molsysmt/molsysmt/_private/digestion/digest.py:52[39m, in [36mdigest.<locals>.digestor.<locals>.wrapper[39m[34m(*args, **kwargs)[39m
+[32m     48[39m [38;5;129m@functools[39m.wraps(func)
+[32m     49[39m [38;5;28;01mdef[39;00m[38;5;250m [39m[34mwrapper[39m(*args, **kwargs):
+[32m     51[39m     [38;5;28;01mif[39;00m kwargs.get([33m'[39m[33mskip_digestion[39m[33m'[39m, [38;5;28;01mFalse[39;00m):
+[32m---> [39m[32m52[39m         [38;5;28;01mreturn[39;00m [43mfunc[49m[43m([49m[43m*[49m[43margs[49m[43m,[49m[43m [49m[43m*[49m[43m*[49m[43mkwargs[49m[43m)[49m
+[32m     54[39m     [38;5;66;03m# Define caller[39;00m
+[32m     56[39m     caller = func.[34m__module__[39m+[33m'[39m[33m.[39m[33m'[39m+func.[34m__name__[39m
+
+[36mFile [39m[32m~/repos@uibcdf/molsysmt/molsysmt/native/molsys.py:35[39m, in [36mMolSys.extract[39m[34m(self, atom_indices, structure_indices, copy_if_all, skip_digestion)[39m
+[32m     33[39m tmp_item = MolSys()
+[32m     34[39m tmp_item.topology = [38;5;28mself[39m.topology.extract(atom_indices=atom_indices, copy_if_all=[38;5;28;01mTrue[39;00m, skip_digestion=[38;5;28;01mTrue[39;00m)
+[32m---> [39m[32m35[39m tmp_item.structures = [38;5;28;43mself[39;49m[43m.[49m[43mstructures[49m[43m.[49m[43mextract[49m[43m([49m[43matom_indices[49m[43m=[49m[43matom_indices[49m[43m,[49m
+[32m     36[39m [43m                                              [49m[43mstructure_indices[49m[43m=[49m[43mstructure_indices[49m[43m,[49m[43m [49m[43mcopy_if_all[49m[43m=[49m[38;5;28;43;01mTrue[39;49;00m[43m,[49m
+[32m     37[39m [43m                                              [49m[43mskip_digestion[49m[43m=[49m[38;5;28;43;01mTrue[39;49;00m[43m)[49m
+[32m     38[39m tmp_item.molecular_mechanics = [38;5;28mself[39m.molecular_mechanics.copy()
+[32m     40[39m [38;5;28;01mreturn[39;00m tmp_item
+
+[36mFile [39m[32m~/repos@uibcdf/molsysmt/molsysmt/_private/digestion/digest.py:52[39m, in [36mdigest.<locals>.digestor.<locals>.wrapper[39m[34m(*args, **kwargs)[39m
+[32m     48[39m [38;5;129m@functools[39m.wraps(func)
+[32m     49[39m [38;5;28;01mdef[39;00m[38;5;250m [39m[34mwrapper[39m(*args, **kwargs):
+[32m     51[39m     [38;5;28;01mif[39;00m kwargs.get([33m'[39m[33mskip_digestion[39m[33m'[39m, [38;5;28;01mFalse[39;00m):
+[32m---> [39m[32m52[39m         [38;5;28;01mreturn[39;00m [43mfunc[49m[43m([49m[43m*[49m[43margs[49m[43m,[49m[43m [49m[43m*[49m[43m*[49m[43mkwargs[49m[43m)[49m
+[32m     54[39m     [38;5;66;03m# Define caller[39;00m
+[32m     56[39m     caller = func.[34m__module__[39m+[33m'[39m[33m.[39m[33m'[39m+func.[34m__name__[39m
+
+[36mFile [39m[32m~/repos@uibcdf/molsysmt/molsysmt/native/structures.py:715[39m, in [36mStructures.extract[39m[34m(self, atom_indices, structure_indices, copy_if_all, skip_digestion)[39m
+[32m    713[39m [38;5;28;01mfor[39;00m tmp_atom_index [38;5;129;01min[39;00m tmp_alt_loc.keys():
+[32m    714[39m     [38;5;28;01mif[39;00m tmp_atom_index [38;5;129;01min[39;00m atom_indices:
+[32m--> [39m[32m715[39m         new_atom_index = [43mnp[49m[43m.[49m[43mwhere[49m[43m([49m[43matom_indices[49m[43m [49m[43m==[49m[43m [49m[43mtmp_atom_index[49m[43m)[49m[43m[[49m[32;43m0[39;49m[43m][49m[43m[[49m[32;43m0[39;49m[43m][49m
+[32m    716[39m         aux_dict[new_atom_index] = tmp_alt_loc[tmp_atom_index]
+[32m    717[39m alternate_location.append(aux_dict)
+
+[31mIndexError[39m: index 0 is out of bounds for axis 0 with size 0
+

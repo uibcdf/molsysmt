@@ -20,7 +20,10 @@ physical_pH7= {
     'THR': 0.000,
     'TRP': 0.000,
     'TYR': 0.000,
-    'VAL': 0.000
+    'VAL': 0.000,
+
+    'ACE': 0.000,
+    'NME': 0.000,
 }
 
 #E. R. Collantes, W. J. Dunn, J. Med. Chem. 1995, 38, 2705–2713

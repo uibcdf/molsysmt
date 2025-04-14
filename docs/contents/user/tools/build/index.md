@@ -44,6 +44,7 @@
    get_missing_residues.ipynb
    get_missing_terminal_cappings.ipynb
    get_non_standard_residues.ipynb
+   has_hydrogens.ipynb
    is_solvated.ipynb
    make_bioassembly.ipynb
    make_water_box.ipynb
