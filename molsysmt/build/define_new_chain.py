@@ -6,7 +6,77 @@ import numpy as np
 def define_new_chain(molecular_system, selection='all', chain_id=None, chain_name=None, syntax='MolSysMT',
                      skip_digestion=False):
     """
-    To be written soon...
+    Defining a new chain from selected atoms.
+
+    This function creates a new chain by assigning a unique `chain_id` and/or `chain_name` to a selection
+    of atoms in a molecular system. The selected atoms are grouped into a new chain, which is appended
+    to the existing list of chains in the system. This does not alter or remove any of the existing chains.
+
+    Parameters
+    ----------
+    molecular_system : molecular system
+        Molecular system in any of :ref:`the supported forms <Introduction_Forms>` to be modified.
+
+    selection : index, tuple, list, numpy.ndarray or str, default 'all'
+        Selection of atoms to assign to the new chain. The selection can be given as a list, tuple,
+        or NumPy array of atom indices (0-based integers), or as a string following one of the
+        :ref:`supported selection syntaxes <Introduction_Selection>`.
+
+    chain_id : str or int, optional
+        Identifier of the new chain (e.g., 'A', 'B', 'C', or numeric value). If not provided,
+        a unique `chain_id` will be automatically generated.
+
+    chain_name : str, optional
+        Descriptive name for the new chain. If not provided, the name will be left empty or
+        automatically assigned.
+
+    syntax : str, default 'MolSysMT'
+        :ref:`Supported syntax <Introduction_Selection>` used in the `selection` argument (in case it is a string).
+
+    Returns
+    -------
+    molecular system
+        A modified molecular system with the selected atoms grouped into a newly defined chain.
+
+    Raises
+    ------
+    NotSupportedFormError
+        Raised if the molecular system has a non-supported form.
+
+    ArgumentError
+        Raised if any of the input values is invalid or incompatible.
+
+    Notes
+    -----
+    - This function is useful when merging multiple molecules, redefining topology, or recovering
+      proper chain segmentation after structural edits.
+    - Chains are identified by their `chain_id` (unique identifier) and `chain_name` (optional descriptive label).
+
+    See Also
+    --------
+    :func:`molsysmt.basic.set`
+        Setting attribute values in a molecular system.
+
+    :func:`molsysmt.basic.info`
+        Displaying a summary of elements and chain structure.
+
+    :func:`molsysmt.build.merge`
+        Merging multiple molecular systems, often requiring reassignment of chains.
+
+    Examples
+    --------
+    >>> import molsysmt as msm
+    >>> molsys = msm.convert('1TCD')
+    >>> msm.build.define_new_chain(molsys, selection='molecule_type=="water"', chain_name='C')
+    >>> msm.get(molsys, element='chain', chain_name=True)
+    ['A', 'B', 'C']
+
+    .. admonition:: User guide
+
+       Follow this link for a tutorial on how to work with this function:  
+       :ref:`User Guide > Tools > Build > Define new chain <Tutorial_Define_new_chain>`
+
+    .. versionadded:: 1.0.0
     """
 
     from molsysmt.basic import get, set, select, get_form

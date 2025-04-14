@@ -1,9 +1,77 @@
 from molsysmt._private.digestion import digest
 
 @digest()
-def build_peptide (molecular_system, to_form='molsysmt.MolSys', engine='LEaP'):
+def build_peptide(molecular_system, to_form='molsysmt.MolSys', engine='LEaP'):
     """
-    To be written soon...
+    Building a peptide from a sequence.
+
+    This function constructs a capped or uncapped peptide from a sequence of amino acids.
+    It generates the complete atomic topology, including bonds, angles, and coordinates
+    for the resulting system. Optionally, terminal capping groups can be included in the input
+    sequence.
+
+    Parameters
+    ----------
+    molecular_system : str or list of str
+        The peptide sequence provided using either three-letter or one-letter amino acid codes.
+        The sequence can also include optional terminal caps such as 'ACE' or 'NME'.
+
+    to_form : str, default='molsysmt.MolSys'
+        Output form of the resulting molecular system. Must be one of the :ref:`supported forms <Introduction_Forms>`.
+
+    engine : {'LEaP'}, default 'LEaP'
+        Engine used to build the peptide. Currently, only the LEaP engine from AmberTools is supported.
+
+    Returns
+    -------
+    molecular system
+        A new molecular system representing the fully constructed peptide, including coordinates
+        and all relevant topological information.
+
+    Raises
+    ------
+    NotImplementedError
+        Raised if the selected engine is not supported.
+
+    ArgumentError
+        Raised if the input sequence is invalid or contains unsupported codes.
+
+    NotSupportedFormError
+        Raised if the output form is not recognized or supported.
+
+    Notes
+    -----
+    - The sequence must contain standard amino acid codes recognized by the selected engine.
+    - Terminal caps can be specified explicitly by using residue names such as 'ACE' (N-terminus) and 'NME' (C-terminus).
+    - The resulting structure is built in vacuum and can be subsequently solvated using :func:`molsysmt.build.solvate`.
+
+    See Also
+    --------
+    :func:`molsysmt.build.add_missing_terminal_cappings`
+        Add terminal groups to complete or neutralize peptide ends.
+
+    :func:`molsysmt.build.solvate`
+        Surround a molecular system with solvent molecules.
+
+    :func:`molsysmt.structure.center`
+        Center a molecular system in a simulation box.
+
+    :func:`molsysmt.basic.view`
+        Visualize the resulting molecular system in a Jupyter notebook.
+
+    Examples
+    --------
+    >>> import molsysmt as msm
+    >>> molsys = msm.build.build_peptide('AceGlyGlyNme')
+    >>> msm.basic.get(molsys, n_groups=True)
+    4
+
+    .. admonition:: User guide
+
+       Follow this link for a tutorial on how to work with this function:  
+       :ref:`User Guide > Tools > Build > Build peptide <Tutorial_Build_peptide>`
+
+    .. versionadded:: 1.0.0
     """
 
     if engine=="LEaP":
