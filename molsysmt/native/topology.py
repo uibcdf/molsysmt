@@ -397,29 +397,31 @@ class Topology():
 
         else:
 
-            tmp_dataframe = self.bonds.drop(bond_indices)
+            self.bonds.drop(bond_indices, inplace=True)
+            self.bonds.reset_index(drop=True, inplace=True)
 
-            n_bonds = bonded_atom_pairs.shape[0]
+            #n_bonds = tmp_dataframe.shape[0]
 
-            self.bonds = Bonds_DataFrame(n_bonds=n_bonds)
-            self.bonds.atom1_index=tmp_dataframe.atom1_index
-            self.bonds.atom2_index=tmp_dataframe.atom2_index
 
-            if 'order' in tmp_dataframe:
-                self.bonds['order'] = tmp_dataframe['order']
-            else:
-                del self.bonds['order']
+            #self.bonds = Bonds_DataFrame(n_bonds=n_bonds)
+            #self.bonds.atom1_index=tmp_dataframe.atom1_index
+            #self.bonds.atom2_index=tmp_dataframe.atom2_index
 
-            if 'type' in tmp_dataframe:
-                self.bonds['type'] = tmp_dataframe['type']
-            else:
-                del self.bonds['type']
+            #if 'order' in tmp_dataframe:
+            #    self.bonds['order'] = tmp_dataframe['order']
+            #else:
+            #    del self.bonds['order']
 
-            self.bonds._sort_bonds()
+            #if 'type' in tmp_dataframe:
+            #    self.bonds['type'] = tmp_dataframe['type']
+            #else:
+            #    del self.bonds['type']
 
-            del(tmp_dataframe)
+            #self.bonds._sort_bonds()
 
-        self.rebuild_components()
+            #del(tmp_dataframe)
+
+        self.rebuild_components(redefine_indices=True, redefine_ids=False, redefine_names=False, redefine_types=False)
         self.rebuild_molecules()
         self.rebuild_entities()
 

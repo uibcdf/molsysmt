@@ -13,8 +13,8 @@ def remove_bonds(molecular_system, bond_indices='all', in_place=True, skip_diges
         item, form = where_is_attribute(molecular_system, 'bond_index', check_if_None=False,
                                         skip_digestion=True)
 
-        add_bonds_function = getattr(_dict_modules[form], f'remove_bonds')
-        add_bonds_function(item, bond_indices, skip_digestion=True)
+        remove_bonds_function = getattr(_dict_modules[form], f'remove_bonds')
+        remove_bonds_function(item, bond_indices, skip_digestion=True)
 
     else:
 
