@@ -3,7 +3,7 @@ import numpy as np
 
 
 @digest()
-def get_entity_type(molecular_system, element='atom', selection='all', redefine_entities=False,
+def get_entity_type(molecular_system, element='atom', selection='all', redefine_indices=False,
                        redefine_types=False, syntax='MolSysMT'):
 
     if redefine_entities:
@@ -26,4 +26,6 @@ def get_entity_type(molecular_system, element='atom', selection='all', redefine_
                      entity_type=True)
 
     return output
+
+# self.entities['entity_type']=self.molecules.groupby('entity_index')['molecule_type'].first().to_numpy()
 

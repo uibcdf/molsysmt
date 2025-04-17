@@ -27,3 +27,5 @@ def get_entity_name(molecular_system, element='atom', selection='all', redefine_
 
     return output
 
+
+# self.entities['entity_name']=self.molecules.groupby('entity_index')['molecule_name'].first().to_numpy()

@@ -78,3 +78,29 @@ def _get_molecule_type_from_group_names_and_types(group_names, group_types, skip
 
     return _get_component_type_from_group_names_and_types(group_names, group_types)
 
+
+#from molsysmt.config import min_length_protein
+#
+#aux_groups = self.components.groupby('molecule_index')['component_type']
+#aux_dict = aux_groups.apply(list).to_dict()
+#aux_dict_2 = self.components.groupby('molecule_index').indices
+#
+#for molecule_index, component_types in aux_dict.items():
+#    if len(component_types)==1:
+#        self.molecules.iat[molecule_index,2]=component_types[0]
+#    else:
+#        if 'protein' in component_types:
+#            self.molecules.iat[molecule_index,2]='protein'
+#        elif 'peptide' in component_types:
+#            aux_components = aux_dict_2[molecule_index] 
+#            aux_groups = self.groups.index[self.groups['component_index'].isin(aux_components)].tolist()
+#            group_types = self.groups.iloc[aux_groups, 2]
+#            n_amino_acids = np.sum(group_types=='amino acid')
+#            if n_amino_acids >= min_length_protein:
+#                self.molecules.iat[molecule_index,2]='protein'
+#            else:
+#                self.molecules.iat[molecule_index,2]='peptide'
+#        else:
+#            raise NotImplementedError
+#
+#del aux_groups, aux_dict, aux_dict_2

@@ -1,11 +1,10 @@
 from molsysmt._private.digestion import digest
 
-
 @digest()
-def get_entity_id(molecular_system, element='atom', selection='all', redefine_entities=False,
+def get_entity_id(molecular_system, element='atom', selection='all', redefine_indices=False,
                      redefine_ids=False, syntax='MolSysMT'):
 
-    if redefine_entities:
+    if redefine_indices:
         from .get_entity_index import get_entity_index
         output = get_entity_index(molecular_system, element=element, selection=selection,
                                      redefine_molecules=True, syntax=syntax)
@@ -20,3 +19,4 @@ def get_entity_id(molecular_system, element='atom', selection='all', redefine_en
 
     return output
 
+# self.entities['entity_id']=np.arange(self.entities.shape[0], dtype=int)
