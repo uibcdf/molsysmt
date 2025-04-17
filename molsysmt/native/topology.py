@@ -9,7 +9,8 @@ class Atoms_DataFrame(pd.DataFrame):
 
     def __init__(self, n_atoms=0):
 
-        columns = ['atom_id', 'atom_name', 'atom_type', 'group_index', 'chain_index']
+        columns = ['atom_id', 'atom_name', 'atom_type', 'group_index', 'component_index', 'molecule_index',
+                   'chain_index']
 
         super().__init__(index=range(n_atoms), columns=columns)
 
@@ -17,6 +18,8 @@ class Atoms_DataFrame(pd.DataFrame):
         self['atom_name'] = self['atom_name'].astype(str)
         self['atom_type'] = self['atom_type'].astype(str)
         self['group_index'] = self['group_index'].astype('Int64')
+        self['component_index'] = self['component_index'].astype('Int64')
+        self['molecule_index'] = self['molecule_index'].astype('Int64')
         self['chain_index'] = self['chain_index'].astype('Int64')
 
     def _fix_null_values(self):
@@ -29,14 +32,13 @@ class Groups_DataFrame(pd.DataFrame):
 
     def __init__(self, n_groups=0):
 
-        columns = ['group_id', 'group_name', 'group_type', 'component_index']
+        columns = ['group_id', 'group_name', 'group_type']
 
         super().__init__(index=range(n_groups), columns=columns)
 
         self['group_id'] = self['group_id'].astype('Int64')
         self['group_name'] = self['group_name'].astype(str)
         self['group_type'] = self['group_type'].astype(str)
-        self['component_index'] = self['component_index'].astype('Int64')
 
     def _fix_null_values(self):
 
@@ -48,14 +50,13 @@ class Components_DataFrame(pd.DataFrame):
 
     def __init__(self, n_components=0):
 
-        columns = ['component_id', 'component_name', 'component_type', 'molecule_index']
+        columns = ['component_id', 'component_name', 'component_type']
 
         super().__init__(index=range(n_components), columns=columns)
 
         self['component_id'] = self['component_id'].astype('Int64')
         self['component_name'] = self['component_name'].astype(str)
         self['component_type'] = self['component_type'].astype(str)
-        self['molecule_index'] = self['molecule_index'].astype('Int64')
 
     def _fix_null_values(self):
 
@@ -70,6 +71,7 @@ class Molecules_DataFrame(pd.DataFrame):
         columns = ['molecule_id', 'molecule_name', 'molecule_type', 'entity_index']
 
         super().__init__(index=range(n_molecules), columns=columns)
+
 
         self['molecule_id'] = self['molecule_id'].astype('Int64')
         self['molecule_name'] = self['molecule_name'].astype(str)
@@ -236,31 +238,31 @@ class Topology():
             tmp_item.groups.reset_index(drop=True, inplace=True)
             del old_group_indices
 
-            old_component_indices = tmp_item.groups['component_index'].unique()
+            old_component_indices = tmp_item.atoms['component_index'].unique()
             tmp_item.components = self.components.iloc[old_component_indices].copy()
             tmp_item.components.reset_index(drop=True, inplace=True)
             del old_component_indices
 
-            old_molecule_indices = tmp_item.components['molecule_index'].unique()
+            old_molecule_indices = tmp_item.atoms['molecule_index'].unique()
             tmp_item.molecules = self.molecules.iloc[old_molecule_indices].copy()
             tmp_item.molecules.reset_index(drop=True, inplace=True)
             del old_molecule_indices
-
-            old_entity_indices = tmp_item.molecules['entity_index'].unique()
-            tmp_item.entities = self.entities.iloc[old_entity_indices].copy()
-            tmp_item.entities.reset_index(drop=True, inplace=True)
-            del old_entity_indices
 
             old_chain_indices = tmp_item.atoms['chain_index'].unique()
             tmp_item.chains = self.chains.iloc[old_chain_indices].copy()
             tmp_item.chains.reset_index(drop=True, inplace=True)
             del old_chain_indices
 
+            old_entity_indices = tmp_item.molecules['entity_index'].unique()
+            tmp_item.entities = self.entities.iloc[old_entity_indices].copy()
+            tmp_item.entities.reset_index(drop=True, inplace=True)
+            del old_entity_indices
+
             tmp_item.atoms['group_index'] = occurrence_order(tmp_item.atoms['group_index'].to_numpy(dtype=int))
-            tmp_item.groups['component_index'] = occurrence_order(tmp_item.groups['component_index'].to_numpy(dtype=int))
-            tmp_item.components['molecule_index'] = occurrence_order(tmp_item.components['molecule_index'].to_numpy(dtype=int))
-            tmp_item.molecules['entity_index'] = occurrence_order(tmp_item.molecules['entity_index'].to_numpy(dtype=int))
+            tmp_item.atoms['component_index'] = occurrence_order(tmp_item.atoms['component_index'].to_numpy(dtype=int))
+            tmp_item.atoms['molecule_index'] = occurrence_order(tmp_item.atoms['molecule_index'].to_numpy(dtype=int))
             tmp_item.atoms['chain_index'] = occurrence_order(tmp_item.atoms['chain_index'].to_numpy(dtype=int))
+            tmp_item.molecules['entity_index'] = occurrence_order(tmp_item.molecules['entity_index'].to_numpy(dtype=int))
 
             if self.bonds.shape[0]:
 
@@ -322,8 +324,8 @@ class Topology():
         n_chains = self.chains.shape[0]
 
         tmp_item.atoms['group_index'] += n_groups
-        tmp_item.groups['component_index'] += n_components
-        tmp_item.components['molecule_index'] += n_molecules
+        tmp_item.atoms['component_index'] += n_components
+        tmp_item.atoms['molecule_index'] += n_molecules
         tmp_item.atoms['chain_index'] += n_chains
         tmp_item.bonds['atom1_index'] += n_atoms
         tmp_item.bonds['atom2_index'] += n_atoms
@@ -400,27 +402,6 @@ class Topology():
             self.bonds.drop(bond_indices, inplace=True)
             self.bonds.reset_index(drop=True, inplace=True)
 
-            #n_bonds = tmp_dataframe.shape[0]
-
-
-            #self.bonds = Bonds_DataFrame(n_bonds=n_bonds)
-            #self.bonds.atom1_index=tmp_dataframe.atom1_index
-            #self.bonds.atom2_index=tmp_dataframe.atom2_index
-
-            #if 'order' in tmp_dataframe:
-            #    self.bonds['order'] = tmp_dataframe['order']
-            #else:
-            #    del self.bonds['order']
-
-            #if 'type' in tmp_dataframe:
-            #    self.bonds['type'] = tmp_dataframe['type']
-            #else:
-            #    del self.bonds['type']
-
-            #self.bonds._sort_bonds()
-
-            #del(tmp_dataframe)
-
         self.rebuild_components(redefine_indices=True, redefine_ids=False, redefine_names=False, redefine_types=False)
         self.rebuild_molecules()
         self.rebuild_entities()
@@ -436,7 +417,7 @@ class Topology():
 
         self.add_bonds(bonds, skip_digestion=True)
 
-        self.rebuild_components()
+        self.rebuild_components(redefine_indices=True, redefine_ids=False, redefine_names=False, redefine_types=False)
         self.rebuild_molecules()
         self.rebuild_entities()
 
@@ -505,29 +486,16 @@ class Topology():
 
             g = to_networkx_Graph(self, skip_digestion=True)
             components = list(nx.connected_components(g))
+            component_index_of_atoms = np.empty((g.number_of_nodes()), dtype=int)
+            for component_index, component in enumerate(components):
+                component_index_of_atoms[list(component)] = component_index
+            component_index_of_atoms = occurrence_order(component_index_of_atoms)
+
             n_components = len(components)
 
-            component_index_of_groups = np.zeros(self.groups.shape[0], dtype=int)
-
-            series_aux = self.atoms['group_index']
-
-            group_indices_per_component = [series_aux.iloc[list(indices)].unique() for indices in components]
-            for component_index, group_indices in enumerate(group_indices_per_component):
-                component_index_of_groups[group_indices]=component_index
-
-            #component_index_of_atoms = np.empty((g.number_of_nodes()), dtype=int)
-            #for component_index, component in enumerate(components):
-            #    component_index_of_atoms[list(component)] = component_index
-            #component_index_of_atoms = occurrence_order(component_index_of_atoms)
-
-            #group_index, first_atom_indices = np.unique(self.atoms['group_index'], return_index=True)
-            #component_index_of_groups = component_index_of_atoms[first_atom_indices]
-
-            component_index_of_groups = occurrence_order(component_index_of_groups)
-            self.groups["component_index"] = component_index_of_groups
             self.components = Components_DataFrame(n_components=n_components)
 
-            del g, components, component_index_of_groups, group_indices_per_component, series_aux
+            del g, components, component_index_of_atoms
 
         if redefine_ids:
 
@@ -537,108 +505,37 @@ class Topology():
 
             from molsysmt.element.component.get_component_type import _get_component_type_from_group_names_and_types
 
-            aux_df = self.groups.groupby('component_index').agg(group_name=('group_name', list),
-                                                                group_type=('group_type', list))
-            for row in aux_df.itertuples(index=True):
+            atom_indices = [ii.tolist() for ii in self.atoms.groupby('component_index').groups.values()]
+
+            group_indices = []
+            for aux_atom_indices in atom_indices:
+                    group_indices.append(np.unique(self.atoms.iloc[aux_atom_indices,3]))
+
+            component_types_from_component = []
+
+            for ii, aux_group_indices in group_indices:
+
+                aux_group_names = self.groups.iloc[aux_group_indices, 1].tolist()
+                aux_group_types = self.groups.iloc[aux_group_indices, 2].tolist()
+
                 component_type = _get_component_type_from_group_names_and_types(row.group_name, row.group_type)
-                self.components.iloc[row.Index,2] = component_type
+                component_types_from_component.append(component_type) 
+
+            self.components["component_type"] = np.array(component_types_from_component, dtype=object)
 
         if redefine_names:
 
-            from molsysmt.element.group.small_molecule import group_names as small_molecule_names
-            from molsysmt.element.group.saccharide import group_names as saccharide_names
-
-            aux_df = self.groups.groupby('component_index').agg(group_name=('group_name', list),
-                                                                group_type=('group_type', list))
-
-            component_types = self.components['component_type'].to_numpy()
-
-            counter = {'peptide':0, 'protein':0, 'small molecule':0, 'saccharide':0, 'unknown':0}
-
-            peptides = {}
-            proteins = {}
-            small_molecules = {}
-            saccharides = {}
-
-            for component_type, row in zip(component_types, aux_df.itertuples(index=True)):
-            
-                if component_type == 'peptide':
-
-                    string_peptide = ','.join(row.group_name)
-
-                    if string_peptide in peptides:
-                        component_name = peptides[string_peptide]
-                    else:
-                        component_name = component_type+' '+str(counter[component_type])
-                        peptides[string_peptide] = component_name
-                        counter[component_type] += 1
- 
-                elif component_type == 'protein':
-
-                    string_protein = ','.join(row.group_name)
-
-                    if string_protein in proteins:
-                        component_name = proteins[string_protein]
-                    else:
-                        component_name = component_type+' '+str(counter[component_type])
-                        proteins[string_protein] = component_name
-                        counter[component_type] += 1
-
-                elif component_type == 'small molecule':
-
-                    group_name = row.group_name[0]
-
-                    if group_name in small_molecules:
-                        component_name = small_molecules[group_name]
-                    else:
-                        if group_name in small_molecule_names:
-                            component_name = group_name
-                        else:
-                            component_name = group_name
-                        small_molecules[component_name] = component_name
-
-                elif component_type == 'saccharide':
-
-                    group_name = row.group_name[0]
-
-                    if group_name in saccharides:
-                        component_name = saccharides[group_name]
-                    else:
-                        if group_name in saccharide_names:
-                            component_name = group_name
-                        else:
-                            component_name = group_name
-                        saccharides[component_name] = component_name
-
-                elif component_type in ['ion', 'lipid']:
-
-                    component_name = row.group_name[0]
-
-                elif component_type in ['water']:
-
-                    component_name = 'water'
-
-                else:
-
-                    component_name = 'unknown '+str(counter['unknown'])
-                    counter['unknown']+=1
-
-                self.components.iloc[row.Index,1] = component_name
-            
-        #    component_name = get_component_name(self, element='component', redefine_names=True, skip_digestion=True)
-        #    self.components["component_name"] = np.array(component_name, dtype=object)
-        #    del component_name
+            component_name = get_component_name(self, element='component', redefine_names=True, skip_digestion=True)
+            self.components["component_name"] = np.array(component_name, dtype=object)
+            del component_name
 
 
     def rebuild_molecules(self, redefine_indices=True, redefine_ids=True, redefine_names=True, redefine_types=True):
 
         if redefine_indices:
 
-            component_indices_from_component = np.arange(self.components.shape[0])
-            molecule_indices_from_component = component_indices_from_component
-
-            self.components["molecule_index"] = molecule_indices_from_component
-            self.reset_molecules(n_molecules = len(molecule_indices_from_component))
+            self.atoms["molecule_index"] = self.atoms['component_index'].to_numpy(dtype=int)
+            self.reset_molecules(n_molecules = self.components.shape[0])
 
         if redefine_ids:
 
@@ -646,6 +543,86 @@ class Topology():
 
         if redefine_names:
 
+            #from molsysmt.element.group.small_molecule import group_names as small_molecule_names
+            #from molsysmt.element.group.saccharide import group_names as saccharide_names
+
+            #aux_df = self.groups.groupby('component_index').agg(group_name=('group_name', list),
+            #                                                    group_type=('group_type', list))
+
+            #component_types = self.components['component_type'].to_numpy()
+
+            #counter = {'peptide':0, 'protein':0, 'small molecule':0, 'saccharide':0, 'unknown':0}
+
+            #peptides = {}
+            #proteins = {}
+            #small_molecules = {}
+            #saccharides = {}
+
+            #for component_type, row in zip(component_types, aux_df.itertuples(index=True)):
+            #
+            #    if component_type == 'peptide':
+
+            #        string_peptide = ','.join(row.group_name)
+
+            #        if string_peptide in peptides:
+            #            component_name = peptides[string_peptide]
+            #        else:
+            #            component_name = component_type+' '+str(counter[component_type])
+            #            peptides[string_peptide] = component_name
+            #            counter[component_type] += 1
+ 
+            #    elif component_type == 'protein':
+
+            #        string_protein = ','.join(row.group_name)
+
+            #        if string_protein in proteins:
+            #            component_name = proteins[string_protein]
+            #        else:
+            #            component_name = component_type+' '+str(counter[component_type])
+            #            proteins[string_protein] = component_name
+            #            counter[component_type] += 1
+
+            #    elif component_type == 'small molecule':
+
+            #        group_name = row.group_name[0]
+
+            #        if group_name in small_molecules:
+            #            component_name = small_molecules[group_name]
+            #        else:
+            #            if group_name in small_molecule_names:
+            #                component_name = group_name
+            #            else:
+            #                component_name = group_name
+            #            small_molecules[component_name] = component_name
+
+            #    elif component_type == 'saccharide':
+
+            #        group_name = row.group_name[0]
+
+            #        if group_name in saccharides:
+            #            component_name = saccharides[group_name]
+            #        else:
+            #            if group_name in saccharide_names:
+            #                component_name = group_name
+            #            else:
+            #                component_name = group_name
+            #            saccharides[component_name] = component_name
+
+            #    elif component_type in ['ion', 'lipid']:
+
+            #        component_name = row.group_name[0]
+
+            #    elif component_type in ['water']:
+
+            #        component_name = 'water'
+
+            #    else:
+
+            #        component_name = 'unknown '+str(counter['unknown'])
+            #        counter['unknown']+=1
+
+            #    self.components.iloc[row.Index,1] = component_name
+ 
             self.molecules['molecule_name']=self.components.groupby('molecule_index')['component_name'].first().to_numpy()
 
         if redefine_types:
