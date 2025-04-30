@@ -1040,42 +1040,54 @@ def get_entity_index_from_group(item, indices='all', skip_digestion=False): ##
 
     return output
 
-# patata
+
 @digest(form=form)
-def get_entity_id_from_group(item, indices='all', skip_digestion=False):
+def get_entity_id_from_group(item, indices='all', skip_digestion=False): ##
 
-    aux_indices = get_entity_index_from_group(item, indices=indices, skip_digestion=True)
-    output = get_entity_id_from_entity(item, indices=aux_indices, skip_digestion=True)
+    if is_all(indices):
+        molecule_indices = item.groups['molecule_index']
+    else:
+        molecule_indices = item.groups['molecule_index'].take(indices)
 
-    del aux_indices
+    output = item.molecules['entity_id'].take(molecule_indices).to_list()
+
+    del molecule_indices
 
     return output
 
 
 @digest(form=form)
-def get_entity_name_from_group(item, indices='all', skip_digestion=False):
+def get_entity_name_from_group(item, indices='all', skip_digestion=False): ##
 
-    aux_indices = get_entity_index_from_group(item, indices=indices, skip_digestion=True)
-    output = get_entity_name_from_entity(item, indices=aux_indices, skip_digestion=True)
+    if is_all(indices):
+        molecule_indices = item.groups['molecule_index']
+    else:
+        molecule_indices = item.groups['molecule_index'].take(indices)
 
-    del aux_indices
+    output = item.molecules['entity_name'].take(molecule_indices).to_list()
 
-    return output
-
-
-@digest(form=form)
-def get_entity_type_from_group(item, indices='all', skip_digestion=False):
-
-    aux_indices = get_entity_index_from_group(item, indices=indices, skip_digestion=True)
-    output = get_entity_type_from_entity(item, indices=aux_indices, skip_digestion=True)
-
-    del aux_indices
+    del molecule_indices
 
     return output
 
 
 @digest(form=form)
-def get_chain_index_from_group(item, indices='all', skip_digestion=False):
+def get_entity_type_from_group(item, indices='all', skip_digestion=False): ##
+
+    if is_all(indices):
+        molecule_indices = item.groups['molecule_index']
+    else:
+        molecule_indices = item.groups['molecule_index'].take(indices)
+
+    output = item.molecules['entity_type'].take(molecule_indices).to_list()
+
+    del molecule_indices
+
+    return output
+
+
+@digest(form=form)
+def get_chain_index_from_group(item, indices='all', skip_digestion=False): ##
 
     if is_all(indices):
         output = item.groups['chain_index'].to_list()
@@ -1086,85 +1098,100 @@ def get_chain_index_from_group(item, indices='all', skip_digestion=False):
 
 
 @digest(form=form)
-def get_chain_id_from_group(item, indices='all', skip_digestion=False):
+def get_chain_id_from_group(item, indices='all', skip_digestion=False): ##
 
-    aux_indices = get_chain_index_from_group(item, indices=indices, skip_digestion=True)
-    output = get_chain_id_from_chain(item, indices=aux_indices, skip_digestion=True)
-    del aux_indices
+    if is_all(indices):
+        chain_indices = item.groups['chain_index']
+    else:
+        chain_indices = item.groups['chain_index'].take(indices)
 
-    return output
+    output = item.chains['chain_type'].take(chain_indices).to_list()
 
-
-@digest(form=form)
-def get_chain_name_from_group(item, indices='all', skip_digestion=False):
-
-    aux_indices = get_chain_index_from_group(item, indices=indices, skip_digestion=True)
-    output = get_chain_name_from_chain(item, indices=aux_indices, skip_digestion=True)
-    del aux_indices
+    del chain_indices
 
     return output
 
 
 @digest(form=form)
-def get_chain_type_from_group(item, indices='all', skip_digestion=False):
+def get_chain_name_from_group(item, indices='all', skip_digestion=False): ##
 
-    aux_indices = get_chain_index_from_group(item, indices=indices, skip_digestion=True)
-    output = get_chain_type_from_chain(item, indices=aux_indices, skip_digestion=True)
-    del aux_indices
+    if is_all(indices):
+        chain_indices = item.groups['chain_index']
+    else:
+        chain_indices = item.groups['chain_index'].take(indices)
+
+    output = item.chains['chain_name'].take(chain_indices).to_list()
+
+    del chain_indices
 
     return output
 
 
 @digest(form=form)
-def get_bond_index_from_group(item, indices='all', skip_digestion=False):
+def get_chain_type_from_group(item, indices='all', skip_digestion=False): ##
+
+    if is_all(indices):
+        chain_indices = item.groups['chain_index']
+    else:
+        chain_indices = item.groups['chain_index'].take(indices)
+
+    output = item.chains['chain_type'].take(chain_indices).to_list()
+
+    del chain_indices
+
+    return output
+
+
+@digest(form=form)
+def get_bond_index_from_group(item, indices='all', skip_digestion=False): ##
 
     raise NotImplementedMethodError()
 
 
 @digest(form=form)
-def get_bond_type_from_group(item, indices='all', skip_digestion=False):
+def get_bond_type_from_group(item, indices='all', skip_digestion=False): ##
 
     raise NotImplementedMethodError()
 
 
 @digest(form=form)
-def get_bond_order_from_group(item, indices='all', skip_digestion=False):
+def get_bond_order_from_group(item, indices='all', skip_digestion=False): ##
 
     raise NotImplementedMethodError()
 
 
 @digest(form=form)
-def get_bonded_atoms_from_group(item, indices='all', skip_digestion=False):
+def get_bonded_atoms_from_group(item, indices='all', skip_digestion=False): ##
 
     raise NotImplementedMethodError()
 
 
 @digest(form=form)
-def get_bonded_atom_pairs_from_group(item, indices='all', skip_digestion=False):
+def get_bonded_atom_pairs_from_group(item, indices='all', skip_digestion=False): ##
 
     raise NotImplementedMethodError()
 
 
 @digest(form=form)
-def get_inner_bond_index_from_group(item, indices='all', skip_digestion=False):
+def get_inner_bond_index_from_group(item, indices='all', skip_digestion=False): ##
 
     raise NotImplementedMethodError()
 
 
 @digest(form=form)
-def get_inner_bonded_atoms_from_group(item, indices='all', skip_digestion=False):
+def get_inner_bonded_atoms_from_group(item, indices='all', skip_digestion=False): ##
 
     raise NotImplementedMethodError()
 
 
 @digest(form=form)
-def get_inner_bonded_atom_pairs_from_group(item, indices='all', skip_digestion=False):
+def get_inner_bonded_atom_pairs_from_group(item, indices='all', skip_digestion=False): ##
 
     raise NotImplementedMethodError()
 
-
+### Antes de aquí (Patata)
 @digest(form=form)
-def get_n_atoms_from_group(item, indices='all', skip_digestion=False):
+def get_n_atoms_from_group(item, indices='all', skip_digestion=False): ##
 
     output = get_atom_index_from_group(item, indices, skip_digestion=True)
     output = [len(ii) for ii in output]
