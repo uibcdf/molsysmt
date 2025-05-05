@@ -81,7 +81,7 @@ def get_group_id_from_atom(item, indices='all', skip_digestion=False): ##
     else:
         group_indices = item.atoms['group_index'].take(indices)
 
-    output = item.groups['group_id'].take(group_indices).to_list()
+    output = get_group_id_from_group(item, indices=group_indices, skip_digestion=True)
 
     del group_indices
 
@@ -96,7 +96,7 @@ def get_group_name_from_atom(item, indices='all', skip_digestion=False): ##
     else:
         group_indices = item.atoms['group_index'].take(indices)
 
-    output = item.groups['group_name'].take(group_indices).to_list()
+    output = get_group_name_from_group(item, indices=group_indices, skip_digestion=True)
 
     del group_indices
 
@@ -111,7 +111,7 @@ def get_group_type_from_atom(item, indices='all', skip_digestion=False): ##
     else:
         group_indices = item.atoms['group_index'].take(indices)
 
-    output = item.groups['group_type'].take(group_indices).to_list()
+    output = get_group_type_from_group(item, indices=group_indices, skip_digestion=True)
 
     del group_indices
 
@@ -136,7 +136,7 @@ def get_component_id_from_atom(item, indices='all', skip_digestion=False): ##
     else:
         component_indices = item.atoms['component_index'].take(indices)
 
-    output = item.components['component_id'].take(component_indices).to_list()
+    output = get_component_id_from_component(item, indices=component_indices, skip_digestion=True)
 
     del component_indices
 
@@ -151,7 +151,7 @@ def get_component_name_from_atom(item, indices='all', skip_digestion=False): ##
     else:
         component_indices = item.atoms['component_index'].take(indices)
 
-    output = item.components['component_name'].take(component_indices).to_list()
+    output = get_component_name_from_component(item, indices=component_indices, skip_digestion=True)
 
     del component_indices
 
@@ -1189,7 +1189,6 @@ def get_inner_bonded_atom_pairs_from_group(item, indices='all', skip_digestion=F
 
     raise NotImplementedMethodError()
 
-### Antes de aquí (Patata)
 @digest(form=form)
 def get_n_atoms_from_group(item, indices='all', skip_digestion=False): ##
 
@@ -1200,7 +1199,7 @@ def get_n_atoms_from_group(item, indices='all', skip_digestion=False): ##
 
 
 @digest(form=form)
-def get_n_groups_from_group(item, indices='all', skip_digestion=False):
+def get_n_groups_from_group(item, indices='all', skip_digestion=False): ##
 
     if is_all(indices):
         output = get_n_groups_from_system(item, skip_digestion=True)
@@ -1209,7 +1208,7 @@ def get_n_groups_from_group(item, indices='all', skip_digestion=False):
 
     return output
 
-
+## Patata
 @digest(form=form)
 def get_n_components_from_group(item, indices='all', skip_digestion=False):
 
