@@ -81,7 +81,7 @@ def get_group_id_from_atom(item, indices='all', skip_digestion=False): ##
     else:
         group_indices = item.atoms['group_index'].take(indices)
 
-    output = get_group_id_from_group(item, indices=group_indices, skip_digestion=True)
+    output = item.groups['group_id'].take(group_indices).to_list()
 
     del group_indices
 
@@ -96,7 +96,7 @@ def get_group_name_from_atom(item, indices='all', skip_digestion=False): ##
     else:
         group_indices = item.atoms['group_index'].take(indices)
 
-    output = get_group_name_from_group(item, indices=group_indices, skip_digestion=True)
+    output = item.groups['group_name'].take(group_indices).to_list()
 
     del group_indices
 
@@ -111,7 +111,7 @@ def get_group_type_from_atom(item, indices='all', skip_digestion=False): ##
     else:
         group_indices = item.atoms['group_index'].take(indices)
 
-    output = get_group_type_from_group(item, indices=group_indices, skip_digestion=True)
+    output = item.groups['group_type'].take(group_indices).to_list()
 
     del group_indices
 
@@ -136,7 +136,7 @@ def get_component_id_from_atom(item, indices='all', skip_digestion=False): ##
     else:
         component_indices = item.atoms['component_index'].take(indices)
 
-    output = get_component_id_from_component(item, indices=component_indices, skip_digestion=True)
+    output = item.components['component_id'].take(component_indices).to_list()
 
     del component_indices
 
@@ -151,7 +151,7 @@ def get_component_name_from_atom(item, indices='all', skip_digestion=False): ##
     else:
         component_indices = item.atoms['component_index'].take(indices)
 
-    output = get_component_name_from_component(item, indices=component_indices, skip_digestion=True)
+    output = item.components['component_name'].take(component_indices).to_list()
 
     del component_indices
 
@@ -183,7 +183,7 @@ def get_molecule_index_from_atom(item, indices='all', skip_digestion=False): ##
 
     output = item.groups['molecule_index'].take(group_indices).to_list()
 
-    del group_indices, molecule_indices
+    del group_indices
 
     return output
 
@@ -552,7 +552,7 @@ def get_inner_bonded_atom_pairs_from_atom(item, indices='all', skip_digestion=Fa
 def get_n_atoms_from_atom(item, indices='all', skip_digestion=False): ##
 
     if is_all(indices):
-        output = get_n_atoms_from_system(item, skip_digestion=True)
+        output = item.atoms.shape[0]
     else:
         output = len(indices)
 
@@ -563,7 +563,7 @@ def get_n_atoms_from_atom(item, indices='all', skip_digestion=False): ##
 def get_n_groups_from_atom(item, indices='all', skip_digestion=False): ##
 
     if is_all(indices):
-        output = get_n_groups_from_system(item, skip_digestion=True)
+        output = item.groups.shape[0]
     else:
         output = item.atoms['group_index'].take(indices).unique().shape[0]
 
@@ -574,7 +574,7 @@ def get_n_groups_from_atom(item, indices='all', skip_digestion=False): ##
 def get_n_components_from_atom(item, indices='all', skip_digestion=False): ##
 
     if is_all(indices):
-        output = get_n_components_from_system(item, skip_digestion=True)
+        output = item.components.shape[0]
     else:
         output = item.atoms['component_index'].take(indices).unique().shape[0]
 
@@ -585,7 +585,7 @@ def get_n_components_from_atom(item, indices='all', skip_digestion=False): ##
 def get_n_molecules_from_atom(item, indices='all', skip_digestion=False): ##
 
     if is_all(indices):
-        output = get_n_molecules_from_system(item, skip_digestion=True)
+        output = item.molecules.shape[0]
     else:
         group_indices = item.atoms['group_index'].take(indices)
         output = item.groups['molecule_index'].take(group_indices).unique().shape[0]
@@ -598,7 +598,7 @@ def get_n_molecules_from_atom(item, indices='all', skip_digestion=False): ##
 def get_n_entities_from_atom(item, indices='all', skip_digestion=False): ##
 
     if is_all(indices):
-        output = get_n_entities_from_system(item, skip_digestion=True)
+        output = item.entities.shape[0]
     else:
         group_indices = item.atoms['group_index'].take(indices)
         molecule_indices = item.groups['molecule_index'].take(group_indices)
@@ -612,7 +612,7 @@ def get_n_entities_from_atom(item, indices='all', skip_digestion=False): ##
 def get_n_chains_from_atom(item, indices='all', skip_digestion=False): ##
 
     if is_all(indices):
-        output = get_n_chains_from_system(item, skip_digestion=True)
+        output = item.chains.shape[0]
     else:
         group_indices = item.atoms['group_index'].take(indices)
         output = item.groups['chain_index'].take(group_indices).unique().shape[0]
@@ -825,7 +825,6 @@ def get_atom_index_from_group(item, indices='all', skip_digestion=False): ##
         output = [item.atoms.loc[item.atoms['group_index'].isin(indices)]
                   .groupby('group_index').groups[ii].tolist() for ii in indices]
 
-    del aux
 
     return output
 
@@ -882,8 +881,7 @@ def get_atom_type_from_group(item, indices='all', skip_digestion=False): ##
 def get_group_index_from_group(item, indices='all', skip_digestion=False): ##
 
     if is_all(indices):
-        n_aux = get_n_groups_from_system(item, skip_digestion=True)
-        output = list(range(n_aux))
+        output = list(range(item.groups.shape[0]))
     else:
         output = indices
 
@@ -942,8 +940,19 @@ def get_component_index_from_group(item, indices='all', skip_digestion=False): #
 @digest(form=form)
 def get_component_id_from_group(item, indices='all', skip_digestion=False): ##
 
-    component_indices = get_component_index_from_group(item, indices=indices, skip_digestion=True)
+    if is_all(indices):
+        component_indices = item.atoms.groupby('group_index')['component_index'].unique().apply(list).to_list()
+    else:
+        component_indices = (
+            item.atoms.loc[item.atoms['group_index'].isin(indices)]
+            .groupby('group_index')['component_index']
+            .unique().reindex(indices, fill_value=np.array([], int))
+            .apply(list).to_list()
+        )
+
     output = [item.components['component_id'].take(ii).tolist() for ii in component_indices]
+
+    del component_indices
 
     return output
 
@@ -951,7 +960,16 @@ def get_component_id_from_group(item, indices='all', skip_digestion=False): ##
 @digest(form=form)
 def get_component_name_from_group(item, indices='all', skip_digestion=False): ##
 
-    component_indices = get_component_index_from_group(item, indices=indices, skip_digestion=True)
+    if is_all(indices):
+        component_indices = item.atoms.groupby('group_index')['component_index'].unique().apply(list).to_list()
+    else:
+        component_indices = (
+            item.atoms.loc[item.atoms['group_index'].isin(indices)]
+            .groupby('group_index')['component_index']
+            .unique().reindex(indices, fill_value=np.array([], int))
+            .apply(list).to_list()
+        )
+
     output = [item.components['component_name'].take(ii).tolist() for ii in component_indices]
 
     del component_indices
@@ -962,8 +980,15 @@ def get_component_name_from_group(item, indices='all', skip_digestion=False): ##
 @digest(form=form)
 def get_component_type_from_group(item, indices='all', skip_digestion=False): ##
 
-    component_indices = get_component_index_from_group(item, indices=indices, skip_digestion=True)
-    output = [item.components['component_type'].take(ii).tolist() for ii in component_indices]
+    if is_all(indices):
+        component_indices = item.atoms.groupby('group_index')['component_index'].unique().apply(list).to_list()
+    else:
+        component_indices = (
+            item.atoms.loc[item.atoms['group_index'].isin(indices)]
+            .groupby('group_index')['component_index']
+            .unique().reindex(indices, fill_value=np.array([], int))
+            .apply(list).to_list()
+        )
 
     del component_indices
 
@@ -1192,7 +1217,12 @@ def get_inner_bonded_atom_pairs_from_group(item, indices='all', skip_digestion=F
 @digest(form=form)
 def get_n_atoms_from_group(item, indices='all', skip_digestion=False): ##
 
-    output = get_atom_index_from_group(item, indices, skip_digestion=True)
+    if is_all(indices):
+        output = [jj.tolist() for _, jj in item.atoms.groupby('group_index').groups.items()]
+    else:
+        output = [item.atoms.loc[item.atoms['group_index'].isin(indices)]
+                  .groupby('group_index').groups[ii].tolist() for ii in indices]
+
     output = [len(ii) for ii in output]
 
     return output
@@ -1202,21 +1232,26 @@ def get_n_atoms_from_group(item, indices='all', skip_digestion=False): ##
 def get_n_groups_from_group(item, indices='all', skip_digestion=False): ##
 
     if is_all(indices):
-        output = get_n_groups_from_system(item, skip_digestion=True)
+        output = item.groups.shape[0]
     else:
         output = len(indices)
 
     return output
 
-## Patata
 @digest(form=form)
-def get_n_components_from_group(item, indices='all', skip_digestion=False):
+def get_n_components_from_group(item, indices='all', skip_digestion=False): ##
 
     if is_all(indices):
-        output = get_n_components_from_system(item, skip_digestion=True)
+        output = item.components.shape[0]
     else:
-        output = get_component_index_from_group(item, indices=indices, skip_digestion=True)
-        output = np.unique(output).shape[0]
+        component_indices = (
+            item.atoms.loc[item.atoms['group_index'].isin(indices)]
+            .groupby('group_index')['component_index']
+            .unique().reindex(indices, fill_value=np.array([], int))
+            .apply(list).to_list()
+        )
+        output = np.unique(component_indices).shape[0]
+        del component_indices
 
     return output
 
@@ -1225,10 +1260,11 @@ def get_n_components_from_group(item, indices='all', skip_digestion=False):
 def get_n_molecules_from_group(item, indices='all', skip_digestion=False):
 
     if is_all(indices):
-        output = get_n_molecules_from_system(item, skip_digestion=True)
+        output = item.molecules.shape[0]
     else:
-        output = get_molecule_index_from_group(item, indices=indices, skip_digestion=True)
-        output = np.unique(output).shape[0]
+        molecule_indices = item.groups['molecule_index'].take(indices)
+        output = molecule_indices.unique().shape[0]
+        del molecule_indices
 
     return output
 
@@ -1237,14 +1273,17 @@ def get_n_molecules_from_group(item, indices='all', skip_digestion=False):
 def get_n_entities_from_group(item, indices='all', skip_digestion=False):
 
     if is_all(indices):
-        output = get_n_entities_from_system(item, skip_digestion=True)
+        output = item.entities.shape[0]
     else:
-        output = get_entity_index_from_group(item, indices=indices, skip_digestion=True)
-        output = np.unique(output).shape[0]
+        molecule_indices = item.groups['molecule_index'].take(indices)
+        molecule_indices = molecule_indices.unique()
+        entity_indices = item.molecules['entity_index'].take(molecule_indices)
+        output = entity_indices.unique().shape[0]
+        del molecule_indices, entity_indices
 
     return output
 
-
+#Patata
 @digest(form=form)
 def get_n_chains_from_group(item, indices='all', skip_digestion=False):
 
