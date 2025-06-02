@@ -9,7 +9,7 @@ class Atoms_DataFrame(pd.DataFrame):
 
     def __init__(self, n_atoms=0):
 
-        columns = ['atom_id', 'atom_name', 'atom_type', 'group_index', 'component_index']
+        columns = ['atom_id', 'atom_name', 'atom_type', 'group_index', 'component_index', 'chain_index']
 
         super().__init__(index=range(n_atoms), columns=columns)
 
@@ -18,6 +18,7 @@ class Atoms_DataFrame(pd.DataFrame):
         self['atom_type'] = self['atom_type'].astype(str)
         self['group_index'] = self['group_index'].astype('Int64')
         self['component_index'] = self['component_index'].astype('Int64')
+        self['chain_index'] = self['chain_index'].astype('Int64')
 
     def _fix_null_values(self):
 
@@ -29,7 +30,7 @@ class Groups_DataFrame(pd.DataFrame):
 
     def __init__(self, n_groups=0):
 
-        columns = ['group_id', 'group_name', 'group_type', 'molecule_index', 'chain_index']
+        columns = ['group_id', 'group_name', 'group_type', 'molecule_index']
 
         super().__init__(index=range(n_groups), columns=columns)
 
@@ -37,7 +38,6 @@ class Groups_DataFrame(pd.DataFrame):
         self['group_name'] = self['group_name'].astype(str)
         self['group_type'] = self['group_type'].astype('Int64')
         self['molecule_index'] = self['molecule_index'].astype('Int64')
-        self['chain_index'] = self['chain_index'].astype('Int64')
 
     def _fix_null_values(self):
 
@@ -238,7 +238,7 @@ class Topology():
             tmp_item.groups.reset_index(drop=True, inplace=True)
             del old_group_indices
 
-            old_molecule_indices = tmp_item.atoms['molecule_index'].unique()
+            old_molecule_indices = tmp_item.groups['molecule_index'].unique()
             tmp_item.molecules = self.molecules.iloc[old_molecule_indices].copy()
             tmp_item.molecules.reset_index(drop=True, inplace=True)
             del old_molecule_indices
@@ -259,8 +259,7 @@ class Topology():
             del old_chain_indices
 
             tmp_item.atoms['group_index'] = occurrence_order(tmp_item.atoms['group_index'].to_numpy(dtype=int))
-            tmp_item.atoms['component_index'] = occurrence_order(tmp_item.atoms['component_index'].to_numpy(dtype=int))
-            tmp_item.groups['molecule_index'] = occurrence_order(tmp_item.atoms['molecule_index'].to_numpy(dtype=int))
+            tmp_item.groups['molecule_index'] = occurrence_order(tmp_item.groups['molecule_index'].to_numpy(dtype=int))
             tmp_item.molecules['entity_index'] = occurrence_order(tmp_item.molecules['entity_index'].to_numpy(dtype=int))
             tmp_item.atoms['component_index'] = occurrence_order(tmp_item.atoms['component_index'].to_numpy(dtype=int))
             tmp_item.atoms['chain_index'] = occurrence_order(tmp_item.atoms['chain_index'].to_numpy(dtype=int))
@@ -283,11 +282,11 @@ class Topology():
 
             tmp_item.rebuild_components(redefine_indices=False, redefine_ids=(not keep_ids), redefine_names=False,
                                         redefine_types=True)
+            tmp_item.rebuild_chains(redefine_ids=(not keep_ids), redefine_types=True, redefine_names=False)
             tmp_item.rebuild_molecules(redefine_indices=False, redefine_ids=(not keep_ids), redefine_names=False,
                                        redefine_types=True)
             tmp_item.rebuild_entities(redefine_indices=False, redefine_ids=(not keep_ids), redefine_names=False,
                                       redefine_types=True)
-            tmp_item.rebuild_chains(redefine_ids=(not keep_ids), redefine_types=True, redefine_names=False)
 
             return tmp_item
 
@@ -333,8 +332,8 @@ class Topology():
 
         self.atoms = pd.concat([self.atoms, tmp_item.atoms], ignore_index=True, copy=False)
         self.groups = pd.concat([self.groups, tmp_item.groups], ignore_index=True, copy=False)
-        self.components = pd.concat([self.components, tmp_item.components], ignore_index=True, copy=False)
         self.molecules = pd.concat([self.molecules, tmp_item.molecules], ignore_index=True, copy=False)
+        self.components = pd.concat([self.components, tmp_item.components], ignore_index=True, copy=False)
         self.chains = pd.concat([self.chains, tmp_item.chains], ignore_index=True, copy=False)
         self.bonds = pd.concat([self.bonds, tmp_item.bonds], ignore_index=True, copy=False)
 
@@ -342,13 +341,13 @@ class Topology():
             self.rebuild_atoms(redefine_ids=True, redefine_types=False)
             self.rebuild_groups(redefine_ids=True, redefine_types=False)
 
-        self.rebuild_molecules(redefine_indices=False, redefine_ids=(not keep_ids), redefine_types=False,
-                                   redefine_names=True)
-        self.rebuild_entities(redefine_indices=True, redefine_ids=True, redefine_names=True, redefine_types=True)
         self.rebuild_components(redefine_indices=False, redefine_ids=(not keep_ids), redefine_names=True,
                                     redefine_types=False)
         self.rebuild_chains(redefine_ids=(not keep_ids), redefine_types=True)
 
+        self.rebuild_molecules(redefine_indices=False, redefine_ids=(not keep_ids), redefine_types=False,
+                                   redefine_names=True)
+        self.rebuild_entities(redefine_indices=True, redefine_ids=True, redefine_names=True, redefine_types=True)
         del tmp_item
 
     def copy(self):
@@ -357,9 +356,9 @@ class Topology():
 
         tmp_item.atoms = self.atoms.copy()
         tmp_item.groups = self.groups.copy()
-        tmp_item.components = self.components.copy()
         tmp_item.molecules = self.molecules.copy()
         tmp_item.entities = self.entities.copy()
+        tmp_item.components = self.components.copy()
         tmp_item.chains = self.chains.copy()
         tmp_item.bonds = self.bonds.copy()
 
@@ -386,8 +385,6 @@ class Topology():
         self.bonds._remove_empty_columns()
 
         self.rebuild_components()
-        #self.rebuild_molecules()
-        #self.rebuild_entities()
 
         del(df_concatenado, aux_bonds_dataframe)
 
@@ -403,8 +400,6 @@ class Topology():
             self.bonds.reset_index(drop=True, inplace=True)
 
         self.rebuild_components(redefine_indices=True, redefine_ids=False, redefine_names=False, redefine_types=False)
-        #self.rebuild_molecules()
-        #self.rebuild_entities()
 
 
     def add_missing_bonds(self, selection='all', syntax='MolSysMT', skip_digestion=False):
@@ -418,8 +413,6 @@ class Topology():
         self.add_bonds(bonds, skip_digestion=True)
 
         self.rebuild_components(redefine_indices=True, redefine_ids=False, redefine_names=False, redefine_types=False)
-        #self.rebuild_molecules()
-        #self.rebuild_entities()
 
     def rebuild_atoms(self, redefine_ids=True, redefine_types=True):
 
@@ -520,47 +513,49 @@ class Topology():
     def rebuild_molecules(self, redefine_indices=True, redefine_ids=True, redefine_names=True, redefine_types=True,
                           molecules_as_components=True):
 
-        from molsysmt.element.component import get_component_index, get_component_id, get_component_name, get_component_type
+        raise NotImplementedError
 
-        if redefine_indices:
+        #from molsysmt.element.component import get_component_index, get_component_id, get_component_name, get_component_type
 
-            molecule_index_of_groups = get_component_index(self, element='group', selection='all',
-                                                           redefine_indices=True,
-                                                           molecules_as_components=molecules_as_components,
-                                                           skip_digestion=True)
+        #if redefine_indices:
 
-            self.groups["molecule_index"] = np.array(molecule_index_of_groups, dtype=int)
-            n_molecules = molecule_index_of_groups[-1]+1
-            self.reset_molecules(n_molecules = n_molecules)
+        #    molecule_index_of_groups = get_component_index(self, element='group', selection='all',
+        #                                                   redefine_indices=True,
+        #                                                   molecules_as_components=molecules_as_components,
+        #                                                   skip_digestion=True)
 
-            del molecule_index_of_groups
+        #    self.groups["molecule_index"] = np.array(molecule_index_of_groups, dtype=int)
+        #    n_molecules = molecule_index_of_groups[-1]+1
+        #    self.reset_molecules(n_molecules = n_molecules)
 
-        if redefine_ids:
+        #    del molecule_index_of_groups
 
-            molecule_id_of_molecules = get_component_id(self, element='molecule', selection='all',
-                                                        redefine_indices=False, redefine_ids=True,
-                                                        skip_digestion=True)
-            self.molecules["molecule_id"]=np.array(molecule_id_of_molecules, dtype=int)
+        #if redefine_ids:
 
-            del molecule_id_of_molecules
+        #    molecule_id_of_molecules = get_component_id(self, element='molecule', selection='all',
+        #                                                redefine_indices=False, redefine_ids=True,
+        #                                                skip_digestion=True)
+        #    self.molecules["molecule_id"]=np.array(molecule_id_of_molecules, dtype=int)
 
-        if redefine_names:
+        #    del molecule_id_of_molecules
 
-            molecule_name_of_molecules = get_component_name(self, element='molecule', selection='all',
-                                                            redefine_indices=False, redefine_ids=True,
-                                                            skip_digestion=True)
-            self.molecules["molecule_name"]=np.array(molecule_name_of_molecules, dtype=object)
+        #if redefine_names:
 
-            del molecule_name_of_molecules
+        #    molecule_name_of_molecules = get_component_name(self, element='molecule', selection='all',
+        #                                                    redefine_indices=False, redefine_ids=True,
+        #                                                    skip_digestion=True)
+        #    self.molecules["molecule_name"]=np.array(molecule_name_of_molecules, dtype=object)
 
-        if redefine_types:
+        #    del molecule_name_of_molecules
 
-            molecule_type_of_molecules = get_component_type(self, element='molecule', selection='all',
-                                                            redefine_indices=False, redefine_types=True,
-                                                            skip_digestion=True)
-            self.molecules["molecule_type"]=np.array(molecule_type_of_molecules, dtype=object)
+        #if redefine_types:
 
-            del molecule_type_of_molecules
+        #    molecule_type_of_molecules = get_component_type(self, element='molecule', selection='all',
+        #                                                    redefine_indices=False, redefine_types=True,
+        #                                                    skip_digestion=True)
+        #    self.molecules["molecule_type"]=np.array(molecule_type_of_molecules, dtype=object)
+
+        #    del molecule_type_of_molecules
 
     def rebuild_chains(self, redefine_indices=True, redefine_ids=True, redefine_types=True, redefine_names=True):
 
@@ -790,7 +785,7 @@ class Topology():
 
             if 'chain_index' in kwargs:
 
-                tmp_output = (self.groups['chain_index'].values==item.groups['chain_index'].values).all()
+                tmp_output = (self.atoms['chain_index'].values==item.atoms['chain_index'].values).all()
                 output['chain_index'] = (kwargs['chain_index'] == tmp_output)
 
             if 'chain_id' in kwargs:
