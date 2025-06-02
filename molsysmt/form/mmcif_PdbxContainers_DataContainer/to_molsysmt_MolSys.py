@@ -211,7 +211,54 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
     entity_id_array = np.array(entity_id_array, dtype=int)
     entity_name_array = np.array(entity_name_array, dtype=object)
     entity_type_array = np.array(entity_type_array, dtype=object)
-    
+
+    # molecules
+
+    molecule_index = 0
+
+    n_groups = group_name_array.shape[0]
+    molecule_index_array = np.full(n_groups, -1, dtype=int)
+
+    molecule_name_array = []
+    molecule_type_array = []
+    entity_index_array = []
+
+
+    index_att = {jj:ii for ii,jj in enumerate(item.getObj('entity_poly').getAttributeList())}
+
+    for record in item.getObj('entity_poly').data:
+        entity_id = record[index_att['entity_id']]
+
+        for chain_id in record[index_att['pdbx_strand_id']].split(','):
+            group_indices = chain_id_to_group_indices[chain_id]
+            molecule_index_array[group_indices] = molecule_index
+            molecule_name_array.append(entity_dict[entity_id]['entity_name'])
+            molecule_type_array.append(entity_dict[entity_id]['entity_type'])
+            entity_index_array.append(entity_dict[entity_id]['entity_index'])
+            molecule_index += 1
+
+    index_att = {jj:ii for ii,jj in enumerate(item.getObj('pdbx_entity_nonpoly').getAttributeList())}
+
+    group_name_to_entity_id = {}
+    for record in item.getObj('pdbx_entity_nonpoly').data:
+        group_name = record[index_att['comp_id']]
+        entity_id = record[index_att['entity_id']]
+        group_name_to_entity_id[group_name]=entity_id
+
+    for group_index, aux in enumerate(molecule_index_array):
+        if aux == -1:
+            group_name = group_name_array[group_index]
+            entity_id = group_name_to_entity_id[group_name]
+            molecule_index_array[group_index] = molecule_index
+            molecule_name_array.append(entity_dict[entity_id]['entity_name'])
+            molecule_type_array.append(entity_dict[entity_id]['entity_type'])
+            entity_index_array.append(entity_dict[entity_id]['entity_index'])
+            molecule_index += 1
+
+    molecule_name_array = np.array(molecule_name_array, dtype=object)
+    molecule_type_array = np.array(molecule_type_array, dtype=object)
+    entity_index_array = np.array(entity_index_array, dtype=int)
+
     # bonds extra-group
     pair_groups_peptidic_bonds=[]
     for entity_id, aux_dict in entity_dict.items():
@@ -430,10 +477,12 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
 
     n_atoms = atom_name_array.shape[0]
     n_groups = group_name_array.shape[0]
-    n_chains = chain_name_array.shape[0]
+    n_molecules = molecule_name_array.shape[0]
     n_entities = entity_name_array.shape[0]
+    n_chains = chain_name_array.shape[0]
 
-    tmp_item = MolSys(n_atoms=n_atoms, n_groups=n_groups, n_chains=n_chains, n_entities=n_entities)
+    tmp_item = MolSys(n_atoms=n_atoms, n_groups=n_groups, n_molecules=n_molecules, n_chains=n_chains,
+                      n_entities=n_entities)
 
     tmp_item.topology.atoms["atom_name"] = atom_name_array
     tmp_item.topology.atoms["atom_id"] = atom_id_array
@@ -443,6 +492,13 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
 
     tmp_item.topology.groups["group_name"] = group_name_array
     tmp_item.topology.groups["group_id"] = group_id_array
+    tmp_item.topology.groups["molecule_index"] = molecule_index_array
+
+    tmp_item.topology.molecules["molecule_name"] = molecule_name_array
+    tmp_item.topology.molecules["molecule_type"] = molecule_type_array
+    print(len(tmp_item.topology.molecules["entity_index"]), len(entity_index_array))
+    print(len(tmp_item.topology.molecules["molecule_type"]))
+    tmp_item.topology.molecules["entity_index"] = entity_index_array
 
     tmp_item.topology.chains["chain_name"] = chain_name_array
     tmp_item.topology.chains["chain_id"] = chain_id_array
@@ -476,108 +532,18 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
     tmp_item.topology.bonds._remove_empty_columns()
     tmp_item.topology.bonds._sort_bonds()
 
+    # Components
+
     tmp_item.topology.rebuild_components(redefine_indices=True, redefine_ids=True,
                                          redefine_names=False, redefine_types=True)
 
-    molecule_index = -1
+    # Rebuild molecules, entities and chains
 
-    dict_components_to_groups = tmp_item.topology.groups.groupby('component_index').groups
-    dict_chain_to_components = {ii:[] for ii in range(n_chains)}
-
-    polymers_dict_aux = {}
-
-    molecule_name_array = []
-    molecule_entity_index_array = []
-
-    for component_index in range(tmp_item.topology.components.shape[0]):
-
-        component_type = tmp_item.topology.components.iat[component_index,2]
-        group_indices = dict_components_to_groups[component_index]
-        chain_id = group_chain_id_array[group_indices[0]]
-        entity_id = group_entity_id_array[group_indices[0]]
-        entity_index = np.where(tmp_item.topology.entities['entity_id']==entity_id)[0][0]
-        entity_type = tmp_item.topology.entities.iat[entity_index,2]
-        entity_name = tmp_item.topology.entities.iat[entity_index,1]
-
-        match component_type:
-
-            case 'water':
-
-                molecule_index += 1
-                tmp_item.topology.components.iat[component_index,3]=molecule_index
-                tmp_item.topology.components.iat[component_index,1]='water'
-                molecule_name_array.append('water')
-                molecule_entity_index_array.append(entity_index)
-
-            case 'ion':
-
-                molecule_index += 1
-                tmp_item.topology.components.iat[component_index,3]=molecule_index
-                tmp_item.topology.components.iat[component_index,1]=entity_name
-                molecule_name_array.append(entity_name)
-                molecule_entity_index_array.append(entity_index)
-
-            case 'small molecule':
-
-                molecule_index += 1
-                tmp_item.topology.components.iat[component_index,3]=molecule_index
-                tmp_item.topology.components.iat[component_index,1]=entity_name
-                molecule_name_array.append(entity_name)
-                molecule_entity_index_array.append(entity_index)
-
-            case 'saccharide':
-
-                molecule_index += 1
-                tmp_item.topology.components.iat[component_index,3]=molecule_index
-                tmp_item.topology.components.iat[component_index,1]=entity_name
-                molecule_name_array.append(entity_name)
-                molecule_entity_index_array.append(entity_index)
-        
-            case 'lipid':
-
-                molecule_index += 1
-                tmp_item.topology.components.iat[component_index,3]=molecule_index
-                tmp_item.topology.components.iat[component_index,1]=entity_name
-                molecule_name_array.append(entity_name)
-                molecule_entity_index_array.append(entity_index)
-
-            case 'peptide':
-
-                if chain_id not in polymers_dict_aux:
-                    molecule_index += 1
-                    polymers_dict_aux[chain_id] = molecule_index
-                    molecule_name_array.append(entity_name)
-                    molecule_entity_index_array.append(entity_index)
-                tmp_item.topology.components.iat[component_index,3]=polymers_dict_aux[chain_id]
-                tmp_item.topology.components.iat[component_index,1]=entity_name
-
-            case 'protein':
-
-                if chain_id not in polymers_dict_aux:
-                    molecule_index += 1
-                    polymers_dict_aux[chain_id] = molecule_index
-                    molecule_name_array.append(entity_name)
-                    molecule_entity_index_array.append(entity_index)
-                tmp_item.topology.components.iat[component_index,3]=polymers_dict_aux[chain_id]
-                tmp_item.topology.components.iat[component_index,1]=entity_name
-
-            case _:
-
-                raise ValueError(f'Component type not recognized {component_type}')
-
-
-    molecule_name_array = np.array(molecule_name_array, dtype=object)
-    molecule_entity_index_array = np.array(molecule_entity_index_array, dtype=int)
-    n_molecules = molecule_index+1
-
-    tmp_item.topology.reset_molecules(n_molecules=n_molecules)
-    tmp_item.topology.molecules['molecule_name']=molecule_name_array
-    tmp_item.topology.molecules['entity_index']=molecule_entity_index_array
     tmp_item.topology.rebuild_molecules(redefine_indices=False, redefine_ids=True, redefine_names=False,
                                         redefine_types=True)
     tmp_item.topology.rebuild_entities(redefine_indices=False, redefine_ids=True, redefine_names=False, redefine_types=True)
     tmp_item.topology.rebuild_chains(redefine_ids=True, redefine_types=True, redefine_names=False)
-    old_chain_id_to_chain_index = {jj:ii for ii,jj in enumerate(chain_id_array)}
+
     del(atom_name_array, atom_id_array, atom_type_array, atom_group_index_array, atom_chain_index_array)
     del(group_name_array, group_id_array)
     del(chain_name_array, chain_id_array)
