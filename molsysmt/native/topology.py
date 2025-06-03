@@ -493,14 +493,6 @@ class Topology():
 
             del component_id_of_components
 
-        if redefine_names:
-
-            component_name = get_component_name(self, element='component', selection='all',
-                                                redefine_indices=False,redefine_names=True,
-                                                skip_digestion=True)
-            self.components["component_name"] = np.array(component_name, dtype=object)
-            del component_name
-
         if redefine_types:
 
             component_type_of_components = get_component_type(self, element='component', selection='all',
@@ -509,6 +501,14 @@ class Topology():
             self.components["component_type"] = np.array(component_type_of_components, dtype=object)
 
             del component_type_of_components
+
+        if redefine_names:
+
+            component_name = get_component_name(self, element='component', selection='all',
+                                                redefine_indices=False,redefine_names=True,
+                                                skip_digestion=True)
+            self.components["component_name"] = np.array(component_name, dtype=object)
+            del component_name
 
     def rebuild_molecules(self, redefine_indices=True, redefine_ids=True, redefine_names=True, redefine_types=True,
                           molecules_as_components=True):
@@ -620,7 +620,7 @@ class Topology():
 
         if redefine_ids:
 
-            entity_ids_from_entity = get_chain_id(self, element='entity', selection='all',
+            entity_ids_from_entity = get_entity_id(self, element='entity', selection='all',
                                                   redefine_indices=False, redefine_ids=True,
                                                   skip_digestion=True)
 
@@ -630,7 +630,7 @@ class Topology():
 
         if redefine_names:
 
-            entity_names_from_entity = get_chain_name(self, element='entity', selection='all',
+            entity_names_from_entity = get_entity_name(self, element='entity', selection='all',
                                                       redefine_indices=False, redefine_names=True,
                                                       skip_digestion=True)
 
@@ -640,7 +640,7 @@ class Topology():
 
         if redefine_types:
 
-            entity_types_from_entity = get_chain_type(self, element='entity', selection='all',
+            entity_types_from_entity = get_entity_type(self, element='entity', selection='all',
                                                       redefine_indices=False, redefine_types=True,
                                                       skip_digestion=True)
 

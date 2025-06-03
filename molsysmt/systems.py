@@ -147,11 +147,14 @@ systems['POPC'] = {}
 systems['POPC']['popc.crd'] = path('molsysmt.data.crd', 'popc.crd')
 systems['POPC']['popc.psf'] = path('molsysmt.data.psf', 'popc.psf')
 
-
-
 ### caffeine
 
 systems['caffeine'] = {}
 systems['caffeine']['caffeine.mol2'] = path('molsysmt.data.mol2', 'caffeine.mol2')
+
+### hexokinase-2
+
+systems['Hexokinase 2'] = {}
+systems['Hexokinase 2']['2nzt.bcif.gz'] = path('molsysmt.data.bcif_gz', '2nzt.bcif.gz')
 
 

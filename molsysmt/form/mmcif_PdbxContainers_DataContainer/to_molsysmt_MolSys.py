@@ -13,6 +13,7 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
     from molsysmt.native import MolSys
     from molsysmt.element.group import get_bonded_atom_pairs
     from molsysmt.build import get_missing_bonds
+    from molsysmt.config import min_length_protein
 
     index_att = {jj:ii for ii,jj in enumerate(item.getObj('atom_site').getAttributeList())}
 
@@ -208,6 +209,27 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
 
         entity_dict[record[index_att['entity_id']]]['seq'].append([record[index_att['num']],record[index_att['mon_id']]])
 
+    for entity_id, aux_dict in entity_dict.items():
+        entity_index = aux_dict['entity_index']
+        match aux_dict['entity_type']:
+            case 'polymer':
+                match aux_dict['poly_type']:
+                    case 'polypeptide(L)':
+                        if len(aux_dict['seq'])>=min_length_protein:
+                            entity_type_array[entity_index]='protein'
+                        else:
+                            entity_type_array[entity_index]='peptide'
+                    #case 'polysaccharide':
+                    #    aux_dict['entity_type']='saccharide'
+                    #case 'polydeoxyribonucleotide':
+                    #    aux_dict['entity_type']='DNA'
+                    #case 'polyribonucleotide':
+                    #    aux_dict['entity_type']='RNA'
+                    case _:
+                        entity_type_array[entity_index]='unknown'
+            case 'non-polymer':
+                entity_type_array[entity_index]='small molecule'
+
     entity_id_array = np.array(entity_id_array, dtype=int)
     entity_name_array = np.array(entity_name_array, dtype=object)
     entity_type_array = np.array(entity_type_array, dtype=object)
@@ -228,13 +250,14 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
 
     for record in item.getObj('entity_poly').data:
         entity_id = record[index_att['entity_id']]
+        entity_index = entity_dict[entity_id]['entity_index']
 
         for chain_id in record[index_att['pdbx_strand_id']].split(','):
             group_indices = chain_id_to_group_indices[chain_id]
             molecule_index_array[group_indices] = molecule_index
             molecule_name_array.append(entity_dict[entity_id]['entity_name'])
-            molecule_type_array.append(entity_dict[entity_id]['entity_type'])
-            entity_index_array.append(entity_dict[entity_id]['entity_index'])
+            molecule_type_array.append(entity_type_array[entity_index])
+            entity_index_array.append(entity_index)
             molecule_index += 1
 
     index_att = {jj:ii for ii,jj in enumerate(item.getObj('pdbx_entity_nonpoly').getAttributeList())}
@@ -249,10 +272,11 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
         if aux == -1:
             group_name = group_name_array[group_index]
             entity_id = group_name_to_entity_id[group_name]
+            entity_index = entity_dict[entity_id]['entity_index']
             molecule_index_array[group_index] = molecule_index
-            molecule_name_array.append(entity_dict[entity_id]['entity_name'])
-            molecule_type_array.append(entity_dict[entity_id]['entity_type'])
-            entity_index_array.append(entity_dict[entity_id]['entity_index'])
+            molecule_name_array.append(entity_name_array[entity_index])
+            molecule_type_array.append(entity_type_array[entity_index])
+            entity_index_array.append(entity_index)
             molecule_index += 1
 
     molecule_name_array = np.array(molecule_name_array, dtype=object)
@@ -495,9 +519,8 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
     tmp_item.topology.groups["molecule_index"] = molecule_index_array
 
     tmp_item.topology.molecules["molecule_name"] = molecule_name_array
+    tmp_item.topology.molecules["molecule_id"] = np.arange(n_molecules, dtype=int)
     tmp_item.topology.molecules["molecule_type"] = molecule_type_array
-    print(len(tmp_item.topology.molecules["entity_index"]), len(entity_index_array))
-    print(len(tmp_item.topology.molecules["molecule_type"]))
     tmp_item.topology.molecules["entity_index"] = entity_index_array
 
     tmp_item.topology.chains["chain_name"] = chain_name_array
@@ -535,17 +558,17 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
     # Components
 
     tmp_item.topology.rebuild_components(redefine_indices=True, redefine_ids=True,
-                                         redefine_names=False, redefine_types=True)
+                                         redefine_names=True, redefine_types=True)
 
-    # Rebuild molecules, entities and chains
+    # Rebuild chains
 
-    tmp_item.topology.rebuild_molecules(redefine_indices=False, redefine_ids=True, redefine_names=False,
-                                        redefine_types=True)
-    tmp_item.topology.rebuild_entities(redefine_indices=False, redefine_ids=True, redefine_names=False, redefine_types=True)
-    tmp_item.topology.rebuild_chains(redefine_ids=True, redefine_types=True, redefine_names=False)
+    tmp_item.topology.rebuild_chains(redefine_indices=False, redefine_ids=False,
+                                     redefine_types=True, redefine_names=False)
+
 
     del(atom_name_array, atom_id_array, atom_type_array, atom_group_index_array, atom_chain_index_array)
     del(group_name_array, group_id_array)
+    del(molecule_name_array, molecule_type_array, entity_index_array)
     del(chain_name_array, chain_id_array)
     del(entity_name_array, entity_id_array, entity_type_array)
     del(bond_atom1_index_array, bond_atom2_index_array)
