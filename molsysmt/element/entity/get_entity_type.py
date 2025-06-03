@@ -4,9 +4,9 @@ import numpy as np
 
 @digest()
 def get_entity_type(molecular_system, element='atom', selection='all', redefine_indices=False,
-                       redefine_types=False, syntax='MolSysMT'):
+                    redefine_types=False, syntax='MolSysMT', skip_digestion=False):
 
-    if redefine_entities:
+    if redefine_indices:
 
         raise NotImplementedError
 
@@ -15,7 +15,7 @@ def get_entity_type(molecular_system, element='atom', selection='all', redefine_
         from ..molecule import get_molecule_type
 
         molecule_type_from_entities = get_molecule_type(molecular_system, element='entity',
-                selection=selection, redefine_types=True, syntax=syntax)
+                selection=selection, redefine_types=False, syntax=syntax)
 
         output = [ii[0] for ii in molecule_type_from_entities]
 
@@ -26,6 +26,4 @@ def get_entity_type(molecular_system, element='atom', selection='all', redefine_
                      entity_type=True)
 
     return output
-
-# self.entities['entity_type']=self.molecules.groupby('entity_index')['molecule_type'].first().to_numpy()
 
