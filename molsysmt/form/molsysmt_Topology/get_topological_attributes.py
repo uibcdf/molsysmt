@@ -18,7 +18,7 @@ form = 'molsysmt.Topology'
 
 
 @digest(form=form)
-def get_atom_index_from_atom(item, indices='all', skip_digestion=False): ##
+def get_atom_index_from_atom(item, indices='all', skip_digestion=False): ##x
 
     if is_all(indices):
         n_aux = get_n_atoms_from_system(item, skip_digestion=True)
@@ -30,7 +30,7 @@ def get_atom_index_from_atom(item, indices='all', skip_digestion=False): ##
 
 
 @digest(form=form)
-def get_atom_id_from_atom(item, indices='all', skip_digestion=False): ##
+def get_atom_id_from_atom(item, indices='all', skip_digestion=False): ##x
 
     if is_all(indices):
         output = item.atoms['atom_id'].to_list()
@@ -41,7 +41,7 @@ def get_atom_id_from_atom(item, indices='all', skip_digestion=False): ##
 
 
 @digest(form=form)
-def get_atom_name_from_atom(item, indices='all', skip_digestion=False): ##
+def get_atom_name_from_atom(item, indices='all', skip_digestion=False): ##x
 
     if is_all(indices):
         output = item.atoms['atom_name'].to_list()
@@ -52,7 +52,7 @@ def get_atom_name_from_atom(item, indices='all', skip_digestion=False): ##
 
 
 @digest(form=form)
-def get_atom_type_from_atom(item, indices='all', skip_digestion=False): ##
+def get_atom_type_from_atom(item, indices='all', skip_digestion=False): ##x
 
     if is_all(indices):
         output = item.atoms['atom_type'].to_list()
@@ -63,7 +63,7 @@ def get_atom_type_from_atom(item, indices='all', skip_digestion=False): ##
 
 
 @digest(form=form)
-def get_group_index_from_atom(item, indices='all', skip_digestion=False): ##
+def get_group_index_from_atom(item, indices='all', skip_digestion=False): ##x
 
     if is_all(indices):
         output = item.atoms['group_index'].to_list()
@@ -74,7 +74,7 @@ def get_group_index_from_atom(item, indices='all', skip_digestion=False): ##
 
 
 @digest(form=form)
-def get_group_id_from_atom(item, indices='all', skip_digestion=False): ##
+def get_group_id_from_atom(item, indices='all', skip_digestion=False): ##x
 
     if is_all(indices):
         group_indices = item.atoms['group_index']
@@ -89,7 +89,7 @@ def get_group_id_from_atom(item, indices='all', skip_digestion=False): ##
 
 
 @digest(form=form)
-def get_group_name_from_atom(item, indices='all', skip_digestion=False): ##
+def get_group_name_from_atom(item, indices='all', skip_digestion=False): ##x
 
     if is_all(indices):
         group_indices = item.atoms['group_index']
@@ -104,7 +104,7 @@ def get_group_name_from_atom(item, indices='all', skip_digestion=False): ##
 
 
 @digest(form=form)
-def get_group_type_from_atom(item, indices='all', skip_digestion=False): ##
+def get_group_type_from_atom(item, indices='all', skip_digestion=False): ##x
 
     if is_all(indices):
         group_indices = item.atoms['group_index']
@@ -119,7 +119,7 @@ def get_group_type_from_atom(item, indices='all', skip_digestion=False): ##
 
 
 @digest(form=form)
-def get_component_index_from_atom(item, indices='all', skip_digestion=False): ##
+def get_component_index_from_atom(item, indices='all', skip_digestion=False): ##x
 
     if is_all(indices):
         output = item.atoms['component_index'].to_list()
@@ -129,7 +129,7 @@ def get_component_index_from_atom(item, indices='all', skip_digestion=False): ##
     return output
 
 @digest(form=form)
-def get_component_id_from_atom(item, indices='all', skip_digestion=False): ##
+def get_component_id_from_atom(item, indices='all', skip_digestion=False): ##x
 
     if is_all(indices):
         component_indices = item.atoms['component_index']
@@ -144,7 +144,7 @@ def get_component_id_from_atom(item, indices='all', skip_digestion=False): ##
 
 
 @digest(form=form)
-def get_component_name_from_atom(item, indices='all', skip_digestion=False): ##
+def get_component_name_from_atom(item, indices='all', skip_digestion=False): ##x
 
     if is_all(indices):
         component_indices = item.atoms['component_index']
