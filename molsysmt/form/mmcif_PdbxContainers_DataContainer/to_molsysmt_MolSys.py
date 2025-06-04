@@ -236,7 +236,7 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
                 pdbx_type = aux_chem_comp_dict[entity_name]
                 if pdbx_type in ['D-saccharide, beta linking', 'D-saccharide, alpha linking',
                                  'L-saccharide, beta linking', 'L-saccharide, alpha linking']:
-                    entity_type_array[entity_index]='saccharide'
+                    entity_type_array[entity_index]='polysaccharide'
                 elif pdbx_type in ['L-peptide linking', 'D-peptide linking']:
                     entity_type_array[entity_index]='peptide'
                 elif pdbx_type in ['L-amino acid', 'D-amino acid']:

@@ -611,12 +611,12 @@ def get_n_lipids_from_atom(item, indices='all', skip_digestion=False):
 
 
 @digest(form=form)
-def get_n_oligosaccharides_from_atom(item, indices='all', skip_digestion=False):
+def get_n_polysaccharides_from_atom(item, indices='all', skip_digestion=False):
 
     from . import to_molsysmt_Topology
-    from ..molsysmt_Topology import get_n_oligosaccharides_from_atom as aux_get
+    from ..molsysmt_Topology import get_n_polysaccharides_from_atom as aux_get
 
-    bonds_required = bonds_are_required_to_get_attribute('n_oligosaccharides', 'atom')
+    bonds_required = bonds_are_required_to_get_attribute('n_polysaccharides', 'atom')
     tmp_item = to_molsysmt_Topology(item, get_missing_bonds=bonds_required, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
@@ -1288,12 +1288,12 @@ def get_n_lipids_from_group(item, indices='all', skip_digestion=False):
 
 
 @digest(form=form)
-def get_n_oligosaccharides_from_group(item, indices='all', skip_digestion=False):
+def get_n_polysaccharides_from_group(item, indices='all', skip_digestion=False):
 
     from . import to_molsysmt_Topology
-    from ..molsysmt_Topology import get_n_oligosaccharides_from_group as aux_get
+    from ..molsysmt_Topology import get_n_polysaccharides_from_group as aux_get
 
-    bonds_required = bonds_are_required_to_get_attribute('n_oligosaccharides', 'group')
+    bonds_required = bonds_are_required_to_get_attribute('n_polysaccharides', 'group')
     tmp_item = to_molsysmt_Topology(item, get_missing_bonds=bonds_required, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
@@ -1967,12 +1967,12 @@ def get_n_lipids_from_component(item, indices='all', skip_digestion=False):
 
 
 @digest(form=form)
-def get_n_oligosaccharides_from_component(item, indices='all', skip_digestion=False):
+def get_n_polysaccharides_from_component(item, indices='all', skip_digestion=False):
 
     from . import to_molsysmt_Topology
-    from ..molsysmt_Topology import get_n_oligosaccharides_from_component as aux_get
+    from ..molsysmt_Topology import get_n_polysaccharides_from_component as aux_get
 
-    bonds_required = bonds_are_required_to_get_attribute('n_oligosaccharides', 'component')
+    bonds_required = bonds_are_required_to_get_attribute('n_polysaccharides', 'component')
     tmp_item = to_molsysmt_Topology(item, get_missing_bonds=bonds_required, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
@@ -2646,12 +2646,12 @@ def get_n_lipids_from_molecule(item, indices='all', skip_digestion=False):
 
 
 @digest(form=form)
-def get_n_oligosaccharides_from_molecule(item, indices='all', skip_digestion=False):
+def get_n_polysaccharides_from_molecule(item, indices='all', skip_digestion=False):
 
     from . import to_molsysmt_Topology
-    from ..molsysmt_Topology import get_n_oligosaccharides_from_molecule as aux_get
+    from ..molsysmt_Topology import get_n_polysaccharides_from_molecule as aux_get
 
-    bonds_required = bonds_are_required_to_get_attribute('n_oligosaccharides', 'molecule')
+    bonds_required = bonds_are_required_to_get_attribute('n_polysaccharides', 'molecule')
     tmp_item = to_molsysmt_Topology(item, get_missing_bonds=bonds_required, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
@@ -3325,12 +3325,12 @@ def get_n_lipids_from_entity(item, indices='all', skip_digestion=False):
 
 
 @digest(form=form)
-def get_n_oligosaccharides_from_entity(item, indices='all', skip_digestion=False):
+def get_n_polysaccharides_from_entity(item, indices='all', skip_digestion=False):
 
     from . import to_molsysmt_Topology
-    from ..molsysmt_Topology import get_n_oligosaccharides_from_entity as aux_get
+    from ..molsysmt_Topology import get_n_polysaccharides_from_entity as aux_get
 
-    bonds_required = bonds_are_required_to_get_attribute('n_oligosaccharides', 'entity')
+    bonds_required = bonds_are_required_to_get_attribute('n_polysaccharides', 'entity')
     tmp_item = to_molsysmt_Topology(item, get_missing_bonds=bonds_required, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
@@ -4002,12 +4002,12 @@ def get_n_lipids_from_chain(item, indices='all', skip_digestion=False):
 
 
 @digest(form=form)
-def get_n_oligosaccharides_from_chain(item, indices='all', skip_digestion=False):
+def get_n_polysaccharides_from_chain(item, indices='all', skip_digestion=False):
 
     from . import to_molsysmt_Topology
-    from ..molsysmt_Topology import get_n_oligosaccharides_from_chain as aux_get
+    from ..molsysmt_Topology import get_n_polysaccharides_from_chain as aux_get
 
-    bonds_required = bonds_are_required_to_get_attribute('n_oligosaccharides', 'chain')
+    bonds_required = bonds_are_required_to_get_attribute('n_polysaccharides', 'chain')
     tmp_item = to_molsysmt_Topology(item, get_missing_bonds=bonds_required, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
@@ -4018,7 +4018,7 @@ def get_n_oligosaccharides_from_chain(item, indices='all', skip_digestion=False)
 def get_n_saccharides_from_chain(item, indices='all', skip_digestion=False):
 
     from . import to_molsysmt_Topology
-    from ..molsysmt_Topology import get_n_oligosaccharides_from_chain as aux_get
+    from ..molsysmt_Topology import get_n_polysaccharides_from_chain as aux_get
 
     bonds_required = bonds_are_required_to_get_attribute('n_saccharides', 'chain')
     tmp_item = to_molsysmt_Topology(item, get_missing_bonds=bonds_required, skip_digestion=True)
@@ -4320,12 +4320,12 @@ def get_n_lipids_from_system(item, skip_digestion=False):
 
 
 @digest(form=form)
-def get_n_oligosaccharides_from_system(item, skip_digestion=False):
+def get_n_polysaccharides_from_system(item, skip_digestion=False):
 
     from . import to_molsysmt_Topology
-    from ..molsysmt_Topology import get_n_oligosaccharides_from_system as aux_get
+    from ..molsysmt_Topology import get_n_polysaccharides_from_system as aux_get
 
-    bonds_required = bonds_are_required_to_get_attribute('n_oligosaccharides', 'system')
+    bonds_required = bonds_are_required_to_get_attribute('n_polysaccharides', 'system')
     tmp_item = to_molsysmt_Topology(item, get_missing_bonds=bonds_required, skip_digestion=True)
     output = aux_get(tmp_item, skip_digestion=True)
 

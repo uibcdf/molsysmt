@@ -14,7 +14,7 @@ _component_types = [
         'dna',
         'rna',
         'lipid',
-        'oligosaccharide'
+        'polysaccharide'
         ]
 
 _singular_component_type_to_plural = {
@@ -24,7 +24,7 @@ _singular_component_type_to_plural = {
     'peptide': 'peptides',
     'protein': 'proteins',
     'lipid': 'lipids',
-    'oligosaccharide': 'oligosaccharides',
+    'polysaccharide': 'polysaccharides',
 }
 
 _plural_component_types_to_singular = {
@@ -34,6 +34,6 @@ _plural_component_types_to_singular = {
     'peptides': 'peptide',
     'proteins': 'protein',
     'lipids': 'lipid',
-    'oligosaccharides': 'oligosaccharide',
+    'polysaccharides': 'polysaccharide',
 }
 

@@ -85,6 +85,8 @@ def get_group_type_from_group_name(group_name, skip_digestion=False):
         output = 'lipid'
     elif is_saccharide(group_name):
         output = 'saccharide'
+    else:
+        output = 'unknown'
 
     return output
 

@@ -6,7 +6,7 @@ from . import protein
 from . import dna
 from . import rna
 from . import lipid
-from . import oligosaccharide
+from . import polysaccharide
 
 from .get_molecule_index import get_molecule_index
 from .get_molecule_id import get_molecule_id
@@ -25,8 +25,7 @@ _molecule_types = [
         'dna',
         'rna',
         'lipid',
-        'saccharide',
-        'oligosaccharide'
+        'polysaccharide'
         ]
 
 _singular_molecule_type_to_plural = {
@@ -38,8 +37,7 @@ _singular_molecule_type_to_plural = {
     'dna': 'dnas',
     'rna': 'rnas',
     'lipid': 'lipids',
-    'saccharide': 'saccharides',
-    'oligosaccharide': 'oligosaccharides',
+    'polysaccharide': 'polysaccharides',
 }
 
 _plural_molecule_types_to_singular = {
@@ -51,8 +49,7 @@ _plural_molecule_types_to_singular = {
     'dnas': 'dna',
     'rnas': 'rna',
     'lipids': 'lipid',
-    'saccharides': 'saccharide',
-    'oligosaccharides': 'oligosaccharide',
+    'polysaccharides': 'polysaccharide',
 }
 
 

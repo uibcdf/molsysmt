@@ -37,8 +37,8 @@ def get_chain_type(molecular_system, element='atom', selection='all',
             for molecule_types in molecule_types_from_chain:
                 aux = []
                 array_molecule_types = np.array(molecule_types)
-                for aux_type in ['protein', 'peptide', 'dna', 'rna', 'oligosaccharide', 'small molecule', 'lipid',
-                                 'ion', 'water']:
+                for aux_type in ['protein', 'peptide', 'dna', 'rna', 'polysaccharide', 'small molecule', 'lipid',
+                                 'ion', 'water', 'unknown']:
                     if aux_type in molecule_types:
                         counter = np.sum(array_molecule_types == aux_type)
                         if counter == 1:
@@ -115,7 +115,7 @@ def get_chain_type(molecular_system, element='atom', selection='all',
 #    for aux_molecule_types in molecule_types:
 #        aux = []
 #        array_molecule_types = np.array(aux_molecule_types)
-#        for aux_type in ['protein', 'peptide', 'dna', 'rna', 'oligosaccharide', 'saccharide',
+#        for aux_type in ['protein', 'peptide', 'dna', 'rna', 'polysaccharide', 'saccharide',
 #                         'small molecule', 'lipid', 'ion', 'water']:
 #            if aux_type in aux_molecule_types:
 #                counter = np.sum(array_molecule_types == aux_type)

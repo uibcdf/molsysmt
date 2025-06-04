@@ -89,14 +89,14 @@ def is_composed_of(molecular_system, selection='all', syntax='MolSysMT', skip_di
 
         # molecules in kwargs
         set_molecules = {'n_ions', 'n_waters', 'n_small_molecules', 'n_peptides', 'n_proteins',
-                'n_dnas', 'n_rnas', 'n_lipids', 'n_oligosaccharides', 'n_saccharides'}
+                'n_dnas', 'n_rnas', 'n_lipids', 'n_polysaccharides', 'n_saccharides'}
 
         if set_molecules & set(kwargs.keys()):
 
             aux_dictionary = get(molecular_system, element="atom", selection=selection, syntax=syntax,
                     output_type='dictionary',
                     n_ions=True, n_waters=True, n_small_molecules=True, n_peptides=True, n_proteins=True,
-                    n_dnas=True, n_rnas=True, n_lipids=True, n_oligosaccharides=True, n_saccharides=True)
+                    n_dnas=True, n_rnas=True, n_lipids=True, n_polysaccharides=True, n_saccharides=True)
 
             for key, value in aux_dictionary.items():
                 if value:
