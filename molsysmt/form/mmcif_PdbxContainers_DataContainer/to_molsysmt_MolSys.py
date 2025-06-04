@@ -209,6 +209,10 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
 
         entity_dict[record[index_att['entity_id']]]['seq'].append([record[index_att['num']],record[index_att['mon_id']]])
 
+    aux_chem_comp_dict = {}
+    for record in item.getObj('chem_comp').data:
+        aux_chem_comp_dict[record[3]] = record[1]
+
     for entity_id, aux_dict in entity_dict.items():
         entity_index = aux_dict['entity_index']
         match aux_dict['entity_type']:
@@ -219,16 +223,34 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
                             entity_type_array[entity_index]='protein'
                         else:
                             entity_type_array[entity_index]='peptide'
-                    #case 'polysaccharide':
-                    #    aux_dict['entity_type']='saccharide'
-                    #case 'polydeoxyribonucleotide':
-                    #    aux_dict['entity_type']='DNA'
-                    #case 'polyribonucleotide':
-                    #    aux_dict['entity_type']='RNA'
+                    case 'polysaccharide':
+                        aux_dict['entity_type']='polysaccharide'
+                    case 'polydeoxyribonucleotide':
+                        aux_dict['entity_type']='DNA'
+                    case 'polyribonucleotide':
+                        aux_dict['entity_type']='RNA'
                     case _:
                         entity_type_array[entity_index]='unknown'
             case 'non-polymer':
-                entity_type_array[entity_index]='small molecule'
+                entity_name = aux_dict['entity_name']
+                pdbx_type = aux_chem_comp_dict[entity_name]
+                if pdbx_type in ['D-saccharide, beta linking', 'D-saccharide, alpha linking',
+                                 'L-saccharide, beta linking', 'L-saccharide, alpha linking']:
+                    entity_type_array[entity_index]='saccharide'
+                elif pdbx_type in ['L-peptide linking', 'D-peptide linking']:
+                    entity_type_array[entity_index]='peptide'
+                elif pdbx_type in ['L-amino acid', 'D-amino acid']:
+                    entity_type_array[entity_index]='amino acid'
+                elif pdbx_type in ['nucleotide', 'nucleoside']:
+                    entity_type_array[entity_index]='nucleotide'
+                elif pdbx_type in ['water', 'solvent']:
+                    entity_type_array[entity_index]='water'
+                elif pdbx_type in ['ion', 'ion, metal']:
+                    entity_type_array[entity_index]='ion'
+                elif pdbx_type in ['small molecule', 'organic compound']:
+                    entity_type_array[entity_index]='small molecule'
+                else:
+                    entity_type_array[entity_index]='unknown'
 
     entity_id_array = np.array(entity_id_array, dtype=int)
     entity_name_array = np.array(entity_name_array, dtype=object)
