@@ -305,7 +305,7 @@ def get_component_type_from_atom(item, indices='all', skip_digestion=False): ##x
 
 
 @digest(form=form)
-def get_chain_index_from_atom(item, indices='all', skip_digestion=False): ##
+def get_chain_index_from_atom(item, indices='all', skip_digestion=False): ##x
 
     if is_all(indices):
         output = item.atoms['chain_index'].to_list()
