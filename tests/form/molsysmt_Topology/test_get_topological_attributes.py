@@ -375,6 +375,29 @@ def test_get_entity_name_from_atom():
     assert list_entity_name_Hk2 == ['Hexokinase-2', 'Hexokinase-2', 'Hexokinase-2']
     assert list_entity_name_BB == ['BARNASE', 'BARNASE', 'BARNASE', 'BARNASE']
 
+def test_get_entity_type_from_atom():
+
+    all_entity_type_Hk2 = aux.get_entity_type_from_atom(molsys_Hk2.topology, skip_digestion=True)
+    all_entity_type_BB = aux.get_entity_type_from_atom(molsys_BB.topology, skip_digestion=True)
+    list_entity_type_Hk2 = aux.get_entity_type_from_atom(molsys_Hk2.topology, indices=[4,5,6], skip_digestion=True)
+    list_entity_type_BB = aux.get_entity_type_from_atom(molsys_BB.topology, indices=[10,11,12,13], skip_digestion=True)
+
+    assert isinstance(all_entity_type_Hk2, list)
+    assert len(all_entity_type_Hk2) == 13546
+    assert len(all_entity_type_BB) == 5151
+    assert all_entity_type_Hk2[2685:2688] == ['protein', 'protein', 'protein']
+    assert all_entity_type_Hk2[13374:13380] == ['unknown', 'unknown', 'unknown', 'saccharide', 'saccharide', 'saccharide']
+    assert all_entity_type_Hk2[0] == 'protein'
+    assert all_entity_type_Hk2[-1] == 'water'
+    assert all_entity_type_BB[2685:2688] == ['protein', 'protein', 'protein']
+    assert all_entity_type_BB[-515:-510] == ['protein', 'protein', 'water', 'water', 'water']
+    assert all_entity_type_BB[0] == 'protein'
+    assert all_entity_type_BB[-1] == 'water'
+    assert list_entity_type_Hk2 == ['protein', 'protein', 'protein']
+    assert list_entity_type_BB == ['protein', 'protein', 'protein', 'protein']
+
+
+
 
 
 
