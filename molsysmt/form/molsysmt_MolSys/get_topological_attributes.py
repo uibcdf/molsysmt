@@ -361,9 +361,9 @@ def get_n_lipids_from_atom(item, indices='all', skip_digestion=False):
 
 
 @digest(form=form)
-def get_n_oligosaccharides_from_atom(item, indices='all', skip_digestion=False):
+def get_n_polysaccharides_from_atom(item, indices='all', skip_digestion=False):
 
-    from ..molsysmt_Topology import get_n_oligosaccharides_from_atom as aux_get
+    from ..molsysmt_Topology import get_n_polysaccharides_from_atom as aux_get
     return aux_get(item.topology, indices=indices, skip_digestion=True)
 
 
@@ -883,9 +883,9 @@ def get_n_lipids_from_component(item, indices='all', skip_digestion=False):
 
 
 @digest(form=form)
-def get_n_oligosaccharides_from_component(item, indices='all', skip_digestion=False):
+def get_n_polysaccharides_from_component(item, indices='all', skip_digestion=False):
 
-    from ..molsysmt_Topology import get_n_oligosaccharides_from_component as aux_get
+    from ..molsysmt_Topology import get_n_polysaccharides_from_component as aux_get
     return aux_get(item.topology, indices=indices, skip_digestion=True)
 
 
@@ -1194,9 +1194,9 @@ def get_n_lipids_from_molecule(item, indices='all', skip_digestion=False):
 
 
 @digest(form=form)
-def get_n_oligosaccharides_from_molecule(item, indices='all', skip_digestion=False):
+def get_n_polysaccharides_from_molecule(item, indices='all', skip_digestion=False):
 
-    from ..molsysmt_Topology import get_n_oligosaccharides_from_molecule as aux_get
+    from ..molsysmt_Topology import get_n_polysaccharides_from_molecule as aux_get
     return aux_get(item.topology, indices=indices, skip_digestion=True)
 
 
@@ -1505,9 +1505,9 @@ def get_n_lipids_from_entity(item, indices='all', skip_digestion=False):
 
 
 @digest(form=form)
-def get_n_oligosaccharides_from_entity(item, indices='all', skip_digestion=False):
+def get_n_polysaccharides_from_entity(item, indices='all', skip_digestion=False):
 
-    from ..molsysmt_Topology import get_n_oligosaccharides_from_entity as aux_get
+    from ..molsysmt_Topology import get_n_polysaccharides_from_entity as aux_get
     return aux_get(item.topology, indices=indices, skip_digestion=True)
 
 
@@ -1816,9 +1816,9 @@ def get_n_lipids_from_chain(item, indices='all', skip_digestion=False):
 
 
 @digest(form=form)
-def get_n_oligosaccharides_from_chain(item, indices='all', skip_digestion=False):
+def get_n_polysaccharides_from_chain(item, indices='all', skip_digestion=False):
 
-    from ..molsysmt_Topology import get_n_oligosaccharides_from_chain as aux_get
+    from ..molsysmt_Topology import get_n_polysaccharides_from_chain as aux_get
     return aux_get(item.topology, indices=indices, skip_digestion=True)
 
 
@@ -1995,9 +1995,9 @@ def get_n_lipids_from_system(item, skip_digestion=False):
 
 
 @digest(form=form)
-def get_n_oligosaccharides_from_system(item, skip_digestion=False):
+def get_n_polysaccharides_from_system(item, skip_digestion=False):
 
-    from ..molsysmt_Topology import get_n_oligosaccharides_from_system as aux_get
+    from ..molsysmt_Topology import get_n_polysaccharides_from_system as aux_get
     return aux_get(item.topology, skip_digestion=True)
 
 

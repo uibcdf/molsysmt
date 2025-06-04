@@ -567,10 +567,10 @@ def get_n_lipids_from_atom(item, indices='all', skip_digestion=False):
 
 
 @digest(form=form)
-def get_n_oligosaccharides_from_atom(item, indices='all', skip_digestion=False):
+def get_n_polysaccharides_from_atom(item, indices='all', skip_digestion=False):
 
     from . import to_openmm_Topology
-    from ..openmm_Topology import get_n_oligosaccharides_from_atom as aux_get
+    from ..openmm_Topology import get_n_polysaccharides_from_atom as aux_get
 
     tmp_item = to_openmm_Topology(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
@@ -1194,10 +1194,10 @@ def get_n_lipids_from_group(item, indices='all', skip_digestion=False):
 
 
 @digest(form=form)
-def get_n_oligosaccharides_from_group(item, indices='all', skip_digestion=False):
+def get_n_polysaccharides_from_group(item, indices='all', skip_digestion=False):
 
     from . import to_openmm_Topology
-    from ..openmm_Topology import get_n_oligosaccharides_from_group as aux_get
+    from ..openmm_Topology import get_n_polysaccharides_from_group as aux_get
 
     tmp_item = to_openmm_Topology(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
@@ -1821,10 +1821,10 @@ def get_n_lipids_from_component(item, indices='all', skip_digestion=False):
 
 
 @digest(form=form)
-def get_n_oligosaccharides_from_component(item, indices='all', skip_digestion=False):
+def get_n_polysaccharides_from_component(item, indices='all', skip_digestion=False):
 
     from . import to_openmm_Topology
-    from ..openmm_Topology import get_n_oligosaccharides_from_component as aux_get
+    from ..openmm_Topology import get_n_polysaccharides_from_component as aux_get
 
     tmp_item = to_openmm_Topology(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
@@ -2449,10 +2449,10 @@ def get_n_lipids_from_molecule(item, indices='all', skip_digestion=False):
 
 
 @digest(form=form)
-def get_n_oligosaccharides_from_molecule(item, indices='all', skip_digestion=False):
+def get_n_polysaccharides_from_molecule(item, indices='all', skip_digestion=False):
 
     from . import to_openmm_Topology
-    from ..openmm_Topology import get_n_oligosaccharides_from_molecule as aux_get
+    from ..openmm_Topology import get_n_polysaccharides_from_molecule as aux_get
 
     tmp_item = to_openmm_Topology(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
@@ -3076,10 +3076,10 @@ def get_n_lipids_from_entity(item, indices='all', skip_digestion=False):
 
 
 @digest(form=form)
-def get_n_oligosaccharides_from_entity(item, indices='all', skip_digestion=False):
+def get_n_polysaccharides_from_entity(item, indices='all', skip_digestion=False):
 
     from . import to_openmm_Topology
-    from ..openmm_Topology import get_n_oligosaccharides_from_entity as aux_get
+    from ..openmm_Topology import get_n_polysaccharides_from_entity as aux_get
 
     tmp_item = to_openmm_Topology(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
@@ -3703,10 +3703,10 @@ def get_n_lipids_from_chain(item, indices='all', skip_digestion=False):
 
 
 @digest(form=form)
-def get_n_oligosaccharides_from_chain(item, indices='all', skip_digestion=False):
+def get_n_polysaccharides_from_chain(item, indices='all', skip_digestion=False):
 
     from . import to_openmm_Topology
-    from ..openmm_Topology import get_n_oligosaccharides_from_chain as aux_get
+    from ..openmm_Topology import get_n_polysaccharides_from_chain as aux_get
 
     tmp_item = to_openmm_Topology(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
@@ -4009,10 +4009,10 @@ def get_n_lipids_from_system(item, skip_digestion=False):
 
 
 @digest(form=form)
-def get_n_oligosaccharides_from_system(item, skip_digestion=False):
+def get_n_polysaccharides_from_system(item, skip_digestion=False):
 
     from . import to_openmm_Topology
-    from ..openmm_Topology import get_n_oligosaccharides_from_system as aux_get
+    from ..openmm_Topology import get_n_polysaccharides_from_system as aux_get
 
     tmp_item = to_openmm_Topology(item, skip_digestion=True)
     output = aux_get(tmp_item, skip_digestion=True)

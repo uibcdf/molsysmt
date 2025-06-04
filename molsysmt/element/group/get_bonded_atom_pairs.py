@@ -33,7 +33,7 @@ def get_bonded_atom_pairs(group_name, atom_names, atom_indices=None, sorted=True
 
             pass
 
-        case 'oligosaccharide':
+        case 'polysaccharide':
 
             pass
 

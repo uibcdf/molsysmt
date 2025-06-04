@@ -73,7 +73,7 @@ def get_missing_bonds(molecular_system, selection='all', structure_index=0, max_
                     aux_bonds = _bonds_in_small_molecule(group_name, atom_names, atom_indices, sorted=False)
                 case "saccharide":
                     aux_bonds = _bonds_in_saccharide(group_name, atom_names, atom_indices, sorted=False)
-                case "oligosaccharide":
+                case "polysaccharide":
                     aux_bonds = None
                 case "lipid":
                     aux_bonds = None

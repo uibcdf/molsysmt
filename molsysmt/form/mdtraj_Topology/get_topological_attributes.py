@@ -644,7 +644,7 @@ def get_n_lipids_from_atom(item, indices='all', skip_digestion=False):
 
 
 @digest(form=form)
-def get_n_oligosaccharides_from_atom(item, indices='all', skip_digestion=False):
+def get_n_polysaccharides_from_atom(item, indices='all', skip_digestion=False):
 
     group_indices = get_group_index_from_atom(item, indices=indices, skip_digestion=True)
     group_indices = np.unique(group_indices)
@@ -1218,10 +1218,10 @@ def get_n_lipids_from_group(item, indices='all', skip_digestion=False):
 
 
 @digest(form=form)
-def get_n_oligosaccharides_from_group(item, indices='all', skip_digestion=False):
+def get_n_polysaccharides_from_group(item, indices='all', skip_digestion=False):
 
     group_types = get_group_type_from_group(item, indices=indices, skip_digestion=True)
-    output = (np.array(group_types) == 'oligosaccharide').sum()
+    output = (np.array(group_types) == 'polysaccharide').sum()
 
     return output
 
@@ -1818,13 +1818,13 @@ def get_n_lipids_from_component(item, indices='all', skip_digestion=False):
 
 
 @digest(form=form)
-def get_n_oligosaccharides_from_component(item, indices='all', skip_digestion=False):
+def get_n_polysaccharides_from_component(item, indices='all', skip_digestion=False):
 
     group_indices = get_group_index_from_component(item, indices=indices, skip_digestion=True)
     group_indices=np.concatenate([np.array(ii) for ii in group_indices])
     group_indices = np.unique(group_indices)
     group_types = get_group_type_from_group(item, indices=group_indices, skip_digestion=True)
-    output = (np.array(group_types) == 'oligosaccharide').sum()
+    output = (np.array(group_types) == 'polysaccharide').sum()
 
     return output
 
@@ -2441,13 +2441,13 @@ def get_n_lipids_from_molecule(item, indices='all', skip_digestion=False):
 
 
 @digest(form=form)
-def get_n_oligosaccharides_from_molecule(item, indices='all', skip_digestion=False):
+def get_n_polysaccharides_from_molecule(item, indices='all', skip_digestion=False):
 
     group_indices = get_group_index_from_molecule(item, indices=indices, skip_digestion=True)
     group_indices=np.concatenate([np.array(ii) for ii in group_indices])
     group_indices = np.unique(group_indices)
     group_types = get_group_type_from_group(item, indices=group_indices, skip_digestion=True)
-    output = (np.array(group_types) == 'oligosaccharide').sum()
+    output = (np.array(group_types) == 'polysaccharide').sum()
 
     return output
 
@@ -3073,13 +3073,13 @@ def get_n_lipids_from_entity(item, indices='all', skip_digestion=False):
 
 
 @digest(form=form)
-def get_n_oligosaccharides_from_entity(item, indices='all', skip_digestion=False):
+def get_n_polysaccharides_from_entity(item, indices='all', skip_digestion=False):
 
     group_indices = get_group_index_from_entity(item, indices=indices, skip_digestion=True)
     group_indices=np.concatenate([np.array(ii) for ii in group_indices])
     group_indices = np.unique(group_indices)
     group_types = get_group_type_from_group(item, indices=group_indices, skip_digestion=True)
-    output = (np.array(group_types) == 'oligosaccharide').sum()
+    output = (np.array(group_types) == 'polysaccharide').sum()
 
     return output
 
@@ -3722,13 +3722,13 @@ def get_n_lipids_from_chain(item, indices='all', skip_digestion=False):
 
 
 @digest(form=form)
-def get_n_oligosaccharides_from_chain(item, indices='all', skip_digestion=False):
+def get_n_polysaccharides_from_chain(item, indices='all', skip_digestion=False):
 
     group_indices = get_group_index_from_chain(item, indices=indices, skip_digestion=True)
     group_indices=np.concatenate([np.array(ii) for ii in group_indices])
     group_indices = np.unique(group_indices)
     group_types = get_group_type_from_group(item, indices=group_indices, skip_digestion=True)
-    output = (np.array(group_types) == 'oligosaccharide').sum()
+    output = (np.array(group_types) == 'polysaccharide').sum()
 
     return output
 
@@ -3957,10 +3957,10 @@ def get_n_lipids_from_system(item, skip_digestion=False):
 
 
 @digest(form=form)
-def get_n_oligosaccharides_from_system(item, skip_digestion=False):
+def get_n_polysaccharides_from_system(item, skip_digestion=False):
 
     group_types = get_group_type_from_group(item, skip_digestion=True)
-    output = (np.array(group_types) == 'oligosaccharide').sum()
+    output = (np.array(group_types) == 'polysaccharide').sum()
 
     return output
 

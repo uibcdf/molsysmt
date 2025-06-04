@@ -1,3 +1,0 @@
-oligosaccharide_names = [
-]
-

@@ -6,7 +6,6 @@ from . import terminal_capping
 from . import nucleotide
 from . import lipid
 from . import saccharide
-from . import oligosaccharide
 
 from .is_group_type import is_group_type
 from .get_group_type import get_group_type, get_group_type_from_group_name
@@ -21,7 +20,6 @@ _group_types = [
         'nucleotide',
         'lipid',
         'saccharide',
-        'oligosaccharide'
         ]
 
 _singular_group_type_to_plural = {
@@ -33,7 +31,6 @@ _singular_group_type_to_plural = {
     'nucleotide': 'nucleotides',
     'lipid': 'lipids',
     'saccharide': 'saccharides',
-    'oligosaccharide': 'oligosaccharides',
 }
 
 _plural_group_types_to_singular = {
@@ -45,5 +42,4 @@ _plural_group_types_to_singular = {
     'nucleotides': 'nucleotide',
     'lipids': 'lipid',
     'saccharides': 'saccharide',
-    'oligosaccharides': 'oligosaccharide',
 }
