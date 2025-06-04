@@ -397,6 +397,51 @@ def test_get_entity_type_from_atom():
     assert list_entity_type_BB == ['protein', 'protein', 'protein', 'protein']
 
 
+def test_get_chain_index_from_atom():
+
+    all_chain_index_Hk2 = aux.get_chain_index_from_atom(molsys_Hk2.topology, skip_digestion=True)
+    all_chain_index_BB = aux.get_chain_index_from_atom(molsys_BB.topology, skip_digestion=True)
+    list_chain_index_Hk2 = aux.get_chain_index_from_atom(molsys_Hk2.topology, indices=[4,5,6], skip_digestion=True)
+    list_chain_index_BB = aux.get_chain_index_from_atom(molsys_BB.topology, indices=[10,11,12,13], skip_digestion=True)
+
+    assert isinstance(all_chain_index_Hk2, list)
+    assert len(all_chain_index_Hk2) == 13546
+    assert len(all_chain_index_BB) == 5151
+    assert all_chain_index_Hk2[2685:2688] == [0, 0, 0]
+    assert all_chain_index_Hk2[13374:13380] == [15, 16, 17, 18, 18, 18]
+    assert all_chain_index_Hk2[0] == 0
+    assert all_chain_index_Hk2[-1] == 39
+    assert all_chain_index_BB[2685:2688] == [3, 3, 3]
+    assert all_chain_index_BB[-515:-510] == [5, 5, 6, 6, 6]
+    assert all_chain_index_BB[0] == 0
+    assert all_chain_index_BB[-1] == 11
+    assert list_chain_index_Hk2 == [0, 0, 0]
+    assert list_chain_index_BB == [0, 0, 0, 0]
+
+def test_get_chain_id_from_atom():
+
+    all_chain_id_Hk2 = aux.get_chain_id_from_atom(molsys_Hk2.topology, skip_digestion=True)
+    all_chain_id_BB = aux.get_chain_id_from_atom(molsys_BB.topology, skip_digestion=True)
+    list_chain_id_Hk2 = aux.get_chain_id_from_atom(molsys_Hk2.topology, indices=[4,5,6], skip_digestion=True)
+    list_chain_id_BB = aux.get_chain_id_from_atom(molsys_BB.topology, indices=[10,11,12,13], skip_digestion=True)
+
+    assert isinstance(all_chain_id_Hk2, list)
+    assert len(all_chain_id_Hk2) == 13546
+    assert len(all_chain_id_BB) == 5151
+    assert all_chain_id_Hk2[2685:2688] == ['A', 'A', 'A']
+    assert all_chain_id_Hk2[13374:13380] == ['P', 'Q', 'R', 'S', 'S', 'S']
+    assert all_chain_id_Hk2[0] == 'A'
+    assert all_chain_id_Hk2[-1] == 'NA'
+    assert all_chain_id_BB[2685:2688] == ['D', 'D', 'D']
+    assert all_chain_id_BB[-515:-510] == ['F', 'F', 'G', 'G', 'G']
+    assert all_chain_id_BB[0] == 'A'
+    assert all_chain_id_BB[-1] == 'L'
+    assert list_chain_id_Hk2 == ['A', 'A', 'A']
+    assert list_chain_id_BB == ['A', 'A', 'A', 'A']
+
+
+
+
 
 
 
