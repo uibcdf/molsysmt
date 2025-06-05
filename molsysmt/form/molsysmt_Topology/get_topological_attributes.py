@@ -21,8 +21,7 @@ form = 'molsysmt.Topology'
 def get_atom_index_from_atom(item, indices='all', skip_digestion=False): ##x
 
     if is_all(indices):
-        n_aux = get_n_atoms_from_system(item, skip_digestion=True)
-        output = list(range(n_aux))
+        output = list(range(item.atoms.shape[0]))
     else:
         output = indices
 
@@ -557,7 +556,7 @@ def get_n_groups_from_atom(item, indices='all', skip_digestion=False): ##x
     if is_all(indices):
         output = item.groups.shape[0]
     else:
-        output = item.atoms['group_index'].take(indices).unique().shape[0]
+        output = item.atoms['group_index'].take(indices).nunique()
 
     return output
 
@@ -568,7 +567,7 @@ def get_n_components_from_atom(item, indices='all', skip_digestion=False): ##x
     if is_all(indices):
         output = item.components.shape[0]
     else:
-        output = item.atoms['component_index'].take(indices).unique().shape[0]
+        output = item.atoms['component_index'].take(indices).nunique()
 
     return output
 
@@ -580,7 +579,7 @@ def get_n_molecules_from_atom(item, indices='all', skip_digestion=False): ##x
         output = item.molecules.shape[0]
     else:
         group_indices = item.atoms['group_index'].take(indices)
-        output = item.groups['molecule_index'].take(group_indices).unique().shape[0]
+        output = item.groups['molecule_index'].take(group_indices).nunique()
         del group_indices
 
     return output
@@ -594,7 +593,7 @@ def get_n_entities_from_atom(item, indices='all', skip_digestion=False): ##x
     else:
         group_indices = item.atoms['group_index'].take(indices)
         molecule_indices = item.groups['molecule_index'].take(group_indices)
-        output = item.molecules['entity_index'].take(molecule_indices).unique().shape[0]
+        output = item.molecules['entity_index'].take(molecule_indices).nunique()
         del group_indices, molecule_indices
 
     return output
@@ -606,7 +605,7 @@ def get_n_chains_from_atom(item, indices='all', skip_digestion=False): ##x
     if is_all(indices):
         output = item.chains.shape[0]
     else:
-        output = item.atoms['chain_index'].take(indices).unique().shape[0]
+        output = item.atoms['chain_index'].take(indices).nunique()
 
     return output
 
@@ -826,65 +825,53 @@ def get_atom_index_from_group(item, indices='all', skip_digestion=False): ##x
 @digest(form=form)
 def get_atom_id_from_group(item, indices='all', skip_digestion=False): ##x
 
-    series = item.atoms.groupby("group_index")["atom_id"].apply(list)
-
     if is_all(indices):
+        series = item.atoms.groupby("group_index")["atom_id"].apply(list)
         output = series.tolist()
+        del series
     else:
+        subset = item.atoms.loc[item.atoms['group_index'].isin(indices)]
+        series = subset.groupby('group_index')['atom_id'].apply(list)
         output = series.reindex(indices, fill_value=[]).tolist()
+        del subset, series
 
     return output
 
 
 @digest(form=form)
-def get_atom_name_from_group(item, indices='all', skip_digestion=False): ##
+def get_atom_name_from_group(item, indices='all', skip_digestion=False): ##x
 
     if is_all(indices):
-        grouped = item.atoms.groupby('group_index')['atom_name'].groups
-        output = [item.atoms['atom_name'].take(grouped[ii]).tolist() for ii in grouped]
-        del grouped
+        series = item.atoms.groupby("group_index")["atom_name"].apply(list)
+        output = series.tolist()
+        del series
     else:
-        selected_groups = item.atoms.loc[item.atoms['group_index'].isin(indices)]
-        grouped = selected_groups.groupby('group_index')['atom_name'].groups
-        output = [subset['atom_name'].take(grouped.get(ii, [])).tolist() for ii in indices]
-        del selected_groups, grouped
+        subset = item.atoms.loc[item.atoms['group_index'].isin(indices)]
+        series = subset.groupby('group_index')['atom_name'].apply(list)
+        output = series.reindex(indices, fill_value=[]).tolist()
+        del subset, series
 
     return output
 
-@digest(form=form)
-def get_atom_id_from_group(item, indices="all", skip_digestion=False):
-    atoms = item.atoms
-
-    # --- Caso todos los grupos: hacemos un solo groupby.apply(list)
-    if is_all(indices):
-        series = atoms.groupby("group_index")["atom_id"].apply(list)
-        return series.tolist()
-
-    # --- Caso solo algunos índices: filtramos antes de agrupar
-    subset = atoms.loc[atoms["group_index"].isin(indices)]
-    series = subset.groupby("group_index")["atom_id"].apply(list)
-    # series ahora solo tiene keys = índices existentes en `indices`
-    return series.reindex(indices, fill_value=[]).tolist()
-
 
 @digest(form=form)
-def get_atom_type_from_group(item, indices='all', skip_digestion=False): ##
+def get_atom_type_from_group(item, indices='all', skip_digestion=False): ##x
 
     if is_all(indices):
-        grouped = item.atoms.groupby('group_index')['atom_type'].groups
-        output = [item.atoms['atom_type'].take(grouped[ii]).tolist() for ii in grouped]
-        del grouped
+        series = item.atoms.groupby("group_index")["atom_type"].apply(list)
+        output = series.tolist()
+        del series
     else:
-        selected_groups = item.atoms.loc[item.atoms['group_index'].isin(indices)]
-        grouped = selected_groups.groupby('group_index')['atom_type'].groups
-        output = [subset['atom_type'].take(grouped.get(ii, [])).tolist() for ii in indices]
-        del selected_groups, grouped
+        subset = item.atoms.loc[item.atoms['group_index'].isin(indices)]
+        series = subset.groupby('group_index')['atom_type'].apply(list)
+        output = series.reindex(indices, fill_value=[]).tolist()
+        del subset, series
 
     return output
 
 
 @digest(form=form)
-def get_group_index_from_group(item, indices='all', skip_digestion=False): ##
+def get_group_index_from_group(item, indices='all', skip_digestion=False): ##x
 
     if is_all(indices):
         output = list(range(item.groups.shape[0]))
@@ -895,7 +882,7 @@ def get_group_index_from_group(item, indices='all', skip_digestion=False): ##
 
 
 @digest(form=form)
-def get_group_id_from_group(item, indices='all', skip_digestion=False): ##
+def get_group_id_from_group(item, indices='all', skip_digestion=False): ##x
 
     if is_all(indices):
         output = item.groups['group_id'].to_list()
@@ -906,7 +893,7 @@ def get_group_id_from_group(item, indices='all', skip_digestion=False): ##
 
 
 @digest(form=form)
-def get_group_name_from_group(item, indices='all', skip_digestion=False): ##
+def get_group_name_from_group(item, indices='all', skip_digestion=False): ##x
 
     if is_all(indices):
         output = item.groups['group_name'].to_list()
@@ -917,7 +904,7 @@ def get_group_name_from_group(item, indices='all', skip_digestion=False): ##
 
 
 @digest(form=form)
-def get_group_type_from_group(item, indices='all', skip_digestion=False): ##
+def get_group_type_from_group(item, indices='all', skip_digestion=False): ##x
 
     if is_all(indices):
         output = item.groups['group_type'].to_list()
@@ -928,83 +915,7 @@ def get_group_type_from_group(item, indices='all', skip_digestion=False): ##
 
 
 @digest(form=form)
-def get_component_index_from_group(item, indices='all', skip_digestion=False): ##
-
-    if is_all(indices):
-        grouped = item.atoms.groupby('group_index').groups
-        output = [item.atoms['component_index'].take(grouped[ii]).tolist() for ii in grouped]
-        del grouped
-    else:
-        selected_groups = item.atoms.loc[item.atoms['group_index'].isin(indices)]
-        grouped = selected_groups.groupby('group_index').groups
-        output = [selected_groups['component_index'].take(grouped.get(ii, [])).tolist() for ii in indices]
-        del grouped, selected_groups
-
-    return output
-
-
-@digest(form=form)
-def get_component_id_from_group(item, indices='all', skip_digestion=False): ##
-
-    if is_all(indices):
-        grouped = item.atoms.groupby('group_index').groups
-        component_indices = [item.atoms['component_index'].take(grouped[ii]).tolist() for ii in grouped]
-        del grouped
-    else:
-        selected_groups = item.atoms.loc[item.atoms['group_index'].isin(indices)]
-        grouped = selected_groups.groupby('group_index').groups
-        component_indices = [selected_groups['component_index'].take(grouped.get(ii, [])).tolist() for ii in indices]
-        del grouped, selected_groups
-
-    output = [item.components['component_id'].take(ii).tolist() for ii in component_indices]
-
-    del component_indices
-
-    return output
-
-
-@digest(form=form)
-def get_component_name_from_group(item, indices='all', skip_digestion=False): ##
-
-    if is_all(indices):
-        grouped = item.atoms.groupby('group_index').groups
-        component_indices = [item.atoms['component_index'].take(grouped[ii]).tolist() for ii in grouped]
-        del grouped
-    else:
-        selected_groups = item.atoms.loc[item.atoms['group_index'].isin(indices)]
-        grouped = selected_groups.groupby('group_index').groups
-        component_indices = [selected_groups['component_index'].take(grouped.get(ii, [])).tolist() for ii in indices]
-        del grouped, selected_groups
-
-    output = [item.components['component_name'].take(ii).tolist() for ii in component_indices]
-
-    del component_indices
-
-    return output
-
-
-@digest(form=form)
-def get_component_type_from_group(item, indices='all', skip_digestion=False): ##
-
-    if is_all(indices):
-        grouped = item.atoms.groupby('group_index').groups
-        component_indices = [item.atoms['component_index'].take(grouped[ii]).tolist() for ii in grouped]
-        del grouped
-    else:
-        selected_groups = item.atoms.loc[item.atoms['group_index'].isin(indices)]
-        grouped = selected_groups.groupby('group_index').groups
-        component_indices = [selected_groups['component_index'].take(grouped.get(ii, [])).tolist() for ii in indices]
-        del grouped, selected_groups
-
-    output = [item.components['component_type'].take(ii).tolist() for ii in component_indices]
-
-    del component_indices
-
-    return output
-
-
-@digest(form=form)
-def get_molecule_index_from_group(item, indices='all', skip_digestion=False): ##
+def get_molecule_index_from_group(item, indices='all', skip_digestion=False): ##x
 
     if is_all(indices):
         output = item.groups['molecule_index'].to_list()
@@ -1015,7 +926,7 @@ def get_molecule_index_from_group(item, indices='all', skip_digestion=False): ##
 
 
 @digest(form=form)
-def get_molecule_id_from_group(item, indices='all', skip_digestion=False): ##
+def get_molecule_id_from_group(item, indices='all', skip_digestion=False): ##x
 
     if is_all(indices):
         molecule_indices = item.groups['molecule_index']
@@ -1030,7 +941,7 @@ def get_molecule_id_from_group(item, indices='all', skip_digestion=False): ##
 
 
 @digest(form=form)
-def get_molecule_name_from_group(item, indices='all', skip_digestion=False): ##
+def get_molecule_name_from_group(item, indices='all', skip_digestion=False): ##x
 
     if is_all(indices):
         molecule_indices = item.groups['molecule_index']
@@ -1045,7 +956,7 @@ def get_molecule_name_from_group(item, indices='all', skip_digestion=False): ##
 
 
 @digest(form=form)
-def get_molecule_type_from_group(item, indices='all', skip_digestion=False): ##
+def get_molecule_type_from_group(item, indices='all', skip_digestion=False): ##x
 
     if is_all(indices):
         molecule_indices = item.groups['molecule_index']
@@ -1060,7 +971,7 @@ def get_molecule_type_from_group(item, indices='all', skip_digestion=False): ##
 
 
 @digest(form=form)
-def get_entity_index_from_group(item, indices='all', skip_digestion=False): ##
+def get_entity_index_from_group(item, indices='all', skip_digestion=False): ##x
 
     if is_all(indices):
         molecule_indices = item.groups['molecule_index']
@@ -1075,102 +986,271 @@ def get_entity_index_from_group(item, indices='all', skip_digestion=False): ##
 
 
 @digest(form=form)
-def get_entity_id_from_group(item, indices='all', skip_digestion=False): ##
+def get_entity_id_from_group(item, indices='all', skip_digestion=False): ##x
 
     if is_all(indices):
         molecule_indices = item.groups['molecule_index']
     else:
         molecule_indices = item.groups['molecule_index'].take(indices)
 
-    output = item.molecules['entity_id'].take(molecule_indices).to_list()
+    entity_indices = item.molecules['entity_index'].take(molecule_indices).to_list()
+    output = item.entities['entity_id'].take(entity_indices).to_list()
 
-    del molecule_indices
+    del molecule_indices, entity_indices
 
     return output
 
 
 @digest(form=form)
-def get_entity_name_from_group(item, indices='all', skip_digestion=False): ##
+def get_entity_name_from_group(item, indices='all', skip_digestion=False): ##x
 
     if is_all(indices):
         molecule_indices = item.groups['molecule_index']
     else:
         molecule_indices = item.groups['molecule_index'].take(indices)
 
-    output = item.molecules['entity_name'].take(molecule_indices).to_list()
+    entity_indices = item.molecules['entity_index'].take(molecule_indices).to_list()
+    output = item.entities['entity_name'].take(entity_indices).to_list()
 
-    del molecule_indices
+    del molecule_indices, entity_indices
 
     return output
 
 
 @digest(form=form)
-def get_entity_type_from_group(item, indices='all', skip_digestion=False): ##
+def get_entity_type_from_group(item, indices='all', skip_digestion=False): ##x
 
     if is_all(indices):
         molecule_indices = item.groups['molecule_index']
     else:
         molecule_indices = item.groups['molecule_index'].take(indices)
 
-    output = item.molecules['entity_type'].take(molecule_indices).to_list()
+    entity_indices = item.molecules['entity_index'].take(molecule_indices).to_list()
+    output = item.entities['entity_type'].take(entity_indices).to_list()
 
-    del molecule_indices
-
-    return output
-
-
-@digest(form=form)
-def get_chain_index_from_group(item, indices='all', skip_digestion=False): ##
-
-    if is_all(indices):
-        output = item.groups['chain_index'].to_list()
-    else:
-        output = item.groups['chain_index'][indices].to_list()
+    del molecule_indices, entity_indices
 
     return output
 
 
 @digest(form=form)
-def get_chain_id_from_group(item, indices='all', skip_digestion=False): ##
+def get_component_index_from_group(item, indices='all', skip_digestion=False): ##x
 
     if is_all(indices):
-        chain_indices = item.groups['chain_index']
+        subset = item.atoms
     else:
-        chain_indices = item.groups['chain_index'].take(indices)
+        subset = item.atoms.loc[item.atoms['group_index'].isin(indices)]
 
-    output = item.chains['chain_type'].take(chain_indices).to_list()
+    series = subset.groupby('group_index')['component_index'].first()
+    group_with_more_than_a_component = subset.groupby("group_index")["component_index"].nunique().gt(1)
+    if group_with_more_than_a_component.any():
+        series_aux = subset.groupby("group_index")["component_index"].apply(lambda s: list(pd.unique(s)))
+        series[group_with_more_than_a_component] = series_aux[group_with_more_than_a_component]
+        del series_aux
 
-    del chain_indices
+    if is_all(indices):
+        output = series.tolist()
+    else:
+        output = series.reindex(indices, fill_value=None).tolist()
+
+    del subset, series
+
+    return output
+
+@digest(form=form)
+def get_component_id_from_group(item, indices='all', skip_digestion=False): ##x
+
+    comp_id_map = item.components['component_id'].to_dict()
+
+    if is_all(indices):
+        subset = item.atoms
+    else:
+        subset = item.atoms.loc[item.atoms['group_index'].isin(indices)]
+
+    series = subset.groupby('group_index')['component_index'].first()
+    series = series.map(comp_id_map)
+    group_with_more_than_a_component = subset.groupby("group_index")["component_index"].nunique().gt(1)
+    if group_with_more_than_a_component.any():
+        series_aux = subset.groupby("group_index")["component_index"].apply(lambda s: list(pd.unique(s)))
+        series_aux = series_aux.apply(lambda x: [comp_id_map[ii] for ii in x])
+        series[group_with_more_than_a_component] = series_aux[group_with_more_than_a_component]
+        del series_aux
+
+    if is_all(indices):
+        output = series.tolist()
+    else:
+        output = series.reindex(indices, fill_value=None).tolist()
+
+    del subset, series
 
     return output
 
 
 @digest(form=form)
-def get_chain_name_from_group(item, indices='all', skip_digestion=False): ##
+def get_component_name_from_group(item, indices='all', skip_digestion=False): ##x
+
+    comp_id_map = item.components['component_name'].to_dict()
 
     if is_all(indices):
-        chain_indices = item.groups['chain_index']
+        subset = item.atoms
     else:
-        chain_indices = item.groups['chain_index'].take(indices)
+        subset = item.atoms.loc[item.atoms['group_index'].isin(indices)]
 
-    output = item.chains['chain_name'].take(chain_indices).to_list()
+    series = subset.groupby('group_index')['component_index'].first()
+    series = series.map(comp_id_map)
+    group_with_more_than_a_component = subset.groupby("group_index")["component_index"].nunique().gt(1)
+    if group_with_more_than_a_component.any():
+        series_aux = subset.groupby("group_index")["component_index"].apply(lambda s: list(pd.unique(s)))
+        series_aux = series_aux.apply(lambda x: [comp_id_map[ii] for ii in x])
+        series[group_with_more_than_a_component] = series_aux[group_with_more_than_a_component]
+        del series_aux
 
-    del chain_indices
+    if is_all(indices):
+        output = series.tolist()
+    else:
+        output = series.reindex(indices, fill_value=None).tolist()
+
+    del subset, series
 
     return output
 
 
 @digest(form=form)
-def get_chain_type_from_group(item, indices='all', skip_digestion=False): ##
+def get_component_type_from_group(item, indices='all', skip_digestion=False): ##x
+
+    comp_id_map = item.components['component_type'].to_dict()
 
     if is_all(indices):
-        chain_indices = item.groups['chain_index']
+        subset = item.atoms
     else:
-        chain_indices = item.groups['chain_index'].take(indices)
+        subset = item.atoms.loc[item.atoms['group_index'].isin(indices)]
 
-    output = item.chains['chain_type'].take(chain_indices).to_list()
+    series = subset.groupby('group_index')['component_index'].first()
+    series = series.map(comp_id_map)
+    group_with_more_than_a_component = subset.groupby("group_index")["component_index"].nunique().gt(1)
+    if group_with_more_than_a_component.any():
+        series_aux = subset.groupby("group_index")["component_index"].apply(lambda s: list(pd.unique(s)))
+        series_aux = series_aux.apply(lambda x: [comp_id_map[ii] for ii in x])
+        series[group_with_more_than_a_component] = series_aux[group_with_more_than_a_component]
+        del series_aux
 
-    del chain_indices
+    if is_all(indices):
+        output = series.tolist()
+    else:
+        output = series.reindex(indices, fill_value=None).tolist()
+
+    del subset, series
+
+    return output
+
+
+@digest(form=form)
+def get_chain_index_from_group(item, indices='all', skip_digestion=False): ##x
+
+    if is_all(indices):
+        subset = item.atoms
+    else:
+        subset = item.atoms.loc[item.atoms['group_index'].isin(indices)]
+
+    series = subset.groupby('group_index')['chain_index'].first()
+    group_with_more_than_a_chain = subset.groupby("group_index")["chain_index"].nunique().gt(1)
+    if group_with_more_than_a_chain.any():
+        series_aux = subset.groupby("group_index")["chain_index"].apply(lambda s: list(pd.unique(s)))
+        series[group_with_more_than_a_chain] = series_aux[group_with_more_than_a_chain]
+        del series_aux
+
+    if is_all(indices):
+        output = series.tolist()
+    else:
+        output = series.reindex(indices, fill_value=None).tolist()
+
+    del subset, series
+
+    return output
+
+@digest(form=form)
+def get_chain_id_from_group(item, indices='all', skip_digestion=False): ##x
+
+    comp_id_map = item.chains['chain_id'].to_dict()
+
+    if is_all(indices):
+        subset = item.atoms
+    else:
+        subset = item.atoms.loc[item.atoms['group_index'].isin(indices)]
+
+    series = subset.groupby('group_index')['chain_index'].first()
+    series = series.map(comp_id_map)
+    group_with_more_than_a_chain = subset.groupby("group_index")["chain_index"].nunique().gt(1)
+    if group_with_more_than_a_chain.any():
+        series_aux = subset.groupby("group_index")["chain_index"].apply(lambda s: list(pd.unique(s)))
+        series_aux = series_aux.apply(lambda x: [comp_id_map[ii] for ii in x])
+        series[group_with_more_than_a_chain] = series_aux[group_with_more_than_a_chain]
+        del series_aux
+
+    if is_all(indices):
+        output = series.tolist()
+    else:
+        output = series.reindex(indices, fill_value=None).tolist()
+
+    del subset, series
+
+    return output
+
+
+@digest(form=form)
+def get_chain_name_from_group(item, indices='all', skip_digestion=False): ##x
+
+    comp_id_map = item.chains['chain_name'].to_dict()
+
+    if is_all(indices):
+        subset = item.atoms
+    else:
+        subset = item.atoms.loc[item.atoms['group_index'].isin(indices)]
+
+    series = subset.groupby('group_index')['chain_index'].first()
+    series = series.map(comp_id_map)
+    group_with_more_than_a_chain = subset.groupby("group_index")["chain_index"].nunique().gt(1)
+    if group_with_more_than_a_chain.any():
+        series_aux = subset.groupby("group_index")["chain_index"].apply(lambda s: list(pd.unique(s)))
+        series_aux = series_aux.apply(lambda x: [comp_id_map[ii] for ii in x])
+        series[group_with_more_than_a_chain] = series_aux[group_with_more_than_a_chain]
+        del series_aux
+
+    if is_all(indices):
+        output = series.tolist()
+    else:
+        output = series.reindex(indices, fill_value=None).tolist()
+
+    del subset, series
+
+    return output
+
+
+@digest(form=form)
+def get_chain_type_from_group(item, indices='all', skip_digestion=False): ##x
+
+    comp_id_map = item.chains['chain_type'].to_dict()
+
+    if is_all(indices):
+        subset = item.atoms
+    else:
+        subset = item.atoms.loc[item.atoms['group_index'].isin(indices)]
+
+    series = subset.groupby('group_index')['chain_index'].first()
+    series = series.map(comp_id_map)
+    group_with_more_than_a_chain = subset.groupby("group_index")["chain_index"].nunique().gt(1)
+    if group_with_more_than_a_chain.any():
+        series_aux = subset.groupby("group_index")["chain_index"].apply(lambda s: list(pd.unique(s)))
+        series_aux = series_aux.apply(lambda x: [comp_id_map[ii] for ii in x])
+        series[group_with_more_than_a_chain] = series_aux[group_with_more_than_a_chain]
+        del series_aux
+
+    if is_all(indices):
+        output = series.tolist()
+    else:
+        output = series.reindex(indices, fill_value=None).tolist()
+
+    del subset, series
 
     return output
 
@@ -1223,25 +1303,21 @@ def get_inner_bonded_atom_pairs_from_group(item, indices='all', skip_digestion=F
     raise NotImplementedMethodError()
 
 @digest(form=form)
-def get_n_atoms_from_group(item, indices='all', skip_digestion=False): ##
+def get_n_atoms_from_group(item, indices='all', skip_digestion=False): ##x
 
     if is_all(indices):
-        grouped = item.atoms.groupby('group_index').groups
-        output = [grouped[ii] for ii in grouped]
-        del grouped
+        output = item.atoms['group_index'].value_counts(sort=False).tolist()
     else:
-        selected_groups = item.atoms.loc[item.atoms['group_index'].isin(indices)]
-        grouped = selected_groups.groupby('group_index').groups
-        output = [grouped.get(ii, []) for ii in indices]
-        del grouped, selected_groups
-
-    output = [len(ii) for ii in output]
+        subset = item.atoms['group_index'][item.atoms['group_index'].isin(indices)]
+        counts = subset.value_counts(sort=False)
+        output = counts.reindex(indices, fill_value=0).tolist()
+        del subset, counts
 
     return output
 
 
 @digest(form=form)
-def get_n_groups_from_group(item, indices='all', skip_digestion=False): ##
+def get_n_groups_from_group(item, indices='all', skip_digestion=False): ##x
 
     if is_all(indices):
         output = item.groups.shape[0]
@@ -1249,6 +1325,17 @@ def get_n_groups_from_group(item, indices='all', skip_digestion=False): ##
         output = len(indices)
 
     return output
+
+@digest(form=form)
+def get_n_molecules_from_group(item, indices='all', skip_digestion=False): ##x
+
+    if is_all(indices):
+        output = item.molecules.shape[0]
+    else:
+        output = item.groups['molecule_index'].take(indices).nunique()
+
+    return output
+
 
 @digest(form=form)
 def get_n_components_from_group(item, indices='all', skip_digestion=False): ##
@@ -1264,20 +1351,6 @@ def get_n_components_from_group(item, indices='all', skip_digestion=False): ##
         del component_indices
 
     return output
-
-
-@digest(form=form)
-def get_n_molecules_from_group(item, indices='all', skip_digestion=False): ##
-
-    if is_all(indices):
-        output = item.molecules.shape[0]
-    else:
-        molecule_indices = item.groups['molecule_index'].take(indices)
-        output = molecule_indices.unique().shape[0]
-        del molecule_indices
-
-    return output
-
 
 @digest(form=form)
 def get_n_entities_from_group(item, indices='all', skip_digestion=False): ##
