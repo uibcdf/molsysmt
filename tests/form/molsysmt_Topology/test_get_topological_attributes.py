@@ -2021,32 +2021,189 @@ def test_get_entity_id_from_molecule():
     assert list_entity_id_Hk2 == [1, 2, 3]
     assert list_entity_id_BB == [3, 3, 3, 3]
 
+def test_get_entity_name_from_molecule():
 
+    all_entity_name_Hk2 = aux.get_entity_name_from_molecule(molsys_Hk2.topology, skip_digestion=True)
+    all_entity_name_BB = aux.get_entity_name_from_molecule(molsys_BB.topology, skip_digestion=True)
+    list_entity_name_Hk2 = aux.get_entity_name_from_molecule(molsys_Hk2.topology, indices=[1,2,3], skip_digestion=True)
+    list_entity_name_BB = aux.get_entity_name_from_molecule(molsys_BB.topology, indices=[10,11,12,13], skip_digestion=True)
 
+    assert isinstance(all_entity_name_Hk2, list)
+    assert len(all_entity_name_Hk2) == 135
+    assert len(all_entity_name_BB) == 519
+    assert all_entity_name_Hk2[15:25] == ['UNKNOWN ATOM OR ION', 'UNKNOWN ATOM OR ION', 'UNKNOWN ATOM OR ION',
+                                          'alpha-D-glucopyranose', '6-O-phosphono-beta-D-glucopyranose',
+                                          'alpha-D-glucopyranose', '6-O-phosphono-beta-D-glucopyranose',
+                                          'UNKNOWN ATOM OR ION', 'UNKNOWN ATOM OR ION', 'UNKNOWN ATOM OR ION']
+    assert all_entity_name_Hk2[105:115] == ['water', 'water', 'water', 'water', 'water', 'water', 'water', 'water',
+                                          'water', 'water']
+    assert all_entity_name_Hk2[0] == 'Hexokinase-2'
+    assert all_entity_name_Hk2[-1] == 'water'
+    assert all_entity_name_BB[3:13] == ['BARSTAR', 'BARSTAR', 'BARSTAR', 'water', 'water', 'water', 'water',
+                                          'water', 'water', 'water']
+    assert all_entity_name_BB[486:492] == ['water', 'water', 'water', 'water', 'water', 'water']
+    assert all_entity_name_BB[0] == 'BARNASE'
+    assert all_entity_name_BB[-1] == 'water'
+    assert list_entity_name_Hk2 == ['Hexokinase-2', 'alpha-D-glucopyranose', '6-O-phosphono-beta-D-glucopyranose']
+    assert list_entity_name_BB == ['water', 'water', 'water', 'water']
 
+def test_get_entity_type_from_molecule():
 
+    all_entity_type_Hk2 = aux.get_entity_type_from_molecule(molsys_Hk2.topology, skip_digestion=True)
+    all_entity_type_BB = aux.get_entity_type_from_molecule(molsys_BB.topology, skip_digestion=True)
+    list_entity_type_Hk2 = aux.get_entity_type_from_molecule(molsys_Hk2.topology, indices=[1,2,3], skip_digestion=True)
+    list_entity_type_BB = aux.get_entity_type_from_molecule(molsys_BB.topology, indices=[10,11,12,13], skip_digestion=True)
 
+    assert isinstance(all_entity_type_Hk2, list)
+    assert len(all_entity_type_Hk2) == 135
+    assert len(all_entity_type_BB) == 519
+    assert all_entity_type_Hk2[15:25] == ['unknown', 'unknown', 'unknown', 'polysaccharide', 'polysaccharide',
+                                          'polysaccharide', 'polysaccharide', 'unknown', 'unknown', 'unknown']
+    assert all_entity_type_Hk2[105:115] == ['water', 'water', 'water', 'water', 'water', 'water', 'water', 'water',
+                                            'water', 'water']
+    assert all_entity_type_Hk2[0] == 'protein'
+    assert all_entity_type_Hk2[-1] == 'water'
+    assert all_entity_type_BB[3:13] == ['protein', 'protein', 'protein', 'water', 'water', 'water', 'water',
+                                        'water', 'water', 'water']
+    assert all_entity_type_BB[486:492] == ['water', 'water', 'water', 'water', 'water', 'water']
+    assert all_entity_type_BB[0] == 'protein'
+    assert all_entity_type_BB[-1] == 'water'
+    assert list_entity_type_Hk2 == ['protein', 'polysaccharide', 'polysaccharide']
+    assert list_entity_type_BB == ['water', 'water', 'water', 'water']
 
+def test_get_component_index_from_molecule():
 
+    all_component_index_Hk2 = aux.get_component_index_from_molecule(molsys_Hk2.topology, skip_digestion=True)
+    all_component_index_BB = aux.get_component_index_from_molecule(molsys_BB.topology, skip_digestion=True)
+    list_component_index_Hk2 = aux.get_component_index_from_molecule(molsys_Hk2.topology, indices=[1,2,3], skip_digestion=True)
+    list_component_index_BB = aux.get_component_index_from_molecule(molsys_BB.topology, indices=[10,11,12,13], skip_digestion=True)
 
+    assert isinstance(all_component_index_Hk2, list)
+    assert len(all_component_index_Hk2) == 135
+    assert len(all_component_index_BB) == 519
+    assert all_component_index_Hk2[15:25] == [[26], [27], [28], [29], [30], [31], [32], [33], [34], [35]]
+    assert all_component_index_Hk2[105:115] == [[116], [117], [118], [119], [120], [121], [122], [123], [124], [125]]
+    assert all_component_index_Hk2[0] == [0, 1, 2, 3, 4, 5]
+    assert all_component_index_Hk2[-1] == [145]
+    assert all_component_index_BB[3:13] == [[3, 4], [5, 6], [7], [8], [9], [10], [11], [12], [13], [14]]
+    assert all_component_index_BB[486:492] == [[488], [489], [490], [491], [492], [493]]
+    assert all_component_index_BB[0] == [0]
+    assert all_component_index_BB[-1] == [520]
+    assert list_component_index_Hk2 == [[6, 7, 8, 9, 10, 11, 12], [13], [14]]
+    assert list_component_index_BB == [[12], [13], [14], [15]]
 
+def test_get_component_id_from_molecule():
 
+    all_component_id_Hk2 = aux.get_component_id_from_molecule(molsys_Hk2.topology, skip_digestion=True)
+    all_component_id_BB = aux.get_component_id_from_molecule(molsys_BB.topology, skip_digestion=True)
+    list_component_id_Hk2 = aux.get_component_id_from_molecule(molsys_Hk2.topology, indices=[1,2,3], skip_digestion=True)
+    list_component_id_BB = aux.get_component_id_from_molecule(molsys_BB.topology, indices=[10,11,12,13], skip_digestion=True)
 
+    assert isinstance(all_component_id_Hk2, list)
+    assert len(all_component_id_Hk2) == 135
+    assert len(all_component_id_BB) == 519
+    assert all_component_id_Hk2[15:25] == [[26], [27], [28], [29], [30], [31], [32], [33], [34], [35]]
+    assert all_component_id_Hk2[105:115] == [[116], [117], [118], [119], [120], [121], [122], [123], [124], [125]]
+    assert all_component_id_Hk2[0] == [0, 1, 2, 3, 4, 5]
+    assert all_component_id_Hk2[-1] == [145]
+    assert all_component_id_BB[3:13] == [[3, 4], [5, 6], [7], [8], [9], [10], [11], [12], [13], [14]]
+    assert all_component_id_BB[486:492] == [[488], [489], [490], [491], [492], [493]]
+    assert all_component_id_BB[0] == [0]
+    assert all_component_id_BB[-1] == [520]
+    assert list_component_id_Hk2 == [[6, 7, 8, 9, 10, 11, 12], [13], [14]]
+    assert list_component_id_BB == [[12], [13], [14], [15]]
 
+def test_get_component_name_from_molecule():
 
+    all_component_name_Hk2 = aux.get_component_name_from_molecule(molsys_Hk2.topology, skip_digestion=True)
+    all_component_name_BB = aux.get_component_name_from_molecule(molsys_BB.topology, skip_digestion=True)
+    list_component_name_Hk2 = aux.get_component_name_from_molecule(molsys_Hk2.topology, indices=[1,2,3], skip_digestion=True)
+    list_component_name_BB = aux.get_component_name_from_molecule(molsys_BB.topology, indices=[10,11,12,13], skip_digestion=True)
 
+    assert isinstance(all_component_name_Hk2, list)
+    assert len(all_component_name_Hk2) == 135
+    assert len(all_component_name_BB) == 519
+    assert all_component_name_Hk2[15:25] == [['UNX'], ['UNX'], ['UNX'], ['unknown 4'], ['unknown 5'], ['unknown 6'],
+                                             ['unknown 7'], ['UNX'], ['UNX'], ['UNX']]
+    assert all_component_name_Hk2[105:115] == [['water'], ['water'], ['water'], ['water'], ['water'], ['water'],
+                                               ['water'], ['water'], ['water'], ['water']]
+    assert all_component_name_Hk2[0] == ['protein 0', 'protein 1', 'peptide 0', 'peptide 1', 'protein 2', 'protein 3']
+    assert all_component_name_Hk2[-1] == ['water']
+    assert all_component_name_BB[3:13] == [['protein 3', 'peptide 0'], ['protein 4', 'peptide 0'], ['protein 5'],
+                                           ['water'], ['water'], ['water'], ['water'], ['water'], ['water'], ['water']]
+    assert all_component_name_BB[486:492] == [['water'], ['water'], ['water'], ['water'], ['water'], ['water']]
+    assert all_component_name_BB[0] == ['protein 0']
+    assert all_component_name_BB[-1] == ['water']
+    assert list_component_name_Hk2 == [['protein 4', 'protein 5', 'protein 6', 'protein 7', 'peptide 2', 'protein 8',
+                                        'protein 9'], ['unknown 0'], ['unknown 1']]
+    assert list_component_name_BB == [['water'], ['water'], ['water'], ['water']]
 
+def test_get_component_type_from_molecule():
 
+    all_component_type_Hk2 = aux.get_component_type_from_molecule(molsys_Hk2.topology, skip_digestion=True)
+    all_component_type_BB = aux.get_component_type_from_molecule(molsys_BB.topology, skip_digestion=True)
+    list_component_type_Hk2 = aux.get_component_type_from_molecule(molsys_Hk2.topology, indices=[1,2,3], skip_digestion=True)
+    list_component_type_BB = aux.get_component_type_from_molecule(molsys_BB.topology, indices=[10,11,12,13], skip_digestion=True)
 
+    assert isinstance(all_component_type_Hk2, list)
+    assert len(all_component_type_Hk2) == 135
+    assert len(all_component_type_BB) == 519
+    assert all_component_type_Hk2[15:25] == [['ion'], ['ion'], ['ion'], ['polysaccharide'], ['polysaccharide'],
+                                             ['polysaccharide'], ['polysaccharide'], ['ion'], ['ion'], ['ion']]
+    assert all_component_type_Hk2[105:115] == [['water'], ['water'], ['water'], ['water'], ['water'], ['water'],
+                                               ['water'], ['water'], ['water'], ['water']]
+    assert all_component_type_Hk2[0] == ['protein', 'protein', 'peptide', 'peptide', 'protein', 'protein']
+    assert all_component_type_Hk2[-1] == ['water']
+    assert all_component_type_BB[3:13] == [['protein', 'peptide'], ['protein', 'peptide'], ['protein'], ['water'],
+                                           ['water'], ['water'], ['water'], ['water'], ['water'], ['water']]
+    assert all_component_type_BB[486:492] == [['water'], ['water'], ['water'], ['water'], ['water'], ['water']]
+    assert all_component_type_BB[0] == ['protein']
+    assert all_component_type_BB[-1] == ['water']
+    assert list_component_type_Hk2 == [['protein', 'protein', 'protein', 'protein', 'peptide', 'protein', 'protein'],
+                                       ['polysaccharide'], ['polysaccharide']]
+    assert list_component_type_BB == [['water'], ['water'], ['water'], ['water']]
 
+def test_get_chain_index_from_molecule():
 
+    all_chain_index_Hk2 = aux.get_chain_index_from_molecule(molsys_Hk2.topology, skip_digestion=True)
+    all_chain_index_BB = aux.get_chain_index_from_molecule(molsys_BB.topology, skip_digestion=True)
+    list_chain_index_Hk2 = aux.get_chain_index_from_molecule(molsys_Hk2.topology, indices=[1,2,3], skip_digestion=True)
+    list_chain_index_BB = aux.get_chain_index_from_molecule(molsys_BB.topology, indices=[10,11,12,13], skip_digestion=True)
 
+    assert isinstance(all_chain_index_Hk2, list)
+    assert len(all_chain_index_Hk2) == 135
+    assert len(all_chain_index_BB) == 519
+    assert all_chain_index_Hk2[15:25] == [15, 16, 17, 18, 19, 20, 21, 22, 23, 24]
+    assert all_chain_index_Hk2[105:115] == [39, 39, 39, 39, 39, 39, 39, 39, 39, 39]
+    assert all_chain_index_Hk2[0] == 0
+    assert all_chain_index_Hk2[-1] == 39
+    assert all_chain_index_BB[3:13] == [3, 4, 5, 6, 6, 6, 6, 6, 6, 6]
+    assert all_chain_index_BB[486:492] == [11, 11, 11, 11, 11, 11]
+    assert all_chain_index_BB[0] == 0
+    assert all_chain_index_BB[-1] == 11
+    assert list_chain_index_Hk2 == [1, 2, 3]
+    assert list_chain_index_BB == [6, 6, 6, 6]
 
+def test_get_chain_index_from_molecule():
 
+    all_chain_index_Hk2 = aux.get_chain_index_from_molecule(molsys_Hk2.topology, skip_digestion=True)
+    all_chain_index_BB = aux.get_chain_index_from_molecule(molsys_BB.topology, skip_digestion=True)
+    list_chain_index_Hk2 = aux.get_chain_index_from_molecule(molsys_Hk2.topology, indices=[1,2,3], skip_digestion=True)
+    list_chain_index_BB = aux.get_chain_index_from_molecule(molsys_BB.topology, indices=[10,11,12,13], skip_digestion=True)
 
-
-
-
+    assert isinstance(all_chain_index_Hk2, list)
+    assert len(all_chain_index_Hk2) == 135
+    assert len(all_chain_index_BB) == 519
+    assert all_chain_index_Hk2[15:25] == [15, 16, 17, 18, 19, 20, 21, 22, 23, 24]
+    assert all_chain_index_Hk2[105:115] == [39, 39, 39, 39, 39, 39, 39, 39, 39, 39]
+    assert all_chain_index_Hk2[0] == 0
+    assert all_chain_index_Hk2[-1] == 39
+    assert all_chain_index_BB[3:13] == [3, 4, 5, 6, 6, 6, 6, 6, 6, 6]
+    assert all_chain_index_BB[486:492] == [11, 11, 11, 11, 11, 11]
+    assert all_chain_index_BB[0] == 0
+    assert all_chain_index_BB[-1] == 11
+    assert list_chain_index_Hk2 == [1, 2, 3]
+    assert list_chain_index_BB == [6, 6, 6, 6]
 
 
 
