@@ -316,7 +316,7 @@ def get_chain_index_from_atom(item, indices='all', skip_digestion=False): ##x
 
 
 @digest(form=form)
-def get_chain_id_from_atom(item, indices='all', skip_digestion=False): ##
+def get_chain_id_from_atom(item, indices='all', skip_digestion=False): ##x
 
     if is_all(indices):
         chain_indices = item.atoms['chain_index']
@@ -2044,12 +2044,12 @@ def get_chain_index_from_molecule(item, indices='all', skip_digestion=False):
 
 
 @digest(form=form)
-def get_chain_id_from_molecule(item, indices='all', skip_digestion=False):
+def get_chain_id_from_molecule(item, indices='all', skip_digestion=False): ##
 
     group_arr = item.atoms['group_index'].to_numpy()
     mol_arr   = item.groups['molecule_index'].reindex(group_arr).to_numpy()
-    aux_arr = item.atoms['component_index'].to_numpy()
-    aux2_arr = item.components['component_id'].to_numpy()
+    aux_arr = item.atoms['chain_index'].to_numpy()
+    aux2_arr = item.chains['chain_id'].to_numpy()
     n_atoms = item.atoms.shape[0]
 
     if indices =='all':
@@ -2073,9 +2073,6 @@ def get_chain_id_from_molecule(item, indices='all', skip_digestion=False):
     output = [aux2_arr[np.unique(ii)].tolist() for ii in output] 
 
     del group_arr, mol_arr, aux_arr, aux2_arr, aux_dict
-
-    return output
-
 
     output = [
         (lambda u: u[0] if u.size == 1 else u.tolist())(np.unique(ii))
