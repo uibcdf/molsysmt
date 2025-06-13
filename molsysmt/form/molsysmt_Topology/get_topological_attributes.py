@@ -1598,7 +1598,7 @@ def get_atom_index_from_molecule(item, indices='all', skip_digestion=False): ##x
         for atom_index in range(n_atoms):
             aux_dict[mol_arr[atom_index]].append(atom_index)
 
-        output = [aux_dict[m] for m in sorted(aux_dict.keys())]
+        output = list(aux_dict.values())
 
     else:
 
@@ -1639,7 +1639,7 @@ def get_atom_id_from_molecule(item, indices='all', skip_digestion=False): ##x
             if ii in aux_dict:
                 aux_dict[ii].append(aux_arr[atom_index])
 
-        output = [aux_dict.get(m, []) for m in indices]
+        output = list(aux_dict.values())
 
     del group_arr, mol_arr, aux_arr, aux_dict
 
@@ -1660,7 +1660,7 @@ def get_atom_name_from_molecule(item, indices='all', skip_digestion=False): ##x
         for atom_index in range(n_atoms):
             aux_dict[mol_arr[atom_index]].append(aux_arr[atom_index])
 
-        output = [aux_dict[m] for m in sorted(aux_dict.keys())]
+        output = list(aux_dict.values())
 
     else:
 
@@ -1691,7 +1691,7 @@ def get_atom_type_from_molecule(item, indices='all', skip_digestion=False): ##x
         for atom_index in range(n_atoms):
             aux_dict[mol_arr[atom_index]].append(aux_arr[atom_index])
 
-        output = [aux_dict[m] for m in sorted(aux_dict.keys())]
+        output = list(aux_dict.values())
 
     else:
 
@@ -2044,7 +2044,7 @@ def get_chain_index_from_molecule(item, indices='all', skip_digestion=False):
 
 
 @digest(form=form)
-def get_chain_id_from_molecule(item, indices='all', skip_digestion=False): ##
+def get_chain_id_from_molecule(item, indices='all', skip_digestion=False): ##x
 
     group_arr = item.atoms['group_index'].to_numpy()
     mol_arr   = item.groups['molecule_index'].reindex(group_arr).to_numpy()
@@ -2083,7 +2083,7 @@ def get_chain_id_from_molecule(item, indices='all', skip_digestion=False): ##
 
 
 @digest(form=form)
-def get_chain_name_from_molecule(item, indices='all', skip_digestion=False):
+def get_chain_name_from_molecule(item, indices='all', skip_digestion=False): ##x
 
     group_arr = item.atoms['group_index'].to_numpy()
     mol_arr   = item.groups['molecule_index'].reindex(group_arr).to_numpy()
@@ -2095,7 +2095,7 @@ def get_chain_name_from_molecule(item, indices='all', skip_digestion=False):
 
         aux_dict = defaultdict(list)
         for atom_index in range(n_atoms):
-            aux_dict[mol_arr[atom_index]].append(aux2_arr[aux_arr[atom_index]])
+            aux_dict[mol_arr[atom_index]].append(aux_arr[atom_index])
 
         output = list(aux_dict.values())
 
@@ -2105,9 +2105,11 @@ def get_chain_name_from_molecule(item, indices='all', skip_digestion=False):
         for atom_index in range(len(group_arr)):
             ii = mol_arr[atom_index]
             if ii in aux_dict:
-                aux_dict[ii].append(aux2_arr[aux_arr[atom_index]])
+                aux_dict[ii].append(aux_arr[atom_index])
 
         output = [aux_dict[ii] for ii in indices]
+
+    output = [aux2_arr[np.unique(ii)].tolist() for ii in output] 
 
     del group_arr, mol_arr, aux_arr, aux2_arr, aux_dict
 
@@ -2120,7 +2122,7 @@ def get_chain_name_from_molecule(item, indices='all', skip_digestion=False):
 
 
 @digest(form=form)
-def get_chain_type_from_molecule(item, indices='all', skip_digestion=False):
+def get_chain_type_from_molecule(item, indices='all', skip_digestion=False): ##x
 
     group_arr = item.atoms['group_index'].to_numpy()
     mol_arr   = item.groups['molecule_index'].reindex(group_arr).to_numpy()
@@ -2132,7 +2134,7 @@ def get_chain_type_from_molecule(item, indices='all', skip_digestion=False):
 
         aux_dict = defaultdict(list)
         for atom_index in range(n_atoms):
-            aux_dict[mol_arr[atom_index]].append(aux2_arr[aux_arr[atom_index]])
+            aux_dict[mol_arr[atom_index]].append(aux_arr[atom_index])
 
         output = list(aux_dict.values())
 
@@ -2142,9 +2144,11 @@ def get_chain_type_from_molecule(item, indices='all', skip_digestion=False):
         for atom_index in range(len(group_arr)):
             ii = mol_arr[atom_index]
             if ii in aux_dict:
-                aux_dict[ii].append(aux2_arr[aux_arr[atom_index]])
+                aux_dict[ii].append(aux_arr[atom_index])
 
         output = [aux_dict[ii] for ii in indices]
+
+    output = [aux2_arr[np.unique(ii)].tolist() for ii in output] 
 
     del group_arr, mol_arr, aux_arr, aux2_arr, aux_dict
 
@@ -2205,7 +2209,7 @@ def get_inner_bonded_atom_pairs_from_molecule(item, indices='all', skip_digestio
 
 
 @digest(form=form)
-def get_n_atoms_from_molecule(item, indices='all', skip_digestion=False):
+def get_n_atoms_from_molecule(item, indices='all', skip_digestion=False): ##x
 
     output = get_atom_index_from_molecule(item, indices, skip_digestion=True)
     output = [len(ii) for ii in output]
@@ -2214,7 +2218,7 @@ def get_n_atoms_from_molecule(item, indices='all', skip_digestion=False):
 
 
 @digest(form=form)
-def get_n_groups_from_molecule(item, indices='all', skip_digestion=False):
+def get_n_groups_from_molecule(item, indices='all', skip_digestion=False): ##x
 
     output = get_group_index_from_molecule(item, indices, skip_digestion=True)
     output = [len(ii) for ii in output]
@@ -2223,19 +2227,10 @@ def get_n_groups_from_molecule(item, indices='all', skip_digestion=False):
 
 
 @digest(form=form)
-def get_n_components_from_molecule(item, indices='all', skip_digestion=False):
-
-    output = get_component_index_from_molecule(item, indices, skip_digestion=True)
-    output = [len(ii) for ii in output]
-
-    return output
-
-
-@digest(form=form)
-def get_n_molecules_from_molecule(item, indices='all', skip_digestion=False):
+def get_n_molecules_from_molecule(item, indices='all', skip_digestion=False): ##x
 
     if is_all(indices):
-        output = get_n_molecules_from_system(item)
+        output = get_n_molecules_from_system(item, skip_digestion=True)
     else:
         output = len(indices)
 
@@ -2243,7 +2238,7 @@ def get_n_molecules_from_molecule(item, indices='all', skip_digestion=False):
 
 
 @digest(form=form)
-def get_n_entities_from_molecule(item, indices='all', skip_digestion=False):
+def get_n_entities_from_molecule(item, indices='all', skip_digestion=False): ##x
 
     if is_all(indices):
         output = get_n_entities_from_system(item, skip_digestion=True)
@@ -2255,7 +2250,16 @@ def get_n_entities_from_molecule(item, indices='all', skip_digestion=False):
 
 
 @digest(form=form)
-def get_n_chains_from_molecule(item, indices='all', skip_digestion=False):
+def get_n_components_from_molecule(item, indices='all', skip_digestion=False): ##x
+
+    output = get_component_index_from_molecule(item, indices, skip_digestion=True)
+    output = [len(ii) if isinstance(ii, list) else 1 for ii in output]
+
+    return output
+
+
+@digest(form=form)
+def get_n_chains_from_molecule(item, indices='all', skip_digestion=False): ##x
 
     if is_all(indices):
         output = get_n_chains_from_system(item, skip_digestion=True)
@@ -2267,25 +2271,33 @@ def get_n_chains_from_molecule(item, indices='all', skip_digestion=False):
 
 
 @digest(form=form)
-def get_n_bonds_from_molecule(item, indices='all', skip_digestion=False):
+def get_n_bonds_from_molecule(item, indices='all', skip_digestion=False): ##x 
 
-    output = []
-    atom_indices = get_atom_index_from_molecule(item, indices, skip_digestion=True)
-    for aux_atom_indices in atom_indices:
-        bond_indices = get_bond_index_from_atom(item, aux_atom_indices, skip_digestion=True)
-        output.append(np.unique(np.concatenate(bond_indices)).shape[0])
+    if is_all(indices):
+
+        output = get_n_bonds_from_system(item, skip_digestion=True)
+
+    else:
+
+        atom_indices = get_atom_index_from_molecule(item, indices, skip_digestion=True)
+        indices = np.concatenate(atom_indices)
+        output = get_n_bonds_from_atom(item, indices, skip_digestion=True)
 
     return output
 
 
 @digest(form=form)
-def get_n_inner_bonds_from_molecule(item, indices='all', skip_digestion=False):
+def get_n_inner_bonds_from_molecule(item, indices='all', skip_digestion=False): ##x
 
-    output = []
-    atom_indices = get_atom_index_from_molecule(item, indices, skip_digestion=True)
-    for aux_atom_indices in atom_indices:
-        bond_indices = get_inner_bond_index_from_atom(item, aux_atom_indices, skip_digestion=True)
-        output.append(np.unique(np.concatenate(bond_indices)).shape[0])
+    if is_all(indices):
+
+        output = get_n_bonds_from_system(item, skip_digestion=True)
+
+    else:
+
+        atom_indices = get_atom_index_from_molecule(item, indices, skip_digestion=True)
+        indices = np.concatenate(atom_indices)
+        output = get_n_inner_bonds_from_atom(item, indices, skip_digestion=True)
 
     return output
 
