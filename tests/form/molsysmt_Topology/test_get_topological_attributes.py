@@ -3594,8 +3594,21 @@ def test_get_n_components_from_molecule():
     assert all_n_components_BB[486:492] == [1, 1, 1, 1, 1, 1]
     assert all_n_components_BB[0] == 1
     assert all_n_components_BB[-1] == 1
-    assert list_n_components_Hk2 == [7, 1, 1]
+    assert list_n_components_Hk2 == [1, 1, 1]
     assert list_n_components_BB == [1, 1, 1, 1]
+
+
+def test_get_total_n_components_from_molecule():
+
+    all_total_n_components_Hk2 = aux.get_total_n_components_from_molecule(molsys_Hk2.topology, skip_digestion=True)
+    all_total_n_components_BB = aux.get_total_n_components_from_molecule(molsys_BB.topology, skip_digestion=True)
+    list_total_n_components_Hk2 = aux.get_total_n_components_from_molecule(molsys_Hk2.topology, indices=[4,5,6], skip_digestion=True)
+    list_total_n_components_BB = aux.get_total_n_components_from_molecule(molsys_BB.topology, indices=[10,11,12,13], skip_digestion=True)
+
+    assert all_total_n_components_Hk2 == 146
+    assert all_total_n_components_BB == 521
+    assert list_total_n_components_Hk2 == 3
+    assert list_total_n_components_BB == 4
 
 
 def test_get_n_chains_from_molecule():
@@ -3611,6 +3624,19 @@ def test_get_n_chains_from_molecule():
     assert list_n_chains_BB == 1
 
 
+def test_get_total_n_chains_from_molecule():
+
+    all_total_n_chains_Hk2 = aux.get_total_n_chains_from_molecule(molsys_Hk2.topology, skip_digestion=True)
+    all_total_n_chains_BB = aux.get_total_n_chains_from_molecule(molsys_BB.topology, skip_digestion=True)
+    list_total_n_chains_Hk2 = aux.get_total_n_chains_from_molecule(molsys_Hk2.topology, indices=[4,5,6], skip_digestion=True)
+    list_total_n_chains_BB = aux.get_total_n_chains_from_molecule(molsys_BB.topology, indices=[10,11,12,13], skip_digestion=True)
+
+    assert all_total_n_chains_Hk2 == 40
+    assert all_total_n_chains_BB == 12
+    assert list_total_n_chains_Hk2 == 3
+    assert list_total_n_chains_BB == 1
+
+
 def test_get_n_bonds_from_molecule():
 
     all_n_bonds_Hk2 = aux.get_n_bonds_from_molecule(molsys_Hk2.topology, skip_digestion=True)
@@ -3618,10 +3644,31 @@ def test_get_n_bonds_from_molecule():
     list_n_bonds_Hk2 = aux.get_n_bonds_from_molecule(molsys_Hk2.topology, indices=[4,5,6], skip_digestion=True)
     list_n_bonds_BB = aux.get_n_bonds_from_molecule(molsys_BB.topology, indices=[10,11,12,13], skip_digestion=True)
 
-    assert all_n_bonds_Hk2 == 13618
-    assert all_n_bonds_BB == 4738
-    assert list_n_bonds_Hk2 == 28
-    assert list_n_bonds_BB == 0
+    assert len(all_n_bonds_Hk2) == 135
+    assert len(all_n_bonds_BB) == 519
+    assert all_n_bonds_Hk2[15:25] == [0, 0, 0, 12, 16, 12, 16, 0, 0, 0]
+    assert all_n_bonds_Hk2[105:115] == [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    assert all_n_bonds_Hk2[0] == 6751
+    assert all_n_bonds_Hk2[-1] == 0
+    assert all_n_bonds_BB[3:13] == [705, 677, 712, 0, 0, 0, 0, 0, 0, 0]
+    assert all_n_bonds_BB[486:492] == [0, 0, 0, 0, 0, 0]
+    assert all_n_bonds_BB[0] == 885
+    assert all_n_bonds_BB[-1] == 0
+    assert list_n_bonds_Hk2 == [12, 16, 0]
+    assert list_n_bonds_BB == [0, 0, 0, 0]
+
+
+def test_get_total_n_bonds_from_molecule():
+
+    all_total_n_bonds_Hk2 = aux.get_total_n_bonds_from_molecule(molsys_Hk2.topology, skip_digestion=True)
+    all_total_n_bonds_BB = aux.get_total_n_bonds_from_molecule(molsys_BB.topology, skip_digestion=True)
+    list_total_n_bonds_Hk2 = aux.get_total_n_bonds_from_molecule(molsys_Hk2.topology, indices=[4,5,6], skip_digestion=True)
+    list_total_n_bonds_BB = aux.get_total_n_bonds_from_molecule(molsys_BB.topology, indices=[10,11,12,13], skip_digestion=True)
+
+    assert all_total_n_bonds_Hk2 == 13618
+    assert all_total_n_bonds_BB == 4738
+    assert list_total_n_bonds_Hk2 == 28
+    assert list_total_n_bonds_BB == 0
 
 
 def test_get_n_inner_bonds_from_molecule():
@@ -3631,10 +3678,273 @@ def test_get_n_inner_bonds_from_molecule():
     list_n_inner_bonds_Hk2 = aux.get_n_inner_bonds_from_molecule(molsys_Hk2.topology, indices=[4,5,6], skip_digestion=True)
     list_n_inner_bonds_BB = aux.get_n_inner_bonds_from_molecule(molsys_BB.topology, indices=[10,11,12,13], skip_digestion=True)
 
-    assert all_n_inner_bonds_Hk2 == 13618
-    assert all_n_inner_bonds_BB == 4738
-    assert list_n_inner_bonds_Hk2 == 28
-    assert list_n_inner_bonds_BB == 0
+    assert len(all_n_inner_bonds_Hk2) == 135
+    assert len(all_n_inner_bonds_BB) == 519
+    assert all_n_inner_bonds_Hk2[15:25] == [0, 0, 0, 12, 16, 12, 16, 0, 0, 0]
+    assert all_n_inner_bonds_Hk2[105:115] == [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    assert all_n_inner_bonds_Hk2[0] == 6751
+    assert all_n_inner_bonds_Hk2[-1] == 0
+    assert all_n_inner_bonds_BB[3:13] == [705, 677, 712, 0, 0, 0, 0, 0, 0, 0]
+    assert all_n_inner_bonds_BB[486:492] == [0, 0, 0, 0, 0, 0]
+    assert all_n_inner_bonds_BB[0] == 885
+    assert all_n_inner_bonds_BB[-1] == 0
+    assert list_n_inner_bonds_Hk2 == [12, 16, 0]
+    assert list_n_inner_bonds_BB == [0, 0, 0, 0]
+
+
+def test_get_total_n_inner_bonds_from_molecule():
+
+    all_total_n_inner_bonds_Hk2 = aux.get_total_n_inner_bonds_from_molecule(molsys_Hk2.topology, skip_digestion=True)
+    all_total_n_inner_bonds_BB = aux.get_total_n_inner_bonds_from_molecule(molsys_BB.topology, skip_digestion=True)
+    list_total_n_inner_bonds_Hk2 = aux.get_total_n_inner_bonds_from_molecule(molsys_Hk2.topology, indices=[4,5,6], skip_digestion=True)
+    list_total_n_inner_bonds_BB = aux.get_total_n_inner_bonds_from_molecule(molsys_BB.topology, indices=[10,11,12,13], skip_digestion=True)
+
+    assert all_total_n_inner_bonds_Hk2 == 13618
+    assert all_total_n_inner_bonds_BB == 4738
+    assert list_total_n_inner_bonds_Hk2 == 28
+    assert list_total_n_inner_bonds_BB == 0
+
+
+def test_get_n_amino_acids_from_molecule():
+
+    all_n_amino_acids_Hk2 = aux.get_n_amino_acids_from_molecule(molsys_Hk2.topology, skip_digestion=True)
+    all_n_amino_acids_BB = aux.get_n_amino_acids_from_molecule(molsys_BB.topology, skip_digestion=True)
+    list_n_amino_acids_Hk2 = aux.get_n_amino_acids_from_molecule(molsys_Hk2.topology, indices=[4,5,6], skip_digestion=True)
+    list_n_amino_acids_BB = aux.get_n_amino_acids_from_molecule(molsys_BB.topology, indices=[10,11,12,13], skip_digestion=True)
+
+    assert len(all_n_amino_acids_Hk2) == 135
+    assert len(all_n_amino_acids_BB) == 519
+    assert all_n_amino_acids_Hk2[15:25] == [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    assert all_n_amino_acids_Hk2[105:115] == [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    assert all_n_amino_acids_Hk2[0] == 871
+    assert all_n_amino_acids_Hk2[-1] == 0
+    assert all_n_amino_acids_BB[3:13] == [87, 86, 89, 0, 0, 0, 0, 0, 0, 0]
+    assert all_n_amino_acids_BB[486:492] == [0, 0, 0, 0, 0, 0]
+    assert all_n_amino_acids_BB[0] == 108
+    assert all_n_amino_acids_BB[-1] == 0
+    assert list_n_amino_acids_Hk2 == [0, 0, 0]
+    assert list_n_amino_acids_BB == [0, 0, 0, 0]
+
+
+def test_get_total_n_amino_acids_from_molecule():
+
+    all_total_n_amino_acids_Hk2 = aux.get_total_n_amino_acids_from_molecule(molsys_Hk2.topology, skip_digestion=True)
+    all_total_n_amino_acids_BB = aux.get_total_n_amino_acids_from_molecule(molsys_BB.topology, skip_digestion=True)
+    list_total_n_amino_acids_Hk2 = aux.get_total_n_amino_acids_from_molecule(molsys_Hk2.topology, indices=[4,5,6], skip_digestion=True)
+    list_total_n_amino_acids_BB = aux.get_total_n_amino_acids_from_molecule(molsys_BB.topology, indices=[10,11,12,13], skip_digestion=True)
+
+    assert all_total_n_amino_acids_Hk2 == 1738
+    assert all_total_n_amino_acids_BB == 588
+    assert list_total_n_amino_acids_Hk2 == 0
+    assert list_total_n_amino_acids_BB == 0
+
+
+def test_get_n_nucleotides_from_molecule():
+
+    all_n_nucleotides_Hk2 = aux.get_n_nucleotides_from_molecule(molsys_Hk2.topology, skip_digestion=True)
+    all_n_nucleotides_BB = aux.get_n_nucleotides_from_molecule(molsys_BB.topology, skip_digestion=True)
+    list_n_nucleotides_Hk2 = aux.get_n_nucleotides_from_molecule(molsys_Hk2.topology, indices=[4,5,6], skip_digestion=True)
+    list_n_nucleotides_BB = aux.get_n_nucleotides_from_molecule(molsys_BB.topology, indices=[10,11,12,13], skip_digestion=True)
+
+    assert len(all_n_nucleotides_Hk2) == 135
+    assert len(all_n_nucleotides_BB) == 519
+    assert all_n_nucleotides_Hk2[15:25] == [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    assert all_n_nucleotides_Hk2[105:115] == [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    assert all_n_nucleotides_Hk2[0] == 0
+    assert all_n_nucleotides_Hk2[-1] == 0
+    assert all_n_nucleotides_BB[3:13] == [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    assert all_n_nucleotides_BB[486:492] == [0, 0, 0, 0, 0, 0]
+    assert all_n_nucleotides_BB[0] == 0
+    assert all_n_nucleotides_BB[-1] == 0
+    assert list_n_nucleotides_Hk2 == [0, 0, 0]
+    assert list_n_nucleotides_BB == [0, 0, 0, 0]
+
+
+def test_get_total_n_nucleotides_from_molecule():
+
+    all_total_n_nucleotides_Hk2 = aux.get_total_n_nucleotides_from_molecule(molsys_Hk2.topology, skip_digestion=True)
+    all_total_n_nucleotides_BB = aux.get_total_n_nucleotides_from_molecule(molsys_BB.topology, skip_digestion=True)
+    list_total_n_nucleotides_Hk2 = aux.get_total_n_nucleotides_from_molecule(molsys_Hk2.topology, indices=[4,5,6], skip_digestion=True)
+    list_total_n_nucleotides_BB = aux.get_total_n_nucleotides_from_molecule(molsys_BB.topology, indices=[10,11,12,13], skip_digestion=True)
+
+    assert all_total_n_nucleotides_Hk2 == 0
+    assert all_total_n_nucleotides_BB == 0
+    assert list_total_n_nucleotides_Hk2 == 0
+    assert list_total_n_nucleotides_BB == 0
+
+
+def test_get_n_ions_from_molecule():
+
+    all_n_ions_Hk2 = aux.get_n_ions_from_molecule(molsys_Hk2.topology, skip_digestion=True)
+    all_n_ions_BB = aux.get_n_ions_from_molecule(molsys_BB.topology, skip_digestion=True)
+    list_n_ions_Hk2 = aux.get_n_ions_from_molecule(molsys_Hk2.topology, indices=[4,5,6], skip_digestion=True)
+    list_n_ions_BB = aux.get_n_ions_from_molecule(molsys_BB.topology, indices=[10,11,12,13], skip_digestion=True)
+
+    assert len(all_n_ions_Hk2) == 135
+    assert len(all_n_ions_BB) == 519
+    assert all_n_ions_Hk2[15:25] == [1, 1, 1, 0, 0, 0, 0, 1, 1, 1]
+    assert all_n_ions_Hk2[105:115] == [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    assert all_n_ions_Hk2[0] == 0
+    assert all_n_ions_Hk2[-1] == 0
+    assert all_n_ions_BB[3:13] == [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    assert all_n_ions_BB[486:492] == [0, 0, 0, 0, 0, 0]
+    assert all_n_ions_BB[0] == 0
+    assert all_n_ions_BB[-1] == 0
+    assert list_n_ions_Hk2 == [0, 0, 1]
+    assert list_n_ions_BB == [0, 0, 0, 0]
+
+
+def test_get_total_n_ions_from_molecule():
+
+    all_total_n_ions_Hk2 = aux.get_total_n_ions_from_molecule(molsys_Hk2.topology, skip_digestion=True)
+    all_total_n_ions_BB = aux.get_total_n_ions_from_molecule(molsys_BB.topology, skip_digestion=True)
+    list_total_n_ions_Hk2 = aux.get_total_n_ions_from_molecule(molsys_Hk2.topology, indices=[4,5,6], skip_digestion=True)
+    list_total_n_ions_BB = aux.get_total_n_ions_from_molecule(molsys_BB.topology, indices=[10,11,12,13], skip_digestion=True)
+
+    assert all_total_n_ions_Hk2 == 28
+    assert all_total_n_ions_BB == 0
+    assert list_total_n_ions_Hk2 == 1
+    assert list_total_n_ions_BB == 0
+
+
+def test_get_n_waters_from_molecule():
+
+    all_n_waters_Hk2 = aux.get_n_waters_from_molecule(molsys_Hk2.topology, skip_digestion=True)
+    all_n_waters_BB = aux.get_n_waters_from_molecule(molsys_BB.topology, skip_digestion=True)
+    list_n_waters_Hk2 = aux.get_n_waters_from_molecule(molsys_Hk2.topology, indices=[4,5,6], skip_digestion=True)
+    list_n_waters_BB = aux.get_n_waters_from_molecule(molsys_BB.topology, indices=[10,11,12,13], skip_digestion=True)
+
+    assert len(all_n_waters_Hk2) == 135
+    assert len(all_n_waters_BB) == 519
+    assert all_n_waters_Hk2[15:25] == [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    assert all_n_waters_Hk2[105:115] == [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+    assert all_n_waters_Hk2[0] == 0
+    assert all_n_waters_Hk2[-1] == 1
+    assert all_n_waters_BB[3:13] == [0, 0, 0, 1, 1, 1, 1, 1, 1, 1]
+    assert all_n_waters_BB[486:492] == [1, 1, 1, 1, 1, 1]
+    assert all_n_waters_BB[0] == 0
+    assert all_n_waters_BB[-1] == 1
+    assert list_n_waters_Hk2 == [0, 0, 0]
+    assert list_n_waters_BB == [1, 1, 1, 1]
+
+
+def test_get_total_n_waters_from_molecule():
+
+    all_total_n_waters_Hk2 = aux.get_total_n_waters_from_molecule(molsys_Hk2.topology, skip_digestion=True)
+    all_total_n_waters_BB = aux.get_total_n_waters_from_molecule(molsys_BB.topology, skip_digestion=True)
+    list_total_n_waters_Hk2 = aux.get_total_n_waters_from_molecule(molsys_Hk2.topology, indices=[4,5,6], skip_digestion=True)
+    list_total_n_waters_BB = aux.get_total_n_waters_from_molecule(molsys_BB.topology, indices=[10,11,12,13], skip_digestion=True)
+
+    assert all_total_n_waters_Hk2 == 97
+    assert all_total_n_waters_BB == 513
+    assert list_total_n_waters_Hk2 == 0
+    assert list_total_n_waters_BB == 4
+
+
+def test_get_n_small_molecules_from_molecule():
+
+    all_n_small_molecules_Hk2 = aux.get_n_small_molecules_from_molecule(molsys_Hk2.topology, skip_digestion=True)
+    all_n_small_molecules_BB = aux.get_n_small_molecules_from_molecule(molsys_BB.topology, skip_digestion=True)
+    list_n_small_molecules_Hk2 = aux.get_n_small_molecules_from_molecule(molsys_Hk2.topology, indices=[4,5,6], skip_digestion=True)
+    list_n_small_molecules_BB = aux.get_n_small_molecules_from_molecule(molsys_BB.topology, indices=[10,11,12,13], skip_digestion=True)
+
+    assert len(all_n_small_molecules_Hk2) == 135
+    assert len(all_n_small_molecules_BB) == 519
+    assert all_n_small_molecules_Hk2[15:25] == [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    assert all_n_small_molecules_Hk2[105:115] == [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    assert all_n_small_molecules_Hk2[0] == 0
+    assert all_n_small_molecules_Hk2[-1] == 0
+    assert all_n_small_molecules_BB[3:13] == [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    assert all_n_small_molecules_BB[486:492] == [0, 0, 0, 0, 0, 0]
+    assert all_n_small_molecules_BB[0] == 0
+    assert all_n_small_molecules_BB[-1] == 0
+    assert list_n_small_molecules_Hk2 == [0, 0, 0]
+    assert list_n_small_molecules_BB == [0, 0, 0, 0]
+
+
+def test_get_total_n_small_molecules_from_molecule():
+
+    all_total_n_small_molecules_Hk2 = aux.get_total_n_small_molecules_from_molecule(molsys_Hk2.topology, skip_digestion=True)
+    all_total_n_small_molecules_BB = aux.get_total_n_small_molecules_from_molecule(molsys_BB.topology, skip_digestion=True)
+    list_total_n_small_molecules_Hk2 = aux.get_total_n_small_molecules_from_molecule(molsys_Hk2.topology, indices=[4,5,6], skip_digestion=True)
+    list_total_n_small_molecules_BB = aux.get_total_n_small_molecules_from_molecule(molsys_BB.topology, indices=[10,11,12,13], skip_digestion=True)
+
+    assert all_total_n_small_molecules_Hk2 == 0
+    assert all_total_n_small_molecules_BB == 0
+    assert list_total_n_small_molecules_Hk2 == 0
+    assert list_total_n_small_molecules_BB == 0
+
+
+def test_get_n_lipids_from_molecule():
+
+    all_n_lipids_Hk2 = aux.get_n_lipids_from_molecule(molsys_Hk2.topology, skip_digestion=True)
+    all_n_lipids_BB = aux.get_n_lipids_from_molecule(molsys_BB.topology, skip_digestion=True)
+    list_n_lipids_Hk2 = aux.get_n_lipids_from_molecule(molsys_Hk2.topology, indices=[4,5,6], skip_digestion=True)
+    list_n_lipids_BB = aux.get_n_lipids_from_molecule(molsys_BB.topology, indices=[10,11,12,13], skip_digestion=True)
+
+    assert len(all_n_lipids_Hk2) == 135
+    assert len(all_n_lipids_BB) == 519
+    assert all_n_lipids_Hk2[15:25] == [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    assert all_n_lipids_Hk2[105:115] == [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    assert all_n_lipids_Hk2[0] == 0
+    assert all_n_lipids_Hk2[-1] == 0
+    assert all_n_lipids_BB[3:13] == [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    assert all_n_lipids_BB[486:492] == [0, 0, 0, 0, 0, 0]
+    assert all_n_lipids_BB[0] == 0
+    assert all_n_lipids_BB[-1] == 0
+    assert list_n_lipids_Hk2 == [0, 0, 0]
+    assert list_n_lipids_BB == [0, 0, 0, 0]
+
+
+def test_get_total_n_lipids_from_molecule():
+
+    all_total_n_lipids_Hk2 = aux.get_total_n_lipids_from_molecule(molsys_Hk2.topology, skip_digestion=True)
+    all_total_n_lipids_BB = aux.get_total_n_lipids_from_molecule(molsys_BB.topology, skip_digestion=True)
+    list_total_n_lipids_Hk2 = aux.get_total_n_lipids_from_molecule(molsys_Hk2.topology, indices=[4,5,6], skip_digestion=True)
+    list_total_n_lipids_BB = aux.get_total_n_lipids_from_molecule(molsys_BB.topology, indices=[10,11,12,13], skip_digestion=True)
+
+    assert all_total_n_lipids_Hk2 == 0
+    assert all_total_n_lipids_BB == 0
+    assert list_total_n_lipids_Hk2 == 0
+    assert list_total_n_lipids_BB == 0
+
+
+def test_get_n_saccharides_from_molecule():
+
+    all_n_saccharides_Hk2 = aux.get_n_saccharides_from_molecule(molsys_Hk2.topology, skip_digestion=True)
+    all_n_saccharides_BB = aux.get_n_saccharides_from_molecule(molsys_BB.topology, skip_digestion=True)
+    list_n_saccharides_Hk2 = aux.get_n_saccharides_from_molecule(molsys_Hk2.topology, indices=[4,5,6], skip_digestion=True)
+    list_n_saccharides_BB = aux.get_n_saccharides_from_molecule(molsys_BB.topology, indices=[10,11,12,13], skip_digestion=True)
+
+    assert len(all_n_saccharides_Hk2) == 135
+    assert len(all_n_saccharides_BB) == 519
+    assert all_n_saccharides_Hk2[15:25] == [0, 0, 0, 1, 1, 1, 1, 0, 0, 0]
+    assert all_n_saccharides_Hk2[105:115] == [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    assert all_n_saccharides_Hk2[0] == 0
+    assert all_n_saccharides_Hk2[-1] == 0
+    assert all_n_saccharides_BB[3:13] == [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    assert all_n_saccharides_BB[486:492] == [0, 0, 0, 0, 0, 0]
+    assert all_n_saccharides_BB[0] == 0
+    assert all_n_saccharides_BB[-1] == 0
+    assert list_n_saccharides_Hk2 == [1, 1, 0]
+    assert list_n_saccharides_BB == [0, 0, 0, 0]
+
+
+def test_get_total_n_saccharides_from_molecule():
+
+    all_total_n_saccharides_Hk2 = aux.get_total_n_saccharides_from_molecule(molsys_Hk2.topology, skip_digestion=True)
+    all_total_n_saccharides_BB = aux.get_total_n_saccharides_from_molecule(molsys_BB.topology, skip_digestion=True)
+    list_total_n_saccharides_Hk2 = aux.get_total_n_saccharides_from_molecule(molsys_Hk2.topology, indices=[4,5,6], skip_digestion=True)
+    list_total_n_saccharides_BB = aux.get_total_n_saccharides_from_molecule(molsys_BB.topology, indices=[10,11,12,13], skip_digestion=True)
+
+    assert all_total_n_saccharides_Hk2 == 8
+    assert all_total_n_saccharides_BB == 0
+    assert list_total_n_saccharides_Hk2 == 2
+    assert list_total_n_saccharides_BB == 0
+
+
+
+
 
 
 
