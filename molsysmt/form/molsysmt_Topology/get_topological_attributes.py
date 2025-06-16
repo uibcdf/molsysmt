@@ -2734,8 +2734,6 @@ def get_total_n_molecules_from_molecule(item, indices='all', skip_digestion=Fals
 
     return get_n_molecules_from_molecule(item, indices=indices, skip_digestion=True)
 
-    return output
-
 
 @digest(form=form)
 def get_n_entities_from_molecule(item, indices='all', skip_digestion=False): ##x
@@ -2754,14 +2752,25 @@ def get_total_n_entities_from_molecule(item, indices='all', skip_digestion=False
 
     return get_n_entities_from_molecule(item, indices=indices, skip_digestion=True)
 
-    return output
-
 
 @digest(form=form)
 def get_n_components_from_molecule(item, indices='all', skip_digestion=False): ##x
 
     output = get_component_index_from_molecule(item, indices, skip_digestion=True)
     output = [len(ii) if isinstance(ii, list) else 1 for ii in output]
+
+    return output
+
+
+@digest(form=form)
+def get_total_n_components_from_molecule(item, indices='all', skip_digestion=False): ##x
+
+    if is_all(indices):
+        output = get_n_components_from_system(item, skip_digestion=True)
+    else:
+        aux = get_n_components_from_molecule(item, indices=indices, skip_digestion=True)
+        output = sum(aux)
+        del aux
 
     return output
 
@@ -2779,17 +2788,29 @@ def get_n_chains_from_molecule(item, indices='all', skip_digestion=False): ##x
 
 
 @digest(form=form)
+def get_total_n_chains_from_molecule(item, indices='all', skip_digestion=False): ##x
+
+    return get_n_chains_from_molecule(item, indices=indices, skip_digestion=True)
+
+
+@digest(form=form)
 def get_n_bonds_from_molecule(item, indices='all', skip_digestion=False): ##x 
 
+    output = get_bond_index_from_molecule(item, indices, skip_digestion=True)
+    output = [len(ii) for ii in output]
+
+    return output
+
+
+@digest(form=form)
+def get_total_n_bonds_from_molecule(item, indices='all', skip_digestion=False): ##x
+
     if is_all(indices):
-
         output = get_n_bonds_from_system(item, skip_digestion=True)
-
     else:
-
         atom_indices = get_atom_index_from_molecule(item, indices, skip_digestion=True)
         indices = np.concatenate(atom_indices)
-        output = get_n_bonds_from_atom(item, indices, skip_digestion=True)
+        output = get_total_n_bonds_from_atom(item, indices, skip_digestion=True)
 
     return output
 
@@ -2797,6 +2818,15 @@ def get_n_bonds_from_molecule(item, indices='all', skip_digestion=False): ##x
 @digest(form=form)
 def get_n_inner_bonds_from_molecule(item, indices='all', skip_digestion=False): ##x
 
+    output = get_inner_bond_index_from_molecule(item, indices, skip_digestion=True)
+    output = [len(ii) for ii in output]
+
+    return output
+
+
+@digest(form=form)
+def get_total_n_inner_bonds_from_molecule(item, indices='all', skip_digestion=False): ##x
+
     if is_all(indices):
 
         output = get_n_bonds_from_system(item, skip_digestion=True)
@@ -2805,43 +2835,79 @@ def get_n_inner_bonds_from_molecule(item, indices='all', skip_digestion=False): 
 
         atom_indices = get_atom_index_from_molecule(item, indices, skip_digestion=True)
         indices = np.concatenate(atom_indices)
-        output = get_n_inner_bonds_from_atom(item, indices, skip_digestion=True)
+        output = get_total_n_inner_bonds_from_atom(item, indices, skip_digestion=True)
 
     return output
 
 
 @digest(form=form)
-def get_n_amino_acids_from_molecule(item, indices='all', skip_digestion=False):
+def get_n_amino_acids_from_molecule(item, indices='all', skip_digestion=False): ##x
 
-    group_indices = get_group_index_from_molecule(item, indices=indices, skip_digestion=True)
-    group_indices=np.concatenate([np.array(ii) for ii in group_indices])
-    group_indices = np.unique(group_indices)
-    group_types = get_group_type_from_group(item, indices=group_indices, skip_digestion=True)
-    output = (np.array(group_types) == 'amino acid').sum()
+    group_types = get_group_type_from_molecule(item, indices=indices, skip_digestion=True)
+    output = [ sum([jj=='amino acid' for jj in ii]) for ii in group_types ]
 
     return output
 
 
 @digest(form=form)
-def get_n_nucleotides_from_molecule(item, indices='all', skip_digestion=False):
+def get_total_n_amino_acids_from_molecule(item, indices='all', skip_digestion=False): ##x
 
-    group_indices = get_group_index_from_molecule(item, indices=indices, skip_digestion=True)
-    group_indices=np.concatenate([np.array(ii) for ii in group_indices])
-    group_indices = np.unique(group_indices)
-    group_types = get_group_type_from_group(item, indices=group_indices, skip_digestion=True)
-    output = (np.array(group_types) == 'nucleotide').sum()
+    if is_all(indices):
+
+        output = get_n_amino_acids_from_system(item, skip_digestion=True)
+
+    else:
+
+        output = get_n_amino_acids_from_molecule(item, indices=indices, skip_digestion=True)
+        output = sum(output)
 
     return output
 
 
 @digest(form=form)
-def get_n_ions_from_molecule(item, indices='all', skip_digestion=False):
+def get_n_nucleotides_from_molecule(item, indices='all', skip_digestion=False): ##x
 
-    group_indices = get_group_index_from_molecule(item, indices=indices, skip_digestion=True)
-    group_indices=np.concatenate([np.array(ii) for ii in group_indices])
-    group_indices = np.unique(group_indices)
-    group_types = get_group_type_from_group(item, indices=group_indices, skip_digestion=True)
-    output = (np.array(group_types) == 'ion').sum()
+    group_types = get_group_type_from_molecule(item, indices=indices, skip_digestion=True)
+    output = [ sum([jj=='nucleotide' for jj in ii]) for ii in group_types ]
+
+    return output
+
+
+@digest(form=form)
+def get_total_n_nucleotides_from_molecule(item, indices='all', skip_digestion=False): ##x
+
+    if is_all(indices):
+
+        output = get_n_nucleotides_from_system(item, skip_digestion=True)
+
+    else:
+
+        output = get_n_nucleotides_from_molecule(item, indices=indices, skip_digestion=True)
+        output = sum(output)
+
+    return output
+
+
+@digest(form=form)
+def get_n_ions_from_molecule(item, indices='all', skip_digestion=False): ##x
+
+    group_types = get_group_type_from_molecule(item, indices=indices, skip_digestion=True)
+    output = [ sum([jj=='ion' for jj in ii]) for ii in group_types ]
+
+    return output
+
+
+@digest(form=form)
+def get_total_n_ions_from_molecule(item, indices='all', skip_digestion=False): ##x
+
+    if is_all(indices):
+
+        output = get_n_ions_from_system(item, skip_digestion=True)
+
+    else:
+
+        output = get_n_ions_from_molecule(item, indices=indices, skip_digestion=True)
+        output = sum(output)
 
     return output
 
@@ -2849,11 +2915,23 @@ def get_n_ions_from_molecule(item, indices='all', skip_digestion=False):
 @digest(form=form)
 def get_n_waters_from_molecule(item, indices='all', skip_digestion=False):
 
-    group_indices = get_group_index_from_molecule(item, indices=indices, skip_digestion=True)
-    group_indices=np.concatenate([np.array(ii) for ii in group_indices])
-    group_indices = np.unique(group_indices)
-    group_types = get_group_type_from_group(item, indices=group_indices, skip_digestion=True)
-    output = (np.array(group_types) == 'water').sum()
+    group_types = get_group_type_from_molecule(item, indices=indices, skip_digestion=True)
+    output = [ sum([jj=='water' for jj in ii]) for ii in group_types ]
+
+    return output
+
+
+@digest(form=form)
+def get_total_n_waters_from_molecule(item, indices='all', skip_digestion=False): ##x
+
+    if is_all(indices):
+
+        output = get_n_waters_from_system(item, skip_digestion=True)
+
+    else:
+
+        output = get_n_waters_from_molecule(item, indices=indices, skip_digestion=True)
+        output = sum(output)
 
     return output
 
@@ -2861,11 +2939,23 @@ def get_n_waters_from_molecule(item, indices='all', skip_digestion=False):
 @digest(form=form)
 def get_n_small_molecules_from_molecule(item, indices='all', skip_digestion=False):
 
-    group_indices = get_group_index_from_molecule(item, indices=indices, skip_digestion=True)
-    group_indices=np.concatenate([np.array(ii) for ii in group_indices])
-    group_indices = np.unique(group_indices)
-    group_types = get_group_type_from_group(item, indices=group_indices, skip_digestion=True)
-    output = (np.array(group_types) == 'small molecule').sum()
+    group_types = get_group_type_from_molecule(item, indices=indices, skip_digestion=True)
+    output = [ sum([jj=='small molecule' for jj in ii]) for ii in group_types ]
+
+    return output
+
+
+@digest(form=form)
+def get_total_n_small_molecules_from_molecule(item, indices='all', skip_digestion=False): ##x
+
+    if is_all(indices):
+
+        output = get_n_small_molecules_from_system(item, skip_digestion=True)
+
+    else:
+
+        output = get_n_small_molecules_from_molecule(item, indices=indices, skip_digestion=True)
+        output = sum(output)
 
     return output
 
@@ -2873,23 +2963,23 @@ def get_n_small_molecules_from_molecule(item, indices='all', skip_digestion=Fals
 @digest(form=form)
 def get_n_lipids_from_molecule(item, indices='all', skip_digestion=False):
 
-    group_indices = get_group_index_from_molecule(item, indices=indices, skip_digestion=True)
-    group_indices=np.concatenate([np.array(ii) for ii in group_indices])
-    group_indices = np.unique(group_indices)
-    group_types = get_group_type_from_group(item, indices=group_indices, skip_digestion=True)
-    output = (np.array(group_types) == 'lipid').sum()
+    group_types = get_group_type_from_molecule(item, indices=indices, skip_digestion=True)
+    output = [ sum([jj=='lipid' for jj in ii]) for ii in group_types ]
 
     return output
 
 
 @digest(form=form)
-def get_n_polysaccharides_from_molecule(item, indices='all', skip_digestion=False):
+def get_total_n_lipids_from_molecule(item, indices='all', skip_digestion=False): ##x
 
-    group_indices = get_group_index_from_molecule(item, indices=indices, skip_digestion=True)
-    group_indices=np.concatenate([np.array(ii) for ii in group_indices])
-    group_indices = np.unique(group_indices)
-    group_types = get_group_type_from_group(item, indices=group_indices, skip_digestion=True)
-    output = (np.array(group_types) == 'polysaccharide').sum()
+    if is_all(indices):
+
+        output = get_n_lipids_from_system(item, skip_digestion=True)
+
+    else:
+
+        output = get_n_lipids_from_molecule(item, indices=indices, skip_digestion=True)
+        output = sum(output)
 
     return output
 
@@ -2897,11 +2987,23 @@ def get_n_polysaccharides_from_molecule(item, indices='all', skip_digestion=Fals
 @digest(form=form)
 def get_n_saccharides_from_molecule(item, indices='all', skip_digestion=False):
 
-    group_indices = get_group_index_from_molecule(item, indices=indices, skip_digestion=True)
-    group_indices=np.concatenate([np.array(ii) for ii in group_indices])
-    group_indices = np.unique(group_indices)
-    group_types = get_group_type_from_group(item, indices=group_indices, skip_digestion=True)
-    output = (np.array(group_types) == 'saccharide').sum()
+    group_types = get_group_type_from_molecule(item, indices=indices, skip_digestion=True)
+    output = [ sum([jj=='saccharide' for jj in ii]) for ii in group_types ]
+
+    return output
+
+
+@digest(form=form)
+def get_total_n_saccharides_from_molecule(item, indices='all', skip_digestion=False): ##x
+
+    if is_all(indices):
+
+        output = get_n_saccharides_from_system(item, skip_digestion=True)
+
+    else:
+
+        output = get_n_saccharides_from_molecule(item, indices=indices, skip_digestion=True)
+        output = sum(output)
 
     return output
 
@@ -2920,6 +3022,18 @@ def get_n_proteins_from_molecule(item, indices='all', skip_digestion=False):
 
     group_types = get_molecule_type_from_molecule(item, indices=indices, skip_digestion=True)
     output = (np.array(group_types) == 'protein').sum()
+
+    return output
+
+
+@digest(form=form)
+def get_n_polysaccharides_from_molecule(item, indices='all', skip_digestion=False):
+
+    group_indices = get_group_index_from_molecule(item, indices=indices, skip_digestion=True)
+    group_indices=np.concatenate([np.array(ii) for ii in group_indices])
+    group_indices = np.unique(group_indices)
+    group_types = get_group_type_from_group(item, indices=group_indices, skip_digestion=True)
+    output = (np.array(group_types) == 'polysaccharide').sum()
 
     return output
 
