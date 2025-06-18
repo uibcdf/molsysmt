@@ -2204,10 +2204,10 @@ def test_get_n_components_from_group():
     list_n_components_Hk2 = aux.get_n_components_from_group(molsys_Hk2.topology, indices=[1773,1774,1775], skip_digestion=True)
     list_n_components_BB = aux.get_n_components_from_group(molsys_BB.topology, indices=[587,588,589], skip_digestion=True)
 
-    assert all_n_components_Hk2 == 146
-    assert all_n_components_BB == 521
-    assert list_n_components_Hk2 == 3
-    assert list_n_components_BB == 3
+    assert all_n_components_Hk2 == 1871*[1]
+    assert all_n_components_BB == 1101*[1]
+    assert list_n_components_Hk2 == [1,1,1]
+    assert list_n_components_BB == [1,1,1]
 
 
 def test_get_total_n_components_from_group():
@@ -2230,10 +2230,10 @@ def test_get_n_chains_from_group():
     list_n_chains_Hk2 = aux.get_n_chains_from_group(molsys_Hk2.topology, indices=[1773,1774,1775], skip_digestion=True)
     list_n_chains_BB = aux.get_n_chains_from_group(molsys_BB.topology, indices=[587,588,589], skip_digestion=True)
 
-    assert all_n_chains_Hk2 == 40
-    assert all_n_chains_BB == 12
-    assert list_n_chains_Hk2 == 2
-    assert list_n_chains_BB == 2
+    assert all_n_chains_Hk2 == 1871*[1]
+    assert all_n_chains_BB == 1101*[1]
+    assert list_n_chains_Hk2 == [1,1,1]
+    assert list_n_chains_BB == [1,1,1]
 
 
 def test_get_total_n_chains_from_group():
