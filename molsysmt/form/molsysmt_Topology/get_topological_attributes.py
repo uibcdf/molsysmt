@@ -2131,25 +2131,15 @@ def get_total_n_saccharides_from_group(item, indices='all', skip_digestion=False
 @digest(form=form)
 def get_n_peptides_from_group(item, indices='all', skip_digestion=False): ##x
 
-    molecule_indices = get_molecule_index_from_group(item, indices=indices, skip_digestion=True)
-    molecule_indices = np.unique(molecule_indices).tolist()
-    molecule_type = get_molecule_type_from_group(item, indices=molecule_indices, skip_digestion=True)
+    if indices=='all':
+        output = get_n_peptides_from_system(item, skip_digestion=True)
+    else:
+        molecule_indices = get_molecule_index_from_group(item, indices=indices, skip_digestion=True)
+        molecule_indices = np.unique(molecule_indices).tolist()
+        molecule_type = get_molecule_type_from_molecule(item, indices=molecule_indices, skip_digestion=True)
+        output = molecule_type.count('peptide')
 
-    return molecule_type.count('peptide')
-
-    #if indices=='all':
-    #    molecule_indices = item.groups['molecule_index']
-    #else:
-    #    molecule_indices = item.groups['molecule_index'].take(indices)
-
-    #molecule_indices = molecule_indices.unique()
-    #molecule_types = item.molecules['molecule_type'].take(molecule_indices)
-
-    #output = molecule_types.value_counts().get('peptide', 0)
-
-    #del molecule_indices, molecule_types
-
-    #return output
+    return output
 
 
 @digest(form=form)
@@ -2162,16 +2152,12 @@ def get_total_n_peptides_from_group(item, indices='all', skip_digestion=False): 
 def get_n_proteins_from_group(item, indices='all', skip_digestion=False): ##x
 
     if indices=='all':
-        molecule_indices = item.groups['molecule_index']
+        output = get_n_proteins_from_system(item, skip_digestion=True)
     else:
-        molecule_indices = item.groups['molecule_index'].take(indices)
-
-    molecule_indices = molecule_indices.unique()
-    molecule_types = item.molecules['molecule_type'].take(molecule_indices)
-
-    output = molecule_types.value_counts().get('protein', 0)
-
-    del molecule_indices, molecule_types
+        molecule_indices = get_molecule_index_from_group(item, indices=indices, skip_digestion=True)
+        molecule_indices = np.unique(molecule_indices).tolist()
+        molecule_type = get_molecule_type_from_molecule(item, indices=molecule_indices, skip_digestion=True)
+        output = molecule_type.count('protein')
 
     return output
 
@@ -2186,16 +2172,12 @@ def get_total_n_proteins_from_group(item, indices='all', skip_digestion=False): 
 def get_n_dnas_from_group(item, indices='all', skip_digestion=False): ##x
 
     if indices=='all':
-        molecule_indices = item.groups['molecule_index']
+        output = get_n_dnas_from_system(item, skip_digestion=True)
     else:
-        molecule_indices = item.groups['molecule_index'].take(indices)
-
-    molecule_indices = molecule_indices.unique()
-    molecule_types = item.molecules['molecule_type'].take(molecule_indices)
-
-    output = molecule_types.value_counts().get('dna', 0)
-
-    del molecule_indices, molecule_types
+        molecule_indices = get_molecule_index_from_group(item, indices=indices, skip_digestion=True)
+        molecule_indices = np.unique(molecule_indices).tolist()
+        molecule_type = get_molecule_type_from_molecule(item, indices=molecule_indices, skip_digestion=True)
+        output = molecule_type.count('dna')
 
     return output
 
@@ -2210,16 +2192,12 @@ def get_total_n_dnas_from_group(item, indices='all', skip_digestion=False): ##x
 def get_n_rnas_from_group(item, indices='all', skip_digestion=False): ##x
 
     if indices=='all':
-        molecule_indices = item.groups['molecule_index']
+        output = get_n_rnas_from_system(item, skip_digestion=True)
     else:
-        molecule_indices = item.groups['molecule_index'].take(indices)
-
-    molecule_indices = molecule_indices.unique()
-    molecule_types = item.molecules['molecule_type'].take(molecule_indices)
-
-    output = (molecule_types == 'rna').sum()
-
-    del molecule_indices, molecule_types
+        molecule_indices = get_molecule_index_from_group(item, indices=indices, skip_digestion=True)
+        molecule_indices = np.unique(molecule_indices).tolist()
+        molecule_type = get_molecule_type_from_molecule(item, indices=molecule_indices, skip_digestion=True)
+        output = molecule_type.count('rna')
 
     return output
 
@@ -2235,16 +2213,16 @@ def get_total_n_rnas_from_group(item, indices='all', skip_digestion=False): ##x
 @digest(form=form)
 def get_atom_index_from_molecule(item, indices='all', skip_digestion=False): ##x
 
-    group_arr = item.atoms['group_index'].to_numpy()
-    mol_idx_arr = item.groups['molecule_index'].to_numpy()
-    mol_arr     = mol_idx_arr[group_arr]
+    group_index_from_atom = item.atoms['group_index'].to_numpy()
+    molecule_index_from_group = item.groups['molecule_index'].to_numpy()
+    molecule_index_from_atom = molecule_index_from_group[group_index_from_atom]
     n_atoms = item.atoms.shape[0]
 
     if indices =='all':
 
         aux_dict = defaultdict(list)
         for atom_index in range(n_atoms):
-            aux_dict[mol_arr[atom_index]].append(atom_index)
+            aux_dict[molecule_index_from_atom[atom_index]].append(atom_index)
 
         output = list(aux_dict.values())
 
@@ -2252,13 +2230,13 @@ def get_atom_index_from_molecule(item, indices='all', skip_digestion=False): ##x
 
         aux_dict = {ii: [] for ii in indices}
         for atom_index in range(n_atoms):
-            ii = mol_arr[atom_index]
+            ii = molecule_index_from_atom[atom_index]
             if ii in aux_dict:
                 aux_dict[ii].append(atom_index)
 
         output = [aux_dict[m] for m in indices]
 
-    del group_arr, mol_arr, aux_dict
+    del group_index_from_atom, molecule_index_from_group, molecule_index_from_atom, aux_dict
 
     return output
 
@@ -2266,31 +2244,31 @@ def get_atom_index_from_molecule(item, indices='all', skip_digestion=False): ##x
 @digest(form=form)
 def get_atom_id_from_molecule(item, indices='all', skip_digestion=False): ##x
 
-    group_arr = item.atoms['group_index'].to_numpy()
-    mol_idx_arr = item.groups['molecule_index'].to_numpy()
-    mol_arr     = mol_idx_arr[group_arr]
-    aux_arr = item.atoms['atom_id'].to_numpy()
+    group_index_from_atom = item.atoms['group_index'].to_numpy()
+    molecule_index_from_group = item.groups['molecule_index'].to_numpy()
+    molecule_index_from_atom = molecule_index_from_group[group_index_from_atom]
+    atom_id_from_atom = item.atoms['atom_id'].to_numpy()
     n_atoms = item.atoms.shape[0]
 
     if indices =='all':
 
         aux_dict = defaultdict(list)
         for atom_index in range(n_atoms):
-            aux_dict[mol_arr[atom_index]].append(aux_arr[atom_index])
+            aux_dict[molecule_index_from_atom[atom_index]].append(atom_id_from_atom[atom_index])
 
         output = [aux_dict[m] for m in sorted(aux_dict.keys())]
 
     else:
 
         aux_dict = {ii: [] for ii in indices}
-        for atom_index in range(len(group_arr)):
-            ii = mol_arr[atom_index]
+        for atom_index in range(len(group_index_from_atom)):
+            ii = molecule_index_from_atom[atom_index]
             if ii in aux_dict:
-                aux_dict[ii].append(aux_arr[atom_index])
+                aux_dict[ii].append(atom_id_from_atom[atom_index])
 
         output = list(aux_dict.values())
 
-    del group_arr, mol_arr, aux_arr, aux_dict
+    del group_index_from_atom, molecule_index_from_atom, atom_id_from_atom, aux_dict
 
     return output
 
@@ -2298,31 +2276,31 @@ def get_atom_id_from_molecule(item, indices='all', skip_digestion=False): ##x
 @digest(form=form)
 def get_atom_name_from_molecule(item, indices='all', skip_digestion=False): ##x
 
-    group_arr = item.atoms['group_index'].to_numpy()
-    mol_idx_arr = item.groups['molecule_index'].to_numpy()
-    mol_arr     = mol_idx_arr[group_arr]
-    aux_arr = item.atoms['atom_name'].to_numpy()
+    group_index_from_atom = item.atoms['group_index'].to_numpy()
+    molecule_index_from_group = item.groups['molecule_index'].to_numpy()
+    molecule_index_from_atom     = molecule_index_from_group[group_index_from_atom]
+    atom_name_from_atom = item.atoms['atom_name'].to_numpy()
     n_atoms = item.atoms.shape[0]
 
     if indices =='all':
 
         aux_dict = defaultdict(list)
         for atom_index in range(n_atoms):
-            aux_dict[mol_arr[atom_index]].append(aux_arr[atom_index])
+            aux_dict[molecule_index_from_atom[atom_index]].append(atom_name_from_atom[atom_index])
 
         output = list(aux_dict.values())
 
     else:
 
         aux_dict = {ii: [] for ii in indices}
-        for atom_index in range(len(group_arr)):
-            ii = mol_arr[atom_index]
+        for atom_index in range(len(group_index_from_atom)):
+            ii = molecule_index_from_atom[atom_index]
             if ii in aux_dict:
-                aux_dict[ii].append(aux_arr[atom_index])
+                aux_dict[ii].append(atom_name_from_atom[atom_index])
 
         output = [aux_dict.get(m, []) for m in indices]
 
-    del group_arr, mol_arr, aux_arr, aux_dict
+    del group_index_from_atom, molecule_index_from_atom, atom_name_from_atom, aux_dict
 
     return output
 
@@ -2330,31 +2308,31 @@ def get_atom_name_from_molecule(item, indices='all', skip_digestion=False): ##x
 @digest(form=form)
 def get_atom_type_from_molecule(item, indices='all', skip_digestion=False): ##x
 
-    group_arr = item.atoms['group_index'].to_numpy()
-    mol_idx_arr = item.groups['molecule_index'].to_numpy()
-    mol_arr     = mol_idx_arr[group_arr]
-    aux_arr = item.atoms['atom_type'].to_numpy()
+    group_index_from_atom = item.atoms['group_index'].to_numpy()
+    molecule_index_from_group = item.groups['molecule_index'].to_numpy()
+    mol_arr     = molecule_index_from_group[group_index_from_atom]
+    atom_type_from_atom = item.atoms['atom_type'].to_numpy()
     n_atoms = item.atoms.shape[0]
 
     if indices =='all':
 
         aux_dict = defaultdict(list)
         for atom_index in range(n_atoms):
-            aux_dict[mol_arr[atom_index]].append(aux_arr[atom_index])
+            aux_dict[mol_arr[atom_index]].append(atom_type_from_atom[atom_index])
 
         output = list(aux_dict.values())
 
     else:
 
         aux_dict = {ii: [] for ii in indices}
-        for atom_index in range(len(group_arr)):
+        for atom_index in range(len(group_index_from_atom)):
             ii = mol_arr[atom_index]
             if ii in aux_dict:
-                aux_dict[ii].append(aux_arr[atom_index])
+                aux_dict[ii].append(atom_type_from_atom[atom_index])
 
         output = [aux_dict.get(m, []) for m in indices]
 
-    del group_arr, mol_arr, aux_arr, aux_dict
+    del group_index_from_atom, mol_arr, atom_type_from_atom, aux_dict
 
     return output
 
@@ -2362,15 +2340,31 @@ def get_atom_type_from_molecule(item, indices='all', skip_digestion=False): ##x
 @digest(form=form)
 def get_group_index_from_molecule(item, indices='all', skip_digestion=False): ##x
 
-    if indices=='all':
-        grouped = item.groups.groupby('molecule_index').groups
-        output = [grouped[ii].tolist() for ii in grouped]
-        del grouped
+    molecule_index_from_group = item.groups['molecule_index'].to_numpy()
+    n_groups = item.groups.shape[0]
+
+    if indices =='all':
+
+        aux_dict = defaultdict(list)
+        for group_index in range(n_groups):
+            aux_dict[molecule_index_from_group[group_index]].append(group_index)
+
+        output = list(aux_dict.values())
+
     else:
-        subset = item.groups.loc[item.groups['molecule_index'].isin(indices)]
-        grouped = subset.groupby('molecule_index').groups
-        output = [grouped.get(ii, []).tolist() for ii in indices]
-        del subset, grouped
+
+        aux_dict = {ii: [] for ii in indices}
+        for group_index in range(n_groups):
+            ii = molecule_index_from_group[group_index]
+            if ii in aux_dict:
+                aux_dict[ii].append(group_index)
+
+        output = [aux_dict[m] for m in indices]
+
+    del molecule_index_from_group, n_groups, aux_dict
+
+    return output
+
 
     return output
 
@@ -2378,15 +2372,29 @@ def get_group_index_from_molecule(item, indices='all', skip_digestion=False): ##
 @digest(form=form)
 def get_group_id_from_molecule(item, indices='all', skip_digestion=False): ##x
 
-    if indices=='all':
-        series = item.groups.groupby('molecule_index')['group_id'].apply(list)
-        output = series.tolist()
-        del series
+    molecule_index_from_group = item.groups['molecule_index'].to_numpy()
+    group_id_from_group = item.groups['group_id'].to_numpy()
+    n_groups = item.groups.shape[0]
+
+    if indices =='all':
+
+        aux_dict = defaultdict(list)
+        for group_index in range(n_groups):
+            aux_dict[molecule_index_from_group[group_index]].append(group_id_from_group[group_index])
+
+        output = list(aux_dict.values())
+
     else:
-        subset = item.groups.loc[item.groups['molecule_index'].isin(indices)]
-        series = subset.groupby('molecule_index')['group_id'].apply(list)
-        output = series.reindex(indices, fill_value=[]).tolist()
-        del subset, series
+
+        aux_dict = {ii: [] for ii in indices}
+        for group_index in range(n_groups):
+            ii = molecule_index_from_group[group_index]
+            if ii in aux_dict:
+                aux_dict[ii].append(group_id_from_group[group_index])
+
+        output = [aux_dict[m] for m in indices]
+
+    del molecule_index_from_group, group_id_from_group, n_groups, aux_dict
 
     return output
 
@@ -2394,15 +2402,29 @@ def get_group_id_from_molecule(item, indices='all', skip_digestion=False): ##x
 @digest(form=form)
 def get_group_name_from_molecule(item, indices='all', skip_digestion=False): ##x
 
-    if indices=='all':
-        series = item.groups.groupby('molecule_index')['group_name'].apply(list)
-        output = series.tolist()
-        del series
+    molecule_index_from_group = item.groups['molecule_index'].to_numpy()
+    group_name_from_group = item.groups['group_name'].to_numpy()
+    n_groups = item.groups.shape[0]
+
+    if indices =='all':
+
+        aux_dict = defaultdict(list)
+        for group_index in range(n_groups):
+            aux_dict[molecule_index_from_group[group_index]].append(group_name_from_group[group_index])
+
+        output = list(aux_dict.values())
+
     else:
-        subset = item.groups.loc[item.groups['molecule_index'].isin(indices)]
-        series = subset.groupby('molecule_index')['group_name'].apply(list)
-        output = series.reindex(indices, fill_value=[]).tolist()
-        del subset, series
+
+        aux_dict = {ii: [] for ii in indices}
+        for group_index in range(n_groups):
+            ii = molecule_index_from_group[group_index]
+            if ii in aux_dict:
+                aux_dict[ii].append(group_name_from_group[group_index])
+
+        output = [aux_dict[m] for m in indices]
+
+    del molecule_index_from_group, group_name_from_group, n_groups, aux_dict
 
     return output
 
@@ -2410,15 +2432,29 @@ def get_group_name_from_molecule(item, indices='all', skip_digestion=False): ##x
 @digest(form=form)
 def get_group_type_from_molecule(item, indices='all', skip_digestion=False): ##x
 
-    if indices=='all':
-        series = item.groups.groupby('molecule_index')['group_type'].apply(list)
-        output = series.tolist()
-        del series
+    molecule_index_from_group = item.groups['molecule_index'].to_numpy()
+    group_type_from_group = item.groups['group_type'].to_numpy()
+    n_groups = item.groups.shape[0]
+
+    if indices =='all':
+
+        aux_dict = defaultdict(list)
+        for group_index in range(n_groups):
+            aux_dict[molecule_index_from_group[group_index]].append(group_type_from_group[group_index])
+
+        output = list(aux_dict.values())
+
     else:
-        subset = item.groups.loc[item.groups['molecule_index'].isin(indices)]
-        series = subset.groupby('molecule_index')['group_type'].apply(list)
-        output = series.reindex(indices, fill_value=[]).tolist()
-        del subset, series
+
+        aux_dict = {ii: [] for ii in indices}
+        for group_index in range(n_groups):
+            ii = molecule_index_from_group[group_index]
+            if ii in aux_dict:
+                aux_dict[ii].append(group_type_from_group[group_index])
+
+        output = [aux_dict[m] for m in indices]
+
+    del molecule_index_from_group, group_type_from_group, n_groups, aux_dict
 
     return output
 
@@ -2437,10 +2473,14 @@ def get_molecule_index_from_molecule(item, indices='all', skip_digestion=False):
 @digest(form=form)
 def get_molecule_id_from_molecule(item, indices='all', skip_digestion=False): ##x
 
+    molecule_id_from_molecule = item.molecules['molecule_id'].to_numpy()
+
     if indices=='all':
-        output = item.molecules['molecule_id'].to_list()
+        output = molecule_id_from_molecule.tolist()
     else:
-        output = item.molecules['molecule_id'].take(indices).to_list()
+        output = molecule_id_from_molecule[indices].tolist()
+
+    del molecule_id_from_molecule
 
     return output
 
@@ -2448,10 +2488,14 @@ def get_molecule_id_from_molecule(item, indices='all', skip_digestion=False): ##
 @digest(form=form)
 def get_molecule_name_from_molecule(item, indices='all', skip_digestion=False): ##x
 
+    molecule_name_from_molecule = item.molecules['molecule_name'].to_numpy()
+
     if indices=='all':
-        output = item.molecules['molecule_name'].to_list()
+        output = molecule_name_from_molecule.tolist()
     else:
-        output = item.molecules['molecule_name'].take(indices).to_list()
+        output = molecule_name_from_molecule[indices].tolist()
+
+    del molecule_name_from_molecule
 
     return output
 
@@ -2459,10 +2503,14 @@ def get_molecule_name_from_molecule(item, indices='all', skip_digestion=False): 
 @digest(form=form)
 def get_molecule_type_from_molecule(item, indices='all', skip_digestion=False): ##x
 
+    molecule_type_from_molecule = item.molecules['molecule_type'].to_numpy()
+
     if indices=='all':
-        output = item.molecules['molecule_type'].to_list()
+        output = molecule_type_from_molecule.tolist()
     else:
-        output = item.molecules['molecule_type'].take(indices).to_list()
+        output = molecule_type_from_molecule[indices].tolist()
+
+    del molecule_type_from_molecule
 
     return output
 
@@ -2470,10 +2518,14 @@ def get_molecule_type_from_molecule(item, indices='all', skip_digestion=False): 
 @digest(form=form)
 def get_entity_index_from_molecule(item, indices='all', skip_digestion=False): ##x
 
+    entity_index_from_molecule = item.molecules['entity_index'].to_numpy()
+
     if indices=='all':
-        output = item.molecules['entity_index'].to_list()
+        output = entity_index_from_molecule.tolist()
     else:
-        output = item.molecules['entity_index'].take(indices).to_list()
+        output = entity_index_from_molecule[indices].tolist()
+
+    del entity_index_from_molecule
 
     return output
 
@@ -2481,14 +2533,17 @@ def get_entity_index_from_molecule(item, indices='all', skip_digestion=False): #
 @digest(form=form)
 def get_entity_id_from_molecule(item, indices='all', skip_digestion=False): ##x
 
+    entity_index_from_molecule = item.molecules['entity_index'].to_numpy()
+    entity_id_from_entity = item.entities['entity_id'].to_numpy()
+
     if indices=='all':
-        entity_indices = item.molecules['entity_index']
+        output = entity_index_from_molecule
     else:
-        entity_indices = item.molecules['entity_index'].take(indices)
+        output = entity_index_from_molecule[indices]
 
-    output = item.entities['entity_id'].take(entity_indices).to_list()
+    output = entity_id_from_entity[output].tolist()
 
-    del entity_indices
+    del entity_index_from_molecule, entity_id_from_entity
 
     return output
 
@@ -2496,14 +2551,17 @@ def get_entity_id_from_molecule(item, indices='all', skip_digestion=False): ##x
 @digest(form=form)
 def get_entity_name_from_molecule(item, indices='all', skip_digestion=False): ##x
 
+    entity_index_from_molecule = item.molecules['entity_index'].to_numpy()
+    entity_name_from_entity = item.entities['entity_name'].to_numpy()
+
     if indices=='all':
-        entity_indices = item.molecules['entity_index']
+        output = entity_index_from_molecule
     else:
-        entity_indices = item.molecules['entity_index'].take(indices)
+        output = entity_index_from_molecule[indices]
 
-    output = item.entities['entity_name'].take(entity_indices).to_list()
+    output = entity_name_from_entity[output].tolist()
 
-    del entity_indices
+    del entity_index_from_molecule, entity_name_from_entity
 
     return output
 
@@ -2511,14 +2569,17 @@ def get_entity_name_from_molecule(item, indices='all', skip_digestion=False): ##
 @digest(form=form)
 def get_entity_type_from_molecule(item, indices='all', skip_digestion=False): ##x
 
+    entity_index_from_molecule = item.molecules['entity_index'].to_numpy()
+    entity_type_from_entity = item.entities['entity_type'].to_numpy()
+
     if indices=='all':
-        entity_indices = item.molecules['entity_index']
+        output = entity_index_from_molecule
     else:
-        entity_indices = item.molecules['entity_index'].take(indices)
+        output = entity_index_from_molecule[indices]
 
-    output = item.entities['entity_type'].take(entity_indices).to_list()
+    output = entity_type_from_entity[output].tolist()
 
-    del entity_indices
+    del entity_index_from_molecule, entity_type_from_entity
 
     return output
 
@@ -2526,31 +2587,31 @@ def get_entity_type_from_molecule(item, indices='all', skip_digestion=False): ##
 @digest(form=form)
 def get_component_index_from_molecule(item, indices='all', skip_digestion=False): ##x
 
-    group_arr = item.atoms['group_index'].to_numpy()
-    mol_idx_arr = item.groups['molecule_index'].to_numpy()
-    mol_arr     = mol_idx_arr[group_arr]
-    aux_arr = item.atoms['component_index'].to_numpy()
+    group_index_from_atom = item.atoms['group_index'].to_numpy()
+    molecule_index_from_group = item.groups['molecule_index'].to_numpy()
+    molecule_index_from_atom = molecule_index_from_group[group_index_from_atom]
+    component_index_from_atom = item.atoms['component_index'].to_numpy()
     n_atoms = item.atoms.shape[0]
 
     if indices =='all':
 
         aux_dict = defaultdict(list)
         for atom_index in range(n_atoms):
-            aux_dict[mol_arr[atom_index]].append(aux_arr[atom_index])
+            aux_dict[molecule_index_from_atom[atom_index]].append(component_index_from_atom[atom_index])
 
         output = list(aux_dict.values())
 
     else:
 
         aux_dict = {ii: [] for ii in indices}
-        for atom_index in range(len(group_arr)):
-            ii = mol_arr[atom_index]
+        for atom_index in range(len(group_index_from_atom)):
+            ii = molecule_index_from_atom[atom_index]
             if ii in aux_dict:
-                aux_dict[ii].append(aux_arr[atom_index])
+                aux_dict[ii].append(component_index_from_atom[atom_index])
 
         output = [aux_dict[ii] for ii in indices]
 
-    del group_arr, mol_arr, aux_arr, aux_dict
+    del group_index_from_atom, molecule_index_from_atom, component_index_from_atom, aux_dict
 
     output = [list(np.unique(ii)) for ii in output] 
 
@@ -2560,34 +2621,34 @@ def get_component_index_from_molecule(item, indices='all', skip_digestion=False)
 @digest(form=form)
 def get_component_id_from_molecule(item, indices='all', skip_digestion=False): ##x
 
-    group_arr = item.atoms['group_index'].to_numpy()
-    mol_idx_arr = item.groups['molecule_index'].to_numpy()
-    mol_arr     = mol_idx_arr[group_arr]
-    aux_arr = item.atoms['component_index'].to_numpy()
-    aux2_arr = item.components['component_id'].to_numpy()
+    group_index_from_atom = item.atoms['group_index'].to_numpy()
+    molecule_index_from_group = item.groups['molecule_index'].to_numpy()
+    molecule_index_from_atom     = molecule_index_from_group[group_index_from_atom]
+    component_index_from_atom = item.atoms['component_index'].to_numpy()
+    component_id_from_component = item.components['component_id'].to_numpy()
     n_atoms = item.atoms.shape[0]
 
     if indices =='all':
 
         aux_dict = defaultdict(list)
         for atom_index in range(n_atoms):
-            aux_dict[mol_arr[atom_index]].append(aux_arr[atom_index])
+            aux_dict[molecule_index_from_atom[atom_index]].append(component_index_from_atom[atom_index])
 
         output = list(aux_dict.values())
 
     else:
 
         aux_dict = {ii: [] for ii in indices}
-        for atom_index in range(len(group_arr)):
-            ii = mol_arr[atom_index]
+        for atom_index in range(len(group_index_from_atom)):
+            ii = molecule_index_from_atom[atom_index]
             if ii in aux_dict:
-                aux_dict[ii].append(aux_arr[atom_index])
+                aux_dict[ii].append(component_index_from_atom[atom_index])
 
         output = [aux_dict[ii] for ii in indices]
 
-    output = [aux2_arr[np.unique(ii)].tolist() for ii in output] 
+    output = [component_id_from_component[np.unique(ii)].tolist() for ii in output] 
 
-    del group_arr, mol_arr, aux_arr, aux2_arr, aux_dict
+    del group_index_from_atom, molecule_index_from_atom, component_index_from_atom, component_id_from_component, aux_dict
 
     return output
 
@@ -2595,34 +2656,34 @@ def get_component_id_from_molecule(item, indices='all', skip_digestion=False): #
 @digest(form=form)
 def get_component_name_from_molecule(item, indices='all', skip_digestion=False): ##x
 
-    group_arr = item.atoms['group_index'].to_numpy()
-    mol_idx_arr = item.groups['molecule_index'].to_numpy()
-    mol_arr     = mol_idx_arr[group_arr]
-    aux_arr = item.atoms['component_index'].to_numpy()
-    aux2_arr = item.components['component_name'].to_numpy()
+    group_index_from_atom = item.atoms['group_index'].to_numpy()
+    molecule_index_from_group = item.groups['molecule_index'].to_numpy()
+    molecule_index_from_atom     = molecule_index_from_group[group_index_from_atom]
+    component_index_from_atom = item.atoms['component_index'].to_numpy()
+    component_name_from_component = item.components['component_name'].to_numpy()
     n_atoms = item.atoms.shape[0]
 
     if indices =='all':
 
         aux_dict = defaultdict(list)
         for atom_index in range(n_atoms):
-            aux_dict[mol_arr[atom_index]].append(aux_arr[atom_index])
+            aux_dict[molecule_index_from_atom[atom_index]].append(component_index_from_atom[atom_index])
 
         output = list(aux_dict.values())
 
     else:
 
         aux_dict = {ii: [] for ii in indices}
-        for atom_index in range(len(group_arr)):
-            ii = mol_arr[atom_index]
+        for atom_index in range(len(group_index_from_atom)):
+            ii = molecule_index_from_atom[atom_index]
             if ii in aux_dict:
-                aux_dict[ii].append(aux_arr[atom_index])
+                aux_dict[ii].append(component_index_from_atom[atom_index])
 
         output = [aux_dict[ii] for ii in indices]
 
-    output = [aux2_arr[np.unique(ii)].tolist() for ii in output] 
+    output = [component_name_from_component[np.unique(ii)].tolist() for ii in output] 
 
-    del group_arr, mol_arr, aux_arr, aux2_arr, aux_dict
+    del group_index_from_atom, molecule_index_from_atom, component_index_from_atom, component_name_from_component, aux_dict
 
     return output
 
@@ -2630,34 +2691,34 @@ def get_component_name_from_molecule(item, indices='all', skip_digestion=False):
 @digest(form=form)
 def get_component_type_from_molecule(item, indices='all', skip_digestion=False): ##x
 
-    group_arr = item.atoms['group_index'].to_numpy()
-    mol_idx_arr = item.groups['molecule_index'].to_numpy()
-    mol_arr     = mol_idx_arr[group_arr]
-    aux_arr = item.atoms['component_index'].to_numpy()
-    aux2_arr = item.components['component_type'].to_numpy()
+    group_index_from_atom = item.atoms['group_index'].to_numpy()
+    molecule_index_from_group = item.groups['molecule_index'].to_numpy()
+    molecule_index_from_atom = molecule_index_from_group[group_index_from_atom]
+    component_index_from_atom = item.atoms['component_index'].to_numpy()
+    component_name_from_component = item.components['component_type'].to_numpy()
     n_atoms = item.atoms.shape[0]
 
     if indices =='all':
 
         aux_dict = defaultdict(list)
         for atom_index in range(n_atoms):
-            aux_dict[mol_arr[atom_index]].append(aux_arr[atom_index])
+            aux_dict[molecule_index_from_atom[atom_index]].append(component_index_from_atom[atom_index])
 
         output = list(aux_dict.values())
 
     else:
 
         aux_dict = {ii: [] for ii in indices}
-        for atom_index in range(len(group_arr)):
-            ii = mol_arr[atom_index]
+        for atom_index in range(len(group_index_from_atom)):
+            ii = molecule_index_from_atom[atom_index]
             if ii in aux_dict:
-                aux_dict[ii].append(aux_arr[atom_index])
+                aux_dict[ii].append(component_index_from_atom[atom_index])
 
         output = [aux_dict[ii] for ii in indices]
 
-    output = [aux2_arr[np.unique(ii)].tolist() for ii in output] 
+    output = [component_name_from_component[np.unique(ii)].tolist() for ii in output] 
 
-    del group_arr, mol_arr, aux_arr, aux2_arr, aux_dict
+    del group_index_from_atom, molecule_index_from_atom, component_index_from_atom, component_name_from_component, aux_dict
 
     return output
 
@@ -2665,31 +2726,31 @@ def get_component_type_from_molecule(item, indices='all', skip_digestion=False):
 @digest(form=form)
 def get_chain_index_from_molecule(item, indices='all', skip_digestion=False):
 
-    group_arr = item.atoms['group_index'].to_numpy()
-    mol_idx_arr = item.groups['molecule_index'].to_numpy()
-    mol_arr     = mol_idx_arr[group_arr]
-    aux_arr = item.atoms['chain_index'].to_numpy()
+    group_index_from_atom = item.atoms['group_index'].to_numpy()
+    molecule_index_from_group = item.groups['molecule_index'].to_numpy()
+    molecule_index_from_atom     = molecule_index_from_group[group_index_from_atom]
+    chain_index_from_atom = item.atoms['chain_index'].to_numpy()
     n_atoms = item.atoms.shape[0]
 
     if indices =='all':
 
         aux_dict = defaultdict(list)
         for atom_index in range(n_atoms):
-            aux_dict[mol_arr[atom_index]].append(aux_arr[atom_index])
+            aux_dict[molecule_index_from_atom[atom_index]].append(chain_index_from_atom[atom_index])
 
         output = list(aux_dict.values())
 
     else:
 
         aux_dict = {ii: [] for ii in indices}
-        for atom_index in range(len(group_arr)):
-            ii = mol_arr[atom_index]
+        for atom_index in range(len(group_index_from_atom)):
+            ii = molecule_index_from_atom[atom_index]
             if ii in aux_dict:
-                aux_dict[ii].append(aux_arr[atom_index])
+                aux_dict[ii].append(chain_index_from_atom[atom_index])
 
         output = [aux_dict[ii] for ii in indices]
 
-    del group_arr, mol_arr, aux_arr, aux_dict
+    del group_index_from_atom, molecule_index_from_atom, chain_index_from_atom, aux_dict
 
     output = [
         (lambda u: u[0] if u.size == 1 else u.tolist())(np.unique(ii))
@@ -2702,34 +2763,34 @@ def get_chain_index_from_molecule(item, indices='all', skip_digestion=False):
 @digest(form=form)
 def get_chain_id_from_molecule(item, indices='all', skip_digestion=False): ##x
 
-    group_arr = item.atoms['group_index'].to_numpy()
-    mol_idx_arr = item.groups['molecule_index'].to_numpy()
-    mol_arr     = mol_idx_arr[group_arr]
-    aux_arr = item.atoms['chain_index'].to_numpy()
-    aux2_arr = item.chains['chain_id'].to_numpy()
+    group_index_from_atom = item.atoms['group_index'].to_numpy()
+    molecule_index_from_group = item.groups['molecule_index'].to_numpy()
+    molecule_index_from_atom     = molecule_index_from_group[group_index_from_atom]
+    chain_index_from_atom = item.atoms['chain_index'].to_numpy()
+    chain_id_from_chain = item.chains['chain_id'].to_numpy()
     n_atoms = item.atoms.shape[0]
 
     if indices =='all':
 
         aux_dict = defaultdict(list)
         for atom_index in range(n_atoms):
-            aux_dict[mol_arr[atom_index]].append(aux_arr[atom_index])
+            aux_dict[molecule_index_from_atom[atom_index]].append(chain_index_from_atom[atom_index])
 
         output = list(aux_dict.values())
 
     else:
 
         aux_dict = {ii: [] for ii in indices}
-        for atom_index in range(len(group_arr)):
-            ii = mol_arr[atom_index]
+        for atom_index in range(len(group_index_from_atom)):
+            ii = molecule_index_from_atom[atom_index]
             if ii in aux_dict:
-                aux_dict[ii].append(aux_arr[atom_index])
+                aux_dict[ii].append(chain_index_from_atom[atom_index])
 
         output = [aux_dict[ii] for ii in indices]
 
-    output = [aux2_arr[np.unique(ii)].tolist() for ii in output] 
+    output = [chain_id_from_chain[np.unique(ii)].tolist() for ii in output] 
 
-    del group_arr, mol_arr, aux_arr, aux2_arr, aux_dict
+    del group_index_from_atom, molecule_index_from_atom, chain_index_from_atom, chain_id_from_chain, aux_dict
 
     output = [
         (lambda u: u[0] if u.size == 1 else u.tolist())(np.unique(ii))
@@ -2742,34 +2803,34 @@ def get_chain_id_from_molecule(item, indices='all', skip_digestion=False): ##x
 @digest(form=form)
 def get_chain_name_from_molecule(item, indices='all', skip_digestion=False): ##x
 
-    group_arr = item.atoms['group_index'].to_numpy()
-    mol_idx_arr = item.groups['molecule_index'].to_numpy()
-    mol_arr     = mol_idx_arr[group_arr]
-    aux_arr = item.atoms['chain_index'].to_numpy()
-    aux2_arr = item.chains['chain_name'].to_numpy()
+    group_index_from_atom = item.atoms['group_index'].to_numpy()
+    molecule_index_from_group = item.groups['molecule_index'].to_numpy()
+    molecule_index_from_atom     = molecule_index_from_group[group_index_from_atom]
+    chain_index_from_atom = item.atoms['chain_index'].to_numpy()
+    chain_name_from_chain = item.chains['chain_name'].to_numpy()
     n_atoms = item.atoms.shape[0]
 
     if indices =='all':
 
         aux_dict = defaultdict(list)
         for atom_index in range(n_atoms):
-            aux_dict[mol_arr[atom_index]].append(aux_arr[atom_index])
+            aux_dict[molecule_index_from_atom[atom_index]].append(chain_index_from_atom[atom_index])
 
         output = list(aux_dict.values())
 
     else:
 
         aux_dict = {ii: [] for ii in indices}
-        for atom_index in range(len(group_arr)):
-            ii = mol_arr[atom_index]
+        for atom_index in range(len(group_index_from_atom)):
+            ii = molecule_index_from_atom[atom_index]
             if ii in aux_dict:
-                aux_dict[ii].append(aux_arr[atom_index])
+                aux_dict[ii].append(chain_index_from_atom[atom_index])
 
         output = [aux_dict[ii] for ii in indices]
 
-    output = [aux2_arr[np.unique(ii)].tolist() for ii in output] 
+    output = [chain_name_from_chain[np.unique(ii)].tolist() for ii in output] 
 
-    del group_arr, mol_arr, aux_arr, aux2_arr, aux_dict
+    del group_index_from_atom, molecule_index_from_atom, chain_index_from_atom, chain_name_from_chain, aux_dict
 
     output = [
         (lambda u: u[0] if u.size == 1 else u.tolist())(np.unique(ii))
@@ -2782,34 +2843,34 @@ def get_chain_name_from_molecule(item, indices='all', skip_digestion=False): ##x
 @digest(form=form)
 def get_chain_type_from_molecule(item, indices='all', skip_digestion=False): ##x
 
-    group_arr = item.atoms['group_index'].to_numpy()
-    mol_idx_arr = item.groups['molecule_index'].to_numpy()
-    mol_arr     = mol_idx_arr[group_arr]
-    aux_arr = item.atoms['chain_index'].to_numpy()
-    aux2_arr = item.chains['chain_type'].to_numpy()
+    group_index_from_atom = item.atoms['group_index'].to_numpy()
+    molecule_index_from_group = item.groups['molecule_index'].to_numpy()
+    molecule_index_from_atom     = molecule_index_from_group[group_index_from_atom]
+    chain_index_from_atom = item.atoms['chain_index'].to_numpy()
+    chain_type_from_chain = item.chains['chain_type'].to_numpy()
     n_atoms = item.atoms.shape[0]
 
     if indices =='all':
 
         aux_dict = defaultdict(list)
         for atom_index in range(n_atoms):
-            aux_dict[mol_arr[atom_index]].append(aux_arr[atom_index])
+            aux_dict[molecule_index_from_atom[atom_index]].append(chain_index_from_atom[atom_index])
 
         output = list(aux_dict.values())
 
     else:
 
         aux_dict = {ii: [] for ii in indices}
-        for atom_index in range(len(group_arr)):
-            ii = mol_arr[atom_index]
+        for atom_index in range(len(group_index_from_atom)):
+            ii = molecule_index_from_atom[atom_index]
             if ii in aux_dict:
-                aux_dict[ii].append(aux_arr[atom_index])
+                aux_dict[ii].append(chain_index_from_atom[atom_index])
 
         output = [aux_dict[ii] for ii in indices]
 
-    output = [aux2_arr[np.unique(ii)].tolist() for ii in output] 
+    output = [chain_type_from_chain[np.unique(ii)].tolist() for ii in output] 
 
-    del group_arr, mol_arr, aux_arr, aux2_arr, aux_dict
+    del group_index_from_atom, molecule_index_from_atom, chain_index_from_atom, chain_type_from_chain, aux_dict
 
     output = [
         (lambda u: u[0] if u.size == 1 else u.tolist())(np.unique(ii))
@@ -3035,7 +3096,7 @@ def get_n_entities_from_molecule(item, indices='all', skip_digestion=False): ##x
         output = get_n_entities_from_system(item, skip_digestion=True)
     else:
         output = get_entity_index_from_molecule(item, indices=indices, skip_digestion=True)
-        output = np.unique(output).shape[0]
+        output = np.unique(output).size
 
     return output
 
@@ -3061,9 +3122,14 @@ def get_total_n_components_from_molecule(item, indices='all', skip_digestion=Fal
     if indices=='all':
         output = get_n_components_from_system(item, skip_digestion=True)
     else:
-        aux = get_n_components_from_molecule(item, indices=indices, skip_digestion=True)
-        output = sum(aux)
-        del aux
+        aux = get_component_index_from_molecule(item, indices, skip_digestion=True)
+        output = set()
+        for ii in aux:
+            if isinstance(ii, list):
+                output.update(ii)
+            else:
+                output.add(ii)
+        output = len(output)
 
     return output
 
@@ -3071,11 +3137,8 @@ def get_total_n_components_from_molecule(item, indices='all', skip_digestion=Fal
 @digest(form=form)
 def get_n_chains_from_molecule(item, indices='all', skip_digestion=False): ##x
 
-    if indices=='all':
-        output = get_n_chains_from_system(item, skip_digestion=True)
-    else:
-        output = get_chain_index_from_molecule(item, indices=indices, skip_digestion=True)
-        output = np.unique(output).shape[0]
+    output = get_chain_index_from_molecule(item, indices, skip_digestion=True)
+    output = [len(ii) if isinstance(ii, list) else 1 for ii in output]
 
     return output
 
@@ -3083,7 +3146,19 @@ def get_n_chains_from_molecule(item, indices='all', skip_digestion=False): ##x
 @digest(form=form)
 def get_total_n_chains_from_molecule(item, indices='all', skip_digestion=False): ##x
 
-    return get_n_chains_from_molecule(item, indices=indices, skip_digestion=True)
+    if indices=='all':
+        output = get_n_chains_from_system(item, skip_digestion=True)
+    else:
+        aux = get_chain_index_from_molecule(item, indices, skip_digestion=True)
+        output = set()
+        for ii in aux:
+            if isinstance(ii, list):
+                output.update(ii)
+            else:
+                output.add(ii)
+        output = len(output)
+
+    return output
 
 
 @digest(form=form)
@@ -3137,7 +3212,7 @@ def get_total_n_inner_bonds_from_molecule(item, indices='all', skip_digestion=Fa
 def get_n_amino_acids_from_molecule(item, indices='all', skip_digestion=False): ##x
 
     group_types = get_group_type_from_molecule(item, indices=indices, skip_digestion=True)
-    output = [ sum([jj=='amino acid' for jj in ii]) for ii in group_types ]
+    output = [ ii.count('amino acid') for ii in group_types ]
 
     return output
 
@@ -3161,7 +3236,7 @@ def get_total_n_amino_acids_from_molecule(item, indices='all', skip_digestion=Fa
 def get_n_nucleotides_from_molecule(item, indices='all', skip_digestion=False): ##x
 
     group_types = get_group_type_from_molecule(item, indices=indices, skip_digestion=True)
-    output = [ sum([jj=='nucleotide' for jj in ii]) for ii in group_types ]
+    output = [ ii.count('nucleotide') for ii in group_types ]
 
     return output
 
@@ -3185,7 +3260,7 @@ def get_total_n_nucleotides_from_molecule(item, indices='all', skip_digestion=Fa
 def get_n_ions_from_molecule(item, indices='all', skip_digestion=False): ##x
 
     group_types = get_group_type_from_molecule(item, indices=indices, skip_digestion=True)
-    output = [ sum([jj=='ion' for jj in ii]) for ii in group_types ]
+    output = [ ii.count('ion') for ii in group_types ]
 
     return output
 
@@ -3209,7 +3284,7 @@ def get_total_n_ions_from_molecule(item, indices='all', skip_digestion=False): #
 def get_n_waters_from_molecule(item, indices='all', skip_digestion=False):
 
     group_types = get_group_type_from_molecule(item, indices=indices, skip_digestion=True)
-    output = [ sum([jj=='water' for jj in ii]) for ii in group_types ]
+    output = [ ii.count('water') for ii in group_types ]
 
     return output
 
@@ -3233,7 +3308,7 @@ def get_total_n_waters_from_molecule(item, indices='all', skip_digestion=False):
 def get_n_small_molecules_from_molecule(item, indices='all', skip_digestion=False):
 
     group_types = get_group_type_from_molecule(item, indices=indices, skip_digestion=True)
-    output = [ sum([jj=='small molecule' for jj in ii]) for ii in group_types ]
+    output = [ ii.count('small molecule') for ii in group_types ]
 
     return output
 
@@ -3257,7 +3332,7 @@ def get_total_n_small_molecules_from_molecule(item, indices='all', skip_digestio
 def get_n_lipids_from_molecule(item, indices='all', skip_digestion=False):
 
     group_types = get_group_type_from_molecule(item, indices=indices, skip_digestion=True)
-    output = [ sum([jj=='lipid' for jj in ii]) for ii in group_types ]
+    output = [ ii.count('lipid') for ii in group_types ]
 
     return output
 
@@ -3281,7 +3356,7 @@ def get_total_n_lipids_from_molecule(item, indices='all', skip_digestion=False):
 def get_n_saccharides_from_molecule(item, indices='all', skip_digestion=False):
 
     group_types = get_group_type_from_molecule(item, indices=indices, skip_digestion=True)
-    output = [ sum([jj=='saccharide' for jj in ii]) for ii in group_types ]
+    output = [ ii.count('saccharide') for ii in group_types ]
 
     return output
 
@@ -3304,8 +3379,8 @@ def get_total_n_saccharides_from_molecule(item, indices='all', skip_digestion=Fa
 @digest(form=form)
 def get_n_peptides_from_molecule(item, indices='all', skip_digestion=False): ##x
 
-    group_types = get_molecule_type_from_molecule(item, indices=indices, skip_digestion=True)
-    output = (np.array(group_types) == 'peptide').sum()
+    molecule_types = get_molecule_type_from_molecule(item, indices=indices, skip_digestion=True)
+    output = molecule_types.count('peptide')
 
     return output
 
@@ -3321,8 +3396,8 @@ def get_total_n_peptides_from_molecule(item, indices='all', skip_digestion=False
 @digest(form=form)
 def get_n_proteins_from_molecule(item, indices='all', skip_digestion=False): ##x
 
-    group_types = get_molecule_type_from_molecule(item, indices=indices, skip_digestion=True)
-    output = (np.array(group_types) == 'protein').sum()
+    molecule_types = get_molecule_type_from_molecule(item, indices=indices, skip_digestion=True)
+    output = molecule_types.count('protein')
 
     return output
 
@@ -3339,7 +3414,7 @@ def get_total_n_proteins_from_molecule(item, indices='all', skip_digestion=False
 def get_n_polysaccharides_from_molecule(item, indices='all', skip_digestion=False): ##x
 
     group_types = get_molecule_type_from_molecule(item, indices=indices, skip_digestion=True)
-    output = (np.array(group_types) == 'polysaccharide').sum()
+    output = molecule_types.count('polysaccharide')
 
     return output
 
@@ -3355,8 +3430,8 @@ def get_total_n_polysaccharides_from_molecule(item, indices='all', skip_digestio
 @digest(form=form)
 def get_n_dnas_from_molecule(item, indices='all', skip_digestion=False): ##x
 
-    group_types = get_molecule_type_from_molecule(item, indices=indices, skip_digestion=True)
-    output = (np.array(group_types) == 'dna').sum()
+    molecule_types = get_molecule_type_from_molecule(item, indices=indices, skip_digestion=True)
+    output = molecule_types.count('dna')
 
     return output
 
@@ -3372,8 +3447,8 @@ def get_total_n_dnas_from_molecule(item, indices='all', skip_digestion=False): #
 @digest(form=form)
 def get_n_rnas_from_molecule(item, indices='all', skip_digestion=False): ##x
 
-    group_types = get_molecule_type_from_molecule(item, indices=indices, skip_digestion=True)
-    output = (np.array(group_types) == 'rna').sum()
+    molecule_types = get_molecule_type_from_molecule(item, indices=indices, skip_digestion=True)
+    output = molecule_types.count('rna')
 
     return output
 
@@ -3392,18 +3467,18 @@ def get_total_n_rnas_from_molecule(item, indices='all', skip_digestion=False): #
 @digest(form=form)
 def get_atom_index_from_entity(item, indices='all', skip_digestion=False): ##x
 
-    group_arr = item.atoms['group_index'].to_numpy()
-    mol_idx_arr = item.groups['molecule_index'].to_numpy()
-    ent_idx_arr = item.molecules['entity_index'].to_numpy()
-    mol_arr     = mol_idx_arr[group_arr]
-    ent_per_atom = ent_idx_arr[mol_arr]
+    group_index_from_atom = item.atoms['group_index'].to_numpy()
+    molecule_index_from_group = item.groups['molecule_index'].to_numpy()
+    entity_index_from_molecule = item.molecules['entity_index'].to_numpy()
+    molecule_index_from_atom     = molecule_index_from_group[group_index_from_atom]
+    entity_index_from_atom = entity_index_from_molecule[molecule_index_from_atom]
     n_atoms = item.atoms.shape[0]
 
     if indices =='all':
 
         aux_dict = defaultdict(list)
         for atom_index in range(n_atoms):
-            aux_dict[ent_per_atom[atom_index]].append(atom_index)
+            aux_dict[entity_index_from_atom[atom_index]].append(atom_index)
 
         output = list(aux_dict.values())
 
@@ -3411,13 +3486,14 @@ def get_atom_index_from_entity(item, indices='all', skip_digestion=False): ##x
 
         aux_dict = {ii: [] for ii in indices}
         for atom_index in range(n_atoms):
-            ent = ent_per_atom[atom_index]
+            ent = entity_index_from_atom[atom_index]
             if ent in aux_dict:
                 aux_dict[ent].append(atom_index)
 
         output = [aux_dict[m] for m in indices]
 
-    del group_arr, mol_idx_arr, ent_idx_arr, mol_arr, ent_per_atom, aux_dict
+    del group_index_from_atom, molecule_index_from_group, entity_index_from_molecule
+    del molecule_index_from_atom, entity_index_from_atom, aux_dict
 
     return output
 
@@ -3425,19 +3501,19 @@ def get_atom_index_from_entity(item, indices='all', skip_digestion=False): ##x
 @digest(form=form)
 def get_atom_id_from_entity(item, indices='all', skip_digestion=False): ##x
 
-    group_arr = item.atoms['group_index'].to_numpy()
-    mol_idx_arr = item.groups['molecule_index'].to_numpy()
-    ent_idx_arr = item.molecules['entity_index'].to_numpy()
-    mol_arr     = mol_idx_arr[group_arr]
-    ent_per_atom = ent_idx_arr[mol_arr]
-    aux_arr = item.atoms['atom_id'].to_numpy()
+    group_index_from_atom = item.atoms['group_index'].to_numpy()
+    molecule_index_from_group = item.groups['molecule_index'].to_numpy()
+    entity_index_from_molecule = item.molecules['entity_index'].to_numpy()
+    molecule_index_from_atom     = molecule_index_from_group[group_index_from_atom]
+    entity_index_from_atom = entity_index_from_molecule[molecule_index_from_atom]
+    atom_id_from_atom = item.atoms['atom_id'].to_numpy()
     n_atoms = item.atoms.shape[0]
 
     if indices =='all':
 
         aux_dict = defaultdict(list)
         for atom_index in range(n_atoms):
-            aux_dict[ent_per_atom[atom_index]].append(aux_arr[atom_index])
+            aux_dict[entity_index_from_atom[atom_index]].append(atom_id_from_atom[atom_index])
 
         output = list(aux_dict.values())
 
@@ -3445,13 +3521,14 @@ def get_atom_id_from_entity(item, indices='all', skip_digestion=False): ##x
 
         aux_dict = {ii: [] for ii in indices}
         for atom_index in range(n_atoms):
-            ent = ent_per_atom[atom_index]
+            ent = entity_index_from_atom[atom_index]
             if ent in aux_dict:
-                aux_dict[ent].append(aux_arr[atom_index])
+                aux_dict[ent].append(atom_id_from_atom[atom_index])
 
         output = list(aux_dict.values())
 
-    del group_arr, mol_idx_arr, ent_idx_arr, mol_arr, ent_per_atom, aux_arr, aux_dict
+    del group_index_from_atom, molecule_index_from_group, entity_index_from_molecule
+    del molecule_index_from_atom, entity_index_from_atom, atom_id_from_atom, aux_dict
 
     return output
 
@@ -3459,19 +3536,19 @@ def get_atom_id_from_entity(item, indices='all', skip_digestion=False): ##x
 @digest(form=form)
 def get_atom_name_from_entity(item, indices='all', skip_digestion=False): ##x
 
-    group_arr = item.atoms['group_index'].to_numpy()
-    mol_idx_arr = item.groups['molecule_index'].to_numpy()
-    ent_idx_arr = item.molecules['entity_index'].to_numpy()
-    mol_arr     = mol_idx_arr[group_arr]
-    ent_per_atom = ent_idx_arr[mol_arr]
-    aux_arr = item.atoms['atom_name'].to_numpy()
+    group_index_from_atom = item.atoms['group_index'].to_numpy()
+    molecule_index_from_group = item.groups['molecule_index'].to_numpy()
+    entity_index_from_molecule = item.molecules['entity_index'].to_numpy()
+    molecule_index_from_atom     = molecule_index_from_group[group_index_from_atom]
+    entity_index_from_atom = entity_index_from_molecule[molecule_index_from_atom]
+    atom_name_from_atom = item.atoms['atom_name'].to_numpy()
     n_atoms = item.atoms.shape[0]
 
     if indices =='all':
 
         aux_dict = defaultdict(list)
         for atom_index in range(n_atoms):
-            aux_dict[ent_per_atom[atom_index]].append(aux_arr[atom_index])
+            aux_dict[entity_index_from_atom[atom_index]].append(atom_name_from_atom[atom_index])
 
         output = list(aux_dict.values())
 
@@ -3479,13 +3556,14 @@ def get_atom_name_from_entity(item, indices='all', skip_digestion=False): ##x
 
         aux_dict = {ii: [] for ii in indices}
         for atom_index in range(n_atoms):
-            ent = ent_per_atom[atom_index]
+            ent = entity_index_from_atom[atom_index]
             if ent in aux_dict:
-                aux_dict[ent].append(aux_arr[atom_index])
+                aux_dict[ent].append(atom_name_from_atom[atom_index])
 
         output = list(aux_dict.values())
 
-    del group_arr, mol_idx_arr, ent_idx_arr, mol_arr, ent_per_atom, aux_arr, aux_dict
+    del group_index_from_atom, molecule_index_from_group, entity_index_from_molecule
+    del molecule_index_from_atom, entity_index_from_atom, atom_name_from_atom, aux_dict
 
     return output
 
@@ -3493,19 +3571,19 @@ def get_atom_name_from_entity(item, indices='all', skip_digestion=False): ##x
 @digest(form=form)
 def get_atom_type_from_entity(item, indices='all', skip_digestion=False): ##x
 
-    group_arr = item.atoms['group_index'].to_numpy()
-    mol_idx_arr = item.groups['molecule_index'].to_numpy()
-    ent_idx_arr = item.molecules['entity_index'].to_numpy()
-    mol_arr     = mol_idx_arr[group_arr]
-    ent_per_atom = ent_idx_arr[mol_arr]
-    aux_arr = item.atoms['atom_type'].to_numpy()
+    group_index_from_atom = item.atoms['group_index'].to_numpy()
+    molecule_index_from_group = item.groups['molecule_index'].to_numpy()
+    entity_index_from_molecule = item.molecules['entity_index'].to_numpy()
+    molecule_index_from_atom     = molecule_index_from_group[group_index_from_atom]
+    entity_index_from_atom = entity_index_from_molecule[molecule_index_from_atom]
+    atom_type_from_atom = item.atoms['atom_type'].to_numpy()
     n_atoms = item.atoms.shape[0]
 
     if indices =='all':
 
         aux_dict = defaultdict(list)
         for atom_index in range(n_atoms):
-            aux_dict[ent_per_atom[atom_index]].append(aux_arr[atom_index])
+            aux_dict[entity_index_from_atom[atom_index]].append(atom_type_from_atom[atom_index])
 
         output = list(aux_dict.values())
 
@@ -3513,13 +3591,14 @@ def get_atom_type_from_entity(item, indices='all', skip_digestion=False): ##x
 
         aux_dict = {ii: [] for ii in indices}
         for atom_index in range(n_atoms):
-            ent = ent_per_atom[atom_index]
+            ent = entity_index_from_atom[atom_index]
             if ent in aux_dict:
-                aux_dict[ent].append(aux_arr[atom_index])
+                aux_dict[ent].append(atom_type_from_atom[atom_index])
 
         output = list(aux_dict.values())
 
-    del group_arr, mol_idx_arr, ent_idx_arr, mol_arr, ent_per_atom, aux_arr, aux_dict
+    del group_index_from_atom, molecule_index_from_group, entity_index_from_molecule
+    del molecule_index_from_atom, entity_index_from_atom, atom_type_from_atom, aux_dict
 
     return output
 
@@ -3527,16 +3606,16 @@ def get_atom_type_from_entity(item, indices='all', skip_digestion=False): ##x
 @digest(form=form)
 def get_group_index_from_entity(item, indices='all', skip_digestion=False): ##x
 
-    mol_idx_arr     = item.groups['molecule_index'].to_numpy()
-    ent_idx_arr     = item.molecules['entity_index'].to_numpy()
-    ent_per_group   = ent_idx_arr[mol_idx_arr]
-    n_groups = len(ent_per_group)
+    molecule_index_from_group     = item.groups['molecule_index'].to_numpy()
+    entity_index_from_molecule     = item.molecules['entity_index'].to_numpy()
+    entity_index_from_group   = entity_index_from_molecule[molecule_index_from_group]
+    n_groups = len(entity_index_from_group)
 
     if indices == 'all':
 
         aux_dict = defaultdict(list)
         for group_index in range(n_groups):
-            aux_dict[ent_per_group[group_index]].append(group_index)
+            aux_dict[entity_index_from_group[group_index]].append(group_index)
 
         output = list(aux_dict.values())
 
@@ -3544,13 +3623,13 @@ def get_group_index_from_entity(item, indices='all', skip_digestion=False): ##x
 
         aux_dict = {ii: [] for ii in indices}
         for group_index in range(n_groups):
-            ii = ent_per_group[group_index]
+            ii = entity_index_from_group[group_index]
             if ii in aux_dict:
                 aux_dict[ii].append(group_index)
 
         output = [aux_dict[ii] for ii in indices]
 
-    del mol_idx_arr, ent_idx_arr, ent_per_group, n_groups, aux_dict
+    del molecule_index_from_group, entity_index_from_molecule, entity_index_from_group, n_groups, aux_dict
 
     return output
 
@@ -3558,17 +3637,17 @@ def get_group_index_from_entity(item, indices='all', skip_digestion=False): ##x
 @digest(form=form)
 def get_group_id_from_entity(item, indices='all', skip_digestion=False): ##x
 
-    mol_idx_arr     = item.groups['molecule_index'].to_numpy()
-    ent_idx_arr     = item.molecules['entity_index'].to_numpy()
-    ent_per_group   = ent_idx_arr[mol_idx_arr]
-    aux_arr = item.groups['group_id'].to_numpy()
-    n_groups = len(ent_per_group)
+    molecule_index_from_group     = item.groups['molecule_index'].to_numpy()
+    entity_index_from_molecule     = item.molecules['entity_index'].to_numpy()
+    entity_index_from_group   = entity_index_from_molecule[molecule_index_from_group]
+    group_id_from_group = item.groups['group_id'].to_numpy()
+    n_groups = len(entity_index_from_group)
 
     if indices == 'all':
 
         aux_dict = defaultdict(list)
         for group_index in range(n_groups):
-            aux_dict[ent_per_group[group_index]].append(aux_arr[group_index])
+            aux_dict[entity_index_from_group[group_index]].append(group_id_from_group[group_index])
 
         output = list(aux_dict.values())
 
@@ -3576,13 +3655,13 @@ def get_group_id_from_entity(item, indices='all', skip_digestion=False): ##x
 
         aux_dict = {ii: [] for ii in indices}
         for group_index in range(n_groups):
-            ii = ent_per_group[group_index]
+            ii = entity_index_from_group[group_index]
             if ii in aux_dict:
-                aux_dict[ii].append(aux_arr[group_index])
+                aux_dict[ii].append(group_id_from_group[group_index])
 
         output = [aux_dict[ii] for ii in indices]
 
-    del mol_idx_arr, ent_idx_arr, ent_per_group, n_groups, aux_dict
+    del molecule_index_from_group, entity_index_from_molecule, entity_index_from_group, n_groups, aux_dict
 
     return output
 
@@ -3590,17 +3669,17 @@ def get_group_id_from_entity(item, indices='all', skip_digestion=False): ##x
 @digest(form=form)
 def get_group_name_from_entity(item, indices='all', skip_digestion=False): ##x
 
-    mol_idx_arr     = item.groups['molecule_index'].to_numpy()
-    ent_idx_arr     = item.molecules['entity_index'].to_numpy()
-    ent_per_group   = ent_idx_arr[mol_idx_arr]
-    aux_arr = item.groups['group_name'].to_numpy()
-    n_groups = len(ent_per_group)
+    molecule_index_from_group     = item.groups['molecule_index'].to_numpy()
+    entity_index_from_molecule     = item.molecules['entity_index'].to_numpy()
+    entity_index_from_group   = entity_index_from_molecule[molecule_index_from_group]
+    group_name_from_group = item.groups['group_name'].to_numpy()
+    n_groups = len(entity_index_from_group)
 
     if indices == 'all':
 
         aux_dict = defaultdict(list)
         for group_index in range(n_groups):
-            aux_dict[ent_per_group[group_index]].append(aux_arr[group_index])
+            aux_dict[entity_index_from_group[group_index]].append(group_name_from_group[group_index])
 
         output = list(aux_dict.values())
 
@@ -3608,13 +3687,13 @@ def get_group_name_from_entity(item, indices='all', skip_digestion=False): ##x
 
         aux_dict = {ii: [] for ii in indices}
         for group_index in range(n_groups):
-            ii = ent_per_group[group_index]
+            ii = entity_index_from_group[group_index]
             if ii in aux_dict:
-                aux_dict[ii].append(aux_arr[group_index])
+                aux_dict[ii].append(group_name_from_group[group_index])
 
         output = [aux_dict[ii] for ii in indices]
 
-    del mol_idx_arr, ent_idx_arr, ent_per_group, n_groups, aux_dict
+    del molecule_index_from_group, entity_index_from_molecule, entity_index_from_group, n_groups, aux_dict
 
     return output
 
@@ -3622,17 +3701,17 @@ def get_group_name_from_entity(item, indices='all', skip_digestion=False): ##x
 @digest(form=form)
 def get_group_type_from_entity(item, indices='all', skip_digestion=False): ##x
 
-    mol_idx_arr     = item.groups['molecule_index'].to_numpy()
-    ent_idx_arr     = item.molecules['entity_index'].to_numpy()
-    ent_per_group   = ent_idx_arr[mol_idx_arr]
-    aux_arr = item.groups['group_type'].to_numpy()
-    n_groups = len(ent_per_group)
+    molecule_index_from_group     = item.groups['molecule_index'].to_numpy()
+    entity_index_from_molecule     = item.molecules['entity_index'].to_numpy()
+    entity_index_from_group   = entity_index_from_molecule[molecule_index_from_group]
+    group_type_from_group = item.groups['group_type'].to_numpy()
+    n_groups = len(entity_index_from_group)
 
     if indices == 'all':
 
         aux_dict = defaultdict(list)
         for group_index in range(n_groups):
-            aux_dict[ent_per_group[group_index]].append(aux_arr[group_index])
+            aux_dict[entity_index_from_group[group_index]].append(group_type_from_group[group_index])
 
         output = list(aux_dict.values())
 
@@ -3640,13 +3719,13 @@ def get_group_type_from_entity(item, indices='all', skip_digestion=False): ##x
 
         aux_dict = {ii: [] for ii in indices}
         for group_index in range(n_groups):
-            ii = ent_per_group[group_index]
+            ii = entity_index_from_group[group_index]
             if ii in aux_dict:
-                aux_dict[ii].append(aux_arr[group_index])
+                aux_dict[ii].append(group_type_from_group[group_index])
 
         output = [aux_dict[ii] for ii in indices]
 
-    del mol_idx_arr, ent_idx_arr, ent_per_group, n_groups, aux_dict
+    del molecule_index_from_group, entity_index_from_molecule, entity_index_from_group, n_groups, aux_dict
 
     return output
 

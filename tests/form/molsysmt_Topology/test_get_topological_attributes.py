@@ -3618,10 +3618,10 @@ def test_get_n_chains_from_molecule():
     list_n_chains_Hk2 = aux.get_n_chains_from_molecule(molsys_Hk2.topology, indices=[4,5,6], skip_digestion=True)
     list_n_chains_BB = aux.get_n_chains_from_molecule(molsys_BB.topology, indices=[10,11,12,13], skip_digestion=True)
 
-    assert all_n_chains_Hk2 == 40
-    assert all_n_chains_BB == 12
-    assert list_n_chains_Hk2 == 3
-    assert list_n_chains_BB == 1
+    assert all_n_chains_Hk2 == 135*[1]
+    assert all_n_chains_BB == 519*[1]
+    assert list_n_chains_Hk2 == [1,1,1]
+    assert list_n_chains_BB == [1,1,1,1]
 
 
 def test_get_total_n_chains_from_molecule():
