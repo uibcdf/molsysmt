@@ -4499,7 +4499,7 @@ def get_total_n_chains_from_entity(item, indices='all', skip_digestion=False): #
 
 
 @digest(form=form)
-def get_n_bonds_from_entity(item, indices='all', skip_digestion=False):
+def get_n_bonds_from_entity(item, indices='all', skip_digestion=False): ##x
 
     output = get_bond_index_from_entity(item, indices, skip_digestion=True)
     output = [len(ii) for ii in output]
@@ -4521,7 +4521,7 @@ def get_total_n_bonds_from_entity(item, indices='all', skip_digestion=False): ##
 
 
 @digest(form=form)
-def get_n_inner_bonds_from_entity(item, indices='all', skip_digestion=False):
+def get_n_inner_bonds_from_entity(item, indices='all', skip_digestion=False): ##x
 
     output = get_inner_bond_index_from_entity(item, indices, skip_digestion=True)
     output = [len(ii) for ii in output]
