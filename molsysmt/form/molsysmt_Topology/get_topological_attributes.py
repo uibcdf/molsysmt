@@ -5090,62 +5090,6 @@ def get_group_type_from_component(item, indices='all', skip_digestion=False): ##
 
 
 @digest(form=form)
-def get_component_index_from_component(item, indices='all', skip_digestion=False): ##x
-
-    if indices=='all':
-        output = list(range(item.components.shape[0]))
-    else:
-        output = indices
-
-    return output
-
-
-@digest(form=form)
-def get_component_id_from_component(item, indices='all', skip_digestion=False): ##x
-
-    component_id_from_component = item.components['component_id'].to_numpy()
-
-    if indices=='all':
-        output = component_id_from_component.tolist()
-    else:
-        output = component_id_from_component[indices].tolist()
-
-    del component_id_from_component
-
-    return output
-
-
-@digest(form=form)
-def get_component_name_from_component(item, indices='all', skip_digestion=False): ##x
-
-    component_name_from_component = item.components['component_name'].to_numpy()
-
-    if indices=='all':
-        output = component_name_from_component.tolist()
-    else:
-        output = component_name_from_component[indices].tolist()
-
-    del component_name_from_component
-
-    return output
-
-
-@digest(form=form)
-def get_component_type_from_component(item, indices='all', skip_digestion=False): ##x
-
-    component_type_from_component = item.components['component_type'].to_numpy()
-
-    if indices=='all':
-        output = component_type_from_component.tolist()
-    else:
-        output = component_type_from_component[indices].tolist()
-
-    del component_type_from_component
-
-    return output
-
-
-@digest(form=form)
 def get_molecule_index_from_component(item, indices='all', skip_digestion=False): ##x
 
     component_index_from_atom = item.atoms['component_index'].to_numpy()
@@ -5289,264 +5233,582 @@ def get_molecule_type_from_component(item, indices='all', skip_digestion=False):
 
 
 @digest(form=form)
-def get_entity_index_from_component(item, indices='all', skip_digestion=False):
+def get_entity_index_from_component(item, indices='all', skip_digestion=False): ##x
 
-    aux = item.atoms.groupby('component_index')
+    component_index_from_atom = item.atoms['component_index'].to_numpy()
+    group_index_from_atom = item.atoms['group_index'].to_numpy()
+    molecule_index_from_group = item.groups['molecule_index'].to_numpy()
+    entity_index_from_molecule = item.molecules['entity_index'].to_numpy()
+    molecule_index_from_atom = molecule_index_from_group[group_index_from_atom]
+    entity_index_from_atom = entity_index_from_molecule[molecule_index_from_atom]
+    n_atoms = item.atoms.shape[0]
 
-    if indices=='all':
-        atom_indices = [jj.tolist() for _, jj in aux.groups.items()]
+    del group_index_from_atom, molecule_index_from_group, entity_index_from_molecule
+
+    if indices =='all':
+
+        aux_dict = defaultdict(set)
+        for atom_index in range(n_atoms):
+            aux_dict[component_index_from_atom[atom_index]].add(entity_index_from_atom[atom_index])
+
+        output = list(aux_dict.values())
+
     else:
-        atom_indices = [aux.groups[ii].tolist() for ii in indices]
 
-    del aux
+        aux_dict = {ii: set() for ii in indices}
+        for atom_index in range(n_atoms):
+            ii = component_index_from_atom[atom_index]
+            if ii in aux_dict:
+                aux_dict[ii].add(entity_index_from_atom[atom_index])
 
-    group_indices = item.atoms['group_index'].take([ii[0] for ii in atom_indices])
-    molecule_indices = item.groups['molecule_index'].take(group_indices)
-    output = item.molecules['entity_index'].take(molecule_indices).to_list()
+        output = [aux_dict[m] for m in indices]
 
-    del atom_indices, group_indices, molecule_indices
+    output = [ next(iter(ii)) if len(ii) == 1 else sorted(ii) for ii in output]
+
+    del component_index_from_atom, entity_index_from_atom, n_atoms, aux_dict
 
     return output
 
 
 @digest(form=form)
-def get_entity_id_from_component(item, indices='all', skip_digestion=False): ##
+def get_entity_id_from_component(item, indices='all', skip_digestion=False): ##x
 
-    aux = item.atoms.groupby('component_index')
+    component_index_from_atom = item.atoms['component_index'].to_numpy()
+    group_index_from_atom = item.atoms['group_index'].to_numpy()
+    molecule_index_from_group = item.groups['molecule_index'].to_numpy()
+    entity_index_from_molecule = item.molecules['entity_index'].to_numpy()
+    molecule_index_from_atom = molecule_index_from_group[group_index_from_atom]
+    entity_index_from_atom = entity_index_from_molecule[molecule_index_from_atom]
+    entity_id_from_entity = item.entities['entity_id'].to_numpy()
+    n_atoms = item.atoms.shape[0]
 
-    if indices=='all':
-        atom_indices = [jj.tolist() for _, jj in aux.groups.items()]
+    del group_index_from_atom, molecule_index_from_group, entity_index_from_molecule
+
+    if indices =='all':
+
+        aux_dict = defaultdict(set)
+        for atom_index in range(n_atoms):
+            aux_dict[component_index_from_atom[atom_index]].add(entity_index_from_atom[atom_index])
+
+        output = list(aux_dict.values())
+
     else:
-        atom_indices = [aux.groups[ii].tolist() for ii in indices]
 
-    del aux
+        aux_dict = {ii: set() for ii in indices}
+        for atom_index in range(n_atoms):
+            ii = component_index_from_atom[atom_index]
+            if ii in aux_dict:
+                aux_dict[ii].add(entity_index_from_atom[atom_index])
 
-    group_indices = item.atoms['group_index'].take([ii[0] for ii in atom_indices])
-    molecule_indices = item.groups['molecule_index'].take(group_indices)
-    entity_indices = item.molecules['entity_index'].take(molecule_indices)
-    output = item.entities['entity_id'].take(entity_indices).to_list()
+        output = [aux_dict[m] for m in indices]
 
-    del atom_indices, group_indices, molecule_indices, entity_indices
+    output = [ entity_id_from_entity[next(iter(ii))] if len(ii) == 1 else entity_id_from_entity[sorted(ii)].tolist() for ii in output]
+
+    del component_index_from_atom, entity_index_from_atom, entity_id_from_entity, n_atoms, aux_dict
 
     return output
 
 
 @digest(form=form)
-def get_entity_name_from_component(item, indices='all', skip_digestion=False): ##
+def get_entity_name_from_component(item, indices='all', skip_digestion=False): ##x
 
-    aux = item.atoms.groupby('component_index')
+    component_index_from_atom = item.atoms['component_index'].to_numpy()
+    group_index_from_atom = item.atoms['group_index'].to_numpy()
+    molecule_index_from_group = item.groups['molecule_index'].to_numpy()
+    entity_index_from_molecule = item.molecules['entity_index'].to_numpy()
+    molecule_index_from_atom = molecule_index_from_group[group_index_from_atom]
+    entity_index_from_atom = entity_index_from_molecule[molecule_index_from_atom]
+    entity_name_from_entity = item.entities['entity_name'].to_numpy()
+    n_atoms = item.atoms.shape[0]
 
-    if indices=='all':
-        atom_indices = [jj.tolist() for _, jj in aux.groups.items()]
+    del group_index_from_atom, molecule_index_from_group, entity_index_from_molecule
+
+    if indices =='all':
+
+        aux_dict = defaultdict(set)
+        for atom_index in range(n_atoms):
+            aux_dict[component_index_from_atom[atom_index]].add(entity_index_from_atom[atom_index])
+
+        output = list(aux_dict.values())
+
     else:
-        atom_indices = [aux.groups[ii].tolist() for ii in indices]
 
-    del aux
+        aux_dict = {ii: set() for ii in indices}
+        for atom_index in range(n_atoms):
+            ii = component_index_from_atom[atom_index]
+            if ii in aux_dict:
+                aux_dict[ii].add(entity_index_from_atom[atom_index])
 
-    group_indices = item.atoms['group_index'].take([ii[0] for ii in atom_indices])
-    molecule_indices = item.groups['molecule_index'].take(group_indices)
-    entity_indices = item.molecules['entity_index'].take(molecule_indices)
-    output = item.entities['entity_name'].take(entity_indices).to_list()
+        output = [aux_dict[m] for m in indices]
 
-    del atom_indices, group_indices, molecule_indices, entity_indices
+    output = [ entity_name_from_entity[next(iter(ii))] if len(ii) == 1 else entity_name_from_entity[sorted(ii)].tolist() for ii in output]
+
+    del component_index_from_atom, entity_index_from_atom, entity_name_from_entity, n_atoms, aux_dict
 
     return output
 
 
 @digest(form=form)
-def get_entity_type_from_component(item, indices='all', skip_digestion=False): ##
+def get_entity_type_from_component(item, indices='all', skip_digestion=False): ##x
 
-    aux = item.atoms.groupby('component_index')
+    component_index_from_atom = item.atoms['component_index'].to_numpy()
+    group_index_from_atom = item.atoms['group_index'].to_numpy()
+    molecule_index_from_group = item.groups['molecule_index'].to_numpy()
+    entity_index_from_molecule = item.molecules['entity_index'].to_numpy()
+    molecule_index_from_atom = molecule_index_from_group[group_index_from_atom]
+    entity_index_from_atom = entity_index_from_molecule[molecule_index_from_atom]
+    entity_type_from_entity = item.entities['entity_type'].to_numpy()
+    n_atoms = item.atoms.shape[0]
 
-    if indices=='all':
-        atom_indices = [jj.tolist() for _, jj in aux.groups.items()]
+    del group_index_from_atom, molecule_index_from_group, entity_index_from_molecule
+
+    if indices =='all':
+
+        aux_dict = defaultdict(set)
+        for atom_index in range(n_atoms):
+            aux_dict[component_index_from_atom[atom_index]].add(entity_index_from_atom[atom_index])
+
+        output = list(aux_dict.values())
+
     else:
-        atom_indices = [aux.groups[ii].tolist() for ii in indices]
 
-    del aux
+        aux_dict = {ii: set() for ii in indices}
+        for atom_index in range(n_atoms):
+            ii = component_index_from_atom[atom_index]
+            if ii in aux_dict:
+                aux_dict[ii].add(entity_index_from_atom[atom_index])
 
-    group_indices = item.atoms['group_index'].take([ii[0] for ii in atom_indices])
-    molecule_indices = item.groups['molecule_index'].take(group_indices)
-    entity_indices = item.molecules['entity_index'].take(molecule_indices)
-    output = item.entities['entity_type'].take(entity_indices).to_list()
+        output = [aux_dict[m] for m in indices]
 
-    del atom_indices, group_indices, molecule_indices, entity_indices
+    output = [ entity_type_from_entity[next(iter(ii))] if len(ii) == 1 else entity_type_from_entity[sorted(ii)].tolist() for ii in output]
+
+    del component_index_from_atom, entity_index_from_atom, entity_type_from_entity, n_atoms, aux_dict
 
     return output
 
 
 @digest(form=form)
-def get_chain_index_from_component(item, indices='all', skip_digestion=False): ##
-
-    aux = item.atoms.groupby('component_index')
+def get_component_index_from_component(item, indices='all', skip_digestion=False): ##x
 
     if indices=='all':
-        atom_indices = [jj.tolist() for _, jj in aux.groups.items()]
+        output = list(range(item.components.shape[0]))
     else:
-        atom_indices = [aux.groups[ii].tolist() for ii in indices]
-
-    del aux
-
-    group_indices = item.atoms['group_index'].take([ii[0] for ii in atom_indices])
-    output = item.groups['chain_index'].take(group_indices).to_list()
-
-    del atom_indices, group_indices
+        output = indices
 
     return output
 
 
 @digest(form=form)
-def get_chain_id_from_component(item, indices='all', skip_digestion=False): ##
+def get_component_id_from_component(item, indices='all', skip_digestion=False): ##x
 
-    aux = item.atoms.groupby('component_index')
+    component_id_from_component = item.components['component_id'].to_numpy()
 
     if indices=='all':
-        atom_indices = [jj.tolist() for _, jj in aux.groups.items()]
+        output = component_id_from_component.tolist()
     else:
-        atom_indices = [aux.groups[ii].tolist() for ii in indices]
+        output = component_id_from_component[indices].tolist()
 
-    del aux
-
-    group_indices = item.atoms['group_index'].take([ii[0] for ii in atom_indices])
-    chain_indices = item.groups['chain_index'].take(group_indices)
-    output = item.chains['chain_id'].take(chain_indices).to_list()
-
-    del atom_indices, group_indices, chain_indices
+    del component_id_from_component
 
     return output
 
 
 @digest(form=form)
-def get_chain_name_from_component(item, indices='all', skip_digestion=False): ##
+def get_component_name_from_component(item, indices='all', skip_digestion=False): ##x
 
-    aux = item.atoms.groupby('component_index')
+    component_name_from_component = item.components['component_name'].to_numpy()
 
     if indices=='all':
-        atom_indices = [jj.tolist() for _, jj in aux.groups.items()]
+        output = component_name_from_component.tolist()
     else:
-        atom_indices = [aux.groups[ii].tolist() for ii in indices]
+        output = component_name_from_component[indices].tolist()
 
-    del aux
-
-    group_indices = item.atoms['group_index'].take([ii[0] for ii in atom_indices])
-    chain_indices = item.groups['chain_index'].take(group_indices)
-    output = item.chains['chain_name'].take(chain_indices).to_list()
-
-    del atom_indices, group_indices, chain_indices
+    del component_name_from_component
 
     return output
 
 
 @digest(form=form)
-def get_chain_type_from_component(item, indices='all', skip_digestion=False): ##
+def get_component_type_from_component(item, indices='all', skip_digestion=False): ##x
 
-    aux = item.atoms.groupby('component_index')
+    component_type_from_component = item.components['component_type'].to_numpy()
 
     if indices=='all':
-        atom_indices = [jj.tolist() for _, jj in aux.groups.items()]
+        output = component_type_from_component.tolist()
     else:
-        atom_indices = [aux.groups[ii].tolist() for ii in indices]
+        output = component_type_from_component[indices].tolist()
 
-    del aux
-
-    group_indices = item.atoms['group_index'].take([ii[0] for ii in atom_indices])
-    chain_indices = item.groups['chain_index'].take(group_indices)
-    output = item.chains['chain_type'].take(chain_indices).to_list()
-
-    del atom_indices, group_indices, chain_indices
+    del component_type_from_component
 
     return output
 
 
 @digest(form=form)
-def get_bond_index_from_component(item, indices='all', skip_digestion=False): ##
+def get_chain_index_from_component(item, indices='all', skip_digestion=False): ##x
 
-    raise NotImplementedMethodError()
+    component_index_from_atom = item.atoms['component_index'].to_numpy()
+    chain_index_from_atom = item.atoms['chain_index'].to_numpy()
+    n_atoms = item.atoms.shape[0]
 
+    if indices =='all':
 
-@digest(form=form)
-def get_bond_type_from_component(item, indices='all', skip_digestion=False): ##
+        aux_dict = defaultdict(set)
+        for atom_index in range(n_atoms):
+            aux_dict[component_index_from_atom[atom_index]].add(chain_index_from_atom[atom_index])
 
-    raise NotImplementedMethodError()
+        output = list(aux_dict.values())
 
-
-@digest(form=form)
-def get_bond_order_from_component(item, indices='all', skip_digestion=False): ##
-
-    raise NotImplementedMethodError()
-
-
-@digest(form=form)
-def get_bonded_atoms_from_component(item, indices='all', skip_digestion=False): ##
-
-    raise NotImplementedMethodError()
-
-
-@digest(form=form)
-def get_bonded_atom_pairs_from_component(item, indices='all', skip_digestion=False): ##
-
-    raise NotImplementedMethodError()
-
-
-@digest(form=form)
-def get_inner_bond_index_from_component(item, indices='all', skip_digestion=False): ##
-
-    raise NotImplementedMethodError()
-
-
-@digest(form=form)
-def get_inner_bonded_atoms_from_component(item, indices='all', skip_digestion=False): ##
-
-    raise NotImplementedMethodError()
-
-
-@digest(form=form)
-def get_inner_bonded_atom_pairs_from_component(item, indices='all', skip_digestion=False): ##
-
-    raise NotImplementedMethodError()
-
-
-@digest(form=form)
-def get_n_atoms_from_component(item, indices='all', skip_digestion=False): ##
-
-    aux = item.atoms.groupby('component_index')
-
-    if indices=='all':
-        atom_indices = [jj.tolist() for _, jj in aux.groups.items()]
     else:
-        atom_indices = [aux.groups[ii].tolist() for ii in indices]
 
-    del aux
+        aux_dict = {ii: set() for ii in indices}
+        for atom_index in range(n_atoms):
+            ii = component_index_from_atom[atom_index]
+            if ii in aux_dict:
+                aux_dict[ii].add(chain_index_from_atom[atom_index])
 
-    output = [len(ii) for ii in atom_indices]
+        output = [aux_dict[m] for m in indices]
 
-    del atom_indices
+    output = [ next(iter(ii)) if len(ii) == 1 else sorted(ii) for ii in output]
+
+    del component_index_from_atom, chain_index_from_atom, n_atoms, aux_dict
 
     return output
 
 
 @digest(form=form)
-def get_n_groups_from_component(item, indices='all', skip_digestion=False): ##
+def get_chain_id_from_component(item, indices='all', skip_digestion=False): ##x
 
-    if indices=='all':
-        group_indices = item.atoms.groupby('component_index')['group_index'].unique().apply(list).to_list()
+    component_index_from_atom = item.atoms['component_index'].to_numpy()
+    chain_index_from_atom = item.atoms['chain_index'].to_numpy()
+    chain_id_from_chain = item.chains['chain_id'].to_numpy()
+    n_atoms = item.atoms.shape[0]
+
+    if indices =='all':
+
+        aux_dict = defaultdict(set)
+        for atom_index in range(n_atoms):
+            aux_dict[component_index_from_atom[atom_index]].add(chain_index_from_atom[atom_index])
+
+        output = list(aux_dict.values())
+
     else:
-        group_indices = (
-            item.atoms.loc[item.atoms['component_index'].isin(indices)]
-            .groupby('component_index')['group_index']
-            .unique().reindex(indices, fill_value=np.array([], int))
-            .apply(list).to_list()
-        )
 
-    output = [len(ii) for ii in group_indices]
+        aux_dict = {ii: set() for ii in indices}
+        for atom_index in range(n_atoms):
+            ii = component_index_from_atom[atom_index]
+            if ii in aux_dict:
+                aux_dict[ii].add(chain_index_from_atom[atom_index])
 
-    del group_indices
+        output = [aux_dict[m] for m in indices]
+
+    output = [ chain_id_from_chain[next(iter(ii))] if len(ii) == 1 else chain_id_from_chain[sorted(ii)].tolist() for ii in output]
+
+    del component_index_from_atom, chain_index_from_atom, chain_id_from_chain, n_atoms, aux_dict
 
     return output
 
 
 @digest(form=form)
-def get_n_components_from_component(item, indices='all', skip_digestion=False): ##
+def get_chain_name_from_component(item, indices='all', skip_digestion=False): ##x
+
+    component_index_from_atom = item.atoms['component_index'].to_numpy()
+    chain_index_from_atom = item.atoms['chain_index'].to_numpy()
+    chain_name_from_chain = item.chains['chain_name'].to_numpy()
+    n_atoms = item.atoms.shape[0]
+
+    if indices =='all':
+
+        aux_dict = defaultdict(set)
+        for atom_index in range(n_atoms):
+            aux_dict[component_index_from_atom[atom_index]].add(chain_index_from_atom[atom_index])
+
+        output = list(aux_dict.values())
+
+    else:
+
+        aux_dict = {ii: set() for ii in indices}
+        for atom_index in range(n_atoms):
+            ii = component_index_from_atom[atom_index]
+            if ii in aux_dict:
+                aux_dict[ii].add(chain_index_from_atom[atom_index])
+
+        output = [aux_dict[m] for m in indices]
+
+    output = [ chain_name_from_chain[next(iter(ii))] if len(ii) == 1 else chain_name_from_chain[sorted(ii)].tolist() for ii in output]
+
+    del component_index_from_atom, chain_index_from_atom, chain_name_from_chain, n_atoms, aux_dict
+
+    return output
+
+
+@digest(form=form)
+def get_chain_type_from_component(item, indices='all', skip_digestion=False): ##x
+
+    component_index_from_atom = item.atoms['component_index'].to_numpy()
+    chain_index_from_atom = item.atoms['chain_index'].to_numpy()
+    chain_type_from_chain = item.chains['chain_type'].to_numpy()
+    n_atoms = item.atoms.shape[0]
+
+    if indices =='all':
+
+        aux_dict = defaultdict(set)
+        for atom_index in range(n_atoms):
+            aux_dict[component_index_from_atom[atom_index]].add(chain_index_from_atom[atom_index])
+
+        output = list(aux_dict.values())
+
+    else:
+
+        aux_dict = {ii: set() for ii in indices}
+        for atom_index in range(n_atoms):
+            ii = component_index_from_atom[atom_index]
+            if ii in aux_dict:
+                aux_dict[ii].add(chain_index_from_atom[atom_index])
+
+        output = [aux_dict[m] for m in indices]
+
+    output = [ chain_type_from_chain[next(iter(ii))] if len(ii) == 1 else chain_type_from_chain[sorted(ii)].tolist() for ii in output]
+
+    del component_index_from_atom, chain_index_from_atom, chain_type_from_chain, n_atoms, aux_dict
+
+    return output
+
+
+@digest(form=form)
+def get_bond_index_from_component(item, indices='all', skip_digestion=False): ##x
+
+    atom_indices_from_component = get_atom_index_from_component(item, indices=indices, skip_digestion=True)
+    bond_indices_from_atom = get_bond_index_from_atom(item, indices='all', skip_digestion=True)
+
+    output = []
+    for jj in atom_indices_from_component:
+        if len(jj):
+            output.append(sorted(set(chain.from_iterable([bond_indices_from_atom[ii] for ii in jj]))))
+        else:
+            output.append([])
+
+    del atom_indices_from_component, bond_indices_from_atom
+
+    return output
+
+
+@digest(form=form)
+def get_bond_type_from_component(item, indices='all', skip_digestion=False): ##x
+
+    bond_type = get_bond_type_from_bond(item, skip_digestion=True)
+    bond_indices = get_bond_index_from_component(item, indices=indices, skip_digestion=True)
+
+    output = []
+    for ii in bond_indices:
+        aux_vals = [bond_type[jj] for jj in ii]
+        output.append(aux_vals)
+
+    del bond_type, bond_indices, aux_vals, ii
+
+    return output
+
+
+@digest(form=form)
+def get_bond_order_from_component(item, indices='all', skip_digestion=False): ##x
+
+    bond_order = get_bond_order_from_bond(item, skip_digestion=True)
+    bond_indices = get_bond_index_from_component(item, indices=indices, skip_digestion=True)
+
+    output = []
+    for ii in bond_indices:
+        aux_vals = [bond_order[jj] for jj in ii]
+        output.append(aux_vals)
+
+    del bond_order, bond_indices, aux_vals, ii
+
+    return output
+
+
+@digest(form=form)
+def get_bonded_atoms_from_component(item, indices='all', skip_digestion=False): ##x
+
+    bonded_atom_pairs = get_bonded_atom_pairs_from_bond(item, skip_digestion=True)
+    bond_indices = get_bond_index_from_component(item, indices=indices, skip_digestion=True)
+
+    output = []
+    for ii in bond_indices:
+        aux_vals = [bonded_atom_pairs[jj] for jj in ii]
+        output.append(sorted(set(chain.from_iterable(aux_vals))))
+
+    del bonded_atom_pairs, bond_indices, aux_vals, ii
+
+    return output
+
+
+@digest(form=form)
+def get_bonded_atom_pairs_from_component(item, indices='all', skip_digestion=False): ##x
+
+    bonded_atom_pairs = get_bonded_atom_pairs_from_bond(item, skip_digestion=True)
+    bond_indices = get_bond_index_from_component(item, indices=indices, skip_digestion=True)
+
+    output = []
+    for ii in bond_indices:
+        aux_vals = [bonded_atom_pairs[jj] for jj in ii]
+        output.append(aux_vals)
+
+    del bonded_atom_pairs, bond_indices, aux_vals, ii
+
+    return output
+
+
+@digest(form=form)
+def get_inner_bond_index_from_component(item, indices='all', skip_digestion=False): ##x
+
+    atom_indices_from_component = get_atom_index_from_component(item, indices=indices, skip_digestion=True)
+    bonded_atom_pairs = get_bonded_atom_pairs_from_bond(item, skip_digestion=True)
+    bond_indices_from_atom = get_bond_index_from_atom(item, indices='all', skip_digestion=True)
+
+    output = []
+    for jj in atom_indices_from_component:
+        aux = sorted(set(chain.from_iterable([bond_indices_from_atom[ii] for ii in jj])))
+        if len(aux):
+            pairs = np.array([bonded_atom_pairs[ii] for ii in aux])
+            mask = np.isin(pairs[:,0], jj) & np.isin(pairs[:,1], jj)
+            aux = list(compress(aux, mask))
+        else:
+            aux=[]
+        output.append(aux)
+
+    del atom_indices_from_component, bonded_atom_pairs, bond_indices_from_atom
+
+    return output
+
+
+@digest(form=form)
+def get_inner_bonded_atoms_from_component(item, indices='all', skip_digestion=False): ##x
+
+    bonded_atom_pairs = get_bonded_atom_pairs_from_bond(item, skip_digestion=True)
+    bond_indices = get_bond_index_from_component(item, indices=indices, skip_digestion=True)
+    atom_indices = get_atom_index_from_component(item, indices=indices, skip_digestion=True)
+
+    output = []
+    for ii,jj in zip(bond_indices, atom_indices):
+        aux_vals = [bonded_atom_pairs[jj] for jj in ii]
+        output.append(sorted(set(chain.from_iterable(aux_vals)).intersection(set(jj))))
+
+    del bonded_atom_pairs, bond_indices, atom_indices, aux_vals, ii, jj
+
+    return output
+
+
+@digest(form=form)
+def get_inner_bonded_atom_pairs_from_component(item, indices='all', skip_digestion=False): ##x
+
+    bonded_atom_pairs = get_bonded_atom_pairs_from_component(item, indices=indices, skip_digestion=True)
+
+    if indices=='all':
+
+        output = bonded_atom_pairs
+    
+    else:
+
+        atom_indices = get_atom_index_from_component(item, indices=indices, skip_digestion=True)
+
+        output = []
+
+        for ii,jj in zip(atom_indices, bonded_atom_pairs):
+            if len(jj) == 0:
+                output.append([])
+            else:
+                jj = np.array(jj)
+                mask = np.isin(jj[:,0], ii) | np.isin(jj[:,1], ii)
+                output.append(jj[mask,:].tolist())
+
+    return output
+
+
+@digest(form=form)
+def get_n_atoms_from_component(item, indices='all', skip_digestion=False): ##x
+
+    output = get_atom_index_from_component(item, indices, skip_digestion=True)
+    output = [len(ii) for ii in output]
+
+    return output
+
+
+@digest(form=form)
+def get_total_n_atoms_from_component(item, indices='all', skip_digestion=False): ##x
+
+    if indices=='all':
+        output = get_n_atoms_from_system(item, skip_digestion=True)
+    else:
+        aux = get_n_atoms_from_component(item, indices=indices, skip_digestion=True)
+        output = sum(aux)
+        del aux
+
+    return output
+
+
+@digest(form=form)
+def get_n_groups_from_component(item, indices='all', skip_digestion=False): ##x
+
+    output = get_group_index_from_component(item, indices, skip_digestion=True)
+    output = [len(ii) if isinstance(ii, list) else 1 for ii in output]
+
+    return output
+
+
+@digest(form=form)
+def get_total_n_groups_from_component(item, indices='all', skip_digestion=False): ##x
+
+    if indices=='all':
+        output = get_n_groups_from_system(item, skip_digestion=True)
+    else:
+        aux = get_group_index_from_component(item, indices, skip_digestion=True)
+        output = set()
+        for ii in aux:
+            if isinstance(ii, list):
+                output.update(ii)
+            else:
+                output.add(ii)
+        output = len(output)
+
+    return output
+
+
+@digest(form=form)
+def get_n_molecules_from_component(item, indices='all', skip_digestion=False): ##x
+
+    if indices=='all':
+        output = get_n_molecules_from_system(item, skip_digestion=True)
+    else:
+        output = get_molecule_index_from_component(item, indices=indices, skip_digestion=True)
+        output = np.unique(output).size
+
+    return output
+
+
+@digest(form=form)
+def get_total_n_molecules_from_component(item, indices='all', skip_digestion=False): ##x
+
+    return get_n_molecules_from_component(item, indices=indices, skip_digestion=True)
+
+
+@digest(form=form)
+def get_n_entities_from_component(item, indices='all', skip_digestion=False): ##x
+
+    if indices=='all':
+        output = get_n_entities_from_system(item, skip_digestion=True)
+    else:
+        output = get_entity_index_from_component(item, indices=indices, skip_digestion=True)
+        output = np.unique(output).size
+
+    return output
+
+
+@digest(form=form)
+def get_total_n_entities_from_component(item, indices='all', skip_digestion=False): ##x
+
+    return get_n_entities_from_component(item, indices=indices, skip_digestion=True)
+
+
+@digest(form=form)
+def get_n_components_from_component(item, indices='all', skip_digestion=False): ##x
 
     if indices=='all':
         output = item.components.shape[0]
@@ -5557,94 +5819,102 @@ def get_n_components_from_component(item, indices='all', skip_digestion=False): 
 
 
 @digest(form=form)
-def get_n_molecules_from_component(item, indices='all', skip_digestion=False): ##
+def get_total_n_components_from_component(item, indices='all', skip_digestion=False): ##x
+
+    return get_n_components_from_component(item, indices=indices, skip_digestion=True)
+
+
+@digest(form=form)
+def get_n_chains_from_component(item, indices='all', skip_digestion=False): ##x
+
+    output = get_chain_index_from_component(item, indices, skip_digestion=True)
+    output = [len(ii) if isinstance(ii, list) else 1 for ii in output]
+
+    return output
+
+
+@digest(form=form)
+def get_total_n_chains_from_component(item, indices='all', skip_digestion=False): ##x
 
     if indices=='all':
-        output = item.molecules.shape[0]
+        output = get_n_chains_from_system(item, skip_digestion=True)
     else:
-        atom_indices = [aux.groups[ii].tolist() for ii in indices]
-        group_indices = item.atoms['group_index'].take([ii[0] for ii in atom_indices])
-        molecule_indices = item.groups['molecule_index'].take(group_indices).to_list()
-        output = np.unique(molecule_indices).shape[0]
-        del atom_indices, group_indices, molecule_indices
+        aux = get_chain_index_from_component(item, indices, skip_digestion=True)
+        output = set()
+        for ii in aux:
+            if isinstance(ii, list):
+                output.update(ii)
+            else:
+                output.add(ii)
+        output = len(output)
 
     return output
 
 
 @digest(form=form)
-def get_n_entities_from_component(item, indices='all', skip_digestion=False): ##
+def get_n_bonds_from_component(item, indices='all', skip_digestion=False): ##x
+
+    output = get_bond_index_from_component(item, indices, skip_digestion=True)
+    output = [len(ii) for ii in output]
+
+    return output
+
+
+@digest(form=form)
+def get_total_n_bonds_from_component(item, indices='all', skip_digestion=False): ##x
 
     if indices=='all':
-        output = item.entities.shape[0]
+        output = get_n_bonds_from_system(item, skip_digestion=True)
     else:
-        atom_indices = [aux.groups[ii].tolist() for ii in indices]
-        group_indices = item.atoms['group_index'].take([ii[0] for ii in atom_indices])
-        molecule_indices = item.groups['molecule_index'].take(group_indices).to_list()
-        entity_indices = item.molecules['entity_index'].take(molecule_indices).to_list()
-        output = np.unique(entity_indices).shape[0]
-        del atom_indices, group_indices, molecule_indices, entity_indices
+        atom_indices = get_atom_index_from_component(item, indices, skip_digestion=True)
+        indices = np.concatenate(atom_indices).tolist()
+        output = get_total_n_bonds_from_atom(item, indices, skip_digestion=True)
 
     return output
 
 
 @digest(form=form)
-def get_n_chains_from_component(item, indices='all', skip_digestion=False): ##
+def get_n_inner_bonds_from_component(item, indices='all', skip_digestion=False): ##x
+
+    output = get_bond_index_from_component(item, indices, skip_digestion=True)
+    output = [len(ii) for ii in output]
+
+    return output
+
+
+@digest(form=form)
+def get_total_n_inner_bonds_from_component(item, indices='all', skip_digestion=False): ##x
 
     if indices=='all':
-        output = item.chains.shape[0]
+        output = get_n_bonds_from_system(item, skip_digestion=True)
     else:
-        atom_indices = [aux.groups[ii].tolist() for ii in indices]
-        group_indices = item.atoms['group_index'].take([ii[0] for ii in atom_indices])
-        chain_indices = item.groups['chain_index'].take(group_indices).to_list()
-        output = np.unique(chain_indices).shape[0]
-        del atom_indices, group_indices, chain_indices
+        atom_indices = get_atom_index_from_component(item, indices, skip_digestion=True)
+        indices = np.concatenate(atom_indices).tolist()
+        output = get_total_n_inner_bonds_from_atom(item, indices, skip_digestion=True)
 
     return output
 
 
 @digest(form=form)
-def get_n_bonds_from_component(item, indices='all', skip_digestion=False): ##
+def get_n_amino_acids_from_component(item, indices='all', skip_digestion=False): ##x
 
-    output = []
-    atom_indices = get_atom_index_from_component(item, indices, skip_digestion=True)
-    for aux_atom_indices in atom_indices:
-        bond_indices = get_bond_index_from_atom(item, aux_atom_indices, skip_digestion=True)
-        output.append(np.unique(np.concatenate(bond_indices)).shape[0])
+    group_types = get_group_type_from_component(item, indices=indices, skip_digestion=True)
+    output = [ ii.count('amino acid') for ii in group_types ]
 
     return output
 
 
 @digest(form=form)
-def get_n_inner_bonds_from_component(item, indices='all', skip_digestion=False): ##
-
-    output = []
-    atom_indices = get_atom_index_from_component(item, indices, skip_digestion=True)
-    for aux_atom_indices in atom_indices:
-        bond_indices = get_inner_bond_index_from_atom(item, aux_atom_indices, skip_digestion=True)
-        output.append(np.unique(np.concatenate(bond_indices)).shape[0])
-
-    return output
-
-
-@digest(form=form)
-def get_n_amino_acids_from_component(item, indices='all', skip_digestion=False): ##
+def get_total_n_amino_acids_from_component(item, indices='all', skip_digestion=False): ##x
 
     if indices=='all':
-        group_indices = item.atoms.groupby('component_index')['group_index'].unique().apply(list).to_list()
+
+        output = get_n_amino_acids_from_system(item, skip_digestion=True)
+
     else:
-        group_indices = (
-            item.atoms.loc[item.atoms['component_index'].isin(indices)]
-            .groupby('component_index')['group_index']
-            .unique().reindex(indices, fill_value=np.array([], int))
-            .apply(list).to_list()
-        )
 
-    group_indices=np.concatenate(group_indices)
-    group_indices = np.unique(group_indices)
-    group_types = item.groups['group_type'].take(indices)
-    output = (group_types == 'amino acid').sum()
-
-    del group_indices, group_types
+        output = get_n_amino_acids_from_component(item, indices=indices, skip_digestion=True)
+        output = sum(output)
 
     return output
 
@@ -5652,24 +5922,27 @@ def get_n_amino_acids_from_component(item, indices='all', skip_digestion=False):
 @digest(form=form)
 def get_n_nucleotides_from_component(item, indices='all', skip_digestion=False): ##
 
-    if indices=='all':
-        group_indices = item.atoms.groupby('component_index')['group_index'].unique().apply(list).to_list()
-    else:
-        group_indices = (
-            item.atoms.loc[item.atoms['component_index'].isin(indices)]
-            .groupby('component_index')['group_index']
-            .unique().reindex(indices, fill_value=np.array([], int))
-            .apply(list).to_list()
-        )
-
-    group_indices=np.concatenate(group_indices)
-    group_indices = np.unique(group_indices)
-    group_types = item.groups['group_type'].take(indices)
-    output = (group_types == 'nucleotide').sum()
-
-    del group_indices, group_types
+    group_types = get_group_type_from_component(item, indices=indices, skip_digestion=True)
+    output = [ ii.count('nucleotide') for ii in group_types ]
 
     return output
+
+
+@digest(form=form)
+def get_total_n_nucleotides_from_component(item, indices='all', skip_digestion=False): ##x
+
+    if indices=='all':
+
+        output = get_n_nucleotides_from_system(item, skip_digestion=True)
+
+    else:
+
+        output = get_n_nucleotides_from_component(item, indices=indices, skip_digestion=True)
+        output = sum(output)
+
+    return output
+
+
 
 
 @digest(form=form)
