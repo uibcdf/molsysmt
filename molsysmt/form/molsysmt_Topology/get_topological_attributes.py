@@ -6440,6 +6440,306 @@ def get_group_type_from_chain(item, indices='all', skip_digestion=False):
 
 
 @digest(form=form)
+def get_molecule_index_from_chain(item, indices='all', skip_digestion=False):
+
+    chain_index_from_atom = item.atoms['chain_index'].to_numpy()
+    group_index_from_atom = item.atoms['group_index'].to_numpy()
+    molecule_index_from_group = item.groups['molecule_index'].to_numpy()
+    molecule_index_from_atom = molecule_index_from_group[group_index_from_atom]
+    n_atoms = item.atoms.shape[0]
+
+    if indices =='all':
+
+        aux_dict = defaultdict(set)
+        for atom_index in range(n_atoms):
+            aux_dict[chain_index_from_atom[atom_index]].add(molecule_index_from_atom[atom_index])
+
+        output = list(aux_dict.values())
+
+    else:
+
+        aux_dict = {ii: set() for ii in indices}
+        for atom_index in range(n_atoms):
+            ii = chain_index_from_atom[atom_index]
+            if ii in aux_dict:
+                aux_dict[ii].add(molecule_index_from_atom[atom_index])
+
+        output = [aux_dict[m] for m in indices]
+
+    output = [ sorted(ii) for ii in output]
+
+    del chain_index_from_atom, group_index_from_atom, molecule_index_from_group
+    del molecule_index_from_atom, n_atoms, aux_dict
+
+    return output
+
+
+@digest(form=form)
+def get_molecule_id_from_chain(item, indices='all', skip_digestion=False):
+
+    chain_index_from_atom = item.atoms['chain_index'].to_numpy()
+    group_index_from_atom = item.atoms['group_index'].to_numpy()
+    molecule_index_from_group = item.groups['molecule_index'].to_numpy()
+    molecule_index_from_atom = molecule_index_from_group[group_index_from_atom]
+    molecule_id_from_molecule = item.molecules['molecule_id'].to_numpy()
+    n_atoms = item.atoms.shape[0]
+
+    if indices =='all':
+
+        aux_dict = defaultdict(set)
+        for atom_index in range(n_atoms):
+            aux_dict[chain_index_from_atom[atom_index]].add(molecule_index_from_atom[atom_index])
+
+        output = list(aux_dict.values())
+
+    else:
+
+        aux_dict = {ii: set() for ii in indices}
+        for atom_index in range(n_atoms):
+            ii = chain_index_from_atom[atom_index]
+            if ii in aux_dict:
+                aux_dict[ii].add(molecule_index_from_atom[atom_index])
+
+        output = [aux_dict[m] for m in indices]
+
+    output = [ molecule_id_from_molecule[sorted(ii)].tolist() for ii in output]
+
+    del chain_index_from_atom, group_index_from_atom, molecule_index_from_group
+    del molecule_index_from_atom, molecule_id_from_molecule, n_atoms, aux_dict
+
+    return output
+
+
+@digest(form=form)
+def get_molecule_name_from_chain(item, indices='all', skip_digestion=False):
+
+    chain_index_from_atom = item.atoms['chain_index'].to_numpy()
+    group_index_from_atom = item.atoms['group_index'].to_numpy()
+    molecule_index_from_group = item.groups['molecule_index'].to_numpy()
+    molecule_index_from_atom = molecule_index_from_group[group_index_from_atom]
+    molecule_name_from_molecule = item.molecules['molecule_name'].to_numpy()
+    n_atoms = item.atoms.shape[0]
+
+    if indices =='all':
+
+        aux_dict = defaultdict(set)
+        for atom_index in range(n_atoms):
+            aux_dict[chain_index_from_atom[atom_index]].add(molecule_index_from_atom[atom_index])
+
+        output = list(aux_dict.values())
+
+    else:
+
+        aux_dict = {ii: set() for ii in indices}
+        for atom_index in range(n_atoms):
+            ii = chain_index_from_atom[atom_index]
+            if ii in aux_dict:
+                aux_dict[ii].add(molecule_index_from_atom[atom_index])
+
+        output = [aux_dict[m] for m in indices]
+
+    output = [ molecule_name_from_molecule[sorted(ii)].tolist() for ii in output]
+
+    del chain_index_from_atom, group_index_from_atom, molecule_index_from_group
+    del molecule_index_from_atom, molecule_name_from_molecule, n_atoms, aux_dict
+
+    return output
+
+
+@digest(form=form)
+def get_molecule_type_from_chain(item, indices='all', skip_digestion=False):
+
+    chain_index_from_atom = item.atoms['chain_index'].to_numpy()
+    group_index_from_atom = item.atoms['group_index'].to_numpy()
+    molecule_index_from_group = item.groups['molecule_index'].to_numpy()
+    molecule_index_from_atom = molecule_index_from_group[group_index_from_atom]
+    molecule_type_from_molecule = item.molecules['molecule_type'].to_numpy()
+    n_atoms = item.atoms.shape[0]
+
+    if indices =='all':
+
+        aux_dict = defaultdict(set)
+        for atom_index in range(n_atoms):
+            aux_dict[chain_index_from_atom[atom_index]].add(molecule_index_from_atom[atom_index])
+
+        output = list(aux_dict.values())
+
+    else:
+
+        aux_dict = {ii: set() for ii in indices}
+        for atom_index in range(n_atoms):
+            ii = chain_index_from_atom[atom_index]
+            if ii in aux_dict:
+                aux_dict[ii].add(molecule_index_from_atom[atom_index])
+
+        output = [aux_dict[m] for m in indices]
+
+    output = [ molecule_type_from_molecule[sorted(ii)].tolist() for ii in output]
+
+    del chain_index_from_atom, group_index_from_atom, molecule_index_from_group
+    del molecule_index_from_atom, molecule_type_from_molecule, n_atoms, aux_dict
+
+    return output
+
+
+@digest(form=form)
+def get_entity_index_from_chain(item, indices='all', skip_digestion=False):
+
+    chain_index_from_atom = item.atoms['chain_index'].to_numpy()
+    group_index_from_atom = item.atoms['group_index'].to_numpy()
+    molecule_index_from_group = item.groups['molecule_index'].to_numpy()
+    entity_index_from_molecule = item.molecules['entity_index'].to_numpy()
+    molecule_index_from_atom = molecule_index_from_group[group_index_from_atom]
+    entity_index_from_atom = entity_index_from_molecule[molecule_index_from_atom]
+    n_atoms = item.atoms.shape[0]
+
+    del group_index_from_atom, molecule_index_from_group, entity_index_from_molecule
+
+    if indices =='all':
+
+        aux_dict = defaultdict(set)
+        for atom_index in range(n_atoms):
+            aux_dict[chain_index_from_atom[atom_index]].add(entity_index_from_atom[atom_index])
+
+        output = list(aux_dict.values())
+
+    else:
+
+        aux_dict = {ii: set() for ii in indices}
+        for atom_index in range(n_atoms):
+            ii = chain_index_from_atom[atom_index]
+            if ii in aux_dict:
+                aux_dict[ii].add(entity_index_from_atom[atom_index])
+
+        output = [aux_dict[m] for m in indices]
+
+    output = [ sorted(ii) for ii in output]
+
+    del chain_index_from_atom, entity_index_from_atom, n_atoms, aux_dict
+
+    return output
+
+
+@digest(form=form)
+def get_entity_id_from_chain(item, indices='all', skip_digestion=False):
+
+    chain_index_from_atom = item.atoms['chain_index'].to_numpy()
+    group_index_from_atom = item.atoms['group_index'].to_numpy()
+    molecule_index_from_group = item.groups['molecule_index'].to_numpy()
+    entity_index_from_molecule = item.molecules['entity_index'].to_numpy()
+    molecule_index_from_atom = molecule_index_from_group[group_index_from_atom]
+    entity_index_from_atom = entity_index_from_molecule[molecule_index_from_atom]
+    entity_id_from_entity = item.entities['entity_id'].to_numpy()
+    n_atoms = item.atoms.shape[0]
+
+    del group_index_from_atom, molecule_index_from_group, entity_index_from_molecule
+
+    if indices =='all':
+
+        aux_dict = defaultdict(set)
+        for atom_index in range(n_atoms):
+            aux_dict[chain_index_from_atom[atom_index]].add(entity_index_from_atom[atom_index])
+
+        output = list(aux_dict.values())
+
+    else:
+
+        aux_dict = {ii: set() for ii in indices}
+        for atom_index in range(n_atoms):
+            ii = chain_index_from_atom[atom_index]
+            if ii in aux_dict:
+                aux_dict[ii].add(entity_index_from_atom[atom_index])
+
+        output = [aux_dict[m] for m in indices]
+
+    output = [entity_id_from_entity[sorted(ii)].tolist() for ii in output]
+
+    del chain_index_from_atom, entity_index_from_atom, entity_id_from_entity, n_atoms, aux_dict
+
+    return output
+
+
+@digest(form=form)
+def get_entity_name_from_chain(item, indices='all', skip_digestion=False):
+
+    chain_index_from_atom = item.atoms['chain_index'].to_numpy()
+    group_index_from_atom = item.atoms['group_index'].to_numpy()
+    molecule_index_from_group = item.groups['molecule_index'].to_numpy()
+    entity_index_from_molecule = item.molecules['entity_index'].to_numpy()
+    molecule_index_from_atom = molecule_index_from_group[group_index_from_atom]
+    entity_index_from_atom = entity_index_from_molecule[molecule_index_from_atom]
+    entity_name_from_entity = item.entities['entity_name'].to_numpy()
+    n_atoms = item.atoms.shape[0]
+
+    del group_index_from_atom, molecule_index_from_group, entity_index_from_molecule
+
+    if indices =='all':
+
+        aux_dict = defaultdict(set)
+        for atom_index in range(n_atoms):
+            aux_dict[chain_index_from_atom[atom_index]].add(entity_index_from_atom[atom_index])
+
+        output = list(aux_dict.values())
+
+    else:
+
+        aux_dict = {ii: set() for ii in indices}
+        for atom_index in range(n_atoms):
+            ii = chain_index_from_atom[atom_index]
+            if ii in aux_dict:
+                aux_dict[ii].add(entity_index_from_atom[atom_index])
+
+        output = [aux_dict[m] for m in indices]
+
+    output = [entity_name_from_entity[sorted(ii)].tolist() for ii in output]
+
+    del chain_index_from_atom, entity_index_from_atom, entity_name_from_entity, n_atoms, aux_dict
+
+    return output
+
+
+
+@digest(form=form)
+def get_entity_type_from_chain(item, indices='all', skip_digestion=False):
+
+    chain_index_from_atom = item.atoms['chain_index'].to_numpy()
+    group_index_from_atom = item.atoms['group_index'].to_numpy()
+    molecule_index_from_group = item.groups['molecule_index'].to_numpy()
+    entity_index_from_molecule = item.molecules['entity_index'].to_numpy()
+    molecule_index_from_atom = molecule_index_from_group[group_index_from_atom]
+    entity_index_from_atom = entity_index_from_molecule[molecule_index_from_atom]
+    entity_type_from_entity = item.entities['entity_type'].to_numpy()
+    n_atoms = item.atoms.shape[0]
+
+    del group_index_from_atom, molecule_index_from_group, entity_index_from_molecule
+
+    if indices =='all':
+
+        aux_dict = defaultdict(set)
+        for atom_index in range(n_atoms):
+            aux_dict[chain_index_from_atom[atom_index]].add(entity_index_from_atom[atom_index])
+
+        output = list(aux_dict.values())
+
+    else:
+
+        aux_dict = {ii: set() for ii in indices}
+        for atom_index in range(n_atoms):
+            ii = chain_index_from_atom[atom_index]
+            if ii in aux_dict:
+                aux_dict[ii].add(entity_index_from_atom[atom_index])
+
+        output = [aux_dict[m] for m in indices]
+
+    output = [entity_type_from_entity[sorted(ii)].tolist() for ii in output]
+
+    del chain_index_from_atom, entity_index_from_atom, entity_type_from_entity, n_atoms, aux_dict
+
+    return output
+
+
+
+@digest(form=form)
 def get_component_index_from_chain(item, indices='all', skip_digestion=False):
 
     atom_index_from_target = get_atom_index_from_chain(item, indices=indices, skip_digestion=True)
@@ -6529,191 +6829,6 @@ def get_component_type_from_chain(item, indices='all', skip_digestion=False):
     del aux_unique_indices, aux_vals, aux_output, target_indices
 
     return output
-
-
-@digest(form=form)
-def get_molecule_index_from_chain(item, indices='all', skip_digestion=False):
-
-    atom_index_from_target = get_atom_index_from_chain(item, indices=indices, skip_digestion=True)
-    output = []
-    for aux in atom_index_from_target:
-        aux2 = get_molecule_index_from_atom(item, indices=aux, skip_digestion=True)
-        aux2 = np.unique(aux2).tolist()
-        if len(aux2)==1:
-            aux2=aux2[0]
-        output.append(aux2)
-
-    del atom_index_from_target, aux
-
-    return output
-
-
-@digest(form=form)
-def get_molecule_id_from_chain(item, indices='all', skip_digestion=False):
-
-    target_indices = get_molecule_index_from_chain(item, indices=indices, skip_digestion=True)
-    aux_unique_indices, aux_indices = np.unique(np.hstack(target_indices), return_inverse=True)
-    aux_vals = get_molecule_id_from_molecule(item, indices=aux_unique_indices, skip_digestion=True)
-    aux_output = np.array(aux_vals)[aux_indices]
-    output = []
-    ii = 0
-    for aux in target_indices:
-        if isinstance(aux, (list, tuple)):
-            jj = ii+len(aux)
-            output.append(aux_output[ii:jj].tolist())
-        elif isinstance(aux, int):
-            jj = ii+1
-            output.append(aux_output[ii])
-        else:
-            raise ValueError
-        ii = jj
-
-    del aux_unique_indices, aux_vals, aux_output, target_indices
-
-    return output
-
-
-@digest(form=form)
-def get_molecule_name_from_chain(item, indices='all', skip_digestion=False):
-
-    target_indices = get_molecule_index_from_chain(item, indices=indices, skip_digestion=True)
-    aux_unique_indices, aux_indices = np.unique(np.hstack(target_indices), return_inverse=True)
-    aux_vals = get_molecule_name_from_molecule(item, indices=aux_unique_indices, skip_digestion=True)
-    aux_output = np.array(aux_vals)[aux_indices]
-    output = []
-    ii = 0
-    for aux in target_indices:
-        if isinstance(aux, (list, tuple)):
-            jj = ii+len(aux)
-            output.append(aux_output[ii:jj].tolist())
-        elif isinstance(aux, int):
-            jj = ii+1
-            output.append(aux_output[ii])
-        else:
-            raise ValueError
-        ii = jj
-
-    del aux_unique_indices, aux_vals, aux_output, target_indices
-
-    return output
-
-
-@digest(form=form)
-def get_molecule_type_from_chain(item, indices='all', skip_digestion=False):
-
-    target_indices = get_molecule_index_from_chain(item, indices=indices, skip_digestion=True)
-    aux_unique_indices, aux_indices = np.unique(np.hstack(target_indices), return_inverse=True)
-    aux_vals = get_molecule_type_from_molecule(item, indices=aux_unique_indices.tolist(), skip_digestion=True)
-    aux_output = np.array(aux_vals)[aux_indices]
-    output = []
-    ii = 0
-    for aux in target_indices:
-        if isinstance(aux, (list, tuple)):
-            jj = ii+len(aux)
-            output.append(aux_output[ii:jj].tolist())
-        elif isinstance(aux, int):
-            jj = ii+1
-            output.append(aux_output[ii])
-        else:
-            raise ValueError
-        ii = jj
-
-    del aux_unique_indices, aux_vals, aux_output, target_indices
-
-    return output
-
-
-@digest(form=form)
-def get_entity_index_from_chain(item, indices='all', skip_digestion=False):
-
-    atom_index_from_target = get_atom_index_from_chain(item, indices=indices, skip_digestion=True)
-    output = []
-    for aux in atom_index_from_target:
-        aux2 = get_entity_index_from_atom(item, indices=aux, skip_digestion=True)
-        aux2 = np.unique(aux2).tolist()
-        if len(aux2)==1:
-            aux2=aux2[0]
-        output.append(aux2)
-
-    del atom_index_from_target, aux
-
-    return output
-
-
-@digest(form=form)
-def get_entity_id_from_chain(item, indices='all', skip_digestion=False):
-
-    target_indices = get_entity_index_from_chain(item, indices=indices, skip_digestion=True)
-    aux_unique_indices, aux_indices = np.unique(np.hstack(target_indices), return_inverse=True)
-    aux_vals = get_entity_id_from_entity(item, indices=aux_unique_indices, skip_digestion=True)
-    aux_output = np.array(aux_vals)[aux_indices]
-    output = []
-    ii = 0
-    for aux in target_indices:
-        if isinstance(aux, (list, tuple)):
-            jj = ii+len(aux)
-            output.append(aux_output[ii:jj].tolist())
-        elif isinstance(aux, int):
-            jj = ii+1
-            output.append(aux_output[ii])
-        else:
-            raise ValueError
-        ii = jj
-
-    del aux_unique_indices, aux_vals, aux_output, target_indices
-
-    return output
-
-
-@digest(form=form)
-def get_entity_name_from_chain(item, indices='all', skip_digestion=False):
-
-    target_indices = get_entity_index_from_chain(item, indices=indices, skip_digestion=True)
-    aux_unique_indices, aux_indices = np.unique(np.hstack(target_indices), return_inverse=True)
-    aux_vals = get_entity_name_from_entity(item, indices=aux_unique_indices, skip_digestion=True)
-    aux_output = np.array(aux_vals)[aux_indices]
-    output = []
-    ii = 0
-    for aux in target_indices:
-        if isinstance(aux, (list, tuple)):
-            jj = ii+len(aux)
-            output.append(aux_output[ii:jj].tolist())
-        elif isinstance(aux, int):
-            jj = ii+1
-            output.append(aux_output[ii])
-        else:
-            raise ValueError
-        ii = jj
-
-    del aux_unique_indices, aux_vals, aux_output, target_indices
-
-    return output
-
-
-@digest(form=form)
-def get_entity_type_from_chain(item, indices='all', skip_digestion=False):
-
-    target_indices = get_entity_index_from_chain(item, indices=indices, skip_digestion=True)
-    aux_unique_indices, aux_indices = np.unique(np.hstack(target_indices), return_inverse=True)
-    aux_vals = get_entity_type_from_entity(item, indices=aux_unique_indices, skip_digestion=True)
-    aux_output = np.array(aux_vals)[aux_indices]
-    output = []
-    ii = 0
-    for aux in target_indices:
-        if isinstance(aux, (list, tuple)):
-            jj = ii+len(aux)
-            output.append(aux_output[ii:jj].tolist())
-        elif isinstance(aux, int):
-            jj = ii+1
-            output.append(aux_output[ii])
-        else:
-            raise ValueError
-        ii = jj
-
-    del aux_unique_indices, aux_vals, aux_output, target_indices
-
-    return output
-
 
 @digest(form=form)
 def get_chain_index_from_chain(item, indices='all', skip_digestion=False):
