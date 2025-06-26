@@ -7292,674 +7292,727 @@ def test_get_component_type_from_chain():
     assert list_component_type_BB == [['protein', 'peptide'], ['protein', 'peptide']]
 
 
-#def test_get_chain_index_from_component():
-#
-#    all_chain_index_Hk2 = aux.get_chain_index_from_component(molsys_Hk2.topology, skip_digestion=True)
-#    all_chain_index_BB = aux.get_chain_index_from_component(molsys_BB.topology, skip_digestion=True)
-#    list_chain_index_Hk2 = aux.get_chain_index_from_component(molsys_Hk2.topology, indices=[3,4,5], skip_digestion=True)
-#    list_chain_index_BB = aux.get_chain_index_from_component(molsys_BB.topology, indices=[3,4], skip_digestion=True)
-#
-#    assert isinstance(all_chain_index_Hk2, list)
-#    assert len(all_chain_index_Hk2) == 146
-#    assert len(all_chain_index_BB) == 521
-#    assert all_chain_index_Hk2[:10] == [0, 0, 0, 0, 0, 0, 1, 1, 1, 1]
-#    assert all_chain_index_Hk2[10:30] == [1, 1, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18]
-#    assert all_chain_index_Hk2[50:60] == [38, 38, 38, 38, 38, 38, 38, 38, 38, 38]
-#    assert all_chain_index_BB[:10] == [0, 1, 2, 3, 3, 4, 4, 5, 6, 6]
-#    assert all_chain_index_BB[-1] == 11
-#    assert list_chain_index_Hk2 == [0, 0, 0]
-#    assert list_chain_index_BB == [3, 3]
-#
-#
-#def test_get_chain_id_from_component():
-#
-#    all_chain_id_Hk2 = aux.get_chain_id_from_component(molsys_Hk2.topology, skip_digestion=True)
-#    all_chain_id_BB = aux.get_chain_id_from_component(molsys_BB.topology, skip_digestion=True)
-#    list_chain_id_Hk2 = aux.get_chain_id_from_component(molsys_Hk2.topology, indices=[3,4,5], skip_digestion=True)
-#    list_chain_id_BB = aux.get_chain_id_from_component(molsys_BB.topology, indices=[3,4], skip_digestion=True)
-#
-#    assert isinstance(all_chain_id_Hk2, list)
-#    assert len(all_chain_id_Hk2) == 146
-#    assert len(all_chain_id_BB) == 521
-#    assert all_chain_id_Hk2[:10] == ['A', 'A', 'A', 'A', 'A', 'A', 'B', 'B', 'B', 'B']
-#    assert all_chain_id_Hk2[10:30] == ['B', 'B', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O',
-#                                       'P', 'Q', 'R', 'S']
-#    assert all_chain_id_Hk2[50:60] == ['MA', 'MA', 'MA', 'MA', 'MA', 'MA', 'MA', 'MA', 'MA', 'MA']
-#    assert all_chain_id_BB[:10] == ['A', 'B', 'C', 'D', 'D', 'E', 'E', 'F', 'G', 'G']
-#    assert all_chain_id_BB[-1] == 'L'
-#    assert list_chain_id_Hk2 == ['A', 'A', 'A']
-#    assert list_chain_id_BB == ['D', 'D']
-#
-#
-#def test_get_chain_name_from_component():
-#
-#    all_chain_name_Hk2 = aux.get_chain_name_from_component(molsys_Hk2.topology, skip_digestion=True)
-#    all_chain_name_BB = aux.get_chain_name_from_component(molsys_BB.topology, skip_digestion=True)
-#    list_chain_name_Hk2 = aux.get_chain_name_from_component(molsys_Hk2.topology, indices=[3,4,5], skip_digestion=True)
-#    list_chain_name_BB = aux.get_chain_name_from_component(molsys_BB.topology, indices=[3,4], skip_digestion=True)
-#
-#    assert isinstance(all_chain_name_Hk2, list)
-#    assert len(all_chain_name_Hk2) == 146
-#    assert len(all_chain_name_BB) == 521
-#    assert all_chain_name_Hk2[:10] == ['A', 'A', 'A', 'A', 'A', 'A', 'B', 'B', 'B', 'B']
-#    assert all_chain_name_Hk2[10:30] == ['B', 'B', 'B', 'A', 'A', 'A', 'A', 'A', 'A', 'A', 'A', 'A', 'A', 'A', 'A',
-#                                         'A', 'A', 'A', 'A', 'B']
-#    assert all_chain_name_Hk2[50:60] == ['A', 'A', 'A', 'A', 'A', 'A', 'A', 'A', 'A', 'A']
-#    assert all_chain_name_BB[:10] == ['A', 'B', 'C', 'D', 'D', 'E', 'E', 'F', 'A', 'A']
-#    assert all_chain_name_BB[-1] == 'F'
-#    assert list_chain_name_Hk2 == ['A', 'A', 'A']
-#    assert list_chain_name_BB == ['D', 'D']
-#
-#
-#def test_get_chain_type_from_component():
-#
-#    all_chain_type_Hk2 = aux.get_chain_type_from_component(molsys_Hk2.topology, skip_digestion=True)
-#    all_chain_type_BB = aux.get_chain_type_from_component(molsys_BB.topology, skip_digestion=True)
-#    list_chain_type_Hk2 = aux.get_chain_type_from_component(molsys_Hk2.topology, indices=[3,4,5], skip_digestion=True)
-#    list_chain_type_BB = aux.get_chain_type_from_component(molsys_BB.topology, indices=[3,4], skip_digestion=True)
-#
-#    assert isinstance(all_chain_type_Hk2, list)
-#    assert len(all_chain_type_Hk2) == 146
-#    assert len(all_chain_type_BB) == 521
-#    assert all_chain_type_Hk2[:10] == 10*['protein']
-#    assert all_chain_type_Hk2[10:30] == ['protein', 'protein', 'protein', 'polysaccharide', 'polysaccharide',
-#                                         'polysaccharide', 'polysaccharide', 'unknown', 'unknown', 'unknown',
-#                                         'unknown', 'unknown', 'unknown', 'unknown', 'unknown', 'unknown', 'unknown',
-#                                         'unknown', 'unknown', 'polysaccharide']
-#    assert all_chain_type_Hk2[50:60] == 10*['water']
-#    assert all_chain_type_BB[:10] == ['protein', 'protein', 'protein', 'protein', 'protein', 'protein', 'protein',
-#                                      'protein', 'water', 'water']
-#    assert all_chain_type_BB[-1] == 'water'
-#    assert list_chain_type_Hk2 == ['protein', 'protein', 'protein']
-#    assert list_chain_type_BB == ['protein', 'protein']
-#
-#
-#def test_get_bond_index_from_component():
-#
-#    all_bond_index_Hk2 = aux.get_bond_index_from_component(molsys_Hk2.topology, skip_digestion=True)
-#    all_bond_index_BB = aux.get_bond_index_from_component(molsys_BB.topology, skip_digestion=True)
-#    list_bond_index_Hk2 = aux.get_bond_index_from_component(molsys_Hk2.topology, indices=[1,2,3], skip_digestion=True)
-#    list_bond_index_BB = aux.get_bond_index_from_component(molsys_BB.topology, indices=[10,11,12,13], skip_digestion=True)
-#
-#    assert isinstance(all_bond_index_Hk2, list)
-#    assert len(all_bond_index_Hk2) == 146
-#    assert len(all_bond_index_BB) == 521
-#    assert all_bond_index_Hk2[1][2000:2010] == [2653, 2654, 2655, 2656, 2657, 2658, 2659, 2660, 2661, 2662]
-#    assert all_bond_index_Hk2[15:25] == [[13534, 13535, 13536, 13537, 13538, 13539, 13540, 13541, 13542, 13543,
-#                                          13544, 13545],
-#                                         [13546, 13547, 13548, 13549, 13550, 13551, 13552, 13553, 13554, 13555,
-#                                          13556, 13557, 13558, 13559, 13560, 13561], [], [], [], [], [], [], [], []]
-#    assert all_bond_index_Hk2[105:115] == [[], [], [], [], [], [], [], [], [], []]
-#    assert all_bond_index_Hk2[0][80:90] == [80, 81, 82, 83, 84, 85, 86, 87, 88, 89]
-#    assert all_bond_index_Hk2[-1] == []
-#    assert all_bond_index_BB[0][40:50] == [40, 41, 42, 43, 44, 45, 46, 47, 48, 49]
-#    assert all_bond_index_BB[3][500:510] == [3144, 3145, 3146, 3147, 3148, 3149, 3150, 3151, 3152, 3153]
-#    assert all_bond_index_BB[6][100:110] == [3949, 3950, 3951, 3952, 3953, 3954, 3955, 3956, 3957, 3958]
-#    assert all_bond_index_BB[9] == []
-#    assert all_bond_index_BB[-1] == []
-#    assert list_bond_index_Hk2[1][60:70] == [3952, 3953, 3954, 3955, 3956, 3957, 3958, 3959, 3960, 3961]
-#    assert list_bond_index_BB == [[], [], [], []]
-#
-#
-#def test_get_bond_type_from_component():
-#
-#    all_bond_type_Hk2 = aux.get_bond_type_from_component(molsys_Hk2.topology, skip_digestion=True)
-#    all_bond_type_BB = aux.get_bond_type_from_component(molsys_BB.topology, skip_digestion=True)
-#    list_bond_type_Hk2 = aux.get_bond_type_from_component(molsys_Hk2.topology, indices=[1,2,3], skip_digestion=True)
-#    list_bond_type_BB = aux.get_bond_type_from_component(molsys_BB.topology, indices=[10,11,12,13], skip_digestion=True)
-#
-#    assert isinstance(all_bond_type_Hk2, list)
-#    assert len(all_bond_type_Hk2) == 146
-#    assert len(all_bond_type_BB) == 521
-#    assert all_bond_type_Hk2[1][2000:2010] == [None, None, None, None, None, None, None, None, None, None]
-#    assert all_bond_type_Hk2[15:25] == [[None, None, None, None, None, None, None, None, None, None, None, None],
-#                                        [None, None, None, None, None, None, None, None, None, None, None, None,
-#                                         None, None, None, None], [], [], [], [], [], [], [], []]
-#    assert all_bond_type_Hk2[105:115] == [[], [], [], [], [], [], [], [], [], []]
-#    assert all_bond_type_Hk2[0][80:90] == [None, None, None, None, None, None, None, None, None, None]
-#    assert all_bond_type_Hk2[-1] == []
-#    assert all_bond_type_BB[0][40:50] == [None, None, None, None, None, None, None, None, None, None]
-#    assert all_bond_type_BB[3][500:510] == [None, None, None, None, None, None, None, None, None, None]
-#    assert all_bond_type_BB[6][100:110] == [None, None, None, None, None, None, None, None, None, None]
-#    assert all_bond_type_BB[9] == []
-#    assert all_bond_type_BB[-1] == []
-#    assert list_bond_type_Hk2[1][60:70] == [None, None, None, None, None, None, None, None, None, None]
-#    assert list_bond_type_BB == [[], [], [], []]
-#
-#
-#def test_get_bond_order_from_component():
-#
-#    all_bond_order_Hk2 = aux.get_bond_order_from_component(molsys_Hk2.topology, skip_digestion=True)
-#    all_bond_order_BB = aux.get_bond_order_from_component(molsys_BB.topology, skip_digestion=True)
-#    list_bond_order_Hk2 = aux.get_bond_order_from_component(molsys_Hk2.topology, indices=[1,2,3], skip_digestion=True)
-#    list_bond_order_BB = aux.get_bond_order_from_component(molsys_BB.topology, indices=[10,11,12,13], skip_digestion=True)
-#
-#    assert isinstance(all_bond_order_Hk2, list)
-#    assert len(all_bond_order_Hk2) == 146
-#    assert len(all_bond_order_BB) == 521
-#    assert all_bond_order_Hk2[1][2000:2010] == [None, None, None, None, None, None, None, None, None, None]
-#    assert all_bond_order_Hk2[15:25] == [[None, None, None, None, None, None, None, None, None, None, None, None],
-#                                        [None, None, None, None, None, None, None, None, None, None, None, None,
-#                                         None, None, None, None], [], [], [], [], [], [], [], []]
-#    assert all_bond_order_Hk2[105:115] == [[], [], [], [], [], [], [], [], [], []]
-#    assert all_bond_order_Hk2[0][80:90] == [None, None, None, None, None, None, None, None, None, None]
-#    assert all_bond_order_Hk2[-1] == []
-#    assert all_bond_order_BB[0][40:50] == [None, None, None, None, None, None, None, None, None, None]
-#    assert all_bond_order_BB[3][500:510] == [None, None, None, None, None, None, None, None, None, None]
-#    assert all_bond_order_BB[6][100:110] == [None, None, None, None, None, None, None, None, None, None]
-#    assert all_bond_order_BB[9] == []
-#    assert all_bond_order_BB[-1] == []
-#    assert list_bond_order_Hk2[1][60:70] == [None, None, None, None, None, None, None, None, None, None]
-#    assert list_bond_order_BB == [[], [], [], []]
-#
-#
-#def test_get_bonded_atoms_from_component():
-#
-#    all_bonded_atoms_Hk2 = aux.get_bonded_atoms_from_component(molsys_Hk2.topology, skip_digestion=True)
-#    all_bonded_atoms_BB = aux.get_bonded_atoms_from_component(molsys_BB.topology, skip_digestion=True)
-#    list_bonded_atoms_Hk2 = aux.get_bonded_atoms_from_component(molsys_Hk2.topology, indices=[1,2,3], skip_digestion=True)
-#    list_bonded_atoms_BB = aux.get_bonded_atoms_from_component(molsys_BB.topology, indices=[10,11,12,13], skip_digestion=True)
-#
-#    assert isinstance(all_bonded_atoms_Hk2, list)
-#    assert len(all_bonded_atoms_Hk2) == 146
-#    assert len(all_bonded_atoms_BB) == 521
-#    assert all_bonded_atoms_Hk2[1][2000:2010] == [2640, 2641, 2642, 2643, 2644, 2645, 2646, 2647, 2648, 2649]
-#    assert all_bonded_atoms_Hk2[15:25] == [[13337, 13338, 13339, 13340, 13341, 13342, 13343, 13344, 13345, 13346, 
-#                                            13347, 13348], [13349, 13350, 13351, 13352, 13353, 13354, 13355, 13356,
-#                                            13357, 13358, 13359, 13360, 13361, 13362, 13363, 13364],
-#                                           [], [], [], [], [], [], [], []]
-#    assert all_bonded_atoms_Hk2[105:115] == [[], [], [], [], [], [], [], [], [], []]
-#    assert all_bonded_atoms_Hk2[0][80:90] == [80, 81, 82, 83, 84, 85, 86, 87, 88, 89]
-#    assert all_bonded_atoms_Hk2[-1] == []
-#    assert all_bonded_atoms_BB[0][40:50] == [40, 41, 42, 43, 44, 45, 46, 47, 48, 49]
-#    assert all_bonded_atoms_BB[3][500:510] == [3081, 3082, 3083, 3084, 3085, 3086, 3087, 3088, 3089, 3090]
-#    assert all_bonded_atoms_BB[6][100:110] == [3862, 3863, 3864, 3865, 3866, 3867, 3868, 3869, 3870, 3871]
-#    assert all_bonded_atoms_BB[9] == []
-#    assert all_bonded_atoms_BB[-1] == []
-#    assert list_bonded_atoms_Hk2[1][60:70] == [3892, 3893, 3894, 3895, 3896, 3897, 3898, 3899, 3900, 3901]
-#    assert list_bonded_atoms_BB == [[], [], [], []]
-#
-#
-#def test_get_bonded_atom_pairs_from_component():
-#
-#    all_bonded_atom_pairs_Hk2 = aux.get_bonded_atom_pairs_from_component(molsys_Hk2.topology, skip_digestion=True)
-#    all_bonded_atom_pairs_BB = aux.get_bonded_atom_pairs_from_component(molsys_BB.topology, skip_digestion=True)
-#    list_bonded_atom_pairs_Hk2 = aux.get_bonded_atom_pairs_from_component(molsys_Hk2.topology, indices=[1,2,3], skip_digestion=True)
-#    list_bonded_atom_pairs_BB = aux.get_bonded_atom_pairs_from_component(molsys_BB.topology, indices=[10,11,12,13], skip_digestion=True)
-#
-#    assert isinstance(all_bonded_atom_pairs_Hk2, list)
-#    assert len(all_bonded_atom_pairs_Hk2) == 146
-#    assert len(all_bonded_atom_pairs_BB) == 521
-#    assert all_bonded_atom_pairs_Hk2[1][2000:2010] == [[2609, 2610], [2609, 2618], [2611, 2612], [2612, 2613],
-#                                                       [2613, 2614], [2614, 2615], [2615, 2616], [2615, 2617],
-#                                                       [2618, 2619], [2619, 2620]]
-#    assert all_bonded_atom_pairs_Hk2[15:25] == [[[13337, 13338], [13337, 13343], [13337, 13347], [13338, 13339],
-#                                                 [13338, 13344], [13339, 13340], [13339, 13345], [13340, 13341],
-#                                                 [13340, 13346], [13341, 13342], [13341, 13347], [13342, 13348]],
-#                                                [[13349, 13350], [13349, 13351], [13349, 13352], [13350, 13353],
-#                                                 [13350, 13354], [13352, 13357], [13353, 13355], [13353, 13356],
-#                                                 [13355, 13357], [13355, 13358], [13357, 13359], [13359, 13360],
-#                                                 [13360, 13361], [13361, 13362], [13361, 13363], [13361, 13364]],
-#                                                [], [], [], [], [], [], [], []]
-#    assert all_bonded_atom_pairs_Hk2[105:115] == [[], [], [], [], [], [], [], [], [], []]
-#    assert all_bonded_atom_pairs_Hk2[0][80:90] == [[79, 80], [79, 82], [80, 81], [80, 86], [82, 83], [83, 84],
-#                                                   [83, 85], [86, 87], [87, 88], [87, 90]]
-#    assert all_bonded_atom_pairs_Hk2[-1] == []
-#    assert all_bonded_atom_pairs_BB[0][40:50] == [[38, 40], [39, 40], [41, 42], [42, 43], [42, 45], [43, 44],
-#                                                  [43, 49], [45, 46], [46, 47], [46, 48]]
-#    assert all_bonded_atom_pairs_BB[3][500:510] == [[3066, 3070], [3068, 3069], [3070, 3071], [3071, 3072],
-#                                                    [3071, 3074], [3072, 3073], [3072, 3078], [3074, 3075],
-#                                                    [3075, 3076], [3076, 3077]]
-#    assert all_bonded_atom_pairs_BB[6][100:110] == [[3860, 3861], [3862, 3863], [3863, 3864], [3863, 3866],
-#                                                    [3864, 3865], [3864, 3867], [3867, 3868], [3868, 3869],
-#                                                    [3868, 3871], [3869, 3870]]
-#    assert all_bonded_atom_pairs_BB[9] == []
-#    assert all_bonded_atom_pairs_BB[-1] == []
-#    assert list_bonded_atom_pairs_Hk2[1][60:70] == [[3889, 3891], [3892, 3893], [3893, 3894], [3894, 3895],
-#                                                    [3894, 3896], [3896, 3897], [3897, 3898], [3898, 3899],
-#                                                    [3898, 3900], [3900, 3901]]
-#    assert list_bonded_atom_pairs_BB == [[], [], [], []]
-#
-#
-#def test_get_inner_bond_index_from_component():
-#
-#    all_inner_bond_index_Hk2 = aux.get_inner_bond_index_from_component(molsys_Hk2.topology, skip_digestion=True)
-#    all_inner_bond_index_BB = aux.get_inner_bond_index_from_component(molsys_BB.topology, skip_digestion=True)
-#    list_inner_bond_index_Hk2 = aux.get_inner_bond_index_from_component(molsys_Hk2.topology, indices=[1,2,3], skip_digestion=True)
-#    list_inner_bond_index_BB = aux.get_inner_bond_index_from_component(molsys_BB.topology, indices=[10,11,12,13], skip_digestion=True)
-#
-#    assert isinstance(all_inner_bond_index_Hk2, list)
-#    assert len(all_inner_bond_index_Hk2) == 146
-#    assert len(all_inner_bond_index_BB) == 521
-#    assert all_inner_bond_index_Hk2[1][2000:2010] == [2653, 2654, 2655, 2656, 2657, 2658, 2659, 2660, 2661, 2662]
-#    assert all_inner_bond_index_Hk2[15:25] == [[13534, 13535, 13536, 13537, 13538, 13539, 13540, 13541, 13542, 13543,
-#                                          13544, 13545],
-#                                         [13546, 13547, 13548, 13549, 13550, 13551, 13552, 13553, 13554, 13555,
-#                                          13556, 13557, 13558, 13559, 13560, 13561], [], [], [], [], [], [], [], []]
-#    assert all_inner_bond_index_Hk2[105:115] == [[], [], [], [], [], [], [], [], [], []]
-#    assert all_inner_bond_index_Hk2[0][80:90] == [80, 81, 82, 83, 84, 85, 86, 87, 88, 89]
-#    assert all_inner_bond_index_Hk2[-1] == []
-#    assert all_inner_bond_index_BB[0][40:50] == [40, 41, 42, 43, 44, 45, 46, 47, 48, 49]
-#    assert all_inner_bond_index_BB[3][500:510] == [3144, 3145, 3146, 3147, 3148, 3149, 3150, 3151, 3152, 3153]
-#    assert all_inner_bond_index_BB[6][100:110] == [3949, 3950, 3951, 3952, 3953, 3954, 3955, 3956, 3957, 3958]
-#    assert all_inner_bond_index_BB[9] == []
-#    assert all_inner_bond_index_BB[-1] == []
-#    assert list_inner_bond_index_Hk2[1][60:70] == [3952, 3953, 3954, 3955, 3956, 3957, 3958, 3959, 3960, 3961]
-#    assert list_inner_bond_index_BB == [[], [], [], []]
-#
-#
-#def test_get_inner_bonded_atom_pairs_from_component():
-#
-#    all_inner_bonded_atom_pairs_Hk2 = aux.get_inner_bonded_atom_pairs_from_component(molsys_Hk2.topology, skip_digestion=True)
-#    all_inner_bonded_atom_pairs_BB = aux.get_inner_bonded_atom_pairs_from_component(molsys_BB.topology, skip_digestion=True)
-#    list_inner_bonded_atom_pairs_Hk2 = aux.get_inner_bonded_atom_pairs_from_component(molsys_Hk2.topology, indices=[1,2,3], skip_digestion=True)
-#    list_inner_bonded_atom_pairs_BB = aux.get_inner_bonded_atom_pairs_from_component(molsys_BB.topology, indices=[10,11,12,13], skip_digestion=True)
-#
-#    assert isinstance(all_inner_bonded_atom_pairs_Hk2, list)
-#    assert len(all_inner_bonded_atom_pairs_Hk2) == 146
-#    assert len(all_inner_bonded_atom_pairs_BB) == 521
-#    assert all_inner_bonded_atom_pairs_Hk2[1][2000:2010] == [[2609, 2610], [2609, 2618], [2611, 2612], [2612, 2613],
-#                                                       [2613, 2614], [2614, 2615], [2615, 2616], [2615, 2617],
-#                                                       [2618, 2619], [2619, 2620]]
-#    assert all_inner_bonded_atom_pairs_Hk2[15:25] == [[[13337, 13338], [13337, 13343], [13337, 13347], [13338, 13339],
-#                                                 [13338, 13344], [13339, 13340], [13339, 13345], [13340, 13341],
-#                                                 [13340, 13346], [13341, 13342], [13341, 13347], [13342, 13348]],
-#                                                [[13349, 13350], [13349, 13351], [13349, 13352], [13350, 13353],
-#                                                 [13350, 13354], [13352, 13357], [13353, 13355], [13353, 13356],
-#                                                 [13355, 13357], [13355, 13358], [13357, 13359], [13359, 13360],
-#                                                 [13360, 13361], [13361, 13362], [13361, 13363], [13361, 13364]],
-#                                                [], [], [], [], [], [], [], []]
-#    assert all_inner_bonded_atom_pairs_Hk2[105:115] == [[], [], [], [], [], [], [], [], [], []]
-#    assert all_inner_bonded_atom_pairs_Hk2[0][80:90] == [[79, 80], [79, 82], [80, 81], [80, 86], [82, 83], [83, 84],
-#                                                   [83, 85], [86, 87], [87, 88], [87, 90]]
-#    assert all_inner_bonded_atom_pairs_Hk2[-1] == []
-#    assert all_inner_bonded_atom_pairs_BB[0][40:50] == [[38, 40], [39, 40], [41, 42], [42, 43], [42, 45], [43, 44],
-#                                                  [43, 49], [45, 46], [46, 47], [46, 48]]
-#    assert all_inner_bonded_atom_pairs_BB[3][500:510] == [[3066, 3070], [3068, 3069], [3070, 3071], [3071, 3072],
-#                                                    [3071, 3074], [3072, 3073], [3072, 3078], [3074, 3075],
-#                                                    [3075, 3076], [3076, 3077]]
-#    assert all_inner_bonded_atom_pairs_BB[6][100:110] == [[3860, 3861], [3862, 3863], [3863, 3864], [3863, 3866],
-#                                                    [3864, 3865], [3864, 3867], [3867, 3868], [3868, 3869],
-#                                                    [3868, 3871], [3869, 3870]]
-#    assert all_inner_bonded_atom_pairs_BB[9] == []
-#    assert all_inner_bonded_atom_pairs_BB[-1] == []
-#    assert list_inner_bonded_atom_pairs_Hk2[1][60:70] == [[3889, 3891], [3892, 3893], [3893, 3894], [3894, 3895],
-#                                                    [3894, 3896], [3896, 3897], [3897, 3898], [3898, 3899],
-#                                                    [3898, 3900], [3900, 3901]]
-#    assert list_inner_bonded_atom_pairs_BB == [[], [], [], []]
-#
-#
-#def test_get_n_atoms_from_component():
-#
-#    all_n_atoms_Hk2 = aux.get_n_atoms_from_component(molsys_Hk2.topology, skip_digestion=True)
-#    all_n_atoms_BB = aux.get_n_atoms_from_component(molsys_BB.topology, skip_digestion=True)
-#    list_n_atoms_Hk2 = aux.get_n_atoms_from_component(molsys_Hk2.topology, indices=[4,5,6], skip_digestion=True)
-#    list_n_atoms_BB = aux.get_n_atoms_from_component(molsys_BB.topology, indices=[10,11,12,13], skip_digestion=True)
-#
-#    assert len(all_n_atoms_Hk2) == 146
-#    assert len(all_n_atoms_BB) == 521
-#    assert all_n_atoms_Hk2[15:25] == [12, 16, 1, 1, 1, 1, 1, 1, 1, 1]
-#    assert all_n_atoms_Hk2[105:115] == [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
-#    assert all_n_atoms_Hk2[0] == 640
-#    assert all_n_atoms_Hk2[-1] == 1
-#    assert all_n_atoms_BB[3:13] == [517, 176, 488, 177, 699, 1, 1, 1, 1, 1]
-#    assert all_n_atoms_BB[486:492] == [1, 1, 1, 1, 1, 1]
-#    assert all_n_atoms_BB[0] == 864
-#    assert all_n_atoms_BB[-1] == 1
-#    assert list_n_atoms_Hk2 == [385, 1972, 636]
-#    assert list_n_atoms_BB == [1, 1, 1, 1]
-#
-#
-#def test_get_total_n_atoms_from_component():
-#
-#    all_total_n_atoms_Hk2 = aux.get_total_n_atoms_from_component(molsys_Hk2.topology, skip_digestion=True)
-#    all_total_n_atoms_BB = aux.get_total_n_atoms_from_component(molsys_BB.topology, skip_digestion=True)
-#    list_total_n_atoms_Hk2 = aux.get_total_n_atoms_from_component(molsys_Hk2.topology, indices=[4,5,6], skip_digestion=True)
-#    list_total_n_atoms_BB = aux.get_total_n_atoms_from_component(molsys_BB.topology, indices=[10,11,12,13], skip_digestion=True)
-#
-#    assert all_total_n_atoms_Hk2 == 13546
-#    assert all_total_n_atoms_BB == 5151
-#    assert list_total_n_atoms_Hk2 == 2993
-#    assert list_total_n_atoms_BB == 4
-#
-#
-#def test_get_n_groups_from_component():
-#
-#    all_n_groups_Hk2 = aux.get_n_groups_from_component(molsys_Hk2.topology, skip_digestion=True)
-#    all_n_groups_BB = aux.get_n_groups_from_component(molsys_BB.topology, skip_digestion=True)
-#    list_n_groups_Hk2 = aux.get_n_groups_from_component(molsys_Hk2.topology, indices=[4,5,6], skip_digestion=True)
-#    list_n_groups_BB = aux.get_n_groups_from_component(molsys_BB.topology, indices=[10,11,12,13], skip_digestion=True)
-#
-#    assert len(all_n_groups_Hk2) == 146
-#    assert len(all_n_groups_BB) == 521
-#    assert all_n_groups_Hk2[15:25] == [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
-#    assert all_n_groups_Hk2[105:115] == [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
-#    assert all_n_groups_Hk2[0] == 81
-#    assert all_n_groups_Hk2[-1] == 1
-#    assert all_n_groups_BB[3:13] == [63, 24, 62, 24, 89, 1, 1, 1, 1, 1]
-#    assert all_n_groups_BB[486:492] == [1, 1, 1, 1, 1, 1]
-#    assert all_n_groups_BB[0] == 108
-#    assert all_n_groups_BB[-1] == 1
-#    assert list_n_groups_Hk2 == [50, 266, 81]
-#    assert list_n_groups_BB == [1, 1, 1, 1]
-#
-#
-#def test_get_total_n_groups_from_component():
-#
-#    all_total_n_groups_Hk2 = aux.get_total_n_groups_from_component(molsys_Hk2.topology, skip_digestion=True)
-#    all_total_n_groups_BB = aux.get_total_n_groups_from_component(molsys_BB.topology, skip_digestion=True)
-#    list_total_n_groups_Hk2 = aux.get_total_n_groups_from_component(molsys_Hk2.topology, indices=[4,5,6], skip_digestion=True)
-#    list_total_n_groups_BB = aux.get_total_n_groups_from_component(molsys_BB.topology, indices=[10,11,12,13], skip_digestion=True)
-#
-#    assert all_total_n_groups_Hk2 == 1871
-#    assert all_total_n_groups_BB == 1101
-#    assert list_total_n_groups_Hk2 == 397
-#    assert list_total_n_groups_BB == 4
-#
-#
-#def test_get_n_molecules_from_component():
-#
-#    all_n_molecules_Hk2 = aux.get_n_molecules_from_component(molsys_Hk2.topology, skip_digestion=True)
-#    all_n_molecules_BB = aux.get_n_molecules_from_component(molsys_BB.topology, skip_digestion=True)
-#    list_n_molecules_Hk2 = aux.get_n_molecules_from_component(molsys_Hk2.topology, indices=[4,5,6], skip_digestion=True)
-#    list_n_molecules_BB = aux.get_n_molecules_from_component(molsys_BB.topology, indices=[10,11,12,13], skip_digestion=True)
-#
-#    assert all_n_molecules_Hk2 == 135
-#    assert all_n_molecules_BB == 519
-#    assert list_n_molecules_Hk2 == 2
-#    assert list_n_molecules_BB == 4
-#
-#
-#def test_get_total_n_molecules_from_component():
-#
-#    all_total_n_molecules_Hk2 = aux.get_total_n_molecules_from_component(molsys_Hk2.topology, skip_digestion=True)
-#    all_total_n_molecules_BB = aux.get_total_n_molecules_from_component(molsys_BB.topology, skip_digestion=True)
-#    list_total_n_molecules_Hk2 = aux.get_total_n_molecules_from_component(molsys_Hk2.topology, indices=[4,5,6], skip_digestion=True)
-#    list_total_n_molecules_BB = aux.get_total_n_molecules_from_component(molsys_BB.topology, indices=[10,11,12,13], skip_digestion=True)
-#
-#    assert all_total_n_molecules_Hk2 == 135
-#    assert all_total_n_molecules_BB == 519
-#    assert list_total_n_molecules_Hk2 == 2
-#    assert list_total_n_molecules_BB == 4
-#
-#
-#def test_get_n_entities_from_component():
-#
-#    all_n_entities_Hk2 = aux.get_n_entities_from_component(molsys_Hk2.topology, skip_digestion=True)
-#    all_n_entities_BB = aux.get_n_entities_from_component(molsys_BB.topology, skip_digestion=True)
-#    list_n_entities_Hk2 = aux.get_n_entities_from_component(molsys_Hk2.topology, indices=[4,5,6], skip_digestion=True)
-#    list_n_entities_BB = aux.get_n_entities_from_component(molsys_BB.topology, indices=[10,11,12,13], skip_digestion=True)
-#
-#    assert all_n_entities_Hk2 == 5
-#    assert all_n_entities_BB == 3
-#    assert list_n_entities_Hk2 == 1
-#    assert list_n_entities_BB == 1
-#
-#
-#def test_get_total_n_entities_from_component():
-#
-#    all_total_n_entities_Hk2 = aux.get_total_n_entities_from_component(molsys_Hk2.topology, skip_digestion=True)
-#    all_total_n_entities_BB = aux.get_total_n_entities_from_component(molsys_BB.topology, skip_digestion=True)
-#    list_total_n_entities_Hk2 = aux.get_total_n_entities_from_component(molsys_Hk2.topology, indices=[4,5,6], skip_digestion=True)
-#    list_total_n_entities_BB = aux.get_total_n_entities_from_component(molsys_BB.topology, indices=[10,11,12,13], skip_digestion=True)
-#
-#    assert all_total_n_entities_Hk2 == 5
-#    assert all_total_n_entities_BB == 3
-#    assert list_total_n_entities_Hk2 == 1
-#    assert list_total_n_entities_BB == 1
-#
-#
-#def test_get_n_components_from_component():
-#
-#    all_n_components_Hk2 = aux.get_n_components_from_component(molsys_Hk2.topology, skip_digestion=True)
-#    all_n_components_BB = aux.get_n_components_from_component(molsys_BB.topology, skip_digestion=True)
-#    list_n_components_Hk2 = aux.get_n_components_from_component(molsys_Hk2.topology, indices=[4,5,6], skip_digestion=True)
-#    list_n_components_BB = aux.get_n_components_from_component(molsys_BB.topology, indices=[10,11,12,13], skip_digestion=True)
-#
-#    assert all_n_components_Hk2 == 146
-#    assert all_n_components_BB == 521
-#    assert list_n_components_Hk2 == 3
-#    assert list_n_components_BB == 4
-#
-#
-#def test_get_total_n_components_from_component():
-#
-#    all_total_n_components_Hk2 = aux.get_total_n_components_from_component(molsys_Hk2.topology, skip_digestion=True)
-#    all_total_n_components_BB = aux.get_total_n_components_from_component(molsys_BB.topology, skip_digestion=True)
-#    list_total_n_components_Hk2 = aux.get_total_n_components_from_component(molsys_Hk2.topology, indices=[4,5,6], skip_digestion=True)
-#    list_total_n_components_BB = aux.get_total_n_components_from_component(molsys_BB.topology, indices=[10,11,12,13], skip_digestion=True)
-#
-#    assert all_total_n_components_Hk2 == 146
-#    assert all_total_n_components_BB == 521
-#    assert list_total_n_components_Hk2 == 3
-#    assert list_total_n_components_BB == 4
-#
-#
-#def test_get_n_chains_from_component():
-#
-#    all_n_chains_Hk2 = aux.get_n_chains_from_component(molsys_Hk2.topology, skip_digestion=True)
-#    all_n_chains_BB = aux.get_n_chains_from_component(molsys_BB.topology, skip_digestion=True)
-#    list_n_chains_Hk2 = aux.get_n_chains_from_component(molsys_Hk2.topology, indices=[4,5,6], skip_digestion=True)
-#    list_n_chains_BB = aux.get_n_chains_from_component(molsys_BB.topology, indices=[10,11,12,13], skip_digestion=True)
-#
-#    assert len(all_n_chains_Hk2) == 146
-#    assert len(all_n_chains_BB) == 521
-#    assert all_n_chains_Hk2[15:25] == [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
-#    assert all_n_chains_Hk2[105:115] == [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
-#    assert all_n_chains_Hk2[0] == 1
-#    assert all_n_chains_Hk2[-1] == 1
-#    assert all_n_chains_BB[3:13] == [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
-#    assert all_n_chains_BB[486:492] == [1, 1, 1, 1, 1, 1]
-#    assert all_n_chains_BB[0] == 1
-#    assert all_n_chains_BB[-1] == 1
-#    assert list_n_chains_Hk2 == [1, 1, 1]
-#    assert list_n_chains_BB == [1, 1, 1, 1]
-#
-#
-#def test_get_total_n_chains_from_component():
-#
-#    all_total_n_chains_Hk2 = aux.get_total_n_chains_from_component(molsys_Hk2.topology, skip_digestion=True)
-#    all_total_n_chains_BB = aux.get_total_n_chains_from_component(molsys_BB.topology, skip_digestion=True)
-#    list_total_n_chains_Hk2 = aux.get_total_n_chains_from_component(molsys_Hk2.topology, indices=[4,5,6], skip_digestion=True)
-#    list_total_n_chains_BB = aux.get_total_n_chains_from_component(molsys_BB.topology, indices=[10,11,12,13], skip_digestion=True)
-#
-#    assert all_total_n_chains_Hk2 == 40
-#    assert all_total_n_chains_BB == 12
-#    assert list_total_n_chains_Hk2 == 2
-#    assert list_total_n_chains_BB == 1
-#
-#
-#def test_get_n_bonds_from_component():
-#
-#    all_n_bonds_Hk2 = aux.get_n_bonds_from_component(molsys_Hk2.topology, skip_digestion=True)
-#    all_n_bonds_BB = aux.get_n_bonds_from_component(molsys_BB.topology, skip_digestion=True)
-#    list_n_bonds_Hk2 = aux.get_n_bonds_from_component(molsys_Hk2.topology, indices=[4,5,6], skip_digestion=True)
-#    list_n_bonds_BB = aux.get_n_bonds_from_component(molsys_BB.topology, indices=[10,11,12,13], skip_digestion=True)
-#
-#    assert len(all_n_bonds_Hk2) == 146
-#    assert len(all_n_bonds_BB) == 521
-#    assert all_n_bonds_Hk2[15:25] == [12, 16, 0, 0, 0, 0, 0, 0, 0, 0]
-#    assert all_n_bonds_Hk2[105:115] == [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-#    assert all_n_bonds_Hk2[0] == 653
-#    assert all_n_bonds_Hk2[-1] == 0
-#    assert all_n_bonds_BB[3:13] == [529, 176, 500, 177, 712, 0, 0, 0, 0, 0]
-#    assert all_n_bonds_BB[486:492] == [0, 0, 0, 0, 0, 0]
-#    assert all_n_bonds_BB[0] == 885
-#    assert all_n_bonds_BB[-1] == 0
-#    assert list_n_bonds_Hk2 == [393, 1995, 649]
-#    assert list_n_bonds_BB == [0, 0, 0, 0]
-#
-#
-#def test_get_total_n_bonds_from_component():
-#
-#    all_total_n_bonds_Hk2 = aux.get_total_n_bonds_from_component(molsys_Hk2.topology, skip_digestion=True)
-#    all_total_n_bonds_BB = aux.get_total_n_bonds_from_component(molsys_BB.topology, skip_digestion=True)
-#    list_total_n_bonds_Hk2 = aux.get_total_n_bonds_from_component(molsys_Hk2.topology, indices=[4,5,6], skip_digestion=True)
-#    list_total_n_bonds_BB = aux.get_total_n_bonds_from_component(molsys_BB.topology, indices=[10,11,12,13], skip_digestion=True)
-#
-#    assert all_total_n_bonds_Hk2 == 13618
-#    assert all_total_n_bonds_BB == 4738
-#    assert list_total_n_bonds_Hk2 == 3037
-#    assert list_total_n_bonds_BB == 0
-#
-#
-#def test_get_n_inner_bonds_from_component():
-#
-#    all_n_inner_bonds_Hk2 = aux.get_n_inner_bonds_from_component(molsys_Hk2.topology, skip_digestion=True)
-#    all_n_inner_bonds_BB = aux.get_n_inner_bonds_from_component(molsys_BB.topology, skip_digestion=True)
-#    list_n_inner_bonds_Hk2 = aux.get_n_inner_bonds_from_component(molsys_Hk2.topology, indices=[4,5,6], skip_digestion=True)
-#    list_n_inner_bonds_BB = aux.get_n_inner_bonds_from_component(molsys_BB.topology, indices=[10,11,12,13], skip_digestion=True)
-#
-#    assert len(all_n_inner_bonds_Hk2) == 146
-#    assert len(all_n_inner_bonds_BB) == 521
-#    assert all_n_inner_bonds_Hk2[15:25] == [12, 16, 0, 0, 0, 0, 0, 0, 0, 0]
-#    assert all_n_inner_bonds_Hk2[105:115] == [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-#    assert all_n_inner_bonds_Hk2[0] == 653
-#    assert all_n_inner_bonds_Hk2[-1] == 0
-#    assert all_n_inner_bonds_BB[3:13] == [529, 176, 500, 177, 712, 0, 0, 0, 0, 0]
-#    assert all_n_inner_bonds_BB[486:492] == [0, 0, 0, 0, 0, 0]
-#    assert all_n_inner_bonds_BB[0] == 885
-#    assert all_n_inner_bonds_BB[-1] == 0
-#    assert list_n_inner_bonds_Hk2 == [393, 1995, 649]
-#    assert list_n_inner_bonds_BB == [0, 0, 0, 0]
-#
-#
-#def test_get_total_n_inner_bonds_from_component():
-#
-#    all_total_n_inner_bonds_Hk2 = aux.get_total_n_inner_bonds_from_component(molsys_Hk2.topology, skip_digestion=True)
-#    all_total_n_inner_bonds_BB = aux.get_total_n_inner_bonds_from_component(molsys_BB.topology, skip_digestion=True)
-#    list_total_n_inner_bonds_Hk2 = aux.get_total_n_inner_bonds_from_component(molsys_Hk2.topology, indices=[4,5,6], skip_digestion=True)
-#    list_total_n_inner_bonds_BB = aux.get_total_n_inner_bonds_from_component(molsys_BB.topology, indices=[10,11,12,13], skip_digestion=True)
-#
-#    assert all_total_n_inner_bonds_Hk2 == 13618
-#    assert all_total_n_inner_bonds_BB == 4738
-#    assert list_total_n_inner_bonds_Hk2 == 3037
-#    assert list_total_n_inner_bonds_BB == 0
-#
-#
-#def test_get_n_amino_acids_from_component():
-#
-#    all_n_amino_acids_Hk2 = aux.get_n_amino_acids_from_component(molsys_Hk2.topology, skip_digestion=True)
-#    all_n_amino_acids_BB = aux.get_n_amino_acids_from_component(molsys_BB.topology, skip_digestion=True)
-#    list_n_amino_acids_Hk2 = aux.get_n_amino_acids_from_component(molsys_Hk2.topology, indices=[4,5,6], skip_digestion=True)
-#    list_n_amino_acids_BB = aux.get_n_amino_acids_from_component(molsys_BB.topology, indices=[10,11,12,13], skip_digestion=True)
-#
-#    assert len(all_n_amino_acids_Hk2) == 146
-#    assert len(all_n_amino_acids_BB) == 521
-#    assert all_n_amino_acids_Hk2[15:25] == [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-#    assert all_n_amino_acids_Hk2[105:115] == [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-#    assert all_n_amino_acids_Hk2[0] == 81
-#    assert all_n_amino_acids_Hk2[-1] == 0
-#    assert all_n_amino_acids_BB[3:13] == [63, 24, 62, 24, 89, 0, 0, 0, 0, 0]
-#    assert all_n_amino_acids_BB[486:492] == [0, 0, 0, 0, 0, 0]
-#    assert all_n_amino_acids_BB[0] == 108
-#    assert all_n_amino_acids_BB[-1] == 0
-#    assert list_n_amino_acids_Hk2 == [50, 266, 81]
-#    assert list_n_amino_acids_BB == [0, 0, 0, 0]
-#
-#
-#def test_get_total_n_amino_acids_from_component():
-#
-#    all_total_n_amino_acids_Hk2 = aux.get_total_n_amino_acids_from_component(molsys_Hk2.topology, skip_digestion=True)
-#    all_total_n_amino_acids_BB = aux.get_total_n_amino_acids_from_component(molsys_BB.topology, skip_digestion=True)
-#    list_total_n_amino_acids_Hk2 = aux.get_total_n_amino_acids_from_component(molsys_Hk2.topology, indices=[4,5,6], skip_digestion=True)
-#    list_total_n_amino_acids_BB = aux.get_total_n_amino_acids_from_component(molsys_BB.topology, indices=[10,11,12,13], skip_digestion=True)
-#
-#    assert all_total_n_amino_acids_Hk2 == 1738
-#    assert all_total_n_amino_acids_BB == 588
-#    assert list_total_n_amino_acids_Hk2 == 397
-#    assert list_total_n_amino_acids_BB == 0
-#
-#
-#def test_get_n_nucleotides_from_component():
-#
-#    all_n_nucleotides_Hk2 = aux.get_n_nucleotides_from_component(molsys_Hk2.topology, skip_digestion=True)
-#    all_n_nucleotides_BB = aux.get_n_nucleotides_from_component(molsys_BB.topology, skip_digestion=True)
-#    list_n_nucleotides_Hk2 = aux.get_n_nucleotides_from_component(molsys_Hk2.topology, indices=[4,5,6], skip_digestion=True)
-#    list_n_nucleotides_BB = aux.get_n_nucleotides_from_component(molsys_BB.topology, indices=[10,11,12,13], skip_digestion=True)
-#
-#    assert len(all_n_nucleotides_Hk2) == 146
-#    assert len(all_n_nucleotides_BB) == 521
-#    assert all_n_nucleotides_Hk2 == 146*[0]
-#    assert all_n_nucleotides_BB == 521*[0]
-#    assert list_n_nucleotides_Hk2 == [0, 0, 0]
-#    assert list_n_nucleotides_BB == [0, 0, 0, 0]
-#
-#
-#def test_get_total_n_nucleotides_from_component():
-#
-#    all_total_n_nucleotides_Hk2 = aux.get_total_n_nucleotides_from_component(molsys_Hk2.topology, skip_digestion=True)
-#    all_total_n_nucleotides_BB = aux.get_total_n_nucleotides_from_component(molsys_BB.topology, skip_digestion=True)
-#    list_total_n_nucleotides_Hk2 = aux.get_total_n_nucleotides_from_component(molsys_Hk2.topology, indices=[4,5,6], skip_digestion=True)
-#    list_total_n_nucleotides_BB = aux.get_total_n_nucleotides_from_component(molsys_BB.topology, indices=[10,11,12,13], skip_digestion=True)
-#
-#    assert all_total_n_nucleotides_Hk2 == 0
-#    assert all_total_n_nucleotides_BB == 0
-#    assert list_total_n_nucleotides_Hk2 == 0
-#    assert list_total_n_nucleotides_BB == 0
-#
-#
-#def test_get_n_ions_from_component():
-#
-#    all_n_ions_Hk2 = aux.get_n_ions_from_component(molsys_Hk2.topology, skip_digestion=True)
-#    all_n_ions_BB = aux.get_n_ions_from_component(molsys_BB.topology, skip_digestion=True)
-#    list_n_ions_Hk2 = aux.get_n_ions_from_component(molsys_Hk2.topology, indices=[4,5,6], skip_digestion=True)
-#    list_n_ions_BB = aux.get_n_ions_from_component(molsys_BB.topology, indices=[10,11,12,13], skip_digestion=True)
-#
-#    assert len(all_n_ions_Hk2) == 146
-#    assert len(all_n_ions_BB) == 521
-#    assert all_n_ions_Hk2[15:35] == [0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1]
-#    assert all_n_ions_Hk2[136:] == [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-#    assert all_n_ions_Hk2[:10] == [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-#    assert all_n_ions_BB == 521*[0]
-#    assert list_n_ions_Hk2 == [0, 0, 0]
-#    assert list_n_ions_BB == [0, 0, 0, 0]
-#
-#
-#def test_get_total_n_ions_from_component():
-#
-#    all_total_n_ions_Hk2 = aux.get_total_n_ions_from_component(molsys_Hk2.topology, skip_digestion=True)
-#    all_total_n_ions_BB = aux.get_total_n_ions_from_component(molsys_BB.topology, skip_digestion=True)
-#    list_total_n_ions_Hk2 = aux.get_total_n_ions_from_component(molsys_Hk2.topology, indices=[4,5,6], skip_digestion=True)
-#    list_total_n_ions_BB = aux.get_total_n_ions_from_component(molsys_BB.topology, indices=[10,11,12,13], skip_digestion=True)
-#
-#    assert all_total_n_ions_Hk2 == 28
-#    assert all_total_n_ions_BB == 0
-#    assert list_total_n_ions_Hk2 == 0
-#    assert list_total_n_ions_BB == 0
-#
-#
-#def test_get_n_waters_from_component():
-#
-#    all_n_waters_Hk2 = aux.get_n_waters_from_component(molsys_Hk2.topology, skip_digestion=True)
-#    all_n_waters_BB = aux.get_n_waters_from_component(molsys_BB.topology, skip_digestion=True)
-#    list_n_waters_Hk2 = aux.get_n_waters_from_component(molsys_Hk2.topology, indices=[4,5,6], skip_digestion=True)
-#    list_n_waters_BB = aux.get_n_waters_from_component(molsys_BB.topology, indices=[10,11,12,13], skip_digestion=True)
-#
-#    assert len(all_n_waters_Hk2) == 146
-#    assert len(all_n_waters_BB) == 521
-#    assert all_n_waters_Hk2[15:35] == [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-#    assert all_n_waters_Hk2[136:] == [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
-#    assert all_n_waters_Hk2[:10] == [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-#    assert all_n_waters_BB[5:15] == [0, 0, 0, 1, 1, 1, 1, 1, 1, 1]
-#    assert all_n_waters_BB[511:] == [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
-#    assert list_n_waters_Hk2 == [0, 0, 0]
-#    assert list_n_waters_BB == [1, 1, 1, 1]
-#
-#
-#def test_get_total_n_waters_from_component():
-#
-#    all_total_n_waters_Hk2 = aux.get_total_n_waters_from_component(molsys_Hk2.topology, skip_digestion=True)
-#    all_total_n_waters_BB = aux.get_total_n_waters_from_component(molsys_BB.topology, skip_digestion=True)
-#    list_total_n_waters_Hk2 = aux.get_total_n_waters_from_component(molsys_Hk2.topology, indices=[4,5,6], skip_digestion=True)
-#    list_total_n_waters_BB = aux.get_total_n_waters_from_component(molsys_BB.topology, indices=[10,11,12,13], skip_digestion=True)
-#
-#    assert all_total_n_waters_Hk2 == 97
-#    assert all_total_n_waters_BB == 513
-#    assert list_total_n_waters_Hk2 == 0
-#    assert list_total_n_waters_BB == 4
-#
-#
+def test_get_chain_index_from_chain():
+
+    all_chain_index_Hk2 = aux.get_chain_index_from_chain(molsys_Hk2.topology, skip_digestion=True)
+    all_chain_index_BB = aux.get_chain_index_from_chain(molsys_BB.topology, skip_digestion=True)
+    list_chain_index_Hk2 = aux.get_chain_index_from_chain(molsys_Hk2.topology, indices=[3,4,5], skip_digestion=True)
+    list_chain_index_BB = aux.get_chain_index_from_chain(molsys_BB.topology, indices=[3,4], skip_digestion=True)
+
+    assert all_chain_index_Hk2 == list(range(40))
+    assert all_chain_index_BB == list(range(12))
+    assert list_chain_index_Hk2 == [3, 4, 5]
+    assert list_chain_index_BB == [3, 4]
+
+
+def test_get_chain_id_from_chain():
+
+    all_chain_id_Hk2 = aux.get_chain_id_from_chain(molsys_Hk2.topology, skip_digestion=True)
+    all_chain_id_BB = aux.get_chain_id_from_chain(molsys_BB.topology, skip_digestion=True)
+    list_chain_id_Hk2 = aux.get_chain_id_from_chain(molsys_Hk2.topology, indices=[3,4,5], skip_digestion=True)
+    list_chain_id_BB = aux.get_chain_id_from_chain(molsys_BB.topology, indices=[3,4], skip_digestion=True)
+
+    assert isinstance(all_chain_id_Hk2, list)
+    assert len(all_chain_id_Hk2) == 40
+    assert len(all_chain_id_BB) == 12
+    assert all_chain_id_Hk2[0:6] == ['A', 'B', 'C', 'D', 'E', 'F']
+    assert all_chain_id_Hk2[10] == 'K'
+    assert all_chain_id_Hk2[20] == 'U'
+    assert all_chain_id_Hk2[30] == 'EA'
+    assert all_chain_id_Hk2[38] == 'MA'
+    assert all_chain_id_Hk2[39] == 'NA'
+    assert all_chain_id_BB[0:6] == ['A', 'B', 'C', 'D', 'E', 'F']
+    assert all_chain_id_BB[-1] == 'L'
+    assert list_chain_id_Hk2 == ['D', 'E', 'F']
+    assert list_chain_id_BB == ['D', 'E']
+
+
+def test_get_chain_name_from_chain():
+
+    all_chain_name_Hk2 = aux.get_chain_name_from_chain(molsys_Hk2.topology, skip_digestion=True)
+    all_chain_name_BB = aux.get_chain_name_from_chain(molsys_BB.topology, skip_digestion=True)
+    list_chain_name_Hk2 = aux.get_chain_name_from_chain(molsys_Hk2.topology, indices=[3,4,5], skip_digestion=True)
+    list_chain_name_BB = aux.get_chain_name_from_chain(molsys_BB.topology, indices=[3,4], skip_digestion=True)
+
+    assert isinstance(all_chain_name_Hk2, list)
+    assert len(all_chain_name_Hk2) == 40
+    assert len(all_chain_name_BB) == 12
+    assert all_chain_name_Hk2[0:6] == ['A', 'B', 'A', 'A', 'A', 'A']
+    assert all_chain_name_Hk2[10] == 'A'
+    assert all_chain_name_Hk2[20] == 'B'
+    assert all_chain_name_Hk2[30] == 'B'
+    assert all_chain_name_Hk2[38] == 'A'
+    assert all_chain_name_Hk2[39] == 'B'
+    assert all_chain_name_BB[0:6] == ['A', 'B', 'C', 'D', 'E', 'F']
+    assert all_chain_name_BB[-1] == 'F'
+    assert list_chain_name_Hk2 == ['A', 'A', 'A']
+    assert list_chain_name_BB == ['D', 'E']
+
+
+def test_get_chain_type_from_chain():
+
+    all_chain_type_Hk2 = aux.get_chain_type_from_chain(molsys_Hk2.topology, skip_digestion=True)
+    all_chain_type_BB = aux.get_chain_type_from_chain(molsys_BB.topology, skip_digestion=True)
+    list_chain_type_Hk2 = aux.get_chain_type_from_chain(molsys_Hk2.topology, indices=[3,4,5], skip_digestion=True)
+    list_chain_type_BB = aux.get_chain_type_from_chain(molsys_BB.topology, indices=[3,4], skip_digestion=True)
+
+    assert isinstance(all_chain_type_Hk2, list)
+    assert len(all_chain_type_Hk2) == 40
+    assert len(all_chain_type_BB) == 12
+    assert all_chain_type_Hk2[0:6] == ['protein', 'protein', 'polysaccharide', 'polysaccharide',
+                                       'polysaccharide', 'polysaccharide']
+    assert all_chain_type_Hk2[10] == 'unknown' 
+    assert all_chain_type_Hk2[20] == 'polysaccharide'
+    assert all_chain_type_Hk2[30] == 'unknown'
+    assert all_chain_type_Hk2[38:40] == ['water', 'water']
+    assert all_chain_type_BB[0:6] == 6*['protein']
+    assert all_chain_type_BB[-1] == 'water'
+    assert list_chain_type_Hk2 == ['polysaccharide', 'polysaccharide', 'polysaccharide']
+    assert list_chain_type_BB == ['protein', 'protein']
+
+
+def test_get_bond_index_from_chain():
+
+    all_bond_index_Hk2 = aux.get_bond_index_from_chain(molsys_Hk2.topology, skip_digestion=True)
+    all_bond_index_BB = aux.get_bond_index_from_chain(molsys_BB.topology, skip_digestion=True)
+    list_bond_index_Hk2 = aux.get_bond_index_from_chain(molsys_Hk2.topology, indices=[3,4,5], skip_digestion=True)
+    list_bond_index_BB = aux.get_bond_index_from_chain(molsys_BB.topology, indices=[3,4], skip_digestion=True)
+
+    assert isinstance(all_bond_index_Hk2, list)
+    assert len(all_bond_index_Hk2) == 40
+    assert len(all_bond_index_BB) == 12
+    assert len(all_bond_index_Hk2[0]) == 6751
+    assert all_bond_index_Hk2[1][2000:2010] == [8751, 8752, 8753, 8754, 8755, 8756, 8757, 8758, 8759, 8760]
+    assert all_bond_index_Hk2[15:25] == [[], [], [],
+                                         [13562, 13563, 13564, 13565, 13566, 13567, 13568, 13569, 13570, 13571,
+                                          13572, 13573],
+                                         [13574, 13575, 13576, 13577, 13578, 13579, 13580, 13581, 13582, 13583,
+                                          13584, 13585, 13586, 13587, 13588, 13589],
+                                         [13590, 13591, 13592, 13593, 13594, 13595, 13596, 13597, 13598, 13599,
+                                          13600, 13601],
+                                         [13602, 13603, 13604, 13605, 13606, 13607, 13608, 13609, 13610, 13611,
+                                          13612, 13613, 13614, 13615, 13616, 13617], [], [], []]
+    assert all_bond_index_Hk2[-1] == []
+    assert all_bond_index_BB[0] == list(range(885))
+    assert all_bond_index_BB[3] == list(range(2644, 3349))
+    assert all_bond_index_BB[-1] == []
+    assert list_bond_index_Hk2 == [[13518, 13519, 13520, 13521, 13522, 13523, 13524, 13525, 13526, 13527, 13528,
+                                    13529, 13530, 13531, 13532, 13533],
+                                   [13534, 13535, 13536, 13537, 13538, 13539, 13540, 13541, 13542, 13543, 13544,
+                                    13545],
+                                   [13546, 13547, 13548, 13549, 13550, 13551, 13552, 13553, 13554, 13555, 13556,
+                                    13557, 13558, 13559, 13560, 13561]]
+    assert list_bond_index_BB ==  [list(range(2644, 3349)), list(range(3349, 4026))]
+
+
+def test_get_bond_type_from_chain():
+
+    all_bond_type_Hk2 = aux.get_bond_type_from_chain(molsys_Hk2.topology, skip_digestion=True)
+    all_bond_type_BB = aux.get_bond_type_from_chain(molsys_BB.topology, skip_digestion=True)
+    list_bond_type_Hk2 = aux.get_bond_type_from_chain(molsys_Hk2.topology, indices=[3,4,5], skip_digestion=True)
+    list_bond_type_BB = aux.get_bond_type_from_chain(molsys_BB.topology, indices=[3,4], skip_digestion=True)
+
+    assert isinstance(all_bond_type_Hk2, list)
+    assert len(all_bond_type_Hk2) == 40
+    assert len(all_bond_type_BB) == 12
+    assert len(all_bond_type_Hk2[0]) == 6751
+    assert all_bond_type_Hk2[1][2000:2010] == 10*[None]
+    assert all_bond_type_Hk2[15:25] == [[], [], [], 12*[None], 16*[None], 12*[None], 16*[None], [], [], []]
+    assert all_bond_type_Hk2[-1] == []
+    assert len(all_bond_type_BB[0]) == 885
+    assert all_bond_type_BB[3][200:210] == 10*[None]
+    assert all_bond_type_BB[-1] == []
+    assert list_bond_type_Hk2 == [16*[None], 12*[None], 16*[None]]
+    assert list_bond_type_BB ==  [705*[None], 677*[None]]
+
+
+def test_get_bond_order_from_chain():
+
+    all_bond_order_Hk2 = aux.get_bond_order_from_chain(molsys_Hk2.topology, skip_digestion=True)
+    all_bond_order_BB = aux.get_bond_order_from_chain(molsys_BB.topology, skip_digestion=True)
+    list_bond_order_Hk2 = aux.get_bond_order_from_chain(molsys_Hk2.topology, indices=[3,4,5], skip_digestion=True)
+    list_bond_order_BB = aux.get_bond_order_from_chain(molsys_BB.topology, indices=[3,4], skip_digestion=True)
+
+    assert isinstance(all_bond_order_Hk2, list)
+    assert len(all_bond_order_Hk2) == 40
+    assert len(all_bond_order_BB) == 12
+    assert len(all_bond_order_Hk2[0]) == 6751
+    assert all_bond_order_Hk2[1][2000:2010] == 10*[None]
+    assert all_bond_order_Hk2[15:25] == [[], [], [], 12*[None], 16*[None], 12*[None], 16*[None], [], [], []]
+    assert all_bond_order_Hk2[-1] == []
+    assert len(all_bond_order_BB[0]) == 885
+    assert all_bond_order_BB[3][200:210] == 10*[None]
+    assert all_bond_order_BB[-1] == []
+    assert list_bond_order_Hk2 == [16*[None], 12*[None], 16*[None]]
+    assert list_bond_order_BB ==  [705*[None], 677*[None]]
+
+
+def test_get_bonded_atoms_from_chain():
+
+    all_bonded_atoms_Hk2 = aux.get_bonded_atoms_from_chain(molsys_Hk2.topology, skip_digestion=True)
+    all_bonded_atoms_BB = aux.get_bonded_atoms_from_chain(molsys_BB.topology, skip_digestion=True)
+    list_bonded_atoms_Hk2 = aux.get_bonded_atoms_from_chain(molsys_Hk2.topology, indices=[3,4,5], skip_digestion=True)
+    list_bonded_atoms_BB = aux.get_bonded_atoms_from_chain(molsys_BB.topology, indices=[3,4], skip_digestion=True)
+
+    assert isinstance(all_bonded_atoms_Hk2, list)
+    assert len(all_bonded_atoms_Hk2) == 40
+    assert len(all_bonded_atoms_BB) == 12
+    assert len(all_bonded_atoms_Hk2[0]) == 6653
+    assert all_bonded_atoms_Hk2[0][2000:2010] == [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009]
+    assert len(all_bonded_atoms_Hk2[1]) == 6656
+    assert all_bonded_atoms_Hk2[1][2000:2010] == [8653, 8654, 8655, 8656, 8657, 8658, 8659, 8660, 8661, 8662]
+    assert all_bonded_atoms_Hk2[15:25] == [[], [], [], [13377, 13378, 13379, 13380, 13381, 13382, 13383, 13384, 13385,
+                                           13386, 13387, 13388], [13389, 13390, 13391, 13392, 13393, 13394, 13395,
+                                           13396, 13397, 13398, 13399, 13400, 13401, 13402, 13403, 13404],
+                                           [13405, 13406, 13407, 13408, 13409, 13410, 13411, 13412, 13413, 13414,
+                                            13415, 13416], [13417, 13418, 13419, 13420, 13421, 13422, 13423, 13424,
+                                            13425, 13426, 13427, 13428, 13429, 13430, 13431, 13432], [], [], []]
+    assert all_bonded_atoms_Hk2[-1] == []
+    assert len(all_bonded_atoms_BB[0]) == 864
+    assert all_bonded_atoms_BB[0][400:410] == [400, 401, 402, 403, 404, 405, 406, 407, 408, 409]
+    assert all_bonded_atoms_BB[2][400:410] == [2142, 2143, 2144, 2145, 2146, 2147, 2148, 2149, 2150, 2151]
+    assert all_bonded_atoms_BB[-1] == []
+    assert list_bonded_atoms_Hk2 == [[13321, 13322, 13323, 13324, 13325, 13326, 13327, 13328, 13329, 13330,
+                                      13331, 13332, 13333, 13334, 13335, 13336], [13337, 13338, 13339, 13340,
+                                      13341, 13342, 13343, 13344, 13345, 13346, 13347, 13348], [13349, 13350,
+                                      13351, 13352, 13353, 13354, 13355, 13356, 13357, 13358, 13359, 13360, 13361,
+                                      13362, 13363, 13364]]
+    assert len(list_bonded_atoms_BB[0]) ==  693
+    assert list_bonded_atoms_BB[0][100:110] == [2681, 2682, 2683, 2684, 2685, 2686, 2687, 2688, 2689, 2690]
+    assert len(list_bonded_atoms_BB[1]) ==  665
+    assert list_bonded_atoms_BB[1][500:510] == [3774, 3775, 3776, 3777, 3778, 3779, 3780, 3781, 3782, 3783]
+
+
+def test_get_bonded_atom_pairs_from_chain():
+
+    all_bonded_atom_pairs_Hk2 = aux.get_bonded_atom_pairs_from_chain(molsys_Hk2.topology, skip_digestion=True)
+    all_bonded_atom_pairs_BB = aux.get_bonded_atom_pairs_from_chain(molsys_BB.topology, skip_digestion=True)
+    list_bonded_atom_pairs_Hk2 = aux.get_bonded_atom_pairs_from_chain(molsys_Hk2.topology, indices=[3,4,5], skip_digestion=True)
+    list_bonded_atom_pairs_BB = aux.get_bonded_atom_pairs_from_chain(molsys_BB.topology, indices=[3,4], skip_digestion=True)
+
+    assert isinstance(all_bonded_atom_pairs_Hk2, list)
+    assert len(all_bonded_atom_pairs_Hk2) == 40
+    assert len(all_bonded_atom_pairs_BB) == 12
+    assert len(all_bonded_atom_pairs_Hk2[0]) == 6751
+    assert all_bonded_atom_pairs_Hk2[0][2000:2010] == [[1964, 1965], [1964, 1967], [1965, 1966], [1965, 1970],
+                                                       [1967, 1968], [1967, 1969], [1970, 1971], [1971, 1972],
+                                                       [1971, 1974], [1972, 1973]]
+    assert len(all_bonded_atom_pairs_Hk2[1]) == 6755
+    assert all_bonded_atom_pairs_Hk2[1][2000:2010] == [[8616, 8617], [8617, 8618], [8618, 8619], [8618, 8620],
+                                                       [8621, 8622], [8622, 8623], [8622, 8625], [8623, 8624],
+                                                       [8623, 8632], [8625, 8626]]
+    assert all_bonded_atom_pairs_Hk2[-1] == []
+    assert len(all_bonded_atom_pairs_BB[0]) == 885
+    assert all_bonded_atom_pairs_BB[0][400:410] == [[390, 393], [391, 392], [391, 397], [393, 394], [393, 395],
+                                                    [394, 396], [397, 398], [398, 399], [398, 401], [399, 400]]
+    assert all_bonded_atom_pairs_BB[2][400:410] == [[2131, 2132], [2133, 2134], [2134, 2135], [2134, 2137],
+                                                    [2135, 2136], [2135, 2141], [2137, 2138], [2138, 2139],
+                                                    [2138, 2140], [2141, 2142]]
+    assert all_bonded_atom_pairs_BB[-1] == []
+    assert list_bonded_atom_pairs_Hk2 == [[[13321, 13322], [13321, 13323], [13321, 13324], [13322, 13325],
+                                           [13322, 13326], [13324, 13329], [13325, 13327], [13325, 13328],
+                                           [13327, 13329], [13327, 13330], [13329, 13331], [13331, 13332],
+                                           [13332, 13333], [13333, 13334], [13333, 13335], [13333, 13336]],
+                                          [[13337, 13338], [13337, 13343], [13337, 13347], [13338, 13339],
+                                           [13338, 13344], [13339, 13340], [13339, 13345], [13340, 13341],
+                                           [13340, 13346], [13341, 13342], [13341, 13347], [13342, 13348]],
+                                          [[13349, 13350], [13349, 13351], [13349, 13352], [13350, 13353],
+                                           [13350, 13354], [13352, 13357], [13353, 13355], [13353, 13356],
+                                           [13355, 13357], [13355, 13358], [13357, 13359], [13359, 13360],
+                                           [13360, 13361], [13361, 13362], [13361, 13363], [13361, 13364]]]
+    assert len(list_bonded_atom_pairs_BB[0]) == 705
+    assert list_bonded_atom_pairs_BB[0][100:110] == [[2679, 2681], [2682, 2683], [2683, 2684], [2683, 2686],
+                                                     [2684, 2685], [2684, 2688], [2686, 2687], [2688, 2689],
+                                                     [2689, 2690], [2689, 2692]]
+    assert len(list_bonded_atom_pairs_BB[1]) == 677
+    assert list_bonded_atom_pairs_BB[1][500:510] == [[3762, 3763], [3763, 3764], [3764, 3765], [3764, 3766],
+                                                     [3766, 3767], [3767, 3768], [3767, 3770], [3768, 3769],
+                                                     [3768, 3771], [3771, 3772]]
+
+
+def test_get_inner_bond_index_from_chain():
+
+    all_inner_bond_index_Hk2 = aux.get_inner_bond_index_from_chain(molsys_Hk2.topology, skip_digestion=True)
+    all_inner_bond_index_BB = aux.get_inner_bond_index_from_chain(molsys_BB.topology, skip_digestion=True)
+    list_inner_bond_index_Hk2 = aux.get_inner_bond_index_from_chain(molsys_Hk2.topology, indices=[3,4,5], skip_digestion=True)
+    list_inner_bond_index_BB = aux.get_inner_bond_index_from_chain(molsys_BB.topology, indices=[3,4], skip_digestion=True)
+
+    assert isinstance(all_inner_bond_index_Hk2, list)
+    assert len(all_inner_bond_index_Hk2) == 40
+    assert len(all_inner_bond_index_BB) == 12
+    assert len(all_inner_bond_index_Hk2[0]) == 6751
+    assert all_inner_bond_index_Hk2[1][2000:2010] == [8751, 8752, 8753, 8754, 8755, 8756, 8757, 8758, 8759, 8760]
+    assert all_inner_bond_index_Hk2[15:25] == [[], [], [],
+                                         [13562, 13563, 13564, 13565, 13566, 13567, 13568, 13569, 13570, 13571,
+                                          13572, 13573],
+                                         [13574, 13575, 13576, 13577, 13578, 13579, 13580, 13581, 13582, 13583,
+                                          13584, 13585, 13586, 13587, 13588, 13589],
+                                         [13590, 13591, 13592, 13593, 13594, 13595, 13596, 13597, 13598, 13599,
+                                          13600, 13601],
+                                         [13602, 13603, 13604, 13605, 13606, 13607, 13608, 13609, 13610, 13611,
+                                          13612, 13613, 13614, 13615, 13616, 13617], [], [], []]
+    assert all_inner_bond_index_Hk2[-1] == []
+    assert all_inner_bond_index_BB[0] == list(range(885))
+    assert all_inner_bond_index_BB[3] == list(range(2644, 3349))
+    assert all_inner_bond_index_BB[-1] == []
+    assert list_inner_bond_index_Hk2 == [[13518, 13519, 13520, 13521, 13522, 13523, 13524, 13525, 13526, 13527, 13528,
+                                    13529, 13530, 13531, 13532, 13533],
+                                   [13534, 13535, 13536, 13537, 13538, 13539, 13540, 13541, 13542, 13543, 13544,
+                                    13545],
+                                   [13546, 13547, 13548, 13549, 13550, 13551, 13552, 13553, 13554, 13555, 13556,
+                                    13557, 13558, 13559, 13560, 13561]]
+    assert list_inner_bond_index_BB ==  [list(range(2644, 3349)), list(range(3349, 4026))]
+
+
+def test_get_inner_bonded_atoms_from_chain():
+
+    all_inner_bonded_atoms_Hk2 = aux.get_inner_bonded_atoms_from_chain(molsys_Hk2.topology, skip_digestion=True)
+    all_inner_bonded_atoms_BB = aux.get_inner_bonded_atoms_from_chain(molsys_BB.topology, skip_digestion=True)
+    list_inner_bonded_atoms_Hk2 = aux.get_inner_bonded_atoms_from_chain(molsys_Hk2.topology, indices=[3,4,5], skip_digestion=True)
+    list_inner_bonded_atoms_BB = aux.get_inner_bonded_atoms_from_chain(molsys_BB.topology, indices=[3,4], skip_digestion=True)
+
+    assert isinstance(all_inner_bonded_atoms_Hk2, list)
+    assert len(all_inner_bonded_atoms_Hk2) == 40
+    assert len(all_inner_bonded_atoms_BB) == 12
+    assert len(all_inner_bonded_atoms_Hk2[0]) == 6653
+    assert all_inner_bonded_atoms_Hk2[0][2000:2010] == [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009]
+    assert len(all_inner_bonded_atoms_Hk2[1]) == 6656
+    assert all_inner_bonded_atoms_Hk2[1][2000:2010] == [8653, 8654, 8655, 8656, 8657, 8658, 8659, 8660, 8661, 8662]
+    assert all_inner_bonded_atoms_Hk2[15:25] == [[], [], [], [13377, 13378, 13379, 13380, 13381, 13382, 13383, 13384, 13385,
+                                           13386, 13387, 13388], [13389, 13390, 13391, 13392, 13393, 13394, 13395,
+                                           13396, 13397, 13398, 13399, 13400, 13401, 13402, 13403, 13404],
+                                           [13405, 13406, 13407, 13408, 13409, 13410, 13411, 13412, 13413, 13414,
+                                            13415, 13416], [13417, 13418, 13419, 13420, 13421, 13422, 13423, 13424,
+                                            13425, 13426, 13427, 13428, 13429, 13430, 13431, 13432], [], [], []]
+    assert all_inner_bonded_atoms_Hk2[-1] == []
+    assert len(all_inner_bonded_atoms_BB[0]) == 864
+    assert all_inner_bonded_atoms_BB[0][400:410] == [400, 401, 402, 403, 404, 405, 406, 407, 408, 409]
+    assert all_inner_bonded_atoms_BB[2][400:410] == [2142, 2143, 2144, 2145, 2146, 2147, 2148, 2149, 2150, 2151]
+    assert all_inner_bonded_atoms_BB[-1] == []
+    assert list_inner_bonded_atoms_Hk2 == [[13321, 13322, 13323, 13324, 13325, 13326, 13327, 13328, 13329, 13330,
+                                      13331, 13332, 13333, 13334, 13335, 13336], [13337, 13338, 13339, 13340,
+                                      13341, 13342, 13343, 13344, 13345, 13346, 13347, 13348], [13349, 13350,
+                                      13351, 13352, 13353, 13354, 13355, 13356, 13357, 13358, 13359, 13360, 13361,
+                                      13362, 13363, 13364]]
+    assert len(list_inner_bonded_atoms_BB[0]) ==  693
+    assert list_inner_bonded_atoms_BB[0][100:110] == [2681, 2682, 2683, 2684, 2685, 2686, 2687, 2688, 2689, 2690]
+    assert len(list_inner_bonded_atoms_BB[1]) ==  665
+    assert list_inner_bonded_atoms_BB[1][500:510] == [3774, 3775, 3776, 3777, 3778, 3779, 3780, 3781, 3782, 3783]
+
+
+def test_get_inner_bonded_atom_pairs_from_chain():
+
+    all_inner_bonded_atom_pairs_Hk2 = aux.get_inner_bonded_atom_pairs_from_chain(molsys_Hk2.topology, skip_digestion=True)
+    all_inner_bonded_atom_pairs_BB = aux.get_inner_bonded_atom_pairs_from_chain(molsys_BB.topology, skip_digestion=True)
+    list_inner_bonded_atom_pairs_Hk2 = aux.get_inner_bonded_atom_pairs_from_chain(molsys_Hk2.topology, indices=[3,4,5], skip_digestion=True)
+    list_inner_bonded_atom_pairs_BB = aux.get_inner_bonded_atom_pairs_from_chain(molsys_BB.topology, indices=[3,4], skip_digestion=True)
+
+    assert isinstance(all_inner_bonded_atom_pairs_Hk2, list)
+    assert len(all_inner_bonded_atom_pairs_Hk2) == 40
+    assert len(all_inner_bonded_atom_pairs_BB) == 12
+    assert len(all_inner_bonded_atom_pairs_Hk2[0]) == 6751
+    assert all_inner_bonded_atom_pairs_Hk2[0][2000:2010] == [[1964, 1965], [1964, 1967], [1965, 1966], [1965, 1970],
+                                                       [1967, 1968], [1967, 1969], [1970, 1971], [1971, 1972],
+                                                       [1971, 1974], [1972, 1973]]
+    assert len(all_inner_bonded_atom_pairs_Hk2[1]) == 6755
+    assert all_inner_bonded_atom_pairs_Hk2[1][2000:2010] == [[8616, 8617], [8617, 8618], [8618, 8619], [8618, 8620],
+                                                       [8621, 8622], [8622, 8623], [8622, 8625], [8623, 8624],
+                                                       [8623, 8632], [8625, 8626]]
+    assert all_inner_bonded_atom_pairs_Hk2[-1] == []
+    assert len(all_inner_bonded_atom_pairs_BB[0]) == 885
+    assert all_inner_bonded_atom_pairs_BB[0][400:410] == [[390, 393], [391, 392], [391, 397], [393, 394], [393, 395],
+                                                    [394, 396], [397, 398], [398, 399], [398, 401], [399, 400]]
+    assert all_inner_bonded_atom_pairs_BB[2][400:410] == [[2131, 2132], [2133, 2134], [2134, 2135], [2134, 2137],
+                                                    [2135, 2136], [2135, 2141], [2137, 2138], [2138, 2139],
+                                                    [2138, 2140], [2141, 2142]]
+    assert all_inner_bonded_atom_pairs_BB[-1] == []
+    assert list_inner_bonded_atom_pairs_Hk2 == [[[13321, 13322], [13321, 13323], [13321, 13324], [13322, 13325],
+                                           [13322, 13326], [13324, 13329], [13325, 13327], [13325, 13328],
+                                           [13327, 13329], [13327, 13330], [13329, 13331], [13331, 13332],
+                                           [13332, 13333], [13333, 13334], [13333, 13335], [13333, 13336]],
+                                          [[13337, 13338], [13337, 13343], [13337, 13347], [13338, 13339],
+                                           [13338, 13344], [13339, 13340], [13339, 13345], [13340, 13341],
+                                           [13340, 13346], [13341, 13342], [13341, 13347], [13342, 13348]],
+                                          [[13349, 13350], [13349, 13351], [13349, 13352], [13350, 13353],
+                                           [13350, 13354], [13352, 13357], [13353, 13355], [13353, 13356],
+                                           [13355, 13357], [13355, 13358], [13357, 13359], [13359, 13360],
+                                           [13360, 13361], [13361, 13362], [13361, 13363], [13361, 13364]]]
+    assert len(list_inner_bonded_atom_pairs_BB[0]) == 705
+    assert list_inner_bonded_atom_pairs_BB[0][100:110] == [[2679, 2681], [2682, 2683], [2683, 2684], [2683, 2686],
+                                                     [2684, 2685], [2684, 2688], [2686, 2687], [2688, 2689],
+                                                     [2689, 2690], [2689, 2692]]
+    assert len(list_inner_bonded_atom_pairs_BB[1]) == 677
+    assert list_inner_bonded_atom_pairs_BB[1][500:510] == [[3762, 3763], [3763, 3764], [3764, 3765], [3764, 3766],
+                                                     [3766, 3767], [3767, 3768], [3767, 3770], [3768, 3769],
+                                                     [3768, 3771], [3771, 3772]]
+
+
+def test_get_n_atoms_from_chain():
+
+    all_n_atoms_Hk2 = aux.get_n_atoms_from_chain(molsys_Hk2.topology, skip_digestion=True)
+    all_n_atoms_BB = aux.get_n_atoms_from_chain(molsys_BB.topology, skip_digestion=True)
+    list_n_atoms_Hk2 = aux.get_n_atoms_from_chain(molsys_Hk2.topology, indices=[3,4,5], skip_digestion=True)
+    list_n_atoms_BB = aux.get_n_atoms_from_chain(molsys_BB.topology, indices=[3,4], skip_digestion=True)
+
+    assert len(all_n_atoms_Hk2) == 40
+    assert len(all_n_atoms_BB) == 12
+    assert all_n_atoms_Hk2[:10] == [6653, 6656, 12, 16, 12, 16, 1, 1, 1, 1]
+    assert all_n_atoms_Hk2[-1] == 48
+    assert all_n_atoms_BB[:10] == [864, 878, 839, 693, 665, 699, 145, 137, 50, 77]
+    assert all_n_atoms_BB[-1] == 40
+    assert list_n_atoms_Hk2 == [16, 12, 16]
+    assert list_n_atoms_BB == [693, 665]
+
+
+def test_get_total_n_atoms_from_chain():
+
+    all_total_n_atoms_Hk2 = aux.get_total_n_atoms_from_chain(molsys_Hk2.topology, skip_digestion=True)
+    all_total_n_atoms_BB = aux.get_total_n_atoms_from_chain(molsys_BB.topology, skip_digestion=True)
+    list_total_n_atoms_Hk2 = aux.get_total_n_atoms_from_chain(molsys_Hk2.topology, indices=[3,4,5], skip_digestion=True)
+    list_total_n_atoms_BB = aux.get_total_n_atoms_from_chain(molsys_BB.topology, indices=[3,4], skip_digestion=True)
+
+    assert all_total_n_atoms_Hk2 == 13546
+    assert all_total_n_atoms_BB == 5151
+    assert list_total_n_atoms_Hk2 == 44
+    assert list_total_n_atoms_BB ==  1358
+
+
+def test_get_n_groups_from_chain():
+
+    all_n_groups_Hk2 = aux.get_n_groups_from_chain(molsys_Hk2.topology, skip_digestion=True)
+    all_n_groups_BB = aux.get_n_groups_from_chain(molsys_BB.topology, skip_digestion=True)
+    list_n_groups_Hk2 = aux.get_n_groups_from_chain(molsys_Hk2.topology, indices=[3,4,5], skip_digestion=True)
+    list_n_groups_BB = aux.get_n_groups_from_chain(molsys_BB.topology, indices=[3,4], skip_digestion=True)
+
+    assert len(all_n_groups_Hk2) == 40
+    assert len(all_n_groups_BB) == 12
+    assert all_n_groups_Hk2[:5] == [871, 867, 1, 1, 1]
+    assert all_n_groups_Hk2[15:25] == [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+    assert all_n_groups_Hk2[-1] == 48
+    assert all_n_groups_BB[3:13] == [87, 86, 89, 145, 137, 50, 77, 64, 40]
+    assert all_n_groups_BB[-1] == 40
+    assert list_n_groups_Hk2 == [1, 1, 1]
+    assert list_n_groups_BB == [87, 86]
+
+
+def test_get_total_n_groups_from_chain():
+
+    all_total_n_groups_Hk2 = aux.get_total_n_groups_from_chain(molsys_Hk2.topology, skip_digestion=True)
+    all_total_n_groups_BB = aux.get_total_n_groups_from_chain(molsys_BB.topology, skip_digestion=True)
+    list_total_n_groups_Hk2 = aux.get_total_n_groups_from_chain(molsys_Hk2.topology, indices=[3,4,5], skip_digestion=True)
+    list_total_n_groups_BB = aux.get_total_n_groups_from_chain(molsys_BB.topology, indices=[3,4], skip_digestion=True)
+
+    assert all_total_n_groups_Hk2 == 1871
+    assert all_total_n_groups_BB == 1101
+    assert list_total_n_groups_Hk2 == 3
+    assert list_total_n_groups_BB == 173
+
+
+def test_get_n_molecules_from_chain():
+
+    all_n_molecules_Hk2 = aux.get_n_molecules_from_chain(molsys_Hk2.topology, skip_digestion=True)
+    all_n_molecules_BB = aux.get_n_molecules_from_chain(molsys_BB.topology, skip_digestion=True)
+    list_n_molecules_Hk2 = aux.get_n_molecules_from_chain(molsys_Hk2.topology, indices=[3,4,5], skip_digestion=True)
+    list_n_molecules_BB = aux.get_n_molecules_from_chain(molsys_BB.topology, indices=[3,4], skip_digestion=True)
+
+    assert len(all_n_molecules_Hk2) == 40
+    assert len(all_n_molecules_BB) == 12
+    assert all_n_molecules_Hk2[:5] == [1, 1, 1, 1, 1]
+    assert all_n_molecules_Hk2[15:25] == [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+    assert all_n_molecules_Hk2[-1] == 48
+    assert all_n_molecules_BB[3:13] == [1, 1, 1, 145, 137, 50, 77, 64, 40]
+    assert all_n_molecules_BB[-1] == 40
+    assert list_n_molecules_Hk2 == [1, 1, 1]
+    assert list_n_molecules_BB == [1, 1]
+
+
+def test_get_total_n_molecules_from_chain():
+
+    all_total_n_molecules_Hk2 = aux.get_total_n_molecules_from_chain(molsys_Hk2.topology, skip_digestion=True)
+    all_total_n_molecules_BB = aux.get_total_n_molecules_from_chain(molsys_BB.topology, skip_digestion=True)
+    list_total_n_molecules_Hk2 = aux.get_total_n_molecules_from_chain(molsys_Hk2.topology, indices=[3,4,5], skip_digestion=True)
+    list_total_n_molecules_BB = aux.get_total_n_molecules_from_chain(molsys_BB.topology, indices=[3,4], skip_digestion=True)
+
+    assert all_total_n_molecules_Hk2 == 135
+    assert all_total_n_molecules_BB == 519
+    assert list_total_n_molecules_Hk2 == 3
+    assert list_total_n_molecules_BB == 2
+
+
+def test_get_n_entities_from_chain():
+
+    all_n_entities_Hk2 = aux.get_n_entities_from_chain(molsys_Hk2.topology, skip_digestion=True)
+    all_n_entities_BB = aux.get_n_entities_from_chain(molsys_BB.topology, skip_digestion=True)
+    list_n_entities_Hk2 = aux.get_n_entities_from_chain(molsys_Hk2.topology, indices=[3,4,5], skip_digestion=True)
+    list_n_entities_BB = aux.get_n_entities_from_chain(molsys_BB.topology, indices=[3,4], skip_digestion=True)
+
+    assert len(all_n_entities_Hk2) == 40
+    assert len(all_n_entities_BB) == 12
+    assert all_n_entities_Hk2[:5] == [1, 1, 1, 1, 1]
+    assert all_n_entities_Hk2[15:25] == [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+    assert all_n_entities_Hk2[-1] == 1
+    assert all_n_entities_BB[3:13] == [1, 1, 1, 1, 1, 1, 1, 1, 1]
+    assert all_n_entities_BB[-1] == 1
+    assert list_n_entities_Hk2 == [1, 1, 1]
+    assert list_n_entities_BB == [1, 1]
+
+
+def test_get_total_n_entities_from_chain():
+
+    all_total_n_entities_Hk2 = aux.get_total_n_entities_from_chain(molsys_Hk2.topology, skip_digestion=True)
+    all_total_n_entities_BB = aux.get_total_n_entities_from_chain(molsys_BB.topology, skip_digestion=True)
+    list_total_n_entities_Hk2 = aux.get_total_n_entities_from_chain(molsys_Hk2.topology, indices=[3,4,5], skip_digestion=True)
+    list_total_n_entities_BB = aux.get_total_n_entities_from_chain(molsys_BB.topology, indices=[3,4], skip_digestion=True)
+
+    assert all_total_n_entities_Hk2 == 5
+    assert all_total_n_entities_BB == 3
+    assert list_total_n_entities_Hk2 == 2
+    assert list_total_n_entities_BB == 1
+
+
+def test_get_n_components_from_chain():
+
+    all_n_components_Hk2 = aux.get_n_components_from_chain(molsys_Hk2.topology, skip_digestion=True)
+    all_n_components_BB = aux.get_n_components_from_chain(molsys_BB.topology, skip_digestion=True)
+    list_n_components_Hk2 = aux.get_n_components_from_chain(molsys_Hk2.topology, indices=[3,4,5], skip_digestion=True)
+    list_n_components_BB = aux.get_n_components_from_chain(molsys_BB.topology, indices=[3,4], skip_digestion=True)
+
+    assert len(all_n_components_Hk2) == 40
+    assert len(all_n_components_BB) == 12
+    assert all_n_components_Hk2[:5] == [6, 7, 1, 1, 1]
+    assert all_n_components_Hk2[15:25] == [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+    assert all_n_components_Hk2[-1] == 48
+    assert all_n_components_BB[3:13] == [2, 2, 1, 145, 137, 50, 77, 64, 40]
+    assert all_n_components_BB[-1] == 40
+    assert list_n_components_Hk2 == [1, 1, 1]
+    assert list_n_components_BB == [2, 2]
+
+
+def test_get_total_n_components_from_chain():
+
+    all_total_n_components_Hk2 = aux.get_total_n_components_from_chain(molsys_Hk2.topology, skip_digestion=True)
+    all_total_n_components_BB = aux.get_total_n_components_from_chain(molsys_BB.topology, skip_digestion=True)
+    list_total_n_components_Hk2 = aux.get_total_n_components_from_chain(molsys_Hk2.topology, indices=[3,4,5], skip_digestion=True)
+    list_total_n_components_BB = aux.get_total_n_components_from_chain(molsys_BB.topology, indices=[3,4], skip_digestion=True)
+
+    assert all_total_n_components_Hk2 == 146
+    assert all_total_n_components_BB == 521
+    assert list_total_n_components_Hk2 == 3
+    assert list_total_n_components_BB == 4
+
+
+def test_get_n_chains_from_chain():
+
+    all_n_chains_Hk2 = aux.get_n_chains_from_chain(molsys_Hk2.topology, skip_digestion=True)
+    all_n_chains_BB = aux.get_n_chains_from_chain(molsys_BB.topology, skip_digestion=True)
+    list_n_chains_Hk2 = aux.get_n_chains_from_chain(molsys_Hk2.topology, indices=[3,4,5], skip_digestion=True)
+    list_n_chains_BB = aux.get_n_chains_from_chain(molsys_BB.topology, indices=[3,4], skip_digestion=True)
+
+    assert all_n_chains_Hk2 == 40
+    assert all_n_chains_BB == 12
+    assert list_n_chains_Hk2 == 3
+    assert list_n_chains_BB == 2
+
+
+def test_get_total_n_chains_from_chain():
+
+    all_total_n_chains_Hk2 = aux.get_total_n_chains_from_chain(molsys_Hk2.topology, skip_digestion=True)
+    all_total_n_chains_BB = aux.get_total_n_chains_from_chain(molsys_BB.topology, skip_digestion=True)
+    list_total_n_chains_Hk2 = aux.get_total_n_chains_from_chain(molsys_Hk2.topology, indices=[3,4,5], skip_digestion=True)
+    list_total_n_chains_BB = aux.get_total_n_chains_from_chain(molsys_BB.topology, indices=[3,4], skip_digestion=True)
+
+    assert all_total_n_chains_Hk2 == 40
+    assert all_total_n_chains_BB == 12
+    assert list_total_n_chains_Hk2 == 3
+    assert list_total_n_chains_BB == 2
+
+
+def test_get_n_bonds_from_chain():
+
+    all_n_bonds_Hk2 = aux.get_n_bonds_from_chain(molsys_Hk2.topology, skip_digestion=True)
+    all_n_bonds_BB = aux.get_n_bonds_from_chain(molsys_BB.topology, skip_digestion=True)
+    list_n_bonds_Hk2 = aux.get_n_bonds_from_chain(molsys_Hk2.topology, indices=[3,4,5], skip_digestion=True)
+    list_n_bonds_BB = aux.get_n_bonds_from_chain(molsys_BB.topology, indices=[3,4], skip_digestion=True)
+
+    assert len(all_n_bonds_Hk2) == 40
+    assert len(all_n_bonds_BB) == 12
+    assert all_n_bonds_Hk2[:5] == [6751, 6755, 12, 16, 12]
+    assert all_n_bonds_Hk2[15:25] == [0, 0, 0, 12, 16, 12, 16, 0, 0, 0]
+    assert all_n_bonds_Hk2[-1] == 0
+    assert all_n_bonds_BB[3:13] == [705, 677, 712, 0, 0, 0, 0, 0, 0]
+    assert all_n_bonds_BB[-1] == 0
+    assert list_n_bonds_Hk2 == [16, 12, 16]
+    assert list_n_bonds_BB == [705, 677]
+
+
+def test_get_total_n_bonds_from_chain():
+
+    all_total_n_bonds_Hk2 = aux.get_total_n_bonds_from_chain(molsys_Hk2.topology, skip_digestion=True)
+    all_total_n_bonds_BB = aux.get_total_n_bonds_from_chain(molsys_BB.topology, skip_digestion=True)
+    list_total_n_bonds_Hk2 = aux.get_total_n_bonds_from_chain(molsys_Hk2.topology, indices=[3,4,5], skip_digestion=True)
+    list_total_n_bonds_BB = aux.get_total_n_bonds_from_chain(molsys_BB.topology, indices=[3,4], skip_digestion=True)
+
+    assert all_total_n_bonds_Hk2 == 13618
+    assert all_total_n_bonds_BB == 4738
+    assert list_total_n_bonds_Hk2 == 44
+    assert list_total_n_bonds_BB == 1382
+
+
+def test_get_n_inner_bonds_from_chain():
+
+    all_n_inner_bonds_Hk2 = aux.get_n_inner_bonds_from_chain(molsys_Hk2.topology, skip_digestion=True)
+    all_n_inner_bonds_BB = aux.get_n_inner_bonds_from_chain(molsys_BB.topology, skip_digestion=True)
+    list_n_inner_bonds_Hk2 = aux.get_n_inner_bonds_from_chain(molsys_Hk2.topology, indices=[3,4,5], skip_digestion=True)
+    list_n_inner_bonds_BB = aux.get_n_inner_bonds_from_chain(molsys_BB.topology, indices=[3,4], skip_digestion=True)
+
+    assert len(all_n_inner_bonds_Hk2) == 40
+    assert len(all_n_inner_bonds_BB) == 12
+    assert all_n_inner_bonds_Hk2[:5] == [6751, 6755, 12, 16, 12]
+    assert all_n_inner_bonds_Hk2[15:25] == [0, 0, 0, 12, 16, 12, 16, 0, 0, 0]
+    assert all_n_inner_bonds_Hk2[-1] == 0
+    assert all_n_inner_bonds_BB[3:13] == [705, 677, 712, 0, 0, 0, 0, 0, 0]
+    assert all_n_inner_bonds_BB[-1] == 0
+    assert list_n_inner_bonds_Hk2 == [16, 12, 16]
+    assert list_n_inner_bonds_BB == [705, 677]
+
+
+def test_get_total_n_inner_bonds_from_chain():
+
+    all_total_n_inner_bonds_Hk2 = aux.get_total_n_inner_bonds_from_chain(molsys_Hk2.topology, skip_digestion=True)
+    all_total_n_inner_bonds_BB = aux.get_total_n_inner_bonds_from_chain(molsys_BB.topology, skip_digestion=True)
+    list_total_n_inner_bonds_Hk2 = aux.get_total_n_inner_bonds_from_chain(molsys_Hk2.topology, indices=[3,4,5], skip_digestion=True)
+    list_total_n_inner_bonds_BB = aux.get_total_n_inner_bonds_from_chain(molsys_BB.topology, indices=[3,4], skip_digestion=True)
+
+    assert all_total_n_inner_bonds_Hk2 == 13618
+    assert all_total_n_inner_bonds_BB == 4738
+    assert list_total_n_inner_bonds_Hk2 == 44
+    assert list_total_n_inner_bonds_BB == 1382
+
+
+def test_get_n_amino_acids_from_chain():
+
+    all_n_amino_acids_Hk2 = aux.get_n_amino_acids_from_chain(molsys_Hk2.topology, skip_digestion=True)
+    all_n_amino_acids_BB = aux.get_n_amino_acids_from_chain(molsys_BB.topology, skip_digestion=True)
+    list_n_amino_acids_Hk2 = aux.get_n_amino_acids_from_chain(molsys_Hk2.topology, indices=[3,4,5], skip_digestion=True)
+    list_n_amino_acids_BB = aux.get_n_amino_acids_from_chain(molsys_BB.topology, indices=[3,4], skip_digestion=True)
+
+    assert len(all_n_amino_acids_Hk2) == 40
+    assert len(all_n_amino_acids_BB) == 12
+    assert all_n_amino_acids_Hk2[:5] == [871, 867, 0, 0, 0]
+    assert all_n_amino_acids_Hk2[15:25] == [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    assert all_n_amino_acids_Hk2[-1] == 0
+    assert all_n_amino_acids_BB[3:13] == [87, 86, 89, 0, 0, 0, 0, 0, 0]
+    assert all_n_amino_acids_BB[-1] == 0
+    assert list_n_amino_acids_Hk2 == [0, 0, 0]
+    assert list_n_amino_acids_BB == [87, 86]
+
+
+def test_get_total_n_amino_acids_from_chain():
+
+    all_total_n_amino_acids_Hk2 = aux.get_total_n_amino_acids_from_chain(molsys_Hk2.topology, skip_digestion=True)
+    all_total_n_amino_acids_BB = aux.get_total_n_amino_acids_from_chain(molsys_BB.topology, skip_digestion=True)
+    list_total_n_amino_acids_Hk2 = aux.get_total_n_amino_acids_from_chain(molsys_Hk2.topology, indices=[3,4,5], skip_digestion=True)
+    list_total_n_amino_acids_BB = aux.get_total_n_amino_acids_from_chain(molsys_BB.topology, indices=[3,4], skip_digestion=True)
+
+    assert all_total_n_amino_acids_Hk2 == 1738
+    assert all_total_n_amino_acids_BB == 588
+    assert list_total_n_amino_acids_Hk2 == 0
+    assert list_total_n_amino_acids_BB == 173
+
+
+def test_get_n_nucleotides_from_chain():
+
+    all_n_nucleotides_Hk2 = aux.get_n_nucleotides_from_chain(molsys_Hk2.topology, skip_digestion=True)
+    all_n_nucleotides_BB = aux.get_n_nucleotides_from_chain(molsys_BB.topology, skip_digestion=True)
+    list_n_nucleotides_Hk2 = aux.get_n_nucleotides_from_chain(molsys_Hk2.topology, indices=[3,4,5], skip_digestion=True)
+    list_n_nucleotides_BB = aux.get_n_nucleotides_from_chain(molsys_BB.topology, indices=[3,4], skip_digestion=True)
+
+    assert len(all_n_nucleotides_Hk2) == 40
+    assert len(all_n_nucleotides_BB) == 12
+    assert all_n_nucleotides_Hk2[:5] == [0, 0, 0, 0, 0]
+    assert all_n_nucleotides_Hk2[15:25] == [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    assert all_n_nucleotides_Hk2[-1] == 0
+    assert all_n_nucleotides_BB[3:13] == [0, 0, 0, 0, 0, 0, 0, 0, 0]
+    assert all_n_nucleotides_BB[-1] == 0
+    assert list_n_nucleotides_Hk2 == [0, 0, 0]
+    assert list_n_nucleotides_BB == [0, 0]
+
+
+def test_get_total_n_nucleotides_from_chain():
+
+    all_total_n_nucleotides_Hk2 = aux.get_total_n_nucleotides_from_chain(molsys_Hk2.topology, skip_digestion=True)
+    all_total_n_nucleotides_BB = aux.get_total_n_nucleotides_from_chain(molsys_BB.topology, skip_digestion=True)
+    list_total_n_nucleotides_Hk2 = aux.get_total_n_nucleotides_from_chain(molsys_Hk2.topology, indices=[3,4,5], skip_digestion=True)
+    list_total_n_nucleotides_BB = aux.get_total_n_nucleotides_from_chain(molsys_BB.topology, indices=[3,4], skip_digestion=True)
+
+    assert all_total_n_nucleotides_Hk2 == 0
+    assert all_total_n_nucleotides_BB == 0
+    assert list_total_n_nucleotides_Hk2 == 0
+    assert list_total_n_nucleotides_BB == 0
+
+
+def test_get_n_ions_from_chain():
+
+    all_n_ions_Hk2 = aux.get_n_ions_from_chain(molsys_Hk2.topology, skip_digestion=True)
+    all_n_ions_BB = aux.get_n_ions_from_chain(molsys_BB.topology, skip_digestion=True)
+    list_n_ions_Hk2 = aux.get_n_ions_from_chain(molsys_Hk2.topology, indices=[3,4,5], skip_digestion=True)
+    list_n_ions_BB = aux.get_n_ions_from_chain(molsys_BB.topology, indices=[3,4], skip_digestion=True)
+
+    assert len(all_n_ions_Hk2) == 40
+    assert len(all_n_ions_BB) == 12
+    assert all_n_ions_Hk2[:5] == [0, 0, 0, 0, 0]
+    assert all_n_ions_Hk2[15:25] == [1, 1, 1, 0, 0, 0, 0, 1, 1, 1]
+    assert all_n_ions_Hk2[-1] == 0
+    assert all_n_ions_BB[3:13] == [0, 0, 0, 0, 0, 0, 0, 0, 0]
+    assert all_n_ions_BB[-1] == 0
+    assert list_n_ions_Hk2 == [0, 0, 0]
+    assert list_n_ions_BB == [0, 0]
+
+
+def test_get_total_n_ions_from_chain():
+
+    all_total_n_ions_Hk2 = aux.get_total_n_ions_from_chain(molsys_Hk2.topology, skip_digestion=True)
+    all_total_n_ions_BB = aux.get_total_n_ions_from_chain(molsys_BB.topology, skip_digestion=True)
+    list_total_n_ions_Hk2 = aux.get_total_n_ions_from_chain(molsys_Hk2.topology, indices=[3,4,5], skip_digestion=True)
+    list_total_n_ions_BB = aux.get_total_n_ions_from_chain(molsys_BB.topology, indices=[3,4], skip_digestion=True)
+
+    assert all_total_n_ions_Hk2 == 28
+    assert all_total_n_ions_BB == 0
+    assert list_total_n_ions_Hk2 == 0
+    assert list_total_n_ions_BB == 0
+
+
+def test_get_n_waters_from_chain():
+
+    all_n_waters_Hk2 = aux.get_n_waters_from_chain(molsys_Hk2.topology, skip_digestion=True)
+    all_n_waters_BB = aux.get_n_waters_from_chain(molsys_BB.topology, skip_digestion=True)
+    list_n_waters_Hk2 = aux.get_n_waters_from_chain(molsys_Hk2.topology, indices=[3,4,5], skip_digestion=True)
+    list_n_waters_BB = aux.get_n_waters_from_chain(molsys_BB.topology, indices=[3,4], skip_digestion=True)
+
+    assert len(all_n_waters_Hk2) == 40
+    assert len(all_n_waters_BB) == 12
+    assert all_n_waters_Hk2[:5] == [0, 0, 0, 0, 0]
+    assert all_n_waters_Hk2[15:25] == [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    assert all_n_waters_Hk2[-1] == 48
+    assert all_n_waters_BB[3:13] == [0, 0, 0, 145, 137, 50, 77, 64, 40]
+    assert all_n_waters_BB[-1] == 40
+    assert list_n_waters_Hk2 == [0, 0, 0]
+    assert list_n_waters_BB == [0, 0]
+
+
+def test_get_total_n_waters_from_chain():
+
+    all_total_n_waters_Hk2 = aux.get_total_n_waters_from_chain(molsys_Hk2.topology, skip_digestion=True)
+    all_total_n_waters_BB = aux.get_total_n_waters_from_chain(molsys_BB.topology, skip_digestion=True)
+    list_total_n_waters_Hk2 = aux.get_total_n_waters_from_chain(molsys_Hk2.topology, indices=[3,4,5], skip_digestion=True)
+    list_total_n_waters_BB = aux.get_total_n_waters_from_chain(molsys_BB.topology, indices=[3,4], skip_digestion=True)
+
+    assert all_total_n_waters_Hk2 == 97
+    assert all_total_n_waters_BB == 513
+    assert list_total_n_waters_Hk2 == 0
+    assert list_total_n_waters_BB == 0
+
+
 #def test_get_n_small_molecules_from_component():
 #
 #    all_n_small_molecules_Hk2 = aux.get_n_small_molecules_from_component(molsys_Hk2.topology, skip_digestion=True)

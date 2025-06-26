@@ -6926,53 +6926,153 @@ def get_chain_type_from_chain(item, indices='all', skip_digestion=False):
 @digest(form=form)
 def get_bond_index_from_chain(item, indices='all', skip_digestion=False):
 
-    raise NotImplementedMethodError()
+    atom_indices_from_chain = get_atom_index_from_chain(item, indices=indices, skip_digestion=True)
+    bond_indices_from_atom = get_bond_index_from_atom(item, indices='all', skip_digestion=True)
+
+    output = []
+    for jj in atom_indices_from_chain:
+        if len(jj):
+            output.append(sorted(set(chain.from_iterable([bond_indices_from_atom[ii] for ii in jj]))))
+        else:
+            output.append([])
+
+    del atom_indices_from_chain, bond_indices_from_atom
+
+    return output
 
 
 @digest(form=form)
 def get_bond_type_from_chain(item, indices='all', skip_digestion=False):
 
-    raise NotImplementedMethodError()
+    bond_type = get_bond_type_from_bond(item, skip_digestion=True)
+    bond_indices = get_bond_index_from_chain(item, indices=indices, skip_digestion=True)
+
+    output = []
+    for ii in bond_indices:
+        aux_vals = [bond_type[jj] for jj in ii]
+        output.append(aux_vals)
+
+    del bond_type, bond_indices, aux_vals, ii
+
+    return output
 
 
 @digest(form=form)
 def get_bond_order_from_chain(item, indices='all', skip_digestion=False):
 
-    raise NotImplementedMethodError()
+    bond_order = get_bond_order_from_bond(item, skip_digestion=True)
+    bond_indices = get_bond_index_from_chain(item, indices=indices, skip_digestion=True)
+
+    output = []
+    for ii in bond_indices:
+        aux_vals = [bond_order[jj] for jj in ii]
+        output.append(aux_vals)
+
+    del bond_order, bond_indices, aux_vals, ii
+
+    return output
 
 
 @digest(form=form)
 def get_bonded_atoms_from_chain(item, indices='all', skip_digestion=False):
 
-    raise NotImplementedMethodError()
+    bonded_atom_pairs = get_bonded_atom_pairs_from_bond(item, skip_digestion=True)
+    bond_indices = get_bond_index_from_chain(item, indices=indices, skip_digestion=True)
+
+    output = []
+    for ii in bond_indices:
+        aux_vals = [bonded_atom_pairs[jj] for jj in ii]
+        output.append(sorted(set(chain.from_iterable(aux_vals))))
+
+    del bonded_atom_pairs, bond_indices, aux_vals, ii
+
+    return output
 
 
 @digest(form=form)
 def get_bonded_atom_pairs_from_chain(item, indices='all', skip_digestion=False):
 
-    raise NotImplementedMethodError()
+    bonded_atom_pairs = get_bonded_atom_pairs_from_bond(item, skip_digestion=True)
+    bond_indices = get_bond_index_from_chain(item, indices=indices, skip_digestion=True)
+
+    output = []
+    for ii in bond_indices:
+        aux_vals = [bonded_atom_pairs[jj] for jj in ii]
+        output.append(aux_vals)
+
+    del bonded_atom_pairs, bond_indices, aux_vals, ii
+
+    return output
 
 
 @digest(form=form)
 def get_inner_bond_index_from_chain(item, indices='all', skip_digestion=False):
 
-    raise NotImplementedMethodError()
+    atom_indices_from_chain = get_atom_index_from_chain(item, indices=indices, skip_digestion=True)
+    bonded_atom_pairs = get_bonded_atom_pairs_from_bond(item, skip_digestion=True)
+    bond_indices_from_atom = get_bond_index_from_atom(item, indices='all', skip_digestion=True)
+
+    output = []
+    for jj in atom_indices_from_chain:
+        aux = sorted(set(chain.from_iterable([bond_indices_from_atom[ii] for ii in jj])))
+        if len(aux):
+            pairs = np.array([bonded_atom_pairs[ii] for ii in aux])
+            mask = np.isin(pairs[:,0], jj) & np.isin(pairs[:,1], jj)
+            aux = list(compress(aux, mask))
+        else:
+            aux=[]
+        output.append(aux)
+
+    del atom_indices_from_chain, bonded_atom_pairs, bond_indices_from_atom
+
+    return output
 
 
 @digest(form=form)
 def get_inner_bonded_atoms_from_chain(item, indices='all', skip_digestion=False):
 
-    raise NotImplementedMethodError()
+    bonded_atom_pairs = get_bonded_atom_pairs_from_bond(item, skip_digestion=True)
+    bond_indices = get_bond_index_from_chain(item, indices=indices, skip_digestion=True)
+    atom_indices = get_atom_index_from_chain(item, indices=indices, skip_digestion=True)
+
+    output = []
+    for ii,jj in zip(bond_indices, atom_indices):
+        aux_vals = [bonded_atom_pairs[jj] for jj in ii]
+        output.append(sorted(set(chain.from_iterable(aux_vals)).intersection(set(jj))))
+
+    del bonded_atom_pairs, bond_indices, atom_indices, aux_vals, ii, jj
+
+    return output
 
 
 @digest(form=form)
 def get_inner_bonded_atom_pairs_from_chain(item, indices='all', skip_digestion=False):
 
-    raise NotImplementedMethodError()
+    bonded_atom_pairs = get_bonded_atom_pairs_from_chain(item, indices=indices, skip_digestion=True)
+
+    if indices=='all':
+
+        output = bonded_atom_pairs
+    
+    else:
+
+        atom_indices = get_atom_index_from_chain(item, indices=indices, skip_digestion=True)
+
+        output = []
+
+        for ii,jj in zip(atom_indices, bonded_atom_pairs):
+            if len(jj) == 0:
+                output.append([])
+            else:
+                jj = np.array(jj)
+                mask = np.isin(jj[:,0], ii) | np.isin(jj[:,1], ii)
+                output.append(jj[mask,:].tolist())
+
+    return output
 
 
 @digest(form=form)
-def get_n_atoms_from_chain(item, indices='all', skip_digestion=False):
+def get_n_atoms_from_chain(item, indices='all', skip_digestion=False): ##x
 
     output = get_atom_index_from_chain(item, indices, skip_digestion=True)
     output = [len(ii) for ii in output]
@@ -6981,18 +7081,97 @@ def get_n_atoms_from_chain(item, indices='all', skip_digestion=False):
 
 
 @digest(form=form)
-def get_n_groups_from_chain(item, indices='all', skip_digestion=False):
+def get_total_n_atoms_from_chain(item, indices='all', skip_digestion=False): ##x
 
-    aux = get_group_index_from_chain(item, indices, skip_digestion=True)
-    output = []
-    for ii in aux:
-        try:
-            output.append(len(ii))
-        except:
-            output.append(1)
+    if indices=='all':
+        output = get_n_atoms_from_system(item, skip_digestion=True)
+    else:
+        aux = get_n_atoms_from_chain(item, indices=indices, skip_digestion=True)
+        output = sum(aux)
+        del aux
 
     return output
 
+
+@digest(form=form)
+def get_n_groups_from_chain(item, indices='all', skip_digestion=False): ##x
+
+    output = get_group_index_from_chain(item, indices, skip_digestion=True)
+    output = [len(ii) if isinstance(ii, list) else 1 for ii in output]
+
+    return output
+
+
+@digest(form=form)
+def get_total_n_groups_from_chain(item, indices='all', skip_digestion=False): ##x
+
+    if indices=='all':
+        output = get_n_groups_from_system(item, skip_digestion=True)
+    else:
+        aux = get_group_index_from_chain(item, indices, skip_digestion=True)
+        output = set()
+        for ii in aux:
+            if isinstance(ii, list):
+                output.update(ii)
+            else:
+                output.add(ii)
+        output = len(output)
+
+    return output
+
+
+@digest(form=form)
+def get_n_molecules_from_chain(item, indices='all', skip_digestion=False): ##x
+
+    output = get_molecule_index_from_chain(item, indices, skip_digestion=True)
+    output = [len(ii) if isinstance(ii, list) else 1 for ii in output]
+
+    return output
+
+
+@digest(form=form)
+def get_total_n_molecules_from_chain(item, indices='all', skip_digestion=False): ##x
+
+    if indices=='all':
+        output = get_n_molecules_from_system(item, skip_digestion=True)
+    else:
+        aux = get_molecule_index_from_chain(item, indices, skip_digestion=True)
+        output = set()
+        for ii in aux:
+            if isinstance(ii, list):
+                output.update(ii)
+            else:
+                output.add(ii)
+        output = len(output)
+
+    return output
+
+
+@digest(form=form)
+def get_n_entities_from_chain(item, indices='all', skip_digestion=False): ##x
+
+    output = get_entity_index_from_chain(item, indices, skip_digestion=True)
+    output = [len(ii) if isinstance(ii, list) else 1 for ii in output]
+
+    return output
+
+
+@digest(form=form)
+def get_total_n_entities_from_chain(item, indices='all', skip_digestion=False): ##x
+
+    if indices=='all':
+        output = get_n_entities_from_system(item, skip_digestion=True)
+    else:
+        aux = get_entity_index_from_chain(item, indices, skip_digestion=True)
+        output = set()
+        for ii in aux:
+            if isinstance(ii, list):
+                output.update(ii)
+            else:
+                output.add(ii)
+        output = len(output)
+
+    return output
 
 @digest(form=form)
 def get_n_components_from_chain(item, indices='all', skip_digestion=False):
@@ -7009,29 +7188,19 @@ def get_n_components_from_chain(item, indices='all', skip_digestion=False):
 
 
 @digest(form=form)
-def get_n_molecules_from_chain(item, indices='all', skip_digestion=False):
+def get_total_n_components_from_chain(item, indices='all', skip_digestion=False): ##x
 
-    aux = get_molecule_index_from_chain(item, indices, skip_digestion=True)
-    output = []
-    for ii in aux:
-        try:
-            output.append(len(ii))
-        except:
-            output.append(1)
-
-    return output
-
-
-@digest(form=form)
-def get_n_entities_from_chain(item, indices='all', skip_digestion=False):
-
-    aux = get_entity_index_from_chain(item, indices, skip_digestion=True)
-    output = []
-    for ii in aux:
-        try:
-            output.append(len(ii))
-        except:
-            output.append(1)
+    if indices=='all':
+        output = get_n_components_from_system(item, skip_digestion=True)
+    else:
+        aux = get_component_index_from_chain(item, indices, skip_digestion=True)
+        output = set()
+        for ii in aux:
+            if isinstance(ii, list):
+                output.update(ii)
+            else:
+                output.add(ii)
+        output = len(output)
 
     return output
 
@@ -7040,7 +7209,7 @@ def get_n_entities_from_chain(item, indices='all', skip_digestion=False):
 def get_n_chains_from_chain(item, indices='all', skip_digestion=False):
 
     if indices=='all':
-        output = get_n_chains_from_system(item)
+        output = item.chains.shape[0]
     else:
         output = len(indices)
 
@@ -7048,13 +7217,29 @@ def get_n_chains_from_chain(item, indices='all', skip_digestion=False):
 
 
 @digest(form=form)
+def get_total_n_chains_from_chain(item, indices='all', skip_digestion=False):
+
+    return get_n_chains_from_chain(item, indices=indices, skip_digestion=True)
+
+
+@digest(form=form)
 def get_n_bonds_from_chain(item, indices='all', skip_digestion=False):
 
-    output = []
-    atom_indices = get_atom_index_from_chain(item, indices, skip_digestion=True)
-    for aux_atom_indices in atom_indices:
-        bond_indices = get_bond_index_from_atom(item, aux_atom_indices, skip_digestion=True)
-        output.append(np.unique(np.concatenate(bond_indices)).shape[0])
+    output = get_bond_index_from_chain(item, indices, skip_digestion=True)
+    output = [len(ii) for ii in output]
+
+    return output
+
+
+@digest(form=form)
+def get_total_n_bonds_from_chain(item, indices='all', skip_digestion=False): ##x
+
+    if indices=='all':
+        output = get_n_bonds_from_system(item, skip_digestion=True)
+    else:
+        atom_indices = get_atom_index_from_chain(item, indices, skip_digestion=True)
+        indices = np.concatenate(atom_indices).tolist()
+        output = get_total_n_bonds_from_atom(item, indices, skip_digestion=True)
 
     return output
 
@@ -7062,11 +7247,21 @@ def get_n_bonds_from_chain(item, indices='all', skip_digestion=False):
 @digest(form=form)
 def get_n_inner_bonds_from_chain(item, indices='all', skip_digestion=False):
 
-    output = []
-    atom_indices = get_atom_index_from_chain(item, indices, skip_digestion=True)
-    for aux_atom_indices in atom_indices:
-        bond_indices = get_inner_bond_index_from_atom(item, aux_atom_indices, skip_digestion=True)
-        output.append(np.unique(np.concatenate(bond_indices)).shape[0])
+    output = get_bond_index_from_chain(item, indices, skip_digestion=True)
+    output = [len(ii) for ii in output]
+
+    return output
+
+
+@digest(form=form)
+def get_total_n_inner_bonds_from_chain(item, indices='all', skip_digestion=False): ##x
+
+    if indices=='all':
+        output = get_n_bonds_from_system(item, skip_digestion=True)
+    else:
+        atom_indices = get_atom_index_from_chain(item, indices, skip_digestion=True)
+        indices = np.concatenate(atom_indices).tolist()
+        output = get_total_n_inner_bonds_from_atom(item, indices, skip_digestion=True)
 
     return output
 
@@ -7074,11 +7269,23 @@ def get_n_inner_bonds_from_chain(item, indices='all', skip_digestion=False):
 @digest(form=form)
 def get_n_amino_acids_from_chain(item, indices='all', skip_digestion=False):
 
-    group_indices = get_group_index_from_chain(item, indices=indices, skip_digestion=True)
-    group_indices=np.concatenate([np.array(ii) for ii in group_indices])
-    group_indices = np.unique(group_indices)
-    group_types = get_group_type_from_group(item, indices=group_indices, skip_digestion=True)
-    output = (np.array(group_types) == 'amino acid').sum()
+    group_types = get_group_type_from_chain(item, indices=indices, skip_digestion=True)
+    output = [ ii.count('amino acid') for ii in group_types ]
+
+    return output
+
+
+@digest(form=form)
+def get_total_n_amino_acids_from_chain(item, indices='all', skip_digestion=False): ##x
+
+    if indices=='all':
+
+        output = get_n_amino_acids_from_system(item, skip_digestion=True)
+
+    else:
+
+        output = get_n_amino_acids_from_chain(item, indices=indices, skip_digestion=True)
+        output = sum(output)
 
     return output
 
@@ -7086,11 +7293,23 @@ def get_n_amino_acids_from_chain(item, indices='all', skip_digestion=False):
 @digest(form=form)
 def get_n_nucleotides_from_chain(item, indices='all', skip_digestion=False):
 
-    group_indices = get_group_index_from_chain(item, indices=indices, skip_digestion=True)
-    group_indices=np.concatenate([np.array(ii) for ii in group_indices])
-    group_indices = np.unique(group_indices)
-    group_types = get_group_type_from_group(item, indices=group_indices, skip_digestion=True)
-    output = (np.array(group_types) == 'nucleotide').sum()
+    group_types = get_group_type_from_chain(item, indices=indices, skip_digestion=True)
+    output = [ ii.count('nucleotide') for ii in group_types ]
+
+    return output
+
+
+@digest(form=form)
+def get_total_n_nucleotides_from_chain(item, indices='all', skip_digestion=False): ##x
+
+    if indices=='all':
+
+        output = get_n_nucleotides_from_system(item, skip_digestion=True)
+
+    else:
+
+        output = get_n_nucleotides_from_chain(item, indices=indices, skip_digestion=True)
+        output = sum(output)
 
     return output
 
@@ -7098,11 +7317,23 @@ def get_n_nucleotides_from_chain(item, indices='all', skip_digestion=False):
 @digest(form=form)
 def get_n_ions_from_chain(item, indices='all', skip_digestion=False):
 
-    group_indices = get_group_index_from_chain(item, indices=indices, skip_digestion=True)
-    group_indices=np.concatenate([np.array(ii) for ii in group_indices])
-    group_indices = np.unique(group_indices)
-    group_types = get_group_type_from_group(item, indices=group_indices, skip_digestion=True)
-    output = (np.array(group_types) == 'ion').sum()
+    group_types = get_group_type_from_chain(item, indices=indices, skip_digestion=True)
+    output = [ ii.count('ion') for ii in group_types ]
+
+    return output
+
+
+@digest(form=form)
+def get_total_n_ions_from_chain(item, indices='all', skip_digestion=False): ##x
+
+    if indices=='all':
+
+        output = get_n_ions_from_system(item, skip_digestion=True)
+
+    else:
+
+        output = get_n_ions_from_chain(item, indices=indices, skip_digestion=True)
+        output = sum(output)
 
     return output
 
@@ -7110,11 +7341,23 @@ def get_n_ions_from_chain(item, indices='all', skip_digestion=False):
 @digest(form=form)
 def get_n_waters_from_chain(item, indices='all', skip_digestion=False):
 
-    group_indices = get_group_index_from_chain(item, indices=indices, skip_digestion=True)
-    group_indices=np.concatenate([np.array(ii) for ii in group_indices])
-    group_indices = np.unique(group_indices)
-    group_types = get_group_type_from_group(item, indices=group_indices, skip_digestion=True)
-    output = (np.array(group_types) == 'water').sum()
+    group_types = get_group_type_from_chain(item, indices=indices, skip_digestion=True)
+    output = [ ii.count('water') for ii in group_types ]
+
+    return output
+
+
+@digest(form=form)
+def get_total_n_waters_from_chain(item, indices='all', skip_digestion=False): ##x
+
+    if indices=='all':
+
+        output = get_n_waters_from_system(item, skip_digestion=True)
+
+    else:
+
+        output = get_n_waters_from_chain(item, indices=indices, skip_digestion=True)
+        output = sum(output)
 
     return output
 
