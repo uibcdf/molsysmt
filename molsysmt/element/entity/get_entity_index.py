@@ -77,14 +77,15 @@ def get_entity_index(molecular_system, element='atom', selection='all',
 
             output.append(entity_index)
 
-        if element=='atom':
-            output=[output[ii] for ii in molecule_index_from_atoms]
-        elif element=='molecule':
-            output=output
-        elif element=='entity':
-            output=np.unique(output).tolist()
-        else:
-            raise NotImplementedError
+        match element:
+            case 'atom':
+                output=[output[ii] for ii in molecule_index_from_atoms]
+            case 'molecule':
+                output=output
+            case 'entity':
+                output=np.unique(output).tolist()
+            case _:
+                raise ValueError(f"Element '{element}' is not supported.")
 
     else:
 

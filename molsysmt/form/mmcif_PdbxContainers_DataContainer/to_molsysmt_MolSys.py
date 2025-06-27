@@ -266,40 +266,46 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
     molecule_name_array = []
     molecule_type_array = []
     entity_index_array = []
-
-
-    index_att = {jj:ii for ii,jj in enumerate(item.getObj('entity_poly').getAttributeList())}
-
-    for record in item.getObj('entity_poly').data:
-        entity_id = record[index_att['entity_id']]
-        entity_index = entity_dict[entity_id]['entity_index']
-
-        for chain_id in record[index_att['pdbx_strand_id']].split(','):
-            group_indices = chain_id_to_group_indices[chain_id]
-            molecule_index_array[group_indices] = molecule_index
-            molecule_name_array.append(entity_dict[entity_id]['entity_name'])
-            molecule_type_array.append(entity_type_array[entity_index])
-            entity_index_array.append(entity_index)
-            molecule_index += 1
-
-    index_att = {jj:ii for ii,jj in enumerate(item.getObj('pdbx_entity_nonpoly').getAttributeList())}
-
     group_name_to_entity_id = {}
-    for record in item.getObj('pdbx_entity_nonpoly').data:
-        group_name = record[index_att['comp_id']]
-        entity_id = record[index_att['entity_id']]
-        group_name_to_entity_id[group_name]=entity_id
 
-    for group_index, aux in enumerate(molecule_index_array):
-        if aux == -1:
-            group_name = group_name_array[group_index]
-            entity_id = group_name_to_entity_id[group_name]
+
+    if item.exists('entity_poly'):
+
+        index_att = {jj:ii for ii,jj in enumerate(item.getObj('entity_poly').getAttributeList())}
+
+        for record in item.getObj('entity_poly').data:
+            entity_id = record[index_att['entity_id']]
             entity_index = entity_dict[entity_id]['entity_index']
-            molecule_index_array[group_index] = molecule_index
-            molecule_name_array.append(entity_name_array[entity_index])
-            molecule_type_array.append(entity_type_array[entity_index])
-            entity_index_array.append(entity_index)
-            molecule_index += 1
+            for chain_id in record[index_att['pdbx_strand_id']].split(','):
+                group_indices = chain_id_to_group_indices[chain_id]
+                molecule_index_array[group_indices] = molecule_index
+                molecule_name_array.append(entity_dict[entity_id]['entity_name'])
+                molecule_type_array.append(entity_type_array[entity_index])
+                entity_index_array.append(entity_index)
+                molecule_index += 1
+
+
+
+    if item.exists('pdbx_entity_nonpoly'):
+
+        index_att = {jj:ii for ii,jj in enumerate(item.getObj('pdbx_entity_nonpoly').getAttributeList())}
+
+        for record in item.getObj('pdbx_entity_nonpoly').data:
+            group_name = record[index_att['comp_id']]
+            entity_id = record[index_att['entity_id']]
+            group_name_to_entity_id[group_name]=entity_id
+
+        for group_index, aux in enumerate(molecule_index_array):
+            if aux == -1:
+                group_name = group_name_array[group_index]
+                entity_id = group_name_to_entity_id[group_name]
+                entity_index = entity_dict[entity_id]['entity_index']
+                molecule_index_array[group_index] = molecule_index
+                molecule_name_array.append(entity_name_array[entity_index])
+                molecule_type_array.append(entity_type_array[entity_index])
+                entity_index_array.append(entity_index)
+                molecule_index += 1
+
 
     molecule_name_array = np.array(molecule_name_array, dtype=object)
     molecule_type_array = np.array(molecule_type_array, dtype=object)

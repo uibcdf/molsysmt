@@ -1,5 +1,6 @@
 from molsysmt._private.digestion import digest
 import numpy as np
+import h5py
 
 @digest(form='molsysmt.Topology')
 def to_file_h5msm(item, atom_indices='all', coordinates=None, output_filename=None,
@@ -20,13 +21,14 @@ def to_file_h5msm(item, atom_indices='all', coordinates=None, output_filename=No
 
 def dump_topology_to_h5msm(item, file, atom_indices='all'):
 
-    from h5py._hl.files import File as h5py_File
     from molsysmt.native import H5MSMFileHandler
+    from datetime import datetime
 
     file_is_h5msm = False
     needs_to_be_closed = False
 
-    if isinstance(file, h5py_File):
+
+    if isinstance(file, h5py._hl.files.File):
 
         if 'type' in file.attrs:
             file_is_h5msm = (file.attrs['type']=='h5msm')
@@ -62,6 +64,18 @@ def dump_topology_to_h5msm(item, file, atom_indices='all'):
     elif float_precision=='double':
         float_type=np.float64
 
+
+    # Chain id string or integer
+
+    chain_id_dtype = int_type
+
+    if item.chains.chain_id.dtype.kind not in ['i']:
+        del file['topology']['chains']['chain_id']
+        file['topology']['chains'].create_dataset('chain_id', (0,), dtype=h5py.string_dtype(),
+                                                  maxshape=(None,), compression=file.attrs['compression'],
+                                                  compression_opts=file.attrs['compression_opts'])
+        chain_id_dtype = str
+
     # Atoms
 
     atoms_df = item.atoms
@@ -72,16 +86,18 @@ def dump_topology_to_h5msm(item, file, atom_indices='all'):
 
     atoms = file['topology']['atoms']
 
-    atoms['id'].resize((n_atoms,))
-    atoms['name'].resize((n_atoms,))
-    atoms['type'].resize((n_atoms,))
+    atoms['atom_id'].resize((n_atoms,))
+    atoms['atom_name'].resize((n_atoms,))
+    atoms['atom_type'].resize((n_atoms,))
     atoms['group_index'].resize((n_atoms,))
+    atoms['component_index'].resize((n_atoms,))
     atoms['chain_index'].resize((n_atoms,))
 
-    atoms['id'][:] = atoms_df['atom_id'].to_numpy(dtype=int_type)
-    atoms['name'][:] = atoms_df['atom_name'].to_numpy(dtype=str)
-    atoms['type'][:] = atoms_df['atom_type'].to_numpy(dtype=str)
+    atoms['atom_id'][:] = atoms_df['atom_id'].to_numpy(dtype=int_type)
+    atoms['atom_name'][:] = atoms_df['atom_name'].to_numpy(dtype=str)
+    atoms['atom_type'][:] = atoms_df['atom_type'].to_numpy(dtype=str)
     atoms['group_index'][:] = atoms_df['group_index'].to_numpy(dtype=int_type)
+    atoms['component_index'][:] = atoms_df['component_index'].to_numpy(dtype=int_type)
     atoms['chain_index'][:] = atoms_df['chain_index'].to_numpy(dtype=int_type)
 
     # Groups
@@ -96,37 +112,15 @@ def dump_topology_to_h5msm(item, file, atom_indices='all'):
 
     if n_groups > 0:
 
-        groups['id'].resize((n_groups,))
-        groups['name'].resize((n_groups,))
-        groups['type'].resize((n_groups,))
-        groups['component_index'].resize((n_groups,))
+        groups['group_id'].resize((n_groups,))
+        groups['group_name'].resize((n_groups,))
+        groups['group_type'].resize((n_groups,))
+        groups['molecule_index'].resize((n_groups,))
 
-        groups['id'][:] = groups_df['group_id'].to_numpy(dtype=int_type)
-        groups['name'][:] = groups_df['group_name'].to_numpy(dtype=str)
-        groups['type'][:] = groups_df['group_type'].to_numpy(dtype=str)
-        groups['component_index'][:] = groups_df['component_index'].to_numpy(dtype=int_type)
-
-    # Components
-
-    components_df = item.components
-
-    n_components = components_df.shape[0]
-
-    file['topology'].attrs['n_components'] = n_components
-
-    components = file['topology']['components']
-
-    if n_components > 0:
-
-        components['id'].resize((n_components,))
-        components['name'].resize((n_components,))
-        components['type'].resize((n_components,))
-        components['molecule_index'].resize((n_components,))
-
-        components['id'][:] = components_df['component_id'].to_numpy(dtype=int_type)
-        components['name'][:] = components_df['component_name'].to_numpy(dtype=str)
-        components['type'][:] = components_df['component_type'].to_numpy(dtype=str)
-        components['molecule_index'][:] = components_df['molecule_index'].to_numpy(dtype=int_type)
+        groups['group_id'][:] = groups_df['group_id'].to_numpy(dtype=int_type)
+        groups['group_name'][:] = groups_df['group_name'].to_numpy(dtype=str)
+        groups['group_type'][:] = groups_df['group_type'].to_numpy(dtype=str)
+        groups['molecule_index'][:] = groups_df['molecule_index'].to_numpy(dtype=int_type)
 
     # Molecules
 
@@ -140,14 +134,14 @@ def dump_topology_to_h5msm(item, file, atom_indices='all'):
 
     if n_molecules > 0:
 
-        molecules['id'].resize((n_molecules,))
-        molecules['name'].resize((n_molecules,))
-        molecules['type'].resize((n_molecules,))
+        molecules['molecule_id'].resize((n_molecules,))
+        molecules['molecule_name'].resize((n_molecules,))
+        molecules['molecule_type'].resize((n_molecules,))
         molecules['entity_index'].resize((n_molecules,))
 
-        molecules['id'][:] = molecules_df['molecule_id'].to_numpy(dtype=int_type)
-        molecules['name'][:] = molecules_df['molecule_name'].to_numpy(dtype=str)
-        molecules['type'][:] = molecules_df['molecule_type'].to_numpy(dtype=str)
+        molecules['molecule_id'][:] = molecules_df['molecule_id'].to_numpy(dtype=int_type)
+        molecules['molecule_name'][:] = molecules_df['molecule_name'].to_numpy(dtype=str)
+        molecules['molecule_type'][:] = molecules_df['molecule_type'].to_numpy(dtype=str)
         molecules['entity_index'][:] = molecules_df['entity_index'].to_numpy(dtype=int_type)
 
     # Entities
@@ -162,14 +156,33 @@ def dump_topology_to_h5msm(item, file, atom_indices='all'):
 
     if n_entities > 0:
 
-        entities['id'].resize((n_entities,))
-        entities['name'].resize((n_entities,))
-        entities['type'].resize((n_entities,))
+        entities['entity_id'].resize((n_entities,))
+        entities['entity_name'].resize((n_entities,))
+        entities['entity_type'].resize((n_entities,))
 
-        entities['id'][:] = entities_df['entity_id'].to_numpy(dtype=int_type)
-        entities['name'][:] = entities_df['entity_name'].to_numpy(dtype=str)
-        entities['type'][:] = entities_df['entity_type'].to_numpy(dtype=str)
+        entities['entity_id'][:] = entities_df['entity_id'].to_numpy(dtype=int_type)
+        entities['entity_name'][:] = entities_df['entity_name'].to_numpy(dtype=str)
+        entities['entity_type'][:] = entities_df['entity_type'].to_numpy(dtype=str)
 
+    # Components
+
+    components_df = item.components
+
+    n_components = components_df.shape[0]
+
+    file['topology'].attrs['n_components'] = n_components
+
+    components = file['topology']['components']
+
+    if n_components > 0:
+
+        components['component_id'].resize((n_components,))
+        components['component_name'].resize((n_components,))
+        components['component_type'].resize((n_components,))
+
+        components['component_id'][:] = components_df['component_id'].to_numpy(dtype=int_type)
+        components['component_name'][:] = components_df['component_name'].to_numpy(dtype=str)
+        components['component_type'][:] = components_df['component_type'].to_numpy(dtype=str)
 
     # Chains
 
@@ -183,13 +196,13 @@ def dump_topology_to_h5msm(item, file, atom_indices='all'):
 
     if n_chains > 0:
 
-        chains['id'].resize((n_chains,))
-        chains['name'].resize((n_chains,))
-        chains['type'].resize((n_chains,))
+        chains['chain_id'].resize((n_chains,))
+        chains['chain_name'].resize((n_chains,))
+        chains['chain_type'].resize((n_chains,))
 
-        chains['id'][:] = chains_df['chain_id'].to_numpy(dtype=int_type)
-        chains['name'][:] = chains_df['chain_name'].to_numpy(dtype=str)
-        chains['type'][:] = chains_df['chain_type'].to_numpy(dtype=str)
+        chains['chain_id'][:] = chains_df['chain_id'].to_numpy(dtype=chain_id_dtype)
+        chains['chain_name'][:] = chains_df['chain_name'].to_numpy(dtype=str)
+        chains['chain_type'][:] = chains_df['chain_type'].to_numpy(dtype=str)
 
     del(atoms_df, groups_df, components_df, molecules_df, entities_df, chains_df)
 
@@ -219,6 +232,9 @@ def dump_topology_to_h5msm(item, file, atom_indices='all'):
             bonds['type'].resize((n_bonds,))
             bonds['type'][:] = bonds_df['type'].to_numpy(dtype=str)
 
+    # Modification time
+
+    file.attrs['modification_time'] = datetime.now().isoformat()
 
     if needs_to_be_closed:
         file.close()

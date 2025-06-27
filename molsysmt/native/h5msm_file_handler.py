@@ -1,14 +1,15 @@
 import h5py
 import numpy as np
 from molsysmt import pyunitwizard as puw
+from datetime import datetime
 
-h5msm_version = "0.2"
+h5msm_version = "0.3"
 
 class H5MSMFileHandler():
 
     def __init__(self, filename, io_mode='r', creator='MolSysMT', compression="gzip", compression_opts=4,
-            int_precision='single', float_precision='single', length_unit=None, time_unit=None, energy_unit=None,
-            temperature_unit=None, charge_unit=None, mass_unit=None, closed=False, skip_digestion=False):
+                 int_precision='single', float_precision='single', length_unit=None, time_unit=None, energy_unit=None,
+                 temperature_unit=None, charge_unit=None, mass_unit=None, closed=False, skip_digestion=False):
 
         self.file = None
         self.format_version = None
@@ -79,6 +80,10 @@ def _new_msmfile(filename, creator='MolSysMT', compression="gzip", compression_o
     file.attrs['creator'] = creator
     file.attrs['int_precision'] = int_precision
     file.attrs['float_precision'] = float_precision
+    file.attrs['creation_time'] = datetime.now().isoformat()
+    file.attrs['modification_time'] = datetime.now().isoformat()
+    file.attrs['compression'] = compression
+    file.attrs['compression_opts'] = compression_opts
 
     if length_unit is None:
         file.attrs['length_unit']=puw.get_standard_units(dimensionality={'[L]':1}, form='string')
@@ -131,54 +136,54 @@ def _new_msmfile(filename, creator='MolSysMT', compression="gzip", compression_o
 
     atoms = topology.create_group("atoms")
 
-    atoms.create_dataset('id', (0,), dtype=int_type, maxshape=(None,), **global_dataset_options)
-    atoms.create_dataset('name', (0,), dtype=h5py.string_dtype(), maxshape=(None,), **global_dataset_options)
-    atoms.create_dataset('type', (0,), dtype=h5py.string_dtype(), maxshape=(None,), **global_dataset_options)
+    atoms.create_dataset('atom_id', (0,), dtype=int_type, maxshape=(None,), **global_dataset_options)
+    atoms.create_dataset('atom_name', (0,), dtype=h5py.string_dtype(), maxshape=(None,), **global_dataset_options)
+    atoms.create_dataset('atom_type', (0,), dtype=h5py.string_dtype(), maxshape=(None,), **global_dataset_options)
     atoms.create_dataset('group_index', (0,), dtype=int_type, maxshape=(None,), **global_dataset_options)
     atoms.create_dataset('chain_index', (0,), dtype=int_type, maxshape=(None,), **global_dataset_options)
+    atoms.create_dataset('component_index', (0,), dtype=int_type, maxshape=(None,), **global_dataset_options)
 
     ## Groups
 
     groups = topology.create_group("groups")
 
-    groups.create_dataset('id', (0,), dtype=int_type, maxshape=(None,), **global_dataset_options)
-    groups.create_dataset('name', (0,), dtype=h5py.string_dtype(), maxshape=(None,), **global_dataset_options)
-    groups.create_dataset('type', (0,), dtype=h5py.string_dtype(), maxshape=(None,), **global_dataset_options)
-    groups.create_dataset('component_index', (0,), dtype=int_type, maxshape=(None,), **global_dataset_options)
-
-    ## Components
-
-    components = topology.create_group("components")
-
-    components.create_dataset('id', (0,), dtype=int_type, maxshape=(None,), **global_dataset_options)
-    components.create_dataset('name', (0,), dtype=h5py.string_dtype(), maxshape=(None,), **global_dataset_options)
-    components.create_dataset('type', (0,), dtype=h5py.string_dtype(), maxshape=(None,), **global_dataset_options)
-    components.create_dataset('molecule_index', (0,), dtype=int_type, maxshape=(None,), **global_dataset_options)
+    groups.create_dataset('group_id', (0,), dtype=int_type, maxshape=(None,), **global_dataset_options)
+    groups.create_dataset('group_name', (0,), dtype=h5py.string_dtype(), maxshape=(None,), **global_dataset_options)
+    groups.create_dataset('group_type', (0,), dtype=h5py.string_dtype(), maxshape=(None,), **global_dataset_options)
+    groups.create_dataset('molecule_index', (0,), dtype=int_type, maxshape=(None,), **global_dataset_options)
 
     ## Molecules
 
     molecules = topology.create_group("molecules")
 
-    molecules.create_dataset('id', (0,), dtype=int_type, maxshape=(None,), **global_dataset_options)
-    molecules.create_dataset('name', (0,), dtype=h5py.string_dtype(), maxshape=(None,), **global_dataset_options)
-    molecules.create_dataset('type', (0,), dtype=h5py.string_dtype(), maxshape=(None,), **global_dataset_options)
+    molecules.create_dataset('molecule_id', (0,), dtype=int_type, maxshape=(None,), **global_dataset_options)
+    molecules.create_dataset('molecule_name', (0,), dtype=h5py.string_dtype(), maxshape=(None,), **global_dataset_options)
+    molecules.create_dataset('molecule_type', (0,), dtype=h5py.string_dtype(), maxshape=(None,), **global_dataset_options)
     molecules.create_dataset('entity_index', (0,), dtype=int_type, maxshape=(None,), **global_dataset_options)
 
     ## Entities
 
     entities = topology.create_group("entities")
 
-    entities.create_dataset('id', (0,), dtype=int_type, maxshape=(None,), **global_dataset_options)
-    entities.create_dataset('name', (0,), dtype=h5py.string_dtype(), maxshape=(None,), **global_dataset_options)
-    entities.create_dataset('type', (0,), dtype=h5py.string_dtype(), maxshape=(None,), **global_dataset_options)
+    entities.create_dataset('entity_id', (0,), dtype=int_type, maxshape=(None,), **global_dataset_options)
+    entities.create_dataset('entity_name', (0,), dtype=h5py.string_dtype(), maxshape=(None,), **global_dataset_options)
+    entities.create_dataset('entity_type', (0,), dtype=h5py.string_dtype(), maxshape=(None,), **global_dataset_options)
+
+    ## Components
+
+    components = topology.create_group("components")
+
+    components.create_dataset('component_id', (0,), dtype=int_type, maxshape=(None,), **global_dataset_options)
+    components.create_dataset('component_name', (0,), dtype=h5py.string_dtype(), maxshape=(None,), **global_dataset_options)
+    components.create_dataset('component_type', (0,), dtype=h5py.string_dtype(), maxshape=(None,), **global_dataset_options)
 
     ## Chains
 
     chains = topology.create_group("chains")
 
-    chains.create_dataset('id', (0,), dtype=int_type, maxshape=(None,), **global_dataset_options)
-    chains.create_dataset('name', (0,), dtype=h5py.string_dtype(), maxshape=(None,), **global_dataset_options)
-    chains.create_dataset('type', (0,), dtype=h5py.string_dtype(), maxshape=(None,), **global_dataset_options)
+    chains.create_dataset('chain_id', (0,), dtype=int_type, maxshape=(None,), **global_dataset_options)
+    chains.create_dataset('chain_name', (0,), dtype=h5py.string_dtype(), maxshape=(None,), **global_dataset_options)
+    chains.create_dataset('chain_type', (0,), dtype=h5py.string_dtype(), maxshape=(None,), **global_dataset_options)
 
 
     ## Bonds

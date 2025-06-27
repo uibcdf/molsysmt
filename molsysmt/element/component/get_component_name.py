@@ -96,7 +96,6 @@ def get_component_name(molecular_system, element='atom', selection='all', redefi
 
             component_index_from_component = get_component_index(molecular_system, element='component',
             selection=selection, syntax=syntax, redefine_indices=redefine_indices)
-
             output = [component_name_from_component[ii] for ii in component_index_from_component]
 
         elif element == 'entity':

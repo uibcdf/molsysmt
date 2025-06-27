@@ -182,7 +182,7 @@ def select_standard(item, selection):
 
         if len(component_columns):
             if 'component_index' not in group_columns:
-                group_columns.append('component_index')
+                atom_columns.append('component_index')
 
         if len(group_columns):
             if 'group_index' not in atom_columns:
@@ -211,18 +211,6 @@ def select_standard(item, selection):
                 aux_df = pd.merge(tmp_item.components[component_columns], aux_df,
                                   left_on='molecule_index', right_index=True)
 
-        if len(component_columns):
-
-            if aux_df is None:
-
-                aux_df = pd.merge(tmp_item.groups[group_columns], tmp_item.components[component_columns],
-                                  left_on='component_index', right_index=True)
-
-            else:
-
-                aux_df = pd.merge(tmp_item.groups[group_columns], aux_df,
-                                  left_on='component_index', right_index=True)
-
         if len(group_columns):
 
             if aux_df is None:
@@ -238,6 +226,11 @@ def select_standard(item, selection):
         else:
 
             aux_df = tmp_item.atoms[atom_columns]
+
+        if len(component_columns):
+
+            aux_df = pd.merge(aux_df, tmp_item.components[component_columns],
+                              left_on='component_index', right_index=True)
 
         if len(chain_columns):
 
