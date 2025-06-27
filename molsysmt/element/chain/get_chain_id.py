@@ -2,16 +2,17 @@ from molsysmt._private.digestion import digest
 
 @digest()
 def get_chain_id(molecular_system, element='atom', selection='all',
-                 redefine_indices=False, redefined_ids=False,
+                 redefine_indices=False, redefine_ids=False,
                  syntax='MolSysMT', skip_digestion=False):
 
-    if redefine_indices:
+    if redefine_ids:
 
-        raise NotImplementedError
+        from .get_chain_index import get_chain_index
 
-    elif redefine_indices:
+        output = get_chain_index(molecular_system, element=element, selection=selection, syntax=syntax,
+                                 redefine_indices=redefine_indices, skip_digestion=True)
 
-        raise NotImplementedError
+        
 
     else:
 
