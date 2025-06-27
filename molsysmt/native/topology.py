@@ -513,16 +513,14 @@ class Topology():
     def rebuild_molecules(self, redefine_indices=True, redefine_ids=True, redefine_names=True, redefine_types=True,
                           molecules_as_components=True):
 
-        raise NotImplementedError
+        from molsysmt.element.component import get_component_index, get_component_id, get_component_name, get_component_type
 
-        #from molsysmt.element.component import get_component_index, get_component_id, get_component_name, get_component_type
+        if redefine_indices:
 
-        #if redefine_indices:
-
-        #    molecule_index_of_groups = get_component_index(self, element='group', selection='all',
-        #                                                   redefine_indices=True,
-        #                                                   molecules_as_components=molecules_as_components,
-        #                                                   skip_digestion=True)
+            molecule_index_of_groups = get_component_index(self, element='group', selection='all',
+                                                           redefine_indices=True,
+                                                           molecules_as_components=molecules_as_components,
+                                                           skip_digestion=True)
 
         #    self.groups["molecule_index"] = np.array(molecule_index_of_groups, dtype=int)
         #    n_molecules = molecule_index_of_groups[-1]+1
