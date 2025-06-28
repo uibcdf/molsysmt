@@ -70,10 +70,12 @@ def dump_topology_to_h5msm(item, file, atom_indices='all'):
     chain_id_dtype = int_type
 
     if item.chains.chain_id.dtype.kind not in ['i']:
+        compression = file['topology']['chains']['chain_id'].compression
+        compression_opts = file['topology']['chains']['chain_id'].compression_opts
         del file['topology']['chains']['chain_id']
         file['topology']['chains'].create_dataset('chain_id', (0,), dtype=h5py.string_dtype(),
-                                                  maxshape=(None,), compression=file.attrs['compression'],
-                                                  compression_opts=file.attrs['compression_opts'])
+                                                  maxshape=(None,), compression=compression,
+                                                  compression_opts=compression_opts)
         chain_id_dtype = str
 
     # Atoms

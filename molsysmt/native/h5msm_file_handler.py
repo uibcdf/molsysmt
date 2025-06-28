@@ -63,6 +63,9 @@ def _new_msmfile(filename, creator='MolSysMT', compression="gzip", compression_o
         time_unit=None, energy_unit=None, temperature_unit=None, charge_unit=None,
         mass_unit=None):
 
+    if compression == 'lzf':
+        compression_opts = None
+
     if int_precision=='single':
         int_type=np.int32
     elif int_precision=='double':
@@ -82,8 +85,6 @@ def _new_msmfile(filename, creator='MolSysMT', compression="gzip", compression_o
     file.attrs['float_precision'] = float_precision
     file.attrs['creation_time'] = datetime.now().isoformat()
     file.attrs['modification_time'] = datetime.now().isoformat()
-    file.attrs['compression'] = compression
-    file.attrs['compression_opts'] = compression_opts
 
     if length_unit is None:
         file.attrs['length_unit']=puw.get_standard_units(dimensionality={'[L]':1}, form='string')
@@ -116,10 +117,8 @@ def _new_msmfile(filename, creator='MolSysMT', compression="gzip", compression_o
     else:
         file.attrs['mass_unit']=puw.get_unit(mass_unit, to_form='string')
 
-    global_dataset_options = {
-            'compression':compression,
-            'compression_opts':compression_opts,
-            }
+    global_dataset_options = {'compression':compression}
+    global_dataset_options['compression_opts']=compression_opts
 
     # Topology
 

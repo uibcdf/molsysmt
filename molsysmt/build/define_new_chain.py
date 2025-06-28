@@ -106,12 +106,20 @@ def define_new_chain(molecular_system, selection='all', chain_id=None, chain_nam
         aux_chain_names = sorted(np.unique(former_chain_names).tolist())
 
         if chain_id is None:
-            for ii in range(len(aux_chain_ids)):
-                if ii not in aux_chain_ids:
-                    chain_id = ii
-                    break
-            if chain_id is None:
-                chain_id = len(aux_chain_ids)
+            if isinstance(aux_chain_ids[0], str):
+                for ii in all_chain_names:
+                    if ii not in aux_chain_ids:
+                        chain_id = ii
+                        break
+                if chain_id is None:
+                    raise ValueError(f'MolSysMT run out of chain names')
+            else:
+                for ii in range(len(aux_chain_ids)):
+                    if ii not in aux_chain_ids:
+                        chain_id = ii
+                        break
+                if chain_id is None:
+                    chain_id = len(aux_chain_ids)
         else:
             if chain_id in aux_chain_ids:
                 raise ValueError(f'There is already a chain with chain_id={chain_id}.')
@@ -166,9 +174,9 @@ def define_new_chain(molecular_system, selection='all', chain_id=None, chain_nam
             skip_digestion=True)
 
         if form_in=='molsysmt.MolSys':
-            molecular_system.topology.rebuild_chains(redefine_ids=False, redefine_types=True, redefine_names=False)
+            molecular_system.topology.rebuild_chains(redefine_indices=False, redefine_ids=False, redefine_types=True, redefine_names=False)
         elif form_in=='molsysmt.Topology':
-            molecular_system.rebuild_chains(redefine_ids=False, redefine_types=True, redefine_names=False)
+            molecular_system.rebuild_chains(redefine_indices=False, redefine_ids=False, redefine_types=True, redefine_names=False)
 
         del new_chain_indices, new_chain_ids, new_chain_names
         del all_atom_indices, all_chain_ids, all_chain_names

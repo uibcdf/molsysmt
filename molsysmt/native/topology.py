@@ -209,7 +209,7 @@ class Topology():
         self.bonds = Bonds_DataFrame(n_bonds=n_bonds)
 
     @digest()
-    def extract(self, atom_indices='all', keep_ids=True, copy_if_all=False, skip_digestion=False):
+    def extract(self, atom_indices='all', copy_if_all=False, skip_digestion=False):
 
         if is_all(atom_indices):
 
@@ -280,13 +280,14 @@ class Topology():
                     tmp_item.bonds['atom2_index']=vaux_dict(tmp_item.bonds['atom2_index'].to_numpy())
                     del aux_dict, vaux_dict
 
-            tmp_item.rebuild_components(redefine_indices=False, redefine_ids=(not keep_ids), redefine_names=False,
-                                        redefine_types=True)
-            tmp_item.rebuild_chains(redefine_ids=(not keep_ids), redefine_types=True, redefine_names=False)
-            tmp_item.rebuild_molecules(redefine_indices=False, redefine_ids=(not keep_ids), redefine_names=False,
-                                       redefine_types=True)
-            tmp_item.rebuild_entities(redefine_indices=False, redefine_ids=(not keep_ids), redefine_names=False,
-                                      redefine_types=True)
+            tmp_item.rebuild_components(redefine_indices=False, redefine_ids=False,
+                                        redefine_names=False, redefine_types=True)
+            tmp_item.rebuild_chains(redefine_indices=False, redefine_ids=False,
+                                    redefine_names=False, redefine_types=True)
+            tmp_item.rebuild_molecules(redefine_indices=False, redefine_ids=False,
+                                       redefine_names=False, redefine_types=True)
+            tmp_item.rebuild_entities(redefine_indices=False, redefine_ids=False,
+                                      redefine_names=False, redefine_types=True)
 
             return tmp_item
 
