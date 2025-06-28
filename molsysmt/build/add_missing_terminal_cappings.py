@@ -31,7 +31,7 @@ def add_missing_terminal_cappings(molecular_system, N_terminal=None, C_terminal=
         Approximate pH used to determine the protonation states of terminal groups and nearby residues.
 
     keep_ids : bool, default False
-        If `True`, preserves the original atom, group, and molecule IDs. Otherwise, new IDs may be reassigned.
+        If `True`, preserves the original atom and group ids. Otherwise, new IDs may be reassigned.
 
     selection : str, list, tuple, or numpy.ndarray, default 'all'
         Selection of atoms or residues to which this operation applies. Can be a list of indices or a 
@@ -110,7 +110,11 @@ def add_missing_terminal_cappings(molecular_system, N_terminal=None, C_terminal=
         from molsysmt.basic import convert, get, select, has_attribute, set
         from pdbfixer.pdbfixer import Sequence
 
-        temp_molecular_system = convert(molecular_system, to_form='pdbfixer.PDBFixer')
+        conversion_extra_kwargs = {}
+        if form_in in ['molsysmt.MolSys']:
+            conversion_extra_kwargs['pdb_chain_id'] = 'chain_id'
+
+        temp_molecular_system = convert(molecular_system, to_form='pdbfixer.PDBFixer', **conversion_extra_kwargs)
         atom_indices_in_selection = select(temp_molecular_system, selection=selection, syntax=syntax)
         atom_indices_in_components = get(temp_molecular_system, element='component', selection='component_type in ["peptide", "protein"] \
                                          and atom_index in @atom_indices_in_selection', atom_index=True)
@@ -141,19 +145,33 @@ def add_missing_terminal_cappings(molecular_system, N_terminal=None, C_terminal=
         #if n_hs > 0:
         #    temp_molecular_system.addMissingHydrogens(pH)
 
+        return temp_molecular_system
         output_molecular_system = convert(temp_molecular_system, to_form=form_in)
 
         if has_attribute(molecular_system, 'component_name'):
-            component_names = get(molecular_system, element='component', component_name=True)
-            set(output_molecular_system, element='component', component_name=component_names)
+            aux_component_names = get(molecular_system, element='component', component_name=True)
+            set(output_molecular_system, element='component', component_name=aux_component_names)
+            del aux_component_names
+
+        if has_attribute(molecular_system, 'chain_name'):
+            aux_chain_names = get(molecular_system, element='chain', chain_name=True)
+            set(output_molecular_system, element='chain', chain_name=aux_chain_names)
+            del aux_chain_names
+
+        if has_attribute(molecular_system, 'chain_id'):
+            aux_chain_ids = get(molecular_system, element='chain', chain_id=True)
+            set(output_molecular_system, element='chain', chain_id=aux_chain_ids)
+            del aux_chain_ids
 
         if has_attribute(molecular_system, 'molecule_name'):
-            molecule_names = get(molecular_system, element='molecule', molecule_name=True)
-            set(output_molecular_system, element='molecule', molecule_name=molecule_names)
+            aux_molecule_names = get(molecular_system, element='molecule', molecule_name=True)
+            set(output_molecular_system, element='molecule', molecule_name=aux_molecule_names)
+            del aux_molecule_names
 
         if has_attribute(molecular_system, 'entity_name'):
-            entity_names = get(molecular_system, element='entity', entity_name=True)
-            set(output_molecular_system, element='entity', entity_name=entity_names)
+            aux_entity_names = get(molecular_system, element='entity', entity_name=True)
+            set(output_molecular_system, element='entity', entity_name=aux_entity_names)
+            del aux_entity_names
 
         if n_hs > 0:
         

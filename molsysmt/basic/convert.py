@@ -72,7 +72,14 @@ def _convert_one_to_one(molecular_system,
         if 'get_missing_bonds' in kwargs and 'get_missing_bonds' not in input_arguments:
             del kwargs['get_missing_bonds']
 
+
         if len(missing_arguments)>0:
+
+            if hasattr(_dict_modules[from_form], '_conversion_opt_kwargs'):
+                if to_form in _dict_modules[from_form]._conversion_opt_kwargs:
+                    for opt_kwarg in _dict_modules[from_form]._conversion_opt_kwargs[to_form]:
+                        if opt_kwarg in missing_arguments:
+                            missing_arguments.discard(opt_kwarg)
 
             missing_arguments.discard('compression')
             missing_arguments.discard('compression_opts')

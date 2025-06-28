@@ -51,6 +51,25 @@ def set_group_index_to_atom(item, indices='all', value=None, skip_digestion=Fals
     pass
 
 @digest(form=form)
+def set_component_index_to_atom(item, indices='all', value=None, skip_digestion=False):
+
+    if is_all(indices):
+        if len(value)==1:
+            item.atoms.component_index=value[0]
+            n_components = 1
+        else:
+            item.atoms.component_index=value
+            n_components = np.unique(value).shape[0]
+        if n_components!=item.components.shape[0]:
+            item.reset_components(n_components=n_components)
+            item.rebuild_components(redefine_indices=True, redefine_ids=True,
+                                    redefine_types=True, redefine_names=True)
+    else:
+        item.atoms.iloc[indices, 4]=value
+
+    pass
+
+@digest(form=form)
 def set_chain_index_to_atom(item, indices='all', value=None, skip_digestion=False):
 
     if is_all(indices):
@@ -62,9 +81,10 @@ def set_chain_index_to_atom(item, indices='all', value=None, skip_digestion=Fals
             n_chains = np.unique(value).shape[0]
         if n_chains!=item.chains.shape[0]:
             item.reset_chains(n_chains=n_chains)
-            item.rebuild_chains(redefine_ids=True, redefine_types=True, redefine_names=True)
+            item.rebuild_chains(redefine_indices=True, redefine_ids=True,
+                                redefine_types=True, redefine_names=True)
     else:
-        item.atoms.iloc[indices, 4]=value
+        item.atoms.iloc[indices, 5]=value
 
     pass
 
@@ -112,16 +132,6 @@ def set_group_type_to_group(item, indices='all', value=None, skip_digestion=Fals
         item.groups.group_type=value
     else:
         item.groups.iloc[indices, 2]=value
-
-    pass
-
-@digest(form=form)
-def set_component_index_to_group(item, indices='all', value=None, skip_digestion=False):
-
-    if is_all(indices):
-        item.groups.component_index=value
-    else:
-        item.groups.iloc[indices, 3]=value
 
     pass
 
@@ -196,6 +206,18 @@ def set_molecule_type_to_molecule(item, indices='all', value=None, skip_digestio
 
 @digest(form=form)
 def set_chain_id_to_chain(item, indices='all', value=None, skip_digestion=False):
+
+    value_is_string = False
+
+    if isinstance(value, str):
+        value_is_string = True
+    elif isinstance(value, list):
+        if isinstance(value[0], str):
+            value_is_string = True
+
+    if value_is_string:
+        if item.chains.chain_id.dtype.kind == 'i':
+            item.chains.chain_id = item.chains.chain_id.astype('string')
 
     if is_all(indices):
         item.chains.chain_id=value

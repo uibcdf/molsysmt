@@ -86,4 +86,8 @@ _convert_to={
         'file:psf': to_file_psf,
         }
 
+_conversion_opt_kwargs={
+    'string:pdb_text': ['pdb_chain_id'],
+    'pdbfixer.PDBFixer': ['pdb_chain_id']
+}
 
