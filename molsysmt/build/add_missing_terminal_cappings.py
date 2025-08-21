@@ -145,9 +145,9 @@ def add_missing_terminal_cappings(molecular_system, N_terminal=None, C_terminal=
         #if n_hs > 0:
         #    temp_molecular_system.addMissingHydrogens(pH)
 
-        return temp_molecular_system
         output_molecular_system = convert(temp_molecular_system, to_form=form_in)
-        #return output_molecular_system
+
+        return temp_molecular_system
 
         if has_attribute(molecular_system, 'component_name'):
             aux_component_names = get(molecular_system, element='component', component_name=True)
