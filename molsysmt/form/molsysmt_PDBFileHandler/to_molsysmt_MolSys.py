@@ -18,7 +18,7 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', get_mi
     group_id_array = []
     group_name_array = []
     chain_index_array = []
-    chain_name_array = []
+    chain_id_array = []
 
     occupancy_array = []
     alternate_location_array = []
@@ -28,7 +28,7 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', get_mi
     former_group_id = None
 
     chain_index = -1
-    former_chain_name = None
+    former_chain_id = None
     aux_dict_chain = {}
 
     group_id_bck = []
@@ -50,13 +50,13 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', get_mi
 
         group_index_array.append(group_index)
 
-        if former_chain_name!=atom_record.chainId:
+        if former_chain_id!=atom_record.chainId:
             if atom_record.chainId in aux_dict_chain:
                 chain_index = aux_dict_chain[atom_record.chainId]
             else:
                 chain_index += 1
                 aux_dict_chain[atom_record.chainId]=chain_index
-                chain_name_array.append(atom_record.chainId)
+                chain_id_array.append(atom_record.chainId)
 
         chain_index_array.append(chain_index)
 
@@ -66,7 +66,7 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', get_mi
     chain_index_array = np.array(chain_index_array, dtype=int)
     group_id_array = np.array(group_id_array, dtype=int)
     group_name_array = np.array(group_name_array, dtype=str)
-    chain_name_array = np.array(chain_name_array, dtype=str)
+    chain_id_array = np.array(chain_id_array, dtype=str)
 
     for model in item.entry.coordinate.model:
 
@@ -152,7 +152,7 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', get_mi
 
     n_atoms = atom_id_array.shape[0]
     n_groups = group_name_array.shape[0]
-    n_chains = chain_name_array.shape[0]
+    n_chains = chain_id_array.shape[0]
 
     tmp_item.topology.reset_atoms(n_atoms=n_atoms)
     tmp_item.topology.reset_groups(n_groups=n_groups)
@@ -170,12 +170,11 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', get_mi
 
     tmp_item.topology.rebuild_groups(redefine_ids=False, redefine_types=True)
 
-    tmp_item.topology.chains.chain_name = chain_name_array
-
-    tmp_item.topology.rebuild_chains(redefine_ids=True, redefine_types=False)
+    tmp_item.topology.chains.chain_id = chain_id_array
+    tmp_item.topology.chains.chain_name = chain_id_array
 
     del(atom_id_array, atom_name_array, group_index_array, chain_index_array,
-        group_id_array, group_name_array, chain_name_array, occupancy_array,
+        group_id_array, group_name_array, chain_id_array, occupancy_array,
         alternate_location_array, alt_atom_indices, aux_dict)
 
     coordinates_array = puw.quantity(coordinates_array, 'angstroms')
@@ -211,7 +210,8 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', get_mi
 
         tmp_item.topology.rebuild_components()
         tmp_item.topology.rebuild_molecules()
-        tmp_item.topology.rebuild_chains(redefine_ids=False, redefine_types=True)
+        tmp_item.topology.rebuild_chains(redefine_indices=False, redefine_ids=False,
+                                         redefine_names=False, redefine_types=True)
         tmp_item.topology.rebuild_entities()
 
     tmp_item = tmp_item.extract(atom_indices=atom_indices, structure_indices=structure_indices,

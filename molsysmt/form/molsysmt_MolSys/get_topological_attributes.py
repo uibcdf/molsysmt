@@ -2011,7 +2011,7 @@ def get_n_saccharides_from_system(item, skip_digestion=False):
 @digest(form=form)
 def get_bond_index_from_system(item, skip_digestion=False):
 
-    from ..molsysmt_Topology import get_bonded_index_from_system as aux_get
+    from ..molsysmt_Topology import get_bond_index_from_system as aux_get
     return aux_get(item.topology, skip_digestion=True)
 
 

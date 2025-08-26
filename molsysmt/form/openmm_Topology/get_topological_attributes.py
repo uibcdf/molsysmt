@@ -3510,17 +3510,6 @@ def get_chain_index_from_chain(item, indices='all', skip_digestion=False):
 @digest(form=form)
 def get_chain_id_from_chain(item, indices='all', skip_digestion=False):
 
-    if is_all(indices):
-        n_aux = get_n_chains_from_system(item, skip_digestion=True)
-        output = list(range(n_aux))
-    else:
-        output = indices
-
-    return output
-
-@digest(form=form)
-def get_chain_name_from_chain(item, indices='all', skip_digestion=False):
-
     chains=list(item.chains())
     if is_all(indices):
         output = [chain.id for chain in chains]
@@ -3531,12 +3520,16 @@ def get_chain_name_from_chain(item, indices='all', skip_digestion=False):
     return output
 
 @digest(form=form)
+def get_chain_name_from_chain(item, indices='all', skip_digestion=False):
+
+    return None
+
+@digest(form=form)
 def get_chain_type_from_chain(item, indices='all', skip_digestion=False):
 
     from molsysmt.element.chain import get_chain_type
 
-    output = get_chain_type(item, element='chain', selection=indices,
-                           redefine_types=True, redefine_molecule_indices=True, redefine_molecule_types=True)
+    output = get_chain_type(item, element='chain', selection=indices, redefine_types=True)
 
     return output
 

@@ -9,10 +9,18 @@ def get_chain_id(molecular_system, element='atom', selection='all',
 
         from .get_chain_index import get_chain_index
 
-        output = get_chain_index(molecular_system, element=element, selection=selection, syntax=syntax,
-                                 redefine_indices=redefine_indices, skip_digestion=True)
+        chain_indices = get_chain_index(molecular_system, element=element, selection=selection, syntax=syntax,
+                                        redefine_indices=redefine_indices, skip_digestion=True)
 
-        
+        chain_ids = chain_indices
+
+        if element=='chain':
+
+            return chain_ids
+
+        else:
+
+            raise NotImplementedError
 
     else:
 

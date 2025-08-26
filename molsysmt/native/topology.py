@@ -36,7 +36,7 @@ class Groups_DataFrame(pd.DataFrame):
 
         self['group_id'] = self['group_id'].astype('Int64')
         self['group_name'] = self['group_name'].astype(str)
-        self['group_type'] = self['group_type'].astype('Int64')
+        self['group_type'] = self['group_type'].astype(str)
         self['molecule_index'] = self['molecule_index'].astype('Int64')
 
     def _fix_null_values(self):

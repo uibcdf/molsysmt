@@ -71,7 +71,7 @@ def to_molsysmt_Topology(item, atom_indices='all', skip_digestion=False):
         chain_name_array[chain_index] = chain.id
 
     tmp_item.chains["chain_name"] = chain_name_array
-    tmp_item.chains["chain_id"] = tmp_item.chains.index
+    tmp_item.chains["chain_id"] = chain_name_array
 
     del chain_name_array
 
@@ -117,7 +117,7 @@ def to_molsysmt_Topology(item, atom_indices='all', skip_digestion=False):
 
     # chain types
 
-    tmp_item.rebuild_chains(redefine_ids=True, redefine_types=True, redefine_names=False)
+    tmp_item.rebuild_chains(redefine_indices=False, redefine_ids=False, redefine_types=True, redefine_names=False)
 
     # entity
 
@@ -127,3 +127,4 @@ def to_molsysmt_Topology(item, atom_indices='all', skip_digestion=False):
     tmp_item = tmp_item.extract(atom_indices=atom_indices, copy_if_all=False, skip_digestion=True)
 
     return tmp_item
+

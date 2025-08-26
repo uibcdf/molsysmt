@@ -24,62 +24,34 @@ def test_compare_all_eq_3():
     molsys_B = msm.convert(molsys_A, to_form='molsysmt.MolSys')
     comparison = msm.compare(molsys_A, molsys_B, output_type='dictionary')
 
-    output = True
+    aux_comparison = {
+        'atom_index':True,
+        'atom_name':True,
+        'atom_id':True,
+        'atom_type':True,
+        'group_index':True,
+        'group_name':True,
+        'group_id':True,
+        'group_type':True,
+        'component_index':True,
+        'component_type':True,
+        'chain_index':True,
+        'chain_name':False,
+        'chain_id':True,
+        'chain_type':True,
+        'molecule_index':True,
+        'molecule_type':True,
+        'bonded_atom_pairs':True,
+        'n_atoms':True,
+        'n_groups':True,
+        'n_components':True,
+        'n_chains':True,
+        'n_molecules':True,
+        'n_bonds':True,
+    }
 
-    if comparison['atom_index']!=True:
-        output = False
-    if comparison['atom_name']!=True:
-        output = False
-    if comparison['atom_id']!=True:
-        output = False
-    if comparison['atom_type']!=True:
-        output = False
 
-    if comparison['group_index']!=True:
-        output = False
-    if comparison['group_name']!=True:
-        output = False
-    if comparison['group_id']!=True:
-        output = False
-    if comparison['group_type']!=True:
-        output = False
-
-    if comparison['component_index']!=True:
-        output = False
-    if comparison['component_type']!=True:
-        output = False
-
-    if comparison['chain_index']!=True:
-        output = False
-    if comparison['chain_name']!=True:
-        output = False
-    if comparison['chain_id']!=True:
-        output = False
-    if comparison['chain_type']!=True:
-        output = False
-
-    if comparison['molecule_index']!=True:
-        output = False
-    if comparison['molecule_type']!=True:
-        output = True
-
-    if comparison['bonded_atom_pairs']!=True:
-        output = False
-
-    if comparison['n_atoms']!=True:
-        output = False
-    if comparison['n_groups']!=True:
-        output = False
-    if comparison['n_components']!=True:
-        output = False
-    if comparison['n_chains']!=True:
-        output = False
-    if comparison['n_molecules']!=True:
-        output = False
-    if comparison['n_bonds']!=True:
-        output = False
-
-    assert output == True
+    assert comparison==aux_comparison
 
 def test_compare_all_eq_4():
 
@@ -88,7 +60,33 @@ def test_compare_all_eq_4():
     molsys_C = msm.extract(molsys_B, selection='molecule_type=="protein"')
 
 
-    assert True == msm.compare(molsys_A, molsys_B)
+    aux_comparison = {
+        'atom_index':True,
+        'atom_name':True,
+        'atom_id':True,
+        'atom_type':True,
+        'group_index':True,
+        'group_name':True,
+        'group_id':True,
+        'group_type':True,
+        'component_index':True,
+        'component_type':True,
+        'chain_index':True,
+        'chain_name':False,
+        'chain_id':True,
+        'chain_type':True,
+        'molecule_index':True,
+        'molecule_type':True,
+        'bonded_atom_pairs':True,
+        'n_atoms':True,
+        'n_groups':True,
+        'n_components':True,
+        'n_chains':True,
+        'n_molecules':True,
+        'n_bonds':True,
+    }
+
+    assert aux_comparison == msm.compare(molsys_A, molsys_B, output_type="dictionary")
     assert False == msm.compare(molsys_A, molsys_C)
     assert True == msm.compare(molsys_A, molsys_B, coordinates=True, box=True, n_groups=True)
     assert False == msm.compare(molsys_B, molsys_C, coordinates=True, box=True, n_groups=True)
