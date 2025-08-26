@@ -69,11 +69,11 @@ def get_entity_index(molecular_system, element='atom', selection='all',
                     entity_index = aux_dict[molecule_name]
             else:
                 if 'unknown' in aux_dict:
+                    entity_index = aux_dict['unknown']
+                else:
                     aux_dict['unknown'] = count
                     entity_index = count
                     count += 1
-                else:
-                    entity_index = aux_dict['unknown']
 
             output.append(entity_index)
 

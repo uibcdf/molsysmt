@@ -26,7 +26,7 @@ def to_molsysmt_Topology(item, atom_indices='all', skip_digestion=False):
     for atom_index, atom in enumerate(item.atoms):
 
         if atom.serial is not None:
-            tmp_item.atoms.iat[atom_index,0] = atoms.serial
+            tmp_item.atoms.iat[atom_index,0] = atom.serial
         else:
             tmp_item.atoms.iat[atom_index,0] = atom_index
         tmp_item.atoms.iat[atom_index,1] = atom.name
