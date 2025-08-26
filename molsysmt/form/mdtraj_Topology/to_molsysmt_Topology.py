@@ -32,7 +32,7 @@ def to_molsysmt_Topology(item, atom_indices='all', skip_digestion=False):
         tmp_item.atoms.iat[atom_index,1] = atom.name
         tmp_item.atoms.iat[atom_index,2] = atom.element.symbol
         tmp_item.atoms.iat[atom_index,3] = atom.residue.index
-        tmp_item.atoms.iat[atom_index,4] = atom.residue.chain.index
+        tmp_item.atoms.iat[atom_index,5] = atom.residue.chain.index
 
 
     # groups
@@ -54,10 +54,10 @@ def to_molsysmt_Topology(item, atom_indices='all', skip_digestion=False):
 
     for chain_index, chain in enumerate(item.chains):
 
-        tmp_item.chains.iat[chain_index,0] = chain_index
+        tmp_item.chains.iat[chain_index,0] = chain.chain_id
         tmp_item.chains.iat[chain_index,1] = chain.chain_id
 
-    rebuild_chain_name = tmp_item.chains['chain_name'].isna().all()
+    rebuild_chain_id = tmp_item.chains['chain_id'].isna().all()
 
     # bonds
 
@@ -86,16 +86,19 @@ def to_molsysmt_Topology(item, atom_indices='all', skip_digestion=False):
     tmp_item.rebuild_molecules(redefine_indices=True, redefine_ids=True, redefine_names=True,
                                redefine_types=True)
 
-    # chains
-    tmp_item.rebuild_chains(redefine_ids=True, redefine_types=True, redefine_names=rebuild_chain_name)
-
     # entity
 
     tmp_item.rebuild_entities(redefine_indices=True, redefine_ids=True, redefine_names=True,
                                redefine_types=True)
 
-    tmp_item = tmp_item.extract(atom_indices=atom_indices, copy_if_all=False, skip_digestion=True)
+    # chains
 
+    tmp_item.rebuild_chains(redefine_indices=False, redefine_ids=rebuild_chain_id,
+                            redefine_names=rebuild_chain_id, redefine_types=True)
+
+    # extract
+
+    tmp_item = tmp_item.extract(atom_indices=atom_indices, copy_if_all=False, skip_digestion=True)
 
     return tmp_item
 

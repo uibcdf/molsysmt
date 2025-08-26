@@ -7793,6 +7793,24 @@ def get_n_rnas_from_system(item, skip_digestion=False):
 
 
 @digest(form=form)
+def get_bond_index_from_system(item, skip_digestion=False):
+
+    return get_bond_index_from_bond(item, skip_digestion=True)
+
+
+@digest(form=form)
+def get_inner_bonded_atoms_from_system(item, skip_digestion=False):
+
+    return get_bonded_atoms_from_bond(item, skip_digestion=True)
+
+
+@digest(form=form)
+def get_inner_bonded_atom_pairs_from_system(item, skip_digestion=False):
+
+    return get_bonded_atom_pairs_from_bond(item, skip_digestion=True)
+
+
+@digest(form=form)
 def get_bonded_atoms_from_system(item, skip_digestion=False):
 
     return get_bonded_atoms_from_bond(item, skip_digestion=True)
