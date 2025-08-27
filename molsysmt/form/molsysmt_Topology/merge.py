@@ -79,9 +79,9 @@ def merge(items, atom_indices='all', keep_ids=True, skip_digestion=False):
         next_count_n_bonds = count_n_bonds + aux_n_bonds
 
         output.atoms.iloc[count_n_atoms:next_count_n_atoms,3] += count_n_groups
-        output.atoms.iloc[count_n_atoms:next_count_n_atoms,4] += count_n_chains
-        output.groups.iloc[count_n_groups:next_count_n_groups,3] += count_n_components
-        output.components.iloc[count_n_components:next_count_n_components,3] += count_n_molecules
+        output.atoms.iloc[count_n_atoms:next_count_n_atoms,4] += count_n_components
+        output.atoms.iloc[count_n_atoms:next_count_n_atoms,5] += count_n_chains
+        output.groups.iloc[count_n_groups:next_count_n_groups,3] += count_n_molecules
         output.bonds.iloc[count_n_bonds:next_count_n_bonds,0] += count_n_atoms
         output.bonds.iloc[count_n_bonds:next_count_n_bonds,1] += count_n_atoms
 
@@ -99,9 +99,9 @@ def merge(items, atom_indices='all', keep_ids=True, skip_digestion=False):
                                   redefine_names=False)
         output.rebuild_molecules(redefine_indices=False, redefine_ids=True, redefine_types=False,
                                   redefine_names=False)
-        output.rebuild_chains(redefine_ids=True, redefine_types=True, redefine_names=False)
+        output.rebuild_chains(redefine_indices=False, redefine_ids=False, redefine_types=True, redefine_names=False)
     else:
-        output.rebuild_chains(redefine_ids=False, redefine_types=True, redefine_names=False)
+        output.rebuild_chains(redefine_indices=False, redefine_ids=False, redefine_types=True, redefine_names=False)
 
     output.rebuild_entities()
 
