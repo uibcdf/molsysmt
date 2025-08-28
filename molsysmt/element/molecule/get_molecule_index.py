@@ -2,7 +2,7 @@ from molsysmt._private.digestion import digest
 
 
 @digest()
-def get_molecule_index(molecular_system, element='atom', selection='all',
+def get_molecule_index(molecular_system, element='molecule', selection='all',
                        redefine_indices=False, syntax='MolSysMT', skip_digestion=False):
 
     if redefine_indices:

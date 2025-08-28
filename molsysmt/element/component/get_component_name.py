@@ -2,7 +2,7 @@ from molsysmt._private.digestion import digest
 import numpy as np
 
 @digest()
-def get_component_name(molecular_system, element='atom', selection='all', redefine_indices=False,
+def get_component_name(molecular_system, element='component', selection='all', redefine_indices=False,
                        redefine_names=False, syntax='MolSysMT', skip_digestion=False):
 
     if redefine_indices or redefine_names:

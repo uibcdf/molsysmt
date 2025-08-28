@@ -1,7 +1,7 @@
 from molsysmt._private.digestion import digest
 
 @digest()
-def get_entity_id(molecular_system, element='atom', selection='all', redefine_indices=False,
+def get_entity_id(molecular_system, element='entity', selection='all', redefine_indices=False,
                      redefine_ids=False, syntax='MolSysMT', skip_digestion=False):
 
     if redefine_indices:

@@ -2,7 +2,7 @@ from molsysmt._private.digestion import digest
 import numpy as np
 
 @digest()
-def get_entity_index(molecular_system, element='atom', selection='all',
+def get_entity_index(molecular_system, element='entity', selection='all',
                      redefine_indices=False, syntax='MolSysMT',
                      skip_digestion=False):
 

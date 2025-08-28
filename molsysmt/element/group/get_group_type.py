@@ -11,7 +11,7 @@ import numpy as np
 
 
 @digest()
-def get_group_type(molecular_system, element='atom', selection='all', redefine_types=False, syntax='MolSysMT',
+def get_group_type(molecular_system, element='group', selection='all', redefine_types=False, syntax='MolSysMT',
                    skip_digestion=False):
 
     from molsysmt.basic import get
