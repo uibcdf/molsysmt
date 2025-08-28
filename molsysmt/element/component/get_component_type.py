@@ -4,7 +4,7 @@ import numpy as np
 import pandas as pd
 
 @digest()
-def get_component_type(molecular_system, element='atom', selection='all', redefine_indices=False,
+def get_component_type(molecular_system, element='component', selection='all', redefine_indices=False,
                        redefine_types=False, syntax='MolSysMT', skip_digestion=False):
 
     from molsysmt.basic import get

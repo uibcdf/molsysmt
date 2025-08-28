@@ -3,7 +3,7 @@ import numpy as np
 
 
 @digest()
-def get_entity_name(molecular_system, element='atom', selection='all', redefine_indices=False,
+def get_entity_name(molecular_system, element='entity', selection='all', redefine_indices=False,
                     redefine_names=False, syntax='MolSysMT', skip_digestion=False):
 
     if redefine_indices:

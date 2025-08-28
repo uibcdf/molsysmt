@@ -3,7 +3,7 @@ import numpy as np
 
 
 @digest()
-def get_entity_type(molecular_system, element='atom', selection='all', redefine_indices=False,
+def get_entity_type(molecular_system, element='type', selection='all', redefine_indices=False,
                     redefine_types=False, syntax='MolSysMT', skip_digestion=False):
 
     if redefine_indices:
