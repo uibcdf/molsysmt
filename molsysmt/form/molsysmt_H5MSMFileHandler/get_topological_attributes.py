@@ -1,12 +1,12 @@
 from molsysmt._private.digestion import digest
-from molsysmt._private.variables import is_all
 from molsysmt import pyunitwizard as puw
 import numpy as np
 import pandas as pd
 from molsysmt._private.exceptions import NotImplementedMethodError, NotWithThisFormError
 import types
 from networkx import Graph
-
+from collections import defaultdict
+from itertools import chain, compress
 
 form='molsysmt.H5MSMFileHandler'
 
@@ -19,7 +19,7 @@ form='molsysmt.H5MSMFileHandler'
 @digest(form=form)
 def get_atom_index_from_atom(item, indices='all', skip_digestion=False):
 
-    if is_all(indices):
+    if indices=='all':
         n_aux = get_n_atoms_from_system(item, skip_digestion=True)
         output = list(range(n_aux))
     else:
@@ -31,10 +31,10 @@ def get_atom_index_from_atom(item, indices='all', skip_digestion=False):
 @digest(form=form)
 def get_atom_id_from_atom(item, indices='all', skip_digestion=False):
 
-    if is_all(indices):
-        output = item.file['topology']['atoms']['atom_id'][:].astype('int64')
+    if indices=='all':
+        output = item.file['topology']['atoms']['atom_id'][:].astype('int')
     else:
-        output = item.file['topology']['atoms']['atom_id'][indices].astype('int64')
+        output = item.file['topology']['atoms']['atom_id'][indices].astype('int')
 
     return output.tolist()
 
@@ -42,7 +42,7 @@ def get_atom_id_from_atom(item, indices='all', skip_digestion=False):
 @digest(form=form)
 def get_atom_name_from_atom(item, indices='all', skip_digestion=False):
 
-    if is_all(indices):
+    if indices=='all':
         output = item.file['topology']['atoms']['atom_name'][:].astype('str')
     else:
         output = item.file['topology']['atoms']['atom_name'][indices].astype('str')
@@ -53,7 +53,7 @@ def get_atom_name_from_atom(item, indices='all', skip_digestion=False):
 @digest(form=form)
 def get_atom_type_from_atom(item, indices='all', skip_digestion=False):
 
-    if is_all(indices):
+    if indices=='all':
         output = item.file['topology']['atoms']['atom_type'][:].astype('str')
     else:
         output = item.file['topology']['atoms']['atom_type'][indices].astype('str')
@@ -64,7 +64,7 @@ def get_atom_type_from_atom(item, indices='all', skip_digestion=False):
 @digest(form=form)
 def get_group_index_from_atom(item, indices='all', skip_digestion=False):
 
-    if is_all(indices):
+    if indices=='all':
         output = item.file['topology']['atoms']['group_index'][:].astype('int')
     else:
         output = item.file['topology']['atoms']['group_index'][indices].astype('int')
@@ -297,7 +297,7 @@ def get_entity_type_from_atom(item, indices='all', skip_digestion=False):
 @digest(form=form)
 def get_component_index_from_atom(item, indices='all', skip_digestion=False):
 
-    if is_all(indices):
+    if indices=='all':
         output = item.file['topology']['atoms']['component_index'][:].astype('int')
     else:
         output = item.file['topology']['atoms']['component_index'][indices].astype('int')
@@ -359,7 +359,7 @@ def get_component_type_from_atom(item, indices='all', skip_digestion=False):
 @digest(form=form)
 def get_chain_index_from_atom(item, indices='all', skip_digestion=False):
 
-    if is_all(indices):
+    if indices=='all':
         output = item.file['topology']['atoms']['chain_index'][:].astype('int')
     else:
         output = item.file['topology']['atoms']['chain_index'][indices].astype('int')
@@ -371,7 +371,7 @@ def get_chain_index_from_atom(item, indices='all', skip_digestion=False):
 def get_chain_id_from_atom(item, indices='all', skip_digestion=False):
 
     chain_index_from_atom = item.file['topology']['atoms']['chain_index'][:].astype('int')
-    chain_id_from_chain =  item.file['topology']['chains']['chain_id'][:].astype('int')
+    chain_id_from_chain =  _read_int_or_str_from_h5(item.file['topology']['chains']['chain_id'][:])
 
     if indices=='all':
         output = chain_id_from_chain[chain_index_from_atom].tolist()
@@ -429,7 +429,7 @@ def get_bond_index_from_atom(item, indices='all', skip_digestion=False):
     edge_indices = np.array([{'index': ii} for ii in range(n_bonds)]).reshape([n_bonds, 1])
     G.add_edges_from(np.hstack([edges, edge_indices]))
 
-    if is_all(indices):
+    if indices=='all':
 
         indices = get_atom_index_from_atom(item, skip_digestion=True)
 
@@ -480,7 +480,7 @@ def get_bonded_atoms_from_atom(item, indices='all', skip_digestion=False):
     
     G.add_edges_from(edges)
 
-    if is_all(indices):
+    if indices=='all':
 
         indices = get_atom_index_from_atom(item, skip_digestion=True)
 
@@ -502,7 +502,7 @@ def get_bonded_atom_pairs_from_atom(item, indices='all', skip_digestion=False):
 
     output = None
 
-    if is_all(indices):
+    if indices=='all':
 
         output = get_bonded_atom_pairs_from_bond(item, skip_digestion=True)
    
@@ -529,7 +529,7 @@ def get_inner_bond_index_from_atom(item, indices='all', skip_digestion=False):
     edge_indices = np.array([{'index': ii} for ii in range(n_bonds)]).reshape([n_bonds, 1])
     G.add_edges_from(np.hstack([edges, edge_indices]))
 
-    if is_all(indices):
+    if indices=='all':
 
         indices = get_atom_index_from_atom(item, skip_digestion=True)
 
@@ -560,7 +560,7 @@ def get_inner_bonded_atoms_from_atom(item, indices='all', skip_digestion=False):
     
     G.add_edges_from(edges)
 
-    if not is_all(indices):
+    if not indices=='all':
 
         G = G.subgraph(indices)
 
@@ -578,7 +578,7 @@ def get_inner_bonded_atom_pairs_from_atom(item, indices='all', skip_digestion=Fa
 
     output = None
 
-    if is_all(indices):
+    if indices=='all':
 
         output = get_bonded_atom_pairs_from_bond(item, skip_digestion=True)
    
@@ -597,7 +597,7 @@ def get_inner_bonded_atom_pairs_from_atom(item, indices='all', skip_digestion=Fa
 @digest(form=form)
 def get_n_atoms_from_atom(item, indices='all', skip_digestion=False):
 
-    if is_all(indices):
+    if indices=='all':
         output = get_n_atoms_from_system(item, skip_digestion=True)
     else:
         output = len(indices)
@@ -614,7 +614,7 @@ def get_total_n_atoms_from_atom(item, indices='all', skip_digestion=False):
 @digest(form=form)
 def get_n_groups_from_atom(item, indices='all', skip_digestion=False):
 
-    if is_all(indices):
+    if indices=='all':
         output = get_n_groups_from_system(item, skip_digestion=True)
     else:
         output = get_group_index_from_atom(item, indices=indices, skip_digestion=True)
@@ -632,7 +632,7 @@ def get_total_n_groups_from_atom(item, indices='all', skip_digestion=False):
 @digest(form=form)
 def get_n_molecules_from_atom(item, indices='all', skip_digestion=False):
 
-    if is_all(indices):
+    if indices=='all':
         output = get_n_molecules_from_system(item, skip_digestion=True)
     else:
         output = get_molecule_index_from_atom(item, indices=indices, skip_digestion=True)
@@ -650,7 +650,7 @@ def get_total_n_molecules_from_atom(item, indices='all', skip_digestion=False):
 @digest(form=form)
 def get_n_entities_from_atom(item, indices='all', skip_digestion=False):
 
-    if is_all(indices):
+    if indices=='all':
         output = get_n_entities_from_system(item, skip_digestion=True)
     else:
         output = get_entity_index_from_atom(item, indices=indices, skip_digestion=True)
@@ -668,7 +668,7 @@ def get_total_n_entities_from_atom(item, indices='all', skip_digestion=False):
 @digest(form=form)
 def get_n_components_from_atom(item, indices='all', skip_digestion=False):
 
-    if is_all(indices):
+    if indices=='all':
         output = get_n_components_from_system(item, skip_digestion=True)
     else:
         output = get_component_index_from_atom(item, indices=indices, skip_digestion=True)
@@ -686,7 +686,7 @@ def get_total_n_components_from_atom(item, indices='all', skip_digestion=False):
 @digest(form=form)
 def get_n_chains_from_atom(item, indices='all', skip_digestion=False):
 
-    if is_all(indices):
+    if indices=='all':
         output = get_n_chains_from_system(item, skip_digestion=True)
     else:
         output = get_chain_index_from_atom(item, indices=indices, skip_digestion=True)
@@ -704,15 +704,9 @@ def get_total_n_chains_from_atom(item, indices='all', skip_digestion=False):
 @digest(form=form)
 def get_n_bonds_from_atom(item, indices='all', skip_digestion=False):
 
-    if is_all(indices):
-
-        output = get_n_bonds_from_system(item, skip_digestion=True)
-
-    else:
-
-        bond_indices = get_bond_index_from_atom(item, indices, skip_digestion=True)
-        output = np.unique(np.concatenate(bond_indices)).shape[0]
-        del bond_indices
+    bond_indices = get_bond_index_from_atom(item, indices, skip_digestion=True)
+    output = [len(ii) for ii in bond_indices]
+    del bond_indices
 
     return output
 
@@ -736,15 +730,9 @@ def get_total_n_bonds_from_atom(item, indices='all', skip_digestion=False):
 @digest(form=form)
 def get_n_inner_bonds_from_atom(item, indices='all', skip_digestion=False):
 
-    if is_all(indices):
-
-        output = get_n_bonds_from_system(item, skip_digestion=True)
-
-    else:
-
-        inner_bond_indices = get_inner_bond_index_from_atom(item, indices, skip_digestion=True)
-        output = [len(ii) for ii in inner_bond_indices]
-        del inner_bond_indices
+    inner_bond_indices = get_inner_bond_index_from_atom(item, indices, skip_digestion=True)
+    output = [len(ii) for ii in inner_bond_indices]
+    del inner_bond_indices
 
     return output
 
@@ -941,8 +929,8 @@ def get_n_peptides_from_atom(item, indices='all', skip_digestion=False):
     if indices=='all':
         output = np.count_nonzero(molecule_type_from_molecules=='peptide')
     else:
-        group_indices_from_atoms = item.atoms['group_index'].to_numpy()
-        molecule_indices_from_groups = item.groups['molecule_index'].to_numpy()
+        group_indices_from_atoms = item.file['topology']['atoms']['group_index'][:].astype('int')
+        molecule_indices_from_groups = item.file['topology']['groups']['molecule_index'][:].astype('int')
         aux = np.unique(group_indices_from_atoms[indices])
         aux = np.unique(molecule_indices_from_groups[aux])
         output = np.count_nonzero(molecule_type_from_molecules[aux]=='peptide')
@@ -967,8 +955,8 @@ def get_n_proteins_from_atom(item, indices='all', skip_digestion=False):
     if indices=='all':
         output = np.count_nonzero(molecule_type_from_molecules=='protein')
     else:
-        group_indices_from_atoms = item.atoms['group_index'].to_numpy()
-        molecule_indices_from_groups = item.groups['molecule_index'].to_numpy()
+        group_indices_from_atoms = item.file['topology']['atoms']['group_index'][:].astype('int')
+        molecule_indices_from_groups = item.file['topology']['groups']['molecule_index'][:].astype('int')
         aux = np.unique(group_indices_from_atoms[indices])
         aux = np.unique(molecule_indices_from_groups[aux])
         output = np.count_nonzero(molecule_type_from_molecules[aux]=='protein')
@@ -993,8 +981,8 @@ def get_n_dnas_from_atom(item, indices='all', skip_digestion=False):
     if indices=='all':
         output = np.count_nonzero(molecule_type_from_molecules=='dna')
     else:
-        group_indices_from_atoms = item.atoms['group_index'].to_numpy()
-        molecule_indices_from_groups = item.groups['molecule_index'].to_numpy()
+        group_indices_from_atoms = item.file['topology']['atoms']['group_index'][:].astype('int')
+        molecule_indices_from_groups = item.file['topology']['groups']['molecule_index'][:].astype('int')
         aux = np.unique(group_indices_from_atoms[indices])
         aux = np.unique(molecule_indices_from_groups[aux])
         output = np.count_nonzero(molecule_type_from_molecules[aux]=='dna')
@@ -1019,8 +1007,8 @@ def get_n_rnas_from_atom(item, indices='all', skip_digestion=False):
     if indices=='all':
         output = np.count_nonzero(molecule_type_from_molecules=='rna')
     else:
-        group_indices_from_atoms = item.atoms['group_index'].to_numpy()
-        molecule_indices_from_groups = item.groups['molecule_index'].to_numpy()
+        group_indices_from_atoms = item.file['topology']['atoms']['group_index'][:].astype('int')
+        molecule_indices_from_groups = item.file['topology']['groups']['molecule_index'][:].astype('int')
         aux = np.unique(group_indices_from_atoms[indices])
         aux = np.unique(molecule_indices_from_groups[aux])
         output = np.count_nonzero(molecule_type_from_molecules[aux]=='rna')
@@ -1046,8 +1034,8 @@ def get_n_polysaccharides_from_atom(item, indices='all', skip_digestion=False):
     if indices=='all':
         output = np.count_nonzero(molecule_type_from_molecules=='polysaccharide')
     else:
-        group_indices_from_atoms = item.atoms['group_index'].to_numpy()
-        molecule_indices_from_groups = item.groups['molecule_index'].to_numpy()
+        group_indices_from_atoms = item.file['topology']['atoms']['group_index'][:].astype('int')
+        molecule_indices_from_groups = item.file['topology']['groups']['molecule_index'][:].astype('int')
         aux = np.unique(group_indices_from_atoms[indices])
         aux = np.unique(molecule_indices_from_groups[aux])
         output = np.count_nonzero(molecule_type_from_molecules[aux]=='polysaccharide')
@@ -1098,7 +1086,7 @@ def get_atom_index_from_group(item, indices='all', skip_digestion=False):
 def get_atom_id_from_group(item, indices='all', skip_digestion=False):
 
     group_index_from_atom = item.file['topology']['atoms']['group_index'][:].astype('int')
-    atom_id_from_atom = item.file['topology']['atoms']['group_id'][:].astype('int')
+    atom_id_from_atom = item.file['topology']['atoms']['atom_id'][:].astype('int')
 
     if indices =='all':
 
@@ -1181,7 +1169,7 @@ def get_atom_type_from_group(item, indices='all', skip_digestion=False):
 @digest(form=form)
 def get_group_index_from_group(item, indices='all', skip_digestion=False):
 
-    if is_all(indices):
+    if indices=='all':
         n_aux = get_n_groups_from_system(item, skip_digestion=True)
         output = list(range(n_aux))
     else:
@@ -1193,10 +1181,10 @@ def get_group_index_from_group(item, indices='all', skip_digestion=False):
 @digest(form=form)
 def get_group_id_from_group(item, indices='all', skip_digestion=False):
 
-    if is_all(indices):
-        output = item.file['topology']['groups']['group_id'][:].astype('int64')
+    if indices=='all':
+        output = item.file['topology']['groups']['group_id'][:].astype('int')
     else:
-        output = item.file['topology']['groups']['group_id'][indices].astype('int64')
+        output = item.file['topology']['groups']['group_id'][indices].astype('int')
 
     return output.tolist()
 
@@ -1204,7 +1192,7 @@ def get_group_id_from_group(item, indices='all', skip_digestion=False):
 @digest(form=form)
 def get_group_name_from_group(item, indices='all', skip_digestion=False):
 
-    if is_all(indices):
+    if indices=='all':
         output = item.file['topology']['groups']['group_name'][:].astype('str')
     else:
         output = item.file['topology']['groups']['group_name'][indices].astype('str')
@@ -1215,7 +1203,7 @@ def get_group_name_from_group(item, indices='all', skip_digestion=False):
 @digest(form=form)
 def get_group_type_from_group(item, indices='all', skip_digestion=False):
 
-    if is_all(indices):
+    if indices=='all':
         output = item.file['topology']['groups']['group_type'][:].astype('str')
     else:
         output = item.file['topology']['groups']['group_type'][indices].astype('str')
@@ -1305,7 +1293,7 @@ def get_entity_index_from_group(item, indices='all', skip_digestion=False):
 
     output = entity_index_from_molecule[output].tolist()
 
-    del molecule_index_from_group, molecule_id_from_molecule
+    del molecule_index_from_group, entity_index_from_molecule
 
     return output
 
@@ -1531,7 +1519,7 @@ def get_chain_id_from_group(item, indices='all', skip_digestion=False):
 
     group_index_from_atom = item.file['topology']['atoms']['group_index'][:].astype('int')
     chain_index_from_atom = item.file['topology']['atoms']['chain_index'][:].astype('int')
-    chain_id_from_chain = item.file['topology']['chains']['chain_id'][:].astype('int')
+    chain_id_from_chain =  _read_int_or_str_from_h5(item.file['topology']['chains']['chain_id'][:])
 
     if indices =='all':
 
@@ -1610,7 +1598,7 @@ def get_chain_type_from_group(item, indices='all', skip_digestion=False):
         aux_dict = {ii: set() for ii in indices}
         for atom_index, group_index in enumerate(group_index_from_atom):
             if group_index in aux_dict:
-                aux_dict[ii].add(chain_index_from_atom[atom_index])
+                aux_dict[group_index].add(chain_index_from_atom[atom_index])
 
         output = [aux_dict[m] for m in indices]
 
@@ -1795,7 +1783,7 @@ def get_total_n_atoms_from_group(item, indices='all', skip_digestion=False):
 @digest(form=form)
 def get_n_groups_from_group(item, indices='all', skip_digestion=False):
 
-    if is_all(indices):
+    if indices=='all':
         output = get_n_groups_from_system(item, skip_digestion=True)
     else:
         output = len(indices)
@@ -1812,7 +1800,7 @@ def get_total_n_groups_from_group(item, indices='all', skip_digestion=False):
 @digest(form=form)
 def get_n_molecules_from_group(item, indices='all', skip_digestion=False):
 
-    if is_all(indices):
+    if indices=='all':
         output = get_n_molecules_from_system(item, skip_digestion=True)
     else:
         output = get_molecule_index_from_group(item, indices=indices, skip_digestion=True)
@@ -1830,7 +1818,7 @@ def get_total_n_molecules_from_group(item, indices='all', skip_digestion=False):
 @digest(form=form)
 def get_n_entities_from_group(item, indices='all', skip_digestion=False):
 
-    if is_all(indices):
+    if indices=='all':
         output = get_n_entities_from_system(item, skip_digestion=True)
     else:
         output = get_entity_index_from_group(item, indices=indices, skip_digestion=True)
@@ -2295,7 +2283,7 @@ def get_group_index_from_molecule(item, indices='all', skip_digestion=False):
     if indices =='all':
 
         aux_dict = defaultdict(list)
-        for group_index, molecule_index in enumerate(molecule_index_from_atom):
+        for group_index, molecule_index in enumerate(molecule_index_from_group):
             aux_dict[molecule_index].append(group_index)
 
         output = list(aux_dict.values())
@@ -2305,7 +2293,7 @@ def get_group_index_from_molecule(item, indices='all', skip_digestion=False):
         aux_dict = {ii: [] for ii in indices}
         for group_index, molecule_index in enumerate(molecule_index_from_group):
             if molecule_index in aux_dict:
-                aux_dict[ii].append(group_index)
+                aux_dict[molecule_index].append(group_index)
 
         output = [aux_dict[m] for m in indices]
 
@@ -2323,7 +2311,7 @@ def get_group_id_from_molecule(item, indices='all', skip_digestion=False):
     if indices =='all':
 
         aux_dict = defaultdict(list)
-        for group_index, molecule_index in enumerate(molecule_index_from_atom):
+        for group_index, molecule_index in enumerate(molecule_index_from_group):
             aux_dict[molecule_index].append(group_id_from_group[group_index])
 
         output = list(aux_dict.values())
@@ -2351,7 +2339,7 @@ def get_group_name_from_molecule(item, indices='all', skip_digestion=False):
     if indices =='all':
 
         aux_dict = defaultdict(list)
-        for group_index, molecule_index in enumerate(molecule_index_from_atom):
+        for group_index, molecule_index in enumerate(molecule_index_from_group):
             aux_dict[molecule_index].append(group_name_from_group[group_index])
 
         output = list(aux_dict.values())
@@ -2379,7 +2367,7 @@ def get_group_type_from_molecule(item, indices='all', skip_digestion=False):
     if indices =='all':
 
         aux_dict = defaultdict(list)
-        for group_index, molecule_index in enumerate(molecule_index_from_atom):
+        for group_index, molecule_index in enumerate(molecule_index_from_group):
             aux_dict[molecule_index].append(group_type_from_group[group_index])
 
         output = list(aux_dict.values())
@@ -2401,7 +2389,7 @@ def get_group_type_from_molecule(item, indices='all', skip_digestion=False):
 @digest(form=form)
 def get_molecule_index_from_molecule(item, indices='all', skip_digestion=False):
 
-    if is_all(indices):
+    if indices=='all':
         n_aux = get_n_molecules_from_system(item, skip_digestion=True)
         output = list(range(n_aux))
     else:
@@ -2413,7 +2401,7 @@ def get_molecule_index_from_molecule(item, indices='all', skip_digestion=False):
 @digest(form=form)
 def get_molecule_id_from_molecule(item, indices='all', skip_digestion=False):
 
-    if is_all(indices):
+    if indices=='all':
         output = item.file['topology']['molecules']['molecule_id'][:].astype('int')
     else:
         output = item.file['topology']['molecules']['molecule_id'][indices].astype('int')
@@ -2424,7 +2412,7 @@ def get_molecule_id_from_molecule(item, indices='all', skip_digestion=False):
 @digest(form=form)
 def get_molecule_name_from_molecule(item, indices='all', skip_digestion=False):
 
-    if is_all(indices):
+    if indices=='all':
         output = item.file['topology']['molecules']['molecule_name'][:].astype('str')
     else:
         output = item.file['topology']['molecules']['molecule_name'][indices].astype('str')
@@ -2435,7 +2423,7 @@ def get_molecule_name_from_molecule(item, indices='all', skip_digestion=False):
 @digest(form=form)
 def get_molecule_type_from_molecule(item, indices='all', skip_digestion=False):
 
-    if is_all(indices):
+    if indices=='all':
         output = item.file['topology']['molecules']['molecule_type'][:].astype('str')
     else:
         output = item.file['topology']['molecules']['molecule_type'][indices].astype('str')
@@ -2669,7 +2657,10 @@ def get_chain_index_from_molecule(item, indices='all', skip_digestion=False):
 
     del group_index_from_atom, molecule_index_from_atom, chain_index_from_atom, aux_dict
 
-    output = [list(np.unique(ii)) for ii in output] 
+    output = [
+        (lambda u: u[0] if u.size == 1 else u.tolist())(np.unique(ii))
+        for ii in output
+    ]
 
     return output
 
@@ -2681,7 +2672,7 @@ def get_chain_id_from_molecule(item, indices='all', skip_digestion=False):
     molecule_index_from_group = item.file['topology']['groups']['molecule_index'][:].astype('int')
     molecule_index_from_atom = molecule_index_from_group[group_index_from_atom]
     chain_index_from_atom = item.file['topology']['atoms']['chain_index'][:].astype('int')
-    chain_id_from_chain = item.file['topology']['chains']['chain_id'][:].astype('int')
+    chain_id_from_chain =  _read_int_or_str_from_h5(item.file['topology']['chains']['chain_id'][:])
 
     if indices =='all':
 
@@ -2703,6 +2694,11 @@ def get_chain_id_from_molecule(item, indices='all', skip_digestion=False):
     output = [chain_id_from_chain[np.unique(ii)].tolist() for ii in output] 
 
     del group_index_from_atom, molecule_index_from_atom, chain_index_from_atom, chain_id_from_chain, aux_dict
+
+    output = [
+        (lambda u: u[0] if u.size == 1 else u.tolist())(np.unique(ii))
+        for ii in output
+    ]
 
     return output
 
@@ -2737,6 +2733,11 @@ def get_chain_name_from_molecule(item, indices='all', skip_digestion=False):
 
     del group_index_from_atom, molecule_index_from_atom, chain_index_from_atom, chain_name_from_chain, aux_dict
 
+    output = [
+        (lambda u: u[0] if u.size == 1 else u.tolist())(np.unique(ii))
+        for ii in output
+    ]
+
     return output
 
 
@@ -2769,6 +2770,11 @@ def get_chain_type_from_molecule(item, indices='all', skip_digestion=False):
     output = [chain_type_from_chain[np.unique(ii)].tolist() for ii in output] 
 
     del group_index_from_atom, molecule_index_from_atom, chain_index_from_atom, chain_type_from_chain, aux_dict
+
+    output = [
+        (lambda u: u[0] if u.size == 1 else u.tolist())(np.unique(ii))
+        for ii in output
+    ]
 
     return output
 
@@ -3553,7 +3559,7 @@ def get_group_name_from_entity(item, indices='all', skip_digestion=False):
     molecule_index_from_group = item.file['topology']['groups']['molecule_index'][:].astype('int')
     entity_index_from_molecule = item.file['topology']['molecules']['entity_index'][:].astype('int')
     entity_index_from_group   = entity_index_from_molecule[molecule_index_from_group]
-    group_name_from_group = item.file['topology']['groups']['group_name'][:].astype('int')
+    group_name_from_group = item.file['topology']['groups']['group_name'][:].astype('str')
 
     if indices == 'all':
 
@@ -3583,7 +3589,7 @@ def get_group_type_from_entity(item, indices='all', skip_digestion=False):
     molecule_index_from_group = item.file['topology']['groups']['molecule_index'][:].astype('int')
     entity_index_from_molecule = item.file['topology']['molecules']['entity_index'][:].astype('int')
     entity_index_from_group   = entity_index_from_molecule[molecule_index_from_group]
-    group_type_from_group = item.file['topology']['groups']['group_type'][:].astype('int')
+    group_type_from_group = item.file['topology']['groups']['group_type'][:].astype('str')
 
     if indices == 'all':
 
@@ -3721,7 +3727,7 @@ def get_molecule_type_from_entity(item, indices='all', skip_digestion=False):
 @digest(form=form)
 def get_entity_index_from_entity(item, indices='all', skip_digestion=False):
 
-    if is_all(indices):
+    if indices=='all':
         n_aux = get_n_entities_from_system(item, skip_digestion=True)
         output = list(range(n_aux))
     else:
@@ -3733,7 +3739,7 @@ def get_entity_index_from_entity(item, indices='all', skip_digestion=False):
 @digest(form=form)
 def get_entity_id_from_entity(item, indices='all', skip_digestion=False):
 
-    if is_all(indices):
+    if indices=='all':
         output = item.file['topology']['entities']['entity_id'][:].astype('int')
     else:
         output = item.file['topology']['entities']['entity_id'][indices].astype('int')
@@ -3744,7 +3750,7 @@ def get_entity_id_from_entity(item, indices='all', skip_digestion=False):
 @digest(form=form)
 def get_entity_name_from_entity(item, indices='all', skip_digestion=False):
 
-    if is_all(indices):
+    if indices=='all':
         output = item.file['topology']['entities']['entity_name'][:].astype('str')
     else:
         output = item.file['topology']['entities']['entity_name'][indices].astype('str')
@@ -3755,13 +3761,10 @@ def get_entity_name_from_entity(item, indices='all', skip_digestion=False):
 @digest(form=form)
 def get_entity_type_from_entity(item, indices='all', skip_digestion=False):
 
-    if is_all(indices):
+    if indices=='all':
         output = item.file['topology']['entities']['entity_type'][:].astype('str')
     else:
         output = item.file['topology']['entities']['entity_type'][indices].astype('str')
-
-    if not is_all(indices):
-        output = output[indices]
 
     return output.tolist()
 
@@ -3956,7 +3959,7 @@ def get_chain_id_from_entity(item, indices='all', skip_digestion=False):
     molecule_index_from_atom     = molecule_index_from_group[group_index_from_atom]
     entity_index_from_atom = entity_index_from_molecule[molecule_index_from_atom]
     chain_index_from_atom = item.file['topology']['atoms']['chain_index'][:].astype('int')
-    chain_id_from_chain = item.file['topology']['chains']['chain_id'][:].astype('int')
+    chain_id_from_chain =  _read_int_or_str_from_h5(item.file['topology']['chains']['chain_id'][:])
 
     if indices =='all':
 
@@ -4740,7 +4743,7 @@ def get_atom_id_from_component(item, indices='all', skip_digestion=False):
 def get_atom_name_from_component(item, indices='all', skip_digestion=False):
 
     component_index_from_atom = item.file['topology']['atoms']['component_index'][:].astype('int')
-    atom_name_from_atom = item.file['topology']['atoms']['atom_name'].astype('str')
+    atom_name_from_atom = item.file['topology']['atoms']['atom_name'][:].astype('str')
 
     if indices =='all':
 
@@ -4768,7 +4771,7 @@ def get_atom_name_from_component(item, indices='all', skip_digestion=False):
 def get_atom_type_from_component(item, indices='all', skip_digestion=False):
 
     component_index_from_atom = item.file['topology']['atoms']['component_index'][:].astype('int')
-    atom_type_from_atom = item.file['topology']['atoms']['atom_type'].astype('str')
+    atom_type_from_atom = item.file['topology']['atoms']['atom_type'][:].astype('str')
 
     if indices =='all':
 
@@ -4796,7 +4799,7 @@ def get_atom_type_from_component(item, indices='all', skip_digestion=False):
 def get_group_index_from_component(item, indices='all', skip_digestion=False):
 
     component_index_from_atom = item.file['topology']['atoms']['component_index'][:].astype('int')
-    group_index_from_atom = item.file['topology']['atoms']['group_index'].astype('int')
+    group_index_from_atom = item.file['topology']['atoms']['group_index'][:].astype('int')
 
     if indices =='all':
 
@@ -4826,8 +4829,8 @@ def get_group_index_from_component(item, indices='all', skip_digestion=False):
 def get_group_id_from_component(item, indices='all', skip_digestion=False):
 
     component_index_from_atom = item.file['topology']['atoms']['component_index'][:].astype('int')
-    group_index_from_atom = item.file['topology']['atoms']['group_index'].astype('int')
-    group_id_from_group = item.file['topology']['groups']['group_id'].astype('int')
+    group_index_from_atom = item.file['topology']['atoms']['group_index'][:].astype('int')
+    group_id_from_group = item.file['topology']['groups']['group_id'][:].astype('int')
 
     if indices =='all':
 
@@ -4858,8 +4861,8 @@ def get_group_id_from_component(item, indices='all', skip_digestion=False):
 def get_group_name_from_component(item, indices='all', skip_digestion=False):
 
     component_index_from_atom = item.file['topology']['atoms']['component_index'][:].astype('int')
-    group_index_from_atom = item.file['topology']['atoms']['group_index'].astype('int')
-    group_name_from_group = item.file['topology']['groups']['group_name'].astype('str')
+    group_index_from_atom = item.file['topology']['atoms']['group_index'][:].astype('int')
+    group_name_from_group = item.file['topology']['groups']['group_name'][:].astype('str')
 
     if indices =='all':
 
@@ -4890,8 +4893,8 @@ def get_group_name_from_component(item, indices='all', skip_digestion=False):
 def get_group_type_from_component(item, indices='all', skip_digestion=False):
 
     component_index_from_atom = item.file['topology']['atoms']['component_index'][:].astype('int')
-    group_index_from_atom = item.file['topology']['atoms']['group_index'].astype('int')
-    group_type_from_group = item.file['topology']['groups']['group_type'].astype('str')
+    group_index_from_atom = item.file['topology']['atoms']['group_index'][:].astype('int')
+    group_type_from_group = item.file['topology']['groups']['group_type'][:].astype('str')
 
     if indices =='all':
 
@@ -4922,8 +4925,8 @@ def get_group_type_from_component(item, indices='all', skip_digestion=False):
 def get_molecule_index_from_component(item, indices='all', skip_digestion=False):
 
     component_index_from_atom = item.file['topology']['atoms']['component_index'][:].astype('int')
-    group_index_from_atom = item.file['topology']['atoms']['group_index'].astype('int')
-    molecule_index_from_group = item.file['topology']['groups']['molecule_index'].astype('int')
+    group_index_from_atom = item.file['topology']['atoms']['group_index'][:].astype('int')
+    molecule_index_from_group = item.file['topology']['groups']['molecule_index'][:].astype('int')
     molecule_index_from_atom = molecule_index_from_group[group_index_from_atom]
 
     if indices =='all':
@@ -4955,10 +4958,10 @@ def get_molecule_index_from_component(item, indices='all', skip_digestion=False)
 def get_molecule_id_from_component(item, indices='all', skip_digestion=False):
 
     component_index_from_atom = item.file['topology']['atoms']['component_index'][:].astype('int')
-    group_index_from_atom = item.file['topology']['atoms']['group_index'].astype('int')
-    molecule_index_from_group = item.file['topology']['groups']['molecule_index'].astype('int')
+    group_index_from_atom = item.file['topology']['atoms']['group_index'][:].astype('int')
+    molecule_index_from_group = item.file['topology']['groups']['molecule_index'][:].astype('int')
     molecule_index_from_atom = molecule_index_from_group[group_index_from_atom]
-    molecule_id_from_molecule = item.file['topology']['molecules']['molecule_id'].astype('int')
+    molecule_id_from_molecule = item.file['topology']['molecules']['molecule_id'][:].astype('int')
 
     if indices =='all':
 
@@ -4989,10 +4992,10 @@ def get_molecule_id_from_component(item, indices='all', skip_digestion=False):
 def get_molecule_name_from_component(item, indices='all', skip_digestion=False):
 
     component_index_from_atom = item.file['topology']['atoms']['component_index'][:].astype('int')
-    group_index_from_atom = item.file['topology']['atoms']['group_index'].astype('int')
-    molecule_index_from_group = item.file['topology']['groups']['molecule_index'].astype('int')
+    group_index_from_atom = item.file['topology']['atoms']['group_index'][:].astype('int')
+    molecule_index_from_group = item.file['topology']['groups']['molecule_index'][:].astype('int')
     molecule_index_from_atom = molecule_index_from_group[group_index_from_atom]
-    molecule_name_from_molecule = item.file['topology']['molecules']['molecule_name'].astype('int')
+    molecule_name_from_molecule = item.file['topology']['molecules']['molecule_name'][:].astype('str')
 
     if indices =='all':
 
@@ -5023,10 +5026,10 @@ def get_molecule_name_from_component(item, indices='all', skip_digestion=False):
 def get_molecule_type_from_component(item, indices='all', skip_digestion=False):
 
     component_index_from_atom = item.file['topology']['atoms']['component_index'][:].astype('int')
-    group_index_from_atom = item.file['topology']['atoms']['group_index'].astype('int')
-    molecule_index_from_group = item.file['topology']['groups']['molecule_index'].astype('int')
+    group_index_from_atom = item.file['topology']['atoms']['group_index'][:].astype('int')
+    molecule_index_from_group = item.file['topology']['groups']['molecule_index'][:].astype('int')
     molecule_index_from_atom = molecule_index_from_group[group_index_from_atom]
-    molecule_type_from_molecule = item.file['topology']['molecules']['molecule_type'].astype('int')
+    molecule_type_from_molecule = item.file['topology']['molecules']['molecule_type'][:].astype('str')
 
     if indices =='all':
 
@@ -5057,9 +5060,9 @@ def get_molecule_type_from_component(item, indices='all', skip_digestion=False):
 def get_entity_index_from_component(item, indices='all', skip_digestion=False):
 
     component_index_from_atom = item.file['topology']['atoms']['component_index'][:].astype('int')
-    group_index_from_atom = item.file['topology']['atoms']['group_index'].astype('int')
-    molecule_index_from_group = item.file['topology']['groups']['molecule_index'].astype('int')
-    entity_index_from_entity = item.file['topology']['molecules']['entity_index'].astype('int')
+    group_index_from_atom = item.file['topology']['atoms']['group_index'][:].astype('int')
+    molecule_index_from_group = item.file['topology']['groups']['molecule_index'][:].astype('int')
+    entity_index_from_molecule = item.file['topology']['molecules']['entity_index'][:].astype('int')
     molecule_index_from_atom = molecule_index_from_group[group_index_from_atom]
     entity_index_from_atom = entity_index_from_molecule[molecule_index_from_atom]
 
@@ -5093,12 +5096,12 @@ def get_entity_index_from_component(item, indices='all', skip_digestion=False):
 def get_entity_id_from_component(item, indices='all', skip_digestion=False):
 
     component_index_from_atom = item.file['topology']['atoms']['component_index'][:].astype('int')
-    group_index_from_atom = item.file['topology']['atoms']['group_index'].astype('int')
-    molecule_index_from_group = item.file['topology']['groups']['molecule_index'].astype('int')
-    entity_index_from_entity = item.file['topology']['molecules']['entity_index'].astype('int')
+    group_index_from_atom = item.file['topology']['atoms']['group_index'][:].astype('int')
+    molecule_index_from_group = item.file['topology']['groups']['molecule_index'][:].astype('int')
+    entity_index_from_molecule = item.file['topology']['molecules']['entity_index'][:].astype('int')
     molecule_index_from_atom = molecule_index_from_group[group_index_from_atom]
     entity_index_from_atom = entity_index_from_molecule[molecule_index_from_atom]
-    entity_id_from_entity = item.file['topology']['entities']['entity_id'].astype('int')
+    entity_id_from_entity = item.file['topology']['entities']['entity_id'][:].astype('int')
 
     del group_index_from_atom, molecule_index_from_group, entity_index_from_molecule
 
@@ -5130,12 +5133,12 @@ def get_entity_id_from_component(item, indices='all', skip_digestion=False):
 def get_entity_name_from_component(item, indices='all', skip_digestion=False):
 
     component_index_from_atom = item.file['topology']['atoms']['component_index'][:].astype('int')
-    group_index_from_atom = item.file['topology']['atoms']['group_index'].astype('int')
-    molecule_index_from_group = item.file['topology']['groups']['molecule_index'].astype('int')
-    entity_index_from_entity = item.file['topology']['molecules']['entity_index'].astype('int')
+    group_index_from_atom = item.file['topology']['atoms']['group_index'][:].astype('int')
+    molecule_index_from_group = item.file['topology']['groups']['molecule_index'][:].astype('int')
+    entity_index_from_molecule = item.file['topology']['molecules']['entity_index'][:].astype('int')
     molecule_index_from_atom = molecule_index_from_group[group_index_from_atom]
     entity_index_from_atom = entity_index_from_molecule[molecule_index_from_atom]
-    entity_name_from_entity = item.file['topology']['entities']['entity_name'].astype('str')
+    entity_name_from_entity = item.file['topology']['entities']['entity_name'][:].astype('str')
 
     del group_index_from_atom, molecule_index_from_group, entity_index_from_molecule
 
@@ -5167,12 +5170,12 @@ def get_entity_name_from_component(item, indices='all', skip_digestion=False):
 def get_entity_type_from_component(item, indices='all', skip_digestion=False):
 
     component_index_from_atom = item.file['topology']['atoms']['component_index'][:].astype('int')
-    group_index_from_atom = item.file['topology']['atoms']['group_index'].astype('int')
-    molecule_index_from_group = item.file['topology']['groups']['molecule_index'].astype('int')
-    entity_index_from_entity = item.file['topology']['molecules']['entity_index'].astype('int')
+    group_index_from_atom = item.file['topology']['atoms']['group_index'][:].astype('int')
+    molecule_index_from_group = item.file['topology']['groups']['molecule_index'][:].astype('int')
+    entity_index_from_molecule = item.file['topology']['molecules']['entity_index'][:].astype('int')
     molecule_index_from_atom = molecule_index_from_group[group_index_from_atom]
     entity_index_from_atom = entity_index_from_molecule[molecule_index_from_atom]
-    entity_type_from_entity = item.file['topology']['entities']['entity_type'].astype('str')
+    entity_type_from_entity = item.file['topology']['entities']['entity_type'][:].astype('str')
 
     del group_index_from_atom, molecule_index_from_group, entity_index_from_molecule
 
@@ -5203,7 +5206,7 @@ def get_entity_type_from_component(item, indices='all', skip_digestion=False):
 @digest(form=form)
 def get_component_index_from_component(item, indices='all', skip_digestion=False):
 
-    if is_all(indices):
+    if indices=='all':
         n_aux = get_n_components_from_system(item, skip_digestion=True)
         output = list(range(n_aux))
     else:
@@ -5215,7 +5218,7 @@ def get_component_index_from_component(item, indices='all', skip_digestion=False
 @digest(form=form)
 def get_component_id_from_component(item, indices='all', skip_digestion=False):
 
-    if is_all(indices):
+    if indices=='all':
         output = item.file['topology']['components']['component_id'][:].astype('int')
     else:
         output = item.file['topology']['components']['component_id'][indices].astype('int')
@@ -5226,7 +5229,7 @@ def get_component_id_from_component(item, indices='all', skip_digestion=False):
 @digest(form=form)
 def get_component_name_from_component(item, indices='all', skip_digestion=False):
 
-    if is_all(indices):
+    if indices=='all':
         output = item.file['topology']['components']['component_name'][:].astype('str')
     else:
         output = item.file['topology']['components']['component_name'][indices].astype('str')
@@ -5237,7 +5240,7 @@ def get_component_name_from_component(item, indices='all', skip_digestion=False)
 @digest(form=form)
 def get_component_type_from_component(item, indices='all', skip_digestion=False):
 
-    if is_all(indices):
+    if indices=='all':
         output = item.file['topology']['components']['component_type'][:].astype('str')
     else:
         output = item.file['topology']['components']['component_type'][indices].astype('str')
@@ -5280,7 +5283,7 @@ def get_chain_id_from_component(item, indices='all', skip_digestion=False):
 
     component_index_from_atom = item.file['topology']['atoms']['component_index'][:].astype('int')
     chain_index_from_atom = item.file['topology']['atoms']['chain_index'][:].astype('int')
-    chain_id_from_chain = item.file['topology']['chains']['chain_id'][:].astype('int')
+    chain_id_from_chain =  _read_int_or_str_from_h5(item.file['topology']['chains']['chain_id'][:])
 
     if indices =='all':
 
@@ -5604,7 +5607,7 @@ def get_total_n_entities_from_component(item, indices='all', skip_digestion=Fals
 @digest(form=form)
 def get_n_components_from_component(item, indices='all', skip_digestion=False):
 
-    if is_all(indices):
+    if indices=='all':
         output = get_n_components_from_system(item, skip_digestion=True)
     else:
         output = len(indices)
@@ -6413,7 +6416,7 @@ def get_entity_name_from_chain(item, indices='all', skip_digestion=False):
     entity_index_from_molecule = item.file['topology']['molecules']['entity_index'][:].astype('int')
     molecule_index_from_atom = molecule_index_from_group[group_index_from_atom]
     entity_index_from_atom = entity_index_from_molecule[molecule_index_from_atom]
-    entity_name_from_entity = item.file['topology']['entities']['entity_name'][:].astype('int')
+    entity_name_from_entity = item.file['topology']['entities']['entity_name'][:].astype('str')
 
     del group_index_from_atom, molecule_index_from_group, entity_index_from_molecule
 
@@ -6450,7 +6453,7 @@ def get_entity_type_from_chain(item, indices='all', skip_digestion=False):
     entity_index_from_molecule = item.file['topology']['molecules']['entity_index'][:].astype('int')
     molecule_index_from_atom = molecule_index_from_group[group_index_from_atom]
     entity_index_from_atom = entity_index_from_molecule[molecule_index_from_atom]
-    entity_type_from_entity = item.file['topology']['entities']['entity_type'][:].astype('int')
+    entity_type_from_entity = item.file['topology']['entities']['entity_type'][:].astype('str')
 
     del group_index_from_atom, molecule_index_from_group, entity_index_from_molecule
 
@@ -6604,7 +6607,7 @@ def get_component_type_from_chain(item, indices='all', skip_digestion=False):
 @digest(form=form)
 def get_chain_index_from_chain(item, indices='all', skip_digestion=False):
 
-    if is_all(indices):
+    if indices=='all':
         n_aux = get_n_chains_from_system(item, skip_digestion=True)
         output = list(range(n_aux))
     else:
@@ -6616,10 +6619,10 @@ def get_chain_index_from_chain(item, indices='all', skip_digestion=False):
 @digest(form=form)
 def get_chain_id_from_chain(item, indices='all', skip_digestion=False):
 
-    if is_all(indices):
-        output = item.file['topology']['chains']['chain_id'][:].astype('int')
+    if indices=='all':
+        output =  _read_int_or_str_from_h5(item.file['topology']['chains']['chain_id'][:])
     else:
-        output = item.file['topology']['chains']['chain_id'][indices].astype('int')
+        output =  _read_int_or_str_from_h5(item.file['topology']['chains']['chain_id'][indices])
 
     return output.tolist()
 
@@ -6627,7 +6630,7 @@ def get_chain_id_from_chain(item, indices='all', skip_digestion=False):
 @digest(form=form)
 def get_chain_name_from_chain(item, indices='all', skip_digestion=False):
 
-    if is_all(indices):
+    if indices=='all':
         output = item.file['topology']['chains']['chain_name'][:].astype('str')
     else:
         output = item.file['topology']['chains']['chain_name'][indices].astype('str')
@@ -6638,7 +6641,7 @@ def get_chain_name_from_chain(item, indices='all', skip_digestion=False):
 @digest(form=form)
 def get_chain_type_from_chain(item, indices='all', skip_digestion=False):
 
-    if is_all(indices):
+    if indices=='all':
         output = item.file['topology']['chains']['chain_type'][:].astype('str')
     else:
         output = item.file['topology']['chains']['chain_type'][indices].astype('str')
@@ -6932,7 +6935,7 @@ def get_total_n_components_from_chain(item, indices='all', skip_digestion=False)
 def get_n_chains_from_chain(item, indices='all', skip_digestion=False):
 
     if indices=='all':
-        output = item.chains.shape[0]
+        output = get_n_chains_from_system(item, skip_digetion=True)
     else:
         output = len(indices)
 
@@ -7283,11 +7286,11 @@ def get_total_n_rnas_from_chain(item, indices='all', skip_digestion=False):
 @digest(form=form)
 def get_bond_index_from_bond(item, indices='all', skip_digestion=False):
 
-    if is_all(indices):
+    if indices=='all':
         n_aux = get_n_bonds_from_system(item)
         output = np.arange(n_aux, dtype=int).tolist()
     else:
-        output = indices.tolist()
+        output = indices
 
     return output
 
@@ -7296,42 +7299,34 @@ def get_bond_index_from_bond(item, indices='all', skip_digestion=False):
 def get_bond_order_from_bond(item, indices='all', skip_digestion=False):
 
     if 'order' in item.file['topology']['bonds']:
+        if  item.file['topology']['bonds']['order'].size > 0:
+            if indices=='all':
+                return item.file['topology']['bonds']['order'][:].astype('str').tolist()
+            else:
+                return item.file['topology']['bonds']['order'][indices].astype('str').tolist()
 
-        if indices=='all':
-            output = item.file['topology']['bonds']['order'][:].astype('str').to_list()
-        else:
-            output = item.file['topology']['bonds']['order'][indices].astype('str').to_list()
-
+    if indices=='all':
+        n_aux = get_n_bonds_from_system(item, skip_digestion=True)
+        return [None] * n_aux
     else:
-
-        if indices=='all':
-            n_aux = get_n_bonds_from_system(item, skip_digestion=True)
-            output = [None] * n_aux
-        else:
-            output = [None] * len(indices)
-
-    return output
+        return [None] * len(indices)
 
 
 @digest(form=form)
 def get_bond_type_from_bond(item, indices='all', skip_digestion=False):
 
     if 'type' in item.file['topology']['bonds']:
+        if  item.file['topology']['bonds']['type'].size > 0:
+            if indices=='all':
+                return item.file['topology']['bonds']['type'][:].astype('str').tolist()
+            else:
+                return item.file['topology']['bonds']['type'][indices].astype('str').tolist()
 
-        if indices=='all':
-            output = item.file['topology']['bonds']['type'][:].astype('str').to_list()
-        else:
-            output = item.file['topology']['bonds']['type'][indices].astype('str').to_list()
-
+    if indices=='all':
+        n_aux = get_n_bonds_from_system(item, skip_digestion=True)
+        return [None] * n_aux
     else:
-
-        if indices=='all':
-            n_aux = get_n_bonds_from_system(item, skip_digestion=True)
-            output = [None] * n_aux
-        else:
-            output = [None] * len(indices)
-
-    return output
+        return [None] * len(indices)
 
 
 @digest(form=form)
@@ -7339,7 +7334,7 @@ def get_bonded_atoms_from_bond(item, indices='all', skip_digestion=False):
 
     tmp_out = None
 
-    if is_all(indices):
+    if indices=='all':
 
         atom1_index = item.file['topology']['bonds']['atom1_index'][:].astype('int')
         atom2_index = item.file['topology']['bonds']['atom2_index'][:].astype('int')
@@ -7349,8 +7344,7 @@ def get_bonded_atoms_from_bond(item, indices='all', skip_digestion=False):
         atom1_index = item.file['topology']['bonds']['atom1_index'][indices].astype('int')
         atom2_index = item.file['topology']['bonds']['atom2_index'][indices].astype('int')
 
-    tmp_out = np.array([atom1_index, atom2_index])
-    tmp_out = tmp_out.transpose().tolist()
+    tmp_out = np.unique([atom1_index, atom2_index]).tolist()
 
     return tmp_out
 
@@ -7360,7 +7354,7 @@ def get_bonded_atom_pairs_from_bond(item, indices='all', skip_digestion=False):
 
     tmp_out = None
 
-    if is_all(indices):
+    if indices=='all':
 
         atom1_index = item.file['topology']['bonds']['atom1_index'][:].astype('int')
         atom2_index = item.file['topology']['bonds']['atom2_index'][:].astype('int')
@@ -7370,9 +7364,7 @@ def get_bonded_atom_pairs_from_bond(item, indices='all', skip_digestion=False):
         atom1_index = item.file['topology']['bonds']['atom1_index'][indices].astype('int')
         atom2_index = item.file['topology']['bonds']['atom2_index'][indices].astype('int')
 
-    tmp_out = np.array([atom1_index, atom2_index])
-    tmp_out = tmp_out.transpose().to_list()
-    tmp_out = np.unique(tmp_out).to_list()
+    tmp_out = np.column_stack([atom1_index, atom2_index]).tolist()
 
     return tmp_out
 
@@ -7380,7 +7372,7 @@ def get_bonded_atom_pairs_from_bond(item, indices='all', skip_digestion=False):
 @digest(form=form)
 def get_n_bonds_from_bond(item, indices='all', skip_digestion=False):
 
-    if is_all(indices):
+    if indices=='all':
         output = get_n_bonds_from_system(item, skip_digestion=True)
     else:
         output = len(indices)
@@ -7540,6 +7532,16 @@ def get_n_proteins_from_system(item, skip_digestion=False):
 
 
 @digest(form=form)
+def get_n_polysaccharides_from_system(item, skip_digestion=False):
+
+    molecule_types = item.file['topology']['molecules']['molecule_type'][:].astype('str').tolist()
+    output = molecule_types.count('polysaccharide')
+    del molecule_types
+
+    return output
+
+
+@digest(form=form)
 def get_n_dnas_from_system(item, skip_digestion=False):
 
     molecule_types = item.file['topology']['molecules']['molecule_type'][:].astype('str').tolist()
@@ -7588,6 +7590,38 @@ def get_bonded_atom_pairs_from_system(item, skip_digestion=False):
 
     return get_bonded_atom_pairs_from_bond(item, skip_digestion=True)
    
+
+# Aux function to read chain_ids
+
+def _read_int_or_str_from_h5(data):
+
+    if np.issubdtype(data.dtype, np.bytes_):
+        return np.array([x.decode('utf-8') for x in data], dtype=str)
+
+    # Caso: strings guardados como str (tipo string dtype de h5py/pandas/numpy)
+    elif np.issubdtype(data.dtype, np.str_):
+        return data.astype(str)
+
+    # Caso: enteros
+    elif np.issubdtype(data.dtype, np.integer):
+        return data.astype(int)
+
+    elif data.dtype == object:
+        # Si todos son bytes
+        if all(isinstance(x, (bytes, np.bytes_)) for x in data):
+            return np.array([x.decode('utf-8') for x in data], dtype=str)
+        # Si todos son str
+        elif all(isinstance(x, str) for x in data):
+            return np.array(data, dtype=str)
+        # Si todos son int
+        elif all(isinstance(x, (int, np.integer)) for x in data):
+            return np.array(data, dtype=int)
+        else:
+            raise TypeError(f"Contenido heterogéneo en {key}: mezcla de tipos en object")
+
+    else:
+        raise TypeError(f"Tipo inesperado en 'chain_id': {data.dtype}")
+
 
 # List of functions to be imported
 

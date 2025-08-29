@@ -10,10 +10,11 @@ data_dir = Path('../.')
 print('Removing old files...')
 
 files_to_be_purged = [
-    'pdb/barnase_barstar.pdb',
-    'h5msm/barnase_barstar.msmpk',
     'bcif/1brs.bcif',
-    'bcif_gz/1brs.bcif.gz']
+    'bcif_gz/1brs.bcif.gz',
+    'h5msm/1brs.h5msm',
+    'pdb/barnase_barstar.pdb',
+    'h5msm/barnase_barstar.h5msm']
 
 for filename in files_to_be_purged:
     filepath = Path(data_dir, filename)
@@ -42,7 +43,7 @@ _ = msm.convert(barnase_barstar, to_form='barnase_barstar.pdb')
 _ = msm.convert(barnase_barstar, to_form='barnase_barstar.h5msm')
 shutil.move('1brs.bcif', Path(data_dir, 'bcif/1brs.bcif'))
 shutil.move('1brs.bcif.gz', Path(data_dir, 'bcif_gz/1brs.bcif.gz'))
-shutil.move('1brs.h5msm', Path(data_dir, 'bcif_gz/1brs.h5msm'))
+shutil.move('1brs.h5msm', Path(data_dir, 'h5msm/1brs.h5msm'))
 shutil.move('barnase_barstar.pdb', Path(data_dir, 'pdb/barnase_barstar.pdb'))
 shutil.move('barnase_barstar.h5msm', Path(data_dir, 'h5msm/barnase_barstar.h5msm'))
 

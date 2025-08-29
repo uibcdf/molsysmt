@@ -132,6 +132,7 @@ systems['Barnase-Barstar'] = {}
 systems['Barnase-Barstar']['barnase_barstar.h5msm'] = path('molsysmt.data.h5msm', 'barnase_barstar.h5msm')
 systems['Barnase-Barstar']['1brs.bcif'] = path('molsysmt.data.bcif', '1brs.bcif')
 systems['Barnase-Barstar']['1brs.bcif.gz'] = path('molsysmt.data.bcif_gz', '1brs.bcif.gz')
+systems['Barnase-Barstar']['1brs.h5msm'] = path('molsysmt.data.h5msm', '1brs.h5msm')
 
 
 # POPC membrane
@@ -156,5 +157,6 @@ systems['caffeine']['caffeine.mol2'] = path('molsysmt.data.mol2', 'caffeine.mol2
 
 systems['Hexokinase 2'] = {}
 systems['Hexokinase 2']['2nzt.bcif.gz'] = path('molsysmt.data.bcif_gz', '2nzt.bcif.gz')
+systems['Hexokinase 2']['2nzt.h5msm'] = path('molsysmt.data.h5msm', '2nzt.h5msm')
 
 
