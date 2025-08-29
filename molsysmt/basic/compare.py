@@ -171,7 +171,16 @@ def compare(molecular_system, molecular_system_2, selection='all', structure_ind
     atts_of_A = get_attributes(molecular_system, output_type='list')
     atts_of_B = get_attributes(molecular_system_2, output_type='list')
 
+    print(atts_of_A)
+    print('***')
+    print(atts_of_B)
+    print('***')
+    print(atts_to_be_compared)
+    print('***')
+
     atts_required = set(atts_to_be_compared) & set(atts_of_A) & set(atts_of_B)
+
+    print(atts_required)
 
     piped_system_A, piped_atts_A = _piped_molecular_system(molecular_system, 'atom', atts_required)
     piped_system_B, piped_atts_B = _piped_molecular_system(molecular_system_2, 'atom', atts_required)
@@ -455,7 +464,7 @@ def compare(molecular_system, molecular_system_2, selection='all', structure_ind
                     else:
                         output_dict['coordinates'] = False
 
-        if 'velocities' in atts:
+        if 'velocities' in atts_required:
             if dict_A['velocities'] is None:
                 if dict_B['velocities'] is None:
                     output_dict['velocities']=True
@@ -471,19 +480,31 @@ def compare(molecular_system, molecular_system_2, selection='all', structure_ind
                         output_dict['velocities'] = False
 
         if 'box' in atts_required:
-
-            output_dict['box']= np.allclose(dict_A['box'], dict_B['box'], rtol=1e-04, atol=1e-06)
+ 
+            if dict_A['box'] is None:
+                if dict_B['box'] is None:
+                    output_dict['box']=True
+                else:
+                    output_dict['box']=False
+            else:
+                if dict_B['box'] is None:
+                    output_dict['box']=False
+                else:
+                    if dict_A['box'].shape == dict_B['box'].shape:
+                        output_dict['box'] = np.allclose(dict_A['box'], dict_B['box'], rtol=1e-04, atol=1e-06)
+                    else:
+                        output_dict['box'] = False
 
         if 'box_shape' in atts_required:
             output_dict['box_shape']= (dict_A['box_shape']==dict_B['box_shape'])
 
-        if 'box_volume' in atts:
+        if 'box_volume' in atts_required:
             output_dict['box_volume']=(dict_A['box_volume']==dict_B['box_volume'])
 
-        if 'box_lengths' in atts:
+        if 'box_lengths' in atts_required:
             output_dict['box_lengths']=np.allclose(dict_A['box_lengths'], dict_B['box_lengths'])
 
-        if 'box_angles' in atts:
+        if 'box_angles' in atts_required:
             output_dict['box_angles']=np.allclose(dict_A['box_angles'], dict_B['box_angles'])
 
 
