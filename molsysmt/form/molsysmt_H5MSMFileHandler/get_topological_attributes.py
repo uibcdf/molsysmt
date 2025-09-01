@@ -6935,7 +6935,7 @@ def get_total_n_components_from_chain(item, indices='all', skip_digestion=False)
 def get_n_chains_from_chain(item, indices='all', skip_digestion=False):
 
     if indices=='all':
-        output = get_n_chains_from_system(item, skip_digetion=True)
+        output = get_n_chains_from_system(item, skip_digestion=True)
     else:
         output = len(indices)
 
