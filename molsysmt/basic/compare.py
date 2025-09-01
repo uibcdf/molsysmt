@@ -8,7 +8,7 @@ from time import time
 @digest()
 def compare(molecular_system, molecular_system_2, selection='all', structure_indices='all',
         selection_2='all', structure_indices_2='all',  syntax='MolSysMT', rule='equal',
-        output_type='boolean', attribute_type=None, **kwargs):
+        output_type='boolean', attribute_type=None, include_none=False, **kwargs):
     """
     Compare two molecular systems or parts of them.
 
@@ -168,19 +168,10 @@ def compare(molecular_system, molecular_system_2, selection='all', structure_ind
                 if key in atts_to_be_compared:
                     atts_to_be_compared.remove(key)
 
-    atts_of_A = get_attributes(molecular_system, output_type='list')
-    atts_of_B = get_attributes(molecular_system_2, output_type='list')
-
-    print(atts_of_A)
-    print('***')
-    print(atts_of_B)
-    print('***')
-    print(atts_to_be_compared)
-    print('***')
+    atts_of_A = get_attributes(molecular_system, output_type='list', include_none=True, skip_digestion=True)
+    atts_of_B = get_attributes(molecular_system_2, output_type='list', include_none=True, skip_digestion=True)
 
     atts_required = set(atts_to_be_compared) & set(atts_of_A) & set(atts_of_B)
-
-    print(atts_required)
 
     piped_system_A, piped_atts_A = _piped_molecular_system(molecular_system, 'atom', atts_required)
     piped_system_B, piped_atts_B = _piped_molecular_system(molecular_system_2, 'atom', atts_required)
