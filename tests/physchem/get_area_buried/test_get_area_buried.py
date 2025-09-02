@@ -14,7 +14,7 @@ def test_get_area_buried_1():
 
     molsys = msm.convert(msm.systems['T4 lysozyme L99A']['181l.h5msm'], selection='molecule_type=="protein"')
 
-    n_groups = msm.get(molsys, target='system', n_groups=True)
+    n_groups = msm.get(molsys, element='system', n_groups=True)
     rose = msm.physchem.get_area_buried(molsys, definition='rose')
 
     assert len(rose)==n_groups

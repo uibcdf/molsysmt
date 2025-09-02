@@ -20,9 +20,10 @@ from .get import *
 from .set import *
 from .iterators import StructuresIterator
 
+from .to_file_trjpk import to_file_trjpk
 from .to_molsysmt_StructuresDict import to_molsysmt_StructuresDict
 
 _convert_to={
-        'file:trjpk': extract,
+        'file:trjpk': to_file_trjpk,
         'molsysmt.StructuresDict': to_molsysmt_StructuresDict,
         }

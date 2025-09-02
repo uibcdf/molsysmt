@@ -1,6 +1,6 @@
-# If digest is used in this method, other methods become slower
+from molsysmt._private.digestion import digest
 
-def get_attributes(form, output_type='dictionary'):
+def get_attributes(form, output_type='dictionary', skip_digestion=False):
     """
     Getting the list of attributes of a molecular system's form.
 

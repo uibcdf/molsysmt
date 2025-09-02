@@ -23,6 +23,7 @@ from .get import *
 from .set import *
 from .iterators import StructuresIterator, TopologyIterator
 
+from .to_file_prmtop import to_file_prmtop
 from .to_file_pdb import to_file_pdb
 from .to_mdtraj_Topology import to_mdtraj_Topology
 from .to_molsysmt_MolSys import to_molsysmt_MolSys
@@ -33,7 +34,7 @@ from .to_openmm_Modeller import to_openmm_Modeller
 from .to_openmm_Topology import to_openmm_Topology
 
 _convert_to={
-        'file:prmtop': extract,
+        'file:prmtop': to_file_prmtop,
         'file:pdb': to_file_pdb,
         'mdtraj.Topology': to_mdtraj_Topology,
         'molsysmt.MolSys': to_molsysmt_MolSys,

@@ -20,9 +20,10 @@ from .get import *
 from .set import *
 #from .iterators import
 
+from .to_molsysmt_MolecularMechanicsDict import to_molsysmt_MolecularMechanicsDict
 from .to_molsysmt_MolecularMechanics import to_molsysmt_MolecularMechanics
 
 _convert_to={
-        'molsysmt.MolecularMechanicsDict': extract,
+        'molsysmt.MolecularMechanicsDict': to_molsysmt_MolecularMechanicsDict,
         'molsysmt.MolecularMechanics': to_molsysmt_MolecularMechanics,
         }

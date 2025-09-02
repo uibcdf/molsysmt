@@ -20,6 +20,9 @@ from .get import *
 from .set import *
 from .iterators import TopologyIterator
 
+from .to_networkx_Graph import to_networkx_Graph
+
 _convert_to={
-        'networkx.Graph': extract,
+        'networkx.Graph': to_networkx_Graph,
         }
+

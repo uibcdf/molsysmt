@@ -20,6 +20,7 @@ from .get import *
 from .set import *
 from .iterators import StructuresIterator, TopologyIterator
 
+from .to_mdtraj_Trajectory import to_mdtraj_Trajectory
 from .to_file_pdb import to_file_pdb
 from .to_file_xtc import to_file_xtc
 from .to_biopython_Seq import to_biopython_Seq
@@ -39,7 +40,7 @@ from .to_string_amino_acids_1 import to_string_amino_acids_1
 from .to_string_amino_acids_3 import to_string_amino_acids_3
 
 _convert_to={
-        'mdtraj.Trajectory': extract,
+        'mdtraj.Trajectory': to_mdtraj_Trajectory,
         'file:pdb': to_file_pdb,
         'file:xtc': to_file_xtc,
         'biopython.Seq': to_biopython_Seq,

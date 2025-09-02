@@ -1,6 +1,7 @@
-# If digest is used in this method, other methods become slower
+from molsysmt._private.digestion import digest
 
-def has_attribute(form, attribute):
+@digest()
+def has_attribute(form, attribute, skip_digestion=False):
     """
     Checking if a molecular systems'form has a certain attribute.
 

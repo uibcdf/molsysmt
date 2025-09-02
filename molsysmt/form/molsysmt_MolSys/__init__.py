@@ -27,6 +27,7 @@ from .iterators import StructuresIterator, TopologyIterator
 from .add_bonds import add_bonds
 from .remove_bonds import remove_bonds
 
+from .to_molsysmt_MolSys import to_molsysmt_MolSys
 from .to_mdtraj_Topology import to_mdtraj_Topology
 from .to_mdtraj_Trajectory import to_mdtraj_Trajectory
 from .to_molsysmt_Topology import to_molsysmt_Topology
@@ -56,7 +57,7 @@ from .to_string_amino_acids_1 import to_string_amino_acids_1
 from .to_string_amino_acids_3 import to_string_amino_acids_3
 
 _convert_to={
-        'molsysmt.MolSys': extract,
+        'molsysmt.MolSys': to_molsysmt_MolSys,
         'mdtraj.Topology': to_mdtraj_Topology,
         'mdtraj.Trajectory': to_mdtraj_Trajectory,
         'molsysmt.Topology': to_molsysmt_Topology,

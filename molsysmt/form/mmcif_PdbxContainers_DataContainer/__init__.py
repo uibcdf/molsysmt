@@ -24,6 +24,7 @@ from .get_structural_attributes import *
 from .set import *
 from .iterators import StructuresIterator, TopologyIterator
 
+from .to_mmcif_PdbxContainers_DataContainer import to_mmcif_PdbxContainers_DataContainer
 from .to_file_pdb import to_file_pdb
 from .to_mdtraj_Trajectory import to_mdtraj_Trajectory
 from .to_molsysmt_MolSys import to_molsysmt_MolSys
@@ -37,7 +38,7 @@ from .to_string_pdb_text import to_string_pdb_text
 from .to_string_pdb_id import to_string_pdb_id
 
 _convert_to={
-    'mmcif.PdbxContainers.DataContainer': extract,
+    'mmcif.PdbxContainers.DataContainer': to_mmcif_PdbxContainers_DataContainer,
     'file:pdb': to_file_pdb,
     'mdtraj.Trajectory': to_mdtraj_Trajectory,
     'molsysmt.MolSys': to_molsysmt_MolSys,

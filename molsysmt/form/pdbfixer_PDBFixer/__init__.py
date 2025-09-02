@@ -23,6 +23,7 @@ from .get_structural_attributes import *
 from .set import *
 from .iterators import StructuresIterator, TopologyIterator
 
+from .to_pdbfixer_PDBFixer import to_pdbfixer_PDBFixer
 from .to_file_pdb import to_file_pdb
 from .to_string_amino_acids_1 import to_string_amino_acids_1
 from .to_string_amino_acids_3 import to_string_amino_acids_3
@@ -38,7 +39,7 @@ from .to_biopython_SeqRecord import to_biopython_SeqRecord
 from .to_nglview_NGLWidget import to_nglview_NGLWidget
 
 _convert_to={
-        'pdbfixer.PDBFixer': extract,
+        'pdbfixer.PDBFixer': to_pdbfixer_PDBFixer,
         'file:pdb': to_file_pdb,
         'string:amino_acids_1': to_string_amino_acids_1,
         'string:amino_acids_3': to_string_amino_acids_3,

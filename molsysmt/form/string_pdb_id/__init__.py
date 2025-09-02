@@ -23,6 +23,7 @@ from .get_structural_attributes import *
 from .set import *
 from .iterators import StructuresIterator, TopologyIterator
 
+from .to_string_pdb_id import to_string_pdb_id
 from .to_file_bcif import to_file_bcif
 from .to_file_bcif_gz import to_file_bcif_gz
 from .to_file_pdb import to_file_pdb
@@ -45,7 +46,7 @@ from .to_string_pdb_text import to_string_pdb_text
 from .to_nglview_NGLWidget import to_nglview_NGLWidget
 
 _convert_to={
-    'string:pdb_id': extract,
+    'string:pdb_id': to_string_pdb_id,
     'file:pdb': to_file_pdb,
     'file:mmtf': to_file_mmtf,
     'file:msmpk': to_file_msmpk,

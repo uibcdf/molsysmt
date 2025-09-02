@@ -19,9 +19,10 @@ from .get import *
 from .set import *
 from .iterators import TopologyIterator
 
+from .to_biopython_Seq import to_biopython_Seq
 from .to_biopython_SeqRecord import to_biopython_SeqRecord
 
 _convert_to={
-        'biopython.Seq': extract,
+        'biopython.Seq': to_biopython_Seq,
         'biopython.SeqRecord': to_biopython_SeqRecord,
         }

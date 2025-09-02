@@ -25,6 +25,7 @@ from .iterators import TopologyIterator
 
 from .write_topology_in_h5msm import write_topology_in_h5msm
 
+from .to_openmm_Topology import to_openmm_Topology
 from .to_string_pdb_text import to_string_pdb_text
 from .to_file_pdb import to_file_pdb
 from .to_file_psf import to_file_psf
@@ -44,7 +45,7 @@ from .to_string_amino_acids_3 import to_string_amino_acids_3
 from .to_parmed_Structure import to_parmed_Structure
 
 _convert_to={
-        'openmm.Topology': extract,
+        'openmm.Topology': to_openmm_Topology,
         'string:pdb_text': to_string_pdb_text,
         'file:pdb': to_file_pdb,
         'file:psf': to_file_psf,

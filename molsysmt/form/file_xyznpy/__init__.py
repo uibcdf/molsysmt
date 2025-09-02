@@ -20,9 +20,10 @@ from .get import *
 from .set import *
 from .iterators import StructuresIterator
 
+from .to_file_xyznpy import to_file_xyznpy
 from .to_XYZ import to_XYZ 
 
 _convert_to={
-        'file:xyznpy': extract,
+        'file:xyznpy': to_file_xyznpy,
         'XYZ': to_XYZ,
         }

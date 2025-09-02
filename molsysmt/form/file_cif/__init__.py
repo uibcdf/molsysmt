@@ -20,10 +20,11 @@ from .get import *
 from .set import *
 from .iterators import StructuresIterator, TopologyIterator
 
+from .to_file_cif import to_file_cif
 from .to_molsysmt_CIFFileHandler import to_molsysmt_CIFFileHandler
 
 _convert_to={
-        'file:cif': extract,
+        'file:cif': to_file_cif,
         'molsysmt.CIFFileHandler': to_molsysmt_CIFFileHandler,
         }
 

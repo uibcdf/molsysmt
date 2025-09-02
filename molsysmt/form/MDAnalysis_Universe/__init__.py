@@ -20,6 +20,7 @@ from .get import *
 from .set import *
 from .iterators import StructuresIterator, TopologyIterator
 
+from .to_MDAnalysis_Universe import to_MDAnalysis_Universe
 from .to_mdtraj_Trajectory import to_mdtraj_Trajectory
 from .to_nglview_NGLWidget import to_nglview_NGLWidget
 from .to_file_pdb import to_file_pdb
@@ -28,7 +29,7 @@ from .to_molsysmt_Topology import to_molsysmt_Topology
 from .to_molsysmt_Structures import to_molsysmt_Structures
 
 _convert_to={
-        'MDAnalysis.Universe': extract,
+        'MDAnalysis.Universe': to_MDAnalysis_Universe,
         'mdtraj.Trajectory': to_mdtraj_Trajectory,
         'nglview.NGLWidget': to_nglview_NGLWidget,
         'file:pdb': to_file_pdb,

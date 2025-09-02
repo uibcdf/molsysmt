@@ -22,7 +22,7 @@ def test_make_water_box_MolSys_1():
     molsys = msm.build.make_water_box(box)
 
     n_waters = msm.get(molsys, n_waters=True)
-    coordinates = msm.get(molsys, target='atom', coordinates=True)
+    coordinates = msm.get(molsys, element='atom', coordinates=True)
     coordinates_value = msm.pyunitwizard.get_value(coordinates, to_unit='nm')
 
     assert n_waters==2536

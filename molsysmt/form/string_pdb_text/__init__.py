@@ -24,6 +24,7 @@ from .get_structural_attributes import *
 from .set import *
 from .iterators import StructuresIterator, TopologyIterator
 
+from .to_string_pdb_text import to_string_pdb_text
 from .to_file_pdb import to_file_pdb
 from .to_molsysmt_MolSys import to_molsysmt_MolSys
 from .to_molsysmt_Topology import to_molsysmt_Topology
@@ -40,7 +41,7 @@ from .to_pdbfixer_PDBFixer import to_pdbfixer_PDBFixer
 from .to_nglview_NGLWidget import to_nglview_NGLWidget
 
 _convert_to={
-        'string:pdb_text': extract,
+        'string:pdb_text': to_string_pdb_text,
         'file:pdb': to_file_pdb,
         'molsysmt.MolSys': to_molsysmt_MolSys,
         'molsysmt.Topology': to_molsysmt_Topology,

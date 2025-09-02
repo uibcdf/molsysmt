@@ -13,7 +13,7 @@ def test_get_volume_1():
 
     molsys = msm.convert(msm.systems['T4 lysozyme L99A']['181l.h5msm'], selection='molecule_type=="protein"')
 
-    n_groups = msm.get(molsys, target='system', n_groups=True)
+    n_groups = msm.get(molsys, element='system', n_groups=True)
     grantham = msm.physchem.get_volume(molsys, definition='grantham')
 
     assert len(grantham)==n_groups
