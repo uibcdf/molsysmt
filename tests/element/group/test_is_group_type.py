@@ -17,7 +17,6 @@ def test_is_group_type_molsysmt_MolSys_1():
     assert msm.element.group.is_group_type('nucleotide')
     assert msm.element.group.is_group_type('lipid')
     assert msm.element.group.is_group_type('saccharide')
-    assert msm.element.group.is_group_type('oligosaccharide')
     assert msm.element.group.is_group_type('papa')==False
 
 
@@ -31,5 +30,4 @@ def test_is_group_type_molsysmt_MolSys_2():
     assert msm.element.group.is_group_type('nucleotides')
     assert msm.element.group.is_group_type('lipids')
     assert msm.element.group.is_group_type('saccharides')
-    assert msm.element.group.is_group_type('oligosaccharides')
 

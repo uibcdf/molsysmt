@@ -23,7 +23,7 @@ def test_get_label_3():
     molsys = msm.convert(systems['TcTIM']['1tcd.h5msm'], to_form='molsysmt.MolSys')
     output = msm.get_label(molsys, element='atom', selection=10,
             string='{atom_name}-{atom_id}@{atom_index}/{group_name}-{group_id}@{group_index}/{chain_name}-{chain_id}@{chain_index}/{entity_name}@{entity_index}')
-    true_output = 'CA-11@10/PRO-5@1/A-0@0/TRIOSEPHOSPHATE ISOMERASE@0'
+    true_output = 'CA-11@10/PRO-5@1/A-A@0/TRIOSEPHOSPHATE ISOMERASE@0'
     assert output == true_output
 
 def test_get_label_4():
@@ -36,7 +36,7 @@ def test_get_label_5():
     molsys = msm.convert(systems['TcTIM']['1tcd.h5msm'], to_form='molsysmt.MolSys')
     output = msm.get_label(molsys, element='group', selection=3,
             string='{group_name}-{group_id}@{group_index}/{chain_name}-{chain_id}@{chain_index}/{entity_name}@{entity_index}')
-    true_output = 'PRO-7@3/A-0@0/TRIOSEPHOSPHATE ISOMERASE@0'
+    true_output = 'PRO-7@3/A-A@0/TRIOSEPHOSPHATE ISOMERASE@0'
     assert output == true_output
 
 def test_get_label_6():
@@ -49,13 +49,13 @@ def test_get_label_7():
     molsys = msm.convert(systems['TcTIM']['1tcd.h5msm'], to_form='molsysmt.MolSys')
     output = msm.get_label(molsys, element='component', selection=2,
             string='{component_index}/{chain_name}-{chain_id}@{chain_index}/{entity_name}@{entity_index}')
-    true_output = '2/A-2@2/water@1'
+    true_output = '2/A-C@2/water@1'
     assert output == true_output
 
 def test_get_label_8():
     molsys = msm.convert(systems['TcTIM']['1tcd.h5msm'], to_form='molsysmt.MolSys')
     output = msm.get_label(molsys, element='chain', selection=2)
-    true_output = 'A-2@2'
+    true_output = 'A-C@2'
     assert output == true_output
 
 def test_get_label_9():

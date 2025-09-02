@@ -17,7 +17,10 @@ def test_is_molecule_type_molsysmt_MolSys_1():
     assert msm.element.molecule.is_molecule_type('dna')
     assert msm.element.molecule.is_molecule_type('rna')
     assert msm.element.molecule.is_molecule_type('lipid')
+    assert msm.element.molecule.is_molecule_type('monosaccharide')
+    assert msm.element.molecule.is_molecule_type('disaccharide')
     assert msm.element.molecule.is_molecule_type('oligosaccharide')
+    assert msm.element.molecule.is_molecule_type('polysaccharide')
 
 def test_is_molecule_type_molsysmt_MolSys_2():
 
@@ -29,5 +32,8 @@ def test_is_molecule_type_molsysmt_MolSys_2():
     assert msm.element.molecule.is_molecule_type('dnas')
     assert msm.element.molecule.is_molecule_type('rnas')
     assert msm.element.molecule.is_molecule_type('lipids')
+    assert msm.element.molecule.is_molecule_type('monosaccharides')
+    assert msm.element.molecule.is_molecule_type('disaccharides')
     assert msm.element.molecule.is_molecule_type('oligosaccharides')
+    assert msm.element.molecule.is_molecule_type('polysaccharides')
 

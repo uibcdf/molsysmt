@@ -40,7 +40,7 @@ attributes['n_proteins'] = True
 attributes['n_dnas'] = True
 attributes['n_rnas'] = True
 attributes['n_lipids'] = True
-attributes['n_oligosaccharides'] = True
+attributes['n_polysaccharides'] = True
 attributes['n_saccharides'] = True
 
 attributes['bond_index'] = True

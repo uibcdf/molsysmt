@@ -24,7 +24,7 @@ attributes['molecule_name'] = True
 attributes['molecule_id'] = True
 attributes['chain_index'] = True
 attributes['chain_id'] = True
-attributes['chain_name'] = True
+attributes['chain_name'] = False
 attributes['chain_type'] = True
 attributes['entity_index'] = True
 attributes['entity_type'] = True
@@ -43,7 +43,7 @@ attributes['n_proteins'] = True
 attributes['n_dnas'] = True
 attributes['n_rnas'] = True
 attributes['n_lipids'] = True
-attributes['n_oligosaccharides'] = True
+attributes['n_polysaccharides'] = True
 attributes['n_saccharides'] = True
 
 attributes['bond_index'] = True

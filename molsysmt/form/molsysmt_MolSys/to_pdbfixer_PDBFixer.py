@@ -2,7 +2,8 @@ from molsysmt._private.exceptions import LibraryNotFoundError
 from molsysmt._private.digestion import digest
 
 @digest(form='molsysmt.MolSys')
-def to_pdbfixer_PDBFixer(item, atom_indices='all', structure_indices='all', skip_digestion=False):
+def to_pdbfixer_PDBFixer(item, atom_indices='all', structure_indices='all',
+                         pdb_chain_id='chain_name', skip_digestion=False):
 
     try:
         from pdbfixer.pdbfixer import PDBFixer
@@ -12,7 +13,8 @@ def to_pdbfixer_PDBFixer(item, atom_indices='all', structure_indices='all', skip
     from . import to_string_pdb_text
     from io import StringIO
 
-    tmp_item = to_string_pdb_text(item, atom_indices=atom_indices, structure_indices=structure_indices, skip_digestion=True)
+    tmp_item = to_string_pdb_text(item, atom_indices=atom_indices, structure_indices=structure_indices,
+                                  pdb_chain_id=pdb_chain_id, skip_digestion=True)
     tmp_item = StringIO(tmp_item)
     tmp_item = PDBFixer(pdbfile=tmp_item)
 

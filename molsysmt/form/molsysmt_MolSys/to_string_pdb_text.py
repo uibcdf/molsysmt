@@ -4,7 +4,14 @@ from molsysmt._private.variables import is_all
 from datetime import datetime
 
 @digest(form='molsysmt.MolSys')
-def to_string_pdb_text(item, atom_indices='all', structure_indices='all', skip_digestion=False):
+def to_string_pdb_text(item, atom_indices='all', structure_indices='all', pdb_chain_id='chain_name',
+                       skip_digestion=False):
+
+    pdb_chain_id_column = 0
+    if pdb_chain_id=='chain_name':
+        pdb_chain_id_column = 1
+    elif pdb_chain_id=='chain_id':
+        pdb_chain_id_column = 0
 
     now = datetime.now()
 
@@ -78,9 +85,9 @@ def to_string_pdb_text(item, atom_indices='all', structure_indices='all', skip_d
 
         atom_id = str(atom.atom_id)
         atom_name = atom.atom_name
-        group_name = item.topology.groups.iloc[atom.group_index,1]
-        group_id = str(item.topology.groups.iloc[atom.group_index,0])
-        chain_id = item.topology.chains.iloc[atom.chain_index,1]
+        group_name = item.topology.groups.iloc[atom.group_index, 1]
+        group_id = str(item.topology.groups.iloc[atom.group_index, 0])
+        chain_id = item.topology.chains.iloc[atom.chain_index, pdb_chain_id_column]
 
         x,y,z = aux_coors[atom.Index, :]
 

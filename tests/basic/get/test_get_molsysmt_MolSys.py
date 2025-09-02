@@ -62,7 +62,7 @@ def test_get_6():
 
 def test_get_7():
     n_components = msm.get(molsys, element='group', selection=[550, 551, 552], n_components=True)
-    true_n_components = 3
+    true_n_components = [1,1,1]
     assert n_components==true_n_components
 
 def test_get_8():
@@ -262,11 +262,11 @@ def test_get_46():
 
 def test_get_47():
     n_bonds = msm.get(molsys, element='atom', selection=[0, 1, 2, 3, 4, 5], n_bonds=True)
-    assert n_bonds==7
+    assert n_bonds==[1, 3, 3, 1, 2, 2]
 
 def test_get_47_2():
     n_bonds = msm.get(molsys, element='atom', selection=[0, 1, 2, 3, 4, 5], n_inner_bonds=True)
-    assert n_bonds==5
+    assert n_bonds==[1, 3, 2, 1, 2, 1]
 
 def test_get_48():
     bonded_atoms = msm.get(molsys, element='atom', selection=[0, 1, 2, 3, 4, 5], inner_bonded_atoms=True)
@@ -288,16 +288,16 @@ def test_get_49():
 
 def test_get_50():
     n_inner_bonds = msm.get(molsys, element='atom', selection=[0, 1, 2, 3, 4, 5], n_inner_bonds=True)
-    assert n_inner_bonds==5
+    assert n_inner_bonds==[1, 3, 2, 1, 2, 1]
 
 def test_get_51():
     indices = msm.get(molsys, element='bond', selection='group_index==3', index=True)
-    true_indices = np.array([26,27,28,29,30,32,33])
+    true_indices = [26,27,28,29,30,32,33]
     assert np.all(indices==true_indices)
 
 def test_get_52():
     atom_indices = msm.get(molsys, element='bond', selection=[0, 1, 2, 3, 4], bonded_atoms=True)
-    true_atom_indices = [[0, 1], [1, 2], [1, 4], [2, 3], [2, 9]]
+    true_atom_indices = [0, 1, 2, 3, 4, 9]
     assert true_atom_indices == atom_indices
 
 def test_get_54():
