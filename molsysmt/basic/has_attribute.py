@@ -1,6 +1,7 @@
-# If digest is used in this method, other methods become slower
+from molsysmt._private.digestion import digest
 
-def has_attribute(molecular_system, attribute):
+@digest()
+def has_attribute(molecular_system, attribute, include_none=False, skip_digestion=False):
     """
     Check whether a molecular system has a specific attribute.
 
@@ -68,7 +69,7 @@ def has_attribute(molecular_system, attribute):
     output = False
 
     for form_in, item in zip(forms_in, molecular_system):
-        if _dict_modules[form_in].has_attribute(item, attribute):
+        if _dict_modules[form_in].has_attribute(item, attribute, include_none=include_none):
             output=True
             break
 

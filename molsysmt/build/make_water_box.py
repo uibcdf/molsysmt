@@ -69,15 +69,15 @@ def make_water_box(box, form='molsysmt.MolSys'):
     output.topology.atoms['atom_name'] = np.tile(['OW','HW1','HW2'], n_waters)
     output.topology.atoms['atom_type'] = np.tile(['O','H','H'], n_waters)
     output.topology.atoms['group_index'] = np.repeat(np.arange(n_waters), 3)
+    output.topology.atoms['component_index'] = np.repeat(np.arange(n_waters), 3)
     output.topology.atoms['chain_index'] = 0
     output.topology.groups['group_id'] = np.arange(n_waters)
     output.topology.groups['group_name'] = 'WAT'
     output.topology.groups['group_type'] = 'water'
-    output.topology.groups['component_index'] = np.arange(n_waters)
+    output.topology.groups['molecule_index'] = np.arange(n_waters)
     output.topology.components['component_id'] = np.arange(n_waters)
     output.topology.components['component_name'] = 'water'
     output.topology.components['component_type'] = 'water'
-    output.topology.components['molecule_index'] = np.arange(n_waters)
     output.topology.molecules['molecule_name'] = 'water'
     output.topology.molecules['molecule_id'] = np.arange(n_waters)
     output.topology.molecules['molecule_type'] = 'water'
@@ -87,7 +87,7 @@ def make_water_box(box, form='molsysmt.MolSys'):
     output.topology.entities['entity_type'] = 'water'
     output.topology.chains['chain_name'] = 'A'
     output.topology.chains['chain_id'] = 0
-    output.topology.chains['chain_type'] = 'water'
+    output.topology.chains['chain_type'] = 'system'
 
     aux = np.zeros(n_waters*2, dtype='int')
     mask = np.arange(0,n_waters*2,2)

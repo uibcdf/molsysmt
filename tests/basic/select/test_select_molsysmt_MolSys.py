@@ -164,37 +164,37 @@ def test_select_26():
 
 def test_select_29():
     molsys = msm.convert(systems['TcTIM']['1tcd.h5msm'], to_form='molsysmt.MolSys')
-    output = msm.select(molsys, 'chain_id==0 within 0.30 nm of chain_id==1')
+    output = msm.select(molsys, 'chain_id=="A" within 0.30 nm of chain_id=="B"')
     true_output = np.array([ 89, 480, 527, 547, 550, 552, 554, 566, 723, 734])
     assert np.all(output==true_output)
 
 def test_select_30():
     molsys = msm.convert(systems['TcTIM']['1tcd.h5msm'], to_form='molsysmt.MolSys')
-    output = msm.select(molsys, 'chain_id==0 not within 7.8 nanometers of chain_id==1')
+    output = msm.select(molsys, 'chain_id=="A" not within 7.8 nanometers of chain_id=="B"')
     true_output = np.array([1521, 1522, 1723, 1724])
     assert np.all(output==true_output)
 
 def test_select_31():
     molsys = msm.convert(systems['TcTIM']['1tcd.h5msm'], to_form='molsysmt.MolSys')
-    output = msm.select(molsys, 'chain_id==0 within 0.3 nm without pbc of chain_id==1')
+    output = msm.select(molsys, 'chain_id=="A" within 0.3 nm without pbc of chain_id=="B"')
     true_output = np.array([ 89, 480, 527, 547, 550, 552, 554, 566, 723, 734])
     assert np.all(output==true_output)
 
 def test_select_32():
     molsys = msm.convert(systems['TcTIM']['1tcd.h5msm'], to_form='molsysmt.MolSys')
-    output = msm.select(molsys, 'chain_id==0 within 0.3 nm with pbc of chain_id==1')
+    output = msm.select(molsys, 'chain_id=="A" within 0.3 nm with pbc of chain_id=="B"')
     true_output = np.array([ 89, 480, 527, 547, 550, 552, 554, 566, 723, 734])
     assert np.all(output==true_output)
 
 def test_select_33():
     molsys = msm.convert(systems['TcTIM']['1tcd.h5msm'], to_form='molsysmt.MolSys')
-    output = msm.select(molsys, '(atom_name=="N" and chain_id==0) within 3 angstroms of (atom_type=="O" and molecule_type=="water")')
+    output = msm.select(molsys, '(atom_name=="N" and chain_id=="A") within 3 angstroms of (atom_type=="O" and molecule_type=="water")')
     true_output = np.array([ 119,  213,  473,  531,  654,  696,  799, 1049])
     assert np.all(output==true_output)
 
 def test_select_34():
     molsys = msm.convert(systems['TcTIM']['1tcd.h5msm'], to_form='molsysmt.MolSys')
-    output = msm.select(molsys, '(atom_name=="CA" and chain_id==0) within 0.5 nm of (atom_name=="CA" and chain_name=="B")', element='group')
+    output = msm.select(molsys, '(atom_name=="CA" and chain_id=="A") within 0.5 nm of (atom_name=="CA" and chain_name=="B")', element='group')
     true_output = np.array([10, 42, 62, 72, 73])
     assert np.all(output==true_output)
 

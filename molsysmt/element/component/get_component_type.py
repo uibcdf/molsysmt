@@ -4,7 +4,7 @@ import numpy as np
 import pandas as pd
 
 @digest()
-def get_component_type(molecular_system, element='atom', selection='all', redefine_indices=False,
+def get_component_type(molecular_system, element='component', selection='all', redefine_indices=False,
                        redefine_types=False, syntax='MolSysMT', skip_digestion=False):
 
     from molsysmt.basic import get
@@ -93,7 +93,7 @@ def _get_component_type_from_group_names_and_types(group_names, group_types):
     last_group_type = group_types[-1]
     first_group_name = group_names[0]
 
-    if first_group_type in ['water', 'ion', 'small molecule', 'lipid', 'saccharide']:
+    if first_group_type in ['water', 'ion', 'small molecule', 'lipid']:
         tmp_type = first_group_type
     elif (first_group_type == 'amino acid') or (first_group_type == 'terminal capping'):
         if first_group_type == 'terminal capping':
@@ -109,6 +109,8 @@ def _get_component_type_from_group_names_and_types(group_names, group_types):
             tmp_type = 'rna'
         elif first_group_name in dna_names:
             tmp_type = 'dna'
+    elif first_group_type == 'saccharide':
+        tmp_type = 'polysaccharide'
     else:
         tmp_type = 'unknown'
 

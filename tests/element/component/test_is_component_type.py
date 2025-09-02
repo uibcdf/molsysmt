@@ -15,7 +15,10 @@ def test_is_component_type_1():
     assert msm.element.component.is_component_type('dna')
     assert msm.element.component.is_component_type('rna')
     assert msm.element.component.is_component_type('lipid')
+    assert msm.element.component.is_component_type('monosaccharide')
+    assert msm.element.component.is_component_type('disaccharide')
     assert msm.element.component.is_component_type('oligosaccharide')
+    assert msm.element.component.is_component_type('polysaccharide')
 
 def test_is_component_type_2():
     assert msm.element.component.is_component_type('waters')
@@ -24,7 +27,10 @@ def test_is_component_type_2():
     assert msm.element.component.is_component_type('peptides')
     assert msm.element.component.is_component_type('proteins')
     assert msm.element.component.is_component_type('lipids')
+    assert msm.element.component.is_component_type('monosaccharides')
+    assert msm.element.component.is_component_type('disaccharides')
     assert msm.element.component.is_component_type('oligosaccharides')
+    assert msm.element.component.is_component_type('polysaccharides')
 
 def test_is_component_type_3():
     assert not msm.element.component.is_component_type('nothing')

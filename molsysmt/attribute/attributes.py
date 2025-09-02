@@ -125,7 +125,7 @@ add_attribute('molecule_id', synonyms=['molecule_ids'], runs_on_elements=True, t
 ## molecule_type
 add_attribute('molecule_type', synonyms=['molecule_types'],
         dependants=['n_ions', 'n_waters', 'n_small_molecules', 'n_lipids', 'n_peptides',
-            'n_proteins', 'n_dnas', 'n_rnas', 'n_oligosaccharides', 'n_saccharides'],
+            'n_proteins', 'n_dnas', 'n_rnas', 'n_polysaccharides', 'n_saccharides'],
         runs_on_elements=True, topological=True,
         get_from=['atom','group','component','molecule','chain','entity'], set_to='molecule')
 
@@ -274,8 +274,8 @@ add_attribute('n_lipids', synonyms=['n_lipid', 'lipid', 'lipids'], depends_on=['
               runs_on_elements=True, topological=True,
               get_from=['atom', 'group', 'component', 'molecule', 'chain', 'entity', 'system'])
 
-## n_oligosaccharides
-add_attribute('n_oligosaccharides', synonyms=['n_oligosaccharide', 'oligosaccharide', 'oligosaccharides'],
+## n_polysaccharides
+add_attribute('n_polysaccharides', synonyms=['n_polysaccharide', 'polysaccharide', 'polysaccharides'],
               depends_on=['molecule_type'], runs_on_elements=True, topological=True,
               get_from=['atom', 'group', 'component', 'molecule', 'chain', 'entity', 'system'])
 

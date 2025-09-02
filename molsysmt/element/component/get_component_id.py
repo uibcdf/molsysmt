@@ -2,10 +2,10 @@ from molsysmt._private.digestion import digest
 
 
 @digest()
-def get_component_id(molecular_system, element='atom', selection='all', redefine_components=False,
+def get_component_id(molecular_system, element='component', selection='all', redefine_indices=False,
                      redefine_ids=False, syntax='MolSysMT', skip_digestion=False):
 
-    if redefine_components:
+    if redefine_indices:
         from .get_component_index import get_component_index
         output = get_component_index(molecular_system, element=element, selection=selection,
                                      redefine_indices=True, syntax=syntax, skip_digestion=True)
@@ -19,3 +19,4 @@ def get_component_id(molecular_system, element='atom', selection='all', redefine
                      component_id=True, skip_digestion=True)
 
     return output
+

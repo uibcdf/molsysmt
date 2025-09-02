@@ -273,11 +273,11 @@ def info(molecular_system,
 
         n_atoms, n_groups, n_components, n_chains, n_molecules, n_entities, n_structures, \
         n_ions, n_waters, n_small_molecules, n_peptides, n_proteins, n_dnas, \
-        n_rnas, n_lipids, n_oligosaccharides, n_saccharides = get(molecular_system, element=element, skip_digestion=True,
+        n_rnas, n_lipids, n_polysaccharides, n_saccharides = get(molecular_system, element=element, skip_digestion=True,
                 n_atoms=True, n_groups=True,
                 n_components=True, n_chains=True, n_molecules=True, n_entities=True, n_structures=True, n_ions=True,
                 n_waters=True, n_small_molecules=True, n_peptides=True, n_proteins=True, n_dnas=True,
-                n_rnas=True, n_lipids=True, n_oligosaccharides=True, n_saccharides=True)
+                n_rnas=True, n_lipids=True, n_polysaccharides=True, n_saccharides=True)
 
         if not attributes_filter['n_atoms']: n_atoms=None
         if not attributes_filter['n_groups']: n_groups=None
@@ -294,7 +294,7 @@ def info(molecular_system,
         if not attributes_filter['n_dnas']: n_dnas=None
         if not attributes_filter['n_rnas']: n_rnas=None
         if not attributes_filter['n_lipids']: n_lipids=None
-        if not attributes_filter['n_oligosaccharides']: n_oligosaccharides=None
+        if not attributes_filter['n_polysaccharides']: n_polysaccharides=None
         if not attributes_filter['n_saccharides']: n_saccharides=None
 
         tmp_df = df([{'form': form, 'n_atoms': n_atoms, 'n_groups': n_groups, 'n_components': n_components,
@@ -302,7 +302,7 @@ def info(molecular_system,
                       'n_waters': n_waters, 'n_ions': n_ions,
                       'n_small_molecules': n_small_molecules,
                       'n_peptides': n_peptides, 'n_proteins': n_proteins, 'n_dnas': n_dnas, 'n_rnas': n_rnas,
-                      'n_lipids': n_lipids, 'n_oligosaccharides': n_oligosaccharides, 'n_saccharides': n_saccharides,
+                      'n_lipids': n_lipids, 'n_polysaccharides': n_polysaccharides, 'n_saccharides': n_saccharides,
                       'n_structures': n_structures}], index=[0])
 
         if n_ions == 0 or n_ions is None:
@@ -329,8 +329,8 @@ def info(molecular_system,
         if n_lipids == 0 or n_lipids is None:
             tmp_df.drop(columns=['n_lipids'], inplace=True)
 
-        if n_oligosaccharides == 0 or n_oligosaccharides is None:
-            tmp_df.drop(columns=['n_oligosaccharides'], inplace=True)
+        if n_polysaccharides == 0 or n_polysaccharides is None:
+            tmp_df.drop(columns=['n_polysaccharides'], inplace=True)
 
         if n_saccharides == 0 or n_saccharides is None:
             tmp_df.drop(columns=['n_saccharides'], inplace=True)

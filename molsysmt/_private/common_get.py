@@ -527,13 +527,13 @@ def get_n_lipids_from_atom(item, indices='all'):
     return sum([ii=='lipid' for ii in molecule_types])
 
 @digest(form=form)
-def get_n_oligosaccharides_from_atom(item, indices='all'):
+def get_n_polysaccharides_from_atom(item, indices='all'):
 
     molecule_indices = get_molecule_index_from_atom(item, indices=indices)
     molecule_indices = np.unique(molecule_indices)
     molecule_types = get_molecule_type_from_molecule(item, indices=molecule_indices)
 
-    return sum([ii=='oligosaccharide' for ii in molecule_types])
+    return sum([ii=='polysaccharide' for ii in molecule_types])
 
 @digest(form=form)
 def get_n_saccharides_from_atom(item, indices='all'):
@@ -1105,13 +1105,13 @@ def get_n_lipids_from_group(item, indices='all'):
     return sum([ii=='lipid' for ii in molecule_types])
 
 @digest(form=form)
-def get_n_oligosaccharides_from_group(item, indices='all'):
+def get_n_polysaccharides_from_group(item, indices='all'):
 
     molecule_indices = get_molecule_index_from_group(item, indices=indices)
     molecule_indices = np.unique(molecule_indices).shape[0]
     molecule_types = get_molecule_type_from_molecule(item, indices=molecule_indices)
 
-    return sum([ii=='oligosaccharide' for ii in molecule_types])
+    return sum([ii=='polysaccharide' for ii in molecule_types])
 
 @digest(form=form)
 def get_n_saccharides_from_group(item, indices='all'):
@@ -1725,13 +1725,13 @@ def get_n_lipids_from_component(item, indices='all'):
     return sum([ii=='lipid' for ii in molecule_types])
 
 @digest(form=form)
-def get_n_oligosaccharides_from_component(item, indices='all'):
+def get_n_polysaccharides_from_component(item, indices='all'):
 
     molecule_indices = get_molecule_index_from_component(item, indices=indices)
     molecule_indices = np.unique(molecule_indices).shape[0]
     molecule_types = get_molecule_type_from_molecule(item, indices=molecule_indices)
 
-    return sum([ii=='oligosaccharide' for ii in molecule_types])
+    return sum([ii=='polysaccharide' for ii in molecule_types])
 
 @digest(form=form)
 def get_n_saccharides_from_component(item, indices='all'):
@@ -2381,11 +2381,11 @@ def get_n_lipids_from_molecule(item, indices='all'):
     return sum([ii=='lipid' for ii in molecule_types])
 
 @digest(form=form)
-def get_n_oligosaccharides_from_molecule(item, indices='all'):
+def get_n_polysaccharides_from_molecule(item, indices='all'):
 
     molecule_types = get_molecule_type_from_molecule(item, indices=indices)
 
-    return sum([ii=='oligosaccharide' for ii in molecule_types])
+    return sum([ii=='polysaccharide' for ii in molecule_types])
 
 @digest(form=form)
 def get_n_saccharides_from_molecule(item, indices='all'):
@@ -3085,13 +3085,13 @@ def get_n_lipids_from_chain(item, indices='all'):
     return sum([ii=='lipid' for ii in molecule_types])
 
 @digest(form=form)
-def get_n_oligosaccharides_from_chain(item, indices='all'):
+def get_n_polysaccharides_from_chain(item, indices='all'):
 
     molecule_indices = get_molecule_index_from_chain(item, indices=indices)
     molecule_indices = np.unique(molecule_indices).shape[0]
     molecule_types = get_molecule_type_from_molecule(item, indices=molecule_indices)
 
-    return sum([ii=='oligosaccharide' for ii in molecule_types])
+    return sum([ii=='polysaccharide' for ii in molecule_types])
 
 @digest(form=form)
 def get_n_saccharides_from_chain(item, indices='all'):
@@ -3809,13 +3809,13 @@ def get_n_lipids_from_entity(item, indices='all'):
     return sum([ii=='lipid' for ii in molecule_types])
 
 @digest(form=form)
-def get_n_oligosaccharides_from_entity(item, indices='all'):
+def get_n_polysaccharides_from_entity(item, indices='all'):
 
     molecule_indices = get_molecule_index_from_entity(item, indices=indices)
     molecule_indices = np.unique(molecule_indices).shape[0]
     molecule_types = get_molecule_type_from_molecule(item, indices=molecule_indices)
 
-    return sum([ii=='oligosaccharide' for ii in molecule_types])
+    return sum([ii=='polysaccharide' for ii in molecule_types])
 
 @digest(form=form)
 def get_n_saccharides_from_entity(item, indices='all'):
@@ -3890,10 +3890,10 @@ def get_n_lipids_from_system(item):
     return sum([ii=='lipid' for ii in molecule_types])
 
 @digest(form=form)
-def get_n_oligosaccharides_from_system(item):
+def get_n_polysaccharides_from_system(item):
 
     molecule_types = get_molecule_type_from_molecule(item)
-    return sum([ii=='oligosaccharide' for ii in molecule_types])
+    return sum([ii=='polysaccharide' for ii in molecule_types])
 
 @digest(form=form)
 def get_n_saccharides_from_system(item):
