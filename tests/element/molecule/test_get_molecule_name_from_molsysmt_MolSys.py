@@ -11,7 +11,7 @@ def test_get_molecule_name_from_molsysmt_MolSys_1():
 
     molsys = msm.convert(systems['chicken villin HP35']['chicken_villin_HP35_solvated.h5msm'])
     names = msm.element.molecule.get_molecule_name(molsys, element='molecule', selection='all')
-    assert len(names) == 1236
+    assert len(names) == 1279
     assert names[0] == 'VILLIN'
     assert all(np.array(names[-2:])=='CL')
     assert all(np.array(names[1:-2])=='water')

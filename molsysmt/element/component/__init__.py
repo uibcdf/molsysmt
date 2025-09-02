@@ -14,7 +14,10 @@ _component_types = [
         'dna',
         'rna',
         'lipid',
-        'polysaccharide'
+        'monosaccharide', # 1 sugar unit
+        'disaccharide', # 2 sugar units
+        'oligosaccharide', # 3-10 sugar units
+        'polysaccharide', # >10 sugar units
         ]
 
 _singular_component_type_to_plural = {
@@ -24,6 +27,9 @@ _singular_component_type_to_plural = {
     'peptide': 'peptides',
     'protein': 'proteins',
     'lipid': 'lipids',
+    'monosaccharide': 'monosaccharides',
+    'disaccharide': 'disaccharides',
+    'oligosaccharide': 'oligosaccharides',
     'polysaccharide': 'polysaccharides',
 }
 
@@ -34,6 +40,9 @@ _plural_component_types_to_singular = {
     'peptides': 'peptide',
     'proteins': 'protein',
     'lipids': 'lipid',
+    'monosaccharides': 'monosaccharide',
+    'disaccharides': 'disaccharide',
+    'oligosaccharides': 'oligosaccharide',
     'polysaccharides': 'polysaccharide',
 }
 

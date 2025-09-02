@@ -29,8 +29,8 @@ def merge(items, atom_indices='all', keep_ids=True, skip_digestion=False):
     n_bonds = []
     atoms_dataframes = []
     groups_dataframes = []
-    components_dataframes = []
     molecules_dataframes = []
+    components_dataframes = []
     chains_dataframes = []
     bonds_dataframes = []
 

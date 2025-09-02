@@ -35,3 +35,4 @@ def test_get_forces_1():
     assert puw.get_unit(forces) == puw.unit('kilojoule/mole/nanometer')
     assert forces_norm.shape==(304,)
     assert puw.get_unit(forces_norm) == puw.unit('kilojoule/mole/nanometer')
+

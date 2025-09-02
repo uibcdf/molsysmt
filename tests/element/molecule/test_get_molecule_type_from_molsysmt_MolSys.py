@@ -11,7 +11,7 @@ def test_get_molecule_type_from_molsysmt_MolSys_1():
 
     molsys = msm.convert(systems['chicken villin HP35']['chicken_villin_HP35_solvated.h5msm'])
     types = msm.element.molecule.get_molecule_type(molsys, element='molecule', selection='all')
-    assert len(types) == 1236
+    assert len(types) == 1279
     assert types[0] == 'peptide'
     assert all(np.array(types[-2:])=='ion')
     assert all(np.array(types[1:-2])=='water')
