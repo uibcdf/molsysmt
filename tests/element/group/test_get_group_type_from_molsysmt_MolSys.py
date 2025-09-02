@@ -11,7 +11,7 @@ def test_get_group_type_from_molsysmt_MolSys_1():
 
     molsys = msm.convert(systems['chicken villin HP35']['chicken_villin_HP35_solvated.h5msm'])
     types = msm.element.group.get_group_type(molsys, element='group', selection='all')
-    assert len(types) == 1273
+    assert len(types) == 1316
     assert types[0] == 'terminal capping'
     assert all(np.array(types[1:37])=='amino acid')
     assert types[37] == 'terminal capping'

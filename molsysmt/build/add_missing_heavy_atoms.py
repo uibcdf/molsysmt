@@ -2,7 +2,7 @@ from molsysmt._private.exceptions import NotImplementedMethodError
 from molsysmt._private.digestion import digest
 
 @digest()
-def add_missing_heavy_atoms(molecular_system, selection='all', syntax='MolSysMT', engine='PDBFixer'):
+def add_missing_heavy_atoms(molecular_system, selection='all', syntax='MolSysMT', engine='PDBFixer', skip_digestion=False):
     """
     Adding missing non-hydrogen atoms to a molecular system.
 
@@ -99,22 +99,23 @@ def add_missing_heavy_atoms(molecular_system, selection='all', syntax='MolSysMT'
 
     if engine=="PDBFixer":
 
-        temp_molecular_system = convert(molecular_system, to_form="pdbfixer.PDBFixer")
-
+        temp_molecular_system = convert(molecular_system, to_form="pdbfixer.PDBFixer", pdb_chain_id='chain_id',
+                                        skip_digestion=True)
+        
         atts_from_components = get(molecular_system, element='component', component_name=True,
-                                   output_type='dictionary')
+                                   output_type='dictionary', skip_digestion=True)
         atts_from_molecules = get(molecular_system, element='molecule', molecule_name=True,
-                                  output_type='dictionary')
+                                  output_type='dictionary', skip_digestion=True)
         atts_from_chains = get(molecular_system, element='chain', chain_id=True, chain_name=True,
-                               output_type='dictionary')
+                               output_type='dictionary', skip_digestion=True)
         atts_from_entities = get(molecular_system, element='entity', entity_name=True,
-                                 output_type='dictionary')
+                                 output_type='dictionary', skip_digestion=True)
 
         temp_molecular_system.findMissingResidues()
         temp_molecular_system.findMissingAtoms()
         temp_molecular_system.missingTerminals = {}
 
-        group_indices_in_selection = select(molecular_system, element='group', selection=selection, syntax=syntax)
+        group_indices_in_selection = select(molecular_system, element='group', selection=selection, syntax=syntax, skip_digestion=True)
 
         aux_dict = {}
 
@@ -128,7 +129,7 @@ def add_missing_heavy_atoms(molecular_system, selection='all', syntax='MolSysMT'
 
         temp_molecular_system.addMissingAtoms()
 
-        output_molecular_system = convert(temp_molecular_system, to_form=form_out)
+        output_molecular_system = convert(temp_molecular_system, to_form=form_out, skip_digestion=True)
 
         set(output_molecular_system, element='component', **atts_from_components, skip_digestion=True)
         set(output_molecular_system, element='molecule', **atts_from_molecules, skip_digestion=True)
