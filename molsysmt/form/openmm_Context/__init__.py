@@ -23,11 +23,12 @@ from .get_structural_attributes import *
 from .set import *
 from .iterators import StructuresIterator, TopologyIterator
 
+from .to_openmm_Context import to_openmm_Context
 from .to_openmm_System import to_openmm_System
 from .to_molsysmt_Structures import to_molsysmt_Structures
 
 _convert_to={
-        'openmm.Context': extract,
+        'openmm.Context': to_openmm_Context,
         'openmm.System': to_openmm_System,
         'molsysmt.Structures': to_molsysmt_Structures,
         }

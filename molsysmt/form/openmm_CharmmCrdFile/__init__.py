@@ -20,6 +20,8 @@ from .get import *
 from .set import *
 from .iterators import StructuresIterator, TopologyIterator
 
+from .to_openmm_CharmmCrdFile import to_openmm_CharmmCrdFile
+
 _convert_to={
-        'openmm.CharmmCrdFile': extract,
+        'openmm.CharmmCrdFile': to_openmm_CharmmCrdFile,
         }

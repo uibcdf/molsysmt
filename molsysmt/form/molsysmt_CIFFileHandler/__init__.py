@@ -20,10 +20,11 @@ from .get import *
 from .set import *
 from .iterators import StructuresIterator, TopologyIterator
 
+from .to_molsysmt_CIFFileHandler import to_molsysmt_CIFFileHandler
 #from .to_pytraj_Topology import to_pytraj_Topology
 
 _convert_to={
-        'molsysmt.CIFFileHandler': extract,
+        'molsysmt.CIFFileHandler': to_molsysmt_CIFFileHandler,
         #'MDAnalysis.Topology': to_MDAnalysis_Topology,
         }
 

@@ -17,7 +17,8 @@ from .merge import merge
 from .get import *
 from .set import *
 from .iterators import TopologyIterator
+from .to_biopython_SeqRecord import to_biopython_SeqRecord
 
 _convert_to={
-        'biopython.SeqRecord': extract,
+        'biopython.SeqRecord': to_biopython_SeqRecord,
         }

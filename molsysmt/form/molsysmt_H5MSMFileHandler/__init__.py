@@ -23,13 +23,14 @@ from .get_structural_attributes import *
 from .set import *
 from .iterators import StructuresIterator, TopologyIterator
 
+from .to_molsysmt_H5MSMFileHandler import to_molsysmt_H5MSMFileHandler
 from .to_molsysmt_MolSys import to_molsysmt_MolSys
 from .to_molsysmt_Topology import to_molsysmt_Topology
 from .to_molsysmt_Structures import to_molsysmt_Structures
 from .to_nglview_NGLWidget import to_nglview_NGLWidget
 
 _convert_to={
-        'molsysmt.H5MSMFileHandler': extract,
+        'molsysmt.H5MSMFileHandler': to_molsysmt_H5MSMFileHandler,
         'molsysmt.MolSys': to_molsysmt_MolSys,
         'molsysmt.Topology': to_molsysmt_Topology,
         'molsysmt.Structures': to_molsysmt_Structures,

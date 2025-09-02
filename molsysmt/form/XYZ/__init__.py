@@ -24,6 +24,7 @@ from .get_structural_attributes import *
 from .set import *
 from .iterators import StructuresIterator, TopologyIterator
 
+from .to_XYZ import to_XYZ
 from .to_file_xyznpy import to_file_xyznpy
 from .to_molsysmt_MolSys import to_molsysmt_MolSys
 from .to_molsysmt_Structures import to_molsysmt_Structures
@@ -31,7 +32,7 @@ from .to_molsysmt_Topology import to_molsysmt_Topology
 from .to_molsysmt_MolecularMechanics import to_molsysmt_MolecularMechanics
 
 _convert_to={
-        'XYZ': extract,
+        'XYZ': to_XYZ,
         'file:xyznpy': to_file_xyznpy,
         'molsysmt.MolSys': to_molsysmt_MolSys,
         'molsysmt.Structures': to_molsysmt_Structures,

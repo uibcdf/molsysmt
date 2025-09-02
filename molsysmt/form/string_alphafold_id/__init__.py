@@ -23,6 +23,7 @@ from .get_structural_attributes import *
 from .set import *
 from .iterators import StructuresIterator, TopologyIterator
 
+from .to_string_alphafold_id import to_string_alphafold_id
 from .to_file_bcif import to_file_bcif
 from .to_file_pdb import to_file_pdb
 from .to_file_fasta import to_file_fasta
@@ -41,7 +42,7 @@ from .to_string_amino_acids_1 import to_string_amino_acids_1
 from .to_nglview_NGLWidget import to_nglview_NGLWidget
 
 _convert_to={
-    'string:alphafold_id': extract,
+    'string:alphafold_id': to_string_alphafold_id,
     'file:pdb': to_file_pdb,
     'file:h5msm': to_file_h5msm,
     'file:fasta': to_file_fasta,

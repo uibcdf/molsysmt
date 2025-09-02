@@ -26,6 +26,7 @@ from .download import download
 from .replace_HETATM_by_ATOM_in_terminal_cappings import replace_HETATM_by_ATOM_in_terminal_cappings
 from .has_atoms_with_alternate_locations import has_atoms_with_alternate_locations
 
+from .to_file_pdb import to_file_pdb
 from .to_string_pdb_text import to_string_pdb_text
 from .to_file_mol2 import to_file_mol2
 from .to_MDAnalysis_Topology import to_MDAnalysis_Topology
@@ -49,7 +50,7 @@ from .to_pytraj_Topology import to_pytraj_Topology
 from .to_pytraj_Trajectory import to_pytraj_Trajectory
 
 _convert_to={
-        'file:pdb': extract,
+        'file:pdb': to_file_pdb,
         'string:pdb_text': to_string_pdb_text,
         'file:mol2': to_file_mol2,
         'MDAnalysis.Topology': to_MDAnalysis_Topology,

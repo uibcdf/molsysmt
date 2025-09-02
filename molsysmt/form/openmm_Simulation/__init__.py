@@ -23,6 +23,7 @@ from .get_structural_attributes import *
 from .set import *
 from .iterators import StructuresIterator, TopologyIterator
 
+from .to_openmm_Simulation import to_openmm_Simulation
 from .to_file_pdb import to_file_pdb
 from .to_file_msmpk import to_file_msmpk
 from .to_openmm_Context import to_openmm_Context
@@ -34,7 +35,7 @@ from .to_openmm_Modeller import to_openmm_Modeller
 from .to_pdbfixer_PDBFixer import to_pdbfixer_PDBFixer
 
 _convert_to={
-        'openmm.Simulation': extract,
+        'openmm.Simulation': to_openmm_Simulation,
         'file:pdb': to_file_pdb,
         'file:msmpk': to_file_msmpk,
         'openmm.Context': to_openmm_Context,

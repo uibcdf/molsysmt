@@ -25,6 +25,7 @@ from .iterators import StructuresIterator, TopologyIterator
 
 from .to_mdtraj import load_mmtf, MMTFTrajectoryFile
 
+from .to_file_mmtf import to_file_mmtf
 from .to_file_pdb import to_file_pdb
 from .to_MDAnalysis_Universe import to_MDAnalysis_Universe
 from .to_mmtf_MMTFDecoder import to_mmtf_MMTFDecoder
@@ -37,7 +38,7 @@ from .to_string_amino_acids_3 import to_string_amino_acids_3
 from .to_string_pdb_text import to_string_pdb_text
 
 _convert_to={
-        'file:mmtf': extract,
+        'file:mmtf': to_file_mmtf,
         'file:pdb': to_file_pdb,
         'mmtf.MMTFDecoder': to_mmtf_MMTFDecoder,
         'molsysmt.MolSys': to_molsysmt_MolSys,

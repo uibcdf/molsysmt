@@ -22,12 +22,13 @@ from .get_structural_attributes import *
 from .set import *
 from .iterators import StructuresIterator
 
+from .to_molsysmt_Structures import to_molsysmt_Structures
 from .to_file_h5msm import to_file_h5msm
 from .to_molsysmt_StructuresDict import to_molsysmt_StructuresDict
 from .to_XYZ import to_XYZ
 
 _convert_to={
-        'molsysmt.Structures': extract,
+        'molsysmt.Structures': to_molsysmt_Structures,
         'file:h5msm': to_file_h5msm,
         'molsysmt.StructuresDict': to_molsysmt_StructuresDict,
         'XYZ': to_XYZ,

@@ -20,6 +20,7 @@ from .get import *
 from .set import *
 from .iterators import StructuresIterator, TopologyIterator
 
+from .to_parmed_Structure import to_parmed_Structure
 from .to_file_mol2 import to_file_mol2
 from .to_file_pdb import to_file_pdb
 from .to_file_psf import to_file_psf
@@ -34,7 +35,7 @@ from .to_molsysmt_Topology import to_molsysmt_Topology
 from .to_molsysmt_Structures import to_molsysmt_Structures
 
 _convert_to={
-        'parmed.Structure': extract,
+        'parmed.Structure': to_parmed_Structure,
         'file:mol2': to_file_mol2,
         'file:pdb': to_file_pdb,
         'file:psf': to_file_psf,
