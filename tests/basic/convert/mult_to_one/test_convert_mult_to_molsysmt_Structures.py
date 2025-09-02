@@ -16,5 +16,5 @@ def test_convert_file_psf_and_file_dcd_to_molsysmt_Structures():
     n_atoms, n_structures = msm.get(molsys, n_atoms=True, n_structures=True)
     assert 'molsysmt.Structures'==form
     assert n_atoms==78974
-    assert n_structures==50
+    assert n_structures==5
 

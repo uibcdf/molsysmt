@@ -2,8 +2,8 @@ from molsysmt._private.digestion import digest
 from molsysmt._private.variables import is_all
 
 @digest()
-def extract(molecular_system, selection='all', structure_indices='all', to_form=None, copy_if_all=True,
-            syntax='MolSysMT', skip_digestion=False):
+def extract(molecular_system, selection='all', structure_indices='all', to_form=None, output_filename=None,
+            copy_if_all=True, syntax='MolSysMT', skip_digestion=False):
     """
     Extract a subset of atoms and/or structures from a molecular system.
 
@@ -91,6 +91,9 @@ def extract(molecular_system, selection='all', structure_indices='all', to_form=
 
     from . import get_form, select, convert
     from molsysmt.form import _dict_modules
+
+    if output_filename is not None:
+        to_form=output_filename
 
     if to_form is not None:
 

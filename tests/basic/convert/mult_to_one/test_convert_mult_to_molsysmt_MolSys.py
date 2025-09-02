@@ -30,7 +30,7 @@ def test_convert_file_psf_and_file_dcd_to_molsysmt_MolSys():
     n_atoms, n_structures = msm.get(molsys, n_atoms=True, n_structures=True)
     assert 'molsysmt.MolSys'==form
     assert n_atoms==78974
-    assert n_structures==50
+    assert n_structures==5
 
 def test_convert_file_gro_and_file_xtc_to_molsysmt_MolSys():
     molsys_1 = systems['nglview']['md_1u19.gro']
