@@ -8,7 +8,7 @@ __doctest__ = True
 def add(to_molecular_system, from_molecular_system, selection='all', structure_indices='all',
         keep_ids=True, in_place=True, syntax='MolSysMT', skip_digestion=False):
     """
-    Add elements from one molecular system into another.
+    Adding elements from one molecular system into another.
 
     This function adds selected elements from a source molecular system (`from_molecular_system`)
     into a target molecular system (`to_molecular_system`). Both systems must be compatible in
@@ -57,6 +57,11 @@ def add(to_molecular_system, from_molecular_system, selection='all', structure_i
         in workflows where inputs are already validated. Use with caution: only set this to
         `True` if you are certain all input arguments are correct and consistent.
 
+    Returns
+    -------
+    molecular system or None
+        If `in_place=False`, returns a new molecular system (same form as `to_molecular_system`)
+        with the added elements. If `in_place=True`, returns `None`.
 
     Raises
     ------
@@ -68,14 +73,9 @@ def add(to_molecular_system, from_molecular_system, selection='all', structure_i
 
     Notes
     -----
-    See :ref:`User Guide > Introduction > Molecular systems > Forms <Introduction_Forms>` for all accepted forms of molecular systems.
+    See :ref:`User Guide > Introduction > Molecular systems > Forms <Introduction_Forms>` for accepted forms of molecular systems.
 
     See :ref:`User Guide > Introduction > Selection syntaxes <Introduction_Selection>` for accepted selection syntaxes.
-
-    Modifies the `to_molecular_system` object in place. It is not copied or returned.
-
-    By default, this function modifies the `to_molecular_system` object in place. If `in_place=False`,
-    a new molecular system is returned, and the original remains unchanged.
 
     See Also
     --------
@@ -129,14 +129,14 @@ def add(to_molecular_system, from_molecular_system, selection='all', structure_i
     if is_all(selection):
         atom_indices=selection
     else:
-        atom_indices=selection(from_molecular_system, selection=selection, syntax=syntax)
+        atom_indices=select(from_molecular_system, selection=selection, syntax=syntax)
 
 
     for to_item, to_form in zip(to_molecular_system, to_forms):
         for from_item, from_form in zip(from_molecular_system, from_forms):
 
             if to_form!=from_form:
-                aux_from_item = convert(aux_from_item, to_form=aux_to_form, selection=atom_indices, structure_indices=structure_indices)
+                aux_from_item = convert(from_item, to_form=to_form, selection=atom_indices, structure_indices=structure_indices)
                 aux_atom_indices = 'all'
                 aux_structure_indices = 'all'
             else:
