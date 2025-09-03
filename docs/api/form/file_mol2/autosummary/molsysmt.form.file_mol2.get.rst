@@ -270,13 +270,6 @@
       get_n_nucleotides_from_group
       get_n_nucleotides_from_molecule
       get_n_nucleotides_from_system
-      get_n_oligosaccharides_from_atom
-      get_n_oligosaccharides_from_chain
-      get_n_oligosaccharides_from_component
-      get_n_oligosaccharides_from_entity
-      get_n_oligosaccharides_from_group
-      get_n_oligosaccharides_from_molecule
-      get_n_oligosaccharides_from_system
       get_n_peptides_from_atom
       get_n_peptides_from_chain
       get_n_peptides_from_component
@@ -284,6 +277,13 @@
       get_n_peptides_from_group
       get_n_peptides_from_molecule
       get_n_peptides_from_system
+      get_n_polysaccharides_from_atom
+      get_n_polysaccharides_from_chain
+      get_n_polysaccharides_from_component
+      get_n_polysaccharides_from_entity
+      get_n_polysaccharides_from_group
+      get_n_polysaccharides_from_molecule
+      get_n_polysaccharides_from_system
       get_n_proteins_from_atom
       get_n_proteins_from_chain
       get_n_proteins_from_component

@@ -172,7 +172,6 @@
       get_inner_bond_index_from_entity
       get_inner_bond_index_from_group
       get_inner_bond_index_from_molecule
-      get_inner_bond_index_from_system
       get_inner_bonded_atom_pairs_from_atom
       get_inner_bonded_atom_pairs_from_chain
       get_inner_bonded_atom_pairs_from_component
@@ -302,13 +301,6 @@
       get_n_nucleotides_from_group
       get_n_nucleotides_from_molecule
       get_n_nucleotides_from_system
-      get_n_oligosaccharides_from_atom
-      get_n_oligosaccharides_from_chain
-      get_n_oligosaccharides_from_component
-      get_n_oligosaccharides_from_entity
-      get_n_oligosaccharides_from_group
-      get_n_oligosaccharides_from_molecule
-      get_n_oligosaccharides_from_system
       get_n_peptides_from_atom
       get_n_peptides_from_chain
       get_n_peptides_from_component
@@ -316,6 +308,13 @@
       get_n_peptides_from_group
       get_n_peptides_from_molecule
       get_n_peptides_from_system
+      get_n_polysaccharides_from_atom
+      get_n_polysaccharides_from_chain
+      get_n_polysaccharides_from_component
+      get_n_polysaccharides_from_entity
+      get_n_polysaccharides_from_group
+      get_n_polysaccharides_from_molecule
+      get_n_polysaccharides_from_system
       get_n_proteins_from_atom
       get_n_proteins_from_chain
       get_n_proteins_from_component
@@ -351,4 +350,124 @@
       get_n_waters_from_group
       get_n_waters_from_molecule
       get_n_waters_from_system
+      get_total_n_amino_acids_from_atom
+      get_total_n_amino_acids_from_chain
+      get_total_n_amino_acids_from_component
+      get_total_n_amino_acids_from_entity
+      get_total_n_amino_acids_from_group
+      get_total_n_amino_acids_from_molecule
+      get_total_n_atoms_from_atom
+      get_total_n_atoms_from_chain
+      get_total_n_atoms_from_component
+      get_total_n_atoms_from_entity
+      get_total_n_atoms_from_group
+      get_total_n_atoms_from_molecule
+      get_total_n_bonds_from_atom
+      get_total_n_bonds_from_chain
+      get_total_n_bonds_from_component
+      get_total_n_bonds_from_entity
+      get_total_n_bonds_from_group
+      get_total_n_bonds_from_molecule
+      get_total_n_chains_from_atom
+      get_total_n_chains_from_chain
+      get_total_n_chains_from_component
+      get_total_n_chains_from_entity
+      get_total_n_chains_from_group
+      get_total_n_chains_from_molecule
+      get_total_n_components_from_atom
+      get_total_n_components_from_chain
+      get_total_n_components_from_component
+      get_total_n_components_from_entity
+      get_total_n_components_from_group
+      get_total_n_components_from_molecule
+      get_total_n_dnas_from_atom
+      get_total_n_dnas_from_chain
+      get_total_n_dnas_from_component
+      get_total_n_dnas_from_entity
+      get_total_n_dnas_from_group
+      get_total_n_dnas_from_molecule
+      get_total_n_entities_from_atom
+      get_total_n_entities_from_chain
+      get_total_n_entities_from_component
+      get_total_n_entities_from_entity
+      get_total_n_entities_from_group
+      get_total_n_entities_from_molecule
+      get_total_n_groups_from_atom
+      get_total_n_groups_from_chain
+      get_total_n_groups_from_component
+      get_total_n_groups_from_entity
+      get_total_n_groups_from_group
+      get_total_n_groups_from_molecule
+      get_total_n_inner_bonds_from_atom
+      get_total_n_inner_bonds_from_chain
+      get_total_n_inner_bonds_from_component
+      get_total_n_inner_bonds_from_entity
+      get_total_n_inner_bonds_from_group
+      get_total_n_inner_bonds_from_molecule
+      get_total_n_ions_from_atom
+      get_total_n_ions_from_chain
+      get_total_n_ions_from_component
+      get_total_n_ions_from_entity
+      get_total_n_ions_from_group
+      get_total_n_ions_from_molecule
+      get_total_n_lipids_from_atom
+      get_total_n_lipids_from_chain
+      get_total_n_lipids_from_component
+      get_total_n_lipids_from_entity
+      get_total_n_lipids_from_group
+      get_total_n_lipids_from_molecule
+      get_total_n_molecules_from_atom
+      get_total_n_molecules_from_chain
+      get_total_n_molecules_from_component
+      get_total_n_molecules_from_entity
+      get_total_n_molecules_from_group
+      get_total_n_molecules_from_molecule
+      get_total_n_nucleotides_from_atom
+      get_total_n_nucleotides_from_chain
+      get_total_n_nucleotides_from_component
+      get_total_n_nucleotides_from_entity
+      get_total_n_nucleotides_from_group
+      get_total_n_nucleotides_from_molecule
+      get_total_n_peptides_from_atom
+      get_total_n_peptides_from_chain
+      get_total_n_peptides_from_component
+      get_total_n_peptides_from_entity
+      get_total_n_peptides_from_group
+      get_total_n_peptides_from_molecule
+      get_total_n_polysaccharides_from_atom
+      get_total_n_polysaccharides_from_chain
+      get_total_n_polysaccharides_from_component
+      get_total_n_polysaccharides_from_entity
+      get_total_n_polysaccharides_from_group
+      get_total_n_polysaccharides_from_molecule
+      get_total_n_proteins_from_atom
+      get_total_n_proteins_from_chain
+      get_total_n_proteins_from_component
+      get_total_n_proteins_from_entity
+      get_total_n_proteins_from_group
+      get_total_n_proteins_from_molecule
+      get_total_n_rnas_from_atom
+      get_total_n_rnas_from_chain
+      get_total_n_rnas_from_component
+      get_total_n_rnas_from_entity
+      get_total_n_rnas_from_group
+      get_total_n_rnas_from_molecule
+      get_total_n_saccharides_from_atom
+      get_total_n_saccharides_from_chain
+      get_total_n_saccharides_from_component
+      get_total_n_saccharides_from_entity
+      get_total_n_saccharides_from_group
+      get_total_n_saccharides_from_molecule
+      get_total_n_small_molecules_from_atom
+      get_total_n_small_molecules_from_chain
+      get_total_n_small_molecules_from_component
+      get_total_n_small_molecules_from_entity
+      get_total_n_small_molecules_from_group
+      get_total_n_small_molecules_from_molecule
+      get_total_n_waters_from_atom
+      get_total_n_waters_from_chain
+      get_total_n_waters_from_component
+      get_total_n_waters_from_entity
+      get_total_n_waters_from_group
+      get_total_n_waters_from_molecule
    

@@ -16,7 +16,7 @@
       set_chain_name_to_chain
       set_chain_type_to_chain
       set_component_id_to_component
-      set_component_index_to_group
+      set_component_index_to_atom
       set_component_name_to_component
       set_component_type_to_component
       set_entity_id_to_entity
