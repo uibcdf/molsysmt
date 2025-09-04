@@ -1,29 +1,28 @@
-from molsysmt._private.digestion import digest
-import numpy as np
+# Digestion can not be done in this method since it is redundant.
 
 def are_multiple_molecular_systems(molecular_systems):
     """
-    Check whether a list contains only valid molecular systems.
+    Checking whether a container holds only valid molecular systems.
 
-    This function verifies that all elements in the input list are molecular systems,
-    each in one of the supported forms recognized by MolSysMT.
+    This function verifies that every element in the given container is a valid
+    molecular system in one of the supported forms recognized by MolSysMT.
 
     Parameters
     ----------
-    molecular_systems : list of molecular systems
-        List of objects to check. Each item must be in one of 
-        :ref:`the supported forms <Introduction_Forms>`.
+    molecular_systems : list or tuple of molecular systems
+        Container to check. Each item must be in one of the
+        :ref:`supported forms <Introduction_Forms>`.
 
     Returns
     -------
     bool
-        True if all objects in the list are valid molecular systems.
-        False if any object is not recognized as a molecular system.
+        `True` if (i) the input is a list or tuple, (ii) it is not empty, and
+        (iii) all items are valid molecular systems. `False` otherwise.
 
     Notes
     -----
-    The list of supported molecular system forms is detailed in
-    :ref:`User Guide > Introduction > Molecular systems > Forms <Introduction_Forms>`.
+    - Supported molecular-system forms are summarized in :ref:`Introduction_Forms`.
+    - See :func:`molsysmt.basic.is_a_molecular_system` to validate single objects.
 
     See Also
     --------
@@ -34,31 +33,32 @@ def are_multiple_molecular_systems(molecular_systems):
     --------
     >>> import molsysmt as msm
     >>> from molsysmt import systems
-    >>> molsys_A = '2LAO'
-    >>> molsys_B = 'AVLYAWPA'
-    >>> molsys_C = systems['Trp-Cage']['1l2y.mmtf']
-    >>> msm.basic.are_multiple_molecular_systems([molsys_A, molsys_B, molsys_C])
+    >>> A = '2LAO'  # PDB id (supported form)
+    >>> B = 'AVLYAWPA'  # one-letter peptide sequence (supported form)
+    >>> C = systems['Trp-Cage']['1l2y.h5msm']  # demo system (supported form)
+    >>> msm.are_multiple_molecular_systems([A, B, C])
     True
+    >>> msm.are_multiple_molecular_systems([])  # empty container -> False
+    False
+    >>> msm.are_multiple_molecular_systems(A)  # not a list/tuple
+    False
 
-    .. admonition:: User guide
+    .. admonition:: Tutorial with more examples
 
-       Follow this link for a tutorial on how to work with this function:
-       :ref:`User Guide > Tools > Basic > Are multiple molecular systems <Tutorial_Are_multiple_molecular_systems>`.
+       See the following tutorial for a practical demonstration of how to use this function,
+       along with additional examples:
+       :ref:`Tutorial_Are_multiple_molecular_systems`.
 
     .. versionadded:: 1.0.0
     """
 
     from . import is_a_molecular_system
 
-    output = False
+    if not isinstance(molecular_systems, (list, tuple)):
+        return False
 
-    aux_list = []
-    if isinstance(molecular_systems, (list, tuple)):
+    if len(molecular_systems) == 0:
+        return False
 
-        for molecular_system in molecular_systems:
-            aux_list.append(is_a_molecular_system(molecular_system))
-
-        output = np.all(aux_list)
-
-    return output
+    return all(is_a_molecular_system(item) for item in molecular_systems)
 

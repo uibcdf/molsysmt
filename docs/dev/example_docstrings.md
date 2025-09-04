@@ -54,8 +54,7 @@ def function_name(param1, param2=None, *, option=True):
     .. admonition:: Tutorial with more examples
 
        See the following tutorial for a practical demonstration of how to use this function,
-       along with additional examples:
-       :ref:`User Guide > Tools > Basic > Add <Tutorial_Add>`
+       along with additional examples: :ref:`Tutorial_Add`.
 
     .. versionadded:: 1.0.0
     """
