@@ -74,14 +74,20 @@ selection : tuple, list, numpy.ndarray or str, default 'all'
 - Include at least one `doctest`-style example using `>>>`
 - Keep realistic and minimal
 
-### 10. Optional: User Guide link
+### 10. Tutorial with more examples
 - Use Sphinx's `.. admonition::` directive
 
 ```python
-.. admonition:: User guide
+.. admonition:: Tutorial with more examples
 
-   Follow this link for a tutorial on how to work with this function:
+   See the following tutorial for a practical demonstration of how to use this function,
+   along with additional examples:
    :ref:`User Guide > Tools > Basic > Add <Tutorial_Add>`.
+```
+
+### 11. Version Added
+```python
+.. versionadded:: 0.1.0
 ```
 
 ---

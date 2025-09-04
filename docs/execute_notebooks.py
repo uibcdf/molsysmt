@@ -63,19 +63,25 @@ def execute_notebook(notebook_path: Path, force: bool = False) -> bool:
         print(f"Notebook {notebook_path} is up to date. No execution needed.")
         return True
 
-def main(force=False, notebook: Path = None):
 
-    if not notebook.exists():
-        print(f"{notebook} does not exist.")
-        return
+def main(force=False, notebook: Path = None, recursive: bool = False):
 
     if notebook is not None:
+        if not notebook.exists():
+            print(f"{notebook} does not exist.")
+            return
         if notebook.is_file():
             nb_list = [notebook]
         elif notebook.is_dir():
-            nb_list = notebook.glob("*.ipynb")
+            if recursive:
+                nb_list = notebook.rglob("*.ipynb")
+            else:
+                nb_list = notebook.glob("*.ipynb")
     else:
-        nb_list = Path(".").glob("*.ipynb")
+        if recursive:
+            nb_list = Path(".").rglob("*.ipynb")
+        else:
+            nb_list = Path(".").glob("*.ipynb")
 
     for nb_path in nb_list:
         status_execution = execute_notebook(nb_path, force)
@@ -86,13 +92,16 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(
         description="""
     Execute Jupyter notebooks if they have been modified since their last successful execution.
-    You can pass a single notebook path or a wildcard pattern (e.g. '*.ipynb').
+    You can pass a single notebook path, a directory, or a wildcard pattern (e.g. '*.ipynb').
     
     Examples:
         python execute_notebooks.py                       # All notebooks in current directory
+        python execute_notebooks.py -r                    # All notebooks recursively from current directory
+        python execute_notebooks.py -r docs/user_guide    # All notebooks in docs/user_guide recursively
         python execute_notebooks.py analysis.ipynb        # Only that notebook
         python execute_notebooks.py '/home/user/*.ipynb'  # Wildcard pattern (quoted)
         python execute_notebooks.py -f                    # Force re-execution of all
+        python execute_notebooks.py -fr docs/user_guide   # Combine flags: force + recursive
     
     Each successful run updates a corresponding .nbconvert.log file with a timestamp.
     Notebooks are skipped if unchanged.
@@ -104,14 +113,21 @@ if __name__ == "__main__":
                         help="Notebook(s) to execute. Supports wildcard patterns (e.g. *.ipynb).")
     parser.add_argument("-f", "--force", action="store_true",
                         help="Force execution of notebooks regardless of timestamps.")
+    parser.add_argument("-r", "--recursive", action="store_true",
+                        help="Search for notebooks recursively in directories.")
+
     args = parser.parse_args()
 
     if args.notebook:
         for nb in map(Path, args.notebook):
             if nb.is_file():
-                main(force=args.force, notebook=nb)
+                main(force=args.force, notebook=nb, recursive=args.recursive)
+            elif nb.is_dir():
+                main(force=args.force, notebook=nb, recursive=args.recursive)
             else:
                 print(f"❌ File not found or not a notebook: {nb}")
     else:
-        main(force=args.force)
+        main(force=args.force, recursive=args.recursive)
+    
+        args = parser.parse_args()
 
