@@ -1,4 +1,3 @@
-
 # 🧪 Editorial and Developer Guide for MolSysMT Documentation
 
 This document serves as the editorial and structural guide for contributing to the documentation and development of the MolSysMT project. It covers docstring conventions, tutorial structure, internal practices, and CI/testing expectations.
@@ -31,6 +30,7 @@ Each public function **must include** the following sections in this order:
 - `Notes`
 - `See Also`
 - `Examples`
+- `.. admonition:: Tutorial with more examples` (link to User Guide tutorial)
 - `.. versionadded:: x.x.x`
 
 ### 🔍 Style Details
@@ -41,6 +41,7 @@ Each public function **must include** the following sections in this order:
   - ✅ `Retrieve attribute values from a molecular system`
   - ❌ `To get the attributes of...`
 - Use `:ref:` and `{func}` for all Sphinx-compatible cross-links.
+- Use lowercase **ids** in prose to match attribute names (`atom_id`, `group_id`).
 
 ---
 
@@ -121,6 +122,3 @@ Avoid repeating "Let's see an example..." for each element. Instead, alternate b
 - Keep functions modular and forms-independent.
 - For questions, open an issue or discuss in a PR.
 - Pull requests are welcome!
-
----
-

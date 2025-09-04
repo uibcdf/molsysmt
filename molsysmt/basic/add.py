@@ -28,7 +28,7 @@ def add(to_molecular_system, from_molecular_system, selection='all', structure_i
         Selected elements from this system will be added to the target system.
 
     selection : str, list, tuple, or numpy.ndarray, default='all'
-        Atoms to be added, specified as a list/tuple/array of atom indices (0-based integers),
+        Atoms to be added, specified as a list/tuple/array of 0-based atom indices,
         or as a string following one of the :ref:`supported selection syntaxes <Introduction_Selection>`.
 
     structure_indices : str, list, tuple, or numpy.ndarray, default='all'
@@ -60,8 +60,8 @@ def add(to_molecular_system, from_molecular_system, selection='all', structure_i
     Returns
     -------
     molecular system or None
-        If `in_place=False`, returns a new molecular system (same form as `to_molecular_system`)
-        with the added elements. If `in_place=True`, returns `None`.
+        If `in_place=True`, returns `None` and modifies `to_molecular_system` directly.
+        If `in_place=False`, returns a new molecular system (same form as the input) with the added structures.
 
     Raises
     ------
@@ -73,9 +73,9 @@ def add(to_molecular_system, from_molecular_system, selection='all', structure_i
 
     Notes
     -----
-    See :ref:`User Guide > Introduction > Molecular systems > Forms <Introduction_Forms>` for accepted forms of molecular systems.
-
-    See :ref:`User Guide > Introduction > Selection syntaxes <Introduction_Selection>` for accepted selection syntaxes.
+    - All forms listed in :ref:`Introduction_Forms` are accepted for both source and target systems.
+    - Selection strings must follow one of the syntaxes described in
+      :ref:`Introduction_Selection`.
 
     See Also
     --------
@@ -103,9 +103,10 @@ def add(to_molecular_system, from_molecular_system, selection='all', structure_i
     >>> msm.get(molsys_A, n_molecules=True)
     2
 
-    .. admonition:: User guide
-        See the following tutorial for a practical example of how to use this function:
-        :ref:`User Guide > Tools > Basic > Add <Tutorial_Add>`
+    .. admonition:: Tutorial with more examples
+
+       See the following tutorial for a practical demonstration of how to use this function,
+       along with additional examples: :ref:`Tutorial_Add`.
 
     .. versionadded:: 1.0.0
     """
