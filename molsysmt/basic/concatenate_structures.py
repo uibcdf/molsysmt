@@ -1,7 +1,8 @@
 from molsysmt._private.digestion import digest
 
 @digest()
-def concatenate_structures(molecular_systems, selections='all', structure_indices='all', to_form=None):
+def concatenate_structures(molecular_systems, selections='all', structure_indices='all', to_form=None,
+                           syntax='MolSysMT', skip_digestion=False):
     """
     Concatenate structures from a list of molecular systems into a single molecular system.
 
