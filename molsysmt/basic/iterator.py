@@ -4,60 +4,78 @@ from molsysmt._private.exceptions import NotImplementedIteratorError
 
 class Iterator():
     """
-    Iterate over topological or structural attributes of a molecular system.
+    Iterating over topological or structural attributes of a molecular system.
 
     This class provides a unified interface to iterate over selected attributes of a molecular
-    system — either topological (e.g., `atom_name`, `group_index`) or structural (e.g., `coordinates`, `box`, `time`).
-    Iteration is element-based (atoms, groups, molecules, etc.) or structure-based depending on the attributes requested.
+    system — either topological (e.g., `atom_name`, `group_index`) or structural (e.g., `coordinates`,
+    `box`, `time`). Iteration proceeds over elements (atoms, groups, molecules, etc.) or over
+    structures depending on the requested attributes. When no attributes are requested, each
+    iteration yields a molecular system with updated structural data (trajectory-like behavior).
 
-    The class supports standard iterator behavior via the `__iter__()` and `__next__()` methods (see :ref:`notes`).
-    It is instantiated with a set of arguments defining the target attributes, selection criteria, and iteration control.
+    Parameters
+    ----------
+    (see __init__)
 
     Attributes
     ----------
     molecular_system : molecular system
-        The molecular system from which attribute values are extracted.
-
+        Molecular system from which attribute values are extracted.
     element : {'atom', 'group', 'component', 'molecule', 'chain', 'entity', 'system'}
-        Type of elements over which the iteration is performed.
-
-    indices : int, list, tuple, or numpy.ndarray
-        Indices of elements (e.g., atoms or groups) to iterate over.
-
-    structure_indices : int, list, tuple, or numpy.ndarray
-        Indices of structures to be used if iterating over structural attributes.
-
+        Hierarchical level over which iteration is performed.
+    indices : int, list, tuple or numpy.ndarray
+        Element indices used for iteration (as resolved from `selection`).
+    structure_indices : int, list, tuple or numpy.ndarray
+        Structure indices used when iterating over structural attributes.
     start, stop, step, chunk : int
-        Control parameters that define how the iteration proceeds.
-
+        Control parameters defining the iteration window and stride.
     iterator_index : int
-        Current index in the iteration.
+        Current iteration position.
+    arguments : list of str
+        Attribute names returned on each iteration.
 
-    arguments : list
-        List of attributes to be returned on each iteration.
 
     Notes
     -----
-    This class is a Python iterator and implements:
-
-    - `__iter__()`: returns `self`, enabling use in loops.
-    - `__next__()`: returns the next attribute values, or raises `StopIteration`.
-
-    If no attributes are requested, the iterator returns a molecular system per iteration
+    - Supported molecular-system forms are summarized in :ref:`Introduction_Forms`.
+    - Selection strings must follow one of the syntaxes described in
+      :ref:`Introduction_Selection`.
+    - This class implements the Python iterator protocol:
+      `__iter__()` returns `self`, and `__next__()` returns the next item or raises `StopIteration`.
+    - If no attributes are requested, the iterator returns a molecular system per iteration
     with updated structural attributes.
 
-    See also:
-    :ref:`User Guide > Introduction > Molecular systems > Forms <Introduction_Forms>`  
-    :ref:`User Guide > Introduction > Selection syntaxes <Introduction_Selection>`  
-    :ref:`User Guide > Introduction > Molecular systems > Attributes <Introduction_Attributes>`
 
     See Also
     --------
-    :func:`molsysmt.basic.select`
-        Selecting elements of a molecular system.
+    :func:`molsysmt.basic.select` :
+        Select elements from a molecular system.
+    :func:`molsysmt.basic.get` :
+        Retrieve values of attributes from a molecular system.
 
-    :func:`molsysmt.basic.get`
-        Getting attribute values from a molecular system.
+
+    Examples
+    --------
+    >>> import molsysmt as msm
+    >>> molsys = msm.systems['chicken villin HP35']['1vii.bcif.gz']
+    >>> it1 = msm.Iterator(molsys, element='group', selection='molecule_type=="protein"',
+    ...                    start=10, stop=20, step=2,
+    ...                    group_index=True, group_name=True, formal_charge=True)
+    >>> for group_index, group_name, formal_charge in it1:
+    ...     pass
+    >>> molsys = msm.systems['pentalanine']['traj_pentalanine.h5']
+    >>> it2 = msm.Iterator(molsys, selection='group_index==3 and atom_name=="CA"',
+    ...                    structure_indices=[100, 110, 120],
+    ...                    time=True, coordinates=True)
+    >>> for time, coordinates in it2:
+    ...     pass
+
+
+    .. admonition:: Tutorial with more examples
+
+       See the following tutorial for a practical demonstration of how to use this class,
+       along with additional examples:
+       :ref:`Tutorial_Iterator`.
+
 
     .. versionadded:: 1.0.0
     """
@@ -75,46 +93,41 @@ class Iterator():
                  syntax = 'MolSysMT',
                  output_type = 'values',
                  output_form = 'molsysmt.MolSys',
+                 skip_digestion = False,
                  **kwargs,
                  ):
         """
-        Initialize a new Iterator instance.
+        Initializing an iterator over attributes of a molecular system.
 
         Parameters
         ----------
         molecular_system : molecular system
-            A molecular system in any of the :ref:`supported forms <Introduction_Forms>`.
-
+            Input system in any of the :ref:`supported forms <Introduction_Forms>`.
         element : {'atom', 'group', 'component', 'molecule', 'chain', 'entity', 'system'}, default 'atom'
-            The element type over which the iteration is performed.
-
-        selection : index, tuple, list, numpy.ndarray or str, default 'all'
-            Selection of elements to iterate over. Can be given as indices or a selection string.
-            See: :ref:`Introduction_Selection`.
-
-        structure_indices : int, list, tuple, numpy.ndarray or 'all', default 'all'
-            Indices of structures (0-based) to be used if structural attributes are selected.
-
-        start, stop, step, chunk : int
-            Iteration control:
-            - `start`: starting index (default 0)
-            - `stop`: final index (default: as far as possible)
-            - `step`: increment between steps (default 1)
-            - `chunk`: number of steps per iteration (default 1)
-
+            Hierarchical level guiding selection and topological iteration.
+        selection : int, index, tuple, list, numpy.ndarray or str, default 'all'
+            Elements to iterate over. Indices or a selection string (see :ref:`Introduction_Selection`).
+        structure_indices : int, list, tuple, numpy.ndarray or 'all', optional
+            Structure indices (0-based) used if **all** requested attributes are structural.
+        start, stop, step, chunk : int, default (0, None, 1, 1)
+            Iteration control parameters:
+            - `start`: starting position
+            - `stop`: final exclusive position (``None`` means until the end)
+            - `step`: stride between positions
+            - `chunk`: number of positions advanced per yielded item
         syntax : str, default 'MolSysMT'
-            Selection syntax (if `selection` is a string).
-
+            Selection syntax used when `selection` is a string. See :ref:`Introduction_Selection`.
         output_type : {'values', 'dictionary'}, default 'values'
-            Output format:
-            - `'values'`: tuple with attribute values in order
-            - `'dictionary'`: dict with attribute names as keys
-
+            Format of the returned item when attributes are requested:
+            - `'values'`: tuple with atribute values in order (or a single value if only one attribute)
+            - `'dictionary'`: mapping `{attribute_names: keys}`
         output_form : str, default 'molsysmt.MolSys'
-            Form of returned molecular system if no attributes are requested.
+            Form of the yielded molecular system when no attributes are requested.
 
-        **kwargs : {str: bool}, optional
-            Attributes to be extracted. Each keyword must be a valid attribute name, with `True` to include it.
+        **kwargs : {str: bool}
+            Attributes to extract (e.g., `time=True`, `coordinates=True`). Keys must be valid
+            attribute names; only those with `True` are included.
+
 
         Returns
         -------

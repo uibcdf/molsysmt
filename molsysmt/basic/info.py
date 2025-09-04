@@ -8,79 +8,89 @@ def info(molecular_system,
          element='system',
          selection='all',
          syntax='MolSysMT',
+         skip_digestion=False
          ):
     """
     Display a summary table of a molecular system or selected elements.
 
-    This function returns a Pandas DataFrame containing summary information about a molecular system,
-    either for the entire system or for a selection of elements (e.g., atoms, groups, molecules).
+    This function produces a formatted summary table (as a Pandas *Styler*) with key attributes
+    of a molecular system, either for the whole system or for a given `element` level and
+    `selection`. The columns returned depend on the chosen `element` and on the attributes
+    available in the underlying form(s).
 
     Parameters
     ----------
     molecular_system : molecular system
-        Molecular system to be analyzed, in any of the :ref:`supported forms <Introduction_Forms>`.
-
+        Molecular system to analyze, in any of the :ref:`supported forms <Introduction_Forms>`.
     element : {'atom', 'group', 'component', 'molecule', 'chain', 'entity', 'system'}, default 'system'
-        Type of element for which the summary will be generated.
-
+        Hierarchical level for which the summary is generated.
     selection : int, tuple, list, numpy.ndarray or str, default 'all'
-        Selection of elements of the specified type. Can be provided as:
-        - A list, tuple, or array of 0-based indices.
-        - A string parsed using a supported selection syntax.
-        The selection is interpreted in the context of the `element`.
-
+        Selection of elements at the specified level. It can be a 0-based index collection or
+        a selection string parsed according to :ref:`Introduction_Selection`.
     syntax : str, default 'MolSysMT'
-        Selection syntax used to interpret the `selection` string. See :ref:`Introduction_Selection`.
+        Selection syntax used when `selection` is a string. See :ref:`Introduction_Selection`.
+    skip_digestion : bool, default False
+        Whether to skip MolSysMT’s internal argument digestion mechanism.
+
+        MolSysMT includes a built-in digestion system that validates and normalizes
+        function arguments. This process checks types, shapes, and values, and automatically
+        adjusts them when possible to meet expected formats.
+
+        Setting `skip_digestion=True` disables this process, which may improve performance
+        in workflows where inputs are already validated. Use with caution: only set this to
+        `True` if you are certain all input arguments are correct and consistent.
+
 
     Returns
     -------
-    pandas.DataFrame
-        A DataFrame with summary information depending on the `element` and the input molecular system.
+    pandas.io.formats.style.Styler
+        A Pandas *Styler* wrapping a DataFrame with the summary. The exact columns depend on
+        `element` and on the attributes exposed by the input form(s).
 
     Raises
     ------
     NotSupportedFormError
         If the molecular system has an unsupported form.
-
     ArgumentError
         If any input argument is invalid or inconsistent.
 
-    SyntaxError
-        If the `syntax` argument is not supported.
-
     Notes
     -----
-    For details on supported forms, see:
-    :ref:`User Guide > Introduction > Molecular systems > Forms <Introduction_Forms>`
-
-    For information on supported selection syntaxes, see:
-    :ref:`User Guide > Introduction > Selection syntaxes <Introduction_Selection>`
+    - Supported molecular-system forms are summarized in :ref:`Introduction_Forms`.
+    - Selection strings must follow one of the syntaxes described in
+      :ref:`Introduction_Selection`.
+    - The function hides the row index for readability using Pandas’ Styler API; you can access
+      the underlying DataFrame via the `.data` attribute (depending on your Pandas version) or
+      by rebuilding it from the original values if needed.
 
     See Also
     --------
     :func:`molsysmt.basic.select`
         Select elements from a molecular system.
-
     :func:`molsysmt.basic.get`
         Retrieve values of attributes from a molecular system.
+    :func:`molsysmt.basic.get_form`
+        Retrieve the form of a molecular system.
 
     Examples
     --------
     >>> import molsysmt as msm
     >>> from molsysmt import systems
     >>> molsys = msm.convert(systems['T4 lysozyme L99A']['181l.h5msm'])
-    >>> info_df = msm.info(molsys, element='entity')
-    >>> print(info_df.to_string())
-       index           name           type  n atoms  n groups  n components  n chains  n molecules
-    0      0    T4 lysozyme        protein     1291       164             3         3            3
-    1      1  2-hydroxyethyl  small molecule      8         1             1         1            1
-    2      2         Benzene  small molecule      6         1             1         1            1
-    3      3           water          water     136       136           136         1          136
+    >>> msm.info(molsys, element='entity')
+    index name type n atoms n groups n components n chains n molecules
+    0 T4 LYSOZYME protein 1289 162 1 1 1
+    1 CHLORIDE ION unknown 2 2 2 2 2
+    2 2-HYDROXYETHYL DISULFIDE unknown 8 1 1 1 1
+    3 BENZENE unknown 6 1 1 1 1
+    4 water water 136 136 136 1 136
 
-    .. admonition:: User guide
 
-       For a tutorial on how to use this function, see:
-       :ref:`User Guide > Tools > Basic > Info <Tutorial_Info>`
+    .. admonition:: Tutorial with more examples
+
+       See the following tutorial for a practical demonstration of how to use this function,
+       along with additional examples:
+       :ref:`Tutorial_Info`.
 
     .. versionadded:: 1.0.0
     """

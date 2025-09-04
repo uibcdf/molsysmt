@@ -1,54 +1,54 @@
-from molsysmt._private.digestion import digest
+# Digestion can not be done in this method since it is redundant.
 
 def is_a_molecular_system(molecular_system):
     """
-    Verify whether the input is a single valid molecular system.
+    Verifying whether the input is a single valid molecular system.
 
-    This function checks if the input — either a single item or a list of items — constitutes
-    a single valid molecular system. Validity requires compatible forms and internal consistency
-    (e.g., matching number of atoms across items). It does not check if multiple independent
-    systems are valid — for that, use :func:`molsysmt.basic.are_multiple_molecular_systems`.
+    This function checks whether `molecular_system` represents one valid molecular system.
+    The input may be a single item (any supported form) or a list/tuple combining compatible
+    items (e.g., topology + coordinates files). For sequence inputs, validity requires internal
+    consistency such as a matching number of atoms across all items.
 
     Parameters
     ----------
     molecular_system : molecular system
-        A tentative molecular system composed of one item or a list of items,
-        in any of the :ref:`supported forms <Introduction_Forms>`.
+        Tentative molecular system, provided as a single item or a list/tuple of items in any of
+        the :ref:`supported forms <Introduction_Forms>`.
+
 
     Returns
     -------
     bool
-        `True` if the input is a valid molecular system, `False` otherwise.
+        `True` if the input encodes a single valid molecular system, `False` otherwise.
 
     Notes
     -----
-    This function returns `True` only if the input represents a **single** molecular system.
-    For validating multiple molecular systems individually, use:
-    :func:`molsysmt.basic.are_multiple_molecular_systems`.
-
-    See also the list of supported forms:
-    :ref:`User Guide > Introduction > Molecular systems > Forms <Introduction_Forms>`
+    - Supported molecular-system forms are summarized in :ref:`Introduction_Forms`.
 
     See Also
     --------
-    :func:`molsysmt.basic.are_multiple_molecular_systems`
-        Check whether a list of objects are each valid molecular systems.
+    :func:`molsysmt.basic.are_multiple_molecular_systems` :
+        Check whether each item in a container is a valid molecular system.
+    :func:`molsysmt.basic.get_form` :
+        Retrieve the form of a molecular system.
 
     Examples
     --------
     >>> import molsysmt as msm
-    >>> topology = msm.systems.demo['pentalanine']['pentalanine.prmtop']
-    >>> structures_A = msm.systems.demo['pentalanine']['pentalanine.inpcrd']
-    >>> structures_B = msm.systems.demo['chicken villin HP35']['traj_chicken_villin_HP35_solvated.dcd']
+    >>> from molsysmt import systems
+    >>> topology = systems['pentalanine']['pentalanine.prmtop']
+    >>> structures_A = systems['pentalanine']['pentalanine.inpcrd']
+    >>> structures_B = systems['chicken villin HP35']['traj_chicken_villin_HP35_solvated.dcd']
     >>> msm.basic.is_a_molecular_system([topology, structures_A])
     True
     >>> msm.basic.is_a_molecular_system([topology, structures_B])
     False
 
-    .. admonition:: User guide
+    .. admonition:: Tutorial with more examples
 
-       For a tutorial on how to use this function, see:
-       :ref:`User Guide > Tools > Basic > Is a molecular system <Tutorial_Is_a_molecular_system>`
+       See the following tutorial for a practical demonstration of how to use this function,
+       along with additional examples:
+       :ref:`Tutorial_Is_a_molecular_system`.
 
     .. versionadded:: 1.0.0
     """

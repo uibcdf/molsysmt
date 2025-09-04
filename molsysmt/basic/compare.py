@@ -8,62 +8,52 @@ def compare(molecular_system, molecular_system_2, selection='all', structure_ind
             selection_2='all', structure_indices_2='all', syntax='MolSysMT', rule='equal',
             output_type='boolean', attribute_type=None, include_none=False, skip_digestion=False,
             **kwargs):
+
     """
     Comparing two molecular systems or selected subsets of them.
 
     This function compares attributes of two molecular systems (or their selected subsets)
     using either equality (``'equal'``) or containment (``'in'``) rules. The scope of the
-    comparison can be restricted with `selection`/`structure_indices` for the first system
+    comparison can be restricted with `selection`/`structure_indices` for the first system,
     and `selection_2`/`structure_indices_2` for the second.
 
-    If no explicit attributes are provided via keyword arguments, all available attributes
-    (or those filtered by `attribute_type`) are considered.
+    If no explicit attributes are provided via keyword arguments, a default set of attributes
+    (or those filtered by `attribute_type`) is considered.
 
     Parameters
     ----------
     molecular_system : molecular system
         First molecular system to compare. Accepted in any of the
         :ref:`supported forms <Introduction_Forms>`.
-
     molecular_system_2 : molecular system
         Second molecular system to compare. Accepted in any of the
         :ref:`supported forms <Introduction_Forms>`.
-        
-    selection : str, list, tuple or numpy.ndarray, default='all'
+    selection : str, list, tuple or numpy.ndarray, default 'all'
         Elements to include from the first system. Either a selection string following the
         :ref:`supported syntaxes <Introduction_Selection>` or a 0-based sequence of atom indices.
-
-    structure_indices : int, list, tuple or numpy.ndarray, default='all'
+    structure_indices : int, list, tuple, numpy.ndarray or 'all', default 'all'
         0-based indices of structures to include from the first system.
-
-    selection_2 : str, list, tuple or numpy.ndarray, default='all'
+    selection_2 : str, list, tuple or numpy.ndarray, default 'all'
         Elements to include from the second system. Same semantics as `selection`.
-
-    structure_indices_2 : int, list, tuple or numpy.ndarray, default='all'
+    structure_indices_2 : int, list, tuple, numpy.ndarray or 'all', default 'all'
         0-based indices of structures to include from the second system.
-
-    syntax : str, default='MolSysMT'
+    syntax : str, default 'MolSysMT'
         Selection syntax used when `selection`/`selection_2` are strings.
         See :ref:`Introduction_Selection`.
-
-    rule : {'equal', 'in'}, default='equal'
+    rule : {'equal', 'in'}, default 'equal'
         Comparison rule:
-        * `'equal'` — checks that values are identical.
-        * `'in'` — checks that values from the first system are contained in the second.
-
-    output_type : {'boolean', 'dictionary'}, default='boolean'
+        * ``'equal'`` — checks that values are numerically or exactly identical (see Notes).
+        * ``'in'`` — checks that values from the first system are contained in the second
+    output_type : {'boolean', 'dictionary'}, default 'boolean'
         Output format:
-        * `'boolean'` — a single `True`/`False` indicating overall success.
-        * `'dictionary'` — a per-attribute dictionary with individual results.
-
-    attribute_type : {'topological', 'structural', 'mechanical', 'all', None}, default=None
+        * ``'boolean'`` — a single `True`/`False` indicating overall success.
+        * ``'dictionary'`` — a per-attribute dictionary with individual results.
+    attribute_type : {'topological', 'structural', 'mechanical', 'all', None}, default None
         Attribute subset to compare. If `None`, attributes specified in `**kwargs` are used
-        (if any); otherwise a default attribute list is applied.
-
-    include_none : bool, default=True
+        (if any). Otherwise, a default list for the given subset is applied.
+    include_none : bool, default False
         Whether to include attributes with `None` values when inferring comparable attributes.
-
-    skip_digestion : bool, default=False
+    skip_digestion : bool, default False
         Whether to skip MolSysMT’s internal argument digestion mechanism.
 
         MolSysMT includes a built-in digestion system that validates and normalizes
@@ -73,7 +63,6 @@ def compare(molecular_system, molecular_system_2, selection='all', structure_ind
         Setting `skip_digestion=True` disables this process, which may improve performance
         in workflows where inputs are already validated. Use with caution: only set this to
         `True` if you are certain all input arguments are correct and consistent.
-
     **kwargs
         Attribute names to compare as keyword booleans indicating the **expected** outcome
         under `rule`:
@@ -95,8 +84,8 @@ def compare(molecular_system, molecular_system_2, selection='all', structure_ind
 
     Notes
     -----
-    - See :ref:`Introduction_Forms` for supported forms.
-    - See :ref:`Introduction_Selection` for selection syntaxes.
+    - Supported forms are summarized in :ref:`Introduction_Forms`.
+    - Selection syntaxes are described in :ref:`Introduction_Selection`.
 
     See Also
     --------

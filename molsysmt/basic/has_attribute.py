@@ -3,56 +3,77 @@ from molsysmt._private.digestion import digest
 @digest()
 def has_attribute(molecular_system, attribute, include_none=False, skip_digestion=False):
     """
-    Check whether a molecular system has a specific attribute.
+    Checking whether a molecular system has a specific attribute.
 
-    This function returns `True` if the given attribute is present in the input molecular system,
-    and `False` otherwise. The presence of attributes depends on the form of the molecular system.
+    This function returns `True` if the given attribute is available for the input molecular
+    system, and `False` otherwise. Availability depends on the form-specific backend and the global attribute registry.
+
 
     Parameters
     ----------
     molecular_system : molecular system
-        The molecular system to be analyzed, in any of the :ref:`supported forms <Introduction_Forms>`.
-
+        Molecular system to analyze, in any of the :ref:`supported forms <Introduction_Forms>`.
     attribute : str
         Name of the attribute to check.
+    include_none : bool, default False
+        Whether to consider attributes currently holding `None` as **available**.
+        If `True`, an attribute that exists but is `None` will return `True`.
+    skip_digestion : bool, default False
+        Whether to skip MolSysMT’s internal argument digestion mechanism.
+
+        MolSysMT includes a built-in digestion system that validates and normalizes
+        function arguments. This process checks types, shapes, and values, and automatically
+        adjusts them when possible to meet expected formats.
+
+        Setting `skip_digestion=True` disables this process, which may improve performance
+        in workflows where inputs are already validated. Use with caution: only set this to
+        `True` if you are certain all input arguments are correct and consistent.
+
 
     Returns
     -------
     bool
         `True` if the attribute is available in the molecular system, `False` otherwise.
 
+
     Raises
     ------
     NotSupportedFormError
         If the molecular system has a form that is not supported.
+    ArgumentError
+        If input arguments are invalid or inconsistent.
+
 
     Notes
     -----
-    For a complete list of supported forms and their corresponding attributes, see:
-    :ref:`User Guide > Introduction > Molecular systems > Forms <Introduction_Forms>`.
+    - Supported molecular-system forms are summarized in :ref:`Introduction_Forms`.
+    - Selection strings must follow one of the syntaxes described in
+      :ref:`Introduction_Selection`.
+
 
     See Also
     --------
     :func:`molsysmt.basic.get_attributes`
-        Retrieve the list of attributes available in a molecular system.
-
+        Retrieve the list of available attributes in a molecular system.
     :func:`molsysmt.basic.get`
         Retrieve values of specific attributes from a molecular system.
+
 
     Examples
     --------
     >>> import molsysmt as msm
     >>> from molsysmt import systems
-    >>> molsys = msm.convert(systems['T4 lysozyme L99A']['181l.mmtf'])
+    >>> molsys = msm.convert(systems['T4 lysozyme L99A']['181l.h5msm'])
     >>> msm.has_attribute(molsys, 'box')
     True
     >>> msm.has_attribute(molsys, 'forcefield')
     False
 
-    .. admonition:: User guide
+    .. admonition:: Tutorial with more examples
 
-       For a tutorial on using this function, see:
-       :ref:`User Guide > Tools > Basic > Has attribute <Tutorial_Has_attribute>`
+       See the following tutorial for a practical demonstration of how to use this function,
+       along with additional examples:
+       :ref:`Tutorial_Has_attribute`.
 
     .. versionadded:: 1.0.0
     """

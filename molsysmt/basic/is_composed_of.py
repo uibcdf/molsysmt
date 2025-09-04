@@ -4,61 +4,68 @@ import numpy as np
 @digest()
 def is_composed_of(molecular_system, selection='all', syntax='MolSysMT', skip_digestion=False, **kwargs):
     """
-    Check whether a molecular system is composed exclusively of specific elements.
+    Checking whether a molecular system is composed exclusively of specific elements.
 
     This function returns `True` if the selected portion of the molecular system is entirely
-    composed of the specified types of elements. Otherwise, it returns `False`.
+    composed of the requested element types and counts provided via keyword conditions in
+    `**kwargs`; otherwise it returns `False`.
+
 
     Parameters
     ----------
     molecular_system : molecular system
-        The molecular system to be analyzed, provided in any of the
+        Molecular system to analyze, provided in any of the
         :ref:`supported forms <Introduction_Forms>`.
-
-    selection : tuple, list, numpy.ndarray or str, default 'all'
-        Selection of elements (typically atoms) to check. This can be a list, tuple, or array of
-        0-based indices, or a selection string using one of the
-        :ref:`supported syntaxes <Introduction_Selection>`.
-
+    selection : int, tuple, list, numpy.ndarray or str, default 'all'
+        Subset of the molecular system to check. It can be a 0-based index collection or
+        a selection string following :ref:`Introduction_Selection`. If 'all', the entire
+        molecular system is considered.
     syntax : str, default 'MolSysMT'
-        The syntax used to interpret the `selection` string (if applicable). See:
-        :ref:`Introduction_Selection`.
+        Selection syntax used when `selection` is a string. See :ref:`Introduction_Selection`.
+    skip_digestion : bool, default False
+        Whether to skip MolSysMT’s internal argument digestion mechanism.
 
-    **kwargs : dict of {str: bool or int}
-        A set of keyword arguments defining the expected composition. Values can be:
-        - `True`: require presence of that element type
-        - `False`: require absence
-        - integer: require an exact number
+        MolSysMT includes a built-in digestion system that validates and normalizes
+        function arguments. This process checks types, shapes, and values, and automatically
+        adjusts them when possible to meet expected formats.
+
+        Setting `skip_digestion=True` disables this process, which may improve performance
+        in workflows where inputs are already validated. Use with caution: only set this to
+        `True` if you are certain all input arguments are correct and consistent.
+    **kwargs
+        Composition conditions as ``name=value`` pairs. Accepted names include type
+        counters (`n_ions`, `n_waters`, `n_small_molecules`, `n_peptides`, `n_proteins`,
+        `n_dnas`, `n_rnas`, `n_lipids`, `n_polysaccharides`, `n_saccharides`, ...) and element
+        counters (`n_atoms`, `n_groups`, `n_components`, `n_molecules`, `n_chains`, `n_entities`, ...).
+        Values are interpreted as:
+        - `True`  → the count must be **> 0** (presence required)
+        - `False` → the count must be **== 0** (absence required)
+        - `int`   → the count must be **exactly** that integer
+
 
     Returns
     -------
     bool
-        `True` if the selection is composed only of the specified element types and counts.
-        Otherwise, `False`.
+        `True` if all provided conditions are satisfied by the selection; `False` otherwise.
+
 
     Raises
     ------
     NotSupportedFormError
         If the molecular system has an unsupported form.
-
     ArgumentError
         If any argument is invalid or inconsistent.
 
     Notes
     -----
-    For an element to be considered part of the composition, it must fully match the specified
-    criteria within the given selection. To apply looser checks, use
-    :func:`molsysmt.basic.contains`.
-
-    For more information, see:
-    :ref:`User Guide > Introduction > Molecular systems > Forms <Introduction_Forms>`  
-    :ref:`User Guide > Introduction > Selection syntaxes <Introduction_Selection>`
+    - Supported molecular-system forms are summarized in :ref:`Introduction_Forms`.
+    - Selection strings must follow one of the syntaxes described in
+      :ref:`Introduction_Selection`.
 
     See Also
     --------
     :func:`molsysmt.basic.select`
         Select specific elements from a molecular system.
-
     :func:`molsysmt.basic.contains`
         Check whether certain elements or attributes are present in a molecular system.
 
@@ -67,7 +74,8 @@ def is_composed_of(molecular_system, selection='all', syntax='MolSysMT', skip_di
     The following examples illustrate the use of the function:
 
     >>> import molsysmt as msm
-    >>> molsys = msm.systems['T4 lysozyme L99A']['181l.mmtf']
+    >>> from molsysmt import systems
+    >>> molsys = systems['T4 lysozyme L99A']['181l.h5msm']
     >>> msm.basic.is_composed_of(molsys, waters=True, ions=True)
     False
     >>> msm.basic.is_composed_of(molsys, waters=True, ions=True, small_molecules=2, proteins=1)
@@ -75,10 +83,13 @@ def is_composed_of(molecular_system, selection='all', syntax='MolSysMT', skip_di
     >>> msm.basic.is_composed_of(molsys, n_chains=6)
     True
 
-    .. admonition:: User guide
 
-       For a tutorial on how to use this function, see:
-       :ref:`User Guide > Tools > Basic > Is composed of <Tutorial_Is_composed_of>`
+    .. admonition:: Tutorial with more examples
+
+       See the following tutorial for a practical demonstration of how to use this function,
+       along with additional examples:
+       :ref:`Tutorial_Is_composed_of`.
+
 
     .. versionadded:: 1.0.0
     """
