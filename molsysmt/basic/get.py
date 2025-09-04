@@ -14,94 +14,104 @@ def get(molecular_system,
         skip_digestion=False,
         **kwargs):
     """
-    Retrieve specific attribute values from a molecular system.
-    
-    This function returns values for one or more attributes of a molecular system.
-    Attributes can be queried at different element levels (e.g., atoms, groups, molecules),
-    and filtered by element selection and structure indices. If a requested attribute is
-    not available in the system's form, the returned value will be `None`.
+    Retrieving attribute values from a molecular system.
+
+    This function retrieves values of one or more attributes from a molecular system (or from
+    a selected subset of it), optionally specifying the hierarchical `element` level. Attributes
+    to be returned are indicated via keyword flags in `**kwargs` (e.g., ``n_atoms=True``,
+    ``coordinates=True``).
 
     Parameters
     ----------
     molecular_system : molecular system
-        The molecular system to be queried, in any of the :ref:`supported forms <Introduction_Forms>`.
-
+        Molecular system to query, in any of the :ref:`supported forms <Introduction_Forms>`.
     element : {'atom', 'group', 'component', 'molecule', 'chain', 'entity', 'bond', 'system'}, default 'system'
-        Type of element for which the attributes are requested.
-
+        Element level at which attributes are retrieved.
     selection : int, tuple, list, numpy.ndarray or str, default 'all'
-        Selection of elements of the specified type. Can be provided as:
-        - A list, tuple or array of 0-based indices.
-        - A string following a supported selection syntax.
-        The selection is interpreted in the context of the `element`.
-
+        Subset of elements (interpreted at the level set by `element`) to use when retrieving
+        attributes. Either a 0-based index collection or a selection string parsed according to
+        :ref:`Introduction_Selection`.
     structure_indices : int, tuple, list, numpy.ndarray or 'all', default 'all'
-        Structure indices to include in the query. Required for structural attributes
-        (e.g., coordinates, box, time).
-
-    syntax : str, default 'MolSysMT'
-        Selection syntax used to interpret the `selection` string. See :ref:`Introduction_Selection`.
-
-    output_type : {'values', 'dictionary'}, default 'values'
-        - If `'values'`, returns a list of attribute values in the order they were requested.
-        - If `'dictionary'`, returns a dictionary with attribute names as keys and their values as values.
-
-    get_missing_bonds : bool, default True
-        If True and the molecular system does not include bond information, this option attempts to infer it.
-
+        0-based indices of structures to include in the query. Required for structural attributes (e.g., coordinates, box, time).
     mask : array-like of bool, optional
         Boolean mask to apply after selection and structure filtering. Must match the shape of the selected elements.
+    syntax : str, default 'MolSysMT'
+        Selection syntax used when `selection` is a string. See :ref:`Introduction_Selection`.
+    get_missing_bonds : bool, default False
+        Whether to infer and return bond information on the fly when bond-related attributes
+        are requested and the input form lacks explicit connectivity. The inference uses the
+        form backend’s heuristics (distance/chemistry-aware thresholds).
+    output_type : {'values', 'dictionary'}, default 'values'
+        Output format:
+        - ``value` — **convenience mode**:
+          * if exactly **one** attribute is requested, return its value directly;
+          * if **multiple** attributes are requested, return a **tuple** of values following
+            the order in which the attributes were provided in `**kwargs`.
+        - ``'dictionary'`` — return a dictionary mapping attribute names to values.
+    skip_digestion : bool, default False
+        Whether to skip MolSysMT’s internal argument digestion mechanism.
 
-    **kwargs : dict
-        Attributes to retrieve. Each attribute must be specified as a keyword with value `True`.
+        MolSysMT includes a built-in digestion system that validates and normalizes
+        function arguments. This process checks types, shapes, and values, and automatically
+        adjusts them when possible to meet expected formats.
+
+        Setting `skip_digestion=True` disables this process, which may improve performance
+        in workflows where inputs are already validated. Use with caution: only set this to
+        `True` if you are certain all input arguments are correct and consistent
+    **kwargs
+        Attribute flags selecting which values to retrieve (e.g., ``n_atoms=True``,
+        ``coordinates=True``, ``time=True``, ``box=True``, etc.). Only attributes flagged
+        as `True` are returned.
 
     Returns
     -------
-    list or dict
-        A list of attribute values (if `output_type='values'`) or a dictionary mapping attribute names to values
-        (if `output_type='dictionary'`). If an attribute is not found in the system, its value will be `None`.
+    Any or tuple or dict or None
+        Depending on `output_type`:
+        - If ``output_type == 'values'`` and a single attribute is requested: the attribute value. This value can be
+        `None` if the attribute is not found in the system.
+        - If ``output_type == 'values'`` and multiple attributes are requested: a tuple with values
+          in the order given by `**kwargs`.
+        - If ``output_type == 'dictionary'``: a dictionary ``{attribute_name: value}``.
 
     Raises
     ------
     NotSupportedFormError
         If the molecular system has an unsupported form.
-
     ArgumentError
         If any input argument is invalid or inconsistent.
 
     Notes
     -----
-    See :ref:`User Guide > Introduction > Molecular systems > Forms <Introduction_Forms>` for supported forms.
-
-    See :ref:`User Guide > Introduction > Selection syntaxes <Introduction_Selection>` for selection options.
+    - Supported molecular-system forms are summarized in :ref:`Introduction_Forms`.
+    - Selection strings must follow one of the syntaxes described in
+      :ref:`Introduction_Selection`.
 
     See Also
     --------
     :func:`molsysmt.basic.select`
         Select elements from a molecular system.
-
     :func:`molsysmt.basic.get_attributes`
         Get the list of available attributes for a molecular system.
 
     Examples
     --------
     >>> import molsysmt as msm
-    >>> molsys = msm.systems.demo['T4 lysozyme L99A']['181l.mmtf']
+    >>> from molsysmt import systems
+    >>> molsys = systems['T4 lysozyme L99A']['181l.h5msm']
     >>> msm.get(molsys, element='group', selection=[10,11,12], n_atoms=True)
-    [9, 6, 8]
+    [9, 4, 8]
     >>> msm.get(molsys, element='molecule', selection='molecule_type=="water"', n_molecules=True)
-    165
+    136
     >>> msm.get(molsys, element='bond', selection=[0,1,2,3,4], bonded_atoms=True)
-    array([[0, 1],
-           [1, 2],
-           [2, 3],
-           [1, 4],
-           [4, 5]])
+    [0, 1, 2, 3, 4, 8]
 
-    .. admonition:: User guide
 
-       For a tutorial on using this function, see:
-       :ref:`User Guide > Tools > Basic > Get <Tutorial_Get>`
+    .. admonition:: Tutorial with more examples
+
+       See the following tutorial for a practical demonstration of how to use this function,
+       along with additional examples:
+       :ref:`Tutorial_Get`.
+
 
     .. versionadded:: 1.0.0
     """

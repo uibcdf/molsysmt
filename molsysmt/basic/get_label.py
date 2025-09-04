@@ -10,65 +10,68 @@ def get_label(molecular_system,
               skip_digestion=False
          ):
     """
-    Generate label strings for selected elements of a molecular system.
+    Generating label strings for selected elements of a molecular system.
 
-    This function returns one or more label strings for elements of a molecular system,
-    based on the specified element type (e.g., atoms, groups, molecules) and selection.
-    Labels are formatted according to a user-defined string pattern using element-specific attributes.
+    This function builds one or more human-readable labels for elements of a molecular system,
+    based on the requested `element` level and an f-string-like `string` pattern. Generic
+    placeholders (`{name}`, `{id}`, `{index}`) are automatically mapped to the appropriate
+    attribute names for the chosen `element` (e.g., `atom_name`, `group_id`). Explicit
+    attribute names (e.g., `molecule_name`) are also allowed regardless of `element`.
+
 
     Parameters
     ----------
     molecular_system : molecular system
-        Molecular system to be analyzed, in any of the :ref:`supported forms <Introduction_Forms>`.
-
+        Molecular system to analyze, in any of the :ref:`supported forms <Introduction_Forms>`.
     element : {'atom', 'group', 'component', 'molecule', 'chain', 'entity', 'system'}, default 'atom'
-        Type of element for which the labels will be generated.
-
-    selection : int, tuple, list, numpy.ndarray, or str, default 'all'
-        Selection of elements of the specified type. Can be given as:
-        - A list, tuple, or array of 0-based indices.
-        - A string parsed using a supported selection syntax (see :ref:`Introduction_Selection`).
-        The selection is interpreted relative to the chosen `element`.
-
+        Level of the molecular hierarchy for which labels are generated.
+    selection : int, tuple, list, numpy.ndarray or str, default 'all'
+        Selection of elements of the specified type. It can be a 0-based index collection or a
+        selection string parsed according to :ref:`Introduction_Selection`. The selection is
+        interpreted at the level given by `element`.
     string : str, default '{name}-{id}@{index}'
-        Pattern string used to construct labels. This must be written as a Python f-string (without the `f` prefix).
-        Allowed placeholder keywords include `name`, `id`, and `index`, which are automatically mapped to the 
-        appropriate attribute for the selected element (e.g., `atom_name`, `group_id`, etc.). Alternatively, explicit 
-        attribute names such as `atom_name`, `group_id`, or `molecule_id` can also be used directly, regardless of the `element` value.
-
+        Pattern template used to construct the labels. It must be a valid `str.format()` template.
+        Supported generic placeholders are `{name}`, `{id}`, `{index}` (mapped to the element’s
+        attribute names). Additionally, explicit attribute names such as `atom_name`, `group_id`,
+        `molecule_id`, etc., can be used directly.
     syntax : str, default 'MolSysMT'
-        Syntax used to interpret the `selection` string, if applicable. See :ref:`Introduction_Selection`.
-
+        Selection syntax used when `selection` is a string. See :ref:`Introduction_Selection`.
     skip_digestion : bool, default False
-        If True, skip validation of the input molecular system. For advanced use only.
+        Whether to skip MolSysMT’s internal argument digestion mechanism.
+
+        MolSysMT includes a built-in digestion system that validates and normalizes
+        function arguments. This process checks types, shapes, and values, and automatically
+        adjusts them when possible to meet expected formats.
+
+        Setting `skip_digestion=True` disables this process, which may improve performance
+        in workflows where inputs are already validated. Use with caution: only set this to
+        `True` if you are certain all input arguments are correct and consistent.
+
 
     Returns
     -------
     str or list of str
-        A single label string (if one element is selected), or a list of label strings for all selected elements.
+        A single label string if only one element is selected; otherwise, a list of label strings
+        in the order of the selection.
+
 
     Raises
     ------
     NotSupportedFormError
-        If the input molecular system is in an unsupported form.
-
+        If the input molecular system has an unsupported form.
     ArgumentError
         If input arguments are invalid or inconsistent.
 
     Notes
     -----
-    - Label formatting is flexible and customizable via the `string` argument.
-    - The mapping of generic placeholders (e.g., `name`, `id`) to specific attribute names depends on the value of `element`.
-
-    See :ref:`User Guide > Introduction > Molecular systems > Forms <Introduction_Forms>` for supported forms.
-
-    See :ref:`User Guide > Introduction > Selection syntaxes <Introduction_Selection>` for supported selection strings.
+    - Supported molecular-system forms are summarized in :ref:`Introduction_Forms`.
+    - Selection strings must follow one of the syntaxes described in
+      :ref:`Introduction_Selection`.
 
     See Also
     --------
     :func:`molsysmt.basic.select`
         Select elements from a molecular system.
-
     :func:`molsysmt.basic.get`
         Retrieve values of attributes for selected elements.
 
@@ -78,12 +81,13 @@ def get_label(molecular_system,
     >>> molsys = msm.convert(msm.systems['T4 lysozyme L99A']['181l.h5msm'])
     >>> msm.get_label(molsys, element='group', selection=[10, 12, 14],
     ...               string='{group_name}{group_id}/{entity_name}')
-    ['GLU11/T4 lysozyme', 'LEU13/T4 lysozyme', 'LEU15/T4 lysozyme']
+    ['GLU11/T4 LYSOZYME', 'LEU13/T4 LYSOZYME', 'LEU15/T4 LYSOZYME']
 
-    .. admonition:: User guide
+    .. admonition:: Tutorial with more examples
 
-       For a tutorial on using this function, see:
-       :ref:`User Guide > Tools > Basic > Get label <Tutorial_Get_label>`
+       See the following tutorial for a practical demonstration of how to use this function,
+       along with additional examples:
+       :ref:`Tutorial_Get_label`.
 
     .. versionadded:: 1.0.0
     """
@@ -104,7 +108,7 @@ def get_label(molecular_system,
             get_attributes[attribute] = True
 
     get_dict = get(molecular_system, element=element, selection=selection, syntax=syntax,
-                       output_type='dictionary', **get_attributes)
+                       output_type='dictionary', skip_digestion=True, **get_attributes)
 
     n_elements = []
     for value in get_dict.values():

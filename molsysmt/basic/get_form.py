@@ -4,16 +4,18 @@ from pathlib import PosixPath
 # This method must not be digested
 def get_form(molecular_system):
     """
-    Return the form of a molecular system.
+    Retrieving the form of a molecular system.
 
-    This function returns a string identifying the form of the input molecular system,
-    such as `'file:pdb'`, `'openmm.Topology'`, `'string:pdb_id'`, or any other
+    This function returns a string that identifies the form of the input molecular system,
+    such as ``'file:pdb'``, ``'openmm.Topology'``, ``'string:pdb_id'``, or any other
     supported form.
+
 
     Parameters
     ----------
     molecular_system : molecular system
-        Molecular system to be analyzed, in any of the :ref:`supported forms <Introduction_Forms>`.
+        Molecular system to analyze, in any of the :ref:`supported forms <Introduction_Forms>`.
+
 
     Returns
     -------
@@ -27,32 +29,34 @@ def get_form(molecular_system):
 
     Notes
     -----
-    See :ref:`User Guide > Introduction > Molecular systems > Forms <Introduction_Forms>` for a full list of supported forms.
+    - See :ref:`Introduction_Forms` for a full list of supported forms.
 
     See Also
     --------
     :func:`molsysmt.convert`
         Convert a molecular system into a different form.
 
-    :func:`molsysmt.get_attributes`
-        Get the set of available attributes in a molecular system.
-
     Examples
     --------
     >>> import molsysmt as msm
-    >>> molsys_A = msm.convert(msm.systems['T4 lysozyme L99A']['181l.h5msm'])
-    >>> msm.get_form(molsys)
+    >>> from molsysmt import systems
+    >>> molsys_A = systems['T4 lysozyme L99A']['181l.h5msm']
+    >>> msm.get_form(molsys_A)
     'file:h5msm'
-    >>> molsys_B = msm.convert(molsys_A, to_form='openmm.Topology')
+    >>> molsys_B = msm.convert(molsys_A, to_form='molsysmt.MolSys')
     >>> msm.get_form(molsys_B)
+    'molsysmt.MolSys'
+    >>> molsys_C = msm.convert(molsys_B, to_form='openmm.Topology')
+    >>> msm.get_form(molsys_C)
     'openmm.Topology'
 
-    .. admonition:: User guide
+    .. admonition:: Tutorial with more examples
 
-       For a tutorial on using this function, see:
-       :ref:`User Guide > Tools > Basic > Get form <Tutorial_Get_form>`
+       See the following tutorial for a practical demonstration of how to use this function,
+       along with additional examples:
+       :ref:`Tutorial_Get_form`.
 
-    .. versionadded:: 0.1.0
+    .. versionadded:: 1.0.0
     """
 
     # This method can check if molecular system is indeed a molecular system

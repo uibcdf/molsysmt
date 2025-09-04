@@ -405,68 +405,70 @@ def convert(molecular_system,
             skip_digestion=False,
             **kwargs):
     """
-    Convert a molecular system into another form or set of forms.
+    Converting a molecular system into another form or set of forms.
 
-    This function converts a molecular system from its current form to another supported form,
-    or multiple forms. Optionally, a subset of atoms and/or structures can be selected using the
-    `selection` and `structure_indices` arguments prior to conversion.
+    This function converts a molecular system from its current form into one target form, or into
+    multiple target forms. Optionally, a subset of atoms and/or structures can be selected using
+    `selection` and `structure_indices` before the conversion takes place.
+
 
     Parameters
     ----------
     molecular_system : molecular system
-        Molecular system in any of the :ref:`supported forms <Introduction_Forms>`.
-
-    to_form : str or list of str, default='molsysmt.MolSys'
-        Target form or list of forms for the conversion output.
+        Molecular system provided in any of the :ref:`supported forms <Introduction_Forms>`.
+    to_form : str or list of str, default 'molsysmt.MolSys'
+        Target form (or list of forms) for the conversion output. When a list is given,
+        the function returns a list with one converted output per requested form.
         See :ref:`Supported conversions <Introduction_Supported>`.
-
-    selection : str, tuple, list, or numpy.ndarray, default 'all'
-        Atom selection to apply before conversion. Can be specified as a string using a
-        supported selection syntax, or as indices (0-based). The default 'all' includes
+    selection : str, tuple, list or numpy.ndarray, default 'all'
+        Atom selection to apply prior to conversion. Either a 0-based index collection or a
+        selection string parsed according to :ref:`Introduction_Selection`. The default 'all' includes
         the entire system.
-
-    structure_indices : int, tuple, list, or numpy.ndarray, default 'all'
-        Indices of structures to include in the conversion (0-based). Use 'all' to include all structures.
-
+    structure_indices : int, tuple, list, numpy.ndarray or 'all', default 'all'
+        0-based indices of the structures to include in the conversion. The default 'all' includes all structures.
     syntax : str, default 'MolSysMT'
-        Syntax used to parse the `selection` string, if applicable.
-        See :ref:`Introduction_Selection`.
-
+        Selection syntax used when `selection` is a string. See :ref:`Introduction_Selection`.
     skip_digestion : bool, default False
-        If True, bypass the standard validation and digestion of input. For advanced use only.
+        Whether to skip MolSysMT’s internal argument digestion mechanism.
 
-    **kwargs : dict, optional
-        Additional arguments passed to specific conversion handlers if needed.
+        MolSysMT includes a built-in digestion system that validates and normalizes
+        function arguments. This process checks types, shapes, and values, and automatically
+        adjusts them when possible to meet expected formats.
+
+        Setting `skip_digestion=True` disables this process, which may improve performance
+        in workflows where inputs are already validated. Use with caution: only set this to
+        `True` if you are certain all input arguments are correct and consistent.
+
+    **kwargs
+        Additional keyword arguments forwarded to specific conversion handlers when required
+        by a particular input-output path (e.g., topology or box handling options).
 
     Returns
     -------
-    molecular_system : molecular system or list of molecular systems
-        The converted system(s) in the form(s) specified by `to_form`.
+    molecular system or list of molecular systems
+        The converted molecular system in the requested `to_form`. If `to_form` is a list,
+        a list of converted systems is returned (one per target form).
+
 
     Raises
     ------
     NotSupportedFormError
-        If the input or requested output form is not supported.
-
+        If the input system or the requested target form is not supported.
     ArgumentError
-        If one or more input arguments are invalid.
+        If any of the input arguments is invalid or inconsistent.
 
     Notes
     -----
-    For a list of all supported input/output forms, see:
-    :ref:`User Guide > Introduction > Molecular systems > Forms <Introduction_Forms>`.
-
-    For supported selection syntaxes, see:
-    :ref:`User Guide > Introduction > Selection syntaxes <Introduction_Selection>`.
+    - Supported molecular-system forms are summarized in :ref:`Introduction_Forms`.
+    - Selection strings must follow one of the syntaxes described in
+      :ref:`Introduction_Selection`.
 
     See Also
     --------
     :func:`molsysmt.basic.select`
         Select elements of a molecular system.
-
     :func:`molsysmt.basic.get_form`
-        Identify the current form of a molecular system.
-
+        Retrieve the form of a molecular system.
     :func:`molsysmt.basic.extract`
         Extract a subset of a molecular system.
 
@@ -480,10 +482,11 @@ def convert(molecular_system,
     >>> msm.get_form(molsys_B)
     'openmm.Topology'
 
-    .. admonition:: User guide
+    .. admonition:: Tutorial with more examples
 
-       For a tutorial on using this function, see:
-       :ref:`User Guide > Tools > Basic > Convert <Tutorial_Convert>`
+       See the following tutorial for a practical demonstration of how to use this function,
+       along with additional examples:
+       :ref:`Tutorial_Convert`.
 
     .. versionadded:: 1.0.0
     """

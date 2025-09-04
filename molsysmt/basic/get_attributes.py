@@ -4,60 +4,87 @@ from molsysmt._private.digestion import digest
 @digest()
 def get_attributes(molecular_system, include_none=False, output_type='dictionary', skip_digestion=False):
     """
-    Retrieve the list of attributes present in a molecular system.
+    Retrieving available attributes from a molecular system.
 
-    This function checks which attributes are available in the input molecular system and returns 
-    either a dictionary indicating the presence (`True`/`False`) of each attribute or a list of 
-    the attributes present, depending on the `output_type`.
+    This function inspects the input molecular system and reports which attributes are available
+    according to MolSysMT’s attribute registry. The result can be returned either as a dictionary
+    mapping attribute names to booleans or as a list containing only the present attributes.
 
     Parameters
     ----------
     molecular_system : molecular system
-        The molecular system to be analyzed, in any of the :ref:`supported forms <Introduction_Forms>`.
-
+        Molecular system to analyze, in any of the :ref:`supported forms <Introduction_Forms>`.
+    include_none : bool, default False
+        Whether to consider attributes with value `None` as present when probing availability.
+        If `True`, attributes that exist but currently hold `None` will be marked as present.
     output_type : {'dictionary', 'list'}, default 'dictionary'
-        Format of the returned result. If 'dictionary', returns all supported attributes as keys
-        with boolean values indicating presence. If 'list', returns only the present attribute names.
+        Format of the returned result. If ``'dictionary'``, returns all supported attributes as
+        keys with boolean values indicating presence. If ``'list'``, returns only the names of
+        attributes present in the molecular system.
+    skip_digestion : bool, default False
+        Whether to skip MolSysMT’s internal argument digestion mechanism.
+
+        MolSysMT includes a built-in digestion system that validates and normalizes
+        function arguments. This process checks types, shapes, and values, and automatically
+        adjusts them when possible to meet expected formats.
+
+        Setting `skip_digestion=True` disables this process, which may improve performance
+        in workflows where inputs are already validated. Use with caution: only set this to
+        `True` if you are certain all input arguments are correct and consistent.
+
 
     Returns
     -------
     dict or list
-        - If `output_type == 'dictionary'`: a dictionary with attribute names as keys and booleans as values.
-        - If `output_type == 'list'`: a list with the names of attributes present in the molecular system.
+        If ``output_type == 'dictionary'``: dictionary with attribute names as keys and
+        booleans as values indicating availability. If ``output_type == 'list'``: list with the names of attributes
+        present.
+
 
     Raises
     ------
     NotSupportedFormError
         If the input molecular system has an unsupported form.
+    ArgumentError
+        If input arguments are invalid or inconsistent.
 
     Notes
     -----
-    See :ref:`User Guide > Introduction > Molecular systems > Forms <Introduction_Forms>` for a list of supported input forms.
+    - Supported molecular-system forms are summarized in :ref:`Introduction_Forms`.
+    - Selection strings must follow one of the syntaxes described in
+      :ref:`Introduction_Selection`.
 
     See Also
     --------
     :func:`molsysmt.basic.has_attribute`
         Check whether a specific attribute exists in a molecular system.
-
     :func:`molsysmt.basic.get_form`
         Retrieve the form of a molecular system.
+    :func:`molsysmt.basic.get` :
+        Retrieve attribute values from a molecular system.
 
     Examples
     --------
     >>> import molsysmt as msm
-    >>> molsys = msm.convert(msm.systems['T4 lysozyme L99A']['181l.mmtf'])
+    >>> molsys = msm.convert(msm.systems['T4 lysozyme L99A']['181l.h5msm'])
     >>> attributes = msm.get_attributes(molsys)
     >>> attributes['box']
     True
     >>> attributes['forcefield']
     False
-    >>> msm.get_attributes(molsys, output_type='list')
-    ['coordinates', 'box', 'time', ...]
+    >>> output = msm.get_attributes(molsys, output_type='list')
+    >>> isinstance(output, list)
+    True
+    >>> 'molecule_id' in output
+    True
+    >>> 'forcefield' in output
+    False
 
-    .. admonition:: User guide
+    .. admonition:: Tutorial with more examples
 
-       For a tutorial on how to use this function, see:
-       :ref:`User Guide > Tools > Basic > Get attributes <Tutorial_Get_attributes>`
+       See the following tutorial for a practical demonstration of how to use this function,
+       along with additional examples:
+       :ref:`Tutorial_Get_attributes`.
 
     .. versionadded:: 1.0.0
     """
