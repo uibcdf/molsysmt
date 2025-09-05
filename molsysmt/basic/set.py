@@ -129,7 +129,7 @@ def set(molecular_system,
             if attributes[in_attribute]['runs_on_structures']:
                 dict_indices['structure_indices'] = structure_indices
 
-            item, form = where_is_attribute(molecular_system, in_attribute, check_if_None=False)
+            item, form = where_is_attribute(molecular_system, in_attribute, include_none=False)
             in_value = value_of_in_attribute[in_attribute]
             set_function = getattr(_dict_modules[form], f'set_{in_attribute}_to_{element}')
             set_function(item, **dict_indices, value=in_value)
@@ -152,7 +152,7 @@ def set(molecular_system,
             if attributes[in_attribute]['runs_on_structures']:
                 dict_indices['structure_indices'] = structure_indices
 
-            item, form = where_is_attribute(molecular_system, in_attribute, check_if_None=False)
+            item, form = where_is_attribute(molecular_system, in_attribute, include_none=False)
             in_value = value_of_in_attribute[in_attribute]
             set_function = getattr(_dict_modules[form], f'set_{in_attribute}_to_{element}')
             set_function(item, **dict_indices, value=in_value)
