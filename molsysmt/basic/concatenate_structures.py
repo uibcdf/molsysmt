@@ -6,7 +6,7 @@ def concatenate_structures(molecular_systems, selections='all', structure_indice
     """
     Concatenate structures from a list of molecular systems into a single molecular system.
 
-    This function collects structures (frames) from several molecular systems and returns a new
+    This function collects structures from several molecular systems and returns a new
     molecular system whose structural dimension is the concatenation of the selected structures.
     All participating systems must be aligned in atom count and ordering over the chosen selections;
     use `selections` to provide per-system matching subsets when needed. Optionally, select specific

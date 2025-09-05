@@ -15,7 +15,6 @@ def is_a_molecular_system(molecular_system):
         Tentative molecular system, provided as a single item or a list/tuple of items in any of
         the :ref:`supported forms <Introduction_Forms>`.
 
-
     Returns
     -------
     bool

@@ -43,13 +43,11 @@ def extract(molecular_system, selection='all', structure_indices='all', to_form=
         in workflows where inputs are already validated. Use with caution: only set this to
         `True` if you are certain all input arguments are correct and consistent.
 
-
     Returns
     -------
     molecular system
         A new molecular system containing only the selected atoms and structures, in `to_form` if provided, otherwise in
         the input form.
-
 
     Raises
     ------

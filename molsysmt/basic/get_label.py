@@ -18,7 +18,6 @@ def get_label(molecular_system,
     attribute names for the chosen `element` (e.g., `atom_name`, `group_id`). Explicit
     attribute names (e.g., `molecule_name`) are also allowed regardless of `element`.
 
-
     Parameters
     ----------
     molecular_system : molecular system
@@ -47,13 +46,11 @@ def get_label(molecular_system,
         in workflows where inputs are already validated. Use with caution: only set this to
         `True` if you are certain all input arguments are correct and consistent.
 
-
     Returns
     -------
     str or list of str
         A single label string if only one element is selected; otherwise, a list of label strings
         in the order of the selection.
-
 
     Raises
     ------

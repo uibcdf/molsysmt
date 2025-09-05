@@ -33,7 +33,6 @@ class Iterator():
     arguments : list of str
         Attribute names returned on each iteration.
 
-
     Notes
     -----
     - Supported molecular-system forms are summarized in :ref:`Introduction_Forms`.
@@ -44,7 +43,6 @@ class Iterator():
     - If no attributes are requested, the iterator returns a molecular system per iteration
     with updated structural attributes.
 
-
     See Also
     --------
     :func:`molsysmt.basic.select` :
@@ -52,30 +50,27 @@ class Iterator():
     :func:`molsysmt.basic.get` :
         Retrieve values of attributes from a molecular system.
 
-
     Examples
     --------
     >>> import molsysmt as msm
-    >>> molsys = msm.systems['chicken villin HP35']['1vii.bcif.gz']
-    >>> it1 = msm.Iterator(molsys, element='group', selection='molecule_type=="protein"',
-    ...                    start=10, stop=20, step=2,
-    ...                    group_index=True, group_name=True, formal_charge=True)
-    >>> for group_index, group_name, formal_charge in it1:
-    ...     pass
-    >>> molsys = msm.systems['pentalanine']['traj_pentalanine.h5']
+    >>> from molsysmt import systems
+    >>> molsys = systems['chicken villin HP35']['1vii.bcif.gz']
+    >>> it1 = msm.Iterator(molsys, element='group', selection='molecule_type=="peptide"',
+    ...                    start=10, stop=20, step=2, group_index=True, group_name=True)
+    >>> for group_index, group_name in it1:
+    ...     pass # replace with desired operations
+    >>> molsys = systems['pentalanine']['traj_pentalanine.h5']
     >>> it2 = msm.Iterator(molsys, selection='group_index==3 and atom_name=="CA"',
     ...                    structure_indices=[100, 110, 120],
     ...                    time=True, coordinates=True)
     >>> for time, coordinates in it2:
-    ...     pass
-
+    ...     pass # replace with desired operations
 
     .. admonition:: Tutorial with more examples
 
        See the following tutorial for a practical demonstration of how to use this class,
        along with additional examples:
        :ref:`Tutorial_Iterator`.
-
 
     .. versionadded:: 1.0.0
     """
@@ -123,49 +118,16 @@ class Iterator():
             - `'dictionary'`: mapping `{attribute_names: keys}`
         output_form : str, default 'molsysmt.MolSys'
             Form of the yielded molecular system when no attributes are requested.
-
         **kwargs : {str: bool}
             Attributes to extract (e.g., `time=True`, `coordinates=True`). Keys must be valid
             attribute names; only those with `True` are included.
-
-
-        Returns
-        -------
-        molsysmt.basic.Iterator
-            An instance of the `Iterator` class, ready to be used in a loop.
 
         Raises
         ------
         NotSupportedFormError
             If the input system has an unsupported form.
-
         ArgumentError
             If any input argument is invalid or inconsistent.
-
-        SyntaxError
-            If the `syntax` string is not recognized.
-
-        Examples
-        --------
-        >>> import molsysmt as msm
-        >>> molsys = msm.systems['chicken villin HP35']['1vii.bcif.gz']
-        >>> iterator = msm.Iterator(molsys, element='group', selection='molecule_type=="protein"',
-        ...                         start=10, stop=20, step=2,
-        ...                         group_index=True, group_name=True, formal_charge=True)
-        >>> for group_index, group_name, formal_charge in iterator:
-        ...     print(group_index, group_name, formal_charge)
-
-        >>> molsys = msm.systems['pentalanine']['traj_pentalanine.h5']
-        >>> iterator = msm.Iterator(molsys, selection='group_index==3 and atom_name=="CA"',
-        ...                         structure_indices=[100, 110, 120],
-        ...                         time=True, coordinates=True)
-        >>> for time, coordinates in iterator:
-        ...     print(time, coordinates)
-
-        .. admonition:: User guide
-
-           Follow this link for a tutorial on how to use this class:
-           :ref:`User Guide > Tools > Basic > Iterator <Tutorial_Iterator>`
         """
 
         from . import select, get_form, where_is_attribute, convert
@@ -236,20 +198,39 @@ class Iterator():
 
     def __iter__(self):
         """
-        Iterator private method
+        Returning the iterator object.
 
-        This method returns the `self` variable to make this class working
-        as an interator. It must be invoked with out any input argument.
+        This method returns `self` to enable usage in `for` loops and other iteration
+        contexts.
+
+        Returns
+        -------
+        molsysmt.basic.Iterator
+            The iterator instance itself.
         """
 
         return self
 
     def __next__(self):
         """
-        Iterator private method
+        Producing the next item in the iteration.
 
-        This method returns the values of the molecular systems' attributes corresponding to the
-        next iteration. It must be invoked with out any input argument.
+        If attributes were requested in `**kwargs`, this method returns either a tuple of
+        values (`output_type='values'`) or a dictionary of `{attribute_name: value}`
+        (`output_type='dictionary'`). If no attributes were requested, it returns a
+        molecular system in `output_form` whose structural data (`structure_id`, `time`,
+        `coordinates`, `box`) are updated to the current iteration.
+
+        Returns
+        -------
+        Any
+            Tuple, single value, dictionary, or a molecular system depending on the
+            initialization parameters (see above).
+
+        Raises
+        ------
+        StopIteration
+            When no further items are available.
         """
 
         try:

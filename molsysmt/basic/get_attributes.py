@@ -32,14 +32,12 @@ def get_attributes(molecular_system, include_none=False, output_type='dictionary
         in workflows where inputs are already validated. Use with caution: only set this to
         `True` if you are certain all input arguments are correct and consistent.
 
-
     Returns
     -------
     dict or list
         If ``output_type == 'dictionary'``: dictionary with attribute names as keys and
         booleans as values indicating availability. If ``output_type == 'list'``: list with the names of attributes
         present.
-
 
     Raises
     ------

@@ -10,7 +10,6 @@ def is_composed_of(molecular_system, selection='all', syntax='MolSysMT', skip_di
     composed of the requested element types and counts provided via keyword conditions in
     `**kwargs`; otherwise it returns `False`.
 
-
     Parameters
     ----------
     molecular_system : molecular system
@@ -42,12 +41,10 @@ def is_composed_of(molecular_system, selection='all', syntax='MolSysMT', skip_di
         - `False` → the count must be **== 0** (absence required)
         - `int`   → the count must be **exactly** that integer
 
-
     Returns
     -------
     bool
         `True` if all provided conditions are satisfied by the selection; `False` otherwise.
-
 
     Raises
     ------
@@ -71,8 +68,6 @@ def is_composed_of(molecular_system, selection='all', syntax='MolSysMT', skip_di
 
     Examples
     --------
-    The following examples illustrate the use of the function:
-
     >>> import molsysmt as msm
     >>> from molsysmt import systems
     >>> molsys = systems['T4 lysozyme L99A']['181l.h5msm']
@@ -83,13 +78,11 @@ def is_composed_of(molecular_system, selection='all', syntax='MolSysMT', skip_di
     >>> msm.basic.is_composed_of(molsys, n_chains=6)
     True
 
-
     .. admonition:: Tutorial with more examples
 
        See the following tutorial for a practical demonstration of how to use this function,
        along with additional examples:
        :ref:`Tutorial_Is_composed_of`.
-
 
     .. versionadded:: 1.0.0
     """

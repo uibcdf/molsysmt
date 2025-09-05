@@ -8,7 +8,6 @@ def has_attribute(molecular_system, attribute, include_none=False, skip_digestio
     This function returns `True` if the given attribute is available for the input molecular
     system, and `False` otherwise. Availability depends on the form-specific backend and the global attribute registry.
 
-
     Parameters
     ----------
     molecular_system : molecular system
@@ -29,12 +28,10 @@ def has_attribute(molecular_system, attribute, include_none=False, skip_digestio
         in workflows where inputs are already validated. Use with caution: only set this to
         `True` if you are certain all input arguments are correct and consistent.
 
-
     Returns
     -------
     bool
         `True` if the attribute is available in the molecular system, `False` otherwise.
-
 
     Raises
     ------
@@ -43,13 +40,11 @@ def has_attribute(molecular_system, attribute, include_none=False, skip_digestio
     ArgumentError
         If input arguments are invalid or inconsistent.
 
-
     Notes
     -----
     - Supported molecular-system forms are summarized in :ref:`Introduction_Forms`.
     - Selection strings must follow one of the syntaxes described in
       :ref:`Introduction_Selection`.
-
 
     See Also
     --------
@@ -57,7 +52,6 @@ def has_attribute(molecular_system, attribute, include_none=False, skip_digestio
         Retrieve the list of available attributes in a molecular system.
     :func:`molsysmt.basic.get`
         Retrieve values of specific attributes from a molecular system.
-
 
     Examples
     --------

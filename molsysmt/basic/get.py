@@ -105,13 +105,11 @@ def get(molecular_system,
     >>> msm.get(molsys, element='bond', selection=[0,1,2,3,4], bonded_atoms=True)
     [0, 1, 2, 3, 4, 8]
 
-
     .. admonition:: Tutorial with more examples
 
        See the following tutorial for a practical demonstration of how to use this function,
        along with additional examples:
        :ref:`Tutorial_Get`.
-
 
     .. versionadded:: 1.0.0
     """
