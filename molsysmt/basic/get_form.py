@@ -10,12 +10,10 @@ def get_form(molecular_system):
     such as ``'file:pdb'``, ``'openmm.Topology'``, ``'string:pdb_id'``, or any other
     supported form.
 
-
     Parameters
     ----------
     molecular_system : molecular system
         Molecular system to analyze, in any of the :ref:`supported forms <Introduction_Forms>`.
-
 
     Returns
     -------

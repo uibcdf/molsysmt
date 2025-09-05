@@ -411,7 +411,6 @@ def convert(molecular_system,
     multiple target forms. Optionally, a subset of atoms and/or structures can be selected using
     `selection` and `structure_indices` before the conversion takes place.
 
-
     Parameters
     ----------
     molecular_system : molecular system
@@ -438,7 +437,6 @@ def convert(molecular_system,
         Setting `skip_digestion=True` disables this process, which may improve performance
         in workflows where inputs are already validated. Use with caution: only set this to
         `True` if you are certain all input arguments are correct and consistent.
-
     **kwargs
         Additional keyword arguments forwarded to specific conversion handlers when required
         by a particular input-output path (e.g., topology or box handling options).
@@ -448,7 +446,6 @@ def convert(molecular_system,
     molecular system or list of molecular systems
         The converted molecular system in the requested `to_form`. If `to_form` is a list,
         a list of converted systems is returned (one per target form).
-
 
     Raises
     ------

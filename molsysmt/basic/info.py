@@ -40,7 +40,6 @@ def info(molecular_system,
         in workflows where inputs are already validated. Use with caution: only set this to
         `True` if you are certain all input arguments are correct and consistent.
 
-
     Returns
     -------
     pandas.io.formats.style.Styler
@@ -84,7 +83,6 @@ def info(molecular_system,
     2 2-HYDROXYETHYL DISULFIDE unknown 8 1 1 1 1
     3 BENZENE unknown 6 1 1 1 1
     4 water water 136 136 136 1 136
-
 
     .. admonition:: Tutorial with more examples
 

@@ -59,13 +59,13 @@ def append_structures(to_molecular_system, from_molecular_system, selection='all
         atom counts without a proper selection.
     SyntaxError
         If the selection syntax is not recognized.
-    
+
     Notes
     -----
     - All forms listed in :ref:`Introduction_Forms` are accepted for both source and target systems.
     - Selection strings must follow one of the syntaxes described in
       :ref:`Introduction_Selection`.
-    
+
     See Also
     --------
     :func:`molsysmt.basic.select` :
@@ -93,7 +93,7 @@ def append_structures(to_molecular_system, from_molecular_system, selection='all
     
        See the following tutorial for a practical demonstration of how to use this function,
        along with additional examples: :ref:`Tutorial_Append_structures`.
-    
+
     .. versionadded:: 1.0.0
     """
 

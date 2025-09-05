@@ -22,30 +22,23 @@ def add(to_molecular_system, from_molecular_system, selection='all', structure_i
         The target molecular system, in any of the :ref:`supported forms <Introduction_Forms>`.
         Elements from the source system will be added to this system by default. If `in_place=False`, 
         a copy will be returned instead of modifying this object directly.
-
     from_molecular_system : molecular system
         The source molecular system, in any of the :ref:`supported forms <Introduction_Forms>`.
         Selected elements from this system will be added to the target system.
-
     selection : str, list, tuple, or numpy.ndarray, default='all'
         Atoms to be added, specified as a list/tuple/array of 0-based atom indices,
         or as a string following one of the :ref:`supported selection syntaxes <Introduction_Selection>`.
-
     structure_indices : str, list, tuple, or numpy.ndarray, default='all'
         Indices (0-based) of structures in the source system to use for copying structural attributes
         (e.g., coordinates) of the selected atoms.
-
     keep_ids : bool, default=True
         Whether to preserve the unique IDs of elements from the source system when adding them
         to the target system.
-
     in_place : bool, default=True
         If True, modifies `to_molecular_system` in place. If False, returns a new modified copy, leaving
         the original unchanged.
-
     syntax : str, default='MolSysMT'
         Selection syntax to interpret the `selection` string. See :ref:`Introduction_Selection` for options.
-
     skip_digestion : bool, default=False
         Whether to skip MolSysMT’s internal argument digestion mechanism.
 
@@ -67,7 +60,6 @@ def add(to_molecular_system, from_molecular_system, selection='all', structure_i
     ------
     NotSupportedFormError
         If any molecular system is provided in an unsupported form.
-
     ArgumentError
         If any argument has an invalid or inconsistent value.
 
@@ -81,13 +73,10 @@ def add(to_molecular_system, from_molecular_system, selection='all', structure_i
     --------
     :func:`molsysmt.basic.select` :
         Select elements from a molecular system.
-
     :func:`molsysmt.basic.merge` :
         Merge multiple molecular systems into one.
-
     :func:`molsysmt.basic.append_structures` :
         Append structures from one system to another.
-
     :func:`molsysmt.basic.concatenate_structures` :
         Concatenate multiple systems along the structural dimension.
 

@@ -1,77 +1,82 @@
 from molsysmt._private.digestion import digest
 
 @digest()
-def where_is_attribute(molecular_system, attribute, check_if_None=True, skip_digestion=False):
+def where_is_attribute(molecular_system, attribute, include_none=False, skip_digestion=False):
     """
-    Getting the item where a specific attribute is found.
+    Locating the item where a specific attribute is found.
 
-    A molecular system can be formed by a list of items. The function returns
-    the item and the form of the item where a specific attribute is found.
+    A molecular system can be composed of multiple items in different forms. This function
+    returns the item and its form where the given attribute is available. If `include_none`
+    is `False`, items that have the attribute but with value `None` will be ignored.
 
 
     Parameters
     ----------
-
     molecular_system : molecular system
-        Molecular system in any of :ref:`the supported forms
-        <Introduction_Forms>` to be analysed by the function.
+        Molecular system to be analyzed. It can be in any of the :ref:`supported forms <Introduction_Forms>`.
+    attribute : str
+        Name of the attribute to search for within the molecular system.
+    include_none : bool, default=False
+        Whether to ignore items that have the attribute defined but its value is `None`. With default value `False`,
+        such items will be ignored.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT’s internal argument digestion mechanism.
 
-    attribute: str
-        The attribute name to be checked in the molecular system.
+        MolSysMT includes a built-in digestion system that validates and normalizes
+        function arguments. This process checks types, shapes, and values, and automatically
+        adjusts them when possible to meet expected formats.
 
-    check_if_None: bool, default True
-        If an item has an attribute but its value is None, the situation is
-        equal as if the attribute is not in the item.
+        Setting `skip_digestion=True` disables this process, which may improve performance
+        in workflows where inputs are already validated. Use with caution: only set this to
+        `True` if you are certain all input arguments are correct and consistent.
 
 
     Returns
     -------
-
     item
-        The function returns the item where the attribute was found.
-    form
-        The function returns also the form of the item where the attribute was found.
+        The item in which the attribute was found.
+    str
+        The form of the item where the attribute was found.
 
-
-    .. versionadded:: 0.1.0
 
     Notes
     -----
-
-    The list of supported molecular systems' forms is detailed in the documentation section
-    :ref:`User Guide > Introduction > Molecular systems > Forms <Introduction_Forms>`.
+    - Supported molecular-system forms are described in :ref:`Introduction_Forms`.
+    - If multiple items contain the same attribute, the last matching one is returned.
+    - If no item contains the attribute both outputs will be `None`.
 
 
     See Also
     --------
-
-    :func:`molsysmt.basic.get_attributes`
-        Getting the list of attributes of a molecular system.
-
     :func:`molsysmt.basic.has_attribute`
-        Checking if a molecular system has a certain attribute.
+        Checking whether a molecular system contains a given attribute.
+    :func:`molsysmt.basic.get_attributes`
+        Retrieving the list of attributes present in a molecular system.
 
 
     Examples
     --------
-
-    The following example illustrates the use of the function.
-
     >>> import molsysmt as msm
-    >>> structure = msm.systems.demo['pentalanine']['pentalanine.inpcrd']
-    >>> topology = msm.systems.demo['pentalanine']['pentalanine.prmtop']
+    >>> from molsysmt import systems
+    >>> structure = systems['pentalanine']['pentalanine.inpcrd']
+    >>> topology = systems['pentalanine']['pentalanine.prmtop']
     >>> molecular_system = [topology, structure]
-    >>> msm.basic.where_is_attribute(molecular_system, 'box')
-    (PosixPath('/home/diego/projects@uibcdf/MolSysMT/molsysmt/data/inpcrd/pentalanine.inpcrd'),
-     'file:inpcrd')
+    >>> item, form = msm.basic.where_is_attribute(molecular_system, 'box')
+    >>> form
+    'file:inpcrd'
+    >>> item, form = msm.basic.where_is_attribute(molecular_system, 'atom_id')
+    >>> form
+    'file:prmtop'
 
 
-    .. admonition:: User guide
+    .. admonition:: Tutorial with more examples
 
-       Follow this link for a tutorial on how to work with this function:
-       :ref:`User Guide > Tools > Basic > Where is attribute <Tutorial_Where_is_attribute>`.
+       See the following tutorial for a practical demonstration of how to use this function,
+       along with additional examples:
+       :ref:`Tutorial_Where_is_attribute`
 
 
+    .. versionadded:: 1.0.0
     """
 
 
@@ -86,16 +91,11 @@ def where_is_attribute(molecular_system, attribute, check_if_None=True, skip_dig
     where_form=[]
     where_item=[]
 
-    if check_if_None:
-        for form_in, item in zip(forms_in, molecular_system):
-            if _dict_modules[form_in].has_attribute(item, attribute):
-                where_form.append(form_in)
-                where_item.append(item)
-    else:
-        for form_in, item in zip(forms_in, molecular_system):
-            if _dict_modules[form_in].attributes[attribute]:
-                where_form.append(form_in)
-                where_item.append(item)
+    for form_in, item in zip(forms_in, molecular_system):
+        if _dict_modules[form_in].has_attribute(item, attribute, include_none=include_none,
+                                                skip_digestion=True):
+            where_form.append(form_in)
+            where_item.append(item)
 
     if len(where_form)>=1:
         output_item = where_item[-1]

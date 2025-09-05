@@ -18,74 +18,78 @@ def set(molecular_system,
     the selected elements and, if applicable, to specific structures, as specified by the
     `selection` and `structure_indices` arguments.
 
+    This function assigns new values to attributes in a molecular system. Values are set
+    on specific elements (atoms, groups, etc.) and optionally for selected structures.
+    The attributes to be modified are passed as keyword arguments.
+
     Parameters
     ----------
     molecular_system : molecular system
-        Molecular system in any of the :ref:`supported forms <Introduction_Forms>`, whose
-        attributes will be updated.
-
+        Molecular system to be modified. It can be in any of the :ref:`supported forms <Introduction_Forms>`.
     element : {'atom', 'group', 'component', 'molecule', 'chain', 'entity', 'system'}, optional
-        Level of elements to which the attribute values will be set. Required for attributes that
-        depend on a specific element level.
+        Level of elements on which the attribute values will be set. If not provided,
+        the function will infer it from the attribute definitions.
+    selection : str, tuple, list or numpy.ndarray, default='all'
+        Selection of elements whose attributes will be modified. It can be a list/array
+        of 0-based indices or a query string using one of the :ref:`supported selection syntaxes <Introduction_Selection>`.
+        The default 'all' includes the entire system.
+    structure_indices : str, tuple, list or numpy.ndarray, default='all'
+        0-based indices of structures for which structural attributes will be modified. The default 'all' includes all
+        structures.
+    syntax : str, default='MolSysMT'
+        Syntax used to interpret the `selection` string. See :ref:`Introduction_Selection` for details.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT’s internal argument digestion mechanism.
 
-    selection : index, tuple, list, numpy.ndarray or str, default 'all'
-        Selection of elements whose attributes will be modified. The selection can be given by a
-        list, tuple or NumPy array of 0-based indices; or as a query string using one of the
-        :ref:`supported selection syntaxes <Introduction_Selection>`.
+        MolSysMT includes a built-in digestion system that validates and normalizes
+        function arguments. This process checks types, shapes, and values, and automatically
+        adjusts them when possible to meet expected formats.
 
-    structure_indices : index, tuple, list, numpy.ndarray or 'all', default 'all'
-        Indices of structures (0-based integers) to which the structural attributes will be set.
-
-    syntax : str, default 'MolSysMT'
-        Selection syntax used to interpret the `selection` string.
-
+        Setting `skip_digestion=True` disables this process, which may improve performance
+        in workflows where inputs are already validated. Use with caution: only set this to
+        `True` if you are certain all input arguments are correct and consistent.
     **kwargs : dict
-        Attributes to modify, passed as keyword arguments where the key is the attribute name and the
-        value is the new value to be set.
+        Attributes to modify, passed as keyword arguments where the key is the attribute name
+        and the value is the new value to be assigned.
 
     Raises
     ------
     NotSupportedFormError
-        Raised if the molecular system is provided in an unsupported form.
-
+        If the molecular system is provided in an unsupported form.
     ArgumentError
-        Raised if the input arguments do not meet the expected requirements.
+        If the input arguments do not meet the expected requirements.
 
     Notes
     -----
-    The list of supported molecular system forms is described in:
-    :ref:`User Guide > Introduction > Molecular systems > Forms <Introduction_Forms>`
-
-    For supported selection syntaxes and usage examples, see:
-    :ref:`User Guide > Introduction > Selection syntaxes <Introduction_Selection>`
+    - Supported molecular-system forms are described in :ref:`Introduction_Forms`.
+    - Selection syntaxes and valid query expressions are described in :ref:`Introduction_Selection`.
+    - If `element` is not specified, it is inferred from the attribute definition.
+    - If the attribute runs over structures, `structure_indices` must be defined accordingly.
 
     See Also
     --------
     :func:`molsysmt.basic.select`
         Selecting elements of a molecular system.
-
     :func:`molsysmt.basic.get`
         Retrieving attribute values from a molecular system.
 
     Examples
     --------
-    The following example illustrates how to change the name of a group in a protein:
-
     >>> import molsysmt as msm
     >>> molsys = msm.convert('181L')
     >>> msm.basic.get(molsys, element='group', selection='group_index==30', group_name=True)
-    'HIS'
+    ['HIS']
     >>> msm.basic.set(molsys, selection='group_index==30', group_name='HSD')
     >>> msm.basic.get(molsys, element='group', selection='group_index==30', group_name=True)
-    'HSD'
+    ['HSD']
 
-    .. admonition:: User guide
+    .. admonition:: Tutorial with more examples
 
-       Follow this link for a tutorial on how to work with this function:
-       :ref:`User Guide > Tools > Basic > Set <Tutorial_Set>`
+       See the following tutorial for a practical demonstration of how to use this function,
+       along with additional examples:
+       :ref:`Tutorial_Set`
 
     .. versionadded:: 1.0.0
-
     """
 
     from . import select, where_is_attribute

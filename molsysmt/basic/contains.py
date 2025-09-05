@@ -79,7 +79,6 @@ def contains(molecular_system, selection='all', syntax='MolSysMT', skip_digestio
     - Selection strings must follow one of the syntaxes described in
       :ref:`Introduction_Selection`.
 
-
     See Also
     --------
     :func:`molsysmt.basic.select`
