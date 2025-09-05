@@ -158,6 +158,8 @@ Agregar al bloque `Notes`:
 ---
 
 Evita poner palabras en negrita (bold) innecesariamente en los textos descriptivos de los docstrigs.
+Especificar en los ejemplos deben ser probados con `pytest --doctest-modules`.
+Las opciones '+ELLIPSIS' y 'NORMALIZE_WHITESPACE' fueron incluidas por defecto en el fichero `pytest.ini` (no es necesario repetirlas en el docstring).
 
 Con esto, estamos listos para continuar con los módulos `topology`, `structure`, `attributes`, etc. en futuras sesiones. 🎯
 
