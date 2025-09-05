@@ -153,7 +153,7 @@ def test_view_molsyst_MolSys_with_NGLView_4():
     molsys_concatenated = msm.concatenate_structures([molsys_1, molsys_2])
     view = msm.view(molsys_concatenated, viewer='NGLView')
     comparison = msm.compare(view, molsys_concatenated, attribute_type='topological',
-            coordinates=True, box=True, output_type='dictionary')
+            coordinates=True, box=True, include_none=True, output_type='dictionary')
     assert comparison == aux_dict
 
 def test_view_molsyst_MolSys_with_NGLView_5():
@@ -196,8 +196,7 @@ def test_view_molsyst_MolSys_with_NGLView_5():
                 'n_entities': True,
                 'n_bonds': True,
                 'n_inner_bonds': True,
-                'coordinates': True,
-                'box': True}
+                'coordinates': True}
 
     molsys = msm.convert(systems['alanine dipeptide']['alanine_dipeptide.h5msm'], to_form='molsysmt.MolSys')
     view = msm.view(molsys, viewer='NGLView', standard=True)
