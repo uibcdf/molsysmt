@@ -507,7 +507,7 @@ def compare(molecular_system, molecular_system_2, selection='all', structure_ind
 
     if output_type=='boolean':
 
-        return np.all(list(output_dict.values()))
+        return all(list(output_dict.values()))
 
     elif output_type=='dictionary':
 

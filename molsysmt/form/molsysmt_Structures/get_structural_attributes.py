@@ -127,7 +127,7 @@ def get_n_atoms_from_system(item, skip_digestion=False):
 def get_n_structures_from_system(item, structure_indices='all', skip_digestion=False):
 
     if is_all(structure_indices):
-        return item.n_structures
+        return int(item.n_structures)
     else:
         return len(structure_indices)
 
