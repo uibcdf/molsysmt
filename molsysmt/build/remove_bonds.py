@@ -10,7 +10,7 @@ def remove_bonds(molecular_system, bond_indices='all', in_place=True, skip_diges
 
     if in_place:
 
-        item, form = where_is_attribute(molecular_system, 'bond_index', check_if_None=False,
+        item, form = where_is_attribute(molecular_system, 'bond_index', include_none=False,
                                         skip_digestion=True)
 
         remove_bonds_function = getattr(_dict_modules[form], f'remove_bonds')
