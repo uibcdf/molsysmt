@@ -83,7 +83,7 @@ def add_bonds(molecular_system, bonded_atom_pairs, in_place=True, skip_digestion
 
     if in_place:
 
-        item, form = where_is_attribute(molecular_system, 'bonded_atom_pairs', check_if_None=False,
+        item, form = where_is_attribute(molecular_system, 'bonded_atom_pairs', include_none=False,
                                         skip_digestion=True)
 
         add_bonds_function = getattr(_dict_modules[form], f'add_bonds')
