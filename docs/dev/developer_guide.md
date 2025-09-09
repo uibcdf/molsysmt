@@ -12,38 +12,6 @@ MolSysMT is a modular scientific Python library for handling molecular systems. 
 - **Elements**: Hierarchical structural levels (`'atom'`, `'group'`, `'molecule'`, etc.).
 - **Attributes**: Accessible properties or metadata (`coordinates`, `box`, `entity_name`, etc.).
 
----
-
-## 📘 Docstring Style Guide
-
-Docstrings follow a NumPy + Sphinx/MyST format. Use the `add()` function as the canonical reference:
-<https://www.uibcdf.org/MolSysMT/user_guide/tools/basic/add/>
-
-### ✅ Structure for Public Functions
-
-Each public function **must include** the following sections in this order:
-
-- **One-line title** with a strong verb in infinitive (e.g., `Retrieve`, `Convert`, `Display`).
-- `Parameters`
-- `Returns`
-- `Raises` (even if only `NotSupportedFormError`)
-- `Notes`
-- `See Also`
-- `Examples`
-- `.. admonition:: Tutorial with more examples` (link to User Guide tutorial)
-- `.. versionadded:: x.x.x`
-
-### 🔍 Style Details
-
-- Use "**Retrieve**" instead of "Get" in titles and summaries.
-- Use idiomatic names like `get()` for function names, but avoid "getting" in text.
-- `See Also` descriptions must be concise, in infinitive (no "to"):
-  - ✅ `Retrieve attribute values from a molecular system`
-  - ❌ `To get the attributes of...`
-- Use `:ref:` and `{func}` for all Sphinx-compatible cross-links.
-- Use lowercase **ids** in prose to match attribute names (`atom_id`, `group_id`).
-
----
 
 ## 📋 Jupyter Tutorial Style
 
@@ -87,25 +55,6 @@ Avoid repeating "Let's see an example..." for each element. Instead, alternate b
 - CI configs: `.github/workflows/`
 
 ---
-
-## 🧪 Testing Guidelines
-
-- Use `pytest` for all unit tests.
-- Tests go in `molsysmt/tests/` using `test_<function>.py` naming.
-- Use `@pytest.mark.parametrize` when testing over multiple forms.
-- Track test coverage via Codecov: <https://app.codecov.io/github/uibcdf/MolSysMT>
-- Validate tutorials optionally using `nbval` or `pytest + papermill`.
-
----
-
-## ⚙️ Continuous Integration (CI)
-
-- GitHub Actions is used for all testing and documentation workflows.
-- Documentation is deployed to GitHub Pages using:
-  <https://github.com/uibcdf/action-sphinx-docs-to-gh-pages>
-- CI tests for Python 3.8 through 3.12.
-- Recommended to check all notebooks before merging to main.
-
 ---
 
 ## 🤝 Contributing Workflow
@@ -122,3 +71,47 @@ Avoid repeating "Let's see an example..." for each element. Instead, alternate b
 - Keep functions modular and forms-independent.
 - For questions, open an issue or discuss in a PR.
 - Pull requests are welcome!
+
+# Developer Guide (Updated)
+
+This document provides conventions and rules for writing, testing, and documenting functions in MolSysMT.
+
+
+## Tutorials (User Guide notebooks)
+
+- Structure every tutorial as:
+  1. Anchor + Title.
+  2. One-line summary in italics (gerund).
+  3. Short introduction.
+  4. `API documentation` admonition.
+  5. `versionadded` admonition.
+  6. Narrated examples (with varied phrasing).
+  7. `seealso` admonition with links to related tutorials.
+
+- Use MyST admonition syntax in notebooks:
+
+  ```markdown
+  :::{admonition} API documentation
+  ...
+  :::
+  ```
+
+  ```markdown
+  :::{seealso}
+  ...
+  :::
+  ```
+
+- Do not use reST-style admonitions inside notebooks.
+
+### Versionadded
+
+- **Tutorial notebooks**: also include a block MyST admonition right below the
+  first main explanation paragraph opening the tutorial and right before the
+  next section or subsection (usually entitled "How this function works" or
+  similar):
+
+  ```markdown
+  :::{versionadded} 1.0.0
+  :::
+  ```

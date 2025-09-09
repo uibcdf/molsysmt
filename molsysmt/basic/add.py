@@ -2,8 +2,6 @@ from molsysmt._private.digestion import digest
 from molsysmt._private.variables import is_all
 import inspect
 
-__doctest__ = True
-
 @digest()
 def add(to_molecular_system, from_molecular_system, selection='all', structure_indices='all',
         keep_ids=True, in_place=True, syntax='MolSysMT', skip_digestion=False):

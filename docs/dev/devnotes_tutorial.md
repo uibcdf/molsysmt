@@ -1,39 +1,4 @@
 
-# Lessons Learned: Writing Docstrings and Tutorials for MolSysMT
-
-This developer note summarizes the most important things I have learned and refined during the collaborative documentation work for the `basic` and `build` modules in MolSysMT. It is intended as both a personal reflection and a reference for maintaining consistency across docstrings and Jupyter tutorials.
-
----
-
-## 🧠 General Principles Reinforced
-
-### ✅ Docstring Formatting
-
-I now understand that docstrings in MolSysMT **strictly follow the NumPy format**, adapted for Sphinx and MyST. The canonical structure used across functions includes the following sections, in order:
-
-1. **Short one-line summary** using an active gerund form (`Getting`, `Setting`, `Extracting`, etc.).
-2. **Multi-line description**, explaining what the function does and under what circumstances.
-3. **Parameters**: 
-   - Grouped and clearly typed (`int`, `str`, `list`, etc.)
-   - Includes special MolSysMT-specific types like "molecular system"
-   - Each parameter's default behavior is carefully documented.
-4. **Returns**: 
-   - Return type and behavior, including any units if relevant.
-5. **Raises**: 
-   - Consistently includes `NotSupportedFormError`, `ArgumentError`, `SyntaxError`.
-6. **Notes**: 
-   - Clarifies internal assumptions and links to reference documentation (Forms, Selection syntaxes, Attributes).
-7. **See Also**: 
-   - Cross-links to functions that are conceptually related.
-8. **Examples**: 
-   - Written in executable doctest format (with `>>>`)
-   - Always include a realistic use case.
-9. **User Guide Reference**: 
-   - A closing `.. admonition:: User guide` block that links to the corresponding tutorial.
-10. **Version**: 
-    - `.. versionadded:: 1.0.0` is **always placed at the end** of the docstring.
-
----
 
 ## 📘 How Tutorials Are Structured
 
@@ -99,16 +64,58 @@ Combining these three allows functions like `get()`, `set()`, `select()`, `info(
 - **Avoid naming engines unless necessary**: E.g., “Uses an external engine” instead of “Uses PDBFixer.”
 - **Attribute placeholders**: In format strings, always explain clearly what `{id}`, `{name}`, and `{index}` refer to, and how they map to things like `atom_id` or `group_name`.
 
----
 
 ## ✅ Practical Tips I’ll Apply Moving Forward
 
-- Avoid inventing new examples unless asked — use the real example already in the notebook.
 - Always confirm whether a `seealso` block is wanted and in what format.
 - Ensure all narrative text in tutorials helps users understand the *why*, not just the *how*.
 - Don’t forget to generate cross-references with `{func}` and not `{func}` with parentheses unless you're linking to the call form.
 
----
+# Dev Notes: Tutorial & Docstrings (Updated)
 
-This refined understanding will help ensure that new documentation is internally consistent, user-friendly, and ready for the upcoming 1.0.0 release.
+This note complements the Developer Guide and Docstring Guidelines with specific advice for tutorial notebooks.
 
+## General structure of tutorials
+
+- Always start with an **anchor** and a **title**:
+
+  ```markdown
+  (Tutorial_FunctionName)=
+  # Function Name
+  ```
+
+- Follow with a one-line summary in *italics* and **gerund form**.
+- Add a short introduction in prose.
+- Insert the `API documentation` admonition:
+
+  ```markdown
+  :::{admonition} API documentation
+  Follow this link for details on arguments, raised errors, and return values: {func}`molsysmt.basic.function_name`.
+  :::
+  ```
+
+- Add a `versionadded` block:
+
+  ```markdown
+  :::{versionadded} 1.0.0
+  :::
+  ```
+
+- Proceed with narrated examples, alternating phrasing:
+  - "We start with..."
+  - "In contrast..."
+  - "Another case is..."
+  - "Finally..."
+
+- Close with a `seealso` block linking to related tutorials.
+
+## Admonitions
+
+- All admonitions in tutorials must use MyST syntax (`:::{...}`).  
+- Valid admonitions: `admonition`, `tip`, `warning`, `seealso`, `versionadded`.
+
+## Examples and testing
+
+- Examples in tutorials should mirror or complement those in docstrings.  
+- Use simple demo systems to keep runtime low.  
+- Avoid duplication: examples in docstrings are already tested by `pytest --doctest-modules`. Tutorials may expand with longer narrative or combined workflows.

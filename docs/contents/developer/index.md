@@ -18,11 +18,19 @@
 
 ```{eval-rst}
 .. toctree::
+   :caption: Tests
+   :maxdepth: 2
+
+   testing/index.md
+```
+
+```{eval-rst}
+.. toctree::
    :caption: Documentation
+   :maxdepth: 2
 
    documentation/api/index.md
    documentation/web/index.md
-
 ```
 
 
