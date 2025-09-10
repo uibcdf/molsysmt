@@ -275,12 +275,12 @@ List all function arguments, including optional ones.
 
 Each parameter must include:
   - name
-  - type (lowercase, e.g. `str`, `tuple`, `molecular system`)
+  - type (lowercase, e.g. `str`, `tuple`, `molecular system`) -See the section on [object typing](#sec-object-typing)-
   - optional: default value in description (not in signature)
   - clear explanation of its use (1-3 lines if possible)
 
+Examples:
 
-**Example:**
 ```python
 """
 ...
@@ -297,23 +297,38 @@ Each parameter must include:
 """
 ```
 
-
+:::{admonition} Editorial guide
+:class: important
+- List parameters in the order they appear in the function signature.
+- Use lowercase for types (e.g., `str`, `bool`, `list`, `tuple`, `molecular system`).
+- Include default values in the description, not in the signature.
+- Do not leave blank lines between parameters.
+- Always document all parameters, including `self` or `cls` for methods.
 - Use `molecular system` type where applicable (see below)
 - Use `PyUnitWizard` quantities where applicable (see below)
-- Always document all parameters, including `self` or `cls` for methods.
 - Use `numpy.ndarray` instead of `ndarray`
 - Use `pandas.DataFrame` instead of `DataFrame`
-- No dejar líneas en blanco entre parámetros
-- Includes special MolSysMT-specific types like "molecular system" y cantidades de PyUnitWizard
+:::
 
-- Argumentos como `selection`, `structure_indices`, `syntax`, etc. deben tener referencias correctas y explicación completa (ver más abajo)
+Some parameters have standard descriptions that should be reused verbatim, if
+possible, across functions. This ensures consistency and clarity. Those
+parameters include: `molecular_system`, `to_form`, `selection`, `structure_indices`,
+`syntax`, and `skip_digestion`. See below for their standard descriptions.
 
 #### `molecular_system`
-- Siempre incluir:  
-  > Molecular system to be analyzed. It can be in any of the :ref:`supported forms <Introduction_Forms>`.
+
+```python
+"""
+...
+    molecular_system : molecular system
+        Molecular system to analyze, in any of the :ref:`supported forms <Introduction_Forms>`.
+...
+"""
+```
 
 
 #### `selection`
+
 - Puede ser: `str`, `list`, `tuple`, `numpy.ndarray`
 - Siempre indicar:
   - Que acepta índices **0-based**
@@ -489,7 +504,7 @@ Always indicate the version when the function was added at the end of the docstr
 
 ## Attributes
 
-
+(sec-object-typing)=
 ## Object typing
 
 Parameters, Return, ... need to specify object types.
