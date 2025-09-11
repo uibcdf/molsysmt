@@ -148,19 +148,18 @@ for directory in os.walk('api'):
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
-html_theme = 'pydata_sphinx_theme'
+
+html_theme = "pydata_sphinx_theme"
 
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the
 # documentation.
 
-html_theme = "pydata_sphinx_theme"
-
 html_theme_options = {
     "icon_links": [
         {
             "name": "GitHub",
-            "url": "https://github.com/uibcdf/MolSysMT",
+            "url": "https://github.com/uibcdf/molsysmt",
             "icon": "fa-brands fa-github",
         },
     ],
@@ -170,7 +169,7 @@ html_theme_options = {
 
 html_context = {
     "github_user": "uibcdf",
-    "github_repo": "MolSysMT",
+    "github_repo": "molsysmt",
     "github_version": "main",
     "doc_path": "docs",
 }
@@ -192,14 +191,6 @@ favicons = ["favicon-16x16.png",
             "favicon-128x128.png",
             "favicon-192x192.png",
             "icon.svg"]
-
-html_context = {
-    "github_user": "uibcdf",
-    "github_repo": "MolSysMT",
-    "github_version": "main",
-    "doc_path": "docs",
-}
-
 
 # Custom css
 
