@@ -1,0 +1,12 @@
+{# _templates/layout.html #}
+{% extends "!layout.html" %}
+{% set home = (root_doc if root_doc is defined else master_doc) %}
+
+{% block htmltitle %}
+  {% if pagename == home %}
+    <title>{{ project }} {{ release }}</title>
+  {% else %}
+    <title>{{ title|striptags }} – {{ project }} {{ release }}</title>
+  {% endif %}
+{% endblock %}
+
