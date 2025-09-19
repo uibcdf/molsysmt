@@ -233,6 +233,8 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
                         aux_entity_type='small molecule'
                     case _:
                         aux_entity_type='unknown'
+            case _:
+                aux_entity_type='unknown'
 
         entity_name.append(aux_entity_name)
         entity_type.append(aux_entity_type)
