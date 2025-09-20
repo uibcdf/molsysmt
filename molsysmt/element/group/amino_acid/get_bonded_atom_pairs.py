@@ -16,6 +16,7 @@ def get_bonded_atom_pairs(group_name, atom_names, atom_indices=None, sorted=True
 
     aux_group_names = [group_name]
 
+
     if 'C'+group_name in group_names:
         aux_group_names.append('C'+group_name)
 

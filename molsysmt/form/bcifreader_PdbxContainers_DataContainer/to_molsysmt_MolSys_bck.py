@@ -268,15 +268,9 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
     entity_index_array = []
     group_name_to_entity_id = {}
 
-    print(chain_id_array)
-    print(chain_name_array)
-
     if item.exists('entity_poly'):
 
         index_att = {jj:ii for ii,jj in enumerate(item.getObj('entity_poly').getAttributeList())}
-
-        print(index_att)
-        print(chain_id_to_group_indices)
 
         for record in item.getObj('entity_poly').data:
             entity_id = record[index_att['entity_id']]
@@ -295,20 +289,14 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
 
         index_att = {jj:ii for ii,jj in enumerate(item.getObj('pdbx_entity_nonpoly').getAttributeList())}
 
-        print(index_att)
-
         for record in item.getObj('pdbx_entity_nonpoly').data:
             group_name = record[index_att['comp_id']]
             entity_id = record[index_att['entity_id']]
             group_name_to_entity_id[group_name]=entity_id
 
-        print(group_name_to_entity_id)
-        print(molecule_index_array)
-
         for group_index, aux in enumerate(molecule_index_array):
             if aux == -1:
                 group_name = group_name_array[group_index]
-                print(group_name, group_index)
                 entity_id = group_name_to_entity_id[group_name]
                 entity_index = entity_dict[entity_id]['entity_index']
                 molecule_index_array[group_index] = molecule_index
