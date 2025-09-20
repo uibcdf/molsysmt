@@ -24,7 +24,7 @@ def get_bonded_atom_pairs(atom_names, atom_indices=None, sorted=True):
                 Hs.append(atom_index)
 
         if sorted:
-            return  sorted([[O,Hs[0]], [O,Hs[1]]])
+            return  _sorted([[O,Hs[0]], [O,Hs[1]]])
         else:
             return  [[O,Hs[0]], [O,Hs[1]]]
 
