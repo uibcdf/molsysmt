@@ -1,4 +1,5 @@
 from molsysmt._private.exceptions import NotImplementedMethodError
+from molsysmt._private.warnings import check_struct_conn_new_covalent_bonds
 from molsysmt._private.digestion import digest
 from molsysmt._private.variables import is_all
 from molsysmt import pyunitwizard as puw
@@ -52,6 +53,7 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
     former_group_id = None
     group_index = -1
 
+    former_chain_id = None
     chain_id_to_chain_index = {}
     chain_index = -1
 
@@ -110,14 +112,15 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
 
             chain_index = chain_id_to_chain_index[aux_chain_id]
 
-        if former_group_id!=aux_group_id:
+        if former_group_id!=aux_group_id or former_chain_id!=aux_chain_id:
 
             group_index+=1
             group_name.append(aux_group_name)
             group_id.append(aux_group_id)
-            former_group_id=aux_group_id
             chain_index_to_group_indices[chain_index].append(group_index)
             group_index_to_atom_indices[group_index]=[]
+            former_group_id=aux_group_id
+            former_chain_id=aux_chain_id
 
         group_index_from_atom[atom_index] = group_index
         chain_index_from_atom[atom_index] = chain_index
@@ -459,6 +462,8 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
 
     ### bonds in struct_conn
 
+    atom_pairs_bonded_by_struct_conn = []
+
     if item.exists('struct_conn'):
 
         index_att = {jj:ii for ii,jj in enumerate(item.getObj('struct_conn').getAttributeList())}
@@ -474,46 +479,28 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
                 group_id_2 = record[index_att['ptnr2_auth_seq_id']]
                 atom_name_2 = record[index_att['ptnr2_label_atom_id']]
 
-                try:
-                    chain_index_1 = chain_id_to_chain_index[chain_id_1]
-                    group_indices_1 = chain_index_to_group_indices[chain_index_1]
-                    group_index_1 = [ii for ii in group_indices_1 if group_id[ii]==group_id_1]
-                    if len(group_index_1)!=1:
-                        raise Exception
-                    group_index_1 = group_index_1[0]
-                    atom_indices_1 = group_index_to_atom_indices[group_index_1]
-                    atom_index_1 = [ii for ii in atom_indices_1 if atom_name[ii]==atom_name_1]
-                    if len(atom_index_1)!=1:
-                        raise Exception
-                    atom_index_1 = atom_index_1[0]
+                chain_index_1 = chain_id_to_chain_index[chain_id_1]
+                group_indices_1 = chain_index_to_group_indices[chain_index_1]
+                group_index_1 = [ii for ii in group_indices_1 if group_id[ii]==group_id_1]
+                group_index_1 = group_index_1[0]
+                atom_indices_1 = group_index_to_atom_indices[group_index_1]
+                atom_index_1 = [ii for ii in atom_indices_1 if atom_name[ii]==atom_name_1]
+                atom_index_1 = atom_index_1[0]
 
-                    chain_index_2 = chain_id_to_chain_index[chain_id_2]
-                    group_indices_2 = chain_index_to_group_indices[chain_index_2]
-                    group_index_2 = [ii for ii in group_indices_2 if group_id[ii]==group_id_2]
-                    if len(group_index_2)!=1:
-                        raise Exception
-                    group_index_2 = group_index_2[0]
-                    atom_indices_2 = group_index_to_atom_indices[group_index_2]
-                    atom_index_2 = [ii for ii in atom_indices_2 if atom_name[ii]==atom_name_2]
-                    if len(atom_index_2)!=1:
-                        raise Exception
-                    atom_index_2 = atom_index_2[0]
+                chain_index_2 = chain_id_to_chain_index[chain_id_2]
+                group_indices_2 = chain_index_to_group_indices[chain_index_2]
+                group_index_2 = [ii for ii in group_indices_2 if group_id[ii]==group_id_2]
+                group_index_2 = group_index_2[0]
+                atom_indices_2 = group_index_to_atom_indices[group_index_2]
+                atom_index_2 = [ii for ii in atom_indices_2 if atom_name[ii]==atom_name_2]
+                atom_index_2 = atom_index_2[0]
 
-                    if [atom_index_1, atom_index_2] not in atom_pairs_bonded and \
-                       [atom_index_2, atom_index_1] not in atom_pairs_bonded:
+                if [atom_index_1, atom_index_2] not in atom_pairs_bonded and \
+                   [atom_index_2, atom_index_1] not in atom_pairs_bonded:
 
-                        if chain_index_1!=chain_index_2:
-                            print("Adding a bond between atom "+str(atom_index_1)+" and atom "+str(atom_index_2)+
-                                  " from struct_conn. They belong to different chains.")
+                    atom_pairs_bonded_by_struct_conn.append(sorted([atom_index_1, atom_index_2]))
 
-                        atom_pairs_bonded.append(sorted([atom_index_1, atom_index_2]))
-
-                except:
-                    print(atom_name_1, group_id_1, chain_id_1, atom_name_2, group_id_2, chain_id_2)
-                    raise NotImplementedMethodError('The bond '+atom_name_1+' of group '+str(group_id_1)+
-                                                   ' of chain '+chain_id_1+' with '+atom_name_2+' of group '+
-                                                   str(group_id_2)+' of chain '+chain_id_2+
-                                                   ' could not be added.')
+    atom_pairs_bonded += atom_pairs_bonded_by_struct_conn
 
     ### bonds
 
@@ -603,6 +590,12 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
         
         coordinates = coordinates[:,atom_indices_to_be_kept,:]
         b_factor = b_factor[:,atom_indices_to_be_kept]
+
+        if len(atom_pairs_bonded_by_struct_conn):
+            aux_list = []
+            for ii,jj in atom_pairs_bonded_by_struct_conn:
+                aux_list.append([dict_old_to_new_atom_indices[ii], dict_old_to_new_atom_indices[jj]])
+            atom_pairs_bonded_by_struct_conn = aux_list
 
     # coordinates, box, bioassembly, b-factor
 
@@ -826,6 +819,9 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
     del(chain_name, chain_id)
     del(entity_name, entity_id, entity_type)
     del(bond_atom1_index, bond_atom2_index)
+
+    # Warnings on struct conn new covalent bonds
+    check_struct_conn_new_covalent_bonds(tmp_item, atom_pairs_bonded_by_struct_conn)
 
     # Extract
 
