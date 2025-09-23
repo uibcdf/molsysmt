@@ -100,6 +100,12 @@ And in the future, we plan to integrate `ruff` and `docstr-coverage`.
 
 ---
 
+## Working with the Devcontainer (Codex, ...)
+
+To work with Codex, open this repository in a Devcontainer (VS Code: Reopen in
+Container or Codespaces). The container will be built automatically using
+.devcontainer/devcontainer.json and will install MolSysMT in editable mode.
+
 ## 🙌 Need Help?
 
 Feel free to open an issue or ask questions. We’re happy to help!
