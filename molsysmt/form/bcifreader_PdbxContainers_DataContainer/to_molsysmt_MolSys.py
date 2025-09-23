@@ -1,5 +1,5 @@
 from molsysmt._private.exceptions import NotImplementedMethodError
-from molsysmt._private.warnings import check_struct_conn_new_covalent_bonds
+from molsysmt._private.warnings import warn, CrossChainCovalentBondsWarning
 from molsysmt._private.digestion import digest
 from molsysmt._private.variables import is_all
 from molsysmt import pyunitwizard as puw
@@ -821,7 +821,8 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
     del(bond_atom1_index, bond_atom2_index)
 
     # Warnings on struct conn new covalent bonds
-    check_struct_conn_new_covalent_bonds(tmp_item, atom_pairs_bonded_by_struct_conn)
+    if len(atom_pairs_bonded_by_struct_conn):
+        warn(CrossChainCovalentBondsWarning(tmp_item, atom_pairs_bonded_by_struct_conn))
 
     # Extract
 

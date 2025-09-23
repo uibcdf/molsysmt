@@ -18,6 +18,16 @@
 
 ```{eval-rst}
 .. toctree::
+   :caption: Warnings
+
+   warnings.md
+   logging.md
+
+```
+
+
+```{eval-rst}
+.. toctree::
    :caption: Tests
    :maxdepth: 2
 

@@ -18,5 +18,6 @@ ASDFSADF
    memory_management.ipynb
    quantities_and_units.ipynb
    configuration_options.ipynb
+   molsysmt_logging_user_guide.md
 ```
 

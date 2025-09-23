@@ -11,6 +11,8 @@ def is_form(item):
     if output:
         if item.startswith('pdb_id:'):
             output = True
+        elif item.startswith('pdb_') and len(item)==12:
+            output = True
         else:
 
             output = False

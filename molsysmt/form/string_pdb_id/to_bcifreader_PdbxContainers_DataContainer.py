@@ -5,8 +5,13 @@ def to_bcifreader_PdbxContainers_DataContainer(item, atom_indices='all', structu
 
     from bcifreader import BinaryCifReader
 
+    if item.startswith('pdb_id:'):
+        tmp_item = item.split(':')[-1]
+    elif item.startswith('pdb_'):
+        tmp_item = item[-4:]
+    else:
+        tmp_item = item
 
-    tmp_item = item.split(':')[-1]
     url = f'https://models.rcsb.org/{tmp_item}.bcif.gz'
 
     binary_cif_reader = BinaryCifReader()
