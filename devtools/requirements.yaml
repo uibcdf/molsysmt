@@ -3,7 +3,6 @@ setup:
     - uibcdf
     - conda-forge
     - ambermd
-    - defaults
   dependencies: &setup_dependencies
     - python
     - pip
