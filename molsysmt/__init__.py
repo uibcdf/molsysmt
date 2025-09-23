@@ -13,6 +13,8 @@ from ._version import __version__
 # Starting the modules
 from . import config
 
+config.setup_logging(level="WARNING", capture_warnings=True, simplify_warning_format=True)
+
 from ._pyunitwizard import puw as pyunitwizard
 
 from .basic import *

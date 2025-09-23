@@ -1,5 +1,7 @@
 # Configuration file for MolSysMT
 
+from .logging_setup import setup_logging
+
 # Set this variable true while testing
 _testing = False
 
