@@ -6,6 +6,9 @@ This must be a short description of the project
 # versioningit
 from ._version import __version__
 
+def __print_version__():
+    print("MolSysMT version " + __version__)
+
 #__documentation_web__ = 'https://www.uibcdf.org/MolSysMT'
 #__github_web__ = 'https://github.com/uibcdf/MolSysMT'
 #__github_issues_web__ = __github_web__ + '/issues'
