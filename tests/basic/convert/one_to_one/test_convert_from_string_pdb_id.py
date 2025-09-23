@@ -28,6 +28,11 @@ def test_string_pdb_id_to_molsysmt_MolSys_3():
     assert 'molsysmt.MolSys'==form
     assert box is None
 
+def test_string_pdb_id_to_molsysmt_MolSys_1():
+    molsys = msm.convert('pdb_0000181l', to_form='molsysmt.MolSys')
+    form = msm.get_form(molsys)
+    assert 'molsysmt.MolSys'==form
+
 def test_string_pdb_id_to_file_pdb():
     molsys = msm.convert('pdb_id:181l', to_form='181l.pdb')
     form = msm.get_form(molsys)
