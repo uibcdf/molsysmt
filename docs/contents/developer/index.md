@@ -6,6 +6,7 @@
 
    intro/Introduction.md
    intro/fork.md
+   devcontainer.md
 ```
 
 ```{eval-rst}
