@@ -2,6 +2,7 @@ from .user_molsysmt_warning import UserMolSysMTWarning
 from .selection_warning import SelectionWarning
 from .molsysmt_deprecation_warning import MolSysMTDeprecationWarning
 from .cross_chain_covalent_bonds_warning import CrossChainCovalentBondsWarning
+from .download_warning import DownloadWarning
 
 from typing import Iterable, Type
 import warnings
@@ -10,6 +11,7 @@ __all__ = ['UserMolSysMTWarning',
            'SelectionWarning',
            'MolSysMTDeprecationWarning',
            'CrossChainCovalentBondsWarning',
+           'DownloadWarning',
            'warn',
            'warn_once']
 

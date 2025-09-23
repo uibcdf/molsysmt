@@ -13,7 +13,8 @@ def test_supported_1():
     df = msm.supported.forms()
     df_data = list([ii,jj] for ii,jj in zip(df.data["Form"], df.data["Type"]))
 
-    good_df_data = [['biopython.Seq', 'class'],
+    good_df_data = [['bcifreader.PdbxContainers.DataContainer', 'class'],
+                    ['biopython.Seq', 'class'],
                     ['biopython.SeqRecord', 'class'],
                     ['MDAnalysis.Topology', 'class'],
                     ['MDAnalysis.Universe', 'class'],
@@ -93,27 +94,27 @@ def test_supported_2():
 
     df = msm.supported.conversions()
 
-    good_aux_list = ['biopython.Seq', 'biopython.SeqRecord', 'file:bcif', 'file:bcif.gz',
-       'file:cif', 'file:crd', 'file:dcd', 'file:gro', 'file:h5', 'file:h5msm',
-       'file:inpcrd', 'file:mmtf', 'file:mol2', 'file:msmpk', 'file:pdb',
-       'file:prmtop', 'file:psf', 'file:trjpk', 'file:xtc', 'file:xyznpy',
-       'MDAnalysis.Topology', 'MDAnalysis.Universe',
-       'mdtraj.DCDTrajectoryFile', 'mdtraj.HDF5TrajectoryFile',
-       'mdtraj.Topology', 'mdtraj.Trajectory', 'mdtraj.XTCTrajectoryFile',
-       'mmcif.PdbxContainers.DataContainer', 'mmtf.MMTFDecoder',
-       'molsysmt.CIFFileHandler', 'molsysmt.GROFileHandler',
-       'molsysmt.H5MSMFileHandler', 'molsysmt.MolecularMechanics',
-       'molsysmt.MolecularMechanicsDict', 'molsysmt.MolSys',
-       'molsysmt.PDBFileHandler', 'molsysmt.Structures',
-       'molsysmt.StructuresDict', 'molsysmt.Topology', 'networkx.Graph',
-       'nglview.NGLWidget', 'openmm.AmberInpcrdFile', 'openmm.AmberPrmtopFile',
-       'openmm.CharmmCrdFile', 'openmm.CharmmPsfFile', 'openmm.Context',
-       'openmm.GromacsGroFile', 'openmm.GromacsTopFile', 'openmm.Modeller',
-       'openmm.PDBFile', 'openmm.Simulation', 'openmm.State', 'openmm.System',
-       'openmm.Topology', 'parmed.Structure', 'pdbfixer.PDBFixer',
-       'pytraj.Topology', 'pytraj.Trajectory', 'string:alphafold_id',
-       'string:amino_acids_1', 'string:amino_acids_3', 'string:pdb_id',
-       'string:pdb_text', 'XYZ']
+    good_aux_list = ['bcifreader.PdbxContainers.DataContainer', 'biopython.Seq', 'biopython.SeqRecord',
+                     'file:bcif', 'file:bcif.gz', 'file:cif', 'file:crd', 'file:dcd', 'file:gro', 'file:h5',
+                     'file:h5msm', 'file:inpcrd', 'file:mmtf', 'file:mol2', 'file:msmpk', 'file:pdb',
+                     'file:prmtop', 'file:psf', 'file:trjpk', 'file:xtc', 'file:xyznpy',
+                     'MDAnalysis.Topology', 'MDAnalysis.Universe',
+                     'mdtraj.DCDTrajectoryFile', 'mdtraj.HDF5TrajectoryFile',
+                     'mdtraj.Topology', 'mdtraj.Trajectory', 'mdtraj.XTCTrajectoryFile',
+                     'mmcif.PdbxContainers.DataContainer', 'mmtf.MMTFDecoder',
+                     'molsysmt.CIFFileHandler', 'molsysmt.GROFileHandler',
+                     'molsysmt.H5MSMFileHandler', 'molsysmt.MolecularMechanics',
+                     'molsysmt.MolecularMechanicsDict', 'molsysmt.MolSys',
+                     'molsysmt.PDBFileHandler', 'molsysmt.Structures',
+                     'molsysmt.StructuresDict', 'molsysmt.Topology', 'networkx.Graph',
+                     'nglview.NGLWidget', 'openmm.AmberInpcrdFile', 'openmm.AmberPrmtopFile',
+                     'openmm.CharmmCrdFile', 'openmm.CharmmPsfFile', 'openmm.Context',
+                     'openmm.GromacsGroFile', 'openmm.GromacsTopFile', 'openmm.Modeller',
+                     'openmm.PDBFile', 'openmm.Simulation', 'openmm.State', 'openmm.System',
+                     'openmm.Topology', 'parmed.Structure', 'pdbfixer.PDBFixer',
+                     'pytraj.Topology', 'pytraj.Trajectory', 'string:alphafold_id',
+                     'string:amino_acids_1', 'string:amino_acids_3', 'string:pdb_id',
+                     'string:pdb_text', 'XYZ']
 
     assert list(df.index)==good_aux_list
     assert list(df.columns)==good_aux_list
@@ -123,27 +124,27 @@ def test_supported_3():
 
     df = msm.supported.conversions(to_viewer='NGLView')
 
-    good_aux_list = ['biopython.Seq', 'biopython.SeqRecord', 'file:bcif', 'file:bcif.gz',
-       'file:cif', 'file:crd', 'file:dcd', 'file:gro', 'file:h5', 'file:h5msm',
-       'file:inpcrd', 'file:mmtf', 'file:mol2', 'file:msmpk', 'file:pdb',
-       'file:prmtop', 'file:psf', 'file:trjpk', 'file:xtc', 'file:xyznpy',
-       'MDAnalysis.Topology', 'MDAnalysis.Universe',
-       'mdtraj.DCDTrajectoryFile', 'mdtraj.HDF5TrajectoryFile',
-       'mdtraj.Topology', 'mdtraj.Trajectory', 'mdtraj.XTCTrajectoryFile',
-       'mmcif.PdbxContainers.DataContainer', 'mmtf.MMTFDecoder',
-       'molsysmt.CIFFileHandler', 'molsysmt.GROFileHandler',
-       'molsysmt.H5MSMFileHandler', 'molsysmt.MolecularMechanics',
-       'molsysmt.MolecularMechanicsDict', 'molsysmt.MolSys',
-       'molsysmt.PDBFileHandler', 'molsysmt.Structures',
-       'molsysmt.StructuresDict', 'molsysmt.Topology', 'networkx.Graph',
-       'nglview.NGLWidget', 'openmm.AmberInpcrdFile', 'openmm.AmberPrmtopFile',
-       'openmm.CharmmCrdFile', 'openmm.CharmmPsfFile', 'openmm.Context',
-       'openmm.GromacsGroFile', 'openmm.GromacsTopFile', 'openmm.Modeller',
-       'openmm.PDBFile', 'openmm.Simulation', 'openmm.State', 'openmm.System',
-       'openmm.Topology', 'parmed.Structure', 'pdbfixer.PDBFixer',
-       'pytraj.Topology', 'pytraj.Trajectory', 'string:alphafold_id',
-       'string:amino_acids_1', 'string:amino_acids_3', 'string:pdb_id',
-       'string:pdb_text', 'XYZ']
+    good_aux_list = ['bcifreader.PdbxContainers.DataContainer', 'biopython.Seq', 'biopython.SeqRecord',
+                     'file:bcif', 'file:bcif.gz', 'file:cif', 'file:crd', 'file:dcd', 'file:gro', 'file:h5',
+                     'file:h5msm', 'file:inpcrd', 'file:mmtf', 'file:mol2', 'file:msmpk', 'file:pdb',
+                     'file:prmtop', 'file:psf', 'file:trjpk', 'file:xtc', 'file:xyznpy',
+                     'MDAnalysis.Topology', 'MDAnalysis.Universe',
+                     'mdtraj.DCDTrajectoryFile', 'mdtraj.HDF5TrajectoryFile',
+                     'mdtraj.Topology', 'mdtraj.Trajectory', 'mdtraj.XTCTrajectoryFile',
+                     'mmcif.PdbxContainers.DataContainer', 'mmtf.MMTFDecoder',
+                     'molsysmt.CIFFileHandler', 'molsysmt.GROFileHandler',
+                     'molsysmt.H5MSMFileHandler', 'molsysmt.MolecularMechanics',
+                     'molsysmt.MolecularMechanicsDict', 'molsysmt.MolSys',
+                     'molsysmt.PDBFileHandler', 'molsysmt.Structures',
+                     'molsysmt.StructuresDict', 'molsysmt.Topology', 'networkx.Graph',
+                     'nglview.NGLWidget', 'openmm.AmberInpcrdFile', 'openmm.AmberPrmtopFile',
+                     'openmm.CharmmCrdFile', 'openmm.CharmmPsfFile', 'openmm.Context',
+                     'openmm.GromacsGroFile', 'openmm.GromacsTopFile', 'openmm.Modeller',
+                     'openmm.PDBFile', 'openmm.Simulation', 'openmm.State', 'openmm.System',
+                     'openmm.Topology', 'parmed.Structure', 'pdbfixer.PDBFixer',
+                     'pytraj.Topology', 'pytraj.Trajectory', 'string:alphafold_id',
+                     'string:amino_acids_1', 'string:amino_acids_3', 'string:pdb_id',
+                     'string:pdb_text', 'XYZ']
 
     assert list(df.index)==good_aux_list
     assert list(df.columns)==['nglview.NGLWidget']
