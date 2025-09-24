@@ -171,10 +171,13 @@ elif have_cmd mamba; then
 elif have_cmd conda; then
   PM="conda"; RUN="conda run -n ${ENV_NAME}"
 else
-  echo "[setup] Installing micromamba locally..."
-  curl -Ls https://micro.mamba.pm/api/micromamba/linux-64/latest | tar -xvj bin/micromamba
-  export PATH="$PWD/bin:$PATH"
-  PM="micromamba"; RUN="micromamba run -n ${ENV_NAME}"
+  echo "[setup] No conda/mamba/micromamba found."
+  echo "[setup] Please install one of them and ensure it's in your PATH."
+  exit 1
+  #echo "[setup] Installing micromamba locally..."
+  #curl -Ls https://micro.mamba.pm/api/micromamba/linux-64/latest | tar -xvj bin/micromamba
+  #export PATH="$PWD/bin:$PATH"
+  #PM="micromamba"; RUN="micromamba run -n ${ENV_NAME}"
 fi
 
 # --- Create or update environment ----------------------------------------------
