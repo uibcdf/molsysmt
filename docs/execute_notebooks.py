@@ -7,6 +7,11 @@ from datetime import datetime, timezone
 import argparse
 import glob
 
+GREEN = "\033[32m"
+RED = "\033[31m"
+BLUE = "\033[34m"
+RESET = "\033[0m"
+
 def write_timestamp_to_log(log_path: Path):
     timestamp = datetime.now(timezone.utc).timestamp()
     log_path.write_text(f"{timestamp:.6f}")
@@ -50,17 +55,17 @@ def execute_notebook(notebook_path: Path, force: bool = False) -> bool:
         log_file.write_text(result.stdout + "\n" + result.stderr)
 
         if result.returncode != 0:
-            print(f"Error executing {notebook_path}: check {log_file}")
+            print(f"{RED}✘{RESET} Error executing {notebook_path}: check {log_file}")
             if last_run_file.exists():
                 last_run_file.unlink()
             return False
         else:
-            print(f"Notebook {notebook_path} executed successfully.")
+            print(f"{GREEN}✔{RESET} Notebook {notebook_path} executed successfully.")
             write_timestamp_to_log(last_run_file)
             return True
 
     else:
-        print(f"Notebook {notebook_path} is up to date. No execution needed.")
+        print(f"{BLUE}●{RESET} Notebook {notebook_path} is up to date. No execution needed.")
         return True
 
 
@@ -68,7 +73,7 @@ def main(force=False, notebook: Path = None, recursive: bool = False):
 
     if notebook is not None:
         if not notebook.exists():
-            print(f"{notebook} does not exist.")
+            print(f"{RED}✘{RESET} {notebook} does not exist.")
             return
         if notebook.is_file():
             nb_list = [notebook]
@@ -82,6 +87,8 @@ def main(force=False, notebook: Path = None, recursive: bool = False):
             nb_list = Path(".").rglob("*.ipynb")
         else:
             nb_list = Path(".").glob("*.ipynb")
+
+    nb_list = [nb for nb in nb_list if ".ipynb_checkpoints" not in nb.parts]
 
     for nb_path in nb_list:
         status_execution = execute_notebook(nb_path, force)
@@ -125,7 +132,7 @@ if __name__ == "__main__":
             elif nb.is_dir():
                 main(force=args.force, notebook=nb, recursive=args.recursive)
             else:
-                print(f"❌ File not found or not a notebook: {nb}")
+                print(f"{RED}✘{RESET} File not found or not a notebook: {nb}")
     else:
         main(force=args.force, recursive=args.recursive)
     

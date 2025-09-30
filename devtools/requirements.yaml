@@ -64,7 +64,6 @@ docs:
     - sphinx-tabs
     - myst-nb
     - seaborn
-    - nbsphinx
 
 development:
   channels:
