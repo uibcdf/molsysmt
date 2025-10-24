@@ -818,3 +818,125 @@ class Topology():
 
         return output
 
+    def get_atom_indices(self, **kwargs):
+        """
+        keywords: atom_id, atom_name, atom_type, group_index, group_id, group_name, group_type, component_index,
+        component_id, component_name, component_type, molecule_index, molecule_id, molecule_name, molecule_type,
+        entity_index, entity_id, entity_name, entity_type, chain_index, chain_id, chain_name, chain_type
+
+        keyword values can be a single value or a list of values where values are str or int
+        """
+
+        for aux in kwargs:
+            if isinstance(kwargs[aux], (str, int)):
+                kwargs[aux] = [kwargs[aux]]
+
+        atom_columns = []
+        group_columns = []
+        component_columns = []
+        molecule_columns = []
+        entity_columns = []
+        chain_columns = []
+
+        for aux in self.atoms.keys():
+            if aux in kwargs:
+                if kwargs[aux] is not None:
+                    atom_columns.append(aux)
+
+        for aux in self.groups.keys():
+            if aux in kwargs:
+                if kwargs[aux] is not None:
+                    group_columns.append(aux)
+
+        for aux in self.components.keys():
+            if aux in kwargs:
+                if kwargs[aux] is not None:
+                    component_columns.append(aux)
+
+        for aux in self.molecules.keys():
+            if aux in kwargs:
+                if kwargs[aux] is not None:
+                    molecule_columns.append(aux)
+
+        for aux in self.entities.keys():
+            if aux in kwargs:
+                if kwargs[aux] is not None:
+                    entity_columns.append(aux)
+
+        for aux in self.chains.keys():
+            if aux in kwargs:
+                if kwargs[aux] is not None:
+                    chain_columns.append(aux)
+
+        if len(entity_columns):
+            if 'entity_index' not in molecule_columns:
+                molecule_columns.append('entity_index')
+
+        if len(molecule_columns):
+            if 'molecule_index' not in group_columns:
+                group_columns.append('molecule_index')
+
+        if len(group_columns):
+            if 'group_index' not in atom_columns:
+                atom_columns.append('group_index')
+
+        if len(component_columns):
+            if 'component_index' not in atom_columns:
+                atom_columns.append('component_index')
+
+        if len(chain_columns):
+            if 'chain_index' not in atom_columns:
+                atom_columns.append('chain_index')
+
+        aux_df = None
+
+        if len(entity_columns):
+
+            aux_df = pd.merge(self.molecules[molecule_columns], self.entities[entity_columns],
+                              left_on='entity_index', right_index=True)
+
+        if len(molecule_columns):
+
+            if aux_df is None:
+
+                aux_df = pd.merge(self.groups[group_columns], self.molecules[molecule_columns],
+                                  left_on='molecule_index', right_index=True)
+
+            else:
+
+                aux_df = pd.merge(self.groups[group_columns], aux_df,
+                                  left_on='molecule_index', right_index=True)
+
+        if len(group_columns):
+
+            if aux_df is None:
+
+                aux_df = pd.merge(self.atoms[atom_columns], self.groups[group_columns],
+                                  left_on='group_index', right_index=True)
+
+            else:
+
+                aux_df = pd.merge(self.atoms[atom_columns], aux_df,
+                                  left_on='group_index', right_index=True)
+
+        else:
+
+            aux_df = self.atoms[atom_columns]
+
+        if len(component_columns):
+
+            aux_df = pd.merge(aux_df, self.components[component_columns],
+                              left_on='component_index', right_index=True)
+
+        if len(chain_columns):
+
+            aux_df = pd.merge(aux_df, self.chains[chain_columns],
+                              left_on='chain_index', right_index=True)
+
+        mask = pd.Series(True, index=aux_df.index)
+
+        for col, valores in kwargs.items():
+            mask &= aux_df[col].isin(valores)
+
+        return aux_df.index[mask].tolist()
+
