@@ -10,4 +10,5 @@ from .pdb_file_handler import PDBFileHandler
 from .pdb_atomic_coordinate_entry import PDBAtomicCoordinateEntry
 from .gro_file_handler import GROFileHandler
 from .gro_file_handler import GROAtomicCoordinateEntry
-
+from .universal_json import UniversalJSON
+from .viewer_json import ViewerJSON
