@@ -55,6 +55,8 @@ from .to_file_psf import to_file_psf
 from .to_string_pdb_text import to_string_pdb_text
 from .to_string_amino_acids_1 import to_string_amino_acids_1
 from .to_string_amino_acids_3 import to_string_amino_acids_3
+from .to_molsysmt_ViewerJSON import to_molsysmt_ViewerJSON
+from .to_molsysmt_UniversalJSON import to_molsysmt_UniversalJSON
 
 _convert_to={
         'molsysmt.MolSys': to_molsysmt_MolSys,
@@ -77,6 +79,8 @@ _convert_to={
         'pytraj.Trajectory': to_pytraj_Trajectory,
         'biopython.Seq': to_biopython_Seq,
         'biopython.SeqRecord': to_biopython_SeqRecord,
+        'molsysmt.ViewerJSON': to_molsysmt_ViewerJSON,
+        'molsysmt.UniversalJSON': to_molsysmt_UniversalJSON,
         'XYZ': to_XYZ,
         'string:pdb_text': to_string_pdb_text,
         'string:amino_acids_1': to_string_amino_acids_1,
@@ -91,4 +95,3 @@ _conversion_opt_kwargs={
     'string:pdb_text': ['pdb_chain_id'],
     'pdbfixer.PDBFixer': ['pdb_chain_id']
 }
-

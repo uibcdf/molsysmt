@@ -38,10 +38,14 @@ from .to_openmm_Topology import to_openmm_Topology
 from .to_parmed_Structure import to_parmed_Structure
 from .to_pytraj_Topology import to_pytraj_Topology
 from .to_nglview_NGLWidget import to_nglview_NGLWidget
+from .to_molsysmt_ViewerJSON import to_molsysmt_ViewerJSON
+from .to_molsysmt_UniversalJSON import to_molsysmt_UniversalJSON
 
 _convert_to={
         'molsysmt.Topology': to_molsysmt_Topology,
         'mdtraj.Topology': to_mdtraj_Topology,
+        'molsysmt.ViewerJSON': to_molsysmt_ViewerJSON,
+        'molsysmt.UniversalJSON': to_molsysmt_UniversalJSON,
         'string:amino_acids_1': to_string_amino_acids_1,
         'string:amino_acids_3': to_string_amino_acids_3,
         'string:pdb_text': to_string_pdb_text,
