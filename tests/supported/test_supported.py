@@ -35,6 +35,8 @@ def test_supported_1():
                     ['molsysmt.Structures', 'class'],
                     ['molsysmt.StructuresDict', 'class'],
                     ['molsysmt.Topology', 'class'],
+                    ['molsysmt.UniversalJSON', 'class'],
+                    ['molsysmt.ViewerJSON', 'class'],
                     ['networkx.Graph', 'class'],
                     ['nglview.NGLWidget', 'class'],
                     ['openmm.AmberInpcrdFile', 'class'],
@@ -106,7 +108,8 @@ def test_supported_2():
                      'molsysmt.H5MSMFileHandler', 'molsysmt.MolecularMechanics',
                      'molsysmt.MolecularMechanicsDict', 'molsysmt.MolSys',
                      'molsysmt.PDBFileHandler', 'molsysmt.Structures',
-                     'molsysmt.StructuresDict', 'molsysmt.Topology', 'networkx.Graph',
+                     'molsysmt.StructuresDict', 'molsysmt.Topology', 'molsysmt.UniversalJSON',
+                     'molsysmt.ViewerJSON', 'networkx.Graph',
                      'nglview.NGLWidget', 'openmm.AmberInpcrdFile', 'openmm.AmberPrmtopFile',
                      'openmm.CharmmCrdFile', 'openmm.CharmmPsfFile', 'openmm.Context',
                      'openmm.GromacsGroFile', 'openmm.GromacsTopFile', 'openmm.Modeller',
@@ -136,7 +139,8 @@ def test_supported_3():
                      'molsysmt.H5MSMFileHandler', 'molsysmt.MolecularMechanics',
                      'molsysmt.MolecularMechanicsDict', 'molsysmt.MolSys',
                      'molsysmt.PDBFileHandler', 'molsysmt.Structures',
-                     'molsysmt.StructuresDict', 'molsysmt.Topology', 'networkx.Graph',
+                     'molsysmt.StructuresDict', 'molsysmt.Topology', 'molsysmt.UniversalJSON',
+                     'molsysmt.ViewerJSON', 'networkx.Graph',
                      'nglview.NGLWidget', 'openmm.AmberInpcrdFile', 'openmm.AmberPrmtopFile',
                      'openmm.CharmmCrdFile', 'openmm.CharmmPsfFile', 'openmm.Context',
                      'openmm.GromacsGroFile', 'openmm.GromacsTopFile', 'openmm.Modeller',
@@ -148,5 +152,4 @@ def test_supported_3():
 
     assert list(df.index)==good_aux_list
     assert list(df.columns)==['nglview.NGLWidget']
-
 
