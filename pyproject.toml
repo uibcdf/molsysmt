@@ -1,12 +1,13 @@
 [build-system]
-requires = ["setuptools>=61.0", "versioningit~=2.0"]
+# `wheel` is not required here; setuptools will build wheels without adding it.
+requires = ["setuptools>=68.0", "versioningit>=3.0"]
 build-backend = "setuptools.build_meta"
 
 # Self-descriptive entries which should always be present
 # https://packaging.python.org/en/latest/specifications/declaring-project-metadata/
 [project]
 name = "molsysmt"
-description = "A short description of the project"
+description = "A molecular systems multi-toolkit for converting, manipulating, and analysing biomolecular models and trajectories."
 dynamic = ["version"]
 readme = "README.md"
 authors = [
@@ -17,6 +18,13 @@ license = { text = "MIT" }
 classifiers = [
     "License :: OSI Approved :: MIT License",
     "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Operating System :: OS Independent",
+    "Intended Audience :: Science/Research",
+    "Topic :: Scientific/Engineering :: Chemistry",
+    "Topic :: Scientific/Engineering :: Bio-Informatics",
 ]
 requires-python = ">=3.10.0,<3.13.0"
 # Declare any run-time dependencies that should be installed with the package.
@@ -42,16 +50,30 @@ dependencies = [
     "plotly",
     "matplotlib",
 ]
+keywords = ["molecular-dynamics", "structural-biology", "chemistry", "trajectory", "conversion"]
 
 # Update the urls once the hosting is set up.
 [project.urls]
 "Source" = "https://github.com/uibcdf/MolSysMT/"
 "Documentation" = "https://uibcdf.org/MolSysMT"
+"Issues" = "https://github.com/uibcdf/MolSysMT/issues"
 
 [project.optional-dependencies]
 test = [
   "pytest>=6.1.2",
   "pytest-runner"
+]
+docs = [
+  "sphinx",
+  "myst-parser",
+  "sphinx-rtd-theme"
+]
+dev = [
+  "black",
+  "isort",
+  "pytest>=6.1.2",
+  "pytest-cov",
+  "ruff"
 ]
 
 [tool.setuptools]
@@ -106,4 +128,3 @@ file = "molsysmt/_version.py"
 
 #[tool.flit.external-data]
 #directory = "data"
-
