@@ -148,24 +148,11 @@ def add_cylinders(view, bottom=None, top=None, vectors=None, color='#808080', co
                   'color2': ngl_color_2[ii],
                   'radius': [ngl_radius[ii]]}
 
-        msg = view._get_remote_call_msg("addBuffer",
-                                        target="Widget",
-                                        args=["cylinder"],
-                                        kwargs=kwargs,
-                                        fire_embed=True)
-
-        def callback(widget, msg=msg):
-            widget.send(msg)
-
-        callback._method_name = 'addBuffer'
-        callback._ngl_msg = msg
-
-        if view.loaded:
-            view._remote_call_thread.q.append(callback)
-        else:
-            view._ngl_displayed_callbacks_before_loaded.append(callback)
-
-        view._ngl_msg_archive.append(msg)
-
-    pass
-
+        # Delegate queuing logic to nglview's remote_call, which handles loaded vs not loaded states.
+        view._remote_call(
+            "addBuffer",
+            target="Widget",
+            args=["cylinder"],
+            kwargs=kwargs,
+            fire_embed=True,
+        )

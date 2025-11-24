@@ -95,27 +95,17 @@ def add_arrows(view, origin=None, end=None, vectors=None,
     list_of_colors = color_to_list_of_colors(color, n_arrows, form='rgb')
 
     for ii in range(n_arrows):
-    
+
         kwargs = {'position1':origin[ii].tolist(),
                   'position2':end[ii].tolist(),
                   'color': list_of_colors[ii],
                   'radius': [radius]}
-                        
-        msg = view._get_remote_call_msg("addBuffer",
-                                        target="Widget",
-                                        args=["arrow"],
-                                        kwargs=kwargs,
-                                        fire_embed=True)
 
-        def callback(widget, msg=msg):
-            widget.send(msg)
-
-        callback._method_name = 'addBuffer'
-        callback._ngl_msg = msg
-
-        view._ngl_displayed_callbacks_before_loaded.append(callback)
-
-        view._ngl_msg_archive.append(msg)
-
-    pass
-
+        # Use nglview's remote_call to queue the buffer safely regardless of load state.
+        view._remote_call(
+            "addBuffer",
+            target="Widget",
+            args=["arrow"],
+            kwargs=kwargs,
+            fire_embed=True,
+        )
