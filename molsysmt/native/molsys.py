@@ -125,3 +125,14 @@ class MolSys:
 
         self.topology.rebuild_entities(redefine_ids=redefine_ids, redefine_types=redefine_types)
 
+    def to_form(self, to_form, skip_digestion=False, **kwargs):
+
+        from molsysmt.form.molsysmt_MolSys import _convert_to
+
+        return _convert_to[form](self, skip_digestion=True, **kwargs)
+
+    def info(self):
+
+        from molsysmt.basic import info as _info
+
+        return _info(self)

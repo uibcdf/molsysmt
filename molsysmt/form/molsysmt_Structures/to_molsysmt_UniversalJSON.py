@@ -55,7 +55,7 @@ def to_molsysmt_UniversalJSON(item, skip_digestion=False):
         "version": "0.1",
         "topology": {"atoms": atoms_block},
         "bonds": bonds_block,
-        "coordinates": {"collections": [{"label": "default", "frames": frames}]},
+        "coordinates": {"collections": [{"label": "default", "estructures": frames}]},
         "metadata": {},
         "annotations": {},
     }

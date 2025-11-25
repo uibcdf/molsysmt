@@ -64,7 +64,7 @@ def to_molsysmt_MolSys(item, skip_digestion=False):
     """Convert a ViewerJSON object into a native MolSys."""
 
     atoms = item.data.get('atoms', {}) or {}
-    frames = item.data.get('frames', []) or []
+    frames = item.data.get('estructures', item.data.get('frames', [])) or []
     bonds = item.data.get('bonds', {}) or {}
 
     # Atom-level fields

@@ -16,7 +16,7 @@ def _universal_json():
             }
         },
         "bonds": {"indexA": [0], "indexB": [1], "order": ["1"]},
-        "coordinates": {"collections": [{"label": "default", "frames": []}]},
+        "coordinates": {"collections": [{"label": "default", "estructures": []}]},
     }
     return UniversalJSON(data=data)
 

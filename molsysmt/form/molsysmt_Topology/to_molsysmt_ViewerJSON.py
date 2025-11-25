@@ -66,7 +66,7 @@ def to_molsysmt_ViewerJSON(item, skip_digestion=False):
         "version": "0.1",
         "atoms": atoms_block,
         "bonds": bonds_block,
-        "frames": [],
+        "estructures": [],
     }
 
     return ViewerJSON(data=data)

@@ -22,15 +22,15 @@ def _bonds_dict(item):
     return bonds
 
 
-def _frames_list(item):
-    if 'frames' in item.data:
-        return item.data.get('frames', []) or []
+def _estructures_list(item):
+    if 'estructures' in item.data or 'frames' in item.data:
+        return item.data.get('estructures', item.data.get('frames', [])) or []
     coords_block = item.data.get('coordinates', {}) or {}
     if 'collections' in coords_block:
         collections = coords_block.get('collections', [])
         if collections:
             coll0 = collections[0] or {}
-            return coll0.get('frames', []) or []
+            return coll0.get('estructures', coll0.get('frames', [])) or []
     return []
 
 
@@ -177,7 +177,7 @@ def get_n_atoms_from_system(item, skip_digestion=False):
     n_atoms = _n_atoms_from_atoms(atoms)
     if n_atoms is not None:
         return int(n_atoms)
-    frames = _frames_list(item)
+    frames = _estructures_list(item)
     if frames:
         for frame in frames:
             positions = frame.get('positions', frame.get('coordinates', None))
@@ -229,14 +229,14 @@ def get_bonded_atoms_from_atom(item, indices='all', skip_digestion=False):
 
 @digest(form=form)
 def get_n_structures_from_system(item, skip_digestion=False):
-    frames = _frames_list(item)
+    frames = _estructures_list(item)
     return len(frames) if frames else None
 
 
 @digest(form=form)
 def get_coordinates_from_system(item, structure_indices='all', skip_digestion=False):
     n_atoms = get_n_atoms_from_system(item, skip_digestion=True)
-    frames = _frames_list(item)
+    frames = _estructures_list(item)
     coords, available_indices = _reshape_coordinates(frames, n_atoms)
     if coords is None:
         return None
@@ -255,7 +255,7 @@ def get_coordinates_from_system(item, structure_indices='all', skip_digestion=Fa
 
 @digest(form=form)
 def get_time_from_system(item, structure_indices='all', skip_digestion=False):
-    frames = _frames_list(item)
+    frames = _estructures_list(item)
     if not frames:
         return None
 

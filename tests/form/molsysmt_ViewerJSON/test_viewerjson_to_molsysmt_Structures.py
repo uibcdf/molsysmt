@@ -16,7 +16,7 @@ def _viewer_json():
             "entity_id": [100, 100],
         },
         "bonds": {"indexA": [0], "indexB": [1], "order": ["1"]},
-        "frames": [
+        "estructures": [
             {"positions": [[0.5, 0.0, 0.0], [1.5, 0.0, 0.0]], "time": 1.0},
         ],
     }

@@ -20,7 +20,7 @@ def _viewer_json():
             "indexB": [1],
             "order": ["1"],
         },
-        "frames": [],
+        "estructures": [],
     }
     return ViewerJSON(data=data)
 

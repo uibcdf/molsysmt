@@ -104,7 +104,7 @@ def to_molsysmt_UniversalJSON(item, skip_digestion=False):
             "collections": [
                 {
                     "label": "default",
-                    "frames": frames,
+                    "estructures": frames,
                 }
             ]
         },

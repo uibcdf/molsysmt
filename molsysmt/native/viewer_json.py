@@ -38,9 +38,9 @@ def _empty_viewer_dict() -> Dict[str, Any]:
             "order": [],            # List[int] (misma longitud que indexA/indexB) o []
         },
 
-        # Lista de frames de coordenadas
-        "frames": [
-            # Cada frame será un dict con la forma:
+        # Lista de estructuras de coordenadas
+        "estructures": [
+            # Cada estructura será un dict con la forma:
             # {
             #     "positions": [[x, y, z], ...],  # List[List[float]], len = n_atoms
             #     "time": 0.0,                    # float o int (opcional)
@@ -65,7 +65,7 @@ class ViewerJSON:
 
     - `data` almacena la estructura lógica (dict JSON-compatible).
     - El contenido está pensado para herramientas de visualización:
-      columnas por átomo, lista de frames con coordenadas y caja opcional.
+      columnas por átomo, lista de estructuras con coordenadas y caja opcional.
     - Puede serializarse a texto JSON y opcionalmente comprimirse con gzip.
     """
 
@@ -80,7 +80,7 @@ class ViewerJSON:
         "version": "Versión del esquema viewer_json.",
         "atoms": "Dict con campos columnar (por átomo): id, nombre, residuo, cadena, entidad, elemento, carga.",
         "bonds": "Dict opcional con índices de átomos enlazados y orden de enlace.",
-        "frames": "Lista de frames con coordenadas, tiempo y caja (cell) opcional.",
+        "estructures": "Lista de estructuras con coordenadas, tiempo y caja (cell) opcional.",
     })
 
     def to_dict(self) -> Dict[str, Any]:
