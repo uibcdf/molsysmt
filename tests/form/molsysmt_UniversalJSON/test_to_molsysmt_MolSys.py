@@ -20,7 +20,7 @@ def _universal_json():
         "bonds": {"indexA": [0], "indexB": [1], "order": ["1"]},
         "coordinates": {
             "collections": [
-                {"label": "default", "frames": [{"positions": [[0, 0, 0], [1, 0, 0]], "time": 0.0}]}
+                {"label": "default", "estructures": [{"positions": [[0, 0, 0], [1, 0, 0]], "time": 0.0}]}
             ]
         },
     }

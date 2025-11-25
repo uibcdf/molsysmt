@@ -22,7 +22,7 @@ def _viewer_json():
             "indexB": [1],
             "order": ["1"],
         },
-        "frames": [
+        "estructures": [
             {"positions": [[0.0, 0.0, 0.0], [1.0, 0.0, 0.0]], "time": 0.0},
         ],
     }

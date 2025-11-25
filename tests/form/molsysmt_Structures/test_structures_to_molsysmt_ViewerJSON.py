@@ -22,7 +22,6 @@ def test_structures_to_ViewerJSON():
     viewer = to_molsysmt_ViewerJSON(structures)
 
     assert isinstance(viewer, ViewerJSON)
-    frame = viewer.data["frames"][0]
+    frame = viewer.data["estructures"][0]
     assert np.allclose(np.array(frame["positions"]), [[0, 0, 0], [1, 0, 0]])
     assert frame["time"] == 0.5
-

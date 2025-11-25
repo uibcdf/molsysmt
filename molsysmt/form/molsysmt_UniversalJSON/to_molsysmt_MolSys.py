@@ -12,15 +12,15 @@ def _atoms_dict(item):
     return item.data.get('atoms', {}) or {}
 
 
-def _frames_list(item):
-    if 'frames' in item.data:
-        return item.data.get('frames', []) or []
+def _estructures_list(item):
+    if 'estructures' in item.data or 'frames' in item.data:
+        return item.data.get('estructures', item.data.get('frames', [])) or []
     coords_block = item.data.get('coordinates', {}) or {}
     if 'collections' in coords_block:
         collections = coords_block.get('collections', [])
         if collections:
             coll0 = collections[0] or {}
-            return coll0.get('frames', []) or []
+            return coll0.get('estructures', coll0.get('frames', [])) or []
     return []
 
 
@@ -93,7 +93,7 @@ def to_molsysmt_MolSys(item, skip_digestion=False):
     """Convert a UniversalJSON object into a native MolSys."""
 
     atoms = _atoms_dict(item)
-    frames = _frames_list(item)
+    frames = _estructures_list(item)
     bonds = _bonds_dict(item)
 
     atom_id = _safe_array(atoms.get('atom_id', None), None, dtype=object)

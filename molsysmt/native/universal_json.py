@@ -49,7 +49,7 @@ def _empty_universal_dict() -> Dict[str, Any]:
             #   {
             #     "label": "default",
             #     "n_atoms": ...,
-            #     "frames": [...],   # ver cómo se sincroniza con topología
+            #     "estructures": [...],   # ver cómo se sincroniza con topología
             #   },
             # ]
         },

@@ -62,7 +62,7 @@ def test_molsys_to_UniversalJSON():
 
     assert isinstance(ujson, UniversalJSON)
     atoms = ujson.data["topology"]["atoms"]
-    frames = ujson.data["coordinates"]["collections"][0]["frames"]
+    frames = ujson.data["coordinates"]["collections"][0]["estructures"]
 
     assert atoms["atom_id"] == [0, 1]
     assert atoms["group_id"] == [10, 10]
