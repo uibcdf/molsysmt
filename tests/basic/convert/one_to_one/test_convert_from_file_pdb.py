@@ -5,6 +5,7 @@ Unit and regression test for the convert module of the molsysmt package.
 # Import package, test suite, and other packages as needed
 import molsysmt as msm
 from molsysmt import systems
+import pytest
 import numpy as np
 import os
 
@@ -35,6 +36,7 @@ def test_file_pdb_to_pdbfixer_PDBFixer():
     assert 'pdbfixer.PDBFixer'==form
 
 def test_file_pdb_to_parmed_Structure():
+    pytest.importorskip("parmed", reason="parmed es opcional y puede fallar con numpy>=2")
     molsys = systems['T4 lysozyme L99A']['181l.pdb']
     molsys = msm.convert(molsys, to_form='parmed.Structure')
     form = msm.get_form(molsys)
@@ -47,5 +49,4 @@ def test_file_pdb_to_molsysmt_MolSys_1():
     box = msm.get(molsys, box=True)
     assert 'molsysmt.MolSys'==form
     assert box is None
-
 
