@@ -3,104 +3,91 @@ MolSysMT
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 [![DOI](https://zenodo.org/badge/137937243.svg)](https://zenodo.org/badge/latestdoi/137937243)
-[![](https://img.shields.io/badge/Python-3.10%20%7C%203.11%20%7C%203.12-blue.svg)](https://www.python.org/downloads/) 
+[![](https://img.shields.io/badge/Python-3.10%20%7C%203.11%20%7C%203.12-blue.svg)](https://www.python.org/downloads/)
 [![Documentation](https://github.com/uibcdf/molsysmt/actions/workflows/sphinx_docs_to_gh_pages.yaml/badge.svg)](https://github.com/uibcdf/molsysmt/actions/workflows/sphinx_docs_to_gh_pages.yaml)
 [![CI](https://github.com/uibcdf/molsysmt/actions/workflows/CI.yaml/badge.svg)](https://github.com/uibcdf/molsysmt/actions/workflows/CI.yaml)
 [![codecov](https://codecov.io/github/uibcdf/molsysmt/graph/badge.svg?token=9ZMA4YZLOR)](https://codecov.io/github/uibcdf/molsysmt)
 [![Install with conda](https://img.shields.io/badge/Install%20with-conda-brightgreen.svg)](https://conda.anaconda.org/uibcdf/molsysmt)
-[![Installation on ubuntu-latest](https://github.com/uibcdf/molsysmt/actions/workflows/install_ubuntu_latest.yaml/badge.svg)](https://github.com/uibcdf/molsysmt/actions/workflows/install_ubuntu_latest.yaml)
-[![Installation on macos-latest](https://github.com/uibcdf/molsysmt/actions/workflows/install_macos_latest.yaml/badge.svg)](https://github.com/uibcdf/molsysmt/actions/workflows/install_macos_latest.yaml)
 
+**[Overview](#overview)** |
 **[Installation](#installation)** |
+**[Quickstart](#quickstart)** |
 **[Documentation](#documentation)** |
-**[License](#license)** |
-**[Credits](#credits)** |
-**[Team](#team)**
+**[Contributing](#contributing)** |
+**[Citation](#citation)**
 
+## Overview
 
-Molecular Systems MultiToolkit
+MolSysMT is a toolkit to handle molecular systems through a unified interface. It helps convert, query, modify, and visualize systems while relying on multiple molecular dynamics libraries.
 
-This library was thought as a humble frontend to make the life of a computational molecular biology lab, the UIBCDF,  easier. 
-MolSysMT is design to cover specific needs, or to speed up workflows, when you are working with tools such as:
-
-- MDTraj
-- MDAnalysis
-- PDBFix
-- OpenMM
-- Yank
-- HTMD
-- PyEmma
-- ParmEd
-- NGLview
-- pdbtools?
-
-Although MolSysMT was not concived to do what other tools do better, this
-toolkit can be used alone to do few simple tasks.
-
-All credit should be given to the developers and mantainers of these former packages and the libraries they depend on.
-
-
-Molecular Systems:
-- Aqui deberia de ir todo el tema de la creacion del sistema molecular junto con parametros y topologia
-- Deberia tambien estar esto preparado para trabajar con moleculas como ligandos.
-
-poner ParmEd y OpenBabel:
-parmed.github.io
-http://openbabel.org/wiki/Main_Page
-
-pdbfixer
-
-Molecular Dynamics:
+Key capabilities:
+- Conversion across formats and libraries (MolSysMT, MDTraj, MDAnalysis, OpenMM, ParmEd, nglview, PDB, H5MSM, etc.).
+- Consistent selection language to query atoms and groups.
+- Common structural operations (selection, extraction, concatenation, copy, centering, alignment, etc.).
+- Notebook-friendly visualization via nglview.
+- Integrations with OpenMM and AmberTools for system preparation and simulation tasks.
 
 ## Installation
 
-### Dependencies
-
--Fortran Compiler (gfortran or intel fortran compiler)
--Lapack ('conda install lapack' would work?)
-
-Other python packages as those mentioned here(link to section) and included in this list(file).
-
-
-### Conda
-
-#### Updating
-
-### GitHub
+### Recommended (conda/mamba)
 ```bash
-git clone git@github.com:UIBCDF/MolSysMT.git
-cd MolSysMT
-python setup.py develop
+conda install -c uibcdf -c conda-forge molsysmt
+```
+Requires Python 3.10–3.12. Some dependencies are optional (e.g., `parmed`, `pytraj`) and will be used when available.
+
+### From source (development)
+```bash
+git clone https://github.com/uibcdf/molsysmt.git
+cd molsysmt
+pip install -e .
 ```
 
-```bash
-pip uninstall molsysmt
-```
+## Quickstart
 
-#### Updating
-To be written
+```python
+import molsysmt as msm
+
+# Load a bundled test system
+molsys = msm.convert(msm.systems['T4 lysozyme L99A']['181l.h5msm'])
+
+# Basic info
+n_atoms, n_groups = msm.get(molsys, n_atoms=True, n_groups=True)
+print(f"N atoms: {n_atoms}, N residues: {n_groups}")
+
+# Select and extract CA atoms
+ca = msm.extract(molsys, selection='atom_name=="CA"')
+
+# Visualize (requires nglview)
+view = msm.view(ca, standard=False)
+view
+```
 
 ## Documentation
 
-http://www.uibcdf.org/MolSysMT/
+Full docs and examples: https://www.uibcdf.org/MolSysMT/
 
-## Contributions
+## Contributing
 
-🧩 Want to contribute? Check out our [contributing guide](CONTRIBUTING.md)!
+🧩 Want to contribute? Check out the [contributing guide](CONTRIBUTING.md).
+
+To run tests locally:
+```bash
+pytest -n auto --cov=molsysmt --cov-report=term-missing
+```
 
 ## License
 
+MolSysMT is distributed under the MIT license. See [LICENSE](LICENSE) for details.
+
 ## Credits
 
-All credit should be given to the developers and mantainers of the following tools and dependencies:
-
-...
+Thanks to the developers and maintainers of the libraries MolSysMT builds on (MDTraj, MDAnalysis, OpenMM, AmberTools, ParmEd, nglview, etc.).
 
 ## Team
 
-### Responsables
+### Leads
 
-Diego Prada Gracia    
+Diego Prada Gracia  
 Liliana M. Moreno Vargas
 
 ### Contributors
@@ -109,27 +96,15 @@ Liliana M. Moreno Vargas
 
 ## Citation
 
-### Last version DOI:   
-Cite the last version with the following DOI provided by Zenodo:    
-<br/>
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.2530946.svg)](https://doi.org/10.5281/zenodo.2530946)    
+### Latest version DOI
+Please cite the latest release using:  
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.2530946.svg)](https://doi.org/10.5281/zenodo.2530946)
 
-### Cite all versions?
-You can cite all versions by using the following DOI.
-[This DOI represents all versions, and will always resolve to the latest one](http://help.zenodo.org/#versioning):    
-<br/>
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.2530945.svg)](https://doi.org/10.5281/zenodo.2530945)    
-    
+### All versions
+You can cite all releases with the cumulative DOI (always points to the latest):  
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.2530945.svg)](https://doi.org/10.5281/zenodo.2530945)
 
-## Acknowledgments and Copyright
+## Acknowledgments
 
-### Copyright
-
-Copyright (c) 2021, UIBCDF
-
-
-#### Acknowledgements
- 
-Project based on the 
+Project based on the
 [Computational Molecular Science Python Cookiecutter](https://github.com/molssi/cookiecutter-cms) version 1.5.
-

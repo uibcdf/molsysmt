@@ -7,9 +7,29 @@ on:
   push:
     branches:
       - "main"
+    paths-ignore:
+      - '**/*.md'
+      - '**/*.rst'
+      - '**/*.ipynb'
+      - '**/*.yml'
+      - '**/*.yaml'
+      - 'docs/**'
+      - 'paper/**'
+      - 'examples/**'
+      - 'logos/**'
   pull_request:
     branches:
       - "main"
+    paths-ignore:
+      - '**/*.md'
+      - '**/*.rst'
+      - '**/*.ipynb'
+      - '**/*.yml'
+      - '**/*.yaml'
+      - 'docs/**'
+      - 'paper/**'
+      - 'examples/**'
+      - 'logos/**'
   schedule:
     # Nightly tests run on master by default:
     #   Scheduled workflows run on the latest commit on the default or base branch.
@@ -110,4 +130,3 @@ jobs:
       uses: codecov/test-results-action@v1
       with:
         token: ${{ secrets.CODECOV_TOKEN }}
-
