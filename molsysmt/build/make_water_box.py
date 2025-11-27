@@ -3,22 +3,49 @@ from molsysmt._private.exceptions import NotImplementedMethodError
 from molsysmt import pyunitwizard as puw
 import numpy as np
 import sys
-
 from importlib.resources import files
-def path(package, file):
-    return files(package).joinpath(file)
+
 
 @digest()
-def make_water_box(box, form='molsysmt.MolSys'):
+def make_water_box(box, form='molsysmt.MolSys', skip_digestion=False):
+    """
+    Building an SPC/E water box from a reference tile, supporting triclinic cells.
+
+    This helper replicates the bundled cubic `spc216.gro` tile (216 SPC waters at ~300 K)
+    to cover the orthorhombic bounding box of the target cell, then trims molecules whose
+    oxygen fractional coordinates fall outside the requested box (which can be triclinic).
+    The generated system contains one structure with coordinates in nanometers and a fully
+    populated topology for three-point waters. Because the packing comes from a pre-
+    equilibrated cubic tile, minimization and short equilibration are recommended to relax
+    any residual overlaps.
+
+    Parameters
+    ----------
+    box : array-like or pint.Quantity
+        Box matrix (or sequence of box matrices) with shape ``(3, 3)`` or ``(n_structures, 3, 3)``.
+        Only the first box is used. Supports triclinic cells; side lengths and tilt must be in
+        nanometers.
+    form : str, default 'molsysmt.MolSys'
+        Target form of the returned system. Currently returns a ``molsysmt.MolSys`` instance.
+    skip_digestion : bool, default False
+        Whether to skip MolSysMT’s argument digestion.
+
+    Returns
+    -------
+    molsysmt.native.molsys.MolSys
+        Water box with coordinates of shape ``(1, n_atoms, 3)`` in nanometers, topology for
+        SPC/E waters, and box of shape ``(1, 3, 3)`` in nanometers.
+    """
 
     from molsysmt.native import MolSys
     from molsysmt.basic import convert
     from molsysmt.form.file_gro import to_molsysmt_Structures
 
-    box = puw.get_value(box[0], to_unit='nm')
-    inv_box = np.linalg.inv(box)
+    box_matrix = puw.get_value(box[0], to_unit='nm')
+    inv_box = np.linalg.inv(box_matrix)
 
-    aux_item = to_molsysmt_Structures(path('molsysmt.data.gro','spc216.gro'))
+    spc216_gro_path = files('molsysmt.data.gro').joinpath('spc216.gro')
+    aux_item = to_molsysmt_Structures(spc216_gro_path)
     tile = puw.get_value(aux_item.coordinates[0], to_unit='nm')
     length_tile = 1.86206 # nm
     tile += length_tile/2.0
@@ -26,9 +53,18 @@ def make_water_box(box, form='molsysmt.MolSys'):
 
     Os_indices = np.arange(0,216)*3
 
-    n_tiles_x = np.ceil(box[0,0]/length_tile).astype(int)
-    n_tiles_y = np.ceil(box[1,1]/length_tile).astype(int)
-    n_tiles_z = np.ceil(box[2,2]/length_tile).astype(int)
+    a_vec, b_vec, c_vec = box_matrix
+    corners = np.array([[0.0, 0.0, 0.0],
+                        a_vec, b_vec, c_vec,
+                        a_vec + b_vec, a_vec + c_vec, b_vec + c_vec,
+                        a_vec + b_vec + c_vec])
+    min_corner = corners.min(axis=0)
+    max_corner = corners.max(axis=0)
+    ortho_lengths = max_corner - min_corner
+
+    n_tiles_x = np.ceil(ortho_lengths[0]/length_tile).astype(int)
+    n_tiles_y = np.ceil(ortho_lengths[1]/length_tile).astype(int)
+    n_tiles_z = np.ceil(ortho_lengths[2]/length_tile).astype(int)
 
     new_coors=[]
 
@@ -37,9 +73,9 @@ def make_water_box(box, form='molsysmt.MolSys'):
             for kk in range(n_tiles_z):
 
                 aux_tile = tile.copy()
-                aux_tile[:,0] += ii*length_tile
-                aux_tile[:,1] += jj*length_tile
-                aux_tile[:,2] += kk*length_tile
+                aux_tile[:,0] += min_corner[0] + ii*length_tile
+                aux_tile[:,1] += min_corner[1] + jj*length_tile
+                aux_tile[:,2] += min_corner[2] + kk*length_tile
 
                 coors_Os = aux_tile[Os_indices]
                 aux = inv_box@coors_Os.transpose()
@@ -56,14 +92,14 @@ def make_water_box(box, form='molsysmt.MolSys'):
     output = MolSys(n_atoms=n_atoms, n_groups=n_waters, n_components=n_waters, n_molecules=n_waters,
                     n_entities=1, n_chains=1, n_bonds=2*n_waters, skip_digestion=True) 
 
-    output.structures.box = puw.quantity(box[np.newaxis,:,:], 'nm')
+    output.structures.box = puw.quantity(box_matrix[np.newaxis,:,:], 'nm')
     output.structures.coordinates = puw.quantity(new_coors[np.newaxis,:,:], 'nm')
     output.structures.box = puw.standardize(output.structures.box)
     output.structures.coordinates = puw.standardize(output.structures.coordinates)
     output.structures.n_atoms = n_atoms
     output.structures.n_structures =1
 
-    del(new_coors, box)
+    del(new_coors, box_matrix)
 
     output.topology.atoms['atom_id'] = np.arange(n_atoms)
     output.topology.atoms['atom_name'] = np.tile(['OW','HW1','HW2'], n_waters)
@@ -102,4 +138,3 @@ def make_water_box(box, form='molsysmt.MolSys'):
     del(aux, mask)
 
     return output
-
