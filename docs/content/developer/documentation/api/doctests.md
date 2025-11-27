@@ -28,7 +28,8 @@ This command will:
 
 - Make sure your example is minimal but functional.
 - Avoid depending on random data or external files unless mock data is provided.
-- Use temporary or minimal molecular systems (e.g. from `molsysmt.demo`) when needed.
+- Use temporary or minimal molecular systems (for example, from
+  `molsysmt.systems`) when needed.
 
 ### Example of a testable docstring
 
@@ -60,5 +61,4 @@ This is how we test this example embeded in the docstring:
 ```bash
 pytest --doctest-modules molsysmt/basic/add.py
 ```
-
 

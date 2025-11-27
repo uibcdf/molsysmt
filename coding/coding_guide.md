@@ -1,5 +1,7 @@
 
 
+**Language policy:** Code comments, docstrings, and all documentation (markdown/guides/READMEs) must be written in English.
+
 ## forms
 
 form_in
@@ -67,4 +69,3 @@ frame is: structure_id, time, coordinates and box.
     -------
 
     """
-

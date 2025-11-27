@@ -6,11 +6,15 @@ from pathlib import Path
 from datetime import datetime, timezone
 import argparse
 import glob
+from concurrent.futures import ThreadPoolExecutor
 
 GREEN = "\033[32m"
 RED = "\033[31m"
 BLUE = "\033[34m"
 RESET = "\033[0m"
+
+# Log file in the same directory as this script, listing notebooks that failed.
+ERROR_LOG_PATH = Path(__file__).resolve().with_name("notebook_errors.log")
 
 def write_timestamp_to_log(log_path: Path):
     timestamp = datetime.now(timezone.utc).timestamp()
@@ -58,6 +62,12 @@ def execute_notebook(notebook_path: Path, force: bool = False) -> bool:
             print(f"{RED}✘{RESET} Error executing {notebook_path}: check {log_file}")
             if last_run_file.exists():
                 last_run_file.unlink()
+            # Log failing notebook immediately to the shared error log.
+            try:
+                with ERROR_LOG_PATH.open("a", encoding="utf-8") as f:
+                    f.write(f"{notebook_path}\n")
+            except Exception:
+                pass
             return False
         else:
             print(f"{GREEN}✔{RESET} Notebook {notebook_path} executed successfully.")
@@ -69,7 +79,7 @@ def execute_notebook(notebook_path: Path, force: bool = False) -> bool:
         return True
 
 
-def main(force=False, notebook: Path = None, recursive: bool = False):
+def main(force=False, notebook: Path = None, recursive: bool = False, n_workers: int = 1):
 
     if notebook is not None:
         if not notebook.exists():
@@ -90,8 +100,50 @@ def main(force=False, notebook: Path = None, recursive: bool = False):
 
     nb_list = [nb for nb in nb_list if ".ipynb_checkpoints" not in nb.parts]
 
-    for nb_path in nb_list:
-        status_execution = execute_notebook(nb_path, force)
+    n_workers = max(1, int(n_workers) if n_workers is not None else 1)
+
+    failed_notebooks = []
+
+    if n_workers == 1:
+        for nb_path in nb_list:
+            try:
+                ok = execute_notebook(nb_path, force)
+            except Exception:
+                ok = False
+                # Log unexpected failures (outside execute_notebook) immediately.
+                try:
+                    with ERROR_LOG_PATH.open("a", encoding="utf-8") as f:
+                        f.write(f"{nb_path}\n")
+                except Exception:
+                    pass
+            if not ok:
+                failed_notebooks.append(nb_path)
+    else:
+        print(f"Executing {len(nb_list)} notebooks using {n_workers} workers.")
+        with ThreadPoolExecutor(max_workers=n_workers) as executor:
+            future_to_nb = {
+                executor.submit(execute_notebook, nb_path, force): nb_path
+                for nb_path in nb_list
+            }
+            for future, nb_path in future_to_nb.items():
+                try:
+                    ok = future.result()
+                except Exception:
+                    ok = False
+                    # Log unexpected failures (outside execute_notebook) immediately.
+                    try:
+                        with ERROR_LOG_PATH.open("a", encoding="utf-8") as f:
+                            f.write(f"{nb_path}\n")
+                    except Exception:
+                        pass
+                if not ok:
+                    failed_notebooks.append(nb_path)
+
+    if failed_notebooks:
+        print(f"{RED}✘{RESET} {len(failed_notebooks)} notebook(s) failed. "
+              f"See {ERROR_LOG_PATH}")
+    else:
+        print(f"{GREEN}✔{RESET} All notebooks executed successfully.")
 
 
 if __name__ == "__main__":
@@ -104,6 +156,7 @@ if __name__ == "__main__":
     Examples:
         python execute_notebooks.py                       # All notebooks in current directory
         python execute_notebooks.py -r                    # All notebooks recursively from current directory
+        python execute_notebooks.py -n 4 -r               # Recursively using 4 workers in parallel
         python execute_notebooks.py -r docs/user_guide    # All notebooks in docs/user_guide recursively
         python execute_notebooks.py analysis.ipynb        # Only that notebook
         python execute_notebooks.py '/home/user/*.ipynb'  # Wildcard pattern (quoted)
@@ -122,19 +175,28 @@ if __name__ == "__main__":
                         help="Force execution of notebooks regardless of timestamps.")
     parser.add_argument("-r", "--recursive", action="store_true",
                         help="Search for notebooks recursively in directories.")
+    parser.add_argument(
+        "-n", "--n-workers", type=int, default=1,
+        help="Number of worker threads to use for notebook execution. "
+             "Use 1 (default) to run serially without parallel workers."
+    )
 
     args = parser.parse_args()
+
+    # Reset error log at the beginning of a CLI invocation.
+    try:
+        ERROR_LOG_PATH.write_text("", encoding="utf-8")
+    except Exception:
+        # If we cannot reset the log, continue execution; failures will still be reported on stdout.
+        pass
 
     if args.notebook:
         for nb in map(Path, args.notebook):
             if nb.is_file():
-                main(force=args.force, notebook=nb, recursive=args.recursive)
+                main(force=args.force, notebook=nb, recursive=args.recursive, n_workers=args.n_workers)
             elif nb.is_dir():
-                main(force=args.force, notebook=nb, recursive=args.recursive)
+                main(force=args.force, notebook=nb, recursive=args.recursive, n_workers=args.n_workers)
             else:
                 print(f"{RED}✘{RESET} File not found or not a notebook: {nb}")
     else:
-        main(force=args.force, recursive=args.recursive)
-    
-        args = parser.parse_args()
-
+        main(force=args.force, recursive=args.recursive, n_workers=args.n_workers)

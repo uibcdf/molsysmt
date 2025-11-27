@@ -1,5 +1,7 @@
 # Agreements
 
+**Language policy:** All repository-facing text (code comments, docstrings, READMEs, guides, notebooks) must be written in English. User-facing replies can be in Spanish, but anything stored in the repo stays in English.
+
 ## Basic
 
 pip install --no-deps --editable .
@@ -26,4 +28,3 @@ pip install --no-deps --editable .
 
 - if time, box, etc... (structural attributes) are not present in an object... the output is a list with as many Nones as structures in the object.
 if there are no structures... all attributes are equal to None.
-

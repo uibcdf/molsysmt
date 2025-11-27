@@ -41,9 +41,10 @@ def _collect_coordinates(frames, n_atoms):
     coords = []
     times = []
     for frame in frames:
-        if 'positions' not in frame:
+        positions = frame.get('coordinates', None)
+        if positions is None:
             continue
-        arr = np.array(frame['positions'], dtype=float)
+        arr = np.array(positions, dtype=float)
         if n_atoms is not None:
             if arr.shape[0] < n_atoms:
                 pad = np.full((n_atoms - arr.shape[0], 3), np.nan, dtype=float)
@@ -90,7 +91,7 @@ def to_molsysmt_MolSys(item, skip_digestion=False):
         n_molecules=max(len(unique_group_ids), 1),
         n_entities=max(len(entity_id_raw) if entity_id_raw is not None else 1, 1),
         n_chains=max(len(unique_chain_ids), 1),
-        n_bonds=min(len(bonds.get('indexA', [])), len(bonds.get('indexB', []))) if bonds else 0,
+        n_bonds=len(bonds.get('atom_pairs', [])) if bonds else 0,
         skip_digestion=True,
     )
 
@@ -123,8 +124,11 @@ def to_molsysmt_MolSys(item, skip_digestion=False):
     topo.chains['chain_type'] = pd.Series([''] * len(unique_chain_ids), dtype=str)
 
     if bonds:
-        topo.bonds['atom1_index'] = pd.Series(bonds.get('indexA', []), dtype='Int64')
-        topo.bonds['atom2_index'] = pd.Series(bonds.get('indexB', []), dtype='Int64')
+        atom_pairs = bonds.get('atom_pairs', [])
+        atom1_index = [pair[0] for pair in atom_pairs]
+        atom2_index = [pair[1] for pair in atom_pairs]
+        topo.bonds['atom1_index'] = pd.Series(atom1_index, dtype='Int64')
+        topo.bonds['atom2_index'] = pd.Series(atom2_index, dtype='Int64')
         topo.bonds['order'] = pd.Series(bonds.get('order', []), dtype=str)
 
     collected = _collect_coordinates(frames, n_atoms if n_atoms > 0 else None)

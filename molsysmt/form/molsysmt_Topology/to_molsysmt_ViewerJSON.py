@@ -56,9 +56,9 @@ def to_molsysmt_ViewerJSON(item, skip_digestion=False):
     }
 
     bonds_df = topo.bonds
+    atom_pairs = list(zip(_series_to_list(bonds_df['atom1_index']), _series_to_list(bonds_df['atom2_index'])))
     bonds_block = {
-        "indexA": _series_to_list(bonds_df['atom1_index']),
-        "indexB": _series_to_list(bonds_df['atom2_index']),
+        "atom_pairs": [list(pair) for pair in atom_pairs],
         "order": _series_to_list(bonds_df['order']) if 'order' in bonds_df else [],
     }
 

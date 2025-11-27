@@ -30,10 +30,11 @@ def extract(item, atom_indices='all', structure_indices='all', copy_if_all=True,
             estructures = []
             for frame in new_item.data.get('estructures', []):
                 new_frame = deepcopy(frame)
-                if 'positions' in new_frame:
-                    arr = np.array(new_frame['positions'])
+                coords = new_frame.get('coordinates', None)
+                if coords is not None:
+                    arr = np.array(coords)
                     arr = arr[idx] if arr.ndim > 1 else arr
-                    new_frame['positions'] = arr.tolist()
+                    new_frame['coordinates'] = arr.tolist()
                 estructures.append(new_frame)
             new_item.data['estructures'] = estructures
 

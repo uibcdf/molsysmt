@@ -104,6 +104,20 @@ This document provides conventions and rules for writing, testing, and documenti
 
 - Do not use reST-style admonitions inside notebooks.
 
+## Docstring and API documentation references
+
+- Use the high-level rules in this guide together with the detailed patterns in
+  `docs/content/developer/documentation/api/docstrings.md` when writing or
+  updating docstrings.
+- For doctest behavior and how examples are executed, see
+  `docs/content/developer/documentation/api/doctests.md`.
+
+## Cross-references in documentation
+
+- When linking between documentation pages (User Guide, Showcase, Developer docs), prefer labeled sections and `{ref}` roles instead of hard-coding file paths.
+- For API objects, use `{func}` and `{class}` roles rather than linking directly to generated HTML.
+- See `docs/content/developer/documentation/web/references.md` for detailed examples and patterns.
+
 ### Versionadded
 
 - **Tutorial notebooks**: also include a block MyST admonition right below the

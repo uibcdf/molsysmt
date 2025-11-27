@@ -136,3 +136,20 @@ class MolSys:
         from molsysmt.basic import info as _info
 
         return _info(self)
+
+    def get(self,
+        element='system',
+        selection='all',
+        structure_indices='all',
+        mask=None,
+        syntax='MolSysMT',
+        get_missing_bonds=True,
+        output_type='values',
+        skip_digestion=False,
+        **kwargs):
+
+        from molsysmt.basic import get as _get
+
+        return _get(self, element=element, selection=selection, structure_indices=structure_indices,
+                    mask=mask, syntax=syntax, get_missing_bonds=get_missing_bonds, output_type=output_type,
+                    skip_digestion=True, **kwargs)

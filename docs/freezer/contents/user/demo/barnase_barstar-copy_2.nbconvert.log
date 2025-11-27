@@ -1,0 +1,132 @@
+
+[NbConvertApp] Converting notebook freezer/contents/user/demo/barnase_barstar-copy_2.ipynb to notebook
+Traceback (most recent call last):
+  File "/home/diego/Myopt/miniconda3/envs/molsysmt@uibcdf_3.12/bin/jupyter-nbconvert", line 10, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/home/diego/Myopt/miniconda3/envs/molsysmt@uibcdf_3.12/lib/python3.12/site-packages/jupyter_core/application.py", line 284, in launch_instance
+    super().launch_instance(argv=argv, **kwargs)
+  File "/home/diego/Myopt/miniconda3/envs/molsysmt@uibcdf_3.12/lib/python3.12/site-packages/traitlets/config/application.py", line 1075, in launch_instance
+    app.start()
+  File "/home/diego/Myopt/miniconda3/envs/molsysmt@uibcdf_3.12/lib/python3.12/site-packages/nbconvert/nbconvertapp.py", line 420, in start
+    self.convert_notebooks()
+  File "/home/diego/Myopt/miniconda3/envs/molsysmt@uibcdf_3.12/lib/python3.12/site-packages/nbconvert/nbconvertapp.py", line 597, in convert_notebooks
+    self.convert_single_notebook(notebook_filename)
+  File "/home/diego/Myopt/miniconda3/envs/molsysmt@uibcdf_3.12/lib/python3.12/site-packages/nbconvert/nbconvertapp.py", line 563, in convert_single_notebook
+    output, resources = self.export_single_notebook(
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/diego/Myopt/miniconda3/envs/molsysmt@uibcdf_3.12/lib/python3.12/site-packages/nbconvert/nbconvertapp.py", line 487, in export_single_notebook
+    output, resources = self.exporter.from_filename(
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/diego/Myopt/miniconda3/envs/molsysmt@uibcdf_3.12/lib/python3.12/site-packages/nbconvert/exporters/exporter.py", line 201, in from_filename
+    return self.from_file(f, resources=resources, **kw)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/diego/Myopt/miniconda3/envs/molsysmt@uibcdf_3.12/lib/python3.12/site-packages/nbconvert/exporters/exporter.py", line 220, in from_file
+    return self.from_notebook_node(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/diego/Myopt/miniconda3/envs/molsysmt@uibcdf_3.12/lib/python3.12/site-packages/nbconvert/exporters/notebook.py", line 36, in from_notebook_node
+    nb_copy, resources = super().from_notebook_node(nb, resources, **kw)
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/diego/Myopt/miniconda3/envs/molsysmt@uibcdf_3.12/lib/python3.12/site-packages/nbconvert/exporters/exporter.py", line 154, in from_notebook_node
+    nb_copy, resources = self._preprocess(nb_copy, resources)
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/diego/Myopt/miniconda3/envs/molsysmt@uibcdf_3.12/lib/python3.12/site-packages/nbconvert/exporters/exporter.py", line 353, in _preprocess
+    nbc, resc = preprocessor(nbc, resc)
+                ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/diego/Myopt/miniconda3/envs/molsysmt@uibcdf_3.12/lib/python3.12/site-packages/nbconvert/preprocessors/base.py", line 48, in __call__
+    return self.preprocess(nb, resources)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/diego/Myopt/miniconda3/envs/molsysmt@uibcdf_3.12/lib/python3.12/site-packages/nbconvert/preprocessors/execute.py", line 103, in preprocess
+    self.preprocess_cell(cell, resources, index)
+  File "/home/diego/Myopt/miniconda3/envs/molsysmt@uibcdf_3.12/lib/python3.12/site-packages/nbconvert/preprocessors/execute.py", line 124, in preprocess_cell
+    cell = self.execute_cell(cell, index, store_history=True)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/diego/Myopt/miniconda3/envs/molsysmt@uibcdf_3.12/lib/python3.12/site-packages/jupyter_core/utils/__init__.py", line 165, in wrapped
+    return loop.run_until_complete(inner)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/diego/Myopt/miniconda3/envs/molsysmt@uibcdf_3.12/lib/python3.12/asyncio/base_events.py", line 691, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/home/diego/Myopt/miniconda3/envs/molsysmt@uibcdf_3.12/lib/python3.12/site-packages/nbclient/client.py", line 1062, in async_execute_cell
+    await self._check_raise_for_error(cell, cell_index, exec_reply)
+  File "/home/diego/Myopt/miniconda3/envs/molsysmt@uibcdf_3.12/lib/python3.12/site-packages/nbclient/client.py", line 918, in _check_raise_for_error
+    raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
+nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
+------------------
+molecular_system_pdb = msm.convert('1brs.pdb', to_form='molsysmt.MolSys')
+molecular_system_mmtf = msm.convert('1brs.mmtf', to_form='molsysmt.MolSys')
+------------------
+
+
+[31m---------------------------------------------------------------------------[39m
+[31mFileNotFoundError[39m                         Traceback (most recent call last)
+[36mCell[39m[36m [39m[32mIn[3][39m[32m, line 1[39m
+[32m----> [39m[32m1[39m molecular_system_pdb = [43mmsm[49m[43m.[49m[43mconvert[49m[43m([49m[33;43m'[39;49m[33;43m1brs.pdb[39;49m[33;43m'[39;49m[43m,[49m[43m [49m[43mto_form[49m[43m=[49m[33;43m'[39;49m[33;43mmolsysmt.MolSys[39;49m[33;43m'[39;49m[43m)[49m
+[32m      2[39m molecular_system_mmtf = msm.convert([33m'[39m[33m1brs.mmtf[39m[33m'[39m, to_form=[33m'[39m[33mmolsysmt.MolSys[39m[33m'[39m)
+
+[36mFile [39m[32m~/repos@uibcdf/molsysmt/molsysmt/_private/digestion/digest.py:122[39m, in [36mdigest.<locals>.digestor.<locals>.wrapper[39m[34m(*args, **kwargs)[39m
+[32m    120[39m     [38;5;28;01mreturn[39;00m func(all_args[[33m'[39m[33mself[39m[33m'[39m], **final_args)
+[32m    121[39m [38;5;28;01melse[39;00m:
+[32m--> [39m[32m122[39m     [38;5;28;01mreturn[39;00m [43mfunc[49m[43m([49m[43m*[49m[43m*[49m[43mfinal_args[49m[43m)[49m
+
+[36mFile [39m[32m~/repos@uibcdf/molsysmt/molsysmt/basic/convert.py:515[39m, in [36mconvert[39m[34m(molecular_system, to_form, selection, structure_indices, syntax, skip_digestion, **kwargs)[39m
+[32m    513[39m [38;5;66;03m# If one to one[39;00m
+[32m    514[39m [38;5;28;01mif[39;00m [38;5;129;01mnot[39;00m [38;5;28misinstance[39m(from_form, ([38;5;28mlist[39m, [38;5;28mtuple[39m)):
+[32m--> [39m[32m515[39m     output = [43m_convert_one_to_one[49m[43m([49m[43mmolecular_system[49m[43m,[49m[43m [49m[43mfrom_form[49m[43m,[49m[43m [49m[43mto_form[49m[43m=[49m[43mto_form[49m[43m,[49m[43m [49m[43mselection[49m[43m=[49m[43mselection[49m[43m,[49m[43m [49m[43mstructure_indices[49m[43m=[49m[43mstructure_indices[49m[43m,[49m
+[32m    516[39m [43m            [49m[43msyntax[49m[43m=[49m[43msyntax[49m[43m,[49m[43m [49m[43mskip_digestion[49m[43m=[49m[38;5;28;43;01mTrue[39;49;00m[43m,[49m[43m [49m[43m*[49m[43m*[49m[43mkwargs[49m[43m)[49m
+[32m    518[39m [38;5;66;03m# If multiple to one[39;00m
+[32m    519[39m 
+[32m    520[39m [38;5;28;01melse[39;00m:
+[32m    521[39m 
+[32m    522[39m     [38;5;66;03m# conversions in private shortcuts[39;00m
+[32m    523[39m     [38;5;28;01mif[39;00m [38;5;28mtuple[39m([38;5;28msorted[39m(from_form)) [38;5;129;01min[39;00m _multiple_conversion_shortcuts:
+
+[36mFile [39m[32m~/repos@uibcdf/molsysmt/molsysmt/basic/convert.py:93[39m, in [36m_convert_one_to_one[39m[34m(molecular_system, from_form, to_form, selection, structure_indices, syntax, **kwargs)[39m
+[32m     90[39m         [38;5;28;01mif[39;00m [38;5;28mlen[39m(missing_arguments)>[32m0[39m:
+[32m     91[39m             [38;5;28;01mraise[39;00m NotCompatibleConversionError(from_form, to_form, missing_arguments)
+[32m---> [39m[32m93[39m     output = [43mfunction[49m[43m([49m[43mmolecular_system[49m[43m,[49m[43m [49m[43m*[49m[43m*[49m[43mconversion_arguments[49m[43m,[49m[43m [49m[43m*[49m[43m*[49m[43mkwargs[49m[43m)[49m
+[32m     95[39m [38;5;28;01melif[39;00m ([33m'[39m[33mmolsysmt.MolSys[39m[33m'[39m [38;5;129;01min[39;00m _dict_modules[from_form]._convert_to) [38;5;129;01mand[39;00m (to_form [38;5;129;01min[39;00m _dict_modules[[33m'[39m[33mmolsysmt.MolSys[39m[33m'[39m]._convert_to):
+[32m     97[39m     output = _convert_one_to_one(molecular_system, from_form, to_form=[33m'[39m[33mmolsysmt.MolSys[39m[33m'[39m, selection=selection,
+[32m     98[39m             structure_indices=structure_indices, syntax=syntax, **kwargs)
+
+[36mFile [39m[32m~/repos@uibcdf/molsysmt/molsysmt/_private/digestion/digest.py:52[39m, in [36mdigest.<locals>.digestor.<locals>.wrapper[39m[34m(*args, **kwargs)[39m
+[32m     48[39m [38;5;129m@functools[39m.wraps(func)
+[32m     49[39m [38;5;28;01mdef[39;00m[38;5;250m [39m[34mwrapper[39m(*args, **kwargs):
+[32m     51[39m     [38;5;28;01mif[39;00m kwargs.get([33m'[39m[33mskip_digestion[39m[33m'[39m, [38;5;28;01mFalse[39;00m):
+[32m---> [39m[32m52[39m         [38;5;28;01mreturn[39;00m [43mfunc[49m[43m([49m[43m*[49m[43margs[49m[43m,[49m[43m [49m[43m*[49m[43m*[49m[43mkwargs[49m[43m)[49m
+[32m     54[39m     [38;5;66;03m# Define caller[39;00m
+[32m     56[39m     caller = func.[34m__module__[39m+[33m'[39m[33m.[39m[33m'[39m+func.[34m__name__[39m
+
+[36mFile [39m[32m~/repos@uibcdf/molsysmt/molsysmt/form/file_pdb/to_molsysmt_MolSys.py:10[39m, in [36mto_molsysmt_MolSys[39m[34m(item, atom_indices, structure_indices, get_missing_bonds, skip_digestion)[39m
+[32m      7[39m [38;5;28;01mfrom[39;00m[38;5;250m [39m[34;01m.[39;00m[38;5;250m [39m[38;5;28;01mimport[39;00m to_molsysmt_PDBFileHandler
+[32m      8[39m [38;5;28;01mfrom[39;00m[38;5;250m [39m[34;01m.[39;00m[34;01m.[39;00m[34;01mmolsysmt_PDBFileHandler[39;00m[38;5;250m [39m[38;5;28;01mimport[39;00m to_molsysmt_MolSys [38;5;28;01mas[39;00m molsysmt_PDBFileHandler_to_molsysmt_MolSys
+[32m---> [39m[32m10[39m tmp_item = [43mto_molsysmt_PDBFileHandler[49m[43m([49m[43mitem[49m[43m,[49m[43m [49m[43mskip_digestion[49m[43m=[49m[38;5;28;43;01mTrue[39;49;00m[43m)[49m
+[32m     11[39m tmp_item = molsysmt_PDBFileHandler_to_molsysmt_MolSys(tmp_item, atom_indices=atom_indices,
+[32m     12[39m                                                       structure_indices=structure_indices,
+[32m     13[39m                                                       get_missing_bonds=get_missing_bonds,
+[32m     14[39m                                                       skip_digestion=[38;5;28;01mTrue[39;00m)
+[32m     16[39m [38;5;28;01mreturn[39;00m tmp_item
+
+[36mFile [39m[32m~/repos@uibcdf/molsysmt/molsysmt/_private/digestion/digest.py:52[39m, in [36mdigest.<locals>.digestor.<locals>.wrapper[39m[34m(*args, **kwargs)[39m
+[32m     48[39m [38;5;129m@functools[39m.wraps(func)
+[32m     49[39m [38;5;28;01mdef[39;00m[38;5;250m [39m[34mwrapper[39m(*args, **kwargs):
+[32m     51[39m     [38;5;28;01mif[39;00m kwargs.get([33m'[39m[33mskip_digestion[39m[33m'[39m, [38;5;28;01mFalse[39;00m):
+[32m---> [39m[32m52[39m         [38;5;28;01mreturn[39;00m [43mfunc[49m[43m([49m[43m*[49m[43margs[49m[43m,[49m[43m [49m[43m*[49m[43m*[49m[43mkwargs[49m[43m)[49m
+[32m     54[39m     [38;5;66;03m# Define caller[39;00m
+[32m     56[39m     caller = func.[34m__module__[39m+[33m'[39m[33m.[39m[33m'[39m+func.[34m__name__[39m
+
+[36mFile [39m[32m~/repos@uibcdf/molsysmt/molsysmt/form/file_pdb/to_molsysmt_PDBFileHandler.py:8[39m, in [36mto_molsysmt_PDBFileHandler[39m[34m(item, skip_digestion)[39m
+[32m      3[39m [38;5;129m@digest[39m(form=[33m'[39m[33mfile:pdb[39m[33m'[39m)
+[32m      4[39m [38;5;28;01mdef[39;00m[38;5;250m [39m[34mto_molsysmt_PDBFileHandler[39m(item, skip_digestion=[38;5;28;01mFalse[39;00m):
+[32m      6[39m     [38;5;28;01mfrom[39;00m[38;5;250m [39m[34;01mmolsysmt[39;00m[34;01m.[39;00m[34;01mnative[39;00m[38;5;250m [39m[38;5;28;01mimport[39;00m PDBFileHandler
+[32m----> [39m[32m8[39m     [38;5;28;01mreturn[39;00m [43mPDBFileHandler[49m[43m([49m[43mitem[49m[43m,[49m[43m [49m[43mio_mode[49m[43m=[49m[33;43m'[39;49m[33;43mr[39;49m[33;43m'[39;49m[43m)[49m
+
+[36mFile [39m[32m~/repos@uibcdf/molsysmt/molsysmt/native/pdb_file_handler.py:1211[39m, in [36mPDBFileHandler.__init__[39m[34m(self, file, io_mode, closed, skip_digestion)[39m
+[32m   1207[39m     [38;5;28mself[39m.file = [38;5;28;01mNone[39;00m
+[32m   1209[39m [38;5;28;01melif[39;00m io_mode==[33m'[39m[33mr[39m[33m'[39m:
+[32m-> [39m[32m1211[39m     [38;5;28mself[39m.file = [38;5;28;43mopen[39;49m[43m([49m[43mfile[49m[43m,[49m[43m [49m[33;43m"[39;49m[33;43mr[39;49m[33;43m"[39;49m[43m)[49m
+[32m   1212[39m     [38;5;28mself[39m.format_version = guess_format_version([38;5;28mself[39m.file)
+[32m   1213[39m     [38;5;28mself[39m.load()
+
+[31mFileNotFoundError[39m: [Errno 2] No such file or directory: '1brs.pdb'
+

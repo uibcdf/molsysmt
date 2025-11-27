@@ -70,6 +70,7 @@ Combining these three allows functions like `get()`, `set()`, `select()`, `info(
 - Always confirm whether a `seealso` block is wanted and in what format.
 - Ensure all narrative text in tutorials helps users understand the *why*, not just the *how*.
 - Don’t forget to generate cross-references with `{func}` and not `{func}` with parentheses unless you're linking to the call form.
+- For links between documentation pages, prefer labeled sections and `{ref}` roles over direct file paths; see `docs/content/developer/documentation/web/references.md` for examples.
 
 # Dev Notes: Tutorial & Docstrings (Updated)
 

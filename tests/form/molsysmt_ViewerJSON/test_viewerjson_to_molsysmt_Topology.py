@@ -15,11 +15,7 @@ def _viewer_json():
             "chain_id": [1, 1],
             "entity_id": [100, 100],
         },
-        "bonds": {
-            "indexA": [0],
-            "indexB": [1],
-            "order": ["1"],
-        },
+        "bonds": {"atom_pairs": [[0, 1]], "order": ["1"]},
         "estructures": [],
     }
     return ViewerJSON(data=data)
