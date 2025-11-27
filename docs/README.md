@@ -35,6 +35,11 @@ optional dependencies that are needed for `autodoc`, list them in `docs/requirem
 - Keep terminology consistent with the API (function and class names should match exactly, including capitalization).
 - When referencing scientific context, include brief rationale or citations from `bibliography.bib` where appropriate.
 
+For details on MyST usage (admonitions, tutorial structure, cross-references,
+and API roles), see the developer documentation under
+`docs/content/developer/documentation/web/` (especially `myst.ipynb` and
+`references.md`).***
+
 ## Reusing this structure in another project
 
 To export MolSysMT’s documentation style to a new codebase:

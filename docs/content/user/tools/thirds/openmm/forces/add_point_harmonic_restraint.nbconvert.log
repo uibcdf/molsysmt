@@ -1,0 +1,88 @@
+
+Traceback (most recent call last):
+  File "/home/diego/Myopt/miniconda3/envs/molsysmt@uibcdf_3.12/lib/python3.12/site-packages/jsonschema/_format.py", line 304, in <module>
+    import rfc3987
+ModuleNotFoundError: No module named 'rfc3987'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/diego/Myopt/miniconda3/envs/molsysmt@uibcdf_3.12/bin/jupyter-nbconvert", line 6, in <module>
+    from nbconvert.nbconvertapp import main
+  File "/home/diego/Myopt/miniconda3/envs/molsysmt@uibcdf_3.12/lib/python3.12/site-packages/nbconvert/__init__.py", line 6, in <module>
+    from . import filters, postprocessors, preprocessors, writers
+  File "/home/diego/Myopt/miniconda3/envs/molsysmt@uibcdf_3.12/lib/python3.12/site-packages/nbconvert/filters/__init__.py", line 8, in <module>
+    from .markdown import (
+  File "/home/diego/Myopt/miniconda3/envs/molsysmt@uibcdf_3.12/lib/python3.12/site-packages/nbconvert/filters/markdown.py", line 16, in <module>
+    from .markdown_mistune import markdown2html_mistune
+  File "/home/diego/Myopt/miniconda3/envs/molsysmt@uibcdf_3.12/lib/python3.12/site-packages/nbconvert/filters/markdown_mistune.py", line 21, in <module>
+    from nbconvert.filters.strings import add_anchor
+  File "/home/diego/Myopt/miniconda3/envs/molsysmt@uibcdf_3.12/lib/python3.12/site-packages/nbconvert/filters/strings.py", line 23, in <module>
+    from nbconvert.preprocessors.sanitize import _get_default_css_sanitizer
+  File "/home/diego/Myopt/miniconda3/envs/molsysmt@uibcdf_3.12/lib/python3.12/site-packages/nbconvert/preprocessors/__init__.py", line 3, in <module>
+    from nbclient.exceptions import CellExecutionError
+  File "/home/diego/Myopt/miniconda3/envs/molsysmt@uibcdf_3.12/lib/python3.12/site-packages/nbclient/__init__.py", line 2, in <module>
+    from .client import NotebookClient, execute
+  File "/home/diego/Myopt/miniconda3/envs/molsysmt@uibcdf_3.12/lib/python3.12/site-packages/nbclient/client.py", line 19, in <module>
+    from nbformat import NotebookNode
+  File "/home/diego/Myopt/miniconda3/envs/molsysmt@uibcdf_3.12/lib/python3.12/site-packages/nbformat/__init__.py", line 14, in <module>
+    from . import v1, v2, v3, v4
+  File "/home/diego/Myopt/miniconda3/envs/molsysmt@uibcdf_3.12/lib/python3.12/site-packages/nbformat/v4/__init__.py", line 24, in <module>
+    from .convert import downgrade, upgrade
+  File "/home/diego/Myopt/miniconda3/envs/molsysmt@uibcdf_3.12/lib/python3.12/site-packages/nbformat/v4/convert.py", line 12, in <module>
+    from nbformat import v3, validator
+  File "/home/diego/Myopt/miniconda3/envs/molsysmt@uibcdf_3.12/lib/python3.12/site-packages/nbformat/validator.py", line 17, in <module>
+    from .json_compat import ValidationError, _validator_for_name, get_current_validator
+  File "/home/diego/Myopt/miniconda3/envs/molsysmt@uibcdf_3.12/lib/python3.12/site-packages/nbformat/json_compat.py", line 13, in <module>
+    import jsonschema
+  File "/home/diego/Myopt/miniconda3/envs/molsysmt@uibcdf_3.12/lib/python3.12/site-packages/jsonschema/__init__.py", line 13, in <module>
+    from jsonschema._format import FormatChecker
+  File "/home/diego/Myopt/miniconda3/envs/molsysmt@uibcdf_3.12/lib/python3.12/site-packages/jsonschema/_format.py", line 328, in <module>
+    from rfc3987_syntax import is_valid_syntax as _rfc3987_is_valid_syntax
+  File "/home/diego/Myopt/miniconda3/envs/molsysmt@uibcdf_3.12/lib/python3.12/site-packages/rfc3987_syntax/__init__.py", line 1, in <module>
+    from .syntax_helpers import *
+  File "/home/diego/Myopt/miniconda3/envs/molsysmt@uibcdf_3.12/lib/python3.12/site-packages/rfc3987_syntax/syntax_helpers.py", line 116, in <module>
+    is_valid_syntax_ipchar = make_syntax_validator("ipchar")
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/diego/Myopt/miniconda3/envs/molsysmt@uibcdf_3.12/lib/python3.12/site-packages/rfc3987_syntax/syntax_helpers.py", line 66, in make_syntax_validator
+    parser = Lark(grammar, start=rule_name, parser=RFC3987_SYNTAX_PARSER_TYPE)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/diego/Myopt/miniconda3/envs/molsysmt@uibcdf_3.12/lib/python3.12/site-packages/lark/lark.py", line 456, in __init__
+    self.parser = self._build_parser()
+                  ^^^^^^^^^^^^^^^^^^^^
+  File "/home/diego/Myopt/miniconda3/envs/molsysmt@uibcdf_3.12/lib/python3.12/site-packages/lark/lark.py", line 500, in _build_parser
+    return _construct_parsing_frontend(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/diego/Myopt/miniconda3/envs/molsysmt@uibcdf_3.12/lib/python3.12/site-packages/lark/parser_frontends.py", line 284, in _construct_parsing_frontend
+    return ParsingFrontend(lexer_conf, parser_conf, options)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/diego/Myopt/miniconda3/envs/molsysmt@uibcdf_3.12/lib/python3.12/site-packages/lark/parser_frontends.py", line 78, in __init__
+    self.parser = create_parser(lexer_conf, parser_conf, options)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/diego/Myopt/miniconda3/envs/molsysmt@uibcdf_3.12/lib/python3.12/site-packages/lark/parser_frontends.py", line 242, in create_earley_parser
+    return f(lexer_conf, parser_conf, resolve_ambiguity=resolve_ambiguity,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/diego/Myopt/miniconda3/envs/molsysmt@uibcdf_3.12/lib/python3.12/site-packages/lark/parser_frontends.py", line 220, in create_earley_parser__dynamic
+    return xearley.Parser(lexer_conf, parser_conf, earley_matcher.match, **kw)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/diego/Myopt/miniconda3/envs/molsysmt@uibcdf_3.12/lib/python3.12/site-packages/lark/parsers/xearley.py", line 34, in __init__
+    BaseParser.__init__(self, lexer_conf, parser_conf, term_matcher, resolve_ambiguity,
+  File "/home/diego/Myopt/miniconda3/envs/molsysmt@uibcdf_3.12/lib/python3.12/site-packages/lark/parsers/earley.py", line 35, in __init__
+    analysis = GrammarAnalyzer(parser_conf)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/diego/Myopt/miniconda3/envs/molsysmt@uibcdf_3.12/lib/python3.12/site-packages/lark/parsers/grammar_analysis.py", line 175, in __init__
+    self.lr0_start_states = {start: LR0ItemSet([RulePtr(root_rule, 0)], self.expand_rule(root_rule.origin, self.lr0_rules_by_origin))
+                                                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/diego/Myopt/miniconda3/envs/molsysmt@uibcdf_3.12/lib/python3.12/site-packages/lark/parsers/grammar_analysis.py", line 200, in expand_rule
+    for _ in bfs([source_rule], _expand_rule):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/diego/Myopt/miniconda3/envs/molsysmt@uibcdf_3.12/lib/python3.12/site-packages/lark/utils.py", line 336, in bfs
+    for next_node in expand(node):
+                     ^^^^^^^^^^^^
+  File "/home/diego/Myopt/miniconda3/envs/molsysmt@uibcdf_3.12/lib/python3.12/site-packages/lark/parsers/grammar_analysis.py", line 191, in _expand_rule
+    init_ptr = RulePtr(r, 0)
+               ^^^^^^^^^^^^^
+  File "/home/diego/Myopt/miniconda3/envs/molsysmt@uibcdf_3.12/lib/python3.12/site-packages/lark/parsers/grammar_analysis.py", line 17, in __init__
+    def __init__(self, rule: Rule, index: int):
+
+KeyboardInterrupt

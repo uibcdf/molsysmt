@@ -1,18 +1,25 @@
 from molsysmt._private.digestion import digest
 from molsysmt.native import UniversalJSON
 from molsysmt import pyunitwizard as puw
+from molsysmt.pbc import get_lengths_and_angles_from_box
 import numpy as np
 
 
-def _angles_from_box(box):
-    a_vec, b_vec, c_vec = box
-    a = np.linalg.norm(a_vec)
-    b = np.linalg.norm(b_vec)
-    c = np.linalg.norm(c_vec)
-    alpha = np.degrees(np.arccos(np.dot(b_vec, c_vec) / (b * c)))
-    beta = np.degrees(np.arccos(np.dot(a_vec, c_vec) / (a * c)))
-    gamma = np.degrees(np.arccos(np.dot(a_vec, b_vec) / (a * b)))
-    return dict(a=float(a), b=float(b), c=float(c), alpha=float(alpha), beta=float(beta), gamma=float(gamma))
+def _box_from_matrix(box):
+    """Return box lengths (nm) and angles (rad) from a 3x3 matrix."""
+    lengths, angles = get_lengths_and_angles_from_box(
+        puw.quantity(np.asarray(box), "nanometer"), skip_digestion=True
+    )
+    lengths_val = puw.get_value(lengths, to_unit="nanometer")
+    angles_val = puw.get_value(angles, to_unit="radian")
+    return {
+        "length_v0": float(lengths_val[0]),
+        "length_v1": float(lengths_val[1]),
+        "length_v2": float(lengths_val[2]),
+        "angle_v1_v2": float(angles_val[0]),
+        "angle_v0_v2": float(angles_val[1]),
+        "angle_v0_v1": float(angles_val[2]),
+    }
 
 
 @digest(form='molsysmt.Structures')
@@ -48,7 +55,7 @@ def to_molsysmt_UniversalJSON(item, skip_digestion=False):
             if time_values is not None:
                 frame["time"] = float(time_values[ii])
             if box_values is not None:
-                frame["cell"] = _angles_from_box(np.asarray(box_values[ii]))
+                frame["box"] = _box_from_matrix(np.asarray(box_values[ii]))
             frames.append(frame)
 
     data = {

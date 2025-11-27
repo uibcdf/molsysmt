@@ -1,0 +1,38 @@
+
+Traceback (most recent call last):
+  File "/home/diego/Myopt/miniconda3/envs/molsysmt@uibcdf_3.12/bin/jupyter-nbconvert", line 6, in <module>
+    from nbconvert.nbconvertapp import main
+  File "/home/diego/Myopt/miniconda3/envs/molsysmt@uibcdf_3.12/lib/python3.12/site-packages/nbconvert/__init__.py", line 6, in <module>
+    from . import filters, postprocessors, preprocessors, writers
+  File "/home/diego/Myopt/miniconda3/envs/molsysmt@uibcdf_3.12/lib/python3.12/site-packages/nbconvert/filters/__init__.py", line 8, in <module>
+    from .markdown import (
+  File "/home/diego/Myopt/miniconda3/envs/molsysmt@uibcdf_3.12/lib/python3.12/site-packages/nbconvert/filters/markdown.py", line 16, in <module>
+    from .markdown_mistune import markdown2html_mistune
+  File "/home/diego/Myopt/miniconda3/envs/molsysmt@uibcdf_3.12/lib/python3.12/site-packages/nbconvert/filters/markdown_mistune.py", line 21, in <module>
+    from nbconvert.filters.strings import add_anchor
+  File "/home/diego/Myopt/miniconda3/envs/molsysmt@uibcdf_3.12/lib/python3.12/site-packages/nbconvert/filters/strings.py", line 23, in <module>
+    from nbconvert.preprocessors.sanitize import _get_default_css_sanitizer
+  File "/home/diego/Myopt/miniconda3/envs/molsysmt@uibcdf_3.12/lib/python3.12/site-packages/nbconvert/preprocessors/__init__.py", line 3, in <module>
+    from nbclient.exceptions import CellExecutionError
+  File "/home/diego/Myopt/miniconda3/envs/molsysmt@uibcdf_3.12/lib/python3.12/site-packages/nbclient/__init__.py", line 2, in <module>
+    from .client import NotebookClient, execute
+  File "/home/diego/Myopt/miniconda3/envs/molsysmt@uibcdf_3.12/lib/python3.12/site-packages/nbclient/client.py", line 17, in <module>
+    from jupyter_client.client import KernelClient
+  File "/home/diego/Myopt/miniconda3/envs/molsysmt@uibcdf_3.12/lib/python3.12/site-packages/jupyter_client/__init__.py", line 3, in <module>
+    from .asynchronous import AsyncKernelClient
+  File "/home/diego/Myopt/miniconda3/envs/molsysmt@uibcdf_3.12/lib/python3.12/site-packages/jupyter_client/asynchronous/__init__.py", line 1, in <module>
+    from .client import AsyncKernelClient  # noqa
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/diego/Myopt/miniconda3/envs/molsysmt@uibcdf_3.12/lib/python3.12/site-packages/jupyter_client/asynchronous/client.py", line 11, in <module>
+    from ..channels import AsyncZMQSocketChannel, HBChannel
+  File "/home/diego/Myopt/miniconda3/envs/molsysmt@uibcdf_3.12/lib/python3.12/site-packages/jupyter_client/channels.py", line 16, in <module>
+    from .session import Session
+  File "/home/diego/Myopt/miniconda3/envs/molsysmt@uibcdf_3.12/lib/python3.12/site-packages/jupyter_client/session.py", line 47, in <module>
+    from traitlets.log import get_logger
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 995, in exec_module
+  File "<frozen importlib._bootstrap_external>", line 1091, in get_code
+  File "<frozen importlib._bootstrap_external>", line 1190, in get_data
+KeyboardInterrupt

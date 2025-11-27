@@ -23,5 +23,5 @@ def test_structures_to_ViewerJSON():
 
     assert isinstance(viewer, ViewerJSON)
     frame = viewer.data["estructures"][0]
-    assert np.allclose(np.array(frame["positions"]), [[0, 0, 0], [1, 0, 0]])
+    assert np.allclose(np.array(frame["coordinates"]), [[0, 0, 0], [1, 0, 0]])
     assert frame["time"] == 0.5

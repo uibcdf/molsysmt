@@ -18,12 +18,11 @@ def _viewer_json():
             "formal_charge": [0, 0],
         },
         "bonds": {
-            "indexA": [0],
-            "indexB": [1],
+            "atom_pairs": [[0, 1]],
             "order": ["1"],
         },
         "estructures": [
-            {"positions": [[0.0, 0.0, 0.0], [1.0, 0.0, 0.0]], "time": 0.0},
+            {"coordinates": [[0.0, 0.0, 0.0], [1.0, 0.0, 0.0]], "time": 0.0},
         ],
     }
     return ViewerJSON(data=data)

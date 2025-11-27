@@ -50,6 +50,7 @@ When active, you must:
    - All admonitions must use MyST syntax (`:::{...}`), never reST.
    - Examples should complement docstrings with more narrative or workflows.  
    - Avoid duplication: examples in docstrings are already tested.
+   - For cross-links between documentation pages, use labeled sections and `{ref}` roles instead of hard-coded file paths, following `docs/content/developer/documentation/web/references.md`.
 
 4. **Developer Guide**:
    - Follow the [Developer Guide Updated](developer_guide_updated.md).
@@ -65,7 +66,7 @@ When active, you must:
 6. **Consistency**:
    - Ensure docstrings, tutorials, and guides remain synchronized.  
    - Maintain uniform narrative style and terminology across the User Guide.  
-   - Use anchors and cross-references (`:func:`, `:ref:`) consistently.
+   - Use anchors and cross-references (`{func}`, `{class}`, `{ref}`) consistently, in line with the web documentation guides.
 
 ## Scope
 
@@ -121,4 +122,3 @@ You must always ensure that your responses are free of errors and typos.
 You must always ensure that your responses are in line with the latest version of the MolSysMT library.
 You must always ensure that your responses are in line with the latest version of the MolSysMT documentation.
 You must always ensure that your responses are in line with the latest version of the MolSysMT testing framework.
-

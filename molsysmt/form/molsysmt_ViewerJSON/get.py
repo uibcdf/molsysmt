@@ -13,7 +13,6 @@ def _atoms_dict(item):
 def _bonds_dict(item):
     bonds = item.data.get('bonds', {}) or {}
     if isinstance(bonds, dict) and 'sets' in bonds:
-        # Take the first set if we have a collection
         sets = bonds.get('sets', [])
         if sets:
             return sets[0] or {}
@@ -50,9 +49,10 @@ def _reshape_coordinates(frames, n_atoms):
     coords = []
     structure_indices = []
     for idx, frame in enumerate(frames):
-        if 'positions' not in frame:
+        positions = frame.get('coordinates', None)
+        if positions is None:
             continue
-        arr = np.array(frame.get('positions', []), dtype=float)
+        arr = np.array(positions, dtype=float)
         if n_atoms is None:
             n_atoms = arr.shape[0] if arr.ndim >= 2 else None
         if n_atoms is None:
@@ -172,7 +172,7 @@ def get_n_atoms_from_system(item, skip_digestion=False):
     frames = _estructures_list(item)
     if frames:
         for frame in frames:
-            positions = frame.get('positions', None)
+            positions = frame.get('coordinates', None)
             if positions is not None:
                 return int(len(positions))
     return None
@@ -181,11 +181,10 @@ def get_n_atoms_from_system(item, skip_digestion=False):
 @digest(form=form)
 def get_n_bonds_from_system(item, skip_digestion=False):
     bonds = _bonds_dict(item)
-    indexA = bonds.get('indexA', None)
-    indexB = bonds.get('indexB', None)
-    if indexA is None or indexB is None:
+    atom_pairs = bonds.get('atom_pairs', None)
+    if atom_pairs is None:
         return None
-    return min(len(indexA), len(indexB))
+    return len(atom_pairs)
 
 
 @digest(form=form)
@@ -206,11 +205,10 @@ def get_bonded_atoms_from_atom(item, indices='all', skip_digestion=False):
         return None
 
     bonds = _bonds_dict(item)
-    indexA = np.array(bonds.get('indexA', []), dtype=int)
-    indexB = np.array(bonds.get('indexB', []), dtype=int)
+    atom_pairs = np.array(bonds.get('atom_pairs', []), dtype=int)
 
     bonded = [[] for _ in range(n_atoms)]
-    for a, b in zip(indexA, indexB):
+    for a, b in atom_pairs:
         bonded[a].append(int(b))
         bonded[b].append(int(a))
 

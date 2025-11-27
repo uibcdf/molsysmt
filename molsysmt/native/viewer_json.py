@@ -4,53 +4,52 @@ from dataclasses import dataclass, field
 from typing import Any, Dict, List, Literal, Optional, TextIO, Union
 import json
 import gzip
+from copy import deepcopy
 
 CompressionKind = Literal["none", "gzip"]
 
 def _empty_viewer_dict() -> Dict[str, Any]:
-    """Esquema mínimo de un viewer_json.
+    """Minimal viewer_json schema.
 
-    Todas las estructuras deben ser JSON-compatibles:
-    - dict, list, str, int, float, bool, None.
+    All values must be JSON-compatible: dict, list, str, int, float, bool, None.
     """
     return {
-        "version": "0.1",  # versión del esquema viewer_json
+        "version": "0.1",  # viewer_json schema version
 
-        # Información por átomo (columnar, longitud = n_atoms)
+        # Per-atom information (columnar, length = n_atoms)
         "atoms": {
-            # IDs internos o externos de átomos
+            # Internal or external atom identifiers
             "atom_id": [],          # List[int] | List[str]
             "atom_name": [],        # List[str]
-            "group_ig": [],       # List[int] | List[str]
-            "group_name": [],     # List[str]
+            "group_ig": [],         # List[int] | List[str]
+            "group_name": [],       # List[str]
             "chain_id": [],         # List[str]
             "entity_id": [],        # List[int] | List[str]
             "element_symbol": [],   # List[str] (e.g. "C", "N", "O")
             "formal_charge": [],    # List[int]
         },
 
-        # Información de enlaces (opcional)
+        # Bond information (optional)
         "bonds": {
-            # Índices de átomos (0-based) que participan en cada enlace
-            "indexA": [],           # List[int]
-            "indexB": [],           # List[int]
-            # Orden de enlace opcional (1, 2, 3, ...)
-            "order": [],            # List[int] (misma longitud que indexA/indexB) o []
+            # Atom pairs (0-based) participating in each bond
+            "atom_pairs": [],       # List[List[int, int]]
+            # Optional bond order (1, 2, 3, ...)
+            "order": [],            # List[int] (same length as atom_pairs) or []
         },
 
-        # Lista de estructuras de coordenadas
+        # List of coordinate structures
         "estructures": [
-            # Cada estructura será un dict con la forma:
+            # Each structure is a dict with:
             # {
-            #     "positions": [[x, y, z], ...],  # List[List[float]], len = n_atoms
-            #     "time": 0.0,                    # float o int (opcional)
-            #     "cell": {                       # opcional
-            #         "a": float,
-            #         "b": float,
-            #         "c": float,
-            #         "alpha": float,
-            #         "beta": float,
-            #         "gamma": float,
+            #     "coordinates": [[x, y, z], ...],        # List[List[float]], len = n_atoms
+            #     "time": 0.0,                           # float or int (optional)
+            #     "box": {                               # optional
+            #         "length_v0": float,                # |v0| (nm)
+            #         "length_v1": float,                # |v1| (nm)
+            #         "length_v2": float,                # |v2| (nm)
+            #         "angle_v1_v2": float,              # radians
+            #         "angle_v0_v2": float,              # radians
+            #         "angle_v0_v1": float,              # radians
             #     },
             # }
         ],
@@ -59,14 +58,17 @@ def _empty_viewer_dict() -> Dict[str, Any]:
 
 @dataclass
 class ViewerJSON:
-    """Representación JSON-serializable mínima para visualización (viewer_json).
+    """Minimal JSON-serializable container for visualization (`molsysmt.ViewerJSON`).
 
-    Esta clase define la forma estándar `molsysmt.viewer_json`:
-
-    - `data` almacena la estructura lógica (dict JSON-compatible).
-    - El contenido está pensado para herramientas de visualización:
-      columnas por átomo, lista de estructuras con coordenadas y caja opcional.
-    - Puede serializarse a texto JSON y opcionalmente comprimirse con gzip.
+    - `data` is a JSON-compatible dict with:
+        * `atoms`: columnar per-atom fields. Units: coordinates in nanometers, `formal_charge` in
+          elementary charge units; IDs/names are unitless.
+        * `bonds`: `atom_pairs` (0-based index pairs) and `order` (unitless).
+        * `estructures`: list of structures with `coordinates` (nanometers), `time` (picoseconds),
+          and optional `box` with `length_v*` (nanometers) and `angle_v*_v*` (radians).
+    - `compressed` / `compression` control optional gzip serialization.
+    - Utilities: `dumps`/`dump` to serialize, `to_dict(copy=True)` to retrieve the dict (deepcopy by
+      default), and `copy()` to deep-copy the instance.
     """
 
     data: Dict[str, Any] = field(default_factory=_empty_viewer_dict)
@@ -79,28 +81,26 @@ class ViewerJSON:
     schema: Dict[str, str] = field(default_factory=lambda: {
         "version": "Versión del esquema viewer_json.",
         "atoms": "Dict con campos columnar (por átomo): id, nombre, residuo, cadena, entidad, elemento, carga.",
-        "bonds": "Dict opcional con índices de átomos enlazados y orden de enlace.",
-        "estructures": "Lista de estructuras con coordenadas, tiempo y caja (cell) opcional.",
+        "bonds": "Dict with bonded atom indices and bond order.",
+        "estructures": "List of structures with coordinates (nm), time (ps) and optional box.",
     })
 
-    def to_dict(self) -> Dict[str, Any]:
-        """Devuelve el dict JSON-compatible subyacente.
+    def to_dict(self, copy: bool = True) -> Dict[str, Any]:
+        """Return the underlying JSON-compatible dict.
 
-        Nota:
-        - Todos los valores deben ser tipos JSON (dict, list, str, int, float, bool, None).
+        Notes:
+        - All values must be JSON types (dict, list, str, int, float, bool, None).
         """
-        return self.data
+        return deepcopy(self.data) if copy else self.data
+
+    def copy(self) -> "ViewerJSON":
+        """Return a deep copy of the instance."""
+        return deepcopy(self)
 
     # --- Serialización JSON ---
 
     def dumps(self, indent: Optional[int] = None) -> str:
-        """Devuelve una representación JSON en texto.
-
-        Parámetros
-        ----------
-        indent : int, opcional
-            Indentación para hacer el JSON legible (pretty-print).
-        """
+        """Return a JSON text representation."""
         return json.dumps(self.data, indent=indent)
 
     def dump(
@@ -110,22 +110,10 @@ class ViewerJSON:
         indent: Optional[int] = None,
         compression: Optional[CompressionKind] = None,
     ) -> None:
-        """Vuelca el contenido a un fichero (o ruta) como JSON (opcionalmente comprimido).
-
-        Parámetros
-        ----------
-        fp : str o archivo de texto
-            Ruta al fichero de destino o descriptor de archivo abierto en modo texto.
-        indent : int, opcional
-            Indentación para el JSON.
-        compression : {'none', 'gzip'}, opcional
-            Si se indica 'gzip', el contenido se escribe comprimido en gzip.
-            Si es None, se usa `self.compression`.
-        """
+        """Write content to a file path or file-like as JSON (optionally gzipped)."""
         compression = compression or self.compression
 
         if isinstance(fp, str):
-            # Abrimos nosotros el fichero
             if compression == "gzip":
                 with gzip.open(fp, "wt", encoding="utf-8") as f:
                     json.dump(self.data, f, indent=indent)
@@ -133,11 +121,8 @@ class ViewerJSON:
                 with open(fp, "w", encoding="utf-8") as f:
                     json.dump(self.data, f, indent=indent)
         else:
-            # Asumimos que el descriptor ya está gestionado por el usuario
             if compression == "gzip":
-                # En este caso delegamos: el usuario debería haber abierto
-                # un archivo binario gzip; aquí no forzamos nada.
                 raise ValueError(
-                    "Para escritura gzip, pase una ruta (str) o un archivo gzip.bin abierto."
+                    "For gzip output, pass a file path (str) or an open gzip binary file."
                 )
             json.dump(self.data, fp, indent=indent)

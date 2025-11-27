@@ -5,27 +5,20 @@ from dataclasses import dataclass, field
 from typing import Any, Dict, List, Literal, Optional, TextIO, Union
 import json
 import gzip
+from copy import deepcopy
 
 
 CompressionKind = Literal["none", "gzip"]
 
 
 def _empty_universal_dict() -> Dict[str, Any]:
-    """Esquema mínimo de un universal_json.
-
-    Pensado como forma más general y rica que viewer_json, por ejemplo:
-
-    - Metadatos globales (fuentes, referencias, condiciones de simulación).
-    - Información topológica extendida.
-    - Coordenadas y trayectorias (potencialmente referenciadas o particionadas).
-    - Anotaciones, etiquetas, datos de análisis, etc.
-    """
+    """Minimal universal_json schema (more general than viewer_json)."""
     return {
-        "version": "0.1",  # versión del esquema universal_json
+        "version": "0.1",  # universal_json schema version
 
-        # Metadatos globales sobre el sistema
+        # Global metadata about the system
         "metadata": {
-            # Ejemplos (a rellenar cuando se defina el estándar):
+            # Examples (to be defined by the standard):
             # "title": "",
             # "source": "",
             # "authors": [],
@@ -33,28 +26,28 @@ def _empty_universal_dict() -> Dict[str, Any]:
             # "simulation": {"temperature": ..., "pressure": ..., ...},
         },
 
-        # Descripción de entidades/cadenas/residuos/átomos
+        # Description of entities/chains/residues/atoms
         "topology": {
-            # Estas estructuras se pueden alinear con la semántica MolSysMT:
+            # Alignable with MolSysMT semantics:
             # "entities": [...],
             # "chains": [...],
             # "residues": [...],
-            # "atoms": {...}  # similar a viewer_json pero quizá con más campos.
+            # "atoms": {...}  # similar to viewer_json, potentially with more fields.
         },
 
-        # Coordenadas y trayectorias (podrían ser una o varias colecciones)
+        # Coordinates and trajectories (one or more collections)
         "coordinates": {
-            # Ejemplo:
+            # Example:
             # "collections": [
             #   {
             #     "label": "default",
             #     "n_atoms": ...,
-            #     "estructures": [...],   # ver cómo se sincroniza con topología
+            #     "estructures": [...],   # to be aligned with topology
             #   },
             # ]
         },
 
-        # Información de enlaces (podría estar en "topology" o aquí)
+        # Bond information (could be in "topology" or here)
         "bonds": {
             # "sets": [
             #   {
@@ -66,7 +59,7 @@ def _empty_universal_dict() -> Dict[str, Any]:
             # ]
         },
 
-        # Anotaciones y datos derivados (opcional)
+        # Annotations and derived data (optional)
         "annotations": {
             # "selection_labels": {...},
             # "regions_of_interest": [...],
@@ -77,40 +70,50 @@ def _empty_universal_dict() -> Dict[str, Any]:
 
 @dataclass
 class UniversalJSON:
-    """Representación JSON-serializable general (universal_json).
+    """General JSON-serializable container (`molsysmt.UniversalJSON`).
 
-    Esta clase define la forma `molsysmt.universal_json`, pensada como una
-    descripción más amplia y rica de un sistema molecular y sus datos asociados:
-
-    - Incluye sitio para metadatos, topología, coordenadas, enlaces y anotaciones.
-    - No está limitada a un único viewer; busca servir como formato interno
-      de intercambio/almacenamiento dentro del ecosistema MolSysMT.
+    - `data` is a JSON-compatible dict that may include:
+        * `metadata`: unitless descriptive fields (titles, authors, etc.).
+        * `topology`: per-atom fields; quantities are unitless except `formal_charge`
+          (elementary charge units).
+        * `bonds`: `atom_pairs` (0-based indices) and `order` (unitless).
+        * `coordinates`: collections with `estructures` where `coordinates` are in nanometers,
+          `time` in picoseconds, and `box` (if present) with `length_v*` in nanometers and
+          `angle_v*_v*` in radians.
+        * `annotations`: unitless by default (context-dependent).
+    - `compressed` / `compression` control optional gzip serialization.
+    - Utilities: `dumps`/`dump` to serialize, `to_dict(copy=True)` to retrieve the dict
+      (deepcopy by default), and `copy()` to deep-copy the instance.
     """
 
     data: Dict[str, Any] = field(default_factory=_empty_universal_dict)
 
-    # Información de compresión
+    # Compression info
     compressed: bool = False
     compression: CompressionKind = "none"
 
-    # Descripción esquemática de los campos (para documentación / introspección)
+    # Field descriptions (for documentation / introspection)
     schema: Dict[str, str] = field(default_factory=lambda: {
-        "version": "Versión del esquema universal_json.",
-        "metadata": "Metadatos globales del sistema (fuentes, referencias, simulación, etc.).",
-        "topology": "Descripción estructural detallada (entidades, cadenas, residuos, átomos).",
-        "coordinates": "Colecciones de coordenadas y trayectorias asociadas a la topología.",
-        "bonds": "Información sobre enlaces químicos, potencialmente en varios conjuntos.",
-        "annotations": "Anotaciones y datos derivados (selecciones, análisis, regiones de interés).",
+        "version": "Universal_json schema version.",
+        "metadata": "Global system metadata (sources, references, simulation data, etc.).",
+        "topology": "Structural description (entities, chains, residues, atoms).",
+        "coordinates": "Coordinate collections and trajectories aligned with topology.",
+        "bonds": "Chemical bond information, potentially multiple sets.",
+        "annotations": "Annotations and derived data (selections, analysis, regions of interest).",
     })
 
-    def to_dict(self) -> Dict[str, Any]:
-        """Devuelve el dict JSON-compatible subyacente."""
-        return self.data
+    def to_dict(self, copy: bool = True) -> Dict[str, Any]:
+        """Return the underlying JSON-compatible dict."""
+        return deepcopy(self.data) if copy else self.data
+
+    def copy(self) -> "UniversalJSON":
+        """Return a deep copy of the instance."""
+        return deepcopy(self)
 
     # --- Serialización JSON ---
 
     def dumps(self, indent: Optional[int] = None) -> str:
-        """Devuelve una representación JSON en texto."""
+        """Return a JSON text representation."""
         return json.dumps(self.data, indent=indent)
 
     def dump(
@@ -120,18 +123,7 @@ class UniversalJSON:
         indent: Optional[int] = None,
         compression: Optional[CompressionKind] = None,
     ) -> None:
-        """Vuelca el contenido a un fichero (o ruta) como JSON (opcionalmente comprimido).
-
-        Parámetros
-        ----------
-        fp : str o archivo de texto
-            Ruta al fichero de destino o descriptor de archivo abierto en modo texto.
-        indent : int, opcional
-            Indentación para el JSON.
-        compression : {'none', 'gzip'}, opcional
-            Si se indica 'gzip', el contenido se escribe comprimido en gzip.
-            Si es None, se usa `self.compression`.
-        """
+        """Write content to a file path or file-like as JSON (optionally gzipped)."""
         compression = compression or self.compression
 
         if isinstance(fp, str):

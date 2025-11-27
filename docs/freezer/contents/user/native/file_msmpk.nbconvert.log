@@ -1,0 +1,87 @@
+
+[NbConvertApp] Converting notebook freezer/contents/user/native/file_msmpk.ipynb to notebook
+Traceback (most recent call last):
+  File "/home/diego/Myopt/miniconda3/envs/molsysmt@uibcdf_3.12/bin/jupyter-nbconvert", line 10, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/home/diego/Myopt/miniconda3/envs/molsysmt@uibcdf_3.12/lib/python3.12/site-packages/jupyter_core/application.py", line 284, in launch_instance
+    super().launch_instance(argv=argv, **kwargs)
+  File "/home/diego/Myopt/miniconda3/envs/molsysmt@uibcdf_3.12/lib/python3.12/site-packages/traitlets/config/application.py", line 1075, in launch_instance
+    app.start()
+  File "/home/diego/Myopt/miniconda3/envs/molsysmt@uibcdf_3.12/lib/python3.12/site-packages/nbconvert/nbconvertapp.py", line 420, in start
+    self.convert_notebooks()
+  File "/home/diego/Myopt/miniconda3/envs/molsysmt@uibcdf_3.12/lib/python3.12/site-packages/nbconvert/nbconvertapp.py", line 597, in convert_notebooks
+    self.convert_single_notebook(notebook_filename)
+  File "/home/diego/Myopt/miniconda3/envs/molsysmt@uibcdf_3.12/lib/python3.12/site-packages/nbconvert/nbconvertapp.py", line 563, in convert_single_notebook
+    output, resources = self.export_single_notebook(
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/diego/Myopt/miniconda3/envs/molsysmt@uibcdf_3.12/lib/python3.12/site-packages/nbconvert/nbconvertapp.py", line 487, in export_single_notebook
+    output, resources = self.exporter.from_filename(
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/diego/Myopt/miniconda3/envs/molsysmt@uibcdf_3.12/lib/python3.12/site-packages/nbconvert/exporters/exporter.py", line 201, in from_filename
+    return self.from_file(f, resources=resources, **kw)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/diego/Myopt/miniconda3/envs/molsysmt@uibcdf_3.12/lib/python3.12/site-packages/nbconvert/exporters/exporter.py", line 220, in from_file
+    return self.from_notebook_node(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/diego/Myopt/miniconda3/envs/molsysmt@uibcdf_3.12/lib/python3.12/site-packages/nbconvert/exporters/notebook.py", line 36, in from_notebook_node
+    nb_copy, resources = super().from_notebook_node(nb, resources, **kw)
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/diego/Myopt/miniconda3/envs/molsysmt@uibcdf_3.12/lib/python3.12/site-packages/nbconvert/exporters/exporter.py", line 154, in from_notebook_node
+    nb_copy, resources = self._preprocess(nb_copy, resources)
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/diego/Myopt/miniconda3/envs/molsysmt@uibcdf_3.12/lib/python3.12/site-packages/nbconvert/exporters/exporter.py", line 353, in _preprocess
+    nbc, resc = preprocessor(nbc, resc)
+                ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/diego/Myopt/miniconda3/envs/molsysmt@uibcdf_3.12/lib/python3.12/site-packages/nbconvert/preprocessors/base.py", line 48, in __call__
+    return self.preprocess(nb, resources)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/diego/Myopt/miniconda3/envs/molsysmt@uibcdf_3.12/lib/python3.12/site-packages/nbconvert/preprocessors/execute.py", line 103, in preprocess
+    self.preprocess_cell(cell, resources, index)
+  File "/home/diego/Myopt/miniconda3/envs/molsysmt@uibcdf_3.12/lib/python3.12/site-packages/nbconvert/preprocessors/execute.py", line 124, in preprocess_cell
+    cell = self.execute_cell(cell, index, store_history=True)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/diego/Myopt/miniconda3/envs/molsysmt@uibcdf_3.12/lib/python3.12/site-packages/jupyter_core/utils/__init__.py", line 165, in wrapped
+    return loop.run_until_complete(inner)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/diego/Myopt/miniconda3/envs/molsysmt@uibcdf_3.12/lib/python3.12/asyncio/base_events.py", line 691, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/home/diego/Myopt/miniconda3/envs/molsysmt@uibcdf_3.12/lib/python3.12/site-packages/nbclient/client.py", line 1062, in async_execute_cell
+    await self._check_raise_for_error(cell, cell_index, exec_reply)
+  File "/home/diego/Myopt/miniconda3/envs/molsysmt@uibcdf_3.12/lib/python3.12/site-packages/nbclient/client.py", line 918, in _check_raise_for_error
+    raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
+nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
+------------------
+msm.convert('pdbid:181l', 'test.msmpk')
+------------------
+
+
+[31m---------------------------------------------------------------------------[39m
+[31mArgumentError[39m                             Traceback (most recent call last)
+[36mCell[39m[36m [39m[32mIn[2][39m[32m, line 1[39m
+[32m----> [39m[32m1[39m [43mmsm[49m[43m.[49m[43mconvert[49m[43m([49m[33;43m'[39;49m[33;43mpdbid:181l[39;49m[33;43m'[39;49m[43m,[49m[43m [49m[33;43m'[39;49m[33;43mtest.msmpk[39;49m[33;43m'[39;49m[43m)[49m
+
+[36mFile [39m[32m~/repos@uibcdf/molsysmt/molsysmt/_private/digestion/digest.py:109[39m, in [36mdigest.<locals>.digestor.<locals>.wrapper[39m[34m(*args, **kwargs)[39m
+[32m    105[39m     [38;5;28;01mpass[39;00m
+[32m    108[39m [38;5;28;01mfor[39;00m arg_name [38;5;129;01min[39;00m all_args:
+[32m--> [39m[32m109[39m     [43mgut[49m[43m([49m[43marg_name[49m[43m)[49m
+[32m    112[39m [38;5;28;01mfor[39;00m arg_name [38;5;129;01min[39;00m not_digested_args:
+[32m    113[39m     [38;5;28;01mif[39;00m arg_name [38;5;129;01mnot[39;00m [38;5;129;01min[39;00m [[33m'[39m[33mself[39m[33m'[39m]:
+
+[36mFile [39m[32m~/repos@uibcdf/molsysmt/molsysmt/_private/digestion/digest.py:100[39m, in [36mdigest.<locals>.digestor.<locals>.wrapper.<locals>.gut[39m[34m(arg_name)[39m
+[32m     98[39m         [38;5;28;01melse[39;00m:
+[32m     99[39m             parameters_dict[parameter] = [38;5;28;01mNone[39;00m
+[32m--> [39m[32m100[39m     digested_args[arg_name] = [43mdigestion_functions[49m[43m[[49m[43marg_name[49m[43m][49m[43m([49m[43mall_args[49m[43m[[49m[43marg_name[49m[43m][49m[43m,[49m
+[32m    101[39m [43m                                                  [49m[43mcaller[49m[43m=[49m[43mcaller[49m[43m,[49m
+[32m    102[39m [43m                                                  [49m[43m*[49m[43m*[49m[43mparameters_dict[49m[43m)[49m
+[32m    103[39m [38;5;28;01melse[39;00m:
+[32m    104[39m     not_digested_args[arg_name] = all_args[arg_name]
+
+[36mFile [39m[32m~/repos@uibcdf/molsysmt/molsysmt/_private/digestion/argument/molecular_system.py:44[39m, in [36mdigest_molecular_system[39m[34m(molecular_system, caller)[39m
+[32m     41[39m [38;5;28;01mif[39;00m is_a_molecular_system(molecular_system):
+[32m     42[39m     [38;5;28;01mreturn[39;00m molecular_system
+[32m---> [39m[32m44[39m [38;5;28;01mraise[39;00m ArgumentError([33m'[39m[33mmolecular_system[39m[33m'[39m, value=molecular_system, caller=caller, message=[38;5;28;01mNone[39;00m)
+
+[31mArgumentError[39m: Error in molsysmt.basic.convert.convert due to the molecular_system argument with value pdbid:181l.Check  for more information. If you still need help, open a new issue in https://github.com/uibcdf/topomt/issues.
+

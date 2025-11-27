@@ -329,25 +329,31 @@ parameters include: `molecular_system`, `to_form`, `selection`, `structure_indic
 
 #### `selection`
 
-- Puede ser: `str`, `list`, `tuple`, `numpy.ndarray`
-- Siempre indicar:
-  - Que acepta índices **0-based**
-  - Que `'all'` selecciona todos los elementos
-  - Incluir referencia: `:ref:`supported selection syntaxes <Introduction_Selection>``
+- Can be: `str`, `list`, `tuple`, `numpy.ndarray`.
+- Always indicate:
+  - That it accepts **0-based** indices.
+  - That `'all'` selects all relevant elements.
+  - A reference to the supported selection syntaxes, for example
+    ``:ref:`supported selection syntaxes <Introduction_Selection>``` when used
+    inside docstrings.
 
 #### `structure_indices`
-- Igual que `selection`:
-  - ÍNDICES **0-based**
-  - `'all'` aplica a todas las estructuras
-  - Referencia opcional (ya está en Notes)
+- Same rules as for `selection`:
+  - **0-based** indices.
+  - `'all'` applies to all structures.
+  - An optional reference to selection syntaxes (often placed in the `Notes`
+    section).
 
 #### `syntax`
-- Siempre aclarar que es el selector que se usa para interpretar `selection`
-- Incluir:  
-  > See :ref:`Introduction_Selection` for details.
+- Always clarify that it is the selector used to interpret `selection`.
+- Include a reference such as:
+
+  ```text
+  See :ref:`Introduction_Selection` for details.
+  ```
 
 #### `skip_digestion`
-- Texto estándar para todas las funciones:
+- Standard text for all functions:
   ```text
   Whether to skip MolSysMT’s internal argument digestion mechanism.
 
@@ -419,36 +425,32 @@ bool
 
 ### Notes
 
-- Siempre con guiones `-`
-- Incluir referencias clave (ver más abajo)
-- Clarifies internal assumptions and links to reference documentation (Forms, Selection syntaxes, Attributes).
-- Add clarifications, implementation notes, or links to other docs
-```python
-:ref:`User Guide > Introduction > Molecular systems > Forms <Introduction_Forms>`
-```
-- **Notas iniciales obligatorias**:
-  1. Supported molecular-system forms are summarized in :ref:`Introduction_Forms`.
-  2. Selection strings must follow one of the syntaxes described in :ref:`Introduction_Selection`.
+- Always use bullet points starting with `-`.
+- Clarify internal assumptions and link to reference documentation (Forms,
+  Selection syntaxes, Attributes).
+- Add clarifications, implementation notes, or links to other docs, for example:
 
-- En `concatenate_structures` y funciones similares, las **Notes** deben incluir qué atributos estructurales se concatenan (`coordinates`, `velocities`, `box`, `time`).
+  ```python
+  - Supported molecular-system forms are described in :ref:`Introduction_Forms`.
+  - Selection syntaxes and valid query expressions are described in :ref:`Introduction_Selection`.
+  ```
 
+- For functions such as `concatenate_structures`, the `Notes` section should
+  explicitly list which structural attributes are concatenated
+  (`coordinates`, `velocities`, `box`, `time`).
 
-Agregar al bloque `Notes`:
-
-- `- Supported molecular-system forms are described in :ref:\`Introduction_Forms\`.`
-- `- Selection syntaxes and valid query expressions are described in :ref:\`Introduction_Selection\`.`
-- Si aplica:
-  - `- If element is not specified, it is inferred from the attribute definition.`
-  - `- If the attribute runs over structures, structure_indices must be defined accordingly.`
-  - Otras aclaraciones internas como que se devuelve el último ítem coincidente (`where_is_attribute`)
+- When applicable, also include clarifications such as:
+  - `If element is not specified, it is inferred from the attribute definition.`
+  - `If the attribute runs over structures, structure_indices must be defined accordingly.`
+  - Any other important internal rule (for example, that `where_is_attribute`
+    returns the last matching item).
 
 ### See Also
 
-- Siempre en infinitivo (`Retrieve`, `Select`, `Remove`, etc.)
-- Descripciones concisas (máximo una línea)
-- Cross-links to functions that are conceptually related.
-- List related functions with `:func:` links
-- `See Also` descriptions must be concise, in infinitive (no "to"):
+- Use infinitive verbs in descriptions (`Retrieve`, `Select`, `Remove`, etc.).
+- Keep descriptions concise (ideally a single line).
+- Cross-link functions that are conceptually related using `:func:` roles.
+- `See Also` descriptions must be concise and in infinitive (no leading “to”):
   - ✅ `Retrieve attribute values from a molecular system`
   - ❌ `To get the attributes of...`
 
@@ -461,12 +463,16 @@ Agregar al bloque `Notes`:
 - Keep examples minimal but functional.  
 - Prefer using `molsysmt.systems` or small peptide builders instead of external files.  
 - Non-deterministic results must be avoided.
-- Written in executable doctest format (with `>>>`)
-- Always include a realistic use case.
-- All examples inside docstrings must be written as `doctest` blocks (`>>>`) and are executed automatically by `pytest --doctest-modules`.  
-- **Do not duplicate** examples in `tests/` unless additional complex checks are required (e.g., fixtures, multiple asserts, heavy inputs).  
-- Unit tests in `tests/` should cover logic and edge cases not suitable for doctest format.
-- Ejemplos deben ser realistas y probados con sistemas pequeños (ej: `alanine dipeptide`, `pentalanine`).
+- Written in executable doctest format (with `>>>`).
+- Always include at least one realistic use case.
+- All examples inside docstrings must be written as `doctest` blocks (`>>>`)
+  and are executed automatically by `pytest --doctest-modules`.
+- **Do not duplicate** examples in `tests/` unless additional complex checks
+  are required (for example, fixtures, multiple asserts, heavy inputs).
+- Unit tests in `tests/` should cover logic and edge cases not suitable for
+  doctest format.
+- Examples should use small, realistic systems (for example, `alanine dipeptide`,
+  `pentalanine`, or systems from `molsysmt.systems`).
 
 ### Admonition with tutorial call
 
@@ -519,16 +525,22 @@ Parameters, Return, ... need to specify object types.
 
 ## Other finnal editorial rules
 
-- Evita poner palabras en negrita (bold) innecesariamente en los textos descriptivos de los docstrigs.
-- You can use Markdown formatting inside docstrings (e.g. `**bold**`, lists, etc.)
-- Avoid using raw `.rst` when not needed
-- Triple backticks for code blocks are OK in `.md`, but docstrings must still use triple quotes `"""` in code
-- Cross-references (`:ref:`, `:func:`) work as in `.rst`
-- Use lowercase **ids** in prose to match attribute names (`atom_id`, `group_id`).
-- La validación temprana se hace siempre con el decorador `@digest`.
-- Debe haber **una sola línea en blanco** entre secciones (`Parameters`, `Returns`, `Notes`, etc.)
-- No se dejan líneas en blanco **dentro** del bloque de parámetros entre cada argumento.
-- Use `.. admonition:: Tutorial with more examples` inside docstrings. (The
-  MyST format is reserved for the tutorials in jupyter notebooks)
-
+- Avoid using bold text unnecessarily in descriptive parts of docstrings.
+- You can use limited Markdown-style formatting inside docstrings
+  (for example, `**bold**`, lists) as long as Sphinx parses it correctly.
+- Avoid raw `.rst` constructs when they are not needed; rely on Sphinx roles
+  such as `:ref:` and `:func:` for cross-references.
+- Triple backticks for code blocks are fine in `.md` files, but docstrings in
+  Python code must still use triple quotes `"""`.
+- Cross-references (`:ref:`, `:func:`) work as in reStructuredText and should
+  point to stable labels defined in the documentation.
+- Use lowercase identifiers in prose to match attribute names
+  (for example, `atom_id`, `group_id`).
+- Early validation of arguments is always performed with the `@digest` decorator.
+- There must be **exactly one blank line** between sections (`Parameters`,
+  `Returns`, `Notes`, etc.).
+- Do not leave blank lines **inside** the parameter block between arguments.
+- Use `.. admonition:: Tutorial with more examples` inside docstrings to link
+  to notebooks; the MyST format for admonitions is reserved for documentation
+  pages and tutorials, not for docstrings.
 
