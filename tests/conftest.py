@@ -31,12 +31,11 @@ def _base_met_enkephalin_molsys():
     assert molsys is not None
     return molsys
 
-
 @pytest.fixture(scope="session")
-def _base_traj_pentalanine_h5():
-    path = systems['pentalanine']['traj_pentalanine.h5']
-    assert path is not None
-    return path
+def _base_traj_pentalanine_h5_molsys():
+    molsys = msm.convert(systems['pentalanine']['traj_pentalanine.h5'], to_form='molsysmt.MolSys')
+    assert molsys is not None
+    return molsys
 
 @pytest.fixture(scope="session")
 def _base_barnase_barstar_molsys():
@@ -56,6 +55,18 @@ def _base_alanine_molsys():
 @pytest.fixture(scope="session")
 def _base_proline_molsys():
     molsys = msm.convert(systems['proline dipeptide']['proline_dipeptide.h5msm'], to_form='molsysmt.MolSys')
+    assert molsys is not None
+    return molsys
+
+@pytest.fixture(scope="session")
+def _base_valine_molsys():
+    molsys = msm.convert(systems['valine dipeptide']['valine_dipeptide.h5msm'], to_form='molsysmt.MolSys')
+    assert molsys is not None
+    return molsys
+
+@pytest.fixture(scope="session")
+def _base_lysine_molsys():
+    molsys = msm.convert(systems['lysine dipeptide']['lysine_dipeptide.h5msm'], to_form='molsysmt.MolSys')
     assert molsys is not None
     return molsys
 
@@ -155,6 +166,14 @@ def proline_molsys(_base_proline_molsys):
     return _base_proline_molsys.copy()
 
 @pytest.fixture()
+def valine_molsys(_base_valine_molsys):
+    return _base_valine_molsys.copy()
+
+@pytest.fixture()
+def lysine_molsys(_base_lysine_molsys):
+    return _base_lysine_molsys.copy()
+
+@pytest.fixture()
 def hp35_pdb_molsys(_base_hp35_pdb_molsys):
     return _base_hp35_pdb_molsys.copy()
 
@@ -185,3 +204,8 @@ def popc_psf(_base_popc_psf):
 @pytest.fixture()
 def popc_membrane_structures(_base_popc_membrane_molsys):
     return _base_popc_membrane_molsys.copy()
+
+@pytest.fixture()
+def traj_pentalanine_h5_molsys(_base_traj_pentalanine_h5_molsys):
+    return _base_traj_pentalanine_h5_molsys.copy()
+

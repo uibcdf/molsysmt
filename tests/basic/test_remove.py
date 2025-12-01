@@ -7,9 +7,9 @@ from molsysmt import systems
 import numpy as np
 from pandas import DataFrame
 
-def test_remove_1():
+def test_remove_1(tctim_h5msm_molsys):
 
-    molsys = msm.convert(systems['TcTIM']['1tcd.h5msm'], to_form='molsysmt.MolSys')
+    molsys = tctim_h5msm_molsys
     molsys = msm.remove(molsys, selection='chain_index==[1,2,3]')
     df = msm.info(molsys)
     true_dict = {'form': {0: 'molsysmt.MolSys'},

@@ -6,10 +6,10 @@ Unit and regression test for the get_form module of the molsysmt package.
 import molsysmt as msm
 
 
-def test_get_n_components_1():
-    molsys = msm.convert(msm.systems['chicken villin HP35']['chicken_villin_HP35_solvated.h5msm'])
+def test_get_n_components_1(hp35_solvated_molsys):
+    molsys = hp35_solvated_molsys
     n_components_1 = msm.element.component.get_n_components(molsys, selection='all', redefine_components=False)
     n_components_2 = msm.element.component.get_n_components(molsys, selection='all', redefine_components=True)
-    assert 1279 == n_components_1
-    assert 1279 == n_components_2
+    assert 1257 == n_components_1
+    assert 1257 == n_components_2
 

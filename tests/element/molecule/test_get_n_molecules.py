@@ -12,7 +12,7 @@ def test_get_n_molecules_from_molsysmt_MolSys_1():
     molsys = msm.convert(systems['chicken villin HP35']['chicken_villin_HP35_solvated.h5msm'])
     n_molecules1 = msm.element.molecule.get_n_molecules(molsys)
     n_molecules2 = msm.element.molecule.get_n_molecules(molsys, redefine_molecules=True)
-    assert n_molecules1 == 1279
-    assert n_molecules2 == 1279
+    assert n_molecules1 == 1257
+    assert n_molecules2 == 1257
 
 

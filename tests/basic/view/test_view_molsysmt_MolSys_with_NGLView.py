@@ -7,12 +7,11 @@ import molsysmt as msm
 from molsysmt import systems
 import numpy as np
 
-def test_view_molsyst_MolSys_with_NLGView_1():
+def test_view_molsyst_MolSys_with_NLGView_1(t4_pdb_molsys):
 
     import nglview as nv
 
-    molsys = systems['T4 lysozyme L99A']['181l.pdb']
-    molsys = msm.convert(molsys, to_form='molsysmt.MolSys')
+    molsys = t4_pdb_molsys
     molsys_2 = nv.show_molsysmt(molsys)
     check = ('nglview.NGLWidget'==msm.get_form(molsys_2))
     n_molecules, n_structures = msm.get(molsys, element='system', n_molecules=True, n_structures=True)
@@ -21,7 +20,7 @@ def test_view_molsyst_MolSys_with_NLGView_1():
     check_n_structures = (n_structures==n_structures_2)
     assert check and check_n_molecules and check_n_structures
 
-def test_view_molsyst_MolSys_with_NGLView_2():
+def test_view_molsyst_MolSys_with_NGLView_2(alanine_molsys):
 
     aux_dict = {'atom_index': True,
                 'atom_name': True,
@@ -47,14 +46,14 @@ def test_view_molsyst_MolSys_with_NGLView_2():
                 'n_molecules': True,
                 'n_bonds': True}
 
-    molsys = msm.convert(systems['alanine dipeptide']['alanine_dipeptide.h5msm'], to_form='molsysmt.MolSys')
+    molsys = alanine_molsys
     view = msm.view(molsys, viewer='NGLView')
     check_comparison_1 = msm.compare(view, molsys, output_type='dictionary')
     check_comparison_2 = msm.compare(view, molsys, coordinates=True, box=True)
     assert check_comparison_1 == aux_dict
     assert check_comparison_2
 
-def test_view_molsyst_MolSys_with_NGLView_3():
+def test_view_molsyst_MolSys_with_NGLView_3(alanine_molsys):
 
     aux_dict = {'atom_index': True,
                 'atom_name': True,
@@ -96,7 +95,7 @@ def test_view_molsyst_MolSys_with_NGLView_3():
                 'n_inner_bonds': True,
                 'coordinates': True}
 
-    molsys_1 = msm.convert(systems['alanine dipeptide']['alanine_dipeptide.h5msm'], to_form='molsysmt.MolSys')
+    molsys_1 = alanine_molsys
     molsys_2 = msm.structure.translate(molsys_1, translation='[0.5, 0.0, 0.0] nm')
     molsys_merged = msm.merge([molsys_1, molsys_2], keep_ids=False)
     msm.build.define_new_chain(molsys_merged, selection='all', chain_id=0, chain_name='A')
@@ -105,7 +104,7 @@ def test_view_molsyst_MolSys_with_NGLView_3():
                              output_type='dictionary')
     assert comparison == aux_dict
 
-def test_view_molsyst_MolSys_with_NGLView_4():
+def test_view_molsyst_MolSys_with_NGLView_4(alanine_molsys):
 
     aux_dict = {'atom_index': True,
                 'atom_name': True,
@@ -148,7 +147,7 @@ def test_view_molsyst_MolSys_with_NGLView_4():
                 'coordinates': True,
                 'box': True}
 
-    molsys_1 = msm.convert(systems['alanine dipeptide']['alanine_dipeptide.h5msm'], to_form='molsysmt.MolSys')
+    molsys_1 = alanine_molsys
     molsys_2 = msm.structure.translate(molsys_1, translation='[0.5, 0.0, 0.0] nm')
     molsys_concatenated = msm.concatenate_structures([molsys_1, molsys_2])
     view = msm.view(molsys_concatenated, viewer='NGLView')
@@ -156,7 +155,7 @@ def test_view_molsyst_MolSys_with_NGLView_4():
             coordinates=True, box=True, include_none=True, output_type='dictionary')
     assert comparison == aux_dict
 
-def test_view_molsyst_MolSys_with_NGLView_5():
+def test_view_molsyst_MolSys_with_NGLView_5(alanine_molsys):
 
     aux_dict = {'atom_index': True,
                 'atom_name': True,
@@ -198,7 +197,7 @@ def test_view_molsyst_MolSys_with_NGLView_5():
                 'n_inner_bonds': True,
                 'coordinates': True}
 
-    molsys = msm.convert(systems['alanine dipeptide']['alanine_dipeptide.h5msm'], to_form='molsysmt.MolSys')
+    molsys = alanine_molsys
     view = msm.view(molsys, viewer='NGLView', standard=True)
     comparison = msm.compare(view, molsys, attribute_type='topological', coordinates=True, box=True,
                              output_type='dictionary')

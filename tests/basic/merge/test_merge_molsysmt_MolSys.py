@@ -7,10 +7,10 @@ import molsysmt as msm
 from molsysmt import systems
 import numpy as np
 
-def test_merge_molsysmt_MolSys_1():
-    molsys_1 = msm.convert(systems['proline dipeptide']['proline_dipeptide.h5msm'], to_form='molsysmt.MolSys')
-    molsys_2 = msm.convert(systems['valine dipeptide']['valine_dipeptide.h5msm'], to_form='molsysmt.MolSys')
-    molsys_3 = msm.convert(systems['lysine dipeptide']['lysine_dipeptide.h5msm'], to_form='molsysmt.MolSys')
+def test_merge_molsysmt_MolSys_1(proline_molsys, valine_molsys, lysine_molsys):
+    molsys_1 = proline_molsys
+    molsys_2 = valine_molsys
+    molsys_3 = lysine_molsys
     n_atoms_1 = msm.get(molsys_1, element='system', n_atoms=True)
     n_atoms_2 = msm.get(molsys_2, element='system', n_atoms=True)
     n_atoms_3 = msm.get(molsys_3, element='system', n_atoms=True)
