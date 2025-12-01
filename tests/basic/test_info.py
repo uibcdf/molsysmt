@@ -7,8 +7,8 @@ from molsysmt import systems
 import numpy as np
 from pandas import DataFrame
 
-def test_info_1():
-    molsys = msm.convert(systems['TcTIM']['1tcd.h5msm'], to_form='molsysmt.MolSys')
+def test_info_1(tctim_h5msm_molsys):
+    molsys = tctim_h5msm_molsys
     df = msm.info(molsys, element='atom', selection=[9, 10, 11, 12])
     true_dict = {'index': {0: 9, 1: 10, 2: 11, 3: 12},
                  'id': {0: '10', 1: '11', 2: '12', 3: '13'},
@@ -33,8 +33,8 @@ def test_info_1():
     true_df = DataFrame(true_dict)
     assert df.data.equals(true_df)
 
-def test_info_2():
-    molsys = msm.convert(systems['TcTIM']['1tcd.h5msm'], to_form='molsysmt.MolSys')
+def test_info_2(tctim_h5msm_molsys):
+    molsys = tctim_h5msm_molsys
     df = msm.info(molsys, element='atom', selection='group_index==6')
     true_dict = {'index': {0: 45, 1: 46, 2: 47, 3: 48, 4: 49},
                  'id': {0: '46', 1: '47', 2: '48', 3: '49', 4: '50'},
@@ -65,8 +65,8 @@ def test_info_2():
     true_df = DataFrame(true_dict)
     assert df.data.equals(true_df)
 
-def test_info_3():
-    molsys = msm.convert(systems['TcTIM']['1tcd.h5msm'], to_form='molsysmt.MolSys')
+def test_info_3(tctim_h5msm_molsys):
+    molsys = tctim_h5msm_molsys
     df = msm.info(molsys, element='group', selection=[20, 21, 22, 23])
     true_dict ={'index': {0: 20, 1: 21, 2: 22, 3: 23},
                 'id': {0: '24', 1: '25', 2: '26', 3: '27'},
@@ -85,8 +85,8 @@ def test_info_3():
     true_df = DataFrame(true_dict)
     assert df.data.equals(true_df)
 
-def test_info_4():
-    molsys = msm.convert(systems['TcTIM']['1tcd.h5msm'], to_form='molsysmt.MolSys')
+def test_info_4(tctim_h5msm_molsys):
+    molsys = tctim_h5msm_molsys
     df = msm.info(molsys, element='component', selection='molecule_type!="water"')
     true_dict = {'index': {0: 0, 1: 1},
                  'n atoms': {0: 1906, 1: 1912},
@@ -100,8 +100,8 @@ def test_info_4():
     true_df = DataFrame(true_dict)
     assert df.data.equals(true_df)
 
-def test_info_5():
-    molsys = msm.convert(systems['TcTIM']['1tcd.h5msm'], to_form='molsysmt.MolSys')
+def test_info_5(tctim_h5msm_molsys):
+    molsys = tctim_h5msm_molsys
     df = msm.info(molsys, element='molecule', selection='molecule_type!="water"')
     true_dict = {'index': {0: 0, 1: 1},
                  'name': {0: 'TRIOSEPHOSPHATE ISOMERASE', 1: 'TRIOSEPHOSPHATE ISOMERASE'},
@@ -115,8 +115,8 @@ def test_info_5():
                   1: 'TRIOSEPHOSPHATE ISOMERASE'}}
     assert df.data.to_dict()==true_dict
 
-def test_info_6():
-    molsys = msm.convert(systems['TcTIM']['1tcd.h5msm'], to_form='molsysmt.MolSys')
+def test_info_6(tctim_h5msm_molsys):
+    molsys = tctim_h5msm_molsys
     df = msm.info(molsys, element='entity')
     true_dict = {'index': {0: 0, 1: 1},
                  'name': {0: 'TRIOSEPHOSPHATE ISOMERASE', 1: 'water'},
@@ -128,8 +128,8 @@ def test_info_6():
                  'n molecules': {0: 2, 1: 165}}
     assert df.data.to_dict()==true_dict
 
-def test_info_7():
-    molsys = msm.convert(systems['TcTIM']['1tcd.h5msm'], to_form='molsysmt.MolSys')
+def test_info_7(tctim_h5msm_molsys):
+    molsys = tctim_h5msm_molsys
     df = msm.info(molsys)
     true_dict = {'form': {0: 'molsysmt.MolSys'},
                  'n_atoms': {0: 3983},
@@ -144,8 +144,8 @@ def test_info_7():
     true_df = DataFrame(true_dict)
     assert df.data.equals(true_df)
 
-def test_info_8():
-    molsys = msm.convert(systems['TcTIM']['1tcd.h5msm'], to_form='molsysmt.MolSys')
+def test_info_8(tctim_h5msm_molsys):
+    molsys = tctim_h5msm_molsys
     molsys = msm.convert(molsys, to_form='molsysmt.Topology')
     df = msm.info(molsys)
     true_dict = {'form': {0: 'molsysmt.Topology'},
@@ -161,8 +161,8 @@ def test_info_8():
     true_df = DataFrame(true_dict)
     assert df.data.equals(true_df)
 
-def test_info_9():
-    molsys = msm.convert(systems['TcTIM']['1tcd.h5msm'], to_form='molsysmt.MolSys')
+def test_info_9(tctim_h5msm_molsys):
+    molsys = tctim_h5msm_molsys
     molsys = msm.convert(molsys, to_form='molsysmt.Structures')
     df = msm.info(molsys)
     true_dict = {'form': {0: 'molsysmt.Structures'},
@@ -176,8 +176,8 @@ def test_info_9():
     true_df = DataFrame(true_dict)
     assert df.data.equals(true_df)
 
-def test_info_10():
-    molsys = msm.convert(systems['TcTIM']['1tcd.h5msm'], to_form='molsysmt.MolSys')
+def test_info_10(tctim_h5msm_molsys):
+    molsys = tctim_h5msm_molsys
     molsys = msm.convert(molsys, to_form=['molsysmt.Topology', 'molsysmt.Structures'])
     df = msm.info(molsys)
     true_dict = {'form': {0: ['molsysmt.Topology', 'molsysmt.Structures']},
@@ -193,8 +193,8 @@ def test_info_10():
     true_df = DataFrame(true_dict)
     assert df.data.equals(true_df)
 
-def test_info_11():
-    molsys = msm.convert(systems['TcTIM']['1tcd.h5msm'], to_form='molsysmt.MolSys')
+def test_info_11(tctim_h5msm_molsys):
+    molsys = tctim_h5msm_molsys
     df = msm.info(molsys, element='component', selection='molecule_type=="protein"')
     true_dict = {'index': {0: 0, 1: 1},
         'n atoms': {0: 1906, 1: 1912},
@@ -208,8 +208,8 @@ def test_info_11():
     true_df = DataFrame(true_dict)
     assert df.data.equals(true_df)
 
-def test_info_12():
-    molsys = msm.convert(systems['TcTIM']['1tcd.h5msm'], to_form='molsysmt.MolSys')
+def test_info_12(tctim_h5msm_molsys):
+    molsys = tctim_h5msm_molsys
     group_index_in_component_0 = msm.get(molsys, element='group', selection='component_index==0', index=True)[69]
     group_index_in_component_1 = msm.get(molsys, element='group', selection='component_index==1', index=True)[12]
     df = msm.info(molsys, element='group', selection=[group_index_in_component_0,

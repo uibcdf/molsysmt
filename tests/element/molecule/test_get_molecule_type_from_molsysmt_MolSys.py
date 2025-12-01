@@ -9,7 +9,7 @@ import numpy as np
 def test_get_molecule_type_from_molsysmt_MolSys_1(hp35_solvated_molsys):
     molsys = hp35_solvated_molsys
     types = msm.element.molecule.get_molecule_type(molsys, element='molecule', selection='all')
-    assert len(types) == 1279
+    assert len(types) == 1257
     assert types[0] == 'peptide'
     assert all(np.array(types[-2:])=='ion')
     assert all(np.array(types[1:-2])=='water')

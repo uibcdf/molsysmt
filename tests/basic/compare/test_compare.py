@@ -7,15 +7,15 @@ import molsysmt as msm
 from molsysmt import systems
 import numpy as np
 
-def test_compare_all_eq_1():
-    molsys_A = msm.convert(systems['T4 lysozyme L99A']['t4_lysozyme_L99A.h5msm'], to_form='molsysmt.MolSys')
-    molsys_B = msm.convert(systems['T4 lysozyme L99A']['t4_lysozyme_L99A.h5msm'], to_form='molsysmt.MolSys')
+def test_compare_all_eq_1(t4_h5msm_molsys):
+    molsys_A = t4_h5msm_molsys
+    molsys_B = t4_h5msm_molsys
     output = msm.compare(molsys_A, molsys_B, attributes_type='topological', coordinates=True, box=True)
     assert output == True
 
-def test_compare_all_eq_2():
-    molsys_A = msm.convert(systems['T4 lysozyme L99A']['t4_lysozyme_L99A.h5msm'], to_form='molsysmt.MolSys')
-    molsys_B = msm.convert(systems['chicken villin HP35']['chicken_villin_HP35.h5msm'], to_form='molsysmt.MolSys')
+def test_compare_all_eq_2(t4_h5msm_molsys, hp35_molsys):
+    molsys_A = t4_h5msm_molsys
+    molsys_B = hp35_molsys
     output = msm.compare(molsys_A, molsys_B, attributes_type='topological', coordinates=True, box=True)
     assert output == False
 
@@ -55,7 +55,7 @@ def test_compare_all_eq_3():
 
 def test_compare_all_eq_4():
 
-    molsys_A = msm.convert('pdb_id:181L', to_form='openmm.Modeller')
+    molsys_A = msm.convert(systems['T4 lysozyme L99A']['181l.pdb'], to_form='openmm.Modeller')
     molsys_B = msm.convert(molsys_A, to_form='molsysmt.MolSys')
     molsys_C = msm.extract(molsys_B, selection='molecule_type=="protein"')
 
