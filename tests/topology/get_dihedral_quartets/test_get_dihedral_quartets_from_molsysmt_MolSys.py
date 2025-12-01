@@ -5,7 +5,6 @@ systems.
 
 # Import package, test suite, and other packages as needed
 import molsysmt as msm
-from molsysmt import systems
 import numpy as np
 
 # Distance between atoms in space and time
@@ -86,8 +85,8 @@ def test_get_dihedral_quartets_from_molsysmt_MolSys_4():
     check_value_3 = np.all(true_value_3==chains[800:805,:])
     assert check_shape_1 and check_value_1 and check_value_2 and check_value_3
 
-def test_get_dihedral_quartets_from_molsysmt_MolSys_6():
-    molsys = msm.convert(systems['Met-enkephalin']['met_enkephalin.h5msm'], to_form='molsysmt.MolSys')
+def test_get_dihedral_quartets_from_molsysmt_MolSys_6(met_enkephalin_molsys):
+    molsys = met_enkephalin_molsys
     phi_chains, phi_blocks = msm.topology.get_dihedral_quartets(molsys, with_blocks=True, phi=True)
     true_value_1 = np.array([33, 35, 37, 53])
     true_value_2 = np.array([{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36},
@@ -95,5 +94,4 @@ def test_get_dihedral_quartets_from_molsysmt_MolSys_6():
     check_value_1 = np.all(true_value_1==phi_chains[2])
     check_value_2 = np.all(true_value_2==phi_blocks[2])
     assert check_value_1 and check_value_2
-
 

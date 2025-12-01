@@ -19,8 +19,9 @@ def mutate(molecular_system, mutations=None, keys='group_index', selection="all"
 
             for mutation_string in mutations:
                 old_group_name, group_id, new_group_name = mutation_string.split('-')
+                group_id = str(group_id)
                 aux_index, group_name = get(molecular_system, element='group',
-                        selection='group_id=='+group_id, mask=selection,
+                        selection=f'group_id=="{group_id}"', mask=selection,
                         group_index=True, group_name=True)
                 if group_name[0].lower()!=old_group_name.lower():
                     raise ValueError(f'The group with id {group_id} is {group_name} and not {old_group_name}')
@@ -33,12 +34,12 @@ def mutate(molecular_system, mutations=None, keys='group_index', selection="all"
                 group_indices = list(mutations.keys())
                 to_group_names = list(mutations.values())
             elif keys=='group_id':
-                group_ids = list(mutations.keys())
+                group_ids = [str(ii) for ii in mutations.keys()]
                 to_group_names = list(mutations.values())
                 group_indices = []
                 for ii in group_ids:
                     aux_indices = get(molecular_system, element='group',
-                            selection='group_id==@ii', mask=selection,
+                            selection=f'group_id=="{ii}"', mask=selection,
                             group_index=True)
                     if len(aux_indices)>1:
                         raise ValueError(f'There are multiple groups with the group_id: {ii}')
@@ -80,4 +81,3 @@ def mutate(molecular_system, mutations=None, keys='group_index', selection="all"
 
     else:
         raise NotImplementedMethodError
-

@@ -6,7 +6,29 @@ from molsysmt.basic import select
 @digest()
 def get_covalent_chains(molecular_system, chain=None, selection='all', syntax='MolSysMT'):
     """
-    To be written soon...
+    Building covalent chains given ordered selections for each position.
+
+    Parameters
+    ----------
+    molecular_system : molecular system
+        Input system.
+    chain : list of selections
+        Ordered selections (per position) defining allowed atoms at each chain step.
+    selection : str, list, tuple or numpy.ndarray, default 'all'
+        Global atom filter applied before chain assembly.
+    syntax : str, default 'MolSysMT'
+        Selection syntax for string-based selections.
+
+    Returns
+    -------
+    numpy.ndarray
+        Array of chains (lists of atom indices) satisfying connectivity across the positions.
+
+    Notes
+    -----
+    - Uses the bond graph to walk across allowed atoms at each position.
+
+    .. versionadded:: 1.0.0
     """
 
     from . import get_bondgraph
@@ -45,4 +67,3 @@ def get_covalent_chains(molecular_system, chain=None, selection='all', syntax='M
     del(graph)
 
     return np.array(output, dtype=int)
-

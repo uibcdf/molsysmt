@@ -3,13 +3,17 @@ Unit and regression test for the get module of the molsysmt package.
 """
 
 # Import package, test suite, and other packages as needed
+import pytest
 import molsysmt as msm
-from molsysmt import systems
 import numpy as np
 
-# Get on molsysmt.MolSys
+molsys = None
 
-molsys = msm.convert(systems['TcTIM']['1tcd.h5msm'], to_form='molsysmt.MolSys')
+
+@pytest.fixture(autouse=True)
+def _set_molsys(tctim_h5msm_molsys):
+    global molsys
+    molsys = tctim_h5msm_molsys
 
 def test_get_1():
     output = msm.get(molsys, element='atom', selection=[32, 33, 34], name=True)
@@ -114,7 +118,7 @@ def test_get_16():
 
 def test_get_17():
     group_ids = msm.get(molsys, element='atom', selection='atom_index in [0,1,2]', group_id=True)
-    true_group_ids = np.array([4, 4, 4])
+    true_group_ids = np.array(['4', '4', '4'], dtype=object)
     assert np.all(group_ids==true_group_ids)
 
 def test_get_18():
@@ -123,12 +127,12 @@ def test_get_18():
 
 def test_get_19():
     ids = msm.get(molsys, element='group', selection=[0, 1, 2], id=True)
-    true_ids = np.array([4, 5, 6])
+    true_ids = np.array(['4', '5', '6'], dtype=object)
     assert np.all(ids==true_ids)
 
 def test_get_20():
     ids = msm.get(molsys, element='group', selection='group_index in [0,1,2]', id=True)
-    true_ids = np.array([4, 5, 6])
+    true_ids = np.array(['4', '5', '6'], dtype=object)
     assert np.all(ids==true_ids)
 
 def test_get_21():
@@ -341,12 +345,11 @@ def test_get_61():
     box_angles = msm.get(molsys, element='system', structure_indices=0, box_angles=True)
     value = msm.pyunitwizard.get_value(box_angles)
     unit = msm.pyunitwizard.get_unit(box_angles)
-    assert (unit==msm.pyunitwizard.unit('degree')) and (np.allclose(value, np.array([[ 90., 90., 90.]])))
+    assert (unit==msm.pyunitwizard.unit('radian')) and (np.allclose(value, np.array([[ 1.570796, 1.570796, 1.570796]])))
 
-def test_get_62():
-    molsys = msm.convert('1V4T', structure_indices=0)
-    b_factors = msm.get(molsys, element='atom', b_factor=True)
-    n_atoms = msm.get(molsys, n_atoms=True)
+def test_get_62(tctim_bcif_molsys):
+    b_factors = msm.get(tctim_bcif_molsys, element='atom', b_factor=True)
+    n_atoms = msm.get(tctim_bcif_molsys, n_atoms=True)
     assert b_factors.shape == (1, n_atoms)
     assert msm.pyunitwizard.check(b_factors, unit='nm^2')
 
@@ -359,5 +362,3 @@ def test_get_63():
         [0.0, 0.0, 1.49539993e+01]]])
     assert (unit==msm.pyunitwizard.unit('nanometers')) and (np.allclose(value, true_value, atol=1e-06))
     assert n_atoms == 1
-
-

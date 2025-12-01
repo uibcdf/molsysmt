@@ -1,5 +1,13 @@
 from molsysmt._private.variables import is_all
 from molsysmt import pyunitwizard as puw
+"""Internal getters mapping topology relationships for MolSysMT objects.
+
+These helpers compute indices, ids, names, counts, and relationships between
+atoms, groups, components, molecules, chains, and entities. They are intended
+for internal reuse across higher-level `get` calls and therefore keep a very
+lightweight signature and no validation.
+"""
+
 import numpy as np
 from networkx import Graph
 
@@ -4068,4 +4076,3 @@ def get_n_bonds_from_bond(item, indices='all'):
         output = len(indices)
 
     return output
-

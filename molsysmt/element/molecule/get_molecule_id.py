@@ -1,4 +1,5 @@
 from molsysmt._private.digestion import digest
+import numpy as np
 
 
 @digest()
@@ -18,5 +19,12 @@ def get_molecule_id(molecular_system, element='molecule', selection='all', redef
         output = get(molecular_system, element=element, selection=selection, syntax=syntax,
                      molecule_id=True)
 
-    return output
+    if output is not None:
+        arr = np.asarray(output)
+        if arr.shape == ():
+            output = str(arr.astype(str))
+        else:
+            output = arr.astype(str)
+        output = output.tolist()
 
+    return output

@@ -3,10 +3,12 @@ from molsysmt._private.digestion import digest
 import numpy as np
 
 class MolSys:
+    """Container holding native topology, structures, and molecular mechanics data."""
 
     @digest()
     def __init__(self, n_atoms=0, n_groups=0, n_components=0, n_molecules=0, n_entities=0, n_chains=0, n_bonds=0,
                 skip_digestion=False):
+        """Initialize an empty MolSys container."""
 
         from .topology import Topology
         from .structures import Structures
@@ -20,6 +22,7 @@ class MolSys:
 
     @digest()
     def extract(self, atom_indices='all', structure_indices='all', copy_if_all=True, skip_digestion=False):
+        """Return a copy or subset of the molecular system."""
 
         if is_all(atom_indices) and is_all(structure_indices):
 
@@ -42,6 +45,7 @@ class MolSys:
 
     @digest()
     def remove(self, atom_indices=None, structure_indices=None, copy_if_None=False, skip_digestion=False):
+        """Remove atoms and/or structures by index and return the resulting MolSys."""
 
         if (atom_indices is None) and (structure_indices is None):
 
@@ -69,6 +73,7 @@ class MolSys:
 
     @digest(form='molsysmt.MolSys')
     def add(self, item, atom_indices='all', structure_indices='all', keep_ids=True, skip_digestion=False):
+        """Append topology and structures from another MolSys."""
 
         self.topology.add(item.topology, atom_indices=atom_indices, keep_ids=keep_ids, skip_digestion=True)
         self.structures.add(item.structures, atom_indices=atom_indices, structure_indices=structure_indices,
@@ -76,11 +81,13 @@ class MolSys:
 
     @digest(form='molsysmt.MolSys')
     def append_structures(self, item, atom_indices='all', structure_indices='all', skip_digestion=False):
+        """Append structures from another MolSys while aligning atom indices."""
 
         self.structures.append_structures(item.structures, atom_indices=atom_indices, structure_indices=structure_indices,
                            skip_digestion=True)
 
     def copy(self):
+        """Deep-copy the MolSys."""
 
         tmp_item = MolSys()
         tmp_item.topology = self.topology.copy()
@@ -91,6 +98,7 @@ class MolSys:
 
     def add_missing_bonds(self, threshold='2 angstroms', selection='all', structure_indices=0, syntax='MolSysMT',
                           engine='MolSysMT', with_templates=True, with_distances=True, skip_digestion=False):
+        """Fill missing bonds inferred from the current coordinates."""
 
         from molsysmt.build import get_missing_bonds as _get_missing_bonds
 
@@ -102,36 +110,44 @@ class MolSys:
         self.topology.bonds['atom2_index'] = np.array(bonds, dtype=int)[:,1]
 
     def rebuild_atoms(self, redefine_ids=True, redefine_types=True):
+        """Recompute atom ids/types from the present topology."""
 
         self.topology.rebuild_atoms(redefine_ids=redefine_ids, redefine_types=redefine_types)
 
     def rebuild_groups(self, redefine_ids=True, redefine_types=True):
+        """Recompute group ids/types from the present topology."""
 
         self.topology.rebuild_groups(redefine_ids=redefine_ids, redefine_types=redefine_types)
 
     def rebuild_components(self, redefine_ids=True, redefine_types=True):
+        """Recompute component ids/types from the present topology."""
 
         self.topology.rebuild_components(redefine_ids=redefine_ids, redefine_types=redefine_types)
 
     def rebuild_molecules(self, redefine_ids=True, redefine_types=True):
+        """Recompute molecule ids/types from the present topology."""
 
         self.topology.rebuild_molecules(redefine_ids=redefine_ids, redefine_types=redefine_types)
 
     def rebuild_chains(self, redefine_ids=True, redefine_types=True):
+        """Recompute chain ids/types from the present topology."""
 
         self.topology.rebuild_chains(redefine_ids=redefine_ids, redefine_types=redefine_types)
 
     def rebuild_entities(self, redefine_ids=True, redefine_types=True):
+        """Recompute entity ids/types from the present topology."""
 
         self.topology.rebuild_entities(redefine_ids=redefine_ids, redefine_types=redefine_types)
 
     def to_form(self, to_form, skip_digestion=False, **kwargs):
+        """Convert the MolSys to a target form."""
 
         from molsysmt.form.molsysmt_MolSys import _convert_to
 
         return _convert_to[form](self, skip_digestion=True, **kwargs)
 
     def info(self):
+        """Return a text summary of the MolSys."""
 
         from molsysmt.basic import info as _info
 
@@ -147,6 +163,7 @@ class MolSys:
         output_type='values',
         skip_digestion=False,
         **kwargs):
+        """Proxy to :func:`molsysmt.get` using this MolSys as input."""
 
         from molsysmt.basic import get as _get
 

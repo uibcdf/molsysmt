@@ -12,7 +12,7 @@ def add_cylinders(view, bottom=None, top=None, vectors=None, color='#808080', co
         mid_color_value_2=None, max_color_value_2=None, color_values_scale_2=None, colormap_2=None,
                  skip_digestion=False):
 
-    """Adding cylinders to a view.
+    """Add cylinders to an NGLview widget to depict bonds or vectors.
 
     Cylinders can be added to an NGL view (NGLWidget).
 

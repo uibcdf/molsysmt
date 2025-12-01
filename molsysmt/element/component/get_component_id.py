@@ -1,4 +1,5 @@
 from molsysmt._private.digestion import digest
+import numpy as np
 
 
 @digest()
@@ -18,5 +19,12 @@ def get_component_id(molecular_system, element='component', selection='all', red
         output = get(molecular_system, element=element, selection=selection, syntax=syntax,
                      component_id=True, skip_digestion=True)
 
-    return output
+    if output is not None:
+        arr = np.asarray(output)
+        if arr.shape == ():
+            output = str(arr.astype(str))
+        else:
+            output = arr.astype(str)
+        output = output.tolist()
 
+    return output

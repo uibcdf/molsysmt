@@ -5,6 +5,7 @@ import numpy as np
 #@digest()
 def add_hbonds(view, hbonds, selection=None, selection_2=None, hbond_level='atom',
         color='#FFC300', radius='0.1 angstroms', syntax='MolSysMT'):
+    """Render hydrogen bonds as cylinders on an NGLview widget."""
 
     from molsysmt.basic import get, select
     from . import add_cylinders

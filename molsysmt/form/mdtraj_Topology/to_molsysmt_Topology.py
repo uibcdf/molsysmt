@@ -26,9 +26,9 @@ def to_molsysmt_Topology(item, atom_indices='all', skip_digestion=False):
     for atom_index, atom in enumerate(item.atoms):
 
         if atom.serial is not None:
-            tmp_item.atoms.iat[atom_index,0] = atom.serial
+            tmp_item.atoms.iat[atom_index,0] = str(atom.serial)
         else:
-            tmp_item.atoms.iat[atom_index,0] = atom_index
+            tmp_item.atoms.iat[atom_index,0] = str(atom_index)
         tmp_item.atoms.iat[atom_index,1] = atom.name
         tmp_item.atoms.iat[atom_index,2] = atom.element.symbol
         tmp_item.atoms.iat[atom_index,3] = atom.residue.index
@@ -42,7 +42,7 @@ def to_molsysmt_Topology(item, atom_indices='all', skip_digestion=False):
     for group_index, residue in enumerate(item.residues):
 
         tmp_item.groups.iat[group_index,1] = residue.name
-        tmp_item.groups.iat[group_index,0] = residue.resSeq
+        tmp_item.groups.iat[group_index,0] = str(residue.resSeq)
 
         if residue.name not in aux_dict:
             aux_dict[residue.name] = get_group_type_from_group_name(residue.name)
@@ -54,7 +54,7 @@ def to_molsysmt_Topology(item, atom_indices='all', skip_digestion=False):
 
     for chain_index, chain in enumerate(item.chains):
 
-        tmp_item.chains.iat[chain_index,0] = chain.chain_id
+        tmp_item.chains.iat[chain_index,0] = str(chain.chain_id)
         tmp_item.chains.iat[chain_index,1] = chain.chain_id
 
     rebuild_chain_id = tmp_item.chains['chain_id'].isna().all()

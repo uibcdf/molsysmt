@@ -3,6 +3,7 @@ import matplotlib.colors as mcolors
 from matplotlib.pyplot import colormaps as mcolormaps
 
 def color_is_hex(color):
+    """Return True if the color is a hex string."""
 
     output = False
 
@@ -15,6 +16,7 @@ def color_is_hex(color):
     return output
 
 def color_is_rgb(color):
+    """Return True if the color is a 3-length RGB iterable."""
 
     output = False
 
@@ -25,10 +27,12 @@ def color_is_rgb(color):
     return output
 
 def is_color(color):
+    """Check whether the input can be interpreted as a single color."""
 
     return color_is_hex(color) or color_is_rgb(color)
 
 def is_iterable_of_colors(color):
+    """Return True if the iterable contains valid colors."""
 
     output = False
 
@@ -38,6 +42,7 @@ def is_iterable_of_colors(color):
     return output
 
 def color_to_form(color, form):
+    """Convert a color to the requested representation (`rgb` or `hex`)."""
 
     output = None
 
@@ -58,6 +63,7 @@ def color_to_form(color, form):
     return output
 
 def color_to_list_of_colors(color, n_colors, form='rgb'):
+    """Return a list of n_colors converted to the desired representation."""
 
     output = None
 
@@ -74,6 +80,7 @@ def color_to_list_of_colors(color, n_colors, form='rgb'):
 
 def get_list_of_colors_from_values(values, min_value=None, mid_value=None, max_value=None,
         symmetrical=False, scale='linear', colormap='bwr', form='rgb'):
+    """Map numeric values to colors using the given colormap and normalization."""
 
     if scale=='linear':
 
@@ -132,4 +139,3 @@ def get_list_of_colors_from_values(values, min_value=None, mid_value=None, max_v
         output = output_rgba
 
     return output
-

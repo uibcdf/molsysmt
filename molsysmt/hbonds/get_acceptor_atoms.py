@@ -18,6 +18,27 @@ acceptor_exclusion_rules = [
 def get_acceptor_atoms(molecular_system, selection='all', inclusion_rules=None,
         exclusion_rules=None, default_inclusion_rules=True, default_exclusion_rules=True,
         syntax='MolSysMT'):
+    """
+    Identify acceptor atoms within a molecular system for hydrogen-bond detection.
+
+    Parameters
+    ----------
+    molecular_system : molecular system
+        Input system.
+    selection : str, list, tuple or numpy.ndarray, default 'all'
+        Atom selection to filter candidates.
+    inclusion_rules, exclusion_rules : list of str or None
+        Selection rules to include or exclude atoms.
+    default_inclusion_rules, default_exclusion_rules : bool, default True
+        Whether to apply built-in acceptor rules.
+    syntax : str, default 'MolSysMT'
+        Selection syntax for string rules.
+
+    Returns
+    -------
+    numpy.ndarray
+        Sorted array of acceptor atom indices.
+    """
 
     from molsysmt import select
 
@@ -42,4 +63,3 @@ def get_acceptor_atoms(molecular_system, selection='all', inclusion_rules=None,
     output = np.sort(list(output))
 
     return output
-

@@ -2,11 +2,13 @@ from molsysmt._private.exceptions import *
 from molsysmt import pyunitwizard as puw
 
 class Simulation():
+    """Container for simulation parameters used to build OpenMM objects."""
 
     def __init__(self, molecular_system=None, remove_cm_motion=True,
                  integrator=None, temperature=None, collisions_rate=None, integration_timestep=None,
                  initial_velocities_to_temperature = True, constraint_tolerance=0.00001,
                  platform='CUDA', cuda_precision='mixed'):
+        """Initialize a simulation configuration."""
 
         self._molecular_system = molecular_system
 
@@ -25,6 +27,7 @@ class Simulation():
         self.cuda_precision = cuda_precision
 
     def to_dict(self):
+        """Return a dictionary representation of the simulation parameters."""
 
         tmp_dict = {
             'remove_cm_motion' : self.remove_cm_motion,
@@ -41,6 +44,7 @@ class Simulation():
         return tmp_dict
 
     def copy(self):
+        """Deep-copy the Simulation settings."""
 
         tmp_simulation = Simulation()
 
@@ -63,6 +67,7 @@ class Simulation():
         return tmp_simulation
 
     def set_parameters(self, return_non_processed=False, **kwargs):
+        """Standardize and set allowed parameters from keyword arguments."""
 
         for argument, value in kwargs.items():
             if argument.lower() in self.__dict__.keys():
@@ -75,6 +80,7 @@ class Simulation():
             pass
 
     def to_openmm_Integrator(self):
+        """Build an OpenMM Integrator instance for the configured dynamics."""
 
         from openmm import LangevinIntegrator
 
@@ -92,6 +98,7 @@ class Simulation():
         return integrator
 
     def to_openmm_Platform(self):
+        """Return the selected OpenMM Platform."""
 
         from openmm import Platform
 
@@ -103,6 +110,7 @@ class Simulation():
         return platform
 
     def get_openmm_Context_parameters(self):
+        """Return keyword arguments required to build an OpenMM Context."""
 
         parameters = {}
 
@@ -112,6 +120,7 @@ class Simulation():
         return parameters
 
     def to_openmm_Context(self, molecular_system=None, selection='all', structure_indices='all'):
+        """Create an OpenMM Context from the current settings."""
 
         from molsysmt.basic import convert
 
@@ -128,6 +137,7 @@ class Simulation():
         return context
 
     def get_openmm_Simulation_parameters(self):
+        """Return keyword arguments required to build an OpenMM Simulation."""
 
         parameters = {}
 
@@ -137,6 +147,7 @@ class Simulation():
         return parameters
 
     def to_openmm_Simulation(self, molecular_system=None, selection='all', structure_indices='all'):
+        """Create an OpenMM Simulation from the current settings."""
 
         from molsysmt.basic import convert
 
@@ -156,5 +167,4 @@ simulation_to_potential_energy_minimization = Simulation(integrator='Langevin', 
                                                          collisions_rate='1.0 1/ps', integration_timestep='2fs',
                                                          initial_velocities_to_temperature = False,
                                                          platform='CUDA', cuda_precision='mixed')
-
 

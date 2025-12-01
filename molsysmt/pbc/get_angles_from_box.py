@@ -5,7 +5,21 @@ from molsysmt import lib as msmlib
 @digest()
 def get_angles_from_box(box, skip_digestion=False):
     """
-    To be written soon...
+    Extracting box angles from a box matrix.
+
+    Parameters
+    ----------
+    box : quantity
+        Box matrix (single or array), shape (3, 3) or (n, 3, 3).
+    skip_digestion : bool, default False
+        Whether to skip argument digestion.
+
+    Returns
+    -------
+    quantity
+        Angles (alpha, beta, gamma) in radians.
+
+    .. versionadded:: 1.0.0
     """
 
     box_value, box_unit  = puw.get_value_and_unit(box)
@@ -14,4 +28,3 @@ def get_angles_from_box(box, skip_digestion=False):
     angles = puw.standardize(angles)
 
     return angles
-

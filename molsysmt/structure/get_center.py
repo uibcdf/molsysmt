@@ -9,6 +9,38 @@ import gc
 @digest()
 def get_center(molecular_system, selection='all', weights=None,
         structure_indices='all', syntax='MolSysMT', engine='MolSysMT', skip_digestion=False):
+    """
+    Computing centers (centroids or weighted centers) of atom selections.
+
+    Parameters
+    ----------
+    molecular_system : molecular system
+        Input system.
+    selection : str, list, tuple or numpy.ndarray, default 'all'
+        Atoms (or groups of atoms) to center; nested iterables are treated as groups.
+    weights : array-like, optional
+        Weights per atom (or concatenated per group) when computing centers.
+    structure_indices : 'all' or array-like, default 'all'
+        Structures/frames over which centers are computed.
+    syntax : str, default 'MolSysMT'
+        Selection syntax when using strings.
+    engine : {'MolSysMT'}, default 'MolSysMT'
+        Backend.
+    skip_digestion : bool, default False
+        Whether to skip argument digestion.
+
+    Returns
+    -------
+    quantity
+        Centers as a PyUnitWizard quantity in length units.
+
+    Raises
+    ------
+    NotImplementedMethodError
+        If an unsupported engine is requested.
+
+    .. versionadded:: 1.0.0
+    """
 
     from molsysmt.basic import select, get
 
@@ -57,4 +89,3 @@ def get_center(molecular_system, selection='all', weights=None,
     else:
 
         raise NotImplementedMethodError()
-

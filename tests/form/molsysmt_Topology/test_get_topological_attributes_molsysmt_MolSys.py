@@ -30,10 +30,10 @@ def test_get_atom_id_from_atom():
     list_atom_ids_BB = aux.get_atom_id_from_atom(molsys_Hk2, indices=[10,11,12,13], skip_digestion=True)
 
     assert isinstance(all_atom_ids_Hk2, list)
-    assert all_atom_ids_Hk2 == list(range(1, 13547))
-    assert all_atom_ids_BB == list(range(1,2688))+[2689,2691]+list(range(2692, 5154))
-    assert list_atom_ids_Hk2 == [5,6,7]
-    assert list_atom_ids_BB == [11,12,13,14]
+    assert all_atom_ids_Hk2 == [str(ii) for ii in range(1, 13547)]
+    assert all_atom_ids_BB == [str(ii) for ii in list(range(1,2688))+[2689,2691]+list(range(2692, 5154))]
+    assert list_atom_ids_Hk2 == ['5','6','7']
+    assert list_atom_ids_BB == ['11','12','13','14']
 
 
 def test_get_atom_name_from_atom():
@@ -8578,4 +8578,3 @@ def test_get_bonded_atom_pairs_from_system():
                                               [982, 983], [982, 987], [984, 985], [984, 986]]
     assert all_bonded_atom_pairs_BB[4000:4010] == [[3910, 3916], [3912, 3913], [3912, 3914], [3913, 3915], [3916, 3917],
                                               [3917, 3918], [3917, 3920], [3918, 3919], [3918, 3924], [3920, 3921]]
-

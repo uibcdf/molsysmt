@@ -5,7 +5,42 @@ import numpy as np
 def get_sequence_identity(molecular_system, selection='all', reference_molecular_system=None,
                           reference_selection='all', syntax='MolSysMT', engine='Biopython'):
     """
-    To be written soon...
+    Calculating sequence identity between two molecular systems.
+
+    Parameters
+    ----------
+    molecular_system : molecular system
+        Query system containing the sequence to compare.
+    selection : str, list, tuple or numpy.ndarray, default 'all'
+        Group-level selection in the query system (MolSysMT syntax or indices).
+    reference_molecular_system : molecular system, optional
+        Reference system against which identity is computed.
+    reference_selection : str, list, tuple or numpy.ndarray, default 'all'
+        Group-level selection in the reference system.
+    syntax : str, default 'MolSysMT'
+        Selection syntax when using string selections.
+    engine : {'Biopython'}, default 'Biopython'
+        Alignment engine to use.
+
+    Returns
+    -------
+    float
+        Sequence identity percentage (0–100).
+    list of int
+        Group indices in the query sequence that matched.
+    list of int
+        Group indices in the reference sequence that matched.
+
+    Raises
+    ------
+    NotImplementedError
+        If an unsupported engine is requested.
+
+    Notes
+    -----
+    - Uses `get_sequence_alignment` to align the two selections and counts identical, aligned positions.
+
+    .. versionadded:: 1.0.0
     """
 
     from molsysmt.topology.get_sequence_alignment import get_sequence_alignment
@@ -54,4 +89,3 @@ def get_sequence_identity(molecular_system, selection='all', reference_molecular
     identity = 100.0 * (len(intersect)/len(group_indices))
 
     return identity, intersect, intersect_ref
-

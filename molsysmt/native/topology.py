@@ -6,14 +6,16 @@ from molsysmt.lib.series import occurrence_order
 import string
 
 class Atoms_DataFrame(pd.DataFrame):
+    """Pandas DataFrame wrapper storing atom-level topology fields."""
 
     def __init__(self, n_atoms=0):
+        """Initialize an atoms table with the expected columns and dtypes."""
 
         columns = ['atom_id', 'atom_name', 'atom_type', 'group_index', 'component_index', 'chain_index']
 
         super().__init__(index=range(n_atoms), columns=columns)
 
-        self['atom_id'] = self['atom_id'].astype('Int64')
+        self['atom_id'] = self['atom_id'].astype('string')
         self['atom_name'] = self['atom_name'].astype(str)
         self['atom_type'] = self['atom_type'].astype(str)
         self['group_index'] = self['group_index'].astype('Int64')
@@ -21,108 +23,132 @@ class Atoms_DataFrame(pd.DataFrame):
         self['chain_index'] = self['chain_index'].astype('Int64')
 
     def _fix_null_values(self):
+        """Normalize missing values and enforce string ids."""
 
         for column in self:
             self[column]=self[column].fillna(pd.NA)
+        self['atom_id'] = self['atom_id'].astype('string')
 
 
 class Groups_DataFrame(pd.DataFrame):
+    """Pandas DataFrame wrapper storing group-level fields."""
 
     def __init__(self, n_groups=0):
+        """Initialize a groups table with default types."""
 
         columns = ['group_id', 'group_name', 'group_type', 'molecule_index']
 
         super().__init__(index=range(n_groups), columns=columns)
 
-        self['group_id'] = self['group_id'].astype('Int64')
+        self['group_id'] = self['group_id'].astype('string')
         self['group_name'] = self['group_name'].astype(str)
         self['group_type'] = self['group_type'].astype(str)
         self['molecule_index'] = self['molecule_index'].astype('Int64')
 
     def _fix_null_values(self):
+        """Normalize missing values and enforce string ids."""
 
         for column in self:
             self[column]=self[column].fillna(pd.NA)
+        self['group_id'] = self['group_id'].astype('string')
 
 
 class Molecules_DataFrame(pd.DataFrame):
+    """Pandas DataFrame wrapper storing molecule-level fields."""
 
     def __init__(self, n_molecules=0):
+        """Initialize a molecules table with default types."""
 
         columns = ['molecule_id', 'molecule_name', 'molecule_type', 'entity_index']
 
         super().__init__(index=range(n_molecules), columns=columns)
 
 
-        self['molecule_id'] = self['molecule_id'].astype('Int64')
+        self['molecule_id'] = self['molecule_id'].astype('string')
         self['molecule_name'] = self['molecule_name'].astype(str)
         self['molecule_type'] = self['molecule_type'].astype(str)
         self['entity_index'] = self['entity_index'].astype('Int64')
 
     def _fix_null_values(self):
+        """Normalize missing values and enforce string ids."""
 
         for column in self:
             self[column]=self[column].fillna(pd.NA)
+        self['molecule_id'] = self['molecule_id'].astype('string')
 
 
 class Entities_DataFrame(pd.DataFrame):
+    """Pandas DataFrame wrapper storing entity-level fields."""
 
     def __init__(self, n_entities=0):
+        """Initialize an entities table with default types."""
 
         columns = ['entity_id', 'entity_name', 'entity_type']
 
         super().__init__(index=range(n_entities), columns=columns)
 
-        self['entity_id'] = self['entity_id'].astype('Int64')
+        self['entity_id'] = self['entity_id'].astype('string')
         self['entity_name'] = self['entity_name'].astype(str)
         self['entity_type'] = self['entity_type'].astype(str)
 
     def _fix_null_values(self):
+        """Normalize missing values and enforce string ids."""
 
 
         for column in self:
             self[column]=self[column].fillna(pd.NA)
+        self['entity_id'] = self['entity_id'].astype('string')
 
 
 class Components_DataFrame(pd.DataFrame):
+    """Pandas DataFrame wrapper storing component-level fields."""
 
     def __init__(self, n_components=0):
+        """Initialize a components table with default types."""
 
         columns = ['component_id', 'component_name', 'component_type']
 
         super().__init__(index=range(n_components), columns=columns)
 
-        self['component_id'] = self['component_id'].astype('Int64')
+        self['component_id'] = self['component_id'].astype('string')
         self['component_name'] = self['component_name'].astype(str)
         self['component_type'] = self['component_type'].astype(str)
 
     def _fix_null_values(self):
+        """Normalize missing values and enforce string ids."""
 
         for column in self:
             self[column]=self[column].fillna(pd.NA)
+        self['component_id'] = self['component_id'].astype('string')
 
 
 class Chains_DataFrame(pd.DataFrame):
+    """Pandas DataFrame wrapper storing chain-level fields."""
 
     def __init__(self, n_chains=0):
+        """Initialize a chains table with default types."""
 
         columns = ['chain_id', 'chain_name', 'chain_type']
 
         super().__init__(index=range(n_chains), columns=columns)
 
-        self['chain_id'] = self['chain_id'].astype('Int64')
+        self['chain_id'] = self['chain_id'].astype('string')
         self['chain_name'] = self['chain_name'].astype(str)
         self['chain_type'] = self['chain_type'].astype(str)
 
     def _fix_null_values(self):
+        """Normalize missing values and enforce string ids."""
 
         for column in self:
             self[column]=self[column].fillna(pd.NA)
+        self['chain_id'] = self['chain_id'].astype('string')
 
 
 class Bonds_DataFrame(pd.DataFrame):
+    """Pandas DataFrame wrapper storing bond connectivity."""
 
     def __init__(self, n_bonds=0):
+        """Initialize a bonds table with default types."""
 
         columns = ['atom1_index', 'atom2_index']
         columns += ['order', 'type'] # extra columns -not necessary-
@@ -135,6 +161,7 @@ class Bonds_DataFrame(pd.DataFrame):
         self['type'] = self['type'].astype(str)
 
     def _reset(self, n_bonds=0):
+        """Rebuild the bonds table to a clean state with the given size."""
 
         columns = ['atom1_index', 'atom2_index']
         columns += ['order', 'type'] # extra columns -not necessary-
@@ -147,11 +174,13 @@ class Bonds_DataFrame(pd.DataFrame):
         self['type'] = self['type'].astype(str)
 
     def _fix_null_values(self):
+        """Normalize missing values in optional bond columns."""
 
         for column in self:
             self[column]=self[column].fillna(pd.NA)
 
     def _sort_bonds(self):
+        """Sort bonds so `atom1_index` is always <= `atom2_index`."""
 
         mask = self['atom1_index'] > self['atom2_index']
         self.loc[mask, ['atom1_index', 'atom2_index']] = self.loc[mask, ['atom2_index', 'atom1_index']].values
@@ -159,6 +188,7 @@ class Bonds_DataFrame(pd.DataFrame):
         self.reset_index(drop=True, inplace=True)
 
     def _remove_empty_columns(self):
+        """Drop optional columns when they only contain NaN placeholders."""
 
         if (self['order']=='nan').all():
             del self['order']
@@ -167,10 +197,12 @@ class Bonds_DataFrame(pd.DataFrame):
             del self['type']
 
 class Topology():
+    """Native topology container including atoms, groups, chains, and bonds."""
 
     @digest()
     def __init__(self, n_atoms=0, n_groups=0, n_components=0, n_molecules=0, n_entities=0, n_chains=0, n_bonds=0,
                 skip_digestion=False):
+        """Initialize empty topology tables with the requested sizes."""
 
         self.reset_atoms(n_atoms=n_atoms)
         self.reset_groups(n_groups=n_groups)
@@ -179,37 +211,56 @@ class Topology():
         self.reset_entities(n_entities=n_entities)
         self.reset_chains(n_chains=n_chains)
         self.reset_bonds(n_bonds=n_bonds)
+        self._coerce_id_columns_to_string()
 
     def reset_atoms(self, n_atoms=0):
+        """Reset atoms table to a new size."""
 
         self.atoms = Atoms_DataFrame(n_atoms=n_atoms)
 
     def reset_groups(self, n_groups=0):
+        """Reset groups table to a new size."""
 
         self.groups = Groups_DataFrame(n_groups=n_groups)
 
     def reset_components(self, n_components=0):
+        """Reset components table to a new size."""
 
         self.components = Components_DataFrame(n_components=n_components)
 
     def reset_molecules(self, n_molecules=0):
+        """Reset molecules table to a new size."""
 
         self.molecules = Molecules_DataFrame(n_molecules=n_molecules)
 
     def reset_entities(self, n_entities=0):
+        """Reset entities table to a new size."""
 
         self.entities = Entities_DataFrame(n_entities=n_entities)
 
     def reset_chains(self, n_chains=0):
+        """Reset chains table to a new size."""
 
         self.chains = Chains_DataFrame(n_chains=n_chains)
 
     def reset_bonds(self, n_bonds=0):
+        """Reset bonds table to a new size."""
 
         self.bonds = Bonds_DataFrame(n_bonds=n_bonds)
 
+    def _coerce_id_columns_to_string(self):
+        """Ensure all *_id columns use pandas string dtype."""
+
+        self.atoms['atom_id'] = self.atoms['atom_id'].astype('string')
+        self.groups['group_id'] = self.groups['group_id'].astype('string')
+        self.components['component_id'] = self.components['component_id'].astype('string')
+        self.molecules['molecule_id'] = self.molecules['molecule_id'].astype('string')
+        self.entities['entity_id'] = self.entities['entity_id'].astype('string')
+        self.chains['chain_id'] = self.chains['chain_id'].astype('string')
+
     @digest()
     def extract(self, atom_indices='all', copy_if_all=False, skip_digestion=False):
+        """Return a subset topology with the selected atoms and associated hierarchy."""
 
         if is_all(atom_indices):
 
@@ -266,8 +317,8 @@ class Topology():
 
             if self.bonds.shape[0]:
 
-                mask_atom1 = np.in1d(self.bonds['atom1_index'], atom_indices)
-                mask_atom2 = np.in1d(self.bonds['atom2_index'], atom_indices)
+                mask_atom1 = np.isin(self.bonds['atom1_index'], atom_indices)
+                mask_atom2 = np.isin(self.bonds['atom2_index'], atom_indices)
                 mask = mask_atom1*mask_atom2
                 tmp_item.bonds = self.bonds[mask].copy()
                 tmp_item.bonds.reset_index(drop=True, inplace=True)
@@ -288,11 +339,12 @@ class Topology():
                                        redefine_names=False, redefine_types=True)
             tmp_item.rebuild_entities(redefine_indices=False, redefine_ids=False,
                                       redefine_names=False, redefine_types=True)
-
+            tmp_item._coerce_id_columns_to_string()
             return tmp_item
 
     @digest()
     def remove(self, atom_indices=None, copy_if_None=False, skip_digestion=False):
+        """Remove atoms by index and return the resulting topology."""
 
         if atom_indices is None:
 
@@ -312,6 +364,7 @@ class Topology():
 
     @digest(form='molsysmt.Topology')
     def add(self, item, atom_indices='all', keep_ids=True, skip_digestion=False):
+        """Append another topology, offsetting indices as needed."""
 
         if is_all(atom_indices):
             tmp_item = item.copy()
@@ -349,9 +402,11 @@ class Topology():
         self.rebuild_molecules(redefine_indices=False, redefine_ids=(not keep_ids), redefine_types=False,
                                redefine_names=True)
         self.rebuild_entities(redefine_indices=True, redefine_ids=True, redefine_names=True, redefine_types=True)
+        self._coerce_id_columns_to_string()
         del tmp_item
 
     def copy(self):
+        """Return a deep copy of the topology tables."""
 
         tmp_item = Topology()
 
@@ -366,6 +421,7 @@ class Topology():
         return tmp_item
 
     def add_bonds(self, bonded_atom_pairs, skip_digestion=False):
+        """Append new bonds given atom index pairs."""
 
         bonded_atom_pairs = np.array(bonded_atom_pairs)        
         n_bonds = bonded_atom_pairs.shape[0]
@@ -390,6 +446,7 @@ class Topology():
         del(df_concatenado, aux_bonds_dataframe)
 
     def remove_bonds(self, bond_indices='all', skip_digestion=False):
+        """Drop bonds by index."""
 
         if is_all(bond_indices):
 
@@ -404,6 +461,7 @@ class Topology():
 
 
     def add_missing_bonds(self, selection='all', syntax='MolSysMT', skip_digestion=False):
+        """Infer and add missing bonds using geometric templates."""
 
         from molsysmt.build import get_missing_bonds as _get_missing_bonds
 
@@ -416,10 +474,11 @@ class Topology():
         self.rebuild_components(redefine_indices=True, redefine_ids=False, redefine_names=False, redefine_types=False)
 
     def rebuild_atoms(self, redefine_ids=True, redefine_types=True):
+        """Regenerate atom ids/types from names and current counts."""
 
         if redefine_ids:
 
-            self.atoms['atom_id']=np.arange(self.atoms.shape[0], dtype=int)
+            self.atoms['atom_id']=np.arange(self.atoms.shape[0], dtype=int).astype(str)
 
         if redefine_types:
 
@@ -440,12 +499,14 @@ class Topology():
             self.atoms.atom_type = np.array(atom_types, dtype=object)
 
             del aux_dict, atom_types
+        self._coerce_id_columns_to_string()
 
     def rebuild_groups(self, redefine_ids=True, redefine_types=True):
+        """Regenerate group ids/types from names and current counts."""
 
         if redefine_ids:
 
-            self.groups['group_id']=np.arange(self.groups.shape[0], dtype=int)
+            self.groups['group_id']=np.arange(self.groups.shape[0], dtype=int).astype(str)
 
         if redefine_types:
 
@@ -470,8 +531,10 @@ class Topology():
             self.groups.group_type = np.array(group_types, dtype=object)
 
             del aux_dict, group_types
+        self._coerce_id_columns_to_string()
 
     def rebuild_components(self, redefine_indices=True, redefine_ids=True, redefine_names=True, redefine_types=True):
+        """Rebuild component mapping and metadata."""
 
         from molsysmt.element.component import get_component_index, get_component_id, get_component_name, get_component_type
 
@@ -490,7 +553,7 @@ class Topology():
             component_id_of_components = get_component_id(self, element='component', selection='all',
                                                           redefine_indices=False, redefine_ids=True,
                                                           skip_digestion=True)
-            self.components['component_id'] = np.array(component_id_of_components, dtype=int)
+            self.components['component_id'] = np.array(component_id_of_components).astype(str)
 
             del component_id_of_components
 
@@ -510,9 +573,11 @@ class Topology():
                                                 skip_digestion=True)
             self.components["component_name"] = np.array(component_name, dtype=object)
             del component_name
+        self._coerce_id_columns_to_string()
 
     def rebuild_molecules(self, redefine_indices=True, redefine_ids=True, redefine_names=True, redefine_types=True,
                           molecules_as_components=True):
+        """Rebuild molecule mapping and metadata."""
 
         from molsysmt.element.molecule import get_molecule_index, get_molecule_id, get_molecule_name, get_molecule_type
 
@@ -533,7 +598,7 @@ class Topology():
             molecule_id_of_molecules = get_molecule_id(self, element='molecule', selection='all',
                                                        redefine_indices=False, redefine_ids=True,
                                                        skip_digestion=True)
-            self.molecules["molecule_id"]=np.array(molecule_id_of_molecules, dtype=int)
+            self.molecules["molecule_id"]=np.array(molecule_id_of_molecules).astype(str)
 
             del molecule_id_of_molecules
 
@@ -554,8 +619,10 @@ class Topology():
             self.molecules["molecule_type"]=np.array(molecule_type_of_molecules, dtype=object)
 
             del molecule_type_of_molecules
+        self._coerce_id_columns_to_string()
 
     def rebuild_chains(self, redefine_indices=True, redefine_ids=True, redefine_types=True, redefine_names=True):
+        """Rebuild chain mapping and metadata."""
 
         from molsysmt.element.chain import get_chain_index, get_chain_id, get_chain_name, get_chain_type
 
@@ -576,7 +643,7 @@ class Topology():
                                                 redefine_indices=False, redefine_ids=True,
                                                 skip_digestion=True)
 
-            self.chains["chain_id"] = np.array(chain_ids_from_chain, dtype=int)
+            self.chains["chain_id"] = np.array(chain_ids_from_chain).astype(str)
 
             del chain_ids_from_chain
 
@@ -600,8 +667,11 @@ class Topology():
 
             del chain_names_from_chain
 
+        self._coerce_id_columns_to_string()
+
 
     def rebuild_entities(self, redefine_indices=True, redefine_ids=True, redefine_names=True, redefine_types=True):
+        """Rebuild entity mapping and metadata."""
 
         from molsysmt.element.entity import get_entity_index, get_entity_id, get_entity_name, get_entity_type
 
@@ -622,7 +692,7 @@ class Topology():
                                                   redefine_indices=False, redefine_ids=True,
                                                   skip_digestion=True)
 
-            self.entities["entity_id"] = np.array(entity_ids_from_entity, dtype=int)
+            self.entities["entity_id"] = np.array(entity_ids_from_entity).astype(str)
 
             del entity_ids_from_entity
 
@@ -645,12 +715,14 @@ class Topology():
             self.entities["entity_type"] = np.array(entity_types_from_entity, dtype=object)
 
             del entity_types_from_entity
+        self._coerce_id_columns_to_string()
 
     def _join_molecules(self, indices=None):
-
+        """Merge multiple molecules into a single entry."""
         raise NotImplementedError
 
     def _fix_null_values(self):
+        """Normalize null values across all tables."""
 
         self.atoms._fix_null_values()
         self.groups._fix_null_values()
@@ -659,13 +731,16 @@ class Topology():
         self.entities._fix_null_values()
         self.chains._fix_null_values()
         self.bonds._fix_null_values()
+        self._coerce_id_columns_to_string()
 
     def _sort_bonds(self):
+        """Sort bond table in place."""
 
         self.bonds._sort_bonds()
 
     @digest()
     def compare(self, item, rule='equal', output_type='boolean', skip_digestion=False, **kwargs):
+        """Compare topology content with another topology."""
 
         if rule == 'equal':
 
@@ -819,17 +894,13 @@ class Topology():
         return output
 
     def get_atom_indices(self, **kwargs):
-        """
-        keywords: atom_id, atom_name, atom_type, group_index, group_id, group_name, group_type, component_index,
-        component_id, component_name, component_type, molecule_index, molecule_id, molecule_name, molecule_type,
-        entity_index, entity_id, entity_name, entity_type, chain_index, chain_id, chain_name, chain_type
-
-        keyword values can be a single value or a list of values where values are str or int
-        """
+        """Select atom indices matching the provided hierarchical filters."""
 
         for aux in kwargs:
             if isinstance(kwargs[aux], (str, int)):
                 kwargs[aux] = [kwargs[aux]]
+            if aux.endswith('_id') and kwargs[aux] is not None:
+                kwargs[aux] = [str(ii) for ii in kwargs[aux]]
 
         atom_columns = []
         group_columns = []
@@ -939,4 +1010,3 @@ class Topology():
             mask &= aux_df[col].isin(valores)
 
         return aux_df.index[mask].tolist()
-

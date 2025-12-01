@@ -1,4 +1,5 @@
 from molsysmt._private.digestion import digest
+import numpy as np
 
 @digest()
 def get_entity_id(molecular_system, element='entity', selection='all', redefine_indices=False,
@@ -17,6 +18,13 @@ def get_entity_id(molecular_system, element='entity', selection='all', redefine_
         output = get(molecular_system, element=element, selection=selection, syntax=syntax,
                      entity_id=True)
 
+    if output is not None:
+        arr = np.asarray(output)
+        if arr.shape == ():
+            output = str(arr.astype(str))
+        else:
+            output = arr.astype(str)
+        output = output.tolist()
+
     return output
 
-# self.entities['entity_id']=np.arange(self.entities.shape[0], dtype=int)
