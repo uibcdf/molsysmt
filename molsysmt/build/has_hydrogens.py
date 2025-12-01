@@ -4,6 +4,7 @@ from molsysmt._private.variables import is_all
 
 @digest()
 def has_hydrogens(molecular_system, selection='all', syntax='MolSysMT', skip_digestion=False):
+    """Check whether a molecular system (or selection) contains hydrogen atoms."""
 
     from molsysmt.basic import get, select
 

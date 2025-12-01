@@ -5,6 +5,7 @@ from pathlib import PosixPath
 
 
 class GROAtomicCoordinateEntry():
+    """In-memory representation of a GRO coordinate entry."""
 
     def __init__(self):
 
@@ -22,6 +23,7 @@ class GROAtomicCoordinateEntry():
 
 
 def parse(file):
+    """Parse a GRO file-like object into a GROAtomicCoordinateEntry."""
 
     gro = GROAtomicCoordinateEntry()
 
@@ -95,8 +97,10 @@ def parse(file):
     return gro
 
 class GROFileHandler():
+    """Handle reading and writing GRO coordinate files."""
 
     def __init__(self, file, io_mode='r', closed=False, skip_digestion=False):
+        """Open a GRO file path or buffer in the requested mode."""
 
 
         self.file = None
@@ -137,14 +141,16 @@ class GROFileHandler():
             self.file.close()
 
     def close(self):
+        """Close the underlying file."""
 
         self.file.close()
 
     def load(self):
+        """Load and parse the current GRO entry."""
 
         self.entry = parse(self.file)
 
     def dump(self):
+        """Serialize the current entry back to GRO format."""
 
         pass
-

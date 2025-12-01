@@ -4,14 +4,13 @@ Unit and regression test for the copy module of the molsysmt package.
 
 # Import package, test suite, and other packages as needed
 import molsysmt as msm
-from molsysmt import systems
 from molsysmt import pyunitwizard as puw
 import numpy as np
 
 
-def test_get_buch_hbonds_1():
+def test_get_buch_hbonds_1(barnase_barstar_molsys):
 
-    molsys = msm.convert(msm.systems['Barnase-Barstar']['barnase_barstar.h5msm'])
+    molsys = barnase_barstar_molsys
 
     hbonds, distance = msm.hbonds.get_buch_hbonds(molsys, selection='molecule_name=="BARNASE"',
                                                   selection_2='molecule_name=="BARSTAR"')
@@ -42,9 +41,9 @@ def test_get_buch_hbonds_1():
     assert all_good
 
 
-def test_get_buch_hbonds_2():
+def test_get_buch_hbonds_2(hp35_molsys):
 
-    molsys = msm.convert(msm.systems['chicken villin HP35']['chicken_villin_HP35.h5msm'])
+    molsys = hp35_molsys
     hbonds, distance = msm.hbonds.get_buch_hbonds(molsys)
 
     good_hbonds = [[ 42,  43,  91],
@@ -96,4 +95,3 @@ def test_get_buch_hbonds_2():
             break
 
     assert all_good
-

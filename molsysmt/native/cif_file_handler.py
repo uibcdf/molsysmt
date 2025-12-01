@@ -1,7 +1,9 @@
 
 class CIFFileHandler():
+    """Minimal CIF reader for extracting dictionary-like blocks."""
 
     def __init__(self, filename, io_mode='r', closed=False):
+        """Open a CIF file for reading."""
 
         self.file = None
 
@@ -21,6 +23,7 @@ class CIFFileHandler():
             self.file.close()
 
     def parse(self):
+        """Parse the CIF content into a nested dictionary."""
 
         molecules = {}
         molecule = {}
@@ -44,11 +47,13 @@ class CIFFileHandler():
         return molecules
 
     def close(self):
+        """Close the file handle."""
 
         self.file.close()
 
 
 def _read_block(fff):
+    """Read a block of CIF lines until a comment or EOF."""
 
     block=[]
 
@@ -62,6 +67,7 @@ def _read_block(fff):
 
 
 def _analysis_block(block):
+    """Identify the block type and convert it to a dictionary."""
 
     block_type = None
     block_dict = {}
@@ -111,4 +117,3 @@ def _analysis_block(block):
                 value += ii.strip()
     
     return block_type, block_dict
-

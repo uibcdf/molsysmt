@@ -7,33 +7,7 @@ from molsysmt._private.exceptions import IteratorError
 from molsysmt._private.digestion import digest
 
 class Structures:
-    """ Class to store the trajectory data of a molecular system
-
-
-        Attributes
-        ----------
-        box : pint.Quantity of shape (n_structures, 3, 3)
-            The box of the molecular system in nanometers.
-
-        coordinates : pint.Quantity of shape (n_structures, n_atoms, 3)
-            The coordinates of the trajectory for each frame.
-
-        velocities : pint.Quantity of shape (n_structures, n_atoms, 3)
-            The velocities of the trajectory for each frame.
-
-        n_atoms : int
-            Number of atoms in the trajectory.
-
-        n_structures : int
-            Number of structures or frames in the trajectory.
-
-        time :  pint.Quantity of shape (n_structures, )
-            The times of the trajectory in picoseconds.
-
-        id :
-
-
-    """
+    """Storing per-structure data (coordinates, box, time, energies) for a molecular system."""
 
     @digest()
     def __init__(self, constant_time_step=False, time_step=None, constant_id_step=False,
@@ -41,6 +15,7 @@ class Structures:
             structure_id=None, time=None, coordinates=None, velocities=None, box=None,
             b_factor=None, alternate_location=None, bioassembly=None,
             temperature=None, potential_energy=None, kinetic_energy=None, skip_digestion=False):
+        """Initialize an empty Structures container."""
 
         self.n_atoms = 0
         self.n_structures = 0
@@ -80,6 +55,7 @@ class Structures:
 
     @digest()
     def _append_structure_id(self, structure_id, structure_indices='all', skip_digestion=False):
+        """Append structure identifiers with optional sub-selection."""
 
         if self.structure_id is None:
             if is_all(structure_indices):
@@ -95,6 +71,7 @@ class Structures:
 
     @digest()
     def _append_time(self, time, structure_indices='all', skip_digestion=False):
+        """Append time values, standardizing units."""
 
         time = puw.standardize(time)
 
@@ -112,6 +89,7 @@ class Structures:
 
     @digest()
     def _append_coordinates(self, coordinates, atom_indices='all', structure_indices='all', skip_digestion=False):
+        """Append coordinates, optionally slicing atoms/structures."""
 
         coordinates = puw.standardize(coordinates)
 
@@ -146,6 +124,7 @@ class Structures:
 
     @digest()
     def _append_velocities(self, velocities, atom_indices='all', structure_indices='all', skip_digestion=False):
+        """Append velocities, optionally slicing atoms/structures."""
 
         velocities = puw.standardize(velocities)
 
@@ -180,6 +159,7 @@ class Structures:
 
     @digest()
     def _append_box(self, box, structure_indices='all', skip_digestion=False):
+        """Append box matrices, standardizing units."""
 
         box = puw.standardize(box)
 
@@ -197,6 +177,7 @@ class Structures:
 
     @digest()
     def _append_temperature(self, temperature, structure_indices='all', skip_digestion=False):
+        """Append temperature values with optional slicing."""
 
         temperature = puw.standardize(temperature)
 
@@ -214,6 +195,7 @@ class Structures:
 
     @digest()
     def _append_potential_energy(self, potential_energy, structure_indices='all', skip_digestion=False):
+        """Append potential energy values."""
 
         potential_energy = puw.standardize(potential_energy)
 
@@ -230,6 +212,7 @@ class Structures:
 
     @digest()
     def _append_kinetic_energy(self, kinetic_energy, structure_indices='all', skip_digestion=False):
+        """Append kinetic energy values."""
 
         kinetic_energy = puw.standardize(kinetic_energy)
 
@@ -246,6 +229,7 @@ class Structures:
 
     @digest()
     def _append_b_factor(self, b_factor, structure_indices='all', skip_digestion=False):
+        """Append B-factors."""
 
         b_factor = puw.standardize(b_factor)
 
@@ -263,6 +247,7 @@ class Structures:
 
     @digest()
     def _append_alternate_location(self, alternate_location, structure_indices='all', skip_digestion=False):
+        """Append alternate location identifiers."""
 
         if self.alternate_location is None:
             if is_all(structure_indices):
@@ -280,18 +265,7 @@ class Structures:
                box=None, temperature=None, potential_energy=None, kinetic_energy=None,
                b_factor=None, alternate_location=None,
                atom_indices='all', structure_indices='all', skip_digestion=False):
-        """ Append structures or frames to this object.
-
-             box : pint.Quantity of shape (n_structures, 3, 3)
-                The box of the structures
-
-             coordinates : pint.Quantity of shape (n_structures, n_atoms, 3)
-                The coordinates of the trajectory for each frame of it in nanometers.
-
-             time :  pint.Quantity of shape (n_structures, )
-                The times of the trajectory in picoseconds
-
-        """
+        """Append one or more structures and associated metadata to this object."""
 
         n_structures = None
         n_atoms = None
@@ -476,6 +450,7 @@ class Structures:
 
     @digest(form='molsysmt.Structures')
     def append_structures(self, item, atom_indices='all', structure_indices='all', skip_digestion=False):
+        """Append structures from another Structures object."""
 
         if is_all(atom_indices) and is_all(structure_indices):
 
@@ -497,6 +472,7 @@ class Structures:
 
     @digest(form='molsysmt.Structures')
     def add(self, item, atom_indices='all', structure_indices='all', skip_digestion=False):
+        """Concatenate atomic data from another Structures object along the atom axis."""
 
         if is_all(structure_indices):
             if self.n_structures!=item.n_structures:
@@ -753,4 +729,3 @@ class Structures:
     def copy(self):
         """ Returns a copy of the structures."""
         return deepcopy(self)
-

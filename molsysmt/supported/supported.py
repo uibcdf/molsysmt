@@ -35,6 +35,7 @@ for out_form in convert_to.keys():
 ## Types
 
 def forms(form_type=None):
+    """Return a styled DataFrame listing supported forms filtered by type."""
 
     tmp_output = []
 
@@ -56,6 +57,7 @@ def forms(form_type=None):
 
 def conversions(from_form=None, to_form=None, from_form_type=None, to_form_type=None,
                 from_viewer=None, to_viewer=None, as_rows='from'):
+    """Return a styled table showing available conversions between forms."""
 
     if from_viewer is not None or to_viewer is not None:
 
@@ -124,6 +126,6 @@ def conversions(from_form=None, to_form=None, from_form_type=None, to_form_type=
     return tmp_output.style.map(color).set_properties(**{'text-align': 'center'})
 
 def syntaxes():
+    """Placeholder for supported syntaxes listing."""
 
     pass
-

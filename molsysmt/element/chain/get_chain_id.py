@@ -1,4 +1,5 @@
 from molsysmt._private.digestion import digest
+import numpy as np
 
 @digest()
 def get_chain_id(molecular_system, element='atom', selection='all',
@@ -26,7 +27,13 @@ def get_chain_id(molecular_system, element='atom', selection='all',
 
         from molsysmt import get
         output = get(molecular_system, element=element, selection=selection, syntax=syntax,
-                     chain_index=True, skip_digestion=True)
+                     chain_id=True, skip_digestion=True)
+
+    if output is not None:
+        arr = np.asarray(output)
+        if arr.shape == ():
+            output = str(arr.astype(str))
+        else:
+            output = arr.astype(str)
 
     return output
-

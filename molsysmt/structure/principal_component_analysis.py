@@ -9,6 +9,38 @@ import gc
 @digest()
 def principal_component_analysis(molecular_system, selection='all', structure_indices='all',
         weights=None, syntax='MolSysMT', engine='MolSysMT', skip_digestion=False):
+    """
+    Performing principal component analysis (PCA) on selected atoms.
+
+    Parameters
+    ----------
+    molecular_system : molecular system
+        Input system.
+    selection : str, list, tuple or numpy.ndarray, default 'all'
+        Atoms to include in the PCA.
+    structure_indices : 'all' or array-like, default 'all'
+        Structures/frames to analyze.
+    weights : array-like, optional
+        Weights per atom.
+    syntax : str, default 'MolSysMT'
+        Selection syntax when using strings.
+    engine : {'MolSysMT'}, default 'MolSysMT'
+        Backend.
+    skip_digestion : bool, default False
+        Whether to skip argument digestion.
+
+    Returns
+    -------
+    tuple
+        `(principal_components, variances)` as returned by the backend.
+
+    Raises
+    ------
+    NotImplementedMethodError
+        If the engine is unsupported.
+
+    .. versionadded:: 1.0.0
+    """
 
     from molsysmt.basic import select, get
 

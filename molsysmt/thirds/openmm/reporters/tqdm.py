@@ -4,6 +4,7 @@ from tqdm.auto import tqdm
 import time
 
 class TQDMReporter(object):
+    """OpenMM reporter that displays progress via tqdm."""
 
     def __init__(self, reportInterval, total_n_steps, potential_energy=True, temperature=True,
             volume=False):
@@ -171,4 +172,3 @@ class TQDMReporter(object):
         print('')
 
         pass
-

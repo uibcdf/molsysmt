@@ -8,12 +8,12 @@ def _viewer_json():
     data = {
         "version": "0.1",
         "atoms": {
-            "atom_id": [0, 1],
+            "atom_id": ["0", "1"],
             "atom_name": ["A", "B"],
-            "group_id": [10, 10],
+            "group_id": ["10", "10"],
             "group_name": ["GRP", "GRP"],
-            "chain_id": [1, 1],
-            "entity_id": [100, 100],
+            "chain_id": ["1", "1"],
+            "entity_id": ["100", "100"],
             "element_symbol": ["C", "O"],
             "formal_charge": [0, 0],
         },

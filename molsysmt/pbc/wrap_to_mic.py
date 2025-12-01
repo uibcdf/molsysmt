@@ -12,7 +12,46 @@ def wrap_to_mic(molecular_system, selection='all', structure_indices='all',
                 keep_covalent_bonds=False, syntax='MolSysMT', engine='MolSysMT', in_place=False,
                 skip_digestion=False):
     """
-    To be written soon...
+    Wrap coordinates into the minimum image convention (MIC) box.
+
+    Parameters
+    ----------
+    molecular_system : molecular system
+        Input system.
+    selection : str, list, tuple or numpy.ndarray, default 'all'
+        Atoms to wrap.
+    structure_indices : 'all' or array-like, default 'all'
+        Structures/frames to process.
+    mic_origin : quantity, default '[0,0,0] nanometers'
+        Origin of the MIC box.
+    center_of_selection : str or array-like, optional
+        Selection to center before wrapping (uses `center_coordinates`).
+    center_coordinates : quantity, default '[0,0,0] nanometers'
+        Target coordinates for centering the `center_of_selection`.
+    weights : array-like, optional
+        Weights for centering when `center_of_selection` is given.
+    keep_covalent_bonds : bool, default False
+        Placeholder (not implemented) to preserve covalent connectivity across PBC.
+    syntax : str, default 'MolSysMT'
+        Selection syntax for string selections.
+    engine : {'MolSysMT'}, default 'MolSysMT'
+        Backend.
+    in_place : bool, default False
+        If True, modify the input system; otherwise return a wrapped copy.
+    skip_digestion : bool, default False
+        Whether to skip argument digestion.
+
+    Returns
+    -------
+    molecular system or None
+        Wrapped system when `in_place=False`, otherwise `None`.
+
+    Raises
+    ------
+    NotImplementedMethodError
+        If an unsupported engine is requested.
+
+    .. versionadded:: 1.0.0
     """
 
     if engine=='MolSysMT':
@@ -78,4 +117,3 @@ def wrap_to_mic(molecular_system, selection='all', structure_indices='all',
         gc.collect()
 
         return tmp_molecular_system
-

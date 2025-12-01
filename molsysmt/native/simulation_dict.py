@@ -6,9 +6,9 @@ simulation_parameters = {
 
 
 def is_simulation_dict(dictionary):
+    """Return True if the dictionary only contains simulation parameter keys."""
 
     keys=set(dictionary.keys())
     output = (keys <= simulation_parameters)
 
     return output
-

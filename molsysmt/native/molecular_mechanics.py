@@ -3,6 +3,7 @@ from molsysmt import pyunitwizard as puw
 from copy import deepcopy
 
 class MolecularMechanics():
+    """Container for molecular mechanics force-field settings."""
 
     def __init__(self, forcefield=None, water_model=None, implicit_solvent=None,
                  non_bonded_method=None, cutoff_distance=None, switch_distance=None,
@@ -12,6 +13,7 @@ class MolecularMechanics():
                  salt_concentration=None, kappa=None,
                  solute_dielectric=None, solvent_dielectric=None,
                  formal_charge=None, partial_charge=None):
+        """Initialize molecular mechanics parameters."""
 
         # default values:
         # non_bonded_method='no_cutoff'
@@ -53,6 +55,7 @@ class MolecularMechanics():
         self.kappa = kappa
 
     def to_dict(self):
+        """Return a dictionary representation of the parameters."""
 
         tmp_dict = {
                 'formal_charge': self.formal_charge,
@@ -76,6 +79,7 @@ class MolecularMechanics():
        }
 
     def copy(self):
+        """Create a deep copy of the MolecularMechanics object."""
 
         tmp_molecular_mechanics = MolecularMechanics()
 
@@ -107,6 +111,7 @@ class MolecularMechanics():
         return tmp_molecular_mechanics
 
     def set_parameters(self, return_non_processed=False, **kwargs):
+        """Standardize and set available parameters from keyword arguments."""
 
         for argument, value in kwargs.items():
             if argument.lower() in self.__dict__.keys():
@@ -119,6 +124,7 @@ class MolecularMechanics():
             pass
 
     def get_leap_parameters(self):
+        """Get parameter names for LEaP-compatible force fields."""
 
         from molsysmt.molecular_mechanics.forcefields import get_forcefield_names
 
@@ -131,12 +137,14 @@ class MolecularMechanics():
         return parameters
 
     def get_openmm_forcefield_names(self):
+        """Resolve OpenMM force field names for the configured options."""
 
         from molsysmt.molecular_mechanics.forcefields import get_forcefield_names
 
         return  get_forcefield_names(self.forcefield, 'OpenMM', water_model=self.water_model, implicit_solvent=self.implicit_solvent)
 
     def to_openmm_ForceField(self):
+        """Instantiate an OpenMM ForceField object."""
 
         from openmm.app import ForceField
 
@@ -146,6 +154,7 @@ class MolecularMechanics():
         return forcefield
 
     def get_openmm_System_parameters(self):
+        """Build the keyword dictionary for creating an OpenMM System."""
 
         from openmm import app
 
@@ -219,4 +228,3 @@ class MolecularMechanics():
             parameters['implicitSolvent']=None
 
         return parameters
-

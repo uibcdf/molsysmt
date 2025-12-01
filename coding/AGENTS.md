@@ -36,7 +36,10 @@ the root `AGENTS.md` for coding-related work.
 
 - Use `pytest` for tests; place them under `tests/` mirroring the package structure.
 - When behavior changes, add or adjust tests accordingly, keeping runtime modest and relying on bundled systems from `molsysmt.systems` or small fixtures.
+- Reuse shared fixtures defined in `tests/conftest.py` instead of creating one-off molecular systems inside tests; add new reusable systems there unless a test intentionally exercises online conversion or detection flows.
 - Prefer incremental, focused changes; avoid large refactors unless explicitly requested and well-justified.
+- In native MolSysMT objects (`molsysmt.Topology`, `molsysmt.MolSys`), element IDs (`atom_id`, `group_id`, `component_id`, `molecule_id`, `chain_id`, `entity_id`) must be stored as strings. Normalize any incoming numeric IDs in converters and rebuilders and keep tests aligned with this invariant.
+- Getter-style functions (including `molsysmt.basic.get` and element-specific getters) must return Python lists for collections (lists of lists when nested), not NumPy arrays, to keep outputs consistent across forms and examples.
 
 ## Safety and dependencies
 

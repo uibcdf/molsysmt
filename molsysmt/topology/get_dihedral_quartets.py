@@ -5,7 +5,33 @@ import numpy as np
 def get_dihedral_quartets(molecular_system, with_blocks=False, selection='all',
                                syntax='MolSysMT', **kwargs):
     """
-    To be written soon...
+    Finding atom quartets that define standard dihedral angles.
+
+    Parameters
+    ----------
+    molecular_system : molecular system
+        Input system.
+    with_blocks : bool, default False
+        If True, also return covalent blocks after severing the central bond.
+    selection : str, list, tuple or numpy.ndarray, default 'all'
+        Atom selection to restrict the search.
+    syntax : str, default 'MolSysMT'
+        Selection syntax for string selections.
+    **kwargs
+        Flags indicating which dihedrals to compute (e.g., `phi=True`, `psi=True`, `chi1=True`, ...).
+
+    Returns
+    -------
+    list
+        Quartets of atom indices for the requested dihedrals (list of lists).
+    list, optional
+        If `with_blocks=True`, covalent blocks per quartet after removing the central bond.
+
+    Notes
+    -----
+    - Uses `get_covalent_chains` to assemble quartets for each requested dihedral type.
+
+    .. versionadded:: 1.0.0
     """
 
     # phi, psi, omega, chi1, chi2, chi3, chi4, chi5
@@ -80,4 +106,3 @@ def get_dihedral_quartets(molecular_system, with_blocks=False, selection='all',
         return all_quartets, all_blocks
     else:
         return all_quartets
-

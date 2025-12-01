@@ -7,6 +7,7 @@ def add_allowed_plane_region(molecular_system=None, selection='all',
                              force_constant='5000 kilojoules_per_mole/nm**2', point='[0,0,0] nm',
                              normal_vector=[0,0,1], width='1.0 nm', pbc=False, return_force=False,
                              syntax='MolSysMT', skip_digestion=False):
+    """Add a flat-bottom restraint confining atoms near a reference plane."""
 
     from molsysmt import select, get, get_form
     from openmm import CustomExternalForce
@@ -104,4 +105,3 @@ def add_allowed_plane_region(molecular_system=None, selection='all',
             return index_force
     else:
         return force
-

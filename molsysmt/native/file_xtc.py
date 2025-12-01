@@ -5,8 +5,10 @@ import numpy as np
 # Ver: https://github.com/gromacs/gromacs
 
 class XTCFile():
+    """Placeholder handler for XTC trajectories."""
 
     def __init__(self, filename=None, mode='read'):
+        """Prepare metadata for an XTC file handle (not yet implemented)."""
 
         self.opened = False
         self.filename = None
@@ -21,5 +23,4 @@ class XTCFile():
         self.pos_header = None
         self.pos_frame = None
         self.box_initial_frame = None
-
 

@@ -1,6 +1,8 @@
 class TrajectoryFile():
+    """Unified interface to read various trajectory file formats."""
 
     def __init__(self, filepath=None, mode='read'):
+        """Open a trajectory file lazily for reading."""
 
         self.opened = False
         self.path = None
@@ -40,6 +42,7 @@ class TrajectoryFile():
             self.opened = True
 
     def read_frames(self, atom_indices='all', structure_indices='all'):
+        """Read selected frames and return IDs, time, coordinates, and box."""
 
         from molsysmt import get
         from molsysmt.basic import get_form
@@ -49,7 +52,7 @@ class TrajectoryFile():
         return structure_id, time, coordinates, box
 
     def copy(self):
+        """Return a shallow copy of the trajectory handle."""
 
         tmp_item = TrajectoryFile()
         return tmp_item
-

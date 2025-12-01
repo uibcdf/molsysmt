@@ -290,8 +290,6 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
 
         index_att = {jj:ii for ii,jj in enumerate(item.getObj('pdbx_entity_nonpoly').getAttributeList())}
 
-        print(index_att)
-
         for record in item.getObj('pdbx_entity_nonpoly').data:
             group_name = record[index_att['comp_id']]
             entity_id = record[index_att['entity_id']]
@@ -707,4 +705,3 @@ def _compose_operation(trans1, rot1, trans2, rot2) :
     output_rot = composed[:3,:3]
 
     return output_trans, output_rot
-

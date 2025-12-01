@@ -11,11 +11,11 @@ def test_info_1():
     molsys = msm.convert(systems['TcTIM']['1tcd.h5msm'], to_form='molsysmt.MolSys')
     df = msm.info(molsys, element='atom', selection=[9, 10, 11, 12])
     true_dict = {'index': {0: 9, 1: 10, 2: 11, 3: 12},
-                 'id': {0: 10, 1: 11, 2: 12, 3: 13},
+                 'id': {0: '10', 1: '11', 2: '12', 3: '13'},
                  'name': {0: 'N', 1: 'CA', 2: 'C', 3: 'O'},
                  'type': {0: 'N', 1: 'C', 2: 'C', 3: 'O'},
                  'group index': {0: 1, 1: 1, 2: 1, 3: 1},
-                 'group id': {0: 5, 1: 5, 2: 5, 3: 5},
+                 'group id': {0: '5', 1: '5', 2: '5', 3: '5'},
                  'group name': {0: 'PRO', 1: 'PRO', 2: 'PRO', 3: 'PRO'},
                  'group type': {0: 'amino acid',
                   1: 'amino acid',
@@ -37,11 +37,11 @@ def test_info_2():
     molsys = msm.convert(systems['TcTIM']['1tcd.h5msm'], to_form='molsysmt.MolSys')
     df = msm.info(molsys, element='atom', selection='group_index==6')
     true_dict = {'index': {0: 45, 1: 46, 2: 47, 3: 48, 4: 49},
-                 'id': {0: 46, 1: 47, 2: 48, 3: 49, 4: 50},
+                 'id': {0: '46', 1: '47', 2: '48', 3: '49', 4: '50'},
                  'name': {0: 'N', 1: 'CA', 2: 'C', 3: 'O', 4: 'CB'},
                  'type': {0: 'N', 1: 'C', 2: 'C', 3: 'O', 4: 'C'},
                  'group index': {0: 6, 1: 6, 2: 6, 3: 6, 4: 6},
-                 'group id': {0: 10, 1: 10, 2: 10, 3: 10, 4: 10},
+                 'group id': {0: '10', 1: '10', 2: '10', 3: '10', 4: '10'},
                  'group name': {0: 'ALA', 1: 'ALA', 2: 'ALA', 3: 'ALA', 4: 'ALA'},
                  'group type': {0: 'amino acid',
                   1: 'amino acid',
@@ -69,7 +69,7 @@ def test_info_3():
     molsys = msm.convert(systems['TcTIM']['1tcd.h5msm'], to_form='molsysmt.MolSys')
     df = msm.info(molsys, element='group', selection=[20, 21, 22, 23])
     true_dict ={'index': {0: 20, 1: 21, 2: 22, 3: 23},
-                'id': {0: 24, 1: 25, 2: 26, 3: 27},
+                'id': {0: '24', 1: '25', 2: '26', 3: '27'},
                 'name': {0: 'PRO', 1: 'LEU', 2: 'ILE', 3: 'GLU'},
                 'type': {0: 'amino acid', 1: 'amino acid', 2: 'amino acid', 3: 'amino acid'},
                 'n atoms': {0: 7, 1: 8, 2: 8, 3: 9},
@@ -215,7 +215,7 @@ def test_info_12():
     df = msm.info(molsys, element='group', selection=[group_index_in_component_0,
                                                     group_index_in_component_1])
     true_dict = {'index': {0: 69, 1: 260},
-        'id': {0: 73, 1: 15},
+        'id': {0: '73', 1: '15'},
         'name': {0: 'GLY', 1: 'CYS'},
         'type': {0: 'amino acid', 1: 'amino acid'},
         'n atoms': {0: 4, 1: 6},
@@ -229,9 +229,9 @@ def test_info_12():
     true_df = DataFrame(true_dict)
     assert df.data.equals(true_df)
 
-def test_info_13():
-    df = msm.info('181L')
-    true_dict = {'form': {0: 'string:pdb_id'},
+def test_info_13(t4_h5msm_molsys):
+    df = msm.info(t4_h5msm_molsys)
+    true_dict = {'form': {0: 'molsysmt.MolSys'},
                  'n_atoms': {0: 1441},
                  'n_groups': {0: 302},
                  'n_components': {0: 141},

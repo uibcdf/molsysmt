@@ -65,19 +65,6 @@ def dump_topology_to_h5msm(item, file, atom_indices='all'):
         float_type=np.float64
 
 
-    # Chain id string or integer
-
-    chain_id_dtype = int_type
-
-    if item.chains.chain_id.dtype.kind not in ['i']:
-        compression = file['topology']['chains']['chain_id'].compression
-        compression_opts = file['topology']['chains']['chain_id'].compression_opts
-        del file['topology']['chains']['chain_id']
-        file['topology']['chains'].create_dataset('chain_id', (0,), dtype=h5py.string_dtype(),
-                                                  maxshape=(None,), compression=compression,
-                                                  compression_opts=compression_opts)
-        chain_id_dtype = str
-
     # Atoms
 
     atoms_df = item.atoms
@@ -95,9 +82,9 @@ def dump_topology_to_h5msm(item, file, atom_indices='all'):
     atoms['component_index'].resize((n_atoms,))
     atoms['chain_index'].resize((n_atoms,))
 
-    atoms['atom_id'][:] = atoms_df['atom_id'].to_numpy(dtype=int_type)
-    atoms['atom_name'][:] = atoms_df['atom_name'].to_numpy(dtype=str)
-    atoms['atom_type'][:] = atoms_df['atom_type'].to_numpy(dtype=str)
+    atoms['atom_id'][:] = atoms_df['atom_id'].to_numpy(dtype='S')
+    atoms['atom_name'][:] = atoms_df['atom_name'].to_numpy(dtype='S')
+    atoms['atom_type'][:] = atoms_df['atom_type'].to_numpy(dtype='S')
     atoms['group_index'][:] = atoms_df['group_index'].to_numpy(dtype=int_type)
     atoms['component_index'][:] = atoms_df['component_index'].to_numpy(dtype=int_type)
     atoms['chain_index'][:] = atoms_df['chain_index'].to_numpy(dtype=int_type)
@@ -119,9 +106,9 @@ def dump_topology_to_h5msm(item, file, atom_indices='all'):
         groups['group_type'].resize((n_groups,))
         groups['molecule_index'].resize((n_groups,))
 
-        groups['group_id'][:] = groups_df['group_id'].to_numpy(dtype=int_type)
-        groups['group_name'][:] = groups_df['group_name'].to_numpy(dtype=str)
-        groups['group_type'][:] = groups_df['group_type'].to_numpy(dtype=str)
+        groups['group_id'][:] = groups_df['group_id'].to_numpy(dtype='S')
+        groups['group_name'][:] = groups_df['group_name'].to_numpy(dtype='S')
+        groups['group_type'][:] = groups_df['group_type'].to_numpy(dtype='S')
         groups['molecule_index'][:] = groups_df['molecule_index'].to_numpy(dtype=int_type)
 
     # Molecules
@@ -141,9 +128,9 @@ def dump_topology_to_h5msm(item, file, atom_indices='all'):
         molecules['molecule_type'].resize((n_molecules,))
         molecules['entity_index'].resize((n_molecules,))
 
-        molecules['molecule_id'][:] = molecules_df['molecule_id'].to_numpy(dtype=int_type)
-        molecules['molecule_name'][:] = molecules_df['molecule_name'].to_numpy(dtype=str)
-        molecules['molecule_type'][:] = molecules_df['molecule_type'].to_numpy(dtype=str)
+        molecules['molecule_id'][:] = molecules_df['molecule_id'].to_numpy(dtype='S')
+        molecules['molecule_name'][:] = molecules_df['molecule_name'].to_numpy(dtype='S')
+        molecules['molecule_type'][:] = molecules_df['molecule_type'].to_numpy(dtype='S')
         molecules['entity_index'][:] = molecules_df['entity_index'].to_numpy(dtype=int_type)
 
     # Entities
@@ -162,9 +149,9 @@ def dump_topology_to_h5msm(item, file, atom_indices='all'):
         entities['entity_name'].resize((n_entities,))
         entities['entity_type'].resize((n_entities,))
 
-        entities['entity_id'][:] = entities_df['entity_id'].to_numpy(dtype=int_type)
-        entities['entity_name'][:] = entities_df['entity_name'].to_numpy(dtype=str)
-        entities['entity_type'][:] = entities_df['entity_type'].to_numpy(dtype=str)
+        entities['entity_id'][:] = entities_df['entity_id'].to_numpy(dtype='S')
+        entities['entity_name'][:] = entities_df['entity_name'].to_numpy(dtype='S')
+        entities['entity_type'][:] = entities_df['entity_type'].to_numpy(dtype='S')
 
     # Components
 
@@ -182,7 +169,7 @@ def dump_topology_to_h5msm(item, file, atom_indices='all'):
         components['component_name'].resize((n_components,))
         components['component_type'].resize((n_components,))
 
-        components['component_id'][:] = components_df['component_id'].to_numpy(dtype=int_type)
+        components['component_id'][:] = components_df['component_id'].to_numpy(dtype=str)
         components['component_name'][:] = components_df['component_name'].to_numpy(dtype=str)
         components['component_type'][:] = components_df['component_type'].to_numpy(dtype=str)
 
@@ -202,9 +189,9 @@ def dump_topology_to_h5msm(item, file, atom_indices='all'):
         chains['chain_name'].resize((n_chains,))
         chains['chain_type'].resize((n_chains,))
 
-        chains['chain_id'][:] = chains_df['chain_id'].to_numpy(dtype=chain_id_dtype)
-        chains['chain_name'][:] = chains_df['chain_name'].to_numpy(dtype=str)
-        chains['chain_type'][:] = chains_df['chain_type'].to_numpy(dtype=str)
+        chains['chain_id'][:] = chains_df['chain_id'].to_numpy(dtype='S')
+        chains['chain_name'][:] = chains_df['chain_name'].to_numpy(dtype='S')
+        chains['chain_type'][:] = chains_df['chain_type'].to_numpy(dtype='S')
 
     del(atoms_df, groups_df, components_df, molecules_df, entities_df, chains_df)
 
@@ -242,4 +229,3 @@ def dump_topology_to_h5msm(item, file, atom_indices='all'):
         file.close()
 
     pass
-

@@ -83,6 +83,7 @@ def make_bioassembly(molecular_system, bioassembly=None, structure_indices=0, to
     return output
 
 def _all_chains_equal(bioassembly):
+    """Check that all biological assemblies share the same chain index array."""
 
     output = True
 

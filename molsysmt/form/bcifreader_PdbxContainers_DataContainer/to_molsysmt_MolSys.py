@@ -803,7 +803,7 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
 
         else:
 
-            print('Warning! The models have different molecular systems. They will be returned separately.')
+            warn('The models have different molecular systems. They will be returned separately.')
 
             tmp_item = item_per_model
 
@@ -890,4 +890,3 @@ def _compose_operation(trans1, rot1, trans2, rot2) :
     output_rot = composed[:3,:3]
 
     return output_trans, output_rot
-

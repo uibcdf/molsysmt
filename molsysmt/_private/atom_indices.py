@@ -2,6 +2,7 @@ import numpy as np
 
 
 def complementary_atom_indices(molecular_system, atom_indices):
+    """Return the atom indices not present in `atom_indices`."""
 
     from molsysmt.basic import get
 
@@ -13,6 +14,7 @@ def complementary_atom_indices(molecular_system, atom_indices):
 
 
 def atom_indices_to_AmberMask(molecular_system, atom_indices):
+    """Build a 0/1 mask list for the provided atom indices."""
 
     from molsysmt.basic import get
 

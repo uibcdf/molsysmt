@@ -2,6 +2,7 @@ from openmm import unit
 import numpy as np
 
 class StructuresDictReporter(object):
+    """OpenMM reporter emitting data into MolSysMT StructuresDict objects."""
 
     def __init__(self, reportInterval, time=True, coordinates=True, velocities=False,
              potentialEnergy=False, kineticEnergy=False, totalEnergy=False, temperature=False,
@@ -130,4 +131,3 @@ class StructuresDictReporter(object):
             self._dict[key]._value = np.stack(self._dict[key]._value)
 
         return self._dict
-

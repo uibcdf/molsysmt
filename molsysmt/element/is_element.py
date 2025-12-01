@@ -1,4 +1,5 @@
 def is_element(element):
+    """Check whether a string identifies a valid MolSysMT element (atom, group, molecule, etc.)."""
 
     from molsysmt.element import _elements, _plural_elements_to_singular
 
@@ -11,4 +12,3 @@ def is_element(element):
         output = True
 
     return output
-

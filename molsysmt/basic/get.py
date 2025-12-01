@@ -217,6 +217,11 @@ def get(molecular_system,
                     aux_get = getattr(_dict_modules[aux_form], f'get_{in_attribute}_from_{element}')
                     result = aux_get(aux_item, **dict_indices)
 
+                if (result is not None) and in_attribute.endswith('_id'):
+                    result = _coerce_ids_to_string(result)
+                if in_attribute == 'alternate_location' and result is not None:
+                    result = _coerce_alternate_location_ids(result)
+
             else:
 
                 result = None
@@ -253,8 +258,32 @@ def get(molecular_system,
     elif output_type=='dictionary':
         return dict(zip(in_attributes, output))
         
+def _coerce_ids_to_string(value):
+    """Normalize *_id values to Python/NumPy strings, preserving shape."""
+    arr = np.asarray(value)
+    if arr.shape == ():
+        return str(arr.astype(str))
+    else:
+        return arr.astype(str).tolist()
+
+def _coerce_alternate_location_ids(value):
+    """Ensure alternate_location entries carry string atom_id keys/values."""
+    output = []
+    for structure_dict in value:
+        if structure_dict is None:
+            output.append(structure_dict)
+            continue
+        new_struct = {}
+        for key, entry in structure_dict.items():
+            new_entry = dict(entry)
+            if 'atom_id' in new_entry:
+                new_entry['atom_id'] = _coerce_ids_to_string(new_entry['atom_id'])
+            new_struct[str(key)] = new_entry
+        output.append(new_struct)
+    return output
 
 def _piped_molecular_system(molecular_system, element, in_attributes):
+    """Resolve piped attributes across items for get(); returns tuple (item, attribute list) or (None, None)."""
 
 
     from .. import select, where_is_attribute, get_form, convert
@@ -417,4 +446,3 @@ def _piped_molecular_system(molecular_system, element, in_attributes):
                 output_attributes.append(aux_structural_attributes)
 
     return output_systems, output_attributes
-

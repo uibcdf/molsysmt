@@ -22,9 +22,10 @@ def define_new_chain(molecular_system, selection='all', chain_id=None, chain_nam
         or NumPy array of atom indices (0-based integers), or as a string following one of the
         :ref:`supported selection syntaxes <Introduction_Selection>`.
 
-    chain_id : str or int, optional
-        Identifier of the new chain (e.g., 'A', 'B', 'C', or numeric value). If not provided,
-        a unique `chain_id` will be automatically generated.
+    chain_id : str, optional
+        Identifier of the new chain (e.g., 'A', 'B', 'C'). If not provided,
+        a unique string `chain_id` will be automatically generated. Numeric inputs are
+        converted to strings internally.
 
     chain_name : str, optional
         Descriptive name for the new chain. If not provided, the name will be left empty or
@@ -65,9 +66,9 @@ def define_new_chain(molecular_system, selection='all', chain_id=None, chain_nam
 
     Examples
     --------
-    >>> import molsysmt as msm
-    >>> molsys = msm.convert('1TCD')
-    >>> msm.build.define_new_chain(molsys, selection='molecule_type=="water"', chain_name='C')
+>>> import molsysmt as msm
+>>> molsys = msm.convert('1TCD')
+>>> msm.build.define_new_chain(molsys, selection='molecule_type=="water"', chain_name='C')
     >>> msm.get(molsys, element='chain', chain_name=True)
     ['A', 'B', 'C']
 
@@ -83,10 +84,13 @@ def define_new_chain(molecular_system, selection='all', chain_id=None, chain_nam
     from molsysmt.element.chain import all_chain_names
     from molsysmt._private.atom_indices import complementary_atom_indices
 
+    chain_id = str(chain_id) if chain_id is not None else None
+    chain_name = str(chain_name) if chain_name is not None else None
+
     if is_all(selection):
 
         if chain_id is None:
-            chain_id = 0
+            chain_id = 'A'
         if chain_name is None:
             chain_name = 'A'
 
@@ -100,26 +104,19 @@ def define_new_chain(molecular_system, selection='all', chain_id=None, chain_nam
 
         former_chain_ids, former_chain_names = get(molecular_system, selection=rest_atom_indices, chain_id=True,
                                                    chain_name=True)
-
+        former_chain_ids = np.array(former_chain_ids).astype(str)
+        former_chain_names = np.array(former_chain_names).astype(str)
 
         aux_chain_ids = sorted(np.unique(former_chain_ids).tolist())
         aux_chain_names = sorted(np.unique(former_chain_names).tolist())
 
         if chain_id is None:
-            if isinstance(aux_chain_ids[0], str):
-                for ii in all_chain_names:
-                    if ii not in aux_chain_ids:
-                        chain_id = ii
-                        break
-                if chain_id is None:
-                    raise ValueError(f'MolSysMT run out of chain names')
-            else:
-                for ii in range(len(aux_chain_ids)):
-                    if ii not in aux_chain_ids:
-                        chain_id = ii
-                        break
-                if chain_id is None:
-                    chain_id = len(aux_chain_ids)
+            for ii in all_chain_names:
+                if ii not in aux_chain_ids:
+                    chain_id = ii
+                    break
+            if chain_id is None:
+                chain_id = str(len(aux_chain_ids))
         else:
             if chain_id in aux_chain_ids:
                 raise ValueError(f'There is already a chain with chain_id={chain_id}.')
@@ -137,12 +134,12 @@ def define_new_chain(molecular_system, selection='all', chain_id=None, chain_nam
 
 
         all_atom_indices = np.array(atom_indices+rest_atom_indices)
-        all_chain_ids = np.array([chain_id for ii in atom_indices]+former_chain_ids)
-        all_chain_names = np.array([chain_name for ii in atom_indices]+former_chain_names)
+        all_chain_ids = np.array([chain_id for ii in atom_indices]+former_chain_ids.tolist()).astype(str)
+        all_chain_names_array = np.array([chain_name for ii in atom_indices]+former_chain_names.tolist()).astype(str)
         sorted_indices = np.argsort(all_atom_indices)
         all_atom_indices = all_atom_indices[sorted_indices]
         all_chain_ids = all_chain_ids[sorted_indices]
-        all_chain_names = all_chain_names[sorted_indices]
+        all_chain_names_array = all_chain_names_array[sorted_indices]
 
         chain_index=-1
         chain_ids_done=[]
@@ -150,14 +147,14 @@ def define_new_chain(molecular_system, selection='all', chain_id=None, chain_nam
         new_chain_ids=[]
         new_chain_names=[]
         aux_dict={}
-        for ii,jj,kk in zip(all_atom_indices, all_chain_ids, all_chain_names):
+        for ii,jj,kk in zip(all_atom_indices, all_chain_ids, all_chain_names_array):
             if jj not in chain_ids_done:
                 chain_index+=1
                 aux_dict[jj]=chain_index
                 chain_ids_done.append(jj)
                 new_chain_indices.append(chain_index)
-                new_chain_ids.append(jj)
-                new_chain_names.append(kk)
+                new_chain_ids.append(str(jj))
+                new_chain_names.append(str(kk))
             else:
                 new_chain_indices.append(aux_dict[jj])
 
@@ -183,4 +180,3 @@ def define_new_chain(molecular_system, selection='all', chain_id=None, chain_nam
         del atom_indices, rest_atom_indices
 
     pass
-

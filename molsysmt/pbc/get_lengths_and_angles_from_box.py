@@ -23,6 +23,7 @@ def get_lengths_and_angles_from_box(box, skip_digestion=False):
             gamma = angle between v0 and v1.
           This matches the conventional nomenclature (alpha between b and c,
           beta between a and c, gamma between a and b).
+    .. versionadded:: 1.0.0
     """
 
     box_value, box_unit  = puw.get_value_and_unit(box)
@@ -33,4 +34,3 @@ def get_lengths_and_angles_from_box(box, skip_digestion=False):
     angles = puw.standardize(angles)
 
     return lengths, angles
-

@@ -2,7 +2,11 @@ from molsysmt._private.digestion import digest
 import numpy as np
 
 def _evaluation(condition, value):
+    """Internal helper for `contains` to evaluate a single condition/result pair.
 
+    Supports boolean conditions (presence/absence/emptiness) and integer thresholds,
+    returning `True` if the provided `value` satisfies the requested `condition`.
+    """
     output = True
 
     if condition is not None:
@@ -135,4 +139,3 @@ def contains(molecular_system, selection='all', syntax='MolSysMT', skip_digestio
             return False
 
     return True
-

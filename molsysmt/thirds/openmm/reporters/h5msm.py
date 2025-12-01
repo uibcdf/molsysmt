@@ -5,6 +5,7 @@ import openmm as mm
 from openmm import unit
 
 class H5MSMReporter(object):
+    """OpenMM reporter that writes trajectories to h5msm files."""
 
     def __init__(self, file, reportInterval, steps, selection='all',
             topology=True, time=True, box=True, coordinates=True, velocities=False,
@@ -248,4 +249,3 @@ class H5MSMReporter(object):
     def close(self):
 
         return self._file_handler.close()
-
