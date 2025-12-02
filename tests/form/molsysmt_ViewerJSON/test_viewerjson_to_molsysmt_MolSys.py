@@ -21,7 +21,7 @@ def _viewer_json():
             "atom_pairs": [[0, 1]],
             "order": ["1"],
         },
-        "estructures": [
+        "structures": [
             {"coordinates": [[0.0, 0.0, 0.0], [1.0, 0.0, 0.0]], "time": 0.0},
         ],
     }

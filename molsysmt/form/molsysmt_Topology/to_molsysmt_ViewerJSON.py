@@ -65,7 +65,7 @@ def to_molsysmt_ViewerJSON(item, skip_digestion=False):
     bonds_block["indexA"] = [pair[0] for pair in atom_pairs]
     bonds_block["indexB"] = [pair[1] for pair in atom_pairs]
 
-    data["estructures"] = []
+    data["structures"] = []
     data["frames"] = []
 
     return viewer

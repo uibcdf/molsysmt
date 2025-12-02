@@ -38,7 +38,7 @@ def _empty_viewer_dict() -> Dict[str, Any]:
         },
 
         # List of coordinate structures
-        "estructures": [
+        "structures": [
             # Each structure is a dict with:
             # {
             #     "coordinates": [[x, y, z], ...],        # List[List[float]], len = n_atoms
@@ -85,7 +85,7 @@ class ViewerJSON:
     - `atoms`: per-atom columns (ids/names/group/chain/entity ids, element symbol, optional charges).
       All ids/names are strings; charges are unitless integers.
     - `bonds`: `atom_pairs` (0-based index pairs) and optional `order`.
-    - `estructures`: list of structures with `coordinates` (nm), optional `time` (ps), and optional
+    - `structures`: list of structures with `coordinates` (nm), optional `time` (ps), and optional
       `box` with lengths (nm) and angles (radians).
 
     `compression`/`compressed` control optional gzip serialization. Use `to_dict(copy=True)` to get a
@@ -94,16 +94,16 @@ class ViewerJSON:
 
     data: Dict[str, Any] = field(default_factory=_empty_viewer_dict)
 
-    # Información de compresión
+    # Compression metadata
     compressed: bool = False
     compression: CompressionKind = "none"
 
-    # Descripción esquemática de los campos (para documentación / introspección)
+    # Field descriptions (for documentation/introspection)
     schema: Dict[str, str] = field(default_factory=lambda: {
-        "version": "Versión del esquema viewer_json.",
-        "atoms": "Dict con campos columnar (por átomo): id, nombre, residuo, cadena, entidad, elemento, carga.",
+        "version": "Schema version for viewer_json.",
+        "atoms": "Dict with per-atom columns: ids, names, residue, chain, entity, element, charge.",
         "bonds": "Dict with bonded atom indices and bond order.",
-        "estructures": "List of structures with coordinates (nm), time (ps) and optional box.",
+        "structures": "List of structures with coordinates (nm), time (ps) and optional box.",
     })
 
     def to_dict(self, copy: bool = True) -> Dict[str, Any]:

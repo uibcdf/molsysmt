@@ -12,8 +12,11 @@ def extract(item, atom_indices='all', structure_indices='all', copy_if_all=True,
         return deepcopy(item) if copy_if_all else item
 
     new_item = deepcopy(item)
-    if 'estructures' not in new_item.data and 'frames' in new_item.data:
-        new_item.data['estructures'] = new_item.data.pop('frames')
+    if 'structures' not in new_item.data:
+        if 'estructures' in new_item.data:
+            new_item.data['structures'] = new_item.data.pop('estructures')
+        elif 'frames' in new_item.data:
+            new_item.data['structures'] = new_item.data.pop('frames')
 
     atoms = new_item.data.get('atoms', {})
 
@@ -26,22 +29,22 @@ def extract(item, atom_indices='all', structure_indices='all', copy_if_all=True,
                 pass
         new_item.data['atoms'] = atoms
 
-        if 'estructures' in new_item.data:
-            estructures = []
-            for frame in new_item.data.get('estructures', []):
+        if 'structures' in new_item.data:
+            structures = []
+            for frame in new_item.data.get('structures', []):
                 new_frame = deepcopy(frame)
                 coords = new_frame.get('coordinates', None)
                 if coords is not None:
                     arr = np.array(coords)
                     arr = arr[idx] if arr.ndim > 1 else arr
                     new_frame['coordinates'] = arr.tolist()
-                estructures.append(new_frame)
-            new_item.data['estructures'] = estructures
+                structures.append(new_frame)
+            new_item.data['structures'] = structures
 
-    if not is_all(structure_indices) and 'estructures' in new_item.data:
+    if not is_all(structure_indices) and 'structures' in new_item.data:
         idx = set(structure_indices)
-        new_item.data['estructures'] = [
-            ff for ii, ff in enumerate(new_item.data.get('estructures', [])) if ii in idx
+        new_item.data['structures'] = [
+            ff for ii, ff in enumerate(new_item.data.get('structures', [])) if ii in idx
         ]
 
     return new_item

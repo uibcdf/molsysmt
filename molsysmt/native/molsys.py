@@ -144,7 +144,7 @@ class MolSys:
 
         from molsysmt.form.molsysmt_MolSys import _convert_to
 
-        return _convert_to[form](self, skip_digestion=True, **kwargs)
+        return _convert_to[to_form](self, skip_digestion=True, **kwargs)
 
     def info(self):
         """Return a text summary of the MolSys."""
