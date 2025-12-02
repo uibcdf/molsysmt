@@ -79,9 +79,9 @@ def info(molecular_system,
     >>> print(msm.info(molsys, element='entity').to_string()) # doctest: +NORMALIZE_WHITESPACE
     index  name                       type     n atoms  n groups  n components  n chains  n molecules
     0      T4 LYSOZYME                protein  1289     162       1             1         1
-    1      CHLORIDE ION               unknown  2        2         2             2         2
-    2      2-HYDROXYETHYL DISULFIDE   unknown  8        1         1             1         1
-    3      BENZENE                    unknown  6        1         1             1         1
+    1      CHLORIDE ION               ion      2        2         2             2         2
+    2      2-HYDROXYETHYL DISULFIDE   small molecule    8        1         1         1         1
+    3      BENZENE                    small molecule    6        1         1         1         1
     4      water                      water    136      136       136           1         136
     >>> # If you are working in a Jupyter notebook, you can simply run:
     >>> # msm.info(molsys, element='entity')
