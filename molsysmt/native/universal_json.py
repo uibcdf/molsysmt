@@ -39,12 +39,9 @@ def _empty_structure_dict() -> Dict[str, Any]:
         "coordinates": [],
         "time": None,
         "box": {
-            "length_v0": None,
-            "length_v1": None,
-            "length_v2": None,
-            "angle_v1_v2": None,
-            "angle_v0_v2": None,
-            "angle_v0_v1": None,
+            "v0": [None, None, None],
+            "v1": [None, None, None],
+            "v2": [None, None, None],
         },
     }
 
@@ -82,7 +79,7 @@ class UniversalJSON:
     - `topology`: per-atom columns (ids, names, group/chain/entity ids, element symbols, charges).
     - `bonds`: `atom_pairs` (0-based) plus optional `order`.
     - `coordinates`: collections with `structures`, each holding `coordinates` (nm), optional `time`
-      (ps), and optional `box` (lengths in nm, angles in radians).
+      (ps), and optional `box` (vectors `v0`, `v1`, `v2` in nm).
     - `annotations`: optional derived data.
 
     `compression`/`compressed` control optional gzip serialization. Use `to_dict(copy=True)` for a

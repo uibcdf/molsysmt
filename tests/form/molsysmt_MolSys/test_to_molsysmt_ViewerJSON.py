@@ -68,3 +68,6 @@ def test_molsys_to_ViewerJSON():
     assert data["atoms"]["group_id"] == ["10", "10"]
     assert len(data["structures"]) == 1
     assert np.allclose(np.array(data["structures"][0]["coordinates"]), [[0, 0, 0], [1, 0, 0]])
+    assert data["structures"][0]["box"]["v0"] == [1.0, 0.0, 0.0]
+    assert data["structures"][0]["box"]["v1"] == [0.0, 1.0, 0.0]
+    assert data["structures"][0]["box"]["v2"] == [0.0, 0.0, 1.0]

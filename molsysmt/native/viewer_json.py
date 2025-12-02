@@ -44,12 +44,9 @@ def _empty_viewer_dict() -> Dict[str, Any]:
             #     "coordinates": [[x, y, z], ...],        # List[List[float]], len = n_atoms
             #     "time": 0.0,                           # float or int (optional)
             #     "box": {                               # optional
-            #         "length_v0": float,                # |v0| (nm)
-            #         "length_v1": float,                # |v1| (nm)
-            #         "length_v2": float,                # |v2| (nm)
-            #         "angle_v1_v2": float,              # radians
-            #         "angle_v0_v2": float,              # radians
-            #         "angle_v0_v1": float,              # radians
+            #         "v0": [float, float, float],       # box vector 0 (nm)
+            #         "v1": [float, float, float],       # box vector 1 (nm)
+            #         "v2": [float, float, float],       # box vector 2 (nm)
             #     },
             # }
         ],
@@ -65,12 +62,9 @@ def _empty_structure_viewer_dict() -> Dict[str, Any]:
         "time": 0.0,    # float or int (optional)
         "coordinates": [], # List[List[float]], len = n_atoms
         "box": {                               # optional
-                "length_v0": 0.0,                # |v0| (nm)
-                "length_v1": 0.0,                # |v1| (nm)
-                "length_v2": 0.0,                # |v2| (nm)
-                "angle_v1_v2": 0.0,              # radians
-                "angle_v0_v2": 0.0,              # radians
-                "angle_v0_v1": 0.0,              # radians
+                "v0": [0.0, 0.0, 0.0],         # box vector 0 (nm)
+                "v1": [0.0, 0.0, 0.0],         # box vector 1 (nm)
+                "v2": [0.0, 0.0, 0.0],         # box vector 2 (nm)
                },
     }
 
@@ -86,7 +80,7 @@ class ViewerJSON:
       All ids/names are strings; charges are unitless integers.
     - `bonds`: `atom_pairs` (0-based index pairs) and optional `order`.
     - `structures`: list of structures with `coordinates` (nm), optional `time` (ps), and optional
-      `box` with lengths (nm) and angles (radians).
+      `box` with box vectors (`v0`, `v1`, `v2` in nm).
 
     `compression`/`compressed` control optional gzip serialization. Use `to_dict(copy=True)` to get a
     JSON-compatible dict and `copy()` for deep copies.

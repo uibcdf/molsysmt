@@ -1,27 +1,19 @@
 from molsysmt._private.digestion import digest
 from molsysmt.native.universal_json import UniversalJSON, _empty_structure_dict
 from molsysmt import pyunitwizard as puw
-from molsysmt.pbc import get_lengths_and_angles_from_box
 import numpy as np
 
 
-def _box_from_matrix(box):
-    """Return box lengths (nm) and angles (rad) from a 3x3 matrix."""
-    box_array = np.asarray(box)
-    if box_array.ndim == 2:
-        box_array = box_array[None, ...]
-    lengths, angles = get_lengths_and_angles_from_box(
-        puw.quantity(box_array, "nanometer"), skip_digestion=True
-    )
-    lengths_val = puw.get_value(lengths, to_unit="nanometer")[0]
-    angles_val = puw.get_value(angles, to_unit="radian")[0]
+def _box_vectors(box):
+    """Return box vectors (nm) from a 3x3 matrix."""
+    arr = np.asarray(box, dtype=float)
+    if arr.ndim == 2:
+        arr = arr[None, ...]
+    v0, v1, v2 = arr[0]
     return {
-        "length_v0": float(lengths_val[0]),
-        "length_v1": float(lengths_val[1]),
-        "length_v2": float(lengths_val[2]),
-        "angle_v1_v2": float(angles_val[0]),
-        "angle_v0_v2": float(angles_val[1]),
-        "angle_v0_v1": float(angles_val[2]),
+        "v0": np.asarray(v0, dtype=float).tolist(),
+        "v1": np.asarray(v1, dtype=float).tolist(),
+        "v2": np.asarray(v2, dtype=float).tolist(),
     }
 
 
@@ -63,7 +55,7 @@ def to_molsysmt_UniversalJSON(item, skip_digestion=False):
             if time_values is not None:
                 frame["time"] = float(time_values[ii])
             if box_values is not None:
-                frame["box"] = _box_from_matrix(np.asarray(box_values[ii]))
+                frame["box"] = _box_vectors(np.asarray(box_values[ii]))
             frames.append(frame)
 
     data["coordinates"]["collections"][0]["structures"] = frames

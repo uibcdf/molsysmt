@@ -20,7 +20,16 @@ def _universal_json():
         "bonds": {"atom_pairs": [[0, 1]], "order": ["1"]},
         "coordinates": {
             "collections": [
-                {"label": "default", "structures": [{"coordinates": [[0, 0, 0], [1, 0, 0]], "time": 0.0}]}
+                {
+                    "label": "default",
+                    "structures": [
+                        {
+                            "coordinates": [[0, 0, 0], [1, 0, 0]],
+                            "time": 0.0,
+                            "box": {"v0": [1.0, 0.0, 0.0], "v1": [0.0, 1.0, 0.0], "v2": [0.0, 0.0, 1.0]},
+                        }
+                    ],
+                }
             ]
         },
     }
@@ -37,3 +46,4 @@ def test_universaljson_to_molsys():
     coords = np.asarray(molsys.structures.coordinates.magnitude)
     assert coords.shape == (1, 2, 3)
     assert np.allclose(coords[0, 1], [1.0, 0.0, 0.0])
+    assert np.allclose(np.asarray(molsys.structures.box.magnitude)[0], np.eye(3))
