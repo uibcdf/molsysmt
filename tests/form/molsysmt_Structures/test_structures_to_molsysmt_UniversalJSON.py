@@ -21,6 +21,6 @@ def test_structures_to_UniversalJSON():
     ujson = to_molsysmt_UniversalJSON(structures)
 
     assert isinstance(ujson, UniversalJSON)
-    frames = ujson.data["coordinates"]["collections"][0]["estructures"]
-    assert len(frames) == 1
-    assert np.allclose(np.array(frames[0]["positions"]), [[0, 0, 0], [1, 0, 0]])
+    structures_block = ujson.data["coordinates"]["collections"][0]["structures"]
+    assert len(structures_block) == 1
+    assert np.allclose(np.array(structures_block[0]["coordinates"]), [[0, 0, 0], [1, 0, 0]])

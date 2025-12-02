@@ -9,9 +9,12 @@ def _series_to_list(series):
 
 @digest(form='molsysmt.Topology')
 def to_molsysmt_ViewerJSON(item, skip_digestion=False):
-    """Convert a native Topology into a ViewerJSON object (no coordinates)."""
+    """Converting a native Topology into a ViewerJSON object (no coordinates)."""
 
     topo = item
+    viewer = ViewerJSON()
+    data = viewer.data
+
     atoms_df = topo.atoms
     groups_df = topo.groups
     molecules_df = topo.molecules
@@ -44,29 +47,25 @@ def to_molsysmt_ViewerJSON(item, skip_digestion=False):
         ent_idx = ent_index_map.get(mol_idx, None)
         entity_id.append(entity_id_map.get(ent_idx, None))
 
-    atoms_block = {
-        "atom_id": _series_to_list(atoms_df['atom_id']),
-        "atom_name": _series_to_list(atoms_df['atom_name']),
-        "group_id": group_id,
-        "group_name": group_name,
-        "chain_id": chain_id,
-        "entity_id": entity_id,
-        "element_symbol": [],
-        "formal_charge": [],
-    }
+    atoms_block = data["atoms"]
+    atoms_block["atom_id"] = _series_to_list(atoms_df['atom_id'])
+    atoms_block["atom_name"] = _series_to_list(atoms_df['atom_name'])
+    atoms_block["group_id"] = group_id
+    atoms_block["group_name"] = group_name
+    atoms_block["chain_id"] = chain_id
+    atoms_block["entity_id"] = entity_id
+    atoms_block["element_symbol"] = _series_to_list(atoms_df['atom_type'])
+    atoms_block["formal_charge"] = []
 
     bonds_df = topo.bonds
     atom_pairs = list(zip(_series_to_list(bonds_df['atom1_index']), _series_to_list(bonds_df['atom2_index'])))
-    bonds_block = {
-        "atom_pairs": [list(pair) for pair in atom_pairs],
-        "order": _series_to_list(bonds_df['order']) if 'order' in bonds_df else [],
-    }
+    bonds_block = data["bonds"]
+    bonds_block["atom_pairs"] = [list(pair) for pair in atom_pairs]
+    bonds_block["order"] = _series_to_list(bonds_df['order']) if 'order' in bonds_df else []
+    bonds_block["indexA"] = [pair[0] for pair in atom_pairs]
+    bonds_block["indexB"] = [pair[1] for pair in atom_pairs]
 
-    data = {
-        "version": "0.1",
-        "atoms": atoms_block,
-        "bonds": bonds_block,
-        "estructures": [],
-    }
+    data["estructures"] = []
+    data["frames"] = []
 
-    return ViewerJSON(data=data)
+    return viewer

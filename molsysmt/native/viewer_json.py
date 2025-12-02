@@ -19,12 +19,12 @@ def _empty_viewer_dict() -> Dict[str, Any]:
         # Per-atom information (columnar, length = n_atoms)
         "atoms": {
             # Internal or external atom identifiers
-            "atom_id": [],          # List[int] | List[str]
+            "atom_id": [],          # List[str]
             "atom_name": [],        # List[str]
-            "group_ig": [],         # List[int] | List[str]
+            "group_id": [],         # List[str]
             "group_name": [],       # List[str]
             "chain_id": [],         # List[str]
-            "entity_id": [],        # List[int] | List[str]
+            "entity_id": [],        # List[str]
             "element_symbol": [],   # List[str] (e.g. "C", "N", "O")
             "formal_charge": [],    # List[int]
         },
@@ -55,20 +55,41 @@ def _empty_viewer_dict() -> Dict[str, Any]:
         ],
     }
 
+def _empty_structure_viewer_dict() -> Dict[str, Any]:
+    """Minimal structure_viewer_json schema.
+
+    All values must be JSON-compatible: dict, list, str, int, float, bool, None.
+    """
+    return {
+
+        "time": 0.0,    # float or int (optional)
+        "coordinates": [], # List[List[float]], len = n_atoms
+        "box": {                               # optional
+                "length_v0": 0.0,                # |v0| (nm)
+                "length_v1": 0.0,                # |v1| (nm)
+                "length_v2": 0.0,                # |v2| (nm)
+                "angle_v1_v2": 0.0,              # radians
+                "angle_v0_v2": 0.0,              # radians
+                "angle_v0_v1": 0.0,              # radians
+               },
+    }
+
+
 
 @dataclass
 class ViewerJSON:
-    """Minimal JSON-serializable container for visualization (`molsysmt.ViewerJSON`).
+    """Storing a minimal viewer-friendly JSON payload (`molsysmt.ViewerJSON`).
 
-    - `data` is a JSON-compatible dict with:
-        * `atoms`: columnar per-atom fields. Units: coordinates in nanometers, `formal_charge` in
-          elementary charge units; IDs/names are unitless.
-        * `bonds`: `atom_pairs` (0-based index pairs) and `order` (unitless).
-        * `estructures`: list of structures with `coordinates` (nanometers), `time` (picoseconds),
-          and optional `box` with `length_v*` (nanometers) and `angle_v*_v*` (radians).
-    - `compressed` / `compression` control optional gzip serialization.
-    - Utilities: `dumps`/`dump` to serialize, `to_dict(copy=True)` to retrieve the dict (deepcopy by
-      default), and `copy()` to deep-copy the instance.
+    The underlying `data` dict follows the viewer schema:
+
+    - `atoms`: per-atom columns (ids/names/group/chain/entity ids, element symbol, optional charges).
+      All ids/names are strings; charges are unitless integers.
+    - `bonds`: `atom_pairs` (0-based index pairs) and optional `order`.
+    - `estructures`: list of structures with `coordinates` (nm), optional `time` (ps), and optional
+      `box` with lengths (nm) and angles (radians).
+
+    `compression`/`compressed` control optional gzip serialization. Use `to_dict(copy=True)` to get a
+    JSON-compatible dict and `copy()` for deep copies.
     """
 
     data: Dict[str, Any] = field(default_factory=_empty_viewer_dict)

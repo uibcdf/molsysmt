@@ -6,12 +6,13 @@ from molsysmt.form.molsysmt_Structures import to_molsysmt_UniversalJSON as struc
 
 @digest(form='molsysmt.MolSys')
 def to_molsysmt_UniversalJSON(item, skip_digestion=False):
-    """Convert a native MolSys into a UniversalJSON container."""
+    """Converting a native MolSys into a UniversalJSON container."""
 
     topo_ujson = topology_to_universal(item.topology, skip_digestion=True)
     struct_ujson = structures_to_universal(item.structures, skip_digestion=True)
 
     data = topo_ujson.to_dict(copy=True)
-    data["coordinates"] = struct_ujson.to_dict(copy=True).get("coordinates", {})
+    struct_data = struct_ujson.to_dict(copy=True)
+    data["coordinates"] = struct_data.get("coordinates", {"collections": []})
 
     return UniversalJSON(data=data)

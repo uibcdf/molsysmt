@@ -11,79 +11,82 @@ from copy import deepcopy
 CompressionKind = Literal["none", "gzip"]
 
 
+def _empty_atoms_dict() -> Dict[str, Any]:
+    """Default atom-level fields."""
+    return {
+        "atom_id": [],
+        "atom_name": [],
+        "group_id": [],
+        "group_name": [],
+        "chain_id": [],
+        "entity_id": [],
+        "element_symbol": [],
+        "formal_charge": [],
+    }
+
+
+def _empty_bonds_dict() -> Dict[str, Any]:
+    """Default bonds block."""
+    return {
+        "atom_pairs": [],
+        "order": [],
+    }
+
+
+def _empty_structure_dict() -> Dict[str, Any]:
+    """Default structure entry aligned with topology."""
+    return {
+        "coordinates": [],
+        "time": None,
+        "box": {
+            "length_v0": None,
+            "length_v1": None,
+            "length_v2": None,
+            "angle_v1_v2": None,
+            "angle_v0_v2": None,
+            "angle_v0_v1": None,
+        },
+    }
+
+
+def _empty_coordinates_collection(label: str = "default") -> Dict[str, Any]:
+    """Default coordinates collection with structures aligned to topology."""
+    return {
+        "label": label,
+        "structures": [],
+    }
+
+
 def _empty_universal_dict() -> Dict[str, Any]:
     """Minimal universal_json schema (more general than viewer_json)."""
     return {
         "version": "0.1",  # universal_json schema version
-
-        # Global metadata about the system
-        "metadata": {
-            # Examples (to be defined by the standard):
-            # "title": "",
-            # "source": "",
-            # "authors": [],
-            # "references": [],
-            # "simulation": {"temperature": ..., "pressure": ..., ...},
-        },
-
-        # Description of entities/chains/residues/atoms
+        "metadata": {},
         "topology": {
-            # Alignable with MolSysMT semantics:
-            # "entities": [...],
-            # "chains": [...],
-            # "residues": [...],
-            # "atoms": {...}  # similar to viewer_json, potentially with more fields.
+            "atoms": _empty_atoms_dict(),
         },
-
-        # Coordinates and trajectories (one or more collections)
         "coordinates": {
-            # Example:
-            # "collections": [
-            #   {
-            #     "label": "default",
-            #     "n_atoms": ...,
-            #     "estructures": [...],   # to be aligned with topology
-            #   },
-            # ]
+            "collections": [_empty_coordinates_collection()],
         },
-
-        # Bond information (could be in "topology" or here)
-        "bonds": {
-            # "sets": [
-            #   {
-            #     "label": "default",
-            #     "indexA": [],
-            #     "indexB": [],
-            #     "order": [],
-            #   },
-            # ]
-        },
-
-        # Annotations and derived data (optional)
-        "annotations": {
-            # "selection_labels": {...},
-            # "regions_of_interest": [...],
-            # "analysis_results": {...},
-        },
+        "bonds": _empty_bonds_dict(),
+        "annotations": {},
     }
 
 
 @dataclass
 class UniversalJSON:
-    """General JSON-serializable container (`molsysmt.UniversalJSON`).
+    """Storing a general JSON representation of a molecular system (`molsysmt.UniversalJSON`).
 
-    - `data` is a JSON-compatible dict that may include:
-        * `metadata`: unitless descriptive fields (titles, authors, etc.).
-        * `topology`: per-atom fields; quantities are unitless except `formal_charge`
-          (elementary charge units).
-        * `bonds`: `atom_pairs` (0-based indices) and `order` (unitless).
-        * `coordinates`: collections with `estructures` where `coordinates` are in nanometers,
-          `time` in picoseconds, and `box` (if present) with `length_v*` in nanometers and
-          `angle_v*_v*` in radians.
-        * `annotations`: unitless by default (context-dependent).
-    - `compressed` / `compression` control optional gzip serialization.
-    - Utilities: `dumps`/`dump` to serialize, `to_dict(copy=True)` to retrieve the dict
-      (deepcopy by default), and `copy()` to deep-copy the instance.
+    The `data` dict follows a broad schema:
+    - `metadata`: unitless descriptive fields.
+    - `topology`: per-atom columns (ids, names, group/chain/entity ids, element symbols, charges).
+    - `bonds`: `atom_pairs` (0-based) plus optional `order`.
+    - `coordinates`: collections with `structures`, each holding `coordinates` (nm), optional `time`
+      (ps), and optional `box` (lengths in nm, angles in radians).
+    - `annotations`: optional derived data.
+
+    `compression`/`compressed` control optional gzip serialization. Use `to_dict(copy=True)` for a
+    JSON-compatible dict and `copy()` for deep copies.
     """
 
     data: Dict[str, Any] = field(default_factory=_empty_universal_dict)
@@ -136,6 +139,6 @@ class UniversalJSON:
         else:
             if compression == "gzip":
                 raise ValueError(
-                    "Para escritura gzip, pase una ruta (str) o un archivo gzip.bin abierto."
+                    "For gzip output, pass a file path (str) or an open gzip binary file."
                 )
             json.dump(self.data, fp, indent=indent)
