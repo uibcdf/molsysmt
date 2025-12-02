@@ -26,6 +26,7 @@ Key capabilities:
 - Common structural operations (selection, extraction, concatenation, copy, centering, alignment, etc.).
 - Notebook-friendly visualization via nglview.
 - Integrations with OpenMM and AmberTools for system preparation and simulation tasks.
+- Native topologies store all element IDs (`atom_id`, `group_id`, `component_id`, `molecule_id`, `chain_id`, `entity_id`) as strings; converters normalize incoming numeric IDs automatically.
 
 ## Installation
 

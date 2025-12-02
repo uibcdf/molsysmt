@@ -12,6 +12,46 @@ def align_principal_axes(molecular_system, selection='all',
         principal_axes_of_selection=None, principal_axes_type='inertia',
         structure_indices='all', weights=None, axes=[[1,0,0],[0,1,0],[0,0,1]], center=False,
         syntax='MolSysMT', engine='MolSysMT', in_place=False):
+    """
+    Aligning selected atoms to reference principal axes.
+
+    Parameters
+    ----------
+    molecular_system : molecular system
+        System whose coordinates will be rotated.
+    selection : str, list, tuple or numpy.ndarray, default 'all'
+        Atoms to rotate.
+    principal_axes_of_selection : str, list, tuple or numpy.ndarray, optional
+        Atoms used to compute principal axes; defaults to `selection`.
+    principal_axes_type : {'inertia'}, default 'inertia'
+        Type of principal axes to compute.
+    structure_indices : 'all' or array-like, default 'all'
+        Structures/frames to align.
+    weights : array-like, optional
+        Weights for axis computation.
+    axes : array-like shape (3,3), default identity
+        Target axes to align to.
+    center : bool, default False
+        If True, recenter coordinates after rotation.
+    syntax : str, default 'MolSysMT'
+        Selection syntax when using strings.
+    engine : {'MolSysMT'}, default 'MolSysMT'
+        Backend.
+    in_place : bool, default False
+        If True, modify the input system; otherwise return a rotated copy.
+
+    Returns
+    -------
+    molecular system or None
+        Rotated system when `in_place=False`, otherwise `None`.
+
+    Raises
+    ------
+    NotImplementedMethodError
+        If an unsupported engine is requested.
+
+    .. versionadded:: 1.0.0
+    """
 
     from molsysmt.basic import select, get, set, copy
     from . import get_principal_axes, get_center
@@ -76,4 +116,3 @@ def align_principal_axes(molecular_system, selection='all',
     else:
 
         raise NotImplementedMethodError()
-

@@ -5,13 +5,12 @@ systems.
 
 # Import package, test suite, and other packages as needed
 import molsysmt as msm
-from molsysmt import systems
 import numpy as np
 
 # Distance between atoms in space and time
 
-def test_get_dihedral_angles_from_molsysmt_MolSys_1():
-    molsys = msm.convert(systems['Met-enkephalin']['met_enkephalin.h5msm'], to_form='molsysmt.MolSys')
+def test_get_dihedral_angles_from_molsysmt_MolSys_1(met_enkephalin_pdb_molsys):
+    molsys = met_enkephalin_pdb_molsys
     covalent_chains = msm.topology.get_covalent_chains(molsys, chain=['atom_name=="C"', 'atom_name=="N"',
                                                                'atom_name=="CA"', 'atom_name=="C"'])
     dihedral_angles = msm.structure.get_dihedral_angles(molsys, dihedral_quartets=covalent_chains[2])
@@ -19,8 +18,8 @@ def test_get_dihedral_angles_from_molsysmt_MolSys_1():
     check2 = np.allclose(np.array([[180.0]]), msm.pyunitwizard.get_value(dihedral_angles, to_unit='degrees'))
     assert (check1 or check2)
 
-def test_get_dihedral_angles_from_molsysmt_MolSys_2():
-    molsys = msm.convert(systems['Met-enkephalin']['met_enkephalin.h5msm'], to_form='molsysmt.MolSys')
+def test_get_dihedral_angles_from_molsysmt_MolSys_2(met_enkephalin_pdb_molsys):
+    molsys = met_enkephalin_pdb_molsys
     covalent_chains = msm.topology.get_dihedral_quartets(molsys, phi=True)
     dihedral_angles = msm.structure.get_dihedral_angles(molsys, dihedral_quartets=covalent_chains)
     true_value = np.array([[-180.0, -180.0, -180.0, -180.0]])
@@ -29,8 +28,8 @@ def test_get_dihedral_angles_from_molsysmt_MolSys_2():
     check2 = np.allclose(true_value,msm.pyunitwizard.get_value(dihedral_angles, to_unit='degrees'))
     assert (check1 or check2)
 
-def test_get_dihedral_angles_from_molsysmt_MolSys_3():
-    molsys = msm.convert(systems['pentalanine']['traj_pentalanine.h5'], to_form='molsysmt.MolSys')
+def test_get_dihedral_angles_from_molsysmt_MolSys_3(traj_pentalanine_h5_molsys):
+    molsys = traj_pentalanine_h5_molsys
     phi_angles, psi_angles = msm.structure.get_dihedral_angles(molsys, selection='group_index==[3,4]', phi=True, psi=True)
     dihedral_angles = np.hstack([phi_angles, psi_angles])
     true_shape = (5000, 2)
@@ -58,10 +57,9 @@ def test_get_dihedral_angles_from_molsysmt_MolSys_3():
     assert check_value_2
     assert check_value_3
 
-def test_get_dihedral_angles_from_molsysmt_MolSys_4():
-    molsys = msm.convert(systems['pentalanine']['traj_pentalanine.h5'], to_form='molsysmt.MolSys')
+def test_get_dihedral_angles_from_molsysmt_MolSys_4(traj_pentalanine_h5_molsys):
+    molsys = traj_pentalanine_h5_molsys
     dihedral_angles = msm.structure.get_dihedral_angles(molsys, phi=True)
     true_shape = (5000, 5)
     check_shape = np.all(true_shape==dihedral_angles.shape)
     assert check_shape
-

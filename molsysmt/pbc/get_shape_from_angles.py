@@ -5,7 +5,21 @@ from molsysmt import pyunitwizard as puw
 @digest()
 def get_shape_from_angles(box_angles, skip_digestion=False):
     """
-    To be written soon...
+    Determining box shape from its angles.
+
+    Parameters
+    ----------
+    box_angles : quantity
+        Angles (alpha, beta, gamma) with units.
+    skip_digestion : bool, default False
+        Whether to skip argument digestion.
+
+    Returns
+    -------
+    str
+        Box shape label inferred from the angles.
+
+    .. versionadded:: 1.0.0
     """
 
     shape = None
@@ -30,4 +44,3 @@ def get_shape_from_angles(box_angles, skip_digestion=False):
             shape = 'triclinic'
 
     return shape
-

@@ -3,9 +3,43 @@ from molsysmt._private.variables import is_all
 from copy import copy
 import numpy as np
 
+@digest()
 def get_luzard_chandler_hbonds(molecular_system, selection='all', acceptors=None, donors=None, structure_indices='all',
         molecular_system_2=None, selection_2=None, acceptors_2=None, donors_2=None, structure_indices_2=None,
         distance_threshold='3.5 angstroms', angle_threshold='30 degrees', pbc=True, syntax='MolSysMT'):
+    """
+    Calculating hydrogen bonds using the Luzard–Chandler geometric criteria.
+
+    Parameters
+    ----------
+    molecular_system : molecular system
+        Input system containing potential donors/acceptors.
+    selection : str, list, tuple or numpy.ndarray, default 'all'
+        Atom selection used to derive donors/acceptors (MolSysMT syntax or indices).
+    acceptors, donors : array-like or None
+        Preselected acceptor/donor atom indices; if None, they are inferred from `selection`.
+    structure_indices : 'all' or array-like, default 'all'
+        Structures/frames over which to compute.
+    molecular_system_2 : molecular system, optional
+        Second system for intermolecular H-bonds; if None, uses `molecular_system`.
+    selection_2, acceptors_2, donors_2 : array-like or None
+        Counterpart selections/indices for `molecular_system_2` when provided.
+    structure_indices_2 : 'all' or array-like, optional
+        Structures for the second system; defaults to `structure_indices`.
+    distance_threshold : quantity or str, default '3.5 angstroms'
+        Maximum donor–acceptor distance.
+    angle_threshold : quantity or str, default '30 degrees'
+        Maximum deviation from linearity (D–H···A); smaller angles are stricter.
+    pbc : bool, default True
+        Whether to consider periodic boundary conditions.
+    syntax : str, default 'MolSysMT'
+        Selection syntax for string selections.
+
+    Returns
+    -------
+    tuple
+        `(atoms, distances, angles)` arrays per structure for the detected H-bonds.
+    """
 
     from molsysmt.basic import select, get
     from .get_acceptor_atoms import get_acceptor_atoms
@@ -147,4 +181,3 @@ def get_luzard_chandler_hbonds(molecular_system, selection='all', acceptors=None
             return output_atoms, output_distances, output_angles
 
     pass
-

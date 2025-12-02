@@ -25,6 +25,13 @@ This document is divided by docstring sections:
 - `Modules`: Guidelines for documenting whole modules and their role in the API.
 - `Attributes`: How to document public attributes exposed in classes or modules.
 
+Quick checklist:
+
+- One-line summary in gerund with a trailing period.
+- Section order: summary; optional extended description; Parameters; Returns (single section); Raises; Notes; See Also; Examples (doctest `>>>`); tutorial admonition; `.. versionadded::`.
+- Types in lowercase; defaults described in text; reuse standard wording for `molecular_system`, `selection`, `structure_indices`, `syntax`, `skip_digestion`, `to_form`; selections/structure indices are 0-based and `'all'` selects everything.
+- Mention units for physical quantities (nm, ps, radians, elementary charge) and prefer deterministic, minimal examples using bundled systems.
+
 Each section includes usage instructions, conventions, and editorial rules.
 
 Where applicable, you'll find blue boxes titled:
@@ -543,4 +550,3 @@ Parameters, Return, ... need to specify object types.
 - Use `.. admonition:: Tutorial with more examples` inside docstrings to link
   to notebooks; the MyST format for admonitions is reserved for documentation
   pages and tutorials, not for docstrings.
-

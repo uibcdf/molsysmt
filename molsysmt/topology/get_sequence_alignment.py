@@ -6,7 +6,40 @@ import numpy as np
 def get_sequence_alignment(molecular_system, selection='all', reference_molecular_system=None, reference_selection='all',
                        engine='Biopython', syntax='MolSysMT', prettyprint=False, alignment_index=0, skip_digestion=False):
     """
-    To be written soon...
+    Aligning sequences between a query and reference molecular system.
+
+    Parameters
+    ----------
+    molecular_system : molecular system
+        Query system providing the sequence to align.
+    selection : str, list, tuple or numpy.ndarray, default 'all'
+        Group-level selection in the query system.
+    reference_molecular_system : molecular system, optional
+        Reference system to align against.
+    reference_selection : str, list, tuple or numpy.ndarray, default 'all'
+        Group-level selection in the reference.
+    engine : {'Biopython'}, default 'Biopython'
+        Alignment engine.
+    syntax : str, default 'MolSysMT'
+        Selection syntax for string selections.
+    prettyprint : bool, default False
+        If True, print a colorized alignment; if False, return aligned sequences.
+    alignment_index : int, default 0
+        Alignment index to return when multiple alignments are produced.
+    skip_digestion : bool, default False
+        Whether to skip argument digestion.
+
+    Returns
+    -------
+    tuple of str or None
+        `(seq, seq_ref)` aligned strings when `prettyprint=False`; otherwise prints and returns `None`.
+
+    Raises
+    ------
+    NotImplementedError
+        If an unsupported engine is requested.
+
+    .. versionadded:: 1.0.0
     """
 
     if engine=='Biopython':
@@ -73,4 +106,3 @@ def get_sequence_alignment(molecular_system, selection='all', reference_molecula
     else:
 
         return seq, seq_ref
-

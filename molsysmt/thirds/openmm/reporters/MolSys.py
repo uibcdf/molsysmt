@@ -5,6 +5,7 @@ from molsysmt._private.variables import is_all
 import time
 
 class MolSysReporter():
+    """OpenMM reporter that writes trajectories as MolSysMT MolSys objects."""
 
     def __init__(self, reportInterval, topology, selection='all', syntax='MolSysMT',
                  id=True, time=True, coordinates=True, boxVectors=True,
@@ -94,4 +95,3 @@ class MolSysReporter():
 
         if self._temperature:
             value=(2*state.getKineticEnergy()/(self._dof*unit.MOLAR_GAS_CONSTANT_R)).value_in_unit(unit.kelvin)
-

@@ -26,6 +26,7 @@ from .to_molsysmt_Structures import to_molsysmt_Structures
 from .to_molsysmt_Topology import to_molsysmt_Topology
 from .to_mdtraj_Topology import to_mdtraj_Topology
 from .to_openmm_Topology import to_openmm_Topology
+from .to_openmm_Modeller import to_openmm_Modeller
 from .to_mdtraj_Trajectory import to_mdtraj_Trajectory
 from .to_nglview_NGLWidget import to_nglview_NGLWidget
 
@@ -36,6 +37,7 @@ _convert_to={
         'molsysmt.Structures': to_molsysmt_Structures,
         'molsysmt.Topology': to_molsysmt_Topology,
         'openmm.Topology': to_openmm_Topology,
+        'openmm.Modeller': to_openmm_Modeller,
         'mdtraj.Trajectory': to_mdtraj_Trajectory,
         'nglview.NGLWidget': to_nglview_NGLWidget
         }

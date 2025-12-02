@@ -102,7 +102,7 @@ systems['nglview']['md_1u19.xtc'] = path('molsysmt.data.xtc', 'md_1u19.xtc')
 
 systems['TcTIM'] = {}
 systems['TcTIM']['1tcd.pdb'] = path('molsysmt.data.pdb', '1tcd.pdb')
-systems['TcTIM']['1tcd.mmtf'] = path('molsysmt.data.mmtf', '1tcd.mmtf')
+systems['TcTIM']['1tcd.bcif.gz'] = path('molsysmt.data.bcif_gz', '1tcd.bcif.gz')
 systems['TcTIM']['1tcd.h5msm'] = path('molsysmt.data.h5msm', '1tcd.h5msm')
 
 

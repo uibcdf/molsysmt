@@ -5,6 +5,7 @@ from molsysmt import pyunitwizard as puw
 def add_allowed_z_region(molecular_system, selection='all', z0='0.0 nm', width='1.0 nm',
                          force_constant='5000 kilojoules_per_mole/nm**2', pbc=False, return_force=False,
                          syntax='MolSysMT', skip_digestion=False):
+    """Convenience wrapper adding a plane restraint perpendicular to z."""
 
     from .add_allowed_plane_region import add_allowed_plane_region
 

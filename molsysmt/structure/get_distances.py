@@ -14,27 +14,55 @@ def get_distances(molecular_system, selection="all", structure_indices="all", ce
         pairs=False, pbc=True, output_type='numpy.ndarray', output_indices=None, output_structure_indices=None,
         engine='MolSysMT', syntax='MolSysMT', skip_digestion=False):
     """
-    To be written soon...
-
-    This is a sentence
-
-    This is a paragraph
+    Computing distances between atoms or centers of selections.
 
     Parameters
     ----------
+    molecular_system : molecular system
+        First system (or the only one if `molecular_system_2` is None).
+    selection, selection_2 : str, list, tuple or numpy.ndarray, default 'all'
+        Atom selections for each system; if `pairs=True`, a list/array of index pairs is also accepted.
+    structure_indices, structure_indices_2 : 'all' or array-like, default 'all'
+        Structures/frames to analyze (0-based) for each system.
+    center_of_atoms, center_of_atoms_2 : bool, default False
+        If True, use centers of the selected atoms (weighted if `weights` provided).
+    weights, weights_2 : array-like, optional
+        Weights for centers when `center_of_atoms` is True.
+    molecular_system_2 : molecular system, optional
+        Second system; if None, distances are computed within `molecular_system`.
+    pairs : bool, default False
+        If True, interpret `selection` (or `selection`/`selection_2`) as explicit pairs.
+    pbc : bool, default True
+        Whether to consider periodic boundary conditions.
+    output_type : {'numpy.ndarray', 'dictionary'}, default 'numpy.ndarray'
+        Format of the returned distances.
+    output_indices : {'selection', 'atom', 'group'}, optional
+        When `output_type='dictionary'`, controls labeling of indices.
+    output_structure_indices : {'structure'}, optional
+        When `output_type='dictionary'`, controls labeling of structure indices.
+    engine : {'MolSysMT'}, default 'MolSysMT'
+        Backend for the calculation.
+    syntax : str, default 'MolSysMT'
+        Selection syntax when using strings.
+    skip_digestion : bool, default False
+        Whether to skip argument digestion.
 
     Returns
     -------
+    numpy.ndarray or dict
+        Distances with shape `(n_structures, n_selection[, n_selection_2])` or structured dictionaries, depending on `output_type`.
 
-    Examples
-    --------
-
-    See Also
-    --------
+    Raises
+    ------
+    NotImplementedMethodError
+        If a requested path/output is not supported.
 
     Notes
     -----
+    - Uses minimum image convention when `pbc=True` and box is available.
+    - When `pairs=True`, expects explicit pairs; otherwise Cartesian products of selections are used.
 
+    .. versionadded:: 1.0.0
     """
 
     # center_of_atoms and center_of_atoms_2: bool
@@ -350,6 +378,7 @@ def _get_distances_in_memory(molecular_system, selection="all", structure_indice
         molecular_system_2=None, selection_2=None, structure_indices_2=None,
         center_of_atoms_2=False, weights_2=None,
         pairs=False, pbc=True, syntax='MolSysMT'):
+    """Internal helper to compute distances entirely in memory (no file-backed forms)."""
 
     from molsysmt.basic import get
     from .get_center import get_center
@@ -516,5 +545,4 @@ def _get_distances_in_memory(molecular_system, selection="all", structure_indice
     gc.collect()
 
     return distances
-
 

@@ -171,6 +171,7 @@ def get_missing_bonds(molecular_system, selection='all', structure_index=0, max_
 
 def _bonds_in_group_without_template(molecular_system, atom_indices, atom_names, atom_types, group_name, group_type,
                             structure_index=0, max_bond_length='2 angstroms', pbc=True, sorted=True):
+    """Infer missing bonds within a group lacking a template by neighbor search."""
 
     from molsysmt.structure import get_neighbors
 
@@ -228,6 +229,7 @@ def _bonds_in_group_without_template(molecular_system, atom_indices, atom_names,
 
 def _get_peptidic_bonds(molecular_system, aux_peptidic_bonds_C, aux_peptidic_bonds_N,
                         selection='all', structure_index=0, max_bond_length='2 angstroms', pbc=True, sorted=True):
+    """Infer peptidic C–N bonds between consecutive residues via distance filtering."""
 
     from molsysmt.structure import get_neighbors
 
@@ -255,4 +257,3 @@ def _get_peptidic_bonds(molecular_system, aux_peptidic_bonds_C, aux_peptidic_bon
         bonds = sorted_list_of_pairs(bonds)
 
     return bonds
-

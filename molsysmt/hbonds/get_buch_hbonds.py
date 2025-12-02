@@ -6,6 +6,39 @@ import numpy as np
 def get_buch_hbonds(molecular_system, selection='all', acceptors=None, donors=None, structure_indices='all',
         molecular_system_2=None, selection_2=None, acceptors_2=None, donors_2=None, structure_indices_2=None,
         distance_threshold='2.3 angstroms', pbc=True, syntax='MolSysMT', skip_digestion=False):
+    """
+    Calculating hydrogen bonds using the Buch geometric criteria.
+
+    Parameters
+    ----------
+    molecular_system : molecular system
+        Input system containing potential donors/acceptors.
+    selection : str, list, tuple or numpy.ndarray, default 'all'
+        Atom selection used to derive donors/acceptors (MolSysMT syntax or indices).
+    acceptors, donors : array-like or None
+        Preselected acceptor/donor atom indices; if None, they are inferred from `selection`.
+    structure_indices : 'all' or array-like, default 'all'
+        Structures/frames over which to compute.
+    molecular_system_2 : molecular system, optional
+        Second system for intermolecular H-bonds; if None, uses `molecular_system`.
+    selection_2, acceptors_2, donors_2 : array-like or None
+        Counterpart selections/indices for `molecular_system_2` when provided.
+    structure_indices_2 : 'all' or array-like, optional
+        Structures for the second system; defaults to `structure_indices`.
+    distance_threshold : quantity or str, default '2.3 angstroms'
+        Maximum donor–acceptor distance.
+    pbc : bool, default True
+        Whether to consider periodic boundary conditions.
+    syntax : str, default 'MolSysMT'
+        Selection syntax for string selections.
+    skip_digestion : bool, default False
+        Whether to skip argument digestion.
+
+    Returns
+    -------
+    tuple
+        `(atoms, distances)` arrays per structure for the detected H-bonds.
+    """
 
     from molsysmt.basic import select
     from .get_acceptor_atoms import get_acceptor_atoms
@@ -114,4 +147,3 @@ def get_buch_hbonds(molecular_system, selection='all', acceptors=None, donors=No
             return output_atoms, output_distances
 
     pass
-

@@ -28,7 +28,7 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', get_mi
 
     tmp_item.topology.rebuild_groups(redefine_ids=False, redefine_types=True)
 
-    tmp_item.topology.chains.iloc[0,0] = 0
+    tmp_item.topology.chains.iloc[0,0] = '0'
     tmp_item.topology.chains.iloc[0,1] = 'A'
 
     tmp_item.structures.append(coordinates=item.entry.coordinates, box=item.entry.box,

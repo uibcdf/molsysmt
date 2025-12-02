@@ -6,6 +6,27 @@ import gc
 
 @digest()
 def get_angles(molecular_system, triplets, structure_indices='all', pbc=False, skip_digestion=False):
+    """
+    Calculating bond angles for given atom triplets.
+
+    Parameters
+    ----------
+    molecular_system : molecular system
+        System providing coordinates.
+    triplets : numpy.ndarray
+        Array of shape (n_triplets, 3) with atom indices defining each angle.
+    structure_indices : 'all' or array-like, default 'all'
+        Structures/frames to compute over.
+    pbc : bool, default False
+        Whether to apply minimum image convention using the box.
+    skip_digestion : bool, default False
+        Whether to skip argument digestion.
+
+    Returns
+    -------
+    quantity
+        Angles in radians as a PyUnitWizard quantity.
+    """
 
     from molsysmt.basic import get
 
@@ -58,4 +79,3 @@ def get_angles(molecular_system, triplets, structure_indices='all', pbc=False, s
     gc.collect()
 
     return angles
-

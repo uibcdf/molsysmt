@@ -9,12 +9,12 @@ def _universal_json():
         "version": "0.1",
         "topology": {
             "atoms": {
-                "atom_id": [0, 1],
+                "atom_id": ["0", "1"],
                 "atom_name": ["A", "B"],
-                "group_id": [10, 10],
+                "group_id": ["10", "10"],
                 "group_name": ["GRP", "GRP"],
-                "chain_id": [1, 1],
-                "entity_id": [100, 100],
+                "chain_id": ["1", "1"],
+                "entity_id": ["100", "100"],
             }
         },
         "bonds": {"indexA": [0], "indexB": [1], "order": ["1"]},

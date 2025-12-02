@@ -17,6 +17,7 @@ It refines the global testing rules in the repository root `AGENTS.md`.
 ## Data, fixtures, and determinism
 
 - Prefer bundled systems from `molsysmt.systems` and small synthetic arrays over external or ad hoc data.
+- Reuse shared molecular systems defined in `tests/conftest.py` whenever possible instead of recreating fixtures inside individual tests; add new systems there so they can be shared. Keep conversion-specific tests that intentionally exercise downloads or form detection untouched (for example, `string_pdb` or `string_pdb_id` cases).
 - Keep tests deterministic: avoid reliance on network access, random seeds without control, or non-reproducible external state.
 - Mark truly slow or optional tests with appropriate pytest markers if needed (for example, `@pytest.mark.slow`), and avoid making the default test suite excessively long.
 

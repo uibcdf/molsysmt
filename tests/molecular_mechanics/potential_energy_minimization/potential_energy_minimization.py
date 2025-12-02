@@ -3,13 +3,12 @@
 
 # Import package, test suite, and other packages as needed
 import molsysmt as msm
-from molsysmt import systems
 from molsysmt import pyunitwizard as puw
 import numpy as np
 
-def test_potential_energy_minimization_1():
+def test_potential_energy_minimization_1(hp35_pdb_molsys):
 
-    molsys = msm.convert('1VII')
+    molsys = hp35_pdb_molsys
     molsys = msm.basic.remove(molsys, selection='atom_type=="H"')
     molsys = msm.build.add_missing_hydrogens(molsys, pH=7.4)
 
@@ -18,4 +17,3 @@ def test_potential_energy_minimization_1():
     U2 = msm.molecular_mechanics.get_potential_energy(molsys)
 
     assert U1>U2
-

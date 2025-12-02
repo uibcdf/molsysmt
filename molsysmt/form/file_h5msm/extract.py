@@ -236,8 +236,8 @@ def extract(item, atom_indices='all', structure_indices='all', output_filename=N
             output_file['topology']['chains']['name'][:] = input_file['topology']['chains']['name'][chain_indices]
             output_file['topology']['chains']['type'][:] = input_file['topology']['chains']['type'][chain_indices]
 
-            mask1 = np.in1d(input_file['topology']['bonds']['atom1_index'][:], atom_indices)
-            mask2 = np.in1d(input_file['topology']['bonds']['atom2_index'][:], atom_indices)
+            mask1 = np.isin(input_file['topology']['bonds']['atom1_index'][:], atom_indices)
+            mask2 = np.isin(input_file['topology']['bonds']['atom2_index'][:], atom_indices)
             mask = mask1*mask2
 
             n_bonds = np.sum(mask)

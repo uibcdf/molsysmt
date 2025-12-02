@@ -7,20 +7,20 @@ import molsysmt as msm
 from molsysmt import systems
 import numpy as np
 
-def test_get_group_type_from_molsysmt_MolSys_1():
+def test_get_group_type_from_molsysmt_MolSys_1(hp35_solvated_molsys):
 
-    molsys = msm.convert(systems['chicken villin HP35']['chicken_villin_HP35_solvated.h5msm'])
+    molsys = hp35_solvated_molsys
     types = msm.element.group.get_group_type(molsys, element='group', selection='all')
-    assert len(types) == 1316
+    assert len(types) == 1294
     assert types[0] == 'terminal capping'
     assert all(np.array(types[1:37])=='amino acid')
     assert types[37] == 'terminal capping'
     assert all(np.array(types[38:-2])=='water')
     assert all(np.array(types[-2:])=='ion')
 
-def test_get_group_type_from_molsysmt_MolSys_2():
+def test_get_group_type_from_molsysmt_MolSys_2(hp35_solvated_molsys):
 
-    molsys = msm.convert(systems['chicken villin HP35']['chicken_villin_HP35_solvated.h5msm'])
+    molsys = hp35_solvated_molsys
     types = msm.element.group.get_group_type(molsys, element='atom', selection='all', redefine_types=True)
 
     assert all(np.array(types[:6])=='terminal capping')
@@ -29,9 +29,9 @@ def test_get_group_type_from_molsysmt_MolSys_2():
     assert all(np.array(types[605:4304])=='water')
     assert all(np.array(types[-2:])=='ion')
 
-def test_get_group_type_from_molsysmt_MolSys_3():
+def test_get_group_type_from_molsysmt_MolSys_3(hp35_solvated_molsys):
 
-    molsys = msm.convert(systems['chicken villin HP35']['chicken_villin_HP35_solvated.h5msm'])
+    molsys = hp35_solvated_molsys
     types = msm.element.group.get_group_type(molsys, element='group', selection='all')
     types2 = msm.element.group.get_group_type(molsys, element='group', selection='all', redefine_types=True)
 

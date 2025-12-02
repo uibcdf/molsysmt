@@ -4,15 +4,14 @@ Unit and regression test for the wrap_to_pbc method of the molsysmt package.
 
 # Import package, test suite, and other packages as needed
 import molsysmt as msm
-from molsysmt import systems
 import numpy as np
 import math
 
 # Distance between atoms in space and time
 
 
-def test_wrap_to_pbc_molsysmt_MolSys_1():
-    molsys = msm.convert(systems['chicken villin HP35']['chicken_villin_HP35_solvated.h5msm'], to_form='molsysmt.MolSys')
+def test_wrap_to_pbc_molsysmt_MolSys_1(hp35_solvated_molsys):
+    molsys = hp35_solvated_molsys
     molsys = msm.pbc.wrap_to_pbc(molsys, center_of_selection='molecule_type=="peptide"')
     lengths = msm.get(molsys, element='system', box_lengths=True)
     distances = msm.structure.get_distances(molsys, molecular_system_2=[[0.0, 0.0, 0.0]]*msm.pyunitwizard.unit('nm'), pbc=False)

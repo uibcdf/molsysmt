@@ -44,6 +44,8 @@ Avoid repeating "Let's see an example..." for each element. Instead, alternate b
 - If an attribute is not available, `get()` returns `None`.
 - `get_attributes()` supports both `dictionary` and `list` outputs.
 - Always distinguish clearly between **form** and **system** in documentation.
+- Native MolSysMT objects store all element IDs (`atom_id`, `group_id`, `component_id`, `molecule_id`, `chain_id`, `entity_id`) as strings; converters should normalize any numeric IDs on input, and tests/docs should assume string IDs.
+- Getter functions should return Python lists (or lists of lists when nested) for collections of values instead of NumPy arrays, to keep outputs consistent across forms and examples.
 
 ---
 
@@ -111,6 +113,7 @@ This document provides conventions and rules for writing, testing, and documenti
   updating docstrings.
 - For doctest behavior and how examples are executed, see
   `docs/content/developer/documentation/api/doctests.md`.
+- Checklist: summary in gerund; sections ordered as summary, optional extended description, Parameters, single Returns, Raises, Notes, See Also, doctest `Examples`, tutorial admonition, and `.. versionadded::`. Types in lowercase, defaults in text, standard wording for common parameters (`molecular_system`, `selection`, `structure_indices`, `syntax`, `skip_digestion`, `to_form`), 0-based indices (`'all'` selects everything), units for physical quantities, deterministic minimal examples using bundled systems.
 
 ## Cross-references in documentation
 
