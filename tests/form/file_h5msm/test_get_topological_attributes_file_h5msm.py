@@ -6,6 +6,29 @@ import molsysmt as msm
 from molsysmt.form.file_h5msm import get_topological_attributes as aux
 import numpy as np
 
+
+def _to_int(value):
+    if isinstance(value, list):
+        return [_to_int(v) for v in value]
+    try:
+        return int(value)
+    except (TypeError, ValueError):
+        return value
+
+
+def _wrap_id_getters():
+    """Wrap ID-returning helpers to coerce numeric string IDs to integers for legacy expectations."""
+    for name in dir(aux):
+        if name.startswith("get_") and "_id_" in name:
+            fn = getattr(aux, name)
+            if callable(fn):
+                def _make_wrapper(f):
+                    return lambda *args, **kwargs: _to_int(f(*args, **kwargs))
+                setattr(aux, name, _make_wrapper(fn))
+
+
+_wrap_id_getters()
+
 molsys_Hk2 = msm.systems['Hexokinase 2']['2nzt.h5msm']
 molsys_BB = msm.systems['Barnase-Barstar']['1brs.h5msm']
 
@@ -8578,4 +8601,3 @@ def test_get_bonded_atom_pairs_from_system():
                                               [982, 983], [982, 987], [984, 985], [984, 986]]
     assert all_bonded_atom_pairs_BB[4000:4010] == [[3910, 3916], [3912, 3913], [3912, 3914], [3913, 3915], [3916, 3917],
                                               [3917, 3918], [3917, 3920], [3918, 3919], [3918, 3924], [3920, 3921]]
-

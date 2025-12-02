@@ -40,6 +40,14 @@ on:
 jobs:
   test:
     name: Test on ${{ matrix.cfg.os }}, Python ${{ matrix.cfg.python-version }}
+    if: >
+      !(
+        (github.event_name == 'push' && contains(github.event.head_commit.message, '[skip ci]'))
+        ||
+        (github.event_name == 'pull_request' && contains(github.event.pull_request.title, '[skip ci]'))
+        ||
+        (github.event_name == 'pull_request' && contains(github.event.pull_request.head.ref, 'skip-ci'))
+      )
     runs-on: ${{ matrix.cfg.os }}
     strategy:
       fail-fast: false  # do not cancel all in-progress jobs if any job variation fails

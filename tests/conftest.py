@@ -24,10 +24,15 @@ def _base_hp35_bcif_molsys():
     assert molsys is not None
     return molsys
 
+@pytest.fixture(scope="session")
+def _base_met_enkephalin_pdb_molsys():
+    molsys = msm.convert(systems['Met-enkephalin']['met_enkephalin.pdb'], to_form='molsysmt.MolSys')
+    assert molsys is not None
+    return molsys
 
 @pytest.fixture(scope="session")
-def _base_met_enkephalin_molsys():
-    molsys = msm.convert(systems['Met-enkephalin']['met_enkephalin.pdb'], to_form='molsysmt.MolSys')
+def _base_met_enkephalin_h5msm_molsys():
+    molsys = msm.convert(systems['Met-enkephalin']['met_enkephalin.h5msm'], to_form='molsysmt.MolSys')
     assert molsys is not None
     return molsys
 
@@ -147,11 +152,13 @@ def hp35_molsys(_base_hp35_molsys):
 def hp35_bcif_molsys(_base_hp35_bcif_molsys):
     return _base_hp35_bcif_molsys.copy()
 
+@pytest.fixture()
+def met_enkephalin_pdb_molsys(_base_met_enkephalin_pdb_molsys):
+    return _base_met_enkephalin_pdb_molsys.copy()
 
 @pytest.fixture()
-def met_enkephalin_molsys(_base_met_enkephalin_molsys):
-    return _base_met_enkephalin_molsys.copy()
-
+def met_enkephalin_h5msm_molsys(_base_met_enkephalin_h5msm_molsys):
+    return _base_met_enkephalin_h5msm_molsys.copy()
 
 @pytest.fixture()
 def barnase_barstar_molsys(_base_barnase_barstar_molsys):

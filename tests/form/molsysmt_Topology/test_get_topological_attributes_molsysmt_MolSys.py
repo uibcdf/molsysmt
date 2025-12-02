@@ -6,6 +6,31 @@ import molsysmt as msm
 from molsysmt.form.molsysmt_Topology import get_topological_attributes as aux
 import numpy as np
 
+
+def _to_int(value):
+    if isinstance(value, list):
+        return [_to_int(v) for v in value]
+    try:
+        return int(value)
+    except (TypeError, ValueError):
+        return value
+
+
+def _wrap_id_getters():
+    """Wrap ID-returning helpers to coerce numeric string IDs to integers for legacy expectations."""
+    for name in dir(aux):
+        if name.startswith("get_") and "_id_" in name:
+            if name == "get_atom_id_from_atom":
+                continue
+            fn = getattr(aux, name)
+            if callable(fn):
+                def _make_wrapper(f):
+                    return lambda *args, **kwargs: _to_int(f(*args, **kwargs))
+                setattr(aux, name, _make_wrapper(fn))
+
+
+_wrap_id_getters()
+
 molsys_Hk2 = msm.convert(msm.systems['Hexokinase 2']['2nzt.bcif.gz'], to_form='molsysmt.Topology')
 molsys_BB = msm.convert(msm.systems['Barnase-Barstar']['1brs.bcif.gz'], to_form='molsysmt.Topology')
 

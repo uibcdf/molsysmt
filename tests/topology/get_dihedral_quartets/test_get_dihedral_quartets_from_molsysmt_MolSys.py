@@ -9,8 +9,8 @@ import numpy as np
 
 # Distance between atoms in space and time
 
-def test_get_dihedral_quartets_from_molsysmt_MolSys_1():
-    molsys = msm.convert(systems['TcTIM']['1tcd.h5msm'], to_form='molsysmt.MolSys')
+def test_get_dihedral_quartets_from_molsysmt_MolSys_1(tctim_h5msm_molsys):
+    molsys = tctim_h5msm_molsys
     chains = msm.topology.get_dihedral_quartets(molsys, phi=True)
     chains = np.array(chains)
     true_value_1 = np.array([[ 2,  9, 10, 11],
@@ -34,8 +34,8 @@ def test_get_dihedral_quartets_from_molsysmt_MolSys_1():
     check_value_3 = np.all(true_value_3==chains[200:205,:])
     assert check_shape_1 and check_value_1 and check_value_2 and check_value_3
 
-def test_get_dihedral_quartets_from_molsysmt_MolSys_2():
-    molsys = msm.convert(systems['TcTIM']['1tcd.h5msm'], to_form='molsysmt.MolSys')
+def test_get_dihedral_quartets_from_molsysmt_MolSys_2(tctim_h5msm_molsys):
+    molsys = tctim_h5msm_molsys
     chains = msm.topology.get_dihedral_quartets(molsys, selection='10<=group_index<=15', psi=True)
     chains = np.array(chains)
     true_value_1 = np.array([[ 77,  78,  79,  86],
@@ -46,8 +46,8 @@ def test_get_dihedral_quartets_from_molsysmt_MolSys_2():
     check_value_1 = np.all(true_value_1==chains)
     assert check_value_1
 
-def test_get_dihedral_quartets_from_molsysmt_MolSys_3():
-    molsys = msm.convert(systems['TcTIM']['1tcd.h5msm'], to_form='molsysmt.MolSys')
+def test_get_dihedral_quartets_from_molsysmt_MolSys_3(tctim_h5msm_molsys):
+    molsys = tctim_h5msm_molsys
     chains = msm.topology.get_dihedral_quartets(molsys, chi5=True)
     chains = np.array(chains)
     true_value_1 = np.array([[1572, 1573, 1574, 1575],
@@ -60,8 +60,8 @@ def test_get_dihedral_quartets_from_molsysmt_MolSys_3():
     check_value_1 = np.all(true_value_1==chains[10:15])
     assert check_shape_1 and check_value_1
 
-def test_get_dihedral_quartets_from_molsysmt_MolSys_4():
-    molsys = msm.convert(systems['TcTIM']['1tcd.h5msm'], to_form='molsysmt.MolSys')
+def test_get_dihedral_quartets_from_molsysmt_MolSys_4(tctim_h5msm_molsys):
+    molsys = tctim_h5msm_molsys
     chains = msm.topology.get_dihedral_quartets(molsys, phi=True, psi=True)
     chains = np.vstack(chains)
     true_value_1 = np.array([[ 2,  9, 10, 11],
@@ -85,8 +85,8 @@ def test_get_dihedral_quartets_from_molsysmt_MolSys_4():
     check_value_3 = np.all(true_value_3==chains[800:805,:])
     assert check_shape_1 and check_value_1 and check_value_2 and check_value_3
 
-def test_get_dihedral_quartets_from_molsysmt_MolSys_6(met_enkephalin_molsys):
-    molsys = met_enkephalin_molsys
+def test_get_dihedral_quartets_from_molsysmt_MolSys_6(met_enkephalin_pdb_molsys):
+    molsys = met_enkephalin_pdb_molsys
     phi_chains, phi_blocks = msm.topology.get_dihedral_quartets(molsys, with_blocks=True, phi=True)
     true_value_1 = np.array([33, 35, 37, 53])
     true_value_2 = np.array([{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36},
