@@ -36,8 +36,9 @@ def solve_atoms_with_alternate_location(molecular_system, selection='all',
                     arg = np.argmax(tmp_alt_loc_value['occupancy'])
 
                 for tmp_atom_index, tmp_alt_loc_value in alt_loc_dict[structure_index].items():
-                    if tmp_atom_index in atom_indices:
-                        new_atom_indices.append(tmp_atom_index)
+                    key_int = int(tmp_atom_index)
+                    if key_int in atom_indices:
+                        new_atom_indices.append(key_int)
                         arg = np.argmax(tmp_alt_loc_value['occupancy'])
                         if np.isclose(tmp_alt_loc_value['occupancy'][arg],0.5):
                             new_location_id.append('A')
@@ -64,10 +65,11 @@ def solve_atoms_with_alternate_location(molecular_system, selection='all',
             aux2_atom_id=[]
             aux2_coordinates=[]
             for tmp_atom_index, tmp_alt_loc_value in alt_loc_dict[structure_index].items():
-                if tmp_atom_index in atom_indices:
-                    aux_arg = np.argwhere(np.array(atom_indices)==tmp_atom_index)[0][0]
+                key_int = int(tmp_atom_index)
+                if key_int in atom_indices:
+                    aux_arg = np.argwhere(np.array(atom_indices)==key_int)[0][0]
                     arg = np.where(tmp_alt_loc_value['location_id']==location_id[aux_arg])[0][0]
-                    aux2_atom_indices.append(tmp_atom_index)
+                    aux2_atom_indices.append(key_int)
                     aux2_b_factor.append(tmp_alt_loc_value['b_factor'][arg])
                     aux2_atom_id.append(tmp_alt_loc_value['atom_id'][arg])
                     aux2_coordinates.append(tmp_alt_loc_value['coordinates'][arg])
@@ -107,4 +109,3 @@ def solve_atoms_with_alternate_location(molecular_system, selection='all',
                     **atts_to_set)
 
     pass
-

@@ -68,6 +68,10 @@ def select(molecular_system, selection='all', structure_indices='all', element='
     - Selection syntaxes and valid query expressions are described in :ref:`Introduction_Selection`.
     - The selection is always returned as indices corresponding to the specified element level,
     unless a translation to another syntax is explicitly requested via `to_syntax`.
+    - When using the MolSysMT syntax, numeric comparisons on `*_id` fields (for example,
+      ``atom_id<10``) are allowed as a convenience: if the underlying IDs are integer-like strings,
+      they are temporarily converted to integers inside this function; otherwise a warning is issued
+      and the comparison uses string semantics.
 
     See Also
     --------

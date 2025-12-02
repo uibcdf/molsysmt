@@ -6,10 +6,12 @@ from datetime import datetime
 h5msm_version = "0.3"
 
 class H5MSMFileHandler():
+    """Lightweight handler for reading and writing h5msm files."""
 
     def __init__(self, filename, io_mode='r', creator='MolSysMT', compression="gzip", compression_opts=4,
                  int_precision='single', float_precision='single', length_unit=None, time_unit=None, energy_unit=None,
                  temperature_unit=None, charge_unit=None, mass_unit=None, closed=False, skip_digestion=False):
+        """Open or create an h5msm file with the desired storage options."""
 
         self.file = None
         self.format_version = None
@@ -34,6 +36,7 @@ class H5MSMFileHandler():
             self.file.close()
 
     def write_topology(self, topology, selection='all', syntax='MolSysMT'):
+        """Write a topology object into the file, converting if needed."""
 
         from molsysmt.basic import get_form, select, convert
         from molsysmt._private.variables import is_all
@@ -55,6 +58,7 @@ class H5MSMFileHandler():
             del(aux_topology)
 
     def close(self):
+        """Close the underlying HDF5 handle."""
 
         self.file.close()
 
@@ -62,6 +66,7 @@ def _new_msmfile(filename, creator='MolSysMT', compression="gzip", compression_o
         int_precision='single', float_precision='single', length_unit=None,
         time_unit=None, energy_unit=None, temperature_unit=None, charge_unit=None,
         mass_unit=None):
+    """Create a new h5msm file on disk and initialize datasets."""
 
     if compression == 'lzf':
         compression_opts = None
@@ -135,7 +140,7 @@ def _new_msmfile(filename, creator='MolSysMT', compression="gzip", compression_o
 
     atoms = topology.create_group("atoms")
 
-    atoms.create_dataset('atom_id', (0,), dtype=int_type, maxshape=(None,), **global_dataset_options)
+    atoms.create_dataset('atom_id', (0,), dtype=h5py.string_dtype(), maxshape=(None,), **global_dataset_options)
     atoms.create_dataset('atom_name', (0,), dtype=h5py.string_dtype(), maxshape=(None,), **global_dataset_options)
     atoms.create_dataset('atom_type', (0,), dtype=h5py.string_dtype(), maxshape=(None,), **global_dataset_options)
     atoms.create_dataset('group_index', (0,), dtype=int_type, maxshape=(None,), **global_dataset_options)
@@ -146,7 +151,7 @@ def _new_msmfile(filename, creator='MolSysMT', compression="gzip", compression_o
 
     groups = topology.create_group("groups")
 
-    groups.create_dataset('group_id', (0,), dtype=int_type, maxshape=(None,), **global_dataset_options)
+    groups.create_dataset('group_id', (0,), dtype=h5py.string_dtype(), maxshape=(None,), **global_dataset_options)
     groups.create_dataset('group_name', (0,), dtype=h5py.string_dtype(), maxshape=(None,), **global_dataset_options)
     groups.create_dataset('group_type', (0,), dtype=h5py.string_dtype(), maxshape=(None,), **global_dataset_options)
     groups.create_dataset('molecule_index', (0,), dtype=int_type, maxshape=(None,), **global_dataset_options)
@@ -155,7 +160,7 @@ def _new_msmfile(filename, creator='MolSysMT', compression="gzip", compression_o
 
     molecules = topology.create_group("molecules")
 
-    molecules.create_dataset('molecule_id', (0,), dtype=int_type, maxshape=(None,), **global_dataset_options)
+    molecules.create_dataset('molecule_id', (0,), dtype=h5py.string_dtype(), maxshape=(None,), **global_dataset_options)
     molecules.create_dataset('molecule_name', (0,), dtype=h5py.string_dtype(), maxshape=(None,), **global_dataset_options)
     molecules.create_dataset('molecule_type', (0,), dtype=h5py.string_dtype(), maxshape=(None,), **global_dataset_options)
     molecules.create_dataset('entity_index', (0,), dtype=int_type, maxshape=(None,), **global_dataset_options)
@@ -164,7 +169,7 @@ def _new_msmfile(filename, creator='MolSysMT', compression="gzip", compression_o
 
     entities = topology.create_group("entities")
 
-    entities.create_dataset('entity_id', (0,), dtype=int_type, maxshape=(None,), **global_dataset_options)
+    entities.create_dataset('entity_id', (0,), dtype=h5py.string_dtype(), maxshape=(None,), **global_dataset_options)
     entities.create_dataset('entity_name', (0,), dtype=h5py.string_dtype(), maxshape=(None,), **global_dataset_options)
     entities.create_dataset('entity_type', (0,), dtype=h5py.string_dtype(), maxshape=(None,), **global_dataset_options)
 
@@ -172,7 +177,7 @@ def _new_msmfile(filename, creator='MolSysMT', compression="gzip", compression_o
 
     components = topology.create_group("components")
 
-    components.create_dataset('component_id', (0,), dtype=int_type, maxshape=(None,), **global_dataset_options)
+    components.create_dataset('component_id', (0,), dtype=h5py.string_dtype(), maxshape=(None,), **global_dataset_options)
     components.create_dataset('component_name', (0,), dtype=h5py.string_dtype(), maxshape=(None,), **global_dataset_options)
     components.create_dataset('component_type', (0,), dtype=h5py.string_dtype(), maxshape=(None,), **global_dataset_options)
 
@@ -180,7 +185,7 @@ def _new_msmfile(filename, creator='MolSysMT', compression="gzip", compression_o
 
     chains = topology.create_group("chains")
 
-    chains.create_dataset('chain_id', (0,), dtype=int_type, maxshape=(None,), **global_dataset_options)
+    chains.create_dataset('chain_id', (0,), dtype=h5py.string_dtype(), maxshape=(None,), **global_dataset_options)
     chains.create_dataset('chain_name', (0,), dtype=h5py.string_dtype(), maxshape=(None,), **global_dataset_options)
     chains.create_dataset('chain_type', (0,), dtype=h5py.string_dtype(), maxshape=(None,), **global_dataset_options)
 
@@ -220,4 +225,3 @@ def _new_msmfile(filename, creator='MolSysMT', compression="gzip", compression_o
     structures_sd.create_dataset('temperature', (0,), dtype=float_type, maxshape=(None,), **global_dataset_options)
 
     return file
-

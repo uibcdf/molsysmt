@@ -1,5 +1,6 @@
 def molsysmt_Topology_and_molsysmt_Structures_to_molsysmt_MolSys(molecular_system, atom_indices='all',
                                                                  structure_indices='all', skip_digestion=False):
+    """Combine a MolSysMT topology and structures into a MolSys object."""
 
     from molsysmt.basic import get_form
     from molsysmt.native.molsys import MolSys
@@ -27,6 +28,7 @@ def molsysmt_Topology_and_molsysmt_Structures_to_molsysmt_MolSys(molecular_syste
 
 def molsysmt_Topology_and_molsysmt_StructuresDict_to_molsysmt_MolSys(molecular_system, atom_indices='all',
                                                                  structure_indices='all', skip_digestion=False):
+    """Merge topology and StructuresDict into a MolSys object."""
 
     from molsysmt.basic import get_form
     from molsysmt.native.molsys import MolSys
@@ -55,6 +57,7 @@ def molsysmt_Topology_and_molsysmt_StructuresDict_to_molsysmt_MolSys(molecular_s
 
 def file_prmtop_and_file_inpcrd_to_molsysmt_MolSys(molecular_system, atom_indices='all',
                                                    structure_indices='all', skip_digestion=False):
+    """Build a MolSys from Amber PRMTOP and INPCRD files."""
 
     from molsysmt.basic import get_form
     from molsysmt.form.file_prmtop import to_molsysmt_Topology as file_prmtop_to_molsysmt_Topology
@@ -84,6 +87,7 @@ def file_prmtop_and_file_inpcrd_to_molsysmt_MolSys(molecular_system, atom_indice
 
 def file_psf_and_file_dcd_to_molsysmt_MolSys(molecular_system, atom_indices='all', structure_indices='all',
                                              skip_digestion=False):
+    """Build a MolSys from a PSF topology and DCD trajectory."""
 
     from molsysmt.basic import get_form
     from molsysmt.form.file_psf import to_molsysmt_Topology as file_psf_to_molsysmt_Topology
@@ -111,6 +115,7 @@ def file_psf_and_file_dcd_to_molsysmt_MolSys(molecular_system, atom_indices='all
 
 def file_psf_and_file_crd_to_molsysmt_MolSys(molecular_system, atom_indices='all', structure_indices='all', 
                                              skip_digestion=False):
+    """Build a MolSys from a PSF topology and CRD coordinates."""
 
     from molsysmt.basic import get_form
     from molsysmt.form.file_psf import to_molsysmt_Topology as file_psf_to_molsysmt_Topology
@@ -138,6 +143,7 @@ def file_psf_and_file_crd_to_molsysmt_MolSys(molecular_system, atom_indices='all
 
 def file_gro_and_file_xtc_to_molsysmt_MolSys(molecular_system, atom_indices='all', structure_indices='all',
                                              skip_digestion=False):
+    """Build a MolSys from GRO topology and XTC coordinates."""
 
     from molsysmt.basic import get_form
     from molsysmt.form.file_gro import to_molsysmt_Topology as file_gro_to_molsysmt_Topology
@@ -165,6 +171,7 @@ def file_gro_and_file_xtc_to_molsysmt_MolSys(molecular_system, atom_indices='all
 
 def openmm_Topology_and_molsysmt_StructuresDict_to_molsysmt_MolSys(molecular_system, atom_indices='all',
                                                                    structure_indices='all', skip_digestion=False):
+    """Combine an OpenMM Topology with MolSysMT structures into a MolSys object."""
 
     from molsysmt.basic import get_form
     from molsysmt.native.molsys import MolSys
@@ -189,5 +196,4 @@ def openmm_Topology_and_molsysmt_StructuresDict_to_molsysmt_MolSys(molecular_sys
             structure_indices=structure_indices, skip_digestion=True)
 
     return tmp_item
-
 

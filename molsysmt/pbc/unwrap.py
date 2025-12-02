@@ -9,7 +9,36 @@ import gc
 def unwrap(molecular_system, selection='all', structure_indices='all',
         syntax='MolSysMT', engine='MolSysMT', in_place=False, skip_digestion=False):
     """
-    To be written soon...
+    Unwrapping coordinates across periodic boundaries to produce continuous trajectories.
+
+    Parameters
+    ----------
+    molecular_system : molecular system
+        Input system.
+    selection : str, list, tuple or numpy.ndarray, default 'all'
+        Atoms to unwrap.
+    structure_indices : 'all' or array-like, default 'all'
+        Structures/frames to process.
+    syntax : str, default 'MolSysMT'
+        Selection syntax when using strings.
+    engine : {'MolSysMT'}, default 'MolSysMT'
+        Backend.
+    in_place : bool, default False
+        If True, modify the input system; otherwise return an unwrapped copy.
+    skip_digestion : bool, default False
+        Whether to skip argument digestion.
+
+    Returns
+    -------
+    molecular system or None
+        Unwrapped system when `in_place=False`, otherwise `None`.
+
+    Raises
+    ------
+    NotImplementedMethodError
+        If an unsupported engine is requested.
+
+    .. versionadded:: 1.0.0
     """
 
     if engine=='MolSysMT':
@@ -53,4 +82,3 @@ def unwrap(molecular_system, selection='all', structure_indices='all',
         gc.collect()
 
         return tmp_molecular_system
-

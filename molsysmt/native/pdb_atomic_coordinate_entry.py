@@ -666,8 +666,10 @@ class MasterRecord():
 
 
 class PDBAtomicCoordinateEntry():
+    """Aggregate of PDB record sections for atomic coordinate entries."""
 
     def __init__(self):
+        """Initialize empty record sections."""
 
         self.version = None
 
@@ -683,6 +685,5 @@ class PDBAtomicCoordinateEntry():
         self.bookkeeping = BookkeepingSection()
 
     def _heal(self):
-
+        """Placeholder for post-processing consistency checks."""
         pass
-

@@ -13,6 +13,7 @@ def _convert_one_to_one(molecular_system,
                         structure_indices='all',
                         syntax='MolSysMT',
                         **kwargs):
+    """Internal helper: convert a single input from one form to another (one-to-one path)."""
 
     from . import select, get_form
     from molsysmt.form import is_item, is_file, _dict_modules
@@ -108,6 +109,7 @@ def _convert_multiple_to_one_with_shortcuts(molecular_system,
                                             structure_indices='all',
                                             syntax='MolSysMT',
                                             **kwargs):
+    """Internal helper: convert a list/tuple of inputs to one output using conversion shortcuts."""
 
     from . import select, get_form
     from molsysmt.form import is_item, is_file, _dict_modules
@@ -174,6 +176,7 @@ def _convert_multiple_to_one(molecular_system,
                              structure_indices='all',
                              syntax='MolSysMT',
                              **kwargs):
+    """Internal helper: convert a list/tuple of inputs to one output via plain graph resolution."""
 
     from . import select, get_form
     from molsysmt.form import is_item, is_file, _dict_modules
@@ -543,5 +546,4 @@ def convert(molecular_system,
             output = output[0]
 
     return output
-
 

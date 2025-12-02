@@ -8,8 +8,8 @@ import molsysmt as msm
 from molsysmt import systems
 import numpy as np
 
-def test_append_structures_molsysmt_MolSys():
-    molsys_1 = msm.convert(systems['proline dipeptide']['proline_dipeptide.h5msm'], to_form='molsysmt.MolSys')
+def test_append_structures_molsysmt_MolSys(proline_molsys):
+    molsys_1 = proline_molsys
     molsys_2 = msm.structure.translate(molsys_1, translation='[0.1, 0.1, 0.1] nanometers')
     molsys_3 = msm.structure.translate(molsys_1, translation='[0.2, 0.2, 0.2] nanometers')
     n_atoms_1, n_structures_1 = msm.get(molsys_1, element='system', n_atoms=True, n_structures=True)

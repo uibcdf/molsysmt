@@ -5,8 +5,10 @@ import numpy as np
 
 
 class TNGFile():
+    """Placeholder handler for TNG trajectories."""
 
     def __init__(self, filename=None, mode='read'):
+        """Prepare metadata for a TNG file handle (not yet implemented)."""
 
         self.opened = False
         self.filename = None
@@ -21,6 +23,5 @@ class TNGFile():
         self.pos_header = None
         self.pos_frame = None
         self.box_initial_frame = None
-
 
 

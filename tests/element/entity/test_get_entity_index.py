@@ -6,14 +6,14 @@ Unit and regression test for the get_form module of the molsysmt package.
 import molsysmt as msm
 
 
-def test_get_component_index_1():
-    molsys = msm.convert(msm.systems['chicken villin HP35']['chicken_villin_HP35_solvated.h5msm'])
+def test_get_component_index_1(hp35_solvated_molsys):
+    molsys = hp35_solvated_molsys
     output = msm.element.entity.get_entity_index(molsys, element='entity', selection='all',
                                                  redefine_indices=True)
     assert [0,1,2]==output
 
-def test_get_component_index_2():
-    molsys = msm.convert(msm.systems['chicken villin HP35']['chicken_villin_HP35_solvated.h5msm'])
+def test_get_component_index_2(hp35_solvated_molsys):
+    molsys = hp35_solvated_molsys
     output = msm.element.entity.get_entity_index(molsys, element='entity', selection='all',
                                                  redefine_indices=False)
     assert [0,1,2]==output

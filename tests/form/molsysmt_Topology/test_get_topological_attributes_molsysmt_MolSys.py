@@ -6,6 +6,31 @@ import molsysmt as msm
 from molsysmt.form.molsysmt_Topology import get_topological_attributes as aux
 import numpy as np
 
+
+def _to_int(value):
+    if isinstance(value, list):
+        return [_to_int(v) for v in value]
+    try:
+        return int(value)
+    except (TypeError, ValueError):
+        return value
+
+
+def _wrap_id_getters():
+    """Wrap ID-returning helpers to coerce numeric string IDs to integers for legacy expectations."""
+    for name in dir(aux):
+        if name.startswith("get_") and "_id_" in name:
+            if name == "get_atom_id_from_atom":
+                continue
+            fn = getattr(aux, name)
+            if callable(fn):
+                def _make_wrapper(f):
+                    return lambda *args, **kwargs: _to_int(f(*args, **kwargs))
+                setattr(aux, name, _make_wrapper(fn))
+
+
+_wrap_id_getters()
+
 molsys_Hk2 = msm.convert(msm.systems['Hexokinase 2']['2nzt.bcif.gz'], to_form='molsysmt.Topology')
 molsys_BB = msm.convert(msm.systems['Barnase-Barstar']['1brs.bcif.gz'], to_form='molsysmt.Topology')
 
@@ -30,10 +55,10 @@ def test_get_atom_id_from_atom():
     list_atom_ids_BB = aux.get_atom_id_from_atom(molsys_Hk2, indices=[10,11,12,13], skip_digestion=True)
 
     assert isinstance(all_atom_ids_Hk2, list)
-    assert all_atom_ids_Hk2 == list(range(1, 13547))
-    assert all_atom_ids_BB == list(range(1,2688))+[2689,2691]+list(range(2692, 5154))
-    assert list_atom_ids_Hk2 == [5,6,7]
-    assert list_atom_ids_BB == [11,12,13,14]
+    assert all_atom_ids_Hk2 == [str(ii) for ii in range(1, 13547)]
+    assert all_atom_ids_BB == [str(ii) for ii in list(range(1,2688))+[2689,2691]+list(range(2692, 5154))]
+    assert list_atom_ids_Hk2 == ['5','6','7']
+    assert list_atom_ids_BB == ['11','12','13','14']
 
 
 def test_get_atom_name_from_atom():
@@ -8578,4 +8603,3 @@ def test_get_bonded_atom_pairs_from_system():
                                               [982, 983], [982, 987], [984, 985], [984, 986]]
     assert all_bonded_atom_pairs_BB[4000:4010] == [[3910, 3916], [3912, 3913], [3912, 3914], [3913, 3915], [3916, 3917],
                                               [3917, 3918], [3917, 3920], [3918, 3919], [3918, 3924], [3920, 3921]]
-

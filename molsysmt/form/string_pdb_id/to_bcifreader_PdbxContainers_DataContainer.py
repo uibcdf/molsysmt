@@ -23,7 +23,8 @@ def to_bcifreader_PdbxContainers_DataContainer(item, atom_indices='all', structu
     #containers = binary_cif_reader.deserialize(url)
 
     if len(containers)>1:
-        print('Warning! The PDB ID has more than a DataContainer')
+        import warnings
+        warnings.warn('BCIF download has more than one DataContainer; using the first one.', stacklevel=2)
 
     if len(containers)==0:
         raise ValueError('The PDB ID does not have any DataContainer')
@@ -33,5 +34,4 @@ def to_bcifreader_PdbxContainers_DataContainer(item, atom_indices='all', structu
     remove(tempfile)
 
     return tmp_item
-
 

@@ -16,6 +16,27 @@ donor_exclusion_rules = [
 def get_donor_atoms(molecular_system, selection='all',  inclusion_rules=None, exclusion_rules=None,
                     default_inclusion_rules=True, default_exclusion_rules=True,
                     syntax='MolSysMT'):
+    """
+    Identify donor atoms (and their hydrogens) for hydrogen-bond detection.
+
+    Parameters
+    ----------
+    molecular_system : molecular system
+        Input system.
+    selection : str, list, tuple or numpy.ndarray, default 'all'
+        Atom selection to filter candidates.
+    inclusion_rules, exclusion_rules : list of str or None
+        Selection rules to include or exclude atoms.
+    default_inclusion_rules, default_exclusion_rules : bool, default True
+        Whether to apply built-in donor rules.
+    syntax : str, default 'MolSysMT'
+        Selection syntax for string rules.
+
+    Returns
+    -------
+    numpy.ndarray
+        Array of donor–hydrogen pairs (shape `(n, 2)`).
+    """
 
     from molsysmt import select
     from molsysmt.topology import get_covalent_chains
@@ -42,4 +63,3 @@ def get_donor_atoms(molecular_system, selection='all',  inclusion_rules=None, ex
     output = np.sort(output, axis=0)
 
     return output
-

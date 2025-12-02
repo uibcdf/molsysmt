@@ -24,11 +24,11 @@ More specific `AGENTS.md` files in subdirectories refine or override these rules
 
 ## Docstrings and style
 
-- Use NumPy-style docstrings as illustrated in `coding/coding_guide.md`.
-- First line: short gerund summary (for example, “Getting box lengths and angles.”).
-- Always document units for physical quantities (coordinates in nm, time in ps, angles in radians, charges in elementary charge units).
-- Prefer doctest-friendly examples where appropriate, but keep them short and focused.
-- Keep comments and docstrings meaningful; avoid restating information that is obvious from the code.
+- Use NumPy-style docstrings (see `coding/coding_guide.md` and `docs/content/developer/documentation/api/docstrings.md`) with a gerund one-line summary.
+- Standard order: summary; optional extended description; Parameters; Returns (single section); Raises; Notes; See Also; Examples (doctest `>>>`); tutorial admonition; `.. versionadded::`.
+- Types in lowercase; defaults in the description; reuse standard wording for `molecular_system`, `selection`, `structure_indices`, `syntax`, `skip_digestion`, `to_form`; document units (nm, ps, radians, elementary charge) where applicable.
+- Examples must be minimal and deterministic, using bundled systems; avoid duplicating heavy test logic.
+- Keep comments/docstrings meaningful; avoid restating obvious code behavior.
 
 ## Data conventions
 
@@ -58,5 +58,6 @@ More specific `AGENTS.md` files in subdirectories refine or override these rules
 - Do not run or document destructive git commands (such as `git reset --hard` or `git push --force`) in automated workflows.
 - Avoid adding new external dependencies without considering their impact; reuse existing libraries and utilities already in the project when possible.
 - Automated agents must respect sandboxing and should avoid network access unless explicitly required and permitted by the execution environment.
+- In native MolSysMT objects (for example, `molsysmt.Topology` and `molsysmt.MolSys`), element IDs (`*_id` fields) are stored as strings; normalize incoming numeric IDs to strings and keep this invariant in converters, rebuilders, and tests.
 
 For more specialized guidance, consult the AGENTS files in `ai_assistant/`, `docs/`, `docs/dev/`, `coding/`, `molsysmt/form/`, and `tests/`.

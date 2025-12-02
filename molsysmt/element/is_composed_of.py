@@ -1,4 +1,5 @@
 def is_composed_of(element_1, element_2):
+    """Return True if `element_1` contains `element_2` in the MolSysMT hierarchy."""
 
     from molsysmt.element import _plural_elements_to_singular
 
@@ -33,4 +34,3 @@ def is_composed_of(element_1, element_2):
             return True
 
     return False
-

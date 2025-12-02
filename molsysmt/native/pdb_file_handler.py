@@ -28,11 +28,13 @@ _dict_helix_class = {
 
 
 def guess_format_version(file):
+    """Return the PDB format version guessed from the file contents."""
 
     return '3.3'
 
 
 def parse_format33(file):
+    """Parse a PDB file using the v3.3 specification."""
 
     from .pdb_atomic_coordinate_entry import PDBAtomicCoordinateEntry
     from .pdb_atomic_coordinate_entry import HeaderRecord, ObslteRecord, TitleRecord, SplitRecord,\
@@ -1191,8 +1193,10 @@ def parse_format33(file):
 
 
 class PDBFileHandler():
+    """Handle reading and writing PDB coordinate files."""
 
     def __init__(self, file, io_mode='r', closed=False, skip_digestion=False):
+        """Open a PDB file path or buffer in the requested mode."""
 
         self.file = None
         self.format_version = None
@@ -1232,16 +1236,18 @@ class PDBFileHandler():
             self.file.close()
 
     def close(self):
+        """Close the underlying file handle."""
 
         self.file.close()
 
     def load(self):
+        """Load and parse the PDB content."""
 
         if self.format_version == '3.3':
 
             self.entry = parse_format33(self.file)
 
     def dump(self):
+        """Serialize the current entry back to PDB format."""
 
         pass
-

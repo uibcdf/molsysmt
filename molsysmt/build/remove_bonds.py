@@ -4,6 +4,19 @@ from molsysmt._private.variables import is_all
 
 @digest()
 def remove_bonds(molecular_system, bond_indices='all', in_place=True, skip_digestion=False):
+    """Remove bonds from a molecular system by index.
+
+    Parameters
+    ----------
+    molecular_system : molecular system
+        System from which bonds will be removed.
+    bond_indices : 'all' or array-like, default 'all'
+        Bond indices to delete.
+    in_place : bool, default True
+        If `True`, modify in place; otherwise raise NotImplementedMethodError.
+    skip_digestion : bool, default False
+        Whether to skip argument digestion.
+    """
 
     from molsysmt.basic import where_is_attribute
     from molsysmt.form import _dict_modules
@@ -19,4 +32,3 @@ def remove_bonds(molecular_system, bond_indices='all', in_place=True, skip_diges
     else:
 
         raise NotImplementedMethodError
-

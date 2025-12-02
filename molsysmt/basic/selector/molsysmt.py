@@ -1,10 +1,12 @@
 import numpy as np
 import pandas as pd
+import re
+import warnings
+from inspect import stack, getargvalues
 from molsysmt._private.variables import is_all
 from molsysmt._private.strings import get_parenthesis
 from molsysmt.element import _plural_elements_to_singular, _element_index
 from re import findall
-from inspect import stack, getargvalues
 
 
 def select(molecular_system, selection='all', structure_indices='all'):
@@ -236,6 +238,21 @@ def select_standard(item, selection):
 
             aux_df = pd.merge(aux_df, tmp_item.chains[chain_columns],
                               left_on='chain_index', right_index=True)
+
+        aux_df = aux_df.copy()
+
+        id_columns = [column for column in aux_df.columns if column.endswith('_id')]
+        numeric_id_columns = _id_columns_with_numeric_comparisons(tmp_selection, id_columns)
+
+        for column in numeric_id_columns:
+            if _column_has_integer_strings(aux_df[column]):
+                aux_df[column] = pd.to_numeric(aux_df[column], errors='coerce')
+            else:
+                warnings.warn(
+                    f"Selection uses numeric comparison on '{column}', but values are not integer-like strings; "
+                    "comparison will fall back to string semantics.",
+                    UserWarning,
+                )
 
         tmp_selection = tmp_selection.replace('atom_index','index')
         output = aux_df.query(tmp_selection, engine='python').index.to_list()
@@ -497,3 +514,36 @@ def _in_elements_of(selection):
         output = True
 
     return output
+
+
+def _id_columns_with_numeric_comparisons(selection, columns):
+
+    numeric_columns = []
+    for column in columns:
+        pattern = rf"\b{column}\b\s*(==|!=|<=|>=|<|>)\s*\d+"
+        if re.search(pattern, selection):
+            numeric_columns.append(column)
+    return numeric_columns
+
+
+def _column_has_integer_strings(series):
+
+    def _is_integer_string(value):
+        if pd.isna(value):
+            return True
+        if isinstance(value, (int, np.integer)):
+            return True
+        if isinstance(value, str):
+            stripped = value.strip()
+            return stripped.lstrip('-').isdigit()
+        return False
+
+    subset = series.dropna()
+    if subset.empty:
+        return True
+
+    if not subset.map(_is_integer_string).all():
+        return False
+
+    numeric = pd.to_numeric(subset, errors='coerce')
+    return numeric.notna().all()

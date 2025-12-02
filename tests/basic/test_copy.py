@@ -9,9 +9,8 @@ import numpy as np
 import os
 
 
-def test_copy_1():
-    molsys = systems['pentalanine']['traj_pentalanine.h5']
-    molsys = msm.convert(molsys, to_form='molsysmt.MolSys')
+def test_copy_1(traj_pentalanine_h5_molsys):
+    molsys = traj_pentalanine_h5_molsys
     molsys_2 = msm.copy(molsys)
     output = msm.compare(molsys, molsys_2, attributes_type='topological', coordinates=True, box=True)
     assert output==True

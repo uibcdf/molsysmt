@@ -13,6 +13,7 @@ def add_contacts(view,
         mid_color_value_2=None, max_color_value_2=None,
         color_values_scale_2=None, colormap_2=None, syntax='MolSysMT',
         skip_digestion=False):
+    """Add contact cylinders between atom pairs to an NGLview widget."""
 
     from molsysmt.basic import get, select
     from molsysmt.structure import get_contacts
@@ -40,4 +41,3 @@ def add_contacts(view,
             colormap_2=colormap_2, skip_digestion=False)
 
     pass
-
