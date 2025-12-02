@@ -22,7 +22,11 @@ def _viewer_json():
             "order": ["1"],
         },
         "structures": [
-            {"coordinates": [[0.0, 0.0, 0.0], [1.0, 0.0, 0.0]], "time": 0.0},
+            {
+                "coordinates": [[0.0, 0.0, 0.0], [1.0, 0.0, 0.0]],
+                "time": 0.0,
+                "box": {"v0": [1.0, 0.0, 0.0], "v1": [0.0, 1.0, 0.0], "v2": [0.0, 0.0, 1.0]},
+            },
         ],
     }
     return ViewerJSON(data=data)
@@ -40,3 +44,4 @@ def test_viewerjson_to_molsys():
     arr = np.asarray(coords.magnitude)
     assert arr.shape == (1, 2, 3)
     assert np.allclose(arr[0, 1], [1.0, 0.0, 0.0])
+    assert np.allclose(np.asarray(molsys.structures.box.magnitude)[0], np.eye(3))

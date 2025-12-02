@@ -68,3 +68,6 @@ def test_molsys_to_UniversalJSON():
     assert atoms["group_id"] == ["10", "10"]
     assert len(structures) == 1
     assert np.allclose(np.array(structures[0]["coordinates"]), [[0, 0, 0], [1, 0, 0]])
+    assert structures[0]["box"]["v0"] == [1.0, 0.0, 0.0]
+    assert structures[0]["box"]["v1"] == [0.0, 1.0, 0.0]
+    assert structures[0]["box"]["v2"] == [0.0, 0.0, 1.0]

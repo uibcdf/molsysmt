@@ -25,3 +25,6 @@ def test_structures_to_ViewerJSON():
     frame = viewer.data["structures"][0]
     assert np.allclose(np.array(frame["coordinates"]), [[0, 0, 0], [1, 0, 0]])
     assert frame["time"] == 0.5
+    assert frame["box"]["v0"] == [1.0, 0.0, 0.0]
+    assert frame["box"]["v1"] == [0.0, 1.0, 0.0]
+    assert frame["box"]["v2"] == [0.0, 0.0, 1.0]

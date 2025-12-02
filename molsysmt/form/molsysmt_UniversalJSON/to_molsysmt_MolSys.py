@@ -1,6 +1,7 @@
 from molsysmt._private.digestion import digest
 from molsysmt.native import MolSys, Topology, Structures
 from molsysmt import pyunitwizard as puw
+from molsysmt.pbc import get_box_from_lengths_and_angles
 import numpy as np
 import pandas as pd
 
@@ -29,6 +30,20 @@ def _bonds_dict(item):
         if sets:
             return sets[0] or {}
     return bonds
+
+
+def _box_dict_to_array(box_dict):
+    """Convert box dictionary to 3x3 numpy array."""
+    if box_dict is None:
+        return None
+    if all(key in box_dict for key in ('v0', 'v1', 'v2')):
+        return np.array([box_dict['v0'], box_dict['v1'], box_dict['v2']], dtype=float)
+    if all(key in box_dict for key in ('length_v0', 'length_v1', 'length_v2', 'angle_v1_v2', 'angle_v0_v2', 'angle_v0_v1')):
+        lengths = puw.quantity(np.array([box_dict['length_v0'], box_dict['length_v1'], box_dict['length_v2']], dtype=float), 'nanometer')
+        angles = puw.quantity(np.array([box_dict['angle_v1_v2'], box_dict['angle_v0_v2'], box_dict['angle_v0_v1']], dtype=float), 'radian')
+        box = get_box_from_lengths_and_angles(lengths, angles, skip_digestion=True)
+        return np.asarray(puw.get_value(box, to_unit='nanometer'))
+    return None
 
 
 def _safe_array(values, length, dtype=object):
@@ -63,9 +78,10 @@ def _chain_indices_from_ids(ids):
 
 def _collect_coordinates(frames, n_atoms):
     if not frames:
-        return None
+        return None, None, None
     coords = []
     times = []
+    boxes = []
     for frame in frames:
         coords_field = frame.get('coordinates', frame.get('positions', None))
         if coords_field is None:
@@ -79,11 +95,19 @@ def _collect_coordinates(frames, n_atoms):
                 arr = arr[:n_atoms]
         coords.append(arr)
         times.append(frame.get('time', None))
+        boxes.append(_box_dict_to_array(frame.get('box', None)))
     if not coords:
-        return None
+        return None, None, None
     coords = np.stack(coords)
     times = np.array(times, dtype=float)
-    return puw.quantity(coords, 'nanometer'), puw.quantity(times, 'picosecond')
+    box_array = None
+    if boxes and all(box is not None for box in boxes):
+        box_array = np.stack(boxes)
+    return (
+        puw.quantity(coords, 'nanometer'),
+        puw.quantity(times, 'picosecond'),
+        puw.quantity(box_array, 'nanometer') if box_array is not None else None,
+    )
 
 
 @digest(form='molsysmt.UniversalJSON')
@@ -157,16 +181,11 @@ def to_molsysmt_MolSys(item, skip_digestion=False):
         topo.bonds['atom2_index'] = pd.Series(pairs[:,1] if pairs.size else [], dtype='Int64')
         topo.bonds['order'] = pd.Series(bonds.get('order', []), dtype=str)
 
-    collected = _collect_coordinates(frames, n_atoms if n_atoms > 0 else None)
-    if collected is None:
-        coordinates = None
-        times = None
-    else:
-        coordinates, times = collected
+    coordinates, times, boxes = _collect_coordinates(frames, n_atoms if n_atoms > 0 else None)
     structures = Structures(
         coordinates=coordinates,
         time=times,
-        box=None,
+        box=boxes,
         skip_digestion=True,
     )
 

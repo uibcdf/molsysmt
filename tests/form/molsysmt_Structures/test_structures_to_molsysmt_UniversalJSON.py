@@ -24,3 +24,6 @@ def test_structures_to_UniversalJSON():
     structures_block = ujson.data["coordinates"]["collections"][0]["structures"]
     assert len(structures_block) == 1
     assert np.allclose(np.array(structures_block[0]["coordinates"]), [[0, 0, 0], [1, 0, 0]])
+    assert structures_block[0]["box"]["v0"] == [1.0, 0.0, 0.0]
+    assert structures_block[0]["box"]["v1"] == [0.0, 1.0, 0.0]
+    assert structures_block[0]["box"]["v2"] == [0.0, 0.0, 1.0]

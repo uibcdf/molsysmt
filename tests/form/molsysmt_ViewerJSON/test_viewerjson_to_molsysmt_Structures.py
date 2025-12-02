@@ -17,7 +17,11 @@ def _viewer_json():
         },
         "bonds": {"atom_pairs": [[0, 1]], "order": ["1"]},
         "structures": [
-            {"coordinates": [[0.5, 0.0, 0.0], [1.5, 0.0, 0.0]], "time": 1.0},
+            {
+                "coordinates": [[0.5, 0.0, 0.0], [1.5, 0.0, 0.0]],
+                "time": 1.0,
+                "box": {"v0": [1.0, 0.0, 0.0], "v1": [0.0, 1.0, 0.0], "v2": [0.0, 0.0, 1.0]},
+            },
         ],
     }
     return ViewerJSON(data=data)
@@ -30,3 +34,4 @@ def test_viewerjson_to_structures():
     coords = np.asarray(structures.coordinates.magnitude)
     assert coords.shape == (1, 2, 3)
     assert np.allclose(coords[0, 0], [0.5, 0.0, 0.0])
+    assert np.allclose(np.asarray(structures.box.magnitude)[0], np.eye(3))
