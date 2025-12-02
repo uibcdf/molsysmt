@@ -9,22 +9,22 @@ import numpy as np
 
 # Distance between atoms in space and time
 
-def test_mutate_molsysmt_MolSys_1(met_enkephalin_molsys):
-    molsys = met_enkephalin_molsys
+def test_mutate_molsysmt_MolSys_1(met_enkephalin_pdb_molsys):
+    molsys = met_enkephalin_pdb_molsys
     molsys = msm.build.mutate(molsys, mutations={1:'ALA', 2:'VAL'}, keys='group_index')
     seq = msm.convert(molsys, to_form='string:amino_acids_3')
     check = (seq == 'TyrAlaValPheMet')
     assert check
 
-def test_mutate_molsysmt_MolSys_2(met_enkephalin_molsys):
-    molsys = met_enkephalin_molsys
+def test_mutate_molsysmt_MolSys_2(met_enkephalin_pdb_molsys):
+    molsys = met_enkephalin_pdb_molsys
     molsys = msm.build.mutate(molsys, mutations={2:'ALA', 3:'VAL'}, keys='group_id')
     seq = msm.convert(molsys, to_form='string:amino_acids_3')
     check = (seq == 'TyrAlaValPheMet')
     assert check
 
-def test_mutate_molsysmt_MolSys_3(met_enkephalin_molsys):
-    molsys = met_enkephalin_molsys
+def test_mutate_molsysmt_MolSys_3(met_enkephalin_pdb_molsys):
+    molsys = met_enkephalin_pdb_molsys
     molsys = msm.build.mutate(molsys, mutations={'GLY':'ALA'}, keys='group_name')
     seq = msm.convert(molsys, to_form='string:amino_acids_3')
     check = (seq == 'TyrAlaAlaPheMet')

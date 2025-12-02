@@ -9,8 +9,8 @@ import numpy as np
 # Distance between atoms in space and time
 
 
-def test_get_lengths_and_angles_from_box_cubic_geometry(met_enkephalin_molsys):
-    molsys = met_enkephalin_molsys
+def test_get_lengths_and_angles_from_box_cubic_geometry(met_enkephalin_pdb_molsys):
+    molsys = met_enkephalin_pdb_molsys
     molsys = msm.build.solvate(molsys, box_shape='cubic', clearance='14.0 angstroms', engine='PDBFixer')
     box = msm.get(molsys, element='system', box=True)
     lengths, angles = msm.pbc.get_lengths_and_angles_from_box(box)
@@ -19,8 +19,8 @@ def test_get_lengths_and_angles_from_box_cubic_geometry(met_enkephalin_molsys):
     assert check_lengths
     assert check_angles
 
-def test_get_lengths_and_angles_from_box_octahedral_geometry(met_enkephalin_molsys):
-    molsys = met_enkephalin_molsys
+def test_get_lengths_and_angles_from_box_octahedral_geometry(met_enkephalin_pdb_molsys):
+    molsys = met_enkephalin_pdb_molsys
     molsys = msm.build.solvate(molsys, box_shape='truncated octahedral', clearance='14.0 angstroms', engine='PDBFixer')
     box = msm.get(molsys, element='system', box=True)
     lengths, angles = msm.pbc.get_lengths_and_angles_from_box(box)
@@ -30,8 +30,8 @@ def test_get_lengths_and_angles_from_box_octahedral_geometry(met_enkephalin_mols
     assert check_angles
 
 
-def test_get_lengths_and_angles_from_box_dodecahedral_geometry(met_enkephalin_molsys):
-    molsys = met_enkephalin_molsys
+def test_get_lengths_and_angles_from_box_dodecahedral_geometry(met_enkephalin_pdb_molsys):
+    molsys = met_enkephalin_pdb_molsys
     molsys = msm.build.solvate(molsys, box_shape='rhombic dodecahedral', clearance='14.0 angstroms', engine='PDBFixer')
     box = msm.get(molsys, element='system', box=True)
     lengths, angles = msm.pbc.get_lengths_and_angles_from_box(box)

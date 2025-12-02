@@ -7,8 +7,8 @@ systems.
 import molsysmt as msm
 import numpy as np
 
-def test_shift_dihedral_angles_from_molsysmt_MolSys_1(met_enkephalin_molsys):
-    molsys = met_enkephalin_molsys
+def test_shift_dihedral_angles_from_molsysmt_MolSys_1(met_enkephalin_pdb_molsys):
+    molsys = met_enkephalin_pdb_molsys
     phi_chains = msm.topology.get_dihedral_quartets(molsys, phi=True)
     molecular_system = msm.structure.shift_dihedral_angles(molsys, dihedral_quartets=phi_chains[2],
                                                            shifts='45.0 degrees', pbc=False)
