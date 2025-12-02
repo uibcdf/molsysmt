@@ -9,30 +9,29 @@ def append_structures(item, items, skip_digestion=False):
     if not isinstance(items, (list, tuple)):
         items = [items]
 
-    frames_holder = None
-    if 'estructures' in item.data or 'frames' in item.data:
-        existing = item.data.pop('frames', [])
-        frames_holder = item.data.setdefault('estructures', existing if isinstance(existing, list) else [])
-    else:
-        coords_block = item.data.setdefault('coordinates', {})
-        collections = coords_block.setdefault('collections', [])
-        if not collections:
-            collections.append({})
-        coll0 = collections[0]
-        if 'estructures' not in coll0 and 'frames' in coll0:
-            coll0['estructures'] = coll0.pop('frames')
-        frames_holder = coll0.setdefault('estructures', [])
+    coords_block = item.data.setdefault('coordinates', {})
+    collections = coords_block.setdefault('collections', [])
+    if not collections:
+        collections.append({"label": "default"})
+    coll0 = collections[0]
+    # migrate legacy keys
+    if 'estructures' in coll0:
+        coll0['structures'] = coll0.pop('estructures')
+    if 'frames' in coll0:
+        coll0['structures'] = coll0.pop('frames')
+    frames_holder = coll0.setdefault('structures', [])
 
     for other in items:
         if hasattr(other, "data"):
-            other_frames = []
-            if 'estructures' in other.data or 'frames' in other.data:
-                other_frames = other.data.get('estructures', other.data.get('frames', []))
-            else:
-                coords_block = other.data.get('coordinates', {}) or {}
-                if 'collections' in coords_block and coords_block.get('collections'):
-                    coll0 = coords_block['collections'][0] or {}
-                    other_frames = coll0.get('estructures', coll0.get('frames', []))
-            frames_holder.extend(deepcopy(other_frames))
+            other_coords = other.data.get('coordinates', {}) or {}
+            other_collections = other_coords.get('collections', [])
+            if other_collections:
+                other_coll0 = other_collections[0] or {}
+                if 'estructures' in other_coll0:
+                    other_coll0 = {**other_coll0, "structures": other_coll0.get('estructures')}
+                if 'frames' in other_coll0:
+                    other_coll0 = {**other_coll0, "structures": other_coll0.get('frames')}
+                other_frames = other_coll0.get('structures', [])
+                frames_holder.extend(deepcopy(other_frames))
 
     return item

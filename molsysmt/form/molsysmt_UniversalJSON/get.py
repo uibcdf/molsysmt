@@ -15,22 +15,16 @@ def _atoms_dict(item):
 
 def _bonds_dict(item):
     bonds = item.data.get('bonds', {}) or {}
-    if isinstance(bonds, dict) and 'sets' in bonds:
-        sets = bonds.get('sets', [])
-        if sets:
-            return sets[0] or {}
     return bonds
 
 
-def _estructures_list(item):
-    if 'estructures' in item.data or 'frames' in item.data:
-        return item.data.get('estructures', item.data.get('frames', [])) or []
+def _structures_list(item):
     coords_block = item.data.get('coordinates', {}) or {}
     if 'collections' in coords_block:
         collections = coords_block.get('collections', [])
         if collections:
             coll0 = collections[0] or {}
-            return coll0.get('estructures', coll0.get('frames', [])) or []
+            return coll0.get('structures', coll0.get('estructures', coll0.get('frames', []))) or []
     return []
 
 
@@ -177,10 +171,10 @@ def get_n_atoms_from_system(item, skip_digestion=False):
     n_atoms = _n_atoms_from_atoms(atoms)
     if n_atoms is not None:
         return int(n_atoms)
-    frames = _estructures_list(item)
+    frames = _structures_list(item)
     if frames:
         for frame in frames:
-            positions = frame.get('positions', frame.get('coordinates', None))
+            positions = frame.get('coordinates', frame.get('positions', None))
             if positions is not None:
                 return int(len(positions))
     return None
@@ -189,11 +183,10 @@ def get_n_atoms_from_system(item, skip_digestion=False):
 @digest(form=form)
 def get_n_bonds_from_system(item, skip_digestion=False):
     bonds = _bonds_dict(item)
-    indexA = bonds.get('indexA', None)
-    indexB = bonds.get('indexB', None)
-    if indexA is None or indexB is None:
+    atom_pairs = bonds.get('atom_pairs', None)
+    if atom_pairs is None:
         return None
-    return min(len(indexA), len(indexB))
+    return len(atom_pairs)
 
 
 @digest(form=form)
@@ -214,8 +207,11 @@ def get_bonded_atoms_from_atom(item, indices='all', skip_digestion=False):
         return None
 
     bonds = _bonds_dict(item)
-    indexA = np.array(bonds.get('indexA', []), dtype=int)
-    indexB = np.array(bonds.get('indexB', []), dtype=int)
+    pairs = np.array(bonds.get('atom_pairs', []), dtype=int)
+    if pairs.size == 0:
+        return [[] for _ in range(n_atoms)]
+    indexA = pairs[:, 0]
+    indexB = pairs[:, 1]
 
     bonded = [[] for _ in range(n_atoms)]
     for a, b in zip(indexA, indexB):
@@ -229,14 +225,14 @@ def get_bonded_atoms_from_atom(item, indices='all', skip_digestion=False):
 
 @digest(form=form)
 def get_n_structures_from_system(item, skip_digestion=False):
-    frames = _estructures_list(item)
+    frames = _structures_list(item)
     return len(frames) if frames else None
 
 
 @digest(form=form)
 def get_coordinates_from_system(item, structure_indices='all', skip_digestion=False):
     n_atoms = get_n_atoms_from_system(item, skip_digestion=True)
-    frames = _estructures_list(item)
+    frames = _structures_list(item)
     coords, available_indices = _reshape_coordinates(frames, n_atoms)
     if coords is None:
         return None
@@ -255,7 +251,7 @@ def get_coordinates_from_system(item, structure_indices='all', skip_digestion=Fa
 
 @digest(form=form)
 def get_time_from_system(item, structure_indices='all', skip_digestion=False):
-    frames = _estructures_list(item)
+    frames = _structures_list(item)
     if not frames:
         return None
 

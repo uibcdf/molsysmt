@@ -12,15 +12,13 @@ def _atoms_dict(item):
     return item.data.get('atoms', {}) or {}
 
 
-def _estructures_list(item):
-    if 'estructures' in item.data or 'frames' in item.data:
-        return item.data.get('estructures', item.data.get('frames', [])) or []
+def _structures_list(item):
     coords_block = item.data.get('coordinates', {}) or {}
     if 'collections' in coords_block:
         collections = coords_block.get('collections', [])
         if collections:
             coll0 = collections[0] or {}
-            return coll0.get('estructures', coll0.get('frames', [])) or []
+            return coll0.get('structures', coll0.get('estructures', coll0.get('frames', []))) or []
     return []
 
 
@@ -69,10 +67,10 @@ def _collect_coordinates(frames, n_atoms):
     coords = []
     times = []
     for frame in frames:
-        positions = frame.get('positions', frame.get('coordinates', None))
-        if positions is None:
+        coords_field = frame.get('coordinates', frame.get('positions', None))
+        if coords_field is None:
             continue
-        arr = np.array(positions, dtype=float)
+        arr = np.array(coords_field, dtype=float)
         if n_atoms is not None:
             if arr.shape[0] < n_atoms:
                 pad = np.full((n_atoms - arr.shape[0], 3), np.nan, dtype=float)
@@ -93,7 +91,7 @@ def to_molsysmt_MolSys(item, skip_digestion=False):
     """Convert a UniversalJSON object into a native MolSys."""
 
     atoms = _atoms_dict(item)
-    frames = _estructures_list(item)
+    frames = _structures_list(item)
     bonds = _bonds_dict(item)
 
     atom_id = _safe_array(atoms.get('atom_id', None), None, dtype=object)
@@ -111,6 +109,9 @@ def to_molsysmt_MolSys(item, skip_digestion=False):
     group_indices, unique_group_ids = _group_indices_from_ids(group_id_raw.tolist())
     chain_indices, unique_chain_ids = _chain_indices_from_ids(chain_id_raw.tolist())
 
+    atom_pairs = bonds.get('atom_pairs', [])
+    n_bonds = len(atom_pairs) if atom_pairs is not None else 0
+
     topo = Topology(
         n_atoms=n_atoms,
         n_groups=max(len(unique_group_ids), 1),
@@ -118,7 +119,7 @@ def to_molsysmt_MolSys(item, skip_digestion=False):
         n_molecules=max(len(unique_group_ids), 1),
         n_entities=max(len(entity_id_raw) if entity_id_raw is not None else 1, 1),
         n_chains=max(len(unique_chain_ids), 1),
-        n_bonds=min(len(bonds.get('indexA', [])), len(bonds.get('indexB', []))) if bonds else 0,
+        n_bonds=n_bonds,
         skip_digestion=True,
     )
 
@@ -151,8 +152,9 @@ def to_molsysmt_MolSys(item, skip_digestion=False):
     topo.chains['chain_type'] = pd.Series([''] * len(unique_chain_ids), dtype=str)
 
     if bonds:
-        topo.bonds['atom1_index'] = pd.Series(bonds.get('indexA', []), dtype='Int64')
-        topo.bonds['atom2_index'] = pd.Series(bonds.get('indexB', []), dtype='Int64')
+        pairs = np.array(atom_pairs if atom_pairs is not None else [], dtype=int)
+        topo.bonds['atom1_index'] = pd.Series(pairs[:,0] if pairs.size else [], dtype='Int64')
+        topo.bonds['atom2_index'] = pd.Series(pairs[:,1] if pairs.size else [], dtype='Int64')
         topo.bonds['order'] = pd.Series(bonds.get('order', []), dtype=str)
 
     collected = _collect_coordinates(frames, n_atoms if n_atoms > 0 else None)

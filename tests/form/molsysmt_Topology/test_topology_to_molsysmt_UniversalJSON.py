@@ -54,4 +54,4 @@ def test_topology_to_UniversalJSON():
     atoms = ujson.data["topology"]["atoms"]
     assert atoms["atom_id"] == ["0", "1"]
     assert atoms["group_id"] == ["10", "10"]
-    assert ujson.data["coordinates"]["collections"][0]["frames"] == []
+    assert ujson.data["coordinates"]["collections"][0]["structures"] == []

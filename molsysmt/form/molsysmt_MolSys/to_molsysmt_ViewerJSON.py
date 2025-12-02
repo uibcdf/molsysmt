@@ -6,16 +6,17 @@ from molsysmt.form.molsysmt_Structures import to_molsysmt_ViewerJSON as structur
 
 @digest(form='molsysmt.MolSys')
 def to_molsysmt_ViewerJSON(item, skip_digestion=False):
-    """Convert a native MolSys into a ViewerJSON container."""
+    """Converting a native MolSys into a ViewerJSON container."""
 
     topo_vjson = topology_to_viewer(item.topology, skip_digestion=True)
     struct_vjson = structures_to_viewer(item.structures, skip_digestion=True)
 
-    data = {
-        "version": topo_vjson.data.get("version", "0.1"),
-        "atoms": topo_vjson.data.get("atoms", {}),
-        "bonds": topo_vjson.data.get("bonds", {}),
-        "estructures": struct_vjson.data.get("estructures", struct_vjson.data.get("frames", [])),
-    }
+    viewer = ViewerJSON()
+    topo_data = topo_vjson.to_dict()
+    struct_data = struct_vjson.to_dict()
 
-    return ViewerJSON(data=data)
+    viewer.data["atoms"] = topo_data.get("atoms", {})
+    viewer.data["bonds"] = topo_data.get("bonds", {})
+    viewer.data["estructures"] = struct_data.get("estructures", struct_data.get("frames", []))
+
+    return viewer

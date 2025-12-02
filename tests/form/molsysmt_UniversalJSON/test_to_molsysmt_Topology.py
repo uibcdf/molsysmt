@@ -15,8 +15,8 @@ def _universal_json():
                 "entity_id": ["100", "100"],
             }
         },
-        "bonds": {"indexA": [0], "indexB": [1], "order": ["1"]},
-        "coordinates": {"collections": [{"label": "default", "estructures": []}]},
+        "bonds": {"atom_pairs": [[0, 1]], "order": ["1"]},
+        "coordinates": {"collections": [{"label": "default", "structures": []}]},
     }
     return UniversalJSON(data=data)
 

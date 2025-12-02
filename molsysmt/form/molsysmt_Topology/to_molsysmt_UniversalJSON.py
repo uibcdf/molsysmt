@@ -9,7 +9,7 @@ def _series_to_list(series):
 
 @digest(form='molsysmt.Topology')
 def to_molsysmt_UniversalJSON(item, skip_digestion=False):
-    """Convert a native Topology into a UniversalJSON object (topology only)."""
+    """Converting a native Topology into a UniversalJSON object (topology only)."""
 
     topo = item
     atoms_df = topo.atoms
@@ -17,6 +17,9 @@ def to_molsysmt_UniversalJSON(item, skip_digestion=False):
     molecules_df = topo.molecules
     entities_df = topo.entities
     chains_df = topo.chains
+
+    ujson = UniversalJSON()
+    data = ujson.data
 
     group_id_map = dict(zip(groups_df.index, _series_to_list(groups_df['group_id'])))
     group_name_map = dict(zip(groups_df.index, _series_to_list(groups_df['group_name'])))
@@ -44,31 +47,21 @@ def to_molsysmt_UniversalJSON(item, skip_digestion=False):
         ent_idx = ent_index_map.get(mol_idx, None)
         entity_id.append(entity_id_map.get(ent_idx, None))
 
-    atoms_block = {
-        "atom_id": _series_to_list(atoms_df['atom_id']),
-        "atom_name": _series_to_list(atoms_df['atom_name']),
-        "group_id": group_id,
-        "group_name": group_name,
-        "chain_id": chain_id,
-        "entity_id": entity_id,
-        "element_symbol": [],
-        "formal_charge": [],
-    }
+    atoms_block = data["topology"]["atoms"]
+    atoms_block["atom_id"] = _series_to_list(atoms_df['atom_id'])
+    atoms_block["atom_name"] = _series_to_list(atoms_df['atom_name'])
+    atoms_block["group_id"] = group_id
+    atoms_block["group_name"] = group_name
+    atoms_block["chain_id"] = chain_id
+    atoms_block["entity_id"] = entity_id
+    atoms_block["element_symbol"] = []
+    atoms_block["formal_charge"] = []
 
     bonds_df = topo.bonds
-    bonds_block = {
-        "indexA": _series_to_list(bonds_df['atom1_index']),
-        "indexB": _series_to_list(bonds_df['atom2_index']),
-        "order": _series_to_list(bonds_df['order']) if 'order' in bonds_df else [],
-    }
+    bonds_block = data["bonds"]
+    atom_pairs = list(zip(_series_to_list(bonds_df['atom1_index']), _series_to_list(bonds_df['atom2_index'])))
+    bonds_block["atom_pairs"] = [list(pair) for pair in atom_pairs]
+    bonds_block["order"] = _series_to_list(bonds_df['order']) if 'order' in bonds_df else []
 
-    data = {
-        "version": "0.1",
-        "topology": {"atoms": atoms_block},
-        "bonds": bonds_block,
-        "coordinates": {"collections": [{"label": "default", "estructures": []}]},
-        "metadata": {},
-        "annotations": {},
-    }
-
-    return UniversalJSON(data=data)
+    # Coordinates/structures remain initialized but empty
+    return ujson
