@@ -66,6 +66,6 @@ def to_molsysmt_ViewerJSON(item, skip_digestion=False):
                 structure["box"] = _box_from_matrix(np.asarray(box_values[ii]))
             structures.append(structure)
 
-    data["estructures"] = structures
+    data["structures"] = structures
 
     return viewer

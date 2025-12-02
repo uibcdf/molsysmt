@@ -19,8 +19,8 @@ def _bonds_dict(item):
     return bonds
 
 
-def _estructures_list(item):
-    frames = item.data.get('estructures', item.data.get('frames', None))
+def _structures_list(item):
+    frames = item.data.get('structures', item.data.get('estructures', item.data.get('frames', None)))
     if frames is None:
         return []
     return frames
@@ -169,7 +169,7 @@ def get_n_atoms_from_system(item, skip_digestion=False):
     n_atoms = _n_atoms_from_atoms(atoms)
     if n_atoms is not None:
         return int(n_atoms)
-    frames = _estructures_list(item)
+    frames = _structures_list(item)
     if frames:
         for frame in frames:
             positions = frame.get('coordinates', None)
@@ -219,14 +219,14 @@ def get_bonded_atoms_from_atom(item, indices='all', skip_digestion=False):
 
 @digest(form=form)
 def get_n_structures_from_system(item, skip_digestion=False):
-    frames = _estructures_list(item)
+    frames = _structures_list(item)
     return len(frames) if frames else None
 
 
 @digest(form=form)
 def get_coordinates_from_system(item, structure_indices='all', skip_digestion=False):
     n_atoms = get_n_atoms_from_system(item, skip_digestion=True)
-    frames = _estructures_list(item)
+    frames = _structures_list(item)
     coords, available_indices = _reshape_coordinates(frames, n_atoms)
     if coords is None:
         return None
@@ -245,7 +245,7 @@ def get_coordinates_from_system(item, structure_indices='all', skip_digestion=Fa
 
 @digest(form=form)
 def get_time_from_system(item, structure_indices='all', skip_digestion=False):
-    frames = _estructures_list(item)
+    frames = _structures_list(item)
     if not frames:
         return None
 
