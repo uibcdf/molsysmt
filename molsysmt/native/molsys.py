@@ -170,3 +170,7 @@ class MolSys:
         return _get(self, element=element, selection=selection, structure_indices=structure_indices,
                     mask=mask, syntax=syntax, get_missing_bonds=get_missing_bonds, output_type=output_type,
                     skip_digestion=True, **kwargs)
+
+    def _get_n_atoms(self):
+        return self.topology._get_n_atoms()
+

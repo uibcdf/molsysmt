@@ -213,6 +213,9 @@ class Topology():
         self.reset_bonds(n_bonds=n_bonds)
         self._coerce_id_columns_to_string()
 
+    def _get_n_atoms(self):
+        return self.atoms.shape[0]
+
     def reset_atoms(self, n_atoms=0):
         """Reset atoms table to a new size."""
 
