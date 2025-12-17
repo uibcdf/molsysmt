@@ -39,7 +39,6 @@ dependencies = [
     "openmm",
     "pdbfixer",
     "nglview",
-    "ambertools",
     "networkx",
     "mdtraj",
     "mdanalysis",
