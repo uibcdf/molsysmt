@@ -1,37 +1,24 @@
 from molsysmt._private.digestion import digest
+from molsysmt._private.files_and_directories import temp_filename
 from os import remove
 
 @digest(form='string:pdb_id')
 def to_bcifreader_PdbxContainers_DataContainer(item, atom_indices='all', structure_indices='all', skip_digestion=False):
 
-    from bcifreader import BinaryCifReader
-    from ..file_bcif_gz import download
+    #from .to_file_bcif import to_file_bcif
+    #from ..file_bcif import to_bcifreader_PdbxContainers_DataContainer as file_bcif_to_bcifreader_PdbxContainers_DataContainer
+    #output_filename = temp_filename(extension="bcif.gz")
+    #tmp_item = to_file_bcif(item, skip_digestion=True)
+    #tmp_item = file_bcif_to_bcifreader_PdbxContainers_DataContainer(tmp_item, skip_digestion=True)
+    #remove(output_filename)
 
-    if item.startswith('pdb_id:'):
-        tmp_item = item.split(':')[-1]
-    elif item.startswith('pdb_'):
-        tmp_item = item[-4:]
-    else:
-        tmp_item = item
+    from .to_file_bcif_gz import to_file_bcif_gz
+    from ..file_bcif_gz import to_bcifreader_PdbxContainers_DataContainer as file_bcif_gz_to_bcifreader_PdbxContainers_DataContainer
 
-    tempfile = download(tmp_item, tempfile=True)
-    binary_cif_reader = BinaryCifReader()
-    containers = binary_cif_reader.deserialize(tempfile)
-
-    #url = f'https://models.rcsb.org/{tmp_item}.bcif.gz'
-    #binary_cif_reader = BinaryCifReader()
-    #containers = binary_cif_reader.deserialize(url)
-
-    if len(containers)>1:
-        import warnings
-        warnings.warn('BCIF download has more than one DataContainer; using the first one.', stacklevel=2)
-
-    if len(containers)==0:
-        raise ValueError('The PDB ID does not have any DataContainer')
-
-    tmp_item = containers[0]
-
-    remove(tempfile)
+    output_filename = temp_filename(extension="bcif.gz")
+    tmp_item = to_file_bcif_gz(item, output_filename=output_filename, skip_digestion=True)
+    tmp_item = file_bcif_gz_to_bcifreader_PdbxContainers_DataContainer(tmp_item, skip_digestion=True)
+    remove(output_filename)
 
     return tmp_item
 
