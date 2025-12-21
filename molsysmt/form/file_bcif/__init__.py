@@ -26,7 +26,6 @@ from .download import download
 
 from .to_file_bcif import to_file_bcif
 from .to_mmcif_PdbxContainers_DataContainer import to_mmcif_PdbxContainers_DataContainer
-from .to_bcifreader_PdbxContainers_DataContainer import to_bcifreader_PdbxContainers_DataContainer
 from .to_molsysmt_MolSys import to_molsysmt_MolSys
 from .to_molsysmt_Topology import to_molsysmt_Topology
 from .to_molsysmt_Structures import to_molsysmt_Structures
@@ -35,7 +34,6 @@ from .to_file_h5msm import to_file_h5msm
 _convert_to={
     'file:bcif': to_file_bcif,
     'mmcif.PdbxContainers.DataContainer': to_mmcif_PdbxContainers_DataContainer,
-    'bcifreader.PdbxContainers.DataContainer': to_bcifreader_PdbxContainers_DataContainer,
     'molsysmt.MolSys': to_molsysmt_MolSys,
     'molsysmt.Topology': to_molsysmt_Topology,
     'molsysmt.Structures': to_molsysmt_Structures,

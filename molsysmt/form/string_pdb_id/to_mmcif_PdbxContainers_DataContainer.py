@@ -1,22 +1,24 @@
 from molsysmt._private.digestion import digest
+from molsysmt._private.files_and_directories import temp_filename
+from os import remove
 
 @digest(form='string:pdb_id')
 def to_mmcif_PdbxContainers_DataContainer(item, atom_indices='all', structure_indices='all', skip_digestion=False):
 
-    from mmcif.io.BinaryCifReader import BinaryCifReader
+    #from .to_file_bcif import to_file_bcif
+    #from ..file_bcif import to_mmcif_PdbxContainers_DataContainer as file_bcif_to_mmcif_PdbxContainers_DataContainer
+    #output_filename = temp_filename(extension="bcif.gz")
+    #tmp_item = to_file_bcif(item, skip_digestion=True)
+    #tmp_item = file_bcif_to_mmcif_PdbxContainers_DataContainer(tmp_item, skip_digestion=True)
+    #remove(output_filename)
 
+    from .to_file_bcif_gz import to_file_bcif_gz
+    from ..file_bcif_gz import to_mmcif_PdbxContainers_DataContainer as file_bcif_gz_to_mmcif_PdbxContainers_DataContainer
 
-    tmp_item = item.split(':')[-1]
-    url = f'https://models.rcsb.org/{tmp_item}.bcif.gz'
-
-    binary_cif_reader = BinaryCifReader()
-    containers = binary_cif_reader.deserialize(url)
-
-    if len(containers)>1:
-        import warnings
-        warnings.warn('BCIF download has more than one DataContainer; using the first one.', stacklevel=2)
-
-    tmp_item = containers[0]
+    output_filename = temp_filename(extension="bcif.gz")
+    tmp_item = to_file_bcif_gz(item, output_filename=output_filename, skip_digestion=True)
+    tmp_item = file_bcif_gz_to_mmcif_PdbxContainers_DataContainer(tmp_item, skip_digestion=True)
+    remove(output_filename)
 
     return tmp_item
 

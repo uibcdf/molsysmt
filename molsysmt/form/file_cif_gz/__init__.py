@@ -1,4 +1,4 @@
-form_name = 'file:bcif.gz'
+form_name = 'file:cif.gz'
 form_type = 'file'
 form_info = ["", ""]
 
@@ -24,7 +24,7 @@ from .iterators import StructuresIterator, TopologyIterator
 
 from .download import download
 
-from .to_file_bcif_gz import to_file_bcif_gz
+from .to_file_cif_gz import to_file_cif_gz
 from .to_mmcif_PdbxContainers_DataContainer import to_mmcif_PdbxContainers_DataContainer
 from .to_molsysmt_MolSys import to_molsysmt_MolSys
 from .to_molsysmt_Topology import to_molsysmt_Topology
@@ -32,11 +32,11 @@ from .to_molsysmt_Structures import to_molsysmt_Structures
 from .to_file_h5msm import to_file_h5msm
 
 _convert_to={
-        'file:bcif.gz': to_file_bcif_gz,
-        'mmcif.PdbxContainers.DataContainer': to_mmcif_PdbxContainers_DataContainer,
-        'molsysmt.MolSys': to_molsysmt_MolSys,
-        'molsysmt.Topology': to_molsysmt_Topology,
-        'molsysmt.Structures': to_molsysmt_Structures,
-        'file:h5msm': to_file_h5msm,
-        }
+    'file:cif.gz': to_file_cif_gz,
+    'mmcif.PdbxContainers.DataContainer': to_mmcif_PdbxContainers_DataContainer,
+    'molsysmt.MolSys': to_molsysmt_MolSys,
+    'molsysmt.Topology': to_molsysmt_Topology,
+    'molsysmt.Structures': to_molsysmt_Structures,
+    'file:h5msm': to_file_h5msm,
+    }
 

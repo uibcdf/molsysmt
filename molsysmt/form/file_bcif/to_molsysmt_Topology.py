@@ -1,6 +1,6 @@
 from molsysmt._private.digestion import digest
 
-@digest(form='file:bcif.gz')
+@digest(form='file:bcif')
 def to_molsysmt_Topology(item, atom_indices='all', skip_digestion=False):
 
     from . import to_mmcif_PdbxContainers_DataContainer

@@ -1,12 +1,12 @@
 from molsysmt._private.digestion import digest
 
 @digest(form='file:cif')
-def to_bcifreader_PdbxContainers_DataContainer(item, atom_indices='all', skip_digestion=False):
+def to_mmcif_PdbxContainers_DataContainer(item, atom_indices='all', skip_digestion=False):
 
-    from bcifreader import BinaryCifReader
+    from mmcif.io.IoAdapterCore import IoAdapterCore
 
-    binary_cif_reader = BinaryCifReader()
-    containers = binary_cif_reader.deserialize(item)
+    io = IoAdapterCore()
+    containers = io.readFile(item)
 
     if len(containers)>1:
         import warnings
