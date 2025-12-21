@@ -2,9 +2,11 @@ form_name = 'file:cif'
 form_type = 'file'
 form_info = ["", ""]
 
-piped_topological_attribute = None
-piped_structural_attribute = None
-piped_any_attribute = None
+piped_topological_attribute = 'molsysmt.Topology'
+piped_structural_attribute = 'molsysmt.Structures'
+piped_any_attribute = 'molsysmt.MolSys'
+bonds_are_explicit = True
+bonds_can_be_computed = True
 
 from .is_form import is_form
 
@@ -20,11 +22,21 @@ from .get import *
 from .set import *
 from .iterators import StructuresIterator, TopologyIterator
 
+from .download import download
+
 from .to_file_cif import to_file_cif
-from .to_molsysmt_CIFFileHandler import to_molsysmt_CIFFileHandler
+from .to_mmcif_PdbxContainers_DataContainer import to_mmcif_PdbxContainers_DataContainer
+from .to_molsysmt_MolSys import to_molsysmt_MolSys
+from .to_molsysmt_Topology import to_molsysmt_Topology
+from .to_molsysmt_Structures import to_molsysmt_Structures
+from .to_file_h5msm import to_file_h5msm
 
 _convert_to={
-        'file:cif': to_file_cif,
-        'molsysmt.CIFFileHandler': to_molsysmt_CIFFileHandler,
-        }
+    'file:cif': to_file_cif,
+    'mmcif.PdbxContainers.DataContainer': to_mmcif_PdbxContainers_DataContainer,
+    'molsysmt.MolSys': to_molsysmt_MolSys,
+    'molsysmt.Topology': to_molsysmt_Topology,
+    'molsysmt.Structures': to_molsysmt_Structures,
+    'file:h5msm': to_file_h5msm,
+    }
 

@@ -6,7 +6,7 @@ from molsysmt._private.digestion import digest
 
 class StructuresIterator(StructuresIterator_molsysmt_MolSys):
 
-    @digest(form='file:cif')
+    @digest(form='file:cif.gz')
     def __init__(self, molecular_system, atom_indices='all', start=0, step=1, stop=None, chunk=1, structure_indices=None,
             output_type='values', skip_digestion=False, **kwargs):
 
@@ -18,7 +18,7 @@ class StructuresIterator(StructuresIterator_molsysmt_MolSys):
 
 class TopologyIterator(TopologyIterator_molsysmt_MolSys):
 
-    @digest(form='file:cif')
+    @digest(form='file:cif.gz')
     def __init__(self, molecular_system, element='atom', indices='all', start=0, step=1, stop=None, chunk=1,
             output_type='values', skip_digestion=False, **kwargs):
 

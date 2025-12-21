@@ -7,7 +7,7 @@ import pandas as pd
 
 # https://github.com/rcsb/mmtf/blob/master/spec.md
 
-@digest(form='bcifreader.PdbxContainers.DataContainer')
+@digest(form='mmcif.PdbxContainers.DataContainer')
 def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_digestion=False):
 
     from molsysmt.native import MolSys
@@ -267,6 +267,7 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
     molecule_type_array = []
     entity_index_array = []
     group_name_to_entity_id = {}
+
 
     if item.exists('entity_poly'):
 
@@ -704,4 +705,3 @@ def _compose_operation(trans1, rot1, trans2, rot2) :
     output_rot = composed[:3,:3]
 
     return output_trans, output_rot
-

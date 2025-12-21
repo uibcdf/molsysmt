@@ -26,6 +26,8 @@ from .iterators import StructuresIterator, TopologyIterator
 from .to_string_pdb_id import to_string_pdb_id
 from .to_file_bcif import to_file_bcif
 from .to_file_bcif_gz import to_file_bcif_gz
+from .to_file_cif import to_file_cif
+from .to_file_cif_gz import to_file_cif_gz
 from .to_file_pdb import to_file_pdb
 from .to_file_mmtf import to_file_mmtf
 from .to_file_msmpk import to_file_msmpk
@@ -38,7 +40,6 @@ from .to_molsysmt_Structures import to_molsysmt_Structures
 from .to_mdtraj_Trajectory import to_mdtraj_Trajectory
 from .to_mdtraj_Topology import to_mdtraj_Topology
 from .to_mmcif_PdbxContainers_DataContainer import to_mmcif_PdbxContainers_DataContainer
-from .to_bcifreader_PdbxContainers_DataContainer import to_bcifreader_PdbxContainers_DataContainer
 from .to_pdbfixer_PDBFixer import to_pdbfixer_PDBFixer
 from .to_openmm_Modeller import to_openmm_Modeller
 from .to_openmm_Topology import to_openmm_Topology
@@ -55,6 +56,8 @@ _convert_to={
     'file:fasta': to_file_fasta,
     'file:bcif': to_file_bcif,
     'file:bcif.gz': to_file_bcif_gz,
+    'file:cif': to_file_cif,
+    'file:cif.gz': to_file_cif_gz,
     'mmtf.MMTFDecoder': to_mmtf_MMTFDecoder,
     'molsysmt.MolSys': to_molsysmt_MolSys,
     'molsysmt.Topology': to_molsysmt_Topology,
@@ -62,7 +65,6 @@ _convert_to={
     'mdtraj.Trajectory': to_mdtraj_Trajectory,
     'mdtraj.Topology': to_mdtraj_Topology,
     'mmcif.PdbxContainers.DataContainer': to_mmcif_PdbxContainers_DataContainer,
-    'bcifreader.PdbxContainers.DataContainer': to_bcifreader_PdbxContainers_DataContainer,
     'pdbfixer.PDBFixer': to_pdbfixer_PDBFixer,
     'openmm.Modeller': to_openmm_Modeller,
     'openmm.Topology': to_openmm_Topology,

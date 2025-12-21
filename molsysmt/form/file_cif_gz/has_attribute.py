@@ -1,6 +1,6 @@
 from molsysmt._private.digestion import digest
 
-@digest(form='bcifreader.PdbxContainers.DataContainer')
+@digest(form='file:cif.gz')
 def has_attribute(molecular_system, attribute, include_none=False, skip_digestion=False):
 
     from . import attributes
