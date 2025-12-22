@@ -146,12 +146,17 @@ class MolSys:
 
         return _convert_to[to_form](self, skip_digestion=True, **kwargs)
 
-    def info(self):
+    def info(self,
+             element='system',
+             selection='all',
+             syntax='MolSysMT',
+             skip_digestion=False
+             ):
         """Return a text summary of the MolSys."""
 
         from molsysmt.basic import info as _info
 
-        return _info(self)
+        return _info(self, element=element, selection=selection, syntax=syntax, skip_digestion=True)
 
     def get(self,
         element='system',
