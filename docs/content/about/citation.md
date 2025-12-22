@@ -13,7 +13,7 @@ Coming soon...
 ```
 ```{tab} Software
 
-Diego Prada-Gracia, Daniel Ibarrola-Sánchez, & Liliana M. Moreno-Vargas. (2023). uibcdf/MolSysMT: 0.8.1 (0.8.1). Zenodo. https://doi.org/10.5281/zenodo.8092688
+Diego Prada-Gracia & Liliana M. Moreno-Vargas. (2023). uibcdf/MolSysMT: 0.8.1 (0.8.1). Zenodo. https://doi.org/10.5281/zenodo.8092688
 
 [BibTeX](../../_bibtex/software.bib)
 
