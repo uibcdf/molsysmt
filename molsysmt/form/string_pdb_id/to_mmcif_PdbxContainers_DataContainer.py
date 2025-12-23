@@ -7,8 +7,6 @@ def to_mmcif_PdbxContainers_DataContainer(item, atom_indices='all', structure_in
 
     try:
 
-        print('1')
-
         from .to_file_bcif_gz import to_file_bcif_gz
         from ..file_bcif_gz import to_mmcif_PdbxContainers_DataContainer as file_bcif_gz_to_mmcif_PdbxContainers_DataContainer
         output_filename = temp_filename(extension="bcif.gz")
@@ -19,8 +17,6 @@ def to_mmcif_PdbxContainers_DataContainer(item, atom_indices='all', structure_in
     except:
 
         try:
-
-            print('2')
 
             from .to_file_bcif import to_file_bcif
             from ..file_bcif import to_mmcif_PdbxContainers_DataContainer as file_bcif_to_mmcif_PdbxContainers_DataContainer
@@ -33,8 +29,6 @@ def to_mmcif_PdbxContainers_DataContainer(item, atom_indices='all', structure_in
 
             try:
 
-                print('3')
-
                 from .to_file_cif_gz import to_file_cif_gz
                 from ..file_cif_gz import to_mmcif_PdbxContainers_DataContainer as file_cif_gz_to_mmcif_PdbxContainers_DataContainer
                 output_filename = temp_filename(extension="cif_gz")
@@ -45,8 +39,6 @@ def to_mmcif_PdbxContainers_DataContainer(item, atom_indices='all', structure_in
             except:
 
                 try:
-
-                    print('4')
 
                     from .to_file_cif import to_file_cif
                     from ..file_cif import to_mmcif_PdbxContainers_DataContainer as file_cif_to_mmcif_PdbxContainers_DataContainer
