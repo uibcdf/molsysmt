@@ -2,7 +2,8 @@ from molsysmt._private.digestion import digest
 
 
 @digest()
-def get_attributes(molecular_system, include_none=False, output_type='dictionary', skip_digestion=False):
+def get_attributes(molecular_system, include_none=False, attribute_type='all', output_type='dictionary',
+                   skip_digestion=False):
     """
     Retrieving available attributes from a molecular system.
 
@@ -17,6 +18,7 @@ def get_attributes(molecular_system, include_none=False, output_type='dictionary
     include_none : bool, default False
         Whether to consider attributes with value `None` as present when probing availability.
         If `True`, attributes that exist but currently hold `None` will be marked as present.
+    attribute_type : {'all', 'structural', 'topological', 'dynamical', 'mechanical'}, default 'all'
     output_type : {'dictionary', 'list'}, default 'dictionary'
         Format of the returned result. If ``'dictionary'``, returns all supported attributes as
         keys with boolean values indicating presence. If ``'list'``, returns only the names of
@@ -96,11 +98,14 @@ def get_attributes(molecular_system, include_none=False, output_type='dictionary
 
     forms_in = get_form(molecular_system)
 
-    output = {ii:False for ii in _all_attributes}
+    if attribute_type=='all':
+        output = {ii:False for ii in _all_attributes}
+    else:
+        output = {ii:False for ii in _all_attributes if _all_attributes[ii][attribute_type]}
 
     for form_in, item in zip(forms_in, molecular_system):
         for key, value in  _dict_modules[form_in].attributes.items():
-            if value:
+            if value and key in output:
                 if _dict_modules[form_in].has_attribute(item, key, include_none=include_none, skip_digestion=True):
                     output[key]=value
 
