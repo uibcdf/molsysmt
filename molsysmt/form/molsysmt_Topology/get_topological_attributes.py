@@ -6169,7 +6169,7 @@ def get_group_index_from_chain(item, indices='all', skip_digestion=False):
 
         aux_dict = defaultdict(set)
         for atom_index, chain_index in enumerate(chain_index_from_atom):
-            aux_dict[chain_index].add(group_index_from_atom[atom_index])
+            aux_dict[chain_index].add(group_index_from_atom[atom_index].tolist())
 
         output = list(aux_dict.values())
 
@@ -6178,7 +6178,7 @@ def get_group_index_from_chain(item, indices='all', skip_digestion=False):
         aux_dict = {ii: set() for ii in indices}
         for atom_index, chain_index in enumerate(chain_index_from_atom):
             if chain_index in aux_dict:
-                aux_dict[chain_index].add(group_index_from_atom[atom_index])
+                aux_dict[chain_index].add(group_index_from_atom[atom_index].tolist())
 
         output = [aux_dict[m] for m in indices]
 
@@ -6297,7 +6297,7 @@ def get_molecule_index_from_chain(item, indices='all', skip_digestion=False):
 
         aux_dict = defaultdict(set)
         for atom_index, chain_index in enumerate(chain_index_from_atom):
-            aux_dict[chain_index].add(molecule_index_from_atom[atom_index])
+            aux_dict[chain_index].add(molecule_index_from_atom[atom_index].tolist())
 
         output = list(aux_dict.values())
 
@@ -6306,7 +6306,7 @@ def get_molecule_index_from_chain(item, indices='all', skip_digestion=False):
         aux_dict = {ii: set() for ii in indices}
         for atom_index, chain_index in enumerate(chain_index_from_atom):
             if chain_index in aux_dict:
-                aux_dict[chain_index].add(molecule_index_from_atom[atom_index])
+                aux_dict[chain_index].add(molecule_index_from_atom[atom_index].tolist())
 
         output = [aux_dict[m] for m in indices]
 
@@ -6436,7 +6436,7 @@ def get_entity_index_from_chain(item, indices='all', skip_digestion=False):
 
         aux_dict = defaultdict(set)
         for atom_index, chain_index in enumerate(chain_index_from_atom):
-            aux_dict[chain_index].add(entity_index_from_atom[atom_index])
+            aux_dict[chain_index].add(entity_index_from_atom[atom_index].tolist())
 
         output = list(aux_dict.values())
 
@@ -6445,7 +6445,7 @@ def get_entity_index_from_chain(item, indices='all', skip_digestion=False):
         aux_dict = {ii: set() for ii in indices}
         for atom_index, chain_index in enumerate(chain_index_from_atom):
             if chain_index in aux_dict:
-                aux_dict[chain_index].add(entity_index_from_atom[atom_index])
+                aux_dict[chain_index].add(entity_index_from_atom[atom_index].tolist())
 
         output = [aux_dict[m] for m in indices]
 

@@ -1,5 +1,5 @@
 from molsysmt._private.digestion import digest
-from molsysmt._private.variables import is_all
+from molsysmt._private.variables import is_all, is_iterable_of_iterables
 import numpy as np
 
 @digest()
@@ -260,11 +260,14 @@ def get(molecular_system,
         
 def _coerce_ids_to_string(value):
     """Normalize *_id values to Python/NumPy strings, preserving shape."""
-    arr = np.asarray(value)
-    if arr.shape == ():
-        return str(arr.astype(str))
+    if is_iterable_of_iterables(value):
+        return [_coerce_ids_to_string(aux_value) for aux_value in value]
     else:
-        return arr.astype(str).tolist()
+        arr = np.asarray(value)
+        if arr.shape == ():
+            return str(arr.astype(str))
+        else:
+            return arr.astype(str).tolist()
 
 def _coerce_alternate_location_ids(value):
     """Ensure alternate_location entries carry string atom_id keys/values."""
