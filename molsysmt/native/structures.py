@@ -447,6 +447,8 @@ class Structures:
         else:
             self.n_structures += n_structures
 
+    def get_n_structures(self):
+        return self.n_structures
 
     @digest(form='molsysmt.Structures')
     def append_structures(self, item, atom_indices='all', structure_indices='all', skip_digestion=False):
