@@ -1,0 +1,23 @@
+repo: uibcdf/molsyssuite-talks
+
+talks:
+  - id: 20YY-<slug-unique>
+    title: "<Talk title>"
+    authors:
+      - "<Author One>"
+      - "<Author Two>"
+    role: "primary focus"  # primary focus | core tool presented | brief mention
+    event:
+      name: "<Conference / Seminar / Workshop>"
+      location: "<City, Country (or Online)>"
+      date: "20YY-MM-DD"
+      duration_min: 25
+    path: "talks/20YY-<talk-directory>"
+    artifacts:
+      slides: "github"     # github | dropbox | drive | zenodo | TBD
+      videos: "dropbox"
+    tags:
+      - "<tool-name>"
+      - "<topic-tag>"
+    status: "draft"        # draft | idea | planned | ready | delivered | archived
+    notes: "<Optional short note>"
