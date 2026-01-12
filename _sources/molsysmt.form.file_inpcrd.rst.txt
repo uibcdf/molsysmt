@@ -1,0 +1,125 @@
+molsysmt.form.file\_inpcrd package
+==================================
+
+Submodules
+----------
+
+molsysmt.form.file\_inpcrd.add module
+-------------------------------------
+
+.. automodule:: molsysmt.form.file_inpcrd.add
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_inpcrd.append\_structures module
+----------------------------------------------------
+
+.. automodule:: molsysmt.form.file_inpcrd.append_structures
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_inpcrd.attributes module
+--------------------------------------------
+
+.. automodule:: molsysmt.form.file_inpcrd.attributes
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_inpcrd.copy module
+--------------------------------------
+
+.. automodule:: molsysmt.form.file_inpcrd.copy
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_inpcrd.extract module
+-----------------------------------------
+
+.. automodule:: molsysmt.form.file_inpcrd.extract
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_inpcrd.get module
+-------------------------------------
+
+.. automodule:: molsysmt.form.file_inpcrd.get
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_inpcrd.has\_attribute module
+------------------------------------------------
+
+.. automodule:: molsysmt.form.file_inpcrd.has_attribute
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_inpcrd.is\_form module
+------------------------------------------
+
+.. automodule:: molsysmt.form.file_inpcrd.is_form
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_inpcrd.iterators module
+-------------------------------------------
+
+.. automodule:: molsysmt.form.file_inpcrd.iterators
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_inpcrd.merge module
+---------------------------------------
+
+.. automodule:: molsysmt.form.file_inpcrd.merge
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_inpcrd.set module
+-------------------------------------
+
+.. automodule:: molsysmt.form.file_inpcrd.set
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_inpcrd.to\_file\_inpcrd module
+--------------------------------------------------
+
+.. automodule:: molsysmt.form.file_inpcrd.to_file_inpcrd
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_inpcrd.to\_molsysmt\_Structures module
+----------------------------------------------------------
+
+.. automodule:: molsysmt.form.file_inpcrd.to_molsysmt_Structures
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_inpcrd.to\_openmm\_AmberInpcrdFile module
+-------------------------------------------------------------
+
+.. automodule:: molsysmt.form.file_inpcrd.to_openmm_AmberInpcrdFile
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Module contents
+---------------
+
+.. automodule:: molsysmt.form.file_inpcrd
+   :members:
+   :show-inheritance:
+   :undoc-members:

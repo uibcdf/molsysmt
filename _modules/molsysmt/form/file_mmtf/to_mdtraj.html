@@ -1,0 +1,1195 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+    <title>molsysmt.form.file_mmtf.to_mdtraj – MolSysMT 0.12.0</title>
+  
+
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../../../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=b86133f3" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/sphinx_tabs.css?v=f45e19d3" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/custom.css?v=d5ef24d1" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/tabs.css?v=a5c4661c" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/custom.css?v=d5ef24d1" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../../../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../../../../_static/documentation_options.js?v=61ccb1f1"></script>
+    <script src="../../../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../../../_static/copybutton.js?v=f281be69"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/nglview-js-widgets@3.1.0/dist/index.js"></script>
+    <script src="../../../../_static/tabs.js?v=3030b3cb"></script>
+    <script src="../../../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/molsysmt/form/file_mmtf/to_mdtraj';</script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="0.12.0" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../../../_static/logo.svg" class="logo__image only-light" alt="MolSysMT 0.12.0 documentation - Home"/>
+    <img src="../../../../_static/logo.svg" class="logo__image only-dark pst-js-only" alt="MolSysMT 0.12.0 documentation - Home"/>
+  
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../content/about/index.html">
+    About
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../content/showcase/index.html">
+    Showcase
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../content/user/index.html">
+    User guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../content/developer/index.html">
+    Developer guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../api/index.html">
+    API documentation
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../content/ai_assistant.html">
+    MolSys-AI
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/uibcdf/molsysmt" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar hide-on-wide">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../content/about/index.html">
+    About
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../content/showcase/index.html">
+    Showcase
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../content/user/index.html">
+    User guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../content/developer/index.html">
+    Developer guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../api/index.html">
+    API documentation
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../content/ai_assistant.html">
+    MolSys-AI
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/uibcdf/molsysmt" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../../../index.html" class="nav-link">Module code</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">molsysmt.form.file_mmtf.to_mdtraj</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <h1>Source code for molsysmt.form.file_mmtf.to_mdtraj</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;mmtf.py: Used for loading mmtf files.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="c1">##############################################################################</span>
+<span class="c1"># MDTraj: A Python Library for Loading, Saving, and Manipulating</span>
+<span class="c1">#         Molecular Dynamics Trajectories.</span>
+<span class="c1"># Copyright 2012-2015 Stanford University and the Authors</span>
+<span class="c1">#</span>
+<span class="c1"># Authors: Diego Prada-Gracia</span>
+<span class="c1"># Contributors:</span>
+<span class="c1">#</span>
+<span class="c1"># MDTraj is free software: you can redistribute it and/or modify</span>
+<span class="c1"># it under the terms of the GNU Lesser General Public License as</span>
+<span class="c1"># published by the Free Software Foundation, either version 2.1</span>
+<span class="c1"># of the License, or (at your option) any later version.</span>
+<span class="c1">#</span>
+<span class="c1"># This library is distributed in the hope that it will be useful,</span>
+<span class="c1"># but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+<span class="c1"># MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span>
+<span class="c1"># GNU Lesser General Public License for more details.</span>
+<span class="c1">#</span>
+<span class="c1"># You should have received a copy of the GNU Lesser General Public</span>
+<span class="c1"># License along with MDTraj. If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
+<span class="c1">#</span>
+<span class="c1"># Portions of this code originate from the OpenMM molecular simulation</span>
+<span class="c1"># toolkit, copyright (c) 2012 Stanford University and the Authors. Those</span>
+<span class="c1"># portions are distributed under the following terms:</span>
+<span class="c1">#</span>
+<span class="c1"># Permission is hereby granted, free of charge, to any person obtaining a</span>
+<span class="c1"># copy of this software and associated documentation files (the &quot;Software&quot;),</span>
+<span class="c1"># to deal in the Software without restriction, including without limitation</span>
+<span class="c1"># the rights to use, copy, modify, merge, publish, distribute, sublicense,</span>
+<span class="c1"># and/or sell copies of the Software, and to permit persons to whom the</span>
+<span class="c1"># Software is furnished to do so, subject to the following conditions:</span>
+<span class="c1">#</span>
+<span class="c1"># The above copyright notice and this permission notice shall be included in</span>
+<span class="c1"># all copies or substantial portions of the Software.</span>
+<span class="c1">#</span>
+<span class="c1"># THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR</span>
+<span class="c1"># IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,</span>
+<span class="c1"># FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL</span>
+<span class="c1"># THE AUTHORS, CONTRIBUTORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,</span>
+<span class="c1"># DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR</span>
+<span class="c1"># OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE</span>
+<span class="c1"># USE OR OTHER DEALINGS IN THE SOFTWARE.</span>
+<span class="c1">##############################################################################</span>
+
+<span class="c1">##############################################################################</span>
+<span class="c1"># Imports</span>
+<span class="c1">##############################################################################</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">copy</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">re</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">tempfile</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">xml.etree.ElementTree</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">ETree</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">mdtraj</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">mdt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">mdtraj.core.element</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">mdt_element</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">mdtraj.formats.registry</span><span class="w"> </span><span class="kn">import</span> <span class="n">FormatRegistry</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">mdtraj.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">in_units_of</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">mmtf</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">mmtf.api.mmtf_writer</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_unique_groups</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+
+<span class="c1">##############################################################################</span>
+<span class="c1"># Code</span>
+<span class="c1">##############################################################################</span>
+
+
+<div class="viewcode-block" id="load_mmtf">
+<a class="viewcode-back" href="../../../../molsysmt.form.file_mmtf.html#molsysmt.form.file_mmtf.to_mdtraj.load_mmtf">[docs]</a>
+<span class="nd">@FormatRegistry</span><span class="o">.</span><span class="n">register_loader</span><span class="p">(</span><span class="s1">&#39;.mmtf&#39;</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">load_mmtf</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">stride</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">atom_indices</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">frame</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Load an MMTF file.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    filename : str</span>
+<span class="sd">        Path to the MMTF file on disk.</span>
+
+<span class="sd">    stride : int, default=None</span>
+<span class="sd">        Only read every stride-th model from the file</span>
+
+<span class="sd">    atom_indices : array_like, optional</span>
+<span class="sd">        If not none, then read only a subset of the atoms coordinates from the</span>
+<span class="sd">        file. These indices are zero-based.</span>
+
+<span class="sd">    frame : int, optional</span>
+<span class="sd">        Use this option to load only a single model from a MMTF file on disk.</span>
+<span class="sd">        If frame is None, the default, all models in file will be loaded.</span>
+<span class="sd">        If supplied, ``stride`` will be ignored.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">with</span> <span class="n">MMTFTrajectoryFile</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fh</span><span class="p">:</span>
+        <span class="c1"># time = np.arange(len(fh.positions))</span>
+
+        <span class="n">coords</span> <span class="o">=</span> <span class="n">fh</span><span class="o">.</span><span class="n">positions</span>
+        <span class="n">unit_cell_lengths</span> <span class="o">=</span> <span class="n">fh</span><span class="o">.</span><span class="n">unit_cell_lengths</span>
+
+        <span class="c1"># Convert from angstroms to nanometers</span>
+        <span class="n">in_units_of</span><span class="p">(</span><span class="n">coords</span><span class="p">,</span>
+                    <span class="n">fh</span><span class="o">.</span><span class="n">distance_unit</span><span class="p">,</span>
+                    <span class="n">mdt</span><span class="o">.</span><span class="n">Trajectory</span><span class="o">.</span><span class="n">_distance_unit</span><span class="p">,</span>
+                    <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">in_units_of</span><span class="p">(</span><span class="n">unit_cell_lengths</span><span class="p">,</span>
+                    <span class="n">fh</span><span class="o">.</span><span class="n">distance_unit</span><span class="p">,</span>
+                    <span class="n">mdt</span><span class="o">.</span><span class="n">Trajectory</span><span class="o">.</span><span class="n">_distance_unit</span><span class="p">,</span>
+                    <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">mdt</span><span class="o">.</span><span class="n">Trajectory</span><span class="p">(</span>
+            <span class="n">xyz</span><span class="o">=</span><span class="n">coords</span><span class="p">,</span>
+            <span class="n">topology</span><span class="o">=</span><span class="n">fh</span><span class="o">.</span><span class="n">topology</span><span class="p">,</span>
+            <span class="c1"># time=time,</span>
+            <span class="n">unitcell_lengths</span><span class="o">=</span><span class="n">unit_cell_lengths</span><span class="p">,</span>
+            <span class="n">unitcell_angles</span><span class="o">=</span><span class="n">fh</span><span class="o">.</span><span class="n">unit_cell_angles</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="TrajMMTFEncoder">
+<a class="viewcode-back" href="../../../../molsysmt.form.file_mmtf.html#molsysmt.form.file_mmtf.to_mdtraj.TrajMMTFEncoder">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">TrajMMTFEncoder</span><span class="p">(</span><span class="n">mmtf</span><span class="o">.</span><span class="n">MMTFEncoder</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot; An MMTF encoder with a custom finalize structure method, and</span>
+<span class="sd">        a method to write temporary files.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="TrajMMTFEncoder.finalize_structure">
+<a class="viewcode-back" href="../../../../molsysmt.form.file_mmtf.html#molsysmt.form.file_mmtf.to_mdtraj.TrajMMTFEncoder.finalize_structure">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">finalize_structure</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; Cleanup the structure&quot;&quot;&quot;</span>
+        <span class="n">group_set</span> <span class="o">=</span> <span class="n">get_unique_groups</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">group_list</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">group_list</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">group_type_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">group_set</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">item</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">group_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="o">.</span><span class="n">convert_to_dict</span><span class="p">()</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">group_set</span><span class="p">]</span></div>
+
+
+<div class="viewcode-block" id="TrajMMTFEncoder.write_temp_file">
+<a class="viewcode-back" href="../../../../molsysmt.form.file_mmtf.html#molsysmt.form.file_mmtf.to_mdtraj.TrajMMTFEncoder.write_temp_file">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">write_temp_file</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; Writes a temporary file. &quot;&quot;&quot;</span>
+        <span class="n">temp_fp</span> <span class="o">=</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">NamedTemporaryFile</span><span class="p">()</span>
+        <span class="n">temp_fp</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_msgpack</span><span class="p">())</span>
+        <span class="n">temp_fp</span><span class="o">.</span><span class="n">seek</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">temp_fp</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="MMTFTrajectoryFile">
+<a class="viewcode-back" href="../../../../molsysmt.form.file_mmtf.html#molsysmt.form.file_mmtf.to_mdtraj.MMTFTrajectoryFile">[docs]</a>
+<span class="nd">@FormatRegistry</span><span class="o">.</span><span class="n">register_fileobject</span><span class="p">(</span><span class="s1">&#39;.mmtf&#39;</span><span class="p">)</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">MMTFTrajectoryFile</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Interface for reading and writing to MMTF files.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    filename : str</span>
+<span class="sd">        The filename to open. A path to a file on disk.</span>
+
+<span class="sd">    mode : {&#39;r&#39;, &#39;w&#39;}</span>
+<span class="sd">        The mode in which to open the file, either &#39;r&#39; for read or &#39;w&#39; for write.</span>
+
+<span class="sd">    force_overwrite : bool</span>
+<span class="sd">        If opened in write mode, and a file by the name of `filename` already</span>
+<span class="sd">        exists on disk, should we overwrite it?</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">distance_unit</span> <span class="o">=</span> <span class="s1">&#39;angstroms&#39;</span>
+    <span class="n">_residue_name_replacements</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">_atom_name_replacements</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">_chain_names</span> <span class="o">=</span> <span class="p">[</span><span class="nb">chr</span><span class="p">(</span><span class="nb">ord</span><span class="p">(</span><span class="s1">&#39;A&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">26</span><span class="p">)]</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">force_overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">standard_names</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_open</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_filepath</span> <span class="o">=</span> <span class="n">filename</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_mode</span> <span class="o">=</span> <span class="n">mode</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_standard_names</span> <span class="o">=</span> <span class="n">standard_names</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_positions</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_topology</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_unit_cell_lengths</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_unit_cell_angles</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="k">if</span> <span class="n">mode</span> <span class="o">==</span> <span class="s1">&#39;r&#39;</span><span class="p">:</span>
+
+            <span class="n">_residue_name_replacements</span><span class="p">,</span> <span class="n">_atom_name_replacements</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_load_name_replacement_tables</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_positions</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_topology</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_unit_cell_lengths</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_unit_cell_angles</span> <span class="o">=</span> \
+                <span class="bp">self</span><span class="o">.</span><span class="n">_read</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_filepath</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_standard_names</span><span class="p">)</span>
+
+        <span class="k">elif</span> <span class="n">mode</span> <span class="o">==</span> <span class="s1">&#39;w&#39;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_open</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">force_overwrite</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">IOError</span><span class="p">(</span><span class="s1">&#39;&quot;</span><span class="si">%s</span><span class="s1">&quot; already exists&#39;</span> <span class="o">%</span> <span class="n">filename</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;invalid mode: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">mode</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">positions</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; Returns the cartesian coordinates of the atoms if mode=&#39;r&#39;. If mode=&#39;w&#39; returns</span>
+<span class="sd">            none.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_positions</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">topology</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; Returns the topology of the mmtf file if mode=&#39;r&#39;. If mode=&#39;w&#39; returns</span>
+<span class="sd">            none.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_topology</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">unit_cell_lengths</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; Returns the unit cell lengths of the mmtf file if mode=&#39;r&#39;. If mode=&#39;w&#39; returns</span>
+<span class="sd">            none.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_unit_cell_lengths</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">unit_cell_angles</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; Returns the unit cell angles of the mmtf file if mode=&#39;r&#39;. If mode=&#39;w&#39; returns</span>
+<span class="sd">            none.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_unit_cell_angles</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">closed</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; Whether the file is closed. &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_open</span>
+
+<div class="viewcode-block" id="MMTFTrajectoryFile.write">
+<a class="viewcode-back" href="../../../../molsysmt.form.file_mmtf.html#molsysmt.form.file_mmtf.to_mdtraj.MMTFTrajectoryFile.write">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">write</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">positions</span><span class="p">,</span> <span class="n">topology</span><span class="p">,</span> <span class="n">unit_cell_lengths</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+              <span class="n">unit_cell_angles</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">b_factors</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; Write a mmtf file to disk</span>
+
+<span class="sd">            Parameters</span>
+<span class="sd">            ----------</span>
+<span class="sd">            positions : array_like</span>
+<span class="sd">                The list of atomic positions to write.</span>
+
+<span class="sd">            topology : mdtraj.Topology</span>
+<span class="sd">                The Topology defining the model to write.</span>
+
+<span class="sd">            unit_cell_lengths : {tuple, None}</span>
+<span class="sd">                Lengths of the three unit cell vectors, or None for a non-periodic system</span>
+
+<span class="sd">            unit_cell_angles : {tuple, None}</span>
+<span class="sd">                Angles between the three unit cell vectors, or None for a non-periodic system</span>
+
+<span class="sd">            b_factors : array_like, default=None, shape=(n_atoms,)</span>
+<span class="sd">                Save bfactors. Should contain a single number for</span>
+<span class="sd">                each atom in the topology</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_open</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;I/O operation on closed file&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mode</span> <span class="o">==</span> <span class="s1">&#39;w&#39;</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;file not opened for writing&#39;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">b_factors</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">b_factors</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">positions</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;b_factors must be of shape (n_atoms,&quot;</span><span class="p">)</span>
+
+        <span class="n">encoder</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_encode_data_for_writing</span><span class="p">(</span><span class="n">positions</span><span class="o">=</span><span class="n">positions</span><span class="p">,</span>
+                                                <span class="n">topology</span><span class="o">=</span><span class="n">topology</span><span class="p">,</span>
+                                                <span class="n">unit_cell_lengths</span><span class="o">=</span><span class="n">unit_cell_lengths</span><span class="p">,</span>
+                                                <span class="n">unit_cell_angles</span><span class="o">=</span><span class="n">unit_cell_angles</span><span class="p">,</span>
+                                                <span class="n">b_factors</span><span class="o">=</span><span class="n">b_factors</span><span class="p">)</span>
+
+        <span class="n">encoder</span><span class="o">.</span><span class="n">write_file</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_filepath</span><span class="p">)</span></div>
+
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_add_intra_group_bonds</span><span class="p">(</span><span class="n">encoder</span><span class="p">,</span> <span class="n">residue_bond_list</span><span class="p">,</span> <span class="n">bond_order_list</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; Helper method to add intra-residue bonds to an encoder.</span>
+
+<span class="sd">            Parameters</span>
+<span class="sd">            ----------</span>
+<span class="sd">            encoder : TrajMMTFEncoder</span>
+<span class="sd">                An MMTF encoder</span>
+
+<span class="sd">            residue_bond_list: list[int]</span>
+<span class="sd">                A list with the index of the bonded atoms</span>
+
+<span class="sd">            bond_order_list: list[int]</span>
+<span class="sd">                A list with the orders of the bonds</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">min_index</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">residue_bond_list</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">residue_bond_list</span><span class="p">),</span> <span class="mi">2</span><span class="p">):</span>
+            <span class="c1"># This method expects the atom index inside the residue or group</span>
+            <span class="k">if</span> <span class="n">min_index</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">encoder</span><span class="o">.</span><span class="n">set_group_bond</span><span class="p">(</span>
+                    <span class="n">atom_index_one</span><span class="o">=</span><span class="n">residue_bond_list</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span> <span class="o">%</span> <span class="n">min_index</span><span class="p">,</span>
+                    <span class="n">atom_index_two</span><span class="o">=</span><span class="n">residue_bond_list</span><span class="p">[</span><span class="n">ii</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">%</span> <span class="n">min_index</span><span class="p">,</span>
+                    <span class="n">bond_order</span><span class="o">=</span><span class="n">bond_order_list</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">ii</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)]</span>
+                <span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">encoder</span><span class="o">.</span><span class="n">set_group_bond</span><span class="p">(</span>
+                    <span class="n">atom_index_one</span><span class="o">=</span><span class="n">residue_bond_list</span><span class="p">[</span><span class="n">ii</span><span class="p">],</span>
+                    <span class="n">atom_index_two</span><span class="o">=</span><span class="n">residue_bond_list</span><span class="p">[</span><span class="n">ii</span> <span class="o">+</span> <span class="mi">1</span><span class="p">],</span>
+                    <span class="n">bond_order</span><span class="o">=</span><span class="n">bond_order_list</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">ii</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)]</span>
+                <span class="p">)</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_encode_data_for_writing</span><span class="p">(</span><span class="n">positions</span><span class="p">,</span> <span class="n">topology</span><span class="p">,</span> <span class="n">unit_cell_lengths</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                                 <span class="n">unit_cell_angles</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">b_factors</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">encoder</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; Encodes the data so it can be written to a mmtf file.</span>
+
+<span class="sd">            Parameters</span>
+<span class="sd">            ----------</span>
+<span class="sd">            positions : array_like</span>
+<span class="sd">                The list of atomic positions to write.</span>
+
+<span class="sd">            topology : mdtraj.Topology</span>
+<span class="sd">                The Topology defining the model to write.</span>
+
+<span class="sd">            unit_cell_lengths : {tuple, None}</span>
+<span class="sd">                Lengths of the three unit cell vectors, or None for a non-periodic system</span>
+
+<span class="sd">            unit_cell_angles : {tuple, None}</span>
+<span class="sd">                Angles between the three unit cell vectors, or None for a non-periodic system</span>
+
+<span class="sd">            b_factors : array_like, default=None, shape=(n_atoms,)</span>
+<span class="sd">                Save bfactors. Should contain a single number for</span>
+<span class="sd">                each atom in the topology</span>
+
+<span class="sd">            encoder: mmtf.MMTFEncoder, optional (default=None)</span>
+<span class="sd">                An encoder to pass data to.</span>
+
+<span class="sd">            Returns</span>
+<span class="sd">            -------</span>
+<span class="sd">            encoder: TrajMMTFEncoder</span>
+<span class="sd">                An encoder with all the necessary data to write the mmtf file.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="n">encoder</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">encoder</span> <span class="o">=</span> <span class="n">TrajMMTFEncoder</span><span class="p">()</span>
+
+        <span class="n">encoder</span><span class="o">.</span><span class="n">init_structure</span><span class="p">(</span>
+            <span class="n">total_num_bonds</span><span class="o">=</span><span class="n">topology</span><span class="o">.</span><span class="n">n_bonds</span><span class="p">,</span>
+            <span class="n">total_num_atoms</span><span class="o">=</span><span class="n">topology</span><span class="o">.</span><span class="n">n_atoms</span><span class="p">,</span>
+            <span class="n">total_num_chains</span><span class="o">=</span><span class="n">topology</span><span class="o">.</span><span class="n">n_chains</span><span class="p">,</span>
+            <span class="n">total_num_groups</span><span class="o">=</span><span class="n">topology</span><span class="o">.</span><span class="n">n_residues</span><span class="p">,</span>
+            <span class="n">total_num_models</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+            <span class="n">structure_id</span><span class="o">=</span><span class="s2">&quot;TEMP&quot;</span>
+        <span class="p">)</span>
+
+        <span class="c1"># TODO: can we get metadata from an mdtraj trajectory?</span>
+        <span class="n">encoder</span><span class="o">.</span><span class="n">set_header_info</span><span class="p">(</span>
+            <span class="n">r_free</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">r_work</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">resolution</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">title</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">deposition_date</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">release_date</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">experimental_methods</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="c1"># We convert the following arrays from numpy.float32</span>
+        <span class="c1"># to float because the encoder can&#39;t handle the former</span>
+        <span class="n">unit_cell</span> <span class="o">=</span> <span class="p">[</span><span class="nb">float</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">unit_cell_lengths</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
+        <span class="n">unit_cell</span> <span class="o">+=</span> <span class="p">[</span><span class="nb">float</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">unit_cell_angles</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
+        <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">unit_cell</span><span class="p">)</span> <span class="o">==</span> <span class="mi">6</span>
+
+        <span class="n">encoder</span><span class="o">.</span><span class="n">set_xtal_info</span><span class="p">(</span><span class="n">space_group</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">unit_cell</span><span class="o">=</span><span class="n">unit_cell</span><span class="p">)</span>
+
+        <span class="c1"># This sets the number of chains for a given model. Here we assume we have only</span>
+        <span class="c1"># one model so, we only add one chain count</span>
+        <span class="n">encoder</span><span class="o">.</span><span class="n">set_model_info</span><span class="p">(</span><span class="n">model_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">chain_count</span><span class="o">=</span><span class="n">topology</span><span class="o">.</span><span class="n">n_chains</span><span class="p">)</span>
+
+        <span class="n">protein_entity</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;description&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;polymer&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;chainIndexList&#39;</span><span class="p">:</span> <span class="nb">set</span><span class="p">(),</span>
+            <span class="s1">&#39;sequence&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span>
+        <span class="p">}</span>
+        <span class="n">water_entity</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;description&#39;</span><span class="p">:</span> <span class="s1">&#39;water&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;water&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;chainIndexList&#39;</span><span class="p">:</span> <span class="nb">set</span><span class="p">(),</span>
+            <span class="s1">&#39;sequence&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span>
+        <span class="p">}</span>
+        <span class="n">other_entity</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;description&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;non-polymer&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;chainIndexList&#39;</span><span class="p">:</span> <span class="nb">set</span><span class="p">(),</span>
+            <span class="s1">&#39;sequence&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span>
+        <span class="p">}</span>
+        <span class="k">for</span> <span class="n">chain</span> <span class="ow">in</span> <span class="n">topology</span><span class="o">.</span><span class="n">chains</span><span class="p">:</span>
+
+            <span class="n">chain_name</span> <span class="o">=</span> <span class="nb">chr</span><span class="p">(</span><span class="nb">ord</span><span class="p">(</span><span class="s1">&#39;A&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="n">chain</span><span class="o">.</span><span class="n">index</span> <span class="o">%</span> <span class="mi">26</span><span class="p">)</span>
+            <span class="n">encoder</span><span class="o">.</span><span class="n">set_chain_info</span><span class="p">(</span>
+                <span class="n">chain_id</span><span class="o">=</span><span class="n">chain_name</span><span class="p">,</span>
+                <span class="n">chain_name</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\x00</span><span class="s2">&quot;</span><span class="p">,</span>
+                <span class="n">num_groups</span><span class="o">=</span><span class="n">chain</span><span class="o">.</span><span class="n">n_residues</span>
+            <span class="p">)</span>
+
+            <span class="k">for</span> <span class="n">residue</span> <span class="ow">in</span> <span class="n">chain</span><span class="o">.</span><span class="n">residues</span><span class="p">:</span>
+
+                <span class="k">if</span> <span class="n">residue</span><span class="o">.</span><span class="n">is_protein</span><span class="p">:</span>
+                    <span class="n">residue_type</span> <span class="o">=</span> <span class="s2">&quot;PEPTIDE LINKING&quot;</span>
+                    <span class="n">protein_entity</span><span class="p">[</span><span class="s2">&quot;sequence&quot;</span><span class="p">]</span> <span class="o">+=</span> <span class="n">residue</span><span class="o">.</span><span class="n">code</span>
+                    <span class="n">protein_entity</span><span class="p">[</span><span class="s2">&quot;chainIndexList&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">chain</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
+                <span class="k">elif</span> <span class="n">residue</span><span class="o">.</span><span class="n">is_water</span><span class="p">:</span>
+                    <span class="n">residue_type</span> <span class="o">=</span> <span class="s2">&quot;NON-POLYMER&quot;</span>
+                    <span class="n">water_entity</span><span class="p">[</span><span class="s2">&quot;chainIndexList&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">chain</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">residue_type</span> <span class="o">=</span> <span class="s2">&quot;NON-POLYMER&quot;</span>
+                    <span class="n">other_entity</span><span class="p">[</span><span class="s2">&quot;chainIndexList&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">chain</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
+
+                <span class="n">single_letter_code</span> <span class="o">=</span> <span class="n">residue</span><span class="o">.</span><span class="n">code</span>
+                <span class="k">if</span> <span class="n">single_letter_code</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="n">single_letter_code</span> <span class="o">=</span> <span class="s2">&quot;?&quot;</span>
+
+                <span class="n">encoder</span><span class="o">.</span><span class="n">set_group_info</span><span class="p">(</span>
+                    <span class="n">group_name</span><span class="o">=</span><span class="n">residue</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+                    <span class="n">group_number</span><span class="o">=</span><span class="n">residue</span><span class="o">.</span><span class="n">resSeq</span><span class="p">,</span>
+                    <span class="n">insertion_code</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\x00</span><span class="s2">&quot;</span><span class="p">,</span>
+                    <span class="n">group_type</span><span class="o">=</span><span class="n">residue_type</span><span class="p">,</span>
+                    <span class="n">atom_count</span><span class="o">=</span><span class="n">residue</span><span class="o">.</span><span class="n">n_atoms</span><span class="p">,</span>
+                    <span class="n">bond_count</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>  <span class="c1"># This parameter is not used in mmtf-python</span>
+                    <span class="n">single_letter_code</span><span class="o">=</span><span class="n">single_letter_code</span><span class="p">,</span>
+                    <span class="n">sequence_index</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span>
+                    <span class="n">secondary_structure_type</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span>
+                <span class="p">)</span>
+
+                <span class="k">for</span> <span class="n">atom</span> <span class="ow">in</span> <span class="n">residue</span><span class="o">.</span><span class="n">atoms</span><span class="p">:</span>
+
+                    <span class="k">if</span> <span class="n">b_factors</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                        <span class="n">temp_factor</span> <span class="o">=</span> <span class="n">b_factors</span><span class="p">[</span><span class="n">atom</span><span class="o">.</span><span class="n">index</span><span class="p">]</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">temp_factor</span> <span class="o">=</span> <span class="mi">0</span>
+
+                    <span class="n">encoder</span><span class="o">.</span><span class="n">set_atom_info</span><span class="p">(</span>
+                        <span class="n">atom_name</span><span class="o">=</span><span class="n">atom</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+                        <span class="n">serial_number</span><span class="o">=</span><span class="n">atom</span><span class="o">.</span><span class="n">serial</span><span class="p">,</span>
+                        <span class="n">alternative_location_id</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\x00</span><span class="s2">&quot;</span><span class="p">,</span>
+                        <span class="n">x</span><span class="o">=</span><span class="nb">float</span><span class="p">(</span><span class="n">positions</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">atom</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="mi">0</span><span class="p">]),</span>
+                        <span class="n">y</span><span class="o">=</span><span class="nb">float</span><span class="p">(</span><span class="n">positions</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">atom</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="mi">1</span><span class="p">]),</span>
+                        <span class="n">z</span><span class="o">=</span><span class="nb">float</span><span class="p">(</span><span class="n">positions</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">atom</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="mi">2</span><span class="p">]),</span>
+                        <span class="n">occupancy</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
+                        <span class="n">temperature_factor</span><span class="o">=</span><span class="n">temp_factor</span><span class="p">,</span>
+                        <span class="n">element</span><span class="o">=</span><span class="n">atom</span><span class="o">.</span><span class="n">element</span><span class="o">.</span><span class="n">symbol</span><span class="p">,</span>
+                        <span class="n">charge</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+                    <span class="p">)</span>
+
+        <span class="c1"># Adds the last residue</span>
+        <span class="n">encoder</span><span class="o">.</span><span class="n">group_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">encoder</span><span class="o">.</span><span class="n">current_group</span><span class="p">)</span>
+
+        <span class="c1"># Add entity info</span>
+        <span class="c1"># TODO: adding entity info does not consider cases when there are multiple proteins,</span>
+        <span class="c1">#   ligands or different ions. Also, how can we get the name of the ions or protein chain?</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">protein_entity</span><span class="p">[</span><span class="s2">&quot;sequence&quot;</span><span class="p">])</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">protein_entity</span><span class="p">[</span><span class="s2">&quot;chainIndexList&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">protein_entity</span><span class="p">[</span><span class="s2">&quot;chainIndexList&quot;</span><span class="p">])</span>
+            <span class="n">encoder</span><span class="o">.</span><span class="n">entity_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">protein_entity</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">water_entity</span><span class="p">[</span><span class="s2">&quot;chainIndexList&quot;</span><span class="p">])</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">water_entity</span><span class="p">[</span><span class="s2">&quot;chainIndexList&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">water_entity</span><span class="p">[</span><span class="s2">&quot;chainIndexList&quot;</span><span class="p">])</span>
+            <span class="n">encoder</span><span class="o">.</span><span class="n">entity_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">water_entity</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">other_entity</span><span class="p">[</span><span class="s2">&quot;chainIndexList&quot;</span><span class="p">])</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">other_entity</span><span class="p">[</span><span class="s2">&quot;chainIndexList&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">other_entity</span><span class="p">[</span><span class="s2">&quot;chainIndexList&quot;</span><span class="p">])</span>
+            <span class="n">encoder</span><span class="o">.</span><span class="n">entity_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">other_entity</span><span class="p">)</span>
+
+        <span class="n">residue_bond_list</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">bond_order_list</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">for</span> <span class="n">bond</span> <span class="ow">in</span> <span class="n">topology</span><span class="o">.</span><span class="n">bonds</span><span class="p">:</span>
+
+            <span class="n">bond_order</span> <span class="o">=</span> <span class="n">bond</span><span class="o">.</span><span class="n">order</span>
+            <span class="k">if</span> <span class="n">bond_order</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">bond_order</span> <span class="o">=</span> <span class="mi">1</span>
+
+            <span class="c1"># Check if it&#39;s an intra-residue bond</span>
+            <span class="k">if</span> <span class="n">bond</span><span class="o">.</span><span class="n">atom1</span><span class="o">.</span><span class="n">residue</span><span class="o">.</span><span class="n">index</span> <span class="o">==</span> <span class="n">bond</span><span class="o">.</span><span class="n">atom2</span><span class="o">.</span><span class="n">residue</span><span class="o">.</span><span class="n">index</span><span class="p">:</span>
+
+                <span class="c1"># We need to find the index of this residue in the group list</span>
+                <span class="n">residue</span> <span class="o">=</span> <span class="n">bond</span><span class="o">.</span><span class="n">atom1</span><span class="o">.</span><span class="n">residue</span>
+                <span class="n">encoder</span><span class="o">.</span><span class="n">current_group</span> <span class="o">=</span> <span class="n">encoder</span><span class="o">.</span><span class="n">group_list</span><span class="p">[</span><span class="n">residue</span><span class="o">.</span><span class="n">index</span><span class="p">]</span>
+
+                <span class="n">residue_bond_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">bond</span><span class="o">.</span><span class="n">atom1</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
+                <span class="n">residue_bond_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">bond</span><span class="o">.</span><span class="n">atom2</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
+                <span class="n">bond_order_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">bond_order</span><span class="p">)</span>
+
+            <span class="c1"># If not it is an inter-residue bond</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># This method expects the atom index of the whole structure</span>
+                <span class="n">encoder</span><span class="o">.</span><span class="n">set_inter_group_bond</span><span class="p">(</span>
+                    <span class="n">atom_index_one</span><span class="o">=</span><span class="n">bond</span><span class="o">.</span><span class="n">atom1</span><span class="o">.</span><span class="n">index</span><span class="p">,</span>
+                    <span class="n">atom_index_two</span><span class="o">=</span><span class="n">bond</span><span class="o">.</span><span class="n">atom2</span><span class="o">.</span><span class="n">index</span><span class="p">,</span>
+                    <span class="n">bond_order</span><span class="o">=</span><span class="n">bond_order</span>
+                <span class="p">)</span>
+                <span class="c1"># Bonds are ordered by residue so each time we get an iter-residue bond</span>
+                <span class="c1"># it means that a new residue comes after.</span>
+                <span class="n">MMTFTrajectoryFile</span><span class="o">.</span><span class="n">_add_intra_group_bonds</span><span class="p">(</span><span class="n">encoder</span><span class="p">,</span> <span class="n">residue_bond_list</span><span class="p">,</span> <span class="n">bond_order_list</span><span class="p">)</span>
+                <span class="n">residue_bond_list</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+                <span class="n">bond_order_list</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+
+        <span class="c1"># Add the bonds of the last residue</span>
+        <span class="n">MMTFTrajectoryFile</span><span class="o">.</span><span class="n">_add_intra_group_bonds</span><span class="p">(</span><span class="n">encoder</span><span class="p">,</span> <span class="n">residue_bond_list</span><span class="p">,</span> <span class="n">bond_order_list</span><span class="p">)</span>
+
+        <span class="n">encoder</span><span class="o">.</span><span class="n">finalize_structure</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">encoder</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_load_name_replacement_tables</span><span class="p">():</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; Load the list of atom and residue name replacements.</span>
+
+<span class="sd">            Returns</span>
+<span class="sd">            -------</span>
+
+<span class="sd">            atom_name_replacements : Dict[str, Dict[str, str]]</span>
+<span class="sd">                This is a map from residue names to a dictionary that maps</span>
+<span class="sd">                pdb atom names to mdtraj atom names.</span>
+
+<span class="sd">            residue_name_replacements : Dict[str, str]</span>
+<span class="sd">                This is a dictionary that maps pdb residue names to mdtraj</span>
+<span class="sd">                residue names.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">residue_name_replacements</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">atom_name_replacements</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="n">tree</span> <span class="o">=</span> <span class="n">ETree</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">),</span> <span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="s1">&#39;pdbNames.xml&#39;</span><span class="p">))</span>
+        <span class="n">all_residues</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">protein_residues</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">nucleic_acid_residues</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">residue</span> <span class="ow">in</span> <span class="n">tree</span><span class="o">.</span><span class="n">getroot</span><span class="p">()</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">&#39;Residue&#39;</span><span class="p">):</span>
+            <span class="n">name</span> <span class="o">=</span> <span class="n">residue</span><span class="o">.</span><span class="n">attrib</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">name</span> <span class="o">==</span> <span class="s1">&#39;All&#39;</span><span class="p">:</span>
+                <span class="n">MMTFTrajectoryFile</span><span class="o">.</span><span class="n">parse_residue_atoms</span><span class="p">(</span><span class="n">residue</span><span class="p">,</span> <span class="n">all_residues</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">name</span> <span class="o">==</span> <span class="s1">&#39;Protein&#39;</span><span class="p">:</span>
+                <span class="n">MMTFTrajectoryFile</span><span class="o">.</span><span class="n">parse_residue_atoms</span><span class="p">(</span><span class="n">residue</span><span class="p">,</span> <span class="n">protein_residues</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">name</span> <span class="o">==</span> <span class="s1">&#39;Nucleic&#39;</span><span class="p">:</span>
+                <span class="n">MMTFTrajectoryFile</span><span class="o">.</span><span class="n">parse_residue_atoms</span><span class="p">(</span><span class="n">residue</span><span class="p">,</span> <span class="n">nucleic_acid_residues</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">atom</span> <span class="ow">in</span> <span class="n">all_residues</span><span class="p">:</span>
+            <span class="n">protein_residues</span><span class="p">[</span><span class="n">atom</span><span class="p">]</span> <span class="o">=</span> <span class="n">all_residues</span><span class="p">[</span><span class="n">atom</span><span class="p">]</span>
+            <span class="n">nucleic_acid_residues</span><span class="p">[</span><span class="n">atom</span><span class="p">]</span> <span class="o">=</span> <span class="n">all_residues</span><span class="p">[</span><span class="n">atom</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">residue</span> <span class="ow">in</span> <span class="n">tree</span><span class="o">.</span><span class="n">getroot</span><span class="p">()</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">&#39;Residue&#39;</span><span class="p">):</span>
+            <span class="n">name</span> <span class="o">=</span> <span class="n">residue</span><span class="o">.</span><span class="n">attrib</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span>
+            <span class="k">for</span> <span class="n">id_</span> <span class="ow">in</span> <span class="n">residue</span><span class="o">.</span><span class="n">attrib</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">id_</span> <span class="o">==</span> <span class="s1">&#39;name&#39;</span> <span class="ow">or</span> <span class="n">id_</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;alt&#39;</span><span class="p">):</span>
+                    <span class="n">residue_name_replacements</span><span class="p">[</span><span class="n">residue</span><span class="o">.</span><span class="n">attrib</span><span class="p">[</span><span class="n">id_</span><span class="p">]]</span> <span class="o">=</span> <span class="n">name</span>
+            <span class="k">if</span> <span class="s1">&#39;type&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">residue</span><span class="o">.</span><span class="n">attrib</span><span class="p">:</span>
+                <span class="n">atoms</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">all_residues</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">residue</span><span class="o">.</span><span class="n">attrib</span><span class="p">[</span><span class="s1">&#39;type&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;Protein&#39;</span><span class="p">:</span>
+                <span class="n">atoms</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">protein_residues</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">residue</span><span class="o">.</span><span class="n">attrib</span><span class="p">[</span><span class="s1">&#39;type&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;Nucleic&#39;</span><span class="p">:</span>
+                <span class="n">atoms</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">nucleic_acid_residues</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">atoms</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">all_residues</span><span class="p">)</span>
+
+            <span class="n">MMTFTrajectoryFile</span><span class="o">.</span><span class="n">parse_residue_atoms</span><span class="p">(</span><span class="n">residue</span><span class="p">,</span> <span class="n">atoms</span><span class="p">)</span>
+            <span class="n">atom_name_replacements</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">atoms</span>
+
+        <span class="k">return</span> <span class="n">residue_name_replacements</span><span class="p">,</span> <span class="n">atom_name_replacements</span>
+
+<div class="viewcode-block" id="MMTFTrajectoryFile.parse_residue_atoms">
+<a class="viewcode-back" href="../../../../molsysmt.form.file_mmtf.html#molsysmt.form.file_mmtf.to_mdtraj.MMTFTrajectoryFile.parse_residue_atoms">[docs]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">parse_residue_atoms</span><span class="p">(</span><span class="n">residue</span><span class="p">,</span> <span class="n">dictionary</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">atom</span> <span class="ow">in</span> <span class="n">residue</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">&#39;Atom&#39;</span><span class="p">):</span>
+            <span class="n">name</span> <span class="o">=</span> <span class="n">atom</span><span class="o">.</span><span class="n">attrib</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span>
+            <span class="k">for</span> <span class="n">id_</span> <span class="ow">in</span> <span class="n">atom</span><span class="o">.</span><span class="n">attrib</span><span class="p">:</span>
+                <span class="n">dictionary</span><span class="p">[</span><span class="n">atom</span><span class="o">.</span><span class="n">attrib</span><span class="p">[</span><span class="n">id_</span><span class="p">]]</span> <span class="o">=</span> <span class="n">name</span></div>
+
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_read</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="n">standard_names</span><span class="p">,</span> <span class="n">decoder</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; Reads the topology of the mmtf file. It returns</span>
+<span class="sd">            a 2-tuple where the first element is the number of atoms</span>
+<span class="sd">            and the second is the topology.</span>
+
+<span class="sd">            Parameters</span>
+<span class="sd">            ----------</span>
+<span class="sd">            file_path : str</span>
+<span class="sd">                Path to the mmft file.</span>
+
+<span class="sd">            standard_names : bool</span>
+<span class="sd">                If True, non-standard atom names and residue names are standardized to conform</span>
+<span class="sd">                with the current PDB format version. If set to false, this step is skipped.</span>
+
+<span class="sd">            Returns</span>
+<span class="sd">            -------</span>
+<span class="sd">            positions : np.ndarray of shape(n_frames, n_atoms, 3)</span>
+<span class="sd">                Number of atoms in the system.</span>
+
+<span class="sd">            topology : mdtraj.Topology</span>
+<span class="sd">                The topology of the system.</span>
+
+<span class="sd">            unit_cell_lengths : np.ndarray of shape (3,)</span>
+<span class="sd">                Lengths of the three unit cell vectors, or None for a non-periodic system</span>
+
+<span class="sd">            unit_cell_angles : np.ndarray of shape (3,)</span>
+<span class="sd">                Angles between the three unit cell vectors, or None for a non-periodic system</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">len</span><span class="p">(</span><span class="n">MMTFTrajectoryFile</span><span class="o">.</span><span class="n">_residue_name_replacements</span><span class="p">):</span>
+            <span class="n">MMTFTrajectoryFile</span><span class="o">.</span><span class="n">_residue_name_replacements</span><span class="p">,</span> <span class="n">MMTFTrajectoryFile</span><span class="o">.</span><span class="n">_atom_name_replacements</span> <span class="o">=</span> \
+                <span class="n">MMTFTrajectoryFile</span><span class="o">.</span><span class="n">_load_name_replacement_tables</span><span class="p">()</span>
+
+        <span class="c1"># Check it is a PDB id</span>
+        <span class="k">if</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;\d\w</span><span class="si">{3}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">file_path</span><span class="p">):</span>
+            <span class="n">decoder</span> <span class="o">=</span> <span class="n">mmtf</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">decoder</span> <span class="o">=</span> <span class="n">mmtf</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span>
+
+        <span class="c1"># Get the positions first</span>
+        <span class="n">positions</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="n">decoder</span><span class="o">.</span><span class="n">num_atoms</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+        <span class="n">positions</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">decoder</span><span class="o">.</span><span class="n">x_coord_list</span>
+        <span class="n">positions</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">decoder</span><span class="o">.</span><span class="n">y_coord_list</span>
+        <span class="n">positions</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">decoder</span><span class="o">.</span><span class="n">z_coord_list</span>
+
+        <span class="c1"># Retrieve unit cells and unit cell angles</span>
+        <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">decoder</span><span class="o">.</span><span class="n">unit_cell</span><span class="p">[:</span><span class="mi">3</span><span class="p">]):</span>
+            <span class="n">unit_cell_lengths</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">decoder</span><span class="o">.</span><span class="n">unit_cell</span><span class="p">[:</span><span class="mi">3</span><span class="p">]])</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">unit_cell_lengths</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">decoder</span><span class="o">.</span><span class="n">unit_cell</span><span class="p">[</span><span class="mi">3</span><span class="p">:]):</span>
+            <span class="n">unit_cell_angles</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">decoder</span><span class="o">.</span><span class="n">unit_cell</span><span class="p">[</span><span class="mi">3</span><span class="p">:]])</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">unit_cell_angles</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="c1"># mmtf follows the following structure hierarchy:</span>
+        <span class="c1"># Models -&gt; Chains -&gt; Groups -&gt; Atoms</span>
+        <span class="c1"># mdtraj has the following hierarchy:</span>
+        <span class="c1"># Chains -&gt; Residues -&gt; Atoms</span>
+        <span class="c1"># Residues are equivalent to Groups.</span>
+        <span class="n">topology</span> <span class="o">=</span> <span class="n">mdt</span><span class="o">.</span><span class="n">Topology</span><span class="p">()</span>
+        <span class="n">model_index</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">atom_index</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">chain_index</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">group_index</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="k">for</span> <span class="n">model_chain_count</span> <span class="ow">in</span> <span class="n">decoder</span><span class="o">.</span><span class="n">chains_per_model</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">chain</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">model_chain_count</span><span class="p">):</span>
+                <span class="c1"># Number of groups per chain</span>
+                <span class="n">chain_group_count</span> <span class="o">=</span> <span class="n">decoder</span><span class="o">.</span><span class="n">groups_per_chain</span><span class="p">[</span><span class="n">chain_index</span><span class="p">]</span>
+                <span class="n">chain</span> <span class="o">=</span> <span class="n">topology</span><span class="o">.</span><span class="n">add_chain</span><span class="p">()</span>
+                <span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">chain_group_count</span><span class="p">):</span>
+                    <span class="n">group</span> <span class="o">=</span> <span class="n">decoder</span><span class="o">.</span><span class="n">group_list</span><span class="p">[</span><span class="n">decoder</span><span class="o">.</span><span class="n">group_type_list</span><span class="p">[</span><span class="n">group_index</span><span class="p">]]</span>
+                    <span class="n">group_name</span> <span class="o">=</span> <span class="n">group</span><span class="p">[</span><span class="s2">&quot;groupName&quot;</span><span class="p">]</span>
+                    <span class="c1"># Get the residue name for mdtraj</span>
+                    <span class="k">if</span> <span class="n">standard_names</span><span class="p">:</span>
+                        <span class="k">try</span><span class="p">:</span>
+                            <span class="n">residue_name</span> <span class="o">=</span> <span class="n">MMTFTrajectoryFile</span><span class="o">.</span><span class="n">_residue_name_replacements</span><span class="p">[</span><span class="n">group_name</span><span class="p">]</span>
+                        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+                            <span class="n">residue_name</span> <span class="o">=</span> <span class="n">group_name</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">residue_name</span> <span class="o">=</span> <span class="n">group_name</span>
+                    <span class="n">residue</span> <span class="o">=</span> <span class="n">topology</span><span class="o">.</span><span class="n">add_residue</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">residue_name</span><span class="p">,</span>
+                                                   <span class="n">chain</span><span class="o">=</span><span class="n">chain</span><span class="p">,</span>
+                                                   <span class="n">resSeq</span><span class="o">=</span><span class="n">decoder</span><span class="o">.</span><span class="n">sequence_index_list</span><span class="p">[</span><span class="n">group_index</span><span class="p">])</span>
+
+                    <span class="n">atom_offset</span> <span class="o">=</span> <span class="n">atom_index</span>  <span class="c1"># To retrieve bonds later</span>
+
+                    <span class="n">group_atom_count</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">group</span><span class="p">[</span><span class="s2">&quot;atomNameList&quot;</span><span class="p">])</span>
+                    <span class="k">for</span> <span class="n">jj</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">group_atom_count</span><span class="p">):</span>
+                        <span class="n">atom_name</span> <span class="o">=</span> <span class="n">group</span><span class="p">[</span><span class="s2">&quot;atomNameList&quot;</span><span class="p">][</span><span class="n">jj</span><span class="p">]</span>
+                        <span class="n">element_symbol</span> <span class="o">=</span> <span class="n">group</span><span class="p">[</span><span class="s2">&quot;elementList&quot;</span><span class="p">][</span><span class="n">jj</span><span class="p">]</span>
+                        <span class="n">element</span> <span class="o">=</span> <span class="n">mdt_element</span><span class="o">.</span><span class="n">get_by_symbol</span><span class="p">(</span><span class="n">element_symbol</span><span class="p">)</span>
+
+                        <span class="k">if</span> <span class="n">standard_names</span><span class="p">:</span>
+                            <span class="k">try</span><span class="p">:</span>
+                                <span class="n">atom_name</span> <span class="o">=</span> <span class="n">MMTFTrajectoryFile</span><span class="o">.</span><span class="n">_atom_name_replacements</span><span class="p">[</span><span class="n">residue_name</span><span class="p">][</span><span class="n">atom_name</span><span class="p">]</span>
+                            <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+                                <span class="k">pass</span>
+
+                        <span class="n">topology</span><span class="o">.</span><span class="n">add_atom</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">atom_name</span><span class="p">,</span>
+                                          <span class="n">element</span><span class="o">=</span><span class="n">element</span><span class="p">,</span>
+                                          <span class="n">residue</span><span class="o">=</span><span class="n">residue</span><span class="p">)</span>
+                        <span class="n">atom_index</span> <span class="o">+=</span> <span class="mi">1</span>
+
+                    <span class="n">group_bond_count</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">group</span><span class="p">[</span><span class="s2">&quot;bondAtomList&quot;</span><span class="p">])</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
+                    <span class="c1"># Traverse bonds between atoms inside groups</span>
+                    <span class="k">for</span> <span class="n">kk</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">group_bond_count</span><span class="p">):</span>
+                        <span class="n">atom_1_index</span> <span class="o">=</span> <span class="n">atom_offset</span> <span class="o">+</span> <span class="n">group</span><span class="p">[</span><span class="s2">&quot;bondAtomList&quot;</span><span class="p">][</span><span class="n">kk</span> <span class="o">*</span> <span class="mi">2</span><span class="p">]</span>
+                        <span class="n">atom_2_index</span> <span class="o">=</span> <span class="n">atom_offset</span> <span class="o">+</span> <span class="n">group</span><span class="p">[</span><span class="s2">&quot;bondAtomList&quot;</span><span class="p">][</span><span class="n">kk</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>
+                        <span class="n">topology</span><span class="o">.</span><span class="n">add_bond</span><span class="p">(</span><span class="n">topology</span><span class="o">.</span><span class="n">atom</span><span class="p">(</span><span class="n">atom_1_index</span><span class="p">),</span>
+                                          <span class="n">topology</span><span class="o">.</span><span class="n">atom</span><span class="p">(</span><span class="n">atom_2_index</span><span class="p">),</span>
+                                          <span class="n">order</span><span class="o">=</span><span class="n">group</span><span class="p">[</span><span class="s2">&quot;bondOrderList&quot;</span><span class="p">][</span><span class="n">kk</span><span class="p">]</span>
+                                          <span class="p">)</span>
+
+                    <span class="n">group_index</span> <span class="o">+=</span> <span class="mi">1</span>
+                <span class="n">chain_index</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="n">model_index</span> <span class="o">+=</span> <span class="mi">1</span>
+
+        <span class="c1"># Add inter bond groups</span>
+        <span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">decoder</span><span class="o">.</span><span class="n">bond_atom_list</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)):</span>
+            <span class="n">topology</span><span class="o">.</span><span class="n">add_bond</span><span class="p">(</span>
+                <span class="n">topology</span><span class="o">.</span><span class="n">atom</span><span class="p">(</span><span class="n">decoder</span><span class="o">.</span><span class="n">bond_atom_list</span><span class="p">[</span><span class="n">ii</span> <span class="o">*</span> <span class="mi">2</span><span class="p">]),</span>
+                <span class="n">topology</span><span class="o">.</span><span class="n">atom</span><span class="p">(</span><span class="n">decoder</span><span class="o">.</span><span class="n">bond_atom_list</span><span class="p">[</span><span class="n">ii</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]),</span>
+                <span class="n">order</span><span class="o">=</span><span class="n">decoder</span><span class="o">.</span><span class="n">bond_order_list</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span>
+            <span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">positions</span><span class="p">,</span> <span class="n">topology</span><span class="p">,</span> <span class="n">unit_cell_lengths</span><span class="p">,</span> <span class="n">unit_cell_angles</span>
+
+<div class="viewcode-block" id="MMTFTrajectoryFile.close">
+<a class="viewcode-back" href="../../../../molsysmt.form.file_mmtf.html#molsysmt.form.file_mmtf.to_mdtraj.MMTFTrajectoryFile.close">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Close the file&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_open</span> <span class="o">=</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_open</span></div>
+
+
+<div class="viewcode-block" id="MMTFTrajectoryFile.__enter__">
+<a class="viewcode-back" href="../../../../molsysmt.form.file_mmtf.html#molsysmt.form.file_mmtf.to_mdtraj.MMTFTrajectoryFile.__enter__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__enter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Support the context manager protocol&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span></div>
+
+
+<div class="viewcode-block" id="MMTFTrajectoryFile.__exit__">
+<a class="viewcode-back" href="../../../../molsysmt.form.file_mmtf.html#molsysmt.form.file_mmtf.to_mdtraj.MMTFTrajectoryFile.__exit__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__exit__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">exc_info</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Support the context manager protocol&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
+</div>
+
+</pre></div>
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item"><div>
+	&copy; 2026, <a href=contents/about/who.html>Liliana M. Moreno Vargas, Diego Prada Gracia
+		and contributors</a> | <a href="https://www.uibcdf.org/">UIBCDF Lab</a> 
+	at the <a href="http://himfg.com.mx">Federico Gómez Children’s Hospital of Mexico</a><br />
+	<a href="https://github.com/uibcdf/molsysmt">MolSysMT is an open source project</a> shared
+	under <a href="https://github.com/uibcdf/molsysmt/blob/main/LICENSE">an MIT license</a>
+	with a structure based on the
+	<a href="https://github.com/MolSSI/cookiecutter-cms">Computational Molecular Science
+		Python Cookiecutter</a> version 1.5
+</div></div>
+      
+        <div class="footer-item">
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3
+     | 
+    Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1
+    <br/>
+  </p>
+
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item"><a href= "mailto:uibcdf@gmail.com">Contact us</a><br /></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

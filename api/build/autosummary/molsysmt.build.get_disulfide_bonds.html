@@ -1,0 +1,725 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="../../../_static/favicon-16x16.png" sizes="16x16" rel="icon" type="image/png">
+    <link href="../../../_static/favicon-124x124.png" sizes="124x124" rel="icon" type="image/png">
+    <link href="../../../_static/favicon-128x128.png" sizes="128x128" rel="icon" type="image/png">
+    <link href="../../../_static/favicon-192x192.png" sizes="192x192" rel="icon" type="image/png">
+    <link href="../../../_static/icon.svg" rel="icon" type="image/svg+xml">
+  
+    <title>molsysmt.build.get_disulfide_bonds – MolSysMT 0.12.0</title>
+  
+
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx_tabs.css?v=f45e19d3" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=d5ef24d1" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/tabs.css?v=a5c4661c" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=d5ef24d1" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../../../_static/documentation_options.js?v=61ccb1f1"></script>
+    <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../../_static/copybutton.js?v=f281be69"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/nglview-js-widgets@3.1.0/dist/index.js"></script>
+    <script src="../../../_static/design-tabs.js?v=f930bc37"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="molsysmt.build.get_missing_bonds" href="molsysmt.build.get_missing_bonds.html" />
+    <link rel="prev" title="molsysmt.build.define_new_chain" href="molsysmt.build.define_new_chain.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="0.12.0" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../../_static/logo.svg" class="logo__image only-light" alt="MolSysMT 0.12.0 documentation - Home"/>
+    <img src="../../../_static/logo.svg" class="logo__image only-dark pst-js-only" alt="MolSysMT 0.12.0 documentation - Home"/>
+  
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../content/about/index.html">
+    About
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../content/showcase/index.html">
+    Showcase
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../content/user/index.html">
+    User guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../content/developer/index.html">
+    Developer guide
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../../index.html">
+    API documentation
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../content/ai_assistant.html">
+    MolSys-AI
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/uibcdf/molsysmt" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../content/about/index.html">
+    About
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../content/showcase/index.html">
+    Showcase
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../content/user/index.html">
+    User guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../content/developer/index.html">
+    Developer guide
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../../index.html">
+    API documentation
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../content/ai_assistant.html">
+    MolSys-AI
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/uibcdf/molsysmt" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><p aria-level="2" class="caption" role="heading"><span class="caption-text">User</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../basic/api_basic.html">API Basic</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api_build.html">API Build</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../topology/api_topology.html">API Topology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../structure/api_structure.html">API Structure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../pbc/api_pbc.html">API Periodic Boundary Conditions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../physchem/api_physchem.html">API Physical and chemical properties</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../molecular_mechanics/api_molecular_mechanics.html">API Molecular mechanics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../hbonds/api_hbonds.html">API Hbonds</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../element/api_element.html">API Element</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../element/atom/api_atom.html">API Atom</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../element/group/api_group.html">API Group</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../element/group/amino_acid/api_amino_acid.html">API Amino acid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../element/group/ion/api_ion.html">API Ion</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../element/group/lipid/api_lipid.html">API Lipid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../element/group/nucleotide/api_nucleotide.html">API Nucleotide</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../element/group/saccharide/api_saccharide.html">API Saccharide</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../element/group/small_molecule/api_small_molecule.html">API Small Molecule</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../element/group/terminal_capping/api_terminal_capping.html">API Terminal Capping</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../element/group/water/api_water.html">API Water</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../../element/component/api_component.html">API Component</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../element/molecule/api_molecule.html">API Molecule</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../element/chain/api_chain.html">API Chain</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../element/entity/api_entity.html">API Entity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../element/bond/api_bond.html">API Bond</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../form/api_form.html">Form</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../form/biopython_Seq/api_biopython_Seq.html">biopython.Seq</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../form/biopython_SeqRecord/api_biopython_SeqRecord.html">biopython.SeqRecord</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../form/file_bcif/api_file_bcif.html">file:bcif</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../form/file_bcif_gz/api_file_bcif_gz.html">file:bcif.gz</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../form/file_cif/api_file_cif.html">file:cif</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../form/file_crd/api_file_crd.html">file:crd</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../form/file_dcd/api_file_dcd.html">file:dcd</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../form/file_gro/api_file_gro.html">file:gro</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../form/file_h5/api_file_h5.html">file:h5</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../form/file_h5msm/api_file_h5msm.html">file:h5msm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../form/file_inpcrd/api_file_inpcrd.html">file:inpcrd</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../form/file_mmtf/api_file_mmtf.html">file:mmtf</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../form/file_mol2/api_file_mol2.html">file:mol2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../form/file_msmpk/api_file_msmpk.html">file:msmpk</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../form/file_pdb/api_file_pdb.html">file:pdb</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../form/file_prmtop/api_file_prmtop.html">file:prmtop</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../form/file_psf/api_file_psf.html">file:psf</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../form/file_trjpk/api_file_trjpk.html">file:trjpk</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../form/file_xtc/api_file_xtc.html">file:xtc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../form/file_xyznpy/api_file_xyznpy.html">file:xyznpy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../form/MDAnalysis_Topology/api_MDAnalysis_Topology.html">MDAnalysis.Topology</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../form/MDAnalysis_Universe/api_MDAnalysis_Universe.html">MDAnalysis.Universe</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../form/mdtraj_DCDTrajectoryFile/api_mdtraj_DCDTrajectoryFile.html">mdtraj.DCDTrajectoryFile</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../form/mdtraj_HDF5TrajectoryFile/api_mdtraj_HDF5TrajectoryFile.html">mdtraj.HDF5TrajectoryFile</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../form/mdtraj_Topology/api_mdtraj_Topology.html">mdtraj.Topology</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../form/mdtraj_Trajectory/api_mdtraj_Trajectory.html">mdtraj.Trajectory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../form/mdtraj_XTCTrajectoryFile/api_mdtraj_XTCTrajectoryFile.html">mdtraj.XTCTrajectoryFile</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../form/mmcif_PdbxContainers_DataContainer/api_mmcif_PdbxContainers_DataContainer.html">mmcif.PdbxContainers.DataContainer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../form/mmtf_MMTFDecoder/api_mmtf_MMTFDecoder.html">mmtf.MMTFDecoder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../form/molsysmt_CIFFileHandler/api_molsysmt_CIFFileHandler.html">molsysmt.CIFFileHandler</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../form/molsysmt_GROFileHandler/api_molsysmt_GROFileHandler.html">molsysmt.GROFileHandler</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../form/molsysmt_H5MSMFileHandler/api_molsysmt_H5MSMFileHandler.html">molsysmt.H5MSMFileHandler</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../form/molsysmt_MolecularMechanics/api_molsysmt_MolecularMechanics.html">molsysmt.MolecularMechanics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../form/molsysmt_MolecularMechanicsDict/api_molsysmt_MolecularMechanicsDict.html">molsysmt.MolecularMechanicsDict</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../form/molsysmt_MolSys/api_molsysmt_MolSys.html">molsysmt.MolSys</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../form/molsysmt_PDBFileHandler/api_molsysmt_PDBFileHandler.html">molsysmt.PDBFileHandler</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../form/molsysmt_Structures/api_molsysmt_Structures.html">molsysmt.Structures</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../form/molsysmt_StructuresDict/api_molsysmt_StructuresDict.html">molsysmt.Structures</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../form/molsysmt_Topology/api_molsysmt_Topology.html">molsysmt.Topology</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../form/networkx_Graph/api_networkx_Graph.html">networkx.Graph</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../form/nglview_NGLWidget/api_nglview_NGLWidget.html">nglview_NGLWidget</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../form/openmm_AmberInpcrdFile/api_openmm_AmberInpcrdFile.html">openmm.AmberInpcrdFile</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../form/openmm_AmberPrmtopFile/api_openmm_AmberPrmtopFile.html">openmm.AmberPrmtopFile</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../form/openmm_CharmmCrdFile/api_openmm_CharmmCrdFile.html">openmm.CharmmCrdFile</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../form/openmm_CharmmPsfFile/api_openmm_CharmmPsfFile.html">openmm.CharmmPsfFile</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../form/openmm_Context/api_openmm_Context.html">openmm.Context</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../form/openmm_GromacsGroFile/api_openmm_GromacsGroFile.html">openmm.GromacsGroFile</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../form/openmm_GromacsTopFile/api_openmm_GromacsTopFile.html">openmm.GromacsGroFile</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../form/openmm_Modeller/api_openmm_Modeller.html">openmm.Modeller</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../form/openmm_PDBFile/api_openmm_PDBFile.html">openmm.PDBFile</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../form/openmm_Simulation/api_openmm_Simulation.html">openmm.Simulation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../form/openmm_State/api_openmm_State.html">openmm.State</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../form/openmm_System/api_openmm_System.html">openmm.System</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../form/openmm_Topology/api_openmm_Topology.html">openmm.Topology</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../form/parmed_Structure/api_parmed_Structure.html">parmed.Structure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../form/pdbfixer_PDBFixer/api_pdbfixer_PDBFixer.html">pdbfixer.PDBFixer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../form/pytraj_Topology/api_pytraj_Topology.html">pytraj.Topology</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../form/pytraj_Trajectory/api_pytraj_Trajectory.html">pytraj.Trajectory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../form/string_alphafold_id/api_string_alphafold_id.html">strubg:alphafold_id</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../form/string_amino_acids_1/api_string_amino_acids_1.html">string:aminoacids1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../form/string_amino_acids_3/api_string_amino_acids_3.html">string:aminoacids3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../form/string_pdb_id/api_string_pdb_id.html">string:pdb_id</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../form/string_pdb_text/api_string_pdb_text.html">string:pdb_text</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../form/XYZ/api_XYZ.html">XYZ</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../thirds/api_thirds.html">Thirds</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../thirds/nglview/api_nglview.html">API NGLView</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../thirds/openmm/api_openmm.html">OpenMM</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../thirds/openmm/forces/api_forces.html">API Forces</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../thirds/openmm/platforms/api_platforms.html">API Forces</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../thirds/openmm/reporters/api_reporters.html">API Forces</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Developer</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../_private/api__private.html">_private</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../_private/exceptions/api_exceptions.html">Exceptions</a></li>
+</ul>
+</details></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../../index.html" class="nav-link">API documentation</a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="../api_build.html" class="nav-link">API Build</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">molsysmt.build.get_disulfide_bonds</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="molsysmt-build-get-disulfide-bonds">
+<h1>molsysmt.build.get_disulfide_bonds<a class="headerlink" href="#molsysmt-build-get-disulfide-bonds" title="Link to this heading">#</a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="molsysmt.build.get_disulfide_bonds">
+<span class="sig-prename descclassname"><span class="pre">molsysmt.build.</span></span><span class="sig-name descname"><span class="pre">get_disulfide_bonds</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">molecular_system</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">selection</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'all'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">structure_index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_bond_length</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group_names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">['CYS']</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pbc</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">syntax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'MolSysMT'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">engine</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'MolSysMT'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sorted</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">skip_digestion</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/molsysmt/build/get_disulfide_bonds.html#get_disulfide_bonds"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#molsysmt.build.get_disulfide_bonds" title="Link to this definition">#</a></dt>
+<dd><p>Identifying disulfide bonds between sulfur atoms.</p>
+<p>This function detects disulfide bonds in a molecular system by finding pairs of sulfur atoms
+that belong to specified residue types (e.g., <cite>CYS</cite>) and lie within a covalent bond distance.
+These S–S bridges are returned as atom index pairs.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>molecular_system</strong> (<em>molecular system</em>) – Molecular system in any of <a class="reference internal" href="../../../content/user/intro/molecular_systems/forms.html#introduction-forms"><span class="std std-ref">the supported forms</span></a> to be analyzed.</p></li>
+<li><p><strong>selection</strong> (<em>index</em><em>, </em><em>tuple</em><em>, </em><em>list</em><em>, </em><em>numpy.ndarray</em><em> or </em><em>str</em><em>, </em><em>default 'all'</em>) – Selection of atoms to be considered for disulfide bond detection. This can be a list, tuple, or array
+of atom indices (0-based), or a string parsed using the specified selection syntax.</p></li>
+<li><p><strong>structure_index</strong> (<em>int</em><em>, </em><em>default 0</em>) – Index of the structure (frame) in which disulfide bonds will be searched.</p></li>
+<li><p><strong>max_bond_length</strong> (<em>float</em><em> or </em><em>str with units</em><em>, </em><em>optional</em>) – Maximum distance between two sulfur atoms to be considered a disulfide bond. If not provided,
+a default threshold (typically 2.05 Å) will be used.</p></li>
+<li><p><strong>group_names</strong> (<em>list</em><em> of </em><em>str</em><em>, </em><em>default</em><em> [</em><em>'CYS'</em><em>]</em>) – List of residue names to be considered as potential cysteine-like residues forming disulfide bonds.</p></li>
+<li><p><strong>pbc</strong> (<em>bool</em><em>, </em><em>default True</em>) – Whether to apply periodic boundary conditions when computing distances.</p></li>
+<li><p><strong>syntax</strong> (<em>str</em><em>, </em><em>default 'MolSysMT'</em>) – <a class="reference internal" href="../../../content/user/intro/selection_syntaxes.html#introduction-selection"><span class="std std-ref">Supported syntax</span></a> used to parse the <cite>selection</cite> argument (if string).</p></li>
+<li><p><strong>engine</strong> (<em>{'MolSysMT'}</em><em>, </em><em>default 'MolSysMT'</em>) – Engine used to perform the analysis. Currently only ‘MolSysMT’ is supported.</p></li>
+<li><p><strong>sorted</strong> (<em>bool</em><em>, </em><em>default True</em>) – Whether to sort the indices in each pair (i.e., smaller index first).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Array of atom index pairs (each a disulfide bond) detected in the selected atoms and structure.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>numpy.ndarray of shape (n, 2)</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>NotSupportedFormError</strong> – If the molecular system format is not supported.</p></li>
+<li><p><strong>ArgumentError</strong> – If input values do not meet required conditions.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>Sulfur atoms are identified based on element type and filtered by group name (e.g., <cite>‘CYS’</cite>).</p></li>
+<li><p>This function assumes that disulfide bonds are formed between SG atoms of cysteines or equivalent residues.</p></li>
+<li><p>Distance units are internally standardized to nanometers.</p></li>
+</ul>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="../../../molsysmt.build.html#module-molsysmt.build.add_bonds" title="molsysmt.build.add_bonds"><code class="xref py py-func docutils literal notranslate"><span class="pre">molsysmt.build.add_bonds()</span></code></a></dt><dd><p>Manually add bonds between specific atom pairs.</p>
+</dd>
+<dt><a class="reference internal" href="../../../molsysmt.structure.html#module-molsysmt.structure.get_neighbors" title="molsysmt.structure.get_neighbors"><code class="xref py py-func docutils literal notranslate"><span class="pre">molsysmt.structure.get_neighbors()</span></code></a></dt><dd><p>Find neighboring atoms within a distance or bond limit.</p>
+</dd>
+<dt><a class="reference internal" href="../../../molsysmt.build.html#module-molsysmt.build.get_missing_bonds" title="molsysmt.build.get_missing_bonds"><code class="xref py py-func docutils literal notranslate"><span class="pre">molsysmt.build.get_missing_bonds()</span></code></a></dt><dd><p>Automatically infer missing covalent bonds.</p>
+</dd>
+</dl>
+</div>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">molsysmt</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">msm</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">molsys</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="s1">&#39;5XJH&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s_s_pairs</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">build</span><span class="o">.</span><span class="n">get_disulfide_bonds</span><span class="p">(</span><span class="n">molsys</span><span class="p">,</span> <span class="n">max_bond_length</span><span class="o">=</span><span class="s1">&#39;2.15 angstroms&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s_s_pairs</span><span class="o">.</span><span class="n">shape</span>
+<span class="go">(2, 2)</span>
+</pre></div>
+</div>
+<div class="admonition-user-guide admonition">
+<p class="admonition-title">User guide</p>
+<p>Follow this link for a tutorial on how to work with this function:
+<a class="reference internal" href="../../../content/user/tools/build/get_disulfide_bonds.html#tutorial-get-disulfide-bonds"><span class="std std-ref">User Guide &gt; Tools &gt; Build &gt; Get disulfide bonds</span></a></p>
+</div>
+<div class="versionadded">
+<p><span class="versionmodified added">Added in version 1.0.0.</span></p>
+</div>
+</dd></dl>
+
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="molsysmt.build.define_new_chain.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">molsysmt.build.define_new_chain</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="molsysmt.build.get_missing_bonds.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">molsysmt.build.get_missing_bonds</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#molsysmt.build.get_disulfide_bonds"><code class="docutils literal notranslate"><span class="pre">get_disulfide_bonds()</span></code></a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item"><div>
+	&copy; 2026, <a href=contents/about/who.html>Liliana M. Moreno Vargas, Diego Prada Gracia
+		and contributors</a> | <a href="https://www.uibcdf.org/">UIBCDF Lab</a> 
+	at the <a href="http://himfg.com.mx">Federico Gómez Children’s Hospital of Mexico</a><br />
+	<a href="https://github.com/uibcdf/molsysmt">MolSysMT is an open source project</a> shared
+	under <a href="https://github.com/uibcdf/molsysmt/blob/main/LICENSE">an MIT license</a>
+	with a structure based on the
+	<a href="https://github.com/MolSSI/cookiecutter-cms">Computational Molecular Science
+		Python Cookiecutter</a> version 1.5
+</div></div>
+      
+        <div class="footer-item">
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3
+     | 
+    Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1
+    <br/>
+  </p>
+
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item"><a href= "mailto:uibcdf@gmail.com">Contact us</a><br /></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

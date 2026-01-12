@@ -1,0 +1,85 @@
+molsysmt.form.molsysmt\_UniversalJSON package
+=============================================
+
+Submodules
+----------
+
+molsysmt.form.molsysmt\_UniversalJSON.append\_structures module
+---------------------------------------------------------------
+
+.. automodule:: molsysmt.form.molsysmt_UniversalJSON.append_structures
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.molsysmt\_UniversalJSON.attributes module
+-------------------------------------------------------
+
+.. automodule:: molsysmt.form.molsysmt_UniversalJSON.attributes
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.molsysmt\_UniversalJSON.copy module
+-------------------------------------------------
+
+.. automodule:: molsysmt.form.molsysmt_UniversalJSON.copy
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.molsysmt\_UniversalJSON.extract module
+----------------------------------------------------
+
+.. automodule:: molsysmt.form.molsysmt_UniversalJSON.extract
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.molsysmt\_UniversalJSON.get module
+------------------------------------------------
+
+.. automodule:: molsysmt.form.molsysmt_UniversalJSON.get
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.molsysmt\_UniversalJSON.has\_attribute module
+-----------------------------------------------------------
+
+.. automodule:: molsysmt.form.molsysmt_UniversalJSON.has_attribute
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.molsysmt\_UniversalJSON.is\_form module
+-----------------------------------------------------
+
+.. automodule:: molsysmt.form.molsysmt_UniversalJSON.is_form
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.molsysmt\_UniversalJSON.to\_molsysmt\_MolSys module
+-----------------------------------------------------------------
+
+.. automodule:: molsysmt.form.molsysmt_UniversalJSON.to_molsysmt_MolSys
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.molsysmt\_UniversalJSON.to\_molsysmt\_UniversalJSON module
+------------------------------------------------------------------------
+
+.. automodule:: molsysmt.form.molsysmt_UniversalJSON.to_molsysmt_UniversalJSON
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Module contents
+---------------
+
+.. automodule:: molsysmt.form.molsysmt_UniversalJSON
+   :members:
+   :show-inheritance:
+   :undoc-members:

@@ -1,0 +1,79 @@
+molsysmt.element.molecule package
+=================================
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   molsysmt.element.molecule.disaccharide
+   molsysmt.element.molecule.dna
+   molsysmt.element.molecule.ion
+   molsysmt.element.molecule.lipid
+   molsysmt.element.molecule.monosaccharide
+   molsysmt.element.molecule.peptide
+   molsysmt.element.molecule.polysaccharide
+   molsysmt.element.molecule.protein
+   molsysmt.element.molecule.rna
+   molsysmt.element.molecule.small_molecule
+   molsysmt.element.molecule.water
+
+Submodules
+----------
+
+molsysmt.element.molecule.get\_molecule\_id module
+--------------------------------------------------
+
+.. automodule:: molsysmt.element.molecule.get_molecule_id
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.element.molecule.get\_molecule\_index module
+-----------------------------------------------------
+
+.. automodule:: molsysmt.element.molecule.get_molecule_index
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.element.molecule.get\_molecule\_name module
+----------------------------------------------------
+
+.. automodule:: molsysmt.element.molecule.get_molecule_name
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.element.molecule.get\_molecule\_type module
+----------------------------------------------------
+
+.. automodule:: molsysmt.element.molecule.get_molecule_type
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.element.molecule.get\_n\_molecules module
+--------------------------------------------------
+
+.. automodule:: molsysmt.element.molecule.get_n_molecules
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.element.molecule.is\_molecule\_type module
+---------------------------------------------------
+
+.. automodule:: molsysmt.element.molecule.is_molecule_type
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Module contents
+---------------
+
+.. automodule:: molsysmt.element.molecule
+   :members:
+   :show-inheritance:
+   :undoc-members:

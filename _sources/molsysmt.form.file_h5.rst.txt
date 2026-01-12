@@ -1,0 +1,181 @@
+molsysmt.form.file\_h5 package
+==============================
+
+Submodules
+----------
+
+molsysmt.form.file\_h5.add module
+---------------------------------
+
+.. automodule:: molsysmt.form.file_h5.add
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_h5.append\_structures module
+------------------------------------------------
+
+.. automodule:: molsysmt.form.file_h5.append_structures
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_h5.attributes module
+----------------------------------------
+
+.. automodule:: molsysmt.form.file_h5.attributes
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_h5.copy module
+----------------------------------
+
+.. automodule:: molsysmt.form.file_h5.copy
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_h5.extract module
+-------------------------------------
+
+.. automodule:: molsysmt.form.file_h5.extract
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_h5.get module
+---------------------------------
+
+.. automodule:: molsysmt.form.file_h5.get
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_h5.has\_attribute module
+--------------------------------------------
+
+.. automodule:: molsysmt.form.file_h5.has_attribute
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_h5.is\_form module
+--------------------------------------
+
+.. automodule:: molsysmt.form.file_h5.is_form
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_h5.iterators module
+---------------------------------------
+
+.. automodule:: molsysmt.form.file_h5.iterators
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_h5.merge module
+-----------------------------------
+
+.. automodule:: molsysmt.form.file_h5.merge
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_h5.set module
+---------------------------------
+
+.. automodule:: molsysmt.form.file_h5.set
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_h5.to\_file\_h5 module
+------------------------------------------
+
+.. automodule:: molsysmt.form.file_h5.to_file_h5
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_h5.to\_file\_pdb module
+-------------------------------------------
+
+.. automodule:: molsysmt.form.file_h5.to_file_pdb
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_h5.to\_mdtraj\_HDF5TrajectoryFile module
+------------------------------------------------------------
+
+.. automodule:: molsysmt.form.file_h5.to_mdtraj_HDF5TrajectoryFile
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_h5.to\_mdtraj\_Topology module
+--------------------------------------------------
+
+.. automodule:: molsysmt.form.file_h5.to_mdtraj_Topology
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_h5.to\_mdtraj\_Trajectory module
+----------------------------------------------------
+
+.. automodule:: molsysmt.form.file_h5.to_mdtraj_Trajectory
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_h5.to\_molsysmt\_MolSys module
+--------------------------------------------------
+
+.. automodule:: molsysmt.form.file_h5.to_molsysmt_MolSys
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_h5.to\_molsysmt\_Structures module
+------------------------------------------------------
+
+.. automodule:: molsysmt.form.file_h5.to_molsysmt_Structures
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_h5.to\_molsysmt\_Topology module
+----------------------------------------------------
+
+.. automodule:: molsysmt.form.file_h5.to_molsysmt_Topology
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_h5.to\_nglview\_NGLWidget module
+----------------------------------------------------
+
+.. automodule:: molsysmt.form.file_h5.to_nglview_NGLWidget
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_h5.to\_openmm\_Topology module
+--------------------------------------------------
+
+.. automodule:: molsysmt.form.file_h5.to_openmm_Topology
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Module contents
+---------------
+
+.. automodule:: molsysmt.form.file_h5
+   :members:
+   :show-inheritance:
+   :undoc-members:

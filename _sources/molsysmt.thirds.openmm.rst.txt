@@ -1,0 +1,20 @@
+molsysmt.thirds.openmm package
+==============================
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   molsysmt.thirds.openmm.forces
+   molsysmt.thirds.openmm.platforms
+   molsysmt.thirds.openmm.reporters
+
+Module contents
+---------------
+
+.. automodule:: molsysmt.thirds.openmm
+   :members:
+   :show-inheritance:
+   :undoc-members:

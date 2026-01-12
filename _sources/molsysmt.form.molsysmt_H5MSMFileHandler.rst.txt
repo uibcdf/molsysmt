@@ -1,0 +1,149 @@
+molsysmt.form.molsysmt\_H5MSMFileHandler package
+================================================
+
+Submodules
+----------
+
+molsysmt.form.molsysmt\_H5MSMFileHandler.add module
+---------------------------------------------------
+
+.. automodule:: molsysmt.form.molsysmt_H5MSMFileHandler.add
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.molsysmt\_H5MSMFileHandler.append\_structures module
+------------------------------------------------------------------
+
+.. automodule:: molsysmt.form.molsysmt_H5MSMFileHandler.append_structures
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.molsysmt\_H5MSMFileHandler.attributes module
+----------------------------------------------------------
+
+.. automodule:: molsysmt.form.molsysmt_H5MSMFileHandler.attributes
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.molsysmt\_H5MSMFileHandler.copy module
+----------------------------------------------------
+
+.. automodule:: molsysmt.form.molsysmt_H5MSMFileHandler.copy
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.molsysmt\_H5MSMFileHandler.extract module
+-------------------------------------------------------
+
+.. automodule:: molsysmt.form.molsysmt_H5MSMFileHandler.extract
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.molsysmt\_H5MSMFileHandler.get\_structural\_attributes module
+---------------------------------------------------------------------------
+
+.. automodule:: molsysmt.form.molsysmt_H5MSMFileHandler.get_structural_attributes
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.molsysmt\_H5MSMFileHandler.get\_topological\_attributes module
+----------------------------------------------------------------------------
+
+.. automodule:: molsysmt.form.molsysmt_H5MSMFileHandler.get_topological_attributes
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.molsysmt\_H5MSMFileHandler.has\_attribute module
+--------------------------------------------------------------
+
+.. automodule:: molsysmt.form.molsysmt_H5MSMFileHandler.has_attribute
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.molsysmt\_H5MSMFileHandler.is\_form module
+--------------------------------------------------------
+
+.. automodule:: molsysmt.form.molsysmt_H5MSMFileHandler.is_form
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.molsysmt\_H5MSMFileHandler.iterators module
+---------------------------------------------------------
+
+.. automodule:: molsysmt.form.molsysmt_H5MSMFileHandler.iterators
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.molsysmt\_H5MSMFileHandler.merge module
+-----------------------------------------------------
+
+.. automodule:: molsysmt.form.molsysmt_H5MSMFileHandler.merge
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.molsysmt\_H5MSMFileHandler.set module
+---------------------------------------------------
+
+.. automodule:: molsysmt.form.molsysmt_H5MSMFileHandler.set
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.molsysmt\_H5MSMFileHandler.to\_molsysmt\_H5MSMFileHandler module
+------------------------------------------------------------------------------
+
+.. automodule:: molsysmt.form.molsysmt_H5MSMFileHandler.to_molsysmt_H5MSMFileHandler
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.molsysmt\_H5MSMFileHandler.to\_molsysmt\_MolSys module
+--------------------------------------------------------------------
+
+.. automodule:: molsysmt.form.molsysmt_H5MSMFileHandler.to_molsysmt_MolSys
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.molsysmt\_H5MSMFileHandler.to\_molsysmt\_Structures module
+------------------------------------------------------------------------
+
+.. automodule:: molsysmt.form.molsysmt_H5MSMFileHandler.to_molsysmt_Structures
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.molsysmt\_H5MSMFileHandler.to\_molsysmt\_Topology module
+----------------------------------------------------------------------
+
+.. automodule:: molsysmt.form.molsysmt_H5MSMFileHandler.to_molsysmt_Topology
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.molsysmt\_H5MSMFileHandler.to\_nglview\_NGLWidget module
+----------------------------------------------------------------------
+
+.. automodule:: molsysmt.form.molsysmt_H5MSMFileHandler.to_nglview_NGLWidget
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Module contents
+---------------
+
+.. automodule:: molsysmt.form.molsysmt_H5MSMFileHandler
+   :members:
+   :show-inheritance:
+   :undoc-members:

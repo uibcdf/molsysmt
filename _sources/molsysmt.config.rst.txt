@@ -1,0 +1,21 @@
+molsysmt.config package
+=======================
+
+Submodules
+----------
+
+molsysmt.config.logging\_setup module
+-------------------------------------
+
+.. automodule:: molsysmt.config.logging_setup
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Module contents
+---------------
+
+.. automodule:: molsysmt.config
+   :members:
+   :show-inheritance:
+   :undoc-members:

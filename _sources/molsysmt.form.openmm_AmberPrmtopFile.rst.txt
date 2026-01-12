@@ -1,0 +1,133 @@
+molsysmt.form.openmm\_AmberPrmtopFile package
+=============================================
+
+Submodules
+----------
+
+molsysmt.form.openmm\_AmberPrmtopFile.add module
+------------------------------------------------
+
+.. automodule:: molsysmt.form.openmm_AmberPrmtopFile.add
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.openmm\_AmberPrmtopFile.append\_structures module
+---------------------------------------------------------------
+
+.. automodule:: molsysmt.form.openmm_AmberPrmtopFile.append_structures
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.openmm\_AmberPrmtopFile.attributes module
+-------------------------------------------------------
+
+.. automodule:: molsysmt.form.openmm_AmberPrmtopFile.attributes
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.openmm\_AmberPrmtopFile.copy module
+-------------------------------------------------
+
+.. automodule:: molsysmt.form.openmm_AmberPrmtopFile.copy
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.openmm\_AmberPrmtopFile.extract module
+----------------------------------------------------
+
+.. automodule:: molsysmt.form.openmm_AmberPrmtopFile.extract
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.openmm\_AmberPrmtopFile.get module
+------------------------------------------------
+
+.. automodule:: molsysmt.form.openmm_AmberPrmtopFile.get
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.openmm\_AmberPrmtopFile.has\_attribute module
+-----------------------------------------------------------
+
+.. automodule:: molsysmt.form.openmm_AmberPrmtopFile.has_attribute
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.openmm\_AmberPrmtopFile.is\_form module
+-----------------------------------------------------
+
+.. automodule:: molsysmt.form.openmm_AmberPrmtopFile.is_form
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.openmm\_AmberPrmtopFile.iterators module
+------------------------------------------------------
+
+.. automodule:: molsysmt.form.openmm_AmberPrmtopFile.iterators
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.openmm\_AmberPrmtopFile.merge module
+--------------------------------------------------
+
+.. automodule:: molsysmt.form.openmm_AmberPrmtopFile.merge
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.openmm\_AmberPrmtopFile.set module
+------------------------------------------------
+
+.. automodule:: molsysmt.form.openmm_AmberPrmtopFile.set
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.openmm\_AmberPrmtopFile.to\_molsysmt\_Topology module
+-------------------------------------------------------------------
+
+.. automodule:: molsysmt.form.openmm_AmberPrmtopFile.to_molsysmt_Topology
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.openmm\_AmberPrmtopFile.to\_openmm\_AmberPrmtopFile module
+------------------------------------------------------------------------
+
+.. automodule:: molsysmt.form.openmm_AmberPrmtopFile.to_openmm_AmberPrmtopFile
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.openmm\_AmberPrmtopFile.to\_openmm\_System module
+---------------------------------------------------------------
+
+.. automodule:: molsysmt.form.openmm_AmberPrmtopFile.to_openmm_System
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.openmm\_AmberPrmtopFile.to\_openmm\_Topology module
+-----------------------------------------------------------------
+
+.. automodule:: molsysmt.form.openmm_AmberPrmtopFile.to_openmm_Topology
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Module contents
+---------------
+
+.. automodule:: molsysmt.form.openmm_AmberPrmtopFile
+   :members:
+   :show-inheritance:
+   :undoc-members:

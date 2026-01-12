@@ -1,0 +1,125 @@
+molsysmt.form.mdtraj\_DCDTrajectoryFile package
+===============================================
+
+Submodules
+----------
+
+molsysmt.form.mdtraj\_DCDTrajectoryFile.add module
+--------------------------------------------------
+
+.. automodule:: molsysmt.form.mdtraj_DCDTrajectoryFile.add
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.mdtraj\_DCDTrajectoryFile.append\_structures module
+-----------------------------------------------------------------
+
+.. automodule:: molsysmt.form.mdtraj_DCDTrajectoryFile.append_structures
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.mdtraj\_DCDTrajectoryFile.attributes module
+---------------------------------------------------------
+
+.. automodule:: molsysmt.form.mdtraj_DCDTrajectoryFile.attributes
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.mdtraj\_DCDTrajectoryFile.copy module
+---------------------------------------------------
+
+.. automodule:: molsysmt.form.mdtraj_DCDTrajectoryFile.copy
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.mdtraj\_DCDTrajectoryFile.extract module
+------------------------------------------------------
+
+.. automodule:: molsysmt.form.mdtraj_DCDTrajectoryFile.extract
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.mdtraj\_DCDTrajectoryFile.get module
+--------------------------------------------------
+
+.. automodule:: molsysmt.form.mdtraj_DCDTrajectoryFile.get
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.mdtraj\_DCDTrajectoryFile.has\_attribute module
+-------------------------------------------------------------
+
+.. automodule:: molsysmt.form.mdtraj_DCDTrajectoryFile.has_attribute
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.mdtraj\_DCDTrajectoryFile.is\_form module
+-------------------------------------------------------
+
+.. automodule:: molsysmt.form.mdtraj_DCDTrajectoryFile.is_form
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.mdtraj\_DCDTrajectoryFile.iterators module
+--------------------------------------------------------
+
+.. automodule:: molsysmt.form.mdtraj_DCDTrajectoryFile.iterators
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.mdtraj\_DCDTrajectoryFile.merge module
+----------------------------------------------------
+
+.. automodule:: molsysmt.form.mdtraj_DCDTrajectoryFile.merge
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.mdtraj\_DCDTrajectoryFile.set module
+--------------------------------------------------
+
+.. automodule:: molsysmt.form.mdtraj_DCDTrajectoryFile.set
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.mdtraj\_DCDTrajectoryFile.to\_mdtraj\_DCDTrajectoryFile module
+----------------------------------------------------------------------------
+
+.. automodule:: molsysmt.form.mdtraj_DCDTrajectoryFile.to_mdtraj_DCDTrajectoryFile
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.mdtraj\_DCDTrajectoryFile.to\_molsysmt\_MolSys module
+-------------------------------------------------------------------
+
+.. automodule:: molsysmt.form.mdtraj_DCDTrajectoryFile.to_molsysmt_MolSys
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.mdtraj\_DCDTrajectoryFile.to\_molsysmt\_Structures module
+-----------------------------------------------------------------------
+
+.. automodule:: molsysmt.form.mdtraj_DCDTrajectoryFile.to_molsysmt_Structures
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Module contents
+---------------
+
+.. automodule:: molsysmt.form.mdtraj_DCDTrajectoryFile
+   :members:
+   :show-inheritance:
+   :undoc-members:

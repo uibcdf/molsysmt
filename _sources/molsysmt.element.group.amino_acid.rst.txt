@@ -1,0 +1,69 @@
+molsysmt.element.group.amino\_acid package
+==========================================
+
+Submodules
+----------
+
+molsysmt.element.group.amino\_acid.get\_1\_letter\_code\_from\_name module
+--------------------------------------------------------------------------
+
+.. automodule:: molsysmt.element.group.amino_acid.get_1_letter_code_from_name
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.element.group.amino\_acid.get\_bonded\_atom\_pairs module
+------------------------------------------------------------------
+
+.. automodule:: molsysmt.element.group.amino_acid.get_bonded_atom_pairs
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.element.group.amino\_acid.get\_group\_db module
+--------------------------------------------------------
+
+.. automodule:: molsysmt.element.group.amino_acid.get_group_db
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.element.group.amino\_acid.get\_group\_type\_from\_group\_name module
+-----------------------------------------------------------------------------
+
+.. automodule:: molsysmt.element.group.amino_acid.get_group_type_from_group_name
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.element.group.amino\_acid.group\_names module
+------------------------------------------------------
+
+.. automodule:: molsysmt.element.group.amino_acid.group_names
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.element.group.amino\_acid.group\_types module
+------------------------------------------------------
+
+.. automodule:: molsysmt.element.group.amino_acid.group_types
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.element.group.amino\_acid.is\_amino\_acid module
+---------------------------------------------------------
+
+.. automodule:: molsysmt.element.group.amino_acid.is_amino_acid
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Module contents
+---------------
+
+.. automodule:: molsysmt.element.group.amino_acid
+   :members:
+   :show-inheritance:
+   :undoc-members:

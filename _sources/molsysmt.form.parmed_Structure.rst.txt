@@ -1,0 +1,213 @@
+molsysmt.form.parmed\_Structure package
+=======================================
+
+Submodules
+----------
+
+molsysmt.form.parmed\_Structure.add module
+------------------------------------------
+
+.. automodule:: molsysmt.form.parmed_Structure.add
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.parmed\_Structure.append\_structures module
+---------------------------------------------------------
+
+.. automodule:: molsysmt.form.parmed_Structure.append_structures
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.parmed\_Structure.attributes module
+-------------------------------------------------
+
+.. automodule:: molsysmt.form.parmed_Structure.attributes
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.parmed\_Structure.copy module
+-------------------------------------------
+
+.. automodule:: molsysmt.form.parmed_Structure.copy
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.parmed\_Structure.extract module
+----------------------------------------------
+
+.. automodule:: molsysmt.form.parmed_Structure.extract
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.parmed\_Structure.get module
+------------------------------------------
+
+.. automodule:: molsysmt.form.parmed_Structure.get
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.parmed\_Structure.has\_attribute module
+-----------------------------------------------------
+
+.. automodule:: molsysmt.form.parmed_Structure.has_attribute
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.parmed\_Structure.is\_form module
+-----------------------------------------------
+
+.. automodule:: molsysmt.form.parmed_Structure.is_form
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.parmed\_Structure.iterators module
+------------------------------------------------
+
+.. automodule:: molsysmt.form.parmed_Structure.iterators
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.parmed\_Structure.merge module
+--------------------------------------------
+
+.. automodule:: molsysmt.form.parmed_Structure.merge
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.parmed\_Structure.set module
+------------------------------------------
+
+.. automodule:: molsysmt.form.parmed_Structure.set
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.parmed\_Structure.to\_file\_cif module
+----------------------------------------------------
+
+.. automodule:: molsysmt.form.parmed_Structure.to_file_cif
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.parmed\_Structure.to\_file\_mol2 module
+-----------------------------------------------------
+
+.. automodule:: molsysmt.form.parmed_Structure.to_file_mol2
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.parmed\_Structure.to\_file\_pdb module
+----------------------------------------------------
+
+.. automodule:: molsysmt.form.parmed_Structure.to_file_pdb
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.parmed\_Structure.to\_file\_psf module
+----------------------------------------------------
+
+.. automodule:: molsysmt.form.parmed_Structure.to_file_psf
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.parmed\_Structure.to\_mdtraj\_Topology module
+-----------------------------------------------------------
+
+.. automodule:: molsysmt.form.parmed_Structure.to_mdtraj_Topology
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.parmed\_Structure.to\_mdtraj\_Trajectory module
+-------------------------------------------------------------
+
+.. automodule:: molsysmt.form.parmed_Structure.to_mdtraj_Trajectory
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.parmed\_Structure.to\_molsysmt\_MolSys module
+-----------------------------------------------------------
+
+.. automodule:: molsysmt.form.parmed_Structure.to_molsysmt_MolSys
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.parmed\_Structure.to\_molsysmt\_Structures module
+---------------------------------------------------------------
+
+.. automodule:: molsysmt.form.parmed_Structure.to_molsysmt_Structures
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.parmed\_Structure.to\_molsysmt\_Topology module
+-------------------------------------------------------------
+
+.. automodule:: molsysmt.form.parmed_Structure.to_molsysmt_Topology
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.parmed\_Structure.to\_nglview\_NGLWidget module
+-------------------------------------------------------------
+
+.. automodule:: molsysmt.form.parmed_Structure.to_nglview_NGLWidget
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.parmed\_Structure.to\_openmm\_Modeller module
+-----------------------------------------------------------
+
+.. automodule:: molsysmt.form.parmed_Structure.to_openmm_Modeller
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.parmed\_Structure.to\_openmm\_Topology module
+-----------------------------------------------------------
+
+.. automodule:: molsysmt.form.parmed_Structure.to_openmm_Topology
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.parmed\_Structure.to\_parmed\_GromacsTopologyFile module
+----------------------------------------------------------------------
+
+.. automodule:: molsysmt.form.parmed_Structure.to_parmed_GromacsTopologyFile
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.parmed\_Structure.to\_parmed\_Structure module
+------------------------------------------------------------
+
+.. automodule:: molsysmt.form.parmed_Structure.to_parmed_Structure
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Module contents
+---------------
+
+.. automodule:: molsysmt.form.parmed_Structure
+   :members:
+   :show-inheritance:
+   :undoc-members:

@@ -1,0 +1,149 @@
+molsysmt.form.pytraj\_Trajectory package
+========================================
+
+Submodules
+----------
+
+molsysmt.form.pytraj\_Trajectory.add module
+-------------------------------------------
+
+.. automodule:: molsysmt.form.pytraj_Trajectory.add
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.pytraj\_Trajectory.append\_structures module
+----------------------------------------------------------
+
+.. automodule:: molsysmt.form.pytraj_Trajectory.append_structures
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.pytraj\_Trajectory.attributes module
+--------------------------------------------------
+
+.. automodule:: molsysmt.form.pytraj_Trajectory.attributes
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.pytraj\_Trajectory.copy module
+--------------------------------------------
+
+.. automodule:: molsysmt.form.pytraj_Trajectory.copy
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.pytraj\_Trajectory.extract module
+-----------------------------------------------
+
+.. automodule:: molsysmt.form.pytraj_Trajectory.extract
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.pytraj\_Trajectory.get module
+-------------------------------------------
+
+.. automodule:: molsysmt.form.pytraj_Trajectory.get
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.pytraj\_Trajectory.has\_attribute module
+------------------------------------------------------
+
+.. automodule:: molsysmt.form.pytraj_Trajectory.has_attribute
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.pytraj\_Trajectory.is\_form module
+------------------------------------------------
+
+.. automodule:: molsysmt.form.pytraj_Trajectory.is_form
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.pytraj\_Trajectory.iterators module
+-------------------------------------------------
+
+.. automodule:: molsysmt.form.pytraj_Trajectory.iterators
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.pytraj\_Trajectory.merge module
+---------------------------------------------
+
+.. automodule:: molsysmt.form.pytraj_Trajectory.merge
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.pytraj\_Trajectory.set module
+-------------------------------------------
+
+.. automodule:: molsysmt.form.pytraj_Trajectory.set
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.pytraj\_Trajectory.to\_molsysmt\_MolSys module
+------------------------------------------------------------
+
+.. automodule:: molsysmt.form.pytraj_Trajectory.to_molsysmt_MolSys
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.pytraj\_Trajectory.to\_molsysmt\_Structures module
+----------------------------------------------------------------
+
+.. automodule:: molsysmt.form.pytraj_Trajectory.to_molsysmt_Structures
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.pytraj\_Trajectory.to\_molsysmt\_Topology module
+--------------------------------------------------------------
+
+.. automodule:: molsysmt.form.pytraj_Trajectory.to_molsysmt_Topology
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.pytraj\_Trajectory.to\_nglview\_NGLWidget module
+--------------------------------------------------------------
+
+.. automodule:: molsysmt.form.pytraj_Trajectory.to_nglview_NGLWidget
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.pytraj\_Trajectory.to\_pytraj\_Topology module
+------------------------------------------------------------
+
+.. automodule:: molsysmt.form.pytraj_Trajectory.to_pytraj_Topology
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.pytraj\_Trajectory.to\_pytraj\_Trajectory module
+--------------------------------------------------------------
+
+.. automodule:: molsysmt.form.pytraj_Trajectory.to_pytraj_Trajectory
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Module contents
+---------------
+
+.. automodule:: molsysmt.form.pytraj_Trajectory
+   :members:
+   :show-inheritance:
+   :undoc-members:

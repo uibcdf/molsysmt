@@ -1,0 +1,173 @@
+molsysmt.form.file\_h5msm package
+=================================
+
+Submodules
+----------
+
+molsysmt.form.file\_h5msm.add module
+------------------------------------
+
+.. automodule:: molsysmt.form.file_h5msm.add
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_h5msm.append\_structures module
+---------------------------------------------------
+
+.. automodule:: molsysmt.form.file_h5msm.append_structures
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_h5msm.attributes module
+-------------------------------------------
+
+.. automodule:: molsysmt.form.file_h5msm.attributes
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_h5msm.copy module
+-------------------------------------
+
+.. automodule:: molsysmt.form.file_h5msm.copy
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_h5msm.extract module
+----------------------------------------
+
+.. automodule:: molsysmt.form.file_h5msm.extract
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_h5msm.get\_structural\_attributes module
+------------------------------------------------------------
+
+.. automodule:: molsysmt.form.file_h5msm.get_structural_attributes
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_h5msm.get\_topological\_attributes module
+-------------------------------------------------------------
+
+.. automodule:: molsysmt.form.file_h5msm.get_topological_attributes
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_h5msm.has\_attribute module
+-----------------------------------------------
+
+.. automodule:: molsysmt.form.file_h5msm.has_attribute
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_h5msm.is\_form module
+-----------------------------------------
+
+.. automodule:: molsysmt.form.file_h5msm.is_form
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_h5msm.iterators module
+------------------------------------------
+
+.. automodule:: molsysmt.form.file_h5msm.iterators
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_h5msm.merge module
+--------------------------------------
+
+.. automodule:: molsysmt.form.file_h5msm.merge
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_h5msm.set module
+------------------------------------
+
+.. automodule:: molsysmt.form.file_h5msm.set
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_h5msm.to\_file\_h5msm module
+------------------------------------------------
+
+.. automodule:: molsysmt.form.file_h5msm.to_file_h5msm
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_h5msm.to\_molsysmt\_H5MSMFileHandler module
+---------------------------------------------------------------
+
+.. automodule:: molsysmt.form.file_h5msm.to_molsysmt_H5MSMFileHandler
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_h5msm.to\_molsysmt\_MolSys module
+-----------------------------------------------------
+
+.. automodule:: molsysmt.form.file_h5msm.to_molsysmt_MolSys
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_h5msm.to\_molsysmt\_Structures module
+---------------------------------------------------------
+
+.. automodule:: molsysmt.form.file_h5msm.to_molsysmt_Structures
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_h5msm.to\_molsysmt\_Topology module
+-------------------------------------------------------
+
+.. automodule:: molsysmt.form.file_h5msm.to_molsysmt_Topology
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_h5msm.to\_nglview\_NGLWidget module
+-------------------------------------------------------
+
+.. automodule:: molsysmt.form.file_h5msm.to_nglview_NGLWidget
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_h5msm.to\_string\_amino\_acids\_1 module
+------------------------------------------------------------
+
+.. automodule:: molsysmt.form.file_h5msm.to_string_amino_acids_1
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_h5msm.to\_string\_amino\_acids\_3 module
+------------------------------------------------------------
+
+.. automodule:: molsysmt.form.file_h5msm.to_string_amino_acids_3
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Module contents
+---------------
+
+.. automodule:: molsysmt.form.file_h5msm
+   :members:
+   :show-inheritance:
+   :undoc-members:

@@ -1,0 +1,53 @@
+molsysmt.element.group.small\_molecule package
+==============================================
+
+Submodules
+----------
+
+molsysmt.element.group.small\_molecule.get\_bonded\_atom\_pairs module
+----------------------------------------------------------------------
+
+.. automodule:: molsysmt.element.group.small_molecule.get_bonded_atom_pairs
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.element.group.small\_molecule.get\_group\_db module
+------------------------------------------------------------
+
+.. automodule:: molsysmt.element.group.small_molecule.get_group_db
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.element.group.small\_molecule.group\_names module
+----------------------------------------------------------
+
+.. automodule:: molsysmt.element.group.small_molecule.group_names
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.element.group.small\_molecule.is\_small\_molecule module
+-----------------------------------------------------------------
+
+.. automodule:: molsysmt.element.group.small_molecule.is_small_molecule
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.element.group.small\_molecule.small\_molecule\_is\_amino\_acid module
+------------------------------------------------------------------------------
+
+.. automodule:: molsysmt.element.group.small_molecule.small_molecule_is_amino_acid
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Module contents
+---------------
+
+.. automodule:: molsysmt.element.group.small_molecule
+   :members:
+   :show-inheritance:
+   :undoc-members:

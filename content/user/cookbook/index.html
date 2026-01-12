@@ -1,0 +1,761 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="../../../_static/favicon-16x16.png" sizes="16x16" rel="icon" type="image/png">
+    <link href="../../../_static/favicon-124x124.png" sizes="124x124" rel="icon" type="image/png">
+    <link href="../../../_static/favicon-128x128.png" sizes="128x128" rel="icon" type="image/png">
+    <link href="../../../_static/favicon-192x192.png" sizes="192x192" rel="icon" type="image/png">
+    <link href="../../../_static/icon.svg" rel="icon" type="image/svg+xml">
+  
+    <title>Cookbook – MolSysMT 0.12.0</title>
+  
+
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx_tabs.css?v=f45e19d3" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=d5ef24d1" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/tabs.css?v=a5c4661c" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=d5ef24d1" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../../../_static/documentation_options.js?v=61ccb1f1"></script>
+    <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../../_static/copybutton.js?v=f281be69"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/nglview-js-widgets@3.1.0/dist/index.js"></script>
+    <script src="../../../_static/design-tabs.js?v=f930bc37"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Barnase-Barstar" href="Barnase_Barstar.html" />
+    <link rel="prev" title="&lt;no title&gt;" href="../tools/thirds/openmm/reporters/h5msm.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="0.12.0" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../../_static/logo.svg" class="logo__image only-light" alt="MolSysMT 0.12.0 documentation - Home"/>
+    <img src="../../../_static/logo.svg" class="logo__image only-dark pst-js-only" alt="MolSysMT 0.12.0 documentation - Home"/>
+  
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../about/index.html">
+    About
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../showcase/index.html">
+    Showcase
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../index.html">
+    User guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../developer/index.html">
+    Developer guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../api/index.html">
+    API documentation
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../ai_assistant.html">
+    MolSys-AI
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/uibcdf/molsysmt" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../about/index.html">
+    About
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../showcase/index.html">
+    Showcase
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../index.html">
+    User guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../developer/index.html">
+    Developer guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../api/index.html">
+    API documentation
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../ai_assistant.html">
+    MolSys-AI
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/uibcdf/molsysmt" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../intro/index.html"><strong>Introduction</strong></a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../intro/molsysmt.html">What is MolSysMT?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../intro/installation.html">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../intro/first_steps.html">First steps</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../intro/molecular_systems/index.html">Molecular systems</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../intro/molecular_systems/description.html">Description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../intro/molecular_systems/items.html">Items and forms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../intro/molecular_systems/forms.html">Forms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../intro/molecular_systems/elements.html">Elements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../intro/molecular_systems/attributes.html">Attributes</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../intro/native_forms/index.html">Native forms</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../intro/native_forms/file_h5msm.html">file:h5msm</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../intro/native_forms/molsysmt_ViewerJSON.html">molsysmt.ViewerJSON</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../intro/selection_syntaxes.html">Selection language and syntax</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../intro/quantities_and_units.html">Quantities and units</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../intro/tools.html">Overview of tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../intro/viewers.html">Viewers and visualization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../intro/supported.html">Supported forms and libraries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../intro/configuration_options.html">Configuration options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../intro/memory_management.html">Memory management</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../intro/molsysmt_logging_user_guide.html">Logging and diagnostics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../intro/demo_systems.html">Demo systems</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../tools/index.html"><strong>Tools</strong></a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../tools/basic/index.html">Basic</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../tools/basic/add.html">Add</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/basic/append_structures.html">Append structures</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/basic/are_multiple_molecular_systems.html">Are multiple molecular systems</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/basic/compare.html">Compare</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/basic/concatenate_structures.html">Concatenate structures</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/basic/contains.html">Contains</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/basic/convert.html">Convert</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/basic/copy.html">Copy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/basic/extract.html">Extract</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/basic/get_attributes.html">Get attributes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/basic/get_form.html">Get form</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/basic/get_label.html">Get label</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/basic/get.html">Get</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/basic/has_attribute.html">Has attribute</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/basic/info.html">Info</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/basic/is_a_molecular_system.html">Is a molecular system</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/basic/is_composed_of.html">Is composed of</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/basic/iterator.html">Iterator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/basic/merge.html">Merge</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/basic/remove.html">Remove</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/basic/select.html">Select</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/basic/set.html">Set</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/basic/view.html">View</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/basic/where_is_attribute.html">Where is attribute</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../tools/build/index.html">Build</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../tools/build/add_bonds.html">Add bonds</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/build/add_missing_bonds.html">Add missing bonds</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/build/add_missing_heavy_atoms.html">Add missing heavy atoms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/build/add_missing_hydrogens.html">Add missing hydrogens</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/build/add_missing_terminal_cappings.html">Add missing terminal cappings</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/build/build_peptide.html">Build peptide</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/build/define_new_chain.html">Define new chain</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/build/get_disulfide_bonds.html">Get disulfide bonds</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/build/get_missing_bonds.html">Get missing bonds</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/build/get_missing_heavy_atoms.html">Get missing heavy atoms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/build/get_missing_residues.html">Get missing residues</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/build/get_missing_terminal_cappings.html">Get missing terminals</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/build/get_non_standard_residues.html">Get non standard residues</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/build/has_hydrogens.html">Has hydrogens</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/build/is_solvated.html">Is solvated</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/build/make_bioassembly.html">Make bioassembly</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/build/make_water_box.html">Make water box</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/build/mutate.html">Mutate</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/build/remove_overlapping_molecules.html">Remove overlapping molecules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/build/solvate.html">Solvate</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/build/solve_atoms_with_alternate_locations.html">Solve atoms with alternate locations</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../tools/topology/index.html">Topology</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../tools/topology/get_bondgraph.html">Get bondgraph</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/topology/get_covalent_blocks.html">Get covalent blocks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/topology/get_covalent_chains.html">Get covalent chains</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/topology/get_dihedral_quartets.html">Get dihedral quartets</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/topology/get_sequence_alignment.html">Get sequence alignment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/topology/get_sequence_identity.html">Get sequence identity</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../tools/structure/index.html">Structure</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../tools/structure/center.html">Center</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/structure/flip.html">Flip</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/structure/get_angles.html">Get angles</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/structure/get_center.html">Get center</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/structure/get_contacts.html">Get contacts</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/structure/get_dihedral_angles.html">Get dihedral angles</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/structure/get_distances.html">Get distances</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/structure/get_least_rmsd.html">Get least RMSD</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/structure/get_maximum_distances.html">Get maximum distances</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/structure/get_minimum_distances.html">Get minimum distances</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/structure/get_neighbors.html">Get neighbors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/structure/get_principal_axes.html">Get geometric axis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/structure/get_radius_of_gyration.html">Get radius of gyration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/structure/get_rmsd.html">Get RMSD</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/structure/least_rmsd_align.html">Least RMSD align</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/structure/least_rmsd_fit.html">Least RMSD fit</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/structure/move_away.html">Move away</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/structure/principal_component_analysis.html">Principal component analysis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/structure/rotate.html">Rotate</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/structure/set_dihedral_angles.html">Set dihedral angles</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/structure/shift_dihedral_angles.html">Shift dihedral angles</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/structure/show_contacts.html">Show contacts</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/structure/translate.html">Translate</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../tools/pbc/index.html">Periodic boundary conditions</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../tools/pbc/get_angles_from_box.html">Get angles from vectors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/pbc/get_box_from_lengths_and_angles.html">Get boxfrom lengths and angles</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/pbc/get_lengths_and_angles_from_box.html">Get lengths and angles from box</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/pbc/get_lengths_from_box.html">Get lengths from box</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/pbc/get_shape_from_box.html">Get shape from box</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/pbc/get_shape_from_angles.html">Shape from angles</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/pbc/get_volume_from_box.html">Angles from vectors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/pbc/get_volume_from_lengths_and_angles.html">Get volume from box</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/pbc/has_pbc.html">Has PBC</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/pbc/unwrap.html">Unwrap</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/pbc/wrap_to_mic.html">Wrap to MIC</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/pbc/wrap_to_pbc.html">Wrap to PBC</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../tools/physchem/index.html">Physical and chemical properties</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../tools/physchem/get_area_buried.html">Get area buried</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/physchem/get_atomic_radius.html">Get atomic radius</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/physchem/get_buried_fraction.html">Get buried fraction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/physchem/get_charge.html">Get charge</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/physchem/get_hydrophobicity.html">Get hydrophobicity</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/physchem/get_mass.html">Get mass</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/physchem/get_polarity.html">Get polarity</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/physchem/get_sasa.html">Get SASA</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/physchem/get_surface_area.html">Get surface area</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/physchem/get_transmembrane_tendency.html">Get transmembrane tendency</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/physchem/get_volume.html">Get volume</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../tools/hbonds/index.html">Hydrogen bonds</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../tools/hbonds/get_acceptor_atoms.html">Get acceptor atoms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/hbonds/get_donor_atoms.html">Get donor atoms</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../tools/molecular_mechanics/index.html">Molecular mechanics</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../tools/molecular_mechanics/get_forces.html">Get forces</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/molecular_mechanics/potential_energy_minimization.html">Potential energy minimization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/molecular_mechanics/get_non_bonded_potential_energy.html">Get non bonded potential energy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/molecular_mechanics/get_potential_energy.html">Get potential energy</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../tools/element/index.html">Element</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../tools/element/atom/index.html">Atom</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../tools/element/atom/get_atom_type_from_atom_name.html">Get atom type from atom name</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../tools/element/group/index.html">Molecule</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../tools/element/group/get_bonded_atom_pairs.html">Get bonded atom pairs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../tools/element/group/get_group_type.html">Get group type</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../tools/element/group/is_group_type.html">Is group type</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../tools/element/component/index.html">Component</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../tools/element/component/get_component_id.html">Get component id</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../tools/element/component/get_component_index.html">Get component index</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../tools/element/component/get_component_name.html">Get component name</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../tools/element/component/get_component_type.html">Get component type</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../tools/element/component/get_n_components.html">Get number of components</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../tools/element/component/is_component_type.html">Is component type</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../tools/element/molecule/index.html">Molecule</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../tools/element/molecule/get_molecule_id.html">Get molecule id</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../tools/element/molecule/get_molecule_index.html">Get molecule index</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../tools/element/molecule/get_molecule_name.html">Get molecule name</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../tools/element/molecule/get_molecule_type.html">Get molecule type</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../tools/element/molecule/get_n_molecules.html">Get number of molecules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../tools/element/molecule/is_molecule_type.html">Is component type</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../tools/element/entity/index.html">Entity</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../tools/element/entity/get_entity_id.html">Get entity id</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../tools/element/entity/get_entity_index.html">Get entity index</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../tools/element/entity/get_entity_name.html">Get entity name</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../tools/element/entity/get_entity_type.html">Get entity type</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../tools/element/entity/get_n_entities.html">Get number of components</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../tools/element/chain/index.html">Chain</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../tools/element/chain/get_chain_type.html">Get chain type</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../tools/form/index.html">Form</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../tools/form/get_attributes.html">Get attributes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tools/form/has_attribute.html">Has attribute</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../tools/thirds/index.html">Thirds</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../tools/thirds/nglview/index.html">NGLView</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../tools/thirds/nglview/add_arrows.html">Add arrows</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../tools/thirds/nglview/add_contacts.html">Add contacts</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../tools/thirds/nglview/add_cylinders.html">Add cylinders</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../tools/thirds/nglview/add_hbonds.html">Add hbonds</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../tools/thirds/nglview/set_color_by_value.html">Set color by value</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../tools/thirds/nglview/show_as_balls_and_sticks.html">Show as balls and sticks</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../tools/thirds/nglview/show_as_licorice.html">Show as licorice</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../tools/thirds/nglview/show_as_surface.html">Show as surface</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../tools/thirds/openmm/index.html">OpenMM</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../tools/thirds/openmm/forces/index.html">Custom External Forces</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../tools/thirds/openmm/reporters/index.html">Reporters</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="current reference internal" href="#"><strong>Cookbook</strong></a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="Barnase_Barstar.html">Barnase-Barstar</a></li>
+<li class="toctree-l2"><a class="reference internal" href="OpenMM.html">Working with OpenMM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="NGLView.html">Working with NGLView</a></li>
+</ul>
+</details></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../index.html" class="nav-link">User guide</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis"><strong>Cookbook</strong></span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="cookbook">
+<h1><strong>Cookbook</strong><a class="headerlink" href="#cookbook" title="Link to this heading">#</a></h1>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Barnase_Barstar.html">Barnase-Barstar</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Barnase_Barstar.html#download-the-molecular-system">Download the molecular system</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Barnase_Barstar.html#inspect-the-molecular-system">Inspect the molecular system</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Barnase_Barstar.html#form-a-new-complex">Form a new complex</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Barnase_Barstar.html#complete-the-molecular-system">Complete the molecular system</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Barnase_Barstar.html#write-a-pdb-file-with-the-new-dimer">Write a pdb file with the new dimer</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="OpenMM.html">Working with OpenMM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="NGLView.html">Working with NGLView</a></li>
+</ul>
+</div>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../tools/thirds/openmm/reporters/h5msm.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">&lt;no title&gt;</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="Barnase_Barstar.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Barnase-Barstar</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item"><div>
+	&copy; 2026, <a href=contents/about/who.html>Liliana M. Moreno Vargas, Diego Prada Gracia
+		and contributors</a> | <a href="https://www.uibcdf.org/">UIBCDF Lab</a> 
+	at the <a href="http://himfg.com.mx">Federico Gómez Children’s Hospital of Mexico</a><br />
+	<a href="https://github.com/uibcdf/molsysmt">MolSysMT is an open source project</a> shared
+	under <a href="https://github.com/uibcdf/molsysmt/blob/main/LICENSE">an MIT license</a>
+	with a structure based on the
+	<a href="https://github.com/MolSSI/cookiecutter-cms">Computational Molecular Science
+		Python Cookiecutter</a> version 1.5
+</div></div>
+      
+        <div class="footer-item">
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3
+     | 
+    Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1
+    <br/>
+  </p>
+
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item"><a href= "mailto:uibcdf@gmail.com">Contact us</a><br /></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

@@ -1,0 +1,135 @@
+molsysmt.form package
+=====================
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   molsysmt.form.MDAnalysis_Topology
+   molsysmt.form.MDAnalysis_Universe
+   molsysmt.form.XYZ
+   molsysmt.form.biopython_Seq
+   molsysmt.form.biopython_SeqRecord
+   molsysmt.form.file_bcif
+   molsysmt.form.file_bcif_gz
+   molsysmt.form.file_cif
+   molsysmt.form.file_cif_gz
+   molsysmt.form.file_crd
+   molsysmt.form.file_dcd
+   molsysmt.form.file_gro
+   molsysmt.form.file_h5
+   molsysmt.form.file_h5msm
+   molsysmt.form.file_inpcrd
+   molsysmt.form.file_mmtf
+   molsysmt.form.file_mol2
+   molsysmt.form.file_msmpk
+   molsysmt.form.file_pdb
+   molsysmt.form.file_prmtop
+   molsysmt.form.file_psf
+   molsysmt.form.file_trjpk
+   molsysmt.form.file_xtc
+   molsysmt.form.file_xyznpy
+   molsysmt.form.mdtraj_DCDTrajectoryFile
+   molsysmt.form.mdtraj_HDF5TrajectoryFile
+   molsysmt.form.mdtraj_Topology
+   molsysmt.form.mdtraj_Trajectory
+   molsysmt.form.mdtraj_XTCTrajectoryFile
+   molsysmt.form.mmcif_PdbxContainers_DataContainer
+   molsysmt.form.mmtf_MMTFDecoder
+   molsysmt.form.molsysmt_CIFFileHandler
+   molsysmt.form.molsysmt_GROFileHandler
+   molsysmt.form.molsysmt_H5MSMFileHandler
+   molsysmt.form.molsysmt_MolSys
+   molsysmt.form.molsysmt_MolecularMechanics
+   molsysmt.form.molsysmt_MolecularMechanicsDict
+   molsysmt.form.molsysmt_PDBFileHandler
+   molsysmt.form.molsysmt_Structures
+   molsysmt.form.molsysmt_StructuresDict
+   molsysmt.form.molsysmt_Topology
+   molsysmt.form.molsysmt_UniversalJSON
+   molsysmt.form.molsysmt_ViewerJSON
+   molsysmt.form.networkx_Graph
+   molsysmt.form.nglview_NGLWidget
+   molsysmt.form.openmm_AmberInpcrdFile
+   molsysmt.form.openmm_AmberPrmtopFile
+   molsysmt.form.openmm_CharmmCrdFile
+   molsysmt.form.openmm_CharmmPsfFile
+   molsysmt.form.openmm_Context
+   molsysmt.form.openmm_GromacsGroFile
+   molsysmt.form.openmm_GromacsTopFile
+   molsysmt.form.openmm_Modeller
+   molsysmt.form.openmm_PDBFile
+   molsysmt.form.openmm_Simulation
+   molsysmt.form.openmm_State
+   molsysmt.form.openmm_System
+   molsysmt.form.openmm_Topology
+   molsysmt.form.parmed_Structure
+   molsysmt.form.pdbfixer_PDBFixer
+   molsysmt.form.pytraj_Topology
+   molsysmt.form.pytraj_Trajectory
+   molsysmt.form.string_alphafold_id
+   molsysmt.form.string_amino_acids_1
+   molsysmt.form.string_amino_acids_3
+   molsysmt.form.string_pdb_id
+   molsysmt.form.string_pdb_text
+
+Submodules
+----------
+
+molsysmt.form.get\_attributes module
+------------------------------------
+
+.. automodule:: molsysmt.form.get_attributes
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.has\_attribute module
+-----------------------------------
+
+.. automodule:: molsysmt.form.has_attribute
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.is\_file module
+-----------------------------
+
+.. automodule:: molsysmt.form.is_file
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.is\_item module
+-----------------------------
+
+.. automodule:: molsysmt.form.is_item
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.is\_string module
+-------------------------------
+
+.. automodule:: molsysmt.form.is_string
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.iterators module
+------------------------------
+
+.. automodule:: molsysmt.form.iterators
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Module contents
+---------------
+
+.. automodule:: molsysmt.form
+   :members:
+   :show-inheritance:
+   :undoc-members:

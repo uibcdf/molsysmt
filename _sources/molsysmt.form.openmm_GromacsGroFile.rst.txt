@@ -1,0 +1,149 @@
+molsysmt.form.openmm\_GromacsGroFile package
+============================================
+
+Submodules
+----------
+
+molsysmt.form.openmm\_GromacsGroFile.add module
+-----------------------------------------------
+
+.. automodule:: molsysmt.form.openmm_GromacsGroFile.add
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.openmm\_GromacsGroFile.append\_structures module
+--------------------------------------------------------------
+
+.. automodule:: molsysmt.form.openmm_GromacsGroFile.append_structures
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.openmm\_GromacsGroFile.attributes module
+------------------------------------------------------
+
+.. automodule:: molsysmt.form.openmm_GromacsGroFile.attributes
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.openmm\_GromacsGroFile.copy module
+------------------------------------------------
+
+.. automodule:: molsysmt.form.openmm_GromacsGroFile.copy
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.openmm\_GromacsGroFile.extract module
+---------------------------------------------------
+
+.. automodule:: molsysmt.form.openmm_GromacsGroFile.extract
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.openmm\_GromacsGroFile.get module
+-----------------------------------------------
+
+.. automodule:: molsysmt.form.openmm_GromacsGroFile.get
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.openmm\_GromacsGroFile.has\_attribute module
+----------------------------------------------------------
+
+.. automodule:: molsysmt.form.openmm_GromacsGroFile.has_attribute
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.openmm\_GromacsGroFile.is\_form module
+----------------------------------------------------
+
+.. automodule:: molsysmt.form.openmm_GromacsGroFile.is_form
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.openmm\_GromacsGroFile.iterators module
+-----------------------------------------------------
+
+.. automodule:: molsysmt.form.openmm_GromacsGroFile.iterators
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.openmm\_GromacsGroFile.merge module
+-------------------------------------------------
+
+.. automodule:: molsysmt.form.openmm_GromacsGroFile.merge
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.openmm\_GromacsGroFile.set module
+-----------------------------------------------
+
+.. automodule:: molsysmt.form.openmm_GromacsGroFile.set
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.openmm\_GromacsGroFile.to\_molsysmt\_MolSys module
+----------------------------------------------------------------
+
+.. automodule:: molsysmt.form.openmm_GromacsGroFile.to_molsysmt_MolSys
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.openmm\_GromacsGroFile.to\_molsysmt\_Structures module
+--------------------------------------------------------------------
+
+.. automodule:: molsysmt.form.openmm_GromacsGroFile.to_molsysmt_Structures
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.openmm\_GromacsGroFile.to\_molsysmt\_Topology module
+------------------------------------------------------------------
+
+.. automodule:: molsysmt.form.openmm_GromacsGroFile.to_molsysmt_Topology
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.openmm\_GromacsGroFile.to\_openmm\_GromacsGroFile module
+----------------------------------------------------------------------
+
+.. automodule:: molsysmt.form.openmm_GromacsGroFile.to_openmm_GromacsGroFile
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.openmm\_GromacsGroFile.to\_openmm\_Modeller module
+----------------------------------------------------------------
+
+.. automodule:: molsysmt.form.openmm_GromacsGroFile.to_openmm_Modeller
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.openmm\_GromacsGroFile.to\_openmm\_Topology module
+----------------------------------------------------------------
+
+.. automodule:: molsysmt.form.openmm_GromacsGroFile.to_openmm_Topology
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Module contents
+---------------
+
+.. automodule:: molsysmt.form.openmm_GromacsGroFile
+   :members:
+   :show-inheritance:
+   :undoc-members:

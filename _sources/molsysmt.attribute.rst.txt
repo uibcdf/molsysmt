@@ -1,0 +1,61 @@
+molsysmt.attribute package
+==========================
+
+Submodules
+----------
+
+molsysmt.attribute.attributes module
+------------------------------------
+
+.. automodule:: molsysmt.attribute.attributes
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.attribute.bonds\_are\_required\_to\_get\_attribute module
+------------------------------------------------------------------
+
+.. automodule:: molsysmt.attribute.bonds_are_required_to_get_attribute
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.attribute.is\_attribute module
+---------------------------------------
+
+.. automodule:: molsysmt.attribute.is_attribute
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.attribute.is\_mechanical\_attribute module
+---------------------------------------------------
+
+.. automodule:: molsysmt.attribute.is_mechanical_attribute
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.attribute.is\_structural\_attribute module
+---------------------------------------------------
+
+.. automodule:: molsysmt.attribute.is_structural_attribute
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.attribute.is\_topological\_attribute module
+----------------------------------------------------
+
+.. automodule:: molsysmt.attribute.is_topological_attribute
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Module contents
+---------------
+
+.. automodule:: molsysmt.attribute
+   :members:
+   :show-inheritance:
+   :undoc-members:

@@ -1,0 +1,221 @@
+molsysmt.form.pdbfixer\_PDBFixer package
+========================================
+
+Submodules
+----------
+
+molsysmt.form.pdbfixer\_PDBFixer.add module
+-------------------------------------------
+
+.. automodule:: molsysmt.form.pdbfixer_PDBFixer.add
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.pdbfixer\_PDBFixer.append\_structures module
+----------------------------------------------------------
+
+.. automodule:: molsysmt.form.pdbfixer_PDBFixer.append_structures
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.pdbfixer\_PDBFixer.attributes module
+--------------------------------------------------
+
+.. automodule:: molsysmt.form.pdbfixer_PDBFixer.attributes
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.pdbfixer\_PDBFixer.copy module
+--------------------------------------------
+
+.. automodule:: molsysmt.form.pdbfixer_PDBFixer.copy
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.pdbfixer\_PDBFixer.extract module
+-----------------------------------------------
+
+.. automodule:: molsysmt.form.pdbfixer_PDBFixer.extract
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.pdbfixer\_PDBFixer.get\_structural\_attributes module
+-------------------------------------------------------------------
+
+.. automodule:: molsysmt.form.pdbfixer_PDBFixer.get_structural_attributes
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.pdbfixer\_PDBFixer.get\_topological\_attributes module
+--------------------------------------------------------------------
+
+.. automodule:: molsysmt.form.pdbfixer_PDBFixer.get_topological_attributes
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.pdbfixer\_PDBFixer.has\_attribute module
+------------------------------------------------------
+
+.. automodule:: molsysmt.form.pdbfixer_PDBFixer.has_attribute
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.pdbfixer\_PDBFixer.is\_form module
+------------------------------------------------
+
+.. automodule:: molsysmt.form.pdbfixer_PDBFixer.is_form
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.pdbfixer\_PDBFixer.iterators module
+-------------------------------------------------
+
+.. automodule:: molsysmt.form.pdbfixer_PDBFixer.iterators
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.pdbfixer\_PDBFixer.merge module
+---------------------------------------------
+
+.. automodule:: molsysmt.form.pdbfixer_PDBFixer.merge
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.pdbfixer\_PDBFixer.set module
+-------------------------------------------
+
+.. automodule:: molsysmt.form.pdbfixer_PDBFixer.set
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.pdbfixer\_PDBFixer.to\_biopython\_Seq module
+----------------------------------------------------------
+
+.. automodule:: molsysmt.form.pdbfixer_PDBFixer.to_biopython_Seq
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.pdbfixer\_PDBFixer.to\_biopython\_SeqRecord module
+----------------------------------------------------------------
+
+.. automodule:: molsysmt.form.pdbfixer_PDBFixer.to_biopython_SeqRecord
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.pdbfixer\_PDBFixer.to\_file\_pdb module
+-----------------------------------------------------
+
+.. automodule:: molsysmt.form.pdbfixer_PDBFixer.to_file_pdb
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.pdbfixer\_PDBFixer.to\_mdtraj\_Topology module
+------------------------------------------------------------
+
+.. automodule:: molsysmt.form.pdbfixer_PDBFixer.to_mdtraj_Topology
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.pdbfixer\_PDBFixer.to\_mdtraj\_Trajectory module
+--------------------------------------------------------------
+
+.. automodule:: molsysmt.form.pdbfixer_PDBFixer.to_mdtraj_Trajectory
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.pdbfixer\_PDBFixer.to\_molsysmt\_MolSys module
+------------------------------------------------------------
+
+.. automodule:: molsysmt.form.pdbfixer_PDBFixer.to_molsysmt_MolSys
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.pdbfixer\_PDBFixer.to\_molsysmt\_Structures module
+----------------------------------------------------------------
+
+.. automodule:: molsysmt.form.pdbfixer_PDBFixer.to_molsysmt_Structures
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.pdbfixer\_PDBFixer.to\_molsysmt\_Topology module
+--------------------------------------------------------------
+
+.. automodule:: molsysmt.form.pdbfixer_PDBFixer.to_molsysmt_Topology
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.pdbfixer\_PDBFixer.to\_nglview\_NGLWidget module
+--------------------------------------------------------------
+
+.. automodule:: molsysmt.form.pdbfixer_PDBFixer.to_nglview_NGLWidget
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.pdbfixer\_PDBFixer.to\_openmm\_Modeller module
+------------------------------------------------------------
+
+.. automodule:: molsysmt.form.pdbfixer_PDBFixer.to_openmm_Modeller
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.pdbfixer\_PDBFixer.to\_openmm\_Topology module
+------------------------------------------------------------
+
+.. automodule:: molsysmt.form.pdbfixer_PDBFixer.to_openmm_Topology
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.pdbfixer\_PDBFixer.to\_pdbfixer\_PDBFixer module
+--------------------------------------------------------------
+
+.. automodule:: molsysmt.form.pdbfixer_PDBFixer.to_pdbfixer_PDBFixer
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.pdbfixer\_PDBFixer.to\_string\_amino\_acids\_1 module
+-------------------------------------------------------------------
+
+.. automodule:: molsysmt.form.pdbfixer_PDBFixer.to_string_amino_acids_1
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.pdbfixer\_PDBFixer.to\_string\_amino\_acids\_3 module
+-------------------------------------------------------------------
+
+.. automodule:: molsysmt.form.pdbfixer_PDBFixer.to_string_amino_acids_3
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Module contents
+---------------
+
+.. automodule:: molsysmt.form.pdbfixer_PDBFixer
+   :members:
+   :show-inheritance:
+   :undoc-members:

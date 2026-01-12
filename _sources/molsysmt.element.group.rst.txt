@@ -1,0 +1,52 @@
+molsysmt.element.group package
+==============================
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   molsysmt.element.group.amino_acid
+   molsysmt.element.group.ion
+   molsysmt.element.group.lipid
+   molsysmt.element.group.nucleotide
+   molsysmt.element.group.saccharide
+   molsysmt.element.group.small_molecule
+   molsysmt.element.group.terminal_capping
+   molsysmt.element.group.water
+
+Submodules
+----------
+
+molsysmt.element.group.get\_bonded\_atom\_pairs module
+------------------------------------------------------
+
+.. automodule:: molsysmt.element.group.get_bonded_atom_pairs
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.element.group.get\_group\_type module
+----------------------------------------------
+
+.. automodule:: molsysmt.element.group.get_group_type
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.element.group.is\_group\_type module
+---------------------------------------------
+
+.. automodule:: molsysmt.element.group.is_group_type
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Module contents
+---------------
+
+.. automodule:: molsysmt.element.group
+   :members:
+   :show-inheritance:
+   :undoc-members:

@@ -1,0 +1,173 @@
+molsysmt.form.nglview\_NGLWidget package
+========================================
+
+Submodules
+----------
+
+molsysmt.form.nglview\_NGLWidget.add module
+-------------------------------------------
+
+.. automodule:: molsysmt.form.nglview_NGLWidget.add
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.nglview\_NGLWidget.append\_structures module
+----------------------------------------------------------
+
+.. automodule:: molsysmt.form.nglview_NGLWidget.append_structures
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.nglview\_NGLWidget.attributes module
+--------------------------------------------------
+
+.. automodule:: molsysmt.form.nglview_NGLWidget.attributes
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.nglview\_NGLWidget.copy module
+--------------------------------------------
+
+.. automodule:: molsysmt.form.nglview_NGLWidget.copy
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.nglview\_NGLWidget.extract module
+-----------------------------------------------
+
+.. automodule:: molsysmt.form.nglview_NGLWidget.extract
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.nglview\_NGLWidget.get\_structural\_attributes module
+-------------------------------------------------------------------
+
+.. automodule:: molsysmt.form.nglview_NGLWidget.get_structural_attributes
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.nglview\_NGLWidget.get\_topological\_attributes module
+--------------------------------------------------------------------
+
+.. automodule:: molsysmt.form.nglview_NGLWidget.get_topological_attributes
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.nglview\_NGLWidget.has\_attribute module
+------------------------------------------------------
+
+.. automodule:: molsysmt.form.nglview_NGLWidget.has_attribute
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.nglview\_NGLWidget.is\_form module
+------------------------------------------------
+
+.. automodule:: molsysmt.form.nglview_NGLWidget.is_form
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.nglview\_NGLWidget.iterators module
+-------------------------------------------------
+
+.. automodule:: molsysmt.form.nglview_NGLWidget.iterators
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.nglview\_NGLWidget.merge module
+---------------------------------------------
+
+.. automodule:: molsysmt.form.nglview_NGLWidget.merge
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.nglview\_NGLWidget.set module
+-------------------------------------------
+
+.. automodule:: molsysmt.form.nglview_NGLWidget.set
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.nglview\_NGLWidget.to\_molsysmt\_MolSys module
+------------------------------------------------------------
+
+.. automodule:: molsysmt.form.nglview_NGLWidget.to_molsysmt_MolSys
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.nglview\_NGLWidget.to\_molsysmt\_Structures module
+----------------------------------------------------------------
+
+.. automodule:: molsysmt.form.nglview_NGLWidget.to_molsysmt_Structures
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.nglview\_NGLWidget.to\_molsysmt\_Topology module
+--------------------------------------------------------------
+
+.. automodule:: molsysmt.form.nglview_NGLWidget.to_molsysmt_Topology
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.nglview\_NGLWidget.to\_nglview\_NGLWidget module
+--------------------------------------------------------------
+
+.. automodule:: molsysmt.form.nglview_NGLWidget.to_nglview_NGLWidget
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.nglview\_NGLWidget.to\_openmm\_Topology module
+------------------------------------------------------------
+
+.. automodule:: molsysmt.form.nglview_NGLWidget.to_openmm_Topology
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.nglview\_NGLWidget.to\_string\_amino\_acids\_1 module
+-------------------------------------------------------------------
+
+.. automodule:: molsysmt.form.nglview_NGLWidget.to_string_amino_acids_1
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.nglview\_NGLWidget.to\_string\_amino\_acids\_3 module
+-------------------------------------------------------------------
+
+.. automodule:: molsysmt.form.nglview_NGLWidget.to_string_amino_acids_3
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.nglview\_NGLWidget.to\_string\_pdb\_text module
+-------------------------------------------------------------
+
+.. automodule:: molsysmt.form.nglview_NGLWidget.to_string_pdb_text
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Module contents
+---------------
+
+.. automodule:: molsysmt.form.nglview_NGLWidget
+   :members:
+   :show-inheritance:
+   :undoc-members:

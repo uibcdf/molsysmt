@@ -1,0 +1,117 @@
+molsysmt.form.molsysmt\_MolecularMechanics package
+==================================================
+
+Submodules
+----------
+
+molsysmt.form.molsysmt\_MolecularMechanics.add module
+-----------------------------------------------------
+
+.. automodule:: molsysmt.form.molsysmt_MolecularMechanics.add
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.molsysmt\_MolecularMechanics.append\_structures module
+--------------------------------------------------------------------
+
+.. automodule:: molsysmt.form.molsysmt_MolecularMechanics.append_structures
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.molsysmt\_MolecularMechanics.attributes module
+------------------------------------------------------------
+
+.. automodule:: molsysmt.form.molsysmt_MolecularMechanics.attributes
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.molsysmt\_MolecularMechanics.copy module
+------------------------------------------------------
+
+.. automodule:: molsysmt.form.molsysmt_MolecularMechanics.copy
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.molsysmt\_MolecularMechanics.extract module
+---------------------------------------------------------
+
+.. automodule:: molsysmt.form.molsysmt_MolecularMechanics.extract
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.molsysmt\_MolecularMechanics.get module
+-----------------------------------------------------
+
+.. automodule:: molsysmt.form.molsysmt_MolecularMechanics.get
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.molsysmt\_MolecularMechanics.has\_attribute module
+----------------------------------------------------------------
+
+.. automodule:: molsysmt.form.molsysmt_MolecularMechanics.has_attribute
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.molsysmt\_MolecularMechanics.is\_form module
+----------------------------------------------------------
+
+.. automodule:: molsysmt.form.molsysmt_MolecularMechanics.is_form
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.molsysmt\_MolecularMechanics.iterators module
+-----------------------------------------------------------
+
+.. automodule:: molsysmt.form.molsysmt_MolecularMechanics.iterators
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.molsysmt\_MolecularMechanics.merge module
+-------------------------------------------------------
+
+.. automodule:: molsysmt.form.molsysmt_MolecularMechanics.merge
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.molsysmt\_MolecularMechanics.set module
+-----------------------------------------------------
+
+.. automodule:: molsysmt.form.molsysmt_MolecularMechanics.set
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.molsysmt\_MolecularMechanics.to\_molsysmt\_MolecularMechanics module
+----------------------------------------------------------------------------------
+
+.. automodule:: molsysmt.form.molsysmt_MolecularMechanics.to_molsysmt_MolecularMechanics
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.molsysmt\_MolecularMechanics.to\_molsysmt\_MolecularMechanicsDict module
+--------------------------------------------------------------------------------------
+
+.. automodule:: molsysmt.form.molsysmt_MolecularMechanics.to_molsysmt_MolecularMechanicsDict
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Module contents
+---------------
+
+.. automodule:: molsysmt.form.molsysmt_MolecularMechanics
+   :members:
+   :show-inheritance:
+   :undoc-members:

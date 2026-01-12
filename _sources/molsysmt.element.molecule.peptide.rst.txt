@@ -1,0 +1,10 @@
+molsysmt.element.molecule.peptide package
+=========================================
+
+Module contents
+---------------
+
+.. automodule:: molsysmt.element.molecule.peptide
+   :members:
+   :show-inheritance:
+   :undoc-members:

@@ -1,0 +1,109 @@
+molsysmt.form.openmm\_CharmmCrdFile package
+===========================================
+
+Submodules
+----------
+
+molsysmt.form.openmm\_CharmmCrdFile.add module
+----------------------------------------------
+
+.. automodule:: molsysmt.form.openmm_CharmmCrdFile.add
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.openmm\_CharmmCrdFile.append\_structures module
+-------------------------------------------------------------
+
+.. automodule:: molsysmt.form.openmm_CharmmCrdFile.append_structures
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.openmm\_CharmmCrdFile.attributes module
+-----------------------------------------------------
+
+.. automodule:: molsysmt.form.openmm_CharmmCrdFile.attributes
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.openmm\_CharmmCrdFile.copy module
+-----------------------------------------------
+
+.. automodule:: molsysmt.form.openmm_CharmmCrdFile.copy
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.openmm\_CharmmCrdFile.extract module
+--------------------------------------------------
+
+.. automodule:: molsysmt.form.openmm_CharmmCrdFile.extract
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.openmm\_CharmmCrdFile.get module
+----------------------------------------------
+
+.. automodule:: molsysmt.form.openmm_CharmmCrdFile.get
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.openmm\_CharmmCrdFile.has\_attribute module
+---------------------------------------------------------
+
+.. automodule:: molsysmt.form.openmm_CharmmCrdFile.has_attribute
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.openmm\_CharmmCrdFile.is\_form module
+---------------------------------------------------
+
+.. automodule:: molsysmt.form.openmm_CharmmCrdFile.is_form
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.openmm\_CharmmCrdFile.iterators module
+----------------------------------------------------
+
+.. automodule:: molsysmt.form.openmm_CharmmCrdFile.iterators
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.openmm\_CharmmCrdFile.merge module
+------------------------------------------------
+
+.. automodule:: molsysmt.form.openmm_CharmmCrdFile.merge
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.openmm\_CharmmCrdFile.set module
+----------------------------------------------
+
+.. automodule:: molsysmt.form.openmm_CharmmCrdFile.set
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.openmm\_CharmmCrdFile.to\_openmm\_CharmmCrdFile module
+--------------------------------------------------------------------
+
+.. automodule:: molsysmt.form.openmm_CharmmCrdFile.to_openmm_CharmmCrdFile
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Module contents
+---------------
+
+.. automodule:: molsysmt.form.openmm_CharmmCrdFile
+   :members:
+   :show-inheritance:
+   :undoc-members:

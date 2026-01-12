@@ -1,0 +1,117 @@
+molsysmt.form.mdtraj\_XTCTrajectoryFile package
+===============================================
+
+Submodules
+----------
+
+molsysmt.form.mdtraj\_XTCTrajectoryFile.add module
+--------------------------------------------------
+
+.. automodule:: molsysmt.form.mdtraj_XTCTrajectoryFile.add
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.mdtraj\_XTCTrajectoryFile.append\_structures module
+-----------------------------------------------------------------
+
+.. automodule:: molsysmt.form.mdtraj_XTCTrajectoryFile.append_structures
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.mdtraj\_XTCTrajectoryFile.attributes module
+---------------------------------------------------------
+
+.. automodule:: molsysmt.form.mdtraj_XTCTrajectoryFile.attributes
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.mdtraj\_XTCTrajectoryFile.copy module
+---------------------------------------------------
+
+.. automodule:: molsysmt.form.mdtraj_XTCTrajectoryFile.copy
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.mdtraj\_XTCTrajectoryFile.extract module
+------------------------------------------------------
+
+.. automodule:: molsysmt.form.mdtraj_XTCTrajectoryFile.extract
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.mdtraj\_XTCTrajectoryFile.get module
+--------------------------------------------------
+
+.. automodule:: molsysmt.form.mdtraj_XTCTrajectoryFile.get
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.mdtraj\_XTCTrajectoryFile.has\_attribute module
+-------------------------------------------------------------
+
+.. automodule:: molsysmt.form.mdtraj_XTCTrajectoryFile.has_attribute
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.mdtraj\_XTCTrajectoryFile.is\_form module
+-------------------------------------------------------
+
+.. automodule:: molsysmt.form.mdtraj_XTCTrajectoryFile.is_form
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.mdtraj\_XTCTrajectoryFile.iterators module
+--------------------------------------------------------
+
+.. automodule:: molsysmt.form.mdtraj_XTCTrajectoryFile.iterators
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.mdtraj\_XTCTrajectoryFile.merge module
+----------------------------------------------------
+
+.. automodule:: molsysmt.form.mdtraj_XTCTrajectoryFile.merge
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.mdtraj\_XTCTrajectoryFile.set module
+--------------------------------------------------
+
+.. automodule:: molsysmt.form.mdtraj_XTCTrajectoryFile.set
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.mdtraj\_XTCTrajectoryFile.to\_mdtraj\_XTCTrajectoryFile module
+----------------------------------------------------------------------------
+
+.. automodule:: molsysmt.form.mdtraj_XTCTrajectoryFile.to_mdtraj_XTCTrajectoryFile
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.mdtraj\_XTCTrajectoryFile.to\_molsysmt\_Structures module
+-----------------------------------------------------------------------
+
+.. automodule:: molsysmt.form.mdtraj_XTCTrajectoryFile.to_molsysmt_Structures
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Module contents
+---------------
+
+.. automodule:: molsysmt.form.mdtraj_XTCTrajectoryFile
+   :members:
+   :show-inheritance:
+   :undoc-members:

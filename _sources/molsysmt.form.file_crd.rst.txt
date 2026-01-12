@@ -1,0 +1,141 @@
+molsysmt.form.file\_crd package
+===============================
+
+Submodules
+----------
+
+molsysmt.form.file\_crd.add module
+----------------------------------
+
+.. automodule:: molsysmt.form.file_crd.add
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_crd.append\_structures module
+-------------------------------------------------
+
+.. automodule:: molsysmt.form.file_crd.append_structures
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_crd.attributes module
+-----------------------------------------
+
+.. automodule:: molsysmt.form.file_crd.attributes
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_crd.copy module
+-----------------------------------
+
+.. automodule:: molsysmt.form.file_crd.copy
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_crd.extract module
+--------------------------------------
+
+.. automodule:: molsysmt.form.file_crd.extract
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_crd.get module
+----------------------------------
+
+.. automodule:: molsysmt.form.file_crd.get
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_crd.has\_attribute module
+---------------------------------------------
+
+.. automodule:: molsysmt.form.file_crd.has_attribute
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_crd.is\_form module
+---------------------------------------
+
+.. automodule:: molsysmt.form.file_crd.is_form
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_crd.iterators module
+----------------------------------------
+
+.. automodule:: molsysmt.form.file_crd.iterators
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_crd.merge module
+------------------------------------
+
+.. automodule:: molsysmt.form.file_crd.merge
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_crd.set module
+----------------------------------
+
+.. automodule:: molsysmt.form.file_crd.set
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_crd.to\_file\_crd module
+--------------------------------------------
+
+.. automodule:: molsysmt.form.file_crd.to_file_crd
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_crd.to\_molsysmt\_MolSys module
+---------------------------------------------------
+
+.. automodule:: molsysmt.form.file_crd.to_molsysmt_MolSys
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_crd.to\_molsysmt\_Structures module
+-------------------------------------------------------
+
+.. automodule:: molsysmt.form.file_crd.to_molsysmt_Structures
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_crd.to\_molsysmt\_Topology module
+-----------------------------------------------------
+
+.. automodule:: molsysmt.form.file_crd.to_molsysmt_Topology
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_crd.to\_openmm\_CharmmCrdFile module
+--------------------------------------------------------
+
+.. automodule:: molsysmt.form.file_crd.to_openmm_CharmmCrdFile
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Module contents
+---------------
+
+.. automodule:: molsysmt.form.file_crd
+   :members:
+   :show-inheritance:
+   :undoc-members:

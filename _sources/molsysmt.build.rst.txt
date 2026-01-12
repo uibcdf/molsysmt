@@ -1,0 +1,189 @@
+molsysmt.build package
+======================
+
+Submodules
+----------
+
+molsysmt.build.add\_bonds module
+--------------------------------
+
+.. automodule:: molsysmt.build.add_bonds
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.build.add\_missing\_bonds module
+-----------------------------------------
+
+.. automodule:: molsysmt.build.add_missing_bonds
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.build.add\_missing\_heavy\_atoms module
+------------------------------------------------
+
+.. automodule:: molsysmt.build.add_missing_heavy_atoms
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.build.add\_missing\_hydrogens module
+---------------------------------------------
+
+.. automodule:: molsysmt.build.add_missing_hydrogens
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.build.add\_missing\_terminal\_cappings module
+------------------------------------------------------
+
+.. automodule:: molsysmt.build.add_missing_terminal_cappings
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.build.build\_peptide module
+------------------------------------
+
+.. automodule:: molsysmt.build.build_peptide
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.build.define\_new\_chain module
+----------------------------------------
+
+.. automodule:: molsysmt.build.define_new_chain
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.build.get\_disulfide\_bonds module
+-------------------------------------------
+
+.. automodule:: molsysmt.build.get_disulfide_bonds
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.build.get\_missing\_bonds module
+-----------------------------------------
+
+.. automodule:: molsysmt.build.get_missing_bonds
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.build.get\_missing\_heavy\_atoms module
+------------------------------------------------
+
+.. automodule:: molsysmt.build.get_missing_heavy_atoms
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.build.get\_missing\_residues module
+--------------------------------------------
+
+.. automodule:: molsysmt.build.get_missing_residues
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.build.get\_missing\_terminal\_cappings module
+------------------------------------------------------
+
+.. automodule:: molsysmt.build.get_missing_terminal_cappings
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.build.get\_non\_standard\_residues module
+--------------------------------------------------
+
+.. automodule:: molsysmt.build.get_non_standard_residues
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.build.has\_hydrogens module
+------------------------------------
+
+.. automodule:: molsysmt.build.has_hydrogens
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.build.is\_solvated module
+----------------------------------
+
+.. automodule:: molsysmt.build.is_solvated
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.build.make\_bioassembly module
+---------------------------------------
+
+.. automodule:: molsysmt.build.make_bioassembly
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.build.make\_water\_box module
+--------------------------------------
+
+.. automodule:: molsysmt.build.make_water_box
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.build.mutate module
+----------------------------
+
+.. automodule:: molsysmt.build.mutate
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.build.remove\_bonds module
+-----------------------------------
+
+.. automodule:: molsysmt.build.remove_bonds
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.build.remove\_overlapping\_molecules module
+----------------------------------------------------
+
+.. automodule:: molsysmt.build.remove_overlapping_molecules
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.build.solvate module
+-----------------------------
+
+.. automodule:: molsysmt.build.solvate
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.build.solve\_atoms\_with\_alternate\_location module
+-------------------------------------------------------------
+
+.. automodule:: molsysmt.build.solve_atoms_with_alternate_location
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Module contents
+---------------
+
+.. automodule:: molsysmt.build
+   :members:
+   :show-inheritance:
+   :undoc-members:

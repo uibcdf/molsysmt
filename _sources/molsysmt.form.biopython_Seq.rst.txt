@@ -1,0 +1,109 @@
+molsysmt.form.biopython\_Seq package
+====================================
+
+Submodules
+----------
+
+molsysmt.form.biopython\_Seq.add module
+---------------------------------------
+
+.. automodule:: molsysmt.form.biopython_Seq.add
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.biopython\_Seq.attributes module
+----------------------------------------------
+
+.. automodule:: molsysmt.form.biopython_Seq.attributes
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.biopython\_Seq.copy module
+----------------------------------------
+
+.. automodule:: molsysmt.form.biopython_Seq.copy
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.biopython\_Seq.extract module
+-------------------------------------------
+
+.. automodule:: molsysmt.form.biopython_Seq.extract
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.biopython\_Seq.get module
+---------------------------------------
+
+.. automodule:: molsysmt.form.biopython_Seq.get
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.biopython\_Seq.has\_attribute module
+--------------------------------------------------
+
+.. automodule:: molsysmt.form.biopython_Seq.has_attribute
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.biopython\_Seq.is\_form module
+--------------------------------------------
+
+.. automodule:: molsysmt.form.biopython_Seq.is_form
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.biopython\_Seq.iterators module
+---------------------------------------------
+
+.. automodule:: molsysmt.form.biopython_Seq.iterators
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.biopython\_Seq.merge module
+-----------------------------------------
+
+.. automodule:: molsysmt.form.biopython_Seq.merge
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.biopython\_Seq.set module
+---------------------------------------
+
+.. automodule:: molsysmt.form.biopython_Seq.set
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.biopython\_Seq.to\_biopython\_Seq module
+------------------------------------------------------
+
+.. automodule:: molsysmt.form.biopython_Seq.to_biopython_Seq
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.biopython\_Seq.to\_biopython\_SeqRecord module
+------------------------------------------------------------
+
+.. automodule:: molsysmt.form.biopython_Seq.to_biopython_SeqRecord
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Module contents
+---------------
+
+.. automodule:: molsysmt.form.biopython_Seq
+   :members:
+   :show-inheritance:
+   :undoc-members:

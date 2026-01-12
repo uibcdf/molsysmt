@@ -1,0 +1,45 @@
+molsysmt.element.group.ion package
+==================================
+
+Submodules
+----------
+
+molsysmt.element.group.ion.get\_bonded\_atom\_pairs module
+----------------------------------------------------------
+
+.. automodule:: molsysmt.element.group.ion.get_bonded_atom_pairs
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.element.group.ion.get\_group\_db module
+------------------------------------------------
+
+.. automodule:: molsysmt.element.group.ion.get_group_db
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.element.group.ion.group\_names module
+----------------------------------------------
+
+.. automodule:: molsysmt.element.group.ion.group_names
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.element.group.ion.is\_ion module
+-----------------------------------------
+
+.. automodule:: molsysmt.element.group.ion.is_ion
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Module contents
+---------------
+
+.. automodule:: molsysmt.element.group.ion
+   :members:
+   :show-inheritance:
+   :undoc-members:

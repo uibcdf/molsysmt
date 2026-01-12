@@ -1,0 +1,61 @@
+molsysmt.topology package
+=========================
+
+Submodules
+----------
+
+molsysmt.topology.get\_bondgraph module
+---------------------------------------
+
+.. automodule:: molsysmt.topology.get_bondgraph
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.topology.get\_covalent\_blocks module
+----------------------------------------------
+
+.. automodule:: molsysmt.topology.get_covalent_blocks
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.topology.get\_covalent\_chains module
+----------------------------------------------
+
+.. automodule:: molsysmt.topology.get_covalent_chains
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.topology.get\_dihedral\_quartets module
+------------------------------------------------
+
+.. automodule:: molsysmt.topology.get_dihedral_quartets
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.topology.get\_sequence\_alignment module
+-------------------------------------------------
+
+.. automodule:: molsysmt.topology.get_sequence_alignment
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.topology.get\_sequence\_identity module
+------------------------------------------------
+
+.. automodule:: molsysmt.topology.get_sequence_identity
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Module contents
+---------------
+
+.. automodule:: molsysmt.topology
+   :members:
+   :show-inheritance:
+   :undoc-members:

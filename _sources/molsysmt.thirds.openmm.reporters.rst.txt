@@ -1,0 +1,45 @@
+molsysmt.thirds.openmm.reporters package
+========================================
+
+Submodules
+----------
+
+molsysmt.thirds.openmm.reporters.MolSys module
+----------------------------------------------
+
+.. automodule:: molsysmt.thirds.openmm.reporters.MolSys
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.thirds.openmm.reporters.StructuresDict module
+------------------------------------------------------
+
+.. automodule:: molsysmt.thirds.openmm.reporters.StructuresDict
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.thirds.openmm.reporters.h5msm module
+---------------------------------------------
+
+.. automodule:: molsysmt.thirds.openmm.reporters.h5msm
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.thirds.openmm.reporters.tqdm module
+--------------------------------------------
+
+.. automodule:: molsysmt.thirds.openmm.reporters.tqdm
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Module contents
+---------------
+
+.. automodule:: molsysmt.thirds.openmm.reporters
+   :members:
+   :show-inheritance:
+   :undoc-members:

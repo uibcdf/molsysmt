@@ -1,0 +1,165 @@
+molsysmt.form.XYZ package
+=========================
+
+Submodules
+----------
+
+molsysmt.form.XYZ.add module
+----------------------------
+
+.. automodule:: molsysmt.form.XYZ.add
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.XYZ.append\_structures module
+-------------------------------------------
+
+.. automodule:: molsysmt.form.XYZ.append_structures
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.XYZ.attributes module
+-----------------------------------
+
+.. automodule:: molsysmt.form.XYZ.attributes
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.XYZ.copy module
+-----------------------------
+
+.. automodule:: molsysmt.form.XYZ.copy
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.XYZ.extract module
+--------------------------------
+
+.. automodule:: molsysmt.form.XYZ.extract
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.XYZ.get\_rank\_3\_XYZ module
+------------------------------------------
+
+.. automodule:: molsysmt.form.XYZ.get_rank_3_XYZ
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.XYZ.get\_structural\_attributes module
+----------------------------------------------------
+
+.. automodule:: molsysmt.form.XYZ.get_structural_attributes
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.XYZ.get\_topological\_attributes module
+-----------------------------------------------------
+
+.. automodule:: molsysmt.form.XYZ.get_topological_attributes
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.XYZ.has\_attribute module
+---------------------------------------
+
+.. automodule:: molsysmt.form.XYZ.has_attribute
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.XYZ.is\_form module
+---------------------------------
+
+.. automodule:: molsysmt.form.XYZ.is_form
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.XYZ.iterators module
+----------------------------------
+
+.. automodule:: molsysmt.form.XYZ.iterators
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.XYZ.merge module
+------------------------------
+
+.. automodule:: molsysmt.form.XYZ.merge
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.XYZ.set module
+----------------------------
+
+.. automodule:: molsysmt.form.XYZ.set
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.XYZ.to\_XYZ module
+--------------------------------
+
+.. automodule:: molsysmt.form.XYZ.to_XYZ
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.XYZ.to\_file\_xyznpy module
+-----------------------------------------
+
+.. automodule:: molsysmt.form.XYZ.to_file_xyznpy
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.XYZ.to\_molsysmt\_MolSys module
+---------------------------------------------
+
+.. automodule:: molsysmt.form.XYZ.to_molsysmt_MolSys
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.XYZ.to\_molsysmt\_MolecularMechanics module
+---------------------------------------------------------
+
+.. automodule:: molsysmt.form.XYZ.to_molsysmt_MolecularMechanics
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.XYZ.to\_molsysmt\_Structures module
+-------------------------------------------------
+
+.. automodule:: molsysmt.form.XYZ.to_molsysmt_Structures
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.XYZ.to\_molsysmt\_Topology module
+-----------------------------------------------
+
+.. automodule:: molsysmt.form.XYZ.to_molsysmt_Topology
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Module contents
+---------------
+
+.. automodule:: molsysmt.form.XYZ
+   :members:
+   :show-inheritance:
+   :undoc-members:

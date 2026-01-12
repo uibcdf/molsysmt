@@ -1,9 +1,0 @@
-def is_file_xyz(item):
-
-    output = False
-
-    if type(item)==str:
-        output = item.endswith('.xyz')
-
-    return output
-

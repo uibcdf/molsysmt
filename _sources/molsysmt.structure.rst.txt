@@ -1,0 +1,205 @@
+molsysmt.structure package
+==========================
+
+Submodules
+----------
+
+molsysmt.structure.align\_principal\_axes module
+------------------------------------------------
+
+.. automodule:: molsysmt.structure.align_principal_axes
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.structure.center module
+--------------------------------
+
+.. automodule:: molsysmt.structure.center
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.structure.flip module
+------------------------------
+
+.. automodule:: molsysmt.structure.flip
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.structure.get\_angles module
+-------------------------------------
+
+.. automodule:: molsysmt.structure.get_angles
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.structure.get\_center module
+-------------------------------------
+
+.. automodule:: molsysmt.structure.get_center
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.structure.get\_contacts module
+---------------------------------------
+
+.. automodule:: molsysmt.structure.get_contacts
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.structure.get\_dihedral\_angles module
+-----------------------------------------------
+
+.. automodule:: molsysmt.structure.get_dihedral_angles
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.structure.get\_distances module
+----------------------------------------
+
+.. automodule:: molsysmt.structure.get_distances
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.structure.get\_least\_rmsd module
+------------------------------------------
+
+.. automodule:: molsysmt.structure.get_least_rmsd
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.structure.get\_maximum\_distances module
+-------------------------------------------------
+
+.. automodule:: molsysmt.structure.get_maximum_distances
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.structure.get\_minimum\_distances module
+-------------------------------------------------
+
+.. automodule:: molsysmt.structure.get_minimum_distances
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.structure.get\_neighbors module
+----------------------------------------
+
+.. automodule:: molsysmt.structure.get_neighbors
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.structure.get\_principal\_axes module
+----------------------------------------------
+
+.. automodule:: molsysmt.structure.get_principal_axes
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.structure.get\_radius\_of\_gyration module
+---------------------------------------------------
+
+.. automodule:: molsysmt.structure.get_radius_of_gyration
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.structure.get\_rmsd module
+-----------------------------------
+
+.. automodule:: molsysmt.structure.get_rmsd
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.structure.least\_rmsd\_align module
+--------------------------------------------
+
+.. automodule:: molsysmt.structure.least_rmsd_align
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.structure.least\_rmsd\_fit module
+------------------------------------------
+
+.. automodule:: molsysmt.structure.least_rmsd_fit
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.structure.move\_away module
+------------------------------------
+
+.. automodule:: molsysmt.structure.move_away
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.structure.principal\_component\_analysis module
+--------------------------------------------------------
+
+.. automodule:: molsysmt.structure.principal_component_analysis
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.structure.rotate module
+--------------------------------
+
+.. automodule:: molsysmt.structure.rotate
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.structure.set\_dihedral\_angles module
+-----------------------------------------------
+
+.. automodule:: molsysmt.structure.set_dihedral_angles
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.structure.shift\_dihedral\_angles module
+-------------------------------------------------
+
+.. automodule:: molsysmt.structure.shift_dihedral_angles
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.structure.show\_contacts module
+----------------------------------------
+
+.. automodule:: molsysmt.structure.show_contacts
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.structure.translate module
+-----------------------------------
+
+.. automodule:: molsysmt.structure.translate
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Module contents
+---------------
+
+.. automodule:: molsysmt.structure
+   :members:
+   :show-inheritance:
+   :undoc-members:

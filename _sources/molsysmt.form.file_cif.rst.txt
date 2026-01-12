@@ -1,0 +1,157 @@
+molsysmt.form.file\_cif package
+===============================
+
+Submodules
+----------
+
+molsysmt.form.file\_cif.add module
+----------------------------------
+
+.. automodule:: molsysmt.form.file_cif.add
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_cif.append\_structures module
+-------------------------------------------------
+
+.. automodule:: molsysmt.form.file_cif.append_structures
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_cif.attributes module
+-----------------------------------------
+
+.. automodule:: molsysmt.form.file_cif.attributes
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_cif.copy module
+-----------------------------------
+
+.. automodule:: molsysmt.form.file_cif.copy
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_cif.download module
+---------------------------------------
+
+.. automodule:: molsysmt.form.file_cif.download
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_cif.extract module
+--------------------------------------
+
+.. automodule:: molsysmt.form.file_cif.extract
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_cif.get module
+----------------------------------
+
+.. automodule:: molsysmt.form.file_cif.get
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_cif.has\_attribute module
+---------------------------------------------
+
+.. automodule:: molsysmt.form.file_cif.has_attribute
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_cif.is\_form module
+---------------------------------------
+
+.. automodule:: molsysmt.form.file_cif.is_form
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_cif.iterators module
+----------------------------------------
+
+.. automodule:: molsysmt.form.file_cif.iterators
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_cif.merge module
+------------------------------------
+
+.. automodule:: molsysmt.form.file_cif.merge
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_cif.set module
+----------------------------------
+
+.. automodule:: molsysmt.form.file_cif.set
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_cif.to\_file\_cif module
+--------------------------------------------
+
+.. automodule:: molsysmt.form.file_cif.to_file_cif
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_cif.to\_file\_h5msm module
+----------------------------------------------
+
+.. automodule:: molsysmt.form.file_cif.to_file_h5msm
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_cif.to\_mmcif\_PdbxContainers\_DataContainer module
+-----------------------------------------------------------------------
+
+.. automodule:: molsysmt.form.file_cif.to_mmcif_PdbxContainers_DataContainer
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_cif.to\_molsysmt\_MolSys module
+---------------------------------------------------
+
+.. automodule:: molsysmt.form.file_cif.to_molsysmt_MolSys
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_cif.to\_molsysmt\_Structures module
+-------------------------------------------------------
+
+.. automodule:: molsysmt.form.file_cif.to_molsysmt_Structures
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_cif.to\_molsysmt\_Topology module
+-----------------------------------------------------
+
+.. automodule:: molsysmt.form.file_cif.to_molsysmt_Topology
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Module contents
+---------------
+
+.. automodule:: molsysmt.form.file_cif
+   :members:
+   :show-inheritance:
+   :undoc-members:

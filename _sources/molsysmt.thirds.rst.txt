@@ -1,0 +1,20 @@
+molsysmt.thirds package
+=======================
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   molsysmt.thirds.nglview
+   molsysmt.thirds.openmm
+   molsysmt.thirds.tleap
+
+Module contents
+---------------
+
+.. automodule:: molsysmt.thirds
+   :members:
+   :show-inheritance:
+   :undoc-members:

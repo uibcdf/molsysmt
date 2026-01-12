@@ -1,0 +1,967 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+    <title>molsysmt.thirds.tleap.tleap – MolSysMT 0.12.0</title>
+  
+
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../../../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=b86133f3" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/sphinx_tabs.css?v=f45e19d3" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/custom.css?v=d5ef24d1" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/tabs.css?v=a5c4661c" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/custom.css?v=d5ef24d1" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../../../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../../../../_static/documentation_options.js?v=61ccb1f1"></script>
+    <script src="../../../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../../../_static/copybutton.js?v=f281be69"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/nglview-js-widgets@3.1.0/dist/index.js"></script>
+    <script src="../../../../_static/tabs.js?v=3030b3cb"></script>
+    <script src="../../../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/molsysmt/thirds/tleap/tleap';</script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="0.12.0" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../../../_static/logo.svg" class="logo__image only-light" alt="MolSysMT 0.12.0 documentation - Home"/>
+    <img src="../../../../_static/logo.svg" class="logo__image only-dark pst-js-only" alt="MolSysMT 0.12.0 documentation - Home"/>
+  
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../content/about/index.html">
+    About
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../content/showcase/index.html">
+    Showcase
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../content/user/index.html">
+    User guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../content/developer/index.html">
+    Developer guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../api/index.html">
+    API documentation
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../content/ai_assistant.html">
+    MolSys-AI
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/uibcdf/molsysmt" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar hide-on-wide">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../content/about/index.html">
+    About
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../content/showcase/index.html">
+    Showcase
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../content/user/index.html">
+    User guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../content/developer/index.html">
+    Developer guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../api/index.html">
+    API documentation
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../content/ai_assistant.html">
+    MolSys-AI
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/uibcdf/molsysmt" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../../../index.html" class="nav-link">Module code</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">molsysmt.thirds.tleap.tleap</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <h1>Source code for molsysmt.thirds.tleap.tleap</h1><div class="highlight"><pre>
+<span></span><span class="c1">#######################################################################################</span>
+<span class="c1">### This code was developed by Andrea Rizzi  and John Chodera for the Yank project at</span>
+<span class="c1">### John Chodera&#39;s lab. See: Yank/utils.py at https://github.com/choderalab/yank</span>
+<span class="c1">###</span>
+<span class="c1">### This file is an adaptation to molsysmt, including some other functionalities</span>
+<span class="c1">### and slight modifications to the original algorithms</span>
+<span class="c1">###</span>
+<span class="c1">### All credit should be given to Andrea Rizzi, John Chodera and the developers</span>
+<span class="c1">### of Yank (https://github.com/choderalab/yank)</span>
+<span class="c1">#######################################################################################</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">functools</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">tempfile</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">shutil</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">subprocess</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">re</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">molsysmt</span><span class="w"> </span><span class="kn">import</span> <span class="n">pyunitwizard</span> <span class="k">as</span> <span class="n">puw</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_sanitize_tleap_unit_name</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Decorator version of TLeap._sanitize_unit_name.</span>
+<span class="sd">    This takes as unit name a keyword argument called &quot;unit_name&quot; or the</span>
+<span class="sd">    second sequential argument (skipping self).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="nd">@functools</span><span class="o">.</span><span class="n">wraps</span><span class="p">(</span><span class="n">func</span><span class="p">)</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_wrapper</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;unit_name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">TLeap</span><span class="o">.</span><span class="n">_sanitize_unit_name</span><span class="p">(</span><span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;unit_name&#39;</span><span class="p">])</span>
+        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+            <span class="c1"># Tuples are immutable so we need to use concatenation.</span>
+            <span class="n">args</span> <span class="o">=</span> <span class="n">args</span><span class="p">[:</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="n">TLeap</span><span class="o">.</span><span class="n">_sanitize_unit_name</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="p">)</span> <span class="o">+</span> <span class="n">args</span><span class="p">[</span><span class="mi">2</span><span class="p">:]</span>
+        <span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">_wrapper</span>
+
+
+<div class="viewcode-block" id="TLeap">
+<a class="viewcode-back" href="../../../../molsysmt.thirds.tleap.html#molsysmt.thirds.tleap.tleap.TLeap">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">TLeap</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Programmatic interface to write and run AmberTools&#39; ``tLEaP`` scripts.</span>
+<span class="sd">    To avoid problems with special characters in file paths, the class run the</span>
+<span class="sd">    tleap script in a temporary folder with hardcoded names for files and then</span>
+<span class="sd">    copy the output files in their respective folders.</span>
+<span class="sd">    Attributes</span>
+<span class="sd">    ----------</span>
+<span class="sd">    script</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">script</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Complete and return the finalized script string</span>
+<span class="sd">        Adds a ``quit`` command to the end of the script.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_script</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">quit</span><span class="se">\n</span><span class="s1">&#39;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_script</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_input_file_paths</span> <span class="o">=</span> <span class="p">{}</span>  <span class="c1"># paths of input files to copy in temp dir</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_output_file_paths</span> <span class="o">=</span> <span class="p">{}</span>  <span class="c1"># paths of output files to copy from temp dir</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_loaded_parameters</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>  <span class="c1"># parameter files already loaded</span>
+
+<div class="viewcode-block" id="TLeap.add_commands">
+<a class="viewcode-back" href="../../../../molsysmt.thirds.tleap.html#molsysmt.thirds.tleap.tleap.TLeap.add_commands">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">add_commands</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Append commands to the script</span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        args : iterable of strings</span>
+<span class="sd">            Individual commands to add to the script written in full as strings.</span>
+<span class="sd">            Newline characters are added after each command</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">command</span> <span class="ow">in</span> <span class="n">args</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_script</span> <span class="o">+=</span> <span class="n">command</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span></div>
+
+
+<div class="viewcode-block" id="TLeap.load_parameters">
+<a class="viewcode-back" href="../../../../molsysmt.thirds.tleap.html#molsysmt.thirds.tleap.tleap.TLeap.load_parameters">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">load_parameters</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Load the LEaP parameters into the working TLEaP script if not already loaded</span>
+<span class="sd">        This adds to the script</span>
+<span class="sd">        Uses ``loadAmberParams`` for ``frcmod.*`` files</span>
+<span class="sd">        Uses ``loadOff`` for ``*.off`` and ``*.lib`` files</span>
+<span class="sd">        Uses ``source`` for other files.</span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        args : iterable of strings</span>
+<span class="sd">            File names for each type of leap file that can be loaded.</span>
+<span class="sd">            Method to load them is automatically determined from file extension or base name</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">par_file</span> <span class="ow">in</span> <span class="n">args</span><span class="p">:</span>
+            <span class="c1"># Check that this is not already loaded</span>
+            <span class="k">if</span> <span class="n">par_file</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_loaded_parameters</span><span class="p">:</span>
+                <span class="k">continue</span>
+
+            <span class="c1"># Check whether this is a user file or a tleap file, and</span>
+            <span class="c1"># update list of input files to copy in temporary folder before run</span>
+            <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">par_file</span><span class="p">):</span>
+                <span class="n">local_name</span> <span class="o">=</span> <span class="n">par_file</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_input_file_paths</span><span class="p">[</span><span class="n">local_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">par_file</span>
+            <span class="k">else</span><span class="p">:</span>  <span class="c1"># tleap file</span>
+                <span class="n">local_name</span> <span class="o">=</span> <span class="n">par_file</span>
+
+            <span class="c1"># use loadAmberParams if this is a frcmod file and source otherwise</span>
+            <span class="n">base_name</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">par_file</span><span class="p">)</span>
+            <span class="n">extension</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">base_name</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+            <span class="k">if</span> <span class="s1">&#39;frcmod&#39;</span> <span class="ow">in</span> <span class="n">base_name</span> <span class="ow">or</span> <span class="n">extension</span> <span class="o">==</span> <span class="s1">&#39;.dat&#39;</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">add_commands</span><span class="p">(</span><span class="s1">&#39;loadAmberParams &#39;</span> <span class="o">+</span> <span class="n">local_name</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">extension</span> <span class="o">==</span> <span class="s1">&#39;.off&#39;</span> <span class="ow">or</span> <span class="n">extension</span> <span class="o">==</span> <span class="s1">&#39;.lib&#39;</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">add_commands</span><span class="p">(</span><span class="s1">&#39;loadOff &#39;</span> <span class="o">+</span> <span class="n">local_name</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">add_commands</span><span class="p">(</span><span class="s1">&#39;source &#39;</span> <span class="o">+</span> <span class="n">local_name</span><span class="p">)</span>
+
+            <span class="c1"># Update loaded parameters cache</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_loaded_parameters</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">par_file</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="TLeap.set_global_parameter">
+<a class="viewcode-back" href="../../../../molsysmt.thirds.tleap.html#molsysmt.thirds.tleap.tleap.TLeap.set_global_parameter">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">set_global_parameter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Set global parameter value with command &#39;set default&#39;.</span>
+<span class="sd">        See the Amber manual: &#39;set&#39; subsection of section &#39;Commands&#39; in Leap chapter.</span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        OldPrmtopFormat : str</span>
+<span class="sd">            &quot;on&quot; or &quot;off&quot; (default) to write the prmtop file in Amber 6 and earlier format</span>
+<span class="sd">        Dielectric : str</span>
+<span class="sd">            &quot;constant&quot; or &quot;distance&quot; (default) for constant or distance dependent dielectric</span>
+<span class="sd">        PdbWriteCharges: str</span>
+<span class="sd">            &quot;on&quot; or &quot;off&quot; (default) to write withe savePDB the atom charges in the B-factors</span>
+<span class="sd">            columnt</span>
+<span class="sd">        PBRadii: str</span>
+<span class="sd">            &quot;bondi&quot;, &quot;mbondi&quot; (default), &quot;mbondi2&quot;, &quot;mbondi3&quot; or &quot;amber6&quot; to choose the set of atomic radii</span>
+<span class="sd">            for generalized Born or Poisson-Boltzmann calculations.</span>
+<span class="sd">        nocenter: str</span>
+<span class="sd">            &quot;on&quot; or &quot;off&quot; (default) to deactivate recentering coordinates.</span>
+<span class="sd">        reorder_residues: str</span>
+<span class="sd">            &quot;on&quot; (default) or &quot;off&quot; to place non-solvent residues before sovent residues</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">accepted_kwargs</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;OldPrmtopFormat&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;on&#39;</span><span class="p">,</span> <span class="s1">&#39;off&#39;</span><span class="p">],</span>
+                         <span class="s1">&#39;Dielectric&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;constant&#39;</span><span class="p">,</span><span class="s1">&#39;distance&#39;</span><span class="p">],</span>
+                         <span class="s1">&#39;PdbWriteCharges&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;on&#39;</span><span class="p">,</span> <span class="s1">&#39;off&#39;</span><span class="p">],</span>
+                         <span class="s1">&#39;PBRadii&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;bondi&#39;</span><span class="p">,</span> <span class="s1">&#39;mbondi&#39;</span><span class="p">,</span> <span class="s1">&#39;mbondi2&#39;</span><span class="p">,</span> <span class="s1">&#39;mbondi3&#39;</span><span class="p">,</span> <span class="s1">&#39;amber6&#39;</span><span class="p">],</span>
+                         <span class="s1">&#39;nocenter&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;on&#39;</span><span class="p">,</span> <span class="s1">&#39;off&#39;</span><span class="p">],</span>
+                         <span class="s1">&#39;reorder_residues&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;on&#39;</span><span class="p">,</span> <span class="s1">&#39;off&#39;</span><span class="p">]}</span>
+
+        <span class="k">for</span> <span class="n">parameter</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+
+            <span class="k">if</span> <span class="n">parameter</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">accepted_kwargs</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Parameter not recognized&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">value</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">accepted_kwargs</span><span class="p">[</span><span class="n">parameter</span><span class="p">]:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Value for parameter </span><span class="si">{}</span><span class="s2"> not recognized&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">value</span><span class="p">))</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">add_commands</span><span class="p">(</span><span class="s1">&#39;set default </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">parameter</span><span class="p">,</span> <span class="n">value</span><span class="p">))</span></div>
+
+
+
+<div class="viewcode-block" id="TLeap.load_unit">
+<a class="viewcode-back" href="../../../../molsysmt.thirds.tleap.html#molsysmt.thirds.tleap.tleap.TLeap.load_unit">[docs]</a>
+    <span class="nd">@_sanitize_tleap_unit_name</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">load_unit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">unit_name</span><span class="p">,</span> <span class="n">file_path</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Load a Unit into LEaP, this is typically a molecule or small complex.</span>
+<span class="sd">        This adds to the script</span>
+<span class="sd">        Accepts ``*.mol2`` or ``*.pdb`` files</span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        unit_name : str</span>
+<span class="sd">            Name of the unit as it should be represented in LEaP</span>
+<span class="sd">        file_path : str</span>
+<span class="sd">            Full file path with extension of the file to read into LEaP as a new unit</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">file_name</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span>
+        <span class="n">file_name</span><span class="p">,</span> <span class="n">extension</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">file_name</span><span class="p">)</span>
+        <span class="n">local_name</span> <span class="o">=</span> <span class="n">file_name</span><span class="o">+</span><span class="n">extension</span>
+
+
+        <span class="k">if</span> <span class="n">extension</span> <span class="o">==</span> <span class="s1">&#39;.mol2&#39;</span><span class="p">:</span>
+            <span class="n">load_command</span> <span class="o">=</span> <span class="s1">&#39;loadMol2&#39;</span>
+        <span class="k">elif</span> <span class="n">extension</span> <span class="o">==</span> <span class="s1">&#39;.pdb&#39;</span><span class="p">:</span>
+            <span class="n">load_command</span> <span class="o">=</span> <span class="s1">&#39;loadPdb&#39;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;cannot load format </span><span class="si">{}</span><span class="s1"> in tLeap&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">extension</span><span class="p">))</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_commands</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1"> = </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">unit_name</span><span class="p">,</span> <span class="n">load_command</span><span class="p">,</span> <span class="n">local_name</span><span class="p">))</span>
+
+        <span class="c1"># Update list of input files to copy in temporary folder before run</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_input_file_paths</span><span class="p">[</span><span class="n">local_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">file_path</span></div>
+
+
+<div class="viewcode-block" id="TLeap.make_sequence">
+<a class="viewcode-back" href="../../../../molsysmt.thirds.tleap.html#molsysmt.thirds.tleap.tleap.TLeap.make_sequence">[docs]</a>
+    <span class="nd">@_sanitize_tleap_unit_name</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">make_sequence</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">unit_name</span><span class="p">,</span> <span class="n">sequence</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Define a Unit with a sequence of residue names</span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        unit_name : str</span>
+<span class="sd">            Name of the unit as it should be represented in LEaP</span>
+<span class="sd">        file_path : str</span>
+<span class="sd">            Space separated equence of residue names (3-letters code)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_commands</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1"> = sequence {{ </span><span class="si">{}</span><span class="s1"> }}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">unit_name</span><span class="p">,</span> <span class="n">sequence</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="TLeap.check_unit">
+<a class="viewcode-back" href="../../../../molsysmt.thirds.tleap.html#molsysmt.thirds.tleap.tleap.TLeap.check_unit">[docs]</a>
+    <span class="nd">@_sanitize_tleap_unit_name</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">check_unit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">unit_name</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Checking for internal inconsistencies in a Unit such as: long or short bonds, non-integral</span>
+<span class="sd">        total charge, missing atoms, unwanted steric clashes between atoms.</span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        unit_name : str</span>
+<span class="sd">            Name of the unit as it should be represented in LEaP</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_commands</span><span class="p">(</span><span class="s1">&#39;check </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">unit_name</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="TLeap.get_total_charge">
+<a class="viewcode-back" href="../../../../molsysmt.thirds.tleap.html#molsysmt.thirds.tleap.tleap.TLeap.get_total_charge">[docs]</a>
+    <span class="nd">@_sanitize_tleap_unit_name</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_total_charge</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">unit_name</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Getting the total charge of a Unit</span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        unit_name : str</span>
+<span class="sd">            Name of the unit as it should be represented in LEaP</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_commands</span><span class="p">(</span><span class="s1">&#39;charge </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">unit_name</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="TLeap.combine">
+<a class="viewcode-back" href="../../../../molsysmt.thirds.tleap.html#molsysmt.thirds.tleap.tleap.TLeap.combine">[docs]</a>
+    <span class="nd">@_sanitize_tleap_unit_name</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">combine</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">unit_name</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Combine units in LEaP</span>
+<span class="sd">        This adds to the script</span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        unit_name : str</span>
+<span class="sd">            Name of LEaP unit to assign the combination to</span>
+<span class="sd">        args : iterable of strings</span>
+<span class="sd">            Name of LEaP units to combine into a single unit called leap_name</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Sanitize unit names.</span>
+        <span class="n">args</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_sanitize_unit_name</span><span class="p">(</span><span class="n">arg</span><span class="p">)</span> <span class="k">for</span> <span class="n">arg</span> <span class="ow">in</span> <span class="n">args</span><span class="p">]</span>
+        <span class="n">components</span> <span class="o">=</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">args</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_commands</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1"> = combine {{{{ </span><span class="si">{}</span><span class="s1"> }}}}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">unit_name</span><span class="p">,</span> <span class="n">components</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="TLeap.add_ions">
+<a class="viewcode-back" href="../../../../molsysmt.thirds.tleap.html#molsysmt.thirds.tleap.tleap.TLeap.add_ions">[docs]</a>
+    <span class="nd">@_sanitize_tleap_unit_name</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">add_ions</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">unit_name</span><span class="p">,</span> <span class="n">ion</span><span class="p">,</span> <span class="n">num_ions</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">replace_solvent</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add ions to a unit in LEaP</span>
+<span class="sd">        This adds to the script</span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        unit_name : str</span>
+<span class="sd">            Name of the existing LEaP unit which Ions will be added into</span>
+<span class="sd">        ion : str</span>
+<span class="sd">            LEaP recognized name of ion to add</span>
+<span class="sd">        num_ions : int, optional</span>
+<span class="sd">            Number of ions of type ion to add to unit_name. If 0, the unit</span>
+<span class="sd">            is neutralized (default is 0).</span>
+<span class="sd">        replace_solvent : bool, optional</span>
+<span class="sd">            If True, ions will replace solvent molecules rather than being</span>
+<span class="sd">            added.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">replace_solvent</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">add_commands</span><span class="p">(</span><span class="s1">&#39;addIonsRand </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">unit_name</span><span class="p">,</span> <span class="n">ion</span><span class="p">,</span> <span class="n">num_ions</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">add_commands</span><span class="p">(</span><span class="s1">&#39;addIons2 </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">unit_name</span><span class="p">,</span> <span class="n">ion</span><span class="p">,</span> <span class="n">num_ions</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="TLeap.solvate">
+<a class="viewcode-back" href="../../../../molsysmt.thirds.tleap.html#molsysmt.thirds.tleap.tleap.TLeap.solvate">[docs]</a>
+    <span class="nd">@_sanitize_tleap_unit_name</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">solvate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">unit_name</span><span class="p">,</span> <span class="n">solvent_model</span><span class="p">,</span> <span class="n">clearance</span><span class="p">,</span> <span class="n">box_geometry</span><span class="o">=</span><span class="s2">&quot;cubic&quot;</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Solvate a unit in LEaP isometrically</span>
+<span class="sd">        This adds to the script</span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        unit_name : str</span>
+<span class="sd">            Name of the existing LEaP unit which will be solvated</span>
+<span class="sd">        solvent_model : str</span>
+<span class="sd">            LEaP recognized name of the solvent model to use, e.g. &quot;TIP3PBOX&quot;</span>
+<span class="sd">        clearance : unit.Quantity</span>
+<span class="sd">            Add solvent up to clearance distance away (units of length) from the unit_name (radial)</span>
+<span class="sd">        box_geometry : &quot;cubic&quot; or &quot;truncated octahedral&quot;</span>
+<span class="sd">            Shape of the box to be solvated (Default is &quot;cubic&quot;).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">box_geometry</span><span class="o">==</span><span class="s2">&quot;cubic&quot;</span><span class="p">:</span>
+            <span class="n">solvate_command</span><span class="o">=</span><span class="s1">&#39;solvateBox&#39;</span>
+        <span class="k">elif</span> <span class="n">box_geometry</span><span class="o">==</span><span class="s2">&quot;truncated octahedral&quot;</span><span class="p">:</span>
+            <span class="n">solvate_command</span><span class="o">=</span><span class="s1">&#39;solvateOct&#39;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;The argument box_geometry must take one of the following values: </span><span class="se">\</span>
+<span class="s1">                             &quot;cubic&quot; or &quot;truncated octahedral&quot;.&#39;</span><span class="p">)</span>
+
+        <span class="n">clearance</span> <span class="o">=</span> <span class="n">puw</span><span class="o">.</span><span class="n">get_value</span><span class="p">(</span><span class="n">clearance</span><span class="p">,</span> <span class="n">to_unit</span><span class="o">=</span><span class="s1">&#39;angstroms&#39;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_commands</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1"> iso&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">solvate_command</span><span class="p">,</span> <span class="n">unit_name</span><span class="p">,</span> <span class="n">solvent_model</span><span class="p">,</span> <span class="n">clearance</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="TLeap.save_unit">
+<a class="viewcode-back" href="../../../../molsysmt.thirds.tleap.html#molsysmt.thirds.tleap.tleap.TLeap.save_unit">[docs]</a>
+    <span class="nd">@_sanitize_tleap_unit_name</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">save_unit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">unit_name</span><span class="p">,</span> <span class="n">output_path</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Write a LEaP unit to file.</span>
+<span class="sd">        Accepts either ``*.prmtop``, ``*.inpcrd``, or ``*.pdb`` files</span>
+<span class="sd">        This adds to the script</span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        unit_name : str</span>
+<span class="sd">            Name of the unit to save</span>
+<span class="sd">        output_path : str</span>
+<span class="sd">            Full file path with extension to save.</span>
+<span class="sd">            Outputs with multiple files (e.g. Amber Parameters) have their names derived from this instead</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">file_name</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">output_path</span><span class="p">)</span>
+        <span class="n">file_name</span><span class="p">,</span> <span class="n">extension</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">file_name</span><span class="p">)</span>
+        <span class="n">local_name</span> <span class="o">=</span> <span class="n">file_name</span><span class="o">+</span><span class="n">extension</span>
+
+        <span class="c1"># Update list of output files to copy from temporary folder after run</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_output_file_paths</span><span class="p">[</span><span class="n">local_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">output_path</span>
+
+        <span class="c1"># Add command</span>
+        <span class="k">if</span> <span class="n">extension</span> <span class="o">==</span> <span class="s1">&#39;.prmtop&#39;</span> <span class="ow">or</span> <span class="n">extension</span> <span class="o">==</span> <span class="s1">&#39;.inpcrd&#39;</span><span class="p">:</span>
+            <span class="n">command</span> <span class="o">=</span> <span class="s1">&#39;saveAmberParm &#39;</span> <span class="o">+</span> <span class="n">unit_name</span> <span class="o">+</span> <span class="s1">&#39; </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1">&#39;</span>
+
+            <span class="c1"># Update list of output files with the one not explicit</span>
+            <span class="k">if</span> <span class="n">extension</span> <span class="o">==</span> <span class="s1">&#39;.inpcrd&#39;</span><span class="p">:</span>
+                <span class="n">extension2</span> <span class="o">=</span> <span class="s1">&#39;.prmtop&#39;</span>
+                <span class="n">local_name2</span> <span class="o">=</span> <span class="n">filename</span><span class="o">+</span><span class="n">extension2</span>
+                <span class="n">command</span> <span class="o">=</span> <span class="n">command</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">local_name2</span><span class="p">,</span> <span class="n">local_name</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">extension2</span> <span class="o">=</span> <span class="s1">&#39;.inpcrd&#39;</span>
+                <span class="n">local_name2</span> <span class="o">=</span> <span class="n">file_name</span><span class="o">+</span><span class="n">extension2</span>
+                <span class="n">command</span> <span class="o">=</span> <span class="n">command</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">local_name</span><span class="p">,</span> <span class="n">local_name2</span><span class="p">)</span>
+            <span class="n">output_path2</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">output_path</span><span class="p">),</span> <span class="n">local_name2</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_output_file_paths</span><span class="p">[</span><span class="n">local_name2</span><span class="p">]</span> <span class="o">=</span> <span class="n">output_path2</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">add_commands</span><span class="p">(</span><span class="n">command</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">extension</span> <span class="o">==</span> <span class="s1">&#39;.pdb&#39;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">add_commands</span><span class="p">(</span><span class="s1">&#39;savePDB </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">unit_name</span><span class="p">,</span> <span class="n">local_name</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;cannot export format </span><span class="si">{}</span><span class="s1"> from tLeap&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">extension</span><span class="p">[</span><span class="mi">1</span><span class="p">:]))</span></div>
+
+
+<div class="viewcode-block" id="TLeap.transform">
+<a class="viewcode-back" href="../../../../molsysmt.thirds.tleap.html#molsysmt.thirds.tleap.tleap.TLeap.transform">[docs]</a>
+    <span class="nd">@_sanitize_tleap_unit_name</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">unit_name</span><span class="p">,</span> <span class="n">transformation</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Transformation is an array-like representing the affine transformation matrix.&quot;&quot;&quot;</span>
+        <span class="n">command</span> <span class="o">=</span> <span class="s1">&#39;transform </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">unit_name</span><span class="p">,</span> <span class="n">transformation</span><span class="p">)</span>
+        <span class="n">command</span> <span class="o">=</span> <span class="n">command</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;[&#39;</span><span class="p">,</span> <span class="s1">&#39;{{&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;]&#39;</span><span class="p">,</span> <span class="s1">&#39;}}&#39;</span><span class="p">)</span>
+        <span class="n">command</span> <span class="o">=</span> <span class="n">command</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;  &#39;</span><span class="p">,</span> <span class="s1">&#39; &#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_commands</span><span class="p">(</span><span class="n">command</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="TLeap.new_section">
+<a class="viewcode-back" href="../../../../molsysmt.thirds.tleap.html#molsysmt.thirds.tleap.tleap.TLeap.new_section">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">new_section</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">comment</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Adds a comment line to the script&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_commands</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1"># &#39;</span> <span class="o">+</span> <span class="n">comment</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="TLeap.export_script">
+<a class="viewcode-back" href="../../../../molsysmt.thirds.tleap.html#molsysmt.thirds.tleap.tleap.TLeap.export_script">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">export_script</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file_path</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Write script to file</span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        file_path : str</span>
+<span class="sd">            Full file path with extension of the script to save</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">script</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="TLeap.run">
+<a class="viewcode-back" href="../../../../molsysmt.thirds.tleap.html#molsysmt.thirds.tleap.tleap.TLeap.run">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">working_directory</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Run script and return warning messages in leap log file.&quot;&quot;&quot;</span>
+
+        <span class="n">current_directory</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span>
+        <span class="n">tmp_working_directory</span> <span class="o">=</span> <span class="kc">False</span>
+
+        <span class="k">if</span> <span class="n">working_directory</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">tmp_working_directory</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="n">working_directory</span> <span class="o">=</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">mkdtemp</span><span class="p">()</span>
+            <span class="c1"># Copy input files</span>
+            <span class="k">for</span> <span class="n">local_file</span><span class="p">,</span> <span class="n">file_path</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_input_file_paths</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="n">shutil</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="n">local_file</span><span class="p">)</span>
+
+        <span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="n">working_directory</span><span class="p">)</span>
+
+        <span class="c1"># Save script and run tleap</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">export_script</span><span class="p">(</span><span class="s1">&#39;leap.in&#39;</span><span class="p">)</span>
+        <span class="n">leap_output</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">check_output</span><span class="p">([</span><span class="s1">&#39;tleap&#39;</span><span class="p">,</span> <span class="s1">&#39;-f&#39;</span><span class="p">,</span> <span class="s1">&#39;leap.in&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">leap_output</span><span class="p">)</span>
+
+        <span class="c1"># Save leap.log in directory of first output file</span>
+        <span class="n">log_path</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_output_file_paths</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="c1"># Get first output path in Py 3.X way that is also thread-safe</span>
+            <span class="k">for</span> <span class="n">val</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_output_file_paths</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+                <span class="n">first_output_path</span> <span class="o">=</span> <span class="n">val</span>
+                <span class="k">break</span>
+            <span class="n">first_output_name</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">first_output_path</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">first_output_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">first_output_path</span><span class="p">)</span>
+            <span class="n">log_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">first_output_dir</span><span class="p">,</span> <span class="n">first_output_name</span> <span class="o">+</span> <span class="s1">&#39;.leap.log&#39;</span><span class="p">)</span>
+            <span class="n">shutil</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="s1">&#39;leap.log&#39;</span><span class="p">,</span> <span class="n">log_path</span><span class="p">)</span>
+
+        <span class="c1"># Copy back output files. If something goes wrong, some files may not exist</span>
+        <span class="n">known_error_msg</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">if</span> <span class="n">tmp_working_directory</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">local_file</span><span class="p">,</span> <span class="n">file_path</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_output_file_paths</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                    <span class="n">shutil</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">local_file</span><span class="p">,</span> <span class="n">file_path</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">IOError</span><span class="p">:</span>
+                <span class="n">known_error_msg</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;Could not create one of the system files.&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Look for errors in log that don&#39;t raise CalledProcessError</span>
+        <span class="n">error_patterns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Argument #</span><span class="se">\\</span><span class="s1">d+ is type </span><span class="se">\\</span><span class="s1">S+ must be of type: </span><span class="se">\\</span><span class="s1">S+&#39;</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">pattern</span> <span class="ow">in</span> <span class="n">error_patterns</span><span class="p">:</span>
+            <span class="n">m</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">pattern</span><span class="p">,</span> <span class="n">leap_output</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">m</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">known_error_msg</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
+                <span class="k">break</span>
+
+        <span class="c1"># Analyze log file for water mismatch</span>
+        <span class="n">m</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s2">&quot;Could not find bond parameter for: EP - </span><span class="se">\\</span><span class="s2">w+W&quot;</span><span class="p">,</span> <span class="n">leap_output</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">m</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="c1"># Found mismatch water and missing parameters</span>
+            <span class="n">known_error_msg</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;It looks like the water used has virtual sites, but &#39;</span>
+                                   <span class="s1">&#39;missing parameters.</span><span class="se">\n</span><span class="s1">Make sure your leap parameters &#39;</span>
+                                   <span class="s1">&#39;use the correct water model as specified by &#39;</span>
+                                   <span class="s1">&#39;solvent_model.&#39;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">known_error_msg</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">final_error</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;Some things went wrong with LEaP</span><span class="se">\n</span><span class="s1">We caught a few but their may be more.</span><span class="se">\n</span><span class="s1">&#39;</span>
+                           <span class="s1">&#39;Please see the log file for LEaP for more info:</span><span class="se">\n</span><span class="si">{}</span><span class="se">\n</span><span class="s1">============</span><span class="se">\n</span><span class="si">{}</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="n">final_error</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">log_path</span><span class="p">,</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">---------</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">known_error_msg</span><span class="p">)))</span>
+
+        <span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="n">current_directory</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">tmp_working_directory</span><span class="p">:</span>
+            <span class="n">shutil</span><span class="o">.</span><span class="n">rmtree</span><span class="p">(</span><span class="n">working_directory</span><span class="p">)</span>
+
+        <span class="c1"># Check for and return warnings</span>
+        <span class="k">return</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">&#39;WARNING: (.+)&#39;</span><span class="p">,</span> <span class="n">leap_output</span><span class="p">)</span></div>
+
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_sanitize_unit_name</span><span class="p">(</span><span class="n">unit_name</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Sanitize tleap unit names.</span>
+<span class="sd">        Leap doesn&#39;t like names that start with digits so, in this case, we</span>
+<span class="sd">        prepend an arbitrary character.</span>
+<span class="sd">        This takes as unit name a keyword argument called &quot;unit_name&quot; or the</span>
+<span class="sd">        second sequential argument (skipping self).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">unit_name</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">isdigit</span><span class="p">():</span>
+            <span class="n">unit_name</span> <span class="o">=</span> <span class="s1">&#39;M&#39;</span> <span class="o">+</span> <span class="n">unit_name</span>
+        <span class="k">return</span> <span class="n">unit_name</span></div>
+
+
+</pre></div>
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item"><div>
+	&copy; 2026, <a href=contents/about/who.html>Liliana M. Moreno Vargas, Diego Prada Gracia
+		and contributors</a> | <a href="https://www.uibcdf.org/">UIBCDF Lab</a> 
+	at the <a href="http://himfg.com.mx">Federico Gómez Children’s Hospital of Mexico</a><br />
+	<a href="https://github.com/uibcdf/molsysmt">MolSysMT is an open source project</a> shared
+	under <a href="https://github.com/uibcdf/molsysmt/blob/main/LICENSE">an MIT license</a>
+	with a structure based on the
+	<a href="https://github.com/MolSSI/cookiecutter-cms">Computational Molecular Science
+		Python Cookiecutter</a> version 1.5
+</div></div>
+      
+        <div class="footer-item">
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3
+     | 
+    Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1
+    <br/>
+  </p>
+
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item"><a href= "mailto:uibcdf@gmail.com">Contact us</a><br /></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

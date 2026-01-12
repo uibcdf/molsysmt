@@ -1,0 +1,117 @@
+molsysmt.form.file\_xyznpy package
+==================================
+
+Submodules
+----------
+
+molsysmt.form.file\_xyznpy.add module
+-------------------------------------
+
+.. automodule:: molsysmt.form.file_xyznpy.add
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_xyznpy.append\_structures module
+----------------------------------------------------
+
+.. automodule:: molsysmt.form.file_xyznpy.append_structures
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_xyznpy.attributes module
+--------------------------------------------
+
+.. automodule:: molsysmt.form.file_xyznpy.attributes
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_xyznpy.copy module
+--------------------------------------
+
+.. automodule:: molsysmt.form.file_xyznpy.copy
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_xyznpy.extract module
+-----------------------------------------
+
+.. automodule:: molsysmt.form.file_xyznpy.extract
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_xyznpy.get module
+-------------------------------------
+
+.. automodule:: molsysmt.form.file_xyznpy.get
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_xyznpy.has\_attribute module
+------------------------------------------------
+
+.. automodule:: molsysmt.form.file_xyznpy.has_attribute
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_xyznpy.is\_form module
+------------------------------------------
+
+.. automodule:: molsysmt.form.file_xyznpy.is_form
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_xyznpy.iterators module
+-------------------------------------------
+
+.. automodule:: molsysmt.form.file_xyznpy.iterators
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_xyznpy.merge module
+---------------------------------------
+
+.. automodule:: molsysmt.form.file_xyznpy.merge
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_xyznpy.set module
+-------------------------------------
+
+.. automodule:: molsysmt.form.file_xyznpy.set
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_xyznpy.to\_XYZ module
+-----------------------------------------
+
+.. automodule:: molsysmt.form.file_xyznpy.to_XYZ
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_xyznpy.to\_file\_xyznpy module
+--------------------------------------------------
+
+.. automodule:: molsysmt.form.file_xyznpy.to_file_xyznpy
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Module contents
+---------------
+
+.. automodule:: molsysmt.form.file_xyznpy
+   :members:
+   :show-inheritance:
+   :undoc-members:

@@ -1,0 +1,69 @@
+molsysmt.basic.selector package
+===============================
+
+Submodules
+----------
+
+molsysmt.basic.selector.amber module
+------------------------------------
+
+.. automodule:: molsysmt.basic.selector.amber
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.basic.selector.mdanalysis module
+-----------------------------------------
+
+.. automodule:: molsysmt.basic.selector.mdanalysis
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.basic.selector.mdtraj module
+-------------------------------------
+
+.. automodule:: molsysmt.basic.selector.mdtraj
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.basic.selector.molsysmt module
+---------------------------------------
+
+.. automodule:: molsysmt.basic.selector.molsysmt
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.basic.selector.molsysmt\_old module
+--------------------------------------------
+
+.. automodule:: molsysmt.basic.selector.molsysmt_old
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.basic.selector.nglview module
+--------------------------------------
+
+.. automodule:: molsysmt.basic.selector.nglview
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.basic.selector.parmed module
+-------------------------------------
+
+.. automodule:: molsysmt.basic.selector.parmed
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Module contents
+---------------
+
+.. automodule:: molsysmt.basic.selector
+   :members:
+   :show-inheritance:
+   :undoc-members:

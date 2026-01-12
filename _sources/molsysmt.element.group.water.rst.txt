@@ -1,0 +1,37 @@
+molsysmt.element.group.water package
+====================================
+
+Submodules
+----------
+
+molsysmt.element.group.water.get\_bonded\_atom\_pairs module
+------------------------------------------------------------
+
+.. automodule:: molsysmt.element.group.water.get_bonded_atom_pairs
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.element.group.water.is\_water module
+---------------------------------------------
+
+.. automodule:: molsysmt.element.group.water.is_water
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.element.group.water.water\_names module
+------------------------------------------------
+
+.. automodule:: molsysmt.element.group.water.water_names
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Module contents
+---------------
+
+.. automodule:: molsysmt.element.group.water
+   :members:
+   :show-inheritance:
+   :undoc-members:

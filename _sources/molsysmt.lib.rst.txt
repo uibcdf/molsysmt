@@ -1,0 +1,46 @@
+molsysmt.lib package
+====================
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   molsysmt.lib.pbc
+   molsysmt.lib.structure
+
+Submodules
+----------
+
+molsysmt.lib.make\_numba\_signature module
+------------------------------------------
+
+.. automodule:: molsysmt.lib.make_numba_signature
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.lib.math module
+------------------------
+
+.. automodule:: molsysmt.lib.math
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.lib.series module
+--------------------------
+
+.. automodule:: molsysmt.lib.series
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Module contents
+---------------
+
+.. automodule:: molsysmt.lib
+   :members:
+   :show-inheritance:
+   :undoc-members:

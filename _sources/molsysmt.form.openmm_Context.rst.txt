@@ -1,0 +1,133 @@
+molsysmt.form.openmm\_Context package
+=====================================
+
+Submodules
+----------
+
+molsysmt.form.openmm\_Context.add module
+----------------------------------------
+
+.. automodule:: molsysmt.form.openmm_Context.add
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.openmm\_Context.append\_structures module
+-------------------------------------------------------
+
+.. automodule:: molsysmt.form.openmm_Context.append_structures
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.openmm\_Context.attributes module
+-----------------------------------------------
+
+.. automodule:: molsysmt.form.openmm_Context.attributes
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.openmm\_Context.copy module
+-----------------------------------------
+
+.. automodule:: molsysmt.form.openmm_Context.copy
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.openmm\_Context.extract module
+--------------------------------------------
+
+.. automodule:: molsysmt.form.openmm_Context.extract
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.openmm\_Context.get\_structural\_attributes module
+----------------------------------------------------------------
+
+.. automodule:: molsysmt.form.openmm_Context.get_structural_attributes
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.openmm\_Context.get\_topological\_attributes module
+-----------------------------------------------------------------
+
+.. automodule:: molsysmt.form.openmm_Context.get_topological_attributes
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.openmm\_Context.has\_attribute module
+---------------------------------------------------
+
+.. automodule:: molsysmt.form.openmm_Context.has_attribute
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.openmm\_Context.is\_form module
+---------------------------------------------
+
+.. automodule:: molsysmt.form.openmm_Context.is_form
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.openmm\_Context.iterators module
+----------------------------------------------
+
+.. automodule:: molsysmt.form.openmm_Context.iterators
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.openmm\_Context.merge module
+------------------------------------------
+
+.. automodule:: molsysmt.form.openmm_Context.merge
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.openmm\_Context.set module
+----------------------------------------
+
+.. automodule:: molsysmt.form.openmm_Context.set
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.openmm\_Context.to\_molsysmt\_Structures module
+-------------------------------------------------------------
+
+.. automodule:: molsysmt.form.openmm_Context.to_molsysmt_Structures
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.openmm\_Context.to\_openmm\_Context module
+--------------------------------------------------------
+
+.. automodule:: molsysmt.form.openmm_Context.to_openmm_Context
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.openmm\_Context.to\_openmm\_System module
+-------------------------------------------------------
+
+.. automodule:: molsysmt.form.openmm_Context.to_openmm_System
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Module contents
+---------------
+
+.. automodule:: molsysmt.form.openmm_Context
+   :members:
+   :show-inheritance:
+   :undoc-members:

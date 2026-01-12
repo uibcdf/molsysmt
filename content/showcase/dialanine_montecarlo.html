@@ -1,0 +1,900 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="../../_static/favicon-16x16.png" sizes="16x16" rel="icon" type="image/png">
+    <link href="../../_static/favicon-124x124.png" sizes="124x124" rel="icon" type="image/png">
+    <link href="../../_static/favicon-128x128.png" sizes="128x128" rel="icon" type="image/png">
+    <link href="../../_static/favicon-192x192.png" sizes="192x192" rel="icon" type="image/png">
+    <link href="../../_static/icon.svg" rel="icon" type="image/svg+xml">
+  
+    <title>Dialanine Monte Carlo – MolSysMT 0.12.0</title>
+  
+
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx_tabs.css?v=f45e19d3" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=d5ef24d1" />
+    <link rel="stylesheet" type="text/css" href="../../_static/tabs.css?v=a5c4661c" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=d5ef24d1" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../../_static/documentation_options.js?v=61ccb1f1"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/nglview-js-widgets@3.1.0/dist/index.js"></script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="application/vnd.jupyter.widget-state+json">{"state": {"5428cf82957849059add12955687fda2": {"model_module": "nglview-js-widgets", "model_module_version": "3.1.4", "model_name": "ColormakerRegistryModel", "state": {"_dom_classes": [], "_model_module": "nglview-js-widgets", "_model_module_version": "3.1.4", "_model_name": "ColormakerRegistryModel", "_msg_ar": [], "_msg_q": [], "_ready": false, "_view_count": null, "_view_module": "nglview-js-widgets", "_view_module_version": "3.1.4", "_view_name": "ColormakerRegistryView", "layout": "IPY_MODEL_8893b7d48c93406282c17388f413373a", "tabbable": null, "tooltip": null}}, "8893b7d48c93406282c17388f413373a": {"model_module": "@jupyter-widgets/base", "model_module_version": "2.0.0", "model_name": "LayoutModel", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "2.0.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "2.0.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border_bottom": null, "border_left": null, "border_right": null, "border_top": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}}, "version_major": 2, "version_minor": 0}</script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script crossorigin="anonymous" data-jupyter-widgets-cdn="https://cdn.jsdelivr.net/npm/" src="https://cdn.jsdelivr.net/npm/@jupyter-widgets/html-manager@1.0.6/dist/embed-amd.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="MD Trajectory analysis" href="md_trajectory.html" />
+    <link rel="prev" title="Barnase-Barstar" href="barnase_barstar.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="0.12.0" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/logo.svg" class="logo__image only-light" alt="MolSysMT 0.12.0 documentation - Home"/>
+    <img src="../../_static/logo.svg" class="logo__image only-dark pst-js-only" alt="MolSysMT 0.12.0 documentation - Home"/>
+  
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../about/index.html">
+    About
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="index.html">
+    Showcase
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../user/index.html">
+    User guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../developer/index.html">
+    Developer guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../api/index.html">
+    API documentation
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../ai_assistant.html">
+    MolSys-AI
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/uibcdf/molsysmt" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../about/index.html">
+    About
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="index.html">
+    Showcase
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../user/index.html">
+    User guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../developer/index.html">
+    Developer guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../api/index.html">
+    API documentation
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../ai_assistant.html">
+    MolSys-AI
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/uibcdf/molsysmt" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="barnase_barstar.html">Barnase-Barstar</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Dialanine Monte Carlo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="md_trajectory.html">MD Trajectory analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="openmm.html">Working with OpenMM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nglview.html">Working with NGLView</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="index.html" class="nav-link">Showcase</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Dialanine Monte Carlo</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <div class="cell tag_remove-input docutils container">
+</div>
+<section class="tex2jax_ignore mathjax_ignore" id="dialanine-monte-carlo">
+<h1>Dialanine Monte Carlo<a class="headerlink" href="#dialanine-monte-carlo" title="Link to this heading">#</a></h1>
+<p>In this tutorial, we will explore the Ramachandran plot of the dialanine peptide using Metropolis Monte Carlo sampling, entirely within the MolSysMT environment.</p>
+<p>We’ll walk through the following steps:</p>
+<ul class="simple">
+<li><p>Construct a capped dialanine peptide in vacuum.</p></li>
+<li><p>Interact with its backbone dihedral angles: φ (<em>phi</em>) and ψ (<em>psi</em>).</p></li>
+<li><p>Perform Metropolis Monte Carlo sampling over these dihedrals.</p></li>
+<li><p>Visualize the resulting Ramachandran distribution.</p></li>
+</ul>
+<p>Before starting the workflow, let’s import the Python libraries required for this notebook.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">molsysmt</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">msm</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">molsysmt</span><span class="w"> </span><span class="kn">import</span> <span class="n">pyunitwizard</span> <span class="k">as</span> <span class="n">puw</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "5428cf82957849059add12955687fda2", "version_major": 2, "version_minor": 0}</script></div>
+</div>
+<section id="build-the-dialanine-peptide">
+<h2>Build the Dialanine Peptide<a class="headerlink" href="#build-the-dialanine-peptide" title="Link to this heading">#</a></h2>
+<p>We begin by constructing a dipeptide of alanine using the <code class="docutils literal notranslate"><span class="pre">molsysmt.build.build_peptide()</span></code> function.<br />
+To ensure the molecule remains neutral in charge, we cap it with an acetyl group (Ace) at the N-terminus and an N-methylamide group (Nme) at the C-terminus.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dialanine</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">build</span><span class="o">.</span><span class="n">build_peptide</span><span class="p">(</span><span class="s1">&#39;AceAlaNme&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>The molecule can be visualized using the <a class="reference external" href="https://github.com/nglviewer/nglview">NGLView Python library</a>.</p>
+<div class="cell tag_remove-input docutils container">
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">msm</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="n">dialanine</span><span class="p">,</span> <span class="n">viewer</span><span class="o">=</span><span class="s1">&#39;NGLView&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html">
+        <iframe
+            width="100%"
+            height="320vh"
+            src="../../_static/nglview/dialanine_monte_carlo_1.html"
+            frameborder="0"
+            allowfullscreen
+            
+        ></iframe>
+        </div></div>
+</div>
+<div class="cell tag_remove-input docutils container">
+</div>
+</section>
+<section id="playing-with-phi-and-psi">
+<h2>Playing with Phi and Psi<a class="headerlink" href="#playing-with-phi-and-psi" title="Link to this heading">#</a></h2>
+<p>Before running the Metropolis Monte Carlo simulation, let’s first explore some of the MolSysMT methods for extracting and modifying dihedral angles.</p>
+<p>The function <code class="docutils literal notranslate"><span class="pre">molsysmt.structure.get_dihedral_angles()</span></code> retrieves backbone torsion angles.<br />
+In this case, we are interested in the values of <span class="math notranslate nohighlight">\(\phi\)</span> (phi) and <span class="math notranslate nohighlight">\(\psi\)</span> (psi), which describe the conformation of the peptide backbone:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\phi\)</span> (phi): the dihedral angle defined by the atoms <span class="math notranslate nohighlight">\(C–N–C_{α}–C\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\psi\)</span> (psi): the dihedral angle defined by the atoms <span class="math notranslate nohighlight">\(N–C_{α}–C–N\)</span></p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">phis</span><span class="p">,</span> <span class="n">psis</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">structure</span><span class="o">.</span><span class="n">get_dihedral_angles</span><span class="p">(</span><span class="n">dialanine</span><span class="p">,</span> <span class="n">phi</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">psi</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">phis</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="c1"># There is only a single structure with a list of a single phi value</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><table><tbody><tr><th>Magnitude</th><td style='text-align:left;'><pre>[-179.9997761712254]</pre></td></tr><tr><th>Units</th><td style='text-align:left;'>degree</td></tr></tbody></table></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">psis</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><table><tbody><tr><th>Magnitude</th><td style='text-align:left;'><pre>[179.99992099940596]</pre></td></tr><tr><th>Units</th><td style='text-align:left;'>degree</td></tr></tbody></table></div></div>
+</div>
+<p>We can also retrieve the atom quartets (lists of four atom indices) involved in the definition of each dihedral angle.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">quartets_phi</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">topology</span><span class="o">.</span><span class="n">get_dihedral_quartets</span><span class="p">(</span><span class="n">dialanine</span><span class="p">,</span> <span class="n">phi</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">quartets_psi</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">topology</span><span class="o">.</span><span class="n">get_dihedral_quartets</span><span class="p">(</span><span class="n">dialanine</span><span class="p">,</span> <span class="n">psi</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">quartets_phi</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[4, 6, 8, 14]]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">quartets_psi</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[6, 8, 14, 16]]
+</pre></div>
+</div>
+</div>
+</div>
+<p>The values of the dihedral angles can be modified using the <code class="docutils literal notranslate"><span class="pre">molsysmt.structure.shift_dihedral_angles()</span></code> method.<br />
+Let’s illustrate how this is done in the following cell:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">msm</span><span class="o">.</span><span class="n">structure</span><span class="o">.</span><span class="n">shift_dihedral_angles</span><span class="p">(</span><span class="n">dialanine</span><span class="p">,</span> <span class="n">dihedral_quartets</span><span class="o">=</span><span class="p">[</span><span class="n">quartets_phi</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">quartets_psi</span><span class="p">[</span><span class="mi">0</span><span class="p">]],</span>
+                                    <span class="n">shifts</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;10 degrees&#39;</span><span class="p">,</span> <span class="s1">&#39;-20 degrees&#39;</span><span class="p">],</span> <span class="n">in_place</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Let’s verify that the dihedral angles have been correctly updated after the shift:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">phi</span><span class="p">,</span> <span class="n">psi</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">structure</span><span class="o">.</span><span class="n">get_dihedral_angles</span><span class="p">(</span><span class="n">dialanine</span><span class="p">,</span> <span class="n">phi</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">psi</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">phi</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><table><tbody><tr><th>Magnitude</th><td style='text-align:left;'><pre>[[-169.99977617280967]]</pre></td></tr><tr><th>Units</th><td style='text-align:left;'>degree</td></tr></tbody></table></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">psi</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><table><tbody><tr><th>Magnitude</th><td style='text-align:left;'><pre>[[159.99992100450456]]</pre></td></tr><tr><th>Units</th><td style='text-align:left;'>degree</td></tr></tbody></table></div></div>
+</div>
+</section>
+<section id="getting-the-potential-energy">
+<h2>Getting the Potential Energy<a class="headerlink" href="#getting-the-potential-energy" title="Link to this heading">#</a></h2>
+<p>At this point, we have our molecular system ready, and we’ve seen how to retrieve and modify its backbone dihedral angles (<span class="math notranslate nohighlight">\(\phi\)</span>, <span class="math notranslate nohighlight">\(\psi\)</span>).<br />
+To complete the setup for a Metropolis Monte Carlo sampling workflow, we also need to compute the potential energy of the dipeptide in vacuum.</p>
+<p>This can be done using the function <a class="reference internal" href="../../molsysmt.molecular_mechanics.html#module-molsysmt.molecular_mechanics.get_potential_energy" title="molsysmt.molecular_mechanics.get_potential_energy"><code class="xref py py-func docutils literal notranslate"><span class="pre">molsysmt.molecular_mechanics.get_potential_energy()</span></code></a>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">msm</span><span class="o">.</span><span class="n">molecular_mechanics</span><span class="o">.</span><span class="n">get_potential_energy</span><span class="p">(</span><span class="n">dialanine</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html">-72.52919440013841 kilojoule/mole</div></div>
+</div>
+</section>
+<section id="metropolis-monte-carlo">
+<h2>Metropolis Monte Carlo<a class="headerlink" href="#metropolis-monte-carlo" title="Link to this heading">#</a></h2>
+<p>We now have all the building blocks to implement a Metropolis Monte Carlo sampling routine for our dialanine system.</p>
+<p>Next, we’ll define the temperature, the number of Monte Carlo steps, and the <strong>Boltzmann constant</strong>, which are required to evaluate the acceptance criterion for each Monte Carlo move:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+P = 
+\begin{cases}
+1, &amp; \text{if } \Delta E \leq 0 \\\\
+\exp\left( -\dfrac{\Delta E}{k_B T} \right), &amp; \text{if } \Delta E &gt; 0
+\end{cases}
+\end{split}\]</div>
+<p>Where:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\Delta E = E_{\text{after}} - E_{\text{before}}\)</span> is the change in potential energy.</p></li>
+<li><p><span class="math notranslate nohighlight">\(k_B\)</span> is the Boltzmann constant.</p></li>
+<li><p><span class="math notranslate nohighlight">\(T\)</span> is the absolute temperature in Kelvin.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">temperature</span> <span class="o">=</span> <span class="n">puw</span><span class="o">.</span><span class="n">quantity</span><span class="p">(</span><span class="mf">900.0</span><span class="p">,</span> <span class="s1">&#39;kelvin&#39;</span><span class="p">)</span>
+<span class="n">kB</span> <span class="o">=</span> <span class="n">puw</span><span class="o">.</span><span class="n">quantity</span><span class="p">(</span><span class="s1">&#39;0.00813446261815324 kilojoules/(kelvin*mole)&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now, let’s define the Monte Carlo move. Each dihedral angle will be randomly shifted within the interval [ <span class="math notranslate nohighlight">\(-20^\circ\)</span>, <span class="math notranslate nohighlight">\(20^\circ\)</span>),<br />
+using a uniform probability distribution.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">max_step</span> <span class="o">=</span> <span class="n">puw</span><span class="o">.</span><span class="n">quantity</span><span class="p">(</span><span class="mf">40.0</span><span class="p">,</span> <span class="s1">&#39;degrees&#39;</span><span class="p">)</span>
+<span class="n">random_shifts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">max_step</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">random_shifts</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[18.48919069887402 -27.57289411217095] degree
+</pre></div>
+</div>
+</div>
+</div>
+<p>We can now run the Metropolis Monte Carlo simulation, keeping track of the visited dihedral angles and the acceptance ratio.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mc_steps</span> <span class="o">=</span> <span class="mi">500</span>
+<span class="n">ramachandran_exploration</span> <span class="o">=</span> <span class="p">[]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">E_before</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">molecular_mechanics</span><span class="o">.</span><span class="n">get_potential_energy</span><span class="p">(</span><span class="n">dialanine</span><span class="p">)</span>
+<span class="n">angles</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">structure</span><span class="o">.</span><span class="n">get_dihedral_angles</span><span class="p">(</span><span class="n">dialanine</span><span class="p">,</span> <span class="n">dihedral_quartets</span><span class="o">=</span><span class="p">[</span><span class="n">quartets_phi</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">quartets_psi</span><span class="p">[</span><span class="mi">0</span><span class="p">]])</span>
+
+<span class="n">n_accepted</span> <span class="o">=</span> <span class="mi">0</span>
+
+<span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">mc_steps</span><span class="p">):</span>
+    
+    <span class="n">random_shifts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">max_step</span>
+    <span class="n">dialanine_after</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">structure</span><span class="o">.</span><span class="n">shift_dihedral_angles</span><span class="p">(</span><span class="n">dialanine</span><span class="p">,</span> <span class="n">dihedral_quartets</span><span class="o">=</span><span class="p">[</span><span class="n">quartets_phi</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">quartets_psi</span><span class="p">[</span><span class="mi">0</span><span class="p">]],</span>
+                                                          <span class="n">shifts</span><span class="o">=</span><span class="n">random_shifts</span><span class="p">)</span>
+    <span class="n">E_after</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">molecular_mechanics</span><span class="o">.</span><span class="n">get_potential_energy</span><span class="p">(</span><span class="n">dialanine_after</span><span class="p">)</span>
+    
+    <span class="n">delta_E</span> <span class="o">=</span> <span class="n">E_after</span> <span class="o">-</span> <span class="n">E_before</span>
+
+    <span class="k">if</span> <span class="n">delta_E</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">accept</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">prob</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">delta_E</span> <span class="o">/</span> <span class="p">(</span><span class="n">kB</span> <span class="o">*</span> <span class="n">temperature</span><span class="p">))</span>
+        <span class="n">accept</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">()</span> <span class="o">&lt;</span> <span class="n">prob</span>
+
+    <span class="k">if</span> <span class="n">accept</span><span class="p">:</span>
+        <span class="n">n_accepted</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="n">dialanine</span> <span class="o">=</span> <span class="n">dialanine_after</span>
+        <span class="n">E_before</span> <span class="o">=</span> <span class="n">E_after</span>
+        <span class="n">angles</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">structure</span><span class="o">.</span><span class="n">get_dihedral_angles</span><span class="p">(</span><span class="n">dialanine</span><span class="p">,</span> <span class="n">dihedral_quartets</span><span class="o">=</span><span class="p">[</span><span class="n">quartets_phi</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">quartets_psi</span><span class="p">[</span><span class="mi">0</span><span class="p">]])</span>
+
+    <span class="n">ramachandran_exploration</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">angles</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Let’s take a look at the acceptance ratio from our Monte Carlo exploration:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">n_accepted</span><span class="o">/</span><span class="n">mc_steps</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.532
+</pre></div>
+</div>
+</div>
+</div>
+<p>And here are the first 5 (<span class="math notranslate nohighlight">\(\phi\)</span>, <span class="math notranslate nohighlight">\(\psi\)</span>) angle pairs recorded during the simulation:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ramachandran_exploration</span><span class="p">[:</span><span class="mi">5</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;Quantity([-169.99977617  159.999921  ], &#39;degree&#39;)&gt;,
+ &lt;Quantity([-169.99977617  159.999921  ], &#39;degree&#39;)&gt;,
+ &lt;Quantity([-144.21399936  164.23235891], &#39;degree&#39;)&gt;,
+ &lt;Quantity([-109.77393093  160.32996983], &#39;degree&#39;)&gt;,
+ &lt;Quantity([-109.77393093  160.32996983], &#39;degree&#39;)&gt;]
+</pre></div>
+</div>
+</div>
+</div>
+<section id="resulting-ramachandran-plot">
+<h3>Resulting Ramachandran Plot<a class="headerlink" href="#resulting-ramachandran-plot" title="Link to this heading">#</a></h3>
+<p>The list of collected dihedral angle pairs (<span class="math notranslate nohighlight">\(\phi\)</span>, <span class="math notranslate nohighlight">\(\psi\)</span>) can be used to generate a density map over the Ramachandran plot.<br />
+For this, we’ll use the Seaborn Python library to create a smooth and visually informative representation of the sampled conformational space.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>But first, we need to convert the <code class="docutils literal notranslate"><span class="pre">ramachandran_exploration</span></code> list into a NumPy <code class="docutils literal notranslate"><span class="pre">ndarray</span></code> with shape (mc_steps, 2).<br />
+We’ll also strip out the units (degrees) from the quantity to work directly with the raw numerical values:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ramachandran_exploration</span> <span class="o">=</span> <span class="n">puw</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">numpy</span><span class="o">.</span><span class="n">vstack</span><span class="p">(</span><span class="n">ramachandran_exploration</span><span class="p">)</span>
+<span class="n">ramachandran_exploration</span> <span class="o">=</span> <span class="n">puw</span><span class="o">.</span><span class="n">get_value</span><span class="p">(</span><span class="n">ramachandran_exploration</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Finally, here it is the resulting Ramachandran plot:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ax</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">kdeplot</span><span class="p">(</span>
+    <span class="n">x</span><span class="o">=</span><span class="n">ramachandran_exploration</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> 
+    <span class="n">y</span><span class="o">=</span><span class="n">ramachandran_exploration</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> 
+    <span class="n">fill</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;viridis&#39;</span><span class="p">,</span> 
+    <span class="n">thresh</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span> <span class="n">levels</span><span class="o">=</span><span class="mi">10</span>
+<span class="p">)</span>
+
+<span class="c1"># Etiquetas y título (ajústalas según tu caso)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Phi (°)&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Psi (°)&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Ramachandran Plot&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/04e410346ed1deadd1f2fac040931b6fdff8ec48db0c0c6a0caa3602b1640e8b.png" src="../../_images/04e410346ed1deadd1f2fac040931b6fdff8ec48db0c0c6a0caa3602b1640e8b.png" />
+</div>
+</div>
+</section>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="barnase_barstar.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Barnase-Barstar</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="md_trajectory.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">MD Trajectory analysis</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#build-the-dialanine-peptide">Build the Dialanine Peptide</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#playing-with-phi-and-psi">Playing with Phi and Psi</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#getting-the-potential-energy">Getting the Potential Energy</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#metropolis-monte-carlo">Metropolis Monte Carlo</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#resulting-ramachandran-plot">Resulting Ramachandran Plot</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item"><div>
+	&copy; 2026, <a href=contents/about/who.html>Liliana M. Moreno Vargas, Diego Prada Gracia
+		and contributors</a> | <a href="https://www.uibcdf.org/">UIBCDF Lab</a> 
+	at the <a href="http://himfg.com.mx">Federico Gómez Children’s Hospital of Mexico</a><br />
+	<a href="https://github.com/uibcdf/molsysmt">MolSysMT is an open source project</a> shared
+	under <a href="https://github.com/uibcdf/molsysmt/blob/main/LICENSE">an MIT license</a>
+	with a structure based on the
+	<a href="https://github.com/MolSSI/cookiecutter-cms">Computational Molecular Science
+		Python Cookiecutter</a> version 1.5
+</div></div>
+      
+        <div class="footer-item">
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3
+     | 
+    Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1
+    <br/>
+  </p>
+
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item"><a href= "mailto:uibcdf@gmail.com">Contact us</a><br /></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

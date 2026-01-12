@@ -1,0 +1,886 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="../../_static/favicon-16x16.png" sizes="16x16" rel="icon" type="image/png">
+    <link href="../../_static/favicon-124x124.png" sizes="124x124" rel="icon" type="image/png">
+    <link href="../../_static/favicon-128x128.png" sizes="128x128" rel="icon" type="image/png">
+    <link href="../../_static/favicon-192x192.png" sizes="192x192" rel="icon" type="image/png">
+    <link href="../../_static/icon.svg" rel="icon" type="image/svg+xml">
+  
+    <title>MolSysMT Warning System — Developer Guide – MolSysMT 0.12.0</title>
+  
+
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx_tabs.css?v=f45e19d3" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=d5ef24d1" />
+    <link rel="stylesheet" type="text/css" href="../../_static/tabs.css?v=a5c4661c" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=d5ef24d1" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../../_static/documentation_options.js?v=61ccb1f1"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/nglview-js-widgets@3.1.0/dist/index.js"></script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="MolSysMT Logging and Warning Redirection — Developer Guide" href="logging.html" />
+    <link rel="prev" title="Adding a new form" href="new_form.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="0.12.0" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/logo.svg" class="logo__image only-light" alt="MolSysMT 0.12.0 documentation - Home"/>
+    <img src="../../_static/logo.svg" class="logo__image only-dark pst-js-only" alt="MolSysMT 0.12.0 documentation - Home"/>
+  
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../about/index.html">
+    About
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../showcase/index.html">
+    Showcase
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../user/index.html">
+    User guide
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="index.html">
+    Developer guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../api/index.html">
+    API documentation
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../ai_assistant.html">
+    MolSys-AI
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/uibcdf/molsysmt" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../about/index.html">
+    About
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../showcase/index.html">
+    Showcase
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../user/index.html">
+    User guide
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="index.html">
+    Developer guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../api/index.html">
+    API documentation
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../ai_assistant.html">
+    MolSys-AI
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/uibcdf/molsysmt" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><p aria-level="2" class="caption" role="heading"><span class="caption-text">Introduction</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="intro/Introduction.html">Introduction</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="intro/fork.html">Fork MolSysMT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="start_dev_env_usage.html">Development Environment Setup Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devcontainer.html">Contributing: Development Environment with Devcontainers</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">New form</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="new_form.html">Adding a new form</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Warnings</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">MolSysMT Warning System — Developer Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="logging.html">MolSysMT Logging and Warning Redirection — Developer Guide</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Tests</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="testing/index.html">Testing</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="testing/unit_tests.html">Unit Tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="testing/ci.html">Continuous Integration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="testing/code_coverage.html">Code Coverage</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Documentation</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="documentation/api/index.html">API documentation guidelines</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="documentation/api/docstrings.html">Docstrings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="documentation/api/doctests.html">Doctests</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="documentation/web/index.html">Documentation for the web</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="documentation/web/myst.html">MyST in MolSysMT documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="documentation/web/references.html">References and Cross-links in Documentation</a></li>
+</ul>
+</details></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="index.html" class="nav-link">Developer guide</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">MolSysMT Warning System — Developer Guide</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="molsysmt-warning-system-developer-guide">
+<h1>MolSysMT Warning System — Developer Guide<a class="headerlink" href="#molsysmt-warning-system-developer-guide" title="Link to this heading">#</a></h1>
+<p>This document explains how to <strong>emit, categorize, filter, and test</strong> warnings in MolSysMT. It covers the recommended categories, parametrized warnings, helpers, configuration, deprecations, and testing patterns.</p>
+<blockquote>
+<div><p><strong>Target Python</strong>: 3.10+</p>
+</div></blockquote>
+<hr class="docutils" />
+<section id="why-custom-warnings">
+<h2>1) Why custom warnings?<a class="headerlink" href="#why-custom-warnings" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>We avoid noisy prefixes like <code class="docutils literal notranslate"><span class="pre">&quot;[MolSysMT</span> <span class="pre">Warning]&quot;</span></code>.</p></li>
+<li><p>The <strong>warning category</strong> itself communicates origin and intent (and is filterable by users).</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="categories">
+<h2>2) Categories<a class="headerlink" href="#categories" title="Link to this heading">#</a></h2>
+<p>All categories inherit from <code class="docutils literal notranslate"><span class="pre">UserMolSysMTWarning</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># molsysmt/warnings.py (excerpt)</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Type</span><span class="p">,</span> <span class="n">Iterable</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">UserMolSysMTWarning</span><span class="p">(</span><span class="ne">Warning</span><span class="p">):</span>
+    <span class="c1"># Base class for user-facing warnings in MolSysMT.</span>
+    <span class="k">pass</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">FileFormatWarning</span><span class="p">(</span><span class="n">UserMolSysMTWarning</span><span class="p">):</span>
+    <span class="c1"># Parsing/metadata/IO-related warnings.</span>
+    <span class="k">pass</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">SelectionWarning</span><span class="p">(</span><span class="n">UserMolSysMTWarning</span><span class="p">):</span>
+    <span class="c1"># Selection string / subset resolution warnings.</span>
+    <span class="k">pass</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">PerformanceWarning</span><span class="p">(</span><span class="n">UserMolSysMTWarning</span><span class="p">):</span>
+    <span class="c1"># Potentially expensive operations / degraded performance.</span>
+    <span class="k">pass</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">MolSysMTDeprecationWarning</span><span class="p">(</span><span class="ne">DeprecationWarning</span><span class="p">):</span>
+    <span class="c1"># API deprecations for MolSysMT.</span>
+    <span class="k">pass</span>
+</pre></div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="emitting-warnings-two-patterns">
+<h2>3) Emitting warnings (two patterns)<a class="headerlink" href="#emitting-warnings-two-patterns" title="Link to this heading">#</a></h2>
+<section id="a-simple-message-most-cases">
+<h3>A. Simple message (most cases)<a class="headerlink" href="#a-simple-message-most-cases" title="Link to this heading">#</a></h3>
+<p>Use <code class="docutils literal notranslate"><span class="pre">warnings.warn</span></code> with an appropriate category:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">molsysmt.warnings</span><span class="w"> </span><span class="kn">import</span> <span class="n">FileFormatWarning</span>
+
+<span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+    <span class="s2">&quot;Missing CRYST1 line; no box parsed.&quot;</span><span class="p">,</span>
+    <span class="n">FileFormatWarning</span><span class="p">,</span>
+    <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>  <span class="c1"># points at the caller line</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>When to use</strong>: the message is a one-off string; you don’t need to format complex parameters repeatedly.</p>
+</section>
+<section id="b-parametrized-warning-class-centralized-formatting">
+<h3>B. Parametrized warning class (centralized formatting)<a class="headerlink" href="#b-parametrized-warning-class-centralized-formatting" title="Link to this heading">#</a></h3>
+<p>Define a warning that builds its message in <code class="docutils literal notranslate"><span class="pre">__init__</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Iterable</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">TopologyWarning</span><span class="p">(</span><span class="n">UserMolSysMTWarning</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">n_bonds</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">chains</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">source</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;struct_conn&quot;</span><span class="p">,</span>
+        <span class="n">context</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">n_bonds</span> <span class="o">=</span> <span class="n">n_bonds</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">chains</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">chains</span><span class="p">)</span> <span class="k">if</span> <span class="n">chains</span> <span class="k">else</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">source</span> <span class="o">=</span> <span class="n">source</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">context</span> <span class="o">=</span> <span class="n">context</span>
+
+        <span class="n">msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">n_bonds</span><span class="si">}</span><span class="s2"> covalent bond(s) reported by &#39;</span><span class="si">{</span><span class="n">source</span><span class="si">}</span><span class="s2">&#39;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">chains</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot; between chains </span><span class="si">{</span><span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">chains</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="n">msg</span> <span class="o">+=</span> <span class="s2">&quot; were added.&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">context</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot; (context: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">context</span><span class="si">}</span><span class="s2">)&quot;</span>
+
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Usage:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">molsysmt.warnings</span><span class="w"> </span><span class="kn">import</span> <span class="n">TopologyWarning</span>
+
+<span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="n">TopologyWarning</span><span class="p">(</span><span class="n">n_bonds</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">chains</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;A&quot;</span><span class="p">,</span> <span class="s2">&quot;B&quot;</span><span class="p">],</span> <span class="n">context</span><span class="o">=</span><span class="s2">&quot;read_cif()&quot;</span><span class="p">),</span> <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>When to use</strong>: the same warning is emitted in multiple places with varying parameters; centralizing formatting reduces duplication and keeps messages consistent.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="helpers-warn-and-warn-once-optional-convenience">
+<h2>4) Helpers: <code class="docutils literal notranslate"><span class="pre">warn</span></code> and <code class="docutils literal notranslate"><span class="pre">warn_once</span></code> (optional convenience)<a class="headerlink" href="#helpers-warn-and-warn-once-optional-convenience" title="Link to this heading">#</a></h2>
+<p>We provide thin wrappers to standardize <code class="docutils literal notranslate"><span class="pre">stacklevel</span></code> and suppress duplication.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Type</span>
+
+<span class="n">__WARNED_ONCE_CACHE__</span><span class="p">:</span> <span class="nb">set</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="n">Type</span><span class="p">[</span><span class="ne">Warning</span><span class="p">],</span> <span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">warn</span><span class="p">(</span><span class="n">message_or_warning</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="ne">Warning</span><span class="p">,</span>
+         <span class="n">category</span><span class="p">:</span> <span class="n">Type</span><span class="p">[</span><span class="ne">Warning</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+         <span class="o">*</span><span class="p">,</span>
+         <span class="n">stacklevel</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">2</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">message_or_warning</span><span class="p">,</span> <span class="ne">Warning</span><span class="p">):</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="n">message_or_warning</span><span class="p">,</span> <span class="n">stacklevel</span><span class="o">=</span><span class="n">stacklevel</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="n">message_or_warning</span><span class="p">,</span> <span class="n">category</span> <span class="ow">or</span> <span class="n">UserMolSysMTWarning</span><span class="p">,</span> <span class="n">stacklevel</span><span class="o">=</span><span class="n">stacklevel</span><span class="p">)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">warn_once</span><span class="p">(</span><span class="n">message_or_warning</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="ne">Warning</span><span class="p">,</span>
+              <span class="n">category</span><span class="p">:</span> <span class="n">Type</span><span class="p">[</span><span class="ne">Warning</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+              <span class="o">*</span><span class="p">,</span>
+              <span class="n">stacklevel</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">2</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">message_or_warning</span><span class="p">,</span> <span class="ne">Warning</span><span class="p">):</span>
+        <span class="n">msg</span><span class="p">,</span> <span class="n">cat</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">message_or_warning</span><span class="p">),</span> <span class="nb">type</span><span class="p">(</span><span class="n">message_or_warning</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">msg</span><span class="p">,</span> <span class="n">cat</span> <span class="o">=</span> <span class="n">message_or_warning</span><span class="p">,</span> <span class="n">category</span> <span class="ow">or</span> <span class="n">UserMolSysMTWarning</span>
+
+    <span class="n">key</span> <span class="o">=</span> <span class="p">(</span><span class="n">cat</span><span class="p">,</span> <span class="n">msg</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">__WARNED_ONCE_CACHE__</span><span class="p">:</span>
+        <span class="k">return</span>
+    <span class="n">__WARNED_ONCE_CACHE__</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+    <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="n">message_or_warning</span><span class="p">,</span> <span class="n">cat</span><span class="p">,</span> <span class="n">stacklevel</span><span class="o">=</span><span class="n">stacklevel</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Examples</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">molsysmt.warnings</span><span class="w"> </span><span class="kn">import</span> <span class="n">warn</span><span class="p">,</span> <span class="n">warn_once</span><span class="p">,</span> <span class="n">SelectionWarning</span>
+
+<span class="n">warn</span><span class="p">(</span><span class="s2">&quot;Unknown tokens in selection; ignoring.&quot;</span><span class="p">,</span> <span class="n">SelectionWarning</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">100</span><span class="p">):</span>
+    <span class="n">warn_once</span><span class="p">(</span><span class="s2">&quot;Falling back to slow path; consider pre-alignment.&quot;</span><span class="p">,</span> <span class="n">PerformanceWarning</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="choosing-stacklevel">
+<h2>5) Choosing <code class="docutils literal notranslate"><span class="pre">stacklevel</span></code><a class="headerlink" href="#choosing-stacklevel" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Use <code class="docutils literal notranslate"><span class="pre">stacklevel=2</span></code> so the traceback points to <strong>the caller</strong> (your API’s surface), not the internal utility emitting the warning.</p></li>
+<li><p>If you wrap warnings in deeper helpers, you may need <code class="docutils literal notranslate"><span class="pre">stacklevel=3+</span></code>. Verify with a quick run to ensure the location shown is helpful to end users.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="filtering-and-configuration-package-user">
+<h2>6) Filtering and configuration (package &amp; user)<a class="headerlink" href="#filtering-and-configuration-package-user" title="Link to this heading">#</a></h2>
+<p>We <strong>don’t</strong> force filters in <code class="docutils literal notranslate"><span class="pre">warnings.py</span></code>. Suggested defaults (opt-in) in <code class="docutils literal notranslate"><span class="pre">molsysmt/__init__.py</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># molsysmt/__init__.py</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.warnings</span><span class="w"> </span><span class="kn">import</span> <span class="n">UserMolSysMTWarning</span><span class="p">,</span> <span class="n">MolSysMTDeprecationWarning</span>
+
+<span class="n">warnings</span><span class="o">.</span><span class="n">simplefilter</span><span class="p">(</span><span class="s2">&quot;default&quot;</span><span class="p">,</span> <span class="n">UserMolSysMTWarning</span><span class="p">)</span>         <span class="c1"># show user warnings at least once</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">simplefilter</span><span class="p">(</span><span class="s2">&quot;default&quot;</span><span class="p">,</span> <span class="n">MolSysMTDeprecationWarning</span><span class="p">)</span>  <span class="c1"># make deprecations visible</span>
+</pre></div>
+</div>
+<p><strong>User-side control</strong> (in scripts or notebooks):</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">molsysmt.warnings</span><span class="w"> </span><span class="kn">import</span> <span class="n">PerformanceWarning</span><span class="p">,</span> <span class="n">TopologyWarning</span>
+
+<span class="n">warnings</span><span class="o">.</span><span class="n">simplefilter</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">,</span> <span class="n">PerformanceWarning</span><span class="p">)</span>  <span class="c1"># silence performance warnings</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">simplefilter</span><span class="p">(</span><span class="s2">&quot;always&quot;</span><span class="p">,</span> <span class="n">TopologyWarning</span><span class="p">)</span>     <span class="c1"># always show topology warnings</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">simplefilter</span><span class="p">(</span><span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="n">FileFormatWarning</span><span class="p">)</span>    <span class="c1"># treat IO issues as errors</span>
+</pre></div>
+</div>
+<p>Common actions:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;ignore&quot;</span></code>: hide a category</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;default&quot;</span></code>: show first occurrence per location (Python default behavior)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;once&quot;</span></code>: show only once per process</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;always&quot;</span></code>: show every time</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;error&quot;</span></code>: convert to exceptions (useful in CI)</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="deprecation-policy">
+<h2>7) Deprecation policy<a class="headerlink" href="#deprecation-policy" title="Link to this heading">#</a></h2>
+<p>Use <code class="docutils literal notranslate"><span class="pre">MolSysMTDeprecationWarning</span></code> for API removals/renames. Provide guidance and a horizon:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">molsysmt.warnings</span><span class="w"> </span><span class="kn">import</span> <span class="n">MolSysMTDeprecationWarning</span>
+
+<span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+    <span class="s2">&quot;Function `old_api()` is deprecated and will be removed in v2.0; use `new_api()` instead.&quot;</span><span class="p">,</span>
+    <span class="n">MolSysMTDeprecationWarning</span><span class="p">,</span>
+    <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Guidelines</strong></p>
+<ul class="simple">
+<li><p>Include the alternative API.</p></li>
+<li><p>Include a timeline (e.g., removal in vX.Y).</p></li>
+<li><p>Consider gating with an environment variable for early adopters (optional).</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="message-style-guide">
+<h2>8) Message style guide<a class="headerlink" href="#message-style-guide" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Actionable</strong>: say what happened and what to do, if applicable.</p></li>
+<li><p><strong>Compact</strong>: one sentence when possible; link or reference docs for details.</p></li>
+<li><p><strong>Context</strong>: include small context (e.g., file, function) when it helps.</p></li>
+<li><p><strong>No prefixes</strong> like <code class="docutils literal notranslate"><span class="pre">[MolSysMT</span> <span class="pre">Warning]</span></code> — the category is the origin.</p></li>
+</ul>
+<p>Examples:</p>
+<ul class="simple">
+<li><p>Good: <em>“Missing CRYST1 line; no box parsed. (file: my.pdb)”</em></p></li>
+<li><p>Good: <em>“3 covalent bond(s) reported by ‘struct_conn’ between chains [‘A’, ‘B’] were added.”</em></p></li>
+<li><p>Avoid: <em>“[MolSysMT Warning] Something happened.”</em></p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="testing-warnings-pytest">
+<h2>9) Testing warnings (pytest)<a class="headerlink" href="#testing-warnings-pytest" title="Link to this heading">#</a></h2>
+<section id="a-expect-a-warning">
+<h3>A. Expect a warning<a class="headerlink" href="#a-expect-a-warning" title="Link to this heading">#</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pytest</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">molsysmt.warnings</span><span class="w"> </span><span class="kn">import</span> <span class="n">FileFormatWarning</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">test_missing_cryst1_emits_warning</span><span class="p">():</span>
+    <span class="k">with</span> <span class="n">pytest</span><span class="o">.</span><span class="n">warns</span><span class="p">(</span><span class="n">FileFormatWarning</span><span class="p">,</span> <span class="n">match</span><span class="o">=</span><span class="s2">&quot;Missing CRYST1&quot;</span><span class="p">):</span>
+        <span class="c1"># call the function that should warn</span>
+        <span class="n">parse_pdb</span><span class="p">(</span><span class="s2">&quot;tests/data/no_cryst1.pdb&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="b-no-warning-expected">
+<h3>B. No warning expected<a class="headerlink" href="#b-no-warning-expected" title="Link to this heading">#</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">test_clean_file_no_warning</span><span class="p">(</span><span class="n">recwarn</span><span class="p">):</span>
+    <span class="n">parse_pdb</span><span class="p">(</span><span class="s2">&quot;tests/data/clean.pdb&quot;</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="ow">not</span> <span class="n">recwarn</span>  <span class="c1"># no warnings captured</span>
+</pre></div>
+</div>
+</section>
+<section id="c-convert-to-errors-in-ci-optional">
+<h3>C. Convert to errors in CI (optional)<a class="headerlink" href="#c-convert-to-errors-in-ci-optional" title="Link to this heading">#</a></h3>
+<p>In <code class="docutils literal notranslate"><span class="pre">pytest.ini</span></code>:</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[pytest]</span>
+<span class="na">filterwarnings</span><span class="w"> </span><span class="o">=</span>
+<span class="w">    </span><span class="na">error</span><span class="o">:</span><span class="s">:molsysmt.warnings.FileFormatWarning</span>
+<span class="w">    </span><span class="na">default</span><span class="o">:</span><span class="s">:molsysmt.warnings.UserMolSysMTWarning</span>
+<span class="w">    </span><span class="na">default</span><span class="o">:</span><span class="s">:molsysmt.warnings.MolSysMTDeprecationWarning</span>
+</pre></div>
+</div>
+<p>Or in a specific test:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">test_treat_file_issues_as_errors</span><span class="p">(</span><span class="n">monkeypatch</span><span class="p">):</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">molsysmt.warnings</span><span class="w"> </span><span class="kn">import</span> <span class="n">FileFormatWarning</span>
+    <span class="n">warnings</span><span class="o">.</span><span class="n">simplefilter</span><span class="p">(</span><span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="n">FileFormatWarning</span><span class="p">)</span>
+    <span class="k">with</span> <span class="n">pytest</span><span class="o">.</span><span class="n">raises</span><span class="p">(</span><span class="n">FileFormatWarning</span><span class="p">):</span>
+        <span class="n">parse_pdb</span><span class="p">(</span><span class="s2">&quot;tests/data/bad_format.pdb&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="migration-note-from-userwarning-text-prefix">
+<h2>10) Migration note (from <code class="docutils literal notranslate"><span class="pre">UserWarning</span></code> + text prefix)<a class="headerlink" href="#migration-note-from-userwarning-text-prefix" title="Link to this heading">#</a></h2>
+<p><strong>Before</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;[MolSysMT Warning] Added covalent bonds from struct_conn&quot;</span><span class="p">,</span> <span class="ne">UserWarning</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>After</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">molsysmt.warnings</span><span class="w"> </span><span class="kn">import</span> <span class="n">TopologyWarning</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
+
+<span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="n">TopologyWarning</span><span class="p">(</span><span class="n">n_bonds</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">chains</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;A&quot;</span><span class="p">,</span> <span class="s2">&quot;B&quot;</span><span class="p">]))</span>
+</pre></div>
+</div>
+<p>No textual prefix is needed; the <strong>category</strong> is now <code class="docutils literal notranslate"><span class="pre">TopologyWarning</span></code>.</p>
+</section>
+<hr class="docutils" />
+<section id="quick-reference-cheat-sheet">
+<h2>11) Quick reference (cheat sheet)<a class="headerlink" href="#quick-reference-cheat-sheet" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Pick a category</strong>: <code class="docutils literal notranslate"><span class="pre">FileFormatWarning</span></code>, <code class="docutils literal notranslate"><span class="pre">SelectionWarning</span></code>, <code class="docutils literal notranslate"><span class="pre">PerformanceWarning</span></code>, <code class="docutils literal notranslate"><span class="pre">TopologyWarning</span></code>, <code class="docutils literal notranslate"><span class="pre">MolSysMTDeprecationWarning</span></code>.</p></li>
+<li><p><strong>Emit</strong>: <code class="docutils literal notranslate"><span class="pre">warnings.warn(&quot;message&quot;,</span> <span class="pre">Category,</span> <span class="pre">stacklevel=2)</span></code> or <code class="docutils literal notranslate"><span class="pre">warnings.warn(CategoryClass(...),</span> <span class="pre">stacklevel=2)</span></code>.</p></li>
+<li><p><strong>Once only</strong>: <code class="docutils literal notranslate"><span class="pre">warn_once(&quot;message&quot;,</span> <span class="pre">Category)</span></code> or <code class="docutils literal notranslate"><span class="pre">warn_once(CategoryClass(...))</span></code>.</p></li>
+<li><p><strong>Filter</strong>: <code class="docutils literal notranslate"><span class="pre">warnings.simplefilter(&quot;ignore&quot;|&quot;default&quot;|&quot;once&quot;|&quot;always&quot;|&quot;error&quot;,</span> <span class="pre">Category)</span></code>.</p></li>
+<li><p><strong>Test</strong>: <code class="docutils literal notranslate"><span class="pre">with</span> <span class="pre">pytest.warns(Category,</span> <span class="pre">match=&quot;...&quot;):</span></code>.</p></li>
+</ul>
+<hr class="docutils" />
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="new_form.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Adding a new form</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="logging.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">MolSysMT Logging and Warning Redirection — Developer Guide</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-custom-warnings">1) Why custom warnings?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#categories">2) Categories</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#emitting-warnings-two-patterns">3) Emitting warnings (two patterns)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-simple-message-most-cases">A. Simple message (most cases)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#b-parametrized-warning-class-centralized-formatting">B. Parametrized warning class (centralized formatting)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#helpers-warn-and-warn-once-optional-convenience">4) Helpers: <code class="docutils literal notranslate"><span class="pre">warn</span></code> and <code class="docutils literal notranslate"><span class="pre">warn_once</span></code> (optional convenience)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#choosing-stacklevel">5) Choosing <code class="docutils literal notranslate"><span class="pre">stacklevel</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#filtering-and-configuration-package-user">6) Filtering and configuration (package &amp; user)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#deprecation-policy">7) Deprecation policy</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#message-style-guide">8) Message style guide</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#testing-warnings-pytest">9) Testing warnings (pytest)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-expect-a-warning">A. Expect a warning</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#b-no-warning-expected">B. No warning expected</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#c-convert-to-errors-in-ci-optional">C. Convert to errors in CI (optional)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#migration-note-from-userwarning-text-prefix">10) Migration note (from <code class="docutils literal notranslate"><span class="pre">UserWarning</span></code> + text prefix)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quick-reference-cheat-sheet">11) Quick reference (cheat sheet)</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item"><div>
+	&copy; 2026, <a href=contents/about/who.html>Liliana M. Moreno Vargas, Diego Prada Gracia
+		and contributors</a> | <a href="https://www.uibcdf.org/">UIBCDF Lab</a> 
+	at the <a href="http://himfg.com.mx">Federico Gómez Children’s Hospital of Mexico</a><br />
+	<a href="https://github.com/uibcdf/molsysmt">MolSysMT is an open source project</a> shared
+	under <a href="https://github.com/uibcdf/molsysmt/blob/main/LICENSE">an MIT license</a>
+	with a structure based on the
+	<a href="https://github.com/MolSSI/cookiecutter-cms">Computational Molecular Science
+		Python Cookiecutter</a> version 1.5
+</div></div>
+      
+        <div class="footer-item">
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3
+     | 
+    Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1
+    <br/>
+  </p>
+
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item"><a href= "mailto:uibcdf@gmail.com">Contact us</a><br /></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

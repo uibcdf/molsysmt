@@ -1,0 +1,1581 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="_static/favicon-16x16.png" sizes="16x16" rel="icon" type="image/png">
+    <link href="_static/favicon-124x124.png" sizes="124x124" rel="icon" type="image/png">
+    <link href="_static/favicon-128x128.png" sizes="128x128" rel="icon" type="image/png">
+    <link href="_static/favicon-192x192.png" sizes="192x192" rel="icon" type="image/png">
+    <link href="_static/icon.svg" rel="icon" type="image/svg+xml">
+  
+    <title>molsysmt.build package – MolSysMT 0.12.0</title>
+  
+
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx_tabs.css?v=f45e19d3" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css?v=d5ef24d1" />
+    <link rel="stylesheet" type="text/css" href="_static/tabs.css?v=a5c4661c" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css?v=d5ef24d1" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="_static/documentation_options.js?v=61ccb1f1"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/nglview-js-widgets@3.1.0/dist/index.js"></script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="0.12.0" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.svg" class="logo__image only-light" alt="MolSysMT 0.12.0 documentation - Home"/>
+    <img src="_static/logo.svg" class="logo__image only-dark pst-js-only" alt="MolSysMT 0.12.0 documentation - Home"/>
+  
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="content/about/index.html">
+    About
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="content/showcase/index.html">
+    Showcase
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="content/user/index.html">
+    User guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="content/developer/index.html">
+    Developer guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="api/index.html">
+    API documentation
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="content/ai_assistant.html">
+    MolSys-AI
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/uibcdf/molsysmt" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="content/about/index.html">
+    About
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="content/showcase/index.html">
+    Showcase
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="content/user/index.html">
+    User guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="content/developer/index.html">
+    Developer guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="api/index.html">
+    API documentation
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="content/ai_assistant.html">
+    MolSys-AI
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/uibcdf/molsysmt" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="molsysmt.attribute.html">molsysmt.attribute package</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="molsysmt.basic.html">molsysmt.basic package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.basic.selector.html">molsysmt.basic.selector package</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">molsysmt.build package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="molsysmt.config.html">molsysmt.config package</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="molsysmt.element.html">molsysmt.element package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.element.atom.html">molsysmt.element.atom package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.element.bond.html">molsysmt.element.bond package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.element.chain.html">molsysmt.element.chain package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.element.component.html">molsysmt.element.component package</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="molsysmt.element.entity.html">molsysmt.element.entity package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="molsysmt.element.entity.disaccharide.html">molsysmt.element.entity.disaccharide package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="molsysmt.element.entity.monosaccharide.html">molsysmt.element.entity.monosaccharide package</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="molsysmt.element.group.html">molsysmt.element.group package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="molsysmt.element.group.amino_acid.html">molsysmt.element.group.amino_acid package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="molsysmt.element.group.ion.html">molsysmt.element.group.ion package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="molsysmt.element.group.lipid.html">molsysmt.element.group.lipid package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="molsysmt.element.group.nucleotide.html">molsysmt.element.group.nucleotide package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="molsysmt.element.group.saccharide.html">molsysmt.element.group.saccharide package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="molsysmt.element.group.small_molecule.html">molsysmt.element.group.small_molecule package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="molsysmt.element.group.terminal_capping.html">molsysmt.element.group.terminal_capping package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="molsysmt.element.group.water.html">molsysmt.element.group.water package</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="molsysmt.element.molecule.html">molsysmt.element.molecule package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="molsysmt.element.molecule.disaccharide.html">molsysmt.element.molecule.disaccharide package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="molsysmt.element.molecule.dna.html">molsysmt.element.molecule.dna package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="molsysmt.element.molecule.ion.html">molsysmt.element.molecule.ion package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="molsysmt.element.molecule.lipid.html">molsysmt.element.molecule.lipid package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="molsysmt.element.molecule.monosaccharide.html">molsysmt.element.molecule.monosaccharide package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="molsysmt.element.molecule.peptide.html">molsysmt.element.molecule.peptide package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="molsysmt.element.molecule.polysaccharide.html">molsysmt.element.molecule.polysaccharide package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="molsysmt.element.molecule.protein.html">molsysmt.element.molecule.protein package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="molsysmt.element.molecule.rna.html">molsysmt.element.molecule.rna package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="molsysmt.element.molecule.small_molecule.html">molsysmt.element.molecule.small_molecule package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="molsysmt.element.molecule.water.html">molsysmt.element.molecule.water package</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="molsysmt.file.html">molsysmt.file package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="molsysmt.file.handlers.html">molsysmt.file.handlers package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="molsysmt.file.handlers.mdtraj_HDF5TrajectoryFile.html">molsysmt.file.handlers.mdtraj_HDF5TrajectoryFile package</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="molsysmt.form.html">molsysmt.form package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.form.MDAnalysis_Topology.html">molsysmt.form.MDAnalysis_Topology package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.form.MDAnalysis_Universe.html">molsysmt.form.MDAnalysis_Universe package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.form.XYZ.html">molsysmt.form.XYZ package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.form.biopython_Seq.html">molsysmt.form.biopython_Seq package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.form.biopython_SeqRecord.html">molsysmt.form.biopython_SeqRecord package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.form.file_bcif.html">molsysmt.form.file_bcif package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.form.file_bcif_gz.html">molsysmt.form.file_bcif_gz package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.form.file_cif.html">molsysmt.form.file_cif package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.form.file_cif_gz.html">molsysmt.form.file_cif_gz package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.form.file_crd.html">molsysmt.form.file_crd package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.form.file_dcd.html">molsysmt.form.file_dcd package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.form.file_gro.html">molsysmt.form.file_gro package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.form.file_h5.html">molsysmt.form.file_h5 package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.form.file_h5msm.html">molsysmt.form.file_h5msm package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.form.file_inpcrd.html">molsysmt.form.file_inpcrd package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.form.file_mmtf.html">molsysmt.form.file_mmtf package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.form.file_mol2.html">molsysmt.form.file_mol2 package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.form.file_msmpk.html">molsysmt.form.file_msmpk package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.form.file_pdb.html">molsysmt.form.file_pdb package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.form.file_prmtop.html">molsysmt.form.file_prmtop package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.form.file_psf.html">molsysmt.form.file_psf package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.form.file_trjpk.html">molsysmt.form.file_trjpk package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.form.file_xtc.html">molsysmt.form.file_xtc package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.form.file_xyznpy.html">molsysmt.form.file_xyznpy package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.form.mdtraj_DCDTrajectoryFile.html">molsysmt.form.mdtraj_DCDTrajectoryFile package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.form.mdtraj_HDF5TrajectoryFile.html">molsysmt.form.mdtraj_HDF5TrajectoryFile package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.form.mdtraj_Topology.html">molsysmt.form.mdtraj_Topology package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.form.mdtraj_Trajectory.html">molsysmt.form.mdtraj_Trajectory package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.form.mdtraj_XTCTrajectoryFile.html">molsysmt.form.mdtraj_XTCTrajectoryFile package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.form.mmcif_PdbxContainers_DataContainer.html">molsysmt.form.mmcif_PdbxContainers_DataContainer package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.form.mmtf_MMTFDecoder.html">molsysmt.form.mmtf_MMTFDecoder package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.form.molsysmt_CIFFileHandler.html">molsysmt.form.molsysmt_CIFFileHandler package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.form.molsysmt_GROFileHandler.html">molsysmt.form.molsysmt_GROFileHandler package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.form.molsysmt_H5MSMFileHandler.html">molsysmt.form.molsysmt_H5MSMFileHandler package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.form.molsysmt_MolSys.html">molsysmt.form.molsysmt_MolSys package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.form.molsysmt_MolecularMechanics.html">molsysmt.form.molsysmt_MolecularMechanics package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.form.molsysmt_MolecularMechanicsDict.html">molsysmt.form.molsysmt_MolecularMechanicsDict package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.form.molsysmt_PDBFileHandler.html">molsysmt.form.molsysmt_PDBFileHandler package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.form.molsysmt_Structures.html">molsysmt.form.molsysmt_Structures package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.form.molsysmt_StructuresDict.html">molsysmt.form.molsysmt_StructuresDict package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.form.molsysmt_Topology.html">molsysmt.form.molsysmt_Topology package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.form.molsysmt_UniversalJSON.html">molsysmt.form.molsysmt_UniversalJSON package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.form.molsysmt_ViewerJSON.html">molsysmt.form.molsysmt_ViewerJSON package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.form.networkx_Graph.html">molsysmt.form.networkx_Graph package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.form.nglview_NGLWidget.html">molsysmt.form.nglview_NGLWidget package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.form.openmm_AmberInpcrdFile.html">molsysmt.form.openmm_AmberInpcrdFile package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.form.openmm_AmberPrmtopFile.html">molsysmt.form.openmm_AmberPrmtopFile package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.form.openmm_CharmmCrdFile.html">molsysmt.form.openmm_CharmmCrdFile package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.form.openmm_CharmmPsfFile.html">molsysmt.form.openmm_CharmmPsfFile package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.form.openmm_Context.html">molsysmt.form.openmm_Context package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.form.openmm_GromacsGroFile.html">molsysmt.form.openmm_GromacsGroFile package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.form.openmm_GromacsTopFile.html">molsysmt.form.openmm_GromacsTopFile package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.form.openmm_Modeller.html">molsysmt.form.openmm_Modeller package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.form.openmm_PDBFile.html">molsysmt.form.openmm_PDBFile package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.form.openmm_Simulation.html">molsysmt.form.openmm_Simulation package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.form.openmm_State.html">molsysmt.form.openmm_State package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.form.openmm_System.html">molsysmt.form.openmm_System package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.form.openmm_Topology.html">molsysmt.form.openmm_Topology package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.form.parmed_Structure.html">molsysmt.form.parmed_Structure package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.form.pdbfixer_PDBFixer.html">molsysmt.form.pdbfixer_PDBFixer package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.form.pytraj_Topology.html">molsysmt.form.pytraj_Topology package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.form.pytraj_Trajectory.html">molsysmt.form.pytraj_Trajectory package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.form.string_alphafold_id.html">molsysmt.form.string_alphafold_id package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.form.string_amino_acids_1.html">molsysmt.form.string_amino_acids_1 package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.form.string_amino_acids_3.html">molsysmt.form.string_amino_acids_3 package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.form.string_pdb_id.html">molsysmt.form.string_pdb_id package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.form.string_pdb_text.html">molsysmt.form.string_pdb_text package</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="molsysmt.hbonds.html">molsysmt.hbonds package</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="molsysmt.lib.html">molsysmt.lib package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.lib.pbc.html">molsysmt.lib.pbc package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.lib.structure.html">molsysmt.lib.structure package</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="molsysmt.molecular_dynamics.html">molsysmt.molecular_dynamics package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="molsysmt.molecular_mechanics.html">molsysmt.molecular_mechanics package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="molsysmt.native.html">molsysmt.native package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="molsysmt.pbc.html">molsysmt.pbc package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="molsysmt.physchem.html">molsysmt.physchem package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="molsysmt.structure.html">molsysmt.structure package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="molsysmt.supported.html">molsysmt.supported package</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="molsysmt.thirds.html">molsysmt.thirds package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.thirds.nglview.html">molsysmt.thirds.nglview package</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="molsysmt.thirds.openmm.html">molsysmt.thirds.openmm package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="molsysmt.thirds.openmm.forces.html">molsysmt.thirds.openmm.forces package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="molsysmt.thirds.openmm.platforms.html">molsysmt.thirds.openmm.platforms package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="molsysmt.thirds.openmm.reporters.html">molsysmt.thirds.openmm.reporters package</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.thirds.tleap.html">molsysmt.thirds.tleap package</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="molsysmt.topology.html">molsysmt.topology package</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">molsysmt.build package</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="molsysmt-build-package">
+<h1>molsysmt.build package<a class="headerlink" href="#molsysmt-build-package" title="Link to this heading">#</a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading">#</a></h2>
+</section>
+<section id="module-molsysmt.build.add_bonds">
+<span id="molsysmt-build-add-bonds-module"></span><h2>molsysmt.build.add_bonds module<a class="headerlink" href="#module-molsysmt.build.add_bonds" title="Link to this heading">#</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="molsysmt.build.add_bonds.add_bonds">
+<span class="sig-prename descclassname"><span class="pre">molsysmt.build.add_bonds.</span></span><span class="sig-name descname"><span class="pre">add_bonds</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">molecular_system</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bonded_atom_pairs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">in_place</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">skip_digestion</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/molsysmt/build/add_bonds.html#add_bonds"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#molsysmt.build.add_bonds.add_bonds" title="Link to this definition">#</a></dt>
+<dd><p>Adding covalent bonds between atom pairs in a molecular system.</p>
+<p>This function adds new covalent bonds between pairs of atoms in a molecular system. The
+new bonds are defined by a list of atom index pairs. The function modifies the input
+molecular system in place unless otherwise specified.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>molecular_system</strong> (<em>molecular system</em>) – Molecular system in any of <a class="reference internal" href="content/user/intro/molecular_systems/forms.html#introduction-forms"><span class="std std-ref">the supported forms</span></a> to which new
+bonds will be added.</p></li>
+<li><p><strong>bonded_atom_pairs</strong> (<em>list</em><em>, </em><em>tuple</em><em>, or </em><em>numpy.ndarray</em><em> of </em><em>shape</em><em> (</em><em>n_bonds</em><em>, </em><em>2</em><em>)</em>) – List or array of atom index pairs (0-based integers), where each pair defines a bond to
+be added.</p></li>
+<li><p><strong>in_place</strong> (<em>bool</em><em>, </em><em>default True</em>) – Whether to modify the input molecular system in place. If set to <cite>False</cite>, a copy of the
+molecular system is returned with the new bonds added.</p></li>
+<li><p><strong>skip_digestion</strong> (<em>bool</em><em>, </em><em>default False</em>) – If <cite>True</cite>, skips the initial validation and normalization of the input arguments. Mainly
+used internally.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>If <cite>in_place=True</cite>, the function modifies the input system and returns <cite>None</cite>.
+If <cite>in_place=False</cite>, a new molecular system is returned with the added bonds.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>molecular system or None</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>NotSupportedFormError</strong> – Raised if the molecular system has a format that does not support topology editing.</p></li>
+<li><p><strong>ArgumentError</strong> – Raised if the input atom indices are invalid or improperly formatted.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>This function only updates the topological attribute <cite>bonded_atoms</cite>.</p></li>
+<li><p>No bond orders or bond types are inferred or assigned.</p></li>
+<li><p>Atom indices must be valid and within the range of the molecular system’s atoms.</p></li>
+</ul>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="#module-molsysmt.build.remove_bonds" title="molsysmt.build.remove_bonds"><code class="xref py py-func docutils literal notranslate"><span class="pre">molsysmt.build.remove_bonds()</span></code></a></dt><dd><p>Remove specific bonds from a molecular system.</p>
+</dd>
+<dt><a class="reference internal" href="#module-molsysmt.build.add_missing_bonds" title="molsysmt.build.add_missing_bonds"><code class="xref py py-func docutils literal notranslate"><span class="pre">molsysmt.build.add_missing_bonds()</span></code></a></dt><dd><p>Add bonds based on distance criteria and atomic types.</p>
+</dd>
+</dl>
+</div>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">molsysmt</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">msm</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">system</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="s1">&#39;181L&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">new_bonds</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">)]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">msm</span><span class="o">.</span><span class="n">build</span><span class="o">.</span><span class="n">add_bonds</span><span class="p">(</span><span class="n">system</span><span class="p">,</span> <span class="n">new_bonds</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">msm</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">system</span><span class="p">,</span> <span class="n">bonded_atoms</span><span class="o">=</span><span class="kc">True</span><span class="p">)[:</span><span class="mi">5</span><span class="p">]</span>
+<span class="go">array([[0, 1],</span>
+<span class="go">       [1, 2],</span>
+<span class="go">       [2, 3],</span>
+<span class="go">       [3, 4],</span>
+<span class="go">       [0, 4]])</span>
+</pre></div>
+</div>
+<div class="admonition-user-guide admonition">
+<p class="admonition-title">User guide</p>
+<p>Follow this link for a tutorial on how to work with this function:
+<span class="xref std std-ref">User Guide &gt; Tools &gt; Build &gt; Add bonds</span>.</p>
+</div>
+<div class="versionadded">
+<p><span class="versionmodified added">Added in version 1.0.0.</span></p>
+</div>
+</dd></dl>
+
+</section>
+<section id="module-molsysmt.build.add_missing_bonds">
+<span id="molsysmt-build-add-missing-bonds-module"></span><h2>molsysmt.build.add_missing_bonds module<a class="headerlink" href="#module-molsysmt.build.add_missing_bonds" title="Link to this heading">#</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="molsysmt.build.add_missing_bonds.add_missing_bonds">
+<span class="sig-prename descclassname"><span class="pre">molsysmt.build.add_missing_bonds.</span></span><span class="sig-name descname"><span class="pre">add_missing_bonds</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">molecular_system</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_bond_length</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'2</span> <span class="pre">angstroms'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">selection</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'all'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">structure_index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">syntax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'MolSysMT'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">engine</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'MolSysMT'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">in_place</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">skip_digestion</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/molsysmt/build/add_missing_bonds.html#add_missing_bonds"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#molsysmt.build.add_missing_bonds.add_missing_bonds" title="Link to this definition">#</a></dt>
+<dd><p>Adding missing covalent bonds based on atomic distances and types.</p>
+<p>This function analyzes the atomic coordinates and element types in a molecular system
+to infer and add covalent bonds between atoms that are close enough based on standard
+bonding distances. The new bonds are added to the <cite>bonded_atoms</cite> attribute. No bond types
+or orders are assigned. The procedure can be applied in-place or return a modified copy.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>molecular_system</strong> (<em>molecular system</em>) – Molecular system in any of <a class="reference internal" href="content/user/intro/molecular_systems/forms.html#introduction-forms"><span class="std std-ref">the supported forms</span></a> to which new
+covalent bonds will be added.</p></li>
+<li><p><strong>max_bond_length</strong> (<em>str</em><em> or </em><em>float with unit</em><em>, </em><em>default '2 angstroms'</em>) – Maximum distance between two atoms for a bond to be considered. Atoms further than this
+value will not be bonded. If a string is passed, it must include units (e.g., ‘0.19 nm’).</p></li>
+<li><p><strong>selection</strong> (<em>tuple</em><em>, </em><em>list</em><em>, </em><em>numpy.ndarray</em><em> or </em><em>str</em><em>, </em><em>default 'all'</em>) – Selection of atoms to which the method applies. The selection can be given by a list, tuple
+or numpy array of atom indices (0-based integers), or by a query string following any of
+<a class="reference internal" href="content/user/intro/selection_syntaxes.html#introduction-selection"><span class="std std-ref">the selection syntaxes parsable by MolSysMT</span></a>.</p></li>
+<li><p><strong>structure_index</strong> (<em>int</em><em>, </em><em>default 0</em>) – Structure index (0-based) to use when the molecular system contains multiple structures.
+The bond detection is based on the atomic positions at this structure.</p></li>
+<li><p><strong>syntax</strong> (<em>str</em><em>, </em><em>default 'MolSysMT'</em>) – <a class="reference internal" href="content/user/intro/selection_syntaxes.html#introduction-selection"><span class="std std-ref">Supported syntax</span></a> used in the <cite>selection</cite> argument (in case it is a string).</p></li>
+<li><p><strong>engine</strong> (<em>{'MolSysMT'}</em><em>, </em><em>default 'MolSysMT'</em>) – Engine used to infer bonds. Currently only the native ‘MolSysMT’ engine is supported.</p></li>
+<li><p><strong>in_place</strong> (<em>bool</em><em>, </em><em>default True</em>) – If <cite>True</cite>, the input molecular system is modified directly. If <cite>False</cite>, a new system with
+the added bonds is returned.</p></li>
+<li><p><strong>skip_digestion</strong> (<em>bool</em><em>, </em><em>default False</em>) – If <cite>True</cite>, skips initial validation of input arguments. Used internally.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>If <cite>in_place=True</cite>, the function returns <cite>None</cite> and modifies the input molecular system.
+If <cite>in_place=False</cite>, a new molecular system is returned with inferred bonds added.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>molecular system or None</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>NotSupportedFormError</strong> – Raised if the input molecular system is in a form that cannot be edited.</p></li>
+<li><p><strong>ArgumentError</strong> – Raised if any of the input arguments are invalid or inconsistent.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>This method updates only the <cite>bonded_atoms</cite> attribute of the system. No bond types or orders
+are assigned.</p>
+<p>This function is useful when working with coordinate files that lack bond information
+(e.g., <cite>.xyz</cite>, <cite>.pdb</cite>, or trajectory frames).</p>
+<p>The list of supported molecular systems’ forms is detailed in the documentation section:
+<a class="reference internal" href="content/user/intro/molecular_systems/forms.html#introduction-forms"><span class="std std-ref">User Guide &gt; Introduction &gt; Molecular systems &gt; Forms</span></a></p>
+<p>The list of supported selection syntaxes can be found here:
+<a class="reference internal" href="content/user/intro/selection_syntaxes.html#introduction-selection"><span class="std std-ref">User Guide &gt; Introduction &gt; Selection syntaxes</span></a></p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="#module-molsysmt.build.add_bonds" title="molsysmt.build.add_bonds"><code class="xref py py-func docutils literal notranslate"><span class="pre">molsysmt.build.add_bonds()</span></code></a></dt><dd><p>Manually add specific bonds to a molecular system.</p>
+</dd>
+<dt><a class="reference internal" href="#module-molsysmt.build.remove_bonds" title="molsysmt.build.remove_bonds"><code class="xref py py-func docutils literal notranslate"><span class="pre">molsysmt.build.remove_bonds()</span></code></a></dt><dd><p>Remove covalent bonds from a molecular system.</p>
+</dd>
+<dt><a class="reference internal" href="molsysmt.basic.html#module-molsysmt.basic.get" title="molsysmt.basic.get"><code class="xref py py-func docutils literal notranslate"><span class="pre">molsysmt.basic.get()</span></code></a></dt><dd><p>Access attributes like <cite>bonded_atoms</cite>.</p>
+</dd>
+<dt><a class="reference internal" href="molsysmt.basic.html#module-molsysmt.basic.convert" title="molsysmt.basic.convert"><code class="xref py py-func docutils literal notranslate"><span class="pre">molsysmt.basic.convert()</span></code></a></dt><dd><p>Convert the system into a supported editable form.</p>
+</dd>
+</dl>
+</div>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">molsysmt</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">msm</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">molsys</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">systems</span><span class="p">[</span><span class="s1">&#39;alanine dipeptide&#39;</span><span class="p">][</span><span class="s1">&#39;alanine_dipeptide.h5msm&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">system</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">molsys</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">msm</span><span class="o">.</span><span class="n">build</span><span class="o">.</span><span class="n">remove_bonds</span><span class="p">(</span><span class="n">system</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">msm</span><span class="o">.</span><span class="n">build</span><span class="o">.</span><span class="n">add_missing_bonds</span><span class="p">(</span><span class="n">system</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">msm</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">system</span><span class="p">,</span> <span class="n">bonded_atoms</span><span class="o">=</span><span class="kc">True</span><span class="p">)[:</span><span class="mi">3</span><span class="p">]</span>
+<span class="go">array([[0, 1],</span>
+<span class="go">       [1, 2],</span>
+<span class="go">       [2, 3]])</span>
+</pre></div>
+</div>
+<div class="admonition-user-guide admonition">
+<p class="admonition-title">User guide</p>
+<p>Follow this link for a tutorial on how to work with this function:
+<a class="reference internal" href="content/user/tools/build/add_missing_bonds.html#tutorial-add-missing-bonds"><span class="std std-ref">User Guide &gt; Tools &gt; Build &gt; Add missing bonds</span></a>.</p>
+</div>
+<div class="versionadded">
+<p><span class="versionmodified added">Added in version 1.0.0.</span></p>
+</div>
+</dd></dl>
+
+</section>
+<section id="module-molsysmt.build.add_missing_heavy_atoms">
+<span id="molsysmt-build-add-missing-heavy-atoms-module"></span><h2>molsysmt.build.add_missing_heavy_atoms module<a class="headerlink" href="#module-molsysmt.build.add_missing_heavy_atoms" title="Link to this heading">#</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="molsysmt.build.add_missing_heavy_atoms.add_missing_heavy_atoms">
+<span class="sig-prename descclassname"><span class="pre">molsysmt.build.add_missing_heavy_atoms.</span></span><span class="sig-name descname"><span class="pre">add_missing_heavy_atoms</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">molecular_system</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">selection</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'all'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">syntax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'MolSysMT'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">engine</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'PDBFixer'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">skip_digestion</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/molsysmt/build/add_missing_heavy_atoms.html#add_missing_heavy_atoms"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#molsysmt.build.add_missing_heavy_atoms.add_missing_heavy_atoms" title="Link to this definition">#</a></dt>
+<dd><p>Adding missing non-hydrogen atoms to a molecular system.</p>
+<p>This function checks for missing heavy atoms (non-hydrogens) in a molecular system and adds
+them when possible. The missing atoms are identified based on known residue templates and
+inferred topological context. The coordinates of new atoms are estimated using internal
+geometry rules or external reconstruction engines such as PDBFixer.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>molecular_system</strong> (<em>molecular system</em>) – Molecular system in any of <a class="reference internal" href="content/user/intro/molecular_systems/forms.html#introduction-forms"><span class="std std-ref">the supported forms</span></a> to which missing
+heavy atoms will be added.</p></li>
+<li><p><strong>selection</strong> (<em>tuple</em><em>, </em><em>list</em><em>, </em><em>numpy.ndarray</em><em> or </em><em>str</em><em>, </em><em>default 'all'</em>) – Selection of atoms that define the residues or molecules to analyze.
+Can be provided as indices (list, tuple, array of 0-based integers) or as a string using any
+of the supported <a class="reference internal" href="content/user/intro/selection_syntaxes.html#introduction-selection"><span class="std std-ref">selection syntaxes</span></a>.</p></li>
+<li><p><strong>syntax</strong> (<em>str</em><em>, </em><em>default 'MolSysMT'</em>) – <a class="reference internal" href="content/user/intro/selection_syntaxes.html#introduction-selection"><span class="std std-ref">Selection syntax</span></a> used when <cite>selection</cite> is a string.</p></li>
+<li><p><strong>engine</strong> (<em>{'MolSysMT'</em><em>, </em><em>'PDBFixer'}</em><em>, </em><em>default 'PDBFixer'</em>) – Engine used to rebuild the missing atoms. If <cite>‘MolSysMT’</cite> is chosen, internal geometry
+templates are used. If <cite>‘PDBFixer’</cite> is selected, the external PDBFixer engine is called.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A molecular system with the missing heavy atoms added, in the same form as the input system.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>molecular system</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>NotSupportedFormError</strong> – Raised if the input molecular system is in an unsupported format.</p></li>
+<li><p><strong>ArgumentError</strong> – Raised if one or more input arguments are invalid.</p></li>
+<li><p><strong>EngineError</strong> – Raised if the specified engine fails to rebuild the atoms.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>This function adds only non-hydrogen atoms (heavy atoms) that are missing from standard
+residues. Hydrogen atoms can be added using other tools or methods.</p>
+<p>The list of supported molecular systems’ forms is detailed in:
+<a class="reference internal" href="content/user/intro/molecular_systems/forms.html#introduction-forms"><span class="std std-ref">User Guide &gt; Introduction &gt; Molecular systems &gt; Forms</span></a></p>
+<p>The list of supported selection syntaxes is available at:
+<a class="reference internal" href="content/user/intro/selection_syntaxes.html#introduction-selection"><span class="std std-ref">User Guide &gt; Introduction &gt; Selection syntaxes</span></a></p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="#module-molsysmt.build.get_missing_heavy_atoms" title="molsysmt.build.get_missing_heavy_atoms"><code class="xref py py-func docutils literal notranslate"><span class="pre">molsysmt.build.get_missing_heavy_atoms()</span></code></a></dt><dd><p>Identify heavy atoms that are missing based on residue templates.</p>
+</dd>
+<dt><a class="reference internal" href="molsysmt.basic.html#module-molsysmt.basic.remove" title="molsysmt.basic.remove"><code class="xref py py-func docutils literal notranslate"><span class="pre">molsysmt.basic.remove()</span></code></a></dt><dd><p>Remove atoms from a molecular system.</p>
+</dd>
+<dt><a class="reference internal" href="molsysmt.basic.html#module-molsysmt.basic.contains" title="molsysmt.basic.contains"><code class="xref py py-func docutils literal notranslate"><span class="pre">molsysmt.basic.contains()</span></code></a></dt><dd><p>Check whether specific elements are present in a molecular system.</p>
+</dd>
+<dt><a class="reference internal" href="#module-molsysmt.build.build_peptide" title="molsysmt.build.build_peptide"><code class="xref py py-func docutils literal notranslate"><span class="pre">molsysmt.build.build_peptide()</span></code></a></dt><dd><p>Build capped peptide structures from amino acid sequences.</p>
+</dd>
+</dl>
+</div>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">molsysmt</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">msm</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">molsys</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">build</span><span class="o">.</span><span class="n">build_peptide</span><span class="p">(</span><span class="s1">&#39;AAA&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">msm</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">molsys</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s1">&#39;atom_name==&quot;CB&quot;&#39;</span><span class="p">,</span> <span class="n">n_atoms</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="go">3</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">molsys</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">build</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">molsys</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s1">&#39;atom_name==&quot;CB&quot;&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">msm</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">molsys</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s1">&#39;atom_name==&quot;CB&quot;&#39;</span><span class="p">,</span> <span class="n">n_atoms</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="go">0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">molsys</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">build</span><span class="o">.</span><span class="n">add_missing_heavy_atoms</span><span class="p">(</span><span class="n">molsys</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">msm</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">molsys</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s1">&#39;atom_name==&quot;CB&quot;&#39;</span><span class="p">,</span> <span class="n">n_atoms</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="go">3</span>
+</pre></div>
+</div>
+<div class="admonition-user-guide admonition">
+<p class="admonition-title">User guide</p>
+<p>Follow this link for a tutorial on how to work with this function:
+<a class="reference internal" href="content/user/tools/build/add_missing_heavy_atoms.html#tutorial-add-missing-heavy-atoms"><span class="std std-ref">User Guide &gt; Tools &gt; Build &gt; Add missing heavy atoms</span></a>.</p>
+</div>
+<div class="versionadded">
+<p><span class="versionmodified added">Added in version 1.0.0.</span></p>
+</div>
+</dd></dl>
+
+</section>
+<section id="module-molsysmt.build.add_missing_hydrogens">
+<span id="molsysmt-build-add-missing-hydrogens-module"></span><h2>molsysmt.build.add_missing_hydrogens module<a class="headerlink" href="#module-molsysmt.build.add_missing_hydrogens" title="Link to this heading">#</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="molsysmt.build.add_missing_hydrogens.add_missing_hydrogens">
+<span class="sig-prename descclassname"><span class="pre">molsysmt.build.add_missing_hydrogens.</span></span><span class="sig-name descname"><span class="pre">add_missing_hydrogens</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">molecular_system</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pH</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">7.4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">engine</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'OpenMM'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">skip_digestion</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/molsysmt/build/add_missing_hydrogens.html#add_missing_hydrogens"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#molsysmt.build.add_missing_hydrogens.add_missing_hydrogens" title="Link to this definition">#</a></dt>
+<dd><p>Adding missing hydrogen atoms to a molecular system.</p>
+<p>This function adds hydrogen atoms that are missing from a molecular system,
+based on its topology, standard chemical templates, and a selected pH. The
+added atoms are positioned using predefined rules for protonation states and
+geometry constraints.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>molecular_system</strong> (<em>molecular system</em>) – Molecular system in any of <a class="reference internal" href="content/user/intro/molecular_systems/forms.html#introduction-forms"><span class="std std-ref">the supported forms</span></a>
+to which hydrogens will be added.</p></li>
+<li><p><strong>pH</strong> (<em>float</em><em>, </em><em>default 7.4</em>) – Approximate pH used to determine the protonation state of ionizable groups.</p></li>
+<li><p><strong>engine</strong> (<em>{'MolSysMT'</em><em>, </em><em>'OpenMM'</em><em>, </em><em>'PDBFixer'}</em><em>, </em><em>default 'OpenMM'</em>) – The engine used to perform hydrogen placement. The engine determines
+residue protonation states and adds atoms accordingly.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A new molecular system with hydrogens added, returned in the same form
+as the input.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>molecular system</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>NotSupportedFormError</strong> – Raised if the input molecular system is not in a supported form.</p></li>
+<li><p><strong>ArgumentError</strong> – Raised if an input argument does not meet the expected format or conditions.</p></li>
+<li><p><strong>EngineError</strong> – Raised if the selected engine fails to perform hydrogen addition.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>Hydrogen atoms are added based on standard residue templates and general
+rules for protonation. Ionizable side chains (e.g., ASP, GLU, HIS) are adjusted
+according to the provided pH.</p>
+<p>The list of supported molecular systems’ forms is available at:
+<a class="reference internal" href="content/user/intro/molecular_systems/forms.html#introduction-forms"><span class="std std-ref">User Guide &gt; Introduction &gt; Molecular systems &gt; Forms</span></a></p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="#module-molsysmt.build.has_hydrogens" title="molsysmt.build.has_hydrogens"><code class="xref py py-func docutils literal notranslate"><span class="pre">molsysmt.build.has_hydrogens()</span></code></a></dt><dd><p>Check whether a molecular system contains hydrogen atoms.</p>
+</dd>
+<dt><a class="reference internal" href="#module-molsysmt.build.add_missing_heavy_atoms" title="molsysmt.build.add_missing_heavy_atoms"><code class="xref py py-func docutils literal notranslate"><span class="pre">molsysmt.build.add_missing_heavy_atoms()</span></code></a></dt><dd><p>Add missing non-hydrogen atoms to a molecular system.</p>
+</dd>
+<dt><a class="reference internal" href="molsysmt.basic.html#module-molsysmt.basic.contains" title="molsysmt.basic.contains"><code class="xref py py-func docutils literal notranslate"><span class="pre">molsysmt.basic.contains()</span></code></a></dt><dd><p>Check for the presence of specific atoms or molecules.</p>
+</dd>
+</dl>
+</div>
+<p class="rubric">Examples</p>
+<p>The following example illustrates the use of the function:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">molsysmt</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">msm</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">molsys</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="s1">&#39;181L&#39;</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s1">&#39;molecule_type==&quot;protein&quot;&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">msm</span><span class="o">.</span><span class="n">build</span><span class="o">.</span><span class="n">has_hydrogens</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">)</span>
+<span class="go">False</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">molsys</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">build</span><span class="o">.</span><span class="n">add_missing_hydrogens</span><span class="p">(</span><span class="n">molsys</span><span class="p">,</span> <span class="n">pH</span><span class="o">=</span><span class="mf">7.4</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">msm</span><span class="o">.</span><span class="n">build</span><span class="o">.</span><span class="n">has_hydrogens</span><span class="p">(</span><span class="n">molsys</span><span class="p">)</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+<div class="admonition-user-guide admonition">
+<p class="admonition-title">User guide</p>
+<p>Follow this link for a tutorial on how to work with this function:
+<a class="reference internal" href="content/user/tools/build/add_missing_hydrogens.html#tutorial-add-missing-hydrogens"><span class="std std-ref">User Guide &gt; Tools &gt; Build &gt; Add missing hydrogens</span></a></p>
+</div>
+<div class="versionadded">
+<p><span class="versionmodified added">Added in version 1.0.0.</span></p>
+</div>
+</dd></dl>
+
+</section>
+<section id="module-molsysmt.build.add_missing_terminal_cappings">
+<span id="molsysmt-build-add-missing-terminal-cappings-module"></span><h2>molsysmt.build.add_missing_terminal_cappings module<a class="headerlink" href="#module-molsysmt.build.add_missing_terminal_cappings" title="Link to this heading">#</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="molsysmt.build.add_missing_terminal_cappings.add_missing_terminal_cappings">
+<span class="sig-prename descclassname"><span class="pre">molsysmt.build.add_missing_terminal_cappings.</span></span><span class="sig-name descname"><span class="pre">add_missing_terminal_cappings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">molecular_system</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">N_terminal</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">C_terminal</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pH</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">7.4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keep_ids</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">selection</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'all'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">syntax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'MolSysMT'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">engine</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'PDBFixer'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">skip_digestion</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/molsysmt/build/add_missing_terminal_cappings.html#add_missing_terminal_cappings"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#molsysmt.build.add_missing_terminal_cappings.add_missing_terminal_cappings" title="Link to this definition">#</a></dt>
+<dd><p>Adding terminal cappings to peptides and proteins.</p>
+<p>This function adds chemical groups to the N- and/or C-termini of protein or peptide chains.
+These terminal groups can either neutralize terminal charges or simply complete missing atoms
+for a standard terminal residue. The resulting cappings are consistent with typical protonation
+states at the specified pH.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>molecular_system</strong> (<em>molecular system</em>) – Molecular system in any of <a class="reference internal" href="content/user/intro/molecular_systems/forms.html#introduction-forms"><span class="std std-ref">the supported forms</span></a> to which terminal
+cappings will be added.</p></li>
+<li><p><strong>N_terminal</strong> (<em>str</em><em> or </em><em>None</em><em>, </em><em>default None</em>) – Residue name to cap the N-terminus. If <cite>None</cite>, the missing atoms are added to the
+native terminal residue without introducing a separate cap. Use <cite>‘ACE’</cite> to cap with
+an acetyl group, or other recognized residue names.</p></li>
+<li><p><strong>C_terminal</strong> (<em>str</em><em> or </em><em>None</em><em>, </em><em>default None</em>) – Residue name to cap the C-terminus. If <cite>None</cite>, the missing atoms are added to the
+native terminal residue without introducing a separate cap. Use <cite>‘NME’</cite> to cap with
+a N-methyl amide group, or other recognized residue names.</p></li>
+<li><p><strong>pH</strong> (<em>float</em><em>, </em><em>default 7.4</em>) – Approximate pH used to determine the protonation states of terminal groups and nearby residues.</p></li>
+<li><p><strong>keep_ids</strong> (<em>bool</em><em>, </em><em>default False</em>) – If <cite>True</cite>, preserves the original atom and group ids. Otherwise, new IDs may be reassigned.</p></li>
+<li><p><strong>selection</strong> (<em>str</em><em>, </em><em>list</em><em>, </em><em>tuple</em><em>, or </em><em>numpy.ndarray</em><em>, </em><em>default 'all'</em>) – Selection of atoms or residues to which this operation applies. Can be a list of indices or a
+query string following <a class="reference internal" href="content/user/intro/selection_syntaxes.html#introduction-selection"><span class="std std-ref">MolSysMT selection syntax</span></a>.</p></li>
+<li><p><strong>syntax</strong> (<em>str</em><em>, </em><em>default 'MolSysMT'</em>) – Syntax used to parse the <cite>selection</cite> argument, if it is a string.</p></li>
+<li><p><strong>engine</strong> (<em>{'PDBFixer'}</em><em>, </em><em>default 'PDBFixer'</em>) – Engine used to perform capping. Determines atom placement and protonation based on templates.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A new molecular system with modified termini, in the same form as the input system.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>molecular system</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>NotSupportedFormError</strong> – Raised if the input molecular system is in a non-supported form.</p></li>
+<li><p><strong>ArgumentError</strong> – Raised if an input argument value is invalid.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<dl class="simple">
+<dt>Common capping groups:</dt><dd><ul class="simple">
+<li><p><cite>‘ACE’</cite> for acetyl (N-terminal)</p></li>
+<li><p><cite>‘NME’</cite> for N-methyl amide (C-terminal)</p></li>
+</ul>
+</dd>
+</dl>
+<p>If no capping residues are provided, the function only completes missing terminal atoms
+in the native residues (which are often charged).</p>
+<p>The list of supported molecular system forms is detailed in:
+<a class="reference internal" href="content/user/intro/molecular_systems/forms.html#introduction-forms"><span class="std std-ref">User Guide &gt; Introduction &gt; Molecular systems &gt; Forms</span></a></p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="#module-molsysmt.build.build_peptide" title="molsysmt.build.build_peptide"><code class="xref py py-func docutils literal notranslate"><span class="pre">molsysmt.build.build_peptide()</span></code></a></dt><dd><p>Construct a peptide sequence with optional terminal cappings.</p>
+</dd>
+<dt><a class="reference internal" href="#module-molsysmt.build.add_missing_heavy_atoms" title="molsysmt.build.add_missing_heavy_atoms"><code class="xref py py-func docutils literal notranslate"><span class="pre">molsysmt.build.add_missing_heavy_atoms()</span></code></a></dt><dd><p>Add missing non-hydrogen atoms to standard residues.</p>
+</dd>
+<dt><a class="reference internal" href="molsysmt.basic.html#module-molsysmt.basic.info" title="molsysmt.basic.info"><code class="xref py py-func docutils literal notranslate"><span class="pre">molsysmt.basic.info()</span></code></a></dt><dd><p>Inspect the content and composition of a molecular system.</p>
+</dd>
+<dt><a class="reference internal" href="molsysmt.physchem.html#module-molsysmt.physchem.get_charge" title="molsysmt.physchem.get_charge"><code class="xref py py-func docutils literal notranslate"><span class="pre">molsysmt.physchem.get_charge()</span></code></a></dt><dd><p>Calculate the total or partial charge of a system.</p>
+</dd>
+</dl>
+</div>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">molsysmt</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">msm</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">molsys</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">build</span><span class="o">.</span><span class="n">build_peptide</span><span class="p">(</span><span class="s1">&#39;AlaValPro&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">molsys</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">build</span><span class="o">.</span><span class="n">add_missing_terminal_cappings</span><span class="p">(</span><span class="n">molsys</span><span class="p">,</span> <span class="n">N_terminal</span><span class="o">=</span><span class="s1">&#39;ACE&#39;</span><span class="p">,</span> <span class="n">C_terminal</span><span class="o">=</span><span class="s1">&#39;NME&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">msm</span><span class="o">.</span><span class="n">physchem</span><span class="o">.</span><span class="n">get_charge</span><span class="p">(</span><span class="n">capped_system</span><span class="p">)</span>
+<span class="go">0.0 elementary_charge</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">msm</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">molsys</span><span class="p">,</span> <span class="n">to_form</span><span class="o">=</span><span class="s1">&#39;string:amino_acids_3&#39;</span><span class="p">)</span>
+<span class="go">&#39;AceAlaValProNme&#39;</span>
+</pre></div>
+</div>
+<div class="admonition-user-guide admonition">
+<p class="admonition-title">User guide</p>
+<p>Follow this link for a tutorial on how to work with this function:
+<span class="xref std std-ref">User Guide &gt; Tools &gt; Build &gt; Add missing terminal cappings</span></p>
+</div>
+<div class="versionadded">
+<p><span class="versionmodified added">Added in version 1.0.0.</span></p>
+</div>
+</dd></dl>
+
+</section>
+<section id="module-molsysmt.build.build_peptide">
+<span id="molsysmt-build-build-peptide-module"></span><h2>molsysmt.build.build_peptide module<a class="headerlink" href="#module-molsysmt.build.build_peptide" title="Link to this heading">#</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="molsysmt.build.build_peptide.build_peptide">
+<span class="sig-prename descclassname"><span class="pre">molsysmt.build.build_peptide.</span></span><span class="sig-name descname"><span class="pre">build_peptide</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">molecular_system</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">to_form</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'molsysmt.MolSys'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">engine</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'LEaP'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/molsysmt/build/build_peptide.html#build_peptide"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#molsysmt.build.build_peptide.build_peptide" title="Link to this definition">#</a></dt>
+<dd><p>Building a peptide from a sequence.</p>
+<p>This function constructs a capped or uncapped peptide from a sequence of amino acids.
+It generates the complete atomic topology, including bonds, angles, and coordinates
+for the resulting system. Optionally, terminal capping groups can be included in the input
+sequence.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>molecular_system</strong> (<em>str</em><em> or </em><em>list</em><em> of </em><em>str</em>) – The peptide sequence provided using either three-letter or one-letter amino acid codes.
+The sequence can also include optional terminal caps such as ‘ACE’ or ‘NME’.</p></li>
+<li><p><strong>to_form</strong> (<em>str</em><em>, </em><em>default='molsysmt.MolSys'</em>) – Output form of the resulting molecular system. Must be one of the <a class="reference internal" href="content/user/intro/molecular_systems/forms.html#introduction-forms"><span class="std std-ref">supported forms</span></a>.</p></li>
+<li><p><strong>engine</strong> (<em>{'LEaP'}</em><em>, </em><em>default 'LEaP'</em>) – Engine used to build the peptide. Currently, only the LEaP engine from AmberTools is supported.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A new molecular system representing the fully constructed peptide, including coordinates
+and all relevant topological information.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>molecular system</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>NotImplementedError</strong> – Raised if the selected engine is not supported.</p></li>
+<li><p><strong>ArgumentError</strong> – Raised if the input sequence is invalid or contains unsupported codes.</p></li>
+<li><p><strong>NotSupportedFormError</strong> – Raised if the output form is not recognized or supported.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>The sequence must contain standard amino acid codes recognized by the selected engine.</p></li>
+<li><p>Terminal caps can be specified explicitly by using residue names such as ‘ACE’ (N-terminus) and ‘NME’ (C-terminus).</p></li>
+<li><p>The resulting structure is built in vacuum and can be subsequently solvated using <a class="reference internal" href="#module-molsysmt.build.solvate" title="molsysmt.build.solvate"><code class="xref py py-func docutils literal notranslate"><span class="pre">molsysmt.build.solvate()</span></code></a>.</p></li>
+</ul>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="#module-molsysmt.build.add_missing_terminal_cappings" title="molsysmt.build.add_missing_terminal_cappings"><code class="xref py py-func docutils literal notranslate"><span class="pre">molsysmt.build.add_missing_terminal_cappings()</span></code></a></dt><dd><p>Add terminal groups to complete or neutralize peptide ends.</p>
+</dd>
+<dt><a class="reference internal" href="#module-molsysmt.build.solvate" title="molsysmt.build.solvate"><code class="xref py py-func docutils literal notranslate"><span class="pre">molsysmt.build.solvate()</span></code></a></dt><dd><p>Surround a molecular system with solvent molecules.</p>
+</dd>
+<dt><a class="reference internal" href="molsysmt.structure.html#module-molsysmt.structure.center" title="molsysmt.structure.center"><code class="xref py py-func docutils literal notranslate"><span class="pre">molsysmt.structure.center()</span></code></a></dt><dd><p>Center a molecular system in a simulation box.</p>
+</dd>
+<dt><a class="reference internal" href="molsysmt.basic.html#module-molsysmt.basic.view" title="molsysmt.basic.view"><code class="xref py py-func docutils literal notranslate"><span class="pre">molsysmt.basic.view()</span></code></a></dt><dd><p>Visualize the resulting molecular system in a Jupyter notebook.</p>
+</dd>
+</dl>
+</div>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">molsysmt</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">msm</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">molsys</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">build</span><span class="o">.</span><span class="n">build_peptide</span><span class="p">(</span><span class="s1">&#39;AceGlyGlyNme&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">msm</span><span class="o">.</span><span class="n">basic</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">molsys</span><span class="p">,</span> <span class="n">n_groups</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="go">4</span>
+</pre></div>
+</div>
+<div class="admonition-user-guide admonition">
+<p class="admonition-title">User guide</p>
+<p>Follow this link for a tutorial on how to work with this function:
+<a class="reference internal" href="content/user/tools/build/build_peptide.html#tutorial-build-peptide"><span class="std std-ref">User Guide &gt; Tools &gt; Build &gt; Build peptide</span></a></p>
+</div>
+<div class="versionadded">
+<p><span class="versionmodified added">Added in version 1.0.0.</span></p>
+</div>
+</dd></dl>
+
+</section>
+<section id="module-molsysmt.build.define_new_chain">
+<span id="molsysmt-build-define-new-chain-module"></span><h2>molsysmt.build.define_new_chain module<a class="headerlink" href="#module-molsysmt.build.define_new_chain" title="Link to this heading">#</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="molsysmt.build.define_new_chain.define_new_chain">
+<span class="sig-prename descclassname"><span class="pre">molsysmt.build.define_new_chain.</span></span><span class="sig-name descname"><span class="pre">define_new_chain</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">molecular_system</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">selection</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'all'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chain_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chain_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">syntax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'MolSysMT'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">skip_digestion</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/molsysmt/build/define_new_chain.html#define_new_chain"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#molsysmt.build.define_new_chain.define_new_chain" title="Link to this definition">#</a></dt>
+<dd><blockquote>
+<div><p>Defining a new chain from selected atoms.</p>
+<p>This function creates a new chain by assigning a unique <cite>chain_id</cite> and/or <cite>chain_name</cite> to a selection
+of atoms in a molecular system. The selected atoms are grouped into a new chain, which is appended
+to the existing list of chains in the system. This does not alter or remove any of the existing chains.</p>
+<dl class="simple">
+<dt>molecular_system<span class="classifier">molecular system</span></dt><dd><p>Molecular system in any of <a class="reference internal" href="content/user/intro/molecular_systems/forms.html#introduction-forms"><span class="std std-ref">the supported forms</span></a> to be modified.</p>
+</dd>
+<dt>selection<span class="classifier">index, tuple, list, numpy.ndarray or str, default ‘all’</span></dt><dd><p>Selection of atoms to assign to the new chain. The selection can be given as a list, tuple,
+or NumPy array of atom indices (0-based integers), or as a string following one of the
+<a class="reference internal" href="content/user/intro/selection_syntaxes.html#introduction-selection"><span class="std std-ref">supported selection syntaxes</span></a>.</p>
+</dd>
+<dt>chain_id<span class="classifier">str, optional</span></dt><dd><p>Identifier of the new chain (e.g., ‘A’, ‘B’, ‘C’). If not provided,
+a unique string <cite>chain_id</cite> will be automatically generated. Numeric inputs are
+converted to strings internally.</p>
+</dd>
+<dt>chain_name<span class="classifier">str, optional</span></dt><dd><p>Descriptive name for the new chain. If not provided, the name will be left empty or
+automatically assigned.</p>
+</dd>
+<dt>syntax<span class="classifier">str, default ‘MolSysMT’</span></dt><dd><p><a class="reference internal" href="content/user/intro/selection_syntaxes.html#introduction-selection"><span class="std std-ref">Supported syntax</span></a> used in the <cite>selection</cite> argument (in case it is a string).</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>molecular system</dt><dd><p>A modified molecular system with the selected atoms grouped into a newly defined chain.</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>NotSupportedFormError</dt><dd><p>Raised if the molecular system has a non-supported form.</p>
+</dd>
+<dt>ArgumentError</dt><dd><p>Raised if any of the input values is invalid or incompatible.</p>
+</dd>
+</dl>
+<ul class="simple">
+<li><p>This function is useful when merging multiple molecules, redefining topology, or recovering
+proper chain segmentation after structural edits.</p></li>
+<li><p>Chains are identified by their <cite>chain_id</cite> (unique identifier) and <cite>chain_name</cite> (optional descriptive label).</p></li>
+</ul>
+<dl class="simple">
+<dt><a class="reference internal" href="molsysmt.basic.html#module-molsysmt.basic.set" title="molsysmt.basic.set"><code class="xref py py-func docutils literal notranslate"><span class="pre">molsysmt.basic.set()</span></code></a></dt><dd><p>Setting attribute values in a molecular system.</p>
+</dd>
+<dt><a class="reference internal" href="molsysmt.basic.html#module-molsysmt.basic.info" title="molsysmt.basic.info"><code class="xref py py-func docutils literal notranslate"><span class="pre">molsysmt.basic.info()</span></code></a></dt><dd><p>Displaying a summary of elements and chain structure.</p>
+</dd>
+<dt><code class="xref py py-func docutils literal notranslate"><span class="pre">molsysmt.build.merge()</span></code></dt><dd><p>Merging multiple molecular systems, often requiring reassignment of chains.</p>
+</dd>
+</dl>
+</div></blockquote>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">molsysmt</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">msm</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">molsys</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="s1">&#39;1TCD&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">msm</span><span class="o">.</span><span class="n">build</span><span class="o">.</span><span class="n">define_new_chain</span><span class="p">(</span><span class="n">molsys</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s1">&#39;molecule_type==&quot;water&quot;&#39;</span><span class="p">,</span> <span class="n">chain_name</span><span class="o">=</span><span class="s1">&#39;C&#39;</span><span class="p">)</span>
+<span class="go">    &gt;&gt;&gt; msm.get(molsys, element=&#39;chain&#39;, chain_name=True)</span>
+<span class="go">    [&#39;A&#39;, &#39;B&#39;, &#39;C&#39;]</span>
+</pre></div>
+</div>
+<blockquote>
+<div><div class="admonition-user-guide admonition">
+<p class="admonition-title">User guide</p>
+<p>Follow this link for a tutorial on how to work with this function:
+<a class="reference internal" href="content/user/tools/build/define_new_chain.html#tutorial-define-new-chain"><span class="std std-ref">User Guide &gt; Tools &gt; Build &gt; Define new chain</span></a></p>
+</div>
+<div class="versionadded">
+<p><span class="versionmodified added">Added in version 1.0.0.</span></p>
+</div>
+</div></blockquote>
+</dd></dl>
+
+</section>
+<section id="module-molsysmt.build.get_disulfide_bonds">
+<span id="molsysmt-build-get-disulfide-bonds-module"></span><h2>molsysmt.build.get_disulfide_bonds module<a class="headerlink" href="#module-molsysmt.build.get_disulfide_bonds" title="Link to this heading">#</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="molsysmt.build.get_disulfide_bonds.get_disulfide_bonds">
+<span class="sig-prename descclassname"><span class="pre">molsysmt.build.get_disulfide_bonds.</span></span><span class="sig-name descname"><span class="pre">get_disulfide_bonds</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">molecular_system</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">selection</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'all'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">structure_index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_bond_length</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group_names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">['CYS']</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pbc</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">syntax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'MolSysMT'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">engine</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'MolSysMT'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sorted</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">skip_digestion</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/molsysmt/build/get_disulfide_bonds.html#get_disulfide_bonds"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#molsysmt.build.get_disulfide_bonds.get_disulfide_bonds" title="Link to this definition">#</a></dt>
+<dd><p>Identifying disulfide bonds between sulfur atoms.</p>
+<p>This function detects disulfide bonds in a molecular system by finding pairs of sulfur atoms
+that belong to specified residue types (e.g., <cite>CYS</cite>) and lie within a covalent bond distance.
+These S–S bridges are returned as atom index pairs.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>molecular_system</strong> (<em>molecular system</em>) – Molecular system in any of <a class="reference internal" href="content/user/intro/molecular_systems/forms.html#introduction-forms"><span class="std std-ref">the supported forms</span></a> to be analyzed.</p></li>
+<li><p><strong>selection</strong> (<em>index</em><em>, </em><em>tuple</em><em>, </em><em>list</em><em>, </em><em>numpy.ndarray</em><em> or </em><em>str</em><em>, </em><em>default 'all'</em>) – Selection of atoms to be considered for disulfide bond detection. This can be a list, tuple, or array
+of atom indices (0-based), or a string parsed using the specified selection syntax.</p></li>
+<li><p><strong>structure_index</strong> (<em>int</em><em>, </em><em>default 0</em>) – Index of the structure (frame) in which disulfide bonds will be searched.</p></li>
+<li><p><strong>max_bond_length</strong> (<em>float</em><em> or </em><em>str with units</em><em>, </em><em>optional</em>) – Maximum distance between two sulfur atoms to be considered a disulfide bond. If not provided,
+a default threshold (typically 2.05 Å) will be used.</p></li>
+<li><p><strong>group_names</strong> (<em>list</em><em> of </em><em>str</em><em>, </em><em>default</em><em> [</em><em>'CYS'</em><em>]</em>) – List of residue names to be considered as potential cysteine-like residues forming disulfide bonds.</p></li>
+<li><p><strong>pbc</strong> (<em>bool</em><em>, </em><em>default True</em>) – Whether to apply periodic boundary conditions when computing distances.</p></li>
+<li><p><strong>syntax</strong> (<em>str</em><em>, </em><em>default 'MolSysMT'</em>) – <a class="reference internal" href="content/user/intro/selection_syntaxes.html#introduction-selection"><span class="std std-ref">Supported syntax</span></a> used to parse the <cite>selection</cite> argument (if string).</p></li>
+<li><p><strong>engine</strong> (<em>{'MolSysMT'}</em><em>, </em><em>default 'MolSysMT'</em>) – Engine used to perform the analysis. Currently only ‘MolSysMT’ is supported.</p></li>
+<li><p><strong>sorted</strong> (<em>bool</em><em>, </em><em>default True</em>) – Whether to sort the indices in each pair (i.e., smaller index first).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Array of atom index pairs (each a disulfide bond) detected in the selected atoms and structure.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>numpy.ndarray of shape (n, 2)</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>NotSupportedFormError</strong> – If the molecular system format is not supported.</p></li>
+<li><p><strong>ArgumentError</strong> – If input values do not meet required conditions.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>Sulfur atoms are identified based on element type and filtered by group name (e.g., <cite>‘CYS’</cite>).</p></li>
+<li><p>This function assumes that disulfide bonds are formed between SG atoms of cysteines or equivalent residues.</p></li>
+<li><p>Distance units are internally standardized to nanometers.</p></li>
+</ul>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="#module-molsysmt.build.add_bonds" title="molsysmt.build.add_bonds"><code class="xref py py-func docutils literal notranslate"><span class="pre">molsysmt.build.add_bonds()</span></code></a></dt><dd><p>Manually add bonds between specific atom pairs.</p>
+</dd>
+<dt><a class="reference internal" href="molsysmt.structure.html#module-molsysmt.structure.get_neighbors" title="molsysmt.structure.get_neighbors"><code class="xref py py-func docutils literal notranslate"><span class="pre">molsysmt.structure.get_neighbors()</span></code></a></dt><dd><p>Find neighboring atoms within a distance or bond limit.</p>
+</dd>
+<dt><a class="reference internal" href="#module-molsysmt.build.get_missing_bonds" title="molsysmt.build.get_missing_bonds"><code class="xref py py-func docutils literal notranslate"><span class="pre">molsysmt.build.get_missing_bonds()</span></code></a></dt><dd><p>Automatically infer missing covalent bonds.</p>
+</dd>
+</dl>
+</div>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">molsysmt</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">msm</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">molsys</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="s1">&#39;5XJH&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s_s_pairs</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">build</span><span class="o">.</span><span class="n">get_disulfide_bonds</span><span class="p">(</span><span class="n">molsys</span><span class="p">,</span> <span class="n">max_bond_length</span><span class="o">=</span><span class="s1">&#39;2.15 angstroms&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s_s_pairs</span><span class="o">.</span><span class="n">shape</span>
+<span class="go">(2, 2)</span>
+</pre></div>
+</div>
+<div class="admonition-user-guide admonition">
+<p class="admonition-title">User guide</p>
+<p>Follow this link for a tutorial on how to work with this function:
+<a class="reference internal" href="content/user/tools/build/get_disulfide_bonds.html#tutorial-get-disulfide-bonds"><span class="std std-ref">User Guide &gt; Tools &gt; Build &gt; Get disulfide bonds</span></a></p>
+</div>
+<div class="versionadded">
+<p><span class="versionmodified added">Added in version 1.0.0.</span></p>
+</div>
+</dd></dl>
+
+</section>
+<section id="module-molsysmt.build.get_missing_bonds">
+<span id="molsysmt-build-get-missing-bonds-module"></span><h2>molsysmt.build.get_missing_bonds module<a class="headerlink" href="#module-molsysmt.build.get_missing_bonds" title="Link to this heading">#</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="molsysmt.build.get_missing_bonds.get_missing_bonds">
+<span class="sig-prename descclassname"><span class="pre">molsysmt.build.get_missing_bonds.</span></span><span class="sig-name descname"><span class="pre">get_missing_bonds</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">molecular_system</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">selection</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'all'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">structure_index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_bond_length</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'2</span> <span class="pre">angstroms'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">disulfide_bonds</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">disulfide_group_names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">['CYS']</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pbc</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">syntax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'MolSysMT'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">engine</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'MolSysMT'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sorted</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">skip_digestion</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/molsysmt/build/get_missing_bonds.html#get_missing_bonds"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#molsysmt.build.get_missing_bonds.get_missing_bonds" title="Link to this definition">#</a></dt>
+<dd><p>To be written soon…</p>
+</dd></dl>
+
+</section>
+<section id="module-molsysmt.build.get_missing_heavy_atoms">
+<span id="molsysmt-build-get-missing-heavy-atoms-module"></span><h2>molsysmt.build.get_missing_heavy_atoms module<a class="headerlink" href="#module-molsysmt.build.get_missing_heavy_atoms" title="Link to this heading">#</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="molsysmt.build.get_missing_heavy_atoms.get_missing_heavy_atoms">
+<span class="sig-prename descclassname"><span class="pre">molsysmt.build.get_missing_heavy_atoms.</span></span><span class="sig-name descname"><span class="pre">get_missing_heavy_atoms</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">molecular_system</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">selection</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'all'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">syntax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'MolSysMT'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">engine</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'PDBFixer'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/molsysmt/build/get_missing_heavy_atoms.html#get_missing_heavy_atoms"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#molsysmt.build.get_missing_heavy_atoms.get_missing_heavy_atoms" title="Link to this definition">#</a></dt>
+<dd><p>To be written soon…</p>
+</dd></dl>
+
+</section>
+<section id="module-molsysmt.build.get_missing_residues">
+<span id="molsysmt-build-get-missing-residues-module"></span><h2>molsysmt.build.get_missing_residues module<a class="headerlink" href="#module-molsysmt.build.get_missing_residues" title="Link to this heading">#</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="molsysmt.build.get_missing_residues.get_missing_residues">
+<span class="sig-prename descclassname"><span class="pre">molsysmt.build.get_missing_residues.</span></span><span class="sig-name descname"><span class="pre">get_missing_residues</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">molecular_system</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">selection</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'all'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">syntax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'MolSysMT'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">engine</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'PDBFixer'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/molsysmt/build/get_missing_residues.html#get_missing_residues"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#molsysmt.build.get_missing_residues.get_missing_residues" title="Link to this definition">#</a></dt>
+<dd><p>To be written soon…</p>
+</dd></dl>
+
+</section>
+<section id="module-molsysmt.build.get_missing_terminal_cappings">
+<span id="molsysmt-build-get-missing-terminal-cappings-module"></span><h2>molsysmt.build.get_missing_terminal_cappings module<a class="headerlink" href="#module-molsysmt.build.get_missing_terminal_cappings" title="Link to this heading">#</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="molsysmt.build.get_missing_terminal_cappings.get_missing_terminal_cappings">
+<span class="sig-prename descclassname"><span class="pre">molsysmt.build.get_missing_terminal_cappings.</span></span><span class="sig-name descname"><span class="pre">get_missing_terminal_cappings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">molecular_system</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">selection</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'all'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">syntax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'MolSysMT'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">engine</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'PDBFixer'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/molsysmt/build/get_missing_terminal_cappings.html#get_missing_terminal_cappings"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#molsysmt.build.get_missing_terminal_cappings.get_missing_terminal_cappings" title="Link to this definition">#</a></dt>
+<dd><p>To be written soon…</p>
+</dd></dl>
+
+</section>
+<section id="module-molsysmt.build.get_non_standard_residues">
+<span id="molsysmt-build-get-non-standard-residues-module"></span><h2>molsysmt.build.get_non_standard_residues module<a class="headerlink" href="#module-molsysmt.build.get_non_standard_residues" title="Link to this heading">#</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="molsysmt.build.get_non_standard_residues.get_non_standard_residues">
+<span class="sig-prename descclassname"><span class="pre">molsysmt.build.get_non_standard_residues.</span></span><span class="sig-name descname"><span class="pre">get_non_standard_residues</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">molecular_system</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">selection</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'all'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">syntax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'MolSysMT'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">engine</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'PDBFixer'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/molsysmt/build/get_non_standard_residues.html#get_non_standard_residues"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#molsysmt.build.get_non_standard_residues.get_non_standard_residues" title="Link to this definition">#</a></dt>
+<dd><p>To be written soon…</p>
+</dd></dl>
+
+</section>
+<section id="module-molsysmt.build.has_hydrogens">
+<span id="molsysmt-build-has-hydrogens-module"></span><h2>molsysmt.build.has_hydrogens module<a class="headerlink" href="#module-molsysmt.build.has_hydrogens" title="Link to this heading">#</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="molsysmt.build.has_hydrogens.has_hydrogens">
+<span class="sig-prename descclassname"><span class="pre">molsysmt.build.has_hydrogens.</span></span><span class="sig-name descname"><span class="pre">has_hydrogens</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">molecular_system</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">selection</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'all'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">syntax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'MolSysMT'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">skip_digestion</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/molsysmt/build/has_hydrogens.html#has_hydrogens"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#molsysmt.build.has_hydrogens.has_hydrogens" title="Link to this definition">#</a></dt>
+<dd><p>Check whether a molecular system (or selection) contains hydrogen atoms.</p>
+</dd></dl>
+
+</section>
+<section id="module-molsysmt.build.is_solvated">
+<span id="molsysmt-build-is-solvated-module"></span><h2>molsysmt.build.is_solvated module<a class="headerlink" href="#module-molsysmt.build.is_solvated" title="Link to this heading">#</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="molsysmt.build.is_solvated.is_solvated">
+<span class="sig-prename descclassname"><span class="pre">molsysmt.build.is_solvated.</span></span><span class="sig-name descname"><span class="pre">is_solvated</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">molecular_system</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">skip_digestion</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/molsysmt/build/is_solvated.html#is_solvated"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#molsysmt.build.is_solvated.is_solvated" title="Link to this definition">#</a></dt>
+<dd><p>To be written soon…</p>
+</dd></dl>
+
+</section>
+<section id="module-molsysmt.build.make_bioassembly">
+<span id="molsysmt-build-make-bioassembly-module"></span><h2>molsysmt.build.make_bioassembly module<a class="headerlink" href="#module-molsysmt.build.make_bioassembly" title="Link to this heading">#</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="molsysmt.build.make_bioassembly.make_bioassembly">
+<span class="sig-prename descclassname"><span class="pre">molsysmt.build.make_bioassembly.</span></span><span class="sig-name descname"><span class="pre">make_bioassembly</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">molecular_system</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bioassembly</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">structure_indices</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">to_form</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">skip_digestion</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/molsysmt/build/make_bioassembly.html#make_bioassembly"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#molsysmt.build.make_bioassembly.make_bioassembly" title="Link to this definition">#</a></dt>
+<dd><p>To be written soon…</p>
+</dd></dl>
+
+</section>
+<section id="module-molsysmt.build.make_water_box">
+<span id="molsysmt-build-make-water-box-module"></span><h2>molsysmt.build.make_water_box module<a class="headerlink" href="#module-molsysmt.build.make_water_box" title="Link to this heading">#</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="molsysmt.build.make_water_box.make_water_box">
+<span class="sig-prename descclassname"><span class="pre">molsysmt.build.make_water_box.</span></span><span class="sig-name descname"><span class="pre">make_water_box</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">box</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">form</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'molsysmt.MolSys'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">skip_digestion</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/molsysmt/build/make_water_box.html#make_water_box"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#molsysmt.build.make_water_box.make_water_box" title="Link to this definition">#</a></dt>
+<dd><p>Building an SPC/E water box from a reference tile, supporting triclinic cells.</p>
+<p>This helper replicates the bundled cubic <cite>spc216.gro</cite> tile (216 SPC waters at ~300 K)
+to cover the orthorhombic bounding box of the target cell, then trims molecules whose
+oxygen fractional coordinates fall outside the requested box (which can be triclinic).
+The generated system contains one structure with coordinates in nanometers and a fully
+populated topology for three-point waters. Because the packing comes from a pre-
+equilibrated cubic tile, minimization and short equilibration are recommended to relax
+any residual overlaps.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>box</strong> (<em>array-like</em><em> or </em><em>pint.Quantity</em>) – Box matrix (or sequence of box matrices) with shape <code class="docutils literal notranslate"><span class="pre">(3,</span> <span class="pre">3)</span></code> or <code class="docutils literal notranslate"><span class="pre">(n_structures,</span> <span class="pre">3,</span> <span class="pre">3)</span></code>.
+Only the first box is used. Supports triclinic cells; side lengths and tilt must be in
+nanometers.</p></li>
+<li><p><strong>form</strong> (<em>str</em><em>, </em><em>default 'molsysmt.MolSys'</em>) – Target form of the returned system. Currently returns a <code class="docutils literal notranslate"><span class="pre">molsysmt.MolSys</span></code> instance.</p></li>
+<li><p><strong>skip_digestion</strong> (<em>bool</em><em>, </em><em>default False</em>) – Whether to skip MolSysMT’s argument digestion.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Water box with coordinates of shape <code class="docutils literal notranslate"><span class="pre">(1,</span> <span class="pre">n_atoms,</span> <span class="pre">3)</span></code> in nanometers, topology for
+SPC/E waters, and box of shape <code class="docutils literal notranslate"><span class="pre">(1,</span> <span class="pre">3,</span> <span class="pre">3)</span></code> in nanometers.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="molsysmt.native.html#molsysmt.native.molsys.MolSys" title="molsysmt.native.molsys.MolSys">molsysmt.native.molsys.MolSys</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-molsysmt.build.mutate">
+<span id="molsysmt-build-mutate-module"></span><h2>molsysmt.build.mutate module<a class="headerlink" href="#module-molsysmt.build.mutate" title="Link to this heading">#</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="molsysmt.build.mutate.mutate">
+<span class="sig-prename descclassname"><span class="pre">molsysmt.build.mutate.</span></span><span class="sig-name descname"><span class="pre">mutate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">molecular_system</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mutations</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keys</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'group_index'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">selection</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'all'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">syntax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'MolSysMT'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">engine</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'PDBFixer'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/molsysmt/build/mutate.html#mutate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#molsysmt.build.mutate.mutate" title="Link to this definition">#</a></dt>
+<dd><p>To be written soon…</p>
+</dd></dl>
+
+</section>
+<section id="module-molsysmt.build.remove_bonds">
+<span id="molsysmt-build-remove-bonds-module"></span><h2>molsysmt.build.remove_bonds module<a class="headerlink" href="#module-molsysmt.build.remove_bonds" title="Link to this heading">#</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="molsysmt.build.remove_bonds.remove_bonds">
+<span class="sig-prename descclassname"><span class="pre">molsysmt.build.remove_bonds.</span></span><span class="sig-name descname"><span class="pre">remove_bonds</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">molecular_system</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bond_indices</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'all'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">in_place</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">skip_digestion</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/molsysmt/build/remove_bonds.html#remove_bonds"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#molsysmt.build.remove_bonds.remove_bonds" title="Link to this definition">#</a></dt>
+<dd><p>Remove bonds from a molecular system by index.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>molecular_system</strong> (<em>molecular system</em>) – System from which bonds will be removed.</p></li>
+<li><p><strong>bond_indices</strong> (<em>'all'</em><em> or </em><em>array-like</em><em>, </em><em>default 'all'</em>) – Bond indices to delete.</p></li>
+<li><p><strong>in_place</strong> (<em>bool</em><em>, </em><em>default True</em>) – If <cite>True</cite>, modify in place; otherwise raise NotImplementedMethodError.</p></li>
+<li><p><strong>skip_digestion</strong> (<em>bool</em><em>, </em><em>default False</em>) – Whether to skip argument digestion.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-molsysmt.build.remove_overlapping_molecules">
+<span id="molsysmt-build-remove-overlapping-molecules-module"></span><h2>molsysmt.build.remove_overlapping_molecules module<a class="headerlink" href="#module-molsysmt.build.remove_overlapping_molecules" title="Link to this heading">#</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="molsysmt.build.remove_overlapping_molecules.remove_overlapping_molecules">
+<span class="sig-prename descclassname"><span class="pre">molsysmt.build.remove_overlapping_molecules.</span></span><span class="sig-name descname"><span class="pre">remove_overlapping_molecules</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">molecular_system</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">selection</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">selection_2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">structure_index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'3</span> <span class="pre">angstroms'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pbc</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">syntax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'MolSysMT'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/molsysmt/build/remove_overlapping_molecules.html#remove_overlapping_molecules"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#molsysmt.build.remove_overlapping_molecules.remove_overlapping_molecules" title="Link to this definition">#</a></dt>
+<dd><p>Removing molecules that overlap a reference selection within a distance threshold.</p>
+<p>Given a reference selection (and optionally a second selection), this function finds
+contacts closer than <cite>threshold</cite> and removes the molecules containing the overlapping atoms.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>molecular_system</strong> (<em>molecular system</em>) – System to process.</p></li>
+<li><p><strong>selection</strong> (<em>str</em><em>, </em><em>list</em><em>, </em><em>tuple</em><em> or </em><em>numpy.ndarray</em>) – Reference atoms (MolSysMT selection syntax or indices).</p></li>
+<li><p><strong>selection_2</strong> (<em>str</em><em>, </em><em>list</em><em>, </em><em>tuple</em><em> or </em><em>numpy.ndarray</em><em>, </em><em>optional</em>) – Second set of atoms; if <cite>None</cite>, uses the complement of <cite>selection</cite>.</p></li>
+<li><p><strong>structure_index</strong> (<em>int</em><em>, </em><em>default 0</em>) – Structure/frame index used to detect contacts.</p></li>
+<li><p><strong>threshold</strong> (<em>pyunitwizard quantity</em><em> or </em><em>str</em><em>, </em><em>default '3 angstroms'</em>) – Distance cutoff for defining overlaps.</p></li>
+<li><p><strong>pbc</strong> (<em>bool</em><em>, </em><em>default True</em>) – Whether to consider periodic boundary conditions (auto-detected if <cite>True</cite>).</p></li>
+<li><p><strong>syntax</strong> (<em>str</em><em>, </em><em>default 'MolSysMT'</em>) – Selection syntax for string-based selections.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The pruned molecular system with overlapping molecules removed.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>molecular system</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-molsysmt.build.solvate">
+<span id="molsysmt-build-solvate-module"></span><h2>molsysmt.build.solvate module<a class="headerlink" href="#module-molsysmt.build.solvate" title="Link to this heading">#</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="molsysmt.build.solvate.solvate">
+<span class="sig-prename descclassname"><span class="pre">molsysmt.build.solvate.</span></span><span class="sig-name descname"><span class="pre">solvate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">molecular_system</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">box_shape</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'truncated</span> <span class="pre">octahedral'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">clearance</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'14.0</span> <span class="pre">angstroms'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">anion</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Cl-'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_anions</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'neutralize'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Na+'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_cations</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'neutralize'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ionic_strength</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'0.0</span> <span class="pre">molar'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">water_model</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'TIP3P'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">engine</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'OpenMM'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">to_form</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/molsysmt/build/solvate.html#solvate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#molsysmt.build.solvate.solvate" title="Link to this definition">#</a></dt>
+<dd><p>To be written soon…</p>
+<p>Methods and wrappers to create and solvate boxes
+:param anion:
+:type anion: ‘Cl-’, ‘Br-’, ‘F-’, and ‘I-’
+:param n_anions:
+:type n_anions: number of cations to add. integer or “neutralize”
+:param cation:
+:type cation: “NA”  ‘Cs+’, ‘K+’, ‘Li+’, ‘Na+’, and ‘Rb+’
+:param n_cations:
+:type n_cations: number of cations to add. integer or “neutralize”
+:param box_shape:
+:type box_shape: “cubic”, “truncated_octahedral” or “rhombic_dodecahedron” (Default: “truncated_octahedral”)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>item</strong> – bla bla</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>bla bla</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<p class="rubric">Notes</p>
+</dd></dl>
+
+</section>
+<section id="module-molsysmt.build.solve_atoms_with_alternate_location">
+<span id="molsysmt-build-solve-atoms-with-alternate-location-module"></span><h2>molsysmt.build.solve_atoms_with_alternate_location module<a class="headerlink" href="#module-molsysmt.build.solve_atoms_with_alternate_location" title="Link to this heading">#</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="molsysmt.build.solve_atoms_with_alternate_location.solve_atoms_with_alternate_location">
+<span class="sig-prename descclassname"><span class="pre">molsysmt.build.solve_atoms_with_alternate_location.</span></span><span class="sig-name descname"><span class="pre">solve_atoms_with_alternate_location</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">molecular_system</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">selection</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'all'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">structure_indices</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'all'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">location_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'occupancy'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">syntax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'MolSysMT'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/molsysmt/build/solve_atoms_with_alternate_location.html#solve_atoms_with_alternate_location"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#molsysmt.build.solve_atoms_with_alternate_location.solve_atoms_with_alternate_location" title="Link to this definition">#</a></dt>
+<dd><p>To be written soon…</p>
+</dd></dl>
+
+</section>
+<section id="module-molsysmt.build">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-molsysmt.build" title="Link to this heading">#</a></h2>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submodules">Submodules</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-molsysmt.build.add_bonds">molsysmt.build.add_bonds module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#molsysmt.build.add_bonds.add_bonds"><code class="docutils literal notranslate"><span class="pre">add_bonds()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-molsysmt.build.add_missing_bonds">molsysmt.build.add_missing_bonds module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#molsysmt.build.add_missing_bonds.add_missing_bonds"><code class="docutils literal notranslate"><span class="pre">add_missing_bonds()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-molsysmt.build.add_missing_heavy_atoms">molsysmt.build.add_missing_heavy_atoms module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#molsysmt.build.add_missing_heavy_atoms.add_missing_heavy_atoms"><code class="docutils literal notranslate"><span class="pre">add_missing_heavy_atoms()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-molsysmt.build.add_missing_hydrogens">molsysmt.build.add_missing_hydrogens module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#molsysmt.build.add_missing_hydrogens.add_missing_hydrogens"><code class="docutils literal notranslate"><span class="pre">add_missing_hydrogens()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-molsysmt.build.add_missing_terminal_cappings">molsysmt.build.add_missing_terminal_cappings module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#molsysmt.build.add_missing_terminal_cappings.add_missing_terminal_cappings"><code class="docutils literal notranslate"><span class="pre">add_missing_terminal_cappings()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-molsysmt.build.build_peptide">molsysmt.build.build_peptide module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#molsysmt.build.build_peptide.build_peptide"><code class="docutils literal notranslate"><span class="pre">build_peptide()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-molsysmt.build.define_new_chain">molsysmt.build.define_new_chain module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#molsysmt.build.define_new_chain.define_new_chain"><code class="docutils literal notranslate"><span class="pre">define_new_chain()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-molsysmt.build.get_disulfide_bonds">molsysmt.build.get_disulfide_bonds module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#molsysmt.build.get_disulfide_bonds.get_disulfide_bonds"><code class="docutils literal notranslate"><span class="pre">get_disulfide_bonds()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-molsysmt.build.get_missing_bonds">molsysmt.build.get_missing_bonds module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#molsysmt.build.get_missing_bonds.get_missing_bonds"><code class="docutils literal notranslate"><span class="pre">get_missing_bonds()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-molsysmt.build.get_missing_heavy_atoms">molsysmt.build.get_missing_heavy_atoms module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#molsysmt.build.get_missing_heavy_atoms.get_missing_heavy_atoms"><code class="docutils literal notranslate"><span class="pre">get_missing_heavy_atoms()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-molsysmt.build.get_missing_residues">molsysmt.build.get_missing_residues module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#molsysmt.build.get_missing_residues.get_missing_residues"><code class="docutils literal notranslate"><span class="pre">get_missing_residues()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-molsysmt.build.get_missing_terminal_cappings">molsysmt.build.get_missing_terminal_cappings module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#molsysmt.build.get_missing_terminal_cappings.get_missing_terminal_cappings"><code class="docutils literal notranslate"><span class="pre">get_missing_terminal_cappings()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-molsysmt.build.get_non_standard_residues">molsysmt.build.get_non_standard_residues module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#molsysmt.build.get_non_standard_residues.get_non_standard_residues"><code class="docutils literal notranslate"><span class="pre">get_non_standard_residues()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-molsysmt.build.has_hydrogens">molsysmt.build.has_hydrogens module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#molsysmt.build.has_hydrogens.has_hydrogens"><code class="docutils literal notranslate"><span class="pre">has_hydrogens()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-molsysmt.build.is_solvated">molsysmt.build.is_solvated module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#molsysmt.build.is_solvated.is_solvated"><code class="docutils literal notranslate"><span class="pre">is_solvated()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-molsysmt.build.make_bioassembly">molsysmt.build.make_bioassembly module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#molsysmt.build.make_bioassembly.make_bioassembly"><code class="docutils literal notranslate"><span class="pre">make_bioassembly()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-molsysmt.build.make_water_box">molsysmt.build.make_water_box module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#molsysmt.build.make_water_box.make_water_box"><code class="docutils literal notranslate"><span class="pre">make_water_box()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-molsysmt.build.mutate">molsysmt.build.mutate module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#molsysmt.build.mutate.mutate"><code class="docutils literal notranslate"><span class="pre">mutate()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-molsysmt.build.remove_bonds">molsysmt.build.remove_bonds module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#molsysmt.build.remove_bonds.remove_bonds"><code class="docutils literal notranslate"><span class="pre">remove_bonds()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-molsysmt.build.remove_overlapping_molecules">molsysmt.build.remove_overlapping_molecules module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#molsysmt.build.remove_overlapping_molecules.remove_overlapping_molecules"><code class="docutils literal notranslate"><span class="pre">remove_overlapping_molecules()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-molsysmt.build.solvate">molsysmt.build.solvate module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#molsysmt.build.solvate.solvate"><code class="docutils literal notranslate"><span class="pre">solvate()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-molsysmt.build.solve_atoms_with_alternate_location">molsysmt.build.solve_atoms_with_alternate_location module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#molsysmt.build.solve_atoms_with_alternate_location.solve_atoms_with_alternate_location"><code class="docutils literal notranslate"><span class="pre">solve_atoms_with_alternate_location()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-molsysmt.build">Module contents</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item"><div>
+	&copy; 2026, <a href=contents/about/who.html>Liliana M. Moreno Vargas, Diego Prada Gracia
+		and contributors</a> | <a href="https://www.uibcdf.org/">UIBCDF Lab</a> 
+	at the <a href="http://himfg.com.mx">Federico Gómez Children’s Hospital of Mexico</a><br />
+	<a href="https://github.com/uibcdf/molsysmt">MolSysMT is an open source project</a> shared
+	under <a href="https://github.com/uibcdf/molsysmt/blob/main/LICENSE">an MIT license</a>
+	with a structure based on the
+	<a href="https://github.com/MolSSI/cookiecutter-cms">Computational Molecular Science
+		Python Cookiecutter</a> version 1.5
+</div></div>
+      
+        <div class="footer-item">
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3
+     | 
+    Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1
+    <br/>
+  </p>
+
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item"><a href= "mailto:uibcdf@gmail.com">Contact us</a><br /></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

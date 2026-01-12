@@ -1,0 +1,61 @@
+molsysmt.element.component package
+==================================
+
+Submodules
+----------
+
+molsysmt.element.component.get\_component\_id module
+----------------------------------------------------
+
+.. automodule:: molsysmt.element.component.get_component_id
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.element.component.get\_component\_index module
+-------------------------------------------------------
+
+.. automodule:: molsysmt.element.component.get_component_index
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.element.component.get\_component\_name module
+------------------------------------------------------
+
+.. automodule:: molsysmt.element.component.get_component_name
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.element.component.get\_component\_type module
+------------------------------------------------------
+
+.. automodule:: molsysmt.element.component.get_component_type
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.element.component.get\_n\_components module
+----------------------------------------------------
+
+.. automodule:: molsysmt.element.component.get_n_components
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.element.component.is\_component\_type module
+-----------------------------------------------------
+
+.. automodule:: molsysmt.element.component.is_component_type
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Module contents
+---------------
+
+.. automodule:: molsysmt.element.component
+   :members:
+   :show-inheritance:
+   :undoc-members:

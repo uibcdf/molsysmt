@@ -1,0 +1,10 @@
+molsysmt.element.molecule.small\_molecule package
+=================================================
+
+Module contents
+---------------
+
+.. automodule:: molsysmt.element.molecule.small_molecule
+   :members:
+   :show-inheritance:
+   :undoc-members:

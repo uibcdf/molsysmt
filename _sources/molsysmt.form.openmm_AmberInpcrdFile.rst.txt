@@ -1,0 +1,117 @@
+molsysmt.form.openmm\_AmberInpcrdFile package
+=============================================
+
+Submodules
+----------
+
+molsysmt.form.openmm\_AmberInpcrdFile.add module
+------------------------------------------------
+
+.. automodule:: molsysmt.form.openmm_AmberInpcrdFile.add
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.openmm\_AmberInpcrdFile.append\_structures module
+---------------------------------------------------------------
+
+.. automodule:: molsysmt.form.openmm_AmberInpcrdFile.append_structures
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.openmm\_AmberInpcrdFile.attributes module
+-------------------------------------------------------
+
+.. automodule:: molsysmt.form.openmm_AmberInpcrdFile.attributes
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.openmm\_AmberInpcrdFile.copy module
+-------------------------------------------------
+
+.. automodule:: molsysmt.form.openmm_AmberInpcrdFile.copy
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.openmm\_AmberInpcrdFile.extract module
+----------------------------------------------------
+
+.. automodule:: molsysmt.form.openmm_AmberInpcrdFile.extract
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.openmm\_AmberInpcrdFile.get module
+------------------------------------------------
+
+.. automodule:: molsysmt.form.openmm_AmberInpcrdFile.get
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.openmm\_AmberInpcrdFile.has\_attribute module
+-----------------------------------------------------------
+
+.. automodule:: molsysmt.form.openmm_AmberInpcrdFile.has_attribute
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.openmm\_AmberInpcrdFile.is\_form module
+-----------------------------------------------------
+
+.. automodule:: molsysmt.form.openmm_AmberInpcrdFile.is_form
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.openmm\_AmberInpcrdFile.iterators module
+------------------------------------------------------
+
+.. automodule:: molsysmt.form.openmm_AmberInpcrdFile.iterators
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.openmm\_AmberInpcrdFile.merge module
+--------------------------------------------------
+
+.. automodule:: molsysmt.form.openmm_AmberInpcrdFile.merge
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.openmm\_AmberInpcrdFile.set module
+------------------------------------------------
+
+.. automodule:: molsysmt.form.openmm_AmberInpcrdFile.set
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.openmm\_AmberInpcrdFile.to\_molsysmt\_Structures module
+---------------------------------------------------------------------
+
+.. automodule:: molsysmt.form.openmm_AmberInpcrdFile.to_molsysmt_Structures
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.openmm\_AmberInpcrdFile.to\_openmm\_AmberInpcrdFile module
+------------------------------------------------------------------------
+
+.. automodule:: molsysmt.form.openmm_AmberInpcrdFile.to_openmm_AmberInpcrdFile
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Module contents
+---------------
+
+.. automodule:: molsysmt.form.openmm_AmberInpcrdFile
+   :members:
+   :show-inheritance:
+   :undoc-members:

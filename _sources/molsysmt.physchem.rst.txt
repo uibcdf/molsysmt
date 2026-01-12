@@ -1,0 +1,101 @@
+molsysmt.physchem package
+=========================
+
+Submodules
+----------
+
+molsysmt.physchem.get\_area\_buried module
+------------------------------------------
+
+.. automodule:: molsysmt.physchem.get_area_buried
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.physchem.get\_atomic\_radius module
+--------------------------------------------
+
+.. automodule:: molsysmt.physchem.get_atomic_radius
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.physchem.get\_buried\_fraction module
+----------------------------------------------
+
+.. automodule:: molsysmt.physchem.get_buried_fraction
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.physchem.get\_charge module
+------------------------------------
+
+.. automodule:: molsysmt.physchem.get_charge
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.physchem.get\_hydrophobicity module
+--------------------------------------------
+
+.. automodule:: molsysmt.physchem.get_hydrophobicity
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.physchem.get\_mass module
+----------------------------------
+
+.. automodule:: molsysmt.physchem.get_mass
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.physchem.get\_polarity module
+--------------------------------------
+
+.. automodule:: molsysmt.physchem.get_polarity
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.physchem.get\_sasa module
+----------------------------------
+
+.. automodule:: molsysmt.physchem.get_sasa
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.physchem.get\_surface\_area module
+-------------------------------------------
+
+.. automodule:: molsysmt.physchem.get_surface_area
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.physchem.get\_transmembrane\_tendency module
+-----------------------------------------------------
+
+.. automodule:: molsysmt.physchem.get_transmembrane_tendency
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.physchem.get\_volume module
+------------------------------------
+
+.. automodule:: molsysmt.physchem.get_volume
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Module contents
+---------------
+
+.. automodule:: molsysmt.physchem
+   :members:
+   :show-inheritance:
+   :undoc-members:

@@ -1,0 +1,61 @@
+molsysmt.element.group.terminal\_capping package
+================================================
+
+Submodules
+----------
+
+molsysmt.element.group.terminal\_capping.get\_bonded\_atom\_pairs module
+------------------------------------------------------------------------
+
+.. automodule:: molsysmt.element.group.terminal_capping.get_bonded_atom_pairs
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.element.group.terminal\_capping.get\_group\_db module
+--------------------------------------------------------------
+
+.. automodule:: molsysmt.element.group.terminal_capping.get_group_db
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.element.group.terminal\_capping.group\_names module
+------------------------------------------------------------
+
+.. automodule:: molsysmt.element.group.terminal_capping.group_names
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.element.group.terminal\_capping.is\_c\_terminal\_capping module
+------------------------------------------------------------------------
+
+.. automodule:: molsysmt.element.group.terminal_capping.is_c_terminal_capping
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.element.group.terminal\_capping.is\_n\_terminal\_capping module
+------------------------------------------------------------------------
+
+.. automodule:: molsysmt.element.group.terminal_capping.is_n_terminal_capping
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.element.group.terminal\_capping.is\_terminal\_capping module
+---------------------------------------------------------------------
+
+.. automodule:: molsysmt.element.group.terminal_capping.is_terminal_capping
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Module contents
+---------------
+
+.. automodule:: molsysmt.element.group.terminal_capping
+   :members:
+   :show-inheritance:
+   :undoc-members:

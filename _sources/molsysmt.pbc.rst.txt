@@ -1,0 +1,117 @@
+molsysmt.pbc package
+====================
+
+Submodules
+----------
+
+molsysmt.pbc.get\_angles\_from\_box module
+------------------------------------------
+
+.. automodule:: molsysmt.pbc.get_angles_from_box
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.pbc.get\_box\_from\_lengths\_and\_angles module
+--------------------------------------------------------
+
+.. automodule:: molsysmt.pbc.get_box_from_lengths_and_angles
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.pbc.get\_box\_with\_shape module
+-----------------------------------------
+
+.. automodule:: molsysmt.pbc.get_box_with_shape
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.pbc.get\_lengths\_and\_angles\_from\_box module
+--------------------------------------------------------
+
+.. automodule:: molsysmt.pbc.get_lengths_and_angles_from_box
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.pbc.get\_lengths\_from\_box module
+-------------------------------------------
+
+.. automodule:: molsysmt.pbc.get_lengths_from_box
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.pbc.get\_shape\_from\_angles module
+--------------------------------------------
+
+.. automodule:: molsysmt.pbc.get_shape_from_angles
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.pbc.get\_shape\_from\_box module
+-----------------------------------------
+
+.. automodule:: molsysmt.pbc.get_shape_from_box
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.pbc.get\_volume\_from\_box module
+------------------------------------------
+
+.. automodule:: molsysmt.pbc.get_volume_from_box
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.pbc.get\_volume\_from\_lengths\_and\_angles module
+-----------------------------------------------------------
+
+.. automodule:: molsysmt.pbc.get_volume_from_lengths_and_angles
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.pbc.has\_pbc module
+----------------------------
+
+.. automodule:: molsysmt.pbc.has_pbc
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.pbc.unwrap module
+--------------------------
+
+.. automodule:: molsysmt.pbc.unwrap
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.pbc.wrap\_to\_mic module
+---------------------------------
+
+.. automodule:: molsysmt.pbc.wrap_to_mic
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.pbc.wrap\_to\_pbc module
+---------------------------------
+
+.. automodule:: molsysmt.pbc.wrap_to_pbc
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Module contents
+---------------
+
+.. automodule:: molsysmt.pbc
+   :members:
+   :show-inheritance:
+   :undoc-members:

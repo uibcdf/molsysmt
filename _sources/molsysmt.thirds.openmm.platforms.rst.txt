@@ -1,0 +1,21 @@
+molsysmt.thirds.openmm.platforms package
+========================================
+
+Submodules
+----------
+
+molsysmt.thirds.openmm.platforms.platforms module
+-------------------------------------------------
+
+.. automodule:: molsysmt.thirds.openmm.platforms.platforms
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Module contents
+---------------
+
+.. automodule:: molsysmt.thirds.openmm.platforms
+   :members:
+   :show-inheritance:
+   :undoc-members:

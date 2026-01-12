@@ -1,0 +1,62 @@
+molsysmt.element.entity package
+===============================
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   molsysmt.element.entity.disaccharide
+   molsysmt.element.entity.monosaccharide
+
+Submodules
+----------
+
+molsysmt.element.entity.get\_entity\_id module
+----------------------------------------------
+
+.. automodule:: molsysmt.element.entity.get_entity_id
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.element.entity.get\_entity\_index module
+-------------------------------------------------
+
+.. automodule:: molsysmt.element.entity.get_entity_index
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.element.entity.get\_entity\_name module
+------------------------------------------------
+
+.. automodule:: molsysmt.element.entity.get_entity_name
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.element.entity.get\_entity\_type module
+------------------------------------------------
+
+.. automodule:: molsysmt.element.entity.get_entity_type
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.element.entity.get\_n\_entities module
+-----------------------------------------------
+
+.. automodule:: molsysmt.element.entity.get_n_entities
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Module contents
+---------------
+
+.. automodule:: molsysmt.element.entity
+   :members:
+   :show-inheritance:
+   :undoc-members:

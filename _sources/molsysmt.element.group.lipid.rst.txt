@@ -1,0 +1,29 @@
+molsysmt.element.group.lipid package
+====================================
+
+Submodules
+----------
+
+molsysmt.element.group.lipid.is\_lipid module
+---------------------------------------------
+
+.. automodule:: molsysmt.element.group.lipid.is_lipid
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.element.group.lipid.lipid\_names module
+------------------------------------------------
+
+.. automodule:: molsysmt.element.group.lipid.lipid_names
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Module contents
+---------------
+
+.. automodule:: molsysmt.element.group.lipid
+   :members:
+   :show-inheritance:
+   :undoc-members:

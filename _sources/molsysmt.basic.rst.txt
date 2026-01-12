@@ -1,0 +1,213 @@
+molsysmt.basic package
+======================
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   molsysmt.basic.selector
+
+Submodules
+----------
+
+molsysmt.basic.add module
+-------------------------
+
+.. automodule:: molsysmt.basic.add
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.basic.append\_structures module
+----------------------------------------
+
+.. automodule:: molsysmt.basic.append_structures
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.basic.are\_multiple\_molecular\_systems module
+-------------------------------------------------------
+
+.. automodule:: molsysmt.basic.are_multiple_molecular_systems
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.basic.compare module
+-----------------------------
+
+.. automodule:: molsysmt.basic.compare
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.basic.concatenate\_structures module
+---------------------------------------------
+
+.. automodule:: molsysmt.basic.concatenate_structures
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.basic.contains module
+------------------------------
+
+.. automodule:: molsysmt.basic.contains
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.basic.convert module
+-----------------------------
+
+.. automodule:: molsysmt.basic.convert
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.basic.copy module
+--------------------------
+
+.. automodule:: molsysmt.basic.copy
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.basic.extract module
+-----------------------------
+
+.. automodule:: molsysmt.basic.extract
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.basic.get module
+-------------------------
+
+.. automodule:: molsysmt.basic.get
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.basic.get\_attributes module
+-------------------------------------
+
+.. automodule:: molsysmt.basic.get_attributes
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.basic.get\_form module
+-------------------------------
+
+.. automodule:: molsysmt.basic.get_form
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.basic.get\_label module
+--------------------------------
+
+.. automodule:: molsysmt.basic.get_label
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.basic.has\_attribute module
+------------------------------------
+
+.. automodule:: molsysmt.basic.has_attribute
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.basic.info module
+--------------------------
+
+.. automodule:: molsysmt.basic.info
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.basic.is\_a\_molecular\_system module
+----------------------------------------------
+
+.. automodule:: molsysmt.basic.is_a_molecular_system
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.basic.is\_composed\_of module
+--------------------------------------
+
+.. automodule:: molsysmt.basic.is_composed_of
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.basic.iterator module
+------------------------------
+
+.. automodule:: molsysmt.basic.iterator
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.basic.merge module
+---------------------------
+
+.. automodule:: molsysmt.basic.merge
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.basic.remove module
+----------------------------
+
+.. automodule:: molsysmt.basic.remove
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.basic.select module
+----------------------------
+
+.. automodule:: molsysmt.basic.select
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.basic.set module
+-------------------------
+
+.. automodule:: molsysmt.basic.set
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.basic.view module
+--------------------------
+
+.. automodule:: molsysmt.basic.view
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.basic.where\_is\_attribute module
+------------------------------------------
+
+.. automodule:: molsysmt.basic.where_is_attribute
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Module contents
+---------------
+
+.. automodule:: molsysmt.basic
+   :members:
+   :show-inheritance:
+   :undoc-members:

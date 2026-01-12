@@ -1,0 +1,197 @@
+molsysmt.form.file\_gro package
+===============================
+
+Submodules
+----------
+
+molsysmt.form.file\_gro.add module
+----------------------------------
+
+.. automodule:: molsysmt.form.file_gro.add
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_gro.append\_structures module
+-------------------------------------------------
+
+.. automodule:: molsysmt.form.file_gro.append_structures
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_gro.attributes module
+-----------------------------------------
+
+.. automodule:: molsysmt.form.file_gro.attributes
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_gro.copy module
+-----------------------------------
+
+.. automodule:: molsysmt.form.file_gro.copy
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_gro.extract module
+--------------------------------------
+
+.. automodule:: molsysmt.form.file_gro.extract
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_gro.get module
+----------------------------------
+
+.. automodule:: molsysmt.form.file_gro.get
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_gro.has\_attribute module
+---------------------------------------------
+
+.. automodule:: molsysmt.form.file_gro.has_attribute
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_gro.is\_form module
+---------------------------------------
+
+.. automodule:: molsysmt.form.file_gro.is_form
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_gro.iterators module
+----------------------------------------
+
+.. automodule:: molsysmt.form.file_gro.iterators
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_gro.merge module
+------------------------------------
+
+.. automodule:: molsysmt.form.file_gro.merge
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_gro.set module
+----------------------------------
+
+.. automodule:: molsysmt.form.file_gro.set
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_gro.to\_file\_gro module
+--------------------------------------------
+
+.. automodule:: molsysmt.form.file_gro.to_file_gro
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_gro.to\_mdtraj\_GroTrajectoryFile module
+------------------------------------------------------------
+
+.. automodule:: molsysmt.form.file_gro.to_mdtraj_GroTrajectoryFile
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_gro.to\_mdtraj\_Topology module
+---------------------------------------------------
+
+.. automodule:: molsysmt.form.file_gro.to_mdtraj_Topology
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_gro.to\_mdtraj\_Trajectory module
+-----------------------------------------------------
+
+.. automodule:: molsysmt.form.file_gro.to_mdtraj_Trajectory
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_gro.to\_molsysmt\_GROFileHandler module
+-----------------------------------------------------------
+
+.. automodule:: molsysmt.form.file_gro.to_molsysmt_GROFileHandler
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_gro.to\_molsysmt\_MolSys module
+---------------------------------------------------
+
+.. automodule:: molsysmt.form.file_gro.to_molsysmt_MolSys
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_gro.to\_molsysmt\_Structures module
+-------------------------------------------------------
+
+.. automodule:: molsysmt.form.file_gro.to_molsysmt_Structures
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_gro.to\_molsysmt\_Topology module
+-----------------------------------------------------
+
+.. automodule:: molsysmt.form.file_gro.to_molsysmt_Topology
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_gro.to\_nglview\_NGLWidget module
+-----------------------------------------------------
+
+.. automodule:: molsysmt.form.file_gro.to_nglview_NGLWidget
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_gro.to\_openmm\_GromacsGroFile module
+---------------------------------------------------------
+
+.. automodule:: molsysmt.form.file_gro.to_openmm_GromacsGroFile
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_gro.to\_openmm\_Modeller module
+---------------------------------------------------
+
+.. automodule:: molsysmt.form.file_gro.to_openmm_Modeller
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_gro.to\_openmm\_Topology module
+---------------------------------------------------
+
+.. automodule:: molsysmt.form.file_gro.to_openmm_Topology
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Module contents
+---------------
+
+.. automodule:: molsysmt.form.file_gro
+   :members:
+   :show-inheritance:
+   :undoc-members:

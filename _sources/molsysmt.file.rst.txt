@@ -1,0 +1,77 @@
+molsysmt.file package
+=====================
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   molsysmt.file.handlers
+
+Submodules
+----------
+
+molsysmt.file.close module
+--------------------------
+
+.. automodule:: molsysmt.file.close
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.file.file\_handler module
+----------------------------------
+
+.. automodule:: molsysmt.file.file_handler
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.file.get\_mode module
+------------------------------
+
+.. automodule:: molsysmt.file.get_mode
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.file.is\_closed module
+-------------------------------
+
+.. automodule:: molsysmt.file.is_closed
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.file.is\_file module
+-----------------------------
+
+.. automodule:: molsysmt.file.is_file
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.file.is\_opened module
+-------------------------------
+
+.. automodule:: molsysmt.file.is_opened
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.file.open module
+-------------------------
+
+.. automodule:: molsysmt.file.open
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Module contents
+---------------
+
+.. automodule:: molsysmt.file
+   :members:
+   :show-inheritance:
+   :undoc-members:

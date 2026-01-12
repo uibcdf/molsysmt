@@ -1,0 +1,205 @@
+molsysmt.form.mmtf\_MMTFDecoder package
+=======================================
+
+Submodules
+----------
+
+molsysmt.form.mmtf\_MMTFDecoder.add module
+------------------------------------------
+
+.. automodule:: molsysmt.form.mmtf_MMTFDecoder.add
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.mmtf\_MMTFDecoder.append\_structures module
+---------------------------------------------------------
+
+.. automodule:: molsysmt.form.mmtf_MMTFDecoder.append_structures
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.mmtf\_MMTFDecoder.attributes module
+-------------------------------------------------
+
+.. automodule:: molsysmt.form.mmtf_MMTFDecoder.attributes
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.mmtf\_MMTFDecoder.copy module
+-------------------------------------------
+
+.. automodule:: molsysmt.form.mmtf_MMTFDecoder.copy
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.mmtf\_MMTFDecoder.extract module
+----------------------------------------------
+
+.. automodule:: molsysmt.form.mmtf_MMTFDecoder.extract
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.mmtf\_MMTFDecoder.get\_structural\_attributes module
+------------------------------------------------------------------
+
+.. automodule:: molsysmt.form.mmtf_MMTFDecoder.get_structural_attributes
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.mmtf\_MMTFDecoder.get\_topological\_attributes module
+-------------------------------------------------------------------
+
+.. automodule:: molsysmt.form.mmtf_MMTFDecoder.get_topological_attributes
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.mmtf\_MMTFDecoder.has\_attribute module
+-----------------------------------------------------
+
+.. automodule:: molsysmt.form.mmtf_MMTFDecoder.has_attribute
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.mmtf\_MMTFDecoder.is\_form module
+-----------------------------------------------
+
+.. automodule:: molsysmt.form.mmtf_MMTFDecoder.is_form
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.mmtf\_MMTFDecoder.iterators module
+------------------------------------------------
+
+.. automodule:: molsysmt.form.mmtf_MMTFDecoder.iterators
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.mmtf\_MMTFDecoder.merge module
+--------------------------------------------
+
+.. automodule:: molsysmt.form.mmtf_MMTFDecoder.merge
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.mmtf\_MMTFDecoder.set module
+------------------------------------------
+
+.. automodule:: molsysmt.form.mmtf_MMTFDecoder.set
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.mmtf\_MMTFDecoder.to\_file\_mmtf module
+-----------------------------------------------------
+
+.. automodule:: molsysmt.form.mmtf_MMTFDecoder.to_file_mmtf
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.mmtf\_MMTFDecoder.to\_file\_pdb module
+----------------------------------------------------
+
+.. automodule:: molsysmt.form.mmtf_MMTFDecoder.to_file_pdb
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.mmtf\_MMTFDecoder.to\_mdtraj\_Trajectory module
+-------------------------------------------------------------
+
+.. automodule:: molsysmt.form.mmtf_MMTFDecoder.to_mdtraj_Trajectory
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.mmtf\_MMTFDecoder.to\_mmtf\_MMTFDecoder module
+------------------------------------------------------------
+
+.. automodule:: molsysmt.form.mmtf_MMTFDecoder.to_mmtf_MMTFDecoder
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.mmtf\_MMTFDecoder.to\_molsysmt\_MolSys module
+-----------------------------------------------------------
+
+.. automodule:: molsysmt.form.mmtf_MMTFDecoder.to_molsysmt_MolSys
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.mmtf\_MMTFDecoder.to\_molsysmt\_MolecularMechanics module
+-----------------------------------------------------------------------
+
+.. automodule:: molsysmt.form.mmtf_MMTFDecoder.to_molsysmt_MolecularMechanics
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.mmtf\_MMTFDecoder.to\_molsysmt\_Structures module
+---------------------------------------------------------------
+
+.. automodule:: molsysmt.form.mmtf_MMTFDecoder.to_molsysmt_Structures
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.mmtf\_MMTFDecoder.to\_molsysmt\_Topology module
+-------------------------------------------------------------
+
+.. automodule:: molsysmt.form.mmtf_MMTFDecoder.to_molsysmt_Topology
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.mmtf\_MMTFDecoder.to\_openmm\_Topology module
+-----------------------------------------------------------
+
+.. automodule:: molsysmt.form.mmtf_MMTFDecoder.to_openmm_Topology
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.mmtf\_MMTFDecoder.to\_string\_amino\_acids\_1 module
+------------------------------------------------------------------
+
+.. automodule:: molsysmt.form.mmtf_MMTFDecoder.to_string_amino_acids_1
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.mmtf\_MMTFDecoder.to\_string\_amino\_acids\_3 module
+------------------------------------------------------------------
+
+.. automodule:: molsysmt.form.mmtf_MMTFDecoder.to_string_amino_acids_3
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.mmtf\_MMTFDecoder.to\_string\_pdb\_text module
+------------------------------------------------------------
+
+.. automodule:: molsysmt.form.mmtf_MMTFDecoder.to_string_pdb_text
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Module contents
+---------------
+
+.. automodule:: molsysmt.form.mmtf_MMTFDecoder
+   :members:
+   :show-inheritance:
+   :undoc-members:

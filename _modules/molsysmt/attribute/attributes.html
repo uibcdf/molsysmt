@@ -1,0 +1,981 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+    <title>molsysmt.attribute.attributes – MolSysMT 0.12.0</title>
+  
+
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx_tabs.css?v=f45e19d3" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=d5ef24d1" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/tabs.css?v=a5c4661c" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=d5ef24d1" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../../../_static/documentation_options.js?v=61ccb1f1"></script>
+    <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../../_static/copybutton.js?v=f281be69"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/nglview-js-widgets@3.1.0/dist/index.js"></script>
+    <script src="../../../_static/tabs.js?v=3030b3cb"></script>
+    <script src="../../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/molsysmt/attribute/attributes';</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="0.12.0" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../../_static/logo.svg" class="logo__image only-light" alt="MolSysMT 0.12.0 documentation - Home"/>
+    <img src="../../../_static/logo.svg" class="logo__image only-dark pst-js-only" alt="MolSysMT 0.12.0 documentation - Home"/>
+  
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../content/about/index.html">
+    About
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../content/showcase/index.html">
+    Showcase
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../content/user/index.html">
+    User guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../content/developer/index.html">
+    Developer guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../api/index.html">
+    API documentation
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../content/ai_assistant.html">
+    MolSys-AI
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/uibcdf/molsysmt" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar hide-on-wide">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../content/about/index.html">
+    About
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../content/showcase/index.html">
+    Showcase
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../content/user/index.html">
+    User guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../content/developer/index.html">
+    Developer guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../api/index.html">
+    API documentation
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../content/ai_assistant.html">
+    MolSys-AI
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/uibcdf/molsysmt" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../../index.html" class="nav-link">Module code</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">molsysmt.attribute.attributes</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <h1>Source code for molsysmt.attribute.attributes</h1><div class="highlight"><pre>
+<span></span><span class="n">attributes</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="n">attribute_synonyms</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="n">independent_attributes</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">topological_attributes</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">structural_attributes</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">mechanical_attributes</span> <span class="o">=</span> <span class="p">[]</span>
+
+<div class="viewcode-block" id="add_attribute">
+<a class="viewcode-back" href="../../../molsysmt.attribute.html#molsysmt.attribute.attributes.add_attribute">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">add_attribute</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">synonyms</span><span class="o">=</span><span class="p">[],</span> <span class="n">depends_on</span><span class="o">=</span><span class="p">[],</span> <span class="n">dependants</span><span class="o">=</span><span class="p">[],</span> <span class="n">runs_on_elements</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">runs_on_structures</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">topological</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">structural</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">mechanical</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">dynamical</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">get_from</span><span class="o">=</span><span class="p">[],</span> <span class="n">set_to</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="p">[]):</span>
+
+    <span class="n">attributes</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;synonyms&#39;</span> <span class="p">:</span> <span class="n">synonyms</span><span class="p">,</span>
+            <span class="s1">&#39;runs_on_elements&#39;</span> <span class="p">:</span>  <span class="n">runs_on_elements</span><span class="p">,</span>
+            <span class="s1">&#39;runs_on_structures&#39;</span> <span class="p">:</span>  <span class="n">runs_on_structures</span><span class="p">,</span>
+            <span class="s1">&#39;topological&#39;</span> <span class="p">:</span>  <span class="n">topological</span><span class="p">,</span>
+            <span class="s1">&#39;structural&#39;</span> <span class="p">:</span>  <span class="n">structural</span><span class="p">,</span>
+            <span class="s1">&#39;mechanical&#39;</span> <span class="p">:</span>  <span class="n">mechanical</span><span class="p">,</span>
+            <span class="s1">&#39;dynamical&#39;</span> <span class="p">:</span>  <span class="n">dynamical</span><span class="p">,</span>
+            <span class="s1">&#39;get_from&#39;</span> <span class="p">:</span> <span class="n">get_from</span><span class="p">,</span>
+            <span class="s1">&#39;set_to&#39;</span> <span class="p">:</span> <span class="n">set_to</span><span class="p">,</span>
+            <span class="s1">&#39;values&#39;</span> <span class="p">:</span> <span class="n">values</span><span class="p">,</span>
+            <span class="p">}</span>
+
+    <span class="k">for</span> <span class="n">alternative_name</span> <span class="ow">in</span> <span class="n">synonyms</span><span class="p">:</span>
+        <span class="n">attribute_synonyms</span><span class="p">[</span><span class="n">alternative_name</span><span class="p">]</span><span class="o">=</span><span class="n">name</span>
+
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">depends_on</span><span class="p">)</span><span class="o">==</span><span class="mi">0</span><span class="p">:</span>
+        <span class="n">independent_attributes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">topological</span><span class="p">:</span>
+        <span class="n">topological_attributes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">structural</span><span class="p">:</span>
+        <span class="n">structural_attributes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">mechanical</span><span class="p">:</span>
+        <span class="n">mechanical_attributes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">name</span><span class="p">)</span></div>
+
+
+<span class="c1">###</span>
+<span class="c1">### TOPOLOGICAL ATTRIBUTES</span>
+<span class="c1">###</span>
+
+<span class="c1">### atom_index</span>
+<span class="n">add_attribute</span><span class="p">(</span><span class="s1">&#39;atom_index&#39;</span><span class="p">,</span> <span class="n">synonyms</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;atom_indices&#39;</span><span class="p">],</span> <span class="n">dependants</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;n_atoms&#39;</span><span class="p">],</span> <span class="n">runs_on_elements</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">topological</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">get_from</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;atom&#39;</span><span class="p">,</span><span class="s1">&#39;group&#39;</span><span class="p">,</span><span class="s1">&#39;component&#39;</span><span class="p">,</span><span class="s1">&#39;molecule&#39;</span><span class="p">,</span><span class="s1">&#39;chain&#39;</span><span class="p">,</span><span class="s1">&#39;entity&#39;</span><span class="p">])</span>
+
+<span class="c1">### atom_name</span>
+<span class="n">add_attribute</span><span class="p">(</span><span class="s1">&#39;atom_name&#39;</span><span class="p">,</span> <span class="n">synonyms</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;atom_names&#39;</span><span class="p">],</span> <span class="n">runs_on_elements</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">topological</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">get_from</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;atom&#39;</span><span class="p">,</span><span class="s1">&#39;group&#39;</span><span class="p">,</span><span class="s1">&#39;component&#39;</span><span class="p">,</span><span class="s1">&#39;molecule&#39;</span><span class="p">,</span><span class="s1">&#39;chain&#39;</span><span class="p">,</span><span class="s1">&#39;entity&#39;</span><span class="p">],</span> <span class="n">set_to</span><span class="o">=</span><span class="s1">&#39;atom&#39;</span><span class="p">)</span>
+
+<span class="c1">## atom_id</span>
+<span class="n">add_attribute</span><span class="p">(</span><span class="s1">&#39;atom_id&#39;</span><span class="p">,</span> <span class="n">synonyms</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;atom_ids&#39;</span><span class="p">],</span> <span class="n">runs_on_elements</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">topological</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">get_from</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;atom&#39;</span><span class="p">,</span><span class="s1">&#39;group&#39;</span><span class="p">,</span><span class="s1">&#39;component&#39;</span><span class="p">,</span><span class="s1">&#39;molecule&#39;</span><span class="p">,</span><span class="s1">&#39;chain&#39;</span><span class="p">,</span><span class="s1">&#39;entity&#39;</span><span class="p">],</span> <span class="n">set_to</span><span class="o">=</span><span class="s1">&#39;atom&#39;</span><span class="p">)</span>
+
+<span class="c1">## atom_type</span>
+<span class="n">add_attribute</span><span class="p">(</span><span class="s1">&#39;atom_type&#39;</span><span class="p">,</span> <span class="n">synonyms</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;atom_types&#39;</span><span class="p">],</span> <span class="n">runs_on_elements</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">topological</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">get_from</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;atom&#39;</span><span class="p">,</span><span class="s1">&#39;group&#39;</span><span class="p">,</span><span class="s1">&#39;component&#39;</span><span class="p">,</span><span class="s1">&#39;molecule&#39;</span><span class="p">,</span><span class="s1">&#39;chain&#39;</span><span class="p">,</span><span class="s1">&#39;entity&#39;</span><span class="p">],</span> <span class="n">set_to</span><span class="o">=</span><span class="s1">&#39;atom&#39;</span><span class="p">)</span>
+
+<span class="c1">## group_index</span>
+<span class="n">add_attribute</span><span class="p">(</span><span class="s1">&#39;group_index&#39;</span><span class="p">,</span> <span class="n">synonyms</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;group_indices&#39;</span><span class="p">,</span> <span class="s1">&#39;residue_indices&#39;</span><span class="p">,</span> <span class="s1">&#39;residue_index&#39;</span><span class="p">],</span>
+              <span class="n">dependants</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;n_groups&#39;</span><span class="p">],</span> <span class="n">runs_on_elements</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">topological</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+              <span class="n">get_from</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;atom&#39;</span><span class="p">,</span><span class="s1">&#39;group&#39;</span><span class="p">,</span><span class="s1">&#39;component&#39;</span><span class="p">,</span><span class="s1">&#39;molecule&#39;</span><span class="p">,</span><span class="s1">&#39;chain&#39;</span><span class="p">,</span><span class="s1">&#39;entity&#39;</span><span class="p">])</span>
+
+<span class="c1">## group_name</span>
+<span class="n">add_attribute</span><span class="p">(</span><span class="s1">&#39;group_name&#39;</span><span class="p">,</span> <span class="n">synonyms</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;group_names&#39;</span><span class="p">,</span> <span class="s1">&#39;residue_names&#39;</span><span class="p">,</span> <span class="s1">&#39;residue_name&#39;</span><span class="p">],</span>
+              <span class="n">runs_on_elements</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">topological</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+              <span class="n">get_from</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;atom&#39;</span><span class="p">,</span><span class="s1">&#39;group&#39;</span><span class="p">,</span><span class="s1">&#39;component&#39;</span><span class="p">,</span><span class="s1">&#39;molecule&#39;</span><span class="p">,</span><span class="s1">&#39;chain&#39;</span><span class="p">,</span><span class="s1">&#39;entity&#39;</span><span class="p">],</span> <span class="n">set_to</span><span class="o">=</span><span class="s1">&#39;group&#39;</span><span class="p">)</span>
+
+<span class="c1">## group_id</span>
+<span class="n">add_attribute</span><span class="p">(</span><span class="s1">&#39;group_id&#39;</span><span class="p">,</span> <span class="n">synonyms</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;group_ids&#39;</span><span class="p">,</span> <span class="s1">&#39;residue_ids&#39;</span><span class="p">,</span> <span class="s1">&#39;residue_id&#39;</span><span class="p">],</span>
+              <span class="n">runs_on_elements</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">topological</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+              <span class="n">get_from</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;atom&#39;</span><span class="p">,</span><span class="s1">&#39;group&#39;</span><span class="p">,</span><span class="s1">&#39;component&#39;</span><span class="p">,</span><span class="s1">&#39;molecule&#39;</span><span class="p">,</span><span class="s1">&#39;chain&#39;</span><span class="p">,</span><span class="s1">&#39;entity&#39;</span><span class="p">],</span> <span class="n">set_to</span><span class="o">=</span><span class="s1">&#39;group&#39;</span><span class="p">)</span>
+
+<span class="c1">## group_type</span>
+<span class="n">add_attribute</span><span class="p">(</span><span class="s1">&#39;group_type&#39;</span><span class="p">,</span> <span class="n">synonyms</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;group_types&#39;</span><span class="p">,</span> <span class="s1">&#39;residue_types&#39;</span><span class="p">,</span> <span class="s1">&#39;residue_type&#39;</span><span class="p">],</span>
+              <span class="n">runs_on_elements</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">topological</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+              <span class="n">get_from</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;atom&#39;</span><span class="p">,</span><span class="s1">&#39;group&#39;</span><span class="p">,</span><span class="s1">&#39;component&#39;</span><span class="p">,</span><span class="s1">&#39;molecule&#39;</span><span class="p">,</span><span class="s1">&#39;chain&#39;</span><span class="p">,</span><span class="s1">&#39;entity&#39;</span><span class="p">],</span> <span class="n">set_to</span><span class="o">=</span><span class="s1">&#39;group&#39;</span><span class="p">)</span>
+
+<span class="c1">## component_index</span>
+<span class="n">add_attribute</span><span class="p">(</span><span class="s1">&#39;component_index&#39;</span><span class="p">,</span> <span class="n">synonyms</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;component_indices&#39;</span><span class="p">],</span> <span class="n">dependants</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;n_components&#39;</span><span class="p">],</span>
+              <span class="n">runs_on_elements</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">topological</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+              <span class="n">get_from</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;atom&#39;</span><span class="p">,</span><span class="s1">&#39;group&#39;</span><span class="p">,</span><span class="s1">&#39;component&#39;</span><span class="p">,</span><span class="s1">&#39;molecule&#39;</span><span class="p">,</span><span class="s1">&#39;chain&#39;</span><span class="p">,</span><span class="s1">&#39;entity&#39;</span><span class="p">])</span>
+
+<span class="c1">## component_name</span>
+<span class="n">add_attribute</span><span class="p">(</span><span class="s1">&#39;component_name&#39;</span><span class="p">,</span> <span class="n">synonyms</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;component_names&#39;</span><span class="p">],</span> <span class="n">runs_on_elements</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">topological</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">get_from</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;atom&#39;</span><span class="p">,</span><span class="s1">&#39;group&#39;</span><span class="p">,</span><span class="s1">&#39;component&#39;</span><span class="p">,</span><span class="s1">&#39;molecule&#39;</span><span class="p">,</span><span class="s1">&#39;chain&#39;</span><span class="p">,</span><span class="s1">&#39;entity&#39;</span><span class="p">],</span> <span class="n">set_to</span><span class="o">=</span><span class="s1">&#39;component&#39;</span><span class="p">)</span>
+
+<span class="c1">## component_id</span>
+<span class="n">add_attribute</span><span class="p">(</span><span class="s1">&#39;component_id&#39;</span><span class="p">,</span> <span class="n">synonyms</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;component_ids&#39;</span><span class="p">],</span> <span class="n">runs_on_elements</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">topological</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">get_from</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;atom&#39;</span><span class="p">,</span><span class="s1">&#39;group&#39;</span><span class="p">,</span><span class="s1">&#39;component&#39;</span><span class="p">,</span><span class="s1">&#39;molecule&#39;</span><span class="p">,</span><span class="s1">&#39;chain&#39;</span><span class="p">,</span><span class="s1">&#39;entity&#39;</span><span class="p">],</span> <span class="n">set_to</span><span class="o">=</span><span class="s1">&#39;component&#39;</span><span class="p">)</span>
+
+<span class="c1">## component_type</span>
+<span class="n">add_attribute</span><span class="p">(</span><span class="s1">&#39;component_type&#39;</span><span class="p">,</span> <span class="n">synonyms</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;component_types&#39;</span><span class="p">],</span> <span class="n">runs_on_elements</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">topological</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">get_from</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;atom&#39;</span><span class="p">,</span><span class="s1">&#39;group&#39;</span><span class="p">,</span><span class="s1">&#39;component&#39;</span><span class="p">,</span><span class="s1">&#39;molecule&#39;</span><span class="p">,</span><span class="s1">&#39;chain&#39;</span><span class="p">,</span><span class="s1">&#39;entity&#39;</span><span class="p">],</span> <span class="n">set_to</span><span class="o">=</span><span class="s1">&#39;component&#39;</span><span class="p">)</span>
+
+<span class="c1">## chain_index</span>
+<span class="n">add_attribute</span><span class="p">(</span><span class="s1">&#39;chain_index&#39;</span><span class="p">,</span> <span class="n">synonyms</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;chain_indices&#39;</span><span class="p">],</span> <span class="n">dependants</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;n_chains&#39;</span><span class="p">],</span> <span class="n">runs_on_elements</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+              <span class="n">topological</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">get_from</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;atom&#39;</span><span class="p">,</span><span class="s1">&#39;group&#39;</span><span class="p">,</span><span class="s1">&#39;component&#39;</span><span class="p">,</span><span class="s1">&#39;molecule&#39;</span><span class="p">,</span><span class="s1">&#39;chain&#39;</span><span class="p">,</span><span class="s1">&#39;entity&#39;</span><span class="p">])</span>
+
+<span class="c1">## chain_name</span>
+<span class="n">add_attribute</span><span class="p">(</span><span class="s1">&#39;chain_name&#39;</span><span class="p">,</span> <span class="n">synonyms</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;chain_names&#39;</span><span class="p">],</span> <span class="n">runs_on_elements</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">topological</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">get_from</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;atom&#39;</span><span class="p">,</span><span class="s1">&#39;group&#39;</span><span class="p">,</span><span class="s1">&#39;component&#39;</span><span class="p">,</span><span class="s1">&#39;molecule&#39;</span><span class="p">,</span><span class="s1">&#39;chain&#39;</span><span class="p">,</span><span class="s1">&#39;entity&#39;</span><span class="p">],</span> <span class="n">set_to</span><span class="o">=</span><span class="s1">&#39;chain&#39;</span><span class="p">)</span>
+
+<span class="c1">## chain_id</span>
+<span class="n">add_attribute</span><span class="p">(</span><span class="s1">&#39;chain_id&#39;</span><span class="p">,</span> <span class="n">synonyms</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;chain_ids&#39;</span><span class="p">],</span> <span class="n">runs_on_elements</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">topological</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">get_from</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;atom&#39;</span><span class="p">,</span><span class="s1">&#39;group&#39;</span><span class="p">,</span><span class="s1">&#39;component&#39;</span><span class="p">,</span><span class="s1">&#39;molecule&#39;</span><span class="p">,</span><span class="s1">&#39;chain&#39;</span><span class="p">,</span><span class="s1">&#39;entity&#39;</span><span class="p">],</span> <span class="n">set_to</span><span class="o">=</span><span class="s1">&#39;chain&#39;</span><span class="p">)</span>
+
+<span class="c1">## chain_type</span>
+<span class="n">add_attribute</span><span class="p">(</span><span class="s1">&#39;chain_type&#39;</span><span class="p">,</span> <span class="n">synonyms</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;chain_types&#39;</span><span class="p">],</span> <span class="n">runs_on_elements</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">topological</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">get_from</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;atom&#39;</span><span class="p">,</span><span class="s1">&#39;group&#39;</span><span class="p">,</span><span class="s1">&#39;component&#39;</span><span class="p">,</span><span class="s1">&#39;molecule&#39;</span><span class="p">,</span><span class="s1">&#39;chain&#39;</span><span class="p">,</span><span class="s1">&#39;entity&#39;</span><span class="p">],</span> <span class="n">set_to</span><span class="o">=</span><span class="s1">&#39;chain&#39;</span><span class="p">)</span>
+
+<span class="c1">## molecule_index</span>
+<span class="n">add_attribute</span><span class="p">(</span><span class="s1">&#39;molecule_index&#39;</span><span class="p">,</span> <span class="n">synonyms</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;molecule_indices&#39;</span><span class="p">],</span> <span class="n">dependants</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;n_molecules&#39;</span><span class="p">],</span>
+              <span class="n">runs_on_elements</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">topological</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+              <span class="n">get_from</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;atom&#39;</span><span class="p">,</span><span class="s1">&#39;group&#39;</span><span class="p">,</span><span class="s1">&#39;component&#39;</span><span class="p">,</span><span class="s1">&#39;molecule&#39;</span><span class="p">,</span><span class="s1">&#39;chain&#39;</span><span class="p">,</span><span class="s1">&#39;entity&#39;</span><span class="p">])</span>
+
+<span class="c1">## molecule_name</span>
+<span class="n">add_attribute</span><span class="p">(</span><span class="s1">&#39;molecule_name&#39;</span><span class="p">,</span> <span class="n">synonyms</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;molecule_names&#39;</span><span class="p">],</span> <span class="n">runs_on_elements</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">topological</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">get_from</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;atom&#39;</span><span class="p">,</span><span class="s1">&#39;group&#39;</span><span class="p">,</span><span class="s1">&#39;component&#39;</span><span class="p">,</span><span class="s1">&#39;molecule&#39;</span><span class="p">,</span><span class="s1">&#39;chain&#39;</span><span class="p">,</span><span class="s1">&#39;entity&#39;</span><span class="p">],</span> <span class="n">set_to</span><span class="o">=</span><span class="s1">&#39;molecule&#39;</span><span class="p">)</span>
+
+<span class="c1">## molecule_id</span>
+<span class="n">add_attribute</span><span class="p">(</span><span class="s1">&#39;molecule_id&#39;</span><span class="p">,</span> <span class="n">synonyms</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;molecule_ids&#39;</span><span class="p">],</span> <span class="n">runs_on_elements</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">topological</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">get_from</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;atom&#39;</span><span class="p">,</span><span class="s1">&#39;group&#39;</span><span class="p">,</span><span class="s1">&#39;component&#39;</span><span class="p">,</span><span class="s1">&#39;molecule&#39;</span><span class="p">,</span><span class="s1">&#39;chain&#39;</span><span class="p">,</span><span class="s1">&#39;entity&#39;</span><span class="p">],</span> <span class="n">set_to</span><span class="o">=</span><span class="s1">&#39;molecule&#39;</span><span class="p">)</span>
+
+<span class="c1">## molecule_type</span>
+<span class="n">add_attribute</span><span class="p">(</span><span class="s1">&#39;molecule_type&#39;</span><span class="p">,</span> <span class="n">synonyms</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;molecule_types&#39;</span><span class="p">],</span>
+        <span class="n">dependants</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;n_ions&#39;</span><span class="p">,</span> <span class="s1">&#39;n_waters&#39;</span><span class="p">,</span> <span class="s1">&#39;n_small_molecules&#39;</span><span class="p">,</span> <span class="s1">&#39;n_lipids&#39;</span><span class="p">,</span> <span class="s1">&#39;n_peptides&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;n_proteins&#39;</span><span class="p">,</span> <span class="s1">&#39;n_dnas&#39;</span><span class="p">,</span> <span class="s1">&#39;n_rnas&#39;</span><span class="p">,</span> <span class="s1">&#39;n_polysaccharides&#39;</span><span class="p">,</span> <span class="s1">&#39;n_saccharides&#39;</span><span class="p">],</span>
+        <span class="n">runs_on_elements</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">topological</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">get_from</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;atom&#39;</span><span class="p">,</span><span class="s1">&#39;group&#39;</span><span class="p">,</span><span class="s1">&#39;component&#39;</span><span class="p">,</span><span class="s1">&#39;molecule&#39;</span><span class="p">,</span><span class="s1">&#39;chain&#39;</span><span class="p">,</span><span class="s1">&#39;entity&#39;</span><span class="p">],</span> <span class="n">set_to</span><span class="o">=</span><span class="s1">&#39;molecule&#39;</span><span class="p">)</span>
+
+<span class="c1">## entity_index</span>
+<span class="n">add_attribute</span><span class="p">(</span><span class="s1">&#39;entity_index&#39;</span><span class="p">,</span> <span class="n">synonyms</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;entity_indices&#39;</span><span class="p">],</span> <span class="n">dependants</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;n_entities&#39;</span><span class="p">],</span>
+              <span class="n">runs_on_elements</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">topological</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+              <span class="n">get_from</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;atom&#39;</span><span class="p">,</span><span class="s1">&#39;group&#39;</span><span class="p">,</span><span class="s1">&#39;component&#39;</span><span class="p">,</span><span class="s1">&#39;molecule&#39;</span><span class="p">,</span><span class="s1">&#39;chain&#39;</span><span class="p">,</span><span class="s1">&#39;entity&#39;</span><span class="p">])</span>
+
+<span class="c1">## entity_name</span>
+<span class="n">add_attribute</span><span class="p">(</span><span class="s1">&#39;entity_name&#39;</span><span class="p">,</span> <span class="n">synonyms</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;entity_names&#39;</span><span class="p">],</span> <span class="n">runs_on_elements</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">topological</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">get_from</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;atom&#39;</span><span class="p">,</span><span class="s1">&#39;group&#39;</span><span class="p">,</span><span class="s1">&#39;component&#39;</span><span class="p">,</span><span class="s1">&#39;molecule&#39;</span><span class="p">,</span><span class="s1">&#39;chain&#39;</span><span class="p">,</span><span class="s1">&#39;entity&#39;</span><span class="p">],</span> <span class="n">set_to</span><span class="o">=</span><span class="s1">&#39;entity&#39;</span><span class="p">)</span>
+
+<span class="c1">## entity_id</span>
+<span class="n">add_attribute</span><span class="p">(</span><span class="s1">&#39;entity_id&#39;</span><span class="p">,</span> <span class="n">synonyms</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;entity_ids&#39;</span><span class="p">],</span> <span class="n">runs_on_elements</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">topological</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">get_from</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;atom&#39;</span><span class="p">,</span><span class="s1">&#39;group&#39;</span><span class="p">,</span><span class="s1">&#39;component&#39;</span><span class="p">,</span><span class="s1">&#39;molecule&#39;</span><span class="p">,</span><span class="s1">&#39;chain&#39;</span><span class="p">,</span><span class="s1">&#39;entity&#39;</span><span class="p">],</span> <span class="n">set_to</span><span class="o">=</span><span class="s1">&#39;entity&#39;</span><span class="p">)</span>
+
+<span class="c1">## entity_type</span>
+<span class="n">add_attribute</span><span class="p">(</span><span class="s1">&#39;entity_type&#39;</span><span class="p">,</span> <span class="n">synonyms</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;entity_types&#39;</span><span class="p">],</span> <span class="n">runs_on_elements</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">topological</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">get_from</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;atom&#39;</span><span class="p">,</span><span class="s1">&#39;group&#39;</span><span class="p">,</span><span class="s1">&#39;component&#39;</span><span class="p">,</span><span class="s1">&#39;molecule&#39;</span><span class="p">,</span><span class="s1">&#39;chain&#39;</span><span class="p">,</span><span class="s1">&#39;entity&#39;</span><span class="p">],</span> <span class="n">set_to</span><span class="o">=</span><span class="s1">&#39;entity&#39;</span><span class="p">)</span>
+
+<span class="c1">## bond_index</span>
+<span class="n">add_attribute</span><span class="p">(</span><span class="s1">&#39;bond_index&#39;</span><span class="p">,</span> <span class="n">synonyms</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;bond_indices&#39;</span><span class="p">],</span> <span class="n">dependants</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;n_bonds&#39;</span><span class="p">],</span> <span class="n">runs_on_elements</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+              <span class="n">topological</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">get_from</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;atom&#39;</span><span class="p">,</span><span class="s1">&#39;bond&#39;</span><span class="p">])</span>
+
+<span class="c1">## bond_id</span>
+<span class="n">add_attribute</span><span class="p">(</span><span class="s1">&#39;bond_id&#39;</span><span class="p">,</span> <span class="n">synonyms</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;bond_ids&#39;</span><span class="p">],</span> <span class="n">runs_on_elements</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">topological</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">get_from</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;bond&#39;</span><span class="p">],</span> <span class="n">set_to</span><span class="o">=</span><span class="s1">&#39;bond&#39;</span><span class="p">)</span>
+
+<span class="c1">## bond_type</span>
+<span class="n">add_attribute</span><span class="p">(</span><span class="s1">&#39;bond_type&#39;</span><span class="p">,</span> <span class="n">synonyms</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;bond_types&#39;</span><span class="p">],</span> <span class="n">runs_on_elements</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">topological</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">get_from</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;bond&#39;</span><span class="p">],</span> <span class="n">set_to</span><span class="o">=</span><span class="s1">&#39;bond&#39;</span><span class="p">)</span>
+
+<span class="c1">## bond_order</span>
+<span class="n">add_attribute</span><span class="p">(</span><span class="s1">&#39;bond_order&#39;</span><span class="p">,</span> <span class="n">synonyms</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;bonds_order&#39;</span><span class="p">],</span> <span class="n">runs_on_elements</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">topological</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">get_from</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;bond&#39;</span><span class="p">],</span> <span class="n">set_to</span><span class="o">=</span><span class="s1">&#39;bond&#39;</span><span class="p">)</span>
+
+<span class="c1">## bonded_atoms</span>
+<span class="n">add_attribute</span><span class="p">(</span><span class="s1">&#39;bonded_atoms&#39;</span><span class="p">,</span> <span class="n">synonyms</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;bonded_atom&#39;</span><span class="p">],</span> <span class="n">dependants</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;inner_bonded_atoms&#39;</span><span class="p">],</span>
+              <span class="n">runs_on_elements</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">topological</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+              <span class="n">get_from</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;atom&#39;</span><span class="p">,</span><span class="s1">&#39;bond&#39;</span><span class="p">],</span> <span class="n">set_to</span><span class="o">=</span><span class="s1">&#39;bond&#39;</span><span class="p">)</span>
+
+<span class="c1">## bonded_atoms</span>
+<span class="n">add_attribute</span><span class="p">(</span><span class="s1">&#39;bonded_atom_pairs&#39;</span><span class="p">,</span> <span class="n">synonyms</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;bonded_atoms_pairs&#39;</span><span class="p">],</span> <span class="n">dependants</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;inner_bonded_atom_pairs&#39;</span><span class="p">],</span>
+              <span class="n">runs_on_elements</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">topological</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+              <span class="n">get_from</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;atom&#39;</span><span class="p">,</span><span class="s1">&#39;bond&#39;</span><span class="p">],</span> <span class="n">set_to</span><span class="o">=</span><span class="s1">&#39;bond&#39;</span><span class="p">)</span>
+
+<span class="c1">## inner_bonded_atoms</span>
+<span class="n">add_attribute</span><span class="p">(</span><span class="s1">&#39;inner_bonded_atoms&#39;</span><span class="p">,</span> <span class="n">synonyms</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;inner_bonded_atom&#39;</span><span class="p">],</span> <span class="n">depends_on</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;bonded_atoms&#39;</span><span class="p">],</span>
+              <span class="n">runs_on_elements</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">topological</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">get_from</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;atom&#39;</span><span class="p">])</span>
+
+<span class="c1">## inner_bonded_atoms</span>
+<span class="n">add_attribute</span><span class="p">(</span><span class="s1">&#39;inner_bonded_atom_pairs&#39;</span><span class="p">,</span> <span class="n">synonyms</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;inner_bonded_atoms_pairs&#39;</span><span class="p">],</span> <span class="n">depends_on</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;bonded_atom_pairs&#39;</span><span class="p">],</span>
+              <span class="n">runs_on_elements</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">topological</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">get_from</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;atom&#39;</span><span class="p">])</span>
+
+<span class="c1">## inner_bond_index</span>
+<span class="n">add_attribute</span><span class="p">(</span><span class="s1">&#39;inner_bond_index&#39;</span><span class="p">,</span> <span class="n">synonyms</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;inner_bond_indices&#39;</span><span class="p">],</span> <span class="n">depends_on</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;bonded_atoms&#39;</span><span class="p">],</span>
+              <span class="n">runs_on_elements</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">topological</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">get_from</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;atom&#39;</span><span class="p">])</span>
+
+<span class="c1">## n_atoms</span>
+<span class="n">add_attribute</span><span class="p">(</span><span class="s1">&#39;n_atoms&#39;</span><span class="p">,</span> <span class="n">synonyms</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;n_atom&#39;</span><span class="p">],</span> <span class="n">depends_on</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;atom_index&#39;</span><span class="p">],</span> <span class="n">runs_on_elements</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+              <span class="n">topological</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+              <span class="n">get_from</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;atom&#39;</span><span class="p">,</span> <span class="s1">&#39;group&#39;</span><span class="p">,</span> <span class="s1">&#39;component&#39;</span><span class="p">,</span> <span class="s1">&#39;molecule&#39;</span><span class="p">,</span> <span class="s1">&#39;chain&#39;</span><span class="p">,</span> <span class="s1">&#39;entity&#39;</span><span class="p">,</span> <span class="s1">&#39;system&#39;</span><span class="p">])</span>
+
+<span class="c1">## n_groups</span>
+<span class="n">add_attribute</span><span class="p">(</span><span class="s1">&#39;n_groups&#39;</span><span class="p">,</span> <span class="n">synonyms</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;n_group&#39;</span><span class="p">],</span> <span class="n">depends_on</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;group_index&#39;</span><span class="p">],</span> <span class="n">runs_on_elements</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+              <span class="n">topological</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+              <span class="n">get_from</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;atom&#39;</span><span class="p">,</span> <span class="s1">&#39;group&#39;</span><span class="p">,</span> <span class="s1">&#39;component&#39;</span><span class="p">,</span> <span class="s1">&#39;molecule&#39;</span><span class="p">,</span> <span class="s1">&#39;chain&#39;</span><span class="p">,</span> <span class="s1">&#39;entity&#39;</span><span class="p">,</span> <span class="s1">&#39;system&#39;</span><span class="p">])</span>
+
+<span class="c1">## n_components</span>
+<span class="n">add_attribute</span><span class="p">(</span><span class="s1">&#39;n_components&#39;</span><span class="p">,</span> <span class="n">synonyms</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;n_component&#39;</span><span class="p">],</span> <span class="n">depends_on</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;component_index&#39;</span><span class="p">],</span>
+              <span class="n">runs_on_elements</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">topological</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+              <span class="n">get_from</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;atom&#39;</span><span class="p">,</span> <span class="s1">&#39;group&#39;</span><span class="p">,</span> <span class="s1">&#39;component&#39;</span><span class="p">,</span> <span class="s1">&#39;molecule&#39;</span><span class="p">,</span> <span class="s1">&#39;chain&#39;</span><span class="p">,</span> <span class="s1">&#39;entity&#39;</span><span class="p">,</span> <span class="s1">&#39;system&#39;</span><span class="p">])</span>
+
+<span class="c1">## n_chains</span>
+<span class="n">add_attribute</span><span class="p">(</span><span class="s1">&#39;n_chains&#39;</span><span class="p">,</span> <span class="n">synonyms</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;n_chain&#39;</span><span class="p">],</span> <span class="n">depends_on</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;chain_index&#39;</span><span class="p">],</span>
+              <span class="n">runs_on_elements</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">topological</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+              <span class="n">get_from</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;atom&#39;</span><span class="p">,</span> <span class="s1">&#39;group&#39;</span><span class="p">,</span> <span class="s1">&#39;component&#39;</span><span class="p">,</span> <span class="s1">&#39;molecule&#39;</span><span class="p">,</span> <span class="s1">&#39;chain&#39;</span><span class="p">,</span> <span class="s1">&#39;entity&#39;</span><span class="p">,</span> <span class="s1">&#39;system&#39;</span><span class="p">])</span>
+
+<span class="c1">## n_molecules</span>
+<span class="n">add_attribute</span><span class="p">(</span><span class="s1">&#39;n_molecules&#39;</span><span class="p">,</span> <span class="n">synonyms</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;n_molecule&#39;</span><span class="p">],</span> <span class="n">depends_on</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;molecule_index&#39;</span><span class="p">],</span>
+              <span class="n">runs_on_elements</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">topological</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+              <span class="n">get_from</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;atom&#39;</span><span class="p">,</span> <span class="s1">&#39;group&#39;</span><span class="p">,</span> <span class="s1">&#39;component&#39;</span><span class="p">,</span> <span class="s1">&#39;molecule&#39;</span><span class="p">,</span> <span class="s1">&#39;chain&#39;</span><span class="p">,</span> <span class="s1">&#39;entity&#39;</span><span class="p">,</span> <span class="s1">&#39;system&#39;</span><span class="p">])</span>
+
+<span class="c1">## n_entities</span>
+<span class="n">add_attribute</span><span class="p">(</span><span class="s1">&#39;n_entities&#39;</span><span class="p">,</span> <span class="n">synonyms</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;n_entity&#39;</span><span class="p">],</span> <span class="n">depends_on</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;entity_index&#39;</span><span class="p">],</span>
+              <span class="n">runs_on_elements</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">topological</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+              <span class="n">get_from</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;atom&#39;</span><span class="p">,</span> <span class="s1">&#39;group&#39;</span><span class="p">,</span> <span class="s1">&#39;component&#39;</span><span class="p">,</span> <span class="s1">&#39;molecule&#39;</span><span class="p">,</span> <span class="s1">&#39;chain&#39;</span><span class="p">,</span> <span class="s1">&#39;entity&#39;</span><span class="p">,</span> <span class="s1">&#39;system&#39;</span><span class="p">])</span>
+
+<span class="c1">## n_bonds</span>
+<span class="n">add_attribute</span><span class="p">(</span><span class="s1">&#39;n_bonds&#39;</span><span class="p">,</span> <span class="n">synonyms</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;n_bond&#39;</span><span class="p">,</span> <span class="s1">&#39;bond&#39;</span><span class="p">,</span> <span class="s1">&#39;bonds&#39;</span><span class="p">],</span> <span class="n">depends_on</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;bond_index&#39;</span><span class="p">],</span>
+              <span class="n">runs_on_elements</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">topological</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">get_from</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;atom&#39;</span><span class="p">,</span> <span class="s1">&#39;group&#39;</span><span class="p">,</span> <span class="s1">&#39;component&#39;</span><span class="p">,</span>
+                  <span class="s1">&#39;molecule&#39;</span><span class="p">,</span> <span class="s1">&#39;chain&#39;</span><span class="p">,</span> <span class="s1">&#39;entity&#39;</span><span class="p">,</span> <span class="s1">&#39;system&#39;</span><span class="p">])</span>
+
+<span class="c1">## n_inner_bonds</span>
+<span class="n">add_attribute</span><span class="p">(</span><span class="s1">&#39;n_inner_bonds&#39;</span><span class="p">,</span> <span class="n">synonyms</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;n_inner_bond&#39;</span><span class="p">],</span> <span class="n">depends_on</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;bonded_atoms&#39;</span><span class="p">],</span>
+              <span class="n">runs_on_elements</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">topological</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">get_from</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;atom&#39;</span><span class="p">,</span> <span class="s1">&#39;group&#39;</span><span class="p">,</span> <span class="s1">&#39;component&#39;</span><span class="p">,</span>
+                  <span class="s1">&#39;molecule&#39;</span><span class="p">,</span> <span class="s1">&#39;chain&#39;</span><span class="p">,</span> <span class="s1">&#39;entity&#39;</span><span class="p">,</span> <span class="s1">&#39;system&#39;</span><span class="p">])</span>
+
+<span class="c1">## n_amino_acids</span>
+<span class="n">add_attribute</span><span class="p">(</span><span class="s1">&#39;n_amino_acids&#39;</span><span class="p">,</span> <span class="n">synonyms</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;n_amino_acid&#39;</span><span class="p">,</span> <span class="s1">&#39;n_aminoacids&#39;</span><span class="p">,</span> <span class="s1">&#39;n_aminoacid&#39;</span><span class="p">],</span> <span class="n">depends_on</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;group_type&#39;</span><span class="p">],</span>
+              <span class="n">runs_on_elements</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">topological</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+              <span class="n">get_from</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;atom&#39;</span><span class="p">,</span> <span class="s1">&#39;group&#39;</span><span class="p">,</span> <span class="s1">&#39;component&#39;</span><span class="p">,</span> <span class="s1">&#39;molecule&#39;</span><span class="p">,</span> <span class="s1">&#39;chain&#39;</span><span class="p">,</span> <span class="s1">&#39;entity&#39;</span><span class="p">,</span> <span class="s1">&#39;system&#39;</span><span class="p">])</span>
+
+<span class="c1">## n_nucleotides</span>
+<span class="n">add_attribute</span><span class="p">(</span><span class="s1">&#39;n_nucleotides&#39;</span><span class="p">,</span> <span class="n">synonyms</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;n_nucleotide&#39;</span><span class="p">],</span> <span class="n">depends_on</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;group_type&#39;</span><span class="p">],</span>
+              <span class="n">runs_on_elements</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">topological</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+              <span class="n">get_from</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;atom&#39;</span><span class="p">,</span> <span class="s1">&#39;group&#39;</span><span class="p">,</span> <span class="s1">&#39;component&#39;</span><span class="p">,</span> <span class="s1">&#39;molecule&#39;</span><span class="p">,</span> <span class="s1">&#39;chain&#39;</span><span class="p">,</span> <span class="s1">&#39;entity&#39;</span><span class="p">,</span> <span class="s1">&#39;system&#39;</span><span class="p">])</span>
+
+<span class="c1">## n_ions</span>
+<span class="n">add_attribute</span><span class="p">(</span><span class="s1">&#39;n_ions&#39;</span><span class="p">,</span> <span class="n">synonyms</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;n_ion&#39;</span><span class="p">,</span> <span class="s1">&#39;ion&#39;</span><span class="p">,</span> <span class="s1">&#39;ions&#39;</span><span class="p">],</span> <span class="n">depends_on</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;molecule_type&#39;</span><span class="p">],</span>
+              <span class="n">runs_on_elements</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">topological</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+              <span class="n">get_from</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;atom&#39;</span><span class="p">,</span> <span class="s1">&#39;group&#39;</span><span class="p">,</span> <span class="s1">&#39;component&#39;</span><span class="p">,</span> <span class="s1">&#39;molecule&#39;</span><span class="p">,</span> <span class="s1">&#39;chain&#39;</span><span class="p">,</span> <span class="s1">&#39;entity&#39;</span><span class="p">,</span> <span class="s1">&#39;system&#39;</span><span class="p">])</span>
+
+<span class="c1">## n_waters</span>
+<span class="n">add_attribute</span><span class="p">(</span><span class="s1">&#39;n_waters&#39;</span><span class="p">,</span> <span class="n">synonyms</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;n_water&#39;</span><span class="p">,</span> <span class="s1">&#39;water&#39;</span><span class="p">,</span> <span class="s1">&#39;waters&#39;</span><span class="p">],</span> <span class="n">depends_on</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;molecule_type&#39;</span><span class="p">],</span>
+              <span class="n">runs_on_elements</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">topological</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+              <span class="n">get_from</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;atom&#39;</span><span class="p">,</span> <span class="s1">&#39;group&#39;</span><span class="p">,</span> <span class="s1">&#39;component&#39;</span><span class="p">,</span> <span class="s1">&#39;molecule&#39;</span><span class="p">,</span> <span class="s1">&#39;chain&#39;</span><span class="p">,</span> <span class="s1">&#39;entity&#39;</span><span class="p">,</span> <span class="s1">&#39;system&#39;</span><span class="p">])</span>
+
+<span class="c1">## n_small_molecules</span>
+<span class="n">add_attribute</span><span class="p">(</span><span class="s1">&#39;n_small_molecules&#39;</span><span class="p">,</span> <span class="n">synonyms</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;n_small_molecule&#39;</span><span class="p">,</span> <span class="s1">&#39;small_molecule&#39;</span><span class="p">,</span> <span class="s1">&#39;small_molecules&#39;</span><span class="p">],</span>
+              <span class="n">depends_on</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;molecule_type&#39;</span><span class="p">],</span> <span class="n">runs_on_elements</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">topological</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+              <span class="n">get_from</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;atom&#39;</span><span class="p">,</span> <span class="s1">&#39;group&#39;</span><span class="p">,</span> <span class="s1">&#39;component&#39;</span><span class="p">,</span> <span class="s1">&#39;molecule&#39;</span><span class="p">,</span> <span class="s1">&#39;chain&#39;</span><span class="p">,</span> <span class="s1">&#39;entity&#39;</span><span class="p">,</span> <span class="s1">&#39;system&#39;</span><span class="p">])</span>
+
+<span class="c1">## n_peptides</span>
+<span class="n">add_attribute</span><span class="p">(</span><span class="s1">&#39;n_peptides&#39;</span><span class="p">,</span> <span class="n">synonyms</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;n_peptide&#39;</span><span class="p">,</span> <span class="s1">&#39;peptide&#39;</span><span class="p">,</span> <span class="s1">&#39;peptides&#39;</span><span class="p">],</span> <span class="n">depends_on</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;molecule_type&#39;</span><span class="p">],</span>
+              <span class="n">runs_on_elements</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">topological</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+              <span class="n">get_from</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;atom&#39;</span><span class="p">,</span> <span class="s1">&#39;group&#39;</span><span class="p">,</span> <span class="s1">&#39;component&#39;</span><span class="p">,</span> <span class="s1">&#39;molecule&#39;</span><span class="p">,</span> <span class="s1">&#39;chain&#39;</span><span class="p">,</span> <span class="s1">&#39;entity&#39;</span><span class="p">,</span> <span class="s1">&#39;system&#39;</span><span class="p">])</span>
+
+<span class="c1">## n_proteins</span>
+<span class="n">add_attribute</span><span class="p">(</span><span class="s1">&#39;n_proteins&#39;</span><span class="p">,</span> <span class="n">synonyms</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;n_protein&#39;</span><span class="p">,</span> <span class="s1">&#39;protein&#39;</span><span class="p">,</span> <span class="s1">&#39;proteins&#39;</span><span class="p">],</span> <span class="n">depends_on</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;molecule_type&#39;</span><span class="p">],</span>
+              <span class="n">runs_on_elements</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">topological</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+              <span class="n">get_from</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;atom&#39;</span><span class="p">,</span> <span class="s1">&#39;group&#39;</span><span class="p">,</span> <span class="s1">&#39;component&#39;</span><span class="p">,</span> <span class="s1">&#39;molecule&#39;</span><span class="p">,</span> <span class="s1">&#39;chain&#39;</span><span class="p">,</span> <span class="s1">&#39;entity&#39;</span><span class="p">,</span> <span class="s1">&#39;system&#39;</span><span class="p">])</span>
+
+<span class="c1">## n_dnas</span>
+<span class="n">add_attribute</span><span class="p">(</span><span class="s1">&#39;n_dnas&#39;</span><span class="p">,</span> <span class="n">synonyms</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;n_dna&#39;</span><span class="p">,</span> <span class="s1">&#39;dna&#39;</span><span class="p">,</span> <span class="s1">&#39;dnas&#39;</span><span class="p">],</span> <span class="n">depends_on</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;molecule_type&#39;</span><span class="p">],</span>
+              <span class="n">runs_on_elements</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">topological</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+              <span class="n">get_from</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;atom&#39;</span><span class="p">,</span> <span class="s1">&#39;group&#39;</span><span class="p">,</span> <span class="s1">&#39;component&#39;</span><span class="p">,</span> <span class="s1">&#39;molecule&#39;</span><span class="p">,</span> <span class="s1">&#39;chain&#39;</span><span class="p">,</span> <span class="s1">&#39;entity&#39;</span><span class="p">,</span> <span class="s1">&#39;system&#39;</span><span class="p">])</span>
+
+<span class="c1">## n_rnas</span>
+<span class="n">add_attribute</span><span class="p">(</span><span class="s1">&#39;n_rnas&#39;</span><span class="p">,</span> <span class="n">synonyms</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;n_rna&#39;</span><span class="p">,</span> <span class="s1">&#39;rna&#39;</span><span class="p">,</span> <span class="s1">&#39;rnas&#39;</span><span class="p">],</span> <span class="n">depends_on</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;molecule_type&#39;</span><span class="p">],</span>
+              <span class="n">runs_on_elements</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">topological</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+              <span class="n">get_from</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;atom&#39;</span><span class="p">,</span> <span class="s1">&#39;group&#39;</span><span class="p">,</span> <span class="s1">&#39;component&#39;</span><span class="p">,</span> <span class="s1">&#39;molecule&#39;</span><span class="p">,</span> <span class="s1">&#39;chain&#39;</span><span class="p">,</span> <span class="s1">&#39;entity&#39;</span><span class="p">,</span> <span class="s1">&#39;system&#39;</span><span class="p">])</span>
+
+<span class="c1">## n_lipids</span>
+<span class="n">add_attribute</span><span class="p">(</span><span class="s1">&#39;n_lipids&#39;</span><span class="p">,</span> <span class="n">synonyms</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;n_lipid&#39;</span><span class="p">,</span> <span class="s1">&#39;lipid&#39;</span><span class="p">,</span> <span class="s1">&#39;lipids&#39;</span><span class="p">],</span> <span class="n">depends_on</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;molecule_type&#39;</span><span class="p">],</span>
+              <span class="n">runs_on_elements</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">topological</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+              <span class="n">get_from</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;atom&#39;</span><span class="p">,</span> <span class="s1">&#39;group&#39;</span><span class="p">,</span> <span class="s1">&#39;component&#39;</span><span class="p">,</span> <span class="s1">&#39;molecule&#39;</span><span class="p">,</span> <span class="s1">&#39;chain&#39;</span><span class="p">,</span> <span class="s1">&#39;entity&#39;</span><span class="p">,</span> <span class="s1">&#39;system&#39;</span><span class="p">])</span>
+
+<span class="c1">## n_polysaccharides</span>
+<span class="n">add_attribute</span><span class="p">(</span><span class="s1">&#39;n_polysaccharides&#39;</span><span class="p">,</span> <span class="n">synonyms</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;n_polysaccharide&#39;</span><span class="p">,</span> <span class="s1">&#39;polysaccharide&#39;</span><span class="p">,</span> <span class="s1">&#39;polysaccharides&#39;</span><span class="p">],</span>
+              <span class="n">depends_on</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;molecule_type&#39;</span><span class="p">],</span> <span class="n">runs_on_elements</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">topological</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+              <span class="n">get_from</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;atom&#39;</span><span class="p">,</span> <span class="s1">&#39;group&#39;</span><span class="p">,</span> <span class="s1">&#39;component&#39;</span><span class="p">,</span> <span class="s1">&#39;molecule&#39;</span><span class="p">,</span> <span class="s1">&#39;chain&#39;</span><span class="p">,</span> <span class="s1">&#39;entity&#39;</span><span class="p">,</span> <span class="s1">&#39;system&#39;</span><span class="p">])</span>
+
+<span class="c1">## n_saccharides</span>
+<span class="n">add_attribute</span><span class="p">(</span><span class="s1">&#39;n_saccharides&#39;</span><span class="p">,</span> <span class="n">synonyms</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;n_saccharide&#39;</span><span class="p">,</span> <span class="s1">&#39;saccharide&#39;</span><span class="p">,</span> <span class="s1">&#39;saccharides&#39;</span><span class="p">],</span>
+              <span class="n">depends_on</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;molecule_type&#39;</span><span class="p">],</span> <span class="n">runs_on_elements</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">topological</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+              <span class="n">get_from</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;atom&#39;</span><span class="p">,</span> <span class="s1">&#39;group&#39;</span><span class="p">,</span> <span class="s1">&#39;component&#39;</span><span class="p">,</span> <span class="s1">&#39;molecule&#39;</span><span class="p">,</span> <span class="s1">&#39;chain&#39;</span><span class="p">,</span> <span class="s1">&#39;entity&#39;</span><span class="p">,</span> <span class="s1">&#39;system&#39;</span><span class="p">])</span>
+
+
+<span class="c1">###</span>
+<span class="c1">### STRUCTURAL ATTRIBUTES</span>
+<span class="c1">###</span>
+
+<span class="c1">## structure_index</span>
+<span class="n">add_attribute</span><span class="p">(</span><span class="s1">&#39;structure_index&#39;</span><span class="p">,</span> <span class="n">synonyms</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;runs_on_structures&#39;</span><span class="p">],</span> <span class="n">dependants</span><span class="o">=</span><span class="s1">&#39;n_structures&#39;</span><span class="p">,</span>
+              <span class="n">runs_on_structures</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">structural</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1">## structure_id</span>
+<span class="n">add_attribute</span><span class="p">(</span><span class="s1">&#39;structure_id&#39;</span><span class="p">,</span> <span class="n">synonyms</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;structure_ids&#39;</span><span class="p">,</span> <span class="s1">&#39;structures_id&#39;</span><span class="p">,</span> <span class="s1">&#39;structures_ids&#39;</span><span class="p">,</span> <span class="s1">&#39;md_step&#39;</span><span class="p">,</span>
+                                        <span class="s1">&#39;md_steps&#39;</span><span class="p">,</span> <span class="s1">&#39;mdstep&#39;</span><span class="p">,</span> <span class="s1">&#39;mdsteps&#39;</span><span class="p">],</span>
+               <span class="n">runs_on_structures</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">structural</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">get_from</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;system&#39;</span><span class="p">],</span> <span class="n">set_to</span><span class="o">=</span><span class="s1">&#39;system&#39;</span><span class="p">)</span>
+
+<span class="c1">## time</span>
+<span class="n">add_attribute</span><span class="p">(</span><span class="s1">&#39;time&#39;</span><span class="p">,</span> <span class="n">synonyms</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;times&#39;</span><span class="p">],</span> <span class="n">runs_on_structures</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">structural</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+              <span class="n">get_from</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;system&#39;</span><span class="p">],</span> <span class="n">set_to</span><span class="o">=</span><span class="s1">&#39;system&#39;</span><span class="p">)</span>
+
+<span class="c1">## box</span>
+<span class="n">add_attribute</span><span class="p">(</span><span class="s1">&#39;box&#39;</span><span class="p">,</span> <span class="n">synonyms</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;boxes&#39;</span><span class="p">],</span>
+              <span class="n">dependants</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;box_shape&#39;</span><span class="p">,</span> <span class="s1">&#39;box_angles&#39;</span><span class="p">,</span> <span class="s1">&#39;box_lengths&#39;</span><span class="p">,</span> <span class="s1">&#39;box_volume&#39;</span><span class="p">],</span>
+              <span class="n">runs_on_structures</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">structural</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+              <span class="n">get_from</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;system&#39;</span><span class="p">],</span> <span class="n">set_to</span><span class="o">=</span><span class="s1">&#39;system&#39;</span><span class="p">)</span>
+
+<span class="c1">## box_shape</span>
+<span class="n">add_attribute</span><span class="p">(</span><span class="s1">&#39;box_shape&#39;</span><span class="p">,</span> <span class="n">synonyms</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;box_shapes&#39;</span><span class="p">],</span> <span class="n">depends_on</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;box&#39;</span><span class="p">],</span> <span class="n">runs_on_structures</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+              <span class="n">structural</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">get_from</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;system&#39;</span><span class="p">])</span>
+
+<span class="c1">## box_angles</span>
+<span class="n">add_attribute</span><span class="p">(</span><span class="s1">&#39;box_angles&#39;</span><span class="p">,</span> <span class="n">synonyms</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;box_angle&#39;</span><span class="p">],</span> <span class="n">depends_on</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;box&#39;</span><span class="p">],</span> <span class="n">runs_on_structures</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+              <span class="n">structural</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">get_from</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;system&#39;</span><span class="p">])</span>
+
+<span class="c1">## box_lengths</span>
+<span class="n">add_attribute</span><span class="p">(</span><span class="s1">&#39;box_lengths&#39;</span><span class="p">,</span> <span class="n">synonyms</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;box_length&#39;</span><span class="p">],</span> <span class="n">depends_on</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;box&#39;</span><span class="p">],</span> <span class="n">runs_on_structures</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+              <span class="n">structural</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">get_from</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;system&#39;</span><span class="p">])</span>
+
+<span class="c1">## box_volume</span>
+<span class="n">add_attribute</span><span class="p">(</span><span class="s1">&#39;box_volume&#39;</span><span class="p">,</span> <span class="n">synonyms</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;box_volumes&#39;</span><span class="p">],</span> <span class="n">depends_on</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;box&#39;</span><span class="p">],</span> <span class="n">runs_on_structures</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+              <span class="n">structural</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">get_from</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;system&#39;</span><span class="p">])</span>
+
+<span class="c1">## coordinates</span>
+<span class="n">add_attribute</span><span class="p">(</span><span class="s1">&#39;coordinates&#39;</span><span class="p">,</span> <span class="n">synonyms</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;coordinate&#39;</span><span class="p">,</span> <span class="s1">&#39;positions&#39;</span><span class="p">,</span> <span class="s1">&#39;position&#39;</span><span class="p">],</span> <span class="n">runs_on_elements</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+              <span class="n">runs_on_structures</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">structural</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">get_from</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;atom&#39;</span><span class="p">,</span> <span class="s1">&#39;system&#39;</span><span class="p">],</span> <span class="n">set_to</span><span class="o">=</span><span class="s1">&#39;atom&#39;</span><span class="p">)</span>
+
+<span class="c1">## velocities</span>
+<span class="n">add_attribute</span><span class="p">(</span><span class="s1">&#39;velocities&#39;</span><span class="p">,</span> <span class="n">synonyms</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;velocity&#39;</span><span class="p">],</span> <span class="n">runs_on_elements</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">runs_on_structures</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+              <span class="n">structural</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">get_from</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;atom&#39;</span><span class="p">,</span> <span class="s1">&#39;system&#39;</span><span class="p">],</span> <span class="n">set_to</span><span class="o">=</span><span class="s1">&#39;atom&#39;</span><span class="p">)</span>
+
+<span class="c1">## potential_energy</span>
+<span class="n">add_attribute</span><span class="p">(</span><span class="s1">&#39;potential_energy&#39;</span><span class="p">,</span> <span class="n">synonyms</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;potential_energies&#39;</span><span class="p">],</span>
+              <span class="n">runs_on_structures</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">structural</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">get_from</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;system&#39;</span><span class="p">],</span> <span class="n">set_to</span><span class="o">=</span><span class="s1">&#39;system&#39;</span><span class="p">)</span>
+
+<span class="c1">## kinetic_energy</span>
+<span class="n">add_attribute</span><span class="p">(</span><span class="s1">&#39;kinetic_energy&#39;</span><span class="p">,</span> <span class="n">synonyms</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;kinetic_energies&#39;</span><span class="p">],</span>
+              <span class="n">runs_on_structures</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">structural</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">get_from</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;system&#39;</span><span class="p">],</span> <span class="n">set_to</span><span class="o">=</span><span class="s1">&#39;system&#39;</span><span class="p">)</span>
+
+<span class="c1">## total_energy</span>
+<span class="n">add_attribute</span><span class="p">(</span><span class="s1">&#39;total_energy&#39;</span><span class="p">,</span> <span class="n">synonyms</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;total_energies&#39;</span><span class="p">],</span>
+              <span class="n">runs_on_structures</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">structural</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">get_from</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;system&#39;</span><span class="p">],</span> <span class="n">set_to</span><span class="o">=</span><span class="s1">&#39;system&#39;</span><span class="p">)</span>
+
+<span class="c1">## n_structures</span>
+<span class="n">add_attribute</span><span class="p">(</span><span class="s1">&#39;n_structures&#39;</span><span class="p">,</span> <span class="n">synonyms</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;n_structure&#39;</span><span class="p">],</span> <span class="n">depends_on</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;structure_index&#39;</span><span class="p">],</span> <span class="n">runs_on_elements</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+              <span class="n">runs_on_structures</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">structural</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">get_from</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;system&#39;</span><span class="p">])</span>
+
+<span class="c1">## b_factor</span>
+<span class="n">add_attribute</span><span class="p">(</span><span class="s1">&#39;b_factor&#39;</span><span class="p">,</span> <span class="n">synonyms</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;b_factors&#39;</span><span class="p">],</span> <span class="n">runs_on_elements</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">runs_on_structures</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+              <span class="n">structural</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">get_from</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;atom&#39;</span><span class="p">,</span><span class="s1">&#39;system&#39;</span><span class="p">],</span> <span class="n">set_to</span><span class="o">=</span><span class="s1">&#39;atom&#39;</span><span class="p">)</span>
+
+<span class="c1">## alternate_location</span>
+<span class="n">add_attribute</span><span class="p">(</span><span class="s1">&#39;alternate_location&#39;</span><span class="p">,</span> <span class="n">synonyms</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;alternate_locations&#39;</span><span class="p">],</span> <span class="n">runs_on_elements</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+              <span class="n">runs_on_structures</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">structural</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">get_from</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;atom&#39;</span><span class="p">,</span><span class="s1">&#39;system&#39;</span><span class="p">],</span> <span class="n">set_to</span><span class="o">=</span><span class="s1">&#39;system&#39;</span><span class="p">)</span>
+
+<span class="c1">## occupancy</span>
+<span class="n">add_attribute</span><span class="p">(</span><span class="s1">&#39;occupancy&#39;</span><span class="p">,</span> <span class="n">synonyms</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;occupancies&#39;</span><span class="p">],</span> <span class="n">runs_on_elements</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+              <span class="n">runs_on_structures</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">structural</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">get_from</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;atom&#39;</span><span class="p">],</span> <span class="n">set_to</span><span class="o">=</span><span class="s1">&#39;atom&#39;</span><span class="p">)</span>
+
+<span class="c1">## temperature</span>
+<span class="n">add_attribute</span><span class="p">(</span><span class="s1">&#39;temperature&#39;</span><span class="p">,</span> <span class="n">synonyms</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;temperatures&#39;</span><span class="p">],</span> <span class="n">runs_on_structures</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">structural</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">get_from</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;system&#39;</span><span class="p">],</span> <span class="n">set_to</span><span class="o">=</span><span class="s1">&#39;system&#39;</span><span class="p">)</span>
+
+<span class="c1">## bioassembly</span>
+<span class="n">add_attribute</span><span class="p">(</span><span class="s1">&#39;bioassembly&#39;</span><span class="p">,</span> <span class="n">synonyms</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;bioassemblies&#39;</span><span class="p">],</span> <span class="n">structural</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">get_from</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;system&#39;</span><span class="p">],</span> <span class="n">set_to</span><span class="o">=</span><span class="s1">&#39;system&#39;</span><span class="p">)</span>
+
+<span class="c1">## n_bioassemblies</span>
+<span class="n">add_attribute</span><span class="p">(</span><span class="s1">&#39;n_bioassemblies&#39;</span><span class="p">,</span> <span class="n">synonyms</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;n_bioassembly&#39;</span><span class="p">],</span> <span class="n">structural</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">get_from</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;system&#39;</span><span class="p">],</span> <span class="n">set_to</span><span class="o">=</span><span class="s1">&#39;system&#39;</span><span class="p">)</span>
+
+
+<span class="c1">###</span>
+<span class="c1">### MECHANICAL ATTRIBUTES</span>
+<span class="c1">###</span>
+
+<span class="c1">## formal_charge</span>
+<span class="n">add_attribute</span><span class="p">(</span><span class="s1">&#39;formal_charge&#39;</span><span class="p">,</span> <span class="n">synonyms</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;formal_charges&#39;</span><span class="p">],</span> <span class="n">runs_on_elements</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">mechanical</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">get_from</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;atom&#39;</span><span class="p">,</span><span class="s1">&#39;system&#39;</span><span class="p">],</span> <span class="n">set_to</span><span class="o">=</span><span class="s1">&#39;atom&#39;</span><span class="p">)</span>
+
+<span class="c1">## partial_charge</span>
+<span class="n">add_attribute</span><span class="p">(</span><span class="s1">&#39;partial_charge&#39;</span><span class="p">,</span> <span class="n">synonyms</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;partial_charges&#39;</span><span class="p">],</span> <span class="n">runs_on_elements</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">mechanical</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">get_from</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;atom&#39;</span><span class="p">,</span><span class="s1">&#39;system&#39;</span><span class="p">],</span> <span class="n">set_to</span><span class="o">=</span><span class="s1">&#39;atom&#39;</span><span class="p">)</span>
+
+<span class="c1">## forcefield</span>
+<span class="n">add_attribute</span><span class="p">(</span><span class="s1">&#39;forcefield&#39;</span><span class="p">,</span> <span class="n">synonyms</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;force field&#39;</span><span class="p">,</span> <span class="s1">&#39;forcefields&#39;</span><span class="p">,</span> <span class="s1">&#39;force_field&#39;</span><span class="p">,</span> <span class="s1">&#39;force_fields&#39;</span><span class="p">],</span> <span class="n">mechanical</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">get_from</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;system&#39;</span><span class="p">],</span> <span class="n">set_to</span><span class="o">=</span><span class="s1">&#39;system&#39;</span><span class="p">,</span>
+        <span class="n">values</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;AMBER14&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;AMBER10&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;AMBER03&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;AMBER99&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;AMBER99SB&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;AMBER99SBILDN&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;AMBER99SBNMR&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;AMBER96&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;CHARMM36&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;GAFF&#39;</span><span class="p">,</span>
+                <span class="p">]</span>
+<span class="p">)</span>
+
+<span class="c1">## non_bonded_method</span>
+<span class="n">add_attribute</span><span class="p">(</span><span class="s1">&#39;non_bonded_method&#39;</span><span class="p">,</span> <span class="n">synonyms</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;non bonded method&#39;</span><span class="p">],</span> <span class="n">mechanical</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">get_from</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;system&#39;</span><span class="p">],</span> <span class="n">set_to</span><span class="o">=</span><span class="s1">&#39;system&#39;</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;no cutoff&#39;</span><span class="p">])</span>
+
+<span class="c1">## cutoff_distance</span>
+<span class="n">add_attribute</span><span class="p">(</span><span class="s1">&#39;cutoff_distance&#39;</span><span class="p">,</span> <span class="n">synonyms</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;cutoff distance&#39;</span><span class="p">],</span> <span class="n">mechanical</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">get_from</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;system&#39;</span><span class="p">],</span> <span class="n">set_to</span><span class="o">=</span><span class="s1">&#39;system&#39;</span><span class="p">)</span>
+
+<span class="c1">## switch_distance</span>
+<span class="n">add_attribute</span><span class="p">(</span><span class="s1">&#39;switch_distance&#39;</span><span class="p">,</span> <span class="n">synonyms</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;switch distance&#39;</span><span class="p">],</span> <span class="n">mechanical</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">get_from</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;system&#39;</span><span class="p">],</span> <span class="n">set_to</span><span class="o">=</span><span class="s1">&#39;system&#39;</span><span class="p">)</span>
+
+<span class="c1">## dispersion_correction</span>
+<span class="n">add_attribute</span><span class="p">(</span><span class="s1">&#39;dispersion_correction&#39;</span><span class="p">,</span> <span class="n">synonyms</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;dispersion correction&#39;</span><span class="p">,</span> <span class="s1">&#39;use_dispersion_correction&#39;</span><span class="p">],</span> <span class="n">mechanical</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">get_from</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;system&#39;</span><span class="p">],</span> <span class="n">set_to</span><span class="o">=</span><span class="s1">&#39;system&#39;</span><span class="p">)</span>
+
+<span class="c1">## ewald_error_tolerance</span>
+<span class="n">add_attribute</span><span class="p">(</span><span class="s1">&#39;ewald_error_tolerance&#39;</span><span class="p">,</span> <span class="n">synonyms</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;ewald error tolerance&#39;</span><span class="p">],</span> <span class="n">mechanical</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">get_from</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;system&#39;</span><span class="p">],</span> <span class="n">set_to</span><span class="o">=</span><span class="s1">&#39;system&#39;</span><span class="p">)</span>
+
+<span class="c1">## hydrogen_mass</span>
+<span class="n">add_attribute</span><span class="p">(</span><span class="s1">&#39;hydrogen_mass&#39;</span><span class="p">,</span> <span class="n">synonyms</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;hydrogen mass&#39;</span><span class="p">],</span> <span class="n">mechanical</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">get_from</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;system&#39;</span><span class="p">],</span> <span class="n">set_to</span><span class="o">=</span><span class="s1">&#39;system&#39;</span><span class="p">)</span>
+
+<span class="c1">## constraints</span>
+<span class="n">add_attribute</span><span class="p">(</span><span class="s1">&#39;constraints&#39;</span><span class="p">,</span> <span class="n">synonyms</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;constraints&#39;</span><span class="p">],</span> <span class="n">mechanical</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">get_from</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;system&#39;</span><span class="p">],</span> <span class="n">set_to</span><span class="o">=</span><span class="s1">&#39;system&#39;</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;hbonds&#39;</span><span class="p">])</span>
+
+<span class="c1">## flexible_constraints</span>
+<span class="n">add_attribute</span><span class="p">(</span><span class="s1">&#39;flexible_constraints&#39;</span><span class="p">,</span> <span class="n">synonyms</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;flexible constraints&#39;</span><span class="p">,</span> <span class="s1">&#39;flexible constraint&#39;</span><span class="p">,</span> <span class="s1">&#39;flexible_constraint&#39;</span><span class="p">],</span> <span class="n">mechanical</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">get_from</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;system&#39;</span><span class="p">],</span> <span class="n">set_to</span><span class="o">=</span><span class="s1">&#39;system&#39;</span><span class="p">)</span>
+
+<span class="c1">## water_model</span>
+<span class="n">add_attribute</span><span class="p">(</span><span class="s1">&#39;water_model&#39;</span><span class="p">,</span> <span class="n">synonyms</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;water model&#39;</span><span class="p">],</span> <span class="n">mechanical</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">get_from</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;system&#39;</span><span class="p">],</span> <span class="n">set_to</span><span class="o">=</span><span class="s1">&#39;system&#39;</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="p">[</span>
+            <span class="s1">&#39;SPC&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;SPC/E&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;TIP3P&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;TIP3P-FB&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;TIP3P-PME-B&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;TIP3P-PME-F&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;TIP4P&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;TIP4P-EW&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;TIP4P-FB&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;TIP4P-2005&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;TIP5P&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;TIP5P-EW&#39;</span><span class="p">,</span>
+            <span class="p">]</span>
+        <span class="p">)</span>
+
+<span class="c1">## rigid_water</span>
+<span class="n">add_attribute</span><span class="p">(</span><span class="s1">&#39;rigid_water&#39;</span><span class="p">,</span> <span class="n">synonyms</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;rigid water&#39;</span><span class="p">],</span> <span class="n">mechanical</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">get_from</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;system&#39;</span><span class="p">],</span> <span class="n">set_to</span><span class="o">=</span><span class="s1">&#39;system&#39;</span><span class="p">)</span>
+
+<span class="c1">## implicit_solvent</span>
+<span class="n">add_attribute</span><span class="p">(</span><span class="s1">&#39;implicit_solvent&#39;</span><span class="p">,</span> <span class="n">synonyms</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;implicit solvent&#39;</span><span class="p">],</span> <span class="n">mechanical</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">get_from</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;system&#39;</span><span class="p">],</span> <span class="n">set_to</span><span class="o">=</span><span class="s1">&#39;system&#39;</span><span class="p">)</span>
+
+<span class="c1">## solute_dielectric</span>
+<span class="n">add_attribute</span><span class="p">(</span><span class="s1">&#39;solute_dielectric&#39;</span><span class="p">,</span> <span class="n">synonyms</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;solute dielectric&#39;</span><span class="p">],</span> <span class="n">mechanical</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">get_from</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;system&#39;</span><span class="p">],</span> <span class="n">set_to</span><span class="o">=</span><span class="s1">&#39;system&#39;</span><span class="p">)</span>
+
+<span class="c1">## solvent_dielectric</span>
+<span class="n">add_attribute</span><span class="p">(</span><span class="s1">&#39;solvent_dielectric&#39;</span><span class="p">,</span> <span class="n">synonyms</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;solvent dielectric&#39;</span><span class="p">],</span> <span class="n">mechanical</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">get_from</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;system&#39;</span><span class="p">],</span> <span class="n">set_to</span><span class="o">=</span><span class="s1">&#39;system&#39;</span><span class="p">)</span>
+
+<span class="c1">## salt_concentration</span>
+<span class="n">add_attribute</span><span class="p">(</span><span class="s1">&#39;salt_concentration&#39;</span><span class="p">,</span> <span class="n">synonyms</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;salt concentration&#39;</span><span class="p">],</span> <span class="n">mechanical</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">get_from</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;system&#39;</span><span class="p">],</span> <span class="n">set_to</span><span class="o">=</span><span class="s1">&#39;system&#39;</span><span class="p">)</span>
+
+<span class="c1">## kappa</span>
+<span class="n">add_attribute</span><span class="p">(</span><span class="s1">&#39;kappa&#39;</span><span class="p">,</span> <span class="n">synonyms</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;debye_length&#39;</span><span class="p">,</span> <span class="s1">&#39;debye length&#39;</span><span class="p">],</span> <span class="n">mechanical</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">get_from</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;system&#39;</span><span class="p">],</span> <span class="n">set_to</span><span class="o">=</span><span class="s1">&#39;system&#39;</span><span class="p">)</span>
+
+<span class="c1">###</span>
+<span class="c1">### DYNAMICAL ATTRIBUTES</span>
+<span class="c1">###</span>
+
+<span class="c1">## integrator</span>
+<span class="n">add_attribute</span><span class="p">(</span><span class="s1">&#39;integrator&#39;</span><span class="p">,</span> <span class="n">synonyms</span><span class="o">=</span><span class="p">[],</span> <span class="n">dynamical</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">get_from</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;system&#39;</span><span class="p">],</span> <span class="n">set_to</span><span class="o">=</span><span class="s1">&#39;system&#39;</span><span class="p">,</span>
+        <span class="n">values</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Langevin&#39;</span><span class="p">])</span>
+
+<span class="c1">## friction</span>
+<span class="n">add_attribute</span><span class="p">(</span><span class="s1">&#39;friction&#39;</span><span class="p">,</span> <span class="n">synonyms</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;damping&#39;</span><span class="p">],</span> <span class="n">dynamical</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">get_from</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;system&#39;</span><span class="p">],</span> <span class="n">set_to</span><span class="o">=</span><span class="s1">&#39;system&#39;</span><span class="p">)</span>
+
+<span class="c1">## time_step</span>
+<span class="n">add_attribute</span><span class="p">(</span><span class="s1">&#39;time_step&#39;</span><span class="p">,</span> <span class="n">synonyms</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;time_steps&#39;</span><span class="p">,</span> <span class="s1">&#39;timestep&#39;</span><span class="p">,</span> <span class="s1">&#39;timesteps&#39;</span><span class="p">],</span> <span class="n">dynamical</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">get_from</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;system&#39;</span><span class="p">],</span> <span class="n">set_to</span><span class="o">=</span><span class="s1">&#39;system&#39;</span><span class="p">)</span>
+
+
+
+</pre></div>
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item"><div>
+	&copy; 2026, <a href=contents/about/who.html>Liliana M. Moreno Vargas, Diego Prada Gracia
+		and contributors</a> | <a href="https://www.uibcdf.org/">UIBCDF Lab</a> 
+	at the <a href="http://himfg.com.mx">Federico Gómez Children’s Hospital of Mexico</a><br />
+	<a href="https://github.com/uibcdf/molsysmt">MolSysMT is an open source project</a> shared
+	under <a href="https://github.com/uibcdf/molsysmt/blob/main/LICENSE">an MIT license</a>
+	with a structure based on the
+	<a href="https://github.com/MolSSI/cookiecutter-cms">Computational Molecular Science
+		Python Cookiecutter</a> version 1.5
+</div></div>
+      
+        <div class="footer-item">
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3
+     | 
+    Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1
+    <br/>
+  </p>
+
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item"><a href= "mailto:uibcdf@gmail.com">Contact us</a><br /></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

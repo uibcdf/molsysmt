@@ -1,0 +1,811 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="../../../_static/favicon-16x16.png" sizes="16x16" rel="icon" type="image/png">
+    <link href="../../../_static/favicon-124x124.png" sizes="124x124" rel="icon" type="image/png">
+    <link href="../../../_static/favicon-128x128.png" sizes="128x128" rel="icon" type="image/png">
+    <link href="../../../_static/favicon-192x192.png" sizes="192x192" rel="icon" type="image/png">
+    <link href="../../../_static/icon.svg" rel="icon" type="image/svg+xml">
+  
+    <title><no title> – MolSysMT 0.12.0</title>
+  
+
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx_tabs.css?v=f45e19d3" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=d5ef24d1" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/tabs.css?v=a5c4661c" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=d5ef24d1" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../../../_static/documentation_options.js?v=61ccb1f1"></script>
+    <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../../_static/copybutton.js?v=f281be69"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/nglview-js-widgets@3.1.0/dist/index.js"></script>
+    <script src="../../../_static/design-tabs.js?v=f930bc37"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="0.12.0" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../../_static/logo.svg" class="logo__image only-light" alt="MolSysMT 0.12.0 documentation - Home"/>
+    <img src="../../../_static/logo.svg" class="logo__image only-dark pst-js-only" alt="MolSysMT 0.12.0 documentation - Home"/>
+  
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../about/index.html">
+    About
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../showcase/index.html">
+    Showcase
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../index.html">
+    User guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../developer/index.html">
+    Developer guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../api/index.html">
+    API documentation
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../ai_assistant.html">
+    MolSys-AI
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/uibcdf/molsysmt" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar hide-on-wide">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../about/index.html">
+    About
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../showcase/index.html">
+    Showcase
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../index.html">
+    User guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../developer/index.html">
+    Developer guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../api/index.html">
+    API documentation
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../ai_assistant.html">
+    MolSys-AI
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/uibcdf/molsysmt" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">&lt;no title&gt;</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">molsysmt</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">msm</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "3740833ed7a7478b96c38f541130d797", "version_major": 2, "version_minor": 0}</script></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">msm</span><span class="o">.</span><span class="n">supported</span><span class="o">.</span><span class="n">forms</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">msm</span><span class="o">.</span><span class="n">supported</span><span class="o">.</span><span class="n">conversions</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">msm</span><span class="o">.</span><span class="n">supported</span><span class="o">.</span><span class="n">viewers</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><style type="text/css">
+#T_02437_row0_col0, #T_02437_row1_col0, #T_02437_row2_col0, #T_02437_row3_col0, #T_02437_row4_col0, #T_02437_row5_col0, #T_02437_row6_col0, #T_02437_row10_col0, #T_02437_row11_col0, #T_02437_row16_col0, #T_02437_row17_col0, #T_02437_row18_col0, #T_02437_row19_col0, #T_02437_row20_col0, #T_02437_row22_col0, #T_02437_row23_col0, #T_02437_row24_col0, #T_02437_row26_col0, #T_02437_row27_col0, #T_02437_row28_col0, #T_02437_row29_col0, #T_02437_row32_col0, #T_02437_row33_col0, #T_02437_row36_col0, #T_02437_row37_col0, #T_02437_row39_col0, #T_02437_row40_col0, #T_02437_row41_col0, #T_02437_row42_col0, #T_02437_row43_col0, #T_02437_row44_col0, #T_02437_row45_col0, #T_02437_row46_col0, #T_02437_row47_col0, #T_02437_row50_col0, #T_02437_row51_col0, #T_02437_row52_col0, #T_02437_row56_col0, #T_02437_row59_col0, #T_02437_row60_col0, #T_02437_row63_col0 {
+  background-color: #E2856E;
+  text-align: center;
+}
+#T_02437_row7_col0, #T_02437_row8_col0, #T_02437_row9_col0, #T_02437_row12_col0, #T_02437_row13_col0, #T_02437_row14_col0, #T_02437_row15_col0, #T_02437_row21_col0, #T_02437_row25_col0, #T_02437_row30_col0, #T_02437_row31_col0, #T_02437_row34_col0, #T_02437_row35_col0, #T_02437_row38_col0, #T_02437_row48_col0, #T_02437_row49_col0, #T_02437_row53_col0, #T_02437_row54_col0, #T_02437_row55_col0, #T_02437_row57_col0, #T_02437_row58_col0, #T_02437_row61_col0, #T_02437_row62_col0 {
+  background-color: #C2CFB2;
+  text-align: center;
+}
+</style>
+<table id="T_02437">
+  <thead>
+    <tr>
+      <th class="blank level0" >&nbsp;</th>
+      <th id="T_02437_level0_col0" class="col_heading level0 col0" >nglview.NGLWidget</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th id="T_02437_level0_row0" class="row_heading level0 row0" >biopython.Seq</th>
+      <td id="T_02437_row0_col0" class="data row0 col0" >False</td>
+    </tr>
+    <tr>
+      <th id="T_02437_level0_row1" class="row_heading level0 row1" >biopython.SeqRecord</th>
+      <td id="T_02437_row1_col0" class="data row1 col0" >False</td>
+    </tr>
+    <tr>
+      <th id="T_02437_level0_row2" class="row_heading level0 row2" >file:bcif</th>
+      <td id="T_02437_row2_col0" class="data row2 col0" >False</td>
+    </tr>
+    <tr>
+      <th id="T_02437_level0_row3" class="row_heading level0 row3" >file:bcif.gz</th>
+      <td id="T_02437_row3_col0" class="data row3 col0" >False</td>
+    </tr>
+    <tr>
+      <th id="T_02437_level0_row4" class="row_heading level0 row4" >file:cif</th>
+      <td id="T_02437_row4_col0" class="data row4 col0" >False</td>
+    </tr>
+    <tr>
+      <th id="T_02437_level0_row5" class="row_heading level0 row5" >file:crd</th>
+      <td id="T_02437_row5_col0" class="data row5 col0" >False</td>
+    </tr>
+    <tr>
+      <th id="T_02437_level0_row6" class="row_heading level0 row6" >file:dcd</th>
+      <td id="T_02437_row6_col0" class="data row6 col0" >False</td>
+    </tr>
+    <tr>
+      <th id="T_02437_level0_row7" class="row_heading level0 row7" >file:gro</th>
+      <td id="T_02437_row7_col0" class="data row7 col0" >True</td>
+    </tr>
+    <tr>
+      <th id="T_02437_level0_row8" class="row_heading level0 row8" >file:h5</th>
+      <td id="T_02437_row8_col0" class="data row8 col0" >True</td>
+    </tr>
+    <tr>
+      <th id="T_02437_level0_row9" class="row_heading level0 row9" >file:h5msm</th>
+      <td id="T_02437_row9_col0" class="data row9 col0" >True</td>
+    </tr>
+    <tr>
+      <th id="T_02437_level0_row10" class="row_heading level0 row10" >file:inpcrd</th>
+      <td id="T_02437_row10_col0" class="data row10 col0" >False</td>
+    </tr>
+    <tr>
+      <th id="T_02437_level0_row11" class="row_heading level0 row11" >file:mmtf</th>
+      <td id="T_02437_row11_col0" class="data row11 col0" >False</td>
+    </tr>
+    <tr>
+      <th id="T_02437_level0_row12" class="row_heading level0 row12" >file:mol2</th>
+      <td id="T_02437_row12_col0" class="data row12 col0" >True</td>
+    </tr>
+    <tr>
+      <th id="T_02437_level0_row13" class="row_heading level0 row13" >file:msmpk</th>
+      <td id="T_02437_row13_col0" class="data row13 col0" >True</td>
+    </tr>
+    <tr>
+      <th id="T_02437_level0_row14" class="row_heading level0 row14" >file:pdb</th>
+      <td id="T_02437_row14_col0" class="data row14 col0" >True</td>
+    </tr>
+    <tr>
+      <th id="T_02437_level0_row15" class="row_heading level0 row15" >file:prmtop</th>
+      <td id="T_02437_row15_col0" class="data row15 col0" >True</td>
+    </tr>
+    <tr>
+      <th id="T_02437_level0_row16" class="row_heading level0 row16" >file:psf</th>
+      <td id="T_02437_row16_col0" class="data row16 col0" >False</td>
+    </tr>
+    <tr>
+      <th id="T_02437_level0_row17" class="row_heading level0 row17" >file:trjpk</th>
+      <td id="T_02437_row17_col0" class="data row17 col0" >False</td>
+    </tr>
+    <tr>
+      <th id="T_02437_level0_row18" class="row_heading level0 row18" >file:xtc</th>
+      <td id="T_02437_row18_col0" class="data row18 col0" >False</td>
+    </tr>
+    <tr>
+      <th id="T_02437_level0_row19" class="row_heading level0 row19" >file:xyznpy</th>
+      <td id="T_02437_row19_col0" class="data row19 col0" >False</td>
+    </tr>
+    <tr>
+      <th id="T_02437_level0_row20" class="row_heading level0 row20" >MDAnalysis.Topology</th>
+      <td id="T_02437_row20_col0" class="data row20 col0" >False</td>
+    </tr>
+    <tr>
+      <th id="T_02437_level0_row21" class="row_heading level0 row21" >MDAnalysis.Universe</th>
+      <td id="T_02437_row21_col0" class="data row21 col0" >True</td>
+    </tr>
+    <tr>
+      <th id="T_02437_level0_row22" class="row_heading level0 row22" >mdtraj.DCDTrajectoryFile</th>
+      <td id="T_02437_row22_col0" class="data row22 col0" >False</td>
+    </tr>
+    <tr>
+      <th id="T_02437_level0_row23" class="row_heading level0 row23" >mdtraj.HDF5TrajectoryFile</th>
+      <td id="T_02437_row23_col0" class="data row23 col0" >False</td>
+    </tr>
+    <tr>
+      <th id="T_02437_level0_row24" class="row_heading level0 row24" >mdtraj.Topology</th>
+      <td id="T_02437_row24_col0" class="data row24 col0" >False</td>
+    </tr>
+    <tr>
+      <th id="T_02437_level0_row25" class="row_heading level0 row25" >mdtraj.Trajectory</th>
+      <td id="T_02437_row25_col0" class="data row25 col0" >True</td>
+    </tr>
+    <tr>
+      <th id="T_02437_level0_row26" class="row_heading level0 row26" >mdtraj.XTCTrajectoryFile</th>
+      <td id="T_02437_row26_col0" class="data row26 col0" >False</td>
+    </tr>
+    <tr>
+      <th id="T_02437_level0_row27" class="row_heading level0 row27" >mmcif.PdbxContainers.DataContainer</th>
+      <td id="T_02437_row27_col0" class="data row27 col0" >False</td>
+    </tr>
+    <tr>
+      <th id="T_02437_level0_row28" class="row_heading level0 row28" >mmtf.MMTFDecoder</th>
+      <td id="T_02437_row28_col0" class="data row28 col0" >False</td>
+    </tr>
+    <tr>
+      <th id="T_02437_level0_row29" class="row_heading level0 row29" >molsysmt.CIFFileHandler</th>
+      <td id="T_02437_row29_col0" class="data row29 col0" >False</td>
+    </tr>
+    <tr>
+      <th id="T_02437_level0_row30" class="row_heading level0 row30" >molsysmt.GROFileHandler</th>
+      <td id="T_02437_row30_col0" class="data row30 col0" >True</td>
+    </tr>
+    <tr>
+      <th id="T_02437_level0_row31" class="row_heading level0 row31" >molsysmt.H5MSMFileHandler</th>
+      <td id="T_02437_row31_col0" class="data row31 col0" >True</td>
+    </tr>
+    <tr>
+      <th id="T_02437_level0_row32" class="row_heading level0 row32" >molsysmt.MolecularMechanics</th>
+      <td id="T_02437_row32_col0" class="data row32 col0" >False</td>
+    </tr>
+    <tr>
+      <th id="T_02437_level0_row33" class="row_heading level0 row33" >molsysmt.MolecularMechanicsDict</th>
+      <td id="T_02437_row33_col0" class="data row33 col0" >False</td>
+    </tr>
+    <tr>
+      <th id="T_02437_level0_row34" class="row_heading level0 row34" >molsysmt.MolSys</th>
+      <td id="T_02437_row34_col0" class="data row34 col0" >True</td>
+    </tr>
+    <tr>
+      <th id="T_02437_level0_row35" class="row_heading level0 row35" >molsysmt.PDBFileHandler</th>
+      <td id="T_02437_row35_col0" class="data row35 col0" >True</td>
+    </tr>
+    <tr>
+      <th id="T_02437_level0_row36" class="row_heading level0 row36" >molsysmt.Structures</th>
+      <td id="T_02437_row36_col0" class="data row36 col0" >False</td>
+    </tr>
+    <tr>
+      <th id="T_02437_level0_row37" class="row_heading level0 row37" >molsysmt.StructuresDict</th>
+      <td id="T_02437_row37_col0" class="data row37 col0" >False</td>
+    </tr>
+    <tr>
+      <th id="T_02437_level0_row38" class="row_heading level0 row38" >molsysmt.Topology</th>
+      <td id="T_02437_row38_col0" class="data row38 col0" >True</td>
+    </tr>
+    <tr>
+      <th id="T_02437_level0_row39" class="row_heading level0 row39" >networkx.Graph</th>
+      <td id="T_02437_row39_col0" class="data row39 col0" >False</td>
+    </tr>
+    <tr>
+      <th id="T_02437_level0_row40" class="row_heading level0 row40" >nglview.NGLWidget</th>
+      <td id="T_02437_row40_col0" class="data row40 col0" >False</td>
+    </tr>
+    <tr>
+      <th id="T_02437_level0_row41" class="row_heading level0 row41" >openmm.AmberInpcrdFile</th>
+      <td id="T_02437_row41_col0" class="data row41 col0" >False</td>
+    </tr>
+    <tr>
+      <th id="T_02437_level0_row42" class="row_heading level0 row42" >openmm.AmberPrmtopFile</th>
+      <td id="T_02437_row42_col0" class="data row42 col0" >False</td>
+    </tr>
+    <tr>
+      <th id="T_02437_level0_row43" class="row_heading level0 row43" >openmm.CharmmCrdFile</th>
+      <td id="T_02437_row43_col0" class="data row43 col0" >False</td>
+    </tr>
+    <tr>
+      <th id="T_02437_level0_row44" class="row_heading level0 row44" >openmm.CharmmPsfFile</th>
+      <td id="T_02437_row44_col0" class="data row44 col0" >False</td>
+    </tr>
+    <tr>
+      <th id="T_02437_level0_row45" class="row_heading level0 row45" >openmm.Context</th>
+      <td id="T_02437_row45_col0" class="data row45 col0" >False</td>
+    </tr>
+    <tr>
+      <th id="T_02437_level0_row46" class="row_heading level0 row46" >openmm.GromacsGroFile</th>
+      <td id="T_02437_row46_col0" class="data row46 col0" >False</td>
+    </tr>
+    <tr>
+      <th id="T_02437_level0_row47" class="row_heading level0 row47" >openmm.GromacsTopFile</th>
+      <td id="T_02437_row47_col0" class="data row47 col0" >False</td>
+    </tr>
+    <tr>
+      <th id="T_02437_level0_row48" class="row_heading level0 row48" >openmm.Modeller</th>
+      <td id="T_02437_row48_col0" class="data row48 col0" >True</td>
+    </tr>
+    <tr>
+      <th id="T_02437_level0_row49" class="row_heading level0 row49" >openmm.PDBFile</th>
+      <td id="T_02437_row49_col0" class="data row49 col0" >True</td>
+    </tr>
+    <tr>
+      <th id="T_02437_level0_row50" class="row_heading level0 row50" >openmm.Simulation</th>
+      <td id="T_02437_row50_col0" class="data row50 col0" >False</td>
+    </tr>
+    <tr>
+      <th id="T_02437_level0_row51" class="row_heading level0 row51" >openmm.State</th>
+      <td id="T_02437_row51_col0" class="data row51 col0" >False</td>
+    </tr>
+    <tr>
+      <th id="T_02437_level0_row52" class="row_heading level0 row52" >openmm.System</th>
+      <td id="T_02437_row52_col0" class="data row52 col0" >False</td>
+    </tr>
+    <tr>
+      <th id="T_02437_level0_row53" class="row_heading level0 row53" >openmm.Topology</th>
+      <td id="T_02437_row53_col0" class="data row53 col0" >True</td>
+    </tr>
+    <tr>
+      <th id="T_02437_level0_row54" class="row_heading level0 row54" >parmed.Structure</th>
+      <td id="T_02437_row54_col0" class="data row54 col0" >True</td>
+    </tr>
+    <tr>
+      <th id="T_02437_level0_row55" class="row_heading level0 row55" >pdbfixer.PDBFixer</th>
+      <td id="T_02437_row55_col0" class="data row55 col0" >True</td>
+    </tr>
+    <tr>
+      <th id="T_02437_level0_row56" class="row_heading level0 row56" >pytraj.Topology</th>
+      <td id="T_02437_row56_col0" class="data row56 col0" >False</td>
+    </tr>
+    <tr>
+      <th id="T_02437_level0_row57" class="row_heading level0 row57" >pytraj.Trajectory</th>
+      <td id="T_02437_row57_col0" class="data row57 col0" >True</td>
+    </tr>
+    <tr>
+      <th id="T_02437_level0_row58" class="row_heading level0 row58" >string:alphafold_id</th>
+      <td id="T_02437_row58_col0" class="data row58 col0" >True</td>
+    </tr>
+    <tr>
+      <th id="T_02437_level0_row59" class="row_heading level0 row59" >string:amino_acids_1</th>
+      <td id="T_02437_row59_col0" class="data row59 col0" >False</td>
+    </tr>
+    <tr>
+      <th id="T_02437_level0_row60" class="row_heading level0 row60" >string:amino_acids_3</th>
+      <td id="T_02437_row60_col0" class="data row60 col0" >False</td>
+    </tr>
+    <tr>
+      <th id="T_02437_level0_row61" class="row_heading level0 row61" >string:pdb_id</th>
+      <td id="T_02437_row61_col0" class="data row61 col0" >True</td>
+    </tr>
+    <tr>
+      <th id="T_02437_level0_row62" class="row_heading level0 row62" >string:pdb_text</th>
+      <td id="T_02437_row62_col0" class="data row62 col0" >True</td>
+    </tr>
+    <tr>
+      <th id="T_02437_level0_row63" class="row_heading level0 row63" >XYZ</th>
+      <td id="T_02437_row63_col0" class="data row63 col0" >False</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="simple visible nav section-nav flex-column">
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item"><div>
+	&copy; 2026, <a href=contents/about/who.html>Liliana M. Moreno Vargas, Diego Prada Gracia
+		and contributors</a> | <a href="https://www.uibcdf.org/">UIBCDF Lab</a> 
+	at the <a href="http://himfg.com.mx">Federico Gómez Children’s Hospital of Mexico</a><br />
+	<a href="https://github.com/uibcdf/molsysmt">MolSysMT is an open source project</a> shared
+	under <a href="https://github.com/uibcdf/molsysmt/blob/main/LICENSE">an MIT license</a>
+	with a structure based on the
+	<a href="https://github.com/MolSSI/cookiecutter-cms">Computational Molecular Science
+		Python Cookiecutter</a> version 1.5
+</div></div>
+      
+        <div class="footer-item">
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3
+     | 
+    Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1
+    <br/>
+  </p>
+
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item"><a href= "mailto:uibcdf@gmail.com">Contact us</a><br /></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

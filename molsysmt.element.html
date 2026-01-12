@@ -1,0 +1,983 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="_static/favicon-16x16.png" sizes="16x16" rel="icon" type="image/png">
+    <link href="_static/favicon-124x124.png" sizes="124x124" rel="icon" type="image/png">
+    <link href="_static/favicon-128x128.png" sizes="128x128" rel="icon" type="image/png">
+    <link href="_static/favicon-192x192.png" sizes="192x192" rel="icon" type="image/png">
+    <link href="_static/icon.svg" rel="icon" type="image/svg+xml">
+  
+    <title>molsysmt.element package – MolSysMT 0.12.0</title>
+  
+
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx_tabs.css?v=f45e19d3" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css?v=d5ef24d1" />
+    <link rel="stylesheet" type="text/css" href="_static/tabs.css?v=a5c4661c" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css?v=d5ef24d1" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="_static/documentation_options.js?v=61ccb1f1"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/nglview-js-widgets@3.1.0/dist/index.js"></script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="0.12.0" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.svg" class="logo__image only-light" alt="MolSysMT 0.12.0 documentation - Home"/>
+    <img src="_static/logo.svg" class="logo__image only-dark pst-js-only" alt="MolSysMT 0.12.0 documentation - Home"/>
+  
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="content/about/index.html">
+    About
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="content/showcase/index.html">
+    Showcase
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="content/user/index.html">
+    User guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="content/developer/index.html">
+    Developer guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="api/index.html">
+    API documentation
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="content/ai_assistant.html">
+    MolSys-AI
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/uibcdf/molsysmt" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="content/about/index.html">
+    About
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="content/showcase/index.html">
+    Showcase
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="content/user/index.html">
+    User guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="content/developer/index.html">
+    Developer guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="api/index.html">
+    API documentation
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="content/ai_assistant.html">
+    MolSys-AI
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/uibcdf/molsysmt" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="molsysmt.attribute.html">molsysmt.attribute package</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="molsysmt.basic.html">molsysmt.basic package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.basic.selector.html">molsysmt.basic.selector package</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="molsysmt.build.html">molsysmt.build package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="molsysmt.config.html">molsysmt.config package</a></li>
+<li class="toctree-l1 current active has-children"><a class="current reference internal" href="#">molsysmt.element package</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.element.atom.html">molsysmt.element.atom package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.element.bond.html">molsysmt.element.bond package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.element.chain.html">molsysmt.element.chain package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.element.component.html">molsysmt.element.component package</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="molsysmt.element.entity.html">molsysmt.element.entity package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="molsysmt.element.entity.disaccharide.html">molsysmt.element.entity.disaccharide package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="molsysmt.element.entity.monosaccharide.html">molsysmt.element.entity.monosaccharide package</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="molsysmt.element.group.html">molsysmt.element.group package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="molsysmt.element.group.amino_acid.html">molsysmt.element.group.amino_acid package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="molsysmt.element.group.ion.html">molsysmt.element.group.ion package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="molsysmt.element.group.lipid.html">molsysmt.element.group.lipid package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="molsysmt.element.group.nucleotide.html">molsysmt.element.group.nucleotide package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="molsysmt.element.group.saccharide.html">molsysmt.element.group.saccharide package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="molsysmt.element.group.small_molecule.html">molsysmt.element.group.small_molecule package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="molsysmt.element.group.terminal_capping.html">molsysmt.element.group.terminal_capping package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="molsysmt.element.group.water.html">molsysmt.element.group.water package</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="molsysmt.element.molecule.html">molsysmt.element.molecule package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="molsysmt.element.molecule.disaccharide.html">molsysmt.element.molecule.disaccharide package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="molsysmt.element.molecule.dna.html">molsysmt.element.molecule.dna package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="molsysmt.element.molecule.ion.html">molsysmt.element.molecule.ion package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="molsysmt.element.molecule.lipid.html">molsysmt.element.molecule.lipid package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="molsysmt.element.molecule.monosaccharide.html">molsysmt.element.molecule.monosaccharide package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="molsysmt.element.molecule.peptide.html">molsysmt.element.molecule.peptide package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="molsysmt.element.molecule.polysaccharide.html">molsysmt.element.molecule.polysaccharide package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="molsysmt.element.molecule.protein.html">molsysmt.element.molecule.protein package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="molsysmt.element.molecule.rna.html">molsysmt.element.molecule.rna package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="molsysmt.element.molecule.small_molecule.html">molsysmt.element.molecule.small_molecule package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="molsysmt.element.molecule.water.html">molsysmt.element.molecule.water package</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="molsysmt.file.html">molsysmt.file package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="molsysmt.file.handlers.html">molsysmt.file.handlers package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="molsysmt.file.handlers.mdtraj_HDF5TrajectoryFile.html">molsysmt.file.handlers.mdtraj_HDF5TrajectoryFile package</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="molsysmt.form.html">molsysmt.form package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.form.MDAnalysis_Topology.html">molsysmt.form.MDAnalysis_Topology package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.form.MDAnalysis_Universe.html">molsysmt.form.MDAnalysis_Universe package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.form.XYZ.html">molsysmt.form.XYZ package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.form.biopython_Seq.html">molsysmt.form.biopython_Seq package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.form.biopython_SeqRecord.html">molsysmt.form.biopython_SeqRecord package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.form.file_bcif.html">molsysmt.form.file_bcif package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.form.file_bcif_gz.html">molsysmt.form.file_bcif_gz package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.form.file_cif.html">molsysmt.form.file_cif package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.form.file_cif_gz.html">molsysmt.form.file_cif_gz package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.form.file_crd.html">molsysmt.form.file_crd package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.form.file_dcd.html">molsysmt.form.file_dcd package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.form.file_gro.html">molsysmt.form.file_gro package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.form.file_h5.html">molsysmt.form.file_h5 package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.form.file_h5msm.html">molsysmt.form.file_h5msm package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.form.file_inpcrd.html">molsysmt.form.file_inpcrd package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.form.file_mmtf.html">molsysmt.form.file_mmtf package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.form.file_mol2.html">molsysmt.form.file_mol2 package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.form.file_msmpk.html">molsysmt.form.file_msmpk package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.form.file_pdb.html">molsysmt.form.file_pdb package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.form.file_prmtop.html">molsysmt.form.file_prmtop package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.form.file_psf.html">molsysmt.form.file_psf package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.form.file_trjpk.html">molsysmt.form.file_trjpk package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.form.file_xtc.html">molsysmt.form.file_xtc package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.form.file_xyznpy.html">molsysmt.form.file_xyznpy package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.form.mdtraj_DCDTrajectoryFile.html">molsysmt.form.mdtraj_DCDTrajectoryFile package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.form.mdtraj_HDF5TrajectoryFile.html">molsysmt.form.mdtraj_HDF5TrajectoryFile package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.form.mdtraj_Topology.html">molsysmt.form.mdtraj_Topology package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.form.mdtraj_Trajectory.html">molsysmt.form.mdtraj_Trajectory package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.form.mdtraj_XTCTrajectoryFile.html">molsysmt.form.mdtraj_XTCTrajectoryFile package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.form.mmcif_PdbxContainers_DataContainer.html">molsysmt.form.mmcif_PdbxContainers_DataContainer package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.form.mmtf_MMTFDecoder.html">molsysmt.form.mmtf_MMTFDecoder package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.form.molsysmt_CIFFileHandler.html">molsysmt.form.molsysmt_CIFFileHandler package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.form.molsysmt_GROFileHandler.html">molsysmt.form.molsysmt_GROFileHandler package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.form.molsysmt_H5MSMFileHandler.html">molsysmt.form.molsysmt_H5MSMFileHandler package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.form.molsysmt_MolSys.html">molsysmt.form.molsysmt_MolSys package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.form.molsysmt_MolecularMechanics.html">molsysmt.form.molsysmt_MolecularMechanics package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.form.molsysmt_MolecularMechanicsDict.html">molsysmt.form.molsysmt_MolecularMechanicsDict package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.form.molsysmt_PDBFileHandler.html">molsysmt.form.molsysmt_PDBFileHandler package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.form.molsysmt_Structures.html">molsysmt.form.molsysmt_Structures package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.form.molsysmt_StructuresDict.html">molsysmt.form.molsysmt_StructuresDict package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.form.molsysmt_Topology.html">molsysmt.form.molsysmt_Topology package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.form.molsysmt_UniversalJSON.html">molsysmt.form.molsysmt_UniversalJSON package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.form.molsysmt_ViewerJSON.html">molsysmt.form.molsysmt_ViewerJSON package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.form.networkx_Graph.html">molsysmt.form.networkx_Graph package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.form.nglview_NGLWidget.html">molsysmt.form.nglview_NGLWidget package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.form.openmm_AmberInpcrdFile.html">molsysmt.form.openmm_AmberInpcrdFile package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.form.openmm_AmberPrmtopFile.html">molsysmt.form.openmm_AmberPrmtopFile package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.form.openmm_CharmmCrdFile.html">molsysmt.form.openmm_CharmmCrdFile package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.form.openmm_CharmmPsfFile.html">molsysmt.form.openmm_CharmmPsfFile package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.form.openmm_Context.html">molsysmt.form.openmm_Context package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.form.openmm_GromacsGroFile.html">molsysmt.form.openmm_GromacsGroFile package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.form.openmm_GromacsTopFile.html">molsysmt.form.openmm_GromacsTopFile package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.form.openmm_Modeller.html">molsysmt.form.openmm_Modeller package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.form.openmm_PDBFile.html">molsysmt.form.openmm_PDBFile package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.form.openmm_Simulation.html">molsysmt.form.openmm_Simulation package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.form.openmm_State.html">molsysmt.form.openmm_State package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.form.openmm_System.html">molsysmt.form.openmm_System package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.form.openmm_Topology.html">molsysmt.form.openmm_Topology package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.form.parmed_Structure.html">molsysmt.form.parmed_Structure package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.form.pdbfixer_PDBFixer.html">molsysmt.form.pdbfixer_PDBFixer package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.form.pytraj_Topology.html">molsysmt.form.pytraj_Topology package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.form.pytraj_Trajectory.html">molsysmt.form.pytraj_Trajectory package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.form.string_alphafold_id.html">molsysmt.form.string_alphafold_id package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.form.string_amino_acids_1.html">molsysmt.form.string_amino_acids_1 package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.form.string_amino_acids_3.html">molsysmt.form.string_amino_acids_3 package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.form.string_pdb_id.html">molsysmt.form.string_pdb_id package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.form.string_pdb_text.html">molsysmt.form.string_pdb_text package</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="molsysmt.hbonds.html">molsysmt.hbonds package</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="molsysmt.lib.html">molsysmt.lib package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.lib.pbc.html">molsysmt.lib.pbc package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.lib.structure.html">molsysmt.lib.structure package</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="molsysmt.molecular_dynamics.html">molsysmt.molecular_dynamics package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="molsysmt.molecular_mechanics.html">molsysmt.molecular_mechanics package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="molsysmt.native.html">molsysmt.native package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="molsysmt.pbc.html">molsysmt.pbc package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="molsysmt.physchem.html">molsysmt.physchem package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="molsysmt.structure.html">molsysmt.structure package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="molsysmt.supported.html">molsysmt.supported package</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="molsysmt.thirds.html">molsysmt.thirds package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.thirds.nglview.html">molsysmt.thirds.nglview package</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="molsysmt.thirds.openmm.html">molsysmt.thirds.openmm package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="molsysmt.thirds.openmm.forces.html">molsysmt.thirds.openmm.forces package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="molsysmt.thirds.openmm.platforms.html">molsysmt.thirds.openmm.platforms package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="molsysmt.thirds.openmm.reporters.html">molsysmt.thirds.openmm.reporters package</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.thirds.tleap.html">molsysmt.thirds.tleap package</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="molsysmt.topology.html">molsysmt.topology package</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">molsysmt.element package</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="molsysmt-element-package">
+<h1>molsysmt.element package<a class="headerlink" href="#molsysmt-element-package" title="Link to this heading">#</a></h1>
+<section id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Link to this heading">#</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="molsysmt.element.atom.html">molsysmt.element.atom package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.element.atom.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.element.atom.html#module-molsysmt.element.atom.acceptors">molsysmt.element.atom.acceptors module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.element.atom.html#module-molsysmt.element.atom.charges">molsysmt.element.atom.charges module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.element.atom.html#module-molsysmt.element.atom.donors">molsysmt.element.atom.donors module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.element.atom.html#module-molsysmt.element.atom.get_atom_type_from_atom_name">molsysmt.element.atom.get_atom_type_from_atom_name module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="molsysmt.element.atom.html#molsysmt.element.atom.get_atom_type_from_atom_name.get_atom_type_from_atom_name"><code class="docutils literal notranslate"><span class="pre">get_atom_type_from_atom_name()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.element.atom.html#module-molsysmt.element.atom.names">molsysmt.element.atom.names module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.element.atom.html#module-molsysmt.element.atom.names_cg">molsysmt.element.atom.names_cg module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.element.atom.html#module-molsysmt.element.atom">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="molsysmt.element.bond.html">molsysmt.element.bond package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.element.bond.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.element.bond.html#module-molsysmt.element.bond.max_expected_bond_length">molsysmt.element.bond.max_expected_bond_length module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.element.bond.html#module-molsysmt.element.bond">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="molsysmt.element.chain.html">molsysmt.element.chain package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.element.chain.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.element.chain.html#module-molsysmt.element.chain.chain_names">molsysmt.element.chain.chain_names module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.element.chain.html#module-molsysmt.element.chain.get_chain_id">molsysmt.element.chain.get_chain_id module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="molsysmt.element.chain.html#molsysmt.element.chain.get_chain_id.get_chain_id"><code class="docutils literal notranslate"><span class="pre">get_chain_id()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.element.chain.html#module-molsysmt.element.chain.get_chain_index">molsysmt.element.chain.get_chain_index module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="molsysmt.element.chain.html#molsysmt.element.chain.get_chain_index.get_chain_index"><code class="docutils literal notranslate"><span class="pre">get_chain_index()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.element.chain.html#module-molsysmt.element.chain.get_chain_name">molsysmt.element.chain.get_chain_name module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="molsysmt.element.chain.html#molsysmt.element.chain.get_chain_name.get_chain_name"><code class="docutils literal notranslate"><span class="pre">get_chain_name()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.element.chain.html#module-molsysmt.element.chain.get_chain_type">molsysmt.element.chain.get_chain_type module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="molsysmt.element.chain.html#molsysmt.element.chain.get_chain_type.get_chain_type"><code class="docutils literal notranslate"><span class="pre">get_chain_type()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.element.chain.html#module-molsysmt.element.chain">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="molsysmt.element.component.html">molsysmt.element.component package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.element.component.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.element.component.html#module-molsysmt.element.component.get_component_id">molsysmt.element.component.get_component_id module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="molsysmt.element.component.html#molsysmt.element.component.get_component_id.get_component_id"><code class="docutils literal notranslate"><span class="pre">get_component_id()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.element.component.html#module-molsysmt.element.component.get_component_index">molsysmt.element.component.get_component_index module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="molsysmt.element.component.html#molsysmt.element.component.get_component_index.get_component_index"><code class="docutils literal notranslate"><span class="pre">get_component_index()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.element.component.html#module-molsysmt.element.component.get_component_name">molsysmt.element.component.get_component_name module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="molsysmt.element.component.html#molsysmt.element.component.get_component_name.get_component_name"><code class="docutils literal notranslate"><span class="pre">get_component_name()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.element.component.html#module-molsysmt.element.component.get_component_type">molsysmt.element.component.get_component_type module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="molsysmt.element.component.html#molsysmt.element.component.get_component_type.get_component_type"><code class="docutils literal notranslate"><span class="pre">get_component_type()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.element.component.html#module-molsysmt.element.component.get_n_components">molsysmt.element.component.get_n_components module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="molsysmt.element.component.html#molsysmt.element.component.get_n_components.get_n_components"><code class="docutils literal notranslate"><span class="pre">get_n_components()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.element.component.html#module-molsysmt.element.component.is_component_type">molsysmt.element.component.is_component_type module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="molsysmt.element.component.html#molsysmt.element.component.is_component_type.is_component_type"><code class="docutils literal notranslate"><span class="pre">is_component_type()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.element.component.html#module-molsysmt.element.component">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="molsysmt.element.entity.html">molsysmt.element.entity package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.element.entity.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="molsysmt.element.entity.disaccharide.html">molsysmt.element.entity.disaccharide package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="molsysmt.element.entity.disaccharide.html#module-molsysmt.element.entity.disaccharide">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="molsysmt.element.entity.monosaccharide.html">molsysmt.element.entity.monosaccharide package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="molsysmt.element.entity.monosaccharide.html#module-molsysmt.element.entity.monosaccharide">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.element.entity.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.element.entity.html#module-molsysmt.element.entity.get_entity_id">molsysmt.element.entity.get_entity_id module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="molsysmt.element.entity.html#molsysmt.element.entity.get_entity_id.get_entity_id"><code class="docutils literal notranslate"><span class="pre">get_entity_id()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.element.entity.html#module-molsysmt.element.entity.get_entity_index">molsysmt.element.entity.get_entity_index module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="molsysmt.element.entity.html#molsysmt.element.entity.get_entity_index.get_entity_index"><code class="docutils literal notranslate"><span class="pre">get_entity_index()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.element.entity.html#module-molsysmt.element.entity.get_entity_name">molsysmt.element.entity.get_entity_name module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="molsysmt.element.entity.html#molsysmt.element.entity.get_entity_name.get_entity_name"><code class="docutils literal notranslate"><span class="pre">get_entity_name()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.element.entity.html#module-molsysmt.element.entity.get_entity_type">molsysmt.element.entity.get_entity_type module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="molsysmt.element.entity.html#molsysmt.element.entity.get_entity_type.get_entity_type"><code class="docutils literal notranslate"><span class="pre">get_entity_type()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.element.entity.html#module-molsysmt.element.entity.get_n_entities">molsysmt.element.entity.get_n_entities module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="molsysmt.element.entity.html#molsysmt.element.entity.get_n_entities.get_n_entities"><code class="docutils literal notranslate"><span class="pre">get_n_entities()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.element.entity.html#module-molsysmt.element.entity">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="molsysmt.element.group.html">molsysmt.element.group package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.element.group.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="molsysmt.element.group.amino_acid.html">molsysmt.element.group.amino_acid package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="molsysmt.element.group.amino_acid.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="molsysmt.element.group.amino_acid.html#module-molsysmt.element.group.amino_acid.get_1_letter_code_from_name">molsysmt.element.group.amino_acid.get_1_letter_code_from_name module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="molsysmt.element.group.amino_acid.html#module-molsysmt.element.group.amino_acid.get_bonded_atom_pairs">molsysmt.element.group.amino_acid.get_bonded_atom_pairs module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="molsysmt.element.group.amino_acid.html#module-molsysmt.element.group.amino_acid.get_group_db">molsysmt.element.group.amino_acid.get_group_db module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="molsysmt.element.group.amino_acid.html#molsysmt-element-group-amino-acid-get-group-type-from-group-name-module">molsysmt.element.group.amino_acid.get_group_type_from_group_name module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="molsysmt.element.group.amino_acid.html#module-molsysmt.element.group.amino_acid.group_names">molsysmt.element.group.amino_acid.group_names module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="molsysmt.element.group.amino_acid.html#module-molsysmt.element.group.amino_acid.group_types">molsysmt.element.group.amino_acid.group_types module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="molsysmt.element.group.amino_acid.html#module-molsysmt.element.group.amino_acid.is_amino_acid">molsysmt.element.group.amino_acid.is_amino_acid module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="molsysmt.element.group.amino_acid.html#module-molsysmt.element.group.amino_acid">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="molsysmt.element.group.ion.html">molsysmt.element.group.ion package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="molsysmt.element.group.ion.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="molsysmt.element.group.ion.html#module-molsysmt.element.group.ion.get_bonded_atom_pairs">molsysmt.element.group.ion.get_bonded_atom_pairs module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="molsysmt.element.group.ion.html#module-molsysmt.element.group.ion.get_group_db">molsysmt.element.group.ion.get_group_db module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="molsysmt.element.group.ion.html#module-molsysmt.element.group.ion.group_names">molsysmt.element.group.ion.group_names module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="molsysmt.element.group.ion.html#module-molsysmt.element.group.ion.is_ion">molsysmt.element.group.ion.is_ion module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="molsysmt.element.group.ion.html#module-molsysmt.element.group.ion">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="molsysmt.element.group.lipid.html">molsysmt.element.group.lipid package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="molsysmt.element.group.lipid.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="molsysmt.element.group.lipid.html#module-molsysmt.element.group.lipid.is_lipid">molsysmt.element.group.lipid.is_lipid module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="molsysmt.element.group.lipid.html#module-molsysmt.element.group.lipid.lipid_names">molsysmt.element.group.lipid.lipid_names module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="molsysmt.element.group.lipid.html#module-molsysmt.element.group.lipid">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="molsysmt.element.group.nucleotide.html">molsysmt.element.group.nucleotide package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="molsysmt.element.group.nucleotide.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="molsysmt.element.group.nucleotide.html#module-molsysmt.element.group.nucleotide.is_nucleotide">molsysmt.element.group.nucleotide.is_nucleotide module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="molsysmt.element.group.nucleotide.html#module-molsysmt.element.group.nucleotide.nucleotide_names">molsysmt.element.group.nucleotide.nucleotide_names module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="molsysmt.element.group.nucleotide.html#module-molsysmt.element.group.nucleotide">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="molsysmt.element.group.saccharide.html">molsysmt.element.group.saccharide package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="molsysmt.element.group.saccharide.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="molsysmt.element.group.saccharide.html#module-molsysmt.element.group.saccharide.get_bonded_atom_pairs">molsysmt.element.group.saccharide.get_bonded_atom_pairs module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="molsysmt.element.group.saccharide.html#module-molsysmt.element.group.saccharide.get_group_db">molsysmt.element.group.saccharide.get_group_db module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="molsysmt.element.group.saccharide.html#module-molsysmt.element.group.saccharide.group_names">molsysmt.element.group.saccharide.group_names module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="molsysmt.element.group.saccharide.html#module-molsysmt.element.group.saccharide.is_saccharide">molsysmt.element.group.saccharide.is_saccharide module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="molsysmt.element.group.saccharide.html#module-molsysmt.element.group.saccharide">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="molsysmt.element.group.small_molecule.html">molsysmt.element.group.small_molecule package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="molsysmt.element.group.small_molecule.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="molsysmt.element.group.small_molecule.html#module-molsysmt.element.group.small_molecule.get_bonded_atom_pairs">molsysmt.element.group.small_molecule.get_bonded_atom_pairs module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="molsysmt.element.group.small_molecule.html#module-molsysmt.element.group.small_molecule.get_group_db">molsysmt.element.group.small_molecule.get_group_db module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="molsysmt.element.group.small_molecule.html#module-molsysmt.element.group.small_molecule.group_names">molsysmt.element.group.small_molecule.group_names module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="molsysmt.element.group.small_molecule.html#module-molsysmt.element.group.small_molecule.is_small_molecule">molsysmt.element.group.small_molecule.is_small_molecule module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="molsysmt.element.group.small_molecule.html#module-molsysmt.element.group.small_molecule.small_molecule_is_amino_acid">molsysmt.element.group.small_molecule.small_molecule_is_amino_acid module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="molsysmt.element.group.small_molecule.html#module-molsysmt.element.group.small_molecule">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="molsysmt.element.group.terminal_capping.html">molsysmt.element.group.terminal_capping package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="molsysmt.element.group.terminal_capping.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="molsysmt.element.group.terminal_capping.html#module-molsysmt.element.group.terminal_capping.get_bonded_atom_pairs">molsysmt.element.group.terminal_capping.get_bonded_atom_pairs module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="molsysmt.element.group.terminal_capping.html#module-molsysmt.element.group.terminal_capping.get_group_db">molsysmt.element.group.terminal_capping.get_group_db module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="molsysmt.element.group.terminal_capping.html#module-molsysmt.element.group.terminal_capping.group_names">molsysmt.element.group.terminal_capping.group_names module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="molsysmt.element.group.terminal_capping.html#module-molsysmt.element.group.terminal_capping.is_c_terminal_capping">molsysmt.element.group.terminal_capping.is_c_terminal_capping module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="molsysmt.element.group.terminal_capping.html#module-molsysmt.element.group.terminal_capping.is_n_terminal_capping">molsysmt.element.group.terminal_capping.is_n_terminal_capping module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="molsysmt.element.group.terminal_capping.html#module-molsysmt.element.group.terminal_capping.is_terminal_capping">molsysmt.element.group.terminal_capping.is_terminal_capping module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="molsysmt.element.group.terminal_capping.html#module-molsysmt.element.group.terminal_capping">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="molsysmt.element.group.water.html">molsysmt.element.group.water package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="molsysmt.element.group.water.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="molsysmt.element.group.water.html#module-molsysmt.element.group.water.get_bonded_atom_pairs">molsysmt.element.group.water.get_bonded_atom_pairs module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="molsysmt.element.group.water.html#module-molsysmt.element.group.water.is_water">molsysmt.element.group.water.is_water module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="molsysmt.element.group.water.html#module-molsysmt.element.group.water.water_names">molsysmt.element.group.water.water_names module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="molsysmt.element.group.water.html#module-molsysmt.element.group.water">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.element.group.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.element.group.html#module-molsysmt.element.group.get_bonded_atom_pairs">molsysmt.element.group.get_bonded_atom_pairs module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="molsysmt.element.group.html#molsysmt.element.group.get_bonded_atom_pairs.get_bonded_atom_pairs"><code class="docutils literal notranslate"><span class="pre">get_bonded_atom_pairs()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.element.group.html#module-molsysmt.element.group.get_group_type">molsysmt.element.group.get_group_type module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="molsysmt.element.group.html#molsysmt.element.group.get_group_type.get_group_type"><code class="docutils literal notranslate"><span class="pre">get_group_type()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="molsysmt.element.group.html#molsysmt.element.group.get_group_type.get_group_type_from_group_name"><code class="docutils literal notranslate"><span class="pre">get_group_type_from_group_name()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.element.group.html#module-molsysmt.element.group.is_group_type">molsysmt.element.group.is_group_type module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="molsysmt.element.group.html#molsysmt.element.group.is_group_type.is_group_type"><code class="docutils literal notranslate"><span class="pre">is_group_type()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.element.group.html#module-molsysmt.element.group">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="molsysmt.element.molecule.html">molsysmt.element.molecule package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.element.molecule.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="molsysmt.element.molecule.disaccharide.html">molsysmt.element.molecule.disaccharide package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="molsysmt.element.molecule.disaccharide.html#module-molsysmt.element.molecule.disaccharide">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="molsysmt.element.molecule.dna.html">molsysmt.element.molecule.dna package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="molsysmt.element.molecule.dna.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="molsysmt.element.molecule.dna.html#module-molsysmt.element.molecule.dna.names">molsysmt.element.molecule.dna.names module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="molsysmt.element.molecule.dna.html#module-molsysmt.element.molecule.dna">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="molsysmt.element.molecule.ion.html">molsysmt.element.molecule.ion package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="molsysmt.element.molecule.ion.html#module-molsysmt.element.molecule.ion">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="molsysmt.element.molecule.lipid.html">molsysmt.element.molecule.lipid package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="molsysmt.element.molecule.lipid.html#module-molsysmt.element.molecule.lipid">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="molsysmt.element.molecule.monosaccharide.html">molsysmt.element.molecule.monosaccharide package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="molsysmt.element.molecule.monosaccharide.html#module-molsysmt.element.molecule.monosaccharide">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="molsysmt.element.molecule.peptide.html">molsysmt.element.molecule.peptide package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="molsysmt.element.molecule.peptide.html#module-molsysmt.element.molecule.peptide">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="molsysmt.element.molecule.polysaccharide.html">molsysmt.element.molecule.polysaccharide package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="molsysmt.element.molecule.polysaccharide.html#module-molsysmt.element.molecule.polysaccharide">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="molsysmt.element.molecule.protein.html">molsysmt.element.molecule.protein package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="molsysmt.element.molecule.protein.html#module-molsysmt.element.molecule.protein">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="molsysmt.element.molecule.rna.html">molsysmt.element.molecule.rna package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="molsysmt.element.molecule.rna.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="molsysmt.element.molecule.rna.html#module-molsysmt.element.molecule.rna.names">molsysmt.element.molecule.rna.names module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="molsysmt.element.molecule.rna.html#module-molsysmt.element.molecule.rna">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="molsysmt.element.molecule.small_molecule.html">molsysmt.element.molecule.small_molecule package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="molsysmt.element.molecule.small_molecule.html#module-molsysmt.element.molecule.small_molecule">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="molsysmt.element.molecule.water.html">molsysmt.element.molecule.water package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="molsysmt.element.molecule.water.html#module-molsysmt.element.molecule.water">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.element.molecule.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.element.molecule.html#module-molsysmt.element.molecule.get_molecule_id">molsysmt.element.molecule.get_molecule_id module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="molsysmt.element.molecule.html#molsysmt.element.molecule.get_molecule_id.get_molecule_id"><code class="docutils literal notranslate"><span class="pre">get_molecule_id()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.element.molecule.html#module-molsysmt.element.molecule.get_molecule_index">molsysmt.element.molecule.get_molecule_index module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="molsysmt.element.molecule.html#molsysmt.element.molecule.get_molecule_index.get_molecule_index"><code class="docutils literal notranslate"><span class="pre">get_molecule_index()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.element.molecule.html#module-molsysmt.element.molecule.get_molecule_name">molsysmt.element.molecule.get_molecule_name module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="molsysmt.element.molecule.html#molsysmt.element.molecule.get_molecule_name.get_molecule_name"><code class="docutils literal notranslate"><span class="pre">get_molecule_name()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.element.molecule.html#module-molsysmt.element.molecule.get_molecule_type">molsysmt.element.molecule.get_molecule_type module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="molsysmt.element.molecule.html#molsysmt.element.molecule.get_molecule_type.get_molecule_type"><code class="docutils literal notranslate"><span class="pre">get_molecule_type()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.element.molecule.html#module-molsysmt.element.molecule.get_n_molecules">molsysmt.element.molecule.get_n_molecules module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="molsysmt.element.molecule.html#molsysmt.element.molecule.get_n_molecules.get_n_molecules"><code class="docutils literal notranslate"><span class="pre">get_n_molecules()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.element.molecule.html#module-molsysmt.element.molecule.is_molecule_type">molsysmt.element.molecule.is_molecule_type module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="molsysmt.element.molecule.html#molsysmt.element.molecule.is_molecule_type.is_molecule_type"><code class="docutils literal notranslate"><span class="pre">is_molecule_type()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.element.molecule.html#module-molsysmt.element.molecule">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading">#</a></h2>
+</section>
+<section id="module-molsysmt.element.is_composed_of">
+<span id="molsysmt-element-is-composed-of-module"></span><h2>molsysmt.element.is_composed_of module<a class="headerlink" href="#module-molsysmt.element.is_composed_of" title="Link to this heading">#</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="molsysmt.element.is_composed_of.is_composed_of">
+<span class="sig-prename descclassname"><span class="pre">molsysmt.element.is_composed_of.</span></span><span class="sig-name descname"><span class="pre">is_composed_of</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">element_1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">element_2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/molsysmt/element/is_composed_of.html#is_composed_of"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#molsysmt.element.is_composed_of.is_composed_of" title="Link to this definition">#</a></dt>
+<dd><p>Return True if <cite>element_1</cite> contains <cite>element_2</cite> in the MolSysMT hierarchy.</p>
+</dd></dl>
+
+</section>
+<section id="module-molsysmt.element.is_element">
+<span id="molsysmt-element-is-element-module"></span><h2>molsysmt.element.is_element module<a class="headerlink" href="#module-molsysmt.element.is_element" title="Link to this heading">#</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="molsysmt.element.is_element.is_element">
+<span class="sig-prename descclassname"><span class="pre">molsysmt.element.is_element.</span></span><span class="sig-name descname"><span class="pre">is_element</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">element</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/molsysmt/element/is_element.html#is_element"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#molsysmt.element.is_element.is_element" title="Link to this definition">#</a></dt>
+<dd><p>Check whether a string identifies a valid MolSysMT element (atom, group, molecule, etc.).</p>
+</dd></dl>
+
+</section>
+<section id="module-molsysmt.element">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-molsysmt.element" title="Link to this heading">#</a></h2>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#subpackages">Subpackages</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submodules">Submodules</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-molsysmt.element.is_composed_of">molsysmt.element.is_composed_of module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#molsysmt.element.is_composed_of.is_composed_of"><code class="docutils literal notranslate"><span class="pre">is_composed_of()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-molsysmt.element.is_element">molsysmt.element.is_element module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#molsysmt.element.is_element.is_element"><code class="docutils literal notranslate"><span class="pre">is_element()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-molsysmt.element">Module contents</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item"><div>
+	&copy; 2026, <a href=contents/about/who.html>Liliana M. Moreno Vargas, Diego Prada Gracia
+		and contributors</a> | <a href="https://www.uibcdf.org/">UIBCDF Lab</a> 
+	at the <a href="http://himfg.com.mx">Federico Gómez Children’s Hospital of Mexico</a><br />
+	<a href="https://github.com/uibcdf/molsysmt">MolSysMT is an open source project</a> shared
+	under <a href="https://github.com/uibcdf/molsysmt/blob/main/LICENSE">an MIT license</a>
+	with a structure based on the
+	<a href="https://github.com/MolSSI/cookiecutter-cms">Computational Molecular Science
+		Python Cookiecutter</a> version 1.5
+</div></div>
+      
+        <div class="footer-item">
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3
+     | 
+    Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1
+    <br/>
+  </p>
+
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item"><a href= "mailto:uibcdf@gmail.com">Contact us</a><br /></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

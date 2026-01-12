@@ -1,8 +1,0 @@
-channels:
-- uibcdf
-- conda-forge
-- ambermd
-- defaults
-dependencies:
-- anaconda-client
-- conda-build

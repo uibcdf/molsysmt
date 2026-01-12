@@ -1,0 +1,53 @@
+molsysmt.element.chain package
+==============================
+
+Submodules
+----------
+
+molsysmt.element.chain.chain\_names module
+------------------------------------------
+
+.. automodule:: molsysmt.element.chain.chain_names
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.element.chain.get\_chain\_id module
+--------------------------------------------
+
+.. automodule:: molsysmt.element.chain.get_chain_id
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.element.chain.get\_chain\_index module
+-----------------------------------------------
+
+.. automodule:: molsysmt.element.chain.get_chain_index
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.element.chain.get\_chain\_name module
+----------------------------------------------
+
+.. automodule:: molsysmt.element.chain.get_chain_name
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.element.chain.get\_chain\_type module
+----------------------------------------------
+
+.. automodule:: molsysmt.element.chain.get_chain_type
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Module contents
+---------------
+
+.. automodule:: molsysmt.element.chain
+   :members:
+   :show-inheritance:
+   :undoc-members:

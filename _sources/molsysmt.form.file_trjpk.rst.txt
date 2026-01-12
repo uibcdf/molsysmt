@@ -1,0 +1,117 @@
+molsysmt.form.file\_trjpk package
+=================================
+
+Submodules
+----------
+
+molsysmt.form.file\_trjpk.add module
+------------------------------------
+
+.. automodule:: molsysmt.form.file_trjpk.add
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_trjpk.append\_structures module
+---------------------------------------------------
+
+.. automodule:: molsysmt.form.file_trjpk.append_structures
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_trjpk.attributes module
+-------------------------------------------
+
+.. automodule:: molsysmt.form.file_trjpk.attributes
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_trjpk.copy module
+-------------------------------------
+
+.. automodule:: molsysmt.form.file_trjpk.copy
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_trjpk.extract module
+----------------------------------------
+
+.. automodule:: molsysmt.form.file_trjpk.extract
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_trjpk.get module
+------------------------------------
+
+.. automodule:: molsysmt.form.file_trjpk.get
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_trjpk.has\_attribute module
+-----------------------------------------------
+
+.. automodule:: molsysmt.form.file_trjpk.has_attribute
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_trjpk.is\_form module
+-----------------------------------------
+
+.. automodule:: molsysmt.form.file_trjpk.is_form
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_trjpk.iterators module
+------------------------------------------
+
+.. automodule:: molsysmt.form.file_trjpk.iterators
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_trjpk.merge module
+--------------------------------------
+
+.. automodule:: molsysmt.form.file_trjpk.merge
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_trjpk.set module
+------------------------------------
+
+.. automodule:: molsysmt.form.file_trjpk.set
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_trjpk.to\_file\_trjpk module
+------------------------------------------------
+
+.. automodule:: molsysmt.form.file_trjpk.to_file_trjpk
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_trjpk.to\_molsysmt\_StructuresDict module
+-------------------------------------------------------------
+
+.. automodule:: molsysmt.form.file_trjpk.to_molsysmt_StructuresDict
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Module contents
+---------------
+
+.. automodule:: molsysmt.form.file_trjpk
+   :members:
+   :show-inheritance:
+   :undoc-members:

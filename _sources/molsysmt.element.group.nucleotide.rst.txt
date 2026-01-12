@@ -1,0 +1,29 @@
+molsysmt.element.group.nucleotide package
+=========================================
+
+Submodules
+----------
+
+molsysmt.element.group.nucleotide.is\_nucleotide module
+-------------------------------------------------------
+
+.. automodule:: molsysmt.element.group.nucleotide.is_nucleotide
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.element.group.nucleotide.nucleotide\_names module
+----------------------------------------------------------
+
+.. automodule:: molsysmt.element.group.nucleotide.nucleotide_names
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Module contents
+---------------
+
+.. automodule:: molsysmt.element.group.nucleotide
+   :members:
+   :show-inheritance:
+   :undoc-members:

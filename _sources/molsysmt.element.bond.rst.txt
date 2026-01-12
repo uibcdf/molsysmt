@@ -1,0 +1,21 @@
+molsysmt.element.bond package
+=============================
+
+Submodules
+----------
+
+molsysmt.element.bond.max\_expected\_bond\_length module
+--------------------------------------------------------
+
+.. automodule:: molsysmt.element.bond.max_expected_bond_length
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Module contents
+---------------
+
+.. automodule:: molsysmt.element.bond
+   :members:
+   :show-inheritance:
+   :undoc-members:

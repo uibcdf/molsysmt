@@ -1,0 +1,29 @@
+molsysmt.file.handlers.mdtraj\_HDF5TrajectoryFile package
+=========================================================
+
+Submodules
+----------
+
+molsysmt.file.handlers.mdtraj\_HDF5TrajectoryFile.close\_file module
+--------------------------------------------------------------------
+
+.. automodule:: molsysmt.file.handlers.mdtraj_HDF5TrajectoryFile.close_file
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.file.handlers.mdtraj\_HDF5TrajectoryFile.open\_file module
+-------------------------------------------------------------------
+
+.. automodule:: molsysmt.file.handlers.mdtraj_HDF5TrajectoryFile.open_file
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Module contents
+---------------
+
+.. automodule:: molsysmt.file.handlers.mdtraj_HDF5TrajectoryFile
+   :members:
+   :show-inheritance:
+   :undoc-members:

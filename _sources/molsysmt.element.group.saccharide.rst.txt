@@ -1,0 +1,45 @@
+molsysmt.element.group.saccharide package
+=========================================
+
+Submodules
+----------
+
+molsysmt.element.group.saccharide.get\_bonded\_atom\_pairs module
+-----------------------------------------------------------------
+
+.. automodule:: molsysmt.element.group.saccharide.get_bonded_atom_pairs
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.element.group.saccharide.get\_group\_db module
+-------------------------------------------------------
+
+.. automodule:: molsysmt.element.group.saccharide.get_group_db
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.element.group.saccharide.group\_names module
+-----------------------------------------------------
+
+.. automodule:: molsysmt.element.group.saccharide.group_names
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.element.group.saccharide.is\_saccharide module
+-------------------------------------------------------
+
+.. automodule:: molsysmt.element.group.saccharide.is_saccharide
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Module contents
+---------------
+
+.. automodule:: molsysmt.element.group.saccharide
+   :members:
+   :show-inheritance:
+   :undoc-members:

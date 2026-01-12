@@ -1,0 +1,109 @@
+molsysmt.form.networkx\_Graph package
+=====================================
+
+Submodules
+----------
+
+molsysmt.form.networkx\_Graph.add module
+----------------------------------------
+
+.. automodule:: molsysmt.form.networkx_Graph.add
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.networkx\_Graph.append\_structures module
+-------------------------------------------------------
+
+.. automodule:: molsysmt.form.networkx_Graph.append_structures
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.networkx\_Graph.attributes module
+-----------------------------------------------
+
+.. automodule:: molsysmt.form.networkx_Graph.attributes
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.networkx\_Graph.copy module
+-----------------------------------------
+
+.. automodule:: molsysmt.form.networkx_Graph.copy
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.networkx\_Graph.extract module
+--------------------------------------------
+
+.. automodule:: molsysmt.form.networkx_Graph.extract
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.networkx\_Graph.get module
+----------------------------------------
+
+.. automodule:: molsysmt.form.networkx_Graph.get
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.networkx\_Graph.has\_attribute module
+---------------------------------------------------
+
+.. automodule:: molsysmt.form.networkx_Graph.has_attribute
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.networkx\_Graph.is\_form module
+---------------------------------------------
+
+.. automodule:: molsysmt.form.networkx_Graph.is_form
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.networkx\_Graph.iterators module
+----------------------------------------------
+
+.. automodule:: molsysmt.form.networkx_Graph.iterators
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.networkx\_Graph.merge module
+------------------------------------------
+
+.. automodule:: molsysmt.form.networkx_Graph.merge
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.networkx\_Graph.set module
+----------------------------------------
+
+.. automodule:: molsysmt.form.networkx_Graph.set
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.networkx\_Graph.to\_networkx\_Graph module
+--------------------------------------------------------
+
+.. automodule:: molsysmt.form.networkx_Graph.to_networkx_Graph
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Module contents
+---------------
+
+.. automodule:: molsysmt.form.networkx_Graph
+   :members:
+   :show-inheritance:
+   :undoc-members:

@@ -1,0 +1,309 @@
+molsysmt.form.file\_pdb package
+===============================
+
+Submodules
+----------
+
+molsysmt.form.file\_pdb.add module
+----------------------------------
+
+.. automodule:: molsysmt.form.file_pdb.add
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_pdb.append\_structures module
+-------------------------------------------------
+
+.. automodule:: molsysmt.form.file_pdb.append_structures
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_pdb.attributes module
+-----------------------------------------
+
+.. automodule:: molsysmt.form.file_pdb.attributes
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_pdb.copy module
+-----------------------------------
+
+.. automodule:: molsysmt.form.file_pdb.copy
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_pdb.download module
+---------------------------------------
+
+.. automodule:: molsysmt.form.file_pdb.download
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_pdb.extract module
+--------------------------------------
+
+.. automodule:: molsysmt.form.file_pdb.extract
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_pdb.get module
+----------------------------------
+
+.. automodule:: molsysmt.form.file_pdb.get
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_pdb.has\_atoms\_with\_alternate\_locations module
+---------------------------------------------------------------------
+
+.. automodule:: molsysmt.form.file_pdb.has_atoms_with_alternate_locations
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_pdb.has\_attribute module
+---------------------------------------------
+
+.. automodule:: molsysmt.form.file_pdb.has_attribute
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_pdb.is\_form module
+---------------------------------------
+
+.. automodule:: molsysmt.form.file_pdb.is_form
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_pdb.iterators module
+----------------------------------------
+
+.. automodule:: molsysmt.form.file_pdb.iterators
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_pdb.merge module
+------------------------------------
+
+.. automodule:: molsysmt.form.file_pdb.merge
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_pdb.replace\_HETATM\_by\_ATOM\_in\_terminal\_cappings module
+--------------------------------------------------------------------------------
+
+.. automodule:: molsysmt.form.file_pdb.replace_HETATM_by_ATOM_in_terminal_cappings
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_pdb.set module
+----------------------------------
+
+.. automodule:: molsysmt.form.file_pdb.set
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_pdb.to\_MDAnalysis\_Topology module
+-------------------------------------------------------
+
+.. automodule:: molsysmt.form.file_pdb.to_MDAnalysis_Topology
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_pdb.to\_MDAnalysis\_Universe module
+-------------------------------------------------------
+
+.. automodule:: molsysmt.form.file_pdb.to_MDAnalysis_Universe
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_pdb.to\_MDAnalysis\_topology\_PDBParser module
+------------------------------------------------------------------
+
+.. automodule:: molsysmt.form.file_pdb.to_MDAnalysis_topology_PDBParser
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_pdb.to\_file\_mol2 module
+---------------------------------------------
+
+.. automodule:: molsysmt.form.file_pdb.to_file_mol2
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_pdb.to\_file\_pdb module
+--------------------------------------------
+
+.. automodule:: molsysmt.form.file_pdb.to_file_pdb
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_pdb.to\_mdtraj\_PDBTrajectoryFile module
+------------------------------------------------------------
+
+.. automodule:: molsysmt.form.file_pdb.to_mdtraj_PDBTrajectoryFile
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_pdb.to\_mdtraj\_Topology module
+---------------------------------------------------
+
+.. automodule:: molsysmt.form.file_pdb.to_mdtraj_Topology
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_pdb.to\_mdtraj\_Trajectory module
+-----------------------------------------------------
+
+.. automodule:: molsysmt.form.file_pdb.to_mdtraj_Trajectory
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_pdb.to\_molsysmt\_MolSys module
+---------------------------------------------------
+
+.. automodule:: molsysmt.form.file_pdb.to_molsysmt_MolSys
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_pdb.to\_molsysmt\_PDBFileHandler module
+-----------------------------------------------------------
+
+.. automodule:: molsysmt.form.file_pdb.to_molsysmt_PDBFileHandler
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_pdb.to\_molsysmt\_Structures module
+-------------------------------------------------------
+
+.. automodule:: molsysmt.form.file_pdb.to_molsysmt_Structures
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_pdb.to\_molsysmt\_Topology module
+-----------------------------------------------------
+
+.. automodule:: molsysmt.form.file_pdb.to_molsysmt_Topology
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_pdb.to\_nglview\_NGLWidget module
+-----------------------------------------------------
+
+.. automodule:: molsysmt.form.file_pdb.to_nglview_NGLWidget
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_pdb.to\_openmm\_Modeller module
+---------------------------------------------------
+
+.. automodule:: molsysmt.form.file_pdb.to_openmm_Modeller
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_pdb.to\_openmm\_PDBFile module
+--------------------------------------------------
+
+.. automodule:: molsysmt.form.file_pdb.to_openmm_PDBFile
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_pdb.to\_openmm\_Simulation module
+-----------------------------------------------------
+
+.. automodule:: molsysmt.form.file_pdb.to_openmm_Simulation
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_pdb.to\_openmm\_System module
+-------------------------------------------------
+
+.. automodule:: molsysmt.form.file_pdb.to_openmm_System
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_pdb.to\_openmm\_Topology module
+---------------------------------------------------
+
+.. automodule:: molsysmt.form.file_pdb.to_openmm_Topology
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_pdb.to\_parmed\_Structure module
+----------------------------------------------------
+
+.. automodule:: molsysmt.form.file_pdb.to_parmed_Structure
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_pdb.to\_pdbfixer\_PDBFixer module
+-----------------------------------------------------
+
+.. automodule:: molsysmt.form.file_pdb.to_pdbfixer_PDBFixer
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_pdb.to\_pytraj\_Topology module
+---------------------------------------------------
+
+.. automodule:: molsysmt.form.file_pdb.to_pytraj_Topology
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_pdb.to\_pytraj\_Trajectory module
+-----------------------------------------------------
+
+.. automodule:: molsysmt.form.file_pdb.to_pytraj_Trajectory
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+molsysmt.form.file\_pdb.to\_string\_pdb\_text module
+----------------------------------------------------
+
+.. automodule:: molsysmt.form.file_pdb.to_string_pdb_text
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Module contents
+---------------
+
+.. automodule:: molsysmt.form.file_pdb
+   :members:
+   :show-inheritance:
+   :undoc-members:
