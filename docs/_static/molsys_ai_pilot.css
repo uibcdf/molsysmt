@@ -1,0 +1,90 @@
+.molsys-ai-chat-wrap {
+  padding: 1.25rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  background: #f8fafc;
+}
+
+.molsys-ai-chat-wrap #molsys-ai-chat {
+  width: 100%;
+}
+
+.molsys-ai-chat-wrap #molsys-ai-chat .molsys-ai-chat {
+  max-width: 100% !important;
+  width: 100%;
+  height: 560px !important;
+}
+
+.molsys-ai-chat p {
+  margin: 0 0 0.6rem 0;
+}
+
+.molsys-ai-chat ul {
+  margin: 0 0 0.6rem 1.2rem;
+  padding: 0;
+}
+
+.molsys-ai-chat code {
+  font-family: "JetBrains Mono", "Fira Code", "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  font-size: 0.92em;
+  background: #e2e8f0;
+  padding: 0.1rem 0.3rem;
+  border-radius: 4px;
+}
+
+.molsys-ai-chat pre {
+  position: relative;
+  margin: 0.5rem 0 0.75rem 0;
+  padding: 0.75rem 0.9rem;
+  background: #0f172a;
+  color: #e2e8f0;
+  border-radius: 8px;
+  overflow-x: auto;
+}
+
+.molsys-ai-chat pre code {
+  background: transparent;
+  padding: 0;
+  color: inherit;
+  font-size: 0.88em;
+}
+
+.molsys-ai-copy {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  border: none;
+  background: rgba(148, 163, 184, 0.2);
+  color: #e2e8f0;
+  font-size: 11px;
+  padding: 4px 8px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.molsys-ai-copy:hover {
+  background: rgba(148, 163, 184, 0.35);
+}
+
+.molsys-ai-chat .tok-keyword {
+  color: #f59e0b;
+}
+
+.molsys-ai-chat .tok-string {
+  color: #34d399;
+}
+
+.molsys-ai-chat .tok-comment {
+  color: #94a3b8;
+  font-style: italic;
+}
+
+.molsys-ai-chat .tok-number {
+  color: #60a5fa;
+}
+
+@media (max-width: 900px) {
+  .molsys-ai-chat-wrap #molsys-ai-chat .molsys-ai-chat {
+    height: 480px !important;
+  }
+}
