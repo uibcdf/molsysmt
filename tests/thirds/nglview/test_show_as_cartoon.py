@@ -12,7 +12,7 @@ def test_show_as_cartoon_1():
 
     molsys = msm.convert(msm.systems['chicken villin HP35']['chicken_villin_HP35.h5msm'])
 
-    view = msm.view(molsys)
+    view = msm.view(molsys, viewer='NGLView')
     view.clear()
     msm.thirds.nglview.show_as_cartoon(view, selection='group_index in [5,6,7,8,9,10]')
 
@@ -29,7 +29,7 @@ def test_show_as_cartoon_2():
 
     molsys = msm.convert(msm.systems['chicken villin HP35']['chicken_villin_HP35.h5msm'])
 
-    view = msm.view(molsys)
+    view = msm.view(molsys, viewer='NGLView')
     view.clear()
     msm.thirds.nglview.show_as_balls_and_sticks(view, selection='all')
     msm.thirds.nglview.show_as_cartoon(view, selection='group_index in [5,6,7,8,9,10]', color='purple')
@@ -42,5 +42,4 @@ def test_show_as_cartoon_2():
     assert (aux['args']==['cartoon'])
     assert (aux['kwargs']['sele']==selection)
     assert (aux['kwargs']['color']=='purple')
-
 

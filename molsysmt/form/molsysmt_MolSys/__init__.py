@@ -57,6 +57,7 @@ from .to_string_amino_acids_1 import to_string_amino_acids_1
 from .to_string_amino_acids_3 import to_string_amino_acids_3
 from .to_molsysmt_ViewerJSON import to_molsysmt_ViewerJSON
 from .to_molsysmt_UniversalJSON import to_molsysmt_UniversalJSON
+from .to_molsysviewer_MolSysView import to_molsysviewer_MolSysView
 
 _convert_to={
         'molsysmt.MolSys': to_molsysmt_MolSys,
@@ -68,6 +69,7 @@ _convert_to={
         'molsysmt.MolecularMechanicsDict': to_molsysmt_MolecularMechanicsDict,
         'networkx.Graph': to_networkx_Graph,
         'nglview.NGLWidget': to_nglview_NGLWidget,
+        'molsysviewer.MolSysView': to_molsysviewer_MolSysView,
         'openmm.Context': to_openmm_Context,
         'openmm.Topology': to_openmm_Topology,
         'openmm.Modeller': to_openmm_Modeller,

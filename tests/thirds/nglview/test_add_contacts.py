@@ -16,7 +16,7 @@ def test_add_contacts_1():
                                       output_type='pairs', output_indices='atom')
     contacts = contacts[0]
     coordinates = puw.get_value(coordinates[0], to_unit='angstroms')
-    view = msm.view(molsys, standard=True)
+    view = msm.view(molsys, viewer='NGLView')
     msm.thirds.nglview.add_contacts(view, atom_pairs=contacts, radius='0.1 angstroms')
 
     n_contacts = len(contacts[0])
@@ -44,7 +44,7 @@ def test_add_contacts_2():
                                       output_type='pairs', output_indices='atom')
     contacts = contacts[0]
     coordinates = puw.get_value(coordinates[0], to_unit='angstroms')
-    view = msm.view(molsys, standard=True)
+    view = msm.view(molsys, viewer='NGLView')
     msm.thirds.nglview.add_contacts(view, selection='atom_name=="CA"', threshold='9 angstroms', radius='0.1 angstroms')
 
     n_contacts = len(contacts[0])
@@ -63,4 +63,3 @@ def test_add_contacts_2():
             break
 
     assert check_all_contacts==True
-

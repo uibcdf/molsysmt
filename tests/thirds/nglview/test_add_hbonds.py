@@ -20,7 +20,7 @@ def test_add_hbonds_1():
     coordinates = msm.get(molsys, element='atom', selection='all', coordinates=True)
     coordinates = puw.get_value(coordinates[0], to_unit='angstroms')
 
-    view = msm.view(molsys, standard=True)
+    view = msm.view(molsys, viewer='NGLView')
     msm.thirds.nglview.add_hbonds(view, hbonds)
 
     n_hbonds = len(hbonds)
@@ -55,7 +55,7 @@ def test_add_hbonds_2():
     group_indices = msm.get(molsys, element='atom', selection='all', group_indices=True)
     CA_atoms = msm.select(molsys, selection='atom_name=="CA"')
 
-    view = msm.view(molsys, standard=True)
+    view = msm.view(molsys, viewer='NGLView')
     msm.thirds.nglview.add_hbonds(view, hbonds, hbond_level='group')
 
     n_hbonds = len(hbonds)
@@ -76,5 +76,4 @@ def test_add_hbonds_2():
             break
 
     assert check_all_hbonds==True
-
 

@@ -45,7 +45,7 @@ def test_add_cylinders_2():
     start = msm.get(molsys, element='atom', selection=np.array(contacts[0])[:,0], coordinates=True)
     end = msm.get(molsys, element='atom', selection=np.array(contacts[0])[:,1], coordinates=True)
 
-    view = msm.view(molsys, standard=True)
+    view = msm.view(molsys, viewer='NGLView')
     msm.thirds.nglview.add_cylinders(view, bottom=start, top=end)
 
     n_contacts = len(contacts[0])
@@ -73,7 +73,7 @@ def test_add_cylinders_3():
     end, groups_end = msm.get(molsys, element='atom', selection=np.array(contacts[0])[:,1], coordinates=True,
                               group_index=True)
 
-    view = msm.view(molsys, standard=True)
+    view = msm.view(molsys, viewer='NGLView')
     msm.thirds.nglview.add_cylinders(view, start[0], end[0], color_values=groups_start, color_values_2=groups_end,
                                      colormap='viridis')
 

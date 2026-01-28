@@ -108,7 +108,13 @@ def test_molsysmt_MolSys():
 def test_nglview_NGLWidget():
     molsys = systems['chicken villin HP35']['chicken_villin_HP35.h5msm']
     molsys = msm.convert(molsys, to_form='molsysmt.MolSys')
-    molsys = msm.view(molsys)
+    molsys = msm.view(molsys, viewer='NGLView')
     output = msm.get_form(molsys)
     assert output == 'nglview.NGLWidget'
 
+def test_molsysviewer_MolSysView():
+    molsys = systems['chicken villin HP35']['chicken_villin_HP35.h5msm']
+    molsys = msm.convert(molsys, to_form='molsysmt.MolSys')
+    view = msm.view(molsys)
+    output = msm.get_form(view)
+    assert output == 'molsysviewer.MolSysView'
