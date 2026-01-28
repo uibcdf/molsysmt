@@ -18,7 +18,7 @@ def test_set_color_by_value_1():
 
     charge_residues = msm.physchem.get_charge(molecular_system, element='group', definition='physical_pH7')
 
-    view = msm.view(molecular_system)
+    view = msm.view(molecular_system, viewer='NGLView')
     view.clear()
 
     blue_white_red = colormaps['bwr']
@@ -36,7 +36,7 @@ def test_set_color_by_value_2():
 
     b_factors = msm.get(molecular_system, element='atom', b_factor=True)
 
-    view = msm.view(molecular_system)
+    view = msm.view(molecular_system, viewer='NGLView')
     view.clear()
 
     white_blue_purple = colormaps['BuPu']
@@ -49,4 +49,3 @@ def test_set_color_by_value_2():
     assert 'sele' in view._ngl_msg_archive[-1]['kwargs']
     assert 'color' in view._ngl_msg_archive[-1]['kwargs']
     assert len(view._ngl_msg_archive[-1]['kwargs']['color']) == len(b_factors[0])
-

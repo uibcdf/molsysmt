@@ -198,7 +198,7 @@ def test_view_molsyst_MolSys_with_NGLView_5(alanine_molsys):
                 'coordinates': True}
 
     molsys = alanine_molsys
-    view = msm.view(molsys, viewer='NGLView', standard=True)
+    view = msm.view(molsys, viewer='NGLView')
     comparison = msm.compare(view, molsys, attribute_type='topological', coordinates=True, box=True,
                              output_type='dictionary')
     assert comparison == aux_dict
@@ -206,8 +206,7 @@ def test_view_molsyst_MolSys_with_NGLView_5(alanine_molsys):
 def test_view_molsyst_MolSys_with_NGLView_6():
 
     molsys = msm.systems['chicken villin HP35']['chicken_villin_HP35_solvated.h5msm']
-    view = msm.view(molsys, viewer='NGLView', standard=True)
+    view = msm.view(molsys, viewer='NGLView')
     comparison = msm.compare(view, molsys, attribute_type='topological', coordinates=True, box=True,
                              molecule_name=False, atom_type=False)
     assert comparison
-

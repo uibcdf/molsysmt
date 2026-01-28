@@ -23,7 +23,7 @@ production:
     - jinja2
     - openmm
     - pdbfixer
-    - nglview
+    - molsysviewer
     - ambertools
     - networkx
     - mdtraj
@@ -45,6 +45,7 @@ test:
     - codecov
     - pytest-xdist
     - pip
+    - nglview
     - pip:
         - pytraj
 
@@ -64,6 +65,7 @@ docs:
     - sphinx-tabs
     - myst-nb
     - seaborn
+    - nglview
 
 development:
   channels:
@@ -80,4 +82,3 @@ conda-build:
   dependencies:
     - anaconda-client
     - conda-build
-

@@ -12,7 +12,7 @@ def test_show_as_surface_1():
 
     molsys = msm.convert(msm.systems['chicken villin HP35']['chicken_villin_HP35.h5msm'])
 
-    view = msm.view(molsys)
+    view = msm.view(molsys, viewer='NGLView')
     view.clear()
     msm.thirds.nglview.show_as_surface(view, selection='group_index in [0,1,2]')
 
@@ -29,7 +29,7 @@ def test_show_as_surface_2():
 
     molsys = msm.convert(msm.systems['chicken villin HP35']['chicken_villin_HP35.h5msm'])
 
-    view = msm.view(molsys)
+    view = msm.view(molsys, viewer='NGLView')
     view.clear()
     msm.thirds.nglview.show_as_cartoon(view, selection='all')
     msm.thirds.nglview.show_as_surface(view, selection='group_index in [0,1,2]')
@@ -41,6 +41,5 @@ def test_show_as_surface_2():
     assert (aux['methodName']=='addRepresentation')
     assert (aux['args']==['surface'])
     assert (aux['kwargs']['sele']==selection)
-
 
 

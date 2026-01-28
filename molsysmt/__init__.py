@@ -44,15 +44,18 @@ from .systems import systems
 # Adding molsysmt to nglview
 #thirds.nglview.adding_molsysmt()
 
-# Adding molsysmt to nglview
-from .thirds.nglview.patching_nglview import add_molsysmt_to_nglview
-add_molsysmt_to_nglview()
-del(add_molsysmt_to_nglview)
+# Adding molsysmt to nglview (optional dependency)
+try:
+    from .thirds.nglview.patching_nglview import add_molsysmt_to_nglview
+except Exception:  # pragma: no cover - optional dependency
+    add_molsysmt_to_nglview = None
+else:
+    add_molsysmt_to_nglview()
+    del(add_molsysmt_to_nglview)
 
 
 # With the following list sphinx can document de methods in the api section without adding the
 # module files names explicitly:
 
 __all__ = []
-
 

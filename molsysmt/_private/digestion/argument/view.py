@@ -6,8 +6,7 @@ def digest_view(view, caller=None):
 
     in_form = get_form(view)
 
-    if in_form in ['nglview.NGLWidget']:
+    if in_form in ['molsysviewer.MolSysView', 'nglview.NGLWidget']:
         return view
 
     raise ArgumentError('view', value=view, caller=caller, message=None)
-

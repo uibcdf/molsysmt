@@ -38,7 +38,7 @@ dependencies = [
     "jinja2",
     "openmm",
     "pdbfixer",
-    "nglview",
+    "molsysviewer",
     "networkx",
     "mdtraj",
     "mdanalysis",
