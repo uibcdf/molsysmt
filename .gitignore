@@ -116,6 +116,9 @@ record.txt
 .vscode
 .idea
 
+# AI Agents
+codex_session.sh
+
 # In This Library
 devtools/playground/*
 !devtools/playground/README.md
