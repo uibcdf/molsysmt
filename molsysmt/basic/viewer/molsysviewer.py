@@ -1,17 +1,12 @@
 def view(molecular_system=None, selection='all', structure_indices='all', syntax='MolSysMT',
          skip_digestion=False):
 
-    from molsysmt import convert
+    from molsysviewer import new_view
 
-    if molecular_system is None:
-        from molsysviewer import MolSysView
-        return MolSysView()
-
-    return convert(
-        molecular_system,
-        to_form='molsysviewer.MolSysView',
+    return new_view(
+        molecular_system=molecular_system,
         selection=selection,
         structure_indices=structure_indices,
         syntax=syntax,
-        skip_digestion=True,
+        skip_digestion=skip_digestion,
     )
