@@ -1,8 +1,12 @@
 import os
+import logging
 from importlib import import_module
 from molsysmt.config import show_all_capabilities
 from molsysmt.dependencies import is_installed
 from molsysmt.config.dependencies import form_dir_to_library, dependencies as _dependencies_config
+from molsysmt._private.exceptions import LibraryNotFoundError
+
+logger = logging.getLogger(__name__)
 
 class _FormsDictionary(dict):
     """
@@ -35,9 +39,13 @@ class _FormsDictionary(dict):
                 try:
                     mod = import_module('molsysmt.form.'+f.name)
                     self[mod.form_name] = mod
-                except Exception:
-                    # Robustness: skip forms that fail to import for any reason
-                    pass
+                except (ImportError, LibraryNotFoundError) as e:
+                    # Expected if a soft dependency is missing and not fully shielded
+                    if show_all_capabilities:
+                        logger.debug(f"Form module '{f.name}' skipped due to missing dependency: {e}")
+                except Exception as e:
+                    # Unexpected error in form implementation
+                    logger.warning(f"Failed to load form module '{f.name}': {e}")
 
     def __getitem__(self, key):
         self._ensure_initialized()
@@ -65,14 +73,15 @@ class _FormsDictionary(dict):
 
 _dict_modules = _FormsDictionary()
 
-# Note: _dict_forms_lowercase will also need to be lazy if we want full consistency,
-# but since it's mostly used internally after _dict_modules is accessed, we can 
-# handle it or make it a property.
-
-@property
-def _dict_forms_lowercase():
-    _dict_modules._ensure_initialized()
-    return {ii.lower(): ii for ii in _dict_modules.keys()}
+def __getattr__(name):
+    """
+    Module-level getattr to handle dynamic attributes like _dict_forms_lowercase.
+    """
+    if name == '_dict_forms_lowercase':
+        _dict_modules._ensure_initialized()
+        return {ii.lower(): ii for ii in _dict_modules.keys()}
+    
+    raise AttributeError(f"module {__name__!r} has no attribute {name!r}")
 
 # For backward compatibility with the rest of the code that expects these functions
 from .get_attributes import get_attributes
