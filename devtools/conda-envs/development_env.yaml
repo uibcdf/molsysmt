@@ -24,7 +24,7 @@ dependencies:
 - biopython
 - ipywidgets
 - tqdm
-- bcifreader
+- py-mmcif
 - plotly
 - matplotlib
 - pytest
@@ -45,5 +45,4 @@ dependencies:
 - sphinx-tabs
 - myst-nb
 - seaborn
-- nbsphinx
 - mamba

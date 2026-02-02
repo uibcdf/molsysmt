@@ -33,7 +33,7 @@ requirements:
   - biopython
   - ipywidgets
   - tqdm
-  - bcifreader
+  - py-mmcif
   - plotly
   - matplotlib
 about:
