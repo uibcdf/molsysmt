@@ -8,6 +8,7 @@
    intro/fork.md
    start_dev_env_usage.md
    devcontainer.md
+   dependencies.md
 ```
 
 ```{eval-rst}

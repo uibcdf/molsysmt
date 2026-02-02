@@ -79,6 +79,9 @@ def set_default_standard_units(standards=['nm', 'ps', 'K', 'mole', 'amu', 'e',
 # Optimization
 large_list_length = 10000
 
+# Visibility
+show_all_capabilities = True
+
 # Topology
 min_length_protein = 50
 

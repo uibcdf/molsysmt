@@ -1,14 +1,12 @@
-from molsysmt._private.exceptions import LibraryNotFoundError
 from molsysmt._private.digestion import digest
+from molsysmt.dependencies import requires
 
 @digest(form='molsysmt.Topology')
+@requires('mdtraj')
 def to_mdtraj_Topology(item, atom_indices='all', skip_digestion=False):
 
-    try:
-        from mdtraj import Topology
-        from mdtraj.core import element
-    except:
-        raise LibraryNotFound('mdtraj')
+    from mdtraj import Topology
+    from mdtraj.core import element
 
     tmp_item = Topology()
 

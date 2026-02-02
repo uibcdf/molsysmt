@@ -1,4 +1,3 @@
-from molsysmt._private.exceptions import LibraryNotFoundError
 from molsysmt._private.digestion import digest
 
 @digest(form='string:pdb_text')

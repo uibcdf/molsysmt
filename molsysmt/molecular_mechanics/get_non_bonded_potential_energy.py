@@ -13,8 +13,6 @@ From energy minimization to potential energy contribution of specific set of ato
 from molsysmt import pyunitwizard as puw
 from molsysmt._private.digestion import digest
 from molsysmt._private.variables import is_iterable_of_iterables, is_iterable_of_iterables
-import openmm as mm
-from openmm import unit
 import numpy as np
 
 @digest()
@@ -23,6 +21,7 @@ def get_non_bonded_potential_energy(molecular_system, selection='all', selection
 
     from molsysmt import convert, get_form, has_attribute, select
     from molsysmt.config import default_attribute
+    from molsysmt.dependencies import check_dependency
 
     atom_indices = select(molecular_system, selection=selection, syntax=syntax)
     if selection_2 is not None:
@@ -31,6 +30,10 @@ def get_non_bonded_potential_energy(molecular_system, selection='all', selection
         atom_indices_2 = None
 
     if engine=='OpenMM':
+
+        check_dependency('openmm')
+        import openmm as mm
+        from openmm import unit
 
         form_in = get_form(molecular_system)
 
@@ -115,6 +118,8 @@ def get_non_bonded_potential_energy(molecular_system, selection='all', selection
 def _aux_openmm(atoms_in, non_bonded_force, non_bonded_forcegroup, context, original_particle_parameters,
                 original_exception_parameters):
 
+    from openmm import unit
+
     for ii, parameters in original_particle_parameters.items():
 
         charge = parameters['charge']
@@ -154,6 +159,8 @@ def _aux_openmm(atoms_in, non_bonded_force, non_bonded_forcegroup, context, orig
 
 def _aux_openmm_crossed(atoms_in_1, atoms_in_2, non_bonded_force, non_bonded_forcegroup, context, original_particle_parameters,
                 original_exception_parameters):
+
+    from openmm import unit
 
     aux_exc_pars_11 = []
     aux_exc_pars_22 = []
@@ -274,6 +281,8 @@ def _aux_openmm_crossed(atoms_in_1, atoms_in_2, non_bonded_force, non_bonded_for
 
 def _aux_openmm_crossed_lists(atoms_in_1, atoms_in_2, non_bonded_force, non_bonded_forcegroup, context, original_particle_parameters,
                 original_exception_parameters):
+
+    from openmm import unit
 
     if not is_iterable_of_iterables(atoms_in_1):
         atoms_in_1=[atoms_in_1]

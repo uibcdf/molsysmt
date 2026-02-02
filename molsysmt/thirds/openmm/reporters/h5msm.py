@@ -1,8 +1,6 @@
 from molsysmt._private.variables import is_all
 from molsysmt.basic import select, get
 import numpy as np
-import openmm as mm
-from openmm import unit
 
 class H5MSMReporter(object):
     """OpenMM reporter that writes trajectories to h5msm files."""
@@ -17,6 +15,7 @@ class H5MSMReporter(object):
             auto_close=False, syntax='MolSysMT'):
 
         from molsysmt.native import H5MSMFileHandler
+        import openmm as mm
 
         self._initialized = False
 
@@ -78,6 +77,9 @@ class H5MSMReporter(object):
         self._auto_close = auto_close
 
     def _initialize(self, simulation):
+
+        import openmm as mm
+        from openmm import unit
 
         system = simulation.system
         context = simulation.context

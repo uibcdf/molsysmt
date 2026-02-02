@@ -1,15 +1,13 @@
-from molsysmt._private.exceptions import LibraryNotFoundError
 from molsysmt._private.digestion import digest
+from molsysmt.dependencies import requires
 import numpy as np
 
 @digest(form='molsysmt.Topology')
+@requires('pytraj')
 def to_pytraj_Topology(item, atom_indices='all', skip_digestion=False):
 
-    try:
-        from pytraj import Topology
-        from pytraj import Atom as pytraj_atom, Residue as pytraj_residue
-    except:
-        raise LibraryNotFound('pytraj')
+    from pytraj import Topology
+    from pytraj import Atom as pytraj_atom, Residue as pytraj_residue
 
     from molsysmt.physchem import mass as get_mass
     from molsysmt.physchem import charge as get_charge

@@ -1,16 +1,15 @@
 from molsysmt._private.digestion import digest
+from molsysmt.dependencies import requires
 
 @digest(form='molsysmt.MolSys')
+@requires('mdtraj')
 def to_mdtraj_Trajectory(item, atom_indices='all', structure_indices='all', skip_digestion=False):
 
     from molsysmt import pyunitwizard as puw
     from . import to_mdtraj_Topology
     from . import get_box_lengths_from_system, get_box_angles_from_system, get_coordinates_from_atom, get_time_from_system
 
-    try:
-        from mdtraj.core.trajectory import Trajectory as mdtraj_Trajectory
-    except:
-        raise LibraryNotFound('mdtraj')
+    from mdtraj.core.trajectory import Trajectory as mdtraj_Trajectory
 
     tmp_item_topology = to_mdtraj_Topology(item, atom_indices=atom_indices, skip_digestion=True)
 

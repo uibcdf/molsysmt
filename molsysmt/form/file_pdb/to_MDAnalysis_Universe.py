@@ -1,13 +1,11 @@
-from molsysmt._private.exceptions import LibraryNotFoundError
 from molsysmt._private.digestion import digest
+from molsysmt.dependencies import requires
 
 @digest(form='file:pdb')
+@requires('MDAnalysis')
 def to_MDAnalysis_Universe(item, atom_indices='all', structure_indices='all', skip_digestion=False):
 
-    try:
-        from MDAnalysis import Universe
-    except:
-        raise LibraryNotFound('MDAnalysis')
+    from MDAnalysis import Universe
 
     from ..MDAnalysis_Universe import extract
 

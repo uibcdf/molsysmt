@@ -1,4 +1,3 @@
-from openmm import unit
 import numpy as np
 
 class StructuresDictReporter(object):
@@ -7,6 +6,8 @@ class StructuresDictReporter(object):
     def __init__(self, reportInterval, time=True, coordinates=True, velocities=False,
              potentialEnergy=False, kineticEnergy=False, totalEnergy=False, temperature=False,
              box=False, includeInitialContext=True):
+
+        from openmm import unit
 
         self._needsPositions = coordinates
         self._needsVelocities = velocities
@@ -55,6 +56,7 @@ class StructuresDictReporter(object):
     def _initialize(self, simulation):
 
         import openmm as mm
+        from openmm import unit
         system = simulation.system
         frclist = system.getForces()
         if self._temperature:
@@ -84,6 +86,8 @@ class StructuresDictReporter(object):
         return (steps, self._needsPositions, self._needsVelocities, self._needsForces, self._needsEnergy)
 
     def report(self, simulation, state):
+
+        from openmm import unit
 
         if not self._initialized:
             self._initialize(simulation)

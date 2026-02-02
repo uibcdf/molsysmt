@@ -4,10 +4,16 @@ This must be a short description of the project
 """
 
 # versioningit
-from ._version import __version__
+from importlib.metadata import version, PackageNotFoundError
 
-def __print_version__():
-    print("MolSysMT version " + __version__)
+try:
+    __version__ = version("molsysmt")
+except PackageNotFoundError:
+    # Package is not installed
+    try:
+        from ._version import __version__
+    except ImportError:
+        __version__ = "1.0.0+unknown"
 
 #__documentation_web__ = 'https://www.uibcdf.org/MolSysMT'
 #__github_web__ = 'https://github.com/uibcdf/MolSysMT'

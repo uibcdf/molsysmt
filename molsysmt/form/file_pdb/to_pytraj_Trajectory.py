@@ -1,13 +1,11 @@
-from molsysmt._private.exceptions import LibraryNotFoundError
+from molsysmt.dependencies import requires
 from molsysmt._private.digestion import digest
 
 @digest(form='file:pdb')
+@requires('pytraj')
 def to_pytraj_Trajectory(item, atom_indices='all', structure_indices='all', skip_digestion=False):
 
-    try:
-        from pytraj import load
-    except:
-        raise LibraryNotFoundError('pytraj')
+    from pytraj import load
 
     from ..pytraj_Trajectory import extract as extract_pytraj_Trajectory
 

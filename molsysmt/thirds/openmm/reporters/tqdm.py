@@ -1,5 +1,3 @@
-import openmm as mm
-from openmm import unit
 from tqdm.auto import tqdm
 import time
 
@@ -8,6 +6,9 @@ class TQDMReporter(object):
 
     def __init__(self, reportInterval, total_n_steps, potential_energy=True, temperature=True,
             volume=False):
+
+        import openmm as mm
+        from openmm import unit
 
         self._pbar = None
         self._report_interval = reportInterval
@@ -47,6 +48,9 @@ class TQDMReporter(object):
         self._md_time_step = None
 
     def _initialize(self, simulation):
+
+        import openmm as mm
+        from openmm import unit
 
         self._start_time = time.time()
 
@@ -100,6 +104,8 @@ class TQDMReporter(object):
 
     def report(self, simulation, state):
 
+        from openmm import unit
+
         post_fix_dict={}
 
         if self._with_potential_energy:
@@ -134,6 +140,8 @@ class TQDMReporter(object):
             self.finalize(state)
 
     def finalize(self, state):
+
+        from openmm import unit
 
         self._pbar.close()
 
