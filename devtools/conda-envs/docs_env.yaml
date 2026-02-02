@@ -2,7 +2,6 @@ channels:
 - uibcdf
 - conda-forge
 - ambermd
-- defaults
 dependencies:
 - python
 - pip
@@ -25,7 +24,7 @@ dependencies:
 - biopython
 - ipywidgets
 - tqdm
-- bcifreader
+- py-mmcif
 - plotly
 - matplotlib
 - jupyterlab
@@ -40,4 +39,3 @@ dependencies:
 - myst-nb
 - seaborn
 - nglview
-- nbsphinx
