@@ -53,7 +53,20 @@ The `_dict_modules` is now a dynamic proxy (`_FormsDictionary`) that:
 3. Update `type: 'soft'` in `molsysmt/config/dependencies.py`.
 4. Ensure the form directory is mapped in `form_dir_to_library`.
 
-## 5. User Configuration
-- `molsysmt.config.show_all_capabilities`: 
-    - `True` (Default): All features registered.
-    - `False`: Missing soft-dep features are hidden from the registry.
+## 6. Exempt Zones (Dev Tools)
+
+
+
+The following directories are exempt from the "Zero Soft Dependency" rule because they are development tools, tests, or data generation scripts intended for developers (who are assumed to have a full environment):
+
+
+
+*   `molsysmt/data/_make/`
+
+*   `molsysmt/docs/generate_static_views/`
+
+*   `molsysmt/tests/`
+
+*   `molsysmt/attic/`
+
+*   `sandbox/`

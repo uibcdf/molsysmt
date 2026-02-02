@@ -38,12 +38,19 @@ More specific `AGENTS.md` files in subdirectories refine or override these rules
 - Charges: expressed in units of the elementary charge.
 - Respect the invariants described in `dev_guide.md` for `Get`, `Iterator`, `Form`, and `Native` behavior.
 
+## Dependency Management
+
+- **Hard vs Soft Dependencies:** MolSysMT distinguishes between essential libraries (Hard) and optional feature-enabling ones (Soft). This status is centrally managed in `molsysmt/config/dependencies.py`.
+- **Lazy Imports:** Never import a soft dependency (e.g., `mdtraj`, `openmm`, `mdanalysis`, `parmed`, `pytraj`, `nglview`, `pdbfixer`, `biopython`, `plotly`) at the module's top level. Always perform imports inside functions or methods.
+- **Enforcement:** Use the `@requires(library, when=None)` decorator from `molsysmt.dependencies` to enforce dependency availability and provide metadata for introspection.
+- **Validation:** Run `scripts/validate_dependencies.py` to ensure no top-level imports of soft dependencies leak into the codebase. Exempt zones (tests, dev tools) are defined in the script and documented in `SPEC_DEPENDENCIES.md`.
+
 ## Forms and conversions
 
 - Form adapters live under `molsysmt/form`; see `molsysmt/form/AGENTS.md` for detailed guidance.
-- Each form module should declare `form_name`, `form_type`, `form_info`, and populate `_convert_to` with callables instead of hard-coding conversion graphs.
-- Prefer composing existing converters (for example, combining topology and structures converters) rather than re-implementing duplicate logic.
-- Keep attribute names and array shapes consistent across forms (coordinates, box, time, topology attributes, etc.).
+- Discovery and registration are lazy and dynamic. They rely on the central mapping in `molsysmt/config/dependencies.py` (specifically `form_dir_to_library`). Do not add dependency-related variables to the form's local `__init__.py`.
+- Each form module should declare `form_name`, `form_type`, `form_info`, and populate `_convert_to` with callables.
+- Respect `msm.config.show_all_capabilities` which allows users to filter available forms based on their installed environment.
 
 ## Testing and validation
 

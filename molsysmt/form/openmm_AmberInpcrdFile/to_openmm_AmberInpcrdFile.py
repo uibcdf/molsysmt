@@ -1,6 +1,8 @@
 from molsysmt._private.digestion import digest
+from molsysmt.dependencies import requires
 
 @digest(form='openmm.AmberInpcrdFile')
+@requires('openmm')
 def to_openmm_AmberInpcrdFile(item, atom_indices='all', structure_indices='all', copy_if_all=True, skip_digestion=False):
 
     from .extract import extract
