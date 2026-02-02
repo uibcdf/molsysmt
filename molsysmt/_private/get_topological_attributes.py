@@ -6,7 +6,6 @@ from molsysmt.element.group import is_group_type
 from molsysmt.element.molecule import _plural_molecule_types_to_singular
 from molsysmt.element.molecule import is_molecule_type
 import numpy as np
-import pandas as pd
 from networkx import Graph
 from importlib import import_module
 
@@ -227,6 +226,10 @@ def _get_inf_index_from_element(module, involved_element, base_element, item, in
     target_index = aux_get(item)
 
     if len(target_index) > large_list_length:
+
+        from molsysmt.dependencies import check_dependency
+        check_dependency('pandas')
+        import pandas as pd
 
         serie = pd.Series(target_index)
         groups_serie = serie.groupby(serie).apply(lambda x: x.index.tolist())

@@ -1,14 +1,12 @@
-from molsysmt._private.exceptions import LibraryNotFoundError
 from molsysmt._private.digestion import digest
+from molsysmt.dependencies import requires
 
 @digest(form='molsysmt.MolSys')
+@requires('pdbfixer')
 def to_pdbfixer_PDBFixer(item, atom_indices='all', structure_indices='all',
                          pdb_chain_id='chain_name', skip_digestion=False):
 
-    try:
-        from pdbfixer.pdbfixer import PDBFixer
-    except:
-        raise LibraryNotFoundError('pdbfixer')
+    from pdbfixer.pdbfixer import PDBFixer
 
     from . import to_string_pdb_text
     from io import StringIO

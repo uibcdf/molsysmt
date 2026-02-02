@@ -1,13 +1,11 @@
-from molsysmt._private.exceptions import LibraryNotFoundError
+from molsysmt.dependencies import requires
 from molsysmt._private.digestion import digest
 
 @digest(form='file:pdb')
+@requires('parmed')
 def to_parmed_Structure(item, atom_indices='all', structure_indices='all', skip_digestion=False):
 
-    try:
-        from parmed import load_file
-    except:
-        raise LibraryNotFoundError('parmed')
+    from parmed import load_file
 
     from molsysmt.form.parmed_Structure import extract
 

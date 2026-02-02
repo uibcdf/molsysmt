@@ -1,13 +1,11 @@
 from molsysmt._private.digestion import digest
-from molsysmt._private.exceptions import LibraryNotFoundError
+from molsysmt.dependencies import requires
 
 @digest(form='file:pdb')
+@requires('mdtraj')
 def to_mdtraj_Trajectory(item, atom_indices='all', structure_indices='all', skip_digestion=False):
 
-    try:
-        from mdtraj import load_pdb
-    except:
-        raise LibraryNotFoundError('mdtraj')
+    from mdtraj import load_pdb
 
     from ..mdtraj_Trajectory import extract as extract_mdtraj_Trajectory
 

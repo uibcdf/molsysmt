@@ -1,4 +1,3 @@
-import openmm.unit as unit
 from molsysmt.native.molsys import MolSys
 import molsysmt as msm
 from molsysmt._private.variables import is_all
@@ -44,6 +43,9 @@ class MolSysReporter():
 
     def _initialize(self, simulation, state):
 
+        import openmm as mm
+        from openmm import unit
+
         if self._temperature:
             dof = 0
             for i in range(system.getNumParticles()):
@@ -68,6 +70,8 @@ class MolSysReporter():
             self.running_time = self.starting_time - time.time()
 
     def report(self, simulation, state):
+
+        from openmm import unit
 
         if self._id:
             value = simulation.currentStep

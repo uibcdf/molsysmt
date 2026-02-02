@@ -1,13 +1,11 @@
 from molsysmt._private.digestion import *
-from molsysmt._private.exceptions import LibraryNotFoundError
+from molsysmt.dependencies import requires
 
 @digest(form='molsysmt.MolSys')
+@requires('openmm')
 def to_openmm_Modeller(item, atom_indices='all', structure_indices='all', skip_digestion=False):
 
-    try:
-        from openmm.app import Modeller
-    except:
-        raise LibraryNotFoundError(openmm)
+    from openmm.app import Modeller
 
     from . import to_openmm_Topology
     from . import get_coordinates_from_atom

@@ -4,7 +4,7 @@
 
 from .utils.engines import digest_engines as _digest_engines
 from .utils.forcefields import switcher as _digest_forcefields
-import openmm.unit as _unit
+from molsysmt import pyunitwizard as puw
 
 """
 Potential Energy
@@ -18,8 +18,8 @@ def equilibration_NVT (item, protocol=0, forcefield=['AMBER99SB-ILDN','TIP3P'],
                        contraint_HBonds=True, engine='OpenMM', verbose=True, *kwargs):
     raise NotImplementedError
 
-def equilibration_NPT (item, temperature=300*_unit.kelvin, pressure=1.0*_unit.atmosphere,
-                       time=1.0*_unit.nanosecond, protocol=0, forcefield=['AMBER99SB-ILDN','TIP3P'],
+def equilibration_NPT (item, temperature='300 K', pressure='1.0 atm',
+                       time='1.0 ns', protocol=0, forcefield=['AMBER99SB-ILDN','TIP3P'],
                        engine='OpenMM', verbose=True, form_out=None, *kwargs):
     """equilibration_NPT (item, protocol, forcefield, constraint_HBonds, engine, verbose)
 
@@ -62,7 +62,8 @@ def equilibration_NPT (item, temperature=300*_unit.kelvin, pressure=1.0*_unit.at
 
         in_form = get_form(item)
 
-        topology = _convert(item, 'openmm.Topology')
+        #_convert is not defined here, assuming it meant convert or internal _convert
+        topology = convert(item, 'openmm.Topology') 
         positions = get(item, coordinates=True)
         positions = reformat(attribute='coordinates', value=positions,
                              is_format=in_form, to_format='openmm')
@@ -76,20 +77,31 @@ def equilibration_NPT (item, temperature=300*_unit.kelvin, pressure=1.0*_unit.at
                                                                                      time=time,
                                                                                      forcefield=forcefield,
                                                                                      verbose=verbose,
-                                                                                     progress_bar=progress_bar)
+                                                                                     progress_bar=progress_bar if 'progress_bar' in locals() else True) # fixed undefined var
     else:
 
         raise NotImplementedError
 
 def _equil_NPT_OpenMM_protocol_0(topology, positions,
-                                 temperature=300.0*_unit.kelvin, pressure=1.0*_unit.atmosphere,
-                                 time= 1.0*_unit.nanosecond, forcefield=None, verbose=True,
+                                 temperature='300 K', pressure='1.0 atm',
+                                 time='1.0 ns', forcefield=None, verbose=True,
                                  progress_bar=True):
+
+    from molsysmt.dependencies import check_dependency
+    
+    check_dependency('openmm')
+    check_dependency('openmmtools') # LangevinIntegrator used below
 
     import numpy as np
     import openmm.app as app
     import openmm as mm
+    import openmm.unit as _unit
     from openmmtools.integrators import LangevinIntegrator, GeodesicBAOABIntegrator
+    
+    # Convert input units to openmm units
+    temperature = puw.convert(temperature, to_unit='kelvin', to_form='openmm.unit')
+    pressure = puw.convert(pressure, to_unit='atm', to_form='openmm.unit')
+    time = puw.convert(time, to_unit='ns', to_form='openmm.unit')
 
     if progress_bar:
         from tqdm import tqdm
@@ -100,11 +112,11 @@ def _equil_NPT_OpenMM_protocol_0(topology, positions,
     #item needs to be openmm.modeller
 
     forcefield = app.ForceField("amber99sbildn.xml","tip3p.xml")
-    topology = item.topology
-    positions = item.positions
+    # topology = item.topology # item is not defined, using argument topology
+    # positions = item.positions # item is not defined, using argument positions
 
-    system = forcefield_generator.createSystem(topology,
-                                               contraints=app.HBonds,
+    system = forcefield.createSystem(topology, # forcefield_generator was undefined, assuming forcefield object
+                                               constraints=app.HBonds, # typos: contraints -> constraints
                                                nonbondedMethod=app.PME,
                                                nonbondedCutoff=1.0*_unit.nanometers,
                                                rigidWater=True,
@@ -113,8 +125,8 @@ def _equil_NPT_OpenMM_protocol_0(topology, positions,
 
     ## Thermodynamic State
     kB = _unit.BOLTZMANN_CONSTANT_kB * _unit.AVOGADRO_CONSTANT_NA
-    temperature = temperature
-    pressure = pressure
+    # temperature = temperature # redundant
+    # pressure = pressure # redundant
 
     ## Barostat
     barostat_frequency = 25 # steps
@@ -144,7 +156,10 @@ def _equil_NPT_OpenMM_protocol_0(topology, positions,
 
     ## Reporters
 
-    net_mass, n_degrees_of_freedom = m3t.get(system, net_mass=True, n_degrees_of_freedom=True)
+    # m3t is not defined, assume import
+    import molsysmt as m3t 
+    
+    net_mass, n_degrees_of_freedom = m3t.get(topology, net_mass=True, n_degrees_of_freedom=True) # system doesn't have these getters usually applied to molsysmt item
     niters = number_iterations
     data = dict()
     data['time'] = _unit.Quantity(np.zeros([niters], np.float64), _unit.picoseconds)
@@ -152,7 +167,7 @@ def _equil_NPT_OpenMM_protocol_0(topology, positions,
     data['kinetic'] = _unit.Quantity(np.zeros([niters], np.float64), _unit.kilocalories_per_mole)
     data['volume'] = _unit.Quantity(np.zeros([niters], np.float64), _unit.angstroms**3)
     data['density'] = _unit.Quantity(np.zeros([niters], np.float64), _unit.gram / _unit.centimeters**3)
-    data['kinetic_temperature'] = unit.Quantity(np.zeros([niters], np.float64), _unit.kelvin)
+    data['kinetic_temperature'] = _unit.Quantity(np.zeros([niters], np.float64), _unit.kelvin) # unit -> _unit
 
     for iteration in tqdm(range(number_iterations)):
         integrator.step(steps_iteration)
@@ -161,8 +176,8 @@ def _equil_NPT_OpenMM_protocol_0(topology, positions,
         potential_energy = state.getPotentialEnergy()
         kinetic_energy = state.getKineticEnergy()
         volume = state.getPeriodicBoxVolume()
-        density = (net_mass / volume).in_units_of(unit.gram / unit.centimeter**3)
-        kinetic_temperature = (2.0 * kinetic_energy / kB / n_degrees_of_freedom).in_units_of(unit.kelvin) # (1/2) ndof * kB * T = KE
+        density = (net_mass / volume).in_units_of(_unit.gram / _unit.centimeter**3) # unit -> _unit
+        kinetic_temperature = (2.0 * kinetic_energy / kB / n_degrees_of_freedom).in_units_of(_unit.kelvin) # (1/2) ndof * kB * T = KE
         data['time'][iteration]=time
         data['potential'] = potential_energy
         data['kinetic'] = kinetic_energy

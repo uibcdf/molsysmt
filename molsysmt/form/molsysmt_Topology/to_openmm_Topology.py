@@ -1,16 +1,13 @@
-from molsysmt._private.exceptions import LibraryNotFoundError
 from molsysmt._private.digestion import digest
 from molsysmt._private.variables import is_all
+from molsysmt.dependencies import requires
 
 @digest(form='molsysmt.Topology')
+@requires('openmm')
 def to_openmm_Topology(item, box=None, atom_indices='all', skip_digestion=False):
 
-    try:
-        import openmm as mm
-        import openmm.app as app
-        import openmm.unit as unit
-    except:
-        raise LibraryNotFound('openmm')
+    import openmm as mm
+    import openmm.app as app
 
     if not is_all(atom_indices):
         from . import extract

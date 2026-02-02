@@ -1,12 +1,11 @@
 from molsysmt._private.digestion import digest
+from molsysmt.dependencies import requires
 
 @digest(form='string:pdb_id')
+@requires('pdbfixer')
 def to_pdbfixer_PDBFixer(item, atom_indices='all', structure_indices='all', skip_digestion=False):
 
-    try:
-        from pdbfixer import PDBFixer
-    except:
-        raise LibraryNotFoundError('pdbfixer')
+    from pdbfixer import PDBFixer
 
     from ..pdbfixer_PDBFixer import extract
 

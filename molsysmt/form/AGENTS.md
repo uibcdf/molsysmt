@@ -58,3 +58,5 @@ It refines the global rules in the repository root `AGENTS.md` for this subtree.
 - Do not change existing `form_name` strings or public keys in schemas without carefully evaluating downstream impact and tests.
 - When extending forms, prefer additive changes and maintain backward-compatible behavior unless the change is explicitly intended as a breaking change and is coordinated with tests and documentation.
 - Keep the conversion graph coherent: avoid introducing cycles or ambiguous paths that bypass established, tested converters without necessity.
+
+

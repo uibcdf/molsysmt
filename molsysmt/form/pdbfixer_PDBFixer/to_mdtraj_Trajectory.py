@@ -1,13 +1,11 @@
-from molsysmt._private.exceptions import LibraryNotFoundError
+from molsysmt.dependencies import requires
 from molsysmt._private.digestion import digest
 
 @digest(form='pdbfixer.PDBFixer')
+@requires('MDTraj')
 def to_mdtraj_Trajectory(item, atom_indices='all', skip_digestion=False):
 
-    try:
-        from mdtraj.core.trajectory import Trajectory as mdtraj_Trajectory
-    except:
-        raise LibraryNotFoundError('MDTraj')
+    from mdtraj.core.trajectory import Trajectory as mdtraj_Trajectory
 
     from molsysmt import pyunitwizard as puw
     from . import to_mdtraj_Topology

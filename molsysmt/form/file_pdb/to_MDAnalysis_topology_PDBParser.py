@@ -1,13 +1,11 @@
-from molsysmt._private.exceptions import LibraryNotFoundError
+from molsysmt.dependencies import requires
 from molsysmt._private.digestion import digest
 
 @digest(form='file:pdb')
+@requires('MDAnalysis')
 def to_MDAnalysis_topology_PDBParser(item, atom_indices='all', skip_digestion=False):
 
-    try:
-        from MDAnalysis.topology import PDBParser
-    except:
-        raise LibraryNotFoundError('MDAnalysis')
+    from MDAnalysis.topology import PDBParser
 
     tmp_item = PDBParser.PDBParser(item)
 

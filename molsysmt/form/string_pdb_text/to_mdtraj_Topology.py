@@ -1,13 +1,11 @@
-from molsysmt._private.exceptions import LibraryNotFoundError
 from molsysmt._private.digestion import digest
+from molsysmt.dependencies import requires
 
 @digest(form='string:pdb_text')
+@requires('MDTraj')
 def to_mdtraj_Topology(item, atom_indices='all', structure_indices='all', skip_digestion=False):
 
-    try:
-        from mdtraj import load_topology as mdtraj_load_topology
-    except:
-        raise LibraryNotFoundError('MDTraj')
+    from mdtraj import load_topology as mdtraj_load_topology
 
     from io import StringIO
     from . import extract
