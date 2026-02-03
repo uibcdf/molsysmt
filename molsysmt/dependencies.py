@@ -126,3 +126,30 @@ def requires(library, when=None, action='error'):
         
         return wrapper
     return decorator
+
+def info():
+    """
+    Display a summary of the dependency ecosystem.
+
+    Returns
+    -------
+    pandas.io.formats.style.Styler
+        A styled DataFrame showing the status of each library.
+    """
+    from pandas import DataFrame
+    
+    rows = []
+    for key, dep in _dependencies_config.items():
+        installed = is_installed(dep.pypi)
+        rows.append({
+            'Library': dep.name,
+            'Status': 'Installed' if installed else 'Not Installed',
+            'Type': dep.type.capitalize(),
+            'Install (PyPI)': f"pip install {dep.pypi}",
+            'Install (Conda)': f"conda install -c conda-forge {dep.conda}"
+        })
+        
+    df = DataFrame(rows)
+    df.sort_values(by=['Status', 'Type', 'Library'], ascending=[True, True, True], inplace=True)
+    
+    return df.style.hide(axis='index').set_properties(**{'text-align': 'left'})

@@ -13,13 +13,14 @@ We have transitioned to a robust, introspection-friendly dependency management s
 - **Robustness:** Added `@requires` decorator and `check_dependency` to prevent crashes when libraries are missing.
 - **Dynamic Discovery:** Redesigned `molsysmt.form` to load modules lazily and support user-defined visibility filtering.
 - **Single Source of Truth:** Centralized dependency status in `molsysmt/config/dependencies.py`.
-- **Validation:** Added `scripts/validate_dependencies.py` to enforce architecture rules (Zero Top-Level Imports).
-- **Coverage:** Extensive migration of form converters (`to_*.py`) and extractors (`extract.py`) to the `@requires` standard.
-- **Integration Tests:** Verfied runtime filtering logic with `tests/test_dependencies_architecture.py`.
-- **Performance:** Optimized `argdigest` integration to eliminate import-time bottlenecks.
+- **Validation:** Added `scripts/validate_dependencies.py` to enforce architecture rules.
+- **Coverage:** Extensive migration of form converters and extractors.
+- **Integration Tests:** Verified runtime filtering logic.
+- **Performance:** Optimized `argdigest` and `execfile` for fast imports.
+- **Introspection:** Added `msm.dependencies.info()` to report ecosystem status to users.
 
 **Pending / Ongoing:**
-- [ ] **Help Integration:** Update `msm.info()` and `msm.help()` to utilize decorator metadata for informing users about missing libraries.
+- [ ] Integration of dependency metadata into automated API documentation (Sphinx).
 
 ---
 
