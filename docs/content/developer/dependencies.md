@@ -84,7 +84,20 @@ Some directories are exempt from the "Zero Soft Dependency" rule because they ar
 - `molsysmt/docs/generate_static_views/`
 - `sandbox/`
 
-## 6. How to Add a New Dependency
+## 6. Integration Testing
+
+To verify the runtime behavior of the dependency system (filtering, mocking), use:
+
+```bash
+pytest tests/test_dependencies_architecture.py
+```
+
+These tests verify that:
+- Capabilities are hidden when `show_all_capabilities=False` and the library is missing.
+- `@requires` decorators correctly identify missing libraries.
+- The lazy loader respects the configuration changes dynamically.
+
+## 7. How to Add a New Dependency
 
 1.  **Register it:** Add it to `dependencies` in `molsysmt/config/dependencies.py`.
 2.  **Map it:** If it has associated forms, add them to `form_dir_to_library`.
