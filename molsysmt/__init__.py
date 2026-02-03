@@ -47,19 +47,10 @@ from . import thirds
 
 from .systems import systems
 
-# Adding molsysmt to nglview (optional dependency)
-import sys
-if 'nglview' in sys.modules:
-    try:
-        from .thirds.nglview.patching_nglview import add_molsysmt_to_nglview
-        add_molsysmt_to_nglview()
-        del(add_molsysmt_to_nglview)
-    except Exception:
-        pass
+# NGLView patching is triggered lazily by the NGLView backend.
 
 
 # With the following list sphinx can document de methods in the api section without adding the
 # module files names explicitly:
 
 __all__ = []
-
