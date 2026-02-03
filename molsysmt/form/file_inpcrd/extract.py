@@ -1,10 +1,11 @@
 from molsysmt._private.exceptions import NotImplementedMethodError
 from molsysmt._private.digestion import digest
 from molsysmt._private.variables import is_all
+from molsysmt.dependencies import requires
 
 @digest(form='file:inpcrd')
-def extract(item, atom_indices='all', structure_indices='all', output_filename=None, copy_if_all=True,
-            skip_digestion=False):
+@requires('openmm')
+def extract(item, atom_indices='all', structure_indices='all', copy_if_all=True, skip_digestion=False):
 
     if output_filename is None:
         output_filename = item
