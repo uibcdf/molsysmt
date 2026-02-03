@@ -1,7 +1,7 @@
 import pandas as pd
 import numpy as np
 from molsysmt._private.variables import is_all
-from molsysmt._private.digestion import arg_digest
+from molsysmt._private.arg_digestion import arg_digest
 from molsysmt.lib.series import occurrence_order
 import string
 

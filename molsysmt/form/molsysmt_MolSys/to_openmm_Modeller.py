@@ -1,4 +1,4 @@
-from molsysmt._private.digestion import *
+from molsysmt._private.arg_digestion import *
 from molsysmt.dependencies import dep_digest
 
 @arg_digest(form='molsysmt.MolSys')

@@ -1,4 +1,4 @@
-from molsysmt._private.digestion import arg_digest
+from molsysmt._private.arg_digestion import arg_digest
 from molsysmt.basic import convert
 import numpy as np
 

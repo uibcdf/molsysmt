@@ -1,4 +1,4 @@
-from molsysmt._private.digestion import arg_digest
+from molsysmt._private.arg_digestion import arg_digest
 
 @arg_digest()
 def build_peptide(molecular_system, to_form='molsysmt.MolSys', engine='LEaP'):

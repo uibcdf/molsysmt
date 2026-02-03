@@ -1,7 +1,7 @@
 from molsysmt._private.exceptions import *
 from molsysmt.form import _dict_modules
-from molsysmt.dependencies import is_installed
-from molsysmt.config.dependencies import form_dir_to_library
+from depdigest import is_installed
+from molsysmt import _depdigest
 from pandas import DataFrame
 
 class _SupportedMetadata:
@@ -83,7 +83,7 @@ def forms(form_type=None):
         # Get directory name to look up dependency
         import os
         dir_name = os.path.basename(os.path.dirname(mod.__file__))
-        dep = form_dir_to_library.get(dir_name, 'Native')
+        dep = _depdigest.MAPPING.get(dir_name, 'Native')
         
         installed = True
         if dep != 'Native':

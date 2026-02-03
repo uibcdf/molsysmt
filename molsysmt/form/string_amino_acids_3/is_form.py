@@ -1,5 +1,5 @@
 from molsysmt._private.exceptions import *
-from molsysmt._private.digestion import *
+from molsysmt._private.arg_digestion import *
 
 def is_form(item):
 

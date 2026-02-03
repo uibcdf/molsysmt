@@ -1,4 +1,4 @@
-from molsysmt._private.digestion import arg_digest
+from molsysmt._private.arg_digestion import arg_digest
 from ..molecule import _singular_molecule_type_to_plural
 import numpy as np
 

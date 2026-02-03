@@ -1,5 +1,5 @@
 from molsysmt._private.exceptions import NotImplementedMethodError
-from molsysmt._private.digestion import arg_digest
+from molsysmt._private.arg_digestion import arg_digest
 from molsysmt import pyunitwizard as puw
 from molsysmt import lib as msmlib
 import numpy as np

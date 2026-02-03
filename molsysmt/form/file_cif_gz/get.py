@@ -4,7 +4,7 @@
 
 from molsysmt._private.execfile import execfile
 from molsysmt._private.exceptions import NotImplementedMethodError, NotWithThisFormError
-from molsysmt._private.digestion import arg_digest
+from molsysmt._private.arg_digestion import arg_digest
 
 form='file:cif.gz'
 

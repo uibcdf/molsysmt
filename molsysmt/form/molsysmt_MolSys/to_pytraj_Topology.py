@@ -1,4 +1,4 @@
-from molsysmt._private.digestion import arg_digest
+from molsysmt._private.arg_digestion import arg_digest
 
 @arg_digest(form='molsysmt.MolSys')
 def to_pytraj_Topology(item, atom_indices='all', skip_digestion=False):

@@ -1,4 +1,4 @@
-from molsysmt._private.digestion import arg_digest
+from molsysmt._private.arg_digestion import arg_digest
 
 @arg_digest(form='string:alphafold_id')
 def to_file_pdb(item, atom_indices='all', structure_indices='all', output_filename=None, skip_digestion=False):

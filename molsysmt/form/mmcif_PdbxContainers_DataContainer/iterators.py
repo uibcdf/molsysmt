@@ -1,5 +1,5 @@
 from molsysmt._private.exceptions import NotImplementedIteratorError
-from molsysmt._private.digestion import arg_digest
+from molsysmt._private.arg_digestion import arg_digest
 from molsysmt._private.indices import indices_iterator
 from molsysmt._private.variables import is_all
 

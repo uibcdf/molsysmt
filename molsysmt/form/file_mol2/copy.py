@@ -1,5 +1,5 @@
 from molsysmt._private.exceptions import NotImplementedMethodError
-from molsysmt._private.digestion import arg_digest
+from molsysmt._private.arg_digestion import arg_digest
 
 @arg_digest(form='file:mol2')
 def copy(item, output_filename=None, skip_digestion=False):

@@ -3,7 +3,7 @@
 #######################################################################################
 
 from molsysmt._private.exceptions import NotImplementedMethodError, NotWithThisFormError
-from molsysmt._private.digestion import arg_digest
+from molsysmt._private.arg_digestion import arg_digest
 import types
 
 form='string:pdb_id'

@@ -1,4 +1,4 @@
-from molsysmt._private.digestion import arg_digest
+from molsysmt._private.arg_digestion import arg_digest
 from molsysmt.native import MolSys, Topology, Structures
 from molsysmt import pyunitwizard as puw
 from molsysmt.pbc import get_box_from_lengths_and_angles

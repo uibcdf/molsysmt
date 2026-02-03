@@ -1,6 +1,6 @@
 from copy import copy
 from molsysmt._private.exceptions import NotImplementedMethodError
-from molsysmt._private.digestion import arg_digest
+from molsysmt._private.arg_digestion import arg_digest
 from molsysmt._private.variables import is_all
 from molsysmt.dependencies import dep_digest
 

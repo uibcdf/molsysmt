@@ -1,4 +1,4 @@
-from molsysmt._private.digestion import arg_digest
+from molsysmt._private.arg_digestion import arg_digest
 from molsysmt._private.exceptions import NotImplementedMethodError
 from molsysmt._private.atom_indices import complementary_atom_indices
 from molsysmt import pyunitwizard as puw

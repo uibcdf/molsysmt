@@ -2,7 +2,7 @@ from molsysmt._private.exceptions import NotImplementedIteratorError
 from ..mdtraj_HDF5TrajectoryFile.iterators import StructuresIterator as StructuresIterator_HDF5TrajectoryFile
 from ..mdtraj_HDF5TrajectoryFile.iterators import TopologyIterator as TopologyIterator_HDF5TrajectoryFile
 from .to_mdtraj_HDF5TrajectoryFile import to_mdtraj_HDF5TrajectoryFile
-from molsysmt._private.digestion import arg_digest
+from molsysmt._private.arg_digestion import arg_digest
 
 class StructuresIterator(StructuresIterator_HDF5TrajectoryFile):
 

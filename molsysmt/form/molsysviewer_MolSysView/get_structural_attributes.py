@@ -1,7 +1,7 @@
 import functools
 import inspect
 
-from molsysmt._private.digestion import arg_digest
+from molsysmt._private.arg_digestion import arg_digest
 from molsysmt.form.molsysmt_MolSys import get_structural_attributes as _molsys_get
 
 form = 'molsysviewer.MolSysView'

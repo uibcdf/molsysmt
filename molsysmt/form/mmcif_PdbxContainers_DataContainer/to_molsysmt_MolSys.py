@@ -1,6 +1,6 @@
 from molsysmt._private.exceptions import NotImplementedMethodError
 from molsysmt._private.warnings import warn, CrossChainCovalentBondsWarning
-from molsysmt._private.digestion import arg_digest
+from molsysmt._private.arg_digestion import arg_digest
 from molsysmt._private.variables import is_all
 from molsysmt import pyunitwizard as puw
 import numpy as np

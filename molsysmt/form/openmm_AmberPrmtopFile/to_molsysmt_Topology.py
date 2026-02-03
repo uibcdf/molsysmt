@@ -1,4 +1,4 @@
-from molsysmt._private.digestion import arg_digest
+from molsysmt._private.arg_digestion import arg_digest
 
 @arg_digest(form='openmm.AmberPrmtopFile')
 def to_molsysmt_Topology(item, atom_indices='all', skip_digestion=False):

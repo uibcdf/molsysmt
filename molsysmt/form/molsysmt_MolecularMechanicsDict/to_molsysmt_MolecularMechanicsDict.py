@@ -1,4 +1,4 @@
-from molsysmt._private.digestion import arg_digest
+from molsysmt._private.arg_digestion import arg_digest
 
 @arg_digest(form='molsysmt.MoleculeMechanicsDict')
 def to_molsysmt_MolecularMechanicsDict(item, copy_if_all=True, skip_digestion=False):

@@ -1,4 +1,4 @@
-from molsysmt._private.digestion import arg_digest
+from molsysmt._private.arg_digestion import arg_digest
 from molsysmt.native import UniversalJSON
 from molsysmt.form.molsysmt_Topology import to_molsysmt_UniversalJSON as topology_to_universal
 from molsysmt.form.molsysmt_Structures import to_molsysmt_UniversalJSON as structures_to_universal
