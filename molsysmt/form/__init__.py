@@ -1,7 +1,7 @@
 import os
 import logging
 from importlib import import_module
-from molsysmt.config import show_all_capabilities
+from molsysmt import config
 from molsysmt.dependencies import is_installed
 from molsysmt.config.dependencies import form_dir_to_library, dependencies as _dependencies_config
 from molsysmt._private.exceptions import LibraryNotFoundError
@@ -41,7 +41,7 @@ class _FormsDictionary(dict):
                 
                 if lib_key:
                     # If the library is soft and missing, and the user wants to filter...
-                    if not show_all_capabilities:
+                    if not config.show_all_capabilities:
                         dep_info = _dependencies_config.get(lib_key)
                         if dep_info and dep_info.type == 'soft':
                             if not is_installed(dep_info.pypi):
