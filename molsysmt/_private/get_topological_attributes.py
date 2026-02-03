@@ -227,7 +227,7 @@ def _get_inf_index_from_element(module, involved_element, base_element, item, in
 
     if len(target_index) > large_list_length:
 
-        from molsysmt.dependencies import check_dependency
+        from depdigest import check_dependency
         check_dependency('pandas')
         import pandas as pd
 

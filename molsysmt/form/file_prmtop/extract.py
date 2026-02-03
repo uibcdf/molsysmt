@@ -1,7 +1,7 @@
 from molsysmt._private.exceptions import NotImplementedMethodError
 from molsysmt._private.arg_digestion import arg_digest
 from molsysmt._private.variables import is_all
-from molsysmt.dependencies import dep_digest
+from depdigest import dep_digest
 
 @arg_digest(form='file:prmtop')
 @dep_digest('openmm')

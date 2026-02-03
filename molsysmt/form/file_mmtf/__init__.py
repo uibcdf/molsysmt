@@ -23,7 +23,7 @@ from .get import *
 from .set import *
 from .iterators import StructuresIterator, TopologyIterator
 
-from molsysmt.dependencies import is_installed
+from depdigest import is_installed
 
 if is_installed('mdtraj'):
     from .to_mdtraj import load_mmtf, MMTFTrajectoryFile

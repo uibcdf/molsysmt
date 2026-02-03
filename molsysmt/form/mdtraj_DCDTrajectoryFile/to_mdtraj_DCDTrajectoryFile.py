@@ -1,5 +1,5 @@
 from molsysmt._private.arg_digestion import arg_digest
-from molsysmt.dependencies import dep_digest
+from depdigest import dep_digest
 
 @arg_digest(form='mdtraj.DCDTrajectoryFile')
 @dep_digest('mdtraj')

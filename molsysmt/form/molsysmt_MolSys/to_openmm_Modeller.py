@@ -1,5 +1,5 @@
 from molsysmt._private.arg_digestion import *
-from molsysmt.dependencies import dep_digest
+from depdigest import dep_digest
 
 @arg_digest(form='molsysmt.MolSys')
 @dep_digest('openmm')

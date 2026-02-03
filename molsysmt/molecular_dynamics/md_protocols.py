@@ -87,7 +87,7 @@ def _equil_NPT_OpenMM_protocol_0(topology, positions,
                                  time='1.0 ns', forcefield=None, verbose=True,
                                  progress_bar=True):
 
-    from molsysmt.dependencies import check_dependency
+    from depdigest import check_dependency
     
     check_dependency('openmm')
     check_dependency('openmmtools') # LangevinIntegrator used below

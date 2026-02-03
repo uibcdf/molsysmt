@@ -1,4 +1,4 @@
-from molsysmt.dependencies import dep_digest
+from depdigest import dep_digest
 
 @dep_digest('nglview')
 def write_html(view, output_filename):
