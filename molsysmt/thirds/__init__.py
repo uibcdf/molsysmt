@@ -1,7 +1,13 @@
-from . import tleap
-from . import openmm
+import importlib
 
-try:
-    from . import nglview
-except Exception:  # pragma: no cover - optional dependency
-    nglview = None
+__all__ = [
+    'tleap',
+    'openmm',
+    'nglview',
+]
+
+
+def __getattr__(name):
+    if name in __all__:
+        return importlib.import_module(f'{__name__}.{name}')
+    raise AttributeError(f"module {__name__!r} has no attribute {name!r}")
