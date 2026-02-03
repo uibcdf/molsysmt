@@ -21,7 +21,7 @@ def get_non_bonded_potential_energy(molecular_system, selection='all', selection
 
     from molsysmt import convert, get_form, has_attribute, select
     from molsysmt.config import default_attribute
-    from molsysmt.dependencies import check_dependency
+    from depdigest import check_dependency
 
     atom_indices = select(molecular_system, selection=selection, syntax=syntax)
     if selection_2 is not None:

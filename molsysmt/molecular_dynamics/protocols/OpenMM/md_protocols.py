@@ -5,7 +5,7 @@
 from .utils.engines import arg_digest_engines as _digest_engines
 from .utils.forcefields import switcher as _digest_forcefields
 from molsysmt import pyunitwizard as puw
-from molsysmt.dependencies import dep_digest
+from depdigest import dep_digest
 
 """
 Potential Energy

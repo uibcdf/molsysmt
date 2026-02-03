@@ -32,7 +32,6 @@ from . import basic
 from . import form
 from . import element
 from . import attribute
-from . import dependencies
 
 from . import topology
 from . import structure

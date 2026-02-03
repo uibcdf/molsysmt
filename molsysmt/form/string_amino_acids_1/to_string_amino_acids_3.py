@@ -1,4 +1,4 @@
-from molsysmt.dependencies import dep_digest
+from depdigest import dep_digest
 from molsysmt._private.arg_digestion import arg_digest
 
 @arg_digest(form='string:amino_acids_1')
