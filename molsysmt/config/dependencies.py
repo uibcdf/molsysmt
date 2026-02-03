@@ -16,7 +16,13 @@ dependencies = {
 
     # Soft Dependencies
     'mdtraj': Dependency('mdtraj', 'soft', 'mdtraj', 'mdtraj'),
-...
+    'MDAnalysis': Dependency('mdanalysis', 'soft', 'MDAnalysis', 'mdanalysis'),
+    'openmm': Dependency('openmm', 'soft', 'openmm', 'openmm'),
+    'openmmtools': Dependency('openmmtools', 'soft', 'openmmtools', 'openmmtools'),
+    'parmed': Dependency('parmed', 'soft', 'parmed', 'parmed'),
+    'pytraj': Dependency('pytraj', 'soft', 'pytraj', 'pytraj'),
+    'nglview': Dependency('nglview', 'soft', 'nglview', 'nglview'),
+    'pdbfixer': Dependency('pdbfixer', 'soft', 'pdbfixer', 'pdbfixer'),
     'biopython': Dependency('biopython', 'soft', 'biopython', 'biopython'),
     'plotly': Dependency('plotly', 'soft', 'plotly', 'plotly'),
     'mmtf': Dependency('mmtf', 'soft', 'mmtf-python', 'mmtf-python'),
