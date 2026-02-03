@@ -1,5 +1,7 @@
 from molsysmt._private.exceptions import *
 from molsysmt.form import _dict_modules
+from molsysmt.dependencies import is_installed
+from molsysmt.config.dependencies import form_dir_to_library
 from pandas import DataFrame
 
 class _SupportedMetadata:
@@ -75,11 +77,26 @@ def forms(form_type=None):
     else:
         raise BadCallError()
 
-    df=DataFrame([[form, _dict_modules[form].form_type, _dict_modules[form].form_info] for form in tmp_output], columns=['Form', 'Type', 'Info'])
-    df = df.sort_values(by=['Type', 'Form'], ascending=[True, True], key=lambda col: col.str.casefold())
+    rows = []
+    for form in tmp_output:
+        mod = _dict_modules[form]
+        # Get directory name to look up dependency
+        import os
+        dir_name = os.path.basename(os.path.dirname(mod.__file__))
+        dep = form_dir_to_library.get(dir_name, 'Native')
+        
+        installed = True
+        if dep != 'Native':
+            installed = is_installed(dep)
+            
+        rows.append([form, mod.form_type, dep, installed, mod.form_info])
+
+    df = DataFrame(rows, columns=['Form', 'Type', 'Dependency', 'Installed', 'Info'])
+    df = df.sort_values(by=['Type', 'Form'], ascending=[True, True], key=lambda col: col.str.casefold() if col.name != 'Installed' else col)
 
     def make_clickable(val):
         return '<a target="_blank" href="{}">{}</a>'.format(val[1], val[0])
+    
     return df.style.hide(axis="index").format({'Info':make_clickable}).set_properties(**{'text-align':'left','colheader_justify':'left'}).\
             set_table_styles([ dict(selector='th', props=[('text-align', 'left')] ) ])
 
