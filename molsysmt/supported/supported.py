@@ -2,35 +2,64 @@ from molsysmt._private.exceptions import *
 from molsysmt.form import _dict_modules
 from pandas import DataFrame
 
-dict_forms_of_type = { ii:[] for ii in ['class', 'string', 'file']}
+class _SupportedMetadata:
+    def __init__(self):
+        self._initialized = False
+        self._dict_forms_of_type = { ii:[] for ii in ['class', 'string', 'file']}
+        self._convert_from = {}
+        self._convert_to = {}
 
-for ii, jj in _dict_modules.items():
-    dict_forms_of_type[jj.form_type].append(ii)
+    def _ensure_initialized(self):
+        if not self._initialized:
+            self._initialize()
+            self._initialized = True
 
-for ii,jj in dict_forms_of_type.items():
-    dict_forms_of_type[ii]=sorted(jj)
+    def _initialize(self):
+        # Build dict_forms_of_type
+        for ii, jj in _dict_modules.items():
+            if jj.form_type in self._dict_forms_of_type:
+                self._dict_forms_of_type[jj.form_type].append(ii)
+        
+        for ii, jj in self._dict_forms_of_type.items():
+            self._dict_forms_of_type[ii] = sorted(jj)
 
-convert_from = {}
-convert_to = {}
+        # Build conversion maps
+        for in_form in _dict_modules.keys():
+            # Accessing _convert_to forces the module to be imported if not already
+            if hasattr(_dict_modules[in_form], '_convert_to'):
+                aux_list = list(_dict_modules[in_form]._convert_to.keys())
+                if in_form in aux_list:
+                    aux_list.remove(in_form)
+                self._convert_from[in_form] = aux_list
 
-for in_form in _dict_modules.keys():
-    aux_list = list(_dict_modules[in_form]._convert_to.keys())
-    aux_list.remove(in_form)
-    convert_from[in_form] = aux_list
+        for in_form, out_forms in self._convert_from.items():
+            for out_form in out_forms:
+                if out_form not in self._convert_to:
+                    self._convert_to[out_form] = []
+                self._convert_to[out_form].append(in_form)
 
-for in_form, out_forms in convert_from.items():
-    for out_form in out_forms:
-        try:
-            convert_to[out_form].append(in_form)
-        except:
-            convert_to[out_form]=[]
-            convert_to[out_form].append(in_form)
+        for in_form in self._convert_from.keys():
+            self._convert_from[in_form] = sorted(self._convert_from[in_form])
 
-for in_form in convert_from.keys():
-    convert_from[in_form]=sorted(convert_from[in_form])
+        for out_form in self._convert_to.keys():
+            self._convert_to[out_form] = sorted(self._convert_to[out_form])
 
-for out_form in convert_to.keys():
-    convert_to[out_form]=sorted(convert_to[out_form])
+    @property
+    def dict_forms_of_type(self):
+        self._ensure_initialized()
+        return self._dict_forms_of_type
+
+    @property
+    def convert_from(self):
+        self._ensure_initialized()
+        return self._convert_from
+
+    @property
+    def convert_to(self):
+        self._ensure_initialized()
+        return self._convert_to
+
+_metadata = _SupportedMetadata()
 
 ## Types
 
@@ -41,8 +70,8 @@ def forms(form_type=None):
 
     if form_type in [None,'all']:
         tmp_output=list(_dict_modules.keys())
-    elif form_type in dict_forms_of_type:
-        tmp_output=dict_forms_of_type[form_type]
+    elif form_type in _metadata.dict_forms_of_type:
+        tmp_output = _metadata.dict_forms_of_type[form_type]
     else:
         raise BadCallError()
 
@@ -70,14 +99,14 @@ def conversions(from_form=None, to_form=None, from_form_type=None, to_form_type=
             to_form=viewers_forms[to_viewer]
 
     if from_form_type is not None:
-        if from_form_type in dict_forms_of_type:
-            from_form = dict_forms_of_type[from_form_type]
+        if from_form_type in _metadata.dict_forms_of_type:
+            from_form = _metadata.dict_forms_of_type[from_form_type]
         else:
             raise BadCallError()
 
     if to_form_type is not None:
-        if to_form_type in dict_forms_of_type:
-            to_form = dict_forms_of_type[to_form_type]
+        if to_form_type in _metadata.dict_forms_of_type:
+            to_form = _metadata.dict_forms_of_type[to_form_type]
         else:
             raise BadCallError()
 
@@ -101,8 +130,8 @@ def conversions(from_form=None, to_form=None, from_form_type=None, to_form_type=
 
     for ii in from_form:
         for jj in to_form:
-            if ii in convert_from.keys():
-                if jj in convert_from[ii]:
+            if ii in _metadata.convert_from.keys():
+                if jj in _metadata.convert_from[ii]:
                     dict_df[ii][jj]=True
 
     if as_rows=='from':
