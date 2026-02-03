@@ -1,8 +1,8 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 from molsysmt._private.files_and_directories import temp_filename
 from os import remove
 
-@digest(form='string:pdb_id')
+@arg_digest(form='string:pdb_id')
 def to_mmcif_PdbxContainers_DataContainer(item, atom_indices='all', structure_indices='all', skip_digestion=False):
 
     try:

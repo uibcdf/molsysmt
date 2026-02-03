@@ -1,10 +1,10 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 import numpy as np
 from molsysmt import pyunitwizard as puw
 from molsysmt import lib as msmlib
 import gc
 
-@digest()
+@arg_digest()
 def flip(molecular_system, vector=[0,0,1], point='[0,0,0] nm', selection='all', structure_indices='all',
         syntax='MolSysMT', in_place=False):
     """

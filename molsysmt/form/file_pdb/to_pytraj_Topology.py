@@ -1,8 +1,8 @@
 from molsysmt._private.exceptions import LibraryNotFoundError
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 from molsysmt import pyunitwizard as puw
 
-@digest(form='file:pdb')
+@arg_digest(form='file:pdb')
 def to_pytraj_Topology(item, atom_indices='all', max_bond_length=None, skip_digestion=False):
 
     try:

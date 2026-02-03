@@ -1,6 +1,6 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 
-@digest(form='file:psf')
+@arg_digest(form='file:psf')
 def to_openmm_CharmmPsfFile(item, atom_indices='all', skip_digestion=False):
 
     from openmm.app import CharmmPsfFile

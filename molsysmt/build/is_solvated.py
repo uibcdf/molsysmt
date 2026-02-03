@@ -1,7 +1,7 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 from molsysmt import pyunitwizard as puw
 
-@digest()
+@arg_digest()
 def is_solvated(molecular_system, skip_digestion=False):
     """
     To be written soon...

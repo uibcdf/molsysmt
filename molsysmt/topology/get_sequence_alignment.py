@@ -1,8 +1,8 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 from molsysmt.basic import convert
 import numpy as np
 
-@digest()
+@arg_digest()
 def get_sequence_alignment(molecular_system, selection='all', reference_molecular_system=None, reference_selection='all',
                        engine='Biopython', syntax='MolSysMT', prettyprint=False, alignment_index=0, skip_digestion=False):
     """

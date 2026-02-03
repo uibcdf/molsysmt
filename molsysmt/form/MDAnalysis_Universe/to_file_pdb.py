@@ -1,6 +1,6 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 
-@digest(form='MDAnalysis.Universe')
+@arg_digest(form='MDAnalysis.Universe')
 def to_file_pdb(item, atom_indices='all', structure_indices='all', output_filename=None,
         multiframe=True, skip_digestion=False):
 

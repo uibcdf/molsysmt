@@ -1,7 +1,7 @@
 from molsysmt._private.digestion import *
 import numpy as np
 
-@digest(form='molsysmt.MolSys')
+@arg_digest(form='molsysmt.MolSys')
 def to_biopython_SeqRecord(item, atom_indices='all', skip_digestion=False):
 
     from . import to_string_amino_acids_1

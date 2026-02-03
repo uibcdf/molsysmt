@@ -1,9 +1,9 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 from molsysmt._private.exceptions import NotImplementedMethodError
 from molsysmt._private.variables import is_all
 import numpy as np
 
-@digest()
+@arg_digest()
 def compare(molecular_system, molecular_system_2, selection='all', structure_indices='all',
             selection_2='all', structure_indices_2='all', syntax='MolSysMT', rule='equal',
             output_type='boolean', attribute_type=None, include_none=False, skip_digestion=False,

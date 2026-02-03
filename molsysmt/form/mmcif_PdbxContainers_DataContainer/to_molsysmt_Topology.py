@@ -1,10 +1,10 @@
 from molsysmt._private.exceptions import NotImplementedMethodError
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 from molsysmt._private.variables import is_all
 from molsysmt import pyunitwizard as puw
 import numpy as np
 
-@digest(form='mmcif.PdbxContainers.DataContainer')
+@arg_digest(form='mmcif.PdbxContainers.DataContainer')
 def to_molsysmt_Topology(item, atom_indices='all', skip_digestion=False):
 
     from .to_molsysmt_MolSys import to_molsysmt_MolSys

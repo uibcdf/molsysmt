@@ -1,11 +1,11 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 from molsysmt._private.variables import is_all
 import networkx as nx
 from molsysmt import lib as msmlib
 import numpy as np
 
 
-@digest()
+@arg_digest()
 def get_component_index(molecular_system, element='component', selection='all', redefine_indices=False,
                         syntax='MolSysMT', skip_digestion=False):
 

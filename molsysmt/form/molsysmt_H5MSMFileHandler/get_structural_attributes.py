@@ -4,7 +4,7 @@
 
 from molsysmt._private.execfile import execfile
 from molsysmt._private.exceptions import NotImplementedMethodError, NotWithThisFormError
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 from molsysmt._private.variables import is_all
 from molsysmt import pyunitwizard as puw
 import numpy as np
@@ -15,7 +15,7 @@ form='molsysmt.H5MSMFileHandler'
 ## From atom
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_coordinates_from_atom(item, indices='all', structure_indices='all', skip_digestion=False):
 
     if is_all(structure_indices):
@@ -36,7 +36,7 @@ def get_coordinates_from_atom(item, indices='all', structure_indices='all', skip
 
     return output
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_velocities_from_atom(item, indices='all', structure_indices='all', skip_digestion=False):
 
     if is_all(structure_indices):
@@ -61,14 +61,14 @@ def get_velocities_from_atom(item, indices='all', structure_indices='all', skip_
 ## From system
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_structures_from_system(item, structure_indices='all', skip_digestion=False):
 
     output = item.file['structures'].attrs['n_structures_written']
 
     return output
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_box_from_system(item, structure_indices='all', skip_digestion=False):
 
     if item.file['structures'].attrs['constant_box']:
@@ -90,7 +90,7 @@ def get_box_from_system(item, structure_indices='all', skip_digestion=False):
 
     return output
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_time_from_system(item, structure_indices='all', skip_digestion=False):
 
     if item.file['structures'].attrs['constant_time_step']:
@@ -111,7 +111,7 @@ def get_time_from_system(item, structure_indices='all', skip_digestion=False):
 
     return output
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_structure_id_from_system(item, structure_indices='all', skip_digestion=False):
 
     if item.file['structures'].attrs['constant_id_step']:
@@ -130,7 +130,7 @@ def get_structure_id_from_system(item, structure_indices='all', skip_digestion=F
 
     return output
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_kinetic_energy_from_system(item, structure_indices='all', skip_digestion=False):
 
     if is_all(structure_indices):
@@ -142,7 +142,7 @@ def get_kinetic_energy_from_system(item, structure_indices='all', skip_digestion
 
     return output
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_potential_energy_from_system(item, structure_indices='all', skip_digestion=False):
 
     if is_all(structure_indices):
@@ -154,7 +154,7 @@ def get_potential_energy_from_system(item, structure_indices='all', skip_digesti
 
     return output
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_temperature_from_system(item, structure_indices='all', skip_digestion=False):
 
     constant_R = puw.get_constant('R')

@@ -1,6 +1,6 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 
-@digest(form='file:trjpk')
+@arg_digest(form='file:trjpk')
 def has_attribute(molecular_system, attribute, include_none=False, skip_digestion=False):
 
     from . import attributes

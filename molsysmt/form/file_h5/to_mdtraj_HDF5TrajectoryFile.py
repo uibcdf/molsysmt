@@ -1,7 +1,7 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 import os
 
-@digest(form='file:h5')
+@arg_digest(form='file:h5')
 def to_mdtraj_HDF5TrajectoryFile(item, atom_indices='all', structure_indices='all', skip_digestion=False):
 
     from mdtraj.formats import HDF5TrajectoryFile

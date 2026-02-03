@@ -1,9 +1,9 @@
 from molsysmt._private.exceptions import NotImplementedMethodError
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 import numpy as np
 from molsysmt import pyunitwizard as puw
 
-@digest()
+@arg_digest()
 def get_charge(molecular_system, element='group', selection='all', definition='physical_pH7',
                forcefield='AMBER14', water_model=None, syntax='MolSysMT', skip_digestion=False):
     """

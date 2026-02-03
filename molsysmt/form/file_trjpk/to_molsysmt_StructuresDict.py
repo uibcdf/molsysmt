@@ -1,8 +1,8 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 from molsysmt._private.variables import is_all
 from molsysmt import pyunitwizard as puw
 
-@digest(form='file:trjpk')
+@arg_digest(form='file:trjpk')
 def to_molsysmt_StructuresDict(item, atom_indices='all', structure_indices='all', skip_digestion=False):
 
     import pickle

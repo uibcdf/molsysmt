@@ -1,12 +1,12 @@
 from molsysmt._private.exceptions import NotImplementedMethodError
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 from molsysmt._private.variables import is_all
 from molsysmt import pyunitwizard as puw
 import numpy as np
 
 # https://github.com/rcsb/mmtf/blob/master/spec.md
 
-@digest(form='mmtf.MMTFDecoder')
+@arg_digest(form='mmtf.MMTFDecoder')
 def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_digestion=False):
 
     from molsysmt.native import MolSys

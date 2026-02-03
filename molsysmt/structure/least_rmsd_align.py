@@ -1,9 +1,9 @@
 from molsysmt._private.exceptions import NotImplementedMethodError
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 import numpy as np
 import gc
 
-@digest()
+@arg_digest()
 def least_rmsd_align(molecular_system, selection='atom_name=="CA"', structure_indices='all',
           reference_molecular_system=None, reference_selection=None, reference_structure_index=0,
           syntax='MolSysMT', engine_sequence_alignment = 'Biopython', engine_least_rmsd_fit = 'MolSysMT',

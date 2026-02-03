@@ -1,6 +1,6 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 
-@digest(form='file:pdb')
+@arg_digest(form='file:pdb')
 def to_MDAnalysis_Topology(item, atom_indices='all', skip_digestion=False):
 
     from . import to_MDAnalysis_topology_PDBParser

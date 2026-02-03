@@ -1,9 +1,9 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 from molsysmt import pyunitwizard as puw
 
 ## System
 
-@digest(form='openmm.Topology')
+@arg_digest(form='openmm.Topology')
 def set_box_to_system(item, structure_indices='all', value=None, skip_digestion=False):
 
     if value is None:

@@ -1,6 +1,6 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 
-@digest()
+@arg_digest()
 def has_pbc(molecular_system, skip_digestion=False):
     """
     Check whether a molecular system has periodic boundary conditions (box).

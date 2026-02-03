@@ -1,7 +1,7 @@
 import os
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 
-@digest()
+@arg_digest()
 def close(filename):
 
     absolute_path = os.path.abspath(filename)

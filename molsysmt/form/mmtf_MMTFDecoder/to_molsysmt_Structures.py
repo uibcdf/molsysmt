@@ -1,9 +1,9 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 from molsysmt._private.variables import is_all
 import numpy as np
 from molsysmt import pyunitwizard as puw
 
-@digest(form='mmtf.MMTFDecoder')
+@arg_digest(form='mmtf.MMTFDecoder')
 def to_molsysmt_Structures(item, atom_indices='all', structure_indices='all', skip_digestion=False):
 
     from .to_molsysmt_MolSys import to_molsysmt_MolSys

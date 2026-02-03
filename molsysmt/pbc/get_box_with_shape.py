@@ -1,8 +1,8 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 from molsysmt import pyunitwizard as puw
 import numpy as np
 
-@digest()
+@arg_digest()
 def get_box_with_shape(shape='cubic', length='1 nm', n_structures=1, skip_digestion=False):
     """
     Constructing a box matrix for a given shape.

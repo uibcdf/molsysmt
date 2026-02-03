@@ -1,6 +1,6 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 
-@digest(form='file:pdb')
+@arg_digest(form='file:pdb')
 def to_mdtraj_Topology(item, atom_indices='all', skip_digestion=False):
 
     from mdtraj import load_topology

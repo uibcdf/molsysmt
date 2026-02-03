@@ -1,6 +1,6 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 
-@digest(form='string:amino_acids_1')
+@arg_digest(form='string:amino_acids_1')
 def to_string_amino_acids_1(item, group_indices='all', copy_if_all=True, skip_digestion=False):
 
     from .extract import extract

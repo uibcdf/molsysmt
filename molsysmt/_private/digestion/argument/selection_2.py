@@ -6,7 +6,7 @@ def digest_selection_2(selection_2, syntax="MolSysMT", caller=None):
     if selection_2 is None:
         return None
 
-    from .selection import digest_selection
+    from .selection import arg_digest_selection
 
     try:
         return digest_selection(selection_2, syntax=syntax, caller=caller)

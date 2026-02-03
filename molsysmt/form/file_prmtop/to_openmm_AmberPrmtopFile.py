@@ -1,6 +1,6 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 
-@digest(form='file:prmtop')
+@arg_digest(form='file:prmtop')
 def to_openmm_AmberPrmtopFile(item, atom_indices='all', skip_digestion=False):
 
     from openmm.app import AmberPrmtopFile

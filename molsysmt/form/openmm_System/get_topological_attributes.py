@@ -3,7 +3,7 @@
 #######################################################################################
 
 from molsysmt._private.exceptions import NotImplementedMethodError, NotWithThisFormError
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 from molsysmt._private.variables import is_all
 import numpy as np
 import types
@@ -13,7 +13,7 @@ form='openmm.System'
 
 ## From atom
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_atom_index_from_atom(item, indices='all', skip_digestion=False):
 
     if is_all(indices):
@@ -36,7 +36,7 @@ def get_atom_index_from_atom(item, indices='all', skip_digestion=False):
 
 ## From system
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_atoms_from_system(item, skip_digestion=False):
 
     return item.getNumParticles()

@@ -1,6 +1,6 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 
-@digest(form='mdtraj.Topology')
+@arg_digest(form='mdtraj.Topology')
 def to_mdtraj_Trajectory(item, atom_indices='all', coordinates=None, box=None, skip_digestion=False):
 
     from mdtraj.core.trajectory import Trajectory

@@ -1,5 +1,5 @@
 from molsysmt._private.exceptions import NotImplementedMethodError
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 from molsysmt import lib as msmlib
 from molsysmt._private.variables import is_all, is_iterable_of_iterables
 from molsysmt import pyunitwizard as puw
@@ -7,7 +7,7 @@ from scipy.spatial.transform import Rotation as R
 import numpy as np
 import gc
 
-@digest()
+@arg_digest()
 def align_principal_axes(molecular_system, selection='all',
         principal_axes_of_selection=None, principal_axes_type='inertia',
         structure_indices='all', weights=None, axes=[[1,0,0],[0,1,0],[0,0,1]], center=False,

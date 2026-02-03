@@ -1,7 +1,7 @@
 from molsysmt._private.exceptions import NotImplementedMethodError
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 
-@digest(form='openmm.Context', to_form='openmm.Context')
+@arg_digest(form='openmm.Context', to_form='openmm.Context')
 def add(to_item, item, atom_indices='all', structure_indices='all', skip_digestion=False):
 
     raise NotImplementedMethodError()

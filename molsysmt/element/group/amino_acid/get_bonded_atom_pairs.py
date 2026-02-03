@@ -1,9 +1,9 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 import numpy as np
 
 _sorted=sorted
 
-@digest()
+@arg_digest()
 def get_bonded_atom_pairs(group_name, atom_names, atom_indices=None, sorted=True, skip_digestion=False):
 
     from molsysmt.element.group.amino_acid import group_names, get_group_db

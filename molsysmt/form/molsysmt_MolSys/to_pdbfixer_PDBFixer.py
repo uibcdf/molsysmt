@@ -1,7 +1,7 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 from molsysmt.dependencies import requires
 
-@digest(form='molsysmt.MolSys')
+@arg_digest(form='molsysmt.MolSys')
 @requires('pdbfixer')
 def to_pdbfixer_PDBFixer(item, atom_indices='all', structure_indices='all',
                          pdb_chain_id='chain_name', skip_digestion=False):

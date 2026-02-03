@@ -1,7 +1,7 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 from molsysmt._private.files_and_directories import str_filename
 
-@digest(form='file:mmtf')
+@arg_digest(form='file:mmtf')
 def to_file_mmtf(item, atom_indices='all', structure_indices='all', output_name=None, copy_if_all=True,
                 skip_digestion=False):
 

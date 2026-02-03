@@ -1,7 +1,7 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 from io import StringIO
 
-@digest(form='string:pdb_text')
+@arg_digest(form='string:pdb_text')
 def to_molsysmt_PDBFileHandler(item, skip_digestion=False):
 
     from molsysmt.native import PDBFileHandler

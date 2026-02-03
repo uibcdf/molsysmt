@@ -1,9 +1,9 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 from molsysmt._private.variables import is_all
 from copy import copy
 import numpy as np
 
-@digest()
+@arg_digest()
 def get_luzard_chandler_hbonds(molecular_system, selection='all', acceptors=None, donors=None, structure_indices='all',
         molecular_system_2=None, selection_2=None, acceptors_2=None, donors_2=None, structure_indices_2=None,
         distance_threshold='3.5 angstroms', angle_threshold='30 degrees', pbc=True, syntax='MolSysMT'):

@@ -1,6 +1,6 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 
-@digest(form='mdtraj.Topology')
+@arg_digest(form='mdtraj.Topology')
 def to_file_top(item, atom_indices='all', output_filename=None, skip_digestion=False):
 
     from . import to_parmed_GromacsTopologyFile

@@ -1,6 +1,6 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 
-@digest(form='mmtf.MMTFDecoder')
+@arg_digest(form='mmtf.MMTFDecoder')
 def to_openmm_Topology(item, atom_indices='all', structure_indices='all', skip_digestion=False):
 
     from .to_molsysmt_Topology import to_molsysmt_Topology

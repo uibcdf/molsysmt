@@ -1,4 +1,4 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 from . import attributes
 from .get import (
     get_atom_id_from_atom,
@@ -18,7 +18,7 @@ from .get import (
 )
 
 
-@digest(form='molsysmt.UniversalJSON')
+@arg_digest(form='molsysmt.UniversalJSON')
 def has_attribute(molecular_system, attribute, include_none=False, skip_digestion=False):
     """Attribute availability for `UniversalJSON` objects."""
 

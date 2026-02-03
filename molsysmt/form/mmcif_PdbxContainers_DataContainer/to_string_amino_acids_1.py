@@ -1,7 +1,7 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 import numpy as np
 
-@digest(form='mmcif.PdbxContainers.DataContainer')
+@arg_digest(form='mmcif.PdbxContainers.DataContainer')
 def to_string_amino_acids_1(item, group_indices='all', skip_digestion=False):
 
     from . import to_molsysmt_Topology

@@ -1,8 +1,8 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 from copy import deepcopy
 
 
-@digest(form='molsysmt.ViewerJSON')
+@arg_digest(form='molsysmt.ViewerJSON')
 def append_structures(item, items, skip_digestion=False):
     """Append structures from other ViewerJSON items."""
 

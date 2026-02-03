@@ -1,7 +1,7 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 from molsysmt._private.variables import is_all
 
-@digest(form='openmm.Topology')
+@arg_digest(form='openmm.Topology')
 def to_string_pdb_text(item, atom_indices='all', coordinates=None, box=None, skip_digestion=False):
 
     from io import StringIO

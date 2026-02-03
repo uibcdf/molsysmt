@@ -1,9 +1,9 @@
 from .file_handler import FileHandler
 import os
 from molsysmt._private.exceptions import FileAlreadyHandledError
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 
-@digest()
+@arg_digest()
 def open(filename, mode='auto'):
 
     absolute_path = os.path.abspath(filename)

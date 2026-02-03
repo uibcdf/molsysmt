@@ -1,7 +1,7 @@
 from molsysmt._private.exceptions import NotImplementedMethodError
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 
-@digest(forms='molsysmt.StructuresDict')
+@arg_digest(forms='molsysmt.StructuresDict')
 def merge(items, atom_indices='all', structure_indices='all'):
 
     raise NotImplementedMethodError()

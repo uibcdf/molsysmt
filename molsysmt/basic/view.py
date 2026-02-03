@@ -1,7 +1,7 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 
 
-@digest()
+@arg_digest()
 def view(molecular_system=None, selection='all', structure_indices='all',
          viewer='MolSysViewer', syntax='MolSysMT', skip_digestion=False):
     """

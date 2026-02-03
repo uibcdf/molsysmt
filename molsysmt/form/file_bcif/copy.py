@@ -1,7 +1,7 @@
 from molsysmt._private.exceptions import NotImplementedMethodError
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 
-@digest(form='file:bcif')
+@arg_digest(form='file:bcif')
 def copy(item, output_filename=None, skip_digestion=False):
 
     if output_filename is None:

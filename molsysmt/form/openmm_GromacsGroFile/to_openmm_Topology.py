@@ -1,6 +1,6 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 
-@digest(form='openmm.GromacsGroFile')
+@arg_digest(form='openmm.GromacsGroFile')
 def to_openmm_Topology(item, atom_indices='all', skip_digestion=False):
 
     tmp_item = item.topology

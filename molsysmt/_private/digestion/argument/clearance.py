@@ -4,7 +4,7 @@ from ...exceptions import ArgumentError
 
 def digest_clearance(clearance, caller=None):
 
-    from .distance import digest_distance
+    from .distance import arg_digest_distance
 
     try:
         return digest_distance(clearance, caller=caller)

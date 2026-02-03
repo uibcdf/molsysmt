@@ -1,9 +1,9 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 import numpy as np
 from molsysmt import pyunitwizard as puw
 import gc
 
-@digest()
+@arg_digest()
 def translate(molecular_system, translation=None, selection='all', structure_indices='all',
         syntax='MolSysMT', in_place=False, skip_digestion=False):
     """

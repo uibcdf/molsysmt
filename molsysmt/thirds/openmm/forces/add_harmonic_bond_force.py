@@ -1,7 +1,7 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 from molsysmt import pyunitwizard as puw
 
-@digest()
+@arg_digest()
 def add_harmonic_bond_force(molecular_system=None, atom_pair=None,
                             force_constant='1000 kilojoules_per_mole/nm**2', bond_length=None,
                             pbc=False, return_force=False, syntax='MolSysMT', skip_digestion=False):

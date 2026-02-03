@@ -1,6 +1,6 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 
-@digest(form='mdtraj.Trajectory')
+@arg_digest(form='mdtraj.Trajectory')
 def has_attribute(molecular_system, attribute, include_none=False, skip_digestion=False):
 
     from . import attributes

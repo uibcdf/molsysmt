@@ -1,6 +1,6 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 
-@digest(form='file:h5msm')
+@arg_digest(form='file:h5msm')
 def has_attribute(molecular_system, attribute, include_none=False, skip_digestion=True):
 
     from . import attributes

@@ -1,9 +1,9 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 from molsysmt import pyunitwizard as puw
 import numpy as np
 import gc
 
-@digest()
+@arg_digest()
 def get_minimum_distances(molecular_system, selection="all", center_of_atoms=False, weights=None, as_entity=True,
         structure_indices="all", molecular_system_2=None, selection_2=None, center_of_atoms_2=False, weights_2=None,
         as_entity_2=True, structure_indices_2=None, pairs=False, pbc=False, engine='MolSysMT', syntax='MolSysMT',

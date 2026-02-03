@@ -1,6 +1,6 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 
-@digest(form='string:pdb_text')
+@arg_digest(form='string:pdb_text')
 def to_openmm_Simulation(item, atom_indices='all', structure_indices='all', skip_digestion=False):
 
     from . import to_openmm_Modeller

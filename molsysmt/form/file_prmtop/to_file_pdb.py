@@ -1,6 +1,6 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 
-@digest(form='file:prmtop')
+@arg_digest(form='file:prmtop')
 def to_file_pdb(item, atom_indices='all', coordinates=None, output_filename=None, skip_digestion=False):
 
     from . import to_openmm_Topology

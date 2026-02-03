@@ -3,7 +3,7 @@
 #######################################################################################
 
 from molsysmt._private.exceptions import NotImplementedMethodError, NotWithThisFormError
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 from molsysmt._private.variables import is_all
 import numpy as np
 import types
@@ -25,7 +25,7 @@ form='openmm.System'
 
 ## From system
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_box_from_system(item, structure_indices='all', skip_digestion=False):
 
     box = item.getDefaultPeriodicBoxVectors()

@@ -1,6 +1,6 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 
-@digest(form='file:inpcrd')
+@arg_digest(form='file:inpcrd')
 def to_openmm_AmberInpcrdFile(item, atom_indices='all', structure_indices='all', skip_digestion=False):
 
     from openmm.app import AmberInpcrdFile

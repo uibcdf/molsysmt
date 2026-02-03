@@ -1,6 +1,6 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 
-@digest(form='molsysmt.MolSys')
+@arg_digest(form='molsysmt.MolSys')
 def to_molsysmt_MolecularMechanicsDict(item, atom_indices='all', skip_digestion=False):
 
     from ..molsysmt_MolecularMechanics import to_molsysmt_MolecularMechanicsDict as molsysmt_MolecularMechanics_to_MolecularMechanicsDict

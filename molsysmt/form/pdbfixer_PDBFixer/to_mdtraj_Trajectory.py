@@ -1,7 +1,7 @@
 from molsysmt.dependencies import requires
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 
-@digest(form='pdbfixer.PDBFixer')
+@arg_digest(form='pdbfixer.PDBFixer')
 @requires('MDTraj')
 def to_mdtraj_Trajectory(item, atom_indices='all', skip_digestion=False):
 

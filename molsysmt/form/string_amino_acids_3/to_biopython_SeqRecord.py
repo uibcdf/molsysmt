@@ -1,6 +1,6 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 
-@digest(form='string:amino_acids_3')
+@arg_digest(form='string:amino_acids_3')
 def to_biopython_SeqRecord(item, group_indices='all', skip_digestion=False):
 
     from . import to_string_amino_acids_1

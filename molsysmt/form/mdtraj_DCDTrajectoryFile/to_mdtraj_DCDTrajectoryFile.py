@@ -1,7 +1,7 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 from molsysmt.dependencies import requires
 
-@digest(form='mdtraj.DCDTrajectoryFile')
+@arg_digest(form='mdtraj.DCDTrajectoryFile')
 @requires('mdtraj')
 def to_mdtraj_DCDTrajectoryFile(item, atom_indices='all', structure_indices='all', copy_if_all=True, skip_digestion=False):
 

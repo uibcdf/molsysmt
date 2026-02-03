@@ -1,6 +1,6 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 
-@digest()
+@arg_digest()
 def open_file(filename, mode='read'):
 
     from mdtraj.formats import HDF5TrajectoryFile

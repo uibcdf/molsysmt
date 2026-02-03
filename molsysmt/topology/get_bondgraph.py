@@ -1,7 +1,7 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 from networkx import Graph
 
-@digest()
+@arg_digest()
 def get_bondgraph(molecular_system, nodes_name='atom_index', selection='all', syntax='MolSysMT',
               to_form='networkx.Graph'):
     """

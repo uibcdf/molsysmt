@@ -1,6 +1,6 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 
-@digest(form='pytraj.Trajectory')
+@arg_digest(form='pytraj.Trajectory')
 def to_molsysmt_Topology(item, atom_indices='all', skip_digestion=False):
 
     from . import to_pytraj_Topology

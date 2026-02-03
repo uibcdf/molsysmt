@@ -1,7 +1,7 @@
 from molsysmt._private.exceptions import NotImplementedMethodError
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 
-@digest(form='openmm.AmberPrmtopFile')
+@arg_digest(form='openmm.AmberPrmtopFile')
 def copy(item, skip_digestion=False):
 
     raise NotImplementedMethodError()

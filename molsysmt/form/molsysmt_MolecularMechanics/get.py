@@ -3,7 +3,7 @@
 #######################################################################################
 
 from molsysmt._private.exceptions import NotImplementedMethodError, NotWithThisFormError
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 from molsysmt._private.variables import is_all
 
 form='molsysmt.MolecularMechanics'
@@ -14,7 +14,7 @@ form='molsysmt.MolecularMechanics'
 
 # Topology
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_atom_index_from_atom(item, indices='all', skip_digestion=False):
 
     if is_all(indices):
@@ -26,7 +26,7 @@ def get_atom_index_from_atom(item, indices='all', skip_digestion=False):
 
         return indices
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_atoms_from_atom (item, indices='all', skip_digestion=False):
 
     output = None
@@ -47,7 +47,7 @@ def get_n_atoms_from_atom (item, indices='all', skip_digestion=False):
 
 ## Molecular Mechanics
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_formal_charge_from_atom (item, indices='all', skip_digestion=False):
 
     if is_all(indices):
@@ -57,7 +57,7 @@ def get_formal_charge_from_atom (item, indices='all', skip_digestion=False):
 
     return output
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_partial_charge_from_atom (item, indices='all', skip_digestion=False):
 
     if is_all(indices):
@@ -73,89 +73,89 @@ def get_partial_charge_from_atom (item, indices='all', skip_digestion=False):
 
 # Topology
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_atoms_from_system(item, skip_digestion=False):
 
     return get_n_atoms_from_atom(item, skip_digestion=True)
 
 ## Molecular Mechanics
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_forcefield_from_system(item, skip_digestion=False):          
 
     return item.forcefield
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_non_bonded_method_from_system(item, skip_digestion=False):
 
     return item.non_bonded_method
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_cutoff_distance_from_system(item, skip_digestion=False):
 
     return item.cutoff_distance
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_switch_distance_from_system(item, skip_digestion=False):
 
     return item.switch_distance
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_dispersion_correction_from_system(item, skip_digestion=False):
 
     return item.dispersion_correction
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_ewald_error_tolerance_from_system(item, skip_digestion=False):
 
     return item.ewald_error_tolerance
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_hydrogen_mass_from_system(item, skip_digestion=False):
 
     return item.hydrogen_mass
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_constraints_from_system(item, skip_digestion=False):
 
     return item.constraints
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_flexible_constraints_from_system(item, skip_digestion=False):
 
     return item.flexible_constraints
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_water_model_from_system(item, skip_digestion=False):
 
     return item.water_model
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_rigid_water_from_system(item, skip_digestion=False):
 
     return item.rigid_water
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_implicit_solvent_from_system(item, skip_digestion=False):
 
     return item.implicit_solvent
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_solute_dielectric_from_system(item, skip_digestion=False):
 
     return item.solute_dielectric
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_solvent_dielectric_from_system(item, skip_digestion=False):
 
     return item.solvent_dielectric
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_salt_concentration_from_system(item, skip_digestion=False):
 
     return item.salt_concentration
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_kappa_from_system(item, skip_digestion=False):
 
     return item.kappa

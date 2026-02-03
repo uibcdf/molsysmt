@@ -1,6 +1,6 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 
-@digest(form='pdbfixer.PDBFixer')
+@arg_digest(form='pdbfixer.PDBFixer')
 def copy(item, skip_digestion=False):
 
     from copy import deepcopy

@@ -1,6 +1,6 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 
-@digest(form='mdtraj.Trajectory')
+@arg_digest(form='mdtraj.Trajectory')
 def copy(item, skip_digestion=False):
 
     from copy import deepcopy

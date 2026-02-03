@@ -3,7 +3,7 @@ from molsysmt import pyunitwizard as puw
 
 def digest_center_coordinates(center_coordinates, caller=None):
 
-    from .coordinates import digest_coordinates
+    from .coordinates import arg_digest_coordinates
 
     if center_coordinates is None:
         return None

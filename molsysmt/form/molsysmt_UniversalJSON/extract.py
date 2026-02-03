@@ -1,10 +1,10 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 from molsysmt._private.variables import is_all
 from copy import deepcopy
 import numpy as np
 
 
-@digest(form='molsysmt.UniversalJSON')
+@arg_digest(form='molsysmt.UniversalJSON')
 def extract(item, atom_indices='all', structure_indices='all', copy_if_all=True, skip_digestion=False):
     """Extract a subset of atoms/structures from a UniversalJSON."""
 

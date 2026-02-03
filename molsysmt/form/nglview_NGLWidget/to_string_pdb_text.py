@@ -1,7 +1,7 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 from molsysmt._private.variables import is_all
 
-@digest(form='nglview.NGLWidget')
+@arg_digest(form='nglview.NGLWidget')
 def to_string_pdb_text(item, atom_indices='all', structure_indices='all', skip_digestion=False):
 
     from ..string_pdb_text import extract

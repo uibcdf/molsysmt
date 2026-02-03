@@ -1,4 +1,4 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 import numpy as np
 
 
@@ -14,7 +14,7 @@ acceptor_exclusion_rules = [
     "(atom_name=='ND1' and group_name=='HIS') bonded to (atom_type=='H')",
 ]
 
-@digest()
+@arg_digest()
 def get_acceptor_atoms(molecular_system, selection='all', inclusion_rules=None,
         exclusion_rules=None, default_inclusion_rules=True, default_exclusion_rules=True,
         syntax='MolSysMT'):

@@ -1,8 +1,8 @@
 from molsysmt._private.exceptions import NotImplementedMethodError
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 from molsysmt._private.variables import is_all
 
-@digest(form='molsysmt.H5MSMFileHandler')
+@arg_digest(form='molsysmt.H5MSMFileHandler')
 def copy(item, output_filename=None, skip_digestion=False):
 
     if output_filename is None:

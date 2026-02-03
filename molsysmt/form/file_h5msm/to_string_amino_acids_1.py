@@ -1,6 +1,6 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 
-@digest(form='file:h5msm')
+@arg_digest(form='file:h5msm')
 def to_string_amino_acids_1(item, group_indices='all', skip_digestion=False):
 
     from . import to_string_amino_acids_3

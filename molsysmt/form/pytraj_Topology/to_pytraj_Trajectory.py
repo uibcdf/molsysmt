@@ -1,8 +1,8 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 from molsysmt._private.exceptions import LibraryNotFoundError
 import numpy as np
 
-@digest(form='pytraj.Topology')
+@arg_digest(form='pytraj.Topology')
 def to_pytraj_Trajectory(item, atom_indices='all', coordinates=None, box=None, skip_digestion=False):
 
     try:

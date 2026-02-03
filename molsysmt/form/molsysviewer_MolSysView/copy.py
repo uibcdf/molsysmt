@@ -1,9 +1,9 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 
 form = 'molsysviewer.MolSysView'
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def copy(item, skip_digestion=False):
 
     from molsysmt.basic import copy as molsys_copy, convert

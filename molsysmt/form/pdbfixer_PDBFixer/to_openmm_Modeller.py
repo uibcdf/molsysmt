@@ -1,6 +1,6 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 
-@digest(form='pdbfixer.PDBFixer')
+@arg_digest(form='pdbfixer.PDBFixer')
 def to_openmm_Modeller(item, atom_indices='all', skip_digestion=False):
 
     from molsysmt import pyunitwizard as puw

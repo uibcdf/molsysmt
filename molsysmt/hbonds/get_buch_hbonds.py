@@ -1,8 +1,8 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 from copy import copy
 import numpy as np
 
-@digest()
+@arg_digest()
 def get_buch_hbonds(molecular_system, selection='all', acceptors=None, donors=None, structure_indices='all',
         molecular_system_2=None, selection_2=None, acceptors_2=None, donors_2=None, structure_indices_2=None,
         distance_threshold='2.3 angstroms', pbc=True, syntax='MolSysMT', skip_digestion=False):

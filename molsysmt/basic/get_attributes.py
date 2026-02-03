@@ -1,7 +1,7 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 
 
-@digest()
+@arg_digest()
 def get_attributes(molecular_system, include_none=False, attribute_type='all', output_type='dictionary',
                    skip_digestion=False):
     """

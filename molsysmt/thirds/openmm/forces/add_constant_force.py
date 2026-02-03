@@ -1,7 +1,7 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 from molsysmt import pyunitwizard as puw
 
-@digest()
+@arg_digest()
 def add_constant_force(molecular_system, selection='all',
                        force='[500,0,0] kilojoules/(mole*nanometer)', return_force=False,
                        syntax='MolSysMT', skip_digestion=False):

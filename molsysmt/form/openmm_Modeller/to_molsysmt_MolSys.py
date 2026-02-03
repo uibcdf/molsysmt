@@ -1,6 +1,6 @@
 from molsysmt._private.digestion import *
 
-@digest(form='openmm.Modeller')
+@arg_digest(form='openmm.Modeller')
 def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_digestion=False):
 
     from molsysmt.native.molsys import MolSys

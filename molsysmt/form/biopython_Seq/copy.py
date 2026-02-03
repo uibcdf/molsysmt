@@ -1,6 +1,6 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 
-@digest(form='biopython.Seq')
+@arg_digest(form='biopython.Seq')
 def copy(item, skip_digestion=False):
 
     return item.copy()

@@ -1,6 +1,6 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 
-@digest(form='mmtf.MMTFDecoder')
+@arg_digest(form='mmtf.MMTFDecoder')
 def to_string_pdb_text(item, atom_indices='all', structure_indices='all', skip_digestion=False):
 
     from . import to_molsysmt_MolSys

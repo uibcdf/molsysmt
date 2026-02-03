@@ -1,8 +1,8 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 from molsysmt import pyunitwizard as puw
 from molsysmt import lib as msmlib
 
-@digest()
+@arg_digest()
 def get_lengths_and_angles_from_box(box, skip_digestion=False):
     """Return box lengths and angles from a 3x3 box matrix or an array of boxes.
 

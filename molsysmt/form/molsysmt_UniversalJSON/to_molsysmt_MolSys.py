@@ -1,4 +1,4 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 from molsysmt.native import MolSys, Topology, Structures
 from molsysmt import pyunitwizard as puw
 from molsysmt.pbc import get_box_from_lengths_and_angles
@@ -110,7 +110,7 @@ def _collect_coordinates(frames, n_atoms):
     )
 
 
-@digest(form='molsysmt.UniversalJSON')
+@arg_digest(form='molsysmt.UniversalJSON')
 def to_molsysmt_MolSys(item, skip_digestion=False):
     """Convert a UniversalJSON object into a native MolSys."""
 

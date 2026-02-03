@@ -1,7 +1,7 @@
 from molsysmt._private.exceptions import NotImplementedMethodError
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 
-@digest(form='MDAnalysis.Universe')
+@arg_digest(form='MDAnalysis.Universe')
 def copy(item):
 
     from copy import deepcopy

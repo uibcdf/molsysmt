@@ -1,7 +1,7 @@
 from molsysmt._private.exceptions import NotImplementedMethodError
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 
-@digest(form='nglview.NGLWidget', to_form='nglview.NGLWidget')
+@arg_digest(form='nglview.NGLWidget', to_form='nglview.NGLWidget')
 def add(to_item, item, atom_indices='all', structure_indices='all', skip_digestion=False):
 
     raise NotImplementedMethodError()

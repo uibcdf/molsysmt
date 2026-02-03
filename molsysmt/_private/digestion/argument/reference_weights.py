@@ -3,7 +3,7 @@ from ...exceptions import ArgumentError
 
 def digest_reference_weights(reference_weights, caller=None):
 
-    from .weights import digest_weights
+    from .weights import arg_digest_weights
 
     try:
         return digest_weights(reference_weights, caller=caller)

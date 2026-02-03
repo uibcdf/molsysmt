@@ -1,8 +1,8 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 import numpy as np
 from molsysmt import pyunitwizard as puw
 
-@digest()
+@arg_digest()
 def move_away(molecular_system, selection='all', center_of_selection='all', weights=None, structure_indices=0,
               reference_molecular_system=None, reference_center_of_selection='all', reference_weights=None,
               reference_structure_indices=None, direction=None, distance='3 angstroms',

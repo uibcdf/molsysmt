@@ -4,7 +4,7 @@ import numpy as np
 
 def digest_groups_of_atoms(groups_of_atoms, caller=None):
 
-    from .indices import digest_indices
+    from .indices import arg_digest_indices
 
     if groups_of_atoms is None:
         return None

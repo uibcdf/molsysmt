@@ -1,9 +1,9 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 from molsysmt._private.variables import is_all
 
 # https://github.com/arose/ngl/blob/master/doc/usage/selection-language.md
 
-@digest()
+@arg_digest()
 def set_color(view, color, selection='all', syntax='MolSysMT'):
 
     from molsysmt.basic import select

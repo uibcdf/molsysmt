@@ -1,8 +1,8 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 import numpy as np
 from molsysmt import pyunitwizard as puw
 
-@digest(form='mmtf.MMTFDecoder')
+@arg_digest(form='mmtf.MMTFDecoder')
 def to_molsysmt_MolecularMechanics(item, atom_indices='all', skip_digestion=False):
 
     from molsysmt.native.molecular_mechanics import MolecularMechanics

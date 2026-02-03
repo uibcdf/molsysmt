@@ -3,7 +3,7 @@ import numpy as np
 
 def digest_reference_center_of_selection(reference_center_of_selection, syntax="MolSysMT", caller=None):
 
-    from .selection import digest_selection
+    from .selection import arg_digest_selection
 
     try:
         return digest_selection(reference_center_of_selection, syntax=syntax, caller=caller)

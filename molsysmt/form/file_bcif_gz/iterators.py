@@ -2,11 +2,11 @@ from molsysmt._private.exceptions import NotImplementedIteratorError
 from ..molsysmt_MolSys.iterators import StructuresIterator as StructuresIterator_molsysmt_MolSys
 from ..molsysmt_MolSys.iterators import TopologyIterator as TopologyIterator_molsysmt_MolSys
 from .to_molsysmt_MolSys import to_molsysmt_MolSys
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 
 class StructuresIterator(StructuresIterator_molsysmt_MolSys):
 
-    @digest(form='file:bcif.gz')
+    @arg_digest(form='file:bcif.gz')
     def __init__(self, molecular_system, atom_indices='all', start=0, step=1, stop=None, chunk=1, structure_indices=None,
             output_type='values', skip_digestion=False, **kwargs):
 
@@ -18,7 +18,7 @@ class StructuresIterator(StructuresIterator_molsysmt_MolSys):
 
 class TopologyIterator(TopologyIterator_molsysmt_MolSys):
 
-    @digest(form='file:bcif.gz')
+    @arg_digest(form='file:bcif.gz')
     def __init__(self, molecular_system, element='atom', indices='all', start=0, step=1, stop=None, chunk=1,
             output_type='values', skip_digestion=False, **kwargs):
 

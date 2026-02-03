@@ -4,12 +4,12 @@ from molsysmt import pyunitwizard as puw
 from molsysmt._private.variables import is_all, is_iterable
 from molsysmt.basic import get
 from molsysmt._private.exceptions import IteratorError
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 
 class Structures:
     """Storing per-structure data (coordinates, box, time, energies) for a molecular system."""
 
-    @digest()
+    @arg_digest()
     def __init__(self, constant_time_step=False, time_step=None, constant_id_step=False,
             id_step=None, constant_box=False,
             structure_id=None, time=None, coordinates=None, velocities=None, box=None,
@@ -53,7 +53,7 @@ class Structures:
             self.n_atoms = 0
 
 
-    @digest()
+    @arg_digest()
     def _append_structure_id(self, structure_id, structure_indices='all', skip_digestion=False):
         """Append structure identifiers with optional sub-selection."""
 
@@ -69,7 +69,7 @@ class Structures:
                 self.structure_id = np.concatenate([self.structure_id, structure_id[structure_indices]])
 
 
-    @digest()
+    @arg_digest()
     def _append_time(self, time, structure_indices='all', skip_digestion=False):
         """Append time values, standardizing units."""
 
@@ -87,7 +87,7 @@ class Structures:
                 self.time = np.concatenate([self.time, time[structure_indices]])
 
 
-    @digest()
+    @arg_digest()
     def _append_coordinates(self, coordinates, atom_indices='all', structure_indices='all', skip_digestion=False):
         """Append coordinates, optionally slicing atoms/structures."""
 
@@ -122,7 +122,7 @@ class Structures:
                     self.coordinates = np.concatenate([self.coordinates,
                                                        coordinates[np.ix_(structure_indices, atom_indices)]])
 
-    @digest()
+    @arg_digest()
     def _append_velocities(self, velocities, atom_indices='all', structure_indices='all', skip_digestion=False):
         """Append velocities, optionally slicing atoms/structures."""
 
@@ -157,7 +157,7 @@ class Structures:
                                                        velocities[np.ix_(structure_indices, atom_indices)]])
 
 
-    @digest()
+    @arg_digest()
     def _append_box(self, box, structure_indices='all', skip_digestion=False):
         """Append box matrices, standardizing units."""
 
@@ -175,7 +175,7 @@ class Structures:
                 self.box = np.concatenate([self.box, box[structure_indices]])
 
 
-    @digest()
+    @arg_digest()
     def _append_temperature(self, temperature, structure_indices='all', skip_digestion=False):
         """Append temperature values with optional slicing."""
 
@@ -193,7 +193,7 @@ class Structures:
                 self.temperature = np.concatenate([self.temperature, temperature[structure_indices]])
 
 
-    @digest()
+    @arg_digest()
     def _append_potential_energy(self, potential_energy, structure_indices='all', skip_digestion=False):
         """Append potential energy values."""
 
@@ -210,7 +210,7 @@ class Structures:
             else:
                 self.potential_energy = np.concatenate([self.potential_energy, potential_energy[structure_indices]])
 
-    @digest()
+    @arg_digest()
     def _append_kinetic_energy(self, kinetic_energy, structure_indices='all', skip_digestion=False):
         """Append kinetic energy values."""
 
@@ -227,7 +227,7 @@ class Structures:
             else:
                 self.kinetic_energy = np.concatenate([self.kinetic_energy, kinetic_energy[structure_indices]])
 
-    @digest()
+    @arg_digest()
     def _append_b_factor(self, b_factor, structure_indices='all', skip_digestion=False):
         """Append B-factors."""
 
@@ -245,7 +245,7 @@ class Structures:
                 self.b_factor = np.concatenate([self.b_factor, b_factor[structure_indices]])
 
 
-    @digest()
+    @arg_digest()
     def _append_alternate_location(self, alternate_location, structure_indices='all', skip_digestion=False):
         """Append alternate location identifiers."""
 
@@ -260,7 +260,7 @@ class Structures:
             else:
                 self.alternate_location.append(alternate_location[structure_indices])
 
-    @digest()
+    @arg_digest()
     def append(self, structure_id=None, time=None, coordinates=None, velocities=None,
                box=None, temperature=None, potential_energy=None, kinetic_energy=None,
                b_factor=None, alternate_location=None,
@@ -450,7 +450,7 @@ class Structures:
     def get_n_structures(self):
         return self.n_structures
 
-    @digest(form='molsysmt.Structures')
+    @arg_digest(form='molsysmt.Structures')
     def append_structures(self, item, atom_indices='all', structure_indices='all', skip_digestion=False):
         """Append structures from another Structures object."""
 
@@ -472,7 +472,7 @@ class Structures:
 
             raise NotImplementedError
 
-    @digest(form='molsysmt.Structures')
+    @arg_digest(form='molsysmt.Structures')
     def add(self, item, atom_indices='all', structure_indices='all', skip_digestion=False):
         """Concatenate atomic data from another Structures object along the atom axis."""
 
@@ -554,7 +554,7 @@ class Structures:
             self.n_atoms = self.velocities.shape[1]
 
 
-    @digest()
+    @arg_digest()
     def extract(self, atom_indices='all', structure_indices='all', copy_if_all=False, skip_digestion=False):
         """ Returns a new Structures object with the specified atoms and/or
             structures.

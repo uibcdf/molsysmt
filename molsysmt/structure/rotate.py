@@ -1,10 +1,10 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 import numpy as np
 from scipy.spatial.transform import Rotation
 from molsysmt import pyunitwizard as puw
 import gc
 
-@digest()
+@arg_digest()
 def rotate(molecular_system, rotation=None, rotation_center=None, selection='all', structure_indices='all',
         syntax='MolSysMT', in_place=False, skip_digestion=False):
     """

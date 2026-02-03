@@ -1,6 +1,6 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 
-@digest(form='openmm.Modeller')
+@arg_digest(form='openmm.Modeller')
 def to_nglview_NGLWidget(item, atom_indices='all', structure_indices='all', skip_digestion=False):
 
     from . import to_molsysmt_MolSys as to_molsysmt_MolSys

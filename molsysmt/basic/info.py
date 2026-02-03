@@ -1,9 +1,9 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 import numpy as np
 from pandas import DataFrame as df
 
 
-@digest()
+@arg_digest()
 def info(molecular_system,
          element='system',
          selection='all',

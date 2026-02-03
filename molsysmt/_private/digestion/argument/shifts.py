@@ -6,7 +6,7 @@ def digest_shifts(shifts, caller=None):
 
     if caller=='molsysmt.structure.shift_dihedral_angles.shift_dihedral_angles':
 
-        from .angles import digest_angles
+        from .angles import arg_digest_angles
 
         try:
             return digest_angles(shifts, caller=caller)

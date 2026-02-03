@@ -1,6 +1,6 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 
-@digest(form='openmm.System')
+@arg_digest(form='openmm.System')
 def to_openmm_Context(item, atom_indices='all', coordinates=None,
         integrator='Langevin', temperature='300 kelvin', friction='1.0/picoseconds', time_step='2 femtoseconds',
         platform='CUDA', skip_digestion=False):

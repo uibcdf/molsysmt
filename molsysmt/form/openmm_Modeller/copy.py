@@ -1,6 +1,6 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 
-@digest(form='openmm.Modeller')
+@arg_digest(form='openmm.Modeller')
 def copy(item, skip_digestion=False):
 
     from openmm.app import Modeller

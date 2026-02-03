@@ -1,4 +1,4 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 from molsysmt._private.exceptions import NotImplementedMethodError
 from molsysmt import pyunitwizard as puw
 import numpy as np
@@ -6,7 +6,7 @@ import sys
 from importlib.resources import files
 
 
-@digest()
+@arg_digest()
 def make_water_box(box, form='molsysmt.MolSys', skip_digestion=False):
     """
     Building an SPC/E water box from a reference tile, supporting triclinic cells.

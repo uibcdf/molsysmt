@@ -1,8 +1,8 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 from molsysmt import pyunitwizard as puw
 import numpy as np
 
-@digest(form='molsysmt.PDBFileHandler')
+@arg_digest(form='molsysmt.PDBFileHandler')
 def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', get_missing_bonds=False,
                        skip_digestion=False):
 

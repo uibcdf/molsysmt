@@ -1,6 +1,6 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 
-@digest(form='pdbfixer.PDBfixer')
+@arg_digest(form='pdbfixer.PDBfixer')
 def to_biopython_Seq(item, atom_indices='all', skip_digestion=False):
 
     from . import to_string_aminoacids1

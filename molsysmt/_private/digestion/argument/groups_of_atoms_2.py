@@ -5,7 +5,7 @@ def digest_groups_of_atoms_2(groups_of_atoms_2, caller=None):
     if groups_of_atoms_2 is None:
         return None
 
-    from .groups_of_atoms import digest_groups_of_atoms
+    from .groups_of_atoms import arg_digest_groups_of_atoms
 
     try:
         return digest_groups_of_atoms(groups_of_atoms_2, caller=caller)

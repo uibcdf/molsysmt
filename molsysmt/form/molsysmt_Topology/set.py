@@ -1,4 +1,4 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 from molsysmt._private.variables import is_all
 from molsysmt import pyunitwizard as puw
 import numpy as np
@@ -10,7 +10,7 @@ form='molsysmt.Topology'
 
 ## Atom
 
-@digest(form=form)
+@arg_digest(form=form)
 def set_atom_id_to_atom(item, indices='all', value=None, skip_digestion=False):
 
     if is_all(indices):
@@ -20,7 +20,7 @@ def set_atom_id_to_atom(item, indices='all', value=None, skip_digestion=False):
 
     pass
 
-@digest(form=form)
+@arg_digest(form=form)
 def set_atom_name_to_atom(item, indices='all', value=None, skip_digestion=False):
 
     if is_all(indices):
@@ -30,7 +30,7 @@ def set_atom_name_to_atom(item, indices='all', value=None, skip_digestion=False)
 
     pass
 
-@digest(form=form)
+@arg_digest(form=form)
 def set_atom_type_to_atom(item, indices='all', value=None, skip_digestion=False):
 
     if is_all(indices):
@@ -40,7 +40,7 @@ def set_atom_type_to_atom(item, indices='all', value=None, skip_digestion=False)
 
     pass
 
-@digest(form=form)
+@arg_digest(form=form)
 def set_group_index_to_atom(item, indices='all', value=None, skip_digestion=False):
 
     if is_all(indices):
@@ -50,7 +50,7 @@ def set_group_index_to_atom(item, indices='all', value=None, skip_digestion=Fals
 
     pass
 
-@digest(form=form)
+@arg_digest(form=form)
 def set_component_index_to_atom(item, indices='all', value=None, skip_digestion=False):
 
     if is_all(indices):
@@ -69,7 +69,7 @@ def set_component_index_to_atom(item, indices='all', value=None, skip_digestion=
 
     pass
 
-@digest(form=form)
+@arg_digest(form=form)
 def set_chain_index_to_atom(item, indices='all', value=None, skip_digestion=False):
 
     if is_all(indices):
@@ -88,7 +88,7 @@ def set_chain_index_to_atom(item, indices='all', value=None, skip_digestion=Fals
 
     pass
 
-#@digest(form=form)
+#@arg_digest(form=form)
 #def set_chain_id_to_atom(item, indices='all', value=None, skip_digestion=False):
 #
 #    if is_all(indices):
@@ -105,7 +105,7 @@ def set_chain_index_to_atom(item, indices='all', value=None, skip_digestion=Fals
 
 ## Group
 
-@digest(form=form)
+@arg_digest(form=form)
 def set_group_id_to_group(item, indices='all', value=None, skip_digestion=False):
 
     if is_all(indices):
@@ -115,7 +115,7 @@ def set_group_id_to_group(item, indices='all', value=None, skip_digestion=False)
 
     pass
 
-@digest(form=form)
+@arg_digest(form=form)
 def set_group_name_to_group(item, indices='all', value=None, skip_digestion=False):
 
     if is_all(indices):
@@ -125,7 +125,7 @@ def set_group_name_to_group(item, indices='all', value=None, skip_digestion=Fals
 
     pass
 
-@digest(form=form)
+@arg_digest(form=form)
 def set_group_type_to_group(item, indices='all', value=None, skip_digestion=False):
 
     if is_all(indices):
@@ -138,7 +138,7 @@ def set_group_type_to_group(item, indices='all', value=None, skip_digestion=Fals
 
 ## Component
 
-@digest(form=form)
+@arg_digest(form=form)
 def set_component_id_to_component(item, indices='all', value=None, skip_digestion=False):
 
     if is_all(indices):
@@ -148,7 +148,7 @@ def set_component_id_to_component(item, indices='all', value=None, skip_digestio
 
     pass
 
-@digest(form=form)
+@arg_digest(form=form)
 def set_component_name_to_component(item, indices='all', value=None, skip_digestion=False):
 
     if is_all(indices):
@@ -158,7 +158,7 @@ def set_component_name_to_component(item, indices='all', value=None, skip_digest
 
     pass
 
-@digest(form=form)
+@arg_digest(form=form)
 def set_component_type_to_component(item, indices='all', value=None, skip_digestion=False):
 
     if is_all(indices):
@@ -171,7 +171,7 @@ def set_component_type_to_component(item, indices='all', value=None, skip_digest
 
 ## Molecule
 
-@digest(form=form)
+@arg_digest(form=form)
 def set_molecule_id_to_molecule(item, indices='all', value=None, skip_digestion=False):
 
     if is_all(indices):
@@ -181,7 +181,7 @@ def set_molecule_id_to_molecule(item, indices='all', value=None, skip_digestion=
 
     pass
 
-@digest(form=form)
+@arg_digest(form=form)
 def set_molecule_name_to_molecule(item, indices='all', value=None, skip_digestion=False):
 
     if is_all(indices):
@@ -191,7 +191,7 @@ def set_molecule_name_to_molecule(item, indices='all', value=None, skip_digestio
 
     pass
 
-@digest(form=form)
+@arg_digest(form=form)
 def set_molecule_type_to_molecule(item, indices='all', value=None, skip_digestion=False):
 
     if is_all(indices):
@@ -204,7 +204,7 @@ def set_molecule_type_to_molecule(item, indices='all', value=None, skip_digestio
 
 ## Chain
 
-@digest(form=form)
+@arg_digest(form=form)
 def set_chain_id_to_chain(item, indices='all', value=None, skip_digestion=False):
 
     value_is_string = False
@@ -228,7 +228,7 @@ def set_chain_id_to_chain(item, indices='all', value=None, skip_digestion=False)
 
     pass
 
-@digest(form=form)
+@arg_digest(form=form)
 def set_chain_name_to_chain(item, indices='all', value=None, skip_digestion=False):
 
     if is_all(indices):
@@ -239,7 +239,7 @@ def set_chain_name_to_chain(item, indices='all', value=None, skip_digestion=Fals
 
     pass
 
-@digest(form=form)
+@arg_digest(form=form)
 def set_chain_type_to_chain(item, indices='all', value=None, skip_digestion=False):
 
     if is_all(indices):
@@ -254,7 +254,7 @@ def set_chain_type_to_chain(item, indices='all', value=None, skip_digestion=Fals
 
 ## Entity
 
-@digest(form=form)
+@arg_digest(form=form)
 def set_entity_id_to_entity(item, indices='all', value=None, skip_digestion=False):
 
     if is_all(indices):
@@ -264,7 +264,7 @@ def set_entity_id_to_entity(item, indices='all', value=None, skip_digestion=Fals
 
     pass
 
-@digest(form=form)
+@arg_digest(form=form)
 def set_entity_name_to_entity(item, indices='all', value=None, skip_digestion=False):
 
     if is_all(indices):
@@ -274,7 +274,7 @@ def set_entity_name_to_entity(item, indices='all', value=None, skip_digestion=Fa
 
     pass
 
-@digest(form=form)
+@arg_digest(form=form)
 def set_entity_type_to_entity(item, indices='all', value=None, skip_digestion=False):
 
     if is_all(indices):

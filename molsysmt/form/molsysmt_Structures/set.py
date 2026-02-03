@@ -1,4 +1,4 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 from molsysmt._private.variables import is_all
 from molsysmt import pyunitwizard as puw
 import numpy as np
@@ -7,7 +7,7 @@ import numpy as np
 
 ## Atom
 
-@digest(form='molsysmt.Structures')
+@arg_digest(form='molsysmt.Structures')
 def set_coordinates_to_atom(item, indices='all', structure_indices='all', value=None, skip_digestion=False):
 
     if is_all(indices):
@@ -35,7 +35,7 @@ def set_coordinates_to_atom(item, indices='all', structure_indices='all', value=
 
     pass
 
-@digest(form='molsysmt.Structures')
+@arg_digest(form='molsysmt.Structures')
 def set_velocities_to_atom(item, indices='all', structure_indices='all', value=None, skip_digestion=False):
 
     if is_all(indices):
@@ -53,7 +53,7 @@ def set_velocities_to_atom(item, indices='all', structure_indices='all', value=N
 
     pass
 
-@digest(form='molsysmt.Structures')
+@arg_digest(form='molsysmt.Structures')
 def set_occupancy_to_atom(item, indices='all', structure_indices='all', value=None, skip_digestion=False):
 
     if is_all(indices):
@@ -69,7 +69,7 @@ def set_occupancy_to_atom(item, indices='all', structure_indices='all', value=No
 
     pass
 
-@digest(form='molsysmt.Structures')
+@arg_digest(form='molsysmt.Structures')
 def set_b_factor_to_atom(item, indices='all', structure_indices='all', value=None, skip_digestion=False):
 
     if is_all(indices):
@@ -88,7 +88,7 @@ def set_b_factor_to_atom(item, indices='all', structure_indices='all', value=Non
 
 ## System
 
-@digest(form='molsysmt.Structures')
+@arg_digest(form='molsysmt.Structures')
 def set_structure_id_to_system(item, structure_indices='all', value=None, skip_digestion=False):
 
     if is_all(structure_indices):
@@ -98,7 +98,7 @@ def set_structure_id_to_system(item, structure_indices='all', value=None, skip_d
 
     pass
 
-@digest(form='molsysmt.Structures')
+@arg_digest(form='molsysmt.Structures')
 def set_time_to_system(item, structure_indices='all', value=None, skip_digestion=False):
 
     if is_all(structure_indices):
@@ -108,7 +108,7 @@ def set_time_to_system(item, structure_indices='all', value=None, skip_digestion
 
     pass
 
-@digest(form='molsysmt.Structures')
+@arg_digest(form='molsysmt.Structures')
 def set_box_to_system(item, structure_indices='all', value=None, skip_digestion=False):
 
     if is_all(structure_indices):
@@ -118,14 +118,14 @@ def set_box_to_system(item, structure_indices='all', value=None, skip_digestion=
 
     pass
 
-@digest(form='molsysmt.Structures')
+@arg_digest(form='molsysmt.Structures')
 def set_coordinates_to_system(item, indices='all', structure_indices='all', value=None, skip_digestion=False):
 
     return set_coordinates_to_atom(item, indices='all', structure_indices=structure_indices,
             value=value, skip_digestion=True)
 
 
-@digest(form='molsysmt.Structures')
+@arg_digest(form='molsysmt.Structures')
 def set_velocities_to_system(item, indices='all', structure_indices='all', value=None, skip_digestion=False):
 
     return set_velocities_to_atom(item, indices='all', structure_indices=structure_indices,

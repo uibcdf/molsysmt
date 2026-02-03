@@ -1,4 +1,4 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 
 bond_dependent_attributes = [
     'component_index', 
@@ -40,7 +40,7 @@ bond_dependent_elements=[
     'bond'
 ]
 
-@digest()
+@arg_digest()
 def bonds_are_required_to_get_attribute(attribute, from_element=None, skip_digestion=False):
 
     output = (attribute in bond_dependent_attributes)

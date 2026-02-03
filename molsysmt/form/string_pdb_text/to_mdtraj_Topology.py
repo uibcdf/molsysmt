@@ -1,7 +1,7 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 from molsysmt.dependencies import requires
 
-@digest(form='string:pdb_text')
+@arg_digest(form='string:pdb_text')
 @requires('MDTraj')
 def to_mdtraj_Topology(item, atom_indices='all', structure_indices='all', skip_digestion=False):
 

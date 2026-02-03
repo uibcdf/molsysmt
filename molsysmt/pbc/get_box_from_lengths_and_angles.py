@@ -1,9 +1,9 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 from molsysmt import lib as msmlib
 import numpy as np
 from molsysmt import pyunitwizard as puw
 
-@digest()
+@arg_digest()
 def get_box_from_lengths_and_angles(box_lengths, box_angles, skip_digestion=False):
     """
     Building a box matrix from lengths and angles.

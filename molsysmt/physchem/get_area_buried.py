@@ -1,8 +1,8 @@
 from molsysmt._private.exceptions import NotImplementedMethodError
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 import numpy as np
 
-@digest()
+@arg_digest()
 def get_area_buried(molecular_system, element='group', selection='all', definition='rose', skip_digestion=False):
     """
     To be written soon...

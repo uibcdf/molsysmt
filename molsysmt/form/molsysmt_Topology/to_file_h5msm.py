@@ -1,8 +1,8 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 import numpy as np
 import h5py
 
-@digest(form='molsysmt.Topology')
+@arg_digest(form='molsysmt.Topology')
 def to_file_h5msm(item, atom_indices='all', coordinates=None, output_filename=None,
         compression='gzip', compression_opts=4, int_precision='single', float_precision='single',
                   skip_digestion=False):

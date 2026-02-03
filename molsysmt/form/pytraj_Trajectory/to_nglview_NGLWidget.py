@@ -1,6 +1,6 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 
-@digest(form='pytraj.Trajectory')
+@arg_digest(form='pytraj.Trajectory')
 def to_nglview_NGLWidget(item, atom_indices='all', structure_indices='all', skip_digestion=False):
 
     from nglview import show_pytraj

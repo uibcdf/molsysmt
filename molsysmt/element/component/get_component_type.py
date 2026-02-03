@@ -1,9 +1,9 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 from molsysmt._private.variables import is_all
 import numpy as np
 import pandas as pd
 
-@digest()
+@arg_digest()
 def get_component_type(molecular_system, element='component', selection='all', redefine_indices=False,
                        redefine_types=False, syntax='MolSysMT', skip_digestion=False):
 

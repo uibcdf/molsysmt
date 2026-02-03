@@ -5,7 +5,7 @@ def digest_group_behavior_2(group_behavior_2, caller=None):
     if group_behavior_2 is None:
         return None
 
-    from .group_behavior import digest_group_behavior
+    from .group_behavior import arg_digest_group_behavior
 
     try:
         return digest_group_behavior(group_behavior_2, caller=caller)

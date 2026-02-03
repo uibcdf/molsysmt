@@ -1,7 +1,7 @@
 import pandas as pd
 import numpy as np
 from molsysmt._private.variables import is_all
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 from molsysmt.lib.series import occurrence_order
 import string
 
@@ -199,7 +199,7 @@ class Bonds_DataFrame(pd.DataFrame):
 class Topology():
     """Native topology container including atoms, groups, chains, and bonds."""
 
-    @digest()
+    @arg_digest()
     def __init__(self, n_atoms=0, n_groups=0, n_components=0, n_molecules=0, n_entities=0, n_chains=0, n_bonds=0,
                 skip_digestion=False):
         """Initialize empty topology tables with the requested sizes."""
@@ -279,7 +279,7 @@ class Topology():
         self.entities['entity_id'] = self.entities['entity_id'].astype('string')
         self.chains['chain_id'] = self.chains['chain_id'].astype('string')
 
-    @digest()
+    @arg_digest()
     def extract(self, atom_indices='all', copy_if_all=False, skip_digestion=False):
         """Return a subset topology with the selected atoms and associated hierarchy."""
 
@@ -363,7 +363,7 @@ class Topology():
             tmp_item._coerce_id_columns_to_string()
             return tmp_item
 
-    @digest()
+    @arg_digest()
     def remove(self, atom_indices=None, copy_if_None=False, skip_digestion=False):
         """Remove atoms by index and return the resulting topology."""
 
@@ -383,7 +383,7 @@ class Topology():
             return tmp_item
 
 
-    @digest(form='molsysmt.Topology')
+    @arg_digest(form='molsysmt.Topology')
     def add(self, item, atom_indices='all', keep_ids=True, skip_digestion=False):
         """Append another topology, offsetting indices as needed."""
 
@@ -759,7 +759,7 @@ class Topology():
 
         self.bonds._sort_bonds()
 
-    @digest()
+    @arg_digest()
     def compare(self, item, rule='equal', output_type='boolean', skip_digestion=False, **kwargs):
         """Compare topology content with another topology."""
 

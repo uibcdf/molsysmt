@@ -1,9 +1,9 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 
 form = 'molsysviewer.MolSysView'
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def append_structures(item, structure_id=None, time=None, coordinates=None, velocities=None,
                       box=None, temperature=None, potential_energy=None, kinetic_energy=None,
                       atom_indices='all', structure_indices='all', skip_digestion=False):

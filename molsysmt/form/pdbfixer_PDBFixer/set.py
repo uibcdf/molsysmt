@@ -1,6 +1,6 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 
-@digest(form='pdbfixer.PDBFixer')
+@arg_digest(form='pdbfixer.PDBFixer')
 def set_group_name_to_group(item, indices='all', value=None, skip_digestion=False):
 
     for group in tmp_item.topology.groups():

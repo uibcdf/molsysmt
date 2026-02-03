@@ -1,6 +1,6 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 
-@digest(form='nglview.NGLWidget')
+@arg_digest(form='nglview.NGLWidget')
 def to_molsysmt_Topology(item, atom_indices='all', get_missing_bonds=True, skip_digestion=False):
 
     from . import to_string_pdb_text

@@ -1,7 +1,7 @@
 from molsysmt._private.exceptions import NotImplementedMethodError
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 
-@digest(form='file:inpcrd', to_form='file:inpcrd')
+@arg_digest(form='file:inpcrd', to_form='file:inpcrd')
 def add(to_item, item, atom_indices='all', structure_indices='all', skip_digestion=False):
 
     raise NotImplementedMethodError()

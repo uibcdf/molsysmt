@@ -1,6 +1,6 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 
-@digest()
+@arg_digest()
 def copy(molecular_system, output_filename=None, skip_digestion=False):
     """
     Creating an independent copy of a molecular system.

@@ -1,7 +1,7 @@
 import functools
 import inspect
 
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 from molsysmt.form.molsysmt_MolSys import get_structural_attributes as _molsys_get
 
 form = 'molsysviewer.MolSysView'
@@ -11,7 +11,7 @@ def _wrap_getter(func):
     signature = inspect.signature(func)
     has_skip = 'skip_digestion' in signature.parameters
 
-    @digest(form=form)
+    @arg_digest(form=form)
     @functools.wraps(func)
     def wrapper(item, *args, **kwargs):
         from .to_molsysmt_MolSys import to_molsysmt_MolSys

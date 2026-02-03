@@ -1,7 +1,7 @@
 from molsysmt._private.exceptions import NotImplementedMethodError
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 
-@digest(form='MDAnalysis.Topology')
+@arg_digest(form='MDAnalysis.Topology')
 def copy(item, skip_digestion=False):
 
     from copy import deepcopy

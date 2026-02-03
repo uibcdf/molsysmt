@@ -1,4 +1,4 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 import numpy as np
 
 def _evaluation(condition, value):
@@ -30,7 +30,7 @@ def _evaluation(condition, value):
 
     return output
 
-@digest()
+@arg_digest()
 def contains(molecular_system, selection='all', syntax='MolSysMT', skip_digestion=False, **kwargs):
     """
     Checking whether a molecular system contains specific elements or satisfies conditions.

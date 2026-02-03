@@ -1,8 +1,8 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 import numpy as np
 
 
-#@digest()
+#@arg_digest()
 def add_hbonds(view, hbonds, selection=None, selection_2=None, hbond_level='atom',
         color='#FFC300', radius='0.1 angstroms', syntax='MolSysMT'):
     """Render hydrogen bonds as cylinders on an NGLview widget."""

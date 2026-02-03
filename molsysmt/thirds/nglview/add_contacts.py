@@ -1,7 +1,7 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 import numpy as np
 
-@digest()
+@arg_digest()
 def add_contacts(view,
         selection=None, center_of_atoms=False, weights=None, structure_indices="all",
         selection_2=None, center_of_atoms_2=False, weights_2=None, structure_indices_2=None,
