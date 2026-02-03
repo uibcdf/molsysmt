@@ -4,7 +4,7 @@ from .clear import clear
 from .set_color import set_color
 from .set_color_by_value import set_color_by_value
 
-from .load_html_in_jupyter_notebook import load_html_in_jupyter_notebook
+#from .load_html_in_jupyter_notebook import load_html_in_jupyter_notebook
 from .write_html import write_html
 
 

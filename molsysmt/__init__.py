@@ -47,17 +47,15 @@ from . import thirds
 
 from .systems import systems
 
-# Adding molsysmt to nglview
-#thirds.nglview.adding_molsysmt()
-
 # Adding molsysmt to nglview (optional dependency)
-try:
-    from .thirds.nglview.patching_nglview import add_molsysmt_to_nglview
-except Exception:  # pragma: no cover - optional dependency
-    add_molsysmt_to_nglview = None
-else:
-    add_molsysmt_to_nglview()
-    del(add_molsysmt_to_nglview)
+import sys
+if 'nglview' in sys.modules:
+    try:
+        from .thirds.nglview.patching_nglview import add_molsysmt_to_nglview
+        add_molsysmt_to_nglview()
+        del(add_molsysmt_to_nglview)
+    except Exception:
+        pass
 
 
 # With the following list sphinx can document de methods in the api section without adding the
