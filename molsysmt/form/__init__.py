@@ -14,11 +14,22 @@ class _FormsDictionary(dict):
     It populates itself lazily and filters based on current configuration.
     """
     _initialized = False
+    _initializing = False
 
     def _ensure_initialized(self):
-        if not self._initialized:
+        if self._initialized:
+            return
+        
+        # Prevent recursive calls during initialization
+        if self._initializing:
+            return
+
+        self._initializing = True
+        try:
             self._initialize_forms()
             self._initialized = True
+        finally:
+            self._initializing = False
 
     def _initialize_forms(self):
         current_dir = os.path.dirname(os.path.abspath(__file__))
