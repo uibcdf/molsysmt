@@ -1,8 +1,10 @@
 from molsysmt._private.exceptions import NotImplementedMethodError
 from molsysmt._private.digestion import digest
 from molsysmt._private.variables import is_all
+from molsysmt.dependencies import requires
 
 @digest(form='mdtraj.HDF5TrajectoryFile')
+@requires('mdtraj')
 def extract(item, atom_indices='all', structure_indices='all', output_filename=None, copy_if_all=True,
         progress_bar=False, skip_digestion=False):
 
