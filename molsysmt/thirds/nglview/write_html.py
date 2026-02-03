@@ -1,6 +1,6 @@
-from molsysmt.dependencies import requires
+from molsysmt.dependencies import dep_digest
 
-@requires('nglview')
+@dep_digest('nglview')
 def write_html(view, output_filename):
 
     import nglview as nv

@@ -5,7 +5,7 @@
 from .utils.engines import arg_digest_engines as _digest_engines
 from .utils.forcefields import switcher as _digest_forcefields
 from molsysmt import pyunitwizard as puw
-from molsysmt.dependencies import requires
+from molsysmt.dependencies import dep_digest
 
 """
 Potential Energy
@@ -82,8 +82,8 @@ def equilibration_NPT (item, temperature='300 K', pressure='1.0 atm',
 
         raise NotImplementedError
 
-@requires('openmm')
-@requires('openmmtools')
+@dep_digest('openmm')
+@dep_digest('openmmtools')
 def _equil_NPT_OpenMM_protocol_0(topology, positions,
                                  temperature='300 K', pressure='1.0 atm',
                                  time='1.0 ns', forcefield=None, verbose=True,

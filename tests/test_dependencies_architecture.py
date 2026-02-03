@@ -1,5 +1,5 @@
 import pytest
-from molsysmt.dependencies import is_installed, requires
+from molsysmt.dependencies import is_installed, dep_digest
 from molsysmt.form import _dict_modules
 import molsysmt.config as config
 from unittest.mock import patch
@@ -11,9 +11,9 @@ def test_is_installed_caching():
     assert is_installed('numpy') is True
     # The cache is internal to the function via lru_cache
 
-def test_requires_metadata():
-    """Verify that @requires attaches metadata correctly."""
-    @requires('mdtraj')
+def test_dep_digest_metadata():
+    """Verify that @dep_digest attaches metadata correctly."""
+    @dep_digest('mdtraj')
     def dummy_func():
         pass
     
@@ -58,13 +58,13 @@ def test_form_registry_filtering():
     _dict_modules.clear()
     _dict_modules._initialized = False
 
-def test_requires_runtime_error():
+def test_dep_digest_runtime_error():
     """
     Verify that calling a decorated function without the library raises LibraryNotFoundError.
     """
     from molsysmt._private.exceptions import LibraryNotFoundError
     
-    @requires('non_existent_library')
+    @dep_digest('non_existent_library')
     def func_needing_missing_lib():
         pass
         
@@ -74,11 +74,11 @@ def test_requires_runtime_error():
             func_needing_missing_lib()
         assert "non_existent_library" in str(excinfo.value)
 
-def test_requires_conditional_logic():
+def test_dep_digest_conditional_logic():
     """
     Verify that conditional requirements (when={...}) work correctly.
     """
-    @requires('openmm', when={'engine': 'OpenMM'})
+    @dep_digest('openmm', when={'engine': 'OpenMM'})
     def multi_engine_func(engine='NoOpenMM'):
         return "Success"
 

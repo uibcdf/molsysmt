@@ -1,8 +1,8 @@
 from molsysmt._private.digestion import arg_digest
-from molsysmt.dependencies import requires
+from molsysmt.dependencies import dep_digest
 
 @arg_digest(form='mmtf.MMTFDecoder')
-@requires('mmtf')
+@dep_digest('mmtf')
 def to_mmtf_MMTFDecoder(item, atom_indices='all', structure_indices='all', copy_if_all=True, skip_digestion=False):
 
     from .extract import extract

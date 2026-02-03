@@ -1,8 +1,8 @@
 from molsysmt._private.digestion import *
-from molsysmt.dependencies import requires
+from molsysmt.dependencies import dep_digest
 
 @arg_digest(form='molsysmt.MolSys')
-@requires('openmm')
+@dep_digest('openmm')
 def to_openmm_Modeller(item, atom_indices='all', structure_indices='all', skip_digestion=False):
 
     from openmm.app import Modeller
