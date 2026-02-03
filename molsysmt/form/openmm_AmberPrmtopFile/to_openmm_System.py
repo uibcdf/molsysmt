@@ -1,8 +1,8 @@
 from molsysmt._private.digestion import arg_digest
-from molsysmt.dependencies import requires
+from molsysmt.dependencies import dep_digest
 
 @arg_digest(form='openmm.AmberPrmtopFile')
-@requires('openmm')
+@dep_digest('openmm')
 def to_openmm_System(item, atom_indices='all', structure_indices='all', skip_digestion=False):
 
     tmp_item = item.createSystem()

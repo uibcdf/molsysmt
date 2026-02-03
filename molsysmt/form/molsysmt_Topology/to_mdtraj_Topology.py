@@ -1,8 +1,8 @@
 from molsysmt._private.digestion import arg_digest
-from molsysmt.dependencies import requires
+from molsysmt.dependencies import dep_digest
 
 @arg_digest(form='molsysmt.Topology')
-@requires('mdtraj')
+@dep_digest('mdtraj')
 def to_mdtraj_Topology(item, atom_indices='all', skip_digestion=False):
 
     from mdtraj import Topology

@@ -6,7 +6,7 @@ MolSysMT uses a sophisticated **Decorator-based Lazy Loading** architecture to h
 
 - **Zero-Cost Startup:** Importing `molsysmt` never triggers the import of a soft dependency (like `openmm`, `mdtraj`).
 - **Single Source of Truth:** All dependency metadata is centralized in `molsysmt/config/dependencies.py`.
-- **Runtime Validation:** The `@requires` decorator enforces availability just-in-time.
+- **Runtime Validation:** The `@dep_digest` decorator enforces availability just-in-time.
 - **Lazy Discovery:** Form modules are only scanned and imported when accessed, allowing for dynamic capability filtering.
 
 ## 2. Configuration & Mapping
@@ -37,7 +37,7 @@ form_dir_to_library = {
 
 **Developer Rule:** If you add a new form that depends on an external library, you **MUST** add it to this map.
 
-## 3. The `@requires` Decorator
+## 3. The `@dep_digest` Decorator
 
 Located in `molsysmt.dependencies`, this decorator is the guardian of the codebase.
 
@@ -46,7 +46,7 @@ Located in `molsysmt.dependencies`, this decorator is the guardian of the codeba
 ```python
 from molsysmt.dependencies import requires
 
-@requires('mdtraj')
+@dep_digest('mdtraj')
 def to_mdtraj(item):
     import mdtraj # Safe lazy import
     ...
@@ -107,7 +107,7 @@ This returns a Pandas-formatted table showing which libraries are installed, whe
 
 1.  **Register it:** Add it to `dependencies` in `molsysmt/config/dependencies.py`.
 2.  **Map it:** If it has associated forms, add them to `form_dir_to_library`.
-3.  **Use it:** Use `@requires('new_lib')` in your functions.
+3.  **Use it:** Use `@dep_digest('new_lib')` in your functions.
 4.  **Import it:** Always import it **inside** the function/method.
 
 ## 7. Troubleshooting

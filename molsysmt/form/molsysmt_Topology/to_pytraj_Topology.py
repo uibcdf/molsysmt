@@ -1,9 +1,9 @@
 from molsysmt._private.digestion import arg_digest
-from molsysmt.dependencies import requires
+from molsysmt.dependencies import dep_digest
 import numpy as np
 
 @arg_digest(form='molsysmt.Topology')
-@requires('pytraj')
+@dep_digest('pytraj')
 def to_pytraj_Topology(item, atom_indices='all', skip_digestion=False):
 
     from pytraj import Topology

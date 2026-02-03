@@ -1,8 +1,8 @@
-from molsysmt.dependencies import requires
+from molsysmt.dependencies import dep_digest
 from molsysmt._private.digestion import arg_digest
 
 @arg_digest(form='string:amino_acids_1')
-@requires('biopython')
+@dep_digest('biopython')
 def to_string_amino_acids_3(item, group_indices='all', skip_digestion=False):
 
     from Bio.SeqUtils import seq3

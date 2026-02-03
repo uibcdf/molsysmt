@@ -24,7 +24,7 @@ form_dir_to_library = {
 ### B. Dependency Manager (`molsysmt.dependencies`)
 - `check_dependency(name)`: Validates availability.
 - `is_installed(name)`: Cached check.
-- `@requires(library, when=None)`: The smart decorator.
+- `@dep_digest(library, when=None)`: The smart decorator.
 - `info()`: Public function providing a summary table of all dependencies and their installation status.
 
 ### C. Lazy Form Registry (`molsysmt.form`)

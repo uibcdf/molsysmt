@@ -1,8 +1,8 @@
-from molsysmt.dependencies import requires
+from molsysmt.dependencies import dep_digest
 from molsysmt._private.digestion import arg_digest
 
 @arg_digest(form='openmm.PDBFile')
-@requires('mdtraj')
+@dep_digest('mdtraj')
 def to_mdtraj_Trajectory(item, atom_indices='all', skip_digestion=False):
 
     from .to_mdtraj_Topology import to_mdtraj_Topology

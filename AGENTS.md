@@ -42,7 +42,7 @@ More specific `AGENTS.md` files in subdirectories refine or override these rules
 
 - **Hard vs Soft Dependencies:** MolSysMT distinguishes between essential libraries (Hard) and optional feature-enabling ones (Soft). This status is centrally managed in `molsysmt/config/dependencies.py`.
 - **Lazy Imports:** Never import a soft dependency (e.g., `mdtraj`, `openmm`, `mdanalysis`, `parmed`, `pytraj`, `nglview`, `pdbfixer`, `biopython`, `plotly`) at the module's top level. Always perform imports inside functions or methods.
-- **Enforcement:** Use the `@requires(library, when=None)` decorator from `molsysmt.dependencies` to enforce dependency availability and provide metadata for introspection.
+- **Enforcement:** Use the `@dep_digest(library, when=None)` decorator from `molsysmt.dependencies` to enforce dependency availability and provide metadata for introspection.
 - **Validation:** Run `scripts/validate_dependencies.py` to ensure no top-level imports of soft dependencies leak into the codebase. Exempt zones (tests, dev tools) are defined in the script and documented in `SPEC_DEPENDENCIES.md`.
 
 ## Forms and conversions

@@ -65,7 +65,7 @@ def check_dependency(module_name, caller=None):
         if not is_installed(config.pypi): # Check the importable name
              raise LibraryNotFoundError(config.name, caller=caller)
 
-def requires(library, when=None, action='error'):
+def dep_digest(library, when=None, action='error'):
     """
     Decorator to declare a dependency.
 

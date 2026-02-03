@@ -1,8 +1,8 @@
 from molsysmt._private.digestion import arg_digest
-from molsysmt.dependencies import requires
+from molsysmt.dependencies import dep_digest
 
 @arg_digest(form='mdtraj.HDF5TrajectoryFile')
-@requires('mdtraj')
+@dep_digest('mdtraj')
 def to_mdtraj_HDF5TrajectoryFile(item, atom_indices='all', structure_indices='all', copy_if_all=True, skip_digestion=False):
 
     from .extract import extract
