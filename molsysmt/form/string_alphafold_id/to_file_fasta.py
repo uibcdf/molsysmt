@@ -1,6 +1,6 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 
-@digest(form='string:alphafold_id')
+@arg_digest(form='string:alphafold_id')
 def to_file_fasta(item, atom_indices='all', output_filename=None, skip_digestion=False):
 
     from ..file_fasta import extract as extract_file_fasta

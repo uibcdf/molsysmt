@@ -1,9 +1,9 @@
 from molsysmt._private.exceptions import NotImplementedMethodError
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 from molsysmt._private.variables import is_all
 from copy import copy
 
-@digest(form='string:amino_acids_1')
+@arg_digest(form='string:amino_acids_1')
 def extract(item, atom_indices='all', structure_indices='all', copy_if_all=True, skip_digestion=False):
 
     if is_all(atom_indices) and is_all(structure_indices):

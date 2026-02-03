@@ -10,11 +10,11 @@ functions_where_boolean = (
 
 def digest_alternate_location(alternate_location, caller=None):
 
-    from .location_id import digest_location_id
-    from .occupancy import digest_occupancy
-    from .b_factor import digest_b_factor
-    from .atom_id import digest_atom_id
-    from .coordinates import digest_coordinates
+    from .location_id import arg_digest_location_id
+    from .occupancy import arg_digest_occupancy
+    from .b_factor import arg_digest_b_factor
+    from .atom_id import arg_digest_atom_id
+    from .coordinates import arg_digest_coordinates
 
     if caller is not None:
 

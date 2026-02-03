@@ -3,12 +3,12 @@ from molsysmt._private.variables import is_all
 from molsysmt.pbc import get_box_from_lengths_and_angles
 from copy import copy
 import numpy as np
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 from molsysmt._private.indices import indices_iterator
 
 class StructuresIterator():
 
-    @digest(form='mdtraj.HDF5TrajectoryFile')
+    @arg_digest(form='mdtraj.HDF5TrajectoryFile')
     def __init__(self, molecular_system, atom_indices='all', start=0, stop=None, step=1, chunk=1,
             structure_indices=None, output_type = 'values', skip_digestion=False, **kwargs):
 

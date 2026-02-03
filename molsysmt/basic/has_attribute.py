@@ -1,6 +1,6 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 
-@digest()
+@arg_digest()
 def has_attribute(molecular_system, attribute, include_none=False, skip_digestion=False):
     """
     Checking whether a molecular system has a specific attribute.

@@ -1,6 +1,6 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 
-@digest(form='openmm.Simulation')
+@arg_digest(form='openmm.Simulation')
 def to_file_msmpk(item, atom_indices='all', structure_indices='all', output_filename=None, skip_digestion=False):
 
     from . import to_molsysmt_MolSys as openmm_Simulation_to_molsysmt_MolSys

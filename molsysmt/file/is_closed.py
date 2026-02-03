@@ -1,7 +1,7 @@
 import os
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 
-@digest()
+@arg_digest()
 def is_closed(filename):
 
     absolute_path = os.path.abspath(filename)

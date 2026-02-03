@@ -4,7 +4,7 @@ from ...exceptions import ArgumentError
 
 def digest_translation(translation, caller=None):
 
-    from .coordinates import digest_coordinates
+    from .coordinates import arg_digest_coordinates
 
     try:
         return digest_coordinates(translation, caller=caller)

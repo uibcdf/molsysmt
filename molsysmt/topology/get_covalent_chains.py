@@ -1,9 +1,9 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 from molsysmt._private.variables import is_all
 import numpy as np
 from molsysmt.basic import select
 
-@digest()
+@arg_digest()
 def get_covalent_chains(molecular_system, chain=None, selection='all', syntax='MolSysMT'):
     """
     Building covalent chains given ordered selections for each position.

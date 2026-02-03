@@ -1,8 +1,8 @@
 from molsysmt._private.exceptions import NotImplementedMethodError
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 from molsysmt._private.variables import is_all
 
-@digest()
+@arg_digest()
 def add_bonds(molecular_system, bonded_atom_pairs, in_place=True, skip_digestion=False):
     """
     Adding covalent bonds between atom pairs in a molecular system.

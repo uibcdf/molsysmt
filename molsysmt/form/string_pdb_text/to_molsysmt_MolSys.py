@@ -1,6 +1,6 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 
-@digest(form='string:pdb_text')
+@arg_digest(form='string:pdb_text')
 def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', get_missing_bonds=False,
                        skip_digestion=False):
 

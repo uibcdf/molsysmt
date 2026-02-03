@@ -1,10 +1,10 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 from molsysmt.native import ViewerJSON
 from molsysmt.form.molsysmt_Topology import to_molsysmt_ViewerJSON as topology_to_viewer
 from molsysmt.form.molsysmt_Structures import to_molsysmt_ViewerJSON as structures_to_viewer
 
 
-@digest(form='molsysmt.MolSys')
+@arg_digest(form='molsysmt.MolSys')
 def to_molsysmt_ViewerJSON(item, skip_digestion=False):
     """Converting a native MolSys into a ViewerJSON container."""
 

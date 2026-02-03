@@ -1,11 +1,11 @@
 from molsysmt._private.exceptions import NotImplementedMethodError
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 from molsysmt._private.variables import is_all, is_iterable
 from molsysmt import pyunitwizard as puw
 import numpy as np
 from copy import deepcopy
 
-@digest(form='molsysmt.Structures')
+@arg_digest(form='molsysmt.Structures')
 def merge(items, atom_indices='all', structure_indices='all', skip_digestion=False):
 
     from molsysmt.native import Structures

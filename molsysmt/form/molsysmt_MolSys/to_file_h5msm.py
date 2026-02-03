@@ -1,6 +1,6 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 
-@digest(form='molsysmt.MolSys')
+@arg_digest(form='molsysmt.MolSys')
 def to_file_h5msm(item, atom_indices='all', structure_indices='all', output_filename=None,
         compression='gzip', compression_opts=4, int_precision='single', float_precision='single',
                   skip_digestion=False):

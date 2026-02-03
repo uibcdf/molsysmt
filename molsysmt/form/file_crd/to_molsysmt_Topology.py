@@ -1,10 +1,10 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 from molsysmt import pyunitwizard as puw
 from molsysmt.element.atom import get_atom_type_from_atom_name
 from molsysmt.element.group import get_group_type_from_group_name
 import numpy as np
 
-@digest(form='file:crd')
+@arg_digest(form='file:crd')
 def to_molsysmt_Topology(item, atom_indices='all', structure_indices='all', skip_digestion=False):
 
         # EXT:

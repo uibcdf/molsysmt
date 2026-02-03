@@ -11,11 +11,11 @@ From energy minimization to potential energy contribution of specific set of ato
 """
 
 from molsysmt import pyunitwizard as puw
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 from molsysmt._private.variables import is_iterable_of_iterables, is_iterable_of_iterables
 import numpy as np
 
-@digest()
+@arg_digest()
 def get_non_bonded_potential_energy(molecular_system, selection='all', selection_2=None,
                                     platform='CPU', engine='OpenMM', syntax='MolSysMT', skip_digestion=False):
 

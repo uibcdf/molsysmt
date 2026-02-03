@@ -1,6 +1,6 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 
-@digest(form='molsysmt.StructuresDict')
+@arg_digest(form='molsysmt.StructuresDict')
 def to_molsysmt_StructuresDict(item, atom_indices='all', structure_indices='all', copy_if_all=True, skip_digestion=False):
 
     from .extract import extract

@@ -1,6 +1,6 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 
-@digest(form='molsysmt.PDBFileHandler')
+@arg_digest(form='molsysmt.PDBFileHandler')
 def to_nglview_NGLWidget(item, atom_indices='all', structure_indices='all', skip_digestion=False):
 
     from .to_molsysmt_MolSys import to_molsysmt_MolSys

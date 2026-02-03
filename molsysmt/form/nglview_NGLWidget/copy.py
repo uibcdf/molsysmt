@@ -1,8 +1,8 @@
 from copy import copy
 from molsysmt._private.exceptions import NotImplementedMethodError
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 
-@digest(form='nglview.NGLWidget')
+@arg_digest(form='nglview.NGLWidget')
 def extract(item, skip_digestion=False):
 
     tmp_item = copy(item)

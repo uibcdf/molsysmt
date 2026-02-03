@@ -1,7 +1,7 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 import numpy as np
 
-@digest()
+@arg_digest()
 def is_composed_of(molecular_system, selection='all', syntax='MolSysMT', skip_digestion=False, **kwargs):
     """
     Checking whether a molecular system is composed exclusively of specific elements.

@@ -1,6 +1,6 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 
-@digest(form='file:pdb')
+@arg_digest(form='file:pdb')
 def to_molsysmt_PDBFileHandler(item, skip_digestion=False):
 
     from molsysmt.native import PDBFileHandler

@@ -1,11 +1,11 @@
 from molsysmt._private.exceptions import NotImplementedIteratorError
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 from molsysmt._private.indices import indices_iterator
 from molsysmt._private.variables import is_all
 
 class StructuresIterator():
 
-    @digest(form='mmcif.PdbxContainers.DataContainer')
+    @arg_digest(form='mmcif.PdbxContainers.DataContainer')
     def __init__(self, molecular_system, atom_indices='all', start=0, stop=None, step=1, chunk=1,
             structure_indices=None, output_type = 'values', skip_digestion=False, **kwargs):
 
@@ -39,7 +39,7 @@ class StructuresIterator():
 
 class TopologyIterator():
 
-    @digest(form='mmcif.PdbxContainers.DataContainer')
+    @arg_digest(form='mmcif.PdbxContainers.DataContainer')
     def __init__(self, molecular_system, element='atom', indices='all', start=0, stop=None, step=1, chunk=1,
             output_type='values', skip_digestion=False, **kwargs):
  

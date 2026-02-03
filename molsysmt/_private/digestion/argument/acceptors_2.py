@@ -6,7 +6,7 @@ def digest_acceptors_2(acceptors_2, syntax="MolSysMT", caller=None):
     if acceptors_2 is None:
         return None
 
-    from .acceptors import digest_acceptors
+    from .acceptors import arg_digest_acceptors
 
     try:
         return digest_acceptors(acceptors_2, syntax=syntax, caller=caller)

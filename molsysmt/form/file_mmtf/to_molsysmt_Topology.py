@@ -1,6 +1,6 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 
-@digest(form='file:mmtf')
+@arg_digest(form='file:mmtf')
 def to_molsysmt_Topology(item, atom_indices='all', skip_digestion=False):
 
     from . import to_mmtf_MMTFDecoder

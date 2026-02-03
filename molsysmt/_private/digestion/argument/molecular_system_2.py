@@ -2,7 +2,7 @@ from molsysmt._private.exceptions import ArgumentError
 
 def digest_molecular_system_2(molecular_system_2, caller=None):
 
-    from .molecular_system import digest_molecular_system
+    from .molecular_system import arg_digest_molecular_system
 
     if molecular_system_2 is None:
         return None

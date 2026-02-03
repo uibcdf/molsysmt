@@ -1,8 +1,8 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 from molsysmt.element.group import get_group_type_from_group_name
 import numpy as np
 
-@digest(form='mdtraj.Topology')
+@arg_digest(form='mdtraj.Topology')
 def to_molsysmt_Topology(item, atom_indices='all', skip_digestion=False):
 
     #from ..openmm_Topology import to_molsysmt_Topology as openmm_Topology_to_molsysmt_Topology

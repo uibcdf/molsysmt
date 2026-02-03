@@ -1,7 +1,7 @@
 from molsysmt._private.exceptions import NotImplementedMethodError
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 
-@digest(form='openmm.GromacsTopFile')
+@arg_digest(form='openmm.GromacsTopFile')
 def merge(items, atom_indices='all', skip_digestion=False):
 
     raise NotImplementedMethodError()

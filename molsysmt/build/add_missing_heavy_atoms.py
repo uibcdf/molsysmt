@@ -1,7 +1,7 @@
 from molsysmt._private.exceptions import NotImplementedMethodError
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 
-@digest()
+@arg_digest()
 def add_missing_heavy_atoms(molecular_system, selection='all', syntax='MolSysMT', engine='PDBFixer', skip_digestion=False):
     """
     Adding missing non-hydrogen atoms to a molecular system.

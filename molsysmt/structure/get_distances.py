@@ -1,5 +1,5 @@
 from molsysmt._private.exceptions import NotImplementedMethodError
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 from molsysmt._private.variables import is_all, is_iterable_of_iterables
 from molsysmt._private.variables import is_iterable_of_pairs
 from molsysmt import lib as msmlib
@@ -8,7 +8,7 @@ import numpy as np
 import gc
 
 
-@digest()
+@arg_digest()
 def get_distances(molecular_system, selection="all", structure_indices="all", center_of_atoms=False, weights=None,
         molecular_system_2=None, selection_2=None, structure_indices_2=None, center_of_atoms_2=False, weights_2=None,
         pairs=False, pbc=True, output_type='numpy.ndarray', output_indices=None, output_structure_indices=None,

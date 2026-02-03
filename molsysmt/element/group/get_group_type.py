@@ -1,4 +1,4 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 from .water import is_water
 from .ion import is_ion
 from .small_molecule import is_small_molecule, small_molecule_is_amino_acid
@@ -10,7 +10,7 @@ from .saccharide import is_saccharide
 import numpy as np
 
 
-@digest()
+@arg_digest()
 def get_group_type(molecular_system, element='group', selection='all', redefine_types=False, syntax='MolSysMT',
                    skip_digestion=False):
 

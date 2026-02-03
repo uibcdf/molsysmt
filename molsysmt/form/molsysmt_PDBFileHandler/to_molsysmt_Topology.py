@@ -1,10 +1,10 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 from molsysmt._private.variables import is_all
 from molsysmt import pyunitwizard as puw
 import pandas as pd
 import numpy as np
 
-@digest(form='molsysmt.PDBFileHandler')
+@arg_digest(form='molsysmt.PDBFileHandler')
 def to_molsysmt_Topology(item, atom_indices='all', structure_indices=0, get_missing_bonds=True,
                          skip_digestion=False):
 

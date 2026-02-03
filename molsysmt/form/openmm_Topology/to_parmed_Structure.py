@@ -1,6 +1,6 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 
-@digest(form='openmm.Topology')
+@arg_digest(form='openmm.Topology')
 def to_parmed_Structure(item, atom_indices='all', skip_digestion=False):
 
     from parmed.openmm import load_topology as openmm_Topology_to_parmed_Structure

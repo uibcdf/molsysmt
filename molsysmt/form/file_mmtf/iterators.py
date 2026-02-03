@@ -2,11 +2,11 @@ from molsysmt._private.exceptions import NotImplementedIteratorError
 from ..mmtf_MMTFDecoder.iterators import StructuresIterator as StructuresIterator_mmtf_MMTFDecoder
 from ..mmtf_MMTFDecoder.iterators import TopologyIterator as TopologyIterator_mmtf_MMTFDecoder
 from .to_mmtf_MMTFDecoder import to_mmtf_MMTFDecoder
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 
 class StructuresIterator(StructuresIterator_mmtf_MMTFDecoder):
 
-    @digest(form='file:mmtf')
+    @arg_digest(form='file:mmtf')
     def __init__(self, molecular_system, atom_indices='all', start=0, step=1, stop=None, chunk=1, structure_indices=None,
             output_type='values', skip_digestion=False, **kwargs):
 
@@ -18,7 +18,7 @@ class StructuresIterator(StructuresIterator_mmtf_MMTFDecoder):
 
 class TopologyIterator(TopologyIterator_mmtf_MMTFDecoder):
 
-    @digest(form='file:mmtf')
+    @arg_digest(form='file:mmtf')
     def __init__(self, molecular_system, element='atom', indices='all', start=0, step=1, stop=None, chunk=1,
             output_type='values', skip_digestion=False, **kwargs):
 

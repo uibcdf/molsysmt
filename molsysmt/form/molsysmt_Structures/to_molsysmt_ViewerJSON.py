@@ -1,4 +1,4 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 from molsysmt.native.viewer_json import ViewerJSON, _empty_structure_viewer_dict
 from molsysmt import pyunitwizard as puw
 import numpy as np
@@ -17,7 +17,7 @@ def _box_vectors(box):
     }
 
 
-@digest(form='molsysmt.Structures')
+@arg_digest(form='molsysmt.Structures')
 def to_molsysmt_ViewerJSON(item, skip_digestion=False):
     """Converting a native Structures object into ViewerJSON (topology-free)."""
 

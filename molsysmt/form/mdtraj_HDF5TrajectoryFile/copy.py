@@ -1,8 +1,8 @@
 from molsysmt._private.exceptions import NotImplementedMethodError
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 from molsysmt._private.variables import is_all
 
-@digest(form='mdtraj.HDF5TrajectoryFile')
+@arg_digest(form='mdtraj.HDF5TrajectoryFile')
 def copy(item, output_filename=None, progress_bar=False, skip_digestion=False):
 
     from .get import get_n_structures_from_system

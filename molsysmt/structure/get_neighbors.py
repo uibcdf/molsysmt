@@ -1,9 +1,9 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 from molsysmt import pyunitwizard as puw
 from molsysmt._private.lists import sorted_list_of_pairs
 import numpy as np
 
-@digest()
+@arg_digest()
 def get_neighbors(molecular_system, selection="all", structure_indices="all", center_of_atoms=False, weights=None,
                   molecular_system_2=None, selection_2=None, structure_indices_2=None, center_of_atoms_2=False, weights_2=None,
                   threshold=None, n_neighbors=None, pairs=False, unique_pairs=False, mutual_only=False, pbc=True,

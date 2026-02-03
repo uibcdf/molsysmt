@@ -1,8 +1,8 @@
 from molsysmt._private.exceptions import NotImplementedMethodError
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 from molsysmt._private.variables import is_all
 
-@digest(form='molsysmt.MolSys')
+@arg_digest(form='molsysmt.MolSys')
 def merge(items, atom_indices='all', structure_indices='all', keep_ids=True, skip_digestion=False):
 
     from molsysmt.native import MolSys

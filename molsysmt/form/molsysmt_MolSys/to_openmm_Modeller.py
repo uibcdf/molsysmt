@@ -1,7 +1,7 @@
 from molsysmt._private.digestion import *
 from molsysmt.dependencies import requires
 
-@digest(form='molsysmt.MolSys')
+@arg_digest(form='molsysmt.MolSys')
 @requires('openmm')
 def to_openmm_Modeller(item, atom_indices='all', structure_indices='all', skip_digestion=False):
 

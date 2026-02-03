@@ -1,6 +1,6 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 
-@digest(form='openmm.Modeller')
+@arg_digest(form='openmm.Modeller')
 def to_file_pdb(item, atom_indices='all', structure_indices='all', output_filename=None, skip_digestion=False):
 
     from . import to_openmm_Topology

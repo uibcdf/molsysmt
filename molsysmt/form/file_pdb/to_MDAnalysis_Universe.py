@@ -1,7 +1,7 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 from molsysmt.dependencies import requires
 
-@digest(form='file:pdb')
+@arg_digest(form='file:pdb')
 @requires('MDAnalysis')
 def to_MDAnalysis_Universe(item, atom_indices='all', structure_indices='all', skip_digestion=False):
 

@@ -1,7 +1,7 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 from molsysmt import pyunitwizard as puw
 
-@digest()
+@arg_digest()
 def add_allowed_z_region(molecular_system, selection='all', z0='0.0 nm', width='1.0 nm',
                          force_constant='5000 kilojoules_per_mole/nm**2', pbc=False, return_force=False,
                          syntax='MolSysMT', skip_digestion=False):

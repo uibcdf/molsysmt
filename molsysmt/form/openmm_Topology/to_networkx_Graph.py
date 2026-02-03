@@ -1,9 +1,9 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 from molsysmt._private.variables import is_all
 import networkx as nx
 import numpy as np
 
-@digest(form='openmm.Topology')
+@arg_digest(form='openmm.Topology')
 def to_networkx_Graph(item, atom_indices='all', skip_digestion=False):
 
     g = nx.Graph()

@@ -1,8 +1,8 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 from molsysmt.dependencies import requires
 import numpy as np
 
-@digest(form='molsysmt.Topology')
+@arg_digest(form='molsysmt.Topology')
 @requires('pytraj')
 def to_pytraj_Topology(item, atom_indices='all', skip_digestion=False):
 

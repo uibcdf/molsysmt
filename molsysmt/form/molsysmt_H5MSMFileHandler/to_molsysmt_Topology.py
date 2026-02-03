@@ -1,9 +1,9 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 from molsysmt._private.variables import is_all
 import pandas as pd
 import numpy as np
 
-@digest(form='molsysmt.H5MSMFileHandler')
+@arg_digest(form='molsysmt.H5MSMFileHandler')
 def to_molsysmt_Topology(item, atom_indices='all', skip_digestion=False):
 
     from molsysmt.native import Topology

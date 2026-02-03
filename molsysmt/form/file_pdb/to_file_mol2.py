@@ -1,6 +1,6 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 
-@digest(form='file:pdb')
+@arg_digest(form='file:pdb')
 def to_file_mol2(item, atom_indices='all', structure_indices='all', output_filename=None, skip_digestion=False):
 
     from . import to_parmed_Structure

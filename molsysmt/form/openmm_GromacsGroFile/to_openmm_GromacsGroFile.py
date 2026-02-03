@@ -1,7 +1,7 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 from molsysmt.dependencies import requires
 
-@digest(form='openmm.GromacsGroFile')
+@arg_digest(form='openmm.GromacsGroFile')
 @requires('openmm')
 def to_openmm_GromacsGroFile(item, atom_indices='all', structure_indices='all', copy_if_all=True, skip_digestion=False):
 

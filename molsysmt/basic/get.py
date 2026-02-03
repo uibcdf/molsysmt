@@ -1,8 +1,8 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 from molsysmt._private.variables import is_all, is_iterable_of_iterables
 import numpy as np
 
-@digest()
+@arg_digest()
 def get(molecular_system,
         element='system',
         selection='all',

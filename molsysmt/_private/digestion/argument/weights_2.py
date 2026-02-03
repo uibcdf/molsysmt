@@ -6,7 +6,7 @@ def digest_weights_2(weights_2, syntax="MolSysMT", caller=None):
     if weights_2 is None:
         return None
 
-    from .weights import digest_weights
+    from .weights import arg_digest_weights
 
     try:
         return digest_weights(weights_2, syntax=syntax, caller=caller)

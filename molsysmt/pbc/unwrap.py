@@ -1,11 +1,11 @@
 from molsysmt._private.exceptions import NotImplementedMethodError
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 from molsysmt import pyunitwizard as puw
 from molsysmt import lib as msmlib
 import numpy as np
 import gc
 
-@digest()
+@arg_digest()
 def unwrap(molecular_system, selection='all', structure_indices='all',
         syntax='MolSysMT', engine='MolSysMT', in_place=False, skip_digestion=False):
     """

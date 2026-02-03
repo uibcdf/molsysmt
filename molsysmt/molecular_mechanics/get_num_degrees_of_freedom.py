@@ -1,7 +1,7 @@
 from molsysmt._private.exceptions import NotImplementedMethodError
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 
-@digest()
+@arg_digest()
 def get_degrees_of_freedom(item):
 
     from molsysmt import get_form

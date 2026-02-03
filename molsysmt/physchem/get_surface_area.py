@@ -1,8 +1,8 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 from molsysmt._private.exceptions import NotImplementedMethodError
 import numpy as np
 
-@digest()
+@arg_digest()
 def get_surface_area(molecular_system, element='group', selection='all', syntax='MolSysMT', definition='collantes',
                      skip_digestion=False):
     """

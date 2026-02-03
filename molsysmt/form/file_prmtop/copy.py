@@ -1,7 +1,7 @@
 from molsysmt._private.exceptions import NotImplementedMethodError
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 
-@digest(form='file:prmtop')
+@arg_digest(form='file:prmtop')
 def copy(item, output_filename=None, skip_digestion=False):
 
     from shutil import copy as copy_file

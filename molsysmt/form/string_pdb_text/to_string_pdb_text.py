@@ -1,6 +1,6 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 
-@digest(form='string:pdb_text')
+@arg_digest(form='string:pdb_text')
 def to_string_pdb_text(item, atom_indices='all', structure_indices='all', copy_if_all=True, skip_digestion=False):
 
     from .extract import extract

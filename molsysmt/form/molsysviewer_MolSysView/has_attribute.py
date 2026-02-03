@@ -1,9 +1,9 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 
 form = 'molsysviewer.MolSysView'
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def has_attribute(molecular_system, attribute, include_none=False, skip_digestion=False):
 
     from .to_molsysmt_MolSys import to_molsysmt_MolSys

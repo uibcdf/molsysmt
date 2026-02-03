@@ -1,6 +1,6 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 
-@digest(form='file:gro')
+@arg_digest(form='file:gro')
 def to_mdtraj_GroTrajectoryFile(item, atom_indices='all', structure_indices='all', skip_digestion=False):
 
     from mdtraj.formats import GroTrajectoryFile

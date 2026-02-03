@@ -1,8 +1,8 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 from ..molecule import _singular_molecule_type_to_plural
 import numpy as np
 
-@digest()
+@arg_digest()
 def get_chain_name(molecular_system, element='atom', selection='all',
                    redefine_indices=False, redefine_ids=False, redefine_names=False, syntax='MolSysMT',
                    skip_digestion=False):

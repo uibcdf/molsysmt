@@ -1,6 +1,6 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 
-@digest(form='mmcif.PdbxContainers.DataContainer')
+@arg_digest(form='mmcif.PdbxContainers.DataContainer')
 def to_mmcif_PdbxContainers_DataContainer(item, atom_indices='all', structure_indices='all', copy_if_all=True, skip_digestion=False):
 
     from .extract import extract

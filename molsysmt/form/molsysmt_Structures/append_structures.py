@@ -1,7 +1,7 @@
 from molsysmt._private.exceptions import NotImplementedMethodError
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 
-@digest(form='molsysmt.Structures', to_form='molsysmt.Structures')
+@arg_digest(form='molsysmt.Structures', to_form='molsysmt.Structures')
 def append_structures(to_item, item=None, id=None, time=None, coordinates=None, velocities=None,
         box=None, temperature=None, potential_energy=None, kinetic_energy=None, skip_digestion=False):
 

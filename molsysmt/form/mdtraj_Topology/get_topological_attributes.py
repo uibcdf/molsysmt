@@ -3,7 +3,7 @@
 #######################################################################################
 
 from molsysmt._private.exceptions import NotImplementedMethodError, NotWithThisFormError
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 from molsysmt._private.variables import is_all
 import numpy as np
 import types
@@ -14,7 +14,7 @@ form='mdtraj.Topology'
 
 ## From atom
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_atom_index_from_atom(item, indices='all', skip_digestion=False):
 
     if is_all(indices):
@@ -26,7 +26,7 @@ def get_atom_index_from_atom(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_atom_id_from_atom(item, indices='all', skip_digestion=False):
 
     tmp_indices = get_atom_index_from_atom(item, indices=indices, skip_digestion=True)
@@ -35,7 +35,7 @@ def get_atom_id_from_atom(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_atom_name_from_atom(item, indices='all', skip_digestion=False):
 
     tmp_indices = get_atom_index_from_atom(item, indices=indices, skip_digestion=True)
@@ -44,7 +44,7 @@ def get_atom_name_from_atom(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_atom_type_from_atom(item, indices='all', skip_digestion=False):
 
     tmp_indices = get_atom_index_from_atom(item, indices=indices, skip_digestion=True)
@@ -53,7 +53,7 @@ def get_atom_type_from_atom(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_group_index_from_atom(item, indices='all', skip_digestion=False):
 
     tmp_indices = get_atom_index_from_atom(item, indices=indices, skip_digestion=True)
@@ -62,7 +62,7 @@ def get_group_index_from_atom(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_group_id_from_atom(item, indices='all', skip_digestion=False):
 
     aux_indices = get_group_index_from_atom(item, indices=indices, skip_digestion=True)
@@ -75,7 +75,7 @@ def get_group_id_from_atom(item, indices='all', skip_digestion=False):
     return output.tolist()
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_group_name_from_atom(item, indices='all', skip_digestion=False):
 
     aux_indices = get_group_index_from_atom(item, indices=indices, skip_digestion=True)
@@ -88,7 +88,7 @@ def get_group_name_from_atom(item, indices='all', skip_digestion=False):
     return output.tolist()
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_group_type_from_atom(item, indices='all', skip_digestion=False):
 
     aux_indices = get_group_index_from_atom(item, indices=indices, skip_digestion=True)
@@ -101,7 +101,7 @@ def get_group_type_from_atom(item, indices='all', skip_digestion=False):
     return output.tolist()
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_component_index_from_atom(item, indices='all', skip_digestion=False):
 
     from molsysmt.element.component import get_component_index_from_atom
@@ -111,7 +111,7 @@ def get_component_index_from_atom(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_component_id_from_atom(item, indices='all', skip_digestion=False):
 
     aux_indices = get_component_index_from_atom(item, indices=indices, skip_digestion=True)
@@ -124,7 +124,7 @@ def get_component_id_from_atom(item, indices='all', skip_digestion=False):
     return output.tolist()
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_component_name_from_atom(item, indices='all', skip_digestion=False):
 
     aux_indices = get_component_index_from_atom(item, indices=indices, skip_digestion=True)
@@ -137,7 +137,7 @@ def get_component_name_from_atom(item, indices='all', skip_digestion=False):
     return output.tolist()
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_component_type_from_atom(item, indices='all', skip_digestion=False):
 
     aux_indices = get_component_index_from_atom(item, indices=indices, skip_digestion=True)
@@ -150,7 +150,7 @@ def get_component_type_from_atom(item, indices='all', skip_digestion=False):
     return output.tolist()
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_molecule_index_from_atom(item, indices='all', skip_digestion=False):
 
     from molsysmt.element.molecule import get_molecule_index_from_atom
@@ -160,7 +160,7 @@ def get_molecule_index_from_atom(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_molecule_id_from_atom(item, indices='all', skip_digestion=False):
 
     aux_indices = get_molecule_index_from_atom(item, indices=indices, skip_digestion=True)
@@ -173,7 +173,7 @@ def get_molecule_id_from_atom(item, indices='all', skip_digestion=False):
     return output.tolist()
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_molecule_name_from_atom(item, indices='all', skip_digestion=False):
 
     aux_indices = get_molecule_index_from_atom(item, indices=indices, skip_digestion=True)
@@ -186,7 +186,7 @@ def get_molecule_name_from_atom(item, indices='all', skip_digestion=False):
     return output.tolist()
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_molecule_type_from_atom(item, indices='all', skip_digestion=False):
 
     aux_indices = get_molecule_index_from_atom(item, indices=indices, skip_digestion=True)
@@ -199,7 +199,7 @@ def get_molecule_type_from_atom(item, indices='all', skip_digestion=False):
     return output.tolist()
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_entity_index_from_atom(item, indices='all', skip_digestion=False):
 
     from molsysmt.element.entity import get_entity_index_from_atom
@@ -209,7 +209,7 @@ def get_entity_index_from_atom(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_entity_id_from_atom(item, indices='all', skip_digestion=False):
 
     aux_indices = get_entity_index_from_atom(item, indices=indices, skip_digestion=True)
@@ -222,7 +222,7 @@ def get_entity_id_from_atom(item, indices='all', skip_digestion=False):
     return output.tolist()
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_entity_name_from_atom(item, indices='all', skip_digestion=False):
 
     aux_indices = get_entity_index_from_atom(item, indices=indices, skip_digestion=True)
@@ -235,7 +235,7 @@ def get_entity_name_from_atom(item, indices='all', skip_digestion=False):
     return output.tolist()
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_entity_type_from_atom(item, indices='all', skip_digestion=False):
 
     aux_indices = get_entity_index_from_atom(item, indices=indices, skip_digestion=True)
@@ -248,7 +248,7 @@ def get_entity_type_from_atom(item, indices='all', skip_digestion=False):
     return output.tolist()
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_chain_index_from_atom(item, indices='all', skip_digestion=False):
 
     tmp_indices = get_atom_index_from_atom(item, indices=indices, skip_digestion=True)
@@ -257,7 +257,7 @@ def get_chain_index_from_atom(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_chain_id_from_atom(item, indices='all', skip_digestion=False):
 
     aux_indices = get_chain_index_from_atom(item, indices=indices, skip_digestion=True)
@@ -270,7 +270,7 @@ def get_chain_id_from_atom(item, indices='all', skip_digestion=False):
     return output.tolist()
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_chain_name_from_atom(item, indices='all', skip_digestion=False):
 
     aux_indices = get_chain_index_from_atom(item, indices=indices, skip_digestion=True)
@@ -283,7 +283,7 @@ def get_chain_name_from_atom(item, indices='all', skip_digestion=False):
     return output.tolist()
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_chain_type_from_atom(item, indices='all', skip_digestion=False):
 
     aux_indices = get_chain_index_from_atom(item, indices=indices, skip_digestion=True)
@@ -296,7 +296,7 @@ def get_chain_type_from_atom(item, indices='all', skip_digestion=False):
     return output.tolist()
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_bond_index_from_atom(item, indices='all', skip_digestion=False):
 
     output = None
@@ -324,7 +324,7 @@ def get_bond_index_from_atom(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_bond_type_from_atom(item, indices='all', skip_digestion=False):
 
     aux_indices = get_bond_index_from_atom(item, indices=indices, skip_digestion=True)
@@ -337,7 +337,7 @@ def get_bond_type_from_atom(item, indices='all', skip_digestion=False):
     return output.tolist()
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_bond_order_from_atom(item, indices='all', skip_digestion=False):
 
     aux_indices = get_bond_index_from_atom(item, indices=indices, skip_digestion=True)
@@ -350,7 +350,7 @@ def get_bond_order_from_atom(item, indices='all', skip_digestion=False):
     return output.tolist()
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_bonded_atoms_from_atom(item, indices='all', skip_digestion=False):
 
     output = None
@@ -377,7 +377,7 @@ def get_bonded_atoms_from_atom(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_bonded_atom_pairs_from_atom(item, indices='all', skip_digestion=False):
 
     output = None
@@ -398,7 +398,7 @@ def get_bonded_atom_pairs_from_atom(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_inner_bond_index_from_atom(item, indices='all', skip_digestion=False):
 
     output = None
@@ -430,7 +430,7 @@ def get_inner_bond_index_from_atom(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_inner_bonded_atoms_from_atom(item, indices='all', skip_digestion=False):
 
     output = None
@@ -453,7 +453,7 @@ def get_inner_bonded_atoms_from_atom(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_inner_bonded_atom_pairs_from_atom(item, indices='all', skip_digestion=False):
 
     output = None
@@ -474,7 +474,7 @@ def get_inner_bonded_atom_pairs_from_atom(item, indices='all', skip_digestion=Fa
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_atoms_from_atom(item, indices='all', skip_digestion=False):
 
     if is_all(indices):
@@ -485,7 +485,7 @@ def get_n_atoms_from_atom(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_groups_from_atom(item, indices='all', skip_digestion=False):
 
     if is_all(indices):
@@ -497,7 +497,7 @@ def get_n_groups_from_atom(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_components_from_atom(item, indices='all', skip_digestion=False):
 
     if is_all(indices):
@@ -509,7 +509,7 @@ def get_n_components_from_atom(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_molecules_from_atom(item, indices='all', skip_digestion=False):
 
     if is_all(indices):
@@ -521,7 +521,7 @@ def get_n_molecules_from_atom(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_entities_from_atom(item, indices='all', skip_digestion=False):
 
     if is_all(indices):
@@ -533,7 +533,7 @@ def get_n_entities_from_atom(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_chains_from_atom(item, indices='all', skip_digestion=False):
 
     if is_all(indices):
@@ -545,7 +545,7 @@ def get_n_chains_from_atom(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_bonds_from_atom(item, indices='all', skip_digestion=False):
 
     if is_all(indices):
@@ -561,7 +561,7 @@ def get_n_bonds_from_atom(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_inner_bonds_from_atom(item, indices='all', skip_digestion=False):
 
     if is_all(indices):
@@ -577,7 +577,7 @@ def get_n_inner_bonds_from_atom(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_amino_acids_from_atom(item, indices='all', skip_digestion=False):
 
     group_indices = get_group_index_from_atom(item, indices=indices, skip_digestion=True)
@@ -588,7 +588,7 @@ def get_n_amino_acids_from_atom(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_nucleotides_from_atom(item, indices='all', skip_digestion=False):
 
     group_indices = get_group_index_from_atom(item, indices=indices, skip_digestion=True)
@@ -599,7 +599,7 @@ def get_n_nucleotides_from_atom(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_ions_from_atom(item, indices='all', skip_digestion=False):
 
     group_indices = get_group_index_from_atom(item, indices=indices, skip_digestion=True)
@@ -610,7 +610,7 @@ def get_n_ions_from_atom(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_waters_from_atom(item, indices='all', skip_digestion=False):
 
     group_indices = get_group_index_from_atom(item, indices=indices, skip_digestion=True)
@@ -621,7 +621,7 @@ def get_n_waters_from_atom(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_small_molecules_from_atom(item, indices='all', skip_digestion=False):
 
     group_indices = get_group_index_from_atom(item, indices=indices, skip_digestion=True)
@@ -632,7 +632,7 @@ def get_n_small_molecules_from_atom(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_lipids_from_atom(item, indices='all', skip_digestion=False):
 
     group_indices = get_group_index_from_atom(item, indices=indices, skip_digestion=True)
@@ -643,7 +643,7 @@ def get_n_lipids_from_atom(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_polysaccharides_from_atom(item, indices='all', skip_digestion=False):
 
     group_indices = get_group_index_from_atom(item, indices=indices, skip_digestion=True)
@@ -654,7 +654,7 @@ def get_n_polysaccharides_from_atom(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_saccharides_from_atom(item, indices='all', skip_digestion=False):
 
     group_indices = get_group_index_from_atom(item, indices=indices, skip_digestion=True)
@@ -665,7 +665,7 @@ def get_n_saccharides_from_atom(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_peptides_from_atom(item, indices='all', skip_digestion=False):
 
     molecule_indices = get_molecule_index_from_atom(item, indices=indices, skip_digestion=True)
@@ -676,7 +676,7 @@ def get_n_peptides_from_atom(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_proteins_from_atom(item, indices='all', skip_digestion=False):
 
     molecule_indices = get_molecule_index_from_atom(item, indices=indices, skip_digestion=True)
@@ -687,7 +687,7 @@ def get_n_proteins_from_atom(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_dnas_from_atom(item, indices='all', skip_digestion=False):
 
     molecule_indices = get_molecule_index_from_atom(item, indices=indices, skip_digestion=True)
@@ -698,7 +698,7 @@ def get_n_dnas_from_atom(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_rnas_from_atom(item, indices='all', skip_digestion=False):
 
     molecule_indices = get_molecule_index_from_atom(item, indices=indices, skip_digestion=True)
@@ -712,7 +712,7 @@ def get_n_rnas_from_atom(item, indices='all', skip_digestion=False):
 ## From group
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_atom_index_from_group(item, indices='all', skip_digestion=False):
 
     target_index = get_group_index_from_atom(item, skip_digestion=True)
@@ -727,7 +727,7 @@ def get_atom_index_from_group(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_atom_id_from_group(item, indices='all', skip_digestion=False):
 
     target_indices = get_atom_index_from_group(item, indices=indices, skip_digestion=True)
@@ -746,7 +746,7 @@ def get_atom_id_from_group(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_atom_name_from_group(item, indices='all', skip_digestion=False):
 
     target_indices = get_atom_index_from_group(item, indices=indices, skip_digestion=True)
@@ -765,7 +765,7 @@ def get_atom_name_from_group(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_atom_type_from_group(item, indices='all', skip_digestion=False):
 
     target_indices = get_atom_index_from_group(item, indices=indices, skip_digestion=True)
@@ -784,7 +784,7 @@ def get_atom_type_from_group(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_group_index_from_group(item, indices='all', skip_digestion=False):
 
     if is_all(indices):
@@ -796,7 +796,7 @@ def get_group_index_from_group(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_group_id_from_group(item, indices='all', skip_digestion=False):
 
     if is_all(indices):
@@ -807,7 +807,7 @@ def get_group_id_from_group(item, indices='all', skip_digestion=False):
     output = np.array(output, dtype=int)
     return output
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_group_name_from_group(item, indices='all', skip_digestion=False):
 
     if is_all(indices):
@@ -818,7 +818,7 @@ def get_group_name_from_group(item, indices='all', skip_digestion=False):
     output = np.array(output, dtype=object)
     return output
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_group_type_from_group(item, indices='all', skip_digestion=False):
 
     from molsysmt.element.group import get_group_type_from_group_name as aux_get
@@ -830,7 +830,7 @@ def get_group_type_from_group(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_component_index_from_group(item, indices='all', skip_digestion=False):
 
     atom_index_from_target = get_atom_index_from_group(item, indices=indices, skip_digestion=True)
@@ -842,7 +842,7 @@ def get_component_index_from_group(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_component_id_from_group(item, indices='all', skip_digestion=False):
 
     aux_indices = get_component_index_from_group(item, indices=indices, skip_digestion=True)
@@ -855,7 +855,7 @@ def get_component_id_from_group(item, indices='all', skip_digestion=False):
     return output.tolist()
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_component_name_from_group(item, indices='all', skip_digestion=False):
 
     aux_indices = get_component_index_from_group(item, indices=indices, skip_digestion=True)
@@ -868,7 +868,7 @@ def get_component_name_from_group(item, indices='all', skip_digestion=False):
     return output.tolist()
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_component_type_from_group(item, indices='all', skip_digestion=False):
 
     aux_indices = get_component_index_from_group(item, indices=indices, skip_digestion=True)
@@ -881,7 +881,7 @@ def get_component_type_from_group(item, indices='all', skip_digestion=False):
     return output.tolist()
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_molecule_index_from_group(item, indices='all', skip_digestion=False):
 
     atom_index_from_target = get_atom_index_from_group(item, indices=indices, skip_digestion=True)
@@ -893,7 +893,7 @@ def get_molecule_index_from_group(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_molecule_id_from_group(item, indices='all', skip_digestion=False):
 
     aux_indices = get_molecule_index_from_group(item, indices=indices, skip_digestion=True)
@@ -906,7 +906,7 @@ def get_molecule_id_from_group(item, indices='all', skip_digestion=False):
     return output.tolist()
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_molecule_name_from_group(item, indices='all', skip_digestion=False):
 
     aux_indices = get_molecule_index_from_group(item, indices=indices, skip_digestion=True)
@@ -919,7 +919,7 @@ def get_molecule_name_from_group(item, indices='all', skip_digestion=False):
     return output.tolist()
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_molecule_type_from_group(item, indices='all', skip_digestion=False):
 
     aux_indices = get_molecule_index_from_group(item, indices=indices, skip_digestion=True)
@@ -932,7 +932,7 @@ def get_molecule_type_from_group(item, indices='all', skip_digestion=False):
     return output.tolist()
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_entity_index_from_group(item, indices='all', skip_digestion=False):
 
     atom_index_from_target = get_atom_index_from_group(item, indices=indices, skip_digestion=True)
@@ -944,7 +944,7 @@ def get_entity_index_from_group(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_entity_id_from_group(item, indices='all', skip_digestion=False):
 
     aux_indices = get_entity_index_from_group(item, indices=indices, skip_digestion=True)
@@ -957,7 +957,7 @@ def get_entity_id_from_group(item, indices='all', skip_digestion=False):
     return output.tolist()
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_entity_name_from_group(item, indices='all', skip_digestion=False):
 
     aux_indices = get_entity_index_from_group(item, indices=indices, skip_digestion=True)
@@ -970,7 +970,7 @@ def get_entity_name_from_group(item, indices='all', skip_digestion=False):
     return output.tolist()
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_entity_type_from_group(item, indices='all', skip_digestion=False):
 
     aux_indices = get_entity_index_from_group(item, indices=indices, skip_digestion=True)
@@ -983,7 +983,7 @@ def get_entity_type_from_group(item, indices='all', skip_digestion=False):
     return output.tolist()
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_chain_index_from_group(item, indices='all', skip_digestion=False):
 
     atom_index_from_target = get_atom_index_from_group(item, indices=indices, skip_digestion=True)
@@ -995,7 +995,7 @@ def get_chain_index_from_group(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_chain_id_from_group(item, indices='all', skip_digestion=False):
 
     aux_indices = get_chain_index_from_group(item, indices=indices, skip_digestion=True)
@@ -1008,7 +1008,7 @@ def get_chain_id_from_group(item, indices='all', skip_digestion=False):
     return output.tolist()
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_chain_name_from_group(item, indices='all', skip_digestion=False):
 
     aux_indices = get_chain_index_from_group(item, indices=indices, skip_digestion=True)
@@ -1021,7 +1021,7 @@ def get_chain_name_from_group(item, indices='all', skip_digestion=False):
     return output.tolist()
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_chain_type_from_group(item, indices='all', skip_digestion=False):
 
     aux_indices = get_chain_index_from_group(item, indices=indices, skip_digestion=True)
@@ -1034,56 +1034,56 @@ def get_chain_type_from_group(item, indices='all', skip_digestion=False):
     return output.tolist()
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_bond_index_from_group(item, indices='all', skip_digestion=False):
 
     raise NotImplementedMethodError()
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_bond_type_from_group(item, indices='all', skip_digestion=False):
 
     raise NotImplementedMethodError()
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_bond_order_from_group(item, indices='all', skip_digestion=False):
 
     raise NotImplementedMethodError()
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_bonded_atoms_from_group(item, indices='all', skip_digestion=False):
 
     raise NotImplementedMethodError()
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_bonded_atom_pairs_from_group(item, indices='all', skip_digestion=False):
 
     raise NotImplementedMethodError()
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_inner_bond_index_from_group(item, indices='all', skip_digestion=False):
 
     raise NotImplementedMethodError()
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_inner_bonded_atoms_from_group(item, indices='all', skip_digestion=False):
 
     raise NotImplementedMethodError()
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_inner_bonded_atom_pairs_from_group(item, indices='all', skip_digestion=False):
 
     raise NotImplementedMethodError()
 
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_atoms_from_group(item, indices='all', skip_digestion=False):
 
     output = get_atom_index_from_group(item, indices, skip_digestion=True)
@@ -1092,7 +1092,7 @@ def get_n_atoms_from_group(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_groups_from_group(item, indices='all', skip_digestion=False):
 
     if is_all(indices):
@@ -1103,7 +1103,7 @@ def get_n_groups_from_group(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_components_from_group(item, indices='all', skip_digestion=False):
 
     if is_all(indices):
@@ -1115,7 +1115,7 @@ def get_n_components_from_group(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_molecules_from_group(item, indices='all', skip_digestion=False):
 
     if is_all(indices):
@@ -1127,7 +1127,7 @@ def get_n_molecules_from_group(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_entities_from_group(item, indices='all', skip_digestion=False):
 
     if is_all(indices):
@@ -1139,7 +1139,7 @@ def get_n_entities_from_group(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_chains_from_group(item, indices='all', skip_digestion=False):
 
     if is_all(indices):
@@ -1151,19 +1151,19 @@ def get_n_chains_from_group(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_bonds_from_group(item, indices='all', skip_digestion=False):
 
     raise NotImplementedMethodError()
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_inner_bonds_from_group(item, indices='all', skip_digestion=False):
 
     raise NotImplementedMethodError()
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_amino_acids_from_group(item, indices='all', skip_digestion=False):
 
     group_types = get_group_type_from_group(item, indices=indices, skip_digestion=True)
@@ -1172,7 +1172,7 @@ def get_n_amino_acids_from_group(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_nucleotides_from_group(item, indices='all', skip_digestion=False):
 
     group_types = get_group_type_from_group(item, indices=indices, skip_digestion=True)
@@ -1181,7 +1181,7 @@ def get_n_nucleotides_from_group(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_ions_from_group(item, indices='all', skip_digestion=False):
 
     group_types = get_group_type_from_group(item, indices=indices, skip_digestion=True)
@@ -1190,7 +1190,7 @@ def get_n_ions_from_group(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_waters_from_group(item, indices='all', skip_digestion=False):
 
     group_types = get_group_type_from_group(item, indices=indices, skip_digestion=True)
@@ -1199,7 +1199,7 @@ def get_n_waters_from_group(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_small_molecules_from_group(item, indices='all', skip_digestion=False):
 
     group_types = get_group_type_from_group(item, indices=indices, skip_digestion=True)
@@ -1208,7 +1208,7 @@ def get_n_small_molecules_from_group(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_lipids_from_group(item, indices='all', skip_digestion=False):
 
     group_types = get_group_type_from_group(item, indices=indices, skip_digestion=True)
@@ -1217,7 +1217,7 @@ def get_n_lipids_from_group(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_polysaccharides_from_group(item, indices='all', skip_digestion=False):
 
     group_types = get_group_type_from_group(item, indices=indices, skip_digestion=True)
@@ -1226,7 +1226,7 @@ def get_n_polysaccharides_from_group(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_saccharides_from_group(item, indices='all', skip_digestion=False):
 
     group_types = get_group_type_from_group(item, indices=indices, skip_digestion=True)
@@ -1235,7 +1235,7 @@ def get_n_saccharides_from_group(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_peptides_from_group(item, indices='all', skip_digestion=False):
 
     molecule_indices = get_molecule_index_from_group(item, indices=indices, skip_digestion=True)
@@ -1246,7 +1246,7 @@ def get_n_peptides_from_group(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_proteins_from_group(item, indices='all', skip_digestion=False):
 
     molecule_indices = get_molecule_index_from_group(item, indices=indices, skip_digestion=True)
@@ -1257,7 +1257,7 @@ def get_n_proteins_from_group(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_dnas_from_group(item, indices='all', skip_digestion=False):
 
     molecule_indices = get_molecule_index_from_group(item, indices=indices, skip_digestion=True)
@@ -1268,7 +1268,7 @@ def get_n_dnas_from_group(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_rnas_from_group(item, indices='all', skip_digestion=False):
 
     molecule_indices = get_molecule_index_from_group(item, indices=indices, skip_digestion=True)
@@ -1282,7 +1282,7 @@ def get_n_rnas_from_group(item, indices='all', skip_digestion=False):
 ## From component
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_atom_index_from_component(item, indices='all', skip_digestion=False):
 
     target_index = get_component_index_from_atom(item)
@@ -1297,7 +1297,7 @@ def get_atom_index_from_component(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_atom_id_from_component(item, indices='all', skip_digestion=False):
 
     target_indices = get_atom_index_from_component(item, indices=indices, skip_digestion=True)
@@ -1316,7 +1316,7 @@ def get_atom_id_from_component(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_atom_name_from_component(item, indices='all', skip_digestion=False):
 
     target_indices = get_atom_index_from_component(item, indices=indices, skip_digestion=True)
@@ -1335,7 +1335,7 @@ def get_atom_name_from_component(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_atom_type_from_component(item, indices='all', skip_digestion=False):
 
     target_indices = get_atom_index_from_component(item, indices=indices, skip_digestion=True)
@@ -1354,7 +1354,7 @@ def get_atom_type_from_component(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_group_index_from_component(item, indices='all', skip_digestion=False):
 
     target_index = get_component_index_from_group(item, skip_digestion=True)
@@ -1369,7 +1369,7 @@ def get_group_index_from_component(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_group_id_from_component(item, indices='all', skip_digestion=False):
 
     target_indices = get_group_index_from_component(item, indices=indices, skip_digestion=True)
@@ -1388,7 +1388,7 @@ def get_group_id_from_component(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_group_name_from_component(item, indices='all', skip_digestion=False):
 
     target_indices = get_group_index_from_component(item, indices=indices, skip_digestion=True)
@@ -1407,7 +1407,7 @@ def get_group_name_from_component(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_group_type_from_component(item, indices='all', skip_digestion=False):
 
     target_indices = get_group_index_from_component(item, indices=indices, skip_digestion=True)
@@ -1426,7 +1426,7 @@ def get_group_type_from_component(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_component_index_from_component(item, indices='all', skip_digestion=False):
 
     if is_all(indices):
@@ -1438,7 +1438,7 @@ def get_component_index_from_component(item, indices='all', skip_digestion=False
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_component_id_from_component(item, indices='all', skip_digestion=False):
 
     from molsysmt.element.component import get_component_id_from_component
@@ -1447,7 +1447,7 @@ def get_component_id_from_component(item, indices='all', skip_digestion=False):
 
     return output
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_component_name_from_component(item, indices='all', skip_digestion=False):
 
     from molsysmt.element.component import get_component_name_from_component
@@ -1457,7 +1457,7 @@ def get_component_name_from_component(item, indices='all', skip_digestion=False)
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_component_type_from_component(item, indices='all', skip_digestion=False):
 
     from molsysmt.element.component import get_component_type_from_component
@@ -1467,7 +1467,7 @@ def get_component_type_from_component(item, indices='all', skip_digestion=False)
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_molecule_index_from_component(item, indices='all', skip_digestion=False):
 
     atom_index_from_target = get_atom_index_from_component(item, indices=indices, skip_digestion=True)
@@ -1479,7 +1479,7 @@ def get_molecule_index_from_component(item, indices='all', skip_digestion=False)
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_molecule_id_from_component(item, indices='all', skip_digestion=False):
 
     aux_indices = get_molecule_index_from_component(item, indices=indices, skip_digestion=True)
@@ -1492,7 +1492,7 @@ def get_molecule_id_from_component(item, indices='all', skip_digestion=False):
     return output.tolist()
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_molecule_name_from_component(item, indices='all', skip_digestion=False):
 
     aux_indices = get_molecule_index_from_component(item, indices=indices, skip_digestion=True)
@@ -1505,7 +1505,7 @@ def get_molecule_name_from_component(item, indices='all', skip_digestion=False):
     return output.tolist()
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_molecule_type_from_component(item, indices='all', skip_digestion=False):
 
     aux_indices = get_molecule_index_from_component(item, indices=indices, skip_digestion=True)
@@ -1518,7 +1518,7 @@ def get_molecule_type_from_component(item, indices='all', skip_digestion=False):
     return output.tolist()
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_entity_index_from_component(item, indices='all', skip_digestion=False):
 
     atom_index_from_target = get_atom_index_from_component(item, indices=indices, skip_digestion=True)
@@ -1530,7 +1530,7 @@ def get_entity_index_from_component(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_entity_id_from_component(item, indices='all', skip_digestion=False):
 
     aux_indices = get_entity_index_from_component(item, indices=indices, skip_digestion=True)
@@ -1543,7 +1543,7 @@ def get_entity_id_from_component(item, indices='all', skip_digestion=False):
     return output.tolist()
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_entity_name_from_component(item, indices='all', skip_digestion=False):
 
     aux_indices = get_entity_index_from_component(item, indices=indices, skip_digestion=True)
@@ -1556,7 +1556,7 @@ def get_entity_name_from_component(item, indices='all', skip_digestion=False):
     return output.tolist()
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_entity_type_from_component(item, indices='all', skip_digestion=False):
 
     aux_indices = get_entity_index_from_component(item, indices=indices, skip_digestion=True)
@@ -1569,7 +1569,7 @@ def get_entity_type_from_component(item, indices='all', skip_digestion=False):
     return output.tolist()
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_chain_index_from_component(item, indices='all', skip_digestion=False):
 
     atom_index_from_target = get_atom_index_from_component(item, indices=indices, skip_digestion=True)
@@ -1581,7 +1581,7 @@ def get_chain_index_from_component(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_chain_id_from_component(item, indices='all', skip_digestion=False):
 
     aux_indices = get_chain_index_from_component(item, indices=indices, skip_digestion=True)
@@ -1594,7 +1594,7 @@ def get_chain_id_from_component(item, indices='all', skip_digestion=False):
     return output.tolist()
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_chain_name_from_component(item, indices='all', skip_digestion=False):
 
     aux_indices = get_chain_index_from_component(item, indices=indices, skip_digestion=True)
@@ -1607,7 +1607,7 @@ def get_chain_name_from_component(item, indices='all', skip_digestion=False):
     return output.tolist()
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_chain_type_from_component(item, indices='all', skip_digestion=False):
 
     aux_indices = get_chain_index_from_component(item, indices=indices, skip_digestion=True)
@@ -1620,55 +1620,55 @@ def get_chain_type_from_component(item, indices='all', skip_digestion=False):
     return output.tolist()
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_bond_index_from_component(item, indices='all', skip_digestion=False):
 
     raise NotImplementedMethodError()
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_bond_type_from_component(item, indices='all', skip_digestion=False):
 
     raise NotImplementedMethodError()
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_bond_order_from_component(item, indices='all', skip_digestion=False):
 
     raise NotImplementedMethodError()
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_bonded_atoms_from_component(item, indices='all', skip_digestion=False):
 
     raise NotImplementedMethodError()
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_bonded_atom_pairs_from_component(item, indices='all', skip_digestion=False):
 
     raise NotImplementedMethodError()
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_inner_bond_index_from_component(item, indices='all', skip_digestion=False):
 
     raise NotImplementedMethodError()
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_inner_bonded_atoms_from_component(item, indices='all', skip_digestion=False):
 
     raise NotImplementedMethodError()
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_inner_bonded_atom_pairs_from_component(item, indices='all', skip_digestion=False):
 
     raise NotImplementedMethodError()
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_atoms_from_component(item, indices='all', skip_digestion=False):
 
     output = get_atom_index_from_component(item, indices, skip_digestion=True)
@@ -1677,7 +1677,7 @@ def get_n_atoms_from_component(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_groups_from_component(item, indices='all', skip_digestion=False):
 
     output = get_group_index_from_component(item, indices, skip_digestion=True)
@@ -1686,7 +1686,7 @@ def get_n_groups_from_component(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_components_from_component(item, indices='all', skip_digestion=False):
 
     if is_all(indices):
@@ -1697,7 +1697,7 @@ def get_n_components_from_component(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_molecules_from_component(item, indices='all', skip_digestion=False):
 
     if is_all(indices):
@@ -1709,7 +1709,7 @@ def get_n_molecules_from_component(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_chains_from_component(item, indices='all', skip_digestion=False):
 
     if is_all(indices):
@@ -1721,7 +1721,7 @@ def get_n_chains_from_component(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_entities_from_component(item, indices='all', skip_digestion=False):
 
     if is_all(indices):
@@ -1733,19 +1733,19 @@ def get_n_entities_from_component(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_bonds_from_component(item, indices='all', skip_digestion=False):
 
     raise NotImplementedMethodError()
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_inner_bonds_from_component(item, indices='all', skip_digestion=False):
 
     raise NotImplementedMethodError()
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_amino_acids_from_component(item, indices='all', skip_digestion=False):
 
     group_indices = get_group_index_from_component(item, indices=indices, skip_digestion=True)
@@ -1757,7 +1757,7 @@ def get_n_amino_acids_from_component(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_nucleotides_from_component(item, indices='all', skip_digestion=False):
 
     group_indices = get_group_index_from_component(item, indices=indices, skip_digestion=True)
@@ -1769,7 +1769,7 @@ def get_n_nucleotides_from_component(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_ions_from_component(item, indices='all', skip_digestion=False):
 
     group_indices = get_group_index_from_component(item, indices=indices, skip_digestion=True)
@@ -1781,7 +1781,7 @@ def get_n_ions_from_component(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_waters_from_component(item, indices='all', skip_digestion=False):
 
     group_indices = get_group_index_from_component(item, indices=indices, skip_digestion=True)
@@ -1793,7 +1793,7 @@ def get_n_waters_from_component(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_small_molecules_from_component(item, indices='all', skip_digestion=False):
 
     group_indices = get_group_index_from_component(item, indices=indices, skip_digestion=True)
@@ -1805,7 +1805,7 @@ def get_n_small_molecules_from_component(item, indices='all', skip_digestion=Fal
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_lipids_from_component(item, indices='all', skip_digestion=False):
 
     group_indices = get_group_index_from_component(item, indices=indices, skip_digestion=True)
@@ -1817,7 +1817,7 @@ def get_n_lipids_from_component(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_polysaccharides_from_component(item, indices='all', skip_digestion=False):
 
     group_indices = get_group_index_from_component(item, indices=indices, skip_digestion=True)
@@ -1829,7 +1829,7 @@ def get_n_polysaccharides_from_component(item, indices='all', skip_digestion=Fal
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_saccharides_from_component(item, indices='all', skip_digestion=False):
 
     group_indices = get_group_index_from_component(item, indices=indices, skip_digestion=True)
@@ -1841,7 +1841,7 @@ def get_n_saccharides_from_component(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_peptides_from_component(item, indices='all', skip_digestion=False):
 
     molecule_indices = get_molecule_index_from_component(item, indices=indices, skip_digestion=True)
@@ -1852,7 +1852,7 @@ def get_n_peptides_from_component(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_proteins_from_component(item, indices='all', skip_digestion=False):
 
     molecule_indices = get_molecule_index_from_component(item, indices=indices, skip_digestion=True)
@@ -1863,7 +1863,7 @@ def get_n_proteins_from_component(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_dnas_from_component(item, indices='all', skip_digestion=False):
 
     molecule_indices = get_molecule_index_from_component(item, indices=indices, skip_digestion=True)
@@ -1874,7 +1874,7 @@ def get_n_dnas_from_component(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_rnas_from_component(item, indices='all', skip_digestion=False):
 
     molecule_indices = get_molecule_index_from_component(item, indices=indices, skip_digestion=True)
@@ -1888,7 +1888,7 @@ def get_n_rnas_from_component(item, indices='all', skip_digestion=False):
 ## From molecule
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_atom_index_from_molecule(item, indices='all', skip_digestion=False):
 
     target_index = get_molecule_index_from_atom(item, skip_digestion=True)
@@ -1903,7 +1903,7 @@ def get_atom_index_from_molecule(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_atom_id_from_molecule(item, indices='all', skip_digestion=False):
 
     target_indices = get_atom_index_from_molecule(item, indices=indices, skip_digestion=True)
@@ -1922,7 +1922,7 @@ def get_atom_id_from_molecule(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_atom_name_from_molecule(item, indices='all', skip_digestion=False):
 
     target_indices = get_atom_index_from_molecule(item, indices=indices, skip_digestion=True)
@@ -1941,7 +1941,7 @@ def get_atom_name_from_molecule(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_atom_type_from_molecule(item, indices='all', skip_digestion=False):
 
     target_indices = get_atom_index_from_molecule(item, indices=indices, skip_digestion=True)
@@ -1960,7 +1960,7 @@ def get_atom_type_from_molecule(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_group_index_from_molecule(item, indices='all', skip_digestion=False):
 
     target_index = get_molecule_index_from_group(item, skip_digestion=True)
@@ -1975,7 +1975,7 @@ def get_group_index_from_molecule(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_group_id_from_molecule(item, indices='all', skip_digestion=False):
 
     target_indices = get_group_index_from_molecule(item, indices=indices, skip_digestion=True)
@@ -1994,7 +1994,7 @@ def get_group_id_from_molecule(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_group_name_from_molecule(item, indices='all', skip_digestion=False):
 
     target_indices = get_group_index_from_molecule(item, indices=indices, skip_digestion=True)
@@ -2013,7 +2013,7 @@ def get_group_name_from_molecule(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_group_type_from_molecule(item, indices='all', skip_digestion=False):
 
     target_indices = get_group_index_from_molecule(item, indices=indices, skip_digestion=True)
@@ -2032,7 +2032,7 @@ def get_group_type_from_molecule(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_component_index_from_molecule(item, indices='all', skip_digestion=False):
 
     target_index = get_molecule_index_from_component(item, skip_digestion=True)
@@ -2047,7 +2047,7 @@ def get_component_index_from_molecule(item, indices='all', skip_digestion=False)
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_component_id_from_molecule(item, indices='all', skip_digestion=False):
 
     target_indices = get_component_index_from_molecule(item, indices=indices, skip_digestion=True)
@@ -2066,7 +2066,7 @@ def get_component_id_from_molecule(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_component_name_from_molecule(item, indices='all', skip_digestion=False):
 
     target_indices = get_component_index_from_molecule(item, indices=indices, skip_digestion=True)
@@ -2085,7 +2085,7 @@ def get_component_name_from_molecule(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_component_type_from_molecule(item, indices='all', skip_digestion=False):
 
     target_indices = get_component_index_from_molecule(item, indices=indices, skip_digestion=True)
@@ -2104,7 +2104,7 @@ def get_component_type_from_molecule(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_molecule_index_from_molecule(item, indices='all', skip_digestion=False):
 
     if is_all(indices):
@@ -2116,7 +2116,7 @@ def get_molecule_index_from_molecule(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_molecule_id_from_molecule(item, indices='all', skip_digestion=False):
 
     from molsysmt.element.molecule import get_molecule_id_from_molecule
@@ -2125,7 +2125,7 @@ def get_molecule_id_from_molecule(item, indices='all', skip_digestion=False):
 
     return output
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_molecule_name_from_molecule(item, indices='all', skip_digestion=False):
 
     from molsysmt.element.molecule import get_molecule_name_from_molecule
@@ -2134,7 +2134,7 @@ def get_molecule_name_from_molecule(item, indices='all', skip_digestion=False):
 
     return output
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_molecule_type_from_molecule(item, indices='all', skip_digestion=False):
 
     from molsysmt.element.molecule import get_molecule_type_from_molecule
@@ -2144,7 +2144,7 @@ def get_molecule_type_from_molecule(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_entity_index_from_molecule(item, indices='all', skip_digestion=False):
 
     atom_index_from_target = get_atom_index_from_molecule(item, indices=indices, skip_digestion=True)
@@ -2156,7 +2156,7 @@ def get_entity_index_from_molecule(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_entity_id_from_molecule(item, indices='all', skip_digestion=False):
 
     aux_indices = get_entity_index_from_molecule(item, indices=indices, skip_digestion=True)
@@ -2169,7 +2169,7 @@ def get_entity_id_from_molecule(item, indices='all', skip_digestion=False):
     return output.tolist()
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_entity_name_from_molecule(item, indices='all', skip_digestion=False):
 
     aux_indices = get_entity_index_from_molecule(item, indices=indices, skip_digestion=True)
@@ -2182,7 +2182,7 @@ def get_entity_name_from_molecule(item, indices='all', skip_digestion=False):
     return output.tolist()
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_entity_type_from_molecule(item, indices='all', skip_digestion=False):
 
     aux_indices = get_entity_index_from_molecule(item, indices=indices, skip_digestion=True)
@@ -2195,7 +2195,7 @@ def get_entity_type_from_molecule(item, indices='all', skip_digestion=False):
     return output.tolist()
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_chain_index_from_molecule(item, indices='all', skip_digestion=False):
 
     atom_index_from_target = get_atom_index_from_molecule(item, indices=indices, skip_digestion=True)
@@ -2207,7 +2207,7 @@ def get_chain_index_from_molecule(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_chain_id_from_molecule(item, indices='all', skip_digestion=False):
 
     aux_indices = get_chain_index_from_molecule(item, indices=indices, skip_digestion=True)
@@ -2220,7 +2220,7 @@ def get_chain_id_from_molecule(item, indices='all', skip_digestion=False):
     return output.tolist()
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_chain_name_from_molecule(item, indices='all', skip_digestion=False):
 
     aux_indices = get_chain_index_from_molecule(item, indices=indices, skip_digestion=True)
@@ -2233,7 +2233,7 @@ def get_chain_name_from_molecule(item, indices='all', skip_digestion=False):
     return output.tolist()
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_chain_type_from_molecule(item, indices='all', skip_digestion=False):
 
     aux_indices = get_chain_index_from_molecule(item, indices=indices, skip_digestion=True)
@@ -2246,55 +2246,55 @@ def get_chain_type_from_molecule(item, indices='all', skip_digestion=False):
     return output.tolist()
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_bond_index_from_molecule(item, indices='all', skip_digestion=False):
 
     raise NotImplementedMethodError()
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_bond_type_from_molecule(item, indices='all', skip_digestion=False):
 
     raise NotImplementedMethodError()
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_bond_order_from_molecule(item, indices='all', skip_digestion=False):
 
     raise NotImplementedMethodError()
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_bonded_atoms_from_molecule(item, indices='all', skip_digestion=False):
 
     raise NotImplementedMethodError()
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_bonded_atom_pairs_from_molecule(item, indices='all', skip_digestion=False):
 
     raise NotImplementedMethodError()
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_inner_bond_index_from_molecule(item, indices='all', skip_digestion=False):
 
     raise NotImplementedMethodError()
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_inner_bonded_atoms_from_molecule(item, indices='all', skip_digestion=False):
 
     raise NotImplementedMethodError()
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_inner_bonded_atom_pairs_from_molecule(item, indices='all', skip_digestion=False):
 
     raise NotImplementedMethodError()
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_atoms_from_molecule(item, indices='all', skip_digestion=False):
 
     output = get_atom_index_from_molecule(item, indices, skip_digestion=True)
@@ -2303,7 +2303,7 @@ def get_n_atoms_from_molecule(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_groups_from_molecule(item, indices='all', skip_digestion=False):
 
     output = get_group_index_from_molecule(item, indices, skip_digestion=True)
@@ -2312,7 +2312,7 @@ def get_n_groups_from_molecule(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_components_from_molecule(item, indices='all', skip_digestion=False):
 
     output = get_component_index_from_molecule(item, indices, skip_digestion=True)
@@ -2321,7 +2321,7 @@ def get_n_components_from_molecule(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_molecules_from_molecule(item, indices='all', skip_digestion=False):
 
     if is_all(indices):
@@ -2332,7 +2332,7 @@ def get_n_molecules_from_molecule(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_entities_from_molecule(item, indices='all', skip_digestion=False):
 
     if is_all(indices):
@@ -2344,7 +2344,7 @@ def get_n_entities_from_molecule(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_chains_from_molecule(item, indices='all', skip_digestion=False):
 
     if is_all(indices):
@@ -2356,19 +2356,19 @@ def get_n_chains_from_molecule(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_bonds_from_molecule(item, indices='all', skip_digestion=False):
 
     raise NotImplementedMethodError()
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_inner_bonds_from_molecule(item, indices='all', skip_digestion=False):
 
     raise NotImplementedMethodError()
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_amino_acids_from_molecule(item, indices='all', skip_digestion=False):
 
     group_indices = get_group_index_from_molecule(item, indices=indices, skip_digestion=True)
@@ -2380,7 +2380,7 @@ def get_n_amino_acids_from_molecule(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_nucleotides_from_molecule(item, indices='all', skip_digestion=False):
 
     group_indices = get_group_index_from_molecule(item, indices=indices, skip_digestion=True)
@@ -2392,7 +2392,7 @@ def get_n_nucleotides_from_molecule(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_ions_from_molecule(item, indices='all', skip_digestion=False):
 
     group_indices = get_group_index_from_molecule(item, indices=indices, skip_digestion=True)
@@ -2404,7 +2404,7 @@ def get_n_ions_from_molecule(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_waters_from_molecule(item, indices='all', skip_digestion=False):
 
     group_indices = get_group_index_from_molecule(item, indices=indices, skip_digestion=True)
@@ -2416,7 +2416,7 @@ def get_n_waters_from_molecule(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_small_molecules_from_molecule(item, indices='all', skip_digestion=False):
 
     group_indices = get_group_index_from_molecule(item, indices=indices, skip_digestion=True)
@@ -2428,7 +2428,7 @@ def get_n_small_molecules_from_molecule(item, indices='all', skip_digestion=Fals
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_lipids_from_molecule(item, indices='all', skip_digestion=False):
 
     group_indices = get_group_index_from_molecule(item, indices=indices, skip_digestion=True)
@@ -2440,7 +2440,7 @@ def get_n_lipids_from_molecule(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_polysaccharides_from_molecule(item, indices='all', skip_digestion=False):
 
     group_indices = get_group_index_from_molecule(item, indices=indices, skip_digestion=True)
@@ -2452,7 +2452,7 @@ def get_n_polysaccharides_from_molecule(item, indices='all', skip_digestion=Fals
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_saccharides_from_molecule(item, indices='all', skip_digestion=False):
 
     group_indices = get_group_index_from_molecule(item, indices=indices, skip_digestion=True)
@@ -2464,7 +2464,7 @@ def get_n_saccharides_from_molecule(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_peptides_from_molecule(item, indices='all', skip_digestion=False):
 
     group_types = get_molecule_type_from_molecule(item, indices=indices, skip_digestion=True)
@@ -2473,7 +2473,7 @@ def get_n_peptides_from_molecule(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_proteins_from_molecule(item, indices='all', skip_digestion=False):
 
     group_types = get_molecule_type_from_molecule(item, indices=indices, skip_digestion=True)
@@ -2482,7 +2482,7 @@ def get_n_proteins_from_molecule(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_dnas_from_molecule(item, indices='all', skip_digestion=False):
 
     group_types = get_molecule_type_from_molecule(item, indices=indices, skip_digestion=True)
@@ -2491,7 +2491,7 @@ def get_n_dnas_from_molecule(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_rnas_from_molecule(item, indices='all', skip_digestion=False):
 
     group_types = get_molecule_type_from_molecule(item, indices=indices, skip_digestion=True)
@@ -2503,7 +2503,7 @@ def get_n_rnas_from_molecule(item, indices='all', skip_digestion=False):
 ## From entity
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_atom_index_from_entity(item, indices='all', skip_digestion=False):
 
     target_index = get_entity_index_from_atom(item, skip_digestion=True)
@@ -2518,7 +2518,7 @@ def get_atom_index_from_entity(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_atom_id_from_entity(item, indices='all', skip_digestion=False):
 
     target_indices = get_atom_index_from_entity(item, indices=indices, skip_digestion=True)
@@ -2537,7 +2537,7 @@ def get_atom_id_from_entity(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_atom_name_from_entity(item, indices='all', skip_digestion=False):
 
     target_indices = get_atom_index_from_entity(item, indices=indices, skip_digestion=True)
@@ -2556,7 +2556,7 @@ def get_atom_name_from_entity(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_atom_type_from_entity(item, indices='all', skip_digestion=False):
 
     target_indices = get_atom_index_from_entity(item, indices=indices, skip_digestion=True)
@@ -2575,7 +2575,7 @@ def get_atom_type_from_entity(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_group_index_from_entity(item, indices='all', skip_digestion=False):
 
     target_index = get_entity_index_from_group(item, skip_digestion=True)
@@ -2590,7 +2590,7 @@ def get_group_index_from_entity(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_group_id_from_entity(item, indices='all', skip_digestion=False):
 
     target_indices = get_group_index_from_entity(item, indices=indices, skip_digestion=True)
@@ -2609,7 +2609,7 @@ def get_group_id_from_entity(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_group_name_from_entity(item, indices='all', skip_digestion=False):
 
     target_indices = get_group_index_from_entity(item, indices=indices, skip_digestion=True)
@@ -2628,7 +2628,7 @@ def get_group_name_from_entity(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_group_type_from_entity(item, indices='all', skip_digestion=False):
 
     target_indices = get_group_index_from_entity(item, indices=indices, skip_digestion=True)
@@ -2647,7 +2647,7 @@ def get_group_type_from_entity(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_component_index_from_entity(item, indices='all', skip_digestion=False):
 
     target_index = get_entity_index_from_component(item, skip_digestion=True)
@@ -2662,7 +2662,7 @@ def get_component_index_from_entity(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_component_id_from_entity(item, indices='all', skip_digestion=False):
 
     target_indices = get_component_index_from_entity(item, indices=indices, skip_digestion=True)
@@ -2681,7 +2681,7 @@ def get_component_id_from_entity(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_component_name_from_entity(item, indices='all', skip_digestion=False):
 
     target_indices = get_component_index_from_entity(item, indices=indices, skip_digestion=True)
@@ -2700,7 +2700,7 @@ def get_component_name_from_entity(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_component_type_from_entity(item, indices='all', skip_digestion=False):
 
     target_indices = get_component_index_from_entity(item, indices=indices, skip_digestion=True)
@@ -2719,7 +2719,7 @@ def get_component_type_from_entity(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_molecule_index_from_entity(item, indices='all', skip_digestion=False):
 
     target_index = get_entity_index_from_molecule(item, skip_digestion=True)
@@ -2734,7 +2734,7 @@ def get_molecule_index_from_entity(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_molecule_id_from_entity(item, indices='all', skip_digestion=False):
 
     target_indices = get_molecule_index_from_entity(item, indices=indices, skip_digestion=True)
@@ -2753,7 +2753,7 @@ def get_molecule_id_from_entity(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_molecule_name_from_entity(item, indices='all', skip_digestion=False):
 
     target_indices = get_molecule_index_from_entity(item, indices=indices, skip_digestion=True)
@@ -2772,7 +2772,7 @@ def get_molecule_name_from_entity(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_molecule_type_from_entity(item, indices='all', skip_digestion=False):
 
     target_indices = get_molecule_index_from_entity(item, indices=indices, skip_digestion=True)
@@ -2791,7 +2791,7 @@ def get_molecule_type_from_entity(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_entity_index_from_entity(item, indices='all', skip_digestion=False):
 
     if is_all(indices):
@@ -2803,7 +2803,7 @@ def get_entity_index_from_entity(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_entity_id_from_entity(item, indices='all', skip_digestion=False):
 
     from molsysmt.element.entity import get_entity_id_from_entity
@@ -2812,7 +2812,7 @@ def get_entity_id_from_entity(item, indices='all', skip_digestion=False):
 
     return output
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_entity_name_from_entity(item, indices='all', skip_digestion=False):
 
     from molsysmt.element.entity import get_entity_name_from_entity
@@ -2821,7 +2821,7 @@ def get_entity_name_from_entity(item, indices='all', skip_digestion=False):
 
     return output
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_entity_type_from_entity(item, indices='all', skip_digestion=False):
 
     from molsysmt.element.entity import get_entity_type_from_entity
@@ -2830,7 +2830,7 @@ def get_entity_type_from_entity(item, indices='all', skip_digestion=False):
 
     return output
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_chain_index_from_entity(item, indices='all', skip_digestion=False):
 
     atom_index_from_target = get_atom_index_from_entity(item, indices=indices, skip_digestion=True)
@@ -2842,7 +2842,7 @@ def get_chain_index_from_entity(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_chain_id_from_entity(item, indices='all', skip_digestion=False):
 
     aux_indices = get_chain_index_from_entity(item, indices=indices, skip_digestion=True)
@@ -2855,7 +2855,7 @@ def get_chain_id_from_entity(item, indices='all', skip_digestion=False):
     return output.tolist()
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_chain_name_from_entity(item, indices='all', skip_digestion=False):
 
     aux_indices = get_chain_index_from_entity(item, indices=indices, skip_digestion=True)
@@ -2868,7 +2868,7 @@ def get_chain_name_from_entity(item, indices='all', skip_digestion=False):
     return output.tolist()
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_chain_type_from_entity(item, indices='all', skip_digestion=False):
 
     aux_indices = get_chain_index_from_entity(item, indices=indices, skip_digestion=True)
@@ -2881,55 +2881,55 @@ def get_chain_type_from_entity(item, indices='all', skip_digestion=False):
     return output.tolist()
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_bond_index_from_entity(item, indices='all', skip_digestion=False):
 
     raise NotImplementedMethodError()
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_bond_type_from_entity(item, indices='all', skip_digestion=False):
 
     raise NotImplementedMethodError()
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_bond_order_from_entity(item, indices='all', skip_digestion=False):
 
     raise NotImplementedMethodError()
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_bonded_atoms_from_entity(item, indices='all', skip_digestion=False):
 
     raise NotImplementedMethodError()
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_bonded_atom_pairs_from_entity(item, indices='all', skip_digestion=False):
 
     raise NotImplementedMethodError()
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_inner_bond_index_from_entity(item, indices='all', skip_digestion=False):
 
     raise NotImplementedMethodError()
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_inner_bonded_atoms_from_entity(item, indices='all', skip_digestion=False):
 
     raise NotImplementedMethodError()
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_inner_bonded_atom_pairs_from_entity(item, indices='all', skip_digestion=False):
 
     raise NotImplementedMethodError()
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_atoms_from_entity(item, indices='all', skip_digestion=False):
 
     output = get_atom_index_from_entity(item, indices, skip_digestion=True)
@@ -2938,7 +2938,7 @@ def get_n_atoms_from_entity(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_groups_from_entity(item, indices='all', skip_digestion=False):
 
     output = get_group_index_from_entity(item, indices, skip_digestion=True)
@@ -2947,7 +2947,7 @@ def get_n_groups_from_entity(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_components_from_entity(item, indices='all', skip_digestion=False):
 
     output = get_component_index_from_entity(item, indices, skip_digestion=True)
@@ -2956,7 +2956,7 @@ def get_n_components_from_entity(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_molecules_from_entity(item, indices='all', skip_digestion=False):
 
     output = get_molecule_index_from_entity(item, indices, skip_digestion=True)
@@ -2965,7 +2965,7 @@ def get_n_molecules_from_entity(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_entities_from_entity(item, indices='all', skip_digestion=False):
 
     if is_all(indices):
@@ -2976,7 +2976,7 @@ def get_n_entities_from_entity(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_chains_from_entity(item, indices='all', skip_digestion=False):
 
     if is_all(indices):
@@ -2988,19 +2988,19 @@ def get_n_chains_from_entity(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_bonds_from_entity(item, indices='all', skip_digestion=False):
 
     raise NotImplementedMethodError()
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_inner_bonds_from_entity(item, indices='all', skip_digestion=False):
 
     raise NotImplementedMethodError()
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_amino_acids_from_entity(item, indices='all', skip_digestion=False):
 
     group_indices = get_group_index_from_entity(item, indices=indices, skip_digestion=True)
@@ -3012,7 +3012,7 @@ def get_n_amino_acids_from_entity(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_nucleotides_from_entity(item, indices='all', skip_digestion=False):
 
     group_indices = get_group_index_from_entity(item, indices=indices, skip_digestion=True)
@@ -3024,7 +3024,7 @@ def get_n_nucleotides_from_entity(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_ions_from_entity(item, indices='all', skip_digestion=False):
 
     group_indices = get_group_index_from_entity(item, indices=indices, skip_digestion=True)
@@ -3036,7 +3036,7 @@ def get_n_ions_from_entity(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_waters_from_entity(item, indices='all', skip_digestion=False):
 
     group_indices = get_group_index_from_entity(item, indices=indices, skip_digestion=True)
@@ -3048,7 +3048,7 @@ def get_n_waters_from_entity(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_small_molecules_from_entity(item, indices='all', skip_digestion=False):
 
     group_indices = get_group_index_from_entity(item, indices=indices, skip_digestion=True)
@@ -3060,7 +3060,7 @@ def get_n_small_molecules_from_entity(item, indices='all', skip_digestion=False)
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_lipids_from_entity(item, indices='all', skip_digestion=False):
 
     group_indices = get_group_index_from_entity(item, indices=indices, skip_digestion=True)
@@ -3072,7 +3072,7 @@ def get_n_lipids_from_entity(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_polysaccharides_from_entity(item, indices='all', skip_digestion=False):
 
     group_indices = get_group_index_from_entity(item, indices=indices, skip_digestion=True)
@@ -3084,7 +3084,7 @@ def get_n_polysaccharides_from_entity(item, indices='all', skip_digestion=False)
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_saccharides_from_entity(item, indices='all', skip_digestion=False):
 
     group_indices = get_group_index_from_entity(item, indices=indices, skip_digestion=True)
@@ -3096,7 +3096,7 @@ def get_n_saccharides_from_entity(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_peptides_from_entity(item, indices='all', skip_digestion=False):
 
     molecule_indices = get_molecule_index_from_entity(item, indices=indices, skip_digestion=True)
@@ -3107,7 +3107,7 @@ def get_n_peptides_from_entity(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_proteins_from_entity(item, indices='all', skip_digestion=False):
 
     molecule_indices = get_molecule_index_from_entity(item, indices=indices, skip_digestion=True)
@@ -3118,7 +3118,7 @@ def get_n_proteins_from_entity(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_dnas_from_entity(item, indices='all', skip_digestion=False):
 
     molecule_indices = get_molecule_index_from_entity(item, indices=indices, skip_digestion=True)
@@ -3129,7 +3129,7 @@ def get_n_dnas_from_entity(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_rnas_from_entity(item, indices='all', skip_digestion=False):
 
     molecule_indices = get_molecule_index_from_entity(item, indices=indices, skip_digestion=True)
@@ -3143,7 +3143,7 @@ def get_n_rnas_from_entity(item, indices='all', skip_digestion=False):
 ## From chain
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_atom_index_from_chain(item, indices='all', skip_digestion=False):
 
     target_index = get_chain_index_from_atom(item)
@@ -3158,7 +3158,7 @@ def get_atom_index_from_chain(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_atom_id_from_chain(item, indices='all', skip_digestion=False):
 
     target_indices = get_atom_index_from_chain(item, indices=indices, skip_digestion=True)
@@ -3177,7 +3177,7 @@ def get_atom_id_from_chain(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_atom_name_from_chain(item, indices='all', skip_digestion=False):
 
     target_indices = get_atom_index_from_chain(item, indices=indices, skip_digestion=True)
@@ -3196,7 +3196,7 @@ def get_atom_name_from_chain(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_atom_type_from_chain(item, indices='all', skip_digestion=False):
 
     target_indices = get_atom_index_from_chain(item, indices=indices, skip_digestion=True)
@@ -3215,7 +3215,7 @@ def get_atom_type_from_chain(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_group_index_from_chain(item, indices='all', skip_digestion=False):
 
     target_index = get_chain_index_from_group(item, skip_digestion=True)
@@ -3230,7 +3230,7 @@ def get_group_index_from_chain(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_group_id_from_chain(item, indices='all', skip_digestion=False):
 
     target_indices = get_group_index_from_chain(item, indices=indices, skip_digestion=True)
@@ -3249,7 +3249,7 @@ def get_group_id_from_chain(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_group_name_from_chain(item, indices='all', skip_digestion=False):
 
     target_indices = get_group_index_from_chain(item, indices=indices, skip_digestion=True)
@@ -3268,7 +3268,7 @@ def get_group_name_from_chain(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_group_type_from_chain(item, indices='all', skip_digestion=False):
 
     target_indices = get_group_index_from_chain(item, indices=indices, skip_digestion=True)
@@ -3287,7 +3287,7 @@ def get_group_type_from_chain(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_component_index_from_chain(item, indices='all', skip_digestion=False):
 
     target_index = get_chain_index_from_component(item, skip_digestion=True)
@@ -3302,7 +3302,7 @@ def get_component_index_from_chain(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_component_id_from_chain(item, indices='all', skip_digestion=False):
 
     target_indices = get_component_index_from_chain(item, indices=indices, skip_digestion=True)
@@ -3321,7 +3321,7 @@ def get_component_id_from_chain(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_component_name_from_chain(item, indices='all', skip_digestion=False):
 
     target_indices = get_component_index_from_chain(item, indices=indices, skip_digestion=True)
@@ -3340,7 +3340,7 @@ def get_component_name_from_chain(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_component_type_from_chain(item, indices='all', skip_digestion=False):
 
     target_indices = get_component_index_from_chain(item, indices=indices, skip_digestion=True)
@@ -3359,7 +3359,7 @@ def get_component_type_from_chain(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_molecule_index_from_chain(item, indices='all', skip_digestion=False):
 
     target_index = get_chain_index_from_molecule(item, skip_digestion=True)
@@ -3374,7 +3374,7 @@ def get_molecule_index_from_chain(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_molecule_id_from_chain(item, indices='all', skip_digestion=False):
 
     target_indices = get_molecule_index_from_chain(item, indices=indices, skip_digestion=True)
@@ -3393,7 +3393,7 @@ def get_molecule_id_from_chain(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_molecule_name_from_chain(item, indices='all', skip_digestion=False):
 
     target_indices = get_molecule_index_from_chain(item, indices=indices, skip_digestion=True)
@@ -3412,7 +3412,7 @@ def get_molecule_name_from_chain(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_molecule_type_from_chain(item, indices='all', skip_digestion=False):
 
     target_indices = get_molecule_index_from_chain(item, indices=indices, skip_digestion=True)
@@ -3431,7 +3431,7 @@ def get_molecule_type_from_chain(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_entity_index_from_chain(item, indices='all', skip_digestion=False):
 
     target_index = get_chain_index_from_entity(item, skip_digestion=True)
@@ -3446,7 +3446,7 @@ def get_entity_index_from_chain(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_entity_id_from_chain(item, indices='all', skip_digestion=False):
 
     target_indices = get_entity_index_from_chain(item, indices=indices, skip_digestion=True)
@@ -3465,7 +3465,7 @@ def get_entity_id_from_chain(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_entity_name_from_chain(item, indices='all', skip_digestion=False):
 
     target_indices = get_entity_index_from_chain(item, indices=indices, skip_digestion=True)
@@ -3484,7 +3484,7 @@ def get_entity_name_from_chain(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_entity_type_from_chain(item, indices='all', skip_digestion=False):
 
     target_indices = get_entity_index_from_chain(item, indices=indices, skip_digestion=True)
@@ -3503,7 +3503,7 @@ def get_entity_type_from_chain(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_chain_index_from_chain(item, indices='all', skip_digestion=False):
 
     if is_all(indices):
@@ -3515,73 +3515,73 @@ def get_chain_index_from_chain(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_chain_id_from_chain(item, indices='all', skip_digestion=False):
 
     raise NotImplementedMethodError()
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_chain_name_from_chain(item, indices='all', skip_digestion=False):
 
     raise NotImplementedMethodError()
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_chain_type_from_chain(item, indices='all', skip_digestion=False):
 
     raise NotImplementedMethodError()
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_bond_index_from_chain(item, indices='all', skip_digestion=False):
 
     raise NotImplementedMethodError()
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_bond_type_from_chain(item, indices='all', skip_digestion=False):
 
     raise NotImplementedMethodError()
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_bond_order_from_chain(item, indices='all', skip_digestion=False):
 
     raise NotImplementedMethodError()
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_bonded_atoms_from_chain(item, indices='all', skip_digestion=False):
 
     raise NotImplementedMethodError()
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_bonded_atom_pairs_from_chain(item, indices='all', skip_digestion=False):
 
     raise NotImplementedMethodError()
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_inner_bond_index_from_chain(item, indices='all', skip_digestion=False):
 
     raise NotImplementedMethodError()
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_inner_bonded_atoms_from_chain(item, indices='all', skip_digestion=False):
 
     raise NotImplementedMethodError()
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_inner_bonded_atom_pairs_from_chain(item, indices='all', skip_digestion=False):
 
     raise NotImplementedMethodError()
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_atoms_from_chain(item, indices='all', skip_digestion=False):
 
     output = get_atom_index_from_chain(item, indices, skip_digestion=True)
@@ -3590,7 +3590,7 @@ def get_n_atoms_from_chain(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_groups_from_chain(item, indices='all', skip_digestion=False):
 
     output = get_group_index_from_chain(item, indices, skip_digestion=True)
@@ -3599,7 +3599,7 @@ def get_n_groups_from_chain(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_components_from_chain(item, indices='all', skip_digestion=False):
 
     output = get_component_index_from_chain(item, indices, skip_digestion=True)
@@ -3608,7 +3608,7 @@ def get_n_components_from_chain(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_molecules_from_chain(item, indices='all', skip_digestion=False):
 
     output = get_molecule_index_from_chain(item, indices, skip_digestion=True)
@@ -3617,7 +3617,7 @@ def get_n_molecules_from_chain(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_entities_from_chain(item, indices='all', skip_digestion=False):
 
     output = get_entity_index_from_chain(item, indices, skip_digestion=True)
@@ -3626,7 +3626,7 @@ def get_n_entities_from_chain(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_chains_from_chain(item, indices='all', skip_digestion=False):
 
     if is_all(indices):
@@ -3637,19 +3637,19 @@ def get_n_chains_from_chain(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_bonds_from_chain(item, indices='all', skip_digestion=False):
 
     raise NotImplementedMethodError()
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_inner_bonds_from_chain(item, indices='all', skip_digestion=False):
 
     raise NotImplementedMethodError()
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_amino_acids_from_chain(item, indices='all', skip_digestion=False):
 
     group_indices = get_group_index_from_chain(item, indices=indices, skip_digestion=True)
@@ -3661,7 +3661,7 @@ def get_n_amino_acids_from_chain(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_nucleotides_from_chain(item, indices='all', skip_digestion=False):
 
     group_indices = get_group_index_from_chain(item, indices=indices, skip_digestion=True)
@@ -3673,7 +3673,7 @@ def get_n_nucleotides_from_chain(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_ions_from_chain(item, indices='all', skip_digestion=False):
 
     group_indices = get_group_index_from_chain(item, indices=indices, skip_digestion=True)
@@ -3685,7 +3685,7 @@ def get_n_ions_from_chain(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_waters_from_chain(item, indices='all', skip_digestion=False):
 
     group_indices = get_group_index_from_chain(item, indices=indices, skip_digestion=True)
@@ -3697,7 +3697,7 @@ def get_n_waters_from_chain(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_small_molecules_from_chain(item, indices='all', skip_digestion=False):
 
     group_indices = get_group_index_from_chain(item, indices=indices, skip_digestion=True)
@@ -3709,7 +3709,7 @@ def get_n_small_molecules_from_chain(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_lipids_from_chain(item, indices='all', skip_digestion=False):
 
     group_indices = get_group_index_from_chain(item, indices=indices, skip_digestion=True)
@@ -3721,7 +3721,7 @@ def get_n_lipids_from_chain(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_polysaccharides_from_chain(item, indices='all', skip_digestion=False):
 
     group_indices = get_group_index_from_chain(item, indices=indices, skip_digestion=True)
@@ -3733,7 +3733,7 @@ def get_n_polysaccharides_from_chain(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_saccharides_from_chain(item, indices='all', skip_digestion=False):
 
     group_indices = get_group_index_from_chain(item, indices=indices, skip_digestion=True)
@@ -3745,7 +3745,7 @@ def get_n_saccharides_from_chain(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_peptides_from_chain(item, indices='all', skip_digestion=False):
 
     molecule_indices = get_molecule_index_from_chain(item, indices=indices, skip_digestion=True)
@@ -3756,7 +3756,7 @@ def get_n_peptides_from_chain(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_proteins_from_chain(item, indices='all', skip_digestion=False):
 
     molecule_indices = get_molecule_index_from_chain(item, indices=indices, skip_digestion=True)
@@ -3767,7 +3767,7 @@ def get_n_proteins_from_chain(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_dnas_from_chain(item, indices='all', skip_digestion=False):
 
     molecule_indices = get_molecule_index_from_chain(item, indices=indices, skip_digestion=True)
@@ -3778,7 +3778,7 @@ def get_n_dnas_from_chain(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_rnas_from_chain(item, indices='all', skip_digestion=False):
 
     molecule_indices = get_molecule_index_from_chain(item, indices=indices, skip_digestion=True)
@@ -3792,7 +3792,7 @@ def get_n_rnas_from_chain(item, indices='all', skip_digestion=False):
 ## From bond
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_bond_index_from_bond(item, indices='all', skip_digestion=False):
 
     if is_all(indices):
@@ -3804,19 +3804,19 @@ def get_bond_index_from_bond(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_bond_order_from_bond(item, indices='all', skip_digestion=False):
 
     raise NotImplementedMethodError()
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_bond_type_from_bond(item, indices='all', skip_digestion=False):
 
     raise NotImplementedMethodError()
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_bonded_atoms_from_bond(item, indices='all', skip_digestion=False):
 
     tmp_indices = get_bond_index_from_bond(item, indices=indices)
@@ -3827,13 +3827,13 @@ def get_bonded_atoms_from_bond(item, indices='all', skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_bonded_atom_pairs_from_bond(item, indices='all', skip_digestion=False):
 
     return get_bonded_atoms_from_bond(item, indices=indices, skip_digestion=True)
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_bonds_from_bond(item, indices='all', skip_digestion=False):
 
     if is_all(indices):
@@ -3848,19 +3848,19 @@ def get_n_bonds_from_bond(item, indices='all', skip_digestion=False):
 ## From system
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_atoms_from_system(item, skip_digestion=False):
 
     return item.n_atoms
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_groups_from_system(item, skip_digestion=False):
 
     return item.n_residues
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_components_from_system(item, skip_digestion=False):
 
     from molsysmt.element.component import get_n_components_from_system
@@ -3870,7 +3870,7 @@ def get_n_components_from_system(item, skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_molecules_from_system(item, skip_digestion=False):
 
     from molsysmt.element.molecule import get_n_molecules_from_system
@@ -3880,7 +3880,7 @@ def get_n_molecules_from_system(item, skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_entities_from_system(item, skip_digestion=False):
 
     from molsysmt.element.entity import get_n_entities_from_system
@@ -3890,19 +3890,19 @@ def get_n_entities_from_system(item, skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_chains_from_system(item, skip_digestion=False):
 
     return item.n_chains
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_bonds_from_system(item, skip_digestion=False):
 
     return item.n_bonds
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_amino_acids_from_system(item, skip_digestion=False):
 
     group_types = get_group_type_from_group(item, skip_digestion=True)
@@ -3911,7 +3911,7 @@ def get_n_amino_acids_from_system(item, skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_nucleotides_from_system(item, skip_digestion=False):
 
     group_types = get_group_type_from_group(item, skip_digestion=True)
@@ -3920,7 +3920,7 @@ def get_n_nucleotides_from_system(item, skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_ions_from_system(item, skip_digestion=False):
 
     group_types = get_group_type_from_group(item, skip_digestion=True)
@@ -3929,7 +3929,7 @@ def get_n_ions_from_system(item, skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_waters_from_system(item, skip_digestion=False):
 
     group_types = get_group_type_from_group(item, skip_digestion=True)
@@ -3938,7 +3938,7 @@ def get_n_waters_from_system(item, skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_small_molecules_from_system(item, skip_digestion=False):
 
     group_types = get_group_type_from_group(item, skip_digestion=True)
@@ -3947,7 +3947,7 @@ def get_n_small_molecules_from_system(item, skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_lipids_from_system(item, skip_digestion=False):
 
     group_types = get_group_type_from_group(item, skip_digestion=True)
@@ -3956,7 +3956,7 @@ def get_n_lipids_from_system(item, skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_polysaccharides_from_system(item, skip_digestion=False):
 
     group_types = get_group_type_from_group(item, skip_digestion=True)
@@ -3965,7 +3965,7 @@ def get_n_polysaccharides_from_system(item, skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_saccharides_from_system(item, skip_digestion=False):
 
     group_types = get_group_type_from_group(item, skip_digestion=True)
@@ -3974,7 +3974,7 @@ def get_n_saccharides_from_system(item, skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_peptides_from_system(item, skip_digestion=False):
 
     molecule_types = get_molecule_type_from_molecule(item, skip_digestion=True)
@@ -3983,7 +3983,7 @@ def get_n_peptides_from_system(item, skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_proteins_from_system(item, skip_digestion=False):
 
     molecule_types = get_molecule_type_from_molecule(item, skip_digestion=True)
@@ -3992,7 +3992,7 @@ def get_n_proteins_from_system(item, skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_dnas_from_system(item, skip_digestion=False):
 
     molecule_types = get_molecule_type_from_molecule(item, skip_digestion=True)
@@ -4001,7 +4001,7 @@ def get_n_dnas_from_system(item, skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_rnas_from_system(item, skip_digestion=False):
 
     molecule_types = get_molecule_type_from_molecule(item, skip_digestion=True)
@@ -4010,7 +4010,7 @@ def get_n_rnas_from_system(item, skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_bond_index_from_system(item, skip_digestion=False):
 
     n_bonds = get_n_bonds_from_system(item, skip_digestion=True)
@@ -4019,7 +4019,7 @@ def get_bond_index_from_system(item, skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_bonded_atoms_from_system(item, skip_digestion=False):
 
     output = None
@@ -4044,7 +4044,7 @@ def get_bonded_atoms_from_system(item, skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_bonded_atom_pairs_from_system(item, skip_digestion=False):
 
     output = get_bonded_atoms_pairs_from_bond(item, skip_digestion=True)
@@ -4052,7 +4052,7 @@ def get_bonded_atom_pairs_from_system(item, skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_inner_bond_index_from_system(item, skip_digestion=False):
 
     n_bonds = get_n_bonds_from_system(item, skip_digestion=True)
@@ -4061,7 +4061,7 @@ def get_inner_bond_index_from_system(item, skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_inner_bonded_atoms_from_system(item, skip_digestion=False):
 
     output = None
@@ -4080,7 +4080,7 @@ def get_inner_bonded_atoms_from_system(item, skip_digestion=False):
     return output
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_inner_bonded_atom_pairs_from_system(item, skip_digestion=False):
 
     output = get_bonded_atoms_pairs_from_bond(item)

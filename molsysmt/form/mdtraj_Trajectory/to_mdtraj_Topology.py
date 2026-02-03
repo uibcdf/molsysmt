@@ -1,6 +1,6 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 
-@digest(form='mdtraj.Trajectory')
+@arg_digest(form='mdtraj.Trajectory')
 def to_mdtraj_Topology(item, atom_indices='all', skip_digestion=False):
 
     from ..mdtraj_Topology import extract as extract_mdtraj_Topology

@@ -1,6 +1,6 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 
-@digest(form='string:alphafold_id')
+@arg_digest(form='string:alphafold_id')
 def to_molsysmt_Topology(item, atom_indices='all', skip_digestion=False):
 
 

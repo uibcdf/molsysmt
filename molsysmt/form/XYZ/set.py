@@ -1,4 +1,4 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 from molsysmt._private.variables import is_all
 import numpy as np
 
@@ -6,7 +6,7 @@ import numpy as np
 
 ## Atom
 
-@digest(form='XYZ')
+@arg_digest(form='XYZ')
 def set_coordinates_to_atom(item, indices='all', structure_indices='all', value=None, skip_digestion=False):
 
     if is_all(indices):
@@ -24,7 +24,7 @@ def set_coordinates_to_atom(item, indices='all', structure_indices='all', value=
 
 ## System
 
-@digest(form='XYZ')
+@arg_digest(form='XYZ')
 def set_coordinates_to_system(item, indices='all', structure_indices='all', value=None, skip_digestion=False):
 
     return set_coordinates_to_atom(item, indices='all', structure_indices=structure_indices,

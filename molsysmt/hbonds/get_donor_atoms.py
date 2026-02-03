@@ -1,4 +1,4 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 import numpy as np
 
 
@@ -12,7 +12,7 @@ donor_exclusion_rules = [
     "(atom_name=='ND1') not bonded to (atom_type=='H')",
 ]
 
-@digest()
+@arg_digest()
 def get_donor_atoms(molecular_system, selection='all',  inclusion_rules=None, exclusion_rules=None,
                     default_inclusion_rules=True, default_exclusion_rules=True,
                     syntax='MolSysMT'):

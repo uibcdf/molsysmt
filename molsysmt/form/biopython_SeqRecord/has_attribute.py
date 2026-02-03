@@ -1,6 +1,6 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 
-@digest(form='biopython.SeqRecord')
+@arg_digest(form='biopython.SeqRecord')
 def has_attribute(molecular_system, attribute, include_none=False, skip_digestion=False):
 
     from . import attributes

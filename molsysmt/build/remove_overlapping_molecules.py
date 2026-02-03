@@ -1,10 +1,10 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 from molsysmt._private.exceptions import NotImplementedMethodError
 from molsysmt._private.atom_indices import complementary_atom_indices
 from molsysmt import pyunitwizard as puw
 import numpy as np
 
-@digest()
+@arg_digest()
 def remove_overlapping_molecules(molecular_system, selection, selection_2=None,
                                 structure_index=0, threshold='3 angstroms', pbc=True,
                                 syntax='MolSysMT'):

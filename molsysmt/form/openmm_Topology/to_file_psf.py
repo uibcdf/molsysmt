@@ -1,6 +1,6 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 
-@digest(form='openmm.Topology')
+@arg_digest(form='openmm.Topology')
 def to_file_psf(item, atom_indices='all', output_filename=None, skip_digestion=False):
 
     from .to_parmed_Structure import to_parmed_Structure as openmm_Topology_to_parmed_Structure

@@ -1,7 +1,7 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 from .names import atom as atom_type_from_name
 
-@digest()
+@arg_digest()
 def get_atom_type_from_atom_name(atom_name):
     """
     To be written soon...

@@ -1,6 +1,6 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 
-@digest(form='openmm.Topology')
+@arg_digest(form='openmm.Topology')
 def to_molsysmt_MolSys(item, atom_indices='all', coordinates=None, box=None, skip_digestion=False):
 
     from molsysmt.native.molsys import MolSys

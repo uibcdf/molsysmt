@@ -1,6 +1,6 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 
-@digest()
+@arg_digest()
 def concatenate_structures(molecular_systems, selections='all', structure_indices='all', to_form=None,
                            syntax='MolSysMT', skip_digestion=False):
     """

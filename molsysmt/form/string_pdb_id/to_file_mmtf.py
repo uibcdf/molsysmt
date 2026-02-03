@@ -1,6 +1,6 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 
-@digest(form='string:pdb_id')
+@arg_digest(form='string:pdb_id')
 def to_file_mmtf(item, atom_indices='all', structure_indices='all', output_filename=None, skip_digestion=False):
 
     from . import to_mmtf_MMTFDecoder

@@ -1,7 +1,7 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 from molsysmt._private.variables import is_all
 
-@digest(form='molsysmt.Topology')
+@arg_digest(form='molsysmt.Topology')
 def extract(item, atom_indices='all', structure_indices='all', copy_if_all=True, skip_digestion=False):
 
     if is_all(atom_indices):

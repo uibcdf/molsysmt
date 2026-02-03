@@ -1,6 +1,6 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 
-@digest(form='file:xtc')
+@arg_digest(form='file:xtc')
 def to_mdtraj_XTCTrajectoryFile(item, atom_indices='all', structure_indices='all', skip_digestion=False):
 
     from mdtraj.formats import XTCTrajectoryFile

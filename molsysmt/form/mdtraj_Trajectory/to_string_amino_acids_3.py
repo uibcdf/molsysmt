@@ -1,7 +1,7 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 import numpy as np
 
-@digest(form='mdtraj.Trajectory')
+@arg_digest(form='mdtraj.Trajectory')
 def to_string_amino_acids_3(item, atom_indices='all', skip_digestion=False):
 
     from . import to_mdtraj_Topology

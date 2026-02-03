@@ -1,4 +1,4 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 from molsysmt._private.variables import is_all
 import numpy as np
 import types
@@ -14,7 +14,7 @@ form = 'file:h5msm'
 # From atom
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_coordinates_from_atom(item, indices='all', structure_indices='all', skip_digestion=False):
 
     from . import to_molsysmt_H5MSMFileHandler
@@ -26,7 +26,7 @@ def get_coordinates_from_atom(item, indices='all', structure_indices='all', skip
 
     return output
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_velocities_from_atom(item, indices='all', structure_indices='all', skip_digestion=False):
 
     from . import to_molsysmt_H5MSMFileHandler
@@ -38,7 +38,7 @@ def get_velocities_from_atom(item, indices='all', structure_indices='all', skip_
 
     return output
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_occupancy_from_atom (item, indices='all', structure_indices='all', skip_digestion=False):
 
     from . import to_molsysmt_H5MSMFileHandler
@@ -50,7 +50,7 @@ def get_occupancy_from_atom (item, indices='all', structure_indices='all', skip_
 
     return output
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_alternate_location_from_atom (item, indices='all', structure_indices='all', skip_digestion=False):
 
     from . import to_molsysmt_H5MSMFileHandler
@@ -62,7 +62,7 @@ def get_alternate_location_from_atom (item, indices='all', structure_indices='al
 
     return output
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_b_factor_from_atom (item, indices='all', structure_indices='all', skip_digestion=False):
 
     from . import to_molsysmt_H5MSMFileHandler
@@ -78,7 +78,7 @@ def get_b_factor_from_atom (item, indices='all', structure_indices='all', skip_d
 # From system
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_coordinates_from_system(item, structure_indices='all', skip_digestion=False):
 
     from . import to_molsysmt_H5MSMFileHandler
@@ -90,7 +90,7 @@ def get_coordinates_from_system(item, structure_indices='all', skip_digestion=Fa
 
     return output
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_velocities_from_system(item, structure_indices='all', skip_digestion=False):
 
     from . import to_molsysmt_H5MSMFileHandler
@@ -102,7 +102,7 @@ def get_velocities_from_system(item, structure_indices='all', skip_digestion=Fal
 
     return output
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_box_from_system(item, structure_indices='all', skip_digestion=False):
 
     from . import to_molsysmt_H5MSMFileHandler
@@ -114,7 +114,7 @@ def get_box_from_system(item, structure_indices='all', skip_digestion=False):
 
     return output
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_box_shape_from_system(item, structure_indices='all', skip_digestion=False):
 
     from . import to_molsysmt_H5MSMFileHandler
@@ -126,7 +126,7 @@ def get_box_shape_from_system(item, structure_indices='all', skip_digestion=Fals
 
     return output
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_box_lengths_from_system(item, structure_indices='all', skip_digestion=False):
 
     from . import to_molsysmt_H5MSMFileHandler
@@ -138,7 +138,7 @@ def get_box_lengths_from_system(item, structure_indices='all', skip_digestion=Fa
 
     return output
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_box_angles_from_system(item, structure_indices='all', skip_digestion=False):
 
     from . import to_molsysmt_H5MSMFileHandler
@@ -150,7 +150,7 @@ def get_box_angles_from_system(item, structure_indices='all', skip_digestion=Fal
 
     return output
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_box_volume_from_system(item, structure_indices='all', skip_digestion=False):
 
     from . import to_molsysmt_H5MSMFileHandler
@@ -162,7 +162,7 @@ def get_box_volume_from_system(item, structure_indices='all', skip_digestion=Fal
 
     return output
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_time_from_system(item, structure_indices='all', skip_digestion=False):
 
     from . import to_molsysmt_H5MSMFileHandler
@@ -174,7 +174,7 @@ def get_time_from_system(item, structure_indices='all', skip_digestion=False):
 
     return output
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_structure_id_from_system(item, structure_indices='all', skip_digestion=False):
 
     from . import to_molsysmt_H5MSMFileHandler
@@ -184,7 +184,7 @@ def get_structure_id_from_system(item, structure_indices='all', skip_digestion=F
     output = aux_get(tmp_item, structure_indices=structure_indices, skip_digestion=True)
     tmp_item.close()
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_structures_from_system(item, structure_indices='all', skip_digestion=False):
 
     from . import to_molsysmt_H5MSMFileHandler
@@ -194,7 +194,7 @@ def get_n_structures_from_system(item, structure_indices='all', skip_digestion=F
     output = aux_get(tmp_item, structure_indices=structure_indices, skip_digestion=True)
     tmp_item.close()
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_occupancy_from_system(item, structure_indices='all', skip_digestion=False):
 
     from . import to_molsysmt_H5MSMFileHandler
@@ -204,7 +204,7 @@ def get_occupancy_from_system(item, structure_indices='all', skip_digestion=Fals
     output = aux_get(tmp_item, structure_indices=structure_indices, skip_digestion=True)
     tmp_item.close()
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_b_factor_from_system(item, structure_indices='all', skip_digestion=False):
 
     from . import to_molsysmt_H5MSMFileHandler
@@ -214,7 +214,7 @@ def get_b_factor_from_system(item, structure_indices='all', skip_digestion=False
     output = aux_get(tmp_item, structure_indices=structure_indices, skip_digestion=True)
     tmp_item.close()
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_alternate_location_from_system(item, structure_indices='all', skip_digestion=False):
 
     from . import to_molsysmt_H5MSMFileHandler
@@ -224,7 +224,7 @@ def get_alternate_location_from_system(item, structure_indices='all', skip_diges
     output = aux_get(tmp_item, structure_indices=structure_indices, skip_digestion=True)
     tmp_item.close()
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_bioassembly_from_system(item, skip_digestion=False):
 
     from . import to_molsysmt_H5MSMFileHandler
@@ -234,7 +234,7 @@ def get_bioassembly_from_system(item, skip_digestion=False):
     output = aux_get(tmp_item, structure_indices=structure_indices, skip_digestion=True)
     tmp_item.close()
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_bioassemblies_from_system(item, skip_digestion=False):
 
     from . import to_molsysmt_H5MSMFileHandler

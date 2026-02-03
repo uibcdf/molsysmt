@@ -1,7 +1,7 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 
 
-@digest()
+@arg_digest()
 def get_molecule_index(molecular_system, element='molecule', selection='all',
                        redefine_indices=False, syntax='MolSysMT', skip_digestion=False):
 

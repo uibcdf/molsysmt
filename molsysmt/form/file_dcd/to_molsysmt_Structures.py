@@ -1,6 +1,6 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 
-@digest(form='file:dcd')
+@arg_digest(form='file:dcd')
 def to_molsysmt_Structures(item, atom_indices='all', structure_indices='all', skip_digestion=False):
 
     from .to_mdtraj_DCDTrajectoryFile import to_mdtraj_DCDTrajectoryFile

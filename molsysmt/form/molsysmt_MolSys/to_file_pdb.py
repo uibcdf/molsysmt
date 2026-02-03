@@ -1,6 +1,6 @@
 from molsysmt._private.digestion import *
 
-@digest(form='molsysmt.MolSys')
+@arg_digest(form='molsysmt.MolSys')
 def to_file_pdb(item, atom_indices='all', structure_indices='all', output_filename=None, skip_digestion=False):
 
     from . import to_string_pdb_text

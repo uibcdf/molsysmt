@@ -1,4 +1,4 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 from molsysmt._private.exceptions import NotImplementedIteratorError
 #from molsysmt._private.exceptions import IteratorError
 
@@ -75,7 +75,7 @@ class Iterator():
     .. versionadded:: 1.0.0
     """
 
-    @digest()
+    @arg_digest()
     def __init__(self,
                  molecular_system,
                  element = 'atom',

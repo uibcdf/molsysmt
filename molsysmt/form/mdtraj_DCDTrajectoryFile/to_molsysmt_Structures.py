@@ -1,8 +1,8 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 from molsysmt import pyunitwizard as puw
 import numpy as np
 
-@digest(form='mdtraj.DCDTrajectoryFile')
+@arg_digest(form='mdtraj.DCDTrajectoryFile')
 def to_molsysmt_Structures(item, atom_indices='all', structure_indices='all', skip_digestion=False):
 
     from .iterators import StructuresIterator

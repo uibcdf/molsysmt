@@ -1,11 +1,11 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 from molsysmt._private.variables import is_all, is_iterable
 from molsysmt._private.colors import color_to_list_of_colors, get_list_of_colors_from_values
 from molsysmt import pyunitwizard as puw
 import numpy as np
 
 
-@digest()
+@arg_digest()
 def add_cylinders(view, bottom=None, top=None, vectors=None, color='#808080', color_2=None, radius='0.1 angstroms',
         color_values=None, min_color_value=None, mid_color_value=None, max_color_value=None,
         color_values_scale='linear', colormap='bwr', color_values_2=None, min_color_value_2=None,

@@ -1,10 +1,10 @@
 import numpy as np
 from molsysmt import pyunitwizard as puw
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 from molsysmt import lib as msmlib
 import gc
 
-@digest()
+@arg_digest()
 def get_angles(molecular_system, triplets, structure_indices='all', pbc=False, skip_digestion=False):
     """
     Calculating bond angles for given atom triplets.

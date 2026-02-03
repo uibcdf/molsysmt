@@ -1,7 +1,7 @@
 from molsysmt.dependencies import requires
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 
-@digest(form='file:prmtop')
+@arg_digest(form='file:prmtop')
 @requires('mdtraj')
 def to_mdtraj_Topology(item, atom_indices='all', skip_digestion=False):
 

@@ -1,7 +1,7 @@
 import os
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 
-@digest()
+@arg_digest()
 def get_mode(filename):
 
     from molsysmt.file import files_handled

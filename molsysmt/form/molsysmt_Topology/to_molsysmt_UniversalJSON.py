@@ -1,4 +1,4 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 from molsysmt.native import UniversalJSON
 import pandas as pd
 
@@ -7,7 +7,7 @@ def _series_to_list(series):
     return [None if pd.isna(ii) else ii for ii in series]
 
 
-@digest(form='molsysmt.Topology')
+@arg_digest(form='molsysmt.Topology')
 def to_molsysmt_UniversalJSON(item, skip_digestion=False):
     """Converting a native Topology into a UniversalJSON object (topology only)."""
 

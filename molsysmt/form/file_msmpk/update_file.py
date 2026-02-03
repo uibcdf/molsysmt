@@ -1,6 +1,6 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 
-@digest(form='file:msmpk')
+@arg_digest(form='file:msmpk')
 def update_file(item, skip_digestion=False):
 
     from molsysmt.native import MolSys

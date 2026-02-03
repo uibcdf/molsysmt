@@ -1,6 +1,6 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 
-@digest(form='file:cif')
+@arg_digest(form='file:cif')
 def to_molsysmt_Topology(item, atom_indices='all', skip_digestion=False):
 
     from . import to_mmcif_PdbxContainers_DataContainer

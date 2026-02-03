@@ -3,7 +3,7 @@
 #######################################################################################
 
 from molsysmt._private.exceptions import NotImplementedMethodError, NotWithThisFormError
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 from molsysmt._private.variables import is_all
 import numpy as np
 
@@ -12,7 +12,7 @@ form='molsysmt.MolecularMechanicsDict'
 
 ## From atom
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_atom_index_from_atom(item, indices='all', skip_digestion=False):
 
     if is_all(indices):
@@ -24,7 +24,7 @@ def get_atom_index_from_atom(item, indices='all', skip_digestion=False):
 
         return indices
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_atoms_from_atom (item, indices='all', skip_digestion=False):
 
     output = None
@@ -42,7 +42,7 @@ def get_n_atoms_from_atom (item, indices='all', skip_digestion=False):
 
     return output
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_formal_charge_from_atom(item, indices='all', skip_digestion=False):
 
     if is_all(indices):
@@ -56,7 +56,7 @@ def get_formal_charge_from_atom(item, indices='all', skip_digestion=False):
         except:
             return None
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_partial_charge_from_atom(item, indices='all', skip_digestion=False):
 
     if is_all(indices):
@@ -72,13 +72,13 @@ def get_partial_charge_from_atom(item, indices='all', skip_digestion=False):
 
 ## From system
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_atoms_from_system(item, skip_digestion=False):
 
     return get_n_atoms_from_atom(item, skip_digestion=True)
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_forcefield_from_system(item, skip_digestion=False):
 
     try:
@@ -86,7 +86,7 @@ def get_forcefield_from_system(item, skip_digestion=False):
     except:
         return None
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_non_bonded_method_from_system(item, skip_digestion=False):
 
     try:
@@ -94,7 +94,7 @@ def get_non_bonded_method_from_system(item, skip_digestion=False):
     except:
         return None
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_cutoff_distance_from_system(item, skip_digestion=False):
 
     try:
@@ -102,7 +102,7 @@ def get_cutoff_distance_from_system(item, skip_digestion=False):
     except:
         return None
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_switch_distance_from_system(item, skip_digestion=False):
 
     try:
@@ -110,7 +110,7 @@ def get_switch_distance_from_system(item, skip_digestion=False):
     except:
         return None
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_dispersion_correction_from_system(item, skip_digestion=False):
 
     try:
@@ -118,7 +118,7 @@ def get_dispersion_correction_from_system(item, skip_digestion=False):
     except:
         return None
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_ewald_error_tolerance_from_system(item, skip_digestion=False):
 
     try:
@@ -126,7 +126,7 @@ def get_ewald_error_tolerance_from_system(item, skip_digestion=False):
     except:
         return None
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_hydrogen_mass_from_system(item, skip_digestion=False):
 
     try:
@@ -134,7 +134,7 @@ def get_hydrogen_mass_from_system(item, skip_digestion=False):
     except:
         return None
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_constraints_from_system(item, skip_digestion=False):
 
     try:
@@ -142,7 +142,7 @@ def get_constraints_from_system(item, skip_digestion=False):
     except:
         return None
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_flexible_constraints_from_system(item, skip_digestion=False):
 
     try:
@@ -150,7 +150,7 @@ def get_flexible_constraints_from_system(item, skip_digestion=False):
     except:
         return None
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_water_model_from_system(item, skip_digestion=False):
 
     try:
@@ -158,7 +158,7 @@ def get_water_model_from_system(item, skip_digestion=False):
     except:
         return None
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_rigid_water_from_system(item, skip_digestion=False):
 
     try:
@@ -166,7 +166,7 @@ def get_rigid_water_from_system(item, skip_digestion=False):
     except:
         return None
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_implicit_solvent_from_system(item, skip_digestion=False):
 
     try:
@@ -174,7 +174,7 @@ def get_implicit_solvent_from_system(item, skip_digestion=False):
     except:
         return None
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_solute_dielectric_from_system(item, skip_digestion=False):
 
     try:
@@ -182,7 +182,7 @@ def get_solute_dielectric_from_system(item, skip_digestion=False):
     except:
         return None
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_solvent_dielectric_from_system(item, skip_digestion=False):
 
     try:
@@ -190,7 +190,7 @@ def get_solvent_dielectric_from_system(item, skip_digestion=False):
     except:
         return None
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_salt_concentration_from_system(item, skip_digestion=False):
 
     try:
@@ -198,7 +198,7 @@ def get_salt_concentration_from_system(item, skip_digestion=False):
     except:
         return None
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_kappa_from_system(item, skip_digestion=False):
 
     try:

@@ -1,11 +1,11 @@
 from molsysmt._private.exceptions import NotImplementedIteratorError
 from ..mdtraj_DCDTrajectoryFile.iterators import StructuresIterator as StructuresIterator_DCDTrajectoryFile
 from .to_mdtraj_DCDTrajectoryFile import to_mdtraj_DCDTrajectoryFile
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 
 class StructuresIterator(StructuresIterator_DCDTrajectoryFile):
 
-    @digest(form='file:dcd')
+    @arg_digest(form='file:dcd')
     def __init__(self, molecular_system, atom_indices='all', start=0, step=1, stop=None, chunk=1, structure_indices=None,
             output_type='values', skip_digestion=False, **kwargs):
 

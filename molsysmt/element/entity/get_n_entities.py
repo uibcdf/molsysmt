@@ -1,7 +1,7 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 
 
-@digest()
+@arg_digest()
 def get_n_entities(molecular_system, selection='all', redefine_entities=False,
                      syntax='MolSysMT'):
 

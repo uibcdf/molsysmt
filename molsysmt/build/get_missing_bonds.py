@@ -1,4 +1,4 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 from molsysmt._private.exceptions import NotImplementedMethodError
 from molsysmt._private.variables import is_all
 from molsysmt._private.lists import sorted_list_of_pairs
@@ -6,7 +6,7 @@ from molsysmt.element.bond import max_expected_bond_length, bond_length_toleranc
 import numpy as np
 import warnings
 
-@digest()
+@arg_digest()
 def get_missing_bonds(molecular_system, selection='all', structure_index=0, max_bond_length='2 angstroms',
                       disulfide_bonds=False, disulfide_group_names=['CYS'], pbc=True,
                       syntax='MolSysMT', engine='MolSysMT', sorted=True, skip_digestion=False):

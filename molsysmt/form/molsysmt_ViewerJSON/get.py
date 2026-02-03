@@ -1,4 +1,4 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 from molsysmt._private.variables import is_all
 from molsysmt import pyunitwizard as puw
 import numpy as np
@@ -69,7 +69,7 @@ def _reshape_coordinates(frames, n_atoms):
     return np.stack(coords), structure_indices
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_atom_index_from_atom(item, indices='all', skip_digestion=False):
     n_atoms = get_n_atoms_from_system(item, skip_digestion=True)
     if n_atoms is None:
@@ -79,7 +79,7 @@ def get_atom_index_from_atom(item, indices='all', skip_digestion=False):
     return np.array(indices, dtype=int).tolist()
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_atom_id_from_atom(item, indices='all', skip_digestion=False):
     atoms = _atoms_dict(item)
     values = atoms.get('atom_id', None)
@@ -91,7 +91,7 @@ def get_atom_id_from_atom(item, indices='all', skip_digestion=False):
     return arr[np.array(indices, dtype=int)].tolist()
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_atom_name_from_atom(item, indices='all', skip_digestion=False):
     atoms = _atoms_dict(item)
     values = atoms.get('atom_name', None)
@@ -103,7 +103,7 @@ def get_atom_name_from_atom(item, indices='all', skip_digestion=False):
     return arr[np.array(indices, dtype=int)].tolist()
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_group_id_from_atom(item, indices='all', skip_digestion=False):
     atoms = _atoms_dict(item)
     values = atoms.get('group_id', atoms.get('group_ig', None))
@@ -115,7 +115,7 @@ def get_group_id_from_atom(item, indices='all', skip_digestion=False):
     return arr[np.array(indices, dtype=int)].tolist()
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_group_name_from_atom(item, indices='all', skip_digestion=False):
     atoms = _atoms_dict(item)
     values = atoms.get('group_name', None)
@@ -127,7 +127,7 @@ def get_group_name_from_atom(item, indices='all', skip_digestion=False):
     return arr[np.array(indices, dtype=int)].tolist()
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_chain_id_from_atom(item, indices='all', skip_digestion=False):
     atoms = _atoms_dict(item)
     values = atoms.get('chain_id', None)
@@ -139,7 +139,7 @@ def get_chain_id_from_atom(item, indices='all', skip_digestion=False):
     return arr[np.array(indices, dtype=int)].tolist()
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_entity_id_from_atom(item, indices='all', skip_digestion=False):
     atoms = _atoms_dict(item)
     values = atoms.get('entity_id', None)
@@ -151,7 +151,7 @@ def get_entity_id_from_atom(item, indices='all', skip_digestion=False):
     return arr[np.array(indices, dtype=int)].tolist()
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_formal_charge_from_atom(item, indices='all', skip_digestion=False):
     atoms = _atoms_dict(item)
     values = atoms.get('formal_charge', None)
@@ -163,7 +163,7 @@ def get_formal_charge_from_atom(item, indices='all', skip_digestion=False):
     return arr[np.array(indices, dtype=int)].tolist()
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_atoms_from_system(item, skip_digestion=False):
     atoms = _atoms_dict(item)
     n_atoms = _n_atoms_from_atoms(atoms)
@@ -178,7 +178,7 @@ def get_n_atoms_from_system(item, skip_digestion=False):
     return None
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_bonds_from_system(item, skip_digestion=False):
     bonds = _bonds_dict(item)
     atom_pairs = bonds.get('atom_pairs', None)
@@ -187,7 +187,7 @@ def get_n_bonds_from_system(item, skip_digestion=False):
     return len(atom_pairs)
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_bond_index_from_bond(item, indices='all', skip_digestion=False):
     n_bonds = get_n_bonds_from_system(item, skip_digestion=True)
     if n_bonds is None:
@@ -197,7 +197,7 @@ def get_bond_index_from_bond(item, indices='all', skip_digestion=False):
     return np.array(indices, dtype=int).tolist()
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_bonded_atoms_from_atom(item, indices='all', skip_digestion=False):
     n_atoms = get_n_atoms_from_system(item, skip_digestion=True)
     n_bonds = get_n_bonds_from_system(item, skip_digestion=True)
@@ -217,13 +217,13 @@ def get_bonded_atoms_from_atom(item, indices='all', skip_digestion=False):
     return [bonded[ii] for ii in np.array(indices, dtype=int)]
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_structures_from_system(item, skip_digestion=False):
     frames = _structures_list(item)
     return len(frames) if frames else None
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_coordinates_from_system(item, structure_indices='all', skip_digestion=False):
     n_atoms = get_n_atoms_from_system(item, skip_digestion=True)
     frames = _structures_list(item)
@@ -243,7 +243,7 @@ def get_coordinates_from_system(item, structure_indices='all', skip_digestion=Fa
     return puw.quantity(selected, 'nanometer')
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_time_from_system(item, structure_indices='all', skip_digestion=False):
     frames = _structures_list(item)
     if not frames:

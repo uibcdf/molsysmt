@@ -1,6 +1,6 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 
-@digest(form='molsysmt.Topology')
+@arg_digest(form='molsysmt.Topology')
 def to_string_pdb_text(item, atom_indices='all', coordinates=None, box=None, skip_digestion=False):
 
     from molsysmt.native import MolSys, Structures

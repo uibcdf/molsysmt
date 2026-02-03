@@ -4,7 +4,7 @@
 
 from molsysmt._private.execfile import execfile
 from molsysmt._private.exceptions import NotWithThisFormError, NotImplementedMethodError
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 from molsysmt._private.variables import is_all
 import numpy as np
 
@@ -13,57 +13,57 @@ form='molsysmt.StructuresDict'
 
 ## From atom
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_atom_id_from_atom(item, indices='all', skip_digestion=False):
 
     raise NotWithThisFormError()
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_atom_name_from_atom(item, indices='all', skip_digestion=False):
 
     raise NotWithThisFormError()
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_atom_type_from_atom(item, indices='all', skip_digestion=False):
 
     raise NotWithThisFormError()
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_group_index_from_atom(item, indices='all', skip_digestion=False):
 
     raise NotWithThisFormError()
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_component_index_from_atom(item, indices='all', skip_digestion=False):
 
     raise NotWithThisFormError()
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_chain_index_from_atom(item, indices='all', skip_digestion=False):
 
     raise NotWithThisFormError()
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_molecule_index_from_atom(item, indices='all', skip_digestion=False):
 
     raise NotWithThisFormError()
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_entity_index_from_atom(item, indices='all', skip_digestion=False):
 
     raise NotWithThisFormError()
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_inner_bonded_atoms_from_atom(item, indices='all', skip_digestion=False):
 
     raise NotWithThisFormError()
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_inner_bonds_from_atom(item, indices='all', skip_digestion=False):
 
     raise NotWithThisFormError()
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_coordinates_from_atom(item, indices='all', structure_indices='all', skip_digestion=False):
 
     tmp_coordinates = None
@@ -88,17 +88,17 @@ def get_coordinates_from_atom(item, indices='all', structure_indices='all', skip
 
 ## From group
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_group_id_from_group(item, indices='all', skip_digestion=False):
 
     raise NotImplementedMethodError()
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_group_name_from_group(item, indices='all', skip_digestion=False):
 
     raise NotImplementedMethodError()
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_group_type_from_group(item, indices='all', skip_digestion=False):
 
     raise NotImplementedMethodError()
@@ -106,17 +106,17 @@ def get_group_type_from_group(item, indices='all', skip_digestion=False):
 
 ## From component
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_component_id_from_group(item, indices='all', skip_digestion=False):
 
     raise NotWithThisFormError()
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_component_name_from_group(item, indices='all', skip_digestion=False):
 
     raise NotWithThisFormError()
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_component_type_from_group(item, indices='all', skip_digestion=False):
 
     raise NotWithThisFormError()
@@ -124,17 +124,17 @@ def get_component_type_from_group(item, indices='all', skip_digestion=False):
 
 ## From molecule
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_molecule_id_from_group(item, indices='all', skip_digestion=False):
 
     raise NotWithThisFormError()
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_molecule_name_from_group(item, indices='all', skip_digestion=False):
 
     raise NotWithThisFormError()
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_molecule_type_from_group(item, indices='all', skip_digestion=False):
 
     raise NotWithThisFormError()
@@ -142,17 +142,17 @@ def get_molecule_type_from_group(item, indices='all', skip_digestion=False):
 
 ## From chain
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_chain_id_from_group(item, indices='all', skip_digestion=False):
 
     raise NotWithThisFormError()
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_chain_name_from_group(item, indices='all', skip_digestion=False):
 
     raise NotWithThisFormError()
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_chain_type_from_group(item, indices='all', skip_digestion=False):
 
     raise NotWithThisFormError()
@@ -160,17 +160,17 @@ def get_chain_type_from_group(item, indices='all', skip_digestion=False):
 
 ## From entity
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_entity_id_from_group(item, indices='all', skip_digestion=False):
 
     raise NotWithThisFormError()
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_entity_name_from_group(item, indices='all', skip_digestion=False):
 
     raise NotWithThisFormError()
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_entity_type_from_group(item, indices='all', skip_digestion=False):
 
     raise NotWithThisFormError()
@@ -178,7 +178,7 @@ def get_entity_type_from_group(item, indices='all', skip_digestion=False):
 
 ## From system
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_atoms_from_system(item, skip_digestion=False):
 
     output = None
@@ -188,37 +188,37 @@ def get_n_atoms_from_system(item, skip_digestion=False):
 
     return output
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_groups_from_system(item, skip_digestion=False):
 
     raise NotWithThisFormError()
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_components_from_system(item, skip_digestion=False):
 
     raise NotWithThisFormError()
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_chains_from_system(item, skip_digestion=False):
 
     raise NotWithThisFormError()
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_molecules_from_system(item, skip_digestion=False):
 
     raise NotWithThisFormError()
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_entities_from_system(item, skip_digestion=False):
 
     raise NotWithThisFormError()
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_bonds_from_system(item, skip_digestion=False):
 
     raise NotWithThisFormError()
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_structures_from_system(item, structure_indices='all', skip_digestion=False):
 
     output = None
@@ -234,7 +234,7 @@ def get_n_structures_from_system(item, structure_indices='all', skip_digestion=F
 
     return output
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_box_from_system(item, structure_indices='all', skip_digestion=False):
 
     output=None
@@ -259,7 +259,7 @@ def get_box_from_system(item, structure_indices='all', skip_digestion=False):
 
     return output
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_structure_id_from_system(item, structure_indices='all', skip_digestion=False):
 
     output = None
@@ -272,7 +272,7 @@ def get_structure_id_from_system(item, structure_indices='all', skip_digestion=F
 
     return output
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_time_from_system(item, structure_indices='all', skip_digestion=False):
 
     output = None

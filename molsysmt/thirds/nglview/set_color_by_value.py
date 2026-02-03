@@ -1,9 +1,9 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 from molsysmt._private.variables import is_all
 
 # https://github.com/arose/ngl/blob/master/doc/usage/selection-language.md
 
-@digest()
+@arg_digest()
 def set_color_by_value(view, values, element='group', selection='all', cmap='bwr_r',
         min_value=None, mid_value=None, max_value=None, representation='cartoon', syntax='MolSysMT'):
     """Adding a new representation colored by a color scale.

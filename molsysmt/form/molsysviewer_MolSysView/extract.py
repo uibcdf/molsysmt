@@ -1,9 +1,9 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 
 form = 'molsysviewer.MolSysView'
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def extract(item, selection='all', structure_indices='all', syntax='MolSysMT', skip_digestion=False):
 
     from molsysmt.basic import extract as molsys_extract, convert

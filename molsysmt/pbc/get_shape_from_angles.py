@@ -1,8 +1,8 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 import numpy as np
 from molsysmt import pyunitwizard as puw
 
-@digest()
+@arg_digest()
 def get_shape_from_angles(box_angles, skip_digestion=False):
     """
     Determining box shape from its angles.

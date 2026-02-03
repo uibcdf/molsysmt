@@ -1,6 +1,6 @@
 from molsysmt._private.exceptions import NotImplementedConversionError
 from molsysmt._private.exceptions import NotCompatibleConversionError
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 from molsysmt._private.variables import is_all
 from molsysmt.config import default_attribute
 import inspect
@@ -399,7 +399,7 @@ def _convert_multiple_to_one(molecular_system,
 
     return output
 
-@digest()
+@arg_digest()
 def convert(molecular_system,
             to_form='molsysmt.MolSys',
             selection='all',

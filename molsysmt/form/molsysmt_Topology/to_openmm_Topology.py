@@ -1,8 +1,8 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 from molsysmt._private.variables import is_all
 from molsysmt.dependencies import requires
 
-@digest(form='molsysmt.Topology')
+@arg_digest(form='molsysmt.Topology')
 @requires('openmm')
 def to_openmm_Topology(item, box=None, atom_indices='all', skip_digestion=False):
 

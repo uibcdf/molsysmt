@@ -2,7 +2,7 @@
 ########### THE FOLLOWING LINES NEED TO BE CUSTOMIZED FOR EVERY CLASS  ################
 #######################################################################################
 from molsysmt._private.exceptions import NotImplementedMethodError, NotWithThisFormError
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 from molsysmt._private.variables import is_all
 from molsysmt import pyunitwizard as puw
 import numpy as np
@@ -13,7 +13,7 @@ form='mmcif.PdbxContainers.DataContainer'
 
 ## From atom
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_coordinates_from_atom(item, indices='all', structure_indices='all', skip_digestion=False):
 
     xyz = np.column_stack([item.x_coord_list, item.y_coord_list, item.z_coord_list])
@@ -29,7 +29,7 @@ def get_coordinates_from_atom(item, indices='all', structure_indices='all', skip
 
     return xyz
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_occupancy_from_atom (item, indices='all', structure_indices='all', skip_digestion=False):
 
     from .to_molsysmt_Structures import to_molsysmt_Structures
@@ -40,7 +40,7 @@ def get_occupancy_from_atom (item, indices='all', structure_indices='all', skip_
 
     return output
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_alternate_location_from_atom (item, indices='all', structure_indices='all', skip_digestion=False):
 
     from .to_molsysmt_Structures import to_molsysmt_Structures
@@ -51,7 +51,7 @@ def get_alternate_location_from_atom (item, indices='all', structure_indices='al
 
     return output
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_b_factor_from_atom (item, indices='all', structure_indices='all', skip_digestion=False):
 
     from .to_molsysmt_Structures import to_molsysmt_Structures
@@ -62,7 +62,7 @@ def get_b_factor_from_atom (item, indices='all', structure_indices='all', skip_d
 
     return output
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_formal_charge_from_atom (item, indices='all', skip_digestion=False):
 
     from .to_molsysmt_MolecularMechanics import to_molsysmt_MolecularMechanics
@@ -73,7 +73,7 @@ def get_formal_charge_from_atom (item, indices='all', skip_digestion=False):
 
     return output
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_partial_charge_from_atom (item, indices='all', skip_digestion=False):
 
     from .to_molsysmt_MolecularMechanics import to_molsysmt_MolecularMechanics
@@ -88,7 +88,7 @@ def get_partial_charge_from_atom (item, indices='all', skip_digestion=False):
 ## From system
 
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_structures_from_system(item, structure_indices='all', skip_digestion=False):
 
     if is_all(structure_indices):
@@ -96,7 +96,7 @@ def get_n_structures_from_system(item, structure_indices='all', skip_digestion=F
     else:
         return len(structure_indices)
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_box_from_system(item, structure_indices='all', skip_digestion=False):
 
     from molsysmt.pbc import get_box_from_lengths_and_angles
@@ -127,17 +127,17 @@ def get_box_from_system(item, structure_indices='all', skip_digestion=False):
 
     return box
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_time_from_system(item, structure_indices='all', skip_digestion=False):
 
     return None
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_structure_id_from_system(item, structure_indices='all', skip_digestion=False):
 
     return None
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_bioassembly_from_system(item, skip_digestion=False):
 
     output = {}
@@ -158,12 +158,12 @@ def get_bioassembly_from_system(item, skip_digestion=False):
 
     return output
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_bioassemblies_from_system(item, skip_digestion=False):
 
     return len(item.bio_assembly)
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_alternate_location_from_system(item, structure_indices='all', skip_digestion=False):
 
     from .to_molsysmt_Structures import to_molsysmt_Structures

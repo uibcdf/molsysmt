@@ -3,7 +3,7 @@
 # =======================
 
 from molsysmt._private.exceptions import NotImplementedMethodError
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 import numpy as np
 from molsysmt import pyunitwizard as puw
 
@@ -13,7 +13,7 @@ Solvate Box
 Methods and wrappers to create and solvate boxes
 """
 
-@digest()
+@arg_digest()
 def solvate (molecular_system, box_shape="truncated octahedral", clearance='14.0 angstroms',
              anion='Cl-', n_anions="neutralize", cation='Na+', n_cations="neutralize",
              ionic_strength='0.0 molar', water_model='TIP3P', engine="OpenMM",

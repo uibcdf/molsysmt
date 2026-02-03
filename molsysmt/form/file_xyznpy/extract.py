@@ -1,8 +1,8 @@
 from molsysmt._private.exceptions import NotImplementedMethodError
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 from molsysmt._private.variables import is_all
 
-@digest(form='file:xyznpy')
+@arg_digest(form='file:xyznpy')
 def extract(item, atom_indices='all', structure_indices='all', output_filename=None, copy_if_all=True,
             skip_digestion=False):
 

@@ -1,8 +1,8 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 from molsysmt import pyunitwizard as puw
 import numpy as np
 
-@digest(form='molsysmt.Structures')
+@arg_digest(form='molsysmt.Structures')
 def to_file_h5msm(item, atom_indices='all', structure_indices='all', output_filename=None,
         compression='gzip', compression_opts=4, int_precision='single', float_precision='single',
                   skip_digestion=False):

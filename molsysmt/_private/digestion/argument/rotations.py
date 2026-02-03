@@ -6,7 +6,7 @@ def digest_rotations(rotations, caller=None):
 
     if caller is not None:
         if caller.endswith('digest_bioassembly'):
-            from .rotation import digest_rotation
+            from .rotation import arg_digest_rotation
             if isinstance(rotations, (np.ndarray, list, tuple)):
                 return [digest_rotation(ii) for ii in rotations]
 

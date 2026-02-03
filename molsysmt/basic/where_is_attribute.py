@@ -1,6 +1,6 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 
-@digest()
+@arg_digest()
 def where_is_attribute(molecular_system, attribute, include_none=False, skip_digestion=False):
     """
     Locating the item where a specific attribute is found.

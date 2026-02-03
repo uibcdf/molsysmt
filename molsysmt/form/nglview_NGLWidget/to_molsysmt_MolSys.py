@@ -1,6 +1,6 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 
-@digest(form='nglview.NGLWidget')
+@arg_digest(form='nglview.NGLWidget')
 def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', get_missing_bonds=True, 
                        skip_digestion=False):
 

@@ -1,8 +1,8 @@
 from molsysmt._private.exceptions import NotImplementedMethodError
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 from molsysmt._private.variables import is_all
 
-@digest()
+@arg_digest()
 def mutate(molecular_system, mutations=None, keys='group_index', selection="all", syntax='MolSysMT', engine='PDBFixer'):
     """
     To be written soon...

@@ -1,9 +1,9 @@
 from molsysmt import pyunitwizard as puw
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 from molsysmt._private.variables import is_all
 import numpy as np
 
-@digest()
+@arg_digest()
 def get_forces(molecular_system, element='atom', selection='all', magnitude=False,
         engine='OpenMM', syntax='MolSysMT', skip_digestion=False):
 

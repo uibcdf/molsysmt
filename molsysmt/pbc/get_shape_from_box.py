@@ -1,8 +1,8 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 from molsysmt import pyunitwizard as puw
 import numpy as np
 
-@digest()
+@arg_digest()
 def get_shape_from_box(box, skip_digestion=False):
     """
     Inferring the box shape from its matrix.

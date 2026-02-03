@@ -1,7 +1,7 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 import numpy as np
 
-@digest()
+@arg_digest()
 def get_dihedral_quartets(molecular_system, with_blocks=False, selection='all',
                                syntax='MolSysMT', **kwargs):
     """

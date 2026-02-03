@@ -1,6 +1,6 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 
-@digest(form='openmm.PDBFile')
+@arg_digest(form='openmm.PDBFile')
 def to_openmm_Topology(item, atom_indices='all', structure_indices='all', skip_digestion=False):
 
     from molsysmt.form.openmm_Topology import extract as extract_openmm_Topology

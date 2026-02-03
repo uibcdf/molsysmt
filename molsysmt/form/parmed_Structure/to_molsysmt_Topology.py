@@ -1,9 +1,9 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 import numpy as np
 from molsysmt.element.group import get_group_type_from_group_name
 from molsysmt.element.atom import get_atom_type_from_atom_name
 
-@digest(form='parmed.Structure')
+@arg_digest(form='parmed.Structure')
 def to_molsysmt_Topology(item, atom_indices='all', skip_digestion=False):
 
     from molsysmt.native import Topology

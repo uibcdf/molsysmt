@@ -1,10 +1,10 @@
 from molsysmt._private.exceptions import NotImplementedMethodError
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 from molsysmt._private.variables import is_all
 from molsysmt import pyunitwizard as puw
 import numpy as np
 
-@digest()
+@arg_digest()
 def get_sasa (molecular_system, element='atom', selection='all', structure_indices='all', syntax='MolSysMT',
           engine='MDTraj'):
     """

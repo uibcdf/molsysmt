@@ -1,11 +1,11 @@
 from molsysmt._private.variables import is_all
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 import numpy as np
 
 class MolSys:
     """Container holding native topology, structures, and molecular mechanics data."""
 
-    @digest()
+    @arg_digest()
     def __init__(self, n_atoms=0, n_groups=0, n_components=0, n_molecules=0, n_entities=0, n_chains=0, n_bonds=0,
                 skip_digestion=False):
         """Initialize an empty MolSys container."""
@@ -20,7 +20,7 @@ class MolSys:
         self.structures = Structures(skip_digestion=True)
         self.molecular_mechanics = MolecularMechanics()
 
-    @digest()
+    @arg_digest()
     def extract(self, atom_indices='all', structure_indices='all', copy_if_all=True, skip_digestion=False):
         """Return a copy or subset of the molecular system."""
 
@@ -43,7 +43,7 @@ class MolSys:
             return tmp_item
 
 
-    @digest()
+    @arg_digest()
     def remove(self, atom_indices=None, structure_indices=None, copy_if_None=False, skip_digestion=False):
         """Remove atoms and/or structures by index and return the resulting MolSys."""
 
@@ -71,7 +71,7 @@ class MolSys:
 
             return tmp_item
 
-    @digest(form='molsysmt.MolSys')
+    @arg_digest(form='molsysmt.MolSys')
     def add(self, item, atom_indices='all', structure_indices='all', keep_ids=True, skip_digestion=False):
         """Append topology and structures from another MolSys."""
 
@@ -79,7 +79,7 @@ class MolSys:
         self.structures.add(item.structures, atom_indices=atom_indices, structure_indices=structure_indices,
                            skip_digestion=True)
 
-    @digest(form='molsysmt.MolSys')
+    @arg_digest(form='molsysmt.MolSys')
     def append_structures(self, item, atom_indices='all', structure_indices='all', skip_digestion=False):
         """Append structures from another MolSys while aligning atom indices."""
 

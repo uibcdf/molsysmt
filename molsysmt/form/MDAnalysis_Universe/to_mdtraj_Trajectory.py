@@ -1,6 +1,6 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 
-@digest(form='MDAnalysis.Universe')
+@arg_digest(form='MDAnalysis.Universe')
 def to_mdtraj_Trajectory(item, atom_indices='all', structure_indices='all', skip_digestion=False):
 
     from . import to_molsysmt_MolSys

@@ -1,6 +1,6 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 
-@digest(form='biopython.SeqRecord')
+@arg_digest(form='biopython.SeqRecord')
 def to_biopython_SeqRecord(item, group_indices='all', copy_if_all=True, skip_digestion=False):
 
     from .extract import extract

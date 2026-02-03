@@ -1,6 +1,6 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 
-@digest(form='string:alphafold_id')
+@arg_digest(form='string:alphafold_id')
 def to_mmcif_PdbxContainers_DataContainer(item, atom_indices='all', structure_indices='all', skip_digestion=False):
 
     from bcifreader import BinaryCifReader

@@ -1,8 +1,8 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 from molsysmt import pyunitwizard as puw
 from molsysmt import lib as msmlib
 
-@digest()
+@arg_digest()
 def get_lengths_from_box(box, skip_digestion=False):
     """
     Extracting box edge lengths from a box matrix.

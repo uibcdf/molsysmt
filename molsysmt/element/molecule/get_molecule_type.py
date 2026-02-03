@@ -1,8 +1,8 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 import numpy as np
 import pandas as pd
 
-@digest()
+@arg_digest()
 def get_molecule_type(molecular_system, element='molecule', selection='all',
         redefine_indices=False, redefine_types=False, syntax='MolSysMT',
         skip_digestion=False):

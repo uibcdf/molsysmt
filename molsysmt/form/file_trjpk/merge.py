@@ -1,7 +1,7 @@
 from molsysmt._private.exceptions import NotImplementedMethodError
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 
-@digest(form='file:trjpk')
+@arg_digest(form='file:trjpk')
 def merge(items, atom_indices='all', structure_indices='all', skip_digestion=False):
 
     raise NotImplementedMethodError()

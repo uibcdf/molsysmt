@@ -1,8 +1,8 @@
 from molsysmt._private.exceptions import NotImplementedMethodError
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 from molsysmt._private.variables import is_all
 
-@digest()
+@arg_digest()
 def has_hydrogens(molecular_system, selection='all', syntax='MolSysMT', skip_digestion=False):
     """Check whether a molecular system (or selection) contains hydrogen atoms."""
 

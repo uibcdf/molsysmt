@@ -1,11 +1,11 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 from molsysmt._private.variables import is_all
 from molsysmt import pyunitwizard as puw
 import numpy as np
 
 # https://github.com/arose/ngl/blob/master/doc/usage/selection-language.md
 
-@digest()
+@arg_digest()
 def add_arrows(view, origin=None, end=None, vectors=None,
                color='#808080', radius='0.2 angstroms'):
     """Adding arrows to a view.

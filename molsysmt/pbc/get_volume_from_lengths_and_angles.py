@@ -1,8 +1,8 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 from molsysmt import pyunitwizard as puw
 import numpy as np
 
-@digest()
+@arg_digest()
 def get_volume_from_lengths_and_angles(box_lengths, box_angles):
     """
     Computing box volume from lengths and angles.

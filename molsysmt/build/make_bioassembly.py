@@ -1,9 +1,9 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 from molsysmt._private.variables import is_iterable_of_iterables
 import numpy as np
 from molsysmt import pyunitwizard as puw
 
-@digest()
+@arg_digest()
 def make_bioassembly(molecular_system, bioassembly=None, structure_indices=0, to_form=None, skip_digestion=False):
     """
     To be written soon...

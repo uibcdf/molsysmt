@@ -1,9 +1,9 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 from molsysmt._private.exceptions import NotImplementedMethodError
 import numpy as np
 from networkx import connected_components
 
-@digest()
+@arg_digest()
 def get_covalent_blocks(molecular_system, selection='all', remove_bonds=None, output_type='sets',
         syntax='MolSysMT'):
     """

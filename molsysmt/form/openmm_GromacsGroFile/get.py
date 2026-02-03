@@ -4,7 +4,7 @@
 
 from molsysmt._private.execfile import execfile
 from molsysmt._private.exceptions import NotImplementedMethodError, NotWithThisFormError
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 from molsysmt._private.variables import is_all
 from molsysmt import pyunitwizard as puw
 import numpy as np
@@ -14,7 +14,7 @@ form='openmm.GromacsGroFile'
 
 ## From atom
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_atom_id_from_atom(item, indices='all', skip_digestion=False):
 
     from . import to_openmm_Topology
@@ -25,7 +25,7 @@ def get_atom_id_from_atom(item, indices='all', skip_digestion=False):
 
     return output
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_atom_name_from_atom(item, indices='all', skip_digestion=False):
 
     from . import to_openmm_Topology
@@ -36,7 +36,7 @@ def get_atom_name_from_atom(item, indices='all', skip_digestion=False):
 
     return output
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_atom_type_from_atom(item, indices='all', skip_digestion=False):
 
     from . import to_openmm_Topology
@@ -47,7 +47,7 @@ def get_atom_type_from_atom(item, indices='all', skip_digestion=False):
 
     return output
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_group_index_from_atom(item, indices='all', skip_digestion=False):
 
     from . import to_openmm_Topology
@@ -58,7 +58,7 @@ def get_group_index_from_atom(item, indices='all', skip_digestion=False):
 
     return output
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_component_index_from_atom(item, indices='all', skip_digestion=False):
 
     from . import to_openmm_Topology
@@ -69,7 +69,7 @@ def get_component_index_from_atom(item, indices='all', skip_digestion=False):
 
     return output
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_chain_index_from_atom(item, indices='all', skip_digestion=False):
 
     from . import to_openmm_Topology
@@ -80,7 +80,7 @@ def get_chain_index_from_atom(item, indices='all', skip_digestion=False):
 
     return output
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_molecule_index_from_atom(item, indices='all', skip_digestion=False):
 
     from . import to_openmm_Topology
@@ -91,7 +91,7 @@ def get_molecule_index_from_atom(item, indices='all', skip_digestion=False):
 
     return output
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_entity_index_from_atom(item, indices='all', skip_digestion=False):
 
     from . import to_openmm_Topology
@@ -102,7 +102,7 @@ def get_entity_index_from_atom(item, indices='all', skip_digestion=False):
 
     return output
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_inner_bonded_atoms_from_atom(item, indices='all', skip_digestion=False):
 
     from . import to_openmm_Topology
@@ -113,7 +113,7 @@ def get_inner_bonded_atoms_from_atom(item, indices='all', skip_digestion=False):
 
     return output
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_inner_bonds_from_atom(item, indices='all', skip_digestion=False):
 
     from . import to_openmm_Topology
@@ -124,7 +124,7 @@ def get_n_inner_bonds_from_atom(item, indices='all', skip_digestion=False):
 
     return output
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_coordinates_from_atom(item, indices='all', structure_indices='all', skip_digestion=False):
 
     unit = puw.get_unit(item.positions)
@@ -145,7 +145,7 @@ def get_coordinates_from_atom(item, indices='all', structure_indices='all', skip
 
 ## From group
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_group_id_from_group(item, indices='all', skip_digestion=False):
 
     from . import to_openmm_Topology
@@ -156,7 +156,7 @@ def get_group_id_from_group(item, indices='all', skip_digestion=False):
 
     return output
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_group_name_from_group(item, indices='all', skip_digestion=False):
 
     from . import to_openmm_Topology
@@ -167,7 +167,7 @@ def get_group_name_from_group(item, indices='all', skip_digestion=False):
 
     return output
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_group_type_from_group(item, indices='all', skip_digestion=False):
 
     from . import to_openmm_Topology
@@ -181,7 +181,7 @@ def get_group_type_from_group(item, indices='all', skip_digestion=False):
 
 ## From component
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_component_id_from_component(item, indices='all', skip_digestion=False):
 
     from . import to_openmm_Topology
@@ -192,7 +192,7 @@ def get_component_id_from_component(item, indices='all', skip_digestion=False):
 
     return output
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_component_name_from_component(item, indices='all', skip_digestion=False):
 
     from . import to_openmm_Topology
@@ -203,7 +203,7 @@ def get_component_name_from_component(item, indices='all', skip_digestion=False)
 
     return output
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_component_type_from_component(item, indices='all', skip_digestion=False):
 
     from . import to_openmm_Topology
@@ -217,7 +217,7 @@ def get_component_type_from_component(item, indices='all', skip_digestion=False)
 
 ## From molecule
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_molecule_id_from_molecule(item, indices='all', skip_digestion=False):
 
     from . import to_openmm_Topology
@@ -228,7 +228,7 @@ def get_molecule_id_from_molecule(item, indices='all', skip_digestion=False):
 
     return output
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_molecule_name_from_molecule(item, indices='all', skip_digestion=False):
 
     from . import to_openmm_Topology
@@ -239,7 +239,7 @@ def get_molecule_name_from_molecule(item, indices='all', skip_digestion=False):
 
     return output
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_molecule_type_from_molecule(item, indices='all', skip_digestion=False):
 
     from . import to_openmm_Topology
@@ -253,7 +253,7 @@ def get_molecule_type_from_molecule(item, indices='all', skip_digestion=False):
 
 ## From chain
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_chain_id_from_chain(item, indices='all', skip_digestion=False):
 
     from . import to_openmm_Topology
@@ -264,7 +264,7 @@ def get_chain_id_from_chain(item, indices='all', skip_digestion=False):
 
     return output
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_chain_name_from_chain(item, indices='all', skip_digestion=False):
 
     from . import to_openmm_Topology
@@ -275,7 +275,7 @@ def get_chain_name_from_chain(item, indices='all', skip_digestion=False):
 
     return output
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_chain_type_from_chain(item, indices='all', skip_digestion=False):
 
     from . import to_openmm_Topology
@@ -289,7 +289,7 @@ def get_chain_type_from_chain(item, indices='all', skip_digestion=False):
 
 ## From entity
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_entity_id_from_entity(item, indices='all', skip_digestion=False):
 
     from . import to_openmm_Topology
@@ -300,7 +300,7 @@ def get_entity_id_from_entity(item, indices='all', skip_digestion=False):
 
     return output
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_entity_name_from_entity(item, indices='all', skip_digestion=False):
 
     from . import to_openmm_Topology
@@ -311,7 +311,7 @@ def get_entity_name_from_entity(item, indices='all', skip_digestion=False):
 
     return output
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_entity_type_from_entity(item, indices='all', skip_digestion=False):
 
     from . import to_openmm_Topology
@@ -325,7 +325,7 @@ def get_entity_type_from_entity(item, indices='all', skip_digestion=False):
 
 ## From system
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_atoms_from_system(item, skip_digestion=False):
 
     from . import to_openmm_Topology
@@ -336,7 +336,7 @@ def get_n_atoms_from_system(item, skip_digestion=False):
 
     return output
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_groups_from_system(item, skip_digestion=False):
 
     from . import to_openmm_Topology
@@ -347,7 +347,7 @@ def get_n_groups_from_system(item, skip_digestion=False):
 
     return output
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_components_from_system(item, skip_digestion=False):
 
     from . import to_openmm_Topology
@@ -358,7 +358,7 @@ def get_n_components_from_system(item, skip_digestion=False):
 
     return output
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_chains_from_system(item, skip_digestion=False):
 
     from . import to_openmm_Topology
@@ -369,7 +369,7 @@ def get_n_chains_from_system(item, skip_digestion=False):
 
     return output
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_molecules_from_system(item, skip_digestion=False):
 
     from . import to_openmm_Topology
@@ -380,7 +380,7 @@ def get_n_molecules_from_system(item, skip_digestion=False):
 
     return output
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_entities_from_system(item, skip_digestion=False):
 
     from . import to_openmm_Topology
@@ -391,7 +391,7 @@ def get_n_entities_from_system(item, skip_digestion=False):
 
     return output
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_bonds_from_system(item, skip_digestion=False):
 
     from . import to_openmm_Topology
@@ -402,7 +402,7 @@ def get_n_bonds_from_system(item, skip_digestion=False):
 
     return output
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_n_structures_from_system(item, structure_indices='all', skip_digestion=False):
 
     if is_all(structure_indices):
@@ -410,7 +410,7 @@ def get_n_structures_from_system(item, structure_indices='all', skip_digestion=F
     else:
         len(structure_indices)
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_box_from_system(item, structure_indices='all', skip_digestion=False):
 
     box = item.getPeriodicBoxVectors()
@@ -420,12 +420,12 @@ def get_box_from_system(item, structure_indices='all', skip_digestion=False):
 
     return box
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_time_from_system(item, structure_indices='all', skip_digestion=False):
 
     return None
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_structure_id_from_system(item, structure_indices='all', skip_digestion=False):
 
     return None
@@ -433,7 +433,7 @@ def get_structure_id_from_system(item, structure_indices='all', skip_digestion=F
 
 ## From bond
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_bond_order_from_bond(item, indices='all', skip_digestion=False):
 
     from . import to_openmm_Topology
@@ -444,7 +444,7 @@ def get_bond_order_from_bond(item, indices='all', skip_digestion=False):
 
     return output
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_bond_type_from_bond(item, indices='all', skip_digestion=False):
 
     from . import to_openmm_Topology
@@ -455,7 +455,7 @@ def get_bond_type_from_bond(item, indices='all', skip_digestion=False):
 
     return output
 
-@digest(form=form)
+@arg_digest(form=form)
 def get_bonded_atoms_from_bond(item, indices='all', skip_digestion=False):
 
     from . import to_openmm_Topology

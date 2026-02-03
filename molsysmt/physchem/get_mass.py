@@ -1,9 +1,9 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 from molsysmt import pyunitwizard as puw
 from molsysmt._private.variables import is_all
 import numpy as np
 
-@digest()
+@arg_digest()
 def get_mass(molecular_system, element ='system', selection = 'all', syntax = 'MolSysMT', definition='physical',
              skip_digestion=False):
     """

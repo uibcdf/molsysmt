@@ -3,11 +3,11 @@ from ..molsysmt_Topology.iterators import TopologyIterator as TopologyIterator_m
 from ..molsysmt_Structures.iterators import StructuresIterator as StructuresIterator_molsysmt_Structures
 from .to_molsysmt_Topology import to_molsysmt_Topology
 from .to_molsysmt_Structures import to_molsysmt_Structures
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 
 class StructuresIterator(StructuresIterator_molsysmt_Structures):
 
-    @digest(form='molsysmt.MolSys')
+    @arg_digest(form='molsysmt.MolSys')
     def __init__(self, molecular_system, atom_indices='all', start=0, step=1, stop=None, chunk=1, structure_indices=None,
             output_type='values', skip_digestion=False, **kwargs):
 
@@ -20,7 +20,7 @@ class StructuresIterator(StructuresIterator_molsysmt_Structures):
 
 class TopologyIterator(TopologyIterator_molsysmt_Topology):
 
-    @digest(form='molsysmt.MolSys')
+    @arg_digest(form='molsysmt.MolSys')
     def __init__(self, molecular_system, element='atom', indices='all', start=0, step=1, stop=None, chunk=1,
             output_type='values', skip_digestion=False, **kwargs):
 

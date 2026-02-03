@@ -1,9 +1,9 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 from molsysmt._private.variables import is_all
 
 # https://github.com/arose/ngl/blob/master/doc/usage/selection-language.md
 
-@digest()
+@arg_digest()
 def standardize_view(view, atom_indices='all', structure_indices='all'):
 
     view.clear()

@@ -1,6 +1,6 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 
-@digest(form='openmm.Topology')
+@arg_digest(form='openmm.Topology')
 def to_openmm_System(item, atom_indices='all', forcefield='AMBER14', water_model=None, implicit_solvent=None,
         non_bonded_method=None, constraints='hbonds', switch_distance=None,
         dispersion_correction=None, ewald_error_tolerance=None, skip_digestion=False):

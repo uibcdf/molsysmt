@@ -1,11 +1,11 @@
 from molsysmt._private.exceptions import NotImplementedMethodError
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 from molsysmt import pyunitwizard as puw
 from molsysmt import lib as msmlib
 import numpy as np
 import gc
 
-@digest()
+@arg_digest()
 def wrap_to_pbc(molecular_system, selection='all', structure_indices='all',
                 box_origin='[0,0,0] nanometers', box_center=None,
                 center_of_selection=None, weights=None, center_coordinates='[0,0,0] nanometers',

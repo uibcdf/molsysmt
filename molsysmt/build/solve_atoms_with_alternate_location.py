@@ -1,9 +1,9 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 from molsysmt._private.variables import is_all
 from molsysmt import pyunitwizard as puw
 import numpy as np
 
-@digest()
+@arg_digest()
 def solve_atoms_with_alternate_location(molecular_system, selection='all',
         structure_indices='all', location_id='occupancy', syntax='MolSysMT'):
     """

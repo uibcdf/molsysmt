@@ -1,7 +1,7 @@
 from molsysmt._private.exceptions import NotImplementedMethodError
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 
-@digest(form='file:dcd')
+@arg_digest(form='file:dcd')
 def copy(item):
 
     from shutil import copy as copy_file

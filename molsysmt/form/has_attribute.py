@@ -1,6 +1,6 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 
-@digest()
+@arg_digest()
 def has_attribute(form, attribute, skip_digestion=False):
     """
     Checking if a molecular systems'form has a certain attribute.

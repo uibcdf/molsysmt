@@ -1,8 +1,8 @@
 from molsysmt._private.exceptions import NotImplementedMethodError
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 import numpy as np
 
-@digest()
+@arg_digest()
 def get_hydrophobicity(molecular_system, element='group', selection='all', definition='eisenberg', syntax='MolSysMT',
                       skip_digestion=False):
     """

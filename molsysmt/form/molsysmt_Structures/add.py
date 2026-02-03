@@ -1,7 +1,7 @@
 from molsysmt._private.exceptions import NotImplementedMethodError
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 
-@digest(form='molsysmt.Structures', to_form='molsysmt.Structures')
+@arg_digest(form='molsysmt.Structures', to_form='molsysmt.Structures')
 def add(to_item, item, atom_indices='all', structure_indices='all', skip_digestion=False):
 
     to_item.append(id = item.id,

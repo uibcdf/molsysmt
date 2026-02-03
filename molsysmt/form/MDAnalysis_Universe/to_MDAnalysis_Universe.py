@@ -1,6 +1,6 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 
-@digest(form='MDAnalysis.Universe')
+@arg_digest(form='MDAnalysis.Universe')
 def to_MDAnalysis_Universe(item, atom_indices='all', structure_indices='all', copy_if_all=True, skip_digestion=False):
 
     from .extract import extract

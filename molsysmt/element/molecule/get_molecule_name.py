@@ -1,8 +1,8 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 import numpy as np
 
 
-@digest()
+@arg_digest()
 def get_molecule_name(molecular_system, element='molecule', selection='all', redefine_indices=False,
                        redefine_names=False, syntax='MolSysMT', skip_digestion=False):
 

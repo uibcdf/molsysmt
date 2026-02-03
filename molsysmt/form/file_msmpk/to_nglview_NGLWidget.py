@@ -1,6 +1,6 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 
-@digest(form='file:msmpk')
+@arg_digest(form='file:msmpk')
 def to_nglview_NGLWidget(item, atom_indices='all', structure_indices='all', skip_digestion=False):
 
     from . import to_molsysmt_MolSys

@@ -10,9 +10,9 @@ functions_where_boolean = (
 
 def digest_bioassembly(bioassembly, caller=None):
 
-    from .chain_indices import digest_chain_indices
-    from .rotations import digest_rotations
-    from .translations import digest_translations
+    from .chain_indices import arg_digest_chain_indices
+    from .rotations import arg_digest_rotations
+    from .translations import arg_digest_translations
 
     if caller is not None:
 

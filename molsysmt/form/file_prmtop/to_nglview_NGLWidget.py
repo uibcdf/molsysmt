@@ -1,6 +1,6 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 
-@digest(form='file:prmtop')
+@arg_digest(form='file:prmtop')
 def to_nglview_NGLWidget(item, atom_indices='all', coordinates=None, skip_digestion=False):
 
     from . import to_molsysmt_MolSys

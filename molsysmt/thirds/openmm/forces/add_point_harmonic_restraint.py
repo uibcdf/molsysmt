@@ -1,7 +1,7 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 from molsysmt import pyunitwizard as puw
 
-@digest()
+@arg_digest()
 def add_point_harmonic_restraint(molecular_system, selection='all', force_constant='5000 kilojoules/(mol*nanometers**2)',
         point=None, pbc=False, return_force=False, syntax='MolSysMT', skip_digestion=False):
 

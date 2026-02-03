@@ -1,8 +1,8 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 from molsysmt import pyunitwizard as puw
 import numpy as np
 
-@digest(form='file:psf')
+@arg_digest(form='file:psf')
 def to_molsysmt_MolSys(item, atom_indices='all',
         coordinates=None, structure_id=None, box=None, time=None, skip_digestion=False):
 

@@ -1,7 +1,7 @@
 from molsysmt._private.exceptions import NotImplementedMethodError
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 
-@digest(form='openmm.GromacsGroFile')
+@arg_digest(form='openmm.GromacsGroFile')
 def copy(item, skip_digestion=True):
 
     from copy import deepcopy

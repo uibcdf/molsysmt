@@ -1,8 +1,8 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 import numpy as np
 from molsysmt import pyunitwizard as puw
 
-@digest(form='XYZ')
+@arg_digest(form='XYZ')
 def to_file_xyznpy(item, atom_indices='all', structure_indices='all', output_filename=None, skip_digestion=False):
 
     tmp_item = output_filename

@@ -1,9 +1,9 @@
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 from molsysmt._private.exceptions import NotImplementedMethodError
 from molsysmt import pyunitwizard as puw
 import numpy as np
 
-@digest()
+@arg_digest()
 def get_polarity(molecular_system, element='group', selection = 'all', syntax='MolSysMT', definition='grantham',
                  skip_digestion=False):
     """

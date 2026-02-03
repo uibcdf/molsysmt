@@ -11,10 +11,10 @@ From energy minimization to potential energy contribution of specific set of ato
 """
 
 from molsysmt import pyunitwizard as puw
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 from molsysmt._private.variables import is_all
 
-@digest()
+@arg_digest()
 def get_potential_energy(molecular_system, selection='all', decomposition=False, platform='CPU',
         engine='OpenMM', syntax='MolSysMT', skip_digestion=False):
 

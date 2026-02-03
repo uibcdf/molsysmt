@@ -1,7 +1,7 @@
 from molsysmt._private.exceptions import NotImplementedMethodError
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 
-@digest(form='MDAnalysis.Topology')
+@arg_digest(form='MDAnalysis.Topology')
 def append_structures(item, structure_id=None, time=None, coordinates=None, box=None, skip_digestion=False):
 
     raise NotImplementedMethodError()

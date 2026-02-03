@@ -1,12 +1,12 @@
 from molsysmt._private.exceptions import NotImplementedMethodError, NotSupportedSyntaxError
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 import numpy as np
 from molsysmt._private.variables import is_all, is_iterable_of_iterables
 from molsysmt.element import _singular_element_to_plural
 from .selector import _dict_select, _dict_indices_to_selection
 
 
-@digest()
+@arg_digest()
 def select(molecular_system, selection='all', structure_indices='all', element='atom',
            mask=None, syntax='MolSysMT', to_syntax=None, skip_digestion=False):
     """

@@ -3,7 +3,7 @@ from ...exceptions import ArgumentError
 
 def digest_reference_structure_indices(reference_structure_indices, caller=None):
 
-    from .indices import digest_indices
+    from .indices import arg_digest_indices
 
     try:
         return digest_indices(reference_structure_indices, caller=caller)

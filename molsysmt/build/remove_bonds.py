@@ -1,8 +1,8 @@
 from molsysmt._private.exceptions import NotImplementedMethodError
-from molsysmt._private.digestion import digest
+from molsysmt._private.digestion import arg_digest
 from molsysmt._private.variables import is_all
 
-@digest()
+@arg_digest()
 def remove_bonds(molecular_system, bond_indices='all', in_place=True, skip_digestion=False):
     """Remove bonds from a molecular system by index.
 
