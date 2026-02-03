@@ -1,4 +1,4 @@
-# SPEC_MONITOR.md — Centralized Diagnostic & Telemetry System
+# SPEC_SMONITOR.md — Centralized Diagnostic & Telemetry System
 
 **Version:** v0.1 (Draft)  
 **Status:** CONCEPT  
@@ -49,7 +49,7 @@ monitor/
 The primary way to connect a function to the diagnostic system.
 
 ```python
-from monitor import signal
+from smonitor import signal
 
 @signal
 def my_function(item, selection='all'):
@@ -62,9 +62,9 @@ def my_function(item, selection='all'):
 A single call to rule them all.
 
 ```python
-import monitor
+import smonitor
 
-monitor.configure(
+smonitor.configure(
     level='INFO',          # Global verbosity
     theme='rich',          # Use colors, tables, and enhanced formatting
     capture_warnings=True, # Intercept all warnings.warn()
@@ -88,7 +88,7 @@ Instead of messy Python warnings, `monitor` intercepts them and presents them as
 ### 4.3 Telemetry & Health Reports
 The system can produce a summary of the session or health statistics on demand:
 ```python
-monitor.report()
+smonitor.report()
 # Output:
 # Functions called: 124
 # Warnings issued: 2 (1 in molsysmt, 1 in argdigest)
@@ -120,4 +120,4 @@ To implement `monitor` across the UIBCDF suite:
 
 ---
 
-> **Tagline:** `monitor` — The precision telemetry system for the scientific Python stack.
+> **Tagline:** `smonitor` — The precision telemetry system for the scientific Python stack.
