@@ -1,4 +1,4 @@
-from molsysmt._private.digestion import arg_digest
+from molsysmt._private.arg_digestion import arg_digest
 
 @arg_digest(form='openmm.Topology')
 def to_openmm_Context(item, atom_indices='all', coordinates=None, forcefield='AMBER14', water_model=None,

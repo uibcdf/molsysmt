@@ -1,4 +1,4 @@
-from molsysmt._private.digestion import arg_digest
+from molsysmt._private.arg_digestion import arg_digest
 
 @arg_digest(form='openmm.Topology')
 def to_pdbfixer_PDBFixer(item, atom_indices='all', coordinates=None, skip_digestion=False):

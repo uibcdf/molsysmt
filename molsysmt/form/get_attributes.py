@@ -1,4 +1,4 @@
-from molsysmt._private.digestion import arg_digest
+from molsysmt._private.arg_digestion import arg_digest
 
 def get_attributes(form, output_type='dictionary', skip_digestion=False):
     """

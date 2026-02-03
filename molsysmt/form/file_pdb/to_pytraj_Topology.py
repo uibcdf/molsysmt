@@ -1,5 +1,5 @@
 from molsysmt._private.exceptions import LibraryNotFoundError
-from molsysmt._private.digestion import arg_digest
+from molsysmt._private.arg_digestion import arg_digest
 from molsysmt import pyunitwizard as puw
 
 @arg_digest(form='file:pdb')

@@ -1,4 +1,4 @@
-from molsysmt._private.digestion import arg_digest
+from molsysmt._private.arg_digestion import arg_digest
 
 @arg_digest()
 def copy(molecular_system, output_filename=None, skip_digestion=False):

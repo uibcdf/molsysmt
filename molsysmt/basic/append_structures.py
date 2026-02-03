@@ -1,4 +1,4 @@
-from molsysmt._private.digestion import arg_digest
+from molsysmt._private.arg_digestion import arg_digest
 
 @arg_digest()
 def append_structures(to_molecular_system, from_molecular_system, selection='all',

@@ -1,4 +1,4 @@
-from molsysmt._private.digestion import arg_digest
+from molsysmt._private.arg_digestion import arg_digest
 from molsysmt.native.viewer_json import ViewerJSON, _empty_structure_viewer_dict
 from molsysmt import pyunitwizard as puw
 import numpy as np

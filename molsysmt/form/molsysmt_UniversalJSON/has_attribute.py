@@ -1,4 +1,4 @@
-from molsysmt._private.digestion import arg_digest
+from molsysmt._private.arg_digestion import arg_digest
 from . import attributes
 from .get import (
     get_atom_id_from_atom,

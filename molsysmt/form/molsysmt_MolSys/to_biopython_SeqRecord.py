@@ -1,4 +1,4 @@
-from molsysmt._private.digestion import *
+from molsysmt._private.arg_digestion import *
 import numpy as np
 
 @arg_digest(form='molsysmt.MolSys')

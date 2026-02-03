@@ -1,5 +1,5 @@
 from molsysmt import pyunitwizard as puw
-from molsysmt._private.digestion import arg_digest
+from molsysmt._private.arg_digestion import arg_digest
 from molsysmt._private.exceptions import NotImplementedMethodError
 from molsysmt._private.variables import is_all
 from molsysmt._private.lists import sorted_list_of_pairs

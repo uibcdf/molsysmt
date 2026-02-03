@@ -11,7 +11,7 @@ From energy minimization to potential energy contribution of specific set of ato
 """
 
 from molsysmt import pyunitwizard as puw
-from molsysmt._private.digestion import arg_digest
+from molsysmt._private.arg_digestion import arg_digest
 from molsysmt._private.variables import is_all
 
 @arg_digest()

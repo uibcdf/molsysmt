@@ -1,4 +1,4 @@
-from molsysmt._private.digestion import arg_digest
+from molsysmt._private.arg_digestion import arg_digest
 
 @arg_digest(form='mdtraj.Topology')
 def to_file_top(item, atom_indices='all', output_filename=None, skip_digestion=False):

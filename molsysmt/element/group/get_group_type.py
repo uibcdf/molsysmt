@@ -1,4 +1,4 @@
-from molsysmt._private.digestion import arg_digest
+from molsysmt._private.arg_digestion import arg_digest
 from .water import is_water
 from .ion import is_ion
 from .small_molecule import is_small_molecule, small_molecule_is_amino_acid

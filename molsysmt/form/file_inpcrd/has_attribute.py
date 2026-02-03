@@ -1,4 +1,4 @@
-from molsysmt._private.digestion import arg_digest
+from molsysmt._private.arg_digestion import arg_digest
 
 @arg_digest(form='file:inpcrd')
 def has_attribute(molecular_system, attribute, include_none=False, skip_digestion=False):

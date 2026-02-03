@@ -1,4 +1,4 @@
-from molsysmt._private.digestion import arg_digest
+from molsysmt._private.arg_digestion import arg_digest
 import numpy as np
 from molsysmt.element.group import get_group_type_from_group_name
 from molsysmt.element.atom import get_atom_type_from_atom_name

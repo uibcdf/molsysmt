@@ -1,5 +1,5 @@
 from molsysmt._private.exceptions import NotImplementedMethodError
-from molsysmt._private.digestion import *
+from molsysmt._private.arg_digestion import *
 
 @arg_digest()
 def get_non_standard_residues(molecular_system, selection='all', syntax='MolSysMT', engine='PDBFixer'):

@@ -4,7 +4,7 @@ from molsysmt import pyunitwizard as puw
 from molsysmt._private.variables import is_all, is_iterable
 from molsysmt.basic import get
 from molsysmt._private.exceptions import IteratorError
-from molsysmt._private.digestion import arg_digest
+from molsysmt._private.arg_digestion import arg_digest
 
 class Structures:
     """Storing per-structure data (coordinates, box, time, energies) for a molecular system."""
