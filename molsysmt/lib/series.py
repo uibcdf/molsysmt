@@ -7,19 +7,27 @@ import math
 @lazy_njit(nb.types.Tuple((nb.int64[:],nb.int64[:]))(nb.int64[:]), cache=True)
 def serie_to_chunks (serie):
 
-    gaps = np.where((serie[1:]-serie[:-1])>1)
-    offset = 0
-    starts = []
-    chunk_size = []
-    for ii in gaps[0]:
-        chunk_size.append(ii+1-offset)
-        starts.append(serie[offset])
-        offset = ii+1
-    chunk_size.append(len(serie)-offset)
-    starts.append(serie[offset])
+    n = serie.shape[0]
 
-    starts=np.asarray(starts)
-    chunk_size=np.asarray(chunk_size)
+    n_chunks = 1
+    for ii in range(1, n):
+        if (serie[ii] - serie[ii-1]) > 1:
+            n_chunks += 1
+
+    starts = np.empty((n_chunks), dtype=nb.int64)
+    chunk_size = np.empty((n_chunks), dtype=nb.int64)
+
+    chunk_index = 0
+    start_idx = 0
+    for ii in range(1, n):
+        if (serie[ii] - serie[ii-1]) > 1:
+            starts[chunk_index] = serie[start_idx]
+            chunk_size[chunk_index] = ii - start_idx
+            chunk_index += 1
+            start_idx = ii
+
+    starts[chunk_index] = serie[start_idx]
+    chunk_size[chunk_index] = n - start_idx
 
     return starts, chunk_size
 
@@ -155,4 +163,3 @@ def occurrence_order_sorted_serie(serie):
         output[ii]=aux
 
     return output
-

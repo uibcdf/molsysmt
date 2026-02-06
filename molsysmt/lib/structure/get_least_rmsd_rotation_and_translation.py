@@ -25,29 +25,23 @@ def get_least_rmsd_rotation_and_translation_single_structure(coordinates, refere
     R=np.zeros((3,3), dtype=nb.float64)
     F=np.zeros((4,4), dtype=nb.float64)
 
-    w=np.ones((n_atoms), dtype=nb.float64) # without weights
-
     # reference coordinates
 
     for ii in range(n_atoms):
-        x[ii,:]=w[ii]*reference_coordinates[ii,:]
+        x[ii,:]=reference_coordinates[ii,:]
 
-    x_norm=0.0
     for ii in range(3):
         center_ref[ii]=np.sum(x[:,ii])/n_atoms
         x[:,ii]=x[:,ii]-center_ref[ii]
-        x_norm=x_norm+dot_product(x[:,ii],x[:,ii])
 
     # coordinates
 
     for ii in range(n_atoms):
-        y[ii,:]=w[ii]*coordinates[ii,:]
+        y[ii,:]=coordinates[ii,:]
 
-    y_norm=0.0
     for ii in range(3):
         center[ii]=np.sum(y[:,ii])/n_atoms
         y[:,ii]=y[:,ii]-center[ii]
-        y_norm=y_norm+dot_product(y[:,ii], y[:,ii])
 
     # R matrix
     for ii in range(3):
@@ -99,8 +93,6 @@ def get_least_rmsd_rotation_and_translation(coordinates, reference_coordinates):
     rotation = np.empty((n_structures,1,3,3), dtype=np.float64)
     translation = np.empty((n_structures,1,3), dtype=np.float64)
 
-    w=np.ones((n_atoms), dtype=nb.float64)
-
     center_ref=np.empty((3), dtype=nb.float64)
     center=np.empty((3), dtype=nb.float64)
 
@@ -114,29 +106,25 @@ def get_least_rmsd_rotation_and_translation(coordinates, reference_coordinates):
 
         # reference coordinates
 
-        x_norm=0.0
         x[:,:]=0.0
 
         for jj in range(n_atoms):
-            x[jj,:]=w[jj]*reference_coordinates[ii,jj,:]
+            x[jj,:]=reference_coordinates[ii,jj,:]
 
         for jj in range(3):
             center_ref[jj]=np.sum(x[:,jj])/n_atoms
             x[:,jj]=x[:,jj]-center_ref[jj]
-            x_norm=x_norm+dot_product(x[:,jj],x[:,jj])
 
         # coordinates
 
-        y_norm=0.0
         y[:,:]=0.0
 
         for jj in range(n_atoms):
-            y[jj,:]=w[jj]*coordinates[ii,jj,:]
+            y[jj,:]=coordinates[ii,jj,:]
 
         for jj in range(3):
             center[jj]=np.sum(y[:,jj])/n_atoms
             y[:,jj]=y[:,jj]-center[jj]
-            y_norm=y_norm+dot_product(y[:,jj],y[:,jj])
 
         R[:,:]=0.0
         F[:,:]=0.0
@@ -191,8 +179,6 @@ def get_least_rmsd_rotation_and_translation_with_single_reference_structure(coor
     rotation = np.empty((n_structures,1,3,3), dtype=np.float64)
     translation = np.empty((n_structures,1,3), dtype=np.float64)
 
-    w=np.ones((n_atoms), dtype=nb.float64)
-
     center_ref=np.empty((3), dtype=nb.float64)
     center=np.empty((3), dtype=nb.float64)
 
@@ -204,31 +190,27 @@ def get_least_rmsd_rotation_and_translation_with_single_reference_structure(coor
 
     # reference coordinates
 
-    x_norm=0.0
     x[:,:]=0.0
 
     for jj in range(n_atoms):
-        x[jj,:]=w[jj]*reference_coordinates[jj,:]
+        x[jj,:]=reference_coordinates[jj,:]
 
     for jj in range(3):
         center_ref[jj]=np.sum(x[:,jj])/n_atoms
         x[:,jj]=x[:,jj]-center_ref[jj]
-        x_norm=x_norm+dot_product(x[:,jj],x[:,jj])
 
     for ii in range(n_structures):
 
         # coordinates
 
-        y_norm=0.0
         y[:,:]=0.0
 
         for jj in range(n_atoms):
-            y[jj,:]=w[jj]*coordinates[ii,jj,:]
+            y[jj,:]=coordinates[ii,jj,:]
 
         for jj in range(3):
             center[jj]=np.sum(y[:,jj])/n_atoms
             y[:,jj]=y[:,jj]-center[jj]
-            y_norm=y_norm+dot_product(y[:,jj],y[:,jj])
 
         R[:,:]=0.0
         F[:,:]=0.0
@@ -267,4 +249,3 @@ def get_least_rmsd_rotation_and_translation_with_single_reference_structure(coor
         translation[ii,0,:]=center_ref-center
 
     return center_rotation, rotation, translation
-

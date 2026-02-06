@@ -17,11 +17,10 @@ def wrap_to_pbc_vector_single_structure(vector, box, inv_box, orthogonal):
 
     output = np.empty((3), dtype=np.float64)
 
-    if inv_box is None:
-        inv_box = inverse_matrix_3x3(box)
-
     if orthogonal is None:
         orthogonal = box_is_orthogonal_single_structure(box)
+    if inv_box is None and not orthogonal:
+        inv_box = inverse_matrix_3x3(box)
 
     if orthogonal:
 
@@ -58,11 +57,10 @@ def wrap_to_pbc_center_vector_single_structure(vector, box, inv_box, orthogonal)
 
     output = np.empty((3), dtype=np.float64)
 
-    if inv_box is None:
-        inv_box = inverse_matrix_3x3(box)
-
     if orthogonal is None:
         orthogonal = box_is_orthogonal_single_structure(box)
+    if inv_box is None and not orthogonal:
+        inv_box = inverse_matrix_3x3(box)
 
     if orthogonal:
 
@@ -99,7 +97,9 @@ def wrap_to_pbc(coordinates, box, box_origin):
     for ii in range(n_structures):
         tmp_box = box[ii,:,:]
         orthogonal = box_is_orthogonal_single_structure(tmp_box)
-        inv_box = inverse_matrix_3x3(tmp_box)
+        inv_box = None
+        if not orthogonal:
+            inv_box = inverse_matrix_3x3(tmp_box)
         for jj in range(n_atoms):
             tmp_vect = coordinates[ii,jj,:]-box_origin[:]
             tmp_vect = wrap_to_pbc_vector_single_structure(tmp_vect, tmp_box, inv_box, orthogonal)
@@ -122,7 +122,9 @@ def wrap_to_pbc_center(coordinates, box, box_center):
     for ii in range(n_structures):
         tmp_box = box[ii,:,:]
         orthogonal = box_is_orthogonal_single_structure(tmp_box)
-        inv_box = inverse_matrix_3x3(tmp_box)
+        inv_box = None
+        if not orthogonal:
+            inv_box = inverse_matrix_3x3(tmp_box)
         for jj in range(n_atoms):
             tmp_vect = coordinates[ii,jj,:]-box_center[:]
             tmp_vect = wrap_to_pbc_center_vector_single_structure(tmp_vect, tmp_box, inv_box, orthogonal)
@@ -130,4 +132,3 @@ def wrap_to_pbc_center(coordinates, box, box_center):
             coordinates[ii,jj,:]=tmp_vect
             
     pass
-

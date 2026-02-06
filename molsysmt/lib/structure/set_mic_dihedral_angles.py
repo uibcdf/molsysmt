@@ -17,8 +17,10 @@ output=None
 @lazy_njit(make_numba_signature(arguments, output), cache=True)
 def set_mic_dihedral_angles_single_structure(coordinates, box, angles, quartets, blocks):
 
-    inv_box = inverse_matrix_3x3(box)
     orthogonal = box_is_orthogonal_single_structure(box)
+    inv_box = None
+    if not orthogonal:
+        inv_box = inverse_matrix_3x3(box)
 
     n_angles = angles.shape[0]
     n_atoms = coordinates.shape[0]
@@ -68,15 +70,13 @@ def set_mic_dihedral_angles(coordinates, box, angles, quartets, blocks):
     n_angles = angles.shape[0]
     n_structures, n_atoms = coordinates.shape[:2]
 
-    inc_angles = 1
-    if angles.shape[0]==1:
-        inc_angles = 0
-
     for ii in range(n_structures):
 
         tmp_box = box[ii,:,:]
-        inv_box = inverse_matrix_3x3(tmp_box)
         orthogonal = box_is_orthogonal_single_structure(tmp_box)
+        inv_box = None
+        if not orthogonal:
+            inv_box = inverse_matrix_3x3(tmp_box)
 
         for aa in range(n_angles):
 
@@ -108,4 +108,3 @@ def set_mic_dihedral_angles(coordinates, box, angles, quartets, blocks):
                     coordinates[ii,jj,:]=coordinates_at2+vect_aux
 
     pass
-

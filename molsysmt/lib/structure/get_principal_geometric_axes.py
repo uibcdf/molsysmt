@@ -42,7 +42,7 @@ def get_principal_geometric_axes_single_structure(coordinates, weights):
     matrix[2,0]=matrix[0,2]
     matrix[2,1]=matrix[1,2]
 
-    matrix = matrix/n_atoms
+    matrix[:,:] = matrix/n_atoms
 
     eigenvalues, eigenvectors = np.linalg.eigh(matrix)
 
@@ -95,9 +95,8 @@ def get_principal_geometric_axes(coordinates, weights):
         matrix[2,0]=matrix[0,2]
         matrix[2,1]=matrix[1,2]
 
-        matrix = matrix/n_atoms
+        matrix[:,:] = matrix/n_atoms
 
         eigenvalues[jj,:], eigenvectors[jj,:,:] = np.linalg.eigh(matrix)
 
     return eigenvalues, eigenvectors
-
