@@ -1,4 +1,7 @@
 from .user_molsysmt_warning import UserMolSysMTWarning
+from ..functions import caller_name
+from ..exceptions._emit import message_from_catalog
+from molsysmt._private.smonitor import CATALOG
 
 class CrossChainCovalentBondsWarning(UserMolSysMTWarning):
 
@@ -20,28 +23,27 @@ class CrossChainCovalentBondsWarning(UserMolSysMTWarning):
                                    skip_digestion=True)
                 label_pairs_reported.append((label1, label2))
 
-        msg = (f"{len(label_pairs_reported)} covalent bond(s) reported by the 'struct_conn' table "
-               f"between atoms belonging to different chains were added.\n"
-               "Verify whether these cross-chain bonds are expected in your system.\n")
+        default_message = (
+            f"{len(label_pairs_reported)} covalent bond(s) reported by the 'struct_conn' table "
+            f"between atoms belonging to different chains were added.\n"
+            "Verify whether these cross-chain bonds are expected in your system.\n"
+        )
 
         for label1, label2 in label_pairs_reported[:-1]:
-            msg += f"  - {label1}  <-->  {label2}\n"
+            default_message += f"  - {label1}  <-->  {label2}\n"
 
-        msg += f"  - {label_pairs_reported[-1][0]}  <-->  {label_pairs_reported[-1][1]}"
-        try:
-            from smonitor.integrations import emit_from_catalog, merge_extra
-            from molsysmt._private.smonitor import CATALOG, PACKAGE_ROOT, META
+        if label_pairs_reported:
+            default_message += f"  - {label_pairs_reported[-1][0]}  <-->  {label_pairs_reported[-1][1]}"
 
-            emit_from_catalog(
-                CATALOG["warnings"]["CrossChainCovalentBondsWarning"],
-                package_root=PACKAGE_ROOT,
-                extra=merge_extra(META, {
-                    "caller": None,
-                    "count": len(label_pairs_reported),
-                    "pairs": label_pairs_reported,
-                }),
-            )
-        except Exception:
-            pass
+        caller = caller_name()
+        full_message = message_from_catalog(
+            CATALOG["warnings"]["CrossChainCovalentBondsWarning"],
+            extra={
+                "caller": caller,
+                "count": len(label_pairs_reported),
+                "pairs": label_pairs_reported,
+            },
+            default_message=default_message,
+        )
 
-        super().__init__(msg)
+        super().__init__(full_message)

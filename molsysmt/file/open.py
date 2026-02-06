@@ -12,9 +12,8 @@ def open(filename, mode='auto'):
 
     if absolute_path in files_handled:
 
-        raise FileAlreadyHandledError
+        raise FileAlreadyHandledError(absolute_path)
 
     files_handled[absolute_path]=FileHandler(absolute_path, mode)
 
     pass
-

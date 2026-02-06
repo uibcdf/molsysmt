@@ -1,7 +1,6 @@
 from ..functions import caller_name
-from ..webs import github_issues, api_doc
-from smonitor.integrations import emit_from_catalog, merge_extra
-from molsysmt._private.smonitor import CATALOG, PACKAGE_ROOT, META
+from molsysmt._private.smonitor import CATALOG
+from ._emit import message_from_catalog
 
 class NotCompatibleConversionError(Exception):
 
@@ -10,32 +9,23 @@ class NotCompatibleConversionError(Exception):
         if not caller:
             caller = caller_name()
 
-        full_message = (
-                f"Error in conversion from {from_form} to {to_form}. "
-                f"The following input attributes of arguments are missing: {missing_arguments}."
-                )
-
+        default_message = (
+            f"Error in conversion from {from_form} to {to_form}. "
+            f"The following input attributes of arguments are missing: {missing_arguments}."
+        )
         if message:
-            full_message += message
+            default_message += message
 
-        try:
-            event = emit_from_catalog(
-                CATALOG["exceptions"]["NotCompatibleConversionError"],
-                package_root=PACKAGE_ROOT,
-                extra=merge_extra(META, {
-                    "from_form": from_form,
-                    "to_form": to_form,
-                    "missing_arguments": missing_arguments,
-                    "caller": caller,
-                }),
-            )
-            if event.get("message"):
-                full_message = event["message"]
-            hint = (event.get("extra") or {}).get("hint")
-            if hint:
-                full_message = f"{full_message} {hint}"
-        except Exception:
-            pass
+        full_message = message_from_catalog(
+            CATALOG["exceptions"]["NotCompatibleConversionError"],
+            extra={
+                "from_form": from_form,
+                "to_form": to_form,
+                "missing_arguments": missing_arguments,
+                "caller": caller,
+            },
+            default_message=default_message,
+        )
 
         super().__init__(full_message)
 
