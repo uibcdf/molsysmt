@@ -29,13 +29,13 @@ class CrossChainCovalentBondsWarning(UserMolSysMTWarning):
 
         msg += f"  - {label_pairs_reported[-1][0]}  <-->  {label_pairs_reported[-1][1]}"
         try:
-            from smonitor.integrations import emit_from_catalog
-            from molsysmt._private.smonitor import CATALOG, PACKAGE_ROOT, with_meta
+            from smonitor.integrations import emit_from_catalog, merge_extra
+            from molsysmt._private.smonitor import CATALOG, PACKAGE_ROOT, META
 
             emit_from_catalog(
                 CATALOG["warnings"]["CrossChainCovalentBondsWarning"],
                 package_root=PACKAGE_ROOT,
-                extra=with_meta({
+                extra=merge_extra(META, {
                     "caller": None,
                     "count": len(label_pairs_reported),
                     "pairs": label_pairs_reported,

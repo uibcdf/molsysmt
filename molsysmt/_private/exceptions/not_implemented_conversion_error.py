@@ -1,7 +1,7 @@
 from ..functions import caller_name
 from ..webs import github_issues, api_doc
-from smonitor.integrations import emit_from_catalog
-from molsysmt._private.smonitor import CATALOG, PACKAGE_ROOT, with_meta
+from smonitor.integrations import emit_from_catalog, merge_extra
+from molsysmt._private.smonitor import CATALOG, PACKAGE_ROOT, META
 
 class NotImplementedConversionError(Exception):
 
@@ -19,7 +19,7 @@ class NotImplementedConversionError(Exception):
             event = emit_from_catalog(
                 CATALOG["exceptions"]["NotImplementedConversionError"],
                 package_root=PACKAGE_ROOT,
-                extra=with_meta({
+                extra=merge_extra(META, {
                     "from_form": from_form,
                     "to_form": to_form,
                     "caller": caller,

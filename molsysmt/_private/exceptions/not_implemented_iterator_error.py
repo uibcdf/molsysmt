@@ -1,7 +1,7 @@
 from ..functions import caller_name
 from ..webs import github_issues, api_doc
-from smonitor.integrations import emit_from_catalog
-from molsysmt._private.smonitor import CATALOG, PACKAGE_ROOT, with_meta
+from smonitor.integrations import emit_from_catalog, merge_extra
+from molsysmt._private.smonitor import CATALOG, PACKAGE_ROOT, META
 
 class NotImplementedIteratorError(Exception):
 
@@ -19,7 +19,7 @@ class NotImplementedIteratorError(Exception):
             event = emit_from_catalog(
                 CATALOG["exceptions"]["NotImplementedIteratorError"],
                 package_root=PACKAGE_ROOT,
-                extra=with_meta({"form": form, "caller": caller}),
+                extra=merge_extra(META, {"form": form, "caller": caller}),
             )
             if event.get("message"):
                 full_message = event["message"]
