@@ -1,4 +1,4 @@
-from molsysmt._private.exceptions import LibraryNotFoundError
+from molsysmt.exceptions import LibraryNotFoundError
 from molsysmt._private.arg_digestion import arg_digest
 
 @arg_digest(form='openmm.Modeller')

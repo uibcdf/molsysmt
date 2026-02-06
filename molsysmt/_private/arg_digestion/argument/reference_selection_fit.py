@@ -1,4 +1,4 @@
-from molsysmt._private.exceptions import ArgumentError
+from molsysmt.exceptions import ArgumentError
 import numpy as np
 
 def digest_reference_selection_fit(reference_selection_fit, syntax="MolSysMT", caller=None):

@@ -2,7 +2,7 @@
 ########### THE FOLLOWING LINES NEED TO BE CUSTOMIZED FOR EVERY CLASS  ################
 #######################################################################################
 
-from molsysmt._private.exceptions import NotImplementedMethodError, NotWithThisFormError
+from molsysmt.exceptions import NotImplementedMethodError, NotWithThisFormError
 from molsysmt._private.arg_digestion import arg_digest
 from molsysmt.attribute import bonds_are_required_to_get_attribute
 import types

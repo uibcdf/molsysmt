@@ -1,4 +1,4 @@
-from molsysmt._private.exceptions import *
+from molsysmt.exceptions import *
 from molsysmt._private.arg_digestion import *
 from molsysmt.lib import box as libbox
 import numpy as np

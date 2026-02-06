@@ -1,4 +1,4 @@
-from molsysmt._private.exceptions import NotSupportedFormError
+from molsysmt.exceptions import NotSupportedFormError
 from pathlib import PosixPath
 
 # This method must not be digested

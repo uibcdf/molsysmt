@@ -1,4 +1,4 @@
-from molsysmt._private.exceptions import ArgumentError
+from molsysmt.exceptions import ArgumentError
 import numpy as np
 
 def digest_principal_axes_of_selection(principal_axes_of_selection, syntax="MolSysMT", caller=None):

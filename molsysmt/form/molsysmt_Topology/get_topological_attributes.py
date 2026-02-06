@@ -2,7 +2,7 @@ from molsysmt._private.arg_digestion import arg_digest
 from molsysmt import pyunitwizard as puw
 import numpy as np
 import pandas as pd
-from molsysmt._private.exceptions import NotImplementedMethodError, NotWithThisFormError
+from molsysmt.exceptions import NotImplementedMethodError, NotWithThisFormError
 import types
 from networkx import Graph
 from collections import defaultdict

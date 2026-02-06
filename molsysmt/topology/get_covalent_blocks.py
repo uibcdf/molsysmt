@@ -1,5 +1,5 @@
 from molsysmt._private.arg_digestion import arg_digest
-from molsysmt._private.exceptions import NotImplementedMethodError
+from molsysmt.exceptions import NotImplementedMethodError
 import numpy as np
 from networkx import connected_components
 

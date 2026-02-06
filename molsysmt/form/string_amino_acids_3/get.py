@@ -3,7 +3,7 @@
 #######################################################################################
 
 from molsysmt._private.execfile import execfile
-from molsysmt._private.exceptions import NotImplementedMethodError, NotWithThisFormError
+from molsysmt.exceptions import NotImplementedMethodError, NotWithThisFormError
 from molsysmt._private.arg_digestion import arg_digest
 
 form='string:aminoacids3'

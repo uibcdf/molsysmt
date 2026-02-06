@@ -1,4 +1,4 @@
-from molsysmt._private.exceptions import ArgumentError
+from molsysmt.exceptions import ArgumentError
 from pathlib import PosixPath
 
 def digest_molecular_system(molecular_system, caller=None):

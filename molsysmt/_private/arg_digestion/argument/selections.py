@@ -1,4 +1,4 @@
-from molsysmt._private.exceptions import ArgumentError
+from molsysmt.exceptions import ArgumentError
 from molsysmt._private.variables import is_all
 
 def digest_selections(selections, syntax="MolSysMT", caller=None):

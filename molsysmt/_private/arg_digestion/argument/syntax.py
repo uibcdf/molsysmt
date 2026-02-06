@@ -1,4 +1,4 @@
-from molsysmt._private.exceptions import ArgumentError
+from molsysmt.exceptions import ArgumentError
 
 def digest_syntax(syntax, caller=None):
     """ Checks if a syntax has the correct type and value

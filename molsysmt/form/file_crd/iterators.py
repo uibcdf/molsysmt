@@ -1,4 +1,4 @@
-from molsysmt._private.exceptions import NotImplementedIteratorError
+from molsysmt.exceptions import NotImplementedIteratorError
 from molsysmt._private.arg_digestion import arg_digest
 
 class StructuresIterator():

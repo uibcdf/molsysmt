@@ -1,4 +1,4 @@
-from molsysmt._private.exceptions import NotImplementedIteratorError
+from molsysmt.exceptions import NotImplementedIteratorError
 from ..mmtf_MMTFDecoder.iterators import StructuresIterator as StructuresIterator_mmtf_MMTFDecoder
 from ..mmtf_MMTFDecoder.iterators import TopologyIterator as TopologyIterator_mmtf_MMTFDecoder
 from .to_mmtf_MMTFDecoder import to_mmtf_MMTFDecoder

@@ -1,4 +1,4 @@
-from molsysmt._private.exceptions import ArgumentError
+from molsysmt.exceptions import ArgumentError
 
 functions_with_boolean = (
         'molsysmt.basic.get.get',

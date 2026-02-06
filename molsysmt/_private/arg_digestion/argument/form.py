@@ -1,4 +1,4 @@
-from molsysmt._private.exceptions import ArgumentError
+from molsysmt.exceptions import ArgumentError
 
 methods_where_bool = [
     'molsysmt.basic.compare.compare'

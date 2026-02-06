@@ -1,6 +1,6 @@
 from .file_handler import FileHandler
 import os
-from molsysmt._private.exceptions import FileAlreadyHandledError
+from molsysmt.exceptions import FileAlreadyHandledError
 from molsysmt._private.arg_digestion import arg_digest
 
 @arg_digest()
