@@ -1,4 +1,5 @@
 import numba as nb
+from molsysmt._private.jit import lazy_njit
 import numpy as np
 from ..make_numba_signature import make_numba_signature
 from ..math import norm_vector
@@ -8,7 +9,7 @@ arguments=[nb.float64[:], # point1 [3]
            nb.float64[:], # point2 [3]
           ]
 output=nb.float64
-@nb.njit(make_numba_signature(arguments, output), cache=True)
+@lazy_njit(make_numba_signature(arguments, output), cache=True)
 def get_distance_two_points_single_structure(point1, point2):
 
     tmp_vect=point2-point1
@@ -20,7 +21,7 @@ def get_distance_two_points_single_structure(point1, point2):
 arguments=[nb.float64[:,:,:], # coordinates
           ]
 output=nb.float64[:,:,:]
-@nb.njit(make_numba_signature(arguments, output), cache=True)
+@lazy_njit(make_numba_signature(arguments, output), cache=True)
 def get_distances_single_system(coordinates):
 
     n_structures, n_atoms = coordinates.shape[0:2]
@@ -43,7 +44,7 @@ arguments=[nb.float64[:,:,:], # coordinates1
            nb.float64[:,:,:], # coordinates2
           ]
 output=nb.float64[:,:,:]
-@nb.njit(make_numba_signature(arguments, output), cache=True)
+@lazy_njit(make_numba_signature(arguments, output), cache=True)
 def get_distances(coordinates1, coordinates2):
 
     n_structures1, n_atoms1 = coordinates1.shape[0:2]
@@ -66,7 +67,7 @@ arguments=[nb.float64[:,:,:], # coordinates1
            nb.float64[:,:,:], # coordinates2
           ]
 output=nb.float64[:,:]
-@nb.njit(make_numba_signature(arguments, output), cache=True)
+@lazy_njit(make_numba_signature(arguments, output), cache=True)
 def get_distances_pairs(coordinates1, coordinates2):
 
     n_structures, n_atoms = coordinates1.shape[0:2]
@@ -86,7 +87,7 @@ def get_distances_pairs(coordinates1, coordinates2):
 arguments=[nb.float64[:,:], # coordinates
           ]
 output=nb.float64[:,:]
-@nb.njit(make_numba_signature(arguments, output), cache=True)
+@lazy_njit(make_numba_signature(arguments, output), cache=True)
 def get_distances_single_system_single_structure(coordinates):
 
     n_atoms = coordinates.shape[0]
@@ -108,7 +109,7 @@ arguments=[nb.float64[:,:], # coordinates1
            nb.float64[:,:], # coordinates2
           ]
 output=nb.float64[:,:]
-@nb.njit(make_numba_signature(arguments, output), cache=True)
+@lazy_njit(make_numba_signature(arguments, output), cache=True)
 def get_distances_single_structure(coordinates1, coordinates2):
 
     n_atoms1 = coordinates1.shape[0]
@@ -130,7 +131,7 @@ arguments=[nb.float64[:,:], # coordinates1
            nb.float64[:,:], # coordinates2
           ]
 output=nb.float64[:]
-@nb.njit(make_numba_signature(arguments, output), cache=True)
+@lazy_njit(make_numba_signature(arguments, output), cache=True)
 def get_distances_pairs_single_structure(coordinates1, coordinates2):
 
     n_atoms = coordinates1.shape[0]

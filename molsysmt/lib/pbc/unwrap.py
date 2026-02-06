@@ -1,4 +1,5 @@
 import numba as nb
+from molsysmt._private.jit import lazy_njit
 import numpy as np
 from .box_is_orthogonal import box_is_orthogonal_single_structure
 from ..make_numba_signature import make_numba_signature
@@ -8,7 +9,7 @@ arguments=[nb.float64[:,:,:], # coordinates
            nb.float64[:,:,:], # box
           ]
 output=None
-@nb.njit(make_numba_signature(arguments, output), cache=True)
+@lazy_njit(make_numba_signature(arguments, output), cache=True)
 def unwrap(coordinates, box):
 
     n_structures, n_atoms = coordinates.shape[:-1]

@@ -1,4 +1,5 @@
 import numba as nb
+from molsysmt._private.jit import lazy_njit
 import numpy as np
 from ..make_numba_signature import make_numba_signature
 
@@ -9,7 +10,7 @@ arguments=[
     nb.float64[:], # point: [3]
 ]
 output=nb.float64[:,:] # coordinates: [n_atoms, 3]
-@nb.njit(make_numba_signature(arguments,output), cache=True)
+@lazy_njit(make_numba_signature(arguments,output), cache=True)
 def flip_single_structure(coordinates, vector, point):
 
     n_atoms = coordinates.shape[0]
@@ -32,7 +33,7 @@ arguments=[
     nb.float64[:], # point: [3]
 ]
 output=nb.float64[:,:,:] # coordinates: [n_structures, n_atoms, 3]
-@nb.njit(make_numba_signature(arguments,output), cache=True)
+@lazy_njit(make_numba_signature(arguments,output), cache=True)
 def flip(coordinates, vector, point):
 
     n_structures, n_atoms = coordinates.shape[0:2]

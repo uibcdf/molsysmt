@@ -1,4 +1,5 @@
 import numba as nb
+from molsysmt._private.jit import lazy_njit
 import numpy as np
 from .box_is_orthogonal import box_is_orthogonal_single_structure
 from ..math import inverse_matrix_3x3
@@ -11,7 +12,7 @@ arguments=[nb.float64[:], # vector [3]
            [nb.boolean, None], # orthogonal
           ]
 output=nb.float64[:]
-@nb.njit(make_numba_signature(arguments, output), cache=True)
+@lazy_njit(make_numba_signature(arguments, output), cache=True)
 def wrap_to_pbc_vector_single_structure(vector, box, inv_box, orthogonal):
 
     output = np.empty((3), dtype=np.float64)
@@ -51,7 +52,7 @@ arguments=[nb.float64[:], # vector [3]
            [nb.boolean, None], # orthogonal
           ]
 output=nb.float64[:]
-@nb.njit(make_numba_signature(arguments, output), cache=True)
+@lazy_njit(make_numba_signature(arguments, output), cache=True)
 def wrap_to_pbc_center_vector_single_structure(vector, box, inv_box, orthogonal):
 
 
@@ -90,7 +91,7 @@ arguments=[nb.float64[:,:,:], # coordinates
            nb.float64[:] # box
           ]
 output=None
-@nb.njit(make_numba_signature(arguments, output), cache=True)
+@lazy_njit(make_numba_signature(arguments, output), cache=True)
 def wrap_to_pbc(coordinates, box, box_origin):
 
     n_structures, n_atoms = coordinates.shape[:2]
@@ -113,7 +114,7 @@ arguments=[nb.float64[:,:,:], # coordinates
            nb.float64[:] # center
           ]
 output=None
-@nb.njit(make_numba_signature(arguments, output), cache=True)
+@lazy_njit(make_numba_signature(arguments, output), cache=True)
 def wrap_to_pbc_center(coordinates, box, box_center):
 
     n_structures, n_atoms = coordinates.shape[:2]

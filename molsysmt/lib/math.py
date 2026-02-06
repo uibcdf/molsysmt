@@ -1,9 +1,10 @@
 import numpy as np
 import numba as nb
+from molsysmt._private.jit import lazy_njit
 import math
 
 
-@nb.njit(nb.float64[:,:](nb.float64[:,:]), cache=True)
+@lazy_njit(nb.float64[:,:](nb.float64[:,:]), cache=True)
 def inverse_matrix_3x3(m):
 
     inv = np.zeros(m.shape, dtype=nb.float64)
@@ -18,7 +19,7 @@ def inverse_matrix_3x3(m):
 
     return inv
 
-@nb.njit(nb.float64[:](nb.float64[:,:],nb.float64[:]), cache=True)
+@lazy_njit(nb.float64[:](nb.float64[:,:],nb.float64[:]), cache=True)
 def matmul(m,v):
     o = np.zeros(m.shape[0], nb.float64)
     for ii in range(m.shape[0]):
@@ -26,7 +27,7 @@ def matmul(m,v):
             o[ii]+=m[ii,jj]*v[jj]
     return o
 
-@nb.njit(nb.float64[:](nb.float64[:,:],nb.float64[:]), cache=True)
+@lazy_njit(nb.float64[:](nb.float64[:,:],nb.float64[:]), cache=True)
 def transpmatmul(m,v):
     o = np.zeros(m.shape[1], nb.float64)
     for jj in range(m.shape[0]):
@@ -34,7 +35,7 @@ def transpmatmul(m,v):
             o[ii]+=m[jj,ii]*v[jj]
     return o
 
-@nb.njit(nb.float64(nb.float64[:], nb.float64[:]), cache=True)
+@lazy_njit(nb.float64(nb.float64[:], nb.float64[:]), cache=True)
 def dot_product(a, b):
 
     aux = 0.0
@@ -43,7 +44,7 @@ def dot_product(a, b):
     return aux
 
 
-@nb.njit(nb.float64[:](nb.float64[:], nb.float64[:]), cache=True)
+@lazy_njit(nb.float64[:](nb.float64[:], nb.float64[:]), cache=True)
 def cross_product(a, b):
 
     output=np.empty((3), dtype=nb.float64)
@@ -54,7 +55,7 @@ def cross_product(a, b):
 
     return output
 
-@nb.njit(nb.float64(nb.float64[:]), cache=True)
+@lazy_njit(nb.float64(nb.float64[:]), cache=True)
 def norm_vector(a):
 
     aux = 0.0
@@ -63,7 +64,7 @@ def norm_vector(a):
     return math.sqrt(aux)
 
 
-@nb.njit(nb.float64[:](nb.float64[:]), cache=True)
+@lazy_njit(nb.float64[:](nb.float64[:]), cache=True)
 def normalize_vector(a):
 
     aux = norm_vector(a)
@@ -71,7 +72,7 @@ def normalize_vector(a):
     return a/aux
 
 
-@nb.njit(nb.float64(nb.float64[:],
+@lazy_njit(nb.float64(nb.float64[:],
                      nb.float64[:],
                      ),
         cache=True)
@@ -89,7 +90,7 @@ def angle(vect0, vect1):
     return ang
 
 
-@nb.njit(nb.float64(nb.float64[:],
+@lazy_njit(nb.float64(nb.float64[:],
                      nb.float64[:],
                      nb.float64[:],
                      ),
@@ -116,7 +117,7 @@ def dihedral_angle(vect0, vect1, vect2):
     return ang
 
 
-@nb.njit(nb.void(nb.float64[:], nb.float64[:], nb.float64), cache=True)
+@lazy_njit(nb.void(nb.float64[:], nb.float64[:], nb.float64), cache=True)
 def rodrigues_rotation(vector, unit_vector, angle):
 
     cosa = math.cos(angle)
@@ -130,7 +131,7 @@ def rodrigues_rotation(vector, unit_vector, angle):
 
     pass
 
-@nb.njit(nb.float64[:,:](nb.float64[:]), cache=True)
+@lazy_njit(nb.float64[:,:](nb.float64[:]), cache=True)
 def quaternion_to_rotation_matrix(q):
 
     q0, q1, q2, q3 = q

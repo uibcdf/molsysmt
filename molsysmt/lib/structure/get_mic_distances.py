@@ -1,4 +1,5 @@
 import numba as nb
+from molsysmt._private.jit import lazy_njit
 import numpy as np
 from ..make_numba_signature import make_numba_signature
 from ..pbc.wrap_to_mic import wrap_to_mic_vector_single_structure
@@ -12,7 +13,7 @@ arguments=[nb.float64[:], # point1 [3]
            [nb.boolean, None], # orthogonal
           ]
 output=nb.float64
-@nb.njit(make_numba_signature(arguments, output), cache=True)
+@lazy_njit(make_numba_signature(arguments, output), cache=True)
 def get_mic_distance_two_points_single_structure(point1, point2, box, inv_box, orthogonal):
 
     tmp_vect=point2-point1
@@ -34,7 +35,7 @@ arguments=[nb.float64[:,:,:], # coordinates
            nb.float64[:,:,:], # box
           ]
 output=nb.float64[:,:,:]
-@nb.njit(make_numba_signature(arguments, output), cache=True)
+@lazy_njit(make_numba_signature(arguments, output), cache=True)
 def get_mic_distances_single_system(coordinates, box):
 
     n_structures, n_atoms = coordinates.shape[0:2]
@@ -62,7 +63,7 @@ arguments=[nb.float64[:,:,:], # coordinates1
            nb.float64[:,:,:], # box
           ]
 output=nb.float64[:,:,:]
-@nb.njit(make_numba_signature(arguments, output), cache=True)
+@lazy_njit(make_numba_signature(arguments, output), cache=True)
 def get_mic_distances(coordinates1, coordinates2, box):
 
     n_structures1, n_atoms1 = coordinates1.shape[0:2]
@@ -90,7 +91,7 @@ arguments=[nb.float64[:,:,:], # coordinates1
            nb.float64[:,:,:], # box
           ]
 output=nb.float64[:,:]
-@nb.njit(make_numba_signature(arguments, output), cache=True)
+@lazy_njit(make_numba_signature(arguments, output), cache=True)
 def get_mic_distances_pairs(coordinates1, coordinates2, box):
 
     n_structures, n_atoms = coordinates1.shape[0:2]
@@ -115,7 +116,7 @@ arguments=[nb.float64[:,:], # coordinates
            nb.float64[:,:], # box
           ]
 output=nb.float64[:,:]
-@nb.njit(make_numba_signature(arguments, output), cache=True)
+@lazy_njit(make_numba_signature(arguments, output), cache=True)
 def get_mic_distances_single_system_single_structure(coordinates, box):
 
     n_atoms = coordinates.shape[0]
@@ -141,7 +142,7 @@ arguments=[nb.float64[:,:], # coordinates1
            nb.float64[:,:], # box
           ]
 output=nb.float64[:,:]
-@nb.njit(make_numba_signature(arguments, output), cache=True)
+@lazy_njit(make_numba_signature(arguments, output), cache=True)
 def get_mic_distances_single_structure(coordinates1, coordinates2, box):
 
     n_atoms1 = coordinates1.shape[0]
@@ -167,7 +168,7 @@ arguments=[nb.float64[:,:], # coordinates1
            nb.float64[:,:], # box
           ]
 output=nb.float64[:]
-@nb.njit(make_numba_signature(arguments, output), cache=True)
+@lazy_njit(make_numba_signature(arguments, output), cache=True)
 def get_mic_distances_pairs_single_structure(coordinates1, coordinates2, box):
 
     n_atoms = coordinates1.shape[0]

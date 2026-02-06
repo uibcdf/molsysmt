@@ -1,4 +1,5 @@
 import numba as nb
+from molsysmt._private.jit import lazy_njit
 import numpy as np
 from ..math import norm_vector
 from ..make_numba_signature import make_numba_signature
@@ -7,7 +8,7 @@ arguments=[
         nb.float64[:,:], # box: [3,3]
         ]
 output=nb.float64[:]
-@nb.njit(make_numba_signature(arguments, output), cache=True)
+@lazy_njit(make_numba_signature(arguments, output), cache=True)
 def get_lengths_from_box_single_structure(box):
 
     lengths = np.empty((3), dtype=nb.float64)
@@ -23,7 +24,7 @@ arguments=[
         nb.float64[:,:,:], # box
         ]
 output=nb.float64[:,:]
-@nb.njit(make_numba_signature(arguments, output), cache=True)
+@lazy_njit(make_numba_signature(arguments, output), cache=True)
 def get_lengths_from_box(box):
 
     n_structures = box.shape[0]

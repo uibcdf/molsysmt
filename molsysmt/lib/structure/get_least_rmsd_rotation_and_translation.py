@@ -1,5 +1,6 @@
 import numpy as np
 import numba as nb
+from molsysmt._private.jit import lazy_njit
 from ..math import dot_product, quaternion_to_rotation_matrix
 import math
 from ..make_numba_signature import make_numba_signature
@@ -10,7 +11,7 @@ arguments=[
     nb.float64[:,:], # reference_coordinates: [n_atoms, 3]
 ]
 output=[nb.float64[:], nb.float64[:,:], nb.float64[:]]
-@nb.njit(make_numba_signature(arguments,output), cache=True)
+@lazy_njit(make_numba_signature(arguments,output), cache=True)
 def get_least_rmsd_rotation_and_translation_single_structure(coordinates, reference_coordinates):
 
     n_atoms = coordinates.shape[0]
@@ -89,7 +90,7 @@ arguments=[
     nb.float64[:,:,:], # reference_coordinates: [n_ref_structures, n_ref_atoms, 3]
 ]
 output=[nb.float64[:,:,:], nb.float64[:,:,:,:], nb.float64[:,:,:]]
-@nb.njit(make_numba_signature(arguments,output), cache=True)
+@lazy_njit(make_numba_signature(arguments,output), cache=True)
 def get_least_rmsd_rotation_and_translation(coordinates, reference_coordinates):
 
     n_structures, n_atoms = coordinates.shape[0:2]
@@ -181,7 +182,7 @@ arguments=[
     nb.float64[:,:], # reference_coordinates: [n_ref_atoms, 3]
 ]
 output=[nb.float64[:,:,:], nb.float64[:,:,:,:], nb.float64[:,:,:]]
-@nb.njit(make_numba_signature(arguments,output), cache=True)
+@lazy_njit(make_numba_signature(arguments,output), cache=True)
 def get_least_rmsd_rotation_and_translation_with_single_reference_structure(coordinates, reference_coordinates):
 
     n_structures, n_atoms = coordinates.shape[0:2]

@@ -1,4 +1,5 @@
 import numba as nb
+from molsysmt._private.jit import lazy_njit
 import numpy as np
 from ..make_numba_signature import make_numba_signature
 
@@ -8,7 +9,7 @@ arguments=[
     nb.float64[:], # weights: [n_atoms]
 ]
 output=nb.float64[:] # center: [0,3]
-@nb.njit(make_numba_signature(arguments,output), cache=True)
+@lazy_njit(make_numba_signature(arguments,output), cache=True)
 def get_center_single_structure(coordinates, weights):
 
     n_atoms = coordinates.shape[0]
@@ -30,7 +31,7 @@ arguments=[
     nb.float64[:], # weights: [n_atoms]
 ]
 output=nb.float64[:,:,:]
-@nb.njit(make_numba_signature(arguments,output), cache=True)
+@lazy_njit(make_numba_signature(arguments,output), cache=True)
 def get_center(coordinates, weights):
 
     n_structures, n_atoms = coordinates.shape[0:2]
@@ -54,7 +55,7 @@ arguments=[
     nb.float64[:], # weights: [n_atoms]
 ]
 output=nb.float64[:,:] # center: [n_groups,3]
-@nb.njit(make_numba_signature(arguments,output), cache=True)
+@lazy_njit(make_numba_signature(arguments,output), cache=True)
 def get_center_groups_of_atoms_single_structure(coordinates, atoms_per_group, weights):
 
     n_groups = atoms_per_group.shape[0]
@@ -81,7 +82,7 @@ arguments=[
     nb.float64[:], # weights [n_atoms]
 ]
 output=nb.float64[:,:,:] # center: [n_structures, n_groups, 3]
-@nb.njit(make_numba_signature(arguments,output), cache=True)
+@lazy_njit(make_numba_signature(arguments,output), cache=True)
 def get_center_groups_of_atoms(coordinates, atoms_per_group, weights):
 
     n_structures, n_atoms = coordinates.shape[0:2]

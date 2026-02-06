@@ -1,4 +1,5 @@
 import numba as nb
+from molsysmt._private.jit import lazy_njit
 import numpy as np
 from ..make_numba_signature import make_numba_signature
 from ..math import angle
@@ -8,7 +9,7 @@ arguments=[nb.float64[:,:], # coordinates
            nb.int64[:,:], # triplets [n_atoms,3]
           ]
 output=nb.float64[:]
-@nb.njit(make_numba_signature(arguments, output), cache=True)
+@lazy_njit(make_numba_signature(arguments, output), cache=True)
 def get_angles_single_structure(coordinates, triplets):
 
     n_angles = triplets.shape[0]
@@ -32,7 +33,7 @@ arguments=[nb.float64[:,:,:], # coordinates
            nb.int64[:,:], # triplets [n_atoms,3]
           ]
 output=nb.float64[:,:]
-@nb.njit(make_numba_signature(arguments, output), cache=True)
+@lazy_njit(make_numba_signature(arguments, output), cache=True)
 def get_angles(coordinates, triplets):
 
     n_structures = coordinates.shape[0]
