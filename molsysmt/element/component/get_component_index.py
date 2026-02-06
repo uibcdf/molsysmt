@@ -1,7 +1,6 @@
 from molsysmt._private.arg_digestion import arg_digest
 from molsysmt._private.variables import is_all
 import networkx as nx
-from molsysmt import lib as msmlib
 import numpy as np
 
 
@@ -26,7 +25,8 @@ def get_component_index(molecular_system, element='component', selection='all', 
         for component_index, component in enumerate(components):
             component_index_of_atoms[list(component)] = component_index
 
-        component_index_of_atoms = msmlib.series.occurrence_order(component_index_of_atoms)
+        from molsysmt.lib.series import occurrence_order
+        component_index_of_atoms = occurrence_order(component_index_of_atoms)
 
         if element == 'atom':
 

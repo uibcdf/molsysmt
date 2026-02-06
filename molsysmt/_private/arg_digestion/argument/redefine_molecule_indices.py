@@ -1,4 +1,4 @@
-from ...exceptions import ArgumentError
+from molsysmt.exceptions import ArgumentError
 
 def digest_redefine_molecule_indices(redefine_molecule_indices, caller=None):
 

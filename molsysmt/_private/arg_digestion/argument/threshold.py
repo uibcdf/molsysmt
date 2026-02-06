@@ -1,6 +1,6 @@
 import numpy as np
 from molsysmt import pyunitwizard as puw
-from ...exceptions import ArgumentError
+from molsysmt.exceptions import ArgumentError
 
 common_functions_with_threshold = [
     'molsysmt.structure.get_contacts.get_contacts',

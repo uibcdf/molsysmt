@@ -1,5 +1,5 @@
 import numpy as np
-from .exceptions import *
+from molsysmt.exceptions import *
 
 def one_system(molecular_system=None, selection=None, structure_indices=None, form=None, syntax='MolSysMT'):
 
@@ -129,4 +129,3 @@ def comparison_two_systems(molecular_system_1=None, selection_1=None, structure_
     return tmp_molecular_system_1, atom_indices_1, structure_indices_1, \
            tmp_molecular_system_2, atom_indices_2, structure_indices_2, \
            single_molecular_system, diff_selection
-

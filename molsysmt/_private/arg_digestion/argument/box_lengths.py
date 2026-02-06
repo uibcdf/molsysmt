@@ -1,6 +1,6 @@
 import numpy as np
 from molsysmt import pyunitwizard as puw
-from ...exceptions import ArgumentError
+from molsysmt.exceptions import ArgumentError
 
 def digest_box_lengths(box_lengths, caller=None):
     """ Checks if box_lengths has the correct type, shape and units.

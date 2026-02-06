@@ -1,4 +1,4 @@
-from ...exceptions import ArgumentError
+from molsysmt.exceptions import ArgumentError
 from ...variables import is_all
 
 def digest_output_atom_indices(output_indices, caller=None):

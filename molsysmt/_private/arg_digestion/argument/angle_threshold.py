@@ -1,6 +1,6 @@
 import numpy as np
 from molsysmt import pyunitwizard as puw
-from ...exceptions import ArgumentError
+from molsysmt.exceptions import ArgumentError
 
 common_functions_with_angle_threshold = [
     'molsysmt.hbonds.get_luzard_chandler_hbonds.get_luzard_chandler_hbonds',

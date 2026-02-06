@@ -1,5 +1,9 @@
 import numpy as np
-from molsysmt import pyunitwizard as puw
+
+
+def _puw():
+    from molsysmt._pyunitwizard import puw
+    return puw
 
 def is_all(variable):
 
@@ -102,6 +106,7 @@ def is_compatible_with_coordinates_value(variable):
 
     output = False
 
+    puw = _puw()
     if puw.is_quantity(variable):
         value = puw.get_value(variable)
     else:
@@ -136,6 +141,7 @@ def is_compatible_with_coordinates_unit(variable):
 
     output = False
 
+    puw = _puw()
     if puw.is_quantity(variable):
         unit = puw.get_unit(variable)
         if puw.check(unit, dimensionality={'[L]':1}):
@@ -160,6 +166,7 @@ def make_coordinates_like(variable, standardized=True):
     if is_compatible_with_coordinates_unit(variable):
         if is_compatible_with_coordinates_value(variable):
 
+            puw = _puw()
             value, unit = puw.get_value_and_unit(variable)
 
             if not isinstance(value, np.ndarray):
@@ -181,4 +188,3 @@ def make_coordinates_like(variable, standardized=True):
         raise ValueError()
 
     return output
-

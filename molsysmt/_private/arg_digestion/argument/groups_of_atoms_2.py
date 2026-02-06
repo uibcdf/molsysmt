@@ -1,4 +1,4 @@
-from ...exceptions import ArgumentError
+from molsysmt.exceptions import ArgumentError
 
 def digest_groups_of_atoms_2(groups_of_atoms_2, caller=None):
 

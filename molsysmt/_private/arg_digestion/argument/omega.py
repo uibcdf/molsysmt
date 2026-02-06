@@ -1,4 +1,4 @@
-from ...exceptions import ArgumentError
+from molsysmt.exceptions import ArgumentError
 
 methods_bool_input = ["molsysmt.topology.get_dihedral_quartets.get_dihedral_quartets",
         "molsysmt.structure.get_dihedral_angles.get_dihedral_angles"]
