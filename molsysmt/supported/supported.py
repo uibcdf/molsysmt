@@ -1,4 +1,4 @@
-from molsysmt._private.exceptions import *
+from molsysmt.exceptions import *
 from molsysmt.form import _dict_modules
 from depdigest import is_installed
 from molsysmt import _depdigest

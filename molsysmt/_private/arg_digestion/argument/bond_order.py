@@ -1,4 +1,4 @@
-from molsysmt._private.exceptions import ArgumentError
+from molsysmt.exceptions import ArgumentError
 
 def digest_bond_order(bond_order, caller=None):
 

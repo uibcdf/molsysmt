@@ -1,4 +1,4 @@
-from molsysmt._private.exceptions import ArgumentError
+from molsysmt.exceptions import ArgumentError
 
 def digest_exclusion_rules(exclusion_rules, caller=None):
 

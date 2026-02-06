@@ -1,5 +1,5 @@
-from molsysmt._private.exceptions import NotImplementedConversionError
-from molsysmt._private.exceptions import NotCompatibleConversionError
+from molsysmt.exceptions import NotImplementedConversionError
+from molsysmt.exceptions import NotCompatibleConversionError
 from molsysmt._private.arg_digestion import arg_digest
 from molsysmt._private.variables import is_all
 from molsysmt.config import default_attribute

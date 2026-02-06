@@ -1,4 +1,4 @@
-from molsysmt._private.exceptions import NotImplementedIteratorError
+from molsysmt.exceptions import NotImplementedIteratorError
 from ..molsysmt_Topology.iterators import TopologyIterator as TopologyIterator_molsysmt_Topology
 from ..molsysmt_Structures.iterators import StructuresIterator as StructuresIterator_molsysmt_Structures
 from .to_molsysmt_Topology import to_molsysmt_Topology

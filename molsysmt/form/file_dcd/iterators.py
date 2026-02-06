@@ -1,4 +1,4 @@
-from molsysmt._private.exceptions import NotImplementedIteratorError
+from molsysmt.exceptions import NotImplementedIteratorError
 from ..mdtraj_DCDTrajectoryFile.iterators import StructuresIterator as StructuresIterator_DCDTrajectoryFile
 from .to_mdtraj_DCDTrajectoryFile import to_mdtraj_DCDTrajectoryFile
 from molsysmt._private.arg_digestion import arg_digest

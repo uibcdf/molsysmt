@@ -1,4 +1,4 @@
-from molsysmt._private.exceptions import ArgumentError
+from molsysmt.exceptions import ArgumentError
 
 def digest_reference_selection(reference_selection, syntax="MolSysMT", caller=None):
 

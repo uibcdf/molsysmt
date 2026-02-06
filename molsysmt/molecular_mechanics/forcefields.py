@@ -1,4 +1,4 @@
-from molsysmt._private.exceptions import *
+from molsysmt.exceptions import *
 
 
 forcefields = {

@@ -3,7 +3,7 @@
 #######################################################################################
 
 from molsysmt._private.execfile import execfile
-from molsysmt._private.exceptions import NotWithThisFormError, NotWithThisFormError
+from molsysmt.exceptions import NotWithThisFormError, NotWithThisFormError
 from molsysmt._private.arg_digestion import arg_digest
 
 form='file:gro'

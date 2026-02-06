@@ -1,4 +1,4 @@
-from molsysmt._private.exceptions import ArgumentError
+from molsysmt.exceptions import ArgumentError
 
 def digest_engine_least_rmsd_fit(engine_least_rmsd_fit, caller=None):
 

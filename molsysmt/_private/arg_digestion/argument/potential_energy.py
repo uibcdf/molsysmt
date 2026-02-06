@@ -1,4 +1,4 @@
-from molsysmt._private.exceptions import ArgumentError
+from molsysmt.exceptions import ArgumentError
 from molsysmt import pyunitwizard as puw
 import numpy as np
 

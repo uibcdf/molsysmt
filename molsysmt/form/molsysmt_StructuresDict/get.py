@@ -3,7 +3,7 @@
 #######################################################################################
 
 from molsysmt._private.execfile import execfile
-from molsysmt._private.exceptions import NotWithThisFormError, NotImplementedMethodError
+from molsysmt.exceptions import NotWithThisFormError, NotImplementedMethodError
 from molsysmt._private.arg_digestion import arg_digest
 from molsysmt._private.variables import is_all
 import numpy as np

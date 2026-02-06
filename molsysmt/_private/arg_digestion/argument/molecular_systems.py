@@ -1,4 +1,4 @@
-from molsysmt._private.exceptions import ArgumentError
+from molsysmt.exceptions import ArgumentError
 
 def digest_molecular_systems(molecular_systems, caller=None):
     """ Check if an object is a list or tuple of molecular systems.

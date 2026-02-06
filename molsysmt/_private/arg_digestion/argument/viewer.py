@@ -1,4 +1,4 @@
-from molsysmt._private.exceptions import ArgumentError
+from molsysmt.exceptions import ArgumentError
 
 def digest_viewer(viewer, caller=None):
     """ Check if the given viewer is supported by MolSysMT.

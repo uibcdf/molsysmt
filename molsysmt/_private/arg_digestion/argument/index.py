@@ -1,5 +1,5 @@
 import numpy as np
-from molsysmt._private.exceptions import ArgumentError
+from molsysmt.exceptions import ArgumentError
 
 def digest_index(index, caller=None):
 

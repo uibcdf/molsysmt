@@ -1,4 +1,4 @@
-from molsysmt._private.exceptions import ArgumentError
+from molsysmt.exceptions import ArgumentError
 
 _cation_values = [
     'Cs+', 'K+', 'Li+', 'Na+', 'Rb+',

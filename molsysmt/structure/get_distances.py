@@ -1,4 +1,4 @@
-from molsysmt._private.exceptions import NotImplementedMethodError
+from molsysmt.exceptions import NotImplementedMethodError
 from molsysmt._private.arg_digestion import arg_digest
 from molsysmt._private.variables import is_all, is_iterable_of_iterables
 from molsysmt._private.variables import is_iterable_of_pairs
