@@ -1,3 +1,8 @@
+"""Legacy warnings retained for compatibility.
+
+Smonitor now owns message formatting via the catalog in `molsysmt/_private/smonitor`.
+"""
+
 from .user_molsysmt_warning import UserMolSysMTWarning
 from .selection_warning import SelectionWarning
 from .molsysmt_deprecation_warning import MolSysMTDeprecationWarning
@@ -79,4 +84,3 @@ def warn_once(
         except Exception:
             pass
     warnings.warn(message_or_warning, cat, stacklevel=stacklevel)
-

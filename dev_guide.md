@@ -42,3 +42,9 @@ if there are no structures... all attributes are equal to None.
 - Prefer reusing shared molecular systems defined in `tests/conftest.py` instead of constructing ad hoc fixtures inside individual tests; add new reusable systems there so other tests can share them and keep runtime down.
 - Only keep on-the-fly downloads (for example, PDB ID strings) in tests whose explicit purpose is to validate conversion or detection from those remote forms (`string_pdb`, `string_pdb_id`, etc.).
 - When adding fixtures in `conftest.py`, assert that created systems are not `None` so failures surface early.
+
+## smonitor Integration
+
+- The catalog is the single source of truth for messages and hints: `molsysmt/_private/smonitor/catalog.py`.
+- Legacy classes in `_private/warnings` and `_private/exceptions` are kept for compatibility but should emit smonitor events.
+- Project metadata (docs/issues URLs) live in `molsysmt/_private/smonitor/meta.py`.

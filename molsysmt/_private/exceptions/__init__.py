@@ -1,3 +1,9 @@
+"""Legacy exceptions retained for compatibility.
+
+Smonitor now owns message formatting via the catalog in `molsysmt/_private/smonitor`.
+These classes are thin wrappers that emit structured events.
+"""
+
 # Errors
 from .molecular_system_needed_error import MolecularSystemNeededError
 from .molecular_systems_needed_error import MolecularSystemsNeededError
