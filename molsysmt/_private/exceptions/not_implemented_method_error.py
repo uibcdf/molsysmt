@@ -1,7 +1,7 @@
 from ..functions import caller_name
 from ..webs import github_issues, api_doc
-from smonitor.integrations import emit_from_catalog
-from molsysmt._private.smonitor import CATALOG, PACKAGE_ROOT, with_meta
+from smonitor.integrations import emit_from_catalog, merge_extra
+from molsysmt._private.smonitor import CATALOG, PACKAGE_ROOT, META
 
 class NotImplementedMethodError(Exception):
 
@@ -19,7 +19,7 @@ class NotImplementedMethodError(Exception):
             event = emit_from_catalog(
                 CATALOG["exceptions"]["NotImplementedMethodError"],
                 package_root=PACKAGE_ROOT,
-                extra=with_meta({"caller": caller}),
+                extra=merge_extra(META, {"caller": caller}),
             )
             if event.get("message"):
                 full_message = event["message"]

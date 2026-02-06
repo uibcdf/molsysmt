@@ -12,8 +12,8 @@ from .download_warning import DownloadWarning
 from typing import Iterable, Type
 import warnings
 
-from smonitor.integrations import emit_from_catalog
-from molsysmt._private.smonitor import CATALOG, PACKAGE_ROOT, with_meta
+from smonitor.integrations import emit_from_catalog, merge_extra
+from molsysmt._private.smonitor import CATALOG, PACKAGE_ROOT, META
 
 __all__ = ['UserMolSysMTWarning',
            'SelectionWarning',
@@ -38,7 +38,7 @@ def warn(
             emit_from_catalog(
                 CATALOG["warnings"][cls_name],
                 package_root=PACKAGE_ROOT,
-                extra=with_meta({
+                extra=merge_extra(META, {
                     "caller": None,
                     "message": str(message_or_warning),
                 }),
@@ -75,7 +75,7 @@ def warn_once(
             emit_from_catalog(
                 CATALOG["warnings"][cls_name],
                 package_root=PACKAGE_ROOT,
-                extra=with_meta({
+                extra=merge_extra(META, {
                     "caller": None,
                     "message": msg,
                 }),

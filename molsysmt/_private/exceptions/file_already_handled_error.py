@@ -1,5 +1,5 @@
-from smonitor.integrations import emit_from_catalog
-from molsysmt._private.smonitor import CATALOG, PACKAGE_ROOT, with_meta
+from smonitor.integrations import emit_from_catalog, merge_extra
+from molsysmt._private.smonitor import CATALOG, PACKAGE_ROOT, META
 
 class FileAlreadyHandledError(Exception):
 
@@ -11,7 +11,7 @@ class FileAlreadyHandledError(Exception):
             event = emit_from_catalog(
                 CATALOG["exceptions"]["FileAlreadyHandledError"],
                 package_root=PACKAGE_ROOT,
-                extra=with_meta({"filename": filename}),
+                extra=merge_extra(META, {"filename": filename}),
             )
             if event.get("message"):
                 full_message = event["message"]
