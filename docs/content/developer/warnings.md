@@ -3,6 +3,8 @@
 MolSysMT warnings are defined and emitted through **smonitor catalogs**. This
 ensures consistent messages, profiles, and metadata across the entire ecosystem.
 
+See {doc}`smonitor` for the broader integration overview.
+
 ---
 
 ## 1) Catalog-driven design

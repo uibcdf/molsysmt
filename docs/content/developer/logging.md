@@ -4,6 +4,8 @@ MolSysMT routes **warnings, errors, and structured diagnostics** through `smonit
 This replaces the older `logging_setup.py`-based redirection and keeps all
 signal handling consistent across the ecosystem.
 
+See {doc}`smonitor` for a concise integration overview.
+
 ---
 
 ## 1) Overview
