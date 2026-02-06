@@ -1,4 +1,5 @@
 import numba as nb
+from molsysmt._private.jit import lazy_njit
 import numpy as np
 from ..make_numba_signature import make_numba_signature
 
@@ -11,7 +12,7 @@ output=[
         nb.float64[:], # center: [3]
         nb.float64[:,:], # center: [3,3]
 ]
-@nb.njit(make_numba_signature(arguments,output), cache=True)
+@lazy_njit(make_numba_signature(arguments,output), cache=True)
 def get_principal_geometric_axes_single_structure(coordinates, weights):
 
     n_atoms = coordinates.shape[0]
@@ -56,7 +57,7 @@ output=[
         nb.float64[:,:], # [n_structures, 3]
         nb.float64[:,:,:], # [n_structures, 3, 3]
 ]
-@nb.njit(make_numba_signature(arguments,output), cache=True)
+@lazy_njit(make_numba_signature(arguments,output), cache=True)
 def get_principal_geometric_axes(coordinates, weights):
 
     n_structures, n_atoms = coordinates.shape[0:2]

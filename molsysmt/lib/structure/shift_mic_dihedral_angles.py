@@ -1,4 +1,5 @@
 import numba as nb
+from molsysmt._private.jit import lazy_njit
 import numpy as np
 from ..make_numba_signature import make_numba_signature
 from ..pbc.wrap_to_mic import wrap_to_mic_vector_single_structure
@@ -13,7 +14,7 @@ arguments=[nb.float64[:,:], # coordinates
            nb.boolean[:,:], # blocks [n_angs,n_atoms]
           ]
 output=None
-@nb.njit(make_numba_signature(arguments, output), cache=True)
+@lazy_njit(make_numba_signature(arguments, output), cache=True)
 def shift_mic_dihedral_angles_single_structure(coordinates, box, angles, quartets, blocks):
 
     inv_box = inverse_matrix_3x3(box)
@@ -55,7 +56,7 @@ arguments=[nb.float64[:,:,:], # coordinates
            nb.int64[:], # structure_indices
           ]
 output=None
-@nb.njit(make_numba_signature(arguments, output), cache=True)
+@lazy_njit(make_numba_signature(arguments, output), cache=True)
 def shift_mic_dihedral_angles(coordinates, box, angles, quartets, blocks, structure_indices):
 
     n_angles = angles.shape[0]

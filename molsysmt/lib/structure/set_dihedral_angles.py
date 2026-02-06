@@ -1,4 +1,5 @@
 import numba as nb
+from molsysmt._private.jit import lazy_njit
 import numpy as np
 from ..make_numba_signature import make_numba_signature
 from ..math import dihedral_angle, normalize_vector, rodrigues_rotation
@@ -10,7 +11,7 @@ arguments=[nb.float64[:,:], # coordinates
            nb.boolean[:,:], # blocks [n_angs,n_atoms]
           ]
 output=None
-@nb.njit(make_numba_signature(arguments, output), cache=True)
+@lazy_njit(make_numba_signature(arguments, output), cache=True)
 def set_dihedral_angles_single_structure(coordinates, angles, quartets, blocks):
 
     n_angles = angles.shape[0]
@@ -48,7 +49,7 @@ arguments=[nb.float64[:,:,:], # coordinates [n_structures, n_atoms, 3]
            nb.boolean[:,:], # blocks [n_angs,n_atoms]
           ]
 output=None
-@nb.njit(make_numba_signature(arguments, output), cache=True)
+@lazy_njit(make_numba_signature(arguments, output), cache=True)
 def set_dihedral_angles(coordinates, angles, quartets, blocks):
 
     n_angles = quartets.shape[0]
