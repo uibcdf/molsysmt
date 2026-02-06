@@ -1,6 +1,6 @@
 import numpy as np
 from molsysmt import pyunitwizard as puw
-from ...exceptions import ArgumentError
+from molsysmt.exceptions import ArgumentError
 from ...variables import is_iterable
 
 def digest_angles(angles, caller=None):

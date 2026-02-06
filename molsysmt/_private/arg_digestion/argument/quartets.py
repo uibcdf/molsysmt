@@ -1,4 +1,4 @@
-from ...exceptions import ArgumentError
+from molsysmt.exceptions import ArgumentError
 import numpy as np
 
 def digest_quartets(quartets, caller=None):

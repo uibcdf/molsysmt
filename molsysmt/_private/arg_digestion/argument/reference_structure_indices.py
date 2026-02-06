@@ -1,4 +1,4 @@
-from ...exceptions import ArgumentError
+from molsysmt.exceptions import ArgumentError
 
 
 def digest_reference_structure_indices(reference_structure_indices, caller=None):

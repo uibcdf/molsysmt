@@ -1,4 +1,4 @@
-from ...exceptions import ArgumentError
+from molsysmt.exceptions import ArgumentError
 
 def digest_as_entity_2(as_entity_2, caller=None):
 

@@ -1,4 +1,4 @@
-from ...exceptions import ArgumentError
+from molsysmt.exceptions import ArgumentError
 
 def digest_alignment_index(alignment_index, caller=None):
 

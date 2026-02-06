@@ -1,4 +1,4 @@
-from ...exceptions import ArgumentError
+from molsysmt.exceptions import ArgumentError
 from ...variables import is_all
 
 def digest_inner_bonded_atoms(inner_bonded_atoms, caller=None):

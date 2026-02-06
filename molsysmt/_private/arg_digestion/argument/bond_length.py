@@ -1,6 +1,6 @@
 import numpy as np
 from molsysmt import pyunitwizard as puw
-from ...exceptions import ArgumentError
+from molsysmt.exceptions import ArgumentError
 from molsysmt._private.variables import is_iterable
 
 functions_with_boolean = (

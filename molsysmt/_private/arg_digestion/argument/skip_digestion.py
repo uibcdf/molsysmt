@@ -1,4 +1,4 @@
-from ...exceptions import ArgumentError
+from molsysmt.exceptions import ArgumentError
 
 def digest_skip_digestion(skip_digestion, caller=None):
 

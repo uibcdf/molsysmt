@@ -1,4 +1,4 @@
-from ...exceptions import ArgumentError
+from molsysmt.exceptions import ArgumentError
 
 def digest_group_behavior_2(group_behavior_2, caller=None):
 

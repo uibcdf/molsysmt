@@ -1,5 +1,5 @@
 import numpy as np
-from ...exceptions import ArgumentError
+from molsysmt.exceptions import ArgumentError
 
 def digest_reference_weights(reference_weights, caller=None):
 

@@ -1,4 +1,4 @@
-from ...exceptions import ArgumentError
+from molsysmt.exceptions import ArgumentError
 
 def digest_get_missing_bonds(get_missing_bonds, caller=None):
 

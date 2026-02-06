@@ -1,5 +1,5 @@
 import numpy as np
-from ...exceptions import ArgumentError
+from molsysmt.exceptions import ArgumentError
 from molsysmt import pyunitwizard as puw
 
 functions_where_boolean = (
