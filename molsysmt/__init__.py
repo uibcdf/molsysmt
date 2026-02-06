@@ -51,6 +51,7 @@ from . import hbonds
 from . import thirds
 
 from .systems import systems
+from .warmup_numba import warmup_numba
 
 # NGLView patching is triggered lazily by the NGLView backend.
 

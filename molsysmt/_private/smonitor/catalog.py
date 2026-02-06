@@ -44,6 +44,12 @@ CATALOG = {
             "category": "argument",
             "level": "WARNING",
         },
+        "NumbaJitWarning": {
+            "code": "MSM-WARN-NB-001",
+            "source": "molsysmt.warning.numba_jit",
+            "category": "performance",
+            "level": "WARNING",
+        },
     },
     "exceptions": {
         "ArgumentError": {
@@ -182,6 +188,17 @@ CODES = {
         "qa_hint": "Check argdigest rules or mapping for '{argument}'. Docs: {doc_url}",
         "agent_message": "Argument '{argument}' was not digested.",
         "agent_hint": "Check argdigest rules or mapping for '{argument}'. Docs: {doc_url}",
+    },
+    "MSM-WARN-NB-001": {
+        "title": "Numba JIT compilation",
+        "user_message": "A Numba kernel is compiling for '{kernel}'. This may take a moment.",
+        "user_hint": "Call 'molsysmt.warmup_numba()' to precompile common kernels. Docs: {doc_url}",
+        "dev_message": "Numba JIT compilation triggered in '{module}.{kernel}'.",
+        "dev_hint": "Consider precompiling with molsysmt.warmup_numba(). Docs: {doc_url}",
+        "qa_message": "Numba JIT compilation triggered in '{module}.{kernel}'.",
+        "qa_hint": "Consider precompiling with molsysmt.warmup_numba(). Docs: {doc_url}",
+        "agent_message": "Numba JIT compilation triggered in '{module}.{kernel}'.",
+        "agent_hint": "Consider precompiling with molsysmt.warmup_numba(). Docs: {doc_url}",
     },
     "MSM-ERR-ARG-001": {
         "title": "Argument error",
@@ -334,6 +351,7 @@ SIGNALS = {
     "molsysmt.warning.cross_chain_bonds": {"extra_required": ["caller", "count", "pairs"]},
     "molsysmt.warning.download": {"extra_required": ["caller"]},
     "molsysmt.warning.not_digested": {"extra_required": ["argument"]},
+    "molsysmt.warning.numba_jit": {"extra_required": ["kernel", "module"]},
     "molsysmt.error.argument": {"extra_required": ["argument", "value", "caller"]},
     "molsysmt.error.iterator": {"extra_required": ["caller"]},
     "molsysmt.error.library_not_found": {"extra_required": ["library", "caller"]},
