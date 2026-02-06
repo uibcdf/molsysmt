@@ -68,3 +68,9 @@ More specific `AGENTS.md` files in subdirectories refine or override these rules
 - In native MolSysMT objects (for example, `molsysmt.Topology` and `molsysmt.MolSys`), element IDs (`*_id` fields) are stored as strings; normalize incoming numeric IDs to strings and keep this invariant in converters, rebuilders, and tests.
 
 For more specialized guidance, consult the AGENTS files in `ai_assistant/`, `docs/`, `docs/dev/`, `coding/`, `molsysmt/form/`, and `tests/`.
+
+## External Tooling Guides (Required for Development)
+
+These guides are required reading for anyone developing this library. They describe how external tools must be used here.
+
+- `SMONITOR_GUIDE.md` — Required guide for SMonitor integration and diagnostics.
