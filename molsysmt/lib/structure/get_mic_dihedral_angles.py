@@ -15,8 +15,10 @@ output=nb.float64[:]
 @lazy_njit(make_numba_signature(arguments, output), cache=True)
 def get_mic_dihedral_angles_single_structure(coordinates, box, quartets):
 
-    inv_box = inverse_matrix_3x3(box)
     orthogonal = box_is_orthogonal_single_structure(box)
+    inv_box = None
+    if not orthogonal:
+        inv_box = inverse_matrix_3x3(box)
 
     n_angles = quartets.shape[0]
 
@@ -57,8 +59,10 @@ def get_mic_dihedral_angles(coordinates, box, quartets):
     for ii in range(n_structures):
 
         tmp_box = box[ii,:,:]
-        inv_box = inverse_matrix_3x3(tmp_box)
         orthogonal = box_is_orthogonal_single_structure(tmp_box)
+        inv_box = None
+        if not orthogonal:
+            inv_box = inverse_matrix_3x3(tmp_box)
 
         for jj in range(n_angles):
 
@@ -78,4 +82,3 @@ def get_mic_dihedral_angles(coordinates, box, quartets):
             angles[ii,jj]=dihedral_angle(vect0,vect1,vect2)
 
     return angles
-
