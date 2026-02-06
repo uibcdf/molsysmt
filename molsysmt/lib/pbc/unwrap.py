@@ -48,7 +48,7 @@ def unwrap(coordinates, box):
                 vmin=delta
                 dmin=dot_product(delta,delta)
                 for kk in [-1,0,1]:
-                    vaux=delta+ii*tmp_box[0,:]
+                    vaux=delta+kk*tmp_box[0,:]
                     for ll in [-1,0,1]:
                         vaux2=vaux+ll*tmp_box[1,:]
                         for mm in [-1,0,1]:
@@ -57,7 +57,6 @@ def unwrap(coordinates, box):
                             if dmin>dd:
                                 vmin=vaux3
                                 dmin=dd
-                coordinates[ii+1,jj,:]=coordinates[ii,jj,:]+delta
+                coordinates[ii+1,jj,:]=coordinates[ii,jj,:]+vmin
 
     pass
-

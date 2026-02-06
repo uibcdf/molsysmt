@@ -15,8 +15,10 @@ output=nb.float64[:]
 @lazy_njit(make_numba_signature(arguments, output), cache=True)
 def get_mic_angles_single_structure(coordinates, box, triplets):
 
-    inv_box = inverse_matrix_3x3(box)
     orthogonal = box_is_orthogonal_single_structure(box)
+    inv_box = None
+    if not orthogonal:
+        inv_box = inverse_matrix_3x3(box)
 
     n_angles = triplets.shape[0]
 
@@ -54,8 +56,10 @@ def get_mic_angles(coordinates, box, triplets):
     for ii in range(n_structures):
 
         tmp_box = box[ii,:,:]
-        inv_box = inverse_matrix_3x3(tmp_box)
         orthogonal = box_is_orthogonal_single_structure(tmp_box)
+        inv_box = None
+        if not orthogonal:
+            inv_box = inverse_matrix_3x3(tmp_box)
 
         for jj in range(n_angles):
 
@@ -72,4 +76,3 @@ def get_mic_angles(coordinates, box, triplets):
             angles[ii,jj]=angle(vect0,vect1)
 
     return angles
-

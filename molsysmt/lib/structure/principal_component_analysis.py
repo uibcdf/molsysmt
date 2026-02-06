@@ -31,17 +31,13 @@ def principal_component_analysis(coordinates, weights):
     for ll in range(n_structures):
         for ii in range(n_atoms):
             for jj in range(3):
-
                 xx=aux_ind[ii,jj]
                 aux_coor=coordinates[ll,ii,jj]
                 mean[xx]+=aux_coor
-
-            for ii2 in range(ii, n_atoms):
-                for jj2 in range(jj, 3):
-
-                   yy=aux_ind[ii2,jj2]
-
-                   Cov[xx,yy]+=coordinates[ll,ii2,jj2]
+                for ii2 in range(ii, n_atoms):
+                    for jj2 in range(jj, 3):
+                        yy=aux_ind[ii2,jj2]
+                        Cov[xx,yy]+=aux_coor*coordinates[ll,ii2,jj2]
 
     mean = mean/n_structures
 
@@ -61,4 +57,3 @@ def principal_component_analysis(coordinates, weights):
     eigenvectors[:,:] = eigenvectors[:,:].transpose()
 
     return eigenvalues, eigenvectors
-
