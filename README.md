@@ -80,6 +80,12 @@ pytest -n auto --cov=molsysmt --cov-report=term-missing
 
 MolSysMT is distributed under the MIT license. See [LICENSE](LICENSE) for details.
 
+## smonitor
+
+MolSysMT defines its diagnostics catalog in `molsysmt/_private/smonitor/catalog.py`
+and metadata in `molsysmt/_private/smonitor/meta.py`. The package-level
+configuration lives in `molsysmt/_smonitor.py`.
+
 ## Credits
 
 Thanks to the developers and maintainers of the libraries MolSysMT builds on (MDTraj, MDAnalysis, OpenMM, AmberTools, ParmEd, nglview, etc.).
