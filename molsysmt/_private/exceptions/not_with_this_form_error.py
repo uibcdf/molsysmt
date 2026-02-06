@@ -20,16 +20,18 @@ class NotWithThisFormError(Exception):
         full_message = f""
 
         try:
-            emit_from_catalog(
+            event = emit_from_catalog(
                 CATALOG["exceptions"]["NotWithThisFormError"],
                 package_root=PACKAGE_ROOT,
                 extra=with_meta({"caller": caller}),
             )
+            if event.get("message"):
+                full_message = event["message"]
+            hint = (event.get("extra") or {}).get("hint")
+            if hint:
+                full_message = f"{full_message} {hint}"
         except Exception:
             pass
 
-        full_message += (
-            f"Check {api_doc} for more information. "
-            f"If you still need help, open a new issue in {github_issues}."
-        )
+        # Legacy message composition replaced by smonitor catalog
         super().__init__(full_message)
