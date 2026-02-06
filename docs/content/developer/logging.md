@@ -1,120 +1,103 @@
-# MolSysMT Logging and Warning Redirection — Developer Guide
+# MolSysMT Diagnostics and Logging (via smonitor)
 
-This document explains how MolSysMT integrates Python `warnings` with the `logging` system, how the redirection works, and how developers should use it.
-
----
-
-## 1) Motivation
-
-- Standard Python warnings show filename and line number, which can be noisy for end users.
-- With `logging.captureWarnings(True)`, all warnings are routed into the logging system.
-- This allows us to:
-  - Format them consistently with MolSysMT logs
-  - Redirect them to files or other handlers
-  - Control visibility with logging levels
+MolSysMT routes **warnings, errors, and structured diagnostics** through `smonitor`.
+This replaces the older `logging_setup.py`-based redirection and keeps all
+signal handling consistent across the ecosystem.
 
 ---
 
-## 2) Implementation overview
+## 1) Overview
 
-Defined in `molsysmt/logging_setup.py`:
-
-- Creates or gets a logger named `molsysmt`
-- Attaches a `StreamHandler` (stderr by default) with formatter:
-
-```
-MOLSYSMT %(levelname)s | %(message)s
-```
-
-- Captures warnings:
-  - `logging.captureWarnings(True)` redirects `warnings.warn(...)` to logger `py.warnings`
-  - The `py.warnings` logger shares the same handler and formatter as `molsysmt`
-  - Optionally, `warnings.formatwarning` is redefined so messages become:
-
-```
-CategoryName: message
-```
-
-(without filename:lineno prefix)
+- `smonitor` is the single control point for diagnostics.
+- MolSysMT defines its catalog and metadata under `molsysmt/_private/smonitor/`.
+- Project defaults are declared in `molsysmt/_smonitor.py`.
+- Runtime configuration always wins: users can call `smonitor.configure(...)`.
 
 ---
 
-## 3) How developers should emit warnings
+## 2) Where configuration lives
 
-Continue to use Python's `warnings.warn` with the custom MolSysMT warning classes:
+**Package root:** `molsysmt/_smonitor.py`
 
 ```python
-import warnings
-from molsysmt.warnings import TopologyWarning, FileFormatWarning
+PROFILE = "user"
 
-warnings.warn(TopologyWarning(n_bonds=3, chains=["A", "B"], context="read_cif()"))
-warnings.warn("Missing CRYST1 line; no box parsed.", FileFormatWarning)
+SMONITOR = {
+    "level": "WARNING",
+    "trace_depth": 2,
+    "capture_warnings": True,
+    "capture_logging": True,
+    "capture_exceptions": True,
+    "theme": "plain",
+}
 ```
-
-These will be redirected to logging and formatted consistently.
 
 ---
 
-## 4) Logger configuration
+## 3) Where catalog and metadata live
 
-Developers can call:
+**Catalog:** `molsysmt/_private/smonitor/catalog.py`
+
+- `CATALOG`: message definitions and hints
+- `CODES`: mapping for codes to catalog entries
+- `SIGNALS`: contracts for sources and required extras
+
+**Metadata:** `molsysmt/_private/smonitor/meta.py`
+
+- `DOC_URL`, `ISSUES_URL`, `API_URL` for consistent link injection
+
+---
+
+## 4) Emitting warnings and errors
+
+MolSysMT should emit diagnostics through the catalog. Typical flow:
 
 ```python
-from molsysmt.logging_setup import setup_logging
-setup_logging(level="INFO", capture_warnings=True, simplify_warning_format=True)
+from smonitor.integrations import emit_from_catalog, merge_extra
+from molsysmt._private.smonitor import CATALOG, META, PACKAGE_ROOT
+
+emit_from_catalog(
+    CATALOG["molsysmt.warning.selection_ambiguous"],
+    extra=merge_extra(META, {"selection": selection}),
+    package_root=PACKAGE_ROOT,
+    meta=META,
+)
 ```
 
-This configures both `molsysmt` and `py.warnings` loggers.
+If a warning or exception helper is provided in MolSysMT, it should **only**
+wrap this emission logic (no hardcoded messages).
 
 ---
 
-## 5) Testing logging output
+## 5) Runtime overrides (user control)
 
-With pytest:
+Users can tailor the experience without touching MolSysMT internals:
 
 ```python
-import warnings
-import logging
-import pytest
-from molsysmt.logging_setup import setup_logging
-from molsysmt.warnings import FileFormatWarning
+import smonitor
 
-def test_warning_redirect_to_logging(caplog):
-    setup_logging(level="WARNING")
-
-    with caplog.at_level(logging.WARNING, logger="py.warnings"):
-        warnings.warn("Missing CRYST1 line", FileFormatWarning)
-
-    assert any("FileFormatWarning: Missing CRYST1 line" in rec.message for rec in caplog.records)
+smonitor.configure(profile="dev", level="INFO", event_buffer_size=200)
 ```
 
 ---
 
-## 6) Good practices
+## 6) Testing diagnostics
 
-- **Always** use MolSysMT warning classes (`TopologyWarning`, `FileFormatWarning`, etc.)
-- **Do not** print or log warnings manually; always use `warnings.warn`
-- **Rely on the redirection** to logging for consistent formatting
-- For new warning categories, inherit from `UserMolSysMTWarning`
-
----
-
-## 7) Example output
-
-Code:
+In tests, you can enable buffering and inspect emitted events:
 
 ```python
-import warnings
-from molsysmt.logging_setup import setup_logging
-from molsysmt.warnings import TopologyWarning
+import smonitor
 
-setup_logging()
-
-warnings.warn(TopologyWarning(n_bonds=3, chains=["A", "B"]))
+smonitor.configure(event_buffer_size=100)
+# call code that emits
+report = smonitor.report()
+assert report["events_buffered"] > 0
 ```
 
-Output:
+---
 
-```
-MOLSYSMT WARNING | TopologyWarning: 3 covalent bond(s) reported by 'struct_conn' between chains ['A', 'B'] were added.
-```
+## 7) Legacy note
+
+Older logging redirection via `logging.captureWarnings(...)` is now considered
+legacy. Keep it only for backward compatibility and migrate to smonitor-based
+emission.
