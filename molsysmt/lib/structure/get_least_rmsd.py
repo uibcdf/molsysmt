@@ -24,12 +24,10 @@ def get_least_rmsd_single_structure(coordinates, reference_coordinates):
     R=np.zeros((3,3), dtype=nb.float64)
     F=np.zeros((4,4), dtype=nb.float64)
 
-    w=np.ones((n_atoms), dtype=nb.float64) # without weights
-
     # reference coordinates
 
     for ii in range(n_atoms):
-        x[ii,:]=w[ii]*reference_coordinates[ii,:]
+        x[ii,:]=reference_coordinates[ii,:]
 
     x_norm=0.0
     for ii in range(3):
@@ -40,7 +38,7 @@ def get_least_rmsd_single_structure(coordinates, reference_coordinates):
     # coordinates
 
     for ii in range(n_atoms):
-        y[ii,:]=w[ii]*coordinates[ii,:]
+        y[ii,:]=coordinates[ii,:]
 
     y_norm=0.0
     for ii in range(3):
@@ -93,8 +91,6 @@ def get_least_rmsd(coordinates, reference_coordinates):
 
     output_rmsd = np.zeros((n_structures), dtype=nb.float64)
 
-    w=np.ones((n_atoms), dtype=nb.float64)
-
     center_ref=np.empty((3), dtype=nb.float64)
     center=np.empty((3), dtype=nb.float64)
 
@@ -113,7 +109,7 @@ def get_least_rmsd(coordinates, reference_coordinates):
         x[:,:]=0.0
 
         for jj in range(n_atoms):
-            x[jj,:]=w[jj]*reference_coordinates[ii,jj,:]
+            x[jj,:]=reference_coordinates[ii,jj,:]
 
         for jj in range(3):
             center_ref[jj]=np.sum(x[:,jj])/n_atoms
@@ -126,7 +122,7 @@ def get_least_rmsd(coordinates, reference_coordinates):
         y[:,:]=0.0
 
         for jj in range(n_atoms):
-            y[jj,:]=w[jj]*coordinates[ii,jj,:]
+            y[jj,:]=coordinates[ii,jj,:]
 
         for jj in range(3):
             center[jj]=np.sum(y[:,jj])/n_atoms
@@ -182,8 +178,6 @@ def get_least_rmsd_with_single_reference_structure(coordinates, reference_coordi
 
     output_rmsd = np.zeros((n_structures), dtype=nb.float64)
 
-    w=np.ones((n_atoms), dtype=nb.float64)
-
     center_ref=np.empty((3), dtype=nb.float64)
     center=np.empty((3), dtype=nb.float64)
 
@@ -199,7 +193,7 @@ def get_least_rmsd_with_single_reference_structure(coordinates, reference_coordi
     x[:,:]=0.0
 
     for jj in range(n_atoms):
-        x[jj,:]=w[jj]*reference_coordinates[jj,:]
+        x[jj,:]=reference_coordinates[jj,:]
 
     for jj in range(3):
         center_ref[jj]=np.sum(x[:,jj])/n_atoms
@@ -214,7 +208,7 @@ def get_least_rmsd_with_single_reference_structure(coordinates, reference_coordi
         y[:,:]=0.0
 
         for jj in range(n_atoms):
-            y[jj,:]=w[jj]*coordinates[ii,jj,:]
+            y[jj,:]=coordinates[ii,jj,:]
 
         for jj in range(3):
             center[jj]=np.sum(y[:,jj])/n_atoms
@@ -256,4 +250,3 @@ def get_least_rmsd_with_single_reference_structure(coordinates, reference_coordi
         output_rmsd[ii]=math.sqrt(msd)
 
     return output_rmsd
-

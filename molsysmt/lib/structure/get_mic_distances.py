@@ -18,11 +18,10 @@ def get_mic_distance_two_points_single_structure(point1, point2, box, inv_box, o
 
     tmp_vect=point2-point1
 
-    if inv_box is None:
-        inv_box = inverse_matrix_3x3(box)
-
     if orthogonal is None:
         orthogonal = box_is_orthogonal_single_structure(box)
+    if inv_box is None and not orthogonal:
+        inv_box = inverse_matrix_3x3(box)
 
     tmp_vect = wrap_to_mic_vector_single_structure(tmp_vect, box, inv_box, orthogonal)
 
@@ -44,8 +43,10 @@ def get_mic_distances_single_system(coordinates, box):
 
     for ii in range(n_structures):
         tmp_box = box[ii,:,:]
-        inv_box = inverse_matrix_3x3(tmp_box)
         orthogonal = box_is_orthogonal_single_structure(tmp_box)
+        inv_box = None
+        if not orthogonal:
+            inv_box = inverse_matrix_3x3(tmp_box)
         for jj in range(n_atoms):
             point1 = coordinates[ii,jj,:]
             for kk in range(jj+1, n_atoms):
@@ -73,8 +74,10 @@ def get_mic_distances(coordinates1, coordinates2, box):
 
     for ii in range(n_structures1):
         tmp_box = box[ii,:,:]
-        inv_box = inverse_matrix_3x3(tmp_box)
         orthogonal = box_is_orthogonal_single_structure(tmp_box)
+        inv_box = None
+        if not orthogonal:
+            inv_box = inverse_matrix_3x3(tmp_box)
         for jj in range(n_atoms1):
             point1 = coordinates1[ii,jj,:]
             for kk in range(n_atoms2):
@@ -100,8 +103,10 @@ def get_mic_distances_pairs(coordinates1, coordinates2, box):
 
     for ii in range(n_structures):
         tmp_box = box[ii,:,:]
-        inv_box = inverse_matrix_3x3(tmp_box)
         orthogonal = box_is_orthogonal_single_structure(tmp_box)
+        inv_box = None
+        if not orthogonal:
+            inv_box = inverse_matrix_3x3(tmp_box)
         for jj in range(n_atoms):
             point1 = coordinates1[ii,jj,:]
             point2 = coordinates2[ii,jj,:]
@@ -123,8 +128,10 @@ def get_mic_distances_single_system_single_structure(coordinates, box):
 
     distances = np.zeros((n_atoms, n_atoms), dtype=np.float64)
 
-    inv_box = inverse_matrix_3x3(box)
     orthogonal = box_is_orthogonal_single_structure(box)
+    inv_box = None
+    if not orthogonal:
+        inv_box = inverse_matrix_3x3(box)
     for ii in range(n_atoms):
         point1 = coordinates[ii,:]
         for jj in range(ii+1, n_atoms):
@@ -150,8 +157,10 @@ def get_mic_distances_single_structure(coordinates1, coordinates2, box):
 
     distances = np.zeros((n_atoms1, n_atoms2), dtype=np.float64)
 
-    inv_box = inverse_matrix_3x3(box)
     orthogonal = box_is_orthogonal_single_structure(box)
+    inv_box = None
+    if not orthogonal:
+        inv_box = inverse_matrix_3x3(box)
     for ii in range(n_atoms1):
         point1 = coordinates1[ii,:]
         for jj in range(n_atoms2):
@@ -175,8 +184,10 @@ def get_mic_distances_pairs_single_structure(coordinates1, coordinates2, box):
 
     distances = np.zeros((n_atoms), dtype=np.float64)
 
-    inv_box = inverse_matrix_3x3(box)
     orthogonal = box_is_orthogonal_single_structure(box)
+    inv_box = None
+    if not orthogonal:
+        inv_box = inverse_matrix_3x3(box)
     for ii in range(n_atoms):
         point1 = coordinates1[ii,:]
         point2 = coordinates2[ii,:]
@@ -185,4 +196,3 @@ def get_mic_distances_pairs_single_structure(coordinates1, coordinates2, box):
         distances[ii]=aux
 
     return distances
-
