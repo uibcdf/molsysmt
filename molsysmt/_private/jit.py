@@ -3,6 +3,8 @@ import numba as nb
 
 _COMPILED_FACTORIES = []
 _NUMBA_WARNING_EMITTED = False
+_WRAPPER_COMPILED = {}
+_COMPILING = set()
 
 
 def _emit_numba_jit_warning(kernel_name, module_name):
@@ -28,13 +30,26 @@ def lazy_njit(signature, cache=True, **kwargs):
     def decorator(func):
         @lru_cache(maxsize=1)
         def _compiled():
-            _emit_numba_jit_warning(func.__name__, func.__module__)
-            return nb.njit(signature, cache=cache, **kwargs)(func)
+            if wrapper in _COMPILING:
+                return nb.njit(signature, cache=cache, **kwargs)(func)
+
+            _COMPILING.add(wrapper)
+            try:
+                # Ensure dependencies are compiled and bound to their dispatchers.
+                for name, value in func.__globals__.items():
+                    if callable(value) and value in _WRAPPER_COMPILED and value is not wrapper:
+                        func.__globals__[name] = _WRAPPER_COMPILED[value]()
+
+                _emit_numba_jit_warning(func.__name__, func.__module__)
+                return nb.njit(signature, cache=cache, **kwargs)(func)
+            finally:
+                _COMPILING.discard(wrapper)
 
         @wraps(func)
         def wrapper(*args, **kwds):
             return _compiled()(*args, **kwds)
 
+        _WRAPPER_COMPILED[wrapper] = _compiled
         _COMPILED_FACTORIES.append(_compiled)
 
         return wrapper
