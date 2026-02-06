@@ -15,6 +15,11 @@ except PackageNotFoundError:
     except ImportError:
         __version__ = "1.0.0+unknown"
 
+from smonitor.integrations import ensure_configured as _ensure_smonitor_configured
+from molsysmt._private.smonitor import PACKAGE_ROOT as _SMONITOR_PACKAGE_ROOT
+
+_ensure_smonitor_configured(_SMONITOR_PACKAGE_ROOT)
+
 #__documentation_web__ = 'https://www.uibcdf.org/MolSysMT'
 #__github_web__ = 'https://github.com/uibcdf/MolSysMT'
 #__github_issues_web__ = __github_web__ + '/issues'

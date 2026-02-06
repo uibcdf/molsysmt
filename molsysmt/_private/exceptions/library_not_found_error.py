@@ -1,5 +1,7 @@
 from ..functions import caller_name
 from ..webs import github_issues, api_doc
+from smonitor.integrations import emit_from_catalog
+from molsysmt._private.smonitor import CATALOG, PACKAGE_ROOT, with_meta
 
 class LibraryNotFoundError(Exception):
     """ Exception raised when a library required by the user is not found.
@@ -25,3 +27,11 @@ class LibraryNotFoundError(Exception):
             f"If you still need help, open a new issue in {github_issues}."
         )
 
+        try:
+            emit_from_catalog(
+                CATALOG["exceptions"]["LibraryNotFoundError"],
+                package_root=PACKAGE_ROOT,
+                extra=with_meta({"library": library, "caller": caller}),
+            )
+        except Exception:
+            pass

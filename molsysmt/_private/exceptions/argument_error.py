@@ -1,5 +1,7 @@
 from ..functions import caller_name
 from ..webs import github_issues, api_doc
+from smonitor.integrations import emit_from_catalog
+from molsysmt._private.smonitor import CATALOG, PACKAGE_ROOT, with_meta
 
 class ArgumentError(Exception):
     """Exception raised when a method, or a class, was not properly called or instantiated.
@@ -49,5 +51,17 @@ class ArgumentError(Exception):
             f"If you still need help, open a new issue in {github_issues}."
         )
 
-        super().__init__(full_message)
+        try:
+            emit_from_catalog(
+                CATALOG["exceptions"]["ArgumentError"],
+                package_root=PACKAGE_ROOT,
+                extra=with_meta({
+                    "argument": argument,
+                    "value": value,
+                    "caller": caller,
+                }),
+            )
+        except Exception:
+            pass
 
+        super().__init__(full_message)
