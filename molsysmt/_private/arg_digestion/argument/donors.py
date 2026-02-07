@@ -1,4 +1,4 @@
-from molsysmt.exceptions import ArgumentError
+from molsysmt._private.smonitor import ArgumentError
 from molsysmt._private.variables import is_iterable
 import numpy as np
 

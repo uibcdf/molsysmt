@@ -31,6 +31,24 @@ config.setup_logging(level="WARNING", capture_warnings=True, simplify_warning_fo
 
 from ._pyunitwizard import puw as pyunitwizard
 
+from ._private.smonitor import (
+    ArgumentError,
+    IteratorError,
+    LibraryNotFoundError,
+    MolecularSystemNeededError,
+    MolecularSystemsNeededError,
+    NotCompatibleConversionError,
+    NotImplementedConversionError,
+    NotImplementedIteratorError,
+    NotImplementedMethodError,
+    NotSupportedFormError,
+    NotSupportedSyntaxError,
+    NotWithThisFormError,
+    FileAlreadyHandledError,
+    warn,
+    warn_once,
+)
+
 from .basic import *
 from . import basic
 

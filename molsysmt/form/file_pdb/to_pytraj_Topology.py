@@ -1,4 +1,4 @@
-from molsysmt.exceptions import LibraryNotFoundError
+from molsysmt._private.smonitor import LibraryNotFoundError
 from molsysmt._private.arg_digestion import arg_digest
 from molsysmt import pyunitwizard as puw
 

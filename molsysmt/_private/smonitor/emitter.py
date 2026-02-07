@@ -3,7 +3,7 @@ from __future__ import annotations
 from typing import Any, Dict, Optional
 
 from smonitor.integrations import emit_from_catalog, merge_extra
-from molsysmt._private.smonitor import PACKAGE_ROOT, META
+from . import PACKAGE_ROOT, META
 
 
 def message_from_catalog(

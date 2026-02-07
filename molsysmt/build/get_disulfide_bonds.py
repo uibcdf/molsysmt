@@ -1,6 +1,6 @@
 from molsysmt import pyunitwizard as puw
 from molsysmt._private.arg_digestion import arg_digest
-from molsysmt.exceptions import NotImplementedMethodError
+from molsysmt._private.smonitor import NotImplementedMethodError
 from molsysmt._private.variables import is_all
 from molsysmt._private.lists import sorted_list_of_pairs
 from molsysmt.element.bond import max_expected_bond_length

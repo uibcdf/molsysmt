@@ -1,4 +1,4 @@
-from molsysmt.exceptions import NotImplementedMethodError
+from molsysmt._private.smonitor import NotImplementedMethodError
 from molsysmt._private.arg_digestion import arg_digest
 from molsysmt import lib as msmlib
 from molsysmt._private.variables import is_all, is_iterable_of_iterables

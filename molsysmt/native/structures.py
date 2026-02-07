@@ -3,7 +3,7 @@ import numpy as np
 from molsysmt import pyunitwizard as puw
 from molsysmt._private.variables import is_all, is_iterable
 from molsysmt.basic import get
-from molsysmt.exceptions import IteratorError
+from molsysmt._private.smonitor import IteratorError
 from molsysmt._private.arg_digestion import arg_digest
 
 class Structures:

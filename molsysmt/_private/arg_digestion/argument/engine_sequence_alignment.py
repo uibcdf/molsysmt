@@ -1,4 +1,4 @@
-from molsysmt.exceptions import ArgumentError
+from molsysmt._private.smonitor import ArgumentError
 
 def digest_engine_sequence_alignment(engine_sequence_alignment, caller=None):
 

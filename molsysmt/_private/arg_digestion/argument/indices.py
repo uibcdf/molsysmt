@@ -1,5 +1,5 @@
 import numpy as np
-from molsysmt.exceptions import ArgumentError
+from molsysmt._private.smonitor import ArgumentError
 from molsysmt._private.variables import is_all, is_iterable_of_iterables
 
 def digest_indices(indices, caller=None):

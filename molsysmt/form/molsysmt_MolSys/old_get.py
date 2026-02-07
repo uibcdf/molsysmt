@@ -1,4 +1,4 @@
-from molsysmt.exceptions import NotImplementedMethodError, NotWithThisFormError
+from molsysmt._private.smonitor import NotImplementedMethodError, NotWithThisFormError
 from molsysmt._private.arg_digestion import arg_digest
 
 form='molsysmt.MolSys'

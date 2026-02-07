@@ -5,10 +5,10 @@ from __future__ import annotations
 from typing import Type
 import warnings
 
-from ._private.functions import caller_name
+from ..functions import caller_name
 from smonitor.integrations import emit_from_catalog, merge_extra
-from molsysmt._private.smonitor import CATALOG, PACKAGE_ROOT, META
-from ._private.smonitor_emit import message_from_catalog
+from . import CATALOG, PACKAGE_ROOT, META
+from .emitter import message_from_catalog
 
 
 class UserMolSysMTWarning(Warning):

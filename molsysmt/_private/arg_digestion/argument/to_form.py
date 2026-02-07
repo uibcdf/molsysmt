@@ -1,4 +1,4 @@
-from molsysmt.exceptions import ArgumentError
+from molsysmt._private.smonitor import ArgumentError
 
 def digest_to_form(to_form, caller=None):
     """ Checks if the to_form value is supported.

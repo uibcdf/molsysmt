@@ -1,6 +1,6 @@
 from molsysmt._private.arg_digestion import arg_digest
-from molsysmt.exceptions import NotImplementedIteratorError
-#from molsysmt.exceptions import IteratorError
+from molsysmt._private.smonitor import NotImplementedIteratorError
+#from molsysmt._private.smonitor import IteratorError
 
 class Iterator():
     """

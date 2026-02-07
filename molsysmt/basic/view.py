@@ -1,6 +1,9 @@
 from molsysmt._private.arg_digestion import arg_digest
 
 
+from smonitor import signal
+
+@signal(tags=['api', 'view'])
 @arg_digest()
 def view(molecular_system=None, selection='all', structure_indices='all',
          viewer='MolSysViewer', syntax='MolSysMT', skip_digestion=False):

@@ -1,5 +1,5 @@
 # DepDigest configuration for MolSysMT
-from molsysmt.exceptions import LibraryNotFoundError
+from molsysmt._private.smonitor import LibraryNotFoundError
 
 LIBRARIES = {
     'numpy': {'type': 'hard', 'pypi': 'numpy'},

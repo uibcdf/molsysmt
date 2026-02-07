@@ -1,4 +1,4 @@
-from molsysmt.exceptions import ArgumentError
+from molsysmt._private.smonitor import ArgumentError
 from ...variables import is_all
 
 def digest_bioassembly_name(bioassembly_name, caller=None):

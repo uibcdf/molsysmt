@@ -1,6 +1,9 @@
 from molsysmt._private.arg_digestion import arg_digest
 from depdigest import dep_digest
 
+from smonitor import signal
+
+@signal(tags=['conversion'])
 @arg_digest(form='molsysmt.MolSys')
 @dep_digest('mdtraj')
 def to_mdtraj_Trajectory(item, atom_indices='all', structure_indices='all', skip_digestion=False):

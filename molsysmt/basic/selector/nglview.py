@@ -1,5 +1,5 @@
 import numpy as np
-from molsysmt.exceptions import NotImplementedMethodError
+from molsysmt._private.smonitor import NotImplementedMethodError
 
 def select(molecular_system, selection='all', structure_indices='all'):
 

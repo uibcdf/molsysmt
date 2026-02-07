@@ -1,4 +1,4 @@
-from molsysmt.exceptions import *
+from molsysmt._private.smonitor import *
 from molsysmt import pyunitwizard as puw
 
 class Simulation():

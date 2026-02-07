@@ -1,4 +1,4 @@
-from molsysmt.exceptions import ArgumentError
+from molsysmt._private.smonitor import ArgumentError
 
 def digest_item(item, form=None, caller=None):
     """ Checks if an object is an item. Optionally checks if the item has the expected form.
