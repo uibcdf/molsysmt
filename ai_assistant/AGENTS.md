@@ -15,7 +15,7 @@ and the global rules from the root `AGENTS.md`.
 - Follow the standards and policies described in:
   - `dev_guide.md`
   - `coding/coding_guide.md`
-  - `docs/AGENTS.md` and `docs/dev/developer_guide.md`
+- `docs/AGENTS.md` and `docs/content/developer/documentation/api/docstrings.md`
   - `ai_assistant/GPT_devopers_definition/dev_assistant_gpt_configuration.md`
 - Do not invent new style or policy rules; reuse and enforce the existing ones.
 
@@ -34,7 +34,8 @@ and the global rules from the root `AGENTS.md`.
 
 - When adding or modifying functionality, keep docstrings, tutorials, and tests aligned:
   - Docstrings follow NumPy-style with gerund summaries and explicit units.
-  - Tutorials and notebooks follow the structure described in `docs/dev/developer_guide.md`.
+- Tutorials and notebooks follow the structure described in
+  `docs/content/developer/documentation/api/docstrings.md` and `devguide/documentation_sync.md`.
   - Cross-links in documentation use labeled sections and `{ref}` roles where possible, as described in `docs/content/developer/documentation/web/references.md`.
   - Tests live under `tests/` mirroring the package structure and use `pytest`.
 - Prefer updating or extending existing tests over weakening assertions.

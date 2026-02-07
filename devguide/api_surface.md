@@ -3,6 +3,8 @@
 ## Public API Definition
 The public API is defined by symbols imported in `molsysmt/__init__.py`.
 Anything not imported there is considered internal.
+Modules under `molsysmt/_private` are internal implementation details and must
+not be re-exported.
 
 ## Required Decorators
 - Public functions and methods **must** use `@arg_digest`.

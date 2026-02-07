@@ -12,7 +12,7 @@ More specific `AGENTS.md` files in subdirectories refine or override these rules
 
 - All repository-facing text must be written in English: code comments, docstrings, error/warning messages, READMEs, guides, developer notes, notebooks, and all `AGENTS.md` files.
 - User-facing conversations (issues, PR reviews, interactive assistant replies) may follow the user’s preferred language, but anything committed to the repo stays in English.
-- Follow the documentation conventions in `dev_guide.md`, `coding/coding_guide.md`, and the documentation-specific AGENTS under `docs/` and `docs/dev/`.
+- Follow the documentation conventions in `devguide/`, `coding/coding_guide.md`, and the documentation-specific AGENTS under `docs/`.
 - For web documentation (User Guide, Showcase, Cookbook, developer docs), use MyST and cross-linking patterns described in `docs/content/developer/documentation/web/` (notably `references.md`).
 
 ## Public vs private API
@@ -40,15 +40,16 @@ More specific `AGENTS.md` files in subdirectories refine or override these rules
 
 ## Dependency Management
 
-- **Hard vs Soft Dependencies:** MolSysMT distinguishes between essential libraries (Hard) and optional feature-enabling ones (Soft). This status is centrally managed in `molsysmt/config/dependencies.py`.
-- **Lazy Imports:** Never import a soft dependency (e.g., `mdtraj`, `openmm`, `mdanalysis`, `parmed`, `pytraj`, `nglview`, `pdbfixer`, `biopython`, `plotly`) at the module's top level. Always perform imports inside functions or methods.
-- **Enforcement:** Use the `@dep_digest(library, when=None)` decorator from `molsysmt.dependencies` to enforce dependency availability and provide metadata for introspection.
+## Dependency Management
+- **Hard vs Soft Dependencies:** MolSysMT distinguishes between essential libraries (Hard) and optional feature-enabling ones (Soft). This status is centrally managed in `molsysmt/_depdigest.py`.
+- **Lazy Imports:** Never import a soft dependency (e.g., `mdtraj`, `openmm`, `MDAnalysis`, `parmed`, `pytraj`, `nglview`, `pdbfixer`, `biopython`, `plotly`) at the module's top level. Always perform imports inside functions or methods.
+- **Enforcement:** Use the `@dep_digest(library, when=None)` decorator from the `depdigest` package (configured by `molsysmt/_depdigest.py`) to enforce dependency availability and provide metadata for introspection.
 - **Validation:** Run `scripts/validate_dependencies.py` to ensure no top-level imports of soft dependencies leak into the codebase. Exempt zones (tests, dev tools) are defined in the script and documented in `SPEC_DEPENDENCIES.md`.
 
 ## Forms and conversions
 
 - Form adapters live under `molsysmt/form`; see `molsysmt/form/AGENTS.md` for detailed guidance.
-- Discovery and registration are lazy and dynamic. They rely on the central mapping in `molsysmt/config/dependencies.py` (specifically `form_dir_to_library`). Do not add dependency-related variables to the form's local `__init__.py`.
+- Discovery and registration are lazy and dynamic. They rely on the central mapping in `molsysmt/_depdigest.py` (specifically `MAPPING`). Do not add dependency-related variables to the form's local `__init__.py`.
 - Each form module should declare `form_name`, `form_type`, `form_info`, and populate `_convert_to` with callables.
 - Respect `msm.config.show_all_capabilities` which allows users to filter available forms based on their installed environment.
 
@@ -67,7 +68,7 @@ More specific `AGENTS.md` files in subdirectories refine or override these rules
 - Automated agents must respect sandboxing and should avoid network access unless explicitly required and permitted by the execution environment.
 - In native MolSysMT objects (for example, `molsysmt.Topology` and `molsysmt.MolSys`), element IDs (`*_id` fields) are stored as strings; normalize incoming numeric IDs to strings and keep this invariant in converters, rebuilders, and tests.
 
-For more specialized guidance, consult the AGENTS files in `ai_assistant/`, `docs/`, `docs/dev/`, `coding/`, `molsysmt/form/`, and `tests/`.
+For more specialized guidance, consult the AGENTS files in `ai_assistant/`, `docs/`, `coding/`, `molsysmt/form/`, and `tests/`.
 
 ## External Tooling Guides (Required for Development)
 

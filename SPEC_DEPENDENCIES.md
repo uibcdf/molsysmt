@@ -4,33 +4,31 @@
 
 MolSysMT integrates numerous external tools (OpenMM, MDTraj, etc.). The current dependency handling has several issues:
 - **Zero-Cost Startup:** `import molsysmt` is now instantaneous and does not import soft dependencies.
-- **Declarative Definition:** All dependencies are defined in `molsysmt/config/dependencies.py`.
-- **Robustness:** Functions fail gracefully at runtime with clear messages via `@requires`.
+- **Declarative Definition:** All dependencies are defined in `molsysmt/_depdigest.py`.
+- **Robustness:** Functions fail gracefully at runtime with clear messages via `@dep_digest`.
 - **Introspection:** Supports filtering capabilities based on `msm.config.show_all_capabilities`.
 
 ## 2. Architecture Components
 
-### A. Configuration Source (`molsysmt.config.dependencies`)
+### A. Configuration Source (`molsysmt/_depdigest.py`)
 Defines the status of each library and maps form directories to libraries.
 
 ```python
-dependencies = { ... }
-form_dir_to_library = {
+LIBRARIES = { ... }
+MAPPING = {
     'mdtraj_Trajectory': 'mdtraj',
     ...
 }
 ```
 
-### B. Dependency Manager (`molsysmt.dependencies`)
-- `check_dependency(name)`: Validates availability.
-- `is_installed(name)`: Cached check.
-- `@dep_digest(library, when=None)`: The smart decorator.
-- `info()`: Public function providing a summary table of all dependencies and their installation status.
+### B. Dependency Manager (`depdigest`)
+- `@dep_digest(library, when=None)`: The smart decorator (configured via `molsysmt/_depdigest.py`).
+- `get_info('molsysmt')`: Returns a summary table of dependency status.
 
 ### C. Lazy Form Registry (`molsysmt.form`)
 The `_dict_modules` is now a dynamic proxy (`_FormsDictionary`) that:
 1.  Scans directories only when accessed.
-2.  Uses `form_dir_to_library` to check requirements before importing.
+2.  Uses `MAPPING` to check requirements before importing.
 3.  Filters out missing capabilities if `msm.config.show_all_capabilities` is `False`.
 
 ## 3. Implementation Details
@@ -39,20 +37,20 @@ The `_dict_modules` is now a dynamic proxy (`_FormsDictionary`) that:
 - Attaches `_dependencies` metadata to functions.
 - Uses a cached `inspect.signature` for high-performance argument binding in conditional checks.
 
-### Interaction with `@digest`
-`@requires` must be placed **below** `@digest` to work on normalized arguments.
+### Interaction with `@arg_digest`
+`@dep_digest` must be placed **below** `@arg_digest` to work on normalized arguments.
 
 ## 4. Maintenance Protocol
 
 ### Moving Soft -> Hard
-1. Update `type: 'hard'` in `molsysmt/config/dependencies.py`.
+1. Update `type: 'hard'` in `molsysmt/_depdigest.py`.
 2. (Optional) Move imports to top-level for minor performance gain.
 
 ### Moving Hard -> Soft
 1. Move imports inside functions (Lazy).
-2. Add `@requires('lib')`.
-3. Update `type: 'soft'` in `molsysmt/config/dependencies.py`.
-4. Ensure the form directory is mapped in `form_dir_to_library`.
+2. Add `@dep_digest('lib')`.
+3. Update `type: 'soft'` in `molsysmt/_depdigest.py`.
+4. Ensure the form directory is mapped in `MAPPING`.
 
 ## 6. Exempt Zones (Dev Tools)
 
