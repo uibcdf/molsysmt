@@ -1,4 +1,4 @@
-from molsysmt.exceptions import ArgumentError
+from molsysmt._private.smonitor import ArgumentError
 from string import ascii_uppercase
 
 alternate_locations = list(ascii_uppercase)

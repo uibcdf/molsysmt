@@ -1,4 +1,4 @@
-from molsysmt.exceptions import ArgumentError
+from molsysmt._private.smonitor import ArgumentError
 
 _box_shape_values = [
     "cubic",

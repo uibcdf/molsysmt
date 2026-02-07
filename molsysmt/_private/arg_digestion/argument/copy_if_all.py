@@ -1,4 +1,4 @@
-from molsysmt.exceptions import ArgumentError
+from molsysmt._private.smonitor import ArgumentError
 
 def digest_copy_if_all(copy_if_all, caller=None):
 

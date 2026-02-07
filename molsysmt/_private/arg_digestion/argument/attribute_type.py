@@ -1,4 +1,4 @@
-from molsysmt.exceptions import ArgumentError
+from molsysmt._private.smonitor import ArgumentError
 from ...variables import is_all
 
 _funcions_with_attribute_type = [

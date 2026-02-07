@@ -1,4 +1,4 @@
-from molsysmt.exceptions import ArgumentError
+from molsysmt._private.smonitor import ArgumentError
 
 def digest_pdb_chain_id(pdb_chain_id, caller=None):
 

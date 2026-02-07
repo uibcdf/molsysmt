@@ -1,4 +1,4 @@
-from molsysmt.exceptions import ArgumentError
+from molsysmt._private.smonitor import ArgumentError
 
 def digest_output_form(output_form, caller=None):
     """ Checks if the output_form value is supported.

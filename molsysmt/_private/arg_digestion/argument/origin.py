@@ -1,4 +1,4 @@
-from molsysmt.exceptions import ArgumentError
+from molsysmt._private.smonitor import ArgumentError
 import numpy as np
 from molsysmt import pyunitwizard as puw
 from molsysmt._private.input_arguments import can_be_selection

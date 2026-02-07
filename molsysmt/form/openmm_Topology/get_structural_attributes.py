@@ -4,7 +4,7 @@ from molsysmt import pyunitwizard as puw
 import numpy as np
 from molsysmt._private.get_topological_attributes import _auxiliary_getter
 import types
-from molsysmt.exceptions import NotImplementedMethodError, NotWithThisFormError
+from molsysmt._private.smonitor import NotImplementedMethodError, NotWithThisFormError
 
 form='openmm.Topology'
 

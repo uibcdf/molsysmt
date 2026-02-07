@@ -1,4 +1,4 @@
-from molsysmt.exceptions import ArgumentError
+from molsysmt._private.smonitor import ArgumentError
 import numpy as np
 from molsysmt import pyunitwizard as puw
 from matplotlib.pyplot import colormaps

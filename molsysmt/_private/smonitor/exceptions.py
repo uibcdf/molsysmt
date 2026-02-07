@@ -2,22 +2,30 @@
 
 from __future__ import annotations
 
-from ._private.functions import caller_name
-from ._private.smonitor import CATALOG
-from ._private.smonitor_emit import message_from_catalog
+from ..functions import caller_name
+from . import CATALOG
+from .emitter import message_from_catalog
 
 
 class ArgumentError(Exception):
-    def __init__(self, argument, value=None, caller=None, message=None):
+    def __init__(self, argument, value=None, caller=None, message=None, code=None):
         if not caller:
             caller = caller_name()
 
         default_message = f"Error in {caller} due to the {argument} argument with value {value}."
         if message:
-            default_message += message
+            default_message += f" {message}"
+
+        entry = CATALOG["exceptions"]["ArgumentError"]
+        if code:
+            # Look up specific entry if code is provided
+            for exc_entry in CATALOG["exceptions"].values():
+                if exc_entry.get("code") == code:
+                    entry = exc_entry
+                    break
 
         full_message = message_from_catalog(
-            CATALOG["exceptions"]["ArgumentError"],
+            entry,
             extra={"argument": argument, "value": value, "caller": caller},
             default_message=default_message,
         )

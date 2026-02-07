@@ -1,4 +1,4 @@
-from molsysmt.exceptions import ArgumentError
+from molsysmt._private.smonitor import ArgumentError
 import numpy as np
 
 def digest_weights_2(weights_2, syntax="MolSysMT", caller=None):

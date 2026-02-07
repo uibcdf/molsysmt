@@ -1,5 +1,5 @@
 import numpy as np
-from molsysmt.exceptions import *
+from molsysmt._private.smonitor import *
 
 def one_system(molecular_system=None, selection=None, structure_indices=None, form=None, syntax='MolSysMT'):
 

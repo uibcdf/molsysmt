@@ -3,7 +3,7 @@ from molsysmt._private.variables import is_all
 from molsysmt import pyunitwizard as puw
 import numpy as np
 import types
-from molsysmt.exceptions import NotImplementedMethodError, NotWithThisFormError
+from molsysmt._private.smonitor import NotImplementedMethodError, NotWithThisFormError
 import pandas as pd
 
 form='openmm.Topology'

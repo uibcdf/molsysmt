@@ -1,6 +1,6 @@
 import numpy as np
 from molsysmt import pyunitwizard as puw
-from molsysmt.exceptions import ArgumentError
+from molsysmt._private.smonitor import ArgumentError
 
 def digest_rotation_center(rotation_center, caller=None):
 

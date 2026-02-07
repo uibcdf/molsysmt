@@ -1,4 +1,4 @@
-from molsysmt.exceptions import ArgumentError
+from molsysmt._private.smonitor import ArgumentError
 
 def digest_from_element(from_element, caller=None):
     """ Checks if a syntax has the correct type and value

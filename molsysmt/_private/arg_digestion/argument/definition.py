@@ -1,5 +1,5 @@
 import numpy as np
-from molsysmt.exceptions import ArgumentError
+from molsysmt._private.smonitor import ArgumentError
 
 definitions = {
     'get_mass': ['OpenMM', 'physical'],

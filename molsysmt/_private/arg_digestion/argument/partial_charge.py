@@ -1,5 +1,5 @@
 import numpy as np
-from molsysmt.exceptions import ArgumentError
+from molsysmt._private.smonitor import ArgumentError
 
 functions_with_boolean = (
         'molsysmt.basic.get.get',

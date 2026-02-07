@@ -1,5 +1,5 @@
-from molsysmt.exceptions import NotImplementedConversionError
-from molsysmt.exceptions import NotCompatibleConversionError
+from molsysmt._private.smonitor import NotImplementedConversionError
+from molsysmt._private.smonitor import NotCompatibleConversionError
 from molsysmt._private.arg_digestion import arg_digest
 from molsysmt._private.variables import is_all
 from molsysmt.config import default_attribute
@@ -399,6 +399,9 @@ def _convert_multiple_to_one(molecular_system,
 
     return output
 
+from smonitor import signal
+
+@signal(tags=['api', 'conversion'])
 @arg_digest()
 def convert(molecular_system,
             to_form='molsysmt.MolSys',

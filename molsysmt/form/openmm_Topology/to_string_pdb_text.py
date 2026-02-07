@@ -9,6 +9,8 @@ def to_string_pdb_text(item, atom_indices='all', coordinates=None, box=None, ski
     from molsysmt import __version__ as msm_version
     from openmm import Platform # the openmm version is taken from this module (see: openmm/app/pdbfile.py)
     from molsysmt import pyunitwizard as puw
+    from smonitor.integrations import emit_from_catalog
+    from molsysmt._private.smonitor import CATALOG
 
     if not is_all(atom_indices):
         from . import extract
@@ -16,8 +18,7 @@ def to_string_pdb_text(item, atom_indices='all', coordinates=None, box=None, ski
 
     n_structures = coordinates.shape[0]
     if n_structures>1:
-        import warnings
-        warnings.warn("Openmm.Topology/to_string_pdb_text got more than a single structure. Only the 0-th is taken.")
+        emit_from_catalog(CATALOG['warnings']['AmbiguousStructureWarning'], extra={'caller': 'to_string_pdb_text', 'count': n_structures})
 
     tmp_io = StringIO()
     coordinates = puw.convert(coordinates[0], 'nm', to_form='openmm.unit')

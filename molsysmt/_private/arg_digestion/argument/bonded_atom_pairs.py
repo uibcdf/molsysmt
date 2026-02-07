@@ -1,4 +1,4 @@
-from molsysmt.exceptions import ArgumentError
+from molsysmt._private.smonitor import ArgumentError
 import numpy as np
 
 def digest_bonded_atom_pairs(bonded_atom_pairs, caller=None):

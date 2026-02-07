@@ -1,4 +1,4 @@
-from molsysmt.exceptions import ArgumentError
+from molsysmt._private.smonitor import ArgumentError
 
 def digest_ewald_error_tolerance(ewald_error_tolerance, caller=None):
 

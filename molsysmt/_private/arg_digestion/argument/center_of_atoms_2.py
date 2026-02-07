@@ -1,4 +1,4 @@
-from molsysmt.exceptions import ArgumentError
+from molsysmt._private.smonitor import ArgumentError
 import numpy as np
 
 def digest_center_of_atoms_2(center_of_atoms_2, syntax="MolSysMT", caller=None):

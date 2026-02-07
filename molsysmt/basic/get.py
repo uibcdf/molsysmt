@@ -2,6 +2,9 @@ from molsysmt._private.arg_digestion import arg_digest
 from molsysmt._private.variables import is_all, is_iterable_of_iterables
 import numpy as np
 
+from smonitor import signal
+
+@signal(tags=['api', 'get'])
 @arg_digest()
 def get(molecular_system,
         element='system',

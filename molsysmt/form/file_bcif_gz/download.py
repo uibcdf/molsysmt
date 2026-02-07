@@ -4,7 +4,7 @@ import random
 from urllib.request import Request, urlopen
 from urllib.error import HTTPError, URLError
 from molsysmt._private.files_and_directories import temp_filename
-from molsysmt.warnings import warn, DownloadWarning
+from molsysmt._private.smonitor import warn, DownloadWarning
 
 def download(pdb_id=None, output_filename=None, tempfile=False, wwPDB_Partner='RCSB PDB',
              retries=5, timeout=30, backoff_base=2.0):

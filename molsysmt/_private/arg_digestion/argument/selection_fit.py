@@ -1,4 +1,4 @@
-from molsysmt.exceptions import ArgumentError
+from molsysmt._private.smonitor import ArgumentError
 import numpy as np
 
 def digest_selection_fit(selection_fit, syntax="MolSysMT", caller=None):
@@ -23,7 +23,10 @@ def digest_selection_fit(selection_fit, syntax="MolSysMT", caller=None):
 
     """
 
-    from .selection import arg_digest_selection
+    from .selection import digest_selection
 
-    return digest_selection(selection_fit, syntax=syntax, caller=caller)
+    try:
+        return digest_selection(selection_fit, syntax=syntax, caller=caller)
+    except:
+        raise ArgumentError('selection_fit', value=selection_fit, caller=caller)
 

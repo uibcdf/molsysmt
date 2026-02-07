@@ -1,4 +1,4 @@
-from molsysmt.exceptions import ArgumentError
+from molsysmt._private.smonitor import ArgumentError
 from molsysmt import pyunitwizard as puw
 
 def digest_center_coordinates(center_coordinates, caller=None):

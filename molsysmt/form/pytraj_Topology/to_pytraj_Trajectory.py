@@ -1,5 +1,5 @@
 from molsysmt._private.arg_digestion import arg_digest
-from molsysmt.exceptions import LibraryNotFoundError
+from molsysmt._private.smonitor import LibraryNotFoundError
 import numpy as np
 
 @arg_digest(form='pytraj.Topology')

@@ -1,4 +1,4 @@
-from molsysmt.exceptions import ArgumentError
+from molsysmt._private.smonitor import ArgumentError
 from ...variables import is_all
 
 def digest_inner_bonded_atom_pairs(inner_bonded_atom_pairs, caller=None):

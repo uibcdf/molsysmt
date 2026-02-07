@@ -2,7 +2,7 @@
 ########### THE FOLLOWING LINES NEED TO BE CUSTOMIZED FOR EVERY CLASS  ################
 #######################################################################################
 
-from molsysmt.exceptions import NotImplementedMethodError, NotWithThisFormError
+from molsysmt._private.smonitor import NotImplementedMethodError, NotWithThisFormError
 from molsysmt._private.arg_digestion import arg_digest
 import types
 

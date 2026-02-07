@@ -1,4 +1,4 @@
-from molsysmt.exceptions import NotImplementedMethodError
+from molsysmt._private.smonitor import NotImplementedMethodError
 from molsysmt._private.arg_digestion import arg_digest
 from molsysmt import pyunitwizard as puw
 import numpy as np

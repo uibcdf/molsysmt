@@ -1,4 +1,4 @@
-from molsysmt.exceptions import NotImplementedMethodError
+from molsysmt._private.smonitor import NotImplementedMethodError
 from molsysmt._private.arg_digestion import arg_digest
 
 @arg_digest(form='biopython.Seq', to_form='biopython.Seq')

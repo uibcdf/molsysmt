@@ -1,7 +1,7 @@
 from molsysmt._private.arg_digestion import arg_digest
 from molsysmt._private.variables import is_all
 import types
-from molsysmt.exceptions import NotImplementedMethodError, NotWithThisFormError
+from molsysmt._private.smonitor import NotImplementedMethodError, NotWithThisFormError
 from molsysmt.attribute import bonds_are_required_to_get_attribute
 
 form='nglview.NGLWidget'

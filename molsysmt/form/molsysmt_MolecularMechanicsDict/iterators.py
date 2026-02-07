@@ -1,2 +1,2 @@
-from molsysmt.exceptions import NotImplementedIteratorError
+from molsysmt._private.smonitor import NotImplementedIteratorError
 

@@ -1,4 +1,4 @@
-from molsysmt.exceptions import ArgumentError
+from molsysmt._private.smonitor import ArgumentError
 import numpy as np
 from ...variables import is_iterable_of_integers, is_iterable_of_pairs
 
