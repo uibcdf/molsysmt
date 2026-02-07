@@ -17,12 +17,14 @@ end-user documentation.
   - `Tools` (`tools/`): per-function tutorials grouped by topic (basic, build, topology, structure, PBC, physchem, hbonds, molecular_mechanics, element, form, thirds).
   - `Cookbook` (`cookbook/`): recipes that combine several tools to achieve practical workflows.
 - When adding new sections or pages, integrate them into this structure instead of creating parallel trees.
-- Do not move content that belongs to the Developer Guide into the User Guide; low-level implementation details and internal conventions belong under `docs/dev` or `docs/content/developer`.
+- Do not move content that belongs to the Developer Guide into the User Guide; low-level implementation details and internal conventions belong under `devguide/` or `docs/content/developer`.
 
 ## Style and markup
 
 - Use MyST Markdown in `.md` files and notebooks (`.ipynb`) with MyST-friendly cells for admonitions and cross-references.
-- Follow the tutorial structure described in `docs/dev/devnotes_tutorial.md` but keep explanations oriented to end users:
+- Follow the tutorial structure described in
+  `docs/content/developer/documentation/api/docstrings.md` and `devguide/documentation_sync.md`,
+  but keep explanations oriented to end users:
   - Short, gerund-style summaries where they parallel function docstrings.
   - Explicit mention of units and shapes when presenting numerical results.
   - Examples that are minimal, fast to run, and reproducible.

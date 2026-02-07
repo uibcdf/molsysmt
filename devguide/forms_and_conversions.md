@@ -9,7 +9,7 @@ Form adapters live under `molsysmt/form`. Each form module must define:
 
 ## Lazy Discovery
 Forms are discovered lazily. Mapping from form directory to dependency lives in
-`molsysmt/config/dependencies.py` (see `SPEC_DEPENDENCIES.md`).
+`molsysmt/_depdigest.py` (see `SPEC_DEPENDENCIES.md`).
 
 Do **not** add dependency-related variables to a form `__init__.py`.
 

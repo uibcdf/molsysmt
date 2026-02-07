@@ -2,7 +2,7 @@
 
 This folder is the single source of truth for developer-facing conventions,
 invariants, and internal policies in MolSysMT. Other files (for example,
-`docs/dev/*`, `docs/content/developer/*`, `README.md`, and tutorials) must
+`docs/content/developer/*`, `README.md`, and tutorials) must
 align with these rules. If conflicts exist, **`devguide/` takes precedence**.
 
 ## Recommended Reading Order
@@ -31,4 +31,5 @@ The following files are authoritative inputs that this devguide consolidates:
 - `SPEC_DEPENDENCIES.md`
 - `SMONITOR_GUIDE.md`
 - `ROADMAP.md`
-- `docs/dev/*` and `docs/content/developer/*` (curated user-facing versions)
+- `molsysmt/_argdigest.py` and `molsysmt/_depdigest.py`
+- `docs/content/developer/*` (curated user-facing versions)

@@ -1,5 +1,9 @@
 # Developer guide
 
+This section is a developer-facing guide. The canonical source of truth for
+internal rules and conventions is `devguide/`. If there is any conflict,
+`devguide/` takes precedence.
+
 ```{eval-rst}
 .. toctree::
    :caption: Introduction
@@ -46,4 +50,3 @@
    documentation/api/index.md
    documentation/web/index.md
 ```
-

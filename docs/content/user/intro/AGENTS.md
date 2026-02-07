@@ -6,7 +6,7 @@ under `docs/content/user/intro`.
 ## Purpose and audience
 
 - Explain core concepts of MolSysMT to new users: what MolSysMT is, how to install it, what a molecular system is, and how forms, elements, attributes, and selections work.
-- Avoid deep implementation or development details; those belong in `docs/dev` and `docs/content/developer`.
+- Avoid deep implementation or development details; those belong in `devguide/` and `docs/content/developer`.
 
 ## Structure and topics
 

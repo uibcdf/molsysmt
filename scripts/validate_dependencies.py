@@ -12,8 +12,7 @@ SOFT_DEPENDENCIES = {
 }
 # Files exempt from the check (infrastructure)
 EXEMPT_FILES = {
-    os.path.join(SRC_ROOT, 'config', 'dependencies.py'),
-    os.path.join(SRC_ROOT, 'dependencies.py'),
+    os.path.join(SRC_ROOT, '_depdigest.py'),
     # Legacy/Third-party code wrapper (hard to refactor safely without breaking upstream compatibility)
     os.path.join(SRC_ROOT, 'form', 'file_mmtf', 'to_mdtraj.py'), 
 }

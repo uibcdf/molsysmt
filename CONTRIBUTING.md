@@ -67,7 +67,7 @@ open _build/html/index.html
 ```
 
 For detailed guidance on how to write docstrings, follow our:
-👉 [Docstring Style Guide](docs/dev/docstrings.md)
+👉 [Docstring Style Guide](docs/content/developer/documentation/api/docstrings.md)
 
 ---
 
@@ -113,4 +113,3 @@ Feel free to open an issue or ask questions. We’re happy to help!
 ---
 
 Thanks again for contributing to **MolSysMT**! 🚀
-
