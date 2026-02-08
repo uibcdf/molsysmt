@@ -66,5 +66,4 @@ This plan aims to bring MolSysMT to the same level of architectural maturity as 
 
 *   [ ] **Action 4.1**: Remove or deprecate `molsysmt/config/logging_setup.py` if redundant with `SMonitor`.
 *   [ ] **Action 4.2**: Final audit of `_private/` to ensure no diagnostic logic remains outside `_private/smonitor/`.
-*   [ ] **Action 4.3**: Update `topomt` and `elasnetmt` to match these standards.
 
