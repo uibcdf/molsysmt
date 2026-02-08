@@ -10,8 +10,13 @@ errors must be emitted through the catalog.
 
 ## Rules
 - Emit through catalog entries only.
+- Use `molsysmt._private.smonitor.warn` for user warnings.
+- Inherit from `CatalogException` for all errors.
 - Keep user messages explicit and actionable.
 - Keep URLs in `meta.py` for consistent hints.
 
-## Canonical Guide
-See `SMONITOR_GUIDE.md` for required behavior and patterns.
+## Implementation
+The diagnostic plumbing is centralized in `molsysmt/_private/smonitor/`.
+- `emitter.py`: Defines the `DiagnosticBundle` instance (`bundle`) and exports `warn`, `warn_once`, and `resolve`.
+- `exceptions.py`: Implementation of catalog-backed exceptions.
+- `warnings.py`: Implementation of catalog-backed warnings.
