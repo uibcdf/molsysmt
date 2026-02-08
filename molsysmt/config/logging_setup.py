@@ -21,19 +21,17 @@ def setup_logging(
     """
     Configure MolSysMT logging and (optionally) capture Python warnings.
 
-    Effects
-    -------
-    - Creates/gets logger `logger_name` (default: "molsysmt")
-    - Attaches a StreamHandler if not present, with formatter:
-          "MOLSYSMT %(levelname)s [%(name)s] | %(message)s"
-    - If capture_warnings is True:
-        - logging.captureWarnings(True)
-        - The "py.warnings" logger reuses the same handler/formatter
-        - If simplify_warning_format is True:
-            warnings.formatwarning(message, category, filename, lineno, line=None)
-            -> "CategoryName (filename:lineno): message\\n"
-          (includes origin so callers can trace the warning source)
+    .. deprecated:: 1.1.0
+       Use ``smonitor.configure()`` or ``molsysmt._smonitor.py`` instead.
+       MolSysMT now uses SMonitor as its primary diagnostic layer.
     """
+    import molsysmt._private.smonitor as msm_smon
+    msm_smon.warn(
+        "setup_logging() is deprecated and will be removed in a future version. "
+        "Use smonitor.configure() instead.",
+        DeprecationWarning
+    )
+
     lvl = _parse_level(level)
 
     # Main package logger
