@@ -2,28 +2,37 @@
 
 from __future__ import annotations
 
-from typing import Type
-import warnings
+from smonitor.integrations import CatalogWarning
+from .emitter import bundle
 
-from ..functions import caller_name
-from smonitor.integrations import emit_from_catalog, merge_extra
-from . import CATALOG, PACKAGE_ROOT, META
-from .emitter import message_from_catalog
+warn = bundle.warn
+warn_once = bundle.warn_once
 
 
-class UserMolSysMTWarning(Warning):
+class MolSysMTCatalogWarning(CatalogWarning):
+    def __init__(self, **kwargs):
+        from . import CATALOG, META
+        super().__init__(catalog=CATALOG, meta=META, **kwargs)
+
+
+class UserMolSysMTWarning(MolSysMTCatalogWarning):
     pass
 
 
 class SelectionWarning(UserMolSysMTWarning):
     """Warnings related to selection strings and resolved subsets."""
+    catalog_key = "SelectionWarning"
 
 
 class MolSysMTDeprecationWarning(DeprecationWarning):
+    # DeprecationWarning is special in Python, we might not want to inherit from CatalogWarning directly
+    # but we can still use the resolution logic if needed.
     pass
 
 
-class CrossChainCovalentBondsWarning(UserMolSysMTWarning):
+class CrossChainCovalentBondsWarning(MolSysMTCatalogWarning):
+    catalog_key = "CrossChainCovalentBondsWarning"
+
     def __init__(self, molecular_system, atom_pairs):
         from molsysmt.basic import get_label
 
@@ -49,47 +58,23 @@ class CrossChainCovalentBondsWarning(UserMolSysMTWarning):
                 )
                 label_pairs_reported.append((label1, label2))
 
-        default_message = (
-            f"{len(label_pairs_reported)} covalent bond(s) reported by the struct_conn table "
-            f"between atoms belonging to different chains were added.\n"
-            "Verify whether these cross-chain bonds are expected in your system.\n"
-        )
+        extra = {
+            "count": len(label_pairs_reported),
+            "pairs": label_pairs_reported,
+        }
 
-        for label1, label2 in label_pairs_reported[:-1]:
-            default_message += f"  - {label1}  <-->  {label2}\n"
-
-        if label_pairs_reported:
-            default_message += f"  - {label_pairs_reported[-1][0]}  <-->  {label_pairs_reported[-1][1]}"
-
-        caller = caller_name()
-        full_message = message_from_catalog(
-            CATALOG["warnings"]["CrossChainCovalentBondsWarning"],
-            extra={
-                "caller": caller,
-                "count": len(label_pairs_reported),
-                "pairs": label_pairs_reported,
-            },
-            default_message=default_message,
-        )
-
-        super().__init__(full_message)
+        super().__init__(extra=extra)
 
 
 class DownloadWarning(UserMolSysMTWarning):
-    """Warnings related to selection strings and resolved subsets."""
+    catalog_key = "DownloadWarning"
 
 
-class NotDigestedArgumentWarning(Warning):
+class NotDigestedArgumentWarning(MolSysMTCatalogWarning):
+    catalog_key = "NotDigestedArgumentWarning"
+
     def __init__(self, argument):
-        default_message = f"The {argument} argument was not digested."
-
-        full_message = message_from_catalog(
-            CATALOG["warnings"]["NotDigestedArgumentWarning"],
-            extra={"argument": argument},
-            default_message=default_message,
-        )
-
-        super().__init__(full_message)
+        super().__init__(extra={"argument": argument})
 
 
 __all__ = [
@@ -102,73 +87,3 @@ __all__ = [
     "warn",
     "warn_once",
 ]
-
-
-def warn(
-    message_or_warning: str | Warning,
-    category: Type[Warning] | None = None,
-    *,
-    stacklevel: int = 2,
-) -> None:
-    if isinstance(message_or_warning, Warning):
-        cls_name = type(message_or_warning).__name__
-    else:
-        cls_name = (category or UserMolSysMTWarning).__name__
-    if cls_name in CATALOG.get("warnings", {}):
-        try:
-            emit_from_catalog(
-                CATALOG["warnings"][cls_name],
-                package_root=PACKAGE_ROOT,
-                extra=merge_extra(
-                    META,
-                    {
-                        "caller": None,
-                        "message": str(message_or_warning),
-                    },
-                ),
-            )
-            return
-        except Exception:
-            pass
-    if isinstance(message_or_warning, Warning):
-        warnings.warn(message_or_warning, stacklevel=stacklevel)
-    else:
-        warnings.warn(message_or_warning, category or UserMolSysMTWarning, stacklevel=stacklevel)
-
-
-__WARNED_ONCE_CACHE__: set[tuple[Type[Warning], str]] = set()
-
-
-def warn_once(
-    message_or_warning: str | Warning,
-    category: Type[Warning] | None = None,
-    *,
-    stacklevel: int = 2,
-) -> None:
-    if isinstance(message_or_warning, Warning):
-        msg, cat = str(message_or_warning), type(message_or_warning)
-    else:
-        msg, cat = message_or_warning, category or UserMolSysMTWarning
-
-    key = (cat, msg)
-    if key in __WARNED_ONCE_CACHE__:
-        return
-    __WARNED_ONCE_CACHE__.add(key)
-    cls_name = cat.__name__
-    if cls_name in CATALOG.get("warnings", {}):
-        try:
-            emit_from_catalog(
-                CATALOG["warnings"][cls_name],
-                package_root=PACKAGE_ROOT,
-                extra=merge_extra(
-                    META,
-                    {
-                        "caller": None,
-                        "message": msg,
-                    },
-                ),
-            )
-            return
-        except Exception:
-            pass
-    warnings.warn(message_or_warning, cat, stacklevel=stacklevel)
