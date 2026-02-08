@@ -2,257 +2,147 @@
 
 from __future__ import annotations
 
+from smonitor.integrations import CatalogException
 from ..functions import caller_name
-from . import CATALOG
-from .emitter import message_from_catalog
+from . import CATALOG, META
 
 
-class ArgumentError(Exception):
+class MolSysMTCatalogException(CatalogException):
+    def __init__(self, **kwargs):
+        if "extra" not in kwargs:
+            kwargs["extra"] = {}
+        if "caller" not in kwargs["extra"]:
+            kwargs["extra"]["caller"] = caller_name()
+        
+        super().__init__(catalog=CATALOG, meta=META, **kwargs)
+
+
+class ArgumentError(MolSysMTCatalogException):
+    catalog_key = "ArgumentError"
+
     def __init__(self, argument, value=None, caller=None, message=None, code=None):
-        if not caller:
-            caller = caller_name()
-
-        default_message = f"Error in {caller} due to the {argument} argument with value {value}."
-        if message:
-            default_message += f" {message}"
-
-        entry = CATALOG["exceptions"]["ArgumentError"]
-        if code:
-            # Look up specific entry if code is provided
-            for exc_entry in CATALOG["exceptions"].values():
-                if exc_entry.get("code") == code:
-                    entry = exc_entry
-                    break
-
-        full_message = message_from_catalog(
-            entry,
-            extra={"argument": argument, "value": value, "caller": caller},
-            default_message=default_message,
-        )
-
-        super().__init__(full_message)
+        extra = {"argument": argument, "value": value}
+        if caller:
+            extra["caller"] = caller
+        
+        super().__init__(message=message, code=code, extra=extra)
 
 
-class IteratorError(Exception):
+class IteratorError(MolSysMTCatalogException):
+    catalog_key = "IteratorError"
+
     def __init__(self, caller=None, message=None):
-        if not caller:
-            caller = caller_name()
-
-        default_message = "An error was found in the iterator arguments."
-        if message:
-            default_message += f" {message}"
-
-        full_message = message_from_catalog(
-            CATALOG["exceptions"]["IteratorError"],
-            extra={"caller": caller},
-            default_message=default_message,
-        )
-
-        super().__init__(full_message)
+        extra = {}
+        if caller:
+            extra["caller"] = caller
+        super().__init__(message=message, extra=extra)
 
 
-class LibraryNotFoundError(Exception):
+class LibraryNotFoundError(MolSysMTCatalogException):
+    catalog_key = "LibraryNotFoundError"
+
     def __init__(self, library, caller=None, message=None):
-        if not caller:
-            caller = caller_name()
-
-        default_message = f"The python library {library} was not found."
-        if message:
-            default_message += f" {message}"
-
-        full_message = message_from_catalog(
-            CATALOG["exceptions"]["LibraryNotFoundError"],
-            extra={"library": library, "caller": caller},
-            default_message=default_message,
-        )
-
-        super().__init__(full_message)
+        extra = {"library": library}
+        if caller:
+            extra["caller"] = caller
+        super().__init__(message=message, extra=extra)
 
 
-class MolecularSystemNeededError(Exception):
+class MolecularSystemNeededError(MolSysMTCatalogException):
+    catalog_key = "MolecularSystemNeededError"
+
     def __init__(self, caller=None, message=None):
-        if not caller:
-            caller = caller_name()
-
-        default_message = (
-            f"The function or method {caller} works over a molecular system. "
-            f"Either no molecular system or multiple systems were provided."
-        )
-        if message:
-            default_message += message
-
-        full_message = message_from_catalog(
-            CATALOG["exceptions"]["MolecularSystemNeededError"],
-            extra={"caller": caller},
-            default_message=default_message,
-        )
-
-        super().__init__(full_message)
+        extra = {}
+        if caller:
+            extra["caller"] = caller
+        super().__init__(message=message, extra=extra)
 
 
-class MolecularSystemsNeededError(Exception):
+class MolecularSystemsNeededError(MolSysMTCatalogException):
+    catalog_key = "MolecularSystemsNeededError"
+
     def __init__(self, caller=None, message=None):
-        if not caller:
-            caller = caller_name()
-
-        default_message = (
-            f"The function or method {caller} works over multiple molecular systems. "
-            f"Either no molecular system or a single system was provided."
-        )
-        if message:
-            default_message += message
-
-        full_message = message_from_catalog(
-            CATALOG["exceptions"]["MolecularSystemsNeededError"],
-            extra={"caller": caller},
-            default_message=default_message,
-        )
-
-        super().__init__(full_message)
+        extra = {}
+        if caller:
+            extra["caller"] = caller
+        super().__init__(message=message, extra=extra)
 
 
-class NotCompatibleConversionError(Exception):
+class NotCompatibleConversionError(MolSysMTCatalogException):
+    catalog_key = "NotCompatibleConversionError"
+
     def __init__(self, from_form, to_form, missing_arguments, caller=None, message=None):
-        if not caller:
-            caller = caller_name()
-
-        default_message = (
-            f"Error in conversion from {from_form} to {to_form}. "
-            f"The following input attributes of arguments are missing: {missing_arguments}."
-        )
-        if message:
-            default_message += message
-
-        full_message = message_from_catalog(
-            CATALOG["exceptions"]["NotCompatibleConversionError"],
-            extra={
-                "from_form": from_form,
-                "to_form": to_form,
-                "missing_arguments": missing_arguments,
-                "caller": caller,
-            },
-            default_message=default_message,
-        )
-
-        super().__init__(full_message)
+        extra = {"from_form": from_form, "to_form": to_form, "missing_arguments": missing_arguments}
+        if caller:
+            extra["caller"] = caller
+        super().__init__(message=message, extra=extra)
 
 
-class NotImplementedConversionError(Exception):
+class NotImplementedConversionError(MolSysMTCatalogException):
+    catalog_key = "NotImplementedConversionError"
+
     def __init__(self, from_form, to_form, caller=None, message=None):
-        if not caller:
-            caller = caller_name()
-
-        default_message = f"Error in conversion from {from_form} to {to_form}"
-        if message:
-            default_message += message
-
-        full_message = message_from_catalog(
-            CATALOG["exceptions"]["NotImplementedConversionError"],
-            extra={"from_form": from_form, "to_form": to_form, "caller": caller},
-            default_message=default_message,
-        )
-
-        super().__init__(full_message)
+        extra = {"from_form": from_form, "to_form": to_form}
+        if caller:
+            extra["caller"] = caller
+        super().__init__(message=message, extra=extra)
 
 
-class NotImplementedIteratorError(Exception):
+class NotImplementedIteratorError(MolSysMTCatalogException):
+    catalog_key = "NotImplementedIteratorError"
+
     def __init__(self, form, caller=None, message=None):
-        if not caller:
-            caller = caller_name()
-
-        default_message = f"Iterator has not been implemented for form {form}"
-        if message:
-            default_message += message
-
-        full_message = message_from_catalog(
-            CATALOG["exceptions"]["NotImplementedIteratorError"],
-            extra={"form": form, "caller": caller},
-            default_message=default_message,
-        )
-
-        super().__init__(full_message)
+        extra = {"form": form}
+        if caller:
+            extra["caller"] = caller
+        super().__init__(message=message, extra=extra)
 
 
-class NotImplementedMethodError(Exception):
+class NotImplementedMethodError(MolSysMTCatalogException):
+    catalog_key = "NotImplementedMethodError"
+
     def __init__(self, method=None, arguments=None, caller=None, message=None):
-        if not caller:
-            caller = caller_name()
-
-        default_message = "This method was not implemented yet."
-        if message:
-            default_message += message
-
-        full_message = message_from_catalog(
-            CATALOG["exceptions"]["NotImplementedMethodError"],
-            extra={"caller": caller},
-            default_message=default_message,
-        )
-
-        super().__init__(full_message)
+        extra = {}
+        if caller:
+            extra["caller"] = caller
+        super().__init__(message=message, extra=extra)
 
 
-class NotSupportedFormError(Exception):
+class NotSupportedFormError(MolSysMTCatalogException):
+    catalog_key = "NotSupportedFormError"
+
     def __init__(self, form, caller=None, message=None):
-        if not caller:
-            caller = caller_name()
-
-        default_message = f"The form {form} used in {caller} is not supported by MolSysMT."
-        if message:
-            default_message += message
-
-        full_message = message_from_catalog(
-            CATALOG["exceptions"]["NotSupportedFormError"],
-            extra={"form": form, "caller": caller},
-            default_message=default_message,
-        )
-
-        super().__init__(full_message)
+        extra = {"form": form}
+        if caller:
+            extra["caller"] = caller
+        super().__init__(message=message, extra=extra)
 
 
-class NotSupportedSyntaxError(Exception):
+class NotSupportedSyntaxError(MolSysMTCatalogException):
+    catalog_key = "NotSupportedSyntaxError"
+
     def __init__(self, form, caller=None, message=None):
-        if not caller:
-            caller = caller_name()
-
-        default_message = f"The syntax {form} used in {caller} is not supported by MolSysMT."
-        if message:
-            default_message += message
-
-        full_message = message_from_catalog(
-            CATALOG["exceptions"]["NotSupportedSyntaxError"],
-            extra={"syntax": form, "caller": caller},
-            default_message=default_message,
-        )
-
-        super().__init__(full_message)
+        extra = {"syntax": form}
+        if caller:
+            extra["caller"] = caller
+        super().__init__(message=message, extra=extra)
 
 
-class NotWithThisFormError(Exception):
+class NotWithThisFormError(MolSysMTCatalogException):
+    catalog_key = "NotWithThisFormError"
+
     def __init__(self, caller=None, message=None):
-        if not caller:
-            caller = caller_name()
-
-        full_message = message_from_catalog(
-            CATALOG["exceptions"]["NotWithThisFormError"],
-            extra={"caller": caller},
-            default_message="",
-        )
-
-        super().__init__(full_message)
+        extra = {}
+        if caller:
+            extra["caller"] = caller
+        super().__init__(message=message, extra=extra)
 
 
-class FileAlreadyHandledError(Exception):
+class FileAlreadyHandledError(MolSysMTCatalogException):
+    catalog_key = "FileAlreadyHandledError"
+
     def __init__(self, filename=None):
-        safe_filename = filename or "<unknown>"
-        default_message = f"The file {safe_filename} is already handled by MolSysMT."
-
-        full_message = message_from_catalog(
-            CATALOG["exceptions"]["FileAlreadyHandledError"],
-            extra={"filename": safe_filename},
-            default_message=default_message,
-        )
-
-        super().__init__(full_message)
+        super().__init__(extra={"filename": filename or "<unknown>"})
 
 
 from .warnings import NotDigestedArgumentWarning  # noqa: E402
