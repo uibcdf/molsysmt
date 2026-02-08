@@ -38,15 +38,14 @@ SMONITOR = {
 
 ## 3) Where catalog and metadata live
 
-**Catalog:** `molsysmt/_private/smonitor/catalog.py`
+**Implementation:** `molsysmt/_private/smonitor/`
 
-- `CATALOG`: message definitions and hints
+- `catalog.py`: message definitions and hints
 - `CODES`: mapping for codes to catalog entries
 - `SIGNALS`: contracts for sources and required extras
-
-**Metadata:** `molsysmt/_private/smonitor/meta.py`
-
-- `DOC_URL`, `ISSUES_URL`, `API_URL` for consistent link injection
+- `meta.py`: consistent link injection (DOC_URL, ISSUES_URL, etc.)
+- `exceptions.py`: standard exception classes
+- `warnings.py`: standard warning classes
 
 ---
 
