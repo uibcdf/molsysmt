@@ -19,9 +19,9 @@ MOLSYSMT WARNING | TopologyWarning: 3 covalent bond(s) reported by 'struct_conn'
 In most cases, you only need to call:
 
 ```python
-from molsysmt.logging_setup import setup_logging
+import molsysmt as msm
 
-setup_logging()
+msm.config.setup_logging()
 ```
 
 This will:
@@ -38,7 +38,7 @@ This will:
 You can change the level to see more or fewer messages:
 
 ```python
-setup_logging(level="INFO")
+msm.config.setup_logging(level="INFO")
 ```
 
 Levels available: `DEBUG`, `INFO`, `WARNING`, `ERROR`, `CRITICAL`.
@@ -49,18 +49,32 @@ Levels available: `DEBUG`, `INFO`, `WARNING`, `ERROR`, `CRITICAL`.
 
 ```python
 import warnings
-from molsysmt.logging_setup import setup_logging
-from molsysmt.warnings import TopologyWarning
+import molsysmt as msm
 
-setup_logging(level="INFO")
+msm.config.setup_logging(level="INFO")
 
-warnings.warn(TopologyWarning(n_bonds=3, chains=["A", "B"]))
+warnings.warn(msm.SelectionWarning("Ambiguous selection 'CA'"))
 ```
 
 Output:
 
 ```
-MOLSYSMT WARNING | TopologyWarning: 3 covalent bond(s) reported by 'struct_conn' between chains ['A', 'B'] were added.
+MOLSYSMT WARNING | SelectionWarning: Ambiguous selection 'CA'
+```
+
+---
+
+## Handling Exceptions
+
+MolSysMT exceptions are available directly from the package root:
+
+```python
+import molsysmt as msm
+
+try:
+    msm.convert('invalid.file', to_form='molsysmt.MolSys')
+except msm.ArgumentError as e:
+    print(f"Caught expected error: {e}")
 ```
 
 ---
