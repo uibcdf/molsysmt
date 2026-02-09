@@ -349,8 +349,11 @@ def info(molecular_system,
         return tmp_df.style.hide(axis='index')
 
     else:
-
-        raise ValueError('"element" needs one of the following strings: "atom", "group",\
-                          "component", "chain", "molecule", "entity" or "system"')
+        from molsysmt._private.smonitor import ArgumentChoiceError
+        raise ArgumentChoiceError(
+            argument="element",
+            value=element,
+            choices=["atom", "group", "component", "chain", "molecule", "entity", "system"],
+        )
 
 

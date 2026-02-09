@@ -90,18 +90,29 @@ def concatenate_structures(molecular_systems, selections='all', structure_indice
 
     from . import convert, extract, get, get_form
     from molsysmt.form import _dict_modules
+    from molsysmt._private.smonitor import ArgumentLengthError
 
     n_molecular_systems = len(molecular_systems)
 
     if not isinstance(selections, (list, tuple)):
         selections = [selections for ii in range(n_molecular_systems)]
-    elif len(selections)!=n_molecular_systems:
-        raise ValueError("The length of the lists items and selections need to be equal.")
+    elif len(selections) != n_molecular_systems:
+        raise ArgumentLengthError(
+            argument="selections",
+            expected=n_molecular_systems,
+            actual=len(selections),
+            caller="molsysmt.basic.concatenate_structures",
+        )
 
     if not isinstance(structure_indices, (list, tuple)):
         structure_indices = [structure_indices for ii in range(n_molecular_systems)]
-    elif len(structure_indices)!=n_molecular_systems:
-        raise ValueError("The length of the lists items and structure_indices need to be equal.")
+    elif len(structure_indices) != n_molecular_systems:
+        raise ArgumentLengthError(
+            argument="structure_indices",
+            expected=n_molecular_systems,
+            actual=len(structure_indices),
+            caller="molsysmt.basic.concatenate_structures",
+        )
 
     if to_form is None:
         to_molecular_system = extract(molecular_systems[0], selection=selections[0],
