@@ -1,4 +1,4 @@
-from molsysmt._private.smonitor import NotImplementedMethodError
+from molsysmt._private.smonitor import NotImplementedMethodError, StructuralInconsistencyError
 from molsysmt._private.arg_digestion import arg_digest
 from molsysmt._private.variables import is_all
 from molsysmt import lib as msmlib
@@ -42,7 +42,10 @@ def get_rmsd(molecular_system, selection='atom_type!="H"', structure_indices='al
         reference_coordinates = puw.get_value(reference_coordinates, to_unit=length_unit)
 
         if coordinates.shape[1]!=reference_coordinates.shape[1]:
-            raise ValueError("reference selection and selection needs to have the same number of atoms")
+            raise StructuralInconsistencyError(
+                reason="reference selection and selection needs to have the same number of atoms",
+                caller="molsysmt.structure.get_rmsd"
+            )
 
         if coordinates.shape[0]==1 and reference_coordinates.shape[0]>1:
             rmsd_val = msmlib.structure.get_rmsd_with_single_reference_structure(reference_coordinates, coordinates[0])

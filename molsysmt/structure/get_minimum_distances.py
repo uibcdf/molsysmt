@@ -1,5 +1,6 @@
 from molsysmt._private.arg_digestion import arg_digest
 from molsysmt import pyunitwizard as puw
+from molsysmt._private.smonitor import ArgumentConflictError
 import numpy as np
 import gc
 
@@ -77,7 +78,12 @@ def get_minimum_distances(molecular_system, selection="all", center_of_atoms=Fal
             return pairs, dists
 
         else:
-            raise ValueError("If both input arguments 'as_entity' and 'as_entity_2' are False, the method you are looking for is molsysmt.distance()")
+            raise ArgumentConflictError(
+                arg1="as_entity",
+                arg2="as_entity_2",
+                reason="If both input arguments 'as_entity' and 'as_entity_2' are False, the method you are looking for is molsysmt.distance()",
+                caller="molsysmt.structure.get_minimum_distances"
+            )
 
     else:
 
@@ -102,5 +108,10 @@ def get_minimum_distances(molecular_system, selection="all", center_of_atoms=Fal
             return pairs, dists
 
         else:
-            raise ValueError("If 'pairs=True' both input arguments 'as_entity' and 'as_entity_2' need to be True")
+            raise ArgumentConflictError(
+                arg1="pairs",
+                arg2="as_entity",
+                reason="If 'pairs=True' both input arguments 'as_entity' and 'as_entity_2' need to be True",
+                caller="molsysmt.structure.get_minimum_distances"
+            )
 

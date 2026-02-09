@@ -388,7 +388,11 @@ def _convert_multiple_to_one(molecular_system,
 
             print('   ')
 
-        raise ValueError()
+        from molsysmt._private.smonitor import InternalAlgorithmError
+        raise InternalAlgorithmError(
+            reason="The conversion needs to include new set functions.",
+            caller="molsysmt.basic.convert"
+        )
 
     elif to_form!='molsysmt.MolSys':
 

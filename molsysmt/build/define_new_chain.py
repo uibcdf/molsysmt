@@ -83,6 +83,7 @@ def define_new_chain(molecular_system, selection='all', chain_id=None, chain_nam
     from molsysmt.basic import get, set, select, get_form
     from molsysmt.element.chain import all_chain_names
     from molsysmt._private.atom_indices import complementary_atom_indices
+    from molsysmt._private.smonitor import ArgumentConflictError, InternalAlgorithmError
 
     chain_id = str(chain_id) if chain_id is not None else None
     chain_name = str(chain_name) if chain_name is not None else None
@@ -119,7 +120,12 @@ def define_new_chain(molecular_system, selection='all', chain_id=None, chain_nam
                 chain_id = str(len(aux_chain_ids))
         else:
             if chain_id in aux_chain_ids:
-                raise ValueError(f'There is already a chain with chain_id={chain_id}.')
+                raise ArgumentConflictError(
+                    arg1="chain_id",
+                    arg2="molecular_system",
+                    reason=f"There is already a chain with chain_id={chain_id}.",
+                    caller="molsysmt.build.define_new_chain"
+                )
 
         if chain_name is None:
             for ii in all_chain_names:
@@ -127,10 +133,18 @@ def define_new_chain(molecular_system, selection='all', chain_id=None, chain_nam
                     chain_name = ii
                     break
             if chain_name is None:
-                raise ValueError(f'MolSysMT run out of chain names')
+                raise InternalAlgorithmError(
+                    reason="MolSysMT run out of chain names.",
+                    caller="molsysmt.build.define_new_chain"
+                )
         else:
             if chain_name in aux_chain_names:
-                raise ValueError(f'There is already a chain with chain_name={chain_name}.')
+                raise ArgumentConflictError(
+                    arg1="chain_name",
+                    arg2="molecular_system",
+                    reason=f"There is already a chain with chain_name={chain_name}.",
+                    caller="molsysmt.build.define_new_chain"
+                )
 
 
         all_atom_indices = np.array(atom_indices+rest_atom_indices)

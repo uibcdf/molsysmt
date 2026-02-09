@@ -1,4 +1,5 @@
 from molsysmt._private.arg_digestion import arg_digest
+from molsysmt._private.smonitor import StructuralInconsistencyError
 import numpy as np
 from molsysmt import pyunitwizard as puw
 import gc
@@ -26,7 +27,10 @@ def translate(molecular_system, translation=None, selection='all', structure_ind
     elif np.all(translation.shape[:]==coordinates.shape[:]):
         coordinates += translation
     else:
-        raise ValueError
+        raise StructuralInconsistencyError(
+            reason=f"The shape of the translation vector {translation.shape} is not compatible with the coordinates shape {coordinates.shape}.",
+            caller="molsysmt.structure.translate"
+        )
 
     coordinates = puw.quantity(coordinates, length_unit)
 

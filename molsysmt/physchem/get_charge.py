@@ -1,4 +1,4 @@
-from molsysmt._private.smonitor import NotImplementedMethodError
+from molsysmt._private.smonitor import NotImplementedMethodError, ArgumentChoiceError, ArgumentConflictError
 from molsysmt._private.arg_digestion import arg_digest
 import numpy as np
 from molsysmt import pyunitwizard as puw
@@ -25,7 +25,13 @@ def get_charge(molecular_system, element='group', selection='all', definition='p
         output = []
 
         if element=='atom':
-            raise ValueError('Only elements bigger than, or equal to, groups are allowed when definition is "physical_pH7" or "collantes"')
+            raise ArgumentChoiceError(
+                argument="element",
+                value=element,
+                choices=['group', 'component', 'molecule', 'chain', 'entity', 'system'],
+                caller="molsysmt.physchem.get_charge",
+                message='Only elements bigger than, or equal to, groups are allowed when definition is "physical_pH7" or "collantes"'
+            )
 
         elif element=='group':
 
@@ -71,7 +77,13 @@ def get_charge(molecular_system, element='group', selection='all', definition='p
 
             elif element in ['group', 'component', 'chain', 'molecule', 'entity']:
 
-                raise ValueError('openmm.System only allows element in ["atom", "system"]')
+                raise ArgumentChoiceError(
+                    argument="element",
+                    value=element,
+                    choices=["atom", "system"],
+                    caller="molsysmt.physchem.get_charge",
+                    message='openmm.System only allows element in ["atom", "system"]'
+                )
 
             elif element=='system':
 
