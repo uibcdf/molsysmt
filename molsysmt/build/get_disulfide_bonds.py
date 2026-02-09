@@ -128,12 +128,13 @@ def get_disulfide_bonds(molecular_system, selection='all', structure_index=0, ma
                     if tmp_group_names[at1] in group_names and tmp_group_names[at2] in group_names:
                         bonds.append([S_indices[at1], S_indices[at2]])
                     else:
+                        from molsysmt._private.smonitor import warn
                         for ii in pair:
-                            if aux_group_names[ii] not in group_names:
-                                message=(f"Warning: atom index {S_indices[ii]} in group {aux_group_names[ii]} with index"
-                                          f"{aux_group_indices[ii]} can not be part of a disulfide bond because it is not in the list"
-                                          f"of your input argument `group_names`")
-                                warnings.warn(message)
+                            if tmp_group_names[ii] not in group_names:
+                                message=(f"Atom index {S_indices[ii]} in group {tmp_group_names[ii]} with index "
+                                          f"{tmp_group_indices[ii]} cannot be part of a disulfide bond because it is not in the list "
+                                          f"of your input argument `group_names`.")
+                                warn(message)
 
     if sorted:
 
