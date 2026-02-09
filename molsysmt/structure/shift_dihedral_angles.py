@@ -1,4 +1,5 @@
 from molsysmt._private.arg_digestion import arg_digest
+from molsysmt._private.smonitor import ArgumentError, ArgumentLengthError
 import numpy as np
 from molsysmt import pyunitwizard as puw
 
@@ -18,7 +19,12 @@ def shift_dihedral_angles(molecular_system, dihedral_quartets=None, shifts=None,
     elif type(dihedral_quartets) is np.ndarray:
         pass
     else:
-        raise ValueError
+        raise ArgumentError(
+            argument="dihedral_quartets",
+            value=dihedral_quartets,
+            caller="molsysmt.structure.shift_dihedral_angles",
+            message="The argument dihedral_quartets needs to be an array-like object."
+        )
 
     shape = dihedral_quartets.shape
 
@@ -26,12 +32,27 @@ def shift_dihedral_angles(molecular_system, dihedral_quartets=None, shifts=None,
         if shape[0]==4:
             dihedral_quartets=dihedra_quartets.reshape([1,4])
         else:
-            raise ValueError
+            raise ArgumentError(
+                argument="dihedral_quartets",
+                value=dihedral_quartets,
+                caller="molsysmt.structure.shift_dihedral_angles",
+                message="The argument dihedral_quartets needs to have 4 elements if it is a 1D array."
+            )
     elif len(shape)==2:
         if shape[1]!=4:
-            raise ValueError
+            raise ArgumentError(
+                argument="dihedral_quartets",
+                value=dihedral_quartets,
+                caller="molsysmt.structure.shift_dihedral_angles",
+                message="The argument dihedral_quartets needs to have 4 elements in the second dimension."
+            )
     else:
-        raise ValueError
+        raise ArgumentError(
+            argument="dihedral_quartets",
+            value=dihedral_quartets,
+            caller="molsysmt.structure.shift_dihedral_angles",
+            message="The argument dihedral_quartets needs to be a 1D or 2D array."
+        )
 
     n_quartets = dihedral_quartets.shape[0]
     n_structures = get(molecular_system, element='system', structure_indices=structure_indices, n_structures=True)
@@ -43,13 +64,23 @@ def shift_dihedral_angles(molecular_system, dihedral_quartets=None, shifts=None,
         if (n_quartets==1 and n_structures==1):
             shifts_value = np.array([[shifts_value]], dtype=float)
         else:
-            raise ValueError("shifts do not match the number of frames and quartets")
+            raise ArgumentLengthError(
+                argument="shifts",
+                expected=(n_structures, n_quartets),
+                actual=1,
+                caller="molsysmt.structure.shift_dihedral_angles",
+                message="shifts do not match the number of frames and quartets"
+            )
     elif type(shifts_value) in [list,tuple]:
         shifts_value = np.array(shifts_value, dtype=float)
     elif type(shifts_value) is np.ndarray:
         pass
     else:
-        raise ValueError
+        raise ArgumentError(
+            argument="shifts",
+            value=shifts,
+            caller="molsysmt.structure.shift_dihedral_angles"
+        )
 
     shape = shifts_value.shape
 

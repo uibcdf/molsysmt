@@ -87,7 +87,7 @@ def add_arrows(view, origin=None, end=None, vectors=None,
             vectors = np.tile(vectors, (origin.shape[0], 1))
         origin = end - vectors
     else:
-        raise ValueError()
+        from molsysmt._private.smonitor import InternalAlgorithmError; raise InternalAlgorithmError(reason="NGLView helper reached an unexpected state.", caller=None)
 
     radius = puw.get_value(radius, to_unit='angstroms')
     n_arrows=origin.shape[0]

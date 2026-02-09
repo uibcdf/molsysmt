@@ -3,7 +3,7 @@ import numpy as np
 from molsysmt import pyunitwizard as puw
 from molsysmt._private.variables import is_all, is_iterable
 from molsysmt.basic import get
-from molsysmt._private.smonitor import IteratorError
+from molsysmt._private.smonitor import IteratorError, StructuralInconsistencyError, ArgumentLengthError
 from molsysmt._private.arg_digestion import arg_digest
 
 class Structures:
@@ -106,9 +106,10 @@ class Structures:
                     self.coordinates = coordinates[np.ix_(structure_indices, atom_indices)]
         else:
             if self.coordinates.shape[1] != coordinates.shape[1]:
-                raise ValueError(
-                    "The coordinates to be appended in the system "
-                    "need to have the same number of atoms.")
+                raise StructuralInconsistencyError(
+                    reason="The coordinates to be appended in the system need to have the same number of atoms.",
+                    caller="molsysmt.native.Structures._append_coordinates"
+                )
 
             if is_all(structure_indices):
                 if is_all(atom_indices):
@@ -141,9 +142,10 @@ class Structures:
                     self.velocities = velocities[np.ix_(structure_indices, atom_indices)]
         else:
             if self.velocities.shape[1] != velocities.shape[1]:
-                raise ValueError(
-                    "The velocities to be appended in the system "
-                    "need to have the same number of atoms.")
+                raise StructuralInconsistencyError(
+                    reason="The velocities to be appended in the system need to have the same number of atoms.",
+                    caller="molsysmt.native.Structures._append_velocities"
+                )
             if is_all(structure_indices):
                 if is_all(atom_indices):
                     self.velocities = np.concatenate([self.velocities, velocities])
@@ -276,7 +278,12 @@ class Structures:
             if n_structures is None:
                 n_structures = tmp_n_structures
             elif n_structures != tmp_n_structures:
-                raise ValueError('Not all input attributes have the same number of structures.')
+                raise ArgumentLengthError(
+                    argument="structure_id",
+                    expected=n_structures,
+                    actual=tmp_n_structures,
+                    caller="molsysmt.native.Structures.append"
+                )
 
         if time is not None:
 
@@ -284,7 +291,12 @@ class Structures:
             if n_structures is None:
                 n_structures = tmp_n_structures
             elif n_structures != tmp_n_structures:
-                raise ValueError('Not all input arguments have the same number of structures to be appended.')
+                raise ArgumentLengthError(
+                    argument="time",
+                    expected=n_structures,
+                    actual=tmp_n_structures,
+                    caller="molsysmt.native.Structures.append"
+                )
 
         if coordinates is not None:
 
@@ -293,11 +305,21 @@ class Structures:
             if n_structures is None:
                 n_structures = tmp_n_structures
             elif n_structures != tmp_n_structures:
-                raise ValueError('Not all input arguments have the same number of structures to be appended.')
+                raise ArgumentLengthError(
+                    argument="coordinates (frames)",
+                    expected=n_structures,
+                    actual=tmp_n_structures,
+                    caller="molsysmt.native.Structures.append"
+                )
             if n_atoms is None:
                 n_atoms = tmp_n_atoms
             elif n_atoms != tmp_n_atoms:
-                raise ValueError('Not all input arguments have the same number of atoms to be appended.')
+                raise ArgumentLengthError(
+                    argument="coordinates (atoms)",
+                    expected=n_atoms,
+                    actual=tmp_n_atoms,
+                    caller="molsysmt.native.Structures.append"
+                )
         
         if velocities is not None:
 
@@ -306,11 +328,21 @@ class Structures:
             if n_structures is None:
                 n_structures = tmp_n_structures
             elif n_structures != tmp_n_structures:
-                raise ValueError('Not all input arguments have the same number of structures to be appended.')
+                raise ArgumentLengthError(
+                    argument="velocities (frames)",
+                    expected=n_structures,
+                    actual=tmp_n_structures,
+                    caller="molsysmt.native.Structures.append"
+                )
             if n_atoms is None:
                 n_atoms = tmp_n_atoms
             elif n_atoms != tmp_n_atoms:
-                raise ValueError('Not all input arguments have the same number of atoms to be appended.')
+                raise ArgumentLengthError(
+                    argument="velocities (atoms)",
+                    expected=n_atoms,
+                    actual=tmp_n_atoms,
+                    caller="molsysmt.native.Structures.append"
+                )
 
         if box is not None:
 
@@ -318,7 +350,12 @@ class Structures:
             if n_structures is None:
                 n_structures = tmp_n_structures
             elif n_structures != tmp_n_structures:
-                raise ValueError('Not all input arguments have the same number of structures to be appended.')
+                raise ArgumentLengthError(
+                    argument="box",
+                    expected=n_structures,
+                    actual=tmp_n_structures,
+                    caller="molsysmt.native.Structures.append"
+                )
 
         if temperature is not None:
 
@@ -326,7 +363,12 @@ class Structures:
             if n_structures is None:
                 n_structures = tmp_n_structures
             elif n_structures != tmp_n_structures:
-                raise ValueError('Not all input arguments have the same number of structures to be appended.')
+                raise ArgumentLengthError(
+                    argument="temperature",
+                    expected=n_structures,
+                    actual=tmp_n_structures,
+                    caller="molsysmt.native.Structures.append"
+                )
 
         if potential_energy is not None:
 
@@ -334,7 +376,12 @@ class Structures:
             if n_structures is None:
                 n_structures = tmp_n_structures
             elif n_structures != tmp_n_structures:
-                raise ValueError('Not all input arguments have the same number of structures to be appended.')
+                raise ArgumentLengthError(
+                    argument="potential_energy",
+                    expected=n_structures,
+                    actual=tmp_n_structures,
+                    caller="molsysmt.native.Structures.append"
+                )
 
         if kinetic_energy is not None:
 
@@ -342,7 +389,12 @@ class Structures:
             if n_structures is None:
                 n_structures = tmp_n_structures
             elif n_structures != tmp_n_structures:
-                raise ValueError('Not all input arguments have the same number of structures to be appended.')
+                raise ArgumentLengthError(
+                    argument="kinetic_energy",
+                    expected=n_structures,
+                    actual=tmp_n_structures,
+                    caller="molsysmt.native.Structures.append"
+                )
 
         if b_factor is not None:
 
@@ -350,7 +402,12 @@ class Structures:
             if n_structures is None:
                 n_structures = tmp_n_structures
             elif n_structures != tmp_n_structures:
-                raise ValueError('Not all input arguments have the same number of structures to be appended.')
+                raise ArgumentLengthError(
+                    argument="b_factor",
+                    expected=n_structures,
+                    actual=tmp_n_structures,
+                    caller="molsysmt.native.Structures.append"
+                )
 
         if alternate_location is not None:
 
@@ -358,7 +415,12 @@ class Structures:
             if n_structures is None:
                 n_structures = tmp_n_structures
             elif n_structures != tmp_n_structures:
-                raise ValueError('Not all input arguments have the same number of structures to be appended.')
+                raise ArgumentLengthError(
+                    argument="alternate_location",
+                    expected=n_structures,
+                    actual=tmp_n_structures,
+                    caller="molsysmt.native.Structures.append"
+                )
 
         if self.n_structures==0:
 
@@ -478,9 +540,15 @@ class Structures:
 
         if is_all(structure_indices):
             if self.n_structures!=item.n_structures:
-                raise ValueError('Both items need to have the same n_structures')
+                raise StructuralInconsistencyError(
+                    reason="Both items need to have the same number of structures.",
+                    caller="molsysmt.native.Structures.add"
+                )
         elif self.n_structures!=len(structure_indices):
-            raise ValueError('Both items need to have the same n_structures')
+            raise StructuralInconsistencyError(
+                reason="The target object and the selection of structures need to have the same length.",
+                caller="molsysmt.native.Structures.add"
+            )
 
         if item.coordinates is not None:
             if self.coordinates is None:

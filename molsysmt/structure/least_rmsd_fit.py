@@ -1,4 +1,4 @@
-from molsysmt._private.smonitor import NotImplementedMethodError
+from molsysmt._private.smonitor import NotImplementedMethodError, StructuralInconsistencyError
 from molsysmt._private.arg_digestion import arg_digest
 from molsysmt._private.variables import is_all
 import numpy as np
@@ -36,7 +36,10 @@ def least_rmsd_fit(molecular_system=None, selection='all', selection_fit='atom_t
         reference_coordinates = puw.get_value(reference_coordinates, to_unit=length_unit)
 
         if coordinates.shape[1]!=reference_coordinates.shape[1]:
-            raise ValueError("reference selection and selection needs to have the same number of atoms")
+            raise StructuralInconsistencyError(
+                reason="reference selection and selection needs to have the same number of atoms",
+                caller="molsysmt.structure.least_rmsd_fit"
+            )
 
         if coordinates.shape[0]==1 and reference_coordinates.shape[0]>1:
             rotation_center, rotation, translation = \

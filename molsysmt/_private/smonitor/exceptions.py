@@ -200,6 +200,17 @@ class FileAlreadyHandledError(MolSysMTCatalogException):
         super().__init__(extra={"filename": filename or "<unknown>"})
 
 
+class FileContentError(MolSysMTCatalogException):
+    catalog_key = "FileContentError"
+
+    def __init__(self, reason, caller=None, message=None):
+        extra = {"reason": reason}
+        if caller:
+            extra["caller"] = caller
+        
+        super().__init__(message=message, extra=extra)
+
+
 from .warnings import NotDigestedArgumentWarning  # noqa: E402
 
 __all__ = [
@@ -218,8 +229,10 @@ __all__ = [
     "NotImplementedIteratorError",
     "NotImplementedMethodError",
     "NotSupportedFormError",
-    "NotSupportedSyntaxError",
-    "NotWithThisFormError",
-    "FileAlreadyHandledError",
-    "NotDigestedArgumentWarning",
-]
+        "NotSupportedSyntaxError",
+        "NotWithThisFormError",
+        "FileAlreadyHandledError",
+        "FileContentError",
+        "NotDigestedArgumentWarning",
+    ]
+    

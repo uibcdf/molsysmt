@@ -50,6 +50,7 @@ from ._private.smonitor import (
     NotSupportedSyntaxError,
     NotWithThisFormError,
     FileAlreadyHandledError,
+    FileContentError,
     warn,
     warn_once,
 )

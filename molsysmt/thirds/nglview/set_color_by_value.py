@@ -101,7 +101,7 @@ def set_color_by_value(view, values, element='group', selection='all', cmap='bwr
         elements_selection = select(view, element='atom', selection=selection, syntax=syntax, to_syntax='NGLView')
         scheme = _ColorScheme([[to_hex(cmap(norm(ii))), '@'+jj] for ii,jj in zip(values, elements_selection[1:].split(','))], label='user')
     else:
-        raise ValueError()
+        from molsysmt._private.smonitor import InternalAlgorithmError; raise InternalAlgorithmError(reason="NGLView helper reached an unexpected state.", caller=None)
 
     if representation=='surface':
         view.add_surface(selection=elements_selection, color=scheme)

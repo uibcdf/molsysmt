@@ -1,6 +1,7 @@
 from molsysmt._private.arg_digestion import arg_digest
 from molsysmt import pyunitwizard as puw
 from molsysmt._private.lists import sorted_list_of_pairs
+from molsysmt._private.smonitor import ArgumentConflictError, InternalAlgorithmError
 import numpy as np
 
 @arg_digest()
@@ -68,7 +69,10 @@ def get_neighbors(molecular_system, selection="all", structure_indices="all", ce
                 dists[indice_structure,ii,:]=dists_aux[offset:]
                 if same_set:
                     if dists_aux[0] > 0.01:
-                        raise ValueError("Error in algorithm, sets are different.")
+                        raise InternalAlgorithmError(
+                            reason="Sets are different in distance calculation for the same molecular system.",
+                            caller="molsysmt.structure.get_neighbors"
+                        )
 
         del(all_dists)
 
@@ -96,7 +100,10 @@ def get_neighbors(molecular_system, selection="all", structure_indices="all", ce
                 dists[indice_structure,ii]=dists_aux[offset:]
                 if same_set:
                     if dists_aux[0] > 0.01:
-                        raise ValueError("Error in algorithm, sets are different.")
+                        raise InternalAlgorithmError(
+                            reason="Sets are different in distance calculation for the same molecular system.",
+                            caller="molsysmt.structure.get_neighbors"
+                        )
 
         del(all_dists)
 
@@ -104,7 +111,12 @@ def get_neighbors(molecular_system, selection="all", structure_indices="all", ce
 
     else:
 
-        raise ValueError("Use either threshold or n_neighbors, but not both at the same time")
+        raise ArgumentConflictError(
+            arg1="threshold",
+            arg2="n_neighbors",
+            reason="Either threshold or n_neighbors must be provided, but not both at the same time.",
+            caller="molsysmt.structure.get_neighbors"
+        )
 
     if output_type == 'numpy.ndarray':
         if output_indices is None and output_structure_indices is None:
@@ -164,4 +176,7 @@ def get_neighbors(molecular_system, selection="all", structure_indices="all", ce
         else:
             raise NotImplementedError
 
-    raise ValueError
+    raise InternalAlgorithmError(
+        reason="The function reached an unreachable state.",
+        caller="molsysmt.structure.get_neighbors"
+    )

@@ -1,4 +1,4 @@
-from molsysmt._private.smonitor import NotImplementedMethodError
+from molsysmt._private.smonitor import NotImplementedMethodError, ArgumentChoiceError, StructuralInconsistencyError
 from molsysmt._private.arg_digestion import arg_digest
 from molsysmt._private.variables import is_all
 
@@ -24,7 +24,13 @@ def mutate(molecular_system, mutations=None, keys='group_index', selection="all"
                         selection=f'group_id=="{group_id}"', mask=selection,
                         group_index=True, group_name=True)
                 if group_name[0].lower()!=old_group_name.lower():
-                    raise ValueError(f'The group with id {group_id} is {group_name} and not {old_group_name}')
+                    raise ArgumentChoiceError(
+                        argument="mutations",
+                        value=old_group_name,
+                        choices=[group_name[0]],
+                        caller="molsysmt.build.mutate",
+                        message=f"The group with id {group_id} is {group_name[0]} and not {old_group_name}."
+                    )
                 group_indices.append(aux_index[0])
                 to_group_names.append(new_group_name)
 
@@ -42,7 +48,10 @@ def mutate(molecular_system, mutations=None, keys='group_index', selection="all"
                             selection=f'group_id=="{ii}"', mask=selection,
                             group_index=True)
                     if len(aux_indices)>1:
-                        raise ValueError(f'There are multiple groups with the group_id: {ii}')
+                        raise StructuralInconsistencyError(
+                            reason=f"There are multiple groups with the group_id: {ii}",
+                            caller="molsysmt.build.mutate"
+                        )
                     else:
                         group_indices.append(aux_indices[0])
             elif keys=='group_name':

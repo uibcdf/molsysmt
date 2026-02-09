@@ -531,11 +531,19 @@ def parse_format33(file):
             line = lines[counter]
             record = line[0:6]
 
+            from molsysmt._private.smonitor import FileContentError
+
             if record!='DBREF2':
-                raise ValueError('DBREF1 is not followed by DBREF2')
+                raise FileContentError(
+                    reason='DBREF1 is not followed by DBREF2',
+                    caller='molsysmt.native.PDBFileHandler'
+                )
 
             if db_ref.chain_id != line[12]:
-                raise ValueError('DBREF2 with different chain id')
+                raise FileContentError(
+                    reason='DBREF2 with different chain id',
+                    caller='molsysmt.native.PDBFileHandler'
+                )
 
             db_ref.dbAccession = line[18:40].strip()
             db_ref.dbSeqBegin = int(line[45:55])
@@ -1101,7 +1109,11 @@ def parse_format33(file):
                     #model.record.append(record_element)
 
                     if record_element.serial!=int(line[6:11]):
-                        raise ValueError("ANISOU record not referring previous atom record.")
+                        from molsysmt._private.smonitor import FileContentError
+                        raise FileContentError(
+                            reason="ANISOU record not referring previous atom record.",
+                            caller='molsysmt.native.PDBFileHandler'
+                        )
 
                     record_element.anisou11 = int(line[28:35])
                     record_element.anisou22 = int(line[35:42])

@@ -172,6 +172,12 @@ CATALOG = {
             "category": "io",
             "level": "ERROR",
         },
+        "FileContentError": {
+            "code": "MSM-ERR-IO-002",
+            "source": "molsysmt.error.file_content",
+            "category": "io",
+            "level": "ERROR",
+        },
     },
 }
 
@@ -462,6 +468,17 @@ CODES = {
         "agent_message": "File '{filename}' already handled.",
         "agent_hint": "Check file registry and duplicate handling. Docs: {doc_url}",
     },
+    "MSM-ERR-IO-002": {
+        "title": "Invalid file content",
+        "user_message": "The file content violates the format standard: {reason}.",
+        "user_hint": "Check the file source or validate its format. Docs: {doc_url}",
+        "dev_message": "Format violation in '{caller}': {reason}.",
+        "dev_hint": "Check parser logic for format: {format}. Docs: {doc_url}",
+        "qa_message": "Invalid file content.",
+        "qa_hint": "Check file integrity. Docs: {doc_url}",
+        "agent_message": "Invalid file content: {reason}.",
+        "agent_hint": "The file doesn't follow the expected standard. Check if it's corrupted or incomplete.",
+    },
 }
 
 SIGNALS = {
@@ -491,4 +508,5 @@ SIGNALS = {
     "molsysmt.error.not_supported_syntax": {"extra_required": ["syntax", "caller"]},
     "molsysmt.error.not_with_this_form": {"extra_required": ["caller"]},
     "molsysmt.error.file_already_handled": {"extra_required": ["filename"]},
+    "molsysmt.error.file_content": {"extra_required": ["reason", "caller"]},
 }

@@ -158,6 +158,8 @@ switcher['LEaP'] = {
 
 def digest_forcefield(forcefield, engine, implicit_solvent=None, water_model=None):
 
+    from molsysmt._private.smonitor import ArgumentChoiceError
+
     forcefields_out=[]
 
     if type(forcefield) not in [list, tuple]:
@@ -172,13 +174,23 @@ def digest_forcefield(forcefield, engine, implicit_solvent=None, water_model=Non
                     aux = switcher[engine][ff][implicit_solvent]
                     forcefields_out.extend(aux)
                 else:
-                    raise ValueError('The implicit solvent {} is unknown for MolSysMT. Either it is mispelled or either it needs to be implemented in MolSysMT'.format(implicit_solvent))
+                    raise ArgumentChoiceError(
+                        argument="implicit_solvent",
+                        value=implicit_solvent,
+                        choices=list(implicit_solvent_models.keys()),
+                        caller="molsysmt._private.forcefield.digest_forcefield"
+                    )
             elif water_model is not None:
                 if water_model in water_models:
                     aux = switcher[engine][ff][water_model]
                     forcefields_out.extend(aux)
                 else:
-                    raise ValueError('The water model {} is unknown for MolSysMT. Either it is mispelled or it needs to be implemented in MolSysMT'.format(water_model))
+                    raise ArgumentChoiceError(
+                        argument="water_model",
+                        value=water_model,
+                        choices=list(water_models.keys()),
+                        caller="molsysmt._private.forcefield.digest_forcefield"
+                    )
             else:
                 aux = switcher[engine][ff]['vacuum']
                 forcefields_out.extend(aux)

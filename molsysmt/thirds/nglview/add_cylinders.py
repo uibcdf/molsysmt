@@ -96,7 +96,7 @@ def add_cylinders(view, bottom=None, top=None, vectors=None, color='#808080', co
             vectors = np.tile(vectors, (bottom.shape[0], 1))
         bottom = top - vectors
     else:
-        raise ValueError()
+        from molsysmt._private.smonitor import InternalAlgorithmError; raise InternalAlgorithmError(reason="NGLView helper reached an unexpected state.", caller=None)
 
 
     n_cylinders=bottom.shape[0]
