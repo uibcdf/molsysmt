@@ -50,6 +50,39 @@ class ArgumentLengthError(MolSysMTCatalogException):
         super().__init__(message=message, extra=extra)
 
 
+class ArgumentConflictError(MolSysMTCatalogException):
+    catalog_key = "ArgumentConflictError"
+
+    def __init__(self, arg1, arg2, reason, caller=None, message=None):
+        extra = {"arg1": arg1, "arg2": arg2, "reason": reason}
+        if caller:
+            extra["caller"] = caller
+        
+        super().__init__(message=message, extra=extra)
+
+
+class StructuralInconsistencyError(MolSysMTCatalogException):
+    catalog_key = "StructuralInconsistencyError"
+
+    def __init__(self, reason, caller=None, message=None):
+        extra = {"reason": reason}
+        if caller:
+            extra["caller"] = caller
+        
+        super().__init__(message=message, extra=extra)
+
+
+class InternalAlgorithmError(MolSysMTCatalogException):
+    catalog_key = "InternalAlgorithmError"
+
+    def __init__(self, reason, caller=None, message=None):
+        extra = {"reason": reason}
+        if caller:
+            extra["caller"] = caller
+        
+        super().__init__(message=message, extra=extra)
+
+
 class IteratorError(MolSysMTCatalogException):
     catalog_key = "IteratorError"
 
@@ -173,6 +206,9 @@ __all__ = [
     "ArgumentError",
     "ArgumentChoiceError",
     "ArgumentLengthError",
+    "ArgumentConflictError",
+    "StructuralInconsistencyError",
+    "InternalAlgorithmError",
     "IteratorError",
     "LibraryNotFoundError",
     "MolecularSystemNeededError",
