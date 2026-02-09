@@ -33,6 +33,8 @@ from ._pyunitwizard import puw as pyunitwizard
 
 from ._private.smonitor import (
     ArgumentError,
+    ArgumentChoiceError,
+    ArgumentLengthError,
     IteratorError,
     LibraryNotFoundError,
     MolecularSystemNeededError,

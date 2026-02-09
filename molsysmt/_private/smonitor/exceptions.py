@@ -28,6 +28,28 @@ class ArgumentError(MolSysMTCatalogException):
         super().__init__(message=message, code=code, extra=extra)
 
 
+class ArgumentChoiceError(MolSysMTCatalogException):
+    catalog_key = "ArgumentChoiceError"
+
+    def __init__(self, argument, value, choices, caller=None, message=None):
+        extra = {"argument": argument, "value": value, "choices": choices}
+        if caller:
+            extra["caller"] = caller
+        
+        super().__init__(message=message, extra=extra)
+
+
+class ArgumentLengthError(MolSysMTCatalogException):
+    catalog_key = "ArgumentLengthError"
+
+    def __init__(self, argument, expected, actual, caller=None, message=None):
+        extra = {"argument": argument, "expected": expected, "actual": actual}
+        if caller:
+            extra["caller"] = caller
+        
+        super().__init__(message=message, extra=extra)
+
+
 class IteratorError(MolSysMTCatalogException):
     catalog_key = "IteratorError"
 
@@ -149,6 +171,8 @@ from .warnings import NotDigestedArgumentWarning  # noqa: E402
 
 __all__ = [
     "ArgumentError",
+    "ArgumentChoiceError",
+    "ArgumentLengthError",
     "IteratorError",
     "LibraryNotFoundError",
     "MolecularSystemNeededError",

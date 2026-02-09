@@ -105,18 +105,29 @@ def merge(molecular_systems,
 
     from . import convert, get_form, select
     from molsysmt.form import _dict_modules
+    from molsysmt._private.smonitor import ArgumentLengthError
 
     n_molecular_systems = len(molecular_systems)
 
     if not isinstance(selections, (list, tuple)):
         selections = [selections for ii in range(n_molecular_systems)]
-    elif len(selections)!=n_molecular_systems:
-        raise ValueError("The length of the lists items and selections need to be equal.")
+    elif len(selections) != n_molecular_systems:
+        raise ArgumentLengthError(
+            argument="selections",
+            expected=n_molecular_systems,
+            actual=len(selections),
+            caller="molsysmt.basic.merge",
+        )
 
     if not isinstance(structure_indices, (list, tuple)):
         structure_indices = [structure_indices for ii in range(n_molecular_systems)]
-    elif len(structure_indices)!=n_molecular_systems:
-        raise ValueError("The length of the lists items and structure_indices need to be equal.")
+    elif len(structure_indices) != n_molecular_systems:
+        raise ArgumentLengthError(
+            argument="structure_indices",
+            expected=n_molecular_systems,
+            actual=len(structure_indices),
+            caller="molsysmt.basic.merge",
+        )
 
     aux_molecular_systems = []
     aux_atom_indices = []
