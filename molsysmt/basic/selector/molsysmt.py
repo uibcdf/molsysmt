@@ -131,7 +131,13 @@ def select_standard(item, selection):
             elif var_name in no_wrapper_stack_frames[counter+1][0].f_globals:
                 var_value = no_wrapper_stack_frames[counter+1][0].f_globals[var_name]
             else:
-                raise ValueError("The variable", var_name, "was not found by the selection tool.")
+                from molsysmt._private.smonitor import ArgumentError
+                raise ArgumentError(
+                    argument="selection",
+                    value=selection,
+                    caller="molsysmt.basic.selector.molsysmt.select",
+                    message=f"The variable '@{var_name}' was not found by the selection tool."
+                )
             tmp_selection = tmp_selection.replace('@'+var_name, '@auxiliar_variable_'+var_name)
             if type(var_value) in [np.ndarray]:
                 var_value = list(var_value)
@@ -248,10 +254,11 @@ def select_standard(item, selection):
             if _column_has_integer_strings(aux_df[column]):
                 aux_df[column] = pd.to_numeric(aux_df[column], errors='coerce')
             else:
-                warnings.warn(
+                from molsysmt._private.smonitor import warn, SelectionWarning
+                warn(
                     f"Selection uses numeric comparison on '{column}', but values are not integer-like strings; "
                     "comparison will fall back to string semantics.",
-                    UserWarning,
+                    SelectionWarning,
                 )
 
         tmp_selection = tmp_selection.replace('atom_index','index')

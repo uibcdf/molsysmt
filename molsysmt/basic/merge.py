@@ -141,7 +141,7 @@ def merge(molecular_systems,
             if is_all(tmp_selection):
                 aux_atom_indices.append(tmp_selection)
             else:
-                aux_atom_indices.append(selection(tmp_molecular_system, selection=selection, syntax=syntax, skip_digestion=True))
+                aux_atom_indices.append(select(tmp_molecular_system, selection=tmp_selection, syntax=syntax, skip_digestion=True))
             aux_structure_indices.append(tmp_structure_indices)
         else:
             aux = convert(tmp_molecular_system, to_form=to_form, selection=tmp_selection,

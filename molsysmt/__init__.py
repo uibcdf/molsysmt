@@ -27,8 +27,6 @@ _ensure_smonitor_configured(_SMONITOR_PACKAGE_ROOT)
 # Starting the modules
 from . import config
 
-config.setup_logging(level="WARNING", capture_warnings=True, simplify_warning_format=True)
-
 from ._pyunitwizard import puw as pyunitwizard
 
 from ._private.smonitor import (

@@ -174,13 +174,33 @@ class NotSupportedFormError(MolSysMTCatalogException):
 
 
 class NotSupportedSyntaxError(MolSysMTCatalogException):
+
+
     catalog_key = "NotSupportedSyntaxError"
 
-    def __init__(self, form, caller=None, message=None):
-        extra = {"syntax": form}
+
+
+
+
+    def __init__(self, syntax, caller=None, message=None):
+
+
+        extra = {"syntax": syntax}
+
+
         if caller:
+
+
             extra["caller"] = caller
+
+
+        
+
+
         super().__init__(message=message, extra=extra)
+
+
+
 
 
 class NotWithThisFormError(MolSysMTCatalogException):
