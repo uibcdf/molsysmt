@@ -134,9 +134,11 @@ def get(molecular_system,
         attributes_filter = _dict_modules[form].attributes
 
     in_attributes = []
+    # print(f"DEBUG: get() called with kwargs keys: {list(kwargs.keys())}")
     for key in kwargs.keys():
         if kwargs[key]:
             in_attributes.append(key)
+    # print(f"DEBUG: in_attributes resolved: {in_attributes}")
 
     if not isinstance(molecular_system, (list, tuple)):
         molecular_system = [molecular_system]

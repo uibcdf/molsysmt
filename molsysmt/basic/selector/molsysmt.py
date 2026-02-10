@@ -91,56 +91,37 @@ def select_standard(item, selection):
     if '@' in selection:
 
         var_names = _var_names_in_selection(selection)
-
         all_stack_frames = stack()
 
-        counter = -1
-        n_frames = len(all_stack_frames)
-
-        no_wrapper_stack_frames = [ii for ii in all_stack_frames if ii[3] != 'wrapper']
-
-        for aux_stack in no_wrapper_stack_frames:
-            args, args_paramname, kwargs_paramname, values = getargvalues(aux_stack.frame)
-            if 'selection' in args:
-                selection_input = values['selection']
-                aux_var_names = _var_names_in_selection(selection_input)
-                if all([ii in aux_var_names for ii in var_names]):
-                    counter += 1
-                else:
-                    break
-            else:
-                break
-
-        # print(counter)
-        # for ii in range(len(no_wrapper_stack_frames)):
-        #     aaa = no_wrapper_stack_frames[ii]
-        #     print(ii, aaa[3])
-        #     if 'selection' in getargvalues(aaa.frame)[3]:
-        #         print('#####', getargvalues(aaa.frame)[3]['selection'])
-        #     print('>>>', var_names[0] in aaa[0].f_locals)
-        #     print('>>>', var_names[0] in aaa[0].f_globals)
-
         for var_name in var_names:
-            if var_name in no_wrapper_stack_frames[counter][0].f_locals:
-                var_value = no_wrapper_stack_frames[counter][0].f_locals[var_name]
-            elif var_name in no_wrapper_stack_frames[counter][0].f_globals:
-                var_value = no_wrapper_stack_frames[counter][0].f_globals[var_name]
-            elif var_name in no_wrapper_stack_frames[counter+1][0].f_locals:
-                var_value = no_wrapper_stack_frames[counter+1][0].f_locals[var_name]
-            elif var_name in no_wrapper_stack_frames[counter+1][0].f_globals:
-                var_value = no_wrapper_stack_frames[counter+1][0].f_globals[var_name]
-            else:
+            var_value = None
+            found = False
+            
+            # Walk up the stack to find the variable
+            for frame_info in all_stack_frames:
+                frame = frame_info.frame
+                if var_name in frame.f_locals:
+                    var_value = frame.f_locals[var_name]
+                    found = True
+                    break
+                if var_name in frame.f_globals:
+                    var_value = frame.f_globals[var_name]
+                    found = True
+                    break
+            
+            if not found:
                 from molsysmt._private.smonitor import ArgumentError
                 raise ArgumentError(
                     argument="selection",
                     value=selection,
                     caller="molsysmt.basic.selector.molsysmt.select",
-                    message=f"The variable '@{var_name}' was not found by the selection tool."
+                    message=f"The variable '@{var_name}' was not found in the call stack."
                 )
+            
             tmp_selection = tmp_selection.replace('@'+var_name, '@auxiliar_variable_'+var_name)
-            if type(var_value) in [np.ndarray]:
+            if isinstance(var_value, np.ndarray):
                 var_value = list(var_value)
-            locals()['auxiliar_variable_'+var_name]=var_value
+            locals()['auxiliar_variable_'+var_name] = var_value
 
     if is_all(tmp_selection):
 
