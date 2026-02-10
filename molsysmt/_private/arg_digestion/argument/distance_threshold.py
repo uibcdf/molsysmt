@@ -12,6 +12,9 @@ common_functions_with_distance_threshold_and_None = [
 
 def digest_distance_threshold(distance_threshold, caller=None):
 
+    if isinstance(distance_threshold, str):
+        distance_threshold = puw.parse(distance_threshold)
+
     if caller in common_functions_with_distance_threshold:
 
         if puw.is_quantity(distance_threshold):

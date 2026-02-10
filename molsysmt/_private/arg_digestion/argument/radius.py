@@ -4,6 +4,9 @@ from molsysmt._private.smonitor import ArgumentError
 
 def digest_radius(radius, caller=None):
 
+    if isinstance(radius, str):
+        radius = puw.parse(radius)
+
     if puw.is_quantity(radius):
         if puw.check(radius, dimensionality={'[L]':1}):
             return puw.standardize(radius)

@@ -10,6 +10,9 @@ functions_with_boolean = (
         )
 
 def digest_time(time, caller=None):
+
+    if isinstance(time, str):
+        time = puw.parse(time)
     """ Checks if time arguments has the correct type.
 
         Parameters

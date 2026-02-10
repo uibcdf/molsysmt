@@ -4,6 +4,9 @@ from molsysmt._private.smonitor import ArgumentError
 
 def digest_switch_distance(switch_distance, caller=None):
 
+    if isinstance(switch_distance, str):
+        switch_distance = puw.parse(switch_distance)
+
     if caller.startswith('molsysmt.form.') and caller.count('.to_')==2:
         if switch_distance is None:
             return switch_distance
