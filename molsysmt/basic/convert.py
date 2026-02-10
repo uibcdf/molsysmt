@@ -91,7 +91,9 @@ def _convert_one_to_one(molecular_system,
             if len(missing_arguments)>0:
                 raise NotCompatibleConversionError(from_form, to_form, missing_arguments)
 
-        output = function(molecular_system, **conversion_arguments, **kwargs)
+        # Filter kwargs to only pass what the function accepts
+        valid_kwargs = {k: v for k, v in kwargs.items() if k in input_arguments}
+        output = function(molecular_system, **conversion_arguments, **valid_kwargs)
 
     elif ('molsysmt.MolSys' in _dict_modules[from_form]._convert_to) and (to_form in _dict_modules['molsysmt.MolSys']._convert_to):
 
