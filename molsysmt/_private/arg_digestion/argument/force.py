@@ -4,6 +4,9 @@ from molsysmt._private.smonitor import ArgumentError
 
 def digest_force(force, caller=None):
 
+    if isinstance(force, str):
+        force = puw.parse(force)
+
     if puw.is_quantity(force):
         if puw.check(force, dimensionality={'[L]':1, '[M]':1, '[T]':-2, '[mol]':-1}):
             return puw.standardize(force)

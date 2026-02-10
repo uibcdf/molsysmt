@@ -5,6 +5,9 @@ from ...variables import is_iterable
 
 def digest_angles(angles, caller=None):
 
+    if isinstance(angles, str):
+        angles = puw.parse(angles)
+
     if is_iterable(angles):
         if puw.is_quantity(angles[0]):
             angles = puw.utils.sequences.concatenate(angles)

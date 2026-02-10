@@ -13,6 +13,9 @@ functions_with_list_as_output = (
 
 def digest_force_constant(force_constant, caller=None):
 
+    if isinstance(force_constant, str):
+        force_constant = puw.parse(force_constant)
+
     if caller is not None:
         if caller.endswith(functions_with_list_as_output):
             if puw.is_quantity(force_constant):
