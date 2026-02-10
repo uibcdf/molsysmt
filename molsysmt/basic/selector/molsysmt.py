@@ -1,7 +1,6 @@
 import numpy as np
 import pandas as pd
 import re
-import warnings
 from inspect import stack, getargvalues
 from molsysmt._private.variables import is_all
 from molsysmt._private.strings import get_parenthesis
