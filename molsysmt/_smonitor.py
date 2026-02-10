@@ -6,6 +6,7 @@ SMONITOR = {
     "capture_warnings": True,
     "capture_logging": True,
     "theme": "plain",
+    "silence": ["pint", "networkx", "matplotlib", "astropy"],
 }
 
 PROFILES = {
