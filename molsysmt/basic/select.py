@@ -141,7 +141,7 @@ def select(molecular_system, selection='all', structure_indices='all', element='
             atom_indices = _dict_select[syntax](molecular_system, selection, structure_indices)
         else:
 
-            raise NotSupportedSyntaxError()
+            raise NotSupportedSyntaxError(syntax=syntax)
 
         if element == 'atom':
 
@@ -193,6 +193,6 @@ def select(molecular_system, selection='all', structure_indices='all', element='
         if to_syntax in _dict_indices_to_selection:
             output = _dict_indices_to_selection[to_syntax](molecular_system, output_indices, element)
         else:
-            raise NotSupportedSyntaxError()
+            raise NotSupportedSyntaxError(syntax=to_syntax)
 
     return output

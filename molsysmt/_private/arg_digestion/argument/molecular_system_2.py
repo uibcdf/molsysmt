@@ -8,7 +8,6 @@ def digest_molecular_system_2(molecular_system_2, caller=None):
         return None
 
     try:
-        return digest_molecular_system(molecular_system_2, caller=caller)
+        return arg_digest_molecular_system(molecular_system_2, caller=caller)
     except:
-        raise ArgumentError(molecular_system_2, value=molecular_system_2, caller=caller, message=None)
-
+        raise ArgumentError("molecular_system_2", value=molecular_system_2, caller=caller, message=None)

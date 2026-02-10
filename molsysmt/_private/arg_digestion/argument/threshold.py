@@ -14,6 +14,9 @@ common_functions_with_threshold_and_None = [
 
 def digest_threshold(threshold, caller=None):
 
+    if isinstance(threshold, str):
+        threshold = puw.parse(threshold)
+
     if caller in common_functions_with_threshold:
 
         if puw.is_quantity(threshold):
