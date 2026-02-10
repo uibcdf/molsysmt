@@ -14,6 +14,7 @@ errors must be emitted through the catalog.
 - Inherit from `CatalogException` for all errors.
 - Keep user messages explicit and actionable.
 - Keep URLs in `meta.py` for consistent hints.
+- **Noise Control**: Use the `silence` list in `_smonitor.py` to suppress noisy third-party loggers (e.g., `pint`, `networkx`).
 
 ## Implementation
 The diagnostic plumbing is centralized in `molsysmt/_private/smonitor/`.
