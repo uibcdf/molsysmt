@@ -1,30 +1,25 @@
 import re
-import requests
 
-pattern= re.compile('[0-9][a-zA-Z_0-9]{3}')
+pattern = re.compile(r"[0-9][A-Za-z0-9_]{3}")
 
 def is_form(item):
+    """Checking whether an item matches the local PDB id string format.
 
-    item_fullname = item.__class__.__module__+'.'+item.__class__.__name__
-    output = (item_fullname == 'builtins.str')
+    Notes
+    -----
+    This check validates only the string pattern (`pdb_id:XXXX`, `pdb_XXXX`,
+    or `XXXX`) and does not perform any remote server validation.
+    """
 
-    if output:
-        if item.startswith('pdb_id:'):
-            output = True
-        elif item.startswith('pdb_') and len(item)==12:
-            output = True
-        else:
+    if not isinstance(item, str):
+        return False
 
-            output = False
+    if item.startswith("pdb_id:"):
+        candidate = item.split("pdb_id:", 1)[1]
+        return bool(pattern.fullmatch(candidate))
 
-            if type(item)==str:
-                if pattern.match(item):
-                    try:
-                        request = requests.get('https://files.rcsb.org/download/{}.pdb'.format(item), stream=True)
-                        if request.status_code == 200:
-                            output = True
-                    except:
-                        output = False
+    if item.startswith("pdb_"):
+        candidate = item.split("pdb_", 1)[1]
+        return bool(pattern.fullmatch(candidate))
 
-    return output
-
+    return bool(pattern.fullmatch(item))
