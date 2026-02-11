@@ -2,7 +2,7 @@ from molsysmt._private.smonitor import ArgumentError
 
 def digest_as_entity_2(as_entity_2, caller=None):
 
-    from .as_entity import arg_digest_as_entity
+    from .as_entity import digest_as_entity
 
     try:
         return digest_as_entity(as_entity_2, caller=caller)
