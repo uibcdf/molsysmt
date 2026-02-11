@@ -78,7 +78,7 @@ def get_coordinates_from_atom(item, indices='all', structure_indices='all', skip
             coordinates = coordinates[structure_indices, :, :]
         if not _is_all(indices):
             coordinates = coordinates[:, indices, :]
-        coordinates = puw.quantity(coordinates, to_unit='nm')
+            coordinates = puw.quantity(coordinates, unit='nm')
 
     return coordinates
 
@@ -244,7 +244,7 @@ def get_box_from_system(item, structure_indices='all', skip_digestion=False):
         if not is_all(structure_indices):
             box = box[structure_indices, :, :]
 
-        box = puw.quantity(box, to_unit='nm')
+        box = puw.quantity(box, unit='nm')
 
     return box
 
@@ -263,7 +263,7 @@ def get_time_from_system(item, structure_indices='all', skip_digestion=False):
         if not is_all(structure_indices):
             time = time[structure_indices]
 
-        time = puw.quantity(time, to_unit='nm')
+        time = puw.quantity(time, unit='ps')
 
     return time
 
@@ -295,4 +295,3 @@ this_folder = path.dirname(path.abspath(__file__))
 common_get = path.join(this_folder, '../../_private/common_get.py')
 execfile(common_get, globals(), locals())
 del(path, this_folder, common_get)
-

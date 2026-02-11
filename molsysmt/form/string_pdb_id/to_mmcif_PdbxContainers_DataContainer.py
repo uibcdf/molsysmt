@@ -1,55 +1,44 @@
 from molsysmt._private.arg_digestion import arg_digest
 from molsysmt._private.files_and_directories import temp_filename
 from os import remove
+from os.path import exists
 
 @arg_digest(form='string:pdb_id')
 def to_mmcif_PdbxContainers_DataContainer(item, atom_indices='all', structure_indices='all', skip_digestion=False):
 
-    try:
+    from .to_file_bcif_gz import to_file_bcif_gz
+    from .to_file_bcif import to_file_bcif
+    from .to_file_cif_gz import to_file_cif_gz
+    from .to_file_cif import to_file_cif
+    from ..file_bcif_gz import to_mmcif_PdbxContainers_DataContainer as file_bcif_gz_to_mmcif_PdbxContainers_DataContainer
+    from ..file_bcif import to_mmcif_PdbxContainers_DataContainer as file_bcif_to_mmcif_PdbxContainers_DataContainer
+    from ..file_cif_gz import to_mmcif_PdbxContainers_DataContainer as file_cif_gz_to_mmcif_PdbxContainers_DataContainer
+    from ..file_cif import to_mmcif_PdbxContainers_DataContainer as file_cif_to_mmcif_PdbxContainers_DataContainer
 
-        from .to_file_bcif_gz import to_file_bcif_gz
-        from ..file_bcif_gz import to_mmcif_PdbxContainers_DataContainer as file_bcif_gz_to_mmcif_PdbxContainers_DataContainer
-        output_filename = temp_filename(extension="bcif.gz")
-        tmp_item = to_file_bcif_gz(item, output_filename=output_filename, skip_digestion=True)
-        tmp_item = file_bcif_gz_to_mmcif_PdbxContainers_DataContainer(tmp_item, skip_digestion=True)
-        remove(output_filename)
+    strategies = [
+        ("bcif.gz", "bcif.gz", to_file_bcif_gz, file_bcif_gz_to_mmcif_PdbxContainers_DataContainer),
+        ("bcif", "bcif", to_file_bcif, file_bcif_to_mmcif_PdbxContainers_DataContainer),
+        ("cif.gz", "cif.gz", to_file_cif_gz, file_cif_gz_to_mmcif_PdbxContainers_DataContainer),
+        ("cif", "cif", to_file_cif, file_cif_to_mmcif_PdbxContainers_DataContainer),
+    ]
 
-    except:
+    errors = []
 
+    for format_name, extension, downloader, converter in strategies:
+        output_filename = temp_filename(extension=extension)
         try:
-
-            from .to_file_bcif import to_file_bcif
-            from ..file_bcif import to_mmcif_PdbxContainers_DataContainer as file_bcif_to_mmcif_PdbxContainers_DataContainer
-            output_filename = temp_filename(extension="bcif")
-            tmp_item = to_file_bcif(item, output_filename=output_filename, skip_digestion=True)
-            tmp_item = file_bcif_to_mmcif_PdbxContainers_DataContainer(tmp_item, skip_digestion=True)
-            remove(output_filename)
-
-        except:
-
-            try:
-
-                from .to_file_cif_gz import to_file_cif_gz
-                from ..file_cif_gz import to_mmcif_PdbxContainers_DataContainer as file_cif_gz_to_mmcif_PdbxContainers_DataContainer
-                output_filename = temp_filename(extension="cif_gz")
-                tmp_item = to_file_cif_gz(item, output_filename=output_filename, skip_digestion=True)
-                tmp_item = file_cif_gz_to_mmcif_PdbxContainers_DataContainer(tmp_item, skip_digestion=True)
+            tmp_item = downloader(item, output_filename=output_filename, skip_digestion=True)
+            return converter(tmp_item, skip_digestion=True)
+        except Exception as exc:
+            errors.append((format_name, exc))
+        finally:
+            if exists(output_filename):
                 remove(output_filename)
 
-            except:
-
-                try:
-
-                    from .to_file_cif import to_file_cif
-                    from ..file_cif import to_mmcif_PdbxContainers_DataContainer as file_cif_to_mmcif_PdbxContainers_DataContainer
-                    output_filename = temp_filename(extension="cif")
-                    tmp_item = to_file_cif(item, output_filename=output_filename, skip_digestion=True)
-                    tmp_item = file_cif_to_mmcif_PdbxContainers_DataContainer(tmp_item, skip_digestion=True)
-                    remove(output_filename)
-
-                except:
-
-                    raise ImportError("PDB ID can not be convert to mmcif_PdbxContainers_DataContainer")
-
-    return tmp_item
-
+    details = "; ".join(
+        f"{format_name}: {type(exc).__name__}: {exc}" for format_name, exc in errors
+    )
+    raise RuntimeError(
+        f"Unable to convert PDB ID '{item}' to mmcif.PdbxContainers.DataContainer. "
+        f"Attempted formats: bcif.gz, bcif, cif.gz, cif. Causes: {details}"
+    ) from errors[-1][1]

@@ -2,7 +2,7 @@ from molsysmt._private.arg_digestion import arg_digest
 from depdigest import dep_digest
 
 @arg_digest(form='string:pdb_text')
-@dep_digest('MDTraj')
+@dep_digest('mdtraj')
 def to_mdtraj_Topology(item, atom_indices='all', structure_indices='all', skip_digestion=False):
 
     from mdtraj import load_topology as mdtraj_load_topology
@@ -19,4 +19,3 @@ def to_mdtraj_Topology(item, atom_indices='all', structure_indices='all', skip_d
     tmp_item = mdtraj_load_topology(tmp_io)
 
     return tmp_item
-

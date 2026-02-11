@@ -2,7 +2,7 @@ from depdigest import dep_digest
 from molsysmt._private.arg_digestion import arg_digest
 
 @arg_digest(form='pdbfixer.PDBFixer')
-@dep_digest('MDTraj')
+@dep_digest('mdtraj')
 def to_mdtraj_Trajectory(item, atom_indices='all', skip_digestion=False):
 
     from mdtraj.core.trajectory import Trajectory as mdtraj_Trajectory
@@ -13,8 +13,7 @@ def to_mdtraj_Trajectory(item, atom_indices='all', skip_digestion=False):
 
     tmp_item = to_mdtraj_Topology(item, atom_indices=atom_indices, skip_digestion=True)
     coordinates = get_coordinates_from_atom(tmp_item, indices=atom_indices, skip_digestion=True)
-    coordinates = puw.convert(coordinates, to_units='nanometer', to_form='openmm.unit')
+    coordinates = puw.convert(coordinates, to_unit='nanometer', to_form='openmm.unit')
     tmp_item = mdtraj_Trajectory(coordinates, tmp_item, skip_digestion=True)
 
     return tmp_item
-
