@@ -77,6 +77,10 @@ class NotDigestedArgumentWarning(MolSysMTCatalogWarning):
         super().__init__(extra={"argument": argument})
 
 
+class MolecularSystemMismatchWarning(UserMolSysMTWarning):
+    catalog_key = "MolecularSystemMismatchWarning"
+
+
 __all__ = [
     "UserMolSysMTWarning",
     "SelectionWarning",
@@ -84,6 +88,7 @@ __all__ = [
     "CrossChainCovalentBondsWarning",
     "DownloadWarning",
     "NotDigestedArgumentWarning",
+    "MolecularSystemMismatchWarning",
     "warn",
     "warn_once",
 ]

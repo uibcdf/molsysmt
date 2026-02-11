@@ -1,5 +1,9 @@
 from molsysmt._private.smonitor import NotImplementedMethodError
-from molsysmt._private.smonitor import warn, CrossChainCovalentBondsWarning
+from molsysmt._private.smonitor import (
+    warn,
+    CrossChainCovalentBondsWarning,
+    MolecularSystemMismatchWarning,
+)
 from molsysmt._private.arg_digestion import arg_digest
 from molsysmt._private.variables import is_all
 from molsysmt import pyunitwizard as puw
@@ -407,9 +411,9 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
 
         for aux_group_index, aux_atom_indices in group_index_to_atom_indices.items():
 
-            aux_atom_names = group_index_from_atom[aux_atom_indices].tolist()
-            aux_group_name = group_name[group_index]
-            aux_atom_pairs_bonded = get_bonded_atom_pairs(group_name, atom_names, aux_atom_indices)
+            aux_atom_names = atom_name[aux_atom_indices].tolist()
+            aux_group_name = group_name[aux_group_index]
+            aux_atom_pairs_bonded = get_bonded_atom_pairs(aux_group_name, aux_atom_names, aux_atom_indices)
             if aux_atom_pairs_bonded is None:
                 atoms_without_bonds += aux_atom_indices
             else:
@@ -803,7 +807,7 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
 
         else:
 
-            warn('The models have different molecular systems. They will be returned separately.')
+            warn(MolecularSystemMismatchWarning())
 
             tmp_item = item_per_model
 
