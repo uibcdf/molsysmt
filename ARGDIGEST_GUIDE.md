@@ -5,8 +5,8 @@ Source of truth for integrating and using **ArgDigest** in this library.
 Metadata
 - Source repository: `argdigest`
 - Source document: `standards/ARGDIGEST_GUIDE.md`
-- Source version: `argdigest@0.5.0`
-- Last synced: 2026-02-06
+- Source version: `argdigest@0.6.0`
+- Last synced: 2026-02-11
 
 ## What is ArgDigest
 
@@ -37,6 +37,16 @@ You can also load configurations from external files:
 from argdigest.config import load_from_file
 cfg = load_from_file("rules.yaml") # Supports .py, .yaml, .json
 ```
+
+## 1.1 Runtime Dependency Contract
+
+ArgDigest requires:
+- `smonitor` for diagnostics and telemetry.
+- `depdigest` for conditional dependency checks via `@dep_digest`.
+
+Do not replace `depdigest` integration with local no-op fallbacks in runtime code.
+If dependency checks are disabled silently, behavior diverges across environments and
+diagnostic quality degrades.
 
 ## 2. Core API for Developers
 
@@ -114,6 +124,12 @@ ArgDigest is heavily instrumented with `@smonitor.signal`:
 - The core decorator uses `tags=["digestion"]`.
 - `Registry.run` uses `tags=["pipeline"]`.
 - Every digestion attempt is traceable in the global breadcrumb trail.
+
+### Emission Failures
+
+Do not swallow SMonitor emission failures with `except Exception: pass`.
+If an emission fails in a non-critical path, emit a fallback warning/log message that
+includes execution context and the original exception text.
 
 ---
 *Document created on February 6, 2026, as the authority for ArgDigest integration.*
