@@ -4,6 +4,8 @@
 - All public functions must validate inputs with `@arg_digest`.
 - The ArgDigest configuration lives in `molsysmt/_argdigest.py`.
 - Place `@dep_digest` **below** `@arg_digest` so it works on normalized args.
+- For quantity strings, digesters must parse with `puw.parse.parse(...)`
+  (not `puw.parse(...)`), following the current PyUnitWizard API layout.
 
 Key configuration fields:
 - `DIGESTION_SOURCE`

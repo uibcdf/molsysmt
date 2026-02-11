@@ -14,6 +14,14 @@ functions to ensure compilation happens on first use, not on import.
 - Use `lazy_njit(signature, cache=True)` from `molsysmt._private.jit`.
 - Avoid heavy global initialization in `molsysmt/lib` modules.
 
+### Nested kernels and signature rules
+- Nested JIT calls must resolve against compiled dispatchers, not Python
+  wrappers. The lazy compiler binds only symbols actually referenced by the
+  function bytecode.
+- For optional `None` arguments in signatures, use the `[numba_type, None]`
+  pattern through `make_numba_signature(...)`. This is translated to
+  `numba.optional(numba_type)` and must not be handled as `Omitted(None)`.
+
 ## Warmup
 Provide explicit precompilation with:
 ```
