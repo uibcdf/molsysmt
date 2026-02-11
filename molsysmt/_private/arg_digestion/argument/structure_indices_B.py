@@ -2,7 +2,7 @@ from molsysmt._private.smonitor import ArgumentError
 
 def digest_structure_indices_B(structure_indices_B, caller=None):
 
-    from .structure_indices import arg_digest_structure_indices
+    from .structure_indices import digest_structure_indices
 
     try:
         return digest_structure_indices(structure_indices_B, caller=caller)

@@ -6,7 +6,7 @@ def digest_donors_2(donors_2, syntax="MolSysMT", caller=None):
     if donors_2 is None:
         return None
 
-    from .donors import arg_digest_donors
+    from .donors import digest_donors
 
     try:
         return digest_donors(donors_2, syntax=syntax, caller=caller)

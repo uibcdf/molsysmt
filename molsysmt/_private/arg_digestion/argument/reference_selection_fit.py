@@ -23,7 +23,7 @@ def digest_reference_selection_fit(reference_selection_fit, syntax="MolSysMT", c
 
     """
 
-    from .selection import arg_digest_selection
+    from .selection import digest_selection
 
     return digest_selection(reference_selection_fit, syntax=syntax, caller=caller)
 

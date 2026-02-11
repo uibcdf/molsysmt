@@ -3,7 +3,7 @@ import numpy as np
 
 def digest_principal_axes_of_selection(principal_axes_of_selection, syntax="MolSysMT", caller=None):
 
-    from .selection import arg_digest_selection
+    from .selection import digest_selection
 
     try:
         return digest_selection(principal_axes_of_selection, syntax=syntax, caller=caller)

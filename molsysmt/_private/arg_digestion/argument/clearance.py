@@ -4,7 +4,7 @@ from molsysmt._private.smonitor import ArgumentError
 
 def digest_clearance(clearance, caller=None):
 
-    from .distance import arg_digest_distance
+    from .distance import digest_distance
 
     try:
         return digest_distance(clearance, caller=caller)

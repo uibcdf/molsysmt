@@ -5,7 +5,7 @@ from molsysmt._private.smonitor import ArgumentError
 def digest_max_bond_length(max_bond_length, caller=None):
 
     if isinstance(max_bond_length, str):
-        max_bond_length = puw.parse(max_bond_length)
+        max_bond_length = puw.parse.parse(max_bond_length)
 
     if max_bond_length is None:
         return None
@@ -15,4 +15,3 @@ def digest_max_bond_length(max_bond_length, caller=None):
             return puw.standardize(max_bond_length)
 
     raise ArgumentError('max_bond_length', value=max_bond_length, caller=caller, message=None)
-
