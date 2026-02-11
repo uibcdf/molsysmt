@@ -38,5 +38,18 @@ class ArgumentError(MolSysMTCatalogException):
 ## Warning Categories
 Warnings should inherit from `smonitor.integrations.CatalogWarning`. Use the `warn` or `warn_once` helpers from `molsysmt._private.smonitor` to emit them.
 
+## Probing Policy (Form/Type Detection)
+Exploratory checks such as `is_form`, `is_item`, `is_quantity`, and `is_unit`
+must behave as predicates:
+
+- A non-matching candidate is an expected outcome and must return `False`.
+- Expected probe misses must not surface as `ERROR` in user-facing profiles.
+- Probe misses may be emitted as `DEBUG` for developer telemetry.
+- `WARNING` and `ERROR` are reserved for actionable anomalies and real failures.
+
+This policy applies across the MolSysSuite stack (`molsysmt`, `pyunitwizard`,
+`argdigest`, `depdigest`, and `smonitor`) to avoid noisy diagnostics during
+normal detection paths.
+
 ## Required Extras
 Follow `SIGNALS` contracts in `molsysmt/_private/smonitor/catalog.py`.
