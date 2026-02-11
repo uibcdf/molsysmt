@@ -4,10 +4,10 @@ from molsysmt._private.variables import is_all
 from depdigest import dep_digest
 
 @arg_digest(form='biopython.SeqRecord')
-@dep_digest('biopython')
+@dep_digest('Bio')
 def extract(item, atom_indices='all', structure_indices='all', copy_if_all=True, skip_digestion=False):
 
-    if is_all(group_indices):
+    if is_all(atom_indices):
 
         if copy_if_all:
             tmp_item = item.copy()
@@ -18,4 +18,3 @@ def extract(item, atom_indices='all', structure_indices='all', copy_if_all=True,
         raise NotImplementedMethodError
 
     return tmp_item
-

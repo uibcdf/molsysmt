@@ -3,9 +3,15 @@ from molsysmt._private.arg_digestion import arg_digest
 @arg_digest(form='string:alphafold_id')
 def to_mmcif_PdbxContainers_DataContainer(item, atom_indices='all', structure_indices='all', skip_digestion=False):
 
-    from bcifreader import BinaryCifReader
+    from mmcif.io.BinaryCifReader import BinaryCifReader
     import urllib.request
+    from urllib.request import urlretrieve
     import json
+    from os import remove
+    from os.path import exists
+    from molsysmt._private.files_and_directories import temp_filename
+    from smonitor.integrations import emit_from_catalog
+    from molsysmt._private.smonitor import CATALOG
 
     uniprot_id = item.split('-')[-2]
 
@@ -23,13 +29,20 @@ def to_mmcif_PdbxContainers_DataContainer(item, atom_indices='all', structure_in
     fullbcifurl = aux_json[0]['bcifUrl']
 
     binary_cif_reader = BinaryCifReader()
-    containers = binary_cif_reader.deserialize(fullbcifurl)
+    tmp_filename = temp_filename(extension="bcif")
+    try:
+        urlretrieve(fullbcifurl, tmp_filename)
+        containers = binary_cif_reader.deserialize(tmp_filename)
+    finally:
+        if exists(tmp_filename):
+            remove(tmp_filename)
 
     if len(containers)>1:
-        print('Warning! The file has more than a DataContainer')
+        emit_from_catalog(CATALOG['warnings']['MultiContainerWarning'], extra={'caller': 'to_mmcif_PdbxContainers_DataContainer', 'format': 'BCIF'})
+    if len(containers)==0:
+        raise ValueError('The AlphaFold ID does not have any DataContainer')
 
     tmp_item = containers[0]
 
     return tmp_item
-
 

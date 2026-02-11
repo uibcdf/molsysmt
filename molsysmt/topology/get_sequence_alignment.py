@@ -61,8 +61,13 @@ def get_sequence_alignment(molecular_system, selection='all', reference_molecula
         aligner.mismatch_score = 0.0
         aligner.open_gap_score = -0.5
         aligner.extend_gap_score = -0.1
-        aligner.target_end_gap_score = 0.0
-        aligner.query_end_gap_score = 0.0
+        # Biopython renamed these attributes in recent releases.
+        try:
+            aligner.end_insertion_score = 0.0
+            aligner.end_deletion_score = 0.0
+        except Exception:
+            aligner.target_end_gap_score = 0.0
+            aligner.query_end_gap_score = 0.0
         alignment = aligner.align(tmp_ref_seq, tmp_seq)
         del(aligner, Align, tmp_ref_seq,tmp_seq)
 

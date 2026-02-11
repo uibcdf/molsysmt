@@ -6,13 +6,14 @@ LIBRARIES = {
     'pandas': {'type': 'hard', 'pypi': 'pandas'},
     'mdtraj': {'type': 'soft', 'pypi': 'mdtraj'},
     'openmm': {'type': 'soft', 'pypi': 'openmm'},
+    'openmmtools': {'type': 'soft', 'pypi': 'openmmtools'},
     'MDAnalysis': {'type': 'soft', 'pypi': 'MDAnalysis'},
     'parmed': {'type': 'soft', 'pypi': 'parmed'},
     'pytraj': {'type': 'soft', 'pypi': 'pytraj'},
     'nglview': {'type': 'soft', 'pypi': 'nglview'},
     'molsysviewer': {'type': 'hard', 'pypi': 'molsysviewer'},
     'pdbfixer': {'type': 'soft', 'pypi': 'pdbfixer'},
-    'biopython': {'type': 'soft', 'pypi': 'biopython'},
+    'Bio': {'type': 'soft', 'pypi': 'biopython'},
     'plotly': {'type': 'soft', 'pypi': 'plotly'},
     'mmtf': {'type': 'soft', 'pypi': 'mmtf-python'},
 }
@@ -46,8 +47,8 @@ MAPPING = {
     'pytraj_Trajectory': 'pytraj',
     'pytraj_Topology': 'pytraj',
     'pdbfixer_PDBFixer': 'pdbfixer',
-    'biopython_Seq': 'biopython',
-    'biopython_SeqRecord': 'biopython',
+    'biopython_Seq': 'Bio',
+    'biopython_SeqRecord': 'Bio',
     'mmtf_MMTFDecoder': 'mmtf',
 }
 

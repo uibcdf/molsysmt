@@ -2,7 +2,7 @@ from depdigest import dep_digest
 from molsysmt._private.arg_digestion import arg_digest
 
 @arg_digest(form='string:amino_acids_1')
-@dep_digest('biopython')
+@dep_digest('Bio')
 def to_biopython_Seq(item, group_indices='all', skip_digestion=False):
 
     from Bio.Seq import Seq as bio_Seq
@@ -11,4 +11,3 @@ def to_biopython_Seq(item, group_indices='all', skip_digestion=False):
     tmp_item = bio_Seq(item)
 
     return tmp_item
-
