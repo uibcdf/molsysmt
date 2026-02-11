@@ -5,7 +5,7 @@ from molsysmt import pyunitwizard as puw
 def digest_values(values, caller=None):
 
     if isinstance(values, str):
-        values = puw.parse(values)
+        values = puw.parse.parse(values)
 
     if values is None:
         return values

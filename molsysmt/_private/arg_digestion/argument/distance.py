@@ -5,7 +5,7 @@ from molsysmt._private.smonitor import ArgumentError
 def digest_distance(distance, caller=None):
 
     if isinstance(distance, str):
-        distance = puw.parse(distance)
+        distance = puw.parse.parse(distance)
 
     if puw.is_quantity(distance):
         if puw.check(distance, dimensionality={'[L]':1}):

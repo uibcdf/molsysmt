@@ -13,7 +13,7 @@ functions_with_list_as_output = (
 def digest_bond_length(bond_length, caller=None):
 
     if isinstance(bond_length, str):
-        bond_length = puw.parse(bond_length)
+        bond_length = puw.parse.parse(bond_length)
 
     if caller is not None:
         if caller.endswith(functions_with_list_as_output):
