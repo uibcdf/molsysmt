@@ -75,7 +75,7 @@ from . import thirds
 from .systems import systems
 from .warmup_numba import warmup_numba
 
-# NGLView patching is triggered lazily by the NGLView backend.
+# NGLView support uses a local MolSysMT adapter and does not patch site-packages.
 
 
 # With the following list sphinx can document de methods in the api section without adding the

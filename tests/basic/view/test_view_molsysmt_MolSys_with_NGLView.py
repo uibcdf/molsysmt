@@ -8,11 +8,8 @@ from molsysmt import systems
 import numpy as np
 
 def test_view_molsyst_MolSys_with_NLGView_1(t4_pdb_molsys):
-
-    import nglview as nv
-
     molsys = t4_pdb_molsys
-    molsys_2 = nv.show_molsysmt(molsys)
+    molsys_2 = msm.view(molsys, viewer='NGLView')
     check = ('nglview.NGLWidget'==msm.get_form(molsys_2))
     n_molecules, n_structures = msm.get(molsys, element='system', n_molecules=True, n_structures=True)
     n_molecules_2, n_structures_2 = msm.get(molsys_2, element='system', n_molecules=True, n_structures=True)
