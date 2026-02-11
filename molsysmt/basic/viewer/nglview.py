@@ -5,19 +5,9 @@ import os
 from depdigest import dep_digest
 
 
-def _ensure_nglview_patch():
-    if getattr(_ensure_nglview_patch, '_done', False):
-        return
-    from molsysmt.thirds.nglview.patching_nglview import add_molsysmt_to_nglview
-    add_molsysmt_to_nglview()
-    _ensure_nglview_patch._done = True
-
-
 @dep_digest('nglview')
 def view(molecular_system=None, selection='all', structure_indices='all', syntax='MolSysMT',
          skip_digestion=False):
-
-    _ensure_nglview_patch()
 
     if os.environ.get("MSM_VIEWS_FROM_HTML_FILES", "").lower() == "true":
         if 'nglview_htmlfile' in stack()[2][0].f_locals:

@@ -18,4 +18,4 @@ from .add_cylinders import add_cylinders
 from .add_contacts import add_contacts
 from .add_hbonds import add_hbonds
 from .add_arrows import add_arrows
-
+from .molsysmt_trajectory import get_molsysmt_trajectory, show_molsysmt
