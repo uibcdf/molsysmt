@@ -12,7 +12,7 @@ common_functions_with_angle_threshold_and_None = [
 def digest_angle_threshold(angle_threshold, caller=None):
 
     if isinstance(angle_threshold, str):
-        angle_threshold = puw.parse(angle_threshold)
+        angle_threshold = puw.parse.parse(angle_threshold)
 
     if caller in common_functions_with_angle_threshold:
 

@@ -5,7 +5,7 @@ from molsysmt._private.smonitor import ArgumentError
 def digest_z0(z0, caller=None):
 
     if isinstance(z0, str):
-        z0 = puw.parse(z0)
+        z0 = puw.parse.parse(z0)
 
     if puw.is_quantity(z0):
         if puw.check(z0, dimensionality={'[L]':1}):

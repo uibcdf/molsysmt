@@ -36,7 +36,10 @@ def lazy_njit(signature, cache=True, **kwargs):
             _COMPILING.add(wrapper)
             try:
                 # Ensure dependencies are compiled and bound to their dispatchers.
-                for name, value in func.__globals__.items():
+                for name in func.__code__.co_names:
+                    if name not in func.__globals__:
+                        continue
+                    value = func.__globals__[name]
                     if callable(value) and value in _WRAPPER_COMPILED and value is not wrapper:
                         func.__globals__[name] = _WRAPPER_COMPILED[value]()
 

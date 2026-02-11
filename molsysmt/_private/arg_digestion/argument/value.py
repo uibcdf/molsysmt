@@ -7,7 +7,7 @@ from molsysmt import pyunitwizard as puw
 def digest_value(value, caller=None):
 
     if isinstance(value, str):
-        value = puw.parse(value)
+        value = puw.parse.parse(value)
 
     # Atom
 

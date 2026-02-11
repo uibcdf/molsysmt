@@ -1,6 +1,7 @@
 import re
 
 pattern = re.compile(r"[0-9][A-Za-z0-9_]{3}")
+pattern_extended = re.compile(r"0{4}[0-9][A-Za-z0-9_]{3}")
 
 def is_form(item):
     """Checking whether an item matches the local PDB id string format.
@@ -20,6 +21,6 @@ def is_form(item):
 
     if item.startswith("pdb_"):
         candidate = item.split("pdb_", 1)[1]
-        return bool(pattern.fullmatch(candidate))
+        return bool(pattern.fullmatch(candidate) or pattern_extended.fullmatch(candidate))
 
     return bool(pattern.fullmatch(item))
