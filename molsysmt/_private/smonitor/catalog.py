@@ -62,6 +62,12 @@ CATALOG = {
             "category": "structure",
             "level": "WARNING",
         },
+        "MolecularSystemMismatchWarning": {
+            "code": "MSM-WARN-STRUCT-004",
+            "source": "molsysmt.warning.molecular_system_mismatch",
+            "category": "structure",
+            "level": "WARNING",
+        },
     },
     "exceptions": {
         "ArgumentError": {
@@ -269,6 +275,17 @@ CODES = {
         "qa_hint": "Check if multi-frame support is required for this path. Docs: {doc_url}",
         "agent_message": "Ambiguous structure. Defaulting to first frame.",
         "agent_hint": "Explicitly select a structure index to avoid this warning. Docs: {doc_url}",
+    },
+    "MSM-WARN-STRUCT-004": {
+        "title": "Molecular system mismatch across models",
+        "user_message": "Input models do not share the same molecular system and cannot be merged into one trajectory.",
+        "user_hint": "Models will be returned separately. If this is unexpected, validate topology consistency across models. Docs: {doc_url}",
+        "dev_message": "Model mismatch in '{caller}': topologies differ across models, returning separate systems.",
+        "dev_hint": "Check atom/residue/entity identity mapping before concatenation. Docs: {doc_url}",
+        "qa_message": "Model mismatch in '{caller}'. Returning separate systems.",
+        "qa_hint": "Validate topology identity consistency across all models. Docs: {doc_url}",
+        "agent_message": "Models have incompatible molecular systems. Returned as separate systems.",
+        "agent_hint": "Normalize model topology before merging.",
     },
     "MSM-ERR-ARG-001": {
         "title": "Argument error",
@@ -490,6 +507,7 @@ SIGNALS = {
     "molsysmt.warning.numba_jit": {"extra_required": ["kernel", "module"]},
     "molsysmt.warning.multi_container": {"extra_required": ["caller", "format"]},
     "molsysmt.warning.ambiguous_structure": {"extra_required": ["caller", "count"]},
+    "molsysmt.warning.molecular_system_mismatch": {"extra_required": ["caller"]},
     "molsysmt.error.argument": {"extra_required": ["argument", "value", "caller"]},
     "molsysmt.error.argument.choice": {"extra_required": ["argument", "value", "choices", "caller"]},
     "molsysmt.error.argument.length": {"extra_required": ["argument", "expected", "actual", "caller"]},

@@ -15,6 +15,8 @@ errors must be emitted through the catalog.
 - Keep user messages explicit and actionable.
 - Keep URLs in `meta.py` for consistent hints.
 - **Noise Control**: Use the `silence` list in `_smonitor.py` to suppress noisy third-party loggers (e.g., `pint`, `networkx`).
+- **Template Wiring**: Keep `CODES` and `SIGNALS` wired from `molsysmt/_private/smonitor/catalog.py` as the single source of truth.
+- **No Silent Emission Failures**: Avoid `except Exception: pass` in diagnostic emission paths; fallback to explicit warnings/logs.
 - **Probe Contract**: detection/probing paths must classify expected misses as
   `DEBUG` telemetry, never as user-facing `ERROR`.
 - **Severity Contract**:

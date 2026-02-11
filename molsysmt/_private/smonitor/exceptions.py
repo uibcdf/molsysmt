@@ -13,7 +13,7 @@ class MolSysMTCatalogException(CatalogException):
             kwargs["extra"] = {}
         if "caller" not in kwargs["extra"]:
             kwargs["extra"]["caller"] = caller_name()
-        
+
         super().__init__(catalog=CATALOG, meta=META, **kwargs)
 
 
@@ -24,7 +24,7 @@ class ArgumentError(MolSysMTCatalogException):
         extra = {"argument": argument, "value": value}
         if caller:
             extra["caller"] = caller
-        
+
         super().__init__(message=message, code=code, extra=extra)
 
 
@@ -35,7 +35,7 @@ class ArgumentChoiceError(MolSysMTCatalogException):
         extra = {"argument": argument, "value": value, "choices": choices}
         if caller:
             extra["caller"] = caller
-        
+
         super().__init__(message=message, extra=extra)
 
 
@@ -46,7 +46,7 @@ class ArgumentLengthError(MolSysMTCatalogException):
         extra = {"argument": argument, "expected": expected, "actual": actual}
         if caller:
             extra["caller"] = caller
-        
+
         super().__init__(message=message, extra=extra)
 
 
@@ -57,7 +57,7 @@ class ArgumentConflictError(MolSysMTCatalogException):
         extra = {"arg1": arg1, "arg2": arg2, "reason": reason}
         if caller:
             extra["caller"] = caller
-        
+
         super().__init__(message=message, extra=extra)
 
 
@@ -68,7 +68,7 @@ class StructuralInconsistencyError(MolSysMTCatalogException):
         extra = {"reason": reason}
         if caller:
             extra["caller"] = caller
-        
+
         super().__init__(message=message, extra=extra)
 
 
@@ -79,7 +79,7 @@ class InternalAlgorithmError(MolSysMTCatalogException):
         extra = {"reason": reason}
         if caller:
             extra["caller"] = caller
-        
+
         super().__init__(message=message, extra=extra)
 
 
@@ -127,7 +127,11 @@ class NotCompatibleConversionError(MolSysMTCatalogException):
     catalog_key = "NotCompatibleConversionError"
 
     def __init__(self, from_form, to_form, missing_arguments, caller=None, message=None):
-        extra = {"from_form": from_form, "to_form": to_form, "missing_arguments": missing_arguments}
+        extra = {
+            "from_form": from_form,
+            "to_form": to_form,
+            "missing_arguments": missing_arguments,
+        }
         if caller:
             extra["caller"] = caller
         super().__init__(message=message, extra=extra)
@@ -174,33 +178,13 @@ class NotSupportedFormError(MolSysMTCatalogException):
 
 
 class NotSupportedSyntaxError(MolSysMTCatalogException):
-
-
     catalog_key = "NotSupportedSyntaxError"
 
-
-
-
-
     def __init__(self, syntax, caller=None, message=None):
-
-
         extra = {"syntax": syntax}
-
-
         if caller:
-
-
             extra["caller"] = caller
-
-
-        
-
-
         super().__init__(message=message, extra=extra)
-
-
-
 
 
 class NotWithThisFormError(MolSysMTCatalogException):
@@ -227,7 +211,7 @@ class FileContentError(MolSysMTCatalogException):
         extra = {"reason": reason}
         if caller:
             extra["caller"] = caller
-        
+
         super().__init__(message=message, extra=extra)
 
 
@@ -249,10 +233,9 @@ __all__ = [
     "NotImplementedIteratorError",
     "NotImplementedMethodError",
     "NotSupportedFormError",
-        "NotSupportedSyntaxError",
-        "NotWithThisFormError",
-        "FileAlreadyHandledError",
-        "FileContentError",
-        "NotDigestedArgumentWarning",
-    ]
-    
+    "NotSupportedSyntaxError",
+    "NotWithThisFormError",
+    "FileAlreadyHandledError",
+    "FileContentError",
+    "NotDigestedArgumentWarning",
+]
