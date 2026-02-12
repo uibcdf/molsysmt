@@ -30,6 +30,9 @@ This directory contains the files to setup the Conda environment for testing pur
 This directory contains OS agnostic helper scripts which don't fall in any of the previous categories
 * `scripts`
   * `create_conda_env.py`: Helper program for spinning up new conda environments based on a starter file with Python Version and Env. Name command-line options
+* `tleap`
+  * Temporary developer tooling to provision and verify `tleap` from `AmberClassic` for
+    internal comparisons (`engine='LEaP'` vs `engine='MolSysMT'`).
 
 
 ## How to contribute changes
@@ -61,4 +64,3 @@ is installed by looking at the `git` tags and how many commits ahead this versio
 If the version of this commit is the same as a `git` tag, the installed version is the same as the tag, 
 e.g. `projectname-0.1.2`, otherwise it will be appended with `+X` where `X` is the number of commits 
 ahead from the last tag, and then `-YYYYYY` where the `Y`'s are replaced with the `git` commit hash.
-
