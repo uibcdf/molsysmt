@@ -152,8 +152,8 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
 
         for record in item.getObj('entity_poly').data:
 
-            entity_id = record[index_att['entity_id']]
-            entity_index = entity_id_to_entity_index[entity_id]
+            entity_id_value = record[index_att['entity_id']]
+            entity_index = entity_id_to_entity_index[entity_id_value]
 
             aux_dict = {}
             aux_dict['poly_type']=record[index_att['type']]
@@ -166,8 +166,8 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
 
         for record in item.getObj('entity_poly_seq').data:
 
-            entity_id = record[index_att['entity_id']]
-            entity_index = entity_id_to_entity_index[entity_id]
+            entity_id_value = record[index_att['entity_id']]
+            entity_index = entity_id_to_entity_index[entity_id_value]
 
             aux_entity_polymer_type[entity_index]['seq'].append([record[index_att['num']], record[index_att['mon_id']]])
 
@@ -191,8 +191,8 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
 
         for record in item.getObj('pdbx_entity_nonpoly').data:
 
-            entity_id = record[index_att['entity_id']]
-            entity_index = entity_id_to_entity_index[entity_id]
+            entity_id_value = record[index_att['entity_id']]
+            entity_index = entity_id_to_entity_index[entity_id_value]
 
             aux_dict = {}
             comp_id = record[index_att['comp_id']]

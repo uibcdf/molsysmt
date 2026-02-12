@@ -343,7 +343,7 @@ def test_get_molecule_type_from_atom():
     assert len(all_molecule_type_Hk2) == 13546
     assert len(all_molecule_type_BB) == 5151
     assert all_molecule_type_Hk2[2685:2688] == ['protein', 'protein', 'protein']
-    assert all_molecule_type_Hk2[13374:13380] == ['unknown', 'unknown', 'unknown', 'polysaccharide', 'polysaccharide',
+    assert all_molecule_type_Hk2[13374:13380] == ['ion', 'ion', 'ion', 'polysaccharide', 'polysaccharide',
                                                   'polysaccharide']
     assert all_molecule_type_Hk2[0] == 'protein'
     assert all_molecule_type_Hk2[-1] == 'water'
@@ -433,7 +433,7 @@ def test_get_entity_type_from_atom():
     assert len(all_entity_type_Hk2) == 13546
     assert len(all_entity_type_BB) == 5151
     assert all_entity_type_Hk2[2685:2688] == ['protein', 'protein', 'protein']
-    assert all_entity_type_Hk2[13374:13380] == ['unknown', 'unknown', 'unknown', 'polysaccharide', 'polysaccharide',
+    assert all_entity_type_Hk2[13374:13380] == ['ion', 'ion', 'ion', 'polysaccharide', 'polysaccharide',
                                                 'polysaccharide']
     assert all_entity_type_Hk2[0] == 'protein'
     assert all_entity_type_Hk2[-1] == 'water'
@@ -522,7 +522,7 @@ def test_get_chain_type_from_atom():
     assert len(all_chain_type_Hk2) == 13546
     assert len(all_chain_type_BB) == 5151
     assert all_chain_type_Hk2[2685:2688] == ['protein', 'protein', 'protein']
-    assert all_chain_type_Hk2[13374:13380] == ['unknown', 'unknown', 'unknown', 'polysaccharide',
+    assert all_chain_type_Hk2[13374:13380] == ['ion', 'ion', 'ion', 'polysaccharide',
                                                'polysaccharide', 'polysaccharide']
     assert all_chain_type_Hk2[0] == 'protein'
     assert all_chain_type_Hk2[-1] == 'water'
@@ -1538,7 +1538,7 @@ def test_get_molecule_type_from_group():
     assert len(all_molecule_type_Hk2) == 1871
     assert len(all_molecule_type_BB) == 1101
     assert all_molecule_type_Hk2[344:347] == ['protein', 'protein', 'protein']
-    assert all_molecule_type_Hk2[1750:1755] == ['unknown', 'unknown', 'unknown', 'unknown', 'polysaccharide']
+    assert all_molecule_type_Hk2[1750:1755] == ['ion', 'ion', 'ion', 'ion', 'polysaccharide']
     assert all_molecule_type_Hk2[0] == 'protein'
     assert all_molecule_type_Hk2[-1] == 'water'
     assert all_molecule_type_BB[385:388] == ['protein', 'protein', 'protein']
@@ -1627,7 +1627,7 @@ def test_get_entity_type_from_group():
     assert len(all_entity_type_Hk2) == 1871
     assert len(all_entity_type_BB) == 1101
     assert all_entity_type_Hk2[344:347] == ['protein', 'protein', 'protein']
-    assert all_entity_type_Hk2[1750:1755] == ['unknown', 'unknown', 'unknown', 'unknown', 'polysaccharide']
+    assert all_entity_type_Hk2[1750:1755] == ['ion', 'ion', 'ion', 'ion', 'polysaccharide']
     assert all_entity_type_Hk2[0] == 'protein'
     assert all_entity_type_Hk2[-1] == 'water'
     assert all_entity_type_BB[385:388] == ['protein', 'protein', 'protein']
@@ -1803,7 +1803,7 @@ def test_get_chain_type_from_group():
     assert len(all_chain_type_Hk2) == 1871
     assert len(all_chain_type_BB) == 1101
     assert all_chain_type_Hk2[344:347] == ['protein', 'protein', 'protein']
-    assert all_chain_type_Hk2[1750:1755] == ['unknown', 'unknown', 'unknown', 'unknown', 'polysaccharide']
+    assert all_chain_type_Hk2[1750:1755] == ['ion', 'ion', 'ion', 'ion', 'polysaccharide']
     assert all_chain_type_Hk2[0] == 'protein'
     assert all_chain_type_Hk2[-1] == 'water'
     assert all_chain_type_BB[385:388] == ['protein', 'protein', 'protein']
@@ -2941,8 +2941,8 @@ def test_get_molecule_type_from_molecule():
     assert isinstance(all_molecule_type_Hk2, list)
     assert len(all_molecule_type_Hk2) == 135
     assert len(all_molecule_type_BB) == 519
-    assert all_molecule_type_Hk2[15:25] == ['unknown', 'unknown', 'unknown', 'polysaccharide', 'polysaccharide',
-                                         'polysaccharide', 'polysaccharide', 'unknown', 'unknown', 'unknown']
+    assert all_molecule_type_Hk2[15:25] == ['ion', 'ion', 'ion', 'polysaccharide', 'polysaccharide',
+                                         'polysaccharide', 'polysaccharide', 'ion', 'ion', 'ion']
     assert all_molecule_type_Hk2[105:115] ==['water', 'water', 'water', 'water', 'water', 'water', 'water', 'water',
                                           'water', 'water']
     assert all_molecule_type_Hk2[0] == 'protein'
@@ -3037,8 +3037,8 @@ def test_get_entity_type_from_molecule():
     assert isinstance(all_entity_type_Hk2, list)
     assert len(all_entity_type_Hk2) == 135
     assert len(all_entity_type_BB) == 519
-    assert all_entity_type_Hk2[15:25] == ['unknown', 'unknown', 'unknown', 'polysaccharide', 'polysaccharide',
-                                          'polysaccharide', 'polysaccharide', 'unknown', 'unknown', 'unknown']
+    assert all_entity_type_Hk2[15:25] == ['ion', 'ion', 'ion', 'polysaccharide', 'polysaccharide',
+                                          'polysaccharide', 'polysaccharide', 'ion', 'ion', 'ion']
     assert all_entity_type_Hk2[105:115] == ['water', 'water', 'water', 'water', 'water', 'water', 'water', 'water',
                                             'water', 'water']
     assert all_entity_type_Hk2[0] == 'protein'
@@ -3224,8 +3224,8 @@ def test_get_chain_type_from_molecule():
     assert isinstance(all_chain_type_Hk2, list)
     assert len(all_chain_type_Hk2) == 135
     assert len(all_chain_type_BB) == 519
-    assert all_chain_type_Hk2[15:25] == ['unknown', 'unknown', 'unknown', 'polysaccharide', 'polysaccharide',
-                                         'polysaccharide', 'polysaccharide', 'unknown', 'unknown', 'unknown']
+    assert all_chain_type_Hk2[15:25] == ['ion', 'ion', 'ion', 'polysaccharide', 'polysaccharide',
+                                         'polysaccharide', 'polysaccharide', 'ion', 'ion', 'ion']
     assert all_chain_type_Hk2[105:115] == ['water', 'water', 'water', 'water', 'water', 'water', 'water', 'water',
                                            'water', 'water']
     assert all_chain_type_Hk2[0] == 'protein'
@@ -5814,9 +5814,9 @@ def test_get_molecule_type_from_component():
     assert len(all_molecule_type_BB) == 521
     assert all_molecule_type_Hk2[:10] == 10*['protein']
     assert all_molecule_type_Hk2[10:30] == ['protein', 'protein', 'protein', 'polysaccharide', 'polysaccharide',
-                                            'polysaccharide', 'polysaccharide', 'unknown', 'unknown', 'unknown',
-                                            'unknown', 'unknown', 'unknown', 'unknown', 'unknown', 'unknown',
-                                            'unknown', 'unknown', 'unknown', 'polysaccharide']
+                                            'polysaccharide', 'polysaccharide', 'ion', 'ion', 'ion',
+                                            'ion', 'ion', 'ion', 'ion', 'ion', 'ion',
+                                            'ion', 'ion', 'ion', 'polysaccharide']
     assert all_molecule_type_Hk2[50:60] == 10*['water']
     assert all_molecule_type_BB[:10] == ['protein', 'protein', 'protein', 'protein', 'protein', 'protein', 'protein',
                                          'protein', 'water', 'water']
@@ -5901,9 +5901,9 @@ def test_get_entity_type_from_component():
     assert len(all_entity_type_BB) == 521
     assert all_entity_type_Hk2[:10] == 10*['protein']
     assert all_entity_type_Hk2[10:30] == ['protein', 'protein', 'protein', 'polysaccharide', 'polysaccharide',
-                                          'polysaccharide', 'polysaccharide', 'unknown', 'unknown', 'unknown',
-                                          'unknown', 'unknown', 'unknown', 'unknown', 'unknown', 'unknown',
-                                          'unknown', 'unknown', 'unknown', 'polysaccharide']
+                                          'polysaccharide', 'polysaccharide', 'ion', 'ion', 'ion',
+                                          'ion', 'ion', 'ion', 'ion', 'ion', 'ion',
+                                          'ion', 'ion', 'ion', 'polysaccharide']
     assert all_entity_type_Hk2[50:60] == 10*['water']
     assert all_entity_type_BB[:10] == ['protein', 'protein', 'protein', 'protein', 'protein', 'protein', 'protein',
                                          'protein', 'water', 'water']
@@ -5983,9 +5983,9 @@ def test_get_chain_type_from_component():
     assert len(all_chain_type_BB) == 521
     assert all_chain_type_Hk2[:10] == 10*['protein']
     assert all_chain_type_Hk2[10:30] == ['protein', 'protein', 'protein', 'polysaccharide', 'polysaccharide',
-                                         'polysaccharide', 'polysaccharide', 'unknown', 'unknown', 'unknown',
-                                         'unknown', 'unknown', 'unknown', 'unknown', 'unknown', 'unknown', 'unknown',
-                                         'unknown', 'unknown', 'polysaccharide']
+                                         'polysaccharide', 'polysaccharide', 'ion', 'ion', 'ion',
+                                         'ion', 'ion', 'ion', 'ion', 'ion', 'ion', 'ion',
+                                         'ion', 'ion', 'polysaccharide']
     assert all_chain_type_Hk2[50:60] == 10*['water']
     assert all_chain_type_BB[:10] == ['protein', 'protein', 'protein', 'protein', 'protein', 'protein', 'protein',
                                       'protein', 'water', 'water']
@@ -7109,9 +7109,9 @@ def test_get_molecule_type_from_chain():
     assert len(all_molecule_type_BB) == 12
     assert all_molecule_type_Hk2[0] == ['protein']
     assert all_molecule_type_Hk2[2:6] == [['polysaccharide'], ['polysaccharide'], ['polysaccharide'], ['polysaccharide']]
-    assert all_molecule_type_Hk2[10] == ['unknown']
+    assert all_molecule_type_Hk2[10] == ['ion']
     assert all_molecule_type_Hk2[20] == ['polysaccharide']
-    assert all_molecule_type_Hk2[30] == ['unknown']
+    assert all_molecule_type_Hk2[30] == ['ion']
     assert all_molecule_type_Hk2[38] == 49*['water']
     assert all_molecule_type_Hk2[39] == 48*['water']
     assert all_molecule_type_BB[0:6] == [['protein'], ['protein'], ['protein'], ['protein'], ['protein'], ['protein']]
@@ -7207,9 +7207,9 @@ def test_get_entity_type_from_chain():
     assert len(all_entity_type_BB) == 12
     assert all_entity_type_Hk2[0] == ['protein']
     assert all_entity_type_Hk2[2:6] == [['polysaccharide'], ['polysaccharide'], ['polysaccharide'], ['polysaccharide']]
-    assert all_entity_type_Hk2[10] == ['unknown']
+    assert all_entity_type_Hk2[10] == ['ion']
     assert all_entity_type_Hk2[20] == ['polysaccharide']
-    assert all_entity_type_Hk2[30] == ['unknown']
+    assert all_entity_type_Hk2[30] == ['ion']
     assert all_entity_type_Hk2[38] == ['water']
     assert all_entity_type_Hk2[39] == ['water']
     assert all_entity_type_BB[0:6] == [['protein'], ['protein'], ['protein'], ['protein'], ['protein'], ['protein']]
@@ -7386,9 +7386,9 @@ def test_get_chain_type_from_chain():
     assert len(all_chain_type_BB) == 12
     assert all_chain_type_Hk2[0:6] == ['protein', 'protein', 'polysaccharide', 'polysaccharide',
                                        'polysaccharide', 'polysaccharide']
-    assert all_chain_type_Hk2[10] == 'unknown' 
+    assert all_chain_type_Hk2[10] == 'ion' 
     assert all_chain_type_Hk2[20] == 'polysaccharide'
-    assert all_chain_type_Hk2[30] == 'unknown'
+    assert all_chain_type_Hk2[30] == 'ion'
     assert all_chain_type_Hk2[38:40] == ['water', 'water']
     assert all_chain_type_BB[0:6] == 6*['protein']
     assert all_chain_type_BB[-1] == 'water'
