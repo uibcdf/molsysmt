@@ -6,6 +6,7 @@ Unit and regression test for the compare module of the molsysmt package.
 import molsysmt as msm
 from molsysmt import systems
 import numpy as np
+import warnings
 
 def test_compare_all_eq_1(t4_h5msm_molsys):
     molsys_A = t4_h5msm_molsys
@@ -18,6 +19,20 @@ def test_compare_all_eq_2(t4_h5msm_molsys, hp35_molsys):
     molsys_B = hp35_molsys
     output = msm.compare(molsys_A, molsys_B, attributes_type='topological', coordinates=True, box=True)
     assert output == False
+
+def test_compare_attributes_type_alias_no_digest_warning(t4_h5msm_molsys):
+    with warnings.catch_warnings(record=True) as caught:
+        warnings.simplefilter("always")
+        output = msm.compare(
+            t4_h5msm_molsys,
+            t4_h5msm_molsys,
+            attributes_type='topological',
+            coordinates=True,
+            box=True,
+        )
+
+    assert output is True
+    assert all("No digester for attributes_type" not in str(w.message) for w in caught)
 
 def test_compare_all_eq_3():
     molsys_A = msm.convert(systems['T4 lysozyme L99A']['181l.h5msm'], to_form='openmm.Modeller')
@@ -91,5 +106,4 @@ def test_compare_all_eq_4():
     assert True == msm.compare(molsys_A, molsys_B, coordinates=True, box=True, n_groups=True)
     assert False == msm.compare(molsys_B, molsys_C, coordinates=True, box=True, n_groups=True)
     assert True == msm.compare(molsys_B, molsys_C, coordinates=False, box=True, n_groups=False)
-
 
