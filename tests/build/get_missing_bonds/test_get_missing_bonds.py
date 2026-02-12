@@ -11,6 +11,7 @@ import sys
 
 @pytest.mark.skipif(sys.platform != "linux", reason="This test can only be run in linux")
 def test_get_missing_bonds_molsysmt_MolSys_1():
+    pytest.importorskip("pytraj")
 
     molsys = msm.convert(msm.systems['nglview']['md_1u19.pdb'], to_form='molsysmt.MolSys')
     msm.build.remove_bonds(molsys)
@@ -24,4 +25,3 @@ def test_get_missing_bonds_molsysmt_MolSys_1():
     assert len(bonds2)==5632
     assert len(bonds1_not_in_bonds2)==0
     assert len(bonds2_not_in_bonds1)==0
-

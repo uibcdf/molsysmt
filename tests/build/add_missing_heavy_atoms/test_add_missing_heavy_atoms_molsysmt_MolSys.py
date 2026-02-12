@@ -7,6 +7,10 @@ systems.
 import molsysmt as msm
 from molsysmt import systems
 import numpy as np
+import shutil
+import pytest
+
+pytestmark = pytest.mark.skipif(shutil.which("tleap") is None, reason="tleap is not available in PATH")
 
 # Distance between atoms in space and time
 
@@ -20,4 +24,3 @@ def test_add_hydrogens_molsysmt_MolSys_1():
 
     assert missing_heavy_atoms == {1: ['NE2', 'CD2'], 2: ['OG1']}
     assert n_atoms == 3
-
