@@ -95,17 +95,17 @@ def solve_atoms_with_alternate_location(molecular_system, selection='all',
                 'coordinates':aux_coordinates}
             if system_with_b_factors:
                 atts_to_set['b_factor']=aux_b_factor
-            set(molecular_system, selection='atom_index in @mask', structure_indices=structure_indices,
+            set(molecular_system, selection=mask, structure_indices=structure_indices,
                 **atts_to_set)
         else:
-            for ii in structure_indices:
+            for ii, structure_index in enumerate(structure_indices):
                 mask=aux_atom_indices[ii]
                 atts_to_set = {
                     'atom_id':aux_atom_id[ii],
                     'coordinates':aux_coordinates[ii]}
                 if system_with_b_factors:
                     atts_to_set['b_factor']=aux_b_factor[ii]
-                set(molecular_system, selection='atom_index in @mask', structure_indices=structure_indices[ii],
+                set(molecular_system, selection=mask, structure_indices=structure_index,
                     **atts_to_set)
 
     pass

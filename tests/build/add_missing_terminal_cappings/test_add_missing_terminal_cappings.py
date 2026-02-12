@@ -7,6 +7,10 @@ import molsysmt as msm
 from molsysmt import systems
 import numpy as np
 import os
+import shutil
+import pytest
+
+pytestmark = pytest.mark.skipif(shutil.which("tleap") is None, reason="tleap is not available in PATH")
 
 # Distance between atoms in space and time
 
@@ -37,4 +41,3 @@ def test_add_missing_terminal_cappings_molsysmt_MolSys_2():
     check_after = (n_atoms_after==52 and np.all(np.array(['ACE', 'ALA', 'VAL', 'PRO', 'NME'], dtype=object)==groups_after))
     #check_charges = np.allclose([0.0, 0.0, 0.0, 0.0, 0.0], msm.pyunitwizard.get_value(charge_groups))
     assert check_before and check_after
-

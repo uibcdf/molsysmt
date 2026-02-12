@@ -8,6 +8,9 @@ import pytest
 import molsysmt as msm
 import numpy as np
 import sys
+import shutil
+
+pytestmark = pytest.mark.skipif(shutil.which("tleap") is None, reason="tleap is not available in PATH")
 
 def test_remove_overlapping_molecules_MolSys_1():
 
@@ -39,4 +42,3 @@ def test_remove_overlapping_molecules_MolSys_1():
     assert n_waters_before == 899
     assert n_waters_after == 881
     assert np.any(contact_map) == False
-

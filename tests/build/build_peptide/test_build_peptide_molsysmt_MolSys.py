@@ -6,6 +6,10 @@ Unit and regression test for the build peptide of the molsysmt package.
 import molsysmt as msm
 import numpy as np
 import os
+import shutil
+import pytest
+
+pytestmark = pytest.mark.skipif(shutil.which("tleap") is None, reason="tleap is not available in PATH")
 
 # Distance between atoms in space and time
 
@@ -27,4 +31,3 @@ def test_build_peptide_molsysmt_MolSys_1():
 #    check_1 = (seq.lower()==seq_2.lower())
 #    check_2 = is_solvated
 #    assert check_1 and check_2
-
