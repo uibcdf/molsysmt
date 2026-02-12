@@ -18,19 +18,26 @@ def test_principal_component_analysis_from_molsysmt_MolSys_1():
 
     pcs, sigmas = msm.structure.principal_component_analysis(molecular_system, selection='atom_name=="CA"')
 
-    good_pc0 = np.array([-0.31318154, -0.27878168, -0.23782996, -0.19504104, -0.14894687,
-                         -0.31654838, -0.35124151, -0.37907152, -0.40324586, -0.42133246,
-                         -0.00120831, -0.0019539 , -0.00200411, -0.00092844,  0.00131092])
+    # Canonical PCA reference implementation with full covariance.
+    coordinates = msm.get(
+        molecular_system,
+        element='atom',
+        selection='atom_name=="CA"',
+        coordinates=True,
+    )
+    coordinates = puw.get_value(coordinates)
+    n_structures, n_atoms = coordinates.shape[0:2]
 
-    good_sigmas = np.array([-7.61673223e+00, -2.40353497e+00, -7.07258185e-01, -5.66336274e-01,
-                            -4.55056633e-01, -7.10380242e-03, -3.47446577e-03,  1.28211399e-03,
-                             1.99369789e-03,  4.33715991e-03,  3.91734124e-02,  4.61545377e-01,
-                             4.96569155e-01,  8.32111142e-01,  9.15973936e-01]) 
+    flat = coordinates.transpose(0, 2, 1).reshape(n_structures, 3 * n_atoms)
+    centered = flat - flat.mean(axis=0, keepdims=True)
+    cov = centered.T @ centered / n_structures
 
-    for ii in range(3):
-        if np.dot(pcs[0,:], good_pc0[:])<0.0:
-            good_pc0[:] = -good_pc0[:]
+    ref_sigmas, ref_evecs = np.linalg.eigh(cov)
+    ref_pcs = ref_evecs.T
 
+    assert np.allclose(sigmas, ref_sigmas), f"Test failed with {sigmas} and {ref_sigmas}"
 
-    assert np.allclose(pcs[0], good_pc0), f"Test failed with {pcs[0]} and {good_pc0}"
-    assert np.allclose(sigmas, good_sigmas), f"Test failed with {sigmas} and {good_sigmas}"
+    # Eigenvectors are defined up to a sign; compare by absolute value.
+    assert np.allclose(np.abs(pcs[0]), np.abs(ref_pcs[0])), (
+        f"Test failed with {pcs[0]} and {ref_pcs[0]}"
+    )
