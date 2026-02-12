@@ -3,7 +3,7 @@ from depdigest import is_installed, dep_digest, DepConfig, register_package_conf
 from molsysmt.form import _dict_modules
 import molsysmt.config as config
 from unittest.mock import patch
-from molsysmt._private.exceptions import LibraryNotFoundError
+from molsysmt._private.smonitor import LibraryNotFoundError
 
 def test_dependencies_architecture():
     """
