@@ -40,6 +40,12 @@ def argument_names_standardization(caller, kwargs):
         if 'mutation' in kwargs:
             kwargs = _replace_key_in_dict(kwargs, 'mutation', 'mutations')
 
+    elif caller=='molsysmt.basic.compare.compare':
+
+        # Backward-compatible alias kept in tests and user scripts.
+        if 'attributes_type' in kwargs:
+            kwargs = _replace_key_in_dict(kwargs, 'attributes_type', 'attribute_type')
+
     #if 'structure_index' in kwargs:
     #        kwargs = _replace_key_in_dict(kwargs, 'structure_index', 'structure_indices')
 
@@ -57,4 +63,3 @@ def _replace_key_in_dict(dictionary, old_key, new_key):
             output[key]=dictionary[key]
 
     return output
-
