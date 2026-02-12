@@ -7,6 +7,8 @@ import molsysmt as msm
 from molsysmt import systems
 import numpy as np
 import warnings
+import pytest
+from molsysmt._private.smonitor import NotImplementedMethodError
 
 def test_compare_all_eq_1(t4_h5msm_molsys):
     molsys_A = t4_h5msm_molsys
@@ -33,6 +35,10 @@ def test_compare_attributes_type_alias_no_digest_warning(t4_h5msm_molsys):
 
     assert output is True
     assert all("No digester for attributes_type" not in str(w.message) for w in caught)
+
+def test_compare_rule_in_not_implemented(t4_h5msm_molsys):
+    with pytest.raises(NotImplementedMethodError):
+        msm.compare(t4_h5msm_molsys, t4_h5msm_molsys, rule='in')
 
 def test_compare_all_eq_3():
     molsys_A = msm.convert(systems['T4 lysozyme L99A']['181l.h5msm'], to_form='openmm.Modeller')
@@ -106,4 +112,3 @@ def test_compare_all_eq_4():
     assert True == msm.compare(molsys_A, molsys_B, coordinates=True, box=True, n_groups=True)
     assert False == msm.compare(molsys_B, molsys_C, coordinates=True, box=True, n_groups=True)
     assert True == msm.compare(molsys_B, molsys_C, coordinates=False, box=True, n_groups=False)
-

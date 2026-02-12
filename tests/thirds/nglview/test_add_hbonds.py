@@ -21,12 +21,13 @@ def test_add_hbonds_1():
     coordinates = puw.get_value(coordinates[0], to_unit='angstroms')
 
     view = msm.view(molsys, viewer='NGLView')
+    start_index = len(view._ngl_msg_archive)
     msm.thirds.nglview.add_hbonds(view, hbonds)
 
     n_hbonds = len(hbonds)
     check_all_hbonds = False
     for ii in range(n_hbonds):
-        aux = view._ngl_msg_archive[ii+7]
+        aux = view._ngl_msg_archive[start_index+ii]
         check_1 = (aux['target']=='Widget')
         check_2 = (aux['args'][0]=='cylinder')
         check_3 = (aux['kwargs']['radius'][0]==0.1)
@@ -56,6 +57,7 @@ def test_add_hbonds_2():
     CA_atoms = msm.select(molsys, selection='atom_name=="CA"')
 
     view = msm.view(molsys, viewer='NGLView')
+    start_index = len(view._ngl_msg_archive)
     msm.thirds.nglview.add_hbonds(view, hbonds, hbond_level='group')
 
     n_hbonds = len(hbonds)
@@ -63,7 +65,7 @@ def test_add_hbonds_2():
     for ii in range(n_hbonds):
         CA1 = CA_atoms[group_indices[hbonds[ii,1]]]
         CA2 = CA_atoms[group_indices[hbonds[ii,2]]]
-        aux = view._ngl_msg_archive[ii+7]
+        aux = view._ngl_msg_archive[start_index+ii]
         check_1 = (aux['target']=='Widget')
         check_2 = (aux['args'][0]=='cylinder')
         check_3 = (aux['kwargs']['radius'][0]==0.1)
@@ -76,4 +78,3 @@ def test_add_hbonds_2():
             break
 
     assert check_all_hbonds==True
-

@@ -17,12 +17,13 @@ def test_add_contacts_1():
     contacts = contacts[0]
     coordinates = puw.get_value(coordinates[0], to_unit='angstroms')
     view = msm.view(molsys, viewer='NGLView')
+    start_index = len(view._ngl_msg_archive)
     msm.thirds.nglview.add_contacts(view, atom_pairs=contacts, radius='0.1 angstroms')
 
     n_contacts = len(contacts[0])
     check_all_contacts = False
     for ii in range(n_contacts):
-        aux = view._ngl_msg_archive[ii+7]
+        aux = view._ngl_msg_archive[start_index+ii]
         check_1 = (aux['target']=='Widget')
         check_2 = (aux['args'][0]=='cylinder')
         check_3 = (aux['kwargs']['radius'][0]==0.1)
@@ -45,12 +46,13 @@ def test_add_contacts_2():
     contacts = contacts[0]
     coordinates = puw.get_value(coordinates[0], to_unit='angstroms')
     view = msm.view(molsys, viewer='NGLView')
+    start_index = len(view._ngl_msg_archive)
     msm.thirds.nglview.add_contacts(view, selection='atom_name=="CA"', threshold='9 angstroms', radius='0.1 angstroms')
 
     n_contacts = len(contacts[0])
     check_all_contacts = False
     for ii in range(n_contacts):
-        aux = view._ngl_msg_archive[ii+7]
+        aux = view._ngl_msg_archive[start_index+ii]
         check_1 = (aux['target']=='Widget')
         check_2 = (aux['args'][0]=='cylinder')
         check_3 = (aux['kwargs']['radius'][0]==0.1)
