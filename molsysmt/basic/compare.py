@@ -43,7 +43,8 @@ def compare(molecular_system, molecular_system_2, selection='all', structure_ind
     rule : {'equal', 'in'}, default 'equal'
         Comparison rule:
         * ``'equal'`` — checks that values are numerically or exactly identical (see Notes).
-        * ``'in'`` — checks that values from the first system are contained in the second
+        * ``'in'`` — planned rule. It is currently not implemented and raises
+          `NotImplementedMethodError`.
     output_type : {'boolean', 'dictionary'}, default 'boolean'
         Output format:
         * ``'boolean'`` — a single `True`/`False` indicating overall success.
@@ -51,6 +52,7 @@ def compare(molecular_system, molecular_system_2, selection='all', structure_ind
     attribute_type : {'topological', 'structural', 'mechanical', 'all', None}, default None
         Attribute subset to compare. If `None`, attributes specified in `**kwargs` are used
         (if any). Otherwise, a default list for the given subset is applied.
+        This is the canonical argument name.
     include_none : bool, default False
         Whether to include attributes with `None` values when inferring comparable attributes.
     skip_digestion : bool, default False
@@ -86,6 +88,8 @@ def compare(molecular_system, molecular_system_2, selection='all', structure_ind
     -----
     - Supported forms are summarized in :ref:`Introduction_Forms`.
     - Selection syntaxes are described in :ref:`Introduction_Selection`.
+    - Backward compatibility: the alias `attributes_type` is accepted and normalized
+      internally to `attribute_type`.
 
     See Also
     --------
@@ -495,7 +499,10 @@ def compare(molecular_system, molecular_system_2, selection='all', structure_ind
 
     elif rule == 'in':
 
-        raise NotImplementedMethodError()
+        raise NotImplementedMethodError(
+            caller='molsysmt.basic.compare.compare',
+            message="rule='in' is not implemented yet. Use rule='equal'.",
+        )
 
 
     for att_false in atts_false:
@@ -512,4 +519,3 @@ def compare(molecular_system, molecular_system_2, selection='all', structure_ind
     elif output_type=='dictionary':
 
         return {ii:output_dict[ii] for ii in attributes if ii in output_dict}
-
