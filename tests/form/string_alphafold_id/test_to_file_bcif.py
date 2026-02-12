@@ -41,6 +41,7 @@ def test_to_file_bcif_uses_bcif_url_and_default_filename(monkeypatch, tmp_path):
     monkeypatch.setattr("urllib.request.urlopen", fake_urlopen)
     monkeypatch.setattr("urllib.request.urlretrieve", fake_urlretrieve)
     monkeypatch.setattr(importlib.import_module("molsysmt.form.file_bcif"), "extract", fake_extract)
+    monkeypatch.chdir(tmp_path)
 
     output = module_under_test.to_file_bcif("AF-P52789-F1", skip_digestion=True)
     assert output.endswith("AF-P52789-F1-model_v4.bcif")
