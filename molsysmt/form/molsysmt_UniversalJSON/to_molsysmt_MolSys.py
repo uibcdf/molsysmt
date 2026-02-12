@@ -62,7 +62,7 @@ def _group_indices_from_ids(ids):
     ids_clean = [ii for ii in ids if ii is not None]
     if not ids_clean:
         return [0] * len(ids), [None]
-    unique_ids = list(pd.unique(ids_clean))
+    unique_ids = list(pd.unique(np.asarray(ids_clean, dtype=object)))
     mapping = {gid: idx for idx, gid in enumerate(unique_ids)}
     return [mapping.get(ii, 0) for ii in ids], unique_ids
 
@@ -71,7 +71,7 @@ def _chain_indices_from_ids(ids):
     ids_clean = [ii for ii in ids if ii is not None]
     if not ids_clean:
         return [0] * len(ids), [None]
-    unique_ids = list(pd.unique(ids_clean))
+    unique_ids = list(pd.unique(np.asarray(ids_clean, dtype=object)))
     mapping = {cid: idx for idx, cid in enumerate(unique_ids)}
     return [mapping.get(ii, 0) for ii in ids], unique_ids
 
