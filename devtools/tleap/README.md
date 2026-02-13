@@ -46,6 +46,52 @@ This verifies:
 - `tleap` is found in `PATH`
 - a minimal `tleap -f leap.in` run succeeds
 
+Temporary override (current shell only):
+
+```bash
+TLEAP_BIN=/absolute/path/to/tleap bash devtools/tleap/check_tleap.sh
+```
+
+## Compare `build_peptide` engines
+
+Run a quick comparison between `engine='LEaP'` and `engine='MolSysMT'`:
+
+```bash
+source ../AmberClassic/AmberClassic.sh
+python devtools/tleap/compare_build_peptide.py
+```
+
+Temporary overrides for a local binary (this run only):
+
+```bash
+python devtools/tleap/compare_build_peptide.py \
+  --tleap-bin /absolute/path/to/tleap
+```
+
+or
+
+```bash
+python devtools/tleap/compare_build_peptide.py \
+  --amberclassic-dir /absolute/path/to/AmberClassic
+```
+
+Optional:
+
+```bash
+python devtools/tleap/compare_build_peptide.py \
+  --sequence ACEALAALANME \
+  --sequence ACEHISNME \
+  --output-json /tmp/build_peptide_comparison.json
+```
+
+Run the curated benchmark set:
+
+```bash
+python devtools/tleap/compare_build_peptide.py \
+  --sequences-json devtools/tleap/build_peptide_benchmark_sequences.json \
+  --output-json /tmp/build_peptide_benchmark.json
+```
+
 ## Notes
 
 - If `gh` is not available, use:

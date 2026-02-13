@@ -54,8 +54,7 @@ def digest_chain_name(chain_name, caller=None):
     elif isinstance(chain_name, tuple):
         return list(chain_name)
 
-    if isinstance(chain_name, np.ndarray):
+    if isinstance(chain_name, ndarray):
         return chain_name.tolist()
 
     raise ArgumentError('chain_name', value=chain_name, caller=caller, message=None)
-
