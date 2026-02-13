@@ -29,7 +29,7 @@ def _sanitize_tleap_unit_name(func):
         except KeyError:
             # Tuples are immutable so we need to use concatenation.
             args = args[:1] + (TLeap._sanitize_unit_name(args[1]), ) + args[2:]
-        func(*args, **kwargs)
+        return func(*args, **kwargs)
     return _wrapper
 
 
@@ -91,7 +91,7 @@ class TLeap:
             # Check whether this is a user file or a tleap file, and
             # update list of input files to copy in temporary folder before run
             if os.path.isfile(par_file):
-                local_name = par_file
+                local_name = os.path.basename(par_file)
                 self._input_file_paths[local_name] = par_file
             else:  # tleap file
                 local_name = par_file
@@ -313,7 +313,7 @@ class TLeap:
             # Update list of output files with the one not explicit
             if extension == '.inpcrd':
                 extension2 = '.prmtop'
-                local_name2 = filename+extension2
+                local_name2 = file_name+extension2
                 command = command.format(local_name2, local_name)
             else:
                 extension2 = '.inpcrd'
@@ -356,72 +356,96 @@ class TLeap:
 
         current_directory = os.getcwd()
         tmp_working_directory = False
+        created_output_files = []
 
         if working_directory is None:
             tmp_working_directory = True
             working_directory = tempfile.mkdtemp()
-            # Copy input files
-            for local_file, file_path in self._input_file_paths.items():
-                shutil.copy(file_path, local_file)
+        else:
+            os.makedirs(working_directory, exist_ok=True)
 
-        os.chdir(working_directory)
+        # Copy input files into the execution directory.
+        for local_file, file_path in self._input_file_paths.items():
+            destination = os.path.join(working_directory, local_file)
+            if os.path.abspath(file_path) != os.path.abspath(destination):
+                shutil.copy(file_path, destination)
 
-        # Save script and run tleap
-        self.export_script('leap.in')
-        leap_output = subprocess.check_output(['tleap', '-f', 'leap.in']).decode()
-
-        if verbose:
-            print(leap_output)
-
-        # Save leap.log in directory of first output file
+        leap_output = ''
         log_path = ''
-        if len(self._output_file_paths) > 0:
-            # Get first output path in Py 3.X way that is also thread-safe
-            for val in self._output_file_paths.values():
-                first_output_path = val
-                break
-            first_output_name = os.path.basename(first_output_path).split('.')[0]
-            first_output_dir = os.path.dirname(first_output_path)
-            log_path = os.path.join(first_output_dir, first_output_name + '.leap.log')
-            shutil.copy('leap.log', log_path)
+        try:
+            os.chdir(working_directory)
 
-        # Copy back output files. If something goes wrong, some files may not exist
-        known_error_msg = []
-        if tmp_working_directory:
-            try:
-                for local_file, file_path in self._output_file_paths.items():
-                    shutil.copy(local_file, file_path)
-            except IOError:
-                known_error_msg.append("Could not create one of the system files.")
+            # Save script and run tleap.
+            self.export_script('leap.in')
+            process = subprocess.run(
+                ['tleap', '-f', 'leap.in'],
+                stdout=subprocess.PIPE,
+                stderr=subprocess.STDOUT,
+                text=True,
+                check=False,
+            )
+            leap_output = process.stdout or ''
 
-        # Look for errors in log that don't raise CalledProcessError
-        error_patterns = ['Argument #\\d+ is type \\S+ must be of type: \\S+']
-        for pattern in error_patterns:
-            m = re.search(pattern, leap_output)
+            if verbose:
+                print(leap_output)
+
+            # Copy back output files if generated.
+            for local_file, file_path in self._output_file_paths.items():
+                local_path = os.path.join(working_directory, local_file)
+                if os.path.exists(local_path):
+                    if os.path.abspath(local_path) != os.path.abspath(file_path):
+                        shutil.copy(local_path, file_path)
+                    created_output_files.append(file_path)
+
+            # Save leap.log in directory of first output file.
+            if len(self._output_file_paths) > 0 and os.path.exists(os.path.join(working_directory, 'leap.log')):
+                for val in self._output_file_paths.values():
+                    first_output_path = val
+                    break
+                first_output_name = os.path.basename(first_output_path).split('.')[0]
+                first_output_dir = os.path.dirname(first_output_path)
+                log_path = os.path.join(first_output_dir, first_output_name + '.leap.log')
+                shutil.copy(os.path.join(working_directory, 'leap.log'), log_path)
+
+            # Analyze execution and output for known issues.
+            known_error_msg = []
+
+            if process.returncode != 0:
+                known_error_msg.append(f"tleap exited with code {process.returncode}.")
+
+            missing_outputs = []
+            for local_file, file_path in self._output_file_paths.items():
+                if not os.path.exists(os.path.join(working_directory, local_file)):
+                    missing_outputs.append(file_path)
+            if missing_outputs:
+                known_error_msg.append(
+                    "Could not create one or more expected output files: " + ", ".join(missing_outputs)
+                )
+
+            error_patterns = ['Argument #\\d+ is type \\S+ must be of type: \\S+']
+            for pattern in error_patterns:
+                m = re.search(pattern, leap_output)
+                if m is not None:
+                    known_error_msg.append(m.group(0))
+                    break
+
+            m = re.search("Could not find bond parameter for: EP - \\w+W", leap_output)
             if m is not None:
-                known_error_msg.append(m.group(0))
-                break
+                known_error_msg.append('It looks like the water used has virtual sites, but '
+                                       'missing parameters.\nMake sure your leap parameters '
+                                       'use the correct water model as specified by '
+                                       'solvent_model.')
 
-        # Analyze log file for water mismatch
-        m = re.search("Could not find bond parameter for: EP - \\w+W", leap_output)
-        if m is not None:
-            # Found mismatch water and missing parameters
-            known_error_msg.append('It looks like the water used has virtual sites, but '
-                                   'missing parameters.\nMake sure your leap parameters '
-                                   'use the correct water model as specified by '
-                                   'solvent_model.')
+            if len(known_error_msg) > 0:
+                final_error = ('Some things went wrong with LEaP\nWe caught a few but their may be more.\n'
+                               'Please see the log file for LEaP for more info:\n{}\n============\n{}')
+                raise RuntimeError(final_error.format(log_path, '\n---------\n'.join(known_error_msg)))
 
-        if len(known_error_msg) > 0:
-            final_error = ('Some things went wrong with LEaP\nWe caught a few but their may be more.\n'
-                           'Please see the log file for LEaP for more info:\n{}\n============\n{}')
-            raise RuntimeError(final_error.format(log_path, '\n---------\n'.join(known_error_msg)))
-
-        os.chdir(current_directory)
-        if tmp_working_directory:
-            shutil.rmtree(working_directory)
-
-        # Check for and return warnings
-        return re.findall('WARNING: (.+)', leap_output)
+            return re.findall('WARNING: (.+)', leap_output)
+        finally:
+            os.chdir(current_directory)
+            if tmp_working_directory:
+                shutil.rmtree(working_directory, ignore_errors=True)
 
     @staticmethod
     def _sanitize_unit_name(unit_name):
@@ -434,4 +458,3 @@ class TLeap:
         if unit_name[0].isdigit():
             unit_name = 'M' + unit_name
         return unit_name
-
