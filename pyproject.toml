@@ -21,12 +21,13 @@ classifiers = [
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
     "Operating System :: OS Independent",
     "Intended Audience :: Science/Research",
     "Topic :: Scientific/Engineering :: Chemistry",
     "Topic :: Scientific/Engineering :: Bio-Informatics",
 ]
-requires-python = ">=3.10.0,<3.13.0"
+requires-python = ">=3.10.0,<3.14.0"
 # Declare any run-time dependencies that should be installed with the package.
 dependencies = [
     "h5py",
@@ -34,14 +35,13 @@ dependencies = [
     "numba",
     "pyunitwizard",
     "pandas",
-    "jinja2",
     "molsysviewer",
     "networkx",
     "tqdm",
-    "ipywidgets",
-    "bcifreader",
     "matplotlib",
     "argdigest",
+    "depdigest",
+    "smonitor",
 ]
 keywords = ["molecular-dynamics", "structural-biology", "chemistry", "trajectory", "conversion"]
 
