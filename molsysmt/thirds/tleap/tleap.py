@@ -1,460 +1,325 @@
-#######################################################################################
-### This code was developed by Andrea Rizzi  and John Chodera for the Yank project at
-### John Chodera's lab. See: Yank/utils.py at https://github.com/choderalab/yank
-###
-### This file is an adaptation to molsysmt, including some other functionalities
-### and slight modifications to the original algorithms
-###
-### All credit should be given to Andrea Rizzi, John Chodera and the developers
-### of Yank (https://github.com/choderalab/yank)
-#######################################################################################
-
-import os
 import functools
-import tempfile
+import os
+import re
 import shutil
 import subprocess
-import re
+import tempfile
+
 from molsysmt import pyunitwizard as puw
 
-def _sanitize_tleap_unit_name(func):
-    """Decorator version of TLeap._sanitize_unit_name.
-    This takes as unit name a keyword argument called "unit_name" or the
-    second sequential argument (skipping self).
-    """
-    @functools.wraps(func)
+
+def _sanitize_tleap_unit_name(function):
+    """Normalizing LEaP unit names before dispatching method calls."""
+
+    @functools.wraps(function)
     def _wrapper(*args, **kwargs):
         try:
-            kwargs['unit_name'] = TLeap._sanitize_unit_name(kwargs['unit_name'])
+            kwargs["unit_name"] = TLeap._sanitize_unit_name(kwargs["unit_name"])
         except KeyError:
-            # Tuples are immutable so we need to use concatenation.
-            args = args[:1] + (TLeap._sanitize_unit_name(args[1]), ) + args[2:]
-        return func(*args, **kwargs)
+            args = args[:1] + (TLeap._sanitize_unit_name(args[1]),) + args[2:]
+        return function(*args, **kwargs)
+
     return _wrapper
 
 
 class TLeap:
-    """
-    Programmatic interface to write and run AmberTools' ``tLEaP`` scripts.
-    To avoid problems with special characters in file paths, the class run the
-    tleap script in a temporary folder with hardcoded names for files and then
-    copy the output files in their respective folders.
-    Attributes
-    ----------
-    script
-    """
+    """Building and executing tLEaP scripts in an isolated working directory."""
 
     @property
     def script(self):
-        """
-        Complete and return the finalized script string
-        Adds a ``quit`` command to the end of the script.
-        """
-        return self._script + '\nquit\n'
+        """Returning the current script with a trailing ``quit`` command."""
+
+        return self._script + "\nquit\n"
 
     def __init__(self):
-        self._script = ''
-        self._input_file_paths = {}  # paths of input files to copy in temp dir
-        self._output_file_paths = {}  # paths of output files to copy from temp dir
-        self._loaded_parameters = set()  # parameter files already loaded
+        self._script = ""
+        self._input_file_paths = {}
+        self._output_file_paths = {}
+        self._loaded_parameters = set()
+        self._tleap_executable = os.environ.get("TLEAP_BIN", "tleap")
 
-    def add_commands(self, *args):
-        """
-        Append commands to the script
-        Parameters
-        ----------
-        args : iterable of strings
-            Individual commands to add to the script written in full as strings.
-            Newline characters are added after each command
-        """
-        for command in args:
-            self._script += command + '\n'
+    def add_commands(self, *commands):
+        """Appending one or more raw LEaP commands to the script."""
 
-    def load_parameters(self, *args):
-        """
-        Load the LEaP parameters into the working TLEaP script if not already loaded
-        This adds to the script
-        Uses ``loadAmberParams`` for ``frcmod.*`` files
-        Uses ``loadOff`` for ``*.off`` and ``*.lib`` files
-        Uses ``source`` for other files.
-        Parameters
-        ----------
-        args : iterable of strings
-            File names for each type of leap file that can be loaded.
-            Method to load them is automatically determined from file extension or base name
-        """
-        for par_file in args:
-            # Check that this is not already loaded
-            if par_file in self._loaded_parameters:
+        for command in commands:
+            self._script += command + "\n"
+
+    def load_parameters(self, *parameter_files):
+        """Loading LEaP parameter/command files once per instance."""
+
+        for parameter_file in parameter_files:
+            if parameter_file in self._loaded_parameters:
                 continue
 
-            # Check whether this is a user file or a tleap file, and
-            # update list of input files to copy in temporary folder before run
-            if os.path.isfile(par_file):
-                local_name = os.path.basename(par_file)
-                self._input_file_paths[local_name] = par_file
-            else:  # tleap file
-                local_name = par_file
-
-            # use loadAmberParams if this is a frcmod file and source otherwise
-            base_name = os.path.basename(par_file)
-            extension = os.path.splitext(base_name)[1]
-            if 'frcmod' in base_name or extension == '.dat':
-                self.add_commands('loadAmberParams ' + local_name)
-            elif extension == '.off' or extension == '.lib':
-                self.add_commands('loadOff ' + local_name)
+            if os.path.isfile(parameter_file):
+                local_name = os.path.basename(parameter_file)
+                self._input_file_paths[local_name] = parameter_file
             else:
-                self.add_commands('source ' + local_name)
+                local_name = parameter_file
 
-            # Update loaded parameters cache
-            self._loaded_parameters.add(par_file)
+            base_name = os.path.basename(parameter_file)
+            extension = os.path.splitext(base_name)[1].lower()
+
+            if "frcmod" in base_name or extension == ".dat":
+                self.add_commands("loadAmberParams " + local_name)
+            elif extension in {".off", ".lib"}:
+                self.add_commands("loadOff " + local_name)
+            else:
+                self.add_commands("source " + local_name)
+
+            self._loaded_parameters.add(parameter_file)
 
     def set_global_parameter(self, **kwargs):
+        """Setting LEaP global defaults through ``set default`` commands."""
 
-        """
-        Set global parameter value with command 'set default'.
-        See the Amber manual: 'set' subsection of section 'Commands' in Leap chapter.
-        Parameters
-        ----------
-        OldPrmtopFormat : str
-            "on" or "off" (default) to write the prmtop file in Amber 6 and earlier format
-        Dielectric : str
-            "constant" or "distance" (default) for constant or distance dependent dielectric
-        PdbWriteCharges: str
-            "on" or "off" (default) to write withe savePDB the atom charges in the B-factors
-            columnt
-        PBRadii: str
-            "bondi", "mbondi" (default), "mbondi2", "mbondi3" or "amber6" to choose the set of atomic radii
-            for generalized Born or Poisson-Boltzmann calculations.
-        nocenter: str
-            "on" or "off" (default) to deactivate recentering coordinates.
-        reorder_residues: str
-            "on" (default) or "off" to place non-solvent residues before sovent residues
-        """
-
-        accepted_kwargs={'OldPrmtopFormat': ['on', 'off'],
-                         'Dielectric': ['constant','distance'],
-                         'PdbWriteCharges': ['on', 'off'],
-                         'PBRadii': ['bondi', 'mbondi', 'mbondi2', 'mbondi3', 'amber6'],
-                         'nocenter': ['on', 'off'],
-                         'reorder_residues': ['on', 'off']}
+        accepted_values = {
+            "OldPrmtopFormat": ["on", "off"],
+            "Dielectric": ["constant", "distance"],
+            "PdbWriteCharges": ["on", "off"],
+            "PBRadii": ["bondi", "mbondi", "mbondi2", "mbondi3", "amber6"],
+            "nocenter": ["on", "off"],
+            "reorder_residues": ["on", "off"],
+        }
 
         for parameter, value in kwargs.items():
-
-            if parameter not in accepted_kwargs:
-                raise ValueError("Parameter not recognized")
-            if value not in accepted_kwargs[parameter]:
-                raise ValueError("Value for parameter {} not recognized".format(value))
-
-            self.add_commands('set default {} {}'.format(parameter, value))
-
+            if parameter not in accepted_values:
+                raise ValueError(f"Parameter not recognized: {parameter}")
+            if value not in accepted_values[parameter]:
+                raise ValueError(f"Value for parameter {parameter} not recognized: {value}")
+            self.add_commands(f"set default {parameter} {value}")
 
     @_sanitize_tleap_unit_name
     def load_unit(self, unit_name, file_path):
-        """
-        Load a Unit into LEaP, this is typically a molecule or small complex.
-        This adds to the script
-        Accepts ``*.mol2`` or ``*.pdb`` files
-        Parameters
-        ----------
-        unit_name : str
-            Name of the unit as it should be represented in LEaP
-        file_path : str
-            Full file path with extension of the file to read into LEaP as a new unit
-        """
+        """Loading a PDB/MOL2 file as a LEaP unit."""
 
-        file_name = os.path.basename(file_path)
-        file_name, extension = os.path.splitext(file_name)
-        local_name = file_name+extension
+        local_name = os.path.basename(file_path)
+        extension = os.path.splitext(local_name)[1].lower()
 
-
-        if extension == '.mol2':
-            load_command = 'loadMol2'
-        elif extension == '.pdb':
-            load_command = 'loadPdb'
+        if extension == ".mol2":
+            load_command = "loadMol2"
+        elif extension == ".pdb":
+            load_command = "loadPdb"
         else:
-            raise ValueError('cannot load format {} in tLeap'.format(extension))
+            raise ValueError(f"cannot load format {extension} in tLeap")
 
-        self.add_commands('{} = {} {}'.format(unit_name, load_command, local_name))
-
-        # Update list of input files to copy in temporary folder before run
+        self.add_commands(f"{unit_name} = {load_command} {local_name}")
         self._input_file_paths[local_name] = file_path
 
     @_sanitize_tleap_unit_name
     def make_sequence(self, unit_name, sequence):
-        """
-        Define a Unit with a sequence of residue names
-        Parameters
-        ----------
-        unit_name : str
-            Name of the unit as it should be represented in LEaP
-        file_path : str
-            Space separated equence of residue names (3-letters code)
-        """
-        self.add_commands('{} = sequence {{ {} }}'.format(unit_name, sequence))
+        """Creating a LEaP unit from a sequence of residue names."""
+
+        self.add_commands(f"{unit_name} = sequence {{ {sequence} }}")
 
     @_sanitize_tleap_unit_name
     def check_unit(self, unit_name):
-        """
-        Checking for internal inconsistencies in a Unit such as: long or short bonds, non-integral
-        total charge, missing atoms, unwanted steric clashes between atoms.
-        Parameters
-        ----------
-        unit_name : str
-            Name of the unit as it should be represented in LEaP
-        """
-        self.add_commands('check {}'.format(unit_name))
+        """Running LEaP ``check`` on an existing unit."""
+
+        self.add_commands(f"check {unit_name}")
 
     @_sanitize_tleap_unit_name
     def get_total_charge(self, unit_name):
-        """
-        Getting the total charge of a Unit
-        Parameters
-        ----------
-        unit_name : str
-            Name of the unit as it should be represented in LEaP
-        """
-        self.add_commands('charge {}'.format(unit_name))
+        """Requesting total charge report for a LEaP unit."""
+
+        self.add_commands(f"charge {unit_name}")
 
     @_sanitize_tleap_unit_name
-    def combine(self, unit_name, *args):
-        """
-        Combine units in LEaP
-        This adds to the script
-        Parameters
-        ----------
-        unit_name : str
-            Name of LEaP unit to assign the combination to
-        args : iterable of strings
-            Name of LEaP units to combine into a single unit called leap_name
-        """
-        # Sanitize unit names.
-        args = [self._sanitize_unit_name(arg) for arg in args]
-        components = ' '.join(args)
-        self.add_commands('{} = combine {{{{ {} }}}}'.format(unit_name, components))
+    def combine(self, unit_name, *units):
+        """Combining multiple units into a single target unit."""
+
+        normalized_units = [self._sanitize_unit_name(unit) for unit in units]
+        components = " ".join(normalized_units)
+        self.add_commands(f"{unit_name} = combine {{ {components} }}")
 
     @_sanitize_tleap_unit_name
     def add_ions(self, unit_name, ion, num_ions=0, replace_solvent=False):
-        """
-        Add ions to a unit in LEaP
-        This adds to the script
-        Parameters
-        ----------
-        unit_name : str
-            Name of the existing LEaP unit which Ions will be added into
-        ion : str
-            LEaP recognized name of ion to add
-        num_ions : int, optional
-            Number of ions of type ion to add to unit_name. If 0, the unit
-            is neutralized (default is 0).
-        replace_solvent : bool, optional
-            If True, ions will replace solvent molecules rather than being
-            added.
-        """
+        """Adding ions to a unit using LEaP ion placement commands."""
+
         if replace_solvent:
-            self.add_commands('addIonsRand {} {} {}'.format(unit_name, ion, num_ions))
+            self.add_commands(f"addIonsRand {unit_name} {ion} {num_ions}")
         else:
-            self.add_commands('addIons2 {} {} {}'.format(unit_name, ion, num_ions))
+            self.add_commands(f"addIons2 {unit_name} {ion} {num_ions}")
 
     @_sanitize_tleap_unit_name
     def solvate(self, unit_name, solvent_model, clearance, box_geometry="cubic"):
-        """
-        Solvate a unit in LEaP isometrically
-        This adds to the script
-        Parameters
-        ----------
-        unit_name : str
-            Name of the existing LEaP unit which will be solvated
-        solvent_model : str
-            LEaP recognized name of the solvent model to use, e.g. "TIP3PBOX"
-        clearance : unit.Quantity
-            Add solvent up to clearance distance away (units of length) from the unit_name (radial)
-        box_geometry : "cubic" or "truncated octahedral"
-            Shape of the box to be solvated (Default is "cubic").
-        """
-        if box_geometry=="cubic":
-            solvate_command='solvateBox'
-        elif box_geometry=="truncated octahedral":
-            solvate_command='solvateOct'
+        """Solvating a unit with an isotropic box clearance."""
+
+        if box_geometry == "cubic":
+            solvate_command = "solvateBox"
+        elif box_geometry == "truncated octahedral":
+            solvate_command = "solvateOct"
         else:
-            raise ValueError('The argument box_geometry must take one of the following values: \
-                             "cubic" or "truncated octahedral".')
+            raise ValueError(
+                "The argument box_geometry must be one of: "
+                "'cubic' or 'truncated octahedral'."
+            )
 
-        clearance = puw.get_value(clearance, to_unit='angstroms')
-
-        self.add_commands('{} {} {} {} iso'.format(solvate_command, unit_name, solvent_model, clearance))
+        clearance = puw.get_value(clearance, to_unit="angstroms")
+        self.add_commands(f"{solvate_command} {unit_name} {solvent_model} {clearance} iso")
 
     @_sanitize_tleap_unit_name
     def save_unit(self, unit_name, output_path):
-        """
-        Write a LEaP unit to file.
-        Accepts either ``*.prmtop``, ``*.inpcrd``, or ``*.pdb`` files
-        This adds to the script
-        Parameters
-        ----------
-        unit_name : str
-            Name of the unit to save
-        output_path : str
-            Full file path with extension to save.
-            Outputs with multiple files (e.g. Amber Parameters) have their names derived from this instead
-        """
+        """Saving a LEaP unit to prmtop/inpcrd or pdb output."""
 
         file_name = os.path.basename(output_path)
-        file_name, extension = os.path.splitext(file_name)
-        local_name = file_name+extension
+        stem, extension = os.path.splitext(file_name)
+        extension = extension.lower()
+        local_name = stem + extension
 
-        # Update list of output files to copy from temporary folder after run
         self._output_file_paths[local_name] = output_path
 
-        # Add command
-        if extension == '.prmtop' or extension == '.inpcrd':
-            command = 'saveAmberParm ' + unit_name + ' {} {}'
+        if extension in {".prmtop", ".inpcrd"}:
+            companion_extension = ".prmtop" if extension == ".inpcrd" else ".inpcrd"
+            companion_local_name = stem + companion_extension
+            companion_output_path = os.path.join(os.path.dirname(output_path), companion_local_name)
+            self._output_file_paths[companion_local_name] = companion_output_path
 
-            # Update list of output files with the one not explicit
-            if extension == '.inpcrd':
-                extension2 = '.prmtop'
-                local_name2 = file_name+extension2
-                command = command.format(local_name2, local_name)
+            if extension == ".inpcrd":
+                self.add_commands(
+                    f"saveAmberParm {unit_name} {companion_local_name} {local_name}"
+                )
             else:
-                extension2 = '.inpcrd'
-                local_name2 = file_name+extension2
-                command = command.format(local_name, local_name2)
-            output_path2 = os.path.join(os.path.dirname(output_path), local_name2)
-            self._output_file_paths[local_name2] = output_path2
+                self.add_commands(
+                    f"saveAmberParm {unit_name} {local_name} {companion_local_name}"
+                )
 
-            self.add_commands(command)
-        elif extension == '.pdb':
-            self.add_commands('savePDB {} {}'.format(unit_name, local_name))
+        elif extension == ".pdb":
+            self.add_commands(f"savePDB {unit_name} {local_name}")
+
         else:
-            raise ValueError('cannot export format {} from tLeap'.format(extension[1:]))
+            raise ValueError(f"cannot export format {extension} from tLeap")
 
     @_sanitize_tleap_unit_name
     def transform(self, unit_name, transformation):
-        """Transformation is an array-like representing the affine transformation matrix."""
-        command = 'transform {} {}'.format(unit_name, transformation)
-        command = command.replace(r'[', '{{').replace(r']', '}}')
-        command = command.replace('\n', '').replace('  ', ' ')
+        """Applying an affine transformation matrix to a LEaP unit."""
+
+        command = f"transform {unit_name} {transformation}"
+        command = command.replace("[", "{").replace("]", "}")
+        command = command.replace("\n", "").replace("  ", " ")
         self.add_commands(command)
 
     def new_section(self, comment):
-        """Adds a comment line to the script"""
-        self.add_commands('\n# ' + comment)
+        """Adding a comment line to visually separate script sections."""
+
+        self.add_commands("\n# " + comment)
 
     def export_script(self, file_path):
-        """
-        Write script to file
-        Parameters
-        ----------
-        file_path : str
-            Full file path with extension of the script to save
-        """
-        with open(file_path, 'w') as f:
-            f.write(self.script)
+        """Writing current LEaP script to disk."""
+
+        with open(file_path, "w", encoding="utf-8") as file_handle:
+            file_handle.write(self.script)
 
     def run(self, working_directory=None, verbose=False):
-        """Run script and return warning messages in leap log file."""
+        """Running tLEaP script and returning parsed warning messages."""
 
         current_directory = os.getcwd()
-        tmp_working_directory = False
-        created_output_files = []
+        temporary_working_directory = False
 
         if working_directory is None:
-            tmp_working_directory = True
+            temporary_working_directory = True
             working_directory = tempfile.mkdtemp()
         else:
             os.makedirs(working_directory, exist_ok=True)
 
-        # Copy input files into the execution directory.
-        for local_file, file_path in self._input_file_paths.items():
+        for local_file, source_path in self._input_file_paths.items():
             destination = os.path.join(working_directory, local_file)
-            if os.path.abspath(file_path) != os.path.abspath(destination):
-                shutil.copy(file_path, destination)
+            if os.path.abspath(source_path) != os.path.abspath(destination):
+                shutil.copy(source_path, destination)
 
-        leap_output = ''
-        log_path = ''
+        leap_output = ""
+        log_path = ""
+
         try:
             os.chdir(working_directory)
+            self.export_script("leap.in")
 
-            # Save script and run tleap.
-            self.export_script('leap.in')
-            process = subprocess.run(
-                ['tleap', '-f', 'leap.in'],
-                stdout=subprocess.PIPE,
-                stderr=subprocess.STDOUT,
-                text=True,
-                check=False,
-            )
-            leap_output = process.stdout or ''
+            try:
+                process = subprocess.run(
+                    [self._tleap_executable, "-f", "leap.in"],
+                    stdout=subprocess.PIPE,
+                    stderr=subprocess.STDOUT,
+                    text=True,
+                    check=False,
+                )
+            except FileNotFoundError as exc:
+                raise RuntimeError(
+                    f"Could not execute tleap binary '{self._tleap_executable}'. "
+                    "Ensure AmberTools is installed and tleap is available in PATH "
+                    "or set TLEAP_BIN."
+                ) from exc
+
+            leap_output = process.stdout or ""
 
             if verbose:
                 print(leap_output)
 
-            # Copy back output files if generated.
-            for local_file, file_path in self._output_file_paths.items():
+            for local_file, target_path in self._output_file_paths.items():
                 local_path = os.path.join(working_directory, local_file)
                 if os.path.exists(local_path):
-                    if os.path.abspath(local_path) != os.path.abspath(file_path):
-                        shutil.copy(local_path, file_path)
-                    created_output_files.append(file_path)
+                    if os.path.abspath(local_path) != os.path.abspath(target_path):
+                        shutil.copy(local_path, target_path)
 
-            # Save leap.log in directory of first output file.
-            if len(self._output_file_paths) > 0 and os.path.exists(os.path.join(working_directory, 'leap.log')):
-                for val in self._output_file_paths.values():
-                    first_output_path = val
-                    break
-                first_output_name = os.path.basename(first_output_path).split('.')[0]
+            if self._output_file_paths and os.path.exists(os.path.join(working_directory, "leap.log")):
+                first_output_path = next(iter(self._output_file_paths.values()))
+                first_output_name = os.path.basename(first_output_path).split(".")[0]
                 first_output_dir = os.path.dirname(first_output_path)
-                log_path = os.path.join(first_output_dir, first_output_name + '.leap.log')
-                shutil.copy(os.path.join(working_directory, 'leap.log'), log_path)
+                log_path = os.path.join(first_output_dir, first_output_name + ".leap.log")
+                shutil.copy(os.path.join(working_directory, "leap.log"), log_path)
 
-            # Analyze execution and output for known issues.
-            known_error_msg = []
+            known_errors = []
 
             if process.returncode != 0:
-                known_error_msg.append(f"tleap exited with code {process.returncode}.")
+                known_errors.append(f"tleap exited with code {process.returncode}.")
 
             missing_outputs = []
-            for local_file, file_path in self._output_file_paths.items():
+            for local_file, target_path in self._output_file_paths.items():
                 if not os.path.exists(os.path.join(working_directory, local_file)):
-                    missing_outputs.append(file_path)
+                    missing_outputs.append(target_path)
             if missing_outputs:
-                known_error_msg.append(
-                    "Could not create one or more expected output files: " + ", ".join(missing_outputs)
+                known_errors.append(
+                    "Could not create one or more expected output files: "
+                    + ", ".join(missing_outputs)
                 )
 
-            error_patterns = ['Argument #\\d+ is type \\S+ must be of type: \\S+']
-            for pattern in error_patterns:
-                m = re.search(pattern, leap_output)
-                if m is not None:
-                    known_error_msg.append(m.group(0))
-                    break
+            argument_type_error = re.search(
+                r"Argument #\d+ is type \S+ must be of type: \S+",
+                leap_output,
+            )
+            if argument_type_error is not None:
+                known_errors.append(argument_type_error.group(0))
 
-            m = re.search("Could not find bond parameter for: EP - \\w+W", leap_output)
-            if m is not None:
-                known_error_msg.append('It looks like the water used has virtual sites, but '
-                                       'missing parameters.\nMake sure your leap parameters '
-                                       'use the correct water model as specified by '
-                                       'solvent_model.')
+            missing_ep_parameter = re.search(
+                r"Could not find bond parameter for: EP - \w+W",
+                leap_output,
+            )
+            if missing_ep_parameter is not None:
+                known_errors.append(
+                    "It looks like the selected water model uses virtual sites, "
+                    "but some required parameters are missing."
+                )
 
-            if len(known_error_msg) > 0:
-                final_error = ('Some things went wrong with LEaP\nWe caught a few but their may be more.\n'
-                               'Please see the log file for LEaP for more info:\n{}\n============\n{}')
-                raise RuntimeError(final_error.format(log_path, '\n---------\n'.join(known_error_msg)))
+            if known_errors:
+                message = (
+                    "Some things went wrong with LEaP\n"
+                    "We caught a few but there may be more.\n"
+                    "Please see the LEaP log for more information:\n{}\n"
+                    "============\n{}"
+                )
+                raise RuntimeError(message.format(log_path, "\n---------\n".join(known_errors)))
 
-            return re.findall('WARNING: (.+)', leap_output)
+            return re.findall(r"WARNING: (.+)", leap_output)
+
         finally:
             os.chdir(current_directory)
-            if tmp_working_directory:
+            if temporary_working_directory:
                 shutil.rmtree(working_directory, ignore_errors=True)
 
     @staticmethod
     def _sanitize_unit_name(unit_name):
-        """Sanitize tleap unit names.
-        Leap doesn't like names that start with digits so, in this case, we
-        prepend an arbitrary character.
-        This takes as unit name a keyword argument called "unit_name" or the
-        second sequential argument (skipping self).
-        """
+        """Normalizing LEaP unit names to avoid unsupported leading digits."""
+
+        if not isinstance(unit_name, str) or len(unit_name) == 0:
+            raise ValueError("Unit name must be a non-empty string.")
         if unit_name[0].isdigit():
-            unit_name = 'M' + unit_name
+            unit_name = "M" + unit_name
         return unit_name

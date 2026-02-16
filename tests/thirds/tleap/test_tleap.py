@@ -1,5 +1,6 @@
 import os
 from pathlib import Path
+import pytest
 
 from molsysmt.thirds.tleap import TLeap
 
@@ -51,3 +52,17 @@ def test_run_with_explicit_workdir_copies_inputs_and_outputs(monkeypatch, tmp_pa
     assert output_pair.exists()
     assert (tmp_path / "system.leap.log").exists()
     assert os.getcwd() == original_cwd
+
+
+def test_run_reports_missing_tleap_binary(tmp_path):
+    tleap = TLeap()
+    tleap._tleap_executable = "tleap_binary_that_does_not_exist"
+    tleap.save_unit("pep", str(tmp_path / "system.prmtop"))
+
+    with pytest.raises(RuntimeError, match="Could not execute tleap binary"):
+        tleap.run(working_directory=str(tmp_path / "workdir"), verbose=False)
+
+
+def test_sanitize_unit_name_rejects_empty():
+    with pytest.raises(ValueError, match="non-empty string"):
+        TLeap._sanitize_unit_name("")
