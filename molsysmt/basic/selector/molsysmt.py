@@ -88,6 +88,8 @@ def select_standard(item, selection):
 
             tmp_item = convert(item, to_form='molsysmt.Topology', skip_digestion=True)
 
+    query_local_dict = {}
+
     if '@' in selection:
 
         var_names = _var_names_in_selection(selection)
@@ -121,7 +123,7 @@ def select_standard(item, selection):
             tmp_selection = tmp_selection.replace('@'+var_name, '@auxiliar_variable_'+var_name)
             if isinstance(var_value, np.ndarray):
                 var_value = list(var_value)
-            locals()['auxiliar_variable_'+var_name] = var_value
+            query_local_dict['auxiliar_variable_'+var_name] = var_value
 
     if is_all(tmp_selection):
 
@@ -242,7 +244,7 @@ def select_standard(item, selection):
                 )
 
         tmp_selection = tmp_selection.replace('atom_index','index')
-        output = aux_df.query(tmp_selection, engine='python').index.to_list()
+        output = aux_df.query(tmp_selection, engine='python', local_dict=query_local_dict).index.to_list()
 
         del aux_df
 
