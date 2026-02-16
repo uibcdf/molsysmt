@@ -37,6 +37,11 @@ class TLeap:
         self._output_file_paths = {}
         self._loaded_parameters = set()
         self._tleap_executable = os.environ.get("TLEAP_BIN", "tleap")
+        self._critical_patterns = [
+            re.compile(r"Could not find bond parameter for:", re.IGNORECASE),
+            re.compile(r"FATAL:", re.IGNORECASE),
+            re.compile(r"\bError!\b", re.IGNORECASE),
+        ]
 
     def add_commands(self, *commands):
         """Appending one or more raw LEaP commands to the script."""
@@ -209,8 +214,65 @@ class TLeap:
         with open(file_path, "w", encoding="utf-8") as file_handle:
             file_handle.write(self.script)
 
-    def run(self, working_directory=None, verbose=False):
-        """Running tLEaP script and returning parsed warning messages."""
+    def _parse_diagnostics(self, leap_output):
+        """Extracting structured diagnostics from LEaP output text."""
+
+        diagnostics = []
+        for line in (leap_output or "").splitlines():
+            stripped = line.strip()
+            if stripped.startswith("WARNING:"):
+                diagnostics.append(
+                    {
+                        "severity": "warning",
+                        "message": stripped[len("WARNING:") :].strip(),
+                        "line": stripped,
+                    }
+                )
+            elif stripped.startswith("FATAL:"):
+                diagnostics.append(
+                    {
+                        "severity": "fatal",
+                        "message": stripped[len("FATAL:") :].strip(),
+                        "line": stripped,
+                    }
+                )
+            elif stripped.startswith("ERROR:"):
+                diagnostics.append(
+                    {
+                        "severity": "error",
+                        "message": stripped[len("ERROR:") :].strip(),
+                        "line": stripped,
+                    }
+                )
+            elif re.search(r"\bError!\b", stripped):
+                diagnostics.append(
+                    {
+                        "severity": "error",
+                        "message": stripped,
+                        "line": stripped,
+                    }
+                )
+        return diagnostics
+
+    def _collect_strict_issues(self, leap_output):
+        """Collecting strict-mode issues from LEaP output."""
+
+        strict_issues = []
+        for pattern in self._critical_patterns:
+            match = pattern.search(leap_output)
+            if match is not None:
+                strict_issues.append(match.group(0))
+        return strict_issues
+
+    def run(
+        self,
+        working_directory=None,
+        verbose=False,
+        strict=False,
+        return_diagnostics=False,
+        keep_working_directory=False,
+    ):
+        """Running tLEaP script and returning warnings or structured diagnostics."""
 
         current_directory = os.getcwd()
         temporary_working_directory = False
@@ -298,6 +360,13 @@ class TLeap:
                     "but some required parameters are missing."
                 )
 
+            diagnostics = self._parse_diagnostics(leap_output)
+            strict_issues = self._collect_strict_issues(leap_output) if strict else []
+            if strict_issues:
+                known_errors.append(
+                    "Strict mode flagged critical LEaP diagnostics: " + ", ".join(sorted(set(strict_issues)))
+                )
+
             if known_errors:
                 message = (
                     "Some things went wrong with LEaP\n"
@@ -307,11 +376,22 @@ class TLeap:
                 )
                 raise RuntimeError(message.format(log_path, "\n---------\n".join(known_errors)))
 
-            return re.findall(r"WARNING: (.+)", leap_output)
+            warning_messages = [entry["message"] for entry in diagnostics if entry["severity"] == "warning"]
+
+            if return_diagnostics:
+                return {
+                    "warnings": warning_messages,
+                    "diagnostics": diagnostics,
+                    "log_path": log_path,
+                    "working_directory": working_directory,
+                    "tleap_executable": self._tleap_executable,
+                    "return_code": process.returncode,
+                }
+            return warning_messages
 
         finally:
             os.chdir(current_directory)
-            if temporary_working_directory:
+            if temporary_working_directory and not keep_working_directory:
                 shutil.rmtree(working_directory, ignore_errors=True)
 
     @staticmethod
