@@ -133,6 +133,37 @@ def _angle_degrees(atom_1, atom_2, atom_3):
     return float(np.degrees(np.arccos(cosine)))
 
 
+def _dihedral_degrees(atom_1, atom_2, atom_3, atom_4):
+    """Return dihedral atom_1-atom_2-atom_3-atom_4 in degrees."""
+
+    bond_0 = atom_1 - atom_2
+    bond_1 = atom_3 - atom_2
+    bond_2 = atom_4 - atom_3
+
+    norm_1 = np.linalg.norm(bond_1)
+    if norm_1 < 1.0e-12:
+        return None
+    unit_1 = bond_1 / norm_1
+
+    vector = bond_0 - np.dot(bond_0, unit_1) * unit_1
+    wector = bond_2 - np.dot(bond_2, unit_1) * unit_1
+
+    norm_v = np.linalg.norm(vector)
+    norm_w = np.linalg.norm(wector)
+    if norm_v < 1.0e-12 or norm_w < 1.0e-12:
+        return None
+
+    x_value = float(np.dot(vector, wector))
+    y_value = float(np.dot(np.cross(unit_1, vector), wector))
+    return float(np.degrees(np.arctan2(y_value, x_value)))
+
+
+def _wrap_degrees(angle):
+    """Wrap angle to [-180, 180)."""
+
+    return ((angle + 180.0) % 360.0) - 180.0
+
+
 def _fibonacci_unit_vectors(n_points):
     """Generate approximately uniform unit vectors on a sphere."""
 
@@ -1026,11 +1057,10 @@ def build_peptide(molecular_system, to_form='molsysmt.MolSys', engine='LEaP'):
                     translation = target_coordinates - local_coordinates[head_index]
                     group_coordinates = local_coordinates + translation
 
-                    # Focused search for capping->PRO links, where local ring closure geometry
+                    # Focused search for X->PRO links, where local ring closure geometry
                     # can otherwise lead to short C(carbonyl)-CD contacts.
-                    previous_group_is_capping = groups_data[group_index - 1]["group_type"] == "terminal capping"
                     current_group_is_proline = group_data["group_name"] == "PRO"
-                    if previous_group_is_capping and current_group_is_proline:
+                    if current_group_is_proline:
                         previous_group_start = group_start_indices[group_index - 1]
                         previous_group_size = len(groups_data[group_index - 1]["atom_names"])
                         previous_group_coordinates = coordinates[
@@ -1047,6 +1077,7 @@ def build_peptide(molecular_system, to_form='molsysmt.MolSys', engine='LEaP'):
                         if oxygen_local_index is not None:
                             oxygen_coordinates = coordinates[previous_group_start + oxygen_local_index, :]
 
+                        best_objective_score = -np.inf
                         best_local_score = -np.inf
                         best_geometry_penalty = np.inf
                         best_candidate_coordinates = group_coordinates
@@ -1076,7 +1107,7 @@ def build_peptide(molecular_system, to_form='molsysmt.MolSys', engine='LEaP'):
                         # Imitate LEaP-like peptide-junction geometry:
                         # 1) Search N placement around carbonyl C in a near-sp2 angular window.
                         # 2) Optimize rigid orientation of PRO around C-N and N-CA.
-                        direction_candidates = _fibonacci_unit_vectors(160)
+                        direction_candidates = _fibonacci_unit_vectors(320)
                         direction_trigonal = None
                         if oxygen_coordinates is not None and capping_substituent_coordinates is not None:
                             direction_from_oxygen = _normalize(oxygen_coordinates - previous_tail_coordinates)
@@ -1092,7 +1123,38 @@ def build_peptide(molecular_system, to_form='molsysmt.MolSys', engine='LEaP'):
 
                         proline_ca_local_index = group_data["atom_name_to_local_index"].get("CA", None)
                         proline_cd_local_index = group_data["atom_name_to_local_index"].get("CD", None)
-                        proline_non_n_local_indices = [ii for ii in range(len(atom_names_in_group)) if ii != head_index]
+                        previous_alpha_local_index = previous_name_to_index.get("CA", None)
+                        if previous_alpha_local_index is None:
+                            previous_alpha_local_index = previous_name_to_index.get("CH3", None)
+                        previous_alpha_coordinates = None
+                        if previous_alpha_local_index is not None:
+                            previous_alpha_coordinates = coordinates[
+                                previous_group_start + previous_alpha_local_index, :
+                            ]
+                        orientation_matrices = [np.eye(3, dtype=float)]
+                        rng_orient = np.random.default_rng(1729 + group_index)
+                        for _ in range(47):
+                            random_values = rng_orient.random(3)
+                            u_1, u_2, u_3 = random_values[0], random_values[1], random_values[2]
+                            quaternion = np.array(
+                                [
+                                    np.sqrt(1.0 - u_1) * np.sin(2.0 * np.pi * u_2),
+                                    np.sqrt(1.0 - u_1) * np.cos(2.0 * np.pi * u_2),
+                                    np.sqrt(u_1) * np.sin(2.0 * np.pi * u_3),
+                                    np.sqrt(u_1) * np.cos(2.0 * np.pi * u_3),
+                                ],
+                                dtype=float,
+                            )
+                            qx, qy, qz, qw = quaternion
+                            rotation_matrix = np.array(
+                                [
+                                    [1.0 - 2.0 * (qy * qy + qz * qz), 2.0 * (qx * qy - qz * qw), 2.0 * (qx * qz + qy * qw)],
+                                    [2.0 * (qx * qy + qz * qw), 1.0 - 2.0 * (qx * qx + qz * qz), 2.0 * (qy * qz - qx * qw)],
+                                    [2.0 * (qx * qz - qy * qw), 2.0 * (qy * qz + qx * qw), 1.0 - 2.0 * (qx * qx + qy * qy)],
+                                ],
+                                dtype=float,
+                            )
+                            orientation_matrices.append(rotation_matrix)
 
                         for direction in direction_candidates:
                             candidate_target = previous_tail_coordinates + peptide_bond_length * direction
@@ -1116,69 +1178,73 @@ def build_peptide(molecular_system, to_form='molsysmt.MolSys', engine='LEaP'):
 
                             candidate_translation = candidate_target - local_coordinates[head_index]
                             candidate_coordinates = local_coordinates + candidate_translation
+                            for rotation_matrix in orientation_matrices:
+                                rotated_coordinates = _apply_rotation(
+                                    candidate_coordinates,
+                                    rotation_matrix,
+                                    candidate_target,
+                                )
+                                local_score = _minimum_nonbonded_heavy_distance_between_groups(
+                                    left_coordinates=previous_group_coordinates,
+                                    left_atom_names=previous_group_names,
+                                    left_atom_types=previous_group_types,
+                                    right_coordinates=rotated_coordinates,
+                                    right_atom_names=atom_names_in_group,
+                                    right_atom_types=atom_types_in_group,
+                                    skip_pair_names=("C", "N"),
+                                )
 
-                            axis_cn = _normalize(candidate_target - previous_tail_coordinates)
-                            if axis_cn is None:
-                                continue
+                                geometry_penalty = 0.0
+                                if angle_oxygen is not None:
+                                    geometry_penalty += 1.0 * abs(angle_oxygen - 123.0)
+                                if angle_substituent is not None:
+                                    geometry_penalty += 0.5 * abs(angle_substituent - 117.0)
 
-                            for angle_cn in np.linspace(0.0, 2.0 * np.pi, num=24, endpoint=False):
-                                rotation_cn = _rotation_matrix_from_axis_angle(axis_cn, angle_cn)
-                                rotated_cn_coordinates = _apply_rotation(candidate_coordinates, rotation_cn, candidate_target)
-
-                                if proline_ca_local_index is not None and len(proline_non_n_local_indices) > 0:
-                                    axis_nca = _normalize(
-                                        rotated_cn_coordinates[proline_ca_local_index, :] -
-                                        rotated_cn_coordinates[head_index, :]
+                                if proline_ca_local_index is not None:
+                                    angle_c_n_ca = _angle_degrees(
+                                        previous_tail_coordinates,
+                                        rotated_coordinates[head_index, :],
+                                        rotated_coordinates[proline_ca_local_index, :],
                                     )
-                                else:
-                                    axis_nca = None
-
-                                candidate_set = [rotated_cn_coordinates]
-                                if axis_nca is not None:
-                                    candidate_set = []
-                                    base_non_n_coordinates = rotated_cn_coordinates[proline_non_n_local_indices, :]
-                                    for angle_nca in np.linspace(0.0, 2.0 * np.pi, num=24, endpoint=False):
-                                        rotation_nca = _rotation_matrix_from_axis_angle(axis_nca, angle_nca)
-                                        rotated_nca_coordinates = rotated_cn_coordinates.copy()
-                                        rotated_nca_coordinates[proline_non_n_local_indices, :] = _apply_rotation(
-                                            base_non_n_coordinates, rotation_nca, rotated_cn_coordinates[head_index, :]
-                                        )
-                                        candidate_set.append(rotated_nca_coordinates)
-
-                                for rotated_coordinates in candidate_set:
-                                    local_score = _minimum_nonbonded_heavy_distance_between_groups(
-                                        left_coordinates=previous_group_coordinates,
-                                        left_atom_names=previous_group_names,
-                                        left_atom_types=previous_group_types,
-                                        right_coordinates=rotated_coordinates,
-                                        right_atom_names=atom_names_in_group,
-                                        right_atom_types=atom_types_in_group,
-                                        skip_pair_names=("C", "N"),
+                                    if angle_c_n_ca is not None:
+                                        geometry_penalty += 0.6 * abs(angle_c_n_ca - 122.0)
+                                if proline_cd_local_index is not None:
+                                    angle_c_n_cd = _angle_degrees(
+                                        previous_tail_coordinates,
+                                        rotated_coordinates[head_index, :],
+                                        rotated_coordinates[proline_cd_local_index, :],
                                     )
+                                    if angle_c_n_cd is not None:
+                                        geometry_penalty += 0.2 * abs(angle_c_n_cd - 122.0)
 
-                                    geometry_penalty = 0.0
-                                    if angle_oxygen is not None:
-                                        geometry_penalty += abs(angle_oxygen - 123.0)
-                                    if angle_substituent is not None:
-                                        geometry_penalty += abs(angle_substituent - 117.0)
+                                if oxygen_coordinates is not None and proline_ca_local_index is not None:
+                                    dihedral_ocnca = _dihedral_degrees(
+                                        oxygen_coordinates,
+                                        previous_tail_coordinates,
+                                        rotated_coordinates[head_index, :],
+                                        rotated_coordinates[proline_ca_local_index, :],
+                                    )
+                                    if dihedral_ocnca is not None:
+                                        geometry_penalty += 0.3 * abs(_wrap_degrees(dihedral_ocnca))
 
-                                    if proline_ca_local_index is not None:
-                                        angle_c_n_ca = _angle_degrees(
-                                            previous_tail_coordinates,
-                                            rotated_coordinates[head_index, :],
-                                            rotated_coordinates[proline_ca_local_index, :],
-                                        )
-                                        if angle_c_n_ca is not None:
-                                            geometry_penalty += 0.2 * abs(angle_c_n_ca - 122.0)
-                                    if proline_cd_local_index is not None:
-                                        angle_c_n_cd = _angle_degrees(
-                                            previous_tail_coordinates,
-                                            rotated_coordinates[head_index, :],
-                                            rotated_coordinates[proline_cd_local_index, :],
-                                        )
-                                        if angle_c_n_cd is not None:
-                                            geometry_penalty += 0.2 * abs(angle_c_n_cd - 122.0)
+                                if previous_alpha_coordinates is not None and proline_ca_local_index is not None:
+                                    omega = _dihedral_degrees(
+                                        previous_alpha_coordinates,
+                                        previous_tail_coordinates,
+                                        rotated_coordinates[head_index, :],
+                                        rotated_coordinates[proline_ca_local_index, :],
+                                    )
+                                    if omega is not None:
+                                        omega_abs = abs(_wrap_degrees(omega))
+                                        geometry_penalty += 0.5 * abs(180.0 - omega_abs)
 
+                                objective_score = local_score - 0.0006 * geometry_penalty
+                                if objective_score > best_objective_score + 1.0e-10:
+                                    best_objective_score = objective_score
+                                    best_local_score = local_score
+                                    best_geometry_penalty = geometry_penalty
+                                    best_candidate_coordinates = rotated_coordinates
+                                elif abs(objective_score - best_objective_score) <= 1.0e-10:
                                     if local_score > best_local_score + 1.0e-10:
                                         best_local_score = local_score
                                         best_geometry_penalty = geometry_penalty
@@ -1187,6 +1253,10 @@ def build_peptide(molecular_system, to_form='molsysmt.MolSys', engine='LEaP'):
                                         if geometry_penalty < best_geometry_penalty - 1.0e-10:
                                             best_geometry_penalty = geometry_penalty
                                             best_candidate_coordinates = rotated_coordinates
+                                elif abs(local_score - best_local_score) <= 1.0e-10:
+                                    if geometry_penalty < best_geometry_penalty - 1.0e-10:
+                                        best_geometry_penalty = geometry_penalty
+                                        best_candidate_coordinates = rotated_coordinates
 
                         group_coordinates = best_candidate_coordinates
                         target_coordinates = group_coordinates[head_index, :].copy()
