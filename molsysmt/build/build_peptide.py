@@ -856,6 +856,8 @@ def build_peptide(molecular_system, to_form='molsysmt.MolSys', engine='LEaP'):
 
         sequence = convert(molecular_system, to_form='string:amino_acids_3')
         sequence = sequence.upper()
+        if sequence == '':
+            raise ValueError("Input peptide sequence is empty.")
         group_names = [sequence[ii:ii+3] for ii in range(0, len(sequence), 3)]
 
         amino_acid_group_names = set(amino_acid_group_names)

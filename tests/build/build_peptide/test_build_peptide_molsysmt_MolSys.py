@@ -209,13 +209,18 @@ def test_build_peptide_molsysmt_MolSys_10_random_sequences_catalog():
     assert len(_RANDOM_SEQUENCES_LEN10_EXTENDED) == 40
 
 
+def test_build_peptide_molsysmt_MolSys_11_empty_sequence_raises():
+    with pytest.raises(ValueError, match="empty"):
+        msm.build.build_peptide("", to_form="molsysmt.MolSys", engine="MolSysMT")
+
+
 @pytest.mark.skipif(shutil.which("tleap") is None, reason="tleap is not available in PATH")
 @pytest.mark.skipif(
     os.environ.get("MSM_RUN_EXTENDED_PEPTIDE_PARITY", "0") != "1",
     reason="Set MSM_RUN_EXTENDED_PEPTIDE_PARITY=1 to run the 40-sequence LEaP parity suite.",
 )
 @pytest.mark.parametrize('sequence', _RANDOM_SEQUENCES_LEN10_EXTENDED)
-def test_build_peptide_molsysmt_MolSys_11_extended_random_parity(sequence):
+def test_build_peptide_molsysmt_MolSys_12_extended_random_parity(sequence):
     molsys_tleap = msm.build.build_peptide(sequence, to_form='molsysmt.MolSys', engine='LEaP')
     molsys_molsysmt = msm.build.build_peptide(sequence, to_form='molsysmt.MolSys', engine='MolSysMT')
 
