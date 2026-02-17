@@ -10,7 +10,7 @@ talks:
     event:
       name: "<Conference / Seminar / Workshop>"
       location: "<City, Country (or Online)>"
-      date: "20YY-MM-DD"
+      date: "2026-01-01"
       duration_min: 25
     path: "talks/20YY-<talk-directory>"
     artifacts:

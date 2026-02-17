@@ -6,13 +6,13 @@ papers:
     authors:
       - "<Author One>"
       - "<Author Two>"
-    year: 20YY
+    year: 2026
     venue: "TBD"
     status: "in_preparation"  # idea | in_preparation | submitted | accepted | published | archived
     path: "<tool>/20YY-<paper-directory>"
     primary: true
     related_repos:
-      - "uibcdf/<tool-repo>"
+      - "uibcdf/molsysmt"
     doi: null
     url: null
     tags:

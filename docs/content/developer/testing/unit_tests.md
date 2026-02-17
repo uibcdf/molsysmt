@@ -1,10 +1,9 @@
 # Unit Tests
 
 - Use `pytest` for all unit tests.
-- Tests go in `molsysmt/tests/` using `test_<function>.py` naming.
+- Tests go in `tests/` following mirrored package paths and `test_*.py` naming.
 - Use `@pytest.mark.parametrize` when testing over multiple forms.
 - Track test coverage via Codecov: <https://app.codecov.io/github/uibcdf/MolSysMT>
 - Validate tutorials optionally using `nbval` or `pytest + papermill`.
-
-Las opciones '+ELLIPSIS' y 'NORMALIZE_WHITESPACE' fueron incluidas por defecto en el fichero `pytest.ini` (no es necesario repetirlas en el docstring).
-
+- `+ELLIPSIS` and `NORMALIZE_WHITESPACE` doctest flags are configured in
+  `pytest.ini`, so they do not need to be repeated in each docstring.
