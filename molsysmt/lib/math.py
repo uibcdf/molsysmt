@@ -44,6 +44,93 @@ def dot_product(a, b):
     return aux
 
 
+@lazy_njit(nb.float64(nb.float64[:,:], nb.uint8[:], nb.uint8[:,:]), cache=True)
+def minimum_distance_masked_not_bonded(coordinates, include_mask, bonded_matrix):
+
+    n_atoms = coordinates.shape[0]
+    min_distance_sq = 1.0e300
+    found = False
+
+    for atom_index_1 in range(n_atoms - 1):
+        if include_mask[atom_index_1] == 0:
+            continue
+
+        x_1 = coordinates[atom_index_1, 0]
+        y_1 = coordinates[atom_index_1, 1]
+        z_1 = coordinates[atom_index_1, 2]
+
+        for atom_index_2 in range(atom_index_1 + 1, n_atoms):
+            if include_mask[atom_index_2] == 0:
+                continue
+            if bonded_matrix[atom_index_1, atom_index_2] != 0:
+                continue
+
+            dx = x_1 - coordinates[atom_index_2, 0]
+            dy = y_1 - coordinates[atom_index_2, 1]
+            dz = z_1 - coordinates[atom_index_2, 2]
+            distance_sq = dx*dx + dy*dy + dz*dz
+
+            if distance_sq < min_distance_sq:
+                min_distance_sq = distance_sq
+                found = True
+
+    if not found:
+        return np.inf
+
+    return math.sqrt(min_distance_sq)
+
+
+@lazy_njit(
+    nb.float64(
+        nb.float64[:, :],
+        nb.uint8[:],
+        nb.float64[:, :],
+        nb.uint8[:],
+        nb.int64,
+        nb.uint8[:, :],
+    ),
+    cache=True,
+)
+def minimum_distance_between_coordinate_sets(existing_coordinates, existing_mask,
+                                             candidate_coordinates, candidate_mask,
+                                             candidate_start_index, bonded_matrix):
+
+    n_existing = existing_coordinates.shape[0]
+    n_candidate = candidate_coordinates.shape[0]
+    min_distance_sq = 1.0e300
+    found = False
+
+    for existing_index in range(n_existing):
+        if existing_mask[existing_index] == 0:
+            continue
+
+        x_1 = existing_coordinates[existing_index, 0]
+        y_1 = existing_coordinates[existing_index, 1]
+        z_1 = existing_coordinates[existing_index, 2]
+
+        for candidate_local_index in range(n_candidate):
+            if candidate_mask[candidate_local_index] == 0:
+                continue
+
+            candidate_global_index = candidate_start_index + candidate_local_index
+            if bonded_matrix[existing_index, candidate_global_index] != 0:
+                continue
+
+            dx = x_1 - candidate_coordinates[candidate_local_index, 0]
+            dy = y_1 - candidate_coordinates[candidate_local_index, 1]
+            dz = z_1 - candidate_coordinates[candidate_local_index, 2]
+            distance_sq = dx*dx + dy*dy + dz*dz
+
+            if distance_sq < min_distance_sq:
+                min_distance_sq = distance_sq
+                found = True
+
+    if not found:
+        return np.inf
+
+    return math.sqrt(min_distance_sq)
+
+
 @lazy_njit(nb.float64[:](nb.float64[:], nb.float64[:]), cache=True)
 def cross_product(a, b):
 
@@ -164,4 +251,3 @@ def quaternion_to_rotation_matrix(q):
     U[2,1]=q23+q01
 
     return U
-
