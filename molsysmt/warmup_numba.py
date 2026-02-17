@@ -27,6 +27,6 @@ def warmup_numba(skip_digestion=False):
 
     from molsysmt import lib as _lib
 
-    _ = (_lib.math, _lib.series, _lib.pbc, _lib.structure)
+    _ = (_lib.math, _lib.series, _lib.pbc, _lib.structure, _lib.topology)
 
     return compile_registered()
