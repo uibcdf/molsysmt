@@ -3,5 +3,9 @@ channels:
 - conda-forge
 - ambermd
 dependencies:
+- python
+- pip
+- setuptools >=68.0
+- versioningit>=3.0
 - anaconda-client
 - conda-build

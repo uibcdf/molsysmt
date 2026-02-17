@@ -7,16 +7,20 @@ jobs:
   test:
     name: Test on ${{ matrix.cfg.os }}, Python ${{ matrix.cfg.python-version }}
     runs-on: ${{ matrix.cfg.os }}
+    timeout-minutes: 15
+    concurrency:
+      group: test-import-${{ github.workflow }}-${{ github.ref }}
+      cancel-in-progress: true
     strategy:
       fail-fast: false  # do not cancel all in-progress jobs if any job variation fails
       matrix:
         #os: [macOS-latest, ubuntu-latest] # [macOS-latest, ubuntu-latest, windows-latest]
         #python-version: [3.7] # [3.7, 3.8, 3.9]
         cfg:
-          - { os: ubuntu-latest, python-version: "3.12"}
+          - { os: ubuntu-latest, python-version: "3.13"}
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
       with:
         fetch-depth: 0
 
@@ -42,20 +46,24 @@ jobs:
     # Trying setting up a micromamba env
 
     - name: Setup conda env
-      uses: mamba-org/provision-with-micromamba@main
+      uses: mamba-org/setup-micromamba@v2
       with:
-        environment-file: devtools/conda-envs/test_env.yaml
+        environment-file: devtools/conda-envs/setup_env.yaml
         environment-name: test
-        channels: uibcdf, conda-forge, ambermd, defaults
-
-        extra-specs: |
-          python==${{ matrix.cfg.python-version }}
+        condarc: |
+          channels:
+            - uibcdf
+            - conda-forge
+            - ambermd
+          channel_priority: strict
+        create-args: >-
+          python=${{ matrix.cfg.python-version }}
 
     - name: Install package
 
       shell: bash -l {0}
       run: |
-        python setup.py develop
+        python -m pip install . --no-deps
 
     - name: Info conda
       shell: bash -l {0}
@@ -71,4 +79,3 @@ jobs:
         pwd
         echo 'import molsysmt; print("Version of the package: {}".format(molsysmt.__version__))' | python
         echo "::endgroup::"
-

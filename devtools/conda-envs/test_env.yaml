@@ -5,32 +5,35 @@ channels:
 dependencies:
 - python
 - pip
-- setuptools >=61.0
-- versioningit~=2.0
+- setuptools >=68.0
+- versioningit>=3.0
 - h5py
 - numpy
 - numba
+- argdigest
+- depdigest
+- smonitor
 - pyunitwizard
-- mmtf-python
 - pandas
-- jinja2
+- molsysviewer
+- networkx
+- tqdm
+- matplotlib
+- mmtf-python
 - openmm
 - pdbfixer
-- molsysviewer
 - ambertools
-- networkx
 - mdtraj
 - mdanalysis
 - biopython
 - ipywidgets
-- tqdm
 - py-mmcif
 - plotly
-- matplotlib
+- anywidget
+- nglview
 - pytest
 - pytest-cov
 - codecov
 - pytest-xdist
-- nglview
 - pip:
   - pytraj
