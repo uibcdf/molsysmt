@@ -28,5 +28,5 @@ using two tiers:
 The extended suite is controlled by:
 
 ```bash
-MSM_RUN_EXTENDED_PEPTIDE_PARITY=1 pytest -q tests/build/build_peptide/test_build_peptide_molsysmt_MolSys.py -k test_build_peptide_molsysmt_MolSys_11_extended_random_parity
+MSM_RUN_EXTENDED_PEPTIDE_PARITY=1 pytest -q tests/build/build_peptide/test_build_peptide_molsysmt_MolSys.py -k test_build_peptide_molsysmt_MolSys_12_extended_random_parity
 ```

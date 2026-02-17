@@ -81,7 +81,7 @@ We provide a script to enforce architectural rules:
 **Exempt Zones:**
 Some directories are exempt from the "Zero Soft Dependency" rule because they are dev tools or tests:
 - `molsysmt/data/_make/`
-- `molsysmt/tests/`
+- `tests/`
 - `molsysmt/docs/generate_static_views/`
 - `sandbox/`
 
