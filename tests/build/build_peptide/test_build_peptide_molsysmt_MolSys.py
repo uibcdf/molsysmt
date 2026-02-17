@@ -7,8 +7,26 @@ import molsysmt as msm
 import numpy as np
 import shutil
 import pytest
+import os
 
 # Distance between atoms in space and time
+
+_AMINO_ACID_CODES_1 = np.array(list("ACDEFGHIKLMNPQRSTVWY"), dtype=object)
+
+
+def _random_sequences(length, n_sequences, seed):
+    rng = np.random.default_rng(seed)
+    sequences = []
+    while len(sequences) < n_sequences:
+        symbols = rng.choice(_AMINO_ACID_CODES_1, size=length, replace=True)
+        sequence = "".join(symbols.tolist())
+        if sequence not in sequences:
+            sequences.append(sequence)
+    return sequences
+
+
+_RANDOM_SEQUENCES_LEN10 = _random_sequences(length=10, n_sequences=10, seed=20260216)
+_RANDOM_SEQUENCES_LEN10_EXTENDED = _random_sequences(length=10, n_sequences=40, seed=20260216)
 
 
 def _get_min_nonbonded_heavy_distance(molsys):
@@ -143,6 +161,74 @@ def test_build_peptide_molsysmt_MolSys_6(sequence):
     assert metrics_molsysmt['n_bonds'] == metrics_tleap['n_bonds']
     assert abs(metrics_molsysmt['max_bond_nm'] - metrics_tleap['max_bond_nm']) <= 0.0045
     assert abs(metrics_molsysmt['min_nonbonded_heavy_nm'] - metrics_tleap['min_nonbonded_heavy_nm']) <= 0.01
+
+
+@pytest.mark.parametrize('sequence', ['AP', 'GP', 'PP', 'PAP', 'GPPG', 'APPPG', 'ACEPPPNME'])
+def test_build_peptide_molsysmt_MolSys_7(sequence):
+    molsys = msm.build.build_peptide(sequence, to_form='molsysmt.MolSys', engine='MolSysMT')
+    metrics = _get_build_metrics(molsys)
+
+    assert metrics['n_atoms'] > 0
+    assert metrics['n_bonds'] > 0
+    assert metrics['min_bond_nm'] >= 0.095
+    assert metrics['max_bond_nm'] <= 0.185
+    assert metrics['min_nonbonded_heavy_nm'] >= 0.17
+
+
+@pytest.mark.parametrize('sequence', ['AP', 'GP', 'PP', 'ACEPROGLYNME', 'PAP', 'GPPG'])
+def test_build_peptide_molsysmt_MolSys_8(sequence):
+    molsys_a = msm.build.build_peptide(sequence, to_form='molsysmt.MolSys', engine='MolSysMT')
+    molsys_b = msm.build.build_peptide(sequence, to_form='molsysmt.MolSys', engine='MolSysMT')
+
+    coords_a = msm.pyunitwizard.get_value(molsys_a.structures.coordinates[0], to_unit='nm')
+    coords_b = msm.pyunitwizard.get_value(molsys_b.structures.coordinates[0], to_unit='nm')
+    bonds_a = np.array(molsys_a.topology.bonds[['atom1_index', 'atom2_index']].to_numpy(dtype=int))
+    bonds_b = np.array(molsys_b.topology.bonds[['atom1_index', 'atom2_index']].to_numpy(dtype=int))
+
+    assert np.array_equal(bonds_a, bonds_b)
+    assert np.allclose(coords_a, coords_b, atol=1.0e-12, rtol=0.0)
+
+
+@pytest.mark.skipif(shutil.which("tleap") is None, reason="tleap is not available in PATH")
+@pytest.mark.parametrize('sequence', _RANDOM_SEQUENCES_LEN10)
+def test_build_peptide_molsysmt_MolSys_9(sequence):
+    molsys_tleap = msm.build.build_peptide(sequence, to_form='molsysmt.MolSys', engine='LEaP')
+    molsys_molsysmt = msm.build.build_peptide(sequence, to_form='molsysmt.MolSys', engine='MolSysMT')
+
+    metrics_tleap = _get_build_metrics(molsys_tleap)
+    metrics_molsysmt = _get_build_metrics(molsys_molsysmt)
+
+    assert metrics_molsysmt['n_atoms'] == metrics_tleap['n_atoms']
+    assert metrics_molsysmt['n_bonds'] == metrics_tleap['n_bonds']
+    assert abs(metrics_molsysmt['max_bond_nm'] - metrics_tleap['max_bond_nm']) <= 0.0045
+    assert metrics_molsysmt['min_nonbonded_heavy_nm'] >= 0.15
+    assert metrics_molsysmt['min_nonbonded_heavy_nm'] >= metrics_tleap['min_nonbonded_heavy_nm'] - 0.025
+
+def test_build_peptide_molsysmt_MolSys_10_random_sequences_catalog():
+    assert len(_RANDOM_SEQUENCES_LEN10) == 10
+    assert len(_RANDOM_SEQUENCES_LEN10_EXTENDED) == 40
+
+
+@pytest.mark.skipif(shutil.which("tleap") is None, reason="tleap is not available in PATH")
+@pytest.mark.skipif(
+    os.environ.get("MSM_RUN_EXTENDED_PEPTIDE_PARITY", "0") != "1",
+    reason="Set MSM_RUN_EXTENDED_PEPTIDE_PARITY=1 to run the 40-sequence LEaP parity suite.",
+)
+@pytest.mark.parametrize('sequence', _RANDOM_SEQUENCES_LEN10_EXTENDED)
+def test_build_peptide_molsysmt_MolSys_11_extended_random_parity(sequence):
+    molsys_tleap = msm.build.build_peptide(sequence, to_form='molsysmt.MolSys', engine='LEaP')
+    molsys_molsysmt = msm.build.build_peptide(sequence, to_form='molsysmt.MolSys', engine='MolSysMT')
+
+    metrics_tleap = _get_build_metrics(molsys_tleap)
+    metrics_molsysmt = _get_build_metrics(molsys_molsysmt)
+
+    assert metrics_molsysmt['n_atoms'] == metrics_tleap['n_atoms']
+    assert metrics_molsysmt['n_bonds'] == metrics_tleap['n_bonds']
+    assert abs(metrics_molsysmt['max_bond_nm'] - metrics_tleap['max_bond_nm']) <= 0.0045
+    assert metrics_molsysmt['min_nonbonded_heavy_nm'] >= 0.15
+    assert metrics_molsysmt['min_nonbonded_heavy_nm'] >= metrics_tleap['min_nonbonded_heavy_nm'] - 0.025
+
+
 
 #def test_build_peptide_molsysmt_MolSys_2():
 #    seq = 'TyrGlyGlyPheMet'

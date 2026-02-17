@@ -229,23 +229,45 @@ def _resolve_template_alias(template_name, available_templates):
 
 
 def _minimum_nonbonded_heavy_distance(existing_coordinates, existing_atom_types, existing_bonds_set,
-                                      candidate_coordinates, candidate_atom_types, candidate_start_index):
+                                      candidate_coordinates, candidate_atom_types, candidate_start_index,
+                                      existing_bonded_matrix=None):
     """Compute minimum heavy-heavy distance between existing and candidate atoms."""
 
     if existing_coordinates.shape[0] == 0:
         return np.inf
 
-    existing_heavy = [ii for ii, atom_type in enumerate(existing_atom_types) if atom_type != "H"]
-    candidate_heavy = [ii for ii, atom_type in enumerate(candidate_atom_types) if atom_type != "H"]
+    existing_mask = np.zeros(len(existing_atom_types), dtype=np.uint8)
+    candidate_mask = np.zeros(len(candidate_atom_types), dtype=np.uint8)
 
-    if not existing_heavy or not candidate_heavy:
+    for atom_index, atom_type in enumerate(existing_atom_types):
+        if atom_type != "H":
+            existing_mask[atom_index] = 1
+    for atom_index, atom_type in enumerate(candidate_atom_types):
+        if atom_type != "H":
+            candidate_mask[atom_index] = 1
+
+    if np.count_nonzero(existing_mask) == 0 or np.count_nonzero(candidate_mask) == 0:
         return np.inf
 
+    if existing_bonded_matrix is not None:
+        from molsysmt.lib.math import minimum_distance_between_coordinate_sets
+
+        return minimum_distance_between_coordinate_sets(
+            np.asarray(existing_coordinates, dtype=np.float64),
+            existing_mask,
+            np.asarray(candidate_coordinates, dtype=np.float64),
+            candidate_mask,
+            int(candidate_start_index),
+            existing_bonded_matrix,
+        )
+
     min_distance = np.inf
+    existing_heavy = np.where(existing_mask == 1)[0]
+    candidate_heavy = np.where(candidate_mask == 1)[0]
     for existing_index in existing_heavy:
         for candidate_local_index in candidate_heavy:
-            candidate_global_index = candidate_start_index + candidate_local_index
-            if tuple(sorted((existing_index, candidate_global_index))) in existing_bonds_set:
+            candidate_global_index = candidate_start_index + int(candidate_local_index)
+            if tuple(sorted((int(existing_index), int(candidate_global_index)))) in existing_bonds_set:
                 continue
             distance = np.linalg.norm(
                 existing_coordinates[existing_index, :] - candidate_coordinates[candidate_local_index, :]
@@ -277,23 +299,46 @@ def _minimum_nonbonded_heavy_distance_between_groups(left_coordinates, left_atom
     return min_distance
 
 
-def _minimum_nonbonded_heavy_distance_full(coordinates, atom_types, bonds):
+def _prepare_nonbonded_heavy_distance_full(atom_types, bonds):
+    """Build reusable heavy-mask and bonded-matrix for global non-bonded scans."""
+
+    n_atoms = len(atom_types)
+    heavy_mask = np.zeros(n_atoms, dtype=np.uint8)
+    for atom_index, atom_type in enumerate(atom_types):
+        if atom_type != "H":
+            heavy_mask[atom_index] = 1
+
+    bonded_matrix = np.zeros((n_atoms, n_atoms), dtype=np.uint8)
+    for atom_index_1, atom_index_2 in bonds:
+        atom_index_1 = int(atom_index_1)
+        atom_index_2 = int(atom_index_2)
+        if atom_index_1 == atom_index_2:
+            continue
+        bonded_matrix[atom_index_1, atom_index_2] = 1
+        bonded_matrix[atom_index_2, atom_index_1] = 1
+
+    return heavy_mask, bonded_matrix
+
+
+def _minimum_nonbonded_heavy_distance_full(coordinates, atom_types=None, bonds=None,
+                                           heavy_mask=None, bonded_matrix=None):
     """Compute global minimum heavy-heavy distance for non-bonded pairs."""
 
-    heavy_indices = [ii for ii, atom_type in enumerate(atom_types) if atom_type != "H"]
-    if len(heavy_indices) < 2:
+    if heavy_mask is None or bonded_matrix is None:
+        if atom_types is None or bonds is None:
+            raise ValueError("atom_types and bonds are required when no prepared masks are provided.")
+        heavy_mask, bonded_matrix = _prepare_nonbonded_heavy_distance_full(atom_types, bonds)
+
+    if np.count_nonzero(heavy_mask) < 2:
         return np.inf
 
-    bonded_set = {tuple(sorted((int(i), int(j)))) for i, j in bonds}
-    min_distance = np.inf
-    for ii, atom_index_1 in enumerate(heavy_indices):
-        for atom_index_2 in heavy_indices[ii + 1:]:
-            if (atom_index_1, atom_index_2) in bonded_set:
-                continue
-            distance = np.linalg.norm(coordinates[atom_index_1, :] - coordinates[atom_index_2, :])
-            if distance < min_distance:
-                min_distance = distance
-    return min_distance
+    from molsysmt.lib.math import minimum_distance_masked_not_bonded
+
+    return minimum_distance_masked_not_bonded(
+        np.asarray(coordinates, dtype=np.float64),
+        heavy_mask,
+        bonded_matrix,
+    )
 
 
 def _optimize_peptide_torsions(coordinates, atom_types, bonds, groups_data, group_start_indices,
@@ -303,8 +348,11 @@ def _optimize_peptide_torsions(coordinates, atom_types, bonds, groups_data, grou
     if len(group_start_indices) < 2:
         return coordinates
 
+    heavy_mask, bonded_matrix = _prepare_nonbonded_heavy_distance_full(atom_types, bonds)
     optimized_coordinates = coordinates.copy()
-    best_score = _minimum_nonbonded_heavy_distance_full(optimized_coordinates, atom_types, bonds)
+    best_score = _minimum_nonbonded_heavy_distance_full(
+        optimized_coordinates, heavy_mask=heavy_mask, bonded_matrix=bonded_matrix
+    )
     if not np.isfinite(best_score):
         return optimized_coordinates
 
@@ -343,7 +391,9 @@ def _optimize_peptide_torsions(coordinates, atom_types, bonds, groups_data, grou
                 trial_coordinates[downstream_start:, :] = _apply_rotation(
                     optimized_coordinates[downstream_start:, :], rotation_matrix, pivot
                 )
-                score = _minimum_nonbonded_heavy_distance_full(trial_coordinates, atom_types, bonds)
+                score = _minimum_nonbonded_heavy_distance_full(
+                    trial_coordinates, heavy_mask=heavy_mask, bonded_matrix=bonded_matrix
+                )
                 if score > candidate_best_score + 1.0e-10:
                     candidate_best_score = score
                     candidate_best_coordinates = trial_coordinates
@@ -391,8 +441,11 @@ def _optimize_sidechain_torsions(coordinates, atom_types, atom_names, bonds, gro
         adjacency.setdefault(atom2_index, set()).add(atom1_index)
 
     backbone_names = {"N", "CA", "C", "O", "OXT", "H", "H1", "H2", "H3", "HA", "HA2", "HA3"}
+    heavy_mask, bonded_matrix = _prepare_nonbonded_heavy_distance_full(atom_types, bonds)
     optimized_coordinates = coordinates.copy()
-    best_score = _minimum_nonbonded_heavy_distance_full(optimized_coordinates, atom_types, bonds)
+    best_score = _minimum_nonbonded_heavy_distance_full(
+        optimized_coordinates, heavy_mask=heavy_mask, bonded_matrix=bonded_matrix
+    )
     if not np.isfinite(best_score):
         return optimized_coordinates
 
@@ -462,7 +515,9 @@ def _optimize_sidechain_torsions(coordinates, atom_types, atom_names, bonds, gro
                     trial_coordinates[rotating_indices, :] = _apply_rotation(
                         rotating_coordinates, rotation_matrix, pivot
                     )
-                    score = _minimum_nonbonded_heavy_distance_full(trial_coordinates, atom_types, bonds)
+                    score = _minimum_nonbonded_heavy_distance_full(
+                        trial_coordinates, heavy_mask=heavy_mask, bonded_matrix=bonded_matrix
+                    )
                     if score > candidate_best_score + 1.0e-10:
                         candidate_best_score = score
                         candidate_best_coordinates = trial_coordinates
@@ -584,8 +639,11 @@ def _optimize_backbone_torsions(coordinates, atom_types, atom_names, bonds, grou
         adjacency.setdefault(atom1_index, set()).add(atom2_index)
         adjacency.setdefault(atom2_index, set()).add(atom1_index)
 
+    heavy_mask, bonded_matrix = _prepare_nonbonded_heavy_distance_full(atom_types, bonds)
     optimized_coordinates = coordinates.copy()
-    best_score = _minimum_nonbonded_heavy_distance_full(optimized_coordinates, atom_types, bonds)
+    best_score = _minimum_nonbonded_heavy_distance_full(
+        optimized_coordinates, heavy_mask=heavy_mask, bonded_matrix=bonded_matrix
+    )
     if not np.isfinite(best_score):
         return optimized_coordinates
 
@@ -638,7 +696,9 @@ def _optimize_backbone_torsions(coordinates, atom_types, atom_names, bonds, grou
                     trial_coordinates[rotating_indices, :] = _apply_rotation(
                         rotating_coordinates, rotation_matrix, pivot
                     )
-                    score = _minimum_nonbonded_heavy_distance_full(trial_coordinates, atom_types, bonds)
+                    score = _minimum_nonbonded_heavy_distance_full(
+                        trial_coordinates, heavy_mask=heavy_mask, bonded_matrix=bonded_matrix
+                    )
                     if score > candidate_best_score + 1.0e-10:
                         candidate_best_score = score
                         candidate_best_coordinates = trial_coordinates
@@ -909,6 +969,7 @@ def build_peptide(molecular_system, to_form='molsysmt.MolSys', engine='LEaP'):
         coordinates = np.zeros((n_atoms, 3), dtype=float)
         group_start_indices = []
         registered_bonds = set()
+        registered_bonded_matrix = np.zeros((n_atoms, n_atoms), dtype=np.uint8)
 
         peptide_bond_length = 0.133
         previous_tail_coordinates = None
@@ -1031,6 +1092,7 @@ def build_peptide(molecular_system, to_form='molsysmt.MolSys', engine='LEaP'):
                                     candidate_coordinates=candidate_coordinates,
                                     candidate_atom_types=atom_types_in_group,
                                     candidate_start_index=atom_index,
+                                    existing_bonded_matrix=registered_bonded_matrix,
                                 )
                                 if local_junction_score > best_local_junction_score + 1.0e-10:
                                     best_local_junction_score = local_junction_score
@@ -1274,6 +1336,7 @@ def build_peptide(molecular_system, to_form='molsysmt.MolSys', engine='LEaP'):
                                 candidate_coordinates=group_coordinates,
                                 candidate_atom_types=atom_types_in_group,
                                 candidate_start_index=atom_index,
+                                existing_bonded_matrix=registered_bonded_matrix,
                             )
                             for angle in np.linspace(0.0, 2.0 * np.pi, num=24, endpoint=False):
                                 rotation = _rotation_matrix_from_axis_angle(axis, angle)
@@ -1285,6 +1348,7 @@ def build_peptide(molecular_system, to_form='molsysmt.MolSys', engine='LEaP'):
                                     candidate_coordinates=trial_coordinates,
                                     candidate_atom_types=atom_types_in_group,
                                     candidate_start_index=atom_index,
+                                    existing_bonded_matrix=registered_bonded_matrix,
                                 )
                                 if score > best_score:
                                     best_score = score
@@ -1315,6 +1379,7 @@ def build_peptide(molecular_system, to_form='molsysmt.MolSys', engine='LEaP'):
                                             candidate_coordinates=tilted_uv,
                                             candidate_atom_types=atom_types_in_group,
                                             candidate_start_index=atom_index,
+                                            existing_bonded_matrix=registered_bonded_matrix,
                                         )
                                         if score > best_score:
                                             best_score = score
@@ -1348,6 +1413,8 @@ def build_peptide(molecular_system, to_form='molsysmt.MolSys', engine='LEaP'):
                     bond = (atom_index_2, atom_index_1)
                 all_bonds.append(bond)
                 registered_bonds.add(bond)
+                registered_bonded_matrix[bond[0], bond[1]] = 1
+                registered_bonded_matrix[bond[1], bond[0]] = 1
 
             if tail_index is not None:
                 previous_tail_coordinates = coordinates[group_start + tail_index, :]
@@ -1369,6 +1436,8 @@ def build_peptide(molecular_system, to_form='molsysmt.MolSys', engine='LEaP'):
                 bond = (atom_index_2, atom_index_1)
             all_bonds.append(bond)
             registered_bonds.add(bond)
+            registered_bonded_matrix[bond[0], bond[1]] = 1
+            registered_bonded_matrix[bond[1], bond[0]] = 1
 
         all_bonds = sorted(set(all_bonds))
         n_bonds = len(all_bonds)
@@ -1460,10 +1529,11 @@ def build_peptide(molecular_system, to_form='molsysmt.MolSys', engine='LEaP'):
             temp_item.topology.bonds['atom2_index'] = np.array([bond[1] for bond in all_bonds], dtype=int)
         temp_item.topology.bonds._remove_empty_columns()
 
+        heavy_mask_final, bonded_matrix_final = _prepare_nonbonded_heavy_distance_full(atom_types, all_bonds)
         min_nonbonded_heavy_distance = _minimum_nonbonded_heavy_distance_full(
             coordinates=coordinates,
-            atom_types=atom_types,
-            bonds=all_bonds,
+            heavy_mask=heavy_mask_final,
+            bonded_matrix=bonded_matrix_final,
         )
         if min_nonbonded_heavy_distance < 0.12:
             warnings.warn(
