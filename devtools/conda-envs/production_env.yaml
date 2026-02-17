@@ -5,8 +5,6 @@ channels:
 dependencies:
 - python
 - pip
-- setuptools >=68.0
-- versioningit>=3.0
 - h5py
 - numpy
 - numba

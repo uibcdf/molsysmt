@@ -48,7 +48,7 @@ jobs:
     - name: Setup conda env
       uses: mamba-org/setup-micromamba@v2
       with:
-        environment-file: devtools/conda-envs/setup_env.yaml
+        environment-file: devtools/conda-envs/production_env.yaml
         environment-name: test
         condarc: |
           channels:
