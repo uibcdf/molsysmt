@@ -1,6 +1,5 @@
 from molsysmt._private.arg_digestion import arg_digest
 from molsysmt._private.variables import is_all
-import networkx as nx
 import numpy as np
 
 
@@ -10,23 +9,29 @@ def get_component_index(molecular_system, element='component', selection='all', 
 
     if redefine_indices:
 
-        from molsysmt import convert, get
+        from molsysmt import get
+        from molsysmt.lib.topology import get_component_index_from_bonded_atom_pairs
 
-        component_index_of_atoms = None
+        n_atoms, bonded_atom_pairs = get(
+            molecular_system,
+            element='atom',
+            selection='all',
+            syntax=syntax,
+            n_atoms=True,
+            inner_bonded_atom_pairs=True,
+            skip_digestion=True,
+        )
 
-        g = convert(molecular_system, to_form='networkx.Graph', skip_digestion=True)
+        bonded_atom_pairs = np.asarray(bonded_atom_pairs, dtype=np.int64)
+        if bonded_atom_pairs.size == 0:
+            bonded_atom_pairs = np.empty((0, 2), dtype=np.int64)
+        else:
+            bonded_atom_pairs = bonded_atom_pairs.reshape((-1, 2))
 
-        components = list(nx.connected_components(g))
-
-        aux_n_components = len(components)
-
-        component_index_of_atoms = np.empty((g.number_of_nodes()), dtype=int)
-
-        for component_index, component in enumerate(components):
-            component_index_of_atoms[list(component)] = component_index
-
-        from molsysmt.lib.series import occurrence_order
-        component_index_of_atoms = occurrence_order(component_index_of_atoms)
+        component_index_of_atoms = get_component_index_from_bonded_atom_pairs(
+            bonded_atom_pairs, np.int64(n_atoms)
+        )
+        aux_n_components = int(component_index_of_atoms[-1]) + 1 if n_atoms > 0 else 0
 
         if element == 'atom':
 
