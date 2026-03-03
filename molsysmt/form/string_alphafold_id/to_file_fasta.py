@@ -3,7 +3,7 @@ from molsysmt._private.arg_digestion import arg_digest
 @arg_digest(form='string:alphafold_id')
 def to_file_fasta(item, atom_indices='all', output_filename=None, skip_digestion=False):
 
-    from ..file_fasta import extract as extract_file_fasta
+    from ..file_fasta.extract import extract as extract_file_fasta
 
     tmp_item = item.split(':')[-1]
     tmp_item = tmp_item.replace('-','')

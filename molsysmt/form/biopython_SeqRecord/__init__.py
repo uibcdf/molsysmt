@@ -1,3 +1,4 @@
+from .to_biopython_SeqRecord import to_biopython_SeqRecord
 form_name = 'biopython.SeqRecord'
 form_type = 'class'
 form_info = ["", ""]
@@ -19,5 +20,5 @@ from .set import *
 from .iterators import TopologyIterator
 
 _convert_to={
-        'biopython.SeqRecord': 'to_biopython_SeqRecord',
+        'biopython.SeqRecord': to_biopython_SeqRecord,
         }

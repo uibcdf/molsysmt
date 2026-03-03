@@ -3,7 +3,7 @@ from molsysmt._private.arg_digestion import arg_digest
 @arg_digest(form='openmm.PDBFile')
 def to_mdtraj_Topology(item, atom_indices='all', syntax='MolSysMT', skip_digestion=False):
 
-    from .to_openmm_Topology import to_openmm_Topology
+    from ..openmm_Topology.to_openmm_Topology import to_openmm_Topology
     from ..openmm_Topology.to_mdtraj_Topology import to_mdtraj_Topology
 
     tmp_item = to_openmm_Topology(item, atom_indices=atom_indices, skip_digestion=True)

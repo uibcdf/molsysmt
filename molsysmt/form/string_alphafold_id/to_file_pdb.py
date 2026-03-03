@@ -6,7 +6,7 @@ def to_file_pdb(item, atom_indices='all', structure_indices='all', output_filena
     import urllib.request
     from urllib.request import urlretrieve
     import json
-    from ..file_pdb import extract
+    from ..file_pdb.extract import extract
 
     uniprot_id = item.split('-')[-2]
 

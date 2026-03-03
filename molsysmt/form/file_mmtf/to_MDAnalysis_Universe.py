@@ -7,7 +7,7 @@ def to_MDAnalysis_Universe(item, atom_indices='all', structure_indices='all', sk
 
     from MDAnalysis import Universe
 
-    from ..MDAnalysis_Universe import extract as extract_MDAnalysis_Universe
+    from ..MDAnalysis_Universe.extract import extract as extract_MDAnalysis_Universe
 
     tmp_item = Universe(item)
     tmp_item = extract_MDAnalysis_Universe(tmp_item, atom_indices=atom_indices,

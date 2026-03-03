@@ -30,8 +30,7 @@ def get_atom_index_from_atom(item, indices='all', skip_digestion=False):
 def get_atom_id_from_atom(item, indices='all', skip_digestion=False):
 
     tmp_indices = get_atom_index_from_atom(item, indices=indices, skip_digestion=True)
-    output=[item.atom(ii).serial for ii in tmp_indices]
-    output=np.array(output, dtype=int)
+    output=[str(item.atom(ii).serial) for ii in tmp_indices]
     return output
 
 
@@ -40,7 +39,6 @@ def get_atom_name_from_atom(item, indices='all', skip_digestion=False):
 
     tmp_indices = get_atom_index_from_atom(item, indices=indices, skip_digestion=True)
     output=[item.atom(ii).name for ii in tmp_indices]
-    output=np.array(output, dtype=object)
     return output
 
 
@@ -49,7 +47,6 @@ def get_atom_type_from_atom(item, indices='all', skip_digestion=False):
 
     tmp_indices = get_atom_index_from_atom(item, indices=indices, skip_digestion=True)
     output=[item.atom(ii).element.symbol for ii in tmp_indices]
-    output=np.array(output, dtype=object)
     return output
 
 
@@ -803,8 +800,7 @@ def get_group_id_from_group(item, indices='all', skip_digestion=False):
         n_indices = get_n_groups_from_system(item, skip_digestion=True)
         indices = np.arange(n_indices)
 
-    output = [item.residue(ii).resSeq for ii in indices]
-    output = np.array(output, dtype=int)
+    output = [str(item.residue(ii).resSeq) for ii in indices]
     return output
 
 @arg_digest(form=form)

@@ -10,8 +10,12 @@ def extract(item, atom_indices='all', structure_indices='all', copy_if_all=True,
     if is_all(atom_indices):
 
         if copy_if_all:
-            from copy import deepcopy
-            tmp_item = deepcopy(item)
+            from mdtraj.core.topology import Topology
+            if isinstance(item, Topology):
+                from copy import deepcopy
+                tmp_item = deepcopy(item)
+            else:
+                tmp_item = item
         else:
             tmp_item = item
     else:

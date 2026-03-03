@@ -5,7 +5,7 @@ import os
 def to_mdtraj_HDF5TrajectoryFile(item, atom_indices='all', structure_indices='all', skip_digestion=False):
 
     from mdtraj.formats import HDF5TrajectoryFile
-    from ..mdtraj_HDF5TrajectoryFile import extract as extract_mdtraj_HDF5TrajectoryFile
+    from ..mdtraj_HDF5TrajectoryFile.extract import extract as extract_mdtraj_HDF5TrajectoryFile
 
     tmp_item = HDF5TrajectoryFile(item, mode='r')
 

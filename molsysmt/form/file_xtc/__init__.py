@@ -1,3 +1,7 @@
+from .to_mdtraj_Trajectory import to_mdtraj_Trajectory
+from .to_file_xtc import to_file_xtc
+from .to_mdtraj_XTCTrajectoryFile import to_mdtraj_XTCTrajectoryFile
+from .to_molsysmt_Structures import to_molsysmt_Structures
 form_name = 'file:xtc'
 form_type = 'file'
 form_info = ["", ""]
@@ -22,8 +26,8 @@ from .iterators import StructuresIterator
 
 
 _convert_to={
-        'file:xtc': 'to_file_xtc',
-        'mdtraj.Trajectory': 'to_mdtraj_Trajectory',
-        'mdtraj.XTCTrajectoryFile': 'to_mdtraj_XTCTrajectoryFile',
-        'molsysmt.Structures': 'to_molsysmt_Structures',
+        'file:xtc': to_file_xtc,
+        'mdtraj.Trajectory': to_mdtraj_Trajectory,
+        'mdtraj.XTCTrajectoryFile': to_mdtraj_XTCTrajectoryFile,
+        'molsysmt.Structures': to_molsysmt_Structures,
         }

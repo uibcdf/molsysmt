@@ -48,7 +48,7 @@ def to_openmm_Topology(item, box=None, atom_indices='all', skip_digestion=False)
 
     if box is not None:
 
-        from ..openmm_Topology import set_box_to_system
+        from ..openmm_Topology.set_box_to_system import set_box_to_system
 
         set_box_to_system(tmp_item, value=box)
 

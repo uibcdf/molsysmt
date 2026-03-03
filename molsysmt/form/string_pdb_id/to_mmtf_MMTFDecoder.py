@@ -4,7 +4,7 @@ from molsysmt._private.arg_digestion import arg_digest
 def to_mmtf_MMTFDecoder(item, atom_indices='all', structure_indices='all', skip_digestion=False):
 
     from mmtf import fetch
-    from ..mmtf_MMTFDecoder import extract as extract_mmtf_MMTFDecoder
+    from ..mmtf_MMTFDecoder.extract import extract as extract_mmtf_MMTFDecoder
 
     tmp_item = item.split(':')[-1]
     tmp_item = fetch(tmp_item)

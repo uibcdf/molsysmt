@@ -3,7 +3,7 @@ from molsysmt._private.arg_digestion import arg_digest
 @arg_digest(form='mdtraj.Trajectory')
 def to_parmed_Structure(item, atom_indices='all', structure_indices='all', skip_digestion=False):
 
-    from .to_openmm_Topology import to_openmm_Topology
+    from ..openmm_Topology.to_openmm_Topology import to_openmm_Topology
     from ..openmm_Topology.to_parmed_Structures import to_parmed_Structures as openmm_Topology_to_parmed_Structures
 
     tmp_item = to_openmm_Topology(item, atom_indices=atom_indices, skip_digestion=True)

@@ -1,3 +1,6 @@
+from .to_openmm_State import to_openmm_State
+from .to_molsysmt_Structures import to_molsysmt_Structures
+from .to_XYZ import to_XYZ
 form_name = 'openmm.State'
 form_type = 'class'
 form_info = ["", ""]
@@ -22,8 +25,8 @@ from .iterators import StructuresIterator, TopologyIterator
 
 
 _convert_to={
-        'openmm.State': 'to_openmm_State',
-        'molsysmt.Structures': 'to_molsysmt_Structures',
-        'XYZ': 'to_XYZ',
+        'openmm.State': to_openmm_State,
+        'molsysmt.Structures': to_molsysmt_Structures,
+        'XYZ': to_XYZ,
         }
 

@@ -4,7 +4,7 @@ from molsysmt._private.arg_digestion import arg_digest
 def to_molsysmt_MolSys(item, atom_indices='all', skip_digestion=False):
 
     from molsysmt.native import MolSys, Structures
-    from .to_molsysmt_Topology import to_molsysmt_Topology
+    from ..molsysmt_Topology.to_molsysmt_Topology import to_molsysmt_Topology
     tmp_item = MolSys()
     tmp_item.topology = to_molsysmt_Topology(item, atom_indices=atom_indices)
     tmp_item.structures = Structures()

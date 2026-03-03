@@ -4,7 +4,7 @@ from molsysmt._private.arg_digestion import arg_digest
 def to_mdtraj_Topology(item, atom_indices='all', skip_digestion=False):
 
     from mdtraj import load_mol2
-    from ..mdtraj_Topology import extract as extract_mdtraj_Topology
+    from ..mdtraj_Topology.extract import extract as extract_mdtraj_Topology
 
     tmp_item = load_mol2(item).topology
     tmp_item = extract_mdtraj_Topology(tmp_item, skip_digestion=True)

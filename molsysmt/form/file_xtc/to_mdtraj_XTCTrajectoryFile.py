@@ -4,7 +4,7 @@ from molsysmt._private.arg_digestion import arg_digest
 def to_mdtraj_XTCTrajectoryFile(item, atom_indices='all', structure_indices='all', skip_digestion=False):
 
     from mdtraj.formats import XTCTrajectoryFile
-    from ..mdtraj_XTCTrajectoryFile import extract as extract_mdtraj_XTCTrajectoryFile
+    from ..mdtraj_XTCTrajectoryFile.extract import extract as extract_mdtraj_XTCTrajectoryFile
 
     tmp_item = XTCTrajectoryFile(item)
     tmp_item = extract_mdtraj_XTCTrajectoryFile(tmp_item, atom_indices=atom_indices,

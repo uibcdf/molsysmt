@@ -7,7 +7,7 @@ import numpy as np
 @arg_digest(form='mmcif.PdbxContainers.DataContainer')
 def to_molsysmt_Topology(item, atom_indices='all', skip_digestion=False):
 
-    from .to_molsysmt_MolSys import to_molsysmt_MolSys
+    from ..molsysmt_MolSys.to_molsysmt_MolSys import to_molsysmt_MolSys
 
     tmp_item = to_molsysmt_MolSys(item, atom_indices=atom_indices, skip_digestion=True)
 

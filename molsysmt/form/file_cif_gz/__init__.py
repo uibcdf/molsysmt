@@ -1,3 +1,9 @@
+from .to_molsysmt_MolSys import to_molsysmt_MolSys
+from .to_mmcif_PdbxContainers_DataContainer import to_mmcif_PdbxContainers_DataContainer
+from .to_file_cif_gz import to_file_cif_gz
+from .to_file_h5msm import to_file_h5msm
+from .to_molsysmt_Structures import to_molsysmt_Structures
+from .to_molsysmt_Topology import to_molsysmt_Topology
 from .download import download
 
 form_name = 'file:cif.gz'
@@ -28,11 +34,11 @@ from .download import download
 
 
 _convert_to={
-    'file:cif.gz': 'to_file_cif_gz',
-    'mmcif.PdbxContainers.DataContainer': 'to_mmcif_PdbxContainers_DataContainer',
-    'molsysmt.MolSys': 'to_molsysmt_MolSys',
-    'molsysmt.Topology': 'to_molsysmt_Topology',
-    'molsysmt.Structures': 'to_molsysmt_Structures',
-    'file:h5msm': 'to_file_h5msm',
+    'file:cif.gz': to_file_cif_gz,
+    'mmcif.PdbxContainers.DataContainer': to_mmcif_PdbxContainers_DataContainer,
+    'molsysmt.MolSys': to_molsysmt_MolSys,
+    'molsysmt.Topology': to_molsysmt_Topology,
+    'molsysmt.Structures': to_molsysmt_Structures,
+    'file:h5msm': to_file_h5msm,
     }
 

@@ -1,3 +1,8 @@
+from .to_nglview_NGLWidget import to_nglview_NGLWidget
+from .to_molsysmt_MolSys import to_molsysmt_MolSys
+from .to_molsysmt_Structures import to_molsysmt_Structures
+from .to_molsysmt_H5MSMFileHandler import to_molsysmt_H5MSMFileHandler
+from .to_molsysmt_Topology import to_molsysmt_Topology
 form_name = 'molsysmt.H5MSMFileHandler'
 form_type = 'class'
 form_info = ["", ""]
@@ -25,10 +30,10 @@ from .iterators import StructuresIterator, TopologyIterator
 
 
 _convert_to={
-        'molsysmt.H5MSMFileHandler': 'to_molsysmt_H5MSMFileHandler',
-        'molsysmt.MolSys': 'to_molsysmt_MolSys',
-        'molsysmt.Topology': 'to_molsysmt_Topology',
-        'molsysmt.Structures': 'to_molsysmt_Structures',
-        'nglview.NGLWidget': 'to_nglview_NGLWidget',
+        'molsysmt.H5MSMFileHandler': to_molsysmt_H5MSMFileHandler,
+        'molsysmt.MolSys': to_molsysmt_MolSys,
+        'molsysmt.Topology': to_molsysmt_Topology,
+        'molsysmt.Structures': to_molsysmt_Structures,
+        'nglview.NGLWidget': to_nglview_NGLWidget,
         }
 

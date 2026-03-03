@@ -280,6 +280,34 @@ class Topology():
         self.entities['entity_id'] = self.entities['entity_id'].astype('string')
         self.chains['chain_id'] = self.chains['chain_id'].astype('string')
 
+    @property
+    def n_atoms(self):
+        return self.atoms.shape[0]
+
+    @property
+    def n_groups(self):
+        return self.groups.shape[0]
+
+    @property
+    def n_components(self):
+        return self.components.shape[0]
+
+    @property
+    def n_molecules(self):
+        return self.molecules.shape[0]
+
+    @property
+    def n_entities(self):
+        return self.entities.shape[0]
+
+    @property
+    def n_chains(self):
+        return self.chains.shape[0]
+
+    @property
+    def n_bonds(self):
+        return self.bonds.shape[0]
+
     @signal(tags=['native'])
     @arg_digest()
     def extract(self, atom_indices='all', copy_if_all=False, skip_digestion=False):

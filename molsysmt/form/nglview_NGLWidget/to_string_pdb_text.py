@@ -4,7 +4,7 @@ from molsysmt._private.variables import is_all
 @arg_digest(form='nglview.NGLWidget')
 def to_string_pdb_text(item, atom_indices='all', structure_indices='all', skip_digestion=False):
 
-    from ..string_pdb_text import extract
+    from ..string_pdb_text.extract import extract
 
     try:
         tmp_item = item.component_0.get_structure_string()

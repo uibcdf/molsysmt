@@ -3,12 +3,16 @@ from molsysmt._private.arg_digestion import arg_digest
 @arg_digest(form='file:h5')
 def to_mdtraj_Trajectory(item, atom_indices='all', structure_indices='all', skip_digestion=False):
 
-    from .to_mdtraj_HDF5TrajectoryFile import to_mdtraj_HDF5TrajectoryFile
-    from .mdtraj_HDF5TrajectoryFile import to_mdtraj_Trajectory as mdtraj_HDF5TrajectoryFile_to_mdtraj_Trajectory
+    import mdtraj as mdt
+    from molsysmt._private.variables import is_all
 
-    tmp_item = to_mdtraj_HDF5TrajectoryFile(item, skip_digestion=True)
-    tmp_item = mdtraj_HDF5TrajectoryFile_to_mdtraj_Trajectory(tmp_item, atom_indices=atom_indices, structure_indices=structure_indices,
-            skip_digestion=True)
+    if is_all(atom_indices):
+        atom_indices = None
+
+    if is_all(structure_indices):
+        tmp_item = mdt.load(item, atom_indices=atom_indices)
+    else:
+        tmp_item = mdt.load(item, atom_indices=atom_indices, frame=structure_indices)
 
     return tmp_item
 

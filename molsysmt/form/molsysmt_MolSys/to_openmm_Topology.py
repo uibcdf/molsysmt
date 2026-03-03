@@ -6,7 +6,7 @@ from smonitor import signal
 @arg_digest(form='molsysmt.MolSys')
 def to_openmm_Topology(item, atom_indices='all', structure_indices='all', skip_digestion=False):
 
-    from .to_molsysmt_Topology import to_molsysmt_Topology
+    from ..molsysmt_Topology.to_molsysmt_Topology import to_molsysmt_Topology
     from . import get_box_from_system
     from ..molsysmt_Topology.to_openmm_Topology import to_openmm_Topology as molsysmt_Topology_to_openmm_Topology
 

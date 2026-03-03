@@ -7,7 +7,7 @@ def to_molsysviewer_MolSysView(item, atom_indices='all', structure_indices='all'
 
     from molsysviewer import MolSysView
     from molsysmt.basic import extract
-    from .to_molsysmt_MolSys import to_molsysmt_MolSys
+    from ..molsysmt_MolSys.to_molsysmt_MolSys import to_molsysmt_MolSys
 
     if is_all(atom_indices) and is_all(structure_indices):
         return item

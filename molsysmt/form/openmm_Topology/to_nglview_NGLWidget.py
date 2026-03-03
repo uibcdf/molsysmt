@@ -3,7 +3,7 @@ from molsysmt._private.arg_digestion import arg_digest
 @arg_digest(form='openmm.Topology')
 def to_nglview_NGLWidget(item, atom_indices='all', coordinates=None, skip_digestion=False):
 
-    from .to_string_pdb_text import to_string_pdb_text as to_string_pdb_text
+    from ..string_pdb_text.to_string_pdb_text import to_string_pdb_text as to_string_pdb_text
     from ..string_pdb_text.to_nglview_NGLWidget import to_nglview_NGLWidget as string_pdb_text_to_nglview_NGLWidget
 
     tmp_item = to_string_pdb_text(item, atom_indices=atom_indices, coordinates=coordinates, skip_digestion=True)

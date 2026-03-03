@@ -7,7 +7,7 @@ def to_mdtraj_Trajectory(item, atom_indices='all', structure_indices='all', skip
 
     from mdtraj import load_pdb
 
-    from ..mdtraj_Trajectory import extract as extract_mdtraj_Trajectory
+    from ..mdtraj_Trajectory.extract import extract as extract_mdtraj_Trajectory
 
     tmp_item = load_pdb(item)
     tmp_item = extract_mdtraj_Trajectory(tmp_item, atom_indices=atom_indices,

@@ -5,7 +5,7 @@ from molsysmt._private.files_and_directories import str_filename
 def to_mdtraj_DCDTrajectoryFile(item, atom_indices='all', structure_indices='all', skip_digestion=False):
 
     from mdtraj.formats import DCDTrajectoryFile
-    from ..mdtraj_DCDTrajectoryFile import extract as extract_mdtraj_DCDTrajectoryFile
+    from ..mdtraj_DCDTrajectoryFile.extract import extract as extract_mdtraj_DCDTrajectoryFile
 
     tmp_item = DCDTrajectoryFile(str_filename(item))
     tmp_item = extract_mdtraj_DCDTrajectoryFile(tmp_item, atom_indices=atom_indices,

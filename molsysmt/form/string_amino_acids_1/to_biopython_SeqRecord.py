@@ -3,7 +3,7 @@ from molsysmt._private.arg_digestion import arg_digest
 @arg_digest(form='string:amino_acids_1')
 def to_biopython_SeqRecord(item, group_indices='all', skip_digestion=False):
 
-    from .to_biopython_Seq import to_biopython_Seq
+    from ..biopython_Seq.to_biopython_Seq import to_biopython_Seq
     from ..biopython_Seq.to_biopython_SeqRecord import to_biopython_SeqRecord as biopython_Seq_to_biopython_SeqRecord
 
     tmp_item = to_biopython_Seq(item, atom_indices=atom_indices, structure_indices=structure_indices,

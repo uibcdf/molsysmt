@@ -1,3 +1,5 @@
+from .to_molsysmt_MolSys import to_molsysmt_MolSys
+from .to_molsysviewer_MolSysView import to_molsysviewer_MolSysView
 form_name = 'molsysviewer.MolSysView'
 form_type = 'class'
 form_info = ["MolSysViewer visualization native object", ""]
@@ -42,6 +44,6 @@ from .get_structural_attributes import *
 from .get_mechanical_attributes import *
 
 _convert_to = {
-    'molsysviewer.MolSysView': 'to_molsysviewer_MolSysView',
-    'molsysmt.MolSys': 'to_molsysmt_MolSys',
+    'molsysviewer.MolSysView': to_molsysviewer_MolSysView,
+    'molsysmt.MolSys': to_molsysmt_MolSys,
 }

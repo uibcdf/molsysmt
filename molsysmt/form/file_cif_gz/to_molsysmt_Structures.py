@@ -3,7 +3,7 @@ from molsysmt._private.arg_digestion import arg_digest
 @arg_digest(form='file:cif.gz')
 def to_molsysmt_Structures(item, atom_indices='all', structure_indices='all', skip_digestion=False):
 
-    from .to_mmcif_PdbxContainers_DataContainer import to_mmcif_PdbxContainers_DataContainer
+    from ..mmcif_PdbxContainers_DataContainer.to_mmcif_PdbxContainers_DataContainer import to_mmcif_PdbxContainers_DataContainer
     from ..mmcif_PdbxContainers_DataContainer.to_molsysmt_Structures import to_molsysmt_Structures as mmcif_PdbxContainers_DataContainer_to_molsysmt_Structures
 
     tmp_item = to_mmcif_PdbxContainers_DataContainer(item, skip_digestion=True)

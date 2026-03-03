@@ -1,3 +1,8 @@
+from .to_nglview_NGLWidget import to_nglview_NGLWidget
+from .to_molsysmt_MolSys import to_molsysmt_MolSys
+from .to_molsysmt_Structures import to_molsysmt_Structures
+from .to_file_msmpk import to_file_msmpk
+from .to_molsysmt_Topology import to_molsysmt_Topology
 from .update_file import update_file
 
 form_name = 'file:msmpk'
@@ -26,10 +31,10 @@ from .update_file import update_file
 
 
 _convert_to={
-        'file:msmpk': 'to_file_msmpk',
-        'molsysmt.MolSys': 'to_molsysmt_MolSys',
-        'molsysmt.Topology': 'to_molsysmt_Topology',
-        'molsysmt.Structures': 'to_molsysmt_Structures',
-        'nglview.NGLWidget': 'to_nglview_NGLWidget',
+        'file:msmpk': to_file_msmpk,
+        'molsysmt.MolSys': to_molsysmt_MolSys,
+        'molsysmt.Topology': to_molsysmt_Topology,
+        'molsysmt.Structures': to_molsysmt_Structures,
+        'nglview.NGLWidget': to_nglview_NGLWidget,
         }
 

@@ -3,7 +3,7 @@ from molsysmt._private.arg_digestion import arg_digest
 @arg_digest(form='openmm.Topology')
 def to_string_amino_acids_3(item, group_indices='all', skip_digestion=False):
 
-    from .to_molsysmt_Topology import to_molsysmt_Topology
+    from ..molsysmt_Topology.to_molsysmt_Topology import to_molsysmt_Topology
     from ..molsysmt_Topology.to_string_amino_acids_3 import to_string_amino_acids_3 as molsysmt_Topology_to_string_amino_acids_3
 
     tmp_item = to_molsysmt_Topology(item, skip_digestion=True)

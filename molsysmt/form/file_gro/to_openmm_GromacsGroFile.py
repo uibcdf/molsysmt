@@ -4,7 +4,7 @@ from molsysmt._private.arg_digestion import arg_digest
 def to_openmm_GromacsGroFile(item, atom_indices='all', structure_indices='all', skip_digestion=False):
 
     from openmm.app import GromacsGroFile
-    from ..openmm_GromacsGroFile import extract as extract_openmm_GromacsGroFile
+    from ..openmm_GromacsGroFile.extract import extract as extract_openmm_GromacsGroFile
 
     tmp_item = GromacsGroFile(item)
     tmp_item = extract_openmm_GromacsGroFile(tmp_item, atom_indices=atom_indices,

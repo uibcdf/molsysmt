@@ -7,7 +7,7 @@ def to_pytraj_Trajectory(item, atom_indices='all', structure_indices='all', skip
 
     from pytraj import load
 
-    from ..pytraj_Trajectory import extract as extract_pytraj_Trajectory
+    from ..pytraj_Trajectory.extract import extract as extract_pytraj_Trajectory
 
     tmp_item = load(item)
     tmp_item = extract_pytraj_Trajectory(tmp_item, atom_indices=atom_indices, structure_indices=structure_indices,

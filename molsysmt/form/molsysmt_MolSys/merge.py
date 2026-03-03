@@ -6,9 +6,9 @@ from molsysmt._private.variables import is_all
 def merge(items, atom_indices='all', structure_indices='all', keep_ids=True, skip_digestion=False):
 
     from molsysmt.native import MolSys
-    from ..molsysmt_Topology import merge as merge_molsysmt_Topology
-    from ..molsysmt_Structures import merge as merge_molsysmt_Structures
-    from ..molsysmt_MolecularMechanics import merge as merge_molsysmt_MolecularMechanics
+    from ..molsysmt_Topology.merge import merge as merge_molsysmt_Topology
+    from ..molsysmt_Structures.merge import merge as merge_molsysmt_Structures
+    from ..molsysmt_MolecularMechanics.merge import merge as merge_molsysmt_MolecularMechanics
 
     n_items = len(items)
 

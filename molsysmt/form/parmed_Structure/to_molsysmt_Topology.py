@@ -7,7 +7,7 @@ from molsysmt.element.atom import get_atom_type_from_atom_name
 def to_molsysmt_Topology(item, atom_indices='all', skip_digestion=False):
 
     from molsysmt.native import Topology
-    from ..molsysmt_Topology import extract
+    from ..molsysmt_Topology.extract import extract
 
     tmp_item = Topology()
 

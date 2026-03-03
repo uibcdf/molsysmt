@@ -1,3 +1,10 @@
+from .to_MDAnalysis_Universe import to_MDAnalysis_Universe
+from .to_nglview_NGLWidget import to_nglview_NGLWidget
+from .to_file_pdb import to_file_pdb
+from .to_mdtraj_Trajectory import to_mdtraj_Trajectory
+from .to_molsysmt_MolSys import to_molsysmt_MolSys
+from .to_molsysmt_Structures import to_molsysmt_Structures
+from .to_molsysmt_Topology import to_molsysmt_Topology
 form_name = 'MDAnalysis.Universe'
 form_type = 'class'
 form_info = ["", ""]
@@ -22,11 +29,11 @@ from .iterators import StructuresIterator, TopologyIterator
 
 
 _convert_to={
-        'MDAnalysis.Universe': 'to_MDAnalysis_Universe',
-        'mdtraj.Trajectory': 'to_mdtraj_Trajectory',
-        'nglview.NGLWidget': 'to_nglview_NGLWidget',
-        'file:pdb': 'to_file_pdb',
-        'molsysmt.MolSys': 'to_molsysmt_MolSys',
-        'molsysmt.Topology': 'to_molsysmt_Topology',
-        'molsysmt.Structures': 'to_molsysmt_Structures',
+        'MDAnalysis.Universe': to_MDAnalysis_Universe,
+        'mdtraj.Trajectory': to_mdtraj_Trajectory,
+        'nglview.NGLWidget': to_nglview_NGLWidget,
+        'file:pdb': to_file_pdb,
+        'molsysmt.MolSys': to_molsysmt_MolSys,
+        'molsysmt.Topology': to_molsysmt_Topology,
+        'molsysmt.Structures': to_molsysmt_Structures,
         }
