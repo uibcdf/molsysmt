@@ -43,6 +43,7 @@ MAPPING = {
     'MDAnalysis_AtomGroup': 'MDAnalysis',
     'nglview_NGLWidget': 'nglview',
     'molsysviewer_MolSysView': 'molsysviewer',
+    'rdkit_Mol': 'rdkit',
     'parmed_Structure': 'parmed',
     'file_mol2': 'parmed',
     'pytraj_Trajectory': 'pytraj',
@@ -50,6 +51,7 @@ MAPPING = {
     'pdbfixer_PDBFixer': 'pdbfixer',
     'biopython_Seq': 'Bio',
     'biopython_SeqRecord': 'Bio',
+    'biopython_PDBStructure': 'Bio',
     'mmtf_MMTFDecoder': 'mmtf',
 }
 
