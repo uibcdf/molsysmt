@@ -26,3 +26,10 @@ _convert_to={
         'biopython.Seq': to_biopython_Seq,
         'biopython.SeqRecord': to_biopython_SeqRecord,
         }
+
+
+piped_topological_attribute = None
+piped_structural_attribute = None
+piped_any_attribute = None
+bonds_are_explicit = False
+bonds_can_be_computed = False

@@ -25,3 +25,10 @@ from .iterators import StructuresIterator, TopologyIterator
 _convert_to={
         'openmm.CharmmCrdFile': to_openmm_CharmmCrdFile,
         }
+
+
+piped_topological_attribute = None
+piped_structural_attribute = None
+piped_any_attribute = None
+bonds_are_explicit = False
+bonds_can_be_computed = False

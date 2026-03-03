@@ -61,7 +61,7 @@ Tier 3 includes forms that are under development, deprecated, or highly speciali
 
 ## 🧪 Contract Testing Mandate
 
-For the 1.0.0 release, **Contract Tests** must be implemented for all Tier 1 forms to verify the following invariants:
-1. **Schema Identity**: `msm.get(molsys, ...)` must return the same data type and nesting.
-2. **Physical Identity**: Coordinate and box values must match within a tolerance of $10^{-5}$ nm after unit standardization.
-3. **Selection Identity**: `msm.select(molsys, selection="...")` must return identical index lists.
+For the 1.0.0 release, **Contract Tests** are being implemented for Tier 1 forms to verify the following invariants:
+1. **Schema Identity**: `msm.get(molsys, ...)` must return the same data type and nesting. [VERIFIED for get/select]
+2. **Physical Identity**: Coordinate and box values must match within a tolerance of $10^{-5}$ nm after unit standardization. [VERIFIED]
+3. **Selection Identity**: `msm.select(molsys, selection="...")` must return identical index lists. [VERIFIED]
