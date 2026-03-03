@@ -29,7 +29,7 @@ def get_atom_id_from_atom(item, indices='all', skip_digestion=False):
 
     tmp_indices = get_atom_index_from_atom(item, indices=indices, skip_digestion=True)
     atom=list(item.atoms())
-    output=[int(atom[ii].id) for ii in tmp_indices]
+    output=[str(atom[ii].id) for ii in tmp_indices]
     del(atom)
 
     return output
@@ -807,7 +807,7 @@ def get_group_id_from_group(item, indices='all', skip_digestion=False):
         indices = range(n_indices)
 
     group=list(item.residues())
-    output = [int(group[ii].id) for ii in indices]
+    output = [str(group[ii].id) for ii in indices]
     del(group)
 
     return output

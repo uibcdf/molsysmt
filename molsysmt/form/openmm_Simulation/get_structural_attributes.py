@@ -17,19 +17,16 @@ form='openmm.Simulation'
 @arg_digest(form=form)
 def get_coordinates_from_atom(item, indices='all', structure_indices='all', skip_digestion=False):
 
-    coordinates = item.context.getState(getPositions=True).getPositions(asNumpy=True)
-    unit = puw.get_unit(coordinates)
-    coordinates = puw.get_value(coordinates)
-    coordinates = coordinates.reshape(1, coordinates.shape[0], coordinates.shape[1])
+    state = item.context.getState(getPositions=True)
+    coordinates = state.getPositions(asNumpy=True)
+    coordinates = puw.standardize(coordinates)
+    coordinates = puw.reshape(coordinates, shape=(1, -1, 3))
 
     if not is_all(structure_indices):
         coordinates = coordinates[structure_indices,:,:]
 
     if not is_all(indices):
         coordinates = coordinates[:,indices,:]
-
-    coordinates = coordinates * unit
-    coordinates = puw.standardize(coordinates)
 
     return coordinates
 
@@ -60,23 +57,16 @@ def get_coordinates_from_system(item, structure_indices='all', skip_digestion=Fa
 @arg_digest(form=form)
 def get_box_from_system(item, structure_indices='all', skip_digestion=False):
 
-    box=item.context.getState().getPeriodicBoxVectors(asNumpy=True)
+    state = item.context.getState()
+    box = state.getPeriodicBoxVectors(asNumpy=True)
 
     if box is not None:
-        box_unit = box.unit
-        box = np.array(box._value)
-        box = box.reshape(1, box.shape[0], box.shape[1])
-        box = box * box_unit
+        box = puw.standardize(box)
+        box = puw.reshape(box, shape=(1, 3, 3))
+        if not is_all(structure_indices):
+            box = box[structure_indices,:,:]
 
-    output=None
-
-    if box is not None:
-        if is_all(structure_indices):
-            output=box
-        else:
-            output=box[structure_indices,:,:]
-
-    return output
+    return box
 
 @arg_digest(form=form)
 def get_time_from_system(item, structure_indices='all', skip_digestion=False):
