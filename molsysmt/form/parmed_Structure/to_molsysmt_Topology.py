@@ -1,93 +1,90 @@
 from molsysmt._private.arg_digestion import arg_digest
-import numpy as np
 from molsysmt.element.group import get_group_type_from_group_name
 from molsysmt.element.atom import get_atom_type_from_atom_name
+import numpy as np
 
 @arg_digest(form='parmed.Structure')
 def to_molsysmt_Topology(item, atom_indices='all', skip_digestion=False):
 
     from molsysmt.native import Topology
-    from ..molsysmt_Topology.extract import extract
-
-    tmp_item = Topology()
+    from molsysmt.form.molsysmt_Topology.extract import extract as extract_molsysmt_Topology
+    from molsysmt._private.variables import is_all
 
     n_atoms = len(item.atoms)
     n_groups = len(item.residues)
     n_bonds = len(item.bonds)
 
-    tmp_item.reset_atoms(n_atoms=n_atoms)
-    tmp_item.reset_groups(n_groups=n_groups)
-    tmp_item.reset_bonds(n_bonds=n_bonds)
+    # ParmEd doesn't have a direct 'chains' attribute like OpenMM, 
+    # but residues have a 'chain' attribute.
+    unique_chain_ids = []
+    for residue in item.residues:
+        if residue.chain not in unique_chain_ids:
+            unique_chain_ids.append(residue.chain)
+    n_chains = len(unique_chain_ids)
+    chain_id_to_index = {cid: i for i, cid in enumerate(unique_chain_ids)}
 
-    atom_index = 0
-    former_group_index = -1
-    former_chain_index = -1
+    tmp_item = Topology(n_atoms=n_atoms, n_groups=n_groups, n_chains=n_chains)
 
-    aux_dict_chains={}
+    # Atoms
+    atom_id = []
+    atom_name = []
+    atom_type = []
+    group_index_of_atoms = []
 
     for atom in item.atoms:
+        # ParmEd serials start at 1 usually, number attribute is the serial
+        atom_id.append(str(atom.number))
+        atom_name.append(atom.name)
+        atom_type.append(get_atom_type_from_atom_name(atom.name))
+        group_index_of_atoms.append(atom.residue.idx)
 
-        group_index = atom.residue.idx
+    tmp_item.atoms.atom_id = atom_id
+    tmp_item.atoms.atom_name = atom_name
+    tmp_item.atoms.atom_type = atom_type
+    tmp_item.atoms.group_index = group_index_of_atoms
 
-        chain_id = atom.residue.chain
-        if chain_id not in aux_dict_chains:
-            aux_dict_chains[chain_id]=len(aux_dict_chains)
-        chain_index = aux_dict_chains[chain_id]
+    # Groups
+    group_id = []
+    group_name = []
+    group_type = []
+    chain_index_of_groups = []
 
+    for residue in item.residues:
+        group_id.append(str(residue.number))
+        group_name.append(residue.name)
+        group_type.append(get_group_type_from_group_name(residue.name))
+        chain_index_of_groups.append(chain_id_to_index[residue.chain])
 
-        tmp_item.atoms.iloc[atom_index,0] = atom.idx
-        tmp_item.atoms.iloc[atom_index,1] = atom.name
-        tmp_item.atoms.iloc[atom_index,2] = get_atom_type_from_atom_name(atom.name)
-        tmp_item.atoms.iloc[atom_index,3] = group_index
-        tmp_item.atoms.iloc[atom_index,4] = chain_index
+    tmp_item.groups.group_id = group_id
+    tmp_item.groups.group_name = group_name
+    tmp_item.groups.group_type = group_type
+    tmp_item.groups.chain_index = chain_index_of_groups
 
-        if former_group_index!=group_index:
-            tmp_item.groups.iloc[group_index,0] = atom.residue.idx
-            tmp_item.groups.iloc[group_index,1] = atom.residue.name
-            tmp_item.groups.iloc[group_index,2] = get_group_type_from_group_name(atom.residue.name)
-            former_group_index+=1
+    # Chains
+    chain_id = []
+    chain_name = []
+    for cid in unique_chain_ids:
+        # If chain is empty string, default to 'A' if it's the only one, or use a label
+        label = cid if cid != '' else 'A'
+        chain_id.append(str(label))
+        chain_name.append(str(label))
 
-        atom_index+=1
+    tmp_item.chains.chain_id = chain_id
+    tmp_item.chains.chain_name = chain_name
 
-    n_chains=len(aux_dict_chains)
+    # Bonds
+    if n_bonds > 0:
+        bonded_atoms = []
+        for bond in item.bonds:
+            bonded_atoms.append([bond.atom1.idx, bond.atom2.idx])
+        tmp_item.add_bonds(bonded_atoms, skip_digestion=True)
 
-    tmp_item.reset_chains(n_chains=n_chains)
-
-    if len(aux_dict_chains)==1:
-        if '' in aux_dict_chains:
-            aux_dict_chains['A']=aux_dict_chains['']
-            del aux_dict_chains['']
-
-    for chain_id, chain_index in aux_dict_chains.items():
-        tmp_item.chains.iloc[chain_index,0] = chain_index
-        tmp_item.chains.iloc[chain_index,1] = chain_id
-
-    # bonds
-
-    bond_index = 0
-
-    for bond in item.bonds:
-
-        tmp_item.bonds.iloc[bond_index,0] = bond.atom1._idx
-        tmp_item.bonds.iloc[bond_index,1] = bond.atom2._idx
-
-        bond_index +=1
-
-    # components
-
+    # Rebuild remaining hierarchy
     tmp_item.rebuild_components()
-
-    ## molecules
-
     tmp_item.rebuild_molecules()
-
-    ## entity
-
     tmp_item.rebuild_entities()
 
-    ## extract if atom_indices is not 'all'
-
-    tmp_item = extract(tmp_item, atom_indices=atom_indices, copy_if_all=False, skip_digestion=True)
+    if not is_all(atom_indices):
+        tmp_item = extract_molsysmt_Topology(tmp_item, atom_indices=atom_indices, skip_digestion=True)
 
     return tmp_item
-
