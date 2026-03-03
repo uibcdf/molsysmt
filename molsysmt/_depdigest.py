@@ -40,6 +40,7 @@ MAPPING = {
     'file_gro': 'openmm',
     'MDAnalysis_Universe': 'MDAnalysis',
     'MDAnalysis_Topology': 'MDAnalysis',
+    'MDAnalysis_AtomGroup': 'MDAnalysis',
     'nglview_NGLWidget': 'nglview',
     'molsysviewer_MolSysView': 'molsysviewer',
     'parmed_Structure': 'parmed',

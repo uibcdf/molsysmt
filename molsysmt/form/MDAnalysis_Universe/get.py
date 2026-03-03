@@ -33,6 +33,9 @@ def get_atom_name_from_atom(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_coordinates_from_atom(item, indices='all', structure_indices='all', skip_digestion=False):
 
+    if not hasattr(item, 'trajectory') or item.trajectory is None:
+        return None
+
     # MDAnalysis coordinates are in Angstroms
     if is_all(structure_indices):
         n_structures = item.trajectory.n_frames
@@ -43,6 +46,10 @@ def get_coordinates_from_atom(item, indices='all', structure_indices='all', skip
         indices = range(n_atoms)
 
     coords = []
+    # Convert range to list for MDAnalysis compatibility
+    if isinstance(structure_indices, range):
+        structure_indices = list(structure_indices)
+        
     for ts in item.trajectory[structure_indices]:
         coords.append(item.atoms[indices].positions)
     
@@ -177,10 +184,13 @@ def get_n_bonds_from_system(item):
 @arg_digest(form=form)
 def get_n_structures_from_system(item, structure_indices='all', skip_digestion=False):
 
+    if not hasattr(item, 'trajectory') or item.trajectory is None:
+        return 0
+
     if is_all(structure_indices):
-        output=item.trajectory.n_structures
+        return item.trajectory.n_frames
     else:
-        output=len(structure_indices)
+        return len(structure_indices)
 
     return output
 
