@@ -4,6 +4,11 @@ from molsysmt._private.variables import is_all
 @arg_digest(form='molsysmt.Topology')
 def extract(item, atom_indices='all', structure_indices='all', copy_if_all=True, skip_digestion=False):
 
+    from molsysmt.native import Topology
+    if not isinstance(item, Topology):
+        from molsysmt.basic import convert
+        item = convert(item, to_form='molsysmt.Topology', skip_digestion=True)
+
     if is_all(atom_indices):
         if copy_if_all:
             tmp_item = item.copy()

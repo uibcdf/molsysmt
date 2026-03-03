@@ -338,33 +338,30 @@ class Topology():
             old_group_indices = tmp_item.atoms['group_index'].unique()
             tmp_item.groups = self.groups.iloc[old_group_indices].copy()
             tmp_item.groups.reset_index(drop=True, inplace=True)
-            del old_group_indices
 
-            old_molecule_indices = tmp_item.groups['molecule_index'].unique()
+            old_molecule_indices = tmp_item.groups['molecule_index'].dropna().unique().tolist()
             tmp_item.molecules = self.molecules.iloc[old_molecule_indices].copy()
             tmp_item.molecules.reset_index(drop=True, inplace=True)
-            del old_molecule_indices
 
-            old_entity_indices = tmp_item.molecules['entity_index'].unique()
+            old_entity_indices = tmp_item.molecules['entity_index'].dropna().unique().tolist()
             tmp_item.entities = self.entities.iloc[old_entity_indices].copy()
             tmp_item.entities.reset_index(drop=True, inplace=True)
-            del old_entity_indices
 
-            old_component_indices = tmp_item.atoms['component_index'].unique()
+            old_component_indices = tmp_item.atoms['component_index'].dropna().unique().tolist()
             tmp_item.components = self.components.iloc[old_component_indices].copy()
             tmp_item.components.reset_index(drop=True, inplace=True)
-            del old_component_indices
 
-            old_chain_indices = tmp_item.atoms['chain_index'].unique()
+            old_chain_indices = tmp_item.atoms['chain_index'].dropna().unique().tolist()
             tmp_item.chains = self.chains.iloc[old_chain_indices].copy()
             tmp_item.chains.reset_index(drop=True, inplace=True)
-            del old_chain_indices
 
-            tmp_item.atoms['group_index'] = occurrence_order(tmp_item.atoms['group_index'].to_numpy(dtype=int))
-            tmp_item.groups['molecule_index'] = occurrence_order(tmp_item.groups['molecule_index'].to_numpy(dtype=int))
-            tmp_item.molecules['entity_index'] = occurrence_order(tmp_item.molecules['entity_index'].to_numpy(dtype=int))
-            tmp_item.atoms['component_index'] = occurrence_order(tmp_item.atoms['component_index'].to_numpy(dtype=int))
-            tmp_item.atoms['chain_index'] = occurrence_order(tmp_item.atoms['chain_index'].to_numpy(dtype=int))
+            tmp_item.atoms['group_index'] = tmp_item.atoms['group_index'].map({old: new for new, old in enumerate(old_group_indices)}).astype('Int64')
+            tmp_item.groups['molecule_index'] = tmp_item.groups['molecule_index'].map({old: new for new, old in enumerate(old_molecule_indices)}).astype('Int64')
+            tmp_item.molecules['entity_index'] = tmp_item.molecules['entity_index'].map({old: new for new, old in enumerate(old_entity_indices)}).astype('Int64')
+            tmp_item.atoms['component_index'] = tmp_item.atoms['component_index'].map({old: new for new, old in enumerate(old_component_indices)}).astype('Int64')
+            tmp_item.atoms['chain_index'] = tmp_item.atoms['chain_index'].map({old: new for new, old in enumerate(old_chain_indices)}).astype('Int64')
+
+            del old_group_indices, old_molecule_indices, old_entity_indices, old_component_indices, old_chain_indices
 
             if self.bonds.shape[0]:
 

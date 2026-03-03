@@ -35,7 +35,7 @@ def to_molsysmt_Topology(item, atom_indices='all', skip_digestion=False):
     tmp_item.groups.group_id = group_id
     tmp_item.groups.group_name = group_name
     tmp_item.groups.group_type = group_type
-    tmp_item.groups.chain_index = chain_index_of_groups
+    tmp_item.groups['chain_index'] = chain_index_of_groups
 
     # Chains
     chain_id = [str(seg.segid) for seg in item.segments]
