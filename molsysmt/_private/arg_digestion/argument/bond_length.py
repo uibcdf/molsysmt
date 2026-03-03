@@ -23,7 +23,7 @@ def digest_bond_length(bond_length, caller=None):
                     if is_iterable(value):
                         return [puw.quantity(ii, unit, standardized=True) for item in value]
                     else:
-                        return [puw.quantity(value, unit, standardized=True)]
+                        return puw.standardize(puw.quantity(value, unit))
             elif is_iterable(bond_length):
                 for aux in bond_length:
                     output = []

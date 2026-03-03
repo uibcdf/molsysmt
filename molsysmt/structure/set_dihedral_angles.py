@@ -1,10 +1,12 @@
 from molsysmt._private.smonitor import NotImplementedMethodError
+from smonitor import signal
 from molsysmt._private.arg_digestion import arg_digest
 import numpy as np
 from molsysmt import pyunitwizard as puw
 from molsysmt import lib as msmlib
 import gc
 
+@signal(tags=['api', 'structure'])
 @arg_digest()
 def set_dihedral_angles(molecular_system, dihedral_quartets=None, angles=None, blocks=None,
         structure_indices='all', pbc=True, in_place=False, engine='MolSysMT'):

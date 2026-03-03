@@ -1,5 +1,7 @@
 from molsysmt._private.arg_digestion import arg_digest
+from smonitor import signal
 
+@signal(tags=['api', 'get'])
 @arg_digest()
 def where_is_attribute(molecular_system, attribute, include_none=False, skip_digestion=False):
     """
@@ -100,11 +102,9 @@ def where_is_attribute(molecular_system, attribute, include_none=False, skip_dig
     if len(where_form)>=1:
         output_item = where_item[-1]
         output_form = where_form[-1]
-    elif len(where_form)==0:
+    else:
         output_item = None
         output_form = None
-    else:
-        print('This to correct in where_is_attribute')
 
     return output_item, output_form
 

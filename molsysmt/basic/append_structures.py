@@ -1,5 +1,8 @@
 from molsysmt._private.arg_digestion import arg_digest
+from molsysmt._private.smonitor import StructuralInconsistencyError
+from smonitor import signal
 
+@signal(tags=['api', 'structure'])
 @arg_digest()
 def append_structures(to_molecular_system, from_molecular_system, selection='all',
                       structure_indices='all', syntax='MolSysMT', in_place=True,
@@ -120,9 +123,10 @@ def append_structures(to_molecular_system, from_molecular_system, selection='all
         n_sel = coordinates.shape[1]
         n_target_atoms = get(to_molecular_system, element='system', n_atoms=True)
         if n_sel != n_target_atoms:
-            raise ValueError(
-                f"Selected atoms ({n_sel}) do not match target n_atoms ({n_target_atoms}). "
-                "Adjust `selection` or ensure systems have the same number of atoms."
+            raise StructuralInconsistencyError(
+                reason=f"Selected atoms ({n_sel}) do not match target n_atoms ({n_target_atoms}). "
+                       "Adjust `selection` or ensure systems have the same number of atoms.",
+                caller='molsysmt.basic.append_structures'
             )
 
     for aux_to_item, aux_to_form in zip(to_molecular_system, to_forms):

@@ -2,7 +2,9 @@ from molsysmt._private.smonitor import NotImplementedMethodError
 from molsysmt._private.arg_digestion import arg_digest
 import numpy as np
 import gc
+from smonitor import signal
 
+@signal(tags=['api', 'structure'])
 @arg_digest()
 def least_rmsd_align(molecular_system, selection='atom_name=="CA"', structure_indices='all',
           reference_molecular_system=None, reference_selection=None, reference_structure_index=0,
@@ -30,7 +32,7 @@ def least_rmsd_align(molecular_system, selection='atom_name=="CA"', structure_in
 
     else:
 
-        raise NotImplementedMethodError
+        raise NotImplementedMethodError(caller='molsysmt.structure.least_rmsd_align')
 
     aux_atoms_list = select(molecular_system, element='atom',
             selection='group_index==@identical_groups')
@@ -82,6 +84,6 @@ def least_rmsd_align(molecular_system, selection='atom_name=="CA"', structure_in
 
     else:
 
-        raise NotImplementedMethodError
+        raise NotImplementedMethodError(caller='molsysmt.structure.least_rmsd_align')
 
 

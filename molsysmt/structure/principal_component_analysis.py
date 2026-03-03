@@ -1,4 +1,5 @@
 from molsysmt._private.smonitor import NotImplementedMethodError
+from smonitor import signal
 from molsysmt._private.arg_digestion import arg_digest
 from molsysmt import lib as msmlib
 from molsysmt._private.variables import is_all, is_iterable_of_iterables
@@ -6,6 +7,7 @@ from molsysmt import pyunitwizard as puw
 import numpy as np
 import gc
 
+@signal(tags=['api', 'structure'])
 @arg_digest()
 def principal_component_analysis(molecular_system, selection='all', structure_indices='all',
         weights=None, syntax='MolSysMT', engine='MolSysMT', skip_digestion=False):

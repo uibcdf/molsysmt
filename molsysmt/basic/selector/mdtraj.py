@@ -27,7 +27,7 @@ def indices_to_selection(molecular_system, indices, element='atom'):
     elif element=='chain':
         output_string = 'chainid '+' '.join([str(ii) for ii in indices])
     else:
-        raise NotImplementedMethodError
+        raise NotImplementedMethodError(caller='molsysmt.basic.selector.mdtraj.indices_to_selection')
 
     return output_string
 

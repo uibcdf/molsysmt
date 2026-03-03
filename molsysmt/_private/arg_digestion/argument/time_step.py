@@ -22,7 +22,7 @@ def digest_time_step(time_step, caller=None):
         raise ArgumentError('time_step', value=coordinates, caller=caller, message=None)
 
     if isinstance(value, (int, np.int64, float, np.float64)):
-        return puw.quantity(value, unit, standardized=True)
+        return puw.standardize(puw.quantity(value, unit))
 
     raise ArgumentError('time_step', value=time_step, caller=caller, message=None)
 

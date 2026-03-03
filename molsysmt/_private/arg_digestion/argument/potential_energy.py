@@ -45,7 +45,7 @@ def digest_potential_energy(potential_energy, caller=None):
         raise ArgumentError('potential_energy', value=coordinates, caller=caller, message=None)
 
     if isinstance(value, (int, np.int64, float, np.float64)):
-        return puw.quantity(value, unit, standardized=True)
+        return puw.standardize(puw.quantity(value, unit))
 
     raise ArgumentError('potential_energy', value=potential_energy, caller=caller, message=None)
 

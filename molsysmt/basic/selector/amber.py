@@ -9,9 +9,9 @@ def select(molecular_system, selection='all', structure_indices='all'):
     #else:
     #    tmp_item = convert(item, to_form='pytraj.Topology')
 
-    raise NotImplementedMethodError
+    raise NotImplementedMethodError(caller='molsysmt.basic.selector.amber.select')
 
 def indices_to_selection(molecular_system, indices, element='atom'):
 
-    raise NotImplementedMethodError
+    raise NotImplementedMethodError(caller='molsysmt.basic.selector.amber.indices_to_selection')
 

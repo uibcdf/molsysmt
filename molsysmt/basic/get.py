@@ -181,13 +181,22 @@ def get(molecular_system,
         for ii in in_attributes:
             output.append(aux_result[ii])
 
+        import pyunitwizard as puw
+
+        def _standardize(value):
+            if value is None:
+                return None
+            if puw.is_quantity(value):
+                return puw.standardize(value)
+            return value
+
         if output_type=='values':
             if len(output) == 1:
-                return output[0]
+                return _standardize(output[0])
             else:
-                return output
+                return [_standardize(ii) for ii in output]
         elif output_type=='dictionary':
-            return dict(zip(in_attributes, output))
+            return {ii: _standardize(jj) for ii, jj in zip(in_attributes, output)}
 
     if not is_all(selection):
         indices = select(molecular_system, element=element, selection=selection, mask=mask, syntax=syntax, skip_digestion=True)
@@ -255,13 +264,22 @@ def get(molecular_system,
 
             output.append(output_dictionary[in_attribute])
 
+    import pyunitwizard as puw
+
+    def _standardize(value):
+        if value is None:
+            return None
+        if puw.is_quantity(value):
+            return puw.standardize(value)
+        return value
+
     if output_type=='values':
         if len(output) == 1:
-            return output[0]
+            return _standardize(output[0])
         else:
-            return output
+            return [_standardize(ii) for ii in output]
     elif output_type=='dictionary':
-        return dict(zip(in_attributes, output))
+        return {ii: _standardize(jj) for ii, jj in zip(in_attributes, output)}
         
 def _coerce_ids_to_string(value):
     """Normalize *_id values to Python/NumPy strings, preserving shape."""

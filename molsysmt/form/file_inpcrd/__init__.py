@@ -23,13 +23,10 @@ from .get import *
 from .set import *
 from .iterators import StructuresIterator
 
-from .to_file_inpcrd import to_file_inpcrd
-from .to_openmm_AmberInpcrdFile import to_openmm_AmberInpcrdFile
-from .to_molsysmt_Structures import to_molsysmt_Structures
 
 _convert_to={
-        'file:inpcrd': to_file_inpcrd,
-        'openmm.AmberInpcrdFile': to_openmm_AmberInpcrdFile,
-        'molsysmt.Structures': to_molsysmt_Structures,
+        'file:inpcrd': 'to_file_inpcrd',
+        'openmm.AmberInpcrdFile': 'to_openmm_AmberInpcrdFile',
+        'molsysmt.Structures': 'to_molsysmt_Structures',
         }
 

@@ -6,8 +6,10 @@ from molsysmt import lib as msmlib
 from molsysmt import pyunitwizard as puw
 import numpy as np
 import gc
+from smonitor import signal
 
 
+@signal(tags=['api', 'structure'])
 @arg_digest()
 def get_distances(molecular_system, selection="all", structure_indices="all", center_of_atoms=False, weights=None,
         molecular_system_2=None, selection_2=None, structure_indices_2=None, center_of_atoms_2=False, weights_2=None,
@@ -143,7 +145,7 @@ def get_distances(molecular_system, selection="all", structure_indices="all", ce
 
             if pairs:
 
-                raise NotImplementedError()
+                raise NotImplementedMethodError(caller='molsysmt.structure.get_distances')
 
             else:
 
@@ -167,7 +169,7 @@ def get_distances(molecular_system, selection="all", structure_indices="all", ce
 
                 elif output_indices == 'group':
 
-                    raise NotImplementedError()
+                    raise NotImplementedMethodError(caller='molsysmt.structure.get_distances')
 
         if output_structure_indices is not None:
 
@@ -270,7 +272,7 @@ def get_distances(molecular_system, selection="all", structure_indices="all", ce
 
                 elif output_indices == 'group':
 
-                    raise NotImplementedError()
+                    raise NotImplementedMethodError(caller='molsysmt.structure.get_distances')
 
         else:
 
@@ -366,7 +368,7 @@ def get_distances(molecular_system, selection="all", structure_indices="all", ce
 
                 elif output_indices == 'group':
 
-                    raise NotImplementedError()
+                    raise NotImplementedMethodError(caller='molsysmt.structure.get_distances')
 
         output = output_dictionary
 

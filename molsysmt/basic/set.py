@@ -1,8 +1,10 @@
 from molsysmt._private.arg_digestion import arg_digest
 from molsysmt._private.variables import is_all
 import numpy as np
+from smonitor import signal
 
 
+@signal(tags=['api', 'set'])
 @arg_digest()
 def set(molecular_system,
         element=None,

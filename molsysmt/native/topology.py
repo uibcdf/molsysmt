@@ -4,6 +4,7 @@ from molsysmt._private.variables import is_all
 from molsysmt._private.arg_digestion import arg_digest
 from molsysmt.lib.series import occurrence_order
 import string
+from smonitor import signal
 
 class Atoms_DataFrame(pd.DataFrame):
     """Pandas DataFrame wrapper storing atom-level topology fields."""
@@ -279,6 +280,7 @@ class Topology():
         self.entities['entity_id'] = self.entities['entity_id'].astype('string')
         self.chains['chain_id'] = self.chains['chain_id'].astype('string')
 
+    @signal(tags=['native'])
     @arg_digest()
     def extract(self, atom_indices='all', copy_if_all=False, skip_digestion=False):
         """Return a subset topology with the selected atoms and associated hierarchy."""
@@ -363,6 +365,7 @@ class Topology():
             tmp_item._coerce_id_columns_to_string()
             return tmp_item
 
+    @signal(tags=['native'])
     @arg_digest()
     def remove(self, atom_indices=None, copy_if_None=False, skip_digestion=False):
         """Remove atoms by index and return the resulting topology."""
@@ -383,6 +386,7 @@ class Topology():
             return tmp_item
 
 
+    @signal(tags=['native'])
     @arg_digest(form='molsysmt.Topology')
     def add(self, item, atom_indices='all', keep_ids=True, skip_digestion=False):
         """Append another topology, offsetting indices as needed."""
@@ -426,6 +430,7 @@ class Topology():
         self._coerce_id_columns_to_string()
         del tmp_item
 
+    @signal(tags=['native'])
     def copy(self):
         """Return a deep copy of the topology tables."""
 
@@ -441,6 +446,7 @@ class Topology():
 
         return tmp_item
 
+    @signal(tags=['native'])
     def add_bonds(self, bonded_atom_pairs, skip_digestion=False):
         """Append new bonds given atom index pairs."""
 
@@ -554,6 +560,7 @@ class Topology():
             del aux_dict, group_types
         self._coerce_id_columns_to_string()
 
+    @signal(tags=['native'])
     def rebuild_components(self, redefine_indices=True, redefine_ids=True, redefine_names=True, redefine_types=True):
         """Rebuild component mapping and metadata."""
 
@@ -596,6 +603,7 @@ class Topology():
             del component_name
         self._coerce_id_columns_to_string()
 
+    @signal(tags=['native'])
     def rebuild_molecules(self, redefine_indices=True, redefine_ids=True, redefine_names=True, redefine_types=True,
                           molecules_as_components=True):
         """Rebuild molecule mapping and metadata."""
@@ -642,6 +650,7 @@ class Topology():
             del molecule_type_of_molecules
         self._coerce_id_columns_to_string()
 
+    @signal(tags=['native'])
     def rebuild_chains(self, redefine_indices=True, redefine_ids=True, redefine_types=True, redefine_names=True):
         """Rebuild chain mapping and metadata."""
 
@@ -691,6 +700,7 @@ class Topology():
         self._coerce_id_columns_to_string()
 
 
+    @signal(tags=['native'])
     def rebuild_entities(self, redefine_indices=True, redefine_ids=True, redefine_names=True, redefine_types=True):
         """Rebuild entity mapping and metadata."""
 

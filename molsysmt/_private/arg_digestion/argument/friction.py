@@ -19,7 +19,7 @@ def digest_friction(friction, caller=None):
         raise ArgumentError('friction', value=friction, caller=caller, message=None)
 
     if isinstance(value, (int, np.int64, float, np.float64)):
-        return puw.quantity(value, unit, standardized=True)
+        return puw.standardize(puw.quantity(value, unit))
 
     raise ArgumentError('friction', value=friction, caller=caller, message=None)
 

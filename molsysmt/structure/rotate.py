@@ -1,9 +1,12 @@
 from molsysmt._private.arg_digestion import arg_digest
+from molsysmt._private.smonitor import NotImplementedMethodError
+from smonitor import signal
 import numpy as np
 from scipy.spatial.transform import Rotation
 from molsysmt import pyunitwizard as puw
 import gc
 
+@signal(tags=['api', 'structure'])
 @arg_digest()
 def rotate(molecular_system, rotation=None, rotation_center=None, selection='all', structure_indices='all',
         syntax='MolSysMT', in_place=False, skip_digestion=False):
@@ -49,7 +52,7 @@ def rotate(molecular_system, rotation=None, rotation_center=None, selection='all
 
     else:
 
-        raise NotImplementedError
+        raise NotImplementedMethodError(caller='molsysmt.structure.rotate')
 
     coordinates = puw.quantity(coordinates, unit=length_unit)
 

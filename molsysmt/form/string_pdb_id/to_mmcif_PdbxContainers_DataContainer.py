@@ -10,10 +10,10 @@ def to_mmcif_PdbxContainers_DataContainer(item, atom_indices='all', structure_in
     from .to_file_bcif import to_file_bcif
     from .to_file_cif_gz import to_file_cif_gz
     from .to_file_cif import to_file_cif
-    from ..file_bcif_gz import to_mmcif_PdbxContainers_DataContainer as file_bcif_gz_to_mmcif_PdbxContainers_DataContainer
-    from ..file_bcif import to_mmcif_PdbxContainers_DataContainer as file_bcif_to_mmcif_PdbxContainers_DataContainer
-    from ..file_cif_gz import to_mmcif_PdbxContainers_DataContainer as file_cif_gz_to_mmcif_PdbxContainers_DataContainer
-    from ..file_cif import to_mmcif_PdbxContainers_DataContainer as file_cif_to_mmcif_PdbxContainers_DataContainer
+    from ..file_bcif_gz.to_mmcif_PdbxContainers_DataContainer import to_mmcif_PdbxContainers_DataContainer as file_bcif_gz_to_mmcif_PdbxContainers_DataContainer
+    from ..file_bcif.to_mmcif_PdbxContainers_DataContainer import to_mmcif_PdbxContainers_DataContainer as file_bcif_to_mmcif_PdbxContainers_DataContainer
+    from ..file_cif_gz.to_mmcif_PdbxContainers_DataContainer import to_mmcif_PdbxContainers_DataContainer as file_cif_gz_to_mmcif_PdbxContainers_DataContainer
+    from ..file_cif.to_mmcif_PdbxContainers_DataContainer import to_mmcif_PdbxContainers_DataContainer as file_cif_to_mmcif_PdbxContainers_DataContainer
 
     strategies = [
         ("bcif.gz", "bcif.gz", to_file_bcif_gz, file_bcif_gz_to_mmcif_PdbxContainers_DataContainer),

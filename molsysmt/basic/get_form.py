@@ -77,7 +77,10 @@ def get_form(molecular_system):
             break
 
     if output is None:
-        raise NotSupportedFormError(type(molecular_system))
+        raise NotSupportedFormError(
+            form=type(molecular_system),
+            caller='molsysmt.basic.get_form'
+        )
 
     return output
 

@@ -1,6 +1,8 @@
 from molsysmt._private.arg_digestion import arg_digest
+from smonitor import signal
 
 
+@signal(tags=['api', 'get'])
 @arg_digest()
 def get_attributes(molecular_system, include_none=False, attribute_type='all', output_type='dictionary',
                    skip_digestion=False):

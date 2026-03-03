@@ -1,10 +1,12 @@
 from molsysmt._private.smonitor import NotImplementedMethodError
+from smonitor import signal
 from molsysmt._private.arg_digestion import arg_digest
 from molsysmt._private.variables import is_iterable_of_pairs
 from molsysmt import pyunitwizard as puw
 import numpy as np
 import gc
 
+@signal(tags=['api', 'structure'])
 @arg_digest()
 def get_contacts(molecular_system, selection=None, center_of_atoms=False, weights=None, structure_indices="all",
                  selection_2=None, center_of_atoms_2=False, weights_2=None, structure_indices_2=None,

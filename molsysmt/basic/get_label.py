@@ -1,14 +1,16 @@
 from molsysmt._private.arg_digestion import arg_digest
 import numpy as np
+from smonitor import signal
 
+@signal(tags=['api', 'get'])
 @arg_digest()
 def get_label(molecular_system,
               element='atom',
               selection='all',
               string='{name}-{id}@{index}',
               syntax='MolSysMT',
-              skip_digestion=False
-         ):
+              skip_digestion=False,
+              **kwargs):
     """
     Generating label strings for selected elements of a molecular system.
 

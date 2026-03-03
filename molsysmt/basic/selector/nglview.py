@@ -10,7 +10,7 @@ def select(molecular_system, selection='all', structure_indices='all'):
     #else:
     #    tmp_item = convert(item, to_form='pytraj.Topology')
 
-    raise NotImplementedMethodError
+    raise NotImplementedMethodError(caller='molsysmt.basic.selector.nglview.select')
 
 def indices_to_selection(molecular_system, indices, element='atom'):
 
@@ -30,7 +30,7 @@ def indices_to_selection(molecular_system, indices, element='atom'):
         chain_names = get(molecular_system, element='chain', selection=indices, chain_id=True)
         output_string = ' '.join([':'+ii for ii in chain_names])
     else:
-        raise NotImplementedMethodError
+        raise NotImplementedMethodError(caller='molsysmt.basic.selector.nglview.indices_to_selection')
 
     return output_string
 

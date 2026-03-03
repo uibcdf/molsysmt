@@ -1,6 +1,9 @@
 from molsysmt._private.arg_digestion import arg_digest
+from molsysmt._private.smonitor import NotImplementedMethodError
 from networkx import Graph
+from smonitor import signal
 
+@signal(tags=['api', 'topology'])
 @arg_digest()
 def get_bondgraph(molecular_system, nodes_name='atom_index', selection='all', syntax='MolSysMT',
               to_form='networkx.Graph'):
@@ -71,12 +74,12 @@ def get_bondgraph(molecular_system, nodes_name='atom_index', selection='all', sy
 
         else:
 
-            raise NotImplementedError
+            raise NotImplementedMethodError(caller='molsysmt.topology.get_bondgraph')
 
         output = G
 
     else:
 
-        raise NotImplementedError
+        raise NotImplementedMethodError(caller='molsysmt.topology.get_bondgraph')
 
     return output

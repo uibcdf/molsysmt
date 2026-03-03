@@ -1,9 +1,11 @@
 from molsysmt._private.arg_digestion import arg_digest
+from smonitor import signal
 import numpy as np
 from molsysmt import pyunitwizard as puw
 from molsysmt import lib as msmlib
 import gc
 
+@signal(tags=['api', 'structure'])
 @arg_digest()
 def flip(molecular_system, vector=[0,0,1], point='[0,0,0] nm', selection='all', structure_indices='all',
         syntax='MolSysMT', in_place=False):

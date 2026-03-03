@@ -3,9 +3,9 @@ from molsysmt._private.arg_digestion import arg_digest
 @arg_digest(form='parmed.Structure')
 def to_mdtraj_Trajectory(item, atom_indices='all', structure_indices='all', skip_digestion=False):
 
-    from . import to_mdtraj_Topology
+    from .to_mdtraj_Topology import to_mdtraj_Topology
     from . import get_coordinates_from_atom, get_box_from_system
-    from ..mdtraj_Topology import to_mdtraj_Trajectory as openmm_Topology_to_openmm_Modeller
+    from ..mdtraj_Topology.to_mdtraj_Trajectory import to_mdtraj_Trajectory as openmm_Topology_to_openmm_Modeller
 
     tmp_item = to_mdtraj_Topology(item, atom_indices=atom_indices, skip_digestion=True)
     coordinates = get_coordinates_from_atom(item, indices=atom_indices, structure_indices=structure_indices,

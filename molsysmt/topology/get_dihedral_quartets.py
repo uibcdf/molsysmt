@@ -1,6 +1,8 @@
 from molsysmt._private.arg_digestion import arg_digest
+from smonitor import signal
 import numpy as np
 
+@signal(tags=['api', 'topology'])
 @arg_digest()
 def get_dihedral_quartets(molecular_system, with_blocks=False, selection='all',
                                syntax='MolSysMT', **kwargs):

@@ -1,9 +1,11 @@
 import numpy as np
 from molsysmt import pyunitwizard as puw
+from smonitor import signal
 from molsysmt._private.arg_digestion import arg_digest
 from molsysmt import lib as msmlib
 import gc
 
+@signal(tags=['api', 'structure'])
 @arg_digest()
 def get_angles(molecular_system, triplets, structure_indices='all', pbc=False, skip_digestion=False):
     """

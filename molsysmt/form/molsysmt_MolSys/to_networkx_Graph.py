@@ -3,6 +3,6 @@ from molsysmt._private.arg_digestion import arg_digest
 @arg_digest(form='molsysmt.MolSys')
 def to_networkx_Graph(item, atom_indices='all', skip_digestion=False):
 
-    from ..molsysmt_Topology import to_networkx_Graph as molsysmt_Topology_to_networkx_Graph
+    from ..molsysmt_Topology.to_networkx_Graph import to_networkx_Graph as molsysmt_Topology_to_networkx_Graph
 
     return molsysmt_Topology_to_networkx_Graph(item.topology, atom_indices=atom_indices, skip_digestion=True)

@@ -33,7 +33,7 @@ def molsysmt_Topology_and_molsysmt_StructuresDict_to_molsysmt_MolSys(molecular_s
     from molsysmt.basic import get_form
     from molsysmt.native.molsys import MolSys
     from molsysmt.form.molsysmt_Topology import extract as extract_topology
-    from molsysmt.form.molsysmt_StructuresDict import to_molsysmt_Structures as molsysmt_StructuresDict_to_molsysmt_Structures
+    from molsysmt.form.molsysmt_StructuresDict.to_molsysmt_Structures import to_molsysmt_Structures as molsysmt_StructuresDict_to_molsysmt_Structures
 
     forms = get_form(molecular_system)
 
@@ -60,8 +60,8 @@ def file_prmtop_and_file_inpcrd_to_molsysmt_MolSys(molecular_system, atom_indice
     """Build a MolSys from Amber PRMTOP and INPCRD files."""
 
     from molsysmt.basic import get_form
-    from molsysmt.form.file_prmtop import to_molsysmt_Topology as file_prmtop_to_molsysmt_Topology
-    from molsysmt.form.file_inpcrd import to_molsysmt_Structures as file_inpcrd_to_molsysmt_Structures
+    from molsysmt.form.file_prmtop.to_molsysmt_Topology import to_molsysmt_Topology as file_prmtop_to_molsysmt_Topology
+    from molsysmt.form.file_inpcrd.to_molsysmt_Structures import to_molsysmt_Structures as file_inpcrd_to_molsysmt_Structures
     from molsysmt.native import MolSys
 
     forms = get_form(molecular_system)
@@ -90,8 +90,8 @@ def file_psf_and_file_dcd_to_molsysmt_MolSys(molecular_system, atom_indices='all
     """Build a MolSys from a PSF topology and DCD trajectory."""
 
     from molsysmt.basic import get_form
-    from molsysmt.form.file_psf import to_molsysmt_Topology as file_psf_to_molsysmt_Topology
-    from molsysmt.form.file_dcd import to_molsysmt_Structures as file_dcd_to_molsysmt_Structures
+    from molsysmt.form.file_psf.to_molsysmt_Topology import to_molsysmt_Topology as file_psf_to_molsysmt_Topology
+    from molsysmt.form.file_dcd.to_molsysmt_Structures import to_molsysmt_Structures as file_dcd_to_molsysmt_Structures
     from molsysmt.native import MolSys
 
     forms = get_form(molecular_system)
@@ -118,8 +118,8 @@ def file_psf_and_file_crd_to_molsysmt_MolSys(molecular_system, atom_indices='all
     """Build a MolSys from a PSF topology and CRD coordinates."""
 
     from molsysmt.basic import get_form
-    from molsysmt.form.file_psf import to_molsysmt_Topology as file_psf_to_molsysmt_Topology
-    from molsysmt.form.file_crd import to_molsysmt_Structures as file_crd_to_molsysmt_Structures
+    from molsysmt.form.file_psf.to_molsysmt_Topology import to_molsysmt_Topology as file_psf_to_molsysmt_Topology
+    from molsysmt.form.file_crd.to_molsysmt_Structures import to_molsysmt_Structures as file_crd_to_molsysmt_Structures
     from molsysmt.native import MolSys
 
     forms = get_form(molecular_system)
@@ -146,8 +146,8 @@ def file_gro_and_file_xtc_to_molsysmt_MolSys(molecular_system, atom_indices='all
     """Build a MolSys from GRO topology and XTC coordinates."""
 
     from molsysmt.basic import get_form
-    from molsysmt.form.file_gro import to_molsysmt_Topology as file_gro_to_molsysmt_Topology
-    from molsysmt.form.file_xtc import to_molsysmt_Structures as file_xtc_to_molsysmt_Structures
+    from molsysmt.form.file_gro.to_molsysmt_Topology import to_molsysmt_Topology as file_gro_to_molsysmt_Topology
+    from molsysmt.form.file_xtc.to_molsysmt_Structures import to_molsysmt_Structures as file_xtc_to_molsysmt_Structures
     from molsysmt.native import MolSys
 
     forms = get_form(molecular_system)
@@ -175,8 +175,8 @@ def openmm_Topology_and_molsysmt_StructuresDict_to_molsysmt_MolSys(molecular_sys
 
     from molsysmt.basic import get_form
     from molsysmt.native.molsys import MolSys
-    from molsysmt.form.openmm_Topology import to_molsysmt_Topology as openmm_Topology_to_molsysmt_Topology
-    from molsysmt.form.molsysmt_StructuresDict import to_molsysmt_Structures as molsysmt_StructuresDict_to_molsysmt_Structures
+    from molsysmt.form.openmm_Topology.to_molsysmt_Topology import to_molsysmt_Topology as openmm_Topology_to_molsysmt_Topology
+    from molsysmt.form.molsysmt_StructuresDict.to_molsysmt_Structures import to_molsysmt_Structures as molsysmt_StructuresDict_to_molsysmt_Structures
 
     forms = get_form(molecular_system)
 

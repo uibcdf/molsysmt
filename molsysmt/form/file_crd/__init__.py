@@ -20,16 +20,11 @@ from .get import *
 from .set import *
 from .iterators import StructuresIterator, TopologyIterator
 
-from .to_file_crd import to_file_crd
-from .to_molsysmt_MolSys import to_molsysmt_MolSys
-from .to_molsysmt_Topology import to_molsysmt_Topology
-from .to_molsysmt_Structures import to_molsysmt_Structures
-from .to_openmm_CharmmCrdFile import to_openmm_CharmmCrdFile
 
 _convert_to={
-        'file:crd': to_file_crd,
-        'molsysmt.MolSys': to_molsysmt_MolSys,
-        'molsysmt.Topology': to_molsysmt_Topology,
-        'molsysmt.Structures': to_molsysmt_Structures,
-        'openmm.CharmmCrdFile': to_openmm_CharmmCrdFile
+        'file:crd': 'to_file_crd',
+        'molsysmt.MolSys': 'to_molsysmt_MolSys',
+        'molsysmt.Topology': 'to_molsysmt_Topology',
+        'molsysmt.Structures': 'to_molsysmt_Structures',
+        'openmm.CharmmCrdFile': 'to_openmm_CharmmCrdFile'
         }

@@ -15,7 +15,7 @@ form='openmm.Context'
 
 def get_atom_index_from_atom(item, indices='all', skip_digestion=False):
 
-    from . import to_openmm_System
+    from .to_openmm_System import to_openmm_System
     from ..openmm_System import get_atom_index_from_atom as aux_get
 
     tmp_item = to_openmm_System(item, skip_digestion=True)

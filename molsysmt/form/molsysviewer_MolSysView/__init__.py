@@ -36,14 +36,12 @@ from .copy import copy
 from .extract import extract
 from .append_structures import append_structures
 
-from .to_molsysviewer_MolSysView import to_molsysviewer_MolSysView
-from .to_molsysmt_MolSys import to_molsysmt_MolSys
 
 from .get_topological_attributes import *
 from .get_structural_attributes import *
 from .get_mechanical_attributes import *
 
 _convert_to = {
-    'molsysviewer.MolSysView': to_molsysviewer_MolSysView,
-    'molsysmt.MolSys': to_molsysmt_MolSys,
+    'molsysviewer.MolSysView': 'to_molsysviewer_MolSysView',
+    'molsysmt.MolSys': 'to_molsysmt_MolSys',
 }

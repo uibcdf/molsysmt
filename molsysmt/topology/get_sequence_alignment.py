@@ -1,7 +1,10 @@
+from molsysmt._private.smonitor import NotImplementedMethodError
 from molsysmt._private.arg_digestion import arg_digest
+from smonitor import signal
 from molsysmt.basic import convert
 import numpy as np
 
+@signal(tags=['api', 'topology'])
 @arg_digest()
 def get_sequence_alignment(molecular_system, selection='all', reference_molecular_system=None, reference_selection='all',
                        engine='Biopython', syntax='MolSysMT', prettyprint=False, alignment_index=0, skip_digestion=False):
@@ -76,7 +79,7 @@ def get_sequence_alignment(molecular_system, selection='all', reference_molecula
 
     else:
 
-        raise NotImplementedError
+        raise NotImplementedMethodError(caller='molsysmt.topology.get_sequence_alignment')
 
     if prettyprint:
 

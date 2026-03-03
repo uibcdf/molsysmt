@@ -88,7 +88,13 @@ def select_standard(item, selection):
             elif var_name in no_wrapper_stack_frames[counter+1][0].f_globals:
                 var_value = no_wrapper_stack_frames[counter+1][0].f_globals[var_name]
             else:
-                raise ValueError("The variable", var_name, "was not found by the selection tool.")
+                from molsysmt._private.smonitor import ArgumentError
+                raise ArgumentError(
+                    argument="selection",
+                    value=selection,
+                    caller="molsysmt.basic.selector.molsysmt_old.select",
+                    message=f"The variable '@{var_name}' was not found in the call stack."
+                )
             tmp_selection = tmp_selection.replace('@'+var_name, '@auxiliar_variable_'+var_name)
             if type(var_value) in [np.ndarray]:
                 var_value = list(var_value)
@@ -261,7 +267,8 @@ def select_in_elements_of(molecular_system, selection):
 
                 return output
 
-    raise NotImplementedError
+    from molsysmt._private.smonitor import NotImplementedMethodError
+    raise NotImplementedMethodError(caller='molsysmt.basic.selector.molsysmt_old.select_in_elements_of')
 
 
 def select_in_groups_of(molecular_system, selection):

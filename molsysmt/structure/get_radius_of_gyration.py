@@ -1,9 +1,11 @@
 from molsysmt._private.arg_digestion import arg_digest
+from smonitor import signal
 from molsysmt._private.smonitor import NotImplementedMethodError
 #from molsysmt.lib import geometry as libgeometry
 from molsysmt import pyunitwizard as puw
 import numpy as np
 
+@signal(tags=['api', 'structure'])
 @arg_digest()
 def get_radius_of_gyration(molecular_system, selection='all', structure_indices='all',
                            weights=None, pbc=False, engine='MolSysMT', syntax='MolSysMT'):

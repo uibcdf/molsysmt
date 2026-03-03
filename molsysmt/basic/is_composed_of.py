@@ -1,6 +1,9 @@
 from molsysmt._private.arg_digestion import arg_digest
 import numpy as np
+from smonitor import signal
 
+
+@signal(tags=['api', 'get'])
 @arg_digest()
 def is_composed_of(molecular_system, selection='all', syntax='MolSysMT', skip_digestion=False, **kwargs):
     """

@@ -31,13 +31,13 @@ def digest_velocities(velocities, caller=None):
 
     if len(shape) == 1:
         if shape[0] == 3:
-            return puw.quantity(value[np.newaxis, np.newaxis, :], unit, standardized=True)
+            return puw.standardize(puw.quantity(value[np.newaxis, np.newaxis, :], unit))
     elif len(shape) == 2:
         if shape[1] == 3:
-            return puw.quantity(value[np.newaxis, :, :], unit, standardized=True)
+            return puw.standardize(puw.quantity(value[np.newaxis, :, :], unit))
     elif len(shape) == 3:
         if shape[2] == 3:
-            return puw.quantity(value, unit, standardized=True)
+            return puw.standardize(puw.quantity(value, unit))
 
     raise ArgumentError('velocities', value=velocities, caller=caller, message=None)
 

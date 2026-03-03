@@ -1,8 +1,10 @@
 from molsysmt._private.arg_digestion import arg_digest
+from smonitor import signal
 from molsysmt import pyunitwizard as puw
 from molsysmt._private.smonitor import ArgumentConflictError
 import numpy as np
 
+@signal(tags=['api', 'structure'])
 @arg_digest()
 def get_maximum_distances(molecular_system, selection="all", center_of_atoms=False, weights=None, as_entity=True, structure_indices="all",
                      molecular_system_2=None, selection_2=None, center_of_atoms_2=False, weights_2=None, as_entity_2=True, structure_indices_2=None,

@@ -4,8 +4,8 @@ from molsysmt._private.arg_digestion import arg_digest
 def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_digestion=False):
 
     from molsysmt.native import MolSys
-    from . import to_mdtraj_Trajectory
-    from ..mdtraj_Trajectory import to_molsysmt_MolSys as mdtraj_Trajectory_to_molsysmt_MolSys
+    from .to_mdtraj_Trajectory import to_mdtraj_Trajectory
+    from ..mdtraj_Trajectory.to_molsysmt_MolSys import to_molsysmt_MolSys as mdtraj_Trajectory_to_molsysmt_MolSys
 
     tmp_item = to_mdtraj_Trajectory(item, skip_digestion=True)
     tmp_item = mdtraj_Trajectory_to_molsysmt_MolSys(tmp_item, atom_indices=atom_indices,

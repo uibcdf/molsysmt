@@ -1,3 +1,5 @@
+from molsysmt._private.smonitor import NotImplementedMethodError
+from smonitor import signal
 # =======================
 # Potential Energy
 # =======================
@@ -19,5 +21,5 @@ def run_NVT_equilibration (item, protocol=0, forcefield=['AMBER99SB-ILDN','TIP3P
     To be written soon...
     """
 
-    raise NotImplementedError
+    raise NotImplementedMethodError(caller='molsysmt.molecular_dynamics.run_NVT_equilibration')
 

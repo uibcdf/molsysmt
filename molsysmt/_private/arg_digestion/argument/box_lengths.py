@@ -53,7 +53,7 @@ def digest_box_lengths(box_lengths, caller=None):
         else:
             raise ArgumentError('box_lengths', value=box_lengths, caller=caller, message=None)
 
-        box_lengths = puw.quantity(value, unit, standardized=True)
+        box_lengths = puw.quantity(value, unit)
 
-        return box_lengths
+        return puw.standardize(box_lengths)
 

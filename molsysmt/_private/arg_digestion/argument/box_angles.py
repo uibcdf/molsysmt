@@ -53,7 +53,6 @@ def digest_box_angles(box_angles, caller=None):
         else:
             raise ArgumentError('box_angles', value=box_angles, caller=caller, message=None)
 
-        box_angles = puw.quantity(value, unit, standardized=True)
+        box_angles = puw.quantity(value, unit)
 
-        return box_angles
-
+        return puw.standardize(box_angles)

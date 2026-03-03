@@ -2,10 +2,12 @@ from molsysmt._private.arg_digestion import arg_digest
 from molsysmt._private.structure_indices import complementary_structure_indices
 from molsysmt._private.atom_indices import complementary_atom_indices
 from molsysmt._private.variables import is_all
+from smonitor import signal
 
+@signal(tags=['api', 'structure'])
 @arg_digest()
 def remove(molecular_system, selection=None, structure_indices=None, to_form=None, syntax='MolSysMT',
-           skip_digestion=False):
+           in_place=True, skip_digestion=False):
     """
     Removing atoms or structures from a molecular system.
 

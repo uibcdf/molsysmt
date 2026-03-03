@@ -1,8 +1,10 @@
 from molsysmt._private.arg_digestion import arg_digest
 import numpy as np
 from pandas import DataFrame as df
+from smonitor import signal
 
 
+@signal(tags=['api', 'get'])
 @arg_digest()
 def info(molecular_system,
          element='system',
@@ -354,6 +356,7 @@ def info(molecular_system,
             argument="element",
             value=element,
             choices=["atom", "group", "component", "chain", "molecule", "entity", "system"],
+            caller="molsysmt.basic.info",
         )
 
 

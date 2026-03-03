@@ -23,13 +23,13 @@ def digest_mic_origin(mic_origin, caller=None):
 
     if len(shape) == 1:
         if shape[0] == 3:
-            return puw.quantity(value, unit, standardized=True)
+            return puw.standardize(puw.quantity(value, unit))
     elif len(shape) == 2:
         if shape[1] == 3 and shape[0] == 1:
-            return puw.quantity(value[0], unit, standardized=True)
+            return puw.standardize(puw.quantity(value[0], unit))
     elif len(shape) == 3:
         if shape[2] == 3 and shape[0] == 1 and shape[1] == 1:
-            return puw.quantity(value[0,0], unit, standardized=True)
+            return puw.standardize(puw.quantity(value[0,0], unit))
 
     raise ArgumentError('mic_origin', value=mic_origin, caller=caller, message=None)
 

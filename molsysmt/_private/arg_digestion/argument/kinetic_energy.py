@@ -45,7 +45,7 @@ def digest_kinetic_energy(kinetic_energy, caller=None):
         raise ArgumentError('kinetic_energy', value=coordinates, caller=caller, message=None)
 
     if isinstance(value, (int, np.int64, float, np.float64)):
-        return puw.quantity(value, unit, standardized=True)
+        return puw.standardize(puw.quantity(value, unit))
 
     raise ArgumentError('kinetic_energy', value=kinetic_energy, caller=caller, message=None)
 

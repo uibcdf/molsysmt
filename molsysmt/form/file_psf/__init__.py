@@ -23,17 +23,12 @@ from .get import *
 from .set import *
 from .iterators import TopologyIterator
 
-from .to_file_psf import to_file_psf
-from .to_molsysmt_MolSys import to_molsysmt_MolSys
-from .to_molsysmt_Topology import to_molsysmt_Topology
-from .to_openmm_CharmmPsfFile import to_openmm_CharmmPsfFile
-from .to_openmm_Topology import to_openmm_Topology
 
 _convert_to={
-        'file:psf': to_file_psf,
-        'molsysmt.MolSys': to_molsysmt_MolSys,
-        'molsysmt.Topology': to_molsysmt_Topology,
-        'openmm.CharmPsfFile': to_openmm_CharmmPsfFile,
-        'openmm.Topology': to_openmm_Topology,
+        'file:psf': 'to_file_psf',
+        'molsysmt.MolSys': 'to_molsysmt_MolSys',
+        'molsysmt.Topology': 'to_molsysmt_Topology',
+        'openmm.CharmPsfFile': 'to_openmm_CharmmPsfFile',
+        'openmm.Topology': 'to_openmm_Topology',
         }
 

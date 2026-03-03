@@ -21,10 +21,10 @@ def digest_point(point, caller=None):
 
     if len(shape) == 1:
         if shape[0] == 3:
-            return puw.quantity(value[np.newaxis, :], unit, standardized=True)
+            return puw.standardize(puw.quantity(value[np.newaxis, :], unit))
     elif len(shape) == 2:
         if shape[1] == 3:
-            return puw.quantity(value, unit, standardized=True)
+            return puw.standardize(puw.quantity(value, unit))
 
     raise ArgumentError('point', value=point, caller=caller, message=None)
 
