@@ -2,10 +2,12 @@
 ########### THE FOLLOWING LINES NEED TO BE CUSTOMIZED FOR EVERY CLASS  ################
 #######################################################################################
 
-from molsysmt._private.execfile import execfile
 from molsysmt._private.smonitor import NotImplementedMethodError, NotWithThisFormError
 from molsysmt._private.arg_digestion import arg_digest
 from molsysmt._private.variables import is_all
+from molsysmt import pyunitwizard as puw
+import numpy as np
+import types
 
 form='parmed.Structure'
 
@@ -14,12 +16,18 @@ form='parmed.Structure'
 @arg_digest(form=form)
 def get_atom_id_from_atom(item, indices='all', skip_digestion=False):
 
-    raise NotImplementedMethodError()
+    from .to_molsysmt_Topology import to_molsysmt_Topology
+    from molsysmt.form.molsysmt_Topology.get_topological_attributes import get_atom_id_from_atom as aux_get
+    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    return aux_get(tmp_item, indices=indices, skip_digestion=True)
 
 @arg_digest(form=form)
 def get_atom_name_from_atom(item, indices='all', skip_digestion=False):
 
-    raise NotImplementedMethodError()
+    from .to_molsysmt_Topology import to_molsysmt_Topology
+    from molsysmt.form.molsysmt_Topology.get_topological_attributes import get_atom_name_from_atom as aux_get
+    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    return aux_get(tmp_item, indices=indices, skip_digestion=True)
 
 @arg_digest(form=form)
 def get_atom_type_from_atom(item, indices='all', skip_digestion=False):

@@ -17,64 +17,40 @@ form='MDAnalysis.Universe'
 @arg_digest(form=form)
 def get_atom_id_from_atom(item, indices='all', skip_digestion=False):
 
-    raise NotImplementedMethodError()
+    from .to_molsysmt_Topology import to_molsysmt_Topology
+    from molsysmt.form.molsysmt_Topology.get_topological_attributes import get_atom_id_from_atom as aux_get
+    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    return aux_get(tmp_item, indices=indices, skip_digestion=True)
 
 @arg_digest(form=form)
 def get_atom_name_from_atom(item, indices='all', skip_digestion=False):
 
-    raise NotImplementedMethodError()
-
-@arg_digest(form=form)
-def get_atom_type_from_atom(item, indices='all', skip_digestion=False):
-
-    raise NotImplementedMethodError()
-
-@arg_digest(form=form)
-def get_group_index_from_atom(item, indices='all', skip_digestion=False):
-
-    raise NotImplementedMethodError()
-
-@arg_digest(form=form)
-def get_component_index_from_atom(item, indices='all', skip_digestion=False):
-
-    raise NotImplementedMethodError()
-
-@arg_digest(form=form)
-def get_chain_index_from_atom(item, indices='all', skip_digestion=False):
-
-    raise NotImplementedMethodError()
-
-@arg_digest(form=form)
-def get_molecule_index_from_atom(item, indices='all', skip_digestion=False):
-
-    raise NotImplementedMethodError()
-
-@arg_digest(form=form)
-def get_entity_index_from_atom(item, indices='all', skip_digestion=False):
-
-    raise NotImplementedMethodError()
-
-@arg_digest(form=form)
-def get_inner_bonded_atoms_from_atom(item, indices='all', skip_digestion=False):
-
-    raise NotImplementedMethodError()
-
-@arg_digest(form=form)
-def get_n_inner_bonds_from_atom(item, indices='all', skip_digestion=False):
-
-    raise NotImplementedMethodError()
+    from .to_molsysmt_Topology import to_molsysmt_Topology
+    from molsysmt.form.molsysmt_Topology.get_topological_attributes import get_atom_name_from_atom as aux_get
+    tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
+    return aux_get(tmp_item, indices=indices, skip_digestion=True)
 
 @arg_digest(form=form)
 def get_coordinates_from_atom(item, indices='all', structure_indices='all', skip_digestion=False):
 
-    coordinates= puw.quantity(item.trajectory * 0.1, unit='nm')
+    # MDAnalysis coordinates are in Angstroms
+    if is_all(structure_indices):
+        n_structures = item.trajectory.n_frames
+        structure_indices = range(n_structures)
+    
+    if is_all(indices):
+        n_atoms = item.atoms.n_atoms
+        indices = range(n_atoms)
 
-    if not is_all(indices):
-        coordinates = coordinates[:, atom_indices, :]
-    if not is_all(structure_indices):
-        coordinates = coordinates[structure_indices,:,:]
+    coords = []
+    for ts in item.trajectory[structure_indices]:
+        coords.append(item.atoms[indices].positions)
+    
+    output = np.array(coords)
+    output = puw.quantity(output, 'angstroms')
+    output = puw.standardize(output)
 
-    return coordinates
+    return output
 
 ## From group
 

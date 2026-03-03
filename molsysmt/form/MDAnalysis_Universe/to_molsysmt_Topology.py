@@ -1,117 +1,63 @@
 from molsysmt._private.arg_digestion import arg_digest
+from molsysmt.element.group import get_group_type_from_group_name
+import numpy as np
 
 @arg_digest(form='MDAnalysis.Universe')
 def to_molsysmt_Topology(item, atom_indices='all', skip_digestion=False):
 
     from molsysmt.native import Topology
-    from numpy import empty, array, arange, reshape, where, unique, nan, sort, zeros
-    from molsysmt.element.group import get_group_type_from_group_name
-    from networkx import empty_graph, connected_components
-
-    tmp_item = Topology()
+    from molsysmt.form.molsysmt_Topology.extract import extract as extract_molsysmt_Topology
+    from molsysmt._private.variables import is_all
 
     n_atoms = item.atoms.n_atoms
+    n_groups = item.residues.n_residues
+    n_chains = item.segments.n_segments
 
-    # atoms, groups and chains
+    tmp_item = Topology(n_atoms=n_atoms, n_groups=n_groups, n_chains=n_chains)
 
-    atom_index_array = empty(n_atoms, dtype=int)
-    atom_name_array = empty(n_atoms, dtype=object)
-    atom_id_array = empty(n_atoms, dtype=int)
-    atom_type_array = empty(n_atoms, dtype=object)
-    atom_bonded_atom_indices_array = empty(n_atoms, dtype=object)
+    # Atoms
+    atom_id = [str(atom.id) for atom in item.atoms]
+    atom_name = [atom.name for atom in item.atoms]
+    atom_type = [atom.type for atom in item.atoms]
+    group_index_of_atoms = [atom.resindex for atom in item.atoms]
 
-    group_index_array = empty(n_atoms, dtype=int)
-    group_name_array = empty(n_atoms, dtype=object)
-    group_id_array = empty(n_atoms, dtype=int)
-    group_type_array = empty(n_atoms, dtype=object)
+    tmp_item.atoms.atom_id = atom_id
+    tmp_item.atoms.atom_name = atom_name
+    tmp_item.atoms.atom_type = atom_type
+    tmp_item.atoms.group_index = group_index_of_atoms
 
-    chain_index_array = empty(n_atoms, dtype=int)
-    chain_name_array = empty(n_atoms, dtype=object)
-    chain_id_array = empty(n_atoms, dtype=object)
-    chain_type_array = empty(n_atoms, dtype=object)
+    # Groups
+    group_id = [str(res.resid) for res in item.residues]
+    group_name = [res.resname for res in item.residues]
+    group_type = [get_group_type_from_group_name(res.resname) for res in item.residues]
+    chain_index_of_groups = [res.segindex for res in item.residues]
 
-    atom_index = 0
+    tmp_item.groups.group_id = group_id
+    tmp_item.groups.group_name = group_name
+    tmp_item.groups.group_type = group_type
+    tmp_item.groups.chain_index = chain_index_of_groups
 
-    for atom in item.atoms:
+    # Chains
+    chain_id = [str(seg.segid) for seg in item.segments]
+    chain_name = [str(seg.segid) for seg in item.segments]
 
-        atom_index_array[atom_index] = atom.index
-        atom_name_array[atom_index] = atom.name
-        atom_id_array[atom_index] = atom.id
-        atom_type_array[atom_index] = atom.type
+    tmp_item.chains.chain_id = chain_id
+    tmp_item.chains.chain_name = chain_name
 
-        group_index_array[atom_index] = atom.resindex
-        group_name_array[atom_index] = atom.resname
-        group_id_array[atom_index] = atom.resid
-        group_type_array[atom_index] = get_group_type_from_group_name(atom.resname)
-
-        chain_index_array[atom_index] = atom.segindex
-        chain_id_array[atom_index] = atom.segid
-
-        atom_index+=1
-
-    tmp_item.atoms_dataframe["atom_index"] = atom_index_array
-    tmp_item.atoms_dataframe["atom_name"] = atom_name_array
-    tmp_item.atoms_dataframe["atom_id"] = atom_id_array
-    tmp_item.atoms_dataframe["atom_type"] = atom_type_array
-    del(atom_index_array, atom_name_array, atom_id_array, atom_type_array)
-
-    tmp_item.atoms_dataframe["group_index"] = group_index_array
-    tmp_item.atoms_dataframe["group_name"] = group_name_array
-    tmp_item.atoms_dataframe["group_id"] = group_id_array
-    tmp_item.atoms_dataframe["group_type"] = group_type_array
-    del(group_index_array, group_id_array, group_name_array, group_type_array)
-
-    tmp_item.atoms_dataframe["chain_index"] = chain_index_array
-    tmp_item.atoms_dataframe["chain_id"] = chain_id_array
-    del(chain_index_array, chain_id_array, chain_name_array, chain_type_array)
-
-    # bonds
-
-    try:
-        n_bonds = len([bond for bond in item.bonds if bond.btype=='bond'])
-    except:
-        n_bonds = 0
-
-    if n_bonds > 0:
-
-        bond_atom1_array = empty(n_bonds, dtype=int)
-        bond_atom2_array = empty(n_bonds, dtype=int)
-        bond_type_array = empty(n_bonds, dtype=object)
-        bond_order_array = empty(n_bonds, dtype=object)
-
-        bond_index = 0
-
+    # Bonds
+    if hasattr(item, 'bonds'):
+        bonded_atoms = []
         for bond in item.bonds:
+            bonded_atoms.append([bond.atoms[0].index, bond.atoms[1].index])
+        if len(bonded_atoms) > 0:
+            tmp_item.add_bonds(bonded_atoms, skip_digestion=True)
 
-            if bond.btype == 'bond':
+    # Rebuild remaining hierarchy
+    tmp_item.rebuild_components()
+    tmp_item.rebuild_molecules()
+    tmp_item.rebuild_entities()
 
-                bond_atom1_array[bond_index] = bond.atoms[0].index
-                bond_atom2_array[bond_index] = bond.atoms[1].index
-                bond_order_array[bond_index] = bond.order
-                bond_type_array[bond_index] = None
-
-                bond_index +=1
-
-        tmp_item.bonds_dataframe["atom1_index"] = bond_atom1_array
-        tmp_item.bonds_dataframe["atom2_index"] = bond_atom2_array
-        tmp_item.bonds_dataframe["order"] = bond_order_array
-        tmp_item.bonds_dataframe["type"] = bond_type_array
-
-    # components
-
-    tmp_item._build_components()
-
-    ## molecules
-
-    tmp_item._build_molecules()
-
-    ## entity
-
-    tmp_item._build_entities()
-
-    ## nan to None
-
-    tmp_item._nan_to_None()
+    if not is_all(atom_indices):
+        tmp_item = extract_molsysmt_Topology(tmp_item, atom_indices=atom_indices, skip_digestion=True)
 
     return tmp_item
-
