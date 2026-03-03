@@ -29,3 +29,10 @@ _convert_to={
         'molsysmt.Topology': to_molsysmt_Topology,
         'pytraj.Trajectory': to_pytraj_Trajectory,
         }
+
+
+piped_topological_attribute = None
+piped_structural_attribute = None
+piped_any_attribute = None
+bonds_are_explicit = False
+bonds_can_be_computed = False

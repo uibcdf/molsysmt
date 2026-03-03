@@ -41,3 +41,10 @@ _convert_to={
         'mdtraj.Trajectory': to_mdtraj_Trajectory,
         'nglview.NGLWidget': to_nglview_NGLWidget
         }
+
+
+piped_topological_attribute = None
+piped_structural_attribute = None
+piped_any_attribute = None
+bonds_are_explicit = False
+bonds_can_be_computed = False

@@ -27,3 +27,10 @@ _convert_to={
         'file:trjpk': to_file_trjpk,
         'molsysmt.StructuresDict': to_molsysmt_StructuresDict,
         }
+
+
+piped_topological_attribute = None
+piped_structural_attribute = None
+piped_any_attribute = None
+bonds_are_explicit = False
+bonds_can_be_computed = False
