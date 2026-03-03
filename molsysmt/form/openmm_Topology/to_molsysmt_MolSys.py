@@ -5,7 +5,7 @@ def to_molsysmt_MolSys(item, atom_indices='all', coordinates=None, box=None, ski
 
     from molsysmt.native.molsys import MolSys
     from molsysmt.native.structures import Structures
-    from .to_molsysmt_Topology import to_molsysmt_Topology as to_molsysmt_Topology
+    from ..molsysmt_Topology.to_molsysmt_Topology import to_molsysmt_Topology as to_molsysmt_Topology
     from . import get_box_from_system
 
     tmp_item = MolSys()

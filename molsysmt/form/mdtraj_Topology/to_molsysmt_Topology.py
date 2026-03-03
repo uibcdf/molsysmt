@@ -11,7 +11,7 @@ def to_molsysmt_Topology(item, atom_indices='all', skip_digestion=False):
     #tmp_item = openmm_Topology_to_molsysmt_Topology(tmp_item, atom_indices=atom_indices, skip_digestion=True)
 
     from molsysmt.native import Topology
-    from ..molsysmt_Topology import extract
+    from molsysmt.form.molsysmt_Topology.extract import extract as extract_molsysmt_Topology
 
 
     n_atoms = item.n_atoms
@@ -98,7 +98,7 @@ def to_molsysmt_Topology(item, atom_indices='all', skip_digestion=False):
 
     # extract
 
-    tmp_item = tmp_item.extract(atom_indices=atom_indices, copy_if_all=False, skip_digestion=True)
+    tmp_item = extract_molsysmt_Topology(tmp_item, atom_indices=atom_indices, copy_if_all=False, skip_digestion=True)
 
     return tmp_item
 

@@ -1,3 +1,9 @@
+from .to_file_xyznpy import to_file_xyznpy
+from .to_molsysmt_MolSys import to_molsysmt_MolSys
+from .to_molsysmt_MolecularMechanics import to_molsysmt_MolecularMechanics
+from .to_molsysmt_Structures import to_molsysmt_Structures
+from .to_XYZ import to_XYZ
+from .to_molsysmt_Topology import to_molsysmt_Topology
 from .get_rank_3_XYZ import get_rank_3_XYZ
 
 form_name = 'XYZ'
@@ -28,10 +34,10 @@ from .iterators import StructuresIterator, TopologyIterator
 
 
 _convert_to={
-        'XYZ': 'to_XYZ',
-        'file:xyznpy': 'to_file_xyznpy',
-        'molsysmt.MolSys': 'to_molsysmt_MolSys',
-        'molsysmt.Structures': 'to_molsysmt_Structures',
-        'molsysmt.Topology': 'to_molsysmt_Topology',
-        'molsysmt.MolecularMechanics': 'to_molsysmt_MolecularMechanics',
+        'XYZ': to_XYZ,
+        'file:xyznpy': to_file_xyznpy,
+        'molsysmt.MolSys': to_molsysmt_MolSys,
+        'molsysmt.Structures': to_molsysmt_Structures,
+        'molsysmt.Topology': to_molsysmt_Topology,
+        'molsysmt.MolecularMechanics': to_molsysmt_MolecularMechanics,
         }

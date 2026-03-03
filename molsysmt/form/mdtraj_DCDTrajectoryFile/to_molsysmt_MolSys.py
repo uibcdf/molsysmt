@@ -7,7 +7,7 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
 
     from molsysmt.native import Topology
     from molsysmt.native import MolSys
-    from .to_molsysmt_Structures import to_molsysmt_Structures
+    from ..molsysmt_Structures.to_molsysmt_Structures import to_molsysmt_Structures
     from molsysmt.form.molsysmt_Structures import get_n_atoms_from_system
 
     tmp_item = MolSys()

@@ -1,3 +1,9 @@
+from .to_molsysmt_ViewerJSON import to_molsysmt_ViewerJSON
+from .to_molsysmt_UniversalJSON import to_molsysmt_UniversalJSON
+from .to_molsysmt_StructuresDict import to_molsysmt_StructuresDict
+from .to_file_h5msm import to_file_h5msm
+from .to_molsysmt_Structures import to_molsysmt_Structures
+from .to_XYZ import to_XYZ
 form_name = 'molsysmt.Structures'
 form_type = 'class'
 form_info = ["", ""]
@@ -23,10 +29,10 @@ from .set import *
 from .iterators import StructuresIterator
 
 _convert_to={
-        'molsysmt.Structures': 'to_molsysmt_Structures',
-        'file:h5msm': 'to_file_h5msm',
-        'molsysmt.StructuresDict': 'to_molsysmt_StructuresDict',
-        'molsysmt.ViewerJSON': 'to_molsysmt_ViewerJSON',
-        'molsysmt.UniversalJSON': 'to_molsysmt_UniversalJSON',
-        'XYZ': 'to_XYZ',
+        'molsysmt.Structures': to_molsysmt_Structures,
+        'file:h5msm': to_file_h5msm,
+        'molsysmt.StructuresDict': to_molsysmt_StructuresDict,
+        'molsysmt.ViewerJSON': to_molsysmt_ViewerJSON,
+        'molsysmt.UniversalJSON': to_molsysmt_UniversalJSON,
+        'XYZ': to_XYZ,
         }

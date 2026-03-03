@@ -3,7 +3,7 @@ from molsysmt._private.arg_digestion import arg_digest
 @arg_digest(form='file:xtc')
 def to_molsysmt_Structures(item, atom_indices='all', structure_indices='all', skip_digestion=False):
 
-    from .to_mdtraj_XTCTrajectoryFile import to_mdtraj_XTCTrajectoryFile
+    from ..mdtraj_XTCTrajectoryFile.to_mdtraj_XTCTrajectoryFile import to_mdtraj_XTCTrajectoryFile
     from ..mdtraj_XTCTrajectoryFile.to_molsysmt_Structures import to_molsysmt_Structures as mdtraj_XTCTrajectoryFile_to_molsysmt_Structures
 
     tmp_item = to_mdtraj_XTCTrajectoryFile(item, skip_digestion=True)

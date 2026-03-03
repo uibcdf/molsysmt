@@ -4,7 +4,7 @@ from molsysmt._private.arg_digestion import arg_digest
 def to_file_bcif_gz(item, atom_indices='all', structure_indices='all', output_filename=None, skip_digestion=False):
 
     from ..file_bcif_gz import download
-    from ..file_bcif_gz import extract
+    from ..file_bcif_gz.extract import extract
 
     tmp_item = download(item, output_filename=output_filename)
     tmp_item = extract(tmp_item, atom_indices=atom_indices, structure_indices=structure_indices,

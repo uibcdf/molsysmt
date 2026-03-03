@@ -1,3 +1,5 @@
+from .to_mdtraj_XTCTrajectoryFile import to_mdtraj_XTCTrajectoryFile
+from .to_molsysmt_Structures import to_molsysmt_Structures
 form_name = 'mdtraj.XTCTrajectoryFile'
 form_type = 'class'
 form_info = ["", ""]
@@ -22,6 +24,6 @@ from .iterators import StructuresIterator
 
 
 _convert_to={
-        'mdtraj.XTCTrajectoryFile': 'to_mdtraj_XTCTrajectoryFile',
-        'molsysmt.Structures': 'to_molsysmt_Structures',
+        'mdtraj.XTCTrajectoryFile': to_mdtraj_XTCTrajectoryFile,
+        'molsysmt.Structures': to_molsysmt_Structures,
         }

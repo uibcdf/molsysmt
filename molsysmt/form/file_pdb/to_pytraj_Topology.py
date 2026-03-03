@@ -10,7 +10,7 @@ def to_pytraj_Topology(item, atom_indices='all', max_bond_length=None, skip_dige
     except:
         raise LibraryNotFoundError('pytraj')
 
-    from ..pytraj_Topology import extract as extract_pytraj_Topology
+    from ..pytraj_Topology.extract import extract as extract_pytraj_Topology
 
     option = ''
     if max_bond_length is not None:

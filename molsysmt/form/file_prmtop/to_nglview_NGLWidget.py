@@ -3,7 +3,7 @@ from molsysmt._private.arg_digestion import arg_digest
 @arg_digest(form='file:prmtop')
 def to_nglview_NGLWidget(item, atom_indices='all', coordinates=None, skip_digestion=False):
 
-    from .to_molsysmt_MolSys import to_molsysmt_MolSys
+    from ..molsysmt_MolSys.to_molsysmt_MolSys import to_molsysmt_MolSys
     from ..molsysmt_MolSys.to_nglview_NGLWidget import to_nglview_NGLWidget as molsysmt_MolSys_to_nglview_NGLWidget
 
     tmp_item = to_molsysmt_MolSys(item, atom_indices=atom_indices, coordinates=coordinates, skip_digestion=True)

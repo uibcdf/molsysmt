@@ -14,7 +14,7 @@ def _wrap_getter(func):
     @arg_digest(form=form)
     @functools.wraps(func)
     def wrapper(item, *args, **kwargs):
-        from .to_molsysmt_MolSys import to_molsysmt_MolSys
+        from ..molsysmt_MolSys.to_molsysmt_MolSys import to_molsysmt_MolSys
 
         tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
         if tmp_item is None:

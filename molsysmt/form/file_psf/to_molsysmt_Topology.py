@@ -6,7 +6,7 @@ import numpy as np
 @arg_digest(form='file:psf')
 def to_molsysmt_Topology(item, atom_indices='all', skip_digestion=False):
 
-    from .to_openmm_CharmmPsfFile import to_openmm_CharmmPsfFile
+    from ..openmm_CharmmPsfFile.to_openmm_CharmmPsfFile import to_openmm_CharmmPsfFile
     from ..openmm_CharmmPsfFile.to_molsysmt_Topology import to_molsysmt_Topology as openmm_CharmmPsfFile_to_molsysmt_Topology
 
     tmp_item = to_openmm_CharmmPsfFile(item, skip_digestion=True)

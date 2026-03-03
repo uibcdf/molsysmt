@@ -4,7 +4,7 @@ from molsysmt._private.arg_digestion import arg_digest
 def to_openmm_CharmmCrdFile(item, atom_indices='all', structure_indices='all', skip_digestion=False):
 
     from openmm.app import CharmmCrdFile
-    from ..openmm_CharmmCrdFile import extract as extract_openmm_CharmmCrdFile
+    from ..openmm_CharmmCrdFile.extract import extract as extract_openmm_CharmmCrdFile
 
     tmp_item = CharmmCrdFile(item)
     tmp_item = extract_openmm_CharmmCrdFile(tmp_item, atom_indices=atom_indices,

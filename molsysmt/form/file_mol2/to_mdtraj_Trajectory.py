@@ -4,7 +4,7 @@ from molsysmt._private.arg_digestion import arg_digest
 def to_mdtraj_Trajectory(item, atom_indices='all', structure_indices='all', skip_digestion=False):
 
     from mdtraj import load_mol2
-    from ..mdtraj_Trajectory import extract as extract_mdtraj_Trajectory
+    from ..mdtraj_Trajectory.extract import extract as extract_mdtraj_Trajectory
 
     tmp_item = load_mol2(item)
     tmp_item = extract_mdtraj_Trajectory(tmp_item, skip_digestion=True)

@@ -16,7 +16,7 @@ def extract(item, atom_indices='all', structure_indices='all', copy_if_all=True,
     else:
 
         from . import get_coordinates_from_atom
-        from ..openmm_Topology import extract as extract_openmm_Topology
+        from ..openmm_Topology.extract import extract as extract_openmm_Topology
 
         tmp_topology = extract_openmm_Topology(item.topology, atom_indices=atom_indices, skip_digestion=True)
         tmp_positions = get_coordinates_from_atom(item, indices=atom_indices, skip_digestion=True)

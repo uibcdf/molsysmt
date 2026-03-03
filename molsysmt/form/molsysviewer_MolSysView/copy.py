@@ -7,7 +7,7 @@ form = 'molsysviewer.MolSysView'
 def copy(item, skip_digestion=False):
 
     from molsysmt.basic import copy as molsys_copy, convert
-    from .to_molsysmt_MolSys import to_molsysmt_MolSys
+    from ..molsysmt_MolSys.to_molsysmt_MolSys import to_molsysmt_MolSys
 
     tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     if tmp_item is None:

@@ -8,7 +8,7 @@ def to_mdtraj_Trajectory(item, atom_indices='all', skip_digestion=False):
     from mdtraj.core.trajectory import Trajectory as mdtraj_Trajectory
 
     from molsysmt import pyunitwizard as puw
-    from .to_mdtraj_Topology import to_mdtraj_Topology
+    from ..mdtraj_Topology.to_mdtraj_Topology import to_mdtraj_Topology
     from . import get_coordinates_from_atom
 
     tmp_item = to_mdtraj_Topology(item, atom_indices=atom_indices, skip_digestion=True)

@@ -55,7 +55,20 @@ def is_a_molecular_system(molecular_system):
     from . import get_form
     from ..form import _dict_modules
 
-    if not isinstance(molecular_system, (list, tuple)):
+    from molsysmt.native import MolSys, Topology, Structures
+
+    if isinstance(molecular_system, (MolSys, Topology, Structures)):
+        return True
+
+    # Check for OpenMM and MDTraj objects without explicit imports at top level
+    class_name = str(type(molecular_system))
+    if 'openmm' in class_name or 'mdtraj' in class_name:
+        return True
+
+    if isinstance(molecular_system, str):
+        return True
+
+    if isinstance(molecular_system, (list, tuple)):
 
         try:
             _ = get_form(molecular_system)

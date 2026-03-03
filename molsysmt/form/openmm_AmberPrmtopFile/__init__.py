@@ -1,3 +1,7 @@
+from .to_openmm_System import to_openmm_System
+from .to_openmm_AmberPrmtopFile import to_openmm_AmberPrmtopFile
+from .to_openmm_Topology import to_openmm_Topology
+from .to_molsysmt_Topology import to_molsysmt_Topology
 form_name = 'openmm.AmberPrmtopFile'
 form_type = 'class'
 form_info = ["", ""]
@@ -22,8 +26,8 @@ from .iterators import TopologyIterator
 
 
 _convert_to={
-        'openmm.AmberPrmtopFile': 'to_openmm_AmberPrmtopFile',
-        'molsysmt.Topology': 'to_molsysmt_Topology',
-        'openmm.System': 'to_openmm_System',
-        'openmm.Topology': 'to_openmm_Topology',
+        'openmm.AmberPrmtopFile': to_openmm_AmberPrmtopFile,
+        'molsysmt.Topology': to_molsysmt_Topology,
+        'openmm.System': to_openmm_System,
+        'openmm.Topology': to_openmm_Topology,
         }

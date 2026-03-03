@@ -14,8 +14,8 @@ form='file:mmtf'
 @arg_digest(form=form)
 def get_atom_id_from_atom(item, indices='all', skip_digestion=False):
 
-    from .to_mmtf_MMTFDecoder import to_mmtf_MMTFDecoder
-    from ..mmtf_MMTFDecoder import get_atom_id_from_atom as aux_get
+    from ..mmtf_MMTFDecoder.to_mmtf_MMTFDecoder import to_mmtf_MMTFDecoder
+    from ..mmtf_MMTFDecoder.get_atom_id_from_atom import get_atom_id_from_atom as aux_get
 
     tmp_item = to_mmtf_MMTFDecoder(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
@@ -25,8 +25,8 @@ def get_atom_id_from_atom(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_atom_name_from_atom(item, indices='all', skip_digestion=False):
 
-    from .to_mmtf_MMTFDecoder import to_mmtf_MMTFDecoder
-    from ..mmtf_MMTFDecoder import get_atom_name_from_atom as aux_get
+    from ..mmtf_MMTFDecoder.to_mmtf_MMTFDecoder import to_mmtf_MMTFDecoder
+    from ..mmtf_MMTFDecoder.get_atom_name_from_atom import get_atom_name_from_atom as aux_get
 
     tmp_item = to_mmtf_MMTFDecoder(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
@@ -36,8 +36,8 @@ def get_atom_name_from_atom(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_atom_type_from_atom(item, indices='all', skip_digestion=False):
 
-    from .to_mmtf_MMTFDecoder import to_mmtf_MMTFDecoder
-    from ..mmtf_MMTFDecoder import get_atom_type_from_atom as aux_get
+    from ..mmtf_MMTFDecoder.to_mmtf_MMTFDecoder import to_mmtf_MMTFDecoder
+    from ..mmtf_MMTFDecoder.get_atom_type_from_atom import get_atom_type_from_atom as aux_get
 
     tmp_item = to_mmtf_MMTFDecoder(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
@@ -47,8 +47,8 @@ def get_atom_type_from_atom(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_group_index_from_atom (item, indices='all', skip_digestion=False):
 
-    from .to_mmtf_MMTFDecoder import to_mmtf_MMTFDecoder
-    from ..mmtf_MMTFDecoder import get_group_index_from_atom as aux_get
+    from ..mmtf_MMTFDecoder.to_mmtf_MMTFDecoder import to_mmtf_MMTFDecoder
+    from ..mmtf_MMTFDecoder.get_group_index_from_atom import get_group_index_from_atom as aux_get
 
     tmp_item = to_mmtf_MMTFDecoder(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
@@ -58,8 +58,8 @@ def get_group_index_from_atom (item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_component_index_from_atom (item, indices='all', skip_digestion=False):
 
-    from .to_mmtf_MMTFDecoder import to_mmtf_MMTFDecoder
-    from ..mmtf_MMTFDecoder import get_component_index_from_atom as aux_get
+    from ..mmtf_MMTFDecoder.to_mmtf_MMTFDecoder import to_mmtf_MMTFDecoder
+    from ..mmtf_MMTFDecoder.get_component_index_from_atom import get_component_index_from_atom as aux_get
 
     tmp_item = to_mmtf_MMTFDecoder(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
@@ -69,8 +69,8 @@ def get_component_index_from_atom (item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_chain_index_from_atom (item, indices='all', skip_digestion=False):
 
-    from .to_mmtf_MMTFDecoder import to_mmtf_MMTFDecoder
-    from ..mmtf_MMTFDecoder import get_chain_index_from_atom as aux_get
+    from ..mmtf_MMTFDecoder.to_mmtf_MMTFDecoder import to_mmtf_MMTFDecoder
+    from ..mmtf_MMTFDecoder.get_chain_index_from_atom import get_chain_index_from_atom as aux_get
 
     tmp_item = to_mmtf_MMTFDecoder(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
@@ -80,8 +80,8 @@ def get_chain_index_from_atom (item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_molecule_index_from_atom (item, indices='all', skip_digestion=False):
 
-    from .to_mmtf_MMTFDecoder import to_mmtf_MMTFDecoder
-    from ..mmtf_MMTFDecoder import get_molecule_index_from_atom as aux_get
+    from ..mmtf_MMTFDecoder.to_mmtf_MMTFDecoder import to_mmtf_MMTFDecoder
+    from ..mmtf_MMTFDecoder.get_molecule_index_from_atom import get_molecule_index_from_atom as aux_get
 
     tmp_item = to_mmtf_MMTFDecoder(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
@@ -91,8 +91,8 @@ def get_molecule_index_from_atom (item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_entity_index_from_atom (item, indices='all', skip_digestion=False):
 
-    from .to_mmtf_MMTFDecoder import to_mmtf_MMTFDecoder
-    from ..mmtf_MMTFDecoder import get_entity_index_from_atom as aux_get
+    from ..mmtf_MMTFDecoder.to_mmtf_MMTFDecoder import to_mmtf_MMTFDecoder
+    from ..mmtf_MMTFDecoder.get_entity_index_from_atom import get_entity_index_from_atom as aux_get
 
     tmp_item = to_mmtf_MMTFDecoder(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
@@ -102,8 +102,8 @@ def get_entity_index_from_atom (item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_inner_bonded_atoms_from_atom (item, indices='all', skip_digestion=False):
 
-    from .to_mmtf_MMTFDecoder import to_mmtf_MMTFDecoder
-    from ..mmtf_MMTFDecoder import get_inner_bonded_atoms_from_atom as aux_get
+    from ..mmtf_MMTFDecoder.to_mmtf_MMTFDecoder import to_mmtf_MMTFDecoder
+    from ..mmtf_MMTFDecoder.get_inner_bonded_atoms_from_atom import get_inner_bonded_atoms_from_atom as aux_get
 
     tmp_item = to_mmtf_MMTFDecoder(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
@@ -113,8 +113,8 @@ def get_inner_bonded_atoms_from_atom (item, indices='all', skip_digestion=False)
 @arg_digest(form=form)
 def get_n_inner_bonds_from_atom (item, indices='all', skip_digestion=False):
 
-    from .to_mmtf_MMTFDecoder import to_mmtf_MMTFDecoder
-    from ..mmtf_MMTFDecoder import get_n_inner_bonds_from_atom as aux_get
+    from ..mmtf_MMTFDecoder.to_mmtf_MMTFDecoder import to_mmtf_MMTFDecoder
+    from ..mmtf_MMTFDecoder.get_n_inner_bonds_from_atom import get_n_inner_bonds_from_atom as aux_get
 
     tmp_item = to_mmtf_MMTFDecoder(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, structure_indices=structure_indices, skip_digestion=True)
@@ -124,8 +124,8 @@ def get_n_inner_bonds_from_atom (item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_coordinates_from_atom(item, indices='all', structure_indices='all', skip_digestion=False):
 
-    from .to_mmtf_MMTFDecoder import to_mmtf_MMTFDecoder
-    from ..mmtf_MMTFDecoder import get_coordinates_from_atom as aux_get
+    from ..mmtf_MMTFDecoder.to_mmtf_MMTFDecoder import to_mmtf_MMTFDecoder
+    from ..mmtf_MMTFDecoder.get_coordinates_from_atom import get_coordinates_from_atom as aux_get
 
     tmp_item = to_mmtf_MMTFDecoder(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, structure_indices=structure_indices, skip_digestion=True)
@@ -135,8 +135,8 @@ def get_coordinates_from_atom(item, indices='all', structure_indices='all', skip
 @arg_digest(form=form)
 def get_alternate_location_from_atom(item, indices='all', skip_digestion=False):
 
-    from .to_mmtf_MMTFDecoder import to_mmtf_MMTFDecoder
-    from ..mmtf_MMTFDecoder import get_alternate_location_from_atom as aux_get
+    from ..mmtf_MMTFDecoder.to_mmtf_MMTFDecoder import to_mmtf_MMTFDecoder
+    from ..mmtf_MMTFDecoder.get_alternate_location_from_atom import get_alternate_location_from_atom as aux_get
 
     tmp_item = to_mmtf_MMTFDecoder(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
@@ -146,8 +146,8 @@ def get_alternate_location_from_atom(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_b_factor_from_atom(item, indices='all', skip_digestion=False):
 
-    from .to_mmtf_MMTFDecoder import to_mmtf_MMTFDecoder
-    from ..mmtf_MMTFDecoder import get_b_factor_from_atom as aux_get
+    from ..mmtf_MMTFDecoder.to_mmtf_MMTFDecoder import to_mmtf_MMTFDecoder
+    from ..mmtf_MMTFDecoder.get_b_factor_from_atom import get_b_factor_from_atom as aux_get
 
     tmp_item = to_mmtf_MMTFDecoder(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
@@ -157,8 +157,8 @@ def get_b_factor_from_atom(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_formal_charge_from_atom(item, indices='all', skip_digestion=False):
 
-    from .to_mmtf_MMTFDecoder import to_mmtf_MMTFDecoder
-    from ..mmtf_MMTFDecoder import get_formal_charge_from_atom as aux_get
+    from ..mmtf_MMTFDecoder.to_mmtf_MMTFDecoder import to_mmtf_MMTFDecoder
+    from ..mmtf_MMTFDecoder.get_formal_charge_from_atom import get_formal_charge_from_atom as aux_get
 
     tmp_item = to_mmtf_MMTFDecoder(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
@@ -168,8 +168,8 @@ def get_formal_charge_from_atom(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_partial_charge_from_atom(item, indices='all', skip_digestion=False):
 
-    from .to_mmtf_MMTFDecoder import to_mmtf_MMTFDecoder
-    from ..mmtf_MMTFDecoder import get_partial_charge_from_atom as aux_get
+    from ..mmtf_MMTFDecoder.to_mmtf_MMTFDecoder import to_mmtf_MMTFDecoder
+    from ..mmtf_MMTFDecoder.get_partial_charge_from_atom import get_partial_charge_from_atom as aux_get
 
     tmp_item = to_mmtf_MMTFDecoder(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
@@ -182,8 +182,8 @@ def get_partial_charge_from_atom(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_group_id_from_group(item, indices='all', skip_digestion=False):
 
-    from .to_mmtf_MMTFDecoder import to_mmtf_MMTFDecoder
-    from ..mmtf_MMTFDecoder import get_group_id_from_group as aux_get
+    from ..mmtf_MMTFDecoder.to_mmtf_MMTFDecoder import to_mmtf_MMTFDecoder
+    from ..mmtf_MMTFDecoder.get_group_id_from_group import get_group_id_from_group as aux_get
 
     tmp_item = to_mmtf_MMTFDecoder(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
@@ -193,8 +193,8 @@ def get_group_id_from_group(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_group_name_from_group(item, indices='all', skip_digestion=False):
 
-    from .to_mmtf_MMTFDecoder import to_mmtf_MMTFDecoder
-    from ..mmtf_MMTFDecoder import get_group_name_from_group as aux_get
+    from ..mmtf_MMTFDecoder.to_mmtf_MMTFDecoder import to_mmtf_MMTFDecoder
+    from ..mmtf_MMTFDecoder.get_group_name_from_group import get_group_name_from_group as aux_get
 
     tmp_item = to_mmtf_MMTFDecoder(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
@@ -204,8 +204,8 @@ def get_group_name_from_group(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_group_type_from_group(item, indices='all', skip_digestion=False):
 
-    from .to_mmtf_MMTFDecoder import to_mmtf_MMTFDecoder
-    from ..mmtf_MMTFDecoder import get_group_type_from_group as aux_get
+    from ..mmtf_MMTFDecoder.to_mmtf_MMTFDecoder import to_mmtf_MMTFDecoder
+    from ..mmtf_MMTFDecoder.get_group_type_from_group import get_group_type_from_group as aux_get
 
     tmp_item = to_mmtf_MMTFDecoder(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
@@ -218,8 +218,8 @@ def get_group_type_from_group(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_component_id_from_component (item, indices='all', skip_digestion=False):
 
-    from .to_mmtf_MMTFDecoder import to_mmtf_MMTFDecoder
-    from ..mmtf_MMTFDecoder import get_component_id_from_component as aux_get
+    from ..mmtf_MMTFDecoder.to_mmtf_MMTFDecoder import to_mmtf_MMTFDecoder
+    from ..mmtf_MMTFDecoder.get_component_id_from_component import get_component_id_from_component as aux_get
 
     tmp_item = to_mmtf_MMTFDecoder(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
@@ -229,8 +229,8 @@ def get_component_id_from_component (item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_component_name_from_component (item, indices='all', skip_digestion=False):
 
-    from .to_mmtf_MMTFDecoder import to_mmtf_MMTFDecoder
-    from ..mmtf_MMTFDecoder import get_component_name_from_component as aux_get
+    from ..mmtf_MMTFDecoder.to_mmtf_MMTFDecoder import to_mmtf_MMTFDecoder
+    from ..mmtf_MMTFDecoder.get_component_name_from_component import get_component_name_from_component as aux_get
 
     tmp_item = to_mmtf_MMTFDecoder(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
@@ -240,8 +240,8 @@ def get_component_name_from_component (item, indices='all', skip_digestion=False
 @arg_digest(form=form)
 def get_component_type_from_component (item, indices='all', skip_digestion=False):
 
-    from .to_mmtf_MMTFDecoder import to_mmtf_MMTFDecoder
-    from ..mmtf_MMTFDecoder import get_component_type_from_component as aux_get
+    from ..mmtf_MMTFDecoder.to_mmtf_MMTFDecoder import to_mmtf_MMTFDecoder
+    from ..mmtf_MMTFDecoder.get_component_type_from_component import get_component_type_from_component as aux_get
 
     tmp_item = to_mmtf_MMTFDecoder(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
@@ -254,8 +254,8 @@ def get_component_type_from_component (item, indices='all', skip_digestion=False
 @arg_digest(form=form)
 def get_molecule_id_from_molecule (item, indices='all', skip_digestion=False):
 
-    from .to_mmtf_MMTFDecoder import to_mmtf_MMTFDecoder
-    from ..mmtf_MMTFDecoder import get_molecule_id_from_molecule as aux_get
+    from ..mmtf_MMTFDecoder.to_mmtf_MMTFDecoder import to_mmtf_MMTFDecoder
+    from ..mmtf_MMTFDecoder.get_molecule_id_from_molecule import get_molecule_id_from_molecule as aux_get
 
     tmp_item = to_mmtf_MMTFDecoder(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
@@ -265,8 +265,8 @@ def get_molecule_id_from_molecule (item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_molecule_name_from_molecule (item, indices='all', skip_digestion=False):
 
-    from .to_mmtf_MMTFDecoder import to_mmtf_MMTFDecoder
-    from ..mmtf_MMTFDecoder import get_molecule_name_from_molecule as aux_get
+    from ..mmtf_MMTFDecoder.to_mmtf_MMTFDecoder import to_mmtf_MMTFDecoder
+    from ..mmtf_MMTFDecoder.get_molecule_name_from_molecule import get_molecule_name_from_molecule as aux_get
 
     tmp_item = to_mmtf_MMTFDecoder(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
@@ -276,8 +276,8 @@ def get_molecule_name_from_molecule (item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_molecule_type_from_molecule (item, indices='all', skip_digestion=False):
 
-    from .to_mmtf_MMTFDecoder import to_mmtf_MMTFDecoder
-    from ..mmtf_MMTFDecoder import get_molecule_type_from_molecule as aux_get
+    from ..mmtf_MMTFDecoder.to_mmtf_MMTFDecoder import to_mmtf_MMTFDecoder
+    from ..mmtf_MMTFDecoder.get_molecule_type_from_molecule import get_molecule_type_from_molecule as aux_get
 
     tmp_item = to_mmtf_MMTFDecoder(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
@@ -290,8 +290,8 @@ def get_molecule_type_from_molecule (item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_chain_id_from_chain (item, indices='all', skip_digestion=False):
 
-    from .to_mmtf_MMTFDecoder import to_mmtf_MMTFDecoder
-    from ..mmtf_MMTFDecoder import get_chain_id_from_chain as aux_get
+    from ..mmtf_MMTFDecoder.to_mmtf_MMTFDecoder import to_mmtf_MMTFDecoder
+    from ..mmtf_MMTFDecoder.get_chain_id_from_chain import get_chain_id_from_chain as aux_get
 
     tmp_item = to_mmtf_MMTFDecoder(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
@@ -301,8 +301,8 @@ def get_chain_id_from_chain (item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_chain_name_from_chain (item, indices='all', skip_digestion=False):
 
-    from .to_mmtf_MMTFDecoder import to_mmtf_MMTFDecoder
-    from ..mmtf_MMTFDecoder import get_chain_name_from_chain as aux_get
+    from ..mmtf_MMTFDecoder.to_mmtf_MMTFDecoder import to_mmtf_MMTFDecoder
+    from ..mmtf_MMTFDecoder.get_chain_name_from_chain import get_chain_name_from_chain as aux_get
 
     tmp_item = to_mmtf_MMTFDecoder(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
@@ -312,8 +312,8 @@ def get_chain_name_from_chain (item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_chain_type_from_chain (item, indices='all', skip_digestion=False):
 
-    from .to_mmtf_MMTFDecoder import to_mmtf_MMTFDecoder
-    from ..mmtf_MMTFDecoder import get_chain_type_from_chain as aux_get
+    from ..mmtf_MMTFDecoder.to_mmtf_MMTFDecoder import to_mmtf_MMTFDecoder
+    from ..mmtf_MMTFDecoder.get_chain_type_from_chain import get_chain_type_from_chain as aux_get
 
     tmp_item = to_mmtf_MMTFDecoder(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
@@ -326,8 +326,8 @@ def get_chain_type_from_chain (item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_entity_id_from_entity (item, indices='all', skip_digestion=False):
 
-    from .to_mmtf_MMTFDecoder import to_mmtf_MMTFDecoder
-    from ..mmtf_MMTFDecoder import get_entity_id_from_entity as aux_get
+    from ..mmtf_MMTFDecoder.to_mmtf_MMTFDecoder import to_mmtf_MMTFDecoder
+    from ..mmtf_MMTFDecoder.get_entity_id_from_entity import get_entity_id_from_entity as aux_get
 
     tmp_item = to_mmtf_MMTFDecoder(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
@@ -337,8 +337,8 @@ def get_entity_id_from_entity (item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_entity_name_from_entity (item, indices='all', skip_digestion=False):
 
-    from .to_mmtf_MMTFDecoder import to_mmtf_MMTFDecoder
-    from ..mmtf_MMTFDecoder import get_entity_name_from_entity as aux_get
+    from ..mmtf_MMTFDecoder.to_mmtf_MMTFDecoder import to_mmtf_MMTFDecoder
+    from ..mmtf_MMTFDecoder.get_entity_name_from_entity import get_entity_name_from_entity as aux_get
 
     tmp_item = to_mmtf_MMTFDecoder(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
@@ -348,8 +348,8 @@ def get_entity_name_from_entity (item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_entity_type_from_entity (item, indices='all', skip_digestion=False):
 
-    from .to_mmtf_MMTFDecoder import to_mmtf_MMTFDecoder
-    from ..mmtf_MMTFDecoder import get_entity_type_from_entity as aux_get
+    from ..mmtf_MMTFDecoder.to_mmtf_MMTFDecoder import to_mmtf_MMTFDecoder
+    from ..mmtf_MMTFDecoder.get_entity_type_from_entity import get_entity_type_from_entity as aux_get
 
     tmp_item = to_mmtf_MMTFDecoder(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
@@ -362,8 +362,8 @@ def get_entity_type_from_entity (item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_n_atoms_from_system(item, skip_digestion=False):
 
-    from .to_mmtf_MMTFDecoder import to_mmtf_MMTFDecoder
-    from ..mmtf_MMTFDecoder import get_n_atoms_from_system as aux_get
+    from ..mmtf_MMTFDecoder.to_mmtf_MMTFDecoder import to_mmtf_MMTFDecoder
+    from ..mmtf_MMTFDecoder.get_n_atoms_from_system import get_n_atoms_from_system as aux_get
 
     tmp_item = to_mmtf_MMTFDecoder(item, skip_digestion=True)
     output = aux_get(tmp_item, skip_digestion=True)
@@ -373,8 +373,8 @@ def get_n_atoms_from_system(item, skip_digestion=False):
 @arg_digest(form=form)
 def get_n_groups_from_system(item, skip_digestion=False):
 
-    from .to_mmtf_MMTFDecoder import to_mmtf_MMTFDecoder
-    from ..mmtf_MMTFDecoder import get_n_groups_from_system as aux_get
+    from ..mmtf_MMTFDecoder.to_mmtf_MMTFDecoder import to_mmtf_MMTFDecoder
+    from ..mmtf_MMTFDecoder.get_n_groups_from_system import get_n_groups_from_system as aux_get
 
     tmp_item = to_mmtf_MMTFDecoder(item, skip_digestion=True)
     output = aux_get(tmp_item, skip_digestion=True)
@@ -384,8 +384,8 @@ def get_n_groups_from_system(item, skip_digestion=False):
 @arg_digest(form=form)
 def get_n_components_from_system(item, skip_digestion=False):
 
-    from .to_mmtf_MMTFDecoder import to_mmtf_MMTFDecoder
-    from ..mmtf_MMTFDecoder import get_n_components_from_system as aux_get
+    from ..mmtf_MMTFDecoder.to_mmtf_MMTFDecoder import to_mmtf_MMTFDecoder
+    from ..mmtf_MMTFDecoder.get_n_components_from_system import get_n_components_from_system as aux_get
 
     tmp_item = to_mmtf_MMTFDecoder(item, skip_digestion=True)
     output = aux_get(tmp_item, skip_digestion=True)
@@ -395,8 +395,8 @@ def get_n_components_from_system(item, skip_digestion=False):
 @arg_digest(form=form)
 def get_n_chains_from_system(item, skip_digestion=False):
 
-    from .to_mmtf_MMTFDecoder import to_mmtf_MMTFDecoder
-    from ..mmtf_MMTFDecoder import get_n_chains_from_system as aux_get
+    from ..mmtf_MMTFDecoder.to_mmtf_MMTFDecoder import to_mmtf_MMTFDecoder
+    from ..mmtf_MMTFDecoder.get_n_chains_from_system import get_n_chains_from_system as aux_get
 
     tmp_item = to_mmtf_MMTFDecoder(item, skip_digestion=True)
     output = aux_get(tmp_item, skip_digestion=True)
@@ -406,8 +406,8 @@ def get_n_chains_from_system(item, skip_digestion=False):
 @arg_digest(form=form)
 def get_n_molecules_from_system(item, skip_digestion=False):
 
-    from .to_mmtf_MMTFDecoder import to_mmtf_MMTFDecoder
-    from ..mmtf_MMTFDecoder import get_n_molecules_from_system as aux_get
+    from ..mmtf_MMTFDecoder.to_mmtf_MMTFDecoder import to_mmtf_MMTFDecoder
+    from ..mmtf_MMTFDecoder.get_n_molecules_from_system import get_n_molecules_from_system as aux_get
 
     tmp_item = to_mmtf_MMTFDecoder(item, skip_digestion=True)
     output = aux_get(tmp_item, skip_digestion=True)
@@ -417,8 +417,8 @@ def get_n_molecules_from_system(item, skip_digestion=False):
 @arg_digest(form=form)
 def get_n_entities_from_system(item, skip_digestion=False):
 
-    from .to_mmtf_MMTFDecoder import to_mmtf_MMTFDecoder
-    from ..mmtf_MMTFDecoder import get_n_entities_from_system as aux_get
+    from ..mmtf_MMTFDecoder.to_mmtf_MMTFDecoder import to_mmtf_MMTFDecoder
+    from ..mmtf_MMTFDecoder.get_n_entities_from_system import get_n_entities_from_system as aux_get
 
     tmp_item = to_mmtf_MMTFDecoder(item, skip_digestion=True)
     output = aux_get(tmp_item, skip_digestion=True)
@@ -428,8 +428,8 @@ def get_n_entities_from_system(item, skip_digestion=False):
 @arg_digest(form=form)
 def get_n_bonds_from_system(item, skip_digestion=False):
 
-    from .to_mmtf_MMTFDecoder import to_mmtf_MMTFDecoder
-    from ..mmtf_MMTFDecoder import get_n_bonds_from_system as aux_get
+    from ..mmtf_MMTFDecoder.to_mmtf_MMTFDecoder import to_mmtf_MMTFDecoder
+    from ..mmtf_MMTFDecoder.get_n_bonds_from_system import get_n_bonds_from_system as aux_get
 
     tmp_item = to_mmtf_MMTFDecoder(item, skip_digestion=True)
     output = aux_get(tmp_item, skip_digestion=True)
@@ -439,8 +439,8 @@ def get_n_bonds_from_system(item, skip_digestion=False):
 @arg_digest(form=form)
 def get_n_structures_from_system(item, structure_indices='all', skip_digestion=False):
 
-    from .to_mmtf_MMTFDecoder import to_mmtf_MMTFDecoder
-    from ..mmtf_MMTFDecoder import get_n_structures_from_system as aux_get
+    from ..mmtf_MMTFDecoder.to_mmtf_MMTFDecoder import to_mmtf_MMTFDecoder
+    from ..mmtf_MMTFDecoder.get_n_structures_from_system import get_n_structures_from_system as aux_get
 
     tmp_item = to_mmtf_MMTFDecoder(item, skip_digestion=True)
     output = aux_get(tmp_item, structure_indices=structure_indices, skip_digestion=True)
@@ -450,8 +450,8 @@ def get_n_structures_from_system(item, structure_indices='all', skip_digestion=F
 @arg_digest(form=form)
 def get_box_from_system(item, structure_indices='all', skip_digestion=False):
 
-    from .to_mmtf_MMTFDecoder import to_mmtf_MMTFDecoder
-    from ..mmtf_MMTFDecoder import get_box_from_system as aux_get
+    from ..mmtf_MMTFDecoder.to_mmtf_MMTFDecoder import to_mmtf_MMTFDecoder
+    from ..mmtf_MMTFDecoder.get_box_from_system import get_box_from_system as aux_get
 
     tmp_item = to_mmtf_MMTFDecoder(item, skip_digestion=True)
     output = aux_get(tmp_item, structure_indices=structure_indices, skip_digestion=True)
@@ -461,8 +461,8 @@ def get_box_from_system(item, structure_indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_time_from_system(item, structure_indices='all', skip_digestion=False):
 
-    from .to_mmtf_MMTFDecoder import to_mmtf_MMTFDecoder
-    from ..mmtf_MMTFDecoder import get_time_from_system as aux_get
+    from ..mmtf_MMTFDecoder.to_mmtf_MMTFDecoder import to_mmtf_MMTFDecoder
+    from ..mmtf_MMTFDecoder.get_time_from_system import get_time_from_system as aux_get
 
     tmp_item = to_mmtf_MMTFDecoder(item, skip_digestion=True)
     output = aux_get(tmp_item, structure_indices=structure_indices, skip_digestion=True)
@@ -472,8 +472,8 @@ def get_time_from_system(item, structure_indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_structure_id_from_system(item, structure_indices='all', skip_digestion=False):
 
-    from .to_mmtf_MMTFDecoder import to_mmtf_MMTFDecoder
-    from ..mmtf_MMTFDecoder import get_structure_id_from_system as aux_get
+    from ..mmtf_MMTFDecoder.to_mmtf_MMTFDecoder import to_mmtf_MMTFDecoder
+    from ..mmtf_MMTFDecoder.get_structure_id_from_system import get_structure_id_from_system as aux_get
 
     tmp_item = to_mmtf_MMTFDecoder(item, skip_digestion=True)
     output = aux_get(tmp_item, structure_indices=structure_indices, skip_digestion=True)
@@ -483,8 +483,8 @@ def get_structure_id_from_system(item, structure_indices='all', skip_digestion=F
 @arg_digest(form=form)
 def get_bioassembly_from_system(item, skip_digestion=False):
 
-    from .to_mmtf_MMTFDecoder import to_mmtf_MMTFDecoder
-    from ..mmtf_MMTFDecoder import get_bioassembly_from_system as aux_get
+    from ..mmtf_MMTFDecoder.to_mmtf_MMTFDecoder import to_mmtf_MMTFDecoder
+    from ..mmtf_MMTFDecoder.get_bioassembly_from_system import get_bioassembly_from_system as aux_get
 
     tmp_item = to_mmtf_MMTFDecoder(item, skip_digestion=True)
     output = aux_get(tmp_item, skip_digestion=True)
@@ -494,8 +494,8 @@ def get_bioassembly_from_system(item, skip_digestion=False):
 @arg_digest(form=form)
 def get_n_bioassemblies_from_system(item, skip_digestion=False):
 
-    from .to_mmtf_MMTFDecoder import to_mmtf_MMTFDecoder
-    from ..mmtf_MMTFDecoder import get_n_bioassemblies_from_system as aux_get
+    from ..mmtf_MMTFDecoder.to_mmtf_MMTFDecoder import to_mmtf_MMTFDecoder
+    from ..mmtf_MMTFDecoder.get_n_bioassemblies_from_system import get_n_bioassemblies_from_system as aux_get
 
     tmp_item = to_mmtf_MMTFDecoder(item, skip_digestion=True)
     output = aux_get(tmp_item, skip_digestion=True)
@@ -507,8 +507,8 @@ def get_n_bioassemblies_from_system(item, skip_digestion=False):
 @arg_digest(form=form)
 def get_bond_order_from_bond(item, indices='all', skip_digestion=False):
 
-    from .to_mmtf_MMTFDecoder import to_mmtf_MMTFDecoder
-    from ..mmtf_MMTFDecoder import get_bond_order_from_bond as aux_get
+    from ..mmtf_MMTFDecoder.to_mmtf_MMTFDecoder import to_mmtf_MMTFDecoder
+    from ..mmtf_MMTFDecoder.get_bond_order_from_bond import get_bond_order_from_bond as aux_get
 
     tmp_item = to_mmtf_MMTFDecoder(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
@@ -518,8 +518,8 @@ def get_bond_order_from_bond(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_bond_type_from_bond(item, indices='all', skip_digestion=False):
 
-    from .to_mmtf_MMTFDecoder import to_mmtf_MMTFDecoder
-    from ..mmtf_MMTFDecoder import get_bond_type_from_bond as aux_get
+    from ..mmtf_MMTFDecoder.to_mmtf_MMTFDecoder import to_mmtf_MMTFDecoder
+    from ..mmtf_MMTFDecoder.get_bond_type_from_bond import get_bond_type_from_bond as aux_get
 
     tmp_item = to_mmtf_MMTFDecoder(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
@@ -529,8 +529,8 @@ def get_bond_type_from_bond(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_bonded_atoms_from_bond(item, indices='all', skip_digestion=False):
 
-    from .to_mmtf_MMTFDecoder import to_mmtf_MMTFDecoder
-    from ..mmtf_MMTFDecoder import get_bonded_atoms_from_bond as aux_get
+    from ..mmtf_MMTFDecoder.to_mmtf_MMTFDecoder import to_mmtf_MMTFDecoder
+    from ..mmtf_MMTFDecoder.get_bonded_atoms_from_bond import get_bonded_atoms_from_bond as aux_get
 
     tmp_item = to_mmtf_MMTFDecoder(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)

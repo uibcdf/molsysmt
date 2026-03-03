@@ -3,7 +3,7 @@ from molsysmt._private.arg_digestion import arg_digest
 @arg_digest(form='file:mmtf')
 def to_string_amino_acids_3(item, group_indices='all', skip_digestion=False):
 
-    from .to_mmtf_MMTFDecoder import to_mmtf_MMTFDecoder
+    from ..mmtf_MMTFDecoder.to_mmtf_MMTFDecoder import to_mmtf_MMTFDecoder
     from ..mmtf_MMTFDecoder.to_string_amino_acids_3 import to_string_amino_acids_3 as mmtf_MMTFDecoder_to_string_amino_acids_3
 
     tmp_item = to_mmtf_MMTFDecoder(item, skip_digestion=True)

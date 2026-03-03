@@ -3,7 +3,7 @@ from molsysmt._private.arg_digestion import arg_digest
 @arg_digest(form='file:inpcrd')
 def to_molsysmt_Structures(item, atom_indices='all', structure_indices='all', skip_digestion=False):
 
-    from .to_openmm_AmberInpcrdFile import to_openmm_AmberInpcrdFile
+    from ..openmm_AmberInpcrdFile.to_openmm_AmberInpcrdFile import to_openmm_AmberInpcrdFile
     from ..openmm_AmberInpcrdFile.to_molsysmt_Structures import to_molsysmt_Structures as openmm_AmberInpcrdFile_to_molsysmt_Structures
 
     tmp_item = to_openmm_AmberInpcrdFile(item, skip_digestion=True)

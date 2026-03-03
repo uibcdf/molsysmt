@@ -7,7 +7,7 @@ def to_string_amino_acids_1(item, atom_indices='all', structure_indices='all', o
     import urllib.request
     from urllib.request import urlretrieve
     import json
-    from ..file_pdb import extract
+    from ..file_pdb.extract import extract
 
     uniprot_id = item.split('-')[-2]
 

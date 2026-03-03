@@ -10,7 +10,7 @@ def is_form(item):
 
         else:
 
-            from ..string_amino_acids_3 import is_form as is_string_amino_acids_3
+            from ..string_amino_acids_3.is_form import is_form as is_string_amino_acids_3
 
             if not is_string_amino_acids_3(item):
 

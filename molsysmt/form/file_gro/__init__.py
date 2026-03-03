@@ -1,3 +1,15 @@
+from .to_openmm_Modeller import to_openmm_Modeller
+from .to_nglview_NGLWidget import to_nglview_NGLWidget
+from .to_mdtraj_Trajectory import to_mdtraj_Trajectory
+from .to_molsysmt_MolSys import to_molsysmt_MolSys
+from .to_openmm_GromacsGroFile import to_openmm_GromacsGroFile
+from .to_mdtraj_Topology import to_mdtraj_Topology
+from .to_file_gro import to_file_gro
+from .to_molsysmt_Structures import to_molsysmt_Structures
+from .to_openmm_Topology import to_openmm_Topology
+from .to_molsysmt_GROFileHandler import to_molsysmt_GROFileHandler
+from .to_molsysmt_Topology import to_molsysmt_Topology
+from .to_mdtraj_GroTrajectoryFile import to_mdtraj_GroTrajectoryFile
 form_name = 'file:gro'
 form_type = 'file'
 form_info = ["Gromacs gro file format",
@@ -26,16 +38,16 @@ from .iterators import StructuresIterator, TopologyIterator
 
 _convert_to={
         'file:gro': extract,
-        'mdtraj.Trajectory': 'to_mdtraj_Trajectory',
-        'mdtraj.Topology': 'to_mdtraj_Topology',
-        'mdtraj.GroTrajectoryFile': 'to_mdtraj_GroTrajectoryFile',
-        'molsysmt.MolSys': 'to_molsysmt_MolSys',
-        'molsysmt.Topology': 'to_molsysmt_Topology',
-        'molsysmt.Structures': 'to_molsysmt_Structures',
-        'molsysmt.GROFileHandler': 'to_molsysmt_GROFileHandler',
-        'openmm.Topology': 'to_openmm_Topology',
-        'openmm.Modeller': 'to_openmm_Modeller',
-        'openmm.GromacsGroFile': 'to_openmm_GromacsGroFile',
-        'nglview.NGLWidget': 'to_nglview_NGLWidget',
+        'mdtraj.Trajectory': to_mdtraj_Trajectory,
+        'mdtraj.Topology': to_mdtraj_Topology,
+        'mdtraj.GroTrajectoryFile': to_mdtraj_GroTrajectoryFile,
+        'molsysmt.MolSys': to_molsysmt_MolSys,
+        'molsysmt.Topology': to_molsysmt_Topology,
+        'molsysmt.Structures': to_molsysmt_Structures,
+        'molsysmt.GROFileHandler': to_molsysmt_GROFileHandler,
+        'openmm.Topology': to_openmm_Topology,
+        'openmm.Modeller': to_openmm_Modeller,
+        'openmm.GromacsGroFile': to_openmm_GromacsGroFile,
+        'nglview.NGLWidget': to_nglview_NGLWidget,
         }
 

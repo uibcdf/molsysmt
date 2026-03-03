@@ -3,7 +3,7 @@ from molsysmt._private.arg_digestion import arg_digest
 @arg_digest(form='file:mmtf')
 def to_file_pdb(item, atom_indices='all', structure_indices='all', output_filename=None, skip_digestion=False):
 
-    from .to_mmtf_MMTFDecoder import to_mmtf_MMTFDecoder
+    from ..mmtf_MMTFDecoder.to_mmtf_MMTFDecoder import to_mmtf_MMTFDecoder
     from ..mmtf_MMTFDecoder.to_file_pdb import to_file_pdb as mmtf_MMTFDecoder_to_file_pdb
 
     tmp_item = to_mmtf_MMTFDecoder(item, skip_digestion=True)

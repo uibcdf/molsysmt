@@ -5,7 +5,7 @@ from molsysmt._private.arg_digestion import arg_digest
 @dep_digest('mdtraj')
 def to_mdtraj_Trajectory(item, atom_indices='all', skip_digestion=False):
 
-    from .to_mdtraj_Topology import to_mdtraj_Topology
+    from ..mdtraj_Topology.to_mdtraj_Topology import to_mdtraj_Topology
     from .get import get_coordinates_from_atom
 
     from mdtraj.core.trajectory import Trajectory as mdtraj_Trajectory

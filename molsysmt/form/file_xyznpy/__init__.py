@@ -1,3 +1,5 @@
+from .to_file_xyznpy import to_file_xyznpy
+from .to_XYZ import to_XYZ
 form_name = 'file:xyznpy'
 form_type = 'file'
 form_info = ["XYZ file format like saved with Numpy", ""]
@@ -22,6 +24,6 @@ from .iterators import StructuresIterator
 
 
 _convert_to={
-        'file:xyznpy': 'to_file_xyznpy',
-        'XYZ': 'to_XYZ',
+        'file:xyznpy': to_file_xyznpy,
+        'XYZ': to_XYZ,
         }

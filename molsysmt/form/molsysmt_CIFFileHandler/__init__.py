@@ -1,3 +1,4 @@
+from .to_molsysmt_CIFFileHandler import to_molsysmt_CIFFileHandler
 form_name = 'molsysmt.CIFFileHandler'
 form_type = 'class'
 form_info = ["", ""]
@@ -22,7 +23,7 @@ from .iterators import StructuresIterator, TopologyIterator
 
 #
 _convert_to={
-        'molsysmt.CIFFileHandler': 'to_molsysmt_CIFFileHandler',
-        #'MDAnalysis.Topology': 'to_MDAnalysis_Topology',
+        'molsysmt.CIFFileHandler': to_molsysmt_CIFFileHandler,
+        #'MDAnalysis.Topology': to_MDAnalysis_Topology,
         }
 

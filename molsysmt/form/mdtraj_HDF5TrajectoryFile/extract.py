@@ -8,72 +8,84 @@ from depdigest import dep_digest
 def extract(item, atom_indices='all', structure_indices='all', output_filename=None, copy_if_all=True,
         progress_bar=False, skip_digestion=False):
 
-    from .get import get_n_structures_from_system
-    from ..mdtraj_Topology import extract as extract_mdtraj_Topology
     from mdtraj.formats import HDF5TrajectoryFile
+    from molsysmt.form.mdtraj_Topology.extract import extract as extract_mdtraj_Topology
     from tqdm import tqdm
 
-    mdtraj_atom_indices = atom_indices
-    if is_all(atom_indices):
-        mdtraj_atom_indices = None
+    opened_here = False
+    if isinstance(item, str):
+        item = HDF5TrajectoryFile(item, mode='r')
+        opened_here = True
 
-    if is_all(atom_indices) and is_all(structure_indices):
+    try:
+        mdtraj_atom_indices = atom_indices
+        if is_all(atom_indices):
+            mdtraj_atom_indices = None
 
-        if copy_if_all or (output_filename!=None):
+        if is_all(atom_indices) and is_all(structure_indices):
 
-            n_structures = get_n_structures_from_system(item, skip_digestion=True)
+            if output_filename is not None:
+                from .get import get_n_structures_from_system
+                n_structures = get_n_structures_from_system(item, skip_digestion=True)
 
-            item.seek(0)
+                item.seek(0)
+                tmp_item = HDF5TrajectoryFile(output_filename, 'w', force_overwrite=False, compression='zlib')
 
-            tmp_item = HDF5TrajectoryFile(output_filename, 'w', force_overwrite=False, compression='zlib')
+                iterator = tqdm(range(n_structures)) if progress_bar else range(n_structures)
 
-            if progress_bar:
-                iterator = tqdm(range(n_structures))
+                for ii in iterator:
+                    output = item.read(1, atom_indices=mdtraj_atom_indices)
+                    tmp_item.write(coordinates=output.coordinates, time=output.time,
+                        cell_lengths=output.cell_lengths, cell_angles=output.cell_angles,
+                        velocities=output.velocities, kineticEnergy=output.kineticEnergy, 
+                        potentialEnergy=output.potentialEnergy,
+                        temperature=output.temperature, alchemicalLambda=output.alchemicalLambda)
+
+                tmp_item.topology = item.topology
+                tmp_item.close()
+                tmp_item = HDF5TrajectoryFile(output_filename, mode='r')
             else:
-                iterator = range(n_structures)
+                tmp_item = item
 
-            for ii in iterator:
-                output = item.read(1, atom_indices=mdtraj_atom_indices)
-                tmp_item.write(coordinates=output.coordinates, time=output.time,
-                    cell_lengths=output.cell_lengths, cell_angles=output.cell_angles,
-                    velocities=output.velocities, kineticEnergy=output.kineticEnergy, potentialEnergy=output.potentialEnergy,
-                    temperature=output.temperature, alchemicalLambda=output.alchemicalLambda)
-
-            tmp_item.topology = item.topology
- 
         else:
+            # Filtering requested
+            if output_filename is None:
+                # If no output file is specified, we must convert to mdtraj.Trajectory (in-memory)
+                from .to_mdtraj_Trajectory import to_mdtraj_Trajectory
+                tmp_item = to_mdtraj_Trajectory(item, atom_indices=atom_indices, 
+                                               structure_indices=structure_indices, skip_digestion=True)
+            else:
+                from .get import get_n_structures_from_system
+                topology = item.topology
+                if not is_all(atom_indices):
+                    topology = extract_mdtraj_Topology(topology, atom_indices=atom_indices, skip_digestion=True)
 
-            tmp_item = item
-    else:
+                if is_all(structure_indices):
+                    n_structures = get_n_structures_from_system(item, skip_digestion=True)
+                    structure_indices = range(n_structures)
 
-        topology = item.topology
+                item.seek(0)
+                tmp_item = HDF5TrajectoryFile(output_filename, 'w', force_overwrite=False, compression='zlib')
 
-        if not is_all(atom_indices):
-            topology = extract_mdtraj_Topology(topology, atom_indices=atom_indices, skip_digestion=True)
+                iterator = tqdm(structure_indices) if progress_bar else structure_indices
 
-        if is_all(structure_indices):
+                for ii in iterator:
+                    item.seek(ii)
+                    output = item.read(1, atom_indices=mdtraj_atom_indices)
+                    tmp_item.write(coordinates=output.coordinates, time=output.time,
+                            cell_lengths=output.cell_lengths, cell_angles=output.cell_angles,
+                            velocities=output.velocities, kineticEnergy=output.kineticEnergy, 
+                            potentialEnergy=output.potentialEnergy,
+                            temperature=output.temperature, alchemicalLambda=output.alchemicalLambda)
 
-            n_structures = get_n_structures_from_system(item, skip_digestion=True)
-            structure_indices = range(n_structures)
+                tmp_item.topology = topology
+                tmp_item.close()
+                tmp_item = HDF5TrajectoryFile(output_filename, mode='r')
 
-        item.seek(0)
+    except Exception as e:
+        if opened_here:
+            item.close()
+        raise e
 
-        tmp_item = HDF5TrajectoryFile(output_filename, 'w', force_overwrite=False, compression='zlib')
-
-        if progress_bar:
-            iterator = tqdm(structure_indices)
-        else:
-            iterator = structure_indices
-
-        for ii in iterator:
-            item.seek(ii)
-            output = item.read(1, atom_indices=mdtraj_atom_indices)
-            tmp_item.write(coordinates=output.coordinates, time=output.time,
-                    cell_lengths=output.cell_lengths, cell_angles=output.cell_angles,
-                    velocities=output.velocities, kineticEnergy=output.kineticEnergy, potentialEnergy=output.potentialEnergy,
-                    temperature=output.temperature, alchemicalLambda=output.alchemicalLambda)
-
-        tmp_item.topology = topology
- 
     return tmp_item
 

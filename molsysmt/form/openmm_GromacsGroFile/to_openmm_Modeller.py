@@ -3,7 +3,7 @@ from molsysmt._private.arg_digestion import arg_digest
 @arg_digest(form='openmm.GromacsGroFile')
 def to_openmm_Modeller(item, atom_indices='all', skip_digestion=False):
 
-    from .to_openmm_Topology import to_openmm_Topology
+    from ..openmm_Topology.to_openmm_Topology import to_openmm_Topology
     from ..openmm_Topology.to_openmm_Modeller import to_openmm_Modeller as openmm_Topology_to_openmm_Modeller
     from . import get_coordinates_from_atom, get_box_from_atom
 

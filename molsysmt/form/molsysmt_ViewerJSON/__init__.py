@@ -1,3 +1,5 @@
+from .to_molsysmt_ViewerJSON import to_molsysmt_ViewerJSON
+from .to_molsysmt_MolSys import to_molsysmt_MolSys
 form_name = 'molsysmt.ViewerJSON'
 form_type = 'class'
 form_info = ["", ""]
@@ -40,6 +42,6 @@ from .append_structures import append_structures
 
 
 _convert_to = {
-    'molsysmt.ViewerJSON': 'to_molsysmt_ViewerJSON',
-    'molsysmt.MolSys': 'to_molsysmt_MolSys',
+    'molsysmt.ViewerJSON': to_molsysmt_ViewerJSON,
+    'molsysmt.MolSys': to_molsysmt_MolSys,
 }

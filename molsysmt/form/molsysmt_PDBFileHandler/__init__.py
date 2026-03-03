@@ -1,3 +1,8 @@
+from .to_nglview_NGLWidget import to_nglview_NGLWidget
+from .to_molsysmt_PDBFileHandler import to_molsysmt_PDBFileHandler
+from .to_molsysmt_MolSys import to_molsysmt_MolSys
+from .to_molsysmt_Structures import to_molsysmt_Structures
+from .to_molsysmt_Topology import to_molsysmt_Topology
 form_name = 'molsysmt.PDBFileHandler'
 form_type = 'class'
 form_info = ["", ""]
@@ -24,10 +29,10 @@ from .iterators import StructuresIterator, TopologyIterator
 
 
 _convert_to={
-        'molsysmt.PDBFileHandler': 'to_molsysmt_PDBFileHandler',
-        'molsysmt.MolSys': 'to_molsysmt_MolSys',
-        'molsysmt.Topology': 'to_molsysmt_Topology',
-        'molsysmt.Structures': 'to_molsysmt_Structures',
-        'nglview.NGLWidget': 'to_nglview_NGLWidget',
+        'molsysmt.PDBFileHandler': to_molsysmt_PDBFileHandler,
+        'molsysmt.MolSys': to_molsysmt_MolSys,
+        'molsysmt.Topology': to_molsysmt_Topology,
+        'molsysmt.Structures': to_molsysmt_Structures,
+        'nglview.NGLWidget': to_nglview_NGLWidget,
         }
 

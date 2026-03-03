@@ -7,7 +7,7 @@ def to_pdbfixer_PDBFixer(item, atom_indices='all', structure_indices='all', skip
 
     from pdbfixer import PDBFixer
 
-    from ..pdbfixer_PDBFixer import extract
+    from ..pdbfixer_PDBFixer.extract import extract
 
     pdb_id = item
     

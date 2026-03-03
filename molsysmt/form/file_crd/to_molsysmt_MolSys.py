@@ -5,8 +5,8 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', get_mi
                        skip_digestion=False):
 
     from molsysmt.native.molsys import MolSys
-    from .to_molsysmt_Topology import to_molsysmt_Topology
-    from .to_molsysmt_Structures import to_molsysmt_Structures
+    from ..molsysmt_Topology.to_molsysmt_Topology import to_molsysmt_Topology
+    from ..molsysmt_Structures.to_molsysmt_Structures import to_molsysmt_Structures
 
     tmp_item = MolSys()
     tmp_item.topology = to_molsysmt_Topology(item, atom_indices=atom_indices, structure_indices=structure_indices)

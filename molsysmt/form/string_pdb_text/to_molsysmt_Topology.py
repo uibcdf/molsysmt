@@ -3,7 +3,7 @@ from molsysmt._private.arg_digestion import arg_digest
 @arg_digest(form='string:pdb_text')
 def to_molsysmt_Topology(item, atom_indices='all', get_missing_bonds=True, skip_digestion=False):
 
-    from .to_molsysmt_PDBFileHandler import to_molsysmt_PDBFileHandler
+    from ..molsysmt_PDBFileHandler.to_molsysmt_PDBFileHandler import to_molsysmt_PDBFileHandler
     from ..molsysmt_PDBFileHandler.to_molsysmt_Topology import to_molsysmt_Topology as molsysmt_PDBFileHandler_to_molsysmt_Topology
 
     tmp_item = to_molsysmt_PDBFileHandler(item, skip_digestion=True)

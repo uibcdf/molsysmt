@@ -4,7 +4,7 @@ from molsysmt._private.arg_digestion import arg_digest
 def to_pdbfixer_PDBFixer(item, atom_indices='all', structure_indices='all', skip_digestion=False):
 
     from pdbfixer.pdbfixer import PDBFixer
-    from ..pdbfixer_PDBFixer import extract as extract_pdbfixer_PDBFixer
+    from ..pdbfixer_PDBFixer.extract import extract as extract_pdbfixer_PDBFixer
 
     tmp_item = PDBFixer(item)
     tmp_item = extract_pdbfixer_PDBFixer(tmp_item, atom_indices=atom_indices, structure_indices=structure_indices,

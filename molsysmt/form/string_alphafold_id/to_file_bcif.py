@@ -6,7 +6,7 @@ def to_file_bcif(item, atom_indices='all', structure_indices='all', output_filen
     import urllib.request
     from urllib.request import urlretrieve
     import json
-    from ..file_bcif import extract
+    from ..file_bcif.extract import extract
 
     uniprot_id = item.split('-')[-2]
 
