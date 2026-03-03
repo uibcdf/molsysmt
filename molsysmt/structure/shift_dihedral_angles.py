@@ -1,8 +1,10 @@
 from molsysmt._private.arg_digestion import arg_digest
+from smonitor import signal
 from molsysmt._private.smonitor import ArgumentError, ArgumentLengthError
 import numpy as np
 from molsysmt import pyunitwizard as puw
 
+@signal(tags=['api', 'structure'])
 @arg_digest()
 def shift_dihedral_angles(molecular_system, dihedral_quartets=None, shifts=None, blocks=None,
                           structure_indices='all', pbc=True, in_place=False, engine='MolSysMT',

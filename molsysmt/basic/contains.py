@@ -1,5 +1,7 @@
 from molsysmt._private.arg_digestion import arg_digest
 import numpy as np
+from smonitor import signal
+
 
 def _evaluation(condition, value):
     """Internal helper for `contains` to evaluate a single condition/result pair.
@@ -30,6 +32,7 @@ def _evaluation(condition, value):
 
     return output
 
+@signal(tags=['api', 'get'])
 @arg_digest()
 def contains(molecular_system, selection='all', syntax='MolSysMT', skip_digestion=False, **kwargs):
     """

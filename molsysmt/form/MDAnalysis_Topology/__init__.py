@@ -20,8 +20,7 @@ from .get import *
 from .set import *
 from .iterators import TopologyIterator
 
-from .to_MDAnalysis_Topology import to_MDAnalysis_Topology
 
 _convert_to={
-        'MDAnalysis.Topology': to_MDAnalysis_Topology,
+        'MDAnalysis.Topology': 'to_MDAnalysis_Topology',
         }

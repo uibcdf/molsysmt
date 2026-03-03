@@ -24,6 +24,8 @@ def digest_formal_charge(formal_charge, caller=None):
     value = puw.get_value(formal_charge)
     unit = puw.get_unit(formal_charge)
 
+    from molsysmt import pyunitwizard as puw
+
     if not puw.check(unit, dimensionality={'[T]':1, '[A]':1}):
         raise ArgumentError('formal_charge', value=formal_charge, caller=caller, message=None)
 
@@ -33,6 +35,6 @@ def digest_formal_charge(formal_charge, caller=None):
     shape = value.shape
 
     if len(shape) == 1:
-        return puw.quantity(value, unit, standardized=True)
+        return puw.standardize(puw.quantity(value, unit))
 
     raise ArgumentError('formal_charge', value=formal_charge, caller=caller, message=None)

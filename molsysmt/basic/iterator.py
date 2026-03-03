@@ -1,6 +1,7 @@
 from molsysmt._private.arg_digestion import arg_digest
 from molsysmt._private.smonitor import NotImplementedIteratorError
-#from molsysmt._private.smonitor import IteratorError
+from smonitor import signal
+
 
 class Iterator():
     """
@@ -75,6 +76,7 @@ class Iterator():
     .. versionadded:: 1.0.0
     """
 
+    @signal(tags=['api', 'iterator'])
     @arg_digest()
     def __init__(self,
                  molecular_system,

@@ -43,6 +43,14 @@ def _convert_one_to_one(molecular_system,
 
         function = _dict_modules[from_form]._convert_to[to_form]
 
+        if isinstance(function, str):
+            from importlib import import_module
+            # Load the submodule explicitly. e.g., molsysmt.form.file_pdb.to_molsysmt_Topology
+            module_name = f"{_dict_modules[from_form].__name__}.{function}"
+            module = import_module(module_name)
+            # Get the function from the module (it has the same name as the module file)
+            function = getattr(module, function)
+
         input_arguments = set(inspect.signature(function).parameters)
 
         if 'structure_indices' in input_arguments:
@@ -244,7 +252,15 @@ def _convert_multiple_to_one(molecular_system,
         if from_form in _dict_modules:
             if to_form in _dict_modules[from_form]._convert_to:
 
-                input_arguments = set(inspect.signature(_dict_modules[from_form]._convert_to[to_form]).parameters)
+                function = _dict_modules[from_form]._convert_to[to_form]
+
+                if isinstance(function, str):
+                    from importlib import import_module
+                    module_name = f"{_dict_modules[from_form].__name__}.{function}"
+                    module = import_module(module_name)
+                    function = getattr(module, function)
+
+                input_arguments = set(inspect.signature(function).parameters)
                 for ii in ['atom_indices', 'group_indices', 'component_indices', 'chain_indices',
                         'molecule_indices', 'entity_indices', 'structure_indices', 'molecular_system',
                         'copy_if_all']:
@@ -339,6 +355,13 @@ def _convert_multiple_to_one(molecular_system,
                     get_arguments['indices'] = 'all'
             conversion_arguments[aux_attribute] = get_function(aux_item, **get_arguments)
         conversion_function = _dict_modules[aux_dict['form']]._convert_to[to_form]
+
+        if isinstance(conversion_function, str):
+            from importlib import import_module
+            module_name = f"{_dict_modules[aux_dict['form']].__name__}.{conversion_function}"
+            module = import_module(module_name)
+            conversion_function = getattr(module, conversion_function)
+
         input_arguments = set(inspect.signature(conversion_function).parameters)
         if 'structure_indices' in input_arguments:
             conversion_arguments['structure_indices']=structure_indices

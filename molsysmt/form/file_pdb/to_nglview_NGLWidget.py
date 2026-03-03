@@ -3,8 +3,8 @@ from molsysmt._private.arg_digestion import arg_digest
 @arg_digest(form='file:pdb')
 def to_nglview_NGLWidget(item, atom_indices='all', structure_indices='all', skip_digestion=False):
 
-    from . import to_string_pdb_text
-    from ..string_pdb_text import to_nglview_NGLWidget as string_pdb_text_to_nglview_NGLWidget
+    from .to_string_pdb_text import to_string_pdb_text
+    from ..string_pdb_text.to_nglview_NGLWidget import to_nglview_NGLWidget as string_pdb_text_to_nglview_NGLWidget
 
     tmp_item = to_string_pdb_text(item, skip_digestion=True)
     tmp_item = string_pdb_text_to_nglview_NGLWidget(tmp_item, atom_indices=atom_indices,

@@ -45,7 +45,7 @@ def digest_temperature(temperature, caller=None):
         raise ArgumentError('temperature', value=coordinates, caller=caller, message=None)
 
     if isinstance(value, (int, np.int64, float, np.float64)):
-        return puw.quantity(value, unit, standardized=True)
+        return puw.standardize(puw.quantity(value, unit))
 
     raise ArgumentError('temperature', value=temperature, caller=caller, message=None)
 

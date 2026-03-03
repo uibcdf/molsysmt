@@ -5,7 +5,7 @@ import numpy as np
 @arg_digest(form='mdtraj.Topology')
 def to_molsysmt_Topology(item, atom_indices='all', skip_digestion=False):
 
-    #from ..openmm_Topology import to_molsysmt_Topology as openmm_Topology_to_molsysmt_Topology
+    #from ..openmm_Topology.to_molsysmt_Topology import to_molsysmt_Topology as openmm_Topology_to_molsysmt_Topology
 
     #tmp_item = item.to_openmm()
     #tmp_item = openmm_Topology_to_molsysmt_Topology(tmp_item, atom_indices=atom_indices, skip_digestion=True)

@@ -1,8 +1,10 @@
 from molsysmt._private.arg_digestion import arg_digest
-from molsysmt._private.smonitor import NotImplementedMethodError
+from molsysmt._private.smonitor import NotImplementedMethodError, ArgumentError
 import numpy as np
 from networkx import connected_components
+from smonitor import signal
 
+@signal(tags=['api', 'topology'])
 @arg_digest()
 def get_covalent_blocks(molecular_system, selection='all', remove_bonds=None, output_type='sets',
         syntax='MolSysMT'):
@@ -53,12 +55,12 @@ def get_covalent_blocks(molecular_system, selection='all', remove_bonds=None, ou
             if remove_bonds.shape[0]==2:
                 remove_bonds=remove_bonds.reshape([1,2])
             else:
-                raise ValueError("Input argument bonded_atoms with wrong shape")
+                raise ArgumentError('remove_bonds', value=remove_bonds, caller='molsysmt.topology.get_covalent_blocks', message="Input argument bonded_atoms with wrong shape")
         elif len(remove_bonds.shape)==2:
             if remove_bonds.shape[1]!=2:
-                raise ValueError("Input argument bonded_atoms with wrong shape")
+                raise ArgumentError('remove_bonds', value=remove_bonds, caller='molsysmt.topology.get_covalent_blocks', message="Input argument bonded_atoms with wrong shape")
         else:
-            raise ValueError("Input argument bonded_atoms with wrong shape")
+            raise ArgumentError('remove_bonds', value=remove_bonds, caller='molsysmt.topology.get_covalent_blocks', message="Input argument bonded_atoms with wrong shape")
 
         for atom_pair in remove_bonds:
             G.remove_edge(atom_pair[0], atom_pair[1])
@@ -82,6 +84,6 @@ def get_covalent_blocks(molecular_system, selection='all', remove_bonds=None, ou
 
     else:
 
-        raise NotImplementedMethodError
+        raise NotImplementedMethodError(caller='molsysmt.topology.get_covalent_blocks')
 
     return np.array(blocks)

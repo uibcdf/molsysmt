@@ -5,7 +5,7 @@ def to_molsysmt_Topology(item, atom_indices='all', structure_indices='all', get_
                          skip_digestion=False):
 
     from .to_molsysmt_GROFileHandler import to_molsysmt_GROFileHandler
-    from ..molsysmt_GROFileHandler import to_molsysmt_Topology as molsysmt_GROFileHandler_to_molsysmt_Topology
+    from ..molsysmt_GROFileHandler.to_molsysmt_Topology import to_molsysmt_Topology as molsysmt_GROFileHandler_to_molsysmt_Topology
 
     tmp_item = to_molsysmt_GROFileHandler(item)
     tmp_item = molsysmt_GROFileHandler_to_molsysmt_Topology(tmp_item, atom_indices=atom_indices,

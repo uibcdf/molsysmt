@@ -9,7 +9,7 @@ from smonitor import signal
 def to_mdtraj_Trajectory(item, atom_indices='all', structure_indices='all', skip_digestion=False):
 
     from molsysmt import pyunitwizard as puw
-    from . import to_mdtraj_Topology
+    from .to_mdtraj_Topology import to_mdtraj_Topology
     from . import get_box_lengths_from_system, get_box_angles_from_system, get_coordinates_from_atom, get_time_from_system
 
     from mdtraj.core.trajectory import Trajectory as mdtraj_Trajectory

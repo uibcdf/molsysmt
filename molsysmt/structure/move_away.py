@@ -1,7 +1,10 @@
 from molsysmt._private.arg_digestion import arg_digest
+from molsysmt._private.smonitor import NotImplementedMethodError
 import numpy as np
 from molsysmt import pyunitwizard as puw
+from smonitor import signal
 
+@signal(tags=['api', 'structure'])
 @arg_digest()
 def move_away(molecular_system, selection='all', center_of_selection='all', weights=None, structure_indices=0,
               reference_molecular_system=None, reference_center_of_selection='all', reference_weights=None,
@@ -33,7 +36,7 @@ def move_away(molecular_system, selection='all', center_of_selection='all', weig
 
         if direction.shape[0]!=1 or direction.shape[1]!=1:
 
-            raise NotImplementedError
+            raise NotImplementedMethodError(caller='molsysmt.structure.move_away')
 
         direction = direction[:,0,:]
         for ii in range(direction.shape[0]):
@@ -71,7 +74,7 @@ def move_away(molecular_system, selection='all', center_of_selection='all', weig
                               structure_indices=structure_indices, coordinates=True, skip_digestion=True)
 
             if direction.shape[0]!=1 or coordinates.shape[0]!=1:
-                raise NotImplementedError
+                raise NotImplementedMethodError(caller='molsysmt.structure.move_away')
 
             value, unit = puw.get_value_and_unit(distance)
             value = value * direction
@@ -95,7 +98,7 @@ def move_away(molecular_system, selection='all', center_of_selection='all', weig
                               structure_indices=structure_indices, coordinates=True, skip_digestion=True)
 
             if direction.shape[0]!=1 or coordinates.shape[0]!=1:
-                raise NotImplementedError
+                raise NotImplementedMethodError(caller='molsysmt.structure.move_away')
 
             value, unit = puw.get_value_and_unit(distance)
             value = value * direction

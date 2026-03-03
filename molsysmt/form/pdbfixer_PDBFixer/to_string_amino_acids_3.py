@@ -3,7 +3,7 @@ from molsysmt._private.arg_digestion import arg_digest
 @arg_digest(form='pdbfixer.PDBFixer')
 def to_string_amino_acids_3(item, atom_indices='all', skip_digestion=False):
 
-    from . import to_openmm_Topology
+    from .to_openmm_Topology import to_openmm_Topology
 
     tmp_item  = to_openm_Topology(item, atom_indices=atom_indices, skip_digestion=True)
     tmp_item = ''.join([ r.name for r in tmp_item.groups() ])

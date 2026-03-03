@@ -1,3 +1,5 @@
+from .write_topology_in_h5msm import write_topology_in_h5msm
+
 form_name = 'openmm.Topology'
 form_type = 'class'
 form_info = ["", ""]
@@ -25,42 +27,24 @@ from .iterators import TopologyIterator
 
 from .write_topology_in_h5msm import write_topology_in_h5msm
 
-from .to_openmm_Topology import to_openmm_Topology
-from .to_string_pdb_text import to_string_pdb_text
-from .to_file_pdb import to_file_pdb
-from .to_file_psf import to_file_psf
-from .to_molsysmt_MolSys import to_molsysmt_MolSys
-from .to_molsysmt_Topology import to_molsysmt_Topology
-from .to_mdtraj_Topology import to_mdtraj_Topology
-from .to_networkx_Graph import to_networkx_Graph
-from .to_openmm_Modeller import to_openmm_Modeller
-from .to_openmm_Simulation import to_openmm_Simulation
-from .to_openmm_Context import to_openmm_Context
-from .to_openmm_PDBFile import to_openmm_PDBFile
-from .to_openmm_System import to_openmm_System
-from .to_pdbfixer_PDBFixer import to_pdbfixer_PDBFixer
-from .to_nglview_NGLWidget import to_nglview_NGLWidget
-from .to_string_amino_acids_1 import to_string_amino_acids_1
-from .to_string_amino_acids_3 import to_string_amino_acids_3
-from .to_parmed_Structure import to_parmed_Structure
 
 _convert_to={
-        'openmm.Topology': to_openmm_Topology,
-        'string:pdb_text': to_string_pdb_text,
-        'file:pdb': to_file_pdb,
-        'file:psf': to_file_psf,
-        'molsysmt.MolSys': to_molsysmt_MolSys,
-        'molsysmt.Topology': to_molsysmt_Topology,
-        'mdtraj.Topology': to_mdtraj_Topology,
-        'networkx.Graph': to_networkx_Graph,
-        'openmm.Modeller': to_openmm_Modeller,
-        'openmm.Simulation': to_openmm_Simulation,
-        'openmm.Context': to_openmm_Context,
-        'openmm.PDBFile': to_openmm_PDBFile,
-        'openmm.System': to_openmm_System,
-        'parmed.Structure': to_parmed_Structure,
-        'pdbfixer.PDBFixer': to_pdbfixer_PDBFixer,
-        'nglview.NGLWidget': to_nglview_NGLWidget,
-        'string:amino_acids_1': to_string_amino_acids_1,
-        'string:amino_acids_3': to_string_amino_acids_3,
+        'openmm.Topology': 'to_openmm_Topology',
+        'string:pdb_text': 'to_string_pdb_text',
+        'file:pdb': 'to_file_pdb',
+        'file:psf': 'to_file_psf',
+        'molsysmt.MolSys': 'to_molsysmt_MolSys',
+        'molsysmt.Topology': 'to_molsysmt_Topology',
+        'mdtraj.Topology': 'to_mdtraj_Topology',
+        'networkx.Graph': 'to_networkx_Graph',
+        'openmm.Modeller': 'to_openmm_Modeller',
+        'openmm.Simulation': 'to_openmm_Simulation',
+        'openmm.Context': 'to_openmm_Context',
+        'openmm.PDBFile': 'to_openmm_PDBFile',
+        'openmm.System': 'to_openmm_System',
+        'parmed.Structure': 'to_parmed_Structure',
+        'pdbfixer.PDBFixer': 'to_pdbfixer_PDBFixer',
+        'nglview.NGLWidget': 'to_nglview_NGLWidget',
+        'string:amino_acids_1': 'to_string_amino_acids_1',
+        'string:amino_acids_3': 'to_string_amino_acids_3',
         }

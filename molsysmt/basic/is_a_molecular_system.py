@@ -69,10 +69,12 @@ def is_a_molecular_system(molecular_system):
 
         list_n_atoms = []
 
-        for item in molecular_system:
-
-            form_in = get_form(item)
-            list_n_atoms.append(_dict_modules[form_in].get_n_atoms_from_system(item))
+        try:
+            for item in molecular_system:
+                form_in = get_form(item)
+                list_n_atoms.append(_dict_modules[form_in].get_n_atoms_from_system(item))
+        except:
+            return False
 
         set_n_atoms = set([ii for ii in list_n_atoms if ii is not None])
 

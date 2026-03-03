@@ -1,14 +1,15 @@
 from molsysmt._private.variables import is_all
 from molsysmt._private.arg_digestion import arg_digest
 import numpy as np
+from smonitor import signal
 
 class MolSys:
     """Container holding native topology, structures, and molecular mechanics data."""
 
+    @signal(tags=['native'])
     @arg_digest()
     def __init__(self, n_atoms=0, n_groups=0, n_components=0, n_molecules=0, n_entities=0, n_chains=0, n_bonds=0,
                 skip_digestion=False):
-        """Initialize an empty MolSys container."""
 
         from .topology import Topology
         from .structures import Structures
@@ -20,6 +21,7 @@ class MolSys:
         self.structures = Structures(skip_digestion=True)
         self.molecular_mechanics = MolecularMechanics()
 
+    @signal(tags=['native'])
     @arg_digest()
     def extract(self, atom_indices='all', structure_indices='all', copy_if_all=True, skip_digestion=False):
         """Return a copy or subset of the molecular system."""
@@ -43,6 +45,7 @@ class MolSys:
             return tmp_item
 
 
+    @signal(tags=['native'])
     @arg_digest()
     def remove(self, atom_indices=None, structure_indices=None, copy_if_None=False, skip_digestion=False):
         """Remove atoms and/or structures by index and return the resulting MolSys."""
@@ -71,6 +74,7 @@ class MolSys:
 
             return tmp_item
 
+    @signal(tags=['native'])
     @arg_digest(form='molsysmt.MolSys')
     def add(self, item, atom_indices='all', structure_indices='all', keep_ids=True, skip_digestion=False):
         """Append topology and structures from another MolSys."""
@@ -86,6 +90,7 @@ class MolSys:
         self.structures.append_structures(item.structures, atom_indices=atom_indices, structure_indices=structure_indices,
                            skip_digestion=True)
 
+    @signal(tags=['native'])
     def copy(self):
         """Deep-copy the MolSys."""
 
@@ -144,7 +149,15 @@ class MolSys:
 
         from molsysmt.form.molsysmt_MolSys import _convert_to
 
-        return _convert_to[to_form](self, skip_digestion=True, **kwargs)
+        function = _convert_to[to_form]
+
+        if isinstance(function, str):
+            from importlib import import_module
+            module_name = f"molsysmt.form.molsysmt_MolSys.{function}"
+            module = import_module(module_name)
+            function = getattr(module, function)
+
+        return function(self, skip_digestion=True, **kwargs)
 
     def info(self,
              element='system',

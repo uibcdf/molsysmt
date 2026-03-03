@@ -19,5 +19,5 @@ def select(molecular_system, selection='all', structure_indices='all'):
 
 def indices_to_selection(molecular_system, indices, element='atom'):
 
-    raise NotImplementedMethodError
+    raise NotImplementedMethodError(caller='molsysmt.basic.selector.mdanalysis.indices_to_selection')
 

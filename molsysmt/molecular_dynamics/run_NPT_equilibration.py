@@ -1,3 +1,4 @@
+from molsysmt._private.smonitor import NotImplementedMethodError
 def run_NPT_equilibration (item, temperature='300 K', pressure='1.0 atm',
                        time='1.0 ns', protocol=0, forcefield=['AMBER99SB-ILDN','TIP3P'],
                        engine='OpenMM', verbose=True, form_out=None, *kwargs):
@@ -32,6 +33,7 @@ def run_NPT_equilibration (item, temperature='300 K', pressure='1.0 atm',
     """
 
     #from molsysmt.basic import get_form, get, convert
+from smonitor import signal
 
     #engine = _digest_engines(engine)
 
@@ -59,11 +61,11 @@ def run_NPT_equilibration (item, temperature='300 K', pressure='1.0 atm',
     #    #                                                                             verbose=verbose,
     #    #                                                                             progress_bar=progress_bar)
 
-    #    raise NotImplementedError
+    #    raise NotImplementedMethodError(caller='molsysmt.molecular_dynamics.run_NPT_equilibration')
 
     #else:
 
-    #    raise NotImplementedError
+    #    raise NotImplementedMethodError(caller='molsysmt.molecular_dynamics.run_NPT_equilibration')
 
-    raise NotImplementedError
+    raise NotImplementedMethodError(caller='molsysmt.molecular_dynamics.run_NPT_equilibration')
 

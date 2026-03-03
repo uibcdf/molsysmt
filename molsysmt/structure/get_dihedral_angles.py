@@ -1,10 +1,12 @@
 import numpy as np
 from molsysmt import pyunitwizard as puw
+from smonitor import signal
 from molsysmt._private.arg_digestion import arg_digest
 from molsysmt.basic import get
 from molsysmt import lib as msmlib
 import gc
 
+@signal(tags=['api', 'structure'])
 @arg_digest()
 def get_dihedral_angles(molecular_system, selection='all', dihedral_quartets=None,
                         structure_indices='all', syntax='MolSysMT', pbc=False, **kwargs):

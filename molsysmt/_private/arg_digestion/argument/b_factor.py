@@ -32,6 +32,6 @@ def digest_b_factor(b_factor, caller=None):
     if len(value.shape) == 1:
         return puw.quantity(value[np.newaxis, :], unit, standardized=True)
     elif len(value.shape) == 2:
-        return puw.quantity(value, unit, standardized=True)
+        return puw.standardize(puw.quantity(value, unit))
 
     raise ArgumentError('b_factor', value=b_factor, caller=caller, message=None)

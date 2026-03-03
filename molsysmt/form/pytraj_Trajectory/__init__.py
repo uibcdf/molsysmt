@@ -20,18 +20,12 @@ from .get import *
 from .set import *
 from .iterators import StructuresIterator, TopologyIterator
 
-from .to_pytraj_Trajectory import to_pytraj_Trajectory
-from .to_molsysmt_MolSys import to_molsysmt_MolSys
-from .to_molsysmt_Topology import to_molsysmt_Topology
-from .to_molsysmt_Structures import to_molsysmt_Structures
-from .to_pytraj_Topology import to_pytraj_Topology
-from .to_nglview_NGLWidget import to_nglview_NGLWidget
 
 _convert_to={
-        'pytraj.Trajectory': to_pytraj_Trajectory,
-        'molsysmt.MolSys': to_molsysmt_MolSys,
-        'molsysmt.Topology': to_molsysmt_Topology,
-        'molsysmt.Structures': to_molsysmt_Structures,
-        'pytraj.Topology': to_pytraj_Topology,
-        'nglview.NGLWidget': to_nglview_NGLWidget,
+        'pytraj.Trajectory': 'to_pytraj_Trajectory',
+        'molsysmt.MolSys': 'to_molsysmt_MolSys',
+        'molsysmt.Topology': 'to_molsysmt_Topology',
+        'molsysmt.Structures': 'to_molsysmt_Structures',
+        'pytraj.Topology': 'to_pytraj_Topology',
+        'nglview.NGLWidget': 'to_nglview_NGLWidget',
         }

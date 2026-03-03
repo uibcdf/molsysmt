@@ -7,8 +7,8 @@ def to_openmm_Simulation(item, atom_indices='all', structure_indices='all',
                      flexible_constraints=False, integrator='Langevin', temperature='300.0 K',
                      collisions_rate='1.0 1/ps', integration_timestep='2.0 fs', platform='CUDA', skip_digestion=False):
 
-    from . import to_openmm_Modeller
-    from ..openmm_Modeller import to_openmm_Simulation as openmm_Modeller_to_openmm_Simulation
+    from .to_openmm_Modeller import to_openmm_Modeller
+    from ..openmm_Modeller.to_openmm_Simulation import to_openmm_Simulation as openmm_Modeller_to_openmm_Simulation
 
     tmp_item = to_openmm_Modeller(item, atom_indices=atom_indices, structure_indices=structure_indices,
                                   skip_digestion=True)

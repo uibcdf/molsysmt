@@ -3,7 +3,7 @@ from molsysmt._private.arg_digestion import arg_digest
 @arg_digest(form='openmm.Simulation')
 def to_molsysmt_Structures(item, atom_indices='all', structure_indices='all', skip_digestion=False):
 
-    from . import to_openmm_Context as openmm_Simulation_to_openmm_Context
+    from .to_openmm_Context import to_openmm_Context as openmm_Simulation_to_openmm_Context
     from molsysmt.form.openmm_Context import to_molsysmt_Structures as openmm_Context_to_molsysmt_Structures
 
     tmp_item = openmm_Simulation_to_openmm_Context(item)

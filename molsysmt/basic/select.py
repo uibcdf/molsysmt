@@ -174,7 +174,7 @@ def select(molecular_system, selection='all', structure_indices='all', element='
 
         else:
 
-            raise NotImplementedMethodError()
+            raise NotImplementedMethodError(caller='molsysmt.basic.select')
 
     if is_all(mask):
         mask = None

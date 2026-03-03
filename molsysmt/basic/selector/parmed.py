@@ -17,10 +17,10 @@ def select(molecular_system, selection='all', structure_indices='all'):
 
     #return tmp_atom_indices
 
-    raise NotImplementedMethodError
+    raise NotImplementedMethodError(caller='molsysmt.basic.selector.parmed.select')
 
 def indices_to_selection(molecular_system, indices, element='atom'):
 
-    raise NotImplementedMethodError
+    raise NotImplementedMethodError(caller='molsysmt.basic.selector.parmed.indices_to_selection')
 
 

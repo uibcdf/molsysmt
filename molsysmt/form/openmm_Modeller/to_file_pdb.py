@@ -3,9 +3,9 @@ from molsysmt._private.arg_digestion import arg_digest
 @arg_digest(form='openmm.Modeller')
 def to_file_pdb(item, atom_indices='all', structure_indices='all', output_filename=None, skip_digestion=False):
 
-    from . import to_openmm_Topology
+    from .to_openmm_Topology import to_openmm_Topology
     from . import get_coordinates_from_atom
-    from ..openmm_Topology import to_file_pdb as openmm_Topology_to_file_pdb
+    from ..openmm_Topology.to_file_pdb import to_file_pdb as openmm_Topology_to_file_pdb
 
     tmp_item = to_openmm_Topology(item, atom_indices=atom_indices, structure_indices=structure_indices,
                                   skip_digestion=True)

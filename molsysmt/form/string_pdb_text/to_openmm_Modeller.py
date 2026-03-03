@@ -3,8 +3,8 @@ from molsysmt._private.arg_digestion import arg_digest
 @arg_digest(form='string:pdb_text')
 def to_openmm_Modeller(item, atom_indices='all', structure_indices='all', skip_digestion=False):
 
-    from . import to_openmm_PDBFile
-    from ..openmm_PDBFile import to_openmm_Modeller as openmm_PDBFile_to_openmm_Modeller
+    from .to_openmm_PDBFile import to_openmm_PDBFile
+    from ..openmm_PDBFile.to_openmm_Modeller import to_openmm_Modeller as openmm_PDBFile_to_openmm_Modeller
 
     tmp_item = to_openmm_PDBFile(item, atom_indices=atom_indices, structure_indices=structure_indices,
                                  skip_digestion=True)

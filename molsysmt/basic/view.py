@@ -89,10 +89,12 @@ def view(molecular_system=None, selection='all', structure_indices='all',
     """
 
     from molsysmt.basic.viewer import _dict_view
+    from molsysmt._private.smonitor import LibraryNotFoundError
 
     if viewer not in _dict_view:
-        raise ModuleNotFoundError(
-            f"Viewer backend '{viewer}' is not available. Install the optional dependency if required."
+        raise LibraryNotFoundError(
+            library=viewer,
+            caller='molsysmt.basic.view'
         )
 
     return _dict_view[viewer](

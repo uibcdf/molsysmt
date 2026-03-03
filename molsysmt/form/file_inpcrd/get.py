@@ -64,7 +64,7 @@ def get_n_inner_bonds_from_atom(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_coordinates_from_atom(item, indices='all', structure_indices='all', skip_digestion=False):
 
-    from . import to_openmm_AmberInpcrdFile
+    from .to_openmm_AmberInpcrdFile import to_openmm_AmberInpcrdFile
     from ..openmm_AmberInpcrdFile import get_coordinates_from_atom as aux_get
 
     tmp_item = to_openmm_AmberInpcrdFile(item, skip_digestion=True)
@@ -75,7 +75,7 @@ def get_coordinates_from_atom(item, indices='all', structure_indices='all', skip
 @arg_digest(form=form)
 def get_velocities_from_atom(item, indices='all', structure_indices='all', skip_digestion=False):
 
-    from . import to_openmm_AmberInpcrdFile
+    from .to_openmm_AmberInpcrdFile import to_openmm_AmberInpcrdFile
     from ..openmm_AmberInpcrdFile import get_velocities_from_atom as aux_get
 
     tmp_item = to_openmm_AmberInpcrdFile(item, skip_digestion=True)
@@ -177,7 +177,7 @@ def get_entity_type_from_group(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_n_atoms_from_system(item, skip_digestion=False):
 
-    from . import to_openmm_AmberInpcrdFile
+    from .to_openmm_AmberInpcrdFile import to_openmm_AmberInpcrdFile
     from ..openmm_AmberInpcrdFile import get_n_atoms_from_system as aux_get
 
     tmp_item = to_openmm_AmberInpcrdFile(item, skip_digestion=True)
@@ -218,7 +218,7 @@ def get_n_bonds_from_system(item, skip_digestion=False):
 @arg_digest(form=form)
 def get_n_structures_from_system(item, structure_indices='all', skip_digestion=False):
 
-    from . import to_openmm_AmberInpcrdFile
+    from .to_openmm_AmberInpcrdFile import to_openmm_AmberInpcrdFile
     from ..openmm_AmberInpcrdFile import get_n_structures_from_system as aux_get
 
     tmp_item = to_openmm_AmberInpcrdFile(item, skip_digestion=True)
@@ -229,7 +229,7 @@ def get_n_structures_from_system(item, structure_indices='all', skip_digestion=F
 @arg_digest(form=form)
 def get_box_from_system(item, structure_indices='all', skip_digestion=False):
 
-    from . import to_openmm_AmberInpcrdFile
+    from .to_openmm_AmberInpcrdFile import to_openmm_AmberInpcrdFile
     from ..openmm_AmberInpcrdFile import get_box_from_system as aux_get
 
     tmp_item = to_openmm_AmberInpcrdFile(item, skip_digestion=True)
@@ -240,7 +240,7 @@ def get_box_from_system(item, structure_indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_time_from_system(item, structure_indices='all', skip_digestion=False):
 
-    from . import to_openmm_AmberInpcrdFile
+    from .to_openmm_AmberInpcrdFile import to_openmm_AmberInpcrdFile
     from ..openmm_AmberInpcrdFile import get_time_from_system as aux_get
 
     tmp_item = to_openmm_AmberInpcrdFile(item, skip_digestion=True)
@@ -251,7 +251,7 @@ def get_time_from_system(item, structure_indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_structure_id_from_system(item, structure_indices='all', skip_digestion=False):
 
-    from . import to_openmm_AmberInpcrdFile
+    from .to_openmm_AmberInpcrdFile import to_openmm_AmberInpcrdFile
     from ..openmm_AmberInpcrdFile import get_structure_id_from_system as aux_get
 
     tmp_item = to_openmm_AmberInpcrdFile(item, skip_digestion=True)

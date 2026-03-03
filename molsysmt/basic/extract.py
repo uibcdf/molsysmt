@@ -1,6 +1,8 @@
 from molsysmt._private.arg_digestion import arg_digest
 from molsysmt._private.variables import is_all
+from smonitor import signal
 
+@signal(tags=['api', 'extract'])
 @arg_digest()
 def extract(molecular_system, selection='all', structure_indices='all', to_form=None, output_filename=None,
             copy_if_all=True, syntax='MolSysMT', skip_digestion=False):

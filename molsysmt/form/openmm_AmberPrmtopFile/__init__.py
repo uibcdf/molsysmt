@@ -20,14 +20,10 @@ from .get import *
 from .set import *
 from .iterators import TopologyIterator
 
-from .to_openmm_AmberPrmtopFile import to_openmm_AmberPrmtopFile
-from .to_molsysmt_Topology import to_molsysmt_Topology
-from .to_openmm_System import to_openmm_System
-from .to_openmm_Topology import to_openmm_Topology
 
 _convert_to={
-        'openmm.AmberPrmtopFile': to_openmm_AmberPrmtopFile,
-        'molsysmt.Topology': to_molsysmt_Topology,
-        'openmm.System': to_openmm_System,
-        'openmm.Topology': to_openmm_Topology,
+        'openmm.AmberPrmtopFile': 'to_openmm_AmberPrmtopFile',
+        'molsysmt.Topology': 'to_molsysmt_Topology',
+        'openmm.System': 'to_openmm_System',
+        'openmm.Topology': 'to_openmm_Topology',
         }

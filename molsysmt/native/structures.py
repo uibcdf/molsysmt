@@ -3,19 +3,20 @@ import numpy as np
 from molsysmt import pyunitwizard as puw
 from molsysmt._private.variables import is_all, is_iterable
 from molsysmt.basic import get
-from molsysmt._private.smonitor import IteratorError, StructuralInconsistencyError, ArgumentLengthError
+from molsysmt._private.smonitor import IteratorError, StructuralInconsistencyError, ArgumentLengthError, NotImplementedMethodError
 from molsysmt._private.arg_digestion import arg_digest
+from smonitor import signal
 
 class Structures:
     """Storing per-structure data (coordinates, box, time, energies) for a molecular system."""
 
+    @signal(tags=['native'])
     @arg_digest()
     def __init__(self, constant_time_step=False, time_step=None, constant_id_step=False,
             id_step=None, constant_box=False,
             structure_id=None, time=None, coordinates=None, velocities=None, box=None,
             b_factor=None, alternate_location=None, bioassembly=None,
             temperature=None, potential_energy=None, kinetic_energy=None, skip_digestion=False):
-        """Initialize an empty Structures container."""
 
         self.n_atoms = 0
         self.n_structures = 0
@@ -262,6 +263,7 @@ class Structures:
             else:
                 self.alternate_location.append(alternate_location[structure_indices])
 
+    @signal(tags=['native'])
     @arg_digest()
     def append(self, structure_id=None, time=None, coordinates=None, velocities=None,
                box=None, temperature=None, potential_energy=None, kinetic_energy=None,
@@ -512,6 +514,7 @@ class Structures:
     def get_n_structures(self):
         return self.n_structures
 
+    @signal(tags=['native'])
     @arg_digest(form='molsysmt.Structures')
     def append_structures(self, item, atom_indices='all', structure_indices='all', skip_digestion=False):
         """Append structures from another Structures object."""
@@ -532,8 +535,9 @@ class Structures:
 
         else:
 
-            raise NotImplementedError
+            raise NotImplementedMethodError(caller='molsysmt.native.Structures.append_structures')
 
+    @signal(tags=['native'])
     @arg_digest(form='molsysmt.Structures')
     def add(self, item, atom_indices='all', structure_indices='all', skip_digestion=False):
         """Concatenate atomic data from another Structures object along the atom axis."""
@@ -622,6 +626,7 @@ class Structures:
             self.n_atoms = self.velocities.shape[1]
 
 
+    @signal(tags=['native'])
     @arg_digest()
     def extract(self, atom_indices='all', structure_indices='all', copy_if_all=False, skip_digestion=False):
         """ Returns a new Structures object with the specified atoms and/or

@@ -34,13 +34,15 @@ def digest_coordinates(coordinates, caller=None):
 
     if len(shape) == 1:
         if shape[0] == 3:
-            return puw.quantity(value[np.newaxis, np.newaxis, :], unit, standardized=True)
+            coordinates = puw.quantity(value[np.newaxis, np.newaxis, :], unit)
     elif len(shape) == 2:
         if shape[1] == 3:
-            return puw.quantity(value[np.newaxis, :, :], unit, standardized=True)
+            coordinates = puw.quantity(value[np.newaxis, :, :], unit)
     elif len(shape) == 3:
         if shape[2] == 3:
-            return puw.quantity(value, unit, standardized=True)
+            coordinates = puw.quantity(value, unit)
+    else:
+        raise ArgumentError('coordinates', value=coordinates, caller=caller, message=None)
 
-    raise ArgumentError('coordinates', value=coordinates, caller=caller, message=None)
+    return puw.standardize(coordinates)
 

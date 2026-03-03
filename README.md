@@ -3,7 +3,7 @@ MolSysMT
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 [![DOI](https://zenodo.org/badge/137937243.svg)](https://zenodo.org/badge/latestdoi/137937243)
-[![](https://img.shields.io/badge/Python-3.10%20%7C%203.11%20%7C%203.12-blue.svg)](https://www.python.org/downloads/)
+[![](https://img.shields.io/badge/Python-3.10%20%7C%203.11%20%7C%203.12%20%7C%203.13-blue.svg)](https://www.python.org/downloads/)
 [![Documentation](https://github.com/uibcdf/molsysmt/actions/workflows/sphinx_docs_to_gh_pages.yaml/badge.svg)](https://github.com/uibcdf/molsysmt/actions/workflows/sphinx_docs_to_gh_pages.yaml)
 [![CI](https://github.com/uibcdf/molsysmt/actions/workflows/CI.yaml/badge.svg)](https://github.com/uibcdf/molsysmt/actions/workflows/CI.yaml)
 [![codecov](https://codecov.io/github/uibcdf/molsysmt/graph/badge.svg?token=9ZMA4YZLOR)](https://codecov.io/github/uibcdf/molsysmt)
@@ -24,7 +24,7 @@ Key capabilities:
 - Conversion across formats and libraries (MolSysMT, MDTraj, MDAnalysis, OpenMM, ParmEd, nglview, PDB, H5MSM, etc.).
 - Consistent selection language to query atoms and groups.
 - Common structural operations (selection, extraction, concatenation, copy, centering, alignment, etc.).
-- Notebook-friendly visualization via nglview.
+- Notebook-friendly visualization via MolSysViewer (with optional NGLView interoperability).
 - Integrations with OpenMM and AmberTools for system preparation and simulation tasks.
 - Native topologies store all element IDs (`atom_id`, `group_id`, `component_id`, `molecule_id`, `chain_id`, `entity_id`) as strings; converters normalize incoming numeric IDs automatically.
 
@@ -34,7 +34,7 @@ Key capabilities:
 ```bash
 conda install -c uibcdf -c conda-forge molsysmt
 ```
-Requires Python 3.10–3.12. Some dependencies are optional (e.g., `parmed`, `pytraj`) and will be used when available.
+Requires Python 3.10–3.13. Some dependencies are optional (for example, `openmm`, `mdtraj`, `mdanalysis`, `parmed`, `pytraj`, `nglview`) and are used when available.
 
 ### From source (development)
 ```bash
@@ -58,7 +58,7 @@ print(f"N atoms: {n_atoms}, N residues: {n_groups}")
 # Select and extract CA atoms
 ca = msm.extract(molsys, selection='atom_name=="CA"')
 
-# Visualize (requires nglview)
+# Visualize (returns the default MolSysViewer backend)
 view = msm.view(ca, standard=False)
 view
 ```
@@ -74,6 +74,11 @@ Full docs and examples: https://www.uibcdf.org/MolSysMT/
 To run tests locally:
 ```bash
 pytest -n auto --cov=molsysmt --cov-report=term-missing
+```
+
+Fast tier for day-to-day development:
+```bash
+devtools/tests/run_tiers.sh smoke
 ```
 
 ## License

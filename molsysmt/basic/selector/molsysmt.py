@@ -432,7 +432,8 @@ def select_in_elements_of(molecular_system, selection):
 
                 return output
 
-    raise NotImplementedError
+    from molsysmt._private.smonitor import NotImplementedMethodError
+    raise NotImplementedMethodError(caller='molsysmt.basic.selector.molsysmt.select_in_elements_of')
 
 
 #def select_in_groups_of(molecular_system, selection):

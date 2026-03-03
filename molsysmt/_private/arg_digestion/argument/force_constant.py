@@ -22,9 +22,9 @@ def digest_force_constant(force_constant, caller=None):
                 if puw.check(force_constant, dimensionality={'[M]':1, '[T]':-2, '[mol]':-1}):
                     value, unit = puw.get_value_and_unit(force_constant)
                     if is_iterable(value):
-                        return [puw.quantity(ii, unit, standardized=True) for item in value]
+                        return [puw.standardize(puw.quantity(ii, unit)) for ii in value]
                     else:
-                        return [puw.quantity(value, unit, standardized=True)]
+                        return [puw.standardize(puw.quantity(value, unit))]
             elif is_iterable(force_constant):
                 for aux in force_constant:
                     output = []

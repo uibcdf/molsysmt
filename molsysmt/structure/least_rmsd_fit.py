@@ -1,4 +1,5 @@
 from molsysmt._private.smonitor import NotImplementedMethodError, StructuralInconsistencyError
+from smonitor import signal
 from molsysmt._private.arg_digestion import arg_digest
 from molsysmt._private.variables import is_all
 import numpy as np
@@ -6,6 +7,7 @@ from molsysmt import lib as msmlib
 from molsysmt import pyunitwizard as puw
 import gc
 
+@signal(tags=['api', 'structure'])
 @arg_digest()
 def least_rmsd_fit(molecular_system=None, selection='all', selection_fit='atom_type!="H"', structure_indices='all',
         reference_molecular_system=None, reference_selection_fit=None, reference_structure_index=0,

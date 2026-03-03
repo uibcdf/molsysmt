@@ -1,9 +1,11 @@
 from molsysmt._private.arg_digestion import arg_digest
 from molsysmt._private.smonitor import StructuralInconsistencyError
+from smonitor import signal
 import numpy as np
 from molsysmt import pyunitwizard as puw
 import gc
 
+@signal(tags=['api', 'structure'])
 @arg_digest()
 def translate(molecular_system, translation=None, selection='all', structure_indices='all',
         syntax='MolSysMT', in_place=False, skip_digestion=False):

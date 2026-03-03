@@ -49,12 +49,16 @@ class H5MSMFileHandler():
 
         try:
             topology_form = get_form(topology)
-            _dict_modules[topology_form].dump_topology_to_h5msm(topology, file=self.file,
-                    atom_indices=atom_indices)
+            if topology_form == 'molsysmt.Topology':
+                from molsysmt.form.molsysmt_Topology.to_file_h5msm import dump_topology_to_h5msm
+                dump_topology_to_h5msm(topology, file=self.file, atom_indices=atom_indices)
+            else:
+                _dict_modules[topology_form].dump_topology_to_h5msm(topology, file=self.file,
+                        atom_indices=atom_indices)
         except:
             aux_topology = convert(topology, to_form='molsysmt.Topology', selection=atom_indices)
-            _dict_modules['molsysmt.Topology'].dump_topology_to_h5msm(aux_topology, file=self.file,
-                    atom_indices=atom_indices)
+            from molsysmt.form.molsysmt_Topology.to_file_h5msm import dump_topology_to_h5msm
+            dump_topology_to_h5msm(aux_topology, file=self.file, atom_indices=atom_indices)
             del(aux_topology)
 
     def close(self):

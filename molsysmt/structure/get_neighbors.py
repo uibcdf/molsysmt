@@ -1,9 +1,11 @@
 from molsysmt._private.arg_digestion import arg_digest
 from molsysmt import pyunitwizard as puw
 from molsysmt._private.lists import sorted_list_of_pairs
-from molsysmt._private.smonitor import ArgumentConflictError, InternalAlgorithmError
+from molsysmt._private.smonitor import ArgumentConflictError, InternalAlgorithmError, NotImplementedMethodError
 import numpy as np
+from smonitor import signal
 
+@signal(tags=['api', 'structure'])
 @arg_digest()
 def get_neighbors(molecular_system, selection="all", structure_indices="all", center_of_atoms=False, weights=None,
                   molecular_system_2=None, selection_2=None, structure_indices_2=None, center_of_atoms_2=False, weights_2=None,
@@ -122,7 +124,7 @@ def get_neighbors(molecular_system, selection="all", structure_indices="all", ce
         if output_indices is None and output_structure_indices is None:
             return neighs, dists
         else:
-            raise NotImplementedError
+            raise NotImplementedMethodError(caller='molsysmt.structure.get_neighbors')
     elif output_type == 'pairs':
         with_output_indices = False
         if output_indices is not None:
@@ -134,7 +136,7 @@ def get_neighbors(molecular_system, selection="all", structure_indices="all", ce
                 aux_indices_1 = output_get_distances[0]
                 aux_indices_2 = output_get_distances[1]
             else:
-                raise NotImplementedError
+                raise NotImplementedMethodError(caller='molsysmt.structure.get_neighbors')
         if output_indices is not None:
             neighs_pairs = []
             dists_pairs = []
@@ -174,7 +176,7 @@ def get_neighbors(molecular_system, selection="all", structure_indices="all", ce
                 dists_pairs.append(aux_dists)
             return neighs_pairs, dists_pairs
         else:
-            raise NotImplementedError
+            raise NotImplementedMethodError(caller='molsysmt.structure.get_neighbors')
 
     raise InternalAlgorithmError(
         reason="The function reached an unreachable state.",

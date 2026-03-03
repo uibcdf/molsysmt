@@ -1,7 +1,9 @@
 from molsysmt._private.arg_digestion import arg_digest
 from molsysmt._private.variables import is_all
 import inspect
+from smonitor import signal
 
+@signal(tags=['api', 'structure'])
 @arg_digest()
 def merge(molecular_systems,
           selections='all',

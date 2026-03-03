@@ -22,15 +22,11 @@ from .get import *
 from .set import *
 from .iterators import StructuresIterator
 
-from .to_file_dcd import to_file_dcd
-from .to_mdtraj_DCDTrajectoryFile import to_mdtraj_DCDTrajectoryFile
-from .to_molsysmt_MolSys import to_molsysmt_MolSys
-from .to_molsysmt_Structures import to_molsysmt_Structures
 
 _convert_to={
-        'file:dcd': to_file_dcd,
-        'mdtraj.DCDTrajectoryFile': to_mdtraj_DCDTrajectoryFile,
-        'molsysmt.MolSys': to_molsysmt_MolSys,
-        'molsysmt.Structures': to_molsysmt_Structures,
+        'file:dcd': 'to_file_dcd',
+        'mdtraj.DCDTrajectoryFile': 'to_mdtraj_DCDTrajectoryFile',
+        'molsysmt.MolSys': 'to_molsysmt_MolSys',
+        'molsysmt.Structures': 'to_molsysmt_Structures',
         }
 

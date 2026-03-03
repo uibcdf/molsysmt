@@ -7,7 +7,7 @@ import numpy as np
 def to_molsysmt_Structures(item, atom_indices='all', structure_indices='all', skip_digestion=False):
 
     from molsysmt.native.structures import Structures
-    from ..string_pdb_text import to_molsysmt_Structures as string_pdb_text_to_molsysmt_Structures
+    from ..string_pdb_text.to_molsysmt_Structures import to_molsysmt_Structures as string_pdb_text_to_molsysmt_Structures
     from molsysmt.basic import set
 
     tmp_item = Structures()

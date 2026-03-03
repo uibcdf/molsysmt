@@ -1,3 +1,4 @@
+from molsysmt._private.smonitor import NotImplementedMethodError
 # =======================
 # Potential Energy
 # =======================
@@ -5,6 +6,7 @@
 from .utils.engines import arg_digest_engines as _digest_engines
 from .utils.forcefields import switcher as _digest_forcefields
 from molsysmt import pyunitwizard as puw
+from smonitor import signal
 
 """
 Potential Energy
@@ -16,7 +18,7 @@ From energy minimization to potential energy contribution of specific set of ato
 
 def equilibration_NVT (item, protocol=0, forcefield=['AMBER99SB-ILDN','TIP3P'],
                        contraint_HBonds=True, engine='OpenMM', verbose=True, *kwargs):
-    raise NotImplementedError
+    raise NotImplementedMethodError(caller='molsysmt.molecular_dynamics.md_protocols')
 
 def equilibration_NPT (item, temperature='300 K', pressure='1.0 atm',
                        time='1.0 ns', protocol=0, forcefield=['AMBER99SB-ILDN','TIP3P'],
@@ -80,7 +82,7 @@ def equilibration_NPT (item, temperature='300 K', pressure='1.0 atm',
                                                                                      progress_bar=progress_bar if 'progress_bar' in locals() else True) # fixed undefined var
     else:
 
-        raise NotImplementedError
+        raise NotImplementedMethodError(caller='molsysmt.molecular_dynamics.md_protocols')
 
 def _equil_NPT_OpenMM_protocol_0(topology, positions,
                                  temperature='300 K', pressure='1.0 atm',

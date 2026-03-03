@@ -4,6 +4,7 @@ from molsysmt._private.smonitor import ArgumentError
 
 common_functions_with_threshold = [
     'molsysmt.structure.get_contacts.get_contacts',
+    'molsysmt.structure.show_contacts.show_contacts',
     'molsysmt.build.remove_overlapping_molecules.remove_overlapping_molecules',
 ]
 

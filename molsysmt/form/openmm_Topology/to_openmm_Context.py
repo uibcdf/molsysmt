@@ -7,8 +7,8 @@ def to_openmm_Context(item, atom_indices='all', coordinates=None, forcefield='AM
         friction='1.0/picoseconds', time_step='2 femtoseconds', platform='CUDA', skip_digestion=False):
 
 
-    from . import to_openmm_System
-    from ..openmm_System import to_openmm_Context as openmm_System_to_openmm_Context
+    from .to_openmm_System import to_openmm_System
+    from ..openmm_System.to_openmm_Context import to_openmm_Context as openmm_System_to_openmm_Context
 
     system = to_openmm_System(item, atom_indices=atom_indices, forcefield=forcefield,
             water_model=water_model, implicit_solvent=implicit_solvent,

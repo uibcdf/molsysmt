@@ -31,7 +31,7 @@ def digest_angles(angles, caller=None):
             if len(shape) == 1:
                 return puw.quantity(value[np.newaxis, :], unit, standardized=True)
             elif len(shape) == 2:
-                return puw.quantity(value, unit, standardized=True)
+                return puw.standardize(puw.quantity(value, unit))
 
     raise ArgumentError('angles', value=angles, caller=caller, message=None)
 

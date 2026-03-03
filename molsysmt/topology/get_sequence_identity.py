@@ -1,6 +1,9 @@
+from molsysmt._private.smonitor import NotImplementedMethodError
 from molsysmt._private.arg_digestion import arg_digest
+from smonitor import signal
 import numpy as np
 
+@signal(tags=['api', 'topology'])
 @arg_digest()
 def get_sequence_identity(molecular_system, selection='all', reference_molecular_system=None,
                           reference_selection='all', syntax='MolSysMT', engine='Biopython'):
@@ -84,7 +87,7 @@ def get_sequence_identity(molecular_system, selection='all', reference_molecular
 
     else:
 
-        raise NotImplementedError
+        raise NotImplementedMethodError(caller='molsysmt.topology.get_sequence_identity')
 
     identity = 100.0 * (len(intersect)/len(group_indices))
 

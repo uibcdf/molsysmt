@@ -1,5 +1,7 @@
 from molsysmt._private.arg_digestion import arg_digest
+from smonitor import signal
 
+@signal(tags=['api', 'copy'])
 @arg_digest()
 def copy(molecular_system, output_filename=None, skip_digestion=False):
     """

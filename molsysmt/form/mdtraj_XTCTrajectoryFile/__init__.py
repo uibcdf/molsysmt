@@ -20,10 +20,8 @@ from .get import *
 from .set import *
 from .iterators import StructuresIterator
 
-from .to_mdtraj_XTCTrajectoryFile import to_mdtraj_XTCTrajectoryFile
-from .to_molsysmt_Structures import to_molsysmt_Structures
 
 _convert_to={
-        'mdtraj.XTCTrajectoryFile': to_mdtraj_XTCTrajectoryFile,
-        'molsysmt.Structures': to_molsysmt_Structures,
+        'mdtraj.XTCTrajectoryFile': 'to_mdtraj_XTCTrajectoryFile',
+        'molsysmt.Structures': 'to_molsysmt_Structures',
         }

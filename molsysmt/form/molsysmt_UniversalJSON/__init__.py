@@ -38,10 +38,8 @@ from .copy import copy
 from .extract import extract
 from .append_structures import append_structures
 
-from .to_molsysmt_UniversalJSON import to_molsysmt_UniversalJSON
-from .to_molsysmt_MolSys import to_molsysmt_MolSys
 
 _convert_to = {
-    'molsysmt.UniversalJSON': to_molsysmt_UniversalJSON,
-    'molsysmt.MolSys': to_molsysmt_MolSys,
+    'molsysmt.UniversalJSON': 'to_molsysmt_UniversalJSON',
+    'molsysmt.MolSys': 'to_molsysmt_MolSys',
 }
