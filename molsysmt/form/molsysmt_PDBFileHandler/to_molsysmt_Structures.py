@@ -1,3 +1,4 @@
+import os
 from molsysmt._private.arg_digestion import arg_digest
 from molsysmt._private.variables import is_all
 
@@ -7,8 +8,8 @@ def to_molsysmt_Structures(item, atom_indices='all', structure_indices='all', sk
     from molsysmt.native import Structures
     from molsysmt.form.molsysmt_PDBFileHandler.to_molsysmt_PDBFileHandler import to_molsysmt_PDBFileHandler
 
-    if isinstance(item, str):
-        item = to_molsysmt_PDBFileHandler(item, skip_digestion=True)
+    if isinstance(item, (str, os.PathLike)):
+        item = to_molsysmt_PDBFileHandler(str(str(item)), skip_digestion=True)
         opened_here = True
     else:
         opened_here = False

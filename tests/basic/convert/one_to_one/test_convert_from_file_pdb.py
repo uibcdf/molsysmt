@@ -48,5 +48,4 @@ def test_file_pdb_to_molsysmt_MolSys_1():
     form = msm.get_form(molsys)
     box = msm.get(molsys, box=True)
     assert 'molsysmt.MolSys'==form
-    assert box is None
-
+    assert box is not None

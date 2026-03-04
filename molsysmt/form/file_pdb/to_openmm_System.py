@@ -6,8 +6,8 @@ def to_openmm_System(item, atom_indices='all', structure_indices='all',
                      rigid_water=True, remove_cm_motion=True, hydrogen_mass=None, switch_distance=None,
                      flexible_constraints=False, skip_digestion=False):
 
-    from ..openmm_Modeller.to_openmm_Modeller import to_openmm_Modeller
-    from ..openmm_Modeller.to_openmm_System import to_openmm_System as openmm_Modeller_to_openmm_System
+    from .to_openmm_Modeller import to_openmm_Modeller
+    from molsysmt.form.openmm_Modeller.to_openmm_System import to_openmm_System as openmm_Modeller_to_openmm_System
 
     tmp_item = to_openmm_Modeller(item, atom_indices=atom_indices, structure_indices=structure_indices,
                                   skip_digestion=True)

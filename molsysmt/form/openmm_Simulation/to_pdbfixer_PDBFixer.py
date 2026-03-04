@@ -3,7 +3,7 @@ from molsysmt._private.arg_digestion import arg_digest
 @arg_digest(form='openmm.Simulation')
 def to_pdbfixer_PDBFixer(item, atom_indices='all', structure_indices='all', skip_digestion=False):
 
-    from ..file_pdb.to_file_pdb import to_file_pdb as openmm_Simulation_to_file_pdb
+    from molsysmt.form.file_pdb import to_file_pdb as openmm_Simulation_to_file_pdb
     from molsysmt._private.files_and_directories import temp_filename
     from molsysmt.form.file_pdb import to_pdbfixer_PDBFixer as file_pdb_to_pdbfixer_PDBFixer
     from os import remove

@@ -5,9 +5,12 @@ import os
 def to_mdtraj_HDF5TrajectoryFile(item, atom_indices='all', structure_indices='all', skip_digestion=False):
 
     from mdtraj.formats import HDF5TrajectoryFile
-    from ..mdtraj_HDF5TrajectoryFile.extract import extract as extract_mdtraj_HDF5TrajectoryFile
+    from molsysmt.form.mdtraj_HDF5TrajectoryFile.extract import extract as extract_mdtraj_HDF5TrajectoryFile
 
-    tmp_item = HDF5TrajectoryFile(item, mode='r')
+    if isinstance(item, (str, os.PathLike)):
+        tmp_item = HDF5TrajectoryFile(str(item), mode='r')
+    else:
+        tmp_item = item
 
     tmp_item = extract_mdtraj_HDF5TrajectoryFile(tmp_item, atom_indices=atom_indices,
                                                  structure_indices=structure_indices,

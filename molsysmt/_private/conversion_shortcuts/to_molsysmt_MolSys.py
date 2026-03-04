@@ -1,63 +1,8 @@
-def molsysmt_Topology_and_molsysmt_Structures_to_molsysmt_MolSys(molecular_system, atom_indices='all',
-                                                                 structure_indices='all', skip_digestion=False):
-    """Combine a MolSysMT topology and structures into a MolSys object."""
+from molsysmt._private.arg_digestion import arg_digest
 
-    from molsysmt.basic import get_form
-    from molsysmt.native.molsys import MolSys
-    from molsysmt.form.molsysmt_Topology import extract as extract_topology
-    from molsysmt.form.molsysmt_Structures import extract as extract_structures
-
-    forms = get_form(molecular_system)
-
-    topology = None
-    structures = None
-
-    for form, item in zip(forms, molecular_system):
-        if form=='molsysmt.Topology':
-            topology = item
-        else:
-            structures = item
-
-    tmp_item = MolSys()
-
-    tmp_item.topology = extract_topology(topology, atom_indices=atom_indices, copy_if_all=True, skip_digestion=True)
-    tmp_item.structures = extract_structures(structures, atom_indices=atom_indices,
-            structure_indices=structure_indices, copy_if_all=True, skip_digestion=True)
-
-    return tmp_item
-
-def molsysmt_Topology_and_molsysmt_StructuresDict_to_molsysmt_MolSys(molecular_system, atom_indices='all',
-                                                                 structure_indices='all', skip_digestion=False):
-    """Merge topology and StructuresDict into a MolSys object."""
-
-    from molsysmt.basic import get_form
-    from molsysmt.native.molsys import MolSys
-    from molsysmt.form.molsysmt_Topology import extract as extract_topology
-    from molsysmt.form.molsysmt_StructuresDict.to_molsysmt_Structures import to_molsysmt_Structures as molsysmt_StructuresDict_to_molsysmt_Structures
-
-    forms = get_form(molecular_system)
-
-    topology = None
-    structures = None
-
-    for form, item in zip(forms, molecular_system):
-        if form=='molsysmt.Topology':
-            topology = item
-        else:
-            structures = item
-
-    tmp_item = MolSys()
-
-    tmp_item.topology = extract_topology(topology, atom_indices=atom_indices, copy_if_all=True, skip_digestion=True)
-    tmp_item.structures = molsysmt_StructuresDict_to_molsysmt_Structures(structures, atom_indices=atom_indices,
-            structure_indices=structure_indices, skip_digestion=True)
-
-    return tmp_item
-
-
-def file_prmtop_and_file_inpcrd_to_molsysmt_MolSys(molecular_system, atom_indices='all',
-                                                   structure_indices='all', skip_digestion=False):
-    """Build a MolSys from Amber PRMTOP and INPCRD files."""
+def file_prmtop_and_file_inpcrd_to_molsysmt_MolSys(molecular_system, atom_indices='all', structure_indices='all',
+                                                  skip_digestion=False):
+    """Build a MolSys from a prmtop topology and inpcrd coordinates."""
 
     from molsysmt.basic import get_form
     from molsysmt.form.file_prmtop.to_molsysmt_Topology import to_molsysmt_Topology as file_prmtop_to_molsysmt_Topology
@@ -67,7 +12,7 @@ def file_prmtop_and_file_inpcrd_to_molsysmt_MolSys(molecular_system, atom_indice
     forms = get_form(molecular_system)
 
     item_prmtop = None
-    item_incrd = None
+    item_inpcrd = None
 
     for form, item in zip(forms, molecular_system):
         if form=='file:prmtop':
@@ -107,43 +52,17 @@ def file_psf_and_file_dcd_to_molsysmt_MolSys(molecular_system, atom_indices='all
 
     output_item = MolSys()
 
-    output_item.topology = file_psf_to_molsysmt_Topology(item_psf, atom_indices=atom_indices, skip_digestion=True)
+    output_item.topology = file_psf_to_molsysmt_Topology(item_psf, atom_indices=atom_indices,
+                                                         skip_digestion=True)
     output_item.structures = file_dcd_to_molsysmt_Structures(item_dcd, atom_indices=atom_indices,
-                                                             structure_indices=structure_indices, skip_digestion=True)
-
-    return output_item
-
-def file_psf_and_file_crd_to_molsysmt_MolSys(molecular_system, atom_indices='all', structure_indices='all', 
-                                             skip_digestion=False):
-    """Build a MolSys from a PSF topology and CRD coordinates."""
-
-    from molsysmt.basic import get_form
-    from molsysmt.form.file_psf.to_molsysmt_Topology import to_molsysmt_Topology as file_psf_to_molsysmt_Topology
-    from molsysmt.form.file_crd.to_molsysmt_Structures import to_molsysmt_Structures as file_crd_to_molsysmt_Structures
-    from molsysmt.native import MolSys
-
-    forms = get_form(molecular_system)
-
-    item_psf = None
-    item_crd = None
-
-    for form, item in zip(forms, molecular_system):
-        if form=='file:psf':
-            item_psf = item
-        else:
-            item_crd = item
-
-    output_item = MolSys()
-
-    output_item.topology = file_psf_to_molsysmt_Topology(item_psf, atom_indices=atom_indices, skip_digestion=True)
-    output_item.structures = file_crd_to_molsysmt_Structures(item_crd, atom_indices=atom_indices,
-                                                             structure_indices=structure_indices, skip_digestion=True)
+                                                             structure_indices=structure_indices,
+                                                             skip_digestion=True)
 
     return output_item
 
 def file_gro_and_file_xtc_to_molsysmt_MolSys(molecular_system, atom_indices='all', structure_indices='all',
                                              skip_digestion=False):
-    """Build a MolSys from GRO topology and XTC coordinates."""
+    """Build a MolSys from a GRO topology and XTC trajectory."""
 
     from molsysmt.basic import get_form
     from molsysmt.form.file_gro.to_molsysmt_Topology import to_molsysmt_Topology as file_gro_to_molsysmt_Topology
@@ -163,37 +82,10 @@ def file_gro_and_file_xtc_to_molsysmt_MolSys(molecular_system, atom_indices='all
 
     output_item = MolSys()
 
-    output_item.topology = file_gro_to_molsysmt_Topology(item_gro, atom_indices=atom_indices, skip_digestion=True)
+    output_item.topology = file_gro_to_molsysmt_Topology(item_gro, atom_indices=atom_indices,
+                                                         skip_digestion=True)
     output_item.structures = file_xtc_to_molsysmt_Structures(item_xtc, atom_indices=atom_indices,
-                                                             structure_indices=structure_indices, skip_digestion=True)
+                                                             structure_indices=structure_indices,
+                                                             skip_digestion=True)
 
     return output_item
-
-def openmm_Topology_and_molsysmt_StructuresDict_to_molsysmt_MolSys(molecular_system, atom_indices='all',
-                                                                   structure_indices='all', skip_digestion=False):
-    """Combine an OpenMM Topology with MolSysMT structures into a MolSys object."""
-
-    from molsysmt.basic import get_form
-    from molsysmt.native.molsys import MolSys
-    from molsysmt.form.openmm_Topology.to_molsysmt_Topology import to_molsysmt_Topology as openmm_Topology_to_molsysmt_Topology
-    from molsysmt.form.molsysmt_StructuresDict.to_molsysmt_Structures import to_molsysmt_Structures as molsysmt_StructuresDict_to_molsysmt_Structures
-
-    forms = get_form(molecular_system)
-
-    topology = None
-    structures = None
-
-    for form, item in zip(forms, molecular_system):
-        if form=='openmm.Topology':
-            topology = item
-        else:
-            structures = item
-
-    tmp_item = MolSys()
-
-    tmp_item.topology = openmm_Topology_to_molsysmt_Topology(topology, atom_indices=atom_indices, skip_digestion=True)
-    tmp_item.structures = molsysmt_StructuresDict_to_molsysmt_Structures(structures, atom_indices=atom_indices,
-            structure_indices=structure_indices, skip_digestion=True)
-
-    return tmp_item
-

@@ -21,6 +21,10 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
     from molsysmt.build import get_missing_bonds
     from molsysmt.config import min_length_protein
 
+    if isinstance(item, str):
+        from .to_mmcif_PdbxContainers_DataContainer import to_mmcif_PdbxContainers_DataContainer
+        item = to_mmcif_PdbxContainers_DataContainer(item, skip_digestion=True)
+
     # Atom site 
 
     with_insertions = False

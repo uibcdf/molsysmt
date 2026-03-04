@@ -1,3 +1,4 @@
+import os
 from molsysmt._private.arg_digestion import arg_digest
 from molsysmt._private.variables import is_all
 from molsysmt import pyunitwizard as puw
@@ -9,8 +10,8 @@ def to_molsysmt_Structures(item, atom_indices='all', structure_indices='all', sk
     from molsysmt.native import Structures
     from molsysmt.form.molsysmt_H5MSMFileHandler.to_molsysmt_H5MSMFileHandler import to_molsysmt_H5MSMFileHandler
 
-    if isinstance(item, str):
-        item = to_molsysmt_H5MSMFileHandler(item, skip_digestion=True)
+    if isinstance(item, (str, os.PathLike)):
+        item = to_molsysmt_H5MSMFileHandler(str(str(item)), skip_digestion=True)
         opened_here = True
     else:
         opened_here = False
@@ -34,7 +35,7 @@ def to_molsysmt_Structures(item, atom_indices='all', structure_indices='all', sk
             tmp_item.coordinates = puw.quantity(structures_ds['coordinates'][np.ix_(structure_indices, atom_indices, [0,1,2])], coordinates_unit)
 
     # Box
-    if 'box' in structures_ds:
+    if 'box' in structures_ds and structures_ds['box'].shape[0] > 0:
         box_unit = structures_ds['box'].attrs.get('unit', 'nm')
         if is_all(structure_indices):
             tmp_item.box = puw.quantity(structures_ds['box'][:], box_unit)
@@ -44,7 +45,7 @@ def to_molsysmt_Structures(item, atom_indices='all', structure_indices='all', sk
         tmp_item.box = None
 
     # Time
-    if 'time' in structures_ds:
+    if 'time' in structures_ds and structures_ds['time'].shape[0] > 0:
         time_unit = structures_ds['time'].attrs.get('unit', 'ps')
         if is_all(structure_indices):
             tmp_item.time = puw.quantity(structures_ds['time'][:], time_unit)
@@ -54,7 +55,7 @@ def to_molsysmt_Structures(item, atom_indices='all', structure_indices='all', sk
         tmp_item.time = None
 
     # Step
-    if 'step' in structures_ds:
+    if 'step' in structures_ds and structures_ds['step'].shape[0] > 0:
         if is_all(structure_indices):
             tmp_item.step = structures_ds['step'][:]
         else:

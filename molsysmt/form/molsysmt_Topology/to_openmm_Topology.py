@@ -1,6 +1,7 @@
 from molsysmt._private.arg_digestion import arg_digest
 from molsysmt._private.variables import is_all
 from depdigest import dep_digest
+import pandas as pd
 
 @arg_digest(form='molsysmt.Topology')
 @dep_digest('openmm')
@@ -10,13 +11,10 @@ def to_openmm_Topology(item, box=None, atom_indices='all', skip_digestion=False)
     import openmm.app as app
 
     if not is_all(atom_indices):
-        from . import extract
-        item = extract(item, atom_indices=atom_indices)
+        from .extract import extract
+        item = extract(item, atom_indices=atom_indices, skip_digestion=True)
 
     tmp_item = app.Topology()
-
-    former_group_index = -1
-    former_chain_index = -1
 
     list_new_atoms = []
     list_new_residues = []
@@ -26,31 +24,34 @@ def to_openmm_Topology(item, box=None, atom_indices='all', skip_digestion=False)
         tmp_chain = tmp_item.addChain(id=str(chain.chain_id))
         list_new_chains.append(tmp_chain)
 
+    if len(list_new_chains) == 0:
+        tmp_chain = tmp_item.addChain(id=' ')
+        list_new_chains.append(tmp_chain)
+
     group_chain_mapping = item.atoms.groupby('group_index')['chain_index'].agg('first').to_dict()
 
     for group in item.groups.itertuples(index=True):
-        tmp_residue = tmp_item.addResidue(group.group_name, list_new_chains[group_chain_mapping[group.Index]],
-                                      id=str(group.group_id))
+        chain_idx = group_chain_mapping.get(group.Index, 0)
+        if chain_idx is None or pd.isna(chain_idx):
+            chain_idx = 0
+        
+        tmp_residue = tmp_item.addResidue(group.group_name, list_new_chains[int(chain_idx)],
+                                          id=str(group.group_id))
         list_new_residues.append(tmp_residue)
 
     for atom in item.atoms.itertuples(index=True):
-
-        element = app.Element.getBySymbol(atom.atom_type)
-        tmp_atom = tmp_item.addAtom(atom.atom_name, element, list_new_residues[atom.group_index])
-        tmp_atom.id = str(atom.atom_id)
+        tmp_element = app.Element.getBySymbol(atom.atom_type) if atom.atom_type else None
+        tmp_atom = tmp_item.addAtom(atom.atom_name, tmp_element, list_new_residues[int(atom.group_index)],
+                                    id=str(atom.atom_id))
         list_new_atoms.append(tmp_atom)
 
-    for bond in item.bonds.itertuples(index=False):
-
-        tmp_item.addBond(list_new_atoms[bond.atom1_index], list_new_atoms[bond.atom2_index])
+    for bond in item.bonds.itertuples(index=True):
+        tmp_item.addBond(list_new_atoms[int(bond.atom1_index)], list_new_atoms[int(bond.atom2_index)])
 
     del list_new_atoms, list_new_residues, list_new_chains
 
     if box is not None:
-
-        from ..openmm_Topology.set_box_to_system import set_box_to_system
-
-        set_box_to_system(tmp_item, value=box)
+        from molsysmt.form.openmm_Topology.set import set_box_to_system
+        set_box_to_system(tmp_item, value=box, skip_digestion=True)
 
     return tmp_item
-

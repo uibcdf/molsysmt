@@ -1,6 +1,6 @@
 from molsysmt._private.smonitor import NotImplementedIteratorError
 from ..molsysmt_Structures.iterators import StructuresIterator as StructuresIterator_molsysmt_Structures
-from ..molsysmt_Structures.to_molsysmt_Structures import to_molsysmt_Structures
+from molsysmt.form.molsysmt_Structures import to_molsysmt_Structures
 from molsysmt._private.arg_digestion import arg_digest
 
 class StructuresIterator(StructuresIterator_molsysmt_Structures):

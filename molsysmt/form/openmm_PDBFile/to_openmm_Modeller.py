@@ -1,10 +1,12 @@
+from .get_structural_attributes import *
+from .get_topological_attributes import *
+
 from molsysmt._private.arg_digestion import arg_digest
 
 @arg_digest(form='openmm.Topology')
 def to_openmm_Modeller(item, atom_indices='all', structure_indices='all', skip_digestion=False):
 
-    from ..openmm_Topology.to_openmm_Topology import to_openmm_Topology
-    from .get import get_coordinates_from_atom
+    from molsysmt.form.openmm_Topology import to_openmm_Topology
     from molsysmt import pyunitwizard as puw
     from openmm.app import Modeller
 

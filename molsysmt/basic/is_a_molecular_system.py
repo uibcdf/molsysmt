@@ -69,32 +69,37 @@ def is_a_molecular_system(molecular_system):
     if isinstance(molecular_system, str):
         return True
 
-    if isinstance(molecular_system, (list, tuple)):
-
+    if isinstance(molecular_system, dict):
         try:
             _ = get_form(molecular_system)
             return True
         except:
             return False
 
-    else:
-
-        output = True
-
-        list_n_atoms = []
+    if isinstance(molecular_system, (list, tuple)):
 
         try:
-            for item in molecular_system:
-                form_in = get_form(item)
-                list_n_atoms.append(_dict_modules[form_in].get_n_atoms_from_system(item))
+            forms = get_form(molecular_system)
+            
+            list_n_atoms = []
+            for item, form_in in zip(molecular_system, forms):
+                try:
+                    n_atoms = _dict_modules[form_in].get_n_atoms_from_system(item)
+                    list_n_atoms.append(n_atoms)
+                except:
+                    pass
+                    
+            set_n_atoms = set([ii for ii in list_n_atoms if ii is not None])
+            if len(set_n_atoms) > 1:
+                return False
+            return True
         except:
             return False
 
-        set_n_atoms = set([ii for ii in list_n_atoms if ii is not None])
-
-        if len(set_n_atoms)>1:
-            output = False
-
-
-        return output
+    else:
+        try:
+            _ = get_form(molecular_system)
+            return True
+        except:
+            return False
 

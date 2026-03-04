@@ -4,7 +4,7 @@ from molsysmt._private.arg_digestion import arg_digest
 def update_file(item, skip_digestion=False):
 
     from molsysmt.native import MolSys
-    from ..molsysmt_MolSys.to_file_msmpk import to_file_msmpk as molsysmt_MolSys_to_file_msmpk
+    from .to_file_msmpk import to_file_msmpk as molsysmt_MolSys_to_file_msmpk
     from molsysmt import pyunitwizard as puw
     import pickle
     import bz2

@@ -36,10 +36,10 @@ def to_molsysmt_Topology(item, atom_indices='all', skip_digestion=False):
         atom_type.append(atom.element)
         group_index_of_atoms.append(res_to_index[atom.parent])
 
-    tmp_item.atoms.atom_id = atom_id
-    tmp_item.atoms.atom_name = atom_name
-    tmp_item.atoms.atom_type = atom_type
-    tmp_item.atoms.group_index = group_index_of_atoms
+    tmp_item.atoms['atom_id'] = atom_id
+    tmp_item.atoms['atom_name'] = atom_name
+    tmp_item.atoms['atom_type'] = atom_type
+    tmp_item.atoms['group_index'] = group_index_of_atoms
 
     group_id = []
     group_name = []
@@ -52,10 +52,10 @@ def to_molsysmt_Topology(item, atom_indices='all', skip_digestion=False):
         group_type.append(get_group_type_from_group_name(res.resname))
         chain_index_of_groups.append(chain_to_index[res.parent])
 
-    tmp_item.groups.group_id = group_id
-    tmp_item.groups.group_name = group_name
-    tmp_item.groups.group_type = group_type
-    tmp_item.groups.chain_index = chain_index_of_groups
+    tmp_item.groups['group_id'] = group_id
+    tmp_item.groups['group_name'] = group_name
+    tmp_item.groups['group_type'] = group_type
+    tmp_item.groups['chain_index'] = chain_index_of_groups
 
     chain_id = []
     chain_name = []
@@ -63,8 +63,8 @@ def to_molsysmt_Topology(item, atom_indices='all', skip_digestion=False):
         chain_id.append(str(ch.id))
         chain_name.append(str(ch.id))
 
-    tmp_item.chains.chain_id = chain_id
-    tmp_item.chains.chain_name = chain_name
+    tmp_item.chains['chain_id'] = chain_id
+    tmp_item.chains['chain_name'] = chain_name
 
     # Rebuild hierarchy
     tmp_item.rebuild_components()

@@ -29,7 +29,7 @@ class StructuresIterator():
                 self._output_dictionary[key] = None
 
         if self.stop is None:
-            from .get import get_n_structures_from_system
+            from .get_structural_attributes import get_n_structures_from_system
             self.stop = get_n_structures_from_system(molecular_system)
 
     def __iter__(self):
@@ -65,7 +65,7 @@ class TopologyIterator():
 
         if self.stop is None:
             if is_all(indices):
-                from .get import get_n_atoms_from_system
+                from .get_structural_attributes import get_n_atoms_from_system
                 self.stop = get_n_atoms_from_system(molecular_system, skip_digestion=True)
             else:
                 self.stop = len(indices)

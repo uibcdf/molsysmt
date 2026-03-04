@@ -80,6 +80,12 @@ def get_molecule_type(molecular_system, element='molecule', selection='all',
             output = [molecule_types[ii] for ii in aux]
         elif element == 'molecule':
             output = [molecule_types[ii] for ii in sorted(molecule_types.keys())]
+        elif element == 'chain':
+            aux = get(molecular_system, element='chain', selection=selection, syntax=syntax,
+                      molecule_index=True)
+            output = []
+            for molecules_in_chain in aux:
+                output.append([molecule_types[ii] for ii in molecules_in_chain])
         elif element == 'entity':
             aux = get(molecular_system, element='entity', selection=selection, syntax=syntax,
                       molecule_index=True)

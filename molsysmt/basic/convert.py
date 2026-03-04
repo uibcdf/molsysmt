@@ -122,7 +122,7 @@ def _convert_multiple_to_one_with_shortcuts(molecular_system,
     from . import select, get_form
     from molsysmt.form import is_item, is_file, _dict_modules
     from molsysmt.element import _element_indices, _element_index
-    from molsysmt._private import _multiple_conversion_shortcuts
+    from molsysmt._private.conversion_shortcuts import _multiple_conversion_shortcuts
     from molsysmt.basic import has_attribute
     from molsysmt.attribute import attributes as _attributes
 
@@ -146,6 +146,8 @@ def _convert_multiple_to_one_with_shortcuts(molecular_system,
 
     # Conversion 
     sorted_forms = tuple(sorted(from_forms))
+
+    from molsysmt._private.conversion_shortcuts import _multiple_conversion_shortcuts
 
     if to_form in _multiple_conversion_shortcuts[sorted_forms]:
         function = _multiple_conversion_shortcuts[sorted_forms][to_form]
@@ -189,7 +191,7 @@ def _convert_multiple_to_one(molecular_system,
     from . import select, get_form
     from molsysmt.form import is_item, is_file, _dict_modules
     from molsysmt.element import _element_indices, _element_index
-    from molsysmt._private import _multiple_conversion_shortcuts
+    from molsysmt._private.conversion_shortcuts import _multiple_conversion_shortcuts
     from molsysmt.basic import has_attribute
     from molsysmt.attribute import attributes as _attributes
 
@@ -522,7 +524,7 @@ def convert(molecular_system,
     """
 
     from . import get_form
-    from molsysmt._private import _multiple_conversion_shortcuts
+    from molsysmt._private.conversion_shortcuts import _multiple_conversion_shortcuts
 
     output = None
 

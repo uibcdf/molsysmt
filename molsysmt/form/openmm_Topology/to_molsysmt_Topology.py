@@ -21,6 +21,7 @@ def to_molsysmt_Topology(item, atom_indices='all', skip_digestion=False):
     atom_name = []
     atom_type = []
     group_index_of_atoms = []
+    chain_index_of_atoms = []
     
     group_id = []
     group_name = []
@@ -32,6 +33,7 @@ def to_molsysmt_Topology(item, atom_indices='all', skip_digestion=False):
         atom_name.append(atom.name)
         atom_type.append(atom.element.symbol if atom.element else None)
         group_index_of_atoms.append(atom.residue.index)
+        chain_index_of_atoms.append(atom.residue.chain.index)
 
     for residue in item.residues():
         group_id.append(str(residue.id))
@@ -39,15 +41,16 @@ def to_molsysmt_Topology(item, atom_indices='all', skip_digestion=False):
         group_type.append(get_group_type_from_group_name(residue.name))
         chain_index_of_groups.append(residue.chain.index)
 
-    tmp_item.atoms.atom_id = atom_id
-    tmp_item.atoms.atom_name = atom_name
-    tmp_item.atoms.atom_type = atom_type
-    tmp_item.atoms.group_index = group_index_of_atoms
+    tmp_item.atoms['atom_id'] = atom_id
+    tmp_item.atoms['atom_name'] = atom_name
+    tmp_item.atoms['atom_type'] = atom_type
+    tmp_item.atoms['group_index'] = group_index_of_atoms
+    tmp_item.atoms['chain_index'] = chain_index_of_atoms
 
-    tmp_item.groups.group_id = group_id
-    tmp_item.groups.group_name = group_name
-    tmp_item.groups.group_type = group_type
-    tmp_item.groups.chain_index = chain_index_of_groups
+    tmp_item.groups['group_id'] = group_id
+    tmp_item.groups['group_name'] = group_name
+    tmp_item.groups['group_type'] = group_type
+    tmp_item.groups['chain_index'] = chain_index_of_groups
 
     # Chains
     chain_id = []
@@ -56,8 +59,8 @@ def to_molsysmt_Topology(item, atom_indices='all', skip_digestion=False):
         chain_id.append(str(chain.id))
         chain_name.append(str(chain.id))
 
-    tmp_item.chains.chain_id = chain_id
-    tmp_item.chains.chain_name = chain_name
+    tmp_item.chains['chain_id'] = chain_id
+    tmp_item.chains['chain_name'] = chain_name
 
     # Bonds
     if n_bonds > 0:
@@ -70,6 +73,7 @@ def to_molsysmt_Topology(item, atom_indices='all', skip_digestion=False):
     tmp_item.rebuild_components()
     tmp_item.rebuild_molecules()
     tmp_item.rebuild_entities()
+    tmp_item.rebuild_chains(redefine_indices=False, redefine_ids=False, redefine_names=False, redefine_types=True)
 
     if not is_all(atom_indices):
         tmp_item = extract_molsysmt_Topology(tmp_item, atom_indices=atom_indices, skip_digestion=True)

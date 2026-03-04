@@ -85,16 +85,16 @@ def to_molsysmt_Topology(item, atom_indices='all', structure_indices='all', skip
     tmp_item.reset_groups(n_groups=n_groups)
     tmp_item.reset_chains(n_chains=n_chains)
 
-    tmp_item.atoms.atom_id = np.array(atom_id, dtype=int)
-    tmp_item.atoms.atom_name = np.array(atom_name, dtype=object)
-    tmp_item.atoms.atom_type = np.array(atom_type, dtype=object)
-    tmp_item.atoms.group_index = np.array(group_index, dtype=int)
-    tmp_item.atoms.chain_index = np.array(chain_index, dtype=int)
-    tmp_item.groups.group_id = np.array(group_id, dtype=int)
-    tmp_item.groups.group_name = np.array(group_name, dtype=object)
-    tmp_item.groups.group_type = np.array(group_type, dtype=object)
-    tmp_item.chains.chain_id = np.arange(n_chains, dtype=int)
-    tmp_item.chains.chain_name = np.array(chain_name, dtype=object)
+    tmp_item.atoms['atom_id'] = np.array(atom_id, dtype=int)
+    tmp_item.atoms['atom_name'] = np.array(atom_name, dtype=object)
+    tmp_item.atoms['atom_type'] = np.array(atom_type, dtype=object)
+    tmp_item.atoms['group_index'] = np.array(group_index, dtype=int)
+    tmp_item.atoms['chain_index'] = np.array(chain_index, dtype=int)
+    tmp_item.groups['group_id'] = np.array(group_id, dtype=int)
+    tmp_item.groups['group_name'] = np.array(group_name, dtype=object)
+    tmp_item.groups['group_type'] = np.array(group_type, dtype=object)
+    tmp_item.chains['chain_id'] = np.arange(n_chains, dtype=int)
+    tmp_item.chains['chain_name'] = np.array(chain_name, dtype=object)
 
     del(atom_id, atom_name, atom_type,
         group_index, group_id, group_name, group_type,

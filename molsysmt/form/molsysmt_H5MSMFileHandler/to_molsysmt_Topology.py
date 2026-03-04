@@ -2,6 +2,7 @@ from molsysmt._private.arg_digestion import arg_digest
 from molsysmt._private.variables import is_all
 import pandas as pd
 import numpy as np
+import os
 
 @arg_digest(form='molsysmt.H5MSMFileHandler')
 def to_molsysmt_Topology(item, atom_indices='all', skip_digestion=False):
@@ -9,8 +10,8 @@ def to_molsysmt_Topology(item, atom_indices='all', skip_digestion=False):
     from molsysmt.native import Topology
     from molsysmt.form.molsysmt_H5MSMFileHandler.to_molsysmt_H5MSMFileHandler import to_molsysmt_H5MSMFileHandler
 
-    if isinstance(item, str):
-        item = to_molsysmt_H5MSMFileHandler(item, skip_digestion=True)
+    if isinstance(item, (str, os.PathLike)):
+        item = to_molsysmt_H5MSMFileHandler(str(item), skip_digestion=True)
         opened_here = True
     else:
         opened_here = False

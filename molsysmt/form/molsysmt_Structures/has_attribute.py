@@ -18,7 +18,7 @@ def has_attribute(molecular_system, attribute, include_none=False, skip_digestio
                 output = False
 
         elif attribute=='structure_id':
-            if molecular_system.id is None:
+            if molecular_system.structure_id is None:
                 output = False
 
         elif attribute=='coordinates':

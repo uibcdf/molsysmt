@@ -1,11 +1,13 @@
+from .get_structural_attributes import *
+from .get_topological_attributes import *
+
 from molsysmt._private.arg_digestion import arg_digest
 
 @arg_digest(form='mmcif.PdbxContainers.DataContainer')
 def to_openmm_Topology(item, atom_indices='all', structure_indices='all', skip_digestion=False):
 
-    from ..molsysmt_Topology.to_molsysmt_Topology import to_molsysmt_Topology
-    from .get import get_box_from_system
-    from ..molsysmt_Topology.to_openmm_Topology import to_openmm_Topology as molsysmt_Topology_to_openmm_Topology
+    from molsysmt.form.molsysmt_Topology import to_molsysmt_Topology
+    from molsysmt.form.molsysmt_Topology import to_openmm_Topology as molsysmt_Topology_to_openmm_Topology
 
     box = get_box_from_system(item, structure_indices=structure_indices, skip_digestion=True)
     tmp_item = to_molsysmt_Topology(item, atom_indices=atom_indices, skip_digestion=True)

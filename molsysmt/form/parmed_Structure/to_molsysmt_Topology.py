@@ -38,10 +38,10 @@ def to_molsysmt_Topology(item, atom_indices='all', skip_digestion=False):
         atom_type.append(get_atom_type_from_atom_name(atom.name))
         group_index_of_atoms.append(atom.residue.idx)
 
-    tmp_item.atoms.atom_id = atom_id
-    tmp_item.atoms.atom_name = atom_name
-    tmp_item.atoms.atom_type = atom_type
-    tmp_item.atoms.group_index = group_index_of_atoms
+    tmp_item.atoms['atom_id'] = atom_id
+    tmp_item.atoms['atom_name'] = atom_name
+    tmp_item.atoms['atom_type'] = atom_type
+    tmp_item.atoms['group_index'] = group_index_of_atoms
 
     # Groups
     group_id = []
@@ -55,10 +55,10 @@ def to_molsysmt_Topology(item, atom_indices='all', skip_digestion=False):
         group_type.append(get_group_type_from_group_name(residue.name))
         chain_index_of_groups.append(chain_id_to_index[residue.chain])
 
-    tmp_item.groups.group_id = group_id
-    tmp_item.groups.group_name = group_name
-    tmp_item.groups.group_type = group_type
-    tmp_item.groups.chain_index = chain_index_of_groups
+    tmp_item.groups['group_id'] = group_id
+    tmp_item.groups['group_name'] = group_name
+    tmp_item.groups['group_type'] = group_type
+    tmp_item.groups['chain_index'] = chain_index_of_groups
 
     # Chains
     chain_id = []
@@ -69,8 +69,8 @@ def to_molsysmt_Topology(item, atom_indices='all', skip_digestion=False):
         chain_id.append(str(label))
         chain_name.append(str(label))
 
-    tmp_item.chains.chain_id = chain_id
-    tmp_item.chains.chain_name = chain_name
+    tmp_item.chains['chain_id'] = chain_id
+    tmp_item.chains['chain_name'] = chain_name
 
     # Bonds
     if n_bonds > 0:

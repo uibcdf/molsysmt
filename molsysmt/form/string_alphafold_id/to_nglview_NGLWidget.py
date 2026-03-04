@@ -3,8 +3,8 @@ from molsysmt._private.arg_digestion import arg_digest
 @arg_digest(form='string:alphafold_id')
 def to_nglview_NGLWidget(item, atom_indices='all', structure_indices='all', skip_digestion=False):
 
-    from ..molsysmt_MolSys.to_molsysmt_MolSys import to_molsysmt_MolSys
-    from ..molsysmt_MolSys.to_nglview_NGLWidget import to_nglview_NGLWidget as molsysmt_MolSys_to_nglview_NGLWidget
+    from molsysmt.form.molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys import to_nglview_NGLWidget as molsysmt_MolSys_to_nglview_NGLWidget
 
     tmp_item = to_molsysmt_MolSys(item, atom_indices=atom_indices, structure_indices=structure_indices,
                                   skip_digestion=True)

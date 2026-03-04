@@ -14,8 +14,6 @@ def set_coordinates_to_atom(item, indices='all', structure_indices='all', value=
         if is_all(structure_indices):
 
             item.coordinates = value
-            item.n_structures = value.shape[0]
-            item.n_atoms = value.shape[1]
 
             if item.box is not None and item.box.shape[0] > 0:
                 if item.box.shape[0]!=item.n_structures:
@@ -42,8 +40,6 @@ def set_velocities_to_atom(item, indices='all', structure_indices='all', value=N
     if is_all(indices):
         if is_all(structure_indices):
             item.velocities = value
-            item.n_structures = value.shape[0]
-            item.n_atoms = value.shape[1]
         else:
             item.velocities[structure_indices,:,:] = value[:,:,:]
     else:
