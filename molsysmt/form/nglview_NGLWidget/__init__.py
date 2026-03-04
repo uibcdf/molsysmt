@@ -1,44 +1,43 @@
-from .to_string_pdb_text import to_string_pdb_text
-from .to_nglview_NGLWidget import to_nglview_NGLWidget
-from .to_molsysmt_MolSys import to_molsysmt_MolSys
-from .to_string_amino_acids_3 import to_string_amino_acids_3
-from .to_string_amino_acids_1 import to_string_amino_acids_1
-from .to_molsysmt_Structures import to_molsysmt_Structures
-from .to_openmm_Topology import to_openmm_Topology
-from .to_molsysmt_Topology import to_molsysmt_Topology
+from molsysmt._private.arg_digestion import arg_digest
+
 form_name = 'nglview.NGLWidget'
 form_type = 'class'
-form_info = ["NGLView visualization native object", "http://nglviewer.org/nglview/latest/_modules/nglview/widget.html"]
+form_info = [""]
 
-piped_topological_attribute = 'molsysmt.Topology'
-piped_structural_attribute = 'molsysmt.Structures'
-piped_any_attribute = 'molsysmt.MolSys'
-bonds_are_explicit = False
+piped_topological_attribute = None
+piped_structural_attribute = None
+piped_any_attribute = None
+bonds_are_explicit = True
 bonds_can_be_computed = True
 
+_convert_to = {
+    'nglview.NGLWidget': 'to_nglview_NGLWidget',
+    'molsysmt.MolSys': 'to_molsysmt_MolSys',
+    'molsysmt.Topology': 'to_molsysmt_Topology',
+    'molsysmt.Structures': 'to_molsysmt_Structures',
+    'openmm.Topology': 'to_openmm_Topology',
+    'string:amino_acids_1': 'to_string_amino_acids_1',
+    'string:amino_acids_3': 'to_string_amino_acids_3',
+    'string:pdb_text': 'to_string_pdb_text',
+}
+
 from .is_form import is_form
-
-from .attributes import attributes
 from .has_attribute import has_attribute
-
+from .attributes import attributes
 from .extract import extract
-from .copy import copy
 from .add import add
-from .merge import merge
 from .append_structures import append_structures
+from .copy import copy
+from .merge import merge
+from .set import set
+from .iterators import *
 from .get_topological_attributes import *
 from .get_structural_attributes import *
-from .set import *
-from .iterators import StructuresIterator, TopologyIterator
 
-
-_convert_to={
-        'nglview.NGLWidget': to_nglview_NGLWidget,
-        'molsysmt.MolSys': to_molsysmt_MolSys,
-        'molsysmt.Topology': to_molsysmt_Topology,
-        'molsysmt.Structures': to_molsysmt_Structures,
-        'openmm.Topology': to_openmm_Topology,
-        'string:amino_acids_1': to_string_amino_acids_1,
-        'string:amino_acids_3': to_string_amino_acids_3,
-        'string:pdb_text': to_string_pdb_text,
-        }
+@arg_digest(form=form_name)
+def get(item, element='system', selection='all', syntax='MolSysMT', structure_indices='all', 
+        output_type='values', skip_digestion=False, **kwargs):
+    from molsysmt.basic import get as msm_get
+    return msm_get(item, element=element, selection=selection, syntax=syntax, 
+                   structure_indices=structure_indices, output_type=output_type, 
+                   skip_digestion=True, **kwargs)

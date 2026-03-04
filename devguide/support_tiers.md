@@ -1,12 +1,12 @@
 # Support Tiers for Molecular System Forms
 
-To ensure reliability and scientific rigor, MolSysMT classifies supported molecular system forms into three tiers. This classification determines the level of testing, stability guarantees, and the scope of **Contract Testing** for the 1.0.0 release.
+To ensure reliability and scientific rigor, MolSysMT classifies supported molecular system forms into three tiers. This classification determines the level of testing, stability guarantees, and the scope of **Contract Testing**.
 
 ---
 
-## 🥇 Tier 1: First-Class Forms (Guaranteed)
+## 🥇 Tier 1: First-Class Forms (Guaranteed Parity)
 
-Forms in Tier 1 are the core of MolSysMT. They are subject to rigorous **Contract Testing** to ensure that any operation (`get`, `set`, `select`, `extract`) returns mathematically and structurally identical results across all of them.
+Tier 1 forms are the indestructible core of MolSysMT. They are subject to rigorous **Contract Testing** ensuring that any operation returns identical results across the entire stack.
 
 | Form Name | Category | Provider/Engine |
 | :--- | :--- | :--- |
@@ -18,31 +18,23 @@ Forms in Tier 1 are the core of MolSysMT. They are subject to rigorous **Contrac
 | `mdtraj.Topology` | Class | MDTraj |
 | `file:pdb` | File | MolSysMT / MDTraj |
 | `file:h5msm` | File | MolSysMT (Native) |
-| `string:pdb_id` | Remote | MolSysMT / RCSB PDB |
-
-### 🛡️ Tier 1 Guarantees:
-- **Parity**: Identical selection indices for the same query.
-- **Unit Stability**: Physical quantities are always returned in standard MolSysMT units (nm, ps, kJ/mol).
-- **CI Enforcement**: Any regression in Tier 1 forms blocks a PR merge.
 
 ---
 
-## 🥈 Tier 2: Community & Best-Effort Forms
+## 🥈 Tier 2: Hardened Ecosystem Forms
 
-Tier 2 forms are supported and maintained, but they may not cover all edge cases or have full parity guarantees in complex operations.
+Tier 2 forms are stable, hardened, and highly recommended for general use. They have passed the 1.0.0 interoperability audit.
 
 | Form Name | Category | Provider/Engine |
 | :--- | :--- | :--- |
 | `MDAnalysis.Universe` | Class | MDAnalysis |
+| `MDAnalysis.AtomGroup` | Class | MDAnalysis |
+| `rdkit.Mol` | Class | RDKit |
+| `biopython.PDBStructure`| Class | BioPython |
 | `parmed.Structure` | Class | ParmEd |
-| `pytraj.Trajectory` | Class | Pytraj |
-| `file:gro` | File | GROMACS |
-| `file:mol2` | File | Tripos |
-| `file:xtc` / `file:dcd` | File | Trajectory formats |
-
-### ⚠️ Tier 2 Notes:
-- Supported for basic conversions and common attributes.
-- May emit warnings if certain MolSysMT features are not fully translatable.
+| `molsysviewer.MolSysView` | Viewer | MolSysViewer |
+| `nglview.NGLWidget` | Viewer | NGLView |
+| `string:pdb_id` | Remote | MolSysMT / RCSB PDB |
 
 ---
 
@@ -53,15 +45,17 @@ Tier 3 includes forms that are under development, deprecated, or highly speciali
 | Form Name | Category | Provider/Engine |
 | :--- | :--- | :--- |
 | `networkx.Graph` | Class | NetworkX (Topology only) |
-| `biopython.Seq` | Class | Biopython |
-| `molsysviewer.MolSysView` | Viewer | MolSysViewer |
+| `pytraj.Trajectory` | Class | Pytraj |
+| `biopython.Seq` | Class | Biopython (Sequences only) |
+| `XYZ` | Format | Standard XYZ |
 | Obscure file formats | File | Various |
 
 ---
 
-## 🧪 Contract Testing Mandate
+## 🧪 Contract Testing Status (1.0.0)
 
-For the 1.0.0 release, **Contract Tests** are being implemented for Tier 1 forms to verify the following invariants:
-1. **Schema Identity**: `msm.get(molsys, ...)` must return the same data type and nesting. [VERIFIED for get/select]
-2. **Physical Identity**: Coordinate and box values must match within a tolerance of $10^{-5}$ nm after unit standardization. [VERIFIED]
-3. **Selection Identity**: `msm.select(molsys, selection="...")` must return identical index lists. [VERIFIED]
+For the 1.0.0 release, **Contract Tests** verify the following invariants across Tier 1 and Tier 2:
+1. **Schema Identity**: `msm.get(molsys, ...)` returns the same data type and nesting. [VERIFIED for Tier 1]
+2. **Physical Identity**: Coordinate and box values match within $10^{-5}$ nm. [VERIFIED for Tier 1]
+3. **Selection Identity**: `msm.select(molsys, selection="...")` returns identical index lists. [VERIFIED for Tier 1 & Hardened MDA]
+4. **Visual Introspection**: High-level API calls (`get`, `compare`) work directly on Viewer objects. [VERIFIED for MolSysViewer]

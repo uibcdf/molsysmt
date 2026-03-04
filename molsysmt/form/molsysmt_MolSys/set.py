@@ -180,8 +180,8 @@ def set_entity_type_to_atom(item, indices='all', value=None, skip_digestion=Fals
 @arg_digest(form=form)
 def set_coordinates_to_atom(item, indices='all', structure_indices='all', value=None, skip_digestion=False):
 
-    from ..molsysmt_Structures.set_coordinates_to_atom import set_coordinates_to_atom as aux_set
-    from ..molsysmt_Topology.get_n_atoms_from_system import get_n_atoms_from_system
+    from molsysmt.form.molsysmt_Structures.set import set_coordinates_to_atom as aux_set
+    from molsysmt.form.molsysmt_Topology.get_topological_attributes import get_n_atoms_from_system as get_n_atoms_from_system
 
     if is_all(indices):
         n_atoms = get_n_atoms_from_system(item.topology, skip_digestion=True)

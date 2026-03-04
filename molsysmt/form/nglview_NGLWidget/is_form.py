@@ -1,7 +1,9 @@
-
 def is_form(item):
 
-    item_fullname = item.__class__.__module__+'.'+item.__class__.__name__
+    output = False
 
-    return (item_fullname=='nglview.widget.NGLWidget')
+    class_name = str(type(item))
+    if 'nglview.widget.NGLWidget' in class_name:
+        output = True
 
+    return output

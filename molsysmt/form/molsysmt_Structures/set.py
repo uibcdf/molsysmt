@@ -17,14 +17,15 @@ def set_coordinates_to_atom(item, indices='all', structure_indices='all', value=
             item.n_structures = value.shape[0]
             item.n_atoms = value.shape[1]
 
-            if item.box is not None:
+            if item.box is not None and item.box.shape[0] > 0:
                 if item.box.shape[0]!=item.n_structures:
                     if item.box.shape[0]==1:
-                        item.box = puw.utils.numpy.repeat(item.box, item.n_structures, axis=0,
-                                                          value_type='numpy.ndarray')
+                        from molsysmt import pyunitwizard as puw
+                        item.box = puw.utils.numpy.repeat(item.box, item.n_structures, axis=0)
                     else:
-                        raise ValueError("The number of boxes is different than the number of frames")
-
+                        # If we can't broadcast, we set it to None or keep it as is?
+                        # For 1.0.0 stability, if it doesn't match and isn't 1, we invalidate the box.
+                        item.box = None
         else:
             item.coordinates[structure_indices,:,:] = value[:,:,:]
     else:

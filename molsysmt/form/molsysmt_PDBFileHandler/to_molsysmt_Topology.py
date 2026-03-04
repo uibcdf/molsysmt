@@ -1,17 +1,21 @@
 from molsysmt._private.arg_digestion import arg_digest
 from molsysmt._private.variables import is_all
-from molsysmt import pyunitwizard as puw
-import pandas as pd
-import numpy as np
 
 @arg_digest(form='molsysmt.PDBFileHandler')
-def to_molsysmt_Topology(item, atom_indices='all', structure_indices=0, get_missing_bonds=True,
-                         skip_digestion=False):
+def to_molsysmt_Topology(item, atom_indices='all', skip_digestion=False):
 
-    from ..molsysmt_MolSys.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.openmm_PDBFile import to_molsysmt_Topology as openmm_PDBFile_to_molsysmt_Topology
+    
+    # We leverage OpenMM's PDB parser which is very robust for topology
+    # PDBFileHandler has the file path in self.file.name if it's a file on disk
+    
+    if hasattr(item.file, 'name'):
+        tmp_item = openmm_PDBFile_to_molsysmt_Topology(item.file.name, atom_indices=atom_indices, skip_digestion=True)
+    else:
+        # If it's a StringIO or buffer
+        from openmm.app import PDBFile
+        pdb = PDBFile(item.file)
+        from molsysmt.form.openmm_Topology import to_molsysmt_Topology as openmm_Topology_to_molsysmt_Topology
+        tmp_item = openmm_Topology_to_molsysmt_Topology(pdb.topology, atom_indices=atom_indices, skip_digestion=True)
 
-    tmp_item = to_molsysmt_MolSys(item, atom_indices=atom_indices, structure_indices=structure_indices,
-                                 get_missing_bonds=get_missing_bonds, skip_digestion=True)
-
-    return tmp_item.topology
-
+    return tmp_item

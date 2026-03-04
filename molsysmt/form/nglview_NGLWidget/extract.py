@@ -16,10 +16,12 @@ def extract(item, atom_indices='all', structure_indices='all', copy_if_all=True,
             tmp_item = item
     else:
 
-        from ..molsysmt_MolSys.to_molsysmt_MolSys import to_molsysmt_MolSys
-        from ..molsysmt_MolSys.to_nglview_NGLWidget import to_nglview_NGLWidget as molsysmt_MolSys_to_nglview_NGLWidget
-        tmp_item = nglview_NGLWidget_to_molsysmt_MolSys(item, atom_indices=atom_indices, structure_indices=structure_indices)
-        tmp_item = molsysmt_MolSys_to_nglview_NGLWidget(tmp_item)
+        from molsysmt.form.nglview_NGLWidget.to_molsysmt_MolSys import to_molsysmt_MolSys as nglview_NGLWidget_to_molsysmt_MolSys
+        from molsysmt.form.molsysmt_MolSys.to_nglview_NGLWidget import to_nglview_NGLWidget as molsysmt_MolSys_to_nglview_NGLWidget
+        
+        tmp_item = nglview_NGLWidget_to_molsysmt_MolSys(item, atom_indices=atom_indices, 
+                                                        structure_indices=structure_indices, skip_digestion=True)
+        tmp_item = molsysmt_MolSys_to_nglview_NGLWidget(tmp_item, skip_digestion=True)
 
     return tmp_item
 
