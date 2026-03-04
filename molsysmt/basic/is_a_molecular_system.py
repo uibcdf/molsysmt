@@ -60,9 +60,10 @@ def is_a_molecular_system(molecular_system):
     if isinstance(molecular_system, (MolSys, Topology, Structures)):
         return True
 
-    # Check for OpenMM, MDTraj, and MDAnalysis objects without explicit imports at top level
+    # Check for OpenMM, MDTraj, MDAnalysis, MolSysViewer, and NGLView objects without explicit imports
     class_name = str(type(molecular_system)).lower()
-    if 'openmm' in class_name or 'mdtraj' in class_name or 'mdanalysis' in class_name:
+    if 'openmm' in class_name or 'mdtraj' in class_name or 'mdanalysis' in class_name or \
+       'molsysviewer' in class_name or 'nglview' in class_name:
         return True
 
     if isinstance(molecular_system, str):

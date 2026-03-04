@@ -48,7 +48,7 @@ def to_string_pdb_text(item, atom_indices='all', structure_indices='all', pdb_ch
             else:
                 model_index = list(range(len(structure_indices)))
 
-    if item.structures.box is not None:
+    if item.structures.box is not None and item.structures.box.shape[0] > 0:
 
         if is_all(structure_indices):
             lengths, angles = get_lengths_and_angles_from_box(item.structures.box[0])

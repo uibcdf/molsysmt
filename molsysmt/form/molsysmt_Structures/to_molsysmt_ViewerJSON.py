@@ -52,9 +52,9 @@ def to_molsysmt_ViewerJSON(item, skip_digestion=False):
         for ii, positions in enumerate(coords_values):
             structure = _empty_structure_viewer_dict()
             structure["coordinates"] = np.asarray(positions, dtype=float).tolist()
-            if time_values is not None:
+            if time_values is not None and len(time_values) > ii:
                 structure["time"] = float(time_values[ii])
-            if box_values is not None:
+            if box_values is not None and len(box_values) > ii and box_values[ii] is not None:
                 structure["box"] = _box_vectors(np.asarray(box_values[ii]))
             structures.append(structure)
 

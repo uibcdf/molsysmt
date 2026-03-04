@@ -8,7 +8,7 @@ def append_structures(item, structure_id=None, time=None, coordinates=None, velo
                       box=None, temperature=None, potential_energy=None, kinetic_energy=None,
                       atom_indices='all', structure_indices='all', skip_digestion=False):
 
-    from ..molsysmt_MolSys.to_molsysmt_MolSys import to_molsysmt_MolSys
+    from molsysmt.form.molsysmt_MolSys.to_molsysmt_MolSys import to_molsysmt_MolSys
     from ..molsysmt_MolSys.append_structures import append_structures as molsys_append_structures
 
     tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
