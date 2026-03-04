@@ -25,7 +25,7 @@ def extract(item, atom_indices='all', structure_indices='all', output_filename=N
         if is_all(atom_indices) and is_all(structure_indices):
 
             if output_filename is not None:
-                from .get import get_n_structures_from_system
+                from .get_structural_attributes import get_n_structures_from_system
                 n_structures = get_n_structures_from_system(item, skip_digestion=True)
 
                 item.seek(0)
@@ -55,7 +55,7 @@ def extract(item, atom_indices='all', structure_indices='all', output_filename=N
                 tmp_item = to_mdtraj_Trajectory(item, atom_indices=atom_indices, 
                                                structure_indices=structure_indices, skip_digestion=True)
             else:
-                from .get import get_n_structures_from_system
+                from .get_structural_attributes import get_n_structures_from_system
                 topology = item.topology
                 if not is_all(atom_indices):
                     topology = extract_mdtraj_Topology(topology, atom_indices=atom_indices, skip_digestion=True)

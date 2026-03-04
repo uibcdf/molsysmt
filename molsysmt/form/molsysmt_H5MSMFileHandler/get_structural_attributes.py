@@ -93,6 +93,9 @@ def get_box_from_system(item, structure_indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_time_from_system(item, structure_indices='all', skip_digestion=False):
 
+    if item.file['structures']['time'].shape[0] == 0:
+        return None
+
     if item.file['structures'].attrs['constant_time_step']:
         init_time = item.file['structures']['time'][0]
         time_step = item.file['structures'].attrs['time_step']

@@ -4,8 +4,8 @@ from molsysmt._private.arg_digestion import arg_digest
 def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_digestion=False):
 
     from molsysmt.native.molsys import MolSys
-    from ..molsysmt_Topology.to_molsysmt_Topology import to_molsysmt_Topology as openmm_Simulation_to_molsysmt_Topology
-    from ..molsysmt_Structures.to_molsysmt_Structures import to_molsysmt_Structures as openmm_Simulation_to_molsysmt_Structures
+    from molsysmt.form.molsysmt_Topology import to_molsysmt_Topology as openmm_Simulation_to_molsysmt_Topology
+    from molsysmt.form.molsysmt_Structures import to_molsysmt_Structures as openmm_Simulation_to_molsysmt_Structures
 
     tmp_item = MolSys()
     tmp_item.topology = openmm_Simulation_to_molsysmt_Topology(item, atom_indices=atom_indices,

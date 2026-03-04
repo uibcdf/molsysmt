@@ -21,10 +21,10 @@ def to_molsysmt_Topology(item, atom_indices='all', skip_digestion=False):
     atom_type = [atom.type for atom in item.atoms]
     group_index_of_atoms = [atom.resindex for atom in item.atoms]
 
-    tmp_item.atoms.atom_id = atom_id
-    tmp_item.atoms.atom_name = atom_name
-    tmp_item.atoms.atom_type = atom_type
-    tmp_item.atoms.group_index = group_index_of_atoms
+    tmp_item.atoms['atom_id'] = atom_id
+    tmp_item.atoms['atom_name'] = atom_name
+    tmp_item.atoms['atom_type'] = atom_type
+    tmp_item.atoms['group_index'] = group_index_of_atoms
 
     # Groups
     group_id = [str(res.resid) for res in item.residues]
@@ -32,17 +32,17 @@ def to_molsysmt_Topology(item, atom_indices='all', skip_digestion=False):
     group_type = [get_group_type_from_group_name(res.resname) for res in item.residues]
     chain_index_of_groups = [res.segindex for res in item.residues]
 
-    tmp_item.groups.group_id = group_id
-    tmp_item.groups.group_name = group_name
-    tmp_item.groups.group_type = group_type
+    tmp_item.groups['group_id'] = group_id
+    tmp_item.groups['group_name'] = group_name
+    tmp_item.groups['group_type'] = group_type
     tmp_item.groups['chain_index'] = chain_index_of_groups
 
     # Chains
     chain_id = [str(seg.segid) for seg in item.segments]
     chain_name = [str(seg.segid) for seg in item.segments]
 
-    tmp_item.chains.chain_id = chain_id
-    tmp_item.chains.chain_name = chain_name
+    tmp_item.chains['chain_id'] = chain_id
+    tmp_item.chains['chain_name'] = chain_name
 
     # Bonds
     if hasattr(item, 'bonds'):

@@ -1417,25 +1417,23 @@ def get_component_index_from_group(item, indices='all', skip_digestion=False):
     component_index_from_atom = item.atoms['component_index'].to_numpy()
 
     if indices =='all':
+        from molsysmt.form.molsysmt_Topology.get_topological_attributes import get_n_groups_from_system
+        n_groups = get_n_groups_from_system(item)
+        indices = range(n_groups)
 
-        aux_dict = defaultdict(set)
-        for atom_index, group_index in enumerate(group_index_from_atom):
+    aux_dict = {ii: set() for ii in indices}
+    for atom_index, group_index in enumerate(group_index_from_atom):
+        if group_index in aux_dict:
             aux_dict[group_index].add(component_index_from_atom[atom_index])
 
-        output = list(aux_dict.values())
-
-    else:
-
-        aux_dict = {ii: set() for ii in indices}
-        for atom_index, group_index in enumerate(group_index_from_atom):
-            if group_index in aux_dict:
-                aux_dict[group_index].add(component_index_from_atom[atom_index])
-
-        output = [aux_dict[m] for m in indices]
-
-    del group_index_from_atom, component_index_from_atom, aux_dict
-
-    output = [ next(iter(ii)) if len(ii) == 1 else list(ii) for ii in output]
+    output = []
+    for ii in indices:
+        val = aux_dict[ii]
+        clean_val = [int(jj) for jj in val if jj is not None and not pd.isna(jj)]
+        if clean_val:
+            output.append(clean_val[0])
+        else:
+            output.append(None)
 
     return output
 
@@ -5102,7 +5100,7 @@ def get_molecule_type_from_component(item, indices='all', skip_digestion=False):
     component_index_from_atom = item.atoms['component_index'].to_numpy()
     group_index_from_atom = item.atoms['group_index'].to_numpy()
     molecule_index_from_group = item.groups['molecule_index'].to_numpy()
-    molecule_index_from_atom = molecule_index_from_group[group_index_from_atom]
+    molecule_index_from_atom = molecule_index_from_group[group_index_from_atom.astype(int)]
     molecule_type_from_molecule = item.molecules['molecule_type'].to_numpy()
 
     if indices =='all':
@@ -6294,23 +6292,22 @@ def get_molecule_index_from_chain(item, indices='all', skip_digestion=False):
     molecule_index_from_atom = molecule_index_from_group[group_index_from_atom]
 
     if indices =='all':
+        from molsysmt.form.molsysmt_Topology.get_topological_attributes import get_n_chains_from_system
+        n_chains = get_n_chains_from_system(item)
+        indices = range(n_chains)
 
-        aux_dict = defaultdict(set)
-        for atom_index, chain_index in enumerate(chain_index_from_atom):
-            aux_dict[chain_index].add(molecule_index_from_atom[atom_index].tolist())
+    aux_dict = {ii: set() for ii in indices}
+    for atom_index, chain_index in enumerate(chain_index_from_atom):
+        if chain_index in aux_dict:
+            aux_dict[chain_index].add(molecule_index_from_atom[atom_index])
 
-        output = list(aux_dict.values())
+    output = [aux_dict[m] for m in indices]
 
-    else:
-
-        aux_dict = {ii: set() for ii in indices}
-        for atom_index, chain_index in enumerate(chain_index_from_atom):
-            if chain_index in aux_dict:
-                aux_dict[chain_index].add(molecule_index_from_atom[atom_index].tolist())
-
-        output = [aux_dict[m] for m in indices]
-
-    output = [ sorted(ii) for ii in output]
+    aux_list = output
+    output = []
+    for ii in aux_list:
+        clean_ii = [int(jj) for jj in ii if jj is not None and not pd.isna(jj)]
+        output.append(sorted(clean_ii))
 
     del chain_index_from_atom, group_index_from_atom, molecule_index_from_group
     del molecule_index_from_atom, aux_dict
@@ -6392,27 +6389,29 @@ def get_molecule_type_from_chain(item, indices='all', skip_digestion=False):
     chain_index_from_atom = item.atoms['chain_index'].to_numpy()
     group_index_from_atom = item.atoms['group_index'].to_numpy()
     molecule_index_from_group = item.groups['molecule_index'].to_numpy()
-    molecule_index_from_atom = molecule_index_from_group[group_index_from_atom]
+    molecule_index_from_atom = molecule_index_from_group[group_index_from_atom.astype(int)]
     molecule_type_from_molecule = item.molecules['molecule_type'].to_numpy()
 
     if indices =='all':
+        from molsysmt.form.molsysmt_Topology.get_topological_attributes import get_n_chains_from_system
+        n_chains = get_n_chains_from_system(item)
+        indices = range(n_chains)
 
-        aux_dict = defaultdict(set)
-        for atom_index, chain_index in enumerate(chain_index_from_atom):
+    aux_dict = {ii: set() for ii in indices}
+    for atom_index, chain_index in enumerate(chain_index_from_atom):
+        if chain_index in aux_dict:
             aux_dict[chain_index].add(molecule_index_from_atom[atom_index])
 
-        output = list(aux_dict.values())
+    output = [aux_dict[m] for m in indices]
 
-    else:
-
-        aux_dict = {ii: set() for ii in indices}
-        for atom_index, chain_index in enumerate(chain_index_from_atom):
-            if chain_index in aux_dict:
-                aux_dict[chain_index].add(molecule_index_from_atom[atom_index])
-
-        output = [aux_dict[m] for m in indices]
-
-    output = [ molecule_type_from_molecule[sorted(ii)].tolist() for ii in output]
+    aux_list = output
+    output = []
+    for ii in aux_list:
+        clean_ii = [int(jj) for jj in ii if jj is not None and not pd.isna(jj)]
+        if clean_ii:
+            output.append(molecule_type_from_molecule[sorted(clean_ii)].tolist())
+        else:
+            output.append([])
 
     del chain_index_from_atom, group_index_from_atom, molecule_index_from_group
     del molecule_index_from_atom, molecule_type_from_molecule, aux_dict

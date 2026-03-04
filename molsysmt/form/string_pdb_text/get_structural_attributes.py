@@ -16,8 +16,8 @@ form='string:pdb_text'
 @arg_digest(form=form)
 def get_coordinates_from_atom(item, indices='all', structure_indices='all', skip_digestion=False):
 
-    from ..molsysmt_Structures.to_molsysmt_Structures import to_molsysmt_Structures
-    from ..molsysmt_Structures.get_coordinates_from_atom import get_coordinates_from_atom as aux_get
+    from molsysmt.form.molsysmt_Structures import to_molsysmt_Structures
+    from molsysmt.form.molsysmt_Structures import get_coordinates_from_atom as aux_get
 
     tmp_item = to_molsysmt_Structures(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, structure_indices=structure_indices, skip_digestion=True)
@@ -31,8 +31,8 @@ def get_n_structures_from_system(item, structure_indices='all', skip_digestion=F
 
     if is_all(structure_indices):
 
-        from ..molsysmt_Structures.to_molsysmt_Structures import to_molsysmt_Structures
-        from ..molsysmt_Structures.get_n_structures_from_system import get_n_structures_from_system as aux_get
+        from molsysmt.form.molsysmt_Structures import to_molsysmt_Structures
+        from molsysmt.form.molsysmt_Structures import get_n_structures_from_system as aux_get
 
         tmp_item = to_molsysmt_Structures(item, skip_digestion=True)
         output = aux_get(tmp_item, skip_digestion=True)
@@ -46,8 +46,8 @@ def get_n_structures_from_system(item, structure_indices='all', skip_digestion=F
 @arg_digest(form=form)
 def get_box_from_system(item, structure_indices='all', skip_digestion=False):
 
-    from ..molsysmt_Structures.to_molsysmt_Structures import to_molsysmt_Structures
-    from ..molsysmt_Structures.get_box_from_system import get_box_from_system as aux_get
+    from molsysmt.form.molsysmt_Structures import to_molsysmt_Structures
+    from molsysmt.form.molsysmt_Structures import get_box_from_system as aux_get
 
     tmp_item = to_molsysmt_Structures(item, skip_digestion=True)
     output = aux_get(tmp_item, structure_indices=structure_indices, skip_digestion=True)
@@ -57,8 +57,8 @@ def get_box_from_system(item, structure_indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_time_from_system(item, structure_indices='all', skip_digestion=False):
 
-    from ..molsysmt_Structures.to_molsysmt_Structures import to_molsysmt_Structures
-    from ..molsysmt_Structures.get_time_from_system import get_time_from_system as aux_get
+    from molsysmt.form.molsysmt_Structures import to_molsysmt_Structures
+    from molsysmt.form.molsysmt_Structures import get_time_from_system as aux_get
 
     tmp_item = to_molsysmt_Structures(item, skip_digestion=True)
     output = aux_get(tmp_item, structure_indices=structure_indices, skip_digestion=True)
@@ -68,8 +68,8 @@ def get_time_from_system(item, structure_indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_structure_id_from_system(item, structure_indices='all', skip_digestion=False):
 
-    from ..molsysmt_Structures.to_molsysmt_Structures import to_molsysmt_Structures
-    from ..molsysmt_Structures.get_structure_id_from_system import get_structure_id_from_system as aux_get
+    from molsysmt.form.molsysmt_Structures import to_molsysmt_Structures
+    from molsysmt.form.molsysmt_Structures import get_structure_id_from_system as aux_get
 
     tmp_item = to_molsysmt_Structures(item, skip_digestion=True)
     output = aux_get(tmp_item, structure_indices=structure_indices, skip_digestion=True)

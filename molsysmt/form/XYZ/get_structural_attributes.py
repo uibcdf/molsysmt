@@ -40,6 +40,7 @@ def get_coordinates_from_atom(item, indices='all', structure_indices='all', skip
 
 ## From system
 
+@arg_digest(form=form)
 def get_n_structures_from_system(item, structure_indices='all', skip_digestion=False):
 
     if is_all(structure_indices):

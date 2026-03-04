@@ -8,7 +8,7 @@ def to_molsysmt_MolSysOld(item, atom_indices='all',
 
     from molsysmt.native.molsys_old import MolSysOld
     from molsysmt.native.structures_old import StructuresOld
-    from ..molsysmt_TopologyOld.to_molsysmt_TopologyOld import to_molsysmt_TopologyOld
+    from molsysmt.form.molsysmt_TopologyOld import to_molsysmt_TopologyOld
 
     tmp_item = MolSysOld()
     tmp_item.topology = to_molsysmt_TopologyOld(item, atom_indices=atom_indices, skip_digestion=True)

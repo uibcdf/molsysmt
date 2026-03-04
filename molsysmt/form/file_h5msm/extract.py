@@ -23,7 +23,7 @@ def extract(item, atom_indices='all', structure_indices='all', output_filename=N
             tmp_item = item
     else:
 
-        from ..molsysmt_H5MSMFileHandler.to_molsysmt_H5MSMFileHandler import to_molsysmt_H5MSMFileHandler
+        from .to_molsysmt_H5MSMFileHandler import to_molsysmt_H5MSMFileHandler
         from molsysmt.native import H5MSMFileHandler
 
         input_file_handler = to_molsysmt_H5MSMFileHandler(item, skip_digestion=True)

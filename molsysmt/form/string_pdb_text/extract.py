@@ -14,8 +14,8 @@ def extract(item, atom_indices='all', structure_indices='all', copy_if_all=True,
             tmp_item = item
     else:
 
-        from ..molsysmt_MolSys.to_molsysmt_MolSys import to_molsysmt_MolSys
-        from ..molsysmt_MolSys.to_string_pdb_text import to_string_pdb_text as molsysmt_MolSys_to_string_pdb_text
+        from molsysmt.form.molsysmt_MolSys import to_molsysmt_MolSys
+        from molsysmt.form.molsysmt_MolSys import to_string_pdb_text as molsysmt_MolSys_to_string_pdb_text
         tmp_item = to_molsysmt_MolSys(item, atom_indices=atom_indices, structure_indices=structure_indices,
                                       skip_digestion=True)
         tmp_item = molsysmt_MolSys_to_string_pdb_text(tmp_item, skip_digestion=True)

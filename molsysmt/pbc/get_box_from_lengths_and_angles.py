@@ -29,7 +29,8 @@ def get_box_from_lengths_and_angles(box_lengths, box_angles, skip_digestion=Fals
     lengths_value = puw.get_value(box_lengths)
     angles_value = puw.get_value(box_angles, to_unit='radians')
 
-    box = msmlib.pbc.get_box_from_lengths_and_angles(lengths_value, angles_value)
+    import numpy as np
+    box = msmlib.pbc.get_box_from_lengths_and_angles(np.array(lengths_value, dtype=np.float64), np.array(angles_value, dtype=np.float64))
     box = box.round(6)*units
 
     del(lengths_value, angles_value)

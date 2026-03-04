@@ -1,3 +1,4 @@
+import os
 from molsysmt._private.arg_digestion import arg_digest
 
 @arg_digest(form='molsysmt.PDBFileHandler')
@@ -6,8 +7,8 @@ def to_molsysmt_PDBFileHandler(item, atom_indices='all', structure_indices='all'
     from molsysmt.native.pdb_file_handler import PDBFileHandler
     from molsysmt._private.variables import is_all
 
-    if isinstance(item, str):
-        tmp_item = PDBFileHandler(item)
+    if isinstance(item, (str, os.PathLike)):
+        tmp_item = PDBFileHandler(str(item))
     else:
         tmp_item = item
 

@@ -35,7 +35,8 @@ from .is_form import is_form
 from .attributes import attributes
 from .has_attribute import has_attribute
 
-from .get import *
+from .get_topological_attributes import *
+from .get_structural_attributes import *
 from .copy import copy
 from .extract import extract
 from .append_structures import append_structures

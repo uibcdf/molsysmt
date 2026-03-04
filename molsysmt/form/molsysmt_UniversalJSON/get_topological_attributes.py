@@ -1,0 +1,76 @@
+from molsysmt._private.arg_digestion import arg_digest
+from molsysmt._private.variables import is_all
+from molsysmt import pyunitwizard as puw
+import numpy as np
+
+form = 'molsysmt.UniversalJSON'
+
+
+def _atoms_dict(item):
+    topology = item.data.get('topology', {}) or {}
+    if isinstance(topology, dict) and 'atoms' in topology:
+        return topology.get('atoms', {}) or {}
+    return item.data.get('atoms', {}) or {}
+
+
+def _bonds_dict(item):
+    bonds = item.data.get('bonds', {}) or {}
+    return bonds
+
+
+def _structures_list(item):
+    coords_block = item.data.get('coordinates', {}) or {}
+    if 'collections' in coords_block:
+        collections = coords_block.get('collections', [])
+        if collections:
+            coll0 = collections[0] or {}
+            return coll0.get('structures', coll0.get('estructures', coll0.get('frames', []))) or []
+    return []
+
+
+def _n_atoms_from_atoms(atoms):
+    for key in ('atom_id', 'atom_name', 'group_id', 'group_ig', 'group_name', 'chain_id', 'entity_id'):
+        values = atoms.get(key, None)
+        if values is not None:
+            return len(values)
+    return None
+
+
+def _normalize_list(values, length):
+    arr = np.array(values if values is not None else [], dtype=object)
+    if length is None:
+        length = arr.shape[0]
+    if arr.shape[0] < length:
+        arr = np.pad(arr, (0, length - arr.shape[0]), constant_values=None)
+    elif arr.shape[0] > length:
+        arr = arr[:length]
+    return arr
+
+
+def _reshape_coordinates(frames, n_atoms):
+    coords = []
+    structure_indices = []
+    for idx, frame in enumerate(frames):
+        positions = frame.get('positions', frame.get('coordinates', None))
+        if positions is None:
+            continue
+        arr = np.array(positions, dtype=float)
+        if n_atoms is None:
+            n_atoms = arr.shape[0] if arr.ndim >= 2 else None
+        if n_atoms is None:
+            continue
+        if arr.shape[0] < n_atoms:
+            pad = np.full((n_atoms - arr.shape[0], 3), np.nan, dtype=float)
+            arr = np.vstack((arr, pad))
+        elif arr.shape[0] > n_atoms:
+            arr = arr[:n_atoms]
+        coords.append(arr)
+        structure_indices.append(idx)
+    if not coords:
+        return None, None
+    return np.stack(coords), structure_indices
+
+
+# List of functions to be imported
+import types
+__all__ = [name for name, obj in globals().items() if isinstance(obj, types.FunctionType) and name.startswith('get_')]

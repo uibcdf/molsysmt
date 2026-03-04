@@ -34,9 +34,9 @@ def to_molsysmt_Topology(item, atom_indices='all', skip_digestion=False):
             atom_name.append(atom.GetSymbol() + str(atom.GetIdx()))
             atom_type.append(atom.GetSymbol())
 
-    tmp_item.atoms.atom_id = atom_id
-    tmp_item.atoms.atom_name = atom_name
-    tmp_item.atoms.atom_type = atom_type
+    tmp_item.atoms['atom_id'] = atom_id
+    tmp_item.atoms['atom_name'] = atom_name
+    tmp_item.atoms['atom_type'] = atom_type
 
     # Bonds
     if n_bonds > 0:

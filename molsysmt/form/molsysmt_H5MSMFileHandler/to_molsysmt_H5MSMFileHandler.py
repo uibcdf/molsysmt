@@ -1,3 +1,4 @@
+import os
 from molsysmt._private.arg_digestion import arg_digest
 
 @arg_digest(form='molsysmt.H5MSMFileHandler')
@@ -6,8 +7,8 @@ def to_molsysmt_H5MSMFileHandler(item, atom_indices='all', structure_indices='al
     from molsysmt.native.h5msm_file_handler import H5MSMFileHandler
     from molsysmt._private.variables import is_all
 
-    if isinstance(item, str):
-        tmp_item = H5MSMFileHandler(item)
+    if isinstance(item, (str, os.PathLike)):
+        tmp_item = H5MSMFileHandler(str(item))
     else:
         tmp_item = item
 

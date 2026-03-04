@@ -5,7 +5,7 @@ from molsysmt._private.variables import is_all
 @arg_digest(form='mdtraj.HDF5TrajectoryFile')
 def copy(item, output_filename=None, progress_bar=False, skip_digestion=False):
 
-    from .get import get_n_structures_from_system
+    from .get_structural_attributes import get_n_structures_from_system
     from ..mdtraj_Topology.extract import extract as extract_mdtraj_Topology
     from mdtraj.formats import HDF5TrajectoryFile
     from tqdm import tqdm

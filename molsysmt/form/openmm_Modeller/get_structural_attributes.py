@@ -45,11 +45,9 @@ def get_n_structures_from_system(item, structure_indices='all', skip_digestion=F
 @arg_digest(form=form)
 def get_box_from_system(item, structure_indices='all', skip_digestion=False):
 
-    from ..openmm_Topology.to_openmm_Topology import to_openmm_Topology
-    from ..openmm_Topology.get_box_from_system import get_box_from_system as aux_get
+    from molsysmt.form.openmm_Topology import get_box_from_system as aux_get
 
-    tmp_item = to_openmm_Topology(item, structure_indices=structure_indices, skip_digestion=True)
-    output = aux_get(tmp_item, skip_digestion=True)
+    output = aux_get(item.topology, skip_digestion=True)
 
     return output
 

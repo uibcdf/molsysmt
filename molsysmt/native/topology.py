@@ -596,10 +596,15 @@ class Topology():
             component_index_of_atoms = get_component_index(self, element='atom', selection='all', 
                                                            redefine_indices=True, skip_digestion=True)
             self.atoms['component_index'] = np.array(component_index_of_atoms, dtype=int)
+            
+            component_index_of_groups = get_component_index(self, element='group', selection='all',
+                                                            redefine_indices=True, skip_digestion=True)
+            self.groups['component_index'] = np.array(component_index_of_groups, dtype=int)
+
             n_components = component_index_of_atoms[-1]+1
             self.components = Components_DataFrame(n_components=n_components)
 
-            del component_index_of_atoms
+            del component_index_of_atoms, component_index_of_groups
 
         if redefine_ids:
 
@@ -685,12 +690,16 @@ class Topology():
 
             chain_index_of_atoms = get_chain_index(self, element='atom', selection='all',
                                                    redefine_indices=True, skip_digestion=True)
-
             self.atoms["chain_index"] = np.array(chain_index_of_atoms, dtype=int)
+            
+            chain_index_of_groups = get_chain_index(self, element='group', selection='all',
+                                                    redefine_indices=True, skip_digestion=True)
+            self.groups["chain_index"] = np.array(chain_index_of_groups, dtype=int)
+
             n_chains = chain_index_of_atoms[-1]+1
             self.reset_chains(n_chains = n_chains)
 
-            del chain_index_of_atoms
+            del chain_index_of_atoms, chain_index_of_groups
 
         if redefine_ids:
 

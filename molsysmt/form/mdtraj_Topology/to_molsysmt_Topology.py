@@ -8,6 +8,9 @@ def to_molsysmt_Topology(item, atom_indices='all', skip_digestion=False):
     from molsysmt.native import Topology
     from molsysmt._private.variables import is_all
 
+    if hasattr(item, 'topology'):
+        item = item.topology
+
     n_atoms = item.n_atoms
     n_groups = item.n_residues
     n_chains = item.n_chains
@@ -34,14 +37,14 @@ def to_molsysmt_Topology(item, atom_indices='all', skip_digestion=False):
         group_name.append(residue.name)
         group_type.append(get_group_type_from_group_name(residue.name))
 
-    tmp_item.atoms.atom_id = atom_id
-    tmp_item.atoms.atom_name = atom_name
-    tmp_item.atoms.atom_type = atom_type
-    tmp_item.atoms.group_index = group_index_of_atoms
+    tmp_item.atoms['atom_id'] = atom_id
+    tmp_item.atoms['atom_name'] = atom_name
+    tmp_item.atoms['atom_type'] = atom_type
+    tmp_item.atoms['group_index'] = group_index_of_atoms
 
-    tmp_item.groups.group_id = group_id
-    tmp_item.groups.group_name = group_name
-    tmp_item.groups.group_type = group_type
+    tmp_item.groups['group_id'] = group_id
+    tmp_item.groups['group_name'] = group_name
+    tmp_item.groups['group_type'] = group_type
 
     # Bonds
     bonded_atoms = []
@@ -61,9 +64,9 @@ def to_molsysmt_Topology(item, atom_indices='all', skip_digestion=False):
         chain_id.append(str(chain.chain_id if hasattr(chain, 'chain_id') else chain.index))
         chain_name.append(str(chain.index))
 
-    tmp_item.chains.chain_id = chain_id
-    tmp_item.chains.chain_name = chain_name
-    tmp_item.groups.chain_index = np.zeros(n_groups, dtype=int)
+    tmp_item.chains['chain_id'] = chain_id
+    tmp_item.chains['chain_name'] = chain_name
+    tmp_item.groups['chain_index'] = np.zeros(n_groups, dtype=int)
     for ii in range(n_chains):
         for jj in group_index_of_chains[ii]:
             tmp_item.groups.loc[jj, 'chain_index'] = ii

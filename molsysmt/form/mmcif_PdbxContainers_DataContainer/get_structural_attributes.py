@@ -32,8 +32,8 @@ def get_coordinates_from_atom(item, indices='all', structure_indices='all', skip
 @arg_digest(form=form)
 def get_occupancy_from_atom (item, indices='all', structure_indices='all', skip_digestion=False):
 
-    from ..molsysmt_Structures.to_molsysmt_Structures import to_molsysmt_Structures
-    from ..molsysmt_Structures.get_occupancy_from_atom import get_occupancy_from_atom as aux_get
+    from molsysmt.form.molsysmt_Structures import to_molsysmt_Structures
+    from molsysmt.form.molsysmt_Structures import get_occupancy_from_atom as aux_get
 
     tmp_item = to_molsysmt_Structures(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, structure_indices='all', skip_digestion=True)
@@ -43,8 +43,8 @@ def get_occupancy_from_atom (item, indices='all', structure_indices='all', skip_
 @arg_digest(form=form)
 def get_alternate_location_from_atom (item, indices='all', structure_indices='all', skip_digestion=False):
 
-    from ..molsysmt_Structures.to_molsysmt_Structures import to_molsysmt_Structures
-    from ..molsysmt_Structures.get_alternate_location_from_atom import get_alternate_location_from_atom as aux_get
+    from molsysmt.form.molsysmt_Structures import to_molsysmt_Structures
+    from molsysmt.form.molsysmt_Structures import get_alternate_location_from_atom as aux_get
 
     tmp_item = to_molsysmt_Structures(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, structure_indices=structure_indices, skip_digestion=True)
@@ -54,8 +54,8 @@ def get_alternate_location_from_atom (item, indices='all', structure_indices='al
 @arg_digest(form=form)
 def get_b_factor_from_atom (item, indices='all', structure_indices='all', skip_digestion=False):
 
-    from ..molsysmt_Structures.to_molsysmt_Structures import to_molsysmt_Structures
-    from ..molsysmt_Structures.get_b_factor_from_atom import get_b_factor_from_atom as aux_get
+    from molsysmt.form.molsysmt_Structures import to_molsysmt_Structures
+    from molsysmt.form.molsysmt_Structures import get_b_factor_from_atom as aux_get
 
     tmp_item = to_molsysmt_Structures(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, structure_indices='all', skip_digestion=True)
@@ -65,8 +65,8 @@ def get_b_factor_from_atom (item, indices='all', structure_indices='all', skip_d
 @arg_digest(form=form)
 def get_formal_charge_from_atom (item, indices='all', skip_digestion=False):
 
-    from ..molsysmt_MolecularMechanics.to_molsysmt_MolecularMechanics import to_molsysmt_MolecularMechanics
-    from ..molsysmt_MolecularMechanics.get_formal_charge_from_atom import get_formal_charge_from_atom as aux_get
+    from molsysmt.form.molsysmt_MolecularMechanics import to_molsysmt_MolecularMechanics
+    from molsysmt.form.molsysmt_MolecularMechanics import get_formal_charge_from_atom as aux_get
 
     tmp_item = to_molsysmt_MolecularMechanics(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
@@ -76,8 +76,8 @@ def get_formal_charge_from_atom (item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_partial_charge_from_atom (item, indices='all', skip_digestion=False):
 
-    from ..molsysmt_MolecularMechanics.to_molsysmt_MolecularMechanics import to_molsysmt_MolecularMechanics
-    from ..molsysmt_MolecularMechanics.get_partial_charge_from_atom import get_partial_charge_from_atom as aux_get
+    from molsysmt.form.molsysmt_MolecularMechanics import to_molsysmt_MolecularMechanics
+    from molsysmt.form.molsysmt_MolecularMechanics import get_partial_charge_from_atom as aux_get
 
     tmp_item = to_molsysmt_MolecularMechanics(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
@@ -166,8 +166,8 @@ def get_n_bioassemblies_from_system(item, skip_digestion=False):
 @arg_digest(form=form)
 def get_alternate_location_from_system(item, structure_indices='all', skip_digestion=False):
 
-    from ..molsysmt_Structures.to_molsysmt_Structures import to_molsysmt_Structures
-    from ..molsysmt_Structures.get_alternate_location_from_system import get_alternate_location_from_system as aux_get
+    from molsysmt.form.molsysmt_Structures import to_molsysmt_Structures
+    from molsysmt.form.molsysmt_Structures import get_alternate_location_from_system as aux_get
 
     tmp_item = to_molsysmt_Structures(item, skip_digestion=True)
     output = aux_get(tmp_item, structure_indices=structure_indices, skip_digestion=True)

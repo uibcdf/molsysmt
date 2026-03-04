@@ -14,15 +14,21 @@ def is_file(item_or_form):
 
         if item_or_form.lower() in _dict_forms_lowercase:
 
-            form = item_or_form
-            form = _dict_forms_lowercase[form.lower()]
+            form = _dict_forms_lowercase[item_or_form.lower()]
             output = (_dict_modules[form].form_type == 'file')
+
+        elif item_or_form.startswith('file:'):
+            output = True
 
         else:
-
-            item = item_or_form
-            form = get_form(item)
-            output = (_dict_modules[form].form_type == 'file')
+            # It might be a file path or a form name with a dot (like openmm.Topology)
+            # If it's a file path, get_form will return a form starting with 'file:'
+            try:
+                form = get_form(item_or_form)
+                if form in _dict_modules:
+                    output = (_dict_modules[form].form_type == 'file')
+            except:
+                pass
 
     return output
 

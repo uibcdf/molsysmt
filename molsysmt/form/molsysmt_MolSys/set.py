@@ -195,7 +195,7 @@ def set_coordinates_to_atom(item, indices='all', structure_indices='all', value=
 def set_velocities_to_atom(item, indices='all', structure_indices='all', value=None, skip_digestion=False):
 
     from ..molsysmt_Structures.set_velocities_to_atom import set_velocities_to_atom as aux_set
-    from ..molsysmt_Topology.get_n_atoms_from_system import get_n_atoms_from_system
+    from molsysmt.form.molsysmt_Topology import get_n_atoms_from_system
 
     if is_all(indices):
         n_atoms = get_n_atoms_from_system(item.topology, skip_digestion=True)

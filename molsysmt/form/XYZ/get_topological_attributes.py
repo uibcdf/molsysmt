@@ -35,6 +35,7 @@ def get_atom_index_from_atom(item, indices='all', skip_digestion=False):
 
 ## From system
 
+@arg_digest(form=form)
 def get_n_atoms_from_system(item, skip_digestion=False):
 
     from . import get_rank_3_XYZ

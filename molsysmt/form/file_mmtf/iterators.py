@@ -1,7 +1,7 @@
 from molsysmt._private.smonitor import NotImplementedIteratorError
 from ..mmtf_MMTFDecoder.iterators import StructuresIterator as StructuresIterator_mmtf_MMTFDecoder
 from ..mmtf_MMTFDecoder.iterators import TopologyIterator as TopologyIterator_mmtf_MMTFDecoder
-from ..mmtf_MMTFDecoder.to_mmtf_MMTFDecoder import to_mmtf_MMTFDecoder
+from .to_mmtf_MMTFDecoder import to_mmtf_MMTFDecoder
 from molsysmt._private.arg_digestion import arg_digest
 
 class StructuresIterator(StructuresIterator_mmtf_MMTFDecoder):

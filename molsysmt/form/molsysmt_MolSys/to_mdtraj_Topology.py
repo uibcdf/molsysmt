@@ -3,8 +3,8 @@ from molsysmt._private.arg_digestion import arg_digest
 @arg_digest(form='molsysmt.MolSys')
 def to_mdtraj_Topology(item, atom_indices='all', skip_digestion=False):
 
-    from ..molsysmt_Topology.to_molsysmt_Topology import to_molsysmt_Topology
-    from ..molsysmt_Topology.to_mdtraj_Topology import to_mdtraj_Topology as molsysmt_Topology_to_mdtraj_Topology
+    from molsysmt.form.molsysmt_Topology import to_molsysmt_Topology
+    from molsysmt.form.molsysmt_Topology import to_mdtraj_Topology as molsysmt_Topology_to_mdtraj_Topology
 
     tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
     tmp_item = molsysmt_Topology_to_mdtraj_Topology(tmp_item, atom_indices=atom_indices, skip_digestion=True)

@@ -29,7 +29,6 @@ from .add import add
 from .append_structures import append_structures
 from .copy import copy
 from .merge import merge
-from .set import set
 from .iterators import *
 from .get_topological_attributes import *
 from .get_structural_attributes import *
@@ -41,3 +40,10 @@ def get(item, element='system', selection='all', syntax='MolSysMT', structure_in
     return msm_get(item, element=element, selection=selection, syntax=syntax, 
                    structure_indices=structure_indices, output_type=output_type, 
                    skip_digestion=True, **kwargs)
+
+@arg_digest(form=form_name)
+def set(item, element='system', selection='all', syntax='MolSysMT', structure_indices='all', 
+        skip_digestion=False, **kwargs):
+    from molsysmt.basic import set as msm_set
+    return msm_set(item, element=element, selection=selection, syntax=syntax, 
+                   structure_indices=structure_indices, skip_digestion=True, **kwargs)
