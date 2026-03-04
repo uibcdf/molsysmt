@@ -5,7 +5,7 @@ invariants, and internal policies in MolSysMT. Other files (for example,
 `docs/content/developer/*`, `README.md`, and tutorials) must
 align with these rules. If conflicts exist, **`devguide/` takes precedence**.
 
-## 🚀 March 2026 Stabilization Sprint: Milestone Reached
+## 🚀 March 2026 Stabilization Sprint: Milestone Reached (Tag 0.14.0)
 During this session, we have finalized **Phase 2** of the 1.0.0 roadmap. MolSysMT now achieves total interoperability across the structural biology and cheminformatics landscape.
 
 **Key Achievements:**
