@@ -16,7 +16,7 @@ form_info = ["Gromacs gro file format",
              "http://manual.gromacs.org/documentation/2018/user-guide/file-formats.html#gro"]
 
 piped_topological_attribute = 'molsysmt.MolSys'
-piped_structural_attribute = 'molsysmt.Structure'
+piped_structural_attribute = 'molsysmt.Structures'
 piped_any_attribute = 'molsysmt.MolSys'
 bonds_are_explicit = False
 bonds_can_be_computed = True
@@ -51,4 +51,3 @@ _convert_to={
         'openmm.GromacsGroFile': to_openmm_GromacsGroFile,
         'nglview.NGLWidget': to_nglview_NGLWidget,
         }
-

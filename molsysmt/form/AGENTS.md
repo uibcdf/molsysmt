@@ -25,6 +25,25 @@ It refines the global rules in the repository root `AGENTS.md` for this subtree.
   - Public API functions such as `get`, `set`, `extract`, `copy`, `add`, `merge`, `append_structures`, iterators, and converter functions, as appropriate for the form.
 - Each `__init__.py` must define a `_convert_to` dictionary mapping target form names (strings) to callable converters, plus any `_conversion_opt_kwargs` when optional kwargs are supported.
 - Keep imports and `__all__` aligned with the existing pattern in neighboring form modules.
+- The piping metadata is part of the form contract and must be reviewed for every new or modified form:
+  - `piped_topological_attribute`: preferred target form when several topological attributes will be extracted from this form.
+  - `piped_structural_attribute`: preferred target form when several structural attributes will be extracted from this form.
+  - `piped_any_attribute`: preferred target form when mixed topological and structural extraction is expected and one shared conversion is cheaper than two separate conversions.
+- Set a pipe to `None` only when repeated direct getters are already the cheapest and most stable path.
+- Pipe targets must be valid form names accepted by `molsysmt.convert`. Do not use non-existent forms or singular/plural typos.
+- Do not overwrite piping metadata later in the same `__init__.py`. Legacy duplicate assignments silently disable the optimization path.
+- When a form rebuilds topology or structures internally for individual `get_*` helpers, it is a strong signal that piping should be configured.
+- When choosing between a specific pipe and `piped_any_attribute`, prefer the most reduced stable target:
+  - use a topology form for topological-only bulk extraction,
+  - use a structures form for structural-only bulk extraction,
+  - use a full `molsysmt.MolSys` pipe only when mixed extraction really benefits from it.
+- If a form exposes both individual getters and an efficient conversion path, keep both:
+  - the getters remain part of the public adapter surface,
+  - high-level bulk consumers such as `molsysmt.get`, `molsysmt.compare`, and `molsysmt.info` rely on the piping metadata to avoid repeated expensive reconstructions.
+- In practice, piping matters most for high-level APIs that request many attributes in one call:
+  - direct consumers: `molsysmt.get` and `molsysmt.compare`,
+  - indirect consumers through `molsysmt.get`: `molsysmt.info`, `molsysmt.get_label`, `molsysmt.contains`, `molsysmt.is_composed_of`, and selection backends that build expressions from repeated attribute queries.
+- `molsysmt.select` itself usually does not need special piping support because its direct form-level accesses are typically single-attribute lookups (`n_*`, `*_index`, `inner_bond_index`). Optimize the form metadata for bulk attribute extraction first; do not add select-specific complexity unless profiling proves a real bottleneck.
 
 ## Converters and validation
 
@@ -58,5 +77,3 @@ It refines the global rules in the repository root `AGENTS.md` for this subtree.
 - Do not change existing `form_name` strings or public keys in schemas without carefully evaluating downstream impact and tests.
 - When extending forms, prefer additive changes and maintain backward-compatible behavior unless the change is explicitly intended as a breaking change and is coordinated with tests and documentation.
 - Keep the conversion graph coherent: avoid introducing cycles or ambiguous paths that bypass established, tested converters without necessity.
-
-
