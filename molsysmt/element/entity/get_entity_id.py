@@ -52,7 +52,7 @@ def get_entity_id(molecular_system, element='entity', selection='all', redefine_
     if output is not None:
         arr = np.asarray(output)
         if arr.shape == ():
-            output = str(arr.astype(str))
+            output = [str(arr.astype(str))]
         else:
             output = arr.astype(str)
         output = output.tolist()
