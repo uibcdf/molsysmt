@@ -5,6 +5,23 @@ from molsysmt._private.arg_digestion import arg_digest
 def get_n_entities(molecular_system, selection='all', redefine_entities=False,
                      syntax='MolSysMT'):
 
+    if selection == 'all':
+        from molsysmt.native import MolSys, Topology
+        from .get_entity_index import get_entity_index
+
+        if isinstance(molecular_system, Topology):
+            return len(molecular_system.entities.index) if not redefine_entities else len(
+                get_entity_index(
+                    molecular_system, element='entity', selection='all', redefine_indices=True, syntax=syntax
+                )
+            )
+        if isinstance(molecular_system, MolSys):
+            return len(molecular_system.topology.entities.index) if not redefine_entities else len(
+                get_entity_index(
+                    molecular_system, element='entity', selection='all', redefine_indices=True, syntax=syntax
+                )
+            )
+
     if redefine_entities:
 
         from .get_entity_index import get_entity_index
@@ -23,4 +40,3 @@ def get_n_entities(molecular_system, selection='all', redefine_entities=False,
                      n_entities=True)
 
     return output
-

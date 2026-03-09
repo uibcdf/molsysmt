@@ -5,6 +5,23 @@ from molsysmt._private.arg_digestion import arg_digest
 def get_n_components(molecular_system, selection='all', redefine_components=False,
                      syntax='MolSysMT'):
 
+    if selection == 'all':
+        from molsysmt.native import MolSys, Topology
+        from .get_component_index import get_component_index
+
+        if isinstance(molecular_system, Topology):
+            return len(molecular_system.components.index) if not redefine_components else len(
+                get_component_index(
+                    molecular_system, element='component', selection='all', redefine_indices=True, syntax=syntax
+                )
+            )
+        if isinstance(molecular_system, MolSys):
+            return len(molecular_system.topology.components.index) if not redefine_components else len(
+                get_component_index(
+                    molecular_system, element='component', selection='all', redefine_indices=True, syntax=syntax
+                )
+            )
+
     if redefine_components:
 
         from .get_component_index import get_component_index
@@ -23,4 +40,3 @@ def get_n_components(molecular_system, selection='all', redefine_components=Fals
                      n_components=True)
 
     return output
-
