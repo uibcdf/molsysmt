@@ -18,9 +18,25 @@ _convert_to = {
     'nglview.NGLWidget': 'to_nglview_NGLWidget',
 }
 
+from .to_molsysmt_PDBFileHandler import to_molsysmt_PDBFileHandler
+from .to_molsysmt_MolSys import to_molsysmt_MolSys
+from .to_molsysmt_Topology import to_molsysmt_Topology
+from .to_molsysmt_Structures import to_molsysmt_Structures
+from .to_nglview_NGLWidget import to_nglview_NGLWidget
+
 from .is_form import is_form
 from .has_attribute import has_attribute
 from . import iterators
+
+from .attributes import attributes
+from .extract import extract
+from .copy import copy
+from .add import add
+from .merge import merge
+from .append_structures import append_structures
+from .get_topological_attributes import *
+from .get_structural_attributes import *
+from .set import *
 
 @arg_digest(form=form_name)
 def get(item, element='system', selection='all', syntax='MolSysMT', structure_indices='all', 

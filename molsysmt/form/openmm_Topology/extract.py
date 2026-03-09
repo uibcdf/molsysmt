@@ -9,23 +9,31 @@ def extract(item, atom_indices='all', structure_indices='all', copy_if_all=True,
 
     from openmm.app import Topology
 
+    if hasattr(item, 'topology'):
+        topology = item.topology
+    else:
+        topology = item
+
     if is_all(atom_indices) and is_all(structure_indices):
 
         if copy_if_all:
 
             new_item = Topology()
             newAtoms = {}
-            for chain in item.chains():
+            for chain in topology.chains():
                 newChain = new_item.addChain(chain.id)
                 for residue in chain.residues():
                     newResidue = new_item.addResidue(residue.name, newChain, residue.id, residue.insertionCode)
                     for atom in residue.atoms():
                         newAtom = new_item.addAtom(atom.name, atom.element, newResidue, atom.id)
                         newAtoms[atom] = newAtom
-            for bond in item.bonds():
+            for bond in topology.bonds():
                 new_item.addBond(newAtoms[bond[0]], newAtoms[bond[1]])
             del(newAtoms)
-            new_item.setPeriodicBoxVectors(item.getPeriodicBoxVectors())
+            if hasattr(topology, 'getPeriodicBoxVectors'):
+                new_item.setPeriodicBoxVectors(topology.getPeriodicBoxVectors())
+            elif hasattr(item, 'getPeriodicBoxVectors'):
+                new_item.setPeriodicBoxVectors(item.getPeriodicBoxVectors())
             tmp_item = new_item
 
         else:
@@ -37,7 +45,7 @@ def extract(item, atom_indices='all', structure_indices='all', copy_if_all=True,
         atom_indices_to_be_kept = atom_indices
         newAtoms = {}
         set_atom_indices = set(atom_indices_to_be_kept)
-        for chain in item.chains():
+        for chain in topology.chains():
             needNewChain = True
             for residue in chain.residues():
                 needNewResidue = True
@@ -51,12 +59,14 @@ def extract(item, atom_indices='all', structure_indices='all', copy_if_all=True,
                             needNewResidue = False;
                         newAtom = new_item.addAtom(atom.name, atom.element, newResidue, atom.id)
                         newAtoms[atom] = newAtom
-        for bond in item.bonds():
+        for bond in topology.bonds():
             if bond[0].index in set_atom_indices and bond[1].index in set_atom_indices:
                 new_item.addBond(newAtoms[bond[0]], newAtoms[bond[1]])
         del(newAtoms)
-        new_item.setPeriodicBoxVectors(item.getPeriodicBoxVectors())
+        if hasattr(topology, 'getPeriodicBoxVectors'):
+            new_item.setPeriodicBoxVectors(topology.getPeriodicBoxVectors())
+        elif hasattr(item, 'getPeriodicBoxVectors'):
+            new_item.setPeriodicBoxVectors(item.getPeriodicBoxVectors())
         tmp_item = new_item
 
     return tmp_item
-

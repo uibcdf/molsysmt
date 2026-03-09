@@ -12,8 +12,10 @@ def merge(items, atom_indices='all', structure_indices='all', skip_digestion=Fal
 
     n_items = len(items)
 
-    output = Structures()
+    if n_items == 0:
+        return Structures()
 
+    output = Structures()
 
     if is_all(atom_indices):
         atom_indices = ['all' for ii in range(n_items)]
@@ -27,19 +29,20 @@ def merge(items, atom_indices='all', structure_indices='all', skip_digestion=Fal
     if len(structure_indices)!=n_items:
         raise ValueError(structure_indices)
 
-    if is_all(structure_indices[0]):
-        output.n_structures = items[0].n_structures
+    # We need to set n_structures before checking it
+    first_structure_indices = structure_indices[0]
+    if is_all(first_structure_indices):
+        n_structures = items[0].n_structures
         output.box = deepcopy(items[0].box)
         output.structure_id = deepcopy(items[0].structure_id)
         output.time = deepcopy(items[0].time)
     else:
-        output.n_structures = len(structure_indices)
-        output.box = items[0].box[structure_indices,:,:]
-        output.id = items[0].id[structure_indices]
-        output.time = items[0].time[structure_indices]
+        n_structures = len(first_structure_indices)
+        output.box = items[0].box[first_structure_indices,:,:]
+        output.structure_id = items[0].structure_id[first_structure_indices]
+        output.time = items[0].time[first_structure_indices]
 
-
-    output.alternate_location = [{} for ii in range(output.n_structures)]
+    output.alternate_location = [{} for ii in range(n_structures)]
 
     with_alternate_location = False
 
@@ -53,126 +56,59 @@ def merge(items, atom_indices='all', structure_indices='all', skip_digestion=Fal
     for aux_item, aux_atom_indices, aux_structure_indices in zip(items, atom_indices, structure_indices):
 
         if is_all(aux_structure_indices):
-            if is_all(aux_atom_indices):
+            
+            aux_n_atoms = aux_item.n_atoms if is_all(aux_atom_indices) else len(aux_atom_indices)
 
-                aux_n_atoms = aux_item.n_atoms
+            if aux_n_atoms > 0:
 
-                if aux_n_atoms > 0:
+                if n_structures != aux_item.n_structures:
+                    raise ValueError(f"Inconsistent number of structures: {n_structures} vs {aux_item.n_structures}")
 
-                    if output.n_structures!=aux_item.n_structures:
-                        raise ValueError()
-
+                if is_all(aux_atom_indices):
                     list_coordinates.append(aux_item.coordinates)
                     list_velocities.append(aux_item.velocities)
                     list_b_factor.append(aux_item.b_factor)
+                else:
+                    list_coordinates.append(aux_item.coordinates[:,aux_atom_indices,:] if aux_item.coordinates is not None else None)
+                    list_velocities.append(aux_item.velocities[:,aux_atom_indices,:] if aux_item.velocities is not None else None)
+                    list_b_factor.append(aux_item.b_factor[:,aux_atom_indices] if aux_item.b_factor is not None else None)
 
-                    if aux_item.alternate_location is not None:
-                        for ii, alt_loc_dict in enumerate(aux_item.alternate_location):
-                            if alt_loc_dict is not None:
-                                for key, value in alt_loc_dict.items():
-                                    output.alternate_location[ii][key+count_n_atoms]=value
-            else:
-
-                aux_n_atoms = len(aux_atom_indices)
-
-                if aux_n_atoms > 0:
-
-                    if output.n_structures!=aux_item.n_structures:
-                        raise ValueError()
-
-                    if aux_item.coordinates is not None:
-                        list_coordinates.append(aux_item.coordinates[:,aux_atom_indices,:])
-                    else:
-                        list_coordinates.append(None)
-
-                    if aux_item.velocities is not None:
-                        list_velocities.append(aux_item.velocities[:,aux_atom_indices,:])
-                    else:
-                        list_velocities.append(None)
-
-                    if aux_item.b_factor is not None:
-                        list_b_factor.append(aux_item.b_factor[:,aux_atom_indices])
-                    else:
-                        list_b_factor.append(None)
-
-                    if aux_item.alternate_location is not None:
-                        for ii, alt_loc_dict in enumerate(aux_item.alternate_location):
-                            if alt_loc_dict is not None:
-                                for key, value in alt_loc_dict.items():
-                                    output.alternate_location[ii][key+count_n_atoms]=value
-
+                if aux_item.alternate_location is not None:
+                    for ii, alt_loc_dict in enumerate(aux_item.alternate_location):
+                        if alt_loc_dict is not None:
+                            for key, value in alt_loc_dict.items():
+                                output.alternate_location[ii][key+count_n_atoms]=value
         else:
 
             aux_n_structure_indices = len(aux_structure_indices)
 
             if aux_n_structure_indices > 0:
+                
+                if n_structures != aux_n_structure_indices:
+                     raise ValueError(f"Inconsistent number of structures: {n_structures} vs {aux_n_structure_indices}")
 
-                if is_all(aux_atom_indices):
+                aux_n_atoms = aux_item.n_atoms if is_all(aux_atom_indices) else len(aux_atom_indices)
 
-                    aux_n_atoms = aux_item.n_atoms
+                if aux_n_atoms > 0:
 
-                    if aux_n_atoms > 0:
+                    if is_all(aux_atom_indices):
+                        list_coordinates.append(aux_item.coordinates[aux_structure_indices,:,:] if aux_item.coordinates is not None else None)
+                        list_velocities.append(aux_item.velocities[aux_structure_indices,:,:] if aux_item.velocities is not None else None)
+                        list_b_factor.append(aux_item.b_factor[aux_structure_indices,:] if aux_item.b_factor is not None else None)
+                    else:
+                        tmp = aux_item.coordinates[aux_structure_indices,:,:] if aux_item.coordinates is not None else None
+                        list_coordinates.append(tmp[:,aux_atom_indices,:] if tmp is not None else None)
+                        tmp = aux_item.velocities[aux_structure_indices,:,:] if aux_item.velocities is not None else None
+                        list_velocities.append(tmp[:,aux_atom_indices,:] if tmp is not None else None)
+                        tmp = aux_item.b_factor[aux_structure_indices,:] if aux_item.b_factor is not None else None
+                        list_b_factor.append(tmp[:,aux_atom_indices] if tmp is not None else None)
 
-                        if output.n_structures!=aux_item.n_structures:
-                            raise ValueError()
-
-                        if aux_item.coordinates is not None:
-                            list_coordinates.append(aux_item.coordinates[aux_structure_indices,:,:])
-                        else:
-                            list_coordinates.append(None)
-
-                        if aux_item.velocities is not None:
-                            list_velocities.append(aux_item.velocities[aux_structure_indices,:,:])
-                        else:
-                            list_velocities.append(None)
-
-                        if aux_item.b_factor is not None:
-                            list_b_factor.append(aux_item.b_factor[aux_structure_indices,:])
-                        else:
-                            list_b_factor.append(None)
-
-                        if aux_item.alternate_location is not None:
-                            for ii, alt_loc_dict in enumerate(aux_item.alternate_location):
-                                if alt_loc_dict is not None:
-                                    for key, value in alt_loc_dict.items():
-                                        output.alternate_location[ii][key+count_n_atoms]=value
-
-                else:
-
-                    aux_n_atoms = len(aux_atom_indices)
-
-                    if aux_n_atoms > 0:
-
-                        if output.n_structures!=aux_item.n_structures:
-                            raise ValueError()
-
-                        if aux_item.coordinates is not None:
-                            tmp = aux_item.coordinates[aux_structure_indices,:,:]
-                            list_coordinates.append(tmp[:,aux_atom_indices,:])
-                            del(tmp)
-                        else:
-                            list_coordinates.append(None)
-
-                        if aux_item.velocities is not None:
-                            tmp = aux_item.velocities[aux_structure_indices,:,:]
-                            list_velocities.append(tmp[:,aux_atom_indices,:])
-                        else:
-                            list_velocities.append(None)
-
-                        if aux_item.b_factor is not None:
-                            tmp = aux_item.b_factor[aux_structure_indices,:]
-                            list_b_factor.append(tmp[:,aux_atom_indices])
-                        else:
-                            list_b_factor.append(None)
-
-                        if aux_item.alternate_location is not None:
-                            for ii, alt_loc_dict in enumerate(aux_item.alternate_location):
-                                if ii in aux_structure_indices:
-                                    if alt_loc_dict is not None:
-                                        for key, value in alt_loc_dict.items():
-                                            output.alternate_location[ii][key+count_n_atoms]=value
-
-
+                    if aux_item.alternate_location is not None:
+                        for ii, alt_loc_idx in enumerate(aux_structure_indices):
+                            alt_loc_dict = aux_item.alternate_location[alt_loc_idx]
+                            if alt_loc_dict is not None:
+                                for key, value in alt_loc_dict.items():
+                                    output.alternate_location[ii][key+count_n_atoms]=value
 
         count_n_atoms += aux_n_atoms
 
@@ -193,7 +129,4 @@ def merge(items, atom_indices='all', structure_indices='all', skip_digestion=Fal
 
     del(list_coordinates, list_velocities, list_b_factor)
 
-    output.n_atoms = count_n_atoms
-
     return output
-

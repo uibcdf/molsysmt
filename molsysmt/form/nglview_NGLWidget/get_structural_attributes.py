@@ -21,14 +21,26 @@ def get_coordinates_from_atom(item, indices='all', structure_indices='all', skip
         n_structures = get_n_structures_from_system(item, skip_digestion=True)
         structure_indices = np.arange(n_structures)
 
-    if hasattr(item[0], 'get_coordinates'):
+    if hasattr(item, 'component_0') and hasattr(item.component_0, 'coordinates'):
+        
+        coordinates = []
+        for ii in structure_indices:
+            if is_all(indices):
+                coordinates.append(item.component_0.coordinates[ii])
+            else:
+                coordinates.append(item.component_0.coordinates[ii][indices,:])
+        coordinates = np.array(coordinates)
+        coordinates = puw.quantity(coordinates, unit='angstroms')
+        coordinates = puw.standardize(coordinates)
+
+    elif hasattr(item, 'component_0') and hasattr(item.component_0, 'get_coordinates'):
 
         coordinates = []
         for ii in structure_indices:
             if is_all(indices):
-                coordinates.append(item[0].get_coordinates(ii))
+                coordinates.append(item.component_0.get_coordinates(ii))
             else:
-                coordinates.append(item[0].get_coordinates(ii)[indices,:])
+                coordinates.append(item.component_0.get_coordinates(ii)[indices,:])
         coordinates = np.array(coordinates)
         coordinates = puw.quantity(coordinates, unit='angstroms')
         coordinates = puw.standardize(coordinates)
@@ -99,4 +111,3 @@ def get_coordinates_from_system(item, structure_indices='all', skip_digestion=Fa
 # List of functions to be imported
 
 __all__ = [name for name, obj in globals().items() if isinstance(obj, types.FunctionType) and name.startswith('get_')]
-

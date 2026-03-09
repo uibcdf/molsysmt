@@ -1,14 +1,10 @@
 from molsysmt._private.arg_digestion import arg_digest
-import numpy as np
 
 @arg_digest(form='mdtraj.Trajectory')
 def to_string_amino_acids_1(item, atom_indices='all', skip_digestion=False):
 
-    from molsysmt.form.mdtraj_Topology import to_mdtraj_Topology
     from molsysmt.form.mdtraj_Topology import to_string_amino_acids_1 as mdtraj_Topology_to_string_amino_acids_1
 
-    tmp_item = to_mdtraj_Topology(item, skip_digestion=True)
-    tmp_item = mdtraj_Topology_to_string_amino_acids_1(tmp_item, atom_indices=atom_indices, skip_digestion=True)
+    output = mdtraj_Topology_to_string_amino_acids_1(item.topology, atom_indices=atom_indices, skip_digestion=True)
 
-    return tmp_item
-
+    return output

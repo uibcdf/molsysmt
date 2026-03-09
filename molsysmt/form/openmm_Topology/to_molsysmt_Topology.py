@@ -3,7 +3,7 @@ from molsysmt.element.group import get_group_type_from_group_name
 import numpy as np
 
 @arg_digest(form='openmm.Topology')
-def to_molsysmt_Topology(item, atom_indices='all', skip_digestion=False):
+def to_molsysmt_Topology(item, atom_indices='all', get_missing_bonds=True, skip_digestion=False):
 
     from molsysmt.native import Topology
     from molsysmt.form.molsysmt_Topology.extract import extract as extract_molsysmt_Topology
@@ -68,6 +68,16 @@ def to_molsysmt_Topology(item, atom_indices='all', skip_digestion=False):
         for bond in item.bonds():
             bonded_atoms.append([bond.atom1.index, bond.atom2.index])
         tmp_item.add_bonds(bonded_atoms, skip_digestion=True)
+    elif get_missing_bonds:
+        from molsysmt.build import get_missing_bonds as _get_missing_bonds
+        try:
+            # We try to get bonds using MolSysMT's internal heuristics
+            # This works well for water/ions even without coordinates if names are standard
+            bonded_atoms = _get_missing_bonds(item, skip_digestion=True)
+            if bonded_atoms is not None and len(bonded_atoms)>0:
+                tmp_item.add_bonds(bonded_atoms, skip_digestion=True)
+        except:
+            pass
 
     # Rebuild remaining hierarchy
     tmp_item.rebuild_components()

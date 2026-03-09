@@ -7492,17 +7492,26 @@ def get_n_groups_from_system(item, skip_digestion=False):
 @arg_digest(form=form)
 def get_n_molecules_from_system(item, skip_digestion=False):
 
+    if item.groups['molecule_index'].isnull().any():
+        item.rebuild_molecules()
+
     return item.molecules.shape[0]
 
 
 @arg_digest(form=form)
 def get_n_entities_from_system(item, skip_digestion=False):
 
+    if item.molecules['entity_index'].isnull().any():
+        item.rebuild_entities()
+
     return item.entities.shape[0]
 
 
 @arg_digest(form=form)
 def get_n_components_from_system(item, skip_digestion=False):
+
+    if item.atoms['component_index'].isnull().any():
+        item.rebuild_components()
 
     return item.components.shape[0]
 
