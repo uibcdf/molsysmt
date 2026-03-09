@@ -1,10 +1,28 @@
 from molsysmt._private.arg_digestion import arg_digest
-import numpy as np
 
 
 @arg_digest()
 def get_entity_name(molecular_system, element='entity', selection='all', redefine_indices=False,
                     redefine_names=False, syntax='MolSysMT', skip_digestion=False):
+
+    if selection == 'all':
+        from molsysmt.native import MolSys, Topology
+        from molsysmt.native._hierarchy import project_entity_name_from_topology
+
+        if isinstance(molecular_system, Topology):
+            return project_entity_name_from_topology(
+                molecular_system,
+                element=element,
+                redefine_indices=redefine_indices,
+                redefine_names=redefine_names,
+            )
+        if isinstance(molecular_system, MolSys):
+            return project_entity_name_from_topology(
+                molecular_system.topology,
+                element=element,
+                redefine_indices=redefine_indices,
+                redefine_names=redefine_names,
+            )
 
     if redefine_indices or redefine_names:
 

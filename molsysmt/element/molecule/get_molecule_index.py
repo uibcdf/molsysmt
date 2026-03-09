@@ -5,6 +5,19 @@ from molsysmt._private.arg_digestion import arg_digest
 def get_molecule_index(molecular_system, element='molecule', selection='all',
                        redefine_indices=False, syntax='MolSysMT', skip_digestion=False):
 
+    if selection == 'all':
+        from molsysmt.native import MolSys, Topology
+        from molsysmt.native._hierarchy import project_molecule_index_from_topology
+
+        if isinstance(molecular_system, Topology):
+            return project_molecule_index_from_topology(
+                molecular_system, element=element, redefine_indices=redefine_indices
+            )
+        if isinstance(molecular_system, MolSys):
+            return project_molecule_index_from_topology(
+                molecular_system.topology, element=element, redefine_indices=redefine_indices
+            )
+
     if redefine_indices:
 
         from ..component import get_component_index
@@ -13,8 +26,7 @@ def get_molecule_index(molecular_system, element='molecule', selection='all',
                             selection='all', redefine_indices=True, syntax='MolSysMT')
 
         molecule_indices_from_component = component_indices_from_component
-        
-        # Mapping component to molecule
+
         comp_to_mol = {ii: jj for ii, jj in enumerate(molecule_indices_from_component)}
 
         if element == 'atom':
@@ -41,7 +53,6 @@ def get_molecule_index(molecular_system, element='molecule', selection='all',
 
         elif element == 'molecule':
 
-            # Note: molecule_index is equal to component_index
             output = component_indices_from_component
 
         elif element == 'entity':

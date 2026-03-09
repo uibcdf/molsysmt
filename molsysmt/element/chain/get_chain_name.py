@@ -1,12 +1,22 @@
 from molsysmt._private.arg_digestion import arg_digest
-from ..molecule import _singular_molecule_type_to_plural
-import numpy as np
 
 @arg_digest()
 def get_chain_name(molecular_system, element='atom', selection='all',
                    redefine_indices=False, redefine_ids=False, redefine_names=False, syntax='MolSysMT',
                    skip_digestion=False):
 
+    if selection == 'all':
+        from molsysmt.native import MolSys, Topology
+        from molsysmt.native._hierarchy import project_chain_name_from_topology
+
+        if isinstance(molecular_system, Topology):
+            return project_chain_name_from_topology(
+                molecular_system, element=element, redefine_indices=redefine_indices, redefine_names=redefine_names
+            )
+        if isinstance(molecular_system, MolSys):
+            return project_chain_name_from_topology(
+                molecular_system.topology, element=element, redefine_indices=redefine_indices, redefine_names=redefine_names
+            )
 
     if redefine_names:
 
@@ -33,4 +43,3 @@ def get_chain_name(molecular_system, element='atom', selection='all',
                      chain_name=True, skip_digestion=True)
 
     return output
-

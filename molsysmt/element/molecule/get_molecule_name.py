@@ -6,6 +6,25 @@ import numpy as np
 def get_molecule_name(molecular_system, element='molecule', selection='all', redefine_indices=False,
                        redefine_names=False, syntax='MolSysMT', skip_digestion=False):
 
+    if selection == 'all':
+        from molsysmt.native import MolSys, Topology
+        from molsysmt.native._hierarchy import project_molecule_name_from_topology
+
+        if isinstance(molecular_system, Topology):
+            return project_molecule_name_from_topology(
+                molecular_system,
+                element=element,
+                redefine_indices=redefine_indices,
+                redefine_names=redefine_names,
+            )
+        if isinstance(molecular_system, MolSys):
+            return project_molecule_name_from_topology(
+                molecular_system.topology,
+                element=element,
+                redefine_indices=redefine_indices,
+                redefine_names=redefine_names,
+            )
+
     if redefine_indices or redefine_names:
 
         from ..component import get_component_name, get_component_index

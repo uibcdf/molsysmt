@@ -4,6 +4,19 @@ from molsysmt._private.arg_digestion import arg_digest
 def get_chain_index(molecular_system, element='atom', selection='all',
                     redefine_indices=False, syntax='MolSysMT', skip_digestion=False):
 
+    if selection == 'all':
+        from molsysmt.native import MolSys, Topology
+        from molsysmt.native._hierarchy import project_chain_index_from_topology
+
+        if isinstance(molecular_system, Topology):
+            return project_chain_index_from_topology(
+                molecular_system, element=element, redefine_indices=redefine_indices
+            )
+        if isinstance(molecular_system, MolSys):
+            return project_chain_index_from_topology(
+                molecular_system.topology, element=element, redefine_indices=redefine_indices
+            )
+
     from molsysmt import get
 
     if redefine_indices:
@@ -46,4 +59,3 @@ def get_chain_index(molecular_system, element='atom', selection='all',
                      chain_index=True, skip_digestion=True)
 
     return output
-

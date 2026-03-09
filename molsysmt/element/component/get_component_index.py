@@ -7,6 +7,19 @@ import numpy as np
 def get_component_index(molecular_system, element='component', selection='all', redefine_indices=False,
                         syntax='MolSysMT', skip_digestion=False):
 
+    if selection == 'all':
+        from molsysmt.native import MolSys, Topology
+        from molsysmt.native._hierarchy import project_component_index_from_topology
+
+        if isinstance(molecular_system, Topology):
+            return project_component_index_from_topology(
+                molecular_system, element=element, redefine_indices=redefine_indices
+            )
+        if isinstance(molecular_system, MolSys):
+            return project_component_index_from_topology(
+                molecular_system.topology, element=element, redefine_indices=redefine_indices
+            )
+
     if redefine_indices:
 
         from molsysmt.lib.topology import get_component_index_from_bonded_atom_pairs
