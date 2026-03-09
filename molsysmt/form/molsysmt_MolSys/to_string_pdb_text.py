@@ -62,70 +62,108 @@ def to_string_pdb_text(item, atom_indices='all', structure_indices='all', pdb_ch
         tmp_item += line
 
     if is_all(atom_indices):
-        aux_df = item.topology.atoms
+        aux_df = item.topology.atoms.copy()
+        source_atom_indices = aux_df.index.to_numpy()
     else:
-        aux_df = item.topology.atoms.iloc[atom_indices]
+        aux_df = item.topology.atoms.iloc[atom_indices].copy()
+        source_atom_indices = aux_df.index.to_numpy()
         aux_df.reset_index(drop=True, inplace=True)
 
-    st_ii=0
+    pdb_serial_by_source_atom_index = {}
+    for local_atom_index, atom in zip(source_atom_indices, aux_df.itertuples()):
+        try:
+            pdb_serial_by_source_atom_index[int(local_atom_index)] = int(str(atom.atom_id))
+        except (TypeError, ValueError):
+            pdb_serial_by_source_atom_index[int(local_atom_index)] = atom.Index + 1
 
-    if is_all(atom_indices):
-        aux_coors = puw.get_value(item.structures.coordinates[st_ii, :, :], to_unit='angstroms')
+    if is_all(structure_indices):
+        structure_indices_to_write = list(range(item.structures.coordinates.shape[0]))
     else:
-        aux_coors = puw.get_value(item.structures.coordinates[st_ii, atom_indices, :], to_unit='angstroms')
+        structure_indices_to_write = list(structure_indices)
 
-    if with_multiple_models:
+    for local_st_ii, st_ii in enumerate(structure_indices_to_write):
 
-        line = f"MODEL     {model_index[st_ii]:>4}"
-        tmp_item += line
+        if is_all(atom_indices):
+            aux_coors = puw.get_value(item.structures.coordinates[st_ii, :, :], to_unit='angstroms')
+        else:
+            aux_coors = puw.get_value(item.structures.coordinates[st_ii, atom_indices, :], to_unit='angstroms')
 
-    for atom in aux_df.itertuples():
+        if with_multiple_models:
+            line = f"MODEL     {model_index[local_st_ii]:>4}\n"
+            tmp_item += line
 
-        head = 'ATOM'
+        previous_chain_index = None
 
-        atom_id = str(atom.atom_id)
-        atom_name = atom.atom_name
-        group_name = item.topology.groups.iloc[atom.group_index, 1]
-        group_id = str(item.topology.groups.iloc[atom.group_index, 0])
-        chain_id = item.topology.chains.iloc[atom.chain_index, pdb_chain_id_column]
+        for atom in aux_df.itertuples():
 
-        x,y,z = aux_coors[atom.Index, :]
+            if previous_chain_index is not None and atom.chain_index != previous_chain_index:
+                tmp_item += "TER\n"
 
-        occupancy = 0.0
-        temp_factor = 0.0
+            previous_chain_index = atom.chain_index
 
-        element_symbol = atom.atom_type
+            head = 'ATOM'
 
-        line = (
-            f"{head[:6].ljust(6)}"
-            f"{atom_id[:5].rjust(5)}"
-            f"{' ':1}"
-            f"{atom_name[:4].ljust(4)}"
-            f"{' ':1}"
-            f"{group_name[:3].rjust(3)}"
-            f"{' ':1}"
-            f"{chain_id[:1].rjust(1)}"
-            f"{group_id[:4].rjust(4)}"
-            f"{' ':1}"
-            f"{' ':3}"
-            f"{x:>8.3f}"
-            f"{y:>8.3f}"
-            f"{z:>8.3f}"
-            f"{occupancy:>6.2f}"
-            f"{temp_factor:>6.2f}"
-            f"{' ':10}"
-            f"{element_symbol[:2].rjust(2)}"
-            f"\n"
-        )
-        tmp_item += line
+            atom_id = str(atom.atom_id)
+            atom_name = atom.atom_name
+            group_name = item.topology.groups.iloc[atom.group_index, 1]
+            group_id = str(item.topology.groups.iloc[atom.group_index, 0])
+            chain_id = item.topology.chains.iloc[atom.chain_index, pdb_chain_id_column]
 
-    if with_multiple_models:
+            x,y,z = aux_coors[atom.Index, :]
 
-        line = f"ENDMDL"
-        tmp_item += line
+            occupancy = 0.0
+            temp_factor = 0.0
+
+            element_symbol = atom.atom_type if atom.atom_type is not None else ''
+
+            line = (
+                f"{head[:6].ljust(6)}"
+                f"{atom_id[:5].rjust(5)}"
+                f"{' ':1}"
+                f"{atom_name[:4].ljust(4)}"
+                f"{' ':1}"
+                f"{group_name[:3].rjust(3)}"
+                f"{' ':1}"
+                f"{chain_id[:1].rjust(1)}"
+                f"{group_id[:4].rjust(4)}"
+                f"{' ':1}"
+                f"{' ':3}"
+                f"{x:>8.3f}"
+                f"{y:>8.3f}"
+                f"{z:>8.3f}"
+                f"{occupancy:>6.2f}"
+                f"{temp_factor:>6.2f}"
+                f"{' ':10}"
+                f"{element_symbol[:2].rjust(2)}"
+                f"\n"
+            )
+            tmp_item += line
+
+        if with_multiple_models:
+            tmp_item += "ENDMDL\n"
+
+    if item.topology.bonds.shape[0] > 0:
+        atom_index_in_output = set(int(ii) for ii in source_atom_indices)
+        bonded_pairs_written = set()
+
+        for bond in item.topology.bonds.itertuples():
+            atom1_index = int(bond.atom1_index)
+            atom2_index = int(bond.atom2_index)
+
+            if atom1_index not in atom_index_in_output or atom2_index not in atom_index_in_output:
+                continue
+
+            atom1_serial = pdb_serial_by_source_atom_index[atom1_index]
+            atom2_serial = pdb_serial_by_source_atom_index[atom2_index]
+
+            pair = tuple(sorted((atom1_serial, atom2_serial)))
+            if pair in bonded_pairs_written:
+                continue
+
+            bonded_pairs_written.add(pair)
+            tmp_item += f"CONECT{atom1_serial:>5}{atom2_serial:>5}\n"
 
 
     tmp_item += 'END\n'
 
     return tmp_item
-

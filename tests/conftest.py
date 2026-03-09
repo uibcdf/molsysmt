@@ -105,6 +105,34 @@ def _base_t4_pdb_molsys():
     assert molsys is not None
     return molsys
 
+
+@pytest.fixture(scope="session")
+def _base_t4_pdb_text():
+    pdb_text = msm.convert(systems['T4 lysozyme L99A']['181l.pdb'], to_form='string:pdb_text')
+    assert pdb_text is not None
+    return pdb_text
+
+
+@pytest.fixture(scope="session")
+def _base_t4_written_pdb_text(_base_t4_pdb_molsys):
+    pdb_text = msm.convert(_base_t4_pdb_molsys, to_form='string:pdb_text')
+    assert pdb_text is not None
+    return pdb_text
+
+
+@pytest.fixture(scope="session")
+def _base_md_1u19_pdb_molsys():
+    molsys = msm.convert(systems['nglview']['md_1u19.pdb'], to_form='molsysmt.MolSys')
+    assert molsys is not None
+    return molsys
+
+
+@pytest.fixture(scope="session")
+def _base_md_1u19_pdb_text():
+    pdb_text = msm.convert(systems['nglview']['md_1u19.pdb'], to_form='string:pdb_text')
+    assert pdb_text is not None
+    return pdb_text
+
 # TcTIM systems
 
 @pytest.fixture(scope="session")
@@ -196,6 +224,43 @@ def t4_h5msm_molsys(_base_t4_h5msm_molsys):
 def t4_pdb_molsys(_base_t4_pdb_molsys):
     return _base_t4_pdb_molsys.copy()
 
+
+@pytest.fixture()
+def t4_pdb_file():
+    return systems['T4 lysozyme L99A']['181l.pdb']
+
+
+@pytest.fixture()
+def t4_pdb_text(_base_t4_pdb_text):
+    return _base_t4_pdb_text
+
+
+@pytest.fixture()
+def t4_written_pdb_text(_base_t4_written_pdb_text):
+    return _base_t4_written_pdb_text
+
+
+@pytest.fixture()
+def t4_pdb_handler(t4_pdb_text):
+    handler = msm.convert(t4_pdb_text, to_form='molsysmt.PDBFileHandler')
+    yield handler
+    handler.close()
+
+
+@pytest.fixture()
+def md_1u19_pdb_molsys(_base_md_1u19_pdb_molsys):
+    return _base_md_1u19_pdb_molsys.copy()
+
+
+@pytest.fixture()
+def md_1u19_pdb_file():
+    return systems['nglview']['md_1u19.pdb']
+
+
+@pytest.fixture()
+def md_1u19_pdb_text(_base_md_1u19_pdb_text):
+    return _base_md_1u19_pdb_text
+
 @pytest.fixture()
 def tctim_h5msm_molsys(_base_tctim_h5msm_molsys):
     return _base_tctim_h5msm_molsys.copy()
@@ -215,4 +280,3 @@ def popc_membrane_structures(_base_popc_membrane_molsys):
 @pytest.fixture()
 def traj_pentalanine_h5_molsys(_base_traj_pentalanine_h5_molsys):
     return _base_traj_pentalanine_h5_molsys.copy()
-

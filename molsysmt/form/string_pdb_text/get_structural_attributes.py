@@ -31,10 +31,10 @@ def get_n_structures_from_system(item, structure_indices='all', skip_digestion=F
 
     if is_all(structure_indices):
 
-        from molsysmt.form.molsysmt_Structures import to_molsysmt_Structures
-        from molsysmt.form.molsysmt_Structures import get_n_structures_from_system as aux_get
+        from molsysmt.form.molsysmt_PDBFileHandler import to_molsysmt_PDBFileHandler
+        from molsysmt.form.molsysmt_PDBFileHandler.get_structural_attributes import get_n_structures_from_system as aux_get
 
-        tmp_item = to_molsysmt_Structures(item, skip_digestion=True)
+        tmp_item = to_molsysmt_PDBFileHandler(item, skip_digestion=True)
         output = aux_get(tmp_item, skip_digestion=True)
 
     else:
@@ -81,4 +81,3 @@ def get_structure_id_from_system(item, structure_indices='all', skip_digestion=F
 # List of functions to be imported
 
 __all__ = [name for name, obj in globals().items() if isinstance(obj, types.FunctionType) and name.startswith('get_')]
-
