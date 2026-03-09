@@ -1,10 +1,28 @@
 from molsysmt._private.arg_digestion import arg_digest
-import numpy as np
 
 
 @arg_digest()
-def get_entity_type(molecular_system, element='type', selection='all', redefine_indices=False,
+def get_entity_type(molecular_system, element='entity', selection='all', redefine_indices=False,
                     redefine_types=False, syntax='MolSysMT', skip_digestion=False):
+
+    if selection == 'all':
+        from molsysmt.native import MolSys, Topology
+        from molsysmt.native._hierarchy import project_entity_type_from_topology
+
+        if isinstance(molecular_system, Topology):
+            return project_entity_type_from_topology(
+                molecular_system,
+                element=element,
+                redefine_indices=redefine_indices,
+                redefine_types=redefine_types,
+            )
+        if isinstance(molecular_system, MolSys):
+            return project_entity_type_from_topology(
+                molecular_system.topology,
+                element=element,
+                redefine_indices=redefine_indices,
+                redefine_types=redefine_types,
+            )
 
     if redefine_indices:
 
@@ -26,4 +44,3 @@ def get_entity_type(molecular_system, element='type', selection='all', redefine_
                      entity_type=True)
 
     return output
-

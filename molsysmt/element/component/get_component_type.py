@@ -7,6 +7,19 @@ import pandas as pd
 def get_component_type(molecular_system, element='component', selection='all', redefine_indices=False,
                        redefine_types=False, syntax='MolSysMT', skip_digestion=False):
 
+    if selection == 'all':
+        from molsysmt.native import MolSys, Topology
+        from molsysmt.native._hierarchy import project_component_type_from_topology
+
+        if isinstance(molecular_system, Topology):
+            return project_component_type_from_topology(
+                molecular_system, element=element, redefine_indices=redefine_indices, redefine_types=redefine_types
+            )
+        if isinstance(molecular_system, MolSys):
+            return project_component_type_from_topology(
+                molecular_system.topology, element=element, redefine_indices=redefine_indices, redefine_types=redefine_types
+            )
+
     from molsysmt.basic import get
 
     if redefine_indices or redefine_types:
@@ -33,7 +46,7 @@ def get_component_type(molecular_system, element='component', selection='all', r
 
         aux_df = pd.DataFrame({'component_indices':component_indices, 'group_indices':group_index_per_atom})
         aux_dict = aux_df.groupby('component_indices')['group_indices'].unique().to_dict()
-        
+
         component_types={}
 
         for component_index, group_indices in aux_dict.items():
@@ -116,4 +129,3 @@ def _get_component_type_from_group_names_and_types(group_names, group_types):
         tmp_type = 'unknown'
 
     return tmp_type
-

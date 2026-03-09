@@ -7,6 +7,25 @@ def get_molecule_type(molecular_system, element='molecule', selection='all',
         redefine_indices=False, redefine_types=False, syntax='MolSysMT',
         skip_digestion=False):
 
+    if selection == 'all':
+        from molsysmt.native import MolSys, Topology
+        from molsysmt.native._hierarchy import project_molecule_type_from_topology
+
+        if isinstance(molecular_system, Topology):
+            return project_molecule_type_from_topology(
+                molecular_system,
+                element=element,
+                redefine_indices=redefine_indices,
+                redefine_types=redefine_types,
+            )
+        if isinstance(molecular_system, MolSys):
+            return project_molecule_type_from_topology(
+                molecular_system.topology,
+                element=element,
+                redefine_indices=redefine_indices,
+                redefine_types=redefine_types,
+            )
+
     from molsysmt.basic import get
 
     if redefine_indices:

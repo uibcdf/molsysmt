@@ -5,6 +5,19 @@ import numpy as np
 def get_component_name(molecular_system, element='component', selection='all', redefine_indices=False,
                        redefine_names=False, syntax='MolSysMT', skip_digestion=False):
 
+    if selection == 'all':
+        from molsysmt.native import MolSys, Topology
+        from molsysmt.native._hierarchy import project_component_name_from_topology
+
+        if isinstance(molecular_system, Topology):
+            return project_component_name_from_topology(
+                molecular_system, element=element, redefine_indices=redefine_indices, redefine_names=redefine_names
+            )
+        if isinstance(molecular_system, MolSys):
+            return project_component_name_from_topology(
+                molecular_system.topology, element=element, redefine_indices=redefine_indices, redefine_names=redefine_names
+            )
+
     if redefine_indices or redefine_names:
 
         from .get_component_index import get_component_index
@@ -32,10 +45,10 @@ def get_component_name(molecular_system, element='component', selection='all', r
         peptides = {}
 
         component_name_from_component = []
-        
+
         for component_type, first_atom, n_atoms in zip(component_type_from_component, first_atom_per_component,
                                                        n_atoms_per_component):
-            
+
             if component_type in ['peptide']:
 
                 atom_indices_peptide = np.arange(n_atoms) + first_atom
@@ -119,87 +132,3 @@ def get_component_name(molecular_system, element='component', selection='all', r
                      component_name=True)
 
     return output
-
-
-### from native topology
-
-#from molsysmt.element.group.small_molecule import group_names as small_molecule_names
-#from molsysmt.element.group.saccharide import group_names as saccharide_names
-
-#aux_df = self.groups.groupby('component_index').agg(group_name=('group_name', list),
-#                                                    group_type=('group_type', list))
-
-#component_types = self.components['component_type'].to_numpy()
-
-#counter = {'peptide':0, 'protein':0, 'small molecule':0, 'saccharide':0, 'unknown':0}
-
-#peptides = {}
-#proteins = {}
-#small_molecules = {}
-#saccharides = {}
-
-#for component_type, row in zip(component_types, aux_df.itertuples(index=True)):
-#
-#    if component_type == 'peptide':
-
-#        string_peptide = ','.join(row.group_name)
-
-#        if string_peptide in peptides:
-#            component_name = peptides[string_peptide]
-#        else:
-#            component_name = component_type+' '+str(counter[component_type])
-#            peptides[string_peptide] = component_name
-#            counter[component_type] += 1
-
-#    elif component_type == 'protein':
-
-#        string_protein = ','.join(row.group_name)
-
-#        if string_protein in proteins:
-#            component_name = proteins[string_protein]
-#        else:
-#            component_name = component_type+' '+str(counter[component_type])
-#            proteins[string_protein] = component_name
-#            counter[component_type] += 1
-
-#    elif component_type == 'small molecule':
-
-#        group_name = row.group_name[0]
-
-#        if group_name in small_molecules:
-#            component_name = small_molecules[group_name]
-#        else:
-#            if group_name in small_molecule_names:
-#                component_name = group_name
-#            else:
-#                component_name = group_name
-#            small_molecules[component_name] = component_name
-
-#    elif component_type == 'saccharide':
-
-#        group_name = row.group_name[0]
-
-#        if group_name in saccharides:
-#            component_name = saccharides[group_name]
-#        else:
-#            if group_name in saccharide_names:
-#                component_name = group_name
-#            else:
-#                component_name = group_name
-#            saccharides[component_name] = component_name
-
-#    elif component_type in ['ion', 'lipid']:
-
-#        component_name = row.group_name[0]
-
-#    elif component_type in ['water']:
-
-#        component_name = 'water'
-
-#    else:
-
-#        component_name = 'unknown '+str(counter['unknown'])
-#        counter['unknown']+=1
-
-#    self.components.iloc[row.Index,1] = component_name
-
