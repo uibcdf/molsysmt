@@ -41,11 +41,10 @@ def get_atom_id_from_atom(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_atom_name_from_atom(item, indices='all', skip_digestion=False):
 
-    from molsysmt.form.molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import get_atom_name_from_atom as aux_get
+    from molsysmt.form.molsysmt_PDBFileHandler import to_molsysmt_PDBFileHandler
+    from molsysmt.form.molsysmt_PDBFileHandler.get_topological_attributes import get_atom_name_from_atom as aux_get
 
-    bonds_required = bonds_are_required_to_get_attribute('atom_id', 'atom')
-    tmp_item = to_molsysmt_Topology(item, get_missing_bonds=bonds_required, skip_digestion=True)
+    tmp_item = to_molsysmt_PDBFileHandler(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -772,11 +771,10 @@ def get_group_id_from_group(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_group_name_from_group(item, indices='all', skip_digestion=False):
 
-    from molsysmt.form.molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import get_group_name_from_group as aux_get
+    from molsysmt.form.molsysmt_PDBFileHandler import to_molsysmt_PDBFileHandler
+    from molsysmt.form.molsysmt_PDBFileHandler.get_topological_attributes import get_group_name_from_group as aux_get
 
-    bonds_required = bonds_are_required_to_get_attribute('group_name', 'group')
-    tmp_item = to_molsysmt_Topology(item, get_missing_bonds=bonds_required, skip_digestion=True)
+    tmp_item = to_molsysmt_PDBFileHandler(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
     return output
@@ -4153,11 +4151,10 @@ def get_n_bonds_from_bond(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_n_atoms_from_system(item, skip_digestion=False):
 
-    from molsysmt.form.molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import get_n_atoms_from_system as aux_get
+    from molsysmt.form.molsysmt_PDBFileHandler import to_molsysmt_PDBFileHandler
+    from molsysmt.form.molsysmt_PDBFileHandler.get_topological_attributes import get_n_atoms_from_system as aux_get
 
-    bonds_required = bonds_are_required_to_get_attribute('n_atoms', 'system')
-    tmp_item = to_molsysmt_Topology(item, get_missing_bonds=bonds_required, skip_digestion=True)
+    tmp_item = to_molsysmt_PDBFileHandler(item, skip_digestion=True)
     output = aux_get(tmp_item, skip_digestion=True)
 
     return output
@@ -4166,11 +4163,10 @@ def get_n_atoms_from_system(item, skip_digestion=False):
 @arg_digest(form=form)
 def get_n_groups_from_system(item, skip_digestion=False):
 
-    from molsysmt.form.molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import get_n_groups_from_system as aux_get
+    from molsysmt.form.molsysmt_PDBFileHandler import to_molsysmt_PDBFileHandler
+    from molsysmt.form.molsysmt_PDBFileHandler.get_topological_attributes import get_n_groups_from_system as aux_get
 
-    bonds_required = bonds_are_required_to_get_attribute('n_groups', 'system')
-    tmp_item = to_molsysmt_Topology(item, get_missing_bonds=bonds_required, skip_digestion=True)
+    tmp_item = to_molsysmt_PDBFileHandler(item, skip_digestion=True)
     output = aux_get(tmp_item, skip_digestion=True)
 
     return output

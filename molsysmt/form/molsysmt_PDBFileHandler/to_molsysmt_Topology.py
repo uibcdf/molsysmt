@@ -1,21 +1,22 @@
+import os
 from molsysmt._private.arg_digestion import arg_digest
-from molsysmt._private.variables import is_all
 
 @arg_digest(form='molsysmt.PDBFileHandler')
-def to_molsysmt_Topology(item, atom_indices='all', skip_digestion=False):
+def to_molsysmt_Topology(item, atom_indices='all', get_missing_bonds=True, skip_digestion=False):
 
-    from molsysmt.form.openmm_PDBFile import to_molsysmt_Topology as openmm_PDBFile_to_molsysmt_Topology
-    
-    # We leverage OpenMM's PDB parser which is very robust for topology
-    # PDBFileHandler has the file path in self.file.name if it's a file on disk
-    
-    if hasattr(item.file, 'name'):
-        tmp_item = openmm_PDBFile_to_molsysmt_Topology(item.file.name, atom_indices=atom_indices, skip_digestion=True)
+    from molsysmt.form.molsysmt_PDBFileHandler.to_molsysmt_PDBFileHandler import to_molsysmt_PDBFileHandler
+    from .to_molsysmt_MolSys import _build_molsys_from_pdb_handler
+
+    if isinstance(item, (str, os.PathLike)):
+        item = to_molsysmt_PDBFileHandler(str(item), skip_digestion=True)
+        opened_here = True
     else:
-        # If it's a StringIO or buffer
-        from openmm.app import PDBFile
-        pdb = PDBFile(item.file)
-        from molsysmt.form.openmm_Topology import to_molsysmt_Topology as openmm_Topology_to_molsysmt_Topology
-        tmp_item = openmm_Topology_to_molsysmt_Topology(pdb.topology, atom_indices=atom_indices, skip_digestion=True)
+        opened_here = False
+
+    tmp_item = _build_molsys_from_pdb_handler(item, get_missing_bonds=get_missing_bonds).topology
+    tmp_item = tmp_item.extract(atom_indices=atom_indices, copy_if_all=False, skip_digestion=True)
+
+    if opened_here:
+        item.close()
 
     return tmp_item

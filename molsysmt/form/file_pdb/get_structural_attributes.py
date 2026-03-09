@@ -17,5 +17,12 @@ def get_box_from_system(item, structure_indices='all', skip_digestion=False):
     tmp_item = to_molsysmt_PDBFileHandler(item, skip_digestion=True)
     return aux_get(tmp_item, structure_indices=structure_indices, skip_digestion=True)
 
+@arg_digest(form=form)
+def get_n_structures_from_system(item, structure_indices='all', skip_digestion=False):
+    from .to_molsysmt_PDBFileHandler import to_molsysmt_PDBFileHandler
+    from molsysmt.form.molsysmt_PDBFileHandler.get_structural_attributes import get_n_structures_from_system as aux_get
+    tmp_item = to_molsysmt_PDBFileHandler(item, skip_digestion=True)
+    return aux_get(tmp_item, structure_indices=structure_indices, skip_digestion=True)
+
 # List of functions to be imported
 __all__ = [name for name, obj in globals().items() if isinstance(obj, types.FunctionType) and name.startswith('get_')]
