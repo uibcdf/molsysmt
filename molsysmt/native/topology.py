@@ -554,232 +554,188 @@ class Topology():
         self._coerce_id_columns_to_string()
 
     def rebuild_groups(self, redefine_ids=True, redefine_types=True):
-        """Regenerate group ids/types from names and current counts."""
+        """Rebuilding native group ids and locally inferred group types.
+
+        Notes
+        -----
+        This is a native-only operation over the current `molsysmt.Topology`.
+        It preserves existing group names, regenerates ids when requested, and
+        infers group types only from local topology evidence.
+        """
 
         if redefine_ids:
 
             self.groups['group_id']=np.arange(self.groups.shape[0], dtype=int).astype(str)
 
         if redefine_types:
+            from ._hierarchy import infer_group_types_from_topology
 
-            from molsysmt.element.group import get_group_type_from_group_name
-            from molsysmt.element.group.small_molecule import small_molecule_is_amino_acid
-
-            aux_dict = {}
-
-            group_types = []
-
-            for group_name in self.groups['group_name'].values:
-                if group_name not in aux_dict:
-                    group_type = get_group_type_from_group_name(group_name)
-                    if group_type == 'small molecule':
-                        if small_molecule_is_amino_acid(self, group_name):
-                            group_type = 'amino acid'
-                    aux_dict[group_name]= group_type
-                    group_types.append(group_type)
-                else:
-                    group_types.append(aux_dict[group_name])
-
-            self.groups.group_type = np.array(group_types, dtype=object)
-
-            del aux_dict, group_types
+            self.groups.group_type = infer_group_types_from_topology(self)
         self._coerce_id_columns_to_string()
 
     @signal(tags=['native'])
-    def rebuild_components(self, redefine_indices=True, redefine_ids=True, redefine_names=True, redefine_types=True):
-        """Rebuild component mapping and metadata."""
+    def rebuild_components(self, redefine_indices=True, redefine_ids=True, redefine_types=True, redefine_names=True,
+                           force=False):
+        """Rebuilding native component membership and metadata from local evidence.
 
-        from molsysmt.element.component import get_component_index, get_component_id, get_component_name, get_component_type
+        Notes
+        -----
+        Component indices are inferred from connectivity. Component ids are
+        synthesized as stable local string ids when requested. Component types
+        and names are inferred from the current native group/component content.
+        This method is a native API and is not form-agnostic.
+        """
+        from ._hierarchy import (
+            fallback_ids,
+            infer_component_indices_from_topology,
+            infer_component_names_from_topology,
+            infer_component_types_from_topology,
+        )
 
-        if redefine_indices:
+        if redefine_indices or force:
+            component_index_of_atoms, component_index_of_groups = infer_component_indices_from_topology(self)
+            self.atoms['component_index'] = component_index_of_atoms.astype(int)
+            self.groups['component_index'] = component_index_of_groups.astype(int)
 
-            component_index_of_atoms = get_component_index(self, element='atom', selection='all', 
-                                                           redefine_indices=True, skip_digestion=True)
-            self.atoms['component_index'] = np.array(component_index_of_atoms, dtype=int)
-            
-            component_index_of_groups = get_component_index(self, element='group', selection='all',
-                                                            redefine_indices=True, skip_digestion=True)
-            self.groups['component_index'] = np.array(component_index_of_groups, dtype=int)
-
-            n_components = component_index_of_atoms[-1]+1
+            if len(component_index_of_atoms) > 0:
+                n_components = int(np.max(component_index_of_atoms)) + 1
+            else:
+                n_components = 0
             self.components = Components_DataFrame(n_components=n_components)
 
             del component_index_of_atoms, component_index_of_groups
 
         if redefine_ids:
-
-            component_id_of_components = get_component_id(self, element='component', selection='all',
-                                                          redefine_indices=False, redefine_ids=True,
-                                                          skip_digestion=True)
-            self.components['component_id'] = np.array(component_id_of_components).astype(str)
-
-            del component_id_of_components
+            self.components['component_id'] = fallback_ids(self.n_components)
 
         if redefine_types:
-
-            component_type_of_components = get_component_type(self, element='component', selection='all',
-                                                              redefine_indices=False, redefine_types=True,
-                                                              skip_digestion=True)
-            self.components["component_type"] = np.array(component_type_of_components, dtype=object)
-
-            del component_type_of_components
+            self.components["component_type"] = infer_component_types_from_topology(self)
 
         if redefine_names:
-
-            component_name = get_component_name(self, element='component', selection='all',
-                                                redefine_indices=False,redefine_names=True,
-                                                skip_digestion=True)
-            self.components["component_name"] = np.array(component_name, dtype=object)
-            del component_name
+            self.components["component_name"] = infer_component_names_from_topology(self)
         self._coerce_id_columns_to_string()
 
     @signal(tags=['native'])
     def rebuild_molecules(self, redefine_indices=True, redefine_ids=True, redefine_names=True, redefine_types=True,
-                          molecules_as_components=True):
-        """Rebuild molecule mapping and metadata."""
+                          molecules_as_components=True, force=False):
+        """Rebuilding native molecule membership and metadata from local evidence.
 
-        from molsysmt.element.molecule import get_molecule_index, get_molecule_id, get_molecule_name, get_molecule_type
+        Notes
+        -----
+        When no better molecule definition is available, molecules fall back to
+        components. Under that fallback, molecule name and type inherit from the
+        corresponding component. This method is a native API and is not
+        form-agnostic.
+        """
+        from ._hierarchy import (
+            fallback_ids,
+            infer_molecule_indices_from_topology,
+            infer_molecule_names_from_topology,
+            infer_molecule_types_from_topology,
+        )
 
-        if redefine_indices:
-
-            molecule_index_of_groups = get_molecule_index(self, element='group', selection='all',
-                                                          redefine_indices=True,
-                                                          skip_digestion=True)
-
-            self.groups["molecule_index"] = np.array(molecule_index_of_groups, dtype=int)
-            n_molecules = molecule_index_of_groups[-1]+1
+        if redefine_indices or force:
+            molecule_index_of_groups = infer_molecule_indices_from_topology(self)
+            self.groups["molecule_index"] = molecule_index_of_groups.astype(int)
+            if len(molecule_index_of_groups) > 0:
+                n_molecules = int(np.max(molecule_index_of_groups)) + 1
+            else:
+                n_molecules = 0
             self.reset_molecules(n_molecules = n_molecules)
 
             del molecule_index_of_groups
 
         if redefine_ids:
-
-            molecule_id_of_molecules = get_molecule_id(self, element='molecule', selection='all',
-                                                       redefine_indices=False, redefine_ids=True,
-                                                       skip_digestion=True)
-            self.molecules["molecule_id"]=np.array(molecule_id_of_molecules).astype(str)
-
-            del molecule_id_of_molecules
+            self.molecules["molecule_id"] = fallback_ids(self.n_molecules)
 
         if redefine_names:
-
-            molecule_name_of_molecules = get_molecule_name(self, element='molecule', selection='all',
-                                                           redefine_indices=False, redefine_names=True,
-                                                           skip_digestion=True)
-            self.molecules["molecule_name"]=np.array(molecule_name_of_molecules, dtype=object)
-
-            del molecule_name_of_molecules
+            self.molecules["molecule_name"] = infer_molecule_names_from_topology(self)
 
         if redefine_types:
-
-            molecule_type_of_molecules = get_molecule_type(self, element='molecule', selection='all',
-                                                           redefine_indices=False, redefine_types=True,
-                                                           skip_digestion=True)
-            self.molecules["molecule_type"]=np.array(molecule_type_of_molecules, dtype=object)
-
-            del molecule_type_of_molecules
+            self.molecules["molecule_type"] = infer_molecule_types_from_topology(self)
         self._coerce_id_columns_to_string()
 
     @signal(tags=['native'])
     def rebuild_chains(self, redefine_indices=True, redefine_ids=True, redefine_types=True, redefine_names=True):
-        """Rebuild chain mapping and metadata."""
+        """Rebuilding native chain membership and metadata from local evidence.
 
-        from molsysmt.element.chain import get_chain_index, get_chain_id, get_chain_name, get_chain_type
+        Notes
+        -----
+        Chain indices are rebuilt from the current native atom/group assignment.
+        Chain ids and names are regenerated as stable local values when
+        requested. Chain types are inferred from locally available molecule
+        types. This method is a native API and is not form-agnostic.
+        """
+        from ._hierarchy import (
+            infer_chain_ids_from_topology,
+            infer_chain_indices_from_topology,
+            infer_chain_names_from_topology,
+            infer_chain_types_from_topology,
+        )
 
         if redefine_indices:
-
-            chain_index_of_atoms = get_chain_index(self, element='atom', selection='all',
-                                                   redefine_indices=True, skip_digestion=True)
+            chain_index_of_atoms, chain_index_of_groups = infer_chain_indices_from_topology(self)
             self.atoms["chain_index"] = np.array(chain_index_of_atoms, dtype=int)
-            
-            chain_index_of_groups = get_chain_index(self, element='group', selection='all',
-                                                    redefine_indices=True, skip_digestion=True)
             self.groups["chain_index"] = np.array(chain_index_of_groups, dtype=int)
 
-            n_chains = chain_index_of_atoms[-1]+1
+            if len(chain_index_of_atoms) > 0:
+                n_chains = int(np.max(chain_index_of_atoms)) + 1
+            else:
+                n_chains = 0
             self.reset_chains(n_chains = n_chains)
 
             del chain_index_of_atoms, chain_index_of_groups
 
         if redefine_ids:
-
-            chain_ids_from_chain = get_chain_id(self, element='chain', selection='all',
-                                                redefine_indices=False, redefine_ids=True,
-                                                skip_digestion=True)
-
-            self.chains["chain_id"] = np.array(chain_ids_from_chain).astype(str)
-
-            del chain_ids_from_chain
+            self.chains["chain_id"] = infer_chain_ids_from_topology(self)
 
         if redefine_types:
-
-            chain_types_from_chain = get_chain_type(self, element='chain', selection='all',
-                                                    redefine_indices=False, redefine_types=True,
-                                                    skip_digestion=True)
-
-            self.chains["chain_type"] = np.array(chain_types_from_chain, dtype=object)
-
-            del chain_types_from_chain
+            self.chains["chain_type"] = infer_chain_types_from_topology(self)
 
         if redefine_names:
-
-            chain_names_from_chain = get_chain_name(self, element='chain', selection='all',
-                                                    redefine_indices=False, redefine_names=True,
-                                                    skip_digestion=True)
-
-            self.chains["chain_name"] = np.array(chain_names_from_chain, dtype=object)
-
-            del chain_names_from_chain
+            self.chains["chain_name"] = infer_chain_names_from_topology(self)
 
         self._coerce_id_columns_to_string()
 
 
     @signal(tags=['native'])
-    def rebuild_entities(self, redefine_indices=True, redefine_ids=True, redefine_names=True, redefine_types=True):
-        """Rebuild entity mapping and metadata."""
+    def rebuild_entities(self, redefine_indices=True, redefine_ids=True, redefine_names=True, redefine_types=True,
+                         force=False):
+        """Rebuilding native entity membership and metadata from local evidence.
 
-        from molsysmt.element.entity import get_entity_index, get_entity_id, get_entity_name, get_entity_type
+        Notes
+        -----
+        Entity membership is inferred from molecule-level information already
+        present or rebuilt in the native topology. Water molecules are grouped
+        under the same entity key. This method is a native API and is not
+        form-agnostic.
+        """
+        from ._hierarchy import (
+            fallback_ids,
+            infer_entity_indices_from_topology,
+            infer_entity_names_from_topology,
+            infer_entity_types_from_topology,
+        )
 
-        if redefine_indices:
-
-            entity_index_of_molecules = get_entity_index(self, element='molecule', selection='all',
-                                                         redefine_indices=True, skip_digestion=True)
-
-            self.molecules["entity_index"] = np.array(entity_index_of_molecules, dtype=int)
-            n_entities = entity_index_of_molecules[-1]+1
+        if redefine_indices or force:
+            entity_index_of_molecules = infer_entity_indices_from_topology(self)
+            self.molecules["entity_index"] = entity_index_of_molecules.astype(int)
+            if len(entity_index_of_molecules) > 0:
+                n_entities = int(np.max(entity_index_of_molecules)) + 1
+            else:
+                n_entities = 0
             self.reset_entities(n_entities = n_entities)
 
             del entity_index_of_molecules
 
         if redefine_ids:
-
-            entity_ids_from_entity = get_entity_id(self, element='entity', selection='all',
-                                                  redefine_indices=False, redefine_ids=True,
-                                                  skip_digestion=True)
-
-            self.entities["entity_id"] = np.array(entity_ids_from_entity).astype(str)
-
-            del entity_ids_from_entity
+            self.entities["entity_id"] = fallback_ids(self.n_entities)
 
         if redefine_names:
-
-            entity_names_from_entity = get_entity_name(self, element='entity', selection='all',
-                                                      redefine_indices=False, redefine_names=True,
-                                                      skip_digestion=True)
-
-            self.entities["entity_name"] = np.array(entity_names_from_entity, dtype=object)
-
-            del entity_names_from_entity
+            self.entities["entity_name"] = infer_entity_names_from_topology(self)
 
         if redefine_types:
-
-            entity_types_from_entity = get_entity_type(self, element='entity', selection='all',
-                                                      redefine_indices=False, redefine_types=True,
-                                                      skip_digestion=True)
-
-            self.entities["entity_type"] = np.array(entity_types_from_entity, dtype=object)
-
-            del entity_types_from_entity
+            self.entities["entity_type"] = infer_entity_types_from_topology(self)
         self._coerce_id_columns_to_string()
 
     def _join_molecules(self, indices=None):

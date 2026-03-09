@@ -120,17 +120,17 @@ class MolSys:
         self.topology.rebuild_atoms(redefine_ids=redefine_ids, redefine_types=redefine_types)
 
     def rebuild_groups(self, redefine_ids=True, redefine_types=True):
-        """Recompute group ids/types from the present topology."""
+        """Rebuilding group ids and group types on the native topology."""
 
         self.topology.rebuild_groups(redefine_ids=redefine_ids, redefine_types=redefine_types)
 
     def rebuild_components(self, redefine_ids=True, redefine_types=True):
-        """Recompute component ids/types from the present topology."""
+        """Rebuilding component metadata on the native topology."""
 
         self.topology.rebuild_components(redefine_ids=redefine_ids, redefine_types=redefine_types)
 
     def rebuild_molecules(self, redefine_ids=True, redefine_types=True):
-        """Recompute molecule ids/types from the present topology."""
+        """Rebuilding molecule metadata on the native topology."""
 
         self.topology.rebuild_molecules(redefine_ids=redefine_ids, redefine_types=redefine_types)
 
@@ -140,7 +140,7 @@ class MolSys:
         self.topology.rebuild_chains(redefine_ids=redefine_ids, redefine_types=redefine_types)
 
     def rebuild_entities(self, redefine_ids=True, redefine_types=True):
-        """Recompute entity ids/types from the present topology."""
+        """Rebuilding entity metadata on the native topology."""
 
         self.topology.rebuild_entities(redefine_ids=redefine_ids, redefine_types=redefine_types)
 
@@ -191,4 +191,3 @@ class MolSys:
 
     def _get_n_atoms(self):
         return self.topology._get_n_atoms()
-

@@ -124,28 +124,28 @@ def set_molecule_type_to_atom(item, indices='all', value=None, skip_digestion=Fa
 @arg_digest(form=form)
 def set_chain_index_to_atom(item, indices='all', value=None, skip_digestion=False):
 
-    from ..molsysmt_Topology.set_chain_index_to_atom import set_chain_index_to_atom as aux_set
+    from ..molsysmt_Topology.set import set_chain_index_to_atom as aux_set
 
     return aux_set(item.topology, indices=indices, value=value, skip_digestion=True)
 
 @arg_digest(form=form)
 def set_chain_name_to_atom(item, indices='all', value=None, skip_digestion=False):
 
-    from ..molsysmt_Topology.set_chain_name_to_atom import set_chain_name_to_atom as aux_set
+    from ..molsysmt_Topology.set import set_chain_name_to_atom as aux_set
 
     return aux_set(item.topology, indices=indices, value=value, skip_digestion=True)
 
 @arg_digest(form=form)
 def set_chain_id_to_atom(item, indices='all', value=None, skip_digestion=False):
 
-    from ..molsysmt_Topology.set_chain_id_to_atom import set_chain_id_to_atom as aux_set
+    from ..molsysmt_Topology.set import set_chain_id_to_atom as aux_set
 
     return aux_set(item.topology, indices=indices, value=value, skip_digestion=True)
 
 @arg_digest(form=form)
 def set_chain_type_to_atom(item, indices='all', value=None, skip_digestion=False):
 
-    from ..molsysmt_Topology.set_chain_type_to_atom import set_chain_type_to_atom as aux_set
+    from ..molsysmt_Topology.set import set_chain_type_to_atom as aux_set
 
     return aux_set(item.topology, indices=indices, value=value, skip_digestion=True)
 
@@ -594,28 +594,28 @@ def set_molecule_type_to_chain(item, indices='all', value=None, skip_digestion=F
 @arg_digest(form=form)
 def set_chain_index_to_chain(item, indices='all', value=None, skip_digestion=False):
 
-    from ..molsysmt_Topology.set_chain_index_to_chain import set_chain_index_to_chain as aux_set
+    from ..molsysmt_Topology.set import set_chain_index_to_chain as aux_set
 
     return aux_set(item.topology, indices=indices, value=value, skip_digestion=True)
 
 @arg_digest(form=form)
 def set_chain_name_to_chain(item, indices='all', value=None, skip_digestion=False):
 
-    from ..molsysmt_Topology.set_chain_name_to_chain import set_chain_name_to_chain as aux_set
+    from ..molsysmt_Topology.set import set_chain_name_to_chain as aux_set
 
     return aux_set(item.topology, indices=indices, value=value, skip_digestion=True)
 
 @arg_digest(form=form)
 def set_chain_id_to_chain(item, indices='all', value=None, skip_digestion=False):
 
-    from ..molsysmt_Topology.set_chain_id_to_chain import set_chain_id_to_chain as aux_set
+    from ..molsysmt_Topology.set import set_chain_id_to_chain as aux_set
 
     return aux_set(item.topology, indices=indices, value=value, skip_digestion=True)
 
 @arg_digest(form=form)
 def set_chain_type_to_chain(item, indices='all', value=None, skip_digestion=False):
 
-    from ..molsysmt_Topology.set_chain_type_to_chain import set_chain_type_to_chain as aux_set
+    from ..molsysmt_Topology.set import set_chain_type_to_chain as aux_set
 
     return aux_set(item.topology, indices=indices, value=value, skip_digestion=True)
 
@@ -825,4 +825,3 @@ def set_kappa_to_system(item, value=None, skip_digestion=False):
     from ..molsysmt_MolecularMechanics.set_kappa_to_system import set_kappa_to_system as aux_set
 
     return aux_set(item.molecular_mechanics, value=value, skip_digestion=True)
-

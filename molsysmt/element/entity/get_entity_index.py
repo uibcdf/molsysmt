@@ -11,79 +11,44 @@ def get_entity_index(molecular_system, element='entity', selection='all',
         from ..molecule import get_molecule_name, get_molecule_type, get_molecule_index
 
         molecule_index_from_atoms = get_molecule_index(molecular_system, element='atom',
-                selection=selection, redefine_indices=False, syntax=syntax, skip_digestion=True)
+                selection=selection, redefine_indices=True, syntax=syntax, skip_digestion=True)
 
         molecule_name_from_molecules = get_molecule_name(molecular_system, element='molecule',
-                selection='all', redefine_indices=False, syntax=syntax, skip_digestion=True)
+                selection='all', redefine_indices=True, redefine_names=True,
+                syntax=syntax, skip_digestion=True)
 
         molecule_type_from_molecules = get_molecule_type(molecular_system, element='molecule',
-                selection='all', redefine_indices=False, syntax=syntax, skip_digestion=True)
+                selection='all', redefine_indices=True, redefine_types=True,
+                syntax=syntax, skip_digestion=True)
 
         count = 0
-        output = []
+        molecule_to_entity = []
         aux_dict = {}
 
         for molecule_name, molecule_type in zip(molecule_name_from_molecules, molecule_type_from_molecules):
 
             if molecule_type == 'water':
-                if 'water' not in aux_dict:
-                    aux_dict['water'] = count
-                    entity_index = count
-                    count += 1
-                else:
-                    entity_index = aux_dict['water']
-            elif molecule_type == 'ion':
-                if molecule_name not in aux_dict:
-                    aux_dict[molecule_name] = count
-                    entity_index = count
-                    count += 1
-                else:
-                    entity_index = aux_dict[molecule_name]
-            elif molecule_type == 'lipid':
-                if molecule_name not in aux_dict:
-                    aux_dict[molecule_name] = count
-                    entity_index = count
-                    count += 1
-                else:
-                    entity_index = aux_dict[molecule_name]
-            elif molecule_type == 'small molecule':
-                if molecule_name not in aux_dict:
-                    aux_dict[molecule_name] = count
-                    entity_index = count
-                    count += 1
-                else:
-                    entity_index = aux_dict[molecule_name]
-            elif molecule_type == 'peptide':
-                if molecule_name not in aux_dict:
-                    aux_dict[molecule_name] = count
-                    entity_index = count
-                    count += 1
-                else:
-                    entity_index = aux_dict[molecule_name]
-            elif molecule_type == 'protein':
-                if molecule_name not in aux_dict:
-                    aux_dict[molecule_name] = count
-                    entity_index = count
-                    count += 1
-                else:
-                    entity_index = aux_dict[molecule_name]
+                key = 'water'
             else:
-                if 'unknown' in aux_dict:
-                    entity_index = aux_dict['unknown']
-                else:
-                    aux_dict['unknown'] = count
-                    entity_index = count
-                    count += 1
+                key = molecule_name
 
-            output.append(entity_index)
+            if key not in aux_dict:
+                aux_dict[key] = count
+                entity_index = count
+                count += 1
+            else:
+                entity_index = aux_dict[key]
+
+            molecule_to_entity.append(entity_index)
 
         match element:
             case 'atom':
-                output=[output[ii] for ii in molecule_index_from_atoms]
+                output=[molecule_to_entity[ii] for ii in molecule_index_from_atoms]
             case 'molecule':
-                output=output
+                output=molecule_to_entity
             case 'entity':
-                output=np.unique(output).tolist()
+                n_entities = len(aux_dict)
+                output=list(range(n_entities))
             case _:
                 raise ValueError(f"Element '{element}' is not supported.")
 
@@ -94,74 +59,3 @@ def get_entity_index(molecular_system, element='entity', selection='all',
                      entity_index=True, skip_digestion=True)
 
     return output
-
-
-#molecule_names = self.molecules['molecule_name'].to_numpy()
-#molecule_types = self.molecules['molecule_type'].to_numpy()
-#
-#count = 0
-#entity_indices = []
-#aux_dict = {}
-#
-#for molecule_name, molecule_type in zip(molecule_names, molecule_types):
-#    if molecule_type == 'water':
-#        if 'water' not in aux_dict:
-#            aux_dict['water'] = count
-#            entity_index = count
-#            count += 1
-#        else:
-#            entity_index = aux_dict['water']
-#    elif molecule_type == 'ion':
-#        if molecule_name not in aux_dict:
-#            aux_dict[molecule_name] = count
-#            entity_index = count
-#            count += 1
-#        else:
-#            entity_index = aux_dict[molecule_name]
-#    elif molecule_type == 'lipid':
-#        if molecule_name not in aux_dict:
-#            aux_dict[molecule_name] = count
-#            entity_index = count
-#            count += 1
-#        else:
-#            entity_index = aux_dict[molecule_name]
-#    elif molecule_type == 'small molecule':
-#        if molecule_name not in aux_dict:
-#            aux_dict[molecule_name] = count
-#            entity_index = count
-#            count += 1
-#        else:
-#            entity_index = aux_dict[molecule_name]
-#    elif molecule_type == 'saccharide':
-#        if molecule_name not in aux_dict:
-#            aux_dict[molecule_name] = count
-#            entity_index = count
-#            count += 1
-#        else:
-#            entity_index = aux_dict[molecule_name]
-#    elif molecule_type == 'peptide':
-#        if molecule_name not in aux_dict:
-#            aux_dict[molecule_name] = count
-#            entity_index = count
-#            count += 1
-#        else:
-#            entity_index = aux_dict[molecule_name]
-#    elif molecule_type == 'protein':
-#        if molecule_name not in aux_dict:
-#            aux_dict[molecule_name] = count
-#            entity_index = count
-#            count += 1
-#        else:
-#            entity_index = aux_dict[molecule_name]
-#    else:
-#        if 'unknown' not in aux_dict:
-#            aux_dict['unknown'] = count
-#            entity_index = count
-#            count += 1
-#        else:
-#            entity_index = aux_dict['unknown']
-#
-#    entity_indices.append(entity_index)
-#
-#del molecule_names, molecule_types
-
