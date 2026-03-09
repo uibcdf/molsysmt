@@ -7,7 +7,20 @@ def to_molsysmt_PDBFileHandler(item, atom_indices='all', structure_indices='all'
     from molsysmt.native.pdb_file_handler import PDBFileHandler
     from molsysmt._private.variables import is_all
 
-    if isinstance(item, (str, os.PathLike)):
+    if isinstance(item, str):
+        is_file = False
+        if len(item) < 1024:
+            try:
+                if os.path.isfile(item):
+                    is_file = True
+            except:
+                pass
+        
+        if is_file:
+            tmp_item = PDBFileHandler(item)
+        else:
+            tmp_item = PDBFileHandler(item) # PDBFileHandler will handle it as string text
+    elif isinstance(item, os.PathLike):
         tmp_item = PDBFileHandler(str(item))
     else:
         tmp_item = item

@@ -42,7 +42,7 @@ def get_molecule_type(molecular_system, element='molecule', selection='all',
         from . import get_molecule_index
 
         molecule_indices = get_molecule_index(molecular_system, element='atom',
-                                              selection='all', redefine_indices=False,
+                                              selection='all', redefine_indices=True,
                                               skip_digestion=True)
 
         group_index_per_atom = get(molecular_system, element='atom', selection='all', group_index=True,
@@ -69,29 +69,31 @@ def get_molecule_type(molecular_system, element='molecule', selection='all',
         if element == 'atom':
             aux = get(molecular_system, element='atom', selection=selection, syntax=syntax,
                       molecule_index=True)
-            output = [molecule_types[ii] for ii in aux]
+            output = [molecule_types.get(ii, 'unknown') for ii in aux]
         elif element == 'group':
             aux = get(molecular_system, element='group', selection=selection, syntax=syntax,
                       molecule_index=True)
-            output = [molecule_types[ii] for ii in aux]
+            output = [molecule_types.get(ii, 'unknown') for ii in aux]
         elif element == 'component':
             aux = get(molecular_system, element='component', selection=selection, syntax=syntax,
                       molecule_index=True)
-            output = [molecule_types[ii] for ii in aux]
+            output = [molecule_types.get(ii, 'unknown') for ii in aux]
         elif element == 'molecule':
-            output = [molecule_types[ii] for ii in sorted(molecule_types.keys())]
+            from molsysmt.basic import get as msm_get
+            n_molecules = msm_get(molecular_system, element='system', n_molecules=True, skip_digestion=True)
+            output = [molecule_types.get(ii, 'unknown') for ii in range(n_molecules)]
         elif element == 'chain':
             aux = get(molecular_system, element='chain', selection=selection, syntax=syntax,
                       molecule_index=True)
             output = []
             for molecules_in_chain in aux:
-                output.append([molecule_types[ii] for ii in molecules_in_chain])
+                output.append([molecule_types.get(ii, 'unknown') for ii in molecules_in_chain])
         elif element == 'entity':
             aux = get(molecular_system, element='entity', selection=selection, syntax=syntax,
                       molecule_index=True)
             output = []
             for molecules_in_entity in aux:
-                output.append([molecule_types[ii] for ii in molecules_in_entity])
+                output.append([molecule_types.get(ii, 'unknown') for ii in molecules_in_entity])
         else:
             raise NotImplementedError
 
@@ -103,16 +105,11 @@ def get_molecule_type(molecular_system, element='molecule', selection='all',
 
     return output
 
-def _get_molecule_type_from_group_names_and_types(group_names, group_types, skip_digestion=False):
-
-    from ..component.get_component_type import _get_component_type_from_group_names_and_types
-
-    return _get_component_type_from_group_names_and_types(group_names, group_types)
-
 
 def _get_molecule_type_from_group_names_and_types(group_names, group_types):
 
     from ..group.nucleotide import rna_names, dna_names
+    from ..group.water.water_names import water_names
     from molsysmt.config import min_length_protein
 
     n_groups = len(group_types)
@@ -139,7 +136,9 @@ def _get_molecule_type_from_group_names_and_types(group_names, group_types):
     elif first_group_type == 'saccharide':
         tmp_type = 'polysaccharide'
     else:
-        tmp_type = 'unknown'
+        if first_group_name in water_names:
+            tmp_type = 'water'
+        else:
+            tmp_type = 'unknown'
 
     return tmp_type
-

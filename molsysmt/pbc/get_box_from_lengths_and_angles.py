@@ -4,7 +4,7 @@ import numpy as np
 from molsysmt import pyunitwizard as puw
 
 @arg_digest()
-def get_box_from_lengths_and_angles(box_lengths, box_angles, skip_digestion=False):
+def get_box_from_lengths_and_angles(box_lengths, box_angles=None, skip_digestion=False):
     """
     Building a box matrix from lengths and angles.
 
@@ -12,8 +12,8 @@ def get_box_from_lengths_and_angles(box_lengths, box_angles, skip_digestion=Fals
     ----------
     box_lengths : quantity
         Box edge lengths (a, b, c) with units.
-    box_angles : quantity
-        Box angles (alpha, beta, gamma) with units.
+    box_angles : quantity, optional
+        Box angles (alpha, beta, gamma) with units. If None, 90 degrees are assumed.
     skip_digestion : bool, default False
         Whether to skip argument digestion.
 
@@ -24,6 +24,9 @@ def get_box_from_lengths_and_angles(box_lengths, box_angles, skip_digestion=Fals
 
     .. versionadded:: 1.0.0
     """
+
+    if box_angles is None:
+        box_angles = np.array([90.0, 90.0, 90.0]) * puw.unit('degree')
 
     units = puw.get_unit(box_lengths)
     lengths_value = puw.get_value(box_lengths)

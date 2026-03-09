@@ -9,7 +9,8 @@ from smonitor import signal
 @arg_digest()
 def compare(molecular_system, molecular_system_2, selection='all', structure_indices='all',
             selection_2='all', structure_indices_2='all', syntax='MolSysMT', rule='equal',
-            output_type='boolean', attribute_type=None, include_none=False, skip_digestion=False,
+            output_type='boolean', attribute_type=None, include_none=False, 
+            redefine_indices=False, skip_digestion=False,
             **kwargs):
 
     """
@@ -58,6 +59,9 @@ def compare(molecular_system, molecular_system_2, selection='all', structure_ind
         This is the canonical argument name.
     include_none : bool, default False
         Whether to include attributes with `None` values when inferring comparable attributes.
+    redefine_indices : bool, default False
+        Whether to force a recalculation of hierarchical indices (components, molecules, entities)
+        based on current connectivity before performing the comparison.
     skip_digestion : bool, default False
         Whether to skip MolSysMT’s internal argument digestion mechanism.
 
@@ -130,16 +134,39 @@ def compare(molecular_system, molecular_system_2, selection='all', structure_ind
     # attributes: 'all', 'topological', 'structural', 'mechanical' 
     # output_type: 'boolean', 'dictionary'
 
-    from molsysmt.basic import select, get, get_form, get_attributes
-    from molsysmt.form import _dict_modules
+    from molsysmt.basic import select, get, get_attributes
     from molsysmt.attribute import attributes, _topological_attributes, _structural_attributes, _mechanical_attributes
     from molsysmt.basic.get import _piped_molecular_system
+
+    if redefine_indices:
+        
+        from molsysmt.basic import get_form
+        
+        form_1 = get_form(molecular_system)
+        if form_1 == 'molsysmt.MolSys':
+            molecular_system.topology.rebuild_components(force=True)
+            molecular_system.topology.rebuild_molecules(force=True)
+            molecular_system.topology.rebuild_entities(force=True)
+        elif form_1 == 'molsysmt.Topology':
+            molecular_system.rebuild_components(force=True)
+            molecular_system.rebuild_molecules(force=True)
+            molecular_system.rebuild_entities(force=True)
+            
+        form_2 = get_form(molecular_system_2)
+        if form_2 == 'molsysmt.MolSys':
+            molecular_system_2.topology.rebuild_components(force=True)
+            molecular_system_2.topology.rebuild_molecules(force=True)
+            molecular_system_2.topology.rebuild_entities(force=True)
+        elif form_2 == 'molsysmt.Topology':
+            molecular_system_2.rebuild_components(force=True)
+            molecular_system_2.rebuild_molecules(force=True)
+            molecular_system_2.rebuild_entities(force=True)
 
     output_dict = {}
 
     atts_to_be_compared = []
 
-    atts_false = []
+    atts_false_list = []
 
     if isinstance(attribute_type, str):
         if attribute_type == 'topological':
@@ -154,7 +181,7 @@ def compare(molecular_system, molecular_system_2, selection='all', structure_ind
     for key in kwargs.keys():
         atts_to_be_compared.append(key)
         if not kwargs[key]:
-            atts_false.append(key)
+            atts_false_list.append(key)
 
     if len(atts_to_be_compared)==0:
         atts_to_be_compared = ['n_atoms', 'atom_index', 'atom_id', 'atom_name', 'atom_type',
@@ -230,6 +257,22 @@ def compare(molecular_system, molecular_system_2, selection='all', structure_ind
 
         dict_B.update(dict_aux)
 
+    # Normalization for comparison
+    def array_equal_normalized(a, b):
+        if a is None and b is None:
+            return True
+        if a is None or b is None:
+            return False
+        a = np.asarray(a)
+        b = np.asarray(b)
+        if a.shape != b.shape:
+            return False
+        if a.dtype.kind in 'SU' or b.dtype.kind in 'SU':
+            return np.array_equal(np.char.lower(a.astype(str)), np.char.lower(b.astype(str)))
+        if a.dtype.kind in 'fi' and b.dtype.kind in 'fi':
+            return np.allclose(a, b, rtol=1e-05, atol=1e-08)
+        return np.array_equal(a, b)
+
     ######   EQUAL   #####
 
     if rule == 'equal':
@@ -241,13 +284,13 @@ def compare(molecular_system, molecular_system_2, selection='all', structure_ind
             output_dict['atom_index']= np.array_equal(dict_A['atom_index'], dict_B['atom_index'])
 
         if 'atom_id' in atts_required:
-            output_dict['atom_id']= np.array_equal(dict_A['atom_id'], dict_B['atom_id'])
+            output_dict['atom_id']= array_equal_normalized(dict_A['atom_id'], dict_B['atom_id'])
 
         if 'atom_name' in atts_required:
-            output_dict['atom_name']= np.array_equal(dict_A['atom_name'], dict_B['atom_name'])
+            output_dict['atom_name']= array_equal_normalized(dict_A['atom_name'], dict_B['atom_name'])
 
         if 'atom_type' in atts_required:
-            output_dict['atom_type']= np.array_equal(dict_A['atom_type'], dict_B['atom_type'])
+            output_dict['atom_type']= array_equal_normalized(dict_A['atom_type'], dict_B['atom_type'])
 
         if 'n_groups' in atts_required:
             output_dict['n_groups']= (dict_A['n_groups']==dict_B['n_groups'])
@@ -256,13 +299,13 @@ def compare(molecular_system, molecular_system_2, selection='all', structure_ind
             output_dict['group_index']= np.array_equal(dict_A['group_index'], dict_B['group_index'])
 
         if 'group_id' in atts_required:
-            output_dict['group_id']= np.array_equal(dict_A['group_id'], dict_B['group_id'])
+            output_dict['group_id']= array_equal_normalized(dict_A['group_id'], dict_B['group_id'])
 
         if 'group_name' in atts_required:
-            output_dict['group_name']= np.array_equal(dict_A['group_name'], dict_B['group_name'])
+            output_dict['group_name']= array_equal_normalized(dict_A['group_name'], dict_B['group_name'])
 
         if 'group_type' in atts_required:
-            output_dict['group_type']= np.array_equal(dict_A['group_type'], dict_B['group_type'])
+            output_dict['group_type']= array_equal_normalized(dict_A['group_type'], dict_B['group_type'])
 
         if 'n_components' in atts_required:
             output_dict['n_components']= (dict_A['n_components']==dict_B['n_components'])
@@ -271,13 +314,13 @@ def compare(molecular_system, molecular_system_2, selection='all', structure_ind
             output_dict['component_index']= np.array_equal(dict_A['component_index'], dict_B['component_index'])
 
         if 'component_id' in atts_required:
-            output_dict['component_id']= np.array_equal(dict_A['component_id'], dict_B['component_id'])
+            output_dict['component_id']= array_equal_normalized(dict_A['component_id'], dict_B['component_id'])
 
         if 'component_name' in atts_required:
-            output_dict['component_name']= np.array_equal(dict_A['component_name'], dict_B['component_name'])
+            output_dict['component_name']= array_equal_normalized(dict_A['component_name'], dict_B['component_name'])
 
         if 'component_type' in atts_required:
-            output_dict['component_type']= np.array_equal(dict_A['component_type'], dict_B['component_type'])
+            output_dict['component_type']= array_equal_normalized(dict_A['component_type'], dict_B['component_type'])
 
         if 'n_molecules' in atts_required:
             output_dict['n_molecules']= (dict_A['n_molecules']==dict_B['n_molecules'])
@@ -286,13 +329,13 @@ def compare(molecular_system, molecular_system_2, selection='all', structure_ind
             output_dict['molecule_index']= np.array_equal(dict_A['molecule_index'], dict_B['molecule_index'])
 
         if 'molecule_id' in atts_required:
-            output_dict['molecule_id']= np.array_equal(dict_A['molecule_id'], dict_B['molecule_id'])
+            output_dict['molecule_id']= array_equal_normalized(dict_A['molecule_id'], dict_B['molecule_id'])
 
         if 'molecule_name' in atts_required:
-            output_dict['molecule_name']= np.array_equal(dict_A['molecule_name'], dict_B['molecule_name'])
+            output_dict['molecule_name']= array_equal_normalized(dict_A['molecule_name'], dict_B['molecule_name'])
 
         if 'molecule_type' in atts_required:
-            output_dict['molecule_type']= np.array_equal(dict_A['molecule_type'], dict_B['molecule_type'])
+            output_dict['molecule_type']= array_equal_normalized(dict_A['molecule_type'], dict_B['molecule_type'])
 
         if 'n_chains' in atts_required:
             output_dict['n_chains']= (dict_A['n_chains']==dict_B['n_chains'])
@@ -301,13 +344,13 @@ def compare(molecular_system, molecular_system_2, selection='all', structure_ind
             output_dict['chain_index']= np.array_equal(dict_A['chain_index'], dict_B['chain_index'])
 
         if 'chain_id' in atts_required:
-            output_dict['chain_id']= np.array_equal(dict_A['chain_id'], dict_B['chain_id'])
+            output_dict['chain_id']= array_equal_normalized(dict_A['chain_id'], dict_B['chain_id'])
 
         if 'chain_name' in atts_required:
-            output_dict['chain_name']= np.array_equal(dict_A['chain_name'], dict_B['chain_name'])
+            output_dict['chain_name']= array_equal_normalized(dict_A['chain_name'], dict_B['chain_name'])
 
         if 'chain_type' in atts_required:
-            output_dict['chain_type']= np.array_equal(dict_A['chain_type'], dict_B['chain_type'])
+            output_dict['chain_type']= array_equal_normalized(dict_A['chain_type'], dict_B['chain_type'])
 
         if 'n_entities' in atts_required:
             output_dict['n_entities']= (dict_A['n_entities']==dict_B['n_entities'])
@@ -316,13 +359,13 @@ def compare(molecular_system, molecular_system_2, selection='all', structure_ind
             output_dict['entity_index']= np.array_equal(dict_A['entity_index'], dict_B['entity_index'])
 
         if 'entity_id' in atts_required:
-            output_dict['entity_id']= np.array_equal(dict_A['entity_id'], dict_B['entity_id'])
+            output_dict['entity_id']= array_equal_normalized(dict_A['entity_id'], dict_B['entity_id'])
 
         if 'entity_name' in atts_required:
-            output_dict['entity_name']= np.array_equal(dict_A['entity_name'], dict_B['entity_name'])
+            output_dict['entity_name']= array_equal_normalized(dict_A['entity_name'], dict_B['entity_name'])
 
         if 'entity_type' in atts_required:
-            output_dict['entity_type']= np.array_equal(dict_A['entity_type'], dict_B['entity_type'])
+            output_dict['entity_type']= array_equal_normalized(dict_A['entity_type'], dict_B['entity_type'])
 
         atts = atts_required & set(['n_bonds', 'bond_index', 'bond_id', 'bond_order', 'bond_type',
             'bonded_atom_pairs'])
@@ -341,11 +384,22 @@ def compare(molecular_system, molecular_system_2, selection='all', structure_ind
                 atom_pairs_A = dict_A['bonded_atom_pairs']
                 atom_pairs_B = dict_B['bonded_atom_pairs']
 
-            atom_pairs_A = np.array(atom_pairs_A)
-            atom_pairs_B = np.array(atom_pairs_B)
-
-            order_in_A = np.lexsort((atom_pairs_A[:, 1], atom_pairs_A[:, 0])).tolist()
-            order_in_B = np.lexsort((atom_pairs_B[:, 1], atom_pairs_B[:, 0])).tolist()
+            atom_pairs_A = np.asarray(atom_pairs_A)
+            atom_pairs_B = np.asarray(atom_pairs_B)
+            
+            if atom_pairs_A.size > 0:
+                atom_pairs_A = np.sort(atom_pairs_A, axis=1)
+                order_in_A = np.lexsort((atom_pairs_A[:, 1], atom_pairs_A[:, 0])).tolist()
+            else:
+                atom_pairs_A = np.empty((0, 2))
+                order_in_A = []
+                
+            if atom_pairs_B.size > 0:
+                atom_pairs_B = np.sort(atom_pairs_B, axis=1)
+                order_in_B = np.lexsort((atom_pairs_B[:, 1], atom_pairs_B[:, 0])).tolist()
+            else:
+                atom_pairs_B = np.empty((0, 2))
+                order_in_B = []
 
             if 'n_bonds' in atts:
                 output_dict['n_bonds']= (dict_A['n_bonds']==dict_B['n_bonds'])
@@ -359,14 +413,14 @@ def compare(molecular_system, molecular_system_2, selection='all', structure_ind
             if 'bond_id' in atts:
                 tmp_A = [dict_A['bond_id'][ii] for ii in order_in_A]
                 tmp_B = [dict_B['bond_id'][ii] for ii in order_in_B]
-                output_dict['bond_id']= np.array_equal(tmp_A, tmp_B)
+                output_dict['bond_id']= array_equal_normalized(tmp_A, tmp_B)
                 del tmp_A, tmp_B
 
             if 'bond_order' in atts:
                 if (dict_A['bond_order'] is not None) and (dict_B['bond_order'] is not None):
                     tmp_A = [dict_A['bond_order'][ii] for ii in order_in_A]
                     tmp_B = [dict_B['bond_order'][ii] for ii in order_in_B]
-                    output_dict['bond_order']= np.array_equal(tmp_A, tmp_B)
+                    output_dict['bond_order']= array_equal_normalized(tmp_A, tmp_B)
                     del tmp_A, tmp_B
                 elif (dict_A['bond_order'] is None) and (dict_B['bond_order'] is None):
                     output_dict['bond_order'] = True
@@ -377,7 +431,7 @@ def compare(molecular_system, molecular_system_2, selection='all', structure_ind
                 if (dict_A['bond_type'] is not None) and (dict_B['bond_type'] is not None):
                     tmp_A = [dict_A['bond_type'][ii] for ii in order_in_A]
                     tmp_B = [dict_B['bond_type'][ii] for ii in order_in_B]
-                    output_dict['bond_type']= np.array_equal(tmp_A, tmp_B)
+                    output_dict['bond_type']= array_equal_normalized(tmp_A, tmp_B)
                     del tmp_A, tmp_B
                 elif (dict_A['bond_type'] is None) and (dict_B['bond_type'] is None):
                     output_dict['bond_type'] = True
@@ -385,10 +439,12 @@ def compare(molecular_system, molecular_system_2, selection='all', structure_ind
                     output_dict['bond_type'] = False
 
             if 'bonded_atom_pairs' in atts:
-                tmp_A = [dict_A['bonded_atom_pairs'][ii] for ii in order_in_A]
-                tmp_B = [dict_B['bonded_atom_pairs'][ii] for ii in order_in_B]
-                output_dict['bonded_atom_pairs']= np.array_equal(tmp_A, tmp_B)
-                del tmp_A, tmp_B
+                if len(order_in_A) == len(order_in_B):
+                    tmp_A = [atom_pairs_A[ii] for ii in order_in_A]
+                    tmp_B = [atom_pairs_B[ii] for ii in order_in_B]
+                    output_dict['bonded_atom_pairs']= np.array_equal(tmp_A, tmp_B)
+                else:
+                    output_dict['bonded_atom_pairs'] = False
 
             del(order_in_A, order_in_B, atom_pairs_A, atom_pairs_B)
 
@@ -408,10 +464,22 @@ def compare(molecular_system, molecular_system_2, selection='all', structure_ind
                 atom_pairs_A = dict_A['inner_bonded_atom_pairs']
                 atom_pairs_B = dict_B['inner_bonded_atom_pairs']
 
-            atom_pairs_A = np.array(atom_pairs_A)
-            atom_pairs_B = np.array(atom_pairs_B)
-            order_in_A = np.lexsort((atom_pairs_A[:, 1], atom_pairs_A[:, 0])).tolist()
-            order_in_B = np.lexsort((atom_pairs_B[:, 1], atom_pairs_B[:, 0])).tolist()
+            atom_pairs_A = np.asarray(atom_pairs_A)
+            atom_pairs_B = np.asarray(atom_pairs_B)
+            
+            if atom_pairs_A.size > 0:
+                atom_pairs_A = np.sort(atom_pairs_A, axis=1)
+                order_in_A = np.lexsort((atom_pairs_A[:, 1], atom_pairs_A[:, 0])).tolist()
+            else:
+                atom_pairs_A = np.empty((0, 2))
+                order_in_A = []
+                
+            if atom_pairs_B.size > 0:
+                atom_pairs_B = np.sort(atom_pairs_B, axis=1)
+                order_in_B = np.lexsort((atom_pairs_B[:, 1], atom_pairs_B[:, 0])).tolist()
+            else:
+                atom_pairs_B = np.empty((0, 2))
+                order_in_B = []
 
             if 'n_inner_bonds' in atts:
                 output_dict['n_inner_bonds']= (dict_A['n_inner_bonds'] == dict_B['n_inner_bonds'])
@@ -425,9 +493,12 @@ def compare(molecular_system, molecular_system_2, selection='all', structure_ind
 
 
             if 'inner_bonded_atom_pairs' in atts:
-                tmp_A = [dict_A['inner_bonded_atom_pairs'][ii] for ii in order_in_A]
-                tmp_B = [dict_B['inner_bonded_atom_pairs'][ii] for ii in order_in_B]
-                output_dict['inner_bonded_atom_pairs']= np.array_equal(tmp_A, tmp_B)
+                if len(order_in_A) == len(order_in_B):
+                    tmp_A = [atom_pairs_A[ii] for ii in order_in_A]
+                    tmp_B = [atom_pairs_B[ii] for ii in order_in_B]
+                    output_dict['inner_bonded_atom_pairs']= np.array_equal(tmp_A, tmp_B)
+                else:
+                    output_dict['inner_bonded_atom_pairs'] = False
 
         ## n_structures, structure_index, structure_id, coordinates, velocities, box
 
@@ -438,7 +509,7 @@ def compare(molecular_system, molecular_system_2, selection='all', structure_ind
             output_dict['structure_index']= np.array_equal(dict_A['structure_index'], dict_B['structure_index'])
 
         if 'structure_id' in atts_required:
-            output_dict['structure_id']= np.array_equal(dict_A['structure_id'], dict_B['structure_id'])
+            output_dict['structure_id']= array_equal_normalized(dict_A['structure_id'], dict_B['structure_id'])
 
         if 'coordinates' in atts_required:
             
@@ -508,7 +579,7 @@ def compare(molecular_system, molecular_system_2, selection='all', structure_ind
         )
 
 
-    for att_false in atts_false:
+    for att_false in atts_false_list:
         if att_false in output_dict:
             if output_dict[att_false]:
                 output_dict[att_false]=False

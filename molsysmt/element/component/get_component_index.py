@@ -9,18 +9,25 @@ def get_component_index(molecular_system, element='component', selection='all', 
 
     if redefine_indices:
 
-        from molsysmt import get
         from molsysmt.lib.topology import get_component_index_from_bonded_atom_pairs
+        from molsysmt.basic import get_form
 
-        n_atoms, bonded_atom_pairs = get(
-            molecular_system,
-            element='atom',
-            selection='all',
-            syntax=syntax,
-            n_atoms=True,
-            inner_bonded_atom_pairs=True,
-            skip_digestion=True,
-        )
+        form = get_form(molecular_system)
+
+        if form == 'molsysmt.Topology':
+            n_atoms = molecular_system.n_atoms
+            bonded_atom_pairs = molecular_system.bonds[['atom1_index', 'atom2_index']].to_numpy()
+        else:
+            from molsysmt import get
+            n_atoms, bonded_atom_pairs = get(
+                molecular_system,
+                element='atom',
+                selection='all',
+                syntax=syntax,
+                n_atoms=True,
+                bonded_atom_pairs=True,
+                skip_digestion=True,
+            )
 
         bonded_atom_pairs = np.asarray(bonded_atom_pairs, dtype=np.int64)
         if bonded_atom_pairs.size == 0:
@@ -42,8 +49,13 @@ def get_component_index(molecular_system, element='component', selection='all', 
 
         elif element == 'group':
 
-            group_index_of_atoms = get(molecular_system, element='atom', selection='all', syntax=syntax,
-                                       group_index=True, skip_digestion=True)
+            if form == 'molsysmt.Topology':
+                group_index_of_atoms = molecular_system.atoms['group_index'].to_numpy()
+            else:
+                from molsysmt import get
+                group_index_of_atoms = get(molecular_system, element='atom', selection='all', syntax=syntax,
+                                           group_index=True, skip_digestion=True)
+
             group_index, first_atom_indices = np.unique(group_index_of_atoms, return_index=True)
             output = component_index_of_atoms[first_atom_indices]
             del group_index, group_index_of_atoms

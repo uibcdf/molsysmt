@@ -53,4 +53,3 @@ def test_get_nglview_NGLWidget_1():
                         'n_inner_bonds': True}
 
     assert check_comparison==known_comparison
-

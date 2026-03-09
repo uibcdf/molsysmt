@@ -1,5 +1,7 @@
 from functools import lru_cache, wraps
 import numba as nb
+import os
+import inspect
 
 _COMPILED_FACTORIES = []
 _NUMBA_WARNING_EMITTED = False
@@ -7,10 +9,37 @@ _WRAPPER_COMPILED = {}
 _COMPILING = set()
 
 
-def _emit_numba_jit_warning(kernel_name, module_name):
+def _is_kernel_cached(func):
+    """Detect if a function is likely cached in Numba's disk cache."""
+    try:
+        # Get the module file path
+        source_file = inspect.getfile(func)
+        module_dir = os.path.dirname(source_file)
+        # Numba default cache is in __pycache__ next to the source
+        cache_dir = os.path.join(module_dir, "__pycache__")
+        if not os.path.exists(cache_dir):
+            return False
+        
+        # Kernel cache files end with .nbc and .nbi
+        # They usually contain the function name
+        func_name = func.__name__
+        for f in os.listdir(cache_dir):
+            if func_name in f and (f.endswith(".nbc") or f.endswith(".nbi")):
+                return True
+    except:
+        pass
+    return False
+
+
+def _emit_numba_jit_warning(func):
     global _NUMBA_WARNING_EMITTED
     if _NUMBA_WARNING_EMITTED:
         return
+    
+    # If the kernel is already cached on disk, don't annoy the user
+    if _is_kernel_cached(func):
+        return
+
     _NUMBA_WARNING_EMITTED = True
 
     from smonitor.integrations import emit_from_catalog
@@ -20,7 +49,7 @@ def _emit_numba_jit_warning(kernel_name, module_name):
         CATALOG["warnings"]["NumbaJitWarning"],
         package_root=PACKAGE_ROOT,
         meta=META,
-        extra={"kernel": kernel_name, "module": module_name},
+        extra={"kernel": func.__name__, "module": func.__module__},
     )
 
 
@@ -43,7 +72,7 @@ def lazy_njit(signature, cache=True, **kwargs):
                     if callable(value) and value in _WRAPPER_COMPILED and value is not wrapper:
                         func.__globals__[name] = _WRAPPER_COMPILED[value]()
 
-                _emit_numba_jit_warning(func.__name__, func.__module__)
+                _emit_numba_jit_warning(func)
                 return nb.njit(signature, cache=cache, **kwargs)(func)
             finally:
                 _COMPILING.discard(wrapper)

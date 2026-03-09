@@ -23,10 +23,13 @@ def get_coordinates_from_atom(item, indices='all', structure_indices='all', skip
 def get_box_from_system(item, structure_indices='all', skip_digestion=False):
 
     tmp_item = item.read()
-    if tmp_item[2] is not None: # cell_lengths
+    if tmp_item[2] is not None and len(tmp_item[2]) > 0: # cell_lengths
         from molsysmt.pbc import get_box_from_lengths_and_angles
         lengths = tmp_item[2] * puw.unit('nanometer')
-        angles = tmp_item[3] * puw.unit('degree')
+        if tmp_item[3] is not None:
+            angles = tmp_item[3] * puw.unit('degree')
+        else:
+            angles = None
         output = get_box_from_lengths_and_angles(lengths, angles)
         if not is_all(structure_indices):
             output = output[structure_indices, :, :]
@@ -50,6 +53,11 @@ def get_time_from_system(item, structure_indices='all', skip_digestion=False):
         if not is_all(structure_indices):
             output = output[structure_indices]
         return output
+    return None
+
+@arg_digest(form=form)
+def get_structure_id_from_system(item, structure_indices='all', skip_digestion=False):
+
     return None
 
 # List of functions to be imported

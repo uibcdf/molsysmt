@@ -3,8 +3,38 @@ from molsysmt._private.variables import is_all
 from molsysmt import pyunitwizard as puw
 import types
 import os
+from io import StringIO
 
 form='openmm.PDBFile'
+
+def _ensure_pdbfile(item):
+    from openmm.app import PDBFile
+    if isinstance(item, str):
+        is_file = False
+        if len(item) < 1024:
+            try:
+                if os.path.isfile(item):
+                    is_file = True
+            except:
+                pass
+        
+        if is_file:
+            return PDBFile(item)
+        else:
+            return PDBFile(StringIO(item))
+    elif isinstance(item, os.PathLike):
+        return PDBFile(str(item))
+    elif str(type(item)).endswith("PDBFileHandler'>"):
+        if hasattr(item.file, 'name'):
+            try:
+                if os.path.isfile(item.file.name):
+                    return PDBFile(item.file.name)
+            except:
+                pass
+        # Fallback to content or buffer
+        item.file.seek(0)
+        return PDBFile(item.file)
+    return item
 
 @arg_digest(form=form)
 def get_coordinates_from_atom(item, indices='all', structure_indices='all', skip_digestion=False):
@@ -12,10 +42,7 @@ def get_coordinates_from_atom(item, indices='all', structure_indices='all', skip
     from openmm.app import PDBFile
     import numpy as np
 
-    if isinstance(item, (str, os.PathLike)):
-        item = PDBFile(str(item))
-    elif str(type(item)).endswith("PDBFileHandler'>"):
-        item = PDBFile(item.file.name)
+    item = _ensure_pdbfile(item)
 
     tmp_positions = item.getPositions()
     tmp_positions = np.array(puw.get_value(tmp_positions, to_unit='nanometers'))
@@ -35,10 +62,7 @@ def get_box_from_system(item, structure_indices='all', skip_digestion=False):
     from openmm.app import PDBFile
     import numpy as np
 
-    if isinstance(item, (str, os.PathLike)):
-        item = PDBFile(str(item))
-    elif str(type(item)).endswith("PDBFileHandler'>"):
-        item = PDBFile(item.file.name)
+    item = _ensure_pdbfile(item)
 
     tmp_box = item.getTopology().getPeriodicBoxVectors()
     if tmp_box is not None:
