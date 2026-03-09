@@ -16,6 +16,19 @@ def get_group_type(molecular_system, element='group', selection='all', redefine_
 
     from molsysmt.basic import get
 
+    if selection == 'all':
+        from molsysmt.native import MolSys, Topology
+        from molsysmt.native._hierarchy import project_group_type_from_topology
+
+        if isinstance(molecular_system, Topology):
+            return project_group_type_from_topology(
+                molecular_system, element=element, redefine_types=redefine_types
+            )
+        if isinstance(molecular_system, MolSys):
+            return project_group_type_from_topology(
+                molecular_system.topology, element=element, redefine_types=redefine_types
+            )
+
     if redefine_types:
 
         if element == 'atom':
@@ -41,10 +54,7 @@ def get_group_type(molecular_system, element='group', selection='all', redefine_
             aux_dict = {}
             for name in unique_group_names:
                 tmp_group_type = get_group_type_from_group_name(name)
-                if tmp_group_type == 'small molecule':
-                    if _small_molecule_is_amino_acid(molecular_system, group_index):
-                        tmp_group_type = 'amino acid'
-                aux_dict[name] = get_group_type_from_group_name(name)
+                aux_dict[name] = tmp_group_type
 
             output = [aux_dict[ii] for ii in group_names_from_group]
 
@@ -89,4 +99,3 @@ def get_group_type_from_group_name(group_name, skip_digestion=False):
         output = 'unknown'
 
     return output
-

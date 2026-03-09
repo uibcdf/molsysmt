@@ -35,6 +35,25 @@ def infer_group_types_from_topology(topology):
     return np.array(output, dtype=object)
 
 
+def project_group_type_from_topology(topology, *, element="group", redefine_types=False):
+    if redefine_types or _needs_columns(topology.groups, ["group_type"]):
+        tmp_topology = topology.copy()
+        tmp_topology.rebuild_groups(redefine_ids=False, redefine_types=True)
+    else:
+        tmp_topology = topology
+
+    group_types = tmp_topology.groups["group_type"].to_numpy(dtype=object)
+
+    if element == "group":
+        return group_types.tolist()
+
+    if element == "atom":
+        group_index_from_atom = tmp_topology.atoms["group_index"].to_numpy(dtype=np.int64, na_value=-1)
+        return group_types[group_index_from_atom].tolist()
+
+    raise NotImplementedError
+
+
 def infer_component_indices_from_topology(topology):
     from molsysmt.lib.topology import get_component_index_from_bonded_atom_pairs
 

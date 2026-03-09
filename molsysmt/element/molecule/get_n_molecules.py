@@ -5,6 +5,23 @@ from molsysmt._private.arg_digestion import arg_digest
 def get_n_molecules(molecular_system, selection='all', redefine_molecules=False,
                      syntax='MolSysMT'):
 
+    if selection == 'all':
+        from molsysmt.native import MolSys, Topology
+        from .get_molecule_index import get_molecule_index
+
+        if isinstance(molecular_system, Topology):
+            return len(molecular_system.molecules.index) if not redefine_molecules else len(
+                get_molecule_index(
+                    molecular_system, element='molecule', selection='all', redefine_indices=True, syntax=syntax
+                )
+            )
+        if isinstance(molecular_system, MolSys):
+            return len(molecular_system.topology.molecules.index) if not redefine_molecules else len(
+                get_molecule_index(
+                    molecular_system, element='molecule', selection='all', redefine_indices=True, syntax=syntax
+                )
+            )
+
     if redefine_molecules:
 
         from .get_molecule_index import get_molecule_index
@@ -24,4 +41,3 @@ def get_n_molecules(molecular_system, selection='all', redefine_molecules=False,
                      n_molecules=True)
 
     return output
-
