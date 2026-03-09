@@ -13,6 +13,7 @@ internal rules and conventions is `devguide/`. If there is any conflict,
    start_dev_env_usage.md
    devcontainer.md
    dependencies.md
+   element_and_native_rebuild.md
 ```
 
 ```{eval-rst}

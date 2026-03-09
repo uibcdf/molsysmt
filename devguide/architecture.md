@@ -35,6 +35,20 @@ Typical execution pipeline:
 4) Core computation (element/structure/lib).
 5) Consistent output format (lists, shapes, units).
 
+## Element vs Native Rebuild
+
+MolSysMT distinguishes between two related but different concerns:
+
+- `molsysmt.element`: public, form-agnostic query helpers.
+- `molsysmt.native`: native reconstruction and inference over `Topology` and `MolSys`.
+
+Public element helpers may use dispatch, `get()`, `select()`, and conversion
+machinery. Native rebuild workflows must not. Native rebuild code must operate
+directly on native topology tables and native helpers in
+`molsysmt/native/_hierarchy.py`.
+
+See `element_and_native_rebuild.md`.
+
 ## Performance Layer
 `molsysmt/lib` contains performance-critical kernels. These kernels use
 Numba and are compiled lazily to keep `import molsysmt` fast. See

@@ -21,8 +21,9 @@ During this session, we have finalized **Phase 2** of the 1.0.0 roadmap. MolSysM
 4) `forms_and_conversions.md` (Graph conversion rules)
 5) `viewers_and_visualization.md` (Visual backend policy)
 6) `architecture.md`
-7) `api_surface.md`
-8) `testing_strategy.md`
+7) `element_and_native_rebuild.md`
+8) `api_surface.md`
+9) `testing_strategy.md`
 
 ## Scope
 These documents define how MolSysMT should be implemented and maintained:
