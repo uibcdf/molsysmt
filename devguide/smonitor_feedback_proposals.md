@@ -1,144 +1,55 @@
 # Temporary SMonitor Feedback Proposals
 
-This note is temporary. It captures feedback gathered while debugging MolSysMT data generation, online downloads, and lossy round-trips through PDB-backed forms such as `nglview.NGLWidget`.
+This note remains a living dump for new feedback gathered while debugging MolSysMT data generation, online downloads, lossy round-trips through PDB-backed forms such as `nglview.NGLWidget`, and future cross-library QA workflows.
 
-## Local actions already justified in MolSysMT
+It is no longer the active upstream implementation checkpoint for `smonitor`.
+The active plan now lives in:
+- `../smonitor/devguide/README.md`
+- `../smonitor/devguide/implementation_plan.md`
 
-- Library-specific catalogs should not collapse detailed warnings into generic text when the original message already carries actionable context.
-- Download warnings should expose, at minimum:
-  - resource identifier,
-  - provider/backend,
-  - retry counters,
-  - failure reason,
-  - emitting caller.
-- MolSysMT should pass structured `extra` fields to SMonitor when emitting download warnings.
+Use this file to record:
+- new pain points observed in real debugging/CI/support work;
+- suggestions not yet reflected in the active upstream plan;
+- MolSysMT-side adoption notes for newly introduced `smonitor` capabilities.
 
-## Desired SMonitor capabilities for QA and developer workflows
+## Already implemented upstream in `../smonitor`
 
-### 1. Better profile-aware rendering of structured context
+The following capabilities that originally motivated this note are now implemented upstream:
 
-Current integrations allow contextual fields in `extra`, but QA- and agent-facing output still depends heavily on each library formatting that context into free text.
+- better profile-aware handling of structured context in human-readable outputs;
+- canonical structured context helper via `smonitor.integrations.context_extra(...)`;
+- structured retry diagnostics through canonical retry metadata fields;
+- optional coalescing of repeated transient warnings;
+- final summary event for coalesced warning windows;
+- richer normalized JSON payloads for QA/agent ingestion;
+- canonical retry and causal metadata in normalized machine output;
+- structured per-call signal context via `signal(..., extra_factory=...)`;
+- tag-aware profiling summaries via `timings_by_tag`;
+- opt-in slow-signal events for QA/developer workflows;
+- bundle/report triage summaries for codes, categories, fingerprints, slow signals, and coalesced warnings.
 
-Desired behavior:
-- `user` profile stays concise,
-- `developer` profile surfaces the root cause and callsite,
-- `qa` / `agent` profiles surface stable structured context directly in rendered output.
-
-Example target for a download warning:
-- resource: `181l.bcif.gz`
-- provider: `RCSB PDB`
-- attempt: `2/5`
-- reason: `timed out`
-- caller: `molsysmt.form.file_bcif_gz.download`
-
-### 2. Support for structured retry diagnostics
-
-Transient download failures are common in CI and data generation.
-
-Desired behavior:
-- stable event code for retryable download failures,
-- explicit retry counters,
-- differentiation between:
-  - HTTP 429,
-  - HTTP 5xx,
-  - DNS / timeout / network errors,
-  - final retry exhaustion.
-
-### 3. Event coalescing for repeated transient warnings
-
-Repeated retries can flood logs and slow QA triage.
-
-Desired behavior:
-- optional coalescing of repeated warnings with the same code/resource/caller,
-- final summary event preserving total retry count and last failure reason.
-
-### 4. Richer bundle output for support handoff
-
-Bundles are already useful, but download and conversion investigations would benefit from richer normalized payloads.
-
-Desired additions:
-- operation name (`download`, `convert`, `rebuild`, `parse`),
-- resource identifiers,
-- backend/provider,
-- normalized failure class,
-- retry metadata,
-- optional causal chain when one warning/error wraps another subsystem.
-
-### 5. Cross-library propagation conventions
-
-MolSysSuite libraries should agree on a small shared vocabulary in diagnostic payloads.
-
-Candidate common keys:
-- `resource`
-- `provider`
-- `operation`
-- `attempt`
-- `retries`
-- `reason`
-- `caller`
-- `source_library`
-
-This would make cross-repo QA and agent triage much faster.
-
-### 6. Signal and profiling improvements in `smonitor` core
-
-### 6a. Performance triage as a first-class QA workflow
-
-The recent MolSysMT stabilization work shows that `smonitor` is already useful for exposing latent performance and compatibility faults, not only classic warnings and exceptions. During this pass it helped surface:
-- native/JIT boundary problems caused by `float32` inputs reaching `float64`-specialized kernels,
-- adapter incompleteness in form layers,
-- repeated slow or lossy conversion paths.
-
-Desired behavior:
-- slow-signal events should remain easy to enable on public hot paths,
-- triage summaries should make it obvious which tags (`api`, `native`, `conversion`, `structure`, `download`) dominate time,
-- evidence packs for QA should be able to capture slow-signal hotspots reproducibly across commits.
-
-Practical implication for MolSysSuite:
-- `smonitor` should be treated as an early hotspot detector and regression triage tool, not only as an error/warning transport layer.
-
-- Signal traces currently summarize timings by function key only; exposing decorator tags in reports or timeline views would make API/native/conversion hot paths much easier to audit during QA.
-- The `signal` decorator would benefit from an optional structured `extra` hook so libraries can attach stable context (for example, form names or selection syntax) without emitting separate warnings.
-- Slow-call threshold events in `smonitor` core would be useful for QA and performance triage, especially for import-time or first-call JIT latency investigations.
-- Small helper APIs in `smonitor` core for common structured-context fields (for example, `caller`, `form`, `requested_attribute`, `record`) would reduce repetitive local wiring across libraries.
-
-### 7. Upstream progress snapshot (2026-03-09)
-
-Implemented upstream in `../smonitor` during this stabilization pass:
-- `signal(..., extra_factory=...)` now supports structured per-call context without separate warning emissions.
-- Profiling timeline entries now preserve signal tags and signal-provided meta context.
-- `report()` now exposes `timings_by_tag` in addition to timings by function and module.
-
-Remaining upstream open items for the current stabilization track:
-- monitor the new normalized machine payload in real cross-library QA usage and extend it only if a concrete gap appears.
-
-Additional upstream progress during this pass:
-- opt-in slow-signal events (`slow_signal_ms`, `slow_signal_level`) now emit structured profiling events for QA/developer workflows.
-- profile-aware truncation for large structured payloads is now implemented in human-readable handlers.
-- `smonitor.integrations.context_extra(...)` now provides the canonical helper for common structured diagnostic fields.
-
-### 8. Next-session checkpoint and implementation order
-
-Current upstream status in `../smonitor`:
-- structured per-call signal context is implemented,
-- tag-aware profiling summaries are implemented,
-- opt-in slow-signal profiling events are implemented,
-- profile-aware truncation for large structured payloads is implemented in human-readable handlers.
-
-Next implementation slices proposed upstream, in order:
-1. monitor the new normalized machine payload in real cross-library QA usage and only extend it if a concrete gap appears.
-
-MolSysMT-side follow-up after each upstream slice:
-1. adopt the new `smonitor` helper APIs in local callsites that still handcraft repeated `extra` payloads;
-2. extend cross-repo contract tests when new structured fields become canonical;
-3. keep this file synchronized as the authoritative MolSysMT-side checkpoint for the upstream `smonitor` stabilization track.
+## MolSysMT-side adoption notes
 
 Current MolSysMT-side adoption progress:
-- `context_extra(...)` is now used in the shared download helper, JIT warning emission, and the multi-container/ambiguous-structure warning callsites touched during this pass.
-- The AlphaFold BCIF import path and selection fallback warning path now also use `context_extra(...)`.
+- `context_extra(...)` is already used in the shared download helper, JIT warning emission, and the multi-container/ambiguous-structure warning callsites touched during this pass.
+- The AlphaFold BCIF import path and selection fallback warning path also use `context_extra(...)`.
+- Upstream `smonitor` now exposes explicit runtime identifiers (`run_id`, `session_id`, optional `correlation_id`) with default generation and override support; MolSysMT can consume those identifiers directly in QA/support workflows without local identifier plumbing.
 - Remaining manual `extra` payloads should be reviewed incrementally as future diagnostics work touches those paths.
 
+## Open area for new suggestions
 
-Additional upstream progress in this pass:
-- opt-in warning coalescing is now available, with triage summaries for suppressed duplicates.
-- JSON output now includes a normalized machine-oriented payload section for stable QA ingestion.
+Keep adding new suggestions here when real work reveals gaps in:
+- diagnostic structure;
+- noise reduction without information loss;
+- reproducible support and triage;
+- human/agent dual usability;
+- cross-library payload conventions.
+
+## Suggested format for future entries
+
+For each new suggestion, prefer capturing:
+- observed problem;
+- why current `smonitor` behavior is insufficient;
+- desired behavior;
+- whether it belongs in `smonitor` core or in MolSysMT-side adoption;
+- example payload/report/bundle shape if relevant.
