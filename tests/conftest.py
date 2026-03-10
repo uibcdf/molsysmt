@@ -180,6 +180,56 @@ def hp35_molsys(_base_hp35_molsys):
 def hp35_bcif_molsys(_base_hp35_bcif_molsys):
     return _base_hp35_bcif_molsys.copy()
 
+
+@pytest.fixture()
+def hp35_bcif_file():
+    return systems['chicken villin HP35']['1vii.bcif']
+
+
+@pytest.fixture()
+def hp35_bcif_gz_file():
+    return systems['chicken villin HP35']['1vii.bcif.gz']
+
+
+@pytest.fixture(scope="session")
+def _base_hp35_cif_file(tmp_path_factory):
+    import gzip
+    import shutil
+    from mmcif.io.IoAdapterCore import IoAdapterCore
+
+    tmp_dir = tmp_path_factory.mktemp('hp35_cif_assets')
+    cif_path = tmp_dir / '1vii.cif'
+    if not cif_path.exists():
+        container = msm.convert(systems['chicken villin HP35']['1vii.bcif.gz'], to_form='mmcif.PdbxContainers.DataContainer')
+        io = IoAdapterCore()
+        io.writeFile(str(cif_path), [container])
+
+    return str(cif_path)
+
+
+@pytest.fixture()
+def hp35_cif_file(_base_hp35_cif_file):
+    return _base_hp35_cif_file
+
+
+@pytest.fixture(scope="session")
+def _base_hp35_cif_gz_file(tmp_path_factory, _base_hp35_cif_file):
+    import gzip
+    import shutil
+
+    tmp_dir = tmp_path_factory.mktemp('hp35_cif_gz_assets')
+    cif_gz_path = tmp_dir / '1vii.cif.gz'
+    if not cif_gz_path.exists():
+        with open(_base_hp35_cif_file, 'rb') as source, gzip.open(cif_gz_path, 'wb') as destination:
+            shutil.copyfileobj(source, destination)
+
+    return str(cif_gz_path)
+
+
+@pytest.fixture()
+def hp35_cif_gz_file(_base_hp35_cif_gz_file):
+    return _base_hp35_cif_gz_file
+
 @pytest.fixture()
 def met_enkephalin_pdb_molsys(_base_met_enkephalin_pdb_molsys):
     return _base_met_enkephalin_pdb_molsys.copy()
