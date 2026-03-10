@@ -101,3 +101,22 @@ Still proposed, not yet implemented upstream:
 Additional upstream progress during this pass:
 - opt-in slow-signal events (`slow_signal_ms`, `slow_signal_level`) now emit structured profiling events for QA/developer workflows.
 - profile-aware truncation for large structured payloads is now implemented in human-readable handlers.
+
+### 8. Next-session checkpoint and implementation order
+
+Current upstream status in `../smonitor`:
+- structured per-call signal context is implemented,
+- tag-aware profiling summaries are implemented,
+- opt-in slow-signal profiling events are implemented,
+- profile-aware truncation for large structured payloads is implemented in human-readable handlers.
+
+Next implementation slices proposed upstream, in order:
+1. helper APIs for common structured context keys (`caller`, `form`, `requested_attribute`, `resource`, `provider`, `operation`);
+2. bundle/report enrichment so slow-signal and structured diagnostic payloads are easier to triage without inspecting raw event streams;
+3. optional event coalescing for repeated transient warnings (especially download/retry scenarios);
+4. review whether machine-oriented outputs need explicit normalized fields for cross-library QA tooling.
+
+MolSysMT-side follow-up after each upstream slice:
+1. adopt the new `smonitor` helper APIs in local callsites that still handcraft repeated `extra` payloads;
+2. extend cross-repo contract tests when new structured fields become canonical;
+3. keep this file synchronized as the authoritative MolSysMT-side checkpoint for the upstream `smonitor` stabilization track.
