@@ -32,17 +32,16 @@ def digest_total_energy(total_energy, caller=None):
 
     """
 
-    if caller.endswith(functions_with_boolean):
+    if caller is not None and caller.endswith(functions_with_boolean):
         if isinstance(total_energy, bool):
             return total_energy
 
     value, unit = puw.get_value_and_unit(total_energy)
 
     if not puw.check(unit, dimensionality={'[L]': 2, '[M]': 1, '[T]': -2, '[mol]': -1}):
-        raise ArgumentError('total_energy', value=coordinates, caller=caller, message=None)
+        raise ArgumentError('total_energy', value=total_energy, caller=caller, message=None)
 
     if isinstance(value, (int, np.int64, float, np.float64)):
         return puw.standardize(puw.quantity(value, unit))
 
     raise ArgumentError('total_energy', value=total_energy, caller=caller, message=None)
-
