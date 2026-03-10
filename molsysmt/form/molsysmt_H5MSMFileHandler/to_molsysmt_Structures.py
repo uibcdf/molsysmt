@@ -44,6 +44,22 @@ def to_molsysmt_Structures(item, atom_indices='all', structure_indices='all', sk
     else:
         tmp_item.box = None
 
+    # B factor
+    if 'b_factor' in structures_ds and structures_ds['b_factor'].shape[0] > 0:
+        b_factor_unit = structures_ds.attrs.get('b_factor_unit', 'nanometer**2')
+        if is_all(structure_indices):
+            if is_all(atom_indices):
+                tmp_item.b_factor = puw.quantity(structures_ds['b_factor'][:], b_factor_unit)
+            else:
+                tmp_item.b_factor = puw.quantity(structures_ds['b_factor'][:, atom_indices], b_factor_unit)
+        else:
+            if is_all(atom_indices):
+                tmp_item.b_factor = puw.quantity(structures_ds['b_factor'][structure_indices, :], b_factor_unit)
+            else:
+                tmp_item.b_factor = puw.quantity(structures_ds['b_factor'][np.ix_(structure_indices, atom_indices)], b_factor_unit)
+    else:
+        tmp_item.b_factor = None
+
     # Time
     if 'time' in structures_ds and structures_ds['time'].shape[0] > 0:
         time_unit = structures_ds['time'].attrs.get('unit', 'ps')

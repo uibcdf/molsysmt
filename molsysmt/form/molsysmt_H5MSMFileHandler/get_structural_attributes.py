@@ -57,6 +57,34 @@ def get_velocities_from_atom(item, indices='all', structure_indices='all', skip_
 
     return output
 
+@arg_digest(form=form)
+def get_b_factor_from_atom(item, indices='all', structure_indices='all', skip_digestion=False):
+
+    if 'b_factor' not in item.file['structures']:
+        return None
+
+    if item.file['structures']['b_factor'].shape[0] == 0:
+        return None
+
+    if is_all(structure_indices):
+        if is_all(indices):
+            output = item.file['structures']['b_factor'][:, :].astype('float')
+        else:
+            output = item.file['structures']['b_factor'][:, indices].astype('float')
+    else:
+        output = []
+        for ii in structure_indices:
+            if is_all(indices):
+                output.append(item.file['structures']['b_factor'][ii, :].astype('float'))
+            else:
+                output.append(item.file['structures']['b_factor'][ii, indices].astype('float'))
+        output = np.array(output)
+
+    unit = item.file['structures'].attrs.get('b_factor_unit', 'nanometer**2')
+    output = puw.quantity(output, unit, standardized=True)
+
+    return output
+
 
 ## From system
 
@@ -180,5 +208,9 @@ def get_temperature_from_system(item, structure_indices='all', skip_digestion=Fa
 
     return output
 
+@arg_digest(form=form)
+def get_b_factor_from_system(item, structure_indices='all', skip_digestion=False):
+
+    return get_b_factor_from_atom(item, structure_indices=structure_indices, skip_digestion=True)
 
 

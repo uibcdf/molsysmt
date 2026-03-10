@@ -95,6 +95,17 @@ def dump_structures_to_h5msm(item, file, atom_indices='all', structure_indices='
             aux = puw.get_value(item.velocities, to_unit=length_unit/length_time).astype(float_precision)
         structures_ds['velocities'][:,:,:] = aux
 
+    b_factor_unit = puw.get_standard_units(dimensionality={'[L]':2})
+    structures_ds.attrs['b_factor_unit'] = str(b_factor_unit)
+
+    if item.b_factor is not None:
+        structures_ds['b_factor'].resize((n_structures, n_atoms))
+        if puw.check(item.b_factor, unit=b_factor_unit):
+            aux = puw.get_value(item.b_factor).astype(float_precision)
+        else:
+            aux = puw.get_value(item.b_factor, to_unit=b_factor_unit).astype(float_precision)
+        structures_ds['b_factor'][:, :] = aux
+
     if item.box is not None:
         structures_ds['box'].resize((n_structures,3,3))
         if puw.check(item.box, unit=length_unit):
@@ -135,4 +146,3 @@ def dump_structures_to_h5msm(item, file, atom_indices='all', structure_indices='
         file.close()
 
     pass
-
