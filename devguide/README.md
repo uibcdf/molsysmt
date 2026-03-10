@@ -25,6 +25,9 @@ Validation status at this checkpoint:
   `tests/thirds`, `tests/topology`, `tests/native`, `tests/cross_repo`,
   `tests/hbonds`, `tests/molecular_mechanics`, `tests/pbc`,
   `tests/physchem`, and `tests/supported`;
+- for broad validation work from this checkpoint onward, the default execution
+  mode on the reference workstation is distributed `pytest-xdist`
+  (`-n 12 --dist loadfile`) rather than fully sequential execution;
 - the low-priority cleanup identified during the validation pass was closed:
   `show_contacts` no longer emits undigested-argument warnings for `style` and
   `show`, and `.codecov.yml` now tracks core `form`, `_private`, and `lib`

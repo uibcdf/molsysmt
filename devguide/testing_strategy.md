@@ -32,6 +32,16 @@ top-level test directories over a single very large `pytest` invocation. This
 gives cleaner checkpoints and isolates the next blocking failure without
 discarding useful progress from earlier slices.
 
+Default execution mode for broad validation is now distributed:
+- use `pytest -n 12 --dist loadfile ...` for large validation batches and full
+  suite confirmation when the environment supports `pytest-xdist`;
+- keep the sequential directory-by-directory order, but run each batch in
+  distributed mode to reduce wall-clock time without saturating the whole
+  workstation;
+- reserve fully sequential execution for debugging a specific failure, for
+  narrow reproduction, or if coverage instrumentation becomes unstable under
+  `xdist`.
+
 Current validated sequence in the March 2026 pass:
 - `tests/basic`
 - `tests/build`
@@ -52,7 +62,10 @@ Current status:
 - the full `tests/` tree passes in the current environment;
 - the sequential rule remains recommended for stabilization work because it
   produces better checkpoints and faster diagnosis when the suite is not yet
-  green.
+  green;
+- broad validation and coverage sweeps should prefer `-n 12` in the reference
+  workstation, which has enough physical cores to support that level of
+  parallelism without interfering with other active tasks.
 
 ## Peptide Builder Validation Policy
 `build_peptide(engine="MolSysMT")` must be validated against `engine="LEaP"`

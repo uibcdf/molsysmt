@@ -62,7 +62,8 @@ Follow-up after the next validation checkpoint:
 - review whether remaining warnings from third-party libraries should be
   documented, filtered, or simply tolerated;
 - reassess coverage targets now that `.codecov.yml` includes core internal
-  modules again;
+  modules again; the current honest full-suite baseline is 51% with distributed
+  coverage execution;
 - continue only with polish or contract-scope decisions, not broad
   stabilization rewrites.
 
