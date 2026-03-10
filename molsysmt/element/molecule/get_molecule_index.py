@@ -4,6 +4,14 @@ from molsysmt._private.arg_digestion import arg_digest
 @arg_digest()
 def get_molecule_index(molecular_system, element='molecule', selection='all',
                        redefine_indices=False, syntax='MolSysMT', skip_digestion=False):
+    """Returning molecule indices for a molecular system.
+
+    Notes
+    -----
+    This is a public form-agnostic helper. When no explicit molecule
+    definition is available and indices are redefined, molecules fall back to
+    components according to the native rebuild contract.
+    """
 
     if selection == 'all':
         from molsysmt.native import MolSys, Topology

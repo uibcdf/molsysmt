@@ -3,6 +3,13 @@ from molsysmt._private.arg_digestion import arg_digest
 @arg_digest()
 def get_chain_index(molecular_system, element='atom', selection='all',
                     redefine_indices=False, syntax='MolSysMT', skip_digestion=False):
+    """Returning chain indices for a molecular system.
+
+    Notes
+    -----
+    This public helper remains form-agnostic. When the input is already
+    native and `selection='all'`, it delegates to the native hierarchy layer.
+    """
 
     if selection == 'all':
         from molsysmt.native import MolSys, Topology

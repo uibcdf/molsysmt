@@ -5,6 +5,13 @@ import numpy as np
 @arg_digest()
 def get_chain_type(molecular_system, element='atom', selection='all',
                    redefine_indices=False, redefine_types=False, syntax='MolSysMT', skip_digestion=False):
+    """Returning chain types for a molecular system.
+
+    Notes
+    -----
+    Explicit types are preserved when available. If types are redefined, they
+    are inferred locally from the molecule types assigned to each chain.
+    """
 
     if selection == 'all':
         from molsysmt.native import MolSys, Topology

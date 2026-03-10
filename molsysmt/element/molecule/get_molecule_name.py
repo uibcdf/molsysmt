@@ -5,6 +5,15 @@ import numpy as np
 @arg_digest()
 def get_molecule_name(molecular_system, element='molecule', selection='all', redefine_indices=False,
                        redefine_names=False, syntax='MolSysMT', skip_digestion=False):
+    """Returning molecule names for a molecular system.
+
+    Notes
+    -----
+    Explicit names are preserved when available. If names are redefined,
+    molecule names follow the canonical local fallback rules; in particular,
+    when molecules fall back to components, `molecule_name` falls back to
+    `component_name`.
+    """
 
     if selection == 'all':
         from molsysmt.native import MolSys, Topology
