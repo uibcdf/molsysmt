@@ -182,7 +182,7 @@ def select(molecular_system, selection='all', structure_indices='all', element='
     if (mask is not None) and (output_indices is not None):
         if isinstance(mask, str):
             mask = select(molecular_system, selection=mask, element=element, syntax=syntax, skip_digestion=True)
-        output_indices = np.intersect1d(output_indices, mask, assume_unique=True)
+        output_indices = np.intersect1d(output_indices, mask, assume_unique=True).tolist()
 
     if to_syntax is None:
 
