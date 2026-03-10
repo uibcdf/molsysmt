@@ -616,7 +616,7 @@ def prepare_topology_for_chain_queries(topology, *, redefine_indices=False, rede
     need_molecules = redefine_types or _needs_columns(topology.molecules, ["molecule_name", "molecule_type"])
     need_chains = redefine_indices or redefine_names or redefine_types or _needs_columns(
         topology.chains, ["chain_name", "chain_type"]
-    ) or _needs_columns(topology.atoms, ["chain_index"])
+    ) or _needs_columns(topology.atoms, ["chain_index"]) or _needs_columns(topology.groups, ["chain_index"])
     need_entities = False
 
     if not any([need_groups, need_components, need_molecules, need_chains]):
