@@ -8,7 +8,7 @@ functions_with_boolean = (
 
 def digest_n_molecules(n_molecules, caller=None):
 
-    if caller.endswith(functions_with_boolean):
+    if caller is not None and caller.endswith(functions_with_boolean):
         if isinstance(n_molecules, bool):
             return n_molecules
         else:
@@ -27,4 +27,3 @@ def digest_n_molecules(n_molecules, caller=None):
             return n_molecules
 
     raise ArgumentError('n_molecules', value=n_molecules, caller=caller, message=None)
-

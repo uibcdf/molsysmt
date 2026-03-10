@@ -32,18 +32,17 @@ def digest_chain_id(chain_id, caller=None):
     ArgumentError
         If the given `chain_id` has not of the correct type or value.
     """
-
-
-    if caller.endswith(functions_with_boolean):
-        if isinstance(chain_id, bool):
+    if caller is not None:
+        if caller.endswith(functions_with_boolean):
+            if isinstance(chain_id, bool):
+                return chain_id
+        elif caller == 'molsysmt.build.define_new_chain.define_new_chain':
+            if isinstance(chain_id, int):
+                return chain_id
+            elif chain_id is None:
+                return None
+        elif caller.startswith('molsysmt.form.') and caller.count('.to_') == 2:
             return chain_id
-    elif caller=='molsysmt.build.define_new_chain.define_new_chain':
-        if isinstance(chain_id, int):
-            return chain_id
-        elif chain_id is None:
-            return None
-    elif caller.startswith('molsysmt.form.') and caller.count('.to_')==2:
-        return chain_id
 
     if isinstance(chain_id, (int, np.int64)):
         return [chain_id]
@@ -58,4 +57,3 @@ def digest_chain_id(chain_id, caller=None):
         return chain_id.tolist()
 
     raise ArgumentError('chain_id', value=chain_id, caller=caller, message=None)
-

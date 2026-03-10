@@ -26,10 +26,10 @@ def digest_entity_type(entity_type, caller=None):
         If the given `entity_type` has not of the correct type or value.
     """
 
-    if caller=='molsysmt.basic.get.get':
+    if caller == 'molsysmt.basic.get.get':
         if isinstance(entity_type, bool):
             return entity_type
-    elif caller.startswith('molsysmt.form.') and caller.count('.to_')==2:
+    elif caller is not None and caller.startswith('molsysmt.form.') and caller.count('.to_')==2:
         return entity_type
 
     if isinstance(entity_type, str):
@@ -45,4 +45,3 @@ def digest_entity_type(entity_type, caller=None):
         return entity_type.tolist()
 
     raise ArgumentError('entity_type', value=entity_type, caller=caller, message=None)
-

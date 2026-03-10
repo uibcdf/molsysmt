@@ -8,7 +8,7 @@ functions_with_boolean = (
 
 def digest_n_atoms(n_atoms, caller=None):
 
-    if caller.endswith(functions_with_boolean):
+    if caller is not None and caller.endswith(functions_with_boolean):
         if isinstance(n_atoms, bool):
             return n_atoms
         else:
@@ -27,4 +27,3 @@ def digest_n_atoms(n_atoms, caller=None):
             return n_atoms
 
     raise ArgumentError('n_atoms', value=n_atoms, caller=caller, message=None)
-

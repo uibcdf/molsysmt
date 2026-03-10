@@ -8,7 +8,7 @@ functions_with_boolean = (
 
 def digest_n_chains(n_chains, caller=None):
 
-    if caller.endswith(functions_with_boolean):
+    if caller is not None and caller.endswith(functions_with_boolean):
         if isinstance(n_chains, bool):
             return n_chains
         else:
@@ -27,4 +27,3 @@ def digest_n_chains(n_chains, caller=None):
             return n_chains
 
     raise ArgumentError('n_chains', value=n_chains, caller=caller, message=None)
-

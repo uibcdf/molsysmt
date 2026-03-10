@@ -8,7 +8,7 @@ functions_with_boolean = (
 
 def digest_n_entities(n_entities, caller=None):
 
-    if caller.endswith(functions_with_boolean):
+    if caller is not None and caller.endswith(functions_with_boolean):
         if isinstance(n_entities, bool):
             return n_entities
         else:
@@ -27,4 +27,3 @@ def digest_n_entities(n_entities, caller=None):
             return n_entities
 
     raise ArgumentError('n_entities', value=n_entities, caller=caller, message=None)
-

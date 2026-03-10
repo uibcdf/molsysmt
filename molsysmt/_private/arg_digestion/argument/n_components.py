@@ -8,7 +8,7 @@ functions_with_boolean = (
 
 def digest_n_components(n_components, caller=None):
 
-    if caller.endswith(functions_with_boolean):
+    if caller is not None and caller.endswith(functions_with_boolean):
         if isinstance(n_components, bool):
             return n_components
         else:
@@ -27,4 +27,3 @@ def digest_n_components(n_components, caller=None):
             return n_components
 
     raise ArgumentError('n_components', value=n_components, caller=caller, message=None)
-
