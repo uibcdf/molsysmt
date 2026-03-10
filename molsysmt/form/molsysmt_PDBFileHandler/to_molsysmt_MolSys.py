@@ -31,9 +31,9 @@ def _parse_topology_from_lines(lines):
     first_model_finished = False
 
     for line in lines:
-        record = line[0:6]
+        record = line[0:6].strip()
 
-        if record == "MODEL ":
+        if record == "MODEL":
             if inside_model:
                 continue
             inside_model = True
@@ -47,12 +47,12 @@ def _parse_topology_from_lines(lines):
                 break
             continue
 
-        if record == "TER   ":
+        if record == "TER":
             if atom_rows:
                 pending_new_chain = True
             continue
 
-        if record in ["ATOM  ", "HETATM"]:
+        if record in ["ATOM", "HETATM"]:
             if first_model_finished:
                 break
 
@@ -135,8 +135,8 @@ def _build_structures_from_lines(lines, entry):
     saw_explicit_model = False
 
     for line in lines:
-        record = line[0:6]
-        if record == "MODEL ":
+        record = line[0:6].strip()
+        if record == "MODEL":
             if current_model:
                 models.append(current_model)
                 current_model = []
@@ -148,7 +148,7 @@ def _build_structures_from_lines(lines, entry):
             current_model = []
             inside_model = False
             continue
-        if record in ["ATOM  ", "HETATM"]:
+        if record in ["ATOM", "HETATM"]:
             current_model.append(
                 [float(line[30:38]), float(line[38:46]), float(line[46:54])]
             )
