@@ -13,7 +13,7 @@ def get_component_name(molecular_system, element='component', selection='all', r
     naming rules documented in `devguide/element_and_native_rebuild.md`.
     """
 
-    if selection == 'all':
+    if isinstance(selection, str) and selection == 'all':
         from molsysmt.native import MolSys, Topology
         from molsysmt.native._hierarchy import project_component_name_from_topology
 

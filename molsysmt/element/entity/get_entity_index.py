@@ -14,7 +14,7 @@ def get_entity_index(molecular_system, element='entity', selection='all',
     molecules into a single entity key and groups the rest by molecule name.
     """
 
-    if selection == 'all':
+    if isinstance(selection, str) and selection == 'all':
         from molsysmt.native import MolSys, Topology
         from molsysmt.native._hierarchy import project_entity_index_from_topology
 

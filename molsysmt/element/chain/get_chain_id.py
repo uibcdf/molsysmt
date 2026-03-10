@@ -6,7 +6,7 @@ def get_chain_id(molecular_system, element='atom', selection='all',
                  redefine_indices=False, redefine_ids=False,
                  syntax='MolSysMT', skip_digestion=False):
 
-    if selection == 'all':
+    if isinstance(selection, str) and selection == 'all':
         from molsysmt.native import MolSys, Topology
 
         topology = None

@@ -13,7 +13,7 @@ def get_molecule_index(molecular_system, element='molecule', selection='all',
     components according to the native rebuild contract.
     """
 
-    if selection == 'all':
+    if isinstance(selection, str) and selection == 'all':
         from molsysmt.native import MolSys, Topology
         from molsysmt.native._hierarchy import project_molecule_index_from_topology
 

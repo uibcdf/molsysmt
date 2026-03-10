@@ -6,7 +6,7 @@ import numpy as np
 def get_component_id(molecular_system, element='component', selection='all', redefine_indices=False,
                      redefine_ids=False, syntax='MolSysMT', skip_digestion=False):
 
-    if selection == 'all':
+    if isinstance(selection, str) and selection == 'all':
         from molsysmt.native import MolSys, Topology
 
         topology = None
