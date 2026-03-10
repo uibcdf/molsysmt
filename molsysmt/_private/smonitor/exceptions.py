@@ -161,7 +161,10 @@ class NotImplementedMethodError(MolSysMTCatalogException):
     catalog_key = "NotImplementedMethodError"
 
     def __init__(self, method=None, arguments=None, caller=None, message=None):
-        extra = {}
+        extra = {
+            "method": method or "unspecified method",
+            "arguments": arguments or "unspecified arguments",
+        }
         if caller:
             extra["caller"] = caller
         super().__init__(message=message, extra=extra)

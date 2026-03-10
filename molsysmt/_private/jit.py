@@ -49,7 +49,7 @@ def _emit_numba_jit_warning(func):
         CATALOG["warnings"]["NumbaJitWarning"],
         package_root=PACKAGE_ROOT,
         meta=META,
-        extra={"kernel": func.__name__, "module": func.__module__},
+        extra={"kernel": func.__name__, "module": func.__module__, "cache_state": "cold"},
     )
 
 
