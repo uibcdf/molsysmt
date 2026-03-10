@@ -727,6 +727,10 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
     tmp_item.topology.groups["group_name"] = group_name
     tmp_item.topology.groups["group_id"] = group_id
     tmp_item.topology.groups["molecule_index"] = molecule_index_from_group
+    chain_index_from_group = np.empty(len(group_name), dtype=int)
+    for aux_chain_index, aux_group_indices in chain_index_to_group_indices.items():
+        chain_index_from_group[aux_group_indices] = aux_chain_index
+    tmp_item.topology.groups["chain_index"] = chain_index_from_group
 
     tmp_item.topology.molecules["molecule_name"] = molecule_name
     tmp_item.topology.molecules["molecule_id"] = np.arange(n_molecules, dtype=int)

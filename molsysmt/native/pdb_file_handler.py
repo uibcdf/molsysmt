@@ -1,3 +1,4 @@
+import os
 import numpy as np
 from molsysmt import pyunitwizard as puw
 import io
@@ -1216,6 +1217,9 @@ class PDBFileHandler():
         self.file = None
         self.format_version = None
         self.entry = None
+
+        if isinstance(file, os.PathLike):
+            file = str(file)
 
         if isinstance(file, str):
 

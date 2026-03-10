@@ -12,112 +12,112 @@ form='molsysmt.MolSys'
 @arg_digest(form=form)
 def set_atom_index_to_atom(item, indices='all', value=None, skip_digestion=False):
 
-    from ..molsysmt_Topology.set_atom_index_to_atom import set_atom_index_to_atom as aux_set
+    from ..molsysmt_Topology.set import set_atom_index_to_atom as aux_set
 
     return aux_set(item.topology, indices=indices, value=value, skip_digestion=True)
 
 @arg_digest(form=form)
 def set_atom_name_to_atom(item, indices='all', value=None, skip_digestion=False):
 
-    from ..molsysmt_Topology.set_atom_name_to_atom import set_atom_name_to_atom as aux_set
+    from ..molsysmt_Topology.set import set_atom_name_to_atom as aux_set
 
     return aux_set(item.topology, indices=indices, value=value, skip_digestion=True)
 
 @arg_digest(form=form)
 def set_atom_id_to_atom(item, indices='all', value=None, skip_digestion=False):
 
-    from ..molsysmt_Topology.set_atom_id_to_atom import set_atom_id_to_atom as aux_set
+    from ..molsysmt_Topology.set import set_atom_id_to_atom as aux_set
 
     return aux_set(item.topology, indices=indices, value=value, skip_digestion=True)
 
 @arg_digest(form=form)
 def set_atom_type_to_atom(item, indices='all', value=None, skip_digestion=False):
 
-    from ..molsysmt_Topology.set_atom_type_to_atom import set_atom_type_to_atom as aux_set
+    from ..molsysmt_Topology.set import set_atom_type_to_atom as aux_set
 
     return aux_set(item.topology, indices=indices, value=value, skip_digestion=True)
 
 @arg_digest(form=form)
 def set_group_index_to_atom(item, indices='all', value=None, skip_digestion=False):
 
-    from ..molsysmt_Topology.set_group_index_to_atom import set_group_index_to_atom as aux_set
+    from ..molsysmt_Topology.set import set_group_index_to_atom as aux_set
 
     return aux_set(item.topology, indices=indices, value=value, skip_digestion=True)
 
 @arg_digest(form=form)
 def set_group_name_to_atom(item, indices='all', value=None, skip_digestion=False):
 
-    from ..molsysmt_Topology.set_group_name_to_atom import set_group_name_to_atom as aux_set
+    from ..molsysmt_Topology.set import set_group_name_to_atom as aux_set
 
     return aux_set(item.topology, indices=indices, value=value, skip_digestion=True)
 
 @arg_digest(form=form)
 def set_group_id_to_atom(item, indices='all', value=None, skip_digestion=False):
 
-    from ..molsysmt_Topology.set_group_id_to_atom import set_group_id_to_atom as aux_set
+    from ..molsysmt_Topology.set import set_group_id_to_atom as aux_set
 
     return aux_set(item.topology, indices=indices, value=value, skip_digestion=True)
 
 @arg_digest(form=form)
 def set_group_type_to_atom(item, indices='all', value=None, skip_digestion=False):
 
-    from ..molsysmt_Topology.set_group_type_to_atom import set_group_type_to_atom as aux_set
+    from ..molsysmt_Topology.set import set_group_type_to_atom as aux_set
 
     return aux_set(item.topology, indices=indices, value=value, skip_digestion=True)
 
 @arg_digest(form=form)
 def set_component_index_to_atom(item, indices='all', value=None, skip_digestion=False):
 
-    from ..molsysmt_Topology.set_component_index_to_atom import set_component_index_to_atom as aux_set
+    from ..molsysmt_Topology.set import set_component_index_to_atom as aux_set
 
     return aux_set(item.topology, indices=indices, value=value, skip_digestion=True)
 
 @arg_digest(form=form)
 def set_component_name_to_atom(item, indices='all', value=None, skip_digestion=False):
 
-    from ..molsysmt_Topology.set_component_name_to_atom import set_component_name_to_atom as aux_set
+    from ..molsysmt_Topology.set import set_component_name_to_atom as aux_set
 
     return aux_set(item.topology, indices=indices, value=value, skip_digestion=True)
 
 @arg_digest(form=form)
 def set_component_id_to_atom(item, indices='all', value=None, skip_digestion=False):
 
-    from ..molsysmt_Topology.set_component_id_to_atom import set_component_id_to_atom as aux_set
+    from ..molsysmt_Topology.set import set_component_id_to_atom as aux_set
 
     return aux_set(item.topology, indices=indices, value=value, skip_digestion=True)
 
 @arg_digest(form=form)
 def set_component_type_to_atom(item, indices='all', value=None, skip_digestion=False):
 
-    from ..molsysmt_Topology.set_component_type_to_atom import set_component_type_to_atom as aux_set
+    from ..molsysmt_Topology.set import set_component_type_to_atom as aux_set
 
     return aux_set(item.topology, indices=indices, value=value, skip_digestion=True)
 
 @arg_digest(form=form)
 def set_molecule_index_to_atom(item, indices='all', value=None, skip_digestion=False):
 
-    from ..molsysmt_Topology.set_molecule_index_to_atom import set_molecule_index_to_atom as aux_set
+    from ..molsysmt_Topology.set import set_molecule_index_to_atom as aux_set
 
     return aux_set(item.topology, indices=indices, value=value, skip_digestion=True)
 
 @arg_digest(form=form)
 def set_molecule_name_to_atom(item, indices='all', value=None, skip_digestion=False):
 
-    from ..molsysmt_Topology.set_molecule_name_to_atom import set_molecule_name_to_atom as aux_set
+    from ..molsysmt_Topology.set import set_molecule_name_to_atom as aux_set
 
     return aux_set(item.topology, indices=indices, value=value, skip_digestion=True)
 
 @arg_digest(form=form)
 def set_molecule_id_to_atom(item, indices='all', value=None, skip_digestion=False):
 
-    from ..molsysmt_Topology.set_molecule_id_to_atom import set_molecule_id_to_atom as aux_set
+    from ..molsysmt_Topology.set import set_molecule_id_to_atom as aux_set
 
     return aux_set(item.topology, indices=indices, value=value, skip_digestion=True)
 
 @arg_digest(form=form)
 def set_molecule_type_to_atom(item, indices='all', value=None, skip_digestion=False):
 
-    from ..molsysmt_Topology.set_molecule_type_to_atom import set_molecule_type_to_atom as aux_set
+    from ..molsysmt_Topology.set import set_molecule_type_to_atom as aux_set
 
     return aux_set(item.topology, indices=indices, value=value, skip_digestion=True)
 
@@ -152,28 +152,28 @@ def set_chain_type_to_atom(item, indices='all', value=None, skip_digestion=False
 @arg_digest(form=form)
 def set_entity_index_to_atom(item, indices='all', value=None, skip_digestion=False):
 
-    from ..molsysmt_Topology.set_entity_index_to_atom import set_entity_index_to_atom as aux_set
+    from ..molsysmt_Topology.set import set_entity_index_to_atom as aux_set
 
     return aux_set(item.topology, indices=indices, value=value, skip_digestion=True)
 
 @arg_digest(form=form)
 def set_entity_name_to_atom(item, indices='all', value=None, skip_digestion=False):
 
-    from ..molsysmt_Topology.set_entity_name_to_atom import set_entity_name_to_atom as aux_set
+    from ..molsysmt_Topology.set import set_entity_name_to_atom as aux_set
 
     return aux_set(item.topology, indices=indices, value=value, skip_digestion=True)
 
 @arg_digest(form=form)
 def set_entity_id_to_atom(item, indices='all', value=None, skip_digestion=False):
 
-    from ..molsysmt_Topology.set_entity_id_to_atom import set_entity_id_to_atom as aux_set
+    from ..molsysmt_Topology.set import set_entity_id_to_atom as aux_set
 
     return aux_set(item.topology, indices=indices, value=value, skip_digestion=True)
 
 @arg_digest(form=form)
 def set_entity_type_to_atom(item, indices='all', value=None, skip_digestion=False):
 
-    from ..molsysmt_Topology.set_entity_type_to_atom import set_entity_type_to_atom as aux_set
+    from ..molsysmt_Topology.set import set_entity_type_to_atom as aux_set
 
     return aux_set(item.topology, indices=indices, value=value, skip_digestion=True)
 
@@ -194,8 +194,8 @@ def set_coordinates_to_atom(item, indices='all', structure_indices='all', value=
 @arg_digest(form=form)
 def set_velocities_to_atom(item, indices='all', structure_indices='all', value=None, skip_digestion=False):
 
-    from ..molsysmt_Structures.set_velocities_to_atom import set_velocities_to_atom as aux_set
-    from molsysmt.form.molsysmt_Topology import get_n_atoms_from_system
+    from molsysmt.form.molsysmt_Structures.set import set_velocities_to_atom as aux_set
+    from molsysmt.form.molsysmt_Topology.get_topological_attributes import get_n_atoms_from_system as get_n_atoms_from_system
 
     if is_all(indices):
         n_atoms = get_n_atoms_from_system(item.topology, skip_digestion=True)
@@ -208,14 +208,14 @@ def set_velocities_to_atom(item, indices='all', structure_indices='all', value=N
 @arg_digest(form=form)
 def set_b_factor_to_atom(item, indices='all', structure_indices='all', value=None, skip_digestion=False):
 
-    from ..molsysmt_Structures.set_b_factor_to_atom import set_b_factor_to_atom as aux_set
+    from molsysmt.form.molsysmt_Structures.set import set_b_factor_to_atom as aux_set
 
     return aux_set(item.structures, indices=indices, structure_indices=structure_indices, value=value, skip_digestion=True)
 
 @arg_digest(form=form)
 def set_occupancy_to_atom(item, indices='all', structure_indices='all', value=None, skip_digestion=False):
 
-    from ..molsysmt_Structures.set_occupancy_to_atom import set_occupancy_to_atom as aux_set
+    from molsysmt.form.molsysmt_Structures.set import set_occupancy_to_atom as aux_set
 
     return aux_set(item.structures, indices=indices, structure_indices=structure_indices, value=value, skip_digestion=True)
 
@@ -224,140 +224,140 @@ def set_occupancy_to_atom(item, indices='all', structure_indices='all', value=No
 @arg_digest(form=form)
 def set_group_index_to_group(item, indices='all', value=None, skip_digestion=False):
 
-    from ..molsysmt_Topology.set_group_index_to_group import set_group_index_to_group as aux_set
+    from ..molsysmt_Topology.set import set_group_index_to_group as aux_set
 
     return aux_set(item.topology, indices=indices, value=value, skip_digestion=True)
 
 @arg_digest(form=form)
 def set_group_name_to_group(item, indices='all', value=None, skip_digestion=False):
 
-    from ..molsysmt_Topology.set_group_name_to_group import set_group_name_to_group as aux_set
+    from ..molsysmt_Topology.set import set_group_name_to_group as aux_set
 
     return aux_set(item.topology, indices=indices, value=value, skip_digestion=True)
 
 @arg_digest(form=form)
 def set_group_id_to_group(item, indices='all', value=None, skip_digestion=False):
 
-    from ..molsysmt_Topology.set_group_id_to_group import set_group_id_to_group as aux_set
+    from ..molsysmt_Topology.set import set_group_id_to_group as aux_set
 
     return aux_set(item.topology, indices=indices, value=value, skip_digestion=True)
 
 @arg_digest(form=form)
 def set_group_type_to_group(item, indices='all', value=None, skip_digestion=False):
 
-    from ..molsysmt_Topology.set_group_type_to_group import set_group_type_to_group as aux_set
+    from ..molsysmt_Topology.set import set_group_type_to_group as aux_set
 
     return aux_set(item.topology, indices=indices, value=value, skip_digestion=True)
 
 @arg_digest(form=form)
 def set_component_index_to_group(item, indices='all', value=None, skip_digestion=False):
 
-    from ..molsysmt_Topology.set_component_index_to_group import set_component_index_to_group as aux_set
+    from ..molsysmt_Topology.set import set_component_index_to_group as aux_set
 
     return aux_set(item.topology, indices=indices, value=value, skip_digestion=True)
 
 @arg_digest(form=form)
 def set_component_name_to_group(item, indices='all', value=None, skip_digestion=False):
 
-    from ..molsysmt_Topology.set_component_name_to_group import set_component_name_to_group as aux_set
+    from ..molsysmt_Topology.set import set_component_name_to_group as aux_set
 
     return aux_set(item.topology, indices=indices, value=value, skip_digestion=True)
 
 @arg_digest(form=form)
 def set_component_id_to_group(item, indices='all', value=None, skip_digestion=False):
 
-    from ..molsysmt_Topology.set_component_id_to_group import set_component_id_to_group as aux_set
+    from ..molsysmt_Topology.set import set_component_id_to_group as aux_set
 
     return aux_set(item.topology, indices=indices, value=value, skip_digestion=True)
 
 @arg_digest(form=form)
 def set_component_type_to_group(item, indices='all', value=None, skip_digestion=False):
 
-    from ..molsysmt_Topology.set_component_type_to_group import set_component_type_to_group as aux_set
+    from ..molsysmt_Topology.set import set_component_type_to_group as aux_set
 
     return aux_set(item.topology, indices=indices, value=value, skip_digestion=True)
 
 @arg_digest(form=form)
 def set_molecule_index_to_group(item, indices='all', value=None, skip_digestion=False):
 
-    from ..molsysmt_Topology.set_molecule_index_to_group import set_molecule_index_to_group as aux_set
+    from ..molsysmt_Topology.set import set_molecule_index_to_group as aux_set
 
     return aux_set(item.topology, indices=indices, value=value, skip_digestion=True)
 
 @arg_digest(form=form)
 def set_molecule_name_to_group(item, indices='all', value=None, skip_digestion=False):
 
-    from ..molsysmt_Topology.set_molecule_name_to_group import set_molecule_name_to_group as aux_set
+    from ..molsysmt_Topology.set import set_molecule_name_to_group as aux_set
 
     return aux_set(item.topology, indices=indices, value=value, skip_digestion=True)
 
 @arg_digest(form=form)
 def set_molecule_id_to_group(item, indices='all', value=None, skip_digestion=False):
 
-    from ..molsysmt_Topology.set_molecule_id_to_group import set_molecule_id_to_group as aux_set
+    from ..molsysmt_Topology.set import set_molecule_id_to_group as aux_set
 
     return aux_set(item.topology, indices=indices, value=value, skip_digestion=True)
 
 @arg_digest(form=form)
 def set_molecule_type_to_group(item, indices='all', value=None, skip_digestion=False):
 
-    from ..molsysmt_Topology.set_molecule_type_to_group import set_molecule_type_to_group as aux_set
+    from ..molsysmt_Topology.set import set_molecule_type_to_group as aux_set
 
     return aux_set(item.topology, indices=indices, value=value, skip_digestion=True)
 
 @arg_digest(form=form)
 def set_chain_index_to_group(item, indices='all', value=None, skip_digestion=False):
 
-    from ..molsysmt_Topology.set_chain_index_to_group import set_chain_index_to_group as aux_set
+    from ..molsysmt_Topology.set import set_chain_index_to_group as aux_set
 
     return aux_set(item.topology, indices=indices, value=value, skip_digestion=True)
 
 @arg_digest(form=form)
 def set_chain_name_to_group(item, indices='all', value=None, skip_digestion=False):
 
-    from ..molsysmt_Topology.set_chain_name_to_group import set_chain_name_to_group as aux_set
+    from ..molsysmt_Topology.set import set_chain_name_to_group as aux_set
 
     return aux_set(item.topology, indices=indices, value=value, skip_digestion=True)
 
 @arg_digest(form=form)
 def set_chain_id_to_group(item, indices='all', value=None, skip_digestion=False):
 
-    from ..molsysmt_Topology.set_chain_id_to_group import set_chain_id_to_group as aux_set
+    from ..molsysmt_Topology.set import set_chain_id_to_group as aux_set
 
     return aux_set(item.topology, indices=indices, value=value, skip_digestion=True)
 
 @arg_digest(form=form)
 def set_chain_type_to_group(item, indices='all', value=None, skip_digestion=False):
 
-    from ..molsysmt_Topology.set_chain_type_to_group import set_chain_type_to_group as aux_set
+    from ..molsysmt_Topology.set import set_chain_type_to_group as aux_set
 
     return aux_set(item.topology, indices=indices, value=value, skip_digestion=True)
 
 @arg_digest(form=form)
 def set_entity_index_to_group(item, indices='all', value=None, skip_digestion=False):
 
-    from ..molsysmt_Topology.set_entity_index_to_group import set_entity_index_to_group as aux_set
+    from ..molsysmt_Topology.set import set_entity_index_to_group as aux_set
 
     return aux_set(item.topology, indices=indices, value=value, skip_digestion=True)
 
 @arg_digest(form=form)
 def set_entity_name_to_group(item, indices='all', value=None, skip_digestion=False):
 
-    from ..molsysmt_Topology.set_entity_name_to_group import set_entity_name_to_group as aux_set
+    from ..molsysmt_Topology.set import set_entity_name_to_group as aux_set
 
     return aux_set(item.topology, indices=indices, value=value, skip_digestion=True)
 
 @arg_digest(form=form)
 def set_entity_id_to_group(item, indices='all', value=None, skip_digestion=False):
 
-    from ..molsysmt_Topology.set_entity_id_to_group import set_entity_id_to_group as aux_set
+    from ..molsysmt_Topology.set import set_entity_id_to_group as aux_set
 
     return aux_set(item.topology, indices=indices, value=value, skip_digestion=True)
 
 @arg_digest(form=form)
 def set_entity_type_to_group(item, indices='all', value=None, skip_digestion=False):
 
-    from ..molsysmt_Topology.set_entity_type_to_group import set_entity_type_to_group as aux_set
+    from ..molsysmt_Topology.set import set_entity_type_to_group as aux_set
 
     return aux_set(item.topology, indices=indices, value=value, skip_digestion=True)
 
@@ -366,112 +366,112 @@ def set_entity_type_to_group(item, indices='all', value=None, skip_digestion=Fal
 @arg_digest(form=form)
 def set_component_index_to_component(item, indices='all', value=None, skip_digestion=False):
 
-    from ..molsysmt_Topology.set_component_index_to_component import set_component_index_to_component as aux_set
+    from ..molsysmt_Topology.set import set_component_index_to_component as aux_set
 
     return aux_set(item.topology, indices=indices, value=value, skip_digestion=True)
 
 @arg_digest(form=form)
 def set_component_name_to_component(item, indices='all', value=None, skip_digestion=False):
 
-    from ..molsysmt_Topology.set_component_name_to_component import set_component_name_to_component as aux_set
+    from ..molsysmt_Topology.set import set_component_name_to_component as aux_set
 
     return aux_set(item.topology, indices=indices, value=value, skip_digestion=True)
 
 @arg_digest(form=form)
 def set_component_id_to_component(item, indices='all', value=None, skip_digestion=False):
 
-    from ..molsysmt_Topology.set_component_id_to_component import set_component_id_to_component as aux_set
+    from ..molsysmt_Topology.set import set_component_id_to_component as aux_set
 
     return aux_set(item.topology, indices=indices, value=value, skip_digestion=True)
 
 @arg_digest(form=form)
 def set_component_type_to_component(item, indices='all', value=None, skip_digestion=False):
 
-    from ..molsysmt_Topology.set_component_type_to_component import set_component_type_to_component as aux_set
+    from ..molsysmt_Topology.set import set_component_type_to_component as aux_set
 
     return aux_set(item.topology, indices=indices, value=value, skip_digestion=True)
 
 @arg_digest(form=form)
 def set_molecule_index_to_component(item, indices='all', value=None, skip_digestion=False):
 
-    from ..molsysmt_Topology.set_molecule_index_to_component import set_molecule_index_to_component as aux_set
+    from ..molsysmt_Topology.set import set_molecule_index_to_component as aux_set
 
     return aux_set(item.topology, indices=indices, value=value, skip_digestion=True)
 
 @arg_digest(form=form)
 def set_molecule_name_to_component(item, indices='all', value=None, skip_digestion=False):
 
-    from ..molsysmt_Topology.set_molecule_name_to_component import set_molecule_name_to_component as aux_set
+    from ..molsysmt_Topology.set import set_molecule_name_to_component as aux_set
 
     return aux_set(item.topology, indices=indices, value=value, skip_digestion=True)
 
 @arg_digest(form=form)
 def set_molecule_id_to_component(item, indices='all', value=None, skip_digestion=False):
 
-    from ..molsysmt_Topology.set_molecule_id_to_component import set_molecule_id_to_component as aux_set
+    from ..molsysmt_Topology.set import set_molecule_id_to_component as aux_set
 
     return aux_set(item.topology, indices=indices, value=value, skip_digestion=True)
 
 @arg_digest(form=form)
 def set_molecule_type_to_component(item, indices='all', value=None, skip_digestion=False):
 
-    from ..molsysmt_Topology.set_molecule_type_to_component import set_molecule_type_to_component as aux_set
+    from ..molsysmt_Topology.set import set_molecule_type_to_component as aux_set
 
     return aux_set(item.topology, indices=indices, value=value, skip_digestion=True)
 
 @arg_digest(form=form)
 def set_chain_index_to_component(item, indices='all', value=None, skip_digestion=False):
 
-    from ..molsysmt_Topology.set_chain_index_to_component import set_chain_index_to_component as aux_set
+    from ..molsysmt_Topology.set import set_chain_index_to_component as aux_set
 
     return aux_set(item.topology, indices=indices, value=value, skip_digestion=True)
 
 @arg_digest(form=form)
 def set_chain_name_to_component(item, indices='all', value=None, skip_digestion=False):
 
-    from ..molsysmt_Topology.set_chain_name_to_component import set_chain_name_to_component as aux_set
+    from ..molsysmt_Topology.set import set_chain_name_to_component as aux_set
 
     return aux_set(item.topology, indices=indices, value=value, skip_digestion=True)
 
 @arg_digest(form=form)
 def set_chain_id_to_component(item, indices='all', value=None, skip_digestion=False):
 
-    from ..molsysmt_Topology.set_chain_id_to_component import set_chain_id_to_component as aux_set
+    from ..molsysmt_Topology.set import set_chain_id_to_component as aux_set
 
     return aux_set(item.topology, indices=indices, value=value, skip_digestion=True)
 
 @arg_digest(form=form)
 def set_chain_type_to_component(item, indices='all', value=None, skip_digestion=False):
 
-    from ..molsysmt_Topology.set_chain_type_to_component import set_chain_type_to_component as aux_set
+    from ..molsysmt_Topology.set import set_chain_type_to_component as aux_set
 
     return aux_set(item.topology, indices=indices, value=value, skip_digestion=True)
 
 @arg_digest(form=form)
 def set_entity_index_to_component(item, indices='all', value=None, skip_digestion=False):
 
-    from ..molsysmt_Topology.set_entity_index_to_component import set_entity_index_to_component as aux_set
+    from ..molsysmt_Topology.set import set_entity_index_to_component as aux_set
 
     return aux_set(item.topology, indices=indices, value=value, skip_digestion=True)
 
 @arg_digest(form=form)
 def set_entity_name_to_component(item, indices='all', value=None, skip_digestion=False):
 
-    from ..molsysmt_Topology.set_entity_name_to_component import set_entity_name_to_component as aux_set
+    from ..molsysmt_Topology.set import set_entity_name_to_component as aux_set
 
     return aux_set(item.topology, indices=indices, value=value, skip_digestion=True)
 
 @arg_digest(form=form)
 def set_entity_id_to_component(item, indices='all', value=None, skip_digestion=False):
 
-    from ..molsysmt_Topology.set_entity_id_to_component import set_entity_id_to_component as aux_set
+    from ..molsysmt_Topology.set import set_entity_id_to_component as aux_set
 
     return aux_set(item.topology, indices=indices, value=value, skip_digestion=True)
 
 @arg_digest(form=form)
 def set_entity_type_to_component(item, indices='all', value=None, skip_digestion=False):
 
-    from ..molsysmt_Topology.set_entity_type_to_component import set_entity_type_to_component as aux_set
+    from ..molsysmt_Topology.set import set_entity_type_to_component as aux_set
 
     return aux_set(item.topology, indices=indices, value=value, skip_digestion=True)
 
@@ -480,84 +480,84 @@ def set_entity_type_to_component(item, indices='all', value=None, skip_digestion
 @arg_digest(form=form)
 def set_molecule_index_to_molecule(item, indices='all', value=None, skip_digestion=False):
 
-    from ..molsysmt_Topology.set_molecule_index_to_molecule import set_molecule_index_to_molecule as aux_set
+    from ..molsysmt_Topology.set import set_molecule_index_to_molecule as aux_set
 
     return aux_set(item.topology, indices=indices, value=value, skip_digestion=True)
 
 @arg_digest(form=form)
 def set_molecule_name_to_molecule(item, indices='all', value=None, skip_digestion=False):
 
-    from ..molsysmt_Topology.set_molecule_name_to_molecule import set_molecule_name_to_molecule as aux_set
+    from ..molsysmt_Topology.set import set_molecule_name_to_molecule as aux_set
 
     return aux_set(item.topology, indices=indices, value=value, skip_digestion=True)
 
 @arg_digest(form=form)
 def set_molecule_id_to_molecule(item, indices='all', value=None, skip_digestion=False):
 
-    from ..molsysmt_Topology.set_molecule_id_to_molecule import set_molecule_id_to_molecule as aux_set
+    from ..molsysmt_Topology.set import set_molecule_id_to_molecule as aux_set
 
     return aux_set(item.topology, indices=indices, value=value, skip_digestion=True)
 
 @arg_digest(form=form)
 def set_molecule_type_to_molecule(item, indices='all', value=None, skip_digestion=False):
 
-    from ..molsysmt_Topology.set_molecule_type_to_molecule import set_molecule_type_to_molecule as aux_set
+    from ..molsysmt_Topology.set import set_molecule_type_to_molecule as aux_set
 
     return aux_set(item.topology, indices=indices, value=value, skip_digestion=True)
 
 @arg_digest(form=form)
 def set_chain_index_to_molecule(item, indices='all', value=None, skip_digestion=False):
 
-    from ..molsysmt_Topology.set_chain_index_to_molecule import set_chain_index_to_molecule as aux_set
+    from ..molsysmt_Topology.set import set_chain_index_to_molecule as aux_set
 
     return aux_set(item.topology, indices=indices, value=value, skip_digestion=True)
 
 @arg_digest(form=form)
 def set_chain_name_to_molecule(item, indices='all', value=None, skip_digestion=False):
 
-    from ..molsysmt_Topology.set_chain_name_to_molecule import set_chain_name_to_molecule as aux_set
+    from ..molsysmt_Topology.set import set_chain_name_to_molecule as aux_set
 
     return aux_set(item.topology, indices=indices, value=value, skip_digestion=True)
 
 @arg_digest(form=form)
 def set_chain_id_to_molecule(item, indices='all', value=None, skip_digestion=False):
 
-    from ..molsysmt_Topology.set_chain_id_to_molecule import set_chain_id_to_molecule as aux_set
+    from ..molsysmt_Topology.set import set_chain_id_to_molecule as aux_set
 
     return aux_set(item.topology, indices=indices, value=value, skip_digestion=True)
 
 @arg_digest(form=form)
 def set_chain_type_to_molecule(item, indices='all', value=None, skip_digestion=False):
 
-    from ..molsysmt_Topology.set_chain_type_to_molecule import set_chain_type_to_molecule as aux_set
+    from ..molsysmt_Topology.set import set_chain_type_to_molecule as aux_set
 
     return aux_set(item.topology, indices=indices, value=value, skip_digestion=True)
 
 @arg_digest(form=form)
 def set_entity_index_to_molecule(item, indices='all', value=None, skip_digestion=False):
 
-    from ..molsysmt_Topology.set_entity_index_to_molecule import set_entity_index_to_molecule as aux_set
+    from ..molsysmt_Topology.set import set_entity_index_to_molecule as aux_set
 
     return aux_set(item.topology, indices=indices, value=value, skip_digestion=True)
 
 @arg_digest(form=form)
 def set_entity_name_to_molecule(item, indices='all', value=None, skip_digestion=False):
 
-    from ..molsysmt_Topology.set_entity_name_to_molecule import set_entity_name_to_molecule as aux_set
+    from ..molsysmt_Topology.set import set_entity_name_to_molecule as aux_set
 
     return aux_set(item.topology, indices=indices, value=value, skip_digestion=True)
 
 @arg_digest(form=form)
 def set_entity_id_to_molecule(item, indices='all', value=None, skip_digestion=False):
 
-    from ..molsysmt_Topology.set_entity_id_to_molecule import set_entity_id_to_molecule as aux_set
+    from ..molsysmt_Topology.set import set_entity_id_to_molecule as aux_set
 
     return aux_set(item.topology, indices=indices, value=value, skip_digestion=True)
 
 @arg_digest(form=form)
 def set_entity_type_to_molecule(item, indices='all', value=None, skip_digestion=False):
 
-    from ..molsysmt_Topology.set_entity_type_to_molecule import set_entity_type_to_molecule as aux_set
+    from ..molsysmt_Topology.set import set_entity_type_to_molecule as aux_set
 
     return aux_set(item.topology, indices=indices, value=value, skip_digestion=True)
 
@@ -566,28 +566,28 @@ def set_entity_type_to_molecule(item, indices='all', value=None, skip_digestion=
 @arg_digest(form=form)
 def set_molecule_index_to_chain(item, indices='all', value=None, skip_digestion=False):
 
-    from ..molsysmt_Topology.set_molecule_index_to_chain import set_molecule_index_to_chain as aux_set
+    from ..molsysmt_Topology.set import set_molecule_index_to_chain as aux_set
 
     return aux_set(item.topology, indices=indices, value=value, skip_digestion=True)
 
 @arg_digest(form=form)
 def set_molecule_name_to_chain(item, indices='all', value=None, skip_digestion=False):
 
-    from ..molsysmt_Topology.set_molecule_name_to_chain import set_molecule_name_to_chain as aux_set
+    from ..molsysmt_Topology.set import set_molecule_name_to_chain as aux_set
 
     return aux_set(item.topology, indices=indices, value=value, skip_digestion=True)
 
 @arg_digest(form=form)
 def set_molecule_id_to_chain(item, indices='all', value=None, skip_digestion=False):
 
-    from ..molsysmt_Topology.set_molecule_id_to_chain import set_molecule_id_to_chain as aux_set
+    from ..molsysmt_Topology.set import set_molecule_id_to_chain as aux_set
 
     return aux_set(item.topology, indices=indices, value=value, skip_digestion=True)
 
 @arg_digest(form=form)
 def set_molecule_type_to_chain(item, indices='all', value=None, skip_digestion=False):
 
-    from ..molsysmt_Topology.set_molecule_type_to_chain import set_molecule_type_to_chain as aux_set
+    from ..molsysmt_Topology.set import set_molecule_type_to_chain as aux_set
 
     return aux_set(item.topology, indices=indices, value=value, skip_digestion=True)
 
@@ -622,28 +622,28 @@ def set_chain_type_to_chain(item, indices='all', value=None, skip_digestion=Fals
 @arg_digest(form=form)
 def set_entity_index_to_chain(item, indices='all', value=None, skip_digestion=False):
 
-    from ..molsysmt_Topology.set_entity_index_to_chain import set_entity_index_to_chain as aux_set
+    from ..molsysmt_Topology.set import set_entity_index_to_chain as aux_set
 
     return aux_set(item.topology, indices=indices, value=value, skip_digestion=True)
 
 @arg_digest(form=form)
 def set_entity_name_to_chain(item, indices='all', value=None, skip_digestion=False):
 
-    from ..molsysmt_Topology.set_entity_name_to_chain import set_entity_name_to_chain as aux_set
+    from ..molsysmt_Topology.set import set_entity_name_to_chain as aux_set
 
     return aux_set(item.topology, indices=indices, value=value, skip_digestion=True)
 
 @arg_digest(form=form)
 def set_entity_id_to_chain(item, indices='all', value=None, skip_digestion=False):
 
-    from ..molsysmt_Topology.set_entity_id_to_chain import set_entity_id_to_chain as aux_set
+    from ..molsysmt_Topology.set import set_entity_id_to_chain as aux_set
 
     return aux_set(item.topology, indices=indices, value=value, skip_digestion=True)
 
 @arg_digest(form=form)
 def set_entity_type_to_chain(item, indices='all', value=None, skip_digestion=False):
 
-    from ..molsysmt_Topology.set_entity_type_to_chain import set_entity_type_to_chain as aux_set
+    from ..molsysmt_Topology.set import set_entity_type_to_chain as aux_set
 
     return aux_set(item.topology, indices=indices, value=value, skip_digestion=True)
 
@@ -652,28 +652,28 @@ def set_entity_type_to_chain(item, indices='all', value=None, skip_digestion=Fal
 @arg_digest(form=form)
 def set_entity_index_to_entity(item, indices='all', value=None, skip_digestion=False):
 
-    from ..molsysmt_Topology.set_entity_index_to_entity import set_entity_index_to_entity as aux_set
+    from ..molsysmt_Topology.set import set_entity_index_to_entity as aux_set
 
     return aux_set(item.topology, indices=indices, value=value, skip_digestion=True)
 
 @arg_digest(form=form)
 def set_entity_name_to_entity(item, indices='all', value=None, skip_digestion=False):
 
-    from ..molsysmt_Topology.set_entity_name_to_entity import set_entity_name_to_entity as aux_set
+    from ..molsysmt_Topology.set import set_entity_name_to_entity as aux_set
 
     return aux_set(item.topology, indices=indices, value=value, skip_digestion=True)
 
 @arg_digest(form=form)
 def set_entity_id_to_entity(item, indices='all', value=None, skip_digestion=False):
 
-    from ..molsysmt_Topology.set_entity_id_to_entity import set_entity_id_to_entity as aux_set
+    from ..molsysmt_Topology.set import set_entity_id_to_entity as aux_set
 
     return aux_set(item.topology, indices=indices, value=value, skip_digestion=True)
 
 @arg_digest(form=form)
 def set_entity_type_to_entity(item, indices='all', value=None, skip_digestion=False):
 
-    from ..molsysmt_Topology.set_entity_type_to_entity import set_entity_type_to_entity as aux_set
+    from ..molsysmt_Topology.set import set_entity_type_to_entity as aux_set
 
     return aux_set(item.topology, indices=indices, value=value, skip_digestion=True)
 

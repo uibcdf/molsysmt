@@ -146,11 +146,11 @@ def get_missing_bonds(molecular_system, selection='all', structure_index=0, max_
         temp_molecular_system = convert(molecular_system, to_form=temp_pdb_file)
         temp_molecular_system = convert(temp_molecular_system, to_form="pytraj.Topology", max_bond_length=max_bond_length)
 
-        new_bonds = get(temp_molecular_system, element='atom', selection=selection, inner_bonded_atoms=True)
-
-        for ii in range(len(new_bonds)):
-            if new_bonds[ii][0]>new_bonds[ii][1]:
-                new_bonds[ii][0], new_bonds[ii][1] = new_bonds[ii][1], new_bonds[ii][0]
+        new_bonds = []
+        for atom1_index, atom2_index in temp_molecular_system.bond_indices.tolist():
+            if atom1_index > atom2_index:
+                atom1_index, atom2_index = atom2_index, atom1_index
+            new_bonds.append([atom1_index, atom2_index])
 
         output = []
         for bond in new_bonds:
@@ -174,6 +174,7 @@ def _bonds_in_group_without_template(molecular_system, atom_indices, atom_names,
     """Infer missing bonds within a group lacking a template by neighbor search."""
 
     from molsysmt.structure import get_neighbors
+    from molsysmt.element.atom import get_atom_type_from_atom_name
 
     bonds = []
 
@@ -187,6 +188,11 @@ def _bonds_in_group_without_template(molecular_system, atom_indices, atom_names,
 
         atom_type_1 = atom_types[pair[0]]
         atom_type_2 = atom_types[pair[1]]
+
+        if atom_type_1 is None:
+            atom_type_1 = get_atom_type_from_atom_name(atom_names[pair[0]])
+        if atom_type_2 is None:
+            atom_type_2 = get_atom_type_from_atom_name(atom_names[pair[1]])
 
         atom_index_1 = atom_indices[pair[0]]
         atom_index_2 = atom_indices[pair[1]]

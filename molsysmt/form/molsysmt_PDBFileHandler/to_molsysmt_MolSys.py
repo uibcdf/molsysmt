@@ -259,11 +259,16 @@ def _build_molsys_from_pdb_handler(item, get_missing_bonds=True):
 
     tmp_item.structures = _build_structures_from_lines(lines, item.entry)
 
-    if not bonded_atom_pairs and get_missing_bonds:
+    if get_missing_bonds:
         try:
-            bonded_atom_pairs = _get_bonded_atom_pairs_from_openmm_pdb(item)
+            inferred_bonded_atom_pairs = _get_bonded_atom_pairs_from_openmm_pdb(item)
         except Exception:
-            bonded_atom_pairs = []
+            inferred_bonded_atom_pairs = []
+
+        if inferred_bonded_atom_pairs:
+            bonded_atom_pairs = sorted(set(tuple(sorted(pair)) for pair in bonded_atom_pairs).union(
+                tuple(sorted(pair)) for pair in inferred_bonded_atom_pairs
+            ))
 
     if bonded_atom_pairs:
         tmp_item.topology.add_bonds(bonded_atom_pairs, skip_digestion=True)
