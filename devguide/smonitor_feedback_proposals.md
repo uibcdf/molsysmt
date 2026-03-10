@@ -82,6 +82,21 @@ This would make cross-repo QA and agent triage much faster.
 
 ### 6. Signal and profiling improvements in `smonitor` core
 
+### 6a. Performance triage as a first-class QA workflow
+
+The recent MolSysMT stabilization work shows that `smonitor` is already useful for exposing latent performance and compatibility faults, not only classic warnings and exceptions. During this pass it helped surface:
+- native/JIT boundary problems caused by `float32` inputs reaching `float64`-specialized kernels,
+- adapter incompleteness in form layers,
+- repeated slow or lossy conversion paths.
+
+Desired behavior:
+- slow-signal events should remain easy to enable on public hot paths,
+- triage summaries should make it obvious which tags (`api`, `native`, `conversion`, `structure`, `download`) dominate time,
+- evidence packs for QA should be able to capture slow-signal hotspots reproducibly across commits.
+
+Practical implication for MolSysSuite:
+- `smonitor` should be treated as an early hotspot detector and regression triage tool, not only as an error/warning transport layer.
+
 - Signal traces currently summarize timings by function key only; exposing decorator tags in reports or timeline views would make API/native/conversion hot paths much easier to audit during QA.
 - The `signal` decorator would benefit from an optional structured `extra` hook so libraries can attach stable context (for example, form names or selection syntax) without emitting separate warnings.
 - Slow-call threshold events in `smonitor` core would be useful for QA and performance triage, especially for import-time or first-call JIT latency investigations.
