@@ -6,6 +6,8 @@ import time
 from urllib.error import HTTPError, URLError
 from urllib.request import Request, urlopen
 
+from smonitor.integrations import context_extra
+
 from molsysmt._private.smonitor import DownloadWarning, warn
 
 
@@ -78,15 +80,18 @@ def _emit_retry_warning(*, caller, resource, provider, attempt, retries, reason,
     warn(
         f"Download of {resource} failed ({reason}). Retrying in {wait:.1f}s…",
         DownloadWarning,
-        extra={
-            "caller": caller,
-            "resource": resource,
-            "provider": provider,
-            "attempt": attempt,
-            "retries": retries,
-            "reason": reason,
-            "url": url,
-        },
+        extra=context_extra(
+            caller=caller,
+            resource=resource,
+            provider=provider,
+            operation="download",
+            extra={
+                "attempt": attempt,
+                "retries": retries,
+                "reason": reason,
+                "url": url,
+            },
+        ),
     )
 
 

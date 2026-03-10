@@ -42,14 +42,18 @@ def _emit_numba_jit_warning(func):
 
     _NUMBA_WARNING_EMITTED = True
 
-    from smonitor.integrations import emit_from_catalog
+    from smonitor.integrations import context_extra, emit_from_catalog
     from molsysmt._private.smonitor import CATALOG, META, PACKAGE_ROOT
 
     emit_from_catalog(
         CATALOG["warnings"]["NumbaJitWarning"],
         package_root=PACKAGE_ROOT,
         meta=META,
-        extra={"kernel": func.__name__, "module": func.__module__, "cache_state": "cold"},
+        extra=context_extra(
+            caller="molsysmt._private.jit._emit_numba_jit_warning",
+            operation="jit_compile",
+            extra={"kernel": func.__name__, "module": func.__module__, "cache_state": "cold"},
+        ),
     )
 
 
