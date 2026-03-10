@@ -143,3 +143,40 @@ def test_numba_jit_warning_resolves_with_cache_state():
     assert "project_component_type_from_topology" in text
     assert "molsysmt.native._hierarchy" in text
     assert "cold" in text
+
+
+def test_not_with_this_form_error_resolves_with_form_and_attribute_context():
+    """Form mismatch diagnostics should expose the missing attribute and form."""
+    from molsysmt._private.smonitor import NotWithThisFormError
+
+    exc = NotWithThisFormError(
+        caller="molsysmt.form.molsysmt_Topology.get_box_from_system",
+        form="molsysmt.Topology",
+        requested_attribute="box",
+    )
+
+    text = str(exc)
+    assert "molsysmt.Topology" in text
+    assert "box" in text
+
+
+
+def test_file_content_error_resolves_with_record_context():
+    """File content diagnostics should expose parser record context when available."""
+    import smonitor
+    from molsysmt._private.smonitor import CODES, message_from_catalog
+
+    smonitor.configure(profile="qa", codes=CODES)
+
+    text = message_from_catalog(
+        {"code": "MSM-ERR-IO-002"},
+        extra={
+            "reason": "DBREF1 is not followed by DBREF2",
+            "caller": "molsysmt.native.PDBFileHandler",
+            "record": "DBREF2",
+            "filename": "example.pdb",
+        },
+    )
+
+    assert "DBREF2" in text
+    assert "example.pdb" in text
