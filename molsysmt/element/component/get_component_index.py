@@ -16,7 +16,7 @@ def get_component_index(molecular_system, element='component', selection='all', 
     same semantics through the generic dispatch path.
     """
 
-    if selection == 'all':
+    if isinstance(selection, str) and selection == 'all':
         from molsysmt.native import MolSys, Topology
         from molsysmt.native._hierarchy import project_component_index_from_topology
 

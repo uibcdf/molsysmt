@@ -15,7 +15,7 @@ def get_molecule_name(molecular_system, element='molecule', selection='all', red
     `component_name`.
     """
 
-    if selection == 'all':
+    if isinstance(selection, str) and selection == 'all':
         from molsysmt.native import MolSys, Topology
         from molsysmt.native._hierarchy import project_molecule_name_from_topology
 

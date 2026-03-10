@@ -15,7 +15,7 @@ def get_molecule_type(molecular_system, element='molecule', selection='all',
     molecule fallback rules.
     """
 
-    if selection == 'all':
+    if isinstance(selection, str) and selection == 'all':
         from molsysmt.native import MolSys, Topology
         from molsysmt.native._hierarchy import project_molecule_type_from_topology
 

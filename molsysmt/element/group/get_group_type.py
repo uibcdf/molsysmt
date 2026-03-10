@@ -24,7 +24,7 @@ def get_group_type(molecular_system, element='group', selection='all', redefine_
 
     from molsysmt.basic import get
 
-    if selection == 'all':
+    if isinstance(selection, str) and selection == 'all':
         from molsysmt.native import MolSys, Topology
         from molsysmt.native._hierarchy import project_group_type_from_topology
 

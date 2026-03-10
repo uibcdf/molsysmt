@@ -11,7 +11,7 @@ def get_chain_index(molecular_system, element='atom', selection='all',
     native and `selection='all'`, it delegates to the native hierarchy layer.
     """
 
-    if selection == 'all':
+    if isinstance(selection, str) and selection == 'all':
         from molsysmt.native import MolSys, Topology
         from molsysmt.native._hierarchy import project_chain_index_from_topology
 

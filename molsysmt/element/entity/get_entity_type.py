@@ -12,7 +12,7 @@ def get_entity_type(molecular_system, element='entity', selection='all', redefin
     are inferred locally from the molecule types that define each entity.
     """
 
-    if selection == 'all':
+    if isinstance(selection, str) and selection == 'all':
         from molsysmt.native import MolSys, Topology
         from molsysmt.native._hierarchy import project_entity_type_from_topology
 

@@ -13,7 +13,7 @@ def get_chain_name(molecular_system, element='atom', selection='all',
     layer.
     """
 
-    if selection == 'all':
+    if isinstance(selection, str) and selection == 'all':
         from molsysmt.native import MolSys, Topology
         from molsysmt.native._hierarchy import project_chain_name_from_topology
 

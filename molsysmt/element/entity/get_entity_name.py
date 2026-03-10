@@ -13,7 +13,7 @@ def get_entity_name(molecular_system, element='entity', selection='all', redefin
     performed by this helper.
     """
 
-    if selection == 'all':
+    if isinstance(selection, str) and selection == 'all':
         from molsysmt.native import MolSys, Topology
         from molsysmt.native._hierarchy import project_entity_name_from_topology
 

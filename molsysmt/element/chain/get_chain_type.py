@@ -13,7 +13,7 @@ def get_chain_type(molecular_system, element='atom', selection='all',
     are inferred locally from the molecule types assigned to each chain.
     """
 
-    if selection == 'all':
+    if isinstance(selection, str) and selection == 'all':
         from molsysmt.native import MolSys, Topology
         from molsysmt.native._hierarchy import project_chain_type_from_topology
 

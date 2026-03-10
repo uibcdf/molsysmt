@@ -5,7 +5,7 @@ from molsysmt._private.arg_digestion import arg_digest
 def get_n_components(molecular_system, selection='all', redefine_components=False,
                      syntax='MolSysMT'):
 
-    if selection == 'all':
+    if isinstance(selection, str) and selection == 'all':
         from molsysmt.native import MolSys, Topology
         from .get_component_index import get_component_index
 
