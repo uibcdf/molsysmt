@@ -6,9 +6,9 @@ form_name = 'file:xtc'
 form_type = 'file'
 form_info = ["", ""]
 
-piped_topological_attribute = 'mdtraj.XTCTrajectoryFile'
+piped_topological_attribute = None
 piped_structural_attribute = 'mdtraj.XTCTrajectoryFile'
-piped_any_attribute = 'mdtraj.XTCTrajectoryFile'
+piped_any_attribute = None
 
 from .is_form import is_form
 
