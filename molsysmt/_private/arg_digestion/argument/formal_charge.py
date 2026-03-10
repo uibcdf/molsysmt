@@ -1,5 +1,6 @@
 import numpy as np
 from molsysmt._private.smonitor import ArgumentError
+from molsysmt import pyunitwizard as puw
 
 functions_where_boolean = (
     'molsysmt.basic.get.get',
@@ -23,8 +24,6 @@ def digest_formal_charge(formal_charge, caller=None):
 
     value = puw.get_value(formal_charge)
     unit = puw.get_unit(formal_charge)
-
-    from molsysmt import pyunitwizard as puw
 
     if not puw.check(unit, dimensionality={'[T]':1, '[A]':1}):
         raise ArgumentError('formal_charge', value=formal_charge, caller=caller, message=None)

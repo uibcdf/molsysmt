@@ -11,7 +11,7 @@ functions_where_boolean = (
 
 def digest_velocities(velocities, caller=None):
 
-    if caller.endswith(functions_where_boolean):
+    if caller is not None and caller.endswith(functions_where_boolean):
         if isinstance(velocities, bool):
             return velocities
 
@@ -40,4 +40,3 @@ def digest_velocities(velocities, caller=None):
             return puw.standardize(puw.quantity(value, unit))
 
     raise ArgumentError('velocities', value=velocities, caller=caller, message=None)
-

@@ -32,7 +32,7 @@ def digest_potential_energy(potential_energy, caller=None):
 
     """
 
-    if caller.endswith(functions_with_boolean):
+    if caller is not None and caller.endswith(functions_with_boolean):
         if isinstance(potential_energy, bool):
             return potential_energy
 
@@ -42,10 +42,9 @@ def digest_potential_energy(potential_energy, caller=None):
     value, unit = puw.get_value_and_unit(potential_energy)
 
     if not puw.check(unit, dimensionality={'[L]': 2, '[M]': 1, '[T]': -2, '[mol]': -1}):
-        raise ArgumentError('potential_energy', value=coordinates, caller=caller, message=None)
+        raise ArgumentError('potential_energy', value=potential_energy, caller=caller, message=None)
 
     if isinstance(value, (int, np.int64, float, np.float64)):
         return puw.standardize(puw.quantity(value, unit))
 
     raise ArgumentError('potential_energy', value=potential_energy, caller=caller, message=None)
-
