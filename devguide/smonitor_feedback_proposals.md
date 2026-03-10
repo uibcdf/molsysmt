@@ -79,3 +79,10 @@ Candidate common keys:
 - `source_library`
 
 This would make cross-repo QA and agent triage much faster.
+
+### 6. Signal and profiling improvements in `smonitor` core
+
+- Signal traces currently summarize timings by function key only; exposing decorator tags in reports or timeline views would make API/native/conversion hot paths much easier to audit during QA.
+- The `signal` decorator would benefit from an optional structured `extra` hook so libraries can attach stable context (for example, form names or selection syntax) without emitting separate warnings.
+- Slow-call threshold events in `smonitor` core would be useful for QA and performance triage, especially for import-time or first-call JIT latency investigations.
+- Small helper APIs in `smonitor` core for common structured-context fields (for example, `caller`, `form`, `requested_attribute`, `record`) would reduce repetitive local wiring across libraries.
