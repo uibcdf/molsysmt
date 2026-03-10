@@ -95,6 +95,8 @@ Implemented upstream in `../smonitor` during this stabilization pass:
 - `report()` now exposes `timings_by_tag` in addition to timings by function and module.
 
 Still proposed, not yet implemented upstream:
-- slow-call threshold events for QA/performance triage,
 - richer profile-aware rendering or truncation for large structured payloads,
 - small helper APIs for common context keys.
+
+Additional upstream progress during this pass:
+- opt-in slow-signal events (`slow_signal_ms`, `slow_signal_level`) now emit structured profiling events for QA/developer workflows.
