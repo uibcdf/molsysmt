@@ -19,9 +19,6 @@ comment:
   paths: null
 
 ignore:
-  - "molsysmt/form/**"
-  - "molsysmt/_private/**"
-  - "molsysmt/lib/**"
   - "molsysmt/thirds/openmm/reporters/MolSys.py"
   - "molsysmt/file/**"
   - "molsysmt/native/trajectory_file.py"
