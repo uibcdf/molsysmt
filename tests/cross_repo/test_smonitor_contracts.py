@@ -110,3 +110,36 @@ def test_molsysmt_cross_chain_bond_warning_exposes_pair_count():
 
     assert "2" in text
     assert "to_molsysmt_MolSys" in text
+
+
+def test_not_implemented_method_error_resolves_with_method_context():
+    """Method-not-implemented diagnostics should expose method and arguments."""
+    from molsysmt._private.smonitor import NotImplementedMethodError
+
+    exc = NotImplementedMethodError(
+        method="append_structures",
+        arguments="structure_indices='all'",
+        caller="molsysmt.form.file_h5msm.append_structures",
+    )
+
+    text = str(exc)
+    assert "append_structures" in text
+    assert "structure_indices='all'" in text
+
+
+
+def test_numba_jit_warning_resolves_with_cache_state():
+    """Numba diagnostics should expose uncached compile context for QA and developers."""
+    import smonitor
+    from molsysmt._private.smonitor import CODES, message_from_catalog
+
+    smonitor.configure(profile="qa", codes=CODES)
+
+    text = message_from_catalog(
+        {"code": "MSM-WARN-NB-001"},
+        extra={"kernel": "project_component_type_from_topology", "module": "molsysmt.native._hierarchy", "cache_state": "cold"},
+    )
+
+    assert "project_component_type_from_topology" in text
+    assert "molsysmt.native._hierarchy" in text
+    assert "cold" in text
