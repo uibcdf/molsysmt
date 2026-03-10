@@ -586,13 +586,19 @@ class Topology():
         This method is a native API and is not form-agnostic.
         """
         from ._hierarchy import (
+            _needs_columns,
             fallback_ids,
             infer_component_indices_from_topology,
             infer_component_names_from_topology,
             infer_component_types_from_topology,
         )
 
-        if redefine_indices or force:
+        if redefine_types and _needs_columns(self.groups, ["group_type"]):
+            self.rebuild_groups(redefine_ids=False, redefine_types=True)
+
+        need_component_indices = (redefine_names or redefine_types) and _needs_columns(self.groups, ["component_index"])
+
+        if redefine_indices or force or need_component_indices:
             component_index_of_atoms, component_index_of_groups = infer_component_indices_from_topology(self)
             self.atoms['component_index'] = component_index_of_atoms.astype(int)
             self.groups['component_index'] = component_index_of_groups.astype(int)
@@ -628,13 +634,28 @@ class Topology():
         form-agnostic.
         """
         from ._hierarchy import (
+            _needs_columns,
             fallback_ids,
             infer_molecule_indices_from_topology,
             infer_molecule_names_from_topology,
             infer_molecule_types_from_topology,
         )
 
-        if redefine_indices or force:
+        need_component_types = (redefine_names or redefine_types) and _needs_columns(self.components, ["component_type"])
+        need_component_names = redefine_names and _needs_columns(self.components, ["component_name"])
+        need_component_indices = (redefine_names or redefine_types or redefine_indices) and _needs_columns(self.groups, ["component_index"])
+        if need_component_indices or need_component_types or need_component_names:
+            self.rebuild_components(
+                redefine_indices=need_component_indices,
+                redefine_ids=False,
+                redefine_types=(redefine_types or need_component_types or need_component_names),
+                redefine_names=(redefine_names or need_component_names),
+                force=need_component_indices,
+            )
+
+        need_molecule_indices = (redefine_names or redefine_types) and _needs_columns(self.groups, ["molecule_index"])
+
+        if redefine_indices or force or need_molecule_indices:
             molecule_index_of_groups = infer_molecule_indices_from_topology(self)
             self.groups["molecule_index"] = molecule_index_of_groups.astype(int)
             if len(molecule_index_of_groups) > 0:
@@ -667,13 +688,22 @@ class Topology():
         types. This method is a native API and is not form-agnostic.
         """
         from ._hierarchy import (
+            _needs_columns,
             infer_chain_ids_from_topology,
             infer_chain_indices_from_topology,
             infer_chain_names_from_topology,
             infer_chain_types_from_topology,
         )
 
-        if redefine_indices:
+        need_molecule_types = redefine_types and _needs_columns(self.molecules, ["molecule_type"])
+        if need_molecule_types:
+            self.rebuild_molecules(redefine_indices=False, redefine_ids=False, redefine_names=False, redefine_types=True)
+
+        need_chain_indices = (redefine_names or redefine_types) and (
+            _needs_columns(self.atoms, ["chain_index"]) or _needs_columns(self.groups, ["chain_index"])
+        )
+
+        if redefine_indices or need_chain_indices:
             chain_index_of_atoms, chain_index_of_groups = infer_chain_indices_from_topology(self)
             self.atoms["chain_index"] = np.array(chain_index_of_atoms, dtype=int)
             self.groups["chain_index"] = np.array(chain_index_of_groups, dtype=int)
@@ -711,13 +741,25 @@ class Topology():
         form-agnostic.
         """
         from ._hierarchy import (
+            _needs_columns,
             fallback_ids,
             infer_entity_indices_from_topology,
             infer_entity_names_from_topology,
             infer_entity_types_from_topology,
         )
 
-        if redefine_indices or force:
+        need_molecule_names = redefine_names and _needs_columns(self.molecules, ["molecule_name"])
+        need_molecule_types = redefine_types and _needs_columns(self.molecules, ["molecule_type"])
+        need_entity_indices = (redefine_names or redefine_types) and _needs_columns(self.molecules, ["entity_index"])
+        if need_molecule_names or need_molecule_types or need_entity_indices:
+            self.rebuild_molecules(
+                redefine_indices=False,
+                redefine_ids=False,
+                redefine_names=(redefine_names or need_molecule_names),
+                redefine_types=(redefine_types or need_molecule_types),
+            )
+
+        if redefine_indices or force or need_entity_indices:
             entity_index_of_molecules = infer_entity_indices_from_topology(self)
             self.molecules["entity_index"] = entity_index_of_molecules.astype(int)
             if len(entity_index_of_molecules) > 0:

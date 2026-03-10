@@ -54,6 +54,7 @@ def get_dihedral_angles(molecular_system, selection='all', dihedral_quartets=Non
                       coordinates=True)
 
     coordinates, length_unit = puw.get_value_and_unit(coordinates)
+    coordinates = np.asarray(coordinates, dtype=np.float64)
 
     if pbc:
 
@@ -61,7 +62,7 @@ def get_dihedral_angles(molecular_system, selection='all', dihedral_quartets=Non
 
         if box is not None:
             if box[0] is not None:
-                box = puw.get_value(box, to_unit=length_unit)
+                box = np.asarray(puw.get_value(box, to_unit=length_unit), dtype=np.float64)
                 angles = msmlib.structure.get_mic_dihedral_angles(coordinates, box, dihedral_quartets)
                 del(coordinates, box, dihedral_quartets)
             else:

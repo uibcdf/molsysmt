@@ -54,6 +54,7 @@ def get_angles(molecular_system, triplets, structure_indices='all', pbc=False, s
                       coordinates=True)
 
     coordinates, length_unit = puw.get_value_and_unit(coordinates)
+    coordinates = np.asarray(coordinates, dtype=np.float64)
 
     if pbc:
 
@@ -61,7 +62,7 @@ def get_angles(molecular_system, triplets, structure_indices='all', pbc=False, s
 
         if box is not None:
             if box[0] is not None:
-                box = puw.get_value(box, to_unit=length_unit)
+                box = np.asarray(puw.get_value(box, to_unit=length_unit), dtype=np.float64)
                 angles = msmlib.structure.get_mic_angles(coordinates, box, triplets)
                 del(coordinates, box, triplets)
             else:

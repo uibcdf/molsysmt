@@ -20,7 +20,9 @@ def get_coordinates_from_atom(item, indices='all', structure_indices='all', skip
     state = item.context.getState(getPositions=True)
     coordinates = state.getPositions(asNumpy=True)
     coordinates = puw.standardize(coordinates)
-    coordinates = puw.reshape(coordinates, shape=(1, -1, 3))
+    unit = puw.get_unit(coordinates)
+    value = puw.get_value(coordinates).reshape(1, -1, 3)
+    coordinates = puw.standardize(value * unit)
 
     if not is_all(structure_indices):
         coordinates = coordinates[structure_indices,:,:]
@@ -62,7 +64,9 @@ def get_box_from_system(item, structure_indices='all', skip_digestion=False):
 
     if box is not None:
         box = puw.standardize(box)
-        box = puw.reshape(box, shape=(1, 3, 3))
+        unit = puw.get_unit(box)
+        value = puw.get_value(box).reshape(1, 3, 3)
+        box = puw.standardize(value * unit)
         if not is_all(structure_indices):
             box = box[structure_indices,:,:]
 

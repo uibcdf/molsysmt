@@ -37,6 +37,9 @@ def least_rmsd_fit(molecular_system=None, selection='all', selection_fit='atom_t
         coordinates, length_unit = puw.get_value_and_unit(coordinates)
         reference_coordinates = puw.get_value(reference_coordinates, to_unit=length_unit)
 
+        coordinates = np.asarray(coordinates, dtype=np.float64)
+        reference_coordinates = np.asarray(reference_coordinates, dtype=np.float64)
+
         if coordinates.shape[1]!=reference_coordinates.shape[1]:
             raise StructuralInconsistencyError(
                 reason="reference selection and selection needs to have the same number of atoms",

@@ -25,7 +25,7 @@ def test_principal_component_analysis_from_molsysmt_MolSys_1():
         selection='atom_name=="CA"',
         coordinates=True,
     )
-    coordinates = puw.get_value(coordinates)
+    coordinates = puw.get_value(coordinates).astype(np.float64)
     n_structures, n_atoms = coordinates.shape[0:2]
 
     flat = coordinates.transpose(0, 2, 1).reshape(n_structures, 3 * n_atoms)

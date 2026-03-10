@@ -53,6 +53,7 @@ def get_principal_axes(molecular_system, selection='all', structure_indices='all
         coordinates = get(molecular_system, element='atom', selection=atom_indices,
                 structure_indices=structure_indices, coordinates=True)
         coordinates, length_unit = puw.get_value_and_unit(coordinates)
+        coordinates = np.asarray(coordinates, dtype=np.float64)
 
         if weights is None:
             weights = np.ones((coordinates.shape[1]), dtype=np.float64)
