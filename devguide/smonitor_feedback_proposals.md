@@ -100,3 +100,4 @@ Still proposed, not yet implemented upstream:
 
 Additional upstream progress during this pass:
 - opt-in slow-signal events (`slow_signal_ms`, `slow_signal_level`) now emit structured profiling events for QA/developer workflows.
+- profile-aware truncation for large structured payloads is now implemented in human-readable handlers.
