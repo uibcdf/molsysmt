@@ -19,8 +19,23 @@ def show_contacts(molecular_system, selection=None, center_of_atoms=False, weigh
             center_of_atoms_2=center_of_atoms_2, weights_2=weights_2,
             structure_indices_2=structure_indices_2, threshold=threshold, pbc=pbc,
             syntax=syntax)
+    contact_map_2d = contact_map[0].astype(int)
 
-    # Visualization is currently disabled due to missing backend modules.
-    # To be implemented in Fase 2 of Ecosystem Integration.
+    if style == 'plotly':
+        import plotly.graph_objects as go
+
+        figure = go.Figure(data=go.Heatmap(z=contact_map_2d))
+        if show:
+            figure.show()
+        return figure
+
+    if style == 'matplotlib':
+        import matplotlib.pyplot as plt
+
+        figure, axis = plt.subplots()
+        axis.imshow(contact_map_2d, origin='lower', interpolation='nearest')
+        if show:
+            plt.show()
+        return figure
 
     return contact_map
