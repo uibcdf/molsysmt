@@ -95,7 +95,6 @@ Implemented upstream in `../smonitor` during this stabilization pass:
 - `report()` now exposes `timings_by_tag` in addition to timings by function and module.
 
 Still proposed, not yet implemented upstream:
-- optional event coalescing for repeated transient warnings,
 - review of whether machine-oriented outputs need a more normalized contract.
 
 Additional upstream progress during this pass:
@@ -112,11 +111,12 @@ Current upstream status in `../smonitor`:
 - profile-aware truncation for large structured payloads is implemented in human-readable handlers.
 
 Next implementation slices proposed upstream, in order:
-1. optional event coalescing for repeated transient warnings (especially download/retry scenarios);
-2. review whether machine-oriented outputs need explicit normalized fields for cross-library QA tooling.
+1. review whether machine-oriented outputs need explicit normalized fields for cross-library QA tooling.
 
 MolSysMT-side follow-up after each upstream slice:
 1. adopt the new `smonitor` helper APIs in local callsites that still handcraft repeated `extra` payloads;
 2. extend cross-repo contract tests when new structured fields become canonical;
 3. keep this file synchronized as the authoritative MolSysMT-side checkpoint for the upstream `smonitor` stabilization track.
 
+
+- Upstream now supports opt-in warning coalescing with triage summaries for suppressed duplicates.
