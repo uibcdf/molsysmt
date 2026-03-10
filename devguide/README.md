@@ -24,6 +24,7 @@ During this session, we have finalized **Phase 2** of the 1.0.0 roadmap. MolSysM
 7) `element_and_native_rebuild.md`
 8) `api_surface.md`
 9) `testing_strategy.md`
+10) `smonitor_feedback_proposals.md` (Temporary diagnostic improvements under evaluation)
 
 ## Scope
 These documents define how MolSysMT should be implemented and maintained:

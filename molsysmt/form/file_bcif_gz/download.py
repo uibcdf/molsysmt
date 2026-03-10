@@ -92,6 +92,15 @@ def download(pdb_id=None, output_filename=None, tempfile=False, wwPDB_Partner='R
                     f"Download of {pdb_id}.bcif.gz was rate-limited or the server failed "
                     f"(HTTP {e.code}). Retrying in {wait:.1f}s…",
                     DownloadWarning,
+                    extra={
+                        "caller": "molsysmt.form.file_bcif_gz.download",
+                        "resource": f"{pdb_id}.bcif.gz",
+                        "provider": wwPDB_Partner,
+                        "attempt": attempt + 1,
+                        "retries": retries,
+                        "reason": f"HTTP {e.code}",
+                        "url": url,
+                    },
                 )
                 time.sleep(wait)
                 continue
@@ -115,10 +124,20 @@ def download(pdb_id=None, output_filename=None, tempfile=False, wwPDB_Partner='R
                 except OSError:
                     pass
             wait = (backoff_base ** attempt) + random.uniform(0, 0.5)
+            reason = str(getattr(e, 'reason', e))
             warn(
                 f"Network issue while downloading {pdb_id}.bcif.gz "
-                f"({getattr(e, 'reason', e)}). Retrying in {wait:.1f}s…",
+                f"({reason}). Retrying in {wait:.1f}s…",
                 DownloadWarning,
+                extra={
+                    "caller": "molsysmt.form.file_bcif_gz.download",
+                    "resource": f"{pdb_id}.bcif.gz",
+                    "provider": wwPDB_Partner,
+                    "attempt": attempt + 1,
+                    "retries": retries,
+                    "reason": reason,
+                    "url": url,
+                },
             )
             time.sleep(wait)
             continue
@@ -164,4 +183,3 @@ def download(pdb_id=None, output_filename=None, tempfile=False, wwPDB_Partner='R
 #        raise NotImplementedError()
 #
 #    return output
-
