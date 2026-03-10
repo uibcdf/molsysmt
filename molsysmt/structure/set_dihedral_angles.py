@@ -22,8 +22,9 @@ def set_dihedral_angles(molecular_system, dihedral_quartets=None, angles=None, b
         coordinates = get(molecular_system, element='system', structure_indices=structure_indices,
                 coordinates=True)
         coordinates, length_unit = puw.get_value_and_unit(coordinates)
+        coordinates = np.asarray(coordinates, dtype=np.float64)
 
-        angles = puw.get_value(angles, to_unit='radians')
+        angles = np.asarray(puw.get_value(angles, to_unit='radians'), dtype=np.float64)
 
         n_quartets = dihedral_quartets.shape[0]
         on_in_blocks = np.zeros((n_quartets, coordinates.shape[1]), dtype=np.bool_)
@@ -46,7 +47,7 @@ def set_dihedral_angles(molecular_system, dihedral_quartets=None, angles=None, b
 
             if box is not None:
                 if box[0] is not None:
-                    box = puw.get_value(box, to_unit=length_unit)
+                    box = np.asarray(puw.get_value(box, to_unit=length_unit), dtype=np.float64)
                     msmlib.structure.set_mic_dihedral_angles(coordinates, box, angles, dihedral_quartets,
                             on_in_blocks)
                     del(box, dihedral_quartets, angles, blocks, on_in_blocks)

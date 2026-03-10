@@ -22,6 +22,10 @@ def flip(molecular_system, vector=[0,0,1], point='[0,0,0] nm', selection='all', 
     coordinates, length_unit =  puw.get_value_and_unit(coordinates)
     point = puw.get_value(point, to_unit=length_unit)
 
+    coordinates = np.asarray(coordinates, dtype=np.float64)
+    vector = np.asarray(vector, dtype=np.float64)
+    point = np.asarray(point, dtype=np.float64)
+
     point = point[0]
 
     coordinates = msmlib.structure.flip(coordinates, vector, point)

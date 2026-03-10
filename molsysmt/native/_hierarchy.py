@@ -313,7 +313,12 @@ def infer_chain_types_from_topology(topology):
 
 
 def _needs_columns(table, columns):
-    return any(column not in table.columns for column in columns)
+    for column in columns:
+        if column not in table.columns:
+            return True
+        if table[column].isnull().any():
+            return True
+    return False
 
 
 
