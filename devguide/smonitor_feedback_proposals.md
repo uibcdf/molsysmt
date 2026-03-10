@@ -95,8 +95,8 @@ Implemented upstream in `../smonitor` during this stabilization pass:
 - `report()` now exposes `timings_by_tag` in addition to timings by function and module.
 
 Still proposed, not yet implemented upstream:
-- richer bundle/report enrichment for profiling and diagnostic payloads,
-- optional event coalescing for repeated transient warnings.
+- optional event coalescing for repeated transient warnings,
+- review of whether machine-oriented outputs need a more normalized contract.
 
 Additional upstream progress during this pass:
 - opt-in slow-signal events (`slow_signal_ms`, `slow_signal_level`) now emit structured profiling events for QA/developer workflows.
@@ -112,9 +112,8 @@ Current upstream status in `../smonitor`:
 - profile-aware truncation for large structured payloads is implemented in human-readable handlers.
 
 Next implementation slices proposed upstream, in order:
-1. bundle/report enrichment so slow-signal and structured diagnostic payloads are easier to triage without inspecting raw event streams;
-2. optional event coalescing for repeated transient warnings (especially download/retry scenarios);
-3. review whether machine-oriented outputs need explicit normalized fields for cross-library QA tooling.
+1. optional event coalescing for repeated transient warnings (especially download/retry scenarios);
+2. review whether machine-oriented outputs need explicit normalized fields for cross-library QA tooling.
 
 MolSysMT-side follow-up after each upstream slice:
 1. adopt the new `smonitor` helper APIs in local callsites that still handcraft repeated `extra` payloads;
