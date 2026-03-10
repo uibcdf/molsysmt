@@ -941,7 +941,7 @@ class Topology():
 
             if 'n_bonds' in kwargs:
 
-                tmp_output = (self.bonds.shape[0]==item.bonds.shape[0]).all()
+                tmp_output = (self.bonds.shape[0] == item.bonds.shape[0])
                 output['n_bonds'] = (kwargs['n_bonds'] == tmp_output)
 
             if 'bonded_atom_pairs' in kwargs:

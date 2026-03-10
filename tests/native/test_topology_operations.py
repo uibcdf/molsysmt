@@ -155,3 +155,93 @@ def test_remove_specific_bond_keeps_remaining_bonds():
     topology.remove_bonds([0], skip_digestion=True)
 
     assert topology.bonds[['atom1_index', 'atom2_index']].values.tolist() == [[2, 3]]
+
+
+def test_fix_null_values_normalizes_id_columns_to_string_dtype():
+    topology = build_minimal_topology()
+    topology.atoms.at[0, 'atom_id'] = None
+    topology.groups.at[0, 'group_id'] = None
+    topology.components.at[0, 'component_id'] = None
+    topology.molecules.at[0, 'molecule_id'] = None
+    topology.entities.at[0, 'entity_id'] = None
+    topology.chains.at[0, 'chain_id'] = None
+
+    topology._fix_null_values()
+
+    assert str(topology.atoms['atom_id'].dtype) == 'string'
+    assert str(topology.groups['group_id'].dtype) == 'string'
+    assert str(topology.components['component_id'].dtype) == 'string'
+    assert str(topology.molecules['molecule_id'].dtype) == 'string'
+    assert str(topology.entities['entity_id'].dtype) == 'string'
+    assert str(topology.chains['chain_id'].dtype) == 'string'
+
+
+def test_sort_bonds_orders_atom_pairs_in_place():
+    topology = build_minimal_topology()
+    topology.reset_bonds(2)
+    topology.bonds['atom1_index'] = pd.Series([3, 1], dtype='Int64')
+    topology.bonds['atom2_index'] = pd.Series([2, 0], dtype='Int64')
+    topology.bonds['order'] = ['1', '1']
+    topology.bonds['type'] = ['single', 'single']
+
+    topology._sort_bonds()
+
+    assert topology.bonds[['atom1_index', 'atom2_index']].values.tolist() == [[0, 1], [2, 3]]
+
+
+def test_compare_supports_boolean_and_dictionary_outputs():
+    left = build_minimal_topology()
+    right = build_minimal_topology()
+
+    result = left.compare(
+        right,
+        rule='equal',
+        output_type='dictionary',
+        n_atoms=True,
+        atom_id=True,
+        atom_name=True,
+        atom_type=True,
+        n_groups=True,
+        group_index=True,
+        group_id=True,
+        group_name=True,
+        group_type=True,
+        component_index=True,
+        component_id=True,
+        component_name=True,
+        component_type=True,
+        molecule_index=True,
+        molecule_id=True,
+        molecule_name=True,
+        molecule_type=True,
+        entity_index=True,
+        entity_id=True,
+        entity_name=True,
+        entity_type=True,
+        chain_index=True,
+        chain_id=True,
+        chain_name=True,
+        chain_type=True,
+        n_bonds=True,
+        bonded_atom_pairs=True,
+        skip_digestion=True,
+    )
+
+    assert all(result.values())
+    assert left.compare(right, rule='equal', output_type='boolean', atom_name=True, group_name=True, skip_digestion=True) is True
+
+    right.atoms.at[0, 'atom_name'] = 'X'
+    mismatch = left.compare(right, rule='equal', output_type='dictionary', atom_name=True, skip_digestion=True)
+    assert mismatch == {'atom_name': False}
+
+
+def test_get_atom_indices_filters_across_hierarchy_levels():
+    topology = build_minimal_topology()
+
+    assert topology.get_atom_indices(atom_name='N') == [0]
+    assert topology.get_atom_indices(group_name='HOH') == [2, 3]
+    assert topology.get_atom_indices(component_type='peptide') == [0, 1]
+    assert topology.get_atom_indices(molecule_name='water') == [2, 3]
+    assert topology.get_atom_indices(entity_name='peptide 0') == [0, 1]
+    assert topology.get_atom_indices(chain_name='B') == [2, 3]
+    assert topology.get_atom_indices(atom_id=['0', '1'], entity_id='40') == [0, 1]
