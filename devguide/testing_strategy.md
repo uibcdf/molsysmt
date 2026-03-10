@@ -42,6 +42,17 @@ Default execution mode for broad validation is now distributed:
   narrow reproduction, or if coverage instrumentation becomes unstable under
   `xdist`.
 
+Coverage-specific rule:
+- the reliable coverage baseline is the full-package sweep, for example
+  `pytest -n 12 --dist loadfile --cov=molsysmt --cov-report=term -q tests`;
+- targeted coverage sweeps using multiple `--cov=...` module or file selectors
+  are currently unreliable in this environment and may fail with either
+  `No data was collected` or `ImportError: cannot load module more than once
+  per process`;
+- when targeted coverage is needed, prefer a normal distributed test batch plus
+  a full-package coverage sweep, then inspect the module-level report from that
+  full run instead of trying to instrument only a subset.
+
 Current validated sequence in the March 2026 pass:
 - `tests/basic`
 - `tests/build`
@@ -65,7 +76,10 @@ Current status:
   green;
 - broad validation and coverage sweeps should prefer `-n 12` in the reference
   workstation, which has enough physical cores to support that level of
-  parallelism without interfering with other active tasks.
+  parallelism without interfering with other active tasks;
+- targeted coverage instrumentation remains a known tooling limitation and
+  should not be used as the default workflow until the `numpy`/coverage import
+  issue is understood and resolved.
 
 ## Peptide Builder Validation Policy
 `build_peptide(engine="MolSysMT")` must be validated against `engine="LEaP"`
