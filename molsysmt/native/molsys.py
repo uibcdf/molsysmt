@@ -87,8 +87,22 @@ class MolSys:
     def append_structures(self, item, atom_indices='all', structure_indices='all', skip_digestion=False):
         """Append structures from another MolSys while aligning atom indices."""
 
-        self.structures.append_structures(item.structures, atom_indices=atom_indices, structure_indices=structure_indices,
-                           skip_digestion=True)
+        other = item.structures.extract(atom_indices=atom_indices, structure_indices=structure_indices, copy_if_all=True, skip_digestion=True)
+        self.structures.append(
+            structure_id=other.structure_id,
+            time=other.time,
+            coordinates=other.coordinates,
+            velocities=other.velocities,
+            box=other.box,
+            temperature=other.temperature,
+            potential_energy=other.potential_energy,
+            kinetic_energy=other.kinetic_energy,
+            b_factor=other.b_factor,
+            alternate_location=other.alternate_location,
+            atom_indices='all',
+            structure_indices='all',
+            skip_digestion=True,
+        )
 
     @signal(tags=['native'])
     def copy(self):
