@@ -5,8 +5,8 @@ Source of truth for integrating and using **SMonitor** in this library.
 Metadata
 - Source repository: `smonitor`
 - Source document: `standards/SMONITOR_GUIDE.md`
-- Source version: `smonitor@0.10.0`
-- Last synced: 2026-02-06
+- Source version: `smonitor@0.11.4`
+- Last synced: 2026-03-10
 
 ## What is SMonitor
 
@@ -22,7 +22,7 @@ SMonitor is not just a logging wrapper; it is a **Signal Orchestrator** that dec
 
 ## 1. Required Configuration Structure
 
-If the library is named `A`, the following files must exist relative to the repository root:
+If the library package is named `mylib`, the following files must exist relative to the repository root:
 
 - `_smonitor.py`: Runtime configuration and message templates (CODES).
 
@@ -39,17 +39,17 @@ SMONITOR = {
     "silence": ["pint", "networkx"], # Noisy loggers to ignore
 }
 ```
-- `A/_private/smonitor/catalog.py`: Catalog entries (meta-data about each signal).
-- `A/_private/smonitor/meta.py`: Project metadata (URLs for documentation and issues).
-- `A/_private/smonitor/__init__.py`: Exports `CATALOG`, `META`, and `PACKAGE_ROOT`.
+- `mylib/_private/smonitor/catalog.py`: Catalog entries (meta-data about each signal).
+- `mylib/_private/smonitor/meta.py`: Project metadata (URLs for documentation and issues).
+- `mylib/_private/smonitor/__init__.py`: Exports `CATALOG`, `META`, and `PACKAGE_ROOT`.
 
 ### 1.1 Single Source of Truth for Templates
 
 `CODES` and `SIGNALS` must be resolved from exactly one authoritative place.
 
 Recommended pattern:
-- define `CATALOG`, `CODES`, and `SIGNALS` in `A/_private/smonitor/catalog.py`;
-- in `_smonitor.py`, import them from `A._private.smonitor.catalog`.
+- define `CATALOG`, `CODES`, and `SIGNALS` in `mylib/_private/smonitor/catalog.py`;
+- in `_smonitor.py`, import them from `mylib._private.smonitor.catalog`.
 
 This avoids drift where emitted catalog codes exist but template messages are missing at runtime.
 
@@ -72,7 +72,7 @@ All diagnostic output must be driven by the catalog. **Never hardcode strings** 
 Use the `DiagnosticBundle` to create consistent `warn` and `warn_once` helpers in your library's `_private/smonitor/emitter.py`:
 
 ```python
-# A/_private/smonitor/emitter.py
+# mylib/_private/smonitor/emitter.py
 from smonitor.integrations import DiagnosticBundle
 from . import CATALOG, META, PACKAGE_ROOT
 
@@ -86,7 +86,7 @@ resolve = bundle.resolve
 All custom exceptions must inherit from `CatalogException` (provided by `smonitor.integrations`). This ensures messages are automatically hydrated from the catalog.
 
 ```python
-# A/_private/smonitor/exceptions.py
+# mylib/_private/smonitor/exceptions.py
 from smonitor.integrations import CatalogException
 from . import CATALOG, META
 
@@ -103,7 +103,7 @@ class ArgumentError(MyLibException):
 Similarly, use `CatalogWarning` for warning classes:
 
 ```python
-# A/_private/smonitor/warnings.py
+# mylib/_private/smonitor/warnings.py
 from smonitor.integrations import CatalogWarning
 from .emitter import bundle
 
@@ -136,7 +136,7 @@ def get_atoms(molecular_system, selection="all"):
 ```
 
 **Benefits**:
-- On error, SMonitor reports the full call chain: `[A.api_func] -> [B.internal_logic] -> [ERROR]`.
+- On error, SMonitor reports the full call chain: `[mylib.api_func] -> [otherlib.internal_logic] -> [ERROR]`.
 - Performance telemetry can be enabled globally without changing the code.
 
 ## 5. Signal Contracts
@@ -145,13 +145,76 @@ Enforce structured data by defining required fields in `_smonitor.py`:
 
 ```python
 SIGNALS = {
-    "A.select": {
+    "mylib.select": {
         "extra_required": ["selection"],
     }
 }
 ```
 
 Missing fields will trigger warnings or errors in `dev` and `qa` profiles, ensuring diagnostic quality.
+
+## 5.1 Structured Signal Context and Profiling
+
+Recent pre-1.0 stabilization work added several profiling and machine-diagnostics capabilities that integrators should use deliberately:
+
+- `@signal(..., extra_factory=...)` can attach structured per-call context without emitting a separate warning or error event.
+- `report()` now exposes `timings_by_tag` in addition to timings by function and module.
+- `slow_signal_ms` and `slow_signal_level` enable opt-in slow-call events (`SMONITOR-SIGNAL-SLOW`) for developer and QA workflows.
+
+Recommended usage:
+
+```python
+from smonitor import signal
+
+@signal(
+    tags=["api", "selection"],
+    extra_factory=lambda args, kwargs: {"selection": kwargs.get("selection")},
+)
+def get_atoms(molecular_system, selection="all"):
+    ...
+```
+
+These features are intended for observability and QA; they should remain opt-in and must not flood end-user output by default.
+
+## 5.2 Canonical Structured Context Helper
+
+For library-generated diagnostics, prefer `smonitor.integrations.context_extra(...)` when building repeated `extra` payloads.
+
+```python
+from smonitor.integrations import context_extra, emit_from_catalog
+
+emit_from_catalog(
+    CATALOG["warnings"]["DownloadWarning"],
+    extra=context_extra(
+        caller="mylib.form.file_pdb.download",
+        resource="181l.pdb",
+        provider="RCSB",
+        operation="download",
+        extra={"attempt": 2, "retries": 5},
+    ),
+)
+```
+
+Use this helper for stable shared keys such as `caller`, `form`, `requested_attribute`, `resource`, `provider`, and `operation`.
+
+## 5.3 Report, Bundle, and Machine-Oriented Output
+
+SMonitor now exposes QA-oriented summaries beyond raw event streams:
+
+- `report()` includes `events_by_code`, `events_by_category`, `slow_signals_recent`, and `coalesced_warnings`.
+- bundle exports mirror those summaries under `triage`.
+- `JsonHandler` includes a `normalized` payload section with stable machine-oriented fields for cross-library ingestion.
+
+These additions should be treated as the preferred source for automated QA summaries before scanning raw event buffers.
+
+## 5.4 Human-Readable Output and Coalescing
+
+Two usability rules now apply:
+
+- Human-readable handlers may truncate very large structured payload fragments for `qa`, `dev`, and `debug` profiles. The underlying event payload is not altered.
+- Repeated transient warnings can be coalesced with `warning_coalesce_window_s`. The first warning is emitted normally; suppressed duplicates are summarized in `coalesced_warnings`.
+
+Use coalescing only for clearly repeated transient diagnostics such as download retries, not for semantically distinct warnings.
 
 ## 6. Noise Control
 
