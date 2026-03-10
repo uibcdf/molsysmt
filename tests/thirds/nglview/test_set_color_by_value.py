@@ -32,7 +32,10 @@ def test_set_color_by_value_1():
 
 def test_set_color_by_value_2():
 
-    molecular_system = msm.convert('181L', selection='molecule_type=="protein"')
+    molecular_system = msm.convert(
+        systems['T4 lysozyme L99A']['181l.h5msm'],
+        selection='molecule_type=="protein"',
+    )
 
     b_factors = msm.get(molecular_system, element='atom', b_factor=True)
 
