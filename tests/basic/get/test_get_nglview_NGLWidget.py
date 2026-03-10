@@ -56,10 +56,21 @@ def test_get_nglview_NGLWidget_1():
 
 
 def test_get_nglview_NGLWidget_preserves_chain_and_entity_semantics_for_t4():
-    molsys = msm.systems['T4 lysozyme L99A']['181l.h5msm']
+    molsys = msm.convert(msm.systems['T4 lysozyme L99A']['181l.h5msm'], to_form='molsysmt.MolSys')
     view = msm.convert(molsys, to_form='nglview.NGLWidget')
 
     assert msm.get(view, n_chains=True) == msm.get(molsys, n_chains=True)
     assert msm.get(view, element='chain', chain_type=True) == msm.get(molsys, element='chain', chain_type=True)
     assert msm.get(view, element='molecule', molecule_type=True) == msm.get(molsys, element='molecule', molecule_type=True)
     assert msm.get(view, element='entity', entity_type=True) == msm.get(molsys, element='entity', entity_type=True)
+
+
+def test_get_nglview_NGLWidget_rebuilds_entity_ids_after_lossy_pdb_roundtrip():
+    molsys = msm.convert(msm.systems['T4 lysozyme L99A']['181l.h5msm'], to_form='molsysmt.MolSys')
+    view = msm.convert(molsys, to_form='nglview.NGLWidget')
+
+    original_entity_id = msm.get(molsys, element='entity', entity_id=True)
+    rebuilt_entity_id = msm.get(view, element='entity', entity_id=True)
+
+    assert original_entity_id == ['1', '2', '3', '4', '5']
+    assert rebuilt_entity_id == ['0', '1', '2', '3', '4']
