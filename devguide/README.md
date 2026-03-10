@@ -19,13 +19,22 @@ Recent completed work:
 - structural and PBC JIT call sites were normalized to `float64` at the public boundary.
 
 Validation status at this checkpoint:
-- broad sequential test batches already pass for `tests/basic`, `tests/build`,
-  `tests/form`, `tests/structure`, `tests/thirds`, `tests/topology`,
-  `tests/native`, `tests/cross_repo`, `tests/hbonds`,
-  `tests/molecular_mechanics`, `tests/pbc`, and `tests/physchem`;
-- the next validation slice to resume is `tests/supported`;
-- low-priority cleanup still pending includes a few `argdigest` warnings
-  (for example in `show_contacts`) and the pending `.codecov.yml` adjustment.
+- the full test suite passes with `pytest -q tests -x`;
+- the earlier sequential validation batches also passed independently for
+  `tests/basic`, `tests/build`, `tests/form`, `tests/structure`,
+  `tests/thirds`, `tests/topology`, `tests/native`, `tests/cross_repo`,
+  `tests/hbonds`, `tests/molecular_mechanics`, `tests/pbc`,
+  `tests/physchem`, and `tests/supported`;
+- the low-priority cleanup identified during the validation pass was closed:
+  `show_contacts` no longer emits undigested-argument warnings for `style` and
+  `show`, and `.codecov.yml` now tracks core `form`, `_private`, and `lib`
+  modules again.
+
+Current post-validation focus:
+- decide what belongs to the explicit `1.0.0` support contract and what should
+  remain outside that contract because it is still immature or peripheral;
+- translate the green test state into a clear release checkpoint and support
+  tier decision.
 
 ## Recommended Reading Order
 1) `1.0.0_maturity_audit.md` (Current state and roadmap)
