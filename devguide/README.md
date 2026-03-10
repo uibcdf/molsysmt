@@ -36,6 +36,23 @@ Current post-validation focus:
 - translate the green test state into a clear release checkpoint and support
   tier decision.
 
+## Release checkpoint meaning: `0.15.0`
+
+`0.15.0` is the first post-`0.14.0` stabilization checkpoint defined by a
+green full-suite test state instead of partial confidence or local subsystem
+confidence.
+
+For development, this means:
+- `0.15.0` starts from `pytest -q tests -x` passing cleanly in the reference
+  environment;
+- new work after `0.15.0` should be treated as regression-sensitive by
+  default;
+- any support-tier or API-contract reduction must be explicit and documented,
+  not accidental fallout from refactors;
+- future stabilization tags should be interpreted against this new baseline:
+  a tag is not considered equivalent in quality unless it starts from a green
+  suite or documents precisely why it does not.
+
 ## Recommended Reading Order
 1) `1.0.0_maturity_audit.md` (Current state and roadmap)
 2) `support_tiers.md` (Form classification)

@@ -65,3 +65,18 @@ Follow-up after the next validation checkpoint:
   modules again;
 - continue only with polish or contract-scope decisions, not broad
   stabilization rewrites.
+
+## Tag semantics from `0.15.0` onward
+
+`0.15.0` marks a change in how stabilization tags are interpreted in this
+repository.
+
+From this checkpoint onward:
+- a stabilization tag should begin from a green full-suite state;
+- support-contract discussions should happen after the suite is green, not as
+  a substitute for getting it green;
+- refactors that weaken support for peripheral or immature functionality must
+  be evaluated explicitly against the intended `1.0.0` contract;
+- the default assumption is now "regression until proven otherwise" for any
+  post-`0.15.0` change touching core forms, native objects, diagnostics, or
+  public element semantics.
