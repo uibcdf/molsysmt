@@ -8,7 +8,11 @@ def has_attribute(molecular_system, attribute, include_none=False, skip_digestio
     output = attributes[attribute]
 
     if not include_none:
-        pass
+
+        if attribute == 'b_factor':
+            if 'b_factor' not in molecular_system.file['structures']:
+                output = False
+            elif molecular_system.file['structures']['b_factor'].shape[0] == 0:
+                output = False
 
     return output
-

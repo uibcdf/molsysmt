@@ -224,6 +224,7 @@ def _new_msmfile(filename, creator='MolSysMT', compression="gzip", compression_o
     structures_sd.create_dataset('box', (0,3,3), dtype=float_type, maxshape=(None,3,3), **global_dataset_options)
     structures_sd.create_dataset('coordinates', (0,0,3), dtype=float_type, maxshape=(None,None,3), **global_dataset_options)
     structures_sd.create_dataset('velocities', (0,0,3), dtype=float_type, maxshape=(None,None,3), **global_dataset_options)
+    structures_sd.create_dataset('b_factor', (0,0), dtype=float_type, maxshape=(None,None), **global_dataset_options)
     structures_sd.create_dataset('kinetic_energy', (0,), dtype=float_type, maxshape=(None,), **global_dataset_options)
     structures_sd.create_dataset('potential_energy', (0,), dtype=float_type, maxshape=(None,), **global_dataset_options)
     structures_sd.create_dataset('temperature', (0,), dtype=float_type, maxshape=(None,), **global_dataset_options)

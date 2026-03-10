@@ -73,6 +73,7 @@ attributes['box_lengths'] = True
 attributes['box_volume'] = True
 attributes['coordinates'] = True
 attributes['velocities'] = True
+attributes['b_factor'] = True
 attributes['n_structures'] = True
 
 del(_all_attributes)
