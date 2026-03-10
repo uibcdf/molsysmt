@@ -29,6 +29,9 @@ Completed in the current pass:
 - H5MSM support for `b_factor`, including regeneration of `181l.h5msm`;
 - deterministic offline coverage for `nglview` color-by-value workflows;
 - structured diagnostics adoption with `smonitor.integrations.context_extra(...)`;
+- upstream ArgDigest caller helpers were introduced for caller-sensitive digester
+  logic (`argdigest.core.caller.*`) so downstream digesters can stop open-coding
+  `caller.endswith(...)` guards;
 - `float64` normalization at structural and PBC JIT boundaries;
 - adapter fixes for `MDAnalysis.AtomGroup`, `StructuresDict`, `GRO`, `PDB`,
   AlphaFold/mmCIF, and OpenMM context conversion.
