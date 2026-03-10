@@ -29,7 +29,7 @@ def digest_component_type(component_type, caller=None):
     if caller=='molsysmt.basic.get.get':
         if isinstance(component_type, bool):
             return component_type
-    elif caller.startswith('molsysmt.form.') and caller.count('.to_')==2:
+    elif isinstance(caller, str) and caller.startswith('molsysmt.form.') and caller.count('.to_')==2:
         return component_type
 
     if isinstance(component_type, str):

@@ -34,10 +34,10 @@ def digest_chain_name(chain_name, caller=None):
         If the given `chain_name` has not of the correct type or value.
     """
 
-    if caller.endswith(functions_with_boolean):
+    if isinstance(caller, str) and caller.endswith(functions_with_boolean):
         if isinstance(chain_name, bool):
             return chain_name
-    elif caller.startswith('molsysmt.form.') and caller.count('.to_')==2:
+    elif isinstance(caller, str) and caller.startswith('molsysmt.form.') and caller.count('.to_')==2:
         return chain_name
     elif caller=='molsysmt.build.define_new_chain.define_new_chain':
         if isinstance(chain_name, str):
