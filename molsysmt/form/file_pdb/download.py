@@ -1,28 +1,31 @@
-def download(pdb_id=None, output_filename=None, tempfile=False, wwPDB_Partner='RCSB PDB', skip_digestion=False):
+from molsysmt._private.download import download_with_retries
+from molsysmt._private.files_and_directories import temp_filename
 
-    from molsysmt._private.files_and_directories import temp_filename
-    from urllib.request import urlretrieve
 
-    output = None
+def download(pdb_id=None, output_filename=None, tempfile=False, wwPDB_Partner='RCSB PDB', skip_digestion=False, retries=5, timeout=30, backoff_base=2.0):
+    """Downloading a remote pdb file from a wwPDB partner."""
 
-    if tempfile:
-        output_filename=temp_filename(extension="pdb")
+    if pdb_id.startswith('pdb_id:'):
+        pdb_id = pdb_id.split(':')[-1]
+    elif pdb_id.startswith('pdb_'):
+        pdb_id = pdb_id[-4:]
 
-    if wwPDB_Partner=='RCSB PDB':
+    if wwPDB_Partner != 'RCSB PDB':
+        raise NotImplementedError("Only 'RCSB PDB' is supported at the moment.")
 
-        filename = pdb_id+'.pdb'
-        fullurl = 'https://files.rcsb.org/download/'+filename
+    if output_filename is None:
+        if tempfile:
+            output_filename = temp_filename(extension="pdb")
+        else:
+            output_filename = f"{pdb_id}.pdb"
 
-        if output_filename is None:
-            output_filename = filename
-
-        urlretrieve(fullurl, output_filename)
-
-        output = output_filename
-
-    else:
-
-        raise NotImplementedError()
-
-    return output
-
+    return download_with_retries(
+        url="https://files.rcsb.org/download/{pdb_id}.pdb".format(pdb_id=pdb_id),
+        output_filename=output_filename,
+        resource=f"{pdb_id}.pdb",
+        provider=wwPDB_Partner,
+        caller="molsysmt.form.file_pdb.download",
+        retries=retries,
+        timeout=timeout,
+        backoff_base=backoff_base,
+    )
