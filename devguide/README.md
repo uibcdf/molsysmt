@@ -5,14 +5,27 @@ invariants, and internal policies in MolSysMT. Other files (for example,
 `docs/content/developer/*`, `README.md`, and tutorials) must
 align with these rules. If conflicts exist, **`devguide/` takes precedence**.
 
-## 🚀 March 2026 Stabilization Sprint: Milestone Reached (Tag 0.14.0)
-During this session, we have finalized **Phase 2** of the 1.0.0 roadmap. MolSysMT now achieves total interoperability across the structural biology and cheminformatics landscape.
+## Current checkpoint (March 2026)
 
-**Key Achievements:**
-- **Indestructible Core**: Identity and parity verified for Native, OpenMM, and MDTraj.
-- **Extended Ecosystem**: Native support for RDKit, BioPython (Bio.PDB), and MDAnalysis AtomGroups.
-- **Lazy Loading 2.0**: Implemented a string-based registry for instantaneous imports.
-- **Visual Introspection**: MolSysViewer and NGLView are now first-class molecular systems.
+The current stabilization pass is focused on finishing the path to `1.0.0`
+with broad sequential validation and targeted fixes instead of architectural
+rewrites.
+
+Recent completed work:
+- native rebuild and public `molsysmt.element` semantics were separated and documented;
+- H5MSM now preserves `b_factor` and the bundled `181l.h5msm` artifact was regenerated;
+- `nglview` round-trips and color-by-value tests were made deterministic offline;
+- `smonitor` and MolSysMT diagnostics were hardened for developer and QA workflows;
+- structural and PBC JIT call sites were normalized to `float64` at the public boundary.
+
+Validation status at this checkpoint:
+- broad sequential test batches already pass for `tests/basic`, `tests/build`,
+  `tests/form`, `tests/structure`, `tests/thirds`, `tests/topology`,
+  `tests/native`, `tests/cross_repo`, `tests/hbonds`,
+  `tests/molecular_mechanics`, `tests/pbc`, and `tests/physchem`;
+- the next validation slice to resume is `tests/supported`;
+- low-priority cleanup still pending includes a few `argdigest` warnings
+  (for example in `show_contacts`) and the pending `.codecov.yml` adjustment.
 
 ## Recommended Reading Order
 1) `1.0.0_maturity_audit.md` (Current state and roadmap)

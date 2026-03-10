@@ -8,7 +8,7 @@ def to_openmm_Context(item, atom_indices='all', structure_indices='all',
         integrator='Langevin', temperature='300.0 kelvin', friction='1.0/picoseconds', time_step='2 femtoseconds',
         platform='CUDA', skip_digestion=False):
 
-    from molsysmt.form.openmm_Topology import to_openmm_Topology
+    from .to_openmm_Topology import to_openmm_Topology
     from . import get_coordinates_from_atom
     from molsysmt.form.openmm_Topology import to_openmm_Context as openmm_Topology_to_openmm_Context
 
@@ -23,4 +23,3 @@ def to_openmm_Context(item, atom_indices='all', structure_indices='all',
             platform=platform, skip_digestion=True)
 
     return tmp_item
-
