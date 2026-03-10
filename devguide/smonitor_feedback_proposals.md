@@ -86,3 +86,15 @@ This would make cross-repo QA and agent triage much faster.
 - The `signal` decorator would benefit from an optional structured `extra` hook so libraries can attach stable context (for example, form names or selection syntax) without emitting separate warnings.
 - Slow-call threshold events in `smonitor` core would be useful for QA and performance triage, especially for import-time or first-call JIT latency investigations.
 - Small helper APIs in `smonitor` core for common structured-context fields (for example, `caller`, `form`, `requested_attribute`, `record`) would reduce repetitive local wiring across libraries.
+
+### 7. Upstream progress snapshot (2026-03-09)
+
+Implemented upstream in `../smonitor` during this stabilization pass:
+- `signal(..., extra_factory=...)` now supports structured per-call context without separate warning emissions.
+- Profiling timeline entries now preserve signal tags and signal-provided meta context.
+- `report()` now exposes `timings_by_tag` in addition to timings by function and module.
+
+Still proposed, not yet implemented upstream:
+- slow-call threshold events for QA/performance triage,
+- richer profile-aware rendering or truncation for large structured payloads,
+- small helper APIs for common context keys.
