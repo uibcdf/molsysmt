@@ -19,8 +19,7 @@ def digest_atom_pair(atom_pair, caller=None):
                     return [[atom_pair[0], atom_pair[1]]]
                 elif isinstance(atom_pair, np.ndarray) and len(atom_pair) == 2:
                     return [[atom_pair[0], atom_pair[1]]]
-            elif is_iterable_pairs(atom_pair):
+            elif is_iterable_of_pairs(atom_pair):
                 return [[ii, jj] for ii,jj in atom_pair]
 
     raise ArgumentError('atom_pair', value=atom_pair, caller=caller, message=None)
-

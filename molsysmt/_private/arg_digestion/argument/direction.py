@@ -4,7 +4,7 @@ from molsysmt._private.smonitor import ArgumentError
 
 def digest_direction(direction, caller=None):
 
-    if caller.endswith('move_away'):
+    if caller is not None and caller.endswith('move_away'):
         if direction is None:
             return direction
 
@@ -19,9 +19,8 @@ def digest_direction(direction, caller=None):
             return direction
         if (len(direction.shape)==2) and (direction.shape[1]==3): # structure_index, xyz
             direction = direction.astype(np.float64)
-            for ii in range(len(direction.shape[0])):
+            for ii in range(direction.shape[0]):
                 direction[ii] = direction[ii]/np.linalg.norm(direction[ii])
             return direction
 
     raise ArgumentError('direction', value=direction, caller=caller, message=None)
-
