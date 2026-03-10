@@ -1,5 +1,4 @@
 from .to_file_mmtf import to_file_mmtf
-from .to_mdtraj import to_mdtraj
 from .to_MDAnalysis_Universe import to_MDAnalysis_Universe
 from .to_string_pdb_text import to_string_pdb_text
 from .to_file_pdb import to_file_pdb
@@ -40,10 +39,10 @@ from .iterators import StructuresIterator, TopologyIterator
 
 from depdigest import is_installed
 
-if is_installed('mdtraj'):
-    
+_convert_to={}
 
-_convert_to={
+if is_installed('mdtraj'):
+    _convert_to={
         'file:mmtf': to_file_mmtf,
         'file:pdb': to_file_pdb,
         'mmtf.MMTFDecoder': to_mmtf_MMTFDecoder,

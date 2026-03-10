@@ -14,8 +14,10 @@ def test_supported_1():
     df_data = set((ii, jj) for ii, jj in zip(df.data["Form"], df.data["Type"]))
 
     good_df_data = set([
+        ('biopython.PDBStructure', 'class'),
         ('biopython.Seq', 'class'),
         ('biopython.SeqRecord', 'class'),
+        ('MDAnalysis.AtomGroup', 'class'),
         ('MDAnalysis.Topology', 'class'),
         ('MDAnalysis.Universe', 'class'),
         ('mdtraj.DCDTrajectoryFile', 'class'),
@@ -57,6 +59,7 @@ def test_supported_1():
         ('pdbfixer.PDBFixer', 'class'),
         ('pytraj.Topology', 'class'),
         ('pytraj.Trajectory', 'class'),
+        ('rdkit.Mol', 'class'),
         ('XYZ', 'class'),
         ('file:bcif', 'file'),
         ('file:bcif.gz', 'file'),
@@ -92,10 +95,11 @@ def test_supported_2():
     df = msm.supported.conversions()
 
     good_aux_list = ['biopython.Seq', 'biopython.SeqRecord',
+                     'biopython.PDBStructure',
                      'file:bcif', 'file:bcif.gz', 'file:cif', 'file:cif.gz', 'file:crd', 'file:dcd', 'file:gro', 'file:h5',
                      'file:h5msm', 'file:inpcrd', 'file:mmtf', 'file:mol2', 'file:msmpk', 'file:pdb',
                      'file:prmtop', 'file:psf', 'file:trjpk', 'file:xtc', 'file:xyznpy',
-                     'MDAnalysis.Topology', 'MDAnalysis.Universe',
+                     'MDAnalysis.AtomGroup', 'MDAnalysis.Topology', 'MDAnalysis.Universe',
                      'mdtraj.DCDTrajectoryFile', 'mdtraj.HDF5TrajectoryFile',
                      'mdtraj.Topology', 'mdtraj.Trajectory', 'mdtraj.XTCTrajectoryFile',
                      'mmcif.PdbxContainers.DataContainer', 'mmtf.MMTFDecoder',
@@ -110,7 +114,7 @@ def test_supported_2():
                      'openmm.GromacsGroFile', 'openmm.GromacsTopFile', 'openmm.Modeller',
                      'openmm.PDBFile', 'openmm.Simulation', 'openmm.State', 'openmm.System',
                      'openmm.Topology', 'parmed.Structure', 'pdbfixer.PDBFixer',
-                     'pytraj.Topology', 'pytraj.Trajectory', 'string:alphafold_id',
+                     'pytraj.Topology', 'pytraj.Trajectory', 'rdkit.Mol', 'string:alphafold_id',
                      'string:amino_acids_1', 'string:amino_acids_3', 'string:pdb_id',
                      'string:pdb_text', 'XYZ']
 
@@ -123,10 +127,11 @@ def test_supported_3():
     df = msm.supported.conversions(to_viewer='NGLView')
 
     good_aux_list = ['biopython.Seq', 'biopython.SeqRecord',
+                     'biopython.PDBStructure',
                      'file:bcif', 'file:bcif.gz', 'file:cif', 'file:cif.gz', 'file:crd', 'file:dcd', 'file:gro', 'file:h5',
                      'file:h5msm', 'file:inpcrd', 'file:mmtf', 'file:mol2', 'file:msmpk', 'file:pdb',
                      'file:prmtop', 'file:psf', 'file:trjpk', 'file:xtc', 'file:xyznpy',
-                     'MDAnalysis.Topology', 'MDAnalysis.Universe',
+                     'MDAnalysis.AtomGroup', 'MDAnalysis.Topology', 'MDAnalysis.Universe',
                      'mdtraj.DCDTrajectoryFile', 'mdtraj.HDF5TrajectoryFile',
                      'mdtraj.Topology', 'mdtraj.Trajectory', 'mdtraj.XTCTrajectoryFile',
                      'mmcif.PdbxContainers.DataContainer', 'mmtf.MMTFDecoder',
@@ -141,7 +146,7 @@ def test_supported_3():
                      'openmm.GromacsGroFile', 'openmm.GromacsTopFile', 'openmm.Modeller',
                      'openmm.PDBFile', 'openmm.Simulation', 'openmm.State', 'openmm.System',
                      'openmm.Topology', 'parmed.Structure', 'pdbfixer.PDBFixer',
-                     'pytraj.Topology', 'pytraj.Trajectory', 'string:alphafold_id',
+                     'pytraj.Topology', 'pytraj.Trajectory', 'rdkit.Mol', 'string:alphafold_id',
                      'string:amino_acids_1', 'string:amino_acids_3', 'string:pdb_id',
                      'string:pdb_text', 'XYZ']
 
