@@ -6,6 +6,13 @@ import pandas as pd
 @arg_digest()
 def get_component_type(molecular_system, element='component', selection='all', redefine_indices=False,
                        redefine_types=False, syntax='MolSysMT', skip_digestion=False):
+    """Returning component types for a molecular system.
+
+    Notes
+    -----
+    Explicit types are preserved when available. If `redefine_types=True`, the
+    types are inferred from local group identity and composition.
+    """
 
     if selection == 'all':
         from molsysmt.native import MolSys, Topology

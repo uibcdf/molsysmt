@@ -13,6 +13,14 @@ import numpy as np
 @arg_digest()
 def get_group_type(molecular_system, element='group', selection='all', redefine_types=False, syntax='MolSysMT',
                    skip_digestion=False):
+    """Returning group types for a molecular system.
+
+    Notes
+    -----
+    Explicit types are preserved when available. If types are redefined, they
+    are inferred locally from group identity and, for reserved small
+    molecules, from local atom composition.
+    """
 
     from molsysmt.basic import get
 

@@ -4,6 +4,14 @@ from molsysmt._private.arg_digestion import arg_digest
 def get_chain_name(molecular_system, element='atom', selection='all',
                    redefine_indices=False, redefine_ids=False, redefine_names=False, syntax='MolSysMT',
                    skip_digestion=False):
+    """Returning chain names for a molecular system.
+
+    Notes
+    -----
+    Explicit names are preserved when available. If names are redefined, the
+    result follows the deterministic local chain naming rules of the native
+    layer.
+    """
 
     if selection == 'all':
         from molsysmt.native import MolSys, Topology

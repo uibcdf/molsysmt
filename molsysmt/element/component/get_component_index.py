@@ -6,6 +6,15 @@ import numpy as np
 @arg_digest()
 def get_component_index(molecular_system, element='component', selection='all', redefine_indices=False,
                         syntax='MolSysMT', skip_digestion=False):
+    """Returning component indices for a molecular system.
+
+    Notes
+    -----
+    This is a public form-agnostic helper. When the input is already a native
+    `molsysmt.Topology` or `molsysmt.MolSys` and `selection='all'`, the
+    function delegates to the native hierarchy layer instead of recomputing the
+    same semantics through the generic dispatch path.
+    """
 
     if selection == 'all':
         from molsysmt.native import MolSys, Topology

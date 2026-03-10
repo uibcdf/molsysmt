@@ -5,6 +5,14 @@ from molsysmt._private.arg_digestion import arg_digest
 def get_entity_index(molecular_system, element='entity', selection='all',
                      redefine_indices=False, syntax='MolSysMT',
                      skip_digestion=False):
+    """Returning entity indices for a molecular system.
+
+    Notes
+    -----
+    Entity indices are form-agnostic at the public API level. When they are
+    redefined, the grouping follows the native local rule that collapses water
+    molecules into a single entity key and groups the rest by molecule name.
+    """
 
     if selection == 'all':
         from molsysmt.native import MolSys, Topology

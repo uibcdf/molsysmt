@@ -4,6 +4,14 @@ from molsysmt._private.arg_digestion import arg_digest
 @arg_digest()
 def get_entity_name(molecular_system, element='entity', selection='all', redefine_indices=False,
                     redefine_names=False, syntax='MolSysMT', skip_digestion=False):
+    """Returning entity names for a molecular system.
+
+    Notes
+    -----
+    Explicit names are preserved when available. If names are redefined, they
+    are inferred locally from molecule grouping rules; no remote enrichment is
+    performed by this helper.
+    """
 
     if selection == 'all':
         from molsysmt.native import MolSys, Topology

@@ -6,6 +6,14 @@ import pandas as pd
 def get_molecule_type(molecular_system, element='molecule', selection='all',
         redefine_indices=False, redefine_types=False, syntax='MolSysMT',
         skip_digestion=False):
+    """Returning molecule types for a molecular system.
+
+    Notes
+    -----
+    Explicit types are preserved when available. If types are redefined, the
+    result is inferred from local group composition and from the canonical
+    molecule fallback rules.
+    """
 
     if selection == 'all':
         from molsysmt.native import MolSys, Topology

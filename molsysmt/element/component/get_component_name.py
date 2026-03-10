@@ -4,6 +4,14 @@ import numpy as np
 @arg_digest()
 def get_component_name(molecular_system, element='component', selection='all', redefine_indices=False,
                        redefine_names=False, syntax='MolSysMT', skip_digestion=False):
+    """Returning component names for a molecular system.
+
+    Notes
+    -----
+    Explicit names are preserved when available. If `redefine_names=True`, the
+    names may be inferred from local topology evidence using the canonical
+    naming rules documented in `devguide/element_and_native_rebuild.md`.
+    """
 
     if selection == 'all':
         from molsysmt.native import MolSys, Topology
