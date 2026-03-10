@@ -1,5 +1,6 @@
 from molsysmt._private.smonitor import ArgumentError
 from ...variables import is_all
+import numpy as np
 
 functions_with_boolean = (
         'molsysmt.basic.get.get',
@@ -32,11 +33,12 @@ def digest_group_id(group_id, caller=None):
         If the given `group_id` has not of the correct type or value.
     """
 
-    if caller.endswith(functions_with_boolean):
-        if isinstance(group_id, bool):
+    if caller is not None:
+        if caller.endswith(functions_with_boolean):
+            if isinstance(group_id, bool):
+                return group_id
+        elif caller.startswith('molsysmt.form.') and caller.count('.to_')==2:
             return group_id
-    elif caller.startswith('molsysmt.form.') and caller.count('.to_')==2:
-        return group_id
 
     if isinstance(group_id, (int, np.int64)):
         return [group_id]
@@ -51,5 +53,3 @@ def digest_group_id(group_id, caller=None):
         return group_id.tolist()
 
     raise ArgumentError('group_id', value=group_id, caller=caller, message=None)
-
-

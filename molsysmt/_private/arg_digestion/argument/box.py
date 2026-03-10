@@ -34,7 +34,7 @@ def digest_box(box, caller=None):
         If box doesn't have the correct shape.
     """
 
-    if caller.endswith(functions_where_boolean):
+    if caller is not None and caller.endswith(functions_where_boolean):
 
         if isinstance(box, bool):
             return box
@@ -70,4 +70,3 @@ def digest_box(box, caller=None):
         box = puw.quantity(box_value, box_unit)
 
         return puw.standardize(box)
-

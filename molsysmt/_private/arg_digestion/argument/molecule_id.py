@@ -33,11 +33,12 @@ def digest_molecule_id(molecule_id, caller=None):
         If the given `molecule_id` has not of the correct type or value.
     """
 
-    if caller.endswith(functions_with_boolean):
-        if isinstance(molecule_id, bool):
+    if caller is not None:
+        if caller.endswith(functions_with_boolean):
+            if isinstance(molecule_id, bool):
+                return molecule_id
+        elif caller.startswith('molsysmt.form.') and caller.count('.to_')==2:
             return molecule_id
-    elif caller.startswith('molsysmt.form.') and caller.count('.to_')==2:
-        return molecule_id
 
     if isinstance(molecule_id, (int, np.int64)):
         return [molecule_id]
@@ -52,4 +53,3 @@ def digest_molecule_id(molecule_id, caller=None):
         return molecule_id.tolist()
 
     raise ArgumentError('molecule_id', value=molecule_id, caller=caller, message=None)
-

@@ -26,10 +26,10 @@ def digest_molecule_type(molecule_type, caller=None):
         If the given `molecule_type` has not of the correct type or value.
     """
 
-    if caller=='molsysmt.basic.get.get':
+    if caller == 'molsysmt.basic.get.get':
         if isinstance(molecule_type, bool):
             return molecule_type
-    elif caller.startswith('molsysmt.form.') and caller.count('.to_')==2:
+    elif caller is not None and caller.startswith('molsysmt.form.') and caller.count('.to_')==2:
         return molecule_type
 
     if isinstance(molecule_type, str):
@@ -45,4 +45,3 @@ def digest_molecule_type(molecule_type, caller=None):
         return molecule_type.tolist()
 
     raise ArgumentError('molecule_type', value=molecule_type, caller=caller, message=None)
-
