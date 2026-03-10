@@ -120,6 +120,7 @@ MolSysMT-side follow-up after each upstream slice:
 
 Current MolSysMT-side adoption progress:
 - `context_extra(...)` is now used in the shared download helper, JIT warning emission, and the multi-container/ambiguous-structure warning callsites touched during this pass.
+- The AlphaFold BCIF import path and selection fallback warning path now also use `context_extra(...)`.
 - Remaining manual `extra` payloads should be reviewed incrementally as future diagnostics work touches those paths.
 
 

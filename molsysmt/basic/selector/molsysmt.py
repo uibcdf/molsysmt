@@ -236,11 +236,17 @@ def select_standard(item, selection):
             if _column_has_integer_strings(aux_df[column]):
                 aux_df[column] = pd.to_numeric(aux_df[column], errors='coerce')
             else:
+                from smonitor.integrations import context_extra
                 from molsysmt._private.smonitor import warn, SelectionWarning
                 warn(
                     f"Selection uses numeric comparison on '{column}', but values are not integer-like strings; "
                     "comparison will fall back to string semantics.",
                     SelectionWarning,
+                    extra=context_extra(
+                        caller='molsysmt.basic.selector.molsysmt.select',
+                        operation='select',
+                        extra={'requested_attribute': column},
+                    ),
                 )
 
         tmp_selection = tmp_selection.replace('atom_index','index')

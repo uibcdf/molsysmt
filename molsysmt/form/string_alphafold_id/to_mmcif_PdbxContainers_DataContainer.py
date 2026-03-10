@@ -10,7 +10,7 @@ def to_mmcif_PdbxContainers_DataContainer(item, atom_indices='all', structure_in
     from os import remove
     from os.path import exists
     from molsysmt._private.files_and_directories import temp_filename
-    from smonitor.integrations import emit_from_catalog
+    from smonitor.integrations import context_extra, emit_from_catalog
     from molsysmt._private.smonitor import CATALOG
 
     uniprot_id = item.split('-')[-2]
@@ -38,11 +38,18 @@ def to_mmcif_PdbxContainers_DataContainer(item, atom_indices='all', structure_in
             remove(tmp_filename)
 
     if len(containers)>1:
-        emit_from_catalog(CATALOG['warnings']['MultiContainerWarning'], extra={'caller': 'to_mmcif_PdbxContainers_DataContainer', 'format': 'BCIF'})
+        emit_from_catalog(
+            CATALOG['warnings']['MultiContainerWarning'],
+            extra=context_extra(
+                caller='molsysmt.form.string_alphafold_id.to_mmcif_PdbxContainers_DataContainer',
+                operation='download',
+                provider='AlphaFold DB',
+                extra={'format': 'BCIF'},
+            ),
+        )
     if len(containers)==0:
         raise ValueError('The AlphaFold ID does not have any DataContainer')
 
     tmp_item = containers[0]
 
     return tmp_item
-
