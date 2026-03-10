@@ -193,10 +193,14 @@ class NotSupportedSyntaxError(MolSysMTCatalogException):
 class NotWithThisFormError(MolSysMTCatalogException):
     catalog_key = "NotWithThisFormError"
 
-    def __init__(self, caller=None, message=None):
+    def __init__(self, caller=None, form=None, requested_attribute=None, message=None):
         extra = {}
         if caller:
             extra["caller"] = caller
+        if form is not None:
+            extra["form"] = form
+        if requested_attribute is not None:
+            extra["requested_attribute"] = requested_attribute
         super().__init__(message=message, extra=extra)
 
 
@@ -210,10 +214,14 @@ class FileAlreadyHandledError(MolSysMTCatalogException):
 class FileContentError(MolSysMTCatalogException):
     catalog_key = "FileContentError"
 
-    def __init__(self, reason, caller=None, message=None):
+    def __init__(self, reason, caller=None, message=None, record=None, filename=None):
         extra = {"reason": reason}
         if caller:
             extra["caller"] = caller
+        if record is not None:
+            extra["record"] = record
+        if filename is not None:
+            extra["filename"] = filename
 
         super().__init__(message=message, extra=extra)
 
