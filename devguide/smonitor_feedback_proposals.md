@@ -94,8 +94,8 @@ Implemented upstream in `../smonitor` during this stabilization pass:
 - Profiling timeline entries now preserve signal tags and signal-provided meta context.
 - `report()` now exposes `timings_by_tag` in addition to timings by function and module.
 
-Still proposed, not yet implemented upstream:
-- review of whether machine-oriented outputs need a more normalized contract.
+Remaining upstream open items for the current stabilization track:
+- monitor the new normalized machine payload in real cross-library QA usage and extend it only if a concrete gap appears.
 
 Additional upstream progress during this pass:
 - opt-in slow-signal events (`slow_signal_ms`, `slow_signal_level`) now emit structured profiling events for QA/developer workflows.
@@ -111,7 +111,7 @@ Current upstream status in `../smonitor`:
 - profile-aware truncation for large structured payloads is implemented in human-readable handlers.
 
 Next implementation slices proposed upstream, in order:
-1. review whether machine-oriented outputs need explicit normalized fields for cross-library QA tooling.
+1. monitor the new normalized machine payload in real cross-library QA usage and only extend it if a concrete gap appears.
 
 MolSysMT-side follow-up after each upstream slice:
 1. adopt the new `smonitor` helper APIs in local callsites that still handcraft repeated `extra` payloads;
@@ -119,4 +119,6 @@ MolSysMT-side follow-up after each upstream slice:
 3. keep this file synchronized as the authoritative MolSysMT-side checkpoint for the upstream `smonitor` stabilization track.
 
 
-- Upstream now supports opt-in warning coalescing with triage summaries for suppressed duplicates.
+Additional upstream progress in this pass:
+- opt-in warning coalescing is now available, with triage summaries for suppressed duplicates.
+- JSON output now includes a normalized machine-oriented payload section for stable QA ingestion.
