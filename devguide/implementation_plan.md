@@ -46,19 +46,22 @@ Sequential validation status:
 - `tests/molecular_mechanics` ✅
 - `tests/pbc` ✅
 - `tests/physchem` ✅
+- `tests/supported` ✅
+- `pytest -q tests -x` ✅
 
 ## Next sessions
 
 Immediate next steps:
-1. run `tests/supported`;
-2. if that passes, make a new broad status checkpoint and reassess the actual
-   remaining failing surface;
-3. return to the pending low-priority cleanup:
-   - `argdigest` warnings still emitted by `show_contacts`;
-   - `.codecov.yml` cleanup so core modules are no longer excluded from
-     coverage accounting.
+1. define the explicit `1.0.0` support contract now that the suite is green;
+2. classify peripheral or immature functionality that should remain outside the
+   release contract even if tests exist;
+3. prepare the next release checkpoint/tag from a contract-based perspective
+   instead of a firefighting perspective.
 
 Follow-up after the next validation checkpoint:
-- run another targeted audit of any remaining failing top-level test groups;
-- decide whether additional offline fixture hardening is needed;
-- only then continue with secondary polish work.
+- review whether remaining warnings from third-party libraries should be
+  documented, filtered, or simply tolerated;
+- reassess coverage targets now that `.codecov.yml` includes core internal
+  modules again;
+- continue only with polish or contract-scope decisions, not broad
+  stabilization rewrites.

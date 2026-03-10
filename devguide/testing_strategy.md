@@ -45,9 +45,14 @@ Current validated sequence in the March 2026 pass:
 - `tests/molecular_mechanics`
 - `tests/pbc`
 - `tests/physchem`
-
-Next slice to resume:
 - `tests/supported`
+- full-suite confirmation with `pytest -q tests -x`
+
+Current status:
+- the full `tests/` tree passes in the current environment;
+- the sequential rule remains recommended for stabilization work because it
+  produces better checkpoints and faster diagnosis when the suite is not yet
+  green.
 
 ## Peptide Builder Validation Policy
 `build_peptide(engine="MolSysMT")` must be validated against `engine="LEaP"`
