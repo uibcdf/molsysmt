@@ -13,3 +13,7 @@ _multiple_conversion_shortcuts[tuple(sorted(['file:psf', 'file:dcd']))] = {
 _multiple_conversion_shortcuts[tuple(sorted(['file:gro', 'file:xtc']))] = {
     'molsysmt.MolSys': file_gro_and_file_xtc_to_molsysmt_MolSys
 }
+
+_multiple_conversion_shortcuts[tuple(sorted(['molsysmt.Topology', 'molsysmt.Structures']))] = {
+    'molsysmt.MolSys': molsysmt_Topology_and_molsysmt_Structures_to_molsysmt_MolSys
+}

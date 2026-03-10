@@ -1549,8 +1549,6 @@ def build_peptide(molecular_system, to_form='molsysmt.MolSys', engine='LEaP'):
             )
 
         temp_item.structures.coordinates = puw.standardize(puw.quantity(coordinates[np.newaxis, :, :], 'nm'))
-        temp_item.structures.n_atoms = n_atoms
-        temp_item.structures.n_structures = 1
 
         if to_form != 'molsysmt.MolSys':
             temp_item = convert(temp_item, to_form=to_form)

@@ -27,7 +27,11 @@ def get_coordinates_from_atom(item, indices='all', structure_indices='all', skip
 @arg_digest(form=form)
 def get_box_from_system(item, structure_indices='all', skip_digestion=False):
 
-    tmp_box = item.getBoxVectors()
+    try:
+        tmp_box = item.getBoxVectors()
+    except AttributeError:
+        return None
+
     if tmp_box is not None:
         tmp_box = puw.get_value(tmp_box, to_unit='nanometers')
         tmp_box = np.array(tmp_box)

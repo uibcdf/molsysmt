@@ -227,7 +227,7 @@ def select_standard(item, selection):
             aux_df = pd.merge(aux_df, tmp_item.chains[chain_columns],
                               left_on='chain_index', right_index=True)
 
-        aux_df = aux_df.copy()
+        aux_df = _collapse_merged_columns(aux_df.copy())
 
         id_columns = [column for column in aux_df.columns if column.endswith('_id')]
         numeric_id_columns = _id_columns_with_numeric_comparisons(tmp_selection, id_columns)
@@ -316,6 +316,48 @@ def select_bonded_to(molecular_system, selection):
     return output
 
 
+
+
+def _collapse_merged_columns(df):
+    suffix_pairs = {}
+    for column in df.columns:
+        if column.endswith('_x'):
+            base = column[:-2]
+            other = base + '_y'
+            if other in df.columns:
+                suffix_pairs[base] = (column, other)
+
+    for base, (left, right) in suffix_pairs.items():
+        left_series = df[left]
+        right_series = df[right]
+        if left_series.equals(right_series):
+            df[base] = left_series
+        else:
+            df[base] = left_series.where(~left_series.isna(), right_series)
+        df.drop(columns=[left, right], inplace=True)
+
+    return df
+
+def _collapse_merged_columns(df):
+    suffix_pairs = {}
+    for column in df.columns:
+        if column.endswith('_x'):
+            base = column[:-2]
+            other = base + '_y'
+            if other in df.columns:
+                suffix_pairs[base] = (column, other)
+
+    for base, (left, right) in suffix_pairs.items():
+        left_series = df[left]
+        right_series = df[right]
+        if left_series.equals(right_series):
+            df[base] = left_series
+        else:
+            df[base] = left_series.where(~left_series.isna(), right_series)
+        df.drop(columns=[left, right], inplace=True)
+
+    return df
+
 _aux_dict_in_elements_in = {
         'groups': ['components',
                    'molecules',
@@ -330,21 +372,6 @@ _aux_dict_in_elements_in = {
                    'entities'],
         'entities': [],
             }
-
-#_aux_dict_in_elements_in = {
-#        'entities': [],
-#        'chains': ['molecules',
-#                   'entities'],
-#        'molecules': ['chains',
-#                      'entities'],
-#        'components': ['molecules',
-#                       'chains',
-#                       'entities'],
-#        'groups': ['components',
-#                   'molecules',
-#                   'chains',
-#                   'entities'],
-#            }
 
 def select_in_elements_of(molecular_system, selection):
 

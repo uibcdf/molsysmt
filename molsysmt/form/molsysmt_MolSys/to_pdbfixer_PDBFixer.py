@@ -8,7 +8,7 @@ def to_pdbfixer_PDBFixer(item, atom_indices='all', structure_indices='all',
 
     from pdbfixer.pdbfixer import PDBFixer
 
-    from molsysmt.form.string_pdb_text import to_string_pdb_text
+    from .to_string_pdb_text import to_string_pdb_text
     from io import StringIO
 
     tmp_item = to_string_pdb_text(item, atom_indices=atom_indices, structure_indices=structure_indices,
@@ -37,4 +37,3 @@ def to_pdbfixer_PDBFixer(item, atom_indices='all', structure_indices='all',
                 tmp_item.topology.addBond(atoms_list[atom1_index], atoms_list[atom2_index])
 
     return tmp_item
-

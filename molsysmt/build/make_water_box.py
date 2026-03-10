@@ -96,8 +96,6 @@ def make_water_box(box, form='molsysmt.MolSys', skip_digestion=False):
     output.structures.coordinates = puw.quantity(new_coors[np.newaxis,:,:], 'nm')
     output.structures.box = puw.standardize(output.structures.box)
     output.structures.coordinates = puw.standardize(output.structures.coordinates)
-    output.structures.n_atoms = n_atoms
-    output.structures.n_structures =1
 
     del(new_coors, box_matrix)
 
