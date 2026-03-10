@@ -53,3 +53,13 @@ def test_get_nglview_NGLWidget_1():
                         'n_inner_bonds': True}
 
     assert check_comparison==known_comparison
+
+
+def test_get_nglview_NGLWidget_preserves_chain_and_entity_semantics_for_t4():
+    molsys = msm.systems['T4 lysozyme L99A']['181l.h5msm']
+    view = msm.convert(molsys, to_form='nglview.NGLWidget')
+
+    assert msm.get(view, n_chains=True) == msm.get(molsys, n_chains=True)
+    assert msm.get(view, element='chain', chain_type=True) == msm.get(molsys, element='chain', chain_type=True)
+    assert msm.get(view, element='molecule', molecule_type=True) == msm.get(molsys, element='molecule', molecule_type=True)
+    assert msm.get(view, element='entity', entity_type=True) == msm.get(molsys, element='entity', entity_type=True)
