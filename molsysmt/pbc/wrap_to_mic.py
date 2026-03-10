@@ -73,13 +73,16 @@ def wrap_to_mic(molecular_system, selection='all', structure_indices='all',
 
         original_length_units = puw.get_unit(coordinates)
         coordinates, length_units = puw.get_value_and_unit(coordinates, standardized=True)
+        coordinates = np.asarray(coordinates, dtype=np.float64)
         box = puw.get_value(box, standardized=True)
+        box = np.asarray(box, dtype=np.float64)
 
         n_structures = coordinates.shape[0]
         if box.shape[0]==1 and n_structures>1:
             box = np.repeat(box, repeats=n_structures, axis=0)
 
         mic_origin = puw.get_value(mic_origin, standardized=True)
+        mic_origin = np.asarray(mic_origin, dtype=np.float64)
 
         if np.all(np.isclose(mic_origin, 0, atol=1e-4)):
             mic_origin = np.zeros((3), dtype=np.float64)

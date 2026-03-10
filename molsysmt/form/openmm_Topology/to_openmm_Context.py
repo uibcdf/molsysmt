@@ -7,7 +7,7 @@ def to_openmm_Context(item, atom_indices='all', coordinates=None, forcefield='AM
         friction='1.0/picoseconds', time_step='2 femtoseconds', platform='CUDA', skip_digestion=False):
 
 
-    from molsysmt.form.openmm_System import to_openmm_System
+    from .to_openmm_System import to_openmm_System
     from molsysmt.form.openmm_System import to_openmm_Context as openmm_System_to_openmm_Context
 
     system = to_openmm_System(item, atom_indices=atom_indices, forcefield=forcefield,
@@ -20,4 +20,3 @@ def to_openmm_Context(item, atom_indices='all', coordinates=None, forcefield='AM
             time_step=time_step, platform=platform, skip_digestion=True)
 
     return context
-

@@ -76,7 +76,9 @@ def wrap_to_pbc(molecular_system, selection='all', structure_indices='all',
 
         original_length_units = puw.get_unit(coordinates)
         coordinates, length_units = puw.get_value_and_unit(coordinates, standardized=True)
+        coordinates = np.asarray(coordinates, dtype=np.float64)
         box = puw.get_value(box, standardized=True)
+        box = np.asarray(box, dtype=np.float64)
 
         n_structures = coordinates.shape[0]
         if box.shape[0]==1 and n_structures>1:
@@ -85,6 +87,7 @@ def wrap_to_pbc(molecular_system, selection='all', structure_indices='all',
         if box_center is None:
 
             box_origin = puw.get_value(box_origin, standardized=True)
+            box_origin = np.asarray(box_origin, dtype=np.float64)
 
             if np.all(np.isclose(box_origin, 0, atol=1e-4)):
                 box_origin = np.zeros((3), dtype=np.float64)
@@ -94,6 +97,7 @@ def wrap_to_pbc(molecular_system, selection='all', structure_indices='all',
         else:
 
             box_center = puw.get_value(box_center, standardized=True)
+            box_center = np.asarray(box_center, dtype=np.float64)
 
             if np.all(np.isclose(box_center, 0, atol=1e-4)):
                 box_origin = np.zeros((3), dtype=np.float64)
