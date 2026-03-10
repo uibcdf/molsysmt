@@ -44,7 +44,7 @@ def test_piped_form_metadata_for_known_bulk_extraction_forms():
     expected_pipes = {
         'nglview.NGLWidget': ('molsysmt.Topology', 'molsysmt.Structures', 'molsysmt.MolSys'),
         'file:gro': ('molsysmt.MolSys', 'molsysmt.Structures', 'molsysmt.MolSys'),
-        'file:xtc': ('mdtraj.XTCTrajectoryFile', 'mdtraj.XTCTrajectoryFile', 'mdtraj.XTCTrajectoryFile'),
+        'file:xtc': (None, 'mdtraj.XTCTrajectoryFile', None),
         'molsysviewer.MolSysView': ('molsysmt.MolSys', 'molsysmt.MolSys', 'molsysmt.MolSys'),
         'molsysmt.H5MSMFileHandler': (None, 'molsysmt.Structures', None),
         'mmcif.PdbxContainers.DataContainer': ('molsysmt.Topology', 'molsysmt.Structures', 'molsysmt.MolSys'),
