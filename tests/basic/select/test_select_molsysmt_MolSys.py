@@ -248,3 +248,9 @@ def test_select_42(tctim_h5msm_molsys):
     assert np.all(output==true_output)
 
 
+def test_select_43_returns_list_when_mask_is_applied(tctim_h5msm_molsys):
+    molsys = tctim_h5msm_molsys
+    output = msm.select(molsys, selection='all', mask=[0, 1, 2])
+    assert isinstance(output, list)
+    assert output == [0, 1, 2]
+
