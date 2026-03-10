@@ -33,7 +33,7 @@ class MolSysMTDeprecationWarning(DeprecationWarning):
 class CrossChainCovalentBondsWarning(MolSysMTCatalogWarning):
     catalog_key = "CrossChainCovalentBondsWarning"
 
-    def __init__(self, molecular_system, atom_pairs):
+    def __init__(self, molecular_system, atom_pairs, caller='CrossChainCovalentBondsWarning'):
         from molsysmt.basic import get_label
 
         label_pairs_reported = []
@@ -59,6 +59,7 @@ class CrossChainCovalentBondsWarning(MolSysMTCatalogWarning):
                 label_pairs_reported.append((label1, label2))
 
         extra = {
+            "caller": caller,
             "count": len(label_pairs_reported),
             "pairs": label_pairs_reported,
         }
@@ -79,6 +80,12 @@ class NotDigestedArgumentWarning(MolSysMTCatalogWarning):
 
 class MolecularSystemMismatchWarning(UserMolSysMTWarning):
     catalog_key = "MolecularSystemMismatchWarning"
+
+    def __init__(self, caller='MolecularSystemMismatchWarning', n_models=None):
+        extra = {"caller": caller}
+        if n_models is not None:
+            extra["count"] = n_models
+        super().__init__(extra=extra)
 
 
 __all__ = [
