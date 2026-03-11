@@ -73,7 +73,9 @@ Immediate next steps:
 1. define the explicit `1.0.0` support contract now that the suite is green;
 2. classify peripheral or immature functionality that should remain outside the
    release contract even if tests exist;
-3. prepare the next release checkpoint/tag from a contract-based perspective
+3. treat `0.16.0` as the first builder-enabled checkpoint that still starts
+   from a green full-suite state.
+4. prepare the next release checkpoint/tag from a contract-based perspective
    instead of a firefighting perspective.
 
 Follow-up after the next validation checkpoint:
@@ -93,7 +95,8 @@ Follow-up after the next validation checkpoint:
 ## Tag semantics from `0.15.0` onward
 
 `0.15.0` marks a change in how stabilization tags are interpreted in this
-repository.
+repository. `0.16.0` continues that same rule while adding the first native
+editable builder checkpoint.
 
 From this checkpoint onward:
 - a stabilization tag should begin from a green full-suite state;
@@ -103,4 +106,7 @@ From this checkpoint onward:
   be evaluated explicitly against the intended `1.0.0` contract;
 - the default assumption is now "regression until proven otherwise" for any
   post-`0.15.0` change touching core forms, native objects, diagnostics, or
-  public element semantics.
+  public element semantics;
+- `0.16.0` specifically means that `MolSysBuilder`, `molsysmt.build.editable(...)`,
+  and the first deterministic builder-based converter fixtures enter the
+  repository without sacrificing the green full-suite baseline.
