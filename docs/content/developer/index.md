@@ -15,6 +15,7 @@ internal rules and conventions is `devguide/`. If there is any conflict,
    dependencies.md
    element_and_native_rebuild.md
    molsys_builder.md
+   declarative_serialization_forms.md
 ```
 
 ```{eval-rst}

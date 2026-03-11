@@ -89,6 +89,8 @@ Follow-up after the next validation checkpoint:
 - treat the first declarative serializer slice as `MolSysDict` +
   `file:molsys_yaml`, with `TopologyDict`/`StructuresDict` and JSON backends
   deferred to later slices;
+- keep the first declarative serializer slice conversion-centric and stable
+  before widening it to broader direct form-to-form adapters;
 - keep the first declarative file naming explicit and typed
   (`*.molsys.yaml`, `*.topology.yaml`, `*.structures.yaml`) while leaving
   existing native formats such as `*.h5msm` unchanged;
