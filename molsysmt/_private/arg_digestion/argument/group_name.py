@@ -1,6 +1,7 @@
 from molsysmt._private.smonitor import ArgumentError
 from ...variables import is_all
 import numpy as np
+from argdigest.core.caller import caller_matches, caller_startswith
 
 functions_with_boolean = (
         'molsysmt.basic.get.get',
@@ -33,11 +34,14 @@ def digest_group_name(group_name, caller=None):
         If the given `group_name` has not of the correct type or value.
     """
 
+    if group_name is None and caller_matches(caller, 'add_group'):
+        return None
+
     if caller is not None:
         if caller.endswith(functions_with_boolean):
             if isinstance(group_name, bool):
                 return group_name
-        elif caller.startswith('molsysmt.form.') and caller.count('.to_')==2:
+        elif caller_startswith(caller, 'molsysmt.form.') and caller.count('.to_')==2:
             return group_name
 
     if isinstance(group_name, str):

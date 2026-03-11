@@ -1,6 +1,7 @@
 from molsysmt._private.smonitor import ArgumentError
 from ...variables import is_all
 import numpy as np
+from argdigest.core.caller import caller_matches, caller_startswith
 
 functions_with_boolean = (
         'molsysmt.basic.get.get',
@@ -32,6 +33,12 @@ def digest_chain_id(chain_id, caller=None):
     ArgumentError
         If the given `chain_id` has not of the correct type or value.
     """
+    if chain_id is None and caller_matches(caller, 'add_chain'):
+        return None
+    if caller_matches(caller, 'add_chain'):
+        if isinstance(chain_id, (int, np.int64, str)):
+            return chain_id
+
     if caller is not None:
         if caller.endswith(functions_with_boolean):
             if isinstance(chain_id, bool):
@@ -41,7 +48,7 @@ def digest_chain_id(chain_id, caller=None):
                 return chain_id
             elif chain_id is None:
                 return None
-        elif caller.startswith('molsysmt.form.') and caller.count('.to_') == 2:
+        elif caller_startswith(caller, 'molsysmt.form.') and caller.count('.to_') == 2:
             return chain_id
 
     if isinstance(chain_id, (int, np.int64)):

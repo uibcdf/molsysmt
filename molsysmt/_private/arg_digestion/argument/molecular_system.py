@@ -1,5 +1,6 @@
 from molsysmt._private.smonitor import ArgumentError
 from pathlib import PosixPath
+from argdigest.core.caller import caller_matches
 
 def digest_molecular_system(molecular_system, caller=None):
     """ Check if an object is a molecular system.
@@ -31,6 +32,9 @@ def digest_molecular_system(molecular_system, caller=None):
         for ii in range(len(molecular_system)):
             if isinstance(molecular_system[ii], PosixPath):
                 molecular_system[ii] = molecular_system[ii].absolute().__str__()
+
+    if molecular_system is None and caller_matches(caller, 'editable'):
+        return None
 
     if caller=='molsysmt.basic.view.view':
         if is_a_molecular_system(molecular_system):

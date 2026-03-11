@@ -1,6 +1,7 @@
 from molsysmt._private.smonitor import ArgumentError
 from ...variables import is_all
 from numpy import ndarray
+from argdigest.core.caller import caller_matches, caller_startswith
 
 functions_with_boolean = (
         'molsysmt.basic.get.get',
@@ -34,10 +35,13 @@ def digest_chain_name(chain_name, caller=None):
         If the given `chain_name` has not of the correct type or value.
     """
 
+    if chain_name is None and caller_matches(caller, 'add_chain'):
+        return None
+
     if isinstance(caller, str) and caller.endswith(functions_with_boolean):
         if isinstance(chain_name, bool):
             return chain_name
-    elif isinstance(caller, str) and caller.startswith('molsysmt.form.') and caller.count('.to_')==2:
+    elif isinstance(caller, str) and caller_startswith(caller, 'molsysmt.form.') and caller.count('.to_')==2:
         return chain_name
     elif caller=='molsysmt.build.define_new_chain.define_new_chain':
         if isinstance(chain_name, str):

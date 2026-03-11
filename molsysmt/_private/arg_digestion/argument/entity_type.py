@@ -1,6 +1,7 @@
 from molsysmt._private.smonitor import ArgumentError
 from ...variables import is_all
 import numpy as np
+from argdigest.core.caller import caller_matches, caller_startswith
 
 def digest_entity_type(entity_type, caller=None):
     """Checks if `entity_type` has the expected type and value.
@@ -26,10 +27,13 @@ def digest_entity_type(entity_type, caller=None):
         If the given `entity_type` has not of the correct type or value.
     """
 
+    if entity_type is None and caller_matches(caller, 'add_entity'):
+        return None
+
     if caller == 'molsysmt.basic.get.get':
         if isinstance(entity_type, bool):
             return entity_type
-    elif caller is not None and caller.startswith('molsysmt.form.') and caller.count('.to_')==2:
+    elif caller is not None and caller_startswith(caller, 'molsysmt.form.') and caller.count('.to_')==2:
         return entity_type
 
     if isinstance(entity_type, str):

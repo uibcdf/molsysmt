@@ -1,8 +1,12 @@
 from molsysmt._private.smonitor import ArgumentError
 from molsysmt._private.variables import is_all
 import numpy as np
+from argdigest.core.caller import caller_matches
 
 def digest_bond_type(bond_type, caller=None):
+
+    if bond_type is None and caller_matches(caller, 'add_bond'):
+        return None
 
     if caller=='molsysmt.basic.get.get':
         if isinstance(bond_type, bool):

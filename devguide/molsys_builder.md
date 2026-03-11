@@ -130,13 +130,11 @@ namespace.
 
 ## Digestion policy
 
-The builder methods currently rely on explicit internal validation instead of
-`@arg_digest`.
+The builder methods use `@arg_digest`, but they rely on caller-sensitive
+digesters to accept semantically valid `None` values for optional inputs such as
+`molecular_system=None` in `molsysmt.build.editable(...)` or `atom_type=None`
+in `MolSysBuilder.add_atom(...)`.
 
-Reason:
-- the builder API uses many optional inputs by design;
-- the current local digester set does not yet express that contract cleanly
-  without forcing artificial constraints on the API.
-
-This is an explicit temporary decision, not an oversight. Builder-facing
-digestion should be revisited after the core builder contract is stable.
+This is intentional. The builder is not a special-case escape from digestion; it
+is a valid public API that requires a richer caller-aware digestion contract.
+The supporting caller helpers now live upstream in `argdigest.core.caller`.

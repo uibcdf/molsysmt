@@ -62,6 +62,28 @@ def test_molsys_builder_preserves_explicit_hierarchy_and_structure_metadata():
     assert molsys.structures.structure_id.tolist() == [0]
 
 
+def test_molsys_builder_digesters_accept_optional_and_scalar_metadata():
+
+    builder = msm.MolSysBuilder()
+    atom_index = builder.add_atom(atom_id=7, atom_name="CA", atom_type=None)
+    group_index = builder.add_group([atom_index], group_id="10", group_name="ALA", group_type=None)
+    chain_index = builder.add_chain([group_index], chain_id="A", chain_name=None, chain_type=None)
+    molecule_index = builder.add_molecule([group_index], molecule_id=20, molecule_name=None, molecule_type=None)
+    entity_index = builder.add_entity([molecule_index], entity_id="30", entity_name=None, entity_type=None)
+
+    assert atom_index == 0
+    assert chain_index == 0
+    assert entity_index == 0
+
+    molsys = builder.build()
+
+    assert molsys.topology.atoms["atom_id"].tolist() == ["7"]
+    assert molsys.topology.groups["group_id"].tolist() == ["10"]
+    assert molsys.topology.chains["chain_id"].tolist() == ["A"]
+    assert molsys.topology.molecules["molecule_id"].tolist() == ["20"]
+    assert molsys.topology.entities["entity_id"].tolist() == ["30"]
+
+
 def test_molsys_builder_supports_declared_state_queries():
 
     builder = msm.MolSysBuilder()

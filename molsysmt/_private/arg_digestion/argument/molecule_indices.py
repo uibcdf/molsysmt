@@ -1,5 +1,6 @@
 from molsysmt._private.smonitor import ArgumentError
 from ...variables import is_all
+import numpy as np
 
 def digest_molecule_indices(molecule_indices, caller):
     """ Checks if molecule_indices has the expected type and value.
@@ -34,4 +35,3 @@ def digest_molecule_indices(molecule_indices, caller):
         return np.array(molecule_indices, dtype='int64')
 
     raise ArgumentError('molecule_indices', value=molecule_indices, caller=caller, message=None)
-

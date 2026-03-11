@@ -76,8 +76,9 @@ Follow-up after the next validation checkpoint:
   coverage execution;
 - keep the first builder slice narrow and stable before adding broader form
   adapters or serialization helpers;
-- revisit argument digestion for builder methods after the builder API contract
-  is stable enough to justify upstream or local digester work;
+- treat builder digestion as a first-class public-API requirement; the current
+  builder slice now uses caller-sensitive digestion with small helper support
+  added upstream in ArgDigest instead of bypassing `@arg_digest`;
 - continue only with polish or contract-scope decisions, not broad
   stabilization rewrites.
 
