@@ -173,5 +173,10 @@ The first deterministic converter-fixture rollout already covers:
 - PDB text / file / `molsysmt.PDBFileHandler`;
 - H5MSM file / `molsysmt.H5MSMFileHandler`.
 
+The second rollout extends the same strategy to `openmm.Topology`, with explicit
+tests that separate:
+- attributes that are preserved by the format;
+- higher-level molecule/entity metadata that is rebuilt after a lossy adapter.
+
 Those tests now start from builder-declared truth and only then materialize the
 target format under test.

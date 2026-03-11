@@ -43,6 +43,9 @@ Completed in the current pass:
 - deterministic builder-originated fixture coverage now backs PDB and H5MSM
   native converter tests, so those round-trips no longer need to discover truth
   from the serialized format itself;
+- deterministic builder-originated fixture coverage now also backs
+  `openmm.Topology` conversion tests, including explicit assertions about which
+  higher-level names/types are rebuilt instead of preserved;
 - explicit topology editing is now intended to converge on
   `MolSysBuilder` / `molsysmt.build.editable(...)`, with `add_bonds`,
   `remove_bonds`, and `define_new_chain` entering the deprecation path for the
