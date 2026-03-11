@@ -145,6 +145,13 @@ def get_molecule_index_from_group(item, indices="all", skip_digestion=False):
 
 
 @arg_digest(form=form)
+def get_molecule_index_from_atom(item, indices="all", skip_digestion=False):
+    group_indices = get_group_index_from_atom(item, indices=indices, skip_digestion=True)
+    molecule_values = item.topology.groups["molecule_index"].to_numpy(dtype=object)
+    return _normalize_sequence(_project(group_indices, molecule_values))
+
+
+@arg_digest(form=form)
 def get_molecule_index_from_molecule(item, indices="all", skip_digestion=False):
     if indices == "all":
         return list(range(item.topology.n_molecules))
@@ -173,6 +180,13 @@ def get_molecule_type_from_molecule(item, indices="all", skip_digestion=False):
 def get_entity_index_from_molecule(item, indices="all", skip_digestion=False):
     values = item.topology.molecules["entity_index"].to_numpy(dtype=object)
     return _normalize_sequence(_take(values, indices))
+
+
+@arg_digest(form=form)
+def get_entity_index_from_atom(item, indices="all", skip_digestion=False):
+    molecule_indices = get_molecule_index_from_atom(item, indices=indices, skip_digestion=True)
+    entity_values = item.topology.molecules["entity_index"].to_numpy(dtype=object)
+    return _normalize_sequence(_project(molecule_indices, entity_values))
 
 
 @arg_digest(form=form)

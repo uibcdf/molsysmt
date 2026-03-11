@@ -16,6 +16,7 @@ from .attributes import attributes
 from .has_attribute import has_attribute
 from .get_topological_attributes import *
 from .get_structural_attributes import *
+from .set import *
 
 _convert_to = {
     "molsysmt.MolSysBuilder": "to_molsysmt_MolSysBuilder",

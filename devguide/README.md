@@ -21,6 +21,8 @@ Recent completed work:
   scratch, `MolSys -> MolSysBuilder`, and `MolSysBuilder -> MolSys`;
 - `molsysmt.build.editable(...)` now provides the ergonomic entrypoint for
   editing an existing molecular system through the builder.
+- declared-state form coverage now exists for `MolSysBuilder` through `get`,
+  `set`, `info`, and `select`.
 
 Validation status at this checkpoint:
 - the full test suite passes with `pytest -q tests -x`;

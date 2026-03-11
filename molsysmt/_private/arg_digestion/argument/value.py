@@ -6,7 +6,16 @@ from molsysmt import pyunitwizard as puw
 
 def digest_value(value, caller=None):
 
-    if isinstance(value, str):
+    quantity_callers = {
+        'set_coordinates_to_atom',
+        'set_occupancy_to_atom',
+        'set_b_factor_to_atom',
+        'set_time_to_system',
+        'set_box_to_system',
+        'set_coordinates_to_system',
+    }
+
+    if isinstance(value, str) and caller is not None and any(caller.endswith(ii) for ii in quantity_callers):
         value = puw.parse.parse(value)
 
     # Atom

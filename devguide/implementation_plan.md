@@ -38,6 +38,8 @@ Completed in the current pass:
 - a first `MolSysBuilder` slice now exists and is validated for
   `MolSysBuilder()` from scratch, `MolSys -> MolSysBuilder`, and
   `MolSysBuilder -> MolSys`;
+- declared-state form coverage now includes `get`, `set`, `info`, and `select`
+  for `molsysmt.MolSysBuilder`;
 - explicit topology editing is now intended to converge on
   `MolSysBuilder` / `molsysmt.build.editable(...)`, with `add_bonds`,
   `remove_bonds`, and `define_new_chain` entering the deprecation path for the

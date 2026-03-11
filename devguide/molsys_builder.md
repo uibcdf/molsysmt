@@ -31,6 +31,13 @@ This split is intentional:
 - native code owns declared-state editing and `build()`;
 - the form adapter owns MolSysMT integration.
 
+The current form-level integration now covers:
+- direct topological attribute getters on declared state;
+- direct structural attribute getters on declared state;
+- `basic.set()` support for declared labels and structural arrays;
+- `info()` over declared builder state;
+- `select()` over declared builder state.
+
 ## State semantics
 
 `MolSysBuilder` always represents a **declared**, potentially incomplete
@@ -138,3 +145,14 @@ in `MolSysBuilder.add_atom(...)`.
 This is intentional. The builder is not a special-case escape from digestion; it
 is a valid public API that requires a richer caller-aware digestion contract.
 The supporting caller helpers now live upstream in `argdigest.core.caller`.
+
+## Current test checkpoint
+
+The current builder slice is covered by:
+- native tests for empty builders, explicit declaration, hierarchy fallback, and
+  `MolSys <-> MolSysBuilder`;
+- build-helper tests for `molsysmt.build.editable(...)`;
+- form-level tests for declared-state `get`, `set`, `info`, and `select`.
+
+This means the builder already participates in the standard MolSysMT API wheel
+for the narrow `MolSys <-> MolSysBuilder` conversion surface agreed for v1.
