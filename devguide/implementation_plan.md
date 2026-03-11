@@ -91,12 +91,16 @@ Follow-up after the next validation checkpoint:
   deferred to later slices;
 - keep the first declarative serializer slice conversion-centric and stable
   before widening it to broader direct form-to-form adapters;
-- keep the first declarative file naming explicit and typed
-  (`*.molsys.yaml`, `*.topology.yaml`, `*.structures.yaml`) while leaving
-  existing native formats such as `*.h5msm` unchanged;
+- use normal `*.yaml` / `*.yml` / `*.json` extensions for declarative file
+  forms and detect their semantic role from top-level `format` / `kind`
+  discriminators, while leaving existing native formats such as `*.h5msm`
+  unchanged;
 - treat builder digestion as a first-class public-API requirement; the current
   builder slice now uses caller-sensitive digestion with small helper support
   added upstream in ArgDigest instead of bypassing `@arg_digest`;
+- keep `MolSysBuilder <-> MolSysDict` as the declared-state bridge between
+  editable and serializable representations before widening builder support to
+  broader form families;
 - continue only with polish or contract-scope decisions, not broad
   stabilization rewrites.
 
@@ -121,3 +125,5 @@ From this checkpoint onward:
 
 
 - second declarative serializer slice implemented: `TopologyDict` + `file:topology_yaml`;
+- third declarative serializer slice implemented: `StructuresDict` / `file:structures_yaml`;
+- direct declared-state bridge implemented: `MolSysBuilder <-> MolSysDict`.

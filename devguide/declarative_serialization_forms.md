@@ -84,15 +84,16 @@ The canonical first-slice pipeline is therefore:
 - `MolSys <-> MolSysDict`
 - `MolSysDict <-> file:molsys_yaml`
 
-No direct `MolSysBuilder <-> MolSysDict` conversion is required for the first
-slice. That relationship can be added later once the first declarative
-serializer contract has settled.
+That first slice was intentionally implemented before direct builder
+integration. The current checkpoint now also includes:
+- `MolSysBuilder <-> MolSysDict`
 
 Status:
 - implemented in the repository;
 - validated through focused tests for `MolSysDict`, `file:molsys_yaml`, and
   supported-form metadata;
-- intentionally kept separate from the first `MolSysBuilder` slice.
+- extended with direct declared-state conversion between `MolSysBuilder` and
+  `MolSysDict`.
 
 ## Schema shape for `MolSysDict` v1
 
@@ -136,6 +137,14 @@ In practice, this means `MolSysBuilder` and `MolSysDict` should describe the
 same declared hierarchy with different operational goals:
 - the builder is mutable and editable;
 - the dict form is serializable and stable.
+
+The direct conversion path now follows those semantics explicitly:
+- `MolSysBuilder -> MolSysDict` preserves declared state without invoking
+  `build()`;
+- `MolSysDict -> MolSysBuilder` recreates declared state without applying
+  fallback hierarchy;
+- `MolSysDict -> MolSys` still materializes through the builder and then calls
+  `build()`.
 
 ## Relationship with existing forms
 
