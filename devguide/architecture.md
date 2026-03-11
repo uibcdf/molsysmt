@@ -67,6 +67,20 @@ The builder lives in `molsysmt/native` and is integrated as a form through
 
 See `molsys_builder.md`.
 
+## Declarative Serialization Forms
+
+The repository is converging on a declarative serialization family that is
+separate from both `h5msm` and viewer-oriented payloads. The intended split is:
+- semantic in-memory forms: `molsysmt.MolSysDict`, `molsysmt.TopologyDict`,
+  `molsysmt.StructuresDict`;
+- file forms: `file:molsys_yaml`, `file:topology_yaml`, and
+  `file:structures_yaml`, using typed YAML extensions (`*.molsys.yaml`,
+  `*.topology.yaml`, `*.structures.yaml`);
+- `UniversalJSON` entering a deprecation path instead of serving as the future
+  semantic base of this family.
+
+See `declarative_serialization_forms.md`.
+
 ## Performance Layer
 `molsysmt/lib` contains performance-critical kernels. These kernels use
 Numba and are compiled lazily to keep `import molsysmt` fast. See

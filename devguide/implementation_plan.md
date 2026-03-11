@@ -86,6 +86,12 @@ Follow-up after the next validation checkpoint:
   coverage execution;
 - keep the first builder slice narrow and stable before adding broader form
   adapters or serialization helpers;
+- treat the first declarative serializer slice as `MolSysDict` +
+  `file:molsys_yaml`, with `TopologyDict`/`StructuresDict` and JSON backends
+  deferred to later slices;
+- keep the first declarative file naming explicit and typed
+  (`*.molsys.yaml`, `*.topology.yaml`, `*.structures.yaml`) while leaving
+  existing native formats such as `*.h5msm` unchanged;
 - treat builder digestion as a first-class public-API requirement; the current
   builder slice now uses caller-sensitive digestion with small helper support
   added upstream in ArgDigest instead of bypassing `@arg_digest`;
