@@ -76,7 +76,7 @@ not need to pretend that the source was a full molecular system.
 
 ## Scope for the first slice
 
-The first slice should remain deliberately narrow:
+The first implemented slice remains deliberately narrow:
 - `molsysmt.MolSysDict`
 - `file:molsys_yaml`
 - `molsysmt.MolSys <-> molsysmt.MolSysDict`
@@ -92,6 +92,12 @@ The canonical first-slice pipeline is therefore:
 No direct `MolSysBuilder <-> MolSysDict` conversion is required for the first
 slice. That relationship can be added later once the first declarative
 serializer contract has settled.
+
+Status:
+- implemented in the repository;
+- validated through focused tests for `MolSysDict`, `file:molsys_yaml`, and
+  supported-form metadata;
+- intentionally kept separate from the first `MolSysBuilder` slice.
 
 ## Schema shape for `MolSysDict` v1
 
@@ -189,3 +195,23 @@ architecture:
 - file forms: `file:molsys_yaml`, `file:topology_yaml`, `file:structures_yaml`;
 - `UniversalJSON` in deprecation path;
 - `ViewerJSON` retained for visualization-specific transport.
+
+## First-slice implementation checkpoint
+
+The repository now includes:
+- native `molsysmt.MolSysDict`;
+- form integration for `molsysmt.MolSysDict`;
+- file form integration for `file:molsys_yaml`;
+- focused round-trip tests through `MolSys`.
+
+This first slice is intentionally conversion-centric. It is sufficient to:
+- serialize small deterministic molecular systems to human-readable YAML;
+- read them back as `MolSysDict` or `MolSys`;
+- use the resulting forms in supported-form discovery and basic attribute
+  queries.
+
+Future slices should add:
+- `TopologyDict`;
+- `StructuresDict`;
+- typed YAML file forms for topology and structures;
+- optional JSON backends.

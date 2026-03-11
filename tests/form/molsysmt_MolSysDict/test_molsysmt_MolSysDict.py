@@ -1,0 +1,19 @@
+import molsysmt as msm
+
+
+def test_molsys_to_molsysdict_roundtrip_and_queries():
+
+    molsys = msm.convert(msm.systems["alanine dipeptide"]["alanine_dipeptide.h5msm"], to_form="molsysmt.MolSys")
+    molsys_dict = msm.convert(molsys, to_form="molsysmt.MolSysDict")
+
+    assert msm.get(molsys_dict, element="system", n_atoms=True) == molsys.topology.n_atoms
+    assert msm.get(molsys_dict, element="atom", atom_name=True) == molsys.topology.atoms["atom_name"].tolist()
+    assert msm.get(molsys_dict, element="group", group_name=True) == molsys.topology.groups["group_name"].tolist()
+    assert msm.get(molsys_dict, element="chain", chain_id=True) == molsys.topology.chains["chain_id"].tolist()
+    assert msm.info(molsys_dict).data.loc[0, "form"] == "molsysmt.MolSysDict"
+
+    rebuilt = msm.convert(molsys_dict, to_form="molsysmt.MolSys")
+
+    assert rebuilt.topology.atoms["atom_name"].tolist() == molsys.topology.atoms["atom_name"].tolist()
+    assert rebuilt.topology.groups["group_name"].tolist() == molsys.topology.groups["group_name"].tolist()
+    assert rebuilt.topology.chains["chain_id"].tolist() == molsys.topology.chains["chain_id"].tolist()

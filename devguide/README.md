@@ -23,6 +23,9 @@ Recent completed work:
   editing an existing molecular system through the builder.
 - declared-state form coverage now exists for `MolSysBuilder` through `get`,
   `set`, `info`, and `select`.
+- the first declarative serializer slice is now implemented:
+  `molsysmt.MolSysDict` and `file:molsys_yaml` are available, with focused
+  round-trip tests and supported-form coverage.
 
 Validation status at this checkpoint:
 - the full test suite passes with `pytest -q tests -x`;

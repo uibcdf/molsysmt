@@ -16,6 +16,7 @@ LIBRARIES = {
     'Bio': {'type': 'soft', 'pypi': 'biopython'},
     'plotly': {'type': 'soft', 'pypi': 'plotly'},
     'mmtf': {'type': 'soft', 'pypi': 'mmtf-python'},
+    'yaml': {'type': 'soft', 'pypi': 'PyYAML'},
 }
 
 MAPPING = {
@@ -53,6 +54,7 @@ MAPPING = {
     'biopython_SeqRecord': 'Bio',
     'biopython_PDBStructure': 'Bio',
     'mmtf_MMTFDecoder': 'mmtf',
+    'file_molsys_yaml': 'yaml',
 }
 
 SHOW_ALL_CAPABILITIES = True
