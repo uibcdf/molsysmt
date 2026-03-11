@@ -43,12 +43,6 @@ def digest_chain_name(chain_name, caller=None):
             return chain_name
     elif isinstance(caller, str) and caller_startswith(caller, 'molsysmt.form.') and caller.count('.to_')==2:
         return chain_name
-    elif caller=='molsysmt.build.define_new_chain.define_new_chain':
-        if isinstance(chain_name, str):
-            return chain_name
-        elif chain_name is None:
-            return chain_name
-
     if isinstance(chain_name, str):
         return chain_name
 

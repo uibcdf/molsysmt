@@ -52,7 +52,7 @@ def solvate (molecular_system, box_shape="truncated octahedral", clearance='14.0
 
         from openmm import Vec3
         from molsysmt.basic import get, set
-        from molsysmt.build import define_new_chain
+        from molsysmt.build._private import assign_selection_to_new_chain
         from openmm.app import ForceField
         from molsysmt.config import default_attribute
         from molsysmt.molecular_mechanics import get_engine_forcefield
@@ -145,7 +145,7 @@ def solvate (molecular_system, box_shape="truncated octahedral", clearance='14.0
         elif to_form=='molsysmt.Topology':
             tmp_item.rebuild_entities(redefine_indices=True, redefine_ids=True, redefine_names=True, redefine_types=True)
 
-        define_new_chain(tmp_item, selection='group_type in ["water","ion"]')
+        assign_selection_to_new_chain(tmp_item, selection='group_type in ["water","ion"]')
 
         return tmp_item
 
@@ -153,7 +153,7 @@ def solvate (molecular_system, box_shape="truncated octahedral", clearance='14.0
 
         from openmm import Vec3
         from molsysmt.basic import get, set
-        from molsysmt.build import define_new_chain
+        from molsysmt.build._private import assign_selection_to_new_chain
 
         component_indices, component_names = get(molecular_system, element='component', component_index=True,
                                                  component_name=True)
@@ -206,7 +206,7 @@ def solvate (molecular_system, box_shape="truncated octahedral", clearance='14.0
         elif to_form=='molsysmt.Topology':
             tmp_item.rebuild_entities(redefine_indices=True, redefine_ids=True, redefine_names=True, redefine_types=True)
 
-        define_new_chain(tmp_item, selection='group_type in ["water","ion"]')
+        assign_selection_to_new_chain(tmp_item, selection='group_type in ["water","ion"]')
 
         return tmp_item
 
@@ -317,4 +317,3 @@ def solvate (molecular_system, box_shape="truncated octahedral", clearance='14.0
     else:
 
         raise NotImplementedError
-

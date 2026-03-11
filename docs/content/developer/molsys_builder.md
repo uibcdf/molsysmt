@@ -37,6 +37,19 @@ This means converter tests can now assert facts such as:
 
 The expected truth exists *before* the file format is involved.
 
+## Editing policy
+
+`MolSysBuilder` and `molsysmt.build.editable(...)` are now the public path for
+explicit topology editing. The older public helpers
+
+- `molsysmt.build.add_bonds`
+- `molsysmt.build.remove_bonds`
+- `molsysmt.build.define_new_chain`
+
+have been removed from the public API during the pre-`1.0` phase. Internal
+code paths that still need equivalent behavior use native topology methods or
+private helpers instead.
+
 ## Preferred testing pattern
 
 For small and deterministic fixtures, prefer this sequence:

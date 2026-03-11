@@ -14,7 +14,7 @@ def test_get_missing_bonds_molsysmt_MolSys_1():
     pytest.importorskip("pytraj")
 
     molsys = msm.convert(msm.systems['nglview']['md_1u19.pdb'], to_form='molsysmt.MolSys')
-    msm.build.remove_bonds(molsys)
+    molsys.topology.remove_bonds('all', skip_digestion=True)
     bonds1 = msm.build.get_missing_bonds(molsys)
     bonds2 = msm.build.get_missing_bonds(molsys, engine='pytraj')
 

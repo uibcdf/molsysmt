@@ -76,11 +76,11 @@ def add_missing_bonds(molecular_system, max_bond_length='2 angstroms', selection
 
     See Also
     --------
-    :func:`molsysmt.build.add_bonds()`
-        Manually add specific bonds to a molecular system.
+    :meth:`molsysmt.Topology.add_bonds`
+        Manually add specific bonds to a native topology.
 
-    :func:`molsysmt.build.remove_bonds()`
-        Remove covalent bonds from a molecular system.
+    :meth:`molsysmt.Topology.remove_bonds`
+        Remove covalent bonds from a native topology.
 
     :func:`molsysmt.basic.get()`
         Access attributes like `bonded_atoms`.
@@ -93,7 +93,7 @@ def add_missing_bonds(molecular_system, max_bond_length='2 angstroms', selection
     >>> import molsysmt as msm
     >>> molsys = msm.systems['alanine dipeptide']['alanine_dipeptide.h5msm']
     >>> system = msm.convert(molsys)
-    >>> msm.build.remove_bonds(system)
+    >>> system.topology.remove_bonds('all')
     >>> msm.build.add_missing_bonds(system)
     >>> msm.get(system, bonded_atoms=True)[:3]
     array([[0, 1],
@@ -110,15 +110,27 @@ def add_missing_bonds(molecular_system, max_bond_length='2 angstroms', selection
 
     if engine=='MolSysMT':
 
+        from molsysmt.basic import where_is_attribute
         from molsysmt.build import get_missing_bonds
-        from molsysmt.build import add_bonds
+        from molsysmt.form import _dict_modules
 
         bonds = get_missing_bonds(molecular_system, max_bond_length=max_bond_length, selection=selection,
                                  structure_index=structure_index, syntax=syntax,
                                  skip_digestion=True)
-        return add_bonds(molecular_system, bonds, in_place=in_place, skip_digestion=True)
+        if in_place:
+            item, form = where_is_attribute(
+                molecular_system, 'bonded_atom_pairs', include_none=False, skip_digestion=True
+            )
+            add_bonds_function = getattr(_dict_modules[form], 'add_bonds')
+            add_bonds_function(item, bonds, skip_digestion=True)
+            return None
+
+        tmp_item = molecular_system.copy()
+        item, form = where_is_attribute(tmp_item, 'bonded_atom_pairs', include_none=False, skip_digestion=True)
+        add_bonds_function = getattr(_dict_modules[form], 'add_bonds')
+        add_bonds_function(item, bonds, skip_digestion=True)
+        return tmp_item
 
     else:
 
         raise NotImplementedError
-
