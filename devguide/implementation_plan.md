@@ -40,6 +40,9 @@ Completed in the current pass:
   `MolSysBuilder -> MolSys`;
 - declared-state form coverage now includes `get`, `set`, `info`, and `select`
   for `molsysmt.MolSysBuilder`;
+- deterministic builder-originated fixture coverage now backs PDB and H5MSM
+  native converter tests, so those round-trips no longer need to discover truth
+  from the serialized format itself;
 - explicit topology editing is now intended to converge on
   `MolSysBuilder` / `molsysmt.build.editable(...)`, with `add_bonds`,
   `remove_bonds`, and `define_new_chain` entering the deprecation path for the

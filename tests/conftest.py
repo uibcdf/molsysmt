@@ -192,6 +192,24 @@ def builder_pdb_text(_base_builder_pdb_text):
 def builder_pdb_handler(builder_pdb_text):
     return msm.convert(builder_pdb_text, to_form='molsysmt.PDBFileHandler')
 
+
+@pytest.fixture(scope="session")
+def _base_builder_h5msm_file(_base_builder_pdb_molsys, tmp_path_factory):
+    output_path = tmp_path_factory.mktemp('builder_h5msm_assets') / 'builder_fixture.h5msm'
+    msm.convert(_base_builder_pdb_molsys, to_form='file:h5msm', output_filename=str(output_path))
+    assert output_path.is_file()
+    return str(output_path)
+
+
+@pytest.fixture()
+def builder_h5msm_file(_base_builder_h5msm_file):
+    return _base_builder_h5msm_file
+
+
+@pytest.fixture()
+def builder_h5msm_handler(builder_h5msm_file):
+    return msm.convert(builder_h5msm_file, to_form='molsysmt.H5MSMFileHandler')
+
 # TcTIM systems
 
 @pytest.fixture(scope="session")
