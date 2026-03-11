@@ -152,15 +152,11 @@ new declarative serializer family. It has a more limited structural role.
 It may still inform naming or implementation details later, but it should not
 anchor the new design.
 
-### `molsysmt.UniversalJSON`
+### Legacy JSON precursor
 
-`UniversalJSON` is the legacy precursor closest to this space, but it is not a
-clean long-term contract for the new serializer family.
-
-Current direction:
-- `UniversalJSON` is expected to enter a deprecation path toward `1.0`;
-- it should not be used as the semantic basis for `MolSysDict`;
-- any migration should be explicit and documented.
+`UniversalJSON` has been removed from the active form graph. It did not sustain
+any critical workflow and it is not the semantic basis of the declarative
+serializer family.
 
 ## Why YAML first
 
@@ -188,7 +184,6 @@ Before implementation, the repository now treats the following as the intended
 architecture:
 - semantic forms: `MolSysDict`, `TopologyDict`, `StructuresDict`;
 - file forms: `file:molsys_yaml`, `file:topology_yaml`, `file:structures_yaml`;
-- `UniversalJSON` in deprecation path;
 - `ViewerJSON` retained for visualization-specific transport.
 
 ## First-slice implementation checkpoint

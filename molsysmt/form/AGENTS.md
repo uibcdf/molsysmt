@@ -61,7 +61,7 @@ It refines the global rules in the repository root `AGENTS.md` for this subtree.
   - Time: arrays in picoseconds.
   - Charges: expressed in units of the elementary charge.
 - Respect default behaviors for `selection` and `structure_indices` as described in `dev_guide.md` and `coding/coding_guide.md`.
-- When introducing or modifying JSON-like forms (for example, `molsysmt.ViewerJSON`, `molsysmt.UniversalJSON`), keep their schema consistent with the corresponding native classes and clearly document units in their docstrings.
+- When introducing or modifying JSON-like forms (for example, `molsysmt.ViewerJSON`), keep their schema consistent with the corresponding native classes and clearly document units in their docstrings.
 
 ## Tests
 
