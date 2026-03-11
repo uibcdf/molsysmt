@@ -77,9 +77,10 @@ For development, this means:
 6) `architecture.md`
 7) `element_and_native_rebuild.md`
 8) `molsys_builder.md`
-9) `api_surface.md`
-10) `testing_strategy.md`
-11) `smonitor_feedback_proposals.md` (Temporary diagnostic improvements under evaluation)
+9) `declarative_serialization_forms.md`
+10) `api_surface.md`
+11) `testing_strategy.md`
+12) `smonitor_feedback_proposals.md` (Temporary diagnostic improvements under evaluation)
 
 ## Scope
 These documents define how MolSysMT should be implemented and maintained:
