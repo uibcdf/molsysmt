@@ -1,32 +1,44 @@
-from functools import wraps
-
 from molsysmt._private.arg_digestion import arg_digest
+import inspect
+import types
 
-form = "file:molsys_yaml"
+form = 'file:molsys_yaml'
 
 
-def _to_molsys(item):
+def _make_wrapper(name, target):
+    signature = inspect.signature(target)
+    parameters = [str(parameter) for parameter in signature.parameters.values()]
+    parameter_list = ', '.join(parameters)
+
+    call_arguments = []
+    for parameter in signature.parameters.values():
+        if parameter.name == 'item':
+            call_arguments.append('tmp_item')
+        elif parameter.name == 'skip_digestion':
+            call_arguments.append('skip_digestion=True')
+        elif parameter.kind == inspect.Parameter.VAR_POSITIONAL:
+            call_arguments.append('*' + parameter.name)
+        elif parameter.kind == inspect.Parameter.VAR_KEYWORD:
+            call_arguments.append('**' + parameter.name)
+        else:
+            call_arguments.append(f"{parameter.name}={parameter.name}")
+    call_arguments = ', '.join(call_arguments)
+
+    namespace = {'arg_digest': arg_digest, 'target': target, 'form': form}
     from .to_molsysmt_MolSys import to_molsysmt_MolSys
-
-    return to_molsysmt_MolSys(item, skip_digestion=True)
-
-
-def _build_wrapper(name, target):
-    @arg_digest(form=form)
-    @wraps(target)
-    def wrapper(item, *args, skip_digestion=False, **kwargs):
-        molsys = _to_molsys(item)
-        return target(molsys, *args, skip_digestion=True, **kwargs)
-
-    wrapper.__name__ = name
+    namespace.update(locals())
+    source = f"@arg_digest(form=form)\ndef {name}({parameter_list}):\n    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)\n    return target({call_arguments})\n"
+    exec(source, namespace)
+    wrapper = namespace[name]
+    wrapper.__doc__ = f'Delegating {name} through the native target form.'
     return wrapper
 
 
-from molsysmt.form.molsysmt_MolSys import get_structural_attributes as _target_module
+from molsysmt.form.molsysmt_MolSys.get_structural_attributes import *  # noqa: F401,F403
+from molsysmt.form.molsysmt_MolSys.get_structural_attributes import __all__ as _target_all
+import molsysmt.form.molsysmt_MolSys.get_structural_attributes as _target_module
 
-for _name, _target in vars(_target_module).items():
-    if callable(_target) and _name.startswith("get_"):
-        globals()[_name] = _build_wrapper(_name, _target)
+for _name in _target_all:
+    globals()[_name] = _make_wrapper(_name, getattr(_target_module, _name))
 
-
-__all__ = [name for name, obj in globals().items() if callable(obj) and name.startswith("get_")]
+__all__ = [name for name, obj in globals().items() if isinstance(obj, types.FunctionType) and name.startswith('get_')]

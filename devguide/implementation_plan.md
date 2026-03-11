@@ -118,3 +118,6 @@ From this checkpoint onward:
 - `0.16.0` specifically means that `MolSysBuilder`, `molsysmt.build.editable(...)`,
   and the first deterministic builder-based converter fixtures enter the
   repository without sacrificing the green full-suite baseline.
+
+
+- second declarative serializer slice implemented: `TopologyDict` + `file:topology_yaml`;

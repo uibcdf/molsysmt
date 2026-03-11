@@ -1,6 +1,7 @@
 from .molsys import MolSys
 from .molsys_builder import MolSysBuilder
 from .molsys_dict import MolSysDict
+from .topology_dict import TopologyDict
 from .topology import Topology
 from .structures import Structures
 from .molecular_mechanics import MolecularMechanics

@@ -4,7 +4,7 @@ import molsysmt as msm
 def test_molsys_yaml_roundtrip_from_molsys(tmp_path):
 
     molsys = msm.convert(msm.systems["alanine dipeptide"]["alanine_dipeptide.h5msm"], to_form="molsysmt.MolSys")
-    output = tmp_path / "alanine.molsys.yaml"
+    output = tmp_path / "alanine.yaml"
 
     msm.convert(molsys, to_form="file:molsys_yaml", output_filename=str(output))
 

@@ -29,4 +29,4 @@ def is_form(item):
     if not isinstance(data, dict):
         return False
 
-    return data.get('format', None) == 'molsysmt' and data.get('kind', None) == 'molsys'
+    return data.get('format', None) == 'molsysmt' and data.get('kind', None) == 'topology'
