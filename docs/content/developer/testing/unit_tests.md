@@ -7,3 +7,7 @@
 - Validate tutorials optionally using `nbval` or `pytest + papermill`.
 - `+ELLIPSIS` and `NORMALIZE_WHITESPACE` doctest flags are configured in
   `pytest.ini`, so they do not need to be repeated in each docstring.
+- Prefer `MolSysBuilder` for small deterministic converter fixtures when the
+  expected molecular truth must be declared explicitly before exporting to a
+  file or external form. This avoids deriving assertions from the same format
+  that is being tested.
