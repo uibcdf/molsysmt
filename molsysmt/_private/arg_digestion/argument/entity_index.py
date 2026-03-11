@@ -40,6 +40,9 @@ def digest_entity_index(entity_index, caller=None):
             else:
                 raise ArgumentError('entity_index', value=entity_index, caller=caller, message=None)
 
+    if is_all(entity_index):
+        return 'all'
+
     if isinstance(entity_index, (int, np.int64)):
         return [entity_index]
 
@@ -53,4 +56,3 @@ def digest_entity_index(entity_index, caller=None):
         return entity_index.tolist()
 
     raise ArgumentError('entity_index', value=entity_index, caller=caller, message=None)
-

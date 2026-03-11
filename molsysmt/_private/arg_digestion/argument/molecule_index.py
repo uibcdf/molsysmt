@@ -40,6 +40,9 @@ def digest_molecule_index(molecule_index, caller=None):
             else:
                 raise ArgumentError('molecule_index', value=molecule_index, caller=caller, message=None)
 
+    if is_all(molecule_index):
+        return 'all'
+
     if isinstance(molecule_index, (int, np.int64)):
         return [molecule_index]
 
@@ -53,4 +56,3 @@ def digest_molecule_index(molecule_index, caller=None):
         return molecule_index.tolist()
 
     raise ArgumentError('molecule_index', value=molecule_index, caller=caller, message=None)
-

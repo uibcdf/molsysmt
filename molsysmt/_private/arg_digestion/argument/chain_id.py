@@ -39,6 +39,9 @@ def digest_chain_id(chain_id, caller=None):
         if isinstance(chain_id, (int, np.int64, str)):
             return chain_id
 
+    if is_all(chain_id):
+        return 'all'
+
     if caller is not None:
         if caller.endswith(functions_with_boolean):
             if isinstance(chain_id, bool):

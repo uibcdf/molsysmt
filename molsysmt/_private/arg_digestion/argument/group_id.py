@@ -40,6 +40,9 @@ def digest_group_id(group_id, caller=None):
         if isinstance(group_id, (int, np.int64, str)):
             return group_id
 
+    if is_all(group_id):
+        return 'all'
+
     if caller is not None:
         if caller.endswith(functions_with_boolean):
             if isinstance(group_id, bool):

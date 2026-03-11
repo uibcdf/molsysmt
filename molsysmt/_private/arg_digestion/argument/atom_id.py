@@ -38,6 +38,9 @@ def digest_atom_id(atom_id, caller=None):
         if isinstance(atom_id, (int, np.int64, str)):
             return atom_id
 
+    if is_all(atom_id):
+        return 'all'
+
     if caller is not None:
 
         if caller.endswith(functions_with_boolean):

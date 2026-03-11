@@ -40,6 +40,9 @@ def digest_component_index(component_index, caller=None):
             else:
                 raise ArgumentError('component_index', value=component_index, caller=caller, message=None)
 
+    if is_all(component_index):
+        return 'all'
+
     if isinstance(component_index, (int, np.int64)):
         return [component_index]
 
@@ -53,4 +56,3 @@ def digest_component_index(component_index, caller=None):
         return component_index.tolist()
 
     raise ArgumentError('component_index', value=component_index, caller=caller, message=None)
-

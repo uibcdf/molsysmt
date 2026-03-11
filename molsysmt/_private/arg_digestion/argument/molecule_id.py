@@ -40,6 +40,9 @@ def digest_molecule_id(molecule_id, caller=None):
         if isinstance(molecule_id, (int, np.int64, str)):
             return molecule_id
 
+    if is_all(molecule_id):
+        return 'all'
+
     if caller is not None:
         if caller.endswith(functions_with_boolean):
             if isinstance(molecule_id, bool):

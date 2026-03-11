@@ -40,6 +40,9 @@ def digest_chain_index(chain_index, caller=None):
             else:
                 raise ArgumentError('chain_index', value=chain_index, caller=caller, message=None)
 
+    if is_all(chain_index):
+        return 'all'
+
     if isinstance(chain_index, (int, np.int64)):
         return [chain_index]
 
@@ -53,4 +56,3 @@ def digest_chain_index(chain_index, caller=None):
         return chain_index.tolist()
 
     raise ArgumentError('chain_index', value=chain_index, caller=caller, message=None)
-

@@ -41,6 +41,9 @@ def digest_component_id(component_id, caller=None):
         elif caller.startswith('molsysmt.form.') and caller.count('.to_')==2:
             return component_id
 
+    if is_all(component_id):
+        return 'all'
+
     if isinstance(component_id, (int, np.int64)):
         return [component_id]
 
@@ -54,4 +57,3 @@ def digest_component_id(component_id, caller=None):
         return component_id.tolist()
 
     raise ArgumentError('component_id', value=component_id, caller=caller, message=None)
-

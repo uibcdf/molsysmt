@@ -40,6 +40,9 @@ def digest_group_index(group_index, caller=None):
             else:
                 raise ArgumentError('group_index', value=group_index, caller=caller, message=None)
 
+    if is_all(group_index):
+        return 'all'
+
     if isinstance(group_index, (int, np.int64)):
         return [group_index]
 
@@ -53,4 +56,3 @@ def digest_group_index(group_index, caller=None):
         return group_index.tolist()
 
     raise ArgumentError('group_index', value=group_index, caller=caller, message=None)
-

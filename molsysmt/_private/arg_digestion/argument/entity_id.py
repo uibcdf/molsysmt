@@ -38,6 +38,9 @@ def digest_entity_id(entity_id, caller=None):
         if isinstance(entity_id, (int, np.int64, str)):
             return entity_id
 
+    if is_all(entity_id):
+        return 'all'
+
     if caller is not None:
 
         if caller.endswith(functions_with_boolean):

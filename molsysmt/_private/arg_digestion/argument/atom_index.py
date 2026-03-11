@@ -40,6 +40,9 @@ def digest_atom_index(atom_index, caller=None):
             else:
                 raise ArgumentError('atom_index', value=atom_index, caller=caller, message=None)
 
+    if is_all(atom_index):
+        return 'all'
+
     if isinstance(atom_index, (int, np.int64)):
         return [atom_index]
 
@@ -53,4 +56,3 @@ def digest_atom_index(atom_index, caller=None):
         return atom_index.tolist()
 
     raise ArgumentError('atom_index', value=atom_index, caller=caller, message=None)
-
