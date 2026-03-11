@@ -1,18 +1,13 @@
 from molsysmt._private.smonitor import ArgumentError
 
+
 def digest_comparison(comparison, rule, caller=None):
 
-
-    if caller == 'molsysmt.basic.compare.compare.compare':
-
-        from molsysmt.basic.compare.compare import dict_compare_eq, dict_compare_in
-
-        if rule == 'equal':
-            if comparison.lower() in dict_compare_eq:
-                return comparison.lower()
-
-        elif rule == 'in':
-            if comparison.lower() in dict_compare_in:
-                return comparison.lower()
+    if caller == 'molsysmt.basic.compare.compare.compare' and isinstance(comparison, str):
+        comparison = comparison.lower()
+        if rule == 'equal' and comparison == 'equal':
+            return comparison
+        if rule == 'in' and comparison == 'in':
+            return comparison
 
     raise ArgumentError('comparison', value=comparison, caller=caller, message=None)
