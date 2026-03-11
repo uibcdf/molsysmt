@@ -1,5 +1,6 @@
 from molsysmt._private.smonitor import ArgumentError
 from molsysmt._private.variables import is_all
+import numpy as np
 
 def digest_component_indices(component_indices, caller):
     """ Checks if component_indices has the expected type and value.
@@ -34,4 +35,3 @@ def digest_component_indices(component_indices, caller):
         return np.array(component_indices, dtype='int64')
 
     raise ArgumentError('component_indices', value=component_indices, caller=caller, message=None)
-

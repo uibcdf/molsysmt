@@ -1,5 +1,6 @@
 from molsysmt._private.smonitor import ArgumentError
 from ...variables import is_all
+import numpy as np
 
 def digest_entity_indices(entity_indices, caller):
     """ Checks if entity_indices has the expected type and value.
@@ -34,4 +35,3 @@ def digest_entity_indices(entity_indices, caller):
         return np.array(entity_indices, dtype='int64')
 
     raise ArgumentError('entity_indices', value=entity_indices, caller=caller, message=None)
-
