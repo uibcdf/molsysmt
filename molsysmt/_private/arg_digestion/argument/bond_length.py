@@ -25,9 +25,9 @@ def digest_bond_length(bond_length, caller=None):
                     else:
                         return puw.standardize(puw.quantity(value, unit))
             elif is_iterable(bond_length):
+                output = []
                 for aux in bond_length:
-                    output = []
-                    if puw.check(bond_length, dimensionality={'[L]':1}):
+                    if puw.check(aux, dimensionality={'[L]':1}):
                         output.append(puw.standardize(aux))
                     else:
                         raise ArgumentError('bond_length', value=aux, caller=caller, message=None)
