@@ -26,8 +26,8 @@ def digest_force_constant(force_constant, caller=None):
                     else:
                         return [puw.standardize(puw.quantity(value, unit))]
             elif is_iterable(force_constant):
+                output = []
                 for aux in force_constant:
-                    output = []
                     if puw.check(aux, dimensionality={'[M]':1, '[T]':-2, '[mol]':-1}):
                         output.append(puw.standardize(aux))
                     else:

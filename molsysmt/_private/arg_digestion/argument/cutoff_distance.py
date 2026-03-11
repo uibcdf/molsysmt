@@ -7,7 +7,7 @@ def digest_cutoff_distance(cutoff_distance, caller=None):
     if isinstance(cutoff_distance, str):
         cutoff_distance = puw.parse.parse(cutoff_distance)
 
-    if caller.startswith('molsysmt.form.') and caller.count('.to_')==2:
+    if caller is not None and caller.startswith('molsysmt.form.') and caller.count('.to_')==2:
         if cutoff_distance is None:
             return cutoff_distance
 
