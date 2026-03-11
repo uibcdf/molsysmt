@@ -5,8 +5,8 @@ Source of truth for integrating and using **ArgDigest** in this library.
 Metadata
 - Source repository: `argdigest`
 - Source document: `standards/ARGDIGEST_GUIDE.md`
-- Source version: `argdigest@0.6.0`
-- Last synced: 2026-02-11
+- Source version: `argdigest@0.9.3-dev`
+- Last synced: 2026-03-10
 
 ## What is ArgDigest
 
@@ -111,12 +111,38 @@ def heavy_func(data):
 print(heavy_func.audit_log)
 ```
 
+## 4.3 Caller-aware optional semantics
+
+ArgDigest must support public APIs whose valid input contract depends on the
+callable that is being digested. This is not an escape hatch; it is a normal
+requirement in scientific libraries with editable builders and staged
+construction APIs.
+
+Examples of valid caller-specific optional semantics:
+- `molecular_system=None` in a helper that creates a new editable system when no
+  input is provided;
+- `atom_type=None` in a builder method that infers atom type from `atom_name`;
+- `entity_name=None` in a builder method that deliberately leaves the value
+  undeclared until a later crystallization step.
+
+The recommended pattern is:
+- keep `@arg_digest` on the public callable;
+- encode the optional semantics in the digester, keyed by caller;
+- use `argdigest.core.caller.normalize_caller`, `caller_matches`,
+  `caller_is_one_of`, and `caller_startswith` instead of open-coding caller
+  string logic downstream.
+
+Do not push valid public APIs outside digestion just because some arguments are
+optional for specific callables. If the API contract is legitimate, ArgDigest
+should express it.
+
 ## 5. Required behavior (non-negotiable)
 
 1.  **Lazy Digestion**: Digestion only happens when the function is called.
 2.  **No Top-Level Imports**: Guard optional dependencies (like Pydantic or Beartype) inside your pipelines or use ArgDigest's native support.
 3.  **Support skip_digestion**: All decorated functions should allow bypassing digestion via a `skip_digestion` parameter for internal performance-critical calls.
 4.  **Argument Dependencies**: Digesters can request other (already digested) arguments by simply adding them to their signature. ArgDigest handles the topological sort and cycle detection.
+5.  **Caller-aware Optionality**: Downstream libraries may accept `None` or otherwise relaxed values for specific public callables. These semantics belong in digesters, not in bypasses around `@arg_digest`.
 
 ## SMonitor Integration
 
