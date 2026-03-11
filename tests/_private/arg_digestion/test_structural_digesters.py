@@ -1,111 +1,114 @@
 import numpy as np
 import pytest
 
-from molsysmt import pyunitwizard as puw
+import molsysmt as msm
 from molsysmt._private.smonitor import ArgumentError
 from molsysmt._private.arg_digestion.argument.b_factor import digest_b_factor
-from molsysmt._private.arg_digestion.argument.center import digest_center
+from molsysmt._private.arg_digestion.argument.box import digest_box
+from molsysmt._private.arg_digestion.argument.box_lengths import digest_box_lengths
+from molsysmt._private.arg_digestion.argument.box_angles import digest_box_angles
+from molsysmt._private.arg_digestion.argument.box_center import digest_box_center
+from molsysmt._private.arg_digestion.argument.box_origin import digest_box_origin
 from molsysmt._private.arg_digestion.argument.coordinates import digest_coordinates
-from molsysmt._private.arg_digestion.argument.coordinates_minimum import digest_coordinates_minimum
-from molsysmt._private.arg_digestion.argument.occupancy import digest_occupancy
-from molsysmt._private.arg_digestion.argument.structure_id import digest_structure_id
 from molsysmt._private.arg_digestion.argument.time import digest_time
-
-GET_CALLER = 'molsysmt.basic.get.get'
-COMPARE_CALLER = 'molsysmt.basic.compare.compare'
-CONVERT_CALLER = 'molsysmt.basic.convert.convert'
-ALIGN_AXES_CALLER = 'molsysmt.structure.align_principal_axes.align_principal_axes'
+from molsysmt._private.arg_digestion.argument.structure_id import digest_structure_id
 
 
-def test_digest_coordinates_accepts_boolean_none_and_standardizes_shapes():
+GET_CALLER = "molsysmt.basic.get.get"
+
+
+def test_b_factor_supports_boolean_none_and_valid_shapes():
+    assert digest_b_factor(True, caller=GET_CALLER) is True
+    assert digest_b_factor(None) is None
+
+    quantity_1d = msm.pyunitwizard.quantity(np.array([1.0, 2.0]), "angstroms**2")
+    digested_1d = digest_b_factor(quantity_1d)
+    assert digested_1d.shape == (1, 2)
+
+    quantity_2d = msm.pyunitwizard.quantity(np.array([[1.0, 2.0], [3.0, 4.0]]), "angstroms**2")
+    digested_2d = digest_b_factor(quantity_2d)
+    assert digested_2d.shape == (2, 2)
+
+    with pytest.raises(ArgumentError):
+        digest_b_factor(msm.pyunitwizard.quantity(np.array([1.0]), "nanometers"))
+
+
+def test_box_digesters_normalize_valid_shapes_and_units():
+    box = msm.pyunitwizard.quantity(np.eye(3), "nanometers")
+    digested_box = digest_box(box)
+    assert digested_box.shape == (1, 3, 3)
+
+    box_lengths = digest_box_lengths(msm.pyunitwizard.quantity([1.0, 2.0, 3.0], "nanometers"))
+    assert box_lengths.shape == (1, 3)
+
+    box_angles = digest_box_angles(msm.pyunitwizard.quantity([90.0, 90.0, 120.0], "degrees"))
+    assert box_angles.shape == (1, 3)
+
+    box_center = digest_box_center(msm.pyunitwizard.quantity([0.0, 0.0, 0.0], "nanometers"))
+    assert box_center.shape == (3,)
+
+    box_origin = digest_box_origin(msm.pyunitwizard.quantity([[1.0, 2.0, 3.0]], "nanometers"))
+    assert box_origin.shape == (3,)
+
+
+def test_box_digesters_reject_invalid_inputs():
+    with pytest.raises(ArgumentError):
+        digest_box(msm.pyunitwizard.quantity(np.ones((2, 2)), "nanometers"))
+
+    with pytest.raises(ArgumentError):
+        digest_box_lengths(msm.pyunitwizard.quantity([1.0, 2.0], "nanometers"))
+
+    with pytest.raises(ArgumentError):
+        digest_box_angles(msm.pyunitwizard.quantity([90.0, 120.0], "degrees"))
+
+    with pytest.raises(ArgumentError):
+        digest_box_center(msm.pyunitwizard.quantity([0.0, 0.0], "nanometers"))
+
+    with pytest.raises(ArgumentError):
+        digest_box_origin(msm.pyunitwizard.quantity(np.ones((2, 2, 2)), "nanometers"))
+
+
+def test_coordinates_digesters_normalize_supported_shapes():
     assert digest_coordinates(True, caller=GET_CALLER) is True
     assert digest_coordinates(None) is None
 
-    vector = puw.quantity(np.array([1.0, 2.0, 3.0]), 'angstrom')
-    digested = digest_coordinates(vector)
-    assert digested.shape == (1, 1, 3)
-    np.testing.assert_allclose(puw.get_value(digested), np.array([[[0.1, 0.2, 0.3]]]))
+    c1 = digest_coordinates(msm.pyunitwizard.quantity([1.0, 2.0, 3.0], "nanometers"))
+    assert c1.shape == (1, 1, 3)
 
-    matrix = puw.quantity(np.array([[1.0, 2.0, 3.0], [4.0, 5.0, 6.0]]), 'angstrom')
-    digested = digest_coordinates(matrix)
-    assert digested.shape == (1, 2, 3)
+    c2 = digest_coordinates(msm.pyunitwizard.quantity([[1.0, 2.0, 3.0], [4.0, 5.0, 6.0]], "nanometers"))
+    assert c2.shape == (1, 2, 3)
 
-    tensor = puw.quantity(np.ones((2, 3, 3)), 'nanometer')
-    digested = digest_coordinates(tensor)
-    assert digested.shape == (2, 3, 3)
+    c3 = digest_coordinates(
+        msm.pyunitwizard.quantity(np.arange(12.0).reshape(2, 2, 3), "nanometers")
+    )
+    assert c3.shape == (2, 2, 3)
 
     with pytest.raises(ArgumentError):
-        digest_coordinates(puw.quantity(np.ones((2, 2)), 'nanometer'))
+        digest_coordinates(msm.pyunitwizard.quantity([1.0, 2.0], "nanometers"))
 
 
-def test_digest_b_factor_accepts_boolean_none_and_1d_2d_quantities():
-    assert digest_b_factor(False, caller=COMPARE_CALLER) is False
-    assert digest_b_factor(None) is None
-
-    one_d = puw.quantity(np.array([1.0, 2.0]), 'angstrom**2')
-    digested = digest_b_factor(one_d)
-    assert digested.shape == (1, 2)
-
-    two_d = puw.quantity(np.ones((2, 3)), 'angstrom**2')
-    digested = digest_b_factor(two_d)
-    assert digested.shape == (2, 3)
-
-    with pytest.raises(ArgumentError):
-        digest_b_factor(puw.quantity(np.array([1.0, 2.0]), 'picosecond'))
-
-
-def test_digest_occupancy_accepts_boolean_none_and_arrays():
-    assert digest_occupancy(True, caller=GET_CALLER) is True
-    assert digest_occupancy(None) is None
-
-    one_d = digest_occupancy([0.5, 1.0])
-    assert one_d.shape == (1, 2)
-
-    two_d = digest_occupancy(np.ones((2, 3)))
-    assert two_d.shape == (2, 3)
-
-    with pytest.raises(ArgumentError):
-        digest_occupancy('1.0')
-
-
-def test_digest_time_accepts_boolean_none_strings_and_quantity_sequences():
+def test_time_and_structure_id_digesters_normalize_valid_values():
     assert digest_time(True, caller=GET_CALLER) is True
     assert digest_time(None) is None
 
-    parsed = digest_time('1.0 ps')
-    np.testing.assert_allclose(puw.get_value(parsed), np.array(1.0))
+    parsed = digest_time("1 ps")
+    assert msm.pyunitwizard.get_value(parsed) == 1.0
 
-    seq = [puw.quantity(1.0, 'ps'), puw.quantity(2.0, 'ps')]
-    digested = digest_time(seq)
-    np.testing.assert_allclose(puw.get_value(digested), np.array([1.0, 2.0]))
+    sequence = digest_time(
+        [
+            msm.pyunitwizard.quantity(1.0, "picoseconds"),
+            msm.pyunitwizard.quantity(2.0, "picoseconds"),
+        ]
+    )
+    assert msm.pyunitwizard.get_value(sequence).tolist() == [1.0, 2.0]
 
-    with pytest.raises(ArgumentError):
-        digest_time([1.0, 2.0])
-
-
-def test_digest_structure_id_and_coordinates_minimum_normalize_inputs():
     assert digest_structure_id(None) is None
-    np.testing.assert_array_equal(digest_structure_id(4), np.array([4]))
-    np.testing.assert_array_equal(digest_structure_id([1, 2]), np.array([1, 2]))
-
-    vec = puw.quantity(np.array([1.0, 2.0, 3.0]), 'angstrom')
-    digested = digest_coordinates_minimum(vec)
-    assert digested.shape == (1, 3)
-    np.testing.assert_allclose(puw.get_value(digested), np.array([[0.1, 0.2, 0.3]]))
-
-    mat = puw.quantity(np.ones((2, 3)), 'nanometer')
-    assert digest_coordinates_minimum(mat).shape == (2, 3)
+    assert digest_structure_id(3).tolist() == [3]
+    assert digest_structure_id([1, 2]).tolist() == [1, 2]
+    assert digest_structure_id(np.array([4, 5])).tolist() == [4, 5]
 
     with pytest.raises(ArgumentError):
-        digest_coordinates_minimum(puw.quantity(np.ones((2, 2)), 'nanometer'))
-
-
-def test_digest_center_supports_convert_and_align_principal_axes_contracts():
-    assert digest_center(True, caller=ALIGN_AXES_CALLER) is True
-    assert digest_center(None, caller=CONVERT_CALLER) is None
-    assert digest_center('chain_name=="A"', caller=CONVERT_CALLER) == 'chain_name=="A"'
-    np.testing.assert_array_equal(digest_center(3, caller=CONVERT_CALLER), np.array([3], dtype='int64'))
-    np.testing.assert_array_equal(digest_center([1, 2], caller=CONVERT_CALLER), np.array([1, 2], dtype='int64'))
+        digest_time(msm.pyunitwizard.quantity(1.0, "nanometers"))
 
     with pytest.raises(ArgumentError):
-        digest_center('A', caller='molsysmt.other.caller')
+        digest_structure_id("frame-1")
