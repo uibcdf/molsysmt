@@ -1,4 +1,5 @@
 from .molsys import MolSys
+from .molsys_builder import MolSysBuilder
 from .topology import Topology
 from .structures import Structures
 from .molecular_mechanics import MolecularMechanics

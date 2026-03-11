@@ -63,6 +63,7 @@ from . import attribute
 from . import topology
 from . import structure
 from . import build
+from .native import MolSysBuilder
 
 from . import supported
 from . import pbc

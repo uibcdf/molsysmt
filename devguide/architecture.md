@@ -49,6 +49,24 @@ directly on native topology tables and native helpers in
 
 See `element_and_native_rebuild.md`.
 
+## Editable Native Forms
+
+`MolSysBuilder` is the first explicit editable native form in MolSysMT.
+
+Its role is distinct from both finalized native objects and high-level build
+helpers:
+- `MolSys` is a finalized native molecular system;
+- `MolSysBuilder` is a declared but potentially incomplete native system under
+  construction;
+- `molsysmt.build.*` contains higher-level construction, repair, and editing
+  operations that may use the builder when a declarative editing backend is the
+  right abstraction.
+
+The builder lives in `molsysmt/native` and is integrated as a form through
+`molsysmt/form/molsysmt_MolSysBuilder`.
+
+See `molsys_builder.md`.
+
 ## Performance Layer
 `molsysmt/lib` contains performance-critical kernels. These kernels use
 Numba and are compiled lazily to keep `import molsysmt` fast. See

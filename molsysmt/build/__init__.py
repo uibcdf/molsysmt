@@ -13,6 +13,7 @@ from .has_hydrogens import has_hydrogens
 from .make_bioassembly import make_bioassembly
 from .solve_atoms_with_alternate_location import solve_atoms_with_alternate_location
 from .build_peptide import build_peptide
+from .edit import edit
 from .is_solvated import is_solvated
 from .solvate import solvate
 from .mutate import mutate
@@ -20,4 +21,3 @@ from .define_new_chain import define_new_chain
 from .make_water_box import make_water_box
 from .remove_overlapping_molecules import remove_overlapping_molecules
 from .remove_bonds import remove_bonds
-

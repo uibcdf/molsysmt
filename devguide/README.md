@@ -17,6 +17,10 @@ Recent completed work:
 - `nglview` round-trips and color-by-value tests were made deterministic offline;
 - `smonitor` and MolSysMT diagnostics were hardened for developer and QA workflows;
 - structural and PBC JIT call sites were normalized to `float64` at the public boundary.
+- a first `MolSysBuilder` slice is implemented and validated for creation from
+  scratch, `MolSys -> MolSysBuilder`, and `MolSysBuilder -> MolSys`;
+- `molsysmt.build.edit(...)` now provides the ergonomic entrypoint for editing
+  an existing molecular system through the builder.
 
 Validation status at this checkpoint:
 - the full test suite passes with `pytest -q tests -x`;
@@ -64,9 +68,10 @@ For development, this means:
 5) `viewers_and_visualization.md` (Visual backend policy)
 6) `architecture.md`
 7) `element_and_native_rebuild.md`
-8) `api_surface.md`
-9) `testing_strategy.md`
-10) `smonitor_feedback_proposals.md` (Temporary diagnostic improvements under evaluation)
+8) `molsys_builder.md`
+9) `api_surface.md`
+10) `testing_strategy.md`
+11) `smonitor_feedback_proposals.md` (Temporary diagnostic improvements under evaluation)
 
 ## Scope
 These documents define how MolSysMT should be implemented and maintained:

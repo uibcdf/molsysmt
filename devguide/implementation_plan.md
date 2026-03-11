@@ -34,7 +34,10 @@ Completed in the current pass:
   `caller.endswith(...)` guards;
 - `float64` normalization at structural and PBC JIT boundaries;
 - adapter fixes for `MDAnalysis.AtomGroup`, `StructuresDict`, `GRO`, `PDB`,
-  AlphaFold/mmCIF, and OpenMM context conversion.
+  AlphaFold/mmCIF, and OpenMM context conversion;
+- a first `MolSysBuilder` slice now exists and is validated for
+  `MolSysBuilder()` from scratch, `MolSys -> MolSysBuilder`, and
+  `MolSysBuilder -> MolSys`.
 
 Sequential validation status:
 - `tests/basic` ✅
@@ -67,6 +70,10 @@ Follow-up after the next validation checkpoint:
 - reassess coverage targets now that `.codecov.yml` includes core internal
   modules again; the current honest full-suite baseline is 51% with distributed
   coverage execution;
+- keep the first builder slice narrow and stable before adding broader form
+  adapters or serialization helpers;
+- revisit argument digestion for builder methods after the builder API contract
+  is stable enough to justify upstream or local digester work;
 - continue only with polish or contract-scope decisions, not broad
   stabilization rewrites.
 
