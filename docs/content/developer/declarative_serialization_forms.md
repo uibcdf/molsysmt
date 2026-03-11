@@ -44,8 +44,7 @@ Declarative YAML and JSON files use normal `*.yaml` / `*.yml` and `*.json` exten
 ## Relationship with existing JSON payloads
 
 - `ViewerJSON` keeps its viewer-specific role.
-- `UniversalJSON` is not the semantic basis of this new serializer line and is
-  expected to move toward deprecation for the `1.0` line.
+- `UniversalJSON` is no longer part of the active form graph.
 
 ## Current checkpoint
 

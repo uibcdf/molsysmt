@@ -5,7 +5,6 @@ from .to_pytraj_Trajectory import to_pytraj_Trajectory
 from .to_pdbfixer_PDBFixer import to_pdbfixer_PDBFixer
 from .to_biopython_SeqRecord import to_biopython_SeqRecord
 from .to_file_psf import to_file_psf
-from .to_molsysmt_UniversalJSON import to_molsysmt_UniversalJSON
 from .to_string_pdb_text import to_string_pdb_text
 from .to_pytraj_Topology import to_pytraj_Topology
 from .to_nglview_NGLWidget import to_nglview_NGLWidget
@@ -90,7 +89,6 @@ _convert_to={
         'biopython.SeqRecord': 'to_biopython_SeqRecord',
         'biopython.PDBStructure': 'to_biopython_PDBStructure',
         'molsysmt.ViewerJSON': 'to_molsysmt_ViewerJSON',
-        'molsysmt.UniversalJSON': 'to_molsysmt_UniversalJSON',
         'rdkit.Mol': 'to_rdkit_Mol',
         'XYZ': 'to_XYZ',
         'string:pdb_text': 'to_string_pdb_text',

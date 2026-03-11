@@ -1,5 +1,4 @@
 from .to_molsysmt_ViewerJSON import to_molsysmt_ViewerJSON
-from .to_molsysmt_UniversalJSON import to_molsysmt_UniversalJSON
 from .to_molsysmt_StructuresDict import to_molsysmt_StructuresDict
 from .to_file_h5msm import to_file_h5msm
 from .to_file_structures_yaml import to_file_structures_yaml
@@ -36,6 +35,5 @@ _convert_to={
         'file:structures_yaml': to_file_structures_yaml,
         'molsysmt.StructuresDict': to_molsysmt_StructuresDict,
         'molsysmt.ViewerJSON': to_molsysmt_ViewerJSON,
-        'molsysmt.UniversalJSON': to_molsysmt_UniversalJSON,
         'XYZ': to_XYZ,
         }
