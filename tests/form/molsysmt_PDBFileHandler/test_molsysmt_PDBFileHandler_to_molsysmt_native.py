@@ -25,3 +25,14 @@ def test_pdb_file_handler_to_molsysmt_molsys_preserves_first_atom_names(t4_pdb_h
 
     assert np.all(molsys.topology.atoms['atom_name'].to_numpy()[:5] == np.array(['N', 'CA', 'C', 'O', 'CB'], dtype=object))
     assert np.all(molsys.topology.groups['group_name'].to_numpy()[:3] == np.array(['MET', 'ASN', 'ILE'], dtype=object))
+
+
+def test_pdb_file_handler_from_builder_fixture_preserves_declared_truth(builder_pdb_handler, builder_pdb_molsys):
+    molsys = msm.convert(builder_pdb_handler, to_form='molsysmt.MolSys')
+
+    assert molsys.topology.n_atoms == builder_pdb_molsys.topology.n_atoms
+    assert molsys.topology.n_groups == builder_pdb_molsys.topology.n_groups
+    assert molsys.topology.n_bonds == builder_pdb_molsys.topology.n_bonds
+    assert molsys.topology.atoms['atom_name'].tolist() == builder_pdb_molsys.topology.atoms['atom_name'].tolist()
+    assert molsys.topology.groups['group_name'].tolist() == builder_pdb_molsys.topology.groups['group_name'].tolist()
+    assert molsys.topology.chains['chain_id'].tolist() == builder_pdb_molsys.topology.chains['chain_id'].tolist()

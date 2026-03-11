@@ -25,3 +25,14 @@ def test_string_pdb_text_to_molsysmt_structures_preserves_multimodel_shape(md_1u
 
     assert structures.n_atoms == md_1u19_pdb_molsys.structures.n_atoms
     assert structures.n_structures == md_1u19_pdb_molsys.structures.n_structures
+
+
+def test_string_pdb_text_from_builder_fixture_preserves_declared_truth(builder_pdb_text, builder_pdb_molsys):
+    molsys = msm.convert(builder_pdb_text, to_form='molsysmt.MolSys')
+
+    assert molsys.topology.n_atoms == builder_pdb_molsys.topology.n_atoms
+    assert molsys.topology.n_groups == builder_pdb_molsys.topology.n_groups
+    assert molsys.topology.n_bonds == builder_pdb_molsys.topology.n_bonds
+    assert molsys.topology.atoms['atom_name'].tolist() == builder_pdb_molsys.topology.atoms['atom_name'].tolist()
+    assert molsys.topology.groups['group_name'].tolist() == builder_pdb_molsys.topology.groups['group_name'].tolist()
+    assert molsys.topology.chains['chain_id'].tolist() == builder_pdb_molsys.topology.chains['chain_id'].tolist()
