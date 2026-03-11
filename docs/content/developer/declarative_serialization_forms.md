@@ -59,3 +59,13 @@ The first slice is already implemented and tested. It is enough to:
 
 Later slices should expand this family to topology-only and structures-only
 forms, plus optional JSON backends.
+
+
+## Second slice checkpoint
+
+The second declarative serializer slice is now available:
+
+- `molsysmt.TopologyDict`;
+- `file:topology_yaml`;
+- `molsysmt.Topology <-> molsysmt.TopologyDict`;
+- `molsysmt.TopologyDict <-> file:topology_yaml`.

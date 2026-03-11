@@ -24,7 +24,7 @@ Recent completed work:
 - declared-state form coverage now exists for `MolSysBuilder` through `get`,
   `set`, `info`, and `select`.
 - the first declarative serializer slice is now implemented:
-  `molsysmt.MolSysDict` and `file:molsys_yaml` are available, with focused
+  `molsysmt.MolSysDict`, `molsysmt.TopologyDict`, `file:molsys_yaml`, and `file:topology_yaml` are available, with focused
   round-trip tests and supported-form coverage.
 
 Validation status at this checkpoint:

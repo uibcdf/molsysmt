@@ -13,6 +13,8 @@ from .to_string_amino_acids_1 import to_string_amino_acids_1
 from .to_file_h5msm import to_file_h5msm
 from .to_openmm_Topology import to_openmm_Topology
 from .to_molsysmt_Topology import to_molsysmt_Topology
+from .to_molsysmt_TopologyDict import to_molsysmt_TopologyDict
+from .to_file_topology_yaml import to_file_topology_yaml
 from .add_bonds import add_bonds
 from .remove_bonds import remove_bonds
 from .to_file_h5msm import dump_topology_to_h5msm
@@ -47,6 +49,8 @@ from .remove_bonds import remove_bonds
 
 _convert_to={
         'molsysmt.Topology': to_molsysmt_Topology,
+        'molsysmt.TopologyDict': to_molsysmt_TopologyDict,
+        'file:topology_yaml': to_file_topology_yaml,
         'mdtraj.Topology': to_mdtraj_Topology,
         'molsysmt.ViewerJSON': to_molsysmt_ViewerJSON,
         'molsysmt.UniversalJSON': to_molsysmt_UniversalJSON,

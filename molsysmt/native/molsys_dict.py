@@ -7,6 +7,8 @@ from typing import Any, Dict
 
 def _empty_molsys_dict() -> Dict[str, Any]:
     return {
+        "format": "molsysmt",
+        "kind": "molsys",
         "version": "0.1",
         "metadata": {},
         "topology": {

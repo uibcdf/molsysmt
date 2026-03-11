@@ -119,6 +119,8 @@ def to_molsysmt_MolSysDict(item, skip_digestion=False):
         structures['coordinates'] = puw.get_value(item.structures.coordinates, to_unit='nm').tolist()
 
     data = {
+        'format': 'molsysmt',
+        'kind': 'molsys',
         'version': '0.1',
         'metadata': {},
         'topology': {

@@ -47,22 +47,17 @@ The file forms are real MolSysMT forms, just like `file:pdb` or
 
 ## File naming and extensions
 
-The new declarative file forms should use typed extensions so the semantic kind
-of the payload is visible from the filename itself.
+The declarative YAML and JSON families should use normal `*.yaml` / `*.yml`
+and `*.json` extensions. Their semantic kind must be declared inside the file
+payload itself.
 
-Planned YAML extensions:
-- `*.molsys.yaml`
-- `*.topology.yaml`
-- `*.structures.yaml`
+Required top-level discriminator fields:
+- `format: molsysmt`
+- `kind: molsys` / `topology` / `structures`
 
-If JSON support is added later, the parallel extensions should be:
-- `*.molsys.json`
-- `*.topology.json`
-- `*.structures.json`
-
-This rule applies to the new declarative serializer family only. Existing
-native formats such as `*.h5msm` keep their current naming and are not part of
-this extension redesign.
+This keeps the files easy to inspect with normal YAML/JSON tooling while still
+allowing robust form detection by content. Existing native formats such as
+`*.h5msm` keep their current naming and are not part of this rule.
 
 ## Why this split matters
 
@@ -213,5 +208,15 @@ This first slice is intentionally conversion-centric. It is sufficient to:
 Future slices should add:
 - `TopologyDict`;
 - `StructuresDict`;
-- typed YAML file forms for topology and structures;
+- YAML file forms for topology and structures with content-based detection;
 - optional JSON backends.
+
+
+## Second slice checkpoint
+
+The second declarative serializer slice is now available:
+
+- `molsysmt.TopologyDict`;
+- `file:topology_yaml`;
+- `molsysmt.Topology <-> molsysmt.TopologyDict`;
+- `molsysmt.TopologyDict <-> file:topology_yaml`.
