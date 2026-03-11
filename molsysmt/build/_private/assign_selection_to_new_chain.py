@@ -102,7 +102,7 @@ def assign_selection_to_new_chain(molecular_system, selection='all', chain_id=No
         new_chain_indices.append(chain_id_to_index[current_chain_id])
 
     n_chains = chain_index + 1
-    form_in = get_form(molecular_system, skip_digestion=True)
+    form_in = get_form(molecular_system)
     if form_in == 'molsysmt.MolSys':
         molecular_system.topology.reset_chains(n_chains=n_chains)
     elif form_in == 'molsysmt.Topology':
