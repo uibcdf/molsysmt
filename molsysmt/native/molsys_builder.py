@@ -4,6 +4,7 @@ import numpy as np
 import pandas as pd
 from smonitor import signal
 
+from molsysmt._private.arg_digestion import arg_digest
 from molsysmt._private.smonitor import StructuralInconsistencyError
 
 
@@ -109,6 +110,7 @@ class MolSysBuilder:
         return output
 
     @signal(tags=["native", "builder"])
+    @arg_digest()
     def add_atom(self, atom_id=None, atom_name=None, atom_type=None, skip_digestion=False):
 
         from molsysmt.element.atom import get_atom_type_from_atom_name
@@ -131,6 +133,7 @@ class MolSysBuilder:
         return atom_index
 
     @signal(tags=["native", "builder"])
+    @arg_digest()
     def add_group(self, atom_indices, group_id=None, group_name=None, group_type=None, skip_digestion=False):
 
         atom_indices = self._indices_array(atom_indices)
@@ -153,6 +156,7 @@ class MolSysBuilder:
         return group_index
 
     @signal(tags=["native", "builder"])
+    @arg_digest()
     def add_bond(self, atom_index_1, atom_index_2, bond_order=None, bond_type=None, skip_digestion=False):
 
         atom_indices = np.asarray([atom_index_1, atom_index_2], dtype=int)
@@ -169,6 +173,7 @@ class MolSysBuilder:
         return bond_index
 
     @signal(tags=["native", "builder"])
+    @arg_digest()
     def add_chain(self, group_indices, chain_id=None, chain_name=None, chain_type=None, skip_digestion=False):
 
         group_indices = self._indices_array(group_indices)
@@ -196,6 +201,7 @@ class MolSysBuilder:
         return chain_index
 
     @signal(tags=["native", "builder"])
+    @arg_digest()
     def add_molecule(self, group_indices, molecule_id=None, molecule_name=None, molecule_type=None, skip_digestion=False):
 
         group_indices = self._indices_array(group_indices)
@@ -215,6 +221,7 @@ class MolSysBuilder:
         return molecule_index
 
     @signal(tags=["native", "builder"])
+    @arg_digest()
     def add_entity(self, molecule_indices, entity_id=None, entity_name=None, entity_type=None, skip_digestion=False):
 
         molecule_indices = self._indices_array(molecule_indices)
@@ -233,6 +240,7 @@ class MolSysBuilder:
         return entity_index
 
     @signal(tags=["native", "builder"])
+    @arg_digest()
     def set_coordinates(self, coordinates, skip_digestion=False):
         from molsysmt import pyunitwizard as puw
 
@@ -245,6 +253,7 @@ class MolSysBuilder:
         self.structures.coordinates = coordinates
 
     @signal(tags=["native", "builder"])
+    @arg_digest()
     def set_box(self, box, skip_digestion=False):
         from molsysmt import pyunitwizard as puw
 
@@ -257,6 +266,7 @@ class MolSysBuilder:
         self.structures.box = box
 
     @signal(tags=["native", "builder"])
+    @arg_digest()
     def set_time(self, time, skip_digestion=False):
         from molsysmt import pyunitwizard as puw
 
@@ -269,6 +279,7 @@ class MolSysBuilder:
         self.structures.time = time
 
     @signal(tags=["native", "builder"])
+    @arg_digest()
     def set_structure_id(self, structure_id, skip_digestion=False):
 
         structure_id = np.asarray(structure_id)
@@ -426,6 +437,7 @@ class MolSysBuilder:
                 )
 
     @signal(tags=["native", "builder"])
+    @arg_digest()
     def build(self, skip_digestion=False):
 
         from .molsys import MolSys

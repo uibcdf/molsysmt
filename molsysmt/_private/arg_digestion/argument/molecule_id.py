@@ -1,6 +1,7 @@
 from molsysmt._private.smonitor import ArgumentError
 from ...variables import is_all
 import numpy as np
+from argdigest.core.caller import caller_matches, caller_startswith
 
 
 functions_with_boolean = (
@@ -33,11 +34,17 @@ def digest_molecule_id(molecule_id, caller=None):
         If the given `molecule_id` has not of the correct type or value.
     """
 
+    if molecule_id is None and caller_matches(caller, 'add_molecule'):
+        return None
+    if caller_matches(caller, 'add_molecule'):
+        if isinstance(molecule_id, (int, np.int64, str)):
+            return molecule_id
+
     if caller is not None:
         if caller.endswith(functions_with_boolean):
             if isinstance(molecule_id, bool):
                 return molecule_id
-        elif caller.startswith('molsysmt.form.') and caller.count('.to_')==2:
+        elif caller_startswith(caller, 'molsysmt.form.') and caller.count('.to_')==2:
             return molecule_id
 
     if isinstance(molecule_id, (int, np.int64)):

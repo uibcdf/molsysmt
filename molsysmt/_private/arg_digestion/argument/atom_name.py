@@ -1,6 +1,7 @@
 from molsysmt._private.smonitor import ArgumentError
 from ...variables import is_all
 import numpy as np
+from argdigest.core.caller import caller_matches, caller_startswith
 
 functions_with_boolean = (
         'molsysmt.basic.get.get',
@@ -33,10 +34,13 @@ def digest_atom_name(atom_name, caller=None):
         If the given `atom_name` has not of the correct type or value.
     """
 
+    if atom_name is None and caller_matches(caller, 'add_atom'):
+        return None
+
     if isinstance(caller, str) and caller.endswith(functions_with_boolean):
         if isinstance(atom_name, bool):
             return atom_name
-    elif isinstance(caller, str) and caller.startswith('molsysmt.form.') and caller.count('.to_')==2:
+    elif isinstance(caller, str) and caller_startswith(caller, 'molsysmt.form.') and caller.count('.to_')==2:
         return atom_name
 
     if isinstance(atom_name, str):

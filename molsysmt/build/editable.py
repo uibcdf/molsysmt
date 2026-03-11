@@ -1,3 +1,7 @@
+from molsysmt._private.arg_digestion import arg_digest
+
+
+@arg_digest()
 def editable(molecular_system=None, skip_digestion=False):
     """
     Creating an editable molecular-system builder.
