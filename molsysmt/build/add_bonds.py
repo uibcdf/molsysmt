@@ -48,6 +48,9 @@ def add_bonds(molecular_system, bonded_atom_pairs, in_place=True, skip_digestion
     - This function only updates the topological attribute `bonded_atoms`.
     - No bond orders or bond types are inferred or assigned.
     - Atom indices must be valid and within the range of the molecular system's atoms.
+    - This explicit editing helper is part of the legacy editing path. New code
+      should prefer `molsysmt.MolSysBuilder` or `molsysmt.build.editable(...)`
+      for topology editing workflows targeting the `1.0` line.
 
     See Also
     --------
@@ -92,4 +95,3 @@ def add_bonds(molecular_system, bonded_atom_pairs, in_place=True, skip_digestion
     else:
 
         raise NotImplementedMethodError
-

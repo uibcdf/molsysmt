@@ -13,7 +13,7 @@ from .has_hydrogens import has_hydrogens
 from .make_bioassembly import make_bioassembly
 from .solve_atoms_with_alternate_location import solve_atoms_with_alternate_location
 from .build_peptide import build_peptide
-from .edit import edit
+from .editable import editable
 from .is_solvated import is_solvated
 from .solvate import solvate
 from .mutate import mutate

@@ -37,7 +37,11 @@ Completed in the current pass:
   AlphaFold/mmCIF, and OpenMM context conversion;
 - a first `MolSysBuilder` slice now exists and is validated for
   `MolSysBuilder()` from scratch, `MolSys -> MolSysBuilder`, and
-  `MolSysBuilder -> MolSys`.
+  `MolSysBuilder -> MolSys`;
+- explicit topology editing is now intended to converge on
+  `MolSysBuilder` / `molsysmt.build.editable(...)`, with `add_bonds`,
+  `remove_bonds`, and `define_new_chain` entering the deprecation path for the
+  `1.0` line.
 
 Sequential validation status:
 - `tests/basic` ✅
