@@ -1,5 +1,6 @@
 from .to_molsysmt_MolSys import to_molsysmt_MolSys
 from .to_molsysmt_MolSysBuilder import to_molsysmt_MolSysBuilder
+from .to_molsysmt_MolSysDict import to_molsysmt_MolSysDict
 
 form_name = "molsysmt.MolSysBuilder"
 form_type = "class"
@@ -21,4 +22,5 @@ from .set import *
 _convert_to = {
     "molsysmt.MolSysBuilder": "to_molsysmt_MolSysBuilder",
     "molsysmt.MolSys": "to_molsysmt_MolSys",
+    "molsysmt.MolSysDict": "to_molsysmt_MolSysDict",
 }

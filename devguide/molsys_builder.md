@@ -27,7 +27,8 @@ strategy for future deterministic converter fixtures.
 The first slice intentionally keeps the conversion surface narrow:
 - `MolSysBuilder()` from scratch;
 - `MolSys -> MolSysBuilder`;
-- `MolSysBuilder -> MolSys`.
+- `MolSysBuilder -> MolSys`;
+- `MolSysBuilder <-> MolSysDict`.
 
 Broader `X -> MolSysBuilder` and `MolSysBuilder -> X` support should be added
 later by routing through `MolSys`.
@@ -168,6 +169,10 @@ The current builder slice is covered by:
 
 This means the builder already participates in the standard MolSysMT API wheel
 for the narrow `MolSys <-> MolSysBuilder` conversion surface agreed for v1.
+
+That same first builder checkpoint now also includes direct conversion to and
+from `MolSysDict`, so builder-declared state can be serialized and restored
+without forcing a full `build()`.
 
 The first deterministic converter-fixture rollout already covers:
 - PDB text / file / `molsysmt.PDBFileHandler`;

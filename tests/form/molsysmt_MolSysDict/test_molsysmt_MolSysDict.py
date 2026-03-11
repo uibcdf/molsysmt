@@ -17,3 +17,29 @@ def test_molsys_to_molsysdict_roundtrip_and_queries():
     assert rebuilt.topology.atoms["atom_name"].tolist() == molsys.topology.atoms["atom_name"].tolist()
     assert rebuilt.topology.groups["group_name"].tolist() == molsys.topology.groups["group_name"].tolist()
     assert rebuilt.topology.chains["chain_id"].tolist() == molsys.topology.chains["chain_id"].tolist()
+
+
+def test_molsysdict_converts_to_molsysbuilder_without_building_fallbacks():
+
+    builder = msm.MolSysBuilder()
+    atom_index_0 = builder.add_atom(atom_name="Ar")
+    atom_index_1 = builder.add_atom(atom_name="Ar")
+    builder.add_group([atom_index_0], group_name="GAS")
+
+    molsys_dict = msm.convert(builder, to_form="molsysmt.MolSysDict")
+    rebuilt_builder = msm.convert(molsys_dict, to_form="molsysmt.MolSysBuilder")
+
+    output = msm.get(
+        rebuilt_builder,
+        element="atom",
+        atom_index=True,
+        atom_name=True,
+        group_index=True,
+        output_type="dictionary",
+    )
+
+    assert output["atom_index"] == [0, 1]
+    assert output["atom_name"] == ["Ar", "Ar"]
+    assert output["group_index"] == [0, None]
+    assert msm.get(rebuilt_builder, element="system", n_groups=True) == 1
+    assert msm.get(rebuilt_builder, element="system", n_molecules=True) == 0

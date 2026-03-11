@@ -145,3 +145,30 @@ def test_molsys_builder_converts_from_and_to_molsys():
         assert rebuilt.structures.structure_id is None
     else:
         assert rebuilt.structures.structure_id.tolist() == original.structures.structure_id.tolist()
+
+
+def test_molsys_builder_roundtrips_through_molsysdict_as_declared_state():
+
+    builder = msm.MolSysBuilder()
+    atom_index_0 = builder.add_atom(atom_id="10", atom_name="CA", atom_type=None)
+    atom_index_1 = builder.add_atom(atom_name="CB")
+    group_index = builder.add_group([atom_index_0, atom_index_1], group_name="ALA", group_type=None)
+    builder.add_bond(atom_index_0, atom_index_1)
+    builder.add_chain([group_index], chain_id="A")
+    molecule_index = builder.add_molecule([group_index], molecule_name=None, molecule_type=None)
+    builder.add_entity([molecule_index], entity_name=None, entity_type=None)
+    builder.set_coordinates(puw.quantity(np.array([[0.0, 0.0, 0.0], [0.1, 0.0, 0.0]]), "nm"))
+    builder.set_time(puw.quantity(np.array([0.0]), "ps"))
+    builder.set_structure_id([3])
+
+    molsys_dict = msm.convert(builder, to_form="molsysmt.MolSysDict")
+    rebuilt_builder = msm.convert(molsys_dict, to_form="molsysmt.MolSysBuilder")
+
+    assert msm.get(rebuilt_builder, element="atom", atom_name=True) == ["CA", "CB"]
+    assert msm.get(rebuilt_builder, element="group", group_name=True) == ["ALA"]
+    assert msm.get(rebuilt_builder, element="chain", chain_id=True) == ["A"]
+    assert msm.get(rebuilt_builder, element="molecule", molecule_index=True) == [0]
+    assert msm.get(rebuilt_builder, element="system", n_entities=True) == 1
+    assert puw.get_value(rebuilt_builder.structures.coordinates, to_unit="nm").shape == (1, 2, 3)
+    assert puw.get_value(rebuilt_builder.structures.time, to_unit="ps").tolist() == [0.0]
+    assert rebuilt_builder.structures.structure_id.tolist() == [3]

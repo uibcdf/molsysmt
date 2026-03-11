@@ -9,6 +9,7 @@ The current first slice is intentionally small:
 - `file:molsys_yaml`
 - `MolSys <-> MolSysDict`
 - `MolSysDict <-> file:molsys_yaml`
+- `MolSysBuilder <-> MolSysDict`
 
 ## Why this exists
 
@@ -53,7 +54,8 @@ The first slice is already implemented and tested. It is enough to:
 - serialize a `MolSys` to `MolSysDict`;
 - dump that declared state to `file:molsys_yaml`;
 - read it back into `MolSysDict`;
-- rebuild a `MolSys` from it.
+- rebuild a `MolSys` from it;
+- move declared state directly between `MolSysBuilder` and `MolSysDict`.
 
 Later slices should expand this family to topology-only and structures-only
 forms, plus optional JSON backends.
