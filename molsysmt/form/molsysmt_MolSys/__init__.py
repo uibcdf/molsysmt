@@ -29,6 +29,7 @@ from .to_openmm_Topology import to_openmm_Topology
 from .to_XYZ import to_XYZ
 from .to_file_msmpk import to_file_msmpk
 from .to_molsysmt_Topology import to_molsysmt_Topology
+from .to_molsysmt_MolSysBuilder import to_molsysmt_MolSysBuilder
 from .add_bonds import add_bonds
 from .remove_bonds import remove_bonds
 
@@ -69,6 +70,7 @@ _convert_to={
         'molsysmt.Structures': 'to_molsysmt_Structures',
         'molsysmt.MolecularMechanics': 'to_molsysmt_MolecularMechanics',
         'molsysmt.MolecularMechanicsDict': 'to_molsysmt_MolecularMechanicsDict',
+        'molsysmt.MolSysBuilder': 'to_molsysmt_MolSysBuilder',
         'networkx.Graph': 'to_networkx_Graph',
         'nglview.NGLWidget': 'to_nglview_NGLWidget',
         'molsysviewer.MolSysView': 'to_molsysviewer_MolSysView',
