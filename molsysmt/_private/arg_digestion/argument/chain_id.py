@@ -33,9 +33,9 @@ def digest_chain_id(chain_id, caller=None):
     ArgumentError
         If the given `chain_id` has not of the correct type or value.
     """
-    if chain_id is None and caller_matches(caller, 'add_chain'):
+    if chain_id is None and caller_matches(caller, 'add_chain', 'assign_groups_to_new_chain'):
         return None
-    if caller_matches(caller, 'add_chain'):
+    if caller_matches(caller, 'add_chain', 'assign_groups_to_new_chain'):
         if isinstance(chain_id, (int, np.int64, str)):
             return chain_id
 

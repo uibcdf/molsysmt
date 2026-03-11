@@ -35,7 +35,7 @@ def digest_chain_name(chain_name, caller=None):
         If the given `chain_name` has not of the correct type or value.
     """
 
-    if chain_name is None and caller_matches(caller, 'add_chain'):
+    if chain_name is None and caller_matches(caller, 'add_chain', 'assign_groups_to_new_chain'):
         return None
 
     if isinstance(caller, str) and caller.endswith(functions_with_boolean):

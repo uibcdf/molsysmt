@@ -172,3 +172,42 @@ def test_molsys_builder_roundtrips_through_molsysdict_as_declared_state():
     assert puw.get_value(rebuilt_builder.structures.coordinates, to_unit="nm").shape == (1, 2, 3)
     assert puw.get_value(rebuilt_builder.structures.time, to_unit="ps").tolist() == [0.0]
     assert rebuilt_builder.structures.structure_id.tolist() == [3]
+
+
+def test_molsys_builder_remove_bonds_updates_declared_bond_count():
+
+    builder = msm.MolSysBuilder()
+    atom_indices = [builder.add_atom(atom_name=name) for name in ["N", "CA", "C"]]
+    builder.add_group(atom_indices, group_name="ALA")
+    builder.add_bond(atom_indices[0], atom_indices[1])
+    builder.add_bond(atom_indices[1], atom_indices[2])
+
+    builder.remove_bonds([0])
+
+    assert builder.n_bonds == 1
+    assert builder.topology.bonds[["atom1_index", "atom2_index"]].values.tolist() == [[1, 2]]
+
+
+def test_molsys_builder_assign_groups_to_new_chain_reassigns_declared_membership():
+
+    original = msm.convert(msm.systems["T4 lysozyme L99A"]["181l.h5msm"], to_form="molsysmt.MolSys")
+    builder = msm.MolSysBuilder(original)
+
+    water_group_indices = msm.select(
+        builder,
+        element="group",
+        selection='group_type=="water"',
+        syntax="MolSysMT",
+    )
+
+    new_chain_index = builder.assign_groups_to_new_chain(
+        water_group_indices,
+        chain_id="W",
+        chain_name="waters",
+        chain_type="water",
+    )
+
+    assert new_chain_index == builder.n_chains - 1
+    assert msm.get(builder, element="chain", chain_id=True)[new_chain_index] == "W"
+    assert msm.get(builder, element="chain", chain_name=True)[new_chain_index] == "waters"
+    assert msm.get(builder, element="group", selection=water_group_indices[:3], chain_index=True) == [new_chain_index] * min(3, len(water_group_indices[:3]))

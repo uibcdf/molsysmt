@@ -174,6 +174,55 @@ class MolSysBuilder:
 
     @signal(tags=["native", "builder"])
     @arg_digest()
+    def remove_bonds(self, bond_indices="all", skip_digestion=False):
+
+        if bond_indices == "all":
+            self.topology.bonds = self.topology.bonds.__class__(n_bonds=0)
+            return
+
+        bond_indices = self._indices_array(bond_indices)
+        self._validate_existing_indices(
+            bond_indices,
+            upper_bound=self.topology.n_bonds,
+            element_name="Bond",
+        )
+
+        self.topology.bonds.drop(bond_indices, inplace=True)
+        self.topology.bonds.reset_index(drop=True, inplace=True)
+
+    @signal(tags=["native", "builder"])
+    @arg_digest()
+    def assign_groups_to_new_chain(
+        self,
+        group_indices,
+        chain_id=None,
+        chain_name=None,
+        chain_type=None,
+        skip_digestion=False,
+    ):
+
+        group_indices = self._indices_array(group_indices)
+        self._validate_existing_indices(group_indices, upper_bound=self.topology.n_groups, element_name="Chain")
+
+        chain_index = self.topology.n_chains
+        self.topology.chains.loc[chain_index, "chain_id"] = self._normalize_optional_string(chain_id, default=str(chain_index))
+        self.topology.chains.loc[chain_index, "chain_name"] = self._normalize_optional_string(chain_name, default=pd.NA)
+        self.topology.chains.loc[chain_index, "chain_type"] = self._normalize_optional_string(chain_type, default=pd.NA)
+
+        if "chain_index" not in self.topology.groups.columns:
+            self.topology.groups["chain_index"] = pd.Series(pd.array([pd.NA] * self.topology.n_groups, dtype="Int64"))
+        self.topology.groups.loc[group_indices, "chain_index"] = int(chain_index)
+
+        if "chain_index" not in self.topology.atoms.columns:
+            self.topology.atoms["chain_index"] = pd.Series(pd.array([pd.NA] * self.topology.n_atoms, dtype="Int64"))
+        for group_index in group_indices:
+            atom_mask = self.topology.atoms["group_index"] == int(group_index)
+            self.topology.atoms.loc[atom_mask, "chain_index"] = int(chain_index)
+
+        return chain_index
+
+    @signal(tags=["native", "builder"])
+    @arg_digest()
     def add_chain(self, group_indices, chain_id=None, chain_name=None, chain_type=None, skip_digestion=False):
 
         group_indices = self._indices_array(group_indices)

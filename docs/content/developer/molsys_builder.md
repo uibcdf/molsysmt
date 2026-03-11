@@ -50,6 +50,12 @@ have been removed from the public API during the pre-`1.0` phase. Internal
 code paths that still need equivalent behavior use native topology methods or
 private helpers instead.
 
+`MolSysBuilder` now covers the explicit editing primitives that motivated those
+helpers:
+- `MolSysBuilder.add_bond(...)`
+- `MolSysBuilder.remove_bonds(...)`
+- `MolSysBuilder.assign_groups_to_new_chain(...)`
+
 ## Preferred testing pattern
 
 For small and deterministic fixtures, prefer this sequence:

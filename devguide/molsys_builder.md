@@ -148,6 +148,12 @@ This does not weaken the rest of `molsysmt.build`. Higher-level construction,
 repair, and chemically-informed editing functions remain valid members of the
 namespace.
 
+The builder now covers the explicit editing primitives that motivated those
+public helpers:
+- `MolSysBuilder.add_bond(...)`
+- `MolSysBuilder.remove_bonds(...)`
+- `MolSysBuilder.assign_groups_to_new_chain(...)`
+
 ## Digestion policy
 
 The builder methods use `@arg_digest`, but they rely on caller-sensitive
