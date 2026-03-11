@@ -52,6 +52,9 @@ def define_new_chain(molecular_system, selection='all', chain_id=None, chain_nam
     - This function is useful when merging multiple molecules, redefining topology, or recovering
       proper chain segmentation after structural edits.
     - Chains are identified by their `chain_id` (unique identifier) and `chain_name` (optional descriptive label).
+    - This explicit editing helper is part of the legacy editing path. New code
+      should prefer `molsysmt.MolSysBuilder` or `molsysmt.build.editable(...)`
+      for topology editing workflows targeting the `1.0` line.
 
     See Also
     --------

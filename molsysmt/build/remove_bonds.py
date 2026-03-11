@@ -16,6 +16,12 @@ def remove_bonds(molecular_system, bond_indices='all', in_place=True, skip_diges
         If `True`, modify in place; otherwise raise NotImplementedMethodError.
     skip_digestion : bool, default False
         Whether to skip argument digestion.
+
+    Notes
+    -----
+    This explicit editing helper is part of the legacy editing path. New code
+    should prefer `molsysmt.MolSysBuilder` or `molsysmt.build.editable(...)`
+    for topology editing workflows targeting the `1.0` line.
     """
 
     from molsysmt.basic import where_is_attribute

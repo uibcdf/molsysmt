@@ -19,8 +19,8 @@ Recent completed work:
 - structural and PBC JIT call sites were normalized to `float64` at the public boundary.
 - a first `MolSysBuilder` slice is implemented and validated for creation from
   scratch, `MolSys -> MolSysBuilder`, and `MolSysBuilder -> MolSys`;
-- `molsysmt.build.edit(...)` now provides the ergonomic entrypoint for editing
-  an existing molecular system through the builder.
+- `molsysmt.build.editable(...)` now provides the ergonomic entrypoint for
+  editing an existing molecular system through the builder.
 
 Validation status at this checkpoint:
 - the full test suite passes with `pytest -q tests -x`;

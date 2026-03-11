@@ -99,11 +99,34 @@ builder = msm.MolSysBuilder()
 Editing an existing molecular system is done with:
 
 ```python
-builder = msm.build.edit(molecular_system)
+builder = msm.build.editable(molecular_system)
 ```
 
-An alias such as `msm.build.new_molecular_system()` may be added later for
-discoverability, but it is not part of the current first slice.
+Creating an empty editable system can be done either directly with the class or
+through the discoverable build helper:
+
+```python
+builder = msm.build.editable()
+```
+
+An alias such as `msm.build.new_molecular_system()` may still be added later
+for discoverability, but it is not part of the current first slice.
+
+## Editing-policy implications for `molsysmt.build`
+
+The builder introduces a single preferred path for explicit topology editing:
+- `molsysmt.MolSysBuilder`
+- `molsysmt.build.editable(...)`
+
+As a consequence, these legacy explicit-editing helpers are now considered
+deprecated for the `1.0` line:
+- `molsysmt.build.add_bonds`
+- `molsysmt.build.remove_bonds`
+- `molsysmt.build.define_new_chain`
+
+This does not weaken the rest of `molsysmt.build`. Higher-level construction,
+repair, and chemically-informed editing functions remain valid members of the
+namespace.
 
 ## Digestion policy
 
