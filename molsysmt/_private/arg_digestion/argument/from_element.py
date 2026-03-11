@@ -26,8 +26,8 @@ def digest_from_element(from_element, caller=None):
         if element_name_lower in _elements:
             return element_name_lower
     elif from_element is None:
-        if caller.endswith('bonds_are_required_to_get_attribute'):
-            return element
+        if caller is not None and caller.endswith('bonds_are_required_to_get_attribute'):
+            return from_element
 
     raise ArgumentError('from_element', value=from_element, caller=caller, message=None)
 

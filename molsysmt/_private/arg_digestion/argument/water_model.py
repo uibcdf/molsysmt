@@ -9,8 +9,10 @@ def digest_water_model(water_model, caller=None):
 
     if isinstance(water_model, str):
         from molsysmt.attribute import attributes
-        if water_model in attributes['water_model']['values']:
-            return water_model
+        values = attributes['water_model']['values']
+        for value in values:
+            if water_model.lower() == value.lower():
+                return value
     elif water_model is None:
         return None
 
