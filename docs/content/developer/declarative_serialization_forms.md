@@ -36,11 +36,10 @@ The design separates:
   - future `file:topology_yaml`
   - future `file:structures_yaml`
 
-Typed YAML extensions make the semantic role visible from the filename:
+Declarative YAML and JSON files use normal `*.yaml` / `*.yml` and `*.json` extensions. Their semantic role is detected from top-level discriminator fields in the payload itself:
 
-- `*.molsys.yaml`
-- `*.topology.yaml`
-- `*.structures.yaml`
+- `format: molsysmt`
+- `kind: molsys` / `topology` / `structures`
 
 ## Relationship with existing JSON payloads
 
@@ -69,3 +68,12 @@ The second declarative serializer slice is now available:
 - `file:topology_yaml`;
 - `molsysmt.Topology <-> molsysmt.TopologyDict`;
 - `molsysmt.TopologyDict <-> file:topology_yaml`.
+
+
+## Third slice checkpoint
+
+The third declarative serializer slice is now available:
+
+- `file:structures_yaml`;
+- `molsysmt.Structures <-> file:structures_yaml`;
+- `molsysmt.StructuresDict <-> file:structures_yaml`.

@@ -220,3 +220,12 @@ The second declarative serializer slice is now available:
 - `file:topology_yaml`;
 - `molsysmt.Topology <-> molsysmt.TopologyDict`;
 - `molsysmt.TopologyDict <-> file:topology_yaml`.
+
+
+## Third slice checkpoint
+
+The third declarative serializer slice is now available:
+
+- `file:structures_yaml`;
+- `molsysmt.Structures <-> file:structures_yaml`;
+- `molsysmt.StructuresDict <-> file:structures_yaml`.

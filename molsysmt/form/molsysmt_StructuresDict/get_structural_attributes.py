@@ -50,6 +50,50 @@ def get_box_from_system(item, structure_indices='all', skip_digestion=False):
     return box[structure_indices, :, :]
 
 
+
+
+@arg_digest(form=form)
+def get_structure_id_from_system(item, structure_indices='all', skip_digestion=False):
+    structure_id = item.get('structure_id', None)
+    if structure_id is None:
+        return None
+
+    structure_id = copy(structure_id)
+    if is_all(structure_indices):
+        return structure_id
+    return structure_id[structure_indices]
+
+
+@arg_digest(form=form)
+def get_velocities_from_system(item, structure_indices='all', skip_digestion=False):
+    velocities = item.get('velocities', None)
+    if velocities is None:
+        return None
+
+    velocities = copy(velocities)
+    if is_all(structure_indices):
+        return velocities
+    return velocities[structure_indices, :, :]
+
+
+@arg_digest(form=form)
+def get_b_factor_from_atom(item, indices='all', structure_indices='all', skip_digestion=False):
+    b_factor = item.get('b_factor', None)
+    if b_factor is None:
+        return None
+
+    b_factor = copy(b_factor)
+    if not is_all(structure_indices):
+        b_factor = b_factor[structure_indices, :]
+    if not is_all(indices):
+        b_factor = b_factor[:, indices]
+    return b_factor
+
+
+@arg_digest(form=form)
+def get_b_factor_from_system(item, structure_indices='all', skip_digestion=False):
+    return get_b_factor_from_atom(item, structure_indices=structure_indices, skip_digestion=True)
+
 @arg_digest(form=form)
 def get_time_from_system(item, structure_indices='all', skip_digestion=False):
     time = item.get('time', None)

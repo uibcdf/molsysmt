@@ -74,8 +74,8 @@ separate from both `h5msm` and viewer-oriented payloads. The intended split is:
 - semantic in-memory forms: `molsysmt.MolSysDict`, `molsysmt.TopologyDict`,
   `molsysmt.StructuresDict`;
 - file forms: `file:molsys_yaml`, `file:topology_yaml`, and
-  `file:structures_yaml`, using typed YAML extensions (`*.molsys.yaml`,
-  `*.topology.yaml`, `*.structures.yaml`);
+  `file:structures_yaml`, using normal YAML extensions with content-based
+  detection (`format: molsysmt`, `kind: ...`);
 - `UniversalJSON` entering a deprecation path instead of serving as the future
   semantic base of this family.
 

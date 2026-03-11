@@ -56,6 +56,7 @@ MAPPING = {
     'mmtf_MMTFDecoder': 'mmtf',
     'file_molsys_yaml': 'yaml',
     'file_topology_yaml': 'yaml',
+    'file_structures_yaml': 'yaml',
 }
 
 SHOW_ALL_CAPABILITIES = True
