@@ -48,7 +48,7 @@ Current post-validation focus:
 - translate the green test state into a clear release checkpoint and support
   tier decision.
 
-## Release checkpoint meaning: `0.15.0` and `0.16.0`
+## Release checkpoint meaning: `0.15.0`, `0.16.0`, and `0.17.0`
 
 `0.15.0` is the first post-`0.14.0` stabilization checkpoint defined by a
 green full-suite test state instead of partial confidence or local subsystem
@@ -58,11 +58,20 @@ confidence.
 full-suite baseline while adding a new native editable form (`MolSysBuilder`)
 and the first deterministic builder-based converter fixtures.
 
+`0.17.0` should capture the first declarative-serialization checkpoint built on
+top of that builder work:
+- `MolSysDict`, `TopologyDict`, and `StructuresDict`;
+- YAML-backed declarative file forms discovered by content;
+- direct `MolSysBuilder <-> MolSysDict` declared-state conversion;
+- removal of the legacy public topology-editing helpers in `molsysmt.build`.
+
 For development, this means:
 - `0.15.0` starts from `pytest -q tests -x` passing cleanly in the reference
   environment;
 - `0.16.0` keeps that full-suite-green baseline while extending the core data
   model with `MolSysBuilder`;
+- `0.17.0` keeps that same baseline while adding the first declarative forms
+  and consolidating explicit topology editing on `MolSysBuilder`;
 - new work after `0.15.0` should be treated as regression-sensitive by
   default;
 - any support-tier or API-contract reduction must be explicit and documented,

@@ -70,8 +70,8 @@ def get_disulfide_bonds(molecular_system, selection='all', structure_index=0, ma
 
     See Also
     --------
-    :func:`molsysmt.build.add_bonds`
-        Manually add bonds between specific atom pairs.
+    :meth:`molsysmt.Topology.add_bonds`
+        Add identified bonds directly to a native topology.
 
     :func:`molsysmt.structure.get_neighbors`
         Find neighboring atoms within a distance or bond limit.
@@ -141,4 +141,3 @@ def get_disulfide_bonds(molecular_system, selection='all', structure_index=0, ma
         bonds = sorted_list_of_pairs(bonds)
 
     return bonds
-

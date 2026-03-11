@@ -138,8 +138,8 @@ The builder introduces a single preferred path for explicit topology editing:
 - `molsysmt.MolSysBuilder`
 - `molsysmt.build.editable(...)`
 
-As a consequence, these legacy explicit-editing helpers are now considered
-deprecated for the `1.0` line:
+As a consequence, these legacy explicit-editing helpers have been removed from
+the public API:
 - `molsysmt.build.add_bonds`
 - `molsysmt.build.remove_bonds`
 - `molsysmt.build.define_new_chain`

@@ -46,10 +46,10 @@ Completed in the current pass:
 - deterministic builder-originated fixture coverage now also backs
   `openmm.Topology` conversion tests, including explicit assertions about which
   higher-level names/types are rebuilt instead of preserved;
-- explicit topology editing is now intended to converge on
-  `MolSysBuilder` / `molsysmt.build.editable(...)`, with `add_bonds`,
-  `remove_bonds`, and `define_new_chain` entering the deprecation path for the
-  `1.0` line.
+- explicit topology editing now converges on
+  `MolSysBuilder` / `molsysmt.build.editable(...)`, and the legacy public
+  helpers `add_bonds`, `remove_bonds`, and `define_new_chain` have been
+  removed before `1.0`.
 
 Sequential validation status:
 - `tests/basic` ✅
@@ -108,7 +108,9 @@ Follow-up after the next validation checkpoint:
 
 `0.15.0` marks a change in how stabilization tags are interpreted in this
 repository. `0.16.0` continues that same rule while adding the first native
-editable builder checkpoint.
+editable builder checkpoint. `0.17.0` should extend that line with the first
+declarative serializer checkpoint and the removal of the older public explicit
+topology-editing helpers.
 
 From this checkpoint onward:
 - a stabilization tag should begin from a green full-suite state;
@@ -122,8 +124,8 @@ From this checkpoint onward:
 - `0.16.0` specifically means that `MolSysBuilder`, `molsysmt.build.editable(...)`,
   and the first deterministic builder-based converter fixtures enter the
   repository without sacrificing the green full-suite baseline.
-
-
-- second declarative serializer slice implemented: `TopologyDict` + `file:topology_yaml`;
-- third declarative serializer slice implemented: `StructuresDict` / `file:structures_yaml`;
-- direct declared-state bridge implemented: `MolSysBuilder <-> MolSysDict`.
+- `0.17.0` specifically means that the first declarative serializer family
+  (`MolSysDict`, `TopologyDict`, `StructuresDict` and their YAML file forms),
+  content-based YAML discovery, and the direct `MolSysBuilder <-> MolSysDict`
+  bridge enter the repository while the explicit public editing helpers
+  `add_bonds`, `remove_bonds`, and `define_new_chain` are removed.

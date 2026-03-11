@@ -47,7 +47,7 @@ from molsysmt._private.arg_digestion.argument.style import digest_style
 
 BOOL_CALLER = "molsysmt.basic.get.get"
 FORM_CONVERTER_CALLER = "molsysmt.form.file_pdb.to_molsysmt_MolSys.to_molsysmt_MolSys"
-CHAIN_BUILDER_CALLER = "molsysmt.build.define_new_chain.define_new_chain"
+CHAIN_BUILDER_CALLER = "molsysmt.native.molsys_builder.MolSysBuilder.add_chain"
 SHOW_CONTACTS_CALLER = "molsysmt.structure.show_contacts.show_contacts"
 
 
@@ -143,7 +143,7 @@ def test_form_converter_bypass_digesters_return_raw_value(digester, value):
     assert digester(value, caller=FORM_CONVERTER_CALLER) == value
 
 
-def test_define_new_chain_digesters_accept_native_builder_values():
+def test_add_chain_digesters_accept_native_builder_values():
     assert digest_chain_id(4, caller=CHAIN_BUILDER_CALLER) == 4
     assert digest_chain_id(None, caller=CHAIN_BUILDER_CALLER) is None
     assert digest_chain_name("B", caller=CHAIN_BUILDER_CALLER) == "B"
