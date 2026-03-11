@@ -168,3 +168,10 @@ The current builder slice is covered by:
 
 This means the builder already participates in the standard MolSysMT API wheel
 for the narrow `MolSys <-> MolSysBuilder` conversion surface agreed for v1.
+
+The first deterministic converter-fixture rollout already covers:
+- PDB text / file / `molsysmt.PDBFileHandler`;
+- H5MSM file / `molsysmt.H5MSMFileHandler`.
+
+Those tests now start from builder-declared truth and only then materialize the
+target format under test.

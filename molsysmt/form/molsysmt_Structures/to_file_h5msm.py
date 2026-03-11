@@ -79,6 +79,18 @@ def dump_structures_to_h5msm(item, file, atom_indices='all', structure_indices='
     structures_ds.attrs['time_unit']=str(time_unit)
     structures_ds.attrs['energy_unit']=str(energy_unit)
 
+    if item.structure_id is not None:
+        structures_ds['id'].resize((n_structures,))
+        structures_ds['id'][:] = np.asarray(item.structure_id).astype(int_type)
+
+    if item.time is not None:
+        structures_ds['time'].resize((n_structures,))
+        if puw.check(item.time, unit=time_unit):
+            aux = puw.get_value(item.time).astype(float_precision)
+        else:
+            aux = puw.get_value(item.time, to_unit=time_unit).astype(float_precision)
+        structures_ds['time'][:] = aux
+
     if item.coordinates is not None:
         structures_ds['coordinates'].resize((n_structures,n_atoms,3))
         if puw.check(item.coordinates, unit=length_unit):

@@ -79,6 +79,15 @@ def to_molsysmt_Structures(item, atom_indices='all', structure_indices='all', sk
     else:
         tmp_item.step = None
 
+    # Structure ID
+    if 'id' in structures_ds and structures_ds['id'].shape[0] > 0:
+        if is_all(structure_indices):
+            tmp_item.structure_id = structures_ds['id'][:]
+        else:
+            tmp_item.structure_id = structures_ds['id'][structure_indices]
+    else:
+        tmp_item.structure_id = None
+
     if opened_here:
         item.close()
 
