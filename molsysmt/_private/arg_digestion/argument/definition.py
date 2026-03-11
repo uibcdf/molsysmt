@@ -72,5 +72,5 @@ def digest_definition(definition, caller=None):
             if definition in definitions['get_transmembrane_tendency']:
                 return definition
 
-    return ArgumentError('definition', value=definition, caller=caller, message=None)
+    raise ArgumentError('definition', value=definition, caller=caller, message=None)
 

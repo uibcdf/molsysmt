@@ -8,13 +8,13 @@ def digest_implicit_solvent(implicit_solvent, caller=None):
     elif caller=='molsysmt.basic.convert.convert':
         if implicit_solvent is None:
             return implicit_solvent
-    elif caller.startswith('molsysmt.form.') and caller.count('.to_')==2:
+    elif caller is not None and caller.startswith('molsysmt.form.') and '.to_' in caller:
         if implicit_solvent is None:
             return implicit_solvent
 
     if isinstance(implicit_solvent, str):
-        from molsysmt.attribute import attributes
-        if implicit_solvent in attributes['implicit_solvent']['values']:
+        from molsysmt.molecular_mechanics.forcefields import implicit_solvent_models
+        if implicit_solvent in implicit_solvent_models:
             return implicit_solvent
 
     raise ArgumentError('implicit_solvent', value=implicit_solvent, caller=caller, message=None)

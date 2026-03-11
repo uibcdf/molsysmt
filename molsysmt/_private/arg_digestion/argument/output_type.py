@@ -51,7 +51,7 @@ def digest_output_type(output_type, caller=None):
             if output_type.lower() in ['numpy.ndarray', 'sets']:
                 return output_type.lower()
 
-    elif caller.endswith(('.iterator.__init__', '.iterators.__init__')):
+    elif caller is not None and caller.endswith(('.iterator.__init__', '.iterators.__init__')):
 
         if isinstance(output_type, str):
             if output_type.lower() in ['values', 'dictionary']:
