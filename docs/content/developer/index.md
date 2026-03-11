@@ -14,6 +14,7 @@ internal rules and conventions is `devguide/`. If there is any conflict,
    devcontainer.md
    dependencies.md
    element_and_native_rebuild.md
+   molsys_builder.md
 ```
 
 ```{eval-rst}

@@ -10,6 +10,18 @@ The builder serves two immediate needs:
 - deterministic test fixtures whose topology and structural metadata are
   declared explicitly instead of inferred from external files.
 
+The testing motivation is important enough to be explicit. In many converter
+tests, a file format such as PDB is otherwise forced to play two roles at once:
+- the source under test;
+- the source of truth for assertions.
+
+That is weak because the truth then depends on an external parser or on another
+conversion path. `MolSysBuilder` breaks that loop. A test can first declare the
+exact molecular truth in native editable form, materialize it to `MolSys`, then
+export it to a target format such as PDB, and finally test round-trip or
+converter behavior against the original declared truth. This is the preferred
+strategy for future deterministic converter fixtures.
+
 ## Current supported conversion surface
 
 The first slice intentionally keeps the conversion surface narrow:
