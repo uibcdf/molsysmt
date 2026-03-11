@@ -189,5 +189,9 @@ tests that separate:
 - attributes that are preserved by the format;
 - higher-level molecule/entity metadata that is rebuilt after a lossy adapter.
 
+The same pattern now also covers declarative forms:
+- `MolSysDict` / `file:molsys_yaml`;
+- `StructuresDict` / `file:structures_yaml`.
+
 Those tests now start from builder-declared truth and only then materialize the
 target format under test.

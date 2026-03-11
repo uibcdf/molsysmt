@@ -215,6 +215,11 @@ def builder_h5msm_handler(builder_h5msm_file):
 def builder_openmm_topology(builder_pdb_molsys):
     return msm.convert(builder_pdb_molsys, to_form='openmm.Topology')
 
+
+@pytest.fixture()
+def builder_structures(builder_pdb_molsys):
+    return builder_pdb_molsys.structures.copy()
+
 # TcTIM systems
 
 @pytest.fixture(scope="session")

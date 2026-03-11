@@ -76,6 +76,13 @@ roundtrip = msm.convert(pdb_text, to_form="molsysmt.MolSys")
 The assertions should be written against the declared truth, not discovered
 later from the file under test.
 
+This deterministic-fixture pattern already covers:
+- PDB text / file / `molsysmt.PDBFileHandler`;
+- H5MSM file / `molsysmt.H5MSMFileHandler`;
+- `openmm.Topology`;
+- `MolSysDict` / `file:molsys_yaml`;
+- `StructuresDict` / `file:structures_yaml`.
+
 ## Current supported builder surface
 
 The first implemented slice intentionally keeps the surface narrow:
