@@ -271,7 +271,8 @@ def compare(molecular_system, molecular_system_2, selection='all', structure_ind
             # Handle inhomogeneous sequences (lists of lists)
             if len(a) != len(b):
                 from molsysmt._private.smonitor import warn
-                warn(f"Size mismatch for attribute '{attr_name}': {len(a)} vs {len(b)}. Returning False.")
+                warn(f"Size mismatch for attribute '{attr_name}': {len(a)} vs {len(b)}. Returning False.", 
+                     caller='molsysmt.basic.compare.compare')
                 return False
             
             # Use exact comparison for inhomogeneous sequences
@@ -279,7 +280,8 @@ def compare(molecular_system, molecular_system_2, selection='all', structure_ind
 
         if a_arr.shape != b_arr.shape:
             from molsysmt._private.smonitor import warn
-            warn(f"Size mismatch for attribute '{attr_name}': {a_arr.shape} vs {b_arr.shape}. Returning False.")
+            warn(f"Size mismatch for attribute '{attr_name}': {a_arr.shape} vs {b_arr.shape}. Returning False.", 
+                 caller='molsysmt.basic.compare.compare')
             return False
         
         if a_arr.dtype.kind in 'SU' or b_arr.dtype.kind in 'SU':
@@ -460,7 +462,8 @@ def compare(molecular_system, molecular_system_2, selection='all', structure_ind
                     output_dict['bonded_atom_pairs']= np.array_equal(tmp_A, tmp_B)
                 else:
                     from molsysmt._private.smonitor import warn
-                    warn(f"Size mismatch for attribute 'bonded_atom_pairs': {len(order_in_A)} vs {len(order_in_B)}. Returning False.")
+                    warn(f"Size mismatch for attribute 'bonded_atom_pairs': {len(order_in_A)} vs {len(order_in_B)}. Returning False.", 
+                         caller='molsysmt.basic.compare.compare')
                     output_dict['bonded_atom_pairs'] = False
 
             del(order_in_A, order_in_B, atom_pairs_A, atom_pairs_B)
@@ -519,7 +522,8 @@ def compare(molecular_system, molecular_system_2, selection='all', structure_ind
                     output_dict['inner_bonded_atom_pairs']= (tmp_A == tmp_B)
                 else:
                     from molsysmt._private.smonitor import warn
-                    warn(f"Size mismatch for attribute 'inner_bonded_atom_pairs': {len(order_in_A)} vs {len(order_in_B)}. Returning False.")
+                    warn(f"Size mismatch for attribute 'inner_bonded_atom_pairs': {len(order_in_A)} vs {len(order_in_B)}. Returning False.", 
+                         caller='molsysmt.basic.compare.compare')
                     output_dict['inner_bonded_atom_pairs'] = False
 
         ## n_structures, structure_index, structure_id, coordinates, velocities, box
@@ -548,7 +552,8 @@ def compare(molecular_system, molecular_system_2, selection='all', structure_ind
                         output_dict['coordinates'] = np.allclose(dict_A['coordinates'], dict_B['coordinates'])
                     else:
                         from molsysmt._private.smonitor import warn
-                        warn(f"Shape mismatch for 'coordinates': {dict_A['coordinates'].shape} vs {dict_B['coordinates'].shape}. Returning False.")
+                        warn(f"Shape mismatch for 'coordinates': {dict_A['coordinates'].shape} vs {dict_B['coordinates'].shape}. Returning False.", 
+                             caller='molsysmt.basic.compare.compare')
                         output_dict['coordinates'] = False
 
         if 'velocities' in atts_required:
@@ -565,7 +570,8 @@ def compare(molecular_system, molecular_system_2, selection='all', structure_ind
                         output_dict['velocities'] = np.allclose(dict_A['velocities'], dict_B['velocities'])
                     else:
                         from molsysmt._private.smonitor import warn
-                        warn(f"Shape mismatch for 'velocities': {dict_A['velocities'].shape} vs {dict_B['velocities'].shape}. Returning False.")
+                        warn(f"Shape mismatch for 'velocities': {dict_A['velocities'].shape} vs {dict_B['velocities'].shape}. Returning False.", 
+                             caller='molsysmt.basic.compare.compare')
                         output_dict['velocities'] = False
 
         if 'box' in atts_required:
@@ -583,7 +589,8 @@ def compare(molecular_system, molecular_system_2, selection='all', structure_ind
                         output_dict['box'] = np.allclose(dict_A['box'], dict_B['box'], rtol=1e-04, atol=1e-06)
                     else:
                         from molsysmt._private.smonitor import warn
-                        warn(f"Shape mismatch for 'box': {dict_A['box'].shape} vs {dict_B['box'].shape}. Returning False.")
+                        warn(f"Shape mismatch for 'box': {dict_A['box'].shape} vs {dict_B['box'].shape}. Returning False.", 
+                             caller='molsysmt.basic.compare.compare')
                         output_dict['box'] = False
 
         if 'box_shape' in atts_required:
