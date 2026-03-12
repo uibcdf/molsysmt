@@ -20,7 +20,7 @@ def shift_mic_dihedral_angles_single_structure(coordinates, box, angles, quartet
     inv_box = inverse_matrix_3x3(box)
     orthogonal = box_is_orthogonal_single_structure(box)
 
-    n_angles = angles.shape[0]
+    n_angles = quartets.shape[0]
     n_atoms = coordinates.shape[0]
 
     for ii in range(n_angles):
@@ -59,7 +59,7 @@ output=None
 @lazy_njit(make_numba_signature(arguments, output), cache=True)
 def shift_mic_dihedral_angles(coordinates, box, angles, quartets, blocks, structure_indices):
 
-    n_angles = angles.shape[0]
+    n_angles = quartets.shape[0]
     n_atoms = coordinates.shape[1]
 
     for ii in structure_indices:
@@ -91,4 +91,3 @@ def shift_mic_dihedral_angles(coordinates, box, angles, quartets, blocks, struct
                     coordinates[ii,jj,:]=coordinates_at2+vect_aux
 
     pass
-
