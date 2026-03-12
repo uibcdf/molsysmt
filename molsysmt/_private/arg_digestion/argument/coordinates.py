@@ -12,7 +12,6 @@ functions_where_boolean = (
 def digest_coordinates(coordinates, caller=None):
 
     if caller is not None:
-
         if caller.endswith(functions_where_boolean):
             if isinstance(coordinates, bool):
                 return coordinates
@@ -20,35 +19,36 @@ def digest_coordinates(coordinates, caller=None):
     if coordinates is None:
         return None
 
-    value, unit = puw.get_value_and_unit(coordinates)
+    # We use the new argdigest pipeline logic manually here or let argdigest do it
+    # For now, we standardize to quantity array with float64
+    from argdigest.pipelines.science import to_float64_array
+    
+    try:
+        value = to_float64_array(coordinates)
+        unit = puw.get_unit(coordinates)
+        
+        if not puw.check(unit, dimensionality={'[L]':1}):
+            raise ValueError("Incompatible units for coordinates")
 
-    if not puw.check(unit, dimensionality={'[L]':1}):
-        raise ArgumentError('coordinates', value=coordinates, caller=caller, message=None)
+        shape = value.shape
 
-    if not isinstance(value, np.ndarray):
-        value = np.array(value)
-
-
-    value = value.astype(np.float64)
-    shape = value.shape
-
-    if len(shape) == 1:
-        if shape[0] == 3:
-            coordinates = puw.quantity(value[np.newaxis, np.newaxis, :], unit)
+        if len(shape) == 1:
+            if shape[0] == 3:
+                value = value[np.newaxis, np.newaxis, :]
+            else:
+                raise ValueError("Wrong shape")
+        elif len(shape) == 2:
+            if shape[1] == 3:
+                value = value[np.newaxis, :, :]
+            else:
+                raise ValueError("Wrong shape")
+        elif len(shape) == 3:
+            if shape[2] != 3:
+                raise ValueError("Wrong shape")
         else:
-            raise ArgumentError('coordinates', value=coordinates, caller=caller, message=None)
-    elif len(shape) == 2:
-        if shape[1] == 3:
-            coordinates = puw.quantity(value[np.newaxis, :, :], unit)
-        else:
-            raise ArgumentError('coordinates', value=coordinates, caller=caller, message=None)
-    elif len(shape) == 3:
-        if shape[2] == 3:
-            coordinates = puw.quantity(value, unit)
-        else:
-            raise ArgumentError('coordinates', value=coordinates, caller=caller, message=None)
-    else:
-        raise ArgumentError('coordinates', value=coordinates, caller=caller, message=None)
+            raise ValueError("Wrong dimensions")
 
-    return puw.standardize(coordinates)
+        return puw.standardize(puw.quantity(value, unit))
 
+    except Exception as e:
+        raise ArgumentError('coordinates', value=coordinates, caller=caller) from e
