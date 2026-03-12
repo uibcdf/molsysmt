@@ -48,7 +48,7 @@ output=None
 @lazy_njit(make_numba_signature(arguments, output), cache=True)
 def shift_dihedral_angles(coordinates, angles, quartets, blocks, structure_indices):
 
-    n_angles = angles.shape[0]
+    n_angles = quartets.shape[0]
     n_atoms = coordinates.shape[1]
 
     for ii in structure_indices:
@@ -72,4 +72,3 @@ def shift_dihedral_angles(coordinates, angles, quartets, blocks, structure_indic
                     coordinates[ii,jj,:]=coordinates_at2+vect_aux
 
     pass
-
