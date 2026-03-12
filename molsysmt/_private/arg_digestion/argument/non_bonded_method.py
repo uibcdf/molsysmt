@@ -2,7 +2,7 @@ from molsysmt._private.smonitor import ArgumentError
 
 def digest_non_bonded_method(non_bonded_method, caller=None):
 
-    if caller.startswith('molsysmt.form.') and caller.count('.to_')==2:
+    if caller is not None and caller.startswith('molsysmt.form.') and '.to_' in caller:
         return non_bonded_method
     elif isinstance(non_bonded_method, str):
         return non_bonded_method

@@ -3,7 +3,7 @@ from molsysmt._private.smonitor import ArgumentError
 def digest_dispersion_correction(dispersion_correction, caller=None):
 
 
-    if caller.startswith('molsysmt.form.') and caller.count('.to_')==2:
+    if caller is not None and caller.startswith('molsysmt.form.') and '.to_' in caller:
         return dispersion_correction
     elif isinstance(dispersion_correction, bool):
         return dispersion_correction
