@@ -4,7 +4,7 @@ def digest_mode(mode, caller=None):
 
     if isinstance(mode, str):
 
-        if caller.startswith('molsysmt.file'):
+        if caller is not None and caller.startswith('molsysmt.file'):
             if mode in ['auto', 'read', 'write']:
                 return mode
 

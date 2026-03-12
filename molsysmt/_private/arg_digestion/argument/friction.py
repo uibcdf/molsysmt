@@ -9,11 +9,14 @@ functions_with_boolean = (
 
 def digest_friction(friction, caller=None):
 
-    if caller.endswith(functions_with_boolean):
+    if caller is not None and caller.endswith(functions_with_boolean):
         if isinstance(friction, bool):
             return friction
 
-    value, unit = puw.get_value_and_unit(friction)
+    try:
+        value, unit = puw.get_value_and_unit(friction)
+    except Exception:
+        raise ArgumentError('friction', value=friction, caller=caller, message=None)
 
     if not puw.check(unit, dimensionality={'[T]':-1}):
         raise ArgumentError('friction', value=friction, caller=caller, message=None)

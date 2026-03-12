@@ -5,7 +5,7 @@ import numpy as np
 def digest_id(id, caller=None):
 
     if isinstance(id, (tuple, list)):
-        id=np.ndarray(id)
+        id=np.array(id)
 
     if isinstance(id, np.ndarray):
         return id

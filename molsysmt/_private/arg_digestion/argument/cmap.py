@@ -2,7 +2,7 @@ from molsysmt._private.smonitor import ArgumentError
 import numpy as np
 from molsysmt import pyunitwizard as puw
 from matplotlib.pyplot import colormaps
-from matplotlib.colors import LinearSegmentedColormap
+from matplotlib.colors import LinearSegmentedColormap, ListedColormap
 
 def digest_cmap(cmap, caller=None):
 
@@ -13,7 +13,7 @@ def digest_cmap(cmap, caller=None):
         if cmap in colormaps:
             return colormaps[cmap]
 
-    if isinstance(cmap, LinearSegmentedColormap):
+    if isinstance(cmap, (LinearSegmentedColormap, ListedColormap)):
         return cmap
 
     raise ArgumentError('cmap', value=cmap, caller=caller, message=None)
