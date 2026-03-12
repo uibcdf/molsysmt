@@ -1,6 +1,7 @@
 import numpy as np
 from molsysmt import pyunitwizard as puw
 from molsysmt._private.smonitor import ArgumentError
+from molsysmt._private.arg_digestion._scientific_arrays import normalize_box_to_nm_array
 
 functions_where_boolean = (
     'molsysmt.basic.get.get',
@@ -9,6 +10,12 @@ functions_where_boolean = (
     'molsysmt.basic.iterator.__init__',
     '.iterators.__init__'
 )
+
+_RAW_NM_ARRAY_CALLERS = {
+    'molsysmt.pbc.get_lengths_from_box.get_lengths_from_box',
+    'molsysmt.pbc.get_lengths_and_angles_from_box.get_lengths_and_angles_from_box',
+    'molsysmt.pbc.get_volume_from_box.get_volume_from_box',
+}
 
 def digest_box(box, caller=None):
     """ Checks if box has the correct shape.
@@ -45,6 +52,9 @@ def digest_box(box, caller=None):
 
         if box is None:
             return box
+
+        if caller in _RAW_NM_ARRAY_CALLERS:
+            return normalize_box_to_nm_array(box, 'box', caller=caller)
 
         if not puw.check(box, dimensionality={'[L]':1}):
             raise ArgumentError('box', caller=caller, message=None)

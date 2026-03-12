@@ -1,6 +1,12 @@
 import numpy as np
 from molsysmt import pyunitwizard as puw
 from molsysmt._private.smonitor import ArgumentError
+from molsysmt._private.arg_digestion._scientific_arrays import normalize_lengths_to_nm_array
+
+_RAW_NM_ARRAY_CALLERS = {
+    'molsysmt.pbc.get_box_from_lengths_and_angles.get_box_from_lengths_and_angles',
+    'molsysmt.pbc.get_volume_from_lengths_and_angles.get_volume_from_lengths_and_angles',
+}
 
 def digest_box_lengths(box_lengths, caller=None):
     """ Checks if box_lengths has the correct type, shape and units.
@@ -33,6 +39,9 @@ def digest_box_lengths(box_lengths, caller=None):
 
     else:
 
+        if caller in _RAW_NM_ARRAY_CALLERS:
+            return normalize_lengths_to_nm_array(box_lengths, 'box_lengths', caller=caller)
+
         if not puw.check(box_lengths, dimensionality={'[L]':1}):
             raise ArgumentError('box_lengths', value=box_lengths, caller=caller, message=None)
 
@@ -56,4 +65,3 @@ def digest_box_lengths(box_lengths, caller=None):
         box_lengths = puw.quantity(value, unit)
 
         return puw.standardize(box_lengths)
-

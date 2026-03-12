@@ -21,8 +21,12 @@ def get_volume_from_box(box):
     """
 
     if box is not None:
-        units = puw.get_unit(box)
-        value = puw.get_value(box)
+        if isinstance(box, np.ndarray):
+            units = puw.unit('nm')
+            value = box
+        else:
+            units = puw.get_unit(box)
+            value = puw.get_value(box)
         volume = np.linalg.det(value)*units**3
     else:
         volume = None
