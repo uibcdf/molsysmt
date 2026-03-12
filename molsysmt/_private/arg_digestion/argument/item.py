@@ -33,7 +33,7 @@ def digest_item(item, form=None, caller=None):
     except:
         output = False
 
-    if caller.startswith('molsysmt.form') and caller.endswith('append_structures'):
+    if isinstance(caller, str) and caller.startswith('molsysmt.form') and caller.endswith('append_structures'):
 
         if item is None:
             return None
