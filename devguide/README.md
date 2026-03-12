@@ -41,6 +41,8 @@ Validation status at this checkpoint:
   `show_contacts` no longer emits undigested-argument warnings for `style` and
   `show`, and `.codecov.yml` now tracks core `form`, `_private`, and `lib`
   modules again.
+- `molsysmt.molecular_dynamics` remains in the repository but is explicitly outside the `1.0.0` support contract;
+- local and Codecov coverage baselines intentionally exclude `molsysmt/molecular_dynamics/**` until that area is promoted into a supported post-1.0 line.
 
 Current post-validation focus:
 - decide what belongs to the explicit `1.0.0` support contract and what should

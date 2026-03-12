@@ -3,6 +3,8 @@
 [run]
 branch = True
 source = molsysmt
+omit =
+    molsysmt/molecular_dynamics/*
 
 [report]
 show_missing = True

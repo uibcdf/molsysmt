@@ -90,3 +90,12 @@ using two tiers:
 - **Extended parity tier (slow/manual/nightly):** 40 deterministic random
   length-10 sequences compared against LEaP with explicit topology and geometry
   tolerances.
+
+## Coverage scope for 1.0 stabilization
+
+- `molsysmt/molecular_dynamics/**` is intentionally omitted from the local and
+  Codecov coverage baselines during the `1.0.0` stabilization pass.
+- This is a support-contract decision, not an accident: the module remains in
+  the repository, but it is outside the supported `1.0.0` line.
+- Coverage targets for the 1.0 stabilization work therefore apply to the rest of
+  the repository, not to `molecular_dynamics`.

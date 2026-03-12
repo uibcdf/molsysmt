@@ -103,6 +103,9 @@ Follow-up after the next validation checkpoint:
   broader form families;
 - continue only with polish or contract-scope decisions, not broad
   stabilization rewrites.
+- `molsysmt.molecular_dynamics` is explicitly excluded from the `1.0.0` contract; it stays
+  in-tree for future work but is excluded from both local and Codecov coverage
+  baselines until that post-1.0 line is intentionally promoted.
 
 ## Tag semantics from `0.15.0` onward
 
