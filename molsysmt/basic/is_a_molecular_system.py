@@ -54,6 +54,7 @@ def is_a_molecular_system(molecular_system):
 
     from . import get_form
     from ..form import _dict_modules
+    from molsysmt._private.smonitor import debug
 
     from molsysmt.native import MolSys, Topology, Structures
 
@@ -73,7 +74,8 @@ def is_a_molecular_system(molecular_system):
         try:
             _ = get_form(molecular_system)
             return True
-        except Exception:
+        except Exception as e:
+            debug("DetectionProbeMiss", extra={"error_type": type(e).__name__, "error_message": str(e), "form": "dict"})
             return False
 
     if isinstance(molecular_system, (list, tuple)):
@@ -86,20 +88,22 @@ def is_a_molecular_system(molecular_system):
                 try:
                     n_atoms = _dict_modules[form_in].get_n_atoms_from_system(item)
                     list_n_atoms.append(n_atoms)
-                except Exception:
+                except Exception as e:
+                    debug("DetectionProbeMiss", extra={"error_type": type(e).__name__, "error_message": str(e), "form": form_in})
                     pass
                     
             set_n_atoms = set([ii for ii in list_n_atoms if ii is not None])
             if len(set_n_atoms) > 1:
                 return False
             return True
-        except Exception:
+        except Exception as e:
+            debug("DetectionProbeMiss", extra={"error_type": type(e).__name__, "error_message": str(e), "form": "list/tuple"})
             return False
 
     else:
         try:
             _ = get_form(molecular_system)
             return True
-        except Exception:
+        except Exception as e:
+            debug("DetectionProbeMiss", extra={"error_type": type(e).__name__, "error_message": str(e)})
             return False
-

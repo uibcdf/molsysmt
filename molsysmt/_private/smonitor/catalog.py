@@ -13,6 +13,14 @@ META = {
 }
 
 CATALOG = {
+    "debug": {
+        "DetectionProbeMiss": {
+            "code": "MSM-DBG-PROBE-001",
+            "source": "molsysmt.debug.probe",
+            "category": "detection",
+            "level": "DEBUG",
+        },
+    },
     "warnings": {
         "SelectionWarning": {
             "code": "MSM-WARN-SEL-001",

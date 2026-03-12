@@ -20,10 +20,14 @@ class MolSysMTCatalogException(CatalogException):
 class ArgumentError(MolSysMTCatalogException):
     catalog_key = "ArgumentError"
 
-    def __init__(self, argument, value=None, caller=None, message=None, code=None):
+    def __init__(self, argument, value=None, caller=None, message=None, code=None, cause=None):
         extra = {"argument": argument, "value": value}
         if caller:
             extra["caller"] = caller
+        
+        if cause is not None:
+            extra["cause_exception_type"] = type(cause).__name__
+            extra["cause_message"] = str(cause)
 
         super().__init__(message=message, code=code, extra=extra)
 

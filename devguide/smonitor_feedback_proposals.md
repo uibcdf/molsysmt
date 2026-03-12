@@ -1,55 +1,35 @@
-# Temporary SMonitor Feedback Proposals
+# MolSysSuite Integration Proposals
 
-This note remains a living dump for new feedback gathered while debugging MolSysMT data generation, online downloads, lossy round-trips through PDB-backed forms such as `nglview.NGLWidget`, and future cross-library QA workflows.
+This document collects architectural improvements for `smonitor`, `argdigest`, `depdigest`, and `pyunitwizard` discovered during the MolSysMT 1.0.0 stabilization sprint.
 
-It is no longer the active upstream implementation checkpoint for `smonitor`.
-The active plan now lives in:
-- `../smonitor/devguide/README.md`
-- `../smonitor/devguide/implementation_plan.md`
+## 1. Type-Safe Quantity Pipelines (`argdigest` + `pyunitwizard`)
 
-Use this file to record:
-- new pain points observed in real debugging/CI/support work;
-- suggestions not yet reflected in the active upstream plan;
-- MolSysMT-side adoption notes for newly introduced `smonitor` capabilities.
+**Problem**: Developers manually cast quantities to `float64` NumPy arrays before calling Numba kernels to avoid type-mismatch crashes. This is repetitive and fragile.
 
-## Already implemented upstream in `../smonitor`
+**Proposal**: Introduce a high-level pipeline in `argdigest` (e.g., `as_float64_array(unit='nm')`).
+- **Benefit**: The business logic receives a "guaranteed" float64 array.
+- **Observability**: If casting fails, `argdigest` attaches the offending data's metadata to the SMonitor `ArgumentError` context automatically.
 
-The following capabilities that originally motivated this note are now implemented upstream:
+## 2. Semantic Remediation Registry (`smonitor` + `argdigest`)
 
-- better profile-aware handling of structured context in human-readable outputs;
-- canonical structured context helper via `smonitor.integrations.context_extra(...)`;
-- structured retry diagnostics through canonical retry metadata fields;
-- optional coalescing of repeated transient warnings;
-- final summary event for coalesced warning windows;
-- richer normalized JSON payloads for QA/agent ingestion;
-- canonical retry and causal metadata in normalized machine output;
-- structured per-call signal context via `signal(..., extra_factory=...)`;
-- tag-aware profiling summaries via `timings_by_tag`;
-- opt-in slow-signal events for QA/developer workflows;
-- bundle/report triage summaries for codes, categories, fingerprints, slow signals, and coalesced warnings.
+**Problem**: Errors often tell the user *what* failed, but not *how* to fix it scientifically.
 
-## MolSysMT-side adoption notes
+**Proposal**: A global registry mapping error patterns to "Remediation Hints".
+- **Example**: If `argdigest` catches an `UndefinedUnitError` from `pyunitwizard` while parsing a selection, `smonitor` resolves a hint: *"The unit 'X' is not recognized. Did you mean 'nanometers'?"*.
+- **Benefit**: Transforms the library from a technical tool into an empathetic assistant.
 
-Current MolSysMT-side adoption progress:
-- `context_extra(...)` is already used in the shared download helper, JIT warning emission, and the multi-container/ambiguous-structure warning callsites touched during this pass.
-- The AlphaFold BCIF import path and selection fallback warning path also use `context_extra(...)`.
-- Upstream `smonitor` now exposes explicit runtime identifiers (`run_id`, `session_id`, optional `correlation_id`) with default generation and override support; MolSysMT can consume those identifiers directly in QA/support workflows without local identifier plumbing.
-- Remaining manual `extra` payloads should be reviewed incrementally as future diagnostics work touches those paths.
+## 3. JIT Performance Telemetry (`smonitor` + `lazy_njit`)
 
-## Open area for new suggestions
+**Problem**: JIT compilation latency is a "black box".
 
-Keep adding new suggestions here when real work reveals gaps in:
-- diagnostic structure;
-- noise reduction without information loss;
-- reproducible support and triage;
-- human/agent dual usability;
-- cross-library payload conventions.
+**Proposal**: `lazy_njit` should emit a `DEBUG` signal with the compilation time and cache status (Hit/Miss).
+- **Benefit**: Developers and QAs can audit which kernels are bottlenecks.
+- **Self-Healing**: If compilation takes too long, SMonitor could suggest calling `molsysmt.warmup_numba()`.
 
-## Suggested format for future entries
+## 4. Golden Evidence in Probes (`smonitor` + `is_form`)
 
-For each new suggestion, prefer capturing:
-- observed problem;
-- why current `smonitor` behavior is insufficient;
-- desired behavior;
-- whether it belongs in `smonitor` core or in MolSysMT-side adoption;
-- example payload/report/bundle shape if relevant.
+**Problem**: `is_form` returning `False` is a silent failure.
+
+**Proposal**: Standardize the `MSM-DBG-PROBE-001` signal to include a "Golden Evidence" payload.
+- **Content**: A snippet of the data that failed (e.g., the first 100 bytes of a file or the dict keys).
+- **Benefit**: Instant debugging of format detection without re-running code.
