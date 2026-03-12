@@ -9,14 +9,14 @@ def path(package, file):
 try:
     with open(path('molsysmt.data.databases.terminal_cappings','c_terminal.json'), 'r') as fff:
         c_terminal_capping_names = json.load(fff)
-except:
+except Exception:
     c_terminal_capping_names = None
     print('The file molsysmt.data.databases.terminal_cappings.c_terminal.json was not loaded.')
 
 try:
     with open(path('molsysmt.data.databases.terminal_cappings','n_terminal.json'), 'r') as fff:
         n_terminal_capping_names = json.load(fff)
-except:
+except Exception:
     n_terminal_capping_names = None
     print('The file molsysmt.data.databases.terminal_cappings.n_terminal.json was not loaded.')
 

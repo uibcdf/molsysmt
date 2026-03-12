@@ -6,5 +6,5 @@ def digest_molecular_system_B(molecular_system_B, caller=None):
 
     try:
         return digest_molecular_system(molecular_system_B, caller=caller)
-    except:
+    except Exception:
         raise ArgumentError("molecular_system_B", value=molecular_system_B, caller=caller, message=None)

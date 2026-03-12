@@ -26,7 +26,7 @@ def _is_kernel_cached(func):
         for f in os.listdir(cache_dir):
             if func_name in f and (f.endswith(".nbc") or f.endswith(".nbi")):
                 return True
-    except:
+    except Exception:
         pass
     return False
 

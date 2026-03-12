@@ -8,14 +8,13 @@ form = 'file:xtc'
 @arg_digest(form=form)
 def get_n_structures_from_system(item, structure_indices='all', skip_digestion=False):
     import mdtraj as md
-    tmp_item = md.open(item)
-    # mdtraj XTCTrajectoryFile uses __len__ for n_frames
-    try:
-        output = len(tmp_item)
-    except:
-        coords = tmp_item.read(n_frames=1)[0]
-        output = coords.shape[1]
-    tmp_item.close()
+    with md.open(item) as tmp_item:
+        # mdtraj XTCTrajectoryFile uses __len__ for n_frames
+        try:
+            output = len(tmp_item)
+        except Exception:
+            coords = tmp_item.read(n_frames=1)[0]
+            output = coords.shape[1]
     if not is_all(structure_indices):
         output = len(structure_indices)
     return output

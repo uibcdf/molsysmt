@@ -241,7 +241,7 @@ class Iterator():
 
                 self._output_dictionary.update(iterator.__next__())
 
-        except:
+        except Exception:
 
             raise StopIteration
 

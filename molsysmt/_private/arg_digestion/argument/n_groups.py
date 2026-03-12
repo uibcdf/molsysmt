@@ -8,7 +8,7 @@ functions_with_boolean = (
 
 def digest_n_groups(n_groups, caller=None):
 
-    if caller.endswith(functions_with_boolean):
+    if caller is not None and caller.endswith(functions_with_boolean):
         if isinstance(n_groups, bool):
             return n_groups
         else:

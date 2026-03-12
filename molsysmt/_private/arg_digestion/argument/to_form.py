@@ -37,7 +37,7 @@ def digest_to_form(to_form, caller=None):
         else:
             try:
                 return _dict_forms_lowercase[to_form.lower()]
-            except:
+            except Exception:
                 pass
 
     raise ArgumentError('to_form', value=to_form, caller=caller, message=None)

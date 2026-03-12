@@ -9,6 +9,6 @@ def digest_remove_bonds(remove_bonds, caller=None):
 
     try:
         return digest_indices(remove_bonds, caller=caller)
-    except:
+    except Exception:
         raise ArgumentError('remove_bonds', value=remove_bonds, caller=caller, message=None)
 

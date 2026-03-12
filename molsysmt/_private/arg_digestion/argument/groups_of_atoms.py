@@ -11,7 +11,7 @@ def digest_groups_of_atoms(groups_of_atoms, caller=None):
     elif isinstance(groups_of_atoms, (np.ndarray, list, tuple, range)):
         try:
             return [digest_indices(ii, caller=caller) for ii in groups_of_atoms]
-        except:
+        except Exception:
             raise ArgumentError('groups_of_atoms', value=groups_of_atoms, caller=caller, message=None)
 
     raise ArgumentError('groups_of_atoms', value=groups_of_atoms, caller=caller, message=None)

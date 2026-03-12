@@ -7,6 +7,6 @@ def digest_reference_weights(reference_weights, caller=None):
 
     try:
         return digest_weights(reference_weights, caller=caller)
-    except:
+    except Exception:
         raise ArgumentError('reference_weights', value=reference_weights, caller=caller, message=None)
 

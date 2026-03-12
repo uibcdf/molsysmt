@@ -27,7 +27,7 @@ def is_file(item_or_form):
                 form = get_form(item_or_form)
                 if form in _dict_modules:
                     output = (_dict_modules[form].form_type == 'file')
-            except:
+            except Exception:
                 pass
 
     return output

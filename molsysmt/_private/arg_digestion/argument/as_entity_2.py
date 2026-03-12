@@ -6,6 +6,6 @@ def digest_as_entity_2(as_entity_2, caller=None):
 
     try:
         return digest_as_entity(as_entity_2, caller=caller)
-    except:
+    except Exception:
         raise ArgumentError('as_entity_2', value=as_entity_2, caller=caller, message=None)
 

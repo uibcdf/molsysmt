@@ -108,7 +108,7 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
         for record in item.getObj('chem_comp_bond'):
             try:
                 bonds_intra_group[record[0]].append([record[1], record[2]])
-            except:
+            except Exception:
                 bonds_intra_group[record[0]]=[[record[1], record[2]]]
 
         for group_index, aux_atom_indices in group_index_to_atom_indices.items():
@@ -128,7 +128,7 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
                         aux_atom_pairs_bonded.append(sorted([dict_aux[at1],dict_aux[at2]]))
                         dict_mask[at1]=True
                         dict_mask[at2]=True
-                    except:
+                    except Exception:
                         pass
 
                 remains = [ii for ii,jj in dict_mask.items() if not jj]

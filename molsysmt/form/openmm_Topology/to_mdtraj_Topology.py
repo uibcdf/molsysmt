@@ -6,7 +6,7 @@ def to_mdtraj_Topology(item, atom_indices='all', skip_digestion=False):
 
     try:
         from mdtraj.core.topology import Topology as mdtraj_Topology
-    except:
+    except Exception:
         raise LibraryNotFoundError('MDTraj')
 
     from . import extract

@@ -23,7 +23,8 @@ def get_angles_from_box(box, skip_digestion=False):
     """
 
     box_value, box_unit  = puw.get_value_and_unit(box)
-    angles = msmlib.pbc.get_angles_from_box(box_value)
+    import numpy as np
+    angles = msmlib.pbc.get_angles_from_box(np.asarray(box_value, dtype=np.float64))
     angles = puw.quantity(angles.round(6), 'radians')
     angles = puw.standardize(angles)
 

@@ -6,7 +6,7 @@ def to_mdtraj_Trajectory(item, atom_indices='all', structure_indices='all', skip
 
     try:
         from mdtraj.core.trajectory import Trajectory as mdtraj_Trajectory
-    except:
+    except Exception:
         raise LibraryNotFoundError('MDTraj')
 
     from molsysmt.form.mdtraj_Topology import to_mdtraj_Topology

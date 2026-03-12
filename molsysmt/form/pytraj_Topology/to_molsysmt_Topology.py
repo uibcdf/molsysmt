@@ -69,7 +69,7 @@ def to_molsysmt_Topology(item, atom_indices='all', skip_digestion=False):
 
     try:
         n_bonds = item.bond_indices.shape[0]
-    except:
+    except Exception:
         n_bonds = 0
 
     if n_bonds > 0:

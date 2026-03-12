@@ -194,7 +194,7 @@ def digest_forcefield(forcefield, engine, implicit_solvent=None, water_model=Non
             else:
                 aux = switcher[engine][ff]['vacuum']
                 forcefields_out.extend(aux)
-        except:
+        except Exception:
             raise NotImplementedError('{} with implicit solvent {} or water model {} and {} needs to be implemented in MolSysMT'.format(ff, implicit_solvent, water_model, engine))
 
     forcefields_out = list(set(forcefields_out))

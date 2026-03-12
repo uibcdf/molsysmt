@@ -35,7 +35,7 @@ def digest_vectors(vectors, caller=None):
     if caller in methods_where_xyz:
         try:
             return make_coordinates_like(vectors)
-        except:
+        except Exception:
             pass
 
     if caller in methods_where_can_be_selection:

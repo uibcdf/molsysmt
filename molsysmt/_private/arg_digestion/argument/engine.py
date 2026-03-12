@@ -38,7 +38,7 @@ def digest_engine(engine, caller=None):
     if isinstance(engine, str):
         try:
             return lowercase_engines[engine.lower()]
-        except:
+        except Exception:
             pass
 
     raise ArgumentError('engine', value=engine, caller=caller, message=None)

@@ -10,6 +10,6 @@ def digest_acceptors_2(acceptors_2, syntax="MolSysMT", caller=None):
 
     try:
         return digest_acceptors(acceptors_2, syntax=syntax, caller=caller)
-    except:
+    except Exception:
         raise ArgumentError('acceptors_2', value=acceptors_2, caller=caller, message=None)
 

@@ -76,7 +76,7 @@ def to_molsysmt_Topology(item, atom_indices='all', get_missing_bonds=True, skip_
             bonded_atoms = _get_missing_bonds(item, skip_digestion=True)
             if bonded_atoms is not None and len(bonded_atoms)>0:
                 tmp_item.add_bonds(bonded_atoms, skip_digestion=True)
-        except:
+        except Exception:
             pass
 
     # Rebuild remaining hierarchy

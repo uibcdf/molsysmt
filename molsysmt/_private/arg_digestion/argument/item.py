@@ -30,7 +30,7 @@ def digest_item(item, form=None, caller=None):
     try:
         in_form = get_form(item)
         output = True
-    except:
+    except Exception:
         output = False
 
     if isinstance(caller, str) and caller.startswith('molsysmt.form') and caller.endswith('append_structures'):

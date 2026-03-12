@@ -9,7 +9,7 @@ def digest_box_center(box_center, caller=None):
 
     try:
         value, unit = puw.get_value_and_unit(box_center)
-    except:
+    except Exception:
         raise ArgumentError('box_center', value=box_center, caller=caller, message=None)
 
     if not puw.check(unit, dimensionality={'[L]':1}):

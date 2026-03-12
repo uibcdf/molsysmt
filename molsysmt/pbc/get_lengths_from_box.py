@@ -23,7 +23,8 @@ def get_lengths_from_box(box, skip_digestion=False):
     """
 
     box_value, box_unit  = puw.get_value_and_unit(box)
-    lengths_value = msmlib.pbc.get_lengths_from_box(box_value)
+    import numpy as np
+    lengths_value = msmlib.pbc.get_lengths_from_box(np.asarray(box_value, dtype=np.float64))
     lengths = puw.quantity(lengths_value.round(6), box_unit)
     lengths = puw.standardize(lengths)
 

@@ -7,7 +7,7 @@ def to_pytraj_Trajectory(item, atom_indices='all', coordinates=None, box=None, s
 
     try:
         import pytraj as pt
-    except:
+    except Exception:
         raise LibraryNotFoundError('pytraj')
 
     from . import extract

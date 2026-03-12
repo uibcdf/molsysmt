@@ -83,18 +83,19 @@ For development, this means:
   suite or documents precisely why it does not.
 
 ## Recommended Reading Order
-1) `1.0.0_maturity_audit.md` (Current state and roadmap)
-2) `support_tiers.md` (Form classification)
-3) `digestion_and_dependencies.md` (Lazy Loading & ArgDigest policies)
-4) `forms_and_conversions.md` (Graph conversion rules)
-5) `viewers_and_visualization.md` (Visual backend policy)
-6) `architecture.md`
-7) `element_and_native_rebuild.md`
-8) `molsys_builder.md`
-9) `declarative_serialization_forms.md`
-10) `api_surface.md`
-11) `testing_strategy.md`
-12) `smonitor_feedback_proposals.md` (Temporary diagnostic improvements under evaluation)
+1) `1.0.0_maturity_audit.md` (Technical depth audit)
+2) `1.0.0_road_to_excellence.md` (Strategic weaknesses and path to 1.0)
+3) `support_tiers.md` (Form classification)
+4) `digestion_and_dependencies.md` (Lazy Loading & ArgDigest policies)
+5) `forms_and_conversions.md` (Graph conversion rules)
+6) `viewers_and_visualization.md` (Visual backend policy)
+7) `architecture.md`
+8) `element_and_native_rebuild.md`
+9) `molsys_builder.md`
+10) `declarative_serialization_forms.md`
+11) `api_surface.md`
+12) `testing_strategy.md`
+13) `smonitor_feedback_proposals.md` (Temporary diagnostic improvements under evaluation)
 
 ## Scope
 These documents define how MolSysMT should be implemented and maintained:

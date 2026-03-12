@@ -7,6 +7,6 @@ def digest_center_of_selection(center_of_selection, syntax="MolSysMT", caller=No
 
     try:
         return digest_selection(center_of_selection, syntax=syntax, caller=caller)
-    except:
+    except Exception:
         raise ArgumentError('center_of_selection', value=center_of_selection, caller=caller, message=None)
 

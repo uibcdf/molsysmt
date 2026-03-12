@@ -515,7 +515,7 @@ def parse_format33(file):
             db_ref=Dbref1Dbref2Record()
             try:
                 pdb.primary_structure.dbref1_dbref2.append(db_ref)
-            except:
+            except Exception:
                 pdb.primary_structure.dbref1_dbref2 = []
                 pdb.primary_structure.dbref1_dbref2.append(db_ref)
 
@@ -576,7 +576,7 @@ def parse_format33(file):
                 seqadv.dbRes = line[39:42].strip()
                 try:
                     seqadv.dbSeq = int(line[43:48])
-                except:
+                except Exception:
                     seqadv.dbSeq = None
                 seqadv.conflict = line[49:70].strip()
 
@@ -1051,7 +1051,7 @@ def parse_format33(file):
             model.record = []
             try:
                 pdb.coordinate.model.append(model)
-            except:
+            except Exception:
                 pdb.coordinate.model=[]
                 pdb.coordinate.model.append(model)
 
@@ -1130,7 +1130,7 @@ def parse_format33(file):
                 try:
                     line = lines[counter]
                     record = line[0:6]
-                except:
+                except Exception:
                     record=None
 
 
@@ -1257,7 +1257,12 @@ class PDBFileHandler():
     def close(self):
         """Close the underlying file handle."""
 
-        self.file.close()
+        if self.file is not None:
+            self.file.close()
+
+    def __del__(self):
+        """Ensure the file is closed upon deletion."""
+        self.close()
 
     def load(self):
         """Load and parse the PDB content."""

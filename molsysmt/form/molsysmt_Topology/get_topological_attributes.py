@@ -7004,7 +7004,7 @@ def get_n_components_from_chain(item, indices='all', skip_digestion=False):
     for ii in aux:
         try:
             output.append(len(ii))
-        except:
+        except Exception:
             output.append(1)
 
     return output

@@ -7,6 +7,6 @@ def digest_dihedral_quartets(dihedral_quartets, caller=None):
 
     try:
         return digest_quartets(dihedral_quartets, caller=caller)
-    except:
+    except Exception:
         raise ArgumentError('dihedral_quartets', value=dihedral_quartets, caller=caller, message=None)
 

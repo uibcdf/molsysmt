@@ -8,6 +8,6 @@ def digest_clearance(clearance, caller=None):
 
     try:
         return digest_distance(clearance, caller=caller)
-    except:
+    except Exception:
         raise ArgumentError('clearance', value=clearance, caller=caller, message=None)
 

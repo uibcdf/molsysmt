@@ -32,7 +32,7 @@ def digest_top(top, caller=None):
     if caller in methods_where_xyz:
         try:
             return make_coordinates_like(top)
-        except:
+        except Exception:
             pass
 
     if caller in methods_where_can_be_selection:

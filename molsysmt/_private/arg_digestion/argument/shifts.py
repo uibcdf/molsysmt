@@ -10,7 +10,7 @@ def digest_shifts(shifts, caller=None):
 
         try:
             return digest_angles(shifts, caller=caller)
-        except:
+        except Exception:
             raise ArgumentError('shifts', value=shifts, caller=caller, message=None)
 
 

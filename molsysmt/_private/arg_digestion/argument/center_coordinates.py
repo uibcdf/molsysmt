@@ -10,7 +10,7 @@ def digest_center_coordinates(center_coordinates, caller=None):
 
     try:
         return digest_coordinates(center_coordinates, caller=caller)
-    except:
+    except Exception:
         raise ArgumentError('center_coordinates', value=center_coordinates, caller=caller,
                 message=None)
 

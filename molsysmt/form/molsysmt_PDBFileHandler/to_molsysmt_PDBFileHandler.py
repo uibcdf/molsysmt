@@ -13,7 +13,7 @@ def to_molsysmt_PDBFileHandler(item, atom_indices='all', structure_indices='all'
             try:
                 if os.path.isfile(item):
                     is_file = True
-            except:
+            except Exception:
                 pass
         
         if is_file:

@@ -7,7 +7,7 @@ def digest_engine_sequence_alignment(engine_sequence_alignment, caller=None):
     if isinstance(engine_sequence_alignment, str):
         try:
             return lowercase_engines[engine_sequence_alignment.lower()]
-        except:
+        except Exception:
             pass
 
     raise ArgumentError('engine_sequence_alignment', value=engine_sequence_alignment, caller=caller, message=None)

@@ -6,6 +6,6 @@ def digest_structure_indices_B(structure_indices_B, caller=None):
 
     try:
         return digest_structure_indices(structure_indices_B, caller=caller)
-    except:
+    except Exception:
         raise ArgumentError('structure_indices_B', value=structure_indices_B, caller=caller, message=None)
 

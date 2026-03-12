@@ -8,6 +8,6 @@ def digest_rotation_center(rotation_center, caller=None):
 
     try:
         return digest_coordinates(rotation_center, caller=caller)
-    except:
+    except Exception:
         raise ArgumentError('rotation_center', value=rotation_center, caller=caller, message=None)
 

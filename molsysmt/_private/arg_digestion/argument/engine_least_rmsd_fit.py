@@ -7,7 +7,7 @@ def digest_engine_least_rmsd_fit(engine_least_rmsd_fit, caller=None):
     if isinstance(engine_least_rmsd_fit, str):
         try:
             return lowercase_engines[engine_least_rmsd_fit.lower()]
-        except:
+        except Exception:
             pass
 
     raise ArgumentError('engine_least_rmsd_fit', value=engine_least_rmsd_fit, caller=caller, message=None)

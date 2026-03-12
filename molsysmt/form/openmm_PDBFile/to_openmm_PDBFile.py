@@ -17,7 +17,7 @@ def to_openmm_PDBFile(item, atom_indices='all', structure_indices='all', copy_if
             try:
                 if os.path.isfile(item):
                     is_file = True
-            except:
+            except Exception:
                 pass
         
         if is_file:

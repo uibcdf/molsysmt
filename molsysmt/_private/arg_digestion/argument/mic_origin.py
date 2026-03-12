@@ -9,7 +9,7 @@ def digest_mic_origin(mic_origin, caller=None):
 
     try:
         value, unit = puw.get_value_and_unit(mic_origin)
-    except:
+    except Exception:
         raise ArgumentError('mic_origin', value=mic_origin, caller=caller, message=None)
 
     if not puw.check(unit, dimensionality={'[L]':1}):

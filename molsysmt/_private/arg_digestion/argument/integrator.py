@@ -7,7 +7,7 @@ functions_with_boolean = (
 
 def digest_integrator(integrator, caller=None):
 
-    if caller.endswith(functions_with_boolean):
+    if caller is not None and caller.endswith(functions_with_boolean):
         if isinstance(integrator, bool):
             return integrator
 

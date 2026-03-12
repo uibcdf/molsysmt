@@ -32,7 +32,7 @@ def digest_origin(origin, caller=None):
     if caller in methods_where_xyz:
         try:
             return make_coordinates_like(origin)
-        except:
+        except Exception:
             pass
 
     if caller in methods_where_can_be_selection:

@@ -5,7 +5,7 @@ def is_item(item):
     try:
         form = get_form(item)
         output = True
-    except:
+    except Exception:
         output = False
 
     return output

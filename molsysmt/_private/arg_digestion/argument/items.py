@@ -16,7 +16,7 @@ def digest_items(items, forms=None, caller=None):
     for item in aux_items:
         try:
             in_forms.append(get_form(item))
-        except:
+        except Exception:
             output = False
             break
 

@@ -143,7 +143,12 @@ class GROFileHandler():
     def close(self):
         """Close the underlying file."""
 
-        self.file.close()
+        if self.file is not None:
+            self.file.close()
+
+    def __del__(self):
+        """Ensure the file is closed upon deletion."""
+        self.close()
 
     def load(self):
         """Load and parse the current GRO entry."""

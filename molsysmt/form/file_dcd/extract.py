@@ -37,7 +37,7 @@ def extract(item, atom_indices='all', structure_indices='all', copy_if_all=True,
                 try:
                     xyz, cell_lengths, cell_angles = fff.read(n_frames=1)
                     ii+=1
-                except:
+                except Exception:
                     stop_reading=True
 
                 if xyz.size==0:
@@ -69,7 +69,7 @@ def extract(item, atom_indices='all', structure_indices='all', copy_if_all=True,
                 try:
                     xyz, cell_lengths, cell_angles = fff.read(n_frames=1)
                     ii+=1
-                except:
+                except Exception:
                     stop_reading=True
 
                 if xyz.size==0:

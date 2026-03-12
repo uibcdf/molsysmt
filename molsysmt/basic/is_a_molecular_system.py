@@ -73,7 +73,7 @@ def is_a_molecular_system(molecular_system):
         try:
             _ = get_form(molecular_system)
             return True
-        except:
+        except Exception:
             return False
 
     if isinstance(molecular_system, (list, tuple)):
@@ -86,20 +86,20 @@ def is_a_molecular_system(molecular_system):
                 try:
                     n_atoms = _dict_modules[form_in].get_n_atoms_from_system(item)
                     list_n_atoms.append(n_atoms)
-                except:
+                except Exception:
                     pass
                     
             set_n_atoms = set([ii for ii in list_n_atoms if ii is not None])
             if len(set_n_atoms) > 1:
                 return False
             return True
-        except:
+        except Exception:
             return False
 
     else:
         try:
             _ = get_form(molecular_system)
             return True
-        except:
+        except Exception:
             return False
 

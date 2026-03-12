@@ -9,6 +9,6 @@ def digest_reference_coordinates(reference_coordinates, caller=None):
 
     try:
         return digest_coordinates(reference_coordinates, caller=caller)
-    except:
+    except Exception:
         raise ArgumentError('reference_coordinates', value=reference_coordinates, caller=caller, message=None)
 

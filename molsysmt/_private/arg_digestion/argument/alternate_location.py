@@ -61,7 +61,7 @@ def digest_alternate_location(alternate_location, caller=None):
                         if aux_dict['coordinates'].shape[0]!=n_atoms:
                             right_format=False
                             break
-                except:
+                except Exception:
                     right_format=False
                     break
         if right_format:

@@ -27,6 +27,6 @@ def digest_selection_fit(selection_fit, syntax="MolSysMT", caller=None):
 
     try:
         return digest_selection(selection_fit, syntax=syntax, caller=caller)
-    except:
+    except Exception:
         raise ArgumentError('selection_fit', value=selection_fit, caller=caller)
 

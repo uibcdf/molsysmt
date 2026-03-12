@@ -204,7 +204,7 @@ def _bonds_in_group_without_template(molecular_system, atom_indices, atom_names,
             if aux_bond_distance is not None:
                 if dist<=aux_bond_distance+bond_length_tolerance:
                     add_bond = True
-        except:
+        except Exception:
             message = (f"No max bond length defined between atom types {atom_type_1} and {atom_type_2} "
                        f"in group type {group_type}. The bond between atoms {[atom_index_1, atom_index_2]} was defined "
                        f"by max_bond_length={round(max_bond_length,4)}.")

@@ -9,7 +9,7 @@ def digest_box_origin(box_origin, caller=None):
 
     try:
         value, unit = puw.get_value_and_unit(box_origin)
-    except:
+    except Exception:
         raise ArgumentError('box_origin', value=box_origin, caller=caller, message=None)
 
     if not puw.check(unit, dimensionality={'[L]':1}):

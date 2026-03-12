@@ -9,6 +9,6 @@ def digest_groups_of_atoms_2(groups_of_atoms_2, caller=None):
 
     try:
         return digest_groups_of_atoms(groups_of_atoms_2, caller=caller)
-    except:
+    except Exception:
         raise ArgumentError('groups_of_atoms_2', value=groups_of_atoms_2, caller=caller, message=None)
 

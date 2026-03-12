@@ -15,7 +15,7 @@ def _ensure_pdbfile(item):
             try:
                 if os.path.isfile(item):
                     is_file = True
-            except:
+            except Exception:
                 pass
         
         if is_file:
@@ -29,7 +29,7 @@ def _ensure_pdbfile(item):
             try:
                 if os.path.isfile(item.file.name):
                     return PDBFile(item.file.name)
-            except:
+            except Exception:
                 pass
         # Fallback to content or buffer
         item.file.seek(0)

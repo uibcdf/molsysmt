@@ -9,6 +9,6 @@ def digest_group_behavior_2(group_behavior_2, caller=None):
 
     try:
         return digest_group_behavior(group_behavior_2, caller=caller)
-    except:
+    except Exception:
         raise ArgumentError('group_behavior_2', value=group_behavior_2, caller=caller, message=None)
 

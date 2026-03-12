@@ -6,6 +6,6 @@ def get_rank_3_XYZ(item):
 
     try:
         return make_coordinates_like(item, standardized=False)
-    except:
+    except Exception:
         raise ValueError()
 

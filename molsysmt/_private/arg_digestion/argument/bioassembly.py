@@ -33,7 +33,7 @@ def digest_bioassembly(bioassembly, caller=None):
                     bioassembly['chain_indices']=digest_chain_indices(bioassembly['chain_indices'], caller='digest_bioassembly')
                     bioassembly['rotations']=digest_rotations(bioassembly['rotations'], caller='digest_bioassembly')
                     bioassembly['translations']=digest_translations(bioassembly['translations'], caller='digest_bioassembly')
-                except:
+                except Exception:
                     right_format=False
                 if right_format:
                     return bioassembly
@@ -50,7 +50,7 @@ def digest_bioassembly(bioassembly, caller=None):
                 aux_dict['chain_indices']=digest_chain_indices(aux_dict['chain_indices'], caller='digest_bioassembly')
                 aux_dict['rotations']=digest_rotations(aux_dict['rotations'], caller='digest_bioassembly')
                 aux_dict['translations']=digest_translations(aux_dict['translations'], caller='digest_bioassembly')
-            except:
+            except Exception:
                 right_format=False
                 break
         if right_format:

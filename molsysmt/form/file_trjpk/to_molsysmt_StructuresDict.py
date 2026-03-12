@@ -9,14 +9,13 @@ def to_molsysmt_StructuresDict(item, atom_indices='all', structure_indices='all'
 
     tmp_item={}
 
-    fff = open(item, 'rb')
-    _ = pickle.load(fff)
-    _ = pickle.load(fff)
-    coordinates = pickle.load(fff)
-    box = pickle.load(fff)
-    time = pickle.load(fff)
-    mdstep = pickle.load(fff)
-    fff.close()
+    with open(item, 'rb') as fff:
+        _ = pickle.load(fff)
+        _ = pickle.load(fff)
+        coordinates = pickle.load(fff)
+        box = pickle.load(fff)
+        time = pickle.load(fff)
+        mdstep = pickle.load(fff)
 
     if coordinates is not None:
         if not is_all(structure_indices):
@@ -37,7 +36,7 @@ def to_molsysmt_StructuresDict(item, atom_indices='all', structure_indices='all'
 
     if mdstep is not None:
         if not is_all(structure_indices):
-            mdstep = mdstep[structure_indices, :, :]
+            mdstep = mdstep[structure_indices]
 
     tmp_item['coordinates'] = coordinates
     tmp_item['box'] = box
@@ -45,4 +44,3 @@ def to_molsysmt_StructuresDict(item, atom_indices='all', structure_indices='all'
     tmp_item['structure_id'] = mdstep
 
     return tmp_item
-

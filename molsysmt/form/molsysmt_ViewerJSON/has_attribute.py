@@ -30,7 +30,7 @@ def has_attribute(molecular_system, attribute, include_none=False, skip_digestio
 
     try:
         value = checkers[attribute]()
-    except:
+    except Exception:
         return False
 
     if include_none:

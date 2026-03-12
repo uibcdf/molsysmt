@@ -7,6 +7,6 @@ def digest_principal_axes_of_selection(principal_axes_of_selection, syntax="MolS
 
     try:
         return digest_selection(principal_axes_of_selection, syntax=syntax, caller=caller)
-    except:
+    except Exception:
         raise ArgumentError('principal_axes_of_selection', value=principal_axes_of_selection, caller=caller, message=None)
 

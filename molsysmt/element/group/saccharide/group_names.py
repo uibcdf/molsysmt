@@ -9,7 +9,7 @@ def path(package, file):
 try:
     with gzip.open(path('molsysmt.data.databases.saccharides','group_names.pkl.gz'), 'rb') as fff:
         group_names = pickle.load(fff)
-except:
+except Exception:
     group_names = None
     print('The file molsysmt.data.databases.saccharides.group_names.pkl.gz was not loaded.')
 

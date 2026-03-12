@@ -26,14 +26,14 @@ def digest_to_syntax(to_syntax, caller=None):
         elif isinstance(to_syntax, str):
             try:
                 return lowercase_syntaxes[to_syntax.lower()]
-            except:
+            except Exception:
                 raise ArgumentError('to_syntax', value=to_syntax, caller=caller, message=None)
 
     else:
 
         try:
             return lowercase_syntaxes[to_syntax.lower()]
-        except:
+        except Exception:
             raise ArgumentError('to_syntax', value=to_syntax, caller=caller, message=None)
 
 

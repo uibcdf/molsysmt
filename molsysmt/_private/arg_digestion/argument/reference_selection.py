@@ -6,6 +6,6 @@ def digest_reference_selection(reference_selection, syntax="MolSysMT", caller=No
 
     try:
         return digest_selection(reference_selection, syntax=syntax, caller=caller)
-    except:
+    except Exception:
         raise ArgumentError('reference_selection', value=reference_selection, caller=caller, message=None)
 

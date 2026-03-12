@@ -7,5 +7,5 @@ def digest_selection_A(selection_A, syntax="MolSysMT", caller=None):
 
     try:
         return digest_selection(selection_A, syntax=syntax, caller=caller)
-    except:
+    except Exception:
         raise ArgumentError('selection_A', value=selection_A, caller=caller)

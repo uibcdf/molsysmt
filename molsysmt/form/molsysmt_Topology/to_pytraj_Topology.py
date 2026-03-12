@@ -36,7 +36,7 @@ def to_pytraj_Topology(item, atom_indices='all', skip_digestion=False):
     mass_atom_array = puw.get_value(get_mass(item))
     try:
         charge_atom_array = get_charge(molecular_system)
-    except:
+    except Exception:
         charge_atom_array = np.zeros(shape=[n_atoms])
 
     tmp_item = Topology()

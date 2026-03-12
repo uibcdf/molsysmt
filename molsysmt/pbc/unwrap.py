@@ -53,6 +53,9 @@ def unwrap(molecular_system, selection='all', structure_indices='all',
         coordinates, length_units = puw.get_value_and_unit(coordinates)
         box = puw.get_value(box, to_unit=length_units)
 
+        coordinates = np.asarray(coordinates, dtype=np.float64)
+        box = np.asarray(box, dtype=np.float64)
+
         msmlib.pbc.unwrap(coordinates, box)
 
         coordinates=puw.quantity(coordinates, length_units)

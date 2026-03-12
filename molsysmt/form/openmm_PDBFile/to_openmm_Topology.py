@@ -13,7 +13,7 @@ def to_openmm_Topology(item, atom_indices='all', structure_indices='all', get_mi
             try:
                 if os.path.isfile(item):
                     is_file = True
-            except:
+            except Exception:
                 pass
         
         if is_file:

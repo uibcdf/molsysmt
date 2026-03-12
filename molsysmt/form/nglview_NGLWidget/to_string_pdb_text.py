@@ -8,7 +8,7 @@ def to_string_pdb_text(item, atom_indices='all', structure_indices='all', skip_d
 
     try:
         tmp_item = item.component_0.get_structure_string()
-    except:
+    except Exception:
         tmp_item = item.get_state()['_ngl_msg_archive'][0]['args'][0]['data']
 
     if not (is_all(atom_indices)*is_all(structure_indices)):
