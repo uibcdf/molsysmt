@@ -214,6 +214,14 @@ class Topology():
         self.reset_bonds(n_bonds=n_bonds)
         self._coerce_id_columns_to_string()
 
+        # Dirty bits for hierarchy reconstruction
+        self._atoms_dirty = False
+        self._groups_dirty = False
+        self._components_dirty = False
+        self._molecules_dirty = False
+        self._entities_dirty = False
+        self._chains_dirty = False
+
     def get_n_atoms(self):
         return self.atoms.shape[0]
 
@@ -493,7 +501,7 @@ class Topology():
         self.bonds._sort_bonds()
         self.bonds._remove_empty_columns()
 
-        self.rebuild_components()
+        self._components_dirty = True
 
         del(df_concatenado, aux_bonds_dataframe)
 
@@ -509,7 +517,7 @@ class Topology():
             self.bonds.drop(bond_indices, inplace=True)
             self.bonds.reset_index(drop=True, inplace=True)
 
-        self.rebuild_components(redefine_indices=True, redefine_ids=False, redefine_names=False, redefine_types=False)
+        self._components_dirty = True
 
 
     def add_missing_bonds(self, selection='all', syntax='MolSysMT', skip_digestion=False):
@@ -619,6 +627,11 @@ class Topology():
 
         if redefine_names:
             self.components["component_name"] = infer_component_names_from_topology(self)
+        
+        self._components_dirty = False
+        if redefine_indices or force:
+            self._molecules_dirty = True
+
         self._coerce_id_columns_to_string()
 
     @signal(tags=['native'])
@@ -674,6 +687,11 @@ class Topology():
 
         if redefine_types:
             self.molecules["molecule_type"] = infer_molecule_types_from_topology(self)
+
+        self._molecules_dirty = False
+        if redefine_indices or force:
+            self._entities_dirty = True
+
         self._coerce_id_columns_to_string()
 
     @signal(tags=['native'])
@@ -724,6 +742,8 @@ class Topology():
 
         if redefine_names:
             self.chains["chain_name"] = infer_chain_names_from_topology(self)
+
+        self._chains_dirty = False
 
         self._coerce_id_columns_to_string()
 
@@ -778,6 +798,9 @@ class Topology():
 
         if redefine_types:
             self.entities["entity_type"] = infer_entity_types_from_topology(self)
+        
+        self._entities_dirty = False
+
         self._coerce_id_columns_to_string()
 
     def _join_molecules(self, indices=None):

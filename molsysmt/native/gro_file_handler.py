@@ -119,7 +119,8 @@ class GROFileHandler():
 
                 elif io_mode=='r':
 
-                    self.file = open(file, "r")
+                    with open(file, "r") as fff:
+                        self.file = io.StringIO(fff.read())
                     self.load()
 
                 else:

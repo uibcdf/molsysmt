@@ -49,9 +49,8 @@ def parse_format33(file):
     if isinstance(file, io.IOBase):
 
         if file.closed:
-            file = open(file.name, 'r')
-            lines = file.readlines()
-            file.close()
+            with open(file.name, 'r') as fff:
+                lines = fff.readlines()
         else:
             file.seek(0)
             lines = file.readlines()
@@ -59,9 +58,14 @@ def parse_format33(file):
 
     elif isinstance(file, str):
 
-        file = open(file.name, 'r')
-        lines = file.readlines()
-        file.close()
+        if '\n' in file:
+            lines = file.splitlines(keepends=True)
+        else:
+            with open(file, 'r') as fff:
+                lines = fff.readlines()
+
+    elif isinstance(file, (list, tuple, np.ndarray)):
+        lines = file
 
     pdb = PDBAtomicCoordinateEntry()
 
@@ -1231,7 +1235,8 @@ class PDBFileHandler():
 
                 elif io_mode=='r':
 
-                    self.file = open(file, "r")
+                    with open(file, "r") as fff:
+                        self.file = io.StringIO(fff.read())
                     self.format_version = guess_format_version(self.file)
                     self.load()
 
