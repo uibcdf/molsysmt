@@ -49,8 +49,10 @@ def digest_group_id(group_id, caller=None):
                 return group_id
         elif caller_startswith(caller, 'molsysmt.form.') and caller.count('.to_')==2:
             return group_id
+        elif caller.endswith(('set_group_id_to_atom', 'set_group_id_to_group')) and isinstance(group_id, str):
+            return group_id
 
-    if isinstance(group_id, (int, np.int64)):
+    if isinstance(group_id, (int, np.int64, str)):
         return [group_id]
 
     elif isinstance(group_id, list):
