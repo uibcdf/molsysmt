@@ -384,6 +384,10 @@ def _get_distances_in_memory(molecular_system, selection="all", structure_indice
 
     from molsysmt.basic import get
     from .get_center import get_center
+    from molsysmt.lib.structure._kernel_inputs import (
+        align_coordinates_values_and_unit,
+        extract_coordinates_value_and_unit,
+    )
 
     if center_of_atoms:
 
@@ -448,7 +452,7 @@ def _get_distances_in_memory(molecular_system, selection="all", structure_indice
 
         if coordinates_2 is None:
 
-            coordinates, length_unit = puw.get_value_and_unit(coordinates)
+            coordinates, length_unit = extract_coordinates_value_and_unit(coordinates)
 
             if pbc:
                 box = get(molecular_system, element='system', structure_indices=structure_indices, box=True)
@@ -471,8 +475,10 @@ def _get_distances_in_memory(molecular_system, selection="all", structure_indice
 
         else:
 
-            coordinates, length_unit = puw.get_value_and_unit(coordinates)
-            coordinates_2 = puw.get_value(coordinates_2, to_unit=length_unit)
+            coordinates, coordinates_2, length_unit = align_coordinates_values_and_unit(
+                coordinates,
+                coordinates_2,
+            )
 
             if pbc:
                 box = get(molecular_system, element='system', structure_indices=structure_indices, box=True)
@@ -520,8 +526,10 @@ def _get_distances_in_memory(molecular_system, selection="all", structure_indice
 
         #else:
 
-        coordinates, length_unit = puw.get_value_and_unit(coordinates)
-        coordinates_2 = puw.get_value(coordinates_2, to_unit=length_unit)
+        coordinates, coordinates_2, length_unit = align_coordinates_values_and_unit(
+            coordinates,
+            coordinates_2,
+        )
 
         if pbc:
             box = get(molecular_system, element='system', structure_indices=structure_indices, box=True)
@@ -547,4 +555,3 @@ def _get_distances_in_memory(molecular_system, selection="all", structure_indice
     gc.collect()
 
     return distances
-

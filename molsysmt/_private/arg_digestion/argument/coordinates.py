@@ -22,8 +22,11 @@ def digest_coordinates(coordinates, caller=None):
     # We use the new argdigest pipeline logic manually here or let argdigest do it
     # For now, we standardize to quantity array with float64
     from argdigest.pipelines.science import to_float64_array
-    
+
     try:
+        if isinstance(coordinates, str):
+            coordinates = puw.parse.parse(coordinates)
+
         value = to_float64_array(coordinates)
         unit = puw.get_unit(coordinates)
         

@@ -19,6 +19,7 @@ def least_rmsd_fit(molecular_system=None, selection='all', selection_fit='atom_t
     if engine=='MolSysMT':
 
         from molsysmt.basic import select, get, copy, convert
+        from molsysmt.lib.structure._kernel_inputs import align_coordinates_values_and_unit
         from . import rotate, translate
 
         coordinates = get(molecular_system, element='atom', selection=selection_fit,
@@ -34,11 +35,10 @@ def least_rmsd_fit(molecular_system=None, selection='all', selection_fit='atom_t
                 selection=reference_selection_fit, structure_indices=reference_structure_index,
                 syntax=syntax, coordinates=True)
 
-        coordinates, length_unit = puw.get_value_and_unit(coordinates)
-        reference_coordinates = puw.get_value(reference_coordinates, to_unit=length_unit)
-
-        coordinates = np.asarray(coordinates, dtype=np.float64)
-        reference_coordinates = np.asarray(reference_coordinates, dtype=np.float64)
+        coordinates, reference_coordinates, length_unit = align_coordinates_values_and_unit(
+            coordinates,
+            reference_coordinates,
+        )
 
         if coordinates.shape[1]!=reference_coordinates.shape[1]:
             raise StructuralInconsistencyError(
@@ -100,4 +100,3 @@ def least_rmsd_fit(molecular_system=None, selection='all', selection_fit='atom_t
     else:
 
         raise NotImplementedMethodError()
-

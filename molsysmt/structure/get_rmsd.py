@@ -25,6 +25,7 @@ def get_rmsd(molecular_system, selection='atom_type!="H"', structure_indices='al
     if engine=='MolSysMT':
 
         from molsysmt.basic import select, get
+        from molsysmt.lib.structure._kernel_inputs import align_coordinates_values_and_unit
 
         coordinates = get(molecular_system, element='atom', selection=selection,
                 structure_indices=structure_indices, syntax=syntax,
@@ -40,11 +41,10 @@ def get_rmsd(molecular_system, selection='atom_type!="H"', structure_indices='al
                 structure_indices=reference_structure_index, syntax=syntax,
                 coordinates=True)
 
-        coordinates, length_unit = puw.get_value_and_unit(coordinates)
-        reference_coordinates = puw.get_value(reference_coordinates, to_unit=length_unit)
-
-        coordinates = np.asarray(coordinates, dtype=np.float64)
-        reference_coordinates = np.asarray(reference_coordinates, dtype=np.float64)
+        coordinates, reference_coordinates, length_unit = align_coordinates_values_and_unit(
+            coordinates,
+            reference_coordinates,
+        )
 
         if coordinates.shape[1]!=reference_coordinates.shape[1]:
             raise StructuralInconsistencyError(
@@ -69,4 +69,3 @@ def get_rmsd(molecular_system, selection='atom_type!="H"', structure_indices='al
     else:
 
         raise NotImplementedMethodError()
-

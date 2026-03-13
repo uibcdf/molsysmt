@@ -7,6 +7,24 @@
 - For quantity strings, digesters must parse with `puw.parse.parse(...)`
   (not `puw.parse(...)`), following the current PyUnitWizard API layout.
 
+Important scope rule:
+
+- `@arg_digest` is the normalization boundary for public and semi-public API
+  entrypoints;
+- it is not the place to encode all kernel-facing preparation needed by hot
+  numerical wrappers;
+- when a hot wrapper needs shape normalization or paired-unit alignment before
+  entering `molsysmt.lib`, that logic should live next to the kernel layer
+  rather than being forced into generic public digestion.
+
+This rule was clarified during the March 2026 performance pass. The motivating
+example was structural coordinates:
+
+- public digestion remains responsible for validating external inputs;
+- `basic.get()` remains responsible for user-facing retrieval semantics;
+- `molsysmt.lib.structure._kernel_inputs` now holds the extra preparation
+  required specifically by structure kernels.
+
 ### Universal Digestion
 As of the 1.0.0 stabilization, *every* function in *every* form module (including internal delegates like `get`, `set`, and `extract` inside `__init__.py`) must be decorated with `@arg_digest`. This ensures that data normalization happens even in deep conversion chains.
 
@@ -43,3 +61,18 @@ When moving a dependency from hard → soft:
 3) Update `_depdigest.py`.
 4) Ensure form mapping exists.
 5) Ensure `_convert_to` uses strings.
+
+## PyUnitWizard Interaction Policy
+
+The current ecosystem split after the March 2026 audit is:
+
+- PyUnitWizard provides reusable quantity extraction and conversion services;
+- MolSysMT uses those services at the API boundary and, where necessary, inside
+  local kernel-input helpers;
+- MolSysMT should not fork PyUnitWizard semantics locally, but it may add
+  kernel-specific preparation steps when PyUnitWizard's generic extraction is
+  not sufficient on its own.
+
+This is why MolSysMT now depends on PyUnitWizard's expanded extraction API
+(`value_type`, `dtype`) while still keeping its own shape and pairing helpers
+for structure kernels.

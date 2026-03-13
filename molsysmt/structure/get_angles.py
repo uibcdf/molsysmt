@@ -31,6 +31,7 @@ def get_angles(molecular_system, triplets, structure_indices='all', pbc=False, s
     """
 
     from molsysmt.basic import get
+    from molsysmt.lib.structure._kernel_inputs import extract_coordinates_value_and_unit
 
     atom_indices=[]
     n_triplets=triplets.shape[0]
@@ -52,9 +53,7 @@ def get_angles(molecular_system, triplets, structure_indices='all', pbc=False, s
 
     coordinates = get(molecular_system, element='atom', selection=atom_indices, structure_indices=structure_indices,
                       coordinates=True)
-
-    coordinates, length_unit = puw.get_value_and_unit(coordinates)
-    coordinates = np.asarray(coordinates, dtype=np.float64)
+    coordinates, length_unit = extract_coordinates_value_and_unit(coordinates)
 
     if pbc:
 

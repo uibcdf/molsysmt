@@ -4,6 +4,7 @@ from molsysmt._private.arg_digestion import arg_digest
 import numpy as np
 from molsysmt import pyunitwizard as puw
 from molsysmt import lib as msmlib
+from molsysmt.lib.structure._kernel_inputs import extract_coordinates_value_and_unit
 import gc
 
 @signal(tags=['api', 'structure'])
@@ -21,8 +22,7 @@ def set_dihedral_angles(molecular_system, dihedral_quartets=None, angles=None, b
 
         coordinates = get(molecular_system, element='system', structure_indices=structure_indices,
                 coordinates=True)
-        coordinates, length_unit = puw.get_value_and_unit(coordinates)
-        coordinates = np.asarray(coordinates, dtype=np.float64)
+        coordinates, length_unit = extract_coordinates_value_and_unit(coordinates)
 
         angles = np.asarray(puw.get_value(angles, to_unit='radians'), dtype=np.float64)
 
@@ -78,4 +78,3 @@ def set_dihedral_angles(molecular_system, dihedral_quartets=None, angles=None, b
     else:
 
         raise NotImplementedMethodError()
-

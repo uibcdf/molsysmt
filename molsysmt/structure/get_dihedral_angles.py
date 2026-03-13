@@ -4,6 +4,7 @@ from smonitor import signal
 from molsysmt._private.arg_digestion import arg_digest
 from molsysmt.basic import get
 from molsysmt import lib as msmlib
+from molsysmt.lib.structure._kernel_inputs import extract_coordinates_value_and_unit
 import gc
 
 @signal(tags=['api', 'structure'])
@@ -53,8 +54,7 @@ def get_dihedral_angles(molecular_system, selection='all', dihedral_quartets=Non
     coordinates = get(molecular_system, element='atom', selection=atom_indices, structure_indices=structure_indices,
                       coordinates=True)
 
-    coordinates, length_unit = puw.get_value_and_unit(coordinates)
-    coordinates = np.asarray(coordinates, dtype=np.float64)
+    coordinates, length_unit = extract_coordinates_value_and_unit(coordinates)
 
     if pbc:
 
@@ -94,4 +94,3 @@ def get_dihedral_angles(molecular_system, selection='all', dihedral_quartets=Non
     gc.collect()
 
     return output
-

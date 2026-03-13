@@ -2,6 +2,7 @@ from molsysmt._private.smonitor import NotImplementedMethodError
 from smonitor import signal
 from molsysmt._private.arg_digestion import arg_digest
 from molsysmt import lib as msmlib
+from molsysmt.lib.structure._kernel_inputs import extract_coordinates_value_and_unit
 from molsysmt._private.variables import is_all, is_iterable_of_iterables
 from molsysmt import pyunitwizard as puw
 import numpy as np
@@ -52,8 +53,7 @@ def principal_component_analysis(molecular_system, selection='all', structure_in
 
         coordinates = get(molecular_system, element='atom', selection=atom_indices,
                 structure_indices=structure_indices, coordinates=True)
-        coordinates, length_unit = puw.get_value_and_unit(coordinates)
-        coordinates = np.asarray(coordinates, dtype=np.float64)
+        coordinates, _ = extract_coordinates_value_and_unit(coordinates)
 
         if weights is None:
             weights = np.ones((coordinates.shape[1]), dtype=np.float64)

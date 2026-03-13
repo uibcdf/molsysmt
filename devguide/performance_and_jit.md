@@ -14,6 +14,61 @@ functions to ensure compilation happens on first use, not on import.
 - Use `lazy_njit(signature, cache=True)` from `molsysmt._private.jit`.
 - Avoid heavy global initialization in `molsysmt/lib` modules.
 
+## Structure Kernel Input Preparation
+
+During the March 2026 performance pass, we clarified an important design
+boundary:
+
+- `molsysmt.basic.get()` is a public convenience API and structures its output
+  for users;
+- `molsysmt.lib.structure` kernels are numeric kernels and are unit-agnostic;
+- therefore, hot structure wrappers must prepare kernel inputs without changing
+  the user-facing unit policy of the public API.
+
+This means we must not force a canonical unit such as `nm` merely because a
+kernel is hot. The working unit carried by the public wrapper remains the unit
+that will be used to reconstruct the public quantity after the kernel returns.
+
+The accepted pattern is:
+
+1. public wrapper retrieves coordinates with `get(...)`;
+2. wrapper prepares kernel inputs through helpers in
+   `molsysmt.lib.structure._kernel_inputs`;
+3. helper normalizes rank/shape, requests the numeric value in `float64`, and
+   aligns paired inputs to a shared working unit when needed;
+4. wrapper rebuilds the public output using the carried working unit and then
+   applies the usual public standardization policy.
+
+Current helpers:
+
+- `extract_coordinates_value_and_unit(...)`
+- `align_coordinates_values_and_unit(...)`
+
+Why they exist even after recent PyUnitWizard improvements:
+
+- PyUnitWizard now exposes more explicit extraction control (`value_type`,
+  `dtype`);
+- but MolSysMT still needs domain-specific logic for coordinate rank
+  normalization and paired-input alignment before entering Numba kernels.
+
+Current adoption:
+
+- `get_center`
+- `get_distances`
+- `get_rmsd`
+- `get_least_rmsd`
+- `least_rmsd_fit`
+- `get_angles`
+- `get_dihedral_angles`
+- `principal_component_analysis`
+- `set_dihedral_angles`
+
+What remains open:
+
+- decide whether `basic.get()` eventually needs a lighter internal path for hot
+  structural consumers, or whether the current split between public `get()`
+  and `molsysmt.lib.structure._kernel_inputs` is already sufficient.
+
 ## Peptide Builder Performance Notes
 `build_peptide(engine="MolSysMT")` relies on repeated non-bonded heavy-atom
 distance evaluations during geometry optimization. The hot loops must stay in

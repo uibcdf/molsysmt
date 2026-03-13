@@ -16,7 +16,8 @@ Recent completed work:
 - H5MSM now preserves `b_factor` and the bundled `181l.h5msm` artifact was regenerated;
 - `nglview` round-trips and color-by-value tests were made deterministic offline;
 - `smonitor` and MolSysMT diagnostics were hardened for developer and QA workflows;
-- structural and PBC JIT call sites were normalized to `float64` at the public boundary.
+- structural and PBC hot paths now use explicit kernel-facing preparation where
+  needed, without changing the user-facing unit policy of the public API;
 - a first `MolSysBuilder` slice is implemented and validated for creation from
   scratch, `MolSys -> MolSysBuilder`, and `MolSysBuilder -> MolSys`;
 - `molsysmt.build.editable(...)` now provides the ergonomic entrypoint for
@@ -26,6 +27,14 @@ Recent completed work:
 - the first declarative serializer slice is now implemented:
   `molsysmt.MolSysDict`, `molsysmt.TopologyDict`, `file:molsys_yaml`, and `file:topology_yaml` are available, with focused
   round-trip tests and supported-form coverage.
+- the structure hot-path audit clarified that `molsysmt.lib.structure` kernels
+  are unit-agnostic and should receive prepared numeric arrays without forcing
+  a canonical unit such as `nm`;
+- local helpers under `molsysmt.lib.structure._kernel_inputs` now centralize
+  coordinate rank normalization and paired-input alignment for hot structure
+  wrappers;
+- this work now sits cleanly on top of PyUnitWizard's expanded extraction API
+  (`value_type`, `dtype`) instead of overloading generic public digestion.
 
 Validation status at this checkpoint:
 - the full test suite passes with `pytest -q tests -x`;
@@ -48,7 +57,11 @@ Current post-validation focus:
 - decide what belongs to the explicit `1.0.0` support contract and what should
   remain outside that contract because it is still immature or peripheral;
 - translate the green test state into a clear release checkpoint and support
-  tier decision.
+  tier decision;
+- evaluate whether the current split between public `get()` and
+  `molsysmt.lib.structure._kernel_inputs` is enough, or whether MolSysMT
+  eventually needs a lighter internal retrieval path for hot structural
+  consumers.
 
 ## Release checkpoint meaning: `0.15.0`, `0.16.0`, and `0.17.0`
 
