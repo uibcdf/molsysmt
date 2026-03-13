@@ -247,12 +247,13 @@ The agreed immediate sequence is:
 1. rewrite `devguide/support_tiers.md` into a real support contract;
 2. update `devguide/testing_strategy.md` so that parity obligations follow that support contract;
 3. update `devguide/performance_and_jit.md` so that it matches the currently implemented trusted/validated execution model;
-4. define the sibling-infrastructure release baseline that MolSysMT `1.0.0` can safely depend on;
-5. perform a public-function stability sweep so that support status applies to functions as well as forms;
-6. define the deprecation policy for the `1.x` line;
-7. validate release engineering and packaging against the intended `1.0.0` support baseline;
-8. continue meaningful coverage work, prioritizing high-return technical areas rather than low-value percentage chasing;
-9. continue replacing ambiguous fixture strategies with builder-based deterministic test design where appropriate.
+4. implement the remaining new `1.0.0` capabilities that are already in scope, especially the Tier 1 heavy-trajectory slice described in `scalability_and_heavy_trajectories_v2.md`;
+5. define the sibling-infrastructure release baseline that MolSysMT `1.0.0` can safely depend on;
+6. perform a public-function stability sweep so that support status applies to functions as well as forms;
+7. define the deprecation policy for the `1.x` line;
+8. validate release engineering and packaging against the intended `1.0.0` support baseline;
+9. continue meaningful coverage work, prioritizing high-return technical areas rather than low-value percentage chasing;
+10. continue replacing ambiguous fixture strategies with builder-based deterministic test design where appropriate.
 
 ## Exit Criteria Toward Paper and `1.0.0` Stabilization
 
@@ -347,3 +348,36 @@ It should be removed or merged once:
 3. `performance_and_jit.md` has been synchronized with the implemented architecture;
 4. the infrastructure baseline and public-function stability policy are reflected in the canonical `devguide` documents;
 5. the current next-step priorities are reflected directly in the canonical `devguide` documents rather than in this temporary note.
+
+
+## Ordered To-Do Checklist
+
+This checklist is intentionally short. It is the execution-order summary of the broader discussion in this document. Each item below maps back to one or more sections above. If a future task does not fit under one of these headings, the plan is incomplete and this file must be updated before work continues.
+
+1. **Lock the support contract**
+2. **Derive parity obligations from that contract**
+3. **Synchronize the performance and JIT manifesto**
+4. **Implement the remaining in-scope `1.0.0` capabilities**
+5. **Freeze sibling-library release baselines**
+6. **Classify public API stability**
+7. **Define the `1.x` deprecation policy**
+8. **Validate release engineering and packaging**
+9. **Raise meaningful coverage on the Tier 1 surface**
+10. **Expand deterministic builder-based fixtures where they reduce truth ambiguity**
+11. **Align developer and user-facing documentation with the implemented architecture**
+12. **Enter beta-testing, dogfooding, paper writing, and the final stabilization window**
+
+### Coverage of topics in this file
+
+The checklist above covers every major topic described in this document:
+
+- support tiers, capability guarantees, parity expectations, and heavy-mode status map to steps 1 and 2;
+- `scalability_and_heavy_trajectories_v2.md`, Tier 1 heavy execution, and `MSM-*-HVY-*` implementation map to step 4;
+- sibling version pinning across `smonitor`, `argdigest`, `depdigest`, and `pyunitwizard` map to step 5;
+- the public-function stability sweep maps to step 6;
+- the `1.x` deprecation policy maps to step 7;
+- release CI, packaging validation, and install-story verification map to step 8;
+- coverage growth and Tier 1 protection map to step 9;
+- `MolSysBuilder` and declarative forms as deterministic test truth map to step 10;
+- `devguide`, `docs/content/developer`, and user-facing documentation alignment map to step 11;
+- beta-testing, dogfooding, paper writing, and release stabilization map to step 12.
