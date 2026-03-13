@@ -9,18 +9,24 @@ functions_where_boolean = (
     '.iterators.__init__'
     )
 
+
 def digest_coordinates(coordinates, caller=None):
 
     if caller is not None:
         if caller.endswith(functions_where_boolean):
             if isinstance(coordinates, bool):
                 return coordinates
+        
+        # --- Trusted Path for internal kernel helpers ---
+        # If the caller is from molsysmt.lib.structure and already passed an ndarray
+        # we trust the prep has been done.
+        if caller.startswith("molsysmt.lib.structure"):
+            if isinstance(coordinates, np.ndarray) and coordinates.dtype == np.float64:
+                return coordinates
 
     if coordinates is None:
         return None
 
-    # We use the new argdigest pipeline logic manually here or let argdigest do it
-    # For now, we standardize to quantity array with float64
     from argdigest.pipelines.science import to_float64_array
 
     try:
@@ -30,11 +36,12 @@ def digest_coordinates(coordinates, caller=None):
         value = to_float64_array(coordinates)
         unit = puw.get_unit(coordinates)
         
-        if not puw.check(unit, dimensionality={'[L]':1}):
-            raise ValueError("Incompatible units for coordinates")
+        # Validation of dimensionality
+        if not puw.check(unit, dimensionality={"[L]":1}):
+            from molsysmt._private.smonitor import StructuralInconsistencyError
+            raise StructuralInconsistencyError("Incompatible units for coordinates")
 
         shape = value.shape
-
         if len(shape) == 1:
             if shape[0] == 3:
                 value = value[np.newaxis, np.newaxis, :]
@@ -51,7 +58,11 @@ def digest_coordinates(coordinates, caller=None):
         else:
             raise ValueError("Wrong dimensions")
 
-        return puw.standardize(puw.quantity(value, unit))
+        # Performance: return as quantity in ORIGINAL unit. 
+        # Avoid forced standardize() unless specifically needed downstream.
+        return puw.quantity(value, unit)
 
     except Exception as e:
-        raise ArgumentError('coordinates', value=coordinates, caller=caller) from e
+        from molsysmt._private.smonitor import ArgumentError
+        raise ArgumentError("coordinates", value=coordinates, caller=caller) from e
+

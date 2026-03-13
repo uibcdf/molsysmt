@@ -32,9 +32,15 @@ def extract_coordinates_value_and_unit(value):
     return _normalize_coordinates_array(values), unit
 
 
+
 def align_coordinates_values_and_unit(coordinates, reference_coordinates):
+    # Performance path: extract the value and unit of the first set
     coordinates_value, unit = extract_coordinates_value_and_unit(coordinates)
+    
+    # Align the reference set to the same unit. 
+    # puw.get_value with dtype=np.float64 is the fastest extraction.
     reference_value = _normalize_coordinates_array(
-        puw.get_value(reference_coordinates, to_unit=unit)
+        puw.get_value(reference_coordinates, to_unit=unit, dtype=np.float64)
     )
     return coordinates_value, reference_value, unit
+
