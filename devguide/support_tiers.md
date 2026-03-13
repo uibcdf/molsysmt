@@ -193,6 +193,28 @@ The authoritative design for heavy trajectories is tracked in:
 
 The support contract and the heavy roadmap must remain aligned, but they are not the same document.
 
+## Contractual capability matrix
+
+This matrix summarizes the expected capability envelope of each support tier. It is intentionally high-level: the authoritative form-by-form scope remains the tier tables above, but this section provides the product-level view that users need when deciding whether a form is suitable for production work.
+
+| Capability | Tier 1 (Contractual forms) | Tier 2 (Supported best-effort forms) | Tier 3 (Experimental / niche forms) |
+| :--- | :--- | :--- | :--- |
+| **Basic introspection** (`get`, `info`, documented `compare`) | Full, within documented form scope | Full or near-full within documented scope | Limited and form-dependent |
+| **Selection semantics** (`select`) | Full where selection is part of the form contract | Partial to full, depending on form scope | Best-effort |
+| **Structural analysis** (`distances`, `RMSD`, related structure operations) | Full on the native/core surface; heavy support only where explicitly declared | Eager-path support where documented; heavy not implied | Best-effort |
+| **Topology editing** | Full through `MolSysBuilder` / `build.editable(...)` on the native editing path | Partial where the ecosystem form can be converted and edited safely | Not contractual |
+| **Coordinate updates** (`set`) | Full within documented structural scope | Partial to full within documented scope | Limited |
+| **Format conversion** (`convert`) | Expected to preserve the documented supported scope; lossless where the form pair is contractually lossless | Supported but may be lossy or partial by design | Experimental or transitional |
+| **Visualization workflows** (`view`, viewer-oriented adapters) | Verified where viewing is part of the documented workflow | Supported where explicitly documented | Limited |
+| **Heavy / chunked execution** | Only for forms explicitly marked as Tier 1 heavy targets in this document | Not contractual unless promoted explicitly | Outside current heavy contract |
+
+Notes:
+
+- "Full" never means "all imaginable semantics". It means full support for the documented contractual scope of that tier.
+- Lossy formats remain Tier 1 when the lossy boundary is intrinsic to the format and explicitly documented, as in the case of PDB-based workflows.
+- Heavy-mode support must be read from the form-specific heavy-status column, not inferred from the general support tier alone.
+- The goal of this matrix is expectation management and testing focus. The detailed contractual source of truth remains the per-form tables above.
+
 ## Tier 1 guarantee summary
 
 Tier 1 forms are the forms that MolSysMT is prepared to defend as part of its supported `1.x` line.

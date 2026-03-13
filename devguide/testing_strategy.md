@@ -23,15 +23,58 @@ Tier 2 and Tier 3 forms may still have valuable tests, but their parity obligati
 
 ## Contract-driven test prioritization
 
+The support contract is not only a list of forms. It also includes the `Contractual capability matrix` in `devguide/support_tiers.md`. Test priorities must therefore follow both axes:
+
+- the tier of the form;
+- the contractual capability being claimed for that tier.
+
 When choosing what to test next, prioritize in this order:
 
-1. Tier 1 form contract tests;
-2. Tier 1 form parity tests;
+1. Tier 1 contract tests for the capabilities marked as `Full` in the capability matrix;
+2. Tier 1 form parity tests inside the documented supported scope of those capabilities;
 3. execution parity tests for any operation entering the heavy-processing contract;
-4. Tier 2 best-effort regressions;
+4. Tier 2 best-effort regressions for capabilities marked as partial or lossy;
 5. Tier 3 or legacy coverage only when it reveals real risk or blocks cleanup.
 
 Coverage percentage alone must not drive test priorities. The first objective is to harden the contractual support surface defined in `devguide/support_tiers.md`.
+
+## Capability-driven parity obligations
+
+The capability matrix in `devguide/support_tiers.md` should be read as the source of truth for parity obligations. In practice, each capability implies a characteristic family of tests:
+
+- **Basic introspection**
+  - contract tests for `msm.get`, `msm.info`, and `msm.compare`;
+  - scope-preserving checks on topology and structures for Tier 1 forms.
+
+- **Selection semantics**
+  - `msm.select` agreement tests across Tier 1 forms wherever selection parity is part of the supported scope;
+  - explicit lossy or partial expectations for Tier 2 forms.
+
+- **Structural analysis**
+  - numerical parity tests for distances, centers, RMSD, and related Tier 1 analyses;
+  - eager-only parity for forms not yet in the heavy contract.
+
+- **Topology editing**
+  - builder-driven tests for `MolSysBuilder` and `msm.build.editable(...)`;
+  - no obligation to preserve legacy editing helpers that are already removed from the public API.
+
+- **Coordinate updates**
+  - `msm.set` and builder setter tests on the forms whose contractual scope includes structural updates.
+
+- **Format conversion**
+  - round-trip or truth-preserving tests inside the documented lossy/lossless scope of each form;
+  - deterministic builder-based fixtures should be preferred whenever a converter needs an external-format oracle.
+
+- **Visual interaction**
+  - smoke and regression tests only for the viewer-facing scope that is explicitly claimed in the support contract;
+  - no hidden assumption of full topology parity for visualization-only forms.
+
+- **Heavy / chunked execution**
+  - eager vs heavy parity tests;
+  - `MSM-*-HVY-*` telemetry contract tests;
+  - failure-policy tests for unsupported combinations and recoverable frame-skipping behavior.
+
+This separation matters because `contract verification`, `form parity`, and `execution parity` are related but not identical obligations.
 
 ## 🧹 Legacy Cleanup Policy
 The 1.0.0 transition (specifically Lazy Loading 2.0) has rendered many old tests obsolete or broken due to changed import patterns.
