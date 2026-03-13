@@ -35,6 +35,9 @@ Recent completed work:
   wrappers;
 - this work now sits cleanly on top of PyUnitWizard's expanded extraction API
   (`value_type`, `dtype`) instead of overloading generic public digestion.
+- a first lightweight benchmark harness now exists in `benchmarks/` and the
+  initial `XYZ` baseline confirms that `_kernel_inputs` is not the dominant
+  cost in hot structure wrappers.
 
 Validation status at this checkpoint:
 - the full test suite passes with `pytest -q tests -x`;

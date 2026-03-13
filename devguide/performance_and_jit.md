@@ -63,11 +63,36 @@ Current adoption:
 - `principal_component_analysis`
 - `set_dihedral_angles`
 
+Initial measurement snapshot:
+
+- a lightweight baseline now lives in `benchmarks/structure_coordinate_paths.py`;
+- the first stable run uses the bundled `particles 4` `XYZ` trajectory to
+  isolate coordinate-path cost without mixing in heavier topology rebuilds;
+- on that baseline, local kernel-input preparation is not the bottleneck:
+  - `extract_coordinates_value_and_unit(...)` is around `6.5e-4 s`;
+  - `align_coordinates_values_and_unit(...)` is around `8.2e-4 s`;
+  - `structure.get_center(...)` is around `2.13e-1 s`;
+  - `structure.get_distances(...)` is around `2.22e-1 s`;
+  - `structure.get_rmsd(...)` is around `2.63e-1 s`.
+
+Interpretation:
+
+- the new local helpers are cheap relative to the hot public wrappers;
+- this supports the architectural decision to keep kernel-facing preparation in
+  `molsysmt.lib.structure._kernel_inputs` rather than trying to eliminate it;
+- if more optimization is needed, the next likely bottlenecks are higher in the
+  wrapper/public retrieval path rather than in the local extraction/alignment
+  helpers themselves.
+
 What remains open:
 
 - decide whether `basic.get()` eventually needs a lighter internal path for hot
   structural consumers, or whether the current split between public `get()`
   and `molsysmt.lib.structure._kernel_inputs` is already sufficient.
+- measure heavier `MolSys/HDF5`-based coordinate workflows after the local
+  Numba cache-locator issue is resolved for development checkouts; those paths
+  must not be conflated with the correctness of the current structure-helper
+  architecture.
 
 ## Peptide Builder Performance Notes
 `build_peptide(engine="MolSysMT")` relies on repeated non-bonded heavy-atom
