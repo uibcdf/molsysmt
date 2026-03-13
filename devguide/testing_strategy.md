@@ -4,10 +4,34 @@
 Use `pytest`. Tests live under `tests/` and should mirror package structure.
 
 ## 🥇 Contract Testing (The 1.0.0 Standard)
-Contract tests are the primary defense against regressions in interoperability. 
-- **Identity Goal**: Ensure that `msm.get`, `msm.select`, and `msm.convert` return structurally and mathematically identical results regardless of the input form (Native, OpenMM, MDTraj, etc.).
-- **Parity Tolerance**: Coordinates and box vectors must match within $10^{-5}$ nanometers.
-- **Selection Consistency**: Selection strings must return the exact same atom indices across all Tier 1 forms.
+Contract tests are the primary defense against regressions in interoperability.
+
+The support contract is defined in `devguide/support_tiers.md`. Testing must derive from that document rather than from informal expectations.
+
+Two parity axes must remain explicit:
+
+- **Form parity**: equivalent molecular content represented in different supported forms must produce equivalent observable results where such equivalence is part of the declared support scope.
+- **Execution parity**: eager and heavy execution paths must produce equivalent results for operations that officially support both.
+
+For Tier 1 forms, the default contract-testing expectation is:
+- `msm.get`, `msm.info`, `msm.select`, and `msm.convert` must preserve the documented supported scope of the form;
+- coordinates and box vectors must match within $10^{-5}$ nanometers where structural parity is part of the contract;
+- selection strings must resolve to the same atom indices across Tier 1 forms when selection parity is part of the documented scope;
+- lossy formats (for example PDB or viewer-oriented forms) must be tested against their documented limits, not against impossible full-fidelity expectations.
+
+Tier 2 and Tier 3 forms may still have valuable tests, but their parity obligations must be weaker and explicitly tied to their documented scope.
+
+## Contract-driven test prioritization
+
+When choosing what to test next, prioritize in this order:
+
+1. Tier 1 form contract tests;
+2. Tier 1 form parity tests;
+3. execution parity tests for any operation entering the heavy-processing contract;
+4. Tier 2 best-effort regressions;
+5. Tier 3 or legacy coverage only when it reveals real risk or blocks cleanup.
+
+Coverage percentage alone must not drive test priorities. The first objective is to harden the contractual support surface defined in `devguide/support_tiers.md`.
 
 ## 🧹 Legacy Cleanup Policy
 The 1.0.0 transition (specifically Lazy Loading 2.0) has rendered many old tests obsolete or broken due to changed import patterns.
@@ -80,6 +104,17 @@ Current status:
 - targeted coverage instrumentation remains a known tooling limitation and
   should not be used as the default workflow until the `numpy`/coverage import
   issue is understood and resolved.
+
+## Heavy-mode parity policy
+
+The heavy-trajectory roadmap is defined in `devguide/scalability_and_heavy_trajectories_v2.md`.
+
+When an operation enters the committed heavy slice, it must gain:
+- eager vs heavy parity tests;
+- telemetry contract tests for the reserved `MSM-*-HVY-*` codes;
+- failure-policy tests for unsupported combinations and recoverable frame-skipping behavior where applicable.
+
+Heavy-mode support is not inferred from ordinary form support. Tests must reflect the heavy-status declarations in `devguide/support_tiers.md`.
 
 ## Peptide Builder Validation Policy
 `build_peptide(engine="MolSysMT")` must be validated against `engine="LEaP"`
