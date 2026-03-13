@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from smonitor.integrations import CatalogException
+from smonitor.integrations import CatalogException, FormatError as CoreFormatError, InconsistencyError
 from ..functions import caller_name
 from . import CATALOG, META
 
@@ -65,7 +65,7 @@ class ArgumentConflictError(MolSysMTCatalogException):
         super().__init__(message=message, extra=extra)
 
 
-class StructuralInconsistencyError(MolSysMTCatalogException):
+class StructuralInconsistencyError(InconsistencyError, MolSysMTCatalogException):
     catalog_key = "StructuralInconsistencyError"
 
     def __init__(self, reason, caller=None, message=None):
@@ -228,7 +228,7 @@ class FileContentError(MolSysMTCatalogException):
         super().__init__(message=message, extra=extra)
 
 
-class FormatError(MolSysMTCatalogException):
+class FormatError(CoreFormatError, MolSysMTCatalogException):
     catalog_key = "FormatError"
 
     def __init__(self, reason, caller=None, message=None):
