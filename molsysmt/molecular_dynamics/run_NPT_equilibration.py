@@ -35,7 +35,6 @@ def run_NPT_equilibration (item, temperature='300 K', pressure='1.0 atm',
     """
 
     #from molsysmt.basic import get_form, get, convert
-from smonitor import signal
 
     #engine = _digest_engines(engine)
 
