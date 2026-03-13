@@ -1,6 +1,6 @@
-from molsysmt._private.smonitor import NotImplementedMethodError, experimental_module
+from molsysmt._private.smonitor import NotImplementedMethodError, experimental
 
-@experimental_module('molsysmt.molecular_dynamics')
+@experimental()
 def run_NPT_equilibration (item, temperature='300 K', pressure='1.0 atm',
                        time='1.0 ns', protocol=0, forcefield=['AMBER99SB-ILDN','TIP3P'],
                        engine='OpenMM', verbose=True, form_out=None, *kwargs):
