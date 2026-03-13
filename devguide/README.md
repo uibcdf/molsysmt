@@ -61,10 +61,12 @@ Current post-validation focus:
   remain outside that contract because it is still immature or peripheral;
 - translate the green test state into a clear release checkpoint and support
   tier decision;
-- evaluate whether the current split between public `get()` and
-  `molsysmt.lib.structure._kernel_inputs` is enough, or whether MolSysMT
-  eventually needs a lighter internal retrieval path for hot structural
-  consumers.
+- treat the current split between public `get()` and
+  `molsysmt.lib.structure._kernel_inputs` as sufficient for `1.0.0`, while
+  keeping a lighter internal retrieval path as a post-`1.0.0` optimization only
+  if real workflows justify it;
+- avoid future drift by centralizing shared kernel-input normalization rules if
+  multiple domains begin to duplicate them after `1.0.0`.
 
 ## Release checkpoint meaning: `0.15.0`, `0.16.0`, and `0.17.0`
 

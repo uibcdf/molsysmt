@@ -86,13 +86,20 @@ Interpretation:
 
 What remains open:
 
-- decide whether `basic.get()` eventually needs a lighter internal path for hot
-  structural consumers, or whether the current split between public `get()`
-  and `molsysmt.lib.structure._kernel_inputs` is already sufficient.
+- for `1.0.0`, the current split between public `get()` and
+  `molsysmt.lib.structure._kernel_inputs` is considered sufficient; a lighter
+  internal retrieval path is deferred unless a real workflow shows clear need.
 - measure heavier `MolSys/HDF5`-based coordinate workflows after the local
   Numba cache-locator issue is resolved for development checkouts; those paths
   must not be conflated with the correctness of the current structure-helper
   architecture.
+
+Post-`1.0.0` cleanup/risk note:
+
+- if similar kernel helpers start to spread across multiple MolSysMT domains,
+  shared rules such as rank normalization and paired-input unit alignment
+  should be centralized in a common internal utility layer rather than copied
+  module by module.
 
 ## Peptide Builder Performance Notes
 `build_peptide(engine="MolSysMT")` relies on repeated non-bonded heavy-atom
