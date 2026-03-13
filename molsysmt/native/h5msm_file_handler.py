@@ -66,6 +66,12 @@ class H5MSMFileHandler():
 
         self.file.close()
 
+    def __enter__(self):
+        return self
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        self.close()
+
 def _new_msmfile(filename, creator='MolSysMT', compression="gzip", compression_opts=4,
         int_precision='single', float_precision='single', length_unit=None,
         time_unit=None, energy_unit=None, temperature_unit=None, charge_unit=None,

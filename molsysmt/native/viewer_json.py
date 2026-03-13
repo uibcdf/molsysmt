@@ -137,7 +137,10 @@ class ViewerJSON:
                     json.dump(self.data, f, indent=indent)
         else:
             if compression == "gzip":
-                raise ValueError(
-                    "For gzip output, pass a file path (str) or an open gzip binary file."
+                from molsysmt._private.smonitor import ArgumentError
+                raise ArgumentError(
+                    argument='fp',
+                    value=type(fp).__name__,
+                    message="For gzip output, pass a file path (str) or an open gzip binary file."
                 )
             json.dump(self.data, fp, indent=indent)

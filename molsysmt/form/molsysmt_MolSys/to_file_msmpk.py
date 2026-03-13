@@ -37,9 +37,8 @@ def to_file_msmpk(item, atom_indices='all', structure_indices='all', output_file
         value = puw.get_value(tmp_item.structures.kinetic_energy, to_unit='kJ/mol')
         tmp_item.structures.kinetic_energy = value
 
-    fff = bz2.BZ2File(output_filename, 'wb')
-    pickle.dump(tmp_item, fff)
-    fff.close()
+    with bz2.BZ2File(output_filename, 'wb') as fff:
+        pickle.dump(tmp_item, fff)
 
     tmp_item = output_filename
 

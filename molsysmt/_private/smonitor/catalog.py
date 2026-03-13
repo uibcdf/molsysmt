@@ -13,6 +13,14 @@ META = {
 }
 
 CATALOG = {
+    "info": {
+        "ExperimentalModule": {
+            "code": "MSM-INFO-EXP-001",
+            "source": "molsysmt.info.experimental",
+            "category": "experimental",
+            "level": "INFO",
+        },
+    },
     "debug": {
         "DetectionProbeMiss": {
             "code": "MSM-DBG-PROBE-001",
@@ -295,6 +303,17 @@ CODES = {
         "agent_message": "{count} models have incompatible molecular systems. Returned as separate systems.",
         "agent_hint": "Normalize model topology before merging.",
     },
+    "MSM-INFO-EXP-001": {
+        "title": "Experimental module",
+        "user_message": "The module '{module}' is currently experimental and may undergo breaking changes.",
+        "user_hint": "Use with caution in production workflows. Stability is not guaranteed for version 1.0.0. Docs: {doc_url}",
+        "dev_message": "Experimental module '{module}' accessed by '{caller}'.",
+        "dev_hint": "Experimental modules are excluded from the 1.0 support contract. Docs: {doc_url}",
+        "qa_message": "Experimental module '{module}' accessed.",
+        "qa_hint": "Verify stability and edge cases for this experimental path. Docs: {doc_url}",
+        "agent_message": "Module '{module}' is experimental.",
+        "agent_hint": "Consider alternative stable paths if long-term stability is required.",
+    },
     "MSM-ERR-ARG-001": {
         "title": "Argument error",
         "user_message": "Error in argument '{argument}' with value '{value}'.",
@@ -516,6 +535,7 @@ SIGNALS = {
     "molsysmt.warning.multi_container": {"extra_required": ["caller", "format"]},
     "molsysmt.warning.ambiguous_structure": {"extra_required": ["caller", "count"]},
     "molsysmt.warning.molecular_system_mismatch": {"extra_required": ["caller"]},
+    "molsysmt.info.experimental": {"extra_required": ["module", "caller"]},
     "molsysmt.error.argument": {"extra_required": ["argument", "value", "caller"]},
     "molsysmt.error.argument.choice": {"extra_required": ["argument", "value", "choices", "caller"]},
     "molsysmt.error.argument.length": {"extra_required": ["argument", "expected", "actual", "caller"]},

@@ -5,19 +5,20 @@ from molsysmt import pyunitwizard as puw
 
 def _normalize_coordinates_array(values):
     array = np.asarray(values, dtype=np.float64)
+    from molsysmt._private.smonitor import StructuralInconsistencyError
     if array.ndim == 1:
         if array.shape[0] != 3:
-            raise ValueError("Coordinates must have trailing shape (3,).")
+            raise StructuralInconsistencyError("Coordinates must have trailing shape (3,).")
         array = array[np.newaxis, np.newaxis, :]
     elif array.ndim == 2:
         if array.shape[1] != 3:
-            raise ValueError("Coordinates must have trailing shape (3,).")
+            raise StructuralInconsistencyError("Coordinates must have trailing shape (3,).")
         array = array[np.newaxis, :, :]
     elif array.ndim == 3:
         if array.shape[2] != 3:
-            raise ValueError("Coordinates must have trailing shape (3,).")
+            raise StructuralInconsistencyError("Coordinates must have trailing shape (3,).")
     else:
-        raise ValueError("Coordinates must have rank 1, 2 or 3.")
+        raise StructuralInconsistencyError("Coordinates must have rank 1, 2 or 3.")
 
     return array
 

@@ -25,11 +25,13 @@ def make_numba_signature(arguments=None, output=None):
                     default_option = option
 
                 if n_default > 1:
-                    raise ValueError("More than one default value")
+                    from molsysmt._private.smonitor import InternalAlgorithmError
+                    raise InternalAlgorithmError("More than one default value")
 
             if n_default == 1 and default_option is None:
                 if len(numba_options) == 0:
-                    raise ValueError("Optional None requires at least one numba type")
+                    from molsysmt._private.smonitor import InternalAlgorithmError
+                    raise InternalAlgorithmError("Optional None requires at least one numba type")
                 for option in numba_options:
                     aux_argument.append(nb.optional(option))
             else:

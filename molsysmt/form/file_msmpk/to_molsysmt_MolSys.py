@@ -8,9 +8,8 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
     import pickle
     import bz2
 
-    fff = bz2.BZ2File(item,'rb')
-    tmp_item = pickle.load(fff)
-    fff.close()
+    with bz2.BZ2File(item,'rb') as fff:
+        tmp_item = pickle.load(fff)
 
     # lengths with nm values and time in ps
 

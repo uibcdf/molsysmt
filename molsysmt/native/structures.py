@@ -316,7 +316,8 @@ class Structures:
         if item.coordinates is not None:
             if self.coordinates is None:
                  # This is tricky, if coordinates are None we shouldn't be adding atoms
-                 raise ValueError("Cannot add atom coordinates to a system without coordinates.")
+                 from molsysmt._private.smonitor import StructuralInconsistencyError
+                 raise StructuralInconsistencyError("Cannot add atom coordinates to a system without coordinates.")
             else:
                  if is_all(structure_indices):
                      if is_all(atom_indices):

@@ -6,8 +6,6 @@ from smonitor import signal
 
 from molsysmt._private.arg_digestion import arg_digest
 from molsysmt._private.smonitor import StructuralInconsistencyError
-
-
 class MolSysBuilder:
     """Building a native molecular system incrementally from declared elements."""
 
@@ -90,16 +88,18 @@ class MolSysBuilder:
 
     @staticmethod
     def _indices_array(indices):
+        from molsysmt._private.smonitor import StructuralInconsistencyError
         values = np.asarray(indices, dtype=int)
         if values.ndim != 1:
-            raise ValueError("Indices must define a one-dimensional collection.")
+            raise StructuralInconsistencyError("Indices must define a one-dimensional collection.")
         return values
 
     def _validate_existing_indices(self, indices, *, upper_bound, element_name):
+        from molsysmt._private.smonitor import StructuralInconsistencyError
         if len(indices) == 0:
-            raise ValueError(f"{element_name} membership cannot be empty.")
+            raise StructuralInconsistencyError(f"{element_name} membership cannot be empty.")
         if np.any(indices < 0) or np.any(indices >= upper_bound):
-            raise ValueError(f"{element_name} membership references undefined lower-level indices.")
+            raise StructuralInconsistencyError(f"{element_name} membership references undefined lower-level indices.")
 
     @staticmethod
     def _fill_missing_string_ids(values):
@@ -141,7 +141,8 @@ class MolSysBuilder:
 
         current_group_index = self.topology.atoms.loc[atom_indices, "group_index"]
         if current_group_index.notna().any():
-            raise ValueError("Atoms already assigned to a group cannot be reassigned.")
+            from molsysmt._private.smonitor import StructuralInconsistencyError
+            raise StructuralInconsistencyError("Atoms already assigned to a group cannot be reassigned.")
 
         group_index = self.topology.n_groups
         self.topology.groups.loc[group_index, "group_id"] = self._normalize_optional_string(group_id, default=str(group_index))
@@ -230,7 +231,8 @@ class MolSysBuilder:
 
         current_chain_index = self.topology.groups.get("chain_index", pd.Series(dtype="Int64"))
         if len(current_chain_index) and current_chain_index.iloc[group_indices].notna().any():
-            raise ValueError("Groups already assigned to a chain cannot be reassigned.")
+            from molsysmt._private.smonitor import StructuralInconsistencyError
+            raise StructuralInconsistencyError("Groups already assigned to a chain cannot be reassigned.")
 
         chain_index = self.topology.n_chains
         self.topology.chains.loc[chain_index, "chain_id"] = self._normalize_optional_string(chain_id, default=str(chain_index))
@@ -258,7 +260,8 @@ class MolSysBuilder:
 
         current_molecule_index = self.topology.groups.loc[group_indices, "molecule_index"]
         if current_molecule_index.notna().any():
-            raise ValueError("Groups already assigned to a molecule cannot be reassigned.")
+            from molsysmt._private.smonitor import StructuralInconsistencyError
+            raise StructuralInconsistencyError("Groups already assigned to a molecule cannot be reassigned.")
 
         molecule_index = self.topology.n_molecules
         self.topology.molecules.loc[molecule_index, "molecule_id"] = self._normalize_optional_string(molecule_id, default=str(molecule_index))
@@ -278,7 +281,8 @@ class MolSysBuilder:
 
         current_entity_index = self.topology.molecules.loc[molecule_indices, "entity_index"]
         if current_entity_index.notna().any():
-            raise ValueError("Molecules already assigned to an entity cannot be reassigned.")
+            from molsysmt._private.smonitor import StructuralInconsistencyError
+            raise StructuralInconsistencyError("Molecules already assigned to an entity cannot be reassigned.")
 
         entity_index = self.topology.n_entities
         self.topology.entities.loc[entity_index, "entity_id"] = self._normalize_optional_string(entity_id, default=str(entity_index))
@@ -298,7 +302,8 @@ class MolSysBuilder:
             value = value[np.newaxis, :, :]
             coordinates = puw.quantity(value, puw.get_unit(coordinates))
         if value.shape[1] != self.topology.n_atoms:
-            raise ValueError("Coordinates must match the current number of atoms.")
+            from molsysmt._private.smonitor import StructuralInconsistencyError
+            raise StructuralInconsistencyError("Coordinates must match the current number of atoms.")
         self.structures.coordinates = coordinates
 
     @signal(tags=["native", "builder"])
@@ -311,7 +316,8 @@ class MolSysBuilder:
             value = value[np.newaxis, :, :]
             box = puw.quantity(value, puw.get_unit(box))
         if self.n_structures not in (0, value.shape[0]):
-            raise ValueError("Box must match the current number of structures.")
+            from molsysmt._private.smonitor import StructuralInconsistencyError
+            raise StructuralInconsistencyError("Box must match the current number of structures.")
         self.structures.box = box
 
     @signal(tags=["native", "builder"])
@@ -324,7 +330,8 @@ class MolSysBuilder:
             value = value[np.newaxis]
             time = puw.quantity(value, puw.get_unit(time))
         if self.n_structures not in (0, len(value)):
-            raise ValueError("Time must match the current number of structures.")
+            from molsysmt._private.smonitor import StructuralInconsistencyError
+            raise StructuralInconsistencyError("Time must match the current number of structures.")
         self.structures.time = time
 
     @signal(tags=["native", "builder"])
@@ -335,7 +342,8 @@ class MolSysBuilder:
         if structure_id.ndim == 0:
             structure_id = structure_id.reshape((1,))
         if self.n_structures not in (0, len(structure_id)):
-            raise ValueError("Structure ids must match the current number of structures.")
+            from molsysmt._private.smonitor import StructuralInconsistencyError
+            raise StructuralInconsistencyError("Structure ids must match the current number of structures.")
         self.structures.structure_id = structure_id.astype(int)
 
     def _ensure_group_membership(self, topology):

@@ -9,9 +9,8 @@ def update_file(item, skip_digestion=False):
     import pickle
     import bz2
 
-    fff = bz2.BZ2File(item,'rb')
-    tmp_item = pickle.load(fff)
-    fff.close()
+    with bz2.BZ2File(item,'rb') as fff:
+        tmp_item = pickle.load(fff)
 
 
     molsys = MolSys()

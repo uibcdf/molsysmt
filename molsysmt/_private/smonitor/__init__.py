@@ -1,5 +1,5 @@
 from .catalog import CATALOG, META, PACKAGE_ROOT
-from .emitter import bundle, warn, warn_once, resolve, debug, message_from_catalog
+from .emitter import bundle, warn, warn_once, resolve, debug, info, experimental_module, message_from_catalog
 from .exceptions import *
 from .warnings import *
 
@@ -12,5 +12,7 @@ __all__ = [
     "warn_once",
     "resolve",
     "debug",
+    "info",
+    "experimental_module",
     "message_from_catalog",
 ]
