@@ -12,7 +12,7 @@ However, the previous version of this document mixed:
 - a long-term vision,
 - and several advanced features that are not required to establish a credible `1.0.0` path.
 
-This `v2` document narrows the design to a minimum viable heavy-analysis architecture that:
+This `v2` document narrows the design to a minimum viable chunked-execution architecture that:
 - is technically coherent,
 - can be validated before `1.0.0`,
 - does not overpromise enterprise-grade orchestration,
@@ -61,6 +61,8 @@ Before or at `1.0.0`, MolSysMT should provide:
 - a deterministic decision between eager and heavy processing;
 - a sequential chunked processing path for supported local trajectory forms;
 - a minimal reducer protocol for operations that can be accumulated safely;
+- a minimal persistent result handle (for example, disk-backed NumPy memmap or HDF5-backed storage) to avoid memory crashes when delivering very large outputs;
+- integration with the ValidatedPayload protocol so inner execution loops avoid redundant validation;
 - mandatory SMonitor telemetry for heavy-mode decisions and progress;
 - parity tests that compare eager and heavy results for supported operations;
 - explicit diagnostics for unsupported heavy-mode combinations.
@@ -78,7 +80,6 @@ The following are valuable, but they should not be treated as `1.0.0` commitment
 - adaptive throttling based on live system load;
 - multi-analysis read-once orchestration;
 - real-time dashboards beyond basic telemetry;
-- automatic spill-to-disk lazy result handles for every operation;
 - enterprise-style scheduling or workflow orchestration.
 
 These remain valid roadmap items, but they should be documented as `1.x` or later work.
@@ -110,12 +111,12 @@ If a form or operation cannot support chunked heavy processing yet, MolSysMT sho
 ### 4.6 Read once, analyze many
 Even though full multi-analysis orchestration is outside the `1.0.0` committed slice, MolSysMT should preserve this as a design principle.
 
-The long-term heavy-analysis architecture should avoid rereading the same trajectory data for multiple compatible analyses when one pass through disk or network storage would be sufficient. This is one of the strongest practical reasons to invest in a heavy-processing architecture at all: for large workloads, I/O cost dominates quickly. I/O efficiency should therefore be treated as a first-class architectural constraint, not as a secondary optimization.
+The long-term chunked-execution architecture should avoid rereading the same trajectory data for multiple compatible analyses when one pass through disk or network storage would be sufficient. This is one of the strongest practical reasons to invest in a chunked-execution architecture at all: for large workloads, I/O cost dominates quickly. I/O efficiency should therefore be treated as a first-class architectural constraint, not as a secondary optimization.
 
 This principle is not a `1.0.0` feature commitment. It is a design constraint that should guide the internal architecture so that post-`1.0.0` multitask orchestration remains possible without redesigning the execution model.
 
 ### 4.7 Location-agnostic future design
-The first committed slice focuses on local chunked processing. However, the heavy-processing architecture should not be designed in a way that makes future remote or cloud-backed execution unnatural.
+The first committed slice focuses on local chunked processing. However, the chunked-execution architecture should not be designed in a way that makes future remote or cloud-backed execution unnatural.
 
 This does not mean remote streaming must be implemented before `1.0.0`. It means that the chunking model, reducer protocol, and telemetry contract should remain compatible with a future location-agnostic engine. The same principle applies to hardware empathy: the architecture should remain compatible with future resource-policy profiles ranging from workstation-friendly execution to throughput-oriented HPC execution, even if adaptive throttling itself is postponed beyond `1.0.0`.
 
@@ -157,7 +158,7 @@ A form or adapter capable of exposing trajectory data incrementally rather than 
 
 ## 6. The 1.0.0 Minimum Execution Contract
 
-This section describes exactly what MolSysMT should do in the `1.0.0` line.
+This section describes exactly what MolSysMT should do in the `1.0.0` line. Tier 1 must solve both the input memory wall and, in a minimal but explicit way, the output memory wall.
 
 ### 6.1 Pre-flight footprint calculation
 
@@ -169,6 +170,8 @@ At minimum, the estimate should consider:
 - coordinate dimensionality,
 - numeric dtype size,
 - a safety margin.
+
+The estimate must apply a mandatory 20% safety margin over the raw coordinate-size calculation to account for Python overhead, metadata management, temporary array views, and executor-side bookkeeping.
 
 The estimate does not need to be perfect. It needs to be conservative enough to avoid obvious memory failures.
 
@@ -212,9 +215,25 @@ That diagnostic should explain:
 - whether the form lacks heavy support,
 - and what the user can do next.
 
+### 6.6 Minimal output strategy
+
+Tier 1 must also address the output wall. Solving input streaming alone is insufficient if the final analysis result still needs to be materialized eagerly into RAM and can therefore fail at delivery time.
+
+For this reason, the ChunkedExecutor must support a fallback output mode. When the predicted size of the final result exceeds a safety threshold, the executor must be able to return a `PersistentResultHandle` instead of a fully materialized in-memory array.
+
+This handle may initially point to a simple disk-backed implementation such as:
+- a temporary `.npy` file exposed through NumPy memmap, or
+- an HDF5-backed result store.
+
+Tier 1 does not require a rich persistent-result ecosystem. It does require a minimal and explicit mechanism that prevents heavy-mode success on input from turning into output-stage memory failure.
+
+The Tier 1 lifecycle contract should remain simple: handles are temporary by default, must expose a path or equivalent retrieval mechanism, and must document whether cleanup is automatic or caller-controlled.
+
+Because Tier 1 already allows disk-backed output delivery, storage-aware preflight checks also belong in Tier 1. The executor must estimate whether the predicted persistent output can fit in the target storage budget and must fail early when the result would clearly exhaust available disk space. A storage kill switch is therefore a Tier 1 safety feature, not only a Tier 2 convenience feature.
+
 ## 7. Core Data Model for Heavy Processing
 
-The previous version assumed a heavy engine but did not define the core data model strongly enough. That is a gap.
+The previous version assumed a chunked executor but did not define the core data model strongly enough. That is a gap.
 
 For `1.0.0`, the heavy path needs a minimal and explicit data model.
 
@@ -226,11 +245,13 @@ A chunk should expose at least:
 - optional `time`
 - `structure_indices`
 
+Every chunk payload delivered to inner kernels must be wrapped in a `ValidatedPayload`. This is part of the inner-loop contract: once chunk boundaries have established trusted shape, dtype, and unit semantics, the executor should not re-enter redundant digestion or validation layers for every chunk operation.
+
 This is enough for many frame-local analyses.
 
 ### 7.2 Separation of orchestration and analysis
 
-The heavy engine should not own scientific logic.
+The chunked executor should not own scientific logic.
 Its responsibility should be:
 - iterating chunks,
 - respecting memory policy,
@@ -243,11 +264,13 @@ Scientific logic should remain in:
 - analysis wrappers,
 - and reducer implementations.
 
-This separation is essential. Otherwise the heavy engine becomes a second analysis library, which is not the goal.
+This separation is essential. Otherwise the chunked executor becomes a second analysis library, which is not the goal.
 
 ### 7.3 Iterator contract
 
 A chunk-capable source should provide a stable iteration contract. The exact object may evolve later, but pre-`1.0.0` the design should already assume that heavy processing relies on a predictable chunk iterator abstraction rather than ad hoc loops per operation.
+
+That iterator contract should support source-level atom selection and stride-aware extraction whenever the underlying form can provide it. The design goal is to avoid reading broad coordinate payloads only to discard most of them in RAM. In heavy workflows, selection should happen as close to the source as possible.
 
 ## 8. Reducer Protocol
 
@@ -295,6 +318,15 @@ Heavy-mode boundaries should avoid unnecessary copies. Chunk payloads should be 
 This is important because memory scalability is not only about peak RAM usage. It is also about avoiding avoidable allocation churn and hidden duplication across chunk transitions.
 
 ## 10. SMonitor Contract for Heavy Mode
+
+The following event range is reserved for Tier 1 heavy-mode diagnostics. The range may be extended later for Tier 2 and Tier 3 execution features:
+- `MSM-INFO-HVY-001`: heavy path selected;
+- `MSM-INFO-HVY-002`: eager path accepted after estimate;
+- `MSM-WARN-HVY-001`: slow chunk I/O detected;
+- `MSM-WARN-HVY-002`: corrupt frame detected and skipped;
+- `MSM-ERROR-HVY-001`: unsupported heavy-mode combination;
+- `MSM-ERROR-HVY-002`: output persistence failure.
+
 
 The previous version mentioned observability, but not precisely enough.
 
@@ -346,7 +378,7 @@ For the `1.0.0` slice, this does not require a rich dashboard or interactive pro
 - progress is visible;
 - ETA is exposed when it can be estimated responsibly.
 
-A practical preferred strategy for ETA in the first slice is a lightweight dry-run over the first chunk. This does not need to be mandatory for every operation before `1.0.0`, but it is the most defensible way to estimate throughput and cost without inventing unsupported precision.
+The ChunkedExecutor must perform a lightweight dry-run on the first chunk whenever feasible for supported chunk-capable operations. This first-pass estimate should be used to emit a baseline ETA through SMonitor. The goal is not perfect prediction; the goal is to protect the user from launching blind multi-hour jobs without an initial throughput estimate.
 
 The guiding principle is simple: heavy mode must not feel like a silent black box.
 
@@ -356,21 +388,21 @@ The previous manifesto correctly valued resilience, but did not distinguish fail
 
 For `1.0.0`, the policy should be explicit.
 
-### 10.1 Abort conditions
+### 11.1 Abort conditions
 Abort immediately when:
 - file header or structural metadata is unreadable;
 - the operation requires global eager materialization and no heavy path exists;
 - chunk iteration is impossible for the selected form;
 - reducer logic fails in a non-recoverable way.
 
-### 10.2 Recoverable conditions
+### 11.2 Recoverable conditions
 Recover, warn, and continue only when:
 - a frame is corrupt but the surrounding trajectory remains readable;
 - a chunk can be skipped safely without invalidating the computation semantics.
 
-This should be conservative. Recovery must never silently produce scientifically misleading results. When scientific validity can still be guaranteed, the preferred policy is to preserve run continuity instead of aborting an otherwise healthy long-running analysis because of a small number of damaged frames.
+This should be conservative. Recovery must never silently produce scientifically misleading results. Frames should only be skipped when the scientific meaning of the final result remains valid. When that condition holds, the preferred policy is to preserve run continuity instead of aborting an otherwise healthy long-running analysis because of a small number of damaged frames.
 
-### 10.3 Diagnostics
+### 11.3 Diagnostics
 Every recovery or abort path should have a structured diagnostic, not just a free-text warning.
 
 ## 12. Testing Strategy for the Heavy Slice
@@ -379,23 +411,23 @@ A pre-`1.0.0` heavy design is not credible without a concrete testing plan.
 
 The testing strategy should include:
 
-### 11.1 Unit tests
+### 12.1 Unit tests
 - footprint calculation;
 - decision policy eager vs heavy;
 - reducer protocol behavior;
 - chunk boundary correctness.
 
-### 11.2 Integration tests
+### 12.2 Integration tests
 - synthetic large trajectory fixtures;
 - parity between eager and heavy for supported operations;
 - telemetry contract tests.
 
-### 11.3 Fault tests
+### 12.3 Fault tests
 - corrupt frame handling;
 - unsupported form/operation combinations;
 - budget-based aborts.
 
-### 11.4 Determinism
+### 12.4 Determinism
 The heavy path must be tested against deterministic synthetic or bundled trajectory sources. This avoids giant real trajectory fixtures while still validating chunk logic.
 
 ## 13. Configuration Contract
@@ -409,6 +441,8 @@ Recommended minimal configuration:
 - `chunk_size`
 - `emit_heavy_telemetry`
 
+`chunk_size` should be treated as an advisory configuration value. Different forms or iterator backends may need to adjust the effective chunking strategy in order to preserve correctness or exploit natural storage boundaries.
+
 Everything else should wait until the architecture is proven.
 
 This keeps configuration understandable and reduces unstable surface area before `1.0.0`.
@@ -417,7 +451,7 @@ This keeps configuration understandable and reduces unstable surface area before
 
 The original tiering was useful, but too broad. This version makes it operational.
 
-### 13.1 Tier 1 - Pre-1.0 committed slice
+### 14.1 Tier 1 - Pre-1.0 committed slice
 - pre-flight footprint estimate;
 - eager/heavy decision policy;
 - sequential local chunking;
@@ -431,7 +465,7 @@ The original tiering was useful, but too broad. This version makes it operationa
 - local parallel reducers;
 - checkpointing/resume;
 - richer ETA, throughput, and memory-pressure telemetry;
-- storage-aware preflight checks for heavy output workflows, which become mandatory before heavy output-producing workflows can be considered supported;
+- richer persistent-result lifecycle management beyond the Tier 1 baseline;
 - lazy result handles for large-output workflows.
 
 ### 14.3 Tier 3 - Advanced / enterprise-like features
@@ -461,12 +495,12 @@ The following questions remain legitimate and should be answered explicitly befo
 1. What exact iterator abstraction will MolSysMT standardize for chunk delivery?
 2. Which public operations are officially in the first heavy-support slice?
 3. Which trajectory forms are in scope for the first heavy-support slice?
-4. Is a persistent result-handle abstraction needed before `1.0.0`, or can it wait?
-5. Which SMonitor event codes should be reserved specifically for heavy-mode lifecycle events?
+4. What is the minimum lifecycle contract for Tier 1 `PersistentResultHandle` objects (temporary ownership, cleanup, and optional materialization)?
+5. Which additional SMonitor event codes should be reserved beyond the Tier 1 heavy-mode baseline?
 
 ## 17. Summary
 
-The correct pre-`1.0.0` goal is not to deliver a complete "HeavyAnalysisEngine" platform. If the project keeps using the name "HeavyAnalysisEngine" for the future orchestration layer, it should be understood as a post-`1.0.0` internal execution concept, not as a claim that the full platform already exists in the `1.0.0` line.
+The correct pre-`1.0.0` goal is not to deliver a complete chunked-execution platform. If the project keeps using the name "ChunkedExecutor" for the future orchestration layer, it should be understood as a post-`1.0.0` internal execution concept, not as a claim that the full platform already exists in the `1.0.0` line.
 
 The correct goal is to deliver a disciplined Tier 1 heavy-processing slice that:
 - makes memory decisions explicit,
