@@ -1,4 +1,6 @@
 from molsysmt._private.arg_digestion import arg_digest
+from molsysmt._private.smonitor import StructuralInconsistencyError, FormatError
+from molsysmt._private.smonitor import ArgumentError, InternalAlgorithmError, ArgumentChoiceError
 import numpy as np
 import gzip
 import json
@@ -20,7 +22,7 @@ def _pick_topology_variant(topologies, prefer_oxt=None):
     """Select a topology variant according to terminal preference."""
 
     if not topologies:
-        raise ValueError("No topology variants were found in the group database.")
+        raise InternalAlgorithmError("No topology variants found in group database", caller="molsysmt.build.build_peptide")
 
     if prefer_oxt is None:
         return topologies[0]
@@ -857,7 +859,7 @@ def build_peptide(molecular_system, to_form='molsysmt.MolSys', engine='LEaP'):
         sequence = convert(molecular_system, to_form='string:amino_acids_3')
         sequence = sequence.upper()
         if sequence == '':
-            raise ValueError("Input peptide sequence is empty.")
+            raise ArgumentError("sequence", value="empty", caller="molsysmt.build.build_peptide")
         group_names = [sequence[ii:ii+3] for ii in range(0, len(sequence), 3)]
 
         amino_acid_group_names = set(amino_acid_group_names)

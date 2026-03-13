@@ -1,3 +1,5 @@
+from molsysmt._private.smonitor import ArgumentError, FormatError
+from molsysmt._private.smonitor import StructuralInconsistencyError, InternalAlgorithmError, FormatError
 
 def get_parenthesis(string):
 
@@ -13,7 +15,8 @@ def get_parenthesis(string):
             initial_positions = initial_positions[:-1]
 
     if len(initial_positions)>0:
-        raise ValueError('There must be an opened parenthesis in the string')
+        from molsysmt._private.smonitor import FormatError
+        raise FormatError("Missing opened parenthesis in string", caller="molsysmt._private.strings")
 
     return output
 

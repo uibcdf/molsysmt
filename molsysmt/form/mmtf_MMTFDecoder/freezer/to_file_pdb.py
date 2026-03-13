@@ -1,3 +1,4 @@
+from molsysmt._private.smonitor import StructuralInconsistencyError, InternalAlgorithmError, FormatError
 
 def to_file_pdb(item, atom_indices='all', structure_indices='all', output_filename=None,
                 check=True):
@@ -7,8 +8,7 @@ def to_file_pdb(item, atom_indices='all', structure_indices='all', output_filena
         _checking_form(item, check=check)
 
     if output_filename is None:
-        raise ValueError
-
+        raise InternalAlgorithmError("Unexpected empty state", caller="molsysmt.form.mmtf_MMTFDecoder.freezer.to_file_pdb")
     from molsysmt.tools.mmtf_MMTFDecoder import to_molsysmt_MolSys as mmtf_MMTFDecoder_to_molsysmt_MolSys
     from molsysmt.tools.molsysmt_MolSys import to_file_pdb as molsysmt_MolSys_to_file_pdb
 

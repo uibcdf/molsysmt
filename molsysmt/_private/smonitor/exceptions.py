@@ -213,8 +213,6 @@ class FileAlreadyHandledError(MolSysMTCatalogException):
 
     def __init__(self, filename=None):
         super().__init__(extra={"filename": filename or "<unknown>"})
-
-
 class FileContentError(MolSysMTCatalogException):
     catalog_key = "FileContentError"
 
@@ -226,6 +224,17 @@ class FileContentError(MolSysMTCatalogException):
             extra["record"] = record
         if filename is not None:
             extra["filename"] = filename
+
+        super().__init__(message=message, extra=extra)
+
+
+class FormatError(MolSysMTCatalogException):
+    catalog_key = "FormatError"
+
+    def __init__(self, reason, caller=None, message=None):
+        extra = {"reason": reason}
+        if caller:
+            extra["caller"] = caller
 
         super().__init__(message=message, extra=extra)
 
@@ -252,5 +261,6 @@ __all__ = [
     "NotWithThisFormError",
     "FileAlreadyHandledError",
     "FileContentError",
+    "FormatError",
     "NotDigestedArgumentWarning",
 ]

@@ -1,4 +1,5 @@
 from molsysmt._private.arg_digestion import arg_digest
+from molsysmt._private.smonitor import StructuralInconsistencyError, InternalAlgorithmError, FormatError
 from molsysmt import pyunitwizard as puw
 import numpy as np
 
@@ -49,8 +50,7 @@ def dump_structures_to_h5msm(item, file, atom_indices='all', structure_indices='
             needs_to_be_closed = True
 
     if not file_is_h5msm:
-        raise ValueError
-
+        raise InternalAlgorithmError("Unexpected empty state", caller="molsysmt.form.molsysmt_Structures.to_file_h5msm")
     int_precision = file.attrs['int_precision']
     float_precision = file.attrs['float_precision']
 

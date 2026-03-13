@@ -1,5 +1,6 @@
 from molsysmt._private.smonitor import NotImplementedMethodError
 from molsysmt._private.arg_digestion import arg_digest
+from molsysmt._private.smonitor import ArgumentError, StructuralInconsistencyError
 from molsysmt._private.variables import is_all
 
 @arg_digest(form='molsysmt.MolSys')
@@ -19,10 +20,10 @@ def merge(items, atom_indices='all', structure_indices='all', keep_ids=True, ski
         structure_indices = ['all' for ii in range(n_items)]
 
     if len(atom_indices)!=n_items:
-        raise ValueError(atom_indices)
+        raise ArgumentError("atom_indices", value=atom_indices, caller="molsysmt.form.molsysmt_MolSys.merge.py")
 
     if len(structure_indices)!=n_items:
-        raise ValueError(structure_indices)
+        raise ArgumentError("structure_indices", value=structure_indices, caller="molsysmt.form.molsysmt_MolSys.merge.py")
 
     output = MolSys()
     output.topology = merge_molsysmt_Topology([ii.topology for ii in items], atom_indices=atom_indices,

@@ -1,5 +1,6 @@
 from molsysmt._private.smonitor import NotImplementedMethodError
 from molsysmt._private.arg_digestion import arg_digest
+from molsysmt._private.smonitor import ArgumentError, StructuralInconsistencyError, InternalAlgorithmError, FormatError
 from molsysmt._private.variables import is_all
 import pandas as pd
 import numpy as np
@@ -19,7 +20,7 @@ def merge(items, atom_indices='all', keep_ids=True, skip_digestion=False):
         atom_indices = ['all' for ii in range(n_items)]
 
     if len(atom_indices)!=n_items:
-        raise ValueError(atom_indices)
+        raise ArgumentError("atom_indices", value=atom_indices, caller="molsysmt.form.molsysmt_Topology.merge")
 
     n_atoms = []
     n_groups = []

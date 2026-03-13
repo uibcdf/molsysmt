@@ -1,4 +1,5 @@
 from molsysmt._private.arg_digestion import arg_digest
+from molsysmt._private.smonitor import StructuralInconsistencyError, InternalAlgorithmError, FormatError
 
 @arg_digest(form='string:alphafold_id')
 def to_mmcif_PdbxContainers_DataContainer(item, atom_indices='all', structure_indices='all', skip_digestion=False):
@@ -48,7 +49,7 @@ def to_mmcif_PdbxContainers_DataContainer(item, atom_indices='all', structure_in
             ),
         )
     if len(containers)==0:
-        raise ValueError('The AlphaFold ID does not have any DataContainer')
+        raise FormatError("AlphaFold ID has no DataContainer", caller="molsysmt.form.string_alphafold_id.to_mmcif_PdbxContainers_DataContainer")
 
     tmp_item = containers[0]
 

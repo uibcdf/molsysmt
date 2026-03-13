@@ -1,4 +1,5 @@
 from molsysmt._private.arg_digestion import arg_digest
+from molsysmt._private.smonitor import StructuralInconsistencyError, InternalAlgorithmError, FormatError
 from molsysmt import pyunitwizard as puw
 import numpy as np
 
@@ -40,8 +41,7 @@ def to_molsysmt_Structures(item, atom_indices='all', structure_indices='all', sk
                 z.append(float(field[6]))
 
     if len(x)!=n_atoms:
-        raise ValueError
-
+        raise InternalAlgorithmError("Unexpected empty state", caller="molsysmt.form.file_crd.to_molsysmt_Structures")
     coordinates = puw.quantity(np.expand_dims(np.column_stack([x,y,z]), axis=0), unit='angstroms', standardized=True)
 
     tmp_item.append(structure_id=[0], coordinates=coordinates)

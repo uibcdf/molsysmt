@@ -185,6 +185,6 @@ def make_coordinates_like(variable, standardized=True):
                     output = puw.quantity(value, unit, standardized=standardized)
 
     if output is None:
-        raise ValueError()
-
+        from molsysmt._private.smonitor import InternalAlgorithmError
+        raise InternalAlgorithmError("Unexpected empty state", caller="molsysmt._private.variables")
     return output

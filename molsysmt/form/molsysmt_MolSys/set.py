@@ -1,4 +1,5 @@
 from molsysmt._private.arg_digestion import arg_digest
+from molsysmt._private.smonitor import ArgumentError, StructuralInconsistencyError
 from molsysmt._private.variables import is_all
 from molsysmt import pyunitwizard as puw
 import numpy as np
@@ -186,7 +187,7 @@ def set_coordinates_to_atom(item, indices='all', structure_indices='all', value=
     if is_all(indices):
         n_atoms = get_n_atoms_from_system(item.topology, skip_digestion=True)
         if n_atoms!=value.shape[1]:
-            raise ValueError('Coordinates has a different atoms number.')
+            raise StructuralInconsistencyError("Coordinates mismatch with number of atoms", caller="molsysmt.form.molsysmt_MolSys.set")
 
     return aux_set(item.structures, indices=indices, structure_indices=structure_indices,
                 value=value, skip_digestion=True)
@@ -200,7 +201,7 @@ def set_velocities_to_atom(item, indices='all', structure_indices='all', value=N
     if is_all(indices):
         n_atoms = get_n_atoms_from_system(item.topology, skip_digestion=True)
         if n_atoms!=value.shape[1]:
-            raise ValueError('Coordinates has a different atoms number.')
+            raise StructuralInconsistencyError("Coordinates mismatch with number of atoms", caller="molsysmt.form.molsysmt_MolSys.set")
 
     return aux_set(item.structures, indices=indices, structure_indices=structure_indices,
                 value=value, skip_digestion=True)

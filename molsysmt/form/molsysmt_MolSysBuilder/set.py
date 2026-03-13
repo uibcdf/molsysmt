@@ -1,4 +1,5 @@
 from molsysmt._private.arg_digestion import arg_digest
+from molsysmt._private.smonitor import StructuralInconsistencyError, InternalAlgorithmError, FormatError
 from molsysmt._private.variables import is_all
 
 form = "molsysmt.MolSysBuilder"
@@ -116,7 +117,7 @@ def set_coordinates_to_atom(item, indices="all", structure_indices="all", value=
     if is_all(indices):
         n_atoms = item.topology.n_atoms
         if n_atoms != value.shape[1]:
-            raise ValueError("Coordinates has a different atoms number.")
+            raise StructuralInconsistencyError("Coordinates mismatch with atoms count", caller="molsysmt.form.molsysmt_MolSysBuilder.set")
 
     return aux_set(
         item.structures,

@@ -1,4 +1,5 @@
 from molsysmt._private.arg_digestion import arg_digest
+from molsysmt._private.smonitor import ArgumentError, InternalAlgorithmError, ArgumentChoiceError
 from molsysmt._private.variables import is_all
 from molsysmt import pyunitwizard as puw
 import numpy as np
@@ -53,7 +54,7 @@ def solve_atoms_with_alternate_location(molecular_system, selection='all',
 
     if isinstance(location_id,(list, tuple, np.ndarray)):
         if len(location_id)!=n_atoms:
-            raise ValueError()
+            raise InternalAlgorithmError("Unexpected empty state", caller="molsysmt.build.solve_atoms_with_alternate_location.py")
 
         aux_atom_indices=[]
         aux_b_factor=[]

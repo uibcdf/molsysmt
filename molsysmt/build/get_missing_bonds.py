@@ -1,4 +1,5 @@
 from molsysmt._private.arg_digestion import arg_digest
+from molsysmt._private.smonitor import ArgumentError, InternalAlgorithmError, ArgumentChoiceError
 from molsysmt._private.smonitor import NotImplementedMethodError
 from molsysmt._private.variables import is_all
 from molsysmt._private.lists import sorted_list_of_pairs
@@ -68,7 +69,7 @@ def get_missing_bonds(molecular_system, selection='all', structure_index=0, max_
                     elif is_n_terminal_capping(group_name):
                         aux_peptidic_bonds_N[group_index]=atom_indices[atom_names.index('N')]
                     else:
-                        raise ValueError("terminal capping not recognized as C- or N-")
+                        raise ArgumentChoiceError("terminal_capping", "unknown", ["C-terminal", "N-terminal"], caller="molsysmt.build.get_missing_bonds")
                 case "small molecule":
                     aux_bonds = _bonds_in_small_molecule(group_name, atom_names, atom_indices, sorted=False)
                 case "saccharide":

@@ -1,3 +1,4 @@
+from molsysmt._private.smonitor import StructuralInconsistencyError, InternalAlgorithmError, FormatError
 import pickle
 import sys
 import json
@@ -17,8 +18,7 @@ def get_group_db(group_name):
         with open(path('molsysmt.data.databases.terminal_cappings','c_terminal.json'), 'r') as fff:
             dbs = json.load(fff)
     else:
-        raise ValueError
-
+        raise InternalAlgorithmError("Unexpected empty state", caller="molsysmt.element.group.terminal_capping.get_group_db")
     db = dbs[group_name]
 
     return db

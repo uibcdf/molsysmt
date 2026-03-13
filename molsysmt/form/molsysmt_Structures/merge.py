@@ -1,5 +1,6 @@
 from molsysmt._private.smonitor import NotImplementedMethodError
 from molsysmt._private.arg_digestion import arg_digest
+from molsysmt._private.smonitor import ArgumentError, StructuralInconsistencyError
 from molsysmt._private.variables import is_all, is_iterable
 from molsysmt import pyunitwizard as puw
 import numpy as np
@@ -24,10 +25,10 @@ def merge(items, atom_indices='all', structure_indices='all', skip_digestion=Fal
         structure_indices = ['all' for ii in range(n_items)]
 
     if len(atom_indices)!=n_items:
-        raise ValueError(atom_indices)
+        raise ArgumentError("atom_indices", value=atom_indices, caller="molsysmt.form.molsysmt_Structures.merge")
 
     if len(structure_indices)!=n_items:
-        raise ValueError(structure_indices)
+        raise ArgumentError("structure_indices", value=structure_indices, caller="molsysmt.form.molsysmt_Structures.merge")
 
     # We need to set n_structures before checking it
     first_structure_indices = structure_indices[0]
@@ -62,7 +63,7 @@ def merge(items, atom_indices='all', structure_indices='all', skip_digestion=Fal
             if aux_n_atoms > 0:
 
                 if n_structures != aux_item.n_structures:
-                    raise ValueError(f"Inconsistent number of structures: {n_structures} vs {aux_item.n_structures}")
+                    raise StructuralInconsistencyError(reason=f"Inconsistent number of structures: {n_structures} vs {aux_item.n_structures}", caller="molsysmt.form.molsysmt_Structures.merge")
 
                 if is_all(aux_atom_indices):
                     list_coordinates.append(aux_item.coordinates)
@@ -85,7 +86,7 @@ def merge(items, atom_indices='all', structure_indices='all', skip_digestion=Fal
             if aux_n_structure_indices > 0:
                 
                 if n_structures != aux_n_structure_indices:
-                     raise ValueError(f"Inconsistent number of structures: {n_structures} vs {aux_n_structure_indices}")
+                     raise StructuralInconsistencyError(reason=f"Inconsistent number of structures: {n_structures} vs {aux_n_structure_indices}", caller="molsysmt.form.molsysmt_Structures.merge")
 
                 aux_n_atoms = aux_item.n_atoms if is_all(aux_atom_indices) else len(aux_atom_indices)
 

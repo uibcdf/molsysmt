@@ -1,3 +1,4 @@
+from molsysmt._private.smonitor import StructuralInconsistencyError, InternalAlgorithmError
 import functools
 import os
 import re
@@ -88,9 +89,9 @@ class TLeap:
 
         for parameter, value in kwargs.items():
             if parameter not in accepted_values:
-                raise ValueError(f"Parameter not recognized: {parameter}")
+                raise ArgumentChoiceError("parameter", parameter, choices="tLeap recognized parameters", caller="molsysmt.thirds.tleap.tleap")
             if value not in accepted_values[parameter]:
-                raise ValueError(f"Value for parameter {parameter} not recognized: {value}")
+                raise ArgumentChoiceError(parameter, value, choices="tLeap recognized values", caller="molsysmt.thirds.tleap.tleap")
             self.add_commands(f"set default {parameter} {value}")
 
     @_sanitize_tleap_unit_name
@@ -105,7 +106,7 @@ class TLeap:
         elif extension == ".pdb":
             load_command = "loadPdb"
         else:
-            raise ValueError(f"cannot load format {extension} in tLeap")
+            raise FormatError(f"cannot load format {extension} in tLeap", caller="molsysmt.thirds.tleap.tleap")
 
         self.add_commands(f"{unit_name} = {load_command} {local_name}")
         self._input_file_paths[local_name] = file_path
@@ -192,7 +193,7 @@ class TLeap:
             self.add_commands(f"savePDB {unit_name} {local_name}")
 
         else:
-            raise ValueError(f"cannot export format {extension} from tLeap")
+            raise FormatError(f"cannot export format {extension} from tLeap", caller="molsysmt.thirds.tleap.tleap")
 
     @_sanitize_tleap_unit_name
     def transform(self, unit_name, transformation):
@@ -399,7 +400,7 @@ class TLeap:
         """Normalizing LEaP unit names to avoid unsupported leading digits."""
 
         if not isinstance(unit_name, str) or len(unit_name) == 0:
-            raise ValueError("Unit name must be a non-empty string.")
+            raise ArgumentError("unit_name", value="empty", message="Unit name must be a non-empty string.", caller="molsysmt.thirds.tleap.tleap")
         if unit_name[0].isdigit():
             unit_name = "M" + unit_name
         return unit_name

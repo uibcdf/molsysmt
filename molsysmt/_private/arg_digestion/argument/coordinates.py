@@ -1,3 +1,4 @@
+from molsysmt._private.smonitor import InternalAlgorithmError, FormatError
 from molsysmt._private.smonitor import ArgumentError
 import numpy as np
 from molsysmt import pyunitwizard as puw
@@ -46,17 +47,17 @@ def digest_coordinates(coordinates, caller=None):
             if shape[0] == 3:
                 value = value[np.newaxis, np.newaxis, :]
             else:
-                raise ValueError("Wrong shape")
+                raise StructuralInconsistencyError("Wrong shape for coordinates", caller=caller)
         elif len(shape) == 2:
             if shape[1] == 3:
                 value = value[np.newaxis, :, :]
             else:
-                raise ValueError("Wrong shape")
+                raise StructuralInconsistencyError("Wrong shape for coordinates", caller=caller)
         elif len(shape) == 3:
             if shape[2] != 3:
-                raise ValueError("Wrong shape")
+                raise StructuralInconsistencyError("Wrong shape for coordinates", caller=caller)
         else:
-            raise ValueError("Wrong dimensions")
+            raise StructuralInconsistencyError("Wrong dimensions for coordinates", caller=caller)
 
         # Performance: return as quantity in ORIGINAL unit. 
         # Avoid forced standardize() unless specifically needed downstream.

@@ -200,6 +200,12 @@ CATALOG = {
             "category": "io",
             "level": "ERROR",
         },
+        "FormatError": {
+            "code": "MSM-ERR-IO-003",
+            "source": "molsysmt.error.format",
+            "category": "io",
+            "level": "ERROR",
+        },
     },
 }
 

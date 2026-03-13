@@ -1,4 +1,5 @@
 from molsysmt._private.arg_digestion import arg_digest
+from molsysmt._private.smonitor import StructuralInconsistencyError, InternalAlgorithmError, FormatError
 
 @arg_digest(form='file:bcif.gz')
 def to_mmcif_PdbxContainers_DataContainer(item, atom_indices='all', skip_digestion=False):
@@ -21,7 +22,7 @@ def to_mmcif_PdbxContainers_DataContainer(item, atom_indices='all', skip_digesti
         )
 
     if len(containers)==0:
-        raise ValueError('The PDB ID does not have any DataContainer')
+        raise FormatError("PDB ID has no DataContainer", caller="molsysmt.form.file_bcif_gz.to_mmcif_PdbxContainers_DataContainer")
 
     tmp_item = containers[0]
 

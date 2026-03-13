@@ -1,3 +1,4 @@
+from molsysmt._private.smonitor import StructuralInconsistencyError, InternalAlgorithmError, FormatError
 import pickle
 import sys
 import gzip
@@ -12,8 +13,7 @@ def path(package, file):
 def get_group_db(group_name):
 
     if group_name not in group_names:
-        raise ValueError
-    
+        raise InternalAlgorithmError("Unexpected empty state", caller="molsysmt.element.group.saccharide.get_group_db")
     with gzip.open(path('molsysmt.data.databases.saccharides',group_name[0]+'.pkl.gz'), 'rb') as fff:
         dbs = pickle.load(fff)
 

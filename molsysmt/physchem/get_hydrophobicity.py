@@ -1,5 +1,6 @@
 from molsysmt._private.smonitor import NotImplementedMethodError
 from molsysmt._private.arg_digestion import arg_digest
+from molsysmt._private.smonitor import StructuralInconsistencyError, InternalAlgorithmError, FormatError
 import numpy as np
 
 @arg_digest()
@@ -12,8 +13,7 @@ def get_hydrophobicity(molecular_system, element='group', selection='all', defin
     from molsysmt.basic import get
 
     if element != 'group':
-        raise ValueError()
-
+        raise InternalAlgorithmError("Unexpected empty state", caller="molsysmt.physchem.get_hydrophobicity")
     if definition == 'eisenberg':
         from .groups.hydrophobicity import eisenberg as values
     elif definition == 'rao':

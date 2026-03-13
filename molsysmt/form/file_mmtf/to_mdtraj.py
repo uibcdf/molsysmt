@@ -1,3 +1,4 @@
+from molsysmt._private.smonitor import StructuralInconsistencyError, InternalAlgorithmError, FormatError
 """mmtf.py: Used for loading mmtf files.
 """
 ##############################################################################

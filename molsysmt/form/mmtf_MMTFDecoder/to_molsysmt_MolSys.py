@@ -1,5 +1,6 @@
 from molsysmt._private.smonitor import NotImplementedMethodError
 from molsysmt._private.arg_digestion import arg_digest
+from molsysmt._private.smonitor import FormatError
 from molsysmt._private.variables import is_all
 from molsysmt import pyunitwizard as puw
 import numpy as np
@@ -345,11 +346,11 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
 
             elif first_group_type == 'nucleotide':
 
-                raise ValueError("Entity type not recognized:", first_group_type)
+                raise FormatError(f"Entity type not recognized: {first_group_type}", caller="molsysmt.form.mmtf_MMTFDecoder.to_molsysmt_MolSys")
 
             else:
 
-                raise ValueError("Entity type not recognized:", first_group_type)
+                raise FormatError(f"Entity type not recognized: {first_group_type}", caller="molsysmt.form.mmtf_MMTFDecoder.to_molsysmt_MolSys")
 
             del group_indices
 

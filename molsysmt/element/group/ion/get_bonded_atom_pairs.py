@@ -1,4 +1,5 @@
 from molsysmt._private.arg_digestion import arg_digest
+from molsysmt._private.smonitor import StructuralInconsistencyError, InternalAlgorithmError, FormatError
 import numpy as np
 
 
@@ -18,8 +19,7 @@ def get_bonded_atom_pairs(group_name, atom_names, atom_indices=None, sorted=True
         from molsysmt.element.group.ion import group_names, get_group_db
 
         if group_name not in group_names:
-            raise ValueError
-    
+            raise InternalAlgorithmError("Unexpected empty state", caller="molsysmt.element.group.ion.get_bonded_atom_pairs")
         if atom_indices is None:
             atom_indices = np.arange(len(atom_names), dtype=int).tolist()
 

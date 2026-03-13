@@ -1,4 +1,5 @@
 from molsysmt._private.arg_digestion import arg_digest
+from molsysmt._private.smonitor import StructuralInconsistencyError, InternalAlgorithmError, FormatError
 from smonitor import signal
 from molsysmt._private.smonitor import NotImplementedMethodError
 #from molsysmt.lib import geometry as libgeometry

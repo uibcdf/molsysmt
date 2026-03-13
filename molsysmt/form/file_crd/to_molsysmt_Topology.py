@@ -1,4 +1,5 @@
 from molsysmt._private.arg_digestion import arg_digest
+from molsysmt._private.smonitor import StructuralInconsistencyError, InternalAlgorithmError, FormatError
 from molsysmt import pyunitwizard as puw
 from molsysmt.element.atom import get_atom_type_from_atom_name
 from molsysmt.element.group import get_group_type_from_group_name
@@ -70,8 +71,7 @@ def to_molsysmt_Topology(item, atom_indices='all', structure_indices='all', skip
                 chain_index.append(aux_chain_index)
 
     if len(atom_id)!=n_atoms:
-        raise ValueError
-
+        raise InternalAlgorithmError("Unexpected empty state", caller="molsysmt.form.file_crd.to_molsysmt_Topology")
     for ii in atom_name:
         atom_type.append(get_atom_type_from_atom_name(ii))
 

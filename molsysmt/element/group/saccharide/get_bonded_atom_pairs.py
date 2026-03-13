@@ -1,3 +1,4 @@
+from molsysmt._private.smonitor import StructuralInconsistencyError, InternalAlgorithmError, FormatError
 import numpy as np
 
 _sorted=sorted
@@ -7,8 +8,7 @@ def get_bonded_atom_pairs(group_name, atom_names, atom_indices=None, sorted=True
     from . import group_names, get_group_db
 
     if group_name not in group_names:
-        raise ValueError
-    
+        raise InternalAlgorithmError("Unexpected empty state", caller="molsysmt.element.group.saccharide.get_bonded_atom_pairs")
     if atom_indices is None:
         atom_indices = np.arange(len(atom_names), dtype=int).tolist()
 
@@ -37,8 +37,7 @@ def get_bonded_atom_pairs(group_name, atom_names, atom_indices=None, sorted=True
 
         print(group_name, atom_names)
 
-        raise ValueError
-
+        raise InternalAlgorithmError("Unexpected empty state", caller="molsysmt.element.group.saccharide.get_bonded_atom_pairs")
     if sorted:
         return _sorted(bonds)
     else:
