@@ -1,3 +1,4 @@
+from argdigest.core.contract import ValidatedPayload
 from molsysmt._private.smonitor import InternalAlgorithmError, FormatError
 from molsysmt._private.smonitor import ArgumentError
 import numpy as np
@@ -59,9 +60,30 @@ def digest_coordinates(coordinates, caller=None):
         else:
             raise StructuralInconsistencyError("Wrong dimensions for coordinates", caller=caller)
 
+        
         # Performance: return as quantity in ORIGINAL unit. 
         # Avoid forced standardize() unless specifically needed downstream.
-        return puw.quantity(value, unit)
+        q = puw.quantity(value, unit)
+
+        
+        # Performance: return as quantity in ORIGINAL unit. 
+        # Avoid forced standardize() unless specifically needed downstream.
+        q = puw.quantity(value, unit)
+
+        # --- Passport Issuance (Conservative) ---
+        # We only issue a passport if the caller is a structural kernel helper
+        # or a very specific high-frequency internal function.
+        if caller is not None and caller.startswith("molsysmt.lib.structure"):
+             return ValidatedPayload(
+                 value=q,
+                 unit=str(unit),
+                 dtype=str(value.dtype),
+                 ndim=value.ndim
+             )
+
+        return q
+
+
 
     except Exception as e:
         from molsysmt._private.smonitor import ArgumentError
