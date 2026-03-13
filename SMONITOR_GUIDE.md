@@ -5,7 +5,7 @@ Source of truth for integrating and using **SMonitor** in this library.
 Metadata
 - Source repository: `smonitor`
 - Source document: `standards/SMONITOR_GUIDE.md`
-- Source version: `smonitor@0.11.4`
+- Source version: `smonitor@0.11.5`
 - Last synced: 2026-03-10
 
 ## What is SMonitor
@@ -19,6 +19,30 @@ SMonitor is not just a logging wrapper; it is a **Signal Orchestrator** that dec
 - **Consistency**: Users see clear, helpful messages formatted as cards.
 - **Traceability**: Developers can see the "Breadcrumb" trail across libraries.
 - **AI-Ready**: Agents can parse structured events via the `agent` profile.
+
+## Integration levels
+
+Treat this guide in three layers:
+
+1. **Mandatory**
+   - required for a correct SMonitor integration in any sibling library.
+2. **Recommended**
+   - expected for modern QA/support readiness.
+3. **Advanced / CI-support**
+   - valuable once the mandatory and recommended layers are already in place.
+
+If time is constrained, implement in that order.
+
+## Minimum modern integration recipe
+
+At minimum, a sibling library should have:
+
+1. `_smonitor.py` plus private catalog/meta files.
+2. `ensure_configured(PACKAGE_ROOT)` in package initialization.
+3. catalog-driven emission via `DiagnosticBundle` / catalog exceptions and warnings.
+4. `@signal` on public orchestration entry points.
+5. `context_extra(...)` for repeated structured diagnostic fields.
+6. one smoke test covering config + bundle export.
 
 ## 1. Required Configuration Structure
 
@@ -55,6 +79,8 @@ This avoids drift where emitted catalog codes exist but template messages are mi
 
 ## 2. Initialization Protocol
 
+Level: **Mandatory**
+
 In your library's `__init__.py`, ensure SMonitor is configured on import. This activates the "System Nervous System":
 
 ```python
@@ -65,6 +91,8 @@ ensure_configured(PACKAGE_ROOT)
 ```
 
 ## 3. Emission via Catalog (Mandatory)
+
+Level: **Mandatory**
 
 All diagnostic output must be driven by the catalog. **Never hardcode strings** in the scientific logic.
 
@@ -125,6 +153,8 @@ Silencing emission failures causes loss of traceability and empty/noisy diagnost
 
 ## 4. Telemetry with `@signal`
 
+Level: **Recommended**
+
 To enable execution traceability (breadcrumbs), decorate all major API entry points and internal orchestration functions.
 
 ```python
@@ -141,6 +171,8 @@ def get_atoms(molecular_system, selection="all"):
 
 ## 5. Signal Contracts
 
+Level: **Recommended**
+
 Enforce structured data by defining required fields in `_smonitor.py`:
 
 ```python
@@ -154,6 +186,8 @@ SIGNALS = {
 Missing fields will trigger warnings or errors in `dev` and `qa` profiles, ensuring diagnostic quality.
 
 ## 5.1 Structured Signal Context and Profiling
+
+Level: **Recommended**
 
 Recent pre-1.0 stabilization work added several profiling and machine-diagnostics capabilities that integrators should use deliberately:
 
@@ -178,6 +212,8 @@ These features are intended for observability and QA; they should remain opt-in 
 
 ## 5.2 Canonical Structured Context Helper
 
+Level: **Recommended**
+
 For library-generated diagnostics, prefer `smonitor.integrations.context_extra(...)` when building repeated `extra` payloads.
 
 ```python
@@ -197,17 +233,61 @@ emit_from_catalog(
 
 Use this helper for stable shared keys such as `caller`, `form`, `requested_attribute`, `resource`, `provider`, and `operation`.
 
+Current canonical additive fields also include:
+- retry metadata: `retry_attempt`, `retry_max`, `retry_exhausted`, `retry_delay_s`;
+- causal metadata: `failure_class`, `last_failure_reason`, `cause_exception_type`, `cause_code`, `causal_chain`;
+- decision metadata: `incident_kind`, `severity`, `priority`, `diagnostic_confidence`, `recommended_action`, `next_step`, `retryable`, `support_needed`;
+- structured `evidence` for compact `expected`/`observed`/`resource`/`operation` facts.
+
+Compact modern example:
+
+```python
+from smonitor.integrations import context_extra
+
+extra = context_extra(
+    caller="mylib.io.download_structure",
+    resource="181l.pdb",
+    provider="RCSB",
+    operation="download",
+    retry_attempt=2,
+    retry_max=5,
+    retry_exhausted=False,
+    failure_class="network",
+    last_failure_reason="timeout",
+    incident_kind="network",
+    recommended_action="retry",
+    next_step="check-network",
+    evidence={"expected": "download ok", "observed": "timeout"},
+)
+```
+
 ## 5.3 Report, Bundle, and Machine-Oriented Output
+
+Level: **Advanced / CI-support**
 
 SMonitor now exposes QA-oriented summaries beyond raw event streams:
 
-- `report()` includes `events_by_code`, `events_by_category`, `slow_signals_recent`, and `coalesced_warnings`.
+- events carry stable `fingerprint`, `run_id`, `session_id`, and optional `correlation_id`.
+- events also carry a stable additive `human_summary` block for concise human-facing handoff.
+- `report()` includes `events_by_code`, `events_by_category`, `events_by_fingerprint`, `slow_signals_recent`, and `coalesced_warnings`.
+- `report()` also exposes operational triage sections such as `top_codes`, `top_sources`, `top_fingerprints`, `most_noisy_resources`, `most_expensive_entries`, `blocking_incidents`, `actionable_incidents`, and `recurrent_incidents`.
 - bundle exports mirror those summaries under `triage`.
-- `JsonHandler` includes a `normalized` payload section with stable machine-oriented fields for cross-library ingestion.
+- bundle exports also carry a `runtime` block and can be compared locally with `smonitor compare`.
+- `JsonHandler` includes a `normalized` payload section with stable machine-oriented fields for cross-library ingestion, including retry/causal metadata, decision metadata, structured `evidence`, and mirrored `human_summary`.
 
 These additions should be treated as the preferred source for automated QA summaries before scanning raw event buffers.
 
+Minimal CI/support flow:
+
+1. run tests or the representative workflow;
+2. export a local bundle;
+3. inspect `triage` first, not raw events;
+4. compare against a previous bundle when asking “what changed?”;
+5. only fall back to raw event streams when the summaries are insufficient.
+
 ## 5.4 Human-Readable Output and Coalescing
+
+Level: **Advanced / CI-support**
 
 Two usability rules now apply:
 
@@ -216,7 +296,16 @@ Two usability rules now apply:
 
 Use coalescing only for clearly repeated transient diagnostics such as download retries, not for semantically distinct warnings.
 
+More general duplicate handling is also available through `duplicate_policy`, keyed by incident fingerprint. The current pre-1.0 supported policies are:
+- `off`
+- `emit_summary`
+- `emit_every_n`
+
+Use duplicate policies for genuinely repeated incidents where aggregate counts are more useful than verbatim repetition.
+
 ## 6. Noise Control
+
+Level: **Recommended**
 
 SMonitor captures all exceptions by default as `ERROR`. For functions that perform exploratory checks (e.g., "is this string a unit?"), this creates log noise.
 

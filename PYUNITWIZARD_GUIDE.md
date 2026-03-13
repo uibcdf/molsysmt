@@ -113,3 +113,25 @@ with puw.context(default_form='pint', standard_units=['nm', 'ps']):
 
 ---
 *Document created on February 6, 2026, as the authority for PyUnitWizard integration.*
+## 6. Performance: Fast-Track Conversions
+
+Generic unit conversion (`standardize`) is powerful but can be slow. PyUnitWizard allows registering domain-specific "Fast-Tracks" for common units.
+
+### 6.1 Registering Fast-Tracks
+Host libraries should register their canonical units during initialization (usually in `_pyunitwizard.py`).
+
+```python
+import pyunitwizard as puw
+puw.register_fast_track("nanometers", puw.unit("nm"))
+```
+
+### 6.2 Using Fast-Tracks
+Once registered, optimized conversion functions are available under the `fast_track` namespace.
+
+```python
+# Instant bypass if obj is already in nanometers
+val = puw.fast_track.to_nanometers(obj)
+```
+
+### 6.3 Performance Guarantee
+Fast-track functions use direct object comparison and "trusted path" guards, making them ideal for high-frequency loops or argument digesters.

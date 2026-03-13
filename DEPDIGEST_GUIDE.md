@@ -5,8 +5,8 @@ Source of truth for integrating and using **DepDigest** in this library.
 Metadata
 - Source repository: `depdigest`
 - Source document: `standards/DEPDIGEST_GUIDE.md`
-- Source version: `depdigest@0.1.1`
-- Last synced: 2026-02-06
+- Source version: `depdigest@0.5.0-dev`
+- Last synced: 2026-02-27
 
 ## What is DepDigest
 
@@ -50,7 +50,8 @@ EXCEPTION_CLASS = MyLibraryNotFoundError
 ## 2. Core API for Developers
 
 ### 2.1 The `@dep_digest` Decorator
-Resolved at runtime. It checks `is_installed(pypi_name)` before executing the function.
+Resolved at runtime. It checks `is_installed(library_key)` before executing the function.  
+The optional `pypi` field is used for installation hints/messages.
 
 ```python
 from depdigest import dep_digest
@@ -82,6 +83,18 @@ registry = LazyRegistry(
 )
 ```
 
+Optional entry-point mode:
+
+```python
+registry = LazyRegistry(
+    package_prefix='MyLibrary.plugins',
+    directory='/unused',
+    attr_name='plugin_name',
+    discovery_mode='entry_points',
+    entrypoint_group='MyLibrary.plugins',
+)
+```
+
 ## 3. Advanced Integration
 
 ### 3.1 Manual Configuration Registration
@@ -96,6 +109,17 @@ register_package_config('my_dynamic_pkg', DepConfig(
 ))
 ```
 
+You can remove or scope these overrides:
+
+```python
+from depdigest import unregister_package_config, temporary_package_config
+
+unregister_package_config('my_dynamic_pkg')
+
+with temporary_package_config('my_dynamic_pkg', DepConfig(libraries={})):
+    ...
+```
+
 ### 3.2 User Introspection
 Expose a function to let users know their environment's status:
 
@@ -104,6 +128,21 @@ from depdigest import get_info
 
 def dependency_info():
     return get_info('MyLibrary')
+```
+
+Machine-readable status is also available:
+
+```python
+payload = get_info('MyLibrary', format='dict')  # or format='json'
+```
+
+`dict/json` outputs follow schema `depdigest.get_info@1.0`.
+
+### 3.3 Architecture Audit in CI
+Use the audit command to detect top-level imports of soft dependencies:
+
+```bash
+depdigest audit --src-root MyLibrary --soft-deps mdtraj,openmm
 ```
 
 ## Required behavior (non-negotiable)
@@ -117,4 +156,4 @@ def dependency_info():
 DepDigest is instrumented with `@smonitor.signal(tags=["dependency"])`. Every dependency check and automated loading process is traceable in the breadcrumb trail.
 
 ---
-*Document created on February 6, 2026, as the authority for DepDigest integration.*
+*Document created on February 6, 2026, as the authority for DepDigest integration. Updated on February 27, 2026.*

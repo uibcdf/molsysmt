@@ -159,3 +159,23 @@ includes execution context and the original exception text.
 
 ---
 *Document created on February 6, 2026, as the authority for ArgDigest integration.*
+
+## 5. Performance: The Normalization Passport (`ValidatedPayload`)
+
+To avoid redundant unit conversions and introspection in recursive function calls, `argdigest` supports a "Passport" protocol.
+
+### 5.1 What is a `ValidatedPayload`?
+It is a lightweight container that carries a value along with its verified metadata (unit, dtype, etc.). When the `@arg_digest` decorator receives a `ValidatedPayload`, it bypasses standard digestion if the contract matches.
+
+### 5.2 Emitting Payloads
+Scientific pipelines (e.g., `sci:nm_float64_payload`) should return a `ValidatedPayload` instead of a raw array when internal trust is desired.
+
+```python
+from argdigest.core.contract import ValidatedPayload
+# Inside a pipeline or custom digester
+return ValidatedPayload(value=array, unit="nm", dtype="float64")
+```
+
+### 5.3 Benefits
+- **Zero Latency**: Internal calls skip PyUnitWizard entirely.
+- **Contract Safety**: Guarantees JIT-ready data (e.g., float64) across function boundaries.
