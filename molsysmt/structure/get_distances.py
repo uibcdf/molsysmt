@@ -448,6 +448,7 @@ def _get_distances_in_memory(molecular_system, selection="all", structure_indice
                                 structure_indices=structure_indices_2, syntax=syntax,
                                 coordinates=True)
 
+
     if not pairs:
 
         if coordinates_2 is None:
@@ -455,102 +456,52 @@ def _get_distances_in_memory(molecular_system, selection="all", structure_indice
             coordinates, length_unit = extract_coordinates_value_and_unit(coordinates)
 
             if pbc:
-                box = get(molecular_system, element='system', structure_indices=structure_indices, box=True)
-                if box is not None:
-                    if box[0] is not None:
-                        box = puw.get_value(box, to_unit=length_unit)
-                        distances = msmlib.structure.get_mic_distances_single_system(coordinates.astype(np.float64),
-                                    box.astype(np.float64))
-                        del(coordinates, box)
-                    else:
-                        pbc = False
+                box = get(molecular_system, element="system", structure_indices=structure_indices, box=True)
+                if box is not None and box[0] is not None:
+                    # Align box to coordinates unit and ensure float64
+                    box = puw.get_value(box, to_unit=length_unit, dtype=np.float64)
+                    distances = msmlib.structure.get_mic_distances_single_system(coordinates, box)
                 else:
-                    pbc = False
-
-            if not pbc:
-                distances = msmlib.structure.get_distances_single_system(coordinates.astype(np.float64))
-                del(coordinates)
-
-            distances = puw.quantity(distances, length_unit)
+                    distances = msmlib.structure.get_distances_single_system(coordinates)
+            else:
+                distances = msmlib.structure.get_distances_single_system(coordinates)
 
         else:
 
             coordinates, coordinates_2, length_unit = align_coordinates_values_and_unit(
-                coordinates,
-                coordinates_2,
+                coordinates, coordinates_2
             )
 
             if pbc:
-                box = get(molecular_system, element='system', structure_indices=structure_indices, box=True)
-                if box is not None:
-                    if box[0] is not None:
-                        box = puw.get_value(box, to_unit=length_unit)
-                        distances = msmlib.structure.get_mic_distances(coordinates.astype(np.float64),
-                                    coordinates_2.astype(np.float64), box.astype(np.float64))
-                        del(coordinates, coordinates_2, box)
-                    else:
-                        pbc = False
+                box = get(molecular_system, element="system", structure_indices=structure_indices, box=True)
+                if box is not None and box[0] is not None:
+                    box = puw.get_value(box, to_unit=length_unit, dtype=np.float64)
+                    distances = msmlib.structure.get_mic_distances(coordinates, coordinates_2, box)
                 else:
-                    pbc = False
+                    distances = msmlib.structure.get_distances(coordinates, coordinates_2)
+            else:
+                distances = msmlib.structure.get_distances(coordinates, coordinates_2)
 
-            if not pbc:
-                distances = msmlib.structure.get_distances(coordinates.astype(np.float64), coordinates_2.astype(np.float64))
-                del(coordinates, coordinates_2)
-
-            distances = puw.quantity(distances, length_unit)
-
-    else: # coordinates_2 is always not None
-
-        #if coordinates_2 is None:
-
-        #    coordinates, length_unit = puw.get_value_and_unit(coordinates)
-
-        #    if pbc:
-        #        box = get(molecular_system, element='system', structure_indices=structure_indices, box=True)
-        #        if box is not None:
-        #            if box[0] is not None:
-        #                box = puw.get_value(box, to_unit=length_unit)
-        #                distances = msmlib.structure.get_mic_distances_pairs_single_system(coordinates,
-        #                            box)
-        #                del(coordinates, box)
-        #            else:
-        #                pbc = False
-        #        else:
-        #            pbc = False
-
-        #    if not pbc:
-        #        distances = msmlib.structure.get_distances_pairs_single_system(coordinates)
-        #        del(coordinates)
-
-        #    distances = puw.quantity(distances, length_unit)
-
-        #else:
+    else: # pairs=True
 
         coordinates, coordinates_2, length_unit = align_coordinates_values_and_unit(
-            coordinates,
-            coordinates_2,
+            coordinates, coordinates_2
         )
 
         if pbc:
-            box = get(molecular_system, element='system', structure_indices=structure_indices, box=True)
-            if box is not None:
-                if box[0] is not None:
-                    box = puw.get_value(box, to_unit=length_unit)
-                    distances = msmlib.structure.get_mic_distances_pairs(coordinates.astype(np.float64),
-                                coordinates_2.astype(np.float64), box.astype(np.float64))
-                    del(coordinates, coordinates_2, box)
-                else:
-                    pbc = False
+            box = get(molecular_system, element="system", structure_indices=structure_indices, box=True)
+            if box is not None and box[0] is not None:
+                box = puw.get_value(box, to_unit=length_unit, dtype=np.float64)
+                distances = msmlib.structure.get_mic_distances_pairs(coordinates, coordinates_2, box)
             else:
-                pbc = False
+                distances = msmlib.structure.get_distances_pairs(coordinates, coordinates_2)
+        else:
+            distances = msmlib.structure.get_distances_pairs(coordinates, coordinates_2)
 
-        if not pbc:
-            distances = msmlib.structure.get_distances_pairs(coordinates.astype(np.float64), coordinates_2.astype(np.float64))
-            del(coordinates, coordinates_2)
+    distances = puw.quantity(distances, length_unit)
+    # We do NOT force standardize here to save time. 
+    # The result is already in a coherent physical unit.
 
-        distances = puw.quantity(distances, length_unit)
-
-    distances = puw.standardize(distances)
 
     gc.collect()
 
