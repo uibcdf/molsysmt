@@ -127,3 +127,11 @@ devtools/playground/*
 !molsysmt/lib
 molsysmt/_version.py
 !*.nbconvert.log
+
+# devtools/tests generated artifacts
+devtools/tests/coverage.json
+devtools/tests/coverage_summary.json
+devtools/tests/coverage_summary.md
+devtools/tests/module_test_map.json
+devtools/tests/htmlcov/
+devtools/tests/.coverage
