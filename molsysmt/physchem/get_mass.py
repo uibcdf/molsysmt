@@ -92,6 +92,8 @@ def get_mass(molecular_system, element ='system', selection = 'all', syntax = 'M
         else:
             raise NotImplementedError
 
+    if puw.get_form(output) != 'pint':
+        output = puw.convert(output, to_form='pint')
     output = puw.standardize(output)
 
     return output

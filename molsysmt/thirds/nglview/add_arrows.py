@@ -72,17 +72,23 @@ def add_arrows(view, origin=None, end=None, vectors=None,
         end = get(view, element='atom', selection=end, coordinates=True)
 
     if (origin is not None) and (end is not None):
-        origin = puw.get_value(origin[0], to_unit='angstroms')
-        end = puw.get_value(end[0], to_unit='angstroms')
+        origin = puw.get_value(origin, to_unit='angstroms')
+        end = puw.get_value(end, to_unit='angstroms')
+        if origin.ndim == 3: origin = origin[0]
+        if end.ndim == 3: end = end[0]
     elif (origin is not None) and (vectors is not None):
-        origin = puw.get_value(origin[0], to_unit='angstroms')
-        vectors = puw.get_value(vectors[0], to_unit='angstroms')
+        origin = puw.get_value(origin, to_unit='angstroms')
+        vectors = puw.get_value(vectors, to_unit='angstroms')
+        if origin.ndim == 3: origin = origin[0]
+        if vectors.ndim == 3: vectors = vectors[0]
         if origin.shape[0]!=vectors.shape[0] and vectors.shape[0]==1:
             vectors = np.tile(vectors, (origin.shape[0], 1))
         end = origin + vectors
     elif (end is not None) and (vectors is not None):
-        end = puw.get_value(end[0], to_unit='angstroms')
-        vectors = puw.get_value(vectors[0], to_unit='angstroms')
+        end = puw.get_value(end, to_unit='angstroms')
+        vectors = puw.get_value(vectors, to_unit='angstroms')
+        if end.ndim == 3: end = end[0]
+        if vectors.ndim == 3: vectors = vectors[0]
         if origin.shape[0]!=vectors.shape[0] and vectors.shape[0]==1:
             vectors = np.tile(vectors, (origin.shape[0], 1))
         origin = end - vectors
