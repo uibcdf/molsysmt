@@ -10,9 +10,9 @@ args = parser.parse_args()
 
 data = load_json("coverage.json")
 rows = file_rows(data, package_root=args.package, subpackage=args.subpackage)
-rows.sort(key=lambda x: (x["percent"], -x["statements"], x["path"]))
+rows.sort(key=lambda x: (-x["missing"], x["percent"], x["path"]))
 
-print("\nLowest coverage files\n")
+print("\nFiles with most uncovered lines\n")
 print(f"{'Cover':>7}  {'Stmts':>7}  {'Miss':>7}  File")
 print("-" * 110)
 for row in rows[:args.top]:

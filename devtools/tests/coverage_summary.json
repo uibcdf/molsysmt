@@ -1,0 +1,320 @@
+{
+  "generated_at_utc": "2026-03-16T23:42:04.287269+00:00",
+  "package_root": "molsysmt",
+  "subpackage_filter": null,
+  "overall": {
+    "percent": 54.56841607463377,
+    "statements": 93041,
+    "missing": 42270,
+    "covered": 50771,
+    "files": 2227
+  },
+  "top_level_packages": [
+    {
+      "package": "molsysmt.molsysmt",
+      "percent": 54.56841607463377,
+      "statements": 93041,
+      "missing": 42270,
+      "covered": 50771,
+      "files": 2227
+    }
+  ],
+  "package_depth": 1,
+  "packages": [
+    {
+      "package": "molsysmt.molsysmt",
+      "percent": 54.56841607463377,
+      "statements": 93041,
+      "missing": 42270,
+      "covered": 50771,
+      "files": 2227
+    }
+  ],
+  "hotspots_top": 15,
+  "hotspots": [
+    {
+      "path": "/home/diego/repos@uibcdf/molsysmt/molsysmt/_private/common_get.py",
+      "parts": [
+        "/",
+        "home",
+        "diego",
+        "repos@uibcdf",
+        "molsysmt",
+        "molsysmt",
+        "_private",
+        "common_get.py"
+      ],
+      "package_dot": "molsysmt.molsysmt._private.common_get",
+      "percent": 0.0,
+      "statements": 2734,
+      "missing": 2734,
+      "covered": 0
+    },
+    {
+      "path": "/home/diego/repos@uibcdf/molsysmt/molsysmt/form/molsysmt_Topology/get_topological_attributes.py",
+      "parts": [
+        "/",
+        "home",
+        "diego",
+        "repos@uibcdf",
+        "molsysmt",
+        "molsysmt",
+        "form",
+        "molsysmt_Topology",
+        "get_topological_attributes.py"
+      ],
+      "package_dot": "molsysmt.molsysmt.form.molsysmt_Topology.get_topological_attributes",
+      "percent": 40.344124971700246,
+      "statements": 4417,
+      "missing": 2635,
+      "covered": 1782
+    },
+    {
+      "path": "/home/diego/repos@uibcdf/molsysmt/molsysmt/form/string_alphafold_id/get_topological_attributes.py",
+      "parts": [
+        "/",
+        "home",
+        "diego",
+        "repos@uibcdf",
+        "molsysmt",
+        "molsysmt",
+        "form",
+        "string_alphafold_id",
+        "get_topological_attributes.py"
+      ],
+      "package_dot": "molsysmt.molsysmt.form.string_alphafold_id.get_topological_attributes",
+      "percent": 25.191396281443676,
+      "statements": 2743,
+      "missing": 2052,
+      "covered": 691
+    },
+    {
+      "path": "/home/diego/repos@uibcdf/molsysmt/molsysmt/form/string_pdb_id/get_topological_attributes.py",
+      "parts": [
+        "/",
+        "home",
+        "diego",
+        "repos@uibcdf",
+        "molsysmt",
+        "molsysmt",
+        "form",
+        "string_pdb_id",
+        "get_topological_attributes.py"
+      ],
+      "package_dot": "molsysmt.molsysmt.form.string_pdb_id.get_topological_attributes",
+      "percent": 25.191396281443676,
+      "statements": 2743,
+      "missing": 2052,
+      "covered": 691
+    },
+    {
+      "path": "/home/diego/repos@uibcdf/molsysmt/molsysmt/form/string_pdb_text/get_topological_attributes.py",
+      "parts": [
+        "/",
+        "home",
+        "diego",
+        "repos@uibcdf",
+        "molsysmt",
+        "molsysmt",
+        "form",
+        "string_pdb_text",
+        "get_topological_attributes.py"
+      ],
+      "package_dot": "molsysmt.molsysmt.form.string_pdb_text.get_topological_attributes",
+      "percent": 25.74872169466764,
+      "statements": 2738,
+      "missing": 2033,
+      "covered": 705
+    },
+    {
+      "path": "/home/diego/repos@uibcdf/molsysmt/molsysmt/form/nglview_NGLWidget/get_topological_attributes.py",
+      "parts": [
+        "/",
+        "home",
+        "diego",
+        "repos@uibcdf",
+        "molsysmt",
+        "molsysmt",
+        "form",
+        "nglview_NGLWidget",
+        "get_topological_attributes.py"
+      ],
+      "package_dot": "molsysmt.molsysmt.form.nglview_NGLWidget.get_topological_attributes",
+      "percent": 26.93565976008724,
+      "statements": 2751,
+      "missing": 2010,
+      "covered": 741
+    },
+    {
+      "path": "/home/diego/repos@uibcdf/molsysmt/molsysmt/form/mdtraj_Topology/get_topological_attributes.py",
+      "parts": [
+        "/",
+        "home",
+        "diego",
+        "repos@uibcdf",
+        "molsysmt",
+        "molsysmt",
+        "form",
+        "mdtraj_Topology",
+        "get_topological_attributes.py"
+      ],
+      "package_dot": "molsysmt.molsysmt.form.mdtraj_Topology.get_topological_attributes",
+      "percent": 28.038125496425735,
+      "statements": 2518,
+      "missing": 1812,
+      "covered": 706
+    },
+    {
+      "path": "/home/diego/repos@uibcdf/molsysmt/molsysmt/form/mmcif_PdbxContainers_DataContainer/get_topological_attributes.py",
+      "parts": [
+        "/",
+        "home",
+        "diego",
+        "repos@uibcdf",
+        "molsysmt",
+        "molsysmt",
+        "form",
+        "mmcif_PdbxContainers_DataContainer",
+        "get_topological_attributes.py"
+      ],
+      "package_dot": "molsysmt.molsysmt.form.mmcif_PdbxContainers_DataContainer.get_topological_attributes",
+      "percent": 28.809325562031642,
+      "statements": 2402,
+      "missing": 1710,
+      "covered": 692
+    },
+    {
+      "path": "/home/diego/repos@uibcdf/molsysmt/molsysmt/form/mmtf_MMTFDecoder/get_topological_attributes.py",
+      "parts": [
+        "/",
+        "home",
+        "diego",
+        "repos@uibcdf",
+        "molsysmt",
+        "molsysmt",
+        "form",
+        "mmtf_MMTFDecoder",
+        "get_topological_attributes.py"
+      ],
+      "package_dot": "molsysmt.molsysmt.form.mmtf_MMTFDecoder.get_topological_attributes",
+      "percent": 28.809325562031642,
+      "statements": 2402,
+      "missing": 1710,
+      "covered": 692
+    },
+    {
+      "path": "/home/diego/repos@uibcdf/molsysmt/molsysmt/form/openmm_Modeller/get_topological_attributes.py",
+      "parts": [
+        "/",
+        "home",
+        "diego",
+        "repos@uibcdf",
+        "molsysmt",
+        "molsysmt",
+        "form",
+        "openmm_Modeller",
+        "get_topological_attributes.py"
+      ],
+      "package_dot": "molsysmt.molsysmt.form.openmm_Modeller.get_topological_attributes",
+      "percent": 28.98671096345515,
+      "statements": 2408,
+      "missing": 1710,
+      "covered": 698
+    },
+    {
+      "path": "/home/diego/repos@uibcdf/molsysmt/molsysmt/form/openmm_Simulation/get_topological_attributes.py",
+      "parts": [
+        "/",
+        "home",
+        "diego",
+        "repos@uibcdf",
+        "molsysmt",
+        "molsysmt",
+        "form",
+        "openmm_Simulation",
+        "get_topological_attributes.py"
+      ],
+      "package_dot": "molsysmt.molsysmt.form.openmm_Simulation.get_topological_attributes",
+      "percent": 29.40199335548173,
+      "statements": 2408,
+      "missing": 1700,
+      "covered": 708
+    },
+    {
+      "path": "/home/diego/repos@uibcdf/molsysmt/molsysmt/form/pdbfixer_PDBFixer/get_topological_attributes.py",
+      "parts": [
+        "/",
+        "home",
+        "diego",
+        "repos@uibcdf",
+        "molsysmt",
+        "molsysmt",
+        "form",
+        "pdbfixer_PDBFixer",
+        "get_topological_attributes.py"
+      ],
+      "package_dot": "molsysmt.molsysmt.form.pdbfixer_PDBFixer.get_topological_attributes",
+      "percent": 30.440199335548172,
+      "statements": 2408,
+      "missing": 1675,
+      "covered": 733
+    },
+    {
+      "path": "/home/diego/repos@uibcdf/molsysmt/molsysmt/form/openmm_Topology/get_topological_attributes.py",
+      "parts": [
+        "/",
+        "home",
+        "diego",
+        "repos@uibcdf",
+        "molsysmt",
+        "molsysmt",
+        "form",
+        "openmm_Topology",
+        "get_topological_attributes.py"
+      ],
+      "package_dot": "molsysmt.molsysmt.form.openmm_Topology.get_topological_attributes",
+      "percent": 37.74029030992546,
+      "statements": 2549,
+      "missing": 1587,
+      "covered": 962
+    },
+    {
+      "path": "/home/diego/repos@uibcdf/molsysmt/molsysmt/form/molsysmt_MolSys/old_get.py",
+      "parts": [
+        "/",
+        "home",
+        "diego",
+        "repos@uibcdf",
+        "molsysmt",
+        "molsysmt",
+        "form",
+        "molsysmt_MolSys",
+        "old_get.py"
+      ],
+      "package_dot": "molsysmt.molsysmt.form.molsysmt_MolSys.old_get",
+      "percent": 0.0,
+      "statements": 1307,
+      "missing": 1307,
+      "covered": 0
+    },
+    {
+      "path": "/home/diego/repos@uibcdf/molsysmt/molsysmt/form/mmcif_PdbxContainers_DataContainer/to_molsysmt_MolSys_bueno.py",
+      "parts": [
+        "/",
+        "home",
+        "diego",
+        "repos@uibcdf",
+        "molsysmt",
+        "molsysmt",
+        "form",
+        "mmcif_PdbxContainers_DataContainer",
+        "to_molsysmt_MolSys_bueno.py"
+      ],
+      "package_dot": "molsysmt.molsysmt.form.mmcif_PdbxContainers_DataContainer.to_molsysmt_MolSys_bueno",
+      "percent": 0.0,
+      "statements": 575,
+      "missing": 575,
+      "covered": 0
+    }
+  ]
+}

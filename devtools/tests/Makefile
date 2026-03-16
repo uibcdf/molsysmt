@@ -1,8 +1,8 @@
-.PHONY: help test coverage coverage-html coverage-open coverage-json coverage-hotspots coverage-packages coverage-top coverage-map coverage-markdown slowest coverage-diff coverage-check coverage-history coverage-history-report module-test-map module-test-gaps ci clean
+.PHONY: help test coverage coverage-html coverage-open coverage-json _coverage-source-check coverage-hotspots coverage-packages coverage-top coverage-map coverage-markdown slowest coverage-diff coverage-check coverage-history coverage-history-report module-test-map module-test-gaps ci clean
 
 TEST_DIR ?= ../../tests
 PACKAGE ?= molsysmt
-NPROC ?= 12
+NPROC ?= 14
 DIST_MODE ?= loadfile
 QUIET ?= -q
 PYTEST_FLAGS = -n $(NPROC) --dist $(DIST_MODE) $(QUIET)
@@ -68,8 +68,10 @@ help:
 	@echo "        BROWSER_OPEN=$(BROWSER_OPEN)"
 	@echo ""
 	@echo "  make coverage-json"
-	@echo "      Run tests with coverage and export coverage.json."
-	@echo "      This is the base target used by most analysis commands."
+	@echo "      Force a fresh test run: deletes coverage.json and regenerates it."
+	@echo "  make coverage.json"
+	@echo "      Internal file target: runs pytest only if coverage.json is absent."
+	@echo "      Used automatically as a dependency by all analysis targets."
 	@echo ""
 	@echo "COVERAGE ANALYSIS TARGETS"
 	@echo "-------------------------"
@@ -162,7 +164,7 @@ help:
 	@echo "--"
 	@echo "  make ci"
 	@echo "      Opinionated pipeline:"
-	@echo "        1) coverage-json"
+	@echo "        1) coverage.json (file target)"
 	@echo "        2) coverage-markdown"
 	@echo "        3) coverage-check"
 	@echo "        4) coverage-history"
@@ -234,7 +236,9 @@ coverage-html:
 coverage-open: coverage-html
 	$(BROWSER_OPEN) htmlcov/index.html
 
-coverage-json:
+# coverage.json is a real file target: Make checks whether it exists and skips
+# pytest if it does.  Use 'make coverage-run' to force a fresh test run.
+coverage.json:
 	pytest $(PYTEST_FLAGS) \
 	       --cov=$(PACKAGE) \
 	       --cov-report= \
@@ -242,25 +246,42 @@ coverage-json:
 	       $(TEST_DIR)
 	coverage json -o coverage.json
 
-coverage-hotspots: coverage-json
+# Phony: always deletes coverage.json and regenerates it.
+# Use this when you want an explicit fresh run.  Analysis targets use the
+# coverage.json file target instead and skip pytest if the file exists.
+coverage-json:
+	rm -f coverage.json
+	$(MAKE) coverage.json
+
+# Phony guard: always evaluated before any analysis target.  Prints a notice
+# when coverage.json already exists so the user knows tests were not re-run.
+# When coverage.json is absent this target does nothing; coverage.json recipe
+# will run immediately after and generate the file.
+_coverage-source-check:
+	@if [ -f coverage.json ]; then \
+		printf 'Note: reusing existing coverage.json (generated: %s). Run "make coverage-json" to refresh.\n' \
+		    "$$(stat -c '%y' coverage.json | cut -d. -f1)"; \
+	fi
+
+coverage-hotspots: _coverage-source-check coverage.json
 	python coverage_hotspots.py --top $(HOTSPOT_TOP) $(if $(SUBPACKAGE),--subpackage $(SUBPACKAGE),) --package $(PACKAGE)
 
-coverage-packages: coverage-json
+coverage-packages: _coverage-source-check coverage.json
 	python coverage_by_package.py --root $(PACKAGE) --depth $(PACKAGE_DEPTH) $(if $(SUBPACKAGE),--subpackage $(SUBPACKAGE),)
 
-coverage-top: coverage-json
+coverage-top: _coverage-source-check coverage.json
 	python coverage_by_package.py --root $(PACKAGE) --depth 1 $(if $(SUBPACKAGE),--subpackage $(SUBPACKAGE),)
 
-coverage-map: coverage-json
+coverage-map: _coverage-source-check coverage.json
 	python coverage_map.py --root $(PACKAGE) --max-depth $(MAP_DEPTH) --sort $(SORT) $(if $(SUBPACKAGE),--subpackage $(SUBPACKAGE),)
 
-coverage-markdown: coverage-json
+coverage-markdown: _coverage-source-check coverage.json
 	python coverage_markdown.py --root $(PACKAGE) --package-depth $(PACKAGE_DEPTH) --top $(HOTSPOT_TOP) --output $(SUMMARY_MD) --json-output $(SUMMARY_JSON) $(if $(SUBPACKAGE),--subpackage $(SUBPACKAGE),)
 
 slowest:
 	pytest $(PYTEST_FLAGS) --durations=$${DURATIONS:-25} $(TEST_DIR)
 
-coverage-diff:
+coverage-diff: _coverage-source-check coverage.json
 	python coverage_diff.py --baseline $(BASELINE_FILE) --current coverage.json
 
 coverage-check: coverage-markdown
@@ -278,12 +299,14 @@ module-test-map:
 module-test-gaps: module-test-map
 	python module_test_map.py report-gaps --input $(MODULE_TEST_MAP_JSON)
 
-ci: coverage-json coverage-markdown
+ci: coverage.json coverage-markdown
 	python coverage_check.py --summary-json $(SUMMARY_JSON) --thresholds $(THRESHOLDS_FILE)
 	python coverage_history.py append --summary-json $(SUMMARY_JSON) --history $(HISTORY_FILE)
 	python module_test_map.py --package-root ../../$(PACKAGE) --tests-root $(TEST_DIR) --output $(MODULE_TEST_MAP_JSON)
 	@echo "Toolbox CI pipeline completed."
 
+# Removes all generated artifacts.  coverage_history.json is intentionally kept
+# (it is a persistent record, not a build artifact).
 clean:
 	rm -rf htmlcov .pytest_cache
 	rm -f .coverage coverage.json $(SUMMARY_MD) $(SUMMARY_JSON) $(MODULE_TEST_MAP_JSON)

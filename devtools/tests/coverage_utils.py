@@ -25,7 +25,10 @@ def file_rows(data: dict, package_root: str = "molsysmt", subpackage: Optional[s
         if package_root not in parts:
             continue
 
-        pkg_parts = parts[parts.index(package_root):]
+        # Use the last occurrence so that repo-name == package-name layouts
+        # (e.g. molsysmt/molsysmt/…) anchor to the inner package directory.
+        last_idx = len(parts) - 1 - parts[::-1].index(package_root)
+        pkg_parts = parts[last_idx:]
         dot_parts = []
         for p in pkg_parts:
             if p.endswith(".py"):
@@ -55,7 +58,9 @@ def package_key(path_str: str, root: str = "molsysmt", depth: int = 1) -> str | 
     parts = Path(path_str).parts
     if root not in parts:
         return None
-    idx = parts.index(root)
+    # Use the last occurrence so that repo-name == package-name layouts
+    # (e.g. molsysmt/molsysmt/…) anchor to the inner package directory.
+    idx = len(parts) - 1 - parts[::-1].index(root)
     subparts = list(parts[idx: idx + 1 + max(depth, 0)])
     if subparts and subparts[-1].endswith(".py"):
         subparts = subparts[:-1]
@@ -98,7 +103,7 @@ def sort_packages(packages: list[dict], mode: str = "coverage") -> list[dict]:
     if mode == "name":
         packages.sort(key=lambda x: x["package"])
     else:
-        packages.sort(key=lambda x: (x["percent"], -x["statements"], x["package"]))
+        packages.sort(key=lambda x: (-x["missing"], x["percent"], x["package"]))
     return packages
 
 

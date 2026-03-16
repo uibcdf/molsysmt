@@ -7,8 +7,9 @@ Definitive local toolbox for test execution, coverage analysis, thresholds, hist
 ```bash
 cd devtools/tests
 make help
-make coverage
-make coverage-open
+make coverage          # compact terminal report
+make coverage-open     # HTML report opened in browser
+make coverage-json     # force fresh run: deletes coverage.json and regenerates it
 make coverage-hotspots
 make coverage-packages
 make coverage-top
@@ -18,6 +19,7 @@ make coverage-check
 make coverage-history
 make module-test-map
 make module-test-gaps
+make clean             # remove all generated artifacts (keeps coverage_history.json)
 ```
 
 ## Notes
