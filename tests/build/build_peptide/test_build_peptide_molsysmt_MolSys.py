@@ -210,7 +210,8 @@ def test_build_peptide_molsysmt_MolSys_10_random_sequences_catalog():
 
 
 def test_build_peptide_molsysmt_MolSys_11_empty_sequence_raises():
-    with pytest.raises(ValueError, match="empty"):
+    from molsysmt._private.smonitor import ArgumentError
+    with pytest.raises(ArgumentError):
         msm.build.build_peptide("", to_form="molsysmt.MolSys", engine="MolSysMT")
 
 

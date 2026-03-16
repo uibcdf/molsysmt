@@ -215,6 +215,32 @@ Notes:
 - Heavy-mode support must be read from the form-specific heavy-status column, not inferred from the general support tier alone.
 - The goal of this matrix is expectation management and testing focus. The detailed contractual source of truth remains the per-form tables above.
 
+## Runtime tier signals
+
+Since March 2026, MolSysMT communicates support-tier classification at runtime using
+SMonitor structured diagnostics.  This is implemented via the **support-tier protocol**
+documented in `devguide/support_tier_protocol.md`.
+
+Key behavior:
+
+- **Tier 1** forms and functions produce **no runtime signal** (silence by design).
+- **Tier 2** forms and functions emit a **WARNING** the first time they are used per
+  session.
+- **Tier 3** forms and functions emit an **INFO** signal the first time they are used
+  per session.
+
+Signals are deduplicated: each form/function fires at most once per Python session,
+regardless of how many times it is used.  This prevents log pollution in loops.
+
+The signal for forms is injected in `molsysmt/basic/get_form.py`, which is called by
+every public API function.  The per-form tier mapping lives in
+`molsysmt/_private/form_tier.py`.
+
+Functions are decorated individually with `@support_tier(N)` from
+`molsysmt._private.smonitor`.
+
+---
+
 ## Tier 1 guarantee summary
 
 Tier 1 forms are the forms that MolSysMT is prepared to defend as part of its supported `1.x` line.

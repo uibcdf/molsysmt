@@ -9,6 +9,7 @@ warn = bundle.warn
 warn_once = bundle.warn_once
 resolve = bundle.resolve
 experimental = bundle.experimental
+support_tier = bundle.support_tier
 
 def info(key, extra=None):
     entry = _catalog_entry(CATALOG, "info", key)

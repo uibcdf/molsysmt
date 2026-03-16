@@ -501,9 +501,9 @@ class Topology():
         self.bonds._sort_bonds()
         self.bonds._remove_empty_columns()
 
-        self._components_dirty = True
-
         del(df_concatenado, aux_bonds_dataframe)
+
+        self.rebuild_components(redefine_indices=True, redefine_ids=True, redefine_names=True, redefine_types=True)
 
     def remove_bonds(self, bond_indices='all', skip_digestion=False):
         """Drop bonds by index."""
@@ -517,7 +517,7 @@ class Topology():
             self.bonds.drop(bond_indices, inplace=True)
             self.bonds.reset_index(drop=True, inplace=True)
 
-        self._components_dirty = True
+        self.rebuild_components(redefine_indices=True, redefine_ids=True, redefine_names=True, redefine_types=True)
 
 
     def add_missing_bonds(self, selection='all', syntax='MolSysMT', skip_digestion=False):

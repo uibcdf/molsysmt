@@ -20,6 +20,12 @@ CATALOG = {
             "category": "experimental",
             "level": "INFO",
         },
+        "SupportTier3Info": {
+            "code": "MSM-INFO-TIER-003",
+            "source": "molsysmt.info.tier3",
+            "category": "support_tier",
+            "level": "INFO",
+        },
     },
     "debug": {
         "DetectionProbeMiss": {
@@ -30,6 +36,12 @@ CATALOG = {
         },
     },
     "warnings": {
+        "SupportTier2Warning": {
+            "code": "MSM-WARN-TIER-002",
+            "source": "molsysmt.warning.tier2",
+            "category": "support_tier",
+            "level": "WARNING",
+        },
         "SelectionWarning": {
             "code": "MSM-WARN-SEL-001",
             "source": "molsysmt.warning.selection",
@@ -210,6 +222,42 @@ CATALOG = {
 }
 
 CODES = {
+    "MSM-WARN-TIER-002": {
+        "title": "Best-effort supported form or function (Tier 2)",
+        "user_message": "'{name}' is a best-effort supported {kind} (Tier 2). "
+                        "Results are supported but not contractually guaranteed for all workflows.",
+        "user_hint": "For production workflows, prefer Tier 1 forms where possible. "
+                     "See the support-tier documentation at {doc_url}",
+        "dev_message": "Tier 2 {kind} used: '{name}'.",
+        "dev_hint": "Consider whether the calling workflow requires a Tier 1 alternative.",
+        "qa_message": "Tier 2 {kind} used: '{name}'.",
+        "qa_hint": "Verify that Tier 2 semantics are acceptable for this test case.",
+        "agent_message": "Tier 2 {kind}: '{name}'. Not contractually guaranteed.",
+        "agent_hint": "Prefer Tier 1 forms for validated workflows.",
+    },
+    "MSM-INFO-TIER-003": {
+        "title": "Experimental or niche form/function (Tier 3)",
+        "user_message": "'{name}' is an experimental or niche {kind} (Tier 3). Use with caution.",
+        "user_hint": "Tier 3 items are outside the contractual 1.x support surface. "
+                     "See {doc_url}",
+        "dev_message": "Tier 3 {kind} used: '{name}'.",
+        "dev_hint": "This item is outside the contractual support surface.",
+        "qa_message": "Tier 3 {kind} used: '{name}'.",
+        "qa_hint": "Tier 3 items should not appear in production or Tier 1 test paths.",
+        "agent_message": "Tier 3 {kind}: '{name}'. Experimental, outside support contract.",
+        "agent_hint": "Do not rely on this item for validated workflows.",
+    },
+    "MSM-INFO-EXP-001": {
+        "title": "Experimental path",
+        "user_message": "This functionality is experimental and may change.",
+        "user_hint": "Use with caution. Docs: {doc_url}",
+        "dev_message": "Experimental path entered: '{function}' in '{module}'.",
+        "dev_hint": "This path is not part of the stable API surface.",
+        "qa_message": "Experimental path: '{function}' in '{module}'.",
+        "qa_hint": "Flag this path for API stability review.",
+        "agent_message": "Experimental function: '{function}' ({module}).",
+        "agent_hint": "Not part of the stable API. Use validated alternatives where available.",
+    },
     "MSM-WARN-SEL-001": {
         "title": "Selection warning",
         "user_message": "The selection may be ambiguous or incomplete.",

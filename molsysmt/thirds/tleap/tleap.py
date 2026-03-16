@@ -400,7 +400,7 @@ class TLeap:
         """Normalizing LEaP unit names to avoid unsupported leading digits."""
 
         if not isinstance(unit_name, str) or len(unit_name) == 0:
-            raise ArgumentError("unit_name", value="empty", message="Unit name must be a non-empty string.", caller="molsysmt.thirds.tleap.tleap")
+            raise ValueError("Unit name must be a non-empty string.")
         if unit_name[0].isdigit():
             unit_name = "M" + unit_name
         return unit_name

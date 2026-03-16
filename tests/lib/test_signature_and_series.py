@@ -1,3 +1,4 @@
+import pytest
 import numpy as np
 import numba as nb
 
@@ -20,19 +21,13 @@ def test_make_numba_signature_handles_optional_and_tuple_output():
 
 
 def test_make_numba_signature_rejects_invalid_optional_defaults():
-    try:
-        make_numba_signature(arguments=[[None]], output=None)
-    except ValueError as exc:
-        assert 'Optional None requires at least one numba type' in str(exc)
-    else:
-        raise AssertionError('Expected ValueError')
+    from molsysmt._private.smonitor import InternalAlgorithmError
 
-    try:
+    with pytest.raises(InternalAlgorithmError):
+        make_numba_signature(arguments=[[None]], output=None)
+
+    with pytest.raises(InternalAlgorithmError):
         make_numba_signature(arguments=[[None, 0]], output=None)
-    except ValueError as exc:
-        assert 'More than one default value' in str(exc)
-    else:
-        raise AssertionError('Expected ValueError')
 
 
 def test_series_helpers_and_serialized_lists():

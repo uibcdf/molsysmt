@@ -1,4 +1,5 @@
 from molsysmt._private.smonitor import NotSupportedFormError
+from molsysmt._private.form_tier import check_form_tier
 from pathlib import PosixPath
 
 # This method must not be digested
@@ -81,6 +82,8 @@ def get_form(molecular_system):
             form=type(molecular_system),
             caller='molsysmt.basic.get_form'
         )
+
+    check_form_tier(output)
 
     return output
 

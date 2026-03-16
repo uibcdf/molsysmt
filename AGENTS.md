@@ -53,6 +53,13 @@ More specific `AGENTS.md` files in subdirectories refine or override these rules
 - Each form module should declare `form_name`, `form_type`, `form_info`, and populate `_convert_to` with callables.
 - Respect `msm.config.show_all_capabilities` which allows users to filter available forms based on their installed environment.
 
+
+## Performance Architecture
+
+- **Normalization Passports**: Use `ValidatedPayload` from `argdigest` for internal high-frequency calls to bypass redundant unit and shape validation.
+- **Fast-Track Units**: Register canonical units (nm, ps, Da, K) in `puw.fast_track` within `molsysmt/_pyunitwizard.py` to enable instant unit bypass.
+- **Chunked Execution**: Large trajectories must be processed via the `ChunkedExecutor` (see `devguide/scalability_and_heavy_trajectories_v2.md`).
+
 ## Testing and validation
 
 - Use `pytest` for tests; follow the structure and conventions documented in `tests/AGENTS.md`.
@@ -75,3 +82,6 @@ For more specialized guidance, consult the AGENTS files in `ai_assistant/`, `doc
 These guides are required reading for anyone developing this library. They describe how external tools must be used here.
 
 - `SMONITOR_GUIDE.md` — Required guide for SMonitor integration and diagnostics.
+- `ARGDIGEST_GUIDE.md` — Required guide for argument validation and the ValidatedPayload (Passport) protocol.
+- `PYUNITWIZARD_GUIDE.md` — Required guide for unit management and Fast-Track conversion registration.
+- `DEPDIGEST_GUIDE.md` — Required guide for dependency management and lazy loading.
