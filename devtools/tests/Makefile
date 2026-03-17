@@ -21,6 +21,7 @@ BROWSER_OPEN ?= xdg-open
 COVERAGE_FAIL_UNDER ?=
 SUBPACKAGE ?=
 SORT ?= coverage
+COV_CONFIG ?= ../../.coveragerc
 
 help:
 	@echo ""
@@ -201,6 +202,7 @@ help:
 	@echo "  BROWSER_OPEN=$(BROWSER_OPEN)"
 	@echo "  SUBPACKAGE=$(SUBPACKAGE)"
 	@echo "  SORT=$(SORT)"
+	@echo "  COV_CONFIG=$(COV_CONFIG)"
 	@echo ""
 	@echo "COMMON EXAMPLES"
 	@echo "---------------"
@@ -229,6 +231,7 @@ test:
 coverage:
 	pytest $(PYTEST_FLAGS) \
 	       --cov=$(PACKAGE) \
+	       --cov-config=$(COV_CONFIG) \
 	       --cov-report=$(COV_TERM_MODE) \
 	       $(if $(COVERAGE_FAIL_UNDER),--cov-fail-under=$(COVERAGE_FAIL_UNDER),) \
 	       $(TEST_DIR) $(DOCTEST_DIR)
@@ -236,6 +239,7 @@ coverage:
 coverage-html:
 	pytest $(PYTEST_FLAGS) \
 	       --cov=$(PACKAGE) \
+	       --cov-config=$(COV_CONFIG) \
 	       --cov-report=html \
 	       $(if $(COVERAGE_FAIL_UNDER),--cov-fail-under=$(COVERAGE_FAIL_UNDER),) \
 	       $(TEST_DIR) $(DOCTEST_DIR)
@@ -248,10 +252,11 @@ coverage-open: coverage-html
 coverage.json:
 	pytest $(PYTEST_FLAGS) \
 	       --cov=$(PACKAGE) \
+	       --cov-config=$(COV_CONFIG) \
 	       --cov-report= \
 	       $(if $(COVERAGE_FAIL_UNDER),--cov-fail-under=$(COVERAGE_FAIL_UNDER),) \
 	       $(TEST_DIR) $(DOCTEST_DIR)
-	coverage json -o coverage.json
+	coverage json -o coverage.json --rcfile=$(COV_CONFIG)
 
 # Phony: always deletes coverage.json and regenerates it.
 # Use this when you want an explicit fresh run.  Analysis targets use the

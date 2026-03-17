@@ -23,3 +23,5 @@ ignore:
   - "molsysmt/file/**"
   - "molsysmt/native/trajectory_file.py"
   - "molsysmt/molecular_dynamics/**"
+  - "molsysmt/form/string_pdb_id/get_topological_attributes.py"
+  - "molsysmt/form/string_alphafold_id/get_topological_attributes.py"

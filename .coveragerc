@@ -5,6 +5,7 @@ branch = True
 source = molsysmt
 omit =
     molsysmt/molecular_dynamics/*
+    molsysmt/form/string_*_id/get_topological_attributes.py
 
 [report]
 show_missing = True
