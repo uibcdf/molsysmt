@@ -76,6 +76,44 @@ The capability matrix in `devguide/support_tiers.md` should be read as the sourc
 
 This separation matters because `contract verification`, `form parity`, and `execution parity` are related but not identical obligations.
 
+## Collaborative testing workflow
+
+The standard working pattern for raising test coverage is:
+
+1. **User runs the suite and identifies low-coverage areas** — using
+   `pytest --cov=molsysmt --cov-report=term -q tests` or targeted coverage sweeps;
+   the user decides which uncovered module or capability is the next priority.
+
+2. **User opens a conversation describing the target** — e.g., "write tests for
+   `get_topological_attributes` in `mdtraj.Topology`"; the user supplies any known
+   constraints (which attributes are supported, known bugs, reference system to use).
+
+3. **Claude reads the implementation before writing tests** — always read the form
+   adapter, the `attributes.py`, and any relevant element API code before proposing
+   tests; never write tests against a function without first verifying its signature,
+   return type, and documented behaviour.
+
+4. **Tests are written to reveal bugs, not just to pass** — when a test fails, the
+   failure is investigated: if it is a test bug, fix the test; if it is an
+   implementation bug, fix the implementation first, then confirm the test passes.
+   Do not suppress failures by weakening assertions.
+
+5. **Implementation bugs discovered during testing are fixed immediately** — do not
+   commit broken implementations and mark tests as `xfail`. Fix the bug, then confirm
+   the tests are green.
+
+6. **Coverage is checked after each new test file** — after adding a test file,
+   compare the new coverage percentage against the prior baseline. Coverage should
+   only move upward across commits that add test files.
+
+7. **Guidance from each test implementation session is captured in devguide** — new
+   patterns, discovered conventions, and corrected misconceptions should be added to
+   `devguide/testing_form_adapters.md` or this file, not left as ephemeral chat
+   context.
+
+See `devguide/testing_form_adapters.md` for the concrete implementation patterns (builder
+fixture, parametrize structure, None handling, convert-then-delegate, etc.).
+
 ## 🧹 Legacy Cleanup Policy
 The 1.0.0 transition (specifically Lazy Loading 2.0) has rendered many old tests obsolete or broken due to changed import patterns.
 - **Rule**: If a test in `tests/form/` or `tests/basic/` fails because of architectural changes, do not "patch" it with dirty hacks. If the test is redundant with a new Contract Test, **delete it**. If it tests unique logic, **refactor it** to use absolute imports and ArgDigest-compliant calls.

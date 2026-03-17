@@ -36,11 +36,11 @@ _convert_to={
         'file:top': to_file_top,
         'string:amino_acids_1': to_string_amino_acids_1,
         'string:amino_acids_3': to_string_amino_acids_3,
-        'mdtraj_Trajectory': to_mdtraj_Trajectory,
-        'parmed_Structure': to_parmed_Structure,
-        'parmed_GromacsTopologyFile': to_parmed_GromacsTopologyFile,
-        'molsysmt_Topology': to_molsysmt_Topology,
-        'openmm_Topology': to_openmm_Topology,
+        'mdtraj.Trajectory': to_mdtraj_Trajectory,
+        'parmed.Structure': to_parmed_Structure,
+        'parmed.GromacsTopologyFile': to_parmed_GromacsTopologyFile,
+        'molsysmt.Topology': to_molsysmt_Topology,
+        'openmm.Topology': to_openmm_Topology,
         }
 
 

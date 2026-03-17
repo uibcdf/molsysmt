@@ -87,9 +87,12 @@ help:
 	@echo "        PACKAGE_DEPTH=$(PACKAGE_DEPTH)  1 => molsysmt.basic"
 	@echo "        SUBPACKAGE=$(SUBPACKAGE)"
 	@echo ""
-	@echo "  make coverage-top"
-	@echo "      Aggregate coverage at top-level package depth only."
-	@echo "      Equivalent to PACKAGE_DEPTH=1 for MolSysMT top functional areas."
+	@echo "  make coverage-top [PACKAGE_DEPTH=N]"
+	@echo "      Always prints depth=0 (whole package total) first,"
+	@echo "      then depth=PACKAGE_DEPTH (default 1, e.g. molsysmt.basic)."
+	@echo "      Variables:"
+	@echo "        PACKAGE_DEPTH=$(PACKAGE_DEPTH)"
+	@echo "        SUBPACKAGE=$(SUBPACKAGE)"
 	@echo ""
 	@echo "  make coverage-map"
 	@echo "      Print a hierarchical textual map of package coverage."
@@ -205,6 +208,7 @@ help:
 	@echo "  make coverage-hotspots SUBPACKAGE=molsysmt.form"
 	@echo "  make coverage-packages PACKAGE_DEPTH=2"
 	@echo "  make coverage-top"
+	@echo "  make coverage-top PACKAGE_DEPTH=2"
 	@echo "  make coverage-map MAP_DEPTH=3 SORT=name"
 	@echo "  make coverage-markdown PACKAGE_DEPTH=2 HOTSPOT_TOP=20"
 	@echo "  make coverage-diff BASELINE_FILE=coverage_baseline_main.json"
@@ -270,7 +274,8 @@ coverage-packages: _coverage-source-check coverage.json
 	python coverage_by_package.py --root $(PACKAGE) --depth $(PACKAGE_DEPTH) $(if $(SUBPACKAGE),--subpackage $(SUBPACKAGE),)
 
 coverage-top: _coverage-source-check coverage.json
-	python coverage_by_package.py --root $(PACKAGE) --depth 1 $(if $(SUBPACKAGE),--subpackage $(SUBPACKAGE),)
+	python coverage_by_package.py --root $(PACKAGE) --depth 0 $(if $(SUBPACKAGE),--subpackage $(SUBPACKAGE),)
+	python coverage_by_package.py --root $(PACKAGE) --depth $(PACKAGE_DEPTH) $(if $(SUBPACKAGE),--subpackage $(SUBPACKAGE),)
 
 coverage-map: _coverage-source-check coverage.json
 	python coverage_map.py --root $(PACKAGE) --max-depth $(MAP_DEPTH) --sort $(SORT) $(if $(SUBPACKAGE),--subpackage $(SUBPACKAGE),)

@@ -53,6 +53,7 @@ attributes['bond_id'] = True
 attributes['bond_type'] = True
 attributes['bond_order'] = True
 attributes['bonded_atoms'] = True
+attributes['bonded_atom_pairs'] = True
 attributes['n_bonds'] = True
 
 del(_all_attributes)

@@ -97,7 +97,7 @@ These forms are currently considered part of the contractual `1.x` support surfa
 | `file:bcif_gz` | File | Compressed BinaryCIF structural input, within documented scope | Yes | Partial | Outside current heavy contract | High-value compressed structural form and future heavy-read candidate for structure-centric workflows |
 | `openmm.Topology` | Class | Topological interoperability | Yes | Yes | Outside current heavy contract | Strongly validated interop form |
 | `mdtraj.Trajectory` | Class | Supported current eager-path trajectory interoperability | Yes | Yes | Tier 1 heavy target | Primary trajectory interoperability target for the first committed heavy slice |
-| `mdtraj.Topology` | Class | Topological interoperability | Partial | Partial | Outside current heavy contract | Candidate for stronger parity hardening |
+| `mdtraj.Topology` | Class | Topological interoperability | Yes | Yes | Outside current heavy contract | 384 builder tests + 15 PDB oracle tests; bugs fixed and documented in `testing_form_adapters.md` |
 | `file:pdb` | File | PDB file interoperability, lossy where the format is lossy | Yes | Yes within documented scope | Outside current heavy contract | Round-trip semantics explicitly constrained by PDB limitations |
 | `file:xtc` | File | Supported current eager-path trajectory input | Yes | Partial | Tier 1 heavy target | Primary local trajectory file target for the first committed heavy slice |
 | `string:pdb_id` | Remote | Remote PDB retrieval entry point | Partial | Partial | Outside current heavy contract | Promoted to Tier 1: network-dependent retrieval + local topology/structural get coverage |

@@ -38,6 +38,18 @@ Recent completed work:
 - a first lightweight benchmark harness now exists in `benchmarks/` and the
   initial `XYZ` baseline confirms that `_kernel_inputs` is not the dominant
   cost in hot structure wrappers.
+- comprehensive test suites are now in place for the two primary topology
+  interoperability forms:
+  - `mdtraj.Topology`: 384 tests against the standard reference molecular system
+    (builder fixture) + 15 PDB oracle tests against `1l2y.pdb` (Trp-cage);
+  - `openmm.Topology`: 393 builder tests + 15 PDB oracle tests using the same
+    oracle and reference system;
+  - this work required fixing multiple latent bugs in both adapters — the full
+    bug inventory is recorded in `testing_form_adapters.md`;
+- all missing `get_total_n_*` scalar-returning aggregation functions were added
+  to the `openmm.Topology` adapter (~97 functions);
+- the `devtools/tests/Makefile` `coverage-top` target was updated to always
+  print depth=0 (whole-package total) before the user-requested depth.
 
 Validation status at this checkpoint:
 - the full test suite passes with `pytest -q tests -x`;
@@ -46,6 +58,8 @@ Validation status at this checkpoint:
   `tests/thirds`, `tests/topology`, `tests/native`, `tests/cross_repo`,
   `tests/hbonds`, `tests/molecular_mechanics`, `tests/pbc`,
   `tests/physchem`, and `tests/supported`;
+- `tests/form/mdtraj_Topology` (399 tests) and `tests/form/openmm_Topology`
+  (408 tests) now pass cleanly as part of the `tests/form` batch;
 - for broad validation work from this checkpoint onward, the default execution
   mode on the reference workstation is distributed `pytest-xdist`
   (`-n 12 --dist loadfile`) rather than fully sequential execution;
@@ -55,8 +69,14 @@ Validation status at this checkpoint:
   modules again.
 - `molsysmt.molecular_dynamics` remains in the repository but is explicitly outside the `1.0.0` support contract;
 - local and Codecov coverage baselines intentionally exclude `molsysmt/molecular_dynamics/**` until that area is promoted into a supported post-1.0 line.
+- overall test coverage is approximately 54% at this checkpoint (target: 70-80%
+  on the Tier 1 surface before `1.0.0`).
 
 Current post-validation focus:
+- continue hardening Tier 1 form adapter test coverage;
+  the next target form adapter should be selected based on coverage hotspots
+  in `tests/form` (run `make coverage-hotspots SUBPACKAGE=molsysmt.form` from
+  `devtools/tests`);
 - decide what belongs to the explicit `1.0.0` support contract and what should
   remain outside that contract because it is still immature or peripheral;
 - translate the green test state into a clear release checkpoint and support
@@ -113,7 +133,8 @@ For development, this means:
 10) `declarative_serialization_forms.md`
 11) `api_surface.md`
 12) `testing_strategy.md`
-13) `smonitor_feedback_proposals.md` (Temporary diagnostic improvements under evaluation)
+13) `testing_form_adapters.md`
+14) `smonitor_feedback_proposals.md` (Temporary diagnostic improvements under evaluation)
 
 ## Scope
 These documents define how MolSysMT should be implemented and maintained:

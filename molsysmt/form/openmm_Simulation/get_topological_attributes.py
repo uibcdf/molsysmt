@@ -4152,6 +4152,722 @@ def get_inner_bonded_atom_pairs_from_system(item, skip_digestion=False):
     return output
 
 
+# --- get_total_n_* functions ---
+# All delegate to the equivalent openmm_Topology function through to_openmm_Topology,
+# because openmm.Simulation wraps an openmm.Topology internally (via item.topology).
+
+
+# From atom
+
+@arg_digest(form=form)
+def get_total_n_atoms_from_atom(item, indices='all', skip_digestion=False):
+    from molsysmt.form.openmm_Topology import to_openmm_Topology
+    from molsysmt.form.openmm_Topology import get_total_n_atoms_from_atom as aux_get
+    tmp_item = to_openmm_Topology(item, skip_digestion=True)
+    return aux_get(tmp_item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_groups_from_atom(item, indices='all', skip_digestion=False):
+    from molsysmt.form.openmm_Topology import to_openmm_Topology
+    from molsysmt.form.openmm_Topology import get_total_n_groups_from_atom as aux_get
+    tmp_item = to_openmm_Topology(item, skip_digestion=True)
+    return aux_get(tmp_item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_components_from_atom(item, indices='all', skip_digestion=False):
+    from molsysmt.form.openmm_Topology import to_openmm_Topology
+    from molsysmt.form.openmm_Topology import get_total_n_components_from_atom as aux_get
+    tmp_item = to_openmm_Topology(item, skip_digestion=True)
+    return aux_get(tmp_item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_molecules_from_atom(item, indices='all', skip_digestion=False):
+    from molsysmt.form.openmm_Topology import to_openmm_Topology
+    from molsysmt.form.openmm_Topology import get_total_n_molecules_from_atom as aux_get
+    tmp_item = to_openmm_Topology(item, skip_digestion=True)
+    return aux_get(tmp_item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_entities_from_atom(item, indices='all', skip_digestion=False):
+    from molsysmt.form.openmm_Topology import to_openmm_Topology
+    from molsysmt.form.openmm_Topology import get_total_n_entities_from_atom as aux_get
+    tmp_item = to_openmm_Topology(item, skip_digestion=True)
+    return aux_get(tmp_item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_chains_from_atom(item, indices='all', skip_digestion=False):
+    from molsysmt.form.openmm_Topology import to_openmm_Topology
+    from molsysmt.form.openmm_Topology import get_total_n_chains_from_atom as aux_get
+    tmp_item = to_openmm_Topology(item, skip_digestion=True)
+    return aux_get(tmp_item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_bonds_from_atom(item, indices='all', skip_digestion=False):
+    from molsysmt.form.openmm_Topology import to_openmm_Topology
+    from molsysmt.form.openmm_Topology import get_total_n_bonds_from_atom as aux_get
+    tmp_item = to_openmm_Topology(item, skip_digestion=True)
+    return aux_get(tmp_item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_inner_bonds_from_atom(item, indices='all', skip_digestion=False):
+    from molsysmt.form.openmm_Topology import to_openmm_Topology
+    from molsysmt.form.openmm_Topology import get_total_n_inner_bonds_from_atom as aux_get
+    tmp_item = to_openmm_Topology(item, skip_digestion=True)
+    return aux_get(tmp_item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_amino_acids_from_atom(item, indices='all', skip_digestion=False):
+    from molsysmt.form.openmm_Topology import to_openmm_Topology
+    from molsysmt.form.openmm_Topology import get_total_n_amino_acids_from_atom as aux_get
+    tmp_item = to_openmm_Topology(item, skip_digestion=True)
+    return aux_get(tmp_item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_nucleotides_from_atom(item, indices='all', skip_digestion=False):
+    from molsysmt.form.openmm_Topology import to_openmm_Topology
+    from molsysmt.form.openmm_Topology import get_total_n_nucleotides_from_atom as aux_get
+    tmp_item = to_openmm_Topology(item, skip_digestion=True)
+    return aux_get(tmp_item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_ions_from_atom(item, indices='all', skip_digestion=False):
+    from molsysmt.form.openmm_Topology import to_openmm_Topology
+    from molsysmt.form.openmm_Topology import get_total_n_ions_from_atom as aux_get
+    tmp_item = to_openmm_Topology(item, skip_digestion=True)
+    return aux_get(tmp_item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_waters_from_atom(item, indices='all', skip_digestion=False):
+    from molsysmt.form.openmm_Topology import to_openmm_Topology
+    from molsysmt.form.openmm_Topology import get_total_n_waters_from_atom as aux_get
+    tmp_item = to_openmm_Topology(item, skip_digestion=True)
+    return aux_get(tmp_item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_small_molecules_from_atom(item, indices='all', skip_digestion=False):
+    from molsysmt.form.openmm_Topology import to_openmm_Topology
+    from molsysmt.form.openmm_Topology import get_total_n_small_molecules_from_atom as aux_get
+    tmp_item = to_openmm_Topology(item, skip_digestion=True)
+    return aux_get(tmp_item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_lipids_from_atom(item, indices='all', skip_digestion=False):
+    from molsysmt.form.openmm_Topology import to_openmm_Topology
+    from molsysmt.form.openmm_Topology import get_total_n_lipids_from_atom as aux_get
+    tmp_item = to_openmm_Topology(item, skip_digestion=True)
+    return aux_get(tmp_item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_saccharides_from_atom(item, indices='all', skip_digestion=False):
+    from molsysmt.form.openmm_Topology import to_openmm_Topology
+    from molsysmt.form.openmm_Topology import get_total_n_saccharides_from_atom as aux_get
+    tmp_item = to_openmm_Topology(item, skip_digestion=True)
+    return aux_get(tmp_item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_peptides_from_atom(item, indices='all', skip_digestion=False):
+    from molsysmt.form.openmm_Topology import to_openmm_Topology
+    from molsysmt.form.openmm_Topology import get_total_n_peptides_from_atom as aux_get
+    tmp_item = to_openmm_Topology(item, skip_digestion=True)
+    return aux_get(tmp_item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_proteins_from_atom(item, indices='all', skip_digestion=False):
+    from molsysmt.form.openmm_Topology import to_openmm_Topology
+    from molsysmt.form.openmm_Topology import get_total_n_proteins_from_atom as aux_get
+    tmp_item = to_openmm_Topology(item, skip_digestion=True)
+    return aux_get(tmp_item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_polysaccharides_from_atom(item, indices='all', skip_digestion=False):
+    from molsysmt.form.openmm_Topology import to_openmm_Topology
+    from molsysmt.form.openmm_Topology import get_total_n_polysaccharides_from_atom as aux_get
+    tmp_item = to_openmm_Topology(item, skip_digestion=True)
+    return aux_get(tmp_item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_dnas_from_atom(item, indices='all', skip_digestion=False):
+    from molsysmt.form.openmm_Topology import to_openmm_Topology
+    from molsysmt.form.openmm_Topology import get_total_n_dnas_from_atom as aux_get
+    tmp_item = to_openmm_Topology(item, skip_digestion=True)
+    return aux_get(tmp_item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_rnas_from_atom(item, indices='all', skip_digestion=False):
+    from molsysmt.form.openmm_Topology import to_openmm_Topology
+    from molsysmt.form.openmm_Topology import get_total_n_rnas_from_atom as aux_get
+    tmp_item = to_openmm_Topology(item, skip_digestion=True)
+    return aux_get(tmp_item, indices=indices, skip_digestion=True)
+
+
+# From group
+
+@arg_digest(form=form)
+def get_total_n_atoms_from_group(item, indices='all', skip_digestion=False):
+    from molsysmt.form.openmm_Topology import to_openmm_Topology
+    from molsysmt.form.openmm_Topology import get_total_n_atoms_from_group as aux_get
+    tmp_item = to_openmm_Topology(item, skip_digestion=True)
+    return aux_get(tmp_item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_groups_from_group(item, indices='all', skip_digestion=False):
+    from molsysmt.form.openmm_Topology import to_openmm_Topology
+    from molsysmt.form.openmm_Topology import get_total_n_groups_from_group as aux_get
+    tmp_item = to_openmm_Topology(item, skip_digestion=True)
+    return aux_get(tmp_item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_components_from_group(item, indices='all', skip_digestion=False):
+    from molsysmt.form.openmm_Topology import to_openmm_Topology
+    from molsysmt.form.openmm_Topology import get_total_n_components_from_group as aux_get
+    tmp_item = to_openmm_Topology(item, skip_digestion=True)
+    return aux_get(tmp_item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_molecules_from_group(item, indices='all', skip_digestion=False):
+    from molsysmt.form.openmm_Topology import to_openmm_Topology
+    from molsysmt.form.openmm_Topology import get_total_n_molecules_from_group as aux_get
+    tmp_item = to_openmm_Topology(item, skip_digestion=True)
+    return aux_get(tmp_item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_entities_from_group(item, indices='all', skip_digestion=False):
+    from molsysmt.form.openmm_Topology import to_openmm_Topology
+    from molsysmt.form.openmm_Topology import get_total_n_entities_from_group as aux_get
+    tmp_item = to_openmm_Topology(item, skip_digestion=True)
+    return aux_get(tmp_item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_chains_from_group(item, indices='all', skip_digestion=False):
+    from molsysmt.form.openmm_Topology import to_openmm_Topology
+    from molsysmt.form.openmm_Topology import get_total_n_chains_from_group as aux_get
+    tmp_item = to_openmm_Topology(item, skip_digestion=True)
+    return aux_get(tmp_item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_amino_acids_from_group(item, indices='all', skip_digestion=False):
+    from molsysmt.form.openmm_Topology import to_openmm_Topology
+    from molsysmt.form.openmm_Topology import get_total_n_amino_acids_from_group as aux_get
+    tmp_item = to_openmm_Topology(item, skip_digestion=True)
+    return aux_get(tmp_item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_nucleotides_from_group(item, indices='all', skip_digestion=False):
+    from molsysmt.form.openmm_Topology import to_openmm_Topology
+    from molsysmt.form.openmm_Topology import get_total_n_nucleotides_from_group as aux_get
+    tmp_item = to_openmm_Topology(item, skip_digestion=True)
+    return aux_get(tmp_item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_ions_from_group(item, indices='all', skip_digestion=False):
+    from molsysmt.form.openmm_Topology import to_openmm_Topology
+    from molsysmt.form.openmm_Topology import get_total_n_ions_from_group as aux_get
+    tmp_item = to_openmm_Topology(item, skip_digestion=True)
+    return aux_get(tmp_item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_waters_from_group(item, indices='all', skip_digestion=False):
+    from molsysmt.form.openmm_Topology import to_openmm_Topology
+    from molsysmt.form.openmm_Topology import get_total_n_waters_from_group as aux_get
+    tmp_item = to_openmm_Topology(item, skip_digestion=True)
+    return aux_get(tmp_item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_small_molecules_from_group(item, indices='all', skip_digestion=False):
+    from molsysmt.form.openmm_Topology import to_openmm_Topology
+    from molsysmt.form.openmm_Topology import get_total_n_small_molecules_from_group as aux_get
+    tmp_item = to_openmm_Topology(item, skip_digestion=True)
+    return aux_get(tmp_item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_lipids_from_group(item, indices='all', skip_digestion=False):
+    from molsysmt.form.openmm_Topology import to_openmm_Topology
+    from molsysmt.form.openmm_Topology import get_total_n_lipids_from_group as aux_get
+    tmp_item = to_openmm_Topology(item, skip_digestion=True)
+    return aux_get(tmp_item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_saccharides_from_group(item, indices='all', skip_digestion=False):
+    from molsysmt.form.openmm_Topology import to_openmm_Topology
+    from molsysmt.form.openmm_Topology import get_total_n_saccharides_from_group as aux_get
+    tmp_item = to_openmm_Topology(item, skip_digestion=True)
+    return aux_get(tmp_item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_peptides_from_group(item, indices='all', skip_digestion=False):
+    from molsysmt.form.openmm_Topology import to_openmm_Topology
+    from molsysmt.form.openmm_Topology import get_total_n_peptides_from_group as aux_get
+    tmp_item = to_openmm_Topology(item, skip_digestion=True)
+    return aux_get(tmp_item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_proteins_from_group(item, indices='all', skip_digestion=False):
+    from molsysmt.form.openmm_Topology import to_openmm_Topology
+    from molsysmt.form.openmm_Topology import get_total_n_proteins_from_group as aux_get
+    tmp_item = to_openmm_Topology(item, skip_digestion=True)
+    return aux_get(tmp_item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_polysaccharides_from_group(item, indices='all', skip_digestion=False):
+    from molsysmt.form.openmm_Topology import to_openmm_Topology
+    from molsysmt.form.openmm_Topology import get_total_n_polysaccharides_from_group as aux_get
+    tmp_item = to_openmm_Topology(item, skip_digestion=True)
+    return aux_get(tmp_item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_dnas_from_group(item, indices='all', skip_digestion=False):
+    from molsysmt.form.openmm_Topology import to_openmm_Topology
+    from molsysmt.form.openmm_Topology import get_total_n_dnas_from_group as aux_get
+    tmp_item = to_openmm_Topology(item, skip_digestion=True)
+    return aux_get(tmp_item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_rnas_from_group(item, indices='all', skip_digestion=False):
+    from molsysmt.form.openmm_Topology import to_openmm_Topology
+    from molsysmt.form.openmm_Topology import get_total_n_rnas_from_group as aux_get
+    tmp_item = to_openmm_Topology(item, skip_digestion=True)
+    return aux_get(tmp_item, indices=indices, skip_digestion=True)
+
+
+# From molecule
+
+@arg_digest(form=form)
+def get_total_n_atoms_from_molecule(item, indices='all', skip_digestion=False):
+    from molsysmt.form.openmm_Topology import to_openmm_Topology
+    from molsysmt.form.openmm_Topology import get_total_n_atoms_from_molecule as aux_get
+    tmp_item = to_openmm_Topology(item, skip_digestion=True)
+    return aux_get(tmp_item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_groups_from_molecule(item, indices='all', skip_digestion=False):
+    from molsysmt.form.openmm_Topology import to_openmm_Topology
+    from molsysmt.form.openmm_Topology import get_total_n_groups_from_molecule as aux_get
+    tmp_item = to_openmm_Topology(item, skip_digestion=True)
+    return aux_get(tmp_item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_components_from_molecule(item, indices='all', skip_digestion=False):
+    from molsysmt.form.openmm_Topology import to_openmm_Topology
+    from molsysmt.form.openmm_Topology import get_total_n_components_from_molecule as aux_get
+    tmp_item = to_openmm_Topology(item, skip_digestion=True)
+    return aux_get(tmp_item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_molecules_from_molecule(item, indices='all', skip_digestion=False):
+    from molsysmt.form.openmm_Topology import to_openmm_Topology
+    from molsysmt.form.openmm_Topology import get_total_n_molecules_from_molecule as aux_get
+    tmp_item = to_openmm_Topology(item, skip_digestion=True)
+    return aux_get(tmp_item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_entities_from_molecule(item, indices='all', skip_digestion=False):
+    from molsysmt.form.openmm_Topology import to_openmm_Topology
+    from molsysmt.form.openmm_Topology import get_total_n_entities_from_molecule as aux_get
+    tmp_item = to_openmm_Topology(item, skip_digestion=True)
+    return aux_get(tmp_item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_chains_from_molecule(item, indices='all', skip_digestion=False):
+    from molsysmt.form.openmm_Topology import to_openmm_Topology
+    from molsysmt.form.openmm_Topology import get_total_n_chains_from_molecule as aux_get
+    tmp_item = to_openmm_Topology(item, skip_digestion=True)
+    return aux_get(tmp_item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_amino_acids_from_molecule(item, indices='all', skip_digestion=False):
+    from molsysmt.form.openmm_Topology import to_openmm_Topology
+    from molsysmt.form.openmm_Topology import get_total_n_amino_acids_from_molecule as aux_get
+    tmp_item = to_openmm_Topology(item, skip_digestion=True)
+    return aux_get(tmp_item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_nucleotides_from_molecule(item, indices='all', skip_digestion=False):
+    from molsysmt.form.openmm_Topology import to_openmm_Topology
+    from molsysmt.form.openmm_Topology import get_total_n_nucleotides_from_molecule as aux_get
+    tmp_item = to_openmm_Topology(item, skip_digestion=True)
+    return aux_get(tmp_item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_ions_from_molecule(item, indices='all', skip_digestion=False):
+    from molsysmt.form.openmm_Topology import to_openmm_Topology
+    from molsysmt.form.openmm_Topology import get_total_n_ions_from_molecule as aux_get
+    tmp_item = to_openmm_Topology(item, skip_digestion=True)
+    return aux_get(tmp_item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_waters_from_molecule(item, indices='all', skip_digestion=False):
+    from molsysmt.form.openmm_Topology import to_openmm_Topology
+    from molsysmt.form.openmm_Topology import get_total_n_waters_from_molecule as aux_get
+    tmp_item = to_openmm_Topology(item, skip_digestion=True)
+    return aux_get(tmp_item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_lipids_from_molecule(item, indices='all', skip_digestion=False):
+    from molsysmt.form.openmm_Topology import to_openmm_Topology
+    from molsysmt.form.openmm_Topology import get_total_n_lipids_from_molecule as aux_get
+    tmp_item = to_openmm_Topology(item, skip_digestion=True)
+    return aux_get(tmp_item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_saccharides_from_molecule(item, indices='all', skip_digestion=False):
+    from molsysmt.form.openmm_Topology import to_openmm_Topology
+    from molsysmt.form.openmm_Topology import get_total_n_saccharides_from_molecule as aux_get
+    tmp_item = to_openmm_Topology(item, skip_digestion=True)
+    return aux_get(tmp_item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_peptides_from_molecule(item, indices='all', skip_digestion=False):
+    from molsysmt.form.openmm_Topology import to_openmm_Topology
+    from molsysmt.form.openmm_Topology import get_total_n_peptides_from_molecule as aux_get
+    tmp_item = to_openmm_Topology(item, skip_digestion=True)
+    return aux_get(tmp_item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_proteins_from_molecule(item, indices='all', skip_digestion=False):
+    from molsysmt.form.openmm_Topology import to_openmm_Topology
+    from molsysmt.form.openmm_Topology import get_total_n_proteins_from_molecule as aux_get
+    tmp_item = to_openmm_Topology(item, skip_digestion=True)
+    return aux_get(tmp_item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_polysaccharides_from_molecule(item, indices='all', skip_digestion=False):
+    from molsysmt.form.openmm_Topology import to_openmm_Topology
+    from molsysmt.form.openmm_Topology import get_total_n_polysaccharides_from_molecule as aux_get
+    tmp_item = to_openmm_Topology(item, skip_digestion=True)
+    return aux_get(tmp_item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_dnas_from_molecule(item, indices='all', skip_digestion=False):
+    from molsysmt.form.openmm_Topology import to_openmm_Topology
+    from molsysmt.form.openmm_Topology import get_total_n_dnas_from_molecule as aux_get
+    tmp_item = to_openmm_Topology(item, skip_digestion=True)
+    return aux_get(tmp_item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_rnas_from_molecule(item, indices='all', skip_digestion=False):
+    from molsysmt.form.openmm_Topology import to_openmm_Topology
+    from molsysmt.form.openmm_Topology import get_total_n_rnas_from_molecule as aux_get
+    tmp_item = to_openmm_Topology(item, skip_digestion=True)
+    return aux_get(tmp_item, indices=indices, skip_digestion=True)
+
+
+# From entity
+
+@arg_digest(form=form)
+def get_total_n_atoms_from_entity(item, indices='all', skip_digestion=False):
+    from molsysmt.form.openmm_Topology import to_openmm_Topology
+    from molsysmt.form.openmm_Topology import get_total_n_atoms_from_entity as aux_get
+    tmp_item = to_openmm_Topology(item, skip_digestion=True)
+    return aux_get(tmp_item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_groups_from_entity(item, indices='all', skip_digestion=False):
+    from molsysmt.form.openmm_Topology import to_openmm_Topology
+    from molsysmt.form.openmm_Topology import get_total_n_groups_from_entity as aux_get
+    tmp_item = to_openmm_Topology(item, skip_digestion=True)
+    return aux_get(tmp_item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_components_from_entity(item, indices='all', skip_digestion=False):
+    from molsysmt.form.openmm_Topology import to_openmm_Topology
+    from molsysmt.form.openmm_Topology import get_total_n_components_from_entity as aux_get
+    tmp_item = to_openmm_Topology(item, skip_digestion=True)
+    return aux_get(tmp_item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_molecules_from_entity(item, indices='all', skip_digestion=False):
+    from molsysmt.form.openmm_Topology import to_openmm_Topology
+    from molsysmt.form.openmm_Topology import get_total_n_molecules_from_entity as aux_get
+    tmp_item = to_openmm_Topology(item, skip_digestion=True)
+    return aux_get(tmp_item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_entities_from_entity(item, indices='all', skip_digestion=False):
+    from molsysmt.form.openmm_Topology import to_openmm_Topology
+    from molsysmt.form.openmm_Topology import get_total_n_entities_from_entity as aux_get
+    tmp_item = to_openmm_Topology(item, skip_digestion=True)
+    return aux_get(tmp_item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_chains_from_entity(item, indices='all', skip_digestion=False):
+    from molsysmt.form.openmm_Topology import to_openmm_Topology
+    from molsysmt.form.openmm_Topology import get_total_n_chains_from_entity as aux_get
+    tmp_item = to_openmm_Topology(item, skip_digestion=True)
+    return aux_get(tmp_item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_amino_acids_from_entity(item, indices='all', skip_digestion=False):
+    from molsysmt.form.openmm_Topology import to_openmm_Topology
+    from molsysmt.form.openmm_Topology import get_total_n_amino_acids_from_entity as aux_get
+    tmp_item = to_openmm_Topology(item, skip_digestion=True)
+    return aux_get(tmp_item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_nucleotides_from_entity(item, indices='all', skip_digestion=False):
+    from molsysmt.form.openmm_Topology import to_openmm_Topology
+    from molsysmt.form.openmm_Topology import get_total_n_nucleotides_from_entity as aux_get
+    tmp_item = to_openmm_Topology(item, skip_digestion=True)
+    return aux_get(tmp_item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_ions_from_entity(item, indices='all', skip_digestion=False):
+    from molsysmt.form.openmm_Topology import to_openmm_Topology
+    from molsysmt.form.openmm_Topology import get_total_n_ions_from_entity as aux_get
+    tmp_item = to_openmm_Topology(item, skip_digestion=True)
+    return aux_get(tmp_item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_waters_from_entity(item, indices='all', skip_digestion=False):
+    from molsysmt.form.openmm_Topology import to_openmm_Topology
+    from molsysmt.form.openmm_Topology import get_total_n_waters_from_entity as aux_get
+    tmp_item = to_openmm_Topology(item, skip_digestion=True)
+    return aux_get(tmp_item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_lipids_from_entity(item, indices='all', skip_digestion=False):
+    from molsysmt.form.openmm_Topology import to_openmm_Topology
+    from molsysmt.form.openmm_Topology import get_total_n_lipids_from_entity as aux_get
+    tmp_item = to_openmm_Topology(item, skip_digestion=True)
+    return aux_get(tmp_item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_saccharides_from_entity(item, indices='all', skip_digestion=False):
+    from molsysmt.form.openmm_Topology import to_openmm_Topology
+    from molsysmt.form.openmm_Topology import get_total_n_saccharides_from_entity as aux_get
+    tmp_item = to_openmm_Topology(item, skip_digestion=True)
+    return aux_get(tmp_item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_peptides_from_entity(item, indices='all', skip_digestion=False):
+    from molsysmt.form.openmm_Topology import to_openmm_Topology
+    from molsysmt.form.openmm_Topology import get_total_n_peptides_from_entity as aux_get
+    tmp_item = to_openmm_Topology(item, skip_digestion=True)
+    return aux_get(tmp_item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_proteins_from_entity(item, indices='all', skip_digestion=False):
+    from molsysmt.form.openmm_Topology import to_openmm_Topology
+    from molsysmt.form.openmm_Topology import get_total_n_proteins_from_entity as aux_get
+    tmp_item = to_openmm_Topology(item, skip_digestion=True)
+    return aux_get(tmp_item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_polysaccharides_from_entity(item, indices='all', skip_digestion=False):
+    from molsysmt.form.openmm_Topology import to_openmm_Topology
+    from molsysmt.form.openmm_Topology import get_total_n_polysaccharides_from_entity as aux_get
+    tmp_item = to_openmm_Topology(item, skip_digestion=True)
+    return aux_get(tmp_item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_dnas_from_entity(item, indices='all', skip_digestion=False):
+    from molsysmt.form.openmm_Topology import to_openmm_Topology
+    from molsysmt.form.openmm_Topology import get_total_n_dnas_from_entity as aux_get
+    tmp_item = to_openmm_Topology(item, skip_digestion=True)
+    return aux_get(tmp_item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_rnas_from_entity(item, indices='all', skip_digestion=False):
+    from molsysmt.form.openmm_Topology import to_openmm_Topology
+    from molsysmt.form.openmm_Topology import get_total_n_rnas_from_entity as aux_get
+    tmp_item = to_openmm_Topology(item, skip_digestion=True)
+    return aux_get(tmp_item, indices=indices, skip_digestion=True)
+
+
+# From component
+
+@arg_digest(form=form)
+def get_total_n_atoms_from_component(item, indices='all', skip_digestion=False):
+    from molsysmt.form.openmm_Topology import to_openmm_Topology
+    from molsysmt.form.openmm_Topology import get_total_n_atoms_from_component as aux_get
+    tmp_item = to_openmm_Topology(item, skip_digestion=True)
+    return aux_get(tmp_item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_groups_from_component(item, indices='all', skip_digestion=False):
+    from molsysmt.form.openmm_Topology import to_openmm_Topology
+    from molsysmt.form.openmm_Topology import get_total_n_groups_from_component as aux_get
+    tmp_item = to_openmm_Topology(item, skip_digestion=True)
+    return aux_get(tmp_item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_components_from_component(item, indices='all', skip_digestion=False):
+    from molsysmt.form.openmm_Topology import to_openmm_Topology
+    from molsysmt.form.openmm_Topology import get_total_n_components_from_component as aux_get
+    tmp_item = to_openmm_Topology(item, skip_digestion=True)
+    return aux_get(tmp_item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_molecules_from_component(item, indices='all', skip_digestion=False):
+    from molsysmt.form.openmm_Topology import to_openmm_Topology
+    from molsysmt.form.openmm_Topology import get_total_n_molecules_from_component as aux_get
+    tmp_item = to_openmm_Topology(item, skip_digestion=True)
+    return aux_get(tmp_item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_entities_from_component(item, indices='all', skip_digestion=False):
+    from molsysmt.form.openmm_Topology import to_openmm_Topology
+    from molsysmt.form.openmm_Topology import get_total_n_entities_from_component as aux_get
+    tmp_item = to_openmm_Topology(item, skip_digestion=True)
+    return aux_get(tmp_item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_chains_from_component(item, indices='all', skip_digestion=False):
+    from molsysmt.form.openmm_Topology import to_openmm_Topology
+    from molsysmt.form.openmm_Topology import get_total_n_chains_from_component as aux_get
+    tmp_item = to_openmm_Topology(item, skip_digestion=True)
+    return aux_get(tmp_item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_amino_acids_from_component(item, indices='all', skip_digestion=False):
+    from molsysmt.form.openmm_Topology import to_openmm_Topology
+    from molsysmt.form.openmm_Topology import get_total_n_amino_acids_from_component as aux_get
+    tmp_item = to_openmm_Topology(item, skip_digestion=True)
+    return aux_get(tmp_item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_nucleotides_from_component(item, indices='all', skip_digestion=False):
+    from molsysmt.form.openmm_Topology import to_openmm_Topology
+    from molsysmt.form.openmm_Topology import get_total_n_nucleotides_from_component as aux_get
+    tmp_item = to_openmm_Topology(item, skip_digestion=True)
+    return aux_get(tmp_item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_ions_from_component(item, indices='all', skip_digestion=False):
+    from molsysmt.form.openmm_Topology import to_openmm_Topology
+    from molsysmt.form.openmm_Topology import get_total_n_ions_from_component as aux_get
+    tmp_item = to_openmm_Topology(item, skip_digestion=True)
+    return aux_get(tmp_item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_waters_from_component(item, indices='all', skip_digestion=False):
+    from molsysmt.form.openmm_Topology import to_openmm_Topology
+    from molsysmt.form.openmm_Topology import get_total_n_waters_from_component as aux_get
+    tmp_item = to_openmm_Topology(item, skip_digestion=True)
+    return aux_get(tmp_item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_lipids_from_component(item, indices='all', skip_digestion=False):
+    from molsysmt.form.openmm_Topology import to_openmm_Topology
+    from molsysmt.form.openmm_Topology import get_total_n_lipids_from_component as aux_get
+    tmp_item = to_openmm_Topology(item, skip_digestion=True)
+    return aux_get(tmp_item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_saccharides_from_component(item, indices='all', skip_digestion=False):
+    from molsysmt.form.openmm_Topology import to_openmm_Topology
+    from molsysmt.form.openmm_Topology import get_total_n_saccharides_from_component as aux_get
+    tmp_item = to_openmm_Topology(item, skip_digestion=True)
+    return aux_get(tmp_item, indices=indices, skip_digestion=True)
+
+
+# From chain
+
+@arg_digest(form=form)
+def get_total_n_atoms_from_chain(item, indices='all', skip_digestion=False):
+    from molsysmt.form.openmm_Topology import to_openmm_Topology
+    from molsysmt.form.openmm_Topology import get_total_n_atoms_from_chain as aux_get
+    tmp_item = to_openmm_Topology(item, skip_digestion=True)
+    return aux_get(tmp_item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_groups_from_chain(item, indices='all', skip_digestion=False):
+    from molsysmt.form.openmm_Topology import to_openmm_Topology
+    from molsysmt.form.openmm_Topology import get_total_n_groups_from_chain as aux_get
+    tmp_item = to_openmm_Topology(item, skip_digestion=True)
+    return aux_get(tmp_item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_components_from_chain(item, indices='all', skip_digestion=False):
+    from molsysmt.form.openmm_Topology import to_openmm_Topology
+    from molsysmt.form.openmm_Topology import get_total_n_components_from_chain as aux_get
+    tmp_item = to_openmm_Topology(item, skip_digestion=True)
+    return aux_get(tmp_item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_molecules_from_chain(item, indices='all', skip_digestion=False):
+    from molsysmt.form.openmm_Topology import to_openmm_Topology
+    from molsysmt.form.openmm_Topology import get_total_n_molecules_from_chain as aux_get
+    tmp_item = to_openmm_Topology(item, skip_digestion=True)
+    return aux_get(tmp_item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_entities_from_chain(item, indices='all', skip_digestion=False):
+    from molsysmt.form.openmm_Topology import to_openmm_Topology
+    from molsysmt.form.openmm_Topology import get_total_n_entities_from_chain as aux_get
+    tmp_item = to_openmm_Topology(item, skip_digestion=True)
+    return aux_get(tmp_item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_chains_from_chain(item, indices='all', skip_digestion=False):
+    from molsysmt.form.openmm_Topology import to_openmm_Topology
+    from molsysmt.form.openmm_Topology import get_total_n_chains_from_chain as aux_get
+    tmp_item = to_openmm_Topology(item, skip_digestion=True)
+    return aux_get(tmp_item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_amino_acids_from_chain(item, indices='all', skip_digestion=False):
+    from molsysmt.form.openmm_Topology import to_openmm_Topology
+    from molsysmt.form.openmm_Topology import get_total_n_amino_acids_from_chain as aux_get
+    tmp_item = to_openmm_Topology(item, skip_digestion=True)
+    return aux_get(tmp_item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_nucleotides_from_chain(item, indices='all', skip_digestion=False):
+    from molsysmt.form.openmm_Topology import to_openmm_Topology
+    from molsysmt.form.openmm_Topology import get_total_n_nucleotides_from_chain as aux_get
+    tmp_item = to_openmm_Topology(item, skip_digestion=True)
+    return aux_get(tmp_item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_ions_from_chain(item, indices='all', skip_digestion=False):
+    from molsysmt.form.openmm_Topology import to_openmm_Topology
+    from molsysmt.form.openmm_Topology import get_total_n_ions_from_chain as aux_get
+    tmp_item = to_openmm_Topology(item, skip_digestion=True)
+    return aux_get(tmp_item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_waters_from_chain(item, indices='all', skip_digestion=False):
+    from molsysmt.form.openmm_Topology import to_openmm_Topology
+    from molsysmt.form.openmm_Topology import get_total_n_waters_from_chain as aux_get
+    tmp_item = to_openmm_Topology(item, skip_digestion=True)
+    return aux_get(tmp_item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_lipids_from_chain(item, indices='all', skip_digestion=False):
+    from molsysmt.form.openmm_Topology import to_openmm_Topology
+    from molsysmt.form.openmm_Topology import get_total_n_lipids_from_chain as aux_get
+    tmp_item = to_openmm_Topology(item, skip_digestion=True)
+    return aux_get(tmp_item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_saccharides_from_chain(item, indices='all', skip_digestion=False):
+    from molsysmt.form.openmm_Topology import to_openmm_Topology
+    from molsysmt.form.openmm_Topology import get_total_n_saccharides_from_chain as aux_get
+    tmp_item = to_openmm_Topology(item, skip_digestion=True)
+    return aux_get(tmp_item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_polysaccharides_from_chain(item, indices='all', skip_digestion=False):
+    from molsysmt.form.openmm_Topology import to_openmm_Topology
+    from molsysmt.form.openmm_Topology import get_total_n_polysaccharides_from_chain as aux_get
+    tmp_item = to_openmm_Topology(item, skip_digestion=True)
+    return aux_get(tmp_item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_dnas_from_chain(item, indices='all', skip_digestion=False):
+    from molsysmt.form.openmm_Topology import to_openmm_Topology
+    from molsysmt.form.openmm_Topology import get_total_n_dnas_from_chain as aux_get
+    tmp_item = to_openmm_Topology(item, skip_digestion=True)
+    return aux_get(tmp_item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_rnas_from_chain(item, indices='all', skip_digestion=False):
+    from molsysmt.form.openmm_Topology import to_openmm_Topology
+    from molsysmt.form.openmm_Topology import get_total_n_rnas_from_chain as aux_get
+    tmp_item = to_openmm_Topology(item, skip_digestion=True)
+    return aux_get(tmp_item, indices=indices, skip_digestion=True)
+
+
 # List of functions to be imported
 
 __all__ = [name for name, obj in globals().items() if isinstance(obj, types.FunctionType) and name.startswith('get_')]

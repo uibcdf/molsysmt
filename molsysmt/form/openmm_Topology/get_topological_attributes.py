@@ -1,6 +1,7 @@
 from molsysmt._private.arg_digestion import arg_digest
 from molsysmt._private.variables import is_all
 from molsysmt import pyunitwizard as puw
+from networkx import Graph
 import numpy as np
 import types
 from molsysmt._private.smonitor import NotImplementedMethodError, NotWithThisFormError
@@ -276,14 +277,7 @@ def get_chain_id_from_atom(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_chain_name_from_atom(item, indices='all', skip_digestion=False):
 
-    aux_indices = get_chain_index_from_atom(item, indices=indices, skip_digestion=True)
-    aux_unique_indices, aux_new_indices = np.unique(aux_indices, return_inverse=True)
-    aux_vals = get_chain_name_from_chain(item, indices=aux_unique_indices, skip_digestion=True)
-    output = np.array(aux_vals)[aux_new_indices]
-
-    del aux_indices, aux_unique_indices, aux_vals, aux_new_indices
-
-    return output.tolist()
+    return None
 
 
 @arg_digest(form=form)
@@ -1022,14 +1016,7 @@ def get_chain_id_from_group(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_chain_name_from_group(item, indices='all', skip_digestion=False):
 
-    aux_indices = get_chain_index_from_group(item, indices=indices, skip_digestion=True)
-    aux_unique_indices, aux_new_indices = np.unique(aux_indices, return_inverse=True)
-    aux_vals = get_chain_name_from_chain(item, indices=aux_unique_indices, skip_digestion=True)
-    output = np.array(aux_vals)[aux_new_indices]
-
-    del aux_indices, aux_unique_indices, aux_vals, aux_new_indices
-
-    return output.tolist()
+    return None
 
 
 @arg_digest(form=form)
@@ -1600,14 +1587,7 @@ def get_chain_id_from_component(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_chain_name_from_component(item, indices='all', skip_digestion=False):
 
-    aux_indices = get_chain_index_from_component(item, indices=indices, skip_digestion=True)
-    aux_unique_indices, aux_new_indices = np.unique(aux_indices, return_inverse=True)
-    aux_vals = get_chain_name_from_chain(item, indices=aux_unique_indices, skip_digestion=True)
-    output = np.array(aux_vals)[aux_new_indices]
-
-    del aux_indices, aux_unique_indices, aux_vals, aux_new_indices
-
-    return output.tolist()
+    return None
 
 
 @arg_digest(form=form)
@@ -2222,14 +2202,7 @@ def get_chain_id_from_molecule(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_chain_name_from_molecule(item, indices='all', skip_digestion=False):
 
-    aux_indices = get_chain_index_from_molecule(item, indices=indices, skip_digestion=True)
-    aux_unique_indices, aux_new_indices = np.unique(aux_indices, return_inverse=True)
-    aux_vals = get_chain_name_from_chain(item, indices=aux_unique_indices, skip_digestion=True)
-    output = np.array(aux_vals)[aux_new_indices]
-
-    del aux_indices, aux_unique_indices, aux_vals, aux_new_indices
-
-    return output.tolist()
+    return None
 
 
 @arg_digest(form=form)
@@ -2805,22 +2778,25 @@ def get_entity_index_from_entity(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_entity_id_from_entity(item, indices='all', skip_digestion=False):
 
-    from molsysmt.element.entity import get_entity_id_from_entity as _get
-    return _get(item, indices, skip_digestion=True)
+    from molsysmt.element.entity import get_entity_id as _get
+
+    return _get(item, element='entity', selection=indices, redefine_indices=True, skip_digestion=True)
 
 
 @arg_digest(form=form)
 def get_entity_name_from_entity(item, indices='all', skip_digestion=False):
 
-    from molsysmt.element.entity import get_entity_name_from_entity as _get
-    return _get(item, indices, skip_digestion=True)
+    from molsysmt.element.entity import get_entity_name as _get
+
+    return _get(item, element='entity', selection=indices, redefine_indices=True, skip_digestion=True)
 
 
 @arg_digest(form=form)
 def get_entity_type_from_entity(item, indices='all', skip_digestion=False):
 
-    from molsysmt.element.entity import get_entity_type_from_entity as _get
-    return _get(item, indices, skip_digestion=True)
+    from molsysmt.element.entity import get_entity_type as _get
+
+    return _get(item, element='entity', selection=indices, redefine_types=True, skip_digestion=True)
 
 
 @arg_digest(form=form)
@@ -2851,14 +2827,7 @@ def get_chain_id_from_entity(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_chain_name_from_entity(item, indices='all', skip_digestion=False):
 
-    aux_indices = get_chain_index_from_entity(item, indices=indices, skip_digestion=True)
-    aux_unique_indices, aux_new_indices = np.unique(aux_indices, return_inverse=True)
-    aux_vals = get_chain_name_from_chain(item, indices=aux_unique_indices, skip_digestion=True)
-    output = np.array(aux_vals)[aux_new_indices]
-
-    del aux_indices, aux_unique_indices, aux_vals, aux_new_indices
-
-    return output.tolist()
+    return None
 
 
 @arg_digest(form=form)
@@ -3093,9 +3062,9 @@ def get_n_saccharides_from_entity(item, indices='all', skip_digestion=False):
 def get_n_peptides_from_entity(item, indices='all', skip_digestion=False):
 
     molecule_indices = get_molecule_index_from_entity(item, indices=indices, skip_digestion=True)
-    molecule_indices = np.unique(molecule_indices)
+    molecule_indices = np.unique(np.concatenate([np.array(ii) for ii in molecule_indices]))
     molecule_types = get_molecule_type_from_molecule(item, indices=molecule_indices, skip_digestion=True)
-    output = (np.array(molecule_types) == 'peptide').sum()
+    output = int((np.array(molecule_types) == 'peptide').sum())
 
     return output
 
@@ -3104,9 +3073,9 @@ def get_n_peptides_from_entity(item, indices='all', skip_digestion=False):
 def get_n_proteins_from_entity(item, indices='all', skip_digestion=False):
 
     molecule_indices = get_molecule_index_from_entity(item, indices=indices, skip_digestion=True)
-    molecule_indices = np.unique(molecule_indices)
+    molecule_indices = np.unique(np.concatenate([np.array(ii) for ii in molecule_indices]))
     molecule_types = get_molecule_type_from_molecule(item, indices=molecule_indices, skip_digestion=True)
-    output = (np.array(molecule_types) == 'protein').sum()
+    output = int((np.array(molecule_types) == 'protein').sum())
 
     return output
 
@@ -3115,9 +3084,9 @@ def get_n_proteins_from_entity(item, indices='all', skip_digestion=False):
 def get_n_dnas_from_entity(item, indices='all', skip_digestion=False):
 
     molecule_indices = get_molecule_index_from_entity(item, indices=indices, skip_digestion=True)
-    molecule_indices = np.unique(molecule_indices)
+    molecule_indices = np.unique(np.concatenate([np.array(ii) for ii in molecule_indices]))
     molecule_types = get_molecule_type_from_molecule(item, indices=molecule_indices, skip_digestion=True)
-    output = (np.array(molecule_types) == 'dna').sum()
+    output = int((np.array(molecule_types) == 'dna').sum())
 
     return output
 
@@ -3126,9 +3095,9 @@ def get_n_dnas_from_entity(item, indices='all', skip_digestion=False):
 def get_n_rnas_from_entity(item, indices='all', skip_digestion=False):
 
     molecule_indices = get_molecule_index_from_entity(item, indices=indices, skip_digestion=True)
-    molecule_indices = np.unique(molecule_indices)
+    molecule_indices = np.unique(np.concatenate([np.array(ii) for ii in molecule_indices]))
     molecule_types = get_molecule_type_from_molecule(item, indices=molecule_indices, skip_digestion=True)
-    output = (np.array(molecule_types) == 'rna').sum()
+    output = int((np.array(molecule_types) == 'rna').sum())
 
     return output
 
@@ -3750,9 +3719,9 @@ def get_n_saccharides_from_chain(item, indices='all', skip_digestion=False):
 def get_n_peptides_from_chain(item, indices='all', skip_digestion=False):
 
     molecule_indices = get_molecule_index_from_chain(item, indices=indices, skip_digestion=True)
-    molecule_indices = np.unique(molecule_indices)
+    molecule_indices = np.unique(np.concatenate([np.array(ii) for ii in molecule_indices]))
     molecule_types = get_molecule_type_from_molecule(item, indices=molecule_indices, skip_digestion=True)
-    output = (np.array(molecule_types) == 'peptide').sum()
+    output = int((np.array(molecule_types) == 'peptide').sum())
 
     return output
 
@@ -3761,9 +3730,9 @@ def get_n_peptides_from_chain(item, indices='all', skip_digestion=False):
 def get_n_proteins_from_chain(item, indices='all', skip_digestion=False):
 
     molecule_indices = get_molecule_index_from_chain(item, indices=indices, skip_digestion=True)
-    molecule_indices = np.unique(molecule_indices)
+    molecule_indices = np.unique(np.concatenate([np.array(ii) for ii in molecule_indices]))
     molecule_types = get_molecule_type_from_molecule(item, indices=molecule_indices, skip_digestion=True)
-    output = (np.array(molecule_types) == 'protein').sum()
+    output = int((np.array(molecule_types) == 'protein').sum())
 
     return output
 
@@ -3772,9 +3741,9 @@ def get_n_proteins_from_chain(item, indices='all', skip_digestion=False):
 def get_n_dnas_from_chain(item, indices='all', skip_digestion=False):
 
     molecule_indices = get_molecule_index_from_chain(item, indices=indices, skip_digestion=True)
-    molecule_indices = np.unique(molecule_indices)
+    molecule_indices = np.unique(np.concatenate([np.array(ii) for ii in molecule_indices]))
     molecule_types = get_molecule_type_from_molecule(item, indices=molecule_indices, skip_digestion=True)
-    output = (np.array(molecule_types) == 'dna').sum()
+    output = int((np.array(molecule_types) == 'dna').sum())
 
     return output
 
@@ -3783,9 +3752,9 @@ def get_n_dnas_from_chain(item, indices='all', skip_digestion=False):
 def get_n_rnas_from_chain(item, indices='all', skip_digestion=False):
 
     molecule_indices = get_molecule_index_from_chain(item, indices=indices, skip_digestion=True)
-    molecule_indices = np.unique(molecule_indices)
+    molecule_indices = np.unique(np.concatenate([np.array(ii) for ii in molecule_indices]))
     molecule_types = get_molecule_type_from_molecule(item, indices=molecule_indices, skip_digestion=True)
-    output = (np.array(molecule_types) == 'rna').sum()
+    output = int((np.array(molecule_types) == 'rna').sum())
 
     return output
 
@@ -3825,25 +3794,29 @@ def get_bond_type_from_bond(item, indices='all', skip_digestion=False):
 
     return output
 
-@arg_digest(form=type)
+@arg_digest(form=form)
 def get_bonded_atoms_from_bond(item, indices='all', skip_digestion=False):
 
-    if is_all(indices):
-        n_bonds = get_n_bonds_from_system(item, skip_digestion=True)
-        indices = np.arange(n_bonds)
-
+    tmp_indices = get_bond_index_from_bond(item, indices=indices, skip_digestion=True)
     bond = list(item.bonds())
-    output=[[bond[ii].atom1.index, bond[ii].atom2.index] for ii in indices]
-    output=np.sort(np.array(output)).tolist()
-    del(bond)
+    atom_set = set()
+    for ii in tmp_indices:
+        atom_set.add(bond[ii].atom1.index)
+        atom_set.add(bond[ii].atom2.index)
+    del bond
 
-    return output
+    return sorted(atom_set)
 
 
 @arg_digest(form=form)
 def get_bonded_atom_pairs_from_bond(item, indices='all', skip_digestion=False):
 
-    return get_bonded_atoms_from_bond(item, indices=indices, skip_digestion=True)
+    tmp_indices = get_bond_index_from_bond(item, indices=indices, skip_digestion=True)
+    bond = list(item.bonds())
+    output = [sorted([bond[ii].atom1.index, bond[ii].atom2.index]) for ii in tmp_indices]
+    del bond
+
+    return output
 
 
 @arg_digest(form=form)
@@ -4041,26 +4014,7 @@ def get_bond_index_from_system(item, skip_digestion=False):
 @arg_digest(form=form)
 def get_bonded_atoms_from_system(item, skip_digestion=False):
 
-    output = None
-
-    G = Graph()
-    edges = get_bonded_atom_pairs_from_bond(item, skip_digestion=True)
-    
-    G.add_edges_from(edges)
-
-    indices = get_atom_index_from_atom(item, skip_digestion=True)
-
-    output = []
-
-    for ii in indices:
-        if ii in G:
-            output.append(list(G.neighbors(ii)))
-        else:
-            output.append([])
-
-    del G, edges
-
-    return output
+    return get_bonded_atoms_from_bond(item, skip_digestion=True)
 
 
 @arg_digest(form=form)
@@ -4105,6 +4059,438 @@ def get_inner_bonded_atom_pairs_from_system(item, skip_digestion=False):
     output = get_bonded_atom_pairs_from_bond(item)
    
     return output
+
+
+## get_total_n_* functions
+## Return the total count within the scope defined by the queried indices.
+## Each function delegates to the per-element getter and sums or counts
+## appropriately depending on how the element hierarchy relates to Y.
+
+# --- From atom ---
+
+@arg_digest(form=form)
+def get_total_n_atoms_from_atom(item, indices='all', skip_digestion=False):
+    return get_n_atoms_from_atom(item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_groups_from_atom(item, indices='all', skip_digestion=False):
+    return get_n_groups_from_atom(item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_components_from_atom(item, indices='all', skip_digestion=False):
+    return get_n_components_from_atom(item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_molecules_from_atom(item, indices='all', skip_digestion=False):
+    return get_n_molecules_from_atom(item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_entities_from_atom(item, indices='all', skip_digestion=False):
+    return get_n_entities_from_atom(item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_chains_from_atom(item, indices='all', skip_digestion=False):
+    return get_n_chains_from_atom(item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_bonds_from_atom(item, indices='all', skip_digestion=False):
+    per_atom = get_bond_index_from_atom(item, indices=indices, skip_digestion=True)
+    unique_bonds = set()
+    for bond_list in per_atom:
+        unique_bonds.update(bond_list)
+    return len(unique_bonds)
+
+@arg_digest(form=form)
+def get_total_n_inner_bonds_from_atom(item, indices='all', skip_digestion=False):
+    per_atom = get_inner_bond_index_from_atom(item, indices=indices, skip_digestion=True)
+    unique_bonds = set()
+    for bond_list in per_atom:
+        unique_bonds.update(bond_list)
+    return len(unique_bonds)
+
+@arg_digest(form=form)
+def get_total_n_amino_acids_from_atom(item, indices='all', skip_digestion=False):
+    return get_n_amino_acids_from_atom(item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_nucleotides_from_atom(item, indices='all', skip_digestion=False):
+    return get_n_nucleotides_from_atom(item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_ions_from_atom(item, indices='all', skip_digestion=False):
+    return get_n_ions_from_atom(item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_waters_from_atom(item, indices='all', skip_digestion=False):
+    return get_n_waters_from_atom(item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_small_molecules_from_atom(item, indices='all', skip_digestion=False):
+    return get_n_small_molecules_from_atom(item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_lipids_from_atom(item, indices='all', skip_digestion=False):
+    return get_n_lipids_from_atom(item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_saccharides_from_atom(item, indices='all', skip_digestion=False):
+    return get_n_saccharides_from_atom(item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_peptides_from_atom(item, indices='all', skip_digestion=False):
+    return get_n_peptides_from_atom(item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_proteins_from_atom(item, indices='all', skip_digestion=False):
+    return get_n_proteins_from_atom(item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_polysaccharides_from_atom(item, indices='all', skip_digestion=False):
+    return get_n_polysaccharides_from_atom(item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_dnas_from_atom(item, indices='all', skip_digestion=False):
+    return get_n_dnas_from_atom(item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_rnas_from_atom(item, indices='all', skip_digestion=False):
+    return get_n_rnas_from_atom(item, indices=indices, skip_digestion=True)
+
+
+# --- From group ---
+# Note: get_n_components_from_group and get_n_chains_from_group already return
+# scalar unique counts in openmm.Topology, so total_ delegates directly.
+
+@arg_digest(form=form)
+def get_total_n_atoms_from_group(item, indices='all', skip_digestion=False):
+    return int(sum(get_n_atoms_from_group(item, indices=indices, skip_digestion=True)))
+
+@arg_digest(form=form)
+def get_total_n_groups_from_group(item, indices='all', skip_digestion=False):
+    return get_n_groups_from_group(item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_components_from_group(item, indices='all', skip_digestion=False):
+    return get_n_components_from_group(item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_molecules_from_group(item, indices='all', skip_digestion=False):
+    return get_n_molecules_from_group(item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_entities_from_group(item, indices='all', skip_digestion=False):
+    return get_n_entities_from_group(item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_chains_from_group(item, indices='all', skip_digestion=False):
+    return get_n_chains_from_group(item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_amino_acids_from_group(item, indices='all', skip_digestion=False):
+    return get_n_amino_acids_from_group(item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_nucleotides_from_group(item, indices='all', skip_digestion=False):
+    return get_n_nucleotides_from_group(item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_ions_from_group(item, indices='all', skip_digestion=False):
+    return get_n_ions_from_group(item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_waters_from_group(item, indices='all', skip_digestion=False):
+    return get_n_waters_from_group(item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_small_molecules_from_group(item, indices='all', skip_digestion=False):
+    return get_n_small_molecules_from_group(item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_lipids_from_group(item, indices='all', skip_digestion=False):
+    return get_n_lipids_from_group(item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_saccharides_from_group(item, indices='all', skip_digestion=False):
+    return get_n_saccharides_from_group(item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_peptides_from_group(item, indices='all', skip_digestion=False):
+    return get_n_peptides_from_group(item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_proteins_from_group(item, indices='all', skip_digestion=False):
+    return get_n_proteins_from_group(item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_polysaccharides_from_group(item, indices='all', skip_digestion=False):
+    return get_n_polysaccharides_from_group(item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_dnas_from_group(item, indices='all', skip_digestion=False):
+    return get_n_dnas_from_group(item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_rnas_from_group(item, indices='all', skip_digestion=False):
+    return get_n_rnas_from_group(item, indices=indices, skip_digestion=True)
+
+
+# --- From molecule ---
+
+@arg_digest(form=form)
+def get_total_n_atoms_from_molecule(item, indices='all', skip_digestion=False):
+    return int(sum(get_n_atoms_from_molecule(item, indices=indices, skip_digestion=True)))
+
+@arg_digest(form=form)
+def get_total_n_groups_from_molecule(item, indices='all', skip_digestion=False):
+    return int(sum(get_n_groups_from_molecule(item, indices=indices, skip_digestion=True)))
+
+@arg_digest(form=form)
+def get_total_n_components_from_molecule(item, indices='all', skip_digestion=False):
+    return int(sum(get_n_components_from_molecule(item, indices=indices, skip_digestion=True)))
+
+@arg_digest(form=form)
+def get_total_n_molecules_from_molecule(item, indices='all', skip_digestion=False):
+    return get_n_molecules_from_molecule(item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_entities_from_molecule(item, indices='all', skip_digestion=False):
+    # get_n_entities_from_molecule returns a scalar in openmm.Topology
+    return int(get_n_entities_from_molecule(item, indices=indices, skip_digestion=True))
+
+@arg_digest(form=form)
+def get_total_n_chains_from_molecule(item, indices='all', skip_digestion=False):
+    return get_n_chains_from_molecule(item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_amino_acids_from_molecule(item, indices='all', skip_digestion=False):
+    return get_n_amino_acids_from_molecule(item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_nucleotides_from_molecule(item, indices='all', skip_digestion=False):
+    return get_n_nucleotides_from_molecule(item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_ions_from_molecule(item, indices='all', skip_digestion=False):
+    return get_n_ions_from_molecule(item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_waters_from_molecule(item, indices='all', skip_digestion=False):
+    return get_n_waters_from_molecule(item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_lipids_from_molecule(item, indices='all', skip_digestion=False):
+    return get_n_lipids_from_molecule(item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_saccharides_from_molecule(item, indices='all', skip_digestion=False):
+    return get_n_saccharides_from_molecule(item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_peptides_from_molecule(item, indices='all', skip_digestion=False):
+    return get_n_peptides_from_molecule(item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_proteins_from_molecule(item, indices='all', skip_digestion=False):
+    return get_n_proteins_from_molecule(item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_polysaccharides_from_molecule(item, indices='all', skip_digestion=False):
+    return get_n_polysaccharides_from_molecule(item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_dnas_from_molecule(item, indices='all', skip_digestion=False):
+    return get_n_dnas_from_molecule(item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_rnas_from_molecule(item, indices='all', skip_digestion=False):
+    return get_n_rnas_from_molecule(item, indices=indices, skip_digestion=True)
+
+
+# --- From entity ---
+
+@arg_digest(form=form)
+def get_total_n_atoms_from_entity(item, indices='all', skip_digestion=False):
+    return int(sum(get_n_atoms_from_entity(item, indices=indices, skip_digestion=True)))
+
+@arg_digest(form=form)
+def get_total_n_groups_from_entity(item, indices='all', skip_digestion=False):
+    return int(sum(get_n_groups_from_entity(item, indices=indices, skip_digestion=True)))
+
+@arg_digest(form=form)
+def get_total_n_components_from_entity(item, indices='all', skip_digestion=False):
+    return int(sum(get_n_components_from_entity(item, indices=indices, skip_digestion=True)))
+
+@arg_digest(form=form)
+def get_total_n_molecules_from_entity(item, indices='all', skip_digestion=False):
+    return int(sum(get_n_molecules_from_entity(item, indices=indices, skip_digestion=True)))
+
+@arg_digest(form=form)
+def get_total_n_entities_from_entity(item, indices='all', skip_digestion=False):
+    return get_n_entities_from_entity(item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_chains_from_entity(item, indices='all', skip_digestion=False):
+    return get_n_chains_from_entity(item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_amino_acids_from_entity(item, indices='all', skip_digestion=False):
+    return get_n_amino_acids_from_entity(item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_nucleotides_from_entity(item, indices='all', skip_digestion=False):
+    return get_n_nucleotides_from_entity(item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_ions_from_entity(item, indices='all', skip_digestion=False):
+    return get_n_ions_from_entity(item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_waters_from_entity(item, indices='all', skip_digestion=False):
+    return get_n_waters_from_entity(item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_lipids_from_entity(item, indices='all', skip_digestion=False):
+    return get_n_lipids_from_entity(item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_saccharides_from_entity(item, indices='all', skip_digestion=False):
+    return get_n_saccharides_from_entity(item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_peptides_from_entity(item, indices='all', skip_digestion=False):
+    return get_n_peptides_from_entity(item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_proteins_from_entity(item, indices='all', skip_digestion=False):
+    return get_n_proteins_from_entity(item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_polysaccharides_from_entity(item, indices='all', skip_digestion=False):
+    return get_n_polysaccharides_from_entity(item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_dnas_from_entity(item, indices='all', skip_digestion=False):
+    return get_n_dnas_from_entity(item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_rnas_from_entity(item, indices='all', skip_digestion=False):
+    return get_n_rnas_from_entity(item, indices=indices, skip_digestion=True)
+
+
+# --- From component ---
+
+@arg_digest(form=form)
+def get_total_n_atoms_from_component(item, indices='all', skip_digestion=False):
+    return int(sum(get_n_atoms_from_component(item, indices=indices, skip_digestion=True)))
+
+@arg_digest(form=form)
+def get_total_n_groups_from_component(item, indices='all', skip_digestion=False):
+    return int(sum(get_n_groups_from_component(item, indices=indices, skip_digestion=True)))
+
+@arg_digest(form=form)
+def get_total_n_components_from_component(item, indices='all', skip_digestion=False):
+    return get_n_components_from_component(item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_molecules_from_component(item, indices='all', skip_digestion=False):
+    # get_n_molecules_from_component returns a scalar in openmm.Topology
+    return int(get_n_molecules_from_component(item, indices=indices, skip_digestion=True))
+
+@arg_digest(form=form)
+def get_total_n_entities_from_component(item, indices='all', skip_digestion=False):
+    # get_n_entities_from_component returns a scalar in openmm.Topology
+    return int(get_n_entities_from_component(item, indices=indices, skip_digestion=True))
+
+@arg_digest(form=form)
+def get_total_n_chains_from_component(item, indices='all', skip_digestion=False):
+    return get_n_chains_from_component(item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_amino_acids_from_component(item, indices='all', skip_digestion=False):
+    return get_n_amino_acids_from_component(item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_nucleotides_from_component(item, indices='all', skip_digestion=False):
+    return get_n_nucleotides_from_component(item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_ions_from_component(item, indices='all', skip_digestion=False):
+    return get_n_ions_from_component(item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_waters_from_component(item, indices='all', skip_digestion=False):
+    return get_n_waters_from_component(item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_lipids_from_component(item, indices='all', skip_digestion=False):
+    return get_n_lipids_from_component(item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_saccharides_from_component(item, indices='all', skip_digestion=False):
+    return get_n_saccharides_from_component(item, indices=indices, skip_digestion=True)
+
+
+# --- From chain ---
+
+@arg_digest(form=form)
+def get_total_n_atoms_from_chain(item, indices='all', skip_digestion=False):
+    return int(sum(get_n_atoms_from_chain(item, indices=indices, skip_digestion=True)))
+
+@arg_digest(form=form)
+def get_total_n_groups_from_chain(item, indices='all', skip_digestion=False):
+    return int(sum(get_n_groups_from_chain(item, indices=indices, skip_digestion=True)))
+
+@arg_digest(form=form)
+def get_total_n_components_from_chain(item, indices='all', skip_digestion=False):
+    return int(sum(get_n_components_from_chain(item, indices=indices, skip_digestion=True)))
+
+@arg_digest(form=form)
+def get_total_n_molecules_from_chain(item, indices='all', skip_digestion=False):
+    return int(sum(get_n_molecules_from_chain(item, indices=indices, skip_digestion=True)))
+
+@arg_digest(form=form)
+def get_total_n_entities_from_chain(item, indices='all', skip_digestion=False):
+    return int(sum(get_n_entities_from_chain(item, indices=indices, skip_digestion=True)))
+
+@arg_digest(form=form)
+def get_total_n_chains_from_chain(item, indices='all', skip_digestion=False):
+    return get_n_chains_from_chain(item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_amino_acids_from_chain(item, indices='all', skip_digestion=False):
+    return get_n_amino_acids_from_chain(item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_nucleotides_from_chain(item, indices='all', skip_digestion=False):
+    return get_n_nucleotides_from_chain(item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_ions_from_chain(item, indices='all', skip_digestion=False):
+    return get_n_ions_from_chain(item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_waters_from_chain(item, indices='all', skip_digestion=False):
+    return get_n_waters_from_chain(item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_lipids_from_chain(item, indices='all', skip_digestion=False):
+    return get_n_lipids_from_chain(item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_saccharides_from_chain(item, indices='all', skip_digestion=False):
+    return get_n_saccharides_from_chain(item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_polysaccharides_from_chain(item, indices='all', skip_digestion=False):
+    return get_n_polysaccharides_from_chain(item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_dnas_from_chain(item, indices='all', skip_digestion=False):
+    return get_n_dnas_from_chain(item, indices=indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_total_n_rnas_from_chain(item, indices='all', skip_digestion=False):
+    return get_n_rnas_from_chain(item, indices=indices, skip_digestion=True)
 
 
 # List of functions to be imported
