@@ -100,6 +100,8 @@ These forms are currently considered part of the contractual `1.x` support surfa
 | `mdtraj.Topology` | Class | Topological interoperability | Partial | Partial | Outside current heavy contract | Candidate for stronger parity hardening |
 | `file:pdb` | File | PDB file interoperability, lossy where the format is lossy | Yes | Yes within documented scope | Outside current heavy contract | Round-trip semantics explicitly constrained by PDB limitations |
 | `file:xtc` | File | Supported current eager-path trajectory input | Yes | Partial | Tier 1 heavy target | Primary local trajectory file target for the first committed heavy slice |
+| `string:pdb_id` | Remote | Remote PDB retrieval entry point | Partial | Partial | Outside current heavy contract | Promoted to Tier 1: network-dependent retrieval + local topology/structural get coverage |
+| `string:alphafold_id` | Remote | Remote AlphaFold retrieval entry point | Partial | Partial | Outside current heavy contract | Promoted to Tier 1: network-dependent retrieval + local topology/structural get coverage |
 
 ## Tier 2 forms
 
@@ -117,8 +119,6 @@ These forms are supported and useful, but they remain best-effort compared with 
 | `parmed.Structure` | Class | ParmEd interoperability | Partial | Partial | Outside current heavy contract | Stable enough for use, not Tier 1 |
 | `molsysviewer.MolSysView` | Viewer | Viewer-oriented inspection and interaction | Yes | Not applicable | Outside current heavy contract | Viewer workflow support, not a parity reference form |
 | `nglview.NGLWidget` | Viewer | Viewer-oriented inspection and interaction | Yes | Partial | Outside current heavy contract | Lossy visual round-trips are documented where applicable |
-| `string:pdb_id` | Remote | Remote retrieval entry point | Partial | Partial | Outside current heavy contract | Useful and important, but network-dependent by nature |
-| `string:alphafold_id` | Remote | Remote retrieval entry point | Partial | Partial | Outside current heavy contract | Candidate for Tier 1 promotion once contract tests and parity coverage are hardened |
 
 ## Tier 3 forms
 

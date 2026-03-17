@@ -35,8 +35,7 @@ FORM_TIERS: dict[str, int] = {
     "parmed.Structure":            2,
     "molsysviewer.MolSysView":     2,
     "nglview.NGLWidget":           2,
-    "string:pdb_id":               2,
-    "string:alphafold_id":         2,
+    # string:pdb_id and string:alphafold_id promoted to Tier 1 — omitted here
 
     # ------------------------------------------------------------------
     # Tier 3 — experimental / niche
