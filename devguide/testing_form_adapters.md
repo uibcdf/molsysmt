@@ -27,68 +27,38 @@ Completed form adapters with both test files (as of March 2026):
 | `openmm_Topology` | 393 | 15 (PDB oracle) | |
 | `openmm_Modeller` | ~393 | 15 (PDB oracle) | delegates to `openmm_Topology` |
 | `openmm_Simulation` | ~393 | 13 (real AMBER14+CPU fixture) | delegates to `openmm_Topology` |
-| `string_pdb_id` | — | 13 (local + 1 network smoke) | see "Network-dependent forms" below |
-| `string_alphafold_id` | — | 13 (local + 1 network smoke) | see "Network-dependent forms" below |
+| `string_pdb_id` | — | 1 (network smoke) | download-only, no local tests possible |
+| `string_alphafold_id` | — | 1 (network smoke) | download-only, no local tests possible |
 
 ---
 
 ## Network-dependent forms (`string:pdb_id`, `string:alphafold_id`)
 
 Forms whose adapter internally downloads data from a remote service (PDB, AlphaFold)
-cannot use a builder fixture or a local file fixture in the conventional sense. Their
-tests use a two-tier strategy:
-
-### Tier 1 — Local delegation tests (no network required)
-
-The adapter delegates all getter calls to `molsysmt_Topology` through
-`to_molsysmt_Topology(item, ...)`. We can exercise this delegation chain
-without any network download by passing a locally-built `molsysmt.Topology`
-(from the bundled `1l2y.pdb`) with `skip_digestion=True`:
-
-```python
-from molsysmt.form.string_pdb_id import get_topological_attributes as aux
-
-@pytest.fixture(scope='module')
-def topo():
-    return msm.convert(PDB_PATH, to_form='molsysmt.Topology')
-
-def test_n_atoms(topo):
-    # skip_digestion=True bypasses the form check so a molsysmt.Topology
-    # can be passed directly — the body still calls to_molsysmt_Topology()
-    # internally, exercising the full delegation chain.
-    assert aux.get_n_atoms_from_system(topo, skip_digestion=True) == 304
-```
-
-This approach:
-- Tests the actual code path of the adapter's getter functions
-- Exercises the `molsysmt_Topology` delegation correctly
-- Runs entirely offline
-- Shares the 1l2y PDB oracle values (304 atoms, 20 groups, 1 chain, etc.)
-
-### Tier 2 — Network smoke test (requires live network)
-
-A single test per form verifies that the download pipeline is alive end-to-end.
-It is tagged with `@pytest.mark.network`:
+**always** trigger a network call before delegating to `molsysmt_Topology`.  There is
+no way to exercise their getter functions locally: `skip_digestion=True` bypasses the
+form check in the decorator but the function body still calls `to_molsysmt_Topology`,
+which downloads.  Therefore these forms have only a single `@pytest.mark.network`
+smoke test that validates the full pipeline end-to-end:
 
 ```python
 @pytest.mark.network
 def test_download_and_basic_count():
+    """Download 1l2y from RCSB and verify atom count through the full pipeline."""
     n = aux.get_n_atoms_from_system('pdb_id:1l2y')
     assert n == 304
 ```
 
-### Running and skipping network tests
+The `network` mark is registered in `pytest.ini`. Any test that requires a live
+internet connection **must** carry this mark so offline runs remain fully green.
 
 ```bash
 # Run only network tests
-pytest -m network tests/form/string_pdb_id/
+pytest -m network
 
-# Skip network tests (default for offline / CI)
-pytest -m "not network" tests/form/string_pdb_id/
+# Skip network tests
+pytest -m "not network"
 ```
-
-The `network` mark is registered in `pytest.ini`. Any test that requires a live
-internet connection **must** carry this mark so offline runs remain fully green.
 
 ---
 

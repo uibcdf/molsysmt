@@ -367,6 +367,8 @@ class Topology():
             tmp_item.groups['molecule_index'] = tmp_item.groups['molecule_index'].map({old: new for new, old in enumerate(old_molecule_indices)}).astype('Int64')
             tmp_item.molecules['entity_index'] = tmp_item.molecules['entity_index'].map({old: new for new, old in enumerate(old_entity_indices)}).astype('Int64')
             tmp_item.atoms['component_index'] = tmp_item.atoms['component_index'].map({old: new for new, old in enumerate(old_component_indices)}).astype('Int64')
+            if 'component_index' in tmp_item.groups.columns:
+                tmp_item.groups['component_index'] = tmp_item.groups['component_index'].map({old: new for new, old in enumerate(old_component_indices)}).astype('Int64')
             tmp_item.atoms['chain_index'] = tmp_item.atoms['chain_index'].map({old: new for new, old in enumerate(old_chain_indices)}).astype('Int64')
 
             del old_group_indices, old_molecule_indices, old_entity_indices, old_component_indices, old_chain_indices

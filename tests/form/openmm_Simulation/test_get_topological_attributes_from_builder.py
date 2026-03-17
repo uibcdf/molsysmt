@@ -29,6 +29,8 @@ import pytest
 import molsysmt as msm
 from molsysmt.form.openmm_Simulation import get_topological_attributes as aux
 
+pytestmark = pytest.mark.redundant
+
 N_ATOMS        = 13
 N_GROUPS       = 5
 N_CHAINS       = 2

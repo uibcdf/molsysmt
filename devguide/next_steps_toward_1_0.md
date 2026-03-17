@@ -28,7 +28,7 @@ The following priorities have been agreed.
 
 ### 1. Formalize the support contract
 
-The first priority is to strengthen `devguide/support_tiers.md` so that it becomes an actual support contract for the `1.0.0` line rather than just an inventory.
+The first priority is to strengthen `devguide/support_tiers.ipynb` so that it becomes an actual support contract for the `1.0.0` line rather than just an inventory.
 
 This work should answer, explicitly and defensibly:
 
@@ -181,9 +181,9 @@ This should include, at minimum:
 
 This is not a cosmetic packaging concern. It is part of the practical meaning of a support contract.
 
-## Specific guidance for `support_tiers.md`
+## Specific guidance for `support_tiers.ipynb`
 
-The current agreement is that `support_tiers.md` should not stay as a loose descriptive list. It should evolve into a structured support contract.
+The current agreement is that `support_tiers.ipynb` should not stay as a loose descriptive list. It should evolve into a structured support contract.
 
 At minimum, each relevant form should eventually carry or be associated with:
 
@@ -236,7 +236,7 @@ That line is already part of the active product surface. It should therefore be 
 
 In particular:
 
-- these forms should be classified explicitly in `support_tiers.md`;
+- these forms should be classified explicitly in `support_tiers.ipynb`;
 - parity expectations should be described where they are part of the supported contract;
 - `MolSysBuilder` should continue to be used as a deterministic fixture source for converter tests.
 
@@ -244,7 +244,7 @@ In particular:
 
 The agreed immediate sequence is:
 
-1. rewrite `devguide/support_tiers.md` into a real support contract;
+1. rewrite `devguide/support_tiers.ipynb` into a real support contract;
 2. update `devguide/testing_strategy.md` so that parity obligations follow that support contract;
 3. update `devguide/performance_and_jit.md` so that it matches the currently implemented trusted/validated execution model;
 4. implement the remaining new `1.0.0` capabilities that are already in scope, especially the Tier 1 heavy-trajectory slice described in `scalability_and_heavy_trajectories_v2.md`;
@@ -275,7 +275,7 @@ Once those three pillars are in place, the project can reasonably move into:
 
 Before the final stabilization phase begins, MolSysMT should have:
 
-- an explicit form support contract in `support_tiers.md`;
+- an explicit form support contract in `support_tiers.ipynb`;
 - an explicit stability classification for the public API surface, not only for forms;
 - an explicit `1.x` deprecation policy;
 - a documented sibling-infrastructure baseline for:
@@ -343,7 +343,7 @@ This file is temporary by design.
 
 It should be removed or merged once:
 
-1. `support_tiers.md` has been rewritten as a real support contract;
+1. `support_tiers.ipynb` has been rewritten as a real support contract;
 2. `testing_strategy.md` has been aligned with parity obligations derived from that contract;
 3. `performance_and_jit.md` has been synchronized with the implemented architecture;
 4. the infrastructure baseline and public-function stability policy are reflected in the canonical `devguide` documents;

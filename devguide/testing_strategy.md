@@ -6,7 +6,7 @@ Use `pytest`. Tests live under `tests/` and should mirror package structure.
 ## 🥇 Contract Testing (The 1.0.0 Standard)
 Contract tests are the primary defense against regressions in interoperability.
 
-The support contract is defined in `devguide/support_tiers.md`. Testing must derive from that document rather than from informal expectations.
+The support contract is defined in `devguide/support_tiers.ipynb`. Testing must derive from that document rather than from informal expectations.
 
 Two parity axes must remain explicit:
 
@@ -23,7 +23,7 @@ Tier 2 and Tier 3 forms may still have valuable tests, but their parity obligati
 
 ## Contract-driven test prioritization
 
-The support contract is not only a list of forms. It also includes the `Contractual capability matrix` in `devguide/support_tiers.md`. Test priorities must therefore follow both axes:
+The support contract is not only a list of forms. It also includes the `Contractual capability matrix` in `devguide/support_tiers.ipynb`. Test priorities must therefore follow both axes:
 
 - the tier of the form;
 - the contractual capability being claimed for that tier.
@@ -36,11 +36,11 @@ When choosing what to test next, prioritize in this order:
 4. Tier 2 best-effort regressions for capabilities marked as partial or lossy;
 5. Tier 3 or legacy coverage only when it reveals real risk or blocks cleanup.
 
-Coverage percentage alone must not drive test priorities. The first objective is to harden the contractual support surface defined in `devguide/support_tiers.md`.
+Coverage percentage alone must not drive test priorities. The first objective is to harden the contractual support surface defined in `devguide/support_tiers.ipynb`.
 
 ## Capability-driven parity obligations
 
-The capability matrix in `devguide/support_tiers.md` should be read as the source of truth for parity obligations. In practice, each capability implies a characteristic family of tests:
+The capability matrix in `devguide/support_tiers.ipynb` should be read as the source of truth for parity obligations. In practice, each capability implies a characteristic family of tests:
 
 - **Basic introspection**
   - contract tests for `msm.get`, `msm.info`, and `msm.compare`;
@@ -75,6 +75,51 @@ The capability matrix in `devguide/support_tiers.md` should be read as the sourc
   - failure-policy tests for unsupported combinations and recoverable frame-skipping behavior.
 
 This separation matters because `contract verification`, `form parity`, and `execution parity` are related but not identical obligations.
+
+## pytest marks and useful -m combinations
+
+### Registered marks
+
+| Mark | Applied by | Meaning |
+|------|-----------|---------|
+| `tier1` | `conftest.py` (automatic) | Form is Tier 1 — contractual, 1.x stable |
+| `tier2` | `conftest.py` (automatic) | Form is Tier 2 — best-effort |
+| `tier3` | `conftest.py` (automatic) | Form is Tier 3 — experimental / niche |
+| `network` | test author (manual) | Requires a live network connection |
+| `redundant` | test author (manual) | Exercises a delegation path already covered by a lower-level suite |
+
+Tier marks are applied automatically by `tests/conftest.py` to all tests under
+`tests/form/<form_dir>/`.  The source of truth is `FORM_TIERS` in
+`molsysmt/_private/form_tier.py` — updating a form's tier there propagates to
+tests automatically.  Tests outside `tests/form/` (e.g. `tests/basic/`,
+`tests/build/`) receive no tier mark.
+
+`redundant` is applied manually with `pytestmark = pytest.mark.redundant` at the
+module level (or `@pytest.mark.redundant` on individual functions).  Use it when a
+test exercises a pure delegation path that is already comprehensively covered by the
+delegatee's own suite.
+
+### Useful -m combinations
+
+```bash
+# Development — fast, contractual surface, no network
+pytest -m "tier1 and not network and not redundant"
+
+# Full Tier 1 — contractual surface with network smoke tests
+pytest -m "tier1"
+
+# Tier 1 + Tier 2, no network
+pytest -m "(tier1 or tier2) and not network"
+
+# Only network smoke tests
+pytest -m "network"
+
+# Everything except redundant delegation tests
+pytest -m "not redundant"
+
+# Full suite (default, no -m flag needed)
+pytest
+```
 
 ## Collaborative testing workflow
 
@@ -195,7 +240,7 @@ When an operation enters the committed heavy slice, it must gain:
 - telemetry contract tests for the reserved `MSM-*-HVY-*` codes;
 - failure-policy tests for unsupported combinations and recoverable frame-skipping behavior where applicable.
 
-Heavy-mode support is not inferred from ordinary form support. Tests must reflect the heavy-status declarations in `devguide/support_tiers.md`.
+Heavy-mode support is not inferred from ordinary form support. Tests must reflect the heavy-status declarations in `devguide/support_tiers.ipynb`.
 
 ## Peptide Builder Validation Policy
 `build_peptide(engine="MolSysMT")` must be validated against `engine="LEaP"`

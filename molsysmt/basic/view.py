@@ -71,8 +71,8 @@ def view(molecular_system=None, selection='all', structure_indices='all',
 
     >>> import molsysmt as msm
     >>> molecular_system = msm.systems['T4 lysozyme L99A']['181l.h5msm']
-    >>> msm.basic.view(molecular_system, selection='molecule_type=="protein"')
-    <MolSysView ...>
+    >>> msm.basic.view(molecular_system, selection='molecule_type=="protein"')  # doctest: +ELLIPSIS
+    <molsysviewer.viewer.MolSysView object at 0x...>
 
     Select an alternative backend (requires nglview):
 

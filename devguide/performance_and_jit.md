@@ -68,7 +68,7 @@ Tier 1 core execution path. It is not a blanket performance promise for every
 form or every public operation in MolSysMT.
 
 The support contract for forms and capabilities is defined in:
-- `devguide/support_tiers.md`
+- `devguide/support_tiers.ipynb`
 - `devguide/testing_strategy.md`
 
 This document should be read as the performance source of truth for:

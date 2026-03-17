@@ -12,7 +12,7 @@ Tier semantics
 - Tier 3 (experimental / niche): available but outside the contractual 1.0.0
   core.  Emits an INFO once per form per session.
 
-See devguide/support_tiers.md for the authoritative tier classification.
+See devguide/support_tiers.ipynb for the authoritative tier classification.
 """
 
 from __future__ import annotations

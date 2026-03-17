@@ -1,6 +1,60 @@
+import re
+from pathlib import Path
 import pytest
 import molsysmt as msm
 from molsysmt import systems
+
+
+# ---------------------------------------------------------------------------
+# Auto-apply tier marks to tests under tests/form/<form_dir>/
+# Tier is derived from molsysmt._private.form_tier.FORM_TIERS (single source
+# of truth).  Absence from that dict means Tier 1.
+# ---------------------------------------------------------------------------
+
+def _build_form_dir_tier_map():
+    """Return {form_directory_name: tier_int} for all known form adapters."""
+    from molsysmt._private.form_tier import FORM_TIERS
+    import molsysmt.form as _msm_form_pkg
+
+    form_base = Path(_msm_form_pkg.__file__).parent
+    pattern = re.compile(r"^form_name\s*=\s*['\"]([^'\"]+)['\"]", re.MULTILINE)
+
+    mapping = {}
+    for form_dir in sorted(form_base.iterdir()):
+        if not form_dir.is_dir() or form_dir.name.startswith('_'):
+            continue
+        init_file = form_dir / '__init__.py'
+        if not init_file.exists():
+            continue
+        text = init_file.read_text()
+        m = pattern.search(text)
+        if m:
+            form_name = m.group(1)
+            tier = FORM_TIERS.get(form_name, 1)
+            mapping[form_dir.name] = tier
+    return mapping
+
+
+_FORM_DIR_TIER: dict | None = None
+
+
+def pytest_collection_modifyitems(items):
+    global _FORM_DIR_TIER
+    if _FORM_DIR_TIER is None:
+        _FORM_DIR_TIER = _build_form_dir_tier_map()
+
+    for item in items:
+        parts = Path(str(item.fspath)).parts
+        if 'form' not in parts:
+            continue
+        form_idx = list(parts).index('form')
+        if form_idx + 1 >= len(parts):
+            continue
+        form_dir_name = parts[form_idx + 1]
+        tier = _FORM_DIR_TIER.get(form_dir_name)
+        if tier is None:
+            continue
+        item.add_marker(getattr(pytest.mark, f'tier{tier}'))
 
 # Base loaders (session scope) to avoid repeated IO/parsing
 

@@ -123,7 +123,7 @@ For development, this means:
 ## Recommended Reading Order
 1) `1.0.0_maturity_audit.md` (Technical depth audit)
 2) `1.0.0_road_to_excellence.md` (Strategic weaknesses and path to 1.0)
-3) `support_tiers.md` (Form classification)
+3) `support_tiers.ipynb` (Form classification — notebook has live tier query from `form_tier.py`)
 4) `digestion_and_dependencies.md` (Lazy Loading & ArgDigest policies)
 5) `forms_and_conversions.md` (Graph conversion rules)
 6) `viewers_and_visualization.md` (Visual backend policy)
