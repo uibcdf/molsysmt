@@ -19,8 +19,7 @@ run_build_topology() {
 }
 
 run_peptide_extended() {
-  MSM_RUN_EXTENDED_PEPTIDE_PARITY=1 \
-    pytest -q tests/build/build_peptide/test_build_peptide_molsysmt_MolSys.py
+  pytest -q -m peptide_parity tests/build/build_peptide/test_build_peptide_molsysmt_MolSys.py
 }
 
 case "${TIER}" in

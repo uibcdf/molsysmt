@@ -7,7 +7,6 @@ import molsysmt as msm
 import numpy as np
 import shutil
 import pytest
-import os
 
 # Distance between atoms in space and time
 
@@ -215,11 +214,8 @@ def test_build_peptide_molsysmt_MolSys_11_empty_sequence_raises():
         msm.build.build_peptide("", to_form="molsysmt.MolSys", engine="MolSysMT")
 
 
+@pytest.mark.peptide_parity
 @pytest.mark.skipif(shutil.which("tleap") is None, reason="tleap is not available in PATH")
-@pytest.mark.skipif(
-    os.environ.get("MSM_RUN_EXTENDED_PEPTIDE_PARITY", "0") != "1",
-    reason="Set MSM_RUN_EXTENDED_PEPTIDE_PARITY=1 to run the 40-sequence LEaP parity suite.",
-)
 @pytest.mark.parametrize('sequence', _RANDOM_SEQUENCES_LEN10_EXTENDED)
 def test_build_peptide_molsysmt_MolSys_12_extended_random_parity(sequence):
     molsys_tleap = msm.build.build_peptide(sequence, to_form='molsysmt.MolSys', engine='LEaP')
