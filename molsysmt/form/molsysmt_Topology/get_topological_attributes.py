@@ -3372,7 +3372,7 @@ def get_total_n_proteins_from_molecule(item, indices='all', skip_digestion=False
 @arg_digest(form=form)
 def get_n_polysaccharides_from_molecule(item, indices='all', skip_digestion=False):
 
-    group_types = get_molecule_type_from_molecule(item, indices=indices, skip_digestion=True)
+    molecule_types = get_molecule_type_from_molecule(item, indices=indices, skip_digestion=True)
     output = molecule_types.count('polysaccharide')
 
     return output

@@ -400,6 +400,8 @@ def test_molecule_array_length(topo, func_name):
     ("get_total_n_waters_from_molecule",    2),
     ("get_total_n_lipids_from_molecule",    0),
     ("get_total_n_saccharides_from_molecule", 0),
+    ("get_n_polysaccharides_from_molecule", 0),
+    ("get_total_n_polysaccharides_from_molecule", 0),
     ("get_n_peptides_from_molecule",        1),
     ("get_total_n_peptides_from_molecule",  1),
     ("get_n_proteins_from_molecule",        0),
@@ -416,9 +418,6 @@ def test_molecule_total_count(topo, func_name, expected):
     assert result == expected
 
 
-@pytest.mark.xfail(reason="get_n_polysaccharides_from_molecule has a NameError bug: 'molecule_types' is not defined")
-def test_n_polysaccharides_from_molecule_bug(topo):
-    aux.get_n_polysaccharides_from_molecule(topo)
 
 
 # ---------------------------------------------------------------------------
