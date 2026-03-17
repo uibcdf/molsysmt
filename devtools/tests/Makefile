@@ -1,11 +1,12 @@
 .PHONY: help test coverage coverage-html coverage-open coverage-json _coverage-source-check coverage-hotspots coverage-packages coverage-top coverage-map coverage-markdown slowest coverage-diff coverage-check coverage-history coverage-history-report module-test-map module-test-gaps ci clean
 
 TEST_DIR ?= ../../tests
+DOCTEST_DIR ?= ../../molsysmt/basic
 PACKAGE ?= molsysmt
 NPROC ?= 14
 DIST_MODE ?= loadfile
 QUIET ?= -q
-PYTEST_FLAGS = -n $(NPROC) --dist $(DIST_MODE) $(QUIET)
+PYTEST_FLAGS = -n $(NPROC) --dist $(DIST_MODE) $(QUIET) -m "not peptide_parity"
 BASELINE_FILE ?= coverage_baseline.json
 HISTORY_FILE ?= coverage_history.json
 SUMMARY_MD ?= coverage_summary.md
@@ -45,8 +46,10 @@ help:
 	@echo "---------------"
 	@echo "  make test"
 	@echo "      Run the test suite without coverage."
+	@echo "      Includes doctests in DOCTEST_DIR. Excludes peptide_parity tests by default."
 	@echo "      Variables:"
 	@echo "        TEST_DIR=$(TEST_DIR)"
+	@echo "        DOCTEST_DIR=$(DOCTEST_DIR)"
 	@echo "        NPROC=$(NPROC)"
 	@echo "        DIST_MODE=$(DIST_MODE)"
 	@echo "        QUIET=$(QUIET)"
@@ -221,21 +224,21 @@ help:
 	@echo ""
 
 test:
-	pytest $(PYTEST_FLAGS) $(TEST_DIR)
+	pytest $(PYTEST_FLAGS) $(TEST_DIR) $(DOCTEST_DIR)
 
 coverage:
 	pytest $(PYTEST_FLAGS) \
 	       --cov=$(PACKAGE) \
 	       --cov-report=$(COV_TERM_MODE) \
 	       $(if $(COVERAGE_FAIL_UNDER),--cov-fail-under=$(COVERAGE_FAIL_UNDER),) \
-	       $(TEST_DIR)
+	       $(TEST_DIR) $(DOCTEST_DIR)
 
 coverage-html:
 	pytest $(PYTEST_FLAGS) \
 	       --cov=$(PACKAGE) \
 	       --cov-report=html \
 	       $(if $(COVERAGE_FAIL_UNDER),--cov-fail-under=$(COVERAGE_FAIL_UNDER),) \
-	       $(TEST_DIR)
+	       $(TEST_DIR) $(DOCTEST_DIR)
 
 coverage-open: coverage-html
 	$(BROWSER_OPEN) htmlcov/index.html
@@ -247,7 +250,7 @@ coverage.json:
 	       --cov=$(PACKAGE) \
 	       --cov-report= \
 	       $(if $(COVERAGE_FAIL_UNDER),--cov-fail-under=$(COVERAGE_FAIL_UNDER),) \
-	       $(TEST_DIR)
+	       $(TEST_DIR) $(DOCTEST_DIR)
 	coverage json -o coverage.json
 
 # Phony: always deletes coverage.json and regenerates it.

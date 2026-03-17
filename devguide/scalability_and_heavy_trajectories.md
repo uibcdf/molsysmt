@@ -1,4 +1,16 @@
-# Scalability and Heavy Trajectory Processing Strategy: The "HeavyAnalysisEngine" Manifesto (March 2026)
+# Scalability and Heavy Trajectory Processing Strategy: The "HeavyAnalysisEngine" Manifesto
+
+> **Status: Long-term Vision (superseded for 1.0.0 planning)**
+>
+> This document describes the long-term aspirational architecture for out-of-core
+> trajectory processing. It is **not** the current execution plan.
+>
+> For the actual pre-1.0.0 implementation roadmap (minimum viable chunked execution,
+> `MSM-*-HVY-*` signal codes, and the reducer protocol), see:
+>
+> → **`devguide/scalability_and_heavy_trajectories_v2.md`** (current working design)
+>
+> This file is kept as a reference for the long-term direction after 1.0.0.
 
 ## 1. The Context: Breaking the "Memory Wall"
 As MolSysMT evolves towards its 1.0.0 release, it must address its primary scalability bottleneck: the **Eager Loading Model**. In the modern era of "Big Data" simulations, trajectories often exceed 100GB, while standard research workstations remain capped at 16GB–64GB of RAM. To lead the next generation of analysis tools, MolSysMT adopts an **Out-of-Core** architecture that processes data larger than physical memory.

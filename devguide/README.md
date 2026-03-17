@@ -50,6 +50,21 @@ Recent completed work:
   to the `openmm.Topology` adapter (~97 functions);
 - the `devtools/tests/Makefile` `coverage-top` target was updated to always
   print depth=0 (whole-package total) before the user-requested depth.
+- `string:pdb_id` and `string:alphafold_id` promoted to Tier 1; identity-converter
+  import bugs fixed in their `to_openmm_Topology`, `to_openmm_PDBFile`, and
+  `to_mdtraj_Topology` converters;
+- `file:bcif` and `file:bcif.gz` topological getter stubs filled (342 functions
+  each), enabling `select()`, `get()`, and `Iterator()` on these forms;
+- `file:dcd` now implements `get_n_atoms_from_system` by reading the binary header,
+  allowing `is_a_molecular_system()` to correctly detect incompatible pairing;
+- `Topology.extract()` now correctly reindexes `groups['component_index']` when
+  that column is present, fixing `infer_molecule_types_from_topology` after `remove()`;
+- pytest mark system introduced: `tier1 / tier2 / tier3 / network / redundant /
+  peptide_parity`; tier marks auto-applied from `FORM_TIERS` via `conftest.py` hook;
+  `MSM_RUN_EXTENDED_PEPTIDE_PARITY` env var replaced by `@pytest.mark.peptide_parity`;
+- `devtools/tests/Makefile` now includes `DOCTEST_DIR` so `molsysmt/basic/` doctests
+  are always part of `make test` and `make coverage`, and excludes `peptide_parity`
+  by default;
 
 Validation status at this checkpoint:
 - the full test suite passes with `pytest -q tests -x`;
@@ -69,7 +84,7 @@ Validation status at this checkpoint:
   modules again.
 - `molsysmt.molecular_dynamics` remains in the repository but is explicitly outside the `1.0.0` support contract;
 - local and Codecov coverage baselines intentionally exclude `molsysmt/molecular_dynamics/**` until that area is promoted into a supported post-1.0 line.
-- overall test coverage is approximately 54% at this checkpoint (target: 70-80%
+- overall test coverage is approximately 62% at this checkpoint (target: 70-80%
   on the Tier 1 surface before `1.0.0`).
 
 Current post-validation focus:
@@ -123,18 +138,21 @@ For development, this means:
 ## Recommended Reading Order
 1) `1.0.0_maturity_audit.md` (Technical depth audit)
 2) `1.0.0_road_to_excellence.md` (Strategic weaknesses and path to 1.0)
-3) `support_tiers.ipynb` (Form classification — notebook has live tier query from `form_tier.py`)
-4) `digestion_and_dependencies.md` (Lazy Loading & ArgDigest policies)
-5) `forms_and_conversions.md` (Graph conversion rules)
-6) `viewers_and_visualization.md` (Visual backend policy)
-7) `architecture.md`
-8) `element_and_native_rebuild.md`
-9) `molsys_builder.md`
-10) `declarative_serialization_forms.md`
-11) `api_surface.md`
-12) `testing_strategy.md`
-13) `testing_form_adapters.md`
-14) `smonitor_feedback_proposals.md` (Temporary diagnostic improvements under evaluation)
+3) `next_steps_toward_1_0.md` (Ordered remaining work toward 1.0.0)
+4) `support_tiers.ipynb` (Form classification — notebook has live tier query from `form_tier.py`)
+5) `digestion_and_dependencies.md` (Lazy Loading & ArgDigest policies)
+6) `forms_and_conversions.md` (Graph conversion rules)
+7) `viewers_and_visualization.md` (Visual backend policy)
+8) `architecture.md`
+9) `element_and_native_rebuild.md`
+10) `molsys_builder.md`
+11) `declarative_serialization_forms.md`
+12) `api_surface.md`
+13) `testing_strategy.md`
+14) `testing_form_adapters.md`
+15) `devtools_and_ci.md` (Local test/coverage toolbox and planned CI)
+16) `scalability_and_heavy_trajectories_v2.md` (Pre-1.0.0 heavy trajectory design)
+17) `smonitor_feedback_proposals.md` (Temporary diagnostic improvements under evaluation)
 
 ## Scope
 These documents define how MolSysMT should be implemented and maintained:
