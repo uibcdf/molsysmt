@@ -7631,6 +7631,12 @@ def get_bond_index_from_system(item, skip_digestion=False):
 
 
 @arg_digest(form=form)
+def get_inner_bond_index_from_system(item, skip_digestion=False):
+
+    return get_bond_index_from_bond(item, skip_digestion=True)
+
+
+@arg_digest(form=form)
 def get_inner_bonded_atoms_from_system(item, skip_digestion=False):
 
     return get_bonded_atoms_from_bond(item, skip_digestion=True)

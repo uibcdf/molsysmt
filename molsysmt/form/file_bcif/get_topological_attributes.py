@@ -2565,12 +2565,12 @@ def get_n_inner_bonds_from_molecule(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_n_aminoacids_from_molecule(item, indices='all', skip_digestion=False):
+def get_n_amino_acids_from_molecule(item, indices='all', skip_digestion=False):
 
     from molsysmt.form.file_bcif.to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import get_n_aminoacids_from_molecule as aux_get
+    from molsysmt.form.molsysmt_Topology import get_n_amino_acids_from_molecule as aux_get
 
-    bonds_required = bonds_are_required_to_get_attribute('n_aminoacids', 'molecule')
+    bonds_required = bonds_are_required_to_get_attribute('n_amino_acids', 'molecule')
     tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
     output = aux_get(tmp_item, indices=indices, skip_digestion=True)
 
@@ -4118,7 +4118,7 @@ def get_bond_type_from_bond(item, indices='all', skip_digestion=False):
     return output
 
 
-@arg_digest(form=type)
+@arg_digest(form=form)
 def get_bonded_atoms_from_bond(item, indices='all', skip_digestion=False):
 
     from molsysmt.form.file_bcif.to_molsysmt_Topology import to_molsysmt_Topology
