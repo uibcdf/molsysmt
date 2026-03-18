@@ -136,23 +136,24 @@ For development, this means:
   suite or documents precisely why it does not.
 
 ## Recommended Reading Order
-1) `1.0.0_maturity_audit.md` (Technical depth audit)
-2) `1.0.0_road_to_excellence.md` (Strategic weaknesses and path to 1.0)
-3) `next_steps_toward_1_0.md` (Ordered remaining work toward 1.0.0)
-4) `support_tiers.ipynb` (Form classification — notebook has live tier query from `form_tier.py`)
-5) `digestion_and_dependencies.md` (Lazy Loading & ArgDigest policies)
-6) `forms_and_conversions.md` (Graph conversion rules)
-7) `viewers_and_visualization.md` (Visual backend policy)
-8) `architecture.md`
-9) `element_and_native_rebuild.md`
-10) `molsys_builder.md`
-11) `declarative_serialization_forms.md`
-12) `api_surface.md`
-13) `testing_strategy.md`
-14) `testing_form_adapters.md`
-15) `devtools_and_ci.md` (Local test/coverage toolbox and planned CI)
-16) `scalability_and_heavy_trajectories_v2.md` (Pre-1.0.0 heavy trajectory design)
-17) `smonitor_feedback_proposals.md` (Temporary diagnostic improvements under evaluation)
+1) `competitive_landscape_and_vision.md` (Strategic vision: strengths, gaps, and targets vs mdtraj/MDAnalysis)
+2) `1.0.0_maturity_audit.md` (Technical depth audit)
+3) `1.0.0_road_to_excellence.md` (Strategic weaknesses and path to 1.0)
+4) `next_steps_toward_1_0.md` (Ordered remaining work toward 1.0.0)
+6) `support_tiers.ipynb` (Form classification — notebook has live tier query from `form_tier.py`)
+7) `digestion_and_dependencies.md` (Lazy Loading & ArgDigest policies)
+8) `forms_and_conversions.md` (Graph conversion rules)
+9) `viewers_and_visualization.md` (Visual backend policy)
+10) `architecture.md`
+11) `element_and_native_rebuild.md`
+12) `molsys_builder.md`
+13) `declarative_serialization_forms.md`
+14) `api_surface.md`
+15) `testing_strategy.md`
+16) `testing_form_adapters.md`
+17) `devtools_and_ci.md` (Local test/coverage toolbox and planned CI)
+18) `scalability_and_heavy_trajectories_v2.md` (Pre-1.0.0 heavy trajectory design)
+19) `smonitor_feedback_proposals.md` (Temporary diagnostic improvements under evaluation)
 
 ## Scope
 These documents define how MolSysMT should be implemented and maintained:
