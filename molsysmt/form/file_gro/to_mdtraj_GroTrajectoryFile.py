@@ -8,7 +8,7 @@ def to_mdtraj_GroTrajectoryFile(item, atom_indices='all', structure_indices='all
 
     tmp_item = extract(item, atom_indices=atom_indices, structure_indices=structure_indices,
             copy_if_all=False, skip_digestion=True)
-    tmp_item = GromacsGroFile(tmp_item)
+    tmp_item = GroTrajectoryFile(tmp_item)
 
     return tmp_item
 
