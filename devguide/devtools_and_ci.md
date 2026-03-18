@@ -110,13 +110,65 @@ These targets reproduce locally what the GitHub Actions workflows do:
 |--------|-------------|
 | `make smoke` | Run the smoke tier (~4 tests). Mirrors `ci-smoke.yaml`. |
 | `make weekly` | Full suite with coverage — produces `coverage.xml` and `junit.xml`. Mirrors `ci-weekly.yaml`. |
-| `CODECOV_TOKEN=<token> make upload-codecov` | Upload `coverage.xml` to Codecov manually. Requires `coverage.xml` (run `make weekly` first). Uses org-level token + `CODECOV_SLUG=uibcdf/molsysmt`. |
+| `CODECOV_TOKEN=<token> make upload-codecov` | Upload `coverage.xml` to Codecov manually. See procedure below. |
 
-The `CODECOV_TOKEN` can also be exported from a password manager:
+### Manual Codecov upload procedure
+
+Use this when you want to update the Codecov report without waiting for the
+weekly CI run (e.g. after a significant coverage improvement).
+
+**Requirements:**
+- `codecov-cli` installed: `pip install codecov-cli`
+- The org-level token stored in LastPass under `"codecov/token"`
+
+**Step 1 — generate coverage.xml from the repo root:**
+
+```bash
+make weekly
+```
+
+`make weekly` runs pytest from the repo root so that paths in `coverage.xml`
+are repo-root-relative. **Do not use `make coverage`** for this — it can
+produce absolute local paths that Codecov cannot map to GitHub files.
+
+**Step 2 — push any pending commits:**
+
+Codecov must be able to find the commit SHA on GitHub before it can associate
+the report with it.
+
+```bash
+git push
+```
+
+**Step 3 — upload:**
 
 ```bash
 CODECOV_TOKEN=$(lpass show --password "codecov/token") make upload-codecov
 ```
+
+The target runs `codecovcli upload-process` with:
+- `--sha` / `--branch` auto-detected from the local git state
+- `--git-service=github`
+- `--network-root-folder=.` — normalises any residual absolute paths in the XML
+- `--disable-search` — only uploads `coverage.xml`, ignores other files
+
+**Step 4 — verify:**
+
+The command prints a URL such as:
+
+```
+https://app.codecov.io/github/uibcdf/molsysmt/commit/<sha>
+```
+
+Allow ~30 seconds for Codecov to process the upload. Open the URL to confirm
+the report appears.
+
+**Why the local number differs from Codecov:**
+
+Codecov blends line coverage and branch coverage into its reported percentage.
+The local `make coverage-top` shows line coverage only. A ~5% gap between the
+two is normal. Running `make weekly` after adding `relative_files = True` to
+`.coveragerc` further reduces the gap by ensuring paths map correctly.
 
 ### Cleanup
 
