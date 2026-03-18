@@ -15,5 +15,5 @@ Files:
 - `tutorials.yml`
 
 Validation:
-- Run: `python scripts/validate_resources.py --strict`
+- Run: `python devtools/scripts/validate_resources.py --strict`
 - Requires: `pyyaml`

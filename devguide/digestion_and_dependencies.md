@@ -36,7 +36,7 @@ MolSysMT distinguishes **hard** vs **soft** dependencies:
 Rules:
 - Never import soft dependencies at module top-level.
 - Use `@dep_digest(library)` to guard optional functionality.
-- Validate architecture with `scripts/validate_dependencies.py`.
+- Validate architecture with `devtools/scripts/validate_dependencies.py`.
 
 ### 🚀 High-Performance Lazy Loading (Sprint Decision)
 To ensure near-instantaneous `import molsysmt` in all environments (HPC, Cloud, Notebooks), we have implemented a **String-Based Lazy Registry**:

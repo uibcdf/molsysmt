@@ -4,7 +4,7 @@ import sys
 from collections import defaultdict
 
 # Configuration
-PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 SRC_ROOT = os.path.join(PROJECT_ROOT, 'molsysmt')
 SOFT_DEPENDENCIES = {
     'mdtraj', 'MDAnalysis', 'openmm', 'openmmtools', 'parmed', 

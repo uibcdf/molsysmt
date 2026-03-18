@@ -72,7 +72,7 @@ The `__init__.py` in `molsysmt/form` implements a custom dictionary (`_FormsDict
 ## 5. Validation Script
 
 We provide a script to enforce architectural rules:
-`scripts/validate_dependencies.py`
+`devtools/scripts/validate_dependencies.py`
 
 **What it checks:**
 - No top-level imports of soft dependencies (e.g., `import openmm` at module level).

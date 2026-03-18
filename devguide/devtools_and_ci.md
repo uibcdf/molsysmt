@@ -139,5 +139,5 @@ Planned gate:
 - Optional dependencies must be guarded and skipped when unavailable.
 
 Release validation scripts (run manually until CI is active):
-- `scripts/validate_dependencies.py`
-- `scripts/validate_resources.py`
+- `devtools/scripts/validate_dependencies.py`
+- `devtools/scripts/validate_resources.py`
