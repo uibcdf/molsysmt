@@ -106,11 +106,13 @@ CAFFEINE = "smiles:CN1C=NC2=C1C(=O)N(C(=O)N2C)C"
 
 
 @needs_rdkit
+@pytest.mark.redundant
 def test_n_atoms_caffeine():
     assert msm.get(CAFFEINE, element='system', n_atoms=True) == 14
 
 
 @needs_rdkit
+@pytest.mark.redundant
 def test_n_bonds_caffeine():
     assert msm.get(CAFFEINE, element='system', n_bonds=True) == 15
 

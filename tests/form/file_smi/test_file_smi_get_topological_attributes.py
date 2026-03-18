@@ -68,16 +68,19 @@ def test_to_string_smiles_multi(smi_two_mols):
 # ---------------------------------------------------------------------------
 
 @needs_rdkit
+@pytest.mark.redundant
 def test_n_atoms_caffeine(smi_caffeine):
     assert msm.get(smi_caffeine, element='system', n_atoms=True) == 14
 
 
 @needs_rdkit
+@pytest.mark.redundant
 def test_n_bonds_caffeine(smi_caffeine):
     assert msm.get(smi_caffeine, element='system', n_bonds=True) == 15
 
 
 @needs_rdkit
+@pytest.mark.redundant
 def test_n_atoms_two_mols(smi_two_mols):
     # caffeine (14) + ethanol (3) = 17
     assert msm.get(smi_two_mols, element='system', n_atoms=True) == 17

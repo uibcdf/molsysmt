@@ -40,18 +40,21 @@ def test_get_form(caffeine_mol):
 # ---------------------------------------------------------------------------
 
 @needs_openff
+@pytest.mark.redundant
 def test_n_atoms(caffeine_mol):
     import molsysmt as msm
     assert msm.get(caffeine_mol, element='system', n_atoms=True) == 24
 
 
 @needs_openff
+@pytest.mark.redundant
 def test_n_bonds(caffeine_mol):
     import molsysmt as msm
     assert msm.get(caffeine_mol, element='system', n_bonds=True) == 25
 
 
 @needs_openff
+@pytest.mark.redundant
 def test_n_groups(caffeine_mol):
     # No residue/group hierarchy in a bare SMILES-derived molecule
     import molsysmt as msm
@@ -59,18 +62,21 @@ def test_n_groups(caffeine_mol):
 
 
 @needs_openff
+@pytest.mark.redundant
 def test_n_components(caffeine_mol):
     import molsysmt as msm
     assert msm.get(caffeine_mol, element='system', n_components=True) == 1
 
 
 @needs_openff
+@pytest.mark.redundant
 def test_n_molecules(caffeine_mol):
     import molsysmt as msm
     assert msm.get(caffeine_mol, element='system', n_molecules=True) == 0
 
 
 @needs_openff
+@pytest.mark.redundant
 def test_n_entities(caffeine_mol):
     import molsysmt as msm
     assert msm.get(caffeine_mol, element='system', n_entities=True) == 0

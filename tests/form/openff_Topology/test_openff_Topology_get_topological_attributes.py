@@ -52,12 +52,14 @@ def test_get_form(caffeine_top):
 # ---------------------------------------------------------------------------
 
 @needs_openff
+@pytest.mark.redundant
 def test_n_atoms_single(caffeine_top):
     import molsysmt as msm
     assert msm.get(caffeine_top, element='system', n_atoms=True) == 24
 
 
 @needs_openff
+@pytest.mark.redundant
 def test_n_bonds_single(caffeine_top):
     import molsysmt as msm
     assert msm.get(caffeine_top, element='system', n_bonds=True) == 25
@@ -74,6 +76,7 @@ def test_n_components_single(caffeine_top):
 # ---------------------------------------------------------------------------
 
 @needs_openff
+@pytest.mark.redundant
 def test_n_atoms_two_mols(two_mol_top):
     import molsysmt as msm
     # caffeine 24 + ethanol 9 = 33
