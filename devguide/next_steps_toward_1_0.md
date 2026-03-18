@@ -12,7 +12,7 @@ MolSysMT has recently reached a strong technical checkpoint:
 
 - the full test suite is green;
 - distributed validation with `pytest -n 12 --dist loadfile ...` is established as the default large-scale testing workflow;
-- the current honest coverage baseline is `54%`;
+- the current honest coverage baseline is `78%` (target 70-80% reached);
 - `0.17.0` already marks the current declarative-serialization and builder-editing checkpoint;
 - `MolSysBuilder` is integrated as the native editable path;
 - declarative serialization forms are available;
@@ -75,24 +75,16 @@ The repository is now at a much stronger testing checkpoint than before, but the
 Current agreed state:
 
 - full-suite validation is green;
-- the honest global coverage baseline is `54%`;
+- the honest global coverage baseline is `78%` — the 70-80% target has been reached;
+- active coverage pursuit is paused: further gains should come from meaningful
+  tests for new features rather than percentage chasing;
 - `molsysmt.molecular_dynamics/**` is explicitly outside the `1.0.0` support contract and outside the local/Codecov stabilization coverage scope.
 
-The next coverage objective is not cosmetic. The goal is to move the repository toward a range that gives materially more confidence for post-`0.17.0` refactoring and feature work.
+The coverage objective is considered met for the 1.0.0 stabilization pass. The
+focus now shifts to hardening the contractual Tier 1 surface with correct and
+meaningful tests, not to raising the global number further.
 
-The current working target remains:
-
-- move coverage toward `70–80%` if the gains come from meaningful tests rather than artificial inflation.
-
-Coverage work should continue to favor:
-
-- `_private/arg_digestion` families with high usage and low coverage;
-- `molsysmt/lib` kernels with scientific or performance criticality;
-- native infrastructure and converters that participate directly in Tier 1 support.
-
-Coverage work should not drift into low-value busywork. The purpose is to increase the reliability of future development, not to maximize a percentage in isolation.
-
-The working rule is therefore:
+The working rule remains:
 
 - prioritize coverage on the contractual Tier 1 surface first;
 - only then use the global percentage as a secondary quality signal.
@@ -288,16 +280,12 @@ Without this, `1.0.0` remains technically strong but institutionally ambiguous.
 
 ### 2. Coverage threshold with technical meaning
 
-The current honest global coverage baseline is `54%`.
+The global coverage baseline is `78%` — the 70-80% working target has been reached.
 
-The repository should continue increasing coverage with technical intent, not cosmetic intent. The target is not a percentage for its own sake; the target is a test base that gives confidence for the `1.x` line.
-
-The current working objective remains:
-
-- move toward `70–80%` global coverage if the gains come from meaningful tests;
-- or, if the global number remains constrained by low-value or out-of-scope areas, ensure that the full Tier 1 contractual surface is strongly covered and explicitly identified as such.
-
-This means that the end condition is not just "the global percentage looks better." The end condition is that the contractually supported surface is well defended.
+Active coverage pursuit is paused. The end condition is not a percentage; it is
+that the contractually supported surface is well defended. The focus now is on
+ensuring that the full Tier 1 contractual surface is strongly covered and
+explicitly identified as such, not on raising the global number further.
 
 ### 3. Documentation alignment
 

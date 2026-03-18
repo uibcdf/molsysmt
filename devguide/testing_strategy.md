@@ -219,14 +219,17 @@ Current validated sequence in the March 2026 pass:
 - `tests/supported`
 - full-suite confirmation with `pytest -q tests -x`
 
-Current status:
-- the full `tests/` tree passes in the current environment;
+Current status (March 2026):
+- the full `tests/` tree passes (green);
+- coverage is **~78%** overall — considered sufficient for the 1.0.0 stabilization
+  pass; active coverage pursuit is paused in favour of functional correctness of
+  new features;
+- the suite runs in ~10 minutes on 14 cores (`-n 14 --dist loadfile`);
 - the sequential rule remains recommended for stabilization work because it
   produces better checkpoints and faster diagnosis when the suite is not yet
   green;
-- broad validation and coverage sweeps should prefer `-n 12` in the reference
-  workstation, which has enough physical cores to support that level of
-  parallelism without interfering with other active tasks;
+- broad validation and coverage sweeps should prefer `-n 12` or `-n 14` in the
+  reference workstation;
 - targeted coverage instrumentation remains a known tooling limitation and
   should not be used as the default workflow until the `numpy`/coverage import
   issue is understood and resolved.
@@ -251,6 +254,17 @@ using two tiers:
 - **Extended parity tier (slow/manual/nightly):** 40 deterministic random
   length-10 sequences compared against LEaP with explicit topology and geometry
   tolerances.
+
+Tests marked `peptide_parity` are **auto-deselected** at collection time by
+`tests/conftest.py` unless the mark is explicitly included in the `-m`
+expression.  This means `make test`, `make coverage`, and any bare `pytest`
+invocation will skip them without any extra flag.  To run them:
+
+```bash
+pytest -m peptide_parity tests/build/build_peptide/test_build_peptide_molsysmt_MolSys.py
+# or via:
+devtools/tests/run_tiers.sh peptide_extended
+```
 
 ## Coverage scope for 1.0 stabilization
 

@@ -63,8 +63,8 @@ Recent completed work:
   peptide_parity`; tier marks auto-applied from `FORM_TIERS` via `conftest.py` hook;
   `MSM_RUN_EXTENDED_PEPTIDE_PARITY` env var replaced by `@pytest.mark.peptide_parity`;
 - `devtools/tests/Makefile` now includes `DOCTEST_DIR` so `molsysmt/basic/` doctests
-  are always part of `make test` and `make coverage`, and excludes `peptide_parity`
-  by default;
+  are always part of `make test` and `make coverage`; `peptide_parity` tests are
+  auto-deselected at collection time by `tests/conftest.py` (not via a Makefile flag);
 
 Validation status at this checkpoint:
 - the full test suite passes with `pytest -q tests -x`;
@@ -77,31 +77,27 @@ Validation status at this checkpoint:
   (408 tests) now pass cleanly as part of the `tests/form` batch;
 - for broad validation work from this checkpoint onward, the default execution
   mode on the reference workstation is distributed `pytest-xdist`
-  (`-n 12 --dist loadfile`) rather than fully sequential execution;
+  (`-n 12` or `-n 14 --dist loadfile`) rather than fully sequential execution;
 - the low-priority cleanup identified during the validation pass was closed:
   `show_contacts` no longer emits undigested-argument warnings for `style` and
   `show`, and `.codecov.yml` now tracks core `form`, `_private`, and `lib`
   modules again.
 - `molsysmt.molecular_dynamics` remains in the repository but is explicitly outside the `1.0.0` support contract;
 - local and Codecov coverage baselines intentionally exclude `molsysmt/molecular_dynamics/**` until that area is promoted into a supported post-1.0 line.
-- overall test coverage is approximately 62% at this checkpoint (target: 70-80%
-  on the Tier 1 surface before `1.0.0`).
+- overall test coverage is approximately 78% at this checkpoint — considered
+  sufficient for the 1.0.0 stabilization pass; active coverage pursuit is
+  paused in favour of functional correctness of new features.
 
 Current post-validation focus:
-- continue hardening Tier 1 form adapter test coverage;
-  the next target form adapter should be selected based on coverage hotspots
-  in `tests/form` (run `make coverage-hotspots SUBPACKAGE=molsysmt.form` from
-  `devtools/tests`);
-- decide what belongs to the explicit `1.0.0` support contract and what should
-  remain outside that contract because it is still immature or peripheral;
-- translate the green test state into a clear release checkpoint and support
-  tier decision;
-- treat the current split between public `get()` and
-  `molsysmt.lib.structure._kernel_inputs` as sufficient for `1.0.0`, while
-  keeping a lighter internal retrieval path as a post-`1.0.0` optimization only
-  if real workflows justify it;
-- avoid future drift by centralizing shared kernel-input normalization rules if
-  multiple domains begin to duplicate them after `1.0.0`.
+- formalize the support contract in `support_tiers.ipynb`;
+- classify public API stability (functions, not only forms);
+- define the `1.x` deprecation policy;
+- freeze sibling-library release baselines (`smonitor`, `argdigest`,
+  `depdigest`, `pyunitwizard`);
+- validate release engineering and packaging against the intended `1.0.0`
+  support baseline;
+- enter beta-testing, dogfooding, paper writing, and the final stabilization
+  window once the above pillars are in place.
 
 ## Release checkpoint meaning: `0.15.0`, `0.16.0`, and `0.17.0`
 
@@ -151,7 +147,7 @@ For development, this means:
 14) `api_surface.md`
 15) `testing_strategy.md`
 16) `testing_form_adapters.md`
-17) `devtools_and_ci.md` (Local test/coverage toolbox and planned CI)
+17) `devtools_and_ci.md` (Local test/coverage toolbox and active CI)
 18) `scalability_and_heavy_trajectories_v2.md` (Pre-1.0.0 heavy trajectory design)
 19) `smonitor_feedback_proposals.md` (Temporary diagnostic improvements under evaluation)
 

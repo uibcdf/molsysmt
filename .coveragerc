@@ -3,6 +3,7 @@
 [run]
 branch = True
 source = molsysmt
+relative_files = True
 omit =
     */molecular_dynamics/*
     # Piped getter files: generated delegation code — all calls forward to

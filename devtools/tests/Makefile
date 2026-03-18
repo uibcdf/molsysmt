@@ -1,4 +1,4 @@
-.PHONY: help test coverage coverage-html coverage-open coverage-json _coverage-source-check coverage-hotspots coverage-packages coverage-top coverage-map coverage-markdown slowest coverage-diff coverage-check coverage-history coverage-history-report module-test-map module-test-gaps ci clean
+.PHONY: help test coverage coverage-html coverage-open coverage-json _coverage-source-check coverage-hotspots coverage-packages coverage-top coverage-map coverage-markdown slowest coverage-diff coverage-check coverage-history coverage-history-report module-test-map module-test-gaps ci smoke weekly upload-codecov clean
 
 TEST_DIR ?= ../../tests
 DOCTEST_DIR ?= ../../molsysmt/basic
@@ -7,6 +7,8 @@ NPROC ?= 14
 DIST_MODE ?= loadfile
 QUIET ?= -q
 PYTEST_FLAGS = -n $(NPROC) --dist $(DIST_MODE) $(QUIET)
+CODECOV_TOKEN ?=
+CODECOV_SLUG ?= uibcdf/molsysmt
 BASELINE_FILE ?= coverage_baseline.json
 HISTORY_FILE ?= coverage_history.json
 SUMMARY_MD ?= coverage_summary.md
@@ -167,6 +169,21 @@ help:
 	@echo "      Variables:"
 	@echo "        MODULE_TEST_MAP_JSON=$(MODULE_TEST_MAP_JSON)"
 	@echo ""
+	@echo "LOCAL CI MIRRORS"
+	@echo "----------------"
+	@echo "  make smoke"
+	@echo "      Run the smoke test suite (mirrors ci-smoke.yaml)."
+	@echo "      Executes run_tiers.sh smoke from the repo root (~4 tests, <5 min)."
+	@echo ""
+	@echo "  make weekly"
+	@echo "      Run the full test suite with coverage (mirrors ci-weekly.yaml)."
+	@echo "      Generates coverage.xml and junit.xml."
+	@echo ""
+	@echo "  make upload-codecov"
+	@echo "      Upload coverage.xml to Codecov manually."
+	@echo "      Requires: CODECOV_TOKEN env variable and coverage.xml."
+	@echo "      Example: CODECOV_TOKEN=<token> make upload-codecov"
+	@echo ""
 	@echo "CI"
 	@echo "--"
 	@echo "  make ci"
@@ -203,6 +220,7 @@ help:
 	@echo "  SUBPACKAGE=$(SUBPACKAGE)"
 	@echo "  SORT=$(SORT)"
 	@echo "  COV_CONFIG=$(COV_CONFIG)"
+	@echo "  CODECOV_TOKEN=$(CODECOV_TOKEN)"
 	@echo ""
 	@echo "COMMON EXAMPLES"
 	@echo "---------------"
@@ -223,18 +241,23 @@ help:
 	@echo "  make module-test-map"
 	@echo "  make module-test-gaps"
 	@echo "  make ci NPROC=12"
+	@echo "  make smoke"
+	@echo "  make weekly"
+	@echo "  CODECOV_TOKEN=<token> make upload-codecov"
 	@echo ""
 
 test:
 	pytest $(PYTEST_FLAGS) $(TEST_DIR) $(DOCTEST_DIR)
 
 coverage:
-	pytest $(PYTEST_FLAGS) \
+	cd ../.. && pytest $(PYTEST_FLAGS) \
 	       --cov=$(PACKAGE) \
-	       --cov-config=$(COV_CONFIG) \
+	       --cov-config=.coveragerc \
 	       --cov-report=$(COV_TERM_MODE) \
+	       --cov-report=json:devtools/tests/coverage.json \
+	       --cov-report=xml:devtools/tests/coverage.xml \
 	       $(if $(COVERAGE_FAIL_UNDER),--cov-fail-under=$(COVERAGE_FAIL_UNDER),) \
-	       $(TEST_DIR) $(DOCTEST_DIR)
+	       tests molsysmt/basic
 
 coverage-html:
 	pytest $(PYTEST_FLAGS) \
@@ -318,8 +341,48 @@ ci: coverage.json coverage-markdown
 	python module_test_map.py --package-root ../../$(PACKAGE) --tests-root $(TEST_DIR) --output $(MODULE_TEST_MAP_JSON)
 	@echo "Toolbox CI pipeline completed."
 
+# ── Local CI mirrors ─────────────────────────────────────────────────────────
+
+# Mirrors ci-smoke.yaml: run the smoke tier (~4 tests, <5 min).
+# run_tiers.sh uses paths relative to the repo root, so we cd there first.
+smoke:
+	cd ../.. && bash devtools/tests/run_tiers.sh smoke
+
+# Mirrors ci-weekly.yaml: full suite with coverage, XML output.
+# Run from repo root so that paths in coverage.xml are repo-root-relative
+# (required for correct Codecov file mapping).
+weekly:
+	cd ../.. && pytest $(PYTEST_FLAGS) \
+	       --cov=$(PACKAGE) \
+	       --cov-config=.coveragerc \
+	       --cov-report=xml:devtools/tests/coverage.xml \
+	       --junitxml=devtools/tests/junit.xml \
+	       --color=yes \
+	       tests molsysmt/basic
+
+# Upload coverage.xml to Codecov manually (requires CODECOV_TOKEN and coverage.xml).
+upload-codecov:
+	@if [ -z "$(CODECOV_TOKEN)" ]; then \
+		echo "Error: CODECOV_TOKEN is not set."; \
+		echo "Usage: CODECOV_TOKEN=<token> make upload-codecov"; \
+		exit 1; \
+	fi
+	@if [ ! -f coverage.xml ]; then \
+		echo "Error: coverage.xml not found. Run 'make weekly' first."; \
+		exit 1; \
+	fi
+	cd ../.. && codecovcli upload-process \
+	           --token=$(CODECOV_TOKEN) --slug=$(CODECOV_SLUG) \
+	           --sha=$$(git rev-parse HEAD) --git-service=github \
+	           --branch=$$(git rev-parse --abbrev-ref HEAD) \
+	           --file=devtools/tests/coverage.xml --disable-search \
+	           --network-root-folder=. \
+	           --flag=unittests --name=manual-upload
+
+# ─────────────────────────────────────────────────────────────────────────────
+
 # Removes all generated artifacts.  coverage_history.json is intentionally kept
 # (it is a persistent record, not a build artifact).
 clean:
 	rm -rf htmlcov .pytest_cache
-	rm -f .coverage coverage.json $(SUMMARY_MD) $(SUMMARY_JSON) $(MODULE_TEST_MAP_JSON)
+	rm -f .coverage coverage.json coverage.xml junit.xml $(SUMMARY_MD) $(SUMMARY_JSON) $(MODULE_TEST_MAP_JSON)

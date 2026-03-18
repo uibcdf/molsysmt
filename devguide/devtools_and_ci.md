@@ -16,8 +16,8 @@ make help           # full target + variable reference
 
 | Target | Description |
 |--------|-------------|
-| `make test` | Run the full suite (tests + doctests in `molsysmt/basic/`). Excludes `peptide_parity` tests by default. |
-| `make coverage` | Same as `test` with a compact `--cov-report=term-missing:skip-covered` output. |
+| `make test` | Run the full suite (tests + doctests in `molsysmt/basic/`). `peptide_parity` tests are auto-deselected. |
+| `make coverage` | Same as `test` with terminal output + writes `coverage.json` and `coverage.xml`. |
 | `make coverage-html` | Run tests with coverage and generate `htmlcov/index.html`. |
 | `make coverage-open` | Generate the HTML report and open it in the browser. |
 | `make coverage-json` | Force a fresh run: deletes `coverage.json` and regenerates it. |
@@ -33,9 +33,10 @@ Key variables (overridable on the command line):
 | `DIST_MODE` | `loadfile` | `pytest-xdist` distribution mode |
 | `PACKAGE` | `molsysmt` | Package passed to `--cov` |
 
-The `-m "not peptide_parity"` flag is baked into `PYTEST_FLAGS` so the
-40-sequence LEaP parity suite does not run in routine `make test` or `make coverage`.
-To run it explicitly:
+`peptide_parity` tests are auto-deselected at collection time by
+`tests/conftest.py` (via `pytest_collection_modifyitems`) unless the mark is
+explicitly requested with `-m`.  No flag needs to be added to the command line
+— the deselection is transparent.  To run the parity suite explicitly:
 
 ```bash
 pytest -m peptide_parity tests/build/build_peptide/test_build_peptide_molsysmt_MolSys.py
@@ -101,10 +102,27 @@ Runs `coverage.json → coverage-markdown → coverage-check → coverage-histor
 module-test-map` in sequence. Intended for manual periodic snapshots, not as an
 automated gate.
 
+### CI mirror targets
+
+These targets reproduce locally what the GitHub Actions workflows do:
+
+| Target | Description |
+|--------|-------------|
+| `make smoke` | Run the smoke tier (~4 tests). Mirrors `ci-smoke.yaml`. |
+| `make weekly` | Full suite with coverage — produces `coverage.xml` and `junit.xml`. Mirrors `ci-weekly.yaml`. |
+| `CODECOV_TOKEN=<token> make upload-codecov` | Upload `coverage.xml` to Codecov manually. Requires `coverage.xml` (run `make weekly` first). Uses org-level token + `CODECOV_SLUG=uibcdf/molsysmt`. |
+
+The `CODECOV_TOKEN` can also be exported from a password manager:
+
+```bash
+CODECOV_TOKEN=$(lpass show --password "codecov/token") make upload-codecov
+```
+
 ### Cleanup
 
 ```bash
-make clean     # removes htmlcov/, .coverage, coverage.json, summary files
+make clean     # removes htmlcov/, .coverage, coverage.json, coverage.xml,
+               # junit.xml, and summary files.
                # coverage_history.json is intentionally kept (persistent record)
 ```
 
@@ -127,17 +145,49 @@ pytest -m peptide_parity tests/build/build_peptide/test_build_peptide_molsysmt_M
 
 ---
 
-## Planned CI (not yet active)
+## Active CI (GitHub Actions)
 
-The following describes the intended automated CI setup once MolSysMT is ready
-for a public release gate. It is **not** currently active.
+Three workflows live in `.github/workflows/`:
 
-Planned gate:
-- Push/PR: fast tier on Ubuntu, Python 3.13.
-- Full matrix (weekly + manual dispatch): Ubuntu + macOS, Python 3.10–3.13.
-- Documentation builds must not introduce warnings.
-- Optional dependencies must be guarded and skipped when unavailable.
+### `ci-smoke.yaml` — on every push / PR to `main`
 
-Release validation scripts (run manually until CI is active):
+- Trigger: push or PR to `main` (skipped if commit message or PR title contains
+  `[skip ci]`, or PR branch contains `skip-ci`). Also dispatchable manually.
+- Matrix: `ubuntu-latest`, Python `3.13` only.
+- Timeout: 15 minutes.
+- Runs: `devtools/tests/run_tiers.sh smoke` (~4 tests).
+- Purpose: fast signal that nothing is catastrophically broken.
+- Concurrency: cancels in-progress runs on the same ref.
+
+### `ci-weekly.yaml` — every Monday at 09:00 UTC
+
+- Trigger: weekly schedule + manual dispatch.
+- Matrix: `ubuntu-latest` × `{3.11, 3.12, 3.13}`.
+- Timeout: 180 minutes per combination.
+- Runs: full suite with `--cov=molsysmt --cov-report=xml --junitxml=junit.xml`.
+- Coverage and test results uploaded to Codecov from the Python `3.13` run only.
+- Python `3.10` excluded: reaches EOL October 2026, not worth the CI cost.
+
+### `ci-full.yaml` — manual dispatch only (pre-release gate)
+
+- Trigger: `workflow_dispatch` only.
+- Matrix: `(ubuntu-latest + macos-latest)` × `{3.11, 3.12, 3.13}` = 6 combinations.
+- Timeout: 180 minutes per combination.
+- Runs: `pytest -q --color=yes --junitxml=junit.xml` (no coverage upload).
+- Purpose: validate all supported platforms before release candidates.
+
+### Python version policy
+
+Supported versions for CI and the support contract: **3.11, 3.12, 3.13**.
+Python 3.10 is intentionally excluded (EOL October 2026).
+
+### Skipping CI
+
+Add `[skip ci]` to the commit message or PR title to suppress `ci-smoke.yaml`
+on documentation-only or bookkeeping commits. Weekly and full-matrix workflows
+ignore this tag.
+
+### Release validation scripts (run manually)
+
 - `devtools/scripts/validate_dependencies.py`
 - `devtools/scripts/validate_resources.py`
