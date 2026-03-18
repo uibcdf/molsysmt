@@ -27,3 +27,11 @@ The following "Hardened" forms were added or finalized during the 1.0.0 sprint:
 - **`biopython.PDBStructure`**: Support for BioPython's `Bio.PDB.Structure` objects.
 - **`MDAnalysis.AtomGroup`**: Direct support for MDAnalysis selections without full Universe conversion.
 - **`molsysviewer.MolSysView`**: The official viewer is now a first-class molecular system.
+
+## Tier 3 cheminformatics forms (added March 2026)
+- **`string:smiles`**: SMILES strings with optional `smiles:` prefix. `is_form` uses prefix detection, then rdkit, then structural-feature regex. Topology piped through `molsysmt.Topology` via rdkit.
+- **`file:smi`**: SMILES text files (`.smi`). Multi-molecule files are merged into a single `molsysmt.Topology`. `to_string_smiles` works without rdkit; getters require rdkit.
+- **`file:fasta`**: FASTA sequence files. Topology built directly from BioPython `SeqIO.parse`. Groups are amino acid residues; one chain per FASTA record.
+- **`file:pir`**: PIR/NBRF sequence files. Same topology strategy as `file:fasta` using BioPython's PIR parser.
+- **`openff.Molecule`**: OpenFF Toolkit `Molecule` object. Includes explicit hydrogens. Converters to/from `rdkit.Mol`, `string:smiles`, `openff.Topology`, `molsysmt.Topology`. Requires `openff-toolkit`.
+- **`openff.Topology`**: OpenFF Toolkit `Topology` (one or more molecules). Multi-molecule topologies merged via `molsysmt.basic.merge`. Converters to `openmm.Topology` and `openff.Molecule` (single-molecule only). Requires `openff-toolkit`.

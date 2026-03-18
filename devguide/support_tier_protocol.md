@@ -42,7 +42,7 @@ forms are listed there; absence from the dict implies Tier 1 (silence).
 `biopython.PDBStructure`, `parmed.Structure`, `molsysviewer.MolSysView`,
 `nglview.NGLWidget`, `string:pdb_id`, `string:alphafold_id`.
 
-### Tier 3 — experimental / niche (~42 forms)
+### Tier 3 — experimental / niche (~48 forms)
 
 `networkx.Graph`, `pytraj.Trajectory`, `pytraj.Topology`, `biopython.Seq`,
 `biopython.SeqRecord`, `XYZ`, `file:mmtf`, `file:dcd`, `file:mol2`, `file:crd`,
@@ -55,7 +55,9 @@ forms are listed there; absence from the dict implies Tier 1 (silence).
 `string:amino_acids_1`, `string:amino_acids_3`, `string:pdb_text`,
 `mdtraj.DCDTrajectoryFile`, `mdtraj.HDF5TrajectoryFile`, `mdtraj.XTCTrajectoryFile`,
 `molsysmt.CIFFileHandler`, `molsysmt.GROFileHandler`, `molsysmt.MolecularMechanics`,
-`molsysmt.MolecularMechanicsDict`, `molsysmt.ViewerJSON`.
+`molsysmt.MolecularMechanicsDict`, `molsysmt.ViewerJSON`,
+`string:smiles`, `file:smi`, `file:fasta`, `file:pir`,
+`openff.Molecule`, `openff.Topology`.
 
 ---
 
