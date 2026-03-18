@@ -1,0 +1,89 @@
+name: CI weekly
+
+# Runs every Monday at 09:00 UTC, or manually via workflow_dispatch.
+# Executes the full test suite with coverage on ubuntu-latest × {3.11, 3.12, 3.13}.
+# Coverage report is uploaded to Codecov from the Python 3.13 run only.
+# Python 3.10 is excluded: it reaches EOL in October 2026.
+
+on:
+  schedule:
+    - cron: "0 9 * * MON"
+  workflow_dispatch:
+
+jobs:
+  full:
+    name: Full test — ${{ matrix.cfg.os }}, Python ${{ matrix.cfg.python-version }}
+    runs-on: ${{ matrix.cfg.os }}
+    timeout-minutes: 180
+    strategy:
+      fail-fast: false
+      matrix:
+        cfg:
+          - { os: ubuntu-latest, python-version: "3.11" }
+          - { os: ubuntu-latest, python-version: "3.12" }
+          - { os: ubuntu-latest, python-version: "3.13" }
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Additional info about the build
+        shell: bash
+        run: uname -a
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.cfg.python-version }}
+
+      - name: Setup conda env
+        uses: mamba-org/setup-micromamba@v2
+        with:
+          environment-file: devtools/conda-envs/test_env.yaml
+          environment-name: test
+          condarc: |
+            channels:
+              - uibcdf
+              - conda-forge
+              - ambermd
+            channel_priority: strict
+          create-args: >-
+            python=${{ matrix.cfg.python-version }}
+
+      - name: Install package
+        shell: bash -l {0}
+        run: python -m pip install . --no-deps
+
+      - name: Test import
+        shell: bash -l {0}
+        run: |
+          cd
+          python -c "import molsysmt; print('Version:', molsysmt.__version__)"
+
+      - name: Run full test suite with coverage
+        shell: bash -l {0}
+        run: |
+          export PYTHONPATH=$PYTHONPATH:$(pwd)
+          pytest -q \
+            --cov-config=.coveragerc \
+            --cov=molsysmt \
+            --cov-report=xml \
+            --junitxml=junit.xml \
+            --color=yes
+
+      - name: Upload coverage to Codecov
+        if: matrix.cfg.python-version == '3.13'
+        uses: codecov/codecov-action@v4
+        with:
+          verbose: true
+          file: ./coverage.xml
+          flags: unittests
+          name: codecov-ubuntu-py3.13
+          token: ${{ secrets.CODECOV_TOKEN }}
+
+      - name: Upload test results to Codecov
+        if: matrix.cfg.python-version == '3.13' && !cancelled()
+        uses: codecov/test-results-action@v1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}

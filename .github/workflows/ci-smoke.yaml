@@ -1,0 +1,96 @@
+name: CI smoke
+
+# Runs on every push and pull request to main (unless [skip ci] is set).
+# Only executes the smoke test suite (~4 tests, <5 min).
+# Purpose: fast signal that nothing is catastrophically broken.
+
+on:
+  push:
+    branches:
+      - "main"
+    paths-ignore:
+      - '**/*.md'
+      - '**/*.rst'
+      - '**/*.ipynb'
+      - 'docs/**'
+      - 'paper/**'
+      - 'examples/**'
+      - 'logos/**'
+  pull_request:
+    branches:
+      - "main"
+    paths-ignore:
+      - '**/*.md'
+      - '**/*.rst'
+      - '**/*.ipynb'
+      - 'docs/**'
+      - 'paper/**'
+      - 'examples/**'
+      - 'logos/**'
+  workflow_dispatch:
+
+jobs:
+  smoke:
+    name: Smoke test — ${{ matrix.cfg.os }}, Python ${{ matrix.cfg.python-version }}
+    if: >
+      !(
+        (github.event_name == 'push' && contains(github.event.head_commit.message, '[skip ci]'))
+        ||
+        (github.event_name == 'pull_request' && contains(github.event.pull_request.title, '[skip ci]'))
+        ||
+        (github.event_name == 'pull_request' && contains(github.event.pull_request.head.ref, 'skip-ci'))
+      )
+    runs-on: ${{ matrix.cfg.os }}
+    timeout-minutes: 15
+    concurrency:
+      group: ci-smoke-${{ github.workflow }}-${{ github.ref }}
+      cancel-in-progress: true
+    strategy:
+      fail-fast: false
+      matrix:
+        cfg:
+          - { os: ubuntu-latest, python-version: "3.13" }
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Additional info about the build
+        shell: bash
+        run: uname -a
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.cfg.python-version }}
+
+      - name: Setup conda env
+        uses: mamba-org/setup-micromamba@v2
+        with:
+          environment-file: devtools/conda-envs/test_env.yaml
+          environment-name: test
+          condarc: |
+            channels:
+              - uibcdf
+              - conda-forge
+              - ambermd
+            channel_priority: strict
+          create-args: >-
+            python=${{ matrix.cfg.python-version }}
+
+      - name: Install package
+        shell: bash -l {0}
+        run: python -m pip install . --no-deps
+
+      - name: Test import
+        shell: bash -l {0}
+        run: |
+          cd
+          python -c "import molsysmt; print('Version:', molsysmt.__version__)"
+
+      - name: Run smoke tests
+        shell: bash -l {0}
+        run: |
+          export PYTHONPATH=$PYTHONPATH:$(pwd)
+          devtools/tests/run_tiers.sh smoke

@@ -1,0 +1,70 @@
+name: CI full
+
+# Manual trigger only (workflow_dispatch).
+# Use this before release candidates to validate on all supported platforms
+# and Python versions.
+# Matrix: ubuntu-latest + macos-latest × {3.11, 3.12, 3.13} = 6 combinations.
+# No coverage upload — that is handled by ci-weekly.yaml.
+
+on:
+  workflow_dispatch:
+
+jobs:
+  full-matrix:
+    name: Full matrix — ${{ matrix.cfg.os }}, Python ${{ matrix.cfg.python-version }}
+    runs-on: ${{ matrix.cfg.os }}
+    timeout-minutes: 180
+    strategy:
+      fail-fast: false
+      matrix:
+        cfg:
+          - { os: ubuntu-latest, python-version: "3.11" }
+          - { os: ubuntu-latest, python-version: "3.12" }
+          - { os: ubuntu-latest, python-version: "3.13" }
+          - { os: macos-latest,  python-version: "3.11" }
+          - { os: macos-latest,  python-version: "3.12" }
+          - { os: macos-latest,  python-version: "3.13" }
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Additional info about the build
+        shell: bash
+        run: uname -a
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.cfg.python-version }}
+
+      - name: Setup conda env
+        uses: mamba-org/setup-micromamba@v2
+        with:
+          environment-file: devtools/conda-envs/test_env.yaml
+          environment-name: test
+          condarc: |
+            channels:
+              - uibcdf
+              - conda-forge
+              - ambermd
+            channel_priority: strict
+          create-args: >-
+            python=${{ matrix.cfg.python-version }}
+
+      - name: Install package
+        shell: bash -l {0}
+        run: python -m pip install . --no-deps
+
+      - name: Test import
+        shell: bash -l {0}
+        run: |
+          cd
+          python -c "import molsysmt; print('Version:', molsysmt.__version__)"
+
+      - name: Run full test suite
+        shell: bash -l {0}
+        run: |
+          export PYTHONPATH=$PYTHONPATH:$(pwd)
+          pytest -q --color=yes --junitxml=junit.xml
