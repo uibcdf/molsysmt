@@ -44,6 +44,7 @@ FORM_TIERS: dict[str, int] = {
     "MDAnalysis.Topology":         3,
     "pytraj.Trajectory":           3,
     "pytraj.Topology":             3,
+    "file:fasta":                  3,
     "file:dcd":                    3,
     "file:mol2":                   3,
     "file:crd":                    3,

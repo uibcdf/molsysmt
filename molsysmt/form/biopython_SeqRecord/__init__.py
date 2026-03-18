@@ -1,4 +1,5 @@
 from .to_biopython_SeqRecord import to_biopython_SeqRecord
+from .to_file_fasta import to_file_fasta
 form_name = 'biopython.SeqRecord'
 form_type = 'class'
 form_info = ["", ""]
@@ -22,6 +23,7 @@ from .iterators import TopologyIterator
 
 _convert_to={
         'biopython.SeqRecord': to_biopython_SeqRecord,
+        'file:fasta': to_file_fasta,
         }
 
 
