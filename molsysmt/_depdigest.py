@@ -47,6 +47,7 @@ MAPPING = {
     'MDAnalysis_Universe': 'MDAnalysis',
     'MDAnalysis_Topology': 'MDAnalysis',
     'MDAnalysis_AtomGroup': 'MDAnalysis',
+    'MDAnalysis_topology_PDBParser': 'MDAnalysis',
     'nglview_NGLWidget': 'nglview',
     'molsysviewer_MolSysView': 'molsysviewer',
     'rdkit_Mol': 'rdkit',

@@ -58,6 +58,7 @@ _convert_to={
         'file:pdb': to_file_pdb,
         'string:pdb_text': to_string_pdb_text,
         'file:mol2': to_file_mol2,
+        'MDAnalysis.topology.PDBParser': to_MDAnalysis_topology_PDBParser,
         'MDAnalysis.Topology': to_MDAnalysis_Topology,
         'MDAnalysis.Universe': to_MDAnalysis_Universe,
         'mdtraj.PDBTrajectoryFile': to_mdtraj_PDBTrajectoryFile,
