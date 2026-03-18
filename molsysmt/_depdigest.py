@@ -47,6 +47,7 @@ MAPPING = {
     'molsysviewer_MolSysView': 'molsysviewer',
     'rdkit_Mol': 'rdkit',
     'string_smiles': 'rdkit',
+    'file_smi': 'rdkit',
     'parmed_Structure': 'parmed',
     'file_mol2': 'parmed',
     'pytraj_Trajectory': 'pytraj',

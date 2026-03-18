@@ -47,6 +47,7 @@ FORM_TIERS: dict[str, int] = {
     "file:fasta":                  3,
     "file:pir":                    3,
     "string:smiles":               3,
+    "file:smi":                    3,
     "file:dcd":                    3,
     "file:mol2":                   3,
     "file:crd":                    3,

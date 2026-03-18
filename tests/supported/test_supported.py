@@ -86,6 +86,7 @@ def test_supported_1():
         ('file:xtc', 'file'),
         ('file:fasta', 'file'),
         ('file:pir', 'file'),
+        ('file:smi', 'file'),
         ('file:xyznpy', 'file'),
         ('string:alphafold_id', 'string'),
         ('string:smiles', 'string'),
