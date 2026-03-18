@@ -55,6 +55,7 @@ MAPPING = {
     'openff_Molecule': 'openff.toolkit',
     'openff_Topology': 'openff.toolkit',
     'parmed_Structure': 'parmed',
+    'parmed_GromacsTopologyFile': 'parmed',
     'file_mol2': 'parmed',
     'pytraj_Trajectory': 'pytraj',
     'pytraj_Topology': 'pytraj',
