@@ -30,11 +30,9 @@ from .iterators import StructuresIterator, TopologyIterator
 
 _convert_to={
         'openmm.GromacsGroFile': to_openmm_GromacsGroFile,
-        'openmm.Topology': to_openmm_Topology,
-        'openmm.Modeller': to_openmm_Modeller,
         'molsysmt.Topology': to_molsysmt_Topology,
         'molsysmt.Structures': to_molsysmt_Structures,
-        'molsysmt.MolSys': to_molsysmt_MolSys
+        'molsysmt.MolSys': to_molsysmt_MolSys,
         }
 
 

@@ -40,6 +40,7 @@ MAPPING = {
     'openmm_Simulation': 'openmm',
     'openmm_Modeller': 'openmm',
     'openmm_PDBFile': 'openmm',
+    'openmm_GromacsGroFile': 'openmm',
     'file_inpcrd': 'openmm',
     'file_prmtop': 'openmm',
     'file_psf': 'openmm',
