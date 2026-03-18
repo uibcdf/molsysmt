@@ -10,20 +10,34 @@ competitive picture changes.
 
 ---
 
-## The fundamental bet
+## The fundamental bet — we don't compete, we supersede
 
 MolSysMT is not trying to be a better mdtraj or a better MDAnalysis on their own terms.
-The bet is different:
+The bet is different and more ambitious:
 
 > **The right abstraction layer for working with molecular systems is the form-agnostic
 > unified API.  Everything else — analysis, visualization, simulation — should plug into
 > that layer as backends or modules.**
 
-If that bet is right, mdtraj and MDAnalysis do not compete with MolSysMT.  They become
-optional backends that MolSysMT can delegate to when their specific algorithms are the
-best available option (SASA via mdtraj, DSSP via BioPython, etc.).
+If that bet is right, the comparison with mdtraj and MDAnalysis is a category error.
+They are not competitors — they are backends.  MolSysMT can call mdtraj's `shrake_rupley`
+for SASA, BioPython's DSSP for secondary structure, and MDAnalysis for any algorithm
+they have built over a decade — all from any input form, with consistent error handling,
+consistent units, and a consistent selection language.  The user never needs to know which
+engine did the work.
 
-This is the architecture we are building toward.
+This is not a roadmap aspiration.  The architecture already works this way for sequence
+analysis (BioPython), SASA (mdtraj), and visualization (nglview).  The pattern is proven.
+
+The consequence of this architecture is that the comparison table in this document is
+partly misleading: when we say MolSysMT has a capability, it may be implemented natively
+or by delegation — but from the user's perspective it does not matter.  And when we say
+a capability is "missing", what we usually mean is that the delegation wrapper has not
+been written yet, not that there is a fundamental gap.
+
+**The right framing is not "can MolSysMT do what mdtraj and MDAnalysis can do?"  The
+right framing is "does MolSysMT provide the layer above mdtraj and MDAnalysis that makes
+them all accessible uniformly?"  The answer to the second question is already yes.**
 
 ---
 
@@ -80,6 +94,66 @@ A user running `msm.get(item, element='atom', x=True)` gets coordinates regardle
 whether `item` is a PDB file, an OpenMM Context, or an MDAnalysis Universe.  That level
 of uniformity does not exist elsewhere.
 
+### 5. System building — a genuine differentiator
+
+mdtraj has no system-building capabilities at all.  MDAnalysis has limited and fragmented
+tools.  MolSysMT ships a full `molsysmt.build` module:
+
+| Function | Capability |
+|---|---|
+| `build_peptide()` | Build a peptide from a sequence, engine-agnostic (MolSysMT, LEaP) |
+| `solvate()` | Add explicit solvent to a molecular system |
+| `mutate()` | Mutate residues in-place |
+| `add_missing_hydrogens()` | Add H atoms to any supported form |
+| `add_missing_heavy_atoms()` | Reconstruct missing heavy atoms |
+| `add_missing_terminal_cappings()` | Add ACE/NME cappings |
+| `make_bioassembly()` | Generate biological assembly from asymmetric unit |
+| `make_water_box()` | Create a pure solvent box |
+| `get_disulfide_bonds()` | Detect disulfide pairs |
+| `solve_atoms_with_alternate_location()` | Resolve alternate location records |
+| `remove_overlapping_molecules()` | Clean overlapping solvent molecules |
+| `editable()` | Ergonomic `MolSysBuilder` entrypoint for editing existing systems |
+
+This is a capability class that has no direct parallel in either competitor.
+
+### 6. Physical chemistry module — unique breadth
+
+Neither mdtraj nor MDAnalysis expose per-atom physicochemical properties as a
+first-class module.  MolSysMT ships `molsysmt.physchem`:
+
+| Function | Capability |
+|---|---|
+| `get_mass()` | Atomic and group masses |
+| `get_charge()` | Formal charges |
+| `get_sasa()` | Solvent-accessible surface area (delegates to mdtraj's `shrake_rupley`) |
+| `get_atomic_radius()` | van der Waals radii |
+| `get_hydrophobicity()` | Residue hydrophobicity scales |
+| `get_polarity()` | Residue polarity |
+| `get_volume()` | Atomic/residue volumes |
+| `get_area_buried()` | Buried surface area |
+| `get_buried_fraction()` | Fraction of surface area buried |
+| `get_surface_area()` | Exposed surface area |
+| `get_transmembrane_tendency()` | Transmembrane insertion tendency |
+
+The breadth of the `physchem` module has no equivalent in either tool.
+
+### 7. Third-party simulation integration (`thirds/`)
+
+MolSysMT provides explicit integration modules for:
+
+- **OpenMM** — system preparation, simulation, and result retrieval through the MolSysMT form adapter for `openmm.Context`, `openmm.Simulation`, and `openmm.Modeller`.
+- **nglview** — native visualization via `molsysmt.thirds.nglview` and the `nglview.NGLWidget` form adapter; `msm.view()` delegates here.
+- **tleap** — AMBER `tleap` integration for system preparation and force-field parametrization.
+
+This makes MolSysMT the connective tissue between simulation engines, not a replacement for them.
+
+### 8. PBC utilities
+
+`molsysmt.pbc` provides: `wrap_to_mic()`, `wrap_to_pbc()`, `unwrap()`, and box geometry
+helpers (`get_box_from_lengths_and_angles()`, `get_lengths_from_box()`,
+`get_volume_from_box()`, etc.).  These are integrated into the form-agnostic API so PBC
+corrections can be applied to any supported trajectory form.
+
 ---
 
 ## Where MolSysMT currently lags
@@ -89,21 +163,23 @@ of uniformity does not exist elsewhere.
 | Capability | mdtraj | MDAnalysis | MolSysMT | Notes |
 |---|---|---|---|---|
 | RMSD | ✅ | ✅ | ✅ | |
+| RMSF | ✅ | ✅ | ❌ | straightforward given RMSD — not yet implemented |
 | Distances / contacts | ✅ | ✅ | ✅ | |
 | Angles / dihedrals | ✅ | ✅ | ✅ | |
 | Least-RMSD alignment | ✅ | ✅ | ✅ | |
 | PCA | ✅ | ✅ | ✅ | |
 | H-bonds | ✅ | ✅ | ✅ | dedicated `hbonds` module |
-| PBC | ✅ | ✅ | ✅ | minimum image convention |
+| PBC wrapping / unwrapping | ✅ | ✅ | ✅ | `molsysmt.pbc` module |
 | Sequence identity | — | ✅ | ✅ | |
 | Radius of gyration | ✅ | ✅ | ❌ | code exists, disabled — quick fix |
-| RMSF | ✅ | ✅ | ❌ | straightforward given RMSD |
-| SASA | ✅ | ✅ | ❌ | delegate to FreeSASA or mdtraj |
+| SASA | ✅ | ✅ | ⚠️ | `molsysmt.physchem.get_sasa()` via mdtraj engine; docstring pending |
 | Secondary structure | ✅ | ✅ | ❌ | delegate to DSSP via mdtraj or BioPython |
 | Sequence alignment | — | ✅ | ⚠️ | BioPython engine only; others are stubs |
-| RMSF | ✅ | ✅ | ❌ | |
 | Clustering | — | ✅ | ❌ | |
 | Heavy trajectories | ✅ | ✅ | ❌ | roadmap exists, not yet implemented |
+| System building | ❌ | ⚠️ | ✅ | `molsysmt.build`: peptide, solvate, mutate, bioassembly, ... |
+| Physicochemical properties | ❌ | ❌ | ✅ | `molsysmt.physchem`: mass, charge, hydrophobicity, ... |
+| Simulation integration | ⚠️ | ⚠️ | ✅ | `thirds/`: OpenMM, tleap, nglview |
 | Form-agnostic API | ❌ | ❌ | ✅ | |
 | Declarative serialization | ❌ | ❌ | ✅ | |
 | Support tier contract | ❌ | ❌ | ✅ | |
@@ -156,7 +232,7 @@ and adoption.  The paper and a thorough user-facing tutorial site are the primar
 | `show_contacts()` | ✅ (docstring placeholder) | low |
 | **`get_radius_of_gyration()`** | ❌ disabled — code exists, raises `NotImplementedMethodError` | **high** |
 | **`get_rmsf()`** | ❌ missing | high |
-| **`get_sasa()`** | ❌ missing | medium |
+| **`get_sasa()`** | ❌ not here — see `molsysmt.physchem.get_sasa()` | — |
 | **secondary structure** | ❌ missing | medium |
 
 **Docstring placeholders ("To be written soon..."):** `get_contacts`, `get_neighbors`,
@@ -175,8 +251,55 @@ written before 1.0.0 documentation is considered complete.
 | `get_dihedral_quartets()` | ✅ | — |
 | `get_sequence_identity()` | ✅ | — |
 | **`get_sequence_alignment()`** | ⚠️ BioPython engine only; other engines are stubs | medium |
-| **disulfide bond detection** | ❌ missing | low |
+| **disulfide bond detection** | ❌ missing here — `msm.build.get_disulfide_bonds()` exists | low |
 | **contact graph** | ❌ missing | low |
+
+### `molsysmt/physchem/`
+
+11 functions.  Unique breadth — no equivalent in mdtraj or MDAnalysis.
+
+| Function | Status | Priority |
+|---|---|---|
+| `get_mass()` | ✅ | — |
+| `get_charge()` | ✅ | — |
+| `get_atomic_radius()` | ✅ | — |
+| `get_hydrophobicity()` | ✅ | — |
+| `get_polarity()` | ✅ | — |
+| `get_volume()` | ✅ | — |
+| `get_area_buried()` | ✅ | — |
+| `get_buried_fraction()` | ✅ | — |
+| `get_surface_area()` | ✅ | — |
+| `get_transmembrane_tendency()` | ✅ | — |
+| **`get_sasa()`** | ⚠️ implemented (mdtraj engine via `shrake_rupley`); docstring placeholder | medium |
+
+Most functions are implemented.  The main outstanding work is writing the missing docstrings.
+
+### `molsysmt/build/`
+
+20 functions.  No equivalent in mdtraj; MDAnalysis has limited fragments.
+
+| Function | Status | Priority |
+|---|---|---|
+| `build_peptide()` | ✅ MolSysMT + LEaP engines; parity validation system in place | — |
+| `solvate()` | ✅ | — |
+| `mutate()` | ✅ | — |
+| `make_bioassembly()` | ✅ | — |
+| `make_water_box()` | ✅ | — |
+| `add_missing_hydrogens()` | ✅ | — |
+| `add_missing_heavy_atoms()` | ✅ | — |
+| `add_missing_terminal_cappings()` | ✅ | — |
+| `add_missing_bonds()` | ✅ | — |
+| `get_disulfide_bonds()` | ✅ | — |
+| `get_missing_bonds()` | ✅ | — |
+| `get_missing_heavy_atoms()` | ✅ | — |
+| `get_missing_residues()` | ✅ | — |
+| `get_missing_terminal_cappings()` | ✅ | — |
+| `get_non_standard_residues()` | ✅ | — |
+| `has_hydrogens()` | ✅ | — |
+| `is_solvated()` | ✅ | — |
+| `solve_atoms_with_alternate_location()` | ✅ | — |
+| `remove_overlapping_molecules()` | ✅ | — |
+| `editable()` | ✅ ergonomic entrypoint for `MolSysBuilder` | — |
 
 ---
 
@@ -186,34 +309,33 @@ written before 1.0.0 documentation is considered complete.
 
 1. **Re-enable `get_radius_of_gyration()`** — the commented implementation exists; verify
    and restore it.  This is a high-visibility gap for any user coming from mdtraj.
-2. **Write missing docstrings** — at least 17 functions have placeholder docstrings.
-   This is mechanical but critical for documentation quality and the API reference.
+2. **Write missing docstrings** — at least 17 functions in `structure/` have placeholder
+   docstrings; `physchem/get_sasa()` also needs its docstring.  Mechanical but critical
+   for documentation quality and the API reference.
 
 ### Short term (weeks)
 
 3. **Implement `get_rmsf()`** — straightforward given the RMSD and distance infrastructure.
 4. **Complete `get_sequence_alignment()`** — add at least one more engine beyond BioPython
    (e.g., a pure-Python pairwise aligner or delegation to BioPython's PairwiseAligner).
-5. **Tests for `structure/` and `topology/`** — the modules have good implementations
-   but low test coverage; this is both a coverage and quality issue.
+5. **Tests for `structure/`, `topology/`, `physchem/`, and `build/`** — the modules have
+   good implementations but low test coverage; this is both a coverage and quality issue.
 
 ### Medium term (months)
 
-6. **Implement `get_sasa()`** — delegate to FreeSASA (via its Python bindings) or to
-   mdtraj as a backend.  The MolSysMT API should be engine-agnostic.
-7. **Implement secondary structure assignment** — delegate to DSSP via mdtraj or
-   BioPython.  Same engine-agnostic pattern.
-8. **Heavy trajectory pipeline** — the roadmap exists in
+6. **Implement secondary structure assignment** — delegate to DSSP via mdtraj or
+   BioPython.  Same engine-agnostic pattern as `physchem/get_sasa()`.
+7. **Heavy trajectory pipeline** — the roadmap exists in
    `devguide/scalability_and_heavy_trajectories_v2.md`.  This is the largest remaining
    technical item and the most important for performance parity.
 
 ### Long term (release cycle)
 
-9. **Clustering** — trajectory-level clustering is a significant analysis capability
+8. **Clustering** — trajectory-level clustering is a significant analysis capability
    gap vs MDAnalysis.
-10. **User-facing documentation site** — comprehensive tutorials, cookbook, and quickstart
+9. **User-facing documentation site** — comprehensive tutorials, cookbook, and quickstart
     guide.  The notebooks exist but are not organized as a coherent user journey.
-11. **Paper** — the primary lever for community adoption.
+10. **Paper** — the primary lever for community adoption.
 
 ---
 
@@ -244,12 +366,26 @@ competitors.  The form abstraction, the MolSysSuite ecosystem, the support tier
 contract, and the declarative serialization layer are genuine advantages that neither
 mdtraj nor MDAnalysis have.
 
-The remaining gap is specific and addressable:
+Beyond architecture, MolSysMT already **leads** in several capability areas that its
+competitors do not match:
 
-- A handful of missing or disabled analysis functions (radius of gyration, RMSF, SASA,
-  secondary structure) — none of these require architectural work.
+- `molsysmt.build` — full system construction pipeline (peptide building, solvation,
+  mutation, bioassembly, hydrogen/capping handling); mdtraj has nothing comparable;
+  MDAnalysis has scattered fragments.
+- `molsysmt.physchem` — per-atom physicochemical properties (mass, charge, SASA,
+  hydrophobicity, polarity, transmembrane tendency); no equivalent in either tool.
+- `thirds/` — explicit integration with OpenMM, tleap, and nglview through the
+  form-agnostic adapter layer.
+
+The remaining capability gap is specific and addressable:
+
+- A small number of disabled or missing analysis functions (radius of gyration, RMSF,
+  secondary structure) — none require architectural work.
+- `get_sasa()` in `physchem/` is implemented but needs its docstring; the `structure/`
+  module also has placeholder docstrings that must be filled before 1.0.0.
 - Heavy trajectory support — significant work, but the design is already drafted.
 - Documentation and community — time and consistency.
 
 The foundation is right.  The path from here to "better than mdtraj and MDAnalysis" is
-a known path, not an open research problem.
+a known path, not an open research problem — and in several important dimensions,
+MolSysMT is already there.

@@ -6,7 +6,8 @@ source = molsysmt
 omit =
     */molecular_dynamics/*
     # Piped getter files: generated delegation code — all calls forward to
-    # molsysmt_Topology getters; testing them individually is redundant.
+    # the piped form's getters; testing them individually is redundant.
+    # Forms piped to molsysmt.Topology:
     */form/string_pdb_id/get_topological_attributes.py
     */form/string_alphafold_id/get_topological_attributes.py
     */form/string_pdb_text/get_topological_attributes.py
@@ -28,6 +29,10 @@ omit =
     */form/nglview_NGLWidget/get_topological_attributes.py
     */form/openff_Molecule/get_topological_attributes.py
     */form/openff_Topology/get_topological_attributes.py
+    # Forms piped to openmm.Topology:
+    */form/pdbfixer_PDBFixer/get_topological_attributes.py
+    */form/openmm_Simulation/get_topological_attributes.py
+    */form/openmm_Modeller/get_topological_attributes.py
 
 [report]
 show_missing = True

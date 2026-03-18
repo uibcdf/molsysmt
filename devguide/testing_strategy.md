@@ -263,32 +263,39 @@ using two tiers:
 
 ### Piped getter files are excluded from coverage
 
-All `get_topological_attributes.py` files belonging to forms with
-`piped_topological_attribute = 'molsysmt.Topology'` are excluded from the
-coverage baseline (via `.coveragerc`).
+All `get_topological_attributes.py` files belonging to forms that set
+`piped_topological_attribute` are excluded from the coverage baseline
+(via `.coveragerc`).  The pipe target may be `molsysmt.Topology` or another
+intermediate form such as `openmm.Topology` — the exclusion rationale is the
+same in both cases.
 
 **Rationale:** these files are generated delegation code — every getter function
 does exactly this:
 
 ```python
-tmp_item = to_molsysmt_Topology(item, skip_digestion=True)
-output = molsysmt_Topology.get_X(tmp_item, indices=indices, skip_digestion=True)
+tmp_item = to_<piped_form>(item, skip_digestion=True)
+output = <piped_form_module>.get_X(tmp_item, indices=indices, skip_digestion=True)
 return output
 ```
 
 Covering them individually would require calling all ~463 getters per form,
 producing thousands of redundant tests with zero additional defect-detection
-power.  The real implementation under test is always `molsysmt_Topology`.  Once
-the conversion path `form → molsysmt.Topology` is verified (which IS tested),
-the getter delegation is correct by construction.
+power.  The real implementation under test is always the piped-to form.  Once
+the conversion path `form → piped form` is verified (which IS tested), the
+getter delegation is correct by construction.
 
-The excluded forms as of March 2026 are:
+The excluded forms as of March 2026 are (24 total):
+
+*Piped to `molsysmt.Topology` (21 forms):*
 `string:pdb_id`, `string:alphafold_id`, `string:pdb_text`, `string:smiles`,
 `file:pdb`, `file:bcif`, `file:bcif_gz`, `file:cif`, `file:cif_gz`,
 `file:prmtop`, `file:psf`, `file:smi`, `file:topology_yaml`,
 `MDAnalysis.AtomGroup`, `mmcif.PdbxContainers.DataContainer`,
 `mmtf.MMTFDecoder`, `molsysmt.GROFileHandler`, `molsysmt.TopologyDict`,
 `nglview.NGLWidget`, `openff.Molecule`, `openff.Topology`.
+
+*Piped to `openmm.Topology` (3 forms):*
+`pdbfixer.PDBFixer`, `openmm.Simulation`, `openmm.Modeller`.
 
 When a new piped form is added, its `get_topological_attributes.py` must also
 be added to the `omit` list in `.coveragerc`.
