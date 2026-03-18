@@ -67,6 +67,11 @@ More specific `AGENTS.md` files in subdirectories refine or override these rules
 - Keep tests deterministic and reasonably fast; rely on bundled systems in `molsysmt.systems` and small fixtures when possible.
 - When changing behavior, update or add tests to capture the intended semantics instead of weakening existing expectations.
 
+## Git commits
+
+- Never add a `Co-Authored-By` trailer to commit messages. Commit messages must contain only the subject line and, when necessary, a body — no attribution footers of any kind.
+- Always include `[skip ci]` in the commit message unless explicitly instructed otherwise.
+
 ## Safety and tooling
 
 - Prefer minimal, focused changes that respect the existing architecture and style.
