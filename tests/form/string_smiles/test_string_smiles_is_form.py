@@ -43,7 +43,7 @@ def test_is_form_prefix_rejects_bad(bad):
 
 
 # ---------------------------------------------------------------------------
-# is_form — no prefix, regex fallback (rdkit may or may not be present)
+# is_form — no prefix, structural SMILES (work with regex OR rdkit)
 # ---------------------------------------------------------------------------
 
 @pytest.mark.parametrize("smiles", [
@@ -56,14 +56,33 @@ def test_is_form_no_prefix_structural(smiles):
     assert is_form(smiles) is True
 
 
+# ---------------------------------------------------------------------------
+# is_form — strings that are never SMILES
+# ---------------------------------------------------------------------------
+
 @pytest.mark.parametrize("not_smiles", [
     "ACDEFGHIKL",    # amino-acid sequence — uppercase only, no structural marker
     "1aki",          # PDB id
-    "CCO",           # ethanol — only uppercase, rejected by regex (use smiles: prefix)
-    "hello world",   # garbage
+    "hello world",   # garbage with space
 ])
-def test_is_form_no_prefix_rejects_non_smiles(not_smiles):
+def test_is_form_rejects_non_smiles(not_smiles):
     assert is_form(not_smiles) is False
+
+
+# ---------------------------------------------------------------------------
+# CCO (ethanol) — ambiguous without rdkit, valid with rdkit
+# ---------------------------------------------------------------------------
+
+@pytest.mark.skipif(HAS_RDKIT, reason="with rdkit CCO is recognized as valid SMILES")
+def test_is_form_cco_without_rdkit():
+    # Without rdkit the regex requires a structural feature; CCO has none
+    assert is_form("CCO") is False
+
+
+@needs_rdkit
+def test_is_form_cco_with_rdkit():
+    # With rdkit, CCO (ethanol) is correctly identified as SMILES
+    assert is_form("CCO") is True
 
 
 # ---------------------------------------------------------------------------
@@ -80,24 +99,25 @@ def test_get_form_no_prefix_structural():
 
 # ---------------------------------------------------------------------------
 # Getter tests — require rdkit
+# Caffeine: C8H10N4O2 — 14 heavy atoms, 15 bonds
 # ---------------------------------------------------------------------------
+
+CAFFEINE = "smiles:CN1C=NC2=C1C(=O)N(C(=O)N2C)C"
+
 
 @needs_rdkit
 def test_n_atoms_caffeine():
-    # Caffeine: C8H10N4O2 → 24 heavy atoms
-    assert msm.get("smiles:CN1C=NC2=C1C(=O)N(C(=O)N2C)C", element='system', n_atoms=True) == 24
+    assert msm.get(CAFFEINE, element='system', n_atoms=True) == 14
 
 
 @needs_rdkit
 def test_n_bonds_caffeine():
-    # Caffeine has 25 bonds
-    assert msm.get("smiles:CN1C=NC2=C1C(=O)N(C(=O)N2C)C", element='system', n_bonds=True) == 25
+    assert msm.get(CAFFEINE, element='system', n_bonds=True) == 15
 
 
 @needs_rdkit
 def test_roundtrip_rdkit_mol():
-    caffeine = "smiles:CN1C=NC2=C1C(=O)N(C(=O)N2C)C"
-    mol = msm.convert(caffeine, to_form='rdkit.Mol')
+    mol = msm.convert(CAFFEINE, to_form='rdkit.Mol')
     back = msm.convert(mol, to_form='string:smiles')
     assert back.startswith('smiles:')
-    assert msm.get(back, element='system', n_atoms=True) == 24
+    assert msm.get(back, element='system', n_atoms=True) == 14
