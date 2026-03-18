@@ -395,3 +395,72 @@ def test_nested_list(hp35, func_name, expected_outer_len):
     result = getattr(aux, func_name)(hp35)
     assert isinstance(result, list)
     assert len(result) == expected_outer_len
+
+
+# ---------------------------------------------------------------------------
+# Builder fixture — PDB round-trip from MolSysBuilder
+#
+# Oracle: 4 atoms (N, CA, C, O), 2 groups (ALA, HOH), 2 bonds (N-CA, CA-C),
+# 1 chain (A).  Verifies that the getter layer works correctly for a
+# builder-derived string:pdb_text, not just for real PDB files.
+# ---------------------------------------------------------------------------
+
+N_ATOMS_BUILDER  = 4
+N_GROUPS_BUILDER = 2
+N_BONDS_BUILDER  = 2
+N_CHAINS_BUILDER = 1
+
+
+@pytest.mark.parametrize("func_name,expected", [
+    ("get_n_atoms_from_system",  N_ATOMS_BUILDER),
+    ("get_n_groups_from_system", N_GROUPS_BUILDER),
+    ("get_n_bonds_from_system",  N_BONDS_BUILDER),
+    ("get_n_chains_from_system", N_CHAINS_BUILDER),
+])
+def test_builder_system_counts(builder_pdb_text, func_name, expected):
+    result = getattr(aux, func_name)(builder_pdb_text)
+    assert result == expected
+
+
+@pytest.mark.parametrize("func_name", [
+    "get_atom_index_from_atom",
+    "get_atom_name_from_atom",
+    "get_atom_type_from_atom",
+    "get_group_index_from_atom",
+    "get_group_name_from_atom",
+    "get_chain_index_from_atom",
+    "get_bond_index_from_atom",
+    "get_n_bonds_from_atom",
+])
+def test_builder_atom_array_length(builder_pdb_text, func_name):
+    result = getattr(aux, func_name)(builder_pdb_text)
+    assert isinstance(result, list)
+    assert len(result) == N_ATOMS_BUILDER
+
+
+@pytest.mark.parametrize("func_name", [
+    "get_atom_index_from_group",
+    "get_group_index_from_group",
+    "get_group_name_from_group",
+    "get_group_type_from_group",
+    "get_n_atoms_from_group",
+])
+def test_builder_group_array_length(builder_pdb_text, func_name):
+    result = getattr(aux, func_name)(builder_pdb_text)
+    assert isinstance(result, list)
+    assert len(result) == N_GROUPS_BUILDER
+
+
+def test_builder_first_atom_name(builder_pdb_text):
+    names = aux.get_atom_name_from_atom(builder_pdb_text)
+    assert names[0] == 'N'
+
+
+def test_builder_first_group_name(builder_pdb_text):
+    names = aux.get_group_name_from_group(builder_pdb_text)
+    assert names[0] == 'ALA'
+
+
+def test_builder_chain_id(builder_pdb_text):
+    ids = aux.get_chain_id_from_chain(builder_pdb_text)
+    assert ids == ['A']

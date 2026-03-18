@@ -38,7 +38,7 @@ def _build_form_dir_tier_map():
 _FORM_DIR_TIER: dict | None = None
 
 
-def pytest_collection_modifyitems(items):
+def pytest_collection_modifyitems(config, items):
     global _FORM_DIR_TIER
     if _FORM_DIR_TIER is None:
         _FORM_DIR_TIER = _build_form_dir_tier_map()
@@ -55,6 +55,16 @@ def pytest_collection_modifyitems(items):
         if tier is None:
             continue
         item.add_marker(getattr(pytest.mark, f'tier{tier}'))
+
+    # Auto-deselect peptide_parity tests unless the user explicitly requests
+    # them via -m "peptide_parity".  This keeps the default test run fast and
+    # avoids a mandatory tleap dependency.  To run: pytest -m "peptide_parity".
+    mark_expr = getattr(config.option, 'markexpr', '') or ''
+    if 'peptide_parity' not in mark_expr:
+        deselected = [item for item in items if item.get_closest_marker('peptide_parity')]
+        if deselected:
+            config.hook.pytest_deselected(items=deselected)
+            items[:] = [item for item in items if not item.get_closest_marker('peptide_parity')]
 
 # Base loaders (session scope) to avoid repeated IO/parsing
 
