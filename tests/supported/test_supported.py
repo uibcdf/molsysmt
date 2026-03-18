@@ -94,6 +94,8 @@ def test_supported_1():
         ('string:amino_acids_3', 'string'),
         ('string:pdb_id', 'string'),
         ('string:pdb_text', 'string'),
+        ('openff.Molecule', 'class'),
+        ('openff.Topology', 'class'),
     ])
 
     assert df_data == good_df_data
@@ -127,7 +129,9 @@ def test_supported_2():
                      'openmm.Topology', 'parmed.Structure', 'pdbfixer.PDBFixer',
                      'pytraj.Topology', 'pytraj.Trajectory', 'rdkit.Mol', 'string:alphafold_id',
                      'string:amino_acids_1', 'string:amino_acids_3', 'string:pdb_id',
-                     'string:pdb_text', 'XYZ']
+                     'string:pdb_text', 'XYZ',
+                     'file:fasta', 'file:pir', 'file:smi', 'string:smiles',
+                     'openff.Molecule', 'openff.Topology']
 
     assert set(df.index)==set(good_aux_list)
     assert set(df.columns)==set(good_aux_list)
@@ -161,7 +165,9 @@ def test_supported_3():
                      'openmm.Topology', 'parmed.Structure', 'pdbfixer.PDBFixer',
                      'pytraj.Topology', 'pytraj.Trajectory', 'rdkit.Mol', 'string:alphafold_id',
                      'string:amino_acids_1', 'string:amino_acids_3', 'string:pdb_id',
-                     'string:pdb_text', 'XYZ']
+                     'string:pdb_text', 'XYZ',
+                     'file:fasta', 'file:pir', 'file:smi', 'string:smiles',
+                     'openff.Molecule', 'openff.Topology']
 
     assert set(df.index)==set(good_aux_list)
     assert list(df.columns)==['nglview.NGLWidget']

@@ -10,6 +10,7 @@ bonds_can_be_computed = True
 
 from .to_string_smiles import to_string_smiles
 from .to_file_smi import to_file_smi
+from .to_openff_Molecule import to_openff_Molecule
 
 _convert_to = {
     'molsysmt.MolSys': 'to_molsysmt_MolSys',
@@ -17,6 +18,7 @@ _convert_to = {
     'molsysmt.Structures': 'to_molsysmt_Structures',
     'string:smiles': to_string_smiles,
     'file:smi': to_file_smi,
+    'openff.Molecule': to_openff_Molecule,
 }
 
 from .is_form import is_form

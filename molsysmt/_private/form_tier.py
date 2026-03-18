@@ -48,6 +48,8 @@ FORM_TIERS: dict[str, int] = {
     "file:pir":                    3,
     "string:smiles":               3,
     "file:smi":                    3,
+    "openff.Molecule":             3,
+    "openff.Topology":             3,
     "file:dcd":                    3,
     "file:mol2":                   3,
     "file:crd":                    3,

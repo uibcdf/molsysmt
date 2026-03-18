@@ -2,6 +2,7 @@ from .to_string_smiles import to_string_smiles
 from .to_rdkit_Mol import to_rdkit_Mol
 from .to_molsysmt_Topology import to_molsysmt_Topology
 from .to_file_smi import to_file_smi
+from .to_openff_Molecule import to_openff_Molecule
 
 form_name = 'string:smiles'
 form_type = 'string'
@@ -34,4 +35,5 @@ _convert_to = {
     'rdkit.Mol': to_rdkit_Mol,
     'molsysmt.Topology': to_molsysmt_Topology,
     'file:smi': to_file_smi,
+    'openff.Molecule': to_openff_Molecule,
 }
