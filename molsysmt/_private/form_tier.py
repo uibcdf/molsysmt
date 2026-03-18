@@ -28,7 +28,10 @@ FORM_TIERS: dict[str, int] = {
     "mmtf.MMTFDecoder":            2,
     "biopython.Seq":               2,
     "biopython.SeqRecord":         2,
-    "file:h5":                     3,
+    "file:h5":                     2,
+    "molsysmt.CIFFileHandler":     2,
+    "molsysmt.GROFileHandler":     2,
+    "mdtraj.HDF5TrajectoryFile":   2,
 
     # ------------------------------------------------------------------
     # Tier 3 — experimental / niche
@@ -49,25 +52,10 @@ FORM_TIERS: dict[str, int] = {
     "file:psf":                    3,
     "file:gro":                    3,
     "file:trjpk":                  3,
-    "openmm.AmberInpcrdFile":      3,
-    "openmm.AmberPrmtopFile":      3,
-    "openmm.CharmmCrdFile":        3,
-    "openmm.CharmmPsfFile":        3,
-    "openmm.GromacsGroFile":       3,
-    "openmm.GromacsTopFile":       3,
-    "openmm.PDBFile":              3,
-    "openmm.State":                3,
-    "openmm.System":               3,
-    "string:amino_acids_1":        3,
-    "string:amino_acids_3":        3,
     "mdtraj.DCDTrajectoryFile":    3,
-    "mdtraj.HDF5TrajectoryFile":   3,
     "mdtraj.XTCTrajectoryFile":    3,
-    "molsysmt.CIFFileHandler":     3,
-    "molsysmt.GROFileHandler":     3,
     "molsysmt.MolecularMechanics": 3,
     "molsysmt.MolecularMechanicsDict": 3,
-    "molsysmt.ViewerJSON":         3,
 }
 
 
