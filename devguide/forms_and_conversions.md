@@ -36,10 +36,9 @@ The following "Hardened" forms were added or finalized during the 1.0.0 sprint:
 - **`openff.Molecule`**: OpenFF Toolkit `Molecule` object. Includes explicit hydrogens. Converters to/from `rdkit.Mol`, `string:smiles`, `openff.Topology`, `molsysmt.Topology`. Requires `openff-toolkit`.
 - **`openff.Topology`**: OpenFF Toolkit `Topology` (one or more molecules). Multi-molecule topologies merged via `molsysmt.basic.merge`. Converters to `openmm.Topology` and `openff.Molecule` (single-molecule only). Requires `openff-toolkit`.
 
-## Tier 2 forms recovered from attic (March 2026)
+## Forms implemented (March 2026)
 
-The following form adapters were absent from `molsysmt/form/` but referenced in `attic/`.
-They were either implemented from scratch or recovered and corrected:
+The following form adapters were implemented from scratch or corrected:
 
 | Form | Status | Key notes |
 |------|--------|-----------|
@@ -49,6 +48,10 @@ They were either implemented from scratch or recovered and corrected:
 | `parmed.GromacsTopologyFile` | New | Inherits from `parmed.Structure` — all Structure getters work. Key converter is `to_file_top` via `item.write(filename)`. Other converters delegate to `parmed_Structure` equivalents. Registered in `parmed_Structure._convert_to`. |
 | `MDAnalysis.topology.PDBParser` | New | Constructed as `PDBParser(filename)`. Call `item.parse()` to get `MDAnalysis.core.topology.Topology`. No coordinates, no box. `to_molsysmt_Topology` and `to_molsysmt_MolSys` create a fresh `Universe(item.filename)` and delegate to `MDAnalysis_Universe` converters. |
 | `openmm.GromacsGroFile` | Corrected | Pre-existing skeleton had multiple broken converters (see below). |
+| `file:top` | New | GROMACS topology file (`.top`). Pipes topology via `parmed.GromacsTopologyFile`. Chain: `parmed.load_file(item)` → `parmed.GromacsTopologyFile` → `molsysmt.Topology`. `bonds_are_explicit = True`. |
+| `file:mdcrd` | New (placeholder) | AMBER MDCRD trajectory. All attributes `False` — `MDCRDTrajectoryFile` requires `n_atoms` which is not stored in the file. Only `to_file_mdcrd` (copy) registered. |
+| `file:xyz` | New | MolSysMT ASCII coordinate format. Header line: `n_structures n_atoms`. Then n_structures×n_atoms lines of `x y z` in nm. Attributes: `atom_index`, `n_atoms`, `n_structures`, `coordinates`. Both `get_coordinates_from_atom` and `get_coordinates_from_system` implemented. |
+| `string:uniprot_id` | New | UniProt accession (e.g. `P12345` or `uniprot_id:P12345`). Downloads FASTA via UniProt REST API (`rest.uniprot.org`). Chain: `→ file:fasta → molsysmt.Topology`. `piped_topological_attribute = 'molsysmt.Topology'`. |
 
 ### `openmm.GromacsGroFile` — bugs found and fixed
 
