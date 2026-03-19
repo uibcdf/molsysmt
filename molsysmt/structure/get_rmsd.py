@@ -2,13 +2,14 @@ from molsysmt._private.smonitor import NotImplementedMethodError, StructuralInco
 from smonitor import signal
 from molsysmt._private.arg_digestion import arg_digest
 from molsysmt._private.variables import is_all
+from molsysmt._private.execution import Reducer
 from molsysmt import lib as msmlib
 from molsysmt import pyunitwizard as puw
 import numpy as np
 import gc
 
 
-class _RMSDReducer:
+class _RMSDReducer(Reducer):
     """
     Reducer for get_rmsd heavy path.
 
@@ -31,6 +32,17 @@ class _RMSDReducer:
 
     def finalize(self):
         return np.concatenate(self._chunks, axis=0)
+
+    # --- optional extensions ---
+
+    def checkpoint(self):
+        return {'chunks': [c.tolist() for c in self._chunks]}
+
+    def restore(self, state):
+        self._chunks = [np.array(c, dtype=np.float64) for c in state['chunks']]
+
+    def merge(self, other):
+        self._chunks.extend(other._chunks)
 
 
 @signal(tags=['api', 'structure'])

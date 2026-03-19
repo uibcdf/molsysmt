@@ -2,6 +2,7 @@ from molsysmt._private.smonitor import NotImplementedMethodError
 from molsysmt._private.arg_digestion import arg_digest
 from molsysmt._private.variables import is_all, is_iterable_of_iterables
 from molsysmt._private.variables import is_iterable_of_pairs
+from molsysmt._private.execution import Reducer
 from molsysmt import lib as msmlib
 from molsysmt import pyunitwizard as puw
 import numpy as np
@@ -9,21 +10,36 @@ import gc
 from smonitor import signal
 
 
-class _DistancesReducer:
+class _DistancesReducer(Reducer):
     """
     Reducer for get_distances heavy path.
 
     Supports single-system, all-vs-all atom distances per frame.
     PBC is applied per chunk when box is provided.
-    Accumulates (chunk_size, n_atoms, n_atoms) arrays and concatenates on finalize.
+    Accumulates (chunk_size, n_atoms, n_atoms) arrays and concatenates on finalize,
+    or writes directly into a PersistentResultHandle when output_handle is in metadata.
     """
 
     def __init__(self, pbc):
         self._pbc = pbc
         self._chunks = []
+        self._output_handle = None
+        self._frame_offset = 0
+
+    def estimate_output_shape(self, metadata):
+        """Use disk-backing only when the output would exceed the RAM budget."""
+        import molsysmt.config as config
+        n_structures = metadata['n_structures']
+        n_atoms = metadata['n_atoms']
+        output_bytes = n_structures * n_atoms * n_atoms * 8
+        if output_bytes > config.max_ram_usage:
+            return (n_structures, n_atoms, n_atoms)
+        return None
 
     def initialize(self, metadata):
         self._chunks = []
+        self._frame_offset = 0
+        self._output_handle = metadata.get('output_handle')
 
     def consume(self, chunk):
         coords = np.array(chunk['coordinates'], dtype=np.float64)  # writable
@@ -32,10 +48,46 @@ class _DistancesReducer:
             result = msmlib.structure.get_mic_distances_single_system(coords, box)
         else:
             result = msmlib.structure.get_distances_single_system(coords)
-        self._chunks.append(result)
+
+        if self._output_handle is not None:
+            n = result.shape[0]
+            self._output_handle[self._frame_offset:self._frame_offset + n] = result
+            self._frame_offset += n
+        else:
+            self._chunks.append(result)
 
     def finalize(self):
+        if self._output_handle is not None:
+            self._output_handle.flush()
+            return self._output_handle
         return np.concatenate(self._chunks, axis=0)
+
+    # --- optional extensions ---
+
+    def checkpoint(self):
+        if self._output_handle is not None:
+            # Disk-backed: record frame offset only; the handle file persists on disk
+            return {'frame_offset': self._frame_offset, 'disk_backed': True}
+        return {'chunks': [c.tolist() for c in self._chunks], 'disk_backed': False}
+
+    def restore(self, state):
+        if state.get('disk_backed'):
+            # Cannot reconnect to a PersistentResultHandle across process boundaries.
+            # Resuming disk-backed reductions requires same-process continuation.
+            raise NotImplementedError(
+                "_DistancesReducer cannot restore a disk-backed checkpoint "
+                "across separate process invocations."
+            )
+        self._chunks = [np.array(c, dtype=np.float64) for c in state['chunks']]
+        self._frame_offset = 0
+        self._output_handle = None
+
+    def merge(self, other):
+        if self._output_handle is not None or other._output_handle is not None:
+            raise NotImplementedError(
+                "_DistancesReducer.merge() is not supported with disk-backed output."
+            )
+        self._chunks.extend(other._chunks)
 
 
 @signal(tags=['api', 'structure'])

@@ -126,6 +126,12 @@ CATALOG = {
             "category": "data_quality",
             "level": "WARNING",
         },
+        "MemoryPressureWarning": {
+            "code": "MSM-WARN-HVY-003",
+            "source": "molsysmt.warning.heavy.memory_pressure",
+            "category": "performance",
+            "level": "WARNING",
+        },
     },
     "exceptions": {
         "ArgumentError": {
@@ -652,6 +658,17 @@ CODES = {
         "agent_message": "Slow I/O detected at chunk {chunk_index} ({io_time_s:.2f} s).",
         "agent_hint": "Check storage throughput. Consider smaller chunks or a faster backend.",
     },
+    "MSM-WARN-HVY-003": {
+        "title": "Memory pressure during heavy processing",
+        "user_message": "RAM usage ({rss_bytes} bytes) has exceeded {pressure_pct:.0f}% of the configured budget ({budget_bytes} bytes) at chunk {chunk_index}.",
+        "user_hint": "Consider reducing chunk_size, freeing memory, or increasing molsysmt.config.max_ram_usage.",
+        "dev_message": "Memory pressure at chunk {chunk_index}: RSS={rss_bytes} bytes, budget={budget_bytes} bytes ({pressure_pct:.1f}% used).",
+        "dev_hint": "Investigate reducer accumulation and temporary allocations. Reducing chunk_size lowers peak memory per chunk.",
+        "qa_message": "Memory pressure at chunk {chunk_index}: RSS={rss_bytes} bytes.",
+        "qa_hint": "Ensure test fixtures do not exhaust memory in CI.",
+        "agent_message": "Memory pressure at chunk {chunk_index}: {rss_bytes} bytes RSS / {budget_bytes} bytes budget.",
+        "agent_hint": "Reduce chunk_size or free memory before continuing.",
+    },
     "MSM-WARN-HVY-002": {
         "title": "Corrupt frame skipped",
         "user_message": "Frame {frame_index} in chunk {chunk_index} could not be read and was skipped. Reason: {reason}.",
@@ -722,6 +739,7 @@ SIGNALS = {
     "molsysmt.info.heavy.chunk_processed": {"extra_required": ["operation", "chunk_index", "n_chunks", "elapsed_s", "eta_s"]},
     "molsysmt.warning.heavy.slow_io": {"extra_required": ["chunk_index", "io_time_s"]},
     "molsysmt.warning.heavy.corrupt_frame": {"extra_required": ["chunk_index", "frame_index", "reason"]},
+    "molsysmt.warning.heavy.memory_pressure": {"extra_required": ["chunk_index", "rss_bytes", "budget_bytes", "pressure_pct"]},
     "molsysmt.error.heavy.unsupported_operation": {"extra_required": ["operation", "form", "reason"]},
     "molsysmt.error.heavy.output_failure": {"extra_required": ["reason"]},
 }

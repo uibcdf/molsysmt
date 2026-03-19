@@ -13,8 +13,10 @@ class PersistentResultHandle:
     """
     A disk-backed array-like result for heavy-mode analysis outputs.
 
-    Backed by a NumPy memmap on a temporary file.
-    Temporary by default: call cleanup() or use as a context manager.
+    Backed by a NumPy memmap file. By default a temporary file is created
+    automatically and deleted on cleanup(). Pass *path* to use a specific
+    file instead (the file is NOT deleted on cleanup in that case, giving
+    the caller full control over its lifecycle).
 
     Parameters
     ----------
@@ -22,15 +24,24 @@ class PersistentResultHandle:
         Shape of the result array.
     dtype : dtype-like
         NumPy dtype (default float64).
+    path : str or Path or None
+        If None (default), a temporary file is created automatically.
+        If provided, the memmap is written to that path. Parent directories
+        are created if they do not exist. The file is not deleted on cleanup().
     """
 
-    def __init__(self, shape: tuple, dtype=np.float64):
+    def __init__(self, shape: tuple, dtype=np.float64, path=None):
         self.shape = shape
         self.dtype = np.dtype(dtype)
+        self._owns_file = path is None  # only delete on cleanup if we created it
 
-        self._temp = tempfile.NamedTemporaryFile(suffix='.npy', delete=False)
-        self._path = Path(self._temp.name)
-        self._temp.close()
+        if path is None:
+            tmp = tempfile.NamedTemporaryFile(suffix='.npy', delete=False)
+            self._path = Path(tmp.name)
+            tmp.close()
+        else:
+            self._path = Path(path)
+            self._path.parent.mkdir(parents=True, exist_ok=True)
 
         self._array = np.memmap(self._path, dtype=self.dtype, mode='w+', shape=self.shape)
 
@@ -60,9 +71,14 @@ class PersistentResultHandle:
     # --- lifecycle ---
 
     def cleanup(self):
-        """Delete the backing temporary file."""
+        """
+        Release the memmap and, if MolSysMT created the backing file (i.e.
+        no *path* was passed to __init__), delete it from disk.
+        User-specified files are left intact.
+        """
         del self._array
-        self._path.unlink(missing_ok=True)
+        if self._owns_file:
+            self._path.unlink(missing_ok=True)
 
     def __enter__(self):
         return self

@@ -1,6 +1,15 @@
 # Scalability and Heavy Trajectory Processing Strategy v2
 ## A Pre-1.0 Working Design for Out-of-Core Analysis in MolSysMT
 
+> **Implementation status (updated 2026-03-19)**
+>
+> The Tier 1 committed slice described in this document is fully implemented and tested.
+> Several Tier 2 features (multi-reducer, checkpoint/resume, parallel reduction via `merge()`,
+> and `PersistentResultHandle` with disk-budget pre-flight check) were advanced ahead of the
+> original schedule and are also implemented and tested.
+>
+> Sections 3.2, 8, 14, and 16 have been updated to reflect the current state.
+
 ## 1. Purpose
 
 This document defines a realistic and executable path for heavy-trajectory processing in MolSysMT before `1.0.0`.
@@ -76,13 +85,16 @@ The following are valuable, but they should not be treated as `1.0.0` commitment
 - cloud and remote streaming;
 - `fsspec`-based byte-range access;
 - GPU offloading;
-- full checkpoint/resume;
 - adaptive throttling based on live system load;
-- multi-analysis read-once orchestration;
 - real-time dashboards beyond basic telemetry;
 - enterprise-style scheduling or workflow orchestration.
 
 These remain valid roadmap items, but they should be documented as `1.x` or later work.
+
+> **Note (2026-03-19):** `full checkpoint/resume` and `multi-analysis read-once orchestration`
+> were originally on this list. Both have since been implemented as part of the
+> `ChunkedExecutor` / `Reducer` architecture (see sections 8 and 14). They are no longer
+> out of scope.
 
 ## 4. Core Design Principles
 
@@ -274,24 +286,38 @@ That iterator contract should support source-level atom selection and stride-awa
 
 ## 8. Reducer Protocol
 
-This is one of the most important missing pieces in the previous version.
+The `Reducer` ABC (`molsysmt._private.execution.reducer.Reducer`) defines the full protocol for chunked analysis. It is implemented and tested.
 
-If heavy processing is to be credible, MolSysMT must define what a reducer is.
+### 8.1 Mandatory lifecycle (three abstract methods)
 
-A minimal reducer protocol for the first slice should look like this:
+```
+reducer.initialize(metadata)     # called once before the chunk loop
+reducer.consume(chunk)           # called once per chunk (read-only chunk)
+result = reducer.finalize()      # called once after all chunks
+```
 
-- `initialize(metadata)`
-- `consume(chunk)`
-- `finalize()`
+### 8.2 Optional extensions (four concrete methods with defaults)
 
-Optional later extensions:
-- `merge(other)` for parallel reduction;
-- `checkpoint()`;
-- `restore(state)`.
+These override the base-class no-ops / NotImplementedError defaults to enable specific features:
 
-For `1.0.0`, the minimal protocol is enough.
+| Method | Purpose | Default |
+|---|---|---|
+| `estimate_output_shape(metadata)` | Return output array shape so executor can pre-allocate a `PersistentResultHandle` instead of in-RAM accumulation. Return `None` to always use RAM. | `None` |
+| `checkpoint()` | Return a serializable state dict for checkpoint/resume. Return `None` if not supported. | `None` |
+| `restore(state)` | Restore accumulated state from a checkpoint dict. | `NotImplementedError` |
+| `merge(other)` | Merge another reducer's partial state into self (earlier frames first). Used for parallel reduction. | `NotImplementedError` |
 
-### Why this matters
+### 8.3 Chunk contract
+
+Every chunk dict delivered to `consume()` contains:
+- `'coordinates'`: `np.ndarray`, float64, nm, shape `(n_chunk, n_atoms, 3)`, **read-only**
+- `'box'`: `np.ndarray`, float64, nm, shape `(n_chunk, 3, 3)` or `None`
+- `'time'`: `np.ndarray`, float64, ps, shape `(n_chunk,)` or `None`
+- `'structure_indices'`: `np.ndarray`, int, global frame indices
+
+Chunks are read-only views. Reducers must copy before mutating.
+
+### 8.4 Why this matters
 Without a reducer contract:
 - every heavy-enabled operation will invent its own ad hoc accumulation model;
 - behavior becomes inconsistent;
@@ -449,24 +475,33 @@ This keeps configuration understandable and reduces unstable surface area before
 
 ## 14. Tiered Roadmap
 
-The original tiering was useful, but too broad. This version makes it operational.
+### 14.1 Tier 1 - Pre-1.0 committed slice ✅ DONE
 
-### 14.1 Tier 1 - Pre-1.0 committed slice
-- pre-flight footprint estimate;
-- eager/heavy decision policy;
-- sequential local chunking;
-- reducer protocol;
-- small set of supported heavy operations;
-- basic SMonitor telemetry;
-- eager/heavy parity tests.
+- pre-flight footprint estimate (`estimate_footprint`, `decide_mode`);
+- eager/heavy decision policy (`heavy_mode = auto | force | off`);
+- sequential local chunking (`ChunkedExecutor` + form `StructuresIterator`);
+- `_heavy_support` dict per form module for attribute-level validation;
+- `Reducer` ABC with mandatory lifecycle (initialize / consume / finalize);
+- `PersistentResultHandle` (disk-backed memmap for large outputs);
+- `check_disk_budget` pre-flight storage check;
+- SMonitor telemetry: HeavyPathSelected, EagerPathAccepted, ChunkProcessed (ETA), SlowChunkIOWarning, CorruptFrameSkippedWarning, UnsupportedHeavyOperationError, HeavyOutputFailureError;
+- heavy support in `get_center`, `get_rmsd`, `get_distances`;
+- heavy support in `file:h5msm` and `molsysmt.H5MSMFileHandler` forms;
+- `heavy_mode` argument digested by argdigest;
+- eager/heavy parity tests for all three operations.
 
-### 14.2 Tier 2 - Early post-1.0
-- multi-analysis read-once orchestration;
-- local parallel reducers;
-- checkpointing/resume;
-- richer ETA, throughput, and memory-pressure telemetry;
-- richer persistent-result lifecycle management beyond the Tier 1 baseline;
-- lazy result handles for large-output workflows.
+### 14.2 Tier 2 - Early post-1.0 ✅ ADVANCED (implemented ahead of schedule)
+
+- **multi-reducer** (`ChunkedExecutor(reducers=[...])`) — single pass, multiple analyses;
+- **checkpoint / resume** (`checkpoint_interval`, `checkpoint_path`, `restore_from` on `ChunkedExecutor`; `checkpoint()` / `restore()` on `Reducer`);
+- **parallel reduction via merge** (`Reducer.merge(other)` protocol — split segments independently, merge in order);
+- **`estimate_output_shape`** on `Reducer` — triggers `PersistentResultHandle` allocation when output exceeds RAM budget;
+- `_DistancesReducer.estimate_output_shape` writes directly into the handle per chunk.
+
+Still pending (genuine Tier 2):
+- richer adaptive ETA beyond first-chunk estimate;
+- memory-pressure telemetry during execution;
+- richer `PersistentResultHandle` lifecycle (user-controlled paths, named output files).
 
 ### 14.3 Tier 3 - Advanced / enterprise-like features
 - cloud streaming;
@@ -488,15 +523,30 @@ This is important because otherwise:
 - the support contract becomes ambiguous,
 - and documentation overpromises.
 
-## 16. Open Questions That Must Be Resolved Before Implementation Starts
+## 16. Open Questions — Resolved
 
-The following questions remain legitimate and should be answered explicitly before coding begins:
+These questions were open when this document was written. They are now answered.
 
-1. What exact iterator abstraction will MolSysMT standardize for chunk delivery?
-2. Which public operations are officially in the first heavy-support slice?
-3. Which trajectory forms are in scope for the first heavy-support slice?
-4. What is the minimum lifecycle contract for Tier 1 `PersistentResultHandle` objects (temporary ownership, cleanup, and optional materialization)?
-5. Which additional SMonitor event codes should be reserved beyond the Tier 1 heavy-mode baseline?
+1. **What exact iterator abstraction will MolSysMT standardize for chunk delivery?**
+   Each form module exposes a `StructuresIterator` class. `ChunkedExecutor` uses the form's
+   iterator directly (bypassing the public `msm.Iterator` API) via `_dict_modules[form].StructuresIterator(...)`.
+   The iterator is used as a context manager (`with ... as it: for raw_chunk in it:`).
+
+2. **Which public operations are officially in the first heavy-support slice?**
+   `get_center`, `get_rmsd`, `get_distances` (all in `molsysmt/structure/`).
+
+3. **Which trajectory forms are in scope for the first heavy-support slice?**
+   `file:h5msm` and `molsysmt.H5MSMFileHandler`. Both declare `_heavy_support = {'coordinates': True, 'box': True}`.
+
+4. **What is the minimum lifecycle contract for Tier 1 `PersistentResultHandle` objects?**
+   Temporary by default (backing file in `tempfile.gettempdir()`). Exposes `__getitem__`/`__setitem__`
+   (array-like), `to_memory()`, `flush()`, `cleanup()`, and context-manager protocol. Cleanup is
+   caller-controlled (or automatic if used as a context manager).
+
+5. **Which additional SMonitor event codes should be reserved beyond the Tier 1 heavy-mode baseline?**
+   See section 10. The range `MSM-INFO-HVY-001..003` and `MSM-WARN-HVY-001..002` and
+   `MSM-ERROR-HVY-001..002` are defined and registered in `catalog.py`.
+   `MSM-INFO-HVY-003` = `ChunkProcessed` (progress telemetry with ETA).
 
 ## 17. Summary
 

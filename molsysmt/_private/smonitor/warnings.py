@@ -102,6 +102,18 @@ class CorruptFrameSkippedWarning(MolSysMTCatalogWarning):
         super().__init__(extra={"chunk_index": chunk_index, "frame_index": frame_index, "reason": reason})
 
 
+class MemoryPressureWarning(MolSysMTCatalogWarning):
+    catalog_key = "MemoryPressureWarning"
+
+    def __init__(self, chunk_index, rss_bytes, budget_bytes, pressure_pct):
+        super().__init__(extra={
+            "chunk_index": chunk_index,
+            "rss_bytes": rss_bytes,
+            "budget_bytes": budget_bytes,
+            "pressure_pct": pressure_pct,
+        })
+
+
 __all__ = [
     "UserMolSysMTWarning",
     "SelectionWarning",
@@ -112,6 +124,7 @@ __all__ = [
     "MolecularSystemMismatchWarning",
     "SlowChunkIOWarning",
     "CorruptFrameSkippedWarning",
+    "MemoryPressureWarning",
     "warn",
     "warn_once",
 ]

@@ -22,4 +22,5 @@ __all__ = [
     "HeavyOutputFailureError",
     "SlowChunkIOWarning",
     "CorruptFrameSkippedWarning",
+    "MemoryPressureWarning",
 ]

@@ -4,12 +4,13 @@ from molsysmt._private.arg_digestion import arg_digest
 from molsysmt import lib as msmlib
 from molsysmt.lib.structure._kernel_inputs import extract_coordinates_value_and_unit
 from molsysmt._private.variables import is_all, is_iterable_of_iterables
+from molsysmt._private.execution import Reducer
 from molsysmt import pyunitwizard as puw
 import numpy as np
 import gc
 
 
-class _CenterReducer:
+class _CenterReducer(Reducer):
     """
     Reducer for get_center heavy path.
     Accumulates per-chunk center arrays and concatenates them on finalize.
@@ -18,8 +19,8 @@ class _CenterReducer:
     def __init__(self, weights, atoms_per_group=None):
         self._weights = weights
         self._atoms_per_group = atoms_per_group
+        self._n_groups = 1 if atoms_per_group is None else len(atoms_per_group)
         self._chunks = []
-        self._length_unit = None
 
     def initialize(self, metadata):
         self._chunks = []
@@ -35,6 +36,17 @@ class _CenterReducer:
 
     def finalize(self):
         return np.concatenate(self._chunks, axis=0)
+
+    # --- optional extensions ---
+
+    def checkpoint(self):
+        return {'chunks': [c.tolist() for c in self._chunks]}
+
+    def restore(self, state):
+        self._chunks = [np.array(c, dtype=np.float64) for c in state['chunks']]
+
+    def merge(self, other):
+        self._chunks.extend(other._chunks)
 
 
 @signal(tags=['api', 'structure'])

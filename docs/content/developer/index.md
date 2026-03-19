@@ -28,6 +28,14 @@ internal rules and conventions is `devguide/`. If there is any conflict,
 
 ```{eval-rst}
 .. toctree::
+   :caption: Heavy trajectories
+
+   heavy_trajectories.md
+
+```
+
+```{eval-rst}
+.. toctree::
    :caption: Warnings
 
    warnings.md
