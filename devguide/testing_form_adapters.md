@@ -403,12 +403,25 @@ The public API dispatch is tested separately via `msm.get(topo, atom_name=True)`
 
 ## Checking `attributes.py` consistency
 
-The `attributes.py` file for each form declares which attributes are available. If a test
-reveals that a function silently returns `None` or raises an unexpected error, check whether
-`attributes.py` correctly marks that attribute as `False`. The public API uses `attributes.py`
-to gate dispatch: if an attribute is `True` but the implementation is broken, the public API
-will try to call a broken function; if it is `False` but the implementation works, the public
-API will silently return `None` instead of calling the function.
+The `attributes.py` file for each form declares which attributes are available. The
+invariant is **bidirectional**:
+
+> If an attribute is `True`, a working getter must exist.
+> If a getter exists, the attribute must be `True`.
+
+`attributes.py` describes what data the form **natively has**, not what could be derived
+via conversion. Do not mark an attribute `True` because it is accessible after calling
+`item.parse()` or `msm.convert(item, to_form='molsysmt.Topology')` — those paths go
+through other forms. If the getter requires a conversion internally, the attribute
+should be `False` and the data surfaced only via `msm.convert`.
+
+The public API uses `attributes.py` to gate dispatch: if an attribute is `True` but the
+implementation is broken, the public API will try to call a broken function; if it is
+`False` but the implementation works, the public API will silently return `None` instead
+of calling the function.
+
+If a test reveals that a function silently returns `None` or raises an unexpected error,
+check whether `attributes.py` correctly marks that attribute as `False`.
 
 ---
 
@@ -467,6 +480,53 @@ documented here as a learning record for future adapter authors.
 | `get_n_peptides/proteins/dnas/rnas_from_{chain,entity}` crashed | `get_molecule_index_from_chain/entity` returns a list of lists with variable-length sublists; `np.unique(list_of_lists)` raises `ValueError: inhomogeneous shape` | Added `np.concatenate([np.array(ii) for ii in molecule_indices])` before `np.unique` |
 | `get_total_n_*` functions entirely absent | ~97 functions missing | Added full set, adapting sum vs. delegate vs. unique-set logic to match openmm's scalar-returning conventions |
 | `get_total_n_*` used `int(sum(...))` on scalar-returning functions | `get_n_amino_acids_from_molecule` returns a scalar in openmm; `int(sum(scalar))` raises `TypeError: 'int' object is not iterable` | Changed these to delegate directly: `return get_n_amino_acids_from_molecule(...)` |
+
+### openmm.GromacsGroFile adapter (skeleton recovered from attic, March 2026)
+
+| Bug | Symptom | Fix |
+|---|---|---|
+| `to_openmm_Topology` used `item.topology` | `AttributeError` — `GromacsGroFile` has no `topology` property | Replaced with `NotImplementedMethodError`; removed from `_convert_to` |
+| `to_openmm_Modeller` used `item.topology` and undefined `structure_indices` | Same `AttributeError` + `NameError` | Same fix |
+| `to_molsysmt_Topology` used `item.topology` | Same `AttributeError` | Rewritten from scratch using `atomNames`/`residueIds`/`residueNames` |
+| `to_molsysmt_MolSys` imported from `molsysmt.form.molsysmt_Topology` | Imported the self-copy converter of `molsysmt.Topology` instead of the local form converter | Changed to `from .to_molsysmt_Topology import ...` |
+| `get_structural_attributes.py` was empty | All structural `msm.get` calls raised `AttributeError` | Implemented all structural getters |
+| `attributes.py` claimed bonds, molecules, chains as `True` | `msm.get` routed to non-existent getters | Corrected to only `True` for attributes with implemented getters |
+| `get_coordinates_from_system` missing | `msm.get(item, coordinates=True)` (default `element='system'`) raised `AttributeError` | Added `get_coordinates_from_system` alongside `get_coordinates_from_atom` |
+
+### mdtraj low-level file readers — coordinate units
+
+mdtraj's low-level file readers do **not** all normalize to nm:
+
+| Reader | Coordinate units | Box units |
+|--------|-----------------|-----------|
+| `mdtraj.GroTrajectoryFile` | nm | nm (unitcell_vectors, shape `(n_frames, 3, 3)`) |
+| `mdtraj.AmberRestartFile` | Å | Å (cell_lengths) + degrees (cell_angles) |
+| `mdtraj.PDBTrajectoryFile` | Å | Å (cell_lengths) + degrees (cell_angles) |
+| `mdtraj.XTCTrajectoryFile` | nm | nm |
+| `mdtraj.DCDTrajectoryFile` | Å | Å |
+
+Always check the source units before wrapping with `puw`.
+
+### mdtraj.AmberRestartFile — closed file handle trap
+
+`AmberRestartFile` in mode `'r'` reads only the header via a `with open(filename)` context
+manager (which closes after the header read). The object's `_closed` attribute is therefore
+`True` after `__init__`. The public `n_atoms` property calls `_validate_open()` and raises
+`OSError: The file is closed`. Use `item._n_atoms` (private attribute set during init) instead.
+`item.read()` works fine despite `_closed=True`.
+
+### mdtraj.GroTrajectoryFile — seek workaround
+
+`GroTrajectoryFile.seek(pos)` raises `NotImplementedError`. To rewind before a second
+`read()` call, use `item._file.seek(0)` (the underlying `TextIOWrapper` supports seek).
+
+### MDAnalysis.topology.PDBParser — how to get topology data
+
+`PDBParser(filename)` stores only the filename. Call `item.parse()` to get an
+`MDAnalysis.core.topology.Topology`. The `PDBParser` object does not store the parsed result
+— each `parse()` call re-reads the file. To convert to `molsysmt.Topology` or
+`molsysmt.MolSys`, create a fresh `MDAnalysis.Universe(item.filename)` and delegate to
+the `MDAnalysis_Universe` converters — they have full implementations of both.
 
 ---
 
