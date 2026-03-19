@@ -59,8 +59,10 @@ class StructuresIterator():
                     if is_all(self.atom_indices):
                         coords = f['coordinates'][indices, :, :].astype('float64')
                     else:
-                        coords = f['coordinates'][np.ix_(np.atleast_1d(np.array(indices)),
-                                                         self.atom_indices)].astype('float64')
+                        # h5py only supports 1D fancy indexing per axis.
+                        # Load frames first (1D → valid), then slice atoms in numpy.
+                        coords = f['coordinates'][np.atleast_1d(np.array(indices)), :, :].astype('float64')
+                        coords = coords[:, self.atom_indices, :]
                     self._output_dictionary['coordinates'] = puw.quantity(
                             coords, self._length_unit, standardized=True)
 
@@ -114,8 +116,8 @@ class StructuresIterator():
         return self
 
     def __exit__(self, *args):
-        if hasattr(self.molecular_system, 'close'):
-            self.molecular_system.close()
+        # The molecular system is owned by the caller — do not close it here.
+        pass
 
 
 class TopologyIterator():

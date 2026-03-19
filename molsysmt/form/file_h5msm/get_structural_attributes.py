@@ -193,6 +193,7 @@ def get_n_structures_from_system(item, structure_indices='all', skip_digestion=F
     tmp_item = to_molsysmt_H5MSMFileHandler(item, skip_digestion=True)
     output = aux_get(tmp_item, structure_indices=structure_indices, skip_digestion=True)
     tmp_item.close()
+    return output
 
 @arg_digest(form=form)
 def get_occupancy_from_system(item, structure_indices='all', skip_digestion=False):

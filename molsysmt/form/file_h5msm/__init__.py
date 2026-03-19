@@ -6,6 +6,11 @@ from .to_file_h5msm import to_file_h5msm
 from .to_molsysmt_Structures import to_molsysmt_Structures
 from .to_molsysmt_H5MSMFileHandler import to_molsysmt_H5MSMFileHandler
 from .to_molsysmt_Topology import to_molsysmt_Topology
+_heavy_support = {
+    'coordinates': True,
+    'box': True,
+}
+
 form_name = 'file:h5msm'
 form_type = 'file'
 form_info = ["", ""]

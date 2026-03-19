@@ -9,12 +9,41 @@ import gc
 from smonitor import signal
 
 
+class _DistancesReducer:
+    """
+    Reducer for get_distances heavy path.
+
+    Supports single-system, all-vs-all atom distances per frame.
+    PBC is applied per chunk when box is provided.
+    Accumulates (chunk_size, n_atoms, n_atoms) arrays and concatenates on finalize.
+    """
+
+    def __init__(self, pbc):
+        self._pbc = pbc
+        self._chunks = []
+
+    def initialize(self, metadata):
+        self._chunks = []
+
+    def consume(self, chunk):
+        coords = np.array(chunk['coordinates'], dtype=np.float64)  # writable
+        if self._pbc and chunk.get('box') is not None:
+            box = np.array(chunk['box'], dtype=np.float64)
+            result = msmlib.structure.get_mic_distances_single_system(coords, box)
+        else:
+            result = msmlib.structure.get_distances_single_system(coords)
+        self._chunks.append(result)
+
+    def finalize(self):
+        return np.concatenate(self._chunks, axis=0)
+
+
 @signal(tags=['api', 'structure'])
 @arg_digest()
 def get_distances(molecular_system, selection="all", structure_indices="all", center_of_atoms=False, weights=None,
         molecular_system_2=None, selection_2=None, structure_indices_2=None, center_of_atoms_2=False, weights_2=None,
         pairs=False, pbc=True, output_type='numpy.ndarray', output_indices=None, output_structure_indices=None,
-        engine='MolSysMT', syntax='MolSysMT', skip_digestion=False):
+        engine='MolSysMT', syntax='MolSysMT', heavy_mode='auto', skip_digestion=False):
     """
     Computing distances between atoms or centers of selections.
 
@@ -120,17 +149,55 @@ def get_distances(molecular_system, selection="all", structure_indices="all", ce
                 if is_file(molecular_system_2):
                     in_memory = False
 
-        if in_memory:
+        # Decide eager vs heavy based on footprint
+        from molsysmt._private.execution.memory_policy import estimate_footprint, decide_mode
+        from molsysmt.basic import get_form, get as msm_get
+
+        _n_atoms_est = len(np.atleast_1d(atom_indices)) if not is_all(atom_indices) else \
+            msm_get(molecular_system, element='system', n_atoms=True)
+        _n_structures_est = msm_get(molecular_system, element='system', n_structures=True)
+        footprint = estimate_footprint(_n_atoms_est, _n_structures_est)
+        mode = decide_mode(footprint, heavy_mode)
+
+        heavy_eligible = (
+            molecular_system_2 is None
+            and not center_of_atoms
+            and not pairs
+            and not is_iterable_of_iterables(atom_indices)
+        )
+
+        if mode == 'heavy' and heavy_eligible:
+            from molsysmt.form import _dict_modules
+            form = get_form(molecular_system)
+            form_module = _dict_modules.get(form)
+            form_heavy = getattr(form_module, '_heavy_support', {})
+            attrs = ['coordinates']
+            if pbc and form_heavy.get('box', False):
+                attrs.append('box')
+
+            from molsysmt._private.execution import ChunkedExecutor
+            reducer = _DistancesReducer(pbc=pbc and 'box' in attrs)
+            executor = ChunkedExecutor(
+                molecular_system=molecular_system,
+                form=form,
+                operation='get_distances',
+                reducer=reducer,
+                atom_indices=atom_indices,
+                structure_indices=None if is_all(structure_indices) else structure_indices,
+                heavy_mode=heavy_mode,
+                attributes=attrs,
+            )
+            dist_val = executor.execute()  # (n_structures, n_atoms, n_atoms), float64, nm
+            length_unit = puw.get_standard_units(dimensionality={'[L]': 1})
+            distances = puw.quantity(dist_val, length_unit)
+
+        else:
 
             distances = _get_distances_in_memory(molecular_system, selection=atom_indices,
                     structure_indices=structure_indices, center_of_atoms=center_of_atoms, weights=weights,
                     molecular_system_2=molecular_system_2, selection_2=atom_indices_2,
                     structure_indices_2=structure_indices_2, center_of_atoms_2=center_of_atoms_2, weights_2=weights_2,
                     pairs=pairs, pbc=pbc, syntax=syntax)
-
-        else:
-
-            raise NotImplementedMethodError
 
     else:
 

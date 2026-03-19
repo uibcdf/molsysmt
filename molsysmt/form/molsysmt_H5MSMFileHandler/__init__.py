@@ -19,6 +19,7 @@ _convert_to = {
 }
 _heavy_support = {
     'coordinates': True,
+    'box': True,
 }
 
 from .is_form import is_form

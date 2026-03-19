@@ -36,6 +36,7 @@ _convert_to={
         }
 _heavy_support = {
     'coordinates': True,
+    'box': True,
 }
 bonds_are_explicit = False
 bonds_can_be_computed = False

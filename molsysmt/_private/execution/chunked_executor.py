@@ -4,8 +4,10 @@ ChunkedExecutor: orchestrates chunked heavy trajectory processing.
 Responsibilities:
 - Pre-flight footprint estimate
 - Eager/heavy decision (emits SMonitor telemetry)
+- Heavy-support validation per form
 - Storage budget check for disk-backed outputs
 - Sequential chunk loop calling a Reducer
+- Progress telemetry (MSM-INFO-HVY-003)
 - Does NOT own scientific logic
 """
 from __future__ import annotations
@@ -37,6 +39,8 @@ class ChunkedExecutor:
         Frames per chunk. None uses molsysmt.config.chunk_size.
     heavy_mode : str
         'auto' | 'force' | 'off'
+    attributes : list or None
+        Attributes to request per chunk (default: ['coordinates']).
     """
 
     def __init__(
@@ -73,9 +77,11 @@ class ChunkedExecutor:
         """
         Run the analysis. Returns the reducer's final result.
         Chooses eager or heavy path based on footprint and heavy_mode.
+        Raises UnsupportedHeavyOperationError if heavy path is needed but unavailable.
         """
         from .memory_policy import estimate_footprint, decide_mode
-        from molsysmt._private.smonitor import info
+        from molsysmt._private.smonitor import info, UnsupportedHeavyOperationError
+        from molsysmt.form import _dict_modules
 
         n_atoms, n_structures = self._get_dimensions()
         footprint = estimate_footprint(n_atoms, n_structures)
@@ -84,6 +90,17 @@ class ChunkedExecutor:
         import molsysmt.config as config
 
         if mode == 'heavy':
+            # Validate that the form supports heavy mode for all requested attributes
+            form_module = _dict_modules.get(self.form)
+            heavy_support = getattr(form_module, '_heavy_support', {})
+            for attr in self.attributes:
+                if not heavy_support.get(attr, False):
+                    raise UnsupportedHeavyOperationError(
+                        operation=self.operation,
+                        form=self.form,
+                        reason=f"Form does not support heavy mode for attribute '{attr}'",
+                    )
+
             info("HeavyPathSelected", extra={
                 "operation": self.operation,
                 "form": self.form,
@@ -131,13 +148,16 @@ class ChunkedExecutor:
 
     def _execute_heavy(self, n_atoms, n_structures):
         """Run the chunked processing loop using the form's StructuresIterator."""
-        from molsysmt._private.smonitor import SlowChunkIOWarning, CorruptFrameSkippedWarning
+        from molsysmt._private.smonitor import SlowChunkIOWarning, CorruptFrameSkippedWarning, info
         import warnings
         import molsysmt.config as config
+
+        n_chunks = max(1, int(np.ceil(n_structures / self.chunk_size)))
 
         metadata = {
             'n_atoms': n_atoms,
             'n_structures': n_structures,
+            'n_chunks': n_chunks,
             'operation': self.operation,
             'form': self.form,
             'atom_indices': self.atom_indices,
@@ -146,6 +166,8 @@ class ChunkedExecutor:
         self.reducer.initialize(metadata)
 
         chunk_index = 0
+        t_first_chunk = None
+
         with self._get_form_iterator(self.chunk_size) as it:
             for raw_chunk in it:
                 t0 = time.perf_counter()
@@ -164,11 +186,26 @@ class ChunkedExecutor:
                     continue
 
                 elapsed = time.perf_counter() - t0
+
                 if config.emit_heavy_telemetry and elapsed > 5.0:
                     warnings.warn(SlowChunkIOWarning(
                         chunk_index=chunk_index,
                         io_time_s=elapsed,
                     ))
+
+                # Progress telemetry (MSM-INFO-HVY-003)
+                if config.emit_heavy_telemetry:
+                    if t_first_chunk is None:
+                        t_first_chunk = elapsed
+                    chunks_remaining = n_chunks - chunk_index - 1
+                    eta_s = t_first_chunk * chunks_remaining if t_first_chunk else float('nan')
+                    info("ChunkProcessed", extra={
+                        "operation": self.operation,
+                        "chunk_index": chunk_index,
+                        "n_chunks": n_chunks,
+                        "elapsed_s": round(elapsed, 4),
+                        "eta_s": round(eta_s, 1),
+                    })
 
                 chunk_index += 1
 

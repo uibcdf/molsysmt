@@ -38,6 +38,12 @@ CATALOG = {
             "category": "execution",
             "level": "INFO",
         },
+        "ChunkProcessed": {
+            "code": "MSM-INFO-HVY-003",
+            "source": "molsysmt.info.heavy.chunk_processed",
+            "category": "execution",
+            "level": "INFO",
+        },
     },
     "debug": {
         "DetectionProbeMiss": {
@@ -713,6 +719,7 @@ SIGNALS = {
     "molsysmt.error.file_content": {"extra_required": ["reason", "caller"]},
     "molsysmt.info.heavy.path_selected": {"extra_required": ["operation", "form", "footprint_bytes", "max_ram_usage"]},
     "molsysmt.info.heavy.eager_accepted": {"extra_required": ["operation", "footprint_bytes"]},
+    "molsysmt.info.heavy.chunk_processed": {"extra_required": ["operation", "chunk_index", "n_chunks", "elapsed_s", "eta_s"]},
     "molsysmt.warning.heavy.slow_io": {"extra_required": ["chunk_index", "io_time_s"]},
     "molsysmt.warning.heavy.corrupt_frame": {"extra_required": ["chunk_index", "frame_index", "reason"]},
     "molsysmt.error.heavy.unsupported_operation": {"extra_required": ["operation", "form", "reason"]},
