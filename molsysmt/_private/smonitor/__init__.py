@@ -18,4 +18,8 @@ __all__ = [
     "debug",
     "info",
     "message_from_catalog",
+    "UnsupportedHeavyOperationError",
+    "HeavyOutputFailureError",
+    "SlowChunkIOWarning",
+    "CorruptFrameSkippedWarning",
 ]

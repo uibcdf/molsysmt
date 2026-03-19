@@ -85,9 +85,9 @@ def dump_topology_to_h5msm(item, file, atom_indices='all'):
     atoms['atom_id'][:] = atoms_df['atom_id'].to_numpy(dtype='S')
     atoms['atom_name'][:] = atoms_df['atom_name'].to_numpy(dtype='S')
     atoms['atom_type'][:] = atoms_df['atom_type'].to_numpy(dtype='S')
-    atoms['group_index'][:] = atoms_df['group_index'].to_numpy(dtype=int_type)
-    atoms['component_index'][:] = atoms_df['component_index'].to_numpy(dtype=int_type)
-    atoms['chain_index'][:] = atoms_df['chain_index'].to_numpy(dtype=int_type)
+    atoms['group_index'][:] = atoms_df['group_index'].fillna(-1).to_numpy(dtype=int_type)
+    atoms['component_index'][:] = atoms_df['component_index'].fillna(-1).to_numpy(dtype=int_type)
+    atoms['chain_index'][:] = atoms_df['chain_index'].fillna(-1).to_numpy(dtype=int_type)
 
     # Groups
 
@@ -109,7 +109,7 @@ def dump_topology_to_h5msm(item, file, atom_indices='all'):
         groups['group_id'][:] = groups_df['group_id'].to_numpy(dtype='S')
         groups['group_name'][:] = groups_df['group_name'].to_numpy(dtype='S')
         groups['group_type'][:] = groups_df['group_type'].to_numpy(dtype='S')
-        groups['molecule_index'][:] = groups_df['molecule_index'].to_numpy(dtype=int_type)
+        groups['molecule_index'][:] = groups_df['molecule_index'].fillna(-1).to_numpy(dtype=int_type)
 
     # Molecules
 
@@ -131,7 +131,7 @@ def dump_topology_to_h5msm(item, file, atom_indices='all'):
         molecules['molecule_id'][:] = molecules_df['molecule_id'].to_numpy(dtype='S')
         molecules['molecule_name'][:] = molecules_df['molecule_name'].to_numpy(dtype='S')
         molecules['molecule_type'][:] = molecules_df['molecule_type'].to_numpy(dtype='S')
-        molecules['entity_index'][:] = molecules_df['entity_index'].to_numpy(dtype=int_type)
+        molecules['entity_index'][:] = molecules_df['entity_index'].fillna(-1).to_numpy(dtype=int_type)
 
     # Entities
 
@@ -210,8 +210,8 @@ def dump_topology_to_h5msm(item, file, atom_indices='all'):
         bonds['atom1_index'].resize((n_bonds,))
         bonds['atom2_index'].resize((n_bonds,))
 
-        bonds['atom1_index'][:] = bonds_df['atom1_index'].to_numpy(dtype=int_type)
-        bonds['atom2_index'][:] = bonds_df['atom2_index'].to_numpy(dtype=int_type)
+        bonds['atom1_index'][:] = bonds_df['atom1_index'].fillna(-1).to_numpy(dtype=int_type)
+        bonds['atom2_index'][:] = bonds_df['atom2_index'].fillna(-1).to_numpy(dtype=int_type)
 
         if 'order' in bonds_df:
             bonds['order'].resize((n_bonds,))

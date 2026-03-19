@@ -73,6 +73,7 @@ systems['pentalanine'] = {}
 systems['pentalanine']['pentalanine.inpcrd'] = path('molsysmt.data.inpcrd', 'pentalanine.inpcrd')
 systems['pentalanine']['pentalanine.prmtop'] = path('molsysmt.data.prmtop', 'pentalanine.prmtop')
 systems['pentalanine']['traj_pentalanine.h5'] = path('molsysmt.data.h5', 'traj_pentalanine.h5')
+systems['pentalanine']['traj_pentalanine.h5msm'] = path('molsysmt.data.h5msm', 'traj_pentalanine.h5msm')
 
 
 # Particles_4

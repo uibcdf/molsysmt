@@ -17,10 +17,14 @@ _convert_to = {
     'molsysmt.MolSys': 'to_molsysmt_MolSys',
     'nglview.NGLWidget': 'to_nglview_NGLWidget',
 }
+_heavy_support = {
+    'coordinates': True,
+}
 
 from .is_form import is_form
 from .has_attribute import has_attribute
 from . import iterators
+from .iterators import StructuresIterator
 
 from .attributes import attributes
 from .extract import extract

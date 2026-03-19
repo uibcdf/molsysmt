@@ -105,7 +105,7 @@ def _convert_one_to_one(molecular_system,
 
         output = _convert_one_to_one(molecular_system, from_form, to_form='molsysmt.MolSys', selection=selection,
                 structure_indices=structure_indices, syntax=syntax, **kwargs)
-        output = _convert_one_to_one(output, 'molsysmt.MolSys', to_form=to_form)
+        output = _convert_one_to_one(output, 'molsysmt.MolSys', to_form=to_form, **kwargs)
 
     return output
 

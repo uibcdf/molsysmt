@@ -1,3 +1,4 @@
+from .to_file_h5msm import to_file_h5msm
 from .to_mdtraj_Trajectory import to_mdtraj_Trajectory
 from .to_file_xtc import to_file_xtc
 from .to_mdtraj_XTCTrajectoryFile import to_mdtraj_XTCTrajectoryFile
@@ -31,6 +32,10 @@ _convert_to={
         'mdtraj.Trajectory': to_mdtraj_Trajectory,
         'mdtraj.XTCTrajectoryFile': to_mdtraj_XTCTrajectoryFile,
         'molsysmt.Structures': to_molsysmt_Structures,
+        'file:h5msm': to_file_h5msm,
         }
+_heavy_support = {
+    'coordinates': True,
+}
 bonds_are_explicit = False
 bonds_can_be_computed = False

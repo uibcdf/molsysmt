@@ -82,6 +82,14 @@ large_list_length = 10000
 # Visibility
 show_all_capabilities = True
 
+# Heavy trajectory processing
+import os as _os
+max_ram_usage = int(0.5 * _os.sysconf('SC_PAGE_SIZE') * _os.sysconf('SC_PHYS_PAGES'))  # 50% of total RAM in bytes
+heavy_mode = 'auto'   # 'auto' | 'force' | 'off'
+chunk_size = 100      # default number of frames per chunk
+emit_heavy_telemetry = True
+del _os
+
 # Topology
 min_length_protein = 50
 

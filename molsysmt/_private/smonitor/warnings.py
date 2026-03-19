@@ -88,6 +88,20 @@ class MolecularSystemMismatchWarning(UserMolSysMTWarning):
         super().__init__(extra=extra)
 
 
+class SlowChunkIOWarning(MolSysMTCatalogWarning):
+    catalog_key = "SlowChunkIOWarning"
+
+    def __init__(self, chunk_index, io_time_s):
+        super().__init__(extra={"chunk_index": chunk_index, "io_time_s": io_time_s})
+
+
+class CorruptFrameSkippedWarning(MolSysMTCatalogWarning):
+    catalog_key = "CorruptFrameSkippedWarning"
+
+    def __init__(self, chunk_index, frame_index, reason):
+        super().__init__(extra={"chunk_index": chunk_index, "frame_index": frame_index, "reason": reason})
+
+
 __all__ = [
     "UserMolSysMTWarning",
     "SelectionWarning",
@@ -96,6 +110,8 @@ __all__ = [
     "DownloadWarning",
     "NotDigestedArgumentWarning",
     "MolecularSystemMismatchWarning",
+    "SlowChunkIOWarning",
+    "CorruptFrameSkippedWarning",
     "warn",
     "warn_once",
 ]

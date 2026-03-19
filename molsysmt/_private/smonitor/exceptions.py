@@ -239,6 +239,30 @@ class FormatError(CoreFormatError, MolSysMTCatalogException):
         super().__init__(message=message, extra=extra)
 
 
+class UnsupportedHeavyOperationError(MolSysMTCatalogException):
+    catalog_key = "UnsupportedHeavyOperationError"
+
+    def __init__(self, operation, form, reason, caller=None, message=None):
+        extra = {"operation": operation, "form": form, "reason": reason}
+        if caller:
+            extra["caller"] = caller
+        super().__init__(message=message, extra=extra)
+
+
+class HeavyOutputFailureError(MolSysMTCatalogException):
+    catalog_key = "HeavyOutputFailureError"
+
+    def __init__(self, reason, predicted_bytes=None, available_bytes=None, caller=None, message=None):
+        extra = {"reason": reason}
+        if predicted_bytes is not None:
+            extra["predicted_bytes"] = predicted_bytes
+        if available_bytes is not None:
+            extra["available_bytes"] = available_bytes
+        if caller:
+            extra["caller"] = caller
+        super().__init__(message=message, extra=extra)
+
+
 from .warnings import NotDigestedArgumentWarning  # noqa: E402
 
 __all__ = [
@@ -263,4 +287,6 @@ __all__ = [
     "FileContentError",
     "FormatError",
     "NotDigestedArgumentWarning",
+    "UnsupportedHeavyOperationError",
+    "HeavyOutputFailureError",
 ]

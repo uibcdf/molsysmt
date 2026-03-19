@@ -1,3 +1,4 @@
+from .to_file_h5msm import to_file_h5msm
 from .to_mdtraj_DCDTrajectoryFile import to_mdtraj_DCDTrajectoryFile
 from .to_molsysmt_MolSys import to_molsysmt_MolSys
 from .to_file_dcd import to_file_dcd
@@ -33,5 +34,6 @@ _convert_to={
         'mdtraj.DCDTrajectoryFile': to_mdtraj_DCDTrajectoryFile,
         'molsysmt.MolSys': to_molsysmt_MolSys,
         'molsysmt.Structures': to_molsysmt_Structures,
+        'file:h5msm': to_file_h5msm,
         }
 

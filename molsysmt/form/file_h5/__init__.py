@@ -1,3 +1,4 @@
+from .to_file_h5msm import to_file_h5msm
 from .to_nglview_NGLWidget import to_nglview_NGLWidget
 from .to_file_pdb import to_file_pdb
 from .to_mdtraj_Trajectory import to_mdtraj_Trajectory
@@ -45,4 +46,5 @@ _convert_to={
         'mdtraj.Topology': to_mdtraj_Topology,
         'mdtraj.Trajectory': to_mdtraj_Trajectory,
         'file:pdb': to_file_pdb,
+        'file:h5msm': to_file_h5msm,
         }
