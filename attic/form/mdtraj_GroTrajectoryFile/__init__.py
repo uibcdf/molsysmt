@@ -1,2 +1,0 @@
-from .is_mdtraj_GroTrajectoryFile import is_mdtraj_GroTrajectoryFile
-

@@ -59,6 +59,7 @@ MAPPING = {
     'parmed_Structure': 'parmed',
     'parmed_GromacsTopologyFile': 'parmed',
     'file_mol2': 'parmed',
+    'file_top': 'parmed',
     'pytraj_Trajectory': 'pytraj',
     'pytraj_Topology': 'pytraj',
     'pdbfixer_PDBFixer': 'pdbfixer',
