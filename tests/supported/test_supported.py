@@ -96,6 +96,15 @@ def test_supported_1():
         ('string:pdb_text', 'string'),
         ('openff.Molecule', 'class'),
         ('openff.Topology', 'class'),
+        ('MDAnalysis.topology.PDBParser', 'class'),
+        ('mdtraj.AmberRestartFile', 'class'),
+        ('mdtraj.GroTrajectoryFile', 'class'),
+        ('mdtraj.PDBTrajectoryFile', 'class'),
+        ('parmed.GromacsTopologyFile', 'class'),
+        ('file:mdcrd', 'file'),
+        ('file:top', 'file'),
+        ('file:xyz', 'file'),
+        ('string:uniprot_id', 'string'),
     ])
 
     assert df_data == good_df_data
@@ -131,7 +140,12 @@ def test_supported_2():
                      'string:amino_acids_1', 'string:amino_acids_3', 'string:pdb_id',
                      'string:pdb_text', 'XYZ',
                      'file:fasta', 'file:pir', 'file:smi', 'string:smiles',
-                     'openff.Molecule', 'openff.Topology']
+                     'openff.Molecule', 'openff.Topology',
+                     'MDAnalysis.topology.PDBParser',
+                     'mdtraj.AmberRestartFile', 'mdtraj.GroTrajectoryFile', 'mdtraj.PDBTrajectoryFile',
+                     'parmed.GromacsTopologyFile',
+                     'file:mdcrd', 'file:top', 'file:xyz',
+                     'string:uniprot_id']
 
     assert set(df.index)==set(good_aux_list)
     assert set(df.columns)==set(good_aux_list)
@@ -167,7 +181,12 @@ def test_supported_3():
                      'string:amino_acids_1', 'string:amino_acids_3', 'string:pdb_id',
                      'string:pdb_text', 'XYZ',
                      'file:fasta', 'file:pir', 'file:smi', 'string:smiles',
-                     'openff.Molecule', 'openff.Topology']
+                     'openff.Molecule', 'openff.Topology',
+                     'MDAnalysis.topology.PDBParser',
+                     'mdtraj.AmberRestartFile', 'mdtraj.GroTrajectoryFile', 'mdtraj.PDBTrajectoryFile',
+                     'parmed.GromacsTopologyFile',
+                     'file:mdcrd', 'file:top', 'file:xyz',
+                     'string:uniprot_id']
 
     assert set(df.index)==set(good_aux_list)
     assert list(df.columns)==['nglview.NGLWidget']
