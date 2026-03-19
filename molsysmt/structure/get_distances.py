@@ -189,24 +189,26 @@ def get_distances(molecular_system, selection="all", structure_indices="all", ce
 
     if engine=='MolSysMT':
 
-        from molsysmt.basic import get
-        from molsysmt.file import is_file
+        from molsysmt.basic import get, get_form
+        from molsysmt.form import is_file as _is_file
 
         in_memory = True
-        if is_file(molecular_system):
+        if _is_file(get_form(molecular_system)):
             in_memory = False
 
         if in_memory:
             if molecular_system_2 is not None:
-                if is_file(molecular_system_2):
+                if _is_file(get_form(molecular_system_2)):
                     in_memory = False
 
         # Decide eager vs heavy based on footprint
         from molsysmt._private.execution.memory_policy import estimate_footprint, decide_mode
         from molsysmt.basic import get_form, get as msm_get
 
-        _n_atoms_est = len(np.atleast_1d(atom_indices)) if not is_all(atom_indices) else \
-            msm_get(molecular_system, element='system', n_atoms=True)
+        if is_all(atom_indices):
+            _n_atoms_est = msm_get(molecular_system, element='system', n_atoms=True)
+        else:
+            _n_atoms_est = len(atom_indices)
         _n_structures_est = msm_get(molecular_system, element='system', n_structures=True)
         footprint = estimate_footprint(_n_atoms_est, _n_structures_est)
         mode = decide_mode(footprint, heavy_mode)

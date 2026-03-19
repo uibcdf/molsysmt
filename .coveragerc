@@ -6,6 +6,10 @@ source = molsysmt
 relative_files = True
 omit =
     */molecular_dynamics/*
+    # Numba JIT kernels: all functions in lib/ are compiled with lazy_njit (numba.njit).
+    # Python coverage.py cannot track JIT-compiled function bodies — the low numbers
+    # here are a tooling limitation, not missing tests. Tests DO exist in tests/lib/.
+    */lib/*
     # Piped getter files: generated delegation code — all calls forward to
     # the piped form's getters; testing them individually is redundant.
     # Forms piped to molsysmt.Topology:
