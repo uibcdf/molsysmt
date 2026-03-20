@@ -17,6 +17,7 @@ N_GROUPS = 255
 
 
 @pytest.mark.network
+@pytest.mark.xdist_group("network")
 def test_download_and_basic_count():
     """Download AF-P62258-F1 from AlphaFold DB and verify group count."""
     n = aux.get_n_groups_from_system('alphafold_id:AF-P62258-F1')

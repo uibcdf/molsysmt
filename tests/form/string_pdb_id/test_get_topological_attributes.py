@@ -18,6 +18,7 @@ N_ATOMS = 1079
 
 
 @pytest.mark.network
+@pytest.mark.xdist_group("network")
 def test_download_and_basic_count():
     """Download 1aki from RCSB and verify atom count through the full pipeline."""
     n = aux.get_n_atoms_from_system('pdb_id:1aki')

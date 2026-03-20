@@ -8,6 +8,7 @@ def to_mmcif_PdbxContainers_DataContainer(item, atom_indices='all', structure_in
     import urllib.request
     from urllib.request import urlretrieve
     import json
+    import time
     from os import remove
     from os.path import exists
     from molsysmt._private.files_and_directories import temp_filename
@@ -17,14 +18,22 @@ def to_mmcif_PdbxContainers_DataContainer(item, atom_indices='all', structure_in
     uniprot_id = item.split('-')[-2]
 
     api_url = f"https://alphafold.ebi.ac.uk/api/prediction/{uniprot_id}"
-
     request = urllib.request.Request(api_url, headers={"accept": "application/json"})
 
-    with urllib.request.urlopen(request) as response:
-        if response.status != 200:
-            raise Exception(f"Error accessing the API: {response.status}")
-
-        response_data = response.read()
+    # Retry with exponential backoff: AlphaFold API occasionally returns HTTP 500.
+    _retries = 3
+    _delay = 2.0
+    for _attempt in range(_retries):
+        try:
+            with urllib.request.urlopen(request) as response:
+                response_data = response.read()
+            break
+        except urllib.error.HTTPError as e:
+            if e.code == 500 and _attempt < _retries - 1:
+                time.sleep(_delay)
+                _delay *= 2
+            else:
+                raise
 
     aux_json = json.loads(response_data)
     fullbcifurl = aux_json[0]['bcifUrl']

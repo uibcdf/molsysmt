@@ -27,6 +27,7 @@ def test_get_sequence_alignment_molsysmt_MolSys_2(capsys):
     assert captured.out=='-AAL\x1b[1;31;48mV\x1b[m\x1b[1;31;48mR\x1b[mDAVR-\n\n\x1b[1;34;48mE\x1b[mAAL\x1b[1;31;48mF\x1b[m\x1b[1;31;48mN\x1b[mDAVR\x1b[1;34;48mQ\x1b[m\n'
 
 @pytest.mark.network
+@pytest.mark.xdist_group("network")
 def test_get_sequence_alignment_molsysmt_MolSys_3(capsys):
     molsys_X = msm.convert('2NZT')
     molsys_X = msm.remove(molsys_X, selection='molecule_type!="protein"')

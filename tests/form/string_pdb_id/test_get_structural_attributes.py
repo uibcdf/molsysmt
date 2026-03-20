@@ -16,6 +16,7 @@ N_ATOMS = 1079
 
 
 @pytest.mark.network
+@pytest.mark.xdist_group("network")
 def test_download_and_coordinates():
     """Download 1aki from RCSB and verify coordinates shape through the full pipeline."""
     coords = aux.get_coordinates_from_atom('pdb_id:1aki')
