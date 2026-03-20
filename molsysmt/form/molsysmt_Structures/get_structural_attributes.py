@@ -288,6 +288,8 @@ def get_bioassembly_from_system(item, skip_digestion=False):
 @arg_digest(form=form)
 def get_n_bioassemblies_from_system(item, skip_digestion=False):
 
+    if item.bioassembly is None:
+        return 0
     return len(item.bioassembly)
 
 # List of functions to be imported

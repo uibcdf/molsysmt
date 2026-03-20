@@ -124,22 +124,12 @@ class TestGetNStructuresFromSystem:
 
 class TestGetCoordinatesFromSystem:
 
-    @pytest.mark.xfail(
-        reason="get_coordinates_from_system delegates to a non-existent function in H5MSMFileHandler (ImportError)",
-        raises=ImportError,
-        strict=True,
-    )
     def test_all_structures(self):
         coords = aux.get_coordinates_from_system(file_traj, skip_digestion=True)
         assert coords is not None
         val = puw.get_value(coords, to_unit='nm')
         assert val.shape == (5000, 62, 3)
 
-    @pytest.mark.xfail(
-        reason="get_coordinates_from_system delegates to a non-existent function in H5MSMFileHandler (ImportError)",
-        raises=ImportError,
-        strict=True,
-    )
     def test_subset_structure_indices(self):
         coords = aux.get_coordinates_from_system(file_traj, structure_indices=[0, 1], skip_digestion=True)
         val = puw.get_value(coords, to_unit='nm')
@@ -177,11 +167,6 @@ class TestGetBoxFromSystem:
 
 class TestGetBoxShapeFromSystem:
 
-    @pytest.mark.xfail(
-        reason="get_box_shape_from_system delegates to a non-existent function in H5MSMFileHandler (ImportError)",
-        raises=ImportError,
-        strict=True,
-    )
     def test_returns_value(self):
         result = aux.get_box_shape_from_system(file_bb, skip_digestion=True)
         # shape is a string (e.g. 'cubic', 'triclinic') or None
@@ -190,11 +175,6 @@ class TestGetBoxShapeFromSystem:
 
 class TestGetBoxLengthsFromSystem:
 
-    @pytest.mark.xfail(
-        reason="get_box_lengths_from_system delegates to a non-existent function in H5MSMFileHandler (ImportError)",
-        raises=ImportError,
-        strict=True,
-    )
     def test_returns_quantity(self):
         result = aux.get_box_lengths_from_system(file_bb, skip_digestion=True)
         assert result is not None
@@ -207,11 +187,6 @@ class TestGetBoxLengthsFromSystem:
 
 class TestGetBoxAnglesFromSystem:
 
-    @pytest.mark.xfail(
-        reason="get_box_angles_from_system delegates to a non-existent function in H5MSMFileHandler (ImportError)",
-        raises=ImportError,
-        strict=True,
-    )
     def test_returns_quantity(self):
         result = aux.get_box_angles_from_system(file_bb, skip_digestion=True)
         assert result is not None
@@ -222,11 +197,6 @@ class TestGetBoxAnglesFromSystem:
 
 class TestGetBoxVolumeFromSystem:
 
-    @pytest.mark.xfail(
-        reason="get_box_volume_from_system delegates to a non-existent function in H5MSMFileHandler (ImportError)",
-        raises=ImportError,
-        strict=True,
-    )
     def test_returns_quantity(self):
         result = aux.get_box_volume_from_system(file_bb, skip_digestion=True)
         assert result is not None
@@ -262,20 +232,11 @@ class TestGetTimeFromSystem:
 
 class TestGetStructureIdFromSystem:
 
-    @pytest.mark.xfail(
-        reason="get_structure_id_from_system uses undefined np_arange (NameError) on constant_id_step+all path",
-        raises=NameError,
-        strict=True,
-    )
     def test_constant_id_step_all(self):
         # hp35_solvated has constant_id_step=True; structure_indices='all' triggers np_arange bug
         result = aux.get_structure_id_from_system(file_hp35, skip_digestion=True)
         assert result is not None
 
-    @pytest.mark.xfail(
-        reason="get_structure_id_from_system in file_h5msm is missing 'return output' — always returns None",
-        strict=True,
-    )
     def test_constant_id_step_subset(self):
         # With explicit structure_indices, the constant_id_step branch computes
         # init_id + id_step * structure_indices — no np_arange involved.

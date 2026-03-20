@@ -39,6 +39,9 @@ def get_coordinates_from_atom(item, indices='all', structure_indices='all', skip
 @arg_digest(form=form)
 def get_velocities_from_atom(item, indices='all', structure_indices='all', skip_digestion=False):
 
+    if item.file['structures']['velocities'].shape[0] == 0:
+        return None
+
     if is_all(structure_indices):
         if is_all(indices):
             output = item.file['structures']['velocities'][:,:,:].astype('float')
@@ -129,7 +132,7 @@ def get_time_from_system(item, structure_indices='all', skip_digestion=False):
         time_step = item.file['structures'].attrs['time_step']
         if is_all(structure_indices):
             n_structures = item.file['structures'].attrs['n_structures_written']
-            output = init_time + time_step*np_arange(n_structures)
+            output = init_time + time_step*np.arange(n_structures)
         else:
             output = init_time + time_step*structure_indices
     else:
@@ -145,12 +148,15 @@ def get_time_from_system(item, structure_indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_structure_id_from_system(item, structure_indices='all', skip_digestion=False):
 
+    if item.file['structures']['id'].shape[0] == 0:
+        return None
+
     if item.file['structures'].attrs['constant_id_step']:
         init_id = item.file['structures']['id'][0]
         id_step = item.file['structures'].attrs['id_step']
         if is_all(structure_indices):
             n_structures = item.file['structures'].attrs['n_structures_written']
-            output = init_id + id_step*np_arange(n_structures)
+            output = init_id + id_step*np.arange(n_structures)
         else:
             output = init_id + id_step*structure_indices
     else:
@@ -188,7 +194,7 @@ def get_potential_energy_from_system(item, structure_indices='all', skip_digesti
 @arg_digest(form=form)
 def get_temperature_from_system(item, structure_indices='all', skip_digestion=False):
 
-    constant_R = puw.get_constant('R')
+    constant_R = puw.constants.get_constant('R')
 
     if item.file['structures'].attrs['temperature_from_kinetic_energy']:
 
@@ -212,5 +218,129 @@ def get_temperature_from_system(item, structure_indices='all', skip_digestion=Fa
 def get_b_factor_from_system(item, structure_indices='all', skip_digestion=False):
 
     return get_b_factor_from_atom(item, structure_indices=structure_indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_coordinates_from_system(item, structure_indices='all', skip_digestion=False):
+
+    return get_coordinates_from_atom(item, indices='all', structure_indices=structure_indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_velocities_from_system(item, structure_indices='all', skip_digestion=False):
+
+    return get_velocities_from_atom(item, indices='all', structure_indices=structure_indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_occupancy_from_atom(item, indices='all', structure_indices='all', skip_digestion=False):
+
+    if 'occupancy' not in item.file['structures']:
+        return None
+
+    if item.file['structures']['occupancy'].shape[0] == 0:
+        return None
+
+    if is_all(structure_indices):
+        if is_all(indices):
+            output = item.file['structures']['occupancy'][:, :].astype('float')
+        else:
+            output = item.file['structures']['occupancy'][:, indices].astype('float')
+    else:
+        output = []
+        for ii in structure_indices:
+            if is_all(indices):
+                output.append(item.file['structures']['occupancy'][ii, :].astype('float'))
+            else:
+                output.append(item.file['structures']['occupancy'][ii, indices].astype('float'))
+        output = np.array(output)
+
+    return output
+
+@arg_digest(form=form)
+def get_occupancy_from_system(item, structure_indices='all', skip_digestion=False):
+
+    return get_occupancy_from_atom(item, indices='all', structure_indices=structure_indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_alternate_location_from_atom(item, indices='all', structure_indices='all', skip_digestion=False):
+
+    if 'alternate_location' not in item.file['structures']:
+        return None
+
+    if item.file['structures']['alternate_location'].shape[0] == 0:
+        return None
+
+    if is_all(structure_indices):
+        if is_all(indices):
+            output = item.file['structures']['alternate_location'][:, :].astype('str').tolist()
+        else:
+            output = item.file['structures']['alternate_location'][:, indices].astype('str').tolist()
+    else:
+        output = []
+        for ii in structure_indices:
+            if is_all(indices):
+                output.append(item.file['structures']['alternate_location'][ii, :].astype('str').tolist())
+            else:
+                output.append(item.file['structures']['alternate_location'][ii, indices].astype('str').tolist())
+
+    return output
+
+@arg_digest(form=form)
+def get_alternate_location_from_system(item, structure_indices='all', skip_digestion=False):
+
+    return get_alternate_location_from_atom(item, indices='all', structure_indices=structure_indices, skip_digestion=True)
+
+@arg_digest(form=form)
+def get_bioassembly_from_system(item, skip_digestion=False):
+
+    if 'bioassembly' not in item.file:
+        return None
+
+    import json
+    return json.loads(item.file['bioassembly'][()])
+
+@arg_digest(form=form)
+def get_n_bioassemblies_from_system(item, skip_digestion=False):
+
+    bioassembly = get_bioassembly_from_system(item, skip_digestion=True)
+    if bioassembly is None:
+        return 0
+    return len(bioassembly)
+
+@arg_digest(form=form)
+def get_box_shape_from_system(item, structure_indices='all', skip_digestion=False):
+
+    from molsysmt.pbc import get_shape_from_box
+    box = get_box_from_system(item, structure_indices=structure_indices, skip_digestion=True)
+    if box is None:
+        return None
+    return get_shape_from_box(box, skip_digestion=False)
+
+@arg_digest(form=form)
+def get_box_lengths_from_system(item, structure_indices='all', skip_digestion=False):
+
+    from molsysmt.pbc import get_lengths_and_angles_from_box
+    box = get_box_from_system(item, structure_indices=structure_indices, skip_digestion=True)
+    if box is None:
+        return None
+    lengths, _ = get_lengths_and_angles_from_box(box, skip_digestion=True)
+    return lengths
+
+@arg_digest(form=form)
+def get_box_angles_from_system(item, structure_indices='all', skip_digestion=False):
+
+    from molsysmt.pbc import get_lengths_and_angles_from_box
+    box = get_box_from_system(item, structure_indices=structure_indices, skip_digestion=True)
+    if box is None:
+        return None
+    _, angles = get_lengths_and_angles_from_box(box, skip_digestion=True)
+    return angles
+
+@arg_digest(form=form)
+def get_box_volume_from_system(item, structure_indices='all', skip_digestion=False):
+
+    from molsysmt.pbc import get_volume_from_box
+    box = get_box_from_system(item, structure_indices=structure_indices, skip_digestion=True)
+    if box is None:
+        return None
+    return get_volume_from_box(box)
 
 

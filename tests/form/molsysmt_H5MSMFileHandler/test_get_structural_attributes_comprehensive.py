@@ -316,11 +316,6 @@ class TestGetTemperatureFromSystemSubset:
     which is itself on the executed-but-raises path that coverage counts).
     """
 
-    @pytest.mark.xfail(
-        reason="get_temperature_from_system always raises AttributeError: puw.get_constant not available",
-        raises=AttributeError,
-        strict=True,
-    )
     def test_all_structures_returns_quantity(self, synth_handler):
         # Lines 191-208 — function body entered, crashes at line 191
         result = aux.get_temperature_from_system(synth_handler, skip_digestion=True)
@@ -330,11 +325,6 @@ class TestGetTemperatureFromSystemSubset:
         assert val.shape == (3,)
         assert val[0] == pytest.approx(300.0, abs=1.0)
 
-    @pytest.mark.xfail(
-        reason="get_temperature_from_system always raises AttributeError: puw.get_constant not available",
-        raises=AttributeError,
-        strict=True,
-    )
     def test_subset_structure_indices(self, synth_handler):
         # Lines 204-208 would be reached once line 191 is fixed
         result = aux.get_temperature_from_system(
@@ -346,11 +336,6 @@ class TestGetTemperatureFromSystemSubset:
         assert val[0] == pytest.approx(300.0, abs=1.0)
         assert val[1] == pytest.approx(320.0, abs=1.0)
 
-    @pytest.mark.xfail(
-        reason="get_temperature_from_system always raises AttributeError: puw.get_constant not available",
-        raises=AttributeError,
-        strict=True,
-    )
     def test_single_structure(self, synth_handler):
         result = aux.get_temperature_from_system(
             synth_handler, structure_indices=np.array([1]), skip_digestion=True

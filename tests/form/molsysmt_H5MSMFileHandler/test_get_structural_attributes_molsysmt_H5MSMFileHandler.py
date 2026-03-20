@@ -214,11 +214,6 @@ class TestGetTimeFromSystem:
         result = aux.get_time_from_system(handler_bb, skip_digestion=True)
         assert result is None
 
-    @pytest.mark.xfail(
-        reason="get_time_from_system uses undefined np_arange (NameError) on constant_time_step path",
-        raises=NameError,
-        strict=True,
-    )
     def test_constant_time_step_all_structures(self):
         # hp35_solvated: constant_time_step=True, time_step=20000, init_time=0
         result = aux.get_time_from_system(handler_hp35, skip_digestion=True)
@@ -230,11 +225,6 @@ class TestGetTimeFromSystem:
 
 class TestGetStructureIdFromSystem:
 
-    @pytest.mark.xfail(
-        reason="get_structure_id_from_system uses undefined np_arange (NameError) on constant_id_step path",
-        raises=NameError,
-        strict=True,
-    )
     def test_constant_id_step(self):
         # hp35_solvated: constant_id_step=True, id_step=10000000, id[0]=0
         result = aux.get_structure_id_from_system(handler_hp35, skip_digestion=True)
@@ -246,11 +236,6 @@ class TestGetStructureIdFromSystem:
         # Non-constant path reads the array directly — may be empty
         assert result is not None or result is None
 
-    @pytest.mark.xfail(
-        reason="Indexing into empty h5py id dataset raises OSError when structure_indices are given",
-        raises=OSError,
-        strict=True,
-    )
     def test_non_constant_id_subset(self):
         result = aux.get_structure_id_from_system(
             handler_traj, structure_indices=[0], skip_digestion=True
