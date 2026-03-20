@@ -66,32 +66,6 @@ def pytest_collection_modifyitems(config, items):
             config.hook.pytest_deselected(items=deselected)
             items[:] = [item for item in items if not item.get_closest_marker('peptide_parity')]
 
-# ---------------------------------------------------------------------------
-# network mark: convert urllib HTTP/URL errors into xfail (transient API failures)
-# ---------------------------------------------------------------------------
-
-@pytest.hookimpl(hookwrapper=True)
-def pytest_runtest_makereport(item, call):
-    """Convert urllib network errors into xfail for @pytest.mark.network tests.
-
-    When an external service returns HTTP 5xx or is unreachable, treat the
-    failure as an expected (xfail) outcome so the suite is not broken by
-    third-party downtime.
-    """
-    import urllib.error
-    outcome = yield
-    report = outcome.get_result()
-    if (
-        call.when == 'call'
-        and report.failed
-        and item.get_closest_marker('network')
-        and call.excinfo is not None
-        and issubclass(call.excinfo.type, (urllib.error.HTTPError, urllib.error.URLError))
-    ):
-        report.outcome = 'skipped'
-        report.wasxfail = f"xfail: External service unavailable: {call.excinfo.value}"
-
-
 # Base loaders (session scope) to avoid repeated IO/parsing
 
 @pytest.fixture(scope="session")
