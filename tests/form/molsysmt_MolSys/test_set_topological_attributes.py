@@ -16,6 +16,7 @@ HP35 quick reference (1vii.pdb):
 
 import pytest
 import numpy as np
+from molsysmt import pyunitwizard as puw
 from molsysmt.form.molsysmt_MolSys import set as aux
 from molsysmt.form.molsysmt_MolSys import get_topological_attributes as get_aux
 
@@ -355,3 +356,121 @@ class TestIsolation:
         # copy_b must still have the original names
         assert names_b == original_names
         assert names_b != names_a
+
+
+# ---------------------------------------------------------------------------
+# Atom-level setters — previously uncovered
+# ---------------------------------------------------------------------------
+
+class TestAtomLevelSettersUncovered:
+
+    def test_set_group_index_to_atom(self, hp35_pdb_molsys):
+        from molsysmt.form.molsysmt_MolSys import get_topological_attributes as get_aux2
+        group_indices = get_aux2.get_group_index_from_atom(hp35_pdb_molsys)
+        aux.set_group_index_to_atom(hp35_pdb_molsys, value=group_indices, skip_digestion=True)
+        result = get_aux2.get_group_index_from_atom(hp35_pdb_molsys)
+        assert result == group_indices
+
+    def test_set_component_index_to_atom_broadcast(self, hp35_pdb_molsys):
+        """Single-value broadcast path: len(value)==1."""
+        aux.set_component_index_to_atom(hp35_pdb_molsys, value=[0], skip_digestion=True)
+
+    def test_set_component_index_to_atom_full(self, hp35_pdb_molsys):
+        """Full-array path: len(value)==N_ATOMS."""
+        aux.set_component_index_to_atom(hp35_pdb_molsys, value=[0] * N_ATOMS, skip_digestion=True)
+
+    def test_set_component_name_to_atom(self, hp35_pdb_molsys):
+        aux.set_component_name_to_atom(hp35_pdb_molsys, value=['CompA'] * N_ATOMS, skip_digestion=True)
+
+    def test_set_component_id_to_atom(self, hp35_pdb_molsys):
+        aux.set_component_id_to_atom(hp35_pdb_molsys, value=['0'] * N_ATOMS, skip_digestion=True)
+
+    def test_set_component_type_to_atom(self, hp35_pdb_molsys):
+        aux.set_component_type_to_atom(hp35_pdb_molsys, value=['peptide'] * N_ATOMS, skip_digestion=True)
+
+    def test_set_molecule_index_to_atom(self, hp35_pdb_molsys):
+        aux.set_molecule_index_to_atom(hp35_pdb_molsys, value=[0] * N_ATOMS, skip_digestion=True)
+
+    def test_set_molecule_id_to_atom(self, hp35_pdb_molsys):
+        aux.set_molecule_id_to_atom(hp35_pdb_molsys, value=['mol0'] * N_ATOMS, skip_digestion=True)
+
+    def test_set_chain_type_to_atom(self, hp35_pdb_molsys):
+        aux.set_chain_type_to_atom(hp35_pdb_molsys, value=['protein'] * N_ATOMS, skip_digestion=True)
+
+    def test_set_entity_index_to_atom(self, hp35_pdb_molsys):
+        aux.set_entity_index_to_atom(hp35_pdb_molsys, value=[0] * N_ATOMS, skip_digestion=True)
+
+    def test_set_entity_id_to_atom(self, hp35_pdb_molsys):
+        aux.set_entity_id_to_atom(hp35_pdb_molsys, value=['0'] * N_ATOMS, skip_digestion=True)
+
+    def test_set_velocities_to_atom(self, hp35_pdb_molsys):
+        vel = puw.quantity(np.zeros((1, N_ATOMS, 3), dtype=np.float64), 'nm/ps')
+        aux.set_velocities_to_atom(hp35_pdb_molsys, value=vel, skip_digestion=True)
+        assert hp35_pdb_molsys.structures.velocities is not None
+
+
+# ---------------------------------------------------------------------------
+# Group-level setters — previously uncovered
+# ---------------------------------------------------------------------------
+
+class TestGroupLevelSettersUncovered:
+
+    def test_set_molecule_id_to_group(self, hp35_pdb_molsys):
+        aux.set_molecule_id_to_group(hp35_pdb_molsys, value=['mol0'] * N_GROUPS, skip_digestion=True)
+
+    def test_set_chain_id_to_group(self, hp35_pdb_molsys):
+        aux.set_chain_id_to_group(hp35_pdb_molsys, value=['A'] * N_GROUPS, skip_digestion=True)
+
+    def test_set_chain_type_to_group(self, hp35_pdb_molsys):
+        aux.set_chain_type_to_group(hp35_pdb_molsys, value=['protein'] * N_GROUPS, skip_digestion=True)
+
+    def test_set_entity_id_to_group(self, hp35_pdb_molsys):
+        aux.set_entity_id_to_group(hp35_pdb_molsys, value=['0'] * N_GROUPS, skip_digestion=True)
+
+
+# ---------------------------------------------------------------------------
+# System-level structural setter — previously uncovered
+# ---------------------------------------------------------------------------
+
+class TestSystemLevelSettersUncovered:
+
+    def test_set_coordinates_to_system(self, hp35_pdb_molsys):
+        from molsysmt.form.molsysmt_MolSys.get_structural_attributes import get_coordinates_from_atom
+        coords = get_coordinates_from_atom(hp35_pdb_molsys, skip_digestion=True)
+        aux.set_coordinates_to_system(hp35_pdb_molsys, value=coords, skip_digestion=True)
+
+
+# ---------------------------------------------------------------------------
+# Topology else-branch coverage (specific atom indices)
+# ---------------------------------------------------------------------------
+
+class TestTopologyElseBranches:
+    """Covers the else (non-all indices) branches in Topology/set.py."""
+
+    def test_set_atom_type_specific_indices(self, hp35_pdb_molsys):
+        aux.set_atom_type_to_atom(hp35_pdb_molsys, indices=[0, 1, 2],
+                                  value=['C', 'N', 'O'], skip_digestion=True)
+        result = get_aux.get_atom_type_from_atom(hp35_pdb_molsys)
+        assert result[0] == 'C'
+        assert result[1] == 'N'
+        assert result[2] == 'O'
+
+    def test_set_group_id_to_atom_specific_indices(self, hp35_pdb_molsys):
+        aux.set_group_id_to_atom(hp35_pdb_molsys, indices=[0, 1],
+                                 value=['999', '999'], skip_digestion=True)
+
+    def test_set_group_name_to_atom_specific_indices(self, hp35_pdb_molsys):
+        aux.set_group_name_to_atom(hp35_pdb_molsys, indices=[0],
+                                   value=['ALA'], skip_digestion=True)
+
+    def test_set_group_type_to_atom_specific_indices(self, hp35_pdb_molsys):
+        aux.set_group_type_to_atom(hp35_pdb_molsys, indices=[0],
+                                   value=['amino acid'], skip_digestion=True)
+
+    def test_set_group_index_to_atom_specific_indices(self, hp35_pdb_molsys):
+        aux.set_group_index_to_atom(hp35_pdb_molsys, indices=[0],
+                                    value=[0], skip_digestion=True)
+
+    def test_set_component_index_to_atom_specific_indices(self, hp35_pdb_molsys):
+        aux.set_component_index_to_atom(hp35_pdb_molsys, indices=[0, 1],
+                                        value=[0, 0], skip_digestion=True)
