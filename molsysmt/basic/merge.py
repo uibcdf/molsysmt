@@ -134,7 +134,8 @@ def merge(molecular_systems,
     aux_molecular_systems = []
     aux_atom_indices = []
     aux_structure_indices = []
-    to_form = get_form(molecular_systems[0])
+    if to_form is None:
+        to_form = get_form(molecular_systems[0])
     for tmp_molecular_system, tmp_selection, tmp_structure_indices in zip(molecular_systems,
             selections, structure_indices):
         tmp_form = get_form(tmp_molecular_system)

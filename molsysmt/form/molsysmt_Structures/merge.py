@@ -39,9 +39,9 @@ def merge(items, atom_indices='all', structure_indices='all', skip_digestion=Fal
         output.time = deepcopy(items[0].time)
     else:
         n_structures = len(first_structure_indices)
-        output.box = items[0].box[first_structure_indices,:,:]
-        output.structure_id = items[0].structure_id[first_structure_indices]
-        output.time = items[0].time[first_structure_indices]
+        output.box = None if items[0].box is None else items[0].box[first_structure_indices,:,:]
+        output.structure_id = None if items[0].structure_id is None else items[0].structure_id[first_structure_indices]
+        output.time = None if items[0].time is None else items[0].time[first_structure_indices]
 
     output.alternate_location = [{} for ii in range(n_structures)]
 
