@@ -1,0 +1,199 @@
+"""
+Extended tests for molsysmt.native.Structures covering uncovered properties and methods.
+"""
+import numpy as np
+import pytest
+from molsysmt.native import Structures
+from molsysmt import pyunitwizard as puw
+from molsysmt._private.smonitor import ArgumentLengthError
+
+
+def _coords(n_structures=1, n_atoms=5):
+    val = np.random.rand(n_structures, n_atoms, 3).astype(np.float64)
+    return puw.quantity(val, 'nm')
+
+
+def _velocity(n_structures=1, n_atoms=5):
+    val = np.random.rand(n_structures, n_atoms, 3).astype(np.float64)
+    return puw.quantity(val, 'nm/ps')
+
+
+def _box(n_structures=1):
+    val = np.eye(3)[np.newaxis, :, :].repeat(n_structures, axis=0) * 3.0
+    return puw.quantity(val, 'nm')
+
+
+def _time(n_structures=1):
+    val = np.arange(n_structures, dtype=np.float64)
+    return puw.quantity(val, 'ps')
+
+
+# ---------------------------------------------------------------------------
+# n_structures property
+# ---------------------------------------------------------------------------
+
+def test_n_structures_from_velocities():
+    """n_structures falls back to velocities when coordinates is None."""
+    s = Structures()
+    s.velocities = _coords(n_structures=3)
+    assert s.n_structures == 3
+
+
+def test_n_structures_from_box():
+    """n_structures falls back to box when both coordinates and velocities are None."""
+    s = Structures()
+    s.box = _box(n_structures=2)
+    assert s.n_structures == 2
+
+
+def test_n_structures_empty():
+    """n_structures is 0 when everything is None."""
+    s = Structures()
+    assert s.n_structures == 0
+
+
+# ---------------------------------------------------------------------------
+# n_atoms property
+# ---------------------------------------------------------------------------
+
+def test_n_atoms_from_velocities():
+    """n_atoms falls back to velocities when coordinates is None."""
+    s = Structures()
+    s.velocities = _coords(n_structures=1, n_atoms=7)
+    assert s.n_atoms == 7
+
+
+def test_n_atoms_empty():
+    """n_atoms is 0 when both coordinates and velocities are None."""
+    s = Structures()
+    assert s.n_atoms == 0
+
+
+# ---------------------------------------------------------------------------
+# append — argument length errors
+# ---------------------------------------------------------------------------
+
+def test_append_time_length_mismatch():
+    """Mismatched time length raises ArgumentLengthError."""
+    s = Structures()
+    coords = _coords(n_structures=2)
+    time_wrong = _time(n_structures=3)
+    with pytest.raises(ArgumentLengthError):
+        s.append(coordinates=coords, time=time_wrong)
+
+
+def test_append_coordinates_frame_mismatch():
+    """Mismatched coordinate frame count raises ArgumentLengthError."""
+    s = Structures()
+    time = _time(n_structures=2)
+    coords_wrong = _coords(n_structures=3)
+    with pytest.raises(ArgumentLengthError):
+        s.append(time=time, coordinates=coords_wrong)
+
+
+def test_append_coordinates_atom_mismatch():
+    """Appending coordinates with wrong atom count raises ArgumentLengthError."""
+    s = Structures()
+    s.coordinates = _coords(n_structures=1, n_atoms=5)
+    coords_wrong = _coords(n_structures=1, n_atoms=7)
+    with pytest.raises(ArgumentLengthError):
+        s.append(coordinates=coords_wrong)
+
+
+def test_append_box_frame_mismatch():
+    """Mismatched box frame count raises ArgumentLengthError."""
+    s = Structures()
+    coords = _coords(n_structures=2)
+    box_wrong = _box(n_structures=3)
+    with pytest.raises(ArgumentLengthError):
+        s.append(coordinates=coords, box=box_wrong)
+
+
+# ---------------------------------------------------------------------------
+# append — accumulation (already-existing attributes)
+# ---------------------------------------------------------------------------
+
+def test_append_accumulates_time():
+    """Appending time+coordinates when they already exist concatenates correctly."""
+    s = Structures()
+    t1 = _time(n_structures=2)
+    c1 = _coords(n_structures=2, n_atoms=4)
+    t2 = _time(n_structures=3)
+    c2 = _coords(n_structures=3, n_atoms=4)
+    s.append(time=t1, coordinates=c1)
+    s.append(time=t2, coordinates=c2)
+    assert s.n_structures == 5
+
+
+def test_append_accumulates_coordinates():
+    """Appending coordinates when coordinates already exist concatenates correctly."""
+    s = Structures()
+    c1 = _coords(n_structures=2, n_atoms=4)
+    c2 = _coords(n_structures=3, n_atoms=4)
+    s.append(coordinates=c1)
+    s.append(coordinates=c2)
+    assert s.n_structures == 5
+    assert s.n_atoms == 4
+
+
+def test_append_velocities():
+    """Appending coordinates+velocities to empty Structures stores both."""
+    s = Structures()
+    c = _coords(n_structures=2, n_atoms=4)
+    v = _velocity(n_structures=2, n_atoms=4)
+    s.append(coordinates=c, velocities=v)
+    assert s.velocities is not None
+    assert s.n_structures == 2
+
+
+def test_append_box():
+    """Appending box to empty Structures stores it."""
+    s = Structures()
+    b = _box(n_structures=2)
+    s.append(box=b)
+    assert s.box is not None
+
+
+def test_append_none_does_nothing():
+    """Calling append with all None is a no-op."""
+    s = Structures()
+    s.append()
+    assert s.n_structures == 0
+
+
+# ---------------------------------------------------------------------------
+# extract with specific indices
+# ---------------------------------------------------------------------------
+
+def test_extract_specific_structure_indices():
+    """extract with specific structure_indices returns subset."""
+    s = Structures()
+    s.coordinates = _coords(n_structures=5, n_atoms=4)
+    sub = s.extract(structure_indices=[0, 2, 4])
+    assert sub.n_structures == 3
+    assert sub.n_atoms == 4
+
+
+def test_extract_specific_atom_indices():
+    """extract with specific atom_indices returns subset."""
+    s = Structures()
+    s.coordinates = _coords(n_structures=2, n_atoms=6)
+    sub = s.extract(atom_indices=[0, 1, 2])
+    assert sub.n_atoms == 3
+
+
+def test_extract_both_indices():
+    """extract with both structure and atom indices returns correct shape."""
+    s = Structures()
+    s.coordinates = _coords(n_structures=4, n_atoms=6)
+    sub = s.extract(structure_indices=[1, 3], atom_indices=[0, 2, 4])
+    assert sub.n_structures == 2
+    assert sub.n_atoms == 3
+
+
+def test_extract_copy_if_all_false():
+    """extract with all indices and copy_if_all=False returns self."""
+    s = Structures()
+    s.coordinates = _coords(n_structures=2, n_atoms=3)
+    result = s.extract(copy_if_all=False)
+    assert result is s
