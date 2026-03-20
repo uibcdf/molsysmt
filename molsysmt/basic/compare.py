@@ -134,13 +134,11 @@ def compare(molecular_system, molecular_system_2, selection='all', structure_ind
     # attributes: 'all', 'topological', 'structural', 'mechanical' 
     # output_type: 'boolean', 'dictionary'
 
-    from molsysmt.basic import select, get, get_attributes
+    from molsysmt.basic import select, get, get_attributes, get_form
     from molsysmt.attribute import attributes, _topological_attributes, _structural_attributes, _mechanical_attributes
     from molsysmt.basic.get import _piped_molecular_system
 
     if redefine_indices:
-        
-        from ..form import get_form
         
         form_1 = get_form(molecular_system)
         if form_1 == 'molsysmt.MolSys':
