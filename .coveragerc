@@ -12,6 +12,9 @@ omit =
     */lib/*
     # Piped getter files: generated delegation code — all calls forward to
     # the piped form's getters; testing them individually is redundant.
+    # Forms piped to molsysmt.MolSys for structural attributes:
+    */form/string_pdb_id/get_structural_attributes.py
+    */form/string_alphafold_id/get_structural_attributes.py
     # Forms piped to molsysmt.Topology:
     */form/string_pdb_id/get_topological_attributes.py
     */form/string_alphafold_id/get_topological_attributes.py
