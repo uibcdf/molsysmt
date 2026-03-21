@@ -253,12 +253,15 @@ def get_bonded_atom_pairs_from_system(item, skip_digestion=False):
 
 @arg_digest(form=form)
 def get_n_atoms_from_group(item, indices="all", skip_digestion=False):
+    import pandas as pd
     group_index_from_atom = item.topology.atoms["group_index"].to_numpy(dtype=object)
+    valid_mask = pd.notna(group_index_from_atom)
+    valid_indices = group_index_from_atom[valid_mask]
     if indices == "all":
         indices = list(range(item.topology.n_groups))
     output = []
     for group_index in indices:
-        output.append(int(np.sum(group_index_from_atom == group_index)))
+        output.append(int(np.sum(valid_indices == group_index)))
     return output
 
 

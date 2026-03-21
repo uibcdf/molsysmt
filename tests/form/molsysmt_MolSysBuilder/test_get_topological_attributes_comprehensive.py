@@ -338,10 +338,9 @@ class TestAggregateCountGetters:
 
     def test_get_n_atoms_from_group_partial(self, molsys_builder_partial):
         # group 0 has 2 atoms; atom 2 is ungrouped (NA group_index).
-        # get_n_atoms_from_group on the partial builder hits the pandas NA
-        # comparison bug (boolean value of NA is ambiguous), so we skip it here.
-        # The complete fixture path covers the logic adequately.
-        pytest.skip("partial builder has ungrouped atom with NA group_index causing TypeError in get_n_atoms_from_group")
+        # Ungrouped atoms are excluded from the count — group 0 should have 2.
+        result = aux.get_n_atoms_from_group(molsys_builder_partial)
+        assert result == [2]
 
     def test_get_n_groups_from_chain_all(self, molsys_builder_complete):
         # single chain containing both groups
