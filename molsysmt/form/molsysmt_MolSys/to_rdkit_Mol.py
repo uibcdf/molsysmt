@@ -53,13 +53,13 @@ def to_rdkit_Mol(item, atom_indices='all', structure_indices='all', skip_digesti
 
     # Add coordinates as Conformers
     if coordinates is not None:
+        import numpy as np
         import pyunitwizard as puw
-        coords_val = puw.get_value(coordinates, to_unit='angstroms')
+        coords_val = np.asarray(puw.get_value(coordinates, to_unit='angstroms'), dtype=np.float64)
 
         for i in range(coords_val.shape[0]):
             conf = Chem.Conformer(mol.GetNumAtoms())
-            for j in range(mol.GetNumAtoms()):
-                conf.SetAtomPosition(j, coords_val[i, j, :])
+            conf.SetPositions(coords_val[i])
             mol.AddConformer(conf, assignId=True)
 
     return mol
