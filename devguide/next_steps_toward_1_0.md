@@ -12,7 +12,7 @@ MolSysMT has recently reached a strong technical checkpoint:
 
 - the full test suite is green;
 - distributed validation with `pytest -n 12 --dist loadfile ...` is established as the default large-scale testing workflow;
-- the current honest coverage baseline is `78%` (target 70-80% reached);
+- the current honest coverage baseline is `78.15%` (target 70-80% reached);
 - `0.17.0` already marks the current declarative-serialization and builder-editing checkpoint;
 - `MolSysBuilder` is integrated as the native editable path;
 - declarative serialization forms are available;
@@ -75,7 +75,7 @@ The repository is now at a much stronger testing checkpoint than before, but the
 Current agreed state:
 
 - full-suite validation is green;
-- the honest global coverage baseline is `78%` — the 70-80% target has been reached;
+- the honest global coverage baseline is `78.15%` — the 70-80% target has been reached;
 - active coverage pursuit is paused: further gains should come from meaningful
   tests for new features rather than percentage chasing;
 - `molsysmt.molecular_dynamics/**` is explicitly outside the `1.0.0` support contract and outside the local/Codecov stabilization coverage scope.
@@ -280,7 +280,7 @@ Without this, `1.0.0` remains technically strong but institutionally ambiguous.
 
 ### 2. Coverage threshold with technical meaning
 
-The global coverage baseline is `78%` — the 70-80% working target has been reached.
+The global coverage baseline is `78.15%` — the 70-80% working target has been reached.
 
 Active coverage pursuit is paused. The end condition is not a percentage; it is
 that the contractually supported surface is well defended. The focus now is on
