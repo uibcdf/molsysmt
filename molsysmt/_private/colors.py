@@ -108,7 +108,7 @@ def get_list_of_colors_from_values(values, min_value=None, mid_value=None, max_v
                     halfrange= abs(max_value-mid_value)
 
                 halfrange= max(abs(max_value-mid_value),abs(min_value-mid_value))
-                norm = mcolors.CenteredNorm(v_center=mid_value, halfrange=halfrange)
+                norm = mcolors.CenteredNorm(vcenter=mid_value, halfrange=halfrange)
 
         else:
 

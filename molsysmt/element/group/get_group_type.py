@@ -48,7 +48,7 @@ def get_group_type(molecular_system, element='group', selection='all', redefine_
             for name in unique_group_names:
                 tmp_group_type = get_group_type_from_group_name(name)
                 if tmp_group_type == 'small molecule':
-                    if _small_molecule_is_amino_acid(molecular_system, name):
+                    if small_molecule_is_amino_acid(molecular_system, name):
                         tmp_group_type = 'amino acid'
                 aux_dict[name] = tmp_group_type
 

@@ -474,3 +474,12 @@ class TestTopologyElseBranches:
     def test_set_component_index_to_atom_specific_indices(self, hp35_pdb_molsys):
         aux.set_component_index_to_atom(hp35_pdb_molsys, indices=[0, 1],
                                         value=[0, 0], skip_digestion=True)
+
+
+class TestOccupancySetter:
+
+    def test_set_occupancy_to_atom(self, hp35_pdb_molsys):
+        from molsysmt.form.molsysmt_MolSys import set as aux
+        aux.set_occupancy_to_atom(hp35_pdb_molsys, value=[[1.0] * N_ATOMS], skip_digestion=True)
+
+

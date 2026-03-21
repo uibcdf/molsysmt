@@ -709,3 +709,725 @@ def set_entity_type_to_entity(item, indices='all', value=None, skip_digestion=Fa
 
     pass
 
+
+## ---------------------------------------------------------------------------
+## Bridge helper functions
+## ---------------------------------------------------------------------------
+
+def _get_chain_index_for_molecule(item):
+    """Array of chain_index, one per molecule (first atom found)."""
+    n_molecules = len(item.molecules)
+    bridge = np.zeros(n_molecules, dtype=int)
+    seen = np.zeros(n_molecules, dtype=bool)
+    group_idx = item.atoms['group_index'].to_numpy()
+    chain_idx = item.atoms['chain_index'].to_numpy()
+    mol_idx_arr = item.groups['molecule_index'].to_numpy()
+    for ai in range(len(group_idx)):
+        mi = int(mol_idx_arr[int(group_idx[ai])])
+        if not seen[mi]:
+            bridge[mi] = int(chain_idx[ai])
+            seen[mi] = True
+    return bridge
+
+
+def _get_chain_index_for_component(item):
+    """Array of chain_index, one per component (first atom found)."""
+    n_components = len(item.components)
+    bridge = np.zeros(n_components, dtype=int)
+    seen = np.zeros(n_components, dtype=bool)
+    comp_idx = item.atoms['component_index'].to_numpy()
+    chain_idx = item.atoms['chain_index'].to_numpy()
+    for ai in range(len(comp_idx)):
+        ci = int(comp_idx[ai])
+        if not seen[ci]:
+            bridge[ci] = int(chain_idx[ai])
+            seen[ci] = True
+    return bridge
+
+
+def _get_molecule_index_for_chain(item):
+    """Array of molecule_index, one per chain (first group found)."""
+    n_chains = len(item.chains)
+    bridge = np.zeros(n_chains, dtype=int)
+    seen = np.zeros(n_chains, dtype=bool)
+    group_idx = item.atoms['group_index'].to_numpy()
+    chain_idx = item.atoms['chain_index'].to_numpy()
+    mol_idx_arr = item.groups['molecule_index'].to_numpy()
+    for ai in range(len(group_idx)):
+        ci = int(chain_idx[ai])
+        if not seen[ci]:
+            bridge[ci] = int(mol_idx_arr[int(group_idx[ai])])
+            seen[ci] = True
+    return bridge
+
+
+def _get_molecule_index_for_component(item):
+    """Array of molecule_index, one per component (first atom found)."""
+    n_components = len(item.components)
+    bridge = np.zeros(n_components, dtype=int)
+    seen = np.zeros(n_components, dtype=bool)
+    comp_idx = item.atoms['component_index'].to_numpy()
+    group_idx = item.atoms['group_index'].to_numpy()
+    mol_idx_arr = item.groups['molecule_index'].to_numpy()
+    for ai in range(len(comp_idx)):
+        ci = int(comp_idx[ai])
+        if not seen[ci]:
+            bridge[ci] = int(mol_idx_arr[int(group_idx[ai])])
+            seen[ci] = True
+    return bridge
+
+
+def _get_component_index_for_group(item):
+    """Array of component_index, one per group (first atom found)."""
+    n_groups = len(item.groups)
+    bridge = np.zeros(n_groups, dtype=int)
+    seen = np.zeros(n_groups, dtype=bool)
+    group_idx = item.atoms['group_index'].to_numpy()
+    comp_idx = item.atoms['component_index'].to_numpy()
+    for ai in range(len(group_idx)):
+        gi = int(group_idx[ai])
+        if not seen[gi]:
+            bridge[gi] = int(comp_idx[ai])
+            seen[gi] = True
+    return bridge
+
+
+## ---------------------------------------------------------------------------
+## Self-index setters — indices are row positions; no-op
+## ---------------------------------------------------------------------------
+
+@arg_digest(form=form)
+def set_atom_index_to_atom(item, indices='all', value=None, skip_digestion=False):
+    pass
+
+
+@arg_digest(form=form)
+def set_group_index_to_group(item, indices='all', value=None, skip_digestion=False):
+    pass
+
+
+@arg_digest(form=form)
+def set_component_index_to_component(item, indices='all', value=None, skip_digestion=False):
+    pass
+
+
+@arg_digest(form=form)
+def set_molecule_index_to_molecule(item, indices='all', value=None, skip_digestion=False):
+    pass
+
+
+@arg_digest(form=form)
+def set_chain_index_to_chain(item, indices='all', value=None, skip_digestion=False):
+    pass
+
+
+@arg_digest(form=form)
+def set_entity_index_to_entity(item, indices='all', value=None, skip_digestion=False):
+    pass
+
+
+## ---------------------------------------------------------------------------
+## FK column setters on groups table
+## ---------------------------------------------------------------------------
+
+@arg_digest(form=form)
+def set_molecule_index_to_group(item, indices='all', value=None, skip_digestion=False):
+
+    if is_all(indices):
+        item.groups['molecule_index'] = value
+    else:
+        for i, gi in enumerate(list(indices)):
+            item.groups.at[gi, 'molecule_index'] = value[i]
+
+    pass
+
+
+@arg_digest(form=form)
+def set_chain_index_to_group(item, indices='all', value=None, skip_digestion=False):
+
+    if 'chain_index' not in item.groups.columns:
+        item.groups['chain_index'] = None
+
+    if is_all(indices):
+        item.groups['chain_index'] = value
+    else:
+        for i, gi in enumerate(list(indices)):
+            item.groups.at[gi, 'chain_index'] = value[i]
+
+    pass
+
+
+@arg_digest(form=form)
+def set_component_index_to_group(item, indices='all', value=None, skip_digestion=False):
+
+    if 'component_index' not in item.groups.columns:
+        item.groups['component_index'] = None
+
+    if is_all(indices):
+        item.groups['component_index'] = value
+    else:
+        for i, gi in enumerate(list(indices)):
+            item.groups.at[gi, 'component_index'] = value[i]
+
+    pass
+
+
+@arg_digest(form=form)
+def set_entity_index_to_group(item, indices='all', value=None, skip_digestion=False):
+
+    if is_all(indices):
+        bridge = item.groups['molecule_index'].to_numpy()
+        _set_by_bridge(item.molecules, 'entity_index', bridge, value)
+    else:
+        for i, gi in enumerate(list(indices)):
+            mi = item.groups.at[gi, 'molecule_index']
+            item.molecules.at[int(mi), 'entity_index'] = value[i]
+
+    pass
+
+
+## ---------------------------------------------------------------------------
+## Component attribute setters from group (group→atom→component bridge)
+## ---------------------------------------------------------------------------
+
+@arg_digest(form=form)
+def set_component_id_to_group(item, indices='all', value=None, skip_digestion=False):
+
+    if is_all(indices):
+        bridge = _get_component_index_for_group(item)
+        _set_by_bridge(item.components, 'component_id', bridge, value)
+    else:
+        for i, gi in enumerate(list(indices)):
+            ci = item.atoms.loc[item.atoms['group_index'] == gi, 'component_index'].iloc[0]
+            item.components.at[int(ci), 'component_id'] = value[i]
+
+    pass
+
+
+@arg_digest(form=form)
+def set_component_name_to_group(item, indices='all', value=None, skip_digestion=False):
+
+    if is_all(indices):
+        bridge = _get_component_index_for_group(item)
+        _set_by_bridge(item.components, 'component_name', bridge, value)
+    else:
+        for i, gi in enumerate(list(indices)):
+            ci = item.atoms.loc[item.atoms['group_index'] == gi, 'component_index'].iloc[0]
+            item.components.at[int(ci), 'component_name'] = value[i]
+
+    pass
+
+
+@arg_digest(form=form)
+def set_component_type_to_group(item, indices='all', value=None, skip_digestion=False):
+
+    if is_all(indices):
+        bridge = _get_component_index_for_group(item)
+        _set_by_bridge(item.components, 'component_type', bridge, value)
+    else:
+        for i, gi in enumerate(list(indices)):
+            ci = item.atoms.loc[item.atoms['group_index'] == gi, 'component_index'].iloc[0]
+            item.components.at[int(ci), 'component_type'] = value[i]
+
+    pass
+
+
+## ---------------------------------------------------------------------------
+## Entity setters from molecule (molecule→entity bridge)
+## ---------------------------------------------------------------------------
+
+@arg_digest(form=form)
+def set_entity_index_to_molecule(item, indices='all', value=None, skip_digestion=False):
+
+    if is_all(indices):
+        item.molecules['entity_index'] = value
+    else:
+        for i, mi in enumerate(list(indices)):
+            item.molecules.at[mi, 'entity_index'] = value[i]
+
+    pass
+
+
+@arg_digest(form=form)
+def set_entity_id_to_molecule(item, indices='all', value=None, skip_digestion=False):
+
+    if is_all(indices):
+        bridge = item.molecules['entity_index'].to_numpy()
+        _set_by_bridge(item.entities, 'entity_id', bridge, value)
+    else:
+        for i, mi in enumerate(list(indices)):
+            ei = item.molecules.at[mi, 'entity_index']
+            item.entities.at[int(ei), 'entity_id'] = value[i]
+
+    pass
+
+
+@arg_digest(form=form)
+def set_entity_name_to_molecule(item, indices='all', value=None, skip_digestion=False):
+
+    if is_all(indices):
+        bridge = item.molecules['entity_index'].to_numpy()
+        _set_by_bridge(item.entities, 'entity_name', bridge, value)
+    else:
+        for i, mi in enumerate(list(indices)):
+            ei = item.molecules.at[mi, 'entity_index']
+            item.entities.at[int(ei), 'entity_name'] = value[i]
+
+    pass
+
+
+@arg_digest(form=form)
+def set_entity_type_to_molecule(item, indices='all', value=None, skip_digestion=False):
+
+    if is_all(indices):
+        bridge = item.molecules['entity_index'].to_numpy()
+        _set_by_bridge(item.entities, 'entity_type', bridge, value)
+    else:
+        for i, mi in enumerate(list(indices)):
+            ei = item.molecules.at[mi, 'entity_index']
+            item.entities.at[int(ei), 'entity_type'] = value[i]
+
+    pass
+
+
+## ---------------------------------------------------------------------------
+## Chain attribute setters from molecule (molecule→atom→chain bridge)
+## ---------------------------------------------------------------------------
+
+@arg_digest(form=form)
+def set_chain_id_to_molecule(item, indices='all', value=None, skip_digestion=False):
+
+    if is_all(indices):
+        bridge = _get_chain_index_for_molecule(item)
+        _set_by_bridge(item.chains, 'chain_id', bridge, value)
+    else:
+        bridge = _get_chain_index_for_molecule(item)
+        for i, mi in enumerate(list(indices)):
+            ci = bridge[mi]
+            item.chains.at[ci, 'chain_id'] = value[i]
+
+    pass
+
+
+@arg_digest(form=form)
+def set_chain_name_to_molecule(item, indices='all', value=None, skip_digestion=False):
+
+    if is_all(indices):
+        bridge = _get_chain_index_for_molecule(item)
+        _set_by_bridge(item.chains, 'chain_name', bridge, value)
+    else:
+        bridge = _get_chain_index_for_molecule(item)
+        for i, mi in enumerate(list(indices)):
+            ci = bridge[mi]
+            item.chains.at[ci, 'chain_name'] = value[i]
+
+    pass
+
+
+@arg_digest(form=form)
+def set_chain_type_to_molecule(item, indices='all', value=None, skip_digestion=False):
+
+    if is_all(indices):
+        bridge = _get_chain_index_for_molecule(item)
+        _set_by_bridge(item.chains, 'chain_type', bridge, value)
+    else:
+        bridge = _get_chain_index_for_molecule(item)
+        for i, mi in enumerate(list(indices)):
+            ci = bridge[mi]
+            item.chains.at[ci, 'chain_type'] = value[i]
+
+    pass
+
+
+@arg_digest(form=form)
+def set_chain_index_to_molecule(item, indices='all', value=None, skip_digestion=False):
+    """Reassign atoms' chain_index using a per-molecule mapping."""
+
+    group_idx = item.atoms['group_index'].to_numpy()
+    mol_idx_arr = item.groups['molecule_index'].to_numpy()
+    new_chain = item.atoms['chain_index'].copy().to_numpy()
+
+    if is_all(indices):
+        for ai in range(len(group_idx)):
+            mi = int(mol_idx_arr[int(group_idx[ai])])
+            new_chain[ai] = value[mi]
+    else:
+        idx_set = set(int(i) for i in indices)
+        for ai in range(len(group_idx)):
+            mi = int(mol_idx_arr[int(group_idx[ai])])
+            if mi in idx_set:
+                new_chain[ai] = value[list(indices).index(mi)]
+
+    item.atoms['chain_index'] = new_chain
+    n_chains = len(np.unique(new_chain))
+    if n_chains != item.chains.shape[0]:
+        item.reset_chains(n_chains=n_chains)
+        item.rebuild_chains(redefine_indices=True, redefine_ids=True,
+                            redefine_types=True, redefine_names=True)
+
+    pass
+
+
+## ---------------------------------------------------------------------------
+## Chain attribute setters from component (component→atom→chain bridge)
+## ---------------------------------------------------------------------------
+
+@arg_digest(form=form)
+def set_chain_id_to_component(item, indices='all', value=None, skip_digestion=False):
+
+    if is_all(indices):
+        bridge = _get_chain_index_for_component(item)
+        _set_by_bridge(item.chains, 'chain_id', bridge, value)
+    else:
+        bridge = _get_chain_index_for_component(item)
+        for i, ci in enumerate(list(indices)):
+            item.chains.at[int(bridge[ci]), 'chain_id'] = value[i]
+
+    pass
+
+
+@arg_digest(form=form)
+def set_chain_name_to_component(item, indices='all', value=None, skip_digestion=False):
+
+    if is_all(indices):
+        bridge = _get_chain_index_for_component(item)
+        _set_by_bridge(item.chains, 'chain_name', bridge, value)
+    else:
+        bridge = _get_chain_index_for_component(item)
+        for i, ci in enumerate(list(indices)):
+            item.chains.at[int(bridge[ci]), 'chain_name'] = value[i]
+
+    pass
+
+
+@arg_digest(form=form)
+def set_chain_type_to_component(item, indices='all', value=None, skip_digestion=False):
+
+    if is_all(indices):
+        bridge = _get_chain_index_for_component(item)
+        _set_by_bridge(item.chains, 'chain_type', bridge, value)
+    else:
+        bridge = _get_chain_index_for_component(item)
+        for i, ci in enumerate(list(indices)):
+            item.chains.at[int(bridge[ci]), 'chain_type'] = value[i]
+
+    pass
+
+
+@arg_digest(form=form)
+def set_chain_index_to_component(item, indices='all', value=None, skip_digestion=False):
+    """Reassign atoms' chain_index using a per-component mapping."""
+
+    comp_idx = item.atoms['component_index'].to_numpy()
+    new_chain = item.atoms['chain_index'].copy().to_numpy()
+
+    if is_all(indices):
+        for ai in range(len(comp_idx)):
+            ci = int(comp_idx[ai])
+            new_chain[ai] = value[ci]
+    else:
+        idx_set = {int(i): pos for pos, i in enumerate(indices)}
+        for ai in range(len(comp_idx)):
+            ci = int(comp_idx[ai])
+            if ci in idx_set:
+                new_chain[ai] = value[idx_set[ci]]
+
+    item.atoms['chain_index'] = new_chain
+    n_chains = len(np.unique(new_chain))
+    if n_chains != item.chains.shape[0]:
+        item.reset_chains(n_chains=n_chains)
+        item.rebuild_chains(redefine_indices=True, redefine_ids=True,
+                            redefine_types=True, redefine_names=True)
+
+    pass
+
+
+## ---------------------------------------------------------------------------
+## Molecule attribute setters from chain (chain→atom→group→molecule bridge)
+## ---------------------------------------------------------------------------
+
+@arg_digest(form=form)
+def set_molecule_id_to_chain(item, indices='all', value=None, skip_digestion=False):
+
+    if is_all(indices):
+        bridge = _get_molecule_index_for_chain(item)
+        _set_by_bridge(item.molecules, 'molecule_id', bridge, value)
+    else:
+        bridge = _get_molecule_index_for_chain(item)
+        for i, ci in enumerate(list(indices)):
+            item.molecules.at[int(bridge[ci]), 'molecule_id'] = value[i]
+
+    pass
+
+
+@arg_digest(form=form)
+def set_molecule_name_to_chain(item, indices='all', value=None, skip_digestion=False):
+
+    if is_all(indices):
+        bridge = _get_molecule_index_for_chain(item)
+        _set_by_bridge(item.molecules, 'molecule_name', bridge, value)
+    else:
+        bridge = _get_molecule_index_for_chain(item)
+        for i, ci in enumerate(list(indices)):
+            item.molecules.at[int(bridge[ci]), 'molecule_name'] = value[i]
+
+    pass
+
+
+@arg_digest(form=form)
+def set_molecule_type_to_chain(item, indices='all', value=None, skip_digestion=False):
+
+    if is_all(indices):
+        bridge = _get_molecule_index_for_chain(item)
+        _set_by_bridge(item.molecules, 'molecule_type', bridge, value)
+    else:
+        bridge = _get_molecule_index_for_chain(item)
+        for i, ci in enumerate(list(indices)):
+            item.molecules.at[int(bridge[ci]), 'molecule_type'] = value[i]
+
+    pass
+
+
+@arg_digest(form=form)
+def set_molecule_index_to_chain(item, indices='all', value=None, skip_digestion=False):
+    """Reassign groups' molecule_index using a per-chain mapping."""
+
+    group_idx = item.atoms['group_index'].to_numpy()
+    chain_idx = item.atoms['chain_index'].to_numpy()
+    mol_idx_arr = item.groups['molecule_index'].copy().to_numpy()
+
+    if is_all(indices):
+        for ai in range(len(group_idx)):
+            ci = int(chain_idx[ai])
+            gi = int(group_idx[ai])
+            mol_idx_arr[gi] = value[ci]
+    else:
+        idx_set = {int(i): pos for pos, i in enumerate(indices)}
+        for ai in range(len(group_idx)):
+            ci = int(chain_idx[ai])
+            if ci in idx_set:
+                mol_idx_arr[int(group_idx[ai])] = value[idx_set[ci]]
+
+    item.groups['molecule_index'] = mol_idx_arr
+
+    pass
+
+
+## ---------------------------------------------------------------------------
+## Molecule attribute setters from component (component→atom→group→molecule)
+## ---------------------------------------------------------------------------
+
+@arg_digest(form=form)
+def set_molecule_id_to_component(item, indices='all', value=None, skip_digestion=False):
+
+    if is_all(indices):
+        bridge = _get_molecule_index_for_component(item)
+        _set_by_bridge(item.molecules, 'molecule_id', bridge, value)
+    else:
+        bridge = _get_molecule_index_for_component(item)
+        for i, ci in enumerate(list(indices)):
+            item.molecules.at[int(bridge[ci]), 'molecule_id'] = value[i]
+
+    pass
+
+
+@arg_digest(form=form)
+def set_molecule_name_to_component(item, indices='all', value=None, skip_digestion=False):
+
+    if is_all(indices):
+        bridge = _get_molecule_index_for_component(item)
+        _set_by_bridge(item.molecules, 'molecule_name', bridge, value)
+    else:
+        bridge = _get_molecule_index_for_component(item)
+        for i, ci in enumerate(list(indices)):
+            item.molecules.at[int(bridge[ci]), 'molecule_name'] = value[i]
+
+    pass
+
+
+@arg_digest(form=form)
+def set_molecule_type_to_component(item, indices='all', value=None, skip_digestion=False):
+
+    if is_all(indices):
+        bridge = _get_molecule_index_for_component(item)
+        _set_by_bridge(item.molecules, 'molecule_type', bridge, value)
+    else:
+        bridge = _get_molecule_index_for_component(item)
+        for i, ci in enumerate(list(indices)):
+            item.molecules.at[int(bridge[ci]), 'molecule_type'] = value[i]
+
+    pass
+
+
+@arg_digest(form=form)
+def set_molecule_index_to_component(item, indices='all', value=None, skip_digestion=False):
+    """Reassign groups' molecule_index using a per-component mapping."""
+
+    comp_idx = item.atoms['component_index'].to_numpy()
+    group_idx = item.atoms['group_index'].to_numpy()
+    mol_idx_arr = item.groups['molecule_index'].copy().to_numpy()
+
+    if is_all(indices):
+        for ai in range(len(comp_idx)):
+            ci = int(comp_idx[ai])
+            gi = int(group_idx[ai])
+            mol_idx_arr[gi] = value[ci]
+    else:
+        idx_set = {int(i): pos for pos, i in enumerate(indices)}
+        for ai in range(len(comp_idx)):
+            ci = int(comp_idx[ai])
+            if ci in idx_set:
+                mol_idx_arr[int(group_idx[ai])] = value[idx_set[ci]]
+
+    item.groups['molecule_index'] = mol_idx_arr
+
+    pass
+
+
+## ---------------------------------------------------------------------------
+## Entity attribute setters from chain (chain→mol→entity bridge)
+## ---------------------------------------------------------------------------
+
+@arg_digest(form=form)
+def set_entity_index_to_chain(item, indices='all', value=None, skip_digestion=False):
+    """Set entity_index in molecules table using a per-chain mapping."""
+
+    mol_for_chain = _get_molecule_index_for_chain(item)
+
+    if is_all(indices):
+        for ci, mi in enumerate(mol_for_chain):
+            item.molecules.at[int(mi), 'entity_index'] = value[ci]
+    else:
+        for i, ci in enumerate(list(indices)):
+            item.molecules.at[int(mol_for_chain[ci]), 'entity_index'] = value[i]
+
+    pass
+
+
+@arg_digest(form=form)
+def set_entity_id_to_chain(item, indices='all', value=None, skip_digestion=False):
+
+    if is_all(indices):
+        mol_for_chain = _get_molecule_index_for_chain(item)
+        ent_idx = item.molecules['entity_index'].to_numpy()
+        bridge = ent_idx[mol_for_chain]
+        _set_by_bridge(item.entities, 'entity_id', bridge, value)
+    else:
+        mol_for_chain = _get_molecule_index_for_chain(item)
+        for i, ci in enumerate(list(indices)):
+            mi = int(mol_for_chain[ci])
+            ei = item.molecules.at[mi, 'entity_index']
+            item.entities.at[int(ei), 'entity_id'] = value[i]
+
+    pass
+
+
+@arg_digest(form=form)
+def set_entity_name_to_chain(item, indices='all', value=None, skip_digestion=False):
+
+    if is_all(indices):
+        mol_for_chain = _get_molecule_index_for_chain(item)
+        ent_idx = item.molecules['entity_index'].to_numpy()
+        bridge = ent_idx[mol_for_chain]
+        _set_by_bridge(item.entities, 'entity_name', bridge, value)
+    else:
+        mol_for_chain = _get_molecule_index_for_chain(item)
+        for i, ci in enumerate(list(indices)):
+            mi = int(mol_for_chain[ci])
+            ei = item.molecules.at[mi, 'entity_index']
+            item.entities.at[int(ei), 'entity_name'] = value[i]
+
+    pass
+
+
+@arg_digest(form=form)
+def set_entity_type_to_chain(item, indices='all', value=None, skip_digestion=False):
+
+    if is_all(indices):
+        mol_for_chain = _get_molecule_index_for_chain(item)
+        ent_idx = item.molecules['entity_index'].to_numpy()
+        bridge = ent_idx[mol_for_chain]
+        _set_by_bridge(item.entities, 'entity_type', bridge, value)
+    else:
+        mol_for_chain = _get_molecule_index_for_chain(item)
+        for i, ci in enumerate(list(indices)):
+            mi = int(mol_for_chain[ci])
+            ei = item.molecules.at[mi, 'entity_index']
+            item.entities.at[int(ei), 'entity_type'] = value[i]
+
+    pass
+
+
+## ---------------------------------------------------------------------------
+## Entity attribute setters from component (comp→mol→entity bridge)
+## ---------------------------------------------------------------------------
+
+@arg_digest(form=form)
+def set_entity_index_to_component(item, indices='all', value=None, skip_digestion=False):
+    """Set entity_index in molecules table using a per-component mapping."""
+
+    mol_for_comp = _get_molecule_index_for_component(item)
+
+    if is_all(indices):
+        for ci, mi in enumerate(mol_for_comp):
+            item.molecules.at[int(mi), 'entity_index'] = value[ci]
+    else:
+        for i, ci in enumerate(list(indices)):
+            item.molecules.at[int(mol_for_comp[ci]), 'entity_index'] = value[i]
+
+    pass
+
+
+@arg_digest(form=form)
+def set_entity_id_to_component(item, indices='all', value=None, skip_digestion=False):
+
+    if is_all(indices):
+        mol_for_comp = _get_molecule_index_for_component(item)
+        ent_idx = item.molecules['entity_index'].to_numpy()
+        bridge = ent_idx[mol_for_comp]
+        _set_by_bridge(item.entities, 'entity_id', bridge, value)
+    else:
+        mol_for_comp = _get_molecule_index_for_component(item)
+        for i, ci in enumerate(list(indices)):
+            mi = int(mol_for_comp[ci])
+            ei = item.molecules.at[mi, 'entity_index']
+            item.entities.at[int(ei), 'entity_id'] = value[i]
+
+    pass
+
+
+@arg_digest(form=form)
+def set_entity_name_to_component(item, indices='all', value=None, skip_digestion=False):
+
+    if is_all(indices):
+        mol_for_comp = _get_molecule_index_for_component(item)
+        ent_idx = item.molecules['entity_index'].to_numpy()
+        bridge = ent_idx[mol_for_comp]
+        _set_by_bridge(item.entities, 'entity_name', bridge, value)
+    else:
+        mol_for_comp = _get_molecule_index_for_component(item)
+        for i, ci in enumerate(list(indices)):
+            mi = int(mol_for_comp[ci])
+            ei = item.molecules.at[mi, 'entity_index']
+            item.entities.at[int(ei), 'entity_name'] = value[i]
+
+    pass
+
+
+@arg_digest(form=form)
+def set_entity_type_to_component(item, indices='all', value=None, skip_digestion=False):
+
+    if is_all(indices):
+        mol_for_comp = _get_molecule_index_for_component(item)
+        ent_idx = item.molecules['entity_index'].to_numpy()
+        bridge = ent_idx[mol_for_comp]
+        _set_by_bridge(item.entities, 'entity_type', bridge, value)
+    else:
+        mol_for_comp = _get_molecule_index_for_component(item)
+        for i, ci in enumerate(list(indices)):
+            mi = int(mol_for_comp[ci])
+            ei = item.molecules.at[mi, 'entity_index']
+            item.entities.at[int(ei), 'entity_type'] = value[i]
+
+    pass
+
