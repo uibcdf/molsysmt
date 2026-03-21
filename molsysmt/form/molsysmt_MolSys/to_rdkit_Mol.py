@@ -29,6 +29,8 @@ def to_rdkit_Mol(item, atom_indices='all', structure_indices='all', skip_digesti
     seen_bonds = set()
     for i, neighbors in enumerate(bonded_atoms):
         for j in neighbors:
+            if i == j:
+                continue
             pair = tuple(sorted((i, j)))
             if pair not in seen_bonds:
                 emol.AddBond(int(pair[0]), int(pair[1]), Chem.rdchem.BondType.SINGLE)
