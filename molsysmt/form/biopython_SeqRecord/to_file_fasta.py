@@ -1,4 +1,5 @@
 from molsysmt._private.arg_digestion import arg_digest
+from molsysmt._private.smonitor import ArgumentError
 from depdigest import dep_digest
 
 @arg_digest(form='biopython.SeqRecord')
@@ -6,7 +7,8 @@ from depdigest import dep_digest
 def to_file_fasta(item, output_filename=None, skip_digestion=False):
 
     if output_filename is None:
-        raise ValueError("output_filename is required to write a file:fasta.")
+        raise ArgumentError(argument='output_filename', caller='molsysmt.form.biopython_SeqRecord.to_file_fasta',
+                            message='output_filename is required to write a file:fasta.')
 
     from Bio import SeqIO
 

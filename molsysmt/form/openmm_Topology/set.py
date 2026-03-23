@@ -1,5 +1,5 @@
 from molsysmt._private.arg_digestion import arg_digest
-from molsysmt._private.smonitor import StructuralInconsistencyError, InternalAlgorithmError, FormatError
+from molsysmt._private.smonitor import StructuralInconsistencyError, InternalAlgorithmError, FormatError, ArgumentLengthError
 from molsysmt import pyunitwizard as puw
 
 ## System
@@ -23,7 +23,9 @@ def set_box_to_system(item, structure_indices='all', value=None, skip_digestion=
 
         else:
 
-            raise ValueError("The box to set in to a openmm.Topology has more than a frame")
+            raise ArgumentLengthError(argument='value (box frames)', expected=1, actual=n_structures,
+                                      caller='molsysmt.form.openmm_Topology.set.set_box_to_system',
+                                      message='openmm.Topology only accepts a single-frame box.')
 
         pass
 

@@ -1,5 +1,5 @@
 from molsysmt._private.arg_digestion import arg_digest
-from molsysmt._private.smonitor import StructuralInconsistencyError, InternalAlgorithmError, FormatError
+from molsysmt._private.smonitor import StructuralInconsistencyError, InternalAlgorithmError, FormatError, ArgumentError
 from molsysmt import pyunitwizard as puw
 
 @arg_digest()
@@ -16,7 +16,9 @@ def add_point_harmonic_restraint(molecular_system, selection='all', force_consta
 
     if point is None:
         if form_in=='openmm.Context':
-            raise ValueError("A point must be provided when the input is an OpenMM Context object.")
+            raise ArgumentError(argument='point',
+                                 caller='molsysmt.thirds.openmm.forces.add_point_harmonic_restraint',
+                                 message='point must be provided when the input is an openmm.Context object.')
         else:
             point = get(molecular_system, element='atom', selection=atom_indices, coordinates=True)[0]
 

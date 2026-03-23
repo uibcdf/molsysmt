@@ -1,4 +1,4 @@
-from molsysmt._private.smonitor import StructuralInconsistencyError, InternalAlgorithmError
+from molsysmt._private.smonitor import StructuralInconsistencyError, InternalAlgorithmError, ArgumentError, ArgumentChoiceError
 import functools
 import os
 import re
@@ -155,10 +155,9 @@ class TLeap:
         elif box_geometry == "truncated octahedral":
             solvate_command = "solvateOct"
         else:
-            raise ValueError(
-                "The argument box_geometry must be one of: "
-                "'cubic' or 'truncated octahedral'."
-            )
+            raise ArgumentChoiceError(argument='box_geometry', value=box_geometry,
+                                       choices=['cubic', 'truncated octahedral'],
+                                       caller='molsysmt.thirds.tleap.tleap.TLeap.solvate')
 
         clearance = puw.get_value(clearance, to_unit="angstroms")
         self.add_commands(f"{solvate_command} {unit_name} {solvent_model} {clearance} iso")
@@ -400,7 +399,9 @@ class TLeap:
         """Normalizing LEaP unit names to avoid unsupported leading digits."""
 
         if not isinstance(unit_name, str) or len(unit_name) == 0:
-            raise ValueError("Unit name must be a non-empty string.")
+            raise ArgumentError(argument='unit_name',
+                                 caller='molsysmt.thirds.tleap.tleap.TLeap._sanitize_unit_name',
+                                 message='unit_name must be a non-empty string.')
         if unit_name[0].isdigit():
             unit_name = "M" + unit_name
         return unit_name

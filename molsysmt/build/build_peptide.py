@@ -328,7 +328,9 @@ def _minimum_nonbonded_heavy_distance_full(coordinates, atom_types=None, bonds=N
 
     if heavy_mask is None or bonded_matrix is None:
         if atom_types is None or bonds is None:
-            raise ValueError("atom_types and bonds are required when no prepared masks are provided.")
+            raise ArgumentError(argument='atom_types / bonds',
+                                 caller='molsysmt.build.build_peptide._minimum_nonbonded_heavy_distance_full',
+                                 message='atom_types and bonds are required when heavy_mask and bonded_matrix are not provided.')
         heavy_mask, bonded_matrix = _prepare_nonbonded_heavy_distance_full(atom_types, bonds)
 
     if np.count_nonzero(heavy_mask) < 2:
@@ -867,7 +869,9 @@ def build_peptide(molecular_system, to_form='molsysmt.MolSys', engine='LEaP'):
 
         for group_name in group_names:
             if group_name not in amino_acid_group_names and group_name not in terminal_capping_group_names:
-                raise ValueError(f"Unsupported residue or capping group: {group_name}")
+                raise ArgumentChoiceError(argument='group_names', value=group_name,
+                                           choices=sorted(amino_acid_group_names | terminal_capping_group_names),
+                                           caller='molsysmt.build.build_peptide')
 
         amino_group_indices = [ii for ii, group_name in enumerate(group_names) if group_name in amino_acid_group_names]
         first_amino_group_index = amino_group_indices[0] if amino_group_indices else None

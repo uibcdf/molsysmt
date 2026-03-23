@@ -18,6 +18,8 @@ import time
 
 import numpy as np
 
+from molsysmt._private.smonitor import ArgumentError, ArgumentConflictError
+
 
 class ChunkedExecutor:
     """
@@ -96,7 +98,9 @@ class ChunkedExecutor:
 
         # Normalize reducer(s) to an internal list
         if reducer is not None and reducers is not None:
-            raise ValueError("Specify either 'reducer' or 'reducers', not both.")
+            raise ArgumentConflictError(arg1='reducer', arg2='reducers',
+                                         reason='Specify either reducer or reducers, not both.',
+                                         caller='molsysmt._private.execution.ChunkedExecutor.__init__')
         if reducer is not None:
             self._reducers = [reducer]
             self._single = True
@@ -104,7 +108,9 @@ class ChunkedExecutor:
             self._reducers = list(reducers)
             self._single = False
         else:
-            raise ValueError("Must provide 'reducer' or 'reducers'.")
+            raise ArgumentError(argument='reducer / reducers',
+                                 caller='molsysmt._private.execution.ChunkedExecutor.__init__',
+                                 message="Must provide 'reducer' or 'reducers'.")
 
         # Backward-compat alias for callers that access .reducer directly
         self.reducer = self._reducers[0] if self._single else None

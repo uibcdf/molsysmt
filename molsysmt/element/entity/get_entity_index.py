@@ -1,5 +1,5 @@
 from molsysmt._private.arg_digestion import arg_digest
-from molsysmt._private.smonitor import StructuralInconsistencyError, InternalAlgorithmError, FormatError
+from molsysmt._private.smonitor import StructuralInconsistencyError, InternalAlgorithmError, FormatError, ArgumentChoiceError
 
 
 @arg_digest()
@@ -72,7 +72,9 @@ def get_entity_index(molecular_system, element='entity', selection='all',
                 n_entities = len(aux_dict)
                 output=list(range(n_entities))
             case _:
-                raise ValueError(f"Element '{element}' is not supported.")
+                raise ArgumentChoiceError(argument='element', value=element,
+                                           choices=['atom', 'group', 'component', 'molecule', 'chain', 'entity'],
+                                           caller='molsysmt.element.entity.get_entity_index')
 
     else:
 

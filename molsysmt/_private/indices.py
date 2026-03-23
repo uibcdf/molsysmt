@@ -1,7 +1,8 @@
 from .variables import is_all
+from molsysmt._private.smonitor import ArgumentError
 
 def indices_iterator(indices=None, start=0, stop=None, step=1, chunk=1):
-    
+
     output = None
 
     if is_all(indices):
@@ -9,7 +10,8 @@ def indices_iterator(indices=None, start=0, stop=None, step=1, chunk=1):
 
     if indices is None:
         if stop is None:
-            raise ValueError('stop needs to be different from None')
+            raise ArgumentError(argument='stop', caller='molsysmt._private.indices.indices_iterator',
+                                message='stop must be provided when indices is None or all.')
         output = list(range(start, stop, step))
     else:
         if stop is None:

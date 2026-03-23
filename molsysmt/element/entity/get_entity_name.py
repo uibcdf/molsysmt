@@ -1,5 +1,5 @@
 from molsysmt._private.arg_digestion import arg_digest
-from molsysmt._private.smonitor import StructuralInconsistencyError, InternalAlgorithmError, FormatError
+from molsysmt._private.smonitor import StructuralInconsistencyError, InternalAlgorithmError, FormatError, ArgumentChoiceError
 
 
 @arg_digest()
@@ -85,7 +85,9 @@ def get_entity_name(molecular_system, element='entity', selection='all', redefin
                 n_entities = len(entity_names)
                 output=[entity_names[ii] for ii in range(n_entities)]
             case _:
-                raise ValueError(f"Element '{element}' is not supported.")
+                raise ArgumentChoiceError(argument='element', value=element,
+                                           choices=['atom', 'group', 'component', 'molecule', 'chain', 'entity'],
+                                           caller='molsysmt.element.entity.get_entity_name')
 
     else:
 
