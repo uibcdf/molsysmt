@@ -13,8 +13,9 @@ def to_biopython_PDBStructure(item, atom_indices='all', structure_indices='all',
 
     atom_names, atom_ids, elements = get(item, element='atom', selection=atom_indices, 
                                          name=True, id=True, type=True)
-    res_names, res_ids = get(item, element='group', selection=atom_indices, name=True, id=True)
-    chain_ids = get(item, element='chain', selection=atom_indices, id=True)
+    res_names = get(item, element='atom', selection=atom_indices, group_name=True)
+    res_ids   = get(item, element='atom', selection=atom_indices, group_id=True)
+    chain_ids = get(item, element='atom', selection=atom_indices, chain_id=True)
     
     coordinates = get(item, element='atom', selection=atom_indices, 
                       structure_indices=structure_indices, coordinates=True)

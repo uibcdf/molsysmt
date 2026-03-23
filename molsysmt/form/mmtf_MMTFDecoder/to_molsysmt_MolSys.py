@@ -180,7 +180,8 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
             alt_occupancy = occupancy[same_atoms]
             alt_loc = alternate_location[same_atoms]
             if np.allclose(alt_occupancy, alt_occupancy[0]):
-                chosen = same_atoms[np.where(alt_loc=='A')[0][0]]
+                _a_indices = np.where(alt_loc=='A')[0]
+                chosen = same_atoms[_a_indices[0] if len(_a_indices) > 0 else 0]
             else:
                 chosen = same_atoms[np.argmax(alt_occupancy)]
             chosen_with_alt_loc.append(chosen)
@@ -275,9 +276,8 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
 
                 for group_index in group_indices:
 
-                    component_index = tmp_item.topology.groups.iat[group_index,3]
+                    component_index = int(tmp_item.topology.groups.at[group_index,'component_index'])
 
-                    tmp_item.topology.components.iat[component_index,3]=molecule_index
                     tmp_item.topology.components.iat[component_index,2]='water'
                     tmp_item.topology.components.iat[component_index,1]='water'
                     molecule_index+=1
@@ -286,9 +286,8 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
 
                 for group_index in group_indices:
 
-                    component_index = tmp_item.topology.groups.iat[group_index,3]
+                    component_index = int(tmp_item.topology.groups.at[group_index,'component_index'])
 
-                    tmp_item.topology.components.iat[component_index,3]=molecule_index
                     tmp_item.topology.components.iat[component_index,2]='ion'
                     tmp_item.topology.components.iat[component_index,1]=entity_name
                     molecule_index+=1
@@ -297,9 +296,8 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
 
                 for group_index in group_indices:
 
-                    component_index = tmp_item.topology.groups.iat[group_index,3]
+                    component_index = int(tmp_item.topology.groups.at[group_index,'component_index'])
 
-                    tmp_item.topology.components.iat[component_index,3]=molecule_index
                     tmp_item.topology.components.iat[component_index,2]='small molecule'
                     tmp_item.topology.components.iat[component_index,1]=entity_name
                     molecule_index+=1
@@ -308,9 +306,8 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
 
                 for group_index in group_indices:
 
-                    component_index = tmp_item.topology.groups.iat[group_index,3]
+                    component_index = int(tmp_item.topology.groups.at[group_index,'component_index'])
 
-                    tmp_item.topology.components.iat[component_index,3]=molecule_index
                     tmp_item.topology.components.iat[component_index,2]='lipid'
                     tmp_item.topology.components.iat[component_index,1]=entity_name
                     molecule_index+=1
@@ -332,13 +329,12 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
                 else:
                     tmp_type = 'peptide'
 
-                component_indices = tmp_item.topology.groups.iloc[group_indices,3].unique()
+                component_indices = tmp_item.topology.groups['component_index'].iloc[group_indices].unique()
 
                 for component_index in component_indices:
 
-                    tmp_item.topology.components.iat[component_index,3]=molecule_index
-                    tmp_item.topology.components.iat[component_index,2]=tmp_type
-                    tmp_item.topology.components.iat[component_index,1]=entity_name
+                    tmp_item.topology.components.iat[int(component_index),2]=tmp_type
+                    tmp_item.topology.components.iat[int(component_index),1]=entity_name
 
                 molecule_index+=1
 
@@ -359,7 +355,7 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
     aux_n_molecules = molecule_index
 
     tmp_item.topology.reset_molecules(n_molecules=aux_n_molecules)
-    tmp_item.topology.rebuild_molecules(redefine_indices=False, redefine_ids=True, redefine_names=True, redefine_types=True)
+    tmp_item.topology.rebuild_molecules(redefine_indices=True, redefine_ids=True, redefine_names=True, redefine_types=True)
     tmp_item.topology.rebuild_entities(redefine_indices=True, redefine_ids=True, redefine_names=True, redefine_types=True)
     tmp_item.topology.rebuild_chains(redefine_ids=False, redefine_types=True)
 
@@ -392,7 +388,13 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
         if all(comparison): 
 
             for ii in range(1, item.num_models):
-                item_per_model[0].structures.append_structures(item_per_model[ii].structures)
+                src = item_per_model[ii].structures
+                item_per_model[0].structures.append(
+                    structure_id=src.structure_id,
+                    time=src.time,
+                    coordinates=src.coordinates,
+                    box=src.box,
+                )
 
             tmp_item = item_per_model[0]
 
