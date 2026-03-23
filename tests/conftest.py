@@ -284,6 +284,86 @@ def builder_openmm_topology(builder_pdb_molsys):
 def builder_structures(builder_pdb_molsys):
     return builder_pdb_molsys.structures.copy()
 
+
+# Multi-frame trajectory builder system
+# Same topology as builder_pdb_molsys (N, CA, C, O / ALA+HOH / chain A) but
+# with 3 distinct frames.  Used as the oracle for trajectory-form parity tests
+# (file:xtc ↔ file:h5msm, mdtraj.Trajectory, etc.).
+
+@pytest.fixture(scope="session")
+def _base_builder_trajectory_molsys():
+    from molsysmt import pyunitwizard as puw
+    import numpy as np
+
+    builder = msm.MolSysBuilder()
+    atom_indices = [builder.add_atom(atom_name=name) for name in ["N", "CA", "C", "O"]]
+    group_index_0 = builder.add_group(atom_indices[:3], group_id="10", group_name="ALA")
+    group_index_1 = builder.add_group(atom_indices[3:], group_id="11", group_name="HOH")
+    builder.add_bond(atom_indices[0], atom_indices[1])
+    builder.add_bond(atom_indices[1], atom_indices[2])
+    builder.add_chain([group_index_0, group_index_1], chain_id="A", chain_name="A")
+    molecule_index_0 = builder.add_molecule([group_index_0], molecule_id="20", molecule_name="protein 0", molecule_type="protein")
+    molecule_index_1 = builder.add_molecule([group_index_1], molecule_id="21", molecule_name="water", molecule_type="water")
+    builder.add_entity([molecule_index_0], entity_id="30", entity_name="protein 0", entity_type="protein")
+    builder.add_entity([molecule_index_1], entity_id="31", entity_name="water", entity_type="water")
+
+    coords = np.array([
+        [[0.0, 0.0, 0.0], [0.1, 0.0, 0.0], [0.2, 0.0, 0.0], [0.3, 0.0, 0.0]],
+        [[0.0, 0.1, 0.0], [0.1, 0.1, 0.0], [0.2, 0.1, 0.0], [0.3, 0.1, 0.0]],
+        [[0.0, 0.2, 0.0], [0.1, 0.2, 0.0], [0.2, 0.2, 0.0], [0.3, 0.2, 0.0]],
+    ], dtype=float)  # shape (3, 4, 3), nm
+    builder.set_coordinates(puw.quantity(coords, "nm"))
+    builder.set_box(puw.quantity(np.tile(np.eye(3), (3, 1, 1)), "nm"))
+    builder.set_time(puw.quantity(np.array([0.0, 1.0, 2.0]), "ps"))
+    builder.set_structure_id([0, 1, 2])
+
+    molsys = builder.build()
+    assert molsys is not None
+    return molsys
+
+
+@pytest.fixture()
+def builder_trajectory_molsys(_base_builder_trajectory_molsys):
+    return _base_builder_trajectory_molsys.copy()
+
+
+@pytest.fixture(scope="session")
+def _base_builder_trajectory_h5msm_file(_base_builder_trajectory_molsys, tmp_path_factory):
+    output_path = tmp_path_factory.mktemp('builder_traj_h5msm_assets') / 'builder_trajectory.h5msm'
+    msm.convert(_base_builder_trajectory_molsys, to_form='file:h5msm', output_filename=str(output_path))
+    assert output_path.is_file()
+    return str(output_path)
+
+
+@pytest.fixture()
+def builder_trajectory_h5msm_file(_base_builder_trajectory_h5msm_file):
+    return _base_builder_trajectory_h5msm_file
+
+
+@pytest.fixture(scope="session")
+def _base_builder_trajectory_xtc_file(_base_builder_trajectory_molsys, tmp_path_factory):
+    # XTC can only be written via mdtraj; MolSys → mdtraj.Trajectory → .xtc
+    output_path = tmp_path_factory.mktemp('builder_traj_xtc_assets') / 'builder_trajectory.xtc'
+    traj = msm.convert(_base_builder_trajectory_molsys, to_form='mdtraj.Trajectory')
+    traj.save_xtc(str(output_path))
+    assert output_path.is_file()
+    return str(output_path)
+
+
+@pytest.fixture()
+def builder_trajectory_xtc_file(_base_builder_trajectory_xtc_file):
+    return _base_builder_trajectory_xtc_file
+
+
+@pytest.fixture()
+def builder_mdtraj_trajectory(builder_pdb_molsys):
+    return msm.convert(builder_pdb_molsys, to_form='mdtraj.Trajectory')
+
+
+@pytest.fixture()
+def builder_mdtraj_topology(builder_pdb_molsys):
+    return msm.convert(builder_pdb_molsys, to_form='mdtraj.Topology')
+
 # TcTIM systems
 
 @pytest.fixture(scope="session")
