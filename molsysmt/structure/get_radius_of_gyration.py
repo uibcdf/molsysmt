@@ -1,73 +1,79 @@
 from molsysmt._private.arg_digestion import arg_digest
-from molsysmt._private.smonitor import StructuralInconsistencyError, InternalAlgorithmError, FormatError
-from smonitor import signal
 from molsysmt._private.smonitor import NotImplementedMethodError
-#from molsysmt.lib import geometry as libgeometry
+from molsysmt.lib.structure._kernel_inputs import extract_coordinates_value_and_unit
+from smonitor import signal
 from molsysmt import pyunitwizard as puw
 import numpy as np
+import gc
+
 
 @signal(tags=['api', 'structure'])
 @arg_digest()
 def get_radius_of_gyration(molecular_system, selection='all', structure_indices='all',
-                           weights=None, pbc=False, engine='MolSysMT', syntax='MolSysMT'):
+                           weights=None, syntax='MolSysMT', engine='MolSysMT'):
     """
-    To be written soon...
+    Radius of gyration of a selection of atoms over one or more structures.
+
+    Parameters
+    ----------
+    molecular_system : molecular system
+        Input system in any supported form.
+    selection : str, list, tuple or numpy.ndarray, default 'all'
+        Atom selection over which the radius of gyration is computed.
+    structure_indices : 'all' or array-like, default 'all'
+        Structures/frames to include.
+    weights : None or 'masses', default None
+        If None, all atoms have equal weight (geometric radius of gyration).
+        If 'masses', atoms are weighted by their atomic mass.
+    syntax : str, default 'MolSysMT'
+        Selection syntax.
+    engine : {'MolSysMT'}, default 'MolSysMT'
+        Backend used for the computation.
+
+    Returns
+    -------
+    quantity
+        Radius of gyration per structure as a PyUnitWizard quantity in length units.
+        Shape: (n_structures,).
+
+    Raises
+    ------
+    NotImplementedMethodError
+        If an unsupported engine is requested.
+
+    .. versionadded:: 1.0.0
     """
 
-#    if engine=='MolSysMT':
-#
-#        from molsysmt.basic import select, get
-#
-#        coordinates == msm.get(molecular_system, element='atom', selection=selection,
-#                               structure_indices=structure_indices, syntax=syntax, coordinates=True)
-#
-#        length_units = puw.get_unit(coordinates_1)
-#        coordinates = np.asfortranarray(puw.get_value(coordinates), dtype='float64')
-#
-#        n_structures = coordinates.shape[0]
-#        n_atoms = coordinates.shape[1]
-#
-#        if pbc:
-#
-#            box, box_shape = get(molecular_system, element='system', structure_indices=structure_indices, box=True,
-#                                 box_shape=True)
-#
-#            orthogonal = 0
-#            if box_shape is None:
-#                raise ValueError("The system has no PBC box. The input argument 'pbc' can not be True.")
-#            elif box_shape == 'cubic':
-#                orthogonal =1
-#
-#        else:
-#
-#            box= np.zeros([n_structures, 3, 3])*length_units
-#            orthogonal = 1
-#
-#        box = np.asfortranarray(puw.get_value(box, to_unit=length_units), dtype='float64')
-#
-#        if weights is None:
-#            weights = np.ones(n_atoms)
-#            weights_units = 1
-#        elif weights == 'masses':
-#            from molsysmt.chemphys import get_masses
-#            masses = get_masses(molecular_systems, selection=selection, syntax=syntax)
-#            weights_units = puw.get_unit(masses)
-#            weights = puw.get_value(masses)
-#
-#        output = libgeometry.radius_of_gyration(coordinates, weights, box, orthogonal, int(pbc), n_structures, n_atoms)
-#        output = output*weights_units*length_units*length_units
-#
-#        del(weights, coordinates, box, orthogonal)
-#
-#    elif engine=='mdtraj':
-#
-#        raise NotImplementedMethodError()
-#
-#    else:
-#
-#        raise NotImplementedMethodError()
-#
-#    return output
+    if engine == 'MolSysMT':
 
-    raise NotImplementedMethodError()
+        from molsysmt.basic import select, get
+        from molsysmt import lib as msmlib
 
+        atom_indices = select(molecular_system, selection=selection, syntax=syntax)
+        n_atoms = len(np.atleast_1d(atom_indices))
+
+        if weights is None:
+            weights_arr = np.ones(n_atoms, dtype=np.float64)
+        elif weights == 'masses':
+            from molsysmt.physchem import get_mass
+            masses = get_mass(molecular_system, element='atom', selection=selection, syntax=syntax)
+            weights_arr = np.asarray(puw.get_value(masses), dtype=np.float64)
+        else:
+            weights_arr = np.asarray(weights, dtype=np.float64)
+
+        coordinates = get(molecular_system, element='atom', selection=atom_indices,
+                          structure_indices=structure_indices, coordinates=True)
+        coordinates, length_unit = extract_coordinates_value_and_unit(coordinates)
+
+        rg_val = msmlib.structure.get_radius_of_gyration(coordinates, weights_arr)
+        rg = puw.quantity(rg_val, length_unit)
+        rg = puw.standardize(rg)
+
+        del coordinates, weights_arr, length_unit
+        gc.collect()
+
+        return rg
+
+    else:
+
+        raise NotImplementedMethodError()

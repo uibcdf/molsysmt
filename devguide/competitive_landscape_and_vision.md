@@ -163,7 +163,7 @@ corrections can be applied to any supported trajectory form.
 | Capability | mdtraj | MDAnalysis | MolSysMT | Notes |
 |---|---|---|---|---|
 | RMSD | ✅ | ✅ | ✅ | |
-| RMSF | ✅ | ✅ | ❌ | straightforward given RMSD — not yet implemented |
+| RMSF | ✅ | ✅ | ✅ | `molsysmt.structure.get_rmsf()` — Numba JIT kernel (March 2026) |
 | Distances / contacts | ✅ | ✅ | ✅ | |
 | Angles / dihedrals | ✅ | ✅ | ✅ | |
 | Least-RMSD alignment | ✅ | ✅ | ✅ | |
@@ -171,9 +171,9 @@ corrections can be applied to any supported trajectory form.
 | H-bonds | ✅ | ✅ | ✅ | dedicated `hbonds` module |
 | PBC wrapping / unwrapping | ✅ | ✅ | ✅ | `molsysmt.pbc` module |
 | Sequence identity | — | ✅ | ✅ | |
-| Radius of gyration | ✅ | ✅ | ❌ | code exists, disabled — quick fix |
-| SASA | ✅ | ✅ | ⚠️ | `molsysmt.physchem.get_sasa()` via mdtraj engine; docstring pending |
-| Secondary structure | ✅ | ✅ | ❌ | delegate to DSSP via mdtraj or BioPython |
+| Radius of gyration | ✅ | ✅ | ✅ | `molsysmt.structure.get_radius_of_gyration()` — Numba JIT kernel (March 2026) |
+| SASA | ✅ | ✅ | ✅ | `molsysmt.physchem.get_sasa()` via mdtraj engine (March 2026) |
+| Secondary structure | ✅ | ✅ | ✅ | `molsysmt.structure.get_secondary_structure()` — DSSP via mdtraj (March 2026) |
 | Sequence alignment | — | ✅ | ⚠️ | BioPython engine only; others are stubs |
 | Clustering | — | ✅ | ❌ | |
 | Heavy trajectories | ✅ | ✅ | ✅ | Tier 1 slice fully implemented: ChunkedExecutor, Reducer, PersistentResultHandle, get_center/get_rmsd/get_distances; see `scalability_and_heavy_trajectories_v2.md` |
@@ -232,10 +232,10 @@ and adoption.  The paper and a thorough user-facing tutorial site are the primar
 | `center()` | ✅ (docstring placeholder) | low |
 | `move_away()` | ✅ | — |
 | `show_contacts()` | ✅ (docstring placeholder) | low |
-| **`get_radius_of_gyration()`** | ❌ disabled — code exists, raises `NotImplementedMethodError` | **high** |
-| **`get_rmsf()`** | ❌ missing | high |
+| **`get_radius_of_gyration()`** | ✅ implemented — Numba JIT kernel, uniform and mass-weighted (March 2026) | — |
+| **`get_rmsf()`** | ✅ implemented — Numba JIT kernel (March 2026) | — |
 | **`get_sasa()`** | ❌ not here — see `molsysmt.physchem.get_sasa()` | — |
-| **secondary structure** | ❌ missing | medium |
+| **secondary structure** | ✅ implemented — `get_secondary_structure()`, DSSP via MDTraj (March 2026) | — |
 
 **Docstring placeholders ("To be written soon..."):** `get_contacts`, `get_neighbors`,
 `get_rmsd`, `center`, `flip`, `show_contacts` — and several others.  These need to be
@@ -309,15 +309,14 @@ Most functions are implemented.  The main outstanding work is writing the missin
 
 ### Immediate (quick wins, days not weeks)
 
-1. **Re-enable `get_radius_of_gyration()`** — the commented implementation exists; verify
-   and restore it.  This is a high-visibility gap for any user coming from mdtraj.
-2. **Write missing docstrings** — at least 17 functions in `structure/` have placeholder
-   docstrings; `physchem/get_sasa()` also needs its docstring.  Mechanical but critical
-   for documentation quality and the API reference.
+1. ~~**Re-enable `get_radius_of_gyration()`**~~ ✅ Done — fully rewritten with Numba JIT
+   kernel (March 2026).
+2. **Write missing docstrings** — several functions in `structure/` still have placeholder
+   docstrings.  Mechanical but critical for documentation quality and the API reference.
 
 ### Short term (weeks)
 
-3. **Implement `get_rmsf()`** — straightforward given the RMSD and distance infrastructure.
+3. ~~**Implement `get_rmsf()`**~~ ✅ Done — Numba JIT kernel (March 2026).
 4. **Complete `get_sequence_alignment()`** — add at least one more engine beyond BioPython
    (e.g., a pure-Python pairwise aligner or delegation to BioPython's PairwiseAligner).
 5. **Tests for `structure/`, `topology/`, `physchem/`, and `build/`** — the modules have
@@ -325,8 +324,8 @@ Most functions are implemented.  The main outstanding work is writing the missin
 
 ### Medium term (months)
 
-6. **Implement secondary structure assignment** — delegate to DSSP via mdtraj or
-   BioPython.  Same engine-agnostic pattern as `physchem/get_sasa()`.
+6. ~~**Implement secondary structure assignment**~~ ✅ Done — `get_secondary_structure()`,
+   delegates to DSSP via MDTraj (March 2026).
 7. ~~**Heavy trajectory pipeline**~~ ✅ Done — Tier 1 slice (ChunkedExecutor, Reducer,
    PersistentResultHandle, SMonitor telemetry, heavy support in `get_center`,
    `get_rmsd`, `get_distances`) fully implemented and tested (March 2026).

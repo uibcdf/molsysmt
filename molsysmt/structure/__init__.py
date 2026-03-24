@@ -14,6 +14,8 @@ from .get_dihedral_angles import get_dihedral_angles
 from .set_dihedral_angles import set_dihedral_angles
 from .shift_dihedral_angles import shift_dihedral_angles
 from .get_radius_of_gyration import get_radius_of_gyration
+from .get_rmsf import get_rmsf
+from .get_secondary_structure import get_secondary_structure
 from .get_rmsd import get_rmsd
 from .get_least_rmsd import get_least_rmsd
 from .least_rmsd_fit import least_rmsd_fit

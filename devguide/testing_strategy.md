@@ -221,7 +221,7 @@ Current validated sequence in the March 2026 pass:
 
 Current status (March 2026):
 - the full `tests/` tree passes (green);
-- coverage is **78.15%** overall (Codecov, March 2026) — considered sufficient for the 1.0.0 stabilization
+- coverage is **78.79%** overall (Codecov, March 2026) — considered sufficient for the 1.0.0 stabilization
   pass; active coverage pursuit is paused in favour of functional correctness of
   new features;
 - the suite runs in ~10 minutes on 14 cores (`-n 14 --dist loadfile`);

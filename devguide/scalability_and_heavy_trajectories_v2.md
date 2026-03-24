@@ -490,18 +490,18 @@ This keeps configuration understandable and reduces unstable surface area before
 - `heavy_mode` argument digested by argdigest;
 - eager/heavy parity tests for all three operations.
 
-### 14.2 Tier 2 - Early post-1.0 ✅ ADVANCED (implemented ahead of schedule)
+### 14.2 Tier 2 - Early post-1.0 ✅ FULLY DONE (all advanced ahead of schedule)
 
 - **multi-reducer** (`ChunkedExecutor(reducers=[...])`) — single pass, multiple analyses;
 - **checkpoint / resume** (`checkpoint_interval`, `checkpoint_path`, `restore_from` on `ChunkedExecutor`; `checkpoint()` / `restore()` on `Reducer`);
 - **parallel reduction via merge** (`Reducer.merge(other)` protocol — split segments independently, merge in order);
 - **`estimate_output_shape`** on `Reducer` — triggers `PersistentResultHandle` allocation when output exceeds RAM budget;
-- `_DistancesReducer.estimate_output_shape` writes directly into the handle per chunk.
+- `_DistancesReducer.estimate_output_shape` writes directly into the handle per chunk;
+- **richer adaptive ETA** — exponential moving average (`_EMA_ALPHA=0.3`) updated per chunk; emitted in `ChunkProcessed` telemetry as `eta_s`;
+- **memory-pressure telemetry** — RSS monitored via `psutil` each chunk; `MemoryPressureWarning` emitted when RSS exceeds `config.memory_pressure_threshold` (default 0.80); graceful fallback when psutil not installed;
+- **richer `PersistentResultHandle` lifecycle** — `output_path` parameter on `ChunkedExecutor` and `path` parameter on `PersistentResultHandle`; user-specified files are not deleted on `cleanup()`, giving callers full lifecycle control; parent directories created automatically.
 
-Still pending (genuine Tier 2):
-- richer adaptive ETA beyond first-chunk estimate;
-- memory-pressure telemetry during execution;
-- richer `PersistentResultHandle` lifecycle (user-controlled paths, named output files).
+All three items previously marked "still pending" are confirmed implemented and tested (March 2026).
 
 ### 14.3 Tier 3 - Advanced / enterprise-like features
 - cloud streaming;

@@ -7,7 +7,7 @@
 > `scalability_and_heavy_trajectories_v2.md` section 14.1.
 > The support contract and parity tests for all Tier 1 and Tier 2 forms are in place —
 > `support_tiers.ipynb` shows Yes/Yes across all Tier 1 and Tier 2 entries.
-> Coverage stands at 78.15% (target met).
+> Coverage stands at 78.79% (target met).
 >
 > **Remaining open item: 12.**
 
@@ -23,7 +23,7 @@ MolSysMT has recently reached a strong technical checkpoint:
 
 - the full test suite is green;
 - distributed validation with `pytest -n 12 --dist loadfile ...` is established as the default large-scale testing workflow;
-- the current honest coverage baseline is `78.15%` (target 70-80% reached);
+- the current honest coverage baseline is `78.79%` (target 70-80% reached);
 - `0.17.0` already marks the current declarative-serialization and builder-editing checkpoint;
 - `MolSysBuilder` is integrated as the native editable path;
 - declarative serialization forms are available;
@@ -87,7 +87,7 @@ The repository is now at a much stronger testing checkpoint than before, but the
 Current agreed state:
 
 - full-suite validation is green;
-- the honest global coverage baseline is `78.15%` — the 70-80% target has been reached;
+- the honest global coverage baseline is `78.79%` — the 70-80% target has been reached;
 - active coverage pursuit is paused: further gains should come from meaningful
   tests for new features rather than percentage chasing;
 - `molsysmt.molecular_dynamics/**` is explicitly outside the `1.0.0` support contract and outside the local/Codecov stabilization coverage scope.
@@ -292,7 +292,7 @@ Without this, `1.0.0` remains technically strong but institutionally ambiguous.
 
 ### 2. Coverage threshold with technical meaning
 
-The global coverage baseline is `78.15%` — the 70-80% working target has been reached.
+The global coverage baseline is `78.79%` — the 70-80% working target has been reached.
 
 Active coverage pursuit is paused. The end condition is not a percentage; it is
 that the contractually supported surface is well defended. The focus now is on
@@ -362,7 +362,7 @@ This checklist is intentionally short. It is the execution-order summary of the 
 6. ~~**Classify public API stability**~~ ✅ Done — `devguide/api_surface.md` classifies all public namespaces (Stable / Experimental / Outside contract) (March 2026)
 7. ~~**Define the `1.x` deprecation policy**~~ ✅ Done — `devguide/deprecation_policy.md` created (March 2026)
 8. ~~**Validate release engineering and packaging**~~ ✅ Done — CI matrix validated (smoke/weekly/full workflows in place, Python 3.11–3.13, ubuntu+macos); `test_env.yaml` updated with sibling version pins and rdkit/parmed; `rdkit` added to `pyproject.toml[soft]` (March 2026)
-9. ~~**Raise meaningful coverage on the Tier 1 surface**~~ ✅ Done — 78.15% baseline reached (March 2026)
+9. ~~**Raise meaningful coverage on the Tier 1 surface**~~ ✅ Done — 78.79% baseline reached (March 2026)
 10. ~~**Expand deterministic builder-based fixtures where they reduce truth ambiguity**~~ ✅ Done — builder oracle used throughout Tier 1 and Tier 2 form tests (March 2026)
 11. ~~**Align developer and user-facing documentation with the implemented architecture**~~ ✅ Done — devguide and docs/content/developer audited and updated: heavy trajectory, declarative serialization forms, and competitive landscape corrected to reflect implemented state (March 2026)
 12. **Enter beta-testing, dogfooding, paper writing, and the final stabilization window**

@@ -65,3 +65,8 @@ from .principal_component_analysis import principal_component_analysis
 
 from .flip import flip
 
+from .get_radius_of_gyration import get_radius_of_gyration_single_structure
+from .get_radius_of_gyration import get_radius_of_gyration
+
+from .get_rmsf import get_rmsf
+
