@@ -29,9 +29,13 @@ def get_missing_residues(molecular_system, selection='all', syntax='MolSysMT', e
     Returns
     -------
     dict
-        Dictionary mapping group (residue) indices (int) in the original molecular
-        system to residue names (str) of the residues that are missing at each
-        position. Only positions with missing residues are included.
+        Dictionary mapping ``(chain_index, insertion_position)`` tuples to
+        lists of residue names (str).  ``chain_index`` is the 0-based index of
+        the chain in the (sub)system; ``insertion_position`` is the 0-based
+        index within that chain's *structural* sequence before which the missing
+        residues should be inserted (matches PDBFixer's ``missingResidues``
+        convention).  For insertions after the last residue of a chain the
+        ``insertion_position`` equals the number of residues in that chain.
 
     Raises
     ------
@@ -40,9 +44,10 @@ def get_missing_residues(molecular_system, selection='all', syntax='MolSysMT', e
 
     Notes
     -----
-    The function converts the (sub)system to a ``pdbfixer.PDBFixer`` object,
-    calls ``findMissingResidues``, and maps the PDBFixer-internal residue indices
-    back to the original group indices in the molecular system.
+    The function converts the (sub)system to a ``pdbfixer.PDBFixer`` object and
+    calls ``findMissingResidues``.  PDBFixer's ``missingResidues`` attribute is a
+    ``dict`` with ``(chain_index, insertion_position)`` keys and
+    ``[residue_name, ...]`` values; this function returns that dict directly.
 
     .. versionadded:: 1.0.0
     """
@@ -53,16 +58,13 @@ def get_missing_residues(molecular_system, selection='all', syntax='MolSysMT', e
 
         from molsysmt.basic import convert, get_form, select
 
-        group_indices_in_selection = select(molecular_system, element='group', selection=selection)
-
         temp_molecular_system = convert(molecular_system, to_form="pdbfixer.PDBFixer", selection=selection,
                                         syntax=syntax)
 
         temp_molecular_system.findMissingResidues()
 
-        for group, substitution in temp_molecular_system.missingResidues:
-            original_group_index = group_indices_in_selection[group.index]
-            output[original_group_index]=substitution.name
+        for (chain_index, insertion_position), residue_names in temp_molecular_system.missingResidues.items():
+            output[(chain_index, insertion_position)] = residue_names
 
     else:
 
