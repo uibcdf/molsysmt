@@ -1,5 +1,5 @@
 """
-Contract tests for MDAnalysis.Topology form.
+Contract and parity tests for MDAnalysis.Topology form.
 
 MDAnalysis.Topology is the internal topology object inside an MDAnalysis
 Universe.  It is created by parsing a PDB file via
@@ -10,8 +10,8 @@ Oracle: 1l2y.pdb (Trp-cage, 304 atoms, 20 residues, 1 chain).
 Contract: MDAnalysis.Topology can be created and its native attributes
 (n_atoms, n_residues, n_segments) match the expected oracle counts.
 
-Note: msm.get() on MDAnalysis.Topology is not fully implemented; parity
-tests use the MDAnalysis native API directly.
+Parity: MDAnalysis.Topology → molsysmt.Topology preserves atom count,
+group count, chain count, atom names, and group names.
 """
 
 import pytest
@@ -28,6 +28,16 @@ N_SEGMENTS = 1
 @pytest.fixture(scope='module')
 def mda_topology():
     return msm.convert(PDB_PATH, to_form='MDAnalysis.Topology')
+
+
+@pytest.fixture(scope='module')
+def source_topology():
+    return msm.convert(PDB_PATH, to_form='molsysmt.Topology')
+
+
+@pytest.fixture(scope='module')
+def roundtrip_topology(mda_topology):
+    return msm.convert(mda_topology, to_form='molsysmt.Topology')
 
 
 # ---------------------------------------------------------------------------
@@ -52,14 +62,24 @@ def test_mda_topology_segment_count(mda_topology):
 
 
 # ---------------------------------------------------------------------------
-# Parity: MDAnalysis.Topology == source PDB (via native MDAnalysis API)
+# Parity: MDAnalysis.Topology → molsysmt.Topology preserves topology
 # ---------------------------------------------------------------------------
 
-def test_parity_atom_names(mda_topology):
-    source = msm.convert(PDB_PATH, to_form='MDAnalysis.Universe')
-    assert list(mda_topology.names.values) == list(source._topology.names.values)
+def test_parity_atom_count(roundtrip_topology, source_topology):
+    assert roundtrip_topology.n_atoms == source_topology.n_atoms
 
 
-def test_parity_resnames(mda_topology):
-    source = msm.convert(PDB_PATH, to_form='MDAnalysis.Universe')
-    assert list(mda_topology.resnames.values) == list(source._topology.resnames.values)
+def test_parity_group_count(roundtrip_topology, source_topology):
+    assert roundtrip_topology.n_groups == source_topology.n_groups
+
+
+def test_parity_chain_count(roundtrip_topology, source_topology):
+    assert roundtrip_topology.n_chains == source_topology.n_chains
+
+
+def test_parity_atom_names(roundtrip_topology, source_topology):
+    assert roundtrip_topology.atoms['atom_name'].tolist() == source_topology.atoms['atom_name'].tolist()
+
+
+def test_parity_group_names(roundtrip_topology, source_topology):
+    assert roundtrip_topology.groups['group_name'].tolist() == source_topology.groups['group_name'].tolist()

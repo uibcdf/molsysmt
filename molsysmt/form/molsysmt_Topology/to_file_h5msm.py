@@ -14,7 +14,7 @@ def to_file_h5msm(item, atom_indices='all', coordinates=None, output_filename=No
             compression_opts=compression_opts, int_precision=int_precision,
             float_precision=float_precision, closed=False)
 
-    _add_topology_to_h5msm(item, handler, atom_indices=atom_indices)
+    dump_topology_to_h5msm(item, handler, atom_indices=atom_indices)
 
     handler.close()
 

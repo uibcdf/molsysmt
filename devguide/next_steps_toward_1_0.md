@@ -1,5 +1,16 @@
 # Next Steps Toward 1.0.0
 
+> **Status (updated 2026-03-23)**
+>
+> Items 1, 2, 4, 9, and 10 from the checklist are **complete**.
+> The heavy-trajectory Tier 1 slice (item 4) is fully implemented and tested — see
+> `scalability_and_heavy_trajectories_v2.md` section 14.1.
+> The support contract and parity tests for all Tier 1 and Tier 2 forms are in place —
+> `support_tiers.ipynb` shows Yes/Yes across all Tier 1 and Tier 2 entries.
+> Coverage stands at 78.15% (target met).
+>
+> **Remaining open item: 12.**
+
 This temporary document records the currently agreed action plan for the next phase toward `1.0.0`.
 
 It is intentionally broader than a support-contract note. The current state of the repository already justifies moving from broad stabilization to explicit product-definition work, but several strategic tasks still need to be completed before the `1.0.0` line can be considered professionally closed.
@@ -16,7 +27,8 @@ MolSysMT has recently reached a strong technical checkpoint:
 - `0.17.0` already marks the current declarative-serialization and builder-editing checkpoint;
 - `MolSysBuilder` is integrated as the native editable path;
 - declarative serialization forms are available;
-- the heavy-trajectory roadmap has been rewritten as an executable `v2` working draft.
+- the heavy-trajectory Tier 1 slice is fully implemented and tested (`scalability_and_heavy_trajectories_v2.md`);
+- all Tier 1 and Tier 2 forms are contract- and parity-verified (`support_tiers.ipynb`).
 
 The next step is no longer broad stabilization. The next step is to turn that technical state into an explicit and defensible `1.x` support contract, backed by a stronger validation story and by developer-facing documentation that matches the architecture we have already implemented.
 
@@ -342,17 +354,17 @@ It should be removed or merged once:
 
 This checklist is intentionally short. It is the execution-order summary of the broader discussion in this document. Each item below maps back to one or more sections above. If a future task does not fit under one of these headings, the plan is incomplete and this file must be updated before work continues.
 
-1. **Lock the support contract**
-2. **Derive parity obligations from that contract**
-3. **Synchronize the performance and JIT manifesto**
-4. **Implement the remaining in-scope `1.0.0` capabilities**
-5. **Freeze sibling-library release baselines**
-6. **Classify public API stability**
-7. **Define the `1.x` deprecation policy**
-8. **Validate release engineering and packaging**
-9. **Raise meaningful coverage on the Tier 1 surface**
-10. **Expand deterministic builder-based fixtures where they reduce truth ambiguity**
-11. **Align developer and user-facing documentation with the implemented architecture**
+1. ~~**Lock the support contract**~~ ✅ Done — `support_tiers.ipynb` shows Yes/Yes for all Tier 1 and Tier 2 forms (March 2026)
+2. ~~**Derive parity obligations from that contract**~~ ✅ Done — contract and parity tests in place for all Tier 1 and Tier 2 forms (March 2026)
+3. **Synchronize the performance and JIT manifesto** — `devguide/performance_and_jit.md` needs updating
+4. ~~**Implement the remaining in-scope `1.0.0` capabilities**~~ ✅ Done — heavy-trajectory Tier 1 slice fully implemented and tested; several Tier 2 features also done ahead of schedule (March 2026)
+5. ~~**Freeze sibling-library release baselines**~~ ✅ Done — smonitor≥0.11.6, argdigest≥0.9.3, depdigest≥0.10.0, pyunitwizard≥0.22.0 pinned in `pyproject.toml` (March 2026)
+6. ~~**Classify public API stability**~~ ✅ Done — `devguide/api_surface.md` classifies all public namespaces (Stable / Experimental / Outside contract) (March 2026)
+7. ~~**Define the `1.x` deprecation policy**~~ ✅ Done — `devguide/deprecation_policy.md` created (March 2026)
+8. ~~**Validate release engineering and packaging**~~ ✅ Done — CI matrix validated (smoke/weekly/full workflows in place, Python 3.11–3.13, ubuntu+macos); `test_env.yaml` updated with sibling version pins and rdkit/parmed; `rdkit` added to `pyproject.toml[soft]` (March 2026)
+9. ~~**Raise meaningful coverage on the Tier 1 surface**~~ ✅ Done — 78.15% baseline reached (March 2026)
+10. ~~**Expand deterministic builder-based fixtures where they reduce truth ambiguity**~~ ✅ Done — builder oracle used throughout Tier 1 and Tier 2 form tests (March 2026)
+11. ~~**Align developer and user-facing documentation with the implemented architecture**~~ ✅ Done — devguide and docs/content/developer audited and updated: heavy trajectory, declarative serialization forms, and competitive landscape corrected to reflect implemented state (March 2026)
 12. **Enter beta-testing, dogfooding, paper writing, and the final stabilization window**
 
 ### Coverage of topics in this file

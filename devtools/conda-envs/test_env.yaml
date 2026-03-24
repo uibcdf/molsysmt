@@ -10,10 +10,10 @@ dependencies:
 - h5py
 - numpy
 - numba
-- argdigest
-- depdigest
-- smonitor
-- pyunitwizard
+- argdigest>=0.9.3
+- depdigest>=0.10.0
+- smonitor>=0.11.6
+- pyunitwizard>=0.22.0
 - pandas
 - molsysviewer
 - networkx
@@ -25,6 +25,8 @@ dependencies:
 - ambertools
 - mdtraj
 - mdanalysis
+- rdkit
+- parmed
 - biopython
 - ipywidgets
 - py-mmcif

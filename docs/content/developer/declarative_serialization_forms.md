@@ -1,15 +1,22 @@
 # Declarative Serialization Forms
 
-MolSysMT is introducing a declarative serializer family that is distinct from
-both `h5msm` and viewer-oriented payloads.
+MolSysMT provides a declarative serializer family that is distinct from
+both `h5msm` and viewer-oriented payloads. The full family is implemented
+and tested as of March 2026.
 
-The current first slice is intentionally small:
+Implemented forms:
 
 - `molsysmt.MolSysDict`
+- `molsysmt.TopologyDict`
+- `molsysmt.StructuresDict`
 - `file:molsys_yaml`
+- `file:topology_yaml`
+- `file:structures_yaml`
 - `MolSys <-> MolSysDict`
 - `MolSysDict <-> file:molsys_yaml`
 - `MolSysBuilder <-> MolSysDict`
+- `Topology <-> TopologyDict <-> file:topology_yaml`
+- `Structures <-> StructuresDict <-> file:structures_yaml`
 
 ## Why this exists
 
@@ -30,12 +37,12 @@ The design separates:
 
 - semantic in-memory forms:
   - `molsysmt.MolSysDict`
-  - future `molsysmt.TopologyDict`
-  - future `molsysmt.StructuresDict`
+  - `molsysmt.TopologyDict`
+  - `molsysmt.StructuresDict`
 - file forms:
   - `file:molsys_yaml`
-  - future `file:topology_yaml`
-  - future `file:structures_yaml`
+  - `file:topology_yaml`
+  - `file:structures_yaml`
 
 Declarative YAML and JSON files use normal `*.yaml` / `*.yml` and `*.json` extensions. Their semantic role is detected from top-level discriminator fields in the payload itself:
 
@@ -49,16 +56,15 @@ Declarative YAML and JSON files use normal `*.yaml` / `*.yml` and `*.json` exten
 
 ## Current checkpoint
 
-The first slice is already implemented and tested. It is enough to:
+All three slices are implemented and tested (March 2026). It is enough to:
 
 - serialize a `MolSys` to `MolSysDict`;
 - dump that declared state to `file:molsys_yaml`;
 - read it back into `MolSysDict`;
 - rebuild a `MolSys` from it;
-- move declared state directly between `MolSysBuilder` and `MolSysDict`.
-
-Later slices should expand this family to topology-only and structures-only
-forms, plus optional JSON backends.
+- move declared state directly between `MolSysBuilder` and `MolSysDict`;
+- serialize a `Topology` through `TopologyDict` / `file:topology_yaml`;
+- serialize `Structures` through `StructuresDict` / `file:structures_yaml`.
 
 
 ## Second slice checkpoint

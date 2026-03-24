@@ -125,7 +125,8 @@ def test_run_reports_missing_tleap_binary(tmp_path):
 
 
 def test_sanitize_unit_name_rejects_empty():
-    with pytest.raises(ValueError, match="non-empty string"):
+    from molsysmt import ArgumentError
+    with pytest.raises(ArgumentError):
         TLeap._sanitize_unit_name("")
 
 

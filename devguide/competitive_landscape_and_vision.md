@@ -176,7 +176,7 @@ corrections can be applied to any supported trajectory form.
 | Secondary structure | ✅ | ✅ | ❌ | delegate to DSSP via mdtraj or BioPython |
 | Sequence alignment | — | ✅ | ⚠️ | BioPython engine only; others are stubs |
 | Clustering | — | ✅ | ❌ | |
-| Heavy trajectories | ✅ | ✅ | ❌ | roadmap exists, not yet implemented |
+| Heavy trajectories | ✅ | ✅ | ✅ | Tier 1 slice fully implemented: ChunkedExecutor, Reducer, PersistentResultHandle, get_center/get_rmsd/get_distances; see `scalability_and_heavy_trajectories_v2.md` |
 | System building | ❌ | ⚠️ | ✅ | `molsysmt.build`: peptide, solvate, mutate, bioassembly, ... |
 | Physicochemical properties | ❌ | ❌ | ✅ | `molsysmt.physchem`: mass, charge, hydrophobicity, ... |
 | Simulation integration | ⚠️ | ⚠️ | ✅ | `thirds/`: OpenMM, tleap, nglview |
@@ -189,8 +189,10 @@ corrections can be applied to any supported trajectory form.
 
 mdtraj uses Cython and C extensions with years of optimization.  MolSysMT uses Numba
 JIT kernels which are competitive for single-pass operations but have a warmup cost.
-The heavy-trajectory pipeline (chunked reading, reducer protocol) is the most significant
-remaining performance gap.
+The heavy-trajectory pipeline (chunked reading, reducer protocol) is now implemented for
+the Tier 1 slice — see `scalability_and_heavy_trajectories_v2.md`. The remaining
+performance gap vs mdtraj is in the eager path for operations that do not yet have JIT
+kernels, not in the chunked-execution architecture itself.
 
 ### Ecosystem and community
 
@@ -325,9 +327,10 @@ Most functions are implemented.  The main outstanding work is writing the missin
 
 6. **Implement secondary structure assignment** — delegate to DSSP via mdtraj or
    BioPython.  Same engine-agnostic pattern as `physchem/get_sasa()`.
-7. **Heavy trajectory pipeline** — the roadmap exists in
-   `devguide/scalability_and_heavy_trajectories_v2.md`.  This is the largest remaining
-   technical item and the most important for performance parity.
+7. ~~**Heavy trajectory pipeline**~~ ✅ Done — Tier 1 slice (ChunkedExecutor, Reducer,
+   PersistentResultHandle, SMonitor telemetry, heavy support in `get_center`,
+   `get_rmsd`, `get_distances`) fully implemented and tested (March 2026).
+   See `scalability_and_heavy_trajectories_v2.md` section 14.1.
 
 ### Long term (release cycle)
 
@@ -383,7 +386,7 @@ The remaining capability gap is specific and addressable:
   secondary structure) — none require architectural work.
 - `get_sasa()` in `physchem/` is implemented but needs its docstring; the `structure/`
   module also has placeholder docstrings that must be filled before 1.0.0.
-- Heavy trajectory support — significant work, but the design is already drafted.
+- ~~Heavy trajectory support~~ — Tier 1 slice fully implemented (March 2026).
 - Documentation and community — time and consistency.
 
 The foundation is right.  The path from here to "better than mdtraj and MDAnalysis" is

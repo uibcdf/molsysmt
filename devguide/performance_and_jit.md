@@ -1,5 +1,15 @@
 # Performance and JIT
 
+> **Status (updated 2026-03-23)**
+>
+> This document reflects the architecture as implemented for `1.0.0`.
+> The three-layer kernel boundary model, `ValidatedPayload` trusted-path
+> protocol, and float64 normalization policy are all in place and adopted
+> across the main Tier 1 hot paths.
+> The heavy-trajectory `ChunkedExecutor` / `Reducer` architecture is also
+> fully implemented and follows the same boundary discipline — see
+> `scalability_and_heavy_trajectories_v2.md`.
+
 ## Import Strategy (Lightweight Startup)
 `import molsysmt` must remain fast. Performance-heavy kernels are loaded and
 compiled lazily. Avoid importing heavy modules or soft dependencies at module
@@ -112,10 +122,13 @@ where the upstream preparation is known and controlled.
 That is the correct posture for `1.0.0`: trusted execution should be explicit,
 limited, and auditable.
 
-The same principle is also the natural bridge to the planned heavy-trajectory
-architecture. The `ValidatedPayload` passport should not be understood as a
-structure-only trick; it is the current trusted-path pattern that later heavy
-chunk payloads are expected to reuse rather than replace.
+The same principle extends directly to the heavy-trajectory architecture, which
+is now implemented (see `scalability_and_heavy_trajectories_v2.md`). The
+`ValidatedPayload` passport is not a structure-only trick: chunk payloads
+delivered by `ChunkedExecutor` to `Reducer.consume()` already follow the same
+trusted-boundary contract — shape, dtype, and unit semantics are established
+once at chunk boundary, and inner execution loops do not re-enter digestion or
+validation for each chunk.
 
 ## Unit-Agnostic Kernels and Alignment on Demand
 The structure and PBC kernels should not enforce a single canonical user-level
@@ -294,7 +307,9 @@ For `1.0.0`, the current split between:
 - trusted preparation helpers
 - numeric kernels
 
-is considered sufficient.
+is considered sufficient. The heavy-trajectory path (`ChunkedExecutor` /
+`Reducer`) is now also implemented and follows the same three-layer boundary
+discipline — see `scalability_and_heavy_trajectories_v2.md`.
 
 What remains open after `1.0.0`:
 - if similar kernel helpers spread widely across multiple MolSysMT domains,
@@ -304,4 +319,7 @@ What remains open after `1.0.0`:
   user workloads become common enough to justify stronger guarantees;
 - heavier `MolSys` and HDF5 coordinate workflows should be profiled separately,
   without conflating I/O cost with the correctness of the current trusted-path
-  design.
+  design;
+- the `ChunkedExecutor` performance model (chunk I/O cost, reducer overhead,
+  ETA accuracy) should be profiled and documented once representative large
+  trajectories are available for benchmarking.

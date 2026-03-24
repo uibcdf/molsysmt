@@ -33,15 +33,15 @@ dependencies = [
     "h5py",
     "numpy",
     "numba",
-    "pyunitwizard",
+    "pyunitwizard>=0.22.0",
     "pandas",
     "molsysviewer",
     "networkx",
     "tqdm",
     "matplotlib",
-    "argdigest",
-    "depdigest",
-    "smonitor",
+    "argdigest>=0.9.3",
+    "depdigest>=0.10.0",
+    "smonitor>=0.11.6",
 ]
 keywords = ["molecular-dynamics", "structural-biology", "chemistry", "trajectory", "conversion"]
 
@@ -58,6 +58,7 @@ soft = [
   "openmm",
   "openmmtools",
   "MDAnalysis",
+  "rdkit",
   "parmed",
   "pytraj",
   "nglview",
