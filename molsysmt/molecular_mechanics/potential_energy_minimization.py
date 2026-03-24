@@ -6,42 +6,69 @@ def potential_energy_minimization(molecular_system, method='L-BFGS',
         platform='CPU', engine='OpenMM', to_form=None, in_place=False, verbose=False):
 
     """
-    To be written soon...
+    Relax a molecular system to a local minimum of the potential energy.
 
-    potential_energy_minimization(molecular_system, ...)
-
-    A new structure is returned with the molecular model relaxed to the nearest potential energy local
-    minimum.
+    Performs energy minimization using the chosen backend optimizer. The minimized
+    coordinates are applied either in-place to the original molecular system or to
+    a new copy depending on the ``in_place`` flag.
 
     Parameters
     ----------
-    item : molecular model
-        Molecular model in any form to be operated by the method.
-    method : str (default "L-BFGS")
-        Energy minimization method.
-    method : str (default "AMBER99SB-ILDN")
-        Forcefield to model the inter-atomic interactions.
-    selection : str, int, list, tuple or numpy array (default None)
-        Region to be minimized defined as a selection sentence or atoms indices list. By default
-        None means all atoms and there by the whole molecular model is minized.
-    syntax : str (default "mdtraj")
-        Name of the selection syntax used: "mdtraj" or "amber".
-    engine : str (default "openmm")
+    molecular_system : molecular system
+        Molecular system in any of :ref:`the supported forms <Introduction_Forms>`.
+        When ``engine='OpenMM'``, the system may also be provided directly as an
+        ``openmm.Context`` or ``openmm.Simulation`` object, in which case the
+        context is used and reused without conversion.
+
+    method : str, default 'L-BFGS'
+        Energy minimization algorithm. Currently only the L-BFGS method provided
+        by OpenMM's ``LocalEnergyMinimizer`` is supported.
+
+    platform : str, default 'CPU'
+        OpenMM platform used when creating a new context from the molecular system.
+        Common values: ``'CPU'``, ``'CUDA'``, ``'OpenCL'``, ``'Reference'``.
+
+    engine : {'OpenMM'}, default 'OpenMM'
+        Backend used to perform the minimization. Only ``'OpenMM'`` is currently
+        supported.
+
+    to_form : str or None, default None
+        Target form for the output molecular system when ``in_place=False``. If
+        None, a copy of the input is returned in its original form.
+
+    in_place : bool, default False
+        If True, the minimized coordinates are written back into ``molecular_system``
+        directly and the function returns None. If False, a new molecular system is
+        returned with the relaxed coordinates.
+
+    verbose : bool, default False
+        If True, print the potential energy before and after minimization.
 
     Returns
     -------
-    item : molecular model
-        The result is a new molecular model with coordinates or positions relaxed to the nearest local minimum of
-        the potential energy.
+    molecular system or None
+        When ``in_place=False``, returns a molecular system with the minimized
+        coordinates in the form specified by ``to_form`` (or the original form).
+        When ``in_place=True``, returns None and updates ``molecular_system`` in
+        place (only applicable for non-Context/Simulation forms).
 
-    Examples
-    --------
-    Remove chains 0 and 1 from the pdb: 1B3T.
-    >>> import molsysmt as msm
-    >>> system = msm.load('pdb:1B3T')
-    Check the number of chains
-    >>> minimized_system = m3t.molecular_mechanics.potential_energy_minimization(system)
+    Raises
+    ------
+    NotImplementedError
+        Raised if the requested ``engine`` is not supported.
 
+    Notes
+    -----
+    If the input is not already an ``openmm.Context`` or ``openmm.Simulation``,
+    the molecular system is converted to an ``openmm.Context`` using the MolSysMT
+    default attributes for any missing molecular-mechanics parameters (forcefield,
+    integrator, temperature, etc.).
+
+    The minimization is performed by OpenMM's ``LocalEnergyMinimizer.minimize``,
+    which converges to the nearest local minimum of the force-field potential
+    energy surface.
+
+    .. versionadded:: 1.0.0
     """
 
     from molsysmt import convert, get_form, has_attribute, set, copy

@@ -20,26 +20,81 @@ def solvate (molecular_system, box_shape="truncated octahedral", clearance='14.0
              ionic_strength='0.0 molar', water_model='TIP3P', engine="OpenMM",
              to_form= None, verbose=False):
     """
-    To be written soon...
+    Solvate a molecular system by surrounding it with explicit water molecules and ions.
 
-    Methods and wrappers to create and solvate boxes
+    This function places the molecular system inside a solvent box of the chosen
+    geometry, fills it with explicit water molecules of the selected model, and
+    optionally adds counterions to neutralise the system charge and/or reach a
+    target ionic strength.
+
     Parameters
     ----------
-    anion: 'Cl-', 'Br-', 'F-', and 'I-'
-    n_anions: number of cations to add. integer or "neutralize"
-    cation: "NA"  'Cs+', 'K+', 'Li+', 'Na+', and 'Rb+'
-    n_cations: number of cations to add. integer or "neutralize"
-    box_shape: "cubic", "truncated_octahedral" or "rhombic_dodecahedron" (Default: "truncated_octahedral")
+    molecular_system : molecular system
+        Molecular system in any of :ref:`the supported forms <Introduction_Forms>`.
+        Should not already contain explicit solvent.
+
+    box_shape : {'truncated octahedral', 'rhombic dodecahedral', 'cubic'}, default 'truncated octahedral'
+        Geometry of the periodic simulation box. A truncated octahedral box minimises
+        the volume of solvent required for a given clearance distance.
+
+    clearance : str or quantity, default '14.0 angstroms'
+        Minimum distance between any atom of the solute and the nearest box face.
+        Accepts a unit string parseable by pyunitwizard (e.g. ``'14.0 angstroms'``).
+
+    anion : {'Cl-', 'Br-', 'F-', 'I-'}, default 'Cl-'
+        Species used as the negative counterion.
+
+    n_anions : int or 'neutralize', default 'neutralize'
+        Number of anions to add. Use ``'neutralize'`` to add just enough to
+        neutralise the system charge.
+
+    cation : {'Cs+', 'K+', 'Li+', 'Na+', 'Rb+'}, default 'Na+'
+        Species used as the positive counterion.
+
+    n_cations : int or 'neutralize', default 'neutralize'
+        Number of cations to add. Use ``'neutralize'`` to add just enough to
+        neutralise the system charge.
+
+    ionic_strength : str or quantity, default '0.0 molar'
+        Target ionic strength of the solvent. Accepts a unit string parseable by
+        pyunitwizard (e.g. ``'0.15 molar'``).
+
+    water_model : {'SPC', 'SPCE', 'TIP3P', 'TIP3PFB', 'TIP4PEW', 'TIP4PFB', 'TIP5P'}, default 'TIP3P'
+        Water model used to parameterise solvent molecules. If the molecular system
+        already stores a water model attribute, it takes precedence.
+
+    engine : {'OpenMM', 'PDBFixer'}, default 'OpenMM'
+        Backend used to add solvent and ions.
+
+    to_form : str or None, default None
+        Target form for the output molecular system. If None, the form of the
+        input ``molecular_system`` is used.
+
+    verbose : bool, default False
+        If True, progress information may be printed by the engine.
+
     Returns
     -------
-    item : bla bla
-        bla bla
-    Examples
-    --------
-    See Also
-    --------
+    molecular system
+        A new solvated molecular system in the form specified by ``to_form`` (or
+        in the same form as the input). Component, molecule, and chain metadata
+        from the original system are preserved and entity labels are rebuilt.
+
+    Raises
+    ------
+    NotImplementedError
+        Raised if the requested ``engine`` or ``water_model`` is not supported.
+
     Notes
     -----
+    After solvation, water molecules and ions are automatically assigned to a new
+    chain by ``assign_selection_to_new_chain``. Atom and residue IDs in the output
+    topology are renumbered sequentially to work around a known OpenMM bug.
+
+    The forcefield used for solvation is read from the molecular system when
+    available; otherwise the MolSysMT default forcefield is used.
+
+    .. versionadded:: 1.0.0
     """
 
     logfile=False

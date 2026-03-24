@@ -13,7 +13,110 @@ def get_neighbors(molecular_system, selection="all", structure_indices="all", ce
                   output_type='numpy.ndarray', output_indices=None, output_structure_indices=None,
                   sorted=True, engine='MolSysMT', syntax='MolSysMT', skip_digestion=False):
     """
-    To be written soon...
+    Find the neighbors of each atom (or group center) within a cutoff or by count.
+
+    Exactly one of ``threshold`` or ``n_neighbors`` must be provided:
+
+    * **Threshold mode** (``threshold`` is set, ``n_neighbors=None``): returns all
+      neighbors whose distance is less than or equal to the cutoff.  The neighbor
+      array has dtype ``object`` because each atom may have a different neighbor
+      count.
+    * **Fixed-count mode** (``n_neighbors`` is set, ``threshold=None``): returns the
+      ``n_neighbors`` nearest neighbors for each atom as a fixed-size integer array.
+
+    When ``selection_2`` is ``None`` and ``structure_indices_2`` is ``None`` the
+    same set is used as both query and target (self-neighbor search).  Self-matches
+    (distance ≈ 0) are automatically excluded in this case.
+
+    Parameters
+    ----------
+    molecular_system : molecular system
+        Input system in any form supported by MolSysMT.
+    selection : str, list, tuple or numpy.ndarray, default 'all'
+        Query atoms (or atom groups when ``center_of_atoms=True``).
+    structure_indices : 'all' or array-like, default 'all'
+        Frame indices of the query system.
+    center_of_atoms : bool, default False
+        If ``True``, use the (weighted) centroid of each group in ``selection``
+        rather than individual atom positions.
+    weights : array-like, optional
+        Per-atom weights for centroid computation of the first selection.
+    molecular_system_2 : molecular system or None, default None
+        Second system used as the neighbor pool.  When ``None``, the same system
+        is used.
+    selection_2 : str, list, tuple or numpy.ndarray or None, default None
+        Atoms in the neighbor pool.  When ``None``, the same selection and system
+        are used (self-neighbor search).
+    structure_indices_2 : 'all', array-like or None, default None
+        Frame indices for the neighbor pool.  When ``None``, ``structure_indices``
+        is reused.
+    center_of_atoms_2 : bool, default False
+        If ``True``, use the (weighted) centroid of each group in ``selection_2``.
+    weights_2 : array-like, optional
+        Per-atom weights for centroid computation of the second selection.
+    threshold : str, quantity or None, default None
+        Distance cutoff for the neighbor search.  Accepts any PyUnitWizard-parseable
+        length quantity (e.g. ``'5 angstroms'``).  Mutually exclusive with
+        ``n_neighbors``.
+    n_neighbors : int or None, default None
+        Number of nearest neighbors to return for each query element.  Mutually
+        exclusive with ``threshold``.
+    pairs : bool, default False
+        If ``True``, ``selection`` is interpreted as an array of pre-defined pairs
+        (not yet implemented for the neighbor output path).
+    unique_pairs : bool, default False
+        If ``True`` and ``output_type='pairs'``, each unordered pair is reported
+        only once.
+    mutual_only : bool, default False
+        If ``True`` and ``output_type='pairs'``, only pairs where both atoms list
+        each other as neighbors are returned.
+    pbc : bool, default True
+        Whether to apply periodic boundary conditions.  The actual PBC state is
+        queried from the system; this flag disables the query when set to ``False``.
+    output_type : {'numpy.ndarray', 'pairs'}, default 'numpy.ndarray'
+        Format of the returned neighbor data.
+
+        * ``'numpy.ndarray'``: return ``(neighs, dists)`` arrays directly.
+        * ``'pairs'``: return a list of ``[query_idx, neighbor_idx]`` pairs per
+          frame together with the corresponding distances.
+    output_indices : {None, 'selection', 'atom'}, default None
+        Index convention used in ``'pairs'`` output mode.
+    output_structure_indices : array-like or None, default None
+        Structure indices to include in the output metadata (passed through to
+        ``get_distances``).
+    sorted : bool, default True
+        If ``True`` and ``output_type='pairs'``, pairs are returned in sorted order.
+    engine : {'MolSysMT'}, default 'MolSysMT'
+        Backend used for distance computation.
+    syntax : str, default 'MolSysMT'
+        Selection syntax used when selections are strings.
+    skip_digestion : bool, default False
+        Whether to skip argument digestion (for internal use on trusted hot paths).
+
+    Returns
+    -------
+    neighs : numpy.ndarray or list
+        Neighbor indices per query element per frame.  Shape is
+        ``(n_structures, n_elements_1, n_neighbors)`` (fixed-count mode) or
+        ``(n_structures, n_elements_1)`` with dtype ``object`` (threshold mode)
+        when ``output_type='numpy.ndarray'``.
+        A list of ``[query_idx, neighbor_idx]`` pairs per frame when
+        ``output_type='pairs'``.
+    dists : quantity or list
+        Corresponding distances as a PyUnitWizard length quantity (numpy array
+        output) or a list of quantities per frame (pairs output).
+
+    Raises
+    ------
+    ArgumentConflictError
+        If both ``threshold`` and ``n_neighbors`` are set, or neither is set.
+    NotImplementedMethodError
+        For output-type/index combinations not yet implemented.
+    InternalAlgorithmError
+        If a self-neighbor search detects an inconsistency in the distance matrix
+        (i.e., the nearest neighbor of an element is not itself).
+
+    .. versionadded:: 1.0.0
     """
 
     from . import get_distances

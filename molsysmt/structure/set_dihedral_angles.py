@@ -12,7 +12,57 @@ import gc
 def set_dihedral_angles(molecular_system, dihedral_quartets=None, angles=None, blocks=None,
         structure_indices='all', pbc=True, in_place=False, engine='MolSysMT'):
     """
-    To be written soon...
+    Set dihedral angles to specified target values by rotating covalent blocks.
+
+    For each dihedral quartet ``(i, j, k, l)``, the function determines which
+    atoms form a covalently connected block on the side of atom ``l`` after the
+    bond ``j-k`` is removed.  That block is then rotated about the ``j-k`` axis
+    so that the dihedral angle reaches the target value.
+
+    When ``pbc=True`` and the system has a periodic box the minimum-image
+    dihedral kernel is used; otherwise the standard (non-periodic) kernel is
+    applied.
+
+    Parameters
+    ----------
+    molecular_system : molecular system
+        Input system in any form supported by MolSysMT.
+    dihedral_quartets : numpy.ndarray of shape (n_quartets, 4)
+        Global atom indices defining each dihedral angle to be set.  Each row
+        contains four atom indices ``[i, j, k, l]``.
+    angles : quantity
+        Target dihedral angle values as a PyUnitWizard angle quantity.  The array
+        must be compatible with shape ``(n_structures, n_quartets)``.  Values are
+        internally converted to radians.
+    blocks : list of sets or None, default None
+        Pre-computed covalent blocks (one per quartet) used to determine which
+        atoms move.  When ``None``, the blocks are computed on-the-fly for every
+        quartet by calling ``molsysmt.topology.get_covalent_blocks`` with the
+        relevant bond removed.  Providing pre-computed blocks avoids redundant
+        topology traversals when calling this function in a loop.
+    structure_indices : 'all' or array-like, default 'all'
+        Frame indices over which the operation is performed.
+    pbc : bool, default True
+        Use the minimum-image dihedral kernel when the system has a periodic box.
+    in_place : bool, default False
+        If ``True`` the molecular system is modified in-place and ``None`` is
+        returned.  If ``False`` a new copy is returned with the updated
+        coordinates.
+    engine : {'MolSysMT'}, default 'MolSysMT'
+        Backend used for the dihedral rotation kernels.
+
+    Returns
+    -------
+    molecular system or None
+        A new molecular system with the updated dihedral angles when
+        ``in_place=False``; ``None`` when ``in_place=True``.
+
+    Raises
+    ------
+    NotImplementedMethodError
+        If an unsupported engine is requested.
+
+    .. versionadded:: 1.0.0
     """
 
     if engine=='MolSysMT':

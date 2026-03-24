@@ -10,7 +10,51 @@ import gc
 def translate(molecular_system, translation=None, selection='all', structure_indices='all',
         syntax='MolSysMT', in_place=False, skip_digestion=False):
     """
-    To be written soon...
+    Apply a translation vector to atomic coordinates of a selection.
+
+    The function supports three translation broadcasting modes determined
+    automatically from the shape of ``translation``:
+
+    * **Single vector** — shape ``(1, 1, 3)``: the same displacement is applied
+      to all atoms in all frames.
+    * **Per-frame vector** — shape ``(n_structures, 1, 3)``: each frame receives
+      its own displacement; all atoms within a frame move by the same amount.
+    * **Per-atom-per-frame array** — shape ``(n_structures, n_atoms, 3)``: each
+      atom in each frame can have a different displacement.
+
+    Parameters
+    ----------
+    molecular_system : molecular system
+        Input system in any form supported by MolSysMT.
+    translation : quantity
+        Displacement vector as a PyUnitWizard length quantity.  Must have a shape
+        compatible with one of the three broadcasting modes described above.
+    selection : str, list, tuple or numpy.ndarray, default 'all'
+        Atoms whose coordinates are translated.
+    structure_indices : 'all' or array-like, default 'all'
+        Frame indices over which the translation is applied.
+    syntax : str, default 'MolSysMT'
+        Selection syntax used when ``selection`` is a string.
+    in_place : bool, default False
+        If ``True`` the molecular system is modified in-place and ``None`` is
+        returned.  If ``False`` a new copy is returned with the translated
+        coordinates.
+    skip_digestion : bool, default False
+        Whether to skip argument digestion (for internal use on trusted hot paths).
+
+    Returns
+    -------
+    molecular system or None
+        A new molecular system with the translated coordinates when
+        ``in_place=False``; ``None`` when ``in_place=True``.
+
+    Raises
+    ------
+    StructuralInconsistencyError
+        If the shape of ``translation`` is not compatible with any of the supported
+        broadcasting modes for the given coordinate array.
+
+    .. versionadded:: 1.0.0
     """
 
     from molsysmt.basic import get, set, select, copy

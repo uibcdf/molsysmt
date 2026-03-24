@@ -5,7 +5,70 @@ from molsysmt._private.variables import is_all
 @arg_digest()
 def mutate(molecular_system, mutations=None, keys='group_index', selection="all", syntax='MolSysMT', engine='PDBFixer'):
     """
-    To be written soon...
+    Apply point mutations to one or more residues of a molecular system.
+
+    This function replaces specified residues with different amino acids, rebuilds
+    missing heavy atoms, and optionally re-adds hydrogens. The mutated structure is
+    returned in the same form as the input.
+
+    Parameters
+    ----------
+    molecular_system : molecular system
+        Molecular system in any of :ref:`the supported forms <Introduction_Forms>`.
+
+    mutations : list of str, or dict, or None, default None
+        Mutations to apply. Accepted formats depend on the ``keys`` parameter:
+
+        - **list of str**: Each string must follow the pattern
+          ``"<from_name>-<group_id>-<to_name>"`` (e.g. ``"ALA-42-GLY"``).
+        - **dict with** ``keys='group_index'``: Maps group indices (int) to target
+          residue names (str).
+        - **dict with** ``keys='group_id'``: Maps group IDs (int or str) to target
+          residue names (str). Raises an error if the ID is ambiguous.
+        - **dict with** ``keys='group_name'``: Maps source residue names (str) to
+          target residue names (str); all matching residues within ``selection``
+          are mutated.
+
+    keys : {'group_index', 'group_id', 'group_name'}, default 'group_index'
+        Interpretation of the keys in a dict-style ``mutations`` argument.
+
+    selection : str, list, tuple, or numpy.ndarray, default 'all'
+        Atom selection used as a mask when resolving group identifiers.
+
+    syntax : str, default 'MolSysMT'
+        Syntax used to interpret the ``selection`` string.
+
+    engine : {'PDBFixer'}, default 'PDBFixer'
+        Backend used to apply mutations. Only 'PDBFixer' is currently supported.
+
+    Returns
+    -------
+    molecular system
+        A new molecular system with the requested mutations applied, missing heavy
+        atoms rebuilt, and hydrogens re-added if the original system contained them.
+        Returned in the same form as the input.
+
+    Raises
+    ------
+    ArgumentChoiceError
+        Raised when a mutation string specifies a source residue name that does not
+        match the actual residue at the given group ID.
+
+    StructuralInconsistencyError
+        Raised when a group ID maps to more than one residue in the system.
+
+    NotImplementedMethodError
+        Raised if the requested ``engine`` is not supported.
+
+    Notes
+    -----
+    All target residue names are converted to uppercase before being passed to the
+    engine. After applying mutations the engine calls ``findMissingResidues``,
+    ``findMissingAtoms``, and ``addMissingAtoms`` to produce a chemically complete
+    structure. If the original system contained hydrogen atoms, ``addMissingHydrogens``
+    is called at pH 7.4.
+
+    .. versionadded:: 1.0.0
     """
 
     if engine=="PDBFixer":

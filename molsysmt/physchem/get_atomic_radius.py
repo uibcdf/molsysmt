@@ -7,7 +7,46 @@ import numpy as np
 def get_atomic_radius(molecular_system, element='atom', selection='all', definition='vdw', syntax='MolSysMT',
                       skip_digestion=False):
     """
-    To be written soon...
+    Atomic radius for each selected atom.
+
+    Returns a tabulated radius value for each atom based on its element type
+    and the requested radius definition (e.g. van der Waals radius).  Values
+    are returned as a PyUnitWizard quantity in nm.
+
+    Parameters
+    ----------
+    molecular_system : molecular system
+        Input system in any supported form.
+    element : {'atom'}, default 'atom'
+        Hierarchical element for which the radius is returned.  Currently
+        only ``'atom'`` level is meaningful.
+    selection : str, list, tuple or numpy.ndarray, default 'all'
+        Selection of atoms to include in the output.
+    definition : {'vdw'}, default 'vdw'
+        Radius definition to use.  ``'vdw'`` returns the van der Waals radius
+        for each element.
+    syntax : str, default 'MolSysMT'
+        Selection syntax.
+    skip_digestion : bool, default False
+        If ``True``, bypass argument validation (for internal use only).
+
+    Returns
+    -------
+    quantity
+        Atomic radii as a PyUnitWizard quantity in nm.
+        Shape: ``(n_atoms,)``.
+
+    Raises
+    ------
+    NotImplementedError
+        If an unsupported ``definition`` is requested.
+
+    Notes
+    -----
+    Van der Waals radii are sourced from standard reference tables covering
+    all elements of the periodic table.
+
+    .. versionadded:: 1.0.0
     """
 
     from molsysmt.basic import get

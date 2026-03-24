@@ -12,7 +12,63 @@ def least_rmsd_align(molecular_system, selection='atom_name=="CA"', structure_in
           in_place=False, skip_digestion=False):
 
     """
-    To be written soon...
+    Align a molecular system to a reference using sequence alignment followed by least-RMSD fitting.
+
+    This is a two-step procedure:
+
+    1. **Sequence alignment** — the topology of both systems is aligned using
+       ``molsysmt.topology.get_sequence_identity`` (via ``engine_sequence_alignment``)
+       to identify structurally equivalent residue groups.
+    2. **Least-RMSD fit** — ``least_rmsd_fit`` is called on the equivalent atoms
+       to compute the optimal rotation/translation (Kabsch algorithm) and apply it
+       to all atoms in the selected components.
+
+    This function is suitable for aligning homologous proteins whose sequences
+    differ, where a simple atom-by-atom correspondence cannot be assumed.
+
+    Parameters
+    ----------
+    molecular_system : molecular system
+        Query system to be aligned, in any form supported by MolSysMT.
+    selection : str, list, tuple or numpy.ndarray, default 'atom_name=="CA"'
+        Atoms (typically C-alpha carbons) used for sequence alignment and fitting.
+        The entire component(s) containing the selected atoms are translated and
+        rotated.
+    structure_indices : 'all' or array-like, default 'all'
+        Frame indices of the query system to align.
+    reference_molecular_system : molecular system or None, default None
+        Reference system.  When ``None``, ``molecular_system`` itself is used.
+    reference_selection : str, list, tuple or numpy.ndarray or None, default None
+        Atoms in the reference used for sequence alignment.  When ``None``, the
+        same expression as ``selection`` is applied to the reference.
+    reference_structure_index : int, default 0
+        Single frame index in the reference system to align to.
+    syntax : str, default 'MolSysMT'
+        Selection syntax used for both selections.
+    engine_sequence_alignment : {'Biopython'}, default 'Biopython'
+        Backend used for pairwise sequence alignment.
+    engine_least_rmsd_fit : {'MolSysMT'}, default 'MolSysMT'
+        Backend used for the Kabsch rotation / RMSD minimisation.
+    in_place : bool, default False
+        If ``True`` the molecular system is modified in-place and ``None`` is
+        returned.  If ``False`` a new copy is returned with the aligned
+        coordinates.
+    skip_digestion : bool, default False
+        Whether to skip argument digestion (for internal use on trusted hot paths).
+
+    Returns
+    -------
+    molecular system or None
+        A new molecular system with the aligned coordinates when
+        ``in_place=False``; ``None`` when ``in_place=True``.
+
+    Raises
+    ------
+    NotImplementedMethodError
+        If an unsupported sequence-alignment engine or least-RMSD-fit engine is
+        requested.
+
+    .. versionadded:: 1.0.0
     """
 
     output = None

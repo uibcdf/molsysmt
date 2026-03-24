@@ -7,7 +7,56 @@ import numpy as np
 def get_mass(molecular_system, element ='system', selection = 'all', syntax = 'MolSysMT', definition='physical',
              skip_digestion=False):
     """
-    To be written soon...
+    Total mass of the selected elements.
+
+    Returns the mass aggregated at the requested hierarchical level.  Two
+    definitions are available: a table of standard atomic masses
+    (``'physical'``) and mass values read directly from an OpenMM object
+    (``'OpenMM'``).
+
+    Parameters
+    ----------
+    molecular_system : molecular system
+        Input system in any supported form.
+    element : {'atom', 'group', 'component', 'molecule', 'chain', 'entity', 'system'}, default 'system'
+        Hierarchical element for which mass is returned.  For elements coarser
+        than ``'atom'``, the masses of all constituent atoms are summed.
+    selection : str, list, tuple or numpy.ndarray, default 'all'
+        Selection of elements to include in the output.
+    syntax : str, default 'MolSysMT'
+        Selection syntax.
+    definition : {'physical', 'OpenMM'}, default 'physical'
+        Mass definition to use.
+
+        * ``'physical'``: standard atomic masses from the periodic table
+          (IUPAC values), summed per element.
+        * ``'OpenMM'``: masses extracted from an ``openmm.Topology``,
+          ``openmm.Modeller``, ``pdbfixer.PDBFixer``, or ``openmm.System``
+          object.  Element-level aggregation above ``'atom'`` is supported
+          for topology-based forms only.
+    skip_digestion : bool, default False
+        If ``True``, bypass argument validation (for internal use only).
+
+    Returns
+    -------
+    quantity
+        Mass as a PyUnitWizard quantity in dalton (amu).  Shape is
+        ``(n_elements,)`` for atom/group/component/molecule/chain/entity
+        elements, or a scalar for ``element='system'``.
+
+    Raises
+    ------
+    NotImplementedError
+        If the requested combination of ``element`` and form is not supported
+        under the ``'OpenMM'`` definition.
+
+    Notes
+    -----
+    Standard atomic masses (``'physical'``) follow IUPAC 2021 values.
+    Results are converted to pint units and standardized through PyUnitWizard
+    before being returned.
+
+    .. versionadded:: 1.0.0
     """
 
     from molsysmt.basic import get, get_form

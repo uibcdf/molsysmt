@@ -51,7 +51,66 @@ def get_rmsd(molecular_system, selection='atom_type!="H"', structure_indices='al
           reference_molecular_system=None, reference_selection=None, reference_structure_index=0,
           syntax='MolSysMT', engine='MolSysMT', heavy_mode='auto'):
     """
-    To be written soon...
+    Compute the RMSD between structures without prior superposition.
+
+    The function measures the root-mean-square deviation of atomic positions
+    relative to a reference frame.  No rotation or translation is applied; use
+    ``get_least_rmsd`` if you want the optimal superposition (Kabsch) RMSD, or
+    ``least_rmsd_fit`` to align the coordinates first.
+
+    For large trajectories a chunked execution path is activated automatically
+    (``heavy_mode='auto'``) to keep memory usage bounded.
+
+    The function handles three broadcasting scenarios:
+
+    * Many query structures vs. one reference — each query frame is compared
+      to the single reference frame.
+    * One query structure vs. many reference frames — the single query is
+      compared to each reference frame.
+    * Equal numbers of frames on both sides — frame-by-frame comparison.
+
+    Parameters
+    ----------
+    molecular_system : molecular system
+        Query system in any form supported by MolSysMT.
+    selection : str, list, tuple or numpy.ndarray, default 'atom_type!="H"'
+        Atoms used for the RMSD calculation (heavy atoms by default).
+    structure_indices : 'all' or array-like, default 'all'
+        Frame indices of the query system.
+    reference_molecular_system : molecular system or None, default None
+        Reference system.  When ``None``, ``molecular_system`` itself is used as
+        the reference.
+    reference_selection : str, list, tuple or numpy.ndarray or None, default None
+        Atoms in the reference system.  When ``None``, the same expression as
+        ``selection`` is applied to the reference.  The resolved atom count must
+        match ``selection``.
+    reference_structure_index : int, default 0
+        Single frame index within the reference system used as the reference
+        structure.
+    syntax : str, default 'MolSysMT'
+        Selection syntax used for both selections.
+    engine : {'MolSysMT'}, default 'MolSysMT'
+        Backend used for the RMSD computation.
+    heavy_mode : {'auto', 'force', 'off'}, default 'auto'
+        Chunked execution strategy.  ``'auto'`` activates chunking when the
+        estimated memory footprint exceeds the configured threshold; ``'force'``
+        always uses chunking; ``'off'`` always loads all frames at once.
+
+    Returns
+    -------
+    quantity
+        PyUnitWizard length quantity of shape ``(n_structures,)`` containing the
+        RMSD values in the standard length unit (nm).
+
+    Raises
+    ------
+    NotImplementedMethodError
+        If an unsupported engine is requested.
+    StructuralInconsistencyError
+        If the number of atoms resolved by ``selection`` and ``reference_selection``
+        differ.
+
+    .. versionadded:: 1.0.0
     """
 
     if reference_molecular_system is None:

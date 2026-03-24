@@ -13,7 +13,59 @@ def get_least_rmsd(molecular_system, selection='atom_type!="H"', structure_indic
           reference_molecular_system=None, reference_selection=None, reference_structure_index=0,
           syntax='MolSysMT', engine='MolSysMT'):
     """
-    To be written soon...
+    Compute the least-RMSD (optimal superposition RMSD) between structures.
+
+    Unlike ``get_rmsd``, this function finds the rotation that minimises the
+    RMSD before measuring it.  The algorithm operates in nm and returns a
+    quantity in the MolSysMT standard length unit.
+
+    The function handles three broadcasting scenarios:
+
+    * Many query structures vs. one reference — each query frame is aligned to
+      the single reference frame.
+    * One query structure vs. many reference frames — the single query is aligned
+      to each reference frame.
+    * Equal numbers of frames on both sides — frame-by-frame alignment.
+
+    Parameters
+    ----------
+    molecular_system : molecular system
+        Query system in any form supported by MolSysMT.
+    selection : str, list, tuple or numpy.ndarray, default 'atom_type!="H"'
+        Atoms used for the superposition and RMSD calculation (heavy atoms by
+        default).
+    structure_indices : 'all' or array-like, default 'all'
+        Frame indices of the query system.
+    reference_molecular_system : molecular system or None, default None
+        Reference system.  When ``None``, ``molecular_system`` itself is used as
+        the reference.
+    reference_selection : str, list, tuple or numpy.ndarray or None, default None
+        Atoms in the reference system to superpose onto.  When ``None``, the same
+        expression as ``selection`` is applied to the reference.  The resolved
+        atom count must match ``selection``.
+    reference_structure_index : int, default 0
+        Single frame index within the reference system used as the reference
+        structure.
+    syntax : str, default 'MolSysMT'
+        Selection syntax used for both selections.
+    engine : {'MolSysMT'}, default 'MolSysMT'
+        Backend used for the Kabsch rotation and RMSD computation.
+
+    Returns
+    -------
+    quantity
+        PyUnitWizard length quantity of shape ``(n_structures,)`` containing the
+        least-RMSD values in the standard length unit (nm).
+
+    Raises
+    ------
+    NotImplementedMethodError
+        If an unsupported engine is requested.
+    StructuralInconsistencyError
+        If the number of atoms resolved by ``selection`` and ``reference_selection``
+        differ.
+
+    .. versionadded:: 1.0.0
     """
 
     if reference_molecular_system is None:

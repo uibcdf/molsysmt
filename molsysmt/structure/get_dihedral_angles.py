@@ -12,7 +12,53 @@ import gc
 def get_dihedral_angles(molecular_system, selection='all', dihedral_quartets=None,
                         structure_indices='all', syntax='MolSysMT', pbc=False, **kwargs):
     """
-    To be written soon...
+    Compute dihedral angles for a set of atom quartets over one or more structures.
+
+    Two usage modes are available:
+
+    * **Explicit quartets** — provide ``dihedral_quartets`` as an array of shape
+      ``(n_quartets, 4)`` containing the atom indices that define each dihedral.
+    * **Named backbone/side-chain dihedrals** — omit ``dihedral_quartets`` and pass
+      keyword arguments such as ``phi=True``, ``psi=True``, ``omega=True``,
+      ``chi1=True``, etc.  The required quartets are then obtained from
+      ``molsysmt.topology.get_dihedral_quartets`` for the atoms in ``selection``.
+      When more than one named type is requested the function returns a list of
+      arrays, one per type.
+
+    Angles are computed in the minimum-image convention when ``pbc=True`` and the
+    system has a periodic box.  Results are always returned in the MolSysMT standard
+    angle unit (degrees).
+
+    Parameters
+    ----------
+    molecular_system : molecular system
+        Input system in any form supported by MolSysMT.
+    selection : str, list, tuple or numpy.ndarray, default 'all'
+        Atom selection used to resolve named dihedral types (ignored when
+        ``dihedral_quartets`` is provided explicitly).
+    dihedral_quartets : numpy.ndarray of shape (n_quartets, 4) or None, default None
+        Global atom indices for each dihedral quartet.  When ``None``, the quartets
+        are built from the named keyword arguments (``phi``, ``psi``, etc.).
+    structure_indices : 'all' or array-like, default 'all'
+        Frame indices over which the angles are computed.
+    syntax : str, default 'MolSysMT'
+        Selection syntax used when ``selection`` is a string.
+    pbc : bool, default False
+        Apply minimum-image convention when the system has a periodic box.
+    **kwargs
+        Named dihedral angle flags: ``phi``, ``psi``, ``omega``, ``chi1``,
+        ``chi2``, ``chi3``, ``chi4``, ``chi5``.  Each must be set to ``True``
+        to include that dihedral type.
+
+    Returns
+    -------
+    quantity or list of quantity
+        PyUnitWizard angle quantity of shape ``(n_structures, n_quartets)`` in the
+        standard angle unit (degrees).  When more than one named dihedral type is
+        requested, a list of such quantities is returned — one per type, in the
+        order the kwargs were provided.
+
+    .. versionadded:: 1.0.0
     """
 
     # phi, psi, omega, chi1, chi2, chi3, chi4, chi5

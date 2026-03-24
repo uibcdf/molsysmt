@@ -13,7 +13,80 @@ def get_missing_bonds(molecular_system, selection='all', structure_index=0, max_
                       syntax='MolSysMT', engine='MolSysMT', sorted=True, skip_digestion=False):
 
     """
-    To be written soon...
+    Identify bonds that are present in the chemical structure but absent from the topology.
+
+    This function compares the bonds inferred from residue templates and/or distance-based
+    neighbor searches against the bonds already recorded in the topology of the molecular
+    system and returns those that are missing. Peptidic bonds between consecutive amino
+    acids and, optionally, disulfide bonds between cysteine residues are also detected.
+
+    Parameters
+    ----------
+    molecular_system : molecular system
+        Molecular system in any of :ref:`the supported forms <Introduction_Forms>`.
+
+    selection : str, list, tuple, or numpy.ndarray, default 'all'
+        Atom selection that limits the scope of the search.
+
+    structure_index : int, default 0
+        Index of the structure frame used for distance-based bond detection.
+
+    max_bond_length : str or quantity, default '2 angstroms'
+        Maximum interatomic distance to be considered a potential bond when using
+        distance-based inference for groups without a known template.
+
+    disulfide_bonds : bool, default False
+        Whether to detect disulfide bonds between sulfur atoms of the specified
+        ``disulfide_group_names`` residues.
+
+    disulfide_group_names : list of str, default ['CYS']
+        Residue names to search for potential disulfide bond partners when
+        ``disulfide_bonds`` is True.
+
+    pbc : bool, default True
+        Whether to apply periodic boundary conditions when computing interatomic
+        distances.
+
+    syntax : str, default 'MolSysMT'
+        Syntax used to interpret the ``selection`` string.
+
+    engine : {'MolSysMT', 'pytraj'}, default 'MolSysMT'
+        Backend used to perform bond detection.
+
+    sorted : bool, default True
+        If True, each pair in the output is ordered so that the smaller atom index
+        comes first, and the list itself is sorted lexicographically.
+
+    skip_digestion : bool, default False
+        If True, argument digestion is skipped (intended for internal use).
+
+    Returns
+    -------
+    list of [int, int]
+        List of ``[atom_index_1, atom_index_2]`` pairs representing bonds that are
+        present according to chemical templates or distance criteria but not yet
+        recorded in the molecular system topology.
+
+    Raises
+    ------
+    NotImplementedMethodError
+        Raised if the requested ``engine`` is not supported.
+
+    ArgumentChoiceError
+        Raised if a terminal capping group cannot be classified as N- or C-terminal.
+
+    Notes
+    -----
+    For groups with a known template (water, ion, amino acid, terminal capping,
+    small molecule, saccharide), intra-group bonds are taken from the corresponding
+    template. For groups without a template, bonds are inferred by a distance-based
+    neighbor search using ``max_bond_length`` and element-pair thresholds stored in
+    ``molsysmt.element.bond``.
+
+    Peptidic C–N bonds between consecutive residues are detected via a distance
+    filter applied to the backbone C and N atoms of adjacent groups.
+
+    .. versionadded:: 1.0.0
     """
 
     bonds = []

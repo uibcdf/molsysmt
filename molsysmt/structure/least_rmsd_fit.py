@@ -13,7 +13,64 @@ def least_rmsd_fit(molecular_system=None, selection='all', selection_fit='atom_t
         reference_molecular_system=None, reference_selection_fit=None, reference_structure_index=0,
         to_form=None, in_place=False, syntax='MolSysMT', engine='MolSysMT', skip_digestion=False):
     """
-    To be written soon...
+    Superpose a molecular system onto a reference using the Kabsch least-RMSD algorithm.
+
+    The optimal rotation matrix and translation vector that minimise the RMSD
+    between ``selection_fit`` atoms and their counterparts in the reference are
+    computed via the Kabsch algorithm.  The resulting rigid-body transformation is
+    then applied to the broader ``selection`` (which may include more atoms than
+    ``selection_fit``).
+
+    Parameters
+    ----------
+    molecular_system : molecular system
+        System to be fitted, in any form supported by MolSysMT.
+    selection : str, list, tuple or numpy.ndarray, default 'all'
+        All atoms that will be physically moved by the fitted transformation.
+        This is usually a superset of ``selection_fit`` (e.g., all atoms in a
+        chain, while fitting is done on C-alpha only).
+    selection_fit : str, list, tuple or numpy.ndarray, default 'atom_type!="H"'
+        Subset of atoms used to compute the optimal superposition (heavy atoms
+        by default).  Must resolve to the same number of atoms as
+        ``reference_selection_fit``.
+    structure_indices : 'all' or array-like, default 'all'
+        Frame indices of the query system to fit.
+    reference_molecular_system : molecular system or None, default None
+        Reference system.  When ``None``, ``molecular_system`` itself is used.
+    reference_selection_fit : str, list, tuple or numpy.ndarray or None, default None
+        Atoms in the reference used to compute the superposition.  When ``None``,
+        the same expression as ``selection_fit`` is applied to the reference.
+    reference_structure_index : int, default 0
+        Single frame index in the reference system to fit to.
+    to_form : str or None, default None
+        Convert the output to the specified MolSysMT form before returning.
+        When ``None``, the same form as the input is kept.
+    in_place : bool, default False
+        If ``True`` the molecular system is modified in-place and ``None`` is
+        returned.  If ``False`` a new copy is returned with the fitted
+        coordinates.
+    syntax : str, default 'MolSysMT'
+        Selection syntax used for all selections.
+    engine : {'MolSysMT'}, default 'MolSysMT'
+        Backend used for the Kabsch rotation computation.
+    skip_digestion : bool, default False
+        Whether to skip argument digestion (for internal use on trusted hot paths).
+
+    Returns
+    -------
+    molecular system or None
+        A new molecular system with the fitted coordinates (optionally converted
+        to ``to_form``) when ``in_place=False``; ``None`` when ``in_place=True``.
+
+    Raises
+    ------
+    NotImplementedMethodError
+        If an unsupported engine is requested.
+    StructuralInconsistencyError
+        If the number of atoms resolved by ``selection_fit`` and
+        ``reference_selection_fit`` differ.
+
+    .. versionadded:: 1.0.0
     """
 
     if engine=='MolSysMT':

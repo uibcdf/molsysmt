@@ -11,7 +11,62 @@ import gc
 def rotate(molecular_system, rotation=None, rotation_center=None, selection='all', structure_indices='all',
         syntax='MolSysMT', in_place=False, skip_digestion=False):
     """
-    To be written soon...
+    Rotate atomic coordinates of a selection by a given rotation.
+
+    The rotation is applied frame-by-frame.  If a ``rotation_center`` is provided,
+    the coordinates are first translated so that the center sits at the origin,
+    rotated, then translated back.
+
+    Two rotation representations are accepted:
+
+    * **numpy.ndarray** of shape ``(n_structures, n_groups, 3, 3)`` or
+      ``(1, 1, 3, 3)``: a per-structure (or broadcast) rotation matrix.
+    * **scipy.spatial.transform.Rotation**: a single ``Rotation`` object applied
+      to every frame.
+
+    Parameters
+    ----------
+    molecular_system : molecular system
+        Input system in any form supported by MolSysMT.
+    rotation : numpy.ndarray or scipy.spatial.transform.Rotation or None
+        Rotation to apply.
+
+        * ``numpy.ndarray`` of shape ``(n_structures, 1, 3, 3)``: different
+          rotation per frame, same rotation for all atoms within a frame.
+        * ``numpy.ndarray`` of shape ``(1, 1, 3, 3)``: single rotation broadcast
+          to all frames.
+        * ``scipy.spatial.transform.Rotation``: single rotation applied to every
+          frame.
+    rotation_center : quantity or None, default None
+        Centre of rotation as a PyUnitWizard length quantity of shape
+        ``(n_structures, 1, 3)`` or ``(1, 1, 3)``.  When provided, coordinates
+        are shifted to the origin before rotation and shifted back afterwards.
+        When ``None``, the rotation is applied around the global origin.
+    selection : str, list, tuple or numpy.ndarray, default 'all'
+        Atoms whose coordinates are rotated.
+    structure_indices : 'all' or array-like, default 'all'
+        Frame indices over which the rotation is applied.
+    syntax : str, default 'MolSysMT'
+        Selection syntax used when ``selection`` is a string.
+    in_place : bool, default False
+        If ``True`` the molecular system is modified in-place and ``None`` is
+        returned.  If ``False`` a new copy is returned with the rotated
+        coordinates.
+    skip_digestion : bool, default False
+        Whether to skip argument digestion (for internal use on trusted hot paths).
+
+    Returns
+    -------
+    molecular system or None
+        A new molecular system with the rotated coordinates when
+        ``in_place=False``; ``None`` when ``in_place=True``.
+
+    Raises
+    ------
+    NotImplementedMethodError
+        If ``rotation`` is not a supported type.
+
+    .. versionadded:: 1.0.0
     """
 
     from molsysmt.basic import get, set, select, copy
