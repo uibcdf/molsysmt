@@ -108,11 +108,78 @@ class TestSetDefaultStandardUnits:
 class TestSetupLogging:
 
     def test_setup_logging_returns_logger(self):
-        """setup_logging() returns a Logger (emits a deprecation warning via smonitor)."""
+        """setup_logging() returns a Logger."""
         import logging
         from molsysmt.config.logging_setup import setup_logging
         logger = setup_logging(level='WARNING')
         assert isinstance(logger, logging.Logger)
+
+    def test_setup_logging_no_capture(self):
+        """capture_warnings=False branch must not raise."""
+        import logging
+        from molsysmt.config.logging_setup import setup_logging
+        logger = setup_logging(level='WARNING', capture_warnings=False)
+        assert isinstance(logger, logging.Logger)
+
+    def test_setup_logging_no_simplify(self):
+        """simplify_warning_format=False branch must not raise."""
+        import logging
+        from molsysmt.config.logging_setup import setup_logging
+        logger = setup_logging(level='WARNING', simplify_warning_format=False)
+        assert isinstance(logger, logging.Logger)
+
+    def test_setup_logging_existing_handler(self):
+        """Second call reuses the existing StreamHandler (handler loop branch)."""
+        import logging
+        from molsysmt.config.logging_setup import setup_logging
+        # First call creates the handler; second call should reuse it
+        setup_logging(level='WARNING')
+        logger = setup_logging(level='DEBUG')  # different level to show it runs
+        assert isinstance(logger, logging.Logger)
+
+    def test_simple_formatwarning_site_packages(self):
+        """_simple_formatwarning: site-packages path extracts module name."""
+        import logging
+        import warnings
+        from molsysmt.config.logging_setup import setup_logging
+        # Setup with simplify=True to register _simple_formatwarning
+        setup_logging(level='WARNING', simplify_warning_format=True)
+        # Now call warnings.formatwarning directly — this executes the nested function
+        result = warnings.formatwarning(
+            "test message",
+            UserWarning,
+            "/usr/lib/python3/site-packages/somelib/module.py",
+            42,
+        )
+        assert "UserWarning" in result
+        assert "somelib" in result
+
+    def test_simple_formatwarning_dist_packages(self):
+        """_simple_formatwarning: dist-packages path extracts module name."""
+        import warnings
+        from molsysmt.config.logging_setup import setup_logging
+        setup_logging(level='WARNING', simplify_warning_format=True)
+        result = warnings.formatwarning(
+            "dist warning",
+            UserWarning,
+            "/usr/lib/python3/dist-packages/somelib/module.py",
+            10,
+        )
+        assert "UserWarning" in result
+        assert "somelib" in result
+
+    def test_simple_formatwarning_local_path(self):
+        """_simple_formatwarning: local file path uses stem as module hint."""
+        import warnings
+        from molsysmt.config.logging_setup import setup_logging
+        setup_logging(level='WARNING', simplify_warning_format=True)
+        result = warnings.formatwarning(
+            "local warning",
+            RuntimeWarning,
+            "/home/user/project/mymodule.py",
+            99,
+        )
+        assert "RuntimeWarning" in result
 
     def test_parse_level_int(self):
         """_parse_level passes int through unchanged."""
