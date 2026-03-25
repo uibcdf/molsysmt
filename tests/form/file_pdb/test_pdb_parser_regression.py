@@ -230,8 +230,7 @@ def test_atom_type_hydrogens_correctly_inferred(molsys_md_1u19_pdb):
     import numpy as np
     atom_types = np.array(msm.get(molsys_md_1u19_pdb, element='atom', atom_type=True), dtype=object)
     atom_names = np.array(msm.get(molsys_md_1u19_pdb, element='atom', atom_name=True), dtype=object)
-    hydrogen_mask = np.array([n.startswith('H') or (len(n) > 1 and n[1] == 'H')
-                              for n in atom_names])
+    hydrogen_mask = np.array([n.startswith('H') for n in atom_names])
     hydrogen_types = atom_types[hydrogen_mask]
     assert all(t == 'H' for t in hydrogen_types), (
         "Some hydrogen atoms do not have atom_type='H'."
