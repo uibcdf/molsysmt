@@ -356,7 +356,7 @@ This checklist is intentionally short. It is the execution-order summary of the 
 
 1. ~~**Lock the support contract**~~ ✅ Done — `support_tiers.ipynb` shows Yes/Yes for all Tier 1 and Tier 2 forms (March 2026)
 2. ~~**Derive parity obligations from that contract**~~ ✅ Done — contract and parity tests in place for all Tier 1 and Tier 2 forms (March 2026)
-3. **Synchronize the performance and JIT manifesto** — `devguide/performance_and_jit.md` needs updating
+3. ~~**Synchronize the performance and JIT manifesto**~~ ✅ Done — `devguide/performance_and_jit.md` updated with three-layer kernel boundary model, `ValidatedPayload` trusted-path protocol, float64 normalization policy, and `ChunkedExecutor`/`Reducer` heavy-trajectory architecture (March 2026)
 4. ~~**Implement the remaining in-scope `1.0.0` capabilities**~~ ✅ Done — heavy-trajectory Tier 1 slice fully implemented and tested; several Tier 2 features also done ahead of schedule (March 2026)
 5. ~~**Freeze sibling-library release baselines**~~ ✅ Done — smonitor≥0.11.6, argdigest≥0.9.3, depdigest≥0.10.0, pyunitwizard≥0.22.0 pinned in `pyproject.toml` (March 2026)
 6. ~~**Classify public API stability**~~ ✅ Done — `devguide/api_surface.md` classifies all public namespaces (Stable / Experimental / Outside contract) (March 2026)

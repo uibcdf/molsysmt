@@ -79,22 +79,22 @@ level via `from .basic import *`.
 | Function | Stability | Notes |
 | :--- | :---: | :--- |
 | `get_center` | **Stable** | Heavy-mode supported (`file:h5msm`, `molsysmt.H5MSMFileHandler`) |
-| `get_distances` | **Stable** | Heavy-mode supported |
-| `get_rmsd` | **Stable** | Heavy-mode supported |
+| `get_distances` | **Stable** | Heavy-mode supported; `use_gpu` parameter (GPU-optional) |
+| `get_rmsd` | **Stable** | Heavy-mode supported; `use_gpu` parameter (GPU-optional) |
 | `get_least_rmsd` | **Stable** | |
 | `least_rmsd_fit` | **Stable** | |
 | `least_rmsd_align` | **Stable** | |
-| `get_radius_of_gyration` | **Stable** | |
+| `get_radius_of_gyration` | **Stable** | `use_gpu` parameter (GPU-optional) |
 | `get_minimum_distances` | **Stable** | |
 | `get_maximum_distances` | **Stable** | |
 | `get_contacts` | **Stable** | |
 | `get_neighbors` | **Stable** | |
 | `get_angles` | **Stable** | |
-| `get_dihedral_angles` | **Stable** | |
+| `get_dihedral_angles` | **Stable** | `use_gpu` parameter (GPU-optional) |
 | `set_dihedral_angles` | **Stable** | |
 | `shift_dihedral_angles` | **Stable** | |
-| `get_principal_axes` | **Stable** | |
-| `principal_component_analysis` | **Stable** | |
+| `get_principal_axes` | **Stable** | `use_gpu` parameter (GPU-optional) |
+| `principal_component_analysis` | **Stable** | `use_gpu` parameter (GPU-optional) |
 | `align_principal_axes` | **Stable** | |
 | `translate` | **Stable** | |
 | `center` | **Stable** | |

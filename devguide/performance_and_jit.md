@@ -301,6 +301,28 @@ The first cold JIT compilation triggers a one-time SMonitor warning so users and
 developers understand why a first call may feel slower than steady-state
 execution.
 
+## GPU Acceleration
+
+MolSysMT includes optional CUDA GPU kernels for the most compute-intensive
+structure analysis functions. The full design is documented in
+`devguide/gpu_acceleration.md`.
+
+Key integration points with the performance model:
+
+- The dispatch layer (`molsysmt/_private/gpu.py`: `resolve_use_gpu`) follows
+  the same boundary discipline as the CPU kernels — it sits between the public
+  wrapper and the numeric kernel.
+- The global switch `molsysmt.config.use_gpu` defaults to `False` (CPU only),
+  so no GPU overhead is paid unless the user opts in.
+- All GPU-eligible wrappers accept a `use_gpu` keyword (`None` inherits from
+  config, `True`/`False` forces, `'auto'` auto-selects by payload threshold).
+- CUDA kernels live in `molsysmt/lib/structure/get_*_cuda.py` and
+  `principal_component_analysis_cuda.py` — they are never imported unless
+  a GPU code path is actually taken.
+
+GPU support is **NVIDIA CUDA only** for `1.0.0` (via Numba). Cross-vendor
+GPU support (ROCm, oneAPI) is deferred post-`1.0.0`.
+
 ## Known Risks and Open Post-1.0 Cleanup
 For `1.0.0`, the current split between:
 - public `get()`
