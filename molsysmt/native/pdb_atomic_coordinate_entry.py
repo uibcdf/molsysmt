@@ -118,7 +118,7 @@ class ObslteRecord():
         self.classification = None
         self.depDate = None
         self.idCode = None
-        self.rIdCode = None
+        self.rIdCode = []
 
 
 class TitleRecord():
@@ -132,7 +132,7 @@ class SplitRecord():
 
     def __init__(self):
 
-        self.idCode = None
+        self.idCode = []
 
 
 class CaveatRecord():

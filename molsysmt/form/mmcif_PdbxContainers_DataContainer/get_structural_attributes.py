@@ -16,18 +16,13 @@ form='mmcif.PdbxContainers.DataContainer'
 @arg_digest(form=form)
 def get_coordinates_from_atom(item, indices='all', structure_indices='all', skip_digestion=False):
 
-    xyz = np.column_stack([item.x_coord_list, item.y_coord_list, item.z_coord_list])
-    xyz = xyz.reshape([-1, item.num_atoms, 3])
-    xyz = puw.quantity(xyz, 'angstroms')
-    xyz = puw.standardize(xyz)
+    from molsysmt.form.molsysmt_Structures import to_molsysmt_Structures
+    from molsysmt.form.molsysmt_Structures import get_coordinates_from_atom as aux_get
 
-    if not is_all(structure_indices):
-        xyz = xyz[structure_indices,:,:]
+    tmp_item = to_molsysmt_Structures(item, skip_digestion=True)
+    output = aux_get(tmp_item, indices=indices, structure_indices=structure_indices, skip_digestion=True)
 
-    if not is_all(indices):
-        xyz = xyz[:,indices,:]
-
-    return xyz
+    return output
 
 @arg_digest(form=form)
 def get_occupancy_from_atom (item, indices='all', structure_indices='all', skip_digestion=False):
@@ -92,7 +87,9 @@ def get_partial_charge_from_atom (item, indices='all', skip_digestion=False):
 def get_n_structures_from_system(item, structure_indices='all', skip_digestion=False):
 
     if is_all(structure_indices):
-        return item.num_models
+        index_att = {jj: ii for ii, jj in enumerate(item.getObj('atom_site').getAttributeList())}
+        model_nums = {row[index_att['pdbx_PDB_model_num']] for row in item.getObj('atom_site').data}
+        return len(model_nums)
     else:
         return len(structure_indices)
 
@@ -103,13 +100,26 @@ def get_box_from_system(item, structure_indices='all', skip_digestion=False):
 
     n_structures = get_n_structures_from_system(item, skip_digestion=True)
 
-    if item.unit_cell is not None:
+    check_if_cell = True
+    if item.exists('exptl'):
+        if 'NMR' in item.getObj('exptl').getValue('method'):
+            check_if_cell = False
 
-        cell_lengths = np.empty([n_structures,3], dtype='float64')
-        cell_angles = np.empty([n_structures,3], dtype='float64')
-        for ii in range(3):
-            cell_lengths[:,ii] = item.unit_cell[ii]
-            cell_angles[:,ii] = item.unit_cell[ii+3]
+    if item.exists('cell') and check_if_cell:
+
+        index_att = {jj: ii for ii, jj in enumerate(item.getObj('cell').getAttributeList())}
+        cell_data = item.getObj('cell').data[0]
+
+        cell_lengths = np.empty([n_structures, 3], dtype='float64')
+        cell_angles = np.empty([n_structures, 3], dtype='float64')
+
+        cell_lengths[:, 0] = float(cell_data[index_att['length_a']])
+        cell_lengths[:, 1] = float(cell_data[index_att['length_b']])
+        cell_lengths[:, 2] = float(cell_data[index_att['length_c']])
+
+        cell_angles[:, 0] = float(cell_data[index_att['angle_alpha']])
+        cell_angles[:, 1] = float(cell_data[index_att['angle_beta']])
+        cell_angles[:, 2] = float(cell_data[index_att['angle_gamma']])
 
         cell_lengths = puw.quantity(cell_lengths, 'angstroms')
         cell_angles = puw.quantity(cell_angles, 'degrees')
@@ -123,7 +133,7 @@ def get_box_from_system(item, structure_indices='all', skip_digestion=False):
 
     if not is_all(structure_indices):
         if box is not None:
-            box = box[structure_indices,:,:]
+            box = box[structure_indices, :, :]
 
     return box
 
@@ -140,28 +150,19 @@ def get_structure_id_from_system(item, structure_indices='all', skip_digestion=F
 @arg_digest(form=form)
 def get_bioassembly_from_system(item, skip_digestion=False):
 
-    output = {}
+    from molsysmt.form.mmcif_PdbxContainers_DataContainer.to_molsysmt_MolSys import to_molsysmt_MolSys
 
-    for bio_assembly in item.bio_assembly:
-
-        aux = {'chain_indices': [], 'rotations': [], 'translations': []}
-
-        for transformation in bio_assembly['transformList']:
-
-            matrix_transformation = np.array(transformation['matrix']).reshape(-1,4)
-
-            aux['chain_indices'].append(transformation['chainIndexList'])
-            aux['rotations'].append(matrix_transformation[:3,:3])
-            aux['translations'].append(puw.quantity(matrix_transformation[:3,3], unit='angstroms', standardized=True))
-
-        output[bio_assembly['name']] = aux
-
-    return output
+    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
+    return tmp_item.structures.bioassembly
 
 @arg_digest(form=form)
 def get_n_bioassemblies_from_system(item, skip_digestion=False):
 
-    return len(item.bio_assembly)
+    if item.exists('pdbx_struct_assembly_gen'):
+        index_att = {jj: ii for ii, jj in enumerate(item.getObj('pdbx_struct_assembly_gen').getAttributeList())}
+        assembly_ids = {row[index_att['assembly_id']] for row in item.getObj('pdbx_struct_assembly_gen').data}
+        return len(assembly_ids)
+    return 0
 
 @arg_digest(form=form)
 def get_alternate_location_from_system(item, structure_indices='all', skip_digestion=False):

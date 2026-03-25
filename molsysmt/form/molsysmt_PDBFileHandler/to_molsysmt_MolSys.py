@@ -3,6 +3,29 @@ import numpy as np
 from molsysmt._private.arg_digestion import arg_digest
 
 
+def _parse_serial(s):
+    """Parse a PDB serial-number field (5 chars).
+    Handles decimal, uppercase-hex overflow (OpenMM/VMD), and hybrid-36 (Chimera).
+    """
+    s = s.strip()
+    if not s:
+        return 0
+    try:
+        return int(s)
+    except ValueError:
+        pass
+    try:
+        shifted = int(s, 16)
+        return shifted - 10 * (16 ** 4) + 100000
+    except ValueError:
+        pass
+    try:
+        return int(s[0], 36) * 10000 + int(s[1:])
+    except (ValueError, IndexError):
+        pass
+    return 0
+
+
 def _read_pdb_lines(item):
     if hasattr(item.file, "seek"):
         item.file.seek(0)
@@ -66,7 +89,7 @@ def _parse_topology_from_lines(lines):
                 chain_rows.append((chain_id, chain_id))
                 chain_segment_to_index[current_chain_segment] = len(chain_rows) - 1
 
-            atom_serial = str(int(line[6:11]))
+            atom_serial = str(_parse_serial(line[6:11]))
             atom_name = line[12:16].strip()
             group_name = line[17:20].strip()
             chain_id = line[21].strip()
@@ -97,8 +120,8 @@ def _parse_topology_from_lines(lines):
 
         if record == "CONECT":
             try:
-                atom_serial = int(line[6:11])
-            except ValueError:
+                atom_serial = _parse_serial(line[6:11])
+            except Exception:
                 continue
 
             if atom_serial not in serial_to_atom_index:
@@ -109,8 +132,8 @@ def _parse_topology_from_lines(lines):
                 if bonded_serial == "":
                     continue
                 try:
-                    bonded_serial = int(bonded_serial)
-                except ValueError:
+                    bonded_serial = _parse_serial(bonded_serial)
+                except Exception:
                     continue
                 if bonded_serial not in serial_to_atom_index:
                     continue
@@ -149,8 +172,12 @@ def _build_structures_from_lines(lines, entry):
             inside_model = False
             continue
         if record in ["ATOM", "HETATM"]:
+            try:
+                bfac = float(line[60:66])
+            except (ValueError, IndexError):
+                bfac = 0.0
             current_model.append(
-                [float(line[30:38]), float(line[38:46]), float(line[46:54])]
+                [float(line[30:38]), float(line[38:46]), float(line[46:54]), bfac]
             )
 
     if current_model:
@@ -164,8 +191,16 @@ def _build_structures_from_lines(lines, entry):
 
     n_structures = len(models)
 
-    coordinates = np.array(models, dtype=float) * puw.unit("angstroms")
+    models_array = np.array(models, dtype=float)
+    coordinates = models_array[:, :, :3] * puw.unit("angstroms")
     coordinates = puw.convert(coordinates, to_unit="nanometers")
+
+    b_factor_raw = models_array[:, :, 3]  # shape (n_structures, n_atoms)
+    if np.any(b_factor_raw != 0.0):
+        b_factor = b_factor_raw * puw.unit("angstroms**2")
+        b_factor = puw.convert(b_factor, to_unit="nanometers**2")
+    else:
+        b_factor = None
 
     if saw_explicit_model:
         structure_id = np.arange(1, n_structures + 1, dtype=int).astype(str)
@@ -186,7 +221,8 @@ def _build_structures_from_lines(lines, entry):
         box = puw.convert(box, to_unit="nanometers")
 
     structures = Structures()
-    structures.append(coordinates=coordinates, structure_id=structure_id, box=box, skip_digestion=True)
+    structures.append(coordinates=coordinates, structure_id=structure_id, box=box,
+                      b_factor=b_factor, skip_digestion=True)
 
     return structures
 
@@ -241,7 +277,14 @@ def _build_molsys_from_pdb_handler(item, get_missing_bonds=True):
     if atom_rows:
         tmp_item.topology.atoms["atom_id"] = np.array([row[0] for row in atom_rows], dtype=object)
         tmp_item.topology.atoms["atom_name"] = np.array([row[1] for row in atom_rows], dtype=object)
-        tmp_item.topology.atoms["atom_type"] = np.array([row[2] for row in atom_rows], dtype=object)
+        from molsysmt.element.atom import get_atom_type_from_atom_name
+        atom_types = []
+        for row in atom_rows:
+            t = row[2]
+            if t is None:
+                t = get_atom_type_from_atom_name(row[1])
+            atom_types.append(t)
+        tmp_item.topology.atoms["atom_type"] = np.array(atom_types, dtype=object)
         tmp_item.topology.atoms["group_index"] = np.array([row[3] for row in atom_rows], dtype=int)
         tmp_item.topology.atoms["chain_index"] = np.array([row[4] for row in atom_rows], dtype=int)
 

@@ -6,6 +6,42 @@ import io
 ### Parser format 3.3
 #https://www.wwpdb.org/documentation/file-format-content/format33/v3.3.html
 
+
+def _parse_serial(s):
+    """Parse a PDB atom serial-number field (columns 7-11, 5 chars).
+
+    Handles three encodings used by different programs:
+
+    * Decimal  (standard PDB, serials 1–99999)
+    * Uppercase hex overflow (OpenMM / VMD): numbers >= 100000 are written
+      as ``%5X`` after applying
+      ``shiftedIndex = (n - 100000 + 10 * 16^4) % 16^5``.
+      Inverse: ``n = int(s, 16) - 10 * 16^4 + 100000``
+    * Hybrid-36 (Chimera / CCTBX): ``int(s[0], 36) * 10000 + int(s[1:])``.
+
+    On failure returns 0 (the serial field is not used for topology
+    construction in MolSysMT).
+    """
+    s = s.strip()
+    if not s:
+        return 0
+    try:
+        return int(s)
+    except ValueError:
+        pass
+    # OpenMM/VMD uppercase-hex overflow
+    try:
+        shifted = int(s, 16)
+        return shifted - 10 * (16 ** 4) + 100000
+    except ValueError:
+        pass
+    # Hybrid-36 (Chimera): first char is base-36 multiplier
+    try:
+        return int(s[0], 36) * 10000 + int(s[1:])
+    except (ValueError, IndexError):
+        pass
+    return 0
+
 _dict_database_name = {
         'GB' : 'GenBank',
         'PDB' : 'Protein Data Bank',
@@ -67,6 +103,9 @@ def parse_format33(file):
     elif isinstance(file, (list, tuple, np.ndarray)):
         lines = file
 
+    # Normalise line endings: strip CR so Windows CRLF files parse correctly.
+    lines = [l.rstrip('\r\n') for l in lines]
+
     pdb = PDBAtomicCoordinateEntry()
 
     n_lines = len(lines)
@@ -108,7 +147,7 @@ def parse_format33(file):
 
                 position=31
                 while not line[position:position+4].isspace():
-                    obslte.rIdCode(line[position:position+4])
+                    obslte.rIdCode.append(line[position:position+4])
                     position+=5
                     if position>=75:
                         break
@@ -181,23 +220,23 @@ def parse_format33(file):
                 if aux.startswith('MOL_ID:'): ### mol_id
                     compnd = CompndRecord()
                     pdb.title.compnd.append(compnd)
-                    compnd.mol_id = int(aux[7:].strip()[:-1])
+                    compnd.mol_id = int(aux[7:].rstrip(';').strip())
                 elif aux.startswith('MOLECULE:'): ### molecule
-                    compnd.molecule = aux[8:].strip()[:-1]
+                    compnd.molecule = aux[8:].rstrip(';').strip()
                 elif aux.startswith('CHAIN:'): ### chain
-                    compnd.chain = [ii.strip() for ii in aux[6:].strip()[:-1].split(',')]
+                    compnd.chain = [ii.strip() for ii in aux[6:].rstrip(';').strip().split(',')]
                 elif aux.startswith('FRAGMENT:'): ### FRAGMENT
-                    compnd.fragment = aux[9:].strip()[:-1]
+                    compnd.fragment = aux[9:].rstrip(';').strip()
                 elif aux.startswith('EC:'): ### EC
-                    compnd.ec = aux[3:].strip()[:-1]
+                    compnd.ec = aux[3:].rstrip(';').strip()
                 elif aux.startswith('SYNONYM:'): ### SYNONYM
-                    compnd.synonym = [ii.strip() for ii in aux[8:].strip()[:-1].split(',')]
+                    compnd.synonym = [ii.strip() for ii in aux[8:].rstrip(';').strip().split(',')]
                 elif aux.startswith('ENGINEERED:'): ### ENGINEERED
-                    compnd.engineered = aux[11:].strip()[:-1]
+                    compnd.engineered = aux[11:].rstrip(';').strip()
                 elif aux.startswith('MUTATION:'): ### MUTATION
-                    compnd.mutation = aux[9:].strip()[:-1]
+                    compnd.mutation = aux[9:].rstrip(';').strip()
                 elif aux.startswith('OTHER_DETAILS:'): ### OTHER DETAILS
-                    compnd.other_details = aux[14:].strip()[:-1]
+                    compnd.other_details = aux[14:].rstrip(';').strip()
 
                 counter += 1
                 line = lines[counter]
@@ -214,75 +253,75 @@ def parse_format33(file):
                 if aux.startswith('MOL_ID:'): ### MOL_ID
                     source = SourceRecord()
                     pdb.title.source.append(source)
-                    source.mol_id = int(aux[7:].strip()[:-1])
+                    source.mol_id = int(aux[7:].rstrip(';').strip())
                 elif aux.startswith('SYNTHETIC:'): ### SYNTHETIC
-                    source.synthetic = aux[10:].strip()[:-1]
+                    source.synthetic = aux[10:].rstrip(';').strip()
                 elif aux.startswith('FRAGMENT:'): ### FRAGMENT
-                    source.fragment = aux[9:].strip()[:-1]
+                    source.fragment = aux[9:].rstrip(';').strip()
                 elif aux.startswith('ORGANISM_SCIENTIFIC:'): ### ORGANISM_SCIENTIFIC
-                    source.organism_scientific = aux[20:].strip()[:-1]
+                    source.organism_scientific = aux[20:].rstrip(';').strip()
                 elif aux.startswith('ORGANISM_COMMON:'): ### ORGANISM_COMMON
-                    source.organism_common = aux[16:].strip()[:-1]
+                    source.organism_common = aux[16:].rstrip(';').strip()
                 elif aux.startswith('ORGANISM_TAXID:'): ### ORGANISM_TAXID
-                    source.organism_taxid = aux[15:].strip()[:-1]
+                    source.organism_taxid = aux[15:].rstrip(';').strip()
                 elif aux.startswith('STRAIN:'): ### STRAIN
-                    source.strain = aux[7:].strip()[:-1]
+                    source.strain = aux[7:].rstrip(';').strip()
                 elif aux.startswith('VARIANT:'): ### VARIANT
-                    source.variant = aux[8:].strip()[:-1]
+                    source.variant = aux[8:].rstrip(';').strip()
                 elif aux.startswith('CELL_LINE:'): ### CELL_LINE
-                    source.cell_line = aux[10:].strip()[:-1]
+                    source.cell_line = aux[10:].rstrip(';').strip()
                 elif aux.startswith('ATCC:'): ### ATCC
-                    source.atcc = aux[5:].strip()[:-1]
+                    source.atcc = aux[5:].rstrip(';').strip()
                 elif aux.startswith('ORGAN:'): ### ORGAN
-                    source.organ = aux[6:].strip()[:-1]
+                    source.organ = aux[6:].rstrip(';').strip()
                 elif aux.startswith('TISSUE:'): ### TISSUE
-                    source.tissue = aux[7:].strip()[:-1]
+                    source.tissue = aux[7:].rstrip(';').strip()
                 elif aux.startswith('CELL:'): ### CELL
-                    source.cell = aux[5:].strip()[:-1]
+                    source.cell = aux[5:].rstrip(';').strip()
                 elif aux.startswith('ORGANELLE:'): ### ORGANELLE
-                    source.organelle = aux[10:].strip()[:-1]
+                    source.organelle = aux[10:].rstrip(';').strip()
                 elif aux.startswith('SECRETION:'): ### SECRETION
-                    source.secretion = aux[10:].strip()[:-1]
+                    source.secretion = aux[10:].rstrip(';').strip()
                 elif aux.startswith('CELLULAR_LOCATION:'): ### CELLULAR_LOCATION
-                    source.cellular_location = aux[18:].strip()[:-1]
+                    source.cellular_location = aux[18:].rstrip(';').strip()
                 elif aux.startswith('PLASMID:'): ### PLASMID
-                    source.plasmid = aux[8:].strip()[:-1]
+                    source.plasmid = aux[8:].rstrip(';').strip()
                 elif aux.startswith('GENE:'): ### GENE
-                    source.gene = aux[5:].strip()[:-1]
+                    source.gene = aux[5:].rstrip(';').strip()
                 elif aux.startswith('EXPRESSION_SYSTEM:'): ### EXPRESSION_SYSTEM
-                    source.expression_system = aux[18:].strip()[:-1]
+                    source.expression_system = aux[18:].rstrip(';').strip()
                 elif aux.startswith('EXPRESSION_SYSTEM_COMMON:'): ### EXPRESSION_SYSTEM_COMMON
-                    source.expression_system_common = aux[26:].strip()[:-1]
+                    source.expression_system_common = aux[26:].rstrip(';').strip()
                 elif aux.startswith('EXPRESSION_SYSTEM_TAXID:'): ### EXPRESSION_SYSTEM_TAXID
-                    source.expression_system_taxid = aux[25:].strip()[:-1]
+                    source.expression_system_taxid = aux[25:].rstrip(';').strip()
                 elif aux.startswith('EXPRESSION_SYSTEM_STRAIN:'): ### EXPRESSION_SYSTEM_STRAIN
-                    source.expression_system_strain = aux[26:].strip()[:-1]
+                    source.expression_system_strain = aux[26:].rstrip(';').strip()
                 elif aux.startswith('EXPRESSION_SYSTEM_VARIANT:'): ### EXPRESSION_SYSTEM_VARIANT
-                    source.expression_system_variant = aux[27:].strip()[:-1]
+                    source.expression_system_variant = aux[27:].rstrip(';').strip()
                 elif aux.startswith('EXPRESSION_SYSTEM_CELL_LINE:'): ### EXPRESSION_SYSTEM_CELL_LINE
-                    source.expression_system_cell_line = aux[28:].strip()[:-1]
+                    source.expression_system_cell_line = aux[28:].rstrip(';').strip()
                 elif aux.startswith('EXPRESSION_SYSTEM_ATCC_NUMBER:'): ### EXPRESSION_SYSTEM_ATCC_NUMBER
-                    source.expression_system_atcc_number = aux[31:].strip()[:-1]
+                    source.expression_system_atcc_number = aux[31:].rstrip(';').strip()
                 elif aux.startswith('EXPRESSION_SYSTEM_ORGAN:'): ### EXPRESSION_SYSTEM_ORGAN
-                    source.expression_system_organ = aux[24:].strip()[:-1]
+                    source.expression_system_organ = aux[24:].rstrip(';').strip()
                 elif aux.startswith('EXPRESSION_SYSTEM_TISSUE:'): ### EXPRESSION_SYSTEM_TISSUE
-                    source.expression_system_tissue = aux[25:].strip()[:-1]
+                    source.expression_system_tissue = aux[25:].rstrip(';').strip()
                 elif aux.startswith('EXPRESSION_SYSTEM_CELL:'): ### EXPRESSION_SYSTEM_CELL
-                    source.expression_system_cell = aux[23:].strip()[:-1]
+                    source.expression_system_cell = aux[23:].rstrip(';').strip()
                 elif aux.startswith('EXPRESSION_SYSTEM_ORGANELLE:'): ### EXPRESSION_SYSTEM_ORGANELLE
-                    source.expression_system_organelle = aux[28:].strip()[:-1]
+                    source.expression_system_organelle = aux[28:].rstrip(';').strip()
                 elif aux.startswith('EXPRESSION_SYSTEM_CELLULAR_LOCATION:'): ### EXPRESSION_SYSTEM_CELLULAR_LOCATION
-                    source.expression_system_cellular_location = aux[36:].strip()[:-1]
+                    source.expression_system_cellular_location = aux[36:].rstrip(';').strip()
                 elif aux.startswith('EXPRESSION_SYSTEM_VECTOR_TYPE:'): ### EXPRESSION_SYSTEM_VECTOR_TYPE
-                    source.expression_system_vector_type = aux[30:].strip()[:-1]
+                    source.expression_system_vector_type = aux[30:].rstrip(';').strip()
                 elif aux.startswith('EXPRESSION_SYSTEM_VECTOR:'): ### EXPRESSION_SYSTEM_VECTOR
-                    source.expression_system_vector = aux[25:].strip()[:-1]
+                    source.expression_system_vector = aux[25:].rstrip(';').strip()
                 elif aux.startswith('EXPRESSION_SYSTEM_PLASMID:'): ### EXPRESSION_SYSTEM_PLASMID
-                    source.expression_system_plasmid = aux[26:].strip()[:-1]
+                    source.expression_system_plasmid = aux[26:].rstrip(';').strip()
                 elif aux.startswith('EXPRESSION_SYSTEM_GENE:'): ### EXPRESSION_SYSTEM_GENE
-                    source.expression_system_gene = aux[23:].strip()[:-1]
+                    source.expression_system_gene = aux[23:].rstrip(';').strip()
                 elif aux.startswith('OTHER_DETAILS:'): ### OTHER DETAILS
-                    source.other_details = aux[14:].strip()[:-1]
+                    source.other_details = aux[14:].rstrip(';').strip()
 
                 counter += 1
                 line = lines[counter]
@@ -668,7 +707,7 @@ def parse_format33(file):
                 if line[8:10]=='  ':
 
                     hetnam=HetnamRecord()
-                    pdb.heterogen.het.append(hetnam)
+                    pdb.heterogen.hetnam.append(hetnam)
 
                     hetnam.hetId = line[11:14]
                     hetnam.text = ''
@@ -694,7 +733,7 @@ def parse_format33(file):
                     hetsyn.hetId = line[11:14]
                     hetsyn.hetSynonyms = []
 
-                hetnam.hetSynonyms += [ii.strip() for ii in line[15:70].split(';')]
+                hetsyn.hetSynonyms += [ii.strip() for ii in line[15:70].split(';') if ii.strip()]
 
                 counter += 1
                 line = lines[counter]
@@ -775,16 +814,18 @@ def parse_format33(file):
                 sheet.endSeqNum = int(line[33:37])
                 sheet.endICode = line[37]
                 sheet.sense = int(line[38:40])
-                sheet.curAtom = line[41:45]
-                sheet.curResName = line[45:48]
-                sheet.curChainId = line[49]
-                sheet.curResSeq = line[50:54]
-                sheet.curICode = line[54]
-                sheet.prevAtom = line[56:60]
-                sheet.prevResName = line[60:63]
-                sheet.prevChainId = line[64]
-                sheet.prevResSeq = line[65:69]
-                sheet.prevICode = line[69]
+                # Columns 42-70 are optional (absent when sense==0, first strand).
+                line70 = line.ljust(70)
+                sheet.curAtom = line70[41:45]
+                sheet.curResName = line70[45:48]
+                sheet.curChainId = line70[49]
+                sheet.curResSeq = line70[50:54]
+                sheet.curICode = line70[54]
+                sheet.prevAtom = line70[56:60]
+                sheet.prevResName = line70[60:63]
+                sheet.prevChainId = line70[64]
+                sheet.prevResSeq = line70[65:69]
+                sheet.prevICode = line70[69]
 
                 counter += 1
                 line = lines[counter]
@@ -1074,7 +1115,7 @@ def parse_format33(file):
                     model.record.append(record_element)
 
                     record_element.recordName = 'ATOM'
-                    record_element.serial = int(line[6:11])
+                    record_element.serial = _parse_serial(line[6:11])
                     record_element.name = line[12:16].strip()
                     record_element.altLoc = line[16]
                     record_element.resName = line[17:20].strip()
@@ -1095,7 +1136,7 @@ def parse_format33(file):
                     model.record.append(record_element)
 
                     record_element.recordName = 'HETATOM'
-                    record_element.serial = int(line[6:11])
+                    record_element.serial = _parse_serial(line[6:11])
                     record_element.name = line[12:16].strip()
                     record_element.altLoc = line[16]
                     record_element.resName = line[17:20].strip()
@@ -1115,7 +1156,7 @@ def parse_format33(file):
                     #record_element = AtomRecord()
                     #model.record.append(record_element)
 
-                    if record_element.serial!=int(line[6:11]):
+                    if record_element.serial!=_parse_serial(line[6:11]):
                         from molsysmt._private.smonitor import FileContentError
                         raise FileContentError(
                             reason="ANISOU record not referring previous atom record.",
@@ -1159,7 +1200,7 @@ def parse_format33(file):
                     conect.bondedAtomsSerNum = []
 
                     position=11
-                    while not line[position:position+5].isspace():
+                    while line[position:position+5].strip():
                         conect.bondedAtomsSerNum.append(int(line[position:position+5]))
                         position+=5
                         if position>=31:
@@ -1170,7 +1211,7 @@ def parse_format33(file):
                 else:
 
                     position=11
-                    while not line[position:position+5].isspace():
+                    while line[position:position+5].strip():
                         conect.bondedAtomsSerNum.append(int(line[position:position+5]))
                         position+=5
                         if position>=31:

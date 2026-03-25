@@ -18,7 +18,12 @@ def is_form(item):
     # Try rdkit if available: authoritative parse
     try:
         from rdkit import Chem
-        mol = Chem.MolFromSmiles(item)
+        from rdkit.RDLogger import DisableLog, EnableLog
+        DisableLog('rdApp.error')
+        try:
+            mol = Chem.MolFromSmiles(item)
+        finally:
+            EnableLog('rdApp.error')
         return mol is not None
     except ImportError:
         pass

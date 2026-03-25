@@ -10,7 +10,8 @@ external engines and file formats while enforcing consistent data models.
 molsysmt/
   basic/           # High-level public API (get, set, convert, select, view)
   form/            # Adapters for external forms and files (lazy discovery)
-  element/         # Element-level operations (atom/group/component/etc.)
+  element/         # Element-level operations and auxiliary chemical data
+  data/databases/  # Serialized topology, coordinate templates, name lists
   structure/       # Geometry and structural tools
   lib/             # Performance kernels (Numba, math, pbc, structure)
   native/          # Native objects and default units
@@ -21,6 +22,24 @@ molsysmt/
   systems/         # Bundled reference systems for tests/docs
   _private/        # Internal helpers (not public API)
 ```
+
+## Auxiliary Chemical Data: `element/` and `data/databases/`
+
+`molsysmt/element/` and `molsysmt/data/databases/` are the **canonical home**
+for any static domain knowledge needed by functions across the library:
+
+- residue/atom name lists and classification tables → `element/group/<type>/`
+- topology databases (atoms + bonds per residue variant) → `data/databases/amino_acids/`, `data/databases/nucleotides/`, etc.
+- 3D coordinate templates for structure placement → `data/databases/residue_templates/`
+- terminal capping definitions → `data/databases/terminal_cappings/`
+- lipid, saccharide, ion, small-molecule data → respective `data/databases/` subdirectories
+
+Any function that needs chemical knowledge should import from these locations.
+**Never** store auxiliary data in `build/_private/` or other ad-hoc per-module
+directories.
+
+See `auxiliary_data_and_nativization.md` for the full inventory, design
+principles, and how to add new data.
 
 ## Public vs Private
 - Public API is what is imported from `molsysmt/__init__.py`.

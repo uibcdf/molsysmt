@@ -160,3 +160,30 @@ systems['Hexokinase 2']['2nzt.bcif.gz'] = path('molsysmt.data.bcif_gz', '2nzt.bc
 systems['Hexokinase 2']['2nzt.h5msm'] = path('molsysmt.data.h5msm', '2nzt.h5msm')
 
 
+# PDB-parser regression systems
+# 1ATP: cAMP-dependent protein kinase (has HETSYN records)
+systems['1ATP'] = {}
+systems['1ATP']['1atp.pdb'] = path('molsysmt.data.pdb', '1atp.pdb')
+systems['1ATP']['1atp.bcif.gz'] = path('molsysmt.data.bcif_gz', '1atp.bcif.gz')
+
+# 1CEN: centromere protein B (has HETSYN records)
+systems['1CEN'] = {}
+systems['1CEN']['1cen.pdb'] = path('molsysmt.data.pdb', '1cen.pdb')
+systems['1CEN']['1cen.bcif.gz'] = path('molsysmt.data.bcif_gz', '1cen.bcif.gz')
+
+# 1YCR: MDM2-p53 peptide complex (SOURCE record without trailing semicolon)
+systems['1YCR'] = {}
+systems['1YCR']['1ycr.pdb'] = path('molsysmt.data.pdb', '1ycr.pdb')
+systems['1YCR']['1ycr.bcif.gz'] = path('molsysmt.data.bcif_gz', '1ycr.bcif.gz')
+
+# 2HGR: ribosome (obsolete entry, OBSLTE + SPLIT records; only PDB available)
+systems['2HGR'] = {}
+systems['2HGR']['2hgr.pdb'] = path('molsysmt.data.pdb', '2hgr.pdb')
+
+# 4V4Z: T. thermophilus 70S ribosome (supersedes 2HGR; 149 640 atoms — exceeds
+# PDB format decimal limit of 99 999; OpenMM writes serial overflow as uppercase hex)
+systems['4V4Z'] = {}
+systems['4V4Z']['4v4z.bcif.gz'] = path('molsysmt.data.bcif_gz', '4v4z.bcif.gz')
+systems['4V4Z']['4v4z_openmm.pdb'] = path('molsysmt.data.pdb', '4v4z_openmm.pdb')
+
+

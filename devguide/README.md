@@ -11,7 +11,26 @@ The current stabilization pass is focused on finishing the path to `1.0.0`
 with broad sequential validation and targeted fixes instead of architectural
 rewrites.
 
-Recent completed work:
+Recent completed work (March 2026, session 2):
+- `get_non_standard_residues`, `get_missing_heavy_atoms`, and
+  `get_missing_terminal_cappings` nativized: new `engine='MolSysMT'` (default)
+  requires no external dependency and works with any supported form; PDBFixer
+  preserved as `engine='PDBFixer'` fallback;
+- `element/group/amino_acid/get_standard_name` and `get_expected_heavy_atoms`
+  added as public helpers; tightest-fit topology variant selection avoids
+  OXT false-positives for internal residues;
+- `data/databases/residue_templates/` populated with 30 JSON 3D coordinate
+  templates (20 AA + ACE + NME + 8 nucleotides) from PDBFixer source files
+  (Angstroms → nm); a `make_residue_templates_db.py` generation script is
+  included;
+- `build.get_missing_residues` bug fixed: iterating over PDBFixer's
+  `missingResidues` dict now uses `.items()` correctly;
+- `auxiliary_data_and_nativization.md` added to devguide: documents the
+  `element/` and `data/databases/` canonical data repositories, nativized
+  functions, remaining PDBFixer-only functions, and the design principles for
+  future nativization;
+
+Recent completed work (March 2026):
 - native rebuild and public `molsysmt.element` semantics were separated and documented;
 - H5MSM now preserves `b_factor` and the bundled `181l.h5msm` artifact was regenerated;
 - `nglview` round-trips and color-by-value tests were made deterministic offline;
@@ -142,14 +161,15 @@ For development, this means:
 9) `viewers_and_visualization.md` (Visual backend policy)
 10) `architecture.md`
 11) `element_and_native_rebuild.md`
-12) `molsys_builder.md`
-13) `declarative_serialization_forms.md`
-14) `api_surface.md`
-15) `testing_strategy.md`
-16) `testing_form_adapters.md`
-17) `devtools_and_ci.md` (Local test/coverage toolbox and active CI)
-18) `scalability_and_heavy_trajectories_v2.md` (Pre-1.0.0 heavy trajectory design)
-19) `smonitor_feedback_proposals.md` (Temporary diagnostic improvements under evaluation)
+12) `auxiliary_data_and_nativization.md` (element/ and data/databases/ as canonical data stores; nativized build/ functions)
+13) `molsys_builder.md`
+14) `declarative_serialization_forms.md`
+15) `api_surface.md`
+16) `testing_strategy.md`
+17) `testing_form_adapters.md`
+18) `devtools_and_ci.md` (Local test/coverage toolbox and active CI)
+19) `scalability_and_heavy_trajectories_v2.md` (Pre-1.0.0 heavy trajectory design)
+20) `smonitor_feedback_proposals.md` (Temporary diagnostic improvements under evaluation)
 
 ## Scope
 These documents define how MolSysMT should be implemented and maintained:

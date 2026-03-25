@@ -1,34 +1,54 @@
 # residue_templates
 
-3D coordinate templates for standard and common non-standard residues.
+3D coordinate templates for standard residues and capping groups.
 Used by `build/add_missing_heavy_atoms` with `engine='MolSysMT'` to place
 new atoms geometrically without requiring an external force-field backend.
 
-## Intended structure
+## Contents
 
-Each file `{RESNAME}.json` contains:
+One JSON file per residue:
+
+| Set | Residues |
+|-----|----------|
+| Standard amino acids | ALA, ARG, ASN, ASP, CYS, GLN, GLU, GLY, HIS, ILE, LEU, LYS, MET, PHE, PRO, SER, THR, TRP, TYR, VAL |
+| Capping groups | ACE, NME |
+| RNA nucleotides | A, C, G, U |
+| DNA nucleotides | DA, DC, DG, DT |
+
+## JSON format
 
 ```json
 {
   "name": "ALA",
   "atoms": ["N", "CA", "C", "O", "CB"],
-  "coords_nm": [[x, y, z], ...],
+  "coords_nm": [[-0.1444, -0.0596, 0.0968], ...],
   "bonds": [["N", "CA"], ["CA", "C"], ...]
 }
 ```
 
-Coordinates are in **nanometres**, taken from the PDB Chemical Component
-Dictionary (CCD) or from PDBFixer's `templates/*.pdb` files.
+- **atoms**: heavy (non-hydrogen) atoms only, in PDBFixer template order.
+- **coords_nm**: Cartesian coordinates in **nanometres**.
+  Converted from PDBFixer templates (Angstroms) by dividing by 10.
+- **bonds**: bonds between heavy atoms only.  Sourced from
+  `data/databases/amino_acids/*.pkl.gz` (amino acids),
+  `data/databases/terminal_cappings/c_terminal.json` (ACE),
+  `data/databases/terminal_cappings/n_terminal.json` (NME).
+  RNA/DNA nucleotides have empty bond lists (no MolSysMT database yet).
 
 ## Sources
 
-- PDBFixer templates: `pdbfixer/templates/*.pdb` (ACE, ALA, ARG, ASN, ASP,
-  CYS, GLN, GLU, GLY, HIS, ILE, LEU, LYS, MET, NME, PHE, PRO, SER, THR,
-  TRP, TYR, VAL, A, C, G, U, DA, DC, DG, DT).
-- PDB CCD: downloadable from https://files.wwpdb.org/pub/pdb/data/monomers/components.cif
+- 3D coordinates: PDBFixer templates at `pdbfixer/pdbfixer/templates/*.pdb`
+  (Angstroms, heavy atoms only; no explicit bonds in source files).
+- Bond connectivity: MolSysMT amino-acid topology database
+  (`data/databases/amino_acids/`) and terminal-capping database
+  (`data/databases/terminal_cappings/`).
 
-## Status
+## Generation
 
-**Not yet populated.**  The directory is reserved for a future
-`make_residue_templates_db.py` script that will parse PDBFixer templates and
-CCD definitions into the JSON format described above.
+Run from the repository root to regenerate all JSON files:
+
+```bash
+python molsysmt/data/databases/residue_templates/make_residue_templates_db.py
+```
+
+Requires PDBFixer source available at `~/repos@others/pdbfixer`.
