@@ -139,6 +139,89 @@ def add_missing_heavy_atoms(molecular_system, selection='all', syntax='MolSysMT'
         del(group_indices_in_selection, temp_molecular_system)
         del(atts_from_components, atts_from_molecules, atts_from_chains, atts_from_entities)
 
+    elif engine == 'MolSysMT':
+
+        from molsysmt.basic import convert, get_form
+        from molsysmt import pyunitwizard as puw
+        from molsysmt.build.get_missing_heavy_atoms import get_missing_heavy_atoms
+        from molsysmt.build._native_placers import (
+            load_residue_template, place_missing_in_group, append_atoms_to_molsys,
+        )
+
+        # Work in native form
+        if form_in != 'molsysmt.MolSys':
+            native_ms = convert(molecular_system, to_form='molsysmt.MolSys', skip_digestion=True)
+        else:
+            native_ms = molecular_system
+
+        missing_atoms = get_missing_heavy_atoms(
+            native_ms, selection=selection, syntax=syntax, engine='MolSysMT',
+        )
+
+        if not missing_atoms:
+            output_molecular_system = native_ms.copy() if form_in == 'molsysmt.MolSys' else molecular_system
+            return convert(output_molecular_system, to_form=form_out, skip_digestion=True) \
+                if form_in != form_out else output_molecular_system
+
+        topo = native_ms.topology
+        all_coords = puw.get_value(native_ms.structures.coordinates, to_unit='nm')
+        n_structures = all_coords.shape[0]
+
+        new_atom_info = []   # list of (group_idx, atom_name, coords(n_structures, 3))
+        new_bonds_info = []  # list of (abs_idx1, abs_idx2) — resolved after atom list is built
+
+        # Track new atom indices by (group_idx, atom_name) for bond resolution
+        new_atom_index_map = {}  # (group_idx, atom_name) -> new_atom_idx
+        n_orig = topo.n_atoms
+
+        for group_idx, missing_names in missing_atoms.items():
+            group_name = topo.groups.loc[group_idx, 'group_name']
+            template = load_residue_template(group_name)
+            if template is None:
+                continue
+
+            placed = place_missing_in_group(topo, all_coords, group_idx, missing_names, template)
+            if not placed:
+                continue
+
+            for atom_name in missing_names:
+                if atom_name not in placed:
+                    continue
+                new_idx = n_orig + len(new_atom_info)
+                new_atom_index_map[(group_idx, atom_name)] = new_idx
+                new_atom_info.append((group_idx, atom_name, placed[atom_name]))
+
+        # Resolve bonds: add template bonds that involve at least one new atom
+        new_atom_name_by_group = {}
+        for (gidx, aname), nidx in new_atom_index_map.items():
+            new_atom_name_by_group.setdefault(gidx, {})[aname] = nidx
+
+        for group_idx, name_to_new_idx in new_atom_name_by_group.items():
+            group_name = topo.groups.loc[group_idx, 'group_name']
+            template = load_residue_template(group_name)
+            if template is None:
+                continue
+
+            # Build name → atom_idx for existing atoms of this group
+            gmask = topo.atoms['group_index'] == group_idx
+            exist_rows = topo.atoms[gmask]
+            existing_name_to_idx = dict(
+                zip(exist_rows['atom_name'], exist_rows.index.tolist())
+            )
+            # Merge with new atoms
+            all_name_to_idx = {**existing_name_to_idx, **name_to_new_idx}
+
+            for b1, b2 in template['bonds']:
+                if b1 not in name_to_new_idx and b2 not in name_to_new_idx:
+                    continue   # bond between two existing atoms (already in topology)
+                if b1 not in all_name_to_idx or b2 not in all_name_to_idx:
+                    continue
+                new_bonds_info.append((all_name_to_idx[b1], all_name_to_idx[b2]))
+
+        native_out = append_atoms_to_molsys(native_ms, new_atom_info, new_bonds_info)
+        output_molecular_system = convert(native_out, to_form=form_out, skip_digestion=True) \
+            if form_in != 'molsysmt.MolSys' else native_out
+
     else:
 
         raise NotImplementedMethodError

@@ -1537,6 +1537,9 @@ def build_peptide(molecular_system, to_form='molsysmt.MolSys', engine='LEaP'):
             temp_item.topology.bonds['atom2_index'] = np.array([bond[1] for bond in all_bonds], dtype=int)
         temp_item.topology.bonds._remove_empty_columns()
 
+        temp_item.topology.rebuild_components(redefine_indices=True, redefine_ids=True,
+                                              redefine_types=True, redefine_names=True)
+
         heavy_mask_final, bonded_matrix_final = _prepare_nonbonded_heavy_distance_full(atom_types, all_bonds)
         min_nonbonded_heavy_distance = _minimum_nonbonded_heavy_distance_full(
             coordinates=coordinates,

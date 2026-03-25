@@ -359,7 +359,7 @@ class MolSysBuilder:
             topology.atoms.loc[atom_index, "group_index"] = int(group_index)
 
     def _fill_chain_fallbacks(self, topology):
-        from ._hierarchy import infer_chain_indices_from_topology
+        from ._topology_infer import infer_chain_indices_from_topology
 
         if "chain_index" not in topology.groups.columns:
             topology.groups["chain_index"] = pd.Series(pd.array([pd.NA] * topology.n_groups, dtype="Int64"))
@@ -391,7 +391,7 @@ class MolSysBuilder:
             topology.atoms.loc[atom_mask, "chain_index"] = int(topology.groups.loc[group_index, "chain_index"])
 
     def _fill_molecule_fallbacks(self, topology):
-        from ._hierarchy import infer_component_indices_from_topology, infer_molecule_names_from_topology, infer_molecule_types_from_topology
+        from ._topology_infer import infer_component_indices_from_topology, infer_molecule_names_from_topology, infer_molecule_types_from_topology
 
         if topology.n_groups == 0:
             return
@@ -427,7 +427,7 @@ class MolSysBuilder:
                 topology.molecules.loc[molecule_index, "molecule_type"] = inferred_types[molecule_index]
 
     def _fill_entity_fallbacks(self, topology):
-        from ._hierarchy import infer_entity_indices_from_topology, infer_entity_names_from_topology, infer_entity_types_from_topology
+        from ._topology_infer import infer_entity_indices_from_topology, infer_entity_names_from_topology, infer_entity_types_from_topology
 
         unassigned = topology.molecules["entity_index"].isna()
         if unassigned.any():

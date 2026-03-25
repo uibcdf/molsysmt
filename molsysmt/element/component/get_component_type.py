@@ -16,7 +16,7 @@ def get_component_type(molecular_system, element='component', selection='all', r
 
     if isinstance(selection, str) and selection == 'all':
         from molsysmt.native import MolSys, Topology
-        from molsysmt.native._hierarchy import project_component_type_from_topology
+        from molsysmt.native._topology_infer import project_component_type_from_topology
 
         if isinstance(molecular_system, Topology):
             return project_component_type_from_topology(

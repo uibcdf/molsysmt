@@ -15,7 +15,7 @@ def get_chain_name(molecular_system, element='atom', selection='all',
 
     if isinstance(selection, str) and selection == 'all':
         from molsysmt.native import MolSys, Topology
-        from molsysmt.native._hierarchy import project_chain_name_from_topology
+        from molsysmt.native._topology_infer import project_chain_name_from_topology
 
         if isinstance(molecular_system, Topology):
             return project_chain_name_from_topology(

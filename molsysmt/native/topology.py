@@ -578,7 +578,7 @@ class Topology():
             self.groups['group_id']=np.arange(self.groups.shape[0], dtype=int).astype(str)
 
         if redefine_types:
-            from ._hierarchy import infer_group_types_from_topology
+            from ._topology_infer import infer_group_types_from_topology
 
             self.groups.group_type = infer_group_types_from_topology(self)
         self._coerce_id_columns_to_string()
@@ -595,7 +595,7 @@ class Topology():
         and names are inferred from the current native group/component content.
         This method is a native API and is not form-agnostic.
         """
-        from ._hierarchy import (
+        from ._topology_infer import (
             _needs_columns,
             fallback_ids,
             infer_component_indices_from_topology,
@@ -648,7 +648,7 @@ class Topology():
         corresponding component. This method is a native API and is not
         form-agnostic.
         """
-        from ._hierarchy import (
+        from ._topology_infer import (
             _needs_columns,
             fallback_ids,
             infer_molecule_indices_from_topology,
@@ -707,7 +707,7 @@ class Topology():
         requested. Chain types are inferred from locally available molecule
         types. This method is a native API and is not form-agnostic.
         """
-        from ._hierarchy import (
+        from ._topology_infer import (
             _needs_columns,
             infer_chain_ids_from_topology,
             infer_chain_indices_from_topology,
@@ -762,7 +762,7 @@ class Topology():
         under the same entity key. This method is a native API and is not
         form-agnostic.
         """
-        from ._hierarchy import (
+        from ._topology_infer import (
             _needs_columns,
             fallback_ids,
             infer_entity_indices_from_topology,

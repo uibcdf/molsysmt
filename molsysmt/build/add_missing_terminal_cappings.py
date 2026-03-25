@@ -41,8 +41,15 @@ def add_missing_terminal_cappings(molecular_system, N_terminal=None, C_terminal=
     syntax : str, default 'MolSysMT'
         Syntax used to parse the `selection` argument, if it is a string.
 
-    engine : {'PDBFixer'}, default 'PDBFixer'
-        Engine used to perform capping. Determines atom placement and protonation based on templates.
+    engine : {'MolSysMT', 'PDBFixer'}, default 'PDBFixer'
+        Engine used to perform capping.
+
+        * ``'MolSysMT'``: native implementation using internal residue templates and
+          geometric peptide-bond construction. No external dependencies required.
+          For ACE/NME capping, energy minimisation is recommended afterwards to
+          relax the newly inserted groups.
+        * ``'PDBFixer'``: delegates to PDBFixer's missing-atom and missing-residue
+          machinery.
 
     Returns
     -------
@@ -181,6 +188,131 @@ def add_missing_terminal_cappings(molecular_system, N_terminal=None, C_terminal=
 
         if keep_ids:
             raise NotImplementedError
+
+        return output_molecular_system
+
+    elif engine == 'MolSysMT':
+
+        from molsysmt.basic import convert, get, select
+        from molsysmt import pyunitwizard as puw
+        from molsysmt.build._native_placers import (
+            load_residue_template, place_missing_in_group, append_atoms_to_molsys,
+            place_ace_group, place_nme_group, rebuild_molsys_with_new_groups,
+        )
+        from molsysmt.build.add_missing_heavy_atoms import add_missing_heavy_atoms
+
+        if form_in != 'molsysmt.MolSys':
+            native_ms = convert(molecular_system, to_form='molsysmt.MolSys', skip_digestion=True)
+        else:
+            native_ms = molecular_system
+
+        # --- Case A: complete missing atoms in native terminal residues ---
+        # (same algorithm as add_missing_heavy_atoms, restricted to terminal groups)
+        # We always do this step regardless of N_terminal/C_terminal values.
+        native_ms = add_missing_heavy_atoms(
+            native_ms, selection=selection, syntax=syntax, engine='MolSysMT',
+        )
+
+        # If no capping groups requested, we're done
+        if N_terminal is None and C_terminal is None:
+            output_molecular_system = convert(native_ms, to_form=form_in, skip_digestion=True) \
+                if form_in != 'molsysmt.MolSys' else native_ms
+            return output_molecular_system
+
+        # --- Case B: insert ACE and/or NME as new groups ---
+
+        # Rebuild component indices from bonds so component_type is guaranteed correct
+        # regardless of the origin of the input system.
+        # native_ms is always a fresh object at this point (returned by add_missing_heavy_atoms).
+        native_ms.topology.rebuild_components(redefine_indices=True, redefine_ids=False,
+                                              redefine_types=True, redefine_names=False)
+
+        topo = native_ms.topology
+        all_coords = puw.get_value(native_ms.structures.coordinates, to_unit='nm')
+        n_structures = all_coords.shape[0]
+
+        # Identify peptide/protein components in selection.
+        # Component indices are derived from covalent connectivity (bonds), so they
+        # are an objective property of the system — no dependency on external metadata.
+        atom_indices_in_selection = select(
+            native_ms, selection=selection, syntax=syntax, skip_digestion=True
+        )
+        component_indices = get(
+            native_ms, element='component',
+            selection='component_type in ["peptide", "protein"] and atom_index in @atom_indices_in_selection',
+            component_index=True, skip_digestion=True,
+        )
+        if component_indices is None or len(component_indices) == 0:
+            output_molecular_system = convert(native_ms, to_form=form_in, skip_digestion=True) \
+                if form_in != 'molsysmt.MolSys' else native_ms
+            return output_molecular_system
+
+        # For each component determine the first and last group index
+        mol_group_ranges = {}
+        for comp_idx in component_indices:
+            comp_atom_idxs = get(
+                native_ms, element='atom',
+                selection=f'component_index=={comp_idx}',
+                atom_index=True, skip_digestion=True,
+            )
+            comp_group_idxs = sorted(
+                topo.atoms.loc[comp_atom_idxs, 'group_index'].dropna().astype(int).unique().tolist()
+            )
+            if not comp_group_idxs:
+                continue
+            mol_group_ranges[int(comp_idx)] = (comp_group_idxs[0], comp_group_idxs[-1])
+
+        extra_groups_before = {}   # mol_idx -> (group_name, {atom_name: coords(n_s,3)})
+        extra_groups_after = {}
+
+        for mol_idx, (first_g, last_g) in mol_group_ranges.items():
+
+            if N_terminal is not None:
+                tmpl_ace = load_residue_template(N_terminal)
+                if tmpl_ace is not None:
+                    # Get N, CA, C of the first residue
+                    first_g_mask = topo.atoms['group_index'] == first_g
+                    first_g_rows = topo.atoms[first_g_mask]
+                    def _get_pos(atom_name_lookup):
+                        rows = first_g_rows[first_g_rows['atom_name'] == atom_name_lookup]
+                        if len(rows) == 0:
+                            return None
+                        idx = rows.index[0]
+                        return all_coords[:, int(idx), :]   # (n_structures, 3)
+
+                    N_pos  = _get_pos('N')
+                    CA_pos = _get_pos('CA')
+                    C_pos  = _get_pos('C')
+                    if N_pos is not None and CA_pos is not None and C_pos is not None:
+                        ace_atoms = place_ace_group(N_pos, CA_pos, C_pos, tmpl_ace, n_structures)
+                        extra_groups_before[mol_idx] = (N_terminal, ace_atoms)
+
+            if C_terminal is not None:
+                tmpl_nme = load_residue_template(C_terminal)
+                if tmpl_nme is not None:
+                    # Get C, CA, N of the last residue
+                    last_g_mask = topo.atoms['group_index'] == last_g
+                    last_g_rows = topo.atoms[last_g_mask]
+                    def _get_pos_last(atom_name_lookup):
+                        rows = last_g_rows[last_g_rows['atom_name'] == atom_name_lookup]
+                        if len(rows) == 0:
+                            return None
+                        idx = rows.index[0]
+                        return all_coords[:, int(idx), :]
+                    C_pos_last  = _get_pos_last('C')
+                    CA_pos_last = _get_pos_last('CA')
+                    N_pos_last  = _get_pos_last('N')
+                    if C_pos_last is not None and CA_pos_last is not None and N_pos_last is not None:
+                        nme_atoms = place_nme_group(
+                            C_pos_last, CA_pos_last, N_pos_last, tmpl_nme, n_structures
+                        )
+                        extra_groups_after[mol_idx] = (C_terminal, nme_atoms)
+
+        native_out = rebuild_molsys_with_new_groups(
+            native_ms, mol_group_ranges, extra_groups_before, extra_groups_after,
+        )
+        output_molecular_system = convert(native_out, to_form=form_in, skip_digestion=True) \
+            if form_in != 'molsysmt.MolSys' else native_out
 
         return output_molecular_system
 
