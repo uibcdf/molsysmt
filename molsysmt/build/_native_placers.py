@@ -1,6 +1,6 @@
 """
-Private helpers for the engine='MolSysMT' branches of add_missing_heavy_atoms
-and add_missing_terminal_cappings.
+Private helpers for the engine='MolSysMT' branches of add_missing_heavy_atoms,
+add_missing_terminal_cappings, and add_missing_hydrogens.
 
 Public API (internal use only):
   - load_residue_template(group_name)
@@ -9,6 +9,9 @@ Public API (internal use only):
   - place_ace_group(N_pos, CA_pos, C_pos, template, n_structures)
   - place_nme_group(C_pos, CA_pos, N_pos_last, template, n_structures)
   - rebuild_molsys_with_new_groups(native_molsys, ...)
+  - h_bond_length(parent_element)
+  - place_hydrogens_on_parent(parent_pos, neighbor_positions, n_hs, hybridization,
+                               bond_length, n_structures)
 """
 
 from __future__ import annotations
@@ -611,3 +614,274 @@ def rebuild_molsys_with_new_groups(
     new_molsys.structures.coordinates = puw.quantity(new_coords, "nm")
 
     return new_molsys
+
+
+# ---------------------------------------------------------------------------
+# Hydrogen placement helpers
+# ---------------------------------------------------------------------------
+
+# Standard covalent bond lengths (nm) for X-H bonds in proteins
+_H_BOND_LENGTHS = {
+    'C': 0.109,   # sp3 C-H
+    'N': 0.101,   # N-H
+    'O': 0.096,   # O-H
+    'S': 0.134,   # S-H
+}
+_H_BOND_LENGTH_DEFAULT = 0.109
+
+
+def h_bond_length(parent_element: str) -> float:
+    """Return the standard X-H bond length in nm for a given element."""
+    return _H_BOND_LENGTHS.get(parent_element.upper(), _H_BOND_LENGTH_DEFAULT)
+
+
+def _get_arbitrary_perpendicular(v):
+    """Return a unit vector perpendicular to *v* (unit vector)."""
+    if abs(v[0]) < 0.9:
+        ref = np.array([1.0, 0.0, 0.0])
+    else:
+        ref = np.array([0.0, 1.0, 0.0])
+    perp = np.cross(v, ref)
+    n = np.linalg.norm(perp)
+    return perp / n if n > 1e-12 else np.array([0.0, 1.0, 0.0])
+
+
+def _rotate_around_axis(v, axis, angle):
+    """Rodrigues rotation: rotate vector *v* around *axis* by *angle* (radians)."""
+    c = np.cos(angle)
+    s = np.sin(angle)
+    return v * c + np.cross(axis, v) * s + axis * np.dot(axis, v) * (1.0 - c)
+
+
+def place_hydrogens_on_parent(parent_pos, neighbor_positions, n_hs, hybridization,
+                               bond_length, n_structures):
+    """Compute positions for *n_hs* hydrogen atoms bonded to *parent_pos*.
+
+    Parameters
+    ----------
+    parent_pos : ndarray, shape (n_structures, 3)
+        Position of the parent (heavy) atom.
+    neighbor_positions : list of ndarray, each shape (n_structures, 3)
+        Positions of the existing heavy atoms bonded to the parent.
+    n_hs : int
+        Number of H atoms to place (1, 2, or 3).
+    hybridization : str
+        ``'sp3'``, ``'sp2'``, or ``'sp'``.
+    bond_length : float
+        X-H bond length in nm.
+    n_structures : int
+
+    Returns
+    -------
+    list of ndarray(n_structures, 3)
+        One array per H atom to be placed.
+    """
+
+    results = [np.empty((n_structures, 3), dtype=np.float64) for _ in range(n_hs)]
+    n_neigh = len(neighbor_positions)
+
+    for frame in range(n_structures):
+        P = parent_pos[frame]
+        neighs = [nb[frame] for nb in neighbor_positions]
+
+        if hybridization == 'sp' or (hybridization == 'sp2' and n_neigh == 1 and n_hs == 1):
+            # Linear / one neighbor: H points straight away from the neighbor
+            A = neighs[0]
+            v = _normalize(P - A)
+            if v is None:
+                v = np.array([0.0, 0.0, 1.0])
+            if hybridization == 'sp':
+                results[0][frame] = P + bond_length * v
+            else:
+                # sp2, 1 neighbor, 1 H — same as sp for proteins (e.g. =C-H terminal)
+                results[0][frame] = P + bond_length * v
+
+        elif hybridization == 'sp2' and n_neigh == 2 and n_hs == 1:
+            # In the plane of the two neighbors, bisecting the exterior angle
+            A = neighs[0]
+            B = neighs[1]
+            vPA = _normalize(A - P)
+            vPB = _normalize(B - P)
+            if vPA is None or vPB is None:
+                v = np.array([0.0, 0.0, 1.0])
+            else:
+                # bisector of (A-P-B) pointing outward
+                bisect = _normalize(vPA + vPB)
+                if bisect is None:
+                    # A and B are collinear with P — use perpendicular
+                    bisect = _get_arbitrary_perpendicular(_normalize(A - B) or np.array([1., 0., 0.]))
+                v = -bisect  # outward (opposite of bisector toward neighbors)
+            results[0][frame] = P + bond_length * v
+
+        elif hybridization == 'sp3' and n_neigh >= 3 and n_hs == 1:
+            # H completes tetrahedral: opposite to centroid of unit vectors to neighbors
+            unit_sum = np.zeros(3, dtype=np.float64)
+            for nb in neighs[:3]:
+                u = _normalize(nb - P)
+                if u is not None:
+                    unit_sum += u
+            v = _normalize(-unit_sum)
+            if v is None:
+                v = _get_arbitrary_perpendicular(_normalize(neighs[0] - P) or np.array([1., 0., 0.]))
+            results[0][frame] = P + bond_length * v
+
+        elif hybridization == 'sp3' and n_neigh == 2 and n_hs == 1:
+            # 3 bonds total (A-P-B + H): H bisects the exterior of A-P-B, displaced out of plane
+            A = neighs[0]
+            B = neighs[1]
+            vPA = _normalize(A - P)
+            vPB = _normalize(B - P)
+            if vPA is None or vPB is None:
+                results[0][frame] = P + bond_length * np.array([0., 0., 1.])
+                continue
+            mid = _normalize(vPA + vPB)
+            if mid is None:
+                mid = _get_arbitrary_perpendicular(vPA)
+            # For sp3: H is below the plane at tetrahedral angle
+            # cos(109.5°) ≈ -0.333; angle from -mid to H is ~54.75° out of plane
+            normal = _normalize(np.cross(vPA, vPB))
+            if normal is None:
+                normal = _get_arbitrary_perpendicular(mid)
+            # H direction: tilted away from mid by tetrahedral half-angle
+            # Component along -mid: cos(54.75°)≈0.577; component along normal: sin(54.75°)≈0.816
+            # (these come from the tetrahedral geometry)
+            v = _normalize(-mid * 0.577 + normal * 0.816)
+            if v is None:
+                v = normal
+            results[0][frame] = P + bond_length * v
+
+        elif hybridization == 'sp3' and n_neigh == 2 and n_hs == 2:
+            # NH2 / CH2: two Hs symmetric around the bisector plane, tetrahedral
+            A = neighs[0]
+            B = neighs[1]
+            vPA = _normalize(A - P)
+            vPB = _normalize(B - P)
+            if vPA is None or vPB is None:
+                for k in range(2):
+                    results[k][frame] = P + bond_length * np.array([0., float(k), 1.])
+                continue
+            mid = _normalize(vPA + vPB)
+            if mid is None:
+                mid = _get_arbitrary_perpendicular(vPA)
+            normal = _normalize(np.cross(vPA, vPB))
+            if normal is None:
+                normal = _get_arbitrary_perpendicular(mid)
+            v0 = _normalize(-mid * 0.577 + normal * 0.816)
+            v1 = _normalize(-mid * 0.577 - normal * 0.816)
+            if v0 is None:
+                v0 = normal
+            if v1 is None:
+                v1 = -normal
+            results[0][frame] = P + bond_length * v0
+            results[1][frame] = P + bond_length * v1
+
+        elif hybridization == 'sp3' and n_neigh == 1 and n_hs == 1:
+            # 2 bonds: A-P-H at tetrahedral angle; arbitrary rotation around A-P axis
+            A = neighs[0]
+            vAP = _normalize(P - A)
+            if vAP is None:
+                results[0][frame] = P + bond_length * np.array([0., 0., 1.])
+                continue
+            perp = _get_arbitrary_perpendicular(vAP)
+            # tetrahedral: 109.5° from A-P axis
+            theta = np.deg2rad(109.5 - 90.0)   # tilt from perpendicular
+            v = _normalize(np.cos(theta) * vAP + np.sin(theta) * perp)
+            if v is None:
+                v = vAP
+            results[0][frame] = P + bond_length * v
+
+        elif hybridization == 'sp3' and n_neigh == 1 and n_hs == 2:
+            # A-P with 2 Hs: tetrahedral angles, symmetric around A-P axis
+            A = neighs[0]
+            vAP = _normalize(P - A)
+            if vAP is None:
+                for k in range(2):
+                    results[k][frame] = P + bond_length * np.array([0., float(k), 1.])
+                continue
+            perp = _get_arbitrary_perpendicular(vAP)
+            theta = np.deg2rad(109.5 - 90.0)
+            base = np.cos(theta) * vAP + np.sin(theta) * perp
+            for k, delta in enumerate([0.0, 2 * np.pi / 3 * 2]):
+                v = _normalize(_rotate_around_axis(base, vAP, delta))
+                if v is None:
+                    v = vAP
+                results[k][frame] = P + bond_length * v
+
+        elif hybridization == 'sp3' and n_neigh == 1 and n_hs == 3:
+            # Methyl / ammonium: three Hs at 109.5° from A-P axis, 120° apart
+            A = neighs[0]
+            vAP = _normalize(P - A)
+            if vAP is None:
+                for k in range(3):
+                    results[k][frame] = P + bond_length * np.array([0., float(k), 1.])
+                continue
+            perp = _get_arbitrary_perpendicular(vAP)
+            theta = np.deg2rad(109.5 - 90.0)
+            base = np.cos(theta) * vAP + np.sin(theta) * perp
+            for k in range(3):
+                angle = k * 2.0 * np.pi / 3.0
+                v = _normalize(_rotate_around_axis(base, vAP, angle))
+                if v is None:
+                    v = vAP
+                results[k][frame] = P + bond_length * v
+
+        elif n_neigh == 0:
+            # Isolated atom — place H along z
+            for k in range(n_hs):
+                angle = k * 2.0 * np.pi / max(n_hs, 1)
+                v = np.array([np.cos(angle), np.sin(angle), 0.0])
+                results[k][frame] = P + bond_length * v
+
+        else:
+            # Fallback: distribute Hs evenly in a cone around the centroid direction
+            unit_sum = np.zeros(3, dtype=np.float64)
+            for nb in neighs:
+                u = _normalize(nb - P)
+                if u is not None:
+                    unit_sum += u
+            axis = _normalize(-unit_sum)
+            if axis is None:
+                axis = np.array([0.0, 0.0, 1.0])
+            perp = _get_arbitrary_perpendicular(axis)
+            theta = np.deg2rad(109.5 - 90.0)
+            base = np.cos(theta) * axis + np.sin(theta) * perp
+            for k in range(n_hs):
+                angle = k * 2.0 * np.pi / n_hs
+                v = _normalize(_rotate_around_axis(base, axis, angle))
+                if v is None:
+                    v = axis
+                results[k][frame] = P + bond_length * v
+
+    return results
+
+
+def _infer_hybridization(atom_name, heavy_neighbor_names, group_name):
+    """Heuristic hybridization for *atom_name* in *group_name*.
+
+    Uses atom-name patterns and heavy-neighbor count to decide sp/sp2/sp3.
+    """
+    n_heavy = len(heavy_neighbor_names)
+
+    # Backbone carbonyl carbon: sp2 (C with O and CA and N)
+    if atom_name == 'C':
+        return 'sp2'
+    # Sp2 carbons by name pattern in aromatic/planar groups
+    _sp2_atoms = {
+        'CG', 'CD', 'CE', 'CZ',      # guanidinium / aromatic
+        'CD1', 'CD2', 'CE1', 'CE2',  # ring carbons
+        'CG1', 'CG2',
+        'CZ2', 'CZ3', 'CH2',         # TRP
+        'NE2',                        # HIS (sp2 N in ring)
+        'ND1',
+    }
+    if atom_name in _sp2_atoms:
+        return 'sp2'
+
+    # Backbone N: sp2 (peptide bond) unless N-terminal (then sp3-ish with 3 Hs)
+    if atom_name == 'N':
+        if n_heavy >= 2:
+            return 'sp2'
+        return 'sp3'   # N-terminal with only CA bond → sp3
+
+    # sp3 by default for everything else
+    return 'sp3'

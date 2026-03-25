@@ -283,12 +283,11 @@ def test_bonds_atom_indices_are_sorted():
     assert np.all(bonds[:, 0] < bonds[:, 1])
 
 
-def test_n_components_equals_n_groups():
-    """Number of components matches number of groups for a bare peptide."""
+def test_n_components_is_one():
+    """A peptide chain is one covalently connected component, not one per residue."""
     molsys = msm.build.build_peptide('AGVIL', to_form='molsysmt.MolSys', engine='MolSysMT')
-    n_groups = msm.get(molsys, n_groups=True)
     n_components = msm.get(molsys, n_components=True)
-    assert n_components == n_groups
+    assert n_components == 1
 
 
 # ---------------------------------------------------------------------------
