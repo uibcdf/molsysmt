@@ -225,13 +225,17 @@ def test_atom_type_not_none_when_element_column_absent(molsys_md_1u19_pdb):
     )
 
 
-def test_atom_type_hydrogens_correctly_inferred(molsys_md_1u19_pdb):
-    """Hydrogen atoms must receive atom_type='H' when inferred from atom_name."""
+def test_atom_type_matches_names_dict(molsys_md_1u19_pdb):
+    """atom_type must match the names.py dictionary for every recognised atom_name."""
     import numpy as np
+    from molsysmt.element.atom.names import atom as _names_dict
     atom_types = np.array(msm.get(molsys_md_1u19_pdb, element='atom', atom_type=True), dtype=object)
     atom_names = np.array(msm.get(molsys_md_1u19_pdb, element='atom', atom_name=True), dtype=object)
-    hydrogen_mask = np.array([n.startswith('H') for n in atom_names])
-    hydrogen_types = atom_types[hydrogen_mask]
-    assert all(t == 'H' for t in hydrogen_types), (
-        "Some hydrogen atoms do not have atom_type='H'."
+    mismatches = [
+        (name, got, _names_dict[name])
+        for name, got in zip(atom_names, atom_types)
+        if name in _names_dict and got != _names_dict[name]
+    ]
+    assert not mismatches, (
+        f"atom_type mismatch for {len(mismatches)} atoms: {mismatches[:10]}"
     )
