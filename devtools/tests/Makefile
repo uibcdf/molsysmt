@@ -17,6 +17,7 @@ MODULE_TEST_MAP_JSON ?= module_test_map.json
 PACKAGE_DEPTH ?= 1
 MAP_DEPTH ?= 2
 HOTSPOT_TOP ?= 15
+SLOWEST_N ?= 25
 THRESHOLDS_FILE ?= coverage_thresholds.json
 COV_TERM_MODE ?= term-missing:skip-covered
 BROWSER_OPEN ?= xdg-open
@@ -126,9 +127,13 @@ help:
 	@echo "SLOW TEST ANALYSIS"
 	@echo "------------------"
 	@echo "  make slowest"
-	@echo "      Show slowest pytest items."
+	@echo "      Run the suite sequentially (no -n) and show the N slowest tests."
+	@echo "      Sequential execution is required for accurate per-test timings."
 	@echo "      Variables:"
-	@echo "        DURATIONS=25"
+	@echo "        SLOWEST_N=$(SLOWEST_N)   number of slow items to display"
+	@echo "        TEST_DIR=$(TEST_DIR)"
+	@echo "      Example:"
+	@echo "        make slowest SLOWEST_N=50"
 	@echo ""
 	@echo "BASELINE COMPARISON AND THRESHOLDS"
 	@echo "----------------------------------"
@@ -214,6 +219,7 @@ help:
 	@echo "  PACKAGE_DEPTH=$(PACKAGE_DEPTH)"
 	@echo "  MAP_DEPTH=$(MAP_DEPTH)"
 	@echo "  HOTSPOT_TOP=$(HOTSPOT_TOP)"
+	@echo "  SLOWEST_N=$(SLOWEST_N)"
 	@echo "  THRESHOLDS_FILE=$(THRESHOLDS_FILE)"
 	@echo "  COV_TERM_MODE=$(COV_TERM_MODE)"
 	@echo "  BROWSER_OPEN=$(BROWSER_OPEN)"
@@ -224,6 +230,8 @@ help:
 	@echo ""
 	@echo "COMMON EXAMPLES"
 	@echo "---------------"
+	@echo "  make slowest"
+	@echo "  make slowest SLOWEST_N=50"
 	@echo "  make coverage"
 	@echo "  make coverage NPROC=8"
 	@echo "  make coverage-open"
@@ -315,7 +323,7 @@ coverage-markdown: _coverage-source-check coverage.json
 	python coverage_markdown.py --root $(PACKAGE) --package-depth $(PACKAGE_DEPTH) --top $(HOTSPOT_TOP) --output $(SUMMARY_MD) --json-output $(SUMMARY_JSON) $(if $(SUBPACKAGE),--subpackage $(SUBPACKAGE),)
 
 slowest:
-	pytest $(PYTEST_FLAGS) --durations=$${DURATIONS:-25} $(TEST_DIR)
+	pytest -p no:xdist $(QUIET) -rsx --durations=$(SLOWEST_N) --durations-min=0 $(TEST_DIR)
 
 coverage-diff: _coverage-source-check coverage.json
 	python coverage_diff.py --baseline $(BASELINE_FILE) --current coverage.json
