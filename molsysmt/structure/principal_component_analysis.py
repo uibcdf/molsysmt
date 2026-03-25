@@ -11,7 +11,8 @@ import gc
 @signal(tags=['api', 'structure'])
 @arg_digest()
 def principal_component_analysis(molecular_system, selection='all', structure_indices='all',
-        weights=None, syntax='MolSysMT', engine='MolSysMT', skip_digestion=False):
+        weights=None, syntax='MolSysMT', engine='MolSysMT', use_gpu=None,
+        skip_digestion=False):
     """
     Performing principal component analysis (PCA) on selected atoms.
 
@@ -58,7 +59,16 @@ def principal_component_analysis(molecular_system, selection='all', structure_in
         if weights is None:
             weights = np.ones((coordinates.shape[1]), dtype=np.float64)
 
-        variances, principal_components = msmlib.structure.principal_component_analysis(coordinates, weights)
+        from molsysmt._private.gpu import resolve_use_gpu
+        n_features = coordinates.shape[1] * 3
+        payload = coordinates.shape[0] * n_features * n_features
+        if resolve_use_gpu(use_gpu, payload):
+            from molsysmt.lib.structure.principal_component_analysis_cuda import (
+                principal_component_analysis as _gpu_pca,
+            )
+            variances, principal_components = _gpu_pca(coordinates, weights)
+        else:
+            variances, principal_components = msmlib.structure.principal_component_analysis(coordinates, weights)
 
         del(coordinates, atom_indices, weights)
 

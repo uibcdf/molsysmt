@@ -49,7 +49,7 @@ class _RMSDReducer(Reducer):
 @arg_digest()
 def get_rmsd(molecular_system, selection='atom_type!="H"', structure_indices='all',
           reference_molecular_system=None, reference_selection=None, reference_structure_index=0,
-          syntax='MolSysMT', engine='MolSysMT', heavy_mode='auto'):
+          syntax='MolSysMT', engine='MolSysMT', heavy_mode='auto', use_gpu=None):
     """
     Compute the RMSD between structures without prior superposition.
 
@@ -193,14 +193,30 @@ def get_rmsd(molecular_system, selection='atom_type!="H"', structure_indices='al
                     caller="molsysmt.structure.get_rmsd"
                 )
 
-            if reference_coordinates.shape[0] == 1:
-                rmsd_val = msmlib.structure.get_rmsd_with_single_reference_structure(
-                    coordinates, reference_coordinates[0])
-            elif coordinates.shape[0] == 1:
-                rmsd_val = msmlib.structure.get_rmsd_with_single_reference_structure(
-                    reference_coordinates, coordinates[0])
+            from molsysmt._private.gpu import resolve_use_gpu
+            payload = coordinates.shape[0] * coordinates.shape[1] * 3
+            _use_gpu = resolve_use_gpu(use_gpu, payload)
+
+            if _use_gpu:
+                from molsysmt.lib.structure.get_rmsd_cuda import (
+                    get_rmsd as _gpu_rmsd,
+                    get_rmsd_with_single_reference_structure as _gpu_rmsd_single,
+                )
+                if reference_coordinates.shape[0] == 1:
+                    rmsd_val = _gpu_rmsd_single(coordinates, reference_coordinates[0])
+                elif coordinates.shape[0] == 1:
+                    rmsd_val = _gpu_rmsd_single(reference_coordinates, coordinates[0])
+                else:
+                    rmsd_val = _gpu_rmsd(coordinates, reference_coordinates)
             else:
-                rmsd_val = msmlib.structure.get_rmsd(coordinates, reference_coordinates)
+                if reference_coordinates.shape[0] == 1:
+                    rmsd_val = msmlib.structure.get_rmsd_with_single_reference_structure(
+                        coordinates, reference_coordinates[0])
+                elif coordinates.shape[0] == 1:
+                    rmsd_val = msmlib.structure.get_rmsd_with_single_reference_structure(
+                        reference_coordinates, coordinates[0])
+                else:
+                    rmsd_val = msmlib.structure.get_rmsd(coordinates, reference_coordinates)
 
             rmsd_val = puw.quantity(rmsd_val, length_unit)
 

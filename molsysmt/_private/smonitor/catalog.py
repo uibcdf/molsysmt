@@ -132,6 +132,12 @@ CATALOG = {
             "category": "performance",
             "level": "WARNING",
         },
+        "GpuNotAvailableWarning": {
+            "code": "MSM-WARN-GPU-001",
+            "source": "molsysmt.warning.gpu.not_available",
+            "category": "performance",
+            "level": "WARNING",
+        },
     },
     "exceptions": {
         "ArgumentError": {

@@ -10,7 +10,8 @@ import gc
 @signal(tags=['api', 'structure'])
 @arg_digest()
 def get_principal_axes(molecular_system, selection='all', structure_indices='all',
-        weights=None, principal_axes_type='inertia', syntax='MolSysMT', engine='MolSysMT'):
+        weights=None, principal_axes_type='inertia', syntax='MolSysMT', engine='MolSysMT',
+        use_gpu=None):
     """
     Computing principal axes for a selection of atoms.
 
@@ -58,14 +59,28 @@ def get_principal_axes(molecular_system, selection='all', structure_indices='all
         if weights is None:
             weights = np.ones((coordinates.shape[1]), dtype=np.float64)
 
-        if principal_axes_type=='geometric':
+        from molsysmt._private.gpu import resolve_use_gpu
+        payload = coordinates.shape[0] * coordinates.shape[1] * 3
+        _use_gpu = resolve_use_gpu(use_gpu, payload)
 
-            variances, axes = msmlib.structure.get_principal_geometric_axes(coordinates, weights)
-            moments=variances
+        if principal_axes_type == 'geometric':
+            if _use_gpu:
+                from molsysmt.lib.structure.get_principal_axes_cuda import (
+                    get_principal_geometric_axes as _gpu_geo,
+                )
+                variances, axes = _gpu_geo(coordinates, weights)
+            else:
+                variances, axes = msmlib.structure.get_principal_geometric_axes(coordinates, weights)
+            moments = variances
 
-        elif principal_axes_type=='inertia':
-
-            moments, axes = msmlib.structure.get_principal_inertia_axes(coordinates, weights)
+        elif principal_axes_type == 'inertia':
+            if _use_gpu:
+                from molsysmt.lib.structure.get_principal_axes_cuda import (
+                    get_principal_inertia_axes as _gpu_inertia,
+                )
+                moments, axes = _gpu_inertia(coordinates, weights)
+            else:
+                moments, axes = msmlib.structure.get_principal_inertia_axes(coordinates, weights)
 
         del(coordinates, atom_indices, weights)
 

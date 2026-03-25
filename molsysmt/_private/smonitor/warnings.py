@@ -114,6 +114,14 @@ class MemoryPressureWarning(MolSysMTCatalogWarning):
         })
 
 
+class GpuNotAvailableWarning(MolSysMTCatalogWarning):
+    """Emitted when use_gpu=True is requested but no CUDA GPU is accessible."""
+    catalog_key = "GpuNotAvailableWarning"
+
+    def __init__(self, message="No CUDA GPU available; falling back to CPU kernel."):
+        super().__init__(extra={"message": message})
+
+
 __all__ = [
     "UserMolSysMTWarning",
     "SelectionWarning",
@@ -125,6 +133,7 @@ __all__ = [
     "SlowChunkIOWarning",
     "CorruptFrameSkippedWarning",
     "MemoryPressureWarning",
+    "GpuNotAvailableWarning",
     "warn",
     "warn_once",
 ]

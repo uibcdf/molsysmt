@@ -94,4 +94,8 @@ del _os
 # Topology
 min_length_protein = 50
 
+# GPU acceleration
+use_gpu = False          # True | False | 'auto'
+gpu_threshold = 3_000_000  # payload (n_structures * n_atoms * 3) above which 'auto' uses GPU
+
 

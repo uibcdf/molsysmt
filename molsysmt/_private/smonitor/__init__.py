@@ -23,4 +23,5 @@ __all__ = [
     "SlowChunkIOWarning",
     "CorruptFrameSkippedWarning",
     "MemoryPressureWarning",
+    "GpuNotAvailableWarning",
 ]

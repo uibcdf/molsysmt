@@ -10,7 +10,8 @@ import gc
 @signal(tags=['api', 'structure'])
 @arg_digest()
 def get_dihedral_angles(molecular_system, selection='all', dihedral_quartets=None,
-                        structure_indices='all', syntax='MolSysMT', pbc=False, **kwargs):
+                        structure_indices='all', syntax='MolSysMT', pbc=False,
+                        use_gpu=None, **kwargs):
     """
     Compute dihedral angles for a set of atom quartets over one or more structures.
 
@@ -118,7 +119,15 @@ def get_dihedral_angles(molecular_system, selection='all', dihedral_quartets=Non
 
     if not pbc:
 
-        angles = msmlib.structure.get_dihedral_angles(coordinates, dihedral_quartets)
+        from molsysmt._private.gpu import resolve_use_gpu
+        payload = coordinates.shape[0] * dihedral_quartets.shape[0]
+        if resolve_use_gpu(use_gpu, payload):
+            from molsysmt.lib.structure.get_dihedral_angles_cuda import (
+                get_dihedral_angles as _gpu_dihedral,
+            )
+            angles = _gpu_dihedral(coordinates, dihedral_quartets)
+        else:
+            angles = msmlib.structure.get_dihedral_angles(coordinates, dihedral_quartets)
         del(coordinates, dihedral_quartets)
 
 

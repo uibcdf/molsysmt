@@ -10,7 +10,8 @@ import gc
 @signal(tags=['api', 'structure'])
 @arg_digest()
 def get_radius_of_gyration(molecular_system, selection='all', structure_indices='all',
-                           weights=None, syntax='MolSysMT', engine='MolSysMT'):
+                           weights=None, syntax='MolSysMT', engine='MolSysMT',
+                           use_gpu=None):
     """
     Radius of gyration of a selection of atoms over one or more structures.
 
@@ -65,7 +66,15 @@ def get_radius_of_gyration(molecular_system, selection='all', structure_indices=
                           structure_indices=structure_indices, coordinates=True)
         coordinates, length_unit = extract_coordinates_value_and_unit(coordinates)
 
-        rg_val = msmlib.structure.get_radius_of_gyration(coordinates, weights_arr)
+        from molsysmt._private.gpu import resolve_use_gpu
+        payload = coordinates.shape[0] * coordinates.shape[1] * 3
+        if resolve_use_gpu(use_gpu, payload):
+            from molsysmt.lib.structure.get_radius_of_gyration_cuda import (
+                get_radius_of_gyration as _gpu_kernel,
+            )
+            rg_val = _gpu_kernel(coordinates, weights_arr)
+        else:
+            rg_val = msmlib.structure.get_radius_of_gyration(coordinates, weights_arr)
         rg = puw.quantity(rg_val, length_unit)
         rg = puw.standardize(rg)
 
