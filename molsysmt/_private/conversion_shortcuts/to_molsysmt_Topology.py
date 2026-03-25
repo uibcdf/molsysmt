@@ -119,7 +119,7 @@ def file_gro_and_file_xtc_to_molsysmt_Topology(molecular_system, atom_indices='a
     tmp_item = file_gro_to_molsysmt_Topology(item_gro, atom_indices=atom_indices, get_missing_bonds=True,
                                              skip_digestion=True)
 
-    return output_item
+    return tmp_item
 
 def openmm_Topology_and_molsysmt_StructuresDict_to_molsysmt_Topology(molecular_system, atom_indices='all',
                                                                      structure_indices='all', skip_digestion=False):
