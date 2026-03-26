@@ -59,12 +59,24 @@ def solvate (molecular_system, box_shape="truncated octahedral", clearance='14.0
         Target ionic strength of the solvent. Accepts a unit string parseable by
         pyunitwizard (e.g. ``'0.15 molar'``).
 
-    water_model : {'SPC', 'SPCE', 'TIP3P', 'TIP3PFB', 'TIP4PEW', 'TIP4PFB', 'TIP5P'}, default 'TIP3P'
-        Water model used to parameterise solvent molecules. If the molecular system
-        already stores a water model attribute, it takes precedence.
+    water_model : {'SPC', 'SPC/E', 'TIP3P', 'TIP3P-FB', 'TIP3P-PME-B', 'TIP3P-PME-F', 'TIP4P', 'TIP4P-EW', 'TIP4P-FB', 'TIP4P-2005', 'TIP5P', 'TIP5P-EW'}, default 'TIP3P'
+        Water model used to fill the solvent box.  Canonical names follow
+        ``molsysmt.molecular_mechanics.forcefields.water_models``.  If the
+        molecular system already stores a water model attribute, it takes
+        precedence over this argument.
 
-    engine : {'OpenMM', 'PDBFixer'}, default 'OpenMM'
-        Backend used to add solvent and ions.
+        Support by engine:
+
+        * **OpenMM** — all models listed above (delegates to
+          ``openmm.app.Modeller.addSolvent``).
+        * **PDBFixer** — same as OpenMM (delegates to the same OpenMM routine).
+        * **MolSysMT** — ``'SPC'``, ``'SPC/E'``, ``'TIP3P'``, ``'TIP4P-EW'``
+          (bundled preequilibrated boxes in ``molsysmt/data/water/``).
+
+    engine : {'OpenMM', 'PDBFixer', 'MolSysMT'}, default 'OpenMM'
+        Backend used to add solvent and ions.  ``'MolSysMT'`` requires no
+        external dependencies and supports only orthogonal boxes (``'cubic'``
+        and ``'rectangular'``) without ion addition.
 
     to_form : str or None, default None
         Target form for the output molecular system. If None, the form of the
