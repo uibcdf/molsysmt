@@ -140,34 +140,126 @@ def infer_component_names_from_topology(topology):
 
 
 def infer_molecule_indices_from_topology(topology):
-    return topology.groups["component_index"].to_numpy(dtype=np.int64, na_value=-1).copy()
+    """Partition groups into molecules, decoupled from connected components.
+
+    A new molecule begins whenever:
+    - the chain changes, or
+    - the group_type transitions out of or into the chain-polymer category
+      {'amino acid', 'terminal capping', 'unknown', 'nucleotide',
+       'saccharide', 'lipid'}, or
+    - the group_type is standalone {'ion', 'water', 'small molecule'}
+      (each group = its own molecule).
+
+    This decouples molecule identity from bond connectivity, so that a
+    covalently or coordinatively bonded complex (e.g. MnATP bound to a
+    protein, or a covalent drug) becomes one component but several
+    molecules of different types.
+    """
+    _CHAIN_POLYMER = frozenset(
+        {'amino acid', 'terminal capping', 'unknown', 'nucleotide', 'saccharide', 'lipid'}
+    )
+    _STANDALONE = frozenset({'ion', 'water', 'small molecule'})
+
+    n_groups = topology.n_groups
+    if n_groups == 0:
+        return np.empty(0, dtype=np.int64)
+
+    chain_indices = topology.groups["chain_index"].to_numpy(dtype=np.int64, na_value=-1)
+    group_types = topology.groups["group_type"].to_numpy(dtype=object)
+
+    molecule_index_of_groups = np.empty(n_groups, dtype=np.int64)
+    current_mol = 0
+    prev_chain = -2          # sentinel: guaranteed ≠ any real chain
+    prev_gtype = None
+
+    for g in range(n_groups):
+        gtype = group_types[g]
+        chain = chain_indices[g]
+
+        if gtype in _STANDALONE:
+            # Each standalone group is its own molecule; always bump counter.
+            if g > 0:
+                current_mol += 1
+        else:
+            # Chain-polymer (or completely unknown) type.
+            new_chain = (chain != prev_chain)
+            leaving_standalone = (prev_gtype in _STANDALONE)
+            if g == 0 or new_chain or leaving_standalone:
+                if g > 0:
+                    current_mol += 1
+
+        molecule_index_of_groups[g] = current_mol
+        prev_chain = chain
+        prev_gtype = gtype
+
+    return molecule_index_of_groups
 
 
 def infer_molecule_types_from_topology(topology):
+    """Infer molecule_type from the group_types within each molecule.
+
+    Derives type directly from the groups belonging to the molecule,
+    not from the component the molecule happens to be bonded into.
+    """
+    from molsysmt.element.component.get_component_type import (
+        _get_component_type_from_group_names_and_types,
+    )
+
     molecule_index_of_groups = topology.groups["molecule_index"].to_numpy(dtype=np.int64, na_value=-1)
-    component_types = topology.components["component_type"].to_numpy(dtype=object)
+    group_names = topology.groups["group_name"].to_numpy(dtype=object)
+    group_types = topology.groups["group_type"].to_numpy(dtype=object)
+
     output = np.empty(topology.n_molecules, dtype=object)
     for molecule_index in range(topology.n_molecules):
-        group_indices = np.where(molecule_index_of_groups == molecule_index)[0]
-        if len(group_indices) == 0:
+        mask = molecule_index_of_groups == molecule_index
+        if not np.any(mask):
             output[molecule_index] = "unknown"
             continue
-        component_index = int(topology.groups.iloc[group_indices[0]]["component_index"])
-        output[molecule_index] = component_types[component_index]
+        output[molecule_index] = _get_component_type_from_group_names_and_types(
+            group_names[mask], group_types[mask]
+        )
     return output
 
 
 def infer_molecule_names_from_topology(topology):
+    """Infer molecule_name from the group_names/types within each molecule."""
     molecule_index_of_groups = topology.groups["molecule_index"].to_numpy(dtype=np.int64, na_value=-1)
-    component_names = topology.components["component_name"].to_numpy(dtype=object)
+    molecule_types = topology.molecules["molecule_type"].to_numpy(dtype=object)
+    group_names = topology.groups["group_name"].to_numpy(dtype=object)
+
+    counters = {"peptide": 0, "protein": 0, "small molecule": 0, "unknown": 0}
+    peptides = {}
     output = np.empty(topology.n_molecules, dtype=object)
+
     for molecule_index in range(topology.n_molecules):
-        group_indices = np.where(molecule_index_of_groups == molecule_index)[0]
-        if len(group_indices) == 0:
-            output[molecule_index] = f"unknown {molecule_index}"
+        mask = molecule_index_of_groups == molecule_index
+        if not np.any(mask):
+            output[molecule_index] = f"unknown {counters['unknown']}"
+            counters["unknown"] += 1
             continue
-        component_index = int(topology.groups.iloc[group_indices[0]]["component_index"])
-        output[molecule_index] = component_names[component_index]
+        mol_type = molecule_types[molecule_index]
+        names_in_mol = group_names[mask].tolist()
+
+        if mol_type == "peptide":
+            peptide_key = ",".join(names_in_mol)
+            if peptide_key in peptides:
+                name = peptides[peptide_key]
+            else:
+                name = f"peptide {counters['peptide']}"
+                peptides[peptide_key] = name
+                counters["peptide"] += 1
+        elif mol_type in ("protein", "small molecule"):
+            name = f"{mol_type} {counters[mol_type]}"
+            counters[mol_type] += 1
+        elif mol_type in ("ion", "lipid"):
+            name = names_in_mol[0] if names_in_mol else f"unknown {counters['unknown']}"
+        elif mol_type == "water":
+            name = "water"
+        else:
+            name = f"unknown {counters['unknown']}"
+            counters["unknown"] += 1
+
+        output[molecule_index] = name
     return output
 
 
