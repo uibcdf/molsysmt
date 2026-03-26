@@ -104,6 +104,8 @@ data/databases/
   waters/               # water residue data
   small_molecules/      # small-molecule data
   peptide_builder/      # auxiliary data for build_peptide
+
+data/water/             # pre-equilibrated water box PDB files (see below)
 ```
 
 ### `residue_templates/`
@@ -137,6 +139,29 @@ empty bond lists (no MolSysMT database yet).
 python molsysmt/data/databases/residue_templates/make_residue_templates_db.py
 ```
 Requires PDBFixer source available at `~/repos@others/pdbfixer`.
+
+### `data/water/` — pre-equilibrated water boxes
+
+Introduced in March 2026 to support `solvate(engine='MolSysMT')`.
+Contains four pre-equilibrated water box PDB files:
+
+| File | Water model | N waters | Box size (nm) | Source |
+|------|------------|----------|---------------|--------|
+| `tip3p.pdb` | TIP3P | 895 | 3.0 × 3.0 × 3.0 | OpenMM template |
+| `spce.pdb` | SPC/E | 895 | 3.0 × 3.0 × 3.0 | OpenMM template |
+| `tip4pew.pdb` | TIP4P-EW | 895 | 3.0 × 3.0 × 3.0 | OpenMM template |
+| `spc216.gro` | SPC | 216 | 1.86206 × 1.86206 × 1.86206 | Berendsen 1984 (GROMACS) |
+
+The directory is a Python package (`__init__.py`) so that
+`importlib.resources` can locate the files at runtime without hardcoding
+file-system paths.
+
+**Canonical water model names** (as accepted by `solvate` and defined in
+`molsysmt/molecular_mechanics/forcefields.py`): `'SPC'`, `'SPC/E'`,
+`'TIP3P'`, `'TIP4P-EW'`. Internal normalisation (stripping `/` and `-`)
+maps these to `spce.pdb`, `tip3p.pdb`, `tip4pew.pdb`, and `spc216.gro`.
+
+---
 
 ### When to add data here
 
@@ -219,23 +244,122 @@ This sorting-by-group-id approach correctly handles multi-model structures
 (e.g. 1brs) where MolSysMT stores group indices within a chain in group-index
 order rather than sequence order.
 
+### `build.add_missing_heavy_atoms`
+
+**Native engine** (`engine='MolSysMT'`): for each amino-acid residue with
+missing heavy atoms, calls `load_residue_template` to load the JSON
+coordinate template, then `place_missing_in_group` which uses
+`get_least_rmsd_rotation_and_translation_single_structure` (Kabsch alignment)
+to overlay the template onto the residue's present backbone atoms. Missing
+atoms are appended to the MolSys topology and coordinates, and bonds are
+resolved from the template. Logic lives in
+`molsysmt/build/_native_placers.py`.
+
+**PDBFixer engine**: delegates to `pdbfixer.findMissingAtoms` +
+`pdbfixer.addMissingAtoms`.
+
+Key helpers in `build/_native_placers.py`:
+- `load_residue_template(name)` — load JSON template from `residue_templates/`
+- `place_missing_in_group(tmp, group_index, template)` — Kabsch-align + append
+- `append_atoms_to_molsys(tmp, new_atoms_df, new_coords)` — low-level append
+- `place_ace_group / place_nme_group` — geometry-based capping placement
+- `rebuild_molsys_with_new_groups` — full topology rebuild when inserting new groups
+
+### `build.add_missing_terminal_cappings`
+
+**Native engine** (`engine='MolSysMT'`): two cases:
+
+- **Case A** (missing `OXT` on C-terminal residue): appends `OXT` atom using
+  `place_missing_in_group` with the residue template.
+- **Case B** (missing ACE or NME capping group): builds a new capping group
+  from scratch using trans peptide-bond geometry, then calls
+  `rebuild_molsys_with_new_groups` to insert it into the topology.
+
+Before querying `component_type`, always calls
+`topology.rebuild_components(redefine_indices=True)` to ensure connectivity is
+up to date — do not rely on metadata alone.
+
+**PDBFixer engine**: delegates to `pdbfixer.missingTerminals` from
+`findMissingAtoms`.
+
+### `build.add_missing_hydrogens`
+
+**Native engine** (`engine='MolSysMT'`): uses the amino-acid topology database
+(`data/databases/amino_acids/`) to enumerate expected hydrogen names per
+residue, identifies missing ones by set difference, and places them using
+geometric rules (bond lengths and angles from CHARMM/AMBER conventions). No
+protonation-state prediction.
+
+**PDBFixer engine**: delegates to `pdbfixer.addMissingHydrogens(pH)` which
+uses OpenMM force-field templates and protonation-state libraries.
+
+### `build.solvate`
+
+**Native engine** (`engine='MolSysMT'`):
+
+1. Loads a pre-equilibrated water box from `data/water/` (see above).
+2. Computes the number of tile copies needed in each dimension to cover the
+   target box size.
+3. Tiles the water box using numpy broadcasting:
+   ```python
+   tiled_xyz = template_xyz[np.newaxis] + offsets[:, np.newaxis]
+   # shape: (n_tiles, n_atoms_per_tile, 3)
+   ```
+   All tile coordinates are generated in a single vectorised operation —
+   no Python loop over individual tiles.
+4. Topology arrays (atoms, groups, bonds) are replicated with `np.tile` plus
+   index offset arithmetic.
+5. Clips the combined water box to the target box dimensions.
+6. Removes water molecules within `clearance_nm` of any solute atom (KD-tree
+   distance query).
+7. Merges solute + remaining waters using `molsysmt.basic.merge`.
+
+**Constraints of the MolSysMT engine:**
+- Orthogonal boxes only (no triclinic support).
+- Cannot add ions. For salt concentration or charge neutralisation, use
+  `engine='OpenMM'` after solvation.
+- No energy minimisation. It is strongly recommended to minimise with OpenMM
+  after solvation to resolve any steric clashes at the solute–water interface.
+
+**PDBFixer engine**: delegates to OpenMM/PDBFixer modeller for solvation and
+(optionally) ion placement.
+
+### `build.mutate`
+
+**Native engine** (`engine='MolSysMT'`):
+
+1. Parses the `mutations` argument (list of strings, dict by group index,
+   dict by group id, or dict by group name) — same logic as the PDBFixer branch.
+2. Renames the target groups directly in the topology DataFrame.
+3. Strips all non-backbone atoms from each mutated group.
+   Kept atoms: `{'N', 'CA', 'C', 'O', 'OXT'}`.
+4. Calls `add_missing_heavy_atoms(engine='MolSysMT')` to rebuild the sidechain
+   via Kabsch alignment against the residue template.
+5. If the original system had hydrogen atoms, calls
+   `add_missing_hydrogens(engine='MolSysMT')`.
+
+**No energy minimisation is performed.** It is strongly recommended to
+minimise the structure afterwards to resolve any steric clashes introduced
+by the new sidechain. A future `engine='PyRosetta'` option is planned for
+rotamer-library-based placement with full energy minimisation.
+
+**PDBFixer engine**: uses `pdbfixer.applyMutations` (removes old sidechain,
+Kabsch alignment on backbone, adds missing atoms via Langevin +
+LocalEnergyMinimizer). Requires OpenMM and PDBFixer.
+
 ---
 
 ## Remaining PDBFixer-only Functions (as of March 2026)
 
-The following `build/` functions still require `engine='PDBFixer'` because they
-need PDBFixer's 3D placement or force-field knowledge:
+Only one `build/` function still lacks a native engine:
 
 | Function | Why PDBFixer is still needed |
 |----------|------------------------------|
-| `add_missing_heavy_atoms` | Needs 3D coordinate templates for atom placement (residue_templates/ populated but placement code not yet written) |
-| `add_missing_terminal_cappings` | Same — 3D placement |
-| `add_missing_hydrogens` | Needs OpenMM/PDBFixer for H-bond geometry and protonation states |
-| `solvate` | Needs OpenMM for water box placement |
-| `mutate` | Needs PDBFixer template-substitution logic |
+| `get_missing_residues` | Requires SEQRES records or external sequence databases not currently in MolSysMT's data layer |
 
-The `residue_templates/` database provides all 3D coordinate data needed for a
-future native implementation of `add_missing_heavy_atoms`.
+All other `build/` functions (`add_missing_heavy_atoms`,
+`add_missing_terminal_cappings`, `add_missing_hydrogens`, `solvate`, `mutate`)
+now have `engine='MolSysMT'` as the default.
 
 ---
 
