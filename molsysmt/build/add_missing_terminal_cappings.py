@@ -156,29 +156,40 @@ def add_missing_terminal_cappings(molecular_system, N_terminal=None, C_terminal=
         output_molecular_system = convert(temp_molecular_system, to_form=form_in, skip_digestion=True)
 
 
+        # Adding terminal groups can change n_components or n_molecules; guard each set().
         if has_attribute(molecular_system, 'component_name', skip_digestion=True):
             aux_component_names = get(molecular_system, element='component', component_name=True, skip_digestion=True)
-            set(output_molecular_system, element='component', component_name=aux_component_names, skip_digestion=True)
+            _n_comp = get(output_molecular_system, element='component', n_components=True, skip_digestion=True)
+            if _n_comp == len(aux_component_names):
+                set(output_molecular_system, element='component', component_name=aux_component_names, skip_digestion=True)
             del aux_component_names
 
         if has_attribute(molecular_system, 'chain_name', skip_digestion=True):
             aux_chain_names = get(molecular_system, element='chain', chain_name=True, skip_digestion=True)
-            set(output_molecular_system, element='chain', chain_name=aux_chain_names, skip_digestion=True)
+            _n_chain = get(output_molecular_system, element='chain', n_chains=True, skip_digestion=True)
+            if _n_chain == len(aux_chain_names):
+                set(output_molecular_system, element='chain', chain_name=aux_chain_names, skip_digestion=True)
             del aux_chain_names
 
         if has_attribute(molecular_system, 'chain_id', skip_digestion=True):
             aux_chain_ids = get(molecular_system, element='chain', chain_id=True, skip_digestion=True)
-            set(output_molecular_system, element='chain', chain_id=aux_chain_ids, skip_digestion=True)
+            _n_chain = get(output_molecular_system, element='chain', n_chains=True, skip_digestion=True)
+            if _n_chain == len(aux_chain_ids):
+                set(output_molecular_system, element='chain', chain_id=aux_chain_ids, skip_digestion=True)
             del aux_chain_ids
 
         if has_attribute(molecular_system, 'molecule_name', skip_digestion=True):
             aux_molecule_names = get(molecular_system, element='molecule', molecule_name=True, skip_digestion=True)
-            set(output_molecular_system, element='molecule', molecule_name=aux_molecule_names, skip_digestion=True)
+            _n_mol = get(output_molecular_system, element='molecule', n_molecules=True, skip_digestion=True)
+            if _n_mol == len(aux_molecule_names):
+                set(output_molecular_system, element='molecule', molecule_name=aux_molecule_names, skip_digestion=True)
             del aux_molecule_names
 
         if has_attribute(molecular_system, 'entity_name', skip_digestion=True):
             aux_entity_names = get(molecular_system, element='entity', entity_name=True, skip_digestion=True)
-            set(output_molecular_system, element='entity', entity_name=aux_entity_names, skip_digestion=True)
+            _n_ent = get(output_molecular_system, element='entity', n_entities=True, skip_digestion=True)
+            if _n_ent == len(aux_entity_names):
+                set(output_molecular_system, element='entity', entity_name=aux_entity_names, skip_digestion=True)
             del aux_entity_names
 
         if n_hs > 0:
@@ -207,11 +218,47 @@ def add_missing_terminal_cappings(molecular_system, N_terminal=None, C_terminal=
             native_ms = molecular_system
 
         # --- Case A: complete missing atoms in native terminal residues ---
-        # (same algorithm as add_missing_heavy_atoms, restricted to terminal groups)
-        # We always do this step regardless of N_terminal/C_terminal values.
+        # Step A1: add missing sidechain/backbone heavy atoms (OXT excluded there).
         native_ms = add_missing_heavy_atoms(
             native_ms, selection=selection, syntax=syntax, engine='MolSysMT',
         )
+
+        # Step A2: add OXT where get_missing_terminal_cappings reports it missing.
+        from molsysmt.build.get_missing_terminal_cappings import get_missing_terminal_cappings
+        missing_oxt = get_missing_terminal_cappings(
+            native_ms, selection=selection, syntax=syntax, engine='MolSysMT',
+        )
+        if missing_oxt:
+            from molsysmt.build._native_placers import place_oxt_atom, append_atoms_to_molsys
+            topo_a = native_ms.topology
+            coords_a = puw.get_value(native_ms.structures.coordinates, to_unit='nm')
+            n_structures_a = coords_a.shape[0]
+            new_atom_info_a = []
+            new_bonds_info_a = []
+            n_orig_a = topo_a.n_atoms
+
+            for group_idx, oxt_list in missing_oxt.items():
+                if 'OXT' not in oxt_list:
+                    continue
+                gmask = topo_a.atoms['group_index'] == group_idx
+                grow = topo_a.atoms[gmask]
+                def _pos(aname):
+                    r = grow[grow['atom_name'] == aname]
+                    return coords_a[:, r.index[0], :] if len(r) else None
+                C_pos  = _pos('C')
+                CA_pos = _pos('CA')
+                O_pos  = _pos('O')
+                if C_pos is None or CA_pos is None or O_pos is None:
+                    continue
+                oxt_coords = place_oxt_atom(C_pos, CA_pos, O_pos, n_structures_a)
+                oxt_idx = n_orig_a + len(new_atom_info_a)
+                new_atom_info_a.append((group_idx, 'OXT', oxt_coords))
+                # OXT is bonded to C
+                C_idx_in_topo = grow[grow['atom_name'] == 'C'].index[0]
+                new_bonds_info_a.append((int(C_idx_in_topo), oxt_idx))
+
+            if new_atom_info_a:
+                native_ms = append_atoms_to_molsys(native_ms, new_atom_info_a, new_bonds_info_a)
 
         # If no capping groups requested, we're done
         if N_terminal is None and C_terminal is None:

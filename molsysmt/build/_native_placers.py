@@ -6,6 +6,7 @@ Public API (internal use only):
   - load_residue_template(group_name)
   - place_missing_in_group(topo, all_coords_nm, group_idx, missing_names, template)
   - append_atoms_to_molsys(native_molsys, new_atom_info, new_bonds_info)
+  - place_oxt_atom(C_pos, CA_pos, O_pos, n_structures)
   - place_ace_group(N_pos, CA_pos, C_pos, template, n_structures)
   - place_nme_group(C_pos, CA_pos, N_pos_last, template, n_structures)
   - rebuild_molsys_with_new_groups(native_molsys, ...)
@@ -235,6 +236,42 @@ def _normalize(v):
 def _perpendicular_component(vec, axis):
     """Component of *vec* perpendicular to *axis* (unit vector)."""
     return vec - np.dot(vec, axis) * axis
+
+
+def place_oxt_atom(C_pos, CA_pos, O_pos, n_structures):
+    """Place the OXT carboxylate oxygen at the C-terminus.
+
+    OXT is the mirror image of O reflected through the C→CA axis (in the
+    CA-C-O plane).  Both C=O and C-OXT bonds are approximately 1.23 Å; the
+    O-C-OXT angle is approximately 125°.
+
+    Parameters
+    ----------
+    C_pos, CA_pos, O_pos : np.ndarray, shape (n_structures, 3)
+    n_structures : int
+
+    Returns
+    -------
+    np.ndarray, shape (n_structures, 3)
+    """
+    coords = np.empty((n_structures, 3), dtype=np.float64)
+    for s in range(n_structures):
+        C  = C_pos[s]
+        CA = CA_pos[s]
+        O  = O_pos[s]
+        # Unit vector along C→CA
+        v_CCA = CA - C
+        norm = np.linalg.norm(v_CCA)
+        if norm < 1e-12:
+            coords[s] = O.copy()
+            continue
+        v_CCA = v_CCA / norm
+        # Mirror O through the line through C in direction v_CCA
+        O_rel = O - C
+        proj = np.dot(O_rel, v_CCA) * v_CCA   # projection of O_rel onto C-CA axis
+        OXT_rel = 2.0 * proj - O_rel
+        coords[s] = C + OXT_rel
+    return coords
 
 
 def place_ace_group(N_pos, CA_pos, C_pos, template, n_structures):

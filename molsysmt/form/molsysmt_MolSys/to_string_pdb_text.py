@@ -2,6 +2,7 @@ from molsysmt._private.arg_digestion import arg_digest
 from molsysmt import pyunitwizard as puw
 from molsysmt._private.variables import is_all
 from datetime import datetime
+import pandas as pd
 
 @arg_digest(form='molsysmt.MolSys')
 def to_string_pdb_text(item, atom_indices='all', structure_indices='all', pdb_chain_id='chain_name',
@@ -107,7 +108,8 @@ def to_string_pdb_text(item, atom_indices='all', structure_indices='all', pdb_ch
             atom_name = atom.atom_name
             group_name = item.topology.groups.iloc[atom.group_index, 1]
             group_id = str(item.topology.groups.iloc[atom.group_index, 0])
-            chain_id = item.topology.chains.iloc[atom.chain_index, pdb_chain_id_column]
+            _raw_chain_id = item.topology.chains.iloc[atom.chain_index, pdb_chain_id_column]
+            chain_id = str(_raw_chain_id) if not pd.isna(_raw_chain_id) else 'A'
 
             x,y,z = aux_coors[atom.Index, :]
 

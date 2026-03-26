@@ -262,6 +262,7 @@ Key helpers in `build/_native_placers.py`:
 - `load_residue_template(name)` — load JSON template from `residue_templates/`
 - `place_missing_in_group(tmp, group_index, template)` — Kabsch-align + append
 - `append_atoms_to_molsys(tmp, new_atoms_df, new_coords)` — low-level append
+- `place_oxt_atom(C_pos, CA_pos, O_pos, n_structures)` — mirror O through C→CA axis
 - `place_ace_group / place_nme_group` — geometry-based capping placement
 - `rebuild_molsys_with_new_groups` — full topology rebuild when inserting new groups
 
@@ -269,8 +270,13 @@ Key helpers in `build/_native_placers.py`:
 
 **Native engine** (`engine='MolSysMT'`): two cases:
 
-- **Case A** (missing `OXT` on C-terminal residue): appends `OXT` atom using
-  `place_missing_in_group` with the residue template.
+- **Case A** (missing `OXT` on C-terminal residue): OXT is not in the standard
+  residue template (templates contain the non-terminal form). It is placed
+  geometrically using `place_oxt_atom`: OXT is the mirror image of O reflected
+  through the C→CA axis (symmetric carboxylate geometry, C-OXT ≈ 1.23 Å).
+  This is called after `add_missing_heavy_atoms` (which handles all other
+  missing atoms) using `get_missing_terminal_cappings` to identify the affected
+  groups.
 - **Case B** (missing ACE or NME capping group): builds a new capping group
   from scratch using trans peptide-bond geometry, then calls
   `rebuild_molsys_with_new_groups` to insert it into the topology.
@@ -360,6 +366,60 @@ Only one `build/` function still lacks a native engine:
 All other `build/` functions (`add_missing_heavy_atoms`,
 `add_missing_terminal_cappings`, `add_missing_hydrogens`, `solvate`, `mutate`)
 now have `engine='MolSysMT'` as the default.
+
+---
+
+## PDBFixer Engine: the `set()` Guard Pattern
+
+After PDBFixer modifies a structure (adding atoms, terminal groups, or
+hydrogens), it converts the result back to the original form and then restores
+metadata (component names, molecule names, chain IDs, entity names) that
+PDBFixer would otherwise reset to generic values.
+
+**Problem:** structural modifications can change the number of components or
+molecules (e.g. adding sidechain atoms that bridge two previously disconnected
+fragments reduces `n_components`; PDBFixer's entity grouping after
+`addMissingAtoms` may differ from MolSysMT's). Calling `set(element='component', ...)`
+with the old count onto a system with a new count raises `ValueError`.
+
+**Pattern:** always check that the count matches before calling `set()`:
+
+```python
+_n_comp = get(output_ms, element='component', n_components=True, skip_digestion=True)
+if _n_comp == len(next(iter(atts_from_components.values()))):
+    set(output_ms, element='component', **atts_from_components, skip_digestion=True)
+```
+
+Apply this guard to component, molecule, chain, and entity `set()` calls in
+every PDBFixer engine branch of `build/` functions. It is already implemented
+in `add_missing_heavy_atoms`, `add_missing_terminal_cappings`, and
+`add_missing_hydrogens`.
+
+---
+
+## Parity Tests: Engine Agreement
+
+Every nativized `build/` function has a dedicated parity test file that runs
+both engines on the same structure and checks they agree:
+
+| Function | Parity test file |
+|----------|-----------------|
+| `get_missing_heavy_atoms` | `test_get_missing_heavy_atoms.py` (inline) |
+| `get_missing_terminal_cappings` | `test_get_missing_terminal_cappings.py` (inline) |
+| `get_non_standard_residues` | `test_get_non_standard_residues_parity.py` |
+| `add_missing_heavy_atoms` | `test_add_missing_heavy_atoms_parity.py` |
+| `add_missing_terminal_cappings` | `test_add_missing_terminal_cappings_parity.py` |
+| `add_missing_hydrogens` | `test_add_missing_hydrogens_parity.py` |
+| `mutate` | `test_mutate_parity.py` |
+
+**Known expected difference** in `add_missing_hydrogens`: PDBFixer calls
+`addMissingHydrogens(pH=7.4)` which uses OpenMM's protonation-state library
+(ASP/GLU deprotonated at physiological pH, HIS tautomers assigned). The
+MolSysMT engine adds all hydrogens from the topology database without
+protonation-state prediction. For neutral peptides with no ionisable residues
+the counts are identical; for real proteins the counts diverge by up to ~15 %,
+which the parity test allows explicitly. Improving MolSysMT's protonation
+prediction is a pending future task (see pending tasks).
 
 ---
 

@@ -131,10 +131,23 @@ def add_missing_heavy_atoms(molecular_system, selection='all', syntax='MolSysMT'
 
         output_molecular_system = convert(temp_molecular_system, to_form=form_out, skip_digestion=True)
 
-        set(output_molecular_system, element='component', **atts_from_components, skip_digestion=True)
-        set(output_molecular_system, element='molecule', **atts_from_molecules, skip_digestion=True)
-        set(output_molecular_system, element='chain', **atts_from_chains, skip_digestion=True)
-        set(output_molecular_system, element='entity', **atts_from_entities, skip_digestion=True)
+        # Adding atoms can merge previously isolated fragments, changing n_components/n_molecules.
+        # Only restore metadata at each level if the count is unchanged.
+        n_comp_out = get(output_molecular_system, element='component', n_components=True, skip_digestion=True)
+        if n_comp_out == len(next(iter(atts_from_components.values()))):
+            set(output_molecular_system, element='component', **atts_from_components, skip_digestion=True)
+
+        n_mol_out = get(output_molecular_system, element='molecule', n_molecules=True, skip_digestion=True)
+        if n_mol_out == len(next(iter(atts_from_molecules.values()))):
+            set(output_molecular_system, element='molecule', **atts_from_molecules, skip_digestion=True)
+
+        n_chain_out = get(output_molecular_system, element='chain', n_chains=True, skip_digestion=True)
+        if n_chain_out == len(next(iter(atts_from_chains.values()))):
+            set(output_molecular_system, element='chain', **atts_from_chains, skip_digestion=True)
+
+        n_ent_out = get(output_molecular_system, element='entity', n_entities=True, skip_digestion=True)
+        if n_ent_out == len(next(iter(atts_from_entities.values()))):
+            set(output_molecular_system, element='entity', **atts_from_entities, skip_digestion=True)
 
         del(group_indices_in_selection, temp_molecular_system)
         del(atts_from_components, atts_from_molecules, atts_from_chains, atts_from_entities)
