@@ -266,6 +266,169 @@ def solvate (molecular_system, box_shape="truncated octahedral", clearance='14.0
 
         return tmp_item
 
+    elif engine == 'MolSysMT':
+
+        import math
+        from molsysmt.basic import convert, get, merge, remove
+        from molsysmt.structure import translate
+        from molsysmt.build import remove_overlapping_molecules
+        from molsysmt.build._private import assign_selection_to_new_chain
+        from importlib.resources import files
+
+        # ── water-model → template mapping ─────────────────────────────────
+        # Keys are normalised (uppercase, stripped of -/_ ) for robust matching.
+        # Canonical names (from molsysmt.attribute) → normalised:
+        #   'SPC' → 'SPC', 'SPC/E' → 'SPCE', 'TIP3P' → 'TIP3P', 'TIP4P-EW' → 'TIP4PEW'
+        _water_templates = {
+            'TIP3P':   {'file': 'tip3p.pdb',   'tile_nm': 3.0,      'o_name': 'O',  'canonical': 'TIP3P'},
+            'SPCE':    {'file': 'spce.pdb',    'tile_nm': 3.0,      'o_name': 'O',  'canonical': 'SPC/E'},
+            'TIP4PEW': {'file': 'tip4pew.pdb', 'tile_nm': 3.0,      'o_name': 'O',  'canonical': 'TIP4P-EW'},
+            'SPC':     {'file': 'spc216.gro',  'tile_nm': 1.86206,  'o_name': 'OW', 'canonical': 'SPC'},
+        }
+        wkey = water_model.upper().replace('-', '').replace('/', '').replace(' ', '').replace('_', '')
+        if wkey not in _water_templates:
+            _supported = ['SPC', 'SPC/E', 'TIP3P', 'TIP4P-EW']
+            raise NotImplementedError(
+                f"water_model={water_model!r} is not supported with engine='MolSysMT'. "
+                f"Supported models: {_supported}. "
+                "Use engine='OpenMM' for other water models."
+            )
+        tmpl_info = _water_templates[wkey]
+        tile_nm   = tmpl_info['tile_nm']
+        o_name    = tmpl_info['o_name']
+
+        # ── ion addition not yet supported ──────────────────────────────────
+        if n_cations != 0 or n_anions != 0:
+            raise NotImplementedError(
+                "Ion addition is not yet supported with engine='MolSysMT'. "
+                "Set n_cations=0 and n_anions=0, or use engine='OpenMM'."
+            )
+
+        # ── non-orthogonal boxes require OpenMM ─────────────────────────────
+        if box_shape not in ('cubic', 'rectangular'):
+            raise NotImplementedError(
+                f"box_shape={box_shape!r} is not supported with engine='MolSysMT'. "
+                "Only 'cubic' and 'rectangular' orthogonal boxes are supported. "
+                "Use engine='OpenMM' for truncated octahedral or rhombic dodecahedral boxes."
+            )
+
+        # ── save solute metadata ─────────────────────────────────────────────
+        component_indices, component_names = get(molecular_system, element='component',
+            component_index=True, component_name=True)
+        molecule_indices, molecule_names = get(molecular_system, element='molecule',
+            molecule_index=True, molecule_name=True)
+        chain_indices, chain_ids, chain_names = get(molecular_system, element='chain',
+            chain_index=True, chain_id=True, chain_name=True)
+
+        # ── 1. Convert solute to native form ────────────────────────────────
+        solute = convert(molecular_system, to_form='molsysmt.MolSys', skip_digestion=True)
+        clearance_nm = puw.get_value(clearance, to_unit='nm')
+
+        # ── 2. Compute orthogonal box dimensions ────────────────────────────
+        coords_nm = puw.get_value(solute.structures.coordinates, to_unit='nm')[0]
+        mins = coords_nm.min(axis=0)
+        maxs = coords_nm.max(axis=0)
+        extents = maxs - mins
+
+        if box_shape == 'cubic':
+            side = float(extents.max()) + 2.0 * clearance_nm
+            box_lengths = np.array([side, side, side])
+        else:   # rectangular
+            box_lengths = extents + 2.0 * clearance_nm
+
+        # ── 3. Center solute in box ──────────────────────────────────────────
+        solute_center = (mins + maxs) / 2.0
+        box_center    = box_lengths / 2.0
+        shift = (box_center - solute_center).reshape(1, 1, 3)
+        solute = translate(solute, translation=puw.quantity(shift, 'nm'), in_place=False)
+
+        # ── 4. Load water template ───────────────────────────────────────────
+        water_path = str(files('molsysmt.data.water').joinpath(tmpl_info['file']))
+        water_tile = convert(water_path, to_form='molsysmt.MolSys', skip_digestion=True)
+
+        # ── 5. Tile water boxes to fill the simulation box ──────────────────
+        n_x = int(math.ceil(box_lengths[0] / tile_nm)) + 1
+        n_y = int(math.ceil(box_lengths[1] / tile_nm)) + 1
+        n_z = int(math.ceil(box_lengths[2] / tile_nm)) + 1
+
+        tiles = []
+        for ix in range(n_x):
+            for iy in range(n_y):
+                for iz in range(n_z):
+                    offset = np.array([[[ix * tile_nm, iy * tile_nm, iz * tile_nm]]])
+                    tile = translate(water_tile,
+                                     translation=puw.quantity(offset, 'nm'),
+                                     in_place=False)
+                    tiles.append(tile)
+
+        all_water = merge(tiles, skip_digestion=True)
+        del tiles, water_tile
+
+        # ── 6. Filter water molecules outside the box ────────────────────────
+        o_indices, o_coords = get(all_water, element='atom',
+                                  selection=f'atom_name=="{o_name}"',
+                                  atom_index=True, coordinates=True,
+                                  skip_digestion=True)
+        o_xyz = puw.get_value(o_coords, to_unit='nm')[0]
+        o_indices_arr = np.asarray(o_indices)
+
+        outside = (
+            (o_xyz[:, 0] < 0.0) | (o_xyz[:, 0] >= box_lengths[0]) |
+            (o_xyz[:, 1] < 0.0) | (o_xyz[:, 1] >= box_lengths[1]) |
+            (o_xyz[:, 2] < 0.0) | (o_xyz[:, 2] >= box_lengths[2])
+        )
+        if np.any(outside):
+            outside_atom_indices = o_indices_arr[outside].tolist()
+            outside_mol_indices = np.unique(
+                get(all_water, element='atom', selection=outside_atom_indices,
+                    molecule_index=True, skip_digestion=True)
+            ).tolist()
+            all_water = remove(all_water,
+                                selection=f'molecule_index in @outside_mol_indices',
+                                skip_digestion=True)
+
+        # ── 7. Merge solute + water and set box vectors ───────────────────────
+        solvated = merge([solute, all_water], skip_digestion=True)
+        del all_water, solute
+
+        box_mat = np.zeros((1, 3, 3))
+        box_mat[0, 0, 0] = box_lengths[0]
+        box_mat[0, 1, 1] = box_lengths[1]
+        box_mat[0, 2, 2] = box_lengths[2]
+        solvated.structures.box = puw.quantity(box_mat, 'nm')
+
+        # ── 8. Remove water molecules overlapping with solute ─────────────────
+        solvated = remove_overlapping_molecules(
+            solvated,
+            selection='molecule_type=="water"',
+            selection_2='molecule_type!="water"',
+            threshold='2.5 angstroms',
+            pbc=False,
+        )
+
+        # ── 9. Post-processing ─────────────────────────────────────────────────
+        tmp_item = convert(solvated, to_form=to_form, skip_digestion=True)
+        del solvated
+
+        if to_form == 'molsysmt.MolSys':
+            tmp_item.topology.rebuild_entities(redefine_indices=True, redefine_ids=True,
+                                               redefine_names=True, redefine_types=True)
+        elif to_form == 'molsysmt.Topology':
+            tmp_item.rebuild_entities(redefine_indices=True, redefine_ids=True,
+                                      redefine_names=True, redefine_types=True)
+
+        from molsysmt.basic import set as msm_set
+        msm_set(tmp_item, element='component', selection=component_indices,
+                component_name=component_names, skip_digestion=True)
+        msm_set(tmp_item, element='molecule', selection=molecule_indices,
+                molecule_name=molecule_names, skip_digestion=True)
+        msm_set(tmp_item, element='chain', selection=chain_indices,
+                chain_id=chain_ids, chain_name=chain_names, skip_digestion=True)
+
+        assign_selection_to_new_chain(tmp_item, selection='group_type in ["water", "ion"]')
+
+        return tmp_item
+
     #elif engine=="LEaP":
 
     #    from molsysmt.thirds.tleap import TLeap
