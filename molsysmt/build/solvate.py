@@ -14,6 +14,133 @@ Solvate Box
 Methods and wrappers to create and solvate boxes
 """
 
+
+def _build_tiled_water(water_tile, n_x, n_y, n_z, tile_nm):
+    """Build a tiled water MolSys using pure numpy, without creating N³ intermediate objects.
+
+    Parameters
+    ----------
+    water_tile : molsysmt.MolSys
+        Pre-equilibrated single-box water template.
+    n_x, n_y, n_z : int
+        Number of tile repetitions in each direction.
+    tile_nm : float
+        Edge length of one water tile (nm).
+
+    Returns
+    -------
+    molsysmt.MolSys
+        A single MolSys containing all n_x*n_y*n_z copies of the water box
+        with correct translated coordinates, ready for out-of-box filtering.
+    """
+    import pandas as pd
+    from molsysmt.native import MolSys, Topology, Structures
+    from molsysmt.native.topology import Bonds_DataFrame
+
+    topo = water_tile.topology
+    n_atoms_tile  = topo.n_atoms
+    n_groups_tile = topo.n_groups
+    n_bonds_tile  = len(topo.bonds)
+
+    # ── build offset grid ───────────────────────────────────────────────────
+    ix = np.arange(n_x, dtype=np.float64)
+    iy = np.arange(n_y, dtype=np.float64)
+    iz = np.arange(n_z, dtype=np.float64)
+    IZ, IY, IX = np.meshgrid(iz, iy, ix, indexing='ij')   # each (n_z, n_y, n_x)
+    offsets = np.stack(
+        [IX.ravel() * tile_nm, IY.ravel() * tile_nm, IZ.ravel() * tile_nm], axis=1
+    )  # (n_tiles, 3)
+    n_tiles = offsets.shape[0]
+
+    # ── tile coordinates ─────────────────────────────────────────────────────
+    # template_xyz: (n_atoms_tile, 3)  →  broadcast to (n_tiles, n_atoms_tile, 3)
+    template_xyz = puw.get_value(
+        water_tile.structures.coordinates, to_unit='nm'
+    )[0]  # (n_atoms_tile, 3)
+    tiled_xyz = template_xyz[np.newaxis] + offsets[:, np.newaxis]  # (n_tiles, n_atoms_tile, 3)
+    all_xyz = tiled_xyz.reshape(1, n_tiles * n_atoms_tile, 3)      # (1, total_atoms, 3)
+
+    # ── tile topology arrays ──────────────────────────────────────────────────
+    n_total_atoms  = n_tiles * n_atoms_tile
+    n_total_groups = n_tiles * n_groups_tile
+    n_total_bonds  = n_tiles * n_bonds_tile
+
+    # atoms
+    atom_name_base  = topo.atoms['atom_name'].to_numpy(dtype=object)
+    atom_type_base  = topo.atoms['atom_type'].to_numpy(dtype=object)
+    grp_idx_base    = topo.atoms['group_index'].to_numpy(dtype=np.int64)
+
+    atom_names  = np.tile(atom_name_base, n_tiles)
+    atom_types  = np.tile(atom_type_base, n_tiles)
+    grp_offsets = np.repeat(np.arange(n_tiles, dtype=np.int64) * n_groups_tile, n_atoms_tile)
+    group_indices  = np.tile(grp_idx_base, n_tiles) + grp_offsets
+    # component_index == group_index for water (one water per component)
+    component_indices = group_indices.copy()
+    chain_indices     = np.zeros(n_total_atoms, dtype=np.int64)
+    atom_ids          = np.arange(1, n_total_atoms + 1, dtype=object).astype(str)
+
+    # groups
+    gname_base = topo.groups['group_name'].to_numpy(dtype=object)
+    gtype_base = topo.groups['group_type'].to_numpy(dtype=object)
+    mol_idx_base = topo.groups['molecule_index'].to_numpy(dtype=np.int64)
+
+    group_names  = np.tile(gname_base, n_tiles)
+    group_types  = np.tile(gtype_base, n_tiles)
+    mol_offsets  = np.repeat(np.arange(n_tiles, dtype=np.int64) * n_groups_tile, n_groups_tile)
+    mol_indices  = np.tile(mol_idx_base, n_tiles) + mol_offsets
+    group_ids    = np.arange(1, n_total_groups + 1, dtype=object).astype(str)
+
+    # bonds
+    b1_base = topo.bonds['atom1_index'].to_numpy(dtype=np.int64)
+    b2_base = topo.bonds['atom2_index'].to_numpy(dtype=np.int64)
+    bond_offsets = np.repeat(np.arange(n_tiles, dtype=np.int64) * n_atoms_tile, n_bonds_tile)
+    b1 = np.tile(b1_base, n_tiles) + bond_offsets
+    b2 = np.tile(b2_base, n_tiles) + bond_offsets
+
+    # ── assemble Topology ────────────────────────────────────────────────────
+    new_topo = Topology(
+        n_atoms=n_total_atoms,
+        n_groups=n_total_groups,
+        n_components=n_total_groups,  # one component per water
+        n_molecules=n_total_groups,
+        n_entities=0,
+        n_chains=1,
+        n_bonds=n_total_bonds,
+    )
+
+    new_topo.atoms['atom_id']        = pd.array(atom_ids, dtype='string')
+    new_topo.atoms['atom_name']      = atom_names
+    new_topo.atoms['atom_type']      = atom_types
+    new_topo.atoms['group_index']    = pd.array(group_indices, dtype='Int64')
+    new_topo.atoms['component_index']= pd.array(component_indices, dtype='Int64')
+    new_topo.atoms['chain_index']    = pd.array(chain_indices, dtype='Int64')
+
+    new_topo.groups['group_id']      = pd.array(group_ids, dtype='string')
+    new_topo.groups['group_name']    = group_names
+    new_topo.groups['group_type']    = group_types
+    new_topo.groups['molecule_index']= pd.array(mol_indices, dtype='Int64')
+
+    chain_row = topo.chains.iloc[0]
+    new_topo.chains['chain_id']   = pd.array([chain_row['chain_id']], dtype='string')
+    new_topo.chains['chain_name'] = [chain_row['chain_name']]
+    new_topo.chains['chain_type'] = [chain_row.get('chain_type', None)]
+
+    bonds_df = Bonds_DataFrame(n_total_bonds)
+    bonds_df['atom1_index'] = pd.array(b1, dtype='Int64')
+    bonds_df['atom2_index'] = pd.array(b2, dtype='Int64')
+    new_topo._bonds = bonds_df
+
+    # ── assemble Structures ──────────────────────────────────────────────────
+    new_struc = Structures(
+        coordinates=puw.quantity(all_xyz, 'nm'),
+        structure_id=np.array(['1'], dtype=object),
+    )
+
+    result = MolSys()
+    result.topology  = new_topo
+    result.structures = new_struc
+    return result
+
 @arg_digest()
 def solvate (molecular_system, box_shape="truncated octahedral", clearance='14.0 angstroms',
              anion='Cl-', n_anions="neutralize", cation='Na+', n_cations="neutralize",
@@ -363,18 +490,8 @@ def solvate (molecular_system, box_shape="truncated octahedral", clearance='14.0
         n_y = int(math.ceil(box_lengths[1] / tile_nm)) + 1
         n_z = int(math.ceil(box_lengths[2] / tile_nm)) + 1
 
-        tiles = []
-        for ix in range(n_x):
-            for iy in range(n_y):
-                for iz in range(n_z):
-                    offset = np.array([[[ix * tile_nm, iy * tile_nm, iz * tile_nm]]])
-                    tile = translate(water_tile,
-                                     translation=puw.quantity(offset, 'nm'),
-                                     in_place=False)
-                    tiles.append(tile)
-
-        all_water = merge(tiles, skip_digestion=True)
-        del tiles, water_tile
+        all_water = _build_tiled_water(water_tile, n_x, n_y, n_z, tile_nm)
+        del water_tile
 
         # ── 6. Filter water molecules outside the box ────────────────────────
         o_indices, o_coords = get(all_water, element='atom',
