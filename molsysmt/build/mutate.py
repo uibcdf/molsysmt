@@ -38,8 +38,18 @@ def mutate(molecular_system, mutations=None, keys='group_index', selection="all"
     syntax : str, default 'MolSysMT'
         Syntax used to interpret the ``selection`` string.
 
-    engine : {'PDBFixer'}, default 'PDBFixer'
-        Backend used to apply mutations. Only 'PDBFixer' is currently supported.
+    engine : {'PDBFixer', 'MolSysMT'}, default 'PDBFixer'
+        Backend used to apply mutations.
+
+        * **PDBFixer** — removes the old sidechain and rebuilds it via
+          template-based Kabsch alignment followed by force-field energy
+          minimisation (Langevin + LocalEnergyMinimizer).  Requires OpenMM
+          and PDBFixer.
+        * **MolSysMT** — removes the old sidechain, keeps backbone atoms
+          (N, CA, C, O, OXT), and places the new sidechain by Kabsch
+          alignment against a JSON residue template.  No energy minimisation
+          is performed; it is strongly recommended to minimise the structure
+          afterwards to resolve any steric clashes.
 
     Returns
     -------
@@ -150,6 +160,101 @@ def mutate(molecular_system, mutations=None, keys='group_index', selection="all"
         tmp_molecular_system = convert(tmp_molecular_system, to_form=form_in)
 
         return tmp_molecular_system
+
+    elif engine == 'MolSysMT':
+
+        from molsysmt.basic import get, convert, get_form, contains
+        from molsysmt.basic import remove as msm_remove
+        from molsysmt.build.add_missing_heavy_atoms import add_missing_heavy_atoms
+        from molsysmt.build.add_missing_hydrogens import add_missing_hydrogens
+
+        # Backbone heavy atoms that are kept across any amino-acid mutation.
+        # OXT is retained when present (C-terminal residues).
+        _BACKBONE_HEAVY = frozenset({'N', 'CA', 'C', 'O', 'OXT'})
+
+        # ── parse mutations ──────────────────────────────────────────────────
+        if isinstance(mutations, (tuple, list)):
+            group_indices  = []
+            to_group_names = []
+            for mutation_string in mutations:
+                old_group_name, group_id, new_group_name = mutation_string.split('-')
+                group_id = str(group_id)
+                aux_index, group_name = get(molecular_system, element='group',
+                        selection=f'group_id=="{group_id}"', mask=selection,
+                        group_index=True, group_name=True)
+                if group_name[0].lower() != old_group_name.lower():
+                    raise ArgumentChoiceError(
+                        argument='mutations', value=old_group_name,
+                        choices=[group_name[0]], caller='molsysmt.build.mutate',
+                        message=f"Group with id {group_id} is {group_name[0]}, not {old_group_name}."
+                    )
+                group_indices.append(aux_index[0])
+                to_group_names.append(new_group_name)
+
+        elif isinstance(mutations, dict):
+            if keys == 'group_index':
+                group_indices  = list(mutations.keys())
+                to_group_names = list(mutations.values())
+            elif keys == 'group_id':
+                group_ids = [str(ii) for ii in mutations.keys()]
+                to_group_names = list(mutations.values())
+                group_indices = []
+                for ii in group_ids:
+                    aux_indices = get(molecular_system, element='group',
+                            selection=f'group_id=="{ii}"', mask=selection,
+                            group_index=True)
+                    if len(aux_indices) > 1:
+                        raise StructuralInconsistencyError(
+                            reason=f"Multiple groups with group_id: {ii}",
+                            caller='molsysmt.build.mutate'
+                        )
+                    group_indices.append(aux_indices[0])
+            elif keys == 'group_name':
+                group_indices  = []
+                to_group_names = []
+                for from_name, to_name in mutations.items():
+                    aux_indices = get(molecular_system, element='group',
+                            selection='group_name==@from_name', mask=selection,
+                            group_index=True)
+                    for aux_index in aux_indices:
+                        group_indices.append(aux_index)
+                        to_group_names.append(to_name)
+
+        to_group_names = [name.upper() for name in to_group_names]
+
+        # ── convert to native form ───────────────────────────────────────────
+        form_in      = get_form(molecular_system)
+        had_h        = contains(molecular_system, selection='atom_type=="H"')
+        tmp          = convert(molecular_system, to_form='molsysmt.MolSys', skip_digestion=True)
+
+        # ── 1. Rename groups ─────────────────────────────────────────────────
+        for group_index, new_name in zip(group_indices, to_group_names):
+            tmp.topology.groups.at[group_index, 'group_name'] = new_name
+            tmp.topology.groups.at[group_index, 'group_type'] = 'amino acid'
+        tmp.topology._groups_dirty = True
+
+        # ── 2. Strip non-backbone atoms from every mutated group ─────────────
+        atoms_to_remove = []
+        for group_index in group_indices:
+            atoms_in_group = tmp.topology.atoms[
+                tmp.topology.atoms['group_index'] == group_index
+            ]
+            non_backbone = atoms_in_group.index[
+                ~atoms_in_group['atom_name'].isin(_BACKBONE_HEAVY)
+            ].tolist()
+            atoms_to_remove.extend(non_backbone)
+
+        if atoms_to_remove:
+            tmp = msm_remove(tmp, selection=atoms_to_remove, skip_digestion=True)
+
+        # ── 3. Rebuild sidechain heavy atoms (Kabsch alignment on backbone) ──
+        tmp = add_missing_heavy_atoms(tmp, engine='MolSysMT')
+
+        # ── 4. Re-add hydrogens if original system had them ──────────────────
+        if had_h:
+            tmp = add_missing_hydrogens(tmp, engine='MolSysMT')
+
+        return convert(tmp, to_form=form_in, skip_digestion=True)
 
     else:
         raise NotImplementedMethodError
