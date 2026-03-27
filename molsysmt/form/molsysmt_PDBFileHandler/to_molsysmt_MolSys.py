@@ -319,6 +319,40 @@ def _build_molsys_from_pdb_handler(item, get_missing_bonds=True):
         tmp_item.topology.rebuild_chains(redefine_indices=False, redefine_ids=False, redefine_names=False, redefine_types=True)
         tmp_item.topology.rebuild_entities(force=True)
 
+    # ── Apply COMPND molecule names ──────────────────────────────────────────
+    # Build chain_id → molecule_name map from COMPND records.
+    compnd = getattr(getattr(item.entry, 'title', None), 'compnd', None)
+    if compnd:
+        chain_to_name = {}
+        for rec in compnd:
+            name = rec.molecule.lstrip(': ').strip() if rec.molecule else None
+            if name:
+                for ch in rec.chain:
+                    chain_to_name[ch] = name
+
+        if chain_to_name:
+            # Map molecule_index → chain_id via groups['molecule_index'] and chains['chain_id']
+            grp_mol   = tmp_item.topology.groups['molecule_index'].to_numpy()
+            grp_chain = tmp_item.topology.groups['chain_index'].to_numpy()
+            chain_ids_arr = tmp_item.topology.chains['chain_id'].to_numpy()
+            mol_names = tmp_item.topology.molecules['molecule_name'].to_numpy(dtype=object)
+            mol_types = tmp_item.topology.molecules['molecule_type'].to_numpy(dtype=object)
+            # Build molecule → first chain_id (take the chain of the first group in the molecule)
+            mol_to_chain_id = {}
+            for grp_idx in range(len(grp_mol)):
+                mol_idx = grp_mol[grp_idx]
+                if mol_idx not in mol_to_chain_id:
+                    mol_to_chain_id[mol_idx] = chain_ids_arr[grp_chain[grp_idx]]
+            for mol_idx in range(len(mol_names)):
+                if mol_types[mol_idx] not in ('protein', 'peptide'):
+                    continue
+                chain_id = mol_to_chain_id.get(mol_idx)
+                if chain_id in chain_to_name:
+                    mol_names[mol_idx] = chain_to_name[chain_id]
+            tmp_item.topology.molecules['molecule_name'] = mol_names
+            # Re-infer entity names so they reflect the updated molecule names
+            tmp_item.topology.rebuild_entities(force=True)
+
     return tmp_item
 
 
