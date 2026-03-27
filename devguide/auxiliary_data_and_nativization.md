@@ -292,12 +292,26 @@ up to date — do not rely on metadata alone.
 
 **Native engine** (`engine='MolSysMT'`): uses the amino-acid topology database
 (`data/databases/amino_acids/`) to enumerate expected hydrogen names per
-residue, identifies missing ones by set difference, and places them using
-geometric rules (bond lengths and angles from CHARMM/AMBER conventions). No
-protonation-state prediction.
+residue via `get_expected_hydrogens(pH=pH, ...)`, identifies missing ones by
+set difference, and places them using geometric rules (bond lengths and angles
+from CHARMM/AMBER conventions).
+
+pH model applied by `get_expected_hydrogens`:
+- **ASP**: deprotonated (no HD2) at pH ≥ 4.4
+- **GLU**: deprotonated (no HE2) at pH ≥ 4.4
+- **HIS**: HIE tautomer (HE2 only, no HD1) at pH ≥ 6.5
+- **LYS**: deprotonated NZ (no HZ3) at pH ≥ 10.5
+- **CYS**: no HG when in a disulfide bond (detected from SG–SG bonds)
+
+**Limitation:** non-standard groups (ACE, NME capping groups) are silently
+skipped.
 
 **PDBFixer engine**: delegates to `pdbfixer.addMissingHydrogens(pH)` which
-uses OpenMM force-field templates and protonation-state libraries.
+uses the same fixed-threshold pH model via OpenMM force-field templates.
+
+**Both engines use the same pH model** (fixed pKa thresholds). Neither
+implements environment-dependent pKa prediction (PROPKA-style), which is a
+post-1.0 item.
 
 ### `build.solvate`
 
@@ -320,10 +334,19 @@ uses OpenMM force-field templates and protonation-state libraries.
    distance query).
 7. Merges solute + remaining waters using `molsysmt.basic.merge`.
 
+**Ion placement (MolSysMT engine):** after water tiling and overlap removal,
+ions are placed by a rejection-sampling loop over shuffled water oxygens:
+a candidate is accepted only if its distance to every solute atom is ≥ 5 Å
+(avoids pockets and channels) and its distance to every previously placed ion
+is ≥ 0.5 Å. Accepted water molecules are removed and replaced by single-atom
+ion groups. The number of ions is determined by:
+- `n_cations/n_anions='neutralize'` — reads solute charge via
+  `get_charge(definition='physical_pH7')` and adds enough counter-ions.
+- `ionic_strength` — adds extra Na⁺/Cl⁻ pairs using OpenMM's formula:
+  `n_pairs ≈ n_waters × C_M / 55.4`.
+
 **Constraints of the MolSysMT engine:**
-- Orthogonal boxes only (no triclinic support).
-- Cannot add ions. For salt concentration or charge neutralisation, use
-  `engine='OpenMM'` after solvation.
+- Orthogonal boxes only (no triclinic / truncated-octahedral support).
 - No energy minimisation. It is strongly recommended to minimise with OpenMM
   after solvation to resolve any steric clashes at the solute–water interface.
 
@@ -412,14 +435,13 @@ both engines on the same structure and checks they agree:
 | `add_missing_hydrogens` | `test_add_missing_hydrogens_parity.py` |
 | `mutate` | `test_mutate_parity.py` |
 
-**Known expected difference** in `add_missing_hydrogens`: PDBFixer calls
-`addMissingHydrogens(pH=7.4)` which uses OpenMM's protonation-state library
-(ASP/GLU deprotonated at physiological pH, HIS tautomers assigned). The
-MolSysMT engine adds all hydrogens from the topology database without
-protonation-state prediction. For neutral peptides with no ionisable residues
-the counts are identical; for real proteins the counts diverge by up to ~15 %,
-which the parity test allows explicitly. Improving MolSysMT's protonation
-prediction is a pending future task (see pending tasks).
+**Note on `add_missing_hydrogens` parity:** both engines (MolSysMT and
+PDBFixer) use the same fixed-threshold pH model and are at parity for standard
+residues. For neutral internal residues the H counts are identical. Small
+differences (< 15 %) can arise from terminal handling (OXT, HXT, N-terminal
+protonation variants) and are expected — the parity test allows a ±15 %
+tolerance for real proteins. Environment-dependent pKa prediction (PROPKA-
+style) is a post-1.0 item.
 
 ---
 
