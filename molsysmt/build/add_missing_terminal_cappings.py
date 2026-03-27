@@ -1,8 +1,8 @@
 from molsysmt._private.arg_digestion import arg_digest
 
 @arg_digest()
-def add_missing_terminal_cappings(molecular_system, N_terminal=None, C_terminal=None, pH=7.4, 
-                                  keep_ids=False, selection='all', syntax='MolSysMT', engine='PDBFixer',
+def add_missing_terminal_cappings(molecular_system, N_terminal=None, C_terminal=None, pH=7.4,
+                                  keep_ids=False, selection='all', syntax='MolSysMT', engine='MolSysMT',
                                   skip_digestion=False):
     """
     Adding terminal cappings to peptides and proteins.
@@ -41,7 +41,7 @@ def add_missing_terminal_cappings(molecular_system, N_terminal=None, C_terminal=
     syntax : str, default 'MolSysMT'
         Syntax used to parse the `selection` argument, if it is a string.
 
-    engine : {'MolSysMT', 'PDBFixer'}, default 'PDBFixer'
+    engine : {'MolSysMT', 'PDBFixer'}, default 'MolSysMT'
         Engine used to perform capping.
 
         * ``'MolSysMT'``: native implementation using internal residue templates and

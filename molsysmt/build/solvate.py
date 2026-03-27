@@ -216,9 +216,10 @@ def solvate (molecular_system, box_shape="truncated octahedral", clearance='14.0
         Molecular system in any of :ref:`the supported forms <Introduction_Forms>`.
         Should not already contain explicit solvent.
 
-    box_shape : {'truncated octahedral', 'rhombic dodecahedral', 'cubic'}, default 'truncated octahedral'
+    box_shape : {'truncated octahedral', 'rhombic dodecahedral', 'cubic', 'rectangular'}, default 'truncated octahedral'
         Geometry of the periodic simulation box. A truncated octahedral box minimises
         the volume of solvent required for a given clearance distance.
+        All four shapes are supported by all engines.
 
     clearance : str or quantity, default '14.0 angstroms'
         Minimum distance between any atom of the solute and the nearest box face.
@@ -257,9 +258,15 @@ def solvate (molecular_system, box_shape="truncated octahedral", clearance='14.0
           (bundled preequilibrated boxes in ``molsysmt/data/water/``).
 
     engine : {'OpenMM', 'PDBFixer', 'MolSysMT'}, default 'OpenMM'
-        Backend used to add solvent and ions.  ``'MolSysMT'`` requires no
-        external dependencies and supports only orthogonal boxes (``'cubic'``
-        and ``'rectangular'``) without ion addition.
+        Backend used to add solvent and ions.
+
+        * **MolSysMT** — no external dependencies.  Supports all four box
+          shapes.  Water models limited to ``'SPC'``, ``'SPC/E'``,
+          ``'TIP3P'``, ``'TIP4P-EW'``.  Ions placed via rejection-sampling
+          (≥ 5 Å from solute, ≥ 0.5 Å between ions).
+        * **OpenMM** — delegates to ``openmm.app.Modeller.addSolvent``.
+          Supports all water models and box shapes.
+        * **PDBFixer** — same as OpenMM (delegates to the same routine).
 
     to_form : str or None, default None
         Target form for the output molecular system. If None, the form of the

@@ -2,7 +2,7 @@ from molsysmt._private.smonitor import NotImplementedMethodError
 from molsysmt._private.arg_digestion import arg_digest
 
 @arg_digest()
-def add_missing_heavy_atoms(molecular_system, selection='all', syntax='MolSysMT', engine='PDBFixer', skip_digestion=False):
+def add_missing_heavy_atoms(molecular_system, selection='all', syntax='MolSysMT', engine='MolSysMT', skip_digestion=False):
     """
     Adding missing non-hydrogen atoms to a molecular system.
 
@@ -25,9 +25,15 @@ def add_missing_heavy_atoms(molecular_system, selection='all', syntax='MolSysMT'
     syntax : str, default 'MolSysMT'
         :ref:`Selection syntax <Introduction_Selection>` used when `selection` is a string.
 
-    engine : {'MolSysMT', 'PDBFixer'}, default 'PDBFixer'
-        Engine used to rebuild the missing atoms. If `'MolSysMT'` is chosen, internal geometry
-        templates are used. If `'PDBFixer'` is selected, the external PDBFixer engine is called.
+    engine : {'MolSysMT', 'PDBFixer'}, default 'MolSysMT'
+        Engine used to rebuild the missing atoms.
+
+        * ``'MolSysMT'`` — places missing atoms by Kabsch alignment against
+          3D residue templates stored in ``data/databases/residue_templates/``.
+          No external dependencies required.  Supports the 20 standard amino
+          acids, ACE, NME, and the 8 standard DNA/RNA nucleotides.
+        * ``'PDBFixer'`` — delegates to ``pdbfixer.findMissingAtoms`` /
+          ``addMissingAtoms``.  Requires PDBFixer and OpenMM.
 
     Returns
     -------

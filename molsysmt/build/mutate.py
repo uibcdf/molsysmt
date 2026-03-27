@@ -3,7 +3,7 @@ from molsysmt._private.arg_digestion import arg_digest
 from molsysmt._private.variables import is_all
 
 @arg_digest()
-def mutate(molecular_system, mutations=None, keys='group_index', selection="all", syntax='MolSysMT', engine='PDBFixer'):
+def mutate(molecular_system, mutations=None, keys='group_index', selection="all", syntax='MolSysMT', engine='MolSysMT'):
     """
     Apply point mutations to one or more residues of a molecular system.
 
@@ -38,7 +38,7 @@ def mutate(molecular_system, mutations=None, keys='group_index', selection="all"
     syntax : str, default 'MolSysMT'
         Syntax used to interpret the ``selection`` string.
 
-    engine : {'PDBFixer', 'MolSysMT'}, default 'PDBFixer'
+    engine : {'MolSysMT', 'PDBFixer'}, default 'MolSysMT'
         Backend used to apply mutations.
 
         * **PDBFixer** — removes the old sidechain and rebuilds it via

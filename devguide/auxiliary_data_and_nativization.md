@@ -345,8 +345,13 @@ ion groups. The number of ions is determined by:
 - `ionic_strength` — adds extra Na⁺/Cl⁻ pairs using OpenMM's formula:
   `n_pairs ≈ n_waters × C_M / 55.4`.
 
+**Box shapes (MolSysMT engine):** cubic, rectangular, truncated octahedral,
+and rhombic dodecahedral.  For non-orthogonal shapes the box is described by a
+full 3×3 matrix; water tiling uses the Cartesian bounding box of the 8
+unit-cell corners, and molecules outside the unit cell are removed via
+fractional-coordinate filtering (`s = xyz @ M⁻¹`, keep if all sᵢ ∈ [0, 1)).
+
 **Constraints of the MolSysMT engine:**
-- Orthogonal boxes only (no triclinic / truncated-octahedral support).
 - No energy minimisation. It is strongly recommended to minimise with OpenMM
   after solvation to resolve any steric clashes at the solute–water interface.
 
@@ -378,17 +383,50 @@ LocalEnergyMinimizer). Requires OpenMM and PDBFixer.
 
 ---
 
-## Remaining PDBFixer-only Functions (as of March 2026)
+## `build.get_missing_residues`
 
-Only one `build/` function still lacks a native engine:
+**Native engine** (`engine='MolSysMT'`, default):
 
-| Function | Why PDBFixer is still needed |
-|----------|------------------------------|
-| `get_missing_residues` | Requires SEQRES records or external sequence databases not currently in MolSysMT's data layer |
+Compares the *structural* sequence (groups actually present in the system)
+against a *reference* sequence using `difflib.SequenceMatcher`.  Each
+`'delete'` opcode (residues in the reference but absent from the structure)
+produces one entry in the output dict.
 
-All other `build/` functions (`add_missing_heavy_atoms`,
-`add_missing_terminal_cappings`, `add_missing_hydrogens`, `solvate`, `mutate`)
-now have `engine='MolSysMT'` as the default.
+**Reference sequence resolution** (in order of priority):
+
+1. `sequence` argument — explicit `{chain_id: [res_name, ...]}` dict.
+2. Auto-detected from the input form:
+   - `file:pdb` → SEQRES records parsed by `PDBFileHandler`
+     (`entry.primary_structure.seqres`).
+   - `file:bcif`, `file:bcif_gz` → `_entity_poly_seq` table from the mmCIF
+     binary container, with chain mapping via `_entity_poly.pdbx_strand_id`.
+   - `string:pdb_id` → downloads the bcif and uses the same path.
+3. If no sequence is available → emits a `UserWarning` and returns `{}`.
+
+The function converts the molecular system to `molsysmt.MolSys` internally
+before querying structural sequences, so all forms that support conversion
+to MolSys are supported.
+
+**PDBFixer engine**: delegates to `pdbfixer.findMissingResidues`.  Requires
+PDBFixer and OpenMM.  Ignores the `sequence` argument.
+
+---
+
+## Native Coverage of `build/` (as of March 2026)
+
+All public `build/` functions now have `engine='MolSysMT'` as the default:
+
+| Function | Notes |
+|----------|-------|
+| `add_missing_heavy_atoms` | Kabsch alignment against JSON residue templates |
+| `add_missing_terminal_cappings` | Case A (free termini) + Case B (ACE/NME) |
+| `add_missing_hydrogens` | Fixed pKa thresholds; ACE/NME skipped |
+| `solvate` | All four orthogonal/non-orthogonal box shapes; ions via rejection sampling |
+| `mutate` | Kabsch sidechain placement; PyRosetta engine is post-1.0 |
+| `get_missing_residues` | SequenceMatcher + SEQRES/bcif auto-detection |
+| `get_missing_heavy_atoms` | Template lookup |
+| `get_missing_terminal_cappings` | Template lookup |
+| `get_non_standard_residues` | Residue name lookup |
 
 ---
 
