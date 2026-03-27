@@ -141,6 +141,62 @@ def _build_tiled_water(water_tile, n_x, n_y, n_z, tile_nm):
     result.structures = new_struc
     return result
 
+
+def _build_ions(ion_name, atom_name, atom_type, positions):
+    """Build a MolSys with single-atom ion groups at the given positions.
+
+    Parameters
+    ----------
+    ion_name : str
+        Group/residue name (PDB convention, e.g. 'NA', 'CL').
+    atom_name : str
+        Atom name (same as group name for monatomic ions).
+    atom_type : str
+        Element symbol (e.g. 'Na', 'Cl').
+    positions : np.ndarray, shape (n_ions, 3)
+        Coordinates in nm for each ion.
+
+    Returns
+    -------
+    molsysmt.MolSys
+    """
+    import pandas as pd
+    from molsysmt.native import MolSys, Topology, Structures
+
+    n_ions = positions.shape[0]
+
+    new_topo = Topology(
+        n_atoms=n_ions, n_groups=n_ions, n_components=n_ions,
+        n_molecules=n_ions, n_entities=0, n_chains=1, n_bonds=0,
+    )
+    new_topo.atoms['atom_id']         = pd.array([str(i + 1) for i in range(n_ions)], dtype='string')
+    new_topo.atoms['atom_name']       = np.full(n_ions, atom_name, dtype=object)
+    new_topo.atoms['atom_type']       = np.full(n_ions, atom_type, dtype=object)
+    new_topo.atoms['group_index']     = pd.array(np.arange(n_ions, dtype=np.int64), dtype='Int64')
+    new_topo.atoms['component_index'] = pd.array(np.arange(n_ions, dtype=np.int64), dtype='Int64')
+    new_topo.atoms['chain_index']     = pd.array(np.zeros(n_ions, dtype=np.int64), dtype='Int64')
+
+    new_topo.groups['group_id']       = pd.array([str(i + 1) for i in range(n_ions)], dtype='string')
+    new_topo.groups['group_name']     = np.full(n_ions, ion_name, dtype=object)
+    new_topo.groups['group_type']     = np.full(n_ions, 'ion', dtype=object)
+    new_topo.groups['molecule_index'] = pd.array(np.arange(n_ions, dtype=np.int64), dtype='Int64')
+
+    new_topo.chains['chain_id']   = pd.array(['ION'], dtype='string')
+    new_topo.chains['chain_name'] = [None]
+    new_topo.chains['chain_type'] = [None]
+
+    xyz = positions.reshape(1, n_ions, 3)
+    new_struc = Structures(
+        coordinates=puw.quantity(xyz, 'nm'),
+        structure_id=np.array(['1'], dtype=object),
+    )
+
+    result = MolSys()
+    result.topology  = new_topo
+    result.structures = new_struc
+    return result
+
+
 @arg_digest()
 def solvate (molecular_system, box_shape="truncated octahedral", clearance='14.0 angstroms',
              anion='Cl-', n_anions="neutralize", cation='Na+', n_cations="neutralize",
@@ -436,12 +492,22 @@ def solvate (molecular_system, box_shape="truncated octahedral", clearance='14.0
         tile_nm   = tmpl_info['tile_nm']
         o_name    = tmpl_info['o_name']
 
-        # ── ion addition not yet supported ──────────────────────────────────
-        if n_cations != 0 or n_anions != 0:
-            raise NotImplementedError(
-                "Ion addition is not yet supported with engine='MolSysMT'. "
-                "Set n_cations=0 and n_anions=0, or use engine='OpenMM'."
-            )
+        # ── ion lookup table (PDB residue name, atom name, element symbol) ─
+        _ion_info = {
+            'Na+': ('NA', 'NA', 'Na'),
+            'K+':  ('K',  'K',  'K'),
+            'Li+': ('LI', 'LI', 'Li'),
+            'Rb+': ('RB', 'RB', 'Rb'),
+            'Cs+': ('CS', 'CS', 'Cs'),
+            'Cl-': ('CL', 'CL', 'Cl'),
+            'Br-': ('BR', 'BR', 'Br'),
+            'F-':  ('F',  'F',  'F'),
+            'I-':  ('I',  'I',  'I'),
+        }
+        if cation not in _ion_info:
+            raise NotImplementedError(f"cation={cation!r} is not supported with engine='MolSysMT'.")
+        if anion not in _ion_info:
+            raise NotImplementedError(f"anion={anion!r} is not supported with engine='MolSysMT'.")
 
         # ── non-orthogonal boxes require OpenMM ─────────────────────────────
         if box_shape not in ('cubic', 'rectangular'):
@@ -534,6 +600,122 @@ def solvate (molecular_system, box_shape="truncated octahedral", clearance='14.0
             threshold='2.5 angstroms',
             pbc=False,
         )
+
+        # ── 8.5. Add ions ──────────────────────────────────────────────────────
+        # Determine ion counts.
+        # Charge comes from the original solute (before solvation).
+        n_cat_to_add = 0
+        n_an_to_add  = 0
+
+        if n_cations == 'neutralize' or n_anions == 'neutralize':
+            from molsysmt.physchem import get_charge as _get_charge
+            solute_charge = int(round(puw.get_value(
+                _get_charge(molecular_system, element='system', definition='physical_pH7'),
+                to_unit='elementary_charge',
+            )))
+        else:
+            solute_charge = 0   # not needed
+
+        if n_cations == 'neutralize':
+            n_cat_to_add = max(-solute_charge, 0)
+        elif n_cations != 0:
+            n_cat_to_add = int(n_cations)
+
+        if n_anions == 'neutralize':
+            n_an_to_add = max(solute_charge, 0)
+        elif n_anions != 0:
+            n_an_to_add = int(n_anions)
+
+        # Extra pairs for ionic strength (OpenMM formula: n_pairs ≈ n_waters × C / 55.4 M)
+        ionic_strength_M = puw.get_value(ionic_strength, to_unit='molar')
+        if ionic_strength_M > 0.0:
+            n_waters = get(solvated, element='molecule',
+                           selection='molecule_type=="water"', n_molecules=True,
+                           skip_digestion=True)
+            n_pairs = int(round(n_waters * ionic_strength_M / 55.4))
+            n_cat_to_add += n_pairs
+            n_an_to_add  += n_pairs
+
+        n_ions_total = n_cat_to_add + n_an_to_add
+
+        if n_ions_total > 0:
+
+            # Positions of all water oxygens (candidates for ion placement)
+            o_atom_indices, o_mol_indices, o_coords = get(
+                solvated, element='atom',
+                selection=f'atom_name=="{o_name}"',
+                atom_index=True, molecule_index=True, coordinates=True,
+                skip_digestion=True,
+            )
+            o_xyz      = puw.get_value(o_coords, to_unit='nm')[0]        # (n_w, 3)
+            o_mol_idx  = np.asarray(o_mol_indices, dtype=np.int64)       # (n_w,)
+
+            # Positions of all solute (non-water) atoms for distance checks
+            solute_xyz = puw.get_value(
+                get(solvated, element='atom',
+                    selection='molecule_type!="water"',
+                    coordinates=True, skip_digestion=True),
+                to_unit='nm',
+            )[0]                                                          # (n_sol, 3)
+
+            min_dist_nm      = 0.5    # 5 Å — exclude waters in pockets / channels
+            ion_ion_cutoff_nm = 0.05  # 0.5 Å — avoid placing two ions on top of each other
+
+            # Shuffle candidates and run rejection loop
+            rng      = np.random.default_rng()
+            order    = rng.permutation(len(o_xyz))
+            accepted_mol_indices = []   # water molecule indices to remove
+            accepted_positions   = []   # ion positions (nm)
+
+            for idx in order:
+                if len(accepted_positions) >= n_ions_total:
+                    break
+                o_pos = o_xyz[idx]
+
+                # Distance to nearest solute atom
+                diff  = solute_xyz - o_pos          # (n_sol, 3)
+                if np.sqrt((diff * diff).sum(axis=1)).min() < min_dist_nm:
+                    continue
+
+                # Distance to already-placed ions
+                too_close = False
+                for prev_pos in accepted_positions:
+                    d = o_pos - prev_pos
+                    if np.sqrt((d * d).sum()) < ion_ion_cutoff_nm:
+                        too_close = True
+                        break
+                if too_close:
+                    continue
+
+                accepted_mol_indices.append(int(o_mol_idx[idx]))
+                accepted_positions.append(o_pos)
+
+            if len(accepted_positions) < n_ions_total:
+                raise ValueError(
+                    f"Could not place all {n_ions_total} ions: only "
+                    f"{len(accepted_positions)} valid water positions found. "
+                    "Try reducing ionic_strength or increasing clearance."
+                )
+
+            # Remove the selected water molecules
+            solvated = remove(
+                solvated,
+                selection=f'molecule_index in @accepted_mol_indices',
+                skip_digestion=True,
+            )
+
+            # Build ion MolSys objects and merge
+            positions_arr = np.array(accepted_positions)   # (n_ions_total, 3)
+
+            if n_cat_to_add > 0:
+                g, a, t = _ion_info[cation]
+                cat_ms = _build_ions(g, a, t, positions_arr[:n_cat_to_add])
+                solvated = merge([solvated, cat_ms], skip_digestion=True)
+
+            if n_an_to_add > 0:
+                g, a, t = _ion_info[anion]
+                an_ms = _build_ions(g, a, t, positions_arr[n_cat_to_add:])
+                solvated = merge([solvated, an_ms], skip_digestion=True)
 
         # ── 9. Post-processing ─────────────────────────────────────────────────
         tmp_item = convert(solvated, to_form=to_form, skip_digestion=True)

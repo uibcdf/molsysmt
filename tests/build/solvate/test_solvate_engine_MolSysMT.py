@@ -146,10 +146,45 @@ def test_solvate_raises_for_rhombic_dodecahedral(ala_val_pro):
                            n_cations=0, n_anions=0, engine='MolSysMT')
 
 
-def test_solvate_raises_for_ions(ala_val_pro):
-    with pytest.raises(NotImplementedError):
-        msm.build.solvate(ala_val_pro, box_shape='cubic', n_cations=1,
-                           engine='MolSysMT')
+def test_solvate_explicit_cation(ala_val_pro):
+    """Requesting n_cations=1 adds exactly one Na+ ion."""
+    solvated = msm.build.solvate(ala_val_pro, box_shape='cubic',
+                                  n_cations=1, n_anions=0,
+                                  engine='MolSysMT', to_form='molsysmt.MolSys')
+    ion_names = msm.get(solvated, element='group',
+                         selection='group_type=="ion"', group_name=True)
+    assert ion_names == ['NA']
+
+
+def test_solvate_explicit_anion(ala_val_pro):
+    """Requesting n_anions=1 adds exactly one Cl- ion."""
+    solvated = msm.build.solvate(ala_val_pro, box_shape='cubic',
+                                  n_cations=0, n_anions=1,
+                                  engine='MolSysMT', to_form='molsysmt.MolSys')
+    ion_names = msm.get(solvated, element='group',
+                         selection='group_type=="ion"', group_name=True)
+    assert ion_names == ['CL']
+
+
+def test_solvate_ion_min_distance_from_solute(ala_val_pro):
+    """Ion is placed at least 5 Å from any solute atom."""
+    import numpy as np
+    from molsysmt import pyunitwizard as puw
+
+    solvated = msm.build.solvate(ala_val_pro, box_shape='cubic',
+                                  n_cations=1, n_anions=0,
+                                  engine='MolSysMT', to_form='molsysmt.MolSys')
+    solute_xyz = puw.get_value(
+        msm.get(solvated, element='atom',
+                selection='molecule_type!="water" and group_type!="ion"',
+                coordinates=True), to_unit='nm')[0]
+    ion_xyz = puw.get_value(
+        msm.get(solvated, element='atom',
+                selection='group_type=="ion"',
+                coordinates=True), to_unit='nm')[0]
+    for ion_pos in ion_xyz:
+        min_d = np.sqrt(((solute_xyz - ion_pos) ** 2).sum(axis=1)).min()
+        assert min_d >= 0.5, f"Ion placed {min_d * 10:.2f} Å from solute (min 5.0 Å required)"
 
 
 def test_solvate_raises_for_unsupported_water_model(ala_val_pro):
