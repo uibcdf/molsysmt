@@ -85,7 +85,7 @@ def get_non_standard_residues(molecular_system, selection='all', syntax='MolSysM
 
         for group, substitution in tmp_item.nonstandardResidues:
             original_group_index = group_indices_in_selection[group.index]
-            output[original_group_index]=substitution.name
+            output[original_group_index] = substitution if isinstance(substitution, str) else substitution.name
 
     else:
 

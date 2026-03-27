@@ -224,10 +224,12 @@ def add_missing_terminal_cappings(molecular_system, N_terminal=None, C_terminal=
         )
 
         # Step A2: add OXT where get_missing_terminal_cappings reports it missing.
+        # Skip when C_terminal is not None: the C-terminus will be capped by a new
+        # group (NME), so OXT must not be inserted first.
         from molsysmt.build.get_missing_terminal_cappings import get_missing_terminal_cappings
         missing_oxt = get_missing_terminal_cappings(
             native_ms, selection=selection, syntax=syntax, engine='MolSysMT',
-        )
+        ) if C_terminal is None else {}
         if missing_oxt:
             from molsysmt.build._native_placers import place_oxt_atom, append_atoms_to_molsys
             topo_a = native_ms.topology

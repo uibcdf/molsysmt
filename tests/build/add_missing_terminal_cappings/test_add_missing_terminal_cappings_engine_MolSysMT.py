@@ -17,12 +17,16 @@ def avp_molsys():
 
 class TestAddMissingTerminalCappingsEngMolSysMT:
 
-    def test_case_a_no_cappings_atom_count_unchanged(self, avp_molsys):
-        """With N_terminal=None and C_terminal=None atom count must not change
-        for a system that already has complete terminal residues."""
+    def test_case_a_oxt_added(self, avp_molsys):
+        """Case A adds OXT to the free C-terminus.
+
+        build_peptide produces AlaValPro without OXT; calling
+        add_missing_terminal_cappings with no caps completes the terminal
+        residue by adding 1 OXT atom.
+        """
         n_before = msm.get(avp_molsys, n_atoms=True)
         result = msm.build.add_missing_terminal_cappings(avp_molsys, engine='MolSysMT')
-        assert msm.get(result, n_atoms=True) == n_before
+        assert msm.get(result, n_atoms=True) == n_before + 1
 
     def test_case_a_no_cappings_groups_unchanged(self, avp_molsys):
         """Group names must remain ['ALA', 'VAL', 'PRO'] when no cappings are requested."""
