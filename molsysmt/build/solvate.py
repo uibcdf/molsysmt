@@ -509,14 +509,6 @@ def solvate (molecular_system, box_shape="truncated octahedral", clearance='14.0
         if anion not in _ion_info:
             raise NotImplementedError(f"anion={anion!r} is not supported with engine='MolSysMT'.")
 
-        # ── non-orthogonal boxes require OpenMM ─────────────────────────────
-        if box_shape not in ('cubic', 'rectangular'):
-            raise NotImplementedError(
-                f"box_shape={box_shape!r} is not supported with engine='MolSysMT'. "
-                "Only 'cubic' and 'rectangular' orthogonal boxes are supported. "
-                "Use engine='OpenMM' for truncated octahedral or rhombic dodecahedral boxes."
-            )
-
         # ── save solute metadata ─────────────────────────────────────────────
         component_indices, component_names = get(molecular_system, element='component',
             component_index=True, component_name=True)
@@ -529,7 +521,7 @@ def solvate (molecular_system, box_shape="truncated octahedral", clearance='14.0
         solute = convert(molecular_system, to_form='molsysmt.MolSys', skip_digestion=True)
         clearance_nm = puw.get_value(clearance, to_unit='nm')
 
-        # ── 2. Compute orthogonal box dimensions ────────────────────────────
+        # ── 2. Compute box matrix ────────────────────────────────────────────
         coords_nm = puw.get_value(solute.structures.coordinates, to_unit='nm')[0]
         mins = coords_nm.min(axis=0)
         maxs = coords_nm.max(axis=0)
@@ -537,13 +529,43 @@ def solvate (molecular_system, box_shape="truncated octahedral", clearance='14.0
 
         if box_shape == 'cubic':
             side = float(extents.max()) + 2.0 * clearance_nm
-            box_lengths = np.array([side, side, side])
-        else:   # rectangular
-            box_lengths = extents + 2.0 * clearance_nm
+            box_matrix = np.diag([side, side, side])
+        elif box_shape == 'rectangular':
+            box_matrix = np.diag(extents + 2.0 * clearance_nm)
+        elif box_shape == 'truncated octahedral':
+            # Smallest truncated octahedron enclosing the solute + clearance.
+            # The circumradius of a truncated octahedron with edge length a is
+            # sqrt(5)/2 * a, and L (the conventional cell edge) = a*sqrt(2).
+            # We choose L so that every vertex is at least (max_extent/2 + clearance) away
+            # from the center.  For the TO the inscribed-sphere radius = L*sqrt(3)/3,
+            # so we need L = (max_half_extent + clearance) * 2*sqrt(3)/sqrt(3) …
+            # Simpler: use the circumscribed-sphere radius: max_half = max(extents)/2;
+            # L = 2*(max_half + clearance) guarantees the bounding box fits.
+            # Box vectors (rows): v1=L(1,0,0), v2=L(1/3, 2√2/3, 0), v3=L(-1/3, √2/3, √6/3)
+            L = float(extents.max()) + 2.0 * clearance_nm
+            box_matrix = np.array([
+                [L,           0.0,                     0.0],
+                [L / 3.0,     L * 2.0 * math.sqrt(2.0) / 3.0, 0.0],
+                [-L / 3.0,    L * math.sqrt(2.0) / 3.0,        L * math.sqrt(6.0) / 3.0],
+            ])
+        elif box_shape == 'rhombic dodecahedral':
+            # Box vectors: v1=L(1,0,0), v2=L(0,1,0), v3=L(0.5, 0.5, √2/2)
+            L = float(extents.max()) + 2.0 * clearance_nm
+            box_matrix = np.array([
+                [L,       0.0,     0.0],
+                [0.0,     L,       0.0],
+                [L / 2.0, L / 2.0, L * math.sqrt(2.0) / 2.0],
+            ])
+        else:
+            raise NotImplementedError(
+                f"box_shape={box_shape!r} is not supported with engine='MolSysMT'. "
+                "Supported shapes: 'cubic', 'rectangular', 'truncated octahedral', "
+                "'rhombic dodecahedral'."
+            )
 
         # ── 3. Center solute in box ──────────────────────────────────────────
         solute_center = (mins + maxs) / 2.0
-        box_center    = box_lengths / 2.0
+        box_center    = 0.5 * box_matrix.sum(axis=0)
         shift = (box_center - solute_center).reshape(1, 1, 3)
         solute = translate(solute, translation=puw.quantity(shift, 'nm'), in_place=False)
 
@@ -552,14 +574,24 @@ def solvate (molecular_system, box_shape="truncated octahedral", clearance='14.0
         water_tile = convert(water_path, to_form='molsysmt.MolSys', skip_digestion=True)
 
         # ── 5. Tile water boxes to fill the simulation box ──────────────────
-        n_x = int(math.ceil(box_lengths[0] / tile_nm)) + 1
-        n_y = int(math.ceil(box_lengths[1] / tile_nm)) + 1
-        n_z = int(math.ceil(box_lengths[2] / tile_nm)) + 1
+        # For non-orthogonal boxes, compute the bounding box of all 8 unit-cell
+        # corners in Cartesian space to determine tile counts.
+        corners = np.array(
+            [[i, j, k] for i in (0.0, 1.0) for j in (0.0, 1.0) for k in (0.0, 1.0)],
+            dtype=np.float64,
+        )
+        cart_corners = corners @ box_matrix          # (8, 3) Cartesian corner positions
+        max_extents  = cart_corners.max(axis=0)      # largest extent per axis
+        n_x = int(math.ceil(max_extents[0] / tile_nm)) + 1
+        n_y = int(math.ceil(max_extents[1] / tile_nm)) + 1
+        n_z = int(math.ceil(max_extents[2] / tile_nm)) + 1
 
         all_water = _build_tiled_water(water_tile, n_x, n_y, n_z, tile_nm)
         del water_tile
 
         # ── 6. Filter water molecules outside the box ────────────────────────
+        # Use fractional coordinates: s = xyz @ M⁻¹; keep if all s_i ∈ [0, 1).
+        # This works for any parallelepiped (orthogonal or not).
         o_indices, o_coords = get(all_water, element='atom',
                                   selection=f'atom_name=="{o_name}"',
                                   atom_index=True, coordinates=True,
@@ -567,11 +599,9 @@ def solvate (molecular_system, box_shape="truncated octahedral", clearance='14.0
         o_xyz = puw.get_value(o_coords, to_unit='nm')[0]
         o_indices_arr = np.asarray(o_indices)
 
-        outside = (
-            (o_xyz[:, 0] < 0.0) | (o_xyz[:, 0] >= box_lengths[0]) |
-            (o_xyz[:, 1] < 0.0) | (o_xyz[:, 1] >= box_lengths[1]) |
-            (o_xyz[:, 2] < 0.0) | (o_xyz[:, 2] >= box_lengths[2])
-        )
+        M_inv  = np.linalg.inv(box_matrix)
+        s      = o_xyz @ M_inv                        # fractional coordinates (n_w, 3)
+        outside = ~np.all((s >= 0.0) & (s < 1.0), axis=1)
         if np.any(outside):
             outside_atom_indices = o_indices_arr[outside].tolist()
             outside_mol_indices = np.unique(
@@ -586,11 +616,7 @@ def solvate (molecular_system, box_shape="truncated octahedral", clearance='14.0
         solvated = merge([solute, all_water], skip_digestion=True)
         del all_water, solute
 
-        box_mat = np.zeros((1, 3, 3))
-        box_mat[0, 0, 0] = box_lengths[0]
-        box_mat[0, 1, 1] = box_lengths[1]
-        box_mat[0, 2, 2] = box_lengths[2]
-        solvated.structures.box = puw.quantity(box_mat, 'nm')
+        solvated.structures.box = puw.quantity(box_matrix.reshape(1, 3, 3), 'nm')
 
         # ── 8. Remove water molecules overlapping with solute ─────────────────
         solvated = remove_overlapping_molecules(

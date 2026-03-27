@@ -134,16 +134,60 @@ def test_solvate_spc_water_model(ala_val_pro):
 
 # ── error handling ────────────────────────────────────────────────────────────
 
-def test_solvate_raises_for_non_orthogonal_box(ala_val_pro):
-    with pytest.raises(NotImplementedError):
-        msm.build.solvate(ala_val_pro, box_shape='truncated octahedral',
-                           n_cations=0, n_anions=0, engine='MolSysMT')
+def test_solvate_truncated_octahedral_has_water(ala_val_pro):
+    """truncated octahedral box produces a solvated system with water."""
+    solvated = msm.build.solvate(ala_val_pro, box_shape='truncated octahedral',
+                                  clearance='10 angstroms',
+                                  n_cations=0, n_anions=0,
+                                  water_model='TIP3P', engine='MolSysMT')
+    n_water = msm.get(solvated, element='molecule',
+                      selection='molecule_type=="water"', n_molecules=True)
+    assert n_water > 0
 
 
-def test_solvate_raises_for_rhombic_dodecahedral(ala_val_pro):
-    with pytest.raises(NotImplementedError):
-        msm.build.solvate(ala_val_pro, box_shape='rhombic dodecahedral',
-                           n_cations=0, n_anions=0, engine='MolSysMT')
+def test_solvate_rhombic_dodecahedral_has_water(ala_val_pro):
+    """rhombic dodecahedral box produces a solvated system with water."""
+    solvated = msm.build.solvate(ala_val_pro, box_shape='rhombic dodecahedral',
+                                  clearance='10 angstroms',
+                                  n_cations=0, n_anions=0,
+                                  water_model='TIP3P', engine='MolSysMT')
+    n_water = msm.get(solvated, element='molecule',
+                      selection='molecule_type=="water"', n_molecules=True)
+    assert n_water > 0
+
+
+def test_solvate_truncated_octahedral_no_overlap(ala_val_pro):
+    """No water O closer than 2 Å to solute in a truncated octahedral box."""
+    solvated = msm.build.solvate(ala_val_pro, box_shape='truncated octahedral',
+                                  clearance='10 angstroms',
+                                  n_cations=0, n_anions=0,
+                                  water_model='TIP3P', engine='MolSysMT')
+    solute_xyz = puw.get_value(
+        msm.get(solvated, element='atom',
+                selection='molecule_type!="water"', coordinates=True),
+        to_unit='angstroms',
+    )[0]
+    water_o_xyz = puw.get_value(
+        msm.get(solvated, element='atom',
+                selection='atom_name=="O" and molecule_type=="water"',
+                coordinates=True),
+        to_unit='angstroms',
+    )[0]
+    for o_pos in water_o_xyz:
+        dists = np.linalg.norm(solute_xyz - o_pos, axis=1)
+        assert dists.min() >= 2.0 - 1e-3
+
+
+def test_solvate_truncated_octahedral_box_has_nonzero_offdiag(ala_val_pro):
+    """Truncated octahedral box matrix has non-zero off-diagonal elements."""
+    solvated = msm.build.solvate(ala_val_pro, box_shape='truncated octahedral',
+                                  clearance='10 angstroms',
+                                  n_cations=0, n_anions=0,
+                                  water_model='TIP3P', engine='MolSysMT')
+    box = puw.get_value(msm.get(solvated, box=True), to_unit='nm')[0]
+    # At least one off-diagonal element must be non-zero
+    off_diag = [box[i, j] for i in range(3) for j in range(3) if i != j]
+    assert any(abs(v) > 1e-9 for v in off_diag)
 
 
 def test_solvate_explicit_cation(ala_val_pro):

@@ -156,17 +156,18 @@ mol = msm.build.solvate(
 
 | Engine | Box shapes | Water models | Ions | Dependency |
 |--------|------------|-------------|------|------------|
-| `'MolSysMT'` | cubic, rectangular | SPC, SPC/E, TIP3P, TIP4P-EW | Na+, K+, Li+, Rb+, Cs+, Cl-, Br-, F-, I- | none |
-| `'OpenMM'` | cubic, rectangular, truncated octahedral, rhombic dodecahedral | all above + TIP3P-FB, TIP4P-2005, TIP5P, … | same | openmm |
+| `'MolSysMT'` | cubic, rectangular, truncated octahedral, rhombic dodecahedral | SPC, SPC/E, TIP3P, TIP4P-EW | Na+, K+, Li+, Rb+, Cs+, Cl-, Br-, F-, I- | none |
+| `'OpenMM'` | same as above + more | all above + TIP3P-FB, TIP4P-2005, TIP5P, … | same | openmm |
 | `'PDBFixer'` | same as OpenMM | same as OpenMM | same | pdbfixer, openmm |
 
 **Ion placement (MolSysMT):** random rejection sampling from water oxygens,
 accepting only candidates that are ≥ 5 Å from any solute atom and ≥ 0.5 Å from
 previously placed ions.  This avoids placing ions in pockets or channels.
 
-**MolSysMT limitation:** only orthogonal (cubic and rectangular) boxes are
-supported.  Use `engine='OpenMM'` for truncated octahedral or rhombic
-dodecahedral boxes (smaller box volume for same clearance).
+**Non-orthogonal boxes (MolSysMT):** truncated octahedral and rhombic
+dodecahedral boxes are built from the conventional box vectors, water tiling
+uses the Cartesian bounding box of the unit cell, and molecules outside the
+unit cell are removed via fractional coordinate filtering (`s = xyz @ M⁻¹`).
 
 ---
 
@@ -240,7 +241,7 @@ mol = msm.build.solvate(
 | `add_missing_heavy_atoms` | `MolSysMT` | Non-standard residues with templates only in PDBFixer |
 | `add_missing_terminal_cappings` | `MolSysMT` | Capping groups other than ACE/NME |
 | `add_missing_hydrogens` | `MolSysMT` | H on capping groups (ACE/NME) required |
-| `solvate` | `MolSysMT` | Non-orthogonal box (truncated octahedral) |
+| `solvate` | `MolSysMT` | TIP5P or other unsupported water models; box shapes beyond cubic/rectangular/truncated octahedral/rhombic dodecahedral |
 | Minimization | — | Always OpenMM (outside MolSysMT scope) |
 
 ---
