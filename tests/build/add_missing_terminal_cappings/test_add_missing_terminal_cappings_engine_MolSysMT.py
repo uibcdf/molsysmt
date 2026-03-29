@@ -18,15 +18,15 @@ def avp_molsys():
 class TestAddMissingTerminalCappingsEngMolSysMT:
 
     def test_case_a_oxt_added(self, avp_molsys):
-        """Case A adds OXT to the free C-terminus.
+        """Case A adds OXT to the free C-terminus and H2/H3 to the free N-terminus.
 
-        build_peptide produces AlaValPro without OXT; calling
-        add_missing_terminal_cappings with no caps completes the terminal
-        residue by adding 1 OXT atom.
+        build_peptide produces AlaValPro without OXT or N-terminal extra H atoms;
+        calling add_missing_terminal_cappings with no caps completes the terminal
+        residues by adding OXT + H2 + H3 = 3 atoms.
         """
         n_before = msm.get(avp_molsys, n_atoms=True)
         result = msm.build.add_missing_terminal_cappings(avp_molsys, engine='MolSysMT')
-        assert msm.get(result, n_atoms=True) == n_before + 1
+        assert msm.get(result, n_atoms=True) == n_before + 3
 
     def test_case_a_no_cappings_groups_unchanged(self, avp_molsys):
         """Group names must remain ['ALA', 'VAL', 'PRO'] when no cappings are requested."""
@@ -43,12 +43,12 @@ class TestAddMissingTerminalCappingsEngMolSysMT:
         assert groups == ['ACE', 'ALA', 'VAL', 'PRO', 'NME']
 
     def test_case_b_ace_nme_atom_count(self, avp_molsys):
-        """ACE adds 3 heavy atoms (C, O, CH3), NME adds 2 (N, C): total +5."""
+        """ACE adds 6 atoms (C, O, CH3, HH31, HH32, HH33), NME adds 6 (N, C, H, H1, H2, H3): total +12."""
         n_before = msm.get(avp_molsys, n_atoms=True)
         result = msm.build.add_missing_terminal_cappings(
             avp_molsys, N_terminal='ACE', C_terminal='NME', engine='MolSysMT'
         )
-        assert msm.get(result, n_atoms=True) == n_before + 5
+        assert msm.get(result, n_atoms=True) == n_before + 12
 
     def test_case_b_ace_only(self, avp_molsys):
         """Adding only ACE must produce groups ['ACE', 'ALA', 'VAL', 'PRO']."""

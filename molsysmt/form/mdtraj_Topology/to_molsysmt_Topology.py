@@ -66,10 +66,13 @@ def to_molsysmt_Topology(item, atom_indices='all', skip_digestion=False):
 
     tmp_item.chains['chain_id'] = chain_id
     tmp_item.chains['chain_name'] = chain_name
-    tmp_item.groups['chain_index'] = np.zeros(n_groups, dtype=int)
+    # chain_index lives on atoms only
+    chain_index_of_groups = np.zeros(n_groups, dtype=int)
     for ii in range(n_chains):
         for jj in group_index_of_chains[ii]:
-            tmp_item.groups.loc[jj, 'chain_index'] = ii
+            chain_index_of_groups[jj] = ii
+    atom_group_arr = np.array(group_index_of_atoms, dtype=int)
+    tmp_item.atoms['chain_index'] = chain_index_of_groups[atom_group_arr]
 
     # Rebuild metadata
     tmp_item.rebuild_components()

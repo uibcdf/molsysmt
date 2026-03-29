@@ -1,3 +1,4 @@
+import numpy as np
 import pandas as pd
 
 from molsysmt import pyunitwizard as puw
@@ -66,8 +67,15 @@ def to_molsysmt_MolSysDict(item, skip_digestion=False):
         bonds.append(bond)
 
     chains = []
-    if topology.n_chains > 0 and "chain_index" in topology.groups.columns:
-        group_chain_index = topology.groups["chain_index"].to_numpy(dtype=object)
+    if topology.n_chains > 0:
+        # chain_index is atom-level only; derive per-group from atoms
+        if "chain_index" in topology.atoms.columns:
+            _adf = topology.atoms[["group_index", "chain_index"]].dropna()
+            _gc = _adf.groupby("group_index", sort=False)["chain_index"].first()
+            group_chain_index = np.full(topology.n_groups, None, dtype=object)
+            group_chain_index[_gc.index.to_numpy(dtype=np.int64)] = _gc.to_numpy()
+        else:
+            group_chain_index = np.full(topology.n_groups, None, dtype=object)
         for chain_index in range(topology.n_chains):
             row = topology.chains.iloc[chain_index]
             chains.append(

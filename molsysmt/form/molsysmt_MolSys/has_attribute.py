@@ -77,6 +77,10 @@ def has_attribute(molecular_system, attribute, include_none=False, skip_digestio
             if molecular_system.molecular_mechanics.partial_charge is None:
                 output = False
 
+        elif attribute=='atom_ff_type':
+            if molecular_system.molecular_mechanics.atom_ff_type is None:
+                output = False
+
         elif attribute=='forcefield':
             if molecular_system.molecular_mechanics.forcefield is None:
                 output = False

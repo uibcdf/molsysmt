@@ -293,7 +293,6 @@ def _build_molsys_from_pdb_handler(item, get_missing_bonds=True):
     if group_rows:
         tmp_item.topology.groups["group_id"] = np.array([row[0] for row in group_rows], dtype=object)
         tmp_item.topology.groups["group_name"] = np.array([row[1] for row in group_rows], dtype=object)
-        tmp_item.topology.groups["chain_index"] = np.array([row[2] for row in group_rows], dtype=int)
         tmp_item.topology.groups["group_type"] = _get_group_types(group_rows, atom_rows)
 
     if chain_rows:
@@ -331,18 +330,25 @@ def _build_molsys_from_pdb_handler(item, get_missing_bonds=True):
                     chain_to_name[ch] = name
 
         if chain_to_name:
-            # Map molecule_index → chain_id via groups['molecule_index'] and chains['chain_id']
-            grp_mol   = tmp_item.topology.groups['molecule_index'].to_numpy()
-            grp_chain = tmp_item.topology.groups['chain_index'].to_numpy()
+            # Map molecule_index → chain_id via atoms (chain_index is atom-level, not group-level)
+            atom_grp   = tmp_item.topology.atoms['group_index'].to_numpy()
+            atom_chain = tmp_item.topology.atoms['chain_index'].to_numpy()
+            grp_mol    = tmp_item.topology.groups['molecule_index'].to_numpy()
             chain_ids_arr = tmp_item.topology.chains['chain_id'].to_numpy()
             mol_names = tmp_item.topology.molecules['molecule_name'].to_numpy(dtype=object)
             mol_types = tmp_item.topology.molecules['molecule_type'].to_numpy(dtype=object)
-            # Build molecule → first chain_id (take the chain of the first group in the molecule)
+            # Build group → chain_id from atoms (first atom of each group)
+            grp_to_chain_idx = {}
+            for ai in range(len(atom_grp)):
+                gi = atom_grp[ai]
+                if gi not in grp_to_chain_idx:
+                    grp_to_chain_idx[gi] = atom_chain[ai]
+            # Build molecule → first chain_id
             mol_to_chain_id = {}
             for grp_idx in range(len(grp_mol)):
                 mol_idx = grp_mol[grp_idx]
-                if mol_idx not in mol_to_chain_id:
-                    mol_to_chain_id[mol_idx] = chain_ids_arr[grp_chain[grp_idx]]
+                if mol_idx not in mol_to_chain_id and grp_idx in grp_to_chain_idx:
+                    mol_to_chain_id[mol_idx] = chain_ids_arr[grp_to_chain_idx[grp_idx]]
             for mol_idx in range(len(mol_names)):
                 if mol_types[mol_idx] not in ('protein', 'peptide'):
                     continue

@@ -20,6 +20,7 @@ def merge(items, atom_indices='all', skip_digestion=False):
 
     list_formal_charge = []
     list_partial_charge = []
+    list_atom_ff_type = []
 
     for aux_item, aux_atom_indices in zip(items, atom_indices):
 
@@ -27,20 +28,20 @@ def merge(items, atom_indices='all', skip_digestion=False):
 
             list_formal_charge.append(aux_item.formal_charge)
             list_partial_charge.append(aux_item.partial_charge)
+            list_atom_ff_type.append(aux_item.atom_ff_type)
 
         else:
 
-            if len(aux_atom_indices)>0:
+            if len(aux_atom_indices) > 0:
 
-                if aux_atom_indices.formal_charge is not None:
-                    list_formal_charge.append(aux_item.formal_charge[aux_atom_indices])
-                else:
-                    list_form_charge.append(None)
+                fc = aux_item.formal_charge
+                list_formal_charge.append(fc[aux_atom_indices] if fc is not None else None)
 
-                if aux_atom_indices.partial_charge is not None:
-                    list_partial_charge.append(aux_item.partial_charge[aux_atom_indices])
-                else:
-                    list_partial_charge.append(None)
+                pc = aux_item.partial_charge
+                list_partial_charge.append(pc[aux_atom_indices] if pc is not None else None)
+
+                aft = aux_item.atom_ff_type
+                list_atom_ff_type.append(aft[aux_atom_indices] if aft is not None else None)
 
     if any([ii is None for ii in list_formal_charge]):
         output.formal_charge = None
@@ -51,6 +52,12 @@ def merge(items, atom_indices='all', skip_digestion=False):
         output.partial_charge = None
     else:
         output.partial_charge = puw.utils.sequences.concatenate(list_partial_charge)
+
+    if any([ii is None for ii in list_atom_ff_type]):
+        output.atom_ff_type = None
+    else:
+        import numpy as np
+        output.atom_ff_type = np.concatenate(list_atom_ff_type)
 
     return output
 

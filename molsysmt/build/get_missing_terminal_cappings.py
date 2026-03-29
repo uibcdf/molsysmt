@@ -68,11 +68,11 @@ def get_missing_terminal_cappings(molecular_system, selection='all', syntax='Mol
 
         # Per-group: chain index, group_id, group_name
         chain_index_per_group = get(molecular_system, element='group', selection=group_indices,
-                                    chain_index=True)
+                                    chain_index=True, skip_digestion=True)
         group_id_per_group = get(molecular_system, element='group', selection=group_indices,
-                                 group_id=True)
+                                 group_id=True, skip_digestion=True)
         group_name_per_group = get(molecular_system, element='group', selection=group_indices,
-                                   group_name=True)
+                                   group_name=True, skip_digestion=True)
 
         # Collect amino-acid groups per chain: {chain_idx: [(group_id_int, group_idx), ...]}
         chain_aa_groups: dict = {}
@@ -115,9 +115,10 @@ def get_missing_terminal_cappings(molecular_system, selection='all', syntax='Mol
             atom_names = get(molecular_system, element='atom',
                              selection=list(
                                  get(molecular_system, element='group',
-                                     selection=c_term_group_idx, atom_index=True)[0]
+                                     selection=c_term_group_idx, atom_index=True,
+                                     skip_digestion=True)[0]
                              ),
-                             atom_name=True)
+                             atom_name=True, skip_digestion=True)
 
             if 'OXT' not in atom_names:
                 output[c_term_group_idx] = ['OXT']

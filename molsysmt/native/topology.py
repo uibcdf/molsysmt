@@ -6,16 +6,33 @@ from molsysmt.lib.series import occurrence_order
 import string
 from smonitor import signal
 
+# Canonical schemas — these are fixed by design.
+# To change them a conscious, explicit decision must be made and documented.
+#
+# Atoms: atom_id, atom_name, atom_type, group_index, component_index, chain_index
+#   component_index and chain_index are defined at the ATOM level; they capture
+#   covalent connectivity (component) and physical chain separation (chain).
+#   A covalent drug–receptor adduct is TWO molecules but ONE component, which is
+#   only expressible when component membership is atom-level, not group-level.
+#
+# Groups: group_id, group_name, group_type, molecule_index
+#   Groups do NOT have component_index or chain_index.  Those belong to atoms.
+
+_ATOMS_COLUMNS  = frozenset(['atom_id', 'atom_name', 'atom_type',
+                              'group_index', 'component_index', 'chain_index'])
+_GROUPS_COLUMNS = frozenset(['group_id', 'group_name', 'group_type', 'molecule_index'])
+
+
 class Atoms_DataFrame(pd.DataFrame):
-    """Pandas DataFrame wrapper storing atom-level topology fields."""
+    """Pandas DataFrame wrapper storing atom-level topology fields.
+
+    Schema (fixed): atom_id, atom_name, atom_type, group_index,
+    component_index, chain_index.
+    """
 
     def __init__(self, n_atoms=0):
-        """Initialize an atoms table with the expected columns and dtypes."""
-
         columns = ['atom_id', 'atom_name', 'atom_type', 'group_index', 'component_index', 'chain_index']
-
         super().__init__(index=range(n_atoms), columns=columns)
-
         self['atom_id'] = self['atom_id'].astype('string')
         self['atom_name'] = self['atom_name'].astype(str)
         self['atom_type'] = self['atom_type'].astype(str)
@@ -23,34 +40,51 @@ class Atoms_DataFrame(pd.DataFrame):
         self['component_index'] = self['component_index'].astype('Int64')
         self['chain_index'] = self['chain_index'].astype('Int64')
 
-    def _fix_null_values(self):
-        """Normalize missing values and enforce string ids."""
+    def __setitem__(self, key, value):
+        if isinstance(key, str) and key not in _ATOMS_COLUMNS:
+            raise AttributeError(
+                f"Atoms_DataFrame has no column '{key}'. "
+                f"Allowed columns: {sorted(_ATOMS_COLUMNS)}. "
+                "To change the schema, update topology.py deliberately."
+            )
+        super().__setitem__(key, value)
 
+    def _fix_null_values(self):
         for column in self:
-            self[column]=self[column].fillna(pd.NA)
+            self[column] = self[column].fillna(pd.NA)
         self['atom_id'] = self['atom_id'].astype('string')
 
 
 class Groups_DataFrame(pd.DataFrame):
-    """Pandas DataFrame wrapper storing group-level fields."""
+    """Pandas DataFrame wrapper storing group-level topology fields.
+
+    Schema (fixed): group_id, group_name, group_type, molecule_index.
+
+    component_index and chain_index are NOT group-level attributes — they
+    live on atoms.  Writing them here raises AttributeError.
+    """
 
     def __init__(self, n_groups=0):
-        """Initialize a groups table with default types."""
-
         columns = ['group_id', 'group_name', 'group_type', 'molecule_index']
-
         super().__init__(index=range(n_groups), columns=columns)
-
         self['group_id'] = self['group_id'].astype('string')
         self['group_name'] = self['group_name'].astype(str)
         self['group_type'] = self['group_type'].astype(str)
         self['molecule_index'] = self['molecule_index'].astype('Int64')
 
-    def _fix_null_values(self):
-        """Normalize missing values and enforce string ids."""
+    def __setitem__(self, key, value):
+        if isinstance(key, str) and key not in _GROUPS_COLUMNS:
+            raise AttributeError(
+                f"Groups_DataFrame has no column '{key}'. "
+                f"Allowed columns: {sorted(_GROUPS_COLUMNS)}. "
+                "component_index and chain_index belong to atoms, not groups. "
+                "To change the schema, update topology.py deliberately."
+            )
+        super().__setitem__(key, value)
 
+    def _fix_null_values(self):
         for column in self:
-            self[column]=self[column].fillna(pd.NA)
+            self[column] = self[column].fillna(pd.NA)
         self['group_id'] = self['group_id'].astype('string')
 
 
@@ -367,8 +401,6 @@ class Topology():
             tmp_item.groups['molecule_index'] = tmp_item.groups['molecule_index'].map({old: new for new, old in enumerate(old_molecule_indices)}).astype('Int64')
             tmp_item.molecules['entity_index'] = tmp_item.molecules['entity_index'].map({old: new for new, old in enumerate(old_entity_indices)}).astype('Int64')
             tmp_item.atoms['component_index'] = tmp_item.atoms['component_index'].map({old: new for new, old in enumerate(old_component_indices)}).astype('Int64')
-            if 'component_index' in tmp_item.groups.columns:
-                tmp_item.groups['component_index'] = tmp_item.groups['component_index'].map({old: new for new, old in enumerate(old_component_indices)}).astype('Int64')
             tmp_item.atoms['chain_index'] = tmp_item.atoms['chain_index'].map({old: new for new, old in enumerate(old_chain_indices)}).astype('Int64')
 
             del old_group_indices, old_molecule_indices, old_entity_indices, old_component_indices, old_chain_indices
@@ -455,8 +487,8 @@ class Topology():
             self.rebuild_atoms(redefine_ids=True, redefine_types=False)
             self.rebuild_groups(redefine_ids=True, redefine_types=False)
 
-        self.rebuild_components(redefine_indices=False, redefine_ids=(not keep_ids), redefine_names=True,
-                                redefine_types=False)
+        self.rebuild_components(redefine_indices=True, redefine_ids=(not keep_ids), redefine_names=True,
+                                redefine_types=True)
         self.rebuild_chains(redefine_ids=(not keep_ids), redefine_types=True, redefine_names=False)
 
         self.rebuild_molecules(redefine_indices=False, redefine_ids=(not keep_ids), redefine_types=False,
@@ -606,12 +638,11 @@ class Topology():
         if redefine_types and _needs_columns(self.groups, ["group_type"]):
             self.rebuild_groups(redefine_ids=False, redefine_types=True)
 
-        need_component_indices = (redefine_names or redefine_types) and _needs_columns(self.groups, ["component_index"])
+        need_component_indices = (redefine_names or redefine_types) and _needs_columns(self.atoms, ["component_index"])
 
         if redefine_indices or force or need_component_indices:
-            component_index_of_atoms, component_index_of_groups = infer_component_indices_from_topology(self)
+            component_index_of_atoms = infer_component_indices_from_topology(self)
             self.atoms['component_index'] = component_index_of_atoms.astype(int)
-            self.groups['component_index'] = component_index_of_groups.astype(int)
 
             if len(component_index_of_atoms) > 0:
                 n_components = int(np.max(component_index_of_atoms)) + 1
@@ -619,7 +650,7 @@ class Topology():
                 n_components = 0
             self.components = Components_DataFrame(n_components=n_components)
 
-            del component_index_of_atoms, component_index_of_groups
+            del component_index_of_atoms
 
         if redefine_ids:
             self.components['component_id'] = fallback_ids(self.n_components)
@@ -658,7 +689,7 @@ class Topology():
 
         need_component_types = (redefine_names or redefine_types) and _needs_columns(self.components, ["component_type"])
         need_component_names = redefine_names and _needs_columns(self.components, ["component_name"])
-        need_component_indices = (redefine_names or redefine_types or redefine_indices) and _needs_columns(self.groups, ["component_index"])
+        need_component_indices = (redefine_names or redefine_types or redefine_indices) and _needs_columns(self.atoms, ["component_index"])
         if need_component_indices or need_component_types or need_component_names:
             self.rebuild_components(
                 redefine_indices=need_component_indices,
@@ -719,14 +750,11 @@ class Topology():
         if need_molecule_types:
             self.rebuild_molecules(redefine_indices=False, redefine_ids=False, redefine_names=False, redefine_types=True)
 
-        need_chain_indices = (redefine_names or redefine_types) and (
-            _needs_columns(self.atoms, ["chain_index"]) or _needs_columns(self.groups, ["chain_index"])
-        )
+        need_chain_indices = (redefine_names or redefine_types) and _needs_columns(self.atoms, ["chain_index"])
 
         if redefine_indices or need_chain_indices:
-            chain_index_of_atoms, chain_index_of_groups = infer_chain_indices_from_topology(self)
+            chain_index_of_atoms = infer_chain_indices_from_topology(self)
             self.atoms["chain_index"] = np.array(chain_index_of_atoms, dtype=int)
-            self.groups["chain_index"] = np.array(chain_index_of_groups, dtype=int)
 
             if len(chain_index_of_atoms) > 0:
                 n_chains = int(np.max(chain_index_of_atoms)) + 1
@@ -734,7 +762,7 @@ class Topology():
                 n_chains = 0
             self.reset_chains(n_chains = n_chains)
 
-            del chain_index_of_atoms, chain_index_of_groups
+            del chain_index_of_atoms
 
         if redefine_ids:
             self.chains["chain_id"] = infer_chain_ids_from_topology(self)

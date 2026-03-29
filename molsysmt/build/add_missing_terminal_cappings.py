@@ -262,6 +262,69 @@ def add_missing_terminal_cappings(molecular_system, N_terminal=None, C_terminal=
             if new_atom_info_a:
                 native_ms = append_atoms_to_molsys(native_ms, new_atom_info_a, new_bonds_info_a)
 
+        # Step A3: add H2, H3 at N-terminus if missing (free NH3+ / NH2).
+        # Only when N_terminal is None (no ACE will be prepended).
+        if N_terminal is None:
+            from molsysmt.build._native_placers import place_hydrogens_on_parent, h_bond_length
+            from molsysmt.element.group.amino_acid import group_names as _aa_group_names
+            aa_names_set = frozenset(_aa_group_names)
+            topo_n = native_ms.topology
+            coords_n = puw.get_value(native_ms.structures.coordinates, to_unit='nm')
+            n_structures_n = coords_n.shape[0]
+            new_atom_info_n = []
+            new_bonds_info_n = []
+
+            # For each chain, find the first amino acid group.
+            chain_indices_n = sorted(topo_n.atoms['chain_index'].dropna().astype(int).unique())
+            for chain_idx in chain_indices_n:
+                chain_mask = topo_n.atoms['chain_index'] == chain_idx
+                group_indices_in_chain = sorted(
+                    topo_n.atoms[chain_mask]['group_index'].dropna().astype(int).unique()
+                )
+                nterm_group_idx = None
+                for g_idx in group_indices_in_chain:
+                    if g_idx < len(topo_n.groups):
+                        g_name = topo_n.groups.loc[g_idx, 'group_name']
+                        if g_name in aa_names_set:
+                            nterm_group_idx = g_idx
+                            break
+                if nterm_group_idx is None:
+                    continue
+                # If the first amino acid is not the first group in the chain,
+                # the N-terminus is already capped (e.g. by ACE). Skip.
+                if nterm_group_idx != group_indices_in_chain[0]:
+                    continue
+
+                gmask = topo_n.atoms['group_index'] == nterm_group_idx
+                grow = topo_n.atoms[gmask]
+                existing_names = frozenset(grow['atom_name'].tolist())
+                missing_h = [h for h in ['H2', 'H3'] if h not in existing_names]
+                if not missing_h:
+                    continue
+
+                def _pos_n(aname):
+                    r = grow[grow['atom_name'] == aname]
+                    return coords_n[:, r.index[0], :] if len(r) else None
+
+                N_p  = _pos_n('N')
+                H_p  = _pos_n('H')
+                CA_p = _pos_n('CA')
+                if N_p is None or H_p is None or CA_p is None:
+                    continue
+
+                n_total_so_far = topo_n.n_atoms + len(new_atom_info_n)
+                h_arrays = place_hydrogens_on_parent(
+                    N_p, [H_p, CA_p], 2, 'sp3', h_bond_length('N'), n_structures_n
+                )
+                N_idx_in_topo = grow[grow['atom_name'] == 'N'].index[0]
+                for k, h_name in enumerate(missing_h):
+                    h_coord = h_arrays[k]
+                    new_atom_info_n.append((nterm_group_idx, h_name, h_coord))
+                    new_bonds_info_n.append((int(N_idx_in_topo), n_total_so_far + k))
+
+            if new_atom_info_n:
+                native_ms = append_atoms_to_molsys(native_ms, new_atom_info_n, new_bonds_info_n)
+
         # If no capping groups requested, we're done
         if N_terminal is None and C_terminal is None:
             output_molecular_system = convert(native_ms, to_form=form_in, skip_digestion=True) \

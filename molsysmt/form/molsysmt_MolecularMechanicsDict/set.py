@@ -37,6 +37,19 @@ def set_partial_charge_to_atom(item, atom_indices='all', value=None, skip_digest
 
     pass
 
+@arg_digest(form='molsysmt.MolecularMechanicsDict')
+def set_atom_ff_type_to_atom(item, atom_indices='all', value=None, skip_digestion=False):
+
+    if is_all(atom_indices):
+
+        item['atom_ff_type'] = value
+
+    else:
+
+        item['atom_ff_type'][atom_indices] = value
+
+    pass
+
 ###
 ### System
 ###

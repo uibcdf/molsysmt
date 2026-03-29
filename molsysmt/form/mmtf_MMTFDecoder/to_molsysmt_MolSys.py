@@ -258,6 +258,10 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
     tmp_item.topology.rebuild_components(redefine_indices=True, redefine_ids=True,
                                          redefine_names=False, redefine_types=True)
 
+    # component_index is atom-level; derive per-group once for all lookups below
+    from molsysmt.native._topology_infer import _component_index_per_group
+    _grp_comp = _component_index_per_group(tmp_item.topology)
+
     molecule_index = 0
 
     dict_chain_to_groups = tmp_item.topology.atoms.groupby('chain_index')['group_index'].unique().to_dict()
@@ -276,7 +280,7 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
 
                 for group_index in group_indices:
 
-                    component_index = int(tmp_item.topology.groups.at[group_index,'component_index'])
+                    component_index = int(_grp_comp[group_index])
 
                     tmp_item.topology.components.iat[component_index,2]='water'
                     tmp_item.topology.components.iat[component_index,1]='water'
@@ -286,7 +290,7 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
 
                 for group_index in group_indices:
 
-                    component_index = int(tmp_item.topology.groups.at[group_index,'component_index'])
+                    component_index = int(_grp_comp[group_index])
 
                     tmp_item.topology.components.iat[component_index,2]='ion'
                     tmp_item.topology.components.iat[component_index,1]=entity_name
@@ -296,7 +300,7 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
 
                 for group_index in group_indices:
 
-                    component_index = int(tmp_item.topology.groups.at[group_index,'component_index'])
+                    component_index = int(_grp_comp[group_index])
 
                     tmp_item.topology.components.iat[component_index,2]='small molecule'
                     tmp_item.topology.components.iat[component_index,1]=entity_name
@@ -306,7 +310,7 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
 
                 for group_index in group_indices:
 
-                    component_index = int(tmp_item.topology.groups.at[group_index,'component_index'])
+                    component_index = int(_grp_comp[group_index])
 
                     tmp_item.topology.components.iat[component_index,2]='lipid'
                     tmp_item.topology.components.iat[component_index,1]=entity_name
@@ -329,7 +333,10 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
                 else:
                     tmp_type = 'peptide'
 
-                component_indices = tmp_item.topology.groups['component_index'].iloc[group_indices].unique()
+                # component_index is atom-level; derive per-group from atoms
+                from molsysmt.native._topology_infer import _component_index_per_group
+                _grp_comp = _component_index_per_group(tmp_item.topology)
+                component_indices = np.unique(_grp_comp[group_indices])
 
                 for component_index in component_indices:
 

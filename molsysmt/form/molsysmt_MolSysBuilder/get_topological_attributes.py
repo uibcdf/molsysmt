@@ -106,10 +106,14 @@ def get_chain_index_from_atom(item, indices="all", skip_digestion=False):
 
 @arg_digest(form=form)
 def get_chain_index_from_group(item, indices="all", skip_digestion=False):
-    if "chain_index" not in item.topology.groups.columns:
+    # chain_index is atom-level only; derive per-group from atoms
+    if "chain_index" not in item.topology.atoms.columns:
         values = [None] * item.topology.n_groups
     else:
-        values = item.topology.groups["chain_index"].to_numpy(dtype=object)
+        _adf = item.topology.atoms[["group_index", "chain_index"]].dropna()
+        _gc = _adf.groupby("group_index", sort=False)["chain_index"].first()
+        values = np.full(item.topology.n_groups, None, dtype=object)
+        values[_gc.index.to_numpy(dtype=np.int64)] = _gc.to_numpy()
     return _normalize_sequence(_take(np.asarray(values, dtype=object), indices))
 
 

@@ -186,6 +186,22 @@ def append_atoms_to_molsys(native_molsys, new_atom_info, new_bonds_info):
     new_atoms["component_index"] = new_atoms["component_index"].astype("Int64")
     new_atoms["chain_index"]     = new_atoms["chain_index"].astype("Int64")
     new_atoms["atom_id"]         = new_atoms["atom_id"].astype("string")
+
+    # Sort atoms by group_index so that atoms of each residue are contiguous.
+    # This is required by OpenMM and is good practice in general.
+    # Build old→new index mapping before and after sort.
+    sort_order = new_atoms["group_index"].to_numpy(dtype="float64")
+    new_order = list(np.argsort(sort_order, kind="stable"))
+    old_to_new = {old: new for new, old in enumerate(new_order)}
+    new_atoms = new_atoms.iloc[new_order].reset_index(drop=True)
+    # Also reorder coordinates accordingly
+    if new_coords_list:
+        extra_coords = np.stack(new_coords_list, axis=1)        # (n_s, n_new, 3)
+        all_coords_combined = np.concatenate([all_coords, extra_coords], axis=1)
+    else:
+        all_coords_combined = all_coords.copy()
+    new_all_coords = all_coords_combined[:, new_order, :]
+
     new_topo.atoms     = new_atoms
     new_topo.groups    = topo.groups.copy()
     new_topo.components = topo.components.copy()
@@ -193,7 +209,7 @@ def append_atoms_to_molsys(native_molsys, new_atom_info, new_bonds_info):
     new_topo.entities   = topo.entities.copy()
     new_topo.chains     = topo.chains.copy()
 
-    # Remap bonds (existing bonds are unchanged; new bonds use absolute new indices)
+    # Build new bonds: first combine old bonds and new bonds, then remap indices.
     bonds_copy = topo.bonds.copy()
     if new_bonds_info:
         extra = Bonds_DataFrame(n_bonds=len(new_bonds_info))
@@ -201,23 +217,20 @@ def append_atoms_to_molsys(native_molsys, new_atom_info, new_bonds_info):
             extra.loc[k, "atom1_index"] = int(i1)
             extra.loc[k, "atom2_index"] = int(i2)
         new_bonds = pd.concat([bonds_copy, extra], ignore_index=True)
-        new_bonds["atom1_index"] = new_bonds["atom1_index"].astype("Int64")
-        new_bonds["atom2_index"] = new_bonds["atom2_index"].astype("Int64")
-        _sort_bonds_inplace(new_bonds)
-        new_topo.bonds = new_bonds
     else:
-        new_topo.bonds = bonds_copy
-
-    # --- Build new coordinates ---
-    if new_coords_list:
-        extra_coords = np.stack(new_coords_list, axis=1)        # (n_s, n_new, 3)
-        new_all_coords = np.concatenate([all_coords, extra_coords], axis=1)
-    else:
-        new_all_coords = all_coords.copy()
+        new_bonds = bonds_copy
+    # Remap all atom indices to account for the sort reordering
+    if old_to_new:
+        new_bonds["atom1_index"] = new_bonds["atom1_index"].map(old_to_new)
+        new_bonds["atom2_index"] = new_bonds["atom2_index"].map(old_to_new)
+    new_bonds["atom1_index"] = new_bonds["atom1_index"].astype("Int64")
+    new_bonds["atom2_index"] = new_bonds["atom2_index"].astype("Int64")
+    _sort_bonds_inplace(new_bonds)
+    new_topo.bonds = new_bonds
 
     # --- Assemble new MolSys ---
     new_molsys = MolSys()
-    new_molsys.topology  = new_topo
+    new_molsys.topology   = new_topo
     new_molsys.structures = structs.copy()
     new_molsys.structures.coordinates = puw.quantity(new_all_coords, "nm")
 
@@ -348,6 +361,12 @@ def place_ace_group(N_pos, CA_pos, C_pos, template, n_structures):
         result["O"][frame]   = C_ACE + r_C_O   * v_O
         result["CH3"][frame] = C_ACE + r_C_CH3 * v_CH3
 
+    # Add methyl H atoms: three H atoms around CH3, sp3, neighbour = C
+    h_arrays = place_hydrogens_on_parent(result["CH3"], [result["C"]], 3, 'sp3', h_bond_length('C'), n_structures)
+    result["HH31"] = h_arrays[0]
+    result["HH32"] = h_arrays[1]
+    result["HH33"] = h_arrays[2]
+
     return result
 
 
@@ -420,6 +439,15 @@ def place_nme_group(C_pos, CA_pos, N_pos_last, template, n_structures):
 
         result["N"][frame] = N_NME
         result["C"][frame] = C_NME
+
+    # Add H on N: neighbours are C (methyl) and C_pos (last-residue C)
+    h_N = place_hydrogens_on_parent(result["N"], [result["C"], C_pos], 1, 'sp3', h_bond_length('N'), n_structures)
+    result["H"] = h_N[0]
+    # Add methyl H atoms on C: neighbour is N
+    h_C = place_hydrogens_on_parent(result["C"], [result["N"]], 3, 'sp3', h_bond_length('C'), n_structures)
+    result["H1"] = h_C[0]
+    result["H2"] = h_C[1]
+    result["H3"] = h_C[2]
 
     return result
 

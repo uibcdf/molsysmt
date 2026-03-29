@@ -226,8 +226,9 @@ class TestAppendAtomsToMolsys:
         coords_dummy = np.zeros((1, 3), dtype=np.float64)
         new_atom_info = [(1, "XX", coords_dummy)]   # group 1
         result = append_atoms_to_molsys(aaa_molsys, new_atom_info, [])
-        last_idx = result.topology.n_atoms - 1
-        assert result.topology.atoms.loc[last_idx, "group_index"] == 1
+        xx_rows = result.topology.atoms[result.topology.atoms["atom_name"] == "XX"]
+        assert len(xx_rows) == 1
+        assert int(xx_rows.iloc[0]["group_index"]) == 1
 
     def test_bond_is_added(self, aaa_molsys):
         n_bonds_orig = aaa_molsys.topology.bonds.shape[0]

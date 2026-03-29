@@ -15,11 +15,10 @@ import numpy as np
 def set_formal_charge_to_atom(item, atom_indices='all', value=None, skip_digestion=False):
 
     if is_all(atom_indices):
-
         item.formal_charge = value
-
     else:
-        item.formal_charge[atom_indices] = value
+        item._ensure_atoms_ff(len(item.atoms_ff) if item.atoms_ff is not None else len(atom_indices))
+        item.atoms_ff.loc[atom_indices, 'formal_charge'] = value
 
     pass
 
@@ -27,11 +26,21 @@ def set_formal_charge_to_atom(item, atom_indices='all', value=None, skip_digesti
 def set_partial_charge_to_atom(item, atom_indices='all', value=None, skip_digestion=False):
 
     if is_all(atom_indices):
-
         item.partial_charge = value
-
     else:
-        item.partial_charge[atom_indices] = value
+        item._ensure_atoms_ff(len(item.atoms_ff) if item.atoms_ff is not None else len(atom_indices))
+        item.atoms_ff.loc[atom_indices, 'partial_charge'] = value
+
+    pass
+
+@arg_digest(form='molsysmt.MolecularMechanics')
+def set_atom_ff_type_to_atom(item, atom_indices='all', value=None, skip_digestion=False):
+
+    if is_all(atom_indices):
+        item.atom_ff_type = value
+    else:
+        item._ensure_atoms_ff(len(item.atoms_ff) if item.atoms_ff is not None else len(atom_indices))
+        item.atoms_ff.loc[atom_indices, 'atom_ff_type'] = value
 
     pass
 

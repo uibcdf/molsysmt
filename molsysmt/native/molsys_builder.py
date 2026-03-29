@@ -193,27 +193,37 @@ class MolSysBuilder:
 
     @signal(tags=["native", "builder"])
     @arg_digest()
-    def assign_groups_to_new_chain(
-        self,
-        group_indices,
-        chain_id=None,
-        chain_name=None,
-        chain_type=None,
-        skip_digestion=False,
-    ):
+    def add_chain(self, group_indices, chain_id=None, chain_name=None, chain_type=None, allow_reassign=False, skip_digestion=False):
+        """Add a new chain and assign *group_indices* to it.
 
+        Parameters
+        ----------
+        group_indices : array-like of int
+            Groups to assign to the new chain.
+        chain_id, chain_name, chain_type : str, optional
+            Metadata for the new chain entry.
+        allow_reassign : bool, default False
+            When False (default), raises StructuralInconsistencyError if any
+            of the requested groups is already assigned to a chain.
+            Set ``allow_reassign=True`` to allow reassignment (e.g. moving
+            waters to a dedicated chain after loading).
+        """
         group_indices = self._indices_array(group_indices)
         self._validate_existing_indices(group_indices, upper_bound=self.topology.n_groups, element_name="Chain")
+
+        if not allow_reassign and "chain_index" in self.topology.atoms.columns:
+            group_mask = self.topology.atoms["group_index"].isin(group_indices.tolist())
+            existing = self.topology.atoms.loc[group_mask, "chain_index"]
+            if len(existing) and existing.notna().any():
+                from molsysmt._private.smonitor import StructuralInconsistencyError
+                raise StructuralInconsistencyError("Groups already assigned to a chain cannot be reassigned.")
 
         chain_index = self.topology.n_chains
         self.topology.chains.loc[chain_index, "chain_id"] = self._normalize_optional_string(chain_id, default=str(chain_index))
         self.topology.chains.loc[chain_index, "chain_name"] = self._normalize_optional_string(chain_name, default=pd.NA)
         self.topology.chains.loc[chain_index, "chain_type"] = self._normalize_optional_string(chain_type, default=pd.NA)
 
-        if "chain_index" not in self.topology.groups.columns:
-            self.topology.groups["chain_index"] = pd.Series(pd.array([pd.NA] * self.topology.n_groups, dtype="Int64"))
-        self.topology.groups.loc[group_indices, "chain_index"] = int(chain_index)
-
+        # chain_index lives on atoms only
         if "chain_index" not in self.topology.atoms.columns:
             self.topology.atoms["chain_index"] = pd.Series(pd.array([pd.NA] * self.topology.n_atoms, dtype="Int64"))
         for group_index in group_indices:
@@ -222,34 +232,16 @@ class MolSysBuilder:
 
         return chain_index
 
-    @signal(tags=["native", "builder"])
-    @arg_digest()
-    def add_chain(self, group_indices, chain_id=None, chain_name=None, chain_type=None, skip_digestion=False):
-
-        group_indices = self._indices_array(group_indices)
-        self._validate_existing_indices(group_indices, upper_bound=self.topology.n_groups, element_name="Chain")
-
-        current_chain_index = self.topology.groups.get("chain_index", pd.Series(dtype="Int64"))
-        if len(current_chain_index) and current_chain_index.iloc[group_indices].notna().any():
-            from molsysmt._private.smonitor import StructuralInconsistencyError
-            raise StructuralInconsistencyError("Groups already assigned to a chain cannot be reassigned.")
-
-        chain_index = self.topology.n_chains
-        self.topology.chains.loc[chain_index, "chain_id"] = self._normalize_optional_string(chain_id, default=str(chain_index))
-        self.topology.chains.loc[chain_index, "chain_name"] = self._normalize_optional_string(chain_name, default=pd.NA)
-        self.topology.chains.loc[chain_index, "chain_type"] = self._normalize_optional_string(chain_type, default=pd.NA)
-
-        if "chain_index" not in self.topology.groups.columns:
-            self.topology.groups["chain_index"] = pd.Series(pd.array([pd.NA] * self.topology.n_groups, dtype="Int64"))
-        self.topology.groups.loc[group_indices, "chain_index"] = int(chain_index)
-        self.topology.atoms["chain_index"] = pd.Series(pd.array([pd.NA] * self.topology.n_atoms, dtype="Int64"))
-        for group_index in range(self.topology.n_groups):
-            if pd.isna(self.topology.groups.loc[group_index, "chain_index"]):
-                continue
-            atom_mask = self.topology.atoms["group_index"] == group_index
-            self.topology.atoms.loc[atom_mask, "chain_index"] = int(self.topology.groups.loc[group_index, "chain_index"])
-
-        return chain_index
+    def assign_groups_to_new_chain(self, group_indices, chain_id=None, chain_name=None, chain_type=None, skip_digestion=False):
+        """Alias for ``add_chain(..., allow_reassign=True)``; allows reassigning groups already in a chain."""
+        return self.add_chain(
+            group_indices,
+            chain_id=chain_id,
+            chain_name=chain_name,
+            chain_type=chain_type,
+            allow_reassign=True,
+            skip_digestion=skip_digestion,
+        )
 
     @signal(tags=["native", "builder"])
     @arg_digest()
@@ -354,57 +346,55 @@ class MolSysBuilder:
             topology.groups.loc[group_index, "group_name"] = "UNK"
             topology.groups.loc[group_index, "group_type"] = pd.NA
             topology.groups.loc[group_index, "molecule_index"] = pd.NA
-            if "chain_index" not in topology.groups.columns:
-                topology.groups["chain_index"] = pd.Series(pd.array([pd.NA] * topology.n_groups, dtype="Int64"))
             topology.atoms.loc[atom_index, "group_index"] = int(group_index)
 
     def _fill_chain_fallbacks(self, topology):
-        from ._topology_infer import infer_chain_indices_from_topology
+        # Architecture invariant: chain_index lives on atoms only.
+        if topology.n_atoms == 0:
+            return
 
-        if "chain_index" not in topology.groups.columns:
-            topology.groups["chain_index"] = pd.Series(pd.array([pd.NA] * topology.n_groups, dtype="Int64"))
-        if topology.n_groups > 0 and topology.groups["chain_index"].isna().any() and topology.n_atoms > 0:
-            atom_chain_index, group_chain_index = infer_chain_indices_from_topology(topology)
-            missing = topology.groups["chain_index"].isna().to_numpy()
-            topology.groups.loc[missing, "chain_index"] = group_chain_index[missing].astype(int)
-            if "chain_index" not in topology.atoms.columns or topology.atoms["chain_index"].isna().any():
-                topology.atoms["chain_index"] = pd.Series(atom_chain_index.astype(int), dtype="Int64")
-        assigned_chain_index = topology.groups["chain_index"].dropna()
-        if len(assigned_chain_index) > 0:
-            required_n_chains = int(assigned_chain_index.astype(int).max()) + 1
+        # Ensure the column exists
+        if "chain_index" not in topology.atoms.columns:
+            topology.atoms["chain_index"] = pd.Series(pd.array([pd.NA] * topology.n_atoms, dtype="Int64"))
+
+        # Create chain entries for chain indices already assigned to atoms
+        assigned = topology.atoms["chain_index"].dropna()
+        if len(assigned) > 0:
+            required_n_chains = int(assigned.astype(int).max()) + 1
             for chain_index in range(topology.n_chains, required_n_chains):
                 topology.chains.loc[chain_index, "chain_id"] = str(chain_index)
                 topology.chains.loc[chain_index, "chain_name"] = pd.NA
                 topology.chains.loc[chain_index, "chain_type"] = pd.NA
-        if topology.n_groups == 0:
-            return
-        unassigned = topology.groups["chain_index"].isna()
+
+        # Any remaining unassigned atoms go into a new fallback chain
+        unassigned = topology.atoms["chain_index"].isna()
         if unassigned.any():
             chain_index = topology.n_chains
             topology.chains.loc[chain_index, "chain_id"] = str(chain_index)
             topology.chains.loc[chain_index, "chain_name"] = pd.NA
             topology.chains.loc[chain_index, "chain_type"] = pd.NA
-            topology.groups.loc[unassigned, "chain_index"] = int(chain_index)
-        topology.atoms["chain_index"] = pd.Series(pd.array([pd.NA] * topology.n_atoms, dtype="Int64"))
-        for group_index in range(topology.n_groups):
-            atom_mask = topology.atoms["group_index"] == group_index
-            topology.atoms.loc[atom_mask, "chain_index"] = int(topology.groups.loc[group_index, "chain_index"])
+            topology.atoms.loc[unassigned, "chain_index"] = int(chain_index)
 
     def _fill_molecule_fallbacks(self, topology):
         from ._topology_infer import infer_component_indices_from_topology, infer_molecule_names_from_topology, infer_molecule_types_from_topology
 
         if topology.n_groups == 0:
             return
-        atom_component_index, group_component_index = infer_component_indices_from_topology(topology)
+        atom_component_index = infer_component_indices_from_topology(topology)
         topology.atoms["component_index"] = atom_component_index.astype(int)
-        topology.groups["component_index"] = group_component_index.astype(int)
         n_components = int(np.max(atom_component_index)) + 1 if len(atom_component_index) > 0 else 0
         topology.reset_components(n_components=n_components)
         topology.rebuild_components(redefine_indices=False, redefine_ids=True, redefine_types=True, redefine_names=True)
 
         unassigned = topology.groups["molecule_index"].isna()
         if unassigned.any():
-            unassigned_components = sorted(set(topology.groups.loc[unassigned, "component_index"].astype(int).tolist()))
+            # component_index is atom-level; derive per-group from atoms
+            from ._topology_infer import _component_index_per_group
+            group_component_index = _component_index_per_group(topology)
+            unassigned_components = sorted(set(
+                int(group_component_index[gi]) for gi in topology.groups.index[unassigned]
+                if group_component_index[gi] >= 0
+            ))
             component_to_molecule = {}
             for component_index in unassigned_components:
                 molecule_index = topology.n_molecules
@@ -414,8 +404,8 @@ class MolSysBuilder:
                 topology.molecules.loc[molecule_index, "entity_index"] = pd.NA
                 component_to_molecule[component_index] = molecule_index
             for group_index in topology.groups.index[unassigned]:
-                component_index = int(topology.groups.loc[group_index, "component_index"])
-                topology.groups.loc[group_index, "molecule_index"] = int(component_to_molecule[component_index])
+                ci = int(group_component_index[group_index])
+                topology.groups.loc[group_index, "molecule_index"] = int(component_to_molecule[ci])
 
         topology.molecules["molecule_id"] = self._fill_missing_string_ids(topology.molecules["molecule_id"])
         inferred_names = infer_molecule_names_from_topology(topology)

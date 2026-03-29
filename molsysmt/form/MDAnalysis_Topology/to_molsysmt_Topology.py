@@ -35,7 +35,10 @@ def to_molsysmt_Topology(item, atom_indices='all', skip_digestion=False):
     tmp_item.groups['group_id'] = group_id
     tmp_item.groups['group_name'] = group_name
     tmp_item.groups['group_type'] = group_type
-    tmp_item.groups['chain_index'] = chain_index_of_groups
+    # chain_index lives on atoms only
+    _ci_grp = np.array(chain_index_of_groups, dtype=int)
+    _gi_atom = np.array(group_index_of_atoms, dtype=int)
+    tmp_item.atoms['chain_index'] = _ci_grp[_gi_atom]
 
     # Chains
     segids = list(item.segids.values) if hasattr(item, 'segids') else [str(i) for i in range(n_chains)]

@@ -33,10 +33,8 @@ def get_n_atoms_from_atom (item, indices='all', skip_digestion=False):
 
     if is_all(indices):
 
-        if item.formal_charge is not None:
-            output = len(item.formal_charge)
-        elif item.partial_charge is not None:
-            output = len(item.partial_charge)
+        if item.atoms_ff is not None:
+            output = len(item.atoms_ff)
 
     else:
 
@@ -50,22 +48,32 @@ def get_n_atoms_from_atom (item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_formal_charge_from_atom (item, indices='all', skip_digestion=False):
 
+    fc = item.formal_charge
+    if fc is None:
+        return None
     if is_all(indices):
-        output = item.formal_charge
-    else:
-        output = item.formal_charge[indices]
-
-    return output
+        return fc
+    return fc[indices]
 
 @arg_digest(form=form)
 def get_partial_charge_from_atom (item, indices='all', skip_digestion=False):
 
+    pc = item.partial_charge
+    if pc is None:
+        return None
     if is_all(indices):
-        output = item.partial_charge
-    else:
-        output = item.partial_charge[indices]
+        return pc
+    return pc[indices]
 
-    return output
+@arg_digest(form=form)
+def get_atom_ff_type_from_atom (item, indices='all', skip_digestion=False):
+
+    aft = item.atom_ff_type
+    if aft is None:
+        return None
+    if is_all(indices):
+        return aft
+    return aft[indices]
 
 ###
 ### System

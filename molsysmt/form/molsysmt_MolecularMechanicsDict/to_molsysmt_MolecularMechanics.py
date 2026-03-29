@@ -22,6 +22,10 @@ def to_molsysmt_MolecularMechanics(item, atom_indices='all', skip_digestion=Fals
             if aux_item['partial_charge'] is not None:
                 aux_item['partial_charge'] = item['partial_charge'][atom_indices]
 
+        if 'atom_ff_type' in aux_item:
+            if aux_item['atom_ff_type'] is not None:
+                aux_item['atom_ff_type'] = item['atom_ff_type'][atom_indices]
+
     tmp_item = molsysmt_MolecularMechanics(**aux_item)
 
     return tmp_item

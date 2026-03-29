@@ -27,7 +27,6 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', get_mi
     tmp_item.topology.groups.group_name = item.entry.group_names
 
     tmp_item.topology.rebuild_groups(redefine_ids=False, redefine_types=True)
-    tmp_item.topology.groups['chain_index'] = np.zeros(shape=[item.entry.n_groups], dtype=int)
 
     tmp_item.topology.chains.iloc[0,0] = '0'
     tmp_item.topology.chains.iloc[0,1] = 'A'

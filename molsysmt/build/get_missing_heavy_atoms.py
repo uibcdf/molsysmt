@@ -70,9 +70,12 @@ def get_missing_heavy_atoms(molecular_system, selection='all', syntax='MolSysMT'
 
         group_indices = select(molecular_system, element='group', selection=selection, syntax=syntax)
         group_name_list = get(molecular_system, element='group', selection=group_indices,
-                              group_name=True)
+                              group_name=True, skip_digestion=True)
         atom_indices_per_group = get(molecular_system, element='group', selection=group_indices,
-                                     atom_index=True)
+                                     atom_index=True, skip_digestion=True)
+        # Fetch all atom names in one call to avoid O(n_groups) digestion overhead
+        all_atom_names = get(molecular_system, element='atom', selection='all',
+                             atom_name=True, skip_digestion=True)
 
         for group_idx, group_name, atom_idx_list in zip(group_indices, group_name_list,
                                                         atom_indices_per_group):
@@ -82,8 +85,7 @@ def get_missing_heavy_atoms(molecular_system, selection='all', syntax='MolSysMT'
             if lookup_name not in aa_names:
                 continue
 
-            actual_atom_names = get(molecular_system, element='atom',
-                                    selection=list(atom_idx_list), atom_name=True)
+            actual_atom_names = [all_atom_names[i] for i in atom_idx_list]
 
             expected_heavy = get_expected_heavy_atoms(lookup_name, actual_atom_names)
             if expected_heavy is None:

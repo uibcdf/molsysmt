@@ -50,7 +50,6 @@ def to_molsysmt_Topology(item, atom_indices='all', get_missing_bonds=True, skip_
     tmp_item.groups['group_id'] = group_id
     tmp_item.groups['group_name'] = group_name
     tmp_item.groups['group_type'] = group_type
-    tmp_item.groups['chain_index'] = chain_index_of_groups
 
     # Chains
     chain_id = []

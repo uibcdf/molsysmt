@@ -385,6 +385,10 @@ add_attribute('formal_charge', synonyms=['formal_charges'], runs_on_elements=Tru
 add_attribute('partial_charge', synonyms=['partial_charges'], runs_on_elements=True, mechanical=True,
         get_from=['atom','system'], set_to='atom')
 
+## atom_ff_type
+add_attribute('atom_ff_type', synonyms=['atom_ff_types'], runs_on_elements=True, mechanical=True,
+        get_from=['atom','system'], set_to='atom')
+
 ## forcefield
 add_attribute('forcefield', synonyms=['force field', 'forcefields', 'force_field', 'force_fields'], mechanical=True,
         get_from=['system'], set_to='system',

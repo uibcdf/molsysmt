@@ -8,6 +8,7 @@ attributes = {ii:False for ii in _all_attributes}
 
 attributes['formal_charge'] = True
 attributes['partial_charge'] = True
+attributes['atom_ff_type'] = True
 attributes['forcefield'] = True
 attributes['non_bonded_method'] = True
 attributes['cutoff_distance'] = True  

@@ -99,6 +99,8 @@ def test_view_molsyst_MolSys_with_NGLView_3(alanine_molsys):
     msm.set(molsys_merged, element='atom', selection='all', chain_index=[0], skip_digestion=True)
     msm.set(molsys_merged, element='chain', selection='all', chain_id=['0'], chain_name=['A'], skip_digestion=True)
     molsys_merged.topology.rebuild_chains(redefine_indices=False, redefine_ids=False, redefine_types=True, redefine_names=False)
+    molsys_merged.topology.rebuild_molecules(force=True)
+    molsys_merged.topology.rebuild_entities(force=True)
     view = msm.view(molsys_merged, viewer='NGLView')
     comparison = msm.compare(view, molsys_merged, attribute_type='topological', coordinates=True,
                              output_type='dictionary')

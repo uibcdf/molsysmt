@@ -468,16 +468,27 @@ def set_molecule_type_to_group(item, indices='all', value=None, skip_digestion=F
     pass
 
 
+def _chain_index_per_group(item):
+    """Derive per-group chain_index from atoms (chain_index is atom-level only)."""
+    import numpy as np
+    _adf = item.atoms[["group_index", "chain_index"]].dropna()
+    _gc = _adf.groupby("group_index", sort=False)["chain_index"].first()
+    bridge = np.full(item.n_groups, -1, dtype=np.int64)
+    bridge[_gc.index.to_numpy(dtype=np.int64)] = _gc.to_numpy(dtype=np.int64)
+    return bridge
+
+
 @arg_digest(form=form)
 def set_chain_id_to_group(item, indices='all', value=None, skip_digestion=False):
 
     if is_all(indices):
-        bridge = item.groups['chain_index'].to_numpy()
+        bridge = _chain_index_per_group(item)
         _set_by_bridge(item.chains, 'chain_id', bridge, value)
     else:
         for i, gi in enumerate(list(indices)):
-            ci = item.groups.at[gi, 'chain_index']
-            item.chains.at[int(ci), 'chain_id'] = value[i]
+            atom_mask = item.atoms["group_index"] == gi
+            ci = int(item.atoms.loc[atom_mask, "chain_index"].iloc[0])
+            item.chains.at[ci, 'chain_id'] = value[i]
 
     pass
 
@@ -486,12 +497,13 @@ def set_chain_id_to_group(item, indices='all', value=None, skip_digestion=False)
 def set_chain_name_to_group(item, indices='all', value=None, skip_digestion=False):
 
     if is_all(indices):
-        bridge = item.groups['chain_index'].to_numpy()
+        bridge = _chain_index_per_group(item)
         _set_by_bridge(item.chains, 'chain_name', bridge, value)
     else:
         for i, gi in enumerate(list(indices)):
-            ci = item.groups.at[gi, 'chain_index']
-            item.chains.at[int(ci), 'chain_name'] = value[i]
+            atom_mask = item.atoms["group_index"] == gi
+            ci = int(item.atoms.loc[atom_mask, "chain_index"].iloc[0])
+            item.chains.at[ci, 'chain_name'] = value[i]
 
     pass
 
@@ -500,12 +512,13 @@ def set_chain_name_to_group(item, indices='all', value=None, skip_digestion=Fals
 def set_chain_type_to_group(item, indices='all', value=None, skip_digestion=False):
 
     if is_all(indices):
-        bridge = item.groups['chain_index'].to_numpy()
+        bridge = _chain_index_per_group(item)
         _set_by_bridge(item.chains, 'chain_type', bridge, value)
     else:
         for i, gi in enumerate(list(indices)):
-            ci = item.groups.at[gi, 'chain_index']
-            item.chains.at[int(ci), 'chain_type'] = value[i]
+            atom_mask = item.atoms["group_index"] == gi
+            ci = int(item.atoms.loc[atom_mask, "chain_index"].iloc[0])
+            item.chains.at[ci, 'chain_type'] = value[i]
 
     pass
 
@@ -844,31 +857,15 @@ def set_molecule_index_to_group(item, indices='all', value=None, skip_digestion=
 
 @arg_digest(form=form)
 def set_chain_index_to_group(item, indices='all', value=None, skip_digestion=False):
-
-    if 'chain_index' not in item.groups.columns:
-        item.groups['chain_index'] = None
-
-    if is_all(indices):
-        item.groups['chain_index'] = value
-    else:
-        for i, gi in enumerate(list(indices)):
-            item.groups.at[gi, 'chain_index'] = value[i]
-
+    # chain_index is an atom-level attribute only; groups do not have this column.
+    # Setting chain_index via groups is architecturally invalid — no-op.
     pass
 
 
 @arg_digest(form=form)
 def set_component_index_to_group(item, indices='all', value=None, skip_digestion=False):
-
-    if 'component_index' not in item.groups.columns:
-        item.groups['component_index'] = None
-
-    if is_all(indices):
-        item.groups['component_index'] = value
-    else:
-        for i, gi in enumerate(list(indices)):
-            item.groups.at[gi, 'component_index'] = value[i]
-
+    # component_index is an atom-level attribute only; groups do not have this column.
+    # Setting component_index via groups is architecturally invalid — no-op.
     pass
 
 

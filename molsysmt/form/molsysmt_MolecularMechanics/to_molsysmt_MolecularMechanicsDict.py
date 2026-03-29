@@ -10,8 +10,11 @@ def to_molsysmt_MolecularMechanicsDict(item, atom_indices='all', skip_digestion=
 
         if tmp_item['formal_charge'] is not None:
             tmp_item['formal_charge'] = tmp_item['formal_charge'][atom_indices]
-    
+
         if tmp_item['partial_charge'] is not None:
             tmp_item['partial_charge'] = tmp_item['partial_charge'][atom_indices]
+
+        if tmp_item['atom_ff_type'] is not None:
+            tmp_item['atom_ff_type'] = tmp_item['atom_ff_type'][atom_indices]
 
     return tmp_item

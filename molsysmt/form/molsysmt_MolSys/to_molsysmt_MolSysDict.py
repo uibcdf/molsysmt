@@ -55,17 +55,13 @@ def to_molsysmt_MolSysDict(item, skip_digestion=False):
 
     chains = []
     if item.topology.n_chains > 0:
-        if 'chain_index' in item.topology.groups.columns:
-            group_chain_index = item.topology.groups['chain_index'].to_numpy(dtype=object)
-        elif 'chain_index' in item.topology.atoms.columns:
+        # chain_index is atom-level only; derive per-group from atoms
+        if 'chain_index' in item.topology.atoms.columns:
             atom_chain_index = item.topology.atoms['chain_index'].to_numpy(dtype=object)
             group_chain_index = []
             for group_index in range(item.topology.n_groups):
                 chain_candidates = [atom_chain_index[ii] for ii in range(item.topology.n_atoms) if atom_group_index[ii] == group_index]
-                if len(chain_candidates) == 0:
-                    group_chain_index.append(None)
-                else:
-                    group_chain_index.append(chain_candidates[0])
+                group_chain_index.append(chain_candidates[0] if chain_candidates else None)
         else:
             group_chain_index = [None] * item.topology.n_groups
 

@@ -117,7 +117,7 @@ def test_add_offsets_indices_and_can_rebuild_ids():
     assert left.n_groups == 4
     assert left.n_components == 6
     assert left.n_molecules == 4
-    assert left.n_entities == 3
+    assert left.n_entities == 2
     assert left.n_chains == 4
     assert left.n_bonds == 2
     assert left.atoms['group_index'].tolist() == [0, 0, 1, 1, 2, 2, 3, 3]
@@ -125,7 +125,7 @@ def test_add_offsets_indices_and_can_rebuild_ids():
     assert left.bonds[['atom1_index', 'atom2_index']].values.tolist() == [[0, 1], [4, 5]]
     assert left.atoms['atom_id'].map(type).eq(str).all()
     assert left.groups['group_id'].map(type).eq(str).all()
-    assert left.molecules['entity_index'].tolist() == [0, 1, 2, 1]
+    assert left.molecules['entity_index'].tolist() == [0, 1, 0, 1]
 
 
 def test_add_bonds_sorts_pairs_and_rebuilds_components():

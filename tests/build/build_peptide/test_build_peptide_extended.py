@@ -271,9 +271,9 @@ def test_entity_type_is_protein():
 
 
 def test_atom_ff_type_column_present():
-    """Topology atoms table contains the 'atom_ff_type' column."""
+    """MolecularMechanics contains atom_ff_type after build_peptide."""
     molsys = msm.build.build_peptide('AV', to_form='molsysmt.MolSys', engine='MolSysMT')
-    assert 'atom_ff_type' in molsys.topology.atoms.columns
+    assert molsys.molecular_mechanics.atom_ff_type is not None
 
 
 def test_bonds_atom_indices_are_sorted():

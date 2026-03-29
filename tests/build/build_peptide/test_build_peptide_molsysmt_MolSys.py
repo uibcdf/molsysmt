@@ -111,7 +111,7 @@ def test_build_peptide_molsysmt_MolSys_3():
             if distance < min_nonbonded_heavy_distance:
                 min_nonbonded_heavy_distance = distance
 
-    assert 'atom_ff_type' in molsys.topology.atoms.columns
+    assert molsys.molecular_mechanics.atom_ff_type is not None
     assert min_nonbonded_heavy_distance >= 0.10
     assert np.max(bonded_distances) <= 0.185
 

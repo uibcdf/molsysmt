@@ -31,7 +31,7 @@ def get_n_atoms_from_atom (item, indices='all', skip_digestion=False):
 
     if is_all(indices):
 
-        for attribute in ['formal_charge', 'partial_charge']:
+        for attribute in ['formal_charge', 'partial_charge', 'atom_ff_type']:
             if attribute in item:
                 if item[attribute] is not None:
                     output = len(item[attribute])
@@ -67,6 +67,20 @@ def get_partial_charge_from_atom(item, indices='all', skip_digestion=False):
     else:
         try:
             return item['partial_charge'][indices]
+        except Exception:
+            return None
+
+@arg_digest(form=form)
+def get_atom_ff_type_from_atom(item, indices='all', skip_digestion=False):
+
+    if is_all(indices):
+        try:
+            return item['atom_ff_type']
+        except Exception:
+            return None
+    else:
+        try:
+            return item['atom_ff_type'][indices]
         except Exception:
             return None
 

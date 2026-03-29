@@ -1,9 +1,16 @@
+import pandas as pd
 from molsysmt._private.smonitor import *
 from molsysmt import pyunitwizard as puw
 from copy import deepcopy
 
 class MolecularMechanics():
-    """Container for molecular mechanics force-field settings."""
+    """Container for molecular mechanics force-field settings.
+
+    Per-atom force-field parameters (formal_charge, partial_charge,
+    atom_ff_type) are grouped in the ``atoms_ff`` DataFrame, indexed by
+    atom position (0..n_atoms-1).  The DataFrame is None when no per-atom
+    FF data has been assigned.
+    """
 
     def __init__(self, forcefield=None, water_model=None, implicit_solvent=None,
                  non_bonded_method=None, cutoff_distance=None, switch_distance=None,
@@ -12,7 +19,7 @@ class MolecularMechanics():
                  rigid_water=None, hydrogen_mass=None,
                  salt_concentration=None, kappa=None,
                  solute_dielectric=None, solvent_dielectric=None,
-                 formal_charge=None, partial_charge=None):
+                 formal_charge=None, partial_charge=None, atom_ff_type=None):
         """Initialize molecular mechanics parameters."""
 
         # default values:
@@ -27,8 +34,14 @@ class MolecularMechanics():
         # solute_dielectric=1.0
         # solvent_dielectric=78.5
 
-        self.formal_charge = formal_charge
-        self.partial_charge = partial_charge
+        # Per-atom FF parameters: stored in atoms_ff DataFrame
+        self.atoms_ff = None
+        if formal_charge is not None:
+            self.formal_charge = formal_charge
+        if partial_charge is not None:
+            self.partial_charge = partial_charge
+        if atom_ff_type is not None:
+            self.atom_ff_type = atom_ff_type
 
         self.forcefield = forcefield
 
@@ -54,12 +67,70 @@ class MolecularMechanics():
         self.salt_concentration = salt_concentration
         self.kappa = kappa
 
+    # ------------------------------------------------------------------
+    # atoms_ff helpers
+    # ------------------------------------------------------------------
+
+    def _ensure_atoms_ff(self, n_atoms):
+        """Create atoms_ff DataFrame if it does not exist yet."""
+        if self.atoms_ff is None:
+            self.atoms_ff = pd.DataFrame(index=range(n_atoms))
+
+    def _get_atoms_ff_column(self, column):
+        """Return the column values, or None if absent/all-null."""
+        if self.atoms_ff is None or column not in self.atoms_ff.columns:
+            return None
+        col = self.atoms_ff[column]
+        if col.isnull().all():
+            return None
+        return col.to_numpy(dtype=object)
+
+    def _set_atoms_ff_column(self, column, value):
+        """Write *value* into the given atoms_ff column."""
+        if value is None:
+            if self.atoms_ff is not None and column in self.atoms_ff.columns:
+                self.atoms_ff[column] = None
+            return
+        self._ensure_atoms_ff(len(value))
+        self.atoms_ff[column] = value
+
+    # ------------------------------------------------------------------
+    # Per-atom properties (backed by atoms_ff)
+    # ------------------------------------------------------------------
+
+    @property
+    def formal_charge(self):
+        return self._get_atoms_ff_column('formal_charge')
+
+    @formal_charge.setter
+    def formal_charge(self, value):
+        self._set_atoms_ff_column('formal_charge', value)
+
+    @property
+    def partial_charge(self):
+        return self._get_atoms_ff_column('partial_charge')
+
+    @partial_charge.setter
+    def partial_charge(self, value):
+        self._set_atoms_ff_column('partial_charge', value)
+
+    @property
+    def atom_ff_type(self):
+        return self._get_atoms_ff_column('atom_ff_type')
+
+    @atom_ff_type.setter
+    def atom_ff_type(self, value):
+        self._set_atoms_ff_column('atom_ff_type', value)
+
+    # ------------------------------------------------------------------
+
     def to_dict(self):
         """Return a dictionary representation of the parameters."""
 
         tmp_dict = {
                 'formal_charge': self.formal_charge,
                 'partial_charge': self.partial_charge,
+                'atom_ff_type': self.atom_ff_type,
                 'forcefield' : self.forcefield,
                 'non_bonded_method' : self.non_bonded_method,
                 'cutoff_distance' : self.cutoff_distance,
@@ -78,13 +149,14 @@ class MolecularMechanics():
                 'kappa' : self.kappa,
        }
 
+        return tmp_dict
+
     def copy(self):
         """Create a deep copy of the MolecularMechanics object."""
 
         tmp_molecular_mechanics = MolecularMechanics()
 
-        tmp_molecular_mechanics.formal_charge = deepcopy(self.formal_charge)
-        tmp_molecular_mechanics.partial_charge = deepcopy(self.partial_charge)
+        tmp_molecular_mechanics.atoms_ff = deepcopy(self.atoms_ff)
 
         tmp_molecular_mechanics.forcefield = deepcopy(self.forcefield)
 
@@ -116,7 +188,7 @@ class MolecularMechanics():
         for argument, value in kwargs.items():
             if argument.lower() in self.__dict__.keys():
                 self.__dict__[argument]=puw.standardize(value)
-                del(kwargs[argment.lower()])
+                del(kwargs[argument.lower()])
 
         if return_non_processed:
             return kwargs
@@ -175,7 +247,7 @@ class MolecularMechanics():
         else:
             raise NotImplementedError()
 
-        if self.non_bonded_cutoff is not None:
+        if self.cutoff_distance is not None:
             parameters['nonbondedCutoff']=puw.convert(self.cutoff_distance, to_form='openmm.unit',
                                                       to_unit='nm')
 
@@ -198,8 +270,6 @@ class MolecularMechanics():
         parameters['hydrogenMass']=self.hydrogen_mass
         parameters['rigidWater']=self.rigid_water
         #parameters['removeCMMotion']=self.remove_cm_motion
-        parameters['residueTemplates']=self.residue_templates
-        parameters['ignoreExternalBonds']=self.ignore_external_bonds
         parameters['flexibleConstraints']=self.flexible_constraints
 
         if self.implicit_solvent is not None:

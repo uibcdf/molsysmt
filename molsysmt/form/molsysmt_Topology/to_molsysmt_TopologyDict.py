@@ -53,9 +53,8 @@ def to_molsysmt_TopologyDict(item, skip_digestion=False):
 
     chains = []
     if item.n_chains > 0:
-        if 'chain_index' in item.groups.columns:
-            group_chain_index = item.groups['chain_index'].to_numpy(dtype=object)
-        elif 'chain_index' in item.atoms.columns:
+        # chain_index is atom-level only; derive per-group from atoms
+        if 'chain_index' in item.atoms.columns:
             atom_chain_index = item.atoms['chain_index'].to_numpy(dtype=object)
             group_chain_index = []
             for group_index in range(item.n_groups):

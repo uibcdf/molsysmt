@@ -15,7 +15,7 @@ def has_attribute(molecular_system, attribute, include_none=False, skip_digestio
 
         if attribute=='n_atoms':
             output = False
-            for attribute in ['formal_charge', 'partial_charge']:
+            for attribute in ['formal_charge', 'partial_charge', 'atom_ff_type']:
                 if attribute in molecular_system:
                     if molecular_system[attribute] is not None:
                         output = True
@@ -30,6 +30,12 @@ def has_attribute(molecular_system, attribute, include_none=False, skip_digestio
             if 'partial_charge' not in molecular_system:
                 output = False
             elif molecular_system['partial_charge'] is None:
+                output = False
+
+        elif attribute=='atom_ff_type':
+            if 'atom_ff_type' not in molecular_system:
+                output = False
+            elif molecular_system['atom_ff_type'] is None:
                 output = False
 
         elif attribute=='forcefield':
