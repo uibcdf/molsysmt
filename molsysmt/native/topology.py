@@ -715,11 +715,13 @@ class Topology():
         if redefine_ids:
             self.molecules["molecule_id"] = fallback_ids(self.n_molecules)
 
-        if redefine_names:
-            self.molecules["molecule_name"] = infer_molecule_names_from_topology(self)
-
+        # Types must be computed before names: infer_molecule_names_from_topology
+        # reads molecule_type from the molecules DataFrame.
         if redefine_types:
             self.molecules["molecule_type"] = infer_molecule_types_from_topology(self)
+
+        if redefine_names:
+            self.molecules["molecule_name"] = infer_molecule_names_from_topology(self)
 
         self._molecules_dirty = False
         if redefine_indices or force:
