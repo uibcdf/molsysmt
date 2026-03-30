@@ -90,3 +90,64 @@ class TestAddMissingHydrogensEngMolSysMT:
         n_before = msm.get(no_hb, n_atoms=True)
         restored = msm.build.add_missing_hydrogens(no_hb, engine='MolSysMT')
         assert msm.get(restored, n_atoms=True) == n_before + 3
+
+
+@pytest.fixture(scope="module")
+def capped_ala_heavy():
+    """ACE-ALA-NME with all H atoms removed (heavy atoms only)."""
+    mol = msm.build.build_peptide('ALA', engine='MolSysMT', to_form='molsysmt.MolSys')
+    mol = msm.build.add_missing_terminal_cappings(mol, N_terminal='ACE', C_terminal='NME', engine='MolSysMT')
+    return msm.remove(mol, selection='atom_type=="H"')
+
+
+@pytest.fixture(scope="module")
+def capped_ala_full():
+    """ACE-ALA-NME with all H atoms (reference)."""
+    mol = msm.build.build_peptide('ALA', engine='MolSysMT', to_form='molsysmt.MolSys')
+    return msm.build.add_missing_terminal_cappings(mol, N_terminal='ACE', C_terminal='NME', engine='MolSysMT')
+
+
+class TestAddMissingHydrogensCapGroups:
+
+    def test_ace_h_atoms_placed(self, capped_ala_heavy):
+        """ACE methyl H atoms (HH31, HH32, HH33) must be placed on pre-existing ACE group."""
+        restored = msm.build.add_missing_hydrogens(capped_ala_heavy, engine='MolSysMT')
+        names = msm.get(restored, element='atom', selection='all', atom_name=True)
+        for h in ('HH31', 'HH32', 'HH33'):
+            assert h in names, f"Missing {h} after H restoration"
+
+    def test_nme_h_atoms_placed(self, capped_ala_heavy):
+        """NME H atoms (H, H1, H2, H3) must be placed on pre-existing NME group."""
+        restored = msm.build.add_missing_hydrogens(capped_ala_heavy, engine='MolSysMT')
+        names = msm.get(restored, element='atom', selection='all', atom_name=True)
+        for h in ('H', 'H1', 'H2', 'H3'):
+            assert h in names, f"Missing NME {h} after H restoration"
+
+    def test_round_trip_atom_count(self, capped_ala_heavy, capped_ala_full):
+        """Atom count after H restoration must match the fully capped reference."""
+        restored = msm.build.add_missing_hydrogens(capped_ala_heavy, engine='MolSysMT')
+        assert msm.get(restored, n_atoms=True) == msm.get(capped_ala_full, n_atoms=True)
+
+    def test_no_change_when_h_already_present(self, capped_ala_full):
+        """Calling on a system that already has all H must not add any atoms."""
+        n_before = msm.get(capped_ala_full, n_atoms=True)
+        result = msm.build.add_missing_hydrogens(capped_ala_full, engine='MolSysMT')
+        assert msm.get(result, n_atoms=True) == n_before
+
+    def test_ace_h_bonded_to_ch3(self, capped_ala_heavy):
+        """ACE H atoms must be bonded to CH3, not to any other atom."""
+        restored = msm.build.add_missing_hydrogens(capped_ala_heavy, engine='MolSysMT')
+        topo = restored.topology
+        bonds = topo.bonds
+        atoms = topo.atoms
+        ch3_idx = atoms[atoms['atom_name'] == 'CH3'].index[0]
+        bonded_to_ch3 = set()
+        for _, brow in bonds.iterrows():
+            a1, a2 = int(brow['atom1_index']), int(brow['atom2_index'])
+            if a1 == ch3_idx:
+                bonded_to_ch3.add(a2)
+            elif a2 == ch3_idx:
+                bonded_to_ch3.add(a1)
+        for h in ('HH31', 'HH32', 'HH33'):
+            h_idx = atoms[atoms['atom_name'] == h].index[0]
+            assert h_idx in bonded_to_ch3, f"{h} not bonded to CH3"

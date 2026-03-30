@@ -182,7 +182,7 @@ def add_missing_hydrogens(molecular_system, pH=7.4, engine='OpenMM', skip_digest
             get_expected_hydrogens, get_standard_name, group_names, get_group_db
         )
         from molsysmt.build._native_placers import (
-            append_atoms_to_molsys, h_bond_length,
+            append_atoms_to_molsys, h_bond_length, load_residue_template,
             place_hydrogens_on_parent, _infer_hybridization,
         )
 
@@ -248,7 +248,66 @@ def add_missing_hydrogens(molecular_system, pH=7.4, engine='OpenMM', skip_digest
 
             canonical = get_standard_name(gname) if gname else None
             lookup = canonical if canonical is not None else gname
-            if lookup not in group_names:
+
+            if gname in ('ACE', 'NME'):
+                # Place missing H atoms on pre-existing capping groups via template bonds.
+                template = load_residue_template(gname)
+                if template is None:
+                    continue
+                present_hs = {a for a in g_atoms['atom_name']
+                              if a.startswith('H') or
+                              (len(a) >= 2 and a[0].isdigit() and a[1] == 'H')}
+                name_to_idx = group_name_to_idx[g]
+                # Build parent → [H, ...] map from template bonds
+                capping_parent_to_hs = {}
+                for b1, b2 in template['bonds']:
+                    b1h = b1.startswith('H') or (len(b1) >= 2 and b1[0].isdigit() and b1[1] == 'H')
+                    b2h = b2.startswith('H') or (len(b2) >= 2 and b2[0].isdigit() and b2[1] == 'H')
+                    if b1h and not b2h:
+                        capping_parent_to_hs.setdefault(b2, []).append(b1)
+                    elif b2h and not b1h:
+                        capping_parent_to_hs.setdefault(b1, []).append(b2)
+                for par_name, h_names in capping_parent_to_hs.items():
+                    missing_hs_here = [h for h in h_names if h not in present_hs]
+                    if not missing_hs_here:
+                        continue
+                    par_idx = name_to_idx.get(par_name)
+                    if par_idx is None:
+                        continue
+                    par_pos = all_coords[:, int(par_idx), :]
+                    # Heavy neighbors of par_name within the template
+                    neigh_positions = []
+                    for b1, b2 in template['bonds']:
+                        b1h = b1.startswith('H') or (len(b1) >= 2 and b1[0].isdigit() and b1[1] == 'H')
+                        b2h = b2.startswith('H') or (len(b2) >= 2 and b2[0].isdigit() and b2[1] == 'H')
+                        if not b1h and not b2h:
+                            nb = b2 if b1 == par_name else (b1 if b2 == par_name else None)
+                            if nb is not None:
+                                nb_idx = name_to_idx.get(nb)
+                                if nb_idx is not None:
+                                    neigh_positions.append(all_coords[:, int(nb_idx), :])
+                    # For NME N: also add C from the preceding residue (peptide bond)
+                    if gname == 'NME' and par_name == 'N':
+                        n_atom_idx = name_to_idx.get('N')
+                        if n_atom_idx is not None and bonds is not None and len(bonds) > 0:
+                            for _, brow in bonds.iterrows():
+                                a1, a2 = int(brow['atom1_index']), int(brow['atom2_index'])
+                                other = a2 if a1 == n_atom_idx else (a1 if a2 == n_atom_idx else None)
+                                if other is not None:
+                                    if int(topo.atoms.loc[other, 'group_index']) != g:
+                                        neigh_positions.append(all_coords[:, other, :])
+                    # CH3 (ACE) and C (NME methyl) are sp3; N is sp3 for amide H placement
+                    bond_len = h_bond_length('C') if par_name in ('CH3', 'C') else h_bond_length(par_name[0])
+                    placed = place_hydrogens_on_parent(
+                        par_pos, neigh_positions, len(missing_hs_here), 'sp3', bond_len, n_structures
+                    )
+                    for h_name, h_coords in zip(missing_hs_here, placed):
+                        new_atom_info.append((g, h_name, h_coords))
+                        h_new_idx = n_atoms_so_far + len(new_atom_info) - 1
+                        new_bonds_info.append((int(par_idx), h_new_idx))
+                continue
+
+            elif lookup not in group_names:
                 continue   # skip non-amino-acid groups
 
             # Terminal status
