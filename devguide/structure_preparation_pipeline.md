@@ -134,13 +134,11 @@ below pH 10.5, CYS HG removed when in a disulfide bond.  There is no
 environment-dependent pKa prediction (PROPKA-style) in any engine; that is a
 post-1.0 item.
 
-**MolSysMT limitation:** ACE/NME groups that were inserted by
-`add_missing_terminal_cappings(engine='MolSysMT')` (Case B) already carry all
-H atoms from the capping step and do not need any additional placement.
-However, ACE/NME groups that were present in the *input* structure (e.g.
-imported from a pre-capped PDB) are silently skipped by `add_missing_hydrogens`.
-Use `engine='OpenMM'` or `engine='PDBFixer'` if H placement on pre-existing
-capping groups is required.
+**Note on capping groups:** ACE/NME are fully supported by `engine='MolSysMT'`:
+- Groups inserted by `add_missing_terminal_cappings(engine='MolSysMT')` (Case B)
+  already carry all H atoms from the capping step.
+- Pre-existing ACE/NME groups imported from a PDB file are handled by
+  `add_missing_hydrogens(engine='MolSysMT')` using their residue templates.
 
 ---
 

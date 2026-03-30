@@ -315,8 +315,9 @@ pH model applied by `get_expected_hydrogens`:
 - **LYS**: deprotonated NZ (no HZ3) at pH ≥ 10.5
 - **CYS**: no HG when in a disulfide bond (detected from SG–SG bonds)
 
-**Limitation:** non-standard groups (ACE, NME capping groups) are silently
-skipped.
+**Capping groups:** ACE and NME are handled via their residue templates
+(`residue_templates/ACE.json`, `residue_templates/NME.json`).  H atoms placed:
+HH31/HH32/HH33 on ACE CH3; H on NME N; H1/H2/H3 on NME C.
 
 **PDBFixer engine**: delegates to `pdbfixer.addMissingHydrogens(pH)` which
 uses the same fixed-threshold pH model via OpenMM force-field templates.
@@ -432,7 +433,7 @@ All public `build/` functions now have `engine='MolSysMT'` as the default:
 |----------|-------|
 | `add_missing_heavy_atoms` | Kabsch alignment against JSON residue templates |
 | `add_missing_terminal_cappings` | Case A (free termini) + Case B (ACE/NME) |
-| `add_missing_hydrogens` | Fixed pKa thresholds; ACE/NME skipped |
+| `add_missing_hydrogens` | Fixed pKa thresholds; ACE/NME fully supported via templates |
 | `solvate` | All four orthogonal/non-orthogonal box shapes; ions via rejection sampling |
 | `mutate` | Kabsch sidechain placement; PyRosetta engine is post-1.0 |
 | `get_missing_residues` | SequenceMatcher + SEQRES/bcif auto-detection |
