@@ -99,8 +99,8 @@ Thanks to the developers and maintainers of the libraries MolSysMT builds on (MD
 
 ### Leads
 
-Diego Prada Gracia  
 Liliana M. Moreno Vargas
+Diego Prada Gracia  
 
 ### Contributors
 
