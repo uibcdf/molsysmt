@@ -152,7 +152,8 @@ The builder now covers the explicit editing primitives that motivated those
 public helpers:
 - `MolSysBuilder.add_bond(...)`
 - `MolSysBuilder.remove_bonds(...)`
-- `MolSysBuilder.assign_groups_to_new_chain(...)`
+- `MolSysBuilder.add_chain(group_indices, ..., allow_reassign=False)` — creates a new chain and assigns groups to it; raises `StructuralInconsistencyError` if any group is already assigned to a chain (use `allow_reassign=True` to allow reassignment)
+- `MolSysBuilder.assign_groups_to_new_chain(...)` — alias for `add_chain(..., allow_reassign=True)`; kept for backward compatibility
 
 ## Digestion policy
 

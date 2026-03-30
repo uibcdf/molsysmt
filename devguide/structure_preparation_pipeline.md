@@ -85,11 +85,15 @@ fall back to no-op (atoms not added).
 Completes free termini.  Two cases are handled by the native engine:
 
 * **Case A** (`N_terminal=None, C_terminal=None`): completes the existing
-  terminal residues by adding atoms that are absent, most importantly OXT at
-  the C-terminal carboxylate.  This is the default when no capping groups are
-  requested.
+  terminal residues by adding atoms that are absent.  Two sub-steps:
+  - Adds OXT at the C-terminal carboxylate if absent.
+  - Adds H2/H3 at the free N-terminal amine if absent (skipped when the first
+    group in the chain is a non-amino-acid capping group such as ACE).
+  This is the default when no capping groups are requested.
 * **Case B**: inserts ACE (N-terminal) or NME (C-terminal) as new groups, using
-  trans peptide-bond geometry.
+  trans peptide-bond geometry.  Both groups are inserted **with all H atoms**
+  (HH31/HH32/HH33 for ACE; H, H1/H2/H3 for NME), so no additional H placement
+  is needed for the capping groups.
 
 ```python
 # Case A — complete free termini only
@@ -130,9 +134,13 @@ below pH 10.5, CYS HG removed when in a disulfide bond.  There is no
 environment-dependent pKa prediction (PROPKA-style) in any engine; that is a
 post-1.0 item.
 
-**MolSysMT limitation:** non-standard groups (ACE, NME) are silently skipped;
-their H atoms are not placed.  Use `engine='OpenMM'` or `engine='PDBFixer'`
-if H on capping groups is required.
+**MolSysMT limitation:** ACE/NME groups that were inserted by
+`add_missing_terminal_cappings(engine='MolSysMT')` (Case B) already carry all
+H atoms from the capping step and do not need any additional placement.
+However, ACE/NME groups that were present in the *input* structure (e.g.
+imported from a pre-capped PDB) are silently skipped by `add_missing_hydrogens`.
+Use `engine='OpenMM'` or `engine='PDBFixer'` if H placement on pre-existing
+capping groups is required.
 
 ---
 

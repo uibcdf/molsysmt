@@ -134,6 +134,13 @@ Bond connectivity: MolSysMT amino-acid database (`amino_acids/`) and
 terminal-capping database (`terminal_cappings/`). RNA/DNA nucleotides have
 empty bond lists (no MolSysMT database yet).
 
+**ACE/NME templates include H-atom bonds** (updated March 2026):
+- `ACE.json` bonds include `["CH3","HH31"]`, `["CH3","HH32"]`, `["CH3","HH33"]`.
+- `NME.json` bonds include `["N","H"]`, `["C","H1"]`, `["C","H2"]`, `["C","H3"]`.
+
+These bonds are resolved by `append_atoms_to_molsys` when inserting capping
+groups so that downstream OpenMM conversion sees correct connectivity.
+
 **To regenerate:**
 ```bash
 python molsysmt/data/databases/residue_templates/make_residue_templates_db.py
@@ -270,16 +277,21 @@ Key helpers in `build/_native_placers.py`:
 
 **Native engine** (`engine='MolSysMT'`): two cases:
 
-- **Case A** (missing `OXT` on C-terminal residue): OXT is not in the standard
-  residue template (templates contain the non-terminal form). It is placed
-  geometrically using `place_oxt_atom`: OXT is the mirror image of O reflected
-  through the C→CA axis (symmetric carboxylate geometry, C-OXT ≈ 1.23 Å).
-  This is called after `add_missing_heavy_atoms` (which handles all other
-  missing atoms) using `get_missing_terminal_cappings` to identify the affected
-  groups.
+- **Case A** (completing existing free termini): two sub-steps:
+  1. **C-terminus**: adds OXT if absent, placed geometrically using
+     `place_oxt_atom` (mirror image of O reflected through the C→CA axis,
+     symmetric carboxylate geometry, C-OXT ≈ 1.23 Å).
+  2. **N-terminus**: adds H2/H3 if the N-terminal residue has a free amine
+     (i.e. is not preceded by a non-amino-acid group such as ACE). H2/H3 are
+     placed via `place_hydrogens_on_parent` using sp3 geometry on the nitrogen.
+     If the first group in the chain is not an amino acid, the N-terminus is
+     assumed to be already capped and this step is skipped.
 - **Case B** (missing ACE or NME capping group): builds a new capping group
   from scratch using trans peptide-bond geometry, then calls
   `rebuild_molsys_with_new_groups` to insert it into the topology.
+  Both ACE and NME are placed **with all H atoms** (HH31/HH32/HH33 for ACE;
+  H, H1/H2/H3 for NME), so a separate `add_missing_hydrogens` call is not
+  needed for the capping groups themselves.
 
 Before querying `component_type`, always calls
 `topology.rebuild_components(redefine_indices=True)` to ensure connectivity is
@@ -501,12 +513,68 @@ style) is a post-1.0 item.
 
 ---
 
-## `get_missing_residues` (PDBFixer-only, bug fixed March 2026)
+## `amino_acids/` database: AMBER force-field variants (added March 2026)
 
-`build.get_missing_residues` uses `pdbfixer.missingResidues`, which is a dict
-`{(chain_index, insertion_position): [residue_names]}`. The function now
-correctly iterates with `.items()` and returns this dict directly.
+The per-residue topology databases (`A.pkl.gz` … `Y.pkl.gz`) store a list of
+topology *variants* for each amino acid (e.g. mid-chain, N-terminal, C-terminal,
+protonation states). Two AMBER-specific mid-chain variants were missing and
+caused `add_missing_heavy_atoms` to generate wrong atom names after `mutate`:
 
-This function has no native implementation planned for 1.0.0 (detecting
-missing residues requires SEQRES records or sequence databases not currently
-in MolSysMT's data layer).
+| Residue | AMBER mid-chain naming | Was missing |
+|---------|----------------------|-------------|
+| GLY | `HA2`, `HA3` | yes — database only had `HA1/HA2` variant |
+| LEU | `HB2`, `HB3` | yes — database only had `HB1/HB2` variant |
+
+Both variants were added programmatically (via the `make_*_db` script) at
+index 2 in the variant list, before the existing HA1/HA2 and HB1/HB2 entries.
+`get_expected_heavy_atoms` selects the tightest-fit variant, so the AMBER
+naming is now chosen when the present atoms already use HA2/HA3 or HB2/HB3.
+
+**Rule**: whenever a post-`mutate` structure shows wrong heavy atom names
+(e.g. `HA1` instead of `HA3`), check whether the AMBER variant for that
+residue is present in the database.
+
+---
+
+## `append_atoms_to_molsys`: atom ordering invariant (March 2026)
+
+OpenMM requires all atoms within a residue to be contiguous in the topology.
+`append_atoms_to_molsys` (in `build/_native_placers.py`) used to append new
+atoms at the end of the atom list regardless of their group membership, which
+broke OpenMM conversion for any system where the new atoms belonged to a group
+in the middle of the chain.
+
+**Fix**: after collecting all new atoms, `append_atoms_to_molsys` now sorts
+the new-atom list by `group_index` (stable sort) and remaps all bond indices
+accordingly before inserting them into the topology.
+
+**Rule**: every code path that calls `append_atoms_to_molsys` must set the
+correct `group_index` on new atoms before the call. The sort is a safety net
+but not a substitute for correct group assignment.
+
+---
+
+## `rebuild_molecules` ordering invariant (March 2026)
+
+`infer_molecule_names_from_topology` reads `molecule_type` from the molecules
+DataFrame to decide which naming scheme to apply (e.g. `'peptide 0'`, `'water'`,
+ion name). In `topology.rebuild_molecules`, the previous code computed names
+*before* types, so `molecule_type` was always NaN at the time names were
+generated, causing all molecules to fall through to the `'unknown N'` branch.
+
+**Fix**: in `rebuild_molecules`, `redefine_types` now runs before
+`redefine_names`. The rule generalises: any inference function that reads a
+derived attribute must be called after the function that writes that attribute.
+
+---
+
+## `get_missing_residues` (PDBFixer and native, March 2026)
+
+The native engine (`engine='MolSysMT'`, default) compares the structural
+sequence against a reference sequence using `difflib.SequenceMatcher`.
+The reference is resolved from SEQRES records (PDB), `_entity_poly_seq`
+(mmCIF/bcif), or an explicit `sequence` argument.
+
+The PDBFixer engine (`engine='PDBFixer'`) delegates to
+`pdbfixer.findMissingResidues`. It requires OpenMM and PDBFixer and ignores
+the `sequence` argument.
