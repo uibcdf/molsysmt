@@ -1,5 +1,5 @@
 {
-  "overall_min_percent": 75.0,
+  "overall_min_percent": 80.0,
   "packages": {
     "molsysmt.basic": 85.0,
     "molsysmt.build": 80.0,
