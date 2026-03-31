@@ -130,6 +130,37 @@ trusted-boundary contract — shape, dtype, and unit semantics are established
 once at chunk boundary, and inner execution loops do not re-enter digestion or
 validation for each chunk.
 
+### `skip_digestion=True` for internal callers
+
+All public MolSysMT functions that are decorated with `@arg_digest` perform
+argument validation on every call.  When one public function calls another
+**internally** — for example, a `build/` function calling `get()` or `select()`
+after its own arguments have already been validated — this repeated validation is
+wasted work.
+
+The accepted pattern for eliminating this cost is to pass `skip_digestion=True`
+to every internal `get()`, `select()`, `convert()`, or other public-API call
+that happens inside a function whose outer arguments are already validated:
+
+```python
+# Inside build/add_missing_heavy_atoms.py — arguments are already digested
+atom_names = get(molsys, element='atom', selection='all',
+                 attribute='atom_name', skip_digestion=True)
+```
+
+**Rules:**
+- `skip_digestion=True` must only be used when the caller has **already** ensured
+  the arguments are valid (correct types, shapes, and units).
+- Never pass `skip_digestion=True` to calls that receive *user-facing* inputs
+  directly — only to calls on data that has already been through the public path.
+- All `build/` functions that make internal calls **must** use this flag.
+  Failure to do so causes a measurable runtime cost (from ~48 s to < 1 s for
+  Barnase–Barstar in `get_missing_heavy_atoms` before and after applying the flag).
+
+This is the inner-loop counterpart to the `ValidatedPayload` passport model: both
+exist to ensure that validation cost is paid **once, at the public boundary**, not
+repeatedly along the internal call chain.
+
 ## Unit-Agnostic Kernels and Alignment on Demand
 The structure and PBC kernels should not enforce a single canonical user-level
 unit such as `nm` merely because the kernels are hot.

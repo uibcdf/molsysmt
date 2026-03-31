@@ -16,7 +16,7 @@ molsysmt/
   lib/             # Performance kernels (Numba, math, pbc, structure)
   native/          # Native objects and default units
   pbc/             # Periodic boundary condition tools
-  build/           # Topology construction and fixes
+  build/           # Topology construction and fixes (public functions + _native_placers.py internal helpers)
   hbonds/          # Hydrogen-bond analysis
   thirds/          # Optional integrations and third-party bridges
   systems/         # Bundled reference systems for tests/docs
@@ -64,7 +64,7 @@ MolSysMT distinguishes between two related but different concerns:
 Public element helpers may use dispatch, `get()`, `select()`, and conversion
 machinery. Native rebuild workflows must not. Native rebuild code must operate
 directly on native topology tables and native helpers in
-`molsysmt/native/_hierarchy.py`.
+`molsysmt/native/_topology_infer.py`.
 
 See `element_and_native_rebuild.md`.
 

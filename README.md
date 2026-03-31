@@ -118,5 +118,4 @@ You can cite all releases with the cumulative DOI (always points to the latest):
 
 ## Acknowledgments
 
-Project based on the
-[Computational Molecular Science Python Cookiecutter](https://github.com/molssi/cookiecutter-cms) version 1.5.
+- Daniel Ibarrola Sánchez for his contributions to the early development of MolSysMT.
