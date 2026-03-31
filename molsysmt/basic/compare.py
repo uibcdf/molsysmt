@@ -489,17 +489,17 @@ def compare(molecular_system, molecular_system_2, selection='all', structure_ind
                 try:
                     atom_pairs_A = np.sort(atom_pairs_A, axis=1)
                     order_in_A = np.lexsort((atom_pairs_A[:, 1], atom_pairs_A[:, 0])).tolist()
-                except:
+                except Exception:
                     order_in_A = list(range(len(atom_pairs_A)))
             else:
                 atom_pairs_A = np.empty((0, 2))
                 order_in_A = []
-                
+
             if atom_pairs_B.size > 0:
                 try:
                     atom_pairs_B = np.sort(atom_pairs_B, axis=1)
                     order_in_B = np.lexsort((atom_pairs_B[:, 1], atom_pairs_B[:, 0])).tolist()
-                except:
+                except Exception:
                     order_in_B = list(range(len(atom_pairs_B)))
             else:
                 atom_pairs_B = np.empty((0, 2))
