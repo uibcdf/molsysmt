@@ -140,7 +140,7 @@ class CaveatRecord():
     def __init__(self):
 
         self.idCode = None
-        self.comment = None
+        self.comment = ''
 
 
 class CompndRecord():

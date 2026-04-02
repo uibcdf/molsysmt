@@ -239,3 +239,33 @@ def test_atom_type_matches_names_dict(molsys_md_1u19_pdb):
     assert not mismatches, (
         f"atom_type mismatch for {len(mismatches)} atoms: {mismatches[:10]}"
     )
+
+
+# ---------------------------------------------------------------------------
+# Regression: CAVEAT record with comment initialised as None caused
+#   TypeError: unsupported operand type(s) for +=: 'NoneType' and 'str'
+# Root cause: CaveatRecord.comment was initialised to None; the parser does
+#   caveat.comment += line[10:80] which fails on the very first CAVEAT line.
+# Fix: CaveatRecord.__init__ now sets self.comment = ''.
+# Reproducer: 1byb.pdb (dogfooding session, 2026-04-02).
+# ---------------------------------------------------------------------------
+
+_MINIMAL_PDB_WITH_CAVEAT = """\
+HEADER    HYDROLASE                               20-JAN-99   1BYB
+CAVEAT     1BYB    GLC B 1 HAS WRONG CHIRALITY AT ATOM C1
+ATOM      1  N   ALA A   1       1.000   1.000   1.000  1.00  0.00           N
+ATOM      2  CA  ALA A   1       1.520   1.000   1.000  1.00  0.00           C
+ATOM      3  C   ALA A   1       2.000   2.000   1.000  1.00  0.00           C
+ATOM      4  O   ALA A   1       1.500   3.100   1.000  1.00  0.00           O
+ATOM      5  CB  ALA A   1       1.520   0.500   2.400  1.00  0.00           C
+END
+"""
+
+
+def test_caveat_record_does_not_raise(tmp_path):
+    """PDB files with a CAVEAT record must parse without TypeError."""
+    pdb_file = tmp_path / "caveat_regression.pdb"
+    pdb_file.write_text(_MINIMAL_PDB_WITH_CAVEAT)
+    mol = msm.convert(str(pdb_file), to_form='molsysmt.MolSys')
+    assert mol is not None
+    assert msm.get(mol, element='system', n_atoms=True) == 5
