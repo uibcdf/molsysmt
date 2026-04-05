@@ -431,15 +431,15 @@ def parse_format33(file):
 
             while record=='SPRSDE':
 
-                if line[8:10]=='  ':
+                if line[8:10].isspace():
                     sprsde = SprsdeRecord()
-                    pdb.title.sprsde.append(superseded)
+                    pdb.title.sprsde = sprsde
                     sprsde.sprsdeDate = line[11:20]
                     sprsde.idCode = line[21:25]
 
                 position=31
                 while not line[position:position+4].isspace():
-                    modification.changes.append(line[position:position+4].strip())
+                    sprsde.sIdCode.append(line[position:position+4].strip())
                     position+=6
                     if position>=75:
                         break

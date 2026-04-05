@@ -41,6 +41,14 @@ def get_n_groups_from_system(item, skip_digestion=False):
 
 
 @arg_digest(form=form)
+def get_atom_id_from_atom(item, indices='all', skip_digestion=False):
+    atom_ids = [str(record.serial) for record in _get_first_model_records(item)]
+    if indices == 'all':
+        return atom_ids
+    return [atom_ids[ii] for ii in indices]
+
+
+@arg_digest(form=form)
 def get_atom_name_from_atom(item, indices='all', skip_digestion=False):
     atom_names = [record.name for record in _get_first_model_records(item)]
     if indices == 'all':

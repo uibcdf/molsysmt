@@ -251,7 +251,7 @@ class SprsdeRecord():
 
         self.sprsdeDate = None
         self.idCode = None
-        self.sIdCode = None
+        self.sIdCode = []
 
 
 class JrnlRecord():

@@ -269,3 +269,53 @@ def test_caveat_record_does_not_raise(tmp_path):
     mol = msm.convert(str(pdb_file), to_form='molsysmt.MolSys')
     assert mol is not None
     assert msm.get(mol, element='system', n_atoms=True) == 5
+
+
+# ---------------------------------------------------------------------------
+# Regression: SPRSDE record caused AttributeError because:
+#   1. pdb.title.sprsde was None (not initialised as a record) and the parser
+#      tried pdb.title.sprsde.append(superseded) on it.
+#   2. SprsdeRecord.sIdCode was None instead of []; the parser called
+#      .append() on it later.
+#   3. The parser used a stale variable name ('superseded', 'modification')
+#      instead of 'sprsde'.
+# Fix: SprsdeRecord.sIdCode = [] and parser rewritten to match OBSLTE pattern.
+# Reproducer: 3ptb.pdb (dogfooding session, 2026-04-04).
+# ---------------------------------------------------------------------------
+
+_MINIMAL_PDB_WITH_SPRSDE = """\
+HEADER    HYDROLASE (SERINE PROTEINASE)           25-JUL-92   3PTB
+OBSLTE     25-JUL-92 3PTB      2PTB
+SPRSDE     25-JUL-92 3PTB      2PTB
+ATOM      1  N   ALA A   1       1.000   1.000   1.000  1.00  0.00           N
+ATOM      2  CA  ALA A   1       1.520   1.000   1.000  1.00  0.00           C
+ATOM      3  C   ALA A   1       2.000   2.000   1.000  1.00  0.00           C
+ATOM      4  O   ALA A   1       1.500   3.100   1.000  1.00  0.00           O
+ATOM      5  CB  ALA A   1       1.520   0.500   2.400  1.00  0.00           C
+END
+"""
+
+
+def test_sprsde_record_does_not_raise(tmp_path):
+    """PDB files with a SPRSDE record must parse without AttributeError."""
+    pdb_file = tmp_path / "sprsde_regression.pdb"
+    pdb_file.write_text(_MINIMAL_PDB_WITH_SPRSDE)
+    mol = msm.convert(str(pdb_file), to_form='molsysmt.MolSys')
+    assert mol is not None
+    assert msm.get(mol, element='system', n_atoms=True) == 5
+
+
+# ---------------------------------------------------------------------------
+# Regression: file:pdb form did not expose get_atom_id_from_atom, causing
+#   AttributeError when calling msm.get(pdb_file, element='atom', atom_id=True).
+# Fix: get_atom_id_from_atom added to both molsysmt_PDBFileHandler and
+#   file_pdb get_topological_attributes modules.
+# Reproducer: TopoMT CASTp parity tests (dogfooding session, 2026-04-04).
+# ---------------------------------------------------------------------------
+
+def test_atom_id_from_file_pdb(tmp_path):
+    """msm.get(pdb_file, element='atom', atom_id=True) must return serial numbers as strings."""
+    pdb_file = tmp_path / "atom_id_regression.pdb"
+    pdb_file.write_text(_MINIMAL_PDB_WITH_CAVEAT)
+    atom_ids = msm.get(str(pdb_file), element='atom', atom_id=True)
+    assert atom_ids == ['1', '2', '3', '4', '5']
