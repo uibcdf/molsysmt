@@ -12,6 +12,7 @@ from molsysmt._private.arg_digestion.argument.dispersion_correction import diges
 from molsysmt._private.arg_digestion.argument.default_exclusion_rules import digest_default_exclusion_rules
 from molsysmt._private.arg_digestion.argument.default_inclusion_rules import digest_default_inclusion_rules
 from molsysmt._private.arg_digestion.argument.ewald_error_tolerance import digest_ewald_error_tolerance
+from molsysmt._private.arg_digestion.argument.use_gpu import digest_use_gpu
 from molsysmt._private.smonitor import ArgumentError
 
 
@@ -34,6 +35,10 @@ def test_engine_and_mechanics_digesters():
     assert digest_default_inclusion_rules(False) is False
     assert digest_ewald_error_tolerance(0.0005) == 0.0005
     assert digest_ewald_error_tolerance(None) is None
+    assert digest_use_gpu(None) is None
+    assert digest_use_gpu(True) is True
+    assert digest_use_gpu(False) is False
+    assert digest_use_gpu('auto') == 'auto'
 
     with pytest.raises(ArgumentError):
         digest_engine('unknown')
@@ -41,3 +46,5 @@ def test_engine_and_mechanics_digesters():
         digest_integrator(object())
     with pytest.raises(ArgumentError):
         digest_platform('OpenCL')
+    with pytest.raises(ArgumentError):
+        digest_use_gpu('gpu')

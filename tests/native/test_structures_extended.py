@@ -28,6 +28,16 @@ def _time(n_structures=1):
     return puw.quantity(val, 'ps')
 
 
+def _b_factor(n_structures=1, n_atoms=5):
+    val = np.arange(n_structures * n_atoms, dtype=np.float64).reshape(n_structures, n_atoms)
+    return puw.quantity(val, 'nm**2')
+
+
+def _energy(n_structures=1):
+    val = np.arange(n_structures, dtype=np.float64)
+    return puw.quantity(val, 'kcal/mol')
+
+
 # ---------------------------------------------------------------------------
 # n_structures property
 # ---------------------------------------------------------------------------
@@ -197,3 +207,69 @@ def test_extract_copy_if_all_false():
     s.coordinates = _coords(n_structures=2, n_atoms=3)
     result = s.extract(copy_if_all=False)
     assert result is s
+
+
+def test_extract_preserves_b_factor_with_structure_subset():
+    """extract preserves b_factor when selecting a subset of structures."""
+    s = Structures()
+    s.coordinates = _coords(n_structures=3, n_atoms=4)
+    s.b_factor = _b_factor(n_structures=3, n_atoms=4)
+
+    sub = s.extract(structure_indices=[1])
+
+    assert sub.b_factor is not None
+    np.testing.assert_allclose(
+        puw.get_value(sub.b_factor, to_unit='nm**2'),
+        puw.get_value(s.b_factor[[1], :], to_unit='nm**2'),
+    )
+
+
+def test_extract_preserves_atomwise_and_structurewise_metadata():
+    """extract preserves velocities, b_factor, and per-structure metadata."""
+    s = Structures()
+    s.structure_id = np.array(['a', 'b', 'c'], dtype=object)
+    s.time = _time(n_structures=3)
+    s.coordinates = _coords(n_structures=3, n_atoms=5)
+    s.velocities = _velocity(n_structures=3, n_atoms=5)
+    s.box = _box(n_structures=3)
+    s.b_factor = _b_factor(n_structures=3, n_atoms=5)
+    s.alternate_location = np.array(['A', 'B', 'C'], dtype=object)
+    s.temperature = puw.quantity(np.array([300.0, 301.0, 302.0]), 'K')
+    s.potential_energy = _energy(n_structures=3)
+    s.kinetic_energy = _energy(n_structures=3) + _energy(n_structures=3)
+    s.bioassembly = {'assembly': 1}
+
+    sub = s.extract(structure_indices=[0, 2], atom_indices=[1, 3])
+
+    assert sub.structure_id.tolist() == ['a', 'c']
+    assert sub.alternate_location.tolist() == ['A', 'C']
+    assert sub.bioassembly == s.bioassembly
+    assert puw.get_value(sub.time, to_unit='ps').tolist() == [0.0, 2.0]
+    np.testing.assert_allclose(
+        puw.get_value(sub.coordinates, to_unit='nm'),
+        puw.get_value(s.coordinates[np.ix_([0, 2], [1, 3], [0, 1, 2])], to_unit='nm'),
+    )
+    np.testing.assert_allclose(
+        puw.get_value(sub.velocities, to_unit='nm/ps'),
+        puw.get_value(s.velocities[np.ix_([0, 2], [1, 3], [0, 1, 2])], to_unit='nm/ps'),
+    )
+    np.testing.assert_allclose(
+        puw.get_value(sub.box, to_unit='nm'),
+        puw.get_value(s.box[[0, 2], :, :], to_unit='nm'),
+    )
+    np.testing.assert_allclose(
+        puw.get_value(sub.b_factor, to_unit='nm**2'),
+        puw.get_value(s.b_factor[np.ix_([0, 2], [1, 3])], to_unit='nm**2'),
+    )
+    np.testing.assert_allclose(
+        puw.get_value(sub.temperature, to_unit='K'),
+        [300.0, 302.0],
+    )
+    np.testing.assert_allclose(
+        puw.get_value(sub.potential_energy, to_unit='kcal/mol'),
+        [0.0, 2.0],
+    )
+    np.testing.assert_allclose(
+        puw.get_value(sub.kinetic_energy, to_unit='kcal/mol'),
+        [0.0, 4.0],
+    )

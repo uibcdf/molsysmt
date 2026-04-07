@@ -73,3 +73,14 @@ def test_b_factor_via_get(molsys_1atp_pdb):
     val = puw.get_value(b, to_unit='angstroms**2')
     assert val.shape == (1, N_ATOMS)
     np.testing.assert_allclose(val[0, :5], KNOWN_B_FACTORS_AA2, atol=1e-2)
+
+
+def test_b_factor_survives_convert_with_structure_subset():
+    """Converting with structure_indices=0 must preserve B-factors."""
+    molsys = msm.convert(PDB_PATH, to_form='molsysmt.MolSys', structure_indices=0)
+
+    assert molsys.structures.b_factor is not None
+
+    val = puw.get_value(molsys.structures.b_factor, to_unit='angstroms**2')
+    assert val.shape == (1, N_ATOMS)
+    np.testing.assert_allclose(val[0, :5], KNOWN_B_FACTORS_AA2, atol=1e-2)

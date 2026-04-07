@@ -304,7 +304,57 @@ class Structures:
             else:
                 tmp_item.box = deepcopy(self.box[structure_indices, :, :])
 
-        # ... handle other attributes ...
+        if self.velocities is not None:
+            if is_all(structure_indices):
+                if is_all(atom_indices):
+                    tmp_item.velocities = deepcopy(self.velocities)
+                else:
+                    tmp_item.velocities = deepcopy(self.velocities[:, atom_indices, :])
+            else:
+                if is_all(atom_indices):
+                    tmp_item.velocities = deepcopy(self.velocities[structure_indices, :, :])
+                else:
+                    tmp_item.velocities = deepcopy(self.velocities[np.ix_(structure_indices, atom_indices, [0, 1, 2])])
+
+        if self.b_factor is not None:
+            if is_all(structure_indices):
+                if is_all(atom_indices):
+                    tmp_item.b_factor = deepcopy(self.b_factor)
+                else:
+                    tmp_item.b_factor = deepcopy(self.b_factor[:, atom_indices])
+            else:
+                if is_all(atom_indices):
+                    tmp_item.b_factor = deepcopy(self.b_factor[structure_indices, :])
+                else:
+                    tmp_item.b_factor = deepcopy(self.b_factor[np.ix_(structure_indices, atom_indices)])
+
+        if self.alternate_location is not None:
+            if is_all(structure_indices):
+                tmp_item.alternate_location = deepcopy(self.alternate_location)
+            else:
+                tmp_item.alternate_location = deepcopy(self.alternate_location[structure_indices])
+
+        if self.bioassembly is not None:
+            tmp_item.bioassembly = deepcopy(self.bioassembly)
+
+        if self.temperature is not None:
+            if is_all(structure_indices):
+                tmp_item.temperature = deepcopy(self.temperature)
+            else:
+                tmp_item.temperature = deepcopy(self.temperature[structure_indices])
+
+        if self.potential_energy is not None:
+            if is_all(structure_indices):
+                tmp_item.potential_energy = deepcopy(self.potential_energy)
+            else:
+                tmp_item.potential_energy = deepcopy(self.potential_energy[structure_indices])
+
+        if self.kinetic_energy is not None:
+            if is_all(structure_indices):
+                tmp_item.kinetic_energy = deepcopy(self.kinetic_energy)
+            else:
+                tmp_item.kinetic_energy = deepcopy(self.kinetic_energy[structure_indices])
+
         return tmp_item
 
     def add(self, item, atom_indices='all', structure_indices='all', skip_digestion=False):
