@@ -9,6 +9,7 @@ from smonitor import signal
 def info(molecular_system,
          element='system',
          selection='all',
+         structure_indices='all',
          syntax='MolSysMT',
          skip_digestion=False
          ):
@@ -284,13 +285,29 @@ def info(molecular_system,
 
     elif element == 'system':
 
-        n_atoms, n_groups, n_components, n_chains, n_molecules, n_entities, n_structures, \
-        n_ions, n_waters, n_small_molecules, n_peptides, n_proteins, n_dnas, \
-        n_rnas, n_lipids, n_polysaccharides, n_saccharides = get(molecular_system, element=element, skip_digestion=True,
-                n_atoms=True, n_groups=True,
-                n_components=True, n_chains=True, n_molecules=True, n_entities=True, n_structures=True, n_ions=True,
-                n_waters=True, n_small_molecules=True, n_peptides=True, n_proteins=True, n_dnas=True,
-                n_rnas=True, n_lipids=True, n_polysaccharides=True, n_saccharides=True)
+        if selection == 'all':
+            n_atoms, n_groups, n_components, n_chains, n_molecules, n_entities, n_structures, \
+            n_ions, n_waters, n_small_molecules, n_peptides, n_proteins, n_dnas, \
+            n_rnas, n_lipids, n_polysaccharides, n_saccharides = get(molecular_system, element=element, skip_digestion=True,
+                    n_atoms=True, n_groups=True,
+                    n_components=True, n_chains=True, n_molecules=True, n_entities=True, n_structures=True, n_ions=True,
+                    n_waters=True, n_small_molecules=True, n_peptides=True, n_proteins=True, n_dnas=True,
+                    n_rnas=True, n_lipids=True, n_polysaccharides=True, n_saccharides=True)
+        else:
+            atom_indices_resolved = select(molecular_system, selection=selection, syntax=syntax, skip_digestion=True)
+            n_atoms, n_groups, n_components, n_chains, n_molecules, n_entities, \
+            n_ions, n_waters, n_small_molecules, n_peptides, n_proteins, n_dnas, \
+            n_rnas, n_lipids, n_polysaccharides, n_saccharides = get(molecular_system, element='atom',
+                    selection=atom_indices_resolved, skip_digestion=True,
+                    n_atoms=True, n_groups=True, n_components=True, n_chains=True,
+                    n_molecules=True, n_entities=True,
+                    n_ions=True, n_waters=True, n_small_molecules=True, n_peptides=True,
+                    n_proteins=True, n_dnas=True, n_rnas=True, n_lipids=True,
+                    n_polysaccharides=True, n_saccharides=True)
+            n_structures = get(molecular_system, element='system', n_structures=True, skip_digestion=True)
+
+        if structure_indices != 'all' and structure_indices is not None:
+            n_structures = len(structure_indices)
 
         if not attributes_filter['n_atoms']: n_atoms=None
         if not attributes_filter['n_groups']: n_groups=None

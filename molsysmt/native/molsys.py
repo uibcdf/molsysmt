@@ -205,3 +205,7 @@ class MolSys:
 
     def _get_n_atoms(self):
         return self.topology._get_n_atoms()
+
+    def get_n_atoms(self):
+        return self.topology.get_n_atoms()
+

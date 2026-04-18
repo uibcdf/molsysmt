@@ -265,6 +265,7 @@ class Structures:
         from copy import deepcopy
         return deepcopy(self)
 
+    @arg_digest()
     def extract(self, atom_indices='all', structure_indices='all', copy_if_all=True, skip_digestion=False):
         if is_all(atom_indices) and is_all(structure_indices):
             if copy_if_all:
@@ -357,6 +358,7 @@ class Structures:
 
         return tmp_item
 
+    @arg_digest()
     def add(self, item, atom_indices='all', structure_indices='all', skip_digestion=False):
         # Concatenate atoms to the current structures
         if is_all(structure_indices):
@@ -375,3 +377,174 @@ class Structures:
                      else:
                          self.coordinates = self._puw_concatenate([self.coordinates, item.coordinates[:, atom_indices, :]], axis=1)
         return
+
+    @arg_digest()
+    def get_coordinates(self, indices='all', structure_indices='all', skip_digestion=False):
+    
+        if is_all(indices):
+            if is_all(structure_indices):
+                return self.coordinates.copy()
+            else:
+                return self.coordinates[structure_indices,:,:].copy()
+        else:
+            if is_all(structure_indices):
+                return self.coordinates[:,indices,:].copy()
+            else:
+                return self.coordinates[np.ix_(structure_indices, indices, [0,1,2])].copy()
+
+    @arg_digest()
+    def set_coordinates(self, indices='all', structure_indices='all', value=None, skip_digestion=False):
+    
+        if is_all(indices):
+            if is_all(structure_indices):
+    
+                self.coordinates = value
+    
+                if self.box is not None and self.box.shape[0] > 0:
+                    if self.box.shape[0]!=self.n_structures:
+                        if self.box.shape[0]==1:
+                            from molsysmt import pyunitwizard as puw
+                            self.box = puw.utils.numpy.repeat(self.box, self.n_structures, axis=0)
+                        else:
+                            # If we can't broadcast, we set it to None or keep it as is?
+                            # For 1.0.0 stability, if it doesn't match and isn't 1, we invalidate the box.
+                            self.box = None
+            else:
+                self.coordinates[structure_indices,:,:] = value[:,:,:]
+        else:
+            if is_all(structure_indices):
+                self.coordinates[:,indices,:] = value[:,:,:]
+            else:
+                self.coordinates[np.ix_(structure_indices, indices)]=value[:,:,:]
+    
+        pass
+
+    @arg_digest()
+    def get_velocities(self, indices='all', structure_indices='all', skip_digestion=False):
+    
+        if is_all(indices):
+            if is_all(structure_indices):
+                return self.velocities.copy()
+            else:
+                return self.velocities[structure_indices,:,:].copy()
+        else:
+            if is_all(structure_indices):
+                return self.velocities[:,indices,:].copy()
+            else:
+                return self.velocities[np.ix_(structure_indices, indices, [0,1,2])].copy()
+
+
+    @arg_digest()
+    def set_velocities(self, indices='all', structure_indices='all', value=None, skip_digestion=False):
+    
+        if is_all(indices):
+            if is_all(structure_indices):
+                self.velocities = value
+            else:
+                self.velocities[structure_indices,:,:] = value[:,:,:]
+        else:
+            if is_all(structure_indices):
+                self.velocities[:,indices,:] = value[:,:,:]
+            else:
+                self.velocities[np.ix_(structure_indices, indices)]=value[:,:,:]
+    
+        pass
+
+
+    @arg_digest()
+    def get_b_factor(self, indices='all', structure_indices='all', skip_digestion=False):
+    
+        if is_all(indices):
+            if is_all(structure_indices):
+                return self.b_factor.copy()
+            else:
+                return self.b_factor[structure_indices,:].copy()
+        else:
+            if is_all(structure_indices):
+                return self.b_factor[:,indices].copy()
+            else:
+                return self.b_factor[np.ix_(structure_indices, indices)].copy()
+    
+        pass
+
+
+    @arg_digest()
+    def set_b_factor(self, indices='all', structure_indices='all', value=None, skip_digestion=False):
+    
+        if is_all(indices):
+            if is_all(structure_indices):
+                self.b_factor = value
+            else:
+                self.b_factor[structure_indices,:] = value[:,:]
+        else:
+            if is_all(structure_indices):
+                self.b_factor[:,indices] = value[:,:]
+            else:
+                self.b_factor[np.ix_(structure_indices, indices)]=value[:,:]
+    
+        pass
+
+
+    @arg_digest()
+    def get_structure_id(self, structure_indices='all', skip_digestion=False):
+    
+        if is_all(structure_indices):
+            return self.structure_id.copy()
+        else:
+            return self.structure_id[structure_indices].copy()
+    
+        pass
+
+
+    @arg_digest()
+    def set_structure_id(self, structure_indices='all', value=None, skip_digestion=False):
+    
+        if is_all(structure_indices):
+            self.structure_id = value
+        else:
+            self.structure_id[structure_indices] = value
+    
+        pass
+    
+
+    @arg_digest()
+    def get_time(self, structure_indices='all', skip_digestion=False):
+    
+        if is_all(structure_indices):
+            return self.time.copy()
+        else:
+            return self.time[structure_indices].copy()
+
+
+    @arg_digest()
+    def set_time(self, structure_indices='all', value=None, skip_digestion=False):
+    
+        if is_all(structure_indices):
+            self.time = value
+        else:
+            self.time[structure_indices] = value
+    
+        pass
+   
+
+    @arg_digest()
+    def get_box(self, structure_indices='all', skip_digestion=False):
+    
+        if is_all(structure_indices):
+            return self.box.copy()
+        else:
+            return self.box[structure_indices,:,:].copy()
+    
+        pass
+
+
+    @arg_digest()
+    def set_box(self, structure_indices='all', value=None, skip_digestion=False):
+    
+        if is_all(structure_indices):
+            self.box = value
+        else:
+            self.box[structure_indices,:,:] = value[:,:,:]
+    
+        pass
+
