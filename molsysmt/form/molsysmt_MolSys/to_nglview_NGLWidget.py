@@ -9,7 +9,7 @@ def to_nglview_NGLWidget(item, atom_indices='all', structure_indices='all', skip
     try:
         from nglview import show_molsysmt
     except ImportError:
-        from molsysmt.thirds.nglview.molsysmt_trajectory import show_molsysmt
+        from molsysmt.third_party.nglview.molsysmt_trajectory import show_molsysmt
 
     if not (is_all(atom_indices) and is_all(structure_indices)):
         tmp_item = extract(item, selection=atom_indices, structure_indices=structure_indices, skip_digestion=True)

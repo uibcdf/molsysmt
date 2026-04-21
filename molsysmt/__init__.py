@@ -71,7 +71,8 @@ from . import physchem
 from . import molecular_mechanics
 #from . import molecular_dynamics
 from . import hbonds
-from . import thirds
+from . import third_party
+from . import third_party as thirds
 
 from .systems import systems
 from .warmup_numba import warmup_numba

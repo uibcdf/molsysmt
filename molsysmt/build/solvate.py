@@ -775,7 +775,7 @@ def solvate (molecular_system, box_shape="truncated octahedral", clearance='14.0
 
     #elif engine=="LEaP":
 
-    #    from molsysmt.thirds.tleap import TLeap
+    #    from molsysmt.third_party.tleap import TLeap
     #    from molsysmt._private.files_and_directories import temp_directory, temp_filename
     #    from molsysmt.form.file_pdb import replace_HETATM_by_ATOM_in_terminal_cappings
     #    from shutil import rmtree, copyfile

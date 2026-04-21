@@ -8,18 +8,18 @@ methods_where_bool = [
 ]
 
 methods_where_none = [
-    'molsysmt.thirds.nglview.add_arrows.add_arrows',
-    'molsysmt.thirds.nglview.add_cylinders.add_cylinders'
+    'molsysmt.third_party.nglview.add_arrows.add_arrows',
+    'molsysmt.third_party.nglview.add_cylinders.add_cylinders'
 ]
 
 methods_where_xyz = [
-    'molsysmt.thirds.nglview.add_arrows.add_arrows',
-    'molsysmt.thirds.nglview.add_cylinders.add_cylinders'
+    'molsysmt.third_party.nglview.add_arrows.add_arrows',
+    'molsysmt.third_party.nglview.add_cylinders.add_cylinders'
 ]
 
 methods_where_can_be_selection = [
-    'molsysmt.thirds.nglview.add_arrows.add_arrows',
-    'molsysmt.thirds.nglview.add_cylinders.add_cylinders'
+    'molsysmt.third_party.nglview.add_arrows.add_arrows',
+    'molsysmt.third_party.nglview.add_cylinders.add_cylinders'
 ]
 
 def digest_vectors(vectors, caller=None):

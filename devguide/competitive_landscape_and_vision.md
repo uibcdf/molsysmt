@@ -142,7 +142,7 @@ The breadth of the `physchem` module has no equivalent in either tool.
 MolSysMT provides explicit integration modules for:
 
 - **OpenMM** — system preparation, simulation, and result retrieval through the MolSysMT form adapter for `openmm.Context`, `openmm.Simulation`, and `openmm.Modeller`.
-- **nglview** — native visualization via `molsysmt.thirds.nglview` and the `nglview.NGLWidget` form adapter; `msm.view()` delegates here.
+- **nglview** — native visualization via `molsysmt.third_party.nglview` and the `nglview.NGLWidget` form adapter; `msm.view()` delegates here.
 - **tleap** — AMBER `tleap` integration for system preparation and force-field parametrization.
 
 This makes MolSysMT the connective tissue between simulation engines, not a replacement for them.

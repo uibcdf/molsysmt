@@ -18,7 +18,7 @@ from molsysmt import pyunitwizard as puw
 
 
 HBOND_CALLER = "molsysmt.molecular_mechanics.add_harmonic_bond_force.add_harmonic_bond_force"
-ADD_CONTACTS_CALLER = "molsysmt.thirds.nglview.add_contacts.add_contacts"
+ADD_CONTACTS_CALLER = "molsysmt.third_party.nglview.add_contacts.add_contacts"
 CONTACTS_CALLER = "molsysmt.structure.get_contacts.get_contacts"
 DISTANCES_CALLER = "molsysmt.structure.get_distances.get_distances"
 NEIGHBORS_CALLER = "molsysmt.structure.get_neighbors.get_neighbors"

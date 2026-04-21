@@ -36,7 +36,7 @@ def test_blocks_and_window_digesters_accept_expected_inputs():
 
 
 def test_top_and_bottom_accept_coordinates_and_selection_for_nglview_helpers():
-    caller = 'molsysmt.thirds.nglview.add_cylinders.add_cylinders'
+    caller = 'molsysmt.third_party.nglview.add_cylinders.add_cylinders'
     xyz = puw.quantity(np.array([0.0, 0.0, 1.0]), 'nm')
     top = digest_top(xyz, caller=caller)
     bottom = digest_bottom('index == 0', caller=caller)

@@ -12,7 +12,7 @@ nglview_representations = [
 def digest_representation(representation, caller=None):
 
 
-    if caller is not None and caller.startswith('molsysmt.thirds.nglview.'):
+    if caller is not None and caller.startswith('molsysmt.third_party.nglview.'):
 
         if isinstance(representation, str):
             return representation

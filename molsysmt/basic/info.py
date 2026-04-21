@@ -11,14 +11,15 @@ def info(molecular_system,
          selection='all',
          structure_indices='all',
          syntax='MolSysMT',
+         output_type='styler',
          skip_digestion=False
          ):
     """
     Display a summary table of a molecular system or selected elements.
 
-    This function produces a formatted summary table (as a Pandas *Styler*) with key attributes
-    of a molecular system, either for the whole system or for a given `element` level and
-    `selection`. The columns returned depend on the chosen `element` and on the attributes
+    This function produces a formatted summary table (as a Pandas *Styler*, *DataFrame*, or *Dictionary*)
+    with key attributes of a molecular system, either for the whole system or for a given `element`
+    level and `selection`. The columns returned depend on the chosen `element` and on the attributes
     available in the underlying form(s).
 
     Parameters
@@ -30,8 +31,13 @@ def info(molecular_system,
     selection : int, tuple, list, numpy.ndarray or str, default 'all'
         Selection of elements at the specified level. It can be a 0-based index collection or
         a selection string parsed according to :ref:`Introduction_Selection`.
+    structure_indices : int, list, tuple, numpy.ndarray or str, default 'all'
+        Indices of the structures to be considered if the system summary is requested.
     syntax : str, default 'MolSysMT'
         Selection syntax used when `selection` is a string. See :ref:`Introduction_Selection`.
+    output_type : {'styler', 'dataframe', 'dictionary'}, default 'styler'
+        The type of the output object. 'styler' returns a Pandas Styler (best for notebooks),
+        'dataframe' returns a raw Pandas DataFrame, and 'dictionary' returns a Python dict.
     skip_digestion : bool, default False
         Whether to skip MolSysMT’s internal argument digestion mechanism.
 
@@ -146,13 +152,13 @@ def info(molecular_system,
         if not attributes_filter['entity_index']: entity_index=None
         if not attributes_filter['entity_name']: entity_name=None
 
-        return df({'index': atom_index, 'id': atom_id, 'name': atom_name, 'type': atom_type,
-                   'group index': group_index, 'group id': group_id, 'group name': group_name,
-                   'group type': group_type,
-                   'component index': component_index,
-                   'chain index': chain_index,
-                   'molecule index': molecule_index, 'molecule type': molecule_type,
-                   'entity index': entity_index, 'entity name': entity_name}).style.hide(axis='index')
+        tmp_df = df({'index': atom_index, 'id': atom_id, 'name': atom_name, 'type': atom_type,
+                      'group index': group_index, 'group id': group_id, 'group name': group_name,
+                      'group type': group_type,
+                      'component index': component_index,
+                      'chain index': chain_index,
+                      'molecule index': molecule_index, 'molecule type': molecule_type,
+                      'entity index': entity_index, 'entity name': entity_name})
 
     elif element == 'group':
 
@@ -178,12 +184,12 @@ def info(molecular_system,
         if not attributes_filter['entity_index']: entity_index=None
         if not attributes_filter['entity_name']: entity_name=None
 
-        return df({'index': group_index, 'id': group_id, 'name': group_name, 'type': group_type,
-                   'n atoms': n_atoms,
-                   'component index': component_index,
-                   'chain index': chain_index,
-                   'molecule index': molecule_index, 'molecule type': molecule_type,
-                   'entity index': entity_index, 'entity name': entity_name}).style.hide(axis='index')
+        tmp_df = df({'index': group_index, 'id': group_id, 'name': group_name, 'type': group_type,
+                      'n atoms': n_atoms,
+                      'component index': component_index,
+                      'chain index': chain_index,
+                      'molecule index': molecule_index, 'molecule type': molecule_type,
+                      'entity index': entity_index, 'entity name': entity_name})
 
     elif element == 'component':
 
@@ -204,11 +210,11 @@ def info(molecular_system,
         if not attributes_filter['entity_index']: entity_index=None
         if not attributes_filter['entity_name']: entity_name=None
 
-        return df({'index': component_index,
-                   'n atoms': n_atoms, 'n groups': n_groups,
-                   'chain index': chain_index,
-                   'molecule index': molecule_index, 'molecule type': molecule_type,
-                   'entity index': entity_index, 'entity name': entity_name}).style.hide(axis='index')
+        tmp_df = df({'index': component_index,
+                      'n atoms': n_atoms, 'n groups': n_groups,
+                      'chain index': chain_index,
+                      'molecule index': molecule_index, 'molecule type': molecule_type,
+                      'entity index': entity_index, 'entity name': entity_name})
 
     elif element == 'chain':
 
@@ -231,10 +237,10 @@ def info(molecular_system,
         if not attributes_filter['entity_index']: entity_index=None
         if not attributes_filter['entity_name']: entity_name=None
 
-        return df({'index': chain_index, 'id': chain_id, 'name': chain_name,
-                   'n atoms': n_atoms, 'n groups': n_groups, 'n components': n_components,
-                   'molecule index': molecule_index, 'molecule type': molecule_type,
-                   'entity index': entity_index, 'entity name': entity_name}).style.hide(axis='index')
+        tmp_df = df({'index': chain_index, 'id': chain_id, 'name': chain_name,
+                      'n atoms': n_atoms, 'n groups': n_groups, 'n components': n_components,
+                      'molecule index': molecule_index, 'molecule type': molecule_type,
+                      'entity index': entity_index, 'entity name': entity_name})
 
     elif element == 'molecule':
 
@@ -255,10 +261,10 @@ def info(molecular_system,
         if not attributes_filter['entity_index']: entity_index=None
         if not attributes_filter['entity_name']: entity_name=None
 
-        return df({'index': molecule_index, 'name': molecule_name, 'type': molecule_type,
-                   'n atoms': n_atoms, 'n groups': n_groups, 'n components': n_components,
-                   'chain index': chain_index,
-                   'entity index': entity_index, 'entity name': entity_name}).style.hide(axis='index')
+        tmp_df = df({'index': molecule_index, 'name': molecule_name, 'type': molecule_type,
+                      'n atoms': n_atoms, 'n groups': n_groups, 'n components': n_components,
+                      'chain index': chain_index,
+                      'entity index': entity_index, 'entity name': entity_name})
 
     elif element == 'entity':
 
@@ -278,10 +284,10 @@ def info(molecular_system,
         if not attributes_filter['n_chains']: n_chains=None
         if not attributes_filter['n_molecules']: n_molecules=None
 
-        return df({'index': entity_index, 'name': entity_name, 'type': entity_type,
-                   'n atoms': n_atoms, 'n groups': n_groups, 'n components': n_components,
-                   'n chains': n_chains, 'n molecules': n_molecules
-                   }).style.hide(axis='index')
+        tmp_df = df({'index': entity_index, 'name': entity_name, 'type': entity_type,
+                      'n atoms': n_atoms, 'n groups': n_groups, 'n components': n_components,
+                      'n chains': n_chains, 'n molecules': n_molecules
+                      })
 
     elif element == 'system':
 
@@ -336,36 +342,44 @@ def info(molecular_system,
                       'n_structures': n_structures}], index=[0])
 
         if n_ions == 0 or n_ions is None:
-            tmp_df.drop(columns=['n_ions'], inplace=True)
+            if 'n_ions' in tmp_df.columns:
+                tmp_df.drop(columns=['n_ions'], inplace=True)
 
         if n_waters == 0 or n_waters is None:
-            tmp_df.drop(columns=['n_waters'], inplace=True)
+            if 'n_waters' in tmp_df.columns:
+                tmp_df.drop(columns=['n_waters'], inplace=True)
 
         if n_small_molecules == 0 or n_small_molecules is None:
-            tmp_df.drop(columns=['n_small_molecules'], inplace=True)
+            if 'n_small_molecules' in tmp_df.columns:
+                tmp_df.drop(columns=['n_small_molecules'], inplace=True)
 
         if n_peptides == 0 or n_peptides is None:
-            tmp_df.drop(columns=['n_peptides'], inplace=True)
+            if 'n_peptides' in tmp_df.columns:
+                tmp_df.drop(columns=['n_peptides'], inplace=True)
 
         if n_proteins == 0 or n_proteins is None:
-            tmp_df.drop(columns=['n_proteins'], inplace=True)
+            if 'n_proteins' in tmp_df.columns:
+                tmp_df.drop(columns=['n_proteins'], inplace=True)
 
         if n_dnas == 0 or n_dnas is None:
-            tmp_df.drop(columns=['n_dnas'], inplace=True)
+            if 'n_dnas' in tmp_df.columns:
+                tmp_df.drop(columns=['n_dnas'], inplace=True)
 
         if n_rnas == 0 or n_rnas is None:
-            tmp_df.drop(columns=['n_rnas'], inplace=True)
+            if 'n_rnas' in tmp_df.columns:
+                tmp_df.drop(columns=['n_rnas'], inplace=True)
 
         if n_lipids == 0 or n_lipids is None:
-            tmp_df.drop(columns=['n_lipids'], inplace=True)
+            if 'n_lipids' in tmp_df.columns:
+                tmp_df.drop(columns=['n_lipids'], inplace=True)
 
         if n_polysaccharides == 0 or n_polysaccharides is None:
-            tmp_df.drop(columns=['n_polysaccharides'], inplace=True)
+            if 'n_polysaccharides' in tmp_df.columns:
+                tmp_df.drop(columns=['n_polysaccharides'], inplace=True)
 
         if n_saccharides == 0 or n_saccharides is None:
-            tmp_df.drop(columns=['n_saccharides'], inplace=True)
-
-        return tmp_df.style.hide(axis='index')
+            if 'n_saccharides' in tmp_df.columns:
+                tmp_df.drop(columns=['n_saccharides'], inplace=True)
 
     else:
         from molsysmt._private.smonitor import ArgumentChoiceError
@@ -373,6 +387,21 @@ def info(molecular_system,
             argument="element",
             value=element,
             choices=["atom", "group", "component", "chain", "molecule", "entity", "system"],
+            caller="molsysmt.basic.info",
+        )
+
+    if output_type == 'styler':
+        return tmp_df.style.hide(axis='index')
+    elif output_type == 'dataframe':
+        return tmp_df
+    elif output_type == 'dictionary':
+        return tmp_df.to_dict(orient='records')
+    else:
+        from molsysmt._private.smonitor import ArgumentChoiceError
+        raise ArgumentChoiceError(
+            argument="output_type",
+            value=output_type,
+            choices=["styler", "dataframe", "dictionary"],
             caller="molsysmt.basic.info",
         )
 

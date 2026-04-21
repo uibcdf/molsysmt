@@ -8,15 +8,15 @@ methods_where_bool = [
 ]
 
 methods_where_none = [
-    'molsysmt.thirds.nglview.add_arrows.add_arrows'
+    'molsysmt.third_party.nglview.add_arrows.add_arrows'
 ]
 
 methods_where_xyz = [
-    'molsysmt.thirds.nglview.add_arrows.add_arrows'
+    'molsysmt.third_party.nglview.add_arrows.add_arrows'
 ]
 
 methods_where_can_be_selection = [
-    'molsysmt.thirds.nglview.add_arrows.add_arrows'
+    'molsysmt.third_party.nglview.add_arrows.add_arrows'
 ]
 
 def digest_origin(origin, caller=None):

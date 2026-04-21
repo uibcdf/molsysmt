@@ -22,13 +22,13 @@ def test_geometry_and_transform_digesters():
     assert digest_center(True, caller='molsysmt.structure.align_principal_axes.align_principal_axes') is True
     assert np.array_equal(digest_fit([0, 2], caller='molsysmt.basic.convert.convert'), np.array([0, 2], dtype='int64'))
     assert digest_groups_of_atoms([[0, 1], [2, 3]]) == [[0, 1], [2, 3]]
-    assert digest_origin(None, caller='molsysmt.thirds.nglview.add_arrows.add_arrows') is None
-    assert digest_origin('atom_index==0', caller='molsysmt.thirds.nglview.add_arrows.add_arrows') == 'atom_index==0'
+    assert digest_origin(None, caller='molsysmt.third_party.nglview.add_arrows.add_arrows') is None
+    assert digest_origin('atom_index==0', caller='molsysmt.third_party.nglview.add_arrows.add_arrows') == 'atom_index==0'
 
     point = digest_point(puw.quantity([0.0, 1.0, 2.0], 'nm'))
     assert point.shape == (1, 3)
     assert np.array_equal(digest_vector([1.0, 0.0, 0.0]), np.array([1.0, 0.0, 0.0]))
-    vectors = digest_vectors(puw.quantity([[1.0, 0.0, 0.0], [0.0, 1.0, 0.0]], 'nm'), caller='molsysmt.thirds.nglview.add_cylinders.add_cylinders')
+    vectors = digest_vectors(puw.quantity([[1.0, 0.0, 0.0], [0.0, 1.0, 0.0]], 'nm'), caller='molsysmt.third_party.nglview.add_cylinders.add_cylinders')
     assert vectors.shape[-1] == 3
 
     rot = digest_rotation(np.eye(3))

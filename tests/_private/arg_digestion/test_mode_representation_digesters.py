@@ -10,7 +10,7 @@ from molsysmt._private.arg_digestion.argument.color_values_scale_2 import digest
 
 
 def test_representation_is_caller_sensitive():
-    assert digest_representation('cartoon', caller='molsysmt.thirds.nglview.add_representation') == 'cartoon'
+    assert digest_representation('cartoon', caller='molsysmt.third_party.nglview.add_representation') == 'cartoon'
     with pytest.raises(ArgumentError):
         digest_representation('cartoon')
 

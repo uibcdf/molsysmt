@@ -798,7 +798,7 @@ def build_peptide(molecular_system, to_form='molsysmt.MolSys', engine='LEaP'):
 
         from molsysmt.basic import convert
         from os import getcwd, chdir
-        from molsysmt.thirds.tleap import TLeap
+        from molsysmt.third_party.tleap import TLeap
         from molsysmt._private.files_and_directories import temp_directory, temp_filename
         from shutil import rmtree, copyfile
 

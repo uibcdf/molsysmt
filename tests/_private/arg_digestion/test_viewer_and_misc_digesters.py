@@ -16,7 +16,7 @@ def test_viewer_and_misc_digesters():
     view = msm.view(msm.systems['alanine dipeptide']['alanine_dipeptide.h5msm'], viewer='NGLView')
     assert digest_view(view) is view
     assert digest_viewer('nglview') == 'NGLView'
-    assert digest_representation('cartoon', caller='molsysmt.thirds.nglview.add_representation.add_representation') == 'cartoon'
+    assert digest_representation('cartoon', caller='molsysmt.third_party.nglview.add_representation.add_representation') == 'cartoon'
     assert digest_pairs(True) is True
     assert digest_filename('output.dat') == 'output.dat'
     assert digest_as_entity(True) is True

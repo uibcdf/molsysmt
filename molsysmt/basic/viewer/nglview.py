@@ -14,7 +14,7 @@ def view(molecular_system=None, selection='all', structure_indices='all', syntax
             htmlfile = stack()[2][0].f_locals['nglview_htmlfile']
             if htmlfile is not None:
                 if Path(htmlfile).is_file():
-                    from molsysmt.thirds.nglview import load_html_in_jupyter_notebook
+                    from molsysmt.third_party.nglview import load_html_in_jupyter_notebook
                     return load_html_in_jupyter_notebook(htmlfile)
 
     if molecular_system is None:

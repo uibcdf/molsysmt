@@ -10,7 +10,7 @@ common_functions_with_threshold = [
 
 common_functions_with_threshold_and_None = [
     'molsysmt.structure.get_neighbors.get_neighbors',
-    'molsysmt.thirds.nglview.add_contacts.add_contacts',
+    'molsysmt.third_party.nglview.add_contacts.add_contacts',
 ]
 
 def digest_threshold(threshold, caller=None):

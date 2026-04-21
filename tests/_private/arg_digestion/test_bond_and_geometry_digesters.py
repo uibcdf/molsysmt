@@ -21,7 +21,7 @@ GET_CALLER = "molsysmt.basic.get.get"
 COMPARE_CALLER = "molsysmt.basic.compare.compare"
 SELECT_CALLER = "molsysmt.basic.select.select"
 HBOND_CALLER = "molsysmt.molecular_mechanics.add_harmonic_bond_force.add_harmonic_bond_force"
-CONTACTS_CALLER = "molsysmt.thirds.nglview.add_contacts.add_contacts"
+CONTACTS_CALLER = "molsysmt.third_party.nglview.add_contacts.add_contacts"
 LEGACY_ADD_BONDS_CALLER = "molsysmt.build.add_bonds.add_bonds"
 DIHEDRAL_CALLER = "molsysmt.structure.get_dihedral_angles.get_dihedral_angles"
 
