@@ -137,7 +137,7 @@ def _get_molecule_type_from_group_names_and_types(group_names, group_types):
 
     from ..group.nucleotide import rna_names, dna_names
     from ..group.water.water_names import water_names
-    from molsysmt.config import min_length_protein
+    from molsysmt.configure import min_length_protein
 
     n_groups = len(group_types)
     first_group_type = group_types[0]

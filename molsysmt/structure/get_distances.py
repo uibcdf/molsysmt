@@ -28,7 +28,7 @@ class _DistancesReducer(Reducer):
 
     def estimate_output_shape(self, metadata):
         """Use disk-backing only when the output would exceed the RAM budget."""
-        import molsysmt.config as config
+        import molsysmt.configure as config
         n_structures = metadata['n_structures']
         n_atoms = metadata['n_atoms']
         output_bytes = n_structures * n_atoms * n_atoms * 8

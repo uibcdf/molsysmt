@@ -19,7 +19,7 @@ def get_potential_energy(molecular_system, selection='all', decomposition=False,
         engine='OpenMM', syntax='MolSysMT', skip_digestion=False):
 
     from molsysmt import convert, get_form, has_attribute
-    from molsysmt.config import default_attribute
+    from molsysmt.configure import default_attribute
 
     if engine=='OpenMM':
 

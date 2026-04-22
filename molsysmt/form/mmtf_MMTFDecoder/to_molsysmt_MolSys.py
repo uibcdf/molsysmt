@@ -11,7 +11,7 @@ import numpy as np
 def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_digestion=False):
 
     from molsysmt.native import MolSys
-    from molsysmt.config import min_length_protein
+    from molsysmt.configure import min_length_protein
     from molsysmt.element.group import get_bonded_atom_pairs
 
     # atoms, groups and bonds intra group

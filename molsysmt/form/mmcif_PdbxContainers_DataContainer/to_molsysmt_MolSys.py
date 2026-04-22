@@ -19,7 +19,7 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
     from molsysmt.element.group import get_bonded_atom_pairs
     from molsysmt.element.group import get_group_type_from_group_name
     from molsysmt.build import get_missing_bonds
-    from molsysmt.config import min_length_protein
+    from molsysmt.configure import min_length_protein
 
     if isinstance(item, str):
         from .to_mmcif_PdbxContainers_DataContainer import to_mmcif_PdbxContainers_DataContainer

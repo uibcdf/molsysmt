@@ -2,7 +2,7 @@ from molsysmt._private.smonitor import NotImplementedConversionError
 from molsysmt._private.smonitor import NotCompatibleConversionError
 from molsysmt._private.arg_digestion import arg_digest
 from molsysmt._private.variables import is_all
-from molsysmt.config import default_attribute
+from molsysmt.configure import default_attribute
 import inspect
 import numpy as np
 

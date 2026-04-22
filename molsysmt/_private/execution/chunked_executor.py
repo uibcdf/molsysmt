@@ -45,7 +45,7 @@ class ChunkedExecutor:
     structure_indices : array-like or None
         Frame selection.
     chunk_size : int or None
-        Frames per chunk. None uses molsysmt.config.chunk_size.
+        Frames per chunk. None uses molsysmt.configure.chunk_size.
     heavy_mode : str
         'auto' | 'force' | 'off'
     attributes : list or None
@@ -93,7 +93,7 @@ class ChunkedExecutor:
         self.restore_from = restore_from
         self.output_path = output_path
 
-        import molsysmt.config as config
+        import molsysmt.configure as config
         self.chunk_size = chunk_size if chunk_size is not None else config.chunk_size
 
         # Normalize reducer(s) to an internal list
@@ -137,7 +137,7 @@ class ChunkedExecutor:
         footprint = estimate_footprint(n_atoms, n_structures)
         mode = decide_mode(footprint, self.heavy_mode)
 
-        import molsysmt.config as config
+        import molsysmt.configure as config
 
         if mode == 'heavy':
             # Validate that the form supports heavy mode for all requested attributes
@@ -204,7 +204,7 @@ class ChunkedExecutor:
             SlowChunkIOWarning, CorruptFrameSkippedWarning, MemoryPressureWarning, info,
         )
         import warnings
-        import molsysmt.config as config
+        import molsysmt.configure as config
 
         _EMA_ALPHA = 0.3   # exponential moving-average weight for ETA
 

@@ -25,7 +25,7 @@ _ensure_smonitor_configured(_SMONITOR_PACKAGE_ROOT)
 #__github_issues_web__ = __github_web__ + '/issues'
 
 # Starting the modules
-from . import config
+from . import configure
 
 from ._pyunitwizard import puw as pyunitwizard
 

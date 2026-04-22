@@ -191,7 +191,7 @@ The estimate does not need to be perfect. It needs to be conservative enough to 
 
 The library should have an explicit policy such as:
 
-- if estimated eager footprint is below `molsysmt.config.max_ram_usage`:
+- if estimated eager footprint is below `molsysmt.configure.max_ram_usage`:
   - use eager path;
 - otherwise:
   - if the operation and form support heavy mode, use heavy path;

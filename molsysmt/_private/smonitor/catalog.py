@@ -667,7 +667,7 @@ CODES = {
     "MSM-WARN-HVY-003": {
         "title": "Memory pressure during heavy processing",
         "user_message": "RAM usage ({rss_bytes} bytes) has exceeded {pressure_pct:.0f}% of the configured budget ({budget_bytes} bytes) at chunk {chunk_index}.",
-        "user_hint": "Consider reducing chunk_size, freeing memory, or increasing molsysmt.config.max_ram_usage.",
+        "user_hint": "Consider reducing chunk_size, freeing memory, or increasing molsysmt.configure.max_ram_usage.",
         "dev_message": "Memory pressure at chunk {chunk_index}: RSS={rss_bytes} bytes, budget={budget_bytes} bytes ({pressure_pct:.1f}% used).",
         "dev_hint": "Investigate reducer accumulation and temporary allocations. Reducing chunk_size lowers peak memory per chunk.",
         "qa_message": "Memory pressure at chunk {chunk_index}: RSS={rss_bytes} bytes.",

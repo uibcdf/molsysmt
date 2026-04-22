@@ -343,7 +343,7 @@ Key integration points with the performance model:
 - The dispatch layer (`molsysmt/_private/gpu.py`: `resolve_use_gpu`) follows
   the same boundary discipline as the CPU kernels — it sits between the public
   wrapper and the numeric kernel.
-- The global switch `molsysmt.config.use_gpu` defaults to `False` (CPU only),
+- The global switch `molsysmt.configure.use_gpu` defaults to `False` (CPU only),
   so no GPU overhead is paid unless the user opts in.
 - All GPU-eligible wrappers accept a `use_gpu` keyword (`None` inherits from
   config, `True`/`False` forces, `'auto'` auto-selects by payload threshold).

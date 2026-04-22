@@ -24,8 +24,8 @@ As MolSysMT evolves towards its 1.0.0 release, it must address its primary scala
 ## 3. The "Brain": Metadata-Driven Decision Making
 Before reading any coordinate, MolSysMT performs a **Pre-flight Footprint Calculation**:
 - `Footprint = N_atoms * M_structures * 3_dims * 8_bytes (float64) + 20% Safety Margin`.
-- If `Footprint < molsysmt.config.max_ram_usage`: **Eager Path** (Maximum speed).
-- If `Footprint >= molsysmt.config.max_ram_usage`: **Heavy Path** (Activate `HeavyAnalysisEngine`).
+- If `Footprint < molsysmt.configure.max_ram_usage`: **Eager Path** (Maximum speed).
+- If `Footprint >= molsysmt.configure.max_ram_usage`: **Heavy Path** (Activate `HeavyAnalysisEngine`).
 
 ## 4. Advanced Analytical Orchestration
 
@@ -80,7 +80,7 @@ The engine avoids memory crashes by returning **Lazy Result Handles** (backed by
 ## 9. Developer Contract
 Functions must be **Stateless**, provide a **Reducer** for accumulative logic, and use **Memory Views** to avoid copies.
 
-## 10. User Configuration (`molsysmt.config`)
+## 10. User Configuration (`molsysmt.configure`)
 - `max_ram_usage`: RAM threshold for "Heavy" mode.
 - `priority_profile`: 'Work', 'HPC', or 'Adaptive'.
 - `remote_streaming`: Enable/disable cloud I/O.

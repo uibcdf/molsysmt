@@ -8,7 +8,7 @@ form_type = 'file'
 form_info = ["", ""]
 
 piped_topological_attribute = None
-piped_structural_attribute = None
+piped_structural_attribute = 'molsysmt.Structures'
 piped_any_attribute = None
 bonds_are_explicit = False
 bonds_can_be_computed = False

@@ -60,6 +60,37 @@ def file_psf_and_file_dcd_to_molsysmt_MolSys(molecular_system, atom_indices='all
 
     return output_item
 
+def file_h5msm_and_file_dcd_to_molsysmt_MolSys(molecular_system, atom_indices='all', structure_indices='all',
+                                             skip_digestion=False):
+    """Build a MolSys from a h5msm topology and DCD trajectory."""
+
+    from molsysmt.basic import get_form
+    from molsysmt.form.file_h5msm.to_molsysmt_Topology import to_molsysmt_Topology as file_h5msm_to_molsysmt_Topology
+    from molsysmt.form.file_dcd.to_molsysmt_Structures import to_molsysmt_Structures as file_dcd_to_molsysmt_Structures
+    from molsysmt.native import MolSys
+
+    forms = get_form(molecular_system)
+
+    item_h5msm = None
+    item_dcd = None
+
+    for form, item in zip(forms, molecular_system):
+        if form=='file:h5msm':
+            item_h5msm = item
+        else:
+            item_dcd = item
+
+    output_item = MolSys()
+
+    output_item.topology = file_h5msm_to_molsysmt_Topology(item_h5msm, atom_indices=atom_indices,
+                                                           skip_digestion=True)
+    output_item.structures = file_dcd_to_molsysmt_Structures(item_dcd, atom_indices=atom_indices,
+                                                             structure_indices=structure_indices,
+                                                             skip_digestion=True)
+
+    return output_item
+
+
 def file_gro_and_file_xtc_to_molsysmt_MolSys(molecular_system, atom_indices='all', structure_indices='all',
                                              skip_digestion=False):
     """Build a MolSys from a GRO topology and XTC trajectory."""

@@ -72,7 +72,7 @@ def potential_energy_minimization(molecular_system, method='L-BFGS',
     """
 
     from molsysmt import convert, get_form, has_attribute, set, copy
-    from molsysmt.config import default_attribute
+    from molsysmt.configure import default_attribute
 
     if engine=='OpenMM':
 

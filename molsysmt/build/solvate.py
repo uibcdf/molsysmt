@@ -312,7 +312,7 @@ def solvate (molecular_system, box_shape="truncated octahedral", clearance='14.0
         from molsysmt.basic import get, set
         from molsysmt.build._private import assign_selection_to_new_chain
         from openmm.app import ForceField
-        from molsysmt.config import default_attribute
+        from molsysmt.configure import default_attribute
         from molsysmt.molecular_mechanics import get_engine_forcefield
 
         component_indices, component_names = get(molecular_system, element='component', component_index=True,

@@ -686,7 +686,7 @@ def set_entity_type_to_entity(item, indices='all', value=None, skip_digestion=Fa
 @arg_digest(form=form)
 def set_structure_id_to_system(item, structure_indices='all', value=None, skip_digestion=False):
 
-    from ..molsysmt_Structures.set_structure_id_to_system import set_structure_id_to_system as aux_set
+    from ..molsysmt_Structures.set import set_structure_id_to_system as aux_set
 
     return aux_set(item.structures, structure_indices=structure_indices,
                                                           value=value, skip_digestion=True)
@@ -694,7 +694,7 @@ def set_structure_id_to_system(item, structure_indices='all', value=None, skip_d
 @arg_digest(form=form)
 def set_time_to_system(item, structure_indices='all', value=None, skip_digestion=False):
 
-    from ..molsysmt_Structures.set_time_to_system import set_time_to_system as aux_set
+    from ..molsysmt_Structures.set import set_time_to_system as aux_set
 
     return aux_set(item.structures, structure_indices=structure_indices,
                                                   value=value, skip_digestion=True)
@@ -702,7 +702,7 @@ def set_time_to_system(item, structure_indices='all', value=None, skip_digestion
 @arg_digest(form=form)
 def set_box_to_system(item, structure_indices='all', value=None, skip_digestion=False):
 
-    from ..molsysmt_Structures.set_box_to_system import set_box_to_system as aux_set
+    from ..molsysmt_Structures.set import set_box_to_system as aux_set
 
     return aux_set(item.structures, structure_indices=structure_indices,
                                                  value=value, skip_digestion=True)
@@ -718,111 +718,111 @@ def set_coordinates_to_system(item, structure_indices='all', value=None, skip_di
 @arg_digest(form=form)
 def set_forcefield_to_system(item, value=None, skip_digestion=False):
 
-    from ..molsysmt_MolecularMechanics.set_forcefield_to_system import set_forcefield_to_system as aux_set
+    from ..molsysmt_MolecularMechanics.set import set_forcefield_to_system as aux_set
 
     return aux_set(item.molecular_mechanics, value=value, skip_digestion=True)
 
 @arg_digest(form=form)
 def set_non_bonded_method_to_system(item, value=None, skip_digestion=False):
 
-    from ..molsysmt_MolecularMechanics.set_non_bonded_method_to_system import set_non_bonded_method_to_system as aux_set
+    from ..molsysmt_MolecularMechanics.set import set_non_bonded_method_to_system as aux_set
 
     return aux_set(item.molecular_mechanics, value=value, skip_digestion=True)
 
 @arg_digest(form=form)
 def set_cutoff_distance_to_system(item, value=None, skip_digestion=False):
 
-    from ..molsysmt_MolecularMechanics.set_cutoff_distance_to_system import set_cutoff_distance_to_system as aux_set
+    from ..molsysmt_MolecularMechanics.set import set_cutoff_distance_to_system as aux_set
 
     return aux_set(item.molecular_mechanics, value=value, skip_digestion=True)
 
 @arg_digest(form=form)
 def set_switch_distance_to_system(item, value=None, skip_digestion=False):
 
-    from ..molsysmt_MolecularMechanics.set_switch_distance_to_system import set_switch_distance_to_system as aux_set
+    from ..molsysmt_MolecularMechanics.set import set_switch_distance_to_system as aux_set
 
     return aux_set(item.molecular_mechanics, value=value, skip_digestion=True)
 
 @arg_digest(form=form)
 def set_dispersion_correction_to_system(item, value=None, skip_digestion=False):
 
-    from ..molsysmt_MolecularMechanics.set_dispersion_correction_to_system import set_dispersion_correction_to_system as aux_set
+    from ..molsysmt_MolecularMechanics.set import set_dispersion_correction_to_system as aux_set
 
     return aux_set(item.molecular_mechanics, value=value, skip_digestion=True)
 
 @arg_digest(form=form)
 def set_ewald_error_tolerance_to_system(item, value=None, skip_digestion=False):
 
-    from ..molsysmt_MolecularMechanics.set_ewald_error_tolerance_to_system import set_ewald_error_tolerance_to_system as aux_set
+    from ..molsysmt_MolecularMechanics.set import set_ewald_error_tolerance_to_system as aux_set
 
     return aux_set(item.molecular_mechanics, value=value, skip_digestion=True)
 
 @arg_digest(form=form)
 def set_hydrogen_mass_to_system(item, value=None, skip_digestion=False):
 
-    from ..molsysmt_MolecularMechanics.set_hydrogen_mass_to_system import set_hydrogen_mass_to_system as aux_set
+    from ..molsysmt_MolecularMechanics.set import set_hydrogen_mass_to_system as aux_set
 
     return aux_set(item.molecular_mechanics, value=value, skip_digestion=True)
 
 @arg_digest(form=form)
 def set_constraints_to_system(item, value=None, skip_digestion=False):
 
-    from ..molsysmt_MolecularMechanics.set_constraints_to_system import set_constraints_to_system as aux_set
+    from ..molsysmt_MolecularMechanics.set import set_constraints_to_system as aux_set
 
     return aux_set(item.molecular_mechanics, value=value, skip_digestion=True)
 
 @arg_digest(form=form)
 def set_flexible_constraints_to_system(item, value=None, skip_digestion=False):
 
-    from ..molsysmt_MolecularMechanics.set_flexible_constraints_to_system import set_flexible_constraints_to_system as aux_set
+    from ..molsysmt_MolecularMechanics.set import set_flexible_constraints_to_system as aux_set
 
     return aux_set(item.molecular_mechanics, value=value, skip_digestion=True)
 
 @arg_digest(form=form)
 def set_water_model_to_system(item, value=None, skip_digestion=False):
 
-    from ..molsysmt_MolecularMechanics.set_water_model_to_system import set_water_model_to_system as aux_set
+    from ..molsysmt_MolecularMechanics.set import set_water_model_to_system as aux_set
 
     return aux_set(item.molecular_mechanics, value=value, skip_digestion=True)
 
 @arg_digest(form=form)
 def set_rigid_water_to_system(item, value=None, skip_digestion=False):
 
-    from ..molsysmt_MolecularMechanics.set_rigid_water_to_system import set_rigid_water_to_system as aux_set
+    from ..molsysmt_MolecularMechanics.set import set_rigid_water_to_system as aux_set
 
     return aux_set(item.molecular_mechanics, value=value, skip_digestion=True)
 
 @arg_digest(form=form)
 def set_implicit_solvent_to_system(item, value=None, skip_digestion=False):
 
-    from ..molsysmt_MolecularMechanics.set_implicit_solvent_to_system import set_implicit_solvent_to_system as aux_set
+    from ..molsysmt_MolecularMechanics.set import set_implicit_solvent_to_system as aux_set
 
     return aux_set(item.molecular_mechanics, value=value, skip_digestion=True)
 
 @arg_digest(form=form)
 def set_solute_dielectric_to_system(item, value=None, skip_digestion=False):
 
-    from ..molsysmt_MolecularMechanics.set_solute_dielectric_to_system import set_solute_dielectric_to_system as aux_set
+    from ..molsysmt_MolecularMechanics.set import set_solute_dielectric_to_system as aux_set
 
     return aux_set(item.molecular_mechanics, value=value, skip_digestion=True)
 
 @arg_digest(form=form)
 def set_solvent_dielectric_to_system(item, value=None, skip_digestion=False):
 
-    from ..molsysmt_MolecularMechanics.set_solvent_dielectric_to_system import set_solvent_dielectric_to_system as aux_set
+    from ..molsysmt_MolecularMechanics.set import set_solvent_dielectric_to_system as aux_set
 
     return aux_set(item.molecular_mechanics, value=value, skip_digestion=True)
 
 @arg_digest(form=form)
 def set_salt_concentration_to_system(item, value=None, skip_digestion=False):
 
-    from ..molsysmt_MolecularMechanics.set_salt_concentration_to_system import set_salt_concentration_to_system as aux_set
+    from ..molsysmt_MolecularMechanics.set import set_salt_concentration_to_system as aux_set
 
     return aux_set(item.molecular_mechanics, value=value, skip_digestion=True)
 
 @arg_digest(form=form)
 def set_kappa_to_system(item, value=None, skip_digestion=False):
 
-    from ..molsysmt_MolecularMechanics.set_kappa_to_system import set_kappa_to_system as aux_set
+    from ..molsysmt_MolecularMechanics.set import set_kappa_to_system as aux_set
 
     return aux_set(item.molecular_mechanics, value=value, skip_digestion=True)

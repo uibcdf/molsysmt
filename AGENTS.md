@@ -52,7 +52,7 @@ More specific `AGENTS.md` files in subdirectories refine or override these rules
 - Form adapters live under `molsysmt/form`; see `molsysmt/form/AGENTS.md` for detailed guidance.
 - Discovery and registration are lazy and dynamic. They rely on the central mapping in `molsysmt/_depdigest.py` (specifically `MAPPING`). Do not add dependency-related variables to the form's local `__init__.py`.
 - Each form module should declare `form_name`, `form_type`, `form_info`, and populate `_convert_to` with callables.
-- Respect `msm.config.show_all_capabilities` which allows users to filter available forms based on their installed environment.
+- Respect `msm.configure.show_all_capabilities` which allows users to filter available forms based on their installed environment.
 
 
 ## Performance Architecture

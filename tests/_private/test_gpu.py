@@ -7,7 +7,7 @@ on any machine without a GPU regardless of the use_gpu argument.
 """
 
 import pytest
-import molsysmt.config as config
+import molsysmt.configure as config
 from molsysmt._private.gpu import gpu_available, resolve_use_gpu
 
 

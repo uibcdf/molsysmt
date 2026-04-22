@@ -64,7 +64,7 @@ The `__init__.py` in `molsysmt/form` implements a custom dictionary (`_FormsDict
 1.  **Does not import anything** at startup.
 2.  When a form is requested (e.g., `convert(..., to_form='mdtraj.Trajectory')`):
     - Checks `MAPPING`.
-    - Checks `msm.config.show_all_capabilities`.
+    - Checks `msm.configure.show_all_capabilities`.
     - Checks if the required library is installed.
     - If all checks pass, it imports the module.
     - If filtering is active and lib is missing, the form remains "invisible".

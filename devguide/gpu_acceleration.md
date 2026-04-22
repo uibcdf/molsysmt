@@ -47,7 +47,7 @@ is required — Numba ships its own PTX compiler.
 Set once at the start of a session to control all GPU-eligible calls:
 
 ```python
-import molsysmt.config as config
+import molsysmt.configure as config
 
 config.use_gpu = False    # (default) CPU only — disables GPU even in 'auto' mode
 config.use_gpu = True     # always use GPU when available
@@ -95,7 +95,7 @@ import molsysmt as msm
 rmsd = msm.structure.get_rmsd(mol)
 
 # enable GPU globally (auto mode: GPU when payload is large enough)
-import molsysmt.config as config
+import molsysmt.configure as config
 config.use_gpu = 'auto'
 
 rmsd = msm.structure.get_rmsd(mol)                 # GPU if payload large enough

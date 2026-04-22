@@ -41,7 +41,7 @@ def select_standard(item, selection):
 
 
     from molsysmt.basic import convert, get_form
-    from molsysmt.config import selection_shortcuts
+    from molsysmt.configure import selection_shortcuts
     from molsysmt.form import _dict_modules
 
     tmp_selection = selection

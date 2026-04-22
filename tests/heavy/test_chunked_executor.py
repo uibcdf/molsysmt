@@ -237,7 +237,7 @@ def test_checkpoint_resume(tmp_path, pentalanine_h5msm):
 @pytest.mark.heavy
 def test_eta_ema_smoke(pentalanine_h5msm):
     """Executor with telemetry enabled completes without error (EMA path exercised)."""
-    import molsysmt.config as config
+    import molsysmt.configure as config
 
     molsys = msm.convert(pentalanine_h5msm, to_form='molsysmt.H5MSMFileHandler')
     try:
@@ -269,7 +269,7 @@ def test_eta_ema_smoke(pentalanine_h5msm):
 def test_memory_pressure_warning_emitted(pentalanine_h5msm, monkeypatch):
     """MemoryPressureWarning is emitted when RSS exceeds threshold."""
     import warnings
-    import molsysmt.config as config
+    import molsysmt.configure as config
     from molsysmt._private.smonitor import MemoryPressureWarning
 
     molsys = msm.convert(pentalanine_h5msm, to_form='molsysmt.H5MSMFileHandler')
@@ -308,7 +308,7 @@ def test_memory_pressure_warning_emitted(pentalanine_h5msm, monkeypatch):
 def test_memory_pressure_warning_not_emitted_below_threshold(pentalanine_h5msm):
     """MemoryPressureWarning must NOT be emitted when RSS is below threshold."""
     import warnings
-    import molsysmt.config as config
+    import molsysmt.configure as config
     from molsysmt._private.smonitor import MemoryPressureWarning
 
     molsys = msm.convert(pentalanine_h5msm, to_form='molsysmt.H5MSMFileHandler')

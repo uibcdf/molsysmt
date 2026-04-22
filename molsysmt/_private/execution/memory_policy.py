@@ -37,7 +37,7 @@ def decide_mode(footprint_bytes: int, heavy_mode: str = 'auto') -> str:
     -------
     str : 'eager' or 'heavy'
     """
-    import molsysmt.config as config
+    import molsysmt.configure as config
 
     if heavy_mode == 'force':
         return 'heavy'

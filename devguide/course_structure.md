@@ -237,7 +237,7 @@ From this point forward, the curriculum branches into four specialized domains. 
 
 ### Module 49: Capability Matrix & Config
 - **Objective:** Fine-tune the framework.
-- **Topics:** `supported.forms`, `supported.conversions`, and `msm.config`.
+- **Topics:** `supported.forms`, `supported.conversions`, and `msm.configure`.
 
 ### Module 50: Best Practices, Future & Contribution
 - **Objective:** Master the MolSysMT way of coding.

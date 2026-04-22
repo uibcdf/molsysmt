@@ -6,7 +6,7 @@ def digest_output_type(output_type, caller=None):
     if caller=='molsysmt.basic.info.info':
 
         if isinstance(output_type, str):
-            if output_type.lower() in ['dataframe', 'short_string', 'long_string']:
+            if output_type.lower() in ['styler', 'dataframe', 'dictionary']:
                 return output_type.lower()
 
     elif caller=='molsysmt.basic.get.get':

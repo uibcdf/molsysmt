@@ -8,7 +8,7 @@ def get_forces(molecular_system, element='atom', selection='all', magnitude=Fals
         engine='OpenMM', syntax='MolSysMT', skip_digestion=False):
 
     from molsysmt import convert, select, get_form, has_attribute
-    from molsysmt.config import default_attribute
+    from molsysmt.configure import default_attribute
 
     atom_indices = select(molecular_system, selection=selection, syntax=syntax)
 

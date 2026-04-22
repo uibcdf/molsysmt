@@ -21,7 +21,7 @@ In most cases, you only need to call:
 ```python
 import molsysmt as msm
 
-msm.config.setup_logging()
+msm.configure.setup_logging()
 ```
 
 This will:
@@ -38,7 +38,7 @@ This will:
 You can change the level to see more or fewer messages:
 
 ```python
-msm.config.setup_logging(level="INFO")
+msm.configure.setup_logging(level="INFO")
 ```
 
 Levels available: `DEBUG`, `INFO`, `WARNING`, `ERROR`, `CRITICAL`.
@@ -51,7 +51,7 @@ Levels available: `DEBUG`, `INFO`, `WARNING`, `ERROR`, `CRITICAL`.
 import warnings
 import molsysmt as msm
 
-msm.config.setup_logging(level="INFO")
+msm.configure.setup_logging(level="INFO")
 
 warnings.warn(msm.SelectionWarning("Ambiguous selection 'CA'"))
 ```

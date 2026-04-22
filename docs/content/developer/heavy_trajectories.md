@@ -356,9 +356,9 @@ average (EMA, α = 0.3) of per-chunk elapsed times, so it adapts continuously as
 over the run rather than relying only on the first-chunk measurement.
 
 **Memory pressure.** `MemoryPressureWarning` is emitted after each chunk when
-`psutil.Process().memory_info().rss > molsysmt.config.memory_pressure_threshold × max_ram_usage`.
+`psutil.Process().memory_info().rss > molsysmt.configure.memory_pressure_threshold × max_ram_usage`.
 The check is silently skipped if `psutil` is not installed. Threshold is configurable:
-`molsysmt.config.memory_pressure_threshold` (default `0.80`).
+`molsysmt.configure.memory_pressure_threshold` (default `0.80`).
 
 ---
 

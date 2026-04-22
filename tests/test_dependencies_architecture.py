@@ -1,7 +1,7 @@
 import pytest
 from depdigest import is_installed, dep_digest, DepConfig, register_package_config
 from molsysmt.form import _dict_modules
-import molsysmt.config as config
+import molsysmt.configure as config
 from unittest.mock import patch
 from molsysmt._private.smonitor import LibraryNotFoundError
 
