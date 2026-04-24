@@ -1,8 +1,8 @@
 """
-Tests for molsysmt.configure — covers module-level variables and the three
-utility functions that configure pyunitwizard defaults.
+Tests for molsysmt.configure — covers module-level variables and pyunitwizard
+configuration accessed via msm.pyunitwizard.configure.
 
-Coverage target: molsysmt/configure/__init__.py (33% → ~80%)
+Coverage target: molsysmt/configure/__init__.py
                  molsysmt/configure/logging_setup.py (partially)
 """
 
@@ -45,57 +45,53 @@ class TestConfigVariables:
 
 
 # ---------------------------------------------------------------------------
-# set_default_quantities_form
+# puw.configure wrappers (set_default_form, set_default_parser, set_standard_units)
+# These helpers were previously duplicated in msm.configure; now use puw.configure
+# directly, consistent with the rest of the MolSysSuite.
 # ---------------------------------------------------------------------------
 
-class TestSetDefaultQuantitiesForm:
+class TestPuwConfigureDefaultForm:
 
     def test_set_pint(self):
-        """Calling set_default_quantities_form('pint') must not raise."""
-        config.set_default_quantities_form('pint')
+        import molsysmt as msm
+        msm.pyunitwizard.configure.set_default_form('pint')
 
     def test_set_openmm(self):
-        """Calling set_default_quantities_form('openmm.unit') must not raise."""
-        config.set_default_quantities_form('openmm.unit')
+        import molsysmt as msm
+        msm.pyunitwizard.configure.set_default_form('openmm.unit')
 
     def test_reset_to_pint(self):
-        """Reset back to pint after openmm test so downstream tests are unaffected."""
-        config.set_default_quantities_form('pint')
+        import molsysmt as msm
+        msm.pyunitwizard.configure.set_default_form('pint')
 
 
-# ---------------------------------------------------------------------------
-# set_default_quantities_parser
-# ---------------------------------------------------------------------------
-
-class TestSetDefaultQuantitiesParser:
+class TestPuwConfigureDefaultParser:
 
     def test_set_pint(self):
-        config.set_default_quantities_parser('pint')
+        import molsysmt as msm
+        msm.pyunitwizard.configure.set_default_parser('pint')
 
     def test_reset_to_pint(self):
-        config.set_default_quantities_parser('pint')
+        import molsysmt as msm
+        msm.pyunitwizard.configure.set_default_parser('pint')
 
 
-# ---------------------------------------------------------------------------
-# set_default_standard_units
-# ---------------------------------------------------------------------------
+class TestPuwConfigureStandardUnits:
 
-class TestSetDefaultStandardUnits:
-
-    def test_set_default_units(self):
-        """Calling with the canonical MolSysMT standard units must not raise."""
-        config.set_default_standard_units(
+    def test_set_canonical_units(self):
+        import molsysmt as msm
+        msm.pyunitwizard.configure.set_standard_units(
             ['nm', 'ps', 'K', 'mole', 'amu', 'e',
              'kJ/mol', 'kJ/(mol*nm**2)', 'N', 'degrees']
         )
 
     def test_set_minimal_units(self):
-        """A minimal valid unit list must not raise."""
-        config.set_default_standard_units(['nm', 'ps'])
+        import molsysmt as msm
+        msm.pyunitwizard.configure.set_standard_units(['nm', 'ps'])
 
     def test_reset_canonical(self):
-        """Restore canonical units after the minimal test."""
-        config.set_default_standard_units(
+        import molsysmt as msm
+        msm.pyunitwizard.configure.set_standard_units(
             ['nm', 'ps', 'K', 'mole', 'amu', 'e',
              'kJ/mol', 'kJ/(mol*nm**2)', 'N', 'degrees']
         )
