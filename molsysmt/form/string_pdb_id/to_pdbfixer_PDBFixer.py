@@ -9,12 +9,8 @@ def to_pdbfixer_PDBFixer(item, atom_indices='all', structure_indices='all', skip
 
     from ..pdbfixer_PDBFixer.extract import extract
 
-    pdb_id = item
-    
-    if pdb_id.startswith('pdb_id:'):
-        pdb_id = pdb_id.replace('pdb_id','')
-
-    tmp_item = PDBFixer(pdbid=pdb_id)
+    from molsysmt.form.string_pdb_id import _extract_pdb_id
+    tmp_item = PDBFixer(pdbid=_extract_pdb_id(item))
     tmp_item = extract(tmp_item, atom_indices=atom_indices, structure_indices=structure_indices, copy_if_all=False,
                        skip_digestion=True)
 

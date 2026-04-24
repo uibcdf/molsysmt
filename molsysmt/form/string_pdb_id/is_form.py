@@ -15,12 +15,20 @@ def is_form(item):
     if not isinstance(item, str):
         return False
 
-    if item.startswith("pdb_id:"):
-        candidate = item.split("pdb_id:", 1)[1]
+    lowered = item.lower()
+
+    if lowered.startswith("pdb_id:"):
+        candidate = lowered.split("pdb_id:", 1)[1]
         return bool(pattern.fullmatch(candidate))
 
-    if item.startswith("pdb_"):
-        candidate = item.split("pdb_", 1)[1]
+    if lowered.startswith("pdb_"):
+        candidate = lowered.split("pdb_", 1)[1]
         return bool(pattern.fullmatch(candidate) or pattern_extended.fullmatch(candidate))
 
-    return bool(pattern.fullmatch(item))
+    # Tolerance alias: 'pdb:XXXX' is NOT official syntax — accepted silently
+    # to avoid frustrating users who type it by mistake.
+    if lowered.startswith("pdb:"):
+        candidate = lowered.split("pdb:", 1)[1]
+        return bool(pattern.fullmatch(candidate))
+
+    return bool(pattern.fullmatch(lowered))

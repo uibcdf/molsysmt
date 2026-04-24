@@ -229,6 +229,17 @@ def test_info_12(tctim_h5msm_molsys):
     true_df = DataFrame(true_dict)
     assert df.data.equals(true_df)
 
+def test_info_output_types_are_native_python(tctim_h5msm_molsys):
+    molsys = tctim_h5msm_molsys
+    for element in ('atom', 'group', 'component', 'chain', 'molecule', 'entity'):
+        d = msm.info(molsys, element=element, selection=[0], output_type='dictionary')
+        for key, val in d[0].items():
+            if val is not None:
+                assert not hasattr(val, 'item'), (
+                    f"info(element={element!r})[{key!r}] is a numpy scalar: {type(val)}"
+                )
+
+
 def test_info_13(t4_h5msm_molsys):
     df = msm.info(t4_h5msm_molsys)
     true_dict = {'form': {0: 'molsysmt.MolSys'},

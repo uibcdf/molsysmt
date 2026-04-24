@@ -4,7 +4,7 @@ from smonitor import signal
 
 @signal(tags=['api', 'get'])
 @arg_digest()
-def get_attributes(molecular_system, include_none=False, attribute_type='all', output_type='dictionary',
+def get_attributes(molecular_system, include_none=False, attribute_type='all', output_type='list',
                    skip_digestion=False):
     """
     Retrieving available attributes from a molecular system.
@@ -21,7 +21,7 @@ def get_attributes(molecular_system, include_none=False, attribute_type='all', o
         Whether to consider attributes with value `None` as present when probing availability.
         If `True`, attributes that exist but currently hold `None` will be marked as present.
     attribute_type : {'all', 'structural', 'topological', 'dynamical', 'mechanical'}, default 'all'
-    output_type : {'dictionary', 'list'}, default 'dictionary'
+    output_type : {'dictionary', 'list'}, default 'list'
         Format of the returned result. If ``'dictionary'``, returns all supported attributes as
         keys with boolean values indicating presence. If ``'list'``, returns only the names of
         attributes present in the molecular system.

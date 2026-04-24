@@ -25,6 +25,21 @@ form_name = 'string:pdb_id'
 form_type = 'string'
 form_info = ["", ""]
 
+
+def _extract_pdb_id(item):
+    """Return the bare 4-character PDB ID from any accepted input variant.
+
+    The canonical form is the plain 4-character code (e.g. '181L') or
+    'pdb_id:181L'. The 'pdb:' prefix is accepted as a user-friendliness
+    fallback only — it is NOT an official MolSysMT syntax and must NOT be
+    documented or promoted as such.
+    """
+    lowered = item.lower()
+    for prefix in ('pdb_id:', 'pdb:', 'pdb_'):
+        if lowered.startswith(prefix):
+            return lowered[len(prefix):]
+    return lowered
+
 piped_topological_attribute = 'molsysmt.Topology'
 piped_structural_attribute = 'molsysmt.Structures'
 piped_any_attribute = 'molsysmt.MolSys'

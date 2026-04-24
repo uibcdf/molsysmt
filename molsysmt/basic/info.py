@@ -4,6 +4,13 @@ from pandas import DataFrame as df
 from smonitor import signal
 
 
+def _to_python(col):
+    """Convert a list of values to native Python types, stripping numpy scalars."""
+    if col is None:
+        return None
+    return [v.item() if hasattr(v, 'item') else v for v in col]
+
+
 @signal(tags=['api', 'get'])
 @arg_digest()
 def info(molecular_system,
@@ -152,13 +159,14 @@ def info(molecular_system,
         if not attributes_filter['entity_index']: entity_index=None
         if not attributes_filter['entity_name']: entity_name=None
 
-        tmp_df = df({'index': atom_index, 'id': atom_id, 'name': atom_name, 'type': atom_type,
-                      'group index': group_index, 'group id': group_id, 'group name': group_name,
-                      'group type': group_type,
-                      'component index': component_index,
-                      'chain index': chain_index,
-                      'molecule index': molecule_index, 'molecule type': molecule_type,
-                      'entity index': entity_index, 'entity name': entity_name})
+        tmp_df = df({'index': _to_python(atom_index), 'id': _to_python(atom_id),
+                      'name': _to_python(atom_name), 'type': _to_python(atom_type),
+                      'group index': _to_python(group_index), 'group id': _to_python(group_id),
+                      'group name': _to_python(group_name), 'group type': _to_python(group_type),
+                      'component index': _to_python(component_index),
+                      'chain index': _to_python(chain_index),
+                      'molecule index': _to_python(molecule_index), 'molecule type': _to_python(molecule_type),
+                      'entity index': _to_python(entity_index), 'entity name': _to_python(entity_name)})
 
     elif element == 'group':
 
@@ -184,12 +192,13 @@ def info(molecular_system,
         if not attributes_filter['entity_index']: entity_index=None
         if not attributes_filter['entity_name']: entity_name=None
 
-        tmp_df = df({'index': group_index, 'id': group_id, 'name': group_name, 'type': group_type,
-                      'n atoms': n_atoms,
-                      'component index': component_index,
-                      'chain index': chain_index,
-                      'molecule index': molecule_index, 'molecule type': molecule_type,
-                      'entity index': entity_index, 'entity name': entity_name})
+        tmp_df = df({'index': _to_python(group_index), 'id': _to_python(group_id),
+                      'name': _to_python(group_name), 'type': _to_python(group_type),
+                      'n atoms': _to_python(n_atoms),
+                      'component index': _to_python(component_index),
+                      'chain index': _to_python(chain_index),
+                      'molecule index': _to_python(molecule_index), 'molecule type': _to_python(molecule_type),
+                      'entity index': _to_python(entity_index), 'entity name': _to_python(entity_name)})
 
     elif element == 'component':
 
@@ -210,11 +219,11 @@ def info(molecular_system,
         if not attributes_filter['entity_index']: entity_index=None
         if not attributes_filter['entity_name']: entity_name=None
 
-        tmp_df = df({'index': component_index,
-                      'n atoms': n_atoms, 'n groups': n_groups,
-                      'chain index': chain_index,
-                      'molecule index': molecule_index, 'molecule type': molecule_type,
-                      'entity index': entity_index, 'entity name': entity_name})
+        tmp_df = df({'index': _to_python(component_index),
+                      'n atoms': _to_python(n_atoms), 'n groups': _to_python(n_groups),
+                      'chain index': _to_python(chain_index),
+                      'molecule index': _to_python(molecule_index), 'molecule type': _to_python(molecule_type),
+                      'entity index': _to_python(entity_index), 'entity name': _to_python(entity_name)})
 
     elif element == 'chain':
 
@@ -237,10 +246,12 @@ def info(molecular_system,
         if not attributes_filter['entity_index']: entity_index=None
         if not attributes_filter['entity_name']: entity_name=None
 
-        tmp_df = df({'index': chain_index, 'id': chain_id, 'name': chain_name,
-                      'n atoms': n_atoms, 'n groups': n_groups, 'n components': n_components,
-                      'molecule index': molecule_index, 'molecule type': molecule_type,
-                      'entity index': entity_index, 'entity name': entity_name})
+        tmp_df = df({'index': _to_python(chain_index), 'id': _to_python(chain_id),
+                      'name': _to_python(chain_name),
+                      'n atoms': _to_python(n_atoms), 'n groups': _to_python(n_groups),
+                      'n components': _to_python(n_components),
+                      'molecule index': _to_python(molecule_index), 'molecule type': _to_python(molecule_type),
+                      'entity index': _to_python(entity_index), 'entity name': _to_python(entity_name)})
 
     elif element == 'molecule':
 
@@ -261,10 +272,12 @@ def info(molecular_system,
         if not attributes_filter['entity_index']: entity_index=None
         if not attributes_filter['entity_name']: entity_name=None
 
-        tmp_df = df({'index': molecule_index, 'name': molecule_name, 'type': molecule_type,
-                      'n atoms': n_atoms, 'n groups': n_groups, 'n components': n_components,
-                      'chain index': chain_index,
-                      'entity index': entity_index, 'entity name': entity_name})
+        tmp_df = df({'index': _to_python(molecule_index), 'name': _to_python(molecule_name),
+                      'type': _to_python(molecule_type),
+                      'n atoms': _to_python(n_atoms), 'n groups': _to_python(n_groups),
+                      'n components': _to_python(n_components),
+                      'chain index': _to_python(chain_index),
+                      'entity index': _to_python(entity_index), 'entity name': _to_python(entity_name)})
 
     elif element == 'entity':
 
@@ -284,9 +297,11 @@ def info(molecular_system,
         if not attributes_filter['n_chains']: n_chains=None
         if not attributes_filter['n_molecules']: n_molecules=None
 
-        tmp_df = df({'index': entity_index, 'name': entity_name, 'type': entity_type,
-                      'n atoms': n_atoms, 'n groups': n_groups, 'n components': n_components,
-                      'n chains': n_chains, 'n molecules': n_molecules
+        tmp_df = df({'index': _to_python(entity_index), 'name': _to_python(entity_name),
+                      'type': _to_python(entity_type),
+                      'n atoms': _to_python(n_atoms), 'n groups': _to_python(n_groups),
+                      'n components': _to_python(n_components),
+                      'n chains': _to_python(n_chains), 'n molecules': _to_python(n_molecules)
                       })
 
     elif element == 'system':

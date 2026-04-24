@@ -1,5 +1,16 @@
 from molsysmt._private.smonitor import ArgumentError
 
+# Tolerance aliases for common user mistakes (singular/variant spellings).
+# These are NOT official form names — do not document or advertise them.
+_FORM_TOLERANCE_ALIASES = {
+    'molsysmt.structure':   'molsysmt.Structures',
+    'molsysmt.topology':    'molsysmt.Topology',
+    'molsysmt.molsys':      'molsysmt.MolSys',
+    'molsysmt.molsysdict':  'molsysmt.MolSysDict',
+    'molsysmt.topologydict':'molsysmt.TopologyDict',
+    'molsysmt.structuresdict':'molsysmt.StructuresDict',
+}
+
 def digest_to_form(to_form, caller=None):
     """ Checks if the to_form value is supported.
 
@@ -37,6 +48,10 @@ def digest_to_form(to_form, caller=None):
         else:
             try:
                 return _dict_forms_lowercase[to_form.lower()]
+            except Exception:
+                pass
+            try:
+                return _FORM_TOLERANCE_ALIASES[to_form.lower()]
             except Exception:
                 pass
 

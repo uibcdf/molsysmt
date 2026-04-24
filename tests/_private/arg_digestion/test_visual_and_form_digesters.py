@@ -65,6 +65,16 @@ def test_digest_form_accepts_bool_for_compare_and_resolves_names():
         digest_form('definitely-not-a-form', caller=COMPARE_CALLER)
 
 
+def test_digest_to_form_singular_aliases():
+    from molsysmt._private.arg_digestion.argument.to_form import digest_to_form
+    # Tolerance aliases: singular/variant spellings resolve to canonical form names
+    assert digest_to_form('molsysmt.Structure') == 'molsysmt.Structures'
+    assert digest_to_form('molsysmt.structure') == 'molsysmt.Structures'
+    assert digest_to_form('MOLSYSMT.STRUCTURE') == 'molsysmt.Structures'
+    assert digest_to_form('molsysmt.MolSys') == 'molsysmt.MolSys'
+    assert digest_to_form('molsysmt.molsys') == 'molsysmt.MolSys'
+
+
 def test_digest_show_and_style_validate_expected_contracts():
     assert digest_show(True) is True
     assert digest_show(False) is False
