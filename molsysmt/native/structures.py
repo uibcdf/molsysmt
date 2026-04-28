@@ -126,6 +126,16 @@ class Structures:
 
         return
 
+    @signal(tags=['native'])
+    @arg_digest(form='molsysmt.Structures')
+    def append_structures(self, item, structure_indices='all', skip_digestion=False):
+
+        return self.append(structure_id=item.structure_id, time=item.time, coordinates=item.coordinates,
+                           velocities=item.velocities, box=item.box, temperature=item.temperature,
+                           potential_energy=item.potential_energy, kinetic_energy=item.kinetic_energy,
+                           b_factor=item.b_factor, alternate_location=item.alternate_location,
+                           atom_indices='all', structure_indices=structure_indices, skip_digestion=True)
+
     def _puw_concatenate(self, items, axis=0):
         val = np.concatenate([puw.get_value(ii) for ii in items if ii is not None], axis=axis)
         unit = puw.get_unit(items[0])

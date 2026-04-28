@@ -16,5 +16,10 @@ To align the course with the "Golden Quartet" of MolSysMT, we need to insert two
     - Requirements: Explain the need for mutable forms (like `molsysmt.MolSys`).
     - Reference: Link to the full list of modifiable attributes in the User Guide.
 
+- **New Module 11: Iterating over Hierarchies with `Iterator()`**
+    - Focus: Loop over groups, chains or entities programmatically.
+    - Contrast: When to use `get()` (fast/vectorized) vs `Iterator()` (memory efficient/sequential).
+    - Importance: Crucial for Phase 6 (Heavy Trajectories).
+
 ---
 **Status:** Pending implementation (will require re-numbering modules 7-50).

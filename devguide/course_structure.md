@@ -7,74 +7,74 @@ This document outlines a 50-module comprehensive curriculum organized into 6 ope
 ## Phase 1: First Contact (Quick Start & Visual Selection)
 *Goal: Load, visualize, and interact. Get results in 5 minutes.*
 
-### Module 1: The Philosophy of "Forms"
+### Module 1: Philosophy, Forms & Quick Reports
 - **Objective:** Understand why MolSysMT is different.
-- **Topics:** Form agnosticism, `convert()`, and `get_form()`.
+- **Topics:** Form agnosticism, `convert()`, and visual inventory with `info()`.
 
 ### Module 2: Visualizing Anything
 - **Objective:** Immediate visual feedback.
-- **Topics:** `view()`. Loading PDBs, trajectories, and objects from other libraries.
+- **Topics:** `view()`. MolSysViewer (native) vs. third-party viewers.
 
 ### Module 3: Talking to Atoms (Selection Language)
 - **Objective:** Master the selection syntax.
-- **Topics:** Standard keywords (`backbone`, `water`), logic (`and`, `or`), and proximity (`within`).
+- **Topics:** Standard keywords, logic, proximity, and hierarchical grouping.
 
-### Module 4: Interactive Selection (The "Wow" Factor)
+### Module 4: Interactive Selection
 - **Objective:** Sync Python with the 3D Viewer.
-- **Topics:** Making selections with the mouse and recovering them in Python.
+- **Topics:** Pick residues with the mouse and fetch indices back to Python.
 
-### Module 5: Quick Reports & Summaries
-- **Objective:** Get an overview of the system.
-- **Topics:** `info()` and `get()` for system-level attributes.
+### Module 5: Programmatic Extraction (`get`)
+- **Objective:** Extract raw data for Python scripts.
+- **Topics:** Coordinates, names, and IDs. Understanding the coordinate tensor shape.
 
-### Module 6: Unit Safety with PyUnitWizard
-- **Objective:** Avoid physical inconsistency.
-- **Topics:** Default units, conversion, and standardization.
+### Module 6: Unit Safety (PyUnitWizard)
+- **Objective:** Physical consistency across the MolSysSuite.
+- **Topics:** Default units, global configuration, and quantity agnosticism.
 
-### Module 7: Discovery & Capabilities
-- **Objective:** What does my object know?
-- **Topics:** `has_attribute()`, `get_attributes()`. Understanding the capability matrix.
+### Module 7: System Modification (`set`)
+- **Objective:** Modify system attributes in memory.
+- **Topics:** Changing coordinates and renaming biological units. Mutable vs Immutable forms.
 
-### Module 8: Working with Lists (The Piped Model)
-- **Objective:** Combine data from multiple sources (e.g., `[topology, trajectory]`).
-- **Topics:** How MolSysMT resolves queries across multiple items.
+### Module 8: Discovery & Attributes
+- **Objective:** Audit the capabilities of any object.
+- **Topics:** `has_attribute()`, `get_attributes()`, and the capability matrix.
 
 ---
 
 ## Phase 2: Molecular Anatomy (Hierarchies & Navigation)
 *Goal: Understand the internal organization and how to navigate it.*
 
-### Module 9: The Hierarchical Levels
+### Module 9: Working with Lists (Composite Systems)
+- **Objective:** Combine data from multiple sources (e.g., Topology + Trajectory).
+- **Topics:** Data precedence and the virtual system model.
+
+### Module 10: Hierarchical Levels
 - **Objective:** Navigate Atom, Group, Component, Molecule, Chain, and Entity.
-- **Topics:** `is_composed_of()` and `contains()`.
+- **Topics:** Understanding the "Group" vs "Residue" terminology.
 
-### Module 10: Navigating Hierarchies (Relational Algebra)
-- **Objective:** Map information between levels (e.g., "which residue does this atom belong to?").
-- **Topics:** Relational mapping with `get()`. Inverse mapping: finding atoms that DO NOT belong to a specific chain or molecule.
+### Module 11: Navigating Between Levels
+- **Objective:** Map information between biological scales.
+- **Topics:** Mapping upward (Atom -> Group) and downward (Entity -> Atoms).
 
-### Module 11: Sequences & Identity
-- **Objective:** From 3D structure to 1D sequence.
-- **Topics:** `get_sequence()`, alignment, and sequence identity.
+### Module 12: Iterating Hierarchies (`Iterator`)
+- **Objective:** Sequential processing of biological units.
+- **Topics:** Efficient looping over groups, chains, and structures.
 
-### Module 12: Canonical Data & Standard Naming
-- **Objective:** Clean up non-standard names.
-- **Topics:** `get_standard_name` and internal residue templates.
+### Module 13: System Auditing and Curing
+- **Objective:** Find and prepare for structural errors.
+- **Topics:** Missing atoms, gaps in sequences, and missing bonds.
 
-### Module 13: Covalent Connectivity (The Graph)
-- **Objective:** Master bonds and connectivity.
-- **Topics:** `get_bondgraph()`, covalent blocks, and covalent chains.
+### Module 14: Covalent Connectivity
+- **Objective:** Master the covalent skeleton.
+- **Topics:** Bonded atom pairs, covalent blocks, and NetworkX graph conversion.
 
-### Module 14: Inferred Connectivity (Heuristics)
-- **Objective:** What to do when bonds are missing.
-- **Topics:** `add_missing_bonds()`, `get_disulfide_bonds()`.
-
-### Module 15: Structural Comparison & Identity
-- **Objective:** Are these two systems the same?
-- **Topics:** `compare()` and topological identity validation.
+### Module 15: Comparing Systems
+- **Objective:** Verify identity and consistency.
+- **Topics:** Topological identity vs Structural similarity using `compare()`.
 
 ### Module 16: Semantic Labeling
-- **Objective:** Generate human-readable labels (e.g., "LYS15:CA").
-- **Topics:** `get_label()` for professional reporting.
+- **Objective:** Generate human-readable labels.
+- **Topics:** `get_label()` and custom nomenclature templates.
 
 ---
 
