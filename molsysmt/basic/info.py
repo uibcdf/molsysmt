@@ -4,11 +4,15 @@ from pandas import DataFrame as df
 from smonitor import signal
 
 
-def _to_python(col):
-    """Convert a list of values to native Python types, stripping numpy scalars."""
-    if col is None:
+def _to_python(val):
+    """Recursively convert numpy types to native Python types."""
+    if val is None:
         return None
-    return [v.item() if hasattr(v, 'item') else v for v in col]
+    if isinstance(val, (list, tuple, np.ndarray)):
+        return [_to_python(v) for v in val]
+    if hasattr(val, 'item'):
+        return val.item()
+    return val
 
 
 @signal(tags=['api', 'get'])
@@ -294,7 +298,7 @@ def info(molecular_system,
         if not attributes_filter['n_atoms']: n_atoms=None
         if not attributes_filter['n_groups']: n_groups=None
         if not attributes_filter['n_components']: n_components=None
-        if not attributes_filter['n_chains']: n_chains=None
+        if not attributes_filter['chain_index']: chain_index=None
         if not attributes_filter['n_molecules']: n_molecules=None
 
         tmp_df = df({'index': _to_python(entity_index), 'name': _to_python(entity_name),
@@ -348,13 +352,17 @@ def info(molecular_system,
         if not attributes_filter['n_polysaccharides']: n_polysaccharides=None
         if not attributes_filter['n_saccharides']: n_saccharides=None
 
-        tmp_df = df([{'form': form, 'n_atoms': n_atoms, 'n_groups': n_groups, 'n_components': n_components,
-                      'n_chains': n_chains, 'n_molecules': n_molecules, 'n_entities': n_entities,
-                      'n_waters': n_waters, 'n_ions': n_ions,
-                      'n_small_molecules': n_small_molecules,
-                      'n_peptides': n_peptides, 'n_proteins': n_proteins, 'n_dnas': n_dnas, 'n_rnas': n_rnas,
-                      'n_lipids': n_lipids, 'n_polysaccharides': n_polysaccharides, 'n_saccharides': n_saccharides,
-                      'n_structures': n_structures}], index=[0])
+        tmp_df = df([{'form': form, 'n_atoms': _to_python(n_atoms), 'n_groups': _to_python(n_groups), 
+                      'n_components': _to_python(n_components),
+                      'n_chains': _to_python(n_chains), 'n_molecules': _to_python(n_molecules), 
+                      'n_entities': _to_python(n_entities),
+                      'n_waters': _to_python(n_waters), 'n_ions': _to_python(n_ions),
+                      'n_small_molecules': _to_python(n_small_molecules),
+                      'n_peptides': _to_python(n_peptides), 'n_proteins': _to_python(n_proteins), 
+                      'n_dnas': _to_python(n_dnas), 'n_rnas': _to_python(n_rnas),
+                      'n_lipids': _to_python(n_lipids), 'n_polysaccharides': _to_python(n_polysaccharides), 
+                      'n_saccharides': _to_python(n_saccharides),
+                      'n_structures': _to_python(n_structures)}], index=[0])
 
         if n_ions == 0 or n_ions is None:
             if 'n_ions' in tmp_df.columns:
@@ -419,5 +427,3 @@ def info(molecular_system,
             choices=["styler", "dataframe", "dictionary"],
             caller="molsysmt.basic.info",
         )
-
-
