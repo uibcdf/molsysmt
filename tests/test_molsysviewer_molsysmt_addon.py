@@ -12,6 +12,17 @@ from molsysviewer_molsysmt import get_addon, lifecycle, on_enable, on_disable, o
 from molsysviewer_molsysmt.runtime import MolSysMTAddonRuntime, ensure_runtime
 
 
+_EXPECTED_PANELS = [
+    "system", "select", "color", "structure", "transform",
+    "hbonds", "topology", "pbc", "mechanics", "build",
+]
+_EXPECTED_CONTEXT_ACTIONS = [
+    "inspect-system", "select-and-highlight", "color-by-property",
+    "compute-contacts", "fit-to-reference", "compute-hbonds",
+    "wrap-to-pbc", "build-bioassembly",
+]
+
+
 # ---------------------------------------------------------------------------
 # Addon spec contract
 # ---------------------------------------------------------------------------
@@ -23,9 +34,9 @@ def test_addon_spec_matches_molsysviewer_contract():
     assert addon.package == "molsysviewer-molsysmt"
     assert addon.workspaces[0].id == "molsysmt"
     assert addon.workspaces[0].entry_panel == "system"
-    assert [p.id for p in addon.panels] == ["system"]
+    assert [p.id for p in addon.panels] == _EXPECTED_PANELS
     assert addon.panels[0].widget_class == "molsysviewer_molsysmt.panels.system.MolSysMTSystemPanel"
-    assert addon.context_actions[0].id == "inspect-system"
+    assert [a.id for a in addon.context_actions] == _EXPECTED_CONTEXT_ACTIONS
     assert addon.workbench_sections[0].id == "system-info"
     assert addon.export_helpers[0].id == "system-export"
 
@@ -85,22 +96,75 @@ def test_ensure_runtime_creates_and_reuses_instance():
     assert r1.n_atoms is None
 
 
+def test_runtime_has_all_panel_fields():
+    runtime = MolSysMTAddonRuntime()
+    for field in [
+        "n_atoms", "n_residues", "n_chains", "n_frames",
+        "last_selection", "last_selection_element", "last_selection_indices",
+        "last_color_property", "last_color_element", "last_color_palette",
+        "contacts_result", "rmsd_result", "rmsf_result", "pca_result",
+        "hbonds_result", "hbonds_tag",
+        "bondgraph_result", "dihedral_quartets_result",
+        "pbc_status",
+        "forces_result", "energy_result", "forces_tag",
+        "last_build_op", "build_log",
+    ]:
+        assert hasattr(runtime, field), f"Runtime missing field: {field!r}"
+
+
 # ---------------------------------------------------------------------------
-# Panel widget — system panel
+# Panel widget classes — all 10 must be resolvable
 # ---------------------------------------------------------------------------
 
-def test_system_panel_widget_class_is_resolvable():
+@pytest.mark.parametrize("panel_id,cls_name", [
+    ("system",    "MolSysMTSystemPanel"),
+    ("select",    "MolSysMTSelectPanel"),
+    ("color",     "MolSysMTColorPanel"),
+    ("structure", "MolSysMTStructurePanel"),
+    ("transform", "MolSysMTTransformPanel"),
+    ("hbonds",    "MolSysMTHBondsPanel"),
+    ("topology",  "MolSysMTTopologyPanel"),
+    ("pbc",       "MolSysMTPBCPanel"),
+    ("mechanics", "MolSysMTMechanicsPanel"),
+    ("build",     "MolSysMTBuildPanel"),
+])
+def test_panel_widget_class_is_resolvable(panel_id, cls_name):
     molsysviewer.addons.clear()
     molsysviewer.addons.register(get_addon())
     view = molsysviewer.MolSysView()
 
-    widget = view.addons.resolve_panel_widget("molsysmt", "system")
+    widget = view.addons.resolve_panel_widget("molsysmt", panel_id)
 
     molsysviewer.addons.clear()
     assert widget is not None
-    assert type(widget).__name__ == "MolSysMTSystemPanel"
+    assert type(widget).__name__ == cls_name
     assert isinstance(widget, molsysviewer.AddonPanelWidget)
 
+
+# ---------------------------------------------------------------------------
+# Panel on_mount — each must push an initial state
+# ---------------------------------------------------------------------------
+
+@pytest.mark.parametrize("panel_id", _EXPECTED_PANELS)
+def test_panel_on_mount_pushes_state(panel_id):
+    molsysviewer.addons.clear()
+    molsysviewer.addons.register(get_addon())
+    view = molsysviewer.MolSysView()
+
+    widget = view.addons.resolve_panel_widget("molsysmt", panel_id)
+    sent = []
+    widget.send = lambda msg: sent.append(msg)
+
+    widget.on_mount(view)
+    molsysviewer.addons.clear()
+
+    assert len(sent) == 1
+    assert "state" in sent[0]
+
+
+# ---------------------------------------------------------------------------
+# System panel — legacy detailed tests
+# ---------------------------------------------------------------------------
 
 def test_system_panel_on_mount_pushes_initial_state():
     molsysviewer.addons.clear()
@@ -160,3 +224,104 @@ def test_system_panel_inspect_action_with_molsys_refreshes_counts():
     assert final["status"] == "done"
     assert final["n_atoms"] is not None and final["n_atoms"] > 0
     assert final["n_residues"] is not None and final["n_residues"] > 0
+
+
+# ---------------------------------------------------------------------------
+# Select panel — no-system error
+# ---------------------------------------------------------------------------
+
+def test_select_panel_run_with_no_molsys_pushes_error():
+    molsysviewer.addons.clear()
+    molsysviewer.addons.register(get_addon())
+    view = molsysviewer.MolSysView()
+
+    widget = view.addons.resolve_panel_widget("molsysmt", "select")
+    sent = []
+    widget.send = lambda msg: sent.append(msg)
+
+    widget.handle_action(view, "run_selection", {"selection": "backbone", "element": "atom"})
+    molsysviewer.addons.clear()
+
+    states = [m for m in sent if m.get("type") == "state"]
+    assert states[-1]["state"]["status"] == "error"
+    assert "No molecular system" in states[-1]["state"]["error"]
+
+
+# ---------------------------------------------------------------------------
+# Color panel — no-system error
+# ---------------------------------------------------------------------------
+
+def test_color_panel_apply_with_no_molsys_pushes_error():
+    molsysviewer.addons.clear()
+    molsysviewer.addons.register(get_addon())
+    view = molsysviewer.MolSysView()
+
+    widget = view.addons.resolve_panel_widget("molsysmt", "color")
+    sent = []
+    widget.send = lambda msg: sent.append(msg)
+
+    widget.handle_action(view, "apply_color", {"property": "charge", "palette": "viridis"})
+    molsysviewer.addons.clear()
+
+    states = [m for m in sent if m.get("type") == "state"]
+    assert states[-1]["state"]["status"] == "error"
+
+
+# ---------------------------------------------------------------------------
+# H-Bonds panel — no-system error
+# ---------------------------------------------------------------------------
+
+def test_hbonds_panel_compute_with_no_molsys_pushes_error():
+    molsysviewer.addons.clear()
+    molsysviewer.addons.register(get_addon())
+    view = molsysviewer.MolSysView()
+
+    widget = view.addons.resolve_panel_widget("molsysmt", "hbonds")
+    sent = []
+    widget.send = lambda msg: sent.append(msg)
+
+    widget.handle_action(view, "compute_hbonds", {})
+    molsysviewer.addons.clear()
+
+    states = [m for m in sent if m.get("type") == "state"]
+    assert states[-1]["state"]["status"] == "error"
+
+
+# ---------------------------------------------------------------------------
+# PBC panel — check_pbc with no-system error
+# ---------------------------------------------------------------------------
+
+def test_pbc_panel_check_with_no_molsys_pushes_error():
+    molsysviewer.addons.clear()
+    molsysviewer.addons.register(get_addon())
+    view = molsysviewer.MolSysView()
+
+    widget = view.addons.resolve_panel_widget("molsysmt", "pbc")
+    sent = []
+    widget.send = lambda msg: sent.append(msg)
+
+    widget.handle_action(view, "check_pbc", {})
+    molsysviewer.addons.clear()
+
+    states = [m for m in sent if m.get("type") == "state"]
+    assert states[-1]["state"]["status"] == "error"
+
+
+# ---------------------------------------------------------------------------
+# Build panel — no-system error
+# ---------------------------------------------------------------------------
+
+def test_build_panel_action_with_no_molsys_pushes_error():
+    molsysviewer.addons.clear()
+    molsysviewer.addons.register(get_addon())
+    view = molsysviewer.MolSysView()
+
+    widget = view.addons.resolve_panel_widget("molsysmt", "build")
+    sent = []
+    widget.send = lambda msg: sent.append(msg)
+
+    widget.handle_action(view, "add_hydrogens", {})
+    molsysviewer.addons.clear()
+
+    states = [m for m in sent if m.get("type") == "state"]
+    assert states[-1]["state"]["status"] == "error"
