@@ -123,12 +123,12 @@ That is the correct posture for `1.0.0`: trusted execution should be explicit,
 limited, and auditable.
 
 The same principle extends directly to the heavy-trajectory architecture, which
-is now implemented (see `scalability_and_heavy_trajectories_v2.md`). The
+is now fully implemented (see `scalability_and_heavy_trajectories_v2.md`). The
 `ValidatedPayload` passport is not a structure-only trick: chunk payloads
-delivered by `ChunkedExecutor` to `Reducer.consume()` already follow the same
-trusted-boundary contract — shape, dtype, and unit semantics are established
-once at chunk boundary, and inner execution loops do not re-enter digestion or
-validation for each chunk.
+delivered by `ChunkedExecutor` or the public `msm.Iterator` to the analysis kernels
+already follow the same trusted-boundary contract. Shape, dtype, and unit semantics
+are established once at the chunk boundary, and inner execution loops do not re-enter
+digestion or validation for each frame of the chunk.
 
 ### `skip_digestion=True` for internal callers
 

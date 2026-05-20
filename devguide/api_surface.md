@@ -218,7 +218,7 @@ Stays in-tree for development continuity.
 
 ---
 
-### 2.11 `msm.thirds`
+### 2.11 `msm.third_party`
 
 Internal bridge to external tools (tleap, OpenMM utilities). Not part of the
 public API contract. Subject to change without deprecation notice.

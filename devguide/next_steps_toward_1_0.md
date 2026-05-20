@@ -365,7 +365,7 @@ This checklist is intentionally short. It is the execution-order summary of the 
 9. ~~**Raise meaningful coverage on the Tier 1 surface**~~ ✅ Done — 78.79% baseline reached (March 2026)
 10. ~~**Expand deterministic builder-based fixtures where they reduce truth ambiguity**~~ ✅ Done — builder oracle used throughout Tier 1 and Tier 2 form tests (March 2026)
 11. ~~**Align developer and user-facing documentation with the implemented architecture**~~ ✅ Done — devguide and docs/content/developer audited and updated: heavy trajectory, declarative serialization forms, and competitive landscape corrected to reflect implemented state (March 2026)
-12. **Enter beta-testing, dogfooding, paper writing, and the final stabilization window**
+12. **Enter beta-testing, dogfooding, paper writing, and the final stabilization window** 🔄 **[IN PROGRESS]** (Mayo 2026 Documentation Pass)
 
 ### Coverage of topics in this file
 

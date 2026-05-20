@@ -17,6 +17,20 @@ It consolidates and refines `ROADMAP.md` for developer execution.
 - Improve JIT warmup ergonomics and reporting.
 - Expand SMonitor catalog coverage.
 
+## Documentation & Course Excellence Checkpoint (May 2026)
+
+The current documentation pass is centered on making the `1.0.0` release educationally unparalleled.
+
+Completed in the current pass:
+- **Common Core (20 modules)** rebuilt with a 10/10 narrative, covering the 100% of the `molsysmt.basic` API, including iterative and surgical tools.
+- **User Guide Foundations** restructured into 8 strategic pillars (Entrance, Molecular System, Native World, Language, Performance, Governance, Support, Ecosystem).
+- **Type Normalization** implemented natively in `info()` to strip Numpy noise (e.g. `np.int64`).
+- **BinaryCIF (`bcif.gz`)** established as the primary high-performance standard, relegating MMTF to legacy.
+
+Immediate next steps:
+1. Revamp the Specialized Paths (Phase 3-6) using the established pedagogical standards.
+2. Refactor the Toolbox overview.
+
 ## Current stabilization checkpoint (March 2026)
 
 The current implementation pass is centered on broad validation and targeted

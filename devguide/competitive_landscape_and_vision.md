@@ -79,6 +79,11 @@ the error is whatever Python happens to throw.
 
 - **Lazy loading 2.0** — `import molsysmt` is near-instantaneous regardless of which
   optional libraries are installed.  MDAnalysis is notoriously slow to import.
+- **Topological Normalization Engine** — Automatically "pacifies" inconsistent atom/residue
+  naming across force fields (AMBER, CHARMM, GROMOS). A fundamental differentiator for
+  interoperability.
+- **Precision Policy** — Explicit handling of `float32` vs `float64` noise at the API
+  boundary, ensuring numerical robustness for high-precision analysis.
 - **Declarative serialization** — `MolSysDict`, `TopologyDict`, `StructuresDict`,
   `file:molsys_yaml`, `file:topology_yaml` have no equivalent in either tool.
 - **MolSysBuilder** — declarative, step-by-step system construction with a clean API.
@@ -137,7 +142,7 @@ first-class module.  MolSysMT ships `molsysmt.physchem`:
 
 The breadth of the `physchem` module has no equivalent in either tool.
 
-### 7. Third-party simulation integration (`thirds/`)
+### 7. Third-party simulation integration (`third_party/`)
 
 MolSysMT provides explicit integration modules for:
 
@@ -162,8 +167,8 @@ corrections can be applied to any supported trajectory form.
 
 | Capability | mdtraj | MDAnalysis | MolSysMT | Notes |
 |---|---|---|---|---|
-| RMSD | ✅ | ✅ | ✅ | |
-| RMSF | ✅ | ✅ | ✅ | `molsysmt.structure.get_rmsf()` — Numba JIT kernel (March 2026) |
+| RMSD | ✅ | ✅ | ✅ | Heavy-mode supported |
+| RMSF | ✅ | ✅ | ✅ | `molsysmt.structure.get_rmsf()` — Numba JIT kernel |
 | Distances / contacts | ✅ | ✅ | ✅ | |
 | Angles / dihedrals | ✅ | ✅ | ✅ | |
 | Least-RMSD alignment | ✅ | ✅ | ✅ | |
@@ -171,19 +176,21 @@ corrections can be applied to any supported trajectory form.
 | H-bonds | ✅ | ✅ | ✅ | dedicated `hbonds` module |
 | PBC wrapping / unwrapping | ✅ | ✅ | ✅ | `molsysmt.pbc` module |
 | Sequence identity | — | ✅ | ✅ | |
-| Radius of gyration | ✅ | ✅ | ✅ | `molsysmt.structure.get_radius_of_gyration()` — Numba JIT kernel (March 2026) |
-| SASA | ✅ | ✅ | ✅ | `molsysmt.physchem.get_sasa()` via mdtraj engine (March 2026) |
-| Secondary structure | ✅ | ✅ | ✅ | `molsysmt.structure.get_secondary_structure()` — DSSP via mdtraj (March 2026) |
+| Radius of gyration | ✅ | ✅ | ✅ | `molsysmt.structure.get_radius_of_gyration()` — Numba JIT kernel |
+| SASA | ✅ | ✅ | ✅ | `molsysmt.physchem.get_sasa()` via mdtraj engine |
+| Secondary structure | ✅ | ✅ | ✅ | `molsysmt.structure.get_secondary_structure()` — DSSP via mdtraj |
 | Sequence alignment | — | ✅ | ⚠️ | BioPython engine only; others are stubs |
 | Clustering | — | ✅ | ❌ | |
-| Heavy trajectories | ✅ | ✅ | ✅ | Tier 1 slice fully implemented: ChunkedExecutor, Reducer, PersistentResultHandle, get_center/get_rmsd/get_distances; see `scalability_and_heavy_trajectories_v2.md` |
+| Heavy trajectories | ✅ | ✅ | ✅ | **Out-of-Core** implemented: ChunkedExecutor, Reducer, Iterator |
 | System building | ❌ | ⚠️ | ✅ | `molsysmt.build`: peptide, solvate, mutate, bioassembly, ... |
 | Physicochemical properties | ❌ | ❌ | ✅ | `molsysmt.physchem`: mass, charge, hydrophobicity, ... |
-| Simulation integration | ⚠️ | ⚠️ | ✅ | `thirds/`: OpenMM, tleap, nglview |
+| Simulation integration | ⚠️ | ⚠️ | ✅ | `third_party/`: OpenMM, tleap, nglview |
 | Form-agnostic API | ❌ | ❌ | ✅ | |
 | Declarative serialization | ❌ | ❌ | ✅ | |
 | Support tier contract | ❌ | ❌ | ✅ | |
 | Native unit system | ❌ | ❌ | ✅ | via pyunitwizard |
+| Topological Normalization | ❌ | ❌ | ✅ | Automatic nomenclature "pacification" |
+| Precision Policy | ❌ | ❌ | ✅ | Explicit float32/64 noise handling |
 
 ### Performance
 
@@ -376,7 +383,7 @@ competitors do not match:
   MDAnalysis has scattered fragments.
 - `molsysmt.physchem` — per-atom physicochemical properties (mass, charge, SASA,
   hydrophobicity, polarity, transmembrane tendency); no equivalent in either tool.
-- `thirds/` — explicit integration with OpenMM, tleap, and nglview through the
+- `third_party/` — explicit integration with OpenMM, tleap, and nglview through the
   form-agnostic adapter layer.
 
 The remaining capability gap is specific and addressable:
