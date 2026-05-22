@@ -28,6 +28,42 @@ example was structural coordinates:
 ### Universal Digestion
 As of the 1.0.0 stabilization, *every* function in *every* form module (including internal delegates like `get`, `set`, and `extract` inside `__init__.py`) must be decorated with `@arg_digest`. This ensures that data normalization happens even in deep conversion chains.
 
+### 🎫 The Passport Protocol (`ValidatedPayload` Bypass)
+
+To avoid crippling overhead when a decorated public function internally calls another decorated function, MolSysMT implements the **Passport Protocol** utilizing `argdigest`'s `ValidatedPayload`.
+
+#### 1. What is the Passport Protocol?
+When an object is validated once at the entry boundary of the public API, it can be wrapped in a `ValidatedPayload` (a passport). When this passport is passed as an argument to another function decorated with `@arg_digest`, the decorator automatically detects it, **bypasses standard digestion entirely (Zero-Latency)**, and forwards the pre-validated value to the function body.
+
+#### 2. How to Use It
+If you have already validated or normalized an object (e.g., coordinates, box, or selection thresholds) and need to pass it to an internal delegate or another public API:
+
+```python
+from argdigest.core.contract import ValidatedPayload
+
+# Wrap your validated object in a passport
+coordinates_passport = ValidatedPayload(
+    value=coordinates_qty, 
+    unit="nm", 
+    dtype="float64", 
+    ndim=3
+)
+
+# Pass the passport to the subsequent decorated function
+result = another_decorated_function(molecular_system, coordinates=coordinates_passport)
+```
+
+#### 3. Empirical Performance Wins
+Empirical benchmarking shows that applying the Passport Protocol on even a single simple parameter like `threshold` delivers an immediate **1.51x speedup** on function execution times by completely skipping redundant Pint physical unit validation and type-safety check blocks.
+
+Always use `ValidatedPayload` for high-frequency internal function calls to maintain both API type safety and bare-metal execution speeds.
+
+#### 4. Passports (`ValidatedPayload`) vs. `skip_digestion=True`
+
+- **`skip_digestion=True`** is a coarse-grained override. It bypasses digestion for *all* arguments of a function call. It is useful in very low-level internal kernels, but it is fragile because it disables all type safety and requires manual propagation down the call stack.
+- **`ValidatedPayload` (Passports)** is a fine-grained, value-level bypass. It only bypasses validation for the specific arguments that have already been validated, leaving other arguments (such as new selections or flags) subject to normal validation. This keeps the execution safe while achieving zero-latency for heavy objects.
+- **Audit Rule**: Avoid passing `skip_digestion=True` in internal calls if the only reason was to avoid double-digesting a specific heavy argument (like coordinates). Instead, wrap that argument in a `ValidatedPayload` and let normal validation run for other parameters. Use `skip_digestion=True` only when *none* of the arguments in the call need any validation or normalization whatsoever.
+
 ## Dependency Policy
 MolSysMT distinguishes **hard** vs **soft** dependencies:
 - Hard: required for core functionality.

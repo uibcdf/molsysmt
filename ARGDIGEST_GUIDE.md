@@ -143,6 +143,7 @@ should express it.
 3.  **Support skip_digestion**: All decorated functions should allow bypassing digestion via a `skip_digestion` parameter for internal performance-critical calls.
 4.  **Argument Dependencies**: Digesters can request other (already digested) arguments by simply adding them to their signature. ArgDigest handles the topological sort and cycle detection.
 5.  **Caller-aware Optionality**: Downstream libraries may accept `None` or otherwise relaxed values for specific public callables. These semantics belong in digesters, not in bypasses around `@arg_digest`.
+6.  **Use Normalization Passports (`ValidatedPayload`)**: For internal high-frequency calls where inputs are already validated, pass them wrapped in a `ValidatedPayload` (the passport protocol) to bypass redundant digestion and unit-safety check blocks with zero latency.
 
 ## SMonitor Integration
 
@@ -160,7 +161,7 @@ includes execution context and the original exception text.
 ---
 *Document created on February 6, 2026, as the authority for ArgDigest integration.*
 
-## 5. Performance: The Normalization Passport (`ValidatedPayload`)
+## 6. Performance: The Normalization Passport (`ValidatedPayload`)
 
 To avoid redundant unit conversions and introspection in recursive function calls, `argdigest` supports a "Passport" protocol.
 

@@ -108,7 +108,7 @@ def get_contacts(molecular_system, selection=None, center_of_atoms=False, weight
     all_dists = get_distances(molecular_system=molecular_system, selection=atom_indices,
                 center_of_atoms=center_of_atoms, weights=weights, structure_indices=structure_indices,
                 selection_2=atom_indices_2, center_of_atoms_2=center_of_atoms_2, weights_2=weights_2,
-                structure_indices_2=structure_indices_2, pairs=pairs, pbc=pbc)
+                structure_indices_2=structure_indices_2, pairs=pairs, pbc=pbc, skip_digestion=True)
 
     length_units = puw.get_unit(all_dists)
     threshold = puw.get_value(threshold, to_unit=length_units)
