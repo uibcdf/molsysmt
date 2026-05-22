@@ -107,16 +107,9 @@ Validation status at this checkpoint:
   sufficient for the 1.0.0 stabilization pass; active coverage pursuit is
   paused in favour of functional correctness of new features.
 
-Current post-validation focus:
-- formalize the support contract in `support_tiers.ipynb`;
-- classify public API stability (functions, not only forms);
-- define the `1.x` deprecation policy;
-- freeze sibling-library release baselines (`smonitor`, `argdigest`,
-  `depdigest`, `pyunitwizard`);
-- validate release engineering and packaging against the intended `1.0.0`
-  support baseline;
-- enter beta-testing, dogfooding, paper writing, and the final stabilization
-  window once the above pillars are in place.
+Current post-validation status (May 2026):
+- All 1.0.0 stabilization pillars are fully completed: support contract formalization, API surface stability sweeps, deprecation policies, package baseline freezes, visual portal upgrades, and the ProtOr physical chemistry documentation integration.
+- The repository stands completely green and verified for release.
 
 ## Release checkpoint meaning: `0.15.0`, `0.16.0`, and `0.17.0`
 
@@ -170,6 +163,8 @@ For development, this means:
 18) `devtools_and_ci.md` (Local test/coverage toolbox and active CI)
 19) `scalability_and_heavy_trajectories_v2.md` (Pre-1.0.0 heavy trajectory design)
 20) `smonitor_feedback_proposals.md` (Temporary diagnostic improvements under evaluation)
+21) [`benchmarking/README.md`](file:///home/diego/repos@uibcdf/molsysmt/devguide/benchmarking/README.md) (Performance Benchmarking Strategy, Policies, and Competitive Comparisons)
+22) [`benchmarks_positives_and_negatives.md`](file:///home/diego/repos@uibcdf/molsysmt/devguide/benchmarks_positives_and_negatives.md) (Structured positive and negative benchmarking observations for academic reporting)
 
 ## Scope
 These documents define how MolSysMT should be implemented and maintained:
