@@ -1,0 +1,79 @@
+name: Performance Regression Audit
+
+on:
+  pull_request:
+    branches:
+      - "main"
+    paths-ignore:
+      - '**/*.md'
+      - '**/*.rst'
+      - '**/*.ipynb'
+      - 'docs/**'
+      - 'paper/**'
+      - 'examples/**'
+      - 'logos/**'
+  workflow_dispatch:
+
+jobs:
+  benchmark:
+    name: Regression Audit — ${{ matrix.cfg.os }}, Python ${{ matrix.cfg.python-version }}
+    if: >
+      !(
+        (github.event_name == 'pull_request' && contains(github.event.pull_request.title, '[skip ci]'))
+        ||
+        (github.event_name == 'pull_request' && contains(github.event.pull_request.head.ref, 'skip-ci'))
+      )
+    runs-on: ${{ matrix.cfg.os }}
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        cfg:
+          - { os: ubuntu-latest, python-version: "3.13" }
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.cfg.python-version }}
+
+      - name: Setup conda env
+        uses: mamba-org/setup-micromamba@v2
+        with:
+          environment-file: devtools/conda-envs/test_env.yaml
+          environment-name: test
+          condarc: |
+            channels:
+              - uibcdf
+              - conda-forge
+              - ambermd
+            channel_priority: strict
+          create-args: >-
+            python=${{ matrix.cfg.python-version }}
+
+      - name: Install package
+        shell: bash -l {0}
+        run: python -m pip install . --no-deps
+
+      - name: Extract Reference Baseline
+        shell: bash -l {0}
+        run: |
+          if ! git show origin/${{ github.base_ref || 'main' }}:benchmarks/baselines/competitor_matrix_session.json > reference_baseline.json 2>/dev/null; then
+            echo "⚠️ Could not retrieve baseline from origin/${{ github.base_ref || 'main' }}. Using local baseline copy."
+            cp benchmarks/baselines/competitor_matrix_session.json reference_baseline.json
+          fi
+
+      - name: Run Current Benchmarks
+        shell: bash -l {0}
+        run: |
+          export SMONITOR_PROFILE="qa"
+          python benchmarks/competitors/run_matrix.py
+
+      - name: Audit Performance Regressions
+        shell: bash -l {0}
+        run: |
+          python benchmarks/compare_runs.py --baseline reference_baseline.json --current benchmarks/baselines/competitor_matrix_session.json --threshold 0.15
