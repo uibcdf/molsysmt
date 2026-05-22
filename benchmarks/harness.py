@@ -17,6 +17,24 @@ from time import perf_counter
 from typing import Callable, Any
 
 
+def _get_peak_rss_mb() -> float:
+    """Retrieve peak Resident Set Size (RSS) in MB for the current process."""
+    try:
+        with open("/proc/self/status", "r") as f:
+            for line in f:
+                if line.startswith("VmHWM:"):
+                    parts = line.split()
+                    if len(parts) >= 2:
+                        return float(parts[1]) / 1024.0
+    except Exception:
+        pass
+    try:
+        import resource
+        return resource.getrusage(resource.RUSAGE_SELF).ru_maxrss / 1024.0
+    except Exception:
+        return 0.0
+
+
 class BenchmarkHarness:
     """Central runner for high-precision performance measurements in MolSysMT."""
 
@@ -37,7 +55,7 @@ class BenchmarkHarness:
         self.repeats = repeats
 
     def run(self, warmup_func: Callable[[], Any], timed_func: Callable[[], Any]) -> dict[str, Any]:
-        """Execute the benchmark with JIT pre-warming and GC isolation.
+        """Execute the benchmark with JIT pre-warming, GC isolation, and RAM profiling.
 
         Parameters
         ----------
@@ -49,12 +67,15 @@ class BenchmarkHarness:
         Returns
         -------
         dict[str, Any]
-            Timing statistics and execution metadata.
+            Timing and memory statistics, and execution metadata.
         """
-        # 1. Warm-up invocation (essential for JIT compilation / lazy cache lookups)
+        # 1. Capture base memory before warm-up
+        base_rss = _get_peak_rss_mb()
+
+        # 2. Warm-up invocation (essential for JIT compilation / lazy cache lookups)
         warmup_func()
 
-        # 2. Timing loops under GC isolation
+        # 3. Timing loops under GC isolation
         samples: list[float] = []
         gc.disable()
         try:
@@ -67,7 +88,10 @@ class BenchmarkHarness:
         finally:
             gc.enable()
 
-        # 3. Calculate statistics
+        # 4. Capture peak memory after runs
+        peak_rss = _get_peak_rss_mb()
+
+        # 5. Calculate statistics
         med_val = median(samples)
         min_val = min(samples)
         max_val = max(samples)
@@ -82,6 +106,9 @@ class BenchmarkHarness:
             "min_seconds": min_val,
             "max_seconds": max_val,
             "stddev_seconds": std_val,
+            "peak_rss_mb": peak_rss,
+            "base_rss_mb": base_rss,
+            "delta_rss_mb": max(0.0, peak_rss - base_rss),
             "repeats": self.repeats,
             "iterations": self.iterations,
             "timestamp_utc": datetime.now(timezone.utc).isoformat(),

@@ -100,23 +100,28 @@ def run_geometry_benchmarks(pdb_path: str, output_results: list | None = None) -
         return [mda_rmsd(u.atoms.positions, ref_coords) for ts in u.trajectory]
 
     # --- BENCHMARK 3: PAIRWISE DISTANCES ---
-    # Scipy and JIT distances can be relatively heavy, let's keep iterations moderate
-    h_msm_pub_dist = BenchmarkHarness("competitor_distances_molsysmt_public", iterations=5, repeats=5)
-    h_msm_jit_dist = BenchmarkHarness("competitor_distances_molsysmt_jit", iterations=10, repeats=5)
-    h_mdt_dist = BenchmarkHarness("competitor_distances_mdtraj", iterations=10, repeats=5)
-    h_mda_dist = BenchmarkHarness("competitor_distances_mdanalysis", iterations=5, repeats=5)
+    # Filter to CA atoms (35 atoms) to keep the pairwise distance matrix timing blazingly fast
+    ca_indices_msm = msm.select(system, 'atom_name == "CA"')
+    ca_coords_raw = coords_raw[:, ca_indices_msm, :]
+    ca_indices_mdt = t.topology.select('name CA')
+    ca_atoms_mda = u.select_atoms('name CA')
+
+    h_msm_pub_dist = BenchmarkHarness("competitor_distances_molsysmt_public", iterations=20, repeats=5)
+    h_msm_jit_dist = BenchmarkHarness("competitor_distances_molsysmt_jit", iterations=50, repeats=5)
+    h_mdt_dist = BenchmarkHarness("competitor_distances_mdtraj", iterations=50, repeats=5)
+    h_mda_dist = BenchmarkHarness("competitor_distances_mdanalysis", iterations=50, repeats=5)
 
     def run_msm_pub_dist():
-        return msm.structure.get_distances(system, selection='all')
+        return msm.structure.get_distances(system, selection='atom_name == "CA"')
 
     def run_msm_jit_dist():
-        return jit_get_distances(coords_raw)
+        return jit_get_distances(ca_coords_raw)
 
     def run_mdt_dist():
-        return [scipy_cdist(frame, frame) for frame in t.xyz]
+        return [scipy_cdist(frame[ca_indices_mdt], frame[ca_indices_mdt]) for frame in t.xyz]
 
     def run_mda_dist():
-        return [mda_distance_array(u.atoms.positions, u.atoms.positions) for ts in u.trajectory]
+        return [mda_distance_array(ca_atoms_mda.positions, ca_atoms_mda.positions) for ts in u.trajectory]
 
     results = []
 
