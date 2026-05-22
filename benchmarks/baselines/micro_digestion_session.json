@@ -1,0 +1,77 @@
+{
+  "environment": {
+    "machine": "x86_64",
+    "molsysmt_version": "0.18.0",
+    "os": "Linux",
+    "os_release": "6.17.0-14-generic",
+    "python": "3.13.12"
+  },
+  "generated_at_utc": "2026-05-22T07:44:55.919657+00:00",
+  "results": {
+    "digestion_is_mechanical_attribute_enabled": {
+      "environment": {
+        "machine": "x86_64",
+        "molsysmt_version": "0.18.0",
+        "python_version": "3.13.12",
+        "system": "Linux"
+      },
+      "iterations": 500,
+      "max_seconds": 6.788834929466247e-05,
+      "median_seconds": 5.732408538460731e-05,
+      "min_seconds": 5.58239184319973e-05,
+      "name": "digestion_is_mechanical_attribute_enabled",
+      "repeats": 5,
+      "stddev_seconds": 4.951572178504252e-06,
+      "timestamp_utc": "2026-05-22T07:44:55.560591+00:00"
+    },
+    "digestion_is_mechanical_attribute_skipped": {
+      "environment": {
+        "machine": "x86_64",
+        "molsysmt_version": "0.18.0",
+        "python_version": "3.13.12",
+        "system": "Linux"
+      },
+      "iterations": 500,
+      "max_seconds": 4.18853834271431e-05,
+      "median_seconds": 4.0184715762734415e-05,
+      "min_seconds": 3.751876577734947e-05,
+      "name": "digestion_is_mechanical_attribute_skipped",
+      "repeats": 5,
+      "stddev_seconds": 1.7551133964071976e-06,
+      "timestamp_utc": "2026-05-22T07:44:55.661488+00:00"
+    },
+    "digestion_is_topological_attribute_enabled": {
+      "environment": {
+        "machine": "x86_64",
+        "molsysmt_version": "0.18.0",
+        "python_version": "3.13.12",
+        "system": "Linux"
+      },
+      "iterations": 500,
+      "max_seconds": 6.864953972399235e-05,
+      "median_seconds": 5.6081678718328475e-05,
+      "min_seconds": 5.342161655426025e-05,
+      "name": "digestion_is_topological_attribute_enabled",
+      "repeats": 5,
+      "stddev_seconds": 5.9620015572615836e-06,
+      "timestamp_utc": "2026-05-22T07:44:55.810570+00:00"
+    },
+    "digestion_is_topological_attribute_skipped": {
+      "environment": {
+        "machine": "x86_64",
+        "molsysmt_version": "0.18.0",
+        "python_version": "3.13.12",
+        "system": "Linux"
+      },
+      "iterations": 500,
+      "max_seconds": 5.296040512621403e-05,
+      "median_seconds": 4.10289578139782e-05,
+      "min_seconds": 3.963439539074898e-05,
+      "name": "digestion_is_topological_attribute_skipped",
+      "repeats": 5,
+      "stddev_seconds": 5.507979593554242e-06,
+      "timestamp_utc": "2026-05-22T07:44:55.919530+00:00"
+    }
+  },
+  "session_name": "micro-digestion-overhead"
+}

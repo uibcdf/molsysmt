@@ -36,4 +36,8 @@ _convert_to={
         'molsysmt.Structures': to_molsysmt_Structures,
         'file:h5msm': to_file_h5msm,
         }
+_heavy_support = {
+    'coordinates': True,
+    'box': True,
+}
 

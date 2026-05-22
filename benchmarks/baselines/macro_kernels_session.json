@@ -1,0 +1,109 @@
+{
+  "environment": {
+    "machine": "x86_64",
+    "molsysmt_version": "0.18.0",
+    "os": "Linux",
+    "os_release": "6.17.0-14-generic",
+    "python": "3.13.12"
+  },
+  "generated_at_utc": "2026-05-22T09:56:28.133412+00:00",
+  "results": {
+    "macro_get_center_jit_kernel": {
+      "environment": {
+        "machine": "x86_64",
+        "molsysmt_version": "0.18.0",
+        "python_version": "3.13.12",
+        "system": "Linux"
+      },
+      "iterations": 100,
+      "max_seconds": 0.0012210291530936957,
+      "median_seconds": 0.0011565252393484116,
+      "min_seconds": 0.001146110501140356,
+      "name": "macro_get_center_jit_kernel",
+      "repeats": 5,
+      "stddev_seconds": 3.064495451418643e-05,
+      "timestamp_utc": "2026-05-22T09:54:17.035012+00:00"
+    },
+    "macro_get_center_public_api": {
+      "environment": {
+        "machine": "x86_64",
+        "molsysmt_version": "0.18.0",
+        "python_version": "3.13.12",
+        "system": "Linux"
+      },
+      "iterations": 50,
+      "max_seconds": 0.3032899787090719,
+      "median_seconds": 0.2880605446919799,
+      "min_seconds": 0.27893335999920965,
+      "name": "macro_get_center_public_api",
+      "repeats": 5,
+      "stddev_seconds": 0.009952875981526972,
+      "timestamp_utc": "2026-05-22T09:54:16.448608+00:00"
+    },
+    "macro_get_distances_jit_kernel": {
+      "environment": {
+        "machine": "x86_64",
+        "molsysmt_version": "0.18.0",
+        "python_version": "3.13.12",
+        "system": "Linux"
+      },
+      "iterations": 20,
+      "max_seconds": 0.21220336970873177,
+      "median_seconds": 0.20236212266609072,
+      "min_seconds": 0.19099469855427742,
+      "name": "macro_get_distances_jit_kernel",
+      "repeats": 5,
+      "stddev_seconds": 0.008423224852211485,
+      "timestamp_utc": "2026-05-22T09:56:28.133219+00:00"
+    },
+    "macro_get_distances_public_api": {
+      "environment": {
+        "machine": "x86_64",
+        "molsysmt_version": "0.18.0",
+        "python_version": "3.13.12",
+        "system": "Linux"
+      },
+      "iterations": 10,
+      "max_seconds": 0.7478369500488042,
+      "median_seconds": 0.733965149987489,
+      "min_seconds": 0.6996272921562194,
+      "name": "macro_get_distances_public_api",
+      "repeats": 5,
+      "stddev_seconds": 0.01906279005849251,
+      "timestamp_utc": "2026-05-22T09:56:07.509935+00:00"
+    },
+    "macro_get_rmsd_jit_kernel": {
+      "environment": {
+        "machine": "x86_64",
+        "molsysmt_version": "0.18.0",
+        "python_version": "3.13.12",
+        "system": "Linux"
+      },
+      "iterations": 100,
+      "max_seconds": 0.0010027391277253627,
+      "median_seconds": 0.0009565472695976496,
+      "min_seconds": 0.0009473040420562029,
+      "name": "macro_get_rmsd_jit_kernel",
+      "repeats": 5,
+      "stddev_seconds": 2.3499213884792994e-05,
+      "timestamp_utc": "2026-05-22T09:55:28.259511+00:00"
+    },
+    "macro_get_rmsd_public_api": {
+      "environment": {
+        "machine": "x86_64",
+        "molsysmt_version": "0.18.0",
+        "python_version": "3.13.12",
+        "system": "Linux"
+      },
+      "iterations": 50,
+      "max_seconds": 0.30421364774927495,
+      "median_seconds": 0.2727765710093081,
+      "min_seconds": 0.26685195200145245,
+      "name": "macro_get_rmsd_public_api",
+      "repeats": 5,
+      "stddev_seconds": 0.015042260623365803,
+      "timestamp_utc": "2026-05-22T09:55:27.773644+00:00"
+    }
+  },
+  "session_name": "macro-coordinate-kernels"
+}

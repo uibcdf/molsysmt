@@ -1,7 +1,23 @@
-from functools import lru_cache, wraps
-import numba as nb
 import os
 import inspect
+from functools import lru_cache, wraps
+import smonitor
+from molsysmt._private.smonitor import PACKAGE_ROOT
+
+# Configure repository-local JIT caching dynamically for development/QA environments
+try:
+    _profile = smonitor.get_manager().config.profile
+except Exception:
+    _profile = "user"
+
+if _profile in ("dev", "qa", "debug", "agent"):
+    if "NUMBA_CACHE_DIR" not in os.environ:
+        # PACKAGE_ROOT is /path/to/repo/molsysmt
+        # Repository root is PACKAGE_ROOT.parent
+        repo_root = PACKAGE_ROOT.parent
+        os.environ["NUMBA_CACHE_DIR"] = str(repo_root / ".numba_cache")
+
+import numba as nb
 
 _COMPILED_FACTORIES = []
 _NUMBA_WARNING_EMITTED = False

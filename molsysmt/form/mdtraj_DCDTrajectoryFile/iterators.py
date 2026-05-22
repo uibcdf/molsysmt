@@ -62,17 +62,17 @@ class StructuresIterator():
             coordinates = []
             box_lengths = []
             box_angles = []
-            if isinstance(indices, (list,tuple)):
+            if isinstance(indices, (list, tuple, np.ndarray)):
 
                 for ii in indices:
-                    self.molecular_system.seek(indices)
+                    self.molecular_system.seek(int(ii))
                     coordinates_aux, box_lengths_aux, box_angles_aux = self.molecular_system.read(1, 0, self._mdtraj_atom_indices)
-                    coordinates.append(np.float64(coordinates_aux))
-                    box_lengths.append(np.float64(box_lengths_aux))
-                    box_angles.append(np.float64(box_angles_aux))
+                    coordinates.append(np.float64(coordinates_aux[0]))
+                    box_lengths.append(np.float64(box_lengths_aux[0]))
+                    box_angles.append(np.float64(box_angles_aux[0]))
                     del(coordinates_aux, box_lengths_aux, box_angles_aux)
             else:
-                self.molecular_system.seek(indices)
+                self.molecular_system.seek(int(indices))
                 coordinates_aux, box_lengths_aux, box_angles_aux = self.molecular_system.read(1, 0, self._mdtraj_atom_indices)
                 coordinates=np.float64(coordinates_aux)
                 box_lengths=np.float64(box_lengths_aux)
@@ -105,4 +105,11 @@ class StructuresIterator():
         else:
 
             raise StopIteration
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, *args):
+        if hasattr(self.molecular_system, 'close'):
+            self.molecular_system.close()
 
