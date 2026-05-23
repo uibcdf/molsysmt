@@ -7,11 +7,15 @@ from molsysmt import lib as msmlib
 from molsysmt import pyunitwizard as puw
 import gc
 
+from molsysmt.configure import with_configure_overrides
+
 @signal(tags=['api', 'structure'])
+@with_configure_overrides
 @arg_digest()
 def least_rmsd_fit(molecular_system=None, selection='all', selection_fit='atom_type!="H"', structure_indices='all',
         reference_molecular_system=None, reference_selection_fit=None, reference_structure_index=0,
-        to_form=None, in_place=False, syntax='MolSysMT', engine='MolSysMT', skip_digestion=False):
+        to_form=None, in_place=False, syntax='MolSysMT', engine='MolSysMT', parallel=None, num_threads=None, skip_digestion=False):
+
     """
     Superpose a molecular system onto a reference using the Kabsch least-RMSD algorithm.
 

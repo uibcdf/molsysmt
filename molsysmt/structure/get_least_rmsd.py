@@ -7,11 +7,15 @@ from molsysmt import pyunitwizard as puw
 import numpy as np
 import gc
 
+from molsysmt.configure import with_configure_overrides
+
 @signal(tags=['api', 'structure'])
+@with_configure_overrides
 @arg_digest()
 def get_least_rmsd(molecular_system, selection='atom_type!="H"', structure_indices='all',
           reference_molecular_system=None, reference_selection=None, reference_structure_index=0,
-          syntax='MolSysMT', engine='MolSysMT'):
+          syntax='MolSysMT', engine='MolSysMT', parallel=None, num_threads=None, skip_digestion=False):
+
     """
     Compute the least-RMSD (optimal superposition RMSD) between structures.
 

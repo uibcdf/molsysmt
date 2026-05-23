@@ -85,6 +85,25 @@ def test_parallel_execution_modes():
     assert r_true is not None
     assert r_false is not None
 
+    # Test get_least_rmsd
+    lr_auto = msm.structure.get_least_rmsd(molsys, selection='backbone', reference_structure_index=0, parallel='auto')
+    lr_true = msm.structure.get_least_rmsd(molsys, selection='backbone', reference_structure_index=0, parallel=True, num_threads=2)
+    lr_false = msm.structure.get_least_rmsd(molsys, selection='backbone', reference_structure_index=0, parallel=False)
+
+    assert lr_auto is not None
+    assert lr_true is not None
+    assert lr_false is not None
+
+    # Test least_rmsd_fit
+    lf_auto = msm.structure.least_rmsd_fit(molsys, selection='backbone', selection_fit='backbone', reference_structure_index=0, parallel='auto')
+    lf_true = msm.structure.least_rmsd_fit(molsys, selection='backbone', selection_fit='backbone', reference_structure_index=0, parallel=True, num_threads=2)
+    lf_false = msm.structure.least_rmsd_fit(molsys, selection='backbone', selection_fit='backbone', reference_structure_index=0, parallel=False)
+
+    assert lf_auto is not None
+    assert lf_true is not None
+    assert lf_false is not None
+
+
 def test_gpu_mode_configuration():
     """Verify that default, context manager overrides, and resolution of gpu_mode function correctly."""
     # Verify default config values

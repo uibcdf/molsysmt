@@ -84,7 +84,7 @@ arguments=[
     nb.float64[:,:,:], # reference_coordinates: [n_ref_structures, n_ref_atoms, 3]
 ]
 output=[nb.float64[:,:,:], nb.float64[:,:,:,:], nb.float64[:,:,:]]
-@lazy_njit(make_numba_signature(arguments,output), cache=True)
+@lazy_njit(make_numba_signature(arguments,output), parallel=True, cache=True)
 def get_least_rmsd_rotation_and_translation(coordinates, reference_coordinates):
 
     n_structures, n_atoms = coordinates.shape[0:2]
@@ -93,74 +93,64 @@ def get_least_rmsd_rotation_and_translation(coordinates, reference_coordinates):
     rotation = np.empty((n_structures,1,3,3), dtype=np.float64)
     translation = np.empty((n_structures,1,3), dtype=np.float64)
 
-    center_ref=np.empty((3), dtype=nb.float64)
-    center=np.empty((3), dtype=nb.float64)
-
-    x=np.zeros((n_atoms,3), dtype=nb.float64)
-    y=np.zeros((n_atoms,3), dtype=nb.float64)
-
-    R=np.zeros((3,3), dtype=nb.float64)
-    F=np.zeros((4,4), dtype=nb.float64)
-
-    for ii in range(n_structures):
+    # Parallel loop over structures using nb.prange
+    for ii in nb.prange(n_structures):
+        # All structure-specific temporary buffers are allocated inside the loop to be thread-local
+        center_ref = np.empty((3), dtype=nb.float64)
+        center = np.empty((3), dtype=nb.float64)
+        x = np.zeros((n_atoms, 3), dtype=nb.float64)
+        y = np.zeros((n_atoms, 3), dtype=nb.float64)
+        R = np.zeros((3, 3), dtype=nb.float64)
+        F = np.zeros((4, 4), dtype=nb.float64)
 
         # reference coordinates
-
-        x[:,:]=0.0
-
         for jj in range(n_atoms):
-            x[jj,:]=reference_coordinates[ii,jj,:]
+            x[jj,:] = reference_coordinates[ii,jj,:]
 
         for jj in range(3):
-            center_ref[jj]=np.sum(x[:,jj])/n_atoms
-            x[:,jj]=x[:,jj]-center_ref[jj]
+            center_ref[jj] = np.sum(x[:,jj])/n_atoms
+            x[:,jj] = x[:,jj]-center_ref[jj]
 
         # coordinates
-
-        y[:,:]=0.0
-
         for jj in range(n_atoms):
-            y[jj,:]=coordinates[ii,jj,:]
+            y[jj,:] = coordinates[ii,jj,:]
 
         for jj in range(3):
-            center[jj]=np.sum(y[:,jj])/n_atoms
-            y[:,jj]=y[:,jj]-center[jj]
-
-        R[:,:]=0.0
-        F[:,:]=0.0
+            center[jj] = np.sum(y[:,jj])/n_atoms
+            y[:,jj] = y[:,jj]-center[jj]
 
         # R matrix
         for ll in range(3):
             for mm in range(3):
-                R[ll,mm]=dot_product(x[:,ll], y[:,mm])
+                R[ll,mm] = dot_product(x[:,ll], y[:,mm])
 
         # F matrix
-        F[0,0]=R[0,0]+R[1,1]+R[2,2]
-        F[1,0]=R[1,2]-R[2,1]
-        F[2,0]=R[2,0]-R[0,2]
-        F[3,0]=R[0,1]-R[1,0]
-        F[0,1]=F[1,0]
-        F[1,1]=R[0,0]-R[1,1]-R[2,2]
-        F[2,1]=R[0,1]+R[1,0]
-        F[3,1]=R[0,2]+R[2,0]
-        F[0,2]=F[2,0]
-        F[1,2]=F[2,1]
-        F[2,2]=-R[0,0]+R[1,1]-R[2,2]
-        F[3,2]=R[1,2]+R[2,1]
-        F[0,3]=F[3,0]
-        F[1,3]=F[3,1]
-        F[2,3]=F[3,2]
-        F[3,3]=-R[0,0]-R[1,1]+R[2,2]
+        F[0,0] = R[0,0]+R[1,1]+R[2,2]
+        F[1,0] = R[1,2]-R[2,1]
+        F[2,0] = R[2,0]-R[0,2]
+        F[3,0] = R[0,1]-R[1,0]
+        F[0,1] = F[1,0]
+        F[1,1] = R[0,0]-R[1,1]-R[2,2]
+        F[2,1] = R[0,1]+R[1,0]
+        F[3,1] = R[0,2]+R[2,0]
+        F[0,2] = F[2,0]
+        F[1,2] = F[2,1]
+        F[2,2] = -R[0,0]+R[1,1]-R[2,2]
+        F[3,2] = R[1,2]+R[2,1]
+        F[0,3] = F[3,0]
+        F[1,3] = F[3,1]
+        F[2,3] = F[3,2]
+        F[3,3] = -R[0,0]-R[1,1]+R[2,2]
 
         # Diagonalization with dsyevx (Lapack)
         eigvalues, eigvectors = np.linalg.eigh(F)
 
         # Rotation matrix
-        rotation[ii,0,:,:]=quaternion_to_rotation_matrix(eigvectors[:,3]).transpose()
-        center_rotation[ii,0,:]=center[:]
+        rotation[ii,0,:,:] = quaternion_to_rotation_matrix(eigvectors[:,3]).transpose()
+        center_rotation[ii,0,:] = center[:]
 
         # Translation
-        translation[ii,0,:]=center_ref[:]-center[:]
+        translation[ii,0,:] = center_ref[:]-center[:]
 
     return center_rotation, rotation, translation
 
@@ -170,7 +160,7 @@ arguments=[
     nb.float64[:,:], # reference_coordinates: [n_ref_atoms, 3]
 ]
 output=[nb.float64[:,:,:], nb.float64[:,:,:,:], nb.float64[:,:,:]]
-@lazy_njit(make_numba_signature(arguments,output), cache=True)
+@lazy_njit(make_numba_signature(arguments,output), parallel=True, cache=True)
 def get_least_rmsd_rotation_and_translation_with_single_reference_structure(coordinates, reference_coordinates):
 
     n_structures, n_atoms = coordinates.shape[0:2]
@@ -179,73 +169,65 @@ def get_least_rmsd_rotation_and_translation_with_single_reference_structure(coor
     rotation = np.empty((n_structures,1,3,3), dtype=np.float64)
     translation = np.empty((n_structures,1,3), dtype=np.float64)
 
-    center_ref=np.empty((3), dtype=nb.float64)
-    center=np.empty((3), dtype=nb.float64)
-
-    x=np.zeros((n_atoms,3), dtype=nb.float64)
-    y=np.zeros((n_atoms,3), dtype=nb.float64)
-
-    R=np.zeros((3,3), dtype=nb.float64)
-    F=np.zeros((4,4), dtype=nb.float64)
-
-    # reference coordinates
-
-    x[:,:]=0.0
+    # Reference structure coordinates can be pre-computed outside the loop
+    center_ref = np.empty((3), dtype=nb.float64)
+    x = np.zeros((n_atoms, 3), dtype=nb.float64)
 
     for jj in range(n_atoms):
-        x[jj,:]=reference_coordinates[jj,:]
+        x[jj,:] = reference_coordinates[jj,:]
 
     for jj in range(3):
-        center_ref[jj]=np.sum(x[:,jj])/n_atoms
-        x[:,jj]=x[:,jj]-center_ref[jj]
+        center_ref[jj] = np.sum(x[:,jj])/n_atoms
+        x[:,jj] = x[:,jj]-center_ref[jj]
 
-    for ii in range(n_structures):
+    # Parallel loop over structures using nb.prange
+    for ii in nb.prange(n_structures):
+        # All structure-specific temporary buffers are allocated inside the loop
+        center = np.empty((3), dtype=nb.float64)
+        y = np.zeros((n_atoms, 3), dtype=nb.float64)
+        R = np.zeros((3, 3), dtype=nb.float64)
+        F = np.zeros((4, 4), dtype=nb.float64)
 
         # coordinates
-
-        y[:,:]=0.0
-
         for jj in range(n_atoms):
-            y[jj,:]=coordinates[ii,jj,:]
+            y[jj,:] = coordinates[ii,jj,:]
 
         for jj in range(3):
-            center[jj]=np.sum(y[:,jj])/n_atoms
-            y[:,jj]=y[:,jj]-center[jj]
-
-        R[:,:]=0.0
-        F[:,:]=0.0
+            center[jj] = np.sum(y[:,jj])/n_atoms
+            y[:,jj] = y[:,jj]-center[jj]
 
         # R matrix
         for ll in range(3):
             for mm in range(3):
-                R[ll,mm]=dot_product(x[:,ll], y[:,mm])
+                R[ll,mm] = dot_product(x[:,ll], y[:,mm])
 
         # F matrix
-        F[0,0]=R[0,0]+R[1,1]+R[2,2]
-        F[1,0]=R[1,2]-R[2,1]
-        F[2,0]=R[2,0]-R[0,2]
-        F[3,0]=R[0,1]-R[1,0]
-        F[0,1]=F[1,0]
-        F[1,1]=R[0,0]-R[1,1]-R[2,2]
-        F[2,1]=R[0,1]+R[1,0]
-        F[3,1]=R[0,2]+R[2,0]
-        F[0,2]=F[2,0]
-        F[1,2]=F[2,1]
-        F[2,2]=-R[0,0]+R[1,1]-R[2,2]
-        F[3,2]=R[1,2]+R[2,1]
-        F[0,3]=F[3,0]
-        F[1,3]=F[3,1]
-        F[2,3]=F[3,2]
-        F[3,3]=-R[0,0]-R[1,1]+R[2,2]
+        F[0,0] = R[0,0]+R[1,1]+R[2,2]
+        F[1,0] = R[1,2]-R[2,1]
+        F[2,0] = R[2,0]-R[0,2]
+        F[3,0] = R[0,1]-R[1,0]
+        F[0,1] = F[1,0]
+        F[1,1] = R[0,0]-R[1,1]-R[2,2]
+        F[2,1] = R[0,1]+R[1,0]
+        F[3,1] = R[0,2]+R[2,0]
+        F[0,2] = F[2,0]
+        F[1,2] = F[2,1]
+        F[2,2] = -R[0,0]+R[1,1]-R[2,2]
+        F[3,2] = R[1,2]+R[2,1]
+        F[0,3] = F[3,0]
+        F[1,3] = F[3,1]
+        F[2,3] = F[3,2]
+        F[3,3] = -R[0,0]-R[1,1]+R[2,2]
 
         # Diagonalization with dsyevx (Lapack)
         eigvalues, eigvectors = np.linalg.eigh(F)
 
         # Rotation matrix
-        rotation[ii,0,:,:]=quaternion_to_rotation_matrix(eigvectors[:,3]).transpose()
-        center_rotation[ii,0,:]=center
+        rotation[ii,0,:,:] = quaternion_to_rotation_matrix(eigvectors[:,3]).transpose()
+        center_rotation[ii,0,:] = center[:]
 
         # Translation
-        translation[ii,0,:]=center_ref-center
+        translation[ii,0,:] = center_ref[:]-center[:]
 
     return center_rotation, rotation, translation
+
