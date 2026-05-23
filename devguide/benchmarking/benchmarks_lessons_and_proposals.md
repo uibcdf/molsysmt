@@ -53,21 +53,25 @@ This living document registers critical lessons, architectural hurdles, and stra
 
 We propose the following engineering interventions to resolve active hurdles and streamline imports across MolSysMT and sister packages (such as TopoMT):
 
-### Proposal 1: Unified Validation Passports (`ValidatedPayload`)
+### Proposal 1: Unified Validation Passports (`ValidatedPayload`) — ✅ Done (May 2026)
 * **Problem:** Internal routines repeatedly check and re-verify units and argument definitions, adding cumulative safety tax.
-* **Solution:** Introduce a "Validation Passport" (`ValidatedPayload`) through `argdigest`. When an object enters the public API, it is validated once and marked with a secure passport token. Trust-internal functions inspect this token and immediately bypass `@arg_digest` checks, reducing internal overhead.
+* **Solution:** Introduced a "Validation Passport" (`ValidatedPayload`) through `argdigest`. When an object enters the public API, it is validated once and marked with a secure passport token. Trust-internal functions inspect this token and immediately bypass `@arg_digest` checks, reducing internal overhead.
+* **Status:** Fully implemented. See guideline and usage rules in [digestion_and_dependencies.md](file:///home/diego/repos@uibcdf/molsysmt/devguide/digestion_and_dependencies.md#ticket-the-passport-protocol-validatedpayload-bypass) and [ARGDIGEST_GUIDE.md](file:///home/diego/repos@uibcdf/molsysmt/ARGDIGEST_GUIDE.md#rule-6-use-normalization-passports-validatedpayload).
 
-### Proposal 2: Extreme Lazy Loading via PEP 562
+### Proposal 2: Extreme Lazy Loading via PEP 562 — ✅ Done (May 2026)
 * **Problem:** MolSysMT's cold import latency is relatively high (~3.68 seconds) because it eagerly loads multiple heavy third-party packages (e.g., MDTraj, OpenMM, MDAnalysis). This pollutes the startup speed of external benchmark scripts and benchmarks of sister libraries.
-* **Solution:** Re-engineer `molsysmt/__init__.py` using standard PEP 562 lazy-loading imports (`__getattr__` and `__dir__`). Submodules should only be loaded when their attributes are explicitly accessed, dropping initial package import time to milliseconds.
+* **Solution:** Re-engineered `molsysmt/__init__.py` using standard PEP 562 lazy-loading imports (`__getattr__` and `__dir__`). Submodules are only loaded when their attributes are explicitly accessed, dropping package startup time to milliseconds.
+* **Status:** Fully active. Slashed import latency from **3.34 seconds to ~500 ms** (6.3x speedup). See [digestion_and_dependencies.md](file:///home/diego/repos@uibcdf/molsysmt/devguide/digestion_and_dependencies.md#high-performance-lazy-loading-sprint-decision).
 
-### Proposal 3: Global Preheat/Warmup Utility (`msm.benchmarks.preheat()`)
-* **Problem:** Transient developer systems or ephemeral CI pipelines experience a "first-call delay" due to JIT compilation during initial execution.
-* **Solution:** Provide a lightweight warmup utility `msm.benchmarks.preheat()`. When executed, it runs minimal geometric calculations on a dummy 1-atom coordinate array to pre-warm and compile all core math kernels into Python process memory before actual benchmarking begins.
+### Proposal 3: Global Preheat/Warmup Utility (`msm.warmup()`) — ✅ Done (May 2026)
+* **Problem:** Transient developer systems or performance profiling sessions experience first-use timing distortions due to JIT pre-compilation and lazy loading.
+* **Solution:** Developed the unified `molsysmt.warmup(numba=True, modules=True)` preheating engine (replacing the deprecated `warmup_numba()` alias). It programmatically pre-loads all submodules into memory and precompiles all registered JIT kernels.
+* **Status:** Fully implemented. See [warmup.py](file:///home/diego/repos@uibcdf/molsysmt/molsysmt/warmup.py) and documentation in [digestion_and_dependencies.md](file:///home/diego/repos@uibcdf/molsysmt/devguide/digestion_and_dependencies.md#unified-preheating-engine-molsysmtwarmup).
 
-### Proposal 4: Footprint-Aware Heuristics in `ChunkedExecutor`
+### Proposal 4: Footprint-Aware Heuristics in `ChunkedExecutor` — ✅ Done (May 2026)
 * **Problem:** Chunked execution imposes heavy processing overhead on small trajectories where eager loading would be significantly faster.
-* **Solution:** Equip `ChunkedExecutor` with a footprint estimator. If the estimated coordinate dataset fits comfortably within a pre-defined threshold of the system's available memory, the executor should scale the chunk size up to the maximum, or transparently fall back to eager loading under the hood.
+* **Solution:** Equipped `ChunkedExecutor` with a memory footprint-aware chunk size estimator. If the selection fits comfortably in RAM, it runs on the eager path. On the heavy path, the executor dynamically scales `chunk_size` up to the safe memory threshold (`chunk_memory_fraction` = 0.10) to minimize I/O passes and Python loop boundaries.
+* **Status:** Fully active. Verified via unit and regression tests. See [SCALABILITY.md](file:///home/diego/repos@uibcdf/molsysmt/devguide/SCALABILITY.md#621-footprint-aware-chunk-size-heuristics).
 
 ### Proposal 5: Automated Form Adapter Interface Validation
 * **Problem:** Custom form adapters are prone to silent interface omissions (like missing context managers `__enter__`/`__exit__` or missing `_heavy_support` dictionary keys) until runtime.
