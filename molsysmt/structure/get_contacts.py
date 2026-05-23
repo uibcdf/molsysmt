@@ -13,7 +13,7 @@ import gc
 def get_contacts(molecular_system, selection=None, center_of_atoms=False, weights=None, structure_indices="all",
                  selection_2=None, center_of_atoms_2=False, weights_2=None, structure_indices_2=None,
                  threshold='12 angstroms', pairs=False, pbc=True, syntax='MolSysMT',
-                 output_type='numpy.ndarray', output_indices=None, use_gpu=None, gpu_backend=None, skip_digestion=False):
+                 output_type='numpy.ndarray', output_indices=None, use_gpu=None, gpu_backend=None, cell_list=None, skip_digestion=False):
 
     """
     Compute a boolean contact map between two sets of atoms (or atom-group centers).
@@ -93,6 +93,9 @@ def get_contacts(molecular_system, selection=None, center_of_atoms=False, weight
     from molsysmt.structure.get_distances import get_distances
     from molsysmt.basic import select, get
     from molsysmt.pbc import has_pbc
+
+    if selection is None:
+        selection = 'all'
 
     if pbc:
         pbc=has_pbc(molecular_system)
@@ -241,26 +244,72 @@ def get_contacts(molecular_system, selection=None, center_of_atoms=False, weight
 
     # Fallback to CPU pipeline if GPU was not used
     if contact_map is None:
-        all_dists = get_distances(molecular_system=molecular_system, selection=atom_indices,
-                    center_of_atoms=center_of_atoms, weights=weights, structure_indices=structure_indices,
-                    selection_2=atom_indices_2, center_of_atoms_2=center_of_atoms_2, weights_2=weights_2,
-                    structure_indices_2=structure_indices_2, pairs=pairs, pbc=pbc, skip_digestion=True)
+        _use_cell_list = config.cell_list
+        if _use_cell_list == 'auto':
+            # Threshold: 2000 elements (e.g. coordinates or products of coordinates)
+            _use_cell_list = (coords_val.shape[1] > 2000)
 
-        length_units = puw.get_unit(all_dists)
-        threshold = puw.get_value(threshold, to_unit=length_units)
-        all_dists = puw.get_value(all_dists)
-
-        num_structures=all_dists.shape[0]
-        contact_map=np.empty(all_dists.shape, dtype=bool)
-
-        for indice_structure in range(num_structures):
-            if pairs:
-                contact_map[indice_structure,:]=(all_dists[indice_structure,:]<=threshold)
+        if _use_cell_list and not pairs:
+            if coords_2_val is None:
+                tmp_coords_2_val = coords_val
+                is_self = True
             else:
-                contact_map[indice_structure,:,:]=(all_dists[indice_structure,:,:]<=threshold)
+                tmp_coords_2_val = coords_2_val
+                is_self = False
 
-        del(all_dists, num_structures, indice_structure, length_units)
-        gc.collect()
+            threshold_val = puw.get_value(threshold, to_unit=length_unit)
+
+            box_val = None
+            if pbc:
+                box = get(molecular_system, element="system", structure_indices=structure_indices, box=True)
+                if box is not None and box[0] is not None:
+                    box_val = puw.get_value(box, to_unit=length_unit, dtype=np.float64)
+                else:
+                    box_val = None
+
+            num_structures = coords_val.shape[0]
+            n_elements_1 = coords_val.shape[1]
+            n_elements_2 = tmp_coords_2_val.shape[1]
+            contact_map = np.zeros((num_structures, n_elements_1, n_elements_2), dtype=bool)
+
+            if box_val is not None:
+                from molsysmt.lib.structure.get_contacts_cell_list import get_contacts_cell_list_pbc as _cell_list_solver
+                for ii in range(num_structures):
+                    pairs_list = _cell_list_solver(coords_val[ii], tmp_coords_2_val[ii], box_val[ii], threshold_val)
+                    for i, j in pairs_list:
+                        if not is_self or i != j:
+                            contact_map[ii, i, j] = True
+            else:
+                from molsysmt.lib.structure.get_contacts_cell_list import get_contacts_cell_list_vacuum as _cell_list_solver
+                for ii in range(num_structures):
+                    pairs_list = _cell_list_solver(coords_val[ii], tmp_coords_2_val[ii], threshold_val)
+                    for i, j in pairs_list:
+                        if not is_self or i != j:
+                            contact_map[ii, i, j] = True
+
+            if is_self:
+                contact_map[:, np.arange(n_elements_1), np.arange(n_elements_1)] = True
+        else:
+            all_dists = get_distances(molecular_system=molecular_system, selection=atom_indices,
+                        center_of_atoms=center_of_atoms, weights=weights, structure_indices=structure_indices,
+                        selection_2=atom_indices_2, center_of_atoms_2=center_of_atoms_2, weights_2=weights_2,
+                        structure_indices_2=structure_indices_2, pairs=pairs, pbc=pbc, skip_digestion=True)
+
+            length_units = puw.get_unit(all_dists)
+            threshold = puw.get_value(threshold, to_unit=length_units)
+            all_dists = puw.get_value(all_dists)
+
+            num_structures=all_dists.shape[0]
+            contact_map=np.empty(all_dists.shape, dtype=bool)
+
+            for indice_structure in range(num_structures):
+                if pairs:
+                    contact_map[indice_structure,:]=(all_dists[indice_structure,:]<=threshold)
+                else:
+                    contact_map[indice_structure,:,:]=(all_dists[indice_structure,:,:]<=threshold)
+
+            del(all_dists, num_structures, indice_structure, length_units)
+            gc.collect()
 
     output = None
 

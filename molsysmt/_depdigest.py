@@ -20,9 +20,11 @@ LIBRARIES = {
     'mmtf': {'type': 'soft', 'pypi': 'mmtf-python'},
     'yaml': {'type': 'soft', 'pypi': 'PyYAML'},
     'taichi': {'type': 'soft', 'pypi': 'taichi'},
+    'cupy': {'type': 'soft', 'pypi': 'cupy'},
 }
 
 MAPPING = {
+    'cupy_ndarray': 'cupy',
     'mdtraj_Trajectory': 'mdtraj',
     'mdtraj_Topology': 'mdtraj',
     'mdtraj_DCDTrajectoryFile': 'mdtraj',

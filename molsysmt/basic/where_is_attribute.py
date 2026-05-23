@@ -102,9 +102,21 @@ def where_is_attribute(molecular_system, attribute, include_none=False, skip_dig
     if len(where_form)>=1:
         output_item = where_item[-1]
         output_form = where_form[-1]
+    elif not include_none:
+        # Fallback to include_none=True to find where the attribute can be defined
+        for form_in, item in zip(forms_in, molecular_system):
+            if _dict_modules[form_in].has_attribute(item, attribute, include_none=True,
+                                                     skip_digestion=True):
+                where_form.append(form_in)
+                where_item.append(item)
+        if len(where_form)>=1:
+            output_item = where_item[-1]
+            output_form = where_form[-1]
+        else:
+            output_item = None
+            output_form = None
     else:
         output_item = None
         output_form = None
 
     return output_item, output_form
-

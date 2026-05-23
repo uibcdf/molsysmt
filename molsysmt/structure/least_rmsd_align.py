@@ -4,12 +4,15 @@ import numpy as np
 import gc
 from smonitor import signal
 
+from molsysmt.configure import with_configure_overrides
+
 @signal(tags=['api', 'structure'])
+@with_configure_overrides
 @arg_digest()
 def least_rmsd_align(molecular_system, selection='atom_name=="CA"', structure_indices='all',
           reference_molecular_system=None, reference_selection=None, reference_structure_index=0,
           syntax='MolSysMT', engine_sequence_alignment = 'Biopython', engine_least_rmsd_fit = 'MolSysMT',
-          in_place=False, skip_digestion=False):
+          in_place=False, use_gpu=None, gpu_backend=None, precision=None, skip_digestion=False):
 
     """
     Align a molecular system to a reference using sequence alignment followed by least-RMSD fitting.
@@ -115,7 +118,8 @@ def least_rmsd_align(molecular_system, selection='atom_name=="CA"', structure_in
                     structure_indices=structure_indices, reference_molecular_system=reference_molecular_system,
                     reference_selection_fit=reference_selection_to_be_fitted,
                     reference_structure_index=reference_structure_index,
-                    to_form=None, in_place=in_place, engine='MolSysMT', syntax=syntax, skip_digestion=True)
+                    to_form=None, in_place=in_place, engine='MolSysMT', syntax=syntax,
+                    use_gpu=use_gpu, gpu_backend=gpu_backend, precision=precision, skip_digestion=True)
 
             del(atoms_in_components_selected, selection_to_be_fitted, reference_selection_to_be_fitted)
             del(structure_indices, reference_structure_index)
@@ -129,7 +133,8 @@ def least_rmsd_align(molecular_system, selection='atom_name=="CA"', structure_in
                     structure_indices=structure_indices, reference_molecular_system=reference_molecular_system,
                     reference_selection_fit=reference_selection_to_be_fitted,
                                     reference_structure_index=reference_structure_index,
-                    to_form=None, in_place=in_place, engine='MolSysMT', syntax=syntax, skip_digestion=True)
+                    to_form=None, in_place=in_place, engine='MolSysMT', syntax=syntax,
+                    use_gpu=use_gpu, gpu_backend=gpu_backend, precision=precision, skip_digestion=True)
 
             del(atoms_in_components_selected, selection_to_be_fitted, reference_selection_to_be_fitted)
             del(structure_indices, reference_structure_index)
