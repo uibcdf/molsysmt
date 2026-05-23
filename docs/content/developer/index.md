@@ -22,7 +22,7 @@ internal rules and conventions is `devguide/`. If there is any conflict,
 .. toctree::
    :caption: New form
 
-   new_form.ipynb
+   new_form.md
 
 ```
 
