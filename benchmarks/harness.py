@@ -35,6 +35,35 @@ def _get_peak_rss_mb() -> float:
         return 0.0
 
 
+def _subprocess_worker(warmup_func, timed_func, iterations, repeats, queue):
+    import gc
+    from time import perf_counter
+    # 1. Capture base memory before warm-up
+    base_rss = _get_peak_rss_mb()
+
+    # 2. Warm-up invocation (essential for JIT compilation / lazy cache lookups)
+    warmup_func()
+
+    # 3. Timing loops under GC isolation
+    samples = []
+    gc.disable()
+    try:
+        for _ in range(repeats):
+            t0 = perf_counter()
+            for _ in range(iterations):
+                timed_func()
+            t1 = perf_counter()
+            samples.append((t1 - t0) / iterations)
+    finally:
+        gc.enable()
+
+    # 4. Capture peak memory after runs
+    peak_rss = _get_peak_rss_mb()
+
+    # Send results back
+    queue.put((samples, base_rss, peak_rss))
+
+
 class BenchmarkHarness:
     """Central runner for high-precision performance measurements in MolSysMT."""
 
@@ -55,7 +84,7 @@ class BenchmarkHarness:
         self.repeats = repeats
 
     def run(self, warmup_func: Callable[[], Any], timed_func: Callable[[], Any]) -> dict[str, Any]:
-        """Execute the benchmark with JIT pre-warming, GC isolation, and RAM profiling.
+        """Execute the benchmark inside an isolated subprocess to prevent peak RAM contamination.
 
         Parameters
         ----------
@@ -69,29 +98,24 @@ class BenchmarkHarness:
         dict[str, Any]
             Timing and memory statistics, and execution metadata.
         """
-        # 1. Capture base memory before warm-up
-        base_rss = _get_peak_rss_mb()
+        import multiprocessing
 
-        # 2. Warm-up invocation (essential for JIT compilation / lazy cache lookups)
-        warmup_func()
+        ctx = multiprocessing.get_context('fork')
+        queue = ctx.Queue()
 
-        # 3. Timing loops under GC isolation
-        samples: list[float] = []
-        gc.disable()
-        try:
-            for _ in range(self.repeats):
-                t0 = perf_counter()
-                for _ in range(self.iterations):
-                    timed_func()
-                t1 = perf_counter()
-                samples.append((t1 - t0) / self.iterations)
-        finally:
-            gc.enable()
+        p = ctx.Process(
+            target=_subprocess_worker,
+            args=(warmup_func, timed_func, self.iterations, self.repeats, queue)
+        )
+        p.start()
+        p.join()
 
-        # 4. Capture peak memory after runs
-        peak_rss = _get_peak_rss_mb()
+        if p.exitcode != 0:
+            raise RuntimeError(f"Benchmark worker process for {self.name} failed with exit code {p.exitcode}")
 
-        # 5. Calculate statistics
+        samples, base_rss, peak_rss = queue.get()
+
+        # Calculate statistics
         med_val = median(samples)
         min_val = min(samples)
         max_val = max(samples)
@@ -119,6 +143,7 @@ class BenchmarkHarness:
                 "molsysmt_version": msm.__version__,
             },
         }
+
 
 
 def save_session_results(session_name: str, results: list[dict[str, Any]], output_path: str) -> None:

@@ -183,20 +183,38 @@ def get(molecular_system,
 
         import pyunitwizard as puw
 
-        def _standardize(value):
+        _CANONICAL_UNITS = {
+            'coordinates': 'nm',
+            'box': 'nm',
+            'box_lengths': 'nm',
+            'box_angles': 'radians',
+            'box_volume': 'nm**3',
+            'velocities': 'nm/ps',
+            'time': 'ps',
+            'time_step': 'ps',
+            'potential_energy': 'kJ/mol',
+            'kinetic_energy': 'kJ/mol',
+            'total_energy': 'kJ/mol',
+            'temperature': 'K',
+            'b_factor': 'nm**2',
+        }
+
+        def _standardize(value, attribute):
             if value is None:
                 return None
             if puw.is_quantity(value):
                 return puw.standardize(value)
+            if attribute in _CANONICAL_UNITS:
+                return puw.quantity(value, _CANONICAL_UNITS[attribute])
             return value
 
         if output_type=='values':
             if len(output) == 1:
-                return _standardize(output[0])
+                return _standardize(output[0], in_attributes[0])
             else:
-                return [_standardize(ii) for ii in output]
+                return [_standardize(val, attr) for val, attr in zip(output, in_attributes)]
         elif output_type=='dictionary':
-            return {ii: _standardize(jj) for ii, jj in zip(in_attributes, output)}
+            return {ii: _standardize(jj, ii) for ii, jj in zip(in_attributes, output)}
 
     if not is_all(selection):
         indices = select(molecular_system, element=element, selection=selection, mask=mask, syntax=syntax, skip_digestion=True)
@@ -266,20 +284,38 @@ def get(molecular_system,
 
     import pyunitwizard as puw
 
-    def _standardize(value):
+    _CANONICAL_UNITS = {
+        'coordinates': 'nm',
+        'box': 'nm',
+        'box_lengths': 'nm',
+        'box_angles': 'radians',
+        'box_volume': 'nm**3',
+        'velocities': 'nm/ps',
+        'time': 'ps',
+        'time_step': 'ps',
+        'potential_energy': 'kJ/mol',
+        'kinetic_energy': 'kJ/mol',
+        'total_energy': 'kJ/mol',
+        'temperature': 'K',
+        'b_factor': 'nm**2',
+    }
+
+    def _standardize(value, attribute):
         if value is None:
             return None
         if puw.is_quantity(value):
             return puw.standardize(value)
+        if attribute in _CANONICAL_UNITS:
+            return puw.quantity(value, _CANONICAL_UNITS[attribute])
         return value
 
     if output_type=='values':
         if len(output) == 1:
-            return _standardize(output[0])
+            return _standardize(output[0], in_attributes[0])
         else:
-            return [_standardize(ii) for ii in output]
+            return [_standardize(val, attr) for val, attr in zip(output, in_attributes)]
     elif output_type=='dictionary':
-        return {ii: _standardize(jj) for ii, jj in zip(in_attributes, output)}
+        return {ii: _standardize(jj, ii) for ii, jj in zip(in_attributes, output)}
         
 def _coerce_ids_to_string(value):
     """Normalize *_id values to Python/NumPy strings, preserving shape."""

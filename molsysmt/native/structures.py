@@ -6,26 +6,124 @@ from copy import deepcopy
 import numpy as np
 from smonitor import signal
 
+def _raw_value(quantity, canonical_unit):
+    if quantity is None:
+        return None
+    if puw.is_quantity(quantity):
+        return puw.get_value(quantity, to_unit=canonical_unit)
+    return quantity
+
+
 class Structures:
     """Storing per-structure data (coordinates, box, time, energies) for a molecular system."""
 
     @property
+    def time_step(self):
+        if self._time_step is None:
+            return None
+        return puw.quantity(self._time_step, 'ps')
+
+    @time_step.setter
+    def time_step(self, value):
+        self._time_step = _raw_value(value, 'ps')
+
+    @property
+    def time(self):
+        if self._time is None:
+            return None
+        return puw.quantity(self._time, 'ps')
+
+    @time.setter
+    def time(self, value):
+        self._time = _raw_value(value, 'ps')
+
+    @property
+    def coordinates(self):
+        if self._coordinates is None:
+            return None
+        return puw.quantity(self._coordinates, 'nm')
+
+    @coordinates.setter
+    def coordinates(self, value):
+        self._coordinates = _raw_value(value, 'nm')
+
+    @property
+    def velocities(self):
+        if self._velocities is None:
+            return None
+        return puw.quantity(self._velocities, 'nm/ps')
+
+    @velocities.setter
+    def velocities(self, value):
+        self._velocities = _raw_value(value, 'nm/ps')
+
+    @property
+    def box(self):
+        if self._box is None:
+            return None
+        return puw.quantity(self._box, 'nm')
+
+    @box.setter
+    def box(self, value):
+        self._box = _raw_value(value, 'nm')
+
+    @property
+    def b_factor(self):
+        if self._b_factor is None:
+            return None
+        return puw.quantity(self._b_factor, 'nm**2')
+
+    @b_factor.setter
+    def b_factor(self, value):
+        self._b_factor = _raw_value(value, 'nm**2')
+
+    @property
+    def temperature(self):
+        if self._temperature is None:
+            return None
+        return puw.quantity(self._temperature, 'K')
+
+    @temperature.setter
+    def temperature(self, value):
+        self._temperature = _raw_value(value, 'K')
+
+    @property
+    def potential_energy(self):
+        if self._potential_energy is None:
+            return None
+        return puw.quantity(self._potential_energy, 'kJ/mol')
+
+    @potential_energy.setter
+    def potential_energy(self, value):
+        self._potential_energy = _raw_value(value, 'kJ/mol')
+
+    @property
+    def kinetic_energy(self):
+        if self._kinetic_energy is None:
+            return None
+        return puw.quantity(self._kinetic_energy, 'kJ/mol')
+
+    @kinetic_energy.setter
+    def kinetic_energy(self, value):
+        self._kinetic_energy = _raw_value(value, 'kJ/mol')
+
+    @property
     def n_structures(self):
-        if self.coordinates is not None:
-            return self.coordinates.shape[0]
-        elif self.velocities is not None:
-            return self.velocities.shape[0]
-        elif self.box is not None:
-            return self.box.shape[0]
+        if self._coordinates is not None:
+            return self._coordinates.shape[0]
+        elif self._velocities is not None:
+            return self._velocities.shape[0]
+        elif self._box is not None:
+            return self._box.shape[0]
         else:
             return 0
 
     @property
     def n_atoms(self):
-        if self.coordinates is not None:
-            return self.coordinates.shape[1]
-        elif self.velocities is not None:
-            return self.velocities.shape[1]
+        if self._coordinates is not None:
+            return self._coordinates.shape[1]
+        elif self._velocities is not None:
+            return self._velocities.shape[1]
         else:
             return 0
 
@@ -36,6 +134,16 @@ class Structures:
             structure_id=None, time=None, coordinates=None, velocities=None, box=None,
             b_factor=None, alternate_location=None, bioassembly=None,
             temperature=None, potential_energy=None, kinetic_energy=None, skip_digestion=False):
+
+        self._time_step = None
+        self._time = None
+        self._coordinates = None
+        self._velocities = None
+        self._box = None
+        self._b_factor = None
+        self._temperature = None
+        self._potential_energy = None
+        self._kinetic_energy = None
 
         self.constant_time_step = constant_time_step
         self.time_step = time_step
@@ -98,28 +206,28 @@ class Structures:
             self._append_structure_id(structure_id, structure_indices=structure_indices, skip_digestion=True)
         
         if time is not None and len(time) > 0:
-            self._append_time(time, structure_indices=structure_indices, skip_digestion=True)
+            self._append_time(_raw_value(time, 'ps'), structure_indices=structure_indices, skip_digestion=True)
 
         if coordinates is not None:
-            self._append_coordinates(coordinates, atom_indices=atom_indices, structure_indices=structure_indices, skip_digestion=True)
+            self._append_coordinates(_raw_value(coordinates, 'nm'), atom_indices=atom_indices, structure_indices=structure_indices, skip_digestion=True)
 
         if velocities is not None:
-            self._append_velocities(velocities, atom_indices=atom_indices, structure_indices=structure_indices, skip_digestion=True)
+            self._append_velocities(_raw_value(velocities, 'nm/ps'), atom_indices=atom_indices, structure_indices=structure_indices, skip_digestion=True)
 
         if box is not None and len(box) > 0:
-            self._append_box(box, structure_indices=structure_indices, skip_digestion=True)
+            self._append_box(_raw_value(box, 'nm'), structure_indices=structure_indices, skip_digestion=True)
 
         if temperature is not None:
-            self._append_temperature(temperature, structure_indices=structure_indices, skip_digestion=True)
+            self._append_temperature(_raw_value(temperature, 'K'), structure_indices=structure_indices, skip_digestion=True)
 
         if potential_energy is not None:
-            self._append_potential_energy(potential_energy, structure_indices=structure_indices, skip_digestion=True)
+            self._append_potential_energy(_raw_value(potential_energy, 'kJ/mol'), structure_indices=structure_indices, skip_digestion=True)
 
         if kinetic_energy is not None:
-            self._append_kinetic_energy(kinetic_energy, structure_indices=structure_indices, skip_digestion=True)
+            self._append_kinetic_energy(_raw_value(kinetic_energy, 'kJ/mol'), structure_indices=structure_indices, skip_digestion=True)
 
         if b_factor is not None:
-            self._append_b_factor(b_factor, structure_indices=structure_indices, skip_digestion=True)
+            self._append_b_factor(_raw_value(b_factor, 'nm**2'), structure_indices=structure_indices, skip_digestion=True)
 
         if alternate_location is not None:
             self._append_alternate_location(alternate_location, structure_indices=structure_indices, skip_digestion=True)
@@ -137,9 +245,20 @@ class Structures:
                            atom_indices='all', structure_indices=structure_indices, skip_digestion=True)
 
     def _puw_concatenate(self, items, axis=0):
-        val = np.concatenate([puw.get_value(ii) for ii in items if ii is not None], axis=axis)
-        unit = puw.get_unit(items[0])
-        return puw.quantity(val, unit)
+        vals = []
+        for ii in items:
+            if ii is not None:
+                if puw.is_quantity(ii):
+                    vals.append(puw.get_value(ii))
+                else:
+                    vals.append(ii)
+        if len(vals) == 0:
+            return None
+        val = np.concatenate(vals, axis=axis)
+        if puw.is_quantity(items[0]):
+            return puw.quantity(val, puw.get_unit(items[0]))
+        return val
+
 
     @arg_digest()
     def _append_structure_id(self, structure_id, structure_indices='all', skip_digestion=False):
@@ -156,105 +275,105 @@ class Structures:
 
     @arg_digest()
     def _append_time(self, time, structure_indices='all', skip_digestion=False):
-        if self.time is None:
+        if self._time is None:
             if is_all(structure_indices):
-                self.time = time
+                self._time = time
             else:
                 raise NotImplementedMethodError()
         else:
             if is_all(structure_indices):
-                self.time = self._puw_concatenate([self.time, time], axis=0)
+                self._time = self._puw_concatenate([self._time, time], axis=0)
             else:
                 raise NotImplementedMethodError()
 
     @arg_digest()
     def _append_coordinates(self, coordinates, atom_indices='all', structure_indices='all', skip_digestion=False):
-        if self.coordinates is None:
+        if self._coordinates is None:
             if is_all(atom_indices) and is_all(structure_indices):
-                self.coordinates = coordinates
+                self._coordinates = coordinates
             else:
                 raise NotImplementedMethodError()
         else:
             if is_all(atom_indices) and is_all(structure_indices):
-                self.coordinates = self._puw_concatenate([self.coordinates, coordinates], axis=0)
+                self._coordinates = self._puw_concatenate([self._coordinates, coordinates], axis=0)
             else:
                 raise NotImplementedMethodError()
 
     @arg_digest()
     def _append_velocities(self, velocities, atom_indices='all', structure_indices='all', skip_digestion=False):
-        if self.velocities is None:
+        if self._velocities is None:
             if is_all(atom_indices) and is_all(structure_indices):
-                self.velocities = velocities
+                self._velocities = velocities
             else:
                 raise NotImplementedMethodError()
         else:
             if is_all(atom_indices) and is_all(structure_indices):
-                self.velocities = self._puw_concatenate([self.velocities, velocities], axis=0)
+                self._velocities = self._puw_concatenate([self._velocities, velocities], axis=0)
             else:
                 raise NotImplementedMethodError()
 
     @arg_digest()
     def _append_box(self, box, structure_indices='all', skip_digestion=False):
-        if self.box is None:
+        if self._box is None:
             if is_all(structure_indices):
-                self.box = box
+                self._box = box
             else:
                 raise NotImplementedMethodError()
         else:
             if is_all(structure_indices):
-                self.box = self._puw_concatenate([self.box, box], axis=0)
+                self._box = self._puw_concatenate([self._box, box], axis=0)
             else:
                 raise NotImplementedMethodError()
 
     @arg_digest()
     def _append_temperature(self, temperature, structure_indices='all', skip_digestion=False):
-        if self.temperature is None:
+        if self._temperature is None:
             if is_all(structure_indices):
-                self.temperature = temperature
+                self._temperature = temperature
             else:
                 raise NotImplementedMethodError()
         else:
             if is_all(structure_indices):
-                self.temperature = self._puw_concatenate([self.temperature, temperature], axis=0)
+                self._temperature = self._puw_concatenate([self._temperature, temperature], axis=0)
             else:
                 raise NotImplementedMethodError()
 
     @arg_digest()
     def _append_potential_energy(self, potential_energy, structure_indices='all', skip_digestion=False):
-        if self.potential_energy is None:
+        if self._potential_energy is None:
             if is_all(structure_indices):
-                self.potential_energy = potential_energy
+                self._potential_energy = potential_energy
             else:
                 raise NotImplementedMethodError()
         else:
             if is_all(structure_indices):
-                self.potential_energy = self._puw_concatenate([self.potential_energy, potential_energy], axis=0)
+                self._potential_energy = self._puw_concatenate([self._potential_energy, potential_energy], axis=0)
             else:
                 raise NotImplementedMethodError()
 
     @arg_digest()
     def _append_kinetic_energy(self, kinetic_energy, structure_indices='all', skip_digestion=False):
-        if self.kinetic_energy is None:
+        if self._kinetic_energy is None:
             if is_all(structure_indices):
-                self.kinetic_energy = kinetic_energy
+                self._kinetic_energy = kinetic_energy
             else:
                 raise NotImplementedMethodError()
         else:
             if is_all(structure_indices):
-                self.kinetic_energy = self._puw_concatenate([self.kinetic_energy, kinetic_energy], axis=0)
+                self._kinetic_energy = self._puw_concatenate([self._kinetic_energy, kinetic_energy], axis=0)
             else:
                 raise NotImplementedMethodError()
 
     @arg_digest()
     def _append_b_factor(self, b_factor, structure_indices='all', skip_digestion=False):
-        if self.b_factor is None:
+        if self._b_factor is None:
             if is_all(structure_indices):
-                self.b_factor = b_factor
+                self._b_factor = b_factor
             else:
                 raise NotImplementedMethodError()
         else:
             if is_all(structure_indices):
-                self.b_factor = self._puw_concatenate([self.b_factor, b_factor], axis=0)
+                self._b_factor = self._puw_concatenate([self._b_factor, b_factor], axis=0)
             else:
                 raise NotImplementedMethodError()
 

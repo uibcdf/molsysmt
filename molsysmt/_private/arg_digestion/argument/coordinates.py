@@ -60,12 +60,19 @@ def digest_coordinates(coordinates, caller=None):
         else:
             raise StructuralInconsistencyError("Wrong dimensions for coordinates", caller=caller)
 
-        
-        # Performance: return as quantity in ORIGINAL unit. 
-        # Avoid forced standardize() unless specifically needed downstream.
-        q = puw.quantity(value, unit)
+        # Convert to nanometers if it has units
+        if unit is not None:
+            value_nm = puw.get_value(coordinates, to_unit='nm')
+            value_nm = np.asarray(value_nm, dtype=np.float64)
+            value_nm = value_nm.reshape(value.shape)
+        else:
+            value_nm = value
 
-        
+
+        # --- Native Structures Internal Path ---
+        if caller is not None and caller.startswith("molsysmt.native.structures"):
+            return value_nm
+
         # Performance: return as quantity in ORIGINAL unit. 
         # Avoid forced standardize() unless specifically needed downstream.
         q = puw.quantity(value, unit)
