@@ -283,10 +283,12 @@ To further scale performance, optimize memory efficiency, and support heterogene
 - **Concept**: Offer an optional `float32` precision mode for compute-heavy structural kernels on consumer GPUs.
 - **Impact**: While CPU/HPC runs standard double precision (`float64`), consumer GPUs (such as NVIDIA GeForce RTX series) have highly restricted double-precision compute units. Running kernels in `float32` delivers up to **32x speedups** on standard desktop workstation GPUs.
 
-### 7. Cross-Vendor Portability with Open Standards (Taichi, HIP/ROCm, WebGPU)
+### 7. Cross-Vendor Portability with Open Standards (Taichi, HIP/ROCm, OpenCL 3.0/SPIR-V, WebGPU)
 - **Concept**: Transition post-1.0.0 GPU acceleration from closed, NVIDIA-locked Numba CUDA to hardware-independent, open-standard compute environments:
   - **Taichi Lang**: A high-performance graphics and physical simulation compiler that compiles Python code JIT directly to Vulkan, Metal, OpenGL, and CUDA. Using Taichi enables writing a single, unified mathematical kernel in Python that runs optimally on NVIDIA, AMD, Intel, and Apple Silicon GPUs with equal efficiency.
   - **HIP/ROCm (AMD)**: Enables compiling and executing identical JIT-capable kernel codes on both NVIDIA (via CUDA backend) and AMD (via ROCm backend) hardware with zero performance tax.
+  - **Modern OpenCL (OpenCL 3.0 & SPIR-V) via PyOpenCL**: Leverage modern OpenCL 3.0 alongside SPIR-V (Standard Portable Intermediate Representation) for portable cross-vendor binaries. By using Numba's experimental SPIR-V code generator or compiling computational kernels into SPIR-V bytecodes, MolSysMT can JIT-compile and execute high-performance kernels on any OpenCL-compliant device (Intel integrated graphics, AMD APUs, NVIDIA accelerators, and ARM Mali architectures) using `pyopencl`. This ensures the codebase is completely independent of proprietary hardware ecosystems.
   - **WebGPU / WGSL**: As modern web systems transition to WebGPU for high-performance compute in browser sandboxes, standardizing computational descriptors to WebGPU-friendly representations allows seamless backend-to-frontend execution.
+
 
 
