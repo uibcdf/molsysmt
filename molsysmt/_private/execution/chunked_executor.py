@@ -151,11 +151,25 @@ class ChunkedExecutor:
                         reason=f"Form does not support heavy mode for attribute '{attr}'",
                     )
 
+            # --- Footprint-Aware Heuristic chunk size optimization ---
+            n_structures_selected = len(self.structure_indices) if self.structure_indices is not None else n_structures
+            from .memory_policy import optimize_chunk_size
+            advisory_chunk_size = self.chunk_size
+            self.chunk_size = optimize_chunk_size(
+                n_atoms=n_atoms,
+                n_structures_selected=n_structures_selected,
+                advisory_chunk_size=advisory_chunk_size,
+                max_ram_usage=config.max_ram_usage,
+                chunk_memory_fraction=config.chunk_memory_fraction,
+            )
+
             info("HeavyPathSelected", extra={
                 "operation": self.operation,
                 "form": self.form,
                 "footprint_bytes": footprint,
                 "max_ram_usage": config.max_ram_usage,
+                "advisory_chunk_size": advisory_chunk_size,
+                "optimized_chunk_size": self.chunk_size,
             })
             return self._execute_heavy(n_atoms, n_structures)
         else:

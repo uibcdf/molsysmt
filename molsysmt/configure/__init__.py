@@ -71,6 +71,7 @@ heavy_mode = 'auto'         # 'auto' | 'force' | 'off'
 chunk_size = 100            # default number of frames per chunk
 emit_heavy_telemetry = True
 memory_pressure_threshold = 0.80  # warn when RSS exceeds this fraction of max_ram_usage
+chunk_memory_fraction = 0.10      # maximum safe fraction of max_ram_usage allocated to a single chunk
 del _os
 
 # Topology

@@ -199,6 +199,23 @@ The library should have an explicit policy such as:
 
 This is preferable to silent behavior because the user can understand and override policy when necessary.
 
+#### 6.2.1 Footprint-Aware Chunk Size Heuristics
+
+To optimize performance and avoid excessive chunk loop overhead on intermediate-sized trajectories, `ChunkedExecutor` incorporates a dynamic footprint-aware chunk size optimization system:
+
+1. **Parameters & Budgeting:**
+   - **`molsysmt.configure.chunk_memory_fraction`** (default `0.10` / 10% of the total `max_ram_usage` budget) dictates the maximum memory footprint allowed per chunk.
+   - **Memory footprint per frame** is estimated using the coordinate size: `n_atoms * 3 * 8 * 1.20` bytes.
+
+2. **Optimal Chunk Size Heuristic:**
+   - `optimal_chunk_size = (max_ram_usage * chunk_memory_fraction) // footprint_per_frame`
+
+3. **Constraints and Safety:**
+   - The executor scales up `chunk_size = max(advisory_chunk_size, optimal_chunk_size)` to amortize Python/IO latency.
+   - The adjusted `chunk_size` is capped at the total number of selected structures to prevent over-allocation.
+   - Users can disable this heuristic and force exactly the advisory chunk size by setting `molsysmt.configure.chunk_memory_fraction = 0.0`.
+   - Telemetry events through SMonitor track `advisory_chunk_size` alongside the resulting `optimized_chunk_size`.
+
 ### 6.3 Supported heavy-mode operations in the first slice
 
 The `1.0.0` slice should focus on operations that naturally fit chunk accumulation.

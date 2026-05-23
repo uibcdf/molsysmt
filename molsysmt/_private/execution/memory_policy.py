@@ -70,3 +70,43 @@ def check_disk_budget(predicted_output_bytes: int, safety: float = 0.10) -> None
             predicted_bytes=predicted_output_bytes,
             available_bytes=available,
         )
+
+
+def optimize_chunk_size(
+    n_atoms: int,
+    n_structures_selected: int,
+    advisory_chunk_size: int,
+    max_ram_usage: int,
+    chunk_memory_fraction: float = 0.10,
+) -> int:
+    """
+    Optimize the chunk size dynamically based on the estimated footprint.
+
+    If the system has ample memory compared to the frame size, we scale up
+    the chunk size to minimize I/O overhead and Python loop steps.
+    """
+    if chunk_memory_fraction is None or chunk_memory_fraction <= 0.0:
+        return advisory_chunk_size
+
+    footprint_per_frame = estimate_footprint(n_atoms, 1)
+    if footprint_per_frame <= 0:
+        return advisory_chunk_size
+
+    # Budget for a single chunk: a fraction of the maximum RAM budget
+    chunk_budget = int(max_ram_usage * chunk_memory_fraction)
+
+    # Calculate the optimal chunk size based on the memory budget
+    optimal_chunk_size = chunk_budget // footprint_per_frame
+
+    # We should at least use the advisory chunk_size requested by the user/config,
+    # but we can scale it up if optimal_chunk_size is larger.
+    new_chunk_size = max(advisory_chunk_size, optimal_chunk_size)
+
+    # Cap at the total number of structures selected to avoid oversized chunks
+    new_chunk_size = min(new_chunk_size, n_structures_selected)
+
+    # Ensure chunk_size is at least 1
+    new_chunk_size = max(1, new_chunk_size)
+
+    return int(new_chunk_size)
+
