@@ -29,9 +29,12 @@ default_attribute = {
         'integrator':'Langevin',
         'temperature':'0.0 kelvin',
         'friction':'1.0/picoseconds',
-        'time_step':'2.0 femtoseconds',
         'platform':'CUDA',
         }
+
+# Default viewer
+default_viewer = 'MolSysViewer'
+
 
 # Selection sortcuts
 selection_shortcuts={
