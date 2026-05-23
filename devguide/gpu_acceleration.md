@@ -251,3 +251,42 @@ cross-vendor GPU execution, alternatives worth watching are:
 
 For 1.0.0 the Numba CUDA path covers the target hardware (NVIDIA GPUs common in
 HPC and workstations).  Cross-vendor support is deferred post-1.0.0.
+
+---
+
+## Next Generation GPU & Parallelization Proposals (Post-1.0.0)
+
+To further scale performance, optimize memory efficiency, and support heterogeneous hardware architectures, the following next-generation optimization and parallelization pathways are proposed for the roadmap:
+
+### 1. Dynamic JIT Parallelization and Active Thread Regulation
+- **Concept**: Expand the dynamic runtime scheduling of multi-threaded CPU kernels compiled via Numba JIT (`@lazy_njit(parallel=True)`). Rather than using static core counts, the library dynamically computes the optimal thread count based on the payload size (using configuration bounds like `config.min_payload_per_thread` and `config.parallel_threshold`) and programmatically adjusts the thread pool size via `numba.set_num_threads()` on-the-fly.
+- **Impact**: Eliminates thread-scheduling and synchronization overheads on small molecular systems (e.g., dialanine or single-frame coordinates), where the cost of orchestrating multiple threads exceeds the actual mathematical computation time, while automatically leveraging the full power of multi-core workstations for large, heavy trajectories.
+
+### 2. Strict Thread-Safety and Thread-Local Allocation Patterns in JIT
+- **Concept**: Codify strict thread-safety invariants for Numba parallel JIT kernels utilizing `numba.prange`. Specifically, any auxiliary memory buffers, coordinate slices, or temporary work structures must be allocated/initialized *inside* the parallel loop block rather than passed as shared references or sliced outside the loop.
+- **Impact**: Guarantees thread isolation and prevents silent write race conditions and memory corruption when multiple JIT threads concurrently execute heavy geometric solvers (such as centroid extraction or alignment calculations).
+
+### 3. Zero-Copy Protected Memory Views
+- **Concept**: Transition the core getter methods of native structures (such as `self.coordinates` and `self.box`) to return zero-copy NumPy array views instead of performing expensive deep copies. To safeguard internal structure state against accidental external mutation, returned views are protected by setting their writeable flag to read-only (`view.flags.writeable = False`).
+- **Impact**: Removes a massive source of CPU-side garbage collection pressure and array duplication latency in high-frequency analytical workflows. When legitimate in-place modification is required internally (e.g., inside `set_coordinates` or `set_box`), the system temporarily toggles the writeable flag within a strict `try...finally` block.
+- **Memory Security Integration**: Returning read-only NumPy array views automatically makes any derived Pint quantities or PyUnitWizard units read-only, establishing a robust, end-to-end immutable contract for user-facing coordinate reads.
+
+### 4. Zero-Copy CuPy Array Form Integration
+- **Concept**: Integrate `cupy.ndarray` as a first-class supported format in the `MAPPING` and form registry inside `molsysmt/_depdigest.py`.
+- **Impact**: Allows users to load and store trajectories directly in GPU memory as CuPy arrays. This enables complete multi-step structural pipelines (alignment $\rightarrow$ RMSD $\rightarrow$ PCA $\rightarrow$ contacts) to run entirely inside GPU memory without a single CPU-GPU Host-to-Device/Device-to-Host transfer tax, removing the PCI-Express bus bottleneck.
+
+### 5. High-Performance GPU Cell-List Kernels
+- **Concept**: Implement O(N) spatial search and neighbor indexing in CUDA using GPU-based Cell Lists.
+- **Impact**: Accelerates map-of-contacts (`get_contacts`), neighbor search (`get_neighbors`), and hydrogen bonding (`hbonds`) routines, delivering **10x to 50x speedups** on massive solvated systems ($>1,000,000$ atoms) where O(N^2) CPU/GPU searches are prohibitive.
+
+### 6. Mixed Precision Computing Policies (Float32 Mode)
+- **Concept**: Offer an optional `float32` precision mode for compute-heavy structural kernels on consumer GPUs.
+- **Impact**: While CPU/HPC runs standard double precision (`float64`), consumer GPUs (such as NVIDIA GeForce RTX series) have highly restricted double-precision compute units. Running kernels in `float32` delivers up to **32x speedups** on standard desktop workstation GPUs.
+
+### 7. Cross-Vendor Portability with Open Standards (Taichi, HIP/ROCm, WebGPU)
+- **Concept**: Transition post-1.0.0 GPU acceleration from closed, NVIDIA-locked Numba CUDA to hardware-independent, open-standard compute environments:
+  - **Taichi Lang**: A high-performance graphics and physical simulation compiler that compiles Python code JIT directly to Vulkan, Metal, OpenGL, and CUDA. Using Taichi enables writing a single, unified mathematical kernel in Python that runs optimally on NVIDIA, AMD, Intel, and Apple Silicon GPUs with equal efficiency.
+  - **HIP/ROCm (AMD)**: Enables compiling and executing identical JIT-capable kernel codes on both NVIDIA (via CUDA backend) and AMD (via ROCm backend) hardware with zero performance tax.
+  - **WebGPU / WGSL**: As modern web systems transition to WebGPU for high-performance compute in browser sandboxes, standardizing computational descriptors to WebGPU-friendly representations allows seamless backend-to-frontend execution.
+
+
