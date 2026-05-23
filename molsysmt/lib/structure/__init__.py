@@ -70,3 +70,7 @@ from .get_radius_of_gyration import get_radius_of_gyration
 
 from .get_rmsf import get_rmsf
 
+from .get_sasa import get_sasa
+from .get_sasa import get_mic_sasa
+
+

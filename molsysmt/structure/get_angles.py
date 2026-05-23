@@ -3,11 +3,13 @@ from molsysmt import pyunitwizard as puw
 from smonitor import signal
 from molsysmt._private.arg_digestion import arg_digest
 from molsysmt import lib as msmlib
+from molsysmt.configure import with_configure_overrides
 import gc
 
 @signal(tags=['api', 'structure'])
 @arg_digest()
-def get_angles(molecular_system, triplets, structure_indices='all', pbc=False, skip_digestion=False):
+@with_configure_overrides
+def get_angles(molecular_system, triplets, structure_indices='all', pbc=False, use_gpu=None, gpu_backend=None, skip_digestion=False):
     """
     Calculating bond angles for given atom triplets.
 
@@ -21,6 +23,10 @@ def get_angles(molecular_system, triplets, structure_indices='all', pbc=False, s
         Structures/frames to compute over.
     pbc : bool, default False
         Whether to apply minimum image convention using the box.
+    use_gpu : bool or 'auto' or None, default None
+        Whether to run calculation on GPU.
+    gpu_backend : {'cuda', 'taichi'} or None, default None
+        The preferred GPU framework to execute calculations on.
     skip_digestion : bool, default False
         Whether to skip argument digestion.
 
@@ -32,6 +38,8 @@ def get_angles(molecular_system, triplets, structure_indices='all', pbc=False, s
 
     from molsysmt.basic import get
     from molsysmt.lib.structure._kernel_inputs import extract_coordinates_value_and_unit
+    from molsysmt._private.gpu import resolve_use_gpu
+    import molsysmt.configure as config
 
     atom_indices=[]
     n_triplets=triplets.shape[0]
@@ -55,25 +63,68 @@ def get_angles(molecular_system, triplets, structure_indices='all', pbc=False, s
                       coordinates=True)
     coordinates, length_unit = extract_coordinates_value_and_unit(coordinates)
 
-    if pbc:
+    # Estimate payload size and resolve GPU execution
+    payload = coordinates.shape[0] * triplets.shape[0]
+    _use_gpu = resolve_use_gpu(use_gpu, payload)
 
-        box = get(molecular_system, element='system', structure_indices=structure_indices, box=True)
+    angles = None
 
-        if box is not None:
-            if box[0] is not None:
+    if _use_gpu:
+        box = None
+        if pbc:
+            box = get(molecular_system, element='system', structure_indices=structure_indices, box=True)
+            if box is not None and box[0] is not None:
+                box = np.asarray(puw.get_value(box, to_unit=length_unit), dtype=np.float64)
+            else:
+                box = None
+                pbc = False
+
+        # Taichi Lang backend
+        if config.gpu_backend == 'taichi':
+            try:
+                import taichi
+                taichi_available = True
+            except ImportError:
+                taichi_available = False
+                import warnings
+                from molsysmt._private.smonitor import GpuNotAvailableWarning
+                warnings.warn(
+                    "taichi package not found. Falling back to Numba CUDA backend.",
+                    GpuNotAvailableWarning
+                )
+
+            if taichi_available:
+                if pbc:
+                    from molsysmt.lib.structure.get_angles_taichi import get_mic_angles as _kernel
+                    angles = _kernel(coordinates, box, triplets)
+                else:
+                    from molsysmt.lib.structure.get_angles_taichi import get_angles as _kernel
+                    angles = _kernel(coordinates, triplets)
+
+        # Numba CUDA backend
+        if angles is None:
+            if pbc:
+                from molsysmt.lib.structure.get_angles_cuda import get_mic_angles as _kernel
+                angles = _kernel(coordinates, box, triplets)
+            else:
+                from molsysmt.lib.structure.get_angles_cuda import get_angles as _kernel
+                angles = _kernel(coordinates, triplets)
+
+        del(coordinates, box, triplets)
+
+    # Fallback to CPU pipeline if GPU was not used
+    if angles is None:
+        if pbc:
+            box = get(molecular_system, element='system', structure_indices=structure_indices, box=True)
+            if box is not None and box[0] is not None:
                 box = np.asarray(puw.get_value(box, to_unit=length_unit), dtype=np.float64)
                 angles = msmlib.structure.get_mic_angles(coordinates, box, triplets)
                 del(coordinates, box, triplets)
             else:
                 pbc = False
-        else:
-            pbc = False
-
-    if not pbc:
-
-        angles = msmlib.structure.get_angles(coordinates, triplets)
-        del(coordinates, triplets)
-
+        if not pbc:
+            angles = msmlib.structure.get_angles(coordinates, triplets)
+            del(coordinates, triplets)
 
     angles = puw.quantity(angles, 'radians')
     angles = puw.standardize(angles)
