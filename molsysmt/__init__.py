@@ -28,6 +28,7 @@ _ensure_smonitor_configured(_SMONITOR_PACKAGE_ROOT)
 _LAZY_ATTRIBUTES = {
     # Submodules
     'configure': '.configure',
+    'core': '.core',
     'basic': '.basic',
     'form': '.form',
     'element': '.element',

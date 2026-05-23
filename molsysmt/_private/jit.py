@@ -52,6 +52,11 @@ def _emit_numba_jit_warning(func):
     if _NUMBA_WARNING_EMITTED:
         return
     
+    # Bypass smonitor warnings for pure mathematical core/lib kernels
+    # to avoid loading telemetry/catalog infrastructure in high-performance mode.
+    if func.__module__.startswith("molsysmt.lib") or func.__module__.startswith("molsysmt.core"):
+        return
+
     # If the kernel is already cached on disk, don't annoy the user
     if _is_kernel_cached(func):
         return
