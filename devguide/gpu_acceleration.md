@@ -8,12 +8,13 @@ decorated with `@cuda.jit`, no separate C/CUDA compilation required.
 
 ## Overview
 
-Seven public functions expose GPU dispatch:
+Eight public functions expose GPU dispatch:
 
 | Function | GPU kernel file |
 |---|---|
 | `molsysmt.structure.get_distances` | `get_distances_cuda.py`, `get_mic_distances_cuda.py` |
 | `molsysmt.structure.get_rmsd` | `get_rmsd_cuda.py` |
+| `molsysmt.structure.get_least_rmsd` | `get_least_rmsd_cuda.py` |
 | `molsysmt.structure.get_radius_of_gyration` | `get_radius_of_gyration_cuda.py` |
 | `molsysmt.structure.get_dihedral_angles` | `get_dihedral_angles_cuda.py` |
 | `molsysmt.structure.get_principal_axes` | `get_principal_axes_cuda.py` |
@@ -23,6 +24,7 @@ All kernel files live under `molsysmt/lib/structure/`.
 
 The GPU path is **purely optional and transparent**: all functions fall back to
 the CPU (Numba JIT) kernel when no CUDA GPU is present, without raising errors.
+
 
 ---
 
@@ -232,8 +234,9 @@ warnings.filterwarnings('error', category=GpuNotAvailableWarning)  # turn into e
 | Tier 1 | `get_dihedral_angles` | ✅ implemented |
 | Tier 1 | `get_principal_axes` | ✅ implemented |
 | Tier 1 | `principal_component_analysis` | ✅ implemented (hybrid) |
-| Tier 1 | `get_least_rmsd` (Kabsch) | future |
+| Tier 1 | `get_least_rmsd` (Kabsch) | ✅ implemented |
 | Tier 2 | `get_sasa` | future (MDTraj CUDA) |
+
 
 ---
 

@@ -94,6 +94,11 @@ def test_parallel_execution_modes():
     assert lr_true is not None
     assert lr_false is not None
 
+    # Test get_least_rmsd on GPU (will execute on GPU if CUDA is available, or fallback to CPU safely)
+    lr_gpu = msm.structure.get_least_rmsd(molsys, selection='backbone', reference_structure_index=0, use_gpu=True)
+    assert lr_gpu is not None
+
+
     # Test least_rmsd_fit
     lf_auto = msm.structure.least_rmsd_fit(molsys, selection='backbone', selection_fit='backbone', reference_structure_index=0, parallel='auto')
     lf_true = msm.structure.least_rmsd_fit(molsys, selection='backbone', selection_fit='backbone', reference_structure_index=0, parallel=True, num_threads=2)
