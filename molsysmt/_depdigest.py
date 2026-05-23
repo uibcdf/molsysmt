@@ -19,6 +19,7 @@ LIBRARIES = {
     'plotly': {'type': 'soft', 'pypi': 'plotly'},
     'mmtf': {'type': 'soft', 'pypi': 'mmtf-python'},
     'yaml': {'type': 'soft', 'pypi': 'PyYAML'},
+    'taichi': {'type': 'soft', 'pypi': 'taichi'},
 }
 
 MAPPING = {

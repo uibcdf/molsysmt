@@ -84,6 +84,7 @@ min_length_protein = 50
 gpu_mode = 'auto'          # 'auto' | True | False
 use_gpu = 'auto'           # kept for backward compatibility; alias for gpu_mode
 gpu_threshold = 3_000_000  # payload (n_structures * n_atoms * 3) above which 'auto' uses GPU
+gpu_backend = 'cuda'       # 'cuda' (Numba CUDA) | 'taichi' (Experimental Taichi Lang)
 
 # Dynamic Parallel JIT & Thread Controls
 parallel_mode = 'auto'         # 'auto' | True | False
@@ -125,7 +126,7 @@ def context(**kwargs):
     return configure_context(**kwargs)
 
 def with_configure_overrides(func):
-    """Decorator to automatically apply parallel, num_threads, and gpu_mode local overrides thread-safely."""
+    """Decorator to automatically apply parallel, num_threads, gpu_mode, and gpu_backend local overrides thread-safely."""
     from functools import wraps
     @wraps(func)
     def wrapper(*args, **kwargs):
@@ -133,6 +134,7 @@ def with_configure_overrides(func):
         num_threads = kwargs.get('num_threads', None)
         use_gpu_val = kwargs.get('use_gpu', None)
         gpu_mode_val = kwargs.get('gpu_mode', None)
+        gpu_backend_val = kwargs.get('gpu_backend', None)
         
         ctx_kwargs = {}
         if parallel is not None:
@@ -145,6 +147,8 @@ def with_configure_overrides(func):
         if gpu_mode_val is not None:
             ctx_kwargs['gpu_mode'] = gpu_mode_val
             ctx_kwargs['use_gpu'] = gpu_mode_val
+        if gpu_backend_val is not None:
+            ctx_kwargs['gpu_backend'] = gpu_backend_val
             
         with context(**ctx_kwargs):
             return func(*args, **kwargs)
